@@ -1321,6 +1321,8 @@ store:
         con el siguiente mensaje'
       17: '{actor} ha creado o cambiado la fecha de recogida [ {date} con {totalSlots}
         slots con descripción: {description} ].'
+      18: '{actor} tiene fecha de recogida automática [ {weekday} {startTimeOfPickup}
+        slots: {maxCountOfSlots} con descripción: {description} ] creada o modificada'
     type:
       3: Aceptar las solicitudes de unión
       2: Rechazar las solicitudes de unión
