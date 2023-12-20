@@ -709,6 +709,8 @@ search:
       jumper_tooltip: Du er en reserve i teamet for dette bedriften
       member_tooltip: Du er en del av teamet i dette bedriften
     from: fra
+  maxresults: Maksimalt 30 resultater vises per kategori. Bruk kanskje et mer spesifikt
+    søkeord.
 profile:
   public:
     mayNot: ikke aktiv
@@ -935,6 +937,8 @@ profile:
   cantdeletethis: Du kan ikke slette individuelle avtaler!
   deletesuccess: Enkeltavtale slettet
   choosestore: Velg det aktuelle selskapet
+  orga_rights: Som organisasjonsperson har {name} <a target="_blank" href="{wikiurl}">omfattende
+    tillatelser</a> på plattformen.
 settings:
   photo:
     title: Bildet ditt
@@ -2497,6 +2501,8 @@ store:
       13: utsendelser av pickuper
       11: oppføringer for pickuper
       15: slettede oppslagstavleinnlegg
+      18: Automatisk hentingsavtale opprettet eller endret
+      17: Individuell hentingsavtale opprettet eller endret
     max_entries_message: Maksimalt 100 oppføringer vises. Vennligst begrens søkeområdet.
     log_types_placeholder: Velg handlingstyper som skal vises
     search: Liste valgte handlinger
@@ -2521,6 +2527,11 @@ store:
       9: '{actor} har utnevnt {target} til samarbeidsansvarlig.'
       14: '{actor} har bekreftet registreringen av {target} for {date}.'
       15: '{actor} har slettet anslagstavleoppføringen til {target} fra {date}'
+      18: '{actor} opprettet eller endret automatisk hentedato [ {weekday} {startTimeOfPickup}
+        plasser: {maxCountOfSlots} med beskrivelse: {description} ]'
+      17: '{actor} opprettet eller endret hentedatoen [ {date} med {totalSlots} plasser
+        med beskrivelse: {description} ]'
+    no_description: ingen
   signInDateTime: Tidspunkt for innskrivning
   slot_state: Status for plass
   lastPickupTitle: Siste henting
@@ -2894,6 +2905,7 @@ conference:
 buddy:
   request_accepted: Dere kjenner hverandre nå.
   request_sent: Forespørsel sendt.
+  is_buddy: Dere er bekjente
 storestatus:
   "0": Status uklar
   "2": Forhandlinger pågår
