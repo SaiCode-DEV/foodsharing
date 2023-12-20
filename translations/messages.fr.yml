@@ -1325,6 +1325,8 @@ store:
       13: Débits pour les collectes
       11: Inscription pour les ramassages
       15: Suppression d’entrées de mur
+      18: Rendez-vous de retrait automatique créé ou modifié
+      17: Rendez-vous de ramassage individuel créé ou modifié
     max_entries_message: Un maximum de 100 entrées est affiché. Limite le champ de
       recherche.
     log_types_placeholder: Sélectionner les types d’actions à afficher
@@ -1350,6 +1352,7 @@ store:
       5: '{actor} a ajouté {target} à la liste des remplaçant(e)s.'
       9: '{actor} a désigné {target} comme responsable de la coopération.'
       15: '{actor} a supprimé l’entrée de {target} sur le tableau d’affichage du {date}'
+    no_description: aucun
   signInDateTime: Date d’inscription
   slot_state: Statut du créneau
   lastPickupTitle: Dernière collecte
@@ -1834,6 +1837,8 @@ profile:
   alldatesdeleted: Tous les rendez-vous effacés
   choosestore: Veuillez sélectionner le magasin concerné
   cantdeletethis: Tu ne peux pas effacer des rendez-vous individuels !
+  orga_rights: En tant que personne organisationnelle, {name} dispose <a target="_blank"
+    href="{wikiurl}">d’autorisations étendues</a> sur la plateforme.
 pickuplist:
   NumberOfAppointments_table_header: nº de ramassages
   unclear: Statut confus
@@ -2338,6 +2343,8 @@ search:
       jumper_tooltip: Vous êtes sur la liste d’attente pour ce magasin
       member_tooltip: Tu es membre de l’équipe de ce magasin
     from: de
+  maxresults: Un maximum de 30 résultats sont affichés par catégorie. Utilisez peut-être
+    un terme de recherche plus spécifique.
 index:
   confirm_open_video: Souhaites-tu regarder la vidéo sur YouTube ? La vidéo se lancera
     dans un nouvel onglet.
@@ -2960,6 +2967,7 @@ polls:
 buddy:
   request_accepted: Ça y est, vous vous connaissez.
   request_sent: Ta demande a été envoyée.
+  is_buddy: Vous êtes amis
 base:
   jsrequired: Le site ne fonctionne pas sans JavaScript.
   slogan: Nos denrées alimentaires sont précieuses, partageons-les ! – foodsharing
