@@ -1087,6 +1087,7 @@ store:
       9: ''
       15: ''
     max_entries_message: ''
+    no_description: nessuno
   signInDateTime: ''
   slot_state: ''
   lastPickupTitle: Ultimo recupero
