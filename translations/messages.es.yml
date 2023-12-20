@@ -1342,7 +1342,7 @@ store:
       17: Cita de recogida individual creada o modificada
     max_entries_message: Se mostrará un máximo de 100 entradas. Reduzca el rango de
       la búsqueda.
-    no_description: No
+    no_description: ninguno
   signInDateTime: Fecha de entrada
   slot_state: Estado de la ranura
   lastPickupTitle: Última recogida
