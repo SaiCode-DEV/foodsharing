@@ -1531,6 +1531,7 @@ store:
     search: ''
     selected_log_types: ''
     title: ''
+    no_description: нет
   signInDateTime: ''
   jumping: ''
   of_that: ''
