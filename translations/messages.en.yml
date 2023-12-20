@@ -647,6 +647,8 @@ profile:
     weekDesc: Calendar week {week}, from {weekStart} to {weekEnd}
   deletesuccess: Single pickup slot deleted
   choosestore: Please select the affected store
+  orga_rights: As an organizational person, {name} has <a target="_blank" href="{wikiurl}">extensive
+    permissions</a> on the platform.
 test:
   plain: This is a nice translation
   vars: 'My name is {NAME} and I am {AGE} years old'
@@ -1375,6 +1377,7 @@ poll:
 buddy:
   request_accepted: Now you are buddies.
   request_sent: Request was sent.
+  is_buddy: You are buddies
 email_template:
   help_needed:
     support_mail: it@foodsharing.network
@@ -2075,7 +2078,7 @@ store:
     search: List selected actions
     selected_log_types: '{amount} action types selected'
     title: Store log
-    no_description: no
+    no_description: none
   signInDateTime: Sign-in time
   slot_state: Slot state
   lastPickupTitle: Last pick-up
@@ -2121,6 +2124,8 @@ search:
       jumper_tooltip: You are on the standby list for this store
       member_tooltip: You are a member of this store team
     from: from
+  maxresults: A maximum of 30 results are displayed per category. Maybe use a more
+    specific search term.
 month:
   short:
     "12": Dec.
