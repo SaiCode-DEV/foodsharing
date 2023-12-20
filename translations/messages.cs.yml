@@ -906,6 +906,7 @@ store:
     search: ''
     selected_log_types: ''
     title: ''
+    no_description: žádný
   signInDateTime: ''
   jumping: ''
   of_that: ''
