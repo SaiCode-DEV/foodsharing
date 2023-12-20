@@ -1320,7 +1320,7 @@ store:
       13_with_reason: '{actor} ha firmado el envió de {target} para recogerse el {date}
         con el siguiente mensaje'
       17: '{actor} ha creado o cambiado la fecha de recogida [ {date} con {totalSlots}
-        slots con descripción: {description} ].'
+        slots con descripción: {description} ]'
       18: '{actor} tiene fecha de recogida automática [ {weekday} {startTimeOfPickup}
         slots: {maxCountOfSlots} con descripción: {description} ] creada o modificada'
     type:
@@ -2262,6 +2262,7 @@ forum:
 buddy:
   request_sent: 'Solicitud enviada.'
   request_accepted: 'Ahora son amig@s.'
+  is_buddy: Ustedes son amig@s
 time: 'tiempo'
 fsp:
   followers: 'Seguidor@s'
