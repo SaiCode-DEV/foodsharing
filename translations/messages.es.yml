@@ -1338,6 +1338,7 @@ store:
       5: Pasar a la lista de suplentes
     max_entries_message: Se mostrará un máximo de 100 entradas. Reduzca el rango de
       la búsqueda.
+    no_description: No
   signInDateTime: Fecha de entrada
   slot_state: Estado de la ranura
   lastPickupTitle: Última recogida
