@@ -1319,6 +1319,8 @@ store:
       13: '{actor} ha firmado el envío de {target} para su recogida el {date}.'
       13_with_reason: '{actor} ha firmado el envió de {target} para recogerse el {date}
         con el siguiente mensaje'
+      17: '{actor} ha creado o cambiado la fecha de recogida [ {date} con {totalSlots}
+        slots con descripción: {description} ].'
     type:
       3: Aceptar las solicitudes de unión
       2: Rechazar las solicitudes de unión
@@ -1336,6 +1338,8 @@ store:
       15: Eliminar una entrada del tablón de anuncios
       13: Firmar para recoger
       5: Pasar a la lista de suplentes
+      18: Cita de recogida automática creada o modificada
+      17: Cita de recogida individual creada o modificada
     max_entries_message: Se mostrará un máximo de 100 entradas. Reduzca el rango de
       la búsqueda.
     no_description: No
