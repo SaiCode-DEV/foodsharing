@@ -79,6 +79,7 @@
 - Added eslint, husky, prettier and documentation for playwright tests !2949 @thomas.hauschild
 - Various playwright config changed, see !2952 @thomas.hauschild
 - Migrations to playwright !2959 !2960 !2961 @thomas.hauschild
+- Improved scripts/clean compatibility !2972 @thomas.hauschild
 
 ## Development documentation
 

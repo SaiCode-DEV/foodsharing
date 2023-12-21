@@ -27,12 +27,12 @@ fi
 
 log-header "Removing directories"
 
-      rm --recursive --force \
+      rm -rf \
         "$base_dir"/assets \
         "$base_dir"/images \
         "$base_dir"/data \
         "$base_dir"/cache \
-        "$base_dir"/var \
+        "${base_dir:?}"/var \
         "$base_dir"/tmp \
         "$base_dir"/tests/_output
 
