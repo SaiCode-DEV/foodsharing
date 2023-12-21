@@ -14,15 +14,28 @@
           >
             <i class="fas fa-trash-alt" />
           </b-button>
-          <b-button
+          <b-dropdown
             v-if="page === MAILBOX_PAGE.READ_EMAIL"
+            id="dropdown-reply"
+            :text="$i18n('mailbox.reply.short')"
+            class="m-md-2"
             size="sm"
             variant="outline-primary"
+            split
             :disabled="!isValidSender"
-            @click="showAnswerMailPage"
+            @click="showAnswerMailPage(false)"
           >
-            {{ $i18n('mailbox.reply.short') }}
-          </b-button>
+            <b-dropdown-item
+              @click="showAnswerMailPage(false)"
+            >
+              {{ $i18n('mailbox.reply.short') }}
+            </b-dropdown-item>
+            <b-dropdown-item
+              @click="showAnswerMailPage(true)"
+            >
+              {{ $i18n('mailbox.reply_all') }}
+            </b-dropdown-item>
+          </b-dropdown>
           <b-button
             v-if="page === MAILBOX_PAGE.EMAIL_LIST"
             v-b-tooltip.hover
@@ -155,8 +168,8 @@ export default {
       store.setAnswerMode(false)
       store.setPage(MAILBOX_PAGE.NEW_EMAIL)
     },
-    showAnswerMailPage () {
-      store.setAnswerMode(true)
+    showAnswerMailPage (replyAll) {
+      store.setAnswerMode(true, replyAll)
       store.setPage(MAILBOX_PAGE.NEW_EMAIL)
     },
     mailboxViewSelectAllRows () {

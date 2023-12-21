@@ -7,6 +7,7 @@ use Ddeboer\Imap\Message\EmailAddress;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Mailbox\DTO\Region;
 
 class MailboxGateway extends BaseGateway
 {
@@ -45,31 +46,31 @@ class MailboxGateway extends BaseGateway
         return false;
     }
 
-    public function getMailAdresses(int $fsId)
+    /**
+     * Returns the list of all regions with their email addresses for use in the mailbox's autocomplete function.
+     *
+     * @return Region[]
+     */
+    public function getRegionsWithMailAdresses(): array
     {
-        $mails = $this->db->fetchAllValues(
+        $regions = $this->db->fetchAll(
             '
-			SELECT 	CONCAT(mb.name,"@' . PLATFORM_MAILBOX_HOST . '")
+			SELECT 	bz.name,
+			        bz.id,
+			        bz.email_name,
+			        bz.parent_id,
+			        bz.type,
+			        CONCAT(mb.name,"@' . PLATFORM_MAILBOX_HOST . '") as email
 			FROM 	fs_mailbox mb,
 					fs_bezirk bz
 			WHERE 	bz.mailbox_id = mb.id
 		'
         );
 
-        if ($contacts = $this->db->fetchAllValues(
-            '
-			SELECT 	c.`email`
-			FROM 	fs_contact c,
-					fs_foodsaver_has_contact fc
-			WHERE 	fc.contact_id = c.id
-			AND 	fc.foodsaver_id = :fs_id
-		',
-            [':fs_id' => $fsId]
-        )) {
-            $mails = array_merge($mails, $contacts);
-        }
-
-        return $mails ? $mails : [];
+        return array_map(function ($region) {
+            return Region::create($region['id'], $region['name'], $region['parent_id'], $region['type'],
+                $region['email'], $region['email_name']);
+        }, $regions);
     }
 
     public function addMailbox(string $name, int $member = 0): int

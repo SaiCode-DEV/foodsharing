@@ -1757,7 +1757,7 @@ mailbox:
   reply:
     full: "E-Mail beantworten"
     short: "Antworten"
-  attach: "Datei anhängen (maximal 1,2 MB)"
+  reply_all: "Allen antworten"
   claim: "foodsharing.de – verwenden statt verschwenden"
   signature: "Nachricht vom {date}"
   manage: "Mailbox-Manager"
@@ -1788,12 +1788,12 @@ mailbox:
   to: "An"
   fromto: "Von/An"
   tag_recipient_hint: "Empfänger (mehrere mit Semikolon getrennt)"
-  for_quoting:
-    written_text: "geschrieben"
-    has_from: "hat am"
+  reply_header: "{name} hat am {date} geschrieben"
   attachment:
     not_found: "nicht gefunden"
     not_found_explanation: "Die angehängte Datei konnte auf dem Server nicht mehr gefunden werden"
+    too_large_to_send: "Einige der Dateien waren zu groß und konnten nicht an die Email abgehängt werden."
+    attach: "Anhänge (maximal 1,5 MB pro Datei)"
   conformation_modal:
     title: "Bestätigung"
     message: "Sind Sie sicher, dass Sie die E-Mail löschen möchten?"
@@ -1802,6 +1802,9 @@ mailbox:
   mailsend_unsuccess: "E-Mail konnte nicht versendet werden. {error}"
   more: "mehr"
   less: "weniger"
+  global_addressbook: "Globales Adressbuch"
+  addressbook: "Adressbuch"
+  search_name_email: "Suche nach Name oder E-Mail-Adresse"
 
 settings:
   title: "Einstellungen"

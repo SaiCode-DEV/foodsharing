@@ -15,6 +15,7 @@ use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA2;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -249,4 +250,22 @@ class MailboxRestController extends AbstractFOSRestController
 
          $this->mem->userSet($this->session->id(), 'mailbox-last', time());
      } */
+
+    /**
+     * Returns all regions and their email addresses.
+     */
+    #[OA2\Tag(name: 'mailbox')]
+    #[Rest\Get('mailbox/regions')]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    public function listRegions(): Response
+    {
+        if (!$this->session->mayRole()) {
+            throw new UnauthorizedHttpException('');
+        }
+
+        $regions = $this->mailboxGateway->getRegionsWithMailAdresses();
+
+        return $this->handleView($this->view($regions, Response::HTTP_OK));
+    }
 }

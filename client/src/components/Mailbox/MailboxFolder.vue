@@ -10,6 +10,13 @@
     >
       <i class="fas fa-inbox" />
       {{ mailboxName }}
+      <b-badge
+        v-if="unreadCount"
+        pill
+        variant="primary"
+      >
+        {{ unreadCount }}
+      </b-badge>
     </div>
 
     <div class="ml-4">
@@ -18,13 +25,6 @@
         @click.prevent="setMailboxIdAndFolder(MAILBOX_FOLDER.INBOX)"
       >
         {{ $i18n('mailbox.inbox') }}
-        <b-badge
-          v-if="unreadCount"
-          pill
-          variant="primary"
-        >
-          {{ unreadCount }}
-        </b-badge>
       </b-link>
       ·
       <b-link

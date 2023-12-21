@@ -14,3 +14,4 @@ export const ROLE = Object.freeze({
   ORGA: 4,
   SITE_ADMIN: 5, // this role is not used currently
 })
+export const MAX_UPLOAD_FILE_SIZE = 1572864 // 1.5 * 1024 * 1024

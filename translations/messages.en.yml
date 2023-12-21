@@ -709,9 +709,7 @@ mailbox:
   add: Add
   mails: Emails
   mailsend_unsuccess: Email could not be sent. {error}
-  for_quoting:
-    has_from: wrote on
-    written_text:  
+  reply_header: "{name} wrote on {date}"
   mark_as_read: Mark as read
   unknown_sender: Unknown sender
   less: less

@@ -3,8 +3,8 @@
     <a
       href="#"
       class="d-flex justify-content-center align-items-center"
-      @click="showInbox"
-    >{{ $i18n('mailbox.inbox') }}</a>
+      @click="showEmailList"
+    >{{ $i18n('back') }}</a>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
     },
   },
   methods: {
-    showInbox () {
+    showEmailList () {
       store.setPage(MAILBOX_PAGE.EMAIL_LIST)
     },
   },

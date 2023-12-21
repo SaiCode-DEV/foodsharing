@@ -4,6 +4,49 @@
     :title="showTitel"
     :toggle-visibility="true"
   >
+    <b-modal
+      id="modal_open_addressbook"
+      ref="modal_open_addressbook"
+      :title="$i18n('mailbox.global_addressbook')"
+      hide-footer
+      header-class="d-flex"
+      content-class="pr-3 pt-3"
+      size="xl"
+      scrollable
+    >
+      <b-button-group class="mb-2">
+        <b-button
+          :variant="getButtonVariant(MAILBOX_ADDRESSBOOK_FILTER_TYPES.GROUPS)"
+          @click="updateFilter(MAILBOX_ADDRESSBOOK_FILTER_TYPES.GROUPS)"
+        >
+          {{ $i18n('terminology.groups') }}
+        </b-button>
+        <b-button
+          :variant="getButtonVariant(MAILBOX_ADDRESSBOOK_FILTER_TYPES.REGIONS)"
+          @click="updateFilter(MAILBOX_ADDRESSBOOK_FILTER_TYPES.REGIONS)"
+        >
+          {{ $i18n('terminology.regions') }}
+        </b-button>
+      </b-button-group>
+      <b-form-input
+        v-model="filterName"
+        :placeholder="$i18n('mailbox.search_name_email')"
+        class="mb-2"
+      />
+      <b-list-group>
+        <b-list-group-item
+          v-for="filteredRegion in filteredRegions"
+          :key="filteredRegion.id"
+          class="pb-2"
+          :class="{ 'selected-item': emailTo.includes(filteredRegion.emailAddress) }"
+          href="#"
+          @click="selectEmailFromAdressbock(filteredRegion.emailAddress)"
+        >
+          <b>{{ filteredRegion.name }}</b><br>
+          {{ filteredRegion.emailAddress }}
+        </b-list-group-item>
+      </b-list-group>
+    </b-modal>
     <div class="card bg-white">
       <b-row class="p-2">
         <b-col
@@ -73,6 +116,22 @@
                     @click="addTag()"
                   >
                     +
+                  </b-button>
+                </b-input-group-append>
+                <b-input-group-append>
+                  <b-button
+                    v-if="!isMobile"
+                    variant="outline-primary"
+                    @click="openAddressbook"
+                  >
+                    {{ $i18n('mailbox.addressbook') }}
+                  </b-button>
+                  <b-button
+                    v-else
+                    variant="outline-primary"
+                    @click="openAddressbook"
+                  >
+                    <i class="far fa-address-book" />
                   </b-button>
                 </b-input-group-append>
               </b-input-group>
@@ -222,11 +281,13 @@
 
 <script>
 import Container from '@/components/Container/Container.vue'
-import { sendEmail, setEmailProperties } from '@/api/mailbox'
+import { sendEmail, setEmailProperties, listRegions } from '@/api/mailbox'
 import { uploadFile } from '@/api/uploads'
 import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
-import { store, MAILBOX_PAGE } from '@/stores/mailbox'
+import { store, MAILBOX_PAGE, MAILBOX_ADDRESSBOOK_FILTER_TYPES } from '@/stores/mailbox'
+import { MAX_UPLOAD_FILE_SIZE } from '@/consts'
+import { getCache, getCacheInterval, setCache } from '@/helper/cache'
 
 export default {
   components: { Container },
@@ -243,9 +304,27 @@ export default {
       attachmentFilesName: [],
       attachmentFilesObjects: [],
       isMobile: false,
+      regions: [],
+      filterName: null,
+      filter: { type: MAILBOX_ADDRESSBOOK_FILTER_TYPES.GROUPS, name: null },
     }
   },
   computed: {
+    MAILBOX_ADDRESSBOOK_FILTER_TYPES () {
+      return MAILBOX_ADDRESSBOOK_FILTER_TYPES
+    },
+    filteredRegions () {
+      const typeFilter = this.filter.type
+      const nameFilter = this.filterName
+
+      const filtered = this.regions.filter(region => {
+        const typeMatch = region.type === typeFilter || typeFilter === 0
+        const nameMatch = !nameFilter || region.name.toLowerCase().includes(nameFilter.toLowerCase())
+        return typeMatch && nameMatch
+      })
+
+      return filtered
+    },
     showTitel () {
       return store.state.answerMode ? this.$i18n('mailbox.reply.full') : this.$i18n('mailbox.write')
     },
@@ -260,6 +339,9 @@ export default {
     },
     answerMode () {
       return store.state.answerMode
+    },
+    answerAll () {
+      return store.state.answerAll
     },
     selectedMailbox () {
       return store.state.selectedMailbox
@@ -293,7 +375,7 @@ export default {
     },
     answerMode (newVal, oldVal) {
       if (newVal) {
-        this.emailTo.push(this.email.from.address)
+        this.updateRecipientsForAnswerMode()
       } else if (!newVal && oldVal) {
         const index = this.emailTo.indexOf(this.email.from.address)
         if (index > -1) {
@@ -313,21 +395,36 @@ export default {
     this.getMailBody()
     if (this.answerMode) {
       this.subject = this.email.subject
-      this.emailTo.push(this.email.from.address)
+      this.updateRecipientsForAnswerMode()
     }
   },
   destroyed () {
     window.removeEventListener('resize', this.checkMobile)
   },
   methods: {
+    getButtonVariant (filterType) {
+      return this.filter.type === filterType ? 'primary' : 'secondary'
+    },
+    selectEmailFromAdressbock (mailAddress) {
+      const index = this.emailTo.indexOf(mailAddress)
+
+      if (index !== -1) {
+        this.emailTo.splice(index, 1)
+      } else {
+        this.emailTo.push(mailAddress)
+      }
+    },
+    updateFilter (type) {
+      this.filter.type = type
+    },
     getMailBody () {
       if (this.answerMode) {
         const mailFromAddress = `<${this.email.from.address}>`
         const mailFromAndAddress = this.email.from.name ? `${this.email.from.name} ${mailFromAddress}` : mailFromAddress
-        const mailFromAndDate = `${mailFromAndAddress} ${this.$i18n('mailbox.for_quoting.has_from')} ${this.displayedMailDate} ${this.$i18n('mailbox.for_quoting.written_text')}: \n\n`
+        const mailFromAndDate = this.$i18n('mailbox.reply_header', { name: mailFromAndAddress, date: this.displayedMailDate })
         const replacedContent = `> ${this.email.body.replace(/\r/g, '\n')}`
 
-        this.mailBody = mailFromAndDate + replacedContent
+        this.mailBody = mailFromAndDate + ': \n\n' + replacedContent
       } else {
         this.mailBody = null
       }
@@ -339,11 +436,18 @@ export default {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     },
     storeFiles (event) {
+      // Stores files that were selected as attachments. Uploading is only done when the email is actually being sent.
       const files = Array.from(event.target.files)
-      files.forEach(file => {
+      const filteredFiles = files.filter(file => file.size <= MAX_UPLOAD_FILE_SIZE)
+      filteredFiles.forEach(file => {
         this.attachmentFilesName.push(file.name)
         this.attachmentFilesObjects.push(file)
       })
+
+      // Show an error message if any of the selected files were too large
+      if (files.length > filteredFiles.length) {
+        pulseError(this.$i18n('mailbox.attachment.too_large_to_send'))
+      }
     },
     async trySetEmailStatus (state) {
       showLoader()
@@ -425,11 +529,46 @@ export default {
     closeAndReturnToMailbox () {
       store.setPage(MAILBOX_PAGE.EMAIL_LIST)
     },
+    updateRecipientsForAnswerMode () {
+      this.emailTo.push(this.email.from.address)
+
+      // if replying to all, add all except the currently selected mailbox to the recipients
+      if (this.answerAll) {
+        const addressToFilter = this.selectedMailbox[1] + '@'
+        const additionalRecipients = this.email.to
+          .map(x => x.address)
+          .filter(x => !x.startsWith(addressToFilter))
+        this.emailTo.push(...additionalRecipients)
+      }
+    },
+    openAddressbook () {
+      this.getRegions()
+      this.$refs.modal_open_addressbook.show()
+    },
+    async getRegions () {
+      const mailboxRegionsRateLimitInterval = 86400000 // 24 hours in Millisekunden
+      const cacheRequestName = 'MailboxRegions'
+      try {
+        if (await getCacheInterval(cacheRequestName, mailboxRegionsRateLimitInterval)) {
+          this.regions = await listRegions()
+
+          await setCache(cacheRequestName, this.regions)
+        } else {
+          this.regions = await getCache(cacheRequestName)
+        }
+      } catch (e) {
+        console.error('Error fetching regions:', e)
+      }
+    },
   },
 }
 </script>
 
 <style scoped>
+.selected-item {
+  background-color: var(--fs-color-secondary-400);
+}
+
 .badge-primary {
   background-color: darkgrey;
 }

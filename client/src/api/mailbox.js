@@ -34,3 +34,7 @@ export function sendEmail (mailboxId, to, cc, bcc, subject, body, attachments, r
     replyEmailId: replyEmailId,
   })
 }
+
+export async function listRegions () {
+  return get('/mailbox/regions')
+}
