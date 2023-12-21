@@ -2,9 +2,12 @@
 
 namespace Foodsharing\Modules\Map;
 
+use Carbon\Carbon;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
+use Foodsharing\Modules\Foodsaver\Profile;
+use Foodsharing\Modules\Map\DTO\BasketBubbleData;
 use Foodsharing\Modules\Map\DTO\MapMarker;
 
 class MapGateway extends BaseGateway
@@ -58,5 +61,48 @@ class MapGateway extends BaseGateway
         return array_map(function ($x) {
             return MapMarker::create($x['region_id'], $x['lat'], $x['lon']);
         }, $markers);
+    }
+
+    /**
+     * Returns the data for a basket's bubble on the map or null if the basket does not exist.
+     *
+     * @param bool $includeDetails whether to include details that should not be visible when logged out
+     */
+    public function getBasketBubbleData(int $basketId, bool $includeDetails): ?BasketBubbleData
+    {
+        $basket = $this->db->fetch('
+			SELECT
+				b.id,
+				b.status,
+				b.description,
+				b.picture,
+				b.foodsaver_id,
+				UNIX_TIMESTAMP(b.time) AS created_at,
+				fs.id AS fs_id,
+				fs.name AS fs_name,
+				fs.photo AS fs_photo,
+				fs.sleep_status AS fs_sleep_status
+			FROM
+				fs_basket b
+			INNER JOIN
+				fs_foodsaver fs
+			ON
+				b.foodsaver_id = fs.id
+			AND
+				b.id = :id
+		', [
+            ':id' => $basketId,
+        ]);
+        if (empty($basket)) {
+            return null;
+        }
+
+        $bubbleData = BasketBubbleData::create($basket['id'], $basket['description'], $basket['picture']);
+        if ($includeDetails) {
+            $bubbleData->createdAt = Carbon::createFromTimestamp('created_at');
+            $bubbleData->creator = new Profile($basket['fs_id'], $basket['fs_name'], $basket['fs_photo'], $basket['fs_sleep_status']);
+        }
+
+        return $bubbleData;
     }
 }

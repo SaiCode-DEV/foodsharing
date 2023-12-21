@@ -10,3 +10,7 @@ export function getMapMarkers (types, status) {
 export function getCommunityBubbleContent (regionId) {
   return get(`/map/regions/${regionId}`)
 }
+
+export function getBasketBubbleContent (basketId) {
+  return get(`/map/baskets/${basketId}`)
+}

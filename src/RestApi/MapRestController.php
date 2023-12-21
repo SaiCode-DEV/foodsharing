@@ -7,6 +7,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
+use Foodsharing\Modules\Map\DTO\BasketBubbleData;
 use Foodsharing\Modules\Map\MapGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
@@ -141,5 +142,27 @@ class MapRestController extends AbstractFOSRestController
         }
 
         return $this->handleView($this->view(new FoodSharePointBubbleData($foodSharePoint), Response::HTTP_OK));
+    }
+
+    /**
+     * Returns the data for the bubble of a basket marker on the map.
+     */
+    #[OA\Tag('map')]
+    #[Rest\Get(path: 'map/baskets/{basketId}')]
+    #[OA\Response(
+        response: Response::HTTP_OK,
+        description: 'Successful',
+        content: new Model(type: BasketBubbleData::class)
+    )]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The basket does not exist')]
+    #[Rest\QueryParam(name: 'basketId', requirements: '\d+', description: 'Basket for which to return data', nullable: false)]
+    public function getBasketBubbleAction(int $basketId): Response
+    {
+        $basket = $this->mapGateway->getBasketBubbleData($basketId, $this->session->mayRole());
+        if (empty($basket)) {
+            throw new NotFoundHttpException('basket does not exist');
+        }
+
+        return $this->handleView($this->view($basket, 200));
     }
 }

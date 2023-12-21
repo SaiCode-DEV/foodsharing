@@ -294,40 +294,4 @@ class BasketView extends View
             '</a>
 		</div>';
     }
-
-    private function bubbleImage(array $basket): string
-    {
-        $img = '';
-        if (!empty($basket['picture'])) {
-            if (str_starts_with($basket['picture'], '/api')) {
-                $imgUrl = $basket['picture'] . '?w=300&h=300';
-            } else {
-                $imgUrl = '/images/basket/medium-' . $basket['picture'];
-            }
-            $img = '<div style="width: 100%; overflow: hidden;">
-				<img src="' . $imgUrl . '" width="100%" />
-			</div>';
-        }
-
-        return $img;
-    }
-
-    public function bubbleNoUser(array $basket): string
-    {
-        return $this->bubbleImage($basket) . $this->v_utils->v_input_wrapper(
-            $this->translator->trans('basket.description'),
-            nl2br($this->routeHelper->autolink($basket['description']))
-        );
-    }
-
-    public function bubble(array $basket): string
-    {
-        return $this->bubbleImage($basket) . $this->v_utils->v_input_wrapper(
-            $this->translator->trans('basket.date'),
-            $this->timeHelper->niceDate($basket['time_ts'])
-        ) . $this->v_utils->v_input_wrapper(
-            $this->translator->trans('basket.description'),
-            nl2br($this->routeHelper->autolink($basket['description']))
-        );
-    }
 }

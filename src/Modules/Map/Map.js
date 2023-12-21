@@ -25,6 +25,7 @@ import './Map.css'
 import { getMapMarkers } from '@/api/map'
 import { vueApply, vueRegister } from '@/vue'
 import CommunityBubble from './components/CommunityBubble'
+import BasketBubble from './components/BasketBubble'
 
 let u_map = null
 let markers = null
@@ -197,7 +198,9 @@ async function loadMarker (types, loader) {
       const type = el.layer.options.type
 
       if (type === 'bk') {
-        ajreq('bubble', { app: 'basket', id: id })
+        ajreq('bubble', { app: 'basket', id: id }).then(x => {
+          vueApply('#basket-bubble')
+        })
       } else if (type === 'b') {
         ajreq('bubble', { app: 'store', id: id })
       } else if (type === 'f') {
@@ -301,4 +304,5 @@ init_bDialog()
 
 vueRegister({
   CommunityBubble,
+  BasketBubble,
 })

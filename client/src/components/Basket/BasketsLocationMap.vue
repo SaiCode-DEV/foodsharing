@@ -31,6 +31,7 @@ import 'leaflet.awesome-markers'
 import LeafletMap from '@/components/map/LeafletMap'
 import BasketsData from '@/stores/baskets'
 import { ajreq } from '@/script'
+import { vueApply } from '@/vue'
 import AddressSearchField from '@/components/map/AddressSearchField'
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 
@@ -55,7 +56,9 @@ export default {
   },
   methods: {
     openBasketModal (id) {
-      ajreq('bubble', { app: 'basket', id: id })
+      ajreq('bubble', { app: 'basket', id: id }).then(_ => {
+        vueApply('#basket-bubble')
+      })
     },
     updateMapCenter (coordinates, bounds, address) {
       if (bounds) {

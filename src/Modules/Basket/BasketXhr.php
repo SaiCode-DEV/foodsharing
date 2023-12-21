@@ -80,15 +80,17 @@ class BasketXhr extends Control
             // What does the user see if not logged in?
             if (!$this->session->mayRole()) {
                 $dia->setTitle($this->translator->trans('terminology.basket'));
-                $dia->addContent($this->view->bubbleNoUser($basket));
             } else {
                 $dia->setTitle($this->translator->trans('basket.by', ['{name}' => $basket['fs_name']]));
-                $dia->addContent($this->view->bubble($basket));
             }
-
-            $dia->addButton($this->translator->trans('basket.go'),
-                'goTo(\'/essenskoerbe/' . (int)$basket['id'] . '\');'
-            );
+            $dia->addContent($this->view->twig->render('partials/vue-wrapper.twig', [
+                'id' => 'basket-bubble',
+                'component' => 'BasketBubble',
+                'props' => [
+                    'basketId' => $basket['id'],
+                ],
+                'initialData' => [],
+            ]));
 
             $modal = false;
             if (isset($_GET['modal'])) {

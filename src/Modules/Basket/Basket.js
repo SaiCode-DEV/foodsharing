@@ -14,6 +14,8 @@ import { listBasketCoordinates } from '@/api/baskets'
 import AvatarList from '@/components/AvatarList'
 import BasketLocationMap from '@/components/Basket/BasketLocationMap'
 import BasketsLocationMap from '@/components/Basket/BasketsLocationMap'
+import { URL_PART } from '@/browser'
+import BasketBubble from '../Map/components/BasketBubble'
 
 const mapsearch = {
   lat: null,
@@ -93,5 +95,7 @@ $(document).ready(() => {
   } else if (document.getElementById('baskets-location-map')) {
     vueRegister({ BasketsLocationMap })
     vueApply('#baskets-location-map')
+  } else if (URL_PART(1) === 'find') {
+    vueRegister({ BasketBubble })
   }
 })

@@ -16,6 +16,7 @@ class MapApiCest
     private $communityPin;
     private $foodSharePoint;
     private $user;
+    private $basket;
 
     final public function _before(ApiTester $I): void
     {
@@ -30,6 +31,7 @@ class MapApiCest
         $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::CLOSED->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
         $I->createStore($this->region['id'], null, null, ['lat' => null, 'lon' => null, 'team_status' => TeamSearchStatus::OPEN->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
         $this->foodSharePoint = $I->createFoodSharePoint($this->user['id']);
+        $this->basket = $I->createFoodbasket($this->user['id']);
     }
 
     final public function canFetchMarkersWithoutLogin(ApiTester $I): void
@@ -128,5 +130,39 @@ class MapApiCest
     {
         $I->sendGet('api/map/foodSharePoint/' . ($this->foodSharePoint['id'] + 1));
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
+    }
+
+    final public function canFetchBasketBubble(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+        $I->sendGet('api/map/baskets/' . $this->basket['id']);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson([
+            'id' => $this->basket['id'],
+            'description' => $this->basket['description'],
+            'photo' => $this->basket['picture'],
+            'creator' => [
+                'id' => $this->user['id']
+            ],
+        ]);
+    }
+
+    final public function canNotFetchBubbleOfInvalidBasket(ApiTester $I)
+    {
+        $I->sendGet('api/map/baskets/999999');
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::NOT_FOUND);
+    }
+
+    final public function canOnlySeeBasketDetailsWhenLoggedIn(ApiTester $I)
+    {
+        $I->sendGet('api/map/baskets/' . $this->basket['id']);
+        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->cantSeeResponseContainsJson([
+            'creator' => [
+                'id' => $this->user['id']
+            ],
+        ]);
     }
 }
