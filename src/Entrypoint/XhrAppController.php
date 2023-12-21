@@ -67,7 +67,7 @@ class XhrAppController extends AbstractController
         'Mailbox::attach',
         // 'Mailbox::loadmails',
         // 'Mailbox::move',
-        'Mailbox::quickreply',
+        // 'Mailbox::quickreply',
         // 'Mailbox::send_message',
         'Mailbox::fmail',
         // 'Mailbox::loadMail',

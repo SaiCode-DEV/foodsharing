@@ -1,4 +1,4 @@
-import { get, patch, post } from './base'
+import { get, patch } from './base'
 
 export async function getUpdates (pagenumber) {
   return (await get(`/activities/updates?page=${pagenumber}`)).updates
@@ -22,8 +22,4 @@ export async function setFilters (options) {
   return patch('/activities/filters', {
     excluded: excluded,
   })
-}
-
-export async function sendQuickreply (href, msg) {
-  return post('/..' + href, { msg })
 }

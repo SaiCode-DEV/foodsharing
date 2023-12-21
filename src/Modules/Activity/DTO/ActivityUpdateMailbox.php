@@ -14,19 +14,20 @@ class ActivityUpdateMailbox
 
     public string $icon = 'fas fa-envelope';
     public string $source;
-    public ?string $quickreply;
 
+    // the email id
     public int $entity_id;
 
     // Individual update-type properties
     public string $sender_email;
+    public int $mailboxId;
 
     public static function create(
         DateTime $time,
         string $desc,
-        ?string $quickreply,
         string $mailbox_name,
-        int $mailbox_id,
+        int $mailboxId,
+        int $emailId,
         string $subject,
         string $sender_email
     ): self {
@@ -38,9 +39,9 @@ class ActivityUpdateMailbox
         $u->title = $subject;
 
         $u->source = $mailbox_name;
-        $u->quickreply = $quickreply;
+        $u->mailboxId = $mailboxId;
 
-        $u->entity_id = $mailbox_id;
+        $u->entity_id = $emailId;
 
         $u->sender_email = $sender_email;
 

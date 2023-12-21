@@ -280,13 +280,12 @@ class ActivityTransactions
         $out = [];
         foreach ($updates as $u) {
             $sender = json_decode($u['sender'], true, 512, JSON_THROW_ON_ERROR + JSON_INVALID_UTF8_IGNORE);
-            $replyUrl = '/xhrapp?app=mailbox&m=quickreply&mid=' . (int)$u['id'];
 
             $out[] = MailboxUpdate::create(
                 Carbon::createFromTimestamp($u['time_ts']),
                 $u['body'] ?? '',
-                $replyUrl,
                 $u['mb_name'] . '@' . PLATFORM_MAILBOX_HOST,
+                $u['mailbox_id'],
                 $u['id'],
                 $u['subject'],
                 $sender['mailbox'] . '@' . $sender['host']

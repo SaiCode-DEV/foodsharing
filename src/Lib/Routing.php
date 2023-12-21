@@ -18,7 +18,6 @@ use Foodsharing\Modules\Legal\LegalControl;
 use Foodsharing\Modules\Login\LoginControl;
 use Foodsharing\Modules\Logout\LogoutControl;
 use Foodsharing\Modules\Mailbox\MailboxControl;
-use Foodsharing\Modules\Mailbox\MailboxXhr;
 use Foodsharing\Modules\Main\MainXhr;
 use Foodsharing\Modules\Map\MapControl;
 use Foodsharing\Modules\Map\MapXhr;
@@ -127,7 +126,6 @@ class Routing
 
     private const XHR = [
         'foodsaver' => FoodsaverXhr::class,
-        'mailbox' => MailboxXhr::class,
         'main' => MainXhr::class,
         'map' => MapXhr::class,
         'profile' => ProfileXhr::class,

@@ -181,13 +181,13 @@ import StateTogglerMixin from '@/mixins/StateTogglerMixin'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import AutoResizeTextareaMixin from '@/mixins/AutoResizeTextareaMixin'
 
-import { sendQuickreply } from '@/api/dashboard'
 import { pulseInfo } from '@/script'
 import { createPost } from '@/api/forum'
 import { addPost } from '@/api/wall'
 
 import Markdown from '@/components/Markdown/Markdown'
 import Avatar from '@/components/Avatar'
+import { sendEmail } from '@/api/mailbox'
 
 export default {
   components: { Markdown, Avatar },
@@ -218,6 +218,7 @@ export default {
 
     // Individual update-type properties for mailboxes: ActivityUpdateMailbox
     sender_email: { type: String, default: '' },
+    mailboxId: { type: Number, default: null },
   },
   /* eslint-enable */
   data () {
@@ -254,8 +255,7 @@ export default {
       return 'dashboard.source_' + this.type + this.source_suffix
     },
     canQuickreply () {
-      // old endpoints use the 'quickreply' variable, new endpoints are distinguishable by the activity's type
-      return (this.quickreply !== null && this.quickreply.length > 0) || this.type === 'forum' || this.type === 'event'
+      return ['forum', 'event', 'mailbox'].includes(this.type)
     },
     isReplyEmpty () {
       return (
@@ -274,6 +274,20 @@ export default {
     newLine () {
       this.quickreplyValue += '\n'
     },
+    formatReplyBody () {
+      const date = this.$dateFormatter.format(this.dateObject, {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+      })
+      return this.quickreplyValue +
+        '\n\n\n\n--------- ' +
+        this.$i18n('mailbox.signature', { date: date }) +
+        ' ---------\n\n>\t' +
+        this.desc.replace('\n', '\n>\t')
+    },
     async send (forced = false) {
       if ((this.viewIsMD && !this.isReplyEmpty) || (forced && !this.isReplyEmpty)) {
         this.qrLoading = true
@@ -285,13 +299,16 @@ export default {
           } else if (this.type === 'event') {
             await addPost('event', this.entity_id, this.quickreplyValue)
             pulseInfo(this.$i18n('forum.quickreply.success'))
-          } else {
-            // quickreplies to emails still use old XHR requests
-            const { message } = await sendQuickreply(this.quickreply, this.quickreplyValue)
-            pulseInfo(message)
+          } else if (this.type === 'mailbox') {
+            const subject = 'Re: ' + this.title
+            const to = [this.sender_email]
+            const body = this.formatReplyBody()
+            await sendEmail(this.mailboxId, to, null, null, subject, body, null, this.entity_id)
+            pulseInfo(this.$i18n('mailbox.okay'))
           }
           this.quickreplyValue = ''
         } catch (e) {
+          console.error(e)
           pulseInfo(this.$i18n('forum.quickreply.error'))
         } finally {
           this.qrLoading = false

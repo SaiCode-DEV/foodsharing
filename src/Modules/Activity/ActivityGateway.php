@@ -108,6 +108,7 @@ class ActivityGateway extends BaseGateway
 					m.body,
 					m.time,
 					UNIX_TIMESTAMP(m.time) AS time_ts,
+					m.mailbox_id,
 					b.name AS mb_name
 
 				FROM

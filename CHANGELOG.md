@@ -58,6 +58,7 @@
 - Replaced the maps on basket pages with vue and removed vMap !2880 @alex.simm
 - Modernized RegionControl to a Symfony controller !2741 !2945 @\_fridtjof_
 - Modernized StatisticsControl to a Symfony controller !2953 @\_fridtjof_
+- Switched the quickreply function for emails on the dashboard to use the mailbox API #1668 !2921 @alex.simm
 
 ## Dev/Test/CI stuff
 - removed CHANGELOG.md merge=union !2866 @chriswalg
