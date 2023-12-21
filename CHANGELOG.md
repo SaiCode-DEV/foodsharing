@@ -71,6 +71,7 @@
 - Added a rate limiter to the login endpoint !2672 @alex.simm
 - Added feature toggle for achievement system !2933 @martincodes-de
 - Added playwright e2e test framework !2803 @thomas.hauschild @chriswalg
+- fix selenium tests - added ulimits in docker !2950 @chriswalg
 - Update codeception to 5.x !2605 @chriswalg @peter.toennies
 - Updated playwright to 1.40.1 !2948 @thomas.hauschild
 - Added eslint, husky, prettier and documentation for playwright tests !2949 @thomas.hauschild

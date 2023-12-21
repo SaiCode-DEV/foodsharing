@@ -90,6 +90,10 @@ services:
     container_name: foodsharing_test_selenium
     image: registry.gitlab.com/foodsharing-dev/images/selenium:latest
     shm_size: 2gb
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
     depends_on:
       - nginx
     volumes:
