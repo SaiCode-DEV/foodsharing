@@ -2,28 +2,24 @@
 
 namespace Foodsharing\Modules\Statistics;
 
+use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Content\ContentGateway;
-use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\Content\ContentId;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class StatisticsControl extends Control
+class StatisticsController extends FoodsharingController
 {
-    private ContentGateway $contentGateway;
-    private StatisticsGateway $statisticsGateway;
-
     public function __construct(
-        StatisticsGateway $statisticsGateway,
-        StatisticsView $view,
-        ContentGateway $contentGateway
+        private readonly StatisticsView $view,
+        private readonly StatisticsGateway $statisticsGateway,
+        private readonly ContentGateway $contentGateway,
     ) {
-        $this->statisticsGateway = $statisticsGateway;
-        $this->view = $view;
-        $this->contentGateway = $contentGateway;
-
         parent::__construct();
     }
 
-    public function index(): void
+    #[Route('/statistik', 'statistik')]
+    public function index(): Response
     {
         $content = $this->contentGateway->get(ContentId::STATISTICS_PAGE);
 
@@ -47,5 +43,7 @@ class StatisticsControl extends Control
         $this->pageHelper->addContent($this->view->getStatFoodsaver($stat_fs), CNT_RIGHT);
 
         $this->pageHelper->setContentWidth(12, 12);
+
+        return $this->renderGlobal();
     }
 }

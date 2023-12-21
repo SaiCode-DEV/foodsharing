@@ -36,7 +36,6 @@ use Foodsharing\Modules\Report\ReportControl;
 use Foodsharing\Modules\Report\ReportXhr;
 use Foodsharing\Modules\Settings\SettingsControl;
 use Foodsharing\Modules\Settings\SettingsXhr;
-use Foodsharing\Modules\Statistics\StatisticsControl;
 use Foodsharing\Modules\Store\StoreControl;
 use Foodsharing\Modules\Store\StoreXhr;
 use Foodsharing\Modules\StoreChain\StoreChainControl;
@@ -84,7 +83,6 @@ class Routing
         'report' => 'Report',
         'search' => 'Search',
         'settings' => 'Settings',
-        'statistics' => 'Statistics',
         'betrieb' => 'Store',
         'fsbetrieb' => 'StoreUser',
         'wallpost' => 'WallPost',
@@ -120,7 +118,6 @@ class Routing
         'relogin' => ReloginControl::class,
         'report' => ReportControl::class,
         'settings' => SettingsControl::class,
-        'statistics' => StatisticsControl::class,
         'betrieb' => StoreControl::class,
         'fsbetrieb' => StoreUserControl::class,
         'groups' => WorkGroupControl::class,
@@ -150,10 +147,12 @@ class Routing
         'content',
         'team',
         'bezirk',
+        'statistics',
     ];
 
     private const RENAMES = [
-        'bezirk' => 'region'
+        'bezirk' => 'region',
+        'statistics' => 'statistik',
     ];
 
     public static function getClassName(string $appName, $type = 'Xhr'): ?string

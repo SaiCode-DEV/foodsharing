@@ -39,10 +39,6 @@ login:
   path: /login
   controller: Foodsharing\Entrypoint\IndexController
 
-statistik:
-  path: /statistik
-  controller: Foodsharing\Entrypoint\IndexController
-
 profile:
   path: /profile
   controller: Foodsharing\Entrypoint\IndexController
