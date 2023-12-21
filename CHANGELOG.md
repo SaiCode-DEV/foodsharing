@@ -31,6 +31,7 @@
 - Change the direction of score voting !2920 @AntonBallmaier
 - Select no value by default in score voting !2920 @AntonBallmaier
 - Show required label for phone number during register !2964 @thomas.hauschild
+- Optimized images via https://github.com/apps/imgbot !2966 @thomas.hauschild
 
 ## Bugfixes
 - Added error handling for cache helper for bell notifications or other requests !2869 @chriswalg
