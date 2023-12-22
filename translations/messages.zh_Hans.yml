@@ -2511,7 +2511,7 @@ wall:
   error-delete: ''
   confirm-deletion: ''
   see-more: ''
-  placeholder: ''
+  placeholder: '撰写新的图钉板条目...'
 regionOptions:
   regionPickupInactiveHours: ''
   header_page: ''
