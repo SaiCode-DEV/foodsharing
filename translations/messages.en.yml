@@ -706,6 +706,9 @@ mailbox:
   attachment:
     not_found_explanation: The attachment could not be found on the server
     not_found: not found
+    attach: Attachments (max. 1.5 MB per file)
+    too_large_to_send: Some of the files were too large and could not be attached
+      to the email.
   move_to: Move to
   close_edit_mode: Stop editing
   add: Add
@@ -716,6 +719,10 @@ mailbox:
   unknown_sender: Unknown sender
   less: less
   more: more
+  search_name_email: Search by name or email address
+  global_addressbook: Global address book
+  addressbook: Adress book
+  reply_all: Reply all
 events:
   description: Description
   create:
