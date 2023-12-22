@@ -2458,7 +2458,7 @@ wall:
   created: ''
   see-more: ''
   error-create: ''
-  placeholder: ''
+  placeholder: 'أكتب مدخل جديد للجدار.'
 error:
   missing_user_avatar:
     description: ''
