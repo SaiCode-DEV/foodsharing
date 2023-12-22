@@ -655,6 +655,9 @@ mailbox:
   attachment:
     not_found_explanation: Le fichier joint n’est plus trouvé sur le serveur
     not_found: pas trouvé
+    attach: Pièces jointes (1,5 Mo maximum par fichier)
+    too_large_to_send: Certains fichiers étaient trop volumineux et ne pouvaient pas
+      être joints au courrier électronique.
   move_to: déménager à
   close_edit_mode: Arrêter de modifier
   add: Ajouter
@@ -663,6 +666,11 @@ mailbox:
   unknown_sender: Expéditeur inconnu
   less: moins
   more: plus
+  reply_header: '{name} a écrit le {date}'
+  search_name_email: Rechercher par nom ou adresse e-mail
+  global_addressbook: Carnet d’adresses mondial
+  addressbook: Carnet d’adresses
+  reply_all: Répondre à tous
 foodsaver:
   mailchange_error: L’activation de votre nouvelle adresse électronique a échoué.
     Veuillez réessayer.
