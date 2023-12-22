@@ -1792,7 +1792,7 @@ wall:
   error-create: ''
   confirm-deletion: ''
   info-somebody-else: ''
-  placeholder: ''
+  placeholder: 'Write a new pinboard entry'
 events:
   created: ''
   edit: ''
