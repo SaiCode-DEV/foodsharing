@@ -1044,7 +1044,7 @@ wall:
   see-more: ''
   error-create: ''
   info-logging: ''
-  placeholder: ''
+  placeholder: 'Napište nový pin zeď vstup ...'
 events:
   created: ''
   description: ''
