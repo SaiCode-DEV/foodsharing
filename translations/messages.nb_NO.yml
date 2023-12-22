@@ -1125,11 +1125,18 @@ mailbox:
   attachment:
     not_found_explanation: Den vedlagte filen ble ikke lenger funnet på serveren
     not_found: ikke funnet
+    attach: Vedlegg (maks. 1,5 MB per fil)
+    too_large_to_send: Noen av filene var for store og kunne ikke legges ved e-posten.
   add: Legg til
   mark_as_read: Merk som lest
   unknown_sender: Ukjent avsender
   less: mindre
   more: mer
+  reply_header: '{name} skrev {date}'
+  search_name_email: Søk etter navn eller e-postadresse
+  global_addressbook: Global adressebok
+  addressbook: Adressebok
+  reply_all: Svar alle
 map:
   title: Kart
   donates: Selskapet donerer
