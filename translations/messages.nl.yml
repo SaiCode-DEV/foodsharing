@@ -2614,7 +2614,7 @@ wall:
   error-create: ''
   message_placeholder: ''
   info-somebody-else: ''
-  placeholder: ''
+  placeholder: 'Schrijf nieuwe pinmuur binnen...'
 contentmanagement: ''
 filter_by: ''
 image: ''
