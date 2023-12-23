@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The database is the core of the foodsharing system. It stores all [important information]database-tables-columns.md).
+The database is the core of the foodsharing system. It stores all [important information](database-tables-columns.md).
 The following chapters help you to understand the development tools and required steps to modify and publish changes on the database.
 
 ## Development helpers

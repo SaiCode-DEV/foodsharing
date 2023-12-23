@@ -53,9 +53,7 @@ All scripts can be run with `./scripts/[script]`.
 ## DevDocs `scripts`
 | Script                                      | ENV           | Description                                                                           |
 |---------------------------------------------|---------------|---------------------------------------------------------------------------------------|
-| `doc-build`                                 | (dev)         | Generates the database overview and Rest-Api overview  |
-| `doc-build-db`                              | (dev)         | Generates the database overview |
-| `doc-build-api`                             | (dev)         | Generates the Rest-Api overview  |
+| `db-docs-build`                             | (dev)         | Generates the database overview  |
 
 ## Other helping `scripts`
 | Script                                      | ENV           | Description                                                                           |

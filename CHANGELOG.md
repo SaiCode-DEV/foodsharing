@@ -82,6 +82,7 @@
 - Migrations to playwright !2959 !2960 !2961 @thomas.hauschild
 - Improved scripts/clean compatibility !2972 @thomas.hauschild
 - Updated Contributors section in README.md !2954 @thomas.hauschild
+- Fixed some DevDocs references !2974 @thomas.hauschild
 
 ## Development documentation
 

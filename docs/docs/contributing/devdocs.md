@@ -1,6 +1,6 @@
 # DevDocs
 
-Most of the DevDocs content is static content, but some parts like the [Database structure](../backend/database/database-tables-columns.md) or the **Rest API** are automatically generated.
+Most of the DevDocs content is static content, but some parts like the [Database structure](../backend/database/database-tables-columns) or the **Rest API** are automatically generated.
 
 ## Rerun of automatic generation
 
