@@ -1096,3 +1096,7 @@ p.b-dropdown-text {
 blockquote > p:last-child {
   margin-bottom: 0;
 }
+
+.border {
+  border: 1px solid var(--fs-border-default);
+}

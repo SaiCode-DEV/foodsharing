@@ -40,7 +40,7 @@ class EventGateway extends BaseGateway
 		', [':regionId' => $regionId]);
     }
 
-    public function getEvent(int $eventId, bool $withInvitations = false): ?array
+    public function getEvent(int $eventId, bool $withAttendees = false): ?array
     {
         $event = $this->db->fetch('
 			SELECT
@@ -72,8 +72,8 @@ class EventGateway extends BaseGateway
             return null;
         }
 
-        if ($withInvitations) {
-            $event['invites'] = $this->getEventInvites($eventId);
+        if ($withAttendees) {
+            $event['invites'] = $this->getEventAttendees($eventId);
         }
 
         if ($event['location_id'] === null) {
@@ -106,7 +106,7 @@ class EventGateway extends BaseGateway
         ]);
     }
 
-    private function getEventInvites($eventId)
+    private function getEventAttendees($eventId)
     {
         $invites = $this->db->fetchAll('
 			SELECT 	fs.id,
@@ -122,19 +122,17 @@ class EventGateway extends BaseGateway
 
 			AND
 				fhe.event_id = :eventId
-		', [':eventId' => $eventId]);
+                AND fhe.status != :invitedStatus
+		', [':eventId' => $eventId, ':invitedStatus' => InvitationStatus::INVITED]);
 
         $out = [
-            'invited' => [],
             'accepted' => [],
             'maybe' => [],
             'may' => []
         ];
         foreach ($invites as $i) {
             $out['may'][$i['id']] = true;
-            if ($i['status'] == InvitationStatus::INVITED) {
-                $out['invited'][] = $i;
-            } elseif ($i['status'] == InvitationStatus::ACCEPTED) {
+            if ($i['status'] == InvitationStatus::ACCEPTED) {
                 $out['accepted'][] = $i;
             } elseif ($i['status'] == InvitationStatus::MAYBE) {
                 $out['maybe'][] = $i;
@@ -145,7 +143,7 @@ class EventGateway extends BaseGateway
     }
 
     /**
-     * Returns all future events with specific statuses a foodsaver is invited to.
+     * Returns all future events with specific statuses from a foodsavers regions.
      *
      * @param int $userId The id of the user
      * @param array $statuses Array of InvitationStatus. Statuses to be included in the result
@@ -164,18 +162,19 @@ class EventGateway extends BaseGateway
 			r.name AS regionName,
 			UNIX_TIMESTAMP(e.start) AS start_ts,
 			UNIX_TIMESTAMP(e.end) AS end_ts,
-			fhe.status,
+			CAST(IFNULL(fhe.status, ' . InvitationStatus::INVITED . ') AS INTEGER) AS status,
 			l.street,
 			l.zip,
 			l.city
 		FROM fs_event e
-		JOIN fs_foodsaver_has_event fhe ON e.id = fhe.event_id
+		JOIN fs_foodsaver_has_bezirk fhb ON e.bezirk_id = fhb.bezirk_id
+        LEFT OUTER JOIN fs_foodsaver_has_event fhe ON e.id = fhe.event_id AND fhe.foodsaver_id = fhb.foodsaver_id
 		LEFT JOIN fs_location l ON e.location_id = l.id
 		LEFT JOIN fs_bezirk r ON e.bezirk_id = r.id
 		WHERE
-			fhe.foodsaver_id = :fs_id
+			fhb.foodsaver_id = :fs_id
 			AND e.end > NOW()
-			AND STATUS IN (' . implode(',', $statuses) . ')
+			AND IFNULL(fhe.status, ' . InvitationStatus::INVITED . ') IN (' . implode(',', $statuses) . ')
 		ORDER BY e.start
 		', ['fs_id' => $userId]);
     }
@@ -186,7 +185,6 @@ class EventGateway extends BaseGateway
             'foodsaver_id' => $creatorId,
             'bezirk_id' => $event['bezirk_id'],
             'location_id' => $event['location_id'],
-            'public' => $event['public'],
             'name' => $event['name'],
             'start' => $event['start'],
             'end' => $event['end'],
@@ -203,7 +201,6 @@ class EventGateway extends BaseGateway
         $extracted_event = [
             'bezirk_id' => $event['bezirk_id'],
             'location_id' => $event['location_id'],
-            'public' => $event['public'],
             'name' => $event['name'],
             'start' => $event['start'],
             'end' => $event['end'],

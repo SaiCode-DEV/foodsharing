@@ -44,7 +44,7 @@ class WallPostPermissions
                 $result = $fsId && $this->regionGateway->hasMember($fsId, $targetId);
                 break;
             case 'event':
-                $event = $this->eventGateway->getEvent($targetId, true);
+                $event = $this->eventGateway->getEvent($targetId);
                 $result = ($event === null) ? false : $this->eventPermission->mayCommentInEvent($event);
                 break;
             case 'fairteiler':

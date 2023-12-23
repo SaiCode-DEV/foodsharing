@@ -28,13 +28,6 @@ final class EventPermissions
 
     public function maySeeEvent(array $event): bool
     {
-        if ($event['public'] == 1) {
-            return true;
-        }
-        if (isset($event['invites']['may'][$this->session->id()])) {
-            return true;
-        }
-
         return $this->session->mayBezirk($event['bezirk_id']);
     }
 

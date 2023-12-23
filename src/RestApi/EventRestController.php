@@ -44,11 +44,10 @@ class EventRestController extends AbstractFOSRestController
         }
 
         // check that the event exists
-        $event = $this->eventGateway->getEvent($eventId, true);
+        $event = $this->eventGateway->getEvent($eventId);
         if (empty($event)) {
             throw new NotFoundHttpException();
         }
-        // check that the user was invited
         if (!$this->eventPermissions->mayJoinEvent($event)) {
             throw new AccessDeniedHttpException();
         }

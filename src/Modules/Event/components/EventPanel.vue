@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <div class="event-panel bootstrap margin-bottom">
-    <b-card>
+    <b-card :class="{ border }">
       <b-media no-body class="d-flex w-100">
         <b-media-aside
           v-b-tooltip.hover="dateTooltip"
@@ -11,26 +11,24 @@
         </b-media-aside>
 
         <b-media-body class="ml-1 w-100">
-          <div class="d-flex flex-wrap-reverse flex-sm-nowrap w-100 justify-content-between">
-            <a :href="$url('event', eventId)" class="event-link">
-              <h6 class="my-0 mr-1">
-                {{ title }}
-                <b-button
-                  v-if="mayEdit"
-                  v-b-tooltip="$i18n('events.edit')"
-                  :href="$url('eventEdit', eventId)"
-                  size="sm"
-                  variant="outline-secondary ml-2"
-                >
-                  <i class="fas fa-fw fa-pencil-alt" />
-                </b-button>
-              </h6>
-            </a>
-            <div v-if="regionName" class="flex-md-shrink-0 text-muted">
-              {{ regionName }}
-            </div>
+          <a :href="$url('event', eventId)" class="event-link">
+            <h6 class="my-0 mr-1">
+              {{ title }}
+              <b-button
+                v-if="mayEdit"
+                v-b-tooltip="$i18n('events.edit')"
+                :href="$url('eventEdit', eventId)"
+                size="sm"
+                variant="outline-secondary ml-2"
+              >
+                <i class="fas fa-fw fa-pencil-alt" />
+              </b-button>
+            </h6>
+          </a>
+          <div v-if="regionName" class="flex-md-shrink-0">
+            <a :href="$url('events', regionId)">{{ regionName }}</a>
+            ({{ $i18n('events.invitedCount', { count: inviteCount }) }})
           </div>
-
           <div
             class="my-1 d-inline-block event-date"
           >
@@ -83,11 +81,14 @@ export default {
   props: {
     eventId: { type: Number, required: true },
     regionName: { type: String, default: '' },
+    regionId: { type: Number, default: 0 },
+    inviteCount: { type: Number, default: 0 },
     start: { type: String, required: true },
     end: { type: String, required: true },
     title: { type: String, default: '' },
     mayEdit: { type: Boolean, default: false },
     status: { type: Number, default: 0 },
+    border: { type: Boolean, default: false },
   },
   data () {
     return {

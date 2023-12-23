@@ -60,7 +60,6 @@ class EventControl extends Control
 
         $eventId = intval($eventId);
         $event = $this->eventGateway->getEvent($eventId, true);
-
         if (!$event || !$this->eventPermissions->maySeeEvent($event)) {
             $this->flashMessageHelper->info($this->translator->trans('events.notFound'));
 
@@ -71,6 +70,7 @@ class EventControl extends Control
         $regionLink = '/region?bid=' . $regionId;
         $regionEventsLink = $regionLink . '&sub=events';
         $regionName = $this->regionGateway->getRegionName($regionId);
+        $event['inviteCount'] = $this->regionGateway->getRegionDetails($regionId)['fs_count'];
         if (empty($regionName)) {
             $regionName = '';
         }
@@ -106,7 +106,7 @@ class EventControl extends Control
     public function edit()
     {
         $eventId = $_GET['id'] ?? null;
-        $event = $this->eventGateway->getEvent($eventId, true);
+        $event = $this->eventGateway->getEvent($eventId);
 
         if (!$event) {
             return $this->routeHelper->goAndExit('/?page=dashboard');
@@ -178,17 +178,14 @@ class EventControl extends Control
             'location_id' => null,
             'start' => date('Y-m-d') . ' 15:00:00',
             'end' => date('Y-m-d') . ' 16:00:00',
-            'public' => 0,
             'bezirk_id' => 0,
             'invite' => false,
             'online' => 0,
             'invitesubs' => false,
         ];
 
-        if (isset($_POST['public']) && $_POST['public'] == 1) {
-            $out['public'] = 1;
-        } elseif ($regionId = $this->postHelper->getPostInt('bezirk_id')) {
-            $out['bezirk_id'] = (int)$regionId;
+        if ($regionId = $this->postHelper->getPostInt('bezirk_id')) {
+            $out['bezirk_id'] = $regionId;
             if (isset($_POST['invite']) && $_POST['invite'] == InvitationStatus::ACCEPTED) {
                 $out['invite'] = true;
                 if (isset($_POST['invitesubs']) && $_POST['invitesubs'] == 1) {
