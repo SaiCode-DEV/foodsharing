@@ -2,6 +2,18 @@ import Vue from 'vue'
 import { joinRegion, listRegionChildren, listRegionMembers } from '@/api/regions'
 import { url } from '@/helper/urls'
 
+export const REGION_UNIT_TYPE = Object.freeze({
+  UNDEFINED: 0,
+  CITY: 1,
+  DISTRICT: 2,
+  REGION: 3,
+  FEDERAL_STATE: 5,
+  COUNTRY: 6,
+  WORKING_GROUP: 7,
+  BIG_CITY: 8,
+  PART_OF_TOWN: 9,
+})
+
 export const store = Vue.observable({
   regions: [],
   choosedRegionChildren: [],

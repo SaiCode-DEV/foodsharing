@@ -769,7 +769,7 @@ fsp:
     n_in_region: "{count} Fairteiler in {name}"
 
 storeview:
-  show_information: "Betriebsinformationen anzeigen"
+  show_settings: "Betriebs-Einstellungen"
   store: "Betrieb"
   common: "Allgemein"
   visible_for_public: "Dieser Text ist für jeden Foodsaver sichtbar, z. B. auf der Karte."

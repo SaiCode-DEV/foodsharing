@@ -30,6 +30,7 @@
 - Markdown in forum posts is now rendered in the front end to reduce inconsistencies !2913 !2917 @AntonBallmaier
 - Change the direction of score voting !2920 @AntonBallmaier
 - Select no value by default in score voting !2920 @AntonBallmaier
+- Moved StoreInformationModal to a tab on store page and changed the buttons for chats and leaving team !2874 @chriswalg
 - Show required label for phone number during register !2964 @thomas.hauschild
 - Optimized images via https://github.com/apps/imgbot !2966 @thomas.hauschild
 - Simplified Event invitation system #1736 !2926 @AntonBallmaier

@@ -3,41 +3,31 @@
     :title="storeName"
     tag="store_options"
   >
-    <StoreInformationModal
-      :is-jumper="isJumper"
-      :store-id="storeId"
-      :may-edit-store="mayEditStore"
-      :is-coordinator="isCoordinator"
-      :is-verified="isVerified"
-    />
-    <button
+    <b-button
       v-if="teamConversationId != null && isUserInStore"
-      type="button"
-      class="list-group-item list-group-item-action"
+      variant="primary"
+      class="mt-2"
+      block
       @click="openChat(teamConversationId)"
-      v-text="$i18n('store.chat.team')"
-    />
-    <button
+    >
+      {{ $i18n('store.chat.team') }}
+    </b-button>
+    <b-button
       v-if="jumperConversationId != null && isUserInStore || isJumper"
-      type="button"
-      class="list-group-item list-group-item-action"
+      variant="outline-primary"
+      block
       @click="openChat(jumperConversationId)"
-      v-html="$i18n('store.chat.jumper')"
-    />
-    <button
-      type="button"
-      class="list-group-item list-group-item-action"
-      @click="$bvModal.show('storeInformationModal')"
-      v-text="$i18n('storeview.show_information')"
-    />
-    <button
+    >
+      {{ $i18n('store.chat.jumper') }}
+    </b-button>
+    <b-button
       v-if="mayLeaveStoreTeam && isUserInStore || isJumper"
-      type="button"
-      class="list-group-item list-group-item-action"
-      href="#"
+      variant="outline-warning"
+      block
       @click="removeFromTeam(fsId, $i18n('storeedit.team.leave_myself'))"
-      v-text="$i18n('storeedit.team.leave')"
-    />
+    >
+      {{ $i18n('storeedit.team.leave') }}
+    </b-button>
   </Container>
 </template>
 
@@ -46,14 +36,10 @@ import conversationStore from '@/stores/conversations'
 import { pulseError } from '@/script'
 import DataUser from '@/stores/user'
 import { removeStoreMember } from '@/api/stores'
-import StoreInformationModal from '@/components/Modals/Store/StoreInformationModal.vue'
 import Container from '@/components/Container/Container.vue'
 
 export default {
-  components: {
-    StoreInformationModal,
-    Container,
-  },
+  components: { Container },
   props: {
     storeName: { type: String, required: true },
     fsId: { type: Number, required: true },
