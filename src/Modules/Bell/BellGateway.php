@@ -267,8 +267,8 @@ class BellGateway extends BaseGateway
             $bellDTO->title = $row['name'];
             $bellDTO->payload = unserialize($row['vars'], ['allowed_classes' => false]);
             $bellDTO->href = unserialize($row['attr'], ['allowed_classes' => false])['href'];
-            $bellDTO->icon = $row['icon'][0] != '/' ? $row['icon'] : null;
-            $bellDTO->image = $row['icon'][0] == '/' ? $row['icon'] : null;
+            $bellDTO->icon = $this->isIconCssIdentifier($row['icon']) ? $row['icon'] : null;
+            $bellDTO->image = $this->isImagePath($row['icon']) ? $row['icon'] : null;
             $bellDTO->createdAt = (new \DateTime($row['time']))->format('Y-m-d\TH:i:s');
             $bellDTO->isRead = $row['seen'];
             $bellDTO->isCloseable = $row['closeable'];
@@ -277,6 +277,25 @@ class BellGateway extends BaseGateway
         }
 
         return $output;
+    }
+
+    private function containsPath(?string $path): bool
+    {
+        if ($path == null) {
+            return false;
+        }
+
+        return strlen($path) !== 0;
+    }
+
+    private function isIconCssIdentifier(?string $path): bool
+    {
+        return $this->containsPath($path) && $path[0] !== '/';
+    }
+
+    private function isImagePath(?string $path): bool
+    {
+        return $this->containsPath($path) && $path[0] === '/';
     }
 
     /**

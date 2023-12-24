@@ -9,6 +9,7 @@ use Faker\Factory;
 use Faker\Generator;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
+use Foodsharing\Modules\Bell\DTO\BellForList;
 use Tests\Support\UnitTester;
 
 class BellGatewayTest extends Unit
@@ -99,6 +100,51 @@ class BellGatewayTest extends Unit
         $bellId = $this->gateway->getOneByIdentifier($identifier);
 
         $this->tester->seeInDatabase('fs_bell', ['id' => $bellId, 'identifier' => $identifier]);
+    }
+
+    /** Helper to find specific bell in array of bells */
+    private function findBellInArrayById(array $array, int $id): ?BellForList
+    {
+        $result = array_filter($array, function ($obj) use ($id) {
+            return $obj->id == $id;
+        });
+
+        return reset($result) ?: false;
+    }
+
+    public function testStorageMappingForBellIconOrImage(): void
+    {
+        $this->tester->clearTable('fs_bell');
+        $user1 = $this->tester->createFoodsaver();
+        $identifier = 'my-custom-identifier';
+
+        // Create bell objects in database for testing
+        $bellIdWithNoIconOrImage = $this->tester->addBells([$user1], ['identifier' => $identifier, 'icon' => null]);
+        $bellIdWithEmptyPath = $this->tester->addBells([$user1], ['identifier' => $identifier, 'icon' => '']);
+        $bellIdForIcon = $this->tester->addBells([$user1], ['identifier' => $identifier, 'icon' => 'css-icon-class-name']);
+        $bellIdForImagePath = $this->tester->addBells([$user1], ['identifier' => $identifier, 'icon' => '/image.png']);
+        $bells = $this->gateway->listBells($user1['id']);
+
+        // check expected values
+        $bellWithNoIconOrImage = $this->findBellInArrayById($bells, $bellIdWithNoIconOrImage);
+        $this->assertNotFalse($bellWithNoIconOrImage, 'Unable to find related bell for test');
+        $this->assertEquals(null, $bellWithNoIconOrImage->image);
+        $this->assertEquals(null, $bellWithNoIconOrImage->icon);
+
+        $bellWithEmptyPath = $this->findBellInArrayById($bells, $bellIdWithEmptyPath);
+        $this->assertNotFalse($bellWithEmptyPath, 'Unable to find related bell for test');
+        $this->assertEquals(null, $bellWithEmptyPath->image);
+        $this->assertEquals(null, $bellWithEmptyPath->icon);
+
+        $bellForIcon = $this->findBellInArrayById($bells, $bellIdForIcon);
+        $this->assertNotFalse($bellForIcon, 'Unable to find related bell for test');
+        $this->assertEquals(null, $bellForIcon->image);
+        $this->assertEquals('css-icon-class-name', $bellForIcon->icon);
+
+        $bellForImagePath = $this->findBellInArrayById($bells, $bellIdForImagePath);
+        $this->assertNotFalse($bellForImagePath, 'Unable to find related bell for test');
+        $this->assertEquals('/image.png', $bellForImagePath->image);
+        $this->assertEquals(null, $bellForImagePath->icon);
     }
 
     public function testUpdateBell(): void

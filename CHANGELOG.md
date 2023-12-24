@@ -46,6 +46,7 @@
 - Fix variable replacement on "fairteiler" page
 - Fix the display of long names in passport generation #1634 !2941 @AntonBallmaier
 - Fix security problem #1692 !2940 @AntonBallmaier
+- Fix operation on empty icon string #1709 !2970 @KoeMai
 
 ## Refactoring
 - Refactor mailbox modul to vue and rest api !2580 !2870 !2871 !2918 !2934 @chriswalg @alex.simm
