@@ -167,6 +167,8 @@ search:
       member_tooltip: Eres miembro de este distrito
     user:
       no_home_region: Ningún distrito de origen
+  maxresults: Se muestra un máximo de 30 resultados por categoría. Puede que necesite
+    utilizar un término de búsqueda más específico.
 reports:
   reason: razón
   message: descripción
@@ -1871,6 +1873,8 @@ profile:
   notFound: 'Este perfil de usuario no existe o ya no existe'
   mediationRequest: 'Solicitar mediación'
   reportRequest: 'Hacer una queja'
+  orga_rights: Como miembro de la organización {name} <a target="_blank" href="{wikiurl}">permisos
+    plenos</a> en ella.
 home:
   title: 'Pagina de inicio'
   home: 'Inicio'
