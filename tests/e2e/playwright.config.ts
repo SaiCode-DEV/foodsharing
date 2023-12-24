@@ -27,7 +27,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: process.env.CI_ENVIRONMENT_URL || "http://localhost:18080",
+    baseURL: process.env.CI_ENVIRONMENT_URL || "http://nginx:8080",
 
     /* Capture screenshot after each test failure. */
     screenshot: "only-on-failure",
