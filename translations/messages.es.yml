@@ -759,6 +759,7 @@ group:
     sent: 'La solicitud fue enviada.'
     accepted: 'solicitud aceptada'
     motivation: '¿Cuál es tu motivación para unirte al grupo “{group}”?'
+    link_description: 'Este enlace te llevará directamente a la aplicación:'
   show-all: 'mostrar todo'
   function:
     pr: 'Relación pública'
