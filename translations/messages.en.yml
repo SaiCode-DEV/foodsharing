@@ -1037,6 +1037,7 @@ storeview:
   pickupCount: At this store there have been {pickupCount} pick-ups.
   status_notes: status notes
   team: Store team
+  show_settings: Store settings
 day: Day
 time: Time
 select: Please select
