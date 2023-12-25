@@ -34,6 +34,7 @@
 - Show required label for phone number during register !2964 @thomas.hauschild
 - Optimized images via https://github.com/apps/imgbot !2966 @thomas.hauschild
 - Simplified Event invitation system #1736 !2926 @AntonBallmaier
+- Email notifications about an application to a working group contain a new link to that application #1697 !2973 @alex.simm 
 
 ## Bugfixes
 - Added error handling for cache helper for bell notifications or other requests !2869 @chriswalg

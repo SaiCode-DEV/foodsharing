@@ -107,6 +107,7 @@ class WorkGroupXhr extends Control
 
         $this->workGroupGateway->groupApply($groupId, $fsId, implode("\n\n", $content));
 
+        $link = BASE_URL . '/?page=application&bid=' . $groupId . '&fid=' . $fsId;
         $this->emailHelper->libmail(
             [
                 'email' => $fs['email'],
@@ -117,7 +118,9 @@ class WorkGroupXhr extends Control
             nl2br($this->translator->trans('group.apply.summary', [
                 '{name}' => $fs['name'],
                 '{group}' => $group['name'],
-            ]) . "\n\n" . implode("\n\n", $content))
+            ]) . "\n\n" . implode("\n\n", $content) . "\n\n"
+            . $this->translator->trans('group.apply.link_description')
+            . ' <a href="' . $link . '">' . $link . '</a>')
         );
 
         return [

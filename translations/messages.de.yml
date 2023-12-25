@@ -361,6 +361,7 @@ group:
   apply:
     title: "Bewerbung für {group}"
     summary: "{name} möchte gerne in der Arbeitsgruppe {group} mitmachen."
+    link_description: "Über diesen Link kommst du direkt zur Bewerbung:"
     motivation: "Was ist deine Motivation, in der Gruppe {group} mitzuwirken?"
     faehigkeit: "Was sind deine Fähigkeiten, die du in diesem Bereich hast?"
     erfahrung: |
