@@ -1123,6 +1123,7 @@ storeview:
   visible_for_public: 'Este texto es visible para todos l@s rescatistas.'
   show_information: 'Ver información de la empresa'
   cooperation_start: 'Cooperación desde'
+  show_settings: Configuración de la empresa
 store:
   tooltip_red: 'Recogidas vacantes hoy o mañana'
   tooltip_managing: 'Usted es responsable de esta cooperación'
