@@ -1410,6 +1410,7 @@ storeview:
   public_and_statistics: Statistiques et relations publiques
   show_information: 'Afficher les informations sur l’établissement'
   visible_for_public: 'Ce texte est visible par tous les Foodsaver.'
+  show_settings: Paramètres de coopération
 day: Balise
 time: Heure
 select: Veuillez choisir
