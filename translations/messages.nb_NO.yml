@@ -2587,6 +2587,7 @@ storeview:
   cooperation_status: Samarbeidsstatus
   team: Henteteam
   public_and_statistics: Statistikk og PR
+  show_settings: Driftsinnstillinger
 fsp:
   info:
     none: ikke mer
