@@ -47,6 +47,7 @@
           :post="p"
           :managers="managers"
           :may-delete-everything="mayDeleteEverything"
+          :is-coordinator="isCoordinator"
           class="wallpost"
           @delete-post="deletePost"
         />
@@ -79,6 +80,7 @@ export default {
     managers: { type: Array, default: () => [] },
     mayWritePost: { type: Boolean, required: true },
     mayDeleteEverything: { type: Boolean, required: true },
+    isCoordinator: { type: Boolean, default: false },
     numberOfVisiblePostsPerExcerptIteration: { type: Number, default: 3 },
     mayReadStoreWall: { type: Boolean, default: null },
   },

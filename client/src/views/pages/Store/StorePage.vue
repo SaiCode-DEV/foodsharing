@@ -34,6 +34,7 @@
               :managers="storeManagers"
               :may-write-post="permissions.mayWritePost"
               :may-delete-everything="permissions.mayDeleteEverything"
+              :is-coordinator="permissions.isCoordinator"
             />
             <StoreTeam
               v-if="!viewIsMobile"
@@ -73,6 +74,7 @@
               :managers="storeManagers"
               :may-write-post="permissions.mayWritePost"
               :may-delete-everything="permissions.mayDeleteEverything"
+              :is-coordinator="permissions.isCoordinator"
             />
           </div>
           <div class="col-lg-3">
@@ -272,9 +274,6 @@ export default {
     }
   },
   computed: {
-    StoreInformation () {
-      return StoreInformation
-    },
     isVerified () {
       return DataUser.getters.isVerified()
     },
@@ -300,7 +299,9 @@ export default {
     await StoreData.mutations.loadStoreInformation(this.storeId)
     await StoreData.mutations.loadGetRegionOptions(this.storeInformation.region.id)
     await StoreData.mutations.loadStoreMember(this.storeId)
-    await StoreData.mutations.loadStoreLog(this.storeId, this.storeInformation.calendarInterval)
+    if (!this.permissions.isJumper) {
+      await StoreData.mutations.loadStoreLog(this.storeId, this.storeInformation.calendarInterval)
+    }
 
     this.checkIsUserInStore()
     this.getLastFetchDate()

@@ -47,6 +47,8 @@
 - Fix variable replacement on "fairteiler" page
 - Fix the display of long names in passport generation #1634 !2941 @AntonBallmaier
 - Fix security problem #1692 !2940 @AntonBallmaier
+- Allow ambassdors and store coordinator to delete wall posts again !2978 @chriswalg
+- Prevent load store log for jumper !2978 @chriswalg
 - Fix operation on empty icon string #1709 !2970 @KoeMai
 
 ## Refactoring

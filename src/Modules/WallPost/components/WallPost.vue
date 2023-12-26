@@ -119,11 +119,9 @@ export default {
     post: { type: Object, default: () => {} },
     managers: { type: Array, default: () => [] },
     mayDeleteEverything: { type: Boolean, default: false },
+    isCoordinator: { type: Boolean, default: false },
   },
   computed: {
-    displayedDate () {
-      return this.$dateFormatter.base(this.post.createdAt)
-    },
     canDelete () {
       if (!DataUser.getters.getUserId()) return false
       // orga can remove problematic content, see StorePermissions:mayDeleteStoreWallPost
@@ -132,7 +130,7 @@ export default {
       if (this.isOwn(this.post)) return true
 
       // managers can clean up posts older than 1 month, see StorePermissions:mayDeleteStoreWallPost
-      if (this.isManager(DataUser.getters.getUserId())) {
+      if (this.isCoordinator || this.isManager(DataUser.getters.getUserId())) {
         return this.$dateFormatter.getDifferenceToNowInMonths(this.post.createdAt) >= 1
       } else {
         return false
@@ -146,10 +144,6 @@ export default {
     },
     isOwn (post) {
       return (post.foodsaverId === DataUser.getters.getUserId())
-    },
-    isImportant (post) {
-      if (!post || !post.author || !post.author.id) return false
-      return this.isManager(post.author.id)
     },
   },
 }
