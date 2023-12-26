@@ -71,16 +71,6 @@ services:
     ports:
       - "18084:1080"
 
-  # influxdb
-  # used for mail sending tracking and server monitoring
-  #------------------------------------
-  influxdb:
-    container_name: foodsharing_dev_influxdb
-    ports:
-      - "18083:8083"
-      - "18089:8089/udp"
-      - "18086:8086"
-
   # docs
   # A plattform for the developer documentations
   #------------------------------------

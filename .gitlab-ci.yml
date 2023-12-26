@@ -276,8 +276,6 @@ build:docs:
   services:
     - name: registry.gitlab.com/foodsharing-dev/images/mariadb:latest
       alias: db
-    - name: registry.gitlab.com/foodsharing-dev/images/influxdb:latest
-      alias: influxdb
   script:
     - ./scripts/ci-docs-build
   needs:
@@ -333,8 +331,6 @@ test:backend-code:
       # We use a file to synchronize that, so start websocket service only when that file has been recreated.
     - name: registry.gitlab.com/foodsharing-dev/images/ci/nginx:latest
       alias: nginx
-    - name: registry.gitlab.com/foodsharing-dev/images/influxdb:latest
-      alias: influxdb
   needs:
     - build:frontend
     - build:backend-dev
@@ -399,8 +395,6 @@ test:backend-acceptance:
       # We use a file to synchronize that, so start websocket service only when that file has been recreated.
     - name: registry.gitlab.com/foodsharing-dev/images/ci/nginx:22
       alias: nginx
-    - name: registry.gitlab.com/foodsharing-dev/images/influxdb:latest
-      alias: influxdb
   needs:
     - build:backend-dev
     - build:frontend
@@ -488,8 +482,6 @@ test:playwright:
       # We use a file to synchronize that, so start websocket service only when that file has been recreated.
     - name: registry.gitlab.com/foodsharing-dev/images/ci/nginx:22
       alias: nginx
-    - name: registry.gitlab.com/foodsharing-dev/images/influxdb:latest
-      alias: influxdb
   script:
     - touch $CI_PROJECT_DIR/code_updated # Create file to notify websocket container that code is up to date
     - ./scripts/ci-frontend-test-playwright
