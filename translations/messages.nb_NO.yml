@@ -1622,6 +1622,7 @@ group:
       Hvis ja, hvor eller hva?\n"
     motivation: Hva er din motivasjon for å delta i gruppen {group}?
     accept: Godta søknaden
+    link_description: 'Denne lenken tar deg direkte til applikasjonen:'
   contact:
     send: Sende melding
     sent: Meldingen ble sendt.
