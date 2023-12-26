@@ -15,7 +15,6 @@ class Database
 
     public function __construct(
         private readonly Connection $dbalConnection,
-        private readonly InfluxMetrics $influxMetrics,
     ) {
         $this->queryBuilder = $this->dbalConnection->createQueryBuilder();
     }
@@ -660,12 +659,7 @@ class Database
             $statement->bindValue($param, $value, $type);
         }
 
-        $result = $statement->executeQuery();
-
-        $timing_stop = hrtime(true);
-        $this->influxMetrics->addDbQuery(intdiv($timing_stop - $timing_start, 1000 * 1000));
-
-        return $result;
+        return $statement->executeQuery();
     }
 
     /**

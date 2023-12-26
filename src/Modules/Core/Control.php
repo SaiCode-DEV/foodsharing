@@ -9,7 +9,6 @@ use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\FlashMessageHelper;
 use Foodsharing\Utility\PageHelper;
 use Foodsharing\Utility\RouteHelper;
-use ReflectionClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Service\Attribute\Required;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -50,11 +49,6 @@ abstract class Control
                 $this->sub = $sub;
             }
         }
-
-        $reflection = new ReflectionClass($this);
-        $className = $reflection->getShortName();
-        $metrics = $container->get(InfluxMetrics::class);
-        $metrics->addPageStatData(['controller' => $className]);
     }
 
     #[Required]

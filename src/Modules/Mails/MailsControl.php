@@ -5,7 +5,6 @@ namespace Foodsharing\Modules\Mails;
 use Ddeboer\Imap\Server;
 use Foodsharing\Modules\Console\ConsoleControl;
 use Foodsharing\Modules\Core\Database;
-use Foodsharing\Modules\Core\InfluxMetrics;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\RouteHelper;
 use Symfony\Component\Mailer\MailerInterface;
@@ -17,7 +16,6 @@ class MailsControl extends ConsoleControl
     private MailsGateway $mailsGateway;
     private Database $database;
     private MailerInterface $mailer;
-    private InfluxMetrics $metrics;
     private RouteHelper $routeHelper;
     private EmailHelper $emailHelper;
 
@@ -30,7 +28,6 @@ class MailsControl extends ConsoleControl
     public function __construct(
         MailsGateway $mailsGateway,
         Database $database,
-        InfluxMetrics $metrics,
         MailerInterface $mailer,
         RouteHelper $routeHelper,
         EmailHelper $emailHelper
@@ -40,7 +37,6 @@ class MailsControl extends ConsoleControl
         $this->mailsGateway = $mailsGateway;
         $this->database = $database;
         $this->mailer = $mailer;
-        $this->metrics = $metrics;
         $this->routeHelper = $routeHelper;
         $this->emailHelper = $emailHelper;
         parent::__construct();
@@ -75,7 +71,6 @@ class MailsControl extends ConsoleControl
     {
         foreach (IMAP as $imap) {
             $stats = $this->mailboxupdate($imap['host'], $imap['user'], $imap['password']);
-            $this->metrics->addPoint('fetch_mails', ['account' => $imap['user']], $stats);
         }
     }
 

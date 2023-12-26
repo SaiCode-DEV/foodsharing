@@ -5,27 +5,20 @@ namespace Foodsharing\Utility;
 use Flourish\fFile;
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\Mail\AsyncMail;
-use Foodsharing\Modules\Core\InfluxMetrics;
 use Twig\Environment;
 
 final class EmailHelper
 {
     private $mem;
-    /**
-     * @var InfluxMetrics
-     */
-    private $metrics;
     private $sanitizerService;
     private $twig;
 
     public function __construct(
-        InfluxMetrics $metrics,
         Mem $mem,
         Sanitizer $sanitizerService,
         Environment $twig
     ) {
         $this->mem = $mem;
-        $this->metrics = $metrics;
         $this->sanitizerService = $sanitizerService;
         $this->twig = $twig;
     }
@@ -110,7 +103,6 @@ final class EmailHelper
         }
         $mail->setHighPriority($highPriority);
         $mail->send();
-        $this->metrics->addOutgoingMail($tpl_id, $num_recipients);
     }
 
     public function validEmail(string $email): bool
@@ -177,6 +169,5 @@ final class EmailHelper
 
         $mail->setHighPriority($highPriority);
         $mail->send();
-        $this->metrics->addOutgoingMail('libmail', 1);
     }
 }

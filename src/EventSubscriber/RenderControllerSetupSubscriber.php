@@ -8,7 +8,6 @@ use Foodsharing\Lib\ContentSecurityPolicy;
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Lib\Session;
-use Foodsharing\Modules\Core\InfluxMetrics;
 use Foodsharing\Utility\PageHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -124,9 +123,7 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
         if (isset($g_page_cache) && strtolower($_SERVER['REQUEST_METHOD']) == 'get') {
             /* @var Mem $mem */
             $mem = $this->get(Mem::class);
-            /* @var InfluxMetrics $influxdb */
-            $influxdb = $this->get(InfluxMetrics::class);
-            $this->cache = new Caching($g_page_cache, $session, $mem, $influxdb);
+            $this->cache = new Caching($g_page_cache, $session, $mem);
             $this->cache->lookup();
         }
 

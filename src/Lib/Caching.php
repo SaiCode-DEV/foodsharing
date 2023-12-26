@@ -3,7 +3,6 @@
 namespace Foodsharing\Lib;
 
 use Foodsharing\Lib\Db\Mem;
-use Foodsharing\Modules\Core\InfluxMetrics;
 
 class Caching
 {
@@ -14,7 +13,6 @@ class Caching
         $cacheRules,
         private readonly Session $session,
         private readonly Mem $mem,
-        private readonly InfluxMetrics $metrics,
     ) {
         $this->cacheRules = $cacheRules;
         $this->cacheMode = $this->session->mayRole() ? 'u' : 'g';
@@ -23,7 +21,6 @@ class Caching
     public function lookup(): void
     {
         if ($this->shouldCache() && ($page = $this->mem->getPageCache($this->session->id())) !== false && !isset($_GET['flush'])) {
-            $this->metrics->addPageStatData(['cached' => 1]);
             if ($page[0] == '{' || $page[0] == '[') {
                 // just assume it's an JSON, to prevent the browser from interpreting it as
                 // HTML, which could result in XSS possibilities
@@ -33,7 +30,6 @@ class Caching
             echo $page;
             exit;
         } else {
-            $this->metrics->addPageStatData(['cached' => 0]);
         }
     }
 

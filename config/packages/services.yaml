@@ -34,11 +34,6 @@ services:
     #Foodsharing\Debug\DebugBar:
     #    class: Foodsharing\Debug\DisabledDebugBar
 
-    InfluxDB\Database:
-        factory: ['InfluxDB\Client', 'fromdsn']
-        arguments:
-            - !php/const INFLUX_DSN
-
     BounceMailHandler\BounceMailHandler:
         properties:
             mailhost: !php/const BOUNCE_IMAP_HOST

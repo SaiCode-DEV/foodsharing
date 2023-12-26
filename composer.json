@@ -58,7 +58,6 @@
     "exercise/htmlpurifier-bundle": "4.1.*",
     "friendsofsymfony/rest-bundle": "3.5.*",
     "html2text/html2text": "4.3.*",
-    "influxdb/influxdb-php": "1.15.*",
     "jms/serializer-bundle": "5.3.*",
     "jsvrcek/ics": "0.8.5",
     "minishlink/web-push": "8.0.*",

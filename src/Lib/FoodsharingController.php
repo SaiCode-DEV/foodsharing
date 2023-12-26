@@ -4,7 +4,6 @@ namespace Foodsharing\Lib;
 
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\View\Utils;
-use Foodsharing\Modules\Core\InfluxMetrics;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\FlashMessageHelper;
 use Foodsharing\Utility\PageHelper;
@@ -80,9 +79,6 @@ abstract class FoodsharingController extends AbstractController
         // the module name is derived from the controller name and must match the directory it's in
         $moduleName = substr($className, 0, $pos);
         $controlCommon->prepareWebpackAssets($projectDir, $moduleName);
-
-        $metrics = $container->get(InfluxMetrics::class);
-        $metrics->addPageStatData(['controller' => $className]);
     }
 
     /**

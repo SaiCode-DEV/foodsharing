@@ -8,7 +8,6 @@ use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\Session;
 use Foodsharing\Lib\Xhr\XhrMethods;
 use Foodsharing\Lib\Xhr\XhrResponses;
-use Foodsharing\Modules\Core\InfluxMetrics;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,7 +47,6 @@ class XhrController extends AbstractController
         Request $request,
         Session $session,
         Mem $mem,
-        InfluxMetrics $influxdb,
         XhrMethods $xhr
     ): Response {
         $session->initIfCookieExists();
@@ -56,7 +54,7 @@ class XhrController extends AbstractController
         // is this actually used anywhere? (prod?)
         global $g_page_cache;
         if (isset($g_page_cache)) {
-            $cache = new Caching($g_page_cache, $session, $mem, $influxdb);
+            $cache = new Caching($g_page_cache, $session, $mem);
             $cache->lookup();
         }
 
@@ -81,8 +79,6 @@ class XhrController extends AbstractController
         }
 
         $response = new Response();
-
-        $influxdb->addPageStatData(['controller' => $func]);
 
         ob_start();
         echo $xhr->$func($_GET);

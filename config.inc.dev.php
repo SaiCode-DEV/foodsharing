@@ -20,8 +20,6 @@ define('ERROR_REPORT', E_ALL);
 define('BASE_URL', $protocol . '://' . $host);
 define('WEBCAL_URL', 'webcal://' . $host);
 
-define('INFLUX_DSN', 'udp+influxdb://influxdb:8089/foodsharing');
-
 define('VERSION', '0.8.3');
 
 define('DEFAULT_EMAIL', 'no-reply@foodsharing.network');

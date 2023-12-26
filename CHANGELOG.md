@@ -88,6 +88,7 @@
 - Add a playwright docker container and script for local testing !2968 @chriswalg
 - Updated Contributors section in README.md !2954 @thomas.hauschild
 - Fixed some DevDocs references !2974 @thomas.hauschild
+- Removed InfluxDB !2983 @chriswalg
 
 ## Development documentation
 
