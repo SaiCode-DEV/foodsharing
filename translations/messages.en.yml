@@ -121,6 +121,7 @@ group:
     motivation: What is your motivation to participate in the group {group}?
     summary: '{name} would like to participate in the {group} working group.'
     accept: Accept the application
+    link_description: 'This link will take you directly to the application:'
   show-all: Show all
   really_quit_district: Do you really want to leave the region %name%?
   really_quit_workgroup: Do you really want to leave the working group %name%?
