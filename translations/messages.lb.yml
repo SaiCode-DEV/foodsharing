@@ -1792,7 +1792,7 @@ wall:
   error-create: ''
   confirm-deletion: ''
   info-somebody-else: ''
-  placeholder: 'Write a new pinboard entry'
+  placeholder: 'Schreift eng nei Wandentrée ...'
 events:
   created: ''
   edit: ''
