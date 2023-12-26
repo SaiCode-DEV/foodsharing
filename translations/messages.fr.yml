@@ -48,6 +48,7 @@ group:
     summary: '{name} souhaite participer au groupe de travail {group].'
     title: Demandes pour {group}
     accept: Accepter la candidature
+    link_description: 'Ce lien te permet d’accéder directement à l’application :'
   contact:
     sent: Le message a bien été envoyé.
     send: Envoyer le message
