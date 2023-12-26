@@ -21,6 +21,7 @@ group:
     motivation: Qual è la motivazione che ti spinge a partecipare al gruppo {group}?
     summary: '{name} vorrebbe unirsi al gruppo di lavoro {group}.'
     accept: Accettare candidatura
+    link_description: 'Questo collegamento ti porterà direttamente all’applicazione:'
   contact:
     send: Invia messaggio
     admins: '{count} referenti:'
