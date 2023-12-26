@@ -13,10 +13,6 @@
           <p>
             <b>{{ profile.name }}</b>
           </p>
-          <p>
-            <b>{{ $i18n('foodsaver.manage.role') }}:</b>
-            {{ getQuizRole() }}
-          </p>
         </b-col>
         <b-col cols="7">
           <p>
@@ -31,7 +27,7 @@
             <b>{{ $i18n('terminology.previous_pickups') }}:</b> {{ pickupsCount }}
           </p>
           <p>
-            <b>{{ $i18n('store.lastPickupTitle') }}</b><br>
+            <b>{{ $i18n('store.lastPickupTitle') }}:</b><br>
             {{ getLastFetchDate }}
           </p>
           <p>
@@ -232,9 +228,8 @@ export default {
     },
     getLastFetchDate () {
       const lastFetchDate = this.getLastFetchDateFromUser(this.profile.id)
-      const noPickupTranslation = this.$i18n('terminology.no_pickups')
       const dateFormatterLastFetchDate = this.$dateFormatter.date(lastFetchDate, { short: true })
-      return lastFetchDate ? dateFormatterLastFetchDate : noPickupTranslation
+      return lastFetchDate ? dateFormatterLastFetchDate : this.$i18n('terminology.no_pickups')
     },
     phoneNumber () {
       return PhoneNumbers.callableNumber(this.profile.mobile || this.profile.landline)
@@ -281,15 +276,6 @@ export default {
 
       if (lastFetchTimestamp !== null) {
         return new Date(lastFetchTimestamp * MILLISECONDS_PER_SECOND)
-      }
-    },
-    getQuizRole () {
-      const userItem = this.storeMember.find(item => item.id === this.profile.id)
-      const quizRole = userItem?.quiz_rolle
-
-      if (quizRole !== undefined) {
-        const terminologyKey = 'terminology.role.' + quizRole
-        return this.$i18n(terminologyKey)
       }
     },
     copyIntoClipboard (text) {

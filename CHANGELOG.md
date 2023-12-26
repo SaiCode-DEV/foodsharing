@@ -24,7 +24,7 @@
 - Add "call" (tel:) button visibility also for desktop, not only mobile" #1138 !2835 @chriswalg
 - Administrating threads has a cleaner look !2882 @AntonBallmaier
 - Pinned Threads are sorted by name !2883 !2891 @AntonBallmaier
-- rework slot dropdown to modal #1228 !2813 !2915 @chriswalg
+- rework slot dropdown to modal #1228 !2813 !2915 !2944 @chriswalg
 - Changed behaviour from deleting unconfirmed slots at midnight into keeping them #1707 !2901 @irgendwer
 - Reworked all search functionality !2886 !2914 @AntonBallmaier
 - Markdown in forum posts is now rendered in the front end to reduce inconsistencies !2913 !2917 @AntonBallmaier
