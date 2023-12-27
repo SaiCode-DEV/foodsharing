@@ -89,5 +89,14 @@ services:
     volumes:
       - selenium_downloads:/home/seluser/Downloads:cached
 
+  # Microsoft Playwright
+  # ------------------------------------
+  playwright:
+    container_name: foodsharing_test_playwright
+    image: registry.gitlab.com/foodsharing-dev/images/playwright-dev:latest
+    command: sh -c "cd /home/pwuser && npx -y playwright@1.40.1 run-server --port 3005"
+    ports:
+      - "23005:3005"
+
 volumes:
   selenium_downloads:

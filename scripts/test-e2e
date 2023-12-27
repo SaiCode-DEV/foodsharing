@@ -8,4 +8,15 @@ source "$dir"/__common.sh
 log-header "Running client e2e tests with playwright"
 cd tests/e2e
 npm ci && npx playwright install
-PW_TEST_CONNECT_WS_ENDPOINT=ws://127.0.0.1:3005/ npx playwright test
+
+if [[ "${1:-}" == "test" ]]; then
+  FS_ENV="test"
+  log-header "Run on $FS_ENV containers ..."
+  port=23005
+else
+  FS_ENV="dev"
+  log-header "Run on $FS_ENV containers ..."
+  port=13005
+fi
+
+PW_TEST_CONNECT_WS_ENDPOINT=ws://127.0.0.1:$port/ npx playwright test
