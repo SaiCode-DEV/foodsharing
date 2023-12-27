@@ -124,17 +124,8 @@ export default {
   computed: {
     canDelete () {
       if (!DataUser.getters.getUserId()) return false
-      // orga can remove problematic content, see StorePermissions:mayDeleteStoreWallPost
-      if (this.mayDeleteEverything) return true
-      // own posts can always be removed, see StorePermissions:mayDeleteStoreWallPost
-      if (this.isOwn(this.post)) return true
-
-      // managers can clean up posts older than 1 month, see StorePermissions:mayDeleteStoreWallPost
-      if (this.isCoordinator || this.isManager(DataUser.getters.getUserId())) {
-        return this.$dateFormatter.getDifferenceToNowInMonths(this.post.createdAt) >= 1
-      } else {
-        return false
-      }
+      // see StorePermissions:mayDeleteStoreWallPost
+      return this.isOwn(this.post) || this.mayDeleteEverything || this.isManager(DataUser.getters.getUserId()) || this.isCoordinator
     },
   },
   methods: {

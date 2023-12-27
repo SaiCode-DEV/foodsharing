@@ -1831,7 +1831,7 @@ class StoreApiCest
         ]);
     }
 
-    public function storeManagerCannotRemoveNewStorePost(ApiTester $I): void
+    public function storeManagerCanRemoveNewStorePost(ApiTester $I): void
     {
         $wallPost = [
             'betrieb_id' => $this->store[self::ID],
@@ -1846,7 +1846,7 @@ class StoreApiCest
 
         $I->sendDELETE(self::API_STORES . '/' . $this->store[self::ID] . '/posts/' . $postId);
 
-        $I->seeResponseCodeIs(Http::FORBIDDEN);
-        $I->seeInDatabase('fs_betrieb_notiz', ['id' => $postId]);
+        $I->seeResponseCodeIs(Http::OK);
+        $I->dontSeeInDatabase('fs_betrieb_notiz', ['id' => $postId]);
     }
 }
