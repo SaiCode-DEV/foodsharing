@@ -29,7 +29,6 @@ services:
       - db
       - redis
       - mailqueuerunner
-      - influxdb
       - websocket
     volumes:
       - ../:/app:delegated
@@ -154,29 +153,6 @@ services:
       - 1025
     # ports:
     #   - 8084:80
-
-  # influxdb
-  # used for mail sending tracking and server monitoring
-  #------------------------------------
-  influxdb:
-    container_name: foodsharing_influxdb
-    image: registry.gitlab.com/foodsharing-dev/images/influxdb:latest
-    command: >
-      influxd -config /etc/influxdb/influxdb.toml
-    environment:
-      - INFLUXDB_ADMIN_ENABLED=false
-      - INFLUXDB_DB=foodsharing
-    volumes:
-      - influxdb:/var/lib/influxdb:cached
-      - ./conf/influxdb/influxdb.toml:/etc/influxdb/influxdb.toml:cached
-    expose:
-      - 8083
-      - 8089/udp
-      - 8086
-    # ports:
-    #   - 8083:8083
-    #   - 8089:8089/udp
-    #   - 8086:8086
 
   # docs
   # A plattform for the developer documentations
