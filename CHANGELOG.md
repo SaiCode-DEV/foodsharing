@@ -54,7 +54,7 @@
 - Fix operation on empty icon string #1709 !2970 @KoeMai
 
 ## Refactoring
-- Refactor mailbox modul to vue and rest api !2580 !2870 !2871 !2918 !2934 @chriswalg @alex.simm
+- Refactor mailbox modul to vue and rest api !2580 !2870 !2871 !2918 !2934 !2971 @chriswalg @alex.simm
 - Use REST for quickreplying to wall posts !2795 @alex.simm
 - Cleaned up a lot of core code all over the place !2738 @\_fridtjof_
 - Preparations to routing/link building code for future porting to Symfony controllers !2738 @\_fridtjof_

@@ -61,13 +61,14 @@ export default {
   props: {
     hostname: { type: String, required: true },
     mailboxes: { type: Array, default: () => { return [] } },
+    emailId: { type: Number, default: null },
   },
   data () {
     return {
       selectedMailboxId: null,
       folderId: null,
       selectedMailboxName: null,
-      selectedEmailId: null,
+      selectedEmailId: this.emailId,
       email: null,
     }
   },
@@ -82,6 +83,26 @@ export default {
   watch: {
     async selectedEmailId () {
       // fetch an email whenever the emailId is updated
+      await this.loadSelectedEmail()
+    },
+  },
+  created () {
+    // If an email specified (e.g. by clicking a link on the dashboard), that email is shown. Else the selected mailbox is shown.
+    this.MAILBOX_PAGE = MAILBOX_PAGE
+    if (this.selectedEmailId) {
+      this.loadSelectedEmail()
+      store.setPage(MAILBOX_PAGE.READ_EMAIL)
+    } else if (!this.selectedMailboxId && this.mailboxes.length > 0) {
+      store.setMailbox(this.mailboxes[0].id, this.mailboxes[0].name, 1)
+      store.setPage(MAILBOX_PAGE.EMAIL_LIST)
+    }
+  },
+  methods: {
+    getFullMailboxName (mailboxName) {
+      return mailboxName + '@' + this.hostname
+    },
+    async loadSelectedEmail () {
+      // Fetches the selected email from the server, if any is selected
       if (this.selectedEmailId) {
         showLoader()
         this.isBusy = true
@@ -93,18 +114,6 @@ export default {
         this.isBusy = false
         hideLoader()
       }
-    },
-  },
-  created () {
-    this.MAILBOX_PAGE = MAILBOX_PAGE
-    if (!this.selectedMailboxId && this.mailboxes.length > 0) {
-      store.setMailbox(this.mailboxes[0].id, this.mailboxes[0].name, 1)
-      store.setPage(MAILBOX_PAGE.EMAIL_LIST)
-    }
-  },
-  methods: {
-    getFullMailboxName (mailboxName) {
-      return mailboxName + '@' + this.hostname
     },
   },
 }
