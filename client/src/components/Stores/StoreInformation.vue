@@ -238,7 +238,7 @@
             />
           </b-form-group>
           <RegularPickup
-            :edit-pickups.sync="editPickups"
+            :loaded-pickups.sync="loadedPickups"
             :edit-mode="editMode"
             :max-count-pickup-slot="maxCountPickupSlot"
           />
@@ -464,6 +464,7 @@ export default {
     mayEditStore: { type: Boolean, default: null },
     isCoordinator: { type: Boolean, default: null },
     isVerified: { type: Boolean, default: null },
+    loadedPickups: { type: Array, default: () => { return [] } },
   },
   data () {
     return {
@@ -549,13 +550,8 @@ export default {
   async created () {
     // Load data
     this.store = this.storeInformation
-    if (!this.isJumper && this.isVerified) {
-      await PickupsData.mutations.fetchRegularPickup(this.storeId)
-      this.editPickups = this.regularPickup()
-    }
-
     this.editMode = (this.mayEditStore || this.isCoordinator)
-    this.previousEditPickups = structuredClone(this.editPickups)
+    this.previousEditPickups = structuredClone(this.loadedPickups)
     if (this.store.categoryId === null) {
       this.store.categoryId = 0
     }
@@ -572,9 +568,6 @@ export default {
     }
   },
   methods: {
-    regularPickup () {
-      return PickupsData.getters.getRegularPickup()
-    },
     dispatchResize () {
       window.dispatchEvent(new Event('resize'))
     },

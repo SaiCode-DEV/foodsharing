@@ -65,7 +65,12 @@
             <PickupHistory
               v-if="permissions.maySeePickupHistory"
               :store-id="storeId"
-              :coop-start="storeInformation.cooperationStart"
+              :cooperation-start="storeInformation.cooperationStart"
+            />
+            <StoreLog
+              v-if="permissions.maySeeStoreLog"
+              :store-id="storeId"
+              :cooperation-start="storeInformation.cooperationStart"
             />
             <StoreWall
               v-if="!viewIsMobile"
@@ -123,115 +128,10 @@
           :may-edit-store="permissions.mayEditStore"
           :is-coordinator="permissions.isCoordinator"
           :is-verified="isVerified"
+          :loaded-pickups="loadedPickups"
         />
       </b-tab>
     </b-tabs>
-    <div class="row">
-      <div class="col-lg-3 mr-lg-4 mr-xl-0">
-        <StoreMenu
-          :store-name="storeInformation.name"
-          :team-conversation-id="permissions.teamConversationId"
-          :jumper-conversation-id="permissions.jumperConversationId"
-          :may-edit-store="permissions.mayEditStore"
-          :is-user-in-store="isUserInStore"
-          :may-leave-store-team="permissions.mayLeaveStoreTeam"
-          :is-jumper="permissions.isJumper"
-          :fs-id="userId"
-          :store-id="storeId"
-          :is-coordinator="permissions.isCoordinator"
-          :is-verified="isVerified"
-        />
-        <StoreWall
-          v-if="viewIsMobile"
-          :may-read-store-wall="permissions.mayReadStoreWall"
-          :store-id="storeId"
-          :managers="storeManagers"
-          :may-write-post="permissions.mayWritePost"
-          :may-delete-everything="permissions.mayDeleteEverything"
-        />
-        <StoreTeam
-          v-if="!viewIsMobile"
-          :fs-id="userId"
-          :is-coordinator="permissions.isCoordinator"
-          :may-edit-store="permissions.mayEditStore"
-          :team="storeMember"
-          :store-id="storeId"
-          :store-title="storeInformation.name"
-          :region-id="storeInformation.region.id"
-        />
-      </div>
-      <div class="col">
-        <div
-          v-if="permissions.isJumper && !permissions.mayEditStore"
-          class="alert alert-info"
-          role="alert"
-        >
-          {{ $i18n('store.willgetcontacted') }}
-        </div>
-        <div
-          v-if="!permissions.mayDoPickup && !permissions.isJumper && !isVerified"
-          class="alert alert-info"
-          role="alert"
-        >
-          {{ $i18n('store.not_verified') }}
-        </div>
-        <PickupHistory
-          v-if="permissions.maySeePickupHistory"
-          :store-id="storeId"
-          :cooperation-start="storeInformation.cooperationStart"
-        />
-        <StoreLog
-          v-if="permissions.maySeeStoreLog"
-          :store-id="storeId"
-          :cooperation-start="storeInformation.cooperationStart"
-        />
-        <StoreWall
-          v-if="!viewIsMobile"
-          :may-read-store-wall="permissions.mayReadStoreWall"
-          :store-id="storeId"
-          :managers="storeManagers"
-          :may-write-post="permissions.mayWritePost"
-          :may-delete-everything="permissions.mayDeleteEverything"
-        />
-      </div>
-      <div class="col-lg-3">
-        <StoreInfos
-          :particularities-description="storeInformation.description"
-          :weight-type="storeInformation.weight"
-          :store-title="storeInformation.name"
-          :street="storeInformation.address.street"
-          :postcode="storeInformation.address.zipCode"
-          :city="storeInformation.address.city"
-          :last-fetch-date="lastFetchDate"
-          :press="storeInformation.publicity"
-          :region-pickup-rules="storeInformation.options.useRegionPickupRule"
-          :region-pickup-rule-active="regionPickupRule.regionPickupRuleActive"
-          :region-pickup-rule-timespan="regionPickupRule.regionPickupRuleTimespan"
-          :region-pickup-rule-limit="regionPickupRule.regionPickupRuleLimit"
-          :region-pickup-rule-limit-day="regionPickupRule.regionPickupRuleLimitDay"
-          :region-pickup-rule-inactive="regionPickupRule.regionPickupRuleInactive"
-        />
-        <PickupList
-          v-if="permissions.mayDoPickup"
-          :may-do-pickup="permissions.mayDoPickup"
-          :store-id="storeId"
-          :store-title="storeInformation.name"
-          :is-coordinator="permissions.isCoordinator"
-          :may-edit-store="permissions.mayEditStore"
-          :team-conversation-id="permissions.teamConversationId"
-        />
-        <StoreTeam
-          v-if="viewIsMobile"
-          :fs-id="userId"
-          :is-coordinator="permissions.isCoordinator"
-          :may-edit-store="permissions.mayEditStore"
-          :team="storeMember"
-          :store-id="storeId"
-          :store-title="storeInformation.name"
-          :region-id="storeInformation.region.id"
-        />
-      </div>
-    </div>
   </section>
 </template>
 
@@ -248,6 +148,7 @@ import { pulseInfo } from '@/script'
 import StoreLog from '@/components/Stores/StoreLog.vue'
 import StoreInformation from '@/components/Stores/StoreInformation.vue'
 import StoreMenu from '@/components/Stores/StoreMenu.vue'
+import PickupsData from '@/stores/pickups'
 
 export default {
   components: {
@@ -271,6 +172,7 @@ export default {
     return {
       isUserInStore: false,
       lastFetchDate: null,
+      loadedPickups: [],
     }
   },
   computed: {
@@ -296,6 +198,10 @@ export default {
   async mounted () {
     await StoreData.mutations.loadPermissions(this.storeId)
     await DataUser.mutations.fetchDetails()
+    if (!this.isJumper && this.isVerified) {
+      await PickupsData.mutations.fetchRegularPickup(this.storeId)
+      this.loadedPickups = await PickupsData.getters.getRegularPickup()
+    }
     await StoreData.mutations.loadStoreInformation(this.storeId)
     await StoreData.mutations.loadGetRegionOptions(this.storeInformation.region.id)
     await StoreData.mutations.loadStoreMember(this.storeId)

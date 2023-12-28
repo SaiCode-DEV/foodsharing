@@ -130,7 +130,7 @@ import i18n, { locale } from '@/helper/i18n'
 
 export default {
   props: {
-    editPickups: {
+    loadedPickups: {
       type: [Array, Object],
       default: () => [],
       required: true,
@@ -168,7 +168,7 @@ export default {
     console: () => console,
   },
   async created () {
-    this.editPickupsCopied = this.editPickups
+    this.editPickupsCopied = this.loadedPickups
   },
   methods: {
     removePickup (key) {
