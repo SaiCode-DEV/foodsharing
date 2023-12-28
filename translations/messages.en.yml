@@ -2187,8 +2187,7 @@ wall:
   see-more: Show all posts
   message_placeholder: Write a message…
   name: Pinboard
-  info-somebody-else: This entry is older than a month. As a Store Coordinator you
-    can remove it.
+  info-somebody-else: As a Store Coordinator you can remove this entry.
   confirm-deletion: Do you really want to delete the following pinboard post from
     {name}?
   info-logging: Please note that to avoid conflicts, the content and the person who
