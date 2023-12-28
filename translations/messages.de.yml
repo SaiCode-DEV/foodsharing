@@ -1986,6 +1986,7 @@ profile:
   nav:
     edit: "Profil bearbeiten"
     buddy: "Ich kenne {name}"
+    remove_buddy: "Ich kenne {name} nicht mehr"
     history: "Ausweishistorie" #also in ProfileXhr
     verificationHistory: "Verifizierungshistorie" #also in ProfileXhr
     notes: "Notizen <strong>({count})</strong>"
@@ -2666,6 +2667,12 @@ email_template:
   foodbasket_request: "Dein Essenskorb wurde von %SENDER% angefragt"
 
 buddy:
+  send:
+    confirm_title: "Kennst du {name}?"
+    confirm_text: "Wenn ihr euch gegenseitig als Bekannte marktiert, werden auf eurer Startseite Posts der Profilpinnwand der anderen Person angezeigt. Außerdem könnt ihr euch leichter über die Suche finden."
+  remove:
+    confirm_title: "Bekanntschaft mit {name} beenden?"
+    confirm_text: "Möchtest du die Bekanntschaft beenden? Updates auf euren Profilpinnwänden werden euch dann nicht mehr auf der Startseite angezeigt."
   request_sent: "Anfrage versendet."
   request_accepted: "Jetzt kennt ihr euch."
   is_buddy: "Ihr seid Bekannte"

@@ -44,12 +44,22 @@
         <i class="fas fa-pencil-alt fa-fw" /> {{ $i18n('profile.nav.edit') }}
       </b-list-group-item>
       <b-list-group-item
-        v-if="fsId !== fsIdSession && isNoBuddy && !isBuddy"
+        v-if="fsId !== fsIdSession && buddyType === buddyTypes.NO_BUDDY"
         type="button"
         class="list-group-item list-group-item-action"
-        @click="trySendBuddyRequest(fsId)"
+        :disabled="loading"
+        @click="sendBuddyRequest(fsId)"
       >
-        <i class="fas fa-user fa-fw" /> {{ $i18n('profile.nav.buddy', { name: foodSaverName }) }}
+        <i class="fas fa-user-friends fa-fw" /> {{ $i18n('profile.nav.buddy', { name: foodSaverName }) }}
+      </b-list-group-item>
+      <b-list-group-item
+        v-if="fsId !== fsIdSession && buddyType !== buddyTypes.NO_BUDDY"
+        type="button"
+        class="list-group-item list-group-item-action"
+        :disabled="loading"
+        @click="removeBuddy(fsId)"
+      >
+        <i class="fas fa-user-slash fa-fw" /> {{ $i18n('profile.nav.remove_buddy', { name: foodSaverName }) }}
       </b-list-group-item>
       <b-list-group-item
         v-if="mayHistory"
@@ -149,8 +159,14 @@ import conversationStore from '@/stores/conversations'
 import MediationRequest from './MediationRequest'
 import ReportRequest from './ReportRequest'
 import ProfileHistoryModal from './ProfileHistoryModal'
-import { sendBuddyRequest } from '@/api/buddy'
+import { sendBuddyRequest, removeBuddy } from '@/api/buddy'
 import i18n from '@/helper/i18n'
+
+const BUDDY_TYPES = Object.freeze({
+  NO_BUDDY: -1,
+  REQUESTED: 0,
+  BUDDY: 1,
+})
 
 export default {
   components: { Avatar, ReportRequest, MediationRequest, ProfileHistoryModal },
@@ -161,7 +177,7 @@ export default {
     isSleeping: { type: Boolean, default: false },
     isOnline: { type: Boolean, default: false },
     foodSaverName: { type: String, default: '' },
-    isNoBuddy: { type: Boolean, default: false },
+    initialBuddyType: { type: Number, default: BUDDY_TYPES.NO_BUDDY },
     mayAdmin: { type: Boolean, default: false },
     mayHistory: { type: Boolean, default: false },
     noteCount: { type: Number, default: 0 },
@@ -184,7 +200,9 @@ export default {
   },
   data () {
     return {
-      isBuddy: false,
+      buddyType: this.initialBuddyType,
+      buddyTypes: BUDDY_TYPES,
+      loading: false,
     }
   },
   computed: {
@@ -199,18 +217,50 @@ export default {
     openChat (fsId) {
       conversationStore.openChatWithUser(fsId)
     },
-    async trySendBuddyRequest (userId) {
+    async sendBuddyRequest (userId) {
+      const confimation = await this.$bvModal.msgBoxConfirm(this.$i18n('buddy.send.confirm_text'), {
+        title: this.$i18n('buddy.send.confirm_title', { name: this.foodSaverName }),
+        okTitle: this.$i18n('yes'),
+        cancelTitle: this.$i18n('button.cancel'),
+        hideHeaderClose: false,
+        centered: true,
+      })
+      if (!confimation) return
+      this.loading = true
       try {
-        const value = await sendBuddyRequest(userId)
-        if (value) {
+        const request = await sendBuddyRequest(userId)
+        if (request.isBuddy) {
           pulseInfo(i18n('buddy.request_accepted'))
+          this.buddyType = BUDDY_TYPES.BUDDY
         } else {
           pulseInfo(i18n('buddy.request_sent'))
-          this.isBuddy = true
+          this.buddyType = BUDDY_TYPES.REQUESTED
         }
       } catch (err) {
         pulseError(i18n('error_unexpected'))
+        this.buddyType = BUDDY_TYPES.NO_BUDDY
       }
+      this.loading = false
+    },
+    async removeBuddy (userId) {
+      const confimation = await this.$bvModal.msgBoxConfirm(this.$i18n('buddy.remove.confirm_text'), {
+        title: this.$i18n('buddy.remove.confirm_title', { name: this.foodSaverName }),
+        okVariant: 'danger',
+        okTitle: this.$i18n('yes'),
+        cancelTitle: this.$i18n('button.cancel'),
+        hideHeaderClose: false,
+        centered: true,
+      })
+      if (!confimation) return
+      this.loading = true
+      try {
+        await removeBuddy(userId)
+        this.buddyType = BUDDY_TYPES.NO_BUDDY
+      } catch (err) {
+        pulseError(i18n('error_unexpected'))
+        this.buddyType = BUDDY_TYPES.REQUESTED
+      }
+      this.loading = false
     },
     OpenHistory (type) {
       this.$refs.profileHistoryModal.showModal(this.fsId, type === 0)

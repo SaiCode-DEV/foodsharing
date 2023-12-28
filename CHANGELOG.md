@@ -13,6 +13,7 @@
 - Made store log accessible by store managers !2902 @AntonBallmaier
 - The source code of forum posts can now be copied !2913 @AntonBallmaier
 - Added confirmation modal to sending mail when creating a new thread !2877 @AntonBallmaier
+- Buddies can now be removed !2919 @AntonBallmaier
 - If youre phone number is invalid, you get informed about that on the dashboard now !2916 @AntonBallmaier
 - When answering posts in the forum, the answered message is now quoted !2937 @AntonBallmaier
 - Permissions as Orga-user are now displayed on users profile pages #1757 !2955 @AntonBallmaier
@@ -28,6 +29,7 @@
 - Changed behaviour from deleting unconfirmed slots at midnight into keeping them #1707 !2901 @irgendwer
 - Reworked all search functionality !2886 !2914 @AntonBallmaier
 - Markdown in forum posts is now rendered in the front end to reduce inconsistencies !2913 !2917 @AntonBallmaier
+- When adding buddies there is now a confirmation pop-up !2919 @AntonBallmaier
 - Change the direction of score voting !2920 @AntonBallmaier
 - Select no value by default in score voting !2920 @AntonBallmaier
 - Store wall posts can be deleted without waiting a month by store managers #1758 !2956 @AntonBallmaier

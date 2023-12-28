@@ -32,8 +32,7 @@ class BuddyTransactions
     {
         $this->buddyGateway->confirmBuddy($userId, $this->session->id());
 
-        $this->bellGateway->delBellsByIdentifier(BellType::createIdentifier(BellType::BUDDY_REQUEST, $this->session->id(), $userId));
-        $this->bellGateway->delBellsByIdentifier(BellType::createIdentifier(BellType::BUDDY_REQUEST, $userId, $this->session->id()));
+        $this->deleteBuddyRequestBells($userId);
 
         $buddyIds = $this->session->get('buddy-ids') ?: [];
 
@@ -57,5 +56,25 @@ class BuddyTransactions
             ['name' => $this->session->user('name')],
             BellType::createIdentifier(BellType::BUDDY_REQUEST, $this->session->id(), $userId)
         ));
+    }
+
+    /**
+     * Removes a buddy request.
+     *
+     * @param int $userId ID of another user
+     */
+    public function removeBuddyRequest(int $userId): void
+    {
+        $this->buddyGateway->removeRequest($this->session->id(), $userId);
+        if ($this->buddyGateway->hasSentBuddyRequest($userId, $this->session->id())) {
+            $this->buddyGateway->unconfirmBuddy($this->session->id(), $userId);
+        }
+        $this->deleteBuddyRequestBells($userId);
+    }
+
+    private function deleteBuddyRequestBells(int $userId): void
+    {
+        $this->bellGateway->delBellsByIdentifier(BellType::createIdentifier(BellType::BUDDY_REQUEST, $this->session->id(), $userId));
+        $this->bellGateway->delBellsByIdentifier(BellType::createIdentifier(BellType::BUDDY_REQUEST, $userId, $this->session->id()));
     }
 }
