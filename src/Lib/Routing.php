@@ -19,7 +19,6 @@ use Foodsharing\Modules\Login\LoginControl;
 use Foodsharing\Modules\Logout\LogoutControl;
 use Foodsharing\Modules\Mailbox\MailboxControl;
 use Foodsharing\Modules\Main\MainXhr;
-use Foodsharing\Modules\Map\MapControl;
 use Foodsharing\Modules\Map\MapXhr;
 use Foodsharing\Modules\Message\MessageControl;
 use Foodsharing\Modules\PassportGenerator\PassportGeneratorControl;
@@ -50,6 +49,9 @@ use Foodsharing\Modules\WorkGroup\WorkGroupXhr;
  */
 class Routing
 {
+    // needed for webpack resource loading
+    // for FoodsharingController, this is derived from the controller name
+    // (which should match the module name)
     private const MODULES = [
         'activity' => 'Activity',
         'application' => 'Application',
@@ -69,7 +71,6 @@ class Routing
         'logout' => 'Logout',
         'mailbox' => 'Mailbox',
         'main' => 'Main',
-        'map' => 'Map',
         'msg' => 'Message',
         'message' => 'Message',
         'passgen' => 'PassportGenerator',
@@ -105,7 +106,6 @@ class Routing
         'login' => LoginControl::class,
         'logout' => LogoutControl::class,
         'mailbox' => MailboxControl::class,
-        'map' => MapControl::class,
         'msg' => MessageControl::class,
         'message' => MessageControl::class,
         'passgen' => PassportGeneratorControl::class,
@@ -146,11 +146,13 @@ class Routing
         'team',
         'bezirk',
         'statistics',
+        'map',
     ];
 
     private const RENAMES = [
         'bezirk' => 'region',
         'statistics' => 'statistik',
+        'map' => 'karte'
     ];
 
     public static function getClassName(string $appName, $type = 'Xhr'): ?string

@@ -55,10 +55,6 @@ profile_id_notes:
   requirements:
     id: '\d+'
 
-karte:
-  path: /karte
-  controller: Foodsharing\Entrypoint\IndexController
-
 news:
   path: /news
   controller: Foodsharing\Entrypoint\IndexController

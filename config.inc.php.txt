@@ -50,9 +50,9 @@ $user_short = array('u' => 60);
 
 $g_page_cache = array(
     '/' => $both_short,
-		'/?page=map' => $user,
-		'/?page=map&load=baskets' => array('g' => 120, 'u' => 120),
-		'/?page=map$load=fairteiler' => $both,
+		'/karte' => $user,
+		'/karte?load=baskets' => array('g' => 120, 'u' => 120),
+		'/karte?load=fairteiler' => $both,
 		//'/?page=dashboard' => $user,
 		'/api/map/markers?types%5B%5D=baskets' => array('u' => 120, 'g' => 120),
 		'/api/map/markers?types%5B%5D=' => $both,

@@ -2,21 +2,23 @@
 
 namespace Foodsharing\Modules\Map;
 
-use Foodsharing\Modules\Core\Control;
+use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class MapControl extends Control
+class MapController extends FoodsharingController
 {
-    public function __construct(private readonly MapGateway $mapGateway, MapView $view)
-    {
-        $this->view = $view;
-
+    public function __construct(
+        private readonly MapGateway $mapGateway,
+        private readonly MapView $view
+    ) {
         parent::__construct();
     }
 
-    public function index(Request $request, Response $response)
+    #[Route('/karte', 'karte')]
+    public function index(Request $request): Response
     {
         $this->pageHelper->addTitle($this->translator->trans('map.title'));
 
@@ -26,9 +28,9 @@ class MapControl extends Control
         $this->pageHelper->addContent($this->view->mapControl(), CNT_TOP);
 
         $jsarr = '';
-        if (isset($_GET['load']) && $_GET['load'] == 'baskets') {
+        if ($request->query->has('load') && $request->query->get('load') == 'baskets') {
             $jsarr = '["baskets"]';
-        } elseif (isset($_GET['load']) && $_GET['load'] == 'fairteiler') {
+        } elseif ($request->query->has('load') && $request->query->get('load') == 'fairteiler') {
             $jsarr = '["fairteiler"]';
         }
 
@@ -36,8 +38,8 @@ class MapControl extends Control
             $this->view->lMap()
         );
 
-        if ($this->session->mayRole(Role::FOODSAVER) && isset($_GET['bid'])) {
-            $storeId = intval($_GET['bid']);
+        if ($this->session->mayRole(Role::FOODSAVER) && $request->query->has('bid')) {
+            $storeId = intval($request->query->get('bid'));
             $center = $this->mapGateway->getStoreLocation($storeId);
             $this->pageHelper->addJs('ajreq(\'bubble\', { app: \'store\', id: ' . $storeId . ' });');
         }
@@ -54,6 +56,6 @@ class MapControl extends Control
 
         $this->pageHelper->addJs('map.initMarker(' . $jsarr . ');');
 
-        $response->setContent($this->render('layouts/map.twig'));
+        return $this->renderGlobal('layouts/map.twig');
     }
 }

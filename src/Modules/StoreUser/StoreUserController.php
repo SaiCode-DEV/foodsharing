@@ -31,7 +31,7 @@ class StoreUserController extends FoodsharingController
         if (!$storePermissions->mayAccessStore($storeId)) {
             $this->flashMessageHelper->info($this->translator->trans('store.not-in-team'));
 
-            return $this->redirect('/?page=map&bid=' . $storeId);
+            return $this->redirect('/karte?bid=' . $storeId);
         }
 
         $params['storeId'] = $storeId;

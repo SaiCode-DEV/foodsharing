@@ -68,6 +68,7 @@
 - Modernized RegionControl to a Symfony controller !2741 !2945 @\_fridtjof_
 - Modernized StatisticsControl to a Symfony controller !2953 @\_fridtjof_
 - Switched the quickreply function for emails on the dashboard to use the mailbox API #1668 !2921 @alex.simm
+- Modernized MapControl to a Symfony controller !2986 @\_fridtjof_
 
 ## Dev/Test/CI stuff
 - removed CHANGELOG.md merge=union !2866 @chriswalg
