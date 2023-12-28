@@ -21,7 +21,6 @@
 
 ## Changes
 - Changed team state translation from full to closed !2831 @chriswalg
-- add store log to create or update pickup !2838 @chriswalg
 - Add "call" (tel:) button visibility also for desktop, not only mobile" #1138 !2835 @chriswalg
 - Administrating threads has a cleaner look !2882 @AntonBallmaier
 - Pinned Threads are sorted by name !2883 !2891 @AntonBallmaier

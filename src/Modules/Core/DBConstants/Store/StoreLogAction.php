@@ -22,6 +22,4 @@ class StoreLogAction
     public const SLOT_CONFIRMED = 14;
     public const DELETED_FROM_WALL = 15;
     public const REQUEST_CANCELLED = 16;
-    public const CREATE_OR_UPDATE_SINGLE_PICKUP_SLOT = 17;
-    public const CREATE_OR_UPDATE_REGULAR_PICKUP = 18;
 }

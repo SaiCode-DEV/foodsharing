@@ -35,8 +35,6 @@ export const STORE_LOG_ACTION = Object.freeze({
   SLOT_CONFIRMED: 14,
   DELETED_FROM_WALL: 15,
   REQUEST_CANCELLED: 16,
-  CREATE_OR_UPDATE_SINGLE_PICKUP_SLOT: 17,
-  CREATE_OR_UPDATE_REGULAR_PICKUP: 18,
 })
 
 export const store = Vue.observable({

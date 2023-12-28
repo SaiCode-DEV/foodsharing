@@ -271,12 +271,7 @@ final class PickupRestController extends AbstractFOSRestController
         $this->throwBadRequestExceptionOnError($errors);
 
         try {
-            $previousRegularPickups = $this->pickupTransactions->getRegularPickup($storeId);
             $regularPickups = $this->pickupTransactions->replaceRegularPickup($storeId, $regularPickups);
-
-            $previousRegularPickupsAsString = '[' . implode(',', array_map('json_encode', $previousRegularPickups)) . ']';
-
-            $this->storeGateway->addStoreLog($storeId, $this->session->id(), null, Carbon::now(), StoreLogAction::CREATE_OR_UPDATE_REGULAR_PICKUP, $previousRegularPickupsAsString);
         } catch (PickupValidationException $ex) {
             throw new BadRequestHttpException($ex->getMessage(), $ex);
         }
@@ -355,16 +350,6 @@ final class PickupRestController extends AbstractFOSRestController
             $pickup->description = $description;
 
             $created = $this->storeTransactions->createOrUpdatePickup($storeId, $pickup);
-
-            $slotData = [
-                'date' => $date,
-                'totalSlots' => $totalSlots,
-                'description' => $description,
-            ];
-
-            $jsonString = json_encode($slotData);
-
-            $this->storeGateway->addStoreLog($storeId, $this->session->id(), null, Carbon::now(), StoreLogAction::CREATE_OR_UPDATE_SINGLE_PICKUP_SLOT, $jsonString);
 
             return $this->handleView($this->view(['created' => $created], 200));
         } catch (PickupValidationException $ex) {

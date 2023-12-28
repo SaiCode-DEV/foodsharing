@@ -970,7 +970,6 @@ store:
     search: "Ausgewählte Aktionen anzeigen"
     selected_log_types: "{amount} Aktions-Typen ausgewählt"
     log_types_placeholder: "Anzuzeigende Aktions-Typen auswählen"
-    no_description: "keine"
     type:
       1: Beitrittsanfragen stellen
       2: Beitrittsanfragen ablehnen
@@ -988,9 +987,6 @@ store:
       14: Abholslot bestätigen
       15: Pinnwandeintrag löschen
       16: Beitrittsanfrage zurückziehen
-      17: Einzelner Abholtermin erstellt oder geändert
-      18: Automatischer Abholtermin erstellt oder geändert
-
     message:
       1: "{actor} hat eine Beitrittsanfrage gestellt."
       2: "{actor} hat die Beitrittsanfrage von {target} abgelehnt."
@@ -1009,8 +1005,6 @@ store:
       14: "{actor} hat den Abholslot von {target} am {date} bestätigt."
       15: "{actor} hat {target}s Pinnwandeintrag vom {date} gelöscht"
       16: "{actor} hat die Beitrittsanfrage zurückgezogen"
-      17: "{actor} hat den Abholtermin [ {date} mit {totalSlots} Slots mit Beschreibung: {description} ] erstellt oder geändert"
-      18: "{actor} hat automatischen Abholtermin [ {weekday} {startTimeOfPickup} Slots: {maxCountOfSlots} mit Beschreibung: {description} ] erstellt oder geändert"
     max_entries_message: Maximal 100 Einträge werden angezeigt. Bitte grenze den Suchbereich ein.
 
 storeedit:

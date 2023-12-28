@@ -42,7 +42,7 @@
             <StoreLogEntryMessage :action="action" />
             <small class="text-muted">({{ $dateFormatter.dateTime(action.performed_at, { weekday: false }) }})</small>
             <blockquote v-if="action.reason" v-text="action.reason" />
-            <blockquote v-if="shouldShowBlockquote">
+            <blockquote v-if="action.content">
               <Markdown :source="action.content" />
             </blockquote>
           </span>
@@ -65,7 +65,8 @@ import Avatar from '@/components/Avatar.vue'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import { pulseError } from '@/script'
 import StoreLogEntryMessage from './StoreLogEntryMessage.vue'
-import { STORE_LOG_ACTION } from '@/stores/stores'
+
+const NUMBER_OF_ACTION_TYPES = 16
 
 export default {
   components: { Container, DateRangePicker, Multiselect, Avatar, Markdown, StoreLogEntryMessage },
@@ -75,8 +76,7 @@ export default {
     cooperationStart: { type: String, default: null },
   },
   data () {
-    const numberOfActionTypes = Object.keys(STORE_LOG_ACTION).length
-    const actionTypeIds = [...Array(numberOfActionTypes).keys()].map((id) => id + 1) // action type IDs start at 1
+    const actionTypeIds = [...Array(NUMBER_OF_ACTION_TYPES).keys()].map((id) => id + 1) // action type IDs start at 1
     const actionTypeOptions = actionTypeIds.map((id) => ({ id, name: this.$i18n(`store.log.type.${id}`) }))
 
     return {
@@ -90,16 +90,6 @@ export default {
   computed: {
     disableSearch () {
       return !this.selectedActionTypes.length || this.isLoading
-    },
-    shouldShowBlockquote () {
-      if (!this.action || typeof this.action.content === 'undefined') {
-        return false
-      }
-
-      const isNotCreateOrUpdateSingleSlot = this.action.action_id !== STORE_LOG_ACTION.CREATE_OR_UPDATE_SINGLE_PICKUP_SLOT
-      const isNotCreateOrUpdateRegularPickup = this.action.action_id !== STORE_LOG_ACTION.CREATE_OR_UPDATE_REGULAR_PICKUP
-
-      return isNotCreateOrUpdateSingleSlot && isNotCreateOrUpdateRegularPickup
     },
   },
   methods: {
