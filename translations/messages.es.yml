@@ -2269,6 +2269,8 @@ buddy:
   request_sent: 'Solicitud enviada.'
   request_accepted: 'Ahora son amig@s.'
   is_buddy: Ustedes son amig@s
+  send:
+    confirm_title: ¿Conoces a {name}?
 time: 'tiempo'
 fsp:
   followers: 'Seguidor@s'
@@ -2388,8 +2390,8 @@ wall:
   error-delete: 'No puedes eliminar esta entrada.'
   error-create: 'No se pudo guardar tu publicación en el tablero.'
   message_placeholder: ''
-  info-somebody-else: 'Esta entrada tiene más de un mes, por lo que usted, como responsable,
-    puede eliminarla si es necesario.'
+  info-somebody-else: 'Dado que tiene permiso para administrar esta operación, puede
+    eliminar esta entrada si es necesario.'
   placeholder: Escribe una nueva entrada en el muro…
 events:
   bread: 'Eventos'
