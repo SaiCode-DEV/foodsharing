@@ -94,6 +94,7 @@
 - Updated Contributors section in README.md !2954 @thomas.hauschild
 - Fixed some DevDocs references !2974 @thomas.hauschild
 - Removed InfluxDB !2983 !2894 @chriswalg
+- Fixed faulty Code in FoodsaverGateway !2994 @BibaltiK
 
 ## Development documentation
 

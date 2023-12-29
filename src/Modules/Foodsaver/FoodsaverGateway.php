@@ -863,13 +863,13 @@ class FoodsaverGateway extends BaseGateway
 				fs.name,
 				fs.nachname,
 				fs.photo,
-				fs.rolle
-				fs.geschlecht
+				fs.rolle,
+				fs.geschlecht,
 				fs.last_login as last_activity
 
 		FROM	fs_foodsaver fs
 
-		WHERE   fs.deleted_at_at IS NULL
+		WHERE   fs.deleted_at IS NULL
 		AND     fs.id = :foodsaverId
 		', [':foodsaverId' => $foodsaverId]);
     }
