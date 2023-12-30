@@ -572,7 +572,7 @@ export default {
       window.dispatchEvent(new Event('resize'))
     },
     isUpdatedRegularPickup () {
-      return JSON.stringify(this.editPickups) !== JSON.stringify(this.previousEditPickups)
+      return JSON.stringify(this.loadedPickups) !== JSON.stringify(this.previousEditPickups)
     },
     async submit (bvModalEvent) {
       bvModalEvent.preventDefault()
