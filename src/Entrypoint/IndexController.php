@@ -2,7 +2,6 @@
 
 namespace Foodsharing\Entrypoint;
 
-use Foodsharing\Annotation\DisableCsrfProtection;
 use Foodsharing\Lib\Routing;
 use Foodsharing\Modules\Core\Control;
 use Foodsharing\Utility\PageHelper;
@@ -17,11 +16,6 @@ use Symfony\Component\HttpFoundation\UrlHelper;
 
 class IndexController extends AbstractController
 {
-    /**
-     * @DisableCsrfProtection CSRF Protection (originally done for the REST API)
-     * breaks POST on these entrypoints right now,
-     * so this annotation disables it.
-     */
     public function __invoke(
         Request $request,
         RouteHelper $routeHelper,
