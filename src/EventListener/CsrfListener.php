@@ -30,6 +30,15 @@ class CsrfListener
 
         list($controller, $methodName) = $controllers;
         $reflectionObject = new \ReflectionObject($controller);
+        $namespaceName = $reflectionObject->getNamespaceName();
+        if (!str_starts_with($namespaceName, 'Foodsharing\\RestApi')) {
+            // This mechanism was only ever meant for the REST API,
+            // which used to be the only Symfony controllers.
+            // Since we started using Symfony for everything now,
+            // this ignores all requests not handled by the REST controllers.
+            return;
+        }
+
         $reflectionMethod = $reflectionObject->getMethod($methodName);
         $methodAnnotation = $this->reader
             ->getMethodAnnotation($reflectionMethod, DisableCsrfProtection::class);
