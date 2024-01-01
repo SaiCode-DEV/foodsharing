@@ -114,7 +114,18 @@
               class="social_icons hide-external"
               :rel="externalLink"
             >
-              <i :class="social.icon" />
+              <!-- This is a workaround for the bluesky icon and can be removed it is added to fontawesome -->
+              <img
+                v-if="social.icon.startsWith('/')"
+                :src="social.icon"
+                width="19px"
+                height="19px"
+                style="vertical-align: middle"
+              >
+              <i
+                v-else
+                :class="social.icon"
+              />
               <span
                 class="sr-only"
                 v-html="social.name"

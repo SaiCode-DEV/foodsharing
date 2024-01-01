@@ -1,8 +1,8 @@
 [
    {
-      "title":"Twitter",
-      "url":"twitter",
-      "icon":"fab fa-twitter"
+      "title":"Bluesky",
+      "url":"bluesky",
+      "icon":"/img/footer/bluesky-logo.svg"
    },
    {
       "title":"Facebook",
