@@ -10,13 +10,10 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
 
 class CsrfListener
 {
-    private $reader;
-    private $session;
-
-    public function __construct(Reader $reader, Session $session)
-    {
-        $this->reader = $reader;
-        $this->session = $session;
+    public function __construct(
+        private readonly Reader $reader,
+        private readonly Session $session
+    ) {
     }
 
     public function onKernelController(ControllerEvent $event)
