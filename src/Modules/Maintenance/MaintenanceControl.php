@@ -103,7 +103,9 @@ class MaintenanceControl extends ConsoleControl
         /*
          * Remove failed and unprocessed E-Mais form IMAP folder
          */
-        $this->deleteImapFolderMails();
+        if (getenv('FS_ENV') !== 'dev') {
+            $this->deleteImapFolderMails();
+        }
     }
 
     public function rebuildRegionClosure()

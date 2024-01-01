@@ -95,6 +95,7 @@
 - Fixed some DevDocs references !2974 @thomas.hauschild
 - Removed InfluxDB !2983 !2894 @chriswalg
 - Fixed faulty Code in FoodsaverGateway !2994 @BibaltiK
+- Fix seed command in dev setup !3004 @chriswalg
 
 ## Development documentation
 
