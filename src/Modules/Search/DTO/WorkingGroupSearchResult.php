@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Foodsharing\Modules\Search\DTO;
 
 use Foodsharing\Modules\Foodsaver\DTO\FoodsaverForAvatar;
@@ -68,6 +70,7 @@ class WorkingGroupSearchResult extends SearchResult
         $result->is_member = boolval($data['is_member']);
         $result->is_admin = boolval($data['is_admin']);
         $result->admins = self::formatUserList($data, 'admin');
+        $result->setSearchString($data);
 
         return $result;
     }

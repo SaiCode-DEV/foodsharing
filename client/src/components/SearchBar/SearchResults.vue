@@ -8,110 +8,38 @@
     </div>
 
     <div
-      v-if="hasMaxSearchResultCount"
-      class="alert alert-warning"
-    >
-      {{ $i18n('search.maxresults') }}
-    </div>
-
-    <div
-      v-if="results.regions.length"
+      v-for="section in resultSections"
+      :key="section.key"
       class="entry"
     >
       <h3 class="dropdown-header">
-        <i class="icon-subnav fas fa-globe" /> {{ $i18n('globals.type.regions') }}
+        <i :class="`icon-subnav fas fa-${section.icon}`" /> {{ $i18n(`globals.type.${section.key}`) }}
       </h3>
-      <RegionResultEntry
-        v-for="region in results.regions"
-        :key="region.id"
-        :region="region"
-      />
-    </div>
-
-    <div
-      v-if="results.workingGroups.length"
-      class="entry"
-    >
-      <h3 class="dropdown-header">
-        <i class="icon-subnav fas fa-users" /> {{ $i18n('globals.type.groups') }}
-      </h3>
-      <WorkingGroupResultEntry
-        v-for="group in results.workingGroups"
-        :key="group.id"
-        :working-group="group"
-      />
-    </div>
-
-    <div
-      v-if="results.users.length"
-      class="entry"
-    >
-      <h3 class="dropdown-header">
-        <i class="icon-subnav fas fa-user" /> {{ $i18n('globals.type.persons') }}
-      </h3>
-      <UserResultEntry
-        v-for="user in results.users"
-        :key="user.id"
-        :user="user"
+      <component
+        :is="section.component"
+        v-for="(entity, i) in shownResults[section.key]"
+        :id="`${section.key}-${i}`"
+        :key="entity.id"
+        :[section.prop]="entity"
         @close="$emit('close')"
       />
-    </div>
-
-    <div
-      v-if="results.stores.length"
-      class="entry"
-    >
-      <h3 class="dropdown-header">
-        <i class="icon-subnav fas fa-shopping-cart" /> {{ $i18n('globals.type.stores') }}
-      </h3>
-      <StoreResultEntry
-        v-for="store in results.stores"
-        :key="store.id"
-        :store="store"
-      />
-    </div>
-
-    <div
-      v-if="results.threads.length"
-      class="entry"
-    >
-      <h3 class="dropdown-header">
-        <i class="icon-subnav fas fa-comments" /> {{ $i18n('globals.type.threads') }}
-      </h3>
-      <ThreadResultEntry
-        v-for="thread in results.threads"
-        :key="thread.id"
-        :thread="thread"
-      />
-    </div>
-
-    <div
-      v-if="results.chats.length"
-      class="entry"
-    >
-      <h3 class="dropdown-header">
-        <i class="icon-subnav fas fa-comment" /> {{ $i18n('globals.type.chats') }}
-      </h3>
-      <ChatResultEntry
-        v-for="chat in results.chats"
-        :key="chat.id"
-        :chat="chat"
-        @close-modal="$emit('close')"
-      />
-    </div>
-
-    <div
-      v-if="results.foodSharePoints.length"
-      class="entry"
-    >
-      <h3 class="dropdown-header">
-        <i class="icon-subnav fas fa-recycle" /> {{ $i18n('globals.type.foodshare_points') }}
-      </h3>
-      <FoodSharePointResultEntry
-        v-for="foodSharePoint in results.foodSharePoints"
-        :key="foodSharePoint.id"
-        :food-share-point="foodSharePoint"
-      />
+      <div
+        v-if="hasMaxSearchResultCount[section.key] && expanded[section.key]"
+        class="alert alert-warning my-1"
+      >
+        {{ $i18n('search.maxresults') }}
+      </div>
+      <div v-if="toggleButtonVisibility[section.key]">
+        <button
+          :id="`toggle-${section.key}`"
+          tabindex="1"
+          class="list-group-item small list-group-item-action font-weight-bold text-center"
+          :class="{'list-group-item-secondary': !expanded[section.key]}"
+          @click="toggleExpanded(section.key)"
+          @keyup.enter="setFocusAfterButtonPress(section.key)"
+          v-text="$i18n(expanded[section.key] ? 'globals.show_less' : 'globals.show_more')"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -124,8 +52,10 @@ import StoreResultEntry from './ResultEntry/StoreResultEntry'
 import FoodSharePointResultEntry from './ResultEntry/FoodSharePointResultEntry'
 import ChatResultEntry from './ResultEntry/ChatResultEntry'
 import ThreadResultEntry from './ResultEntry/ThreadResultEntry'
+import { objectMap } from '@/utils'
 
 const MAX_SEARCH_RESULT_COUNT = 30
+const MAX_DISPLAYED_RESULTS_REDUCED = 4
 
 export default {
   components: { UserResultEntry, WorkingGroupResultEntry, RegionResultEntry, StoreResultEntry, FoodSharePointResultEntry, ChatResultEntry, ThreadResultEntry },
@@ -151,12 +81,43 @@ export default {
       default: true,
     },
   },
+  data () {
+    return {
+      possibleResultSections: [
+        { key: 'stores', icon: 'shopping-cart', component: StoreResultEntry, prop: 'store' },
+        { key: 'users', icon: 'user', component: UserResultEntry, prop: 'user' },
+        { key: 'regions', icon: 'globe', component: RegionResultEntry, prop: 'region' },
+        { key: 'workingGroups', icon: 'users', component: WorkingGroupResultEntry, prop: 'workingGroup' },
+        { key: 'threads', icon: 'comments', component: ThreadResultEntry, prop: 'thread' },
+        { key: 'chats', icon: 'comment', component: ChatResultEntry, prop: 'chat' },
+        { key: 'foodSharePoints', icon: 'recycle', component: FoodSharePointResultEntry, prop: 'foodSharePoint' },
+      ],
+      expanded: objectMap(this.results, key => false),
+    }
+  },
   computed: {
     isEmpty () {
-      return Object.values(this.results).every(value => value.length === 0)
+      return Object.values(this.results).every(value => !value.length)
     },
     hasMaxSearchResultCount () {
-      return Object.values(this.results).some(list => list.length >= MAX_SEARCH_RESULT_COUNT)
+      return objectMap(this.results, list => list.length >= MAX_SEARCH_RESULT_COUNT)
+    },
+    resultSections () {
+      return this.possibleResultSections.filter(section => this.results[section.key].length)
+    },
+    shownResults () {
+      return objectMap(this.results, (list, key) => this.expanded[key] ? list : list.toSpliced(MAX_DISPLAYED_RESULTS_REDUCED))
+    },
+    toggleButtonVisibility () {
+      return objectMap(this.results, list => list.length > MAX_DISPLAYED_RESULTS_REDUCED)
+    },
+  },
+  methods: {
+    toggleExpanded (key) {
+      this.expanded[key] = !this.expanded[key]
+    },
+    async setFocusAfterButtonPress (key) {
+      if (this.expanded[key]) document.getElementById(`${key}-${MAX_DISPLAYED_RESULTS_REDUCED}`).focus()
     },
   },
 }
@@ -175,6 +136,10 @@ export default {
   height: fit-content;
   padding-top: 4px;
   padding-bottom: 4px;
+}
+
+.list-group-item:focus{
+  outline: none;
 }
 
 </style>

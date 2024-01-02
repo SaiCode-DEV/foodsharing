@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Foodsharing\Modules\Search\DTO;
 
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
@@ -84,6 +86,7 @@ class StoreSearchResult extends SearchResult
         $result->membership_status = $data['membership_status'];
         $result->is_manager = boolval($data['is_manager']);
         $result->chain_name = $data['chain_name'];
+        $result->setSearchString($data);
 
         return $result;
     }

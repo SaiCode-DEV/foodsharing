@@ -3086,11 +3086,11 @@ globals:
     my_stores: Meine Betriebe
     regions: Bezirke
     my_regions: Meine Bezirke
-    foodshare_points: Fairteiler
+    foodSharePoints: Fairteiler
     my_foodshare_points: Meine Fairteiler
-    groups: Gruppen
+    workingGroups: Gruppen
     my_groups: Meine Gruppen
-    persons: Personen
+    users: Personen
     my_persons: Meine Personen
     chats: Chats
     threads: Themen
@@ -3101,9 +3101,10 @@ search:
   title: Suche
   placeholder: Jetzt Suche starten …
   informations: Du kannst nach Personen, Gruppen, Betrieben, Bezirken, Chats, Forenbeiträgen und Fairteilern suchen.
+  too_short: Bitte gib einen längeren Suchbegriff ein.
   forum: Nach Titel suchen …
   noresults: Es konnten keine Ergebnisse gefunden werden
-  maxresults: Pro Kategorie werden max. 30 Ergebnisse angezeigt. Nutze eventuell einen spezifischeren Suchbegriff.
+  maxresults: Die Anzahl angezeigter Egebnisse ist begrenzt. Nutze eventuell einen spezifischeren Suchbegriff.
   thread-title-only: Es werden nur Titel durchsucht, nicht der Text von Beiträgen.
   user_search:
     placeholder: Name oder ID

@@ -92,7 +92,7 @@ class ActivityTransactions
 
         return [
             ActivityFilterCategory::create('bezirk', $this->translator->trans('globals.type.my_groups'),
-                $this->translator->trans('globals.type.groups'), $groupOptions),
+                $this->translator->trans('globals.type.workingGroups'), $groupOptions),
             ActivityFilterCategory::create('bezirk', $this->translator->trans('globals.type.my_regions'),
                 $this->translator->trans('globals.type.regions'), $regionOptions),
             ActivityFilterCategory::create('mailbox', $this->translator->trans('globals.type.my_mailboxes'),

@@ -2,6 +2,7 @@
   <a
     class="d-flex dropdown-item search-result"
     href="#"
+    tabindex="1"
     @click="openChat"
   >
     <div class="text-truncate flex-grow-1">

@@ -61,4 +61,22 @@ class SearchTransactions
 
         return $result;
     }
+
+    /**
+     * Assembles an index for quickly searching the users  for regions, stores, foodsavers, food share points and working groups.
+     */
+    public function searchIndex(): MixedSearchResult
+    {
+        $foodsaverId = $this->session->id();
+        $result = new MixedSearchResult();
+        $result->regions = $this->searchGateway->getRegionsForSearchIndex($foodsaverId);
+        $result->workingGroups = $this->searchGateway->getWorkingGroupsForSearchIndex($foodsaverId);
+        $result->stores = $this->searchGateway->getStoresForSearchIndex($foodsaverId);
+        $result->foodSharePoints = $this->searchGateway->getFoodSharePointsForSearchIndex($foodsaverId);
+        $result->chats = $this->searchGateway->getChatsForSearchIndex($foodsaverId);
+        $result->threads = $this->searchGateway->getThreadsForSearchIndex($foodsaverId);
+        $result->users = $this->searchGateway->getUsersForSearchIndex($foodsaverId);
+
+        return $result;
+    }
 }

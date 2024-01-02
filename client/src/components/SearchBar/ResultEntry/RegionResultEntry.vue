@@ -2,6 +2,7 @@
   <a
     :href="$url('forum', region.id)"
     class="d-flex dropdown-item search-result"
+    tabindex="1"
   >
     <div class="text-truncate flex-grow-1">
       <h6 class="m-0 text-truncate d-inline">

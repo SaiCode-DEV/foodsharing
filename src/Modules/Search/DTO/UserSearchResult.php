@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Foodsharing\Modules\Search\DTO;
 
 use OpenApi\Annotations as OA;
@@ -74,9 +76,10 @@ class UserSearchResult extends SearchResult
         $result->region_name = $data['region_name'];
         $result->last_name = $data['last_name'];
         $result->mobile = $data['mobile'];
-        $result->is_buddy = $data['is_buddy'];
-        $result->is_verified = $data['is_verified'];
+        $result->is_buddy = (bool)$data['is_buddy'];
+        $result->is_verified = (bool)$data['is_verified'];
         $result->email = $data['email'] ?? null;
+        $result->setSearchString($data);
 
         return $result;
     }

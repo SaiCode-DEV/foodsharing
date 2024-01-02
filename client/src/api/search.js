@@ -1,6 +1,6 @@
 import { get } from './base'
 
-export async function instantSearch (query) {
+export async function search (query) {
   return await get(`/search/all?q=${encodeURIComponent(query)}`)
 }
 
@@ -12,7 +12,7 @@ export async function searchUser (query, regionId = null) {
   return await get(path)
 }
 
-export async function instantSearchIndex () {
+export async function getSearchIndex () {
   return await get('/search/index')
 }
 

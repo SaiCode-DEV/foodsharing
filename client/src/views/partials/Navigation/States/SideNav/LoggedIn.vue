@@ -49,5 +49,15 @@ export default {
       return DataUser.getters.isFoodsaver()
     },
   },
+  mounted () {
+    window.addEventListener('keypress', this.openSearchViaKeyCombinationHandler)
+  },
+  methods: {
+    openSearchViaKeyCombinationHandler (event) {
+      if (event.target === document.body && event.code === 'KeyF' && event.shiftKey) {
+        this.$bvModal.show('searchBarModal')
+      }
+    },
+  },
 }
 </script>

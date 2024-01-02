@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Foodsharing\Modules\Search\DTO;
 
 use OpenApi\Annotations as OA;
@@ -59,6 +61,7 @@ class ThreadSearchResult extends SearchResult
         $result->is_inside_ambassador_forum = boolval($data['is_inside_ambassador_forum']);
         $result->region_id = $data['region_id'];
         $result->region_name = $data['region_name'];
+        $result->setSearchString($data);
 
         return $result;
     }

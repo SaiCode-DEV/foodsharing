@@ -2,6 +2,7 @@
   <a
     :href="$url('profile', user.id)"
     class="d-flex dropdown-item search-result"
+    tabindex="1"
   >
     <Avatar
       class="mr-2"

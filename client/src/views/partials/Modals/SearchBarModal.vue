@@ -4,8 +4,7 @@
     ref="searchBarModal"
     button-size="sm"
     size="lg"
-
-    @shown="focusSearchbar"
+    @shown="shownHandler"
   >
     <template #modal-header>
       <label
@@ -27,6 +26,7 @@
         type="text"
         class="form-control"
         :placeholder="$i18n('search.placeholder')"
+        tabindex="1"
       >
       <i
         class="icon icon-right fas"
@@ -39,7 +39,7 @@
     <template
       #default
     >
-      <search-results
+      <SearchResults
         v-if="showResults"
         class="results"
         :results="results"
@@ -50,7 +50,11 @@
         v-else
         class="alert alert-info"
       >
-        {{ $i18n('search.informations') }}
+        <span v-text="$i18n('search.informations')" />
+        <span
+          v-if="idle && query.length"
+          v-text="$i18n('search.too_short')"
+        />
       </div>
     </template>
     <template #modal-footer="{ hide }">
@@ -67,7 +71,7 @@
 
 <script>
 import SearchResults from '@/components/SearchBar/SearchResults'
-import { instantSearch } from '@/api/search'
+import { search, getSearchIndex } from '@/api/search'
 export default {
   components: { SearchResults },
   data () {
@@ -75,46 +79,100 @@ export default {
       query: '',
       showResults: false,
       isLoading: false,
-      results: undefined,
+      directSearchResults: null,
+      index: null,
+      recentQueryChangesCount: 0,
     }
   },
+  computed: {
+    strippedQuery () {
+      let queryWords = this.query.toLowerCase().split(/[,;+.\s]+/g).toSorted((a, b) => a.length - b.length)
+      if (queryWords.length > 1) {
+        // Remove query words that are substrings of others
+        queryWords = queryWords.filter((word, i) => !queryWords.toSpliced(0, i + 1).some(otherWord => otherWord.includes(word)))
+      }
+      return queryWords.join(' ')
+    },
+    results () {
+      if (!this.index) {
+        return this.directSearchResults
+      }
+      const results = {}
+      const queryWords = this.strippedQuery.split(' ')
+      const detailedSearch = queryWords.length > 1
+      for (const key in this.index) {
+        results[key] = this.index[key].filter(
+          entry => queryWords.every(word => this.searchString(entry.search_string, detailedSearch).includes(this.collateString(word))),
+        )
+        if (this.directSearchResults) {
+          results[key].push(...this.directSearchResults[key].filter(
+            entry => !results[key].some(indexedEntry => entry.id === indexedEntry.id),
+          ))
+        }
+      }
+      return results
+    },
+    idle () {
+      return this.recentQueryChangesCount === 0
+    },
+  },
   watch: {
-    query (query) {
+    strippedQuery (strippedQuery) {
       // Require at least one word of length 3 or two of length 2:
-      const queryLengthScore = query.split(/[,;+.\s]+/g).map(word => word.length - 1).reduce((a, b) => a + b)
+      const queryLengthScore = strippedQuery.split(' ').map(word => word.length - 1).reduce((a, b) => a + b)
       if (queryLengthScore > 1) {
         this.showResults = true
-        this.delayedFetch()
+        this.delayedFetch(strippedQuery)
         return
       }
       clearTimeout(this.timeout)
       this.showResults = false
       this.isLoading = false
-      this.results = undefined
+      this.directSearchResults = null
+    },
+    async query (query) {
+      this.recentQueryChangesCount++
+      await new Promise(resolve => window.setTimeout(resolve, 2000))
+      this.recentQueryChangesCount--
     },
   },
   methods: {
+    shownHandler () {
+      this.focusSearchbar()
+      this.fetchIndex()
+    },
     focusSearchbar () {
       this.$refs.searchField.focus()
     },
-    delayedFetch () {
+    delayedFetch (strippedQuery) {
       this.isLoading = true
+      this.directSearchResults = undefined
       if (this.timeout) {
         clearTimeout(this.timeout)
       }
       this.timeout = setTimeout(() => {
-        this.fetch()
+        this.fetch(strippedQuery)
       }, 200)
     },
-    async fetch () {
-      const curQuery = this.query
-      const results = await instantSearch(curQuery)
-      if (curQuery !== this.query) {
+    async fetch (strippedQuery) {
+      const results = await search(strippedQuery)
+      if (strippedQuery !== this.strippedQuery) {
         // query has changed, throw away this response
         return false
       }
-      this.results = results
+      this.directSearchResults = results
       this.isLoading = false
+    },
+    async fetchIndex () {
+      if (this.index) return
+      this.index = await getSearchIndex()
+    },
+    collateString (string) {
+      return string.toLowerCase().normalize('NFKD').replace(/[^\w\d\s"]/g, '')
+    },
+    searchString (string, detailedSearch) {
+      if (!detailedSearch) string = string.split('"!!!"')[0]
+      return this.collateString(string)
     },
   },
 }

@@ -148,3 +148,5 @@ export function arrayEquals (a, b) {
 export function arrayContentEquals (a, b) {
   return a.length === b.length && a.every((val, index) => b.includes(val))
 }
+
+export const objectMap = (object, func) => Object.fromEntries(Object.keys(object).map(key => [key, func(object[key], key)]))

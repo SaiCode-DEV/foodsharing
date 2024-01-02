@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Foodsharing\Modules\Search\DTO;
 
 use OpenApi\Annotations as OA;
@@ -51,6 +53,7 @@ class FoodSharePointSearchResult extends SearchResult
         $result->city = $data['city'];
         $result->region_id = $data['region_id'];
         $result->region_name = $data['region_name'];
+        $result->setSearchString($data);
 
         return $result;
     }
