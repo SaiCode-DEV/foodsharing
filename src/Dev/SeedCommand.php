@@ -43,6 +43,7 @@ class SeedCommand extends Command implements CustomCommandInterface
     protected $prAdmins = [];
     protected $moderationAdmins = [];
     protected $boardAdmins = [];
+    protected $electionAdmins = [];
 
     /**
      * returns the name of the command.
@@ -298,6 +299,17 @@ class SeedCommand extends Command implements CustomCommandInterface
             $I->addRegionMember($boardGroup['id'], $user['id']);
             $I->addRegionAdmin($boardGroup['id'], $user['id']);
             $this->boardAdmins[] = $user['id'];
+        }
+        $this->output->writeln(' done');
+
+        $this->output->writeln('- create election group');
+        $electionGroup = $I->createWorkingGroup('Wahlen Göttingen', ['parent_id' => $region1, 'email_name' => 'wahlen.Goettingen', 'teaser' => 'Hier ist die Wahlen AG für unseren Bezirk']);
+        $I->haveInDatabase('fs_region_function', ['region_id' => $electionGroup['id'], 'function_id' => WorkgroupFunction::ELECTION, 'target_id' => $region1]);
+        foreach (range(1, 4) as $i) {
+            $user = $I->createStoreCoordinator($password, ['email' => 'userelection' . $i . '@example.com', 'bezirk_id' => $region1]);
+            $I->addRegionMember($electionGroup['id'], $user['id']);
+            $I->addRegionAdmin($electionGroup['id'], $user['id']);
+            $this->electionAdmins[] = $user['id'];
         }
         $this->output->writeln(' done');
     }

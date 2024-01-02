@@ -35,6 +35,8 @@ class MEDIATION
 class FSMANAGEMENT
 class PR
 class MODERATION
+class BOARD
+class ELECTION
 
 WorkingGroup -d- WELCOME
 WorkingGroup -d- VOTING
@@ -46,4 +48,6 @@ WorkingGroup -d- MEDIATION
 WorkingGroup -d- FSMANAGEMENT
 WorkingGroup -d- PR
 WorkingGroup -d- MODERATION
+WorkingGroup -d- BOARD
+WorkingGroup -d- ELECTION
 ~~~

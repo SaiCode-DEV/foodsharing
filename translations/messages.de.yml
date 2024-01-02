@@ -427,6 +427,7 @@ group:
     pr: "Öffentlichkeitsarbeit"
     moderation: "Moderation"
     board: "Vorstand"
+    election: "Wahlen"
     invalid: "Ein Bezirk kann nicht mit einer Arbeitsgruppenfunktion versehen werden."
     duplicate_welcome_team: "Begrüßungsteam schon angelegt! Pro Bezirk kann es nur ein Begrüßungsteam geben."
     duplicate_voting_team: "Abstimmungsteam schon angelegt! Pro Bezirk kann es nur ein Abstimmungsteam geben."
@@ -439,6 +440,7 @@ group:
     duplicate_pr_team: 'Öffentlichkeitsarbeitsteam schon angelegt! Pro Bezirk kann es nur ein Öffentlichkeitsarbeitsteam geben.'
     duplicate_moderation_team: 'Moderationsteam schon angelegt! Pro Bezirk kann es nur ein Moderationsteam geben.'
     duplicate_board_team: 'Vorstand schon angelegt! Pro Bezirk kann es nur einen Vorstand geben.'
+    duplicate_election_team: 'Wahlen schon angelegt! Pro Bezirk kann es nur eine Wahlen-AG geben.'
     restricted_workgroup_function: 'Diese Arbeitsgruppenfunktion kann nur von der Überregionalen Arbeitsgruppe „AG anlegen“ bearbeitet werden'
     tooltip_function_1: "Administrator*innen dieser Arbeitsgruppe werden bei neuen Mitgliedern im Bezirk benachrichtigt"
     tooltip_function_2: "Administrator*innen dieser Arbeitsgruppe können Abstimmungen für den Bezirk anlegen"
@@ -450,6 +452,7 @@ group:
     tooltip_function_9: "Administrator*innen dieser Arbeitsgruppe können die Ortsgruppenbeschreibung für die Karte bearbeiten."
     tooltip_function_10: "Administrator*innen dieser Arbeitsgruppe können in moderierten Foren Beiträge freischalten."
     tooltip_function_11: "Administrator*innen dieser Arbeitsgruppe werden in der Bezirksübersicht angezeigt."
+    tooltip_function_12: "Administrator*innen dieser Arbeitsgruppe werden in der Bezirksübersicht angezeigt."
   unique_function:
     tooltip_function_region331: "Administrator*innen dieser Arbeitsgruppe können Newsletter versenden"
     tooltip_function_region341: "Administrator*innen dieser Arbeitsgruppe können die Quizfragen verwalten"
@@ -661,6 +664,7 @@ terminology:
   prAdmins: "Öffentlichkeitsarbeitsteam"
   moderationAdmins: "Moderationsteam"
   boardAdmins : "Vorstand"
+  electionAdmins : "Wahlen"
   wall: "Pinnwand"
   statistic: "Statistik"
   reports: "Meldungsansicht (LMG)"

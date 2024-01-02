@@ -38,6 +38,7 @@
 - Simplified Event invitation system #1736 !2926 @AntonBallmaier
 - Email notifications about an application to a working group contain a new link to that application #1697 !2973 @alex.simm
 - Replaced the Twitter link with Bluesky #1779 !3006 @alex.simm
+- GOALS-ELECTION-Group added. !3001 @fs_k
 
 ## Bugfixes
 - Added error handling for cache helper for bell notifications or other requests !2869 @chriswalg

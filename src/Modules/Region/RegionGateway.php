@@ -308,6 +308,7 @@ class RegionGateway extends BaseGateway
             WorkgroupFunction::PR => 'prAdmins',
             WorkgroupFunction::MODERATION => 'moderationAdmins',
             WorkgroupFunction::BOARD => 'boardAdmins',
+            WorkgroupFunction::ELECTION => 'electionAdmins',
         ];
 
         foreach ($functionMappings as $function => $resultKey) {

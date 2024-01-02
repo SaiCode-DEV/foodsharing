@@ -192,6 +192,7 @@ final class RegionController extends FoodsharingController
             'prAdmins' => array_map($avatarListEntry, array_slice($this->region['prAdmins'], 0, self::DisplayAvatarListEntries)),
             'moderationAdmins' => array_map($avatarListEntry, array_slice($this->region['moderationAdmins'], 0, self::DisplayAvatarListEntries)),
             'boardAdmins' => array_map($avatarListEntry, array_slice($this->region['boardAdmins'], 0, self::DisplayAvatarListEntries)),
+            'electionAdmins' => array_map($avatarListEntry, array_slice($this->region['electionAdmins'], 0, self::DisplayAvatarListEntries)),
         ];
         $viewdata['nav'] = [
             'menu' => $menu,

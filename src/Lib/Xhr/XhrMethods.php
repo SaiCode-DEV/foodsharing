@@ -242,6 +242,7 @@ class XhrMethods
                     ['id' => WorkgroupFunction::PR, 'name' => $this->translator->trans('group.function.pr')],
                     ['id' => WorkgroupFunction::MODERATION, 'name' => $this->translator->trans('group.function.moderation')],
                     ['id' => WorkgroupFunction::BOARD, 'name' => $this->translator->trans('group.function.board')],
+                    ['id' => WorkgroupFunction::ELECTION, 'name' => $this->translator->trans('group.function.election')],
                 ],
             ]),
             $this->v_utils->v_input_wrapper(
@@ -456,6 +457,14 @@ class XhrMethods
                 return json_encode([
                     'status' => 1,
                     'script' => 'pulseError("' . $this->translator->trans('group.function.duplicate_board_team') . '");',
+                ]);
+            }
+        } elseif ($data['workgroup_function'] == WorkgroupFunction::ELECTION) {
+            $electionGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId($data['parent_id'], WorkgroupFunction::ELECTION);
+            if ($electionGroupId !== null && $electionGroupId !== (int)$data['bezirk_id']) {
+                return json_encode([
+                    'status' => 1,
+                    'script' => 'pulseError("' . $this->translator->trans('group.function.duplicate_election_team') . '");',
                 ]);
             }
         }

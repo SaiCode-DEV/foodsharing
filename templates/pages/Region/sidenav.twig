@@ -97,6 +97,13 @@
     {% endembed %}
 {% endif %}
 
+{% if isRegion and region.electionAdmins %}
+    {% embed 'components/field.twig' with {'title': 'terminology.electionAdmins'|trans} %}
+        {% block content %}
+            {% include 'partials/avatarList.twig' with {'id': 'stores-list', 'entries': region.electionAdmins}%}
+        {% endblock %}
+    {% endembed %}
+{% endif %}
 
 <div id="signout_sure" title="{{ 'are_you_sure'|trans }}">
     {% include 'partials/info.twig' with {'msg': (region.isWorkGroup ? 'group.really_quit_workgroup' : (region.isHomeDistrict ? 'group.quitting_home_district_warning': 'group.really_quit_district')) |trans({'%name%': region.name})} %}
