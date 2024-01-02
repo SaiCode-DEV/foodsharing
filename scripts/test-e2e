@@ -13,10 +13,12 @@ if [[ "${1:-}" == "test" ]]; then
   FS_ENV="test"
   log-header "Run on $FS_ENV containers ..."
   port=23005
+  param="${*:2}"
 else
   FS_ENV="dev"
   log-header "Run on $FS_ENV containers ..."
   port=13005
+  param="$@"
 fi
 
-PW_TEST_CONNECT_WS_ENDPOINT=ws://127.0.0.1:$port/ npx playwright test
+PW_TEST_CONNECT_WS_ENDPOINT=ws://127.0.0.1:$port/ npx playwright test $param

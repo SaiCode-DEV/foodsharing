@@ -14,6 +14,13 @@ Run `npx playwright [options] [command]` e.g. `npx playwright test`
 
 More on <https://playwright.dev/docs/running-tests>
 
+### Docker setup
+
+Playwright only supports Ubuntu. To support all os, use we the original docker image in server mode. 
+The local scripts use playwright as a client and connect to the docker container via websocket port 3005.
+
+You can find the commands in [scripts commands](deployment/scripts.md#codestyle-scripts)
+
 ### Contributing
 
 #### Husky, ESLint, and Prettier

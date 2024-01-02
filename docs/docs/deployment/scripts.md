@@ -25,12 +25,16 @@ All scripts can be run with `./scripts/[script]`.
 | `fix-php`                                   | dev           | `src` - PHP code fixing |
 
 ## Testing `scripts`
-| Script                                      | ENV           | Description                                                                                                   |
-|---------------------------------------------|---------------|---------------------------------------------------------------------------------------------------------------|
-| `test`                                      | test          | Without parameters, it runs all tests in the src folder and only initialize when no test container is running |
-| `test [suite] [test]`                       | test          | Runs a specific suite test example: `test Api BasketApiCest`                                                  |
-| `test-js`                                   | test          | Runs all tests in the `client` folder                                                                         |
-| `test-websocket`                            | test          | Runs all tests in the `websocket` folder                                                                      |
+| Script                | ENV  | Description                                                                                                   |
+|-----------------------|------|---------------------------------------------------------------------------------------------------------------|
+| `test`                | test | Without parameters, it runs all tests in the src folder and only initialize when no test container is running |
+| `test [suite] [test]` | test | Runs a specific suite test example: `test Api BasketApiCest`                                                  |
+| `test-js`             | test | Runs all tests in the `client` folder                                                                         |
+| `test-websocket`      | test | Runs all tests in the `websocket` folder                                                                      |
+| `test-e2e`            | dev  | Runs all playwright tests                                                                                     |
+| `test e2e [test]`     | test | Runs a specific suite test example on playwright: `test bcard`                                                |
+
+
 
 ## Container `scripts`
 | Script                                      | ENV           | Description                                                                           |

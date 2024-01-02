@@ -92,7 +92,7 @@
 - Various playwright config changed, see !2952 @thomas.hauschild
 - Migrations to playwright !2959 !2960 !2961 @thomas.hauschild
 - Improved scripts/clean compatibility !2972 @thomas.hauschild
-- Add a playwright docker container and script for local testing !2968 !2982 !2991 @chriswalg
+- Add a playwright docker container and script for local testing !2968 !2982 !2991 !3003 @chriswalg
 - Updated Contributors section in README.md !2954 @thomas.hauschild
 - Fixed some DevDocs references !2974 @thomas.hauschild
 - Removed InfluxDB !2983 !2894 @chriswalg

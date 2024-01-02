@@ -44,7 +44,7 @@ if ! sql-query mysql 'use foodsharing'; then
 fi
 
 if [[ "${1:-}" == "e2e" ]]; then
-  "$dir"/test-e2e test
+  "$dir"/test-e2e test "${*:2}"
 elif [[ -z "${1:-}" ]]; then
   log-header "Running all tests"
   "$dir"/test-e2e test
