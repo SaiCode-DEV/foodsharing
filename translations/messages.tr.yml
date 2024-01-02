@@ -336,6 +336,7 @@ group:
     declined: Başvuru reddedildi
     erfahrung: "Grupta, başka bir yerde edindiğiniz deneyimlerden yararlanabilir misiniz?\n
       Eğer öyleyse, nerede veya ne?\n"
+    link_description: 'Bu bağlantı sizi doğrudan uygulamaya yönlendirecektir:'
   application_requirements:
     everybody: Herkes başvurabilir.
     nobody: Kimse (kapalı grup).
@@ -1574,6 +1575,8 @@ mailbox:
   attachment:
     not_found_explanation: Ekli dosya artık sunucuda bulunamadı
     not_found: bulunamadı
+    attach: Ekler (dosya başına maksimum 1,5 MB)
+    too_large_to_send: Dosyalardan bazıları çok büyüktü ve e-postaya eklenemedi.
   move_to: Taşınmak
   close_edit_mode: Düzenlemeyi durdur
   add: Ekle
@@ -1585,6 +1588,11 @@ mailbox:
   unknown_sender: Bilinmeyen gönderen
   less: daha az
   more: daha fazla
+  reply_header: '{name}, {date} tarihinde yazdı'
+  search_name_email: Ada veya e-posta adresine göre arayın
+  global_addressbook: Küresel adres defteri
+  addressbook: Adres rehberi
+  reply_all: Hepsini cevapla
 basket:
   sent_request: Başvuru gönderildi
   n_requests: 'Şimdiye kadar ki başvurular: <strong>{count}</strong>'
@@ -1971,7 +1979,7 @@ wall:
   error-create: Pano girişiniz kaydedilemedi.
   confirm-deletion: "{name}'nin pano yazısını kaldırmak istediğinizden emin misiniz?"
   error-delete: Bu kaydı kaldıramazsınız.
-  info-somebody-else: Bu kayıt bir aydan daha eski olduğundan yetkili olarak gerekirse
+  info-somebody-else: Bu işletmeyi yönetme izniniz olduğundan, gerekirse bu girişi
     kaldırabilirsiniz.
   see-more: Tüm gönderileri göster
   info-logging: Anlaşmazlıkları önlemek için, içeriğin ve onu gerçekleştiren kişinin
@@ -2353,6 +2361,7 @@ profile:
     history: Kimlik kartı geçmişi
     storelist: İşletmeler ({count})
     verificationHistory: Doğrulama geçmişi
+    remove_buddy: Artık {name}'i tanımıyorum
   history:
     wasVerified: Onaylandı
     lostVerification: Onaylanmadı
@@ -2439,6 +2448,8 @@ profile:
   pinboard: '{name} tarafından durum güncellemeleri'
   reportRequest: Rapor gönder
   no_common_workgroups: '{name} ile ortak bir çalışma grubunda değilsiniz.'
+  orga_rights: Bir Orgna İnsanı olarak {name}, platformda <a target="_blank" href="{wikiurl}">kapsamlı
+    izinlere</a> sahiptir.
 stats:
   total:
     foodsaver: Foodsaverlar gıda israfının olmadığı bir dünya için gönüllü oluyor.
@@ -2465,6 +2476,15 @@ buddy:
   request_sent: İstek gönderildi.
   request_accepted: Artık birbirinizi tanıyorsunuz.
   is_buddy: Birbirinizi tanıyorsunuz
+  send:
+    confirm_text: Birbirinizi tanıdık olarak işaretlerseniz, diğer kişinin profil
+      duvarındaki gönderiler ana sayfanızda görünecektir. Ayrıca aramayı kullanarak
+      birbirinizi daha kolay bulabilirsiniz.
+    confirm_title: "{name}'i tanıyor musun?"
+  remove:
+    confirm_text: Tanışıklığınızı bitirmek mi istiyorsunuz? Profil panolarınızda yapılan
+      güncellemeler artık ana sayfada görüntülenmeyecektir.
+    confirm_title: '{name} ile tanışıklığınız sona mı erecek?'
 personal_data:
   label: İletişim
   mobile: Cep telefonu numarası
@@ -2521,7 +2541,7 @@ terminology:
     "1": Foodsaver
     "2": İşletme Sorumlusu
     "3": Elçi
-    "4": Organizatör
+    "4": Orga İnsanı
   forum: Forum
   foodsharer:
     f: Foodsharer
@@ -2575,9 +2595,9 @@ terminology:
   mailboxes: Posta kutuları
   arbitration: Raporlama Görünümü (LS)
   orga:
-    m: Organizatör
-    f: Organizatör
-    d: Organizatör
+    m: Orga İnsanı
+    f: Orga İnsanı
+    d: Orga İnsanı
   reports: Raporlama Görünümü (Yerel raporlama grubu)
   n_home_regions: o ana bölgeye sahip bir kişi|İşte %count% kişilik ana bölge
   previous_pickups: Önceki Alımlar
@@ -2742,6 +2762,7 @@ storeview:
   public_time_at_night: gece
   want_to_fetch: Bu ekibe yardım etmek isterim.
   public_time_in_the_morning: sabahları
+  show_settings: İşletme -Ayarları
 fsp:
   suggest: Gıda dağıtım noktası önerin
   accept: Gıda dağıtım noktasının kilidini aç
