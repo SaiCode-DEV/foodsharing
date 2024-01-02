@@ -179,7 +179,7 @@
 - Fix missing thumbnails in store team list !2818 @chriswalg @irgendwer
 - Fix that the region chooser does not show lower regions when changing a higher region !2823 @alex.simm
 - Fixed broken link in the region admin map for orga users !2834 @irgendwer
-- Correct and improve several german language texts !2828 !2840 @irgendwer
+- Correct and improve several german language texts !2828 !2840 !3007 @irgendwer
 - Fix condition check for date in release banner !2846 @chriswalg
 - Fix condition check for release banner !2846 !2850 @chriswalg
 

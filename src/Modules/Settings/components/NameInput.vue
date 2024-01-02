@@ -9,7 +9,7 @@
     <div
       v-b-modal.name-change-info-modal
       class="alert alert-light border mb-2"
-      v-html="$i18n('settings.name_change.desc', {link:'href=\'#\''})"
+      v-html="$i18n('settings.name_change.desc', {link:'#'})"
     />
     <div class="row container m-0 p-0 ">
       <input
