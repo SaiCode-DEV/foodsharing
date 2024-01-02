@@ -13,28 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class XhrController extends AbstractController
 {
-    /*
-       methods wich are excluded from the CSRF Protection.
-       We start with every method and remove one by another
-       NEVER ADD SOMETING TO THIS LIST!
-    */
-    private const csrf_whitelist = [
-        // 'bBubble',
-        // 'out',
-        // 'getRecip',
-        // 'continueMail',
-        // 'newregion',
-        // 'editpickups',
-        // 'bezirkTree',
-        // 'bteamstatus',
-        // 'getBezirk',
-        // 'saveBezirk',
-        // 'fetchDeny',
-        // 'fetchConfirm',
-        // 'delPost',
-        // 'abortEmail',
-    ];
-
     public function __invoke(
         Request $request,
         Session $session,
@@ -56,7 +34,7 @@ class XhrController extends AbstractController
             return new Response(null, Response::HTTP_BAD_REQUEST);
         }
 
-        if (!in_array($action, XhrController::csrf_whitelist) && !$session->isValidCsrfHeader()) {
+        if (!$session->isValidCsrfHeader()) {
             $response = new Response();
             $response->setProtocolVersion('1.1');
             $response->setStatusCode(Response::HTTP_FORBIDDEN);
