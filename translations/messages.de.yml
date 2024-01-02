@@ -161,6 +161,11 @@ questcount: "Wie viele Fragen sollen in der Prüfung gestellt werden?"
 wikilink: "Link zur Wiki-Seite"
 
 filter_by: "Filtern nach"
+save_state: "Filter und Sortierung beibehalten"
+save_state_description: "Angewendete Filter und Sortierung für zukünftige Aufrufe vormerken"
+configure_columns: "Spalten konfigurieren"
+expand_all: "Alle ausklappen"
+collapse_all: "Alle einklappen"
 
 quiz:
   question: "Frage"
@@ -258,6 +263,7 @@ button:
   answer: "Antworten"
   create: "Anlegen"
   clear_filter: "Filter leeren"
+  reset_default: "Standard wiederherstellen"
 
 bread:
   backToOverview: "zurück zur Übersicht"
@@ -2497,6 +2503,7 @@ storelist:
  managing: "Betriebe für die du verantwortlich bist"
  fetching: "Betriebe bei denen du Lebensmittel abholst"
  others: "Weitere Betriebe aus {region}"
+ actions: "Aktionen"
 
 push_notifications:
   test_notification_title: "Push-Benachrichtigungen aktiviert"
@@ -2910,6 +2917,7 @@ chain:
     headquarters: Zentrale
     kams: KAMs
     notes: Hinweise
+    actions: Aktionen
   new: Neue Kette eintragen
   allowpress: Öffentliche Nennung erlaubt.
   tooltips:

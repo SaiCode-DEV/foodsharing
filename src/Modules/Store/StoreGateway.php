@@ -868,14 +868,14 @@ class StoreGateway extends BaseGateway
      *
      * @return StoreTeamMembership[] Returns a array of memberships
      */
-    public function listAllStoreTeamMembershipsForFoodsaver(int $fsId, array $storeCooperationStates)
+    public function listAllStoreTeamMembershipsForFoodsaver(int $fsId, array $storeCooperationStates = [])
     {
         if ($fsId == 0) {
             return [];
         }
 
-        $inPlaceHolder = implode(', ', array_fill(0, count($storeCooperationStates), '?'));
-        $rows = $this->db->fetchAll('
+        $queryParams = [$fsId];
+        $query = '
 			SELECT 	b.id as store_id,
 					b.name as store_name,
 					bt.verantwortlich AS managing,
@@ -884,13 +884,22 @@ class StoreGateway extends BaseGateway
 				INNER JOIN fs_betrieb b
 					ON bt.betrieb_id = b.id
 			WHERE   bt.`foodsaver_id` = ?
-			AND 	b.betrieb_status_id IN (' . $inPlaceHolder . ')
-			ORDER BY bt.verantwortlich DESC, membership_status ASC, b.name ASC
-		', [
-            $fsId,
-            array_map(function (CooperationStatus $state) { return $state->value; },
-                $storeCooperationStates)
-        ]);
+        ';
+
+        if (!empty($storeCooperationStates)) {
+            $inPlaceHolder = implode(', ', array_fill(0, count($storeCooperationStates), '?'));
+            $query .= 'AND 	b.betrieb_status_id IN (' . $inPlaceHolder . ')
+			';
+            array_push($queryParams, array_map(
+                function (CooperationStatus $state) { return $state->value; },
+                $storeCooperationStates
+            )
+            );
+        }
+        $query .= 'ORDER BY bt.verantwortlich DESC, membership_status ASC, b.name ASC
+		';
+
+        $rows = $this->db->fetchAll($query, $queryParams);
 
         $results = [];
         foreach ($rows as $row) {
@@ -1145,39 +1154,11 @@ class StoreGateway extends BaseGateway
         }
 
         $placeholders = implode(',', array_fill(0, count($regionIds), '?'));
-        $results = $this->db->fetchAll('SELECT
-                    fs_betrieb.id,
-                    fs_betrieb.name,
-                    fs_betrieb.bezirk_id as regionId,
-                    fs_betrieb.lat,
-                    fs_betrieb.lon,
-                    fs_betrieb.str AS street,
-                    fs_betrieb.plz AS zipCode,
-                    fs_betrieb.stadt as city,
-                    fs_betrieb.public_info,
-                    fs_betrieb.public_time,
-                    fs_betrieb.betrieb_kategorie_id as categoryId,
-                    fs_betrieb.kette_id as chainId,
-                    fs_betrieb.betrieb_status_id as cooperationStatus,
-                    fs_betrieb.begin as cooperationStart,
-                    fs_betrieb.besonderheiten as description,
-                    fs_betrieb.ansprechpartner as contactName,
-                    fs_betrieb.telefon as contactPhone,
-                    fs_betrieb.fax as contactFax,
-                    fs_betrieb.email as contactEmail,
-                    fs_betrieb.prefetchtime as calendarInterval,
-                    fs_betrieb.abholmenge as weight,
-                    fs_betrieb.ueberzeugungsarbeit as effort,
-                    fs_betrieb.presse as publicity,
-                    fs_betrieb.sticker,
-                    fs_betrieb.team_status as teamStatus,
-                    fs_betrieb.use_region_pickup_rule as useRegionPickupRule,
-                    fs_betrieb.status_date as updatedAt,
-                    fs_betrieb.added as createdAt
-				FROM 	fs_betrieb,
-						fs_bezirk
-				WHERE 	fs_betrieb.bezirk_id = fs_bezirk.id
-				AND 	fs_betrieb.bezirk_id IN(' . $placeholders . ')
+        $results = $this->db->fetchAll($this->sqlSelectStoreColumns() . '
+            FROM fs_betrieb,
+                fs_bezirk
+            WHERE 	fs_betrieb.bezirk_id = fs_bezirk.id
+            AND 	fs_betrieb.bezirk_id IN(' . $placeholders . ')
 		', $regionIds);
 
         return array_map(function ($store) {
@@ -1194,39 +1175,11 @@ class StoreGateway extends BaseGateway
      */
     public function listStoresInFromUser(int $fs_id = null, array $cooperationStatus = []): array
     {
-        $results = $this->db->fetchAll('SELECT
-                b.id,
-                b.name,
-                b.bezirk_id as regionId,
-                b.lat,
-                b.lon,
-                b.str AS street,
-                b.plz AS zipCode,
-                b.stadt as city,
-                b.public_info,
-                b.public_time,
-                b.betrieb_kategorie_id as categoryId,
-                b.kette_id as chainId,
-                b.betrieb_status_id as cooperationStatus,
-                b.begin as cooperationStart,
-                b.besonderheiten as description,
-                b.ansprechpartner as contactName,
-                b.telefon as contactPhone,
-                b.fax as contactFax,
-                b.email as contactEmail,
-                b.prefetchtime as calendarInterval,
-                b.abholmenge as weight,
-                b.ueberzeugungsarbeit as effort,
-                b.presse as publicity,
-                b.sticker,
-                b.team_status as teamStatus,
-                b.use_region_pickup_rule as useRegionPickupRule,
-                b.status_date as updatedAt,
-                b.added as createdAt
-            FROM fs_betrieb_team t
-            JOIN fs_betrieb b ON
-                b.id = t.betrieb_id
-            WHERE t.foodsaver_id = :fs_id
+        $results = $this->db->fetchAll($this->sqlSelectStoreColumns() . '
+            FROM fs_betrieb_team
+            JOIN fs_betrieb ON
+                fs_betrieb.id = fs_betrieb_team.betrieb_id
+            WHERE fs_betrieb_team.foodsaver_id = :fs_id
     ', [
                 'fs_id' => $fs_id
         ]);
@@ -1316,5 +1269,38 @@ class StoreGateway extends BaseGateway
         return array_map(function ($x) {
             return MapMarker::create($x['id'], floatval($x['lat']), floatval($x['lon']));
         }, $markers);
+    }
+
+    private function sqlSelectStoreColumns()
+    {
+        return 'SELECT
+                    fs_betrieb.id,
+                    fs_betrieb.name,
+                    fs_betrieb.bezirk_id as regionId,
+                    fs_betrieb.lat,
+                    fs_betrieb.lon,
+                    fs_betrieb.str AS street,
+                    fs_betrieb.plz AS zipCode,
+                    fs_betrieb.stadt as city,
+                    fs_betrieb.public_info,
+                    fs_betrieb.public_time,
+                    fs_betrieb.betrieb_kategorie_id as categoryId,
+                    fs_betrieb.kette_id as chainId,
+                    fs_betrieb.betrieb_status_id as cooperationStatus,
+                    fs_betrieb.begin as cooperationStart,
+                    fs_betrieb.besonderheiten as description,
+                    fs_betrieb.ansprechpartner as contactName,
+                    fs_betrieb.telefon as contactPhone,
+                    fs_betrieb.fax as contactFax,
+                    fs_betrieb.email as contactEmail,
+                    fs_betrieb.prefetchtime as calendarInterval,
+                    fs_betrieb.abholmenge as weight,
+                    fs_betrieb.ueberzeugungsarbeit as effort,
+                    fs_betrieb.presse as publicity,
+                    fs_betrieb.sticker,
+                    fs_betrieb.team_status as teamStatus,
+                    fs_betrieb.use_region_pickup_rule as useRegionPickupRule,
+                    fs_betrieb.status_date as updatedAt,
+                    fs_betrieb.added as createdAt';
     }
 }

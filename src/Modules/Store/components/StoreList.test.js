@@ -1,9 +1,23 @@
 import sinon from 'sinon'
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import { resetModules } from '>/utils'
 import '@/vue'
+import { setActivePinia, createPinia } from 'pinia'
+import i18n from '@/helper/i18n'
+import { url } from '@/helper/urls'
+import { isValidPhoneNumber } from '@/helper/phone-numbers'
+import dateFormatter from '@/helper/date-formatter'
 
 const assert = require('assert')
+
+const localVue = createLocalVue()
+
+localVue.$i18n = (key, variables = {}) => {
+  return i18n(key, variables)
+}
+localVue.prototype.$url = url
+localVue.prototype.$isValidPhoneNumber = isValidPhoneNumber
+localVue.prototype.$dateFormatter = dateFormatter
 
 function createMockStore () {
   return {
@@ -22,6 +36,7 @@ describe('StoreRegionList', () => {
   let storeList
 
   beforeEach(() => {
+    setActivePinia(createPinia())
     storeList = require('./StoreRegionList').default
   })
   afterEach(() => {
@@ -36,6 +51,7 @@ describe('StoreRegionList', () => {
   it('can render', () => {
     const regionName = 'Test Region Name'
     const wrapper = mount(storeList, {
+      localVue,
       propsData: {
         regionName,
         stores: [createMockStore()],

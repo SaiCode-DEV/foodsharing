@@ -2,7 +2,7 @@
 
 import $ from 'jquery'
 
-import storage from '@/storage'
+import Storage from '@/storage'
 import { GET, isMob, pulseError } from '@/script'
 import DataUser from '@/stores/user'
 import conversationStore from '@/stores/conversations'
@@ -16,6 +16,8 @@ import {
 import Vue from 'vue'
 
 import ChatComponent from '@/views/pages/Message/ChatComponent.vue'
+
+const storage = new Storage()
 
 const CHAT_BOX_WIDTH = 370
 

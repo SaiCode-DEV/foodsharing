@@ -432,6 +432,13 @@ class StoreRestController extends AbstractFOSRestController
      *
      * @OA\Tag(name="stores")
      * @OA\Tag(name="user")
+     * @OA\Parameter(
+     *      name="activeStores",
+     *      in="query",
+     *      description="filter unactive stores (e.g. store that do not cooperate)?",
+     *      required=false,
+     *      @OA\Schema(type="integer", enum={0,1})
+     * ),
      * @OA\Response(
      * 		response="200",
      * 		description="Success.",
@@ -443,14 +450,16 @@ class StoreRestController extends AbstractFOSRestController
      * @OA\Response(response="204", description="No foodsaver related stores found.")
      * @OA\Response(response="401", description="Not logged in")
      * @Rest\Get("user/current/stores")
+     * @Rest\QueryParam(name="activeStores")
      */
-    public function getListOfStoreStatusForCurrentFoodsaver(): Response
+    public function getListOfStoreStatusForCurrentFoodsaver(ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
         }
+        $activeStores = (bool)$paramFetcher->get('activeStores');
 
-        $listOfStoreStatus = $this->storeTransactions->listAllStoreStatusForFoodsaver($this->session->id());
+        $listOfStoreStatus = $this->storeTransactions->listAllStoreStatusForFoodsaver($this->session->id(), $activeStores);
 
         if ($listOfStoreStatus === []) {
             return $this->handleView($this->view([], 204));

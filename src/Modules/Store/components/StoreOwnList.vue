@@ -1,50 +1,41 @@
 <template>
   <div>
-    <StoreListComponent
-      :is-managing-enabled="isManagingEnabled"
-      :stores="stores"
-      :store-member-status="storeMemberStatus"
-    />
+    <StoreListComponent :stores="stores">
+      <template #head-title>
+        <span>
+          {{ $i18n('store.ownStores') }}
+        </span>
+      </template>
+    </StoreListComponent>
   </div>
 </template>
 
 <script>
 import StoreListComponent from './StoreListComponent.vue'
-import { listStoresDetailsForCurrentUser } from '@/api/stores'
-import DataStores from '@/stores/stores'
-import { hideLoader, pulseError, showLoader } from '@/script'
-import i18n from '@/helper/i18n'
+import { hideLoader, showLoader } from '@/script'
+import { useStoreStore } from '@/stores/store'
+
+const storeStore = useStoreStore()
 
 export default {
   components: { StoreListComponent },
   data () {
-    return {
-      isManagingEnabled: true,
-      stores: [],
-    }
+    return {}
   },
   computed: {
-    storeMemberStatus () {
-      return [
-        {
-          list: DataStores.getters.getAll(),
-        },
-      ].filter(e => e.list.length > 0)
-    },
+    stores: () => storeStore.userStores,
   },
-  async mounted () {
-    console.log('mounted')
-    showLoader()
-    this.isBusy = true
-    try {
-      const values = await listStoresDetailsForCurrentUser()
-      this.stores = values.stores
-      console.log('stores: ', this.stores)
-    } catch (e) {
-      pulseError(i18n('error_unexpected'))
+  async created () {
+    if (!this.stores.length) {
+      showLoader()
+      this.isBusy = true
+      await Promise.all([
+        storeStore.fetchUserStoreRelations(),
+        storeStore.fetchStoresForCurrentUser(),
+      ])
+      this.isBusy = false
+      hideLoader()
     }
-    this.isBusy = false
-    hideLoader()
   },
 }
 </script>

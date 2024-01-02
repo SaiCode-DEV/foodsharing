@@ -1,3 +1,6 @@
+import Storage from '@/storage'
+const storage = new Storage()
+
 export default {
   data () {
     return {
@@ -18,10 +21,10 @@ export default {
   },
   methods: {
     loadState () {
-      this.state = JSON.parse(localStorage.getItem(this.stateTag))
+      this.state = storage.get(this.stateTag)
     },
     saveState () {
-      localStorage.setItem(this.stateTag, JSON.stringify(this.state))
+      storage.set(this.stateTag, this.state)
     },
     toggleState () {
       this.state = !this.state

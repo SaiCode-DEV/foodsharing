@@ -10,7 +10,7 @@ import { GET } from '@/browser'
 
 import { showLoader, hideLoader, goTo, ajreq } from '@/script'
 
-import storage from '@/storage'
+import Storage from '@/storage'
 
 import { initMap } from '@/mapUtils'
 
@@ -26,6 +26,8 @@ import { getMapMarkers } from '@/api/map'
 import { vueApply, vueRegister } from '@/vue'
 import CommunityBubble from './components/CommunityBubble'
 import BasketBubble from './components/BasketBubble'
+
+const storage = new Storage('map')
 
 let u_map = null
 let markers = null
@@ -59,8 +61,8 @@ const comIcon = L.AwesomeMarkers.icon({
 const map = {
   initiated: false,
   init: function () {
-    const center = storage.get('map:center', [50.89, 10.13])
-    const zoom = storage.get('map:zoom', 6)
+    const center = storage.get('center', [50.89, 10.13])
+    const zoom = storage.get('zoom', 6)
     u_map = initMap('map', center, zoom)
 
     expose({ u_map }) // need to re-expose it as it is just a variable
@@ -85,7 +87,7 @@ const map = {
       }
 
       if (GET('load') == undefined) {
-        items = storage.get('map:activeItems', items)
+        items = storage.get('activeItems', items)
       }
     }
     for (let i = 0; i < items.length; i++) {
@@ -103,9 +105,9 @@ const map = {
       activeItems.push($(this).attr('name'))
     })
 
-    storage.set('map:center', [center.lat, center.lng])
-    storage.set('map:zoom', zoom)
-    storage.set('map:activeItems', activeItems)
+    storage.set('center', [center.lat, center.lng])
+    storage.set('zoom', zoom)
+    storage.set('activeItems', activeItems)
   },
   setView: function (lat, lon, zoom) {
     if (!this.initiated) {
@@ -119,7 +121,7 @@ expose({ map })
 
 function u_init_map (lat, lon, zoom) {
   map.init()
-  if (lat == undefined && storage.get('map:center') == undefined) {
+  if (lat == undefined && storage.get('center') == undefined) {
     getBrowserLocation(pos => map.setView(pos.lat, pos.lon, 12))
   }
 }

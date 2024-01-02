@@ -98,6 +98,11 @@ module.exports = {
           'yaml-loader',
         ],
       },
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto',
+      },
       ...shims.rules,
     ],
   },

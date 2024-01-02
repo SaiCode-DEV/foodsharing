@@ -1,20 +1,47 @@
 <template>
   <div>
-    <StoreListComponent
-      :is-managing-enabled="isManagingEnabled"
-      :stores="stores"
-      :show-create-store="showCreateStore"
-      :region-id="regionId"
-      :region-name="regionName"
-    />
+    <StoreListComponent :stores="stores">
+      <template #head-title>
+        <span>
+          {{ $i18n('store.allStoresOfRegion') }} {{ regionName }}
+        </span>
+      </template>
+      <template #header-actions>
+        <div
+          :regionId="regionId"
+          class="col one-line-button"
+        >
+          <a
+            :href="$url('storeAdd', regionId)"
+            class="btn btn-mb btn-primary btn-block"
+          >
+            {{ $i18n('store.addNewStoresButton') }}
+          </a>
+        </div>
+      </template>
+      <template #no-stores-footer-actions>
+        <div
+          :regionId="regionId"
+          class="col"
+        >
+          <a
+            :href="$url('storeAdd', regionId)"
+            class="btn btn-sm btn-primary btn-block"
+          >
+            {{ $i18n('store.addNewStoresButton') }}
+          </a>
+        </div>
+      </template>
+    </StoreListComponent>
   </div>
 </template>
 
 <script>
 import StoreListComponent from './StoreListComponent.vue'
-import { hideLoader, pulseError, showLoader } from '@/script'
-import i18n from '@/helper/i18n'
-import { listRegionStores } from '@/api/regions'
+import { hideLoader, showLoader } from '@/script'
+import { useStoreStore } from '@/stores/store'
+
+const storeStore = useStoreStore()
 
 export default {
   components: { StoreListComponent },
@@ -24,22 +51,15 @@ export default {
     regionName: { type: String, default: '' },
   },
   data () {
-    return {
-      isManagingEnabled: false,
-      stores: [],
-    }
+    return {}
   },
-  async mounted () {
-    console.log('mounted')
+  computed: {
+    stores: () => storeStore.regionStores,
+  },
+  async created () {
     showLoader()
     this.isBusy = true
-    try {
-      const values = await listRegionStores(this.regionId)
-      this.stores = values.stores
-      console.log('stores: ', this.stores)
-    } catch (e) {
-      pulseError(i18n('error_unexpected'))
-    }
+    await storeStore.fetchStoresForRegion(this.regionId)
     this.isBusy = false
     hideLoader()
   },

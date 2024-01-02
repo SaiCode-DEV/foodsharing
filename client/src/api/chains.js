@@ -1,7 +1,7 @@
 import { get, patch, post } from './base'
 
-export async function listChains () {
-  return await get('/chains')
+export function listChains () {
+  return get('/chains')
 }
 
 export async function listChainStores (chainId) {

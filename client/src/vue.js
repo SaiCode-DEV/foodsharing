@@ -5,9 +5,12 @@ import { url } from '@/helper/urls'
 import { isFeatureToggleActive } from '@/helper/featuretoggles'
 import BootstrapVue from 'bootstrap-vue'
 import Vuelidate from 'vuelidate'
+import { createPinia, PiniaVuePlugin } from 'pinia'
 
 Vue.use(BootstrapVue)
 Vue.use(Vuelidate)
+Vue.use(PiniaVuePlugin)
+const pinia = createPinia()
 
 Vue.prototype.$i18n = (key, variables = {}) => {
   return i18n(key, variables)
@@ -51,6 +54,7 @@ export function vueApply (selector, disableElNotFoundException = false) {
       render (h) {
         return h(componentName, { props })
       },
+      pinia,
     })
     if (initialData && typeof initialData === 'object') {
       for (const key in initialData) {

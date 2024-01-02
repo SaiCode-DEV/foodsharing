@@ -1,16 +1,7 @@
 <template>
   <div class="card mb-3 rounded">
     <div class="card-header text-white bg-primary">
-      <span
-        v-if="isManagingEnabled"
-      >
-        {{ $i18n('store.ownStores') }}
-      </span>
-      <span
-        v-else
-      >
-        {{ $i18n('store.allStoresOfRegion') }} {{ regionName }}
-      </span>
+      <slot name="head-title" />
       <span>
         {{ $i18n('filterlist.some_in_all', {some: storesFiltered.length, all: stores.length}) }}
       </span>
@@ -19,146 +10,130 @@
       v-if="stores.length"
       class="card-body p-0"
     >
-      <div class="form-row p-1 ">
-        <div class="col-2 text-center">
-          <label class=" col-form-label col-form-label-sm">
-            {{ $i18n('store.filter') }}
-          </label>
-        </div>
-        <div class="col-4">
-          <label>
-            <input
-              v-model="filterText"
-              type="text"
-              class="form-control form-control-sm"
-              placeholder="Name/Adresse"
-            >
-          </label>
-        </div>
-        <div class="col-3">
-          <b-form-select
-            v-model="filterStatus"
-            :options="statusOptions"
-            size="sm"
-          />
-        </div>
-        <div class="col">
-          <button
-            v-b-tooltip.hover
-            type="button"
-            class="btn btn-sm"
-            :title="$i18n('storelist.emptyfilters')"
-            @click="clearFilter"
-          >
-            <i class="fas fa-times" />
-          </button>
-        </div>
-        <div
-          v-if="showCreateStore"
-          :regionId="regionId"
-          class="col"
-        >
-          <a
-            :href="$url('storeAdd', regionId)"
-            class="btn btn-sm btn-primary btn-block"
-          >
-            {{ $i18n('store.addNewStoresButton') }}
-          </a>
-        </div>
-      </div>
-      <b-table
-        id="store-list"
-        :fields="fieldsFiltered"
-        :current-page="currentPage"
-        :per-page="perPage"
-        :sort-by.sync="sortBy"
-        :sort-desc.sync="sortDesc"
-        :items="storesFiltered"
-        small
-        hover
-        responsive
+      <ConfigureableList
+        :fields.sync="fields"
+        :selection.sync="fieldSelection"
+        :state.sync="state"
+        store
       >
-        <template
-          #cell(cooperationStatus)="row"
-          :v-if="isMobile"
-        >
-          <div class="text-center">
-            <StoreStatusIcon :cooperation-status="row.value" />
+        <template #head="{ showConfigurationDialog }">
+          <div class="form-row p-1 ">
+            <div class="d-flex align-items-center col-2">
+              <label class=" col-form-label col-form-label-sm">
+                {{ $i18n('store.filter') }}
+              </label>
+            </div>
+            <div class="d-flex align-items-center col-4">
+              <label class="mb-0">
+                <input
+                  v-model.trim="state.filterText"
+                  type="text"
+                  class="form-control form-control-sm"
+                  placeholder="Name/Adresse"
+                >
+              </label>
+            </div>
+            <div class="d-flex align-items-center col-3">
+              <b-form-select
+                v-model="state.filterStatus"
+                :options="statusOptions"
+                size="mb"
+              />
+            </div>
+            <div class="d-flex align-items-center col">
+              <button
+                v-b-tooltip.hover
+                type="button"
+                class="btn btn-sm"
+                :title="$i18n('storelist.emptyfilters')"
+                @click="clearFilter"
+              >
+                <i class="fas fa-times" />
+              </button>
+            </div>
+            <slot name="header-actions" />
+            <button
+              type="button"
+              class="btn btn-sm ml-auto shadow-none"
+              @click="showConfigurationDialog"
+            >
+              <i class="fas fa-gear" />
+            </button>
           </div>
         </template>
-        <template
-          v-if="isManagingEnabled"
-          #cell(isManaging)="row"
-        >
-          <span
-            v-if="isManaging(row.item)"
+        <template #default>
+          <b-table-mobile-friendly
+            id="store-list"
+            :fields="selectedFields"
+            :current-page="state.currentPage"
+            :per-page="perPage"
+            :sort-by.sync="state.sortBy"
+            :sort-desc.sync="state.sortDesc"
+            :items="storesFiltered"
+            small
+            hover
+            responsive
           >
-            {{ $i18n('store.managing') }}
-          </span>
-          <span
-            v-if="isMember(row.item)"
-          >
-            {{ $i18n('store.member') }}
-          </span>
-          <span
-            v-if="isJumping(row.item)"
-          >
-            {{ $i18n('store.jumping') }}
-          </span>
-          <span
-            v-if="isAppliedForTeam(row.item)"
-          >
-            {{ $i18n('store.isAppliedForTeam') }}
-          </span>
+            <template
+              #cell(cooperationStatus)="row"
+            >
+              <div class="text-center">
+                <StoreStatusIcon :cooperation-status="row.value" />
+              </div>
+            </template>
+            <template #cell(memberState)="row">
+              {{ getUserRole(row.item.id) }}
+            </template>
+            <template
+              #cell(name)="row"
+            >
+              <a
+                :href="$url('store', row.item.id)"
+                class="ui-corner-all"
+              >
+                {{ row.value }}
+              </a>
+            </template>
+            <template
+              #cell(region)="row"
+            >
+              {{ row.value.name }}
+            </template>
+            <template
+              #cell(actions)="row"
+            >
+              <b-button
+                size="sm"
+                @click.stop="row.toggleDetails"
+              >
+                {{ row.detailsShowing ? 'x' : 'Details' }}
+              </b-button>
+            </template>
+            <template
+              #row-details="row"
+            >
+              <b-card>
+                <div class="details">
+                  <p>
+                    <strong>{{ $i18n('storelist.addressdata') }}</strong><br>
+                    {{ row.item.street }} <a
+                      :href="mapLink(row.item)"
+                      class="nav-link details-nav"
+                      :title="$i18n('storelist.map')"
+                    >
+                      <i class="fas fa-map-marker-alt" />
+                    </a><br> {{ row.item.zipCode }} {{ row.item.city }}
+                  </p>
+                  <p><strong>{{ $i18n('storelist.entered') }}</strong> {{ row.item.createdAt }}</p>
+                </div>
+              </b-card>
+            </template>
+          </b-table-mobile-friendly>
         </template>
-        <template
-          #cell(name)="row"
-        >
-          <a
-            :href="$url('store', row.item.id)"
-            class="ui-corner-all"
-          >
-            {{ row.value }}
-          </a>
-        </template>
-        <template
-          #cell(region)="row"
-        >
-          {{ row.value.name }}
-        </template>
-        <template
-          #cell(actions)="row"
-        >
-          <b-button
-            size="sm"
-            @click.stop="row.toggleDetails"
-          >
-            {{ row.detailsShowing ? 'x' : 'Details' }}
-          </b-button>
-        </template>
-        <template
-          #row-details="row"
-        >
-          <b-card>
-            <div class="details">
-              <p>
-                <strong>{{ $i18n('storelist.addressdata') }}</strong><br>
-                {{ row.item.street }} <a
-                  :href="mapLink(row.item)"
-                  class="nav-link details-nav"
-                  :title="$i18n('storelist.map')"
-                >
-                  <i class="fas fa-map-marker-alt" />
-                </a><br> {{ row.item.zipCode }} {{ row.item.city }}
-              </p>
-              <p><strong>{{ $i18n('storelist.entered') }}</strong> {{ row.item.createdAt }}</p>
-            </div>
-          </b-card>
-        </template>
-      </b-table>
+      </ConfigureableList>
       <div class="float-right p-1 pr-3">
         <b-pagination
-          v-model="currentPage"
+          v-model="state.currentPage"
           :total-rows="storesFiltered.length"
           :per-page="perPage"
           aria-controls="store-list"
@@ -171,25 +146,13 @@
       class="card-body d-flex justify-content-center"
     >
       {{ $i18n('store.noStores') }}
-      <div
-        v-if="showCreateStore"
-        :regionId="regionId"
-        class="col"
-      >
-        <a
-          :href="$url('storeAdd', regionId)"
-          class="btn btn-sm btn-primary btn-block"
-        >
-          {{ $i18n('store.addNewStoresButton') }}
-        </a>
-      </div>
+      <slot name="no-stores-footer-actions" />
     </div>
   </div>
 </template>
 
 <script>
 import {
-  BTable,
   BPagination,
   BFormSelect,
   VBTooltip,
@@ -197,156 +160,158 @@ import {
   BCard,
 } from 'bootstrap-vue'
 import StoreStatusIcon from './StoreStatusIcon.vue'
-import i18n from '@/helper/i18n'
+import ConfigureableList from '@/components/ConfigureableList.vue'
+import BTableMobileFriendly from '@/components/BTableMobileFriendly.vue'
+import { useStoreStore } from '@/stores/store'
+
+const storeStore = useStoreStore()
 
 export default {
-  components: { BCard, BTable, BButton, BPagination, BFormSelect, StoreStatusIcon },
+  components: { BCard, BTableMobileFriendly, BButton, BPagination, BFormSelect, StoreStatusIcon, ConfigureableList },
   directives: { VBTooltip },
   props: {
-    stores: { type: Array, default: () => [] },
-    isManagingEnabled: { type: Boolean, default: false },
-    storeMemberStatus: { type: Array, default: () => [] },
-    showCreateStore: { type: Boolean, default: false },
-    regionId: { type: Number, default: 0 },
-    regionName: { type: String, default: '' },
+    stores: { type: Array, required: true },
   },
   data () {
     return {
-      sortBy: 'createdAt',
-      sortDesc: true,
-      currentPage: 1,
       perPage: 20,
-      filterText: '',
-      filterStatus: null,
+      state: {
+        sortBy: 'createdAt',
+        sortDesc: true,
+        currentPage: 1,
+        filterText: '',
+        filterStatus: null,
+      },
       statusOptions: [
         { value: null, text: 'Status' },
-        { value: 1, text: i18n('storestatus.1') }, // CooperationStatus::NO_CONTACT
-        { value: 2, text: i18n('storestatus.2') }, // CooperationStatus::IN_NEGOTIATION
-        { value: 3, text: i18n('storestatus.3') }, // CooperationStatus::COOPERATION_STARTING
-        { value: 4, text: i18n('storestatus.4') }, // CooperationStatus::DOES_NOT_WANT_TO_WORK_WITH_US
-        { value: 5, text: i18n('storestatus.5') }, // CooperationStatus::COOPERATION_ESTABLISHED
-        { value: 6, text: i18n('storestatus.6') }, // CooperationStatus::GIVES_TO_OTHER_CHARITY
-        { value: 7, text: i18n('storestatus.7') }, // CooperationStatus::PERMANENTLY_CLOSED
+        { value: 1, text: this.$i18n('storestatus.1') }, // CooperationStatus::NO_CONTACT
+        { value: 2, text: this.$i18n('storestatus.2') }, // CooperationStatus::IN_NEGOTIATION
+        { value: 3, text: this.$i18n('storestatus.3') }, // CooperationStatus::COOPERATION_STARTING
+        { value: 4, text: this.$i18n('storestatus.4') }, // CooperationStatus::DOES_NOT_WANT_TO_WORK_WITH_US
+        { value: 5, text: this.$i18n('storestatus.5') }, // CooperationStatus::COOPERATION_ESTABLISHED
+        { value: 6, text: this.$i18n('storestatus.6') }, // CooperationStatus::GIVES_TO_OTHER_CHARITY
+        { value: 7, text: this.$i18n('storestatus.7') }, // CooperationStatus::PERMANENTLY_CLOSED
       ],
-    }
-  },
-  computed: {
-    fields () {
-      const columns = [
+      fieldsDefinition: [
         {
           key: 'cooperationStatus',
-          label: i18n('storelist.status'),
+          label: this.$i18n('storelist.status'),
           tdClass: 'status',
           sortable: true,
         },
-      ]
-      columns.push(
         {
           key: 'name',
-          label: i18n('storelist.name'),
+          label: this.$i18n('storelist.name'),
           sortable: true,
         },
         {
           key: 'street',
-          label: i18n('storelist.address'),
+          label: this.$i18n('storelist.address'),
           sortable: true,
         },
         {
           key: 'zipCode',
-          label: i18n('storelist.zipcode'),
+          label: this.$i18n('storelist.zipcode'),
           sortable: true,
         },
         {
           key: 'city',
-          label: i18n('storelist.city'),
+          label: this.$i18n('storelist.city'),
           sortable: true,
-        })
+        },
 
-      if (!this.isManagingEnabled) {
-        columns.push({
+        {
           key: 'createdAt',
-          label: i18n('storelist.added'),
+          label: this.$i18n('storelist.added'),
           tdClass: 'status',
           sortable: true,
-        })
-      }
-      columns.push({
-        key: 'region',
-        label: i18n('storelist.region'),
-        sortable: true,
-      })
-      if (this.isManagingEnabled) {
-        columns.push({
-          key: 'isManaging',
-          label: i18n('storelist.memberState'),
+        },
+        {
+          key: 'region',
+          label: this.$i18n('storelist.region'),
+          sortable: true,
+        },
+        {
+          key: 'memberState',
+          label: this.$i18n('storelist.memberState'),
           tdClass: 'status',
           sortable: true,
+        },
+        {
+          key: 'actions',
+          label: this.$i18n('storelist.actions'),
+          sortable: false,
+        },
+      ],
+      availableFields: [],
+      fieldSelection: [],
+    }
+  },
+  computed: {
+    fields: {
+      get () {
+        return this.availableFields.map(fieldKey => this.fieldsDefinition.find(field => field.key === fieldKey))
+      },
+      set (fields) {
+        this.availableFields = fields
+      },
+    },
+    selectedFields () {
+      return this.fields.filter(field => this.fieldSelection.includes(field.key))
+    },
+    storesFiltered () {
+      let stores = this.stores
+      if (this.state.filterStatus) {
+        stores = stores.filter(store => store.cooperationStatus === this.state.filterStatus)
+      }
+      if (this.state.filterText) {
+        // match filterText an all store properties
+        stores = stores.filter(store => {
+          for (const prop in store) {
+            const propValue = store[prop]
+            if (typeof propValue === 'string' && propValue.toLocaleLowerCase().indexOf(this.filterTextLower) !== -1) {
+              return true
+            }
+          }
+          return false
         })
       }
-      columns.push({
-        key: 'actions',
-        label: '',
-        sortable: false,
-      })
-      return columns
+      return stores
     },
-    storesFiltered: function () {
-      if (!this.filterText.trim() && !this.filterStatus) return this.stores
-      const filterText = this.filterText ? this.filterText.toLowerCase() : null
-      return Array.from(this.stores.filter((store) => {
-        return (
-          (!this.filterStatus || store.cooperationStatus === this.filterStatus) &&
-          (!filterText || (
-            store.name.toLowerCase().indexOf(filterText) !== -1 ||
-            store.street.toLowerCase().indexOf(filterText) !== -1 ||
-            store.region.name.toLowerCase().indexOf(filterText) !== -1 ||
-            store.city.toLowerCase().indexOf(filterText) !== -1 ||
-            store.zipCode.toLowerCase().indexOf(filterText) !== -1
-          ))
-        )
-      }))
-    },
-    fieldsFiltered: function () {
-      const outputFields = []
-
-      const regions = [...new Set(this.stores.map(function (value) {
-        return value.region.name
-      }))]
-
-      const displayableFields = (window.innerWidth > 800 && window.innerHeight > 600)
-        ? ['region', 'actions']
-        : ['region', 'street', 'createdAt', 'zip']
-
-      this.fields.forEach(field => {
-        if ((field.key === 'region' && regions.length > 0) ||
-          !displayableFields.includes(field.key)) {
-          outputFields.push(field)
-        }
-      })
-
-      return outputFields
+    filterTextLower () {
+      return this.state.filterText.toLowerCase()
     },
   },
+  created () {
+    this.availableFields = this.fieldsDefinition.map(field => field.key)
+    this.fieldSelection = this.availableFields
+  },
   methods: {
-    isManaging (value) {
-      const isManaging = this.storeMemberStatus.some(obj => obj.list.some(item => item.id === value.id && item.isManaging === true))
-      return Boolean(isManaging)
+    getUserRole (storeId) {
+      if (storeStore.userRelations === null) {
+        storeStore.fetchUserStoreRelations()
+        return '...loading'
+      } else {
+        const relation = storeStore.userRelations.find(relation => relation.id === storeId)
+        if (relation) {
+          if (relation.isManaging) {
+            return this.$i18n('store.managing')
+          }
+          switch (relation.membershipStatus) {
+            case 0: return this.$i18n('store.isAppliedForTeam')
+            case 1: return this.$i18n('store.member')
+            case 2: return this.$i18n('store.jumping')
+          }
+        }
+      }
+      // not a member
     },
-    isMember (value) {
-      const isMember = this.storeMemberStatus.some(obj => obj.list.some(item => item.id === value.id && item.membershipStatus === 1 && item.isManaging === false))
-      return Boolean(isMember)
-    },
-    isJumping (value) {
-      const isJumping = this.storeMemberStatus.some(obj => obj.list.some(item => item.id === value.id && item.membershipStatus === 2))
-      return Boolean(isJumping)
-    },
-    isAppliedForTeam (value) {
-      const AppliedForTeam = this.storeMemberStatus.some(obj => obj.list.some(item => item.id === value.id && item.membershipStatus === 0))
-      return Boolean(AppliedForTeam)
+    fetchData () {
+      storeStore.fetchStoresForCurrentUser()
     },
     clearFilter () {
-      this.filterStatus = null
-      this.filterText = ''
+      this.state.filterStatus = null
+      this.state.filterText = ''
     },
     mapLink (store) {
       if (['iPad', 'iPhone', 'iPod'].includes(
@@ -365,5 +330,8 @@ export default {
   .details-nav {
     float:right;
     font-size: 2em;
+  }
+  .one-line-button {
+    min-width: fit-content;
   }
 </style>

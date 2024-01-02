@@ -107,3 +107,44 @@ export function isWebGLSupported () {
     return false
   }
 }
+
+export function debounce (func, timeout = 300) {
+  let timer
+  return (...args) => {
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(() => func.apply(this, args), timeout)
+  }
+}
+
+export function throttle (func, timeout = 300) {
+  let throttled = false
+  return (...args) => {
+    if (!throttled) {
+      func.apply(this, args)
+      throttled = true
+      setTimeout(() => {
+        throttled = false
+      }, timeout)
+    }
+  }
+}
+
+/**
+ * returns true if the array contents and its order are equal. [1, 2, 3] !== [3, 2, 1]
+ * @param {[]} a
+ * @param {[]} b
+ * @returns {boolean}
+ */
+export function arrayEquals (a, b) {
+  return a.length === b.length && a.every((val, index) => val === b[index])
+}
+
+/**
+ * returns true if the array contents are equal. [1, 2, 3] === [3, 2, 1]
+ * @param {[]} a
+ * @param {[]} b
+ * @returns {boolean}
+ */
+export function arrayContentEquals (a, b) {
+  return a.length === b.length && a.every((val, index) => b.includes(val))
+}
