@@ -103,6 +103,11 @@ group:
       administrators are involved; the reporting team receives them
     tooltip_function_11: Administrators of this group are shown in the region’s overview.
     duplicate_board_team: Board already created. There can only be one board per district.
+    tooltip_function_12: Administrators of this working group are displayed in the
+      district overview.
+    duplicate_election_team: Electoral group already created! There can only be one
+      electoral group per district.
+    election: Election
   apply:
     sent: The application was sent.
     send: Send application
@@ -569,6 +574,7 @@ profile:
     buddy: I know {name}
     edit: Edit profile
     violations: Reports <strong>({count})</strong>
+    remove_buddy: I don’t know {name} anymore
   notes:
     bread: Notes
     info: "Please use this function carefully. It should help to make processes visible
@@ -1127,6 +1133,7 @@ terminology:
     "4": Orga person
   no_pickups: none
   previous_pickups: Previous pick-ups
+  electionAdmins: Elections
 login:
   pwreset:
     bread: Reset password
@@ -1176,6 +1183,7 @@ button:
   save: Save
   answer: Answer
   clear_filter: Clear filter
+  reset_default: Reset default
 bell:
   ft_update_title: '{name}'
   blog_new_check: '{title}'
@@ -1387,6 +1395,15 @@ buddy:
   request_accepted: Now you are buddies.
   request_sent: Request was sent.
   is_buddy: You are buddies
+  send:
+    confirm_text: If you mark each other as buddies, posts from the other person’s
+      profile wall are displayed on your dashboard and you can also find each other
+      more easily using the search function.
+    confirm_title: Do you know {name}?
+  remove:
+    confirm_text: Do you want to end the acquaintance? Updates on your profile pinboards
+      will then no longer be displayed on the other person’s dashboard.
+    confirm_title: End your acquaintance with {name}?
 email_template:
   help_needed:
     support_mail: it@foodsharing.network
@@ -1619,6 +1636,7 @@ storelist:
   geo: geo
   isManaging: Managing
   memberState: Membership status
+  actions: Actions
 releases:
   "2020-08": "Release \"Pear\" (August 2020)"
   "2020-10": "Release \"Cranberry\" (October 2020)"
@@ -2133,8 +2151,9 @@ search:
       jumper_tooltip: You are on the standby list for this store
       member_tooltip: You are a member of this store team
     from: from
-  maxresults: A maximum of 30 results are displayed per category. Maybe use a more
-    specific search term.
+  maxresults: The number of results displayed is limited. Maybe use a more specific
+    search term.
+  too_short: Please enter a longer search term.
 month:
   short:
     "12": Dec.
@@ -3158,6 +3177,7 @@ chain:
     headquarters: Headquarters
     kams: KAM
     notes: Notes
+    actions: Actions
   new: Create new Chain
   allowpress: Public mention allowed.
   tooltips:
@@ -3306,6 +3326,9 @@ globals:
     my_persons: My friends
     threads: Threads
     chats: Chats
+    foodSharePoints: Food-Share Points
+    users: Persons
+    workingGroups: Groups
   save: Save
   close: Close
   select: Please select …
@@ -3442,3 +3465,8 @@ thread:
     options:
       copy_source: Copy source code
     copy_source_success: Source code copied!
+configure_columns: Configure columns
+save_state: Maintain filters and sorting
+save_state_description: Save used filters and sorting for future calls
+expand_all: Expand all
+collapse_all: Collapse all
