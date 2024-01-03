@@ -149,6 +149,11 @@ group:
     tooltip_function_11: Les administrateurs·rices de ce groupe de travail sont affiché-e-s
       dans la vue d’ensemble du district.
     board: Comité
+    tooltip_function_12: Les administrateurs/trices de ce groupe de travail sont affichés
+      dans l’aperçu du district.
+    duplicate_election_team: Groupe électoral déjà créé ! Il ne peut y avoir qu’un
+      seul groupe électoral par secteur géographique.
+    election: Élections
   delete_group_sure: Le groupe de travail/le district {groupName} doit-il réellement
     être supprimé ?
   quitting_home_district_warning: Souhaites-tu vraiment quitter ton district principal
@@ -287,6 +292,7 @@ button:
   change_picture: Modifier l’image
   next: Suivant
   save: Enregistrer
+  reset_default: Restaurer par défaut
 upload:
   image-problem: Votre fichier semble être corrompu ou non valide, il est préférable
     d’utiliser une image jpg classique
@@ -969,6 +975,7 @@ terminology:
   n_home_regions: un(e) avec district d’origine|%count% avec district d’origine
   no_pickups: aucune
   previous_pickups: Précédentes collectes
+  electionAdmins: Élections
 register:
   activation_success: <strong>Activation réussie.</strong> Connecte-toi maintenant
     avec ton adresse courriel et le mot de passe que tu as choisi.
@@ -1776,6 +1783,7 @@ profile:
     history: Historique de la carte de membre
     buddy: Je connais {name}
     edit: Modifier le profil
+    remove_buddy: Je ne connais plus {name}
   banana:
     remove:
       confirm_message: Souhaites-tu vraiment retirer la banane-confiance ?
@@ -2052,8 +2060,8 @@ wall:
   error-delete: Tu ne peux pas supprimer cette contribution.
   info-logging: Afin d’éviter tout conflit, fais en sorte que le contenu ainsi que
     la personne responsable de ce contenu fasse l’objet d’un protocole écrit.
-  info-somebody-else: Cette contribution date de plus d’un mois, en tant que responsable,
-    tu peux la supprimer si besoin est.
+  info-somebody-else: En tant que responsable, tu peux supprimer cette contribution
+    si nécessaire.
   confirm-deletion: La contribution de {name} doit-elle être supprimée ?
   delete: Supprimer la contribution
   see-more: Voir toutes les contributions
@@ -2353,8 +2361,9 @@ search:
       jumper_tooltip: Vous êtes sur la liste d’attente pour ce magasin
       member_tooltip: Tu es membre de l’équipe de ce magasin
     from: de
-  maxresults: Un maximum de 30 résultats sont affichés par catégorie. Utilisez peut-être
-    un terme de recherche plus spécifique.
+  maxresults: Le nombre de résultats affichés est limité. Utilisez peut-être un terme
+    de recherche plus spécifique.
+  too_short: Veuillez saisir un terme de recherche plus long.
 index:
   confirm_open_video: Souhaites-tu regarder la vidéo sur YouTube ? La vidéo se lancera
     dans un nouvel onglet.
@@ -2627,6 +2636,7 @@ storelist:
   geo: géo
   isManaging: Responsable
   memberState: Statut de membre
+  actions: Actions
 storestatus:
   "7": Le magasin n’existe plus
   "6": Fait don de ses denrées alimentaires à la croix rouge, banques alimentaires
@@ -2978,6 +2988,15 @@ buddy:
   request_accepted: Ça y est, vous vous connaissez.
   request_sent: Ta demande a été envoyée.
   is_buddy: Vous êtes amis
+  send:
+    confirm_text: Si vous vous marquez comme amis, les publications du mur de profil
+      de l’autre personne s’affichent sur votre tableau de bord et vous pouvez également
+      vous retrouver plus facilement grâce à la fonction de recherche.
+    confirm_title: Tu connais {name} ?
+  remove:
+    confirm_text: Voulez-vous mettre fin à la connaissance ? Les mises à jour de vos
+      tableaux d’affichage de profil ne seront alors plus affichées sur la page d’accueil.
+    confirm_title: Mettre fin à la connaissance avec {name} ?
 base:
   jsrequired: Le site ne fonctionne pas sans JavaScript.
   slogan: Nos denrées alimentaires sont précieuses, partageons-les ! – foodsharing
@@ -3186,6 +3205,9 @@ globals:
     groups: Groupes
     threads: Fils
     chats: Chats
+    foodSharePoints: Frigos solidaires
+    users: Personnes
+    workingGroups: Groupes
   show_less: Afficher moins
   close: Fermer
   reset: Réinitialiser
@@ -3309,6 +3331,7 @@ chain:
     kams: Responsables des chaînes de magasins
     notes: Remarques
     estimatedStoreCount: Nombre prévu de magasins coopérants
+    actions: Actions
   new: Créer une nouvelle chaîne
   allowpress: Dénomination publique autorisée.
   tooltips:
@@ -3453,3 +3476,9 @@ thread:
     options:
       copy_source: Copier le code source
     copy_source_success: Code source copié !
+configure_columns: Configurer les colonnes
+save_state: Maintenir les filtres et le tri
+save_state_description: Enregistrez les filtres utilisés et le tri pour les appels
+  futurs
+expand_all: Développer tout
+collapse_all: Réduire tout
