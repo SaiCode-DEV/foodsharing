@@ -167,8 +167,9 @@ search:
       member_tooltip: Eres miembro de este distrito
     user:
       no_home_region: Ningún distrito de origen
-  maxresults: Se muestra un máximo de 30 resultados por categoría. Puede que necesite
-    utilizar un término de búsqueda más específico.
+  maxresults: El número de resultados mostrados es limitado. Quizás utilice un término
+    de búsqueda más específico.
+  too_short: Por favor ingrese un término de búsqueda más largo.
 reports:
   reason: razón
   message: descripción
@@ -404,6 +405,7 @@ terminology:
   n_home_regions: un@ con distrito de origen|%count% con distrito de origen
   no_pickups: 'ninguna'
   previous_pickups: Recogidas anteriores
+  electionAdmins: Elecciones
 groups:
   empty: Aún no estás en ningún grupo de trabajo
 position: Puesto en foodsharing (público)
@@ -822,6 +824,11 @@ group:
     duplicate_report_team: '¡Equipo de quejas ya creado! Sólo puede haber un equipo
       de quejas por distrito.'
     invalid: 'A un distrito no se le puede asignar una función de grupo de trabajo.'
+    tooltip_function_12: L@s administrador@s de este grupo de trabajo se muestran
+      en la descripción general del distrito.
+    duplicate_election_team: ¡Grupo electoral ya creado! Sólo puede haber un grupo
+      electoral por distrito.
+    election: Elecciones
   actions:
     edit: 'Editar grupo'
     join: 'Unase a este grupo'
@@ -1021,6 +1028,7 @@ button:
   clear_filter: 'Borrar filtros'
   cancel: 'Cancelar'
   permadelete: 'borrar permanentemente'
+  reset_default: Restablecer valor predeterminado
 pass:
   nav:
     options: 'Opciones'
@@ -2124,6 +2132,7 @@ chain:
     notes: 'Notas'
     status: 'Estado'
     estimatedStoreCount: Número esperado de establecimientos
+    actions: Acciones
   tooltips:
     modificationDate: 'Último cambio'
     options: 'Opciones'
@@ -2899,6 +2908,9 @@ globals:
     groups: 'Grupos'
     threads: Hilos
     chats: Chats
+    foodSharePoints: Distribuidores
+    users: Personas
+    workingGroups: Grupos
   you: 'Tú'
   account:
     signin: 'Iniciar sesión'
@@ -3085,6 +3097,7 @@ storelist:
   isManaging: ''
   addressdata: 'Dirección'
   memberState: Estado de miembro
+  actions: Acciones
 email_template:
   help_needed:
     support_mail: 'it@foodsharing.network (en alemán/inglés)'
@@ -3554,3 +3567,8 @@ thread:
     options:
       copy_source: Copiar código fuente
     copy_source_success: ¡Código fuente copiado!
+configure_columns: Configurar columnas
+save_state: Mantener filtros y clasificación
+save_state_description: Guarde los filtros usados y clasifique para futuras llamadas
+expand_all: Expandir todo
+collapse_all: Contraer todo
