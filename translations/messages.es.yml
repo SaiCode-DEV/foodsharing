@@ -1683,6 +1683,7 @@ profile:
     history: 'Historial de la tarjeta'
     notes: 'Notas <strong>({count})</strong>'
     edit: 'Editar perfil'
+    remove_buddy: Ya no conozco a {name}
   mediation:
     title: 'Solicitud de mediación para {name}'
     no_group: 'Desgraciadamente todavía no existe un grupo de mediación local en el
@@ -2271,6 +2272,13 @@ buddy:
   is_buddy: Ustedes son amig@s
   send:
     confirm_title: ¿Conoces a {name}?
+    confirm_text: Si os etiquetáis mutuamente como amigos, las publicaciones del muro
+      del perfil de la otra persona aparecerán en vuestra página de inicio. También
+      podréis encontraros más fácilmente mediante la función de búsqueda.
+  remove:
+    confirm_text: ¿Quieres terminar con la relación? Las actualizaciones en los tableros
+      de tu perfil ya no se mostrarán en la página de inicio.
+    confirm_title: ¿Dejar de conocer {name}?
 time: 'tiempo'
 fsp:
   followers: 'Seguidor@s'
@@ -2390,8 +2398,8 @@ wall:
   error-delete: 'No puedes eliminar esta entrada.'
   error-create: 'No se pudo guardar tu publicación en el tablero.'
   message_placeholder: ''
-  info-somebody-else: 'Dado que tiene permiso para administrar esta operación, puede
-    eliminar esta entrada si es necesario.'
+  info-somebody-else: 'Como está autorizado a administrar esta operación, puede eliminar
+    esta entrada si es necesario.'
   placeholder: Escribe una nueva entrada en el muro…
 events:
   bread: 'Eventos'
