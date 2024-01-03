@@ -709,8 +709,9 @@ search:
       jumper_tooltip: Du er en reserve i teamet for dette bedriften
       member_tooltip: Du er en del av teamet i dette bedriften
     from: fra
-  maxresults: Maksimalt 30 resultater vises per kategori. Bruk kanskje et mer spesifikt
+  maxresults: Antallet resultater som vises er begrenset. Bruk kanskje et mer spesifikt
     søkeord.
+  too_short: Skriv inn et lengre søkeord.
 profile:
   public:
     mayNot: ikke aktiv
@@ -763,6 +764,7 @@ profile:
     verificationHistory: Verifikasjonshistorikk
     history: Pass historikk
     storelist: Selskaper ({count})
+    remove_buddy: Jeg kjenner ikke {name} lenger
   banana:
     remove:
       confirm_title: Fjern banan
@@ -1590,6 +1592,10 @@ group:
     duplicate_board_team: Styret er allerede opprettet! Det kan kun være ett styre
       per distrikt.
     tooltip_function_11: Administratorer for denne arbeidsgruppen vises i distriktsoversikten.
+    tooltip_function_12: Administratorer for denne arbeidsgruppen vises i distriktsoversikten.
+    duplicate_election_team: Valggruppe allerede opprettet! Det kan bare være én valggruppe
+      per distrikt.
+    election: Valg
   quit: Forlate
   quit_name_district: Forlate distriktet %name%
   quit_name_workgroup: Forlate team %name%
@@ -1791,6 +1797,7 @@ button:
   change_picture: Endre bilde
   next: Neste
   save: Lagre
+  reset_default: Nullstill standard
 upload:
   preview_image: Forhåndsvisning
   crop_dialog_title: Beskjær bilde
@@ -1888,6 +1895,7 @@ storelist:
   notcooperating: ønsker ikke å samarbeide
   isManaging: Ansvarlig
   memberState: medlemsstatus
+  actions: Handlinger
 footer:
   version: 'Versjon: {version}'
   hosting_info: CO2-nøytral vert på
@@ -2737,6 +2745,7 @@ terminology:
   n_home_regions: en med hjemdistrikt|%count% med hjemdistrikt
   no_pickups: ingen
   previous_pickups: Tidligere samlinger
+  electionAdmins: Valg
 gender:
   d: mangfoldig
   f: Fru
@@ -2809,8 +2818,8 @@ wall:
   message_placeholder: Skrive en melding…
   error-delete: Du kan ikke fjerne dette innlegget.
   confirm-deletion: Vil du virkelig slette følgende vegginnlegg fra {name}?
-  info-somebody-else: Denne oppføringen er eldre enn en måned, så som ansvarlig kan
-    du fjerne den hvis du vil.
+  info-somebody-else: Siden du har lov til å administrere dette selskapet, kan du
+    fjerne denne oppføringen om nødvendig.
   created: Hyggelig! Veggposten din ble lagret.
   error-create: Veggoppføringen din kunne ikke lagres.
   info-logging: Vær oppmerksom på at for å unngå konflikter, logges innholdet og personen
@@ -2915,6 +2924,15 @@ buddy:
   request_accepted: Dere kjenner hverandre nå.
   request_sent: Forespørsel sendt.
   is_buddy: Dere er bekjente
+  send:
+    confirm_text: Hvis dere markerer hverandre som venner, vises innlegg fra den andre
+      personens profilvegg på dashbordet, og dere kan også lettere finne hverandre
+      ved å bruke søkefunksjonen.
+    confirm_title: Kjenner du {name}?
+  remove:
+    confirm_text: Vil du avslutte bekjentskapet? Oppdateringer til profilens oppslagstavler
+      vil da ikke lenger vises på hjemmesiden.
+    confirm_title: Avslutte bekjentskapet med {name}?
 storestatus:
   "0": Status uklar
   "2": Forhandlinger pågår
@@ -3128,6 +3146,9 @@ globals:
     my_foodshare_points: Mine distribusjonsstasjoner
     threads: Tråder
     chats: Chatter
+    foodSharePoints: Distribusjonsstasjoner
+    users: Personer
+    workingGroups: Grupper
   show_more: Vis mer
   reset: Tilbakestill
   show_less: Vis mindre
@@ -3178,6 +3199,7 @@ chain:
     kams: KAM-er
     notes: Notater
     estimatedStoreCount: Estimert antall samarbeidende butikker
+    actions: Handlinger
   new: Gå inn i ny kjede
   allowpress: Offentlig navngivning tillatt.
   tooltips:
@@ -3318,3 +3340,8 @@ thread:
     options:
       copy_source: Kopier kildekoden
     copy_source_success: Kildekoden er kopiert!
+configure_columns: Konfigurer kolonner
+save_state: Vedlikeholde filtre og sortering
+save_state_description: Lagre brukte filtre og sortering for fremtidige samtaler
+expand_all: Utvid alle
+collapse_all: Skjul alle
