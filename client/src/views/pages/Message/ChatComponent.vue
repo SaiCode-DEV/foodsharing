@@ -77,7 +77,7 @@ import Avatar from '@/components/Avatar.vue'
 import ConversationAvatar from '@/components/ConversationAvatar'
 import { pulseError } from '@/script'
 import i18n from '@/helper/i18n'
-import storage from '@/storage'
+import Storage from '@/storage'
 
 // Stores
 import conversationStore from '@/stores/conversations'
@@ -172,6 +172,7 @@ export default {
     },
   },
   async created () {
+    this.storage = new Storage('chat-text-')
     await this.loadRooms()
   },
   async mounted () {
@@ -300,9 +301,9 @@ export default {
 
         this.getMessageTextComponent().addEventListener('input', async () => {
           if (this.getMessageTextComponent().value !== '') {
-            storage.set(`chat-text-${this.roomId}`, this.getMessageTextComponent().value)
+            this.storage.set(this.roomId, this.getMessageTextComponent().value)
           } else {
-            storage.del(`chat-text-${this.roomId}`)
+            this.storage.del(this.roomId)
           }
         })
 
@@ -324,7 +325,7 @@ export default {
         this.roomChanging = true
         this.roomId = roomId
         await conversationStore.markAsRead(roomId)
-        const storedChatText = storage.get(`chat-text-${this.roomId}`)
+        const storedChatText = this.storage.get(this.roomId)
         if (storedChatText) {
           this.setMessageText(storedChatText)
         }
@@ -513,7 +514,7 @@ export default {
         await conversationStore.sendMessage(roomId, content)
       }
       await conversationStore.markAsRead(this.roomId)
-      storage.del(`chat-text-${this.roomId}`)
+      this.storage.del(this.roomId)
     },
     /**
      * Will be called when clicked on the failure icon next to a message
