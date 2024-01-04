@@ -2263,6 +2263,8 @@ forum:
   post:
     delete: 'Eliminar mensaje'
     body: 'Mensaje'
+    moderator_info: Este tema está cerrado. Como moderador de este foro, aún puede
+      escribir un mensaje. ¡Otros usuarios no pueden responder!
   hold_back_for_moderation: 'El tema ha sido guardado y se publicará tan pronto como
     un(a) embajador(a) o moderador(a) lo confirme.'
   no_threads: 'Aún no hay hilos'
