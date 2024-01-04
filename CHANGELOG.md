@@ -18,6 +18,7 @@
 - When answering posts in the forum, the answered message is now quoted !2937 @AntonBallmaier
 - Permissions as Orga-user are now displayed on users profile pages #1757 !2955 @AntonBallmaier
 - Provision of RestApi for a foodsharepoint for the map bubble !2946 @BibaltiK
+- Allow forum moderators to write and everyone to delete their posts in closed threads !3019 @AntonBallmaier 
 
 ## Changes
 - Changed team state translation from full to closed !2831 @chriswalg

@@ -110,7 +110,7 @@ export default {
       return Object.fromEntries(filtered)
     },
     canGiveEmoji () {
-      return this.mayReply && Object.keys(this.emojisToGive).length > 0
+      return Object.keys(this.emojisToGive).length > 0
     },
     emojisToGive () {
       // https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_pickby

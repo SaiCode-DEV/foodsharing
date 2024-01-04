@@ -1229,6 +1229,7 @@ forum:
   post:
     delete: "Beitrag löschen" #also in ThreadPostActions
     body: "Nachricht"
+    moderator_info: "Dieses Thema ist geschlossen. Als Moderator dieses Forums kannst du trotzdem eine Nachricht verfassen. Andere Nutzer*innen können nicht antworten!"
   thread:
     delivery_mail:
       title: "Mailversand"

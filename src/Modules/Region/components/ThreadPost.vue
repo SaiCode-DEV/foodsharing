@@ -74,7 +74,7 @@
           />
           <ThreadPostActions
             :reactions="reactions"
-            :may-delete="mayReply && mayDelete"
+            :may-delete="mayDelete"
             :may-edit="mayEdit"
             :may-reply="mayReply"
             @delete="$emit('delete')"

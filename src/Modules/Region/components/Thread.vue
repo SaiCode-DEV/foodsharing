@@ -118,9 +118,9 @@
     />
 
     <ThreadForm
-      v-if="isOpen"
+      v-if="isOpen || mayModerate"
       ref="form"
-      :error-message="errorMessage"
+      :is-open="isOpen"
       @submit="createPost"
     />
 

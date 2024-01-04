@@ -80,7 +80,11 @@ class ForumPermissions
             return false;
         }
 
-        return $this->forumGateway->getThreadStatus($threadId) === ThreadStatus::OPEN;
+        if ($this->forumGateway->getThreadStatus($threadId) === ThreadStatus::OPEN) {
+            return true;
+        }
+
+        return $this->mayModerate($threadId);
     }
 
     public function mayModerate(int $threadId): bool

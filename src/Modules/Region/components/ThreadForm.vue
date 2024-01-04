@@ -5,6 +5,12 @@
         {{ $i18n('button.answer') }}
       </div>
       <div class="card-body">
+        <div
+          v-if="!isOpen"
+          class="alert alert-warning mb-2"
+          role="alert"
+          v-text="$i18n('forum.post.moderator_info')"
+        />
         <MarkdownInput
           ref="input"
           :rows="3"
@@ -36,6 +42,9 @@ import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 
 export default {
   components: { MarkdownInput },
+  props: {
+    isOpen: { type: Boolean, default: false },
+  },
   data () {
     return {
       text: '',
