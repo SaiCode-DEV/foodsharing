@@ -118,7 +118,7 @@
 - Users have the ability to keep the list filters and sort order on refresh (default: enabled) !2733 @buntel
 - b-table could now be displayed more mobile friendly. On small screens the table is displayed in a grid-layout !2733 @buntel
 - Storemanagers can set a description for pickup slots #1653 !2757 !2781 @AntonBallmaier
-- Improved bell menu #1684 #1685 #1686 #1687 !2832 @AntonBallmaier
+- Improved bell menu #1684 #1685 #1686 #1687 !2832 !3014 @AntonBallmaier
 
 ## Changes
 - Added a new content page for it infos to menu !2590 @chriswalg
@@ -186,6 +186,7 @@
 - Correct and improve several german language texts !2828 !2840 !3007 @irgendwer
 - Fix condition check for date in release banner !2846 @chriswalg
 - Fix condition check for release banner !2846 !2850 @chriswalg
+- fix vue update loop, that causes the site to crash when switching form landscape to portrait view !2832 !3014 @buntel
 
 ## Refactoring
 - added poppins font in Styleguide !2564 @Niklas003

@@ -84,8 +84,8 @@ export default {
   },
   computed: {
     bells () {
-      const bells = DataBell.getters.get()
-      bells.sort((a, b) => a.isRead - b.isRead)
+      const bells = DataBell.getters.get() // returns vue mutation object, you can not sort on this, without driving vue crazy// !
+      bells.concat().sort((a, b) => a.isRead - b.isRead)
       return bells
     },
     allLoaded () {
