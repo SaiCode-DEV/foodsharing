@@ -114,6 +114,7 @@ class BuddyApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->dontSeeInDatabase('fs_buddy', [
             'foodsaver_id' => $this->user1['id'],
+            'buddy_id' => $this->user2['id'],
         ]);
         $I->seeInDatabase('fs_buddy', [
             'foodsaver_id' => $this->user2['id'],

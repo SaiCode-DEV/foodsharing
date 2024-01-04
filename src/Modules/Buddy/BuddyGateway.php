@@ -69,9 +69,10 @@ class BuddyGateway extends BaseGateway
     public function unconfirmBuddy(int $buddyId, int $foodsaverId): void
     {
         $this->db->update('fs_buddy', [
+            'confirmed' => BuddyId::REQUESTED
+        ], [
             'foodsaver_id' => $foodsaverId,
             'buddy_id' => $buddyId,
-            'confirmed' => BuddyId::REQUESTED
         ]);
     }
 }

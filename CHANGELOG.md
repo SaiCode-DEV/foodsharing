@@ -13,7 +13,7 @@
 - Made store log accessible by store managers !2902 @AntonBallmaier
 - The source code of forum posts can now be copied !2913 @AntonBallmaier
 - Added confirmation modal to sending mail when creating a new thread !2877 @AntonBallmaier
-- Buddies can now be removed !2919 @AntonBallmaier
+- Buddies can now be removed !2919 !2993 @AntonBallmaier
 - If youre phone number is invalid, you get informed about that on the dashboard now !2916 @AntonBallmaier
 - When answering posts in the forum, the answered message is now quoted !2937 @AntonBallmaier
 - Permissions as Orga-user are now displayed on users profile pages #1757 !2955 @AntonBallmaier
