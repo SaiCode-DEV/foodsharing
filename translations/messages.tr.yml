@@ -1864,6 +1864,7 @@ storelist:
   entered: 'Kayıtlı:'
   isManaging: ''
   memberState: Üyelik durumu
+  actions: Eylemler
 blog:
   edit: Blog yazısını düzenle
   newTitle: '{region} için yeni yazı'
@@ -2627,9 +2628,9 @@ legal:
     gelir.
   dont_agree: Verilerimin işlenmesine izin vermiyorum ve
   privacy_notice_agree:
-    acknowledge: Kabul ediyorum
+    acknowledge: Kabul ediyorum.
     select: Lütfen seçin
-    not_acknowledge: Kabul etmiyorum ve Foodsaver seviyesine indirilmek istiyorum
+    not_acknowledge: Kabul etmiyorum ve Foodsaver seviyesine indirilmek istiyorum.
   legal_agreement: Yasal anlaşma
   are_you_sure_to_downgrade: 'Dikkat: Foodsaver seviyesine indirilmeyi seçtiniz. Emin
     misiniz?'
@@ -3105,6 +3106,7 @@ chain:
     name: 'İsim'
     kams: 'KAM''lar'
     estimatedStoreCount: Beklenen tesis sayısı
+    actions: Eylemler
   allowpress: 'Genel paylaşıma izin veriliyor.'
   detailsmodal:
     stores: 'İşletmeler:'
@@ -3159,6 +3161,9 @@ globals:
     groups: 'Gruplar'
     threads: Konular
     chats: Sanal Sohbet
+    foodSharePoints: Gıda Dağıtım Noktası
+    workingGroups: Gruplar
+    users: Kişiler
   select: 'Lütfen seçin …'
   close: 'Kapat'
   show_more: 'Daha fazla göster'
