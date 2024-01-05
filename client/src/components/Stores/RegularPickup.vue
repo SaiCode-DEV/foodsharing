@@ -195,9 +195,6 @@ export default {
       }
 
       this.editPickupsCopied = updatedPickups
-      this.emitEditPickups()
-    },
-    emitEditPickups () {
       this.$emit('update:editPickups', this.editPickupsCopied)
     },
   },

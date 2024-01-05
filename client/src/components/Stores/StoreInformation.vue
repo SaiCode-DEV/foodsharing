@@ -238,6 +238,7 @@
             />
           </b-form-group>
           <RegularPickup
+            :edit-pickups.sync="editPickups"
             :loaded-pickups.sync="loadedPickups"
             :edit-mode="editMode"
             :max-count-pickup-slot="maxCountPickupSlot"
@@ -572,7 +573,7 @@ export default {
       window.dispatchEvent(new Event('resize'))
     },
     isUpdatedRegularPickup () {
-      return JSON.stringify(this.loadedPickups) !== JSON.stringify(this.previousEditPickups)
+      return JSON.stringify(this.editPickups) !== JSON.stringify(this.previousEditPickups)
     },
     async submit (bvModalEvent) {
       bvModalEvent.preventDefault()
