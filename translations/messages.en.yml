@@ -314,7 +314,7 @@ settings:
   chatmail: "If you receive an internal message on the foodsharing homepage,\nbut
     you are not logged in at the moment, we can inform you by mail.\nDo you want that?\n"
   follow:
-    thread: Get notified when there is something new about "{thread}"?
+    thread: Get notified when there is something new about “{thread}”?
     none: Please do not notify me of new posts by email.
     mail: Yes, I would like to be informed about new posts by email.
   newsletter: "About once a month we send out current information\nabout the food
@@ -437,7 +437,7 @@ profile:
       confirm_message: Do you really want to remove this trust banana?
       confirm_title: Remove trust banana
   public:
-    join: Join & register
+    join: Register & join
     who: '{name} from {from}'
     may: active
     mayNot: not active
@@ -472,7 +472,7 @@ profile:
     title: 'Report about {name}'
     reporterAdminNoArbitration: You are admin of the local reporting group and since
       there is no local arbitration board, you cannot submit a report.
-    reportedAdminNoArbitration: You cannot submit a report about {name} because he*she
+    reportedAdminNoArbitration: You cannot submit a report about {name} because {name}
       is admin of the local reporting group in his*her district and there is no arbitration
       board there.
     noReportGroup: You cannot use the reporting system since it is not activated for
@@ -713,7 +713,7 @@ mailbox:
   attachment:
     not_found_explanation: The attachment could not be found on the server
     not_found: not found
-    attach: Attachments (max. 1.5 MB per file)
+    attach: Attachments (max. 1.5 MB per file)
     too_large_to_send: Some of the files were too large and could not be attached
       to the email.
   move_to: Move to
@@ -1270,10 +1270,10 @@ reports:
   in-store: Does the message concern a specific store where {user} picks up?
   store: Assigned store
   reportmessage: Please indicate how you can be reached if we have further questions.
-  info: ' !! Please specify the <b>date</b>, the <b>place</b> and the <b>time</b>
-    of the incident !! <br> Please check if you have tried the available communication
+  info: ' Please specify the <b>date</b>, the <b>place</b> and the <b>time</b> of
+    the incident! <br> Please check if you have tried the available communication
     channels to address the incident directly with the person and to clarify the facts.
-    Please indicate how you can best be reached for queries during processing.'
+    Please indicate how you can best be reached for further questions.'
   about_email: via email
 recipients:
   test: Test the newsletter
@@ -1422,7 +1422,7 @@ email_template:
   request_from: Request by
   foodbasket_request: Your food basket was requested by %SENDER%
   foodsharepoint: -- Food-Share Point
-  yourFSteam: Your foodsharing team.
+  yourFSteam: Your foodsharing team
   dont_respond:
     noreply: Please do not respond to this e-mail. It was sent from an address, which
       does not correspond to a mailbox.
@@ -1449,7 +1449,7 @@ email_template:
   confirm_BOT: . Since you are an ambassador / moderator for %BEZIRK%, you have to
     confirm it in order that it is published.
   confirm_link: would like to publish the topic
-  withlove: Lots of love,
+  withlove: Lots of love
   impress:
     general_information_requirements: Information according to § 5 Telemediengesetz
     title: Legal notice
@@ -2421,8 +2421,8 @@ language_chooser:
   choose_button: "Continue"
   translation_help: "Do you speak other languages? Foodsharing is always looking for
     help with translations"
-  translation_help_info_text: "The link takes you to the translation portal. Click
-    on the pen to get started"
+  translation_help_info_text: "The link takes you to the translation portal. Register
+    and click on the pen to get started"
 plz: Post code (automatically filled by the map above)
 fsp:
   twig:
@@ -2667,7 +2667,8 @@ passcheck: Please confirm the change with your password
 online_type: Will this event be offline or online?
 addresspicker:
   label: Search for address/location
-  placeholder: Please look for the address here. If necessary, correct below afterwards.
+  placeholder: Please search for the address here and select it. If necessary, correct
+    the details below afterwards.
   infobox_profile: <a href="https://wiki.foodsharing.de/Foodsharer">Foodsharers</a>
     need the address in order to be able to offer food baskets on the website. In
     order to be able to participate in food rescues as a <a href="https://wiki.foodsharing.de/Foodsaver">Foodsaver</a>,
@@ -2904,8 +2905,8 @@ mail:
 regionOptions:
   enableMediationButton: Enable mediation request link on the profiles of foodsavers
     with this home district.
-  enableReportButton: Enable report link on the profiles of foodsavers with this home
-    district.
+  enableReportButton: Enable report link on the profile pages of foodsavers with this
+    home district.
   save: Save options
   success: Options saved successfully
   header_page: Settings for {bezirk}
@@ -2929,7 +2930,7 @@ startpage:
     title: Donate
     link: Support foodsharing
     text: "We seek sponsorship for any expenditure. In some cases, however, we are
-      not or not fully successful, \ne.g. for the financing of events, legal advice
+      not or not fully successful,\ne.g. for the financing of events, legal advice
       or insurances.\nWe would be delighted in receiving any support.\n"
   demands:
     title: Demands
@@ -2953,7 +2954,7 @@ startpage:
     title: Close to you
     text2:
       part2: food baskets
-      part3: '- with these you can offer your surplus food and collect food from others.'
+      part3: '– with these you can offer your surplus food and collect food from others.'
       part1: Also, there are
   store:
     title: as a company
@@ -3375,7 +3376,7 @@ join_region:
       a region or a district!
   headline: Please choose the district in which you want to become active.
   description: You can join a district by clicking through to your district starting
-    with <em>Europe</em> and your country. If you don’t find a district for you, choose
+    with your continent and your country. If you don’t find a district for you, choose
     a level higher or join the nearest district. If you don’t have the opportunity
     to be trained as a foodsaver in the area, you can consider starting your own district.
     In this case, please read the wiki carefully, in particular the <a href="{href}">article
