@@ -2108,6 +2108,8 @@ forum:
   post:
     body: Beskjed
     delete: Slett innlegget
+    moderator_info: Dette emnet er stengt. Som moderator av dette forumet kan du fortsatt
+      skrive en melding, men andre brukere kan ikke svare!
   threads: Tråder
   from: Fra {name}
   new_thread: Lag ny tråd
