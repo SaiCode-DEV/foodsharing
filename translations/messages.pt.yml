@@ -452,7 +452,7 @@ dashboard:
   source_event: ''
   pickupdates: ''
 storeview:
-  counter: <strong>{count}<span style="white-space:nowrap"> </span>{suffix}</strong>
+  counter: <strong>{count} {suffix}</strong>
   groceries:
     select_tag: ''
     no_tag_preset: ''
