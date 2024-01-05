@@ -2570,7 +2570,7 @@ mailbox:
   hostinfo: 'Ingrese solo el nombre del buzón, sin @{host}'
   sm-quiz: 'Examen para responsables de cooperaciones'
   ratelimit: 'Solo puedes enviar un correo electrónico cada 15 segundos, espera un
-    momento…'
+    momento …'
   reply:
     full: Responder correo
     short: Respuesta
