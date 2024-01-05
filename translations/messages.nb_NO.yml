@@ -2562,7 +2562,7 @@ storeview:
   public_time_in_the_morning: om morgenen
   info: Informasjon
   store: Drift
-  counter: <strong>{count}<span style="white-space:nowrap"> </span>{suffix}</strong>
+  counter: <strong>{count} {suffix}</strong>
   pickupWeight: '{pickupWeight} mat ble spart.'
   cooperation: Samarbeid siden {startTime}.
   public_time: Vi henter her {freq}. Vennligst aldri gå til butikken uten forhåndsavtale!
