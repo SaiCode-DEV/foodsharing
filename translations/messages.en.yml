@@ -686,7 +686,7 @@ mailbox:
   new: New mailbox
   filesize: Sorry, this file is too big.
   filetype: This file type is not allowed
-  ratelimit: You can only send one email every 15 seconds, please wait a moment…
+  ratelimit: You can only send one email every 15 seconds, please wait a moment …
   failed: The email could not be sent.
   okay: Email was successfully sent.
   not-allowed: You don’t have the necessary authorization to do that.
@@ -1640,16 +1640,16 @@ storelist:
   memberState: Membership status
   actions: Actions
 releases:
-  "2020-08": "Release \"Pear\" (August 2020)"
-  "2020-10": "Release \"Cranberry\" (October 2020)"
-  "2020-12": "Release \"Dragonfruit\" (December 2020)"
-  "2020-05": Release "Orange" (May 2020)
-  "2021-03": Release "strawberry" 🍓 (March 2021)
-  "2021-09": "Release \"fig\" 🥧 (September 2021)"
-  "2022-01": Release "Grapefruit" 🍋 (January 2022)
-  "2022-05": Release "Blueberry" 🍇 (May 2022)
-  "2022-12": "Release \"Icecream\" 🍨 (December 2022)"
-  "2023-09": "Release \"Jackfruit\" 🍈 (September 2023)"
+  "2020-08": "Release “Pear” (August 2020)"
+  "2020-10": "Release “Cranberry” (October 2020)"
+  "2020-12": "Release “Dragonfruit” (December 2020)"
+  "2020-05": Release “Orange” (May 2020)
+  "2021-03": Release “strawberry” 🍓 (March 2021)
+  "2021-09": "Release “fig” 🥧 (September 2021)"
+  "2022-01": Release “Grapefruit” 🍋 (January 2022)
+  "2022-05": Release “Blueberry” 🍇 (May 2022)
+  "2022-12": "Release “Icecream” 🍨 (December 2022)"
+  "2023-09": "Release “Jackfruit” 🍈 (September 2023)"
 
 footer:
   it_devdocs: by foodsharing IT
@@ -1739,8 +1739,8 @@ basket:
   login: "You have to be logged in for detailed information.\nYou are not yet registered
     as a foodsharer?\nThen click on <b>Join us</b> and get started right away.\n"
   howto: "<b>Information on the use of food baskets</b>\n<br>\nPlease use the green
-    button <b>\"Request food basket\"</b> to express your interest in this basket,\n
-    or <b>\"Edit food basket\"</b> to edit your own basket afterwards.\n"
+    button <b>“Request food basket”</b> to express your interest in this basket,\n
+    or <b>“Edit food basket”</b> to edit your own basket afterwards.\n"
   published: Thank you! The food basket was published.
   publish_error: An error has occurred. The food basket could not be published.
   not-allowed: You are not authorised to edit this food basket.
@@ -2290,8 +2290,8 @@ polls:
   start_date: start date
   title: Title
   ended: Past polls
-  hint: The voting module can be tested in the transregional working group "Abstimmungen
-    - Test".
+  hint: The voting module can be tested in the transregional working group “Abstimmungen
+    – Test”.
   hint_2: You can find notes on using polls in the Wiki
   until: Possible until {until}
 storeedit:
@@ -2336,9 +2336,9 @@ legal:
   delete_account: I want to delete my account.
   legal_agreement: Legal agreement
   privacy_notice_agree:
-    acknowledge: I agree
+    acknowledge: I agree.
     select: Please select
-    not_acknowledge: I do not agree and would like to be downgraded to a Foodsaver
+    not_acknowledge: I do not agree and would like to be downgraded to a Foodsaver.
   privacy_notice: Privacy notice
   actions:
     safe: Apply settings
@@ -2768,7 +2768,7 @@ dashboard:
     for_support: Otherwise you can contact us at
     for_release_notes: You can find the most important changes at
 pronoun:
-  "3": he*she
+  "3": they
   "2": she
   "1": he
   "0": he/she
