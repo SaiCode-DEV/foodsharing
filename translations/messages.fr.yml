@@ -1391,7 +1391,7 @@ storeview:
   pickupWeight: Il y a eu {pickupWeight} de repêchés.
   store: Coopération
   pickupCount: Il y a déjà eu {pickupCount} interventions dans cette coopération.
-  counter: <strong>{count}<span style="white-space:nowrap"> </span>{suffix}</strong>
+  counter: <strong>{count} {suffix}</strong>
   teamInfo: Il y a <strong>{active}</strong> actif·ve·s et <strong>{jumper}</strong>
     remplaçant·e·s dans l’équipe.
   info: Informations
