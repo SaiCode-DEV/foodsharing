@@ -1106,7 +1106,7 @@ storeview:
     nella squadra.
   info: Informazioni
   store: Attività
-  counter: <strong>{count}<span style="white-space:nowrap"> </span>{suffix}</strong>
+  counter: <strong>{count} {suffix}</strong>
   public_time: Sarà rilevato all'incirca {freq}. Si prega di non recarsi mai al negozio
     senza previa consultazione!
   pickupWeight: '{pickupWeight} sono stati salvati.'
