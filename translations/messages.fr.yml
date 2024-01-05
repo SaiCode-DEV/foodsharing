@@ -827,6 +827,9 @@ forum:
   post:
     body: Message
     delete: Supprimer la contribution
+    moderator_info: Ce sujet est fermé. En tant que modérateur·ice de ce forum, tu
+      peux quand même poster un message, mais les autres utilisateurs·trices ne peuvent
+      pas répondre !
   threads: Discussions
   new_thread: Ouvrir une nouvelle discussion
   from: de {name}
