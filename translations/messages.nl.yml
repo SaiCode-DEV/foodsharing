@@ -1428,7 +1428,7 @@ storeview:
   want_to_fetch: ''
   teamInfo: ''
   cooperation_start: ''
-  counter: '<strong>{count}<span style="white-space:nowrap"> </span>{suffix}</strong>'
+  counter: '<strong>{count} {suffix}</strong>'
   visible_for_public: ''
   cooperation_status: ''
 back: ''
