@@ -149,7 +149,7 @@ group:
     tooltip_function_11: Les administrateurs·rices de ce groupe de travail sont affiché-e-s
       dans la vue d’ensemble du district.
     board: Comité
-    tooltip_function_12: Les administrateurs/trices de ce groupe de travail sont affichés
+    tooltip_function_12: Les administrateurs·trices de ce groupe de travail sont affichés
       dans l’aperçu du district.
     duplicate_election_team: Groupe électoral déjà créé ! Il ne peut y avoir qu’un
       seul groupe électoral par secteur géographique.
@@ -187,14 +187,14 @@ group:
     add_member: Intégrer dans l’équipe
     admin_mode_on: Activer la vue pour les administrateur·rice·s
     admin_mode_off: Retour à l’affichage standard
-    remove_ambassador_text: Veux-tu vraiment supprimer {name} ({id}) en tant qu’ambassadeur·ice ?
+    remove_ambassador_text: Veux-tu vraiment supprimer {name} ({id}) en tant qu’ambassadeur·ice ?
     remove_admin_text: Veux-tu vraiment supprimer {name} ({id}) en tant qu’admin ?
     old_edit_hint_link: Membre
     set_admin_title: Inscrire un·e membre en tant qu’admin
     set_ambassador_title: Inscrire un·e membre en tant qu’ambassadeur·ice
     set_admin_text: Veux-tu vraiment inscrire {name} ({id}) comme admin ?
     remove_ambassador_title: Se désinscrire en tant qu’ambassadeur·ice
-    set_ambassador_text: Veux-tu vraiment inscrire {name} ({id}) comme ambassadeur·ice ?
+    set_ambassador_text: Veux-tu vraiment inscrire {name} ({id}) comme ambassadeur·ice ?
     remove_admin_title: supprimer en tant qu’administrateur
     remove_text_group: Veux-tu vraiment supprimer {name} ({id}) du groupe de travail ?
     remove_text_region: Veux-tu vraiment supprimer {name} ({id}) de la région ?
@@ -322,28 +322,28 @@ explanation: Explication
 fp: Points d’erreur
 text: Texte
 right: Score
-week_num: Combien de semaines un membre doit-il être enregistré sur la plateforme ?
-fetch_count: Combien de collectes un membre doit-il effectuer ?
+week_num: Combien de semaines un membre doit-il être enregistré sur la plateforme ?
+fetch_count: Combien de collectes un membre doit-il effectuer ?
 apply_type: Qui peut s’inscrire à ce groupe ?
 leader: Administrateur·ice·s du groupe
 member: Membres
-abholmenge: Combien de kilos environ sont retirés par collecte ?
+abholmenge: Combien de kilos environ chaque personne emporte-t-elle par collecte ?
 prefetchtime: Combien de semaines à l’avance les collecteur·ice·s peuvent-ils s’inscrire
-  en utilisant les plages horaires automatiques ?
+  en utilisant les plages horaires automatiques ?
 sticker: La coopération est-elle intéressée pour apposer un autocollant de façon visible
   à l’entrée ou ailleurs ?
 presse: La coopération est-elle d’accord pour être mentionné dans la presse et sur
   notre site Internet ?
 ueberzeugungsarbeit: A-t-il été facile de convaincre le ou la responsable de coopérer
-  avec foodsharing ?
+  avec foodsharing ?
 first_post: Première publication
 public_time: Heure approximative de la collecte
 public_info: Informations publiques sur la coopération
 besonderheiten: Spécificités
 begin: Début de la coopération
-lebensmittel: Quels sont les aliments qui peuvent être collectés ?
+lebensmittel: Quels sont les aliments qui peuvent être collectés ?
 fax: Fax
-ansprechpartner: Personne de contact de la coopération(gérant·e du magasin, etc.)
+ansprechpartner: Personne de contact de la coopération (gérant·e du magasin, etc.)
 betrieb_status_id: Statut
 betrieb_kategorie_id: Catégorie
 team_status: Statut de l’équipe
@@ -1035,7 +1035,7 @@ register:
   password_required: Il faut renseigner un mot de passe.
   login_passwd2: nouvelle saisie du mot de passe
   login_passwd1: Mot de passe (minimum 8 caractères)
-  birthdate_hint: Tu trouveras plus d’informations dans la rubrique <a href="/?page=legal"
+  birthdate_hint: Tu trouveras plus d’informations dans la rubrique <a href="/ ?page=legal"
     target="_blank">Datenschutzerklärung</a> au point 2d.
   requiredFields: saisie obligatoire
   register_button_label: S’inscrire
@@ -1075,8 +1075,8 @@ legal:
   agree_privacy_notice: J’ai été informé·e de l’obligation de confidentialité des
     données personnelles et du comportement qui en résulte. Je recevrai une confirmation
     de ceci par courriel pour mes dossiers à l’adresse que j’ai donnée.
-  are_you_sure_to_downgrade: "Attention : tu as choisis d’être rétrogradé au rang
-    de collecteur·ice. Es-tu sûr·e de ton choix ?"
+  are_you_sure_to_downgrade: "Attention : tu as choisis d’être rétrogradé au rang
+    de collecteur·ice. Es-tu sûr·e de ton choix ?"
   legal_agreement: Mentions légales
   not_acknowledge_pn_description: En cas de désaccord avec l’avertissement, tu seras
     rétrogradé·e au rang de collecteur·ice. Tu perdras ton statut d’ambassadeur·ice
@@ -1097,7 +1097,7 @@ legal:
   dont_agree: Je ne suis pas d’accord avec le traitement de mes données et
   not_acknowledge_pp_description: Afin d’utiliser la plateforme foodsharing, tu dois
     lire et accepter les conditions d’utilisations de celle-ci.
-  acknowledge: Acceptes-tu les conditions ?
+  acknowledge: Acceptes-tu les conditions ?
   pp: Politique de confidentialité
   if_delete:
     legal_1: notre politique de confidentialité actuelle
@@ -1118,8 +1118,8 @@ legal:
       supprimées.
 message_text_to_group_admin_workgroup: "La région/le groupe de travail<b>{groupName}</b>
   n’a<b>plus</b> d’ambassadeur·ice/d’admin.<br><br><br>Elle possède la structure ID
-  ci-contre :<br>{idStructureList}<br><br>l’ID est : {groupId}<br><br>URL : \" <a
-  href=\"/region?bid={groupId}&sub=forum\" target=\"_blank\">Clique ici pour rejoindre
+  ci-contre :<br>{idStructureList}<br><br>l’ID est : {groupId}<br><br>URL : \" <a
+  href=\"/region ?bid={groupId}&sub=forum\" target=\"_blank\">Clique ici pour rejoindre
   la région/le groupe de travail</a>"
 gender:
   d: les deux ou autre
@@ -1143,7 +1143,7 @@ kette_id: chaîne (entreprise)
 fetchercount: Nombre de quêteurs
 storemanagers: Responsables coopération
 fspmanagers: Collecteur·ice·s responsables des frigos solidaires
-fsp_bezirk_id: Dans quel district se trouve le frigo solidaire ?
+fsp_bezirk_id: Dans quel district se trouve le frigo solidaire ?
 teaser: Extrait
 store:
   not-in-team: Tu n’es pas encore dans l’équipe de cette coopération.
@@ -3318,7 +3318,7 @@ join_region:
       une région ou un secteur géographique !
     not_allowed: Tu ne peux pas t’inscrire dans ce secteur géographique.
 use_region_pickup_rule: La règle à l’échelle du district pour les entreprises particulièrement
-  populaires pour les collectes s’applique-t-elle à cette coopération ?
+  populaires pour les collectes s’applique-t-elle à cette coopération ?
 groups:
   empty: Tu ne fais pas encore partie d’un groupe de travail
 timefrom: heure de
