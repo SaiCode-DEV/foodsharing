@@ -914,9 +914,9 @@ pickup:
     more: Add date
     add: Add pick-up dates
     bread: Edit pick-up dates
-    many-people: "You specified more than two foodsavers to pick up.\n<br />\nPlease
+    many-people: "You specified more than two foodsavers to pick up.\n<br>\nPlease
       <strong>only send as many foodsavers as necessary</strong> to the company.\n
-      Too many foodsavers have often led to the end of a cooperation.\n<br />\nClarify
+      Too many foodsavers have often led to the end of a cooperation.\n<br>\nClarify
       the maximum number of possible foodsavers with the company!\nAny additional
       helpers required can wait with bicycle trailers or the like\nout of sight of
       the store.\n"
@@ -928,7 +928,7 @@ pickup:
   slot_remove: Delete slot
   slot_add: Add slot
   no_slots_available: No pick-up slots available
-  add_onetime_pickup: Add additional date
+  add_onetime_pickup: Add single date
   edit_recurring_pickups: Edit regular pick-up dates
   really_delete_date: Do you really want to delete the pick-up on {date}?
   leave_team_message_template: Dear all, {date} …
@@ -1040,7 +1040,7 @@ storeview:
   public_time: 'It will be picked up roughly {freq}. Please never go to the store
     without prior consultation!'
   pickupWeight: '{pickupWeight} were saved.'
-  counter: <strong>{count}<span style="white-space:nowrap"> </span>{suffix}</strong>
+  counter: <strong>{count} {suffix}</strong>
   teamInfo: There are <strong>{active}</strong> active and <strong>{jumper}</strong>
     standby foodsavers in the team.
   pickupCount: At this store there have been {pickupCount} pick-ups.
@@ -1116,7 +1116,7 @@ terminology:
   arbitrationAdmins: Arbitration board
   mediationAdmins: Mediation team
   reportAdmins: Report processing team
-  n_foodsaver: one foodsaver|%count% foodsavers
+  n_foodsaver: One foodsaver|%count% foodsavers
   n_home_regions: "one with home district|%count% with home district"
   storesAdmins: Store coordination team
   n_sleeping: A nightcap|%count% nightcaps
@@ -1307,7 +1307,7 @@ recipients:
     group?
   variable-info: "To make the e-mail more personal, you can insert <strong>{NAME}</strong>
     instead of the name\nand use <strong>{ANREDE}</strong> for the salutation.\n<p>For
-    example, {ANREDE} {NAME} results in \"Dear Peter\"\n"
+    example, {ANREDE} {NAME} results in “Dear Peter”\n"
   variables: Salutation
   manual: Manual input
   newsletter_only_foodsharer: ONLY the foodsharers among all newsletter subscribers
@@ -2011,12 +2011,12 @@ store:
   nochains: Please only address owner-managed businesses with a maximum of three branches,
     never address branches of a larger chain! Please note the chain rules!
   convince:
-    much: Difficult negotiations, but in the end he*she agreed.
-    final: At first it looked bad, but then he*she got in touch.
-    none: No problem at all, he*she was immediately enthusiastic!
-    some: After some persuasion, he*she agreed to participate.
+    much: Difficult negotiations, but in the end they agreed.
+    final: At first it looked bad, but then they got in touch.
+    none: No problem at all, they were immediately enthusiastic!
+    some: After some persuasion, they agreed to participate.
   complete: complete database
-  peoplecame: It has often happened that people went to a store unsolicited.
+  peoplecame: It has already happened that people went to a store unsolicited.
   smneeded: To set up a store, you must be a Store Coordinator.
   tooltip_jumping: 'You are a standby foodsaver in this store'
   useRegionPickupRules: 'This is a CHERRY store. In addition to the rules for this
@@ -2039,8 +2039,8 @@ store:
   enter_date: Enter a single pick-up date
   delete_date: Delete a single pick-up date
   enter_date_description: After you have selected the date, time and number of people
-    for a pick-up, you can set slots once for this appointment. If you want to create
-    regular (automatically recurring weekly) slots, please use the ‘Show store information’
+    for a pick-up, you can set slots once for a single appointment. If you want to
+    create regular (automatically recurring weekly) slots, please use the ‘Store settings’
     menu.
   delete_date_description: If you use regular (automatically recurring weekly) slots
     for your pick-ups and want to prevent a specific date (e.g. public holiday) from
@@ -2109,8 +2109,8 @@ store:
     title: Store log
     no_description: none
   signInDateTime: Sign-in time
-  slot_state: Slot state
-  lastPickupTitle: Last pick-up
+  slot_state: Slot status
+  lastPickupTitle: Last pick-up here
   slotsCurrentlyOccupied: Currently occupied slots
 search:
   mygroups: My groups
@@ -2365,7 +2365,8 @@ legal:
       cannot be recovered:'
     this_gets_deleted_stores: Stores you had joined.
     this_gets_deleted_quiz: All your quizzes will be removed.
-    this_gets_deleted_trustbananas: Bananas that you gave to others will be removed.
+    this_gets_deleted_trustbananas: Bananas that you received from and gave to others
+      will be removed.
     this_doesnt_get_deleted_name: Your Name
     this_doesnt_get_deleted_address: Your Address
     this_doesnt_get_deleted_history: Your verification history
@@ -2460,7 +2461,7 @@ fsp:
   acceptSuccess: Food-Share Point is now active
   acceptName: Accept {name}
   accept: Accept Food-Share Point
-  managers: Contact Person
+  managers: Contact persons
   add: Add Food-Share Point
   inRegion: All Food-Share Points in {region}
   none: No Food-Share Points were added
@@ -2802,7 +2803,7 @@ week_num: How many weeks does an applicant need to be registered on the platform
 fetch_count: How many pick-ups does an applicant need to have done?
 banana_count: How many trust bananas must an applicant have?
 apply_type: Who can sign up for this group?
-abholmenge: How many kilograms are taken per pick-up approximately?
+abholmenge: How many kilograms are taken per pick-up approximately per person?
 prefetchtime: How many weeks in advance can food savers sign up using automatic slots?
 sticker: Is the store/shop/club etc. willing to display a sticker visibly at the entrance
   or elsewhere?
@@ -2811,7 +2812,7 @@ ueberzeugungsarbeit: Was it easy to convince a responsible person to cooperate w
   foodsharing?
 public_time: Approximate time of day for pick-ups
 fspmanagers: Foodsavers who are contact persons for the Food-Share Point
-fsp_bezirk_id: In which district is the Food-Share Point?
+fsp_bezirk_id: In which district is the Food-Share Point located?
 orgateam: Nationwide Orga
 bezirk_id: For which region is the article relevant?
 fetchstate: Did everything go all right?
