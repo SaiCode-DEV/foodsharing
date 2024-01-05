@@ -1613,7 +1613,7 @@ storeview:
   public_time_at_noon_or_afternoon: ''
   visible_for_team: ''
   public_time_in_the_evening: ''
-  counter: '<strong>{count}<span style="white-space:nowrap"> </span>{suffix}</strong>'
+  counter: '<strong>{count} {suffix}</strong>'
   visible_for_public: ''
   no_permission_to_view: ''
   status: ''
