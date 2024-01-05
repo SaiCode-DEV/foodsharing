@@ -334,7 +334,7 @@ terminology:
   ambassador:
     m: 'Embajador'
     f: 'Embajadora'
-    d: 'Embajador*a'
+    d: 'embajador*a'
   orga:
     m: 'Administrador global'
     d: 'Administrador(a) global'
@@ -345,22 +345,22 @@ terminology:
   foodsharer:
     f: 'Compartera'
     m: 'Compartero'
-    d: 'Compater@'
+    d: 'compater@'
   stores: 'Cooperaciones'
   homepage: 'Sitio web'
   forum: 'Foro'
   events: 'Eventos'
   storemanager:
     m: 'Responsable de empresas'
-    d: 'Responsable de empresas'
+    d: 'responsable de empresas'
     f: 'Responsable de empresas'
   groups: 'Grupos de trabajo'
   homeRegion: 'Distrito de origen'
   polls: 'Votos'
   buddies: 'Amig@s'
   options: 'Opciones'
-  ambassadors: 'Embajadores'
-  ambassador_forum: 'Foro de embajador@s'
+  ambassadors: 'embajadores'
+  ambassador_forum: 'foro de embajador@s'
   store: 'Empresa'
   welcomeAdmins: 'Equipo de bienvenida'
   mailboxes: 'Buzones'
@@ -377,16 +377,16 @@ terminology:
   settings: 'Ajustes'
   regions: 'Distritos'
   role:
-    "0": 'Compater@'
+    "0": 'compater@'
     "4": 'Administrador(a) global'
     "1": 'rescatista'
-    "3": 'Embajador*a'
-    "2": 'Responsable de empresas'
+    "3": 'embajador*a'
+    "2": 'responsable de empresas'
   baskets: 'Cestas de comida'
   basket: 'Cesta de comida'
   threads: 'Hilos'
   fsps: 'Distribuidores'
-  n_ambassadors: 'Un(a) embajador(a)|%count% embajador@s'
+  n_ambassadors: 'un(a) embajador(a)|%count% embajador@s'
   profile_picture: 'Foto de perfil'
   n_cooperating_stores: 'Una cooperación en marcha|%count% cooperaciones en marcha'
   reports: 'Vista de quejas (GQL)'
@@ -396,7 +396,7 @@ terminology:
   wall: 'Tablón de anuncios'
   storesAdmins: 'Equipo de responsables de empresas'
   pin: 'Descripción del grupo local'
-  admins: 'Administrador@s'
+  admins: 'administrador@s'
   mediationAdmins: 'Equipo de mediación'
   arbitration: 'Vista de quejas (JAL)'
   n_sleeping: 'un(a) dormilón(a)|%count% dormilon@s'
@@ -1096,7 +1096,7 @@ storeview:
   info: 'Informaciones'
   teamInfo: 'Hay <strong>{active}</strong> rescatistas activos y <strong>{jumper}</strong>
     suplentes en el equipo.'
-  counter: '<strong>{count}<span style="white-space:nowrap"> </span>{suffix}</strong>'
+  counter: '<strong>{count} {suffix}</strong>'
   public_time_in_the_evening: 'por la tarde'
   store: 'Empresa'
   cooperation: 'Cooperación desde {startTime}.'
@@ -1431,13 +1431,13 @@ pickup:
     added: 'Se ha introducido la fecha de recogida.'
     many-people: 'Especificaste más de dos personas para recoger.
 
-      <br />
+      <br>
 
       Envíe únicamente <strong>tantas recogidas a la empresa como sea necesario</strong>.
 
       Demasiados reencuentros han llevado a menudo al fin de una cooperación.
 
-      <br />
+      <br>
 
       Aclarar con la empresa el número máximo de recogidas posibles.
 
@@ -2295,7 +2295,7 @@ fsp:
   followers: 'Seguidor@s'
   rejectConfirm: 'Tenga en cuenta que si elimina el distribuidor, ya no podrá deshacerlo.
     ¿Continuar?'
-  managers: 'Persona de contacto'
+  managers: 'persona de contacto'
   address: 'Dirección'
   description: 'Descripción'
   none: 'Aún no hay distribuidores registrados'
@@ -2615,7 +2615,7 @@ mailbox:
   attachment:
     not_found_explanation: El archivo adjunto no se pudo encontrar en el servidor
     not_found: extraviado
-    attach: Archivos adjuntos (máximo 1,5 MB por archivo)
+    attach: Archivos adjuntos (máximo 1,5 MB por archivo)
     too_large_to_send: Algunos de los archivos eran demasiado grandes y no se podían
       adjuntar al correo electrónico.
   move_to: Mover a
@@ -2822,7 +2822,7 @@ team:
   not-found: 'Página no encontrada'
   name: 'Nombre'
   contacted: 'Su mensaje fue enviado exitosamente.'
-  contact: '{name} a través del formulario de contacto de foodsharing'
+  contact: '{name} a través del formulario de contacto'
   email: 'Dirección de correo electrónico'
 region:
   type:
@@ -2952,8 +2952,8 @@ legal:
     seguro?'
   privacy_notice: 'Instrucciones de protección de datos'
   privacy_notice_agree:
-    not_acknowledge: 'No estoy de acuerdo y quiero ser degradado a rescatista'
-    acknowledge: 'Estoy de acuerdo'
+    not_acknowledge: 'No estoy de acuerdo y quiero ser degradado a rescatista.'
+    acknowledge: 'Estoy de acuerdo.'
     select: 'Por favor seleccione'
   not_acknowledge_pp_description: 'Para utilizar foodsharing, debe leer la declaración
     de protección de datos descrita.'
@@ -3135,8 +3135,8 @@ email_template:
     part2: 'Desafortunadamente, nadie se ha registrado todavía para recoger la próxima
       cita.'
   request_from: 'Petición de'
-  withlove: 'Atentamente,'
-  yourFSteam: 'Tu equipo de foodsharing.'
+  withlove: 'Atentamente'
+  yourFSteam: 'tu equipo de foodsharing'
   foodbasket_request: 'Tu canasta de alimentos fue solicitada por %SENDER%'
   reply: 'Responder'
   slot_empty: 'Nadie se ha registrado para recoger la próxima vez en %BETRIEB%'
