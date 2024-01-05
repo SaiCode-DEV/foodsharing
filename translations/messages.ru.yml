@@ -1345,7 +1345,7 @@ storeview:
   team: ''
   no_permission_to_view: ''
   specials: ''
-  counter: '<strong>{count}<span style="white-space:nowrap"> </span>{suffix}</strong>'
+  counter: '<strong>{count} {suffix}</strong>'
   status_notes: ''
   visible_for_team: ''
   invalid_field: ''
