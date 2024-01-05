@@ -2172,7 +2172,7 @@ storeview:
   teamInfo: ''
   pickupWeight: ''
   status: ''
-  counter: '<strong>{count}<span style="white-space:nowrap"> </span>{suffix}</strong>'
+  counter: '<strong>{count} {suffix}</strong>'
   pickupCount: ''
   public_and_statistics: ''
   visible_for_public: ''
