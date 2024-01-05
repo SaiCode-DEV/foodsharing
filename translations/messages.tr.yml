@@ -683,7 +683,7 @@ startpage:
         raflar veya buzdolaplarıdır.'
     text2:
       part1: 'Ayrıca var'
-      part3: '- burada kendi yemeğinizi paylaşabilir veya diğer yiyecek paylaşımı
+      part3: '– burada kendi yemeğinizi paylaşabilir veya diğer yiyecek paylaşımı
         yapanlardan yiyecek alabilirsiniz.'
       part2: 'Yemek Sepetleri'
     title: 'Yakınınızda'
@@ -700,7 +700,7 @@ startpage:
       etkinliklerde bilgilendiriyoruz.'
   bedependable: 'Güvenilir ol'
   demands:
-    text: '"Gıda israfını etkili bir şekilde engellemek için geriye kalanları kurtarmaktan
+    text: 'Gıda israfını etkili bir şekilde engellemek için geriye kalanları kurtarmaktan
       daha fazlası gerekiyor
 
       Şirketlerden gelen yiyecekler veya tüketicileri eğitmek. Bunun yerine politik
@@ -712,18 +712,18 @@ startpage:
       Ayrıca mevcut ticaret standartlarının ve kuruluşların gözden geçirilmesi ve
       gevşetilmesi gerekmektedir.
 
-      Gıda tasarrufu veya beslenmenin tüm yönleriyle ilgili eğitim verilmesi güçlendiriliyor."
+      Gıda tasarrufu veya beslenmenin tüm yönleriyle ilgili eğitim verilmesi güçlendiriliyor.
 
       '
     title: 'Talepler'
   donate:
-    text: '" Tüm harcamalarımıza sponsorluk bulmak için çalışıyoruz. Ancak bazı durumlarda
+    text: 'Tüm harcamalarımıza sponsorluk bulmak için çalışıyoruz. Ancak bazı durumlarda
       bu mümkün olmuyor
 
       veya tamamen olmuyor, Örneğin etkinliklerin finansmanı, adli yardım, sigorta
       ile ilgili giderler için.
 
-      Her türlü desteği memnuniyetle karşılıyoruz."
+      Her türlü desteği memnuniyetle karşılıyoruz.
 
       '
     title: 'Bağışta bulun'
@@ -762,14 +762,14 @@ startpage:
   followrules_a: 'Yiyecekleri başkalarına dağıtma kurallarına ve <a href="https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel"
     target="_blank" rel="noopener noreferrer nofollow">kılavuz</a>a uyun'
   how_we_work:
-    text: '"Bütün bunlar gönüllü olarak ve ücretsiz, bağımsız ve reklamsız yapılıyor.
+    text: 'Bütün bunlar gönüllü olarak ve ücretsiz, bağımsız ve reklamsız yapılıyor.
       Platform bizim topluluğumuz kalbini
 
       oluşturuyor. Burada yerel olarak ve Avrupa genelinde ağ kuruyor ve kendimizi
       koordine ediyoruz. Web sitesi ve beta uygulaması
 
       açık kaynak ve birçok kişinin taahhüdüne ve tutkusuna dayanmaktadır. Bilişime
-      nasıl dahil olabilirsiniz?"
+      nasıl dahil olabilirsiniz?
 
       '
     title: 'Şu şekilde işliyor'
@@ -978,8 +978,8 @@ reports:
   no_reports_fallback: Henüz rapor yok
   in-store: Rapor, {user} alımın olduğu bir İşletme ile mi ilgili?
   when: Zaman noktası
-  info: ' !! Lütfen olayın <b>tarihini</b>, <b>yerini</b> ve <b>zamanını</b> belirtin
-    !! <br> Olayı doğrudan kişiyle ele almak ve konuyu açıklığa kavuşturmak için lütfen
+  info: ' Lütfen olayın <b>tarihini</b>, <b>yerini</b> ve <b>zamanını</b> belirtin!
+    <br> Olayı doğrudan kişiyle ele almak ve konuyu açıklığa kavuşturmak için lütfen
     size sunulan iletişim kanallarını deneyip denemediğinizi kontrol edin. Lütfen
     soruları işleme almak için size ulaşmanın en uygun yolunu belirtin.'
   message: Açıklama
@@ -1442,7 +1442,7 @@ recipients:
   variables: Kişisel hitap
   variable-info: "E-postayı daha kişisel hale getirmek için adın yerine <strong>{NAME}</strong>
     ekleyebilirsiniz\nve selamlama için <strong>{ANREDE}</strong> kullanın.\n<p>{ANREDE}
-    {NAME} şu şekilde sonuçlanır: \"Sevgili Mete\"\n"
+    {NAME} şu şekilde sonuçlanır: “Sevgili Mete”\n"
 foodsaver:
   list:
     summary: '{region}''de ki Foodsaver {count}'
@@ -1575,7 +1575,7 @@ mailbox:
   attachment:
     not_found_explanation: Ekli dosya artık sunucuda bulunamadı
     not_found: bulunamadı
-    attach: Ekler (dosya başına maksimum 1,5 MB)
+    attach: Ekler (dosya başına maksimum 1,5 MB)
     too_large_to_send: Dosyalardan bazıları çok büyüktü ve e-postaya eklenemedi.
   move_to: Taşınmak
   close_edit_mode: Düzenlemeyi durdur
@@ -1961,7 +1961,7 @@ email_template:
   login: Cevaplamak için giriş yapın
   confirm_topic: 'Konunun onaylanması gerekiyor:'
   foodbasket_request: Yemek sepetiniz %SENDER% tarafından istek gönderildi
-  yourFSteam: foodsharing ekibiniz.
+  yourFSteam: foodsharing ekibiniz
   confirm_link: konuyu istiyor
   confirm_BOT: gönder. %BEZIRK% elçisi / moderatörü olduğunuz için, yayınlanmadan
     önce onaylamanız gerekir.
@@ -1970,7 +1970,7 @@ email_template:
     ve üzerine yazılan veya silinen kontenjanlar henüz dikkate alınmamıştır. Bundan
     sonra bu bildirimi almak istemiyorsanız şirketinizin web sitesindeki normal alım
     saatlerini kaldırın.
-  withlove: Herşey gönlünce olsun,
+  withlove: Herşey gönlünce olsun
 wall:
   delete: Kaydı sil
   message_placeholder: Mesaj yaz…
@@ -1984,7 +1984,7 @@ wall:
   see-more: Tüm gönderileri göster
   info-logging: Anlaşmazlıkları önlemek için, içeriğin ve onu gerçekleştiren kişinin
     günlüğe kaydedildiğini lütfen unutmayın.
-  placeholder: Yeni bir pano yazısı yazın...
+  placeholder: Yeni bir pano yazısı yazın…
 settings:
   changemail:
     done: E-posta adresiniz değiştirildi.
@@ -2022,15 +2022,15 @@ settings:
       Mesajlara cevap verip veremeyeceğinizi, \nhatta bazen alımlar yapabileceğinizi
       bilmek faydalı olacaktır.\n"
     show: "Bu işlevi kullanarak, durumunuzun, devamsızlık sürenizin ve mesajınız\n
-      profil sayfanızda görünmesini, profil resminizin üzerine bir \"uyku beresi\"\
-      \nyerleştirilmiş olmasını kabul ediyor olacaksınız.\n"
+      profil sayfanızda görünmesini, profil resminizin üzerine bir “uyku beresi”\n
+      yerleştirilmiş olmasını kabul ediyor olacaksınız.\n"
     message: Doğrulanmadınız. Bu nedenle ekip üyelerinin slotlarını veya telefon numaralarını
       göremezsiniz.
     from: den
     until: kadar
     status: Şu anki durumunuz
   follow:
-    thread: '{thread} forum konusundan haberdar olmak ister misiniz?'
+    thread: '“{thread}” forum konusundan haberdar olmak ister misiniz?'
     mail: Evet, yeni yazılardan e-posta ile haberdar olmak istiyorum.
     none: Lütfen yeni gönderileri bana e-posta ile bildirmeyi bırakın.
   calendar:
@@ -2726,7 +2726,7 @@ storeview:
     name: Soy isim /Ön isim
   source_data: Temel veri
   info: Bilgiler
-  counter: <strong>{count}<span style="white-space:nowrap"> </span>{suffix}</strong>
+  counter: <strong>{count} {suffix}</strong>
   pickupCount: Bu işletmede {pickupCount} alındı.
   cooperation_status: İşbirliği durumu
   public_time_at_noon_or_afternoon: öğlen/öğleden sonra
@@ -2762,7 +2762,7 @@ storeview:
   public_time_at_night: gece
   want_to_fetch: Bu ekibe yardım etmek isterim.
   public_time_in_the_morning: sabahları
-  show_settings: İşletme -Ayarları
+  show_settings: İşletme ayarları
 fsp:
   suggest: Gıda dağıtım noktası önerin
   accept: Gıda dağıtım noktasının kilidini aç
@@ -2777,7 +2777,7 @@ fsp:
     manager: Bu gıda dağıtım noktasından siz sorumlusunuz ve bu nedenle güncellemeleri
       almakla yükümlüsünüz.
     descModal: Güncellemelerden nasıl haberdar olmak istersiniz (örneğin yemek teslimatları)?
-    from: Bu gıda dağıtım noktası "{name}" tarafından yapılan güncellemeler
+    from: Bu gıda dağıtım noktası “{name}” tarafından yapılan güncellemeler
     mail: Zil ve e-posta bildirimi
     bell: sadece dahili bilgi mesajları (zil)
   twig:
@@ -2854,9 +2854,9 @@ pickup:
     bread: Alım saatlerini düzenleyin
     add: Alım saatlerini girin
     more: Randevu Ekle
-    many-people: "Alım için ikiden fazla kişi belirttiniz.\n<br />\nLütfen işletmeye
+    many-people: "Alım için ikiden fazla kişi belirttiniz.\n<br>\nLütfen işletmeye
       <strong>yalnızca gerektiği kadar toplayıcı gönderiniz</strong>.\nÇok fazla insan
-      geçmişte bir işbirliğinin sona ermesine yol açmıştır.\n<br />\nİşletme ile olası
+      geçmişte bir işbirliğinin sona ermesine yol açmıştır.\n<br>\nİşletme ile olası
       maksimum alıcı sayısını netleştirin.\nEk olarak, gerekli yardımcılar bir bisiklet
       römorku veya benzeri ile gelebilir.\nİşletmenin görüş alanı dışında bekleyebilir.\n"
     slotscount: '{count} Toplayıcılar'
