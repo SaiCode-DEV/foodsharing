@@ -824,6 +824,8 @@ forum:
   post:
     delete: Delete post
     body: Message
+    moderator_info: This topic is closed. As a moderator of this forum, you can still
+      write a message, but other users cannot reply!
   from: From {name}
   sending_error: An error occured during sending
   no_threads: No threads yet
