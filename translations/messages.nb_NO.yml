@@ -2,10 +2,10 @@ startpage:
   donate:
     title: Donere
     link: Støtt foodsharing
-    text: "\"Vi prøver å sponse eventuelle utgifter. I noen tilfeller lykkes eller
-      lykkes dette imidlertid ikke\ni sin helhet, for eksempel til utgifter til finansiering
+    text: "Vi prøver å sponse eventuelle utgifter. I noen tilfeller lykkes eller lykkes
+      dette imidlertid ikke\ni sin helhet, for eksempel til utgifter til finansiering
       av arrangementer, juridisk rådgivning eller forsikring.\nVi tar gjerne imot
-      all støtte.\"\n"
+      all støtte.\n"
   demands:
     title: Krav
     text: "For å redusere matsvinnet på en effektiv måte må vi gjøre mer enn bare
@@ -67,11 +67,11 @@ startpage:
   this_is_how_it_works: Slik fungerer det
   towns:
     title: foodsharing byer
-    text: "\"Deltakende byer er forskjellige når det gjelder om de fortsatt er på
-      vei eller allerede ble anerkjent\nsom en matdelingsby. Det siste er tilfellet
-      når det er et matdelingsteam på stedet også en\nmotivasjonserklæring signert
-      av byadministrasjonen som et symbol på partnerskapet mellom\nfoodsharing og
-      offentlig sektor.\"\n"
+    text: "Deltakende byer er forskjellige når det gjelder om de fortsatt er på vei
+      eller allerede ble anerkjent\nsom en matdelingsby. Det siste er tilfellet når
+      det er et matdelingsteam på stedet også en\nmotivasjonserklæring signert av
+      byadministrasjonen som et symbol på partnerskapet mellom\nfoodsharing og offentlig
+      sektor.\n"
   bedependable: Vær pålitelig
   join: Ta del
   beresponsible: Vær ansvarlig
@@ -103,7 +103,7 @@ startpage:
     target="_blank" rel="noopener noreferrer nofollow">Guide</a> for å gi mat videre
   together: Sammen med matdeling kan du jobbe for at utsortert og uselgbar mat kommer
     til god nytte i stedet for å kastes. Mer informasjon finner du <a href="/fuer-unternehmen">her</a>.
-  dependability: I mange byer er det lagt opp til at mat deles på visse steder. Du
+  dependability: Mange steder er det lagt opp til at mat deles på visse steder. Du
     kan møtes der eller på andre nøytrale steder for å dele. Hvis du ønsker å overlevere
     eller overta dagligvarer, vær pålitelig og punktlig, ikke la noen bli stående
     ute i regnet.
@@ -123,8 +123,8 @@ language_chooser:
   choose_button: Aktualisere
   translation_help: Snakker du andre språk? Foodsharing leter alltid etter hjelpere
     til å oversette
-  translation_help_info_text: Denne lenken fører til oversettelsesportalen, klikk
-    på blyanten der for å starte
+  translation_help_info_text: Denne lenken fører til oversettelsesportalen, registrer
+    deg der og klikk på blyanten der for å starte
 poll:
   results:
     sum: Total
@@ -245,7 +245,7 @@ email_template:
   newsletter:
     linktext: Klikk her for å avslutte abonnementet.
     unsubscribe: Ønsker du ikke lenger å motta vårt nyhetsbrev?
-  yourFSteam: Ditt foodsharing-team.
+  yourFSteam: ditt foodsharing-team
   you_responsible:
     part1: Du er ansvarlig for
     part2: Dessverre er det ingen som har meldt seg på neste samling.
@@ -719,7 +719,7 @@ profile:
     who: '{name} fra {from}'
     textMayNot: og er derfor ikke autorisert til å ta imot mat på vegne av foodsharing.
     login: Logg Inn
-    join: Delta og meld deg på
+    join: Registrer deg og delta
     cta: 'Hele profilen til {name} er tilgjengelig etter innlogging:'
     textMay: og kan derfor ta imot mat på vegne av foodsharing.
   ambRegions: '{name} er {role} for'
@@ -819,7 +819,7 @@ profile:
     reporterHasNoReportGroup: Du kan ikke bruke rapporteringssystemet da det ikke
       er noen lokal krenkelsesgruppe i ditt distrikt.
     mail: 'Du har en lokal krenkelsesgruppe med følgende e-postadresse:'
-    reportedAdminNoArbitration: Du kan ikke sende inn en rapport om {name} fordi han*hun
+    reportedAdminNoArbitration: Du kan ikke sende inn en rapport om {name} fordi hen
       er administrator for den ansvarlige lokale krenkelsesgruppen og det ikke er
       noen voldgiftsnemnd der.
     noReportGroup: Du kan ikke bruke meldesystemet da det ikke er aktivert for matredderdistriktet.
@@ -857,7 +857,7 @@ profile:
         sexist: sexistiske ytringer
         homophobe: homofobiske utsagn
       bossy: Opptrådte på en krevende/fornærmende måte
-      complaints: Han:hun kom med påstander
+      complaints: Hen kom med påstander
       returned: Har ikke returnert returflasker/kasser osv
       sells: Selger redde dagligvarer
       other: Brudd andre oppførselsregler (alt annet)
@@ -870,7 +870,7 @@ profile:
       thief: Har tatt ting som ikke var ment for ham:henne
       unreliable: Hyppige kanselleringer av samlinger på kort varsel uten å lete etter
         en erstatning
-      trasher: Han:hun kaster spart mat
+      trasher: Hen kaster spart mat
       picky: Tar ikke alle dagligvarer som er beregnet på henting
       additional: Har tatt eller bedt om å spare mat fra bedriften utenom hans/hennes
         hentetid
@@ -1097,8 +1097,7 @@ mailbox:
   new: Ny postkasse
   delete: Flytt til søppel
   filesize: Dessverre er denne filen for stor.
-  ratelimit: Du kan bare sende én e-post hvert 15. sekund, vennligst vent et øyeblikk
-    …
+  ratelimit: Du kan bare sende én e-post hvert 15. sekund, vennligst vent et øyeblikk …
   filetype: Denne filtypen er ikke tillatt
   hostinfo: Bare skriv inn navnet på postkassen uten @{host}
   add_success: Postboks ble opprettet.
@@ -1485,16 +1484,16 @@ salutation:
   "1": Kjære
   "0": Kjære
 pronoun:
-  "3": han hun
+  "3": hen
   "2": hun
   "1": han
-  "0": han hun
+  "0": hen
 legal:
   legal_agreement: Juridisk avtale
   privacy_notice_agree:
-    acknowledge: Jeg er enig
+    acknowledge: Jeg har tatt instruksjonene til etterretning.
     select: Vennligst velg
-    not_acknowledge: Jeg er ikke enig og vil gjerne bli nedgradert til en matredder
+    not_acknowledge: Jeg er ikke enig og vil gjerne bli nedgradert til en matredder.
   privacy_notice: Databeskyttelsesinstruksjoner
   actions:
     safe: Bruk innstillinger
@@ -1520,7 +1519,8 @@ legal:
     legal_1: vår nåværende databeskyttelsesavtale
     this_gets_deleted_main: 'Følgende informasjon vil bli slettet fra deg og kan ikke
       gjenopprettes:'
-    this_gets_deleted_trustbananas: Bananer du har gitt til andre vil bli fjernet.
+    this_gets_deleted_trustbananas: Bananer du har mottatt eller gitt til andre vil
+      bli fjernet.
     this_gets_deleted_friendlist: Vennelisten din vil bli fjernet.
     this_gets_deleted_verify: Bekreftelsen din vil bli fjernet.
     this_gets_deleted_quiz: Din matsparingsquiz vil bli fjernet.
@@ -2181,9 +2181,9 @@ pickup:
     slotscount: '{count} plukkere'
     add: Skriv inn hentetider
     added: Hentingsdatoen er lagt inn.
-    many-people: "Du har planlagt å hente mer enn to personer.\n<br />\nSend <strong>kun
+    many-people: "Du har planlagt å hente mer enn to personer.\n<br>\nSend <strong>kun
       så mange samlere som nødvendig</strong> til selskapet.\nFor mange samlere førte
-      ofte til slutten på et samarbeid.\n<br />\nAvklar maksimalt antall mulige samlere
+      ofte til slutten på et samarbeid.\n<br>\nAvklar maksimalt antall mulige samlere
       med selskapet.\nI tillegg kan nødvendige hjelpere vente med sykkelhengere eller
       lignende\nutenfor selskapets syn.\n"
     disable_auto_slot: Automatisk spor i fremtiden bør være deaktivert.
@@ -2195,7 +2195,7 @@ pickup:
     title: Samlingshistorie
   slot_remove: Slett spor
   slot_add: Legg til spor
-  add_onetime_pickup: Angi tilleggsdato
+  add_onetime_pickup: Angi individuelle avtaler
   take_empty_slot: Meld deg på her
   join_agree: ja, registrer deg
   join_cancel: helst ikke
@@ -2228,7 +2228,7 @@ pickup:
   really_kick_user_info: "Vil du virkelig avbestille {name} fra å hente den {date}?\n
     {name} vil motta følgende melding om dette:\n"
   team_message_send_and_leave: Send og avslutt
-  edit_recurring_pickups: Behandle vanlige hentetider
+  edit_recurring_pickups: Rediger avtaleserie
   really_leave_date: Du er ansvarlig for denne hentingen. Vennligst ordne en erstatning
     for deg.
   delete_not_empty: Matreddere er foreløpig fortsatt tildelt. Du kan bare slette denne
@@ -2449,10 +2449,10 @@ store:
   prefetchthree: 3 uker
   prefetchfour: 4 uker
   convince:
-    none: Ikke noe problem i det hele tatt, han*hun ble umiddelbart entusiastisk!
-    some: Etter litt overtalelse sa han ja til å delta.
-    much: Vanskelige forhandlinger, men til slutt ble han*hun enig.
-    final: Først så det dårlig ut, men så tok han*hun kontakt.
+    none: Ikke noe problem i det hele tatt, de elsket det med en gang!
+    some: Etter overtalelse gikk de med på å delta.
+    much: Vanskelige forhandlinger, men til slutt ble de enige.
+    final: Først så det dårlig ut, men så tok de kontakt.
   complete: komplett database
   smneeded: For å etablere en bedrift må du være samarbeidsansvarlig.
   short_tooltip_yellow: Åpne henting om 5 dager
@@ -2460,7 +2460,7 @@ store:
     hjelp, vil du bli kontaktet.
   nochains: Ta kun til eierstyrte virksomheter med maksimalt tre filialer, aldri adresser
     filialer til en større kjede! Følg driftskjedens regler!
-  peoplecame: Det hendte ofte at folk gikk uoppfordret til bedriften.
+  peoplecame: Det har hendt at folk gikk uoppfordret til bedriften.
   locked: Du kan ikke redigere dette selskapet.
   regionPickupRulesInactive: De ekstra distriktsreglene for henting er ikke aktive
   useRegionPickupRules: 'I tillegg til driftsreglene gjelder følgende distriktsdekkende
@@ -2490,7 +2490,7 @@ store:
   enter_date_description: Etter at du har valgt dato, klokkeslett og antall personer
     som skal hentes, kan du angi tidsluker én gang for denne datoen. Hvis du vil opprette
     regelmessige (automatisk tilbakevendende ukentlige) tider, kan du bruke menyen
-    «Vis bedriftsinformasjon».
+    «Bedriftsinformasjon».
   team_container: Team
   one_active: aktiv
   active: aktive
@@ -2552,7 +2552,7 @@ store:
     no_description: ingen
   signInDateTime: Tidspunkt for innskrivning
   slot_state: Status for plass
-  lastPickupTitle: Siste henting
+  lastPickupTitle: Siste henting her
   slotsCurrentlyOccupied: Plasser som for øyeblikket er belagt
 storeview:
   status: Nåværende status
@@ -2826,7 +2826,7 @@ wall:
   error-create: Veggoppføringen din kunne ikke lagres.
   info-logging: Vær oppmerksom på at for å unngå konflikter, logges innholdet og personen
     som har utført det.
-  placeholder: Skriv en ny vegginngang…
+  placeholder: Skriv en ny vegginngang …
 sidenav:
   localgroups: Lokale grupper
   yourgroups: Dine grupper
@@ -2870,12 +2870,12 @@ orgateam: Landsdekkende Orga
 position: Stilling i foodsharing (offentlig)
 newmail: Skriv inn din nye e-postadresse her
 sleep_msg: Her kan du legge igjen en kort melding om hvorfor du ikke har tid for øyeblikket.
-lebensmittel: Hvilke dagligvarer kan hentes?
+lebensmittel: Hvilke dagligvarer hentes?
 begin: Start av samarbeid
 presse: Er butikken/klubben villig til å bli nevnt i pressen og på nettsiden vår?
 sticker: Ønsker butikken å sette et klistremerke ved inngangen eller andre steder?
 abholmenge: Hvor mange kilo tar du med deg per henting?
-fsp_bezirk_id: I hvilket distrikt er distribusjonsstasjon?
+fsp_bezirk_id: I hvilket distrikt ligger distribusjonsstasjon?
 fspmanagers: Matreddere, som er kontaktpersoner for denne distribusjonsstasjon
 storemanagers: Samarbeidsoffisere
 prefetchtime: Hvor mange uker i forveien kan matreddere registrere seg?
@@ -3180,8 +3180,8 @@ join_region:
     is_country: <strong>Dette er et land.</strong><br> Velg en by, region eller distrikt!
     not_allowed: Du kan ikke registrere deg i dette området.
   headline: Velg området du vil være aktiv i.
-  description: Du kan bli med i ditt første område ved å klikke deg gjennom <em>Europa</em>
-    og finne ditt sted. Hvis du ikke finner et område, velger du et nivå høyere eller
+  description: Du kan bli med i ditt første distrikt ved å klikke fra ditt kontinent
+    til ditt distrikt. Hvis du ikke finner et område, velger du et nivå høyere eller
     blir med i nærmeste område. Hvis du ikke har mulighet til å tjene som matsparer
     i området, kan du vurdere å starte ditt eget område. I sådant fall kan du lese
     wiki-en, og da spesielt <a href="{href}"> artikkelen om å opprette eller reaktivere
@@ -3195,7 +3195,7 @@ chain:
   listheader: Driftskjeder
   columns:
     name: Navn
-    stores: Antall samarbeidende Bedrifter
+    stores: Antall registrerte bedrifter
     status: Status
     headquarters: Sentral
     kams: KAM-er
