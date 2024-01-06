@@ -615,13 +615,13 @@ legal:
   are_you_sure_to_downgrade: 'Attenzione: hai scelto di essere declassato a Foodsaver.
     Sei sicuro?'
   legal_agreement: Accordo legale
-  not_acknowledge_pn_description: Se non sei d'accordo con l'insegnamento, verrai
+  not_acknowledge_pn_description: Se non sei d’accordo con l’insegnamento, verrai
     declassato a foodsaver. Ciò significa che non sarai più un ambasciatore distrettuale,
     perderai le tue responsabilità operative e dovrai sostenere nuovamente il quiz
     per diventare un manager operativo / ambasciatore.
   privacy_notice_agree:
-    not_acknowledge: Non sono d'accordo e vorrei essere declassato a Foodsaver
-    acknowledge: Sono d'accordo
+    not_acknowledge: Non sono d’accordo e vorrei essere declassato a Foodsaver
+    acknowledge: Ho preso nota delle istruzioni.
     select: Si prega di selezionare
   privacy_notice: Istruzioni sulla protezione dei dati
   must_accept_pp: Per partecipare a Foodsharing è necessario accettare le condizioni
@@ -629,11 +629,11 @@ legal:
   actions:
     safe: Salva le impostazioni
   delete_account: voglio eliminare il mio account.
-  agree_privacy_policy: Ho letto l'accordo sulla protezione dei dati.
+  agree_privacy_policy: Ho letto l’accordo sulla protezione dei dati.
   dont_agree: Non acconsento al trattamento dei miei dati e
   not_acknowledge_pp_description: Per utilizzare la piattaforma Foodsharing è necessario
     leggere la dichiarazione sulla protezione dei dati descritta.
-  acknowledge: Accetti l'accordo?
+  acknowledge: Accetti l’accordo?
   pp: Privacy policy
   agree_privacy_notice: Sono stato informato dell'obbligo di riservatezza dei dati
     personali e dei comportamenti che ne derivano. Riceverò conferma di ciò via e-mail
@@ -641,7 +641,8 @@ legal:
   if_delete:
     this_gets_deleted_friendlist: La tua lista di amici viene eliminata.
     this_doesnt_get_deleted_address: Il tuo indirizzo
-    this_gets_deleted_trustbananas: Le banane che hai distribuito vengono eliminate.
+    this_gets_deleted_trustbananas: Le banane che hai ricevuto o premiato verranno
+      rimosse.
     this_doesnt_get_deleted_name: Il tuo nome
     this_gets_deleted_main: 'Le seguenti informazioni saranno eliminate dal vostro
       account e non potranno essere ripristinate:'
@@ -653,7 +654,7 @@ legal:
     this_gets_deleted_stores: Aziende a cui ti sei uniti.
     this_gets_deleted_quiz: Il tuo quiz Foodsaver sarà rimosso.
     this_gets_deleted_verify: La tua verifica sarà rimossa.
-    legal_2: Leggi sui periodi di conservazione (Pagina in tedesco)
+    legal_2: Ulteriori informazioni sui periodi di conservazione (pagina in tedesco)
 fsp:
   followName: Seguire il punto di condivisione {name}
   follow: Segui questo punto di condivisione
@@ -721,12 +722,12 @@ pickup:
     add: inserire orari di ritiro
     bread: modificare gli orari di ritiro
     added: Data di ritiro è stata inserita.
-    many-people: "Hai specificato più di due persone per il ritiro.\n<br />\nSi prega
+    many-people: "Hai specificato più di due persone per il ritiro.\n<br>\nSi prega
       di <strong> inviare all'agenzia solo il numero di raccoglitori necessari </strong>.\n
-      Troppi raccoglitori spesso hanno portato la fine di una collaborazione.\n<br
-      />\nChiarire con l'agenzia il numero massimo di raccoglitori possibili.\nGli
-      aiutanti aggiuntivi necessari possono utilizzare un rimorchio per biciclette
-      o qualcosa di simile\naspettare fuori dagli occhi dell´agenzia.\n"
+      Troppi raccoglitori spesso hanno portato la fine di una collaborazione.\n<br>\n
+      Chiarire con l’agenzia il numero massimo di raccoglitori possibili.\nGli aiutanti
+      aggiuntivi necessari possono utilizzare un rimorchio per biciclette o qualcosa
+      di simile\naspettare fuori dagli occhi dell’agenzia.\n"
     slotscount: '{count} Raccoglitore'
     slotcount: un raccoglitore
     more: Aggiungere appuntamento
@@ -816,10 +817,10 @@ pickup:
     header: 'Date di ritiro'
     modals:
       signOff:
-        message: 'Vuoi davvero rimuovere l''utente da questo slot?'
+        message: 'Vuoi davvero rimuovere l’utente da questo slot?'
         title: 'Rimuovere dallo slot?'
       signOffAll:
-        message: 'Vuoi davvero rimuovere l''utente da tutti gli slot registrati?'
+        message: 'Vuoi davvero rimuovere l’utente da tutti gli slot registrati?'
         title: 'Rimuoversi da tutti gli slot?'
     menu:
       refresh: 'Aggiorna'
@@ -884,10 +885,10 @@ store:
     withdraw: Ritirare la richiesta
     request: Vorrei aiutare in questo team.
     to-jumper: Lista dei intervenisti
-    verified: L'utente è verificato
+    verified: L’utente è verificato
     got-it: Le persone responsabili sono state informate della tua richiesta e ti
       contatteranno.
-    unverified: L'utente non è verificato
+    unverified: L’utente non è verificato
     distance_unknown: Nessun luogo di residenza inserito
     distance: Si trova a circa {distance} km di distanza
     distance_close: Si trova a meno di 1 km di distanza
@@ -1004,19 +1005,19 @@ store:
   prefetchfour: '4 settimane'
   locked: 'Non puoi modificare questa azienda.'
   prefetchtwo: '2 settimane'
-  useRegionPickupRules: 'Questa è un''azienda RASMR. Oltre alle regole per questo
-    negozio, si applica la seguente regola RASMR a livello distrettuale:'
+  useRegionPickupRules: 'Questa è un’azienda RASMR. Oltre alle regole per questo negozio,
+    si applica la seguente regola RASMR a livello distrettuale:'
   nochains: 'Ti preghiamo di rivolgerti solo ad aziende gestite dal proprietario con
     un massimo di tre filiali, non rivolgerti mai alle filiali di una catena più grande!
     Rispetta le regole della catena!'
   convince:
     some: 'Dopo un po'' di persuasione, ha accettato di partecipare.'
-    final: 'All''inizio sembrava andare male, ma poi si è messo/a in contatto.'
+    final: 'All’inizio sembrava andare male, ma poi si è messo/a in contatto.'
     none: 'Nessun problema, lui/lei è rimasto/a subito entusiasta!'
     much: 'Piuttosto difficile, ma alla fine ha accettato.'
   prefetchthree: '3 settimane'
   peoplecame: 'È capitato spesso che le persone si recassero al negozio senza preavviso.'
-  smneeded: 'Per creare un''azienda devi essere il responsabile aziendale.'
+  smneeded: 'Per creare un’azienda devi essere il responsabile aziendale.'
   jumping: Stand-by
   of_that: di quello
   requests: Richieste aperte ({count})
@@ -1091,7 +1092,7 @@ store:
     no_description: nessuno
   signInDateTime: ''
   slot_state: ''
-  lastPickupTitle: Ultimo recupero
+  lastPickupTitle: Ultimo recupero qui
 storeview:
   want_to_fetch: Vorrei aiutare in questo team.
   specials: particolarità
@@ -1145,19 +1146,19 @@ message_text_to_group_admin_workgroup: 'La regione/gruppo di lavoro <b>{groupNam
 startpage:
   towns:
     title: Città foodsharing
-    text: "\"Le città partecipanti si differenziano per il fatto di essere ancora
-      in cammino o di essere già state designate come città del foodsharing.\nsono
-      state designate come città del foodsharing. Quest'ultimo è il caso se, oltre
-      a una squadra di foodsharing sul terreno\nuna dichiarazione di motivazione firmata
+    text: "Le città partecipanti si differenziano per il fatto di essere ancora in
+      cammino o di essere già state designate come città del foodsharing.\nsono state
+      designate come città del foodsharing. Quest’ultimo è il caso se, oltre a una
+      squadra di foodsharing sul terreno\nuna dichiarazione di motivazione firmata
       dal comune come simbolo del partenariato tra il foodsharing e il settore pubblico.\n
-      foodsharing e il settore pubblico.\"\n"
+      foodsharing e il settore pubblico.\n"
   donate:
     title: Donazioni
     link: Sostieni foodsharing
-    text: "\"Cerchiamo una sponsorizzazione per qualsiasi spesa. In alcuni casi, tuttavia,
+    text: "Cerchiamo una sponsorizzazione per qualsiasi spesa. In alcuni casi, tuttavia,
       questo non è possibile o non è possibile\no non completamente, ad esempio per
       il finanziamento di eventi, consulenza legale o assicurazioni.\nSiamo felici
-      di qualsiasi supporto.\"\n"
+      di qualsiasi supporto.\n"
   welcome_text: Benvenuti a foodsharing
   more_infos: Scopri di più
   vision:
@@ -1179,17 +1180,17 @@ startpage:
       part1: La comunità è organizzata in distretti.
       part2: Trova i distretti nei tuoi intorni
     text2:
-      part3: '- qui è possibile offrire il proprio cibo in eccedenza e raccogliere
+      part3: '– qui è possibile offrire il proprio cibo in eccedenza e raccogliere
         cibo da altri.'
       part2: Cesto di cibo
       part1: Inoltre ci sono
   how_we_work:
     title: È così che funziona
-    text: "\"Tutto questo viene fatto su base volontaria e gratuita, in modo indipendente
+    text: "Tutto questo viene fatto su base volontaria e gratuita, in modo indipendente
       e senza pubblicità. La piattaforma è il cuore\ndella nostra comunità. Qui facciamo
       rete e ci coordiniamo a livello locale e in tutta Europa. Il sito web e l'applicazione
       beta sono\nopen source e si basa sull'impegno e la passione di molti. Come puoi
-      entrare nell'IT?\"\n"
+      entrare nell’IT?\n"
   member:
     title: come membro
     text: Condividi il tuo cibo in eccesso con la comunità del foodsharing o salva
@@ -1200,13 +1201,13 @@ startpage:
     text: Siamo stati fondati nel 2012 e ora siamo un movimento internazionale con
       oltre 500.000 utenti in Germania, Austria, Svizzera e altri paesi europei.
   demands:
-    text: "\"Per ridurre efficacemente lo spreco di cibo, non possiamo limitarci a
-      salvare gli avanzi delle aziende o ad educare i consumatori.\nAbbiamo bisogno
-      di un'azione politica: obiettivi vincolanti di riduzione dei rifiuti lungo l'intera
-      catena produttiva.\nInoltre, le norme commerciali attualmente in vigore devono
-      essere riconsiderate e rese meno rigide, e le organizzazioni che salvano gli
-      alimenti o che offrono un'educazione sui rifiuti devono essere in grado di fornire
-      un'assistenza adeguata.\"\n"
+    text: "Per ridurre efficacemente lo spreco di cibo, non possiamo limitarci a salvare
+      gli avanzi delle aziende o ad educare i consumatori.\nAbbiamo bisogno di un’azione
+      politica: obiettivi vincolanti di riduzione dei rifiuti lungo l’intera catena
+      produttiva.\nInoltre, le norme commerciali attualmente in vigore devono essere
+      riconsiderate e rese meno rigide, e le organizzazioni che salvano gli alimenti
+      o che offrono un’educazione sui rifiuti devono essere in grado di fornire un’assistenza
+      adeguata.\n"
     title: Pretese
   store:
     text: Lavori in un supermercato, un ristorante, una mensa…? Registra la tua azienda
@@ -1225,7 +1226,7 @@ startpage:
     prendiamo molto sul serio il nostro lavoro. Rispettiamo una serie di leggi e regolamenti.
     Sii onesto quando inserisci i tuoi dati e in tutti gli altri contributi che fai
     sulla piattaforma, ad esempio cesti alimentari e post sul forum.'
-  followrules_b: 'Sottolineiamo espressamente che per motivi legali consentiamo l''offerta
+  followrules_b: 'Sottolineiamo espressamente che per motivi legali consentiamo l’offerta
     e la condivisione di determinati alimenti e altri beni solo a determinate condizioni.
     Ciò vale in particolare per gli alimenti deperibili come pesce crudo, carne cruda,
     piatti a base di uova crude e cibi pronti. In generale, utilizziamo tutti i nostri
@@ -1391,7 +1392,7 @@ email_template:
   confirm_link: vorrebbe che il tema
   confirm_topic: "L'argomento deve essere confermato:"
   in: a
-  yourFSteam: Tuo team foodsharing.
+  yourFSteam: Tuo team foodsharing
   withlove: Tanti auguri,
   unknown_email2: L'indirizzo e-mail %ADDRESS% non è noto.
   unknown_email: Indirizzo e-mail sconosciuto
@@ -1438,9 +1439,9 @@ foodsaver:
     needs_region: Scegli in quale distretto voi diventare ambasciatore
     amb_region: In quale regione vorrebbe diventare ambasciatore?
     to_amb: Diventa un ambasciatore
-    to_sm: Diventare funzionario di un'agenzia
+    to_sm: Diventare funzionario di un’agenzia
     needs_fs_quiz: Prima devi fare il quiz di Foodsaver
-    needs_sm: Devi prima diventare un funzionario dell'agenzia
+    needs_sm: Devi prima diventare un funzionario dell’agenzia
     learning: 'Guarda subito il video esplicativo'
   manage:
     remove: Elimina dal distretto
@@ -1449,7 +1450,7 @@ foodsaver:
     role: Ruolo
     name: Nome
     photo: Foto
-    orga: fa parte del team organizzativo nazionale
+    orga: fa parte del team organizzativo globale
   url_error: C'è qualcosa che non va con l'URL della tua homepage
   delete_own_account: Stai per cancellare il tuo account. Sei proprio sicuro?
   your_account: a te
@@ -1486,10 +1487,10 @@ reports:
   about_first_name: A proposito del nome
   about: Informazioni
   reportmessage: Indica brevemente come puoi essere contattato in caso di domande.
-  info: " !! Si prega di fornire la <b>data</b>, il <b>luogo</b> e l '<b>ora</b> dell'audizione
-    !! <br> Si prega di verificare le linee di comunicazione dirette che si hanno
-    per la persona con la persona direttamente collegata alla questione dei diritti.
-    Indica il modo migliore per essere contattato per ulteriori domande sull'elaborazione."
+  info: " Si prega di fornire la <b>data</b>, il <b>luogo</b> e l ’<b>ora</b> dell’audizione!
+    <br> Si prega di verificare le linee di comunicazione dirette che si hanno per
+    la persona con la persona direttamente collegata alla questione dei diritti. Indica
+    il modo migliore per essere contattato per ulteriori domande sull'elaborazione."
   when: Periodo
   in-store: Il messaggio riguarda un'agenzia specifica in cui {user} risponde?
   no_reports_fallback: Non ci sono ancora segnalazioni
@@ -1559,7 +1560,7 @@ addresspicker:
     è necessario.
   infobox: Inserisci l'indirizzo nel campo di testo tra questo messaggio e la carta
     e poi confermalo selezionandolo sulla carta.
-  placeholder: Si prega di cercare l'indirizzo qui. Se necessario, correggere in seguito.
+  placeholder: Si prega di cercare l’indirizzo qui. Se necessario, correggere in seguito.
   different_location: 'L''indirizzo è indipendente dalla posizione geografica'
 recipients:
   done: Tutte le e-mail sono state inviate
@@ -1573,7 +1574,7 @@ recipients:
   sent: L'e-mail è stata inviata con successo a {count} indirizzi e-mail
   doublecheck: Tutto controllato? L'e-mail deve essere inviata al gruppo di destinazione
     selezionato?
-  variable-info: "Per rendere l'e-mail più personale, puoi inserire <strong>{NAME}</strong>
+  variable-info: "Per rendere l’e-mail più personale, puoi inserire <strong>{NAME}</strong>
     al posto del nome.\ne usa <strong>{ANREDE}</strong> per il saluto.\nPer esempio,
     <p>{ANREDE} {NAME} risulta in «Caro Giovanni».\n"
   test_email_invalid: C'è qualcosa di sbagliato nell'indirizzo e-mail.
@@ -1690,7 +1691,7 @@ events:
       <b> rispettivo gruppo </b>\naccessibile tramite un collegamento condiviso o
       il menu degli appuntamenti.\n<br>\nPer mostrare nel frattempo l'appuntamento
       sulla dashboard ai nuovi arrivati,\nsalvalo di nuovo in un secondo momento.\n"
-    mumble: Multilocale su mumble.foodsharing.de
+    mumble: Conferenza su mumble.foodsharing.de
     online: Tramite video- o teleconferenza
     offline: Assolutamente normale nella vita reale
     desc: Che tipo di evento è?
@@ -1728,7 +1729,7 @@ wall:
   confirm-deletion: Cancellare definitivamente l’immissione in bacheca da parte di
     {name}?
   name: Bacheca
-  placeholder: Scrivi una nuova voce sul muro…
+  placeholder: Scrivi una nuova voce sul muro …
 chat:
   confirm_draft_discard: "Passi a una nuova conversazione. Il testo nel campo della
     risposta viene scartato.\n\nSe interrompi questo dialogo, la tua bozza verrà invece
@@ -1874,7 +1875,7 @@ regionOptions:
   save: Salvare opzioni
   success: Opzioni salvate correttamente
   header_page: Opzioni per {bezirk}
-  enableMediationButton: Abilitare l'assistenza tecnica per le mediazioni attraverso
+  enableMediationButton: Abilitare l’assistenza tecnica per le mediazioni attraverso
     un link di mediazione sui profili del foodsaver tribale del distretto.
   enableReportButton: Abilitare il supporto tecnico per le notifiche attraverso un
     link di notifica sui profili del foodsaver tribale del distretto.
@@ -1928,7 +1929,7 @@ genderlist:
   gender_divers: diverso
   gender_home_district_table_caption: Assegnazione della caratteristica ‘genere’ a
     tutti Foodsaver del distretto
-  gender_district_table_caption: Assegnazione della caratteristica 'genere' a tutti
+  gender_district_table_caption: Assegnazione della caratteristica ‘genere’ a tutti
     i Foodsaver che sono entrati nel distretto
   home_district_tab: Distretto d'origine
 memberlist:
@@ -2021,8 +2022,8 @@ menu:
   manage_regions: Gestire distretti
   bell:
     delete_read_confirmation:
-      text: ''
-      title: ''
+      text: 'Sei sicuro di voler eliminare {count} campanelli di lettura?'
+      title: 'Eliminare le notifiche?'
 basket:
   published: Grazie, il cesto di cibo è stato pubblicato.
   publish_error: C'è stato un errore. Il cesto di cibo non poteva essere pubblicato.
@@ -2115,7 +2116,7 @@ basket:
     organic: sono Bio
   no-address: "Per favore, includi il tuo indirizzo nelle {settings} per offrire un
     cesto di cibo attraverso il sito web.\n<br><br>\nQuesto è necessario per visualizzare
-    un cestino di cibo sulla mappa usando un pin.\n<br><br>\nL'indirizzo postale del
+    un cestino di cibo sulla mappa usando un pin.\n<br><br>\nL’indirizzo postale del
     tuo indirizzo non è visibile per gli utenti del cesto alimentare.\n"
   no_nearby: 'Non ci sono cesti alimentari nel raggio di {radius} chilometri'
   not_withdrawn: 'Impossibile ritirare la richiesta del cestino alimentare: '
@@ -2246,9 +2247,9 @@ search:
     e frigo solidali.'
   results:
     region:
-      ambassador_tooltip: ''
+      ambassador_tooltip: 'Sei un ambasciatore di questo distretto'
       home_region_tooltip: ''
-      member_tooltip: ''
+      member_tooltip: 'Sei un membro di questo distretto'
     working_group:
       member_tooltip: ''
       admin_tooltip: ''
@@ -2258,31 +2259,34 @@ search:
       sticky_tooltip: ''
       ambassador_forum: ''
       last_post: ''
-    in: ''
+    in: 'in'
     chat:
       chat_with: 'Chiacchiera con {names}'
       chat_with_others: 'altri'
     user:
       no_home_region: ''
     store:
-      manager_tooltip: ''
+      manager_tooltip: 'Sei responsabile di questa attività'
       jumper_tooltip: ''
-      member_tooltip: ''
-    from: ''
+      member_tooltip: 'Sei un membro del team di questa attività'
+    from: 'da'
+  too_short: Inserisci un termine di ricerca più lungo.
+  maxresults: Il numero di risultati visualizzati è limitato. Forse usa un termine
+    di ricerca più specifico.
 profile:
   report:
     arbAdminAgainstRepAdmin: Sei un amministratore del collegio arbitrale e vuoi segnalare
-      un amministratore dell'elaborazione del rapporto. Questo non è tecnicamente
+      un amministratore dell’elaborazione del rapporto. Questo non è tecnicamente
       supportato al momento. Puoi sempre inviare una segnalazione via e-mail al responsabile
       locale di questo caso.
-    repAdminAgainstArbAdmin: ei un amministratore del team di segnalazione e vuoi
+    repAdminAgainstArbAdmin: Sei un amministratore del team di segnalazione e vuoi
       segnalare un amministratore del collegio arbitrale. Questo non è tecnicamente
       supportato al momento. Puoi sempre inviare una segnalazione via e-mail al responsabile
       locale di questo caso.
-    reporterAdminNoArbitration: Sei l'amministratore del gruppo di messaggi locale
-      e poiché non c'è un consiglio arbitrale locale, non puoi inviare un raporto.
+    reporterAdminNoArbitration: Sei l’amministratore del gruppo di messaggi locale
+      e poiché non c’è un consiglio arbitrale locale, non puoi inviare un raporto.
     reportedAdminNoArbitration: Non puoi presentare un rapporto contro {name}, perché
-      lui/lei è l'amministratore del gruppo di reporting locale del distretto e non
+      lui/lei è l’amministratore del gruppo di reporting locale del distretto e non
       esiste un collegio arbitrale.
     noReportGroup: Non è possibile utilizzare il supporto tecnico del sistema di reporting
       perché non è attivato per il distretto del foodsaver.
@@ -2297,8 +2301,8 @@ profile:
     mail: 'Puoi raggiungere il gruppo locale di raporto al seguente indirizzo e-mail:'
     sent: Raporto é stato inviato
     send: Spedire il raporto
-    info: Si prega di indicare la data, il luogo e l'ora dell'incidente. Controlla
-      se hai provato i canali di comunicazione a tua disposizione per affrontare l'incidente
+    info: Si prega di indicare la data, il luogo e l’ora dell’incidente. Controlla
+      se hai provato i canali di comunicazione a tua disposizione per affrontare l’incidente
       direttamente con la persona e chiarire i fatti. Si prega di indicare come si
       può essere raggiunti al meglio per ulteriori richieste.
     title: Rapporto su {name}
@@ -2311,7 +2315,7 @@ profile:
       dirty: 'Non ha lasciato pulito il luogo del ritiro'
       bossy: 'Comportamento esigente/offensivo'
       vsstore: 'nei confronti dei dipendenti dell’azienda'
-      nearstore: 'davanti ai dipendenti dell''azienda'
+      nearstore: 'davanti ai dipendenti dell’azienda'
       social: 'Non si è comportato in modo cooperativo e sociale durante il ritiro'
       picky: 'Non accetta tutto il cibo destinato al ritiro'
       sells: 'Vende cibo salvato'
@@ -2334,12 +2338,12 @@ profile:
       residence: 'Luogo di residenza FS'
       trasher: 'Butta via il cibo salvato'
       returned: 'Non hanno restituito bottiglie/scatole di deposito, ecc'
-      additional: 'Ha preso o chiesto cibo recuperabile dall''azienda al di fuori
-        dell''orario di ritiro'
+      additional: 'Ha preso o chiesto cibo recuperabile dall’azienda al di fuori dell’orario
+        di ritiro'
       other: 'Violate altre regole di condotta (tutto il resto)'
       nearfs: 'davanti ai foodsavers'
       offs: 'dai foodsavers'
-      ofstore: 'da parte dei dipendenti dell''azienda'
+      ofstore: 'da parte dei dipendenti dell’azienda'
       delivered: 'Consegnato'
       complaints: 'Ha mosso accuse'
     control:
@@ -2402,14 +2406,14 @@ profile:
     no_group: Purtroppo non esiste ancora un gruppo di mediazione locale per il distretto
       di provenienza di Foodsaver. Puoi sollevare la questione in una riunione di
       gruppo o nel forum in modo che venga eletto un team di mediazione locale.
-    info: 'E´fantastico che tu stai cercando supporto per risolvere un tema con il
+    info: 'E’fantastico che tu stai cercando supporto per risolvere un tema con il
       foodsaver. Il team di mediazione può fungere da mediatore e aiutare a garantire
       che le vostre discussioni siano condotte da pari a pari e con rispetto reciproco.
       Potete raggiungere il gruppo di lavoro di mediazione locale al seguente indirizzo
       e-mail:'
     title: Richiesta di mediazione per {name}
   public:
-    join: Partecipa e registrati
+    join: Registrati e partecipa
     login: Per l'accesso
     cta: 'Il profilo completo di {name} è accessibile dopo la registrazione:'
     textMayNot: e quindi attualmente non è autorizzato ad accettare cibo per conto
@@ -2469,6 +2473,7 @@ profile:
     history: Cronologia del passaporto
     buddy: Conosco {name}
     edit: Modifica profilo
+    remove_buddy: Non conosco più {name}
   no_common_workgroups: Non sei in un gruppo con {name}.
   workgroups_member: Sei con {name} nei seguenti gruppi
   workgroups_admin: '{name} è la persona di riferimento per i gruppi'
@@ -2590,7 +2595,7 @@ settings:
     none: Sono attivo e pienamente coinvolto
     missing-date: Inserisci sia una data di inizio che una di fine per un periodo.
     show: "Usando questa funzione accetti che il tuo stato,\nil tuo tempo di assenza
-      e il tuo messaggio sulla pagina del tuo profilo\ne che un'icona dormiglione
+      e il tuo messaggio sulla pagina del tuo profilo\ne che un’icona dormiglione
       sarà posta sopra la tua foto del profilo.\n"
     info: "Con la funzione dormiglione dici alla comunità che sei attualmente fuori
       città\no per altre ragioni non hai tempo di risparmiare il cibo al momento.\n
@@ -2612,7 +2617,7 @@ settings:
   follow:
     none: Per favore, non mandarmi email sui nuovi post.
     mail: Sì, vorrei essere informato dei nuovi messaggi via e-mail.
-    thread: Tieniti aggiornato sull'argomento del forum "{thread}"?
+    thread: Tieniti aggiornato sull’argomento del forum “{thread}”?
   notifications: Notifiche
   header: I tuoi impostazioni
   title: Impostazioni
@@ -2624,12 +2629,12 @@ settings:
       il <a href="{link}">modulo di supporto</a>.'
     foodsaver_info: 'Per cambiare il tuo nome devi contattare un ambasciatore del
       tuo distretto di residenza. Questa persona potrà quindi effettuare il cambio
-      di nome per te.<hr>Puoi vedere chi è l''ambasciatore nel tuo distretto di residenza
+      di nome per te.<hr>Puoi vedere chi è l’ambasciatore nel tuo distretto di residenza
       nel <a href="{link}">forum del tuo distretto</a> nella barra laterale sinistra.'
     title: 'Nome (nome e cognome)'
   passport:
     menu: 'Carta d''identità'
-    verified_text: 'Questo badge è destinato all''uso da smartphone. Puoi salvarlo
+    verified_text: 'Questo badge è destinato all’uso da smartphone. Puoi salvarlo
       lì e poi mostrarlo quando richiesto. Se non hai uno smartphone o hai bisogno
       di un badge tradizionale per un altro motivo, contatta il tuo ambasciatore locale.'
     non_verified_text: 'Non sei ancora verificato. Il download del passaporto è disponibile
@@ -2639,7 +2644,7 @@ mailbox:
   mark_as_unread: Contrassegna l'e-mail come non letta
   filesize: Scusa, il file è troppo grande.
   filetype: Questo tipo di file non è permesso
-  ratelimit: Puoi inviare solo un'email ogni 15 secondi, per favore aspetta un momento…
+  ratelimit: Puoi inviare solo un'email ogni 15 secondi, per favore aspetta un momento …
   recipients: Troppi destinatari
   failed: L'e-mail non può essere inviata.
   okay: L'e-mail è stata inviata con successo.
@@ -2683,7 +2688,7 @@ mailbox:
   delete_selected: Elimina la selezione
   conformation_modal:
     title: Conferma
-    message: Sei sicuro di voler eliminare l'e-mail?
+    message: Sei sicuro di voler eliminare l’e-mail?
   for_quoting:
     has_from: ha da
     written_text: scritto
@@ -2701,6 +2706,7 @@ mailbox:
   unknown_sender: Mittente sconosciuto
   less: meno
   more: più
+  search_name_email: Cerca per nome o indirizzo email
 messages:
   bread: Notizie
 map:
@@ -2734,6 +2740,7 @@ storelist:
   geo: geo
   isManaging: ''
   memberState: Stato di membro
+  actions: Azioni
 storestatus:
   "7": L'agenzia non esiste più
   "5": L'agenzia collabora con noi
@@ -2852,6 +2859,11 @@ polls:
 buddy:
   request_accepted: Ora vi conoscete.
   request_sent: Richiesta inviata.
+  send:
+    confirm_title: Conosci {name}?
+  remove:
+    confirm_title: Termina la tua conoscenza con {name}?
+  is_buddy: Siete conoscenti
 tablesorter:
   entriespp: Voci per pagina
   from: da
@@ -3095,6 +3107,9 @@ globals:
     my_foodshare_points: 'I miei frigo solidali'
     threads: 'Discussioni'
     chats: 'Chat'
+    foodSharePoints: Punti di condivisione
+    workingGroups: Gruppi
+    users: Persone
   reset: 'Resetta'
   account:
     signout: 'Esci'
@@ -3171,12 +3186,12 @@ join_region:
       regione o un distretto!'
   description: 'Puoi unirti al tuo primo distretto facendo clic su di esso dopo aver
     selezionato <em>Europa</em>. Se non riesci a trovare un distretto adatto a te,
-    scegli un livello superiore o unisciti al distretto più vicino. Se non hai l''opportunità
+    scegli un livello superiore o unisciti al distretto più vicino. Se non hai l’opportunità
     di formarti come foodsaver nella zona, puoi prendere in considerazione l''idea
     di avviare un tuo distretto. In questo caso, leggi attentamente la Wiki e soprattutto
-    l''<a href="{href}">articolo sulla creazione o riattivazione dei distretti<a>.
+    l’<a href="{href}">articolo sulla creazione o riattivazione dei distretti<a>.
     Se vuoi avviare il distretto o hai domande specifiche a cui la wiki non risponde,
-    scrivici <a href="{mail}">un''e-mail</a>. Non siamo il punto di riferimento centrale
+    scrivici <a href="{mail}">un’e-mail</a>. Non siamo il punto di riferimento centrale
     per le domande generali, ma possiamo aiutarvi con le domande sui distretti.'
 information:
   push:
@@ -3252,6 +3267,7 @@ chain:
     headquarters: 'Sede centrale'
     status: 'Stato'
     estimatedStoreCount: Numero previsto di negozi
+    actions: Azioni
   tooltips:
     options: 'Opzioni'
     modificationDate: 'Ultima modifica'
@@ -3281,7 +3297,7 @@ chain:
     INVALID_STORECHAIN_ID: L'ID della catena non è valido
     WRONG_FORUM: La discussione non appartiene a questo forum
     KEY_ACCOUNT_MANAGER_ID_NOT_IN_GROUP: Il Key Account Manager non fa parte del gruppo
-      di lavoro "Catene"
+      di lavoro “Catene”
     KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: Il Key Account Manager non esiste
     INVALID_STATUS: Il campo Stato non è valido
     EMPTY_ZIP: Il campo del codice postale (CAP) è vuoto
@@ -3312,7 +3328,7 @@ notifications:
     title: Zone
   chat:
     description: Ricevi notifiche di nuovi messaggi di chat anche quando non hai effettuato
-      l'accesso.
+      l’accesso.
     title: Messaggi di chat
   threads:
     title: Argomenti del forum
