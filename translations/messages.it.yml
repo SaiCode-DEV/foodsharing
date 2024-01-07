@@ -120,6 +120,11 @@ group:
       distretto.
     tooltip_function_11: Gli amministratorə di questo gruppo di lavoro sono visualizzati
       nella visione d’insieme dei distretti.
+    election: Elezioni
+    duplicate_election_team: Elezioni già create! Può esserci un solo gruppo elettorale
+      per circoscrizione.
+    tooltip_function_12: Gli amministratorə di questo gruppo di lavoro sono visualizzati
+      nella visione d’insieme dei distretti.
   delete_group_sure: Vuoi davvero eliminare il gruppo di lavoro/distretto {groupName}?
   quitting_home_district_warning: Vuoi davvero lasciare il tuo distretto di provenienza
     %name%? Perderai la tua verifica e dovrai presentarti in seguito al team di ambasciatori
@@ -274,6 +279,7 @@ button:
   change_picture: Cambia immagine
   next: Avanti
   save: Salva
+  reset_default: Ripristina l’impostazione predefinita
 upload:
   image-problem: Il tuo file non sembra essere a posto, è meglio usare una normale
     immagine jpg
@@ -309,8 +315,8 @@ banana_count: Di quante banane fiducia ha bisogno un membro?
 apply_type: Chi può iscriversi a questo gruppo?
 leader: Amministratori dei gruppi
 member: Membri
-abholmenge: Approssimativamente, quanti chilogrammi di cibo vengono prelevati per
-  ogni ritiro?
+abholmenge: Approssimativamente, quanti chilogrammi di cibo vengono prelevati ogni
+  persona per ogni ritiro?
 prefetchtime: Con quante settimane di anticipo può un foodsaver registrarsi utilizzando
   gli slot automatici?
 sticker: L'attività/il negozio/l' associazione ecc. è disposta ad esporre un adesivo
@@ -501,6 +507,7 @@ terminology:
   n_home_regions: uno con il distretto di residenza|%count% con il distretto di residenza
   no_pickups: 'nessuna'
   previous_pickups: 'Collezioni precedenti'
+  electionAdmins: Elezioni
 register:
   woman: femmina
   signup_newsletter: Vorrei ricevere la newsletter di foodsharing circa una volta
@@ -729,7 +736,7 @@ pickup:
       aggiuntivi necessari possono utilizzare un rimorchio per biciclette o qualcosa
       di simile\naspettare fuori dagli occhi dell’agenzia.\n"
     slotscount: '{count} Raccoglitore'
-    slotcount: un raccoglitore
+    slotcount: un raccoglitorǝ
     more: Aggiungere appuntamento
     disable_auto_slot: Lo slot automatico in futuro dovrebbe essere disattivato.
     disable_auto_slot_titel: Disattivazione
@@ -1016,7 +1023,7 @@ store:
     none: 'Nessun problema, lui/lei è rimasto/a subito entusiasta!'
     much: 'Piuttosto difficile, ma alla fine ha accettato.'
   prefetchthree: '3 settimane'
-  peoplecame: 'È capitato spesso che le persone si recassero al negozio senza preavviso.'
+  peoplecame: 'È successo che le persone si recassero al negozio senza preavviso.'
   smneeded: 'Per creare un’azienda devi essere il responsabile aziendale.'
   jumping: Stand-by
   of_that: di quello
@@ -1090,7 +1097,7 @@ store:
       15: ''
     max_entries_message: ''
     no_description: nessuno
-  signInDateTime: ''
+  signInDateTime: 'Data di ingresso'
   slot_state: ''
   lastPickupTitle: Ultimo recupero qui
 storeview:
@@ -1139,6 +1146,7 @@ storeview:
     single: 1 settimana
     multiply: '{weeks} Settimane'
   cooperation_status: Stato di cooperazione
+  show_settings: Impostazioni del negozio
 message_text_to_group_admin_workgroup: 'La regione/gruppo di lavoro <b>{groupName}</b>
   non <b>ha più </b> ambasciatori/amministratori.<br><br><br>Ha la seguente struttura
   ID:<br>{idStructureList}<br><br> L''ID è:{groupId}<br><br>URL: "<a href="/region?bid={groupId}&sub=forum"
@@ -1592,7 +1600,7 @@ recipients:
   storemanagers_and_ambs: Tutti i responsablili e ambasciatori
   storemanagers: tutti i responsabili di agenzie nel mondo
   all_no_botschafter: Tutti Foodsaver senza Ambasciatore
-  orga_team: Team organizzatori nazionali
+  orga_team: Team organizzatori globale
   active_ambassadors: Tutti gli ambasciatori nazionali
   all: Tutti i Foodsaver nel mondo
   recipients: Destinatario
@@ -1655,7 +1663,7 @@ forum:
   deleted_user: utente eliminato
   mail_confirmation:
     text: ''
-    title: ''
+    title: 'Sei sicuro di voler inviare una notifica email?'
 first_post: Primo post in bacheca
 events:
   rsvp:
@@ -1847,12 +1855,12 @@ bell:
   forum_post:
     one: Nuovo post di {user} nel forum {forum}
     many: '{count} nuovi post nel forum {forum}'
-  forum_new_thread: ''
-  forum_announcement: ''
-  forum_mention_title: ''
-  forum_new_thread_title: ''
+  forum_new_thread: 'di {user} nel forum {forum}'
+  forum_announcement: 'di {user} nel forum {forum}'
+  forum_mention_title: '{user} ti ha menzionato ({forum})'
+  forum_new_thread_title: 'Nuova discussione: {title}'
   forum_announcement_title: 'Messaggio importante: {title}'
-  forum_mention: ''
+  forum_mention: 'nell’argomento “{title}” del forum {forum}'
 content:
   edit: Modifica pagina
   new_success: La pagina è stata creata
@@ -2124,6 +2132,9 @@ basket:
   modal_error:
     no_phone: Si prega di fornire un numero di telefono.
   contact_types: Opzioni di contatto
+  delete_confirmation:
+    title: Eliminare il cestino degli alimenti?
+    text: Vuoi davvero eliminare questo paniere di cibo?
 team:
   not-found: Pagina non trovata
   ratelimit: Si prega di attendere {minutes} finché non si può inviare il prossimo
@@ -2251,20 +2262,20 @@ search:
       home_region_tooltip: ''
       member_tooltip: 'Sei un membro di questo distretto'
     working_group:
-      member_tooltip: ''
-      admin_tooltip: ''
+      member_tooltip: 'Sei un membro di questo gruppo'
+      admin_tooltip: 'Sei l’amministratorǝ di questo gruppo di lavoro'
     thread:
-      closed_tooltip: ''
+      closed_tooltip: 'Il thread è chiuso'
       forum: 'Forum'
-      sticky_tooltip: ''
-      ambassador_forum: ''
-      last_post: ''
+      sticky_tooltip: 'Il thread è fisso'
+      ambassador_forum: 'Forum degli Ambasciatori'
+      last_post: 'ultimo contributo'
     in: 'in'
     chat:
       chat_with: 'Chiacchiera con {names}'
       chat_with_others: 'altri'
     user:
-      no_home_region: ''
+      no_home_region: 'Nessun distretto di residenza'
     store:
       manager_tooltip: 'Sei responsabile di questa attività'
       jumper_tooltip: ''
@@ -2698,6 +2709,9 @@ mailbox:
   attachment:
     not_found_explanation: Impossibile trovare il file allegato sul server
     not_found: non trovato
+    too_large_to_send: Alcuni file erano troppo grandi e non potevano essere allegati
+      all’e-mail.
+    attach: Allegati (massimo 1,5 MB per file)
   move_to: Sposta in
   close_edit_mode: Termina la modifica
   add: Aggiungi
@@ -2707,6 +2721,10 @@ mailbox:
   less: meno
   more: più
   search_name_email: Cerca per nome o indirizzo email
+  global_addressbook: Rubrica globale
+  addressbook: Rubrica
+  reply_all: Rispondi a tutti
+  reply_header: '{name} ha scritto il {date}'
 messages:
   bread: Notizie
 map:
@@ -3370,5 +3388,10 @@ thread:
     edit_description: Modifica titolo
   post:
     options:
-      copy_source: ''
-    copy_source_success: ''
+      copy_source: 'Copia il codice sorgente'
+    copy_source_success: 'Copia il codice sorgente!'
+save_state: Salva filtri e ordinamento
+save_state_description: Salva i filtri applicati e l’ordinamento per le chiamate future
+configure_columns: Configura colonne
+expand_all: Espandi tutto
+collapse_all: Comprimi tutto
