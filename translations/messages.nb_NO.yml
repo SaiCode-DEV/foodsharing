@@ -3195,7 +3195,7 @@ chain:
   listheader: Driftskjeder
   columns:
     name: Navn
-    stores: Antall registrerte bedrifter
+    stores: Registrerte bedrifter
     status: Status
     headquarters: Sentral
     kams: KAM-er
