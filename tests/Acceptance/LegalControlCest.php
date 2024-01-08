@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Acceptance;
 
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Tests\Support\AcceptanceTester;
 
 class LegalControlCest
@@ -46,28 +47,28 @@ class LegalControlCest
     {
         $I->uncheckOption('#legal_form_privacyPolicyAcknowledged');
         $I->click('Einstellungen übernehmen');
-        $I->see('Nimmst du die Vereinbarung zur Kenntnis?');
+        $I->see('Akzeptierst du unsere Datenschutzerklärung?');
     }
 
     public function testGivenIAmLoggedInAndWantToDeleteMyAccountThenIGetRedirectedToTheDeleteAccountPage(AcceptanceTester $I): void
     {
-        $I->click('Ich möchte meinen Account löschen.');
+        $I->click('ich möchte meinen Account löschen.');
         $I->seeCurrentUrlEquals('/?page=settings&sub=deleteaccount');
     }
 
     public function testGivenIAmLoggedInAndHaveARoleHigherThanOneThenICanAcceptThePrivacyPolicyAndNotice(AcceptanceTester $I): void
     {
         $I->checkOption('#legal_form_privacyPolicyAcknowledged');
-        $I->selectOption('#legal_form_privacyNoticeAcknowledged', 'Ich stimme zu');
+        $I->selectOption('#legal_form_privacyNoticeAcknowledged', 'Ich habe die Belehrung zur Kenntnis genommen.');
         $I->click('Einstellungen übernehmen');
         $I->seeCurrentUrlEquals('/?page=legal');
-        $I->seeInDatabase('fs_foodsaver', ['id' => $this->user['id'], 'rolle' => 3]);
+        $I->seeInDatabase('fs_foodsaver', ['id' => $this->user['id'], 'rolle' => Role::AMBASSADOR]);
     }
 
     public function testGivenIAmLoggedInAndAHaveRoleHigherThanOneThenICanDegradeToFoodsaver(AcceptanceTester $I): void
     {
         $I->checkOption('#legal_form_privacyPolicyAcknowledged');
-        $I->selectOption('#legal_form_privacyNoticeAcknowledged', 'Ich stimme nicht zu');
+        $I->selectOption('#legal_form_privacyNoticeAcknowledged', 'Ich akzeptiere die vorgenannten Grundsätze');
         $I->click('Einstellungen übernehmen');
         $I->seeInPopup('Bist du dir sicher?');
         $I->cancelPopup();

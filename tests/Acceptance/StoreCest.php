@@ -200,10 +200,10 @@ class StoreCest
         $I->amOnPage($I->storeEditUrl($this->store['id']));
         if ($example[0] === 'StoreManager') {
             $I->see('Bezirk ändern');
-            $I->see('Betriebsansprechpartner');
+            $I->see('Ansprechpersonen im Betrieb');
         } else {
             $I->dontSee('Bezirk ändern');
-            $I->dontSee('Betriebsansprechpartner');
+            $I->dontSee('Ansprechpersonen im Betrieb');
         }
     }
 
@@ -381,7 +381,7 @@ class StoreCest
 
             // demote newly promoted storemanager to regular team member
             $I->click("{$this->foodsaverWithStoreManagerQuiz['name']} {$this->foodsaverWithStoreManagerQuiz['nachname']}", '.store-team');
-            $I->click('Als Betriebsverantwortliche*n entfernen', '.member-actions');
+            $I->click('Als Betriebsverantwortliche:n entfernen', '.member-actions');
             $I->seeInPopup('die Verantwortung für diesen Betrieb entziehen?');
             $I->cancelPopup();
             $I->seeInDatabase('fs_betrieb_team', [
@@ -390,7 +390,7 @@ class StoreCest
                 'verantwortlich' => 1,
             ]);
             $I->waitForElement('.store-team tr.table-warning[data-pk="' . $this->foodsaverWithStoreManagerQuiz['id'] . '"]', 2);
-            $I->click('Als Betriebsverantwortliche*n entfernen', '.member-actions');
+            $I->click('Als Betriebsverantwortliche:n entfernen', '.member-actions');
             $I->seeInPopup('die Verantwortung für diesen Betrieb entziehen?');
             $I->acceptPopup();
             $I->waitForActiveAPICalls();

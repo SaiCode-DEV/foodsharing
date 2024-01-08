@@ -26,7 +26,7 @@ class FoodsaverListCest
         $I->login($ambassador['email']);
 
         $I->amOnPage('/?page=foodsaver&bid=' . $region['id']);
-        $I->see('Foodsaver in ' . $region['name'], '#foodsaverlist');
+        $I->see('Foodsaver:innen in ' . $region['name'], '#foodsaverlist');
         $I->see('fs-a', '#foodsaverlist');
         $I->see('fs-i', '#foodsaverlist');
         $I->see('fs1', '#foodsaverlist');
