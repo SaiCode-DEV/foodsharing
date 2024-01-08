@@ -60,3 +60,9 @@ export async function getCache (cacheRequestName) {
     return null
   }
 }
+
+export async function clearCaches () {
+  const cache = await caches.open(cacheName)
+  const keys = await cache.keys()
+  return await Promise.all(keys.map(key => cache.delete(key)))
+}

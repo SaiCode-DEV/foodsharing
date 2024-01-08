@@ -52,13 +52,13 @@
       </button>
     </template>
     <template #actions>
-      <a
-        :href="$url('logout')"
+      <button
         role="menuitem"
         class="dropdown-item dropdown-action"
+        @click="deleteCaches()"
       >
         <i class="icon-subnav fas fa-power-off" /> {{ $i18n('login.logout') }}
-      </a>
+      </button>
     </template>
   </Dropdown>
 </template>
@@ -70,6 +70,7 @@ import Avatar from '../../Avatar.vue'
 import Dropdown from '../_NavItems/NavDropdown'
 // Mixins
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
+import { clearCaches } from '@/helper/cache'
 
 export default {
   components: {
@@ -92,6 +93,12 @@ export default {
     },
     hasMailBox () {
       return DataUser.getters.hasMailBox()
+    },
+  },
+  methods: {
+    async deleteCaches () {
+      await clearCaches()
+      window.location.href = this.$url('logout')
     },
   },
 }
