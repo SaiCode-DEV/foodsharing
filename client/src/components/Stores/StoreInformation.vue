@@ -552,6 +552,7 @@ export default {
     // Load data
     this.store = this.storeInformation
     this.editMode = (this.mayEditStore || this.isCoordinator)
+    this.editPickups = this.loadedPickups
     this.previousEditPickups = structuredClone(this.loadedPickups)
     if (this.store.categoryId === null) {
       this.store.categoryId = 0
