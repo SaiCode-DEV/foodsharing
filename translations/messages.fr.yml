@@ -3328,7 +3328,7 @@ chain:
   columns:
     status: Statut
     name: Nom
-    stores: Coopérations
+    stores: Magasins créés
     headquarters: Quartier général
     kams: Responsables des chaînes de magasins
     notes: Remarques
