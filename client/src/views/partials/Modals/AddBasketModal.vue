@@ -105,7 +105,6 @@
         @address-change="onAddressChanged"
       />
     </b-form-group>
-    {{ user }}
   </b-modal>
 </template>
 
