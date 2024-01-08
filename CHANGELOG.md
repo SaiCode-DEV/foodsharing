@@ -59,7 +59,7 @@
 - Clear browser cache when logging out to prevent cached data leaking into next logged in session !3024 @AntonBallmaier
 
 ## Refactoring
-- Refactor mailbox modul to vue and rest api !2580 !2870 !2871 !2918 !2934 !2971 @chriswalg @alex.simm
+- Refactor mailbox modul to vue and rest api !2580 !2870 !2871 !2918 !2934 !2971 !3002 @chriswalg @alex.simm
 - Use REST for quickreplying to wall posts !2795 @alex.simm
 - Cleaned up a lot of core code all over the place !2738 @\_fridtjof_
 - Preparations to routing/link building code for future porting to Symfony controllers !2738 @\_fridtjof_

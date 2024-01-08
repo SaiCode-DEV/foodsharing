@@ -59,7 +59,6 @@ class MailboxTransactions
     public function getEmail(int $emailId): Email
     {
         $email = $this->mailboxGateway->getEmail($emailId);
-        $email->bodyHtml = $this->sanitizer->purifyHtml($email->bodyHtml);
 
         // obtain the file sizes for all attachments
         if (!empty($email->attachments)) {

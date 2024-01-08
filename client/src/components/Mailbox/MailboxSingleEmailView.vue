@@ -13,73 +13,90 @@
           @try-delete-email="tryDeleteEmail"
         />
         <div class="border-left border-right p-2">
+          <b-form-checkbox
+            v-if="hasHtmlBody"
+            v-model="showHtmlBody"
+            class="text-right"
+            switch
+          >
+            {{ $i18n('mailbox.show_html_body') }}
+          </b-form-checkbox>
           <div class="row">
             <div class="col col-auto">
               {{ $i18n('mailbox.from') }}:
             </div>
+            <div class="col col-7 pl-0">
+              <span
+                v-html="fromHeader"
+              />
+            </div>
             <div
-              class="col col-6"
-              v-html="fromHeader"
-            />
-            <div class="col col-5 text-right">
+              v-if="!viewIsMobile"
+              class="col col-4 text-right"
+            >
               {{ $i18n('mailbox.date') }} : {{ displayedMailDate }} Uhr
             </div>
           </div>
           <div class="row mt-1">
-            <div class="col col-1 d-flex align-items-center">
+            <div class="col col-auto">
               {{ $i18n('mailbox.to') }}:
             </div>
-            <div class="toClass">
+            <div class="col col-8 col-md-11 pl-0">
               <span
                 v-for="(mailAddress, index) in displayedEmails"
                 :key="index"
+                :class="{ 'text-truncate': !viewIsMobile }"
               >
-                {{ index > 0 ? ', ' : '' }}{{ mailAddress }}
+                {{ index > 0 ? (viewIsMobile ? ',\n' : ', ') : '' }}{{ mailAddress }}
               </span>
+            </div>
+            <div class="col col-1">
               <b-button
                 v-if="shouldShowToggleButton"
                 size="sm"
                 variant="outline-primary"
                 @click="toggleEmails"
               >
-                {{ isExpanded ? "... " + $i18n('mailbox.less') : "... " + $i18n('mailbox.more') }}
+                <i :class="{'fas fa-caret-up': isExpanded, 'fas fa-caret-down': !isExpanded}" />
               </b-button>
             </div>
           </div>
-          <div class="pt-2">
-            <h5>{{ email.subject }}</h5>
-            <div
-              class="pt-2"
-              v-html="getBody(email)"
-            />
-            <b-list-group
-              v-if="email.attachments"
-              horizontal
-              class="pt-2"
-            >
-              <b-list-group-item
-                v-for="(attachment, index) in email.attachments"
-                :key="attachment.id"
+          <div class="row mt-1">
+            <div class="col col-auto">
+              <h5>{{ email.subject }}</h5>
+              <div
+                class="pt-2"
+                v-html="emailBody"
+              />
+              <b-list-group
+                v-if="email.attachments"
+                horizontal
+                class="pt-2"
               >
-                <b-link
-                  v-if="attachment.size > 0"
-                  :download="attachment.fileName"
-                  :href="attachmentDownloadLink(attachment.hashedFileName, email.id, index)"
+                <b-list-group-item
+                  v-for="(attachment, index) in email.attachments"
+                  :key="attachment.id"
                 >
-                  {{ attachment.fileName }} ({{ formatFileSize(attachment.size) }})
-                </b-link>
-                <div
-                  v-else
-                  v-b-tooltip.hover="$i18n('mailbox.attachment.not_found_explanation')"
-                >
-                  {{ attachment.fileName }} ({{ $i18n('mailbox.attachment.not_found') }})
-                </div>
-              </b-list-group-item>
-            </b-list-group>
+                  <b-link
+                    v-if="attachment.size > 0"
+                    :download="attachment.fileName"
+                    :href="attachmentDownloadLink(attachment.hashedFileName, email.id, index)"
+                  >
+                    {{ attachment.fileName }} ({{ formatFileSize(attachment.size) }})
+                  </b-link>
+                  <div
+                    v-else
+                    v-b-tooltip.hover="$i18n('mailbox.attachment.not_found_explanation')"
+                  >
+                    {{ attachment.fileName }} ({{ $i18n('mailbox.attachment.not_found') }})
+                  </div>
+                </b-list-group-item>
+              </b-list-group>
+            </div>
           </div>
         </div>
-        <MailboxFooterNav />
       </div>
+      <MailboxFooterNav />
     </container>
   </div>
 </template>
@@ -93,31 +110,36 @@ import { deleteEmail, setEmailProperties } from '@/api/mailbox'
 import { hideLoader, pulseError, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
 import { store, MAILBOX_PAGE } from '@/stores/mailbox'
+import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
 export default {
   components: { Container, MailboxMainNav, MailboxFooterNav },
+  mixins: [MediaQueryMixin],
   props: {
     email: { type: Object, default: null },
   },
   data () {
     return {
       isBusy: false,
-      isRead: null,
       isExpanded: false,
+      showHtmlBody: false,
     }
   },
   computed: {
     allEmailAddresses () {
       return this.email.to.map(recipient => recipient.address)
     },
+    emailAddressCount () {
+      return this.viewIsMobile ? 1 : 3
+    },
     shouldShowToggleButton () {
-      return this.allEmailAddresses.length > 2
+      return this.allEmailAddresses.length > this.emailAddressCount
     },
     displayedEmails () {
       if (this.isExpanded) {
         return this.allEmailAddresses
       } else {
-        return this.allEmailAddresses.slice(0, 2)
+        return this.allEmailAddresses.slice(0, this.emailAddressCount)
       }
     },
     displayedMailDate () {
@@ -136,12 +158,18 @@ export default {
       const result = name ? combined : address
       return result || `(${this.$i18n('mailbox.unknown_sender')})`
     },
-  },
-  mounted () {
-    if (this.email !== null && this.email.isRead !== true) {
-      this.isRead = this.email.isRead
-      this.trySetEmailStatus()
-    }
+    hasHtmlBody () {
+      return this.email.bodyHtml && this.email.bodyHtml.length >= 0
+    },
+    emailBody () {
+      if (this.hasHtmlBody && this.showHtmlBody) {
+        return DOMPurify.sanitize(this.email.bodyHtml, {
+          USE_PROFILES: { html: true },
+        })
+      } else {
+        return this.addLineBreaks(this.addLinks(this.email.body))
+      }
+    },
   },
   methods: {
     toggleEmails () {
@@ -163,12 +191,11 @@ export default {
       this.closeAndReturnToMailbox()
     },
     async trySetEmailStatus () {
-      const state = !this.isRead
+      const state = !this.email.isRead
       showLoader()
       this.isBusy = true
       try {
         await setEmailProperties(this.email.id, state, null)
-        this.isRead = state
       } catch (e) {
         pulseError(i18n('error_unexpected'))
       }
@@ -200,12 +227,6 @@ export default {
 
       return bytes.toFixed(1) + ' ' + units[u]
     },
-    getBody (email) {
-      return this.getPlainBody(DOMPurify.sanitize(email.bodyHtml ?? email.body))
-    },
-    getPlainBody (text) {
-      return this.addLineBreaks(this.addLinks((text)))
-    },
     addLineBreaks (text) {
       return text ? text.replace(/\\n|\n/g, '<br>') : ''
     },
@@ -221,10 +242,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.toClass {
-  max-width: 40rem;
-  padding-top: 0.5rem;
-}
-</style>

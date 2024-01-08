@@ -2,7 +2,7 @@
   <div>
     <div class="border">
       <b-row class="p-2">
-        <b-col cols="6">
+        <b-col cols="8">
           <b-button
             v-if="page === MAILBOX_PAGE.READ_EMAIL || page === MAILBOX_PAGE.EMAIL_LIST"
             v-b-tooltip.hover
@@ -77,7 +77,7 @@
             v-if="page === MAILBOX_PAGE.READ_EMAIL || page === MAILBOX_PAGE.EMAIL_LIST"
             id="dropdown-move-to"
             :text="$i18n('mailbox.move_to')"
-            class="m-md-2"
+            class="m-md-2 pt-2 pt-md-0"
             size="sm"
             variant="outline-primary"
             :disabled="areMailsNotSelected && page === MAILBOX_PAGE.EMAIL_LIST"
@@ -90,7 +90,7 @@
           </b-dropdown>
         </b-col>
         <b-col
-          cols="6"
+          cols="4"
           class="text-right"
         >
           <b-button

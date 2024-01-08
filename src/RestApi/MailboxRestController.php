@@ -11,23 +11,22 @@ use Foodsharing\Modules\Mailbox\MailboxTransactions;
 use Foodsharing\Permissions\MailboxPermissions;
 use Foodsharing\RestApi\Models\Mailbox\EmailSendData;
 use Foodsharing\RestApi\Models\Mailbox\PatchEmailModel;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use OpenApi\Attributes as OA2;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class MailboxRestController extends AbstractFOSRestController
+class MailboxRestController extends FoodsharingRestController
 {
-    // private const SECONDS_PER_EMAIL_SENDING = 15;
-
     public function __construct(
         private readonly MailboxGateway $mailboxGateway,
         private readonly MailboxPermissions $mailboxPermissions,
@@ -198,8 +197,11 @@ class MailboxRestController extends AbstractFOSRestController
      * @ParamConverter("emailData", class="Foodsharing\RestApi\Models\Mailbox\EmailSendData", converter="fos_rest.request_body")
      * @Rest\Post("mailbox/{mailboxId}", requirements={"mailboxId" = "\d+"})
      */
-    public function sendMail(int $mailboxId, EmailSendData $emailData, ValidatorInterface $validator): Response
+    public function sendMail(int $mailboxId, EmailSendData $emailData, ValidatorInterface $validator, Request $request,
+        RateLimiterFactory $loginLimiter): Response
     {
+        $this->checkRateLimit($request, $loginLimiter);
+
         // check permissions
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('', 'Not logged in.');
@@ -213,9 +215,6 @@ class MailboxRestController extends AbstractFOSRestController
         if (!$mailbox) {
             throw new NotFoundHttpException();
         }
-
-        /* ToDo: Disabled because tests aren't running. We want change to symfony rate limiter
-        $this->checkEmailSendingRateLimit(); */
 
         // check validity of parameters
         $errors = $validator->validate($emailData);

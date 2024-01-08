@@ -1758,7 +1758,7 @@ mailbox:
   actions: "Optionen"
   member: "Mailbox-Benutzer:in"
   refresh: "Aktualisieren"
-  write: "Neue E-Mail"
+  write: "Neue Mail"
   reply:
     full: "E-Mail beantworten"
     short: "Antworten"
@@ -1805,11 +1805,10 @@ mailbox:
   search: "Durchsuchen"
   add: "Hinzufügen"
   mailsend_unsuccess: "E-Mail konnte nicht versendet werden. {error}"
-  more: "mehr"
-  less: "weniger"
   global_addressbook: "Globales Adressbuch"
   addressbook: "Adressbuch"
   search_name_email: "Suche nach Name oder E-Mail-Adresse"
+  show_html_body: "Als HTML anzeigen"
 
 settings:
   title: "Einstellungen"
