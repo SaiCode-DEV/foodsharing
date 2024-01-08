@@ -12,6 +12,7 @@ use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\Milestone;
@@ -149,6 +150,14 @@ class StoreRestController extends AbstractFOSRestController
 
         if (!$this->storePermissions->mayListStores()) {
             throw new AccessDeniedHttpException('No permission see store list');
+        }
+
+        /*
+         * @TODO: This deactivates store lists for Europe and countries because it needs to much memory on the server.
+         * Can be remove when there is pagination.
+         */
+        if (in_array($regionId, [RegionIDs::EUROPE, RegionIDs::GERMANY, RegionIDs::AUSTRIA, RegionIDs::SWITZERLAND])) {
+            throw new AccessDeniedHttpException();
         }
 
         $stores = $this->storeTransactions->listOverviewInformationsOfStoresInRegion($regionId, true);

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <StoreListComponent :stores="stores">
+    <StoreListComponent
+      v-if="!isDeactivatedRegion"
+      :stores="stores"
+    >
       <template #head-title>
         <span>
           {{ $i18n('store.allStoresOfRegion') }} {{ regionName }}
@@ -33,6 +36,13 @@
         </div>
       </template>
     </StoreListComponent>
+    <b-alert
+      v-else
+      variant="info"
+      show
+    >
+      {{ $i18n('store.deactivatedRegion') }}
+    </b-alert>
   </div>
 </template>
 
@@ -40,6 +50,7 @@
 import StoreListComponent from './StoreListComponent.vue'
 import { hideLoader, showLoader } from '@/script'
 import { useStoreStore } from '@/stores/store'
+import { REGION_IDS } from '@/consts'
 
 const storeStore = useStoreStore()
 
@@ -55,13 +66,23 @@ export default {
   },
   computed: {
     stores: () => storeStore.regionStores,
+    /*
+     @TODO: This deactivates store lists for Europe and countries because it needs to much memory on the server.
+     Can be remove when there is pagination.
+     */
+    isDeactivatedRegion () {
+      return [REGION_IDS.EUROPE, REGION_IDS.GERMANY, REGION_IDS.AUSTRIA, REGION_IDS.SWITZERLAND]
+        .indexOf(this.regionId) >= 0
+    },
   },
   async created () {
-    showLoader()
-    this.isBusy = true
-    await storeStore.fetchStoresForRegion(this.regionId)
-    this.isBusy = false
-    hideLoader()
+    if (!this.isDeactivatedRegion) {
+      showLoader()
+      this.isBusy = true
+      await storeStore.fetchStoresForRegion(this.regionId)
+      this.isBusy = false
+      hideLoader()
+    }
   },
 }
 </script>

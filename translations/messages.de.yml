@@ -855,6 +855,7 @@ store:
   ownStores: "Eigene Betriebe"
   addNewStoresButton: "Neuen Betrieb eintragen"
   noStores: "Es sind noch keine Betriebe eingetragen"
+  deactivatedRegion: "Die Betriebsliste kann für Länder und Europa im Moment nicht angezeigt werden."
   go: "Zur Teamseite"
   error: "Betrieb konnte nicht geladen werden."
   teamName: "{storeTitle}-Team"
