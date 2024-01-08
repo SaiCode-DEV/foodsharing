@@ -3279,7 +3279,7 @@ chain:
   filterplaceholder: 'Nome / Indirizzo / KAM ID'
   columns:
     name: 'Nome'
-    stores: 'Numero di negozi che hanno collaborato'
+    stores: 'Negozi create'
     kams: 'KAMs'
     notes: 'Suggerimenti'
     headquarters: 'Sede centrale'
