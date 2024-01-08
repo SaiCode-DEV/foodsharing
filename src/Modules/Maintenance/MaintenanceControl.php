@@ -165,6 +165,9 @@ class MaintenanceControl extends ConsoleControl
         self::info('updating Voting Admin group');
         $this->goalsAdminCommunicationGroups(WorkgroupFunction::VOTING, RegionIDs::VOTING_ADMIN_GROUP);
 
+        self::info('updating Election Admin group');
+        $this->goalsAdminCommunicationGroups(WorkgroupFunction::ELECTION, RegionIDs::ELECTION_ADMIN_GROUP);
+
         /*		self::info('updating Foodsharepoint Team Admin group');
                 $this->goalsAdminCommunicationGroups(WorkgroupFunction::FSP, RegionIDs::FSP_TEAM_ADMIN_GROUP);
 

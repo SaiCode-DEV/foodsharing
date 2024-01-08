@@ -31,6 +31,7 @@ class RegionIDs
     public const SWITZERLAND = 106;
     public const SWITZERLAND_BOT_GROUP = 1763;
     public const VOTING_ADMIN_GROUP = 3871;
+    public const ELECTION_ADMIN_GROUP = 5444;
     public const WELCOME_TEAM_ADMIN_GROUP = 4642;
     public const FSP_TEAM_ADMIN_GROUP = 4647;
     public const STORE_COORDINATION_TEAM_ADMIN_GROUP = 4648;

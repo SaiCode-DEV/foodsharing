@@ -41,6 +41,7 @@
 - Replaced the Twitter link with Bluesky #1779 !3006 @alex.simm
 - GOALS-ELECTION-Group added. !3001 @fs_k
 - Replaced viking avatar with a less vikingish one !3032 @irgendwer
+- GOALS-ELEction Admins are automatically added to globaly election exchange group !3031 @fs_k
 
 ## Bugfixes
 - Added error handling for cache helper for bell notifications or other requests !2869 @chriswalg
