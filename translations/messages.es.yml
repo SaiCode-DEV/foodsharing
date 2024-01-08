@@ -2126,7 +2126,7 @@ stats:
 chain:
   columns:
     name: 'Nombre'
-    stores: 'Número de empresas'
+    stores: 'Empresas creadas'
     headquarters: 'Cuartel general'
     kams: 'Administrador@s clave de cuentas'
     notes: 'Notas'
