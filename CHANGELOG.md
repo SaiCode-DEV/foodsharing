@@ -75,6 +75,7 @@
 - Switched the quickreply function for emails on the dashboard to use the mailbox API #1668 !2921 @alex.simm
 - Modernized MapControl to a Symfony controller !2986 @\_fridtjof_
 - Restrict CSRF protection to REST API by namespace instead of manual exclusions by annotation !3005 #1782 !3008 @\_fridtjof_
+- Changes the basket bubble on the map to vue #1608 #1788 !2905 !3028 @alex.simm
 
 ## Dev/Test/CI stuff
 - removed CHANGELOG.md merge=union !2866 @chriswalg
