@@ -52,7 +52,7 @@ about_me_intern: "Kurzbeschreibung"
 #
 # FORM DATA KEYS: BasketView + BasketXhr
 # --
-weight: "Geschätztes Gewicht"
+weight: "Geschätztes Gewicht:"
 food_type: "Welche Arten von Lebensmitteln sind dabei?"
 food_art: "Was trifft auf die Lebensmittel zu?"
 fetchstate: "Hat alles gut geklappt?"
@@ -1414,7 +1414,7 @@ recipients:
 addresspicker:
   label: "Adress-/Standort-Suche"
   placeholder: "Bitte hier nach der Adresse suchen. Falls nötig kannst du sie dann unten noch weiter anpassen."
-  infobox: "Bitte gib die Adresse im Textfeld zwischen dieser Nachricht und der Karte ein und bestätige diese dann durch Auswahl in der Karte."
+  infobox: "Bitte gib die Adresse im Textfeld zwischen dieser Nachricht und der Karte ein und korrigiere diese dann ggf. durch Verschieben in der Karte."
   infobox_profile: "<a href=\"https://wiki.foodsharing.de/Foodsharer\">Foodsharer</a> benötigen die Adresse, um Essenskörbe über die Webseite anbieten zu können. Um als <a href=\"https://wiki.foodsharing.de/Foodsaver\">Foodsaver</a> an Lebensmittelrettungen teilnehmen zu können, ist sie notwendig."
   different_location: Adresse ist unabhängig von Geo-Position
 date:
@@ -1493,7 +1493,7 @@ reports:
   when: "Zeitpunkt"
   info: '
     Bitte gib das <b>Datum</b>, den <b>Ort</b> und die <b>Uhrzeit</b> des Vorfalls an! <br>
-    Gib an, ob du bereits mit der Person direkt gesprochen hast und den Sachverhalt klären konntest. 
+    Gib an, ob du bereits mit der Person direkt gesprochen hast und den Sachverhalt klären konntest.
     Gib bitte an, wie du am besten für Rückfragen zu erreichen bist.'
 
   #|
@@ -2339,7 +2339,7 @@ basket:
   modal_error:
     no_contact: "Bitte wähle eine Möglichkeit aus, wie der Essenskorb angefragt werden soll."
     no_phone: "Bitte gib eine Telefonnummer an."
-  use_home_address: "Persönliche Adresse nutzen"
+  use_home_address: "Wohnadresse nutzen"
 
 personal_data:
   label: "Kontakt"

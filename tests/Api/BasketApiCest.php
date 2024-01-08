@@ -135,6 +135,7 @@ class BasketApiCest
             'lon' => 0.0,
             'contactTypes' => [1],
             'lifeTimeInDays' => 3,
+            'weightInGrams' => 1000,
         ]);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
@@ -176,6 +177,7 @@ class BasketApiCest
             'lon' => $lon,
             'contactTypes' => [1],
             'lifeTimeInDays' => 3,
+            'weightInGrams' => 1000,
         ]);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
         $I->seeResponseIsJson();

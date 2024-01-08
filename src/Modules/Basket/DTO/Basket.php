@@ -30,4 +30,7 @@ class Basket
     public float $lon;
     #[Assert\Range(min: 1, max: 21, notInRangeMessage: 'Lifetime must be between {{ min }} and {{ max }} days.')]
     public ?int $lifeTimeInDays = null;
+    #[Assert\NotNull]
+    #[Assert\Range(min: 0, max: 100000, notInRangeMessage: 'Weight must be between {{ min }} and {{ max }} g.')]
+    public int $weightInGrams;
 }

@@ -20,8 +20,8 @@
       class="mb-3"
       :filename="imageUrl"
       :is-image="true"
-      :img-width="600"
-      :img-height="400"
+      :img-width="300"
+      :img-height="200"
       :enable-resize="true"
       @change="(file) => imageUrl = file.url"
     />
@@ -69,6 +69,19 @@
     </div>
 
     <b-form-group
+      :label="$i18n('weight') + ' ' + weights[weightInput].name"
+      label-for="weight-range"
+    >
+      <b-form-input
+        id="weight-range"
+        v-model="weightInput"
+        type="range"
+        min="0"
+        :max="weights.length - 1"
+      />
+    </b-form-group>
+
+    <b-form-group
       :label="$i18n('address') + ':'"
       label-for="location-input"
     >
@@ -88,9 +101,11 @@
         :city="address.city"
         icon-name="shopping-basket"
         icon-color="green"
+        :show-address-fields="false"
         @address-change="onAddressChanged"
       />
     </b-form-group>
+    {{ user }}
   </b-modal>
 </template>
 
@@ -115,6 +130,7 @@ const defaultBasketData = {
   address: {},
   useHomeAddress: false,
   hasValidHomeAddress: undefined,
+  weightInput: 4,
 }
 
 export default {
@@ -125,13 +141,18 @@ export default {
   },
   data () {
     const durationOptions = [1, 2, 3, 5, 7, 14, 21].map(days => ({ value: days, text: this.$i18n(`basket.valid.${days}`) }))
+    const weights = [
+      ...[250, 500].map(weightInGrams => ({ name: `${weightInGrams} g`, weightInGrams })),
+      ...[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 30, 40, 50, 75, 100].map(weightInKg => ({ name: `${weightInKg} kg`, weightInGrams: weightInKg * 1000 })),
+    ]
     if (!this.edit) {
       this.initUsingUserDetails()
-      return Object.assign({}, { durationOptions }, defaultBasketData)
+      return Object.assign({}, { durationOptions, weights }, defaultBasketData)
     }
     this.testHomeRegion()
     return {
       durationOptions,
+      weights,
       imageUrl: this.basket.picture,
       description: this.basket.description,
       contact: {
@@ -144,6 +165,7 @@ export default {
       address: {},
       useHomeAddress: false,
       hasValidHomeAddress: undefined,
+      weightInput: Math.max(0, weights.findIndex(weight => weight.weightInGrams === this.basket.weightInKg * 1000)),
     }
   },
   computed: {
@@ -163,7 +185,7 @@ export default {
     },
     async initUsingUserDetails () {
       await userStoreMutations.fetchDetails()
-      this.phoneNumber = this.user.mobile
+      this.phoneNumber = this.user.mobile || this.user.landline || ''
       this.hasValidHomeAddress = Boolean(this.user.coordinates.lat) && Boolean(this.user.address) && Boolean(this.user.city)
       this.useHomeAddress = true
       if (this.hasValidHomeAddress) {
@@ -199,6 +221,7 @@ export default {
         lifeTimeInDays: this.durationInDays,
         lat: this.location.lat,
         lon: this.location.lon,
+        weightInGrams: this.weights[this.weightInput].weightInGrams,
       }
     },
     async addBasket () {

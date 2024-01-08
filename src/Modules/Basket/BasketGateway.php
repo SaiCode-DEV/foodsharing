@@ -44,7 +44,7 @@ class BasketGateway extends BaseGateway
                 'handy' => strip_tags($basket->mobile),
                 'contact_type' => implode(':', $basket->contactTypes),
                 'location_type' => 0,
-                'weight' => null,
+                'weight' => (float)$basket->weightInGrams / 1000,
                 'lat' => $basket->lat,
                 'lon' => $basket->lon,
                 'bezirk_id' => (int)$region_id,
@@ -85,6 +85,7 @@ class BasketGateway extends BaseGateway
 				b.lat,
 				b.lon,
 				b.foodsaver_id,
+                b.weight AS weightInKg,
 				UNIX_TIMESTAMP(b.time) AS time_ts,
 				UNIX_TIMESTAMP(b.update) AS update_ts,
 				UNIX_TIMESTAMP(b.until) AS until_ts,
@@ -359,6 +360,7 @@ class BasketGateway extends BaseGateway
                 'tel' => strip_tags($basket->telephone),
                 'handy' => strip_tags($basket->mobile),
                 'contact_type' => implode(':', $basket->contactTypes),
+                'weight' => (float)$basket->weightInGrams / 1000,
             ],
             ['id' => $id, 'foodsaver_id' => $fsId]
         );

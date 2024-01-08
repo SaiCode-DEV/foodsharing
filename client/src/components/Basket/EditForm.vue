@@ -25,9 +25,6 @@ export default {
     basket: { type: Object, required: true },
     mayEdit: { type: Boolean, default: false },
   },
-  data () {
-    return {}
-  },
   methods: {
     async deleteBasket () {
       const confimation = await this.$bvModal.msgBoxConfirm(this.$i18n('basket.delete_confirmation.text'), {
