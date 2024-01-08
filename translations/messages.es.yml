@@ -2631,6 +2631,7 @@ mailbox:
   global_addressbook: Libreta de direcciones global
   addressbook: Libreta de direcciones
   reply_all: Responder a todos
+  show_html_body: Mostrar como HTML
 settings:
   follow:
     thread: '¿Quiere mantenerse actualizado sobre el tema del foro “{thread}”?'
