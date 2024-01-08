@@ -230,7 +230,7 @@ begin: Inicio de la cooperación
 first_post: Primer anuncio
 member: Miembros
 apply_type: ¿Quién puede registrarse en este grupo?
-weight: Peso estimado
+weight: 'Peso estimado:'
 food_type: ¿Qué tipo de alimentos están incluidos?
 food_art: ¿Qué se aplica a la comida?
 bezirk_id: ¿Para qué región es el artículo relevante?
@@ -1361,6 +1361,8 @@ store:
   slot_state: Estado de la ranura
   lastPickupTitle: Última recogida
   slotsCurrentlyOccupied: Espacios actualmente ocupados
+  deactivatedRegion: La lista de empresas no puede mostrarse por el momento para los
+    países y Europa.
 pickup:
   overview:
     status:
@@ -2020,7 +2022,7 @@ basket:
     También puede encontrar otras cestas de alimentos cerca de usted en nuestro mapa.
 
     '
-  use_home_address: Utilizar el domicilio
+  use_home_address: Usar la dirección de residencia
   modal_error:
     no_contact: Elige cómo se debe ordenar la canasta de alimentos.
     no_phone: Indique un número de teléfono.
@@ -3297,8 +3299,8 @@ addresspicker:
     como rescatista.'
   label: 'Búsqueda de dirección/ubicación'
   placeholder: 'Por favor busque la dirección aquí. Si es necesario, ajuste más abajo.'
-  infobox: 'Ingrese la dirección en el campo de texto entre esta nota y la tarjeta
-    y luego confírmela seleccionándola en la tarjeta.'
+  infobox: 'Por favor, introduzca la dirección en el campo de texto entre este mensaje
+    y el mapa y corríjala si es necesario moviéndola en el mapa.'
   different_location: 'La dirección es independiente de la posición geográfica'
 conference:
   description_text: 'Aquí puede unirse a una conferencia en línea para el grupo seleccionado.
