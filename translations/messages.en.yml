@@ -3177,7 +3177,7 @@ chain:
     status: Status
     name: Name
     estimatedStoreCount: Estimated number of cooperating stores
-    stores: Count cooperating stores
+    stores: Number of stores created
     headquarters: Headquarters
     kams: KAM
     notes: Notes
