@@ -730,6 +730,7 @@ mailbox:
   global_addressbook: Global address book
   addressbook: Adress book
   reply_all: Reply all
+  show_html_body: Show HTML code
 events:
   description: Description
   create:
@@ -2113,6 +2114,8 @@ store:
   slot_state: Slot status
   lastPickupTitle: Last pick-up here
   slotsCurrentlyOccupied: Currently occupied slots
+  deactivatedRegion: The store list cannot be displayed for entire countries and continents
+    at the moment.
 search:
   mygroups: My groups
   mybuddies: My buddies
@@ -2645,7 +2648,7 @@ testemail: Email address for testing
 opt: Options
 teaser: Teaser
 food_type: Which types of food are included?
-weight: Estimated weight
+weight: 'Estimated weight:'
 about_me_intern: Short description
 about_me_public: Public short description
 regions: Regions
@@ -2674,8 +2677,8 @@ addresspicker:
     need the address in order to be able to offer food baskets on the website. In
     order to be able to participate in food rescues as a <a href="https://wiki.foodsharing.de/Foodsaver">Foodsaver</a>,
     it is even mandatory.
-  infobox: Please enter the address in the text field between this message and the
-    map and then confirm this by selecting it on the map.
+  infobox: Enter the address in the field provided and/or move the pin on the map
+    if necessary.
   different_location: Addresse independent of location
 dashboard:
   my:
