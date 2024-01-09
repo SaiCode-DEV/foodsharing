@@ -368,7 +368,7 @@ contact_type: Come vorresti essere contattato/a?
 fetchstate: È andato tutto bene?
 food_art: Che tipo di alimenti sono?
 food_type: Quali tipi di alimenti sono inclusi?
-weight: Peso stimato
+weight: 'Peso stimato:'
 about_me_intern: Descrizione breve
 about_me_public: Breve descrizione pubblica
 regions: Zone
@@ -1100,6 +1100,8 @@ store:
   signInDateTime: 'Data di ingresso'
   slot_state: ''
   lastPickupTitle: Ultimo recupero qui
+  deactivatedRegion: Al momento non è possibile visualizzare l’elenco delle aziende
+    per interi paesi e continenti.
 storeview:
   want_to_fetch: Vorrei aiutare in questo team.
   specials: particolarità
@@ -2725,6 +2727,7 @@ mailbox:
   addressbook: Rubrica
   reply_all: Rispondi a tutti
   reply_header: '{name} ha scritto il {date}'
+  show_html_body: Mostra il codice HTML
 messages:
   bread: Notizie
 map:
