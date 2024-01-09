@@ -59,6 +59,7 @@
 - Prevent load store log for jumper !2978 @chriswalg
 - Fix operation on empty icon string #1709 !2970 @KoeMai
 - Clear browser cache when logging out to prevent cached data leaking into next logged in session !3024 @AntonBallmaier
+- Center Team member images properly !3037 @AntonBallmaier
 
 ## Refactoring
 - Refactor mailbox modul to vue and rest api !2580 !2870 !2871 !2918 !2934 !2971 !3002 @chriswalg @alex.simm
