@@ -370,7 +370,7 @@ lifetime: Combien de temps votre panier solidaire doit-il être valide ?
 fetchstate: Tout s’est bien passé ?
 food_art: De quel type de nourriture s’agit-il ?
 food_type: Quels types d’aliments sont inclus ?
-weight: Poids estimé
+weight: 'Poids estimé:'
 about_me_intern: Brève description
 about_me_public: Brève description publique
 daterange: Période
@@ -678,6 +678,7 @@ mailbox:
   global_addressbook: Carnet d’adresses mondial
   addressbook: Carnet d’adresses
   reply_all: Répondre à tous
+  show_html_body: Afficher le code HTML
 foodsaver:
   mailchange_error: L’activation de votre nouvelle adresse électronique a échoué.
     Veuillez réessayer.
@@ -1375,6 +1376,8 @@ store:
   slot_state: Statut du créneau
   lastPickupTitle: Dernière collecte ici
   slotsCurrentlyOccupied: Emplacements actuellement occupés
+  deactivatedRegion: La liste des entreprises ne peut pas être affichée pour le moment
+    pour des pays et des continents entiers.
 storeview:
   want_to_fetch: J’aimerais m’engager dans cette équipe.
   specials: Particularités
@@ -2610,8 +2613,8 @@ addresspicker:
     ont besoin d’entrer une adresse pour pouvoir proposer des paniers solidaires sur
     le site. L’adresse est nécessaire aux <a href="https://wiki.foodsharing.de/Foodsaver">Foodsaver</a>
     pour pouvoir participer aux collectes.
-  infobox: Entre l’adresse dans la case prévue à cet effet et confirme en choisissant
-    sur la carte.
+  infobox: Entre l’adresse dans la case prévue à cet effet et déplacez l’épingle sur
+    la carte si nécessaire.
   placeholder: Cherche l’adresse ici et si besoin, corrige-la plus bas.
   label: Recherche de l’adresse
   different_location: L’adresse est indépendante de la position géographique
