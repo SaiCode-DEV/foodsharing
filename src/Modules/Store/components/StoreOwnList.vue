@@ -1,6 +1,9 @@
 <template>
   <div>
-    <StoreListComponent :stores="stores">
+    <StoreListComponent
+      :stores="stores"
+      config-store-key="OwnStores"
+    >
       <template #head-title>
         <span>
           {{ $i18n('store.ownStores') }}

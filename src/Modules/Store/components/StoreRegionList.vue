@@ -3,6 +3,7 @@
     <StoreListComponent
       v-if="!isDeactivatedRegion"
       :stores="stores"
+      :show-member-state="false"
     >
       <template #head-title>
         <span>

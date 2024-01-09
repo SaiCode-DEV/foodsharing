@@ -13,8 +13,9 @@
       <ConfigureableList
         :fields.sync="fields"
         :selection.sync="fieldSelection"
+        :default-fields="defaultFieldsOrder"
         :state.sync="state"
-        store
+        :storage-key="configStoreKey"
       >
         <template #head="{ showConfigurationDialog }">
           <div class="form-row p-1 ">
@@ -73,6 +74,7 @@
             small
             hover
             responsive
+            @content-overflow="isStoreListOverflowing = $event"
           >
             <template
               #cell(cooperationStatus)="row"
@@ -80,9 +82,6 @@
               <div class="text-center">
                 <StoreStatusIcon :cooperation-status="row.value" />
               </div>
-            </template>
-            <template #cell(memberState)="row">
-              {{ getUserRole(row.item.id) }}
             </template>
             <template
               #cell(name)="row"
@@ -171,6 +170,8 @@ export default {
   directives: { VBTooltip },
   props: {
     stores: { type: Array, required: true },
+    showMemberState: { type: Boolean, default: true },
+    configStoreKey: { type: String, default: undefined },
   },
   data () {
     return {
@@ -236,6 +237,9 @@ export default {
           label: this.$i18n('storelist.memberState'),
           tdClass: 'status',
           sortable: true,
+          formatter: (value, key, item) => this.getUserRole(item.id),
+          sortByFormatted: true,
+          filterByFormatted: true,
         },
         {
           key: 'actions',
@@ -245,6 +249,7 @@ export default {
       ],
       availableFields: [],
       fieldSelection: [],
+      isStoreListOverflowing: false,
     }
   },
   computed: {
@@ -281,10 +286,17 @@ export default {
     filterTextLower () {
       return this.state.filterText.toLowerCase()
     },
+    defaultFieldsOrder () {
+      const fieldOrder = ['cooperationStatus', 'name', 'street', 'zipCode', 'city', 'createdAt', 'region', 'memberState', 'actions']
+      if (this.isStoreListOverflowing) {
+        [fieldOrder[0], fieldOrder[1]] = [fieldOrder[1], fieldOrder[0]] // swap cooperationStatus & name
+      }
+      return fieldOrder
+    },
   },
   created () {
     this.availableFields = this.fieldsDefinition.map(field => field.key)
-    this.fieldSelection = this.availableFields
+    this.fieldSelection = this.showMemberState ? this.availableFields : ['cooperationStatus', 'name', 'street', 'zipCode', 'city', 'createdAt', 'region', 'actions']
   },
   methods: {
     getUserRole (storeId) {

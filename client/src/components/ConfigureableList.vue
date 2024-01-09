@@ -70,7 +70,7 @@
           <div class="form-group form-check mb-0">
             <input
               id="save-filter-checkbox"
-              v-model="saveState"
+              v-model="saveStateInternal"
               type="checkbox"
               class="form-check-input"
             >
@@ -128,9 +128,9 @@ export default {
       type: String,
       default: function () { return this.$parent.$options._componentTag },
     },
-    store: {
+    saveState: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     defaultSelection: {
       type: Array,
@@ -147,7 +147,7 @@ export default {
   },
   data () {
     return {
-      saveState: Boolean(this.state),
+      saveStateInternal: this.saveState,
       dataLoaded: false,
       initialSelection: [],
       initialFields: [],
@@ -176,7 +176,7 @@ export default {
       return this.fields.map(field => field[this.fieldKey])
     },
     unsavedChanges () {
-      return !arrayEquals(this.initialFields, this.fieldsOrder) || !arrayContentEquals(this.initialSelection, this.componentSelection) || this.initialSavestate !== this.saveState
+      return !arrayEquals(this.initialFields, this.fieldsOrder) || !arrayContentEquals(this.initialSelection, this.componentSelection) || this.initialSavestate !== this.saveStateInternal
     },
   },
   watch: {
@@ -186,25 +186,27 @@ export default {
       },
       deep: true,
     },
+    defaultFields: {
+      handler: function (value, oldValue) {
+        // has default field configuration
+        if (arrayEquals(this.initialFields, oldValue)) {
+          this.initialFields = value
+          this.componentFields = value
+        }
+      },
+    },
   },
   created () {
     this.storage = new Storage(`vue-${this.storageKey}`)
+    this.stateStorage = new Storage(`vue-${location.pathname}${location.search}`)
     this.debouncedSaveState = debounce(state => {
-      this.storage.set('state', state)
-    }, 500)
-    if (this.store) {
-      this.load()
-      window.addEventListener('beforeunload', this.unsavedChangesPrompt)
-    }
-    const saveState = this.storage.get('savestate')
-    if (saveState !== undefined) this.saveState = saveState
-    if (this.saveState) {
-      const state = this.storage.get('state')
-      if (state) {
-        this.$emit('update:state', state)
+      if (this.saveStateInternal) {
+        this.stateStorage.set('state', state)
       }
-    }
+    }, 500)
     this.setInitialData()
+    this.load()
+    window.addEventListener('beforeunload', this.unsavedChangesPrompt)
   },
   destroyed () {
     if (this.store) {
@@ -218,11 +220,12 @@ export default {
     save () {
       this.storage.set('fields', this.fieldsOrder)
       this.storage.set('selection', this.selection)
-      this.storage.set('savestate', this.saveState)
-      if (this.saveState) {
-        this.storage.set('state', this.state)
+      if (this.saveStateInternal) {
+        this.stateStorage.set('state', this.state)
+        this.stateStorage.set('save', true)
       } else {
-        this.storage.del('state')
+        this.stateStorage.del('state')
+        this.stateStorage.set('save', false)
       }
       this.setInitialData()
     },
@@ -235,20 +238,31 @@ export default {
           this['component' + propName] = data
         }
       })
+      const state = this.stateStorage.get('state')
+      const save = this.stateStorage.get('save')
+      if (save !== undefined) {
+        this.saveStateInternal = save
+      }
+      if (state) {
+        this.$emit('update:state', state)
+      }
+      this.initialSavestate = this.saveStateInternal
       this.dataLoaded = true
     },
     setInitialData () {
       this.initialSelection = this.selection
       this.initialFields = this.fieldsOrder
-      this.initialSavestate = this.saveState
+      this.initialSavestate = this.saveStateInternal
     },
     reset () {
       this.componentSelection = this.initialSelection
       this.componentFields = this.initialFields
+      this.saveStateInternal = this.initialSavestate
     },
     resetDefaults () {
       this.componentSelection = this.defaultSelection
       this.componentFields = this.defaultFields
+      this.saveStateInternal = this.saveState
     },
     handleCloseOnEscOrBackdrop (event) {
       // https://github.com/bootstrap-vue/bootstrap-vue/issues/3164

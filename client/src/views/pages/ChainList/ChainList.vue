@@ -14,8 +14,8 @@
         <ConfigureableList
           :fields.sync="fields"
           :selection.sync="fieldSelection"
+          :default-fields="defaultFieldsOrder"
           :state.sync="state"
-          store
         >
           <template #head="{ showConfigurationDialog }">
             <div class="form-row p-1 ">
@@ -83,6 +83,7 @@
             small
             hover
             responsive
+            @content-overflow="isStoreListOverflowing = $event"
           >
             <template #cell(status)="row">
               <i
@@ -288,6 +289,7 @@ export default {
       ],
       availableFields: [],
       fieldSelection: [],
+      isStoreListOverflowing: false,
     }
   },
   computed: {
@@ -303,6 +305,13 @@ export default {
     },
     selectedFields () {
       return this.fields.filter(field => this.fieldSelection.includes(field.key))
+    },
+    defaultFieldsOrder () {
+      const fieldOrder = ['status', 'name', 'estimatedStoreCount', 'storeCount', 'headquartersCity', 'kams', 'notes', 'actions']
+      if (this.isStoreListOverflowing) {
+        [fieldOrder[0], fieldOrder[1]] = [fieldOrder[1], fieldOrder[0]] // swap status & name
+      }
+      return fieldOrder
     },
     chainsFiltered: function () {
       if (this.chains === null) return []

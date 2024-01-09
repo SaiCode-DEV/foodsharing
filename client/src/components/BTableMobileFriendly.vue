@@ -81,7 +81,9 @@ export default defineComponent({
     onTableResize () {
       this.contentOverflow = false
       this.$nextTick(() => {
-        this.contentOverflow = this.doesElementOverflow(this.table)
+        const doesElementOverflow = this.doesElementOverflow(this.table)
+        this.$emit('content-overflow', doesElementOverflow)
+        this.contentOverflow = doesElementOverflow
       })
     },
     addTdAttr: field => {

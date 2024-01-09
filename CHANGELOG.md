@@ -18,6 +18,9 @@
 - When answering posts in the forum, the answered message is now quoted !2937 @AntonBallmaier
 - Permissions as Orga-user are now displayed on users profile pages #1757 !2955 @AntonBallmaier
 - Provision of RestApi for a foodsharepoint for the map bubble !2946 @BibaltiK
+- Users have the ability to configure columns for the user in store list and store chain list !2733 @buntel
+- Users have the ability to keep the list filters and sort order on refresh (default: enabled) !2733 @buntel
+- b-table could now be displayed more mobile friendly. On small screens the table is displayed in a grid-layout !2733 @buntel
 - Allow forum moderators to write and everyone to delete their posts in closed threads !3019 @AntonBallmaier 
 
 ## Changes
@@ -58,6 +61,7 @@
 - Allow ambassdors and store coordinator to delete wall posts again !2978 @chriswalg
 - Prevent load store log for jumper !2978 @chriswalg
 - Fix operation on empty icon string #1709 !2970 @KoeMai
+- Fix sorting by member state !3020 @buntel 
 - Clear browser cache when logging out to prevent cached data leaking into next logged in session !3024 @AntonBallmaier
 - Center Team member images properly !3037 @AntonBallmaier
 
@@ -79,6 +83,8 @@
 - Modernized MapControl to a Symfony controller !2986 @\_fridtjof_
 - Restrict CSRF protection to REST API by namespace instead of manual exclusions by annotation !3005 #1782 !3008 @\_fridtjof_
 - Changes the basket bubble on the map to vue #1608 #1788 !2905 !3028 @alex.simm
+- Refactor StoreListComponent.vue !2733 @buntel
+- Refactor storage.js !2733 @buntel
 
 ## Dev/Test/CI stuff
 - removed CHANGELOG.md merge=union !2866 @chriswalg
@@ -121,9 +127,6 @@
 - Store markers on the map can be filtered by the user's membership #1025 !2682 @alex.simm
 - Store chain information is visible on the store page !2742 @alex.simm
 - Add home district count to region top #79 !2692 @Morgy93
-- Users have the ability to configure columns for the user in store list and store chain list !2733 @buntel
-- Users have the ability to keep the list filters and sort order on refresh (default: enabled) !2733 @buntel
-- b-table could now be displayed more mobile friendly. On small screens the table is displayed in a grid-layout !2733 @buntel
 - Storemanagers can set a description for pickup slots #1653 !2757 !2781 @AntonBallmaier
 - Improved bell menu #1684 #1685 #1686 #1687 !2832 !3014 @AntonBallmaier
 
@@ -220,8 +223,6 @@
 - Refactor own store list in vue !2668 !2683 @chriswalg
 - Refactored the list of group applications to vue, which not also shows profile pictures #343 !2696 @alex.simm
 - Refactor the list of food share points in a region to vue !2702 @alex.simm
-- Refactor StoreListComponent.vue !2733 @buntel
-- Refactor storage.js !2733 @buntel
 - Refactor notification settings page to vue and rest api !2700 !2778 !2825 @chriswalg
 - Refactor setting sleeping mode to vue !2749 !2760 !2855 @chriswalg
 - Refactor user passport generation page #1617 !2660 !2758 @chriswalg

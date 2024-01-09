@@ -3,6 +3,9 @@ import { listStoresDetailsForCurrentUser, listStoresForCurrentUser } from '@/api
 import { pulseError } from '@/script'
 import { listRegionStores } from '@/api/regions'
 
+let pendingFetchStoresForCurrentUser = null
+let pendingFetchUserStoreRelations = null
+
 function showError (callback) {
   return callback().catch(error => {
     pulseError(this.$i18n('error_unexpected'))
@@ -36,7 +39,7 @@ export const useStoreStore = defineStore('store', {
     /**
      * list of stores within the region of this.regionId
      */
-    regionStores: (state) => state.stores.filter(store => store.region.id === state.regionId),
+    regionStores: (state) => state.stores.filter(store => store.oneOfPossibleMoreAnchestorRegion === state.regionId),
     userRelatedStoreIds: (state) => {
       if (state.userRelations === null) {
         return []
@@ -48,15 +51,26 @@ export const useStoreStore = defineStore('store', {
   actions: {
     async fetchStoresForRegion (regionId = this.regionId) {
       const { stores } = await showError(() => listRegionStores(regionId))
+      for (const store of stores) {
+        store.oneOfPossibleMoreAnchestorRegion = regionId
+      }
       this.regionId = regionId
       this.addStores(stores)
     },
     async fetchStoresForCurrentUser () {
-      const { stores } = await showError(listStoresDetailsForCurrentUser)
+      if (!pendingFetchStoresForCurrentUser) {
+        pendingFetchStoresForCurrentUser = showError(listStoresDetailsForCurrentUser)
+      }
+      const { stores } = await pendingFetchStoresForCurrentUser
       this.addStores(stores)
+      pendingFetchStoresForCurrentUser = null
     },
     async fetchUserStoreRelations () {
-      this.userRelations = await showError(listStoresForCurrentUser)
+      if (!pendingFetchUserStoreRelations) {
+        pendingFetchUserStoreRelations = showError(listStoresForCurrentUser)
+      }
+      this.userRelations = await pendingFetchUserStoreRelations
+      pendingFetchUserStoreRelations = null
     },
     addStores (stores) {
       const patch = { ...this.storeData }
