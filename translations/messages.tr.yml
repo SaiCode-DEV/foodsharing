@@ -155,7 +155,7 @@ homepage: Web Siteniz
 food_type: Hangi tür gıdalar mevcut?
 groups:
   empty: Henüz herhangi bir çalışma grubunda değilsiniz
-weight: Tahmini Ağırlık
+weight: 'Tahmini Ağırlık:'
 position: Foodsharingde ki Pozisyonu (kamu)
 infotype: Bildiri
 fsp_bezirk_id: Dağıtım Noktası hangi semtte?
@@ -1701,7 +1701,7 @@ basket:
     Ardından yukarıdaki <b>Katıl</b>''ı tıklayın ve hemen başlayın.
 
     '
-  use_home_address: Kişisel adresi kullan
+  use_home_address: Konut adresini kullan
   modal_error:
     no_contact: Lütfen yiyecek sepetinin talep edilmesini istediğiniz yolu seçin.
     no_phone: Lütfen bir telefon numarası verin.
