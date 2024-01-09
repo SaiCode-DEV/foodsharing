@@ -1138,6 +1138,7 @@ mailbox:
   global_addressbook: Global adressebok
   addressbook: Adressebok
   reply_all: Svar alle
+  show_html_body: Vis HTML-kode
 map:
   title: Kart
   donates: Selskapet donerer
@@ -1840,7 +1841,7 @@ mailbox_id: Avsenderens epostadresse
 testemail: E-postadresse for testing
 opt: Alternativer
 teaser: Teaser
-weight: Estimert vekt
+weight: 'Estimert vekt:'
 about_me_intern: Kort beskrivelse
 about_me_public: Offentlig kort beskrivelse
 regions: Distrikter
@@ -2554,6 +2555,8 @@ store:
   slot_state: Status for plass
   lastPickupTitle: Siste henting her
   slotsCurrentlyOccupied: Plasser som for øyeblikket er belagt
+  deactivatedRegion: Bedriftslisten kan for øyeblikket ikke vises for hele land og
+    kontinenter.
 storeview:
   status: Nåværende status
   public_time_at_night: om natten
@@ -2788,8 +2791,7 @@ regionPin:
 addresspicker:
   label: Søk på adresse/sted
   placeholder: Vennligst se etter adressen her. Korriger eventuelt under etterpå.
-  infobox: Vennligst skriv inn adressen i tekstfeltet mellom denne meldingen og kortet
-    og bekreft dette ved å velge det på kortet.
+  infobox: Skriv inn adressen i feltet og flytt knappenålen på kartet om nødvendig.
   infobox_profile: <a href="https://wiki.foodsharing.de/Foodsharer">Matdelere</a>
     trenger adressen for å kunne tilby matkurver på nettsiden. For å kunne delta i
     matredninger som <a href="https://wiki.foodsharing.de/Foodsaver">matredder</a>
