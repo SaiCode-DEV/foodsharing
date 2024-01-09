@@ -167,7 +167,7 @@ class EventGateway extends BaseGateway
 			l.zip,
 			l.city
 		FROM fs_event e
-		JOIN fs_foodsaver_has_bezirk fhb ON e.bezirk_id = fhb.bezirk_id
+		JOIN fs_foodsaver_has_bezirk fhb ON e.bezirk_id = fhb.bezirk_id AND fhb.active = 1
         LEFT OUTER JOIN fs_foodsaver_has_event fhe ON e.id = fhe.event_id AND fhe.foodsaver_id = fhb.foodsaver_id
 		LEFT JOIN fs_location l ON e.location_id = l.id
 		LEFT JOIN fs_bezirk r ON e.bezirk_id = r.id

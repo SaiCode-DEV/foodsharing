@@ -73,6 +73,9 @@ export default {
   border-width: 0.5rem;
   font-weight: bolder;
 
+  // Kiwi
+  &[data-id="2024-01"] { border-color: #99bd41; }
+
   // Jackfrucht
   &[data-id="2023-09"] { border-color: #d7c955; }
 
