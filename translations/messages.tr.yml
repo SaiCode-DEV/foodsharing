@@ -260,6 +260,7 @@ button:
   attach_image: Resim yükleyin (png- veya jpg- formatında)
   rotate_right: saat yönünde döndür
   permadelete: Geri getirilemez bir şekilde silin
+  reset_default: Standardı geri yükle
 upload:
   new_image: Yeni fotoğraf yükle
   file: Dosya yükle
@@ -413,6 +414,11 @@ group:
     tooltip_function_2: Bu çalışma grubunun yöneticileri, bölge için oylama oluşturabilir
     duplicate_fsmanagement_team: Yönetim ekibi zaten oluşturuldu! Bölge başına yalnızca
       bir yönetim ekibi olabilir.
+    election: Seçimler
+    tooltip_function_12: Bu çalışma grubunun yöneticileri bölge genel görünümünde
+      görüntülenir.
+    duplicate_election_team: Seçimler çoktan planlandı! Her bölgede yalnızca bir seçim
+      grubu bulunabilir.
   entermotivation: 'Motivasyon:'
   mail_link_title:
     region: Bölge Posta Kutusu
@@ -1216,6 +1222,7 @@ store:
   slot_state: Slot durumu
   lastPickupTitle: Son alım tarihi
   slotsCurrentlyOccupied: Şu anda dolu slotlar
+  deactivatedRegion: İşletme listesi şu anda ülkeler ve Avrupa için görüntülenemiyor.
 polls:
   title: Başlık
   new_poll: Yeni Anket oluştur
@@ -1593,6 +1600,7 @@ mailbox:
   global_addressbook: Küresel adres defteri
   addressbook: Adres rehberi
   reply_all: Hepsini cevapla
+  show_html_body: HTML olarak görüntüle
 basket:
   sent_request: Başvuru gönderildi
   n_requests: 'Şimdiye kadar ki başvurular: <strong>{count}</strong>'
@@ -1831,6 +1839,7 @@ releases:
   "2020-08": Release "Armut" (Augustos 2020)
   "2023-08": Release 'Jackfruit' 🍈 (Eylül 2023)
   "2023-09": Release "Jackfruit" 🍈 (Eylül 2023)
+  "2024-01": “Kivi”yi yayınlayın 🥝 (Ocak 2024)
 storestatus:
   "5": İşletme bizimle işbirliği halinde
   "2": Görüşmeler devam ediyor
@@ -2160,6 +2169,8 @@ forum:
   post:
     delete: Gönderiyi sil
     body: Mesaj
+    moderator_info: Bu konu kapalı. Bu forumun moderatörü olarak yine de mesaj yazabilirsiniz.
+      Diğer kullanıcılar cevap veremez!
   new_thread: Yeni bir konu oluştur
   deleted_user: Silinmiş üye
   not_found: Bu konu mevcut değil.
@@ -2208,8 +2219,8 @@ base:
   jsrequired: Ne yazık ki, JavaScript olmadan burada hiçbir şey çalışmıyor.
 addresspicker:
   placeholder: Lütfen adresi burada arayın. Gerekirse, aşağıda düzeltin.
-  infobox: Lütfen adresi bu mesaj ile kart arasındaki metin alanına girin ve ardından
-    karttan seçerek onaylayın.
+  infobox: Lütfen adresi bu mesaj ile kart arasındaki metin alanına girin ve gerekirse
+    kartın içine taşıyarak düzeltin.
   label: Adres/Yer arama
   infobox_profile: <a href="https://wiki.foodsharing.de/Foodsharer"> Foodsharerların
     </a> web sitesi aracılığıyla yiyecek sepetleri sunabilmeleri için adrese ihtiyaçları
@@ -2377,12 +2388,12 @@ profile:
     bread: Notlar
   infos:
     buddies: Tanıdık
-    buddycount_followed: '{name}, {count} Foodsaverı tanır'
+    buddycount_followed: '{name}, {count} Foodsaverı (er./kd.) tanır'
     title: Bilgiler
     registrationDate: Kayıt Tarihi
     never: Hiç
     privateMail: Özel e-posta adresi
-    buddycount_known: '{name}, {count} Foodsaverı tanır'
+    buddycount_known: '{name}, {count} Foodsaverı (er./kd.) tanır'
     foodsaverId: Foodsaver-ID
     lastActivity: Son Aktivite
     fetchrate: Alma oranı
@@ -2603,6 +2614,7 @@ terminology:
   n_home_regions: o ana bölgeye sahip bir kişi|İşte %count% kişilik ana bölge
   previous_pickups: Önceki Alımlar
   no_pickups: yok
+  electionAdmins: Seçimler
 legal:
   if_delete:
     this_doesnt_get_deleted: 'Aşağıdaki bilgiler artık aktif sistemde mevcut değildir,
@@ -3208,6 +3220,7 @@ search:
     from: "'den / 'dan"
   maxresults: Kategori başına en fazla 30 sonuç görüntülenir. Belki daha spesifik
     bir arama terimi kullanabilirsiniz.
+  too_short: Lütfen daha uzun bir arama terimi girin.
 language_chooser:
   choose_button: 'Güncelle'
   translation_help_info_text: 'Bu bağlantı tercüme portalına yönlendiriyor, başlamak
@@ -3345,3 +3358,9 @@ thread:
     options:
       copy_source: Kaynak kodunu kopyala
     copy_source_success: Kaynak kodu kopyalandı!
+save_state: Filtre ve sıralama olduğu gibi kalsın
+save_state_description: Uygulanan filtreleri ve sıralamayı kaydedin ve gelecekteki
+  aramalar için kayıtlı bırakın
+configure_columns: Sütunları yapılandır
+expand_all: Tümünü kapat
+collapse_all: Tümünü aç
