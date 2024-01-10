@@ -17,6 +17,8 @@ export const store = Vue.observable({
   isLoggedIn: serverData.user?.id !== null,
 })
 
+const fetching = new Set()
+
 export const SLEEP_STATUS = Object.freeze({
   NONE: 0,
   TEMP: 1,
@@ -37,7 +39,7 @@ export const getters = {
     return store.user?.isFoodsaver
   },
   isOrga () {
-    return store.role >= ROLE.ORGA
+    return store.details?.role >= ROLE.ORGA
   },
   getUser () {
     return store.user
@@ -115,6 +117,8 @@ export const getters = {
 
 export const mutations = {
   async fetchDetails () {
+    if (fetching.has('details')) return
+    fetching.add('details')
     const cacheRequestName = 'userDetails'
     try {
       if (await getCacheInterval(cacheRequestName, userDetailsRateLimitInterval)) {
@@ -127,6 +131,7 @@ export const mutations = {
     } catch (e) {
       console.error('Error fetching user details:', e)
     }
+    fetching.delete('details')
   },
   async fetchMailUnreadCount () {
     const cacheRequestName = 'mailUnreadCount'

@@ -33,10 +33,9 @@
         </span>
         <a
           v-if="region.email"
-          :href="$url('mailto_mail_foodsharing_network', region.email)"
-        >
-          {{ region.email }}@foodsharing.network
-        </a>
+          :href="`mailto:${region.email}`"
+          v-text="region.email"
+        />
       </small>
     </div>
     <AvatarStack
@@ -70,6 +69,6 @@ export default {
 
 <style lang="scss" scoped>
 .separate>*:not(:last-child)::after {
-  content: '•';
+  content: ' • ';
 }
 </style>

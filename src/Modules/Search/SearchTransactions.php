@@ -20,8 +20,9 @@ class SearchTransactions
      * Searches for regions, stores, foodsavers, food share points and working groups.
      *
      * @param string $query the search query
+     * @param bool $global whether global search results are desired
      */
-    public function search(string $query): MixedSearchResult
+    public function search(string $query, bool $global): MixedSearchResult
     {
         // TODO: Search by Email for IT-Support Group and ORGA
         // $this->searchPermissions->maySearchByEmailAddress()
@@ -33,6 +34,7 @@ class SearchTransactions
         $start = microtime(true);
         $foodsaverId = $this->session->id();
         $maySearchGlobal = $this->searchPermissions->maySearchGlobal();
+        $searchGlobal = $global && $maySearchGlobal;
         $searchAllWorkingGroups = $this->searchPermissions->maySearchAllWorkingGroups();
         $includeInactiveStores = $this->session->mayRole(Role::STORE_MANAGER);
         $result->timings['permissions'] = microtime(true) - $start;
@@ -44,10 +46,10 @@ class SearchTransactions
         $result->workingGroups = $this->searchGateway->searchWorkingGroups($query, $foodsaverId, $searchAllWorkingGroups);
         $result->timings['groups'] = microtime(true) - $start;
         $start = microtime(true);
-        $result->stores = $this->searchGateway->searchStores($query, $foodsaverId, $includeInactiveStores, $maySearchGlobal);
+        $result->stores = $this->searchGateway->searchStores($query, $foodsaverId, $includeInactiveStores, $searchGlobal);
         $result->timings['stores'] = microtime(true) - $start;
         $start = microtime(true);
-        $result->foodSharePoints = $this->searchGateway->searchFoodSharePoints($query, $foodsaverId, $maySearchGlobal);
+        $result->foodSharePoints = $this->searchGateway->searchFoodSharePoints($query, $foodsaverId, $searchGlobal);
         $result->timings['fsp'] = microtime(true) - $start;
         $start = microtime(true);
         $result->chats = $this->searchGateway->searchChats($query, $foodsaverId);
@@ -56,7 +58,7 @@ class SearchTransactions
         $result->threads = $this->searchGateway->searchThreads($query, $foodsaverId);
         $result->timings['threads'] = microtime(true) - $start;
         $start = microtime(true);
-        $result->users = $this->searchGateway->searchUsers($query, $foodsaverId, $maySearchGlobal, $this->searchPermissions->maySearchByEmailAddress());
+        $result->users = $this->searchGateway->searchUsers($query, $foodsaverId, $searchGlobal, $this->searchPermissions->maySearchByEmailAddress());
         $result->timings['users'] = microtime(true) - $start;
 
         return $result;

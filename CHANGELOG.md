@@ -30,7 +30,7 @@
 - Pinned Threads are sorted by name !2883 !2891 @AntonBallmaier
 - rework slot dropdown to modal #1228 !2813 !2915 !2944 @chriswalg
 - Changed behaviour from deleting unconfirmed slots at midnight into keeping them #1707 !2901 @irgendwer
-- Reworked all search functionality !2886 !2914 !2963 @AntonBallmaier
+- Reworked all search functionality !2886 !2914 !2963 !3023 @AntonBallmaier
 - Markdown in forum posts is now rendered in the front end to reduce inconsistencies !2913 !2917 @AntonBallmaier
 - When adding buddies there is now a confirmation pop-up !2919 @AntonBallmaier
 - Change the direction of score voting !2920 @AntonBallmaier

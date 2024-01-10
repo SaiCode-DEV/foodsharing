@@ -182,7 +182,7 @@ class SearchApiCest
     }
 
     /**
-     * @example {"loginUser": 0, "searchUser": 0, "canFind": false, "canSeeFullName": false}
+     * @example {"loginUser": 0, "searchUser": 0, "canFind": true, "canSeeFullName": false}
      * @example {"loginUser": 0, "searchUser": 1, "canFind": false, "canSeeFullName": false}
      * @example {"loginUser": 1, "searchUser": 0, "canFind": true, "canSeeFullName": true}
      * @example {"loginUser": 1, "searchUser": 1, "canFind": false, "canSeeFullName": false}
@@ -198,7 +198,7 @@ class SearchApiCest
         $searchUser = $searchUsers[$example['searchUser']];
 
         $I->login($loginUser['email']);
-        $I->sendGET("api/search/all?q={$searchUser['name']}");
+        $I->sendGET("api/search/all?q={$searchUser['name']}&global");
         $I->seeResponseCodeIs(HttpCode::OK);
 
         if ($example['canFind']) {
@@ -233,7 +233,7 @@ class SearchApiCest
         $searchUser = $searchUsers[$example['searchUser']];
 
         $I->login($loginUser['email']);
-        $I->sendGET("api/search/all?q={$searchUser['nachname']}");
+        $I->sendGET("api/search/all?q={$searchUser['nachname']}&global");
         $I->seeResponseCodeIs(HttpCode::OK);
 
         if ($example['canFind']) {
@@ -256,7 +256,6 @@ class SearchApiCest
             0 => [
                 'id' => $this->user1['id'],
                 'name' => $this->user1['name'],
-                'teaser' => sprintf('FS-ID: %s | Mail: %s', $this->user1['id'], $this->user1['email'])
             ]
         ]]);
     }
@@ -264,7 +263,7 @@ class SearchApiCest
     public function canUserWithOrgaRightsSearchForEmailAdresses(ApiTester $I)
     {
         $I->login($this->userOrga['email']);
-        $I->sendGET("api/search/all?q={$this->user1['email']}");
+        $I->sendGET("api/search/all?q={$this->user1['email']}&global");
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->canSeeResponseContainsJson(['users' => [
             0 => [

@@ -40,6 +40,6 @@ export default {
 
 <style lang="scss" scoped>
 .separate>*:not(:last-child)::after {
-  content: '•';
+  content: ' • ';
 }
 </style>

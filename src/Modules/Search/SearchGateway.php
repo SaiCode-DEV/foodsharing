@@ -548,20 +548,30 @@ class SearchGateway extends BaseGateway
      *      - Membership in common store team
      *      - Have a chat together
      *      - Serching for exact foodsaver ids yields users even without a point of contact.
-     * @param bool $includeMails Whether to allow finding unsers by their log-in mail address. only used in global search
+     * @param bool $includeMails whether to allow finding unsers by their log-in mail address
      * @return array<UserSearchResult>
      */
     public function searchUsers(string $query, int $foodsaverId, bool $searchGlobal, bool $includeMails = false): array
     {
+        if ($includeMails) {
+            if (str_contains($query, '@')) {
+                // Enquote search words with @ to search only for whole mail addresses
+                $query = preg_replace('/"?([^\s"]*@[^\s"]*)"?/', '"$1"', $query);
+            } else {
+                // Don't include Mails if not searched for
+                $includeMails = false;
+            }
+        }
         if ($searchGlobal) {
             return $this->searchUsersGlobal($query, null, $includeMails);
         }
         $mailReturnClause = '';
+        $searchCriteria = self::SEARCH_CRITERIA['users'];
         if ($includeMails) {
-            $searchCriteria[] = 'foodsaver.email';
+            $searchCriteria['basic'][] = 'foodsaver.email';
             $mailReturnClause = 'foodsaver.email,';
         }
-        list($searchClauses, $parameters) = $this->generateSearchClauses(self::SEARCH_CRITERIA['users'], $query, 'foodsaver.hidden_last_name');
+        list($searchClauses, $parameters) = $this->generateSearchClauses($searchCriteria, $query, 'foodsaver.hidden_last_name');
 
         $users = $this->db->fetchAll("SELECT
                 foodsaver.id,
@@ -624,7 +634,7 @@ class SearchGateway extends BaseGateway
                     foodsaver.verified,
                     foodsaver.bezirk_id AS home_region,
                     IF(MAX(IF(my_store_team.active = 1, 1, 0)) = 1, foodsaver.handy, null) AS mobile,
-                    IF(MAX(IF(my_store_team.verantwortlich = 1, 1, 0)) = 1, foodsaver.nachname, null) AS last_name,
+                    IF(MAX(IF(my_store_team.active = 1, 1, 0)) = 1, foodsaver.nachname, null) AS last_name,
                     0
                 FROM fs_betrieb_team AS my_store_team
                 JOIN fs_betrieb_team AS store_team ON store_team.betrieb_id = my_store_team.betrieb_id
@@ -663,13 +673,14 @@ class SearchGateway extends BaseGateway
                     NULL, NULL, 0
                 FROM fs_foodsaver AS foodsaver
                 WHERE foodsaver.id = ?
+                AND foodsaver.deleted_at IS NULL
             ) foodsaver
             JOIN fs_bezirk AS region ON region.id = foodsaver.home_region
-            WHERE (foodsaver.id = ? OR (foodsaver.id != ? AND ' . $searchClauses . '))
+            WHERE (foodsaver.id = ? OR (' . $searchClauses . '))
             GROUP BY foodsaver.id
             ORDER BY MAX(foodsaver.is_buddy) DESC, ISNULL(foodsaver.last_name), foodsaver.name, foodsaver.last_name 
             LIMIT ' . self::MAX_SEARCH_RESULT_COUNT,
-            [$foodsaverId, $foodsaverId, $foodsaverId, $foodsaverId, $parameters[0], $parameters[0], $foodsaverId, ...$parameters]
+            [$foodsaverId, $foodsaverId, $foodsaverId, $foodsaverId, $parameters[0], $parameters[0], ...$parameters]
         );
 
         return array_map(fn ($user) => UserSearchResult::createFromArray($user), $users);
@@ -772,6 +783,7 @@ class SearchGateway extends BaseGateway
             {$hasRegionJoin}
             WHERE ({$searchClauses} OR (foodsaver.id = ?))
             {$regionRestrictionClause}
+            AND foodsaver.deleted_at IS NULL
             ORDER BY foodsaver.name, last_name
             LIMIT " . self::MAX_SEARCH_RESULT_COUNT,
             [...$parameters]
@@ -810,7 +822,7 @@ class SearchGateway extends BaseGateway
      */
     private function generateSearchClauses(array $searchCriteria, string $query, ?string $privateSearchCriterium = null): array
     {
-        $query = preg_replace('/[,;+\.\s]+/', ' ', $query);
+        $query = preg_replace('/[,;\s]+/', ' ', $query);
         $queryTerms = explode(' ', trim($query));
         $searchCriteria = $this->generateSearchCriteria($searchCriteria, count($queryTerms) > 1);
         $placeholders = $queryTerms;

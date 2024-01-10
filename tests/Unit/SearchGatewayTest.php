@@ -149,10 +149,10 @@ class SearchGatewayTest extends Unit
     public function testSearchUsers()
     {
         // Find users in same region and users with common chat:
-        $this->assertCorrectSearchResult('users', ['user-city2', 'bot-city1'], $this->gateway->searchUsers('Nutzer', $this->users['user-city1']['id'], false));
+        $this->assertCorrectSearchResult('users', ['user-city1', 'user-city2', 'bot-city1'], $this->gateway->searchUsers('Nutzer', $this->users['user-city1']['id'], false));
 
         // Search by last name as bot:
-        $this->assertCorrectSearchResult('users', ['user-city1'], $this->gateway->searchUsers('Nachname', $this->users['bot-city1']['id'], false));
+        $this->assertCorrectSearchResult('users', ['user-city1', 'bot-city1'], $this->gateway->searchUsers('Nachname', $this->users['bot-city1']['id'], false));
 
         // Search global, last name and region name as criteria:
         $this->assertCorrectSearchResult('users', ['user-city3'], $this->gateway->searchUsers('Nachname Magdeburg', $this->users['bot-city1']['id'], true));

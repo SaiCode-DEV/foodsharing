@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Throwable;
 
 class SearchRestController extends AbstractFOSRestController
 {
@@ -82,6 +83,7 @@ class SearchRestController extends AbstractFOSRestController
     #[OA\Tag(name: 'search')]
     #[Rest\Get('search/all')]
     #[Rest\QueryParam(name: 'q', description: 'Search query')]
+    #[Rest\QueryParam(name: 'global', description: 'Search globally')]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: MixedSearchResult::class))]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'No query provided')]
@@ -92,8 +94,14 @@ class SearchRestController extends AbstractFOSRestController
         if (empty($query)) {
             throw new BadRequestHttpException();
         }
+        $global = false;
+        try {
+            $paramFetcher->get('global', true);
+            $global = true;
+        } catch (Throwable $e) {
+        }
 
-        $results = $this->searchTransactions->search($query);
+        $results = $this->searchTransactions->search($query, $global);
 
         return $this->handleView($this->view($results, 200));
     }

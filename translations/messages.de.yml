@@ -3134,7 +3134,9 @@ search:
     working_group:
       admin_tooltip: Du bist Admin dieser AG
       member_tooltip: Du bist Mitglied dieser AG
-
+  scope:
+    global: Globale Suche
+    local: Nutzerspezifische Suche
 
 
 

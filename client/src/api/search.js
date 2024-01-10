@@ -1,7 +1,7 @@
 import { get } from './base'
 
-export async function search (query) {
-  return await get(`/search/all?q=${encodeURIComponent(query)}`)
+export async function search (query, global = false) {
+  return await get(`/search/all?q=${encodeURIComponent(query)}${global ? '&global' : ''}`)
 }
 
 export async function searchUser (query, regionId = null) {
