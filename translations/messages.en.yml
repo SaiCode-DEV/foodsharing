@@ -26,7 +26,7 @@ group:
   members: Members
   administrators: Group administrators
   title: foodsharing working groups
-  subtitle: Here you will find help and lots to do …
+  subtitle: Here you will find help and lots to do …
   member_count: '{0} No members|{1} One member| [2, Inf[ %count% members'
   admin_count: '{0} No administrators|{1} One administrator| [2, Inf[ %count% administrators'
   image: image for %name%
@@ -428,7 +428,7 @@ profile:
       to the rules of conduct and the legal agreement\nand you can vouch for their
       reliability and commitment.\n"
     alreadyGiven: '{name} has already received a banana from you.'
-    placeholder: at least 100 characters …
+    placeholder: at least 100 characters …
     undo: Trust bananas cannot be changed or withdrawn.
     details: "Here you can describe in at least 100 characters why you would like
       to give {name} a trust banana.\n"
@@ -932,11 +932,11 @@ pickup:
   add_onetime_pickup: Add single date
   edit_recurring_pickups: Edit regular pick-up dates
   really_delete_date: Do you really want to delete the pick-up on {date}?
-  leave_team_message_template: Dear all, {date} …
+  leave_team_message_template: Dear all, {date} …
   really_leave_date: You are responsible for this pick-up. Please arrange a replacement
     independently.
   kick_message_footer: Best wishes, your Store Coordinators
-  kick_message_placeholder: Optionally add information here…
+  kick_message_placeholder: Optionally add information here …
   really_leave_date_title: Sign out for {date}?
   signout_info: All your pick-up dates will be deleted.
   take_empty_slot: sign up here
@@ -1135,7 +1135,7 @@ terminology:
     "3": Ambassador
     "4": Orga person
   no_pickups: none
-  previous_pickups: Previous pick-ups
+  previous_pickups: Pick-ups here
   electionAdmins: Elections
 login:
   pwreset:
@@ -1241,7 +1241,7 @@ bell:
   store_request_imposed: You were added to the store team.
   store_request_imposed_title: '{name}'
   foodsaver_verified_title: You are now verified!
-  foodsaver_verified: Get your member card at …
+  foodsaver_verified: Get your member card at …
   forum_post_title: '{title}'
   forum_post:
     one: New post by {user} in forum {forum}
@@ -1286,7 +1286,7 @@ recipients:
   history: E-mails sent by you
   sent: The e-mail was successfully sent to {count} addresses
   send: Send e-mail
-  status: 'Sending e-mails … (current address: {current})'
+  status: 'Sending e-mails … (current address: {current})'
   permission: You do not have permission to send e-mails
   body: Message
   recipients: Recipients
@@ -1722,7 +1722,7 @@ basket:
     call: By phone
     write: By message
   nearby-short: Nearby
-  mapsearch: Search for an address…
+  mapsearch: Search for an address …
   nearby: Food baskets nearby
   no_nearby: There are no food baskets within {radius} kilometers
 
@@ -1780,9 +1780,9 @@ basket:
   no_requests: No inquiries so far
   requests: Requests ({count})
   provider: Provider
-  updated: Updated on <strong>{date}</strong>
+  updated: Updated <strong>{date}</strong>
   expires: Valid until <strong>{date}</strong>
-  created: Published on <strong>{date}</strong>
+  created: Published <strong>{date}</strong>
   date: Creation date
   new: New food basket
   delete: Delete food basket
@@ -1996,7 +1996,7 @@ store:
     search_reset: reset search
     no_record: No record found.
     is_closed: Team is closed
-  filter: Filter by …
+  filter: Filter by …
   enterdate: Add pick-up date
   enternumber: You need to select the number of people who can pick up.
   prefetchfour: 4 weeks
@@ -2120,8 +2120,8 @@ search:
   mygroups: My groups
   mybuddies: My buddies
   title: Search
-  forum: Search for a title …
-  placeholder: Search now …
+  forum: Search for a title …
+  placeholder: Search now …
   persons: Persons
   groups: Groups
   myregions: My regions
@@ -2160,6 +2160,9 @@ search:
   maxresults: The number of results displayed is limited. Maybe use a more specific
     search term.
   too_short: Please enter a longer search term.
+  scope:
+    local: User-specific search
+    global: Global search
 month:
   short:
     "12": Dec.
@@ -2217,7 +2220,7 @@ wall:
     {name}?
   info-logging: Please note that to avoid conflicts, the content and the person who
     carried it out are logged.
-  placeholder: Write a new entry on the wall…
+  placeholder: Write a new entry on the wall …
 pass:
   nav:
     title: Let’s go!
@@ -2396,7 +2399,7 @@ bcard:
       a maximum of 49 characters.
   desc: Choose the region and role, for which you would like to generate your business
     card.
-  claim: Generate, print and cut easily here …
+  claim: Generate, print and cut easily here …
   info:
     address_shortened: Your address will be abbreviated on the business card.
   role: "Role/Region"
@@ -2580,7 +2583,7 @@ register:
   other: other
   woman: female
   man: male
-  select_your_gender: For the salutation…
+  select_your_gender: For the salutation …
   join_error: Your registration was not successful.
   join_success: Your registration was successful.
   finish: Send registration
@@ -2928,7 +2931,7 @@ regionOptions:
   regionPickupRuleActive: 'Activate the following district-wide rule for pick-ups
     in CHERRY (Consummate, High-level, Exceptional and Really, Really Yielding) stores:'
 list:
-  filter_for: filter for …
+  filter_for: filter for …
 startpage:
   donate:
     title: Donate
@@ -2962,7 +2965,7 @@ startpage:
       part1: Also, there are
   store:
     title: as a company
-    text: You are employed in a grocery store, restaurant or cafeteria…? Sign up your
+    text: You are employed in a grocery store, restaurant or cafeteria? Sign up your
       company and rescue food.
   member:
     title: as a member
@@ -3065,7 +3068,7 @@ regionPin:
   lat: 'Latitude'
   save: save
   text_desc: Please provide a description of the local group and a contact option
-    here. This is shown in the popup of the pin from the map …
+    here. This is shown in the popup of the pin from the map …
   header_page: Public description of the local group {bezirk}
   lon: Longitude
   desc: Description
@@ -3157,7 +3160,7 @@ contentmanagement: Content management
 activitypost:
   Response: "Answer"
   response: "answer"
-  write: Write an answer …
+  write: Write an answer …
   quickreply_info: <code class="key">Shift + Return</code> to add a new line.
   quickreply_button: Send now<br>or press<code class="key">Return</code>.
 deletelow: delete
@@ -3180,8 +3183,8 @@ chain:
   columns:
     status: Status
     name: Name
-    estimatedStoreCount: Estimated number of cooperating stores
-    stores: Count cooperating stores
+    estimatedStoreCount: Branches
+    stores: created
     headquarters: Headquarters
     kams: KAM
     notes: Notes
@@ -3204,7 +3207,7 @@ chain:
         invalidfeedback: Name must not be empty
         placeholder: Name of the chain
       estimatedStoreCount:
-        label: "Estimated count of stores"
+        label: "Branches"
         invalidfeedback: "Only digits are allowed."
         description: "Number of stores in the store chain which may cooperate"
       headquarters:
@@ -3339,7 +3342,7 @@ globals:
     workingGroups: Groups
   save: Save
   close: Close
-  select: Please select …
+  select: Please select …
   show_more: Show more
   show_less: Show less
   account:
