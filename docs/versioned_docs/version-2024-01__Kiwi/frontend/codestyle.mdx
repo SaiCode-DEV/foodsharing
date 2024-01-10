@@ -1,0 +1,70 @@
+# Codestyle
+
+## Structure
+
+#### Components
+`/client/src/components`
+
+#### Views
+Here are all complete elements of the website located, but separated between a full page like the `Dashboard` or a partials like `Topbar` or `Footer`.
+
+`/client/src/view`
+
+##### Page views
+Here is the main content stored, like `Index` or `Dashboard`.
+
+`/client/src/view/pages`
+
+##### Partials views
+Here are all the parts of the website, like the `Topbar` or `Footer`.
+
+`/client/src/view/partials`
+
+
+## Styling
+
+* We use [Bootstrap-VUE 2.20.1](https://bootstrap-vue.org/docs) which uses [Bootstrap 4.6.1](https://getbootstrap.com/docs/4.6/getting-started/introduction/)
+* We use [Font Awesome 5, free](https://fontawesome.com/v5/search?m=free&s=solid%2Cbrands)
+
+
+:::info
+Try to keep and write, [**clean code**](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29) as much, as possible.
+:::
+
+## JavaScript
+
+* **Avoid** external/third-party packages like (`underscore`, `lodash`, `date-fns`, `moment` or `jquery`)
+* Function and variables should **speak for itself** (`isReadable`, `createNewReadableWikiPage()`)
+
+## CSS
+* When writing own CSS, use `CSS`-classes which are following [BEM](http://getbem.com/naming/) or a similar syntax
+* Vue files should be always **scoped** (if they change properties on a bootstrap class)
+* Use for colors only the **CSS custom properties (variables)**, these are generated in `colors.scss`
+
+## Vue
+When importing other Vue components, always specify `.vue` extension. This adds support for opening Vue files in VS Code.
+
+* We try to avoid `/*.gif` as loading animation, use instead a generic `fas fa-spinner fa-spin` as alternative.
+* `$i18n`, `$dateFormatter` and `$url` are global functions which are defined in [`vue.js`](https://gitlab.com/foodsharing-dev/foodsharing/-/blob/master/client/src/vue.js)
+* Avoid long complex code, which could be archived by separating individual components and nest them in one partial.
+
+
+:::tip **Good**
+```js
+import Avatar from '@/components/Avatar.vue'
+
+console.log($i18n(...))
+// or
+console.log(this.$i18n(...))
+```
+:::
+
+:::danger **Bad**
+
+ ```js
+ import Avatar from '@/components/Avatar'
+ import i18n from '@/helper/i18n.js'
+
+ console.log(i18n(...))
+ ```
+:::
