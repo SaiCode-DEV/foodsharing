@@ -2680,7 +2680,7 @@ filterlist:
   some_in_all: ''
 wall:
   name: ''
-  placeholder: 'Escrever nova entrada no mural...'
+  placeholder: 'Escrever nova entrada no mural …'
   error-create: ''
   see-more: ''
   info-logging: ''
