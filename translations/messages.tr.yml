@@ -89,7 +89,7 @@ regionPin:
   lat: Enlem
   lon: Boylam
   text_desc: Lütfen yerel grubun açıklamasını ve iletişim bilgilerini buraya girin.
-    Bu, haritadaki Popup penceresinde görüntülenir…
+    Bu, haritadaki Popup penceresinde görüntülenir …
   pin_visible: Pin haritada görünür
   header_page: '{bezirk} için genel yerel grup açıklaması'
   desc: Açıklama
@@ -222,7 +222,7 @@ quiz:
   heavysigh: Başardınız!
   notfinishedyet: Testi bitirmediniz.
   threestrikes: Testde 3 kez başarısız oldunuz.
-  waitxdays: '... Süre zarfından sonra tekrar deneyebilirsiniz'
+  waitxdays: '… Süre zarfından sonra tekrar deneyebilirsiniz'
   safeandsound: Hiç sorun değil. Oturumunuz kaydedildi. İstediğiniz zaman yanıtlamaya
     devam edebilirsiniz.
   continuenow: Testi yanıtlamaya şimdi devam edin!
@@ -448,7 +448,7 @@ group:
   applications: Müracatlar
   applications_for: '{name} için müracatlar'
   title: Foodsharing Çalışma Grupları
-  subtitle: Burada yardım ve yapacak çok şey bulacaksınız…
+  subtitle: Burada yardım ve yapacak çok şey bulacaksınız …
   member_count: '{0} Katkıda bulunan yok|{1} Bir katkıda bulunan var| [2, Inf[ %count%
     katkıda bulunanlar'
   really_quit_workgroup: '%name% çalışma grubundan ayrılmak istediğinize emin misiniz?'
@@ -562,7 +562,7 @@ bell:
   new_foodsaver_needs_verification: Doğrulanması gerekir
   new_foodsaver_needs_introduction: Tanıtım amaçlı alımlar gerekiyor
   foodsaver_verified_title: Artık doğrulandınız!
-  foodsaver_verified: Kimliğinizi burdan arayın …
+  foodsaver_verified: Kimliğinizi burdan arayın …
   betrieb_fetch_title: '{betrieb}'
   betrieb_fetch: '{count} onaylanmamış alım zamanı'
   sharepoint_activate: '{name} yazıldı'
@@ -622,7 +622,7 @@ error:
 activitypost:
   quickreply_info: <code class="key">Shift + Enter</code> yeni bir satır eklemek için.
   quickreply_button: Şimdi gönder<br>veya <code class="key">Enter tuşuna</code>bas.
-  write: Cevap yaz…
+  write: Cevap yaz …
   Response: 'Cevaplayınız'
   response: 'cevaplayınız'
 bootstrap-datepicker:
@@ -661,7 +661,7 @@ pickuplist:
   NumberOfFoodSavers_table_header: Foodsaver sayısı
   NumberOfAppointments_table_header: Randevu sayısı
 list:
-  filter_for: '… göre filtrele'
+  filter_for: '… göre filtrele'
 startpage:
   towns:
     title: foodsharing şehirleri
@@ -792,7 +792,7 @@ startpage:
     title: 'Sen de katıl'
   this_is_how_it_works: 'Şöyle çalışıyor'
   store:
-    text: 'Bir süpermarkette, restoranda veya kantinde mi çalışıyorsunuz...? İşletmenizi
+    text: 'Bir süpermarkette, restoranda veya kantinde mi çalışıyorsunuz? İşletmenizi
       kaydedin ve siz de yiyecek israfına son verin.'
     title: 'İşletme olarak'
   slogan_3: 'foodsharing ücretsizdir ve ücretsiz kalacaktır.'
@@ -833,7 +833,7 @@ bcard:
   info:
     address_shortened: Adresiniz ve/veya posta kodunuz + şehir, kartvizitte kısaltılacaktır.
   title: Kartvizit otomatik programlama
-  claim: Burada kolayca oluşturun, yazdırın ve kesin…
+  claim: Burada kolayca oluşturun, yazdırın ve kesin …
   for: '{role} için {region}'
   actions: Opsiyonlar
   desc: Kartvizitinizi hangi bölge için veya hangi sıfat için oluşturmak istediğinizi
@@ -1052,7 +1052,7 @@ store:
     distance_close: 1 km'den daha yakın bir mesafede yaşıyor
     distance_unknown: ikamet yeri sağlanmadı
     air_line: Gösterilen mesafe kuş uçuşu uzaklığına denk gelir.
-  filter: … göre filtrele
+  filter: … göre filtrele
   enterdate: Alım tarihini girin
   important: 'Önemli:'
   prefetchtwo: 2 Hafta
@@ -1222,7 +1222,7 @@ store:
   slot_state: Slot durumu
   lastPickupTitle: Son alım tarihi
   slotsCurrentlyOccupied: Şu anda dolu slotlar
-  deactivatedRegion: İşletme listesi şu anda ülkeler ve Avrupa için görüntülenemiyor.
+  deactivatedRegion: İşletme listesi şu anda ülkeler ve kıtalar için görüntülenemiyor.
 polls:
   title: Başlık
   new_poll: Yeni Anket oluştur
@@ -1392,7 +1392,7 @@ events:
   maybeCount: '{count} belki gelirler'
   notFound: Bu etkinlik mevcut değil veya erişilemiyor.
   goto: Randevuya
-  morePeople: '... ve {count} diğerleri'
+  morePeople: '… ve {count} diğerleri'
   button:
     yes: Ben de varım
     maybe: Belki
@@ -1416,7 +1416,7 @@ recipients:
   region-hint: "<strong>Not:</strong>\nAlt bölgeleri işaretlemek için önce klasörü
     açmanız gerekir.\nGörünmeyen ilçelere e-posta gönderilmemektedir.\n"
   permission: E-posta gönderme izniniz yok
-  status: 'E-postaları gönder... (mevcut e-posta adresi: {current})'
+  status: 'E-postaları gönder … (mevcut e-posta adresi: {current})'
   body: Mesaj
   confirm: Eposta gönder?
   test_email_sent: E-Posta gönderildi.
@@ -1536,7 +1536,7 @@ mailbox:
   create: Yeni bir posta kutusu oluştur
   saved: Değişiklikler kaydedildi
   ratelimit: Her 15 saniyede yalnızca bir e-posta gönderebilirsiniz, lütfen biraz
-    bekleyin…
+    bekleyin …
   manage: Posta kutusu yöneticisi
   inbox: Gelen Kutusu
   sent: Gönderildi
@@ -1666,7 +1666,7 @@ basket:
     yapın ve talebinizi tekrar gönderin.\n"
   go-to-settings: Ayarlara dön
   no-desc: Lütfen bir açıklama girin.
-  mapsearch: Adres arama…
+  mapsearch: Adres arama …
   where: Nerede?
   requests: İstekte bulun ({count})
   nearby-short: Yakınınızda
@@ -1994,7 +1994,7 @@ wall:
   see-more: Tüm gönderileri göster
   info-logging: Anlaşmazlıkları önlemek için, içeriğin ve onu gerçekleştiren kişinin
     günlüğe kaydedildiğini lütfen unutmayın.
-  placeholder: Yeni bir pano yazısı yazın…
+  placeholder: Yeni bir pano yazısı yazın …
 settings:
   changemail:
     done: E-posta adresiniz değiştirildi.
@@ -2423,7 +2423,7 @@ profile:
   online: '{name} online.'
   sleeping: '{name} süresiz bir uyku beresi var'
   banana:
-    placeholder: en az 100 karakter…
+    placeholder: en az 100 karakter …
     remove:
       confirm_title: 'Güven fidanını kaldır'
       confirm_message: 'Gerçekten o güven fidanını ortadan kaldırmak istiyor musun?'
@@ -2724,7 +2724,7 @@ register:
   error: Bir hata oluştu
   set-password: Yeni şifre ayarla
   have_read_the_legal_stuff2: anlaşıldı
-  select_your_gender: Hitap için…
+  select_your_gender: Hitap için …
   have_read_the_legal_stuff1: Ben
 gender:
   f: Kadın
@@ -2956,9 +2956,9 @@ pickup:
   signout_info: Alım randevularınızın tümü silinecektir.
   really_kick_user_info: "{name}'ı {date} tarihindeki alma işleminden çıkarmak istediğinizden
     emin misiniz?\n{name} bununla ilgili şu mesajı alacak:\n"
-  leave_team_message_template: Sevgili arkadaşlar, {date} …
+  leave_team_message_template: Sevgili arkadaşlar, {date} …
   slot_remove: Slotu kaldır
-  kick_message_placeholder: 'Opsiyonel : buraya bilgi ekleyin…'
+  kick_message_placeholder: 'Opsiyonel : buraya bilgi ekleyin …'
   edit_recurring_pickups: Düzenli teslim alma saatlerini düzenleyin
   really_delete_date: '{date} tarihinde alım tarihini gerçekten silmek istediğinizden
     emin misiniz?'
@@ -3176,7 +3176,7 @@ globals:
     foodSharePoints: Gıda Dağıtım Noktası
     workingGroups: Gruplar
     users: Kişiler
-  select: 'Lütfen seçin …'
+  select: 'Lütfen seçin …'
   close: 'Kapat'
   show_more: 'Daha fazla göster'
   reset: 'Sıfırla'
@@ -3184,11 +3184,11 @@ globals:
   show_less: 'Daha az göster'
   telephone_number: Telefon numarası
 search:
-  placeholder: 'Şimdi aramaya başlayın …'
+  placeholder: 'Şimdi aramaya başlayın …'
   informations: 'Kişileri, grupları, işletmeleri, semtleri, sohbetleri, forum gönderilerini
     ve gıda dağıtım noktalarını arayabilirsiniz.'
   noresults: 'Sonuç bulunamadı'
-  forum: 'Başlığa göre ara …'
+  forum: 'Başlığa göre ara …'
   thread-title-only: 'Gönderilerin içeriği değil, yalnızca başlıklar aranır.'
   title: 'Arama'
   user_search:
