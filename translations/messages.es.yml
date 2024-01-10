@@ -170,6 +170,9 @@ search:
   maxresults: El número de resultados mostrados es limitado. Quizás utilice un término
     de búsqueda más específico.
   too_short: Por favor ingrese un término de búsqueda más largo.
+  scope:
+    global: Búsqueda global
+    local: Búsqueda específica del usuario
 reports:
   reason: razón
   message: descripción
