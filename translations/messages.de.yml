@@ -313,7 +313,7 @@ pass:
 bcard:
   title: "Visitenkarten-Generator"
   card: "Deine foodsharing-Visitenkarte"
-  claim: "Hier einfach generieren, ausdrucken und ausschneiden…"
+  claim: "Hier einfach generieren, ausdrucken und ausschneiden …"
   for: "{role} für {region}"
   actions: "Optionen"
   desc: "Wähle hier, für welchen Bezirk beziehungsweise für welche Rolle du deine Visitenkarte erstellen möchtest."
@@ -400,7 +400,7 @@ group:
   members: "Mitglieder"
   administrators: "Gruppen-Admins"
   title: "foodsharing-Arbeitsgruppen"
-  subtitle: "hier findest du Hilfe und viel zu tun…"
+  subtitle: "hier findest du Hilfe und viel zu tun …"
   member_count: "{0} Keine Mitwirkenden|{1} Ein:e Mitwirkende:r| [2, Inf[ %count% Mitwirkende"
   admin_count: "{0} Keine Admins|{1} Ein:e Administrator:in| [2, Inf[ %count% Administrator:innen"
   image: "Titelbild für %name%"
@@ -600,7 +600,7 @@ register:
   join_success_message: "Du hast die Anmeldung bei foodsharing erfolgreich abgeschlossen. Du kannst dich nun mit deiner E-Mail und deinem Passwort einloggen."
   join_error: "Deine Registrierung war nicht erfolgreich."
   check_mail: "Schau jetzt in dein E-Mail-Postfach, um die Anmeldung abzuschließen!"
-  select_your_gender: "Für die Anrede…"
+  select_your_gender: "Für die Anrede …"
   woman: "weiblich"
   man: "männlich"
   other: "divers"
@@ -628,7 +628,7 @@ terminology:
   stores: "Betriebe"
   store: Betrieb
   pickup: "Abholung"
-  previous_pickups: "Bisherige Abholungen"
+  previous_pickups: "Abholungen hier"
   no_pickups: "keine"
   foodsharer:
     m: "Foodsharer"
@@ -855,7 +855,7 @@ store:
   ownStores: "Eigene Betriebe"
   addNewStoresButton: "Neuen Betrieb eintragen"
   noStores: "Es sind noch keine Betriebe eingetragen"
-  deactivatedRegion: "Die Betriebsliste kann für Länder und Europa im Moment nicht angezeigt werden."
+  deactivatedRegion: "Die Betriebsliste kann für Länder und Kontinente im Moment nicht angezeigt werden."
   go: "Zur Teamseite"
   error: "Betrieb konnte nicht geladen werden."
   teamName: "{storeTitle}-Team"
@@ -951,7 +951,7 @@ store:
     search_input: "Suche nach Name / Telefonnummer"
     search_reset: "Suche zurücksetzen"
     no_record: "Es wurde kein Eintrag gefunden."
-  filter: "Filtern nach …"
+  filter: "Filtern nach …"
   enter_date: "Einzelnen Abholtermin eintragen"
   enter_date_description: "Nachdem du Datum, Uhrzeit und Abholendenzahl ausgewählt hast, kannst du einen einmaligen Abholtermin anlegen. Solltest du regelmäßige (wöchentlich automatisch wiederkehrende) Slots erstellen wollen, nutze bitte das Menü „Betriebseinstellungen“."
   delete_date: "Einzelnen Abholtermin löschen"
@@ -1078,13 +1078,13 @@ pickup:
     Möchtest du {name} wirklich aus der Abholung am {date} austragen?
     {name} wird die folgende Nachricht dazu erhalten:
   kick_message: "wir haben dich aus der {storeName}-Abholung am {date} ausgetragen."
-  kick_message_placeholder: "Optional hier Informationen ergänzen…"
+  kick_message_placeholder: "Optional hier Informationen ergänzen …"
   kick_message_footer: "Liebe Grüße, deine Betriebsverantwortlichen"
   really_leave_date: "Du bist für diese Abholung verantwortlich. Bitte kümmere dich eigenständig um Ersatz."
   leave_pickup_ok: "Ich habe bereits Ersatz"
   leave_pickup_message_team: "Team benachrichtigen"
   leave_team_message_title: "Nachricht ans Team"
-  leave_team_message_template: "Ihr Lieben, {date} …"
+  leave_team_message_template: "Ihr Lieben, {date} …"
   team_message_send_and_leave: "Senden und austragen"
   team_message_success: "Nachricht ans Team wurde erfolgreich versendet"
   join_title_date: "Sicher?"
@@ -1305,7 +1305,7 @@ wall:
   error-delete: "Diesen Eintrag kannst du nicht entfernen."
   created: "Klasse, dein Pinnwandeintrag wurde gespeichert."
   error-create: "Dein Pinnwandeintrag konnte nicht gespeichert werden."
-  placeholder: "Neuen Pinnwandeintrag schreiben …"
+  placeholder: "Neuen Pinnwandeintrag schreiben …"
 
 events:
   bread: "Termine"
@@ -1408,7 +1408,7 @@ recipients:
   continue: "Mit dem Senden weitermachen"
   abort: "Versand abbrechen"
   permission: "Du bist nicht berechtigt, E-Mails zu versenden"
-  status: "Versende E-Mails … (aktuelle E-Mail-Adresse: {current})"
+  status: "Versende E-Mails … (aktuelle E-Mail-Adresse: {current})"
   unknown: "unbekannt"
   done: "Es wurden alle E-Mails verschickt"
 
@@ -1561,7 +1561,7 @@ bell:
   new_foodsaver_verified_title: "{name} neu in {bezirk}"
   new_foodsaver_verified: "Schon verifiziert – kann loslegen"
   foodsaver_verified_title: "Du bist jetzt verifiziert!"
-  foodsaver_verified: "Rufe deinen Ausweis unter …"
+  foodsaver_verified: "Rufe deinen Ausweis unter …"
   betrieb_fetch_title: "{betrieb}"
   betrieb_fetch: "{count} unbestätigte Abholzeiten"
 
@@ -1585,7 +1585,7 @@ bell:
   report_reason: "{reason}"
 
 list:
-  filter_for: "Filtern nach …"
+  filter_for: "Filtern nach …"
 
 memberlist:
   header_for_district: "Foodsaver:innen im Bezirk {bezirk}"
@@ -1654,7 +1654,7 @@ regionPin:
   desc: "Beschreibung"
   success: "Erfolgreich gespeichert"
   save: "speichern"
-  text_desc: "Hier bitte eine kurze Beschreibung der Ortsgruppe und eine Kontaktmöglichkeit angeben. Diese wird im Popup des Pins auf der Karte angezeigt …"
+  text_desc: "Hier bitte eine kurze Beschreibung der Ortsgruppe und eine Kontaktmöglichkeit angeben. Diese wird im Popup des Pins auf der Karte angezeigt …"
   pin_visible: "Pin auf Karte sichtbar"
 
 foodsaver:
@@ -1782,7 +1782,7 @@ mailbox:
   okay: "E-Mail wurde erfolgreich versendet."
   failed: "Die E-Mail konnte nicht gesendet werden."
   recipients: "Zu viele Empfänger:innen"
-  ratelimit: "Du kannst maximal eine E-Mail alle 15 Sekunden versenden, bitte warte einen Augenblick …"
+  ratelimit: "Du kannst maximal eine E-Mail alle 15 Sekunden versenden, bitte warte einen Augenblick …"
   filetype: "Dieser Dateityp ist nicht erlaubt"
   filesize: "Sorry, die Datei ist zu groß."
   mark_as_unread: "E-Mail ungelesen markieren"
@@ -1980,7 +1980,7 @@ profile:
       Bitte vergib die Vertrauensbanane daher nur an dir persönlich bekannte Menschen,
       welche die Verhaltensregeln und die Rechtsvereinbarung einhalten
       und für deren Zuverlässigkeit und Engagement du einstehen kannst.
-    placeholder: "mindestens 100 Zeichen…"
+    placeholder: "mindestens 100 Zeichen …"
     sent: "Banane wurde gesendet!"
     messageTooShort: "Bitte gib einen mindestens 100 Zeichen langen Text zu dieser Banane ein."
     alreadyGiven: "{name} hat bereits eine Banane von dir erhalten."
@@ -2239,7 +2239,7 @@ basket:
   nearby: "Essenskörbe in deiner Nähe"
   nearby-short: "In deiner Nähe"
   no_nearby: "Es gibt keine Essenskörbe im Umkreis von {radius} km"
-  mapsearch: "Adresssuche…"
+  mapsearch: "Adresssuche …"
   go: "zum Essenskorb"
   by: "Essenskorb von {name}"
   on: "Essenskorb von {platform}"
@@ -2249,9 +2249,9 @@ basket:
   delete: "Essenskorb löschen"
   new: "Neuer Essenskorb"
   date: "Einstelldatum"
-  created: "Veröffentlicht am <strong>{date}</strong>"
+  created: "Veröffentlicht <strong>{date}</strong>"
   expires: "Gültig bis <strong>{date}</strong>"
-  updated: "Aktualisiert am <strong>{date}</strong>"
+  updated: "Aktualisiert <strong>{date}</strong>"
   where: "Wo?"
   provider: "Anbieter:in"
   requests: "Anfragen ({count})"
@@ -2820,7 +2820,7 @@ startpage:
     text: "Sag der Lebensmittelverschwendung in deinem Haushalt den Kampf an. Wir informieren auf Messen und bei Veranstaltungen wie."
   store:
     title: "als Betrieb"
-    text: "Du arbeitest in einem Supermarkt, Restaurant, Kantine…? Registriere deinen Betrieb und rette Lebensmittel."
+    text: "Du arbeitest in einem Supermarkt, Restaurant, Kantine, …? Registriere deinen Betrieb und rette Lebensmittel."
   how_we_work:
     title: "So läuft’s"
     text: |
@@ -2913,8 +2913,8 @@ chain:
   columns:
     status: Status
     name: Name
-    estimatedStoreCount: Erwartete Anzahl von Betrieben
-    stores: Anzahl angelegter Betriebe
+    estimatedStoreCount: Filialen
+    stores: angelegt
     headquarters: Zentrale
     kams: KAMs
     notes: Hinweise
@@ -2937,9 +2937,9 @@ chain:
         invalidfeedback: Name darf nicht leer sein
         placeholder: Name der Kette
       estimatedStoreCount:
-        label: "Erwartete Anzahl von Betrieben"
+        label: "Filialen"
         invalidfeedback: "Nur ganze Zahlen sind erlaubt."
-        description: "Gesamtzahl der Betriebe der Kette"
+        description: "Gesamtzahl der Filialen der Kette"
       headquarters:
         label: Zentrale
         placeholder:
@@ -3075,7 +3075,7 @@ globals:
   save: Speichern
   close: Schließen
   reset: Zurücksetzen
-  select: Bitte auswählen …
+  select: Bitte auswählen …
   show_more: Mehr anzeigen
   show_less: Weniger anzeigen
   type:
@@ -3100,10 +3100,10 @@ globals:
 
 search:
   title: Suche
-  placeholder: Jetzt Suche starten …
+  placeholder: Jetzt Suche starten …
   informations: Du kannst nach Personen, Gruppen, Betrieben, Bezirken, Chats, Forenbeiträgen und Fairteilern suchen.
   too_short: Bitte gib einen längeren Suchbegriff ein.
-  forum: Nach Titel suchen …
+  forum: Nach Titel suchen …
   noresults: Es konnten keine Ergebnisse gefunden werden
   maxresults: Die Anzahl angezeigter Ergebnisse ist begrenzt. Nutze eventuell einen spezifischeren Suchbegriff.
   thread-title-only: Es werden nur Titel durchsucht, nicht der Text von Beiträgen.
@@ -3146,7 +3146,7 @@ search:
 activitypost:
   Response: Antworten
   response: antworten
-  write: Schreibe eine Antwort …
+  write: Schreibe eine Antwort …
   quickreply_info: <code class="key">Umschalttaste + Eingabetaste</code> zum Hinzufügen einer neuen Zeile.
   quickreply_button: Jetzt senden<br>oder <code class="key">Eingabetaste</code> drücken.
 

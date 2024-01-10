@@ -60,7 +60,7 @@ $I->click('#chat-checkbox + .custom-control-label');
 $I->click('Speichern');
 $I->waitForActiveAPICalls();
 $I->waitForPageBody();
-$I->see('Aktualisiert am');
+$I->see('Aktualisiert ');
 $I->see($description . ' edited');
 
 $I->seeInDatabase('fs_basket', [
