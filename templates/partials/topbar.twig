@@ -4,12 +4,12 @@
             {% include 'partials/avatar.twig' with avatar only %}
         </div>
     {% endif %}
-    {% if img is defined and img %}
-        <div class="img">
-            <img src="{{ img }}"/>
-        </div>
-    {% endif %}
-    <h3>{{ title }}</h3>
+    <h3>
+        {% if icon is defined and icon %}
+            <i class="fas {{ icon }} mr-1"></i>
+        {% endif %}
+        {{ title }}
+    </h3>
     {% if subtitle %}
         <p>{{ subtitle }}</p>
     {% endif %}

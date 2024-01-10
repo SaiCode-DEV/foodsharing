@@ -44,6 +44,7 @@
 - Replaced the Twitter link with Bluesky #1779 !3006 @alex.simm
 - GOALS-ELECTION-Group added. !3001 @fs_k
 - Replaced viking avatar with a less vikingish one !3032 @irgendwer
+- Replaced graphic group symbol with the corresponding fontawesome symbol !3009 @irgendwer @neriton
 - Temporarily disabled the store list for countries and Europe !3027 @alex.simm
 - GOALS-ELEction Admins are automatically added to globaly election exchange group !3031 @fs_k
 

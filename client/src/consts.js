@@ -1,5 +1,4 @@
 export const AVATAR_DEFAULT = '/img/130_q_avatar.png'
-export const GROUP_PICTURE_DEFAULT = '/img/groups.png'
 
 // export const MAP_TILES_URL = 'https://maps.geoapify.com/v1/styles/klokantech-basic/style.json?apiKey='
 export const MAP_RASTER_TILES_URL_GEOAPIFY = 'https://maps.geoapify.com/v1/tile/klokantech-basic/{z}/{x}/{y}.png?apiKey='
