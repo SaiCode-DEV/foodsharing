@@ -134,13 +134,13 @@ search:
   groups: grupos
   user_search:
     placeholder: 'Nombre o DNI'
-  forum: 'Buscar por título …'
+  forum: 'Buscar por título …'
   informations: 'Puedes buscar por personas, grupos, empresas, distritos, chats, temas
     y distribuidores.'
   noresults: 'No se pudieron encontrar resultados'
   thread-title-only: 'Sólo se buscan títulos, no el texto de las publicaciones del
     foro.'
-  placeholder: 'Iniciar busqueda …'
+  placeholder: 'Iniciar busqueda …'
   title: 'Buscar'
   results:
     working_group:
@@ -172,7 +172,7 @@ search:
   too_short: Por favor ingrese un término de búsqueda más largo.
   scope:
     global: Búsqueda global
-    local: Búsqueda específica del usuario
+    local: Búsqueda personalizada
 reports:
   reason: razón
   message: descripción
@@ -251,7 +251,7 @@ regionPin:
   desc: 'Descripción'
   success: 'Guardado exitosamente'
   text_desc: 'Proporcione una breve descripción del grupo local y una opción de contacto
-    aquí. Esto se muestra en el pin del mapa…'
+    aquí. Esto se muestra en el pin del mapa …'
   header_page: 'Descripción del grupo local público de {bezirk}'
 storemanagers: Responsable de operaciones
 team_status: Estado del equipo
@@ -407,7 +407,7 @@ terminology:
   reportAdmins: 'Equipo de manejo de quejas'
   n_home_regions: un@ con distrito de origen|%count% con distrito de origen
   no_pickups: 'ninguna'
-  previous_pickups: Recogidas anteriores
+  previous_pickups: Recogidas aquí
   electionAdmins: Elecciones
 groups:
   empty: Aún no estás en ningún grupo de trabajo
@@ -944,7 +944,7 @@ group:
   saved: 'Se guardaron los cambios'
   quit_name_workgroup: 'Dejar el equipo %name%'
   delete_group_sure: '¿Realmente desea eliminar el grupo/el distrito {groupName}?'
-  subtitle: 'Aquí encontrarás ayuda y mucho que hacer …'
+  subtitle: 'Aquí encontrarás ayuda y mucho que hacer …'
   admin_count: '{0} sin administratores|{1} un(a) administrador(a)| [2, Inf[ %count%
     administrador@s'
   filter_by_last_activity: 'No activo en meses'
@@ -1010,7 +1010,7 @@ register:
   have_read_the_legal_stuff1: 'He leído y acepto la'
   firstname_minLength: 'El nombre debe constar de al menos dos caracteres.'
   register_button_label: 'Registrarse'
-  select_your_gender: 'Para el saludo…'
+  select_your_gender: 'Para el saludo …'
   change-password: 'Ahora puedes cambiar tu contraseña.'
   confirmPassword_sameAsPassword: 'La contraseña debe coincidir.'
 button:
@@ -1089,7 +1089,7 @@ bcard:
   info:
     address_shortened: 'Su dirección se acortará en la tarjeta de presentación.'
   title: 'Generador de tarjetas de visita'
-  claim: 'Simplemente genere, imprima y corte aquí …'
+  claim: 'Simplemente genere, imprima y corte aquí …'
   card: 'Tu tarjeta de presentación de foodsharing'
 storeview:
   public_and_statistics: 'Estadísticas y Relaciones Públicas'
@@ -1211,7 +1211,7 @@ store:
   locked: 'No puedes editar esta tienda.'
   springer_conversation_name: 'Suplente {name}'
   unknownDate: 'desconocid@'
-  filter: 'Filtrar por …'
+  filter: 'Filtrar por …'
   regionPickupRulesInactive: 'Las reglas adicionales del distrito para recogidas no
     están activas'
   nodeclaration: 'No especificado'
@@ -1365,7 +1365,7 @@ store:
   lastPickupTitle: Última recogida
   slotsCurrentlyOccupied: Espacios actualmente ocupados
   deactivatedRegion: La lista de empresas no puede mostrarse por el momento para los
-    países y Europa.
+    países y continentes.
 pickup:
   overview:
     status:
@@ -1423,7 +1423,7 @@ pickup:
   edit_recurring_pickups: 'Editar fechas de recogida habituales'
   really_leave_date_title: '¿Cerrar sesión para el {date}?'
   region_pickup_rule_failed: 'Esta entrada no cumple con las reglas del condado'
-  kick_message_placeholder: 'Opcionalmente agregue información aquí…'
+  kick_message_placeholder: 'Opcionalmente agregue información aquí …'
   history:
     title: 'Historial de recogidas'
     search: 'Mostrar recogidas'
@@ -1479,7 +1479,7 @@ pickup:
   same_day_hint: 'Estás registrado para las siguientes recogidas el {day}:'
   really_join_date: '¿Le gustaría registrarse de forma vinculante para su recogida
     el {date}?'
-  leave_team_message_template: 'Queridos tod@s, al {date} …'
+  leave_team_message_template: 'Queridos tod@s, al {date} …'
   signout_sure: '¿De verdad quieres dejar este equipo?'
   team_message_success: 'El mensaje al equipo fue enviado exitosamente'
   join_agree: 'Sí, por favor'
@@ -1536,7 +1536,7 @@ bell:
   foodsaver_verified_title: '¡Ya estás verificado!'
   banana_given: '{name} te dio un fideo de fidelidad.'
   new_report_title: 'Nueva queja sobre {name}'
-  foodsaver_verified: 'Descarga tu tarjeta de socio en …'
+  foodsaver_verified: 'Descarga tu tarjeta de socio en …'
   passgen_failed: 'Sube una foto y funcionará.'
   forum_reply_title: '{forum}: {title}'
   forum_answer: '{user} te respondió'
@@ -1822,7 +1822,7 @@ profile:
   warning: 'Advertencia'
   alldatesdeleted: 'Todas las fechas fueron eliminadas'
   banana:
-    placeholder: 'al menos 100 caracteres…'
+    placeholder: 'al menos 100 caracteres …'
     sent: '¡El plátano ha sido enviado!'
     messageTooShort: 'Introduzca un texto de al menos 100 caracteres para este plátano
       de confianza.'
@@ -1917,7 +1917,7 @@ basket:
     Inicie sesión y envíe su solicitud nuevamente.
 
     '
-  updated: 'Actualizado el <strong>{date}</strong>'
+  updated: 'Actualizado <strong>{date}</strong>'
   no-desc: 'Por favor ingrese una descripción.'
   title: 'Cestas de comida'
   withdrawn_request: 'La solicitud fue cancelada'
@@ -1955,7 +1955,7 @@ basket:
   request_denied: 'Su solicitud fue rechazada por el/la proveedor(a) de la canasta
     de alimentos.'
   nearby: 'Cestas de comida cerca de ti'
-  mapsearch: 'Buscar una dirección…'
+  mapsearch: 'Buscar una dirección …'
   not_found: 'La canasta alimentaria ya no existe.'
   request-fs: 'Solicite esta canasta de alimentos en el sitio de foodsharing'
   no_nearby: 'No hay canastas de alimentos en un radio de {radius} km'
@@ -1970,7 +1970,7 @@ basket:
   request: 'Solicita canasta de alimentos'
   no_requests: 'No hay consultas hasta el momento'
   change-state: 'Cerrar solicitud de {name}'
-  created: 'Publicado el <strong>{date}</strong>'
+  created: 'Publicado <strong>{date}</strong>'
   all_map: 'Todas las cestas de comida en el mapa'
   recent: 'Nuevas cestas de comida'
   go: 'a la cesta de comida'
@@ -2131,12 +2131,12 @@ stats:
 chain:
   columns:
     name: 'Nombre'
-    stores: 'Empresas creadas'
+    stores: 'creado'
     headquarters: 'Cuartel general'
     kams: 'Administrador@s clave de cuentas'
     notes: 'Notas'
     status: 'Estado'
-    estimatedStoreCount: Número esperado de establecimientos
+    estimatedStoreCount: sucursales
     actions: Acciones
   tooltips:
     modificationDate: 'Último cambio'
@@ -2180,8 +2180,8 @@ chain:
         description: 'Lista separada por comas de los ID de usuario de los administradores
           de cuentas clave.'
       estimatedStoreCount:
-        description: Número total de establecimientos de la cadena
-        label: Número esperado de establecimientos
+        description: Número total de sucursales de la cadena
+        label: Sucursales
         invalidfeedback: Sólo se permiten dígitos.
     cancel: 'Cancelar'
     ok: 'Ahorrar'
@@ -2416,7 +2416,7 @@ wall:
   message_placeholder: ''
   info-somebody-else: 'Como está autorizado a administrar esta operación, puede eliminar
     esta entrada si es necesario.'
-  placeholder: Escribe una nueva entrada en el muro…
+  placeholder: Escribe una nueva entrada en el muro …
 events:
   bread: 'Eventos'
   add_new_event: 'Agregar un nuevo evento'
@@ -2497,7 +2497,8 @@ recipients:
   permission: 'No estás autorizado a enviar correos electrónicos masivos'
   test: 'Pruebe el boletín'
   abort: 'Anular el envío'
-  status: 'Enviar correos electrónicos… (dirección de correo electrónico actual: {current})'
+  status: 'Enviar correos electrónicos … (dirección de correo electrónico actual:
+    {current})'
   send: 'Enviar correo electrónico'
   doublecheck: '¿Todo comprobado? ¿Debe enviarse el correo electrónico al grupo objetivo
     seleccionado?'
@@ -2925,7 +2926,7 @@ globals:
     signup: 'Participar'
     signout: 'Desconectar'
   close: 'Cierra'
-  select: 'Por favor seleccione …'
+  select: 'Por favor seleccione …'
   reset: 'Reiniciar'
   save: 'Ahorrar'
   telephone_number: Número de teléfono
@@ -3358,7 +3359,7 @@ activitypost:
   response: 'respuesta'
   quickreply_info: '<code class="key">Mayús + Intro</code> para agregar una nueva
     línea.'
-  write: 'Escribe una respuesta …'
+  write: 'Escribe una respuesta …'
   quickreply_button: 'Envía ahora<br>o presiona<code class="key">Intro</code>.'
 language_chooser:
   choose_button: 'Actualizar'
@@ -3509,7 +3510,7 @@ prefetchtime: '¿Con cuántas semanas de anticipación pueden registrarse l@s re
   utilizando ranuras automáticos?'
 public_info: 'información pública de la empresa'
 list:
-  filter_for: 'Filtrad@ por …'
+  filter_for: 'Filtrad@ por …'
 ueberzeugungsarbeit: '¿Era fácil convencer un/unos encargado/s a cooperar con foodsharing?'
 banana_count: '¿Cuántos fideos de fidelidad necesita un miembro?'
 success: 'Completado con éxito'
