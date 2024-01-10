@@ -1691,7 +1691,7 @@ wall:
   error-create: ''
   info-logging: ''
   info-somebody-else: ''
-  placeholder: 'Γράψτε νέα είσοδο τοίχου pin...'
+  placeholder: 'Γράψτε νέα είσοδο τοίχου pin …'
 recipients:
   orga_team: ''
   empty-region: ''
