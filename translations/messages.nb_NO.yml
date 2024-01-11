@@ -57,7 +57,7 @@ startpage:
       du gjør dette på messer og arrangementer.
   store:
     title: som et selskap
-    text: Jobber du i et supermarked, restaurant, kantine ...? Registrer bedriften
+    text: Jobber du i et supermarked, restaurant, kantine, …? Registrer bedriften
       din og spar mat.
   member:
     text: Del dine overflødige dagligvarer med matdelingsfellesskapet eller spar dagligvarer
@@ -486,7 +486,7 @@ basket:
   where: Hvor?
   on: Matkurv fra {platform}
   by: Matkurv fra {name}
-  mapsearch: Søk etter en adresse …
+  mapsearch: Søk etter en adresse …
   nearby: matkurver i nærheten
   recent: nyeste matkurver
   all: Alle matkurver
@@ -671,8 +671,8 @@ dashboard:
 search:
   persons: personer
   groups: grupper
-  forum: Søk etter tittel …
-  placeholder: Søk nå …
+  forum: Søk etter tittel …
+  placeholder: Søk nå …
   title: Søk
   myregions: Mine distrikter
   mybuddies: Mine kompiser
@@ -712,6 +712,9 @@ search:
   maxresults: Antallet resultater som vises er begrenset. Bruk kanskje et mer spesifikt
     søkeord.
   too_short: Skriv inn et lengre søkeord.
+  scope:
+    global: Globalt søk
+    local: Brukerspesifikt søk
 profile:
   public:
     mayNot: ikke aktiv
@@ -770,7 +773,7 @@ profile:
       confirm_title: Fjern banan
       confirm_message: Er du sikker på at du vil fjerne den tillitsbananen?
     sent: Bananen er sendt!
-    placeholder: minst 100 tegn …
+    placeholder: minst 100 tegn …
     give: Gi {name} en banan
     messageTooShort: Skriv inn minst 100 tegn lang tekst om bananen din.
     alreadyGiven: '{name} har allerede mottatt en banan fra deg.'
@@ -1321,7 +1324,7 @@ bell:
   fs_sleepmode_title: Ny nattlue
   foodsaver_verified_title: Du er nå verifisert!
   new_foodsaver_needs_verification: Må verifiseres
-  foodsaver_verified: Hent medlemskortet ditt på …
+  foodsaver_verified: Hent medlemskortet ditt på …
   forum_post_title: '{title}'
   forum_post:
     one: Nytt innlegg av {user} i forumet {forum}
@@ -1420,7 +1423,7 @@ register:
   firstname_required: Vennligst skriv inn fornavnet ditt.
   firstname_minLength: Fornavnet må bestå av minst to tegn.
   login_phone_info: Det kan være nyttig å dele telefonnummeret ditt med andre matdelere
-  select_your_gender: For hilsen…
+  select_your_gender: For hilsen …
   check_mail: Sjekk e-posten din nå for å fullføre registreringen!
   error_birthdate: Eksempel 25.03.2001 (DD.MM.ÅÅÅÅ). Av databeskyttelses- og ansvarsgrunner
     må du være minst 18 år for å delta i foodsharing.
@@ -1692,7 +1695,7 @@ group:
     remove_text_region: Er du sikker på at du vil fjerne {name} ({id}) fra regionen?
     not_verified: ikke låst opp
   saved: Endringene har blitt lagret
-  subtitle: her kan du finne hjelp og mye å gjøre…
+  subtitle: her kan du finne hjelp og mye å gjøre …
   member_count: '{0} ingen bidragsytere|{1} en bidragsyter| [2, Inf[ %count% bidragsytere'
   admin_count: '{0} ingen administratorer|{1} en administrator| [2, Inf[ %count% administratorer'
   already_applied: Du har allerede søkt på denne gruppen.
@@ -1735,7 +1738,7 @@ bcard:
   for: '{role} i {region}'
   title: Visittkortgenerator
   card: Visittkortet ditt for foodsharing
-  claim: Generer, skriv ut og klipp enkelt her …
+  claim: Generer, skriv ut og klipp enkelt her …
   choose: Du må velge ett alternativ
   error:
     length: Adressen din er for lang. Adresse, postnummer og by kan til sammen være
@@ -1981,7 +1984,7 @@ recipients:
   continue: Fortsett å sende
   abort: Kanseller frakt
   done: Alle e-poster er sendt
-  status: 'Sender e-poster … (nåværende adresse: {current})'
+  status: 'Sender e-poster … (nåværende adresse: {current})'
   storemanagers: Alle samarbeidsoffiserer over hele verden
   storemanagers_and_ambs: Alle samarbeidsoffiserer og ambassadører
   choose: Velg distrikter individuelt
@@ -2218,8 +2221,8 @@ pickup:
   delete_title: Slett innsamlingsdato
   really_delete_date: Vil du virkelig slette hentingen på {date}?
   kick_message_footer: Mange hilsener, samarbeidsoffiserer
-  kick_message_placeholder: Om nødvendig, legg til informasjon her…
-  leave_team_message_template: Kjære alle sammen, {date} …
+  kick_message_placeholder: Om nødvendig, legg til informasjon her …
+  leave_team_message_template: Kjære alle sammen, {date} …
   signout_info: Alle dine hentedatoer vil bli slettet.
   really_join_date: Ønsker du å gjøre en bindende påmelding til henting {date}?
   dates: Hentingsdatoere
@@ -2428,7 +2431,7 @@ store:
   tooltip_managing: Du er ansvarlig for samarbeidet med dette selskapet
   error: Selskapet kunne ikke lastes.
   noStores: Ingen selskaper er lagt inn ennå
-  filter: Filtrer etter …
+  filter: Filtrer etter …
   short_tooltip_orange: Åpne henting om 3 dager
   short_tooltip_red: Åpne henting i dag eller i morgen
   leaveinfo: Her kan du gi litt informasjon til Matsparerne som ønsker å søke på laget.
@@ -2749,7 +2752,7 @@ terminology:
   store: Selskapet
   n_home_regions: en med hjemdistrikt|%count% med hjemdistrikt
   no_pickups: ingen
-  previous_pickups: Tidligere samlinger
+  previous_pickups: Henter her
   electionAdmins: Valg
 gender:
   d: mangfoldig
@@ -2787,7 +2790,7 @@ regionPin:
   success: Lagret
   pin_visible: Nålen er synlig på kartet
   text_desc: Gi en beskrivelse av den lokale gruppen og kontaktalternativet her. Dette
-    vises i popupen for nålen på kartet …
+    vises i popupen for nålen på kartet …
 addresspicker:
   label: Søk på adresse/sted
   placeholder: Vennligst se etter adressen her. Korriger eventuelt under etterpå.
@@ -2860,7 +2863,7 @@ regionOptions:
 messages:
   bread: Meldinger
 list:
-  filter_for: Filtrer etter …
+  filter_for: Filtrer etter …
 mailbox_name: Postboksnavn
 message_text_to_group_admin_workgroup: 'Regionen/arbeidsgruppen <b>{groupName}</b>
   har <b>ingen</b> ambassadør/administrator lenger.<br><br><br>Den har følgende ID-struktur:<br>{idStructureList}<br><br>IDen
@@ -2887,7 +2890,7 @@ duration: På tide å svare
 maxfp: Maksimalt antall feilpoeng å passere
 questcount: Hvor mange spørsmål bør stilles under eksamen?
 mail:
-  noreply_addresses_not_allowed: E-post til «noreply@...» kan ikke leveres. Vennligst
+  noreply_addresses_not_allowed: E-post til «noreply@…» kan ikke leveres. Vennligst
     sjekk mottakeradressen.
 week_num: Hvor mange uker burde en søker vært hos oss?
 ueberzeugungsarbeit: Var det lett å overbevise en ansvarlig person om å samarbeide
@@ -2909,10 +2912,11 @@ releases:
   "2020-05": Versjon «appelsin» (mai 2020)
   "2020-10": Versjon «cranberry» (oktober 2020)
   "2022-05": Versjon «Blåbær» 🍇 (Mai 2022)
-  "2022-01": Versjon «Grapefrukt» 🍋 (Januar 2022)
+  "2022-01": Versjon «Grapefrukt» 🍋 (januar 2022)
   "2022-12": Versjon «Iskrem» 🍨 (desember 2022)
   "2023-08": Versjon «Jackfrukt» 🍈 (september 2023)
   "2023-09": Versjon «Jackfrukt» 🍈 (september 2023)
+  "2024-01": Versjon «Kiwi» 🥝 (januar 2024)
 push_notifications:
   test_notification_title: Push-varsler er aktivert
   test_notification_body: Flott, det ser ut til å ha fungert :)
@@ -3049,7 +3053,7 @@ teamjs:
 activitypost:
   Response: Svar
   response: svar
-  write: Skriv et svar …
+  write: Skriv et svar …
   quickreply_info: <code class="key">Shift + Enter</code> for å legge til en ny linje.
   quickreply_button: Send inn<br>eller Trykk på <code class="key">Enter</code>-tasten.
 information:
@@ -3129,7 +3133,7 @@ error:
 addreaction: Legg til en reaksjon
 contentmanagement: Innholdshåndtering
 globals:
-  select: Velg …
+  select: Velg …
   close: Lukk
   save: Lagre
   you: Deg
@@ -3197,12 +3201,12 @@ chain:
   listheader: Driftskjeder
   columns:
     name: Navn
-    stores: Registrerte bedrifter
+    stores: opprettet
     status: Status
     headquarters: Sentral
     kams: KAM-er
     notes: Notater
-    estimatedStoreCount: Estimert antall samarbeidende butikker
+    estimatedStoreCount: Filialer
     actions: Handlinger
   new: Gå inn i ny kjede
   allowpress: Offentlig navngivning tillatt.
@@ -3250,7 +3254,7 @@ chain:
         label: Presse
         description: Tillat offentlig omtale av samarbeid
       estimatedStoreCount:
-        label: Estimert antall samarbeidende butikker
+        label: Filialer
         invalidfeedback: Bare sifre er tillatt.
         description: Totalt antall bedrifter i kjeden
     cancel: Avbryt
