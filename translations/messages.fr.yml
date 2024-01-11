@@ -325,10 +325,10 @@ right: Score
 week_num: Combien de semaines un membre doit-il être enregistré sur la plateforme ?
 fetch_count: Combien de collectes un membre doit-il effectuer ?
 apply_type: Qui peut s’inscrire à ce groupe ?
-leader: Administrateur·ice·s du groupe
+leader: Administrateur·rice·s du groupe
 member: Membres
 abholmenge: Combien de kilos environ chaque personne emporte-t-elle par collecte ?
-prefetchtime: Combien de semaines à l’avance les collecteur·ice·s peuvent-ils s’inscrire
+prefetchtime: Combien de semaines à l’avance les collecteur·rice·s peuvent-ils s’inscrire
   en utilisant les plages horaires automatiques ?
 sticker: La coopération est-elle intéressée pour apposer un autocollant de façon visible
   à l’entrée ou ailleurs ?
@@ -366,7 +366,7 @@ location_name: Lieu de réunion/Salle de conférence
 mailbox_id: Adresse courriel de l’expéditeur
 testemail: Adresse courriel de test
 bezirk_id: Pour quelle région l’article est-il pertinent ?
-lifetime: Combien de temps votre panier solidaire doit-il être valide ?
+lifetime: Combien de temps ton panier solidaire doit-il être valide ?
 fetchstate: Tout s’est bien passé ?
 food_art: De quel type de nourriture s’agit-il ?
 food_type: Quels types d’aliments sont inclus ?
@@ -374,17 +374,17 @@ weight: 'Poids estimé:'
 about_me_intern: Brève description
 about_me_public: Brève description publique
 daterange: Période
-ort: Ville/Village (automatiquement complété par la carte ci-dessus)
+ort: Ville/Municipalité (automatiquement complété par la carte ci-dessus)
 status: Statut actuel
-rolle: Rôle de l’utilisateur·ice
+rolle: Rôle de l’utilisateur·rice
 mailbox_name: Nom de la messagerie
-betrieb: Coopérative·s
-stadt: Votre ville ou village
+betrieb: Coopération·s
+stadt: Votre ville ou municipalité
 fs_id: foodsharing-ID
 parent_id: District parent
 infotype: Notification
 opt: Options
-contact_type: Comment souhaitez-vous être contacté·e ?
+contact_type: Comment souhaites-tu être contacté·e ?
 regions: Districts
 info: Informations
 body: Message
@@ -392,7 +392,7 @@ title: Titre
 active: Activé
 bezirk: District
 options: Options
-botschafter: Ambassadeur·ice
+botschafter: Ambassadeur·rice
 anschrift: Rue et numéro de rue (automatiquement complété par la carte ci-dessus,
   corrigez par la suite si nécessaire)
 handy: Numéro de téléphone mobile (y compris l’indicatif du pays, commençant par +)
@@ -402,9 +402,9 @@ email: Adresse courriel
 plz: Code postal (automatiquement complété par la carte ci-dessus)
 edit: modifier
 message: Message
-nachname: Nom
+nachname: Nom de famille
 add: ajouter
-geb_datum: Date de naissance (AAA-MM-JJ)
+geb_datum: Date de naissance (AAAA-MM-JJ)
 position: Position chez foodsharing (public)
 page:
   welcome_main_1: Nous sommes une initiative qui agit contre le gaspillage alimentaire.
@@ -1118,9 +1118,9 @@ legal:
     this_gets_deleted_trustbananas: Les bananes-confiance que tu as attribuées sont
       supprimées.
 message_text_to_group_admin_workgroup: "La région/le groupe de travail<b>{groupName}</b>
-  n’a<b>plus</b> d’ambassadeur·ice/d’admin.<br><br><br>Elle possède la structure ID
-  ci-contre :<br>{idStructureList}<br><br>l’ID est : {groupId}<br><br>URL : \" <a
-  href=\"/region ?bid={groupId}&sub=forum\" target=\"_blank\">Clique ici pour rejoindre
+  n’a<b>plus</b> d’ambassadeur·rice/d’admin.<br><br><br>Elle possède la structure
+  ID ci-contre :<br>{idStructureList}<br><br>l’ID est : {groupId}<br><br>URL : \"
+  <a href=\"/region ?bid={groupId}&sub=forum\" target=\"_blank\">Clique ici pour rejoindre
   la région/le groupe de travail</a>"
 gender:
   d: les deux ou autre
@@ -1143,7 +1143,7 @@ store_status_impact_explanation: Veuillez actualiser le statut de la coopératio
 kette_id: chaîne (entreprise)
 fetchercount: Nombre de quêteurs
 storemanagers: Responsables coopération
-fspmanagers: Collecteur·ice·s responsables des frigos solidaires
+fspmanagers: Collecteur·rice·s responsables des frigos solidaires
 fsp_bezirk_id: Dans quel district se trouve le frigo solidaire ?
 teaser: Extrait
 store:
@@ -3118,7 +3118,8 @@ quiz:
   questions: Questions
   not_passed_details: Malheureusement tu n’as pas passé. Tu as {points}, mais tu aurais
     dû avoir moins que {max_points} points d’erreur !
-  congrats_details: Félicitations ! Passé avec {points} de {max_points} points d’erreur !
+  congrats_details: Félicitations ! Passé avec {points} des {max_points} points d’erreur
+    en total !
   type: -Questionnaire
   donecorrectly: tu as répondu entièrement correctement. C’est super !
   heavysigh: Tu as réussi !
@@ -3135,7 +3136,7 @@ quiz:
     correctb: est incorrect. Tu as vu juste !
     answer: Réponse
     wronga: aurait également été correcte.
-    correcta: c’est correct !
+    correcta: est correct !
     fpsum: points d’erreur accumulés
     sadlywrong: a malheureusement été mal répondu.
     alsowrong: a malheureusement été considéré comme faux, car tu n’as rien choisi
@@ -3150,9 +3151,9 @@ quiz:
   nownownow: Commencer le quiz maintenant
   timedstart: Démarrer le quiz avec une limite de temps et 10 questions
   finishnow:
-    fs: Terminez maintenant votre inscription Foodsaver.
+    fs: Terminer maintenant ton inscription Foodsaver.
     bv: Terminer maintenant l’inscription du responsable de coopération.
-    bot: Terminez maintenant votre inscription d’ambassadeur·ice.
+    bot: Terminer maintenant ton inscription d’ambassadeur·rice.
   learnbreak: Pause d’apprentissage
   session_deleted: Les résultats de ce quiz ont été supprimés, car le quiz a été clôturé
     il y a plus de deux semaines.
