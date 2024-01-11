@@ -553,7 +553,8 @@ export default {
     this.store = this.storeInformation
     this.editMode = (this.mayEditStore || this.isCoordinator)
     this.editPickups = this.loadedPickups
-    this.previousEditPickups = structuredClone(this.loadedPickups)
+    this.previousEditPickups = this.simpleClone(this.loadedPickups)
+
     if (this.store.categoryId === null) {
       this.store.categoryId = 0
     }
@@ -570,6 +571,9 @@ export default {
     }
   },
   methods: {
+    simpleClone (value) {
+      return JSON.parse(JSON.stringify(value))
+    },
     dispatchResize () {
       window.dispatchEvent(new Event('resize'))
     },
@@ -585,7 +589,7 @@ export default {
 
       try {
         showLoader()
-        const store = structuredClone(this.store)
+        const store = this.simpleClone(this.store)
         store.regionId = this.store.region.id
         delete store.region
         store.groceries = this.storeFoodIds

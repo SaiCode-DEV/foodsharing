@@ -199,6 +199,7 @@
 - Fix condition check for date in release banner !2846 @chriswalg
 - Fix condition check for release banner !2846 !2850 @chriswalg
 - fix vue update loop, that causes the site to crash when switching form landscape to portrait view !2832 !3014 @buntel
+- Replaced structureClone in store information for older browser !3043 @chriswalg
 
 ## Refactoring
 - added poppins font in Styleguide !2564 @Niklas003
