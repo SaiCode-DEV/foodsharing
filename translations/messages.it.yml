@@ -148,7 +148,7 @@ group:
   admin_count: '{0} Nessun amministratore|{1} Un amministratore| [2, Inf[ %count%
     amministratori'
   member_count: '{0} Nessun collaboratore|{1} Un collaboratore| [2, Inf[ %count% contributori'
-  subtitle: Qui troverai aiuto e tante cose da fare…
+  subtitle: Qui troverai aiuto e tante cose da fare …
   title: Gruppi di lavoro foodsharing
   administrators: Amministratori del gruppo
   members: Membri
@@ -212,7 +212,7 @@ bcard:
   choose: Devi scegliere un'opzione
   desc: Scegli qui per quale distretto o ruolo desideri creare il tuo biglietto da
     visita.
-  claim: Genera, stampa e taglia facilmente qui…
+  claim: Genera, stampa e taglia facilmente qui …
   generate: Crea biglietto da visita
   actions: Opzioni
   for: '{role} per {region}'
@@ -506,7 +506,7 @@ terminology:
   fsps: 'Punti di condivisione'
   n_home_regions: uno con il distretto di residenza|%count% con il distretto di residenza
   no_pickups: 'nessuna'
-  previous_pickups: 'Collezioni precedenti'
+  previous_pickups: 'Collezioni qui'
   electionAdmins: Elezioni
 register:
   woman: femmina
@@ -528,7 +528,7 @@ register:
   error: C'è stato un errore
   other: diversi
   man: mascile
-  select_your_gender: Per il saluto …
+  select_your_gender: Per il saluto …
   check_mail: Controlla ora la tua casella di posta elettronica per completare la
     registrazione!
   join_error: La tua registrazione non è andata a buon fine.
@@ -764,14 +764,14 @@ pickup:
   join_title_date: Siccuro?
   team_message_success: Il messaggio al team è stato inviato con successo
   team_message_send_and_leave: Invia e liberare lo slot
-  leave_team_message_template: Carissimi, {data} …
+  leave_team_message_template: Carissimi, {data} …
   leave_team_message_title: Messaggio al team
   leave_pickup_message_team: Avvisa il team
   leave_pickup_ok: Ho già un sostituto
   really_leave_date: Sei responsabile di questo ritiro. Si prega di prendersi cura
     della propria sostituzione.
   kick_message_footer: Saluti, vostri responsabili delle agenzie
-  kick_message_placeholder: Facoltativamente, aggiungi informazioni qui …
+  kick_message_placeholder: Facoltativamente, aggiungi informazioni qui …
   kick_message: ti abbiamo rimosso dal ritiro {storeName} il {date}.
   really_kick_user_info: "Vuoi davvero annullare l'iscrizione di {name} dalla raccolta
     il {date}?\n{name} riceverà il seguente messaggio su questo:\n"
@@ -994,7 +994,7 @@ store:
   important: 'Importante:'
   leaveinfo: Qui puoi fornire alcune informazioni ai/alle foodsaver che desiderano
     candidarsi per il team.
-  filter: Filtrare per …
+  filter: Filtrare per …
   enternumber: È comunque necessario selezionare il numero di persone da ritirare.
   willgetcontacted: Al momento sei nell'elenco dei foodsavers in attesa. Non appena
     ci sarà bisogno di aiuto, sarei contattat.
@@ -1220,7 +1220,7 @@ startpage:
       adeguata.\n"
     title: Pretese
   store:
-    text: Lavori in un supermercato, un ristorante, una mensa…? Registra la tua azienda
+    text: Lavori in un supermercato, un ristorante, una mensa …? Registra la tua azienda
       e salva il cibo.
     title: come azienda
   private:
@@ -1568,14 +1568,14 @@ addresspicker:
     è necessario l'indirizzo per poter offrire cesti alimentari tramite il sito web.
     Per poter partecipare ai salvataggi alimentari come <a href="https://wiki.foodsharing.de/Foodsaver">Foodsaver</a>,
     è necessario.
-  infobox: Inserisci l'indirizzo nel campo di testo tra questo messaggio e la carta
+  infobox: Inserisci l’indirizzo nel campo di testo tra questo messaggio e la carta
     e poi confermalo selezionandolo sulla carta.
   placeholder: Si prega di cercare l’indirizzo qui. Se necessario, correggere in seguito.
   different_location: 'L''indirizzo è indipendente dalla posizione geografica'
 recipients:
   done: Tutte le e-mail sono state inviate
   unknown: sconosciuto
-  status: 'Invio delle e-mail… (indirizzo e-mail attuale: {current})'
+  status: 'Invio delle e-mail … (indirizzo e-mail attuale: {current})'
   permission: Non sei autorizzato/a a inviare e-mail
   abort: annulla l'invio
   continue: invia
@@ -1681,7 +1681,7 @@ events:
     maybe: forse
     yes: partecipo
     change: 'Cambia risposta'
-  morePeople: '... e altri {count}'
+  morePeople: '… e altri {count}'
   invitedCount: '{count} Inviti'
   maybeCount: '{count} può forse partecipare'
   acceptedCount: '{count} ci sono'
@@ -1851,7 +1851,7 @@ bell:
   fs_sleepmode_title: Nuovo dormiglione
   poll_new_title: Nuova votazione
   foodsaver_verified_title: 'Ora sei verificato!'
-  foodsaver_verified: 'controlla la tua carta d''identità su …'
+  foodsaver_verified: 'controlla la tua carta d’identità su …'
   new_foodsaver_needs_verification: 'Deve essere verificato'
   forum_post_title: '{title}'
   forum_post:
@@ -1949,7 +1949,7 @@ filterlist:
   some_in_all: ({some} da {all})
   filter_for_name_id: 'Nome o ID'
 list:
-  filter_for: Filtra per…
+  filter_for: Filtra per …
 menu:
   entry:
     imprint: Impronta
@@ -2093,9 +2093,9 @@ basket:
   requests: Richieste ({count})
   provider: Fornitore
   where: Dove?
-  updated: Attualizzato il <strong>{date}</strong>
+  updated: Attualizzato <strong>{date}</strong>
   expires: Valido fino al <strong>{date}</strong>
-  created: Pubblicato il <strong>{date}</strong>
+  created: Pubblicato <strong>{date}</strong>
   date: Impostazione della data
   new: Nuovo cesto alimentare
   delete: Cancellare cestino di cibo
@@ -2105,7 +2105,7 @@ basket:
   on: Cestino di cibo da {platform}
   by: Cesto alimentare da {name}
   go: al cesto di cibo
-  mapsearch: Ricerca indirizzo…
+  mapsearch: Ricerca indirizzo …
   nearby-short: Vicino a te
   nearby: Cesti alimentari vicino a te
   recent: Ultimi cesti alimentari
@@ -2246,8 +2246,8 @@ search:
   mystores: Le mie aziende
   mybuddies: I miei Buddies
   thread-title-only: Vengono ricercati solo i titoli, non il testo dei post.
-  forum: Cerca per titolo …
-  placeholder: Avvia la ricerca ora …
+  forum: Cerca per titolo …
+  placeholder: Avvia la ricerca ora …
   persons: Persone
   groups: Gruppi
   myregions: I miei distretti
@@ -2286,6 +2286,9 @@ search:
   too_short: Inserisci un termine di ricerca più lungo.
   maxresults: Il numero di risultati visualizzati è limitato. Forse usa un termine
     di ricerca più specifico.
+  scope:
+    global: Ricerca globale
+    local: Ricerca specifica per utente
 profile:
   report:
     arbAdminAgainstRepAdmin: Sei un amministratore del collegio arbitrale e vuoi segnalare
@@ -2393,7 +2396,7 @@ profile:
     alreadyGiven: '{name} ha già ricevuto una banana da te.'
     messageTooShort: Inserisci almeno 100 caratteri di testo sulla tua banana.
     sent: La banana è stata inviata!
-    placeholder: almeno 100 caratteri…
+    placeholder: almeno 100 caratteri …
     vouch: "Quindi, per favore, dai la banana della fiducia solo a persone che conosci
       personalmente,\nche rispettano le regole di condotta e l'accordo legale\ne di
       cui potete garantire l'affidabilità e l'impegno.\n"
@@ -2657,7 +2660,7 @@ mailbox:
   mark_as_unread: Contrassegna l'e-mail come non letta
   filesize: Scusa, il file è troppo grande.
   filetype: Questo tipo di file non è permesso
-  ratelimit: Puoi inviare solo un'email ogni 15 secondi, per favore aspetta un momento …
+  ratelimit: Puoi inviare solo un’email ogni 15 secondi, per favore aspetta un momento …
   recipients: Troppi destinatari
   failed: L'e-mail non può essere inviata.
   okay: L'e-mail è stata inviata con successo.
@@ -2961,6 +2964,7 @@ releases:
   "2022-12": 'Versione “Gelato” 🍨 (dicembre 2022)'
   "2022-01": 'Versione “Pompelmo” 🍋 (gennaio 2022)'
   "2023-09": Versione “Jackfruit” 🍈 (settembre 2023)
+  "2024-01": Versione “Kiwi” 🥝 (gennaio 2024)
 base:
   jsrequired: Sfortunatamente, qui non funziona nulla senza JavaScript.
   slogan: Condividere il cibo invece di buttarlo via – foodsharing
@@ -2999,7 +3003,7 @@ regionPin:
   header_page: Descrizione pubblica del gruppo locale per il distretto {bezirk}
   pin_visible: Pin visibile sulla mappa
   text_desc: Si prega di fornire una descrizione del gruppo locale o dell'opzione
-    di contatto qui. Questo è mostrato nel popup del pin dalla …
+    di contatto qui. Questo è mostrato nel popup del pin dalla …
 edit_websites: Modificare siti web pubblici
 request_time: 'Orario della richiesta:'
 quiz:
@@ -3137,7 +3141,7 @@ globals:
     signin: 'Accedi'
     signup: 'Partecipa'
   close: 'Chiudi'
-  select: 'Si prega di selezionare …'
+  select: 'Si prega di selezionare …'
   you: 'Tu'
   show_less: 'Mostra meno'
   save: 'Salva'
@@ -3147,7 +3151,7 @@ activitypost:
   response: 'risposta'
   quickreply_info: '<code class="key">Maiusc + Invio</code> per aggiungere una nuova
     riga.'
-  write: 'Scrivi una risposta…'
+  write: 'Scrivi una risposta …'
   quickreply_button: 'Invia ora<br>o <code class="key">premi Invio</code>.'
   Response: 'Risposta'
 bootstrap-datepicker:
@@ -3268,7 +3272,7 @@ chain:
           catena.'
       estimatedStoreCount:
         description: Numero totale di negozi della catena
-        label: Numero previsto di negozi
+        label: Filiali
         invalidfeedback: Sono ammessi solo numeri interi.
     title:
       edit: 'Modifica catena'
@@ -3282,12 +3286,12 @@ chain:
   filterplaceholder: 'Nome / Indirizzo / KAM ID'
   columns:
     name: 'Nome'
-    stores: 'Negozi create'
+    stores: 'creato'
     kams: 'KAMs'
     notes: 'Suggerimenti'
     headquarters: 'Sede centrale'
     status: 'Stato'
-    estimatedStoreCount: Numero previsto di negozi
+    estimatedStoreCount: Filiali
     actions: Azioni
   tooltips:
     options: 'Opzioni'
