@@ -69,7 +69,7 @@ group:
   photo: Photo
   description: Description
   name: Nom
-  subtitle: Ici tu trouveras de l’aide et bien d’autres choses …
+  subtitle: Ici tu trouveras de l’aide et bien d’autres choses …
   show-all: Tout afficher
   unique_function:
     tooltip_function_region432: les admins de ce groupe peuvent voir les signalements
@@ -226,7 +226,7 @@ bcard:
     carte de visite.
   actions: Options
   for: '{role} pour {region}'
-  claim: Générez, imprimez et découpez facilement ici…
+  claim: Générez, imprimez et découpez facilement ici …
   card: Votre carte de visite foodsharing
   title: Générateur de carte de visite
   info:
@@ -978,7 +978,7 @@ terminology:
   store: 'Magasin'
   n_home_regions: un(e) avec district d’origine|%count% avec district d’origine
   no_pickups: aucune
-  previous_pickups: Précédentes collectes
+  previous_pickups: Collectes ici
   electionAdmins: Élections
 register:
   activation_success: <strong>Activation réussie.</strong> Connecte-toi maintenant
@@ -1261,7 +1261,7 @@ store:
   willgetcontacted: Tu es actuellement sur la liste de réserve. Dès qu’une aide est
     nécessaire, tu seras contacté.
   enterdate: Inscrire une date de collecte
-  filter: Filtrer par …
+  filter: Filtrer par …
   enternumber: Tu dois encore choisir le nombre de personnes qui viendront faire la
     collecte.
   maxchar: (max. 180 caractères)
@@ -1799,7 +1799,7 @@ profile:
     sent: Ta banane a été envoyée !
     details: "Écris au min. 100 caractères décrivant pourquoi {name} mérite une banane-confiance
       de ta part.\n"
-    placeholder: min. 100 caractères…
+    placeholder: min. 100 caractères …
     vouch: "Merci de n’attribuer la banane de confiance qu’à des personnes que tu
       connais personnellement,\nqui respectent les règles de conduite et l’accord
       juridique\net dont tu peux garantir la fiabilité et l’engagement.\n"
@@ -1919,14 +1919,14 @@ pickup:
   join_title_date: Confirmer ?
   team_message_success: Le message a été envoyé à l’équipe avec succès
   team_message_send_and_leave: Envoyer et se retirer de la collecte
-  leave_team_message_template: Cher tout le monde, le {date}…
+  leave_team_message_template: Cher tout le monde, le {date} …
   leave_team_message_title: Envoyer un message à l’équipe
   leave_pickup_message_team: Notifier l’équipe
   leave_pickup_ok: J’ai déjà trouvé un(e) replaçant(e)
   really_leave_date: Tu es responsable de cette collecte, c’est ton rôle de trouver
     un(e) remplaçant(e).
   kick_message_footer: Amicalement, l’équipe des responsables coopération
-  kick_message_placeholder: 'Informations complémentaires (optionnel)…'
+  kick_message_placeholder: 'Informations complémentaires (optionnel) …'
   kick_message: Nous t’avons retiré de la collecte du {date} dans la coopération {storeName}.
   really_kick_user_info: "Souhaites-tu vraiment retirer {name} de la collecte du {date} ?\n
     {name} recevra le message suivant :\n"
@@ -2256,9 +2256,9 @@ basket:
   requests: Demandes ({count})
   provider: 'Fournisseur·euse'
   where: Où ?
-  updated: Actualisé le <strong>{date}</strong>
+  updated: Actualisé <strong>{date}</strong>
   expires: Disponible jusqu’au <strong>{date}</strong>
-  created: Publié le <strong>{date}</strong>
+  created: Publié <strong>{date}</strong>
   date: Date de création
   mapsearch: Recherche d’adresse …
   nearby-short: Autour de moi
@@ -2334,8 +2334,8 @@ search:
   mybuddies: Mes potes
   noresults: Aucun résultat
   thread-title-only: La recherche a lieu dans les titres, pas dans les contributions.
-  forum: Rechercher par titre …
-  placeholder: Commencer la recherche maintenant …
+  forum: Rechercher par titre …
+  placeholder: Commencer la recherche maintenant …
   title: Recherche
   user_search:
     placeholder: Nom ou identifiant
@@ -2369,6 +2369,9 @@ search:
   maxresults: Le nombre de résultats affichés est limité. Utilisez peut-être un terme
     de recherche plus spécifique.
   too_short: Veuillez saisir un terme de recherche plus long.
+  scope:
+    global: Recherche globale
+    local: Recherche personnalisée
 index:
   confirm_open_video: Souhaites-tu regarder la vidéo sur YouTube ? La vidéo se lancera
     dans un nouvel onglet.
@@ -2665,6 +2668,7 @@ releases:
   "2022-12": Version « Icecream » 🍨 (décembre 2022)
   "2023-08": Version « Jacquier » 🍈 (septembre 2023)
   "2023-09": Version « Jacquier » 🍈 (septembre 2023)
+  "2024-01": Version « Kiwi » 🥝 (janvier 2024)
 startpage:
   donate:
     text: "Nous nous efforçons de faire parrainer toutes nos dépenses. Cependant,
@@ -3086,7 +3090,7 @@ numbers:
 edit_websites: Modifier les pages web publiques
 request_time: 'Heure de la demande :'
 activitypost:
-  write: Écris une réponse…
+  write: Écris une réponse …
   quickreply_button: Envoyer maintenant<br>ou appuyer sur la touche <code class="key">Entrée</code>.
   quickreply_info: <code class="key">Maj + Entrée</code> pour ajouter une nouvelle
     ligne.
@@ -3221,7 +3225,7 @@ globals:
     signout: Déconnexion
     signup: Participer
     signin: Connexion
-  select: Sélectionner svp …
+  select: Sélectionner svp …
   save: Enregistrer
   you: Toi
   telephone_number: Numéro de téléphone
@@ -3331,11 +3335,11 @@ chain:
   columns:
     status: Statut
     name: Nom
-    stores: Magasins créés
+    stores: créé
     headquarters: Quartier général
     kams: Responsables des chaînes de magasins
     notes: Remarques
-    estimatedStoreCount: Nombre prévu de magasins coopérants
+    estimatedStoreCount: Filiales
     actions: Actions
   new: Créer une nouvelle chaîne
   allowpress: Dénomination publique autorisée.
@@ -3387,7 +3391,7 @@ chain:
           chaîne.'
       estimatedStoreCount:
         invalidfeedback: Seuls les nombres entiers sont autorisés comme valeurs d’entrée.
-        label: Nombre prévu de magasins coopérants
+        label: Filiales
         description: Nombre total de magasins de la chaîne susceptibles de coopérer
     cancel: Annuler
     ok: Sauvegarder
