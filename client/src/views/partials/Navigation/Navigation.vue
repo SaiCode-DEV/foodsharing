@@ -24,7 +24,7 @@
         <SideNavLoggedOut v-else />
       </b-collapse>
     </div>
-    <ModalLoader />
+    <ModalLoader v-if="isLoggedIn" />
   </b-navbar>
 </template>
 

@@ -65,6 +65,7 @@
 - Fix sorting by member state !3020 @buntel 
 - Clear browser cache when logging out to prevent cached data leaking into next logged in session !3024 @AntonBallmaier
 - Center Team member images properly !3037 @AntonBallmaier
+- Only load user details when logged in !1798 @alex.simm
 
 ## Refactoring
 - Refactor mailbox modul to vue and rest api !2580 !2870 !2871 !2918 !2934 !2971 !3002 @chriswalg @alex.simm
