@@ -239,7 +239,7 @@
           </b-form-group>
           <RegularPickup
             :edit-pickups.sync="editPickups"
-            :loaded-pickups.sync="loadedPickups"
+            :loaded-pickups="loadedPickups"
             :edit-mode="editMode"
             :max-count-pickup-slot="maxCountPickupSlot"
           />
@@ -594,10 +594,9 @@ export default {
         delete store.region
         store.groceries = this.storeFoodIds
         await updateStore(store)
-        if (this.isUpdatedRegularPickup()) {
-          await editRegularPickup(this.storeId, this.editPickups)
-          await PickupsData.mutations.loadPickups(this.storeId)
-        }
+        // TODO only send updates when neccessary
+        await editRegularPickup(this.storeId, this.editPickups)
+        await PickupsData.mutations.loadPickups(this.storeId)
         pulseSuccess(this.$i18n('storeedit.edit_success'))
         this.$bvModal.hide('storeInformationModal')
       } catch (err) {

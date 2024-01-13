@@ -167,6 +167,17 @@ export default {
   computed: {
     console: () => console,
   },
+  watch: {
+    loadedPickups: {
+      handler (newValue) {
+        this.editPickupsCopied = [...newValue]
+      },
+      immediate: true,
+    },
+    editPickupsCopied () {
+      this.$emit('update:editPickups', this.editPickupsCopied)
+    },
+  },
   async created () {
     this.editPickupsCopied = this.loadedPickups
   },
@@ -195,7 +206,6 @@ export default {
       }
 
       this.editPickupsCopied = updatedPickups
-      this.$emit('update:editPickups', this.editPickupsCopied)
     },
   },
 }

@@ -36,7 +36,7 @@
 - Change the direction of score voting !2920 @AntonBallmaier
 - Select no value by default in score voting !2920 @AntonBallmaier
 - Store wall posts can be deleted without waiting a month by store managers #1758 !2956 @AntonBallmaier
-- Moved StoreInformationModal to a tab on store page and changed the buttons for chats and leaving team !2874 !2979 !2995 !3026 @chriswalg
+- Moved StoreInformationModal to a tab on store page and changed the buttons for chats and leaving team !2874 !2979 !2995 !3026 !3048 @chriswalg
 - Show required label for phone number during register !2964 @thomas.hauschild
 - Optimized images via https://github.com/apps/imgbot !2966 @thomas.hauschild
 - Simplified Event invitation system #1736 !2926 @AntonBallmaier

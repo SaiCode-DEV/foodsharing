@@ -172,7 +172,6 @@ export default {
     return {
       isUserInStore: false,
       lastFetchDate: null,
-      loadedPickups: [],
     }
   },
   computed: {
@@ -194,17 +193,19 @@ export default {
     regionPickupRule () {
       return StoreData.getters.getStoreRegionOptions()
     },
+    loadedPickups () {
+      return PickupsData.getters.getRegularPickup()
+    },
   },
   async mounted () {
     await StoreData.mutations.loadPermissions(this.storeId)
     await DataUser.mutations.fetchDetails()
-    if (!this.isJumper && this.isVerified) {
-      await PickupsData.mutations.fetchRegularPickup(this.storeId)
-      this.loadedPickups = await PickupsData.getters.getRegularPickup()
-    }
     await StoreData.mutations.loadStoreInformation(this.storeId)
     await StoreData.mutations.loadGetRegionOptions(this.storeInformation.region.id)
     await StoreData.mutations.loadStoreMember(this.storeId)
+    if (this.isVerified && !this.permissions.isJumper) {
+      await PickupsData.mutations.fetchRegularPickup(this.storeId)
+    }
     if (!this.permissions.isJumper) {
       await StoreData.mutations.loadStoreLog(this.storeId, this.storeInformation.calendarInterval)
     }
