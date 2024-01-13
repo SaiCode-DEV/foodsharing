@@ -1048,7 +1048,7 @@ store:
     to-team: Kabul et
     to-nowhere: Reddet
     unverified: Kullanıcı doğrulanmadı
-    distance: yaklaşık {distance} km uzakta yaşıyor
+    distance: Yaklaşık {distance} km uzakta yaşıyor
     distance_close: 1 km'den daha yakın bir mesafede yaşıyor
     distance_unknown: ikamet yeri sağlanmadı
     air_line: Gösterilen mesafe kuş uçuşu uzaklığına denk gelir.
