@@ -1189,8 +1189,8 @@ store:
     to-jumper: 'Lista de suplentes'
     title: 'Consultas para {storeTitle}'
     withdrawn: 'La solicitud fue retirada con éxito.'
-    distance: vive a unos {distance} km de distancia
-    distance_close: vive a menos de 1 km de distancia
+    distance: Vive a unos {distance} km
+    distance_close: Vive a menos de 1 km
     distance_unknown: no se especifica el lugar de residencia
     unverified: Usuario no está verificad@
     air_line: La distancia indicada es en línea recta.
