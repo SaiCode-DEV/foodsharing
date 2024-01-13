@@ -788,8 +788,8 @@ store:
     request: ''
     to-team: ''
     got-it: ''
-    distance: bydlí asi {distance} km daleko
-    distance_close: bydlí méně než 1 km daleko
+    distance: Bydlí asi {distance} km daleko
+    distance_close: Bydlí méně než 1 km daleko
     distance_unknown: ''
     unverified: ''
     air_line: ''
