@@ -30,8 +30,8 @@ betrieb: Cooperação comercial
 active: Activado
 store:
   request:
-    distance: mora a cerca de {distance} km de distância
-    distance_close: mora a menos de 1 km de distância
+    distance: Mora a cerca de {distance} km de distância
+    distance_close: Mora a menos de 1 km de distância
     title: ''
     to-team: ''
     withdrawn: ''
