@@ -73,7 +73,7 @@ group:
   show-all: Tout afficher
   unique_function:
     tooltip_function_region432: Les admins de ce groupe de travail peuvent voir les
-      signalements
+      plaintes
     tooltip_function_region2287: Les admins de ce groupe peuvent modifier le contenu
       de la page d’accueil
     tooltip_function_region1811: Les admins de ce groupe de travail peuvent modifier
@@ -93,15 +93,14 @@ group:
       dans les forums déjà modérés.
     tooltip_function_9: Les administrateur·rice·s de ce groupe de travail peuvent
       modifier la description du groupe local pour la carte.
-    tooltip_function_7: Les admins de ce groupe de travail reçoivent les signalements
-      dont le groupe de signalements fait l’objet. Les signalements concernant les
-      admins restent invisibles et seront directement envoyés au groupe en charge
-      des signalement
+    tooltip_function_7: Les admins de ce groupe de travail reçoivent les plaintes
+      dont le groupe de plaintes fait l’objet. Les plaintes concernant les admins
+      restent invisibles et seront directement envoyés au groupe en charge des plaintes
     tooltip_function_6: L’adresse courriel de ce groupe de travail est liée à la fonction
       « demander une médiation ». Les admins n’ont pas d’autorisations spéciales.
-    tooltip_function_5: Les admins de ce groupe de travail peuvent voir les signalements
-      dans le district. Les signalements concernant les admins restent invisibles
-      et seront directement envoyés à la commission d’arbitrage.
+    tooltip_function_5: Les admins de ce groupe de travail peuvent voir les plaintes
+      dans le district. Les plaintes concernant les admins restent invisibles et seront
+      directement envoyés à la commission d’arbitrage.
     tooltip_function_4: Les admins de ce groupe de travail peuvent voir et modifier
       les coopérations du district
     fsp: "Frigo solidaire"
@@ -124,8 +123,8 @@ group:
       ne peut y avoir qu’une telle équipe par secteur géographique.
     duplicate_mediation_team: L’équipe de médiation existe déjà ! Il ne peut y avoir
       qu’une telle équipe par district.
-    duplicate_report_team: L’équipe en charge des signalements existe déjà ! Il ne
-      peut y avoir qu’une telle équipe par secteur géographique.
+    duplicate_report_team: L’équipe en charge des plaintes existe déjà ! Il ne peut
+      y avoir qu’une telle équipe par secteur géographique.
     duplicate_stores_team: L’équipe de coordination des coopérations existe déjà !
       Il ne peut y avoir qu’une telle équipe par district.
     duplicate_fsp_team: L’équipe de frigos solidaires existe déjà ! Il ne peut y avoir
@@ -140,7 +139,7 @@ group:
     fsmanagement: Gestion
     arbitration: Commission d’arbitrage
     mediation: Médiation
-    report: Signalements
+    report: Plaintes
     stores: Coopérations
     voting: Vote
     welcome: Souhaits de bienvenue
@@ -909,8 +908,8 @@ terminology:
   groups: Groupes de travail
   basket: Panier solidaire
   baskets: Paniers solidaires
-  arbitration: Vue des signalements
-  reports: Vue des signalements
+  arbitration: Vue des plaintes
+  reports: Vue des plaintes
   statistic: Statistique
   wall: Tableau
   moderationAdmins: Équipe de modérateur·rices
@@ -918,7 +917,7 @@ terminology:
   fsManagementAdmins: Gestion
   arbitrationAdmins: Équipe d’arbitrage
   mediationAdmins: Équipe médiation
-  reportAdmins: Équipe en charge des signalements
+  reportAdmins: Équipe de traitement des plaintes
   storesAdmins: Équipe de coordination des coopérations
   fspAdmins: Équipe en charge des frigos solidaires
   votingAdmins: Équipe en charge des votes
@@ -1173,8 +1172,8 @@ store:
     request: Je souhaite aider dans cette équipe.
     no-duplicate: Il existe déjà une demande.
     unverified: L’utilisateur·rice n’est pas vérifié·e
-    distance: habite à environ {distance} km
-    distance_close: habite à moins de 1 km
+    distance: Habite à environ {distance} km
+    distance_close: Habite à moins d’un kilomètre
     distance_unknown: Aucun lieu de résidence précisé
     air_line: La distance affichée est à vol d’oiseau.
   sm:
@@ -1185,7 +1184,7 @@ store:
     filterQuizSM: Quiz pour responsables coopération réussi
     filterJumper: Remplaçants
     filterUnverified: Non-vérifé·e·s
-    filter: 'Ne montrer qu’à :'
+    filter: 'Montrer seulement :'
     pickupReset: Tri standard
     pickupDesc: Récent en premier
     pickupAsc: Récent en dernier
@@ -1373,7 +1372,7 @@ store:
       10: '{actor} a destitué {target} en tant que responsable de la coopération.'
       12: '{actor} s’est désinscrit pour la collecte du {date}.'
       2: '{actor} a refusé la demande d’adhésion de {target}.'
-      5: '{actor} a ajouté {target} à la liste des remplaçant(e)s.'
+      5: '{actor} a ajouté {target} sur la liste des remplaçant·e·s.'
       9: '{actor} a désigné {target} comme responsable de la coopération.'
       15: '{actor} a supprimé l’entrée de {target} sur le tableau d’affichage du {date}'
     no_description: aucun
@@ -1628,44 +1627,42 @@ dashboard:
 profile:
   report:
     arbAdminAgainstRepAdmin: Tu es admin dans un groupe d’arbitrage et tu essayes
-      de signaler un membre admin groupe de traitement des signalements. Cette action
+      de signaler un membre admin groupe de traitement des plaintes. Cette action
       est pour l’instant techniquement impossible. Néanmoins, tu peux envoyer un signalement
       par courriel aux responsables locaux pour leur faire part du problème.
-    repAdminAgainstArbAdmin: Tu es admin dans un groupe de traitement des signalements
+    repAdminAgainstArbAdmin: Tu es admin dans le groupe de traitement des plaintes
       et tu essayes de signaler un membre admin du groupe d’arbitrage. Cette action
       est pour l’instant techniquement impossible. Néanmoins, tu peux envoyer un signalement
       par courriel aux responsables locaux pour leur faire part du problème.
-    reporterAdminNoArbitration: Tu es admin dans un groupe local de signalement et
-      comme il n’existe pas de groupe d’arbitrage, tu ne peux pas porter de signalement.
-    reportedAdminNoArbitration: Tu ne peux pas signaler {name} car iel est administrateur·ice
-      dans le groupe de signalement de son secteur géographique et qu’aucun groupe
-      d’arbitrage y existe.
-    noReportGroup: Le support technique n’est pas disponible car il n’existe pas de
-      groupe local de signalement dans le secteur géographique du collecteur / de
-      la collectrice concerné·e.
-    reporterHasNoReportGroup: Le support technique n’est pas disponible car il n’existe
-      pas de groupe local de signalement dans ce secteur géographique.
-    oldReportButtonTextPart3: Plus d’infos sur le système des signalements ? →
-    oldReportButtonTextPart2: Tournez-vous vers le groupe de signalement local dans
-      votre secteur géographique.
-    oldReportButtonTextPart1: Les signalement ne sont actuellement pas pris en compte
-      ici.
+    reporterAdminNoArbitration: Tu es admin dans le groupe local de plaintes et comme
+      il n’existe pas de groupe d’arbitrage, tu ne peux pas porter de plainte.
+    reportedAdminNoArbitration: Tu ne peux pas te plaindre de {name} car iel est administrateur·ice
+      dans le groupe de plaintes de son secteur géographique et qu’aucun groupe d’arbitrage
+      y existe.
+    noReportGroup: Tu ne peux pas utiliser le système de plaintes car il n’est pas
+      activé pour la région d’origine de ce(tte) collecteur·ice.
+    reporterHasNoReportGroup: Tu ne peux pas utiliser le système de plaintes car il
+      n'y a pas de groupe local de plaintes dans ton district pour le moment.
+    oldReportButtonTextPart3: Plus d’infos sur le système des plaintes ? →
+    oldReportButtonTextPart2: Si nécessaire, contacte le groupe local de plaintes
+      de ton secteur géographique.
+    oldReportButtonTextPart1: Aucune plainte n’est actuellement signalée ici.
     oldReportButton: Signaler un manquement aux règles
-    mail: 'Tu peux joindre le groupe de signalement local grâce à cette adresse courriel :'
-    sent: Le signalement a été envoyé
-    send: Envoyer le signalement
+    mail: 'Tu peux joindre le groupe de plaintes local grâce à cette adresse courriel :'
+    sent: La plainte a été envoyé
+    send: Déposer la plainte
     info: Renseigne la date, le lieu et l’horaire de l’incident. Vérifie de bien avoir
       essayé tous les moyens de communication à ta disposition afin de régler ce différend
       directement avec la personne concernée. Communique la manière dont tu souhaites
       être recontacté·e pour d’éventuelles questions.
-    title: Signalement à propos de {name}
+    title: Plainte concernant {name}
     control:
       tot: total
       notes: Notes et décisions
-      from: Signalement de
-      newreports: Nouveau signalement
+      from: Plainte de
+      newreports: Nouveau plaintes
       total: au total
-      delivered: Signalements envoyés
+      delivered: Plaintes envoyés
     view:
       bossy: A eu un comportement exigeant/agressif
       other: A enfreint d’autres règles de conduite (tout autre)
@@ -1691,7 +1688,7 @@ profile:
       ofclients: de la clientèle
       delivered: Mis à disposition
       picky: Ne prend pas tous les aliments prévus pour la collecte
-      newreport: Nouveau signalement
+      newreport: Nouveau plaintes
       vsclients: envers la clientèle
       nearclients: devant la clientèle
       thief: A pris des choses qui ne lui étaient pas destinées
@@ -1710,19 +1707,19 @@ profile:
       de personne de remplacement
     sells: Vend des denrées alimentaires sauvées
     xhr:
-      allofthem: Tous les signalements concernant
-      delivered: Signalement envoyé
-      reporting: Signalement sur
+      allofthem: Tous les plaintes concernant
+      delivered: Plainte envoyé
+      reporting: Plainte concernant
       reportID: ID du rapport
       reportee: Signalé par
-      plsconfirm: Supprimer définitivement ce signalement ?
-      confirmed: Signalement confirmé !
-      deleted: Le signalement a été supprimé !
-    kindofreport: Sélectionne le type de signalement
+      plsconfirm: Vraiment supprimer cette plainte ?
+      confirmed: Plainte confirmé !
+      deleted: La plainte a été supprimé !
+    kindofreport: Veuillez sélectionner le type de plainte
     late: Est arrivé·e trop tard
-    readup: "Vous pouvez lire ici des indications sur le traitement d’un signalement :
+    readup: "Vous pouvez lire ici des indications sur le traitement d’une plainte :
       <a href=\"https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung\"\
-      >Traitement d’un signalement</a>"
+      >Traitement d’une plainte</a>"
     doesNotAffectStore: N’affecte aucune ou une autre coopération
   mediation:
     no_group: Il n’existe malheureusement pas encore de groupe local de médiation
@@ -1745,7 +1742,7 @@ profile:
     may: actif.ve
     who: '{name} de {from}'
   mediationRequest: Demander une médiation
-  reportRequest: déposer un signalement
+  reportRequest: Déposer une plainte
   pinboard: Mis à jour de statut de {name}
   about_me_intern: À propos de moi
   workgroups: '{name} est interlocuteur.ice pour les groupes de travail suivants :'
@@ -1787,7 +1784,7 @@ profile:
     actionBy: par
   nav:
     storelist: Coopérations ({count})
-    violations: Signalements <strong>({count})</strong>
+    violations: Plaintes <strong>({count})</strong>
     notes: Notes <strong>({count})</strong>
     verificationHistory: Historique de vérification du membre
     history: Historique de la carte de membre
@@ -2425,8 +2422,8 @@ genderlist:
 regionOptions:
   enableMediationButton: Activer le bouton « médiation » sur le profil des collecteur·ice·s
     pour leur secteur géographique favori.
-  enableReportButton: Activer le bouton « signalement » sur le profil des collecteur·ice·s
-    pour leur secteur géographique favori.
+  enableReportButton: Active le bouton « déposer une plainte » sur les profils des
+    collecteur·ice·s dont c’est le quartier d’origine.
   save: Enregistrer les options
   success: Les options ont été enregistrées avec succès
   header_page: Options pour {bezirk}
@@ -2460,7 +2457,7 @@ list:
   filter_for: Filtrer suivant …
 bell:
   report_reason: '{reason}'
-  new_report_title: Nouveau signalement à propos de {name}
+  new_report_title: Nouveau plainte concernant {name}
   banana_given: "{name} t’a offert une banane de confiance."
   banana_given_title: Nouvelle banane de confiance
   workgroup_request_decline: Le groupe de travail a décliné ta demande.
@@ -2541,17 +2538,17 @@ home:
   title: Page d’accueil
 reports:
   reportmessage: Dis-nous par quel moyen tu es joignable pour d’éventuelles questions.
-  info: " Fntre la <b>date</b>, le <b>lieu</b> et l’<b>horaire</b> liés au signalement ! !
+  info: " Entre la <b>date</b>, le <b>lieu</b> et l’<b>horaire</b> de l’incident !
     <br> Vérifie que tu as bien utilisé les moyens de communication disponibles pour
     joindre la personne en question et en parler directement avec elle et clarifier
     la situation. Dis-nous comment nous pouvons te joindre si nous avons besoin de
     plus de détails pour régler le différend."
   when: Horaire
-  in-store: Le signalement est-il lié à une coopération en particulier où {user} collecte ?
+  in-store: La plainte concerne-t-elle un coopération particulier où {user} collecte ?
   store: Coopération associée
-  no_reports_fallback: Il n’y a pas encore de signalement
+  no_reports_fallback: Il n’y a pas encore de plaintes
   time: Horaire
-  report_id: ID de signalement
+  report_id: Numéro de plainte
   region: Secteur géographique favori
   reason: Raison
   message: Description
@@ -3197,7 +3194,7 @@ filter_by: Filtrer par
 system_administration:
   mailboxes: Gérer les boîtes aux lettres
   quiz: Gérer le quiz
-  reports: Consulter les signalements
+  reports: Afficher les plaintes
   regions: Gérer les secteurs géographiques
   content: Modifier le contenu
   blog: Modifier les articles du blog
