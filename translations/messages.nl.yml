@@ -628,8 +628,8 @@ store:
     verified: ''
     got-it: ''
     to-nowhere: ''
-    distance: woont ongeveer {distance} km verderop
-    distance_close: woont op minder dan 1 km afstand
+    distance: Woont ongeveer {distance} km verderop
+    distance_close: Woont op minder dan 1 km afstand
     distance_unknown: ''
     unverified: ''
     air_line: ''
