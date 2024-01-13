@@ -1906,9 +1906,9 @@ store:
       with you.
     no-duplicate: There is already a request.
     unverified: User is not verified
-    distance_close: lives less than 1 km away
+    distance_close: Lives less than 1 km away
     distance_unknown: no place of residence provided
-    distance: lives about {distance} km away
+    distance: Lives about {distance} km away
     air_line: The distance shown is as the crow flies.
   sm:
     reallyRemove: Do you really want to remove {name} from the store team?
