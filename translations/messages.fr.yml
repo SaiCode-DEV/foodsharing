@@ -1159,9 +1159,9 @@ store:
   bread: Toutes les coopérations
   request:
     to-nowhere: Refuser
-    to-jumper: Liste des remplaçant(e)s
+    to-jumper: Liste des remplaçant·e·s
     to-team: Accepter
-    verified: L’utilisateur·ice est vérifié·e
+    verified: L’utilisateur·rice est vérifié·e
     title: Demandes pour {storeTitle}
     withdrawn: Ta demande a été retirée avec succès.
     withdraw: Retirer ma demande
@@ -1172,19 +1172,19 @@ store:
       peu.
     request: Je souhaite aider dans cette équipe.
     no-duplicate: Il existe déjà une demande.
-    unverified: L’utilisateur·ice n’est pas vérifié
+    unverified: L’utilisateur·rice n’est pas vérifié·e
     distance: habite à environ {distance} km
     distance_close: habite à moins de 1 km
     distance_unknown: Aucun lieu de résidence précisé
     air_line: La distance affichée est à vol d’oiseau.
   sm:
     makeRegularTeamMember: Intégrer dans l’équipe
-    makeJumper: Nommer remplaçant(e)
+    makeJumper: Nommer remplaçant·e
     reallyRemove: Souhaites-tu vraiment retirer {name} de cette équipe ?
     removeFromTeam: Retirer de l’équipe
     filterQuizSM: Quiz pour responsables coopération réussi
     filterJumper: Remplaçants
-    filterUnverified: Non-vérifé(e)s
+    filterUnverified: Non-vérifé·e·s
     filter: 'Ne montrer qu’à :'
     pickupReset: Tri standard
     pickupDesc: Récent en premier
@@ -1211,8 +1211,8 @@ store:
     toogleIsReducedStateOpen: développer la liste
     filterSleeping: bonnet de couchage
     toogleIsReducedStateClosed: réduire la liste
-    filterManage: Quiz de responsable de magasin ou supérieur
-  springer_conversation_name: Replaçant(e) {name}
+    filterManage: Quiz de responsable coopération ou supérieur
+  springer_conversation_name: Replaçant·e {name}
   team_conversation_name: Équipe {name}
   days_before: avant
   days: jours
@@ -1225,7 +1225,7 @@ store:
   average_collection_quantity: Poids collecté en moyenne
   particularities: Particularités
   mayManage: A réussi le test Responsable coopération.
-  mayAmb: A réussi le test Ambassadeur·ice.
+  mayAmb: A réussi le test Ambassadeur·rice.
   fetchCount: a collecté {count}× ici.
   isNotVerified: N’est pas encore vérifié(e).
   isJumper: Est sur la liste des remplaçant·e·s.
@@ -1234,14 +1234,14 @@ store:
   unknownDate: inconnue
   lastPickupShort: dernière collecte le {date}
   lastPickup: 'Dernière collecte : {date}'
-  jumperSince: Remplaçant(e) depuis le {date}
+  jumperSince: Remplaçant•e depuis le {date}
   memberSince: Dans l’équipe depuis le {date}
   teamName: Équipe {storeTitle}
   error: La page de la coopération n’a pas pu être chargée.
   go: Page de l’équipe
   noStores: Il n’y a encore aucune coopération
   addNewStoresButton: Inscrire une nouvelle coopération
-  allStoresOfRegion: Toutes les coopérations dans ce districte
+  allStoresOfRegion: Toutes les coopérations dans ce district
   tooltip_managing: Tu es responsable de cette coopération
   tooltip_red: Collectes disponibles aujourd’hui ou demain
   tooltip_orange: Collectes disponibles dans les trois prochains jours
@@ -1250,8 +1250,8 @@ store:
   pickup_slot_unavailable: Cette collecte n’est pas disponible car les responsables
     de la coopération ne l’ont pas encore prévue. Réessaye plus tard.
   appliedFor: Demande envoyée
-  regionPickupRulesInactive: Les règles de secteur géographique supplémentaires pour
-    les collectes ne sont pas actives
+  regionPickupRulesInactive: Les règles du district supplémentaires pour les collectes
+    ne sont pas actives
   convince:
     much: C’était difficile, mais la personne a fini par accepter.
     none: Pas de problème du tout, la personne a tout de suite été enthousiaste !
@@ -1264,7 +1264,7 @@ store:
   tooltip_jumping: Tu es remplaçant·e pour cette coopération
   peoplecame: Il est arrivé que des personnes se rendent au magasin sans avoir prévenu.
   willgetcontacted: Tu es actuellement sur la liste de réserve. Dès qu’une aide est
-    nécessaire, tu seras contacté.
+    nécessaire, tu seras contacté·e.
   enterdate: Inscrire une date de collecte
   filter: Filtrer par …
   enternumber: Tu dois encore choisir le nombre de personnes qui viendront faire la
@@ -1297,7 +1297,7 @@ store:
     search_reset: Réinitialiser la recherche
     no_record: Aucune entrée n’a été trouvée.
     is_closed: L’équipe est fermée
-  leaveinfo: Ici, tu peux indiquer quelques informations pour les collecteurs·ices
+  leaveinfo: Ici, tu peux indiquer quelques informations pour les collecteurs·rices
     qui souhaitent postuler pour faire partie de l’équipe.
   prefetchfour: 4 semaines
   ownStores: 'Coopérations propres'
@@ -1309,8 +1309,8 @@ store:
   particularities_chain_tooltip: Cet établissement fait partie d’une chaîne. Pour
     cette raison, ces informations supplémentaires sont affichées, qui s’appliquent
     à tous les établissements de cette chaîne.
-  enter_date: Entrez une seule date de ramassage
-  delete_date: Supprimer une seule date de ramassage
+  enter_date: Entrez une seule date de collecte
+  delete_date: Supprimer une seule date de collecte
   team_container: Équipe
   active: Actifs
   one_active: actif
@@ -1318,37 +1318,37 @@ store:
   unverified_member: non vérifié
   unverified_members: non vérifiés
   info_container: Informations
-  delete_date_description: Si tu utilise des créneaux réguliers (hebdomadaires récurrents
-    automatiquement) dans ta coopération et que tu souhaite empêcher la création d’une
-    date spécifique (par exemple, un jour férié), tu peux utiliser cette fonction
-    pour t'en assurer en spécifiant la date et l’heure. Si tu souhaite supprimer des
-    créneaux déjà visibles,  tu peux le faire directement en cliquant sur le créneau,
+  delete_date_description: Si tu utilises des créneaux réguliers (hebdomadaires récurrents
+    automatiquement) dans ta coopération et que tu souhaites empêcher la création
+    d’une date spécifique (par exemple, un jour férié), tu peux utiliser cette fonction
+    pour t'en assurer en spécifiant la date et l’heure. Si tu souhaites supprimer
+    des créneaux déjà visibles, tu peux le faire directement en cliquant sur le créneau,
     à condition que personne n’ait été renseigné.
   enter_date_description: Après avoir sélectionné la date, l’heure et le nombre de
-    personnes pour la collecte, tu peux définir des créneaux une seule fois pour ce
-    rendez-vous. Si tu souhaite créer des créneaux réguliers (hebdomadaires récurrents
-    automatiquement), utilise le menu « Paramètres de cette coopération».
-  not_verified: Vous n’êtes pas encore vérifié. Par conséquent, vous ne pouvez pas
-    voir les créneaux horaires et les numéros de téléphone des membres de l’équipe.
+    personnes pour la collecte, tu peux définir un créneau unique. Si tu souhaites
+    créer des créneaux réguliers (hebdomadaires récurrents automatiquement), utilise
+    le menu « Paramètres de cette coopération ».
+  not_verified: Tu n’es pas encore vérifié·e. Par conséquent, tu ne peux pas voir
+    les créneaux horaires et les numéros de téléphone des membres de l’équipe.
   requests: Demandes ouvertes ({count})
   log:
     type:
-      3: Demandes d’adhésion acceptées
-      2: Demandes d’adhésion refusées
-      7: Ejections de l’équipe
-      14: Confirmations d’inscriptions
-      1: Demandes d’adhésion
-      16: Retraits des demandes d’adhésion
-      8: Départs d’équipe
-      4: Personnes ajoutées manuellement à l’équipe
+      3: Accepter demandes d’adhésion
+      2: Refuser demandes d’adhésion
+      7: Éjecter de l’équipe
+      14: Confirmer inscriptions
+      1: Demande d’adhésion
+      16: Retirer demande d’adhésion
+      8: Quitter l’équipe
+      4: Ajouter des personnes manuellement à l’équipe
       10: Retirer des responsables de cette coopération
-      6: intégré dans l’équipe active
+      6: intégrer dans l’équipe active
       12: Annulation des collectes
       9: Ajouter aux responsables de cette coopération
-      5: Déplacé sur la liste de remplacement
-      13: Débits pour les collectes
-      11: Inscription pour les ramassages
-      15: Suppression d’entrées de mur
+      5: Déplacer sur la liste de reserve
+      13: Être retiré de la collecte
+      11: Inscription pour les collectes
+      15: Supprimer entrée du mur
       18: Rendez-vous de retrait automatique créé ou modifié
       17: Rendez-vous de ramassage individuel créé ou modifié
     max_entries_message: Un maximum de 100 entrées est affiché. Limite le champ de
@@ -1358,7 +1358,7 @@ store:
     selected_log_types: '{amount} types d’actions sélectionnés'
     title: Protocole d’actions
     message:
-      6: '{actor} a pris {thomas} dans l’équipe active.'
+      6: '{actor} a pris {target} dans l’équipe active.'
       1: '{actor} veut rejoindre l’équipe.'
       14: '{actor} a confirmé l’inscription de {target} pour la collecte du {date}.'
       3: '{actor} a accepté la demande d’adhésion de {target}.'
