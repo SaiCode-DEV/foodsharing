@@ -148,8 +148,8 @@ store:
     verified: ''
     no-duplicate: ''
     to-team: ''
-    distance: wunnt ongeféier {distance} km ewech
-    distance_close: wunnt manner wéi 1 km ewech
+    distance: Wunnt ongeféier {distance} km ewech
+    distance_close: Wunnt manner wéi 1 km ewech
     distance_unknown: ''
     unverified: ''
     air_line: ''
