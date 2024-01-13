@@ -1885,7 +1885,7 @@ pickuplist:
   day_tab: Jour
   header_for_district: 'Répartition des collectes à {bezirk} '
 pickup:
-  dates: Échéances des collectes
+  dates: Créneaux des collectes
   edit:
     added: La collecte a été ajoutée.
     many-people: "Tu as inscrit plus de deux personnes pour la collecte.\n<br>\nN’envoie
@@ -1908,25 +1908,25 @@ pickup:
     title: Historique des collectes
   slot_remove: Retirer un créneau
   slot_add: Ajouter un créneau
-  add_onetime_pickup: Ajouter une collecte exceptionnelle
+  add_onetime_pickup: ajouter une collecte exceptionnelle
   edit_recurring_pickups: Modifier les collectes régulières
   delete_not_empty: Des Foodsavers sont encore inscrits. Tu pourras supprimer ces
     collectes seulement après que chacun se soit retirés.
   really_delete_date: Souhaites-tu vraiment supprimer la collecte du {date} ?
   delete_title: Supprimer la collecte
   take_empty_slot: Sélectionner cette collecte
-  join_agree: Oui, je m’engage
+  join_agree: Oui, je m’oblige
   join_cancel: Finalement non
-  really_join_date: T’engages-tu vraiment à réaliser cette collecte le {date} ?
-  join_title_date: Confirmer ?
+  really_join_date: T’obliges-tu vraiment à réaliser cette collecte le {date} ?
+  join_title_date: Confirmer
   team_message_success: Le message a été envoyé à l’équipe avec succès
   team_message_send_and_leave: Envoyer et se retirer de la collecte
   leave_team_message_template: Cher tout le monde, le {date} …
   leave_team_message_title: Envoyer un message à l’équipe
   leave_pickup_message_team: Notifier l’équipe
-  leave_pickup_ok: J’ai déjà trouvé un(e) replaçant(e)
+  leave_pickup_ok: J’ai déjà trouvé un·e remplaçant·e
   really_leave_date: Tu es responsable de cette collecte, c’est ton rôle de trouver
-    un(e) remplaçant(e).
+    un·e remplaçant·e.
   kick_message_footer: Amicalement, l’équipe des responsables coopération
   kick_message_placeholder: 'Informations complémentaires (optionnel) …'
   kick_message: Nous t’avons retiré de la collecte du {date} dans la coopération {storeName}.
@@ -1935,7 +1935,7 @@ pickup:
   really_leave_date_title: Se retirer de la collecte du {date} ?
   signout_confirm: Continuer ?
   signout_info: Toutes tes collectes futures dans cette équipe vont être retirées.
-  signout_sure: Souhaites-tu quitter cette équipe ?
+  signout_sure: Souhaites-tu vraiment quitter cette équipe ?
   copiedNumber: '« {number} » a été copié dans le presse-papier.'
   copyNumber: Copier le numéro dans le presse-papier
   open_profile: Profil de
@@ -1996,9 +1996,10 @@ pickup:
       remove_reason: '(Raison : {reason})'
     reload: Recharger
     no_signouts_found: Aucune désinscription n’a été trouvée.
-    title: Historique des collecteur·ice·s désinscrits au cours des 7 derniers jours
-  no_slots_available: Aucun slot disponible
-  region_pickup_rule_failed: Cette entrée ne respecte pas les règles du secteur géographique
+    title: Historique des collecteur·ice·s désinscrit·e·s au cours des 7 derniers
+      jours
+  no_slots_available: Aucun créneau disponible
+  region_pickup_rule_failed: Cette entrée ne respecte pas les règles du district
   edit_description: Modifier la description
   description_optional: Description (facultatif)
   description: Description
@@ -2157,16 +2158,16 @@ storeedit:
     amb: "Tu n’es pas responsable de ce magasin.\nTu possèdes néanmoins des droits
       étendus en tant qu’ambassadeur·rice.\n"
     note: 'Conseils :'
-    unmanaged: "Il n’y a actuellement aucun· e responsable dans cette coopération.\n
+    unmanaged: "Il n’y a actuellement aucun·e responsable pour cette coopération.\n
       Ajoute jusqu’à trois responsables pour gérer cette coopération.\n"
-    max-sm: Choisis au maximum 3 Responsables coopération
+    max-sm: Choisis au maximum 3 responsables coopération
     need-sm: Il doit y avoir au minimum un·e responsable pour cette coopération.
     empty: L’équipe ne peut pas être vide
     cannot-leave: Tu es encore responsable pour cette coopération et ne peut donc
       pas le quitter.
     leave: Quitter l’équipe de la coopération
     bread: Modifier l’équipe
-    foodsaver: Collecteur/collectrice
+    foodsaver: Collecteur
     leave_myself: Toi-même
   actions: Options
   not-in-region: Tu peux ajouter des coopérations uniquement dans la région dont tu
