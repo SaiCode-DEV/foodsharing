@@ -2393,8 +2393,8 @@ store:
     verified: Brukeren er bekreftet
     unverified: Brukeren er ikke verifisert
     distance_unknown: ikke oppgitt bosted
-    distance: bor ca {distance} km unna
-    distance_close: bor mindre enn 1 km unna
+    distance: Bor ca {distance} km unna
+    distance_close: Bor mindre enn 1 km unna
     air_line: Avstanden som vises er i luftlinje.
   team_conversation_name: '{name}-laget'
   appliedFor: Forespørsel fremsatt
