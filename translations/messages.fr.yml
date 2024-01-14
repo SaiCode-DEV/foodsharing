@@ -751,11 +751,11 @@ recipients:
   test_email_sent: Le courriel a été envoyé.
   testmail: Envoyer un courriel de test
   confirm: Envoyer le courriel ?
-  send: envoyer le courriel
+  send: Envoyer le courriel
   doublecheck: Tout est vérifié ? Le courriel doit-il être envoyé au groupe cible
     sélectionné ?
   variable-info: "Pour rendre le courriel plus personnel, tu peux insérer <strong>{NAME}</strong>
-    au lieu du nom\net utilisez <strong>{ANREDE}</strong> pour la salutation.\n<p>{ANREDE}
+    au lieu du nom\net utiliser <strong>{ANREDE}</strong> pour la salutation.\n<p>{ANREDE}
     {NAME} donne par exemple : « Cher Peter »\n"
   unknown: inconnu
   abort: Annuler l’envoi
@@ -778,7 +778,7 @@ recipients:
     tous)
   newsletter: Tous les abonnés à la lettre d’information (au min. Foodsaver)
   orga_team: Équipe Organisation
-  active_ambassadors: Tous les ambassadeur·ice·s (national)
+  active_ambassadors: Tous les ambassadeur·rice·s (national)
   all: Tous les Foodsaver (international)
   recipients: Destinataires
   prepare: Préparer pour l’envoi
@@ -819,25 +819,25 @@ forum:
     header: 'Notification des nouvelles réponses :'
   quickreply:
     error: Ta contribution n’a pas pu être sauvegardée.
-    success: Super ! Ta réponse a été sauvegardée.
+    success: Super ! Ta réponse a été sauvegardée.
   sending_error: Une erreur est survenue lors de l'envoi
   no_threads: Aucune discussion
   no_posts: Aucune contribution à afficher
   hold_back_for_moderation: La discussion a été enregistrée et sera publiée dès qu’un·e
-    ambassadeur·ice / un·e modérateur·ice l’aura acceptée.
+    ambassadeur·rice / un·e modérateur·rice l’aura acceptée.
   post:
     body: Message
     delete: Supprimer la contribution
-    moderator_info: Ce sujet est fermé. En tant que modérateur·ice de ce forum, tu
-      peux quand même poster un message, mais les autres utilisateurs·trices ne peuvent
+    moderator_info: Ce sujet est fermé. En tant que modérateur·rice de ce forum, tu
+      peux quand même poster un message, mais les autres utilisateur·rice·s ne peuvent
       pas répondre !
   threads: Discussions
   new_thread: Ouvrir une nouvelle discussion
   from: de {name}
-  deleted_user: utilisateur supprimé
+  deleted_user: utilisateur·rice supprimé·e
   not_found: Ce fil n’existe pas.
   mail_confirmation:
-    text: Souhaites-tu vraiment que cette nouvelle contribution soit envoyée par e-mail
+    text: Souhaites-tu vraiment que cette nouvelle contribution soit envoyée par courriel
       à tous les membres de ce GT ou de ce district ? Tu ne devrais le faire que si
       ta demande concerne tout le monde et qu’elle est suffisamment importante pour
       que tout le monde en soit informé.
@@ -1895,14 +1895,14 @@ pickup:
       ajoute des collectes.\nDes collecteur·rice·s peuvent aussi vous attendre à quelques
       mètres du magasin\npour vous aider à porter.\n"
     slotscount: '{count} collecteur·ice·s'
-    slotcount: 1 collecteur·ice
-    more: Ajouter un rendez-vous
+    slotcount: 1 collecteur·rice
+    more: Ajouter un événement
     add: Ajouter les horaires des collectes
     bread: Modifier les horaires des collectes
-    slot_titel: Slots
-    disable_auto_slot: La fente automatique à l’avenir devrait être désactivée.
+    slot_titel: Créneau
+    disable_auto_slot: Le créneau automatique à l’avenir devrait être désactivé.
     description_titel: Description
-    disable_auto_slot_titel: désactivation
+    disable_auto_slot_titel: Désactivation
   history:
     search: Voir les collectes
     title: Historique des collectes
@@ -1964,11 +1964,11 @@ pickup:
       confirmed: Confirmé
     modals:
       signOffAll:
-        message: Veux-tu vraiment supprimer l’utilisateur·ice de tous les slots inscrits ?
+        message: Veux-tu vraiment supprimer l’utilisateur·rice de tous les slots inscrits ?
         title: Se désinscrire de tous les slots ?
       signOff:
         title: Se désinscrire du slot ?
-        message: Veux-tu vraiment retirer l’utilisateur·ice de ce slot ?
+        message: Veux-tu vraiment retirer l’utilisateur·rice de ce slot ?
     freeSlots: '{slots} disponible·s'
     tab:
       registered:
@@ -1986,7 +1986,7 @@ pickup:
         name: Historique des collectes
         tooltip:
           own: Dates de collectes passées auxquelles tu as participé
-          other: Dates de collecte du mois dernier auxquelles tu as participé
+          other: Dates de collecte du mois dernier auxquelles tu as participé·e
         empty: Aucune collecte n’a encore été effectuée.
     allLoaded: Toutes les entrées sont déjà affichées.
   signout_history:
@@ -2026,12 +2026,12 @@ events:
   maybeCount: '{count} viennent peut-être'
   acceptedCount: '{count} participent'
   notFound: Cet évènement n’existe pas ou n’est pas disponible.
-  goto: afficher l’évènement
+  goto: Afficher l’évènement
   mumble:
     guide: 'Aide : <strong><a href="https://wiki.foodsharing.de/Mumble">wiki.foodsharing.de/Mumble</a></strong>'
-    location: 'Notre serveur : <br><strong>mumble.foodsharing.de</strong>'
+    location: 'Notre serveur Mumble : <br><strong>mumble.foodsharing.de</strong>'
     text: La conférence vidéo se déroule sur <em>Mumble</em>.
-    title: Évènement en ligne (Appel audio en ligne)
+    title: Évènement en ligne (Appel audio par Mumble)
   duration: 'Durée : {duration}'
   span: de {from} à {until}
   description: Description
@@ -2040,7 +2040,7 @@ events:
       des <b>différents groupes</b>\npar un lien partagé ou dans le menu de l’évènement.\n
       <br>\nPour que le rendez-vous soit également affiché sur le tableau de bord
       pour les nouveaux arrivant·e·s, \nenregistre-le à nouveau ultérieurement.\n"
-    mumble: Conférence par Mumble
+    mumble: Conférence par mumble.foodsharing.de
     online: Par conférence vidéo/téléphonique
     offline: Dans la vraie vie (IRL)
     desc: Description de l’évènement ?
@@ -2057,8 +2057,8 @@ events:
     public: L’évènement est-il public ?
     title: Ajouter un nouvel évènement
     date: Date
-  edited: l’évènement a été modifié avec succès.
-  edit: modifier l’évènement
+  edited: L’évènement a été modifié avec succès.
+  edit: Modifier l’évènement
   created: L’évènement a été enregistré avec succès.
   add_event: Nouvel évènement
   add_new_event: Ajouter un nouvel évènement
@@ -2066,8 +2066,8 @@ wall:
   error-create: Ta contribution sur ce mur n’a pas pu être sauvegardée.
   created: Parfait ! Ta contribution sur ce mur a été enregistrée.
   error-delete: Tu ne peux pas supprimer cette contribution.
-  info-logging: Afin d’éviter tout conflit, fais en sorte que le contenu ainsi que
-    la personne responsable de ce contenu fasse l’objet d’un protocole écrit.
+  info-logging: Afin d’éviter tout conflit, le contenu ainsi que la personne responsable
+    de ce contenu seront consignés.
   info-somebody-else: En tant que responsable coopération, tu peux supprimer cette
     contribution si nécessaire.
   confirm-deletion: La contribution de {name} doit-elle être supprimée ?
@@ -2075,7 +2075,7 @@ wall:
   see-more: Voir toutes les contributions
   message_placeholder: Écrire un message…
   name: Mur
-  placeholder: Écrivez une nouvelle entrée de mur …
+  placeholder: Écrire une nouvelle entrée de mur …
 chat:
   confirm_draft_discard: "En changeant de conversation, le texte écrit jusqu’ici sera
     automatiquement supprimé.\n\nEn interrompant cet échange, ton brouillon sera automatiquement
@@ -2092,19 +2092,19 @@ chat:
   new_message: Nouveau message
   open_chat: Écrire un message
   display_all_messages: Afficher tous les messages
-  no_conversation: Pas de conversation sélectionné
+  no_conversation: Pas de conversation sélectionnée
   no_messages: Pas de message
   search: Chercher
   start_of_conversation: 'Conversation commencée le :'
   receivermissing: Tu dois indiquer un destinataire
   incorrect_address: Cette adresse e-mail n’est pas correcte
   new_messages: Nouveaux messages
-  select_recipients: Sélectionner un ou une destinataire
+  select_recipients: Sélectionner un·e destinataire
   unknown_username: nom inconnu
 timepicker:
-  labelNowButton: maintenant
-  labelCloseButton: fermer
-  labelNoTimeSelected: Aucune heure choisir
+  labelNowButton: Maintenant
+  labelCloseButton: Fermer
+  labelNoTimeSelected: Aucune heure choisie
   labelSelected: Heure choisie
   labelDecrement: Limiter
   labelIncrement: Augmenter
@@ -2127,7 +2127,7 @@ calendar:
   export:
     event:
       linkTitle: Événement Foodsharing
-      statusUnspecified: Tu n’as pas encore indiqué si tu participais à ce rendez-vous.
+      statusUnspecified: Tu n’as pas encore indiqué si tu participais à cet événement.
         Tu peux le faire sur la page en lien.
       description: Description
     pickup:
@@ -2550,16 +2550,16 @@ reports:
   no_reports_fallback: Il n’y a pas encore de plaintes
   time: Horaire
   report_id: Numéro de plainte
-  region: Secteur géographique favori
+  region: Secteur géographique principal
   reason: Raison
   message: Description
-  from_last_name: De nom
+  from_last_name: De nom de famille
   from_first_name: De prénom
   from: De
   city: Ville
   all_reports: Toutes les plaintes
   about_first_name: À propos du prénom
-  about_last_name: À propos du nom
+  about_last_name: À propos du nom de famille
   about: À propos de
   about_email: Par courriel
 month:
@@ -2619,7 +2619,7 @@ addresspicker:
     ont besoin d’entrer une adresse pour pouvoir proposer des paniers solidaires sur
     le site. L’adresse est nécessaire aux <a href="https://wiki.foodsharing.de/Foodsaver">Foodsaver</a>
     pour pouvoir participer aux collectes.
-  infobox: Entre l’adresse dans la case prévue à cet effet et déplacez l’épingle sur
+  infobox: Entre l’adresse dans la case prévue à cet effet et déplace l’épingle sur
     la carte si nécessaire.
   placeholder: Cherche l’adresse ici et si besoin, corrige-la plus bas.
   label: Recherche de l’adresse
