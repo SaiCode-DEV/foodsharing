@@ -1,7 +1,7 @@
 <template>
   <section
     v-if="user"
-    class="container my-3 my-sm-5"
+    class="container my-3 my-sm-5 p-0"
   >
     <div class="mb-1 mb-sm-3">
       <Broadcast

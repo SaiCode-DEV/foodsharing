@@ -1,7 +1,7 @@
 <template>
   <section
     v-if="storeInformation"
-    class="container my-3 my-sm-5"
+    class="container my-3 my-sm-5 p-0"
   >
     <b-tabs
       content-class="mt-3"
