@@ -28,7 +28,6 @@ class ContentController extends FoodsharingController
             'international' => ContentId::INTERNATIONAL,
             'transparency' => ContentId::TRANSPARENCY,
             'leeretonne' => ContentId::PAST_CAMPAIGNS,
-            'newsFromIT' => ContentId::NEWS_FROM_IT,
             'foodSharePointRescue' => ContentId::RESCUE_FOOD_SHARE_POINT,
             'impressum' => ContentId::IMPRINT,
             'about' => ContentId::ABOUT,

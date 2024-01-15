@@ -60,7 +60,6 @@ final class ContentPermissions
     private array $IT_CONTENT_IDS = [
         ContentId::SECURITY_PAGE,
         ContentId::BROADCAST_MESSAGE,
-        ContentId::NEWS_FROM_IT,
     ];
 
     public function __construct(Session $session)

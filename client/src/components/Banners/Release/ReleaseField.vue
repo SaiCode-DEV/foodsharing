@@ -25,6 +25,7 @@
         <a
           class="releasefield__link"
           :href="$url('newsFromIT')"
+          target="_blank"
           v-text="$i18n('navigation.news_from_it')"
         />
         <br>

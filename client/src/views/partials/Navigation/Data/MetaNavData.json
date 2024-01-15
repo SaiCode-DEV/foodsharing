@@ -17,11 +17,11 @@
         "isInternal": true,
         "items": [
             {
-                "isInternal": true,
                 "title": "navigation.news_from_it",
                 "url": "newsFromIT"
             },
             {
+                "isInternal": true,
                 "title": "navigation.whats_new",
                 "url": "release_notes"
             },
@@ -33,6 +33,7 @@
                 "url": "wiki"
             },
             {
+                "isInternal": true,
                 "title": "navigation.contact",
                 "url": "contact"
             },

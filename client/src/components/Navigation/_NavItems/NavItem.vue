@@ -32,6 +32,7 @@
         <b-dropdown-item
           v-else
           :href="item.url ? $url(item.url) : null"
+          :target="item.isInternal ? '_self' : '_blank'"
           @click="item.modal ? $bvModal.show(item.modal) : null"
         >
           <i

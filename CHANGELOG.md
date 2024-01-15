@@ -47,6 +47,7 @@
 - Replaced graphic group symbol with the corresponding fontawesome symbol !3009 @irgendwer @neriton
 - Temporarily disabled the store list for countries and Europe !3027 @alex.simm
 - GOALS-ELEction Admins are automatically added to globaly election exchange group !3031 @fs_k
+- Removed static it news content page and change it to freshdesk page !3056 @chriswalg
 
 ## Bugfixes
 - Added error handling for cache helper for bell notifications or other requests !2869 @chriswalg

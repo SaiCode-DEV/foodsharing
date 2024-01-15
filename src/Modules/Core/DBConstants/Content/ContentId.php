@@ -12,7 +12,6 @@ namespace Foodsharing\Modules\Core\DBConstants\Content;
 
 class ContentId
 {
-    public const NEWS_FROM_IT = 1;
     public const PARTNER_PAGE_10 = 10;
     public const PARTNER_PAGE_AU_79 = 79;
     public const QUIZ_DESCRIPTION_PAGE_12 = 12;
