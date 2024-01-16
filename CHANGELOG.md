@@ -68,6 +68,7 @@
 - Center Team member images properly !3037 @AntonBallmaier
 - Only load user details when logged in !1798 @alex.simm
 - Optimized width of store and dashboard !3053 @chriswalg
+- Fix saving regular pickups !3060 @AntonBallmaier
 - Fix for arbitration report overview !3062 @fs_k
 
 ## Refactoring

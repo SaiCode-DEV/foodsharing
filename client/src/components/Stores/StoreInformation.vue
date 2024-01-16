@@ -423,6 +423,7 @@
       </b-tab>
     </b-tabs>
     <b-button
+      v-if="mayEditStore"
       variant="primary"
       @click="submit"
     >
@@ -465,13 +466,12 @@ export default {
     mayEditStore: { type: Boolean, default: null },
     isCoordinator: { type: Boolean, default: null },
     isVerified: { type: Boolean, default: null },
-    loadedPickups: { type: Array, default: () => { return [] } },
+    loadedPickups: { type: Array, default: () => [] },
   },
   data () {
     return {
       editMode: false,
-      editPickups: {},
-      previousEditPickups: null,
+      editPickups: [],
       selectedWeekDay: null,
       foodSearchCriteriaField: '',
       storeFoodNames: [],
@@ -552,8 +552,7 @@ export default {
     // Load data
     this.store = this.storeInformation
     this.editMode = (this.mayEditStore || this.isCoordinator)
-    this.editPickups = this.loadedPickups
-    this.previousEditPickups = this.simpleClone(this.loadedPickups)
+    this.editPickups = this.simpleClone(this.loadedPickups)
 
     if (this.store.categoryId === null) {
       this.store.categoryId = 0
@@ -577,11 +576,7 @@ export default {
     dispatchResize () {
       window.dispatchEvent(new Event('resize'))
     },
-    isUpdatedRegularPickup () {
-      return JSON.stringify(this.editPickups) !== JSON.stringify(this.previousEditPickups)
-    },
-    async submit (bvModalEvent) {
-      bvModalEvent.preventDefault()
+    async submit () {
       if (!this.publicInfoState) {
         pulseError(this.$i18n('storeview.invalid_field'))
         return
@@ -594,9 +589,10 @@ export default {
         delete store.region
         store.groceries = this.storeFoodIds
         await updateStore(store)
-        // TODO only send updates when neccessary
-        await editRegularPickup(this.storeId, this.editPickups)
-        await PickupsData.mutations.loadPickups(this.storeId)
+        if (JSON.stringify(this.loadedPickups) !== JSON.stringify(this.editPickups)) {
+          await editRegularPickup(this.storeId, this.editPickups)
+          await PickupsData.mutations.fetchRegularPickup(this.storeId)
+        }
         pulseSuccess(this.$i18n('storeedit.edit_success'))
         this.$bvModal.hide('storeInformationModal')
       } catch (err) {

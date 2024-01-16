@@ -26,8 +26,8 @@
     </b-row>
 
     <div
-      v-for="(item, key, index) in editPickupsCopied"
-      :key="key"
+      v-for="(item, index) in editPickups"
+      :key="index"
     >
       <br v-if="index !== 0">
       <b-row class="pb-1">
@@ -106,7 +106,7 @@
             variant="danger"
             :hidden="!editMode"
             size="sm"
-            @click="removePickup(key)"
+            @click="removePickup(index)"
           >
             <i class="fa fa-trash" />
           </b-button>
@@ -125,13 +125,12 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import i18n, { locale } from '@/helper/i18n'
 
 export default {
   props: {
     loadedPickups: {
-      type: [Array, Object],
+      type: Array,
       default: () => [],
       required: true,
     },
@@ -140,7 +139,7 @@ export default {
   },
   data () {
     return {
-      editPickupsCopied: {},
+      editPickups: [],
       minCountPickupSlot: 1,
       weekdays: [
         { value: 1, text: this.$i18n('date.monday') },
@@ -170,42 +169,33 @@ export default {
   watch: {
     loadedPickups: {
       handler (newValue) {
-        this.editPickupsCopied = [...newValue]
+        this.editPickups = JSON.parse(JSON.stringify(newValue))
       },
       immediate: true,
     },
-    editPickupsCopied () {
-      this.$emit('update:editPickups', this.editPickupsCopied)
+    editPickups () {
+      this.$emit('update:editPickups', this.editPickups)
     },
-  },
-  async created () {
-    this.editPickupsCopied = this.loadedPickups
   },
   methods: {
     removePickup (key) {
-      Vue.delete(this.editPickupsCopied, key)
+      this.editPickups.splice(key, 1)
     },
     timeParser (value) {
       return value ? value + ':00' : ''
     },
     addNewItem () {
-      const selectedWeekdays = Object.values(this.editPickupsCopied).map(item => item.weekday)
+      const selectedWeekdays = Object.values(this.editPickups).map(item => item.weekday)
       const availableWeekdays = this.weekdays.filter(weekday => !selectedWeekdays.includes(weekday.value))
       const nextWeekday = availableWeekdays[0]?.value ?? 1
 
-      const newIndex = Object.keys(this.editPickupsCopied).length
       const newPickup = {
         weekday: nextWeekday,
         startTimeOfPickup: this.timeParser('10:30'),
         maxCountOfSlots: this.minCountPickupSlot,
       }
 
-      const updatedPickups = {
-        ...this.editPickupsCopied,
-        [`${newIndex}`]: newPickup,
-      }
-
-      this.editPickupsCopied = updatedPickups
+      this.editPickups.push(newPickup)
     },
   },
 }
