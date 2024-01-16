@@ -4,7 +4,8 @@ import '@/globals'
 
 import $ from 'jquery'
 
-import { ajax } from '@/script'
+import { ajax, ajreq } from '@/script'
+import { expose } from '@/utils'
 import './Basket.css'
 
 import { vueApply, vueRegister } from '@/vue'
@@ -96,3 +97,14 @@ $(document).ready(() => {
     vueApply('#baskets-location-map')
   }
 })
+
+function openBasketBubble (id) {
+  ajreq('bubble', {
+    app: 'basket',
+    id: id,
+  }).then(x => {
+    vueApply('#basket-bubble')
+  })
+}
+
+expose({ openBasketBubble })
