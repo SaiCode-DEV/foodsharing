@@ -251,8 +251,8 @@ class ReportGateway extends BaseGateway
             $query->andWhere($query->expr()->notIn('r.foodsaver_id', $excludeReportsWithUsers));
         }
         if (!empty($onlyReportsWithUsers)) {
-            $query->andWhere($query->expr()->notIn('r.reporter_id', $onlyReportsWithUsers));
-            $query->orWhere($query->expr()->notIn('r.foodsaver_id', $onlyReportsWithUsers));
+            $query->andWhere($query->expr()->In('r.reporter_id', $onlyReportsWithUsers));
+            $query->orWhere($query->expr()->In('r.foodsaver_id', $onlyReportsWithUsers));
         }
 
         // restrict access only to new reports to avoid social conflicts from old entries

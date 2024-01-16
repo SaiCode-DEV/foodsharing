@@ -68,6 +68,7 @@
 - Center Team member images properly !3037 @AntonBallmaier
 - Only load user details when logged in !1798 @alex.simm
 - Optimized width of store and dashboard !3053 @chriswalg
+- Fix for arbitration report overview !3062 @fs_k
 
 ## Refactoring
 - Refactor mailbox modul to vue and rest api !2580 !2870 !2871 !2918 !2934 !2971 !3002 @chriswalg @alex.simm
