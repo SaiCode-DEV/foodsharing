@@ -63,6 +63,7 @@
                   :placeholder="$i18n('mailbox.tag_recipient_hint')"
                   class="form-control"
                   v-on="inputHandlers"
+                  @focusout="addTag()"
                 />
                 <b-input-group-append>
                   <b-button
