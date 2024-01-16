@@ -2611,7 +2611,7 @@ terminology:
     d: Orga İnsanı
   reports: Raporlama Görünümü (Yerel raporlama grubu)
   n_home_regions: o ana bölgeye sahip bir kişi|İşte %count% kişilik ana bölge
-  previous_pickups: Önceki Alımlar
+  previous_pickups: Teslimat burada
   no_pickups: yok
   electionAdmins: Seçimler
 legal:
@@ -3092,9 +3092,9 @@ chain:
           city: 'Şehir'
           country: 'Ülke'
       estimatedStoreCount:
-        label: Beklenen işletme sayısı
+        label: Şubeler
         invalidfeedback: Yalnızca tam sayılara izin verilir.
-        description: Zincirdeki toplam işletme sayısı
+        description: Zincirdeki toplam şube sayısı
     title:
       edit: 'İşletme zincirini düzenle'
       new: 'İşletme zinciri oluştur'
@@ -3111,12 +3111,12 @@ chain:
     workinggroup: 'İşletme zincirleri'
   columns:
     status: 'Statü'
-    stores: 'İşbirliği yapılan şirket sayısı'
+    stores: 'oluşturuldu'
     headquarters: 'Merkez'
     notes: 'Uyarılar'
     name: 'İsim'
     kams: 'KAM''lar'
-    estimatedStoreCount: Beklenen tesis sayısı
+    estimatedStoreCount: Şubeler
     actions: Eylemler
   allowpress: 'Genel paylaşıma izin veriliyor.'
   detailsmodal:
@@ -3220,6 +3220,9 @@ search:
   maxresults: Kategori başına en fazla 30 sonuç görüntülenir. Belki daha spesifik
     bir arama terimi kullanabilirsiniz.
   too_short: Lütfen daha uzun bir arama terimi girin.
+  scope:
+    global: Küresel arama
+    local: Kullanıcıya özel arama
 language_chooser:
   choose_button: 'Güncelle'
   translation_help_info_text: 'Bu bağlantı tercüme portalına yönlendiriyor, başlamak
