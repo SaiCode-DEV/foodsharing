@@ -1,4 +1,12 @@
-# Unreleased
+# Hotfix, 2024-01-XX
+- Removed static IT news content page and changed it to freshdesk page !3056 @chriswalg
+- Optimized width of store and dashboard !3053 @chriswalg
+- Fix saving regular pickups !3060 @AntonBallmaier
+- Fixed arbitration report overview !3062 @fs_k
+- Add email to recipient list when focus is lost !3058 @alex.simm
+- Render vue basket bubbles when selecting a basket from the list #1812 !3057 @alex.simm
+
+# Release "Kiwi", 2024-01-14
 
 ## Features
 - Improve bell notifications for forum posts #719 !2827 !2826 @AntonBallmaier
@@ -47,7 +55,6 @@
 - Replaced graphic group symbol with the corresponding fontawesome symbol !3009 @irgendwer @neriton
 - Temporarily disabled the store list for countries and Europe !3027 @alex.simm
 - GOALS-ELEction Admins are automatically added to globaly election exchange group !3031 @fs_k
-- Removed static it news content page and change it to freshdesk page !3056 @chriswalg
 
 ## Bugfixes
 - Added error handling for cache helper for bell notifications or other requests !2869 @chriswalg
@@ -67,12 +74,9 @@
 - Clear browser cache when logging out to prevent cached data leaking into next logged in session !3024 @AntonBallmaier
 - Center Team member images properly !3037 @AntonBallmaier
 - Only load user details when logged in !1798 @alex.simm
-- Optimized width of store and dashboard !3053 @chriswalg
-- Fix saving regular pickups !3060 @AntonBallmaier
-- Fix for arbitration report overview !3062 @fs_k
 
 ## Refactoring
-- Refactor mailbox modul to vue and rest api !2580 !2870 !2871 !2918 !2934 !2971 !3002 !3058 @chriswalg @alex.simm
+- Refactor mailbox modul to vue and rest api !2580 !2870 !2871 !2918 !2934 !2971 !3002 @chriswalg @alex.simm
 - Use REST for quickreplying to wall posts !2795 @alex.simm
 - Cleaned up a lot of core code all over the place !2738 @\_fridtjof_
 - Preparations to routing/link building code for future porting to Symfony controllers !2738 @\_fridtjof_
@@ -88,7 +92,7 @@
 - Switched the quickreply function for emails on the dashboard to use the mailbox API #1668 !2921 @alex.simm
 - Modernized MapControl to a Symfony controller !2986 @\_fridtjof_
 - Restrict CSRF protection to REST API by namespace instead of manual exclusions by annotation !3005 #1782 !3008 @\_fridtjof_
-- Changes the basket bubble on the map to vue #1608 #1788 #1812 !2905 !3028 !3057 @alex.simm
+- Changes the basket bubble on the map to vue #1608 #1788 !2905 !3028 @alex.simm
 - Refactor StoreListComponent.vue !2733 @buntel
 - Refactor storage.js !2733 @buntel
 
