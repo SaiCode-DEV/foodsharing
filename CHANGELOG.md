@@ -7,6 +7,7 @@
 - Render vue basket bubbles when selecting a basket from the list #1812 !3057 @alex.simm
 - Display time in map basket bubbles correctly #1809 !3059 @AntonBallmaier
 - Fixed invalid Array length error #1807 !3064 @AntonBallmaier
+- Handle AccessDenied Errors when reloading store logs #1803 !3070 @AntonBallmaier
 
 # Release "Kiwi", 2024-01-14
 

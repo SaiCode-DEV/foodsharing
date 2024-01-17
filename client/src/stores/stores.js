@@ -171,7 +171,12 @@ export const mutations = {
     const today = new Date()
     today.setDate(today.getDate() + 1) // buffer to include everything from today
 
-    store.log = await getStoreLog(storeId, actions, [fromDate, today])
+    try {
+      store.log = await getStoreLog(storeId, actions, [fromDate, today])
+    } catch (error) {
+      console.error(error)
+      store.log = []
+    }
   },
 }
 
