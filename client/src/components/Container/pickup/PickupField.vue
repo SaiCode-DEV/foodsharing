@@ -121,7 +121,7 @@ export default {
       return this.$dateFormatter.getDifferenceToNowInHours(this.date) < 4
     },
     team () {
-      const freeSlots = this.entry.slots.max - this.entry.slots.occupied.length
+      const freeSlots = Math.max(0, this.entry.slots.max - this.entry.slots.occupied.length)
       return [...this.entry.slots.occupied, ...new Array(freeSlots).fill(null)].reverse()
     },
     date () {
