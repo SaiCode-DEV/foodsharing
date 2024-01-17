@@ -97,9 +97,9 @@ class MapGateway extends BaseGateway
             return null;
         }
 
-        $bubbleData = BasketBubbleData::create($basket['id'], $basket['description'], $basket['picture']);
+        $bubbleData = BasketBubbleData::createFromArray($basket);
         if ($includeDetails) {
-            $bubbleData->createdAt = Carbon::createFromTimestamp('created_at');
+            $bubbleData->createdAt = Carbon::createFromTimestamp($basket['created_at']);
             $bubbleData->creator = new Profile($basket['fs_id'], $basket['fs_name'], $basket['fs_photo'], $basket['fs_sleep_status']);
         }
 
