@@ -77,7 +77,7 @@ export default {
   },
   computed: {
     queryParams () {
-      return `?events=${this.includeInvitations ? 'all' : 'accepted'}`
+      return `?events=${this.includeInvitations ? 'all' : 'answered'}`
     },
     webcalPickups () {
       return this.baseUrlWebcal + this.token + this.queryParams

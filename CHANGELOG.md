@@ -10,6 +10,7 @@
 - Display time in map basket bubbles correctly #1809 !3059 @AntonBallmaier
 - Fixed invalid Array length error #1807 !3064 @AntonBallmaier
 - Handle AccessDenied Errors when reloading store logs #1803 !3070 @AntonBallmaier
+- Fixed the filter parameter of the calendar URL #1814 !3072 @alex.simm
 
 # Release "Kiwi", 2024-01-14
 
