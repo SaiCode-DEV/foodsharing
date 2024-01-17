@@ -128,7 +128,6 @@ const defaultBasketData = {
   location: { lat: 50.89, lon: 10.13 },
   address: {},
   useHomeAddress: false,
-  hasValidHomeAddress: undefined,
   weightInput: 4,
 }
 
@@ -163,7 +162,6 @@ export default {
       location: { lat: this.basket.lat, lon: this.basket.lon },
       address: {},
       useHomeAddress: false,
-      hasValidHomeAddress: undefined,
       weightInput: Math.max(0, weights.findIndex(weight => weight.weightInGrams === this.basket.weightInKg * 1000)),
     }
   },
@@ -173,6 +171,9 @@ export default {
     },
     isDataValid () {
       return this.description.trim() && (this.contact.chat || this.contact.phone) && (this.contact.phone ? this.phoneNumber : true)
+    },
+    hasValidHomeAddress () {
+      return this.user?.coordinates?.lat && this.user.address && this.user.city
     },
   },
   methods: {
@@ -185,9 +186,8 @@ export default {
     async initUsingUserDetails () {
       await userStoreMutations.fetchDetails()
       this.phoneNumber = this.user.mobile || this.user.landline || ''
-      this.hasValidHomeAddress = Boolean(this.user.coordinates.lat) && Boolean(this.user.address) && Boolean(this.user.city)
-      this.useHomeAddress = true
       if (this.hasValidHomeAddress) {
+        this.useHomeAddress = true
         this.location = Object.assign({}, this.user.coordinates)
         this.address = {
           street: this.user.address,
@@ -199,7 +199,6 @@ export default {
     async testHomeRegion () {
       await userStoreMutations.fetchDetails()
       this.phoneNumber ||= this.user.mobile
-      this.hasValidHomeAddress = Boolean(this.user.coordinates.lat) && Boolean(this.user.address) && Boolean(this.user.city)
       this.useHomeAddress = this.hasValidHomeAddress &&
         Math.abs(this.basket.lat - this.user.coordinates.lat) < 1e-5 &&
         Math.abs(this.basket.lon - this.user.coordinates.lon) < 1e-5
