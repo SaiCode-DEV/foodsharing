@@ -26,5 +26,5 @@ if (GET('sub') === 'releaseNotes') {
   vueRegister({
     ContentList,
   })
-  vueApply('#content-list')
+  vueApply('#content-list', true)
 }

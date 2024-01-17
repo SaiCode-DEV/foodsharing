@@ -5,6 +5,7 @@
 - Fixed arbitration report overview !3062 @fs_k
 - Add email to recipient list when focus is lost !3058 @alex.simm
 - Render vue basket bubbles when selecting a basket from the list #1812 !3057 @alex.simm
+- Fixed vue element not found exception #1810 !3063 @AntonBallmaier
 - Fixed Basket Modal for users without valid home address #1811 !3061 @AntonBallmaier
 - Display time in map basket bubbles correctly #1809 !3059 @AntonBallmaier
 - Fixed invalid Array length error #1807 !3064 @AntonBallmaier
