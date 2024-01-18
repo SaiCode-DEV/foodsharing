@@ -107,7 +107,7 @@ export default {
       let queryWords = this.query.toLowerCase().split(/[,;\s]+/g).sort((a, b) => a.length - b.length)
       if (queryWords.length > 1) {
         // Remove query words that are substrings of others
-        queryWords = queryWords.filter((word, i) => !queryWords.toSpliced(0, i + 1).some(otherWord => otherWord.includes(word)))
+        queryWords = queryWords.filter((word, i) => !queryWords.slice(i + 1).some(otherWord => otherWord.includes(word)))
       }
       return queryWords.join(' ')
     },

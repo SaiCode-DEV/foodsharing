@@ -106,7 +106,7 @@ export default {
       return this.possibleResultSections.filter(section => this.results[section.key].length)
     },
     shownResults () {
-      return objectMap(this.results, (list, key) => this.expanded[key] ? list : list.toSpliced(MAX_DISPLAYED_RESULTS_REDUCED))
+      return objectMap(this.results, (list, key) => this.expanded[key] ? list : list.slice(0, MAX_DISPLAYED_RESULTS_REDUCED))
     },
     toggleButtonVisibility () {
       return objectMap(this.results, list => list.length > MAX_DISPLAYED_RESULTS_REDUCED)
