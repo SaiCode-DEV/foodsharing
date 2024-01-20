@@ -13,6 +13,7 @@
 - Handle AccessDenied Errors when reloading store logs #1803 !3070 @AntonBallmaier
 - Fixed the filter parameter of the calendar URL #1814 !3072 @alex.simm
 - Added search for mail address and reset button for input in mailbox addressbook !3076 @chriswalg
+- Fixed rendering of the map in Safari #1816 !3074 @alex.simm
 
 # Release "Kiwi", 2024-01-14
 

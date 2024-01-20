@@ -69,10 +69,16 @@ export default {
   },
   methods: {
     resetMap (mapObject) {
-      const resizeObserver = new ResizeObserver((_) => {
-        mapObject.invalidateSize()
-      })
-      resizeObserver.observe(this.$refs.map.$el)
+      try {
+        const resizeObserver = new ResizeObserver((_) => {
+          mapObject.invalidateSize()
+        })
+        resizeObserver.observe(this.$refs.map.$el)
+      } catch (e) {
+        /* ResizeObserver is not defined in some old browser versions, especially in Safari. In this case, fall back to
+           a timeout. */
+        setTimeout(function () { mapObject.invalidateSize() }, 1000)
+      }
     },
   },
 }
