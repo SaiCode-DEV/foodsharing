@@ -1,4 +1,4 @@
-# Hotfix, 2024-01-XX
+# Release Patch "Kiwi", 2024-01-XX
 - Removed static IT news content page and changed it to freshdesk page !3056 @chriswalg
 - Optimized width of store and dashboard !3053 @chriswalg
 - Fix saving regular pickups !3060 @AntonBallmaier
@@ -12,6 +12,7 @@
 - Fixed invalid Array length error #1807 !3064 @AntonBallmaier
 - Handle AccessDenied Errors when reloading store logs #1803 !3070 @AntonBallmaier
 - Fixed the filter parameter of the calendar URL #1814 !3072 @alex.simm
+- Added search for mail address and reset button for input in mailbox addressbook !3076 @chriswalg
 
 # Release "Kiwi", 2024-01-14
 

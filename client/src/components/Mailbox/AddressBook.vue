@@ -9,7 +9,6 @@
     size="xl"
     scrollable
   >
-    <div>{{ markedAsSelected.length }}, {{ markedAsSelected }}</div>
     <b-button-group class="mb-2">
       <b-button
         :variant="getButtonVariant(MAILBOX_ADDRESSBOOK_FILTER_TYPES.GROUPS)"
@@ -24,11 +23,18 @@
         {{ $i18n('terminology.regions') }}
       </b-button>
     </b-button-group>
-    <b-form-input
-      v-model="filterName"
-      :placeholder="$i18n('mailbox.search_name_email')"
-      class="mb-2"
-    />
+    <div class="d-flex mb-2">
+      <b-form-input
+        v-model="filterName"
+        :placeholder="$i18n('mailbox.search_name_email')"
+      />
+      <b-button
+        variant="outline-primary"
+        @click="resetFilterName"
+      >
+        <i class="fas fa-times" />
+      </b-button>
+    </div>
     <b-list-group>
       <b-list-group-item
         v-for="filteredRegion in filteredRegions"
@@ -72,12 +78,17 @@ export default {
 
       return this.regions.filter(region => {
         const typeMatch = region.type === typeFilter || typeFilter === 0
-        const nameMatch = !nameFilter || region.name.toLowerCase().includes(nameFilter.toLowerCase())
+        const nameMatch = !nameFilter ||
+          region.name.toLowerCase().includes(nameFilter.toLowerCase()) ||
+          region.emailAddress.toLowerCase().includes((nameFilter.toLowerCase()))
         return typeMatch && nameMatch
       })
     },
   },
   methods: {
+    resetFilterName () {
+      this.filterName = null
+    },
     getButtonVariant (filterType) {
       return this.filter.type === filterType ? 'primary' : 'secondary'
     },
