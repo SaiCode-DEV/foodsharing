@@ -243,7 +243,6 @@ upload:
   choose_file: "Datei hochladen"
   new_file: "Neue Datei hochladen"
   crop_dialog_title: "Bild ausschneiden"
-  image-problem: "Deine Datei scheint nicht in Ordnung zu sein, nimm am besten ein normales jpg-Bild"
 
 button:
   save: "Speichern"

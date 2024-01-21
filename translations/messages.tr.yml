@@ -271,7 +271,6 @@ upload:
   choose_file: Dosya yükle
   new_file: Yeni dosya yükle
   crop_dialog_title: Fotoğrafı kes
-  image-problem: Dosyanız düzenli görünmüyor, en iyisi normal bir jpg fotoğrafı seçmen
   preview_image: Ön izleme
 picture_upload_widget:
   picture_upload: Fotoğraf yükleme

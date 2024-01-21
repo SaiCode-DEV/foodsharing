@@ -2,7 +2,6 @@
 
 namespace Foodsharing\Lib\Xhr;
 
-use Foodsharing\Lib\View\Utils;
 use Foodsharing\Utility\Sanitizer;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -15,16 +14,13 @@ class XhrDialog
     private $script;
     private $scriptBefore;
     private $scriptAfter;
-    private $onopen;
     private $classnames;
-    private Utils $viewUtils;
     private TranslatorInterface $translator;
     private Sanitizer $sanitizerService;
 
     public function __construct($title = false)
     {
         global $container;
-        $this->viewUtils = $container->get(Utils::class);
         $this->translator = $container->get('translator'); // TODO TranslatorInterface is an alias
         $this->id = 'd-' . uniqid();
         $this->buttons = [];
@@ -32,7 +28,6 @@ class XhrDialog
         $this->script = '';
         $this->content = '';
         $this->scriptBefore = '';
-        $this->onopen = [];
         $this->classnames = [];
         $this->sanitizerService = $container->get(Sanitizer::class);
 
@@ -101,11 +96,6 @@ class XhrDialog
         ];
     }
 
-    public function onOpen($js)
-    {
-        $this->onopen[] = $js;
-    }
-
     public function addButton($text, $click)
     {
         $this->buttons[] = [
@@ -118,38 +108,6 @@ class XhrDialog
     {
         $val = $val ? 'true' : 'false';
         $this->addOpt('resizable', $val, false);
-    }
-
-    public function addPictureField($id, $label)
-    {
-        $in_id = $this->id . '-' . $id;
-
-        $this->addContent($this->viewUtils->v_input_wrapper($label, '
-			<span id="' . $in_id . '"><i class="far fa-image"></i> ' . $this->translator->trans('upload.image') . '</span>
-			<input class="input" type="hidden" name="filename" id="' . $in_id . '-filename" value="" />
-			<div class="attach-preview" style="float: right;"></div>
-			<div style="width: 10px; height: 10px; overflow: hidden;">
-				<form action="/xhrapp?app=main&m=picupload" target="' . $in_id . '-iframe" id="' . $in_id . '-form" method="post" enctype="multipart/form-data">
-					<input style="float: right;" type="file" name="' . $id . '" id="' . $in_id . '-file" />
-					<input type="hidden" name="id" value="' . $this->id . '" />
-					<input type="hidden" name="oid" value="' . $id . '" />
-					<input type="hidden" name="inid" value="' . $in_id . '" />
-				</form>
-				<iframe frameborder="0" style="width: 1px; height: 1px; opacity: 0;" name="' . $in_id . '-iframe"></iframe>
-				<div class="clear"></div>
-			</div>'
-        ));
-        $this->addJs('
-			$("#' . $in_id . '-file").on("change", function () {
-				$("#' . $in_id . '-form").trigger("submit");
-				$(".ui-dialog-buttonpane .ui-button").button("option", "disabled", true);
-				$(".attach-preview").show();
-				$(".attach-preview").html(\'<a href="#" class="preview-thumb attach-load" rel="wallpost-gallery">&nbsp;</a><div class="clear"></div>\');
-			});
-
-			$("#' . $in_id . '").button().on("click", function () {
-				$("#' . $in_id . '-file").trigger("click");
-			});');
     }
 
     public function noOverflow()
@@ -175,10 +133,6 @@ class XhrDialog
         $this->addOpt('buttons', '[' . implode(',', $buttons) . ']', false);
 
         $this->addJs('$("#' . $this->id . '").dialog("option", "position", "center");');
-
-        if (!empty($this->onopen)) {
-            $this->addOpt('open', 'function(event, ui) {' . implode(' ', $this->onopen) . '}', false);
-        }
 
         $options = [];
         foreach ($this->options as $opt => $value) {

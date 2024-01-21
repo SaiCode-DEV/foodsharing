@@ -294,8 +294,6 @@ button:
   save: Enregistrer
   reset_default: Restaurer par défaut
 upload:
-  image-problem: Votre fichier semble être corrompu ou non valide, il est préférable
-    d’utiliser une image jpg classique
   crop_dialog_title: Rogner l’image
   new_file: Téléverser un nouveau fichier
   choose_file: Téléverser un fichier

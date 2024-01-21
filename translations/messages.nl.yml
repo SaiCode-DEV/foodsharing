@@ -2662,7 +2662,6 @@ addresspicker:
   different_location: ''
 upload:
   no_image_chosen: ''
-  image-problem: ''
   no_image: ''
   no_image_yet: ''
   preview_image: ''

@@ -281,8 +281,6 @@ button:
   save: Salva
   reset_default: Ripristina l’impostazione predefinita
 upload:
-  image-problem: Il tuo file non sembra essere a posto, è meglio usare una normale
-    immagine jpg
   crop_dialog_title: Ritaglia l'immagine
   new_file: Carica un nuovo file
   choose_file: Caricare un file

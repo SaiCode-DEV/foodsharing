@@ -3436,8 +3436,6 @@ filterlist:
   some_in_all: '({some} de {all})'
   filter_for_name_id: 'Nombre o DNI'
 upload:
-  image-problem: 'Tu fichero no parece bien. Lo mejor seria si usas una foto normal
-    del formato de archivo jpg'
   crop_dialog_title: 'recortar imagen'
   new_file: 'subir nuevo archivo'
   no_image: 'El fichero subido no es una foto. Por favor elija un otro fichero.'

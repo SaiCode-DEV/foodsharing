@@ -2738,7 +2738,6 @@ upload:
   preview_image: ''
   new_image: ''
   image: ''
-  image-problem: ''
   no_image_chosen: ''
   file: ''
   no_image_yet: ''

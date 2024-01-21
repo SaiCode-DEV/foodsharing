@@ -2609,7 +2609,6 @@ upload:
   new_image: ''
   file: ''
   choose_file: ''
-  image-problem: ''
   image: ''
   no_image: ''
   no_image_yet: ''

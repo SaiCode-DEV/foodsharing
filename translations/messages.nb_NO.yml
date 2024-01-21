@@ -1813,8 +1813,6 @@ upload:
   no_image_chosen: Ingen fil valgt enda
   no_image_yet: Ingen bilder opplastet enda
   no_image: Den opplastede filen er ikke et bilde. Vennligst velg en annen fil.
-  image-problem: Filen din ser ikke ut til å være OK, det er best å bruke et vanlig
-    JPG-bilde
 picture_upload_widget:
   picture_upload: Opplasting av bilder
   choose_picture: Velg et bilde fra datamaskinen din.

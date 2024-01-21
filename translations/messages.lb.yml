@@ -1200,7 +1200,6 @@ upload:
   choose_file: ''
   new_file: ''
   crop_dialog_title: ''
-  image-problem: ''
   no_image_chosen: ''
   new_image: ''
   image: ''

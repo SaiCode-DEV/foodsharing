@@ -511,7 +511,6 @@ upload:
   no_image_yet: ''
   preview_image: ''
   no_image: ''
-  image-problem: ''
   choose_file: ''
   new_file: ''
   crop_dialog_title: ''

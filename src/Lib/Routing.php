@@ -18,7 +18,6 @@ use Foodsharing\Modules\Legal\LegalControl;
 use Foodsharing\Modules\Login\LoginControl;
 use Foodsharing\Modules\Logout\LogoutControl;
 use Foodsharing\Modules\Mailbox\MailboxControl;
-use Foodsharing\Modules\Main\MainXhr;
 use Foodsharing\Modules\Map\MapXhr;
 use Foodsharing\Modules\Message\MessageControl;
 use Foodsharing\Modules\PassportGenerator\PassportGeneratorControl;
@@ -70,7 +69,6 @@ class Routing
         'login' => 'Login',
         'logout' => 'Logout',
         'mailbox' => 'Mailbox',
-        'main' => 'Main',
         'msg' => 'Message',
         'message' => 'Message',
         'passgen' => 'PassportGenerator',
@@ -126,7 +124,6 @@ class Routing
 
     private const XHR = [
         'foodsaver' => FoodsaverXhr::class,
-        'main' => MainXhr::class,
         'map' => MapXhr::class,
         'profile' => ProfileXhr::class,
         'quiz' => QuizXhr::class,

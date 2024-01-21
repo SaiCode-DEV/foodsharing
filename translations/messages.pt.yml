@@ -2265,7 +2265,6 @@ upload:
   file: ''
   crop_dialog_title: ''
   new_file: ''
-  image-problem: ''
 content:
   new_success: ''
   public: ''
