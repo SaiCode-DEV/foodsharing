@@ -109,7 +109,7 @@ import MailboxMainNav from './MailboxMainNav.vue'
 import { deleteEmail, setEmailProperties } from '@/api/mailbox'
 import { hideLoader, pulseError, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
-import { store, MAILBOX_PAGE } from '@/stores/mailbox'
+import { MAILBOX_PAGE, store } from '@/stores/mailbox'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
 export default {
@@ -231,8 +231,16 @@ export default {
       return text ? text.replace(/\\n|\n/g, '<br>') : ''
     },
     addLinks (text) {
-      const urlRegex = /(https?:\/\/[^\s]+)/g
-      return text ? text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>') : ''
+      const lines = text ? text.split('\n') : []
+
+      // Remove '[' and ']' for each line for Markdown markup
+      const step1 = lines.map(line => line.replace(/^\[/g, '').trim())
+      const step2 = step1.map(line => line.replace(/]$/g, '').trim())
+
+      const urlRegex = /(https?:\/\/\S+)/g
+      return step2.map(line =>
+        line.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'),
+      ).join('\n')
     },
     attachmentDownloadLink (hashedFileName, emailId, attachmentIndex) {
       return hashedFileName.startsWith('old:')

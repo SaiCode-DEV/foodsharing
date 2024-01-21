@@ -10,6 +10,7 @@
 - Fixed Basket Modal for users without valid home address #1811 !3061 @AntonBallmaier
 - Display time in map basket bubbles correctly #1809 !3059 @AntonBallmaier
 - Fixed invalid Array length error #1807 !3064 @AntonBallmaier
+- Replaced markdown markup for links in mailbox email view !3071 @chriswalg
 - Handle AccessDenied Errors when reloading store logs #1803 !3070 @AntonBallmaier
 - Fixed the filter parameter of the calendar URL #1814 !3072 @alex.simm
 - Added search for mail address and reset button for input in mailbox addressbook !3076 @chriswalg
