@@ -80,5 +80,5 @@ if (GET('a') === 'edit') {
   vueRegister({
     RegionTreeVForm,
   })
-  vueApply('#region-tree-vform')
+  vueApply('#region-tree-vform', true)
 }
