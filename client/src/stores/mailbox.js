@@ -1,4 +1,5 @@
 import { reactive } from 'vue'
+import { REGION_UNIT_TYPE } from '@/stores/regions'
 
 export const MAILBOX_PAGE = Object.freeze({
   EMAIL_LIST: 1,
@@ -13,8 +14,16 @@ export const MAILBOX_FOLDER = Object.freeze({
 })
 
 export const MAILBOX_ADDRESSBOOK_FILTER_TYPES = Object.freeze({
-  REGIONS: 9,
-  GROUPS: 7,
+  REGIONS: [
+    REGION_UNIT_TYPE.CITY,
+    REGION_UNIT_TYPE.DISTRICT,
+    REGION_UNIT_TYPE.REGION,
+    REGION_UNIT_TYPE.BIG_CITY,
+    REGION_UNIT_TYPE.COUNTRY,
+    REGION_UNIT_TYPE.FEDERAL_STATE,
+    REGION_UNIT_TYPE.PART_OF_TOWN,
+  ],
+  GROUPS: [REGION_UNIT_TYPE.WORKING_GROUP],
 })
 
 export const store = {

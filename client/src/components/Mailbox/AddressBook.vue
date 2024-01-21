@@ -77,10 +77,10 @@ export default {
       const nameFilter = this.filterName
 
       return this.regions.filter(region => {
-        const typeMatch = region.type === typeFilter || typeFilter === 0
+        const typeMatch = typeFilter.some(type => type === region.type)
         const nameMatch = !nameFilter ||
           region.name.toLowerCase().includes(nameFilter.toLowerCase()) ||
-          region.emailAddress.toLowerCase().includes((nameFilter.toLowerCase()))
+          region.emailAddress.toLowerCase().includes(nameFilter.toLowerCase())
         return typeMatch && nameMatch
       })
     },
