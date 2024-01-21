@@ -1,3 +1,20 @@
+# Unreleased
+
+## Features
+
+## Changes
+- Improves the BBB integration !3050 @stcz
+
+## Bugfixes
+
+## Refactoring
+
+## Dev/Test/CI stuff
+
+## Development documentation
+
+
+
 # Release Patch "Kiwi", 2024-01-21
 - Removed static IT news content page and changed it to freshdesk page !3056 @chriswalg
 - Optimized width of store and dashboard !3053 @chriswalg

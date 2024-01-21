@@ -1534,7 +1534,7 @@ conference:
   join_title: Join video conference
   privacy_notice: 'Note: Video conferences are handled via the conference server of
     the living utopia collective. You will be automatically logged in with the first
-    name you entered at foodsharing.'
+    name you entered at foodsharing, your ID and avatar.'
   description_text: Here you can join a video conference for the selected group. The
     video conference opens BigBlueButton in a new window.
 blog:

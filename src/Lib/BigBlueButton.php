@@ -25,9 +25,9 @@ class BigBlueButton
         return $this->client != self::DEFAULT_CLIENT;
     }
 
-    public function createRoom($roomName, $roomKey)
+    public function createRoom($roomName, $roomKey, $logoutHost)
     {
-        $url = $this->createRoomURL($roomName, $roomKey);
+        $url = $this->createRoomURL($roomName, $roomKey, $logoutHost);
         try {
             $res = $this->client->get($url)->getBody()->getContents();
             $res = new \SimpleXMLElement($res);
@@ -45,26 +45,27 @@ class BigBlueButton
         }
     }
 
-    private function createRoomURL($roomName, $roomKey)
+    private function createRoomURL($roomName, $roomKey, $logoutHost)
     {
         $params = [
             'name' => $roomName,
             'meetingID' => 'fs-' . $roomKey,
             'attendeePW' => 'ap',
             'moderatorPW' => 'mp',
-            'dialNumber' => $this->dialin
+            'dialNumber' => $this->dialin,
+            'logoutURL' => 'https://' . $logoutHost
         ];
 
         return $this->buildUrl('create', $params);
     }
 
-    public function joinURL($roomKey, $username, $isModerator = false)
+    public function joinURL($roomKey, $username, $avatar, $isModerator = false)
     {
         $params = [
             'fullName' => $username,
+            'avatarURL' => $avatar,
             'meetingID' => 'fs-' . $roomKey,
             'password' => $isModerator ? 'mp' : 'ap',
-            'joinViaHtml5' => 'true',
             'redirect' => 'true'
         ];
 

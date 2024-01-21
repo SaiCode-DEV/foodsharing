@@ -10,6 +10,7 @@ use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\RestApi\Models\Group\UserGroupModel;
+use Foodsharing\Utility\ImageHelper;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -26,6 +27,7 @@ class GroupRestController extends AbstractFOSRestController
     public function __construct(
         private GroupGateway $groupGateway,
         private Session $session,
+        private ImageHelper $imageService,
         private RegionPermissions $regionPermissions,
         private GroupTransactions $groupTransactions
     ) {
@@ -78,8 +80,10 @@ class GroupRestController extends AbstractFOSRestController
         if (!$regionPermissions->hasConference($group['type'])) {
             throw new AccessDeniedHttpException('This region does not support conferences');
         }
+
+        $host = str_replace('beta.', '', $_SERVER['HTTP_HOST'] ?? BASE_URL);
         $key = 'region-' . $groupId;
-        $conference = $bbb->createRoom($group['name'], $key);
+        $conference = $bbb->createRoom($group['name'], $key, $host);
         if (!$conference) {
             throw new HttpException(500, 'Conferences currently not available');
         }
@@ -89,10 +93,11 @@ class GroupRestController extends AbstractFOSRestController
         ];
 
         $name = $this->session->user('name') . ' (' . $this->session->id() . ')';
+        $avatar = 'https://' . $host . $this->imageService->img();
 
         /* We do a 301 redirect directly to have less likeliness that the user forwards the BBB join URL as this is already personalized */
         if ($paramFetcher->get('redirect') == 'true') {
-            return $this->redirect($bbb->joinURL($key, $name, true));
+            return $this->redirect($bbb->joinURL($key, $name, $avatar, true));
         }
 
         /* Without the redirect, we return information about the conference */
