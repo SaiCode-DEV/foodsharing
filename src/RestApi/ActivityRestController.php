@@ -1,37 +1,46 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Activity\ActivityTransactions;
+use Foodsharing\RestApi\Models\Activities\ActivityFilterModel;
+use Foodsharing\RestApi\Models\Activities\ActivityModel;
+use Foodsharing\RestApi\Models\Activities\ActivityUpdateModel;
+use Foodsharing\RestApi\Models\HttpCodeMessageModel;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
-use OpenApi\Annotations as OA;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as OA;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class ActivityRestController extends AbstractFOSRestController
 {
-    private ActivityTransactions $activityTransactions;
-    private Session $session;
-
     public function __construct(
-        ActivityTransactions $activityTransactions,
-        Session $session
+        private readonly ActivityTransactions $activityTransactions,
+        private readonly Session $session
     ) {
-        $this->activityTransactions = $activityTransactions;
-        $this->session = $session;
     }
 
-    /**
-     * Returns the filters for all dashboard activities for the current user.
-     *
-     * @OA\Response(response="200", description="Success.")
-     * @OA\Response(response="403", description="Insufficient permissions to request filters.")
-     * @OA\Tag(name="activities")
-     * @Rest\Get("activities/filters")
-     */
+    #[OA\Get(summary: 'Returns the filters for all dashboard activities for the current user')]
+    #[Rest\Get(path: 'activities/filters')]
+    #[OA\Tag('activities')]
+    #[OA\Response(
+        response: Response::HTTP_OK,
+        description: 'Successful',
+        content: new OA\JsonContent(ref: new Model(type: ActivityModel::class))
+    )]
+    #[OA\Response(
+        response: Response::HTTP_UNAUTHORIZED,
+        description: 'Insufficient permissions to request filters.',
+        content: new OA\JsonContent(ref: new Model(type: HttpCodeMessageModel::class))
+    )]
     public function getActivityFiltersAction(): Response
     {
         if (!$this->session->id()) {
@@ -40,38 +49,58 @@ class ActivityRestController extends AbstractFOSRestController
 
         $filters = $this->activityTransactions->getFilters();
 
-        return $this->handleView($this->view($filters, 200));
+        return $this->handleView($this->view($filters, Response::HTTP_OK));
     }
 
-    /**
-     * Sets which dashboard activities should be deactivated for the current user.
-     *
-     * @OA\Response(response="200", description="Success.")
-     * @OA\Response(response="403", description="Insufficient permissions to set filters.")
-     * @OA\Tag(name="activities")
-     * @Rest\Patch("activities/filters")
-     * @Rest\RequestParam(name="excluded")
-     */
-    public function setActivityFiltersAction(ParamFetcher $paramFetcher): Response
+    #[OA\Patch(summary: 'Sets which dashboard activities should be deactivated for the current user.')]
+    #[Rest\Patch(path: 'activities/filters')]
+    #[OA\Tag('activities')]
+    #[OA\RequestBody(content: new Model(type: ActivityFilterModel::class))]
+    #[ParamConverter(
+        data: 'activityExcluded',
+        class: 'Foodsharing\RestApi\Models\Activities\ActivityFilterModel',
+        converter: 'fos_rest.request_body'
+    )]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
+    #[OA\Response(
+        response: Response::HTTP_UNAUTHORIZED,
+        description: 'Insufficient permissions to set request filters.',
+        content: new OA\JsonContent(ref: new Model(type: HttpCodeMessageModel::class))
+    )]
+    #[OA\Response(
+        response: Response::HTTP_BAD_REQUEST,
+        description: 'Incomplete or incorrect request',
+        content: new OA\JsonContent(ref: new Model(type: HttpCodeMessageModel::class))
+    )]
+    public function setActivityFiltersAction(ActivityFilterModel $activityExcluded): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
         }
 
-        $excluded = $paramFetcher->get('excluded');
-        $this->activityTransactions->setExcludedFilters($excluded);
+        if (!isset($activityExcluded->excluded)) {
+            throw new BadRequestException('Incomplete or incorrect request parameters');
+        }
 
-        return $this->handleView($this->view([], 200));
+        $this->activityTransactions->setExcludedFilters($activityExcluded->excluded);
+
+        return $this->handleView($this->view([], Response::HTTP_OK));
     }
 
-    /**
-     * Returns the updates object for ActivityOverview to display on the dashboard.
-     *
-     * @OA\Response(response="200", description="Success.")
-     * @OA\Tag(name="activities")
-     * @Rest\Get("activities/updates")
-     * @Rest\QueryParam(name="page", requirements="\d+", default="0", description="Which page of updates to return")
-     */
+    #[OA\Get(summary: 'Returns the updates object for ActivityOverview to display on the dashboard')]
+    #[Rest\Get(path: 'activities/updates')]
+    #[OA\Tag('activities')]
+    #[Rest\QueryParam(name: 'page', requirements: '\d+', default: 0, description: 'Which page of updates to return')]
+    #[OA\Response(
+        response: Response::HTTP_OK,
+        description: 'Successful',
+        content: new OA\JsonContent(ref: new Model(type: ActivityUpdateModel::class))
+    )]
+    #[OA\Response(
+        response: Response::HTTP_UNAUTHORIZED,
+        description: 'Insufficient permissions to request filters.',
+        content: new OA\JsonContent(ref: new Model(type: HttpCodeMessageModel::class))
+    )]
     public function getActivityUpdatesAction(ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
@@ -79,11 +108,8 @@ class ActivityRestController extends AbstractFOSRestController
         }
 
         $page = intval($paramFetcher->get('page'));
+        $updates = new ActivityUpdateModel($this->activityTransactions->getUpdateData($page));
 
-        $updates = [
-            'updates' => $this->activityTransactions->getUpdateData($page),
-        ];
-
-        return $this->handleView($this->view($updates, 200));
+        return $this->handleView($this->view($updates, Response::HTTP_OK));
     }
 }

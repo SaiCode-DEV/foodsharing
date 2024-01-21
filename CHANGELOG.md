@@ -8,11 +8,11 @@
 ## Bugfixes
 
 ## Refactoring
+- Switched Annotation to Attributes, implements Test and general code style adjust for Activity REST Endpoint !2975 @BibaltiK
 
 ## Dev/Test/CI stuff
 
 ## Development documentation
-
 
 
 # Release Patch "Kiwi", 2024-01-21
@@ -127,6 +127,7 @@
 - Changes the basket bubble on the map to vue #1608 #1788 !2905 !3028 @alex.simm
 - Refactor StoreListComponent.vue !2733 @buntel
 - Refactor storage.js !2733 @buntel
+
 
 ## Dev/Test/CI stuff
 - removed CHANGELOG.md merge=union !2866 @chriswalg

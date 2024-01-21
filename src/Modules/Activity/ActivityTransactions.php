@@ -12,6 +12,7 @@ use Foodsharing\Modules\Activity\DTO\ImageActivityFilter;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
+use Foodsharing\RestApi\Models\Activities\ActivityFilterItem;
 use Foodsharing\Utility\ImageHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -72,7 +73,7 @@ class ActivityTransactions
         ) {
             $mailboxOptions = array_map(function ($b) use ($excluded) {
                 return ActivityFilter::create(
-                    $b['name'] . '@' . PLATFORM_MAILBOX_HOST, $b['id'],
+                    $b['id'], $b['name'] . '@' . PLATFORM_MAILBOX_HOST,
                     !isset($excluded['mailbox-' . $b['id']])
                 );
             }, $boxes);
@@ -105,17 +106,17 @@ class ActivityTransactions
     /**
      * Sets the deactivated activities for the logged in user.
      *
-     * @param array $excluded a list of activities to be deactivated. List entries should be objects with
+     * @param array<ActivityFilterItem> $excluded a list of activities to be deactivated. List entries should be objects with
      * 'index' and 'id' entries
      */
     public function setExcludedFilters(array $excluded): void
     {
         $list = [];
-        foreach ($excluded as $o) {
-            if (isset($o['index'], $o['id']) && (int)$o['id'] > 0) {
-                $list[$o['index'] . '-' . $o['id']] = [
-                    'index' => $o['index'],
-                    'id' => $o['id']
+        foreach ($excluded as $item) {
+            if ($item->id > 0) {
+                $list[$item->index . '-' . $item->id] = [
+                    'index' => $item->index,
+                    'id' => $item->id
                 ];
             }
         }
@@ -155,55 +156,65 @@ class ActivityTransactions
         );
     }
 
+    /**
+     * @return array<ActivityUpdate>
+     */
     private function loadEventWallUpdates(int $page): array
     {
         $updates = $this->activityGateway->fetchAllEventUpdates($this->session->id(), $page);
-        $out = [];
 
-        foreach ($updates as $u) {
-            $out[] = ActivityUpdate::create(
+        $activities = [];
+        foreach ($updates as $update) {
+            $activities[] = ActivityUpdate::create(
                 'event',
-                Carbon::createFromTimestamp($u['time_ts']),
-                $u['name'],
-                $u['body'] ?? '',
-                $u['event_region'],
+                $update['time_ts'],
+                $update['name'],
+                $update['body'],
+                $update['region'],
                 '',
-                $u['fs_photo'] ?? '',
-                $u['gallery'] ?? [],
-                $u['fs_id'],
-                $u['fs_name'],
-                $u['event_id']
+                $update['fs_photo'] ?? '',
+                $update['gallery'] ?? [],
+                $update['fs_id'],
+                $update['fs_name'],
+                $update['event_id'],
             );
         }
 
-        return $out;
+        return $activities;
     }
 
+    /**
+     * @return array<ActivityUpdate>
+     */
     private function loadFoodSharePointWallUpdates(int $page): array
     {
         $updates = $this->activityGateway->fetchAllFoodSharePointWallUpdates($this->session->id(), $page);
-        $out = [];
 
-        foreach ($updates as $u) {
-            $out[] = ActivityUpdate::create(
+        $activities = [];
+
+        foreach ($updates as $update) {
+            $activityItem = ActivityUpdate::create(
                 'foodsharepoint',
-                Carbon::createFromTimestamp($u['time_ts']),
-                $u['name'],
-                $u['body'] ?? '',
-                $u['fsp_location'],
+                $update['time_ts'],
+                $update['name'],
+                $update['body'] ?? '',
+                $update['fsp_location'],
                 '',
-                $u['fs_photo'] ?? '',
-                $u['gallery'] ?? [],
-                $u['fs_id'],
-                $u['fs_name'],
-                $u['fsp_id'],
-                $u['region_id']
+                $update['photo'] ?? '',
+                $update['gallery'] ?? [],
+                $update['fs_id'],
+                $update['fs_name'],
+                $update['fsp_id'],
+                $update['region_id'] ?? null,
             );
         }
 
-        return $out;
+        return $activities;
     }
 
+    /**
+     * @return array<ActivityUpdate>
+     */
     private function loadFriendWallUpdates(int $page, array $hidden_ids): array
     {
         $buddy_ids = [];
@@ -226,26 +237,26 @@ class ActivityTransactions
             return [];
         }
 
-        $out = [];
-        foreach ($updates as $u) {
-            $is_own = $u['fs_id'] === $this->session->id();
+        $activities = [];
+        foreach ($updates as $update) {
+            $isOwn = $update['fs_id'] === $this->session->id();
 
-            $out[] = ActivityUpdate::create(
+            $activities[] = ActivityUpdate::create(
                 'friendWall',
-                Carbon::createFromTimestamp($u['time_ts']),
+                $update['time_ts'],
                 '',
-                $u['body'] ?? '',
-                $u['fs_name'],
-                $is_own ? '_own' : '',
-                $u['fs_photo'] ?? '',
-                $u['gallery'] ?? [],
-                $u['fs_id'],
-                $u['fs_name'],
-                $u['fs_id']
+                $update['body'],
+                $update['fs_name'],
+                $isOwn ? '_own' : '',
+                $update['photo'] ?? '',
+                $update['gallery'] ?? [],
+                $update['fs_id'],
+                $update['fs_name'],
+                $update['fs_id'],
             );
         }
 
-        return $out;
+        return $activities;
     }
 
     private function loadMailboxUpdates(int $page, array $hidden_ids): array
@@ -295,6 +306,9 @@ class ActivityTransactions
         return $out;
     }
 
+    /**
+     * @return array<ActivityUpdate>
+     */
     private function loadForumUpdates(int $page, array $hidden_ids): array
     {
         $myRegionIds = $this->session->listRegionIDs();
@@ -316,6 +330,7 @@ class ActivityTransactions
         }
 
         $updates = $this->activityGateway->fetchAllForumUpdates($region_ids, $page, false);
+
         if ($ambassadorIds = $this->session->getMyAmbassadorRegionIds()) {
             $botPosts = $this->activityGateway->fetchAllForumUpdates($ambassadorIds, $page, true);
             $updates = array_merge($updates, $botPosts);
@@ -325,57 +340,60 @@ class ActivityTransactions
             return [];
         }
 
-        $out = [];
-        foreach ($updates as $u) {
-            $is_bot = $u['bot_theme'] === 1;
+        $activities = [];
+        foreach ($updates as $update) {
+            $isBot = $update['bot_theme'] === 1;
+            $forumTypeString = $isBot ? 'botforum' : 'forum';
 
-            $forumTypeString = $is_bot ? 'botforum' : 'forum';
-
-            $out[] = ActivityUpdate::create(
+            $activities[] = ActivityUpdate::create(
                 'forum',
-                Carbon::createFromTimestamp($u['update_time_ts']),
-                $u['name'],
-                $u['post_body'] ?? '',
-                $u['bezirk_name'],
-                $is_bot ? '_bot' : '',
-                $u['foodsaver_photo'] ?? '',
+                $update['update_time_ts'],
+                $update['name'],
+                $update['post_body'] ?? '',
+                $update['bezirk_name'],
+                $isBot ? '_bot' : '',
+                $update['foodsaver_photo'] ?? '',
                 [],
-                (int)$u['foodsaver_id'],
-                $u['foodsaver_name'],
-                (int)$u['id'],
-                (int)$u['bezirk_id'],
-                (int)$u['last_post_id'],
-                $forumTypeString
+                $update['foodsaver_id'],
+                $update['foodsaver_name'],
+                $update['id'],
+                $update['bezirk_id'],
+                $update['last_post_id'],
+                $forumTypeString,
             );
         }
 
-        return $out;
+        return $activities;
     }
 
+    /**
+     * @return array<ActivityUpdate>
+     */
     private function loadStoreUpdates(int $page): array
     {
         $updates = $this->activityGateway->fetchAllStoreUpdates($this->session->id(), $page);
+
         if (empty($updates)) {
             return [];
         }
 
-        $out = [];
-        foreach ($updates as $u) {
-            $out[] = ActivityUpdate::create(
+        $activities = [];
+        foreach ($updates as $update) {
+            $activities[] = ActivityUpdate::create(
                 'store',
-                Carbon::createFromTimestamp($u['update_time_ts']),
-                $u['betrieb_name'],
-                $u['text'] ?? '',
-                $u['region_name'],
+                $update['update_time_ts'],
+                $update['betrieb_name'],
+                $update['text'] ?? '',
+                $update['region_name'],
                 '',
-                $u['foodsaver_photo'] ?? '',
-                null,
-                $u['foodsaver_id'],
-                $u['foodsaver_name'],
-                $u['betrieb_id']
+                $update['foodsaver_photo'] ?? '',
+                [],
+                $update['foodsaver_id'],
+                $update['foodsaver_name'],
+                $update['betrieb_id'],
             );
         }
 
-        return $out;
+        return $activities;
     }
 }

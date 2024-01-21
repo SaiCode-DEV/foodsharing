@@ -1,25 +1,52 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Foodsharing\Modules\Activity\DTO;
 
 use DateTime;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\Type;
+use OpenApi\Attributes as OA;
 
 class ActivityUpdateMailbox
 {
+    #[OA\Property(title: 'Type of the Update', type: 'string', default: 'mailbox')]
+    #[Type('string')]
+    public string $type = 'mailbox';
+
+    #[OA\Property(title: 'The Time of the Update', type: 'string')]
+    #[Type('DateTime')]
     public DateTime $time;
 
-    public string $type = 'mailbox';
-    public string $desc;
+    #[OA\Property(title: 'The Name of the Update', type: 'string')]
+    #[Type('string')]
     public string $title;
 
-    public string $icon = 'fas fa-envelope';
+    #[OA\Property(title: 'a more detailed description', type: 'string')]
+    #[Type('string')]
+    public string $desc;
+
+    #[OA\Property(title: 'The Source of the Update', type: 'string')]
+    #[Type('string')]
     public string $source;
 
-    // the email id
-    public int $entity_id;
+    #[OA\Property(title: 'Icon path for the update', type: 'string', default: 'fas fa-envelope')]
+    #[Type('string')]
+    public string $icon = 'fas fa-envelope';
 
-    // Individual update-type properties
-    public string $sender_email;
+    #[OA\Property(property: 'entity_id', title: 'the e-mail id', type: 'integer')]
+    #[Type('int')]
+    #[SerializedName('entity_id')]
+    public int $entityId;
+
+    #[OA\Property(property: 'sender_email', title: 'Sender of the email', type: 'string')]
+    #[Type('string')]
+    #[SerializedName('sender_email')]
+    public string $senderEmail;
+
+    #[OA\Property(title: 'id of the mailbox', type: 'integer')]
+    #[Type('int')]
     public int $mailboxId;
 
     public static function create(
@@ -31,20 +58,20 @@ class ActivityUpdateMailbox
         string $subject,
         string $sender_email
     ): self {
-        $u = new self();
+        $update = new self();
 
-        $u->time = $time;
+        $update->time = $time;
 
-        $u->desc = $desc;
-        $u->title = $subject;
+        $update->desc = $desc;
+        $update->title = $subject;
 
-        $u->source = $mailbox_name;
-        $u->mailboxId = $mailboxId;
+        $update->source = $mailbox_name;
+        $update->mailboxId = $mailboxId;
 
-        $u->entity_id = $emailId;
+        $update->entityId = $emailId;
 
-        $u->sender_email = $sender_email;
+        $update->senderEmail = $sender_email;
 
-        return $u;
+        return $update;
     }
 }
