@@ -8,11 +8,17 @@
     </div>
     <div
       v-else
-      class="my-2"
+      class="scrolling"
     >
+      <a
+        class="btn btn-primary mx-5"
+        type="button"
+        :href="$url('basket', bubbleData.id)"
+        v-text="$i18n('basket.go')"
+      />
       <div
         v-if="bubbleData.photo"
-        class="mb-1"
+        class="mb-2 mt-2"
       >
         <img
           class="basketpicture"
@@ -40,13 +46,6 @@
       <div class="mb-3">
         {{ bubbleData.description }}
       </div>
-
-      <a
-        class="btn btn-primary mx-5"
-        type="button"
-        :href="$url('basket', bubbleData.id)"
-        v-text="$i18n('basket.go')"
-      />
     </div>
   </div>
 </template>
@@ -103,5 +102,10 @@ export default {
 .section-label {
   color: var(--fs-color-primary-500);
   font-weight: 500;
+}
+
+.scrolling {
+  height: calc(100vh - 27rem);
+  overflow-y: auto;
 }
 </style>
