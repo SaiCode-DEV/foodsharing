@@ -232,12 +232,23 @@ export default {
   .table th, .table td {
     border-top: none;
   }
+  .table tr {
+    border-top: 1px solid var(--fs-border-default);
+    margin: 0.5rem 0;
+  }
+  .table tr:first-child {
+    border-top: none;
+  }
+  .table tr > td:is(:first-child, :last-child) {
+    display: none !important;;
+  }
   .table.b-table.b-table-stacked-sm > tbody > tr > [data-label]::before {
     content: none;
   }
 
-  table.b-table.b-table-stacked-sm > tbody > tr > td {
-    min-width: 500px;
-  }
+   .table-sm th, .table-sm td {
+     padding: 0.4rem;
+     min-width: 24rem;
+   }
 }
 </style>

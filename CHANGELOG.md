@@ -18,6 +18,7 @@
 - Fixed filtering region types for AddressBook.vue in mailbox module !3077 @chriswalg
 - Moved button to top and added scrolling for basket bubble as workaround !3079 @chriswalg
 - Fixed rendering of the map in Safari #1816 !3074 @alex.simm
+- Added mobile mail list separator and removed the horizontal scrollbar !3082 @buntel @chriswalg
 - Suppress error when a vue tree is not found on the profile edit page #1817 !3085 @alex.simm
 
 # Release "Kiwi", 2024-01-14
