@@ -5,6 +5,7 @@
 - Fixed arbitration report overview !3062 @fs_k
 - Add email to recipient list when focus is lost !3058 @alex.simm
 - Render vue basket bubbles when selecting a basket from the list #1812 !3057 @alex.simm
+- Provide default location for location search form #1806 !3065 @AntonBallmaier
 - Fixed toSpliced undefined for older browsers #1801 !3066 @AntonBallmaier
 - Fixed vue element not found exception #1810 !3063 @AntonBallmaier
 - Fixed Basket Modal for users without valid home address #1811 !3061 @AntonBallmaier

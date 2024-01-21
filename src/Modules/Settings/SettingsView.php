@@ -6,6 +6,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
 use Foodsharing\Modules\Content\ContentGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\DBConstants\Quiz\AnswerRating;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\View;
@@ -329,7 +330,7 @@ class SettingsView extends View
 
         $addressPicker = $this->vueComponent('settings-address-search', 'LeafletLocationSearchVForm', [
             'zoom' => 17,
-            'coordinates' => ['lat' => $g_data['lat'], 'lon' => $g_data['lon']],
+            'coordinates' => ['lat' => $g_data['lat'] ?? MapConstants::CENTER_GERMANY_LAT, 'lon' => $g_data['lon'] ?? MapConstants::CENTER_GERMANY_LON],
             'street' => $g_data['anschrift'],
             'postalCode' => $g_data['plz'],
             'city' => $g_data['ort'],
