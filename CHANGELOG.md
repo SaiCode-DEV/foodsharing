@@ -14,6 +14,7 @@
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm
+- Updated maintenance page !3052 @chris.walg
 
 ## Development documentation
 
