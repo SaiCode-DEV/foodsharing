@@ -6,6 +6,7 @@
 - Improves the BBB integration !3050 @stcz
 
 ## Bugfixes
+- remove misplaced line in store team view !3088 @buntel
 
 ## Refactoring
 - Switched Annotation to Attributes, implements Test and general code style adjust for Activity REST Endpoint !2975 @BibaltiK

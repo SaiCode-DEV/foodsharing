@@ -81,7 +81,7 @@
         v-if="managementModeEnabled"
         :store-id="storeId"
         :team="team"
-        classes="pt-2 team-management"
+        classes="pt-2"
         :region-id="regionId"
       />
 
@@ -715,10 +715,6 @@ export default {
 
 .search-container input {
   width: 100%;
-}
-
-.store-team .team-management {
-  border-bottom: 2px solid var(--fs-color-warning-500);
 }
 
 .store-team .team-list {
