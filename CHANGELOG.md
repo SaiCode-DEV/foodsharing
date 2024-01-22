@@ -4,6 +4,7 @@
 
 ## Changes
 - Improves the BBB integration !3050 @stcz
+- Added marker clustering to the basket map !3013 @alex.simm 
 
 ## Bugfixes
 - remove misplaced line in store team view !3088 @buntel

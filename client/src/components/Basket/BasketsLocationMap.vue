@@ -11,15 +11,17 @@
       :bounds="currentBounds"
       :height="400"
     >
-      <l-marker
-        v-for="basket in baskets"
-        :key="basket.id"
-        ref="marker"
-        :lat-lng="{ lat: basket.lat, lon: basket.lon }"
-        :icon="icon"
-        :draggable="false"
-        @click="openBasketModal(basket.id)"
-      />
+      <vue2-leaflet-marker-cluster>
+        <l-marker
+          v-for="basket in baskets"
+          :key="basket.id"
+          ref="marker"
+          :lat-lng="{ lat: basket.lat, lon: basket.lon }"
+          :icon="icon"
+          :draggable="false"
+          @click="openBasketModal(basket.id)"
+        />
+      </vue2-leaflet-marker-cluster>
     </leaflet-map>
   </div>
 </template>
@@ -33,10 +35,11 @@ import BasketsData from '@/stores/baskets'
 import { ajreq } from '@/script'
 import { vueApply } from '@/vue'
 import AddressSearchField from '@/components/map/AddressSearchField'
+import Vue2LeafletMarkerCluster from 'vue2-leaflet-markercluster'
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 
 export default {
-  components: { AddressSearchField, LeafletMap, LMarker },
+  components: { AddressSearchField, LeafletMap, LMarker, Vue2LeafletMarkerCluster },
   props: {
     zoom: { type: Number, required: true },
     center: { type: Object, required: true },
