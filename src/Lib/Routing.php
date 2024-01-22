@@ -22,7 +22,6 @@ use Foodsharing\Modules\Map\MapXhr;
 use Foodsharing\Modules\Message\MessageControl;
 use Foodsharing\Modules\PassportGenerator\PassportGeneratorControl;
 use Foodsharing\Modules\Profile\ProfileControl;
-use Foodsharing\Modules\Profile\ProfileXhr;
 use Foodsharing\Modules\Quiz\QuizControl;
 use Foodsharing\Modules\Quiz\QuizXhr;
 use Foodsharing\Modules\Region\RegionXhr;
@@ -125,7 +124,6 @@ class Routing
     private const XHR = [
         'foodsaver' => FoodsaverXhr::class,
         'map' => MapXhr::class,
-        'profile' => ProfileXhr::class,
         'quiz' => QuizXhr::class,
         'report' => ReportXhr::class,
         'settings' => SettingsXhr::class,
