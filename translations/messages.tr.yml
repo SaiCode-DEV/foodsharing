@@ -1912,9 +1912,9 @@ conference:
   description_text: Burada seçtiğin grubun video konferansına katılabilirsiniz. BigBlueButton
     video konferansını, yeni bir pencerede açar.
   join: Konferansa katıl
-  privacy_notice: "Not: Video konferanslar, living utopia Kollektivs konferans sunucusu
-    aracılığıyla gerçekleştirilir.Oraya, Foodsharing'e girdiğiniz isimle, otomatik
-    olarak giriş yapacaksınız."
+  privacy_notice: "Not: Video konferansları, living utopia Kollektivs konferans sunucusu
+    aracılığıyla gerçekleştirilir.Foodsharing'e girdiğiniz adınız, kimliğiniz ve avatarınızla
+    otomatik olarak oturum açacaksınız."
 sidenav:
   localgroups: Yerel gruplar
   yourgroups: Gruplarınız
