@@ -19,7 +19,7 @@
           :lat-lng="{ lat: basket.lat, lon: basket.lon }"
           :icon="icon"
           :draggable="false"
-          @click="openBasketModal(basket.id)"
+          @click="openBasketBubble(basket.id)"
         />
       </vue2-leaflet-marker-cluster>
     </leaflet-map>
@@ -32,9 +32,8 @@ import { LMarker } from 'vue2-leaflet'
 import 'leaflet.awesome-markers'
 import LeafletMap from '@/components/map/LeafletMap'
 import BasketsData from '@/stores/baskets'
-import { ajreq } from '@/script'
-import { vueApply } from '@/vue'
 import AddressSearchField from '@/components/map/AddressSearchField'
+import { openBasketBubble } from '@php/Modules/Basket/Basket'
 import Vue2LeafletMarkerCluster from 'vue2-leaflet-markercluster'
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 
@@ -58,11 +57,7 @@ export default {
     this.baskets = BasketsData.getters.getAllBasketCoordinates()
   },
   methods: {
-    openBasketModal (id) {
-      ajreq('bubble', { app: 'basket', id: id }).then(_ => {
-        vueApply('#basket-bubble')
-      })
-    },
+    openBasketBubble,
     updateMapCenter (coordinates, bounds, address) {
       if (bounds) {
         this.currentBounds = bounds

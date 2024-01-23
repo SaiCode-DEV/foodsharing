@@ -98,7 +98,7 @@ $(document).ready(() => {
   }
 })
 
-function openBasketBubble (id) {
+export function openBasketBubble (id) {
   ajreq('bubble', {
     app: 'basket',
     id: id,
