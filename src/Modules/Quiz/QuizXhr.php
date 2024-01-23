@@ -14,31 +14,18 @@ use Foodsharing\Utility\Sanitizer;
 
 class QuizXhr extends Control
 {
-    private ContentGateway $contentGateway;
-    private QuizGateway $quizGateway;
-    private QuizSessionGateway $quizSessionGateway;
-    private Sanitizer $sanitizerService;
-    private DataHelper $dataHelper;
-    private QuizPermissions $quizPermissions;
-
     public function __construct(
-        QuizGateway $quizGateway,
-        QuizSessionGateway $quizSessionGateway,
+        private readonly QuizGateway $quizGateway,
+        private readonly QuizSessionGateway $quizSessionGateway,
         QuizView $view,
-        ContentGateway $contentGateway,
-        Sanitizer $sanitizerTransactions,
-        DataHelper $dataHelper,
-        QuizPermissions $quizPermissions
+        private readonly ContentGateway $contentGateway,
+        private readonly Sanitizer $sanitizerTransactions,
+        private readonly DataHelper $dataHelper,
+        private readonly QuizPermissions $quizPermissions,
+        private readonly QuizTransactions $quizTransactions
     ) {
-        $this->view = $view;
-        $this->quizGateway = $quizGateway;
-        $this->quizSessionGateway = $quizSessionGateway;
-        $this->contentGateway = $contentGateway;
-        $this->sanitizerService = $sanitizerTransactions;
-        $this->dataHelper = $dataHelper;
-        $this->quizPermissions = $quizPermissions;
-
         parent::__construct();
+        $this->view = $view;
     }
 
     public function hideinfo()
@@ -124,7 +111,7 @@ class QuizXhr extends Control
                     if ($id = $this->quizGateway->addAnswer($_GET['qid'], $text, $exp, $right)) {
                         return [
                             'status' => 1,
-                            'script' => 'pulseInfo("Antwort wurde angelegt");$("#answerlist-' . (int)$_GET['qid'] . '").append(\'<li class="right-' . (int)$right . '">' . $this->sanitizerService->jsSafe(nl2br(strip_tags($text))) . '</li>\');$( "#questions" ).accordion( "refresh" );'
+                            'script' => 'pulseInfo("Antwort wurde angelegt");$("#answerlist-' . (int)$_GET['qid'] . '").append(\'<li class="right-' . (int)$right . '">' . $this->sanitizerTransactions->jsSafe(nl2br(strip_tags($text))) . '</li>\');$( "#questions" ).accordion( "refresh" );'
                         ];
                     }
                 } else {
@@ -150,7 +137,7 @@ class QuizXhr extends Control
 
                     return [
                         'status' => 1,
-                        'script' => 'pulseInfo("Antwort wurde geändert");$("#answer-' . (int)$_GET['id'] . '").replaceWith(\'<li id="answer-' . (int)$_GET['id'] . '" class="right-' . (int)$right . '">' . $this->sanitizerService->jsSafe(nl2br(strip_tags($text))) . '</li>\');$( "#questions" ).accordion( "refresh" );'
+                        'script' => 'pulseInfo("Antwort wurde geändert");$("#answer-' . (int)$_GET['id'] . '").replaceWith(\'<li id="answer-' . (int)$_GET['id'] . '" class="right-' . (int)$right . '">' . $this->sanitizerTransactions->jsSafe(nl2br(strip_tags($text))) . '</li>\');$( "#questions" ).accordion( "refresh" );'
                     ];
                 }
 
@@ -371,7 +358,7 @@ class QuizXhr extends Control
     private function abortOrOpenDialog(int $quizSessionId): string
     {
         return '
-				$("body").append(\'<div id="abortOrPause">' . $this->sanitizerService->jsSafe($this->view->abortOrPause()) . '</div>\');
+				$("body").append(\'<div id="abortOrPause">' . $this->sanitizerTransactions->jsSafe($this->view->abortOrPause()) . '</div>\');
 				$("#abortOrPause").dialog({
 					autoOpen: false,
 					title: "Quiz wirklich abbrechen?",
@@ -396,11 +383,12 @@ class QuizXhr extends Control
 
         $dia->addAbortButton();
 
-        if ($this->session->get('hastodoquiz-id') == Role::FOODSAVER) {
+        $next_hastodo_role = $this->quizTransactions->refreshQuizData($this->session->id(), $this->session->role());
+        if ($next_hastodo_role == Role::FOODSAVER) {
             $dia->addButton('Jetzt mit dem Quiz meine Rolle als Foodsaver bestätigen', 'goTo(\'/?page=settings&sub=up_fs\');');
-        } elseif ($this->session->get('hastodoquiz-id') == Role::STORE_MANAGER) {
+        } elseif ($next_hastodo_role == Role::STORE_MANAGER) {
             $dia->addButton('Jetzt mit dem Quiz meine Rolle als Betriebsverantwortliche*r bestätigen', 'goTo(\'/?page=settings&sub=up_bip\');');
-        } elseif ($this->session->get('hastodoquiz-id') == Role::AMBASSADOR) {
+        } elseif ($next_hastodo_role == Role::AMBASSADOR) {
             $dia->addButton('Jetzt mit dem Quiz meine Rolle als Botschafter*In bestätigen', 'goTo(\'/?page=settings&sub=up_bot\');');
         }
 
@@ -414,7 +402,7 @@ class QuizXhr extends Control
     public function quizpopup()
     {
         if ($this->session->mayRole(Role::FOODSAVER)) {
-            $nextRole = $this->session->get('hastodoquiz-id');
+            $nextRole = $this->quizTransactions->refreshQuizData($this->session->id(), $this->session->role());
             if (!$this->quizSessionGateway->hasPassedQuiz($this->session->id(), $nextRole)) {
                 $dia = new XhrDialog();
                 $dia->addOpt('width', 720);
@@ -574,7 +562,7 @@ class QuizXhr extends Control
 
                         $x = 1;
                         foreach ($answers as $a) {
-                            $comment_answers .= $x . '. Frage #' . $a['id'] . ' => ' . preg_replace('/[^a-zA-Z0-9\ \.]/', '', $this->sanitizerService->tt($a['text'], 25)) . "\n";
+                            $comment_answers .= $x . '. Frage #' . $a['id'] . ' => ' . preg_replace('/[^a-zA-Z0-9\ \.]/', '', $this->sanitizerTransactions->tt($a['text'], 25)) . "\n";
                             ++$x;
                         }
 
@@ -605,7 +593,7 @@ class QuizXhr extends Control
                         $dia->addButton('Weiter', 'questcheckresult();return false;');
                         $dia->addButton('Pause', 'ajreq(\'pause\',{app:\'quiz\',sid:\'' . $session_id . '\'});');
 
-                        $dia->addButton('nächste Frage', 'ajreq(\'next\',{app:\'quiz\',qid:' . (int)$question['id'] . ',commentanswers:"' . $this->sanitizerService->jsSafe($comment_answers) . '"});$(".quiz-questiondialog .ui-dialog-buttonset .ui-button").button( "option", "disabled", true );$(".quiz-questiondialog .ui-dialog-buttonset .ui-button span").prepend(\'<i class="fas fa-spinner fa-spin"></i> \')');
+                        $dia->addButton('nächste Frage', 'ajreq(\'next\',{app:\'quiz\',qid:' . (int)$question['id'] . ',commentanswers:"' . $this->sanitizerTransactions->jsSafe($comment_answers) . '"});$(".quiz-questiondialog .ui-dialog-buttonset .ui-button").button( "option", "disabled", true );$(".quiz-questiondialog .ui-dialog-buttonset .ui-button span").prepend(\'<i class="fas fa-spinner fa-spin"></i> \')');
 
                         /*
                          * add next() Button
@@ -723,7 +711,7 @@ class QuizXhr extends Control
 									special = 0;
 								}
 								clearInterval(counter);
-								ajreq(\'next\',{answer:$(\'.qanswers\').serialize(),noco:$(\'.nocheck:checked\').length,app:\'quiz\',commentanswers:"' . $this->sanitizerService->jsSafe($comment_answers) . '",comment:$(\'#quizusercomment\').val(),qid:' . (int)$question['id'] . ',special:special});
+								ajreq(\'next\',{answer:$(\'.qanswers\').serialize(),noco:$(\'.nocheck:checked\').length,app:\'quiz\',commentanswers:"' . $this->sanitizerTransactions->jsSafe($comment_answers) . '",comment:$(\'#quizusercomment\').val(),qid:' . (int)$question['id'] . ',special:special});
 							}
 
 							function breaknext()

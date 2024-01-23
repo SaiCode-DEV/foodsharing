@@ -13,6 +13,7 @@
 - Switched Annotation to Attributes, implements Test and general code style adjust for Activity REST Endpoint !2975 @BibaltiK
 - Removed ProfileXhr !3067 @AntonBallmaier
 - Refactored the map control component to vue !3051 @alex.simm
+- Move hastodoquiz from session to Quiz Module !3075 @KoeMai
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm

@@ -13,7 +13,6 @@ use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Mails\MailsGateway;
-use Foodsharing\Modules\Quiz\QuizHelper;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Store\StoreGateway;
@@ -48,7 +47,6 @@ class Session
         private Mem $mem,
         private BuddyGateway $buddyGateway,
         private FoodsaverGateway $foodsaverGateway,
-        private QuizHelper $quizHelper,
         private RegionGateway $regionGateway,
         private StoreGateway $storeGateway,
         private MailsGateway $mailsGateway,
@@ -162,6 +160,15 @@ class Session
         }
 
         return fAuthorization::getUserToken();
+    }
+
+    public function role(): ?int
+    {
+        if (!$this->initialized) {
+            return null;
+        }
+
+        return $_SESSION['client']['rolle'];
     }
 
     /**
@@ -344,11 +351,6 @@ class Session
             'lat' => $fs['lat'],
             'lon' => $fs['lon']
         ]);
-
-        $hastodo_id = $this->quizHelper->refreshQuizData($fs_id, $fs['rolle']);
-        $hastodo = $hastodo_id > 0;
-        $this->set('hastodoquiz', $hastodo);
-        $this->set('hastodoquiz-id', $hastodo_id);
 
         $mailbox = false;
         if ((int)$fs['mailbox_id'] > 0) {

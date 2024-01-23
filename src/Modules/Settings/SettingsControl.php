@@ -257,7 +257,6 @@ class SettingsControl extends Control
                     $check = false;
                     $this->flashMessageHelper->error($this->translator->trans('foodsaver.upgrade.needs_rv'));
                 } else {
-                    $this->session->set('hastodoquiz', false);
                     $this->mem->delPageCache('/?page=dashboard', $fsId);
                     if (!$this->session->mayRole(Role::FOODSAVER)) {
                         $this->foodsaverGateway->riseRole($fsId, Role::FOODSAVER);

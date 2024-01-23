@@ -6,20 +6,13 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 
-class QuizHelper
+class QuizTransactions
 {
-    private QuizSessionGateway $quizSessionGateway;
-    private StoreGateway $storeGateway;
-    private FoodsaverGateway $foodsaverGateway;
-
     public function __construct(
-        QuizSessionGateway $quizSessionGateway,
-        StoreGateway $storeGateway,
-        FoodsaverGateway $foodsaverGateway
+        private readonly QuizSessionGateway $quizSessionGateway,
+        private readonly StoreGateway $storeGateway,
+        private readonly FoodsaverGateway $foodsaverGateway
     ) {
-        $this->quizSessionGateway = $quizSessionGateway;
-        $this->storeGateway = $storeGateway;
-        $this->foodsaverGateway = $foodsaverGateway;
     }
 
     public function refreshQuizData(int $fsId, int $fsRole): int
