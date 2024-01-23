@@ -2,7 +2,6 @@
 
 namespace Foodsharing\RestApi;
 
-use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Mailbox\MailboxFolder;
 use Foodsharing\Modules\Mailbox\Email;
@@ -13,8 +12,8 @@ use Foodsharing\RestApi\Models\Mailbox\EmailSendData;
 use Foodsharing\RestApi\Models\Mailbox\PatchEmailModel;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use OpenApi\Annotations as OA;
-use OpenApi\Attributes as OA2;
+use OpenApi\Attributes as OA;
+use OpenApi\Attributes\Parameter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,20 +34,17 @@ class MailboxRestController extends FoodsharingRestController
     ) {
     }
 
-    /**
-     * Changes properties of an email. This does not care about the previous status, i.e. setting a property to the
-     * same value as before will still result in a 'success' response.
-     *
-     * @OA\Parameter(name="emailId", in="path", @OA\Schema(type="integer"), description="which email to modify")
-     * @OA\RequestBody(@Model(type=PatchEmailModel::class))
-     * @OA\Response(response="204", description="Success.")
-     * @OA\Response(response="400", description="Unknown parameters")
-     * @OA\Response(response="403", description="Insufficient permissions to modify the email.")
-     * @OA\Response(response="404", description="Email does not exist.")
-     * @OA\Tag(name="mailbox")
-     * @ParamConverter("emailModel", class="Foodsharing\RestApi\Models\Mailbox\PatchEmailModel", converter="fos_rest.request_body")
-     * @Rest\Patch("mailbox/{emailId}", requirements={"emailId" = "\d+"})
-     */
+    #[OA\Patch(summary: 'Changes properties of an email. This does not care about the previous status, i.e. setting a property to the
+     same value as before will still result in a success response.')]
+    #[OA\Tag(name: 'mailbox')]
+    #[Rest\Patch(path: 'mailbox/{emailId}', requirements: ['emailId' => '\d+'])]
+    #[Parameter(name: 'emailId', description: 'which email to modify', in: 'path', schema: new OA\Schema(type: 'integer'))]
+    #[OA\RequestBody(content: new Model(type: PatchEmailModel::class))]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Unknown parameters')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to modify the email.')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Email does not exist.')]
+    #[ParamConverter('emailModel', class: 'Foodsharing\RestApi\Models\Mailbox\PatchEmailModel', converter: 'fos_rest.request_body')]
     public function setEmailPropertiesAction(int $emailId, PatchEmailModel $emailModel, ValidatorInterface $validator): Response
     {
         if (!$this->session->id()) {
@@ -74,15 +70,12 @@ class MailboxRestController extends FoodsharingRestController
         return $this->handleView($this->view([], 204));
     }
 
-    /**
-     * Moves an email to the trash folder or deletes it, if it is already in the trash.
-     *
-     * @OA\Parameter(name="emailId", in="path", @OA\Schema(type="integer"), description="which email to delete")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="403", description="Insufficient permissions to delete the email")
-     * @OA\Tag(name="mailbox")
-     * @Rest\Delete("mailbox/{emailId}", requirements={"emailId" = "\d+"})
-     */
+    #[OA\Delete(summary: 'Moves an email to the trash folder or deletes it, if it is already in the trash.')]
+    #[OA\Tag(name: 'mailbox')]
+    #[Rest\Delete(path: 'mailbox/{emailId}', requirements: ['emailId' => '\d+'])]
+    #[Parameter(name: 'emailId', description: 'which email to delete', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to delete the email')]
     public function deleteEmailAction(int $emailId): Response
     {
         // check permission
@@ -104,14 +97,11 @@ class MailboxRestController extends FoodsharingRestController
         return $this->handleView($this->view([], 200));
     }
 
-    /**
-     * Returns the number of unread mails for the sending user.
-     *
-     * @OA\Response(response="200", description="Success.")
-     * @OA\Response(response="401", description="Not logged in.")
-     * @OA\Tag(name="mailbox")
-     * @Rest\Get("mailbox/unread-count")
-     */
+    #[OA\Get(summary: 'Returns the number of unread mails for the sending user.')]
+    #[OA\Tag(name: 'mailbox')]
+    #[Rest\Get(path: 'mailbox/unread-count')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     public function getUnreadMailCountAction(): Response
     {
         if (!$this->session->id()) {
@@ -122,22 +112,15 @@ class MailboxRestController extends FoodsharingRestController
         return $this->handleView($this->view($unread, 200));
     }
 
-    /**
-     * Returns all mails from mailbox.
-     *
-     * @OA\Response(
-     * 		response="200",
-     * 		description="Success.",
-     *      @OA\JsonContent(
-     *        type="array",
-     *        @OA\Items(ref=@Model(type=Email::class))
-     *      ))
-     * )
-     * @OA\Response(response="401", description="Not logged in.")
-     * @OA\Response(response="403", description="Insufficient permissions to read mails from mailbox")
-     * @OA\Tag(name="mailbox")
-     * @Rest\Get("mailbox/all/{mailboxId}/{folderId}", requirements={"mailboxId" = "\d+"})
-     */
+    #[OA\Get(summary: 'Returns all mails from mailbox.')]
+    #[OA\Tag(name: 'mailbox')]
+    #[Rest\Get(path: 'mailbox/all/{mailboxId}/{folderId}', requirements: ['mailboxId' => '\d+'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
+        type: 'array',
+        items: new OA\Items(ref: new Model(type: Email::class)))
+    )]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to read mails from mailbox')]
     public function getAllMailsFromMailboxAction(int $mailboxId, int $folderId): Response
     {
         if (!$this->session->id()) {
@@ -153,19 +136,12 @@ class MailboxRestController extends FoodsharingRestController
         return $this->handleView($this->view($messages, 200));
     }
 
-    /**
-     * Return mail from mailbox.
-     *
-     * @OA\Response(
-     * 		response="200",
-     * 		description="Success.",
-     *      @Model(type=Email::class)
-     * )
-     * @OA\Response(response="401", description="Not logged in.")
-     * @OA\Response(response="403", description="Insufficient permissions to read mail from mailbox")
-     * @OA\Tag(name="mailbox")
-     * @Rest\Get("mailbox/{mailId}", requirements={"mailId" = "\d+"})
-     */
+    #[OA\Get(summary: 'Return mail from mailbox.')]
+    #[OA\Tag(name: 'mailbox')]
+    #[Rest\Get(path: 'mailbox/{mailId}', requirements: ['mailId' => '\d+'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: [new Model(type: Email::class)])]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to read mail from mailbox')]
     public function getMail(int $mailId): Response
     {
         if (!$this->session->id()) {
@@ -181,22 +157,15 @@ class MailboxRestController extends FoodsharingRestController
         return $this->handleView($this->view($mail, 200));
     }
 
-    /**
-     * Send email from mailbox.
-     *
-     * @OA\RequestBody(@Model(type=EmailSendData::class))
-     * @OA\Response(
-     * 		response="200",
-     * 		description="Success.",
-     *      @Model(type=Email::class)
-     * )
-     * @OA\Response(response="401", description="Not logged in.")
-     * @OA\Response(response="403", description="Insufficient permissions to read mail from mailbox")
-     * @OA\Response(response="404", description="At least one of the attachments was not found")
-     * @OA\Tag(name="mailbox")
-     * @ParamConverter("emailData", class="Foodsharing\RestApi\Models\Mailbox\EmailSendData", converter="fos_rest.request_body")
-     * @Rest\Post("mailbox/{mailboxId}", requirements={"mailboxId" = "\d+"})
-     */
+    #[OA\Post(summary: 'Send email from mailbox.')]
+    #[OA\Tag(name: 'mailbox')]
+    #[Rest\Post(path: 'mailbox/{mailboxId}', requirements: ['mailboxId' => '\d+'])]
+    #[OA\RequestBody(content: new Model(type: EmailSendData::class))]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: [new Model(type: Email::class)])]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to read mail from mailbox')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'At least one of the attachments was not found')]
+    #[ParamConverter('emailData', class: 'Foodsharing\RestApi\Models\Mailbox\EmailSendData', converter: 'fos_rest.request_body')]
     public function sendMail(int $mailboxId, EmailSendData $emailData, ValidatorInterface $validator, Request $request,
         RateLimiterFactory $loginLimiter): Response
     {
@@ -250,13 +219,11 @@ class MailboxRestController extends FoodsharingRestController
          $this->mem->userSet($this->session->id(), 'mailbox-last', time());
      } */
 
-    /**
-     * Returns all regions and their email addresses.
-     */
-    #[OA2\Tag(name: 'mailbox')]
+    #[OA\Get(summary: 'Returns all regions and their email addresses.')]
+    #[OA\Tag(name: 'mailbox')]
     #[Rest\Get('mailbox/regions')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     public function listRegions(): Response
     {
         if (!$this->session->mayRole()) {
