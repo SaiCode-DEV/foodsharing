@@ -42,77 +42,6 @@ div#main {
   z-index: 50;
 }
 
-#map-control ul.linklist a {
-  cursor: pointer;
-}
-
-#map-control ul.linklist a span {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-#map-control ul.linklist a span.icon {
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  height: 17px;
-  width: 17px;
-  line-height: 17px;
-  padding: 5px;
-  border-radius: 17px;
-  text-align: center;
-  opacity: 0.40;
-  margin-right: 11px;
-}
-
-#map-control ul.linklist a span.icon i {
-  display: inline-block;
-  width: 17px;
-  height: 17px;
-}
-
-#map-control ul.linklist a:hover span.icon, #map-control ul.linklist a.active span.icon {
-  opacity: 1;
-}
-
-#map-options {
-  margin: 0.2em -0.5em;
-}
-
-#map-options label {
-  display: block;
-  font-size: 11px;
-  /* font-weight: lighter; */
-}
-
-#map-control-colapse {
-  position: absolute;
-  height: 30px;
-  width: 30px;
-  border-radius: 100px;
-  margin: 0 0 5px auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#map-legend {
-  transition: opacity 0.2s ease-in-out;
-}
-
-#map-legend.colapsed {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s 0.2s, opacity 0.2s ease-in-out;
-}
-
-#map-control-wrapper > div {
-  position: relative;
-}
-
-#map-control a {
-  padding-left: 0;
-}
-
 .leaflet-popup-content p {
   margin: 5px 0;
 }
@@ -168,9 +97,6 @@ div#main {
 
 /* 575px defined in stores/ui.js as xs display size */
 @media (max-width: 575px) {
-  #map-control-wrapper {
-    top: 142px
-  }
   .leaflet-top {
     top: 94px;
   }

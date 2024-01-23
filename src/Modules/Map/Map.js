@@ -6,7 +6,6 @@ import '@/globals'
 import $ from 'jquery'
 
 import { getBrowserLocation, expose } from '@/utils'
-import { GET } from '@/browser'
 
 import { showLoader, hideLoader, goTo, ajreq } from '@/script'
 
@@ -26,6 +25,7 @@ import { getMapMarkers } from '@/api/map'
 import { vueApply, vueRegister } from '@/vue'
 import CommunityBubble from './components/CommunityBubble'
 import BasketBubble from './components/BasketBubble'
+import MapControl from '@/views/pages/Map/MapControl'
 
 const storage = new Storage('map')
 
@@ -78,36 +78,13 @@ const map = {
     })
   },
   initMarker: function (items) {
-    $('#map-control .linklist a').removeClass('active')
-    if (items == undefined) {
-      if ($('#map-control .foodsaver').length > 0) {
-        items = ['betriebe']
-      } else {
-        items = ['fairteiler', 'baskets', 'communities']
-      }
-
-      if (GET('load') == undefined) {
-        items = storage.get('activeItems', items)
-      }
-    }
-    for (let i = 0; i < items.length; i++) {
-      $(`#map-control .linklist a.${items[i]}`).addClass('active')
-    }
-
-    loadMarker(items)
   },
   updateStorage: function () {
     const center = u_map.getCenter()
     const zoom = u_map.getZoom()
 
-    const activeItems = []
-    $('#map-control .linklist a.active').each(function () {
-      activeItems.push($(this).attr('name'))
-    })
-
     storage.set('center', [center.lat, center.lng])
     storage.set('zoom', zoom)
-    storage.set('activeItems', activeItems)
   },
   setView: function (lat, lon, zoom) {
     if (!this.initiated) {
@@ -167,18 +144,7 @@ function init_bDialog () {
   })
 }
 
-async function loadMarker (types, loader) {
-  $('#map-options').hide()
-  const options = []
-  for (let i = 0; i < types.length; i++) {
-    if (types[i] == 'betriebe') {
-      $('#map-options input:checked').each(function () {
-        options[options.length] = $(this).val()
-      })
-      $('#map-options').show()
-    }
-  }
-
+async function loadMarker (types, storeTypes, loader) {
   if (loader == undefined) {
     loader = true
   }
@@ -188,7 +154,7 @@ async function loadMarker (types, loader) {
   }
 
   try {
-    const data = await getMapMarkers(types, options)
+    const data = await getMapMarkers(types, storeTypes)
 
     if (markers != null) {
       u_map.removeLayer(markers)
@@ -262,49 +228,17 @@ async function loadMarker (types, loader) {
 }
 
 showLoader()
-$('#map-control li a').on('click', function () {
-  $(this).toggleClass('active')
-
-  const types = []
-  let i = 0
-  $('#map-control li a.active').each(function (el) {
-    types[i] = $(this).attr('name')
-    i++
-  })
-  loadMarker(types)
-  map.updateStorage()
-  return false
-})
-
-$('#map-control-colapse').on('click', function () {
-  $('#map-legend').toggleClass('colapsed')
-})
-
-$('#map-options input').on('change', function () {
-  if ($(this).val() === 'allebetriebe') {
-    $('#map-options input').prop('checked', false)
-    $('#map-options input[value=\'allebetriebe\']').prop('checked', true)
-  } else {
-    $('#map-options input[value=\'allebetriebe\']').prop('checked', false)
-  }
-  if ($('#map-options input:checked').length === 0) {
-    $('#map-options input[value=\'allebetriebe\']').prop('checked', true)
-  }
-
-  const types = []
-  let i = 0
-  $('#map-control li a.active').each(function (el) {
-    types[i] = $(this).attr('name')
-    i++
-  })
-  setTimeout(function () {
-    loadMarker(types)
-  }, 100)
-})
 
 init_bDialog()
 
 vueRegister({
   CommunityBubble,
   BasketBubble,
+  MapControl,
 })
+
+vueApply('#map-control')
+
+export {
+  loadMarker,
+}

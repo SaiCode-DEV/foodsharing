@@ -39,7 +39,7 @@ class MapApiCest
         $I->sendGet('api/map/markers', ['types' => 'baskets']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        $I->sendGet('api/map/markers', ['types' => 'fairteiler']);
+        $I->sendGet('api/map/markers', ['types' => 'foodsharepoints']);
         $I->seeResponseCodeIs(HttpCode::OK);
 
         $I->sendGet('api/map/markers', ['types' => 'communities']);
@@ -48,14 +48,14 @@ class MapApiCest
 
     final public function canNotFetchStoreMarkersWithoutLogin(ApiTester $I): void
     {
-        $I->sendGet('api/map/markers', ['types' => 'betriebe']);
+        $I->sendGet('api/map/markers', ['types' => 'stores']);
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }
 
     final public function canFetchStoreMarkersNoSettings(ApiTester $I): void
     {
         $I->login($this->user['email']);
-        $I->sendGet('api/map/markers', ['types' => 'betriebe']);
+        $I->sendGet('api/map/markers', ['types' => 'stores']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $stores = $I->grabDataFromResponseByJsonPath('$.betriebe');
@@ -66,7 +66,7 @@ class MapApiCest
     final public function canFetchStoreMarkersSearchingForMembers(ApiTester $I): void
     {
         $I->login($this->user['email']);
-        $I->sendGet('api/map/markers', ['types' => 'betriebe', 'status' => ['needhelpinstant']]);
+        $I->sendGet('api/map/markers', ['types' => 'stores', 'status' => ['needhelpinstant']]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $stores = $I->grabDataFromResponseByJsonPath('$.betriebe');
@@ -77,7 +77,7 @@ class MapApiCest
     final public function canFetchStoreMarkersOpenForMembers(ApiTester $I): void
     {
         $I->login($this->user['email']);
-        $I->sendGet('api/map/markers', ['types' => 'betriebe', 'status' => ['needhelp']]);
+        $I->sendGet('api/map/markers', ['types' => 'stores', 'status' => ['needhelp']]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $stores = $I->grabDataFromResponseByJsonPath('$.betriebe');
@@ -88,7 +88,7 @@ class MapApiCest
     final public function canFetchStoreMarkersShowNoCooperation(ApiTester $I): void
     {
         $I->login($this->user['email']);
-        $I->sendGet('api/map/markers', ['types' => 'betriebe', 'status' => ['nkoorp']]);
+        $I->sendGet('api/map/markers', ['types' => 'stores', 'status' => ['nkoorp']]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $stores = $I->grabDataFromResponseByJsonPath('$.betriebe');

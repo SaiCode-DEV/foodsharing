@@ -48,13 +48,13 @@ class MapRestController extends AbstractFOSRestController
         if (in_array('baskets', $types)) {
             $markers['baskets'] = $this->mapGateway->getBasketMarkers();
         }
-        if (in_array('fairteiler', $types)) {
+        if (in_array('foodsharepoints', $types)) {
             $markers['fairteiler'] = $this->mapGateway->getFoodSharePointMarkers();
         }
         if (in_array('communities', $types)) {
             $markers['communities'] = $this->mapGateway->getCommunityMarkers();
         }
-        if (in_array('betriebe', $types)) {
+        if (in_array('stores', $types)) {
             if (!$this->session->id()) {
                 throw new UnauthorizedHttpException('', 'Not logged in.');
             }
