@@ -56,6 +56,10 @@ class BellType
      */
     public const STORE_REQUEST_WAITING = 'store-wrequest-%d';
     /**
+     * The user was added to a store without a request.
+     */
+    public const STORE_ADDED_WITHOUT_REQUEST = 'store-imposed-%d-%d';
+    /**
      * Notification for a store manager that there are unconfirmed pickups.
      */
     public const STORE_UNCONFIRMED_PICKUP = 'store-fetch-unconfirmed-%d';

@@ -927,7 +927,7 @@ class StoreTransactions
             $bellTitle = 'store_request_imposed_title';
             $bellMsg = 'store_request_imposed';
             $bellIcon = 'fas fa-user-plus';
-            $bellId = 'store-imposed-' . $storeId . '-' . $userId;
+            $bellId = BellType::createIdentifier(BellType::STORE_ADDED_WITHOUT_REQUEST, $storeId, $userId);
         } elseif ($actionType === StoreLogAction::MOVED_TO_JUMPER) {
             $bellTitle = 'store_request_accept_wait_title';
             $bellMsg = 'store_request_accept_wait';
