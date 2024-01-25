@@ -25,7 +25,7 @@
     "codeception/module-symfony": "3.1.*",
     "codeception/module-webdriver": "<4.0.0",
     "fakerphp/faker": "1.23.*",
-    "friendsofphp/php-cs-fixer": "3.39.*",
+    "friendsofphp/php-cs-fixer": "3.48.*",
     "phpstan/phpstan": "1.10.*",
     "phpunit/phpunit": "<10.0.0",
     "rector/rector": "^0.19.2",
