@@ -3,6 +3,7 @@
 namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
+use Detection\MobileDetect;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Gender;
@@ -36,7 +37,6 @@ use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\EmailHelper;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
-use Mobile_Detect;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
@@ -293,7 +293,7 @@ class UserRestController extends FoodsharingRestController
         if ($fs_id) {
             $this->session->login($fs_id, $rememberMe);
 
-            $mobdet = new Mobile_Detect();
+            $mobdet = new MobileDetect();
             if ($mobdet->isMobile()) {
                 $_SESSION['mob'] = 1;
             }
