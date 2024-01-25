@@ -73,7 +73,7 @@ define('DATABASE_URL', 'mysql://' . DB_USER . ':' . DB_PASS . '@' . DB_HOST . '/
 // define('WEBPUSH_PRIVATE_KEY', 'TO CHANGE AT DEPLOYMENT');
 
 if (!defined('BBB_DOMAIN')) {
-    define('BBB_DOMAIN', \Foodsharing\Lib\BigBlueButton::DEFAULT_CLIENT);
+    define('BBB_DOMAIN', Foodsharing\Lib\BigBlueButton::DEFAULT_CLIENT);
     define('BBB_SECRET', 'CHANGEME');
     define('BBB_DIALIN', '+49xxxxx');
 }

@@ -66,7 +66,7 @@ final class ImageHelper
                 $img->resize($s, $s);
                 $img->saveChanges();
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // in case of an error remove all created files
             $this->removeResizedPictures($dstDir, $name, $sizes);
             throw $e;

@@ -21,7 +21,7 @@ class SettingsGateway extends BaseGateway
                 $this->db->insert(
                     'fs_foodsaver_change_history',
                     [
-                        'date' => date(\DateTime::ISO8601),
+                        'date' => date(DateTime::ISO8601),
                         'fs_id' => $fsId,
                         'changer_id' => $changerId,
                         'object_name' => $k,

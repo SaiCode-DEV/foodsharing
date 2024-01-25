@@ -370,7 +370,7 @@ class FoodsaverGateway extends BaseGateway
             'email'
         ], [
             'orgateam' => 1,
-            'rolle' => ROLE::ORGA
+            'rolle' => Role::ORGA
         ]);
     }
 
@@ -380,7 +380,7 @@ class FoodsaverGateway extends BaseGateway
             'id'
         ], [
             'orgateam' => 1,
-            'rolle' => ROLE::ORGA
+            'rolle' => Role::ORGA
         ]);
     }
 

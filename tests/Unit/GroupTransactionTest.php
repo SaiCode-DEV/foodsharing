@@ -15,7 +15,7 @@ class GroupTransactionsTest extends TestCase
 {
     private GroupTransactions $groupTansactions;
 
-    private groupGateway $groupGateway;
+    private GroupGateway $groupGateway;
     private UnitGateway $unitGateway;
 
     protected function setUp(): void

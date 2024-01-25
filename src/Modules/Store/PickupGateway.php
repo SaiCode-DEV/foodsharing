@@ -362,7 +362,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
             ':date' => $this->db->now(),
         ]);
 
-        return new \DateTime($date);
+        return new DateTime($date);
     }
 
     private function getUnconfirmedFetchesCount(int $storeId)

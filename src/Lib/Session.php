@@ -345,7 +345,7 @@ class Session
 
         $fs = $this->foodsaverGateway->getFoodsaverDetails($fs_id);
         if (!$fs) {
-            throw new \Exception('Foodsaver details not found in database.');
+            throw new Exception('Foodsaver details not found in database.');
         }
         $this->set('g_location', [
             'lat' => $fs['lat'],

@@ -15,7 +15,7 @@ class MailboxGateway extends BaseGateway
     {
         try {
             return $this->db->fetchValueByCriteria('fs_mailbox', 'name', ['id' => $mailbox_id]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // trigger_error('No mailbox found with id ' . $mailbox_id);
             return false;
         }
@@ -498,7 +498,7 @@ class MailboxGateway extends BaseGateway
                 ['mailbox_id', 'name', 'nachname'],
                 ['id' => $fsId]
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // until now it does nothing, if no value is found
         }
         if ($mayStoreManager && $me && $me['mailbox_id'] == 0) {

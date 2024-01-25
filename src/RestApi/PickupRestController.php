@@ -22,7 +22,6 @@ use Foodsharing\RestApi\Models\Store\PickupLeaveMessageOptions;
 use Foodsharing\Utility\TimeHelper;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\Annotations\RequestParam;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
@@ -183,7 +182,7 @@ final class PickupRestController extends AbstractFOSRestController
      * @OA\Tag(name="pickup")
      */
     #[Rest\Patch('stores/{storeId}/pickups/{pickupDate}/{fsId}', requirements: ['storeId' => '\d+', 'pickupDate' => '[^/]+', 'fsId' => '\d+'])]
-    #[Rest\RequestParam(name: 'isConfirmed', nullable: true, default: null)]
+    #[Rest\RequestParam(name: 'isConfirmed', default: null, nullable: true)]
     public function editPickupSlot(int $storeId, string $pickupDate, int $fsId, ParamFetcherInterface $paramFetcher): Response
     {
         if (!$this->session->id()) {
@@ -311,8 +310,8 @@ final class PickupRestController extends AbstractFOSRestController
      * @OA\Response(response="404", description="Store not found")
      */
     #[Rest\Patch('stores/{storeId}/pickups/{pickupDate}', requirements: ['storeId' => '\d+', 'pickupDate' => '[^/]+'])]
-    #[RequestParam(name: 'totalSlots', requirements: '\d+', description: 'Maximum allowed user on this pickup.')]
-    #[RequestParam(name: 'description', requirements: '.{0,100}', nullable: true, description: 'Description of this pickup.')]
+    #[Rest\RequestParam(name: 'totalSlots', requirements: '\d+', description: 'Maximum allowed user on this pickup.')]
+    #[Rest\RequestParam(name: 'description', requirements: '.{0,100}', description: 'Description of this pickup.', nullable: true)]
     public function editPickup(int $storeId, string $pickupDate, ParamFetcherInterface $paramFetcher): Response
     {
         if (!$this->session->id()) {
@@ -462,9 +461,9 @@ final class PickupRestController extends AbstractFOSRestController
      * @OA\Tag(name="pickup")
      */
     #[Rest\Get('pickup/history')]
-    #[Rest\QueryParam(name: 'fsId', nullable: true, default: null)]
-    #[Rest\QueryParam(name: 'page', nullable: false, default: 0)]
-    #[Rest\QueryParam(name: 'pageSize', nullable: false, default: 50)]
+    #[Rest\QueryParam(name: 'fsId', default: null, nullable: true)]
+    #[Rest\QueryParam(name: 'page', default: 0, nullable: false)]
+    #[Rest\QueryParam(name: 'pageSize', default: 50, nullable: false)]
     public function listPastPickups(ParamFetcherInterface $paramFetcher): Response
     {
         if (!$this->session->id()) {
@@ -516,7 +515,7 @@ final class PickupRestController extends AbstractFOSRestController
      * @OA\Tag(name="pickup")
      */
     #[Rest\Get('pickup/registered')]
-    #[Rest\QueryParam(name: 'fsId', nullable: true, default: null)]
+    #[Rest\QueryParam(name: 'fsId', default: null, nullable: true)]
     public function listRegisteredPickups(ParamFetcherInterface $paramFetcher): Response
     {
         if (!$this->session->id()) {
@@ -567,8 +566,8 @@ final class PickupRestController extends AbstractFOSRestController
      * @OA\Tag(name="pickup")
      */
     #[Rest\Get('pickup/options')]
-    #[Rest\QueryParam(name: 'page', nullable: false, default: 0)]
-    #[Rest\QueryParam(name: 'pageSize', nullable: false, default: 50)]
+    #[Rest\QueryParam(name: 'page', default: 0, nullable: false)]
+    #[Rest\QueryParam(name: 'pageSize', default: 50, nullable: false)]
     public function listPickupOptions(ParamFetcherInterface $paramFetcher): Response
     {
         if (!$this->session->id()) {

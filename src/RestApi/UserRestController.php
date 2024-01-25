@@ -409,7 +409,7 @@ class UserRestController extends FoodsharingRestController
             $user = $this->foodsaverGateway->getProfile($id);
 
             return $this->handleView($this->view($user, 200));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new HttpException(500, 'could not register user', $e);
         }
     }

@@ -124,7 +124,7 @@ class UploadsTransactions
             $crop_x = (int)(($new_width - $width) / 2);
             $crop_y = 0;
         }
-        $img->resizeImage($new_width, $new_height, imagick::FILTER_LANCZOS, 0.9, true);
+        $img->resizeImage($new_width, $new_height, Imagick::FILTER_LANCZOS, 0.9, true);
         $img->cropImage($width, $height, $crop_x, $crop_y);
         if ($quality) {
             $img->setImageCompressionQuality($quality);

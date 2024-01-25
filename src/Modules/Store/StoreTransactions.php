@@ -709,7 +709,7 @@ class StoreTransactions
         $results = $this->storeGateway->listAllStoreTeamMembershipsForFoodsaver($foodsaverId, $activeStores ? StoreTransactions::DEFAULT_USER_SHOWN_STORE_COOPERATION_STATE : []);
         $storeTeamMemberships = [];
         foreach ($results as $resultRow) {
-            $item = new StoreStatusforMember();
+            $item = new StoreStatusForMember();
             $item->store = $resultRow->store;
             $item->isManaging = $resultRow->isManaging;
             $item->membershipStatus = $resultRow->membershipStatus;
