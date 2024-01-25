@@ -12,15 +12,15 @@ class Email
     /**
      * Internal unique ID of this email. This is only used in the foodsharing mailbox system.
      */
-    public int $id;
+    public int $id = -1;
     /**
      * ID of the mailbox in which this email is.
      */
-    public int $mailboxId;
+    public int $mailboxId = -1;
     /**
      * Folder in the mailbox in which this email is, see {@link MailboxFolder}.
      */
-    public int $mailboxFolder;
+    public int $mailboxFolder = -1;
     /**
      * The sender's email address.
      */
@@ -30,19 +30,19 @@ class Email
      *
      * @var EmailAddress[]
      */
-    public array $to;
+    public array $to = [];
     /**
      * An optional list of CC addresses. Can be empty or null.
      *
      * @var EmailAddress[]
      */
-    public ?array $cc;
+    public ?array $cc = null;
     /**
      * An optional list of BCC addresses. Can be empty or null.
      *
      * @var EmailAddress[]
      */
-    public ?array $bcc;
+    public ?array $bcc = null;
     /**
      * Time at which this email was sent or received.
      */
@@ -50,11 +50,11 @@ class Email
     /**
      * Subject of the email. Can be empty but not null.
      */
-    public string $subject;
+    public string $subject = '';
     /**
      * Body of this email.
      */
-    public ?string $body;
+    public ?string $body = null;
     /**
      * Body of this email in which HTML tags have not been stripped.
      */
@@ -64,31 +64,20 @@ class Email
      *
      * @var EmailAttachment[]
      */
-    public ?array $attachments;
+    public ?array $attachments = null;
     /**
      * Whether this email has been read.
      */
-    public bool $isRead;
+    public bool $isRead = false;
     /**
      * Whether this email has been answered.
      */
-    public bool $isAnswered;
+    public bool $isAnswered = false;
 
     public function __construct(
     ) {
-        $this->id = -1;
-        $this->mailboxId = -1;
-        $this->mailboxFolder = -1;
         $this->from = new EmailAddress('');
-        $this->to = [];
-        $this->cc = null;
-        $this->bcc = null;
         $this->time = Carbon::now();
-        $this->subject = '';
-        $this->body = null;
-        $this->attachments = null;
-        $this->isRead = false;
-        $this->isAnswered = false;
     }
 
     /**

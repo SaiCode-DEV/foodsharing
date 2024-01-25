@@ -33,9 +33,9 @@ class PushNotificationSubscriptionRestController extends AbstractFOSRestControll
 
     /**
      * @OA\Tag(name="pushnotification")
-     * @Rest\Get("pushnotification/{type}/server-information")
      */
-    public function getServerInformationAction(string $type): Response
+    #[Rest\Get('pushnotification/{type}/server-information')]
+    public function getServerInformation(string $type): Response
     {
         if (!$this->gateway->hasHandlerFor($type)) {
             throw new NotFoundHttpException();
@@ -48,9 +48,9 @@ class PushNotificationSubscriptionRestController extends AbstractFOSRestControll
 
     /**
      * @OA\Tag(name="pushnotification")
-     * @Rest\Post("pushnotification/{type}/subscription")
      */
-    public function subscribeAction(Request $request, string $type): Response
+    #[Rest\Post('pushnotification/{type}/subscription')]
+    public function subscribe(Request $request, string $type): Response
     {
         if (!$this->gateway->hasHandlerFor($type)) {
             throw new NotFoundHttpException();
@@ -72,9 +72,9 @@ class PushNotificationSubscriptionRestController extends AbstractFOSRestControll
 
     /**
      * @OA\Tag(name="pushnotification")
-     * @Rest\Delete("pushnotification/{type}/subscription/{subscriptionId}", requirements={"subscriptionId" = "\d+"})
      */
-    public function unsubscribeAction(string $type, int $subscriptionId): Response
+    #[Rest\Delete('pushnotification/{type}/subscription/{subscriptionId}', requirements: ['subscriptionId' => '\d+'])]
+    public function unsubscribe(string $type, int $subscriptionId): Response
     {
         if (!$this->gateway->hasHandlerFor($type)) {
             throw new NotFoundHttpException();

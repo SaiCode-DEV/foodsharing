@@ -13,7 +13,7 @@ class AsyncMail
 {
     private $mem;
     private $data;
-    private bool $highPriority;
+    private bool $highPriority = false;
 
     public function __construct(Mem $mem)
     {
@@ -27,7 +27,6 @@ class AsyncMail
             'subject' => DEFAULT_EMAIL_NAME,
             'identifier' => '',
             'queuedAt' => new \DateTime()];
-        $this->highPriority = false;
     }
 
     public function addRecipient($email, $name = null)

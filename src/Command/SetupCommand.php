@@ -2,18 +2,17 @@
 
 namespace Foodsharing\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand('foodsharing:setup', 'Prepares the environment to run the foodsharing application.')]
 class SetupCommand extends Command
 {
-    protected static $defaultName = 'foodsharing:setup';
-
     protected function configure(): void
     {
-        $this->setDescription('Prepares the environment to run the foodsharing application.');
         $this->setHelp('This command creates necessary folders so they can be used inside the app. It might be expanded to do more a-like things as well.');
     }
 

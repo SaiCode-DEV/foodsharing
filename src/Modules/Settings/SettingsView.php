@@ -21,13 +21,14 @@ use Foodsharing\Utility\Sanitizer;
 use Foodsharing\Utility\TimeHelper;
 use Foodsharing\Utility\TranslationHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
 class SettingsView extends View
 {
     private RegionGateway $regionGateway;
 
     public function __construct(
-        \Twig\Environment $twig,
+        Environment $twig,
         Session $session,
         Utils $viewUtils,
         RegionGateway $regionGateway,

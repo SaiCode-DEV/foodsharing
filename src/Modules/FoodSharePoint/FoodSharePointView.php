@@ -18,6 +18,7 @@ use Foodsharing\Utility\Sanitizer;
 use Foodsharing\Utility\TimeHelper;
 use Foodsharing\Utility\TranslationHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
 class FoodSharePointView extends View
 {
@@ -37,7 +38,7 @@ class FoodSharePointView extends View
     private FoodSharePointPermissions $fspPermissions;
 
     public function __construct(
-        \Twig\Environment $twig,
+        Environment $twig,
         Session $session,
         Utils $viewUtils,
         DataHelper $dataHelper,

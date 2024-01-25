@@ -17,12 +17,11 @@ class PickupInformation
      *
      * @var PickupSignUp[] Users which have tried to confirm
      */
-    public array $signUps;
+    public array $signUps = [];
 
     public function __construct(OneTimePickup $information)
     {
         $this->information = $information;
-        $this->signUps = [];
     }
 
     public function hasConfirmedUser()

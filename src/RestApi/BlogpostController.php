@@ -33,9 +33,9 @@ class BlogpostController extends AbstractFOSRestController
      * @OA\Response(response="200", description="Success.", @Model(type=BlogPost::class))
      * @OA\Response(response="404", description="Blog post not found.")
      * @OA\Tag(name="blog")
-     * @Rest\Get("blog/{blogPostId}", requirements={"blogPostId" = "\d+"})
      */
-    public function getBlogpostAction(int $blogPostId): Response
+    #[Rest\Get('blog/{blogPostId}', requirements: ['blogPostId' => '\d+'])]
+    public function getBlogpost(int $blogPostId): Response
     {
         $blogPost = $this->blogGateway->getPost($blogPostId);
 
@@ -57,10 +57,10 @@ class BlogpostController extends AbstractFOSRestController
      * @OA\Response(response="403", description="Insufficient permissions to manage this blogpost.")
      * @OA\Response(response="404", description="Blogpost not found.")
      * @OA\Tag(name="blog")
-     * @Rest\Patch("blog/{blogId}", requirements={"blogId" = "\d+"})
-     * @Rest\RequestParam(name="isPublished", requirements="(0|1)")
      */
-    public function setBlogpostPublishedAction(int $blogId, ParamFetcher $paramFetcher): Response
+    #[Rest\Patch('blog/{blogId}', requirements: ['blogId' => '\d+'])]
+    #[Rest\RequestParam(name: 'isPublished', requirements: '(0|1)')]
+    public function setBlogpostPublished(int $blogId, ParamFetcher $paramFetcher): Response
     {
         $sessionId = $this->session->id();
         if (!$sessionId) {
@@ -90,9 +90,9 @@ class BlogpostController extends AbstractFOSRestController
      * @OA\Response(response="403", description="Insufficient permissions to remove this blogpost.")
      * @OA\Response(response="404", description="Blogpost not found.")
      * @OA\Tag(name="blog")
-     * @Rest\Delete("blog/{blogId}", requirements={"blogId" = "\d+"})
      */
-    public function removeBlogpostAction(int $blogId): Response
+    #[Rest\Delete('blog/{blogId}', requirements: ['blogId' => '\d+'])]
+    public function removeBlogpost(int $blogId): Response
     {
         $sessionId = $this->session->id();
         if (!$sessionId) {

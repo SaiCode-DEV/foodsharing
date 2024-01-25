@@ -45,7 +45,7 @@ class MailboxRestController extends FoodsharingRestController
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to modify the email.')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Email does not exist.')]
     #[ParamConverter('emailModel', class: 'Foodsharing\RestApi\Models\Mailbox\PatchEmailModel', converter: 'fos_rest.request_body')]
-    public function setEmailPropertiesAction(int $emailId, PatchEmailModel $emailModel, ValidatorInterface $validator): Response
+    public function setEmailProperties(int $emailId, PatchEmailModel $emailModel, ValidatorInterface $validator): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -76,7 +76,7 @@ class MailboxRestController extends FoodsharingRestController
     #[Parameter(name: 'emailId', description: 'which email to delete', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to delete the email')]
-    public function deleteEmailAction(int $emailId): Response
+    public function deleteEmail(int $emailId): Response
     {
         // check permission
         if (!$this->session->id()) {
@@ -102,7 +102,7 @@ class MailboxRestController extends FoodsharingRestController
     #[Rest\Get(path: 'mailbox/unread-count')]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
-    public function getUnreadMailCountAction(): Response
+    public function getUnreadMailCount(): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('', 'Not logged in.');
@@ -121,7 +121,7 @@ class MailboxRestController extends FoodsharingRestController
     )]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to read mails from mailbox')]
-    public function getAllMailsFromMailboxAction(int $mailboxId, int $folderId): Response
+    public function getAllMailsFromMailbox(int $mailboxId, int $folderId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('', 'Not logged in.');

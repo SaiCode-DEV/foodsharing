@@ -53,7 +53,7 @@ class NotificationsController extends AbstractFOSRestController
     #[Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
     #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
     #[Response(response: HttpResponse::HTTP_BAD_REQUEST, description: 'Target not found')]
-    public function getNotificationsAction(string $target): JsonResponse
+    public function getNotifications(string $target): JsonResponse
     {
         $userId = $this->session->id();
         if (!$userId) {
@@ -81,7 +81,7 @@ class NotificationsController extends AbstractFOSRestController
     #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
     #[RequestBody(content: new JsonContent(type: 'array', items: new Items(ref: new Model(type: Region::class))))]
     #[ParamConverter(data: 'regions', class: 'array<Foodsharing\RestApi\Models\Notifications\Region>', converter: 'fos_rest.request_body')]
-    public function updateRegionsAndWorkgroupsNotificationsAction(array $regions, ValidatorInterface $validator): HttpResponse
+    public function updateRegionsAndWorkgroupsNotifications(array $regions, ValidatorInterface $validator): HttpResponse
     {
         $userId = $this->session->id();
         if (!$userId) {
@@ -114,7 +114,7 @@ class NotificationsController extends AbstractFOSRestController
     #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
     #[RequestBody(content: new JsonContent(type: 'array', items: new Items(ref: new Model(type: Thread::class))))]
     #[ParamConverter(data: 'threads', class: 'array<Foodsharing\RestApi\Models\Notifications\Thread>', converter: 'fos_rest.request_body')]
-    public function setThreadsNotificationsAction(array $threads, ValidatorInterface $validator): HttpResponse
+    public function setThreadsNotifications(array $threads, ValidatorInterface $validator): HttpResponse
     {
         $userId = $this->session->id();
         if (!$userId) {
@@ -147,7 +147,7 @@ class NotificationsController extends AbstractFOSRestController
     #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
     #[RequestBody(content: new JsonContent(type: 'array', items: new Items(ref: new Model(type: FoodSharePoint::class))))]
     #[ParamConverter(data: 'foodSharePoints', class: 'array<Foodsharing\RestApi\Models\Notifications\FoodSharePoint>', converter: 'fos_rest.request_body')]
-    public function setFoodSharePointNotificationsAction(array $foodSharePoints, ValidatorInterface $validator): HttpResponse
+    public function setFoodSharePointNotifications(array $foodSharePoints, ValidatorInterface $validator): HttpResponse
     {
         $userId = $this->session->id();
         if (!$userId) {
@@ -180,7 +180,7 @@ class NotificationsController extends AbstractFOSRestController
     #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
     #[RequestBody(content: new Model(type: NewsletterChat::class))]
     #[ParamConverter(data: 'newsletterChat', class: 'Foodsharing\RestApi\Models\Notifications\NewsletterChat', converter: 'fos_rest.request_body')]
-    public function setUserNotificationAction(NewsletterChat $newsletterChat, ValidatorInterface $validator): HttpResponse
+    public function setUserNotification(NewsletterChat $newsletterChat, ValidatorInterface $validator): HttpResponse
     {
         $userId = $this->session->id();
         if (!$userId) {

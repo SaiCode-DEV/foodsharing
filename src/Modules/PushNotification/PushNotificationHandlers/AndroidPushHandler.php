@@ -16,14 +16,11 @@ class AndroidPushHandler implements PushNotificationHandlerInterface
     private const typeIdentifier = 'android';
     private const FCM_URL = 'https://fcm.googleapis.com/fcm/send';
 
-    private string $fcmKey;
+    private string $fcmKey = FCM_KEY;
 
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-        $this->fcmKey = FCM_KEY;
+    public function __construct(
+        private readonly TranslatorInterface $translator
+    ) {
     }
 
     public static function getTypeIdentifier(): string

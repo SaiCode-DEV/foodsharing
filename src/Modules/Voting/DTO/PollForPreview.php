@@ -12,12 +12,12 @@ class PollForPreview
     /**
      * Unique identifier of this poll.
      */
-    public int $id;
+    public int $id = -1;
 
     /**
      * A short description of the poll that can serve as a title.
      */
-    public string $name;
+    public string $name = '';
 
     /**
      * The date at which this poll began.
@@ -33,7 +33,7 @@ class PollForPreview
      * Identifier of the region or work group in which this poll takes place. Only members of that region are allowed
      * to vote.
      */
-    public int $regionId;
+    public int $regionId = -1;
 
     /**
      * Name of the region or work group in which this poll takes place.
@@ -43,22 +43,17 @@ class PollForPreview
     /**
      * The scope is an additional constraint defining which user groups are allowed to vote. See {@link VotingScope}.
      */
-    public int $scope;
+    public int $scope = -1;
 
     /**
      * Whether the poll will only start in the future.
      */
-    public bool $inFuture;
+    public bool $inFuture = false;
 
     public function __construct()
     {
-        $this->id = -1;
-        $this->name = '';
         $this->startDate = new \DateTime();
         $this->endDate = new \DateTime();
-        $this->regionId = -1;
-        $this->scope = -1;
-        $this->inFuture = false;
     }
 
     public static function create(

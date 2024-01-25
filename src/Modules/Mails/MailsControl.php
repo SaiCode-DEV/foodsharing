@@ -7,9 +7,12 @@ use Foodsharing\Modules\Console\ConsoleControl;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\RouteHelper;
+use Html2Text\Html2Text;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
+
+use function Sentry\captureException;
 
 class MailsControl extends ConsoleControl
 {
@@ -133,7 +136,7 @@ class MailsControl extends ConsoleControl
                     }
 
                     if ($html) {
-                        $h2t = new \Html2Text\Html2Text($html);
+                        $h2t = new Html2Text($html);
                         $body = $h2t->get_text();
                         $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
                     } else {
@@ -239,7 +242,7 @@ class MailsControl extends ConsoleControl
                 $msg->delete(); // message has been processed at this point, mark it for deletion
             } catch (\Exception $e) {
                 self::error('Something went wrong, ' . $e->getMessage() . "\n");
-                \Sentry\captureException($e);
+                captureException($e);
                 $msg->move($failedMailbox);
             }
         }

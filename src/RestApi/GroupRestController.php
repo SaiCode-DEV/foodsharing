@@ -40,9 +40,9 @@ class GroupRestController extends AbstractFOSRestController
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="409", description="Group still contains elements")
      * @OA\Tag(name="groups")
-     * @Rest\Delete("groups/{groupId}", requirements={"groupId" = "\d+"})
      */
-    public function deleteGroupAction(int $groupId): Response
+    #[Rest\Delete('groups/{groupId}', requirements: ['groupId' => '\d+'])]
+    public function deleteGroup(int $groupId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('', 'not logged in');
@@ -65,10 +65,10 @@ class GroupRestController extends AbstractFOSRestController
      * Returns the join URL of a given groups conference.
      *
      * @OA\Tag(name="groups")
-     * @Rest\Get("groups/{groupId}/conference", requirements={"groupId" = "\d+"})
-     * @Rest\QueryParam(name="redirect", default="false", description="Should the response perform a 301 redirect to the actual conference?")
      */
-    public function joinConferenceAction(RegionGateway $regionGateway, RegionPermissions $regionPermissions, BigBlueButton $bbb, int $groupId, ParamFetcher $paramFetcher): Response
+    #[Rest\Get('groups/{groupId}/conference', requirements: ['groupId' => '\d+'])]
+    #[Rest\QueryParam(name: 'redirect', default: 'false', description: 'Should the response perform a 301 redirect to the actual conference?')]
+    public function joinConference(RegionGateway $regionGateway, RegionPermissions $regionPermissions, BigBlueButton $bbb, int $groupId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('');
@@ -109,7 +109,6 @@ class GroupRestController extends AbstractFOSRestController
      *
      * @OA\Tag(name="groups")
      * @OA\Tag(name="my")
-     * @Rest\Get("user/current/groups")
      * @OA\Response(
      * 		response="200",
      * 		description="Success returns list of related groups of user",
@@ -120,6 +119,7 @@ class GroupRestController extends AbstractFOSRestController
      * )
      * @OA\Response(response="401", description="Not logged in.")
      */
+    #[Rest\Get('user/current/groups')]
     public function listMyWorkingGroups(): Response
     {
         if (!$this->session->mayRole()) {

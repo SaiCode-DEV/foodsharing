@@ -14,13 +14,14 @@ use Foodsharing\Utility\Sanitizer;
 use Foodsharing\Utility\TimeHelper;
 use Foodsharing\Utility\TranslationHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
 class View
 {
     protected Session $session;
     protected Utils $v_utils;
 
-    public \Twig\Environment $twig;
+    public Environment $twig;
 
     protected DataHelper $dataHelper;
     protected IdentificationHelper $identificationHelper;
@@ -34,7 +35,7 @@ class View
     protected TranslatorInterface $translator;
 
     public function __construct(
-        \Twig\Environment $twig,
+        Environment $twig,
         Session $session,
         Utils $viewUtils,
         DataHelper $dataHelper,

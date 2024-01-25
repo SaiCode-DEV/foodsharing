@@ -41,12 +41,12 @@ final class NewsletterRestController extends AbstractFOSRestController
      * send newsletters, or 400 if the email address is invalid.
      *
      * @OA\Tag(name="newsletter")
-     * @Rest\Post("newsletter/test")
-     * @Rest\RequestParam(name="address")
-     * @Rest\RequestParam(name="subject")
-     * @Rest\RequestParam(name="message")
      */
-    public function sendTestEmailAction(ParamFetcher $paramFetcher): Response
+    #[Rest\Post('newsletter/test')]
+    #[Rest\RequestParam(name: 'address')]
+    #[Rest\RequestParam(name: 'subject')]
+    #[Rest\RequestParam(name: 'message')]
+    public function sendTestEmail(ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('', self::NOT_ALLOWED);

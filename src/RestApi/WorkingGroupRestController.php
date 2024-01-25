@@ -52,8 +52,8 @@ class WorkingGroupRestController extends AbstractFOSRestController
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="404", description="Group not found")
      * @OA\Tag(name="groups")
-     * @Rest\Post  ("groups/{groupId}/members/{memberId}", requirements={"groupId" = "\d+", "memberId" = "\d+"})
      */
+    #[Rest\Post('groups/{groupId}/members/{memberId}', requirements: ['groupId' => '\d+', 'memberId' => '\d+'])]
     public function addMember(int $groupId, int $memberId): Response
     {
         if (!$this->session->mayRole()) {
@@ -84,9 +84,9 @@ class WorkingGroupRestController extends AbstractFOSRestController
      * @OA\Response(response="404", description="Group not found")
      * @OA\Tag(name="groups")
      * @OA\RequestBody(@Model(type=EditWorkGroupData::class))
-     * @ParamConverter("groupData", class="Foodsharing\RestApi\Models\Group\EditWorkGroupData", converter="fos_rest.request_body")
-     * @Rest\Patch("groups/{groupId}", requirements={"groupId" = "\d+"})
      */
+    #[Rest\Patch('groups/{groupId}', requirements: ['groupId' => '\d+'])]
+    #[ParamConverter('groupData', class: 'Foodsharing\RestApi\Models\Group\EditWorkGroupData', converter: 'fos_rest.request_body')]
     public function editWorkingGroup(int $groupId, EditWorkGroupData $groupData, ValidatorInterface $validator): Response
     {
         // check permissions

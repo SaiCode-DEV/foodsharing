@@ -8,13 +8,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class XhrDialog
 {
     private $id;
-    private $buttons;
-    private $content;
-    private $options;
-    private $script;
-    private $scriptBefore;
+    private $buttons = [];
+    private $content = '';
+    private $options = [];
+    private $script = '';
+    private $scriptBefore = '';
     private $scriptAfter;
-    private $classnames;
+    private $classnames = [];
     private TranslatorInterface $translator;
     private Sanitizer $sanitizerService;
 
@@ -23,12 +23,6 @@ class XhrDialog
         global $container;
         $this->translator = $container->get('translator'); // TODO TranslatorInterface is an alias
         $this->id = 'd-' . uniqid();
-        $this->buttons = [];
-        $this->options = [];
-        $this->script = '';
-        $this->content = '';
-        $this->scriptBefore = '';
-        $this->classnames = [];
         $this->sanitizerService = $container->get(Sanitizer::class);
 
         if ($title !== false) {

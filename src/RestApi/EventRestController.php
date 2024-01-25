@@ -33,10 +33,10 @@ class EventRestController extends AbstractFOSRestController
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permissions to join the event")
      * @OA\Tag(name="events")
-     * @Rest\Patch("users/current/events/{eventId}/invitation", requirements={"eventId" = "\d+"})
-     * @Rest\RequestParam(name="status", requirements="\d+", nullable=false)
      */
-    public function setResponseAction(int $eventId, ParamFetcher $paramFetcher): Response
+    #[Rest\Patch('users/current/events/{eventId}/invitation', requirements: ['eventId' => '\d+'])]
+    #[Rest\RequestParam(name: 'status', requirements: '\d+', nullable: false)]
+    public function setResponse(int $eventId, ParamFetcher $paramFetcher): Response
     {
         $fsId = $this->session->id();
         if (!$fsId) {

@@ -1,14 +1,16 @@
 <?php
 
-namespace Foodsharing\EventListener;
+namespace Foodsharing\EventSubscriber;
 
 use Doctrine\Common\Annotations\Reader;
 use Foodsharing\Annotation\DisableCsrfProtection;
 use Foodsharing\Lib\Session;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 
-class CsrfListener
+class CsrfEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private readonly Reader $reader,
@@ -16,7 +18,7 @@ class CsrfListener
     ) {
     }
 
-    public function onKernelController(ControllerEvent $event)
+    public function onKernelController(ControllerEvent $event): void
     {
         if (!is_array($controllers = $event->getController())) {
             return;
@@ -51,5 +53,13 @@ class CsrfListener
         if (!$this->session->isValidCsrfHeader()) {
             throw new SuspiciousOperationException('CSRF Failed: CSRF token missing or incorrect.');
         }
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public static function getSubscribedEvents(): array
+    {
+        return [KernelEvents::CONTROLLER => 'onKernelController'];
     }
 }

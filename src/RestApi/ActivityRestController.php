@@ -41,7 +41,7 @@ class ActivityRestController extends AbstractFOSRestController
         description: 'Insufficient permissions to request filters.',
         content: new OA\JsonContent(ref: new Model(type: HttpCodeMessageModel::class))
     )]
-    public function getActivityFiltersAction(): Response
+    public function getActivityFilters(): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -72,7 +72,7 @@ class ActivityRestController extends AbstractFOSRestController
         description: 'Incomplete or incorrect request',
         content: new OA\JsonContent(ref: new Model(type: HttpCodeMessageModel::class))
     )]
-    public function setActivityFiltersAction(ActivityFilterModel $activityExcluded): Response
+    public function setActivityFilters(ActivityFilterModel $activityExcluded): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -101,7 +101,7 @@ class ActivityRestController extends AbstractFOSRestController
         description: 'Insufficient permissions to request filters.',
         content: new OA\JsonContent(ref: new Model(type: HttpCodeMessageModel::class))
     )]
-    public function getActivityUpdatesAction(ParamFetcher $paramFetcher): Response
+    public function getActivityUpdates(ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');

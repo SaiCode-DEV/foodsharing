@@ -6,34 +6,23 @@ use DateTime;
 
 class RegionGroupMemberEntry
 {
-    public int $id;
+    public int $id = 0;
 
-    public ?string $name;
+    public ?string $name = null;
 
-    public ?string $avatar;
+    public ?string $avatar = null;
 
-    public bool $isSleeping;
+    public bool $isSleeping = false;
 
     public ?int $role = null;
 
-    public ?DateTime $lastActivity;
+    public ?DateTime $lastActivity = null;
 
-    public bool $isAdminOrAmbassadorOfRegion;
+    public bool $isAdminOrAmbassadorOfRegion = false;
 
     public ?bool $isVerified = null;
 
     public ?bool $isHomeRegion = null;
-
-    public function __construct()
-    {
-        $this->id = 0;
-        $this->name = null;
-        $this->avatar = null;
-        $this->isSleeping = false;
-        $this->role = null;
-        $this->lastActivity = null;
-        $this->isAdminOrAmbassadorOfRegion = false;
-    }
 
     public static function create(
         int $id,

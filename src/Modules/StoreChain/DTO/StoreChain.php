@@ -35,14 +35,13 @@ class StoreChain
      * Field does not support HTML, Markdown or multiline strings.
      *
      * @OA\Property(example="MyChain GmbH")
-     * @Assert\Length(max=120)
      *
      * @NoHtml
      *
      * @NoMultiLineText
-     *
      * @NoMarkdown
      */
+    #[Assert\Length(max: 120)]
     public string $name;
 
     /**
@@ -52,20 +51,19 @@ class StoreChain
      * - '2' - Cooperating.
      *
      * @OA\Property(enum={0, 1, 2}, example=2)
-     * @Assert\Range (min = 0, max = 2)
      */
+    #[Assert\Range(min: 0, max: 2)]
     public StoreChainStatus $status;
 
     /**
      * ZIP code of the chains headquater.
      *
      * @OA\Property(example="48149")
-     * @Assert\Length(max=120)
      *
      * @NoMultiLineText
-     *
      * @NoMarkdown
      */
+    #[Assert\Length(max: 120)]
     public string $headquartersZip;
 
     /**
@@ -74,12 +72,11 @@ class StoreChain
      * Field does not support HTML, Markdown or multiline strings.
      *
      * @OA\Property(example="Münster")
-     * @Assert\Length(max=50)
      *
      * @NoMultiLineText
-     *
      * @NoMarkdown
      */
+    #[Assert\Length(max: 50)]
     public string $headquartersCity;
 
     /**
@@ -88,12 +85,11 @@ class StoreChain
      * Field does not support HTML, Markdown or multiline strings.
      *
      * @OA\Property(example="Germany")
-     * @Assert\Length(max=50)
      *
      * @NoMultiLineText
-     *
      * @NoMarkdown
      */
+    #[Assert\Length(max: 50)]
     public string $headquartersCountry;
 
     /**
@@ -107,8 +103,8 @@ class StoreChain
      * Only visible to members of AG store chain
      *
      * @OA\Property(example=12345)
-     * @Assert\Range (min = 0)
      */
+    #[Assert\Range(min: 0)]
     public ?int $forumThread;
 
     /**
@@ -117,16 +113,16 @@ class StoreChain
      * Field does not support HTML, Markdown or multiline strings.
      *
      * @OA\Property(example="Cooperating since 2021", nullable=true)
-     * @Assert\Length(max=200)
      */
+    #[Assert\Length(max: 200)]
     public ?string $notes = null;
 
     /**
      * Information about the chain to be displayed on every related stores page.
      *
      * @OA\Property(example="Pickup times between 10:00 and 12:15", nullable=true)
-     * @Assert\Length(max=16777215)
      */
+    #[Assert\Length(max: 16777215)]
     public ?string $commonStoreInformation = null;
 
     /**
@@ -147,8 +143,8 @@ class StoreChain
      * Only visible to members of AG store chain
      *
      * @OA\Property(example=12)
-     * @Assert\Range (min = 0)
      */
+    #[Assert\Range(min: 0)]
     public ?int $estimatedStoreCount = 0;
 
     /**

@@ -9,7 +9,7 @@ use Foodsharing\Utility\IdentificationHelper;
 class ApplicationControl extends Control
 {
     private $bezirk;
-    private $bezirk_id;
+    private $bezirk_id = false;
     private ApplicationGateway $gateway;
     private IdentificationHelper $identificationHelper;
 
@@ -23,8 +23,6 @@ class ApplicationControl extends Control
         $this->identificationHelper = $identificationHelper;
 
         parent::__construct();
-
-        $this->bezirk_id = false;
         if (($this->bezirk_id = $this->identificationHelper->getGetId('bid')) === false) {
             $this->bezirk_id = $this->session->getCurrentRegionId();
         }

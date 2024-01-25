@@ -17,14 +17,13 @@ class GeoapifyMock extends AbstractController
 
     /**
      * Emulates the map tile provider for acceptance tests. It returns ./img/mock_tile.png for all coordinates.
-     *
-     * @Route("/geoapify/{z}/{x}/{y}.png")
      */
+    #[Route(path: '/geoapify/{z}/{x}/{y}.png')]
     public function api(): Response
     {
         return new BinaryFileResponse(
             $this->kernelInterface->getProjectDir() . '/src/Mock/img/mock_tile.png',
-            200,
+            Response::HTTP_OK,
             ['Content-Type' => 'text/png']);
     }
 }

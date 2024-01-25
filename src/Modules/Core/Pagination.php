@@ -8,15 +8,13 @@ class Pagination
 {
     /**
      * Count of item per page.
-     *
-     * @Assert\Positive()
      */
+    #[Assert\Positive]
     public ?int $pageSize = null;
 
     /**
      * Offset to start.
-     *
-     * @Assert\Positive()
      */
+    #[Assert\Positive]
     public int $offset = 0;
 }

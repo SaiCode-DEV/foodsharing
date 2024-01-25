@@ -3,14 +3,14 @@
 namespace Foodsharing\Command;
 
 use Foodsharing\Modules\Region\ForumFollowerGateway;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand('foodsharing:createThemeFollowerEntries', 'Creates theme follower entries for all participants of a forum thread')]
 class CreateThemeFollowerEntriesCommand extends Command
 {
-    protected static $defaultName = 'foodsharing:createThemeFollowerEntries';
-
     private ForumFollowerGateway $forumFollowerGateway;
 
     public function __construct(ForumFollowerGateway $forumFollowerGateway)
@@ -21,7 +21,6 @@ class CreateThemeFollowerEntriesCommand extends Command
 
     protected function configure(): void
     {
-        $this->setDescription('Creates theme follower entries for all participants of a forum thread');
         $this->setHelp('This command goes together with change from 2020-05 release where bell notifications can be enabled/disabled per thread. This creates a default notification setting for all participants of a thread that do not have an info entry yet.');
     }
 
@@ -29,6 +28,6 @@ class CreateThemeFollowerEntriesCommand extends Command
     {
         $output->writeln('created ' . $this->forumFollowerGateway->createFollowerEntriesForExistingThreads() . ' follower entries');
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

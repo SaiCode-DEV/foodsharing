@@ -4,12 +4,7 @@ namespace Foodsharing\Utility;
 
 class IdentificationHelper
 {
-    private $ids;
-
-    public function __construct()
-    {
-        $this->ids = [];
-    }
+    private array $ids = [];
 
     public function getGetId($name)
     {

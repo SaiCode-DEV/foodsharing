@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Api;
 
 use Codeception\Util\HttpCode as Http;
-use Faker;
+use Faker\Factory;
 use Tests\Support\ApiTester;
 
 class StoreRequestApiCest
@@ -25,7 +25,7 @@ class StoreRequestApiCest
         $this->user = $I->createFoodsaver();
         $this->manager = $I->createStoreCoordinator(null, ['bezirk_id' => $this->region['id']]);
         $I->addStoreTeam($this->store['id'], $this->manager['id'], true);
-        $this->faker = Faker\Factory::create('de_DE');
+        $this->faker = Factory::create('de_DE');
     }
 
     public function canAcceptStoreRequests(ApiTester $I): void

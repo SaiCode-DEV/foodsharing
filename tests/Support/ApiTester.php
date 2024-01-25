@@ -7,6 +7,7 @@ namespace Tests\Support;
 use Codeception\Actor;
 use Codeception\Lib\Friend;
 use Codeception\Scenario;
+use Tests\Support\_generated\ApiTesterActions;
 
 /**
  * Inherited Methods.
@@ -26,7 +27,7 @@ use Codeception\Scenario;
  */
 class ApiTester extends Actor
 {
-    use _generated\ApiTesterActions;
+    use ApiTesterActions;
 
     public function __construct(Scenario $scenario)
     {

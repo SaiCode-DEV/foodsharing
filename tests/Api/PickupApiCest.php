@@ -122,7 +122,7 @@ class PickupApiCest
 
         $I->sendGet('api/stores/' . $this->store['id'] . '/pickups');
         $I->seeResponseIsJson();
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseCodeIs(HttpCode::OK);
         $I->canSeeResponseContainsJson([
             'description' => 'some description'
         ]);
@@ -141,14 +141,14 @@ class PickupApiCest
             ['description' => 'random description', 'totalSlots' => 3]
         );
         $I->seeResponseIsJson();
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseCodeIs(HttpCode::OK);
         $I->canSeeResponseContainsJson([
             'created' => false
         ]);
 
         $I->sendGet('api/stores/' . $this->store['id'] . '/pickups');
         $I->seeResponseIsJson();
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseCodeIs(HttpCode::OK);
         $I->canSeeResponseContainsJson([
             'description' => 'random description'
         ]);
@@ -166,14 +166,14 @@ class PickupApiCest
             ['description' => 'another random description', 'totalSlots' => 3]
         );
         $I->seeResponseIsJson();
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseCodeIs(HttpCode::OK);
         $I->canSeeResponseContainsJson([
             'created' => true
         ]);
 
         $I->sendGet('api/stores/' . $this->store['id'] . '/pickups');
         $I->seeResponseIsJson();
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseCodeIs(HttpCode::OK);
         $I->canSeeResponseContainsJson([
             'description' => 'another random description'
         ]);
@@ -199,11 +199,11 @@ class PickupApiCest
             ]]
         );
         $I->seeResponseIsJson();
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseCodeIs(HttpCode::OK);
 
         $I->sendGet('api/stores/' . $this->store['id'] . '/pickups');
         $I->seeResponseIsJson();
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseCodeIs(HttpCode::OK);
         $I->canSeeResponseContainsJson([
             'description' => 'regular slot description'
         ]);
@@ -211,11 +211,11 @@ class PickupApiCest
         // Enter into that regular slot
         $I->sendPOST('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String() . '/' . $coordinator['id']);
         $I->seeResponseIsJson();
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseCodeIs(HttpCode::OK);
 
         $I->sendGet('api/stores/' . $this->store['id'] . '/pickups');
         $I->seeResponseIsJson();
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseCodeIs(HttpCode::OK);
 
         // Make sure the description of the regular pickup slot is still there (now as a onetime pickup)
         $I->canSeeResponseContainsJson([

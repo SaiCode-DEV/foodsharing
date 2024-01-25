@@ -41,7 +41,7 @@ class MapRestController extends AbstractFOSRestController
     #[Rest\QueryParam(name: 'status')]
     #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
-    public function getMapMarkersAction(ParamFetcher $paramFetcher): Response
+    public function getMapMarkers(ParamFetcher $paramFetcher): Response
     {
         $types = (array)$paramFetcher->get('types');
         $markers = [];
@@ -108,7 +108,7 @@ class MapRestController extends AbstractFOSRestController
     #[Rest\QueryParam(name: 'regionId', requirements: '\d+', description: 'Region for which to return the description', nullable: true)]
     #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The region does not exist or does not have a community description.')]
-    public function getRegionBubbleAction(int $regionId): Response
+    public function getRegionBubble(int $regionId): Response
     {
         $region = $this->regionGateway->getRegion($regionId);
         $pin = $this->regionGateway->getRegionPin($regionId);
@@ -156,7 +156,7 @@ class MapRestController extends AbstractFOSRestController
     )]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The basket does not exist')]
     #[Rest\QueryParam(name: 'basketId', requirements: '\d+', description: 'Basket for which to return data', nullable: false)]
-    public function getBasketBubbleAction(int $basketId): Response
+    public function getBasketBubble(int $basketId): Response
     {
         $basket = $this->mapGateway->getBasketBubbleData($basketId, $this->session->mayRole());
         if (empty($basket)) {

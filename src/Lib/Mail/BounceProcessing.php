@@ -11,13 +11,12 @@ class BounceProcessing
 
     private $mailsGateway;
 
-    private $numBounces;
+    private $numBounces = 0;
 
     public function __construct(BounceMailHandler $bounceMailHandler, MailsGateway $mailsGateway)
     {
         $this->bounceMailHandler = $bounceMailHandler;
         $this->mailsGateway = $mailsGateway;
-        $this->numBounces = 0;
     }
 
     public function process()

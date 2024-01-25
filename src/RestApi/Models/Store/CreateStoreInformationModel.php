@@ -12,58 +12,52 @@ class CreateStoreInformationModel
     /**
      * Name of the store.
      *
-     * @Assert\NotNull()
-     * @Assert\Length(max=120)
-     *
      * @NoHtml
      */
+    #[Assert\NotNull]
+    #[Assert\Length(max: 120)]
     public ?string $name;
 
     /**
      * Location of the store.
-     *
-     * @Assert\NotNull()
-     * @Assert\Valid()
      */
+    #[Assert\NotNull]
+    #[Assert\Valid]
     public ?GeoLocation $location;
 
     /**
      * Street name with street number.
      *
-     * @Assert\NotNull()
-     * @Assert\Length(max=120)
-     *
      * @NoHtml
      */
+    #[Assert\NotNull]
+    #[Assert\Length(max: 120)]
     public ?string $street;
 
     /**
      * Zip code.
-     *
-     * @Assert\NotNull()
-     * @Assert\Length(max=5)
      */
+    #[Assert\NotNull]
+    #[Assert\Length(max: 5)]
     public ?string $zipCode;
 
     /**
      * City name.
      *
-     * @Assert\NotNull()
-     * @Assert\Length(max=50)
-     *
      * @NoHtml
      */
+    #[Assert\NotNull]
+    #[Assert\Length(max: 50)]
     public ?string $city;
 
     /**
      * Public information about the store which is visible
      * for users which are looking for a store.
      *
-     * @Assert\NotNull()
-     * @Assert\Length(max=200)
-     *
      * @NoHtml
      */
+    #[Assert\NotNull]
+    #[Assert\Length(max: 200)]
     public ?string $publicInfo;
 
     public function toCreateStore(): CreateStoreData

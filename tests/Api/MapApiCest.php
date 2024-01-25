@@ -136,7 +136,7 @@ class MapApiCest
     {
         $I->login($this->user['email']);
         $I->sendGet('api/map/baskets/' . $this->basket['id']);
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->seeResponseContainsJson([
             'id' => $this->basket['id'],
@@ -151,13 +151,13 @@ class MapApiCest
     final public function canNotFetchBubbleOfInvalidBasket(ApiTester $I)
     {
         $I->sendGet('api/map/baskets/999999');
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::NOT_FOUND);
+        $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 
     final public function canOnlySeeBasketDetailsWhenLoggedIn(ApiTester $I)
     {
         $I->sendGet('api/map/baskets/' . $this->basket['id']);
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
         $I->cantSeeResponseContainsJson([
             'creator' => [

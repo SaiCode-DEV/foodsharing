@@ -21,7 +21,7 @@ services:
         - [initIfCookieExists]
 
     markdown.nohtml:
-        class: \Parsedown
+        class: Parsedown
         calls:
             - ['setSafeMode', [true]]
             - ['setMarkupEscaped', [false]]
@@ -30,9 +30,6 @@ services:
     Parsedown: '@markdown.nohtml'
 
     HTMLPurifier: '@exercise_html_purifier.default'
-
-    #Foodsharing\Debug\DebugBar:
-    #    class: Foodsharing\Debug\DisabledDebugBar
 
     BounceMailHandler\BounceMailHandler:
         properties:
@@ -54,12 +51,6 @@ services:
     Twig\Extra\Intl\IntlExtension:
         tags:
             - twig.extension
-
-    Foodsharing\EventListener\CsrfListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.controller }
-        arguments:
-            - "@annotation_reader"
 
     GuzzleHttp\Client:
 

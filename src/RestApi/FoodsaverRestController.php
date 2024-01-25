@@ -35,9 +35,9 @@ final class FoodsaverRestController extends AbstractFOSRestController
      * This only works for future pickups.
      *
      * @OA\Tag(name="foodsaver")
-     * @Rest\Get("foodsaver/{fsId}/pickups/{onDate}", requirements={"fsId" = "\d+", "onDate" = "[^/]+"})
      */
-    public function listSameDayPickupsAction(int $fsId, string $onDate): Response
+    #[Rest\Get('foodsaver/{fsId}/pickups/{onDate}', requirements: ['fsId' => '\d+', 'onDate' => '[^/]+'])]
+    public function listSameDayPickups(int $fsId, string $onDate): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');

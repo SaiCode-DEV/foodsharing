@@ -14,8 +14,8 @@ class PickupLeaveMessageOptions
      * Message why a user is removed from pickup.
      *
      * @OA\Property(example="We need a pick up slot for a new foodsaver")
-     * @Assert\Length(max=3000)
      */
+    #[Assert\Length(max: 3000)]
     public string $message = '';
 
     /**

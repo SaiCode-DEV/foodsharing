@@ -12,17 +12,18 @@ use Foodsharing\Utility\RouteHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Service\Attribute\Required;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
 abstract class Control
 {
     protected $view;
-    private false|string $sub;
+    private false|string $sub = false;
 
     protected PageHelper $pageHelper;
     protected Mem $mem;
     protected Session $session;
     protected Utils $v_utils;
-    private \Twig\Environment $twig;
+    private Environment $twig;
     protected Request $request;
     protected EmailHelper $emailHelper;
     protected FlashMessageHelper $flashMessageHelper;
@@ -39,9 +40,7 @@ abstract class Control
         $this->emailHelper = $container->get(EmailHelper::class);
         $this->routeHelper = $container->get(RouteHelper::class);
         $this->flashMessageHelper = $container->get(FlashMessageHelper::class);
-        $this->translator = $container->get('translator'); // TODO TranslatorInterface is an alias
-
-        $this->sub = false;
+        $this->translator = $container->get('translator');
         if (isset($_GET['sub'])) {
             $sub = $_GET['sub'];
 
@@ -52,7 +51,7 @@ abstract class Control
     }
 
     #[Required]
-    public function setTwig(\Twig\Environment $twig): void
+    public function setTwig(Environment $twig): void
     {
         $this->twig = $twig;
     }

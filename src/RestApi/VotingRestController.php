@@ -47,8 +47,8 @@ class VotingRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="404", description="Poll does not exist.")
      * @OA\Tag(name="polls")
-     * @Rest\Get("polls/{pollId}", requirements={"pollId" = "\d+"})
      */
+    #[Rest\Get('polls/{pollId}', requirements: ['pollId' => '\d+'])]
     public function getPoll(int $pollId): Response
     {
         if (!$this->session->id()) {
@@ -72,8 +72,8 @@ class VotingRestController extends AbstractFOSRestController
      * @OA\Parameter(name="regionId", in="path", @OA\Schema(type="integer"), description="which region to list polls for")
      * @OA\Response(response="200", description="Success")
      * @OA\Tag(name="polls")
-     * @Rest\Get("groups/{groupId}/polls", requirements={"groupId" = "\d+"})
      */
+    #[Rest\Get('groups/{groupId}/polls', requirements: ['groupId' => '\d+'])]
     public function listPolls(int $groupId): Response
     {
         if (!$this->session->id()) {
@@ -93,8 +93,8 @@ class VotingRestController extends AbstractFOSRestController
      *
      * @OA\Response(response="200", description="Success")
      * @OA\Tag(name="polls")
-     * @Rest\Get("user/current/polls")
      */
+    #[Rest\Get('user/current/polls')]
     public function listCurrentPolls(): Response
     {
         if (!$this->session->id()) {
@@ -116,10 +116,10 @@ class VotingRestController extends AbstractFOSRestController
      * @OA\Response(response="403", description="Insufficient permissions to vote in that polls.")
      * @OA\Response(response="404", description="Poll does not exist.")
      * @OA\Tag(name="polls")
-     * @Rest\Put("polls/{pollId}/vote", requirements={"pollId" = "\d+"})
-     * @Rest\RequestParam(name="options", nullable=false)
      */
-    public function voteAction(int $pollId, ParamFetcher $paramFetcher): Response
+    #[Rest\Put('polls/{pollId}/vote', requirements: ['pollId' => '\d+'])]
+    #[Rest\RequestParam(name: 'options', nullable: false)]
+    public function vote(int $pollId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -156,19 +156,19 @@ class VotingRestController extends AbstractFOSRestController
      * @OA\Response(response="400", description="Invalid parameters.")
      * @OA\Response(response="403", description="Insufficient permissions to create a poll in that region.")
      * @OA\Tag(name="polls")
-     * @Rest\Post("polls")
-     * @Rest\RequestParam(name="name", nullable=false)
-     * @Rest\RequestParam(name="description", nullable=false)
-     * @Rest\RequestParam(name="startDate", nullable=false)
-     * @Rest\RequestParam(name="endDate", nullable=false)
-     * @Rest\RequestParam(name="regionId", nullable=false, requirements="\d+")
-     * @Rest\RequestParam(name="scope", nullable=false, requirements="\d+")
-     * @Rest\RequestParam(name="type", nullable=false, requirements="\d+")
-     * @Rest\RequestParam(name="options", nullable=false)
-     * @Rest\RequestParam(name="notifyVoters", nullable=false)
-     * @Rest\RequestParam(name="shuffleOptions", default=true)
      */
-    public function createPollAction(ParamFetcher $paramFetcher): Response
+    #[Rest\Post('polls')]
+    #[Rest\RequestParam(name: 'name', nullable: false)]
+    #[Rest\RequestParam(name: 'description', nullable: false)]
+    #[Rest\RequestParam(name: 'startDate', nullable: false)]
+    #[Rest\RequestParam(name: 'endDate', nullable: false)]
+    #[Rest\RequestParam(name: 'regionId', nullable: false, requirements: '\d+')]
+    #[Rest\RequestParam(name: 'scope', nullable: false, requirements: '\d+')]
+    #[Rest\RequestParam(name: 'type', nullable: false, requirements: '\d+')]
+    #[Rest\RequestParam(name: 'options', nullable: false)]
+    #[Rest\RequestParam(name: 'notifyVoters', nullable: false)]
+    #[Rest\RequestParam(name: 'shuffleOptions', default: true)]
+    public function createPoll(ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -225,12 +225,12 @@ class VotingRestController extends AbstractFOSRestController
      * @OA\Response(response="403", description="Insufficient permissions to edit that poll")
      * @OA\Response(response="404", description="Poll does not exist")
      * @OA\Tag(name="polls")
-     * @Rest\Patch("polls/{pollId}", requirements={"pollId" = "\d+"})
-     * @Rest\RequestParam(name="name", nullable=true, default=null)
-     * @Rest\RequestParam(name="description", nullable=true, default=null)
-     * @Rest\RequestParam(name="options", nullable=true, default=null)
      */
-    public function editPollAction(int $pollId, ParamFetcher $paramFetcher): Response
+    #[Rest\Patch('polls/{pollId}', requirements: ['pollId' => '\d+'])]
+    #[Rest\RequestParam(name: 'name', nullable: true, default: null)]
+    #[Rest\RequestParam(name: 'description', nullable: true, default: null)]
+    #[Rest\RequestParam(name: 'options', nullable: true, default: null)]
+    public function editPoll(int $pollId, ParamFetcher $paramFetcher): Response
     {
         // check permissions and get poll
         $userId = $this->session->id();
@@ -310,9 +310,9 @@ class VotingRestController extends AbstractFOSRestController
      * @OA\Response(response="403", description="Insufficient permissions to delete that poll.")
      * @OA\Response(response="404", description="Poll does not exist.")
      * @OA\Tag(name="polls")
-     * @Rest\Delete("polls/{pollId}", requirements={"pollId" = "\d+"})
      */
-    public function deletePollAction(int $pollId): Response
+    #[Rest\Delete('polls/{pollId}', requirements: ['pollId' => '\d+'])]
+    public function deletePoll(int $pollId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');

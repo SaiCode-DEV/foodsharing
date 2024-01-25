@@ -6,6 +6,7 @@ namespace Tests\Support;
 
 use Codeception\Actor;
 use Codeception\Lib\Friend;
+use Tests\Support\_generated\FunctionalTesterActions;
 
 /**
  * Inherited Methods.
@@ -25,7 +26,7 @@ use Codeception\Lib\Friend;
  */
 class FunctionalTester extends Actor
 {
-    use _generated\FunctionalTesterActions;
+    use FunctionalTesterActions;
 
     /*
      * Define custom actions here

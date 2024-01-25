@@ -55,7 +55,7 @@ class SearchRestController extends AbstractFOSRestController
     ))]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'No query provided')]
-    public function listUserResultsAction(ParamFetcher $paramFetcher): Response
+    public function listUserResults(ParamFetcher $paramFetcher): Response
     {
         $this->assertLoggedIn();
         $query = $this->getQuery($paramFetcher);
@@ -87,7 +87,7 @@ class SearchRestController extends AbstractFOSRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: MixedSearchResult::class))]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'No query provided')]
-    public function searchAction(ParamFetcher $paramFetcher): Response
+    public function search(ParamFetcher $paramFetcher): Response
     {
         $this->assertLoggedIn();
         $query = $this->getQuery($paramFetcher);
@@ -113,7 +113,7 @@ class SearchRestController extends AbstractFOSRestController
     #[Rest\Get('search/index')]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: MixedSearchResult::class))]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    public function searchIndexAction(): Response
+    public function searchIndex(): Response
     {
         $this->assertLoggedIn();
         $results = $this->searchTransactions->searchIndex();
@@ -135,7 +135,7 @@ class SearchRestController extends AbstractFOSRestController
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to search in that forum')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'No query provided')]
-    public function searchForumTitleAction(int $groupId, int $subforumId, ParamFetcher $paramFetcher): Response
+    public function searchForumTitle(int $groupId, int $subforumId, ParamFetcher $paramFetcher): Response
     {
         $this->assertLoggedIn();
         if (!$this->forumPermissions->mayAccessForum($groupId, $subforumId)) {

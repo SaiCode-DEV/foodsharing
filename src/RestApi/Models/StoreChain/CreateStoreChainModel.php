@@ -26,8 +26,6 @@ class CreateStoreChainModel
      * Field does not support HTML, Markdown or multiline strings.
      *
      * @OA\Property(example="MyChain GmbH")
-     * @Assert\NotNull()
-     * @Assert\Length(min=1, max=120)
      *
      * @NoHtml
      *
@@ -35,6 +33,8 @@ class CreateStoreChainModel
      *
      * @NoMarkdown
      */
+    #[Assert\NotNull]
+    #[Assert\Length(min: 1, max: 120)]
     public ?string $name = null;
 
     /**
@@ -44,17 +44,15 @@ class CreateStoreChainModel
      * - '2' - Cooperating.
      *
      * @OA\Property(enum={0, 1, 2}, example=2)
-     * @Assert\NotNull()
-     * @Assert\Range (min = 0, max = 2)
      */
+    #[Assert\NotNull]
+    #[Assert\Range(min: 0, max: 2)]
     public ?int $status = null;
 
     /**
      * ZIP code of the chains headquater.
      *
      * @OA\Property(example="48149")
-     * @Assert\Length(min=1, max=5)
-     * @Assert\NotNull()
      *
      * @NoHtml
      *
@@ -62,6 +60,8 @@ class CreateStoreChainModel
      *
      * @NoMarkdown
      */
+    #[Assert\Length(min: 1, max: 5)]
+    #[Assert\NotNull]
     public ?string $headquartersZip = null;
 
     /**
@@ -70,8 +70,6 @@ class CreateStoreChainModel
      * Field does not support HTML, Markdown or multiline strings.
      *
      * @OA\Property(example="Münster")
-     * @Assert\NotNull()
-     * @Assert\Length(min=1, max=50)
      *
      * @NoHtml
      *
@@ -79,6 +77,8 @@ class CreateStoreChainModel
      *
      * @NoMarkdown
      */
+    #[Assert\NotNull]
+    #[Assert\Length(min: 1, max: 50)]
     public ?string $headquartersCity = null;
 
     /**
@@ -87,29 +87,28 @@ class CreateStoreChainModel
      * Field does not support HTML, Markdown or multiline strings.
      *
      * @OA\Property(example="Germany")
-     * @Assert\NotNull()
-     * @Assert\Length(max=50)
      *
      * @NoMultiLineText
      *
      * @NoMarkdown
      */
+    #[Assert\NotNull]
+    #[Assert\Length(max: 50)]
     public ?string $headquartersCountry = null;
 
     /**
      * Whether the chain can be referred to in press releases.
-     *
-     * @Assert\NotNull()
      */
+    #[Assert\NotNull]
     public ?bool $allowPress = null;
 
     /**
      * Identifier of a forum thread related to this chain.
      *
      * @OA\Property(example=12345)
-     * @Assert\Range (min=0)
-     * @Assert\NotNull()
      */
+    #[Assert\Range(min: 0)]
+    #[Assert\NotNull]
     public ?int $forumThread = null;
 
     /**
@@ -118,31 +117,30 @@ class CreateStoreChainModel
      * Field does not support HTML, Markdown or multiline strings.
      *
      * @OA\Property(example="Cooperating since 2021", nullable=true)
-     * @Assert\Length(max=200)
      *
      * @NoHtml
      *
      * @NoMultiLineText
-     *
      * @NoMarkdown
      */
+    #[Assert\Length(max: 200)]
     public ?string $notes = null;
 
     /**
      * Information about the chain to be displayed on every related stores page.
      *
      * @OA\Property(example="Pickup times between 10:00 and 12:15", nullable=true)
-     * @Assert\Length(max=16777215)
      */
+    #[Assert\Length(max: 16777215)]
     public ?string $commonStoreInformation = null;
 
     /**
      * Identifiers of key account managers.
      *
      * @OA\Property(type="array", description="Managers of this chain",	items={"type"="integer"})
-     * @Assert\All(@Assert\Positive())
-     * @Type("array<int>")
      */
+    #[Assert\All(new Assert\Positive())]
+    #[Type('array<int>')]
     public array $kams = [];
 
     /**
@@ -151,8 +149,8 @@ class CreateStoreChainModel
      * Only visible to members of AG store chain
      *
      * @OA\Property(example=12)
-     * @Assert\Range (min = 0)
      */
+    #[Assert\Range(min: 0)]
     public ?int $estimatedStoreCount = null;
 
     public function toCreateStore(): StoreChain

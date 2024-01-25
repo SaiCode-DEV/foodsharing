@@ -9,27 +9,19 @@ class EmailAttachment
     /**
      * Original file name used for displaying.
      */
-    public string $fileName;
+    public string $fileName = '';
     /**
      * Unique hashed file name used for storing the file.
      */
-    public string $hashedFileName;
+    public string $hashedFileName = '';
     /**
      * File size in bytes.
      */
-    public int $size;
+    public int $size = -1;
     /**
      * Mime type of the attached file.
      */
-    public string $mimeType;
-
-    public function __construct()
-    {
-        $this->fileName = '';
-        $this->hashedFileName = '';
-        $this->size = -1;
-        $this->mimeType = '';
-    }
+    public string $mimeType = '';
 
     public static function create(
         string $fileName,

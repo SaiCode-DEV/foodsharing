@@ -3,14 +3,14 @@
 namespace Foodsharing\Command;
 
 use Foodsharing\Modules\Stats\StatsControl;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand('foodsharing:stats', 'Executes foodsaver, stores and regions statistics tasks.')]
 class StatsCommand extends Command
 {
-    protected static $defaultName = 'foodsharing:stats';
-
     /**
      * @var StatsControl
      */
@@ -25,7 +25,6 @@ class StatsCommand extends Command
 
     protected function configure(): void
     {
-        $this->setDescription('Executes foodsaver, stores and regions statistics tasks.');
         $this->setHelp('This command executes background tasks that need to be run in regular intervals.
 		While the exact interval should not matter, it must still be chosen sane. See implementation for details.');
     }
@@ -36,6 +35,6 @@ class StatsCommand extends Command
         $this->statsControl->betriebe();
         $this->statsControl->bezirke();
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

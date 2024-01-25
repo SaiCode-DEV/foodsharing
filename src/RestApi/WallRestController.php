@@ -46,9 +46,9 @@ class WallRestController extends AbstractFOSRestController
 
     /**
      * @OA\Tag(name="wall")
-     * @Rest\Get("wall/{target}/{targetId}", requirements={"targetId" = "\d+"})
      */
-    public function getPostsAction(string $target, int $targetId): Response
+    #[Rest\Get('wall/{target}/{targetId}', requirements: ['targetId' => '\d+'])]
+    public function getPosts(string $target, int $targetId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -81,12 +81,12 @@ class WallRestController extends AbstractFOSRestController
 
     /**
      * @OA\Tag(name="wall")
-     * @Rest\Post("wall/{target}/{targetId}", requirements={"targetId" = "\d+"})
-     * @Rest\RequestParam(name="body", nullable=false)
      *
      * @throws \Exception
      */
-    public function addPostAction(string $target, int $targetId, ParamFetcher $paramFetcher): Response
+    #[Rest\Post('wall/{target}/{targetId}', requirements: ['targetId' => '\d+'])]
+    #[Rest\RequestParam(name: 'body', nullable: false)]
+    public function addPost(string $target, int $targetId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -105,9 +105,9 @@ class WallRestController extends AbstractFOSRestController
 
     /**
      * @OA\Tag(name="wall")
-     * @Rest\Delete("wall/{target}/{targetId}/{id}", requirements={"targetId" = "\d+", "id" = "\d+"})
      */
-    public function delPostAction(string $target, int $targetId, int $id): Response
+    #[Rest\Delete('wall/{target}/{targetId}/{id}', requirements: ['targetId' => '\d+', 'id' => '\d+'])]
+    public function delPost(string $target, int $targetId, int $id): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');

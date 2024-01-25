@@ -9,7 +9,7 @@ use Codeception\Module\Db;
 use DateTime;
 use DateTimeZone;
 use Exception;
-use Faker;
+use Faker\Factory;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
@@ -32,7 +32,7 @@ class Foodsharing extends Db
     public function __construct($moduleContainer, $config = null)
     {
         parent::__construct($moduleContainer, $config);
-        $this->faker = Faker\Factory::create('de_DE');
+        $this->faker = Factory::create('de_DE');
     }
 
     public function clear(): void
@@ -913,7 +913,7 @@ class Foodsharing extends Db
     public function createEvents($region_id, $foodsaver_id, $extra_params = []): array
     {
         $paramsLocation = [
-            'name' => $this->faker->text,
+            'name' => $this->faker->text(30),
             'lat' => $this->faker->latitude(55, 46),
             'lon' => $this->faker->longitude(4, 16),
         ];

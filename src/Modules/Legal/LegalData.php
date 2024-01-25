@@ -6,15 +6,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class LegalData
 {
-    /**
-     * @Assert\Type("boolean")
-     * @Assert\IsTrue(message="legal.must_accept_pp")
-     */
+    #[Assert\Type('boolean')]
+    #[Assert\IsTrue(message: 'legal.must_accept_pp')]
     private $privacyPolicyAcknowledged;
 
-    /**
-     * @Assert\Type("boolean")
-     */
+    #[Assert\Type('boolean')]
     private $privacyNoticeAcknowledged;
 
     public function __construct(bool $privacyPolicyAcknowledged = false, bool $privacyNoticeAcknowledged = false)

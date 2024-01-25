@@ -36,7 +36,7 @@ final class FeatureToggleRestController extends AbstractFOSRestController
     #[Tag('featuretoggle')]
     #[Rest\Get(path: 'featuretoggle/')]
     #[Response(response: HttpResponse::HTTP_OK, description: 'Successful', content: new Model(type: FeatureTogglesResponse::class))]
-    public function getAllFeatureTogglesAction(): JsonResponse
+    public function getAllFeatureToggles(): JsonResponse
     {
         $featureToggles = [];
 
@@ -60,7 +60,7 @@ final class FeatureToggleRestController extends AbstractFOSRestController
     #[Rest\Get(path: 'featuretoggle/{featureToggle}')]
     #[Parameter(name: 'featureToggle', description: 'Identifier for feature toggle', in: 'path', required: true)]
     #[Response(response: HttpResponse::HTTP_OK, description: 'Successful', content: new Model(type: IsFeatureToggleActiveResponse::class))]
-    public function isFeatureToggleActiveAction(string $featureToggle): JsonResponse
+    public function isFeatureToggleActive(string $featureToggle): JsonResponse
     {
         $isFeatureFlagActive = $this->featureToggleChecker->isFeatureToggleActive($featureToggle);
 
@@ -80,7 +80,7 @@ final class FeatureToggleRestController extends AbstractFOSRestController
     #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Not enough privileges to toggle a feature toggle state')]
     #[Response(response: HttpResponse::HTTP_NOT_FOUND, description: 'Feature toggle is not defined')]
     #[Response(response: HttpResponse::HTTP_BAD_REQUEST, description: 'Feature toggle is not toggable')]
-    public function toggleFeatureToggleAction(string $featureToggle): JsonResponse
+    public function toggleFeatureToggle(string $featureToggle): JsonResponse
     {
         if (!$this->hasPermissionToManageFeatureTogglesQuery->execute($this->session)) {
             throw new AccessDeniedHttpException();

@@ -20,13 +20,14 @@ use Foodsharing\Utility\TimeHelper;
 use Foodsharing\Utility\TranslationHelper;
 use Foodsharing\Utility\WeightHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
 class StoreView extends View
 {
     private $weightHelper;
 
     public function __construct(
-        \Twig\Environment $twig,
+        Environment $twig,
         Session $session,
         Utils $viewUtils,
         DataHelper $dataHelper,

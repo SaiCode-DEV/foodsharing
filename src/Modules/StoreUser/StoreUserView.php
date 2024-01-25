@@ -15,11 +15,12 @@ use Foodsharing\Utility\Sanitizer;
 use Foodsharing\Utility\TimeHelper;
 use Foodsharing\Utility\TranslationHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
 class StoreUserView extends View
 {
     public function __construct(
-        \Twig\Environment $twig,
+        Environment $twig,
         Session $session,
         Utils $viewUtils,
         DataHelper $dataHelper,

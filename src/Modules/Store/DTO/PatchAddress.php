@@ -8,23 +8,20 @@ class PatchAddress
 {
     /**
      * String with street and street number.
-     *
-     * @Assert\Length(max=120)
      */
+    #[Assert\Length(max: 120)]
     public ?string $street = null;
 
     /**
      * String with city name.
-     *
-     * @Assert\Length(max=50)
      */
+    #[Assert\Length(max: 50)]
     public ?string $city = null;
 
     /**
      * String with zip code of store.
-     *
-     * @Assert\Length(max=5)
      */
+    #[Assert\Length(max: 5)]
     public ?string $zipCode = null;
 
     public static function apply(PatchAddress &$addressChange, Address &$storeAddress): bool

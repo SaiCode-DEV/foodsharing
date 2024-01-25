@@ -18,28 +18,26 @@ class RegularPickup
      * 0=Sunday, 1=Monday, ...
      *
      * @OA\Property(format="int64", example=1, minimum=0, maximum=6)
-     * @Assert\NotBlank
-     * @Assert\Range(min=0, max=6,
-     *  notInRangeMessage="Value between {{ min }}=Sunday and {{ max }}=Saturday expected"
-     * )]
      */
+    #[Assert\NotBlank]
+    #[Assert\Range(min: 0, max: 6, notInRangeMessage: 'Value between {{ min }}=Sunday and {{ max }}=Saturday expected')]
     public int $weekday;
 
     /**
      * Time of pickup (UTC).
      *
      * @OA\Property(type="string", example="17:20:00")
-     * @Assert\NotBlank
      */
+    #[Assert\NotBlank]
     public string $startTimeOfPickup;
 
     /**
      * Count of maximum allowed foodsavers for pickup.
      *
      * @OA\Property(type="int", minimum=0, maximum=StoreTransactions::MAX_SLOTS_PER_PICKUP, example=3)
-     * @Assert\NotBlank
-     * @Assert\GreaterThanOrEqual(0)
      */
+    #[Assert\NotBlank]
+    #[Assert\GreaterThanOrEqual(0)]
     public int $maxCountOfSlots;
 
     /**

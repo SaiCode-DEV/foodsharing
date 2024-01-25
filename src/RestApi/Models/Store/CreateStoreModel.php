@@ -11,16 +11,14 @@ class CreateStoreModel
 {
     /**
      * Information about the new store.
-     *
-     * @Assert\NotNull
-     * @Assert\Valid
      */
+    #[Assert\NotNull]
+    #[Assert\Valid]
     public ?CreateStoreInformationModel $store;
 
     /**
      * Optional first comment in store wall of the new store.
-     *
-     * @Assert\Length(max=180)
      */
+    #[Assert\Length(max: 180)]
     public ?string $firstPost = null;
 }

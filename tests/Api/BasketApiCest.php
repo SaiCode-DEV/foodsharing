@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Api;
 
 use Codeception\Util\HttpCode as Http;
-use Faker;
+use Faker\Factory;
 use Tests\Support\ApiTester;
 
 /**
@@ -26,7 +26,7 @@ class BasketApiCest
     {
         $this->user = $I->createFoodsaver();
         $this->userOrga = $I->createOrga();
-        $this->faker = Faker\Factory::create('de_DE');
+        $this->faker = Factory::create('de_DE');
     }
 
     public function getBasket(ApiTester $I)
@@ -168,7 +168,7 @@ class BasketApiCest
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPUT(self::API_BASKETS . '/' . $basket[self::ID], ['description' => '']);
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::BAD_REQUEST);
+        $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPUT(self::API_BASKETS . '/' . $basket[self::ID], [
@@ -179,7 +179,7 @@ class BasketApiCest
             'lifeTimeInDays' => 3,
             'weightInGrams' => 1000,
         ]);
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
             'description' => $testDescription

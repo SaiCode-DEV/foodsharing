@@ -79,9 +79,8 @@ class Store
 
     /**
      * Date of cooperation between store and foodsharing.
-     *
-     * @Type("DateTime<'Y-m-d'>")
      */
+    #[Type("DateTime<'Y-m-d'>")]
     public ?DateTime $cooperationStart = null;
 
     /**
@@ -175,19 +174,17 @@ class Store
 
     /**
      * Date of store creation in system.
-     *
-     * @Type("DateTime<'Y-m-d'>")
      */
+    #[Type("DateTime<'Y-m-d'>")]
     public DateTime $createdAt;
 
     /**
      * Date of last update of store information.
      *
      * Only visible to store managers or organaisators
-     *
-     * @Type("DateTime<'Y-m-d'>")
      */
     #[OA\Property(nullable: true)]
+    #[Type("DateTime<'Y-m-d'>")]
     public ?DateTime $updatedAt = null;
 
     public function __construct()

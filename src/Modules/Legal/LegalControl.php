@@ -7,6 +7,7 @@ use Foodsharing\Modules\Core\View;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class LegalControl extends Control
 {
@@ -21,9 +22,7 @@ class LegalControl extends Control
         parent::__construct();
     }
 
-    /**
-     * @required
-     */
+    #[Required]
     public function setFormFactory(FormFactoryInterface $formFactory)
     {
         $this->formFactory = $formFactory;

@@ -10,31 +10,23 @@ class PollOption
     /**
      * Id of the poll to which this option belongs.
      */
-    public int $pollId;
+    public int $pollId = -1;
 
     /**
      * Index of this option in the poll.
      */
-    public int $optionIndex;
+    public int $optionIndex = -1;
 
     /**
      * A short description of the option.
      */
-    public string $text;
+    public string $text = '';
 
     /**
      * Associative array that maps the possible values to the number of counted votes. Value of -1 mean that
      * the poll is returned without results.
      */
-    public array $values;
-
-    public function __construct()
-    {
-        $this->pollId = -1;
-        $this->optionIndex = -1;
-        $this->text = '';
-        $this->values = [];
-    }
+    public array $values = [];
 
     public static function create(
         int $pollId,

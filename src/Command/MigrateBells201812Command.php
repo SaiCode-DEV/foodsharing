@@ -4,14 +4,14 @@ namespace Foodsharing\Command;
 
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Store\PickupGateway;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand('migrations:2018-12-bells', 'Recreates bells that are handled differently since the 2018-12 release')]
 class MigrateBells201812Command extends Command
 {
-    protected static $defaultName = 'migrations:2018-12-bells';
-
     private $database;
     private $pickupGateway;
 
@@ -24,7 +24,6 @@ class MigrateBells201812Command extends Command
 
     protected function configure(): void
     {
-        $this->setDescription('Recreates bells that are handled differently since the 2018-12 release');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -46,6 +45,6 @@ class MigrateBells201812Command extends Command
             $this->pickupGateway->updateBellNotificationForStoreManagers($storeId);
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

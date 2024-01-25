@@ -39,12 +39,12 @@ final class FoodSharePointRestController extends AbstractFOSRestController
      * Returns 200 and a list of food share points, 400 if the distance is out of range, or 401 if not logged in.
      *
      * @OA\Tag(name="foodsharepoint")
-     * @Rest\Get("foodSharePoints/nearby")
-     * @Rest\QueryParam(name="lat", nullable=true)
-     * @Rest\QueryParam(name="lon", nullable=true)
-     * @Rest\QueryParam(name="distance", nullable=false, requirements="\d+")
      */
-    public function listNearbyFoodSharePointsAction(ParamFetcher $paramFetcher): Response
+    #[Rest\Get('foodSharePoints/nearby')]
+    #[Rest\QueryParam(name: 'lat', nullable: true)]
+    #[Rest\QueryParam(name: 'lon', nullable: true)]
+    #[Rest\QueryParam(name: 'distance', nullable: false, requirements: '\d+')]
+    public function listNearbyFoodSharePoints(ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
@@ -69,9 +69,9 @@ final class FoodSharePointRestController extends AbstractFOSRestController
      * food share point, 404 if the food share point does not exist, or 401 if not logged in.
      *
      * @OA\Tag(name="foodsharepoint")
-     * @Rest\Get("foodSharePoints/{foodSharePointId}", requirements={"foodSharePointId" = "\d+"})
      */
-    public function getFoodSharePointAction(int $foodSharePointId): Response
+    #[Rest\Get('foodSharePoints/{foodSharePointId}', requirements: ['foodSharePointId' => '\d+'])]
+    public function getFoodSharePoint(int $foodSharePointId): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
@@ -149,8 +149,8 @@ final class FoodSharePointRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permission to access the region")
-     * @Rest\Get("regions/{regionId}/foodSharePoints", requirements={"regionId" = "\d+"})
      */
+    #[Rest\Get('regions/{regionId}/foodSharePoints', requirements: ['regionId' => '\d+'])]
     public function listFoodSharePoints(int $regionId): Response
     {
         if (!$this->session->mayRole()) {

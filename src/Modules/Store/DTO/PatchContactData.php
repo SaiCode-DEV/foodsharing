@@ -8,33 +8,29 @@ class PatchContactData
 {
     /**
      * String with name of contact person for store.
-     *
-     * @Assert\Length(max=60)
      */
+    #[Assert\Length(max: 60)]
     public ?string $name = null;
 
     /**
      * String with phone number of contact person for store.
-     *
-     * @Assert\Length(max=50)
      * // Check phone number format?
      */
+    #[Assert\Length(max: 50)]
     public ?string $phone = null;
 
     /**
      * String with fax number of contact person for store.
-     *
-     * @Assert\Length(max=50)
      * // Check phone number format?
      */
+    #[Assert\Length(max: 50)]
     public ?string $fax = null;
 
     /**
      * String with e-mail of contact person for store.
-     *
-     * @Assert\Length(max=60)
-     * // Check email? format
+     * // Check email format?
      */
+    #[Assert\Length(max: 60)]
     public ?string $email = null;
 
     public static function apply(PatchContactData &$contactChange, ContactData &$storeContact): bool

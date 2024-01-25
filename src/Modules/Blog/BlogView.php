@@ -16,6 +16,7 @@ use Foodsharing\Utility\Sanitizer;
 use Foodsharing\Utility\TimeHelper;
 use Foodsharing\Utility\TranslationHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
 class BlogView extends View
 {
@@ -29,7 +30,7 @@ class BlogView extends View
     private const PICTURE_PREVIEW_HEIGHT = 161;
 
     public function __construct(
-        \Twig\Environment $twig,
+        Environment $twig,
         Session $session,
         Utils $viewUtils,
         BlogPermissions $blogPermissions,

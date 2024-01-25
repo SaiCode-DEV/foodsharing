@@ -8,10 +8,10 @@ class vPage
 {
     private $title;
     private $content;
-    private array $sections;
-    private array $sections_left;
-    private array $sections_right;
-    private $subtitle;
+    private array $sections = [];
+    private array $sections_left = [];
+    private array $sections_right = [];
+    private $subtitle = false;
     private array $bread;
     private PageHelper $pageHelper;
 
@@ -21,10 +21,6 @@ class vPage
         $this->setTitle($title);
         $this->setContent($content);
 
-        $this->sections = [];
-        $this->sections_left = [];
-        $this->sections_right = [];
-        $this->subtitle = false;
         $this->bread = [$title, false];
         $this->pageHelper = $container->get(PageHelper::class);
     }

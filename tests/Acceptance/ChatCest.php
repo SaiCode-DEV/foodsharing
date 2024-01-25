@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Acceptance;
 
+use Tests\Acceptance\Facebook\WebDriver\WebDriverKeys;
 use Tests\Support\AcceptanceTester;
 
 class ChatCest
@@ -49,7 +50,7 @@ class ChatCest
 
         // write a message to them
         $I->fillField('#roomTextarea', 'is anyone there?');
-        $I->pressKey('#roomTextarea', Facebook\WebDriver\WebDriverKeys::ENTER);
+        $I->pressKey('#roomTextarea', WebDriverKeys::ENTER);
         $I->waitForText('is anyone there?', 20, '.chatboxcontent');
 
         $I->seeInDatabase('fs_msg', [
@@ -79,7 +80,7 @@ class ChatCest
 
             // write a nice reply
             $I->fillField('#roomTextarea', 'yes! I am here!');
-            $I->pressKey('#roomTextarea', Facebook\WebDriver\WebDriverKeys::ENTER);
+            $I->pressKey('#roomTextarea', WebDriverKeys::ENTER);
         });
 
         $I->waitForText('yes! I am here!', 10, '.chatboxcontent');

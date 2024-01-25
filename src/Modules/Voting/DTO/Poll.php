@@ -14,17 +14,17 @@ class Poll
     /**
      * Unique identifier of this poll.
      */
-    public int $id;
+    public int $id = -1;
 
     /**
      * A short description of the poll that can serve as a title.
      */
-    public string $name;
+    public string $name = '';
 
     /**
      * A more detailed description of the topic of this poll.
      */
-    public string $description;
+    public string $description = '';
 
     /**
      * The date at which this poll began.
@@ -40,23 +40,23 @@ class Poll
      * Identifier of the region or work group in which this poll takes place. Only members of that region are allowed
      * to vote.
      */
-    public int $regionId;
+    public int $regionId = -1;
 
     /**
      * The scope is an additional constraint defining which user groups are allowed to vote. See {@link VotingScope}.
      */
-    public int $scope;
+    public int $scope = -1;
 
     /**
      * The type defines how users can vote. Different types allow to vote for one or multiple choices or allow a score
      * voting. See {@link VotingType}.
      */
-    public int $type;
+    public int $type = -1;
 
     /**
      * Id of the user who created this poll.
      */
-    public int $authorId;
+    public int $authorId = -1;
 
     /**
      * Date at which this poll was created.
@@ -66,17 +66,17 @@ class Poll
     /**
      * The number of different values that each option is this poll can have.
      */
-    public int $numValues;
+    public int $numValues = 0;
 
     /**
      * Number of users who have voted. A value of null means that the results are not included in this poll object.
      */
-    public ?int $votes;
+    public ?int $votes = null;
 
     /**
      * Number of users who are eligible to vote.
      */
-    public int $eligibleVotesCount;
+    public int $eligibleVotesCount = 0;
 
     /**
      * Options of the poll. The array maps the option indices to the object and the indices will always be ascending
@@ -84,30 +84,18 @@ class Poll
      *
      * @var PollOption[]
      */
-    public array $options;
+    public array $options = [];
 
     /**
      * If true, options should be shown in a random order by the frontend.
      */
-    public bool $shuffleOptions;
+    public bool $shuffleOptions = true;
 
     public function __construct()
     {
-        $this->id = -1;
-        $this->name = '';
-        $this->description = '';
         $this->startDate = new DateTime();
         $this->endDate = new DateTime();
-        $this->regionId = -1;
-        $this->scope = -1;
-        $this->type = -1;
-        $this->authorId = -1;
         $this->creationDate = new DateTime();
-        $this->numValues = 0;
-        $this->votes = null;
-        $this->eligibleVotesCount = 0;
-        $this->options = [];
-        $this->shuffleOptions = true;
     }
 
     public static function create(

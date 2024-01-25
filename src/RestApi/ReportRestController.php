@@ -51,18 +51,9 @@ class ReportRestController extends AbstractFOSRestController
      * @OA\Tag(name="report")
      *
      * @param int $regionId for which region the reports should be returned
-     *
-     * @Rest\Get("report/region/{regionId}", requirements={"regionId" = "\d+"})
-     *
-     * An admin of a reportgroup gets all reports from the home district. Excluded are
-     * reports with participation from same admins
-     *
-     * Admins of arbitrationgroup only gets the reports that have participation from
-     * admins of report group.
-     *
-     * A user can't be admin of both groups.
      */
-    public function listReportsForRegionAction(int $regionId): Response
+    #[Rest\Get('report/region/{regionId}', requirements: ['regionId' => '\d+'])]
+    public function listReportsForRegion(int $regionId): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
@@ -113,15 +104,15 @@ class ReportRestController extends AbstractFOSRestController
      * Adds a new report. The reportedId must not be empty.
      *
      * @OA\Tag(name="report")
-     * @Rest\Post("report")
-     * @Rest\RequestParam(name="reportedId", nullable=true)
-     * @Rest\RequestParam(name="reporterId", nullable=true)
-     * @Rest\RequestParam(name="reasonId", nullable=true)
-     * @Rest\RequestParam(name="reason", nullable=true)
-     * @Rest\RequestParam(name="message", nullable=true)
-     * @Rest\RequestParam(name="storeId", nullable=true)
      */
-    public function addReportAction(ParamFetcher $paramFetcher): Response
+    #[Rest\Post('report')]
+    #[Rest\RequestParam(name: 'reportedId', nullable: true)]
+    #[Rest\RequestParam(name: 'reporterId', nullable: true)]
+    #[Rest\RequestParam(name: 'reasonId', nullable: true)]
+    #[Rest\RequestParam(name: 'reason', nullable: true)]
+    #[Rest\RequestParam(name: 'message', nullable: true)]
+    #[Rest\RequestParam(name: 'storeId', nullable: true)]
+    public function addReport(ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);

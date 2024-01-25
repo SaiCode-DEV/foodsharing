@@ -52,9 +52,9 @@ final class PickupRestController extends AbstractFOSRestController
 
     /**
      * @OA\Tag(name="pickup")
-     * @Rest\Post("stores/{storeId}/pickups/{pickupDate}/{fsId}", requirements={"storeId" = "\d+", "pickupDate" = "[^/]+", "fsId" = "\d+"})
      */
-    public function joinPickupAction(int $storeId, string $pickupDate, int $fsId): Response
+    #[Rest\Post('stores/{storeId}/pickups/{pickupDate}/{fsId}', requirements: ['storeId' => '\d+', 'pickupDate' => '[^/]+', 'fsId' => '\d+'])]
+    public function joinPickup(int $storeId, string $pickupDate, int $fsId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -84,11 +84,11 @@ final class PickupRestController extends AbstractFOSRestController
      * Remove a user from a pickup.
      *
      * @OA\Tag(name="pickup")
-     * @Rest\Delete("stores/{storeId}/pickups/{pickupDate}/{fsId}", requirements={"storeId" = "\d+", "pickupDate" = "[^/]+", "fsId" = "\d+"})
      * @OA\RequestBody(@Model(type=PickupLeaveMessageOptions::class))
-     * @ParamConverter("leaveInformation", class="Foodsharing\RestApi\Models\Store\PickupLeaveMessageOptions", converter="fos_rest.request_body")
      */
-    public function leavePickupAction(int $storeId, string $pickupDate, int $fsId, PickupLeaveMessageOptions $leaveInformation, ValidatorInterface $validator): Response
+    #[Rest\Delete('stores/{storeId}/pickups/{pickupDate}/{fsId}', requirements: ['storeId' => '\d+', 'pickupDate' => '[^/]+', 'fsId' => '\d+'])]
+    #[ParamConverter('leaveInformation', class: 'Foodsharing\RestApi\Models\Store\PickupLeaveMessageOptions', converter: 'fos_rest.request_body')]
+    public function leavePickup(int $storeId, string $pickupDate, int $fsId, PickupLeaveMessageOptions $leaveInformation, ValidatorInterface $validator): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -101,7 +101,7 @@ final class PickupRestController extends AbstractFOSRestController
         $this->throwBadRequestExceptionOnError($errors);
 
         $sendKickMessage = $leaveInformation->sendKickMessage || !$this->profilePermissions->mayCancelSlotsFromProfile($fsId);
-        $this->leavePickup($storeId, $pickupDate, $fsId, $leaveInformation->message, $sendKickMessage);
+        $this->doLeavePickup($storeId, $pickupDate, $fsId, $leaveInformation->message, $sendKickMessage);
 
         return $this->handleView($this->view([], 200));
     }
@@ -110,11 +110,11 @@ final class PickupRestController extends AbstractFOSRestController
      * Remove a user from all his pickups.
      *
      * @OA\Tag(name="pickup")
-     * @Rest\Delete("pickups/{fsId}", requirements={"fsId" = "\d+"})
      * @OA\RequestBody(@Model(type=PickupLeaveMessageOptions::class))
-     * @ParamConverter("leaveInformation", class="Foodsharing\RestApi\Models\Store\PickupLeaveMessageOptions", converter="fos_rest.request_body")
      */
-    public function leaveAllPickupsAction(int $fsId, PickupLeaveMessageOptions $leaveInformation, ValidatorInterface $validator)
+    #[Rest\Delete('pickups/{fsId}', requirements: ['fsId' => '\d+'])]
+    #[ParamConverter('leaveInformation', class: 'Foodsharing\RestApi\Models\Store\PickupLeaveMessageOptions', converter: 'fos_rest.request_body')]
+    public function leaveAllPickups(int $fsId, PickupLeaveMessageOptions $leaveInformation, ValidatorInterface $validator)
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -130,13 +130,13 @@ final class PickupRestController extends AbstractFOSRestController
         $sendKickMessage = $leaveInformation->sendKickMessage;
 
         foreach ($pickups as $pickup) {
-            $this->leavePickup($pickup['store_id'], date(DATE_ATOM, $pickup['timestamp']), $fsId, $leaveInformation->message, $sendKickMessage);
+            $this->doLeavePickup($pickup['store_id'], date(DATE_ATOM, $pickup['timestamp']), $fsId, $leaveInformation->message, $sendKickMessage);
         }
 
         return $this->handleView($this->view([], 200));
     }
 
-    private function leavePickup(int $storeId, string $pickupDate, int $fsId, string $message = '', bool $sendKickMessage = true)
+    private function doLeavePickup(int $storeId, string $pickupDate, int $fsId, string $message = '', bool $sendKickMessage = true)
     {
         $message = trim($message);
         $date = TimeHelper::parsePickupDate($pickupDate);
@@ -181,10 +181,10 @@ final class PickupRestController extends AbstractFOSRestController
 
     /**
      * @OA\Tag(name="pickup")
-     * @Rest\Patch("stores/{storeId}/pickups/{pickupDate}/{fsId}", requirements={"storeId" = "\d+", "pickupDate" = "[^/]+", "fsId" = "\d+"})
-     * @Rest\RequestParam(name="isConfirmed", nullable=true, default=null)
      */
-    public function editPickupSlotAction(int $storeId, string $pickupDate, int $fsId, ParamFetcherInterface $paramFetcher): Response
+    #[Rest\Patch('stores/{storeId}/pickups/{pickupDate}/{fsId}', requirements: ['storeId' => '\d+', 'pickupDate' => '[^/]+', 'fsId' => '\d+'])]
+    #[Rest\RequestParam(name: 'isConfirmed', nullable: true, default: null)]
+    public function editPickupSlot(int $storeId, string $pickupDate, int $fsId, ParamFetcherInterface $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -225,8 +225,8 @@ final class PickupRestController extends AbstractFOSRestController
      *        type="array",
      *        @OA\Items(ref=@Model(type=RegularPickup::class))
      *     ))
-     * @Rest\Get("stores/{storeId}/regularPickup", requirements={"storeId" = "\d+"})
      */
+    #[Rest\Get('stores/{storeId}/regularPickup', requirements: ['storeId' => '\d+'])]
     public function getRegularPickup(int $storeId): Response
     {
         if (!$this->session->id()) {
@@ -255,10 +255,10 @@ final class PickupRestController extends AbstractFOSRestController
      *        type="array",
      *        @OA\Items(ref=@Model(type=RegularPickup::class))
      *     ))
-     * @Rest\Put("stores/{storeId}/regularPickup", requirements={"storeId" = "\d+"})
-     * @ParamConverter("regularPickups", class="array<Foodsharing\Modules\Store\DTO\RegularPickup>", converter="fos_rest.request_body")
      */
-    public function editRegularPickupAction(int $storeId, array $regularPickups, ValidatorInterface $validator): Response
+    #[Rest\Put('stores/{storeId}/regularPickup', requirements: ['storeId' => '\d+'])]
+    #[ParamConverter('regularPickups', class: 'array<Foodsharing\Modules\Store\DTO\RegularPickup>', converter: 'fos_rest.request_body')]
+    public function editRegularPickup(int $storeId, array $regularPickups, ValidatorInterface $validator): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -283,7 +283,6 @@ final class PickupRestController extends AbstractFOSRestController
      * Creates or modifies a manual pick up for an store.
      *
      * @OA\Tag(name="stores")
-     * @Rest\Patch("stores/{storeId}/pickups/{pickupDate}", requirements={"storeId" = "\d+", "pickupDate" = "[^/]+"})
      * @OA\Parameter(
      *         name="storeId",
      *         in="path",
@@ -310,10 +309,11 @@ final class PickupRestController extends AbstractFOSRestController
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="No permission to change pickup")
      * @OA\Response(response="404", description="Store not found")
-     * @RequestParam(name="totalSlots", requirements="\d+", description="Maximum allowed user on this pickup.")
-     * @RequestParam(name="description", requirements=".{0,100}", nullable=true, description="Description of this pickup.")
      */
-    public function editPickupAction(int $storeId, string $pickupDate, ParamFetcherInterface $paramFetcher): Response
+    #[Rest\Patch('stores/{storeId}/pickups/{pickupDate}', requirements: ['storeId' => '\d+', 'pickupDate' => '[^/]+'])]
+    #[RequestParam(name: 'totalSlots', requirements: '\d+', description: 'Maximum allowed user on this pickup.')]
+    #[RequestParam(name: 'description', requirements: '.{0,100}', nullable: true, description: 'Description of this pickup.')]
+    public function editPickup(int $storeId, string $pickupDate, ParamFetcherInterface $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -359,9 +359,9 @@ final class PickupRestController extends AbstractFOSRestController
 
     /**
      * @OA\Tag(name="pickup")
-     * @Rest\Get("stores/{storeId}/pickups", requirements={"storeId" = "\d+"})
      */
-    public function listPickupsAction(int $storeId): Response
+    #[Rest\Get('stores/{storeId}/pickups', requirements: ['storeId' => '\d+'])]
+    public function listPickups(int $storeId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -384,9 +384,9 @@ final class PickupRestController extends AbstractFOSRestController
 
     /**
      * @OA\Tag(name="pickup")
-     * @Rest\Get("stores/{storeId}/history/{fromDate}/{toDate}", requirements={"storeId" = "\d+", "fromDate" = "[^/]+", "toDate" = "[^/]+"})
      */
-    public function listPickupHistoryAction(int $storeId, string $fromDate, string $toDate): Response
+    #[Rest\Get('stores/{storeId}/history/{fromDate}/{toDate}', requirements: ['storeId' => '\d+', 'fromDate' => '[^/]+', 'toDate' => '[^/]+'])]
+    public function listPickupHistory(int $storeId, string $fromDate, string $toDate): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -460,12 +460,12 @@ final class PickupRestController extends AbstractFOSRestController
      * Might be restricted to the last month depending on the permissions.
      *
      * @OA\Tag(name="pickup")
-     * @Rest\Get("pickup/history")
-     * @Rest\QueryParam(name="fsId", nullable=true, default=null)
-     * @Rest\QueryParam(name="page", nullable=false, default=0)
-     * @Rest\QueryParam(name="pageSize", nullable=false, default=50)
      */
-    public function listPastPickupsAction(ParamFetcherInterface $paramFetcher): Response
+    #[Rest\Get('pickup/history')]
+    #[Rest\QueryParam(name: 'fsId', nullable: true, default: null)]
+    #[Rest\QueryParam(name: 'page', nullable: false, default: 0)]
+    #[Rest\QueryParam(name: 'pageSize', nullable: false, default: 50)]
+    public function listPastPickups(ParamFetcherInterface $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -514,10 +514,10 @@ final class PickupRestController extends AbstractFOSRestController
      * Get all future pickups a user has registered.
      *
      * @OA\Tag(name="pickup")
-     * @Rest\Get("pickup/registered")
-     * @Rest\QueryParam(name="fsId", nullable=true, default=null)
      */
-    public function listRegisteredPickupsAction(ParamFetcherInterface $paramFetcher): Response
+    #[Rest\Get('pickup/registered')]
+    #[Rest\QueryParam(name: 'fsId', nullable: true, default: null)]
+    public function listRegisteredPickups(ParamFetcherInterface $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -565,11 +565,11 @@ final class PickupRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Tag(name="pickup")
-     * @Rest\Get("pickup/options")
-     * @Rest\QueryParam(name="page", nullable=false, default=0)
-     * @Rest\QueryParam(name="pageSize", nullable=false, default=50)
      */
-    public function listPickupOptionsAction(ParamFetcherInterface $paramFetcher): Response
+    #[Rest\Get('pickup/options')]
+    #[Rest\QueryParam(name: 'page', nullable: false, default: 0)]
+    #[Rest\QueryParam(name: 'pageSize', nullable: false, default: 50)]
+    public function listPickupOptions(ParamFetcherInterface $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -660,8 +660,8 @@ final class PickupRestController extends AbstractFOSRestController
      * Validation of PickupRuleCheck.
      *
      * @OA\Tag(name="pickup")
-     * @Rest\Get("stores/{storeId}/pickupRuleCheck/{pickupDate}/{fsId}", requirements={"storeId" = "\d+", "pickupDate" = "[^/]+", "fsId" = "\d+"})"
      */
+    #[Rest\Get('stores/{storeId}/pickupRuleCheck/{pickupDate}/{fsId}', requirements: ['storeId' => '\d+', 'pickupDate' => '[^/]+', 'fsId' => '\d+'])]
     public function passesPickupRule(int $storeId, string $pickupDate, int $fsId): Response
     {
         if (!$this->session->mayRole()) {

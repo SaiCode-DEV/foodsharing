@@ -73,9 +73,9 @@ class VerificationRestController extends AbstractFOSRestController
      * @OA\Response(response="404", description="User not found.")
      * @OA\Response(response="422", description="Already verified.")
      * @OA\Tag(name="verification")
-     * @Rest\Patch("user/{userId}/verification", requirements={"userId" = "\d+"})
      */
-    public function verifyUserAction(int $userId): Response
+    #[Rest\Patch('user/{userId}/verification', requirements: ['userId' => '\d+'])]
+    public function verifyUser(int $userId): Response
     {
         $sessionId = $this->session->id();
         if (!$sessionId) {
@@ -126,9 +126,9 @@ class VerificationRestController extends AbstractFOSRestController
      * @OA\Response(response="404", description="User not found.")
      * @OA\Response(response="422", description="Already deverified.")
      * @OA\Tag(name="verification")
-     * @Rest\Delete("user/{userId}/verification", requirements={"userId" = "\d+"})
      */
-    public function deverifyUserAction(int $userId): Response
+    #[Rest\Delete('user/{userId}/verification', requirements: ['userId' => '\d+'])]
+    public function deverifyUser(int $userId): Response
     {
         $sessionId = $this->session->id();
         if (!$sessionId) {
@@ -163,9 +163,9 @@ class VerificationRestController extends AbstractFOSRestController
      * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions to view this user's history.")
      * @OA\Tag(name="verification")
-     * @Rest\Get("user/{userId}/verificationhistory", requirements={"userId" = "\d+"})
      */
-    public function getVerificationHistoryAction(int $userId): Response
+    #[Rest\Get('user/{userId}/verificationhistory', requirements: ['userId' => '\d+'])]
+    public function getVerificationHistory(int $userId): Response
     {
         $viewerId = $this->session->id();
         if (!$viewerId) {
@@ -190,9 +190,9 @@ class VerificationRestController extends AbstractFOSRestController
      * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions to view this user's history.")
      * @OA\Tag(name="verification")
-     * @Rest\Get("user/{userId}/passhistory", requirements={"userId" = "\d+"})
      */
-    public function getPassHistoryAction(int $userId): Response
+    #[Rest\Get('user/{userId}/passhistory', requirements: ['userId' => '\d+'])]
+    public function getPassHistory(int $userId): Response
     {
         $viewerId = $this->session->id();
         if (!$viewerId) {
@@ -220,8 +220,8 @@ class VerificationRestController extends AbstractFOSRestController
      * @OA\Response(response="403", description="Insufficient permissions to create own passport.")
      * @OA\Response(response="404", description="User not found.")
      * @OA\Tag(name="verification")
-     * @Rest\Post("user/current/passport")
      */
+    #[Rest\Post('user/current/passport')]
     public function createAsUser(): Response
     {
         $sessionId = $this->session->id();

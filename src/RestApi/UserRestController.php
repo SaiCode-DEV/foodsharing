@@ -119,9 +119,9 @@ class UserRestController extends FoodsharingRestController
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="404", description="User with that id not found")
      * @OA\Tag(name="user")
-     * @Rest\Get("user/{id}", requirements={"id" = "\d+"})
      */
-    public function userAction(int $id): Response
+    #[Rest\Get('user/{id}', requirements: ['id' => '\d+'])]
+    public function user(int $id): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('');
@@ -140,15 +140,15 @@ class UserRestController extends FoodsharingRestController
      * the user data.
      *
      * @OA\Tag(name="user")
-     * @Rest\Get("user/current")
      */
-    public function currentUserAction(): Response
+    #[Rest\Get('user/current')]
+    public function currentUser(): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('');
         }
 
-        return $this->userAction($this->session->id());
+        return $this->user($this->session->id());
     }
 
     /**
@@ -247,24 +247,23 @@ class UserRestController extends FoodsharingRestController
      *   return details about another user.
      */
     /* public function userDetailsAction(int $id): Response
-    {
-        $data = $this->profileGateway->getData($id, -1, $this->reportPermissions->mayHandleReports());
-        if (empty($data)) {
-            throw new NotFoundHttpException('User does not exist.');
-        }
+        {
+            $data = $this->profileGateway->getData($id, -1, $this->reportPermissions->mayHandleReports());
+            if (empty($data)) {
+                throw new NotFoundHttpException('User does not exist.');
+            }
 
-        $normalisedData = $this->normalizeUserDetails($data);
+            $normalisedData = $this->normalizeUserDetails($data);
 
-        return $this->handleView($this->view($normalisedData, Response::HTTP_OK));
-    } */
-
+            return $this->handleView($this->view($normalisedData, Response::HTTP_OK));
+        } */
     /**
      * Lists the detailed profile of the current user. Returns 401 if not logged in or 200 and the data.
      *
      * @OA\Tag(name="user")
-     * @Rest\Get("user/current/details")
      */
-    public function currentUserDetailsAction(): Response
+    #[Rest\Get('user/current/details')]
+    public function currentUserDetails(): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('');
@@ -278,12 +277,12 @@ class UserRestController extends FoodsharingRestController
 
     /**
      * @OA\Tag(name="user")
-     * @Rest\Post("user/login")
-     * @Rest\RequestParam(name="email")
-     * @Rest\RequestParam(name="password")
-     * @Rest\RequestParam(name="remember_me", default=false)
      */
-    public function loginAction(ParamFetcher $paramFetcher, Request $request, RateLimiterFactory $loginLimiter): Response
+    #[Rest\Post('user/login')]
+    #[Rest\RequestParam(name: 'email')]
+    #[Rest\RequestParam(name: 'password')]
+    #[Rest\RequestParam(name: 'remember_me', default: false)]
+    public function login(ParamFetcher $paramFetcher, Request $request, RateLimiterFactory $loginLimiter): Response
     {
         $this->checkRateLimit($request, $loginLimiter);
 
@@ -313,9 +312,9 @@ class UserRestController extends FoodsharingRestController
 
     /**
      * @OA\Tag(name="user")
-     * @Rest\Post("user/logout")
      */
-    public function logoutAction(): Response
+    #[Rest\Post('user/logout')]
+    public function logout(): Response
     {
         $this->session->logout();
 
@@ -327,10 +326,10 @@ class UserRestController extends FoodsharingRestController
      * and a 'valid' parameter that indicates if the email address can be used for registration.
      *
      * @OA\Tag(name="user")
-     * @Rest\Post("user/isvalidemail")
-     * @Rest\RequestParam(name="email", nullable=false)
      */
-    public function testRegisterEmailAction(ParamFetcher $paramFetcher): Response
+    #[Rest\Post('user/isvalidemail')]
+    #[Rest\RequestParam(name: 'email', nullable: false)]
+    public function testRegisterEmail(ParamFetcher $paramFetcher): Response
     {
         $email = $paramFetcher->get('email');
         if (
@@ -350,17 +349,17 @@ class UserRestController extends FoodsharingRestController
      * Registers a new user.
      *
      * @OA\Tag(name="user")
-     * @Rest\Post("user")
-     * @Rest\RequestParam(name="firstname", nullable=false)
-     * @Rest\RequestParam(name="lastname", nullable=false)
-     * @Rest\RequestParam(name="email", nullable=false)
-     * @Rest\RequestParam(name="password", nullable=false)
-     * @Rest\RequestParam(name="gender", nullable=false, requirements="\d+")
-     * @Rest\RequestParam(name="birthdate", nullable=false)
-     * @Rest\RequestParam(name="mobilePhone", nullable=true)
-     * @Rest\RequestParam(name="subscribeNewsletter", requirements="(0|1)", default=0)
      */
-    public function registerUserAction(ParamFetcher $paramFetcher): Response
+    #[Rest\Post('user')]
+    #[Rest\RequestParam(name: 'firstname', nullable: false)]
+    #[Rest\RequestParam(name: 'lastname', nullable: false)]
+    #[Rest\RequestParam(name: 'email', nullable: false)]
+    #[Rest\RequestParam(name: 'password', nullable: false)]
+    #[Rest\RequestParam(name: 'gender', nullable: false, requirements: '\d+')]
+    #[Rest\RequestParam(name: 'birthdate', nullable: false)]
+    #[Rest\RequestParam(name: 'mobilePhone', nullable: true)]
+    #[Rest\RequestParam(name: 'subscribeNewsletter', requirements: '(0|1)', default: 0)]
+    public function registerUser(ParamFetcher $paramFetcher): Response
     {
         // validate data
         $data = new RegisterData();
@@ -423,10 +422,10 @@ class UserRestController extends FoodsharingRestController
 
     /**
      * @OA\Tag(name="user")
-     * @Rest\Delete("user/{userId}", requirements={"userId" = "\d+"})
-     * @Rest\RequestParam(name="reason", nullable=true, default="")
      */
-    public function deleteUserAction(int $userId, ParamFetcher $paramFetcher): Response
+    #[Rest\Delete('user/{userId}', requirements: ['userId' => '\d+'])]
+    #[Rest\RequestParam(name: 'reason', nullable: true, default: '')]
+    public function deleteUser(int $userId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -460,9 +459,9 @@ class UserRestController extends FoodsharingRestController
      * @OA\Response(response="403", description="Insufficient permissions to rate that user.")
      * @OA\Response(response="404", description="User to rate does not exist.")
      * @OA\Tag(name="user")
-     * @Rest\Put("user/{userId}/banana", requirements={"userId" = "\d+"})
-     * @Rest\RequestParam(name="message", nullable=false)
      */
+    #[Rest\Put('user/{userId}/banana', requirements: ['userId' => '\d+'])]
+    #[Rest\RequestParam(name: 'message', nullable: false)]
     public function addBanana(int $userId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
@@ -504,8 +503,8 @@ class UserRestController extends FoodsharingRestController
      * @OA\Response(response="403", description="Insufficient permissions to delete that banana.")
      * @OA\Response(response="404", description="Banana does not exist.")
      * @OA\Tag(name="user")
-     * @Rest\Delete("user/{userId}/banana/{senderId}", requirements={"userId" = "\d+"})
      */
+    #[Rest\Delete('user/{userId}/banana/{senderId}', requirements: ['userId' => '\d+'])]
     public function deleteBanana(int $userId, int $senderId): Response
     {
         if (!$this->session->mayRole()) {
@@ -530,10 +529,10 @@ class UserRestController extends FoodsharingRestController
      * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="File was not uploaded by this user.")
      * @OA\Tag(name="user")
-     * @Rest\Patch("user/photo")
-     * @Rest\RequestParam(name="uuid", nullable=false)
      */
-    public function setProfilePictureAction(ParamFetcher $paramFetcher): Response
+    #[Rest\Patch('user/photo')]
+    #[Rest\RequestParam(name: 'uuid', nullable: false)]
+    public function setProfilePicture(ParamFetcher $paramFetcher): Response
     {
         $userId = $this->session->id();
         if (!$userId) {
@@ -564,9 +563,9 @@ class UserRestController extends FoodsharingRestController
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Tag(name="user")
-     * @Rest\Delete("user/{userId}/emailbounce", requirements={"userId" = "\d+"})
      */
-    public function removeFromBounceListAction(int $userId): Response
+    #[Rest\Delete('user/{userId}/emailbounce', requirements: ['userId' => '\d+'])]
+    public function removeFromBounceList(int $userId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');

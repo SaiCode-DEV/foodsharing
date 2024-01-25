@@ -15,12 +15,11 @@ class UserUnit
     /**
      * User has a responsiblity for the unit.
      */
-    public bool $isResponsible;
+    public bool $isResponsible = false;
 
     public function __construct()
     {
         $this->unit = new Unit();
-        $this->isResponsible = false;
     }
 
     /**

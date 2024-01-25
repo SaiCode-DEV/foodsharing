@@ -10,24 +10,16 @@ namespace Foodsharing\Lib\Xhr;
 class Xhr
 {
     // display simple popup messages after the request
-    private array $messages;
+    private array $messages = [];
 
     // additional script that is executed if the request success
-    private string $script;
+    private string $script = '';
 
     // status code 1 = will execute the response
-    private int $status;
+    private int $status = 1;
 
     // data that will be sent to the client and is available under global ajax object (ajax.data)
-    private array $data;
-
-    public function __construct()
-    {
-        $this->messages = [];
-        $this->script = '';
-        $this->status = 1;
-        $this->data = [];
-    }
+    private array $data = [];
 
     /**
      * Add data accessible by client side js code.

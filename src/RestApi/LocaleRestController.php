@@ -29,9 +29,9 @@ class LocaleRestController extends AbstractFOSRestController
      * Returns the locale setting for the current session.
      *
      * @OA\Tag(name="locale")
-     * @Rest\Get("locale")
      */
-    public function getLocaleAction(): Response
+    #[Rest\Get('locale')]
+    public function getLocale(): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('');
@@ -46,10 +46,10 @@ class LocaleRestController extends AbstractFOSRestController
      * Sets the locale for the current session.
      *
      * @OA\Tag(name="locale")
-     * @Rest\Post("locale")
-     * @Rest\RequestParam(name="locale")
      */
-    public function setLocaleAction(ParamFetcher $paramFetcher): Response
+    #[Rest\Post('locale')]
+    #[Rest\RequestParam(name: 'locale')]
+    public function setLocale(ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('');
@@ -63,6 +63,6 @@ class LocaleRestController extends AbstractFOSRestController
         $this->session->set('locale', $locale);
         $this->settingsGateway->setUserOption($this->session->id(), UserOptionType::LOCALE, $locale);
 
-        return $this->getLocaleAction();
+        return $this->getLocale();
     }
 }

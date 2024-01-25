@@ -8,46 +8,33 @@ use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\PageHelper;
 use Foodsharing\Utility\RouteHelper;
+use Symfony\Contracts\Service\Attribute\Required;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
 class Utils
 {
-    private $id;
+    private array $id = []; // TODO shouldn't this be a string?
     private Session $session;
-    private \Twig\Environment $twig;
-    private PageHelper $pageHelper;
-    private RouteHelper $routeHelper;
-    private IdentificationHelper $identificationHelper;
-    private DataHelper $dataHelper;
-    private TranslatorInterface $translator;
+    private Environment $twig;
 
     public function __construct(
-        PageHelper $pageHelper,
-        RouteHelper $routeHelper,
-        IdentificationHelper $identificationHelper,
-        DataHelper $dataHelper,
-        TranslatorInterface $translator
+        private readonly PageHelper $pageHelper,
+        private readonly RouteHelper $routeHelper,
+        private readonly IdentificationHelper $identificationHelper,
+        private readonly DataHelper $dataHelper,
+        private readonly TranslatorInterface $translator
     ) {
-        $this->id = []; // TODO shouldn't this be a string?
-        $this->pageHelper = $pageHelper;
-        $this->routeHelper = $routeHelper;
-        $this->identificationHelper = $identificationHelper;
-        $this->dataHelper = $dataHelper;
-        $this->translator = $translator;
     }
 
-    /**
-     * @required
-     */
+    #[Required]
     public function setSession(Session $session): void
     {
         $this->session = $session;
     }
 
-    /**
-     * @required
-     */
-    public function setTwig(\Twig\Environment $twig): void
+    #[Required]
+    public function setTwig(Environment $twig): void
     {
         $this->twig = $twig;
     }

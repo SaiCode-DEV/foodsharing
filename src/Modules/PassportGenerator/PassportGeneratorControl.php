@@ -9,7 +9,7 @@ use Foodsharing\Utility\IdentificationHelper;
 
 final class PassportGeneratorControl extends Control
 {
-    private $regionId;
+    private $regionId = false;
     private $region;
     private RegionGateway $regionGateway;
     private PassportGeneratorGateway $passportGeneratorGateway;
@@ -30,8 +30,6 @@ final class PassportGeneratorControl extends Control
         $this->passportGeneratorTransaction = $passportGeneratorTransaction;
 
         parent::__construct();
-
-        $this->regionId = false;
         if (($this->regionId = $this->identificationHelper->getGetId('bid')) === false) {
             $this->regionId = $this->session->getCurrentRegionId();
         }

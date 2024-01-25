@@ -19,43 +19,34 @@ class EmailSendData
      * A list of recipients. Should never be empty.
      *
      * @var string[]
-     *
-     * @Type("array<string>")
-     * @Assert\Count(min=1)
-     * @Assert\All({
-     *     @Assert\Email,
-     * })
      */
+    #[Assert\Count(min: 1)]
+    #[Assert\All([new Assert\Email()])]
+    #[Type('array<string>')]
     public array $to = [];
 
     /**
      * An optional list of CC addresses. Can be empty or null.
      *
      * @var string[]
-     *
-     * @Type("array<string>")
-     * @Assert\All({
-     *     @Assert\Email,
-     * })
      */
+    #[Assert\All([new Assert\Email()])]
+    #[Type('array<string>')]
     public ?array $cc = null;
     /**
      * An optional list of BCC addresses. Can be empty or null.
      *
      * @var string[]
-     *
-     * @Type("array<string>")
-     * @Assert\All({
-     *     @Assert\Email,
-     * })
      */
+    #[Assert\All([new Assert\Email()])]
+    #[Type('array<string>')]
     public ?array $bcc = null;
     /**
      * Subject of the email. Can be empty but not null.
      *
      * @OA\Property(example="Testbetreff")
-     * @Assert\Length(max=65535)
      */
+    #[Assert\Length(max: 65535)]
     public string $subject = '';
     /**
      * Body of this email.
@@ -67,9 +58,8 @@ class EmailSendData
      * Optional list of previously uploaded files that will be used as attachments. Can be empty or null.
      *
      * @var EmailSendAttachment[]
-     *
-     * @Type("array<Foodsharing\RestApi\Models\Mailbox\EmailSendAttachment>")
      */
+    #[Type('array<Foodsharing\RestApi\Models\Mailbox\EmailSendAttachment>')]
     public ?array $attachments = null;
     /**
      * Id of the email to which this email is an answer. The original email will be marked as answered.

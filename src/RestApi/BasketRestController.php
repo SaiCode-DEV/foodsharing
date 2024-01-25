@@ -70,10 +70,10 @@ final class BasketRestController extends AbstractFOSRestController
      * Returns 200 and a list of baskets or 401 if not logged in.
      *
      * @OA\Tag(name="basket")
-     * @Rest\Get("baskets")
-     * @Rest\QueryParam(name="type", requirements="(mine|coordinates)", default="mine")
      */
-    public function listBasketsAction(ParamFetcher $paramFetcher): Response
+    #[Rest\Get('baskets')]
+    #[Rest\QueryParam(name: 'type', requirements: '(mine|coordinates)', default: 'mine')]
+    public function listBaskets(ParamFetcher $paramFetcher): Response
     {
         $baskets = [];
         switch ($paramFetcher->get('type')) {
@@ -99,12 +99,12 @@ final class BasketRestController extends AbstractFOSRestController
      * Returns 200 and a list of baskets, 400 if the distance is out of range, or 401 if not logged in.
      *
      * @OA\Tag(name="basket")
-     * @Rest\Get("baskets/nearby")
-     * @Rest\QueryParam(name="lat", nullable=true)
-     * @Rest\QueryParam(name="lon", nullable=true)
-     * @Rest\QueryParam(name="distance", nullable=false, requirements="\d+")
      */
-    public function listNearbyBasketsAction(ParamFetcher $paramFetcher): Response
+    #[Rest\Get('baskets/nearby')]
+    #[Rest\QueryParam(name: 'lat', nullable: true)]
+    #[Rest\QueryParam(name: 'lon', nullable: true)]
+    #[Rest\QueryParam(name: 'distance', nullable: false, requirements: '\d+')]
+    public function listNearbyBaskets(ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
@@ -188,9 +188,9 @@ final class BasketRestController extends AbstractFOSRestController
      * basket, 500 if the basket does not exist, or 401 if not logged in.
      *
      * @OA\Tag(name="basket")
-     * @Rest\Get("baskets/{basketId}", requirements={"basketId" = "\d+"})
      */
-    public function getBasketAction(int $basketId): Response
+    #[Rest\Get('baskets/{basketId}', requirements: ['basketId' => '\d+'])]
+    public function getBasket(int $basketId): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
@@ -263,11 +263,11 @@ final class BasketRestController extends AbstractFOSRestController
      * parameters are optional. Returns the created basket.
      *
      * @OA\Tag(name="basket")
-     * @Rest\Post("baskets")
      * @OA\RequestBody(@Model(type=Basket::class))
-     * @ParamConverter("basket", class="Foodsharing\Modules\Basket\DTO\Basket", converter="fos_rest.request_body")
      */
-    public function addBasketAction(Basket $basket, ValidatorInterface $validator): Response
+    #[Rest\Post('baskets')]
+    #[ParamConverter('basket', class: 'Foodsharing\Modules\Basket\DTO\Basket', converter: 'fos_rest.request_body')]
+    public function addBasket(Basket $basket, ValidatorInterface $validator): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
@@ -284,7 +284,7 @@ final class BasketRestController extends AbstractFOSRestController
             throw new BadRequestHttpException('Unable to create the basket.');
         }
 
-        return $this->getBasketAction($basketId);
+        return $this->getBasket($basketId);
     }
 
     /**
@@ -303,9 +303,9 @@ final class BasketRestController extends AbstractFOSRestController
      * 401 if not logged in.
      *
      * @OA\Tag(name="basket")
-     * @Rest\Delete("baskets/{basketId}", requirements={"basketId" = "\d+"})
      */
-    public function removeBasketAction(int $basketId): ?Response
+    #[Rest\Delete('baskets/{basketId}', requirements: ['basketId' => '\d+'])]
+    public function removeBasket(int $basketId): ?Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
@@ -333,13 +333,12 @@ final class BasketRestController extends AbstractFOSRestController
      * is not given or invalid it falls back to the user's home. Returns the updated basket.
      *
      * @OA\Tag(name="basket")
-     * @Rest\Put("baskets/{basketId}", requirements={"basketId" = "\d+"})
      * @OA\RequestBody(@Model(type=Basket::class))
-     * @ParamConverter("basket", class="Foodsharing\Modules\Basket\DTO\Basket", converter="fos_rest.request_body")
-     *
      * @param int $basketId ID of an existing basket
      */
-    public function editBasketAction(int $basketId, Basket $basket, ValidatorInterface $validator): Response
+    #[Rest\Put('baskets/{basketId}', requirements: ['basketId' => '\d+'])]
+    #[ParamConverter('basket', class: 'Foodsharing\Modules\Basket\DTO\Basket', converter: 'fos_rest.request_body')]
+    public function editBasket(int $basketId, Basket $basket, ValidatorInterface $validator): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
@@ -359,19 +358,19 @@ final class BasketRestController extends AbstractFOSRestController
             $this->session->id()
         );
 
-        return $this->getBasketAction($basketId);
+        return $this->getBasket($basketId);
     }
 
     /**
      * Requests a basket.
      *
      * @OA\Tag(name="basket")
-     * @Rest\Post("baskets/{basketId}/request", requirements={"basketId" = "\d+"})
-     * @Rest\RequestParam(name="message", nullable=false)
      *
      * @param int $basketId ID of an existing basket
      */
-    public function requestBasketAction(int $basketId, ParamFetcher $paramFetcher): Response
+    #[Rest\Post('baskets/{basketId}/request', requirements: ['basketId' => '\d+'])]
+    #[Rest\RequestParam(name: 'message', nullable: false)]
+    public function requestBasket(int $basketId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
@@ -398,18 +397,18 @@ final class BasketRestController extends AbstractFOSRestController
         $this->messageTransactions->sendMessageToUser($basketCreatorId, $this->session->id(), $message, 'basket/request');
         $this->gateway->setStatus($basketId, RequestStatus::REQUESTED_MESSAGE_UNREAD, $this->session->id());
 
-        return $this->getBasketAction($basketId);
+        return $this->getBasket($basketId);
     }
 
     /**
      * Withdraw a basket request.
      *
      * @OA\Tag(name="basket")
-     * @Rest\Post("baskets/{basketId}/withdraw", requirements={"basketId" = "\d+"})
      *
      * @param int $basketId ID of an existing basket
      */
-    public function withdrawBasketRequestAction(int $basketId): Response
+    #[Rest\Post('baskets/{basketId}/withdraw', requirements: ['basketId' => '\d+'])]
+    public function withdrawBasketRequest(int $basketId): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
@@ -426,7 +425,7 @@ final class BasketRestController extends AbstractFOSRestController
             $this->gateway->setStatus($basketId, RequestStatus::DELETED_OTHER_REASON, $this->session->id());
         }
 
-        return $this->getBasketAction($basketId);
+        return $this->getBasket($basketId);
     }
 
     /**

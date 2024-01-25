@@ -23,14 +23,13 @@ class PatchStoreChain
      * Field does not support HTML, Markdown or multiline strings.
      *
      * @OA\Property(example="MyChain GmbH")
-     * @Assert\Length(min=1, max=120)
      *
      * @NoHtml
      *
      * @NoMultiLineText
-     *
      * @NoMarkdown
      */
+    #[Assert\Length(min: 1, max: 120)]
     public ?string $name = null;
 
     /**
@@ -40,22 +39,21 @@ class PatchStoreChain
      * - '2' - Cooperating.
      *
      * @OA\Property(enum={0, 1, 2}, example=2)
-     * @Assert\Range (min = 0, max = 2)
      */
+    #[Assert\Range(min: 0, max: 2)]
     public ?int $status = null;
 
     /**
      * ZIP code of the chains headquater.
      *
      * @OA\Property(example="48149", nullable=true)
-     * @Assert\Length(min=1, max=5)
      *
      * @NoHtml
      *
      * @NoMultiLineText
-     *
      * @NoMarkdown
      */
+    #[Assert\Length(min: 1, max: 5)]
     public ?string $headquartersZip = null;
 
     /**
@@ -64,14 +62,13 @@ class PatchStoreChain
      * Field does not support HTML, Markdown or multiline strings.
      *
      * @OA\Property(example="Münster", nullable=true)
-     * @Assert\Length(min=1, max=50)
      *
      * @NoHtml
      *
      * @NoMultiLineText
-     *
      * @NoMarkdown
      */
+    #[Assert\Length(min: 1, max: 50)]
     public ?string $headquartersCity = null;
 
     /**
@@ -80,12 +77,11 @@ class PatchStoreChain
      * Field does not support HTML, Markdown or multiline strings.
      *
      * @OA\Property(example="Germany")
-     * @Assert\Length(max=50)
      *
      * @NoMultiLineText
-     *
      * @NoMarkdown
      */
+    #[Assert\Length(max: 50)]
     public ?string $headquartersCountry = null;
 
     /**
@@ -97,8 +93,8 @@ class PatchStoreChain
      * Identifier of a forum thread related to this chain.
      *
      * @OA\Property(example=12345)
-     * @Assert\Range (min = 0)
      */
+    #[Assert\Range(min: 0)]
     public ?int $forumThread = null;
 
     /**
@@ -107,34 +103,32 @@ class PatchStoreChain
      * Field does not support HTML, Markdown or multiline strings.
      *
      * @OA\Property(example="Cooperating since 2021", nullable=true)
-     * @Assert\Length(max=200)
      *
      * @NoHtml
      *
      * @NoMultiLineText
-     *
      * @NoMarkdown
      */
+    #[Assert\Length(max: 200)]
     public ?string $notes = null;
 
     /**
      * Information about the chain to be displayed on every related stores page.
      *
      * @OA\Property(example="Pickup times between 10:00 and 12:15", nullable=true)
-     * @Assert\Length(max=16777215)
      */
+    #[Assert\Length(max: 16777215)]
     public ?string $commonStoreInformation = null;
 
     /**
      * Identifiers of key account managers.
      *
      * @OA\Property(type="array", description="Managers of this chain",	items={"type"="integer"})
-     * @Assert\All(@Assert\Positive())
      *
      * @var int[] List of grocerie which are provided by the store
-     *
-     * @Type("array<int>")
      */
+    #[Assert\All(new Assert\Positive())]
+    #[Type('array<int>')]
     public ?array $kams = null;
 
     /**
@@ -143,7 +137,7 @@ class PatchStoreChain
      * Only visible to members of AG store chain
      *
      * @OA\Property(example=12)
-     * @Assert\Range (min = 0)
      */
+    #[Assert\Range(min: 0)]
     public ?int $estimatedStoreCount = null;
 }

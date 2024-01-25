@@ -209,7 +209,7 @@ class RegionApiCest
     {
         $I->login($this->userAmbassador['email']);
         $I->sendGET('api/region/' . $this->region['id'] . '/members');
-        $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK);
+        $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
 
         // the following fields should only be visible to admins

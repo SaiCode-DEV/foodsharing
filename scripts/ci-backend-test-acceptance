@@ -25,9 +25,11 @@ php-fpm -R 2> php_fpm_err.log &
 log-header "Initializing database"
 SECONDS=0
 mysql -u root -proot -hdb --execute="drop database if exists foodsharing; create database foodsharing"
-php run.php Mails queueWorker &
 vendor/bin/phinx migrate
 echo $SECONDS seconds elapsed
+
+log-header "Starting mail queue worker"
+php run.php Mails queueWorker &
 
 log-header "Waiting for assets to be generated ..."
 while ! [ "$(ls -A assets)" ];
@@ -39,7 +41,7 @@ echo
 
 log-header "Create DB dump file for codeception"
 mysqldump --user root --password=root -hdb foodsharing > dump.sql
-pwd 
+pwd
 log-header "Running tests"
 failed=0
 SECONDS=0

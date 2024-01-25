@@ -18,19 +18,15 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tests\Support\Helper\Foodsharing;
 
+// this is Codeception specific, so we can't use the regular AsCommand attribute
 class SeedCommand extends Command implements CustomCommandInterface
 {
     use ConfigTrait;
+    protected static $defaultDescription = 'Seed the dev db.';
 
-    /**
-     * @var Foodsharing
-     */
-    protected $helper;
+    protected Foodsharing $helper;
 
-    /**
-     * @var OutputInterface
-     */
-    protected $output;
+    protected OutputInterface $output;
 
     protected $foodsavers = [];
     protected $welcomeAdmins = [];
@@ -45,9 +41,6 @@ class SeedCommand extends Command implements CustomCommandInterface
     protected $boardAdmins = [];
     protected $electionAdmins = [];
 
-    /**
-     * returns the name of the command.
-     */
     public static function getCommandName(): string
     {
         return 'foodsharing:seed';
@@ -55,7 +48,6 @@ class SeedCommand extends Command implements CustomCommandInterface
 
     protected function configure(): void
     {
-        $this->setDescription('Seed the dev db.');
         $this->setHelp('This commands adds seed data to the database. The general rule is that before running this command, you have a working instance of foodsharing without customized data (e.g. missing regions, quizzes, ...) but already including all the data that is directly used in the code (so you will not get any internal server errors). The future goal is, to make the code as much independent of data as possible and move all data you may want to playing around into the seed.');
     }
 
@@ -76,7 +68,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $this->output->writeln('Seeding ' . FS_ENV . ' database');
         $this->seed();
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     protected function getRandomIDOfArray(array $value, $number = 1)

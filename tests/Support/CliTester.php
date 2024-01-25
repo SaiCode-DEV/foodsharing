@@ -6,6 +6,7 @@ namespace Tests\Support;
 
 use Codeception\Actor;
 use Codeception\Lib\Friend;
+use Tests\Support\_generated\CliTesterActions;
 
 /**
  * Inherited Methods.
@@ -25,7 +26,7 @@ use Codeception\Lib\Friend;
  */
 class CliTester extends Actor
 {
-    use _generated\CliTesterActions;
+    use CliTesterActions;
 
     /*
     * Define custom actions here

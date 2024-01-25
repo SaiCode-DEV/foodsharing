@@ -15,15 +15,15 @@ class EmailSendAttachment
      * UUID of the uploaded file.
      *
      * @OA\Property(example="uuid")
-     * @Assert\NotBlank
      */
+    #[Assert\NotBlank]
     public string $uuid = '';
 
     /**
      * Original name of the file.
      *
      * @OA\Property(example="Testdatei.jpg")
-     * @Assert\NotBlank
      */
+    #[Assert\NotBlank]
     public string $filename = '';
 }

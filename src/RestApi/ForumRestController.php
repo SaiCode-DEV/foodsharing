@@ -114,11 +114,11 @@ class ForumRestController extends AbstractFOSRestController
      * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions to view that forum.")
      * @OA\Tag(name="forum")
-     * @Rest\Get("forum/{forumId}/{forumSubId}", requirements={"forumId" = "\d+", "forumSubId" = "\d"})
-     * @Rest\QueryParam(name="limit", requirements="\d+", default="20", description="how many search results to return")
-     * @Rest\QueryParam(name="offset", requirements="\d+", default="0", description="starting with which result")
      */
-    public function listThreadsAction(int $forumId, int $forumSubId, ParamFetcher $paramFetcher): SymfonyResponse
+    #[Rest\Get('forum/{forumId}/{forumSubId}', requirements: ['forumId' => '\d+', 'forumSubId' => '\d'])]
+    #[Rest\QueryParam(name: 'limit', requirements: '\d+', default: '20', description: 'how many search results to return')]
+    #[Rest\QueryParam(name: 'offset', requirements: '\d+', default: '0', description: 'starting with which result')]
+    public function listThreads(int $forumId, int $forumSubId, ParamFetcher $paramFetcher): SymfonyResponse
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -159,9 +159,9 @@ class ForumRestController extends AbstractFOSRestController
      * @OA\Response(response="403", description="Insufficient permissions to view that forum/thread")
      * @OA\Response(response="404", description="Thread does not exist.")
      * @OA\Tag(name="forum")
-     * @Rest\Get("forum/thread/{threadId}", requirements={"threadId" = "\d+"})
      */
-    public function getThreadAction(int $threadId): SymfonyResponse
+    #[Rest\Get('forum/thread/{threadId}', requirements: ['threadId' => '\d+'])]
+    public function getThread(int $threadId): SymfonyResponse
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -201,10 +201,10 @@ class ForumRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="success")
      * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions")
-     * @Rest\Post("forum/thread/{threadId}/posts", requirements={"threadId" = "\d+"})
-     * @Rest\RequestParam(name="body", description="post message")
      */
-    public function createPostAction(int $threadId, ParamFetcher $paramFetcher): SymfonyResponse
+    #[Rest\Post('forum/thread/{threadId}/posts', requirements: ['threadId' => '\d+'])]
+    #[Rest\RequestParam(name: 'body', description: 'post message')]
+    public function createPost(int $threadId, ParamFetcher $paramFetcher): SymfonyResponse
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -226,12 +226,12 @@ class ForumRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="success")
      * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions")
-     * @Rest\Post("forum/{forumId}/{forumSubId}", requirements={"forumId" = "\d+", "forumSubId" = "\d"})
-     * @Rest\RequestParam(name="title", description="title of thread")
-     * @Rest\RequestParam(name="body", description="post message")
-     * @Rest\RequestParam(name="sendMail", description="false or true value - send a notification mail for all forum user")
      */
-    public function createThreadAction(int $forumId, int $forumSubId, ParamFetcher $paramFetcher): SymfonyResponse
+    #[Rest\Post('forum/{forumId}/{forumSubId}', requirements: ['forumId' => '\d+', 'forumSubId' => '\d'])]
+    #[Rest\RequestParam(name: 'title', description: 'title of thread')]
+    #[Rest\RequestParam(name: 'body', description: 'post message')]
+    #[Rest\RequestParam(name: 'sendMail', description: 'false or true value - send a notification mail for all forum user')]
+    public function createThread(int $forumId, int $forumSubId, ParamFetcher $paramFetcher): SymfonyResponse
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -248,7 +248,7 @@ class ForumRestController extends AbstractFOSRestController
 
         $threadId = $this->forumTransactions->createThread($this->session->id(), $title, $body, $regionDetails, $forumSubId, $postActiveWithoutModeration, $sendMail);
 
-        return $this->getThreadAction($threadId);
+        return $this->getThread($threadId);
     }
 
     /**
@@ -258,13 +258,13 @@ class ForumRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="success")
      * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions")
-     * @Rest\Patch("forum/thread/{threadId}", requirements={"threadId" = "\d+"})
-     * @Rest\RequestParam(name="isSticky", nullable=true, default=null, description="should thread be pinned to the top of forum?")
-     * @Rest\RequestParam(name="isActive", nullable=true, default=null, description="should a thread in a moderated forum be activated?")
-     * @Rest\RequestParam(name="status", nullable=true, default=null, description="if the thread is open or closed")
-     * @Rest\RequestParam(name="title", nullable=true, default=null, description="the title of the thread")
      */
-    public function patchThreadAction(int $threadId, ParamFetcher $paramFetcher): SymfonyResponse
+    #[Rest\Patch('forum/thread/{threadId}', requirements: ['threadId' => '\d+'])]
+    #[Rest\RequestParam(name: 'isSticky', nullable: true, default: null, description: 'should thread be pinned to the top of forum?')]
+    #[Rest\RequestParam(name: 'isActive', nullable: true, default: null, description: 'should a thread in a moderated forum be activated?')]
+    #[Rest\RequestParam(name: 'status', nullable: true, default: null, description: 'if the thread is open or closed')]
+    #[Rest\RequestParam(name: 'title', nullable: true, default: null, description: 'the title of the thread')]
+    public function patchThread(int $threadId, ParamFetcher $paramFetcher): SymfonyResponse
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -309,7 +309,7 @@ class ForumRestController extends AbstractFOSRestController
             $this->forumGateway->setThreadTitle($threadId, $title);
         }
 
-        return $this->getThreadAction($threadId);
+        return $this->getThread($threadId);
     }
 
     /**
@@ -319,9 +319,9 @@ class ForumRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="success")
      * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions")
-     * @Rest\Post("forum/thread/{threadId}/follow/email", requirements={"threadId" = "\d+"})
      */
-    public function followThreadByEmailAction(int $threadId): SymfonyResponse
+    #[Rest\Post('forum/thread/{threadId}/follow/email', requirements: ['threadId' => '\d+'])]
+    public function followThreadByEmail(int $threadId): SymfonyResponse
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -341,9 +341,9 @@ class ForumRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="success")
      * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions")
-     * @Rest\Post("forum/thread/{threadId}/follow/bell", requirements={"threadId" = "\d+"})
      */
-    public function followThreadByBellAction(int $threadId): SymfonyResponse
+    #[Rest\Post('forum/thread/{threadId}/follow/bell', requirements: ['threadId' => '\d+'])]
+    public function followThreadByBell(int $threadId): SymfonyResponse
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -364,9 +364,9 @@ class ForumRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="success")
      * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions")
-     * @Rest\Delete("forum/thread/{threadId}/follow/email", requirements={"threadId" = "\d+"})
      */
-    public function unfollowThreadByEmailAction(int $threadId): SymfonyResponse
+    #[Rest\Delete('forum/thread/{threadId}/follow/email', requirements: ['threadId' => '\d+'])]
+    public function unfollowThreadByEmail(int $threadId): SymfonyResponse
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -387,9 +387,9 @@ class ForumRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="success")
      * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions")
-     * @Rest\Delete("forum/thread/{threadId}/follow/bell", requirements={"threadId" = "\d+"})
      */
-    public function unfollowThreadByBellAction(int $threadId): SymfonyResponse
+    #[Rest\Delete('forum/thread/{threadId}/follow/bell', requirements: ['threadId' => '\d+'])]
+    public function unfollowThreadByBell(int $threadId): SymfonyResponse
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -411,9 +411,9 @@ class ForumRestController extends AbstractFOSRestController
      * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="404", description="Post does not exist")
-     * @Rest\Delete("forum/post/{postId}", requirements={"postId" = "\d+"})
      */
-    public function deletePostAction(int $postId): SymfonyResponse
+    #[Rest\Delete('forum/post/{postId}', requirements: ['postId' => '\d+'])]
+    public function deletePost(int $postId): SymfonyResponse
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -441,9 +441,9 @@ class ForumRestController extends AbstractFOSRestController
      * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions to delete that thread or thread is already active")
      * @OA\Response(response="404", description="Thread does not exist.")
-     * @Rest\Delete("forum/thread/{threadId}", requirements={"postId" = "\d+"})
      */
-    public function deleteThreadAction(int $threadId): SymfonyResponse
+    #[Rest\Delete('forum/thread/{threadId}', requirements: ['postId' => '\d+'])]
+    public function deleteThread(int $threadId): SymfonyResponse
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -470,9 +470,9 @@ class ForumRestController extends AbstractFOSRestController
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="404", description="Post does not exist")
-     * @Rest\Post("forum/post/{postId}/reaction/{emoji}", requirements={"postId" = "\d+", "emoji" = "\w+"})
      */
-    public function addReactionAction(int $postId, string $emoji): SymfonyResponse
+    #[Rest\Post('forum/post/{postId}/reaction/{emoji}', requirements: ['postId' => '\d+', 'emoji' => '\w+'])]
+    public function addReaction(int $postId, string $emoji): SymfonyResponse
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -500,9 +500,9 @@ class ForumRestController extends AbstractFOSRestController
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="404", description="Post does not exist")
-     * @Rest\Delete("forum/post/{postId}/reaction/{emoji}", requirements={"postId" = "\d+", "emoji" = "\w+"})
      */
-    public function deleteReactionAction(int $postId, string $emoji): SymfonyResponse
+    #[Rest\Delete('forum/post/{postId}/reaction/{emoji}', requirements: ['postId' => '\d+', 'emoji' => '\w+'])]
+    public function deleteReaction(int $postId, string $emoji): SymfonyResponse
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');

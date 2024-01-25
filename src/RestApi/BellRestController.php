@@ -31,10 +31,10 @@ class BellRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="Success.")
      * @OA\Response(response="403", description="Insufficient permissions to list bells.")
      * @OA\Tag(name="bells")
-     * @Rest\Get("bells")
-     * @Rest\QueryParam(name="limit", requirements="\d+", default="20", description="How many bells to return.")
-     * @Rest\QueryParam(name="offset", requirements="\d+", default="0", description="Offset for returned bells.")
      */
+    #[Rest\Get('bells')]
+    #[Rest\QueryParam(name: 'limit', requirements: '\d+', default: '20', description: 'How many bells to return.')]
+    #[Rest\QueryParam(name: 'offset', requirements: '\d+', default: '0', description: 'Offset for returned bells.')]
     public function listBells(ParamFetcher $paramFetcher): Response
     {
         $id = $this->session->id();
@@ -57,10 +57,10 @@ class BellRestController extends AbstractFOSRestController
      * @OA\Response(response="400", description="If the list of IDs is empty or none of the bells could be marked.")
      * @OA\Response(response="403", description="Insufficient permissions to change the bells.")
      * @OA\Tag(name="bells")
-     * @Rest\Patch("bells")
-     * @Rest\RequestParam(name="ids")
      */
-    public function markBellsAsReadAction(ParamFetcher $paramFetcher): Response
+    #[Rest\Patch('bells')]
+    #[Rest\RequestParam(name: 'ids')]
+    public function markBellsAsRead(ParamFetcher $paramFetcher): Response
     {
         $id = $this->session->id();
         if (!$id) {
@@ -91,10 +91,10 @@ class BellRestController extends AbstractFOSRestController
      * @OA\Response(response="403", description="Insufficient permissions to delete the bell.")
      * @OA\Response(response="404", description="The user does not have a bell with that ID.")
      * @OA\Tag(name="bells")
-     * @Rest\Delete("bells")
-     * @Rest\RequestParam(name="ids")
      */
-    public function deleteBellsAction(ParamFetcher $paramFetcher): Response
+    #[Rest\Delete('bells')]
+    #[Rest\RequestParam(name: 'ids')]
+    public function deleteBells(ParamFetcher $paramFetcher): Response
     {
         $id = $this->session->id();
         if (!$id) {

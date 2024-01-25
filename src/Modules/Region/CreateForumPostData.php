@@ -6,19 +6,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateForumPostData
 {
-    /**
-     * @Assert\Type("string")
-     * @Assert\NotBlank()
-     */
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
     public string $body;
 
-    /**
-     * @Assert\Type("integer")
-     * @Assert\Range(
-     *     min = 0,
-     *     max = 1
-     * )
-     */
+    #[Assert\Type('integer')]
+    #[Assert\Range(min: 0, max: 1)]
     public int $subscribe;
 
     public $thread;

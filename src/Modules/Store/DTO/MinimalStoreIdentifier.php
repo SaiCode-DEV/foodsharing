@@ -4,14 +4,8 @@ namespace Foodsharing\Modules\Store\DTO;
 
 class MinimalStoreIdentifier
 {
-    public int $id;
-    public string $name;
-
-    public function __construct()
-    {
-        $this->id = 0;
-        $this->name = '';
-    }
+    public int $id = 0;
+    public string $name = '';
 
     public static function createFromArray($queryResult, $prefix = '')
     {

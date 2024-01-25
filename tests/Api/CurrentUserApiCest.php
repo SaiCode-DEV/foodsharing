@@ -6,7 +6,7 @@ namespace Tests\Api;
 
 use Carbon\Carbon;
 use Codeception\Util\HttpCode as Http;
-use Faker;
+use Faker\Factory;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Tests\Support\ApiTester;
@@ -32,7 +32,7 @@ class CurrentUserApiCest
 
         $this->region_1 = $I->createRegion();
 
-        $this->faker = Faker\Factory::create('de_DE');
+        $this->faker = Factory::create('de_DE');
     }
 
     private function prepareStoreMembership(ApiTester $I): void

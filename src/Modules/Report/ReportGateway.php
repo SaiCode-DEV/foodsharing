@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Modules\Report;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use Foodsharing\Modules\Core\BaseGateway;
 
 class ReportGateway extends BaseGateway
@@ -201,7 +202,7 @@ class ReportGateway extends BaseGateway
         return $report;
     }
 
-    private function reportSelectDbal(): \Doctrine\DBAL\Query\QueryBuilder
+    private function reportSelectDbal(): QueryBuilder
     {
         return $this->db->builder()
             ->from('fs_report', 'r')

@@ -4,15 +4,16 @@ namespace Foodsharing\Modules\Region;
 
 use Foodsharing\Lib\Xhr\XhrDialog;
 use Foodsharing\Modules\Core\Control;
+use Twig\Environment;
 
 final class RegionXhr extends Control
 {
     private RegionGateway $regionGateway;
-    private \Twig\Environment $twig;
+    private Environment $twig;
 
     public function __construct(
         RegionGateway $regionGateway,
-        \Twig\Environment $twig
+        Environment $twig
     ) {
         $this->regionGateway = $regionGateway;
         $this->twig = $twig;

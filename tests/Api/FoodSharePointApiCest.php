@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Api;
 
 use Codeception\Util\HttpCode as Http;
-use Faker;
+use Faker\Factory;
 use Tests\Support\ApiTester;
 
 /**
@@ -27,7 +27,7 @@ class FoodSharePointApiCest
         $this->user = $I->createFoodsaver();
         $this->region = $I->createRegion();
         $I->addRegionMember($this->region['id'], $this->user['id']);
-        $this->faker = Faker\Factory::create('de_DE');
+        $this->faker = Factory::create('de_DE');
     }
 
     public function getFoodSharePoint(ApiTester $I): void

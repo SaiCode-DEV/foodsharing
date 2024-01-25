@@ -39,13 +39,13 @@ class SettingsRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="400", description="Invalid mode or parameters")
      * @OA\Response(response="401", description="Not logged in")
-     * @Rest\Patch("user/sleepmode")
-     * @Rest\RequestParam(name="mode", nullable=false, allowBlank=false, requirements="\d+", description="sleep mode as an integer")
-     * @Rest\RequestParam(name="from", nullable=true, description="start date of the sleep interval")
-     * @Rest\RequestParam(name="to", nullable=true, description="end date of the sleep interval")
-     * @Rest\RequestParam(name="message", nullable=true, description="optional sleep mode message")
      */
-    public function setSleepStatusAction(ParamFetcher $paramFetcher): Response
+    #[Rest\Patch('user/sleepmode')]
+    #[Rest\RequestParam(name: 'mode', nullable: false, allowBlank: false, requirements: '\d+', description: 'sleep mode as an integer')]
+    #[Rest\RequestParam(name: 'from', nullable: true, description: 'start date of the sleep interval')]
+    #[Rest\RequestParam(name: 'to', nullable: true, description: 'end date of the sleep interval')]
+    #[Rest\RequestParam(name: 'message', nullable: true, description: 'optional sleep mode message')]
+    public function setSleepStatus(ParamFetcher $paramFetcher): Response
     {
         $userId = $this->session->id();
         if (!$userId) {
@@ -91,7 +91,7 @@ class SettingsRestController extends AbstractFOSRestController
     #[OA2\Response(response: '400', description: 'Empty or invalid parameters')]
     #[OA2\Response(response: '401', description: 'Not logged in')]
     #[OA2\Response(response: '403', description: 'Wrong password')]
-    public function requestEmailChangeAction(EmailChangeRequest $request, ValidatorInterface $validator): Response
+    public function requestEmailChange(EmailChangeRequest $request, ValidatorInterface $validator): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('');

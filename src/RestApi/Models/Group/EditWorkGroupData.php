@@ -11,9 +11,9 @@ class EditWorkGroupData
     /**
      * The working group's title.
      *
-     * @Assert\NotBlank()
      * @OA\Property(example="Testgruppe")
      */
+    #[Assert\NotBlank]
     public string $name = '';
 
     /**
@@ -26,44 +26,39 @@ class EditWorkGroupData
     /**
      * Denotes who is allowed to apply for this group.
      *
-     * @Assert\Type("integer")
-     * @Assert\Range(min = 0, max = 3)
      * @OA\Property(example=0)
      */
+    #[Assert\Type('integer')]
+    #[Assert\Range(min: 0, max: 3)]
     public int $applyType = ApplyType::NOBODY;
 
     /**
      * If the apply type is REQUIRES_PROPERTIES, a foodsaver must have this many bananas before being allowed to apply
      * for this group.
      *
-     * @Assert\Type("integer")
-     * @Assert\Range(
-     *     min = 0,
-     *     max = 20,
-     *     minMessage = "group.application_requirements.banana_count_errors.min",
-     *     maxMessage = "group.application_requirements.banana_count_errors.max"
-     * )
      * @OA\Property(example=0)
      */
+    #[Assert\Type('integer')]
+    #[Assert\Range(min: 0, max: 20, minMessage: 'group.application_requirements.banana_count_errors.min', maxMessage: 'group.application_requirements.banana_count_errors.max')]
     public int $requiredBananas = 0;
 
     /**
      * If the apply type is REQUIRES_PROPERTIES, a foodsaver must have been to this many pickups before being allowed
      * to apply for this group.
      *
-     * @Assert\Type("integer")
-     * @Assert\Range(min = 0, max = 100)
      * @OA\Property(example=0)
      */
+    #[Assert\Type('integer')]
+    #[Assert\Range(min: 0, max: 100)]
     public int $requiredPickups = 0;
 
     /**
      * If the apply type is REQUIRES_PROPERTIES, a foodsaver must have been registered this many weeks before being
      * allowed to apply for this group.
      *
-     * @Assert\Range(min = 0, max = 52)
      * @OA\Property(example=0)
      */
+    #[Assert\Range(min: 0, max: 52)]
     public int $requiredWeeks = 0;
 
     /**

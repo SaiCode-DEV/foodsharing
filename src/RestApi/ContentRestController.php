@@ -36,7 +36,7 @@ class ContentRestController extends AbstractFOSRestController
     )]
     #[OA2\Response(response: '401', description: 'Not logged in')]
     #[OA2\Response(response: '403', description: 'Insufficient permissions')]
-    public function getContentListAction(): Response
+    public function getContentList(): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -59,9 +59,9 @@ class ContentRestController extends AbstractFOSRestController
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="404", description="Content id does not exist")
      * @OA\Tag(name="content")
-     * @Rest\Get("content/{contentId}", requirements={"contentId" = "\d+", "status" = "[0-1]"})
      */
-    public function getContentAction(int $contentId): Response
+    #[Rest\Get('content/{contentId}', requirements: ['contentId' => '\d+', 'status' => '[0-1]'])]
+    public function getContent(int $contentId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -83,7 +83,7 @@ class ContentRestController extends AbstractFOSRestController
     #[OA2\Response(response: '200', description: 'Success')]
     #[OA2\Response(response: '401', description: 'Not logged in')]
     #[OA2\Response(response: '403', description: 'Insufficient permissions')]
-    public function deleteContentAction(int $contentId): Response
+    public function deleteContent(int $contentId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');

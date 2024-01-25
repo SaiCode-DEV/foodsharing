@@ -64,9 +64,9 @@ class RegionRestController extends AbstractFOSRestController
 
     /**
      * @OA\Tag(name="region")
-     * @Rest\Post("region/{regionId}/join", requirements={"regionId" = "\d+"})
      */
-    public function joinRegionAction(int $regionId): Response
+    #[Rest\Post('region/{regionId}/join', requirements: ['regionId' => '\d+'])]
+    public function joinRegion(int $regionId): Response
     {
         $sessionId = $this->session->id();
         if ($sessionId === null) {
@@ -119,7 +119,6 @@ class RegionRestController extends AbstractFOSRestController
      *
      * @OA\Tag(name="region")
      * @OA\Tag(name="my")
-     * @Rest\Get("user/current/regions")
      * @OA\Response(
      * 		response="200",
      * 		description="Success returns list of related regions of user",
@@ -130,6 +129,7 @@ class RegionRestController extends AbstractFOSRestController
      * )
      * @OA\Response(response="401", description="Not logged in.")
      */
+    #[Rest\Get('user/current/regions')]
     public function listMyRegion(): Response
     {
         if (!$this->session->mayRole()) {
@@ -156,9 +156,9 @@ class RegionRestController extends AbstractFOSRestController
      * @OA\Response(response="400", description="Region or group does not exist")
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="409", description="User is still an active store manager in the region")
-     * @Rest\Post("region/{regionId}/leave", requirements={"regionId" = "\d+"})
      */
-    public function leaveRegionAction(int $regionId): Response
+    #[Rest\Post('region/{regionId}/leave', requirements: ['regionId' => '\d+'])]
+    public function leaveRegion(int $regionId): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('');
@@ -186,9 +186,9 @@ class RegionRestController extends AbstractFOSRestController
      * @OA\Parameter(name="regionId", in="path", @OA\Schema(type="integer"), description="the region that will be updated")
      * @OA\Response(response="200", description="success")
      * @OA\Response(response="403", description="Insufficient permissions")
-     * @Rest\Patch("region/{regionId}/masterupdate", requirements={"regionId" = "\d+"})
      */
-    public function masterUpdateAction(int $regionId): Response
+    #[Rest\Patch('region/{regionId}/masterupdate', requirements: ['regionId' => '\d+'])]
+    public function masterUpdate(int $regionId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -212,15 +212,15 @@ class RegionRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permissions")
-     * @Rest\Post("region/{regionId}/options", requirements={"regionId" = "\d+"})
-     * @Rest\RequestParam(name="enableReportButton")
-     * @Rest\RequestParam(name="enableMediationButton")
-     * @Rest\RequestParam(name="regionPickupRuleActive")
-     * @Rest\RequestParam(name="regionPickupRuleTimespan")
-     * @Rest\RequestParam(name="regionPickupRuleLimit")
-     * @Rest\RequestParam(name="regionPickupRuleLimitDay")
-     * @Rest\RequestParam(name="regionPickupRuleInactive")
      */
+    #[Rest\Post('region/{regionId}/options', requirements: ['regionId' => '\d+'])]
+    #[Rest\RequestParam(name: 'enableReportButton')]
+    #[Rest\RequestParam(name: 'enableMediationButton')]
+    #[Rest\RequestParam(name: 'regionPickupRuleActive')]
+    #[Rest\RequestParam(name: 'regionPickupRuleTimespan')]
+    #[Rest\RequestParam(name: 'regionPickupRuleLimit')]
+    #[Rest\RequestParam(name: 'regionPickupRuleLimitDay')]
+    #[Rest\RequestParam(name: 'regionPickupRuleInactive')]
     public function setRegionOptions(ParamFetcher $paramFetcher, int $regionId): Response
     {
         if (!$this->session->mayRole()) {
@@ -273,11 +273,11 @@ class RegionRestController extends AbstractFOSRestController
      *     @OA\Property(property="regionPickupRuleInactive", type="integer"),
      * )))
      * @OA\Response(response="401", description="Not logged in")
-     * @Rest\Get("region/{regionId}/options", requirements={"regionId" = "\d+"})
      *
      * @throws Exception
      */
-    public function getRegionOptionsAction(int $regionId): Response
+    #[Rest\Get('region/{regionId}/options', requirements: ['regionId' => '\d+'])]
+    public function getRegionOptions(int $regionId): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('');
@@ -302,12 +302,12 @@ class RegionRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permissions")
-     * @Rest\Post("region/{regionId}/pin", requirements={"regionId" = "\d+"})
-     * @Rest\RequestParam(name="lat")
-     * @Rest\RequestParam(name="lon")
-     * @Rest\RequestParam(name="desc")
-     * @Rest\RequestParam(name="status", requirements="\d+")
      */
+    #[Rest\Post('region/{regionId}/pin', requirements: ['regionId' => '\d+'])]
+    #[Rest\RequestParam(name: 'lat')]
+    #[Rest\RequestParam(name: 'lon')]
+    #[Rest\RequestParam(name: 'desc')]
+    #[Rest\RequestParam(name: 'status', requirements: '\d+')]
     public function setRegionPin(ParamFetcher $paramFetcher, int $regionId): Response
     {
         if (!$this->session->mayRole()) {
@@ -346,9 +346,9 @@ class RegionRestController extends AbstractFOSRestController
      * @OA\Parameter(name="regionId", in="path", @OA\Schema(type="integer"), description="ID of the region or 0 for the root region")
      * @OA\Response(response="200", description="success")
      * @OA\Response(response="401", description="Not logged in")
-     * @Rest\Get("region/{regionId}/children", requirements={"regionId" = "\d+"})
      */
-    public function listRegionChildrenAction(int $regionId): Response
+    #[Rest\Get('region/{regionId}/children', requirements: ['regionId' => '\d+'])]
+    public function listRegionChildren(int $regionId): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('');
@@ -375,9 +375,9 @@ class RegionRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="success")
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Not in this region")
-     * @Rest\Get("region/{regionId}/members", requirements={"regionId" = "\d+"})
      */
-    public function listMembersAction(int $regionId): Response
+    #[Rest\Get('region/{regionId}/members', requirements: ['regionId' => '\d+'])]
+    public function listMembers(int $regionId): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('');
@@ -406,8 +406,8 @@ class RegionRestController extends AbstractFOSRestController
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="404", description="Region not found")
      * @OA\Tag(name="region")
-     * @Rest\Delete("region/{regionId}/members/{memberId}", requirements={"regionId" = "\d+", "memberId" = "\d+"})
      */
+    #[Rest\Delete('region/{regionId}/members/{memberId}', requirements: ['regionId' => '\d+', 'memberId' => '\d+'])]
     public function removeMember(int $regionId, int $memberId): Response
     {
         if (!$this->session->mayRole()) {
@@ -444,8 +444,8 @@ class RegionRestController extends AbstractFOSRestController
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="404", description="Region not found")
      * @OA\Tag(name="region")
-     * @Rest\Post("region/{regionId}/members/{memberId}/admin", requirements={"regionId" = "\d+", "memberId" = "\d+"})
      */
+    #[Rest\Post('region/{regionId}/members/{memberId}/admin', requirements: ['regionId' => '\d+', 'memberId' => '\d+'])]
     public function setAdminOrAmbassador(int $regionId, int $memberId): Response
     {
         if (!$this->session->mayRole()) {
@@ -484,8 +484,8 @@ class RegionRestController extends AbstractFOSRestController
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="404", description="Region not found")
      * @OA\Tag(name="region")
-     * @Rest\Delete ("region/{regionId}/members/{memberId}/admin", requirements={"regionId" = "\d+", "memberId" = "\d+"})
      */
+    #[Rest\Delete('region/{regionId}/members/{memberId}/admin', requirements: ['regionId' => '\d+', 'memberId' => '\d+'])]
     public function removeAdminOrAmbassador(int $regionId, int $memberId): Response
     {
         if (!$this->session->mayRole()) {

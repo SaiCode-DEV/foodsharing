@@ -7,7 +7,7 @@ namespace Tests\Api;
 use Carbon\Carbon;
 use Codeception\Example;
 use Codeception\Util\HttpCode as Http;
-use Faker;
+use Faker\Factory;
 use Tests\Support\ApiTester;
 
 /**
@@ -40,7 +40,7 @@ class UserApiCest
         $this->store = $I->createStore($region['id']);
         $I->addStoreTeam($this->store['id'], $this->user['id']);
 
-        $this->faker = Faker\Factory::create('de_DE');
+        $this->faker = Factory::create('de_DE');
     }
 
     public function getUser(ApiTester $I): void

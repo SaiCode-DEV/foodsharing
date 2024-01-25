@@ -57,9 +57,9 @@ class CalendarRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Tag(name="calendar")
-     * @Rest\Get("calendar/token")
      */
-    public function getTokenAction(): Response
+    #[Rest\Get('calendar/token')]
+    public function getToken(): Response
     {
         $userId = $this->session->id();
         if (!$userId) {
@@ -78,9 +78,9 @@ class CalendarRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Tag(name="calendar")
-     * @Rest\Put("calendar/token")
      */
-    public function createTokenAction(): Response
+    #[Rest\Put('calendar/token')]
+    public function createToken(): Response
     {
         $userId = $this->session->id();
         if (!$userId) {
@@ -100,9 +100,9 @@ class CalendarRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Tag(name="calendar")
-     * @Rest\Delete("calendar/token")
      */
-    public function deleteTokenAction(): Response
+    #[Rest\Delete('calendar/token')]
+    public function deleteToken(): Response
     {
         $userId = $this->session->id();
         if (!$userId) {
@@ -123,10 +123,10 @@ class CalendarRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="Success.")
      * @OA\Response(response="403", description="Insufficient permissions or invalid token.")
      * @OA\Tag(name="calendar")
-     * @Rest\Get("calendar/{token}")
-     * @Rest\QueryParam(name="events", requirements="(all|answered)", default="all", description="Include all or only answered invitations to events")
      */
-    public function listAppointmentsAction(string $token, ParamFetcher $paramFetcher): Response
+    #[Rest\Get('calendar/{token}')]
+    #[Rest\QueryParam(name: 'events', requirements: '(all|answered)', default: 'all', description: 'Include all or only answered invitations to events')]
+    public function listAppointments(string $token, ParamFetcher $paramFetcher): Response
     {
         // check access token
         $userId = $this->settingsGateway->getUserForToken($token);
@@ -154,7 +154,7 @@ class CalendarRestController extends AbstractFOSRestController
             return $this->createMeetingEvent($meeting, $userId);
         }, $meetings);
 
-        return new Response($this->formatCalendarResponse(array_merge($pickups, $events)), 200, [
+        return new Response($this->formatCalendarResponse(array_merge($pickups, $events)), Response::HTTP_OK, [
             'content-type' => 'text/calendar',
             'content-disposition' => 'attachment; filename="calendar.ics"'
         ]);

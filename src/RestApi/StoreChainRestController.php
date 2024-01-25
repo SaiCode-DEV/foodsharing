@@ -46,9 +46,6 @@ class StoreChainRestController extends AbstractFOSRestController
      * Returns the list of store chains.
      *
      * @OA\Tag(name="chain")
-     * @Rest\Get("chains")
-     * @Rest\QueryParam(name="pageSize" , description="Count of chains on page", requirements="\d+", default=0, strict=true)
-     * @Rest\QueryParam(name="offset" , description="Offset of items", requirements="\d+", default=0, strict=true)
      * @OA\Response(
      * 		response="200",
      * 		description="Success.",
@@ -60,7 +57,10 @@ class StoreChainRestController extends AbstractFOSRestController
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permissions")
      */
-    public function getStoreChainsAction(ParamFetcher $paramFetcher): Response
+    #[Rest\Get('chains')]
+    #[Rest\QueryParam(name: 'pageSize', description: 'Count of chains on page', requirements: '\d+', default: 0, strict: true)]
+    #[Rest\QueryParam(name: 'offset', description: 'Offset of items', requirements: '\d+', default: 0, strict: true)]
+    public function getStoreChains(ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException(self::NOT_LOGGED_IN);
@@ -80,7 +80,6 @@ class StoreChainRestController extends AbstractFOSRestController
      * Returns a specific store chain.
      *
      * @OA\Tag(name="chain")
-     * @Rest\Get("chains/{chainId}", requirements={"chainId" = "\d+"})
      * @OA\Response(
      * 		response="200",
      * 		description="Success.",
@@ -89,7 +88,8 @@ class StoreChainRestController extends AbstractFOSRestController
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permissions")
      */
-    public function getStoreChainAction(int $chainId): Response
+    #[Rest\Get('chains/{chainId}', requirements: ['chainId' => '\d+'])]
+    public function getStoreChain(int $chainId): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException(self::NOT_LOGGED_IN);
@@ -112,14 +112,14 @@ class StoreChainRestController extends AbstractFOSRestController
      * optional. Returns the created store chain.
      *
      * @OA\Tag(name="chain")
-     * @Rest\Post("chains")
-     * @ParamConverter("storeModel", converter="fos_rest.request_body")
      * @OA\RequestBody(@Model(type=StoreChain::class))
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permissions")
      */
-    public function createChainAction(CreateStoreChainModel $storeModel, ConstraintViolationListInterface $validationErrors): Response
+    #[Rest\Post('chains')]
+    #[ParamConverter('storeModel', converter: 'fos_rest.request_body')]
+    public function createChain(CreateStoreChainModel $storeModel, ConstraintViolationListInterface $validationErrors): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException(self::NOT_LOGGED_IN);
@@ -142,15 +142,15 @@ class StoreChainRestController extends AbstractFOSRestController
      * Updates a store.
      *
      * @OA\Tag(name="chain")
-     * @Rest\Patch("chains/{chainId}", requirements={"chainId" = "\d+"})
      * @OA\RequestBody(@Model(type=PatchStoreChain::class))
-     * @ParamConverter("storeModel", converter="fos_rest.request_body")
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="404", description="Chain does not exist")
      */
-    public function updateChainAction($chainId, PatchStoreChain $storeModel, ConstraintViolationListInterface $validationErrors): Response
+    #[Rest\Patch('chains/{chainId}', requirements: ['chainId' => '\d+'])]
+    #[ParamConverter('storeModel', converter: 'fos_rest.request_body')]
+    public function updateChain($chainId, PatchStoreChain $storeModel, ConstraintViolationListInterface $validationErrors): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException(self::NOT_LOGGED_IN);
@@ -184,10 +184,7 @@ class StoreChainRestController extends AbstractFOSRestController
     /**
      * Returns the list of stores that are part of a given chain.
      *
-     * @Rest\QueryParam(name="pageSize" , description="Count of chains on page", requirements="\d+", default=0, strict=true)
-     * @Rest\QueryParam(name="offset" , description="Offset of items", requirements="\d+", default=0, strict=true)
      * @OA\Tag(name="chain")
-     * @Rest\Get("chains/{chainId}/stores", requirements={"chainId" = "\d+"})
      * @OA\Response(
      * 		response="200",
      * 		description="Success.",
@@ -199,7 +196,10 @@ class StoreChainRestController extends AbstractFOSRestController
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permissions")
      */
-    public function getChainStoresAction(int $chainId, ParamFetcher $paramFetcher): Response
+    #[Rest\QueryParam(name: 'pageSize', description: 'Count of chains on page', requirements: '\d+', default: 0, strict: true)]
+    #[Rest\QueryParam(name: 'offset', description: 'Offset of items', requirements: '\d+', default: 0, strict: true)]
+    #[Rest\Get('chains/{chainId}/stores', requirements: ['chainId' => '\d+'])]
+    public function getChainStores(int $chainId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException(self::NOT_LOGGED_IN);

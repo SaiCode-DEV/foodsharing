@@ -42,9 +42,9 @@ class ApplicationRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="success")
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="404", description="Workgroup does not exist.")
-     * @Rest\Patch("applications/{groupId}/{userId}", requirements={"groupId" = "\d+", "userId" = "\d+"})
      */
-    public function acceptApplicationAction(int $groupId, int $userId): Response
+    #[Rest\Patch('applications/{groupId}/{userId}', requirements: ['groupId' => '\d+', 'userId' => '\d+'])]
+    public function acceptApplication(int $groupId, int $userId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -73,9 +73,9 @@ class ApplicationRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="404", description="Workgroup does not exist.")
-     * @Rest\Delete("applications/{groupId}/{userId}", requirements={"groupId" = "\d+", "userId" = "\d+"})
      */
-    public function declineApplicationAction(int $groupId, int $userId): Response
+    #[Rest\Delete('applications/{groupId}/{userId}', requirements: ['groupId' => '\d+', 'userId' => '\d+'])]
+    public function declineApplication(int $groupId, int $userId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -104,9 +104,9 @@ class ApplicationRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="404", description="Group does not exist.")
-     * @Rest\Get("applications/{groupId}", requirements={"groupId" = "\d+"})
      */
-    public function listApplicationsAction(int $groupId): Response
+    #[Rest\Get('applications/{groupId}', requirements: ['groupId' => '\d+'])]
+    public function listApplications(int $groupId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');

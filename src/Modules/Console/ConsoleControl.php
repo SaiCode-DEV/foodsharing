@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Console;
 
 use Foodsharing\Lib\Db\Mem;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class ConsoleControl
 {
@@ -15,9 +16,7 @@ class ConsoleControl
     {
     }
 
-    /**
-     * @required
-     */
+    #[Required]
     public function setMem(Mem $mem)
     {
         $this->mem = $mem;

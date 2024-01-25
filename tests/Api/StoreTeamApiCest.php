@@ -6,7 +6,7 @@ namespace Tests\Api;
 
 use Codeception\Example;
 use Codeception\Util\HttpCode as Http;
-use Faker;
+use Faker\Factory;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus as STATUS;
 use Tests\Support\ApiTester;
 
@@ -28,7 +28,7 @@ class StoreTeamApiCest
         $this->manager = $I->createStoreCoordinator(null, ['bezirk_id' => $this->region['id']]);
         $this->manager2 = $I->createStoreCoordinator(null, ['bezirk_id' => $this->region['id']]);
         $I->addStoreTeam($this->store['id'], $this->manager['id'], true);
-        $this->faker = Faker\Factory::create('de_DE');
+        $this->faker = Factory::create('de_DE');
     }
 
     public function cannotManageStoreTeamUnlessResponsible(ApiTester $I): void

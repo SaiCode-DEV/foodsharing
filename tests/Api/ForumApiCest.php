@@ -6,7 +6,7 @@ namespace Tests\Api;
 
 use Codeception\Util\HttpCode;
 use Exception;
-use Faker;
+use Faker\Factory;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Tests\Support\ApiTester;
 
@@ -36,7 +36,7 @@ class ForumApiCest
         $I->addRegionAdmin($this->moderatedRegion['id'], $this->ambassador['id']);
         $this->inactiveThread = $I->addForumThread($this->moderatedRegion['id'], $this->user['id'], false, ['active' => false]);
 
-        $this->faker = Faker\Factory::create('de_DE');
+        $this->faker = Factory::create('de_DE');
     }
 
     final public function deleteNonExistingForumPostIs404(ApiTester $I): void

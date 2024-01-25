@@ -38,7 +38,7 @@ class BuddyRestController extends AbstractFOSRestController
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Already send a request to that user.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to send the request.')]
     #[Rest\Put('buddy/{userId}', requirements: ['userId' => "\d+"])]
-    public function sendRequestAction(int $userId): Response
+    public function sendRequest(int $userId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -67,7 +67,7 @@ class BuddyRestController extends AbstractFOSRestController
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to send the request.')]
     #[OA\Tag(name: 'buddy')]
     #[Rest\Delete('buddy/{userId}', requirements: ['userId' => "\d+"])]
-    public function removeRequestAction(int $userId): Response
+    public function removeRequest(int $userId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
