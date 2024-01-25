@@ -21,6 +21,7 @@
 - Updated maintenance page !3052 @chris.walg
 - Bump nelmio/api-doc-bundle to 4.18.1 !3080 @chris.walg
 - Introduced Rector to modernize code !3084 @\_fridtjof_
+- Update backend dependencies !3094 @\_fridtjof_
 
 ## Development documentation
 
