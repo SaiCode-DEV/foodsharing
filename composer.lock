@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "4e4aebcf9cb8e04a69a2135c41138e4b",
+  "content-hash": "d02301e3dfbefb72e35f729cbd08a932",
   "packages": [
     {
       "name": "brick/math",
@@ -11000,16 +11000,16 @@
     },
     {
       "name": "fakerphp/faker",
-      "version": "v1.21.0",
+      "version": "v1.23.1",
       "source": {
         "type": "git",
         "url": "https://github.com/FakerPHP/Faker.git",
-        "reference": "92efad6a967f0b79c499705c69b662f738cc9e4d"
+        "reference": "bfb4fe148adbf78eff521199619b93a52ae3554b"
       },
       "dist": {
         "type": "zip",
-        "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/92efad6a967f0b79c499705c69b662f738cc9e4d",
-        "reference": "92efad6a967f0b79c499705c69b662f738cc9e4d",
+        "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/bfb4fe148adbf78eff521199619b93a52ae3554b",
+        "reference": "bfb4fe148adbf78eff521199619b93a52ae3554b",
         "shasum": ""
       },
       "require": {
@@ -11035,11 +11035,6 @@
         "ext-mbstring": "Required for multibyte Unicode string functionality."
       },
       "type": "library",
-      "extra": {
-        "branch-alias": {
-          "dev-main": "v1.21-dev"
-        }
-      },
       "autoload": {
         "psr-4": {
           "Faker\\": "src/Faker/"
@@ -11062,9 +11057,9 @@
       ],
       "support": {
         "issues": "https://github.com/FakerPHP/Faker/issues",
-        "source": "https://github.com/FakerPHP/Faker/tree/v1.21.0"
+        "source": "https://github.com/FakerPHP/Faker/tree/v1.23.1"
       },
-      "time": "2022-12-13T13:54:32+00:00"
+      "time": "2024-01-02T13:46:09+00:00"
     },
     {
       "name": "friendsofphp/php-cs-fixer",
