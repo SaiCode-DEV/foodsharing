@@ -83,8 +83,8 @@
     "symfony/validator": "5.4.*",
     "symfony/yaml": "5.4.*",
     "tecnickcom/tcpdf": "6.6.*",
-    "twig/intl-extra": "3.7.*",
-    "twig/twig": "3.7.*",
+    "twig/intl-extra": "3.8.*",
+    "twig/twig": "3.8.*",
     "voku/bounce-mail-handler": "6.0.*"
   },
   "autoload": {
