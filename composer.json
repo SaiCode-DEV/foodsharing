@@ -54,7 +54,7 @@
     "doctrine/doctrine-bundle": "^2.11",
     "erusev/parsedown": "1.7.*",
     "exercise/htmlpurifier-bundle": "5.0.*",
-    "friendsofsymfony/rest-bundle": "3.5.*",
+    "friendsofsymfony/rest-bundle": "3.6.*",
     "html2text/html2text": "4.3.*",
     "jms/serializer-bundle": "5.4.*",
     "jsvrcek/ics": "0.8.5",
