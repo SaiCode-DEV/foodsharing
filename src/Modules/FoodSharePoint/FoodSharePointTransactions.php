@@ -38,10 +38,10 @@ class FoodSharePointTransactions
         if ($foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId)) {
             $post = $this->foodSharePointGateway->getLastFoodSharePointPost($foodSharePointId);
             if ($followers = $this->foodSharePointGateway->getEmailFollower($foodSharePointId)) {
-                $body = nl2br($post['body']);
+                $body = nl2br((string)$post['body']);
 
                 if (!empty($post['attach'])) {
-                    $attach = json_decode($post['attach'], true);
+                    $attach = json_decode((string)$post['attach'], true);
                     if (isset($attach['image']) && !empty($attach['image'])) {
                         foreach ($attach['image'] as $img) {
                             $body .= '

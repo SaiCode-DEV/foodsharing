@@ -79,7 +79,7 @@ class CurrentUserApiCest
         usort($items, function ($a, $b) {
             if ($a['isManaging'] == $b['isManaging']) {
                 if ($a['membershipStatus'] == $b['membershipStatus']) {
-                    return strcmp($a['name'], $b['name']);
+                    return strcmp((string)$a['name'], (string)$b['name']);
                 }
                 if ($a['membershipStatus'] < $b['membershipStatus']) {
                     return -1;

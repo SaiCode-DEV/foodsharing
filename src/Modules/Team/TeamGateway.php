@@ -83,9 +83,9 @@ class TeamGateway extends BaseGateway
     public function isABlockedIP(int $durationSeconds, string $context): bool
     {
         if (!isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = strip_tags($_SERVER['REMOTE_ADDR']);
+            $ip = strip_tags((string)$_SERVER['REMOTE_ADDR']);
         } else {
-            $ip = strip_tags($_SERVER['HTTP_X_FORWARDED_FOR']);
+            $ip = strip_tags((string)$_SERVER['HTTP_X_FORWARDED_FOR']);
         }
 
         $context = strip_tags($context);

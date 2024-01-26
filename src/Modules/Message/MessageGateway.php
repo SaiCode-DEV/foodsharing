@@ -291,7 +291,7 @@ final class MessageGateway extends BaseGateway
             );
             $indexedResult = [];
             foreach ($results as $result) {
-                $indexedResult[$result['conversation_id']] = array_map('intval', explode(',', $result['members']));
+                $indexedResult[$result['conversation_id']] = array_map('intval', explode(',', (string)$result['members']));
             }
 
             return $indexedResult;

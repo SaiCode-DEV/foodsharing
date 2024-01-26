@@ -7,7 +7,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LoginService
 {
-    public const ACTIVATION_MAIL_LIMIT_PER_DAY = 3;
+    final public const ACTIVATION_MAIL_LIMIT_PER_DAY = 3;
     private const MAIL_TOKEN_LENGTH_COMPATIBILIY = 24;
 
     private LoginGateway $loginGateway;
@@ -100,7 +100,7 @@ class LoginService
         $token = $this->generateMailActivationToken($tokenData['count']);
         $this->loginGateway->updateMailActivationToken($fsId, $token);
 
-        $activationUrl = BASE_URL . '/?page=login&a=activate&e=' . urlencode($data['email']) . '&t=' . urlencode($token);
+        $activationUrl = BASE_URL . '/?page=login&a=activate&e=' . urlencode((string)$data['email']) . '&t=' . urlencode($token);
 
         $this->emailHelper->tplMail('user/join', $data['email'], [
             'name' => $data['name'],

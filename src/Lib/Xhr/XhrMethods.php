@@ -73,11 +73,11 @@ class XhrMethods
 
                 $attach = false;
                 if (!empty($mail['attach'])) {
-                    $attach = json_decode($mail['attach'], true);
+                    $attach = json_decode((string)$mail['attach'], true);
                 }
 
-                $message = str_replace($search, $replace, $mail['message']);
-                $subject = str_replace($search, $replace, $mail['name']);
+                $message = str_replace($search, $replace, (string)$mail['message']);
+                $subject = str_replace($search, $replace, (string)$mail['name']);
 
                 $check = false;
                 if ($this->emailHelper->libmail($mailbox, $fs['email'], $subject, $message, $attach, $fs['token'])) {
@@ -114,7 +114,7 @@ class XhrMethods
             return;
         }
 
-        $data['name'] = strip_tags($data['name']);
+        $data['name'] = strip_tags((string)$data['name']);
         $data['name'] = str_replace(['/', '"', "'", '.', ';'], '', $data['name']);
         $data['has_children'] = 0;
         $data['email_pass'] = '';
@@ -471,12 +471,12 @@ class XhrMethods
 
         $oldRegionData = $this->groupGateway->getGroupLegacy($regionId);
 
-        if (strlen($g_data['mailbox_name']) > 1) {
+        if (strlen((string)$g_data['mailbox_name']) > 1) {
             try {
                 $mbid = (int)$this->database->fetchValue('SELECT mailbox_id FROM fs_bezirk WHERE id = ?', [$regionId]);
-                $this->database->update('fs_mailbox', ['name' => strip_tags($g_data['mailbox_name'])], ['id' => $mbid]);
+                $this->database->update('fs_mailbox', ['name' => strip_tags((string)$g_data['mailbox_name'])], ['id' => $mbid]);
             } catch (DatabaseNoValueFoundException) {
-                $mbid = $this->database->insert('fs_mailbox', ['name' => strip_tags($g_data['mailbox_name'])]);
+                $mbid = $this->database->insert('fs_mailbox', ['name' => strip_tags((string)$g_data['mailbox_name'])]);
                 $this->database->update('fs_bezirk', ['mailbox_id' => $mbid], ['id' => $regionId]);
             }
         }

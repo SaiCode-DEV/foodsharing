@@ -108,7 +108,7 @@ class EmailView extends View
 				<div id="' . $id . '-comment">'
                     . $this->v_utils->v_input_wrapper($this->translator->trans('recipients.recipients'), '<div' . $style . '>' . implode(', ', $recipients) . '</div>')
                     . $this->v_utils->v_input_wrapper($this->translator->trans('mailbox.subject'), $mail['name'])
-                    . $this->v_utils->v_input_wrapper($this->translator->trans('recipients.body'), nl2br($mail['message'])) . '
+                    . $this->v_utils->v_input_wrapper($this->translator->trans('recipients.body'), nl2br((string)$mail['message'])) . '
 
 				</div>
 				<a id="' . $id . '-continue" href="#">' . $this->translator->trans('recipients.continue') . '</a> '
@@ -160,11 +160,11 @@ class EmailView extends View
             $out .= '
 		<li>
 			<a href="#" onclick="$(\'#right-' . $i . '\').dialog(\'open\'); return false;">'
-                . date('d.m.', strtotime($m['zeit'])) . ' ' . $m['name']
+                . date('d.m.', strtotime((string)$m['zeit'])) . ' ' . $m['name']
             . '</a>
 		</li>';
 
-            $divs .= '<div id="right-' . $i . '" style="display: none;">' . nl2br($m['message']) . '</div>';
+            $divs .= '<div id="right-' . $i . '" style="display: none;">' . nl2br((string)$m['message']) . '</div>';
             $this->pageHelper->addJs(
                 '$("#right-' . $i . '").dialog({autoOpen: false, title: "'
                 . $this->sanitizerService->jsSafe($m['name'], '"')

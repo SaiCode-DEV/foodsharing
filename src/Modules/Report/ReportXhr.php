@@ -44,7 +44,7 @@ class ReportXhr extends Control
     public function loadReport(): ?array
     {
         if ($this->reportPermissions->mayHandleReports() && $report = $this->reportGateway->getReport($_GET['id'])) {
-            $reason = explode('=>', $report['tvalue']);
+            $reason = explode('=>', (string)$report['tvalue']);
 
             $dialog = new XhrDialog();
             $dialog->setTitle($this->translator->trans('profile.report.xhr.reporting') . ' ' . $report['fs_name'] . ' ' . $report['fs_nachname']);
@@ -53,7 +53,7 @@ class ReportXhr extends Control
             $content .= $this->v_utils->v_input_wrapper($this->translator->trans('reports.time'), $this->timeHelper->niceDate($report['time_ts']));
 
             if (isset($report['betrieb'])) {
-                $content .= $this->v_utils->v_input_wrapper($this->translator->trans('reports.store'), '<a href="/?page=fsbetrieb&id=' . $report['betrieb']['id'] . '">' . htmlspecialchars($report['betrieb']['name']) . '</a>');
+                $content .= $this->v_utils->v_input_wrapper($this->translator->trans('reports.store'), '<a href="/?page=fsbetrieb&id=' . $report['betrieb']['id'] . '">' . htmlspecialchars((string)$report['betrieb']['name']) . '</a>');
             }
 
             if (\is_array($reason)) {

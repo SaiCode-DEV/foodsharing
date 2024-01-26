@@ -37,7 +37,7 @@ class Session
 
     private array $roleKeysInverse;
 
-    public const DEFAULT_LOCALE = 'de';
+    final public const DEFAULT_LOCALE = 'de';
 
     private const DEFAULT_NORMAL_SESSION_TIMESPAN = '24 hours';
 
@@ -113,7 +113,7 @@ class Session
 
         $cookieExpires = $this->isPersistent() ? strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN) : 0;
         if (!isset($_COOKIE['CSRF_TOKEN']) || !$_COOKIE['CSRF_TOKEN'] || !$this->isValidCsrfToken('cookie', $_COOKIE['CSRF_TOKEN'])) {
-            setcookie('CSRF_TOKEN', $this->generateCrsfToken('cookie'), ['expires' => $cookieExpires, 'path' => '/']);
+            setcookie('CSRF_TOKEN', (string)$this->generateCrsfToken('cookie'), ['expires' => $cookieExpires, 'path' => '/']);
         }
     }
 
@@ -550,7 +550,7 @@ class Session
             $session_last_activity = date('Y-m-d');
         }
 
-        $last_activity = date('Y-m-d', strtotime($session_last_activity));
+        $last_activity = date('Y-m-d', strtotime((string)$session_last_activity));
         $today = date('Y-m-d');
 
         if ($this->isPersistent() && $today != $last_activity) {

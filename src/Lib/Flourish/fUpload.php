@@ -32,7 +32,7 @@ namespace Flourish;
 class fUpload
 {
 	// The following constants allow for nice looking callbacks to static methods
-	public const check = 'fUpload::check';
+	final public const check = 'fUpload::check';
 
 	/**
 	 * Checks to see if the field specified is a valid file upload field.
@@ -56,7 +56,7 @@ class fUpload
 			return false;
 		}
 
-		if (isset($_POST[$field]) && (!isset($_SERVER['CONTENT_TYPE']) || stripos($_SERVER['CONTENT_TYPE'], 'multipart/form-data') === false)) {
+		if (isset($_POST[$field]) && (!isset($_SERVER['CONTENT_TYPE']) || stripos((string) $_SERVER['CONTENT_TYPE'], 'multipart/form-data') === false)) {
 			if ($throw_exception) {
 				throw new fValidationException(
 					'Missing enctype="multipart/form-data" attribute in form tag'
@@ -257,11 +257,11 @@ class fUpload
 		}
 
 		$file_info = fFilesystem::getPathInfo($file_array['name']);
-		if (in_array(strtolower($file_info['extension']), ['php', 'php4', 'php5'])) {
+		if (in_array(strtolower((string) $file_info['extension']), ['php', 'php4', 'php5'])) {
 			return self::compose('The file uploaded is a PHP file, but those are not permitted');
 		}
 
-		if (str_starts_with($file_array['name'], '.')) {
+		if (str_starts_with((string) $file_array['name'], '.')) {
 			return self::compose('The name of the uploaded file may not being with a .');
 		}
 	}

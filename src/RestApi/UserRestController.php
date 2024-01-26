@@ -363,13 +363,13 @@ class UserRestController extends FoodsharingRestController
     {
         // validate data
         $data = new RegisterData();
-        $data->firstName = trim(strip_tags($paramFetcher->get('firstname')));
-        $data->lastName = trim(strip_tags($paramFetcher->get('lastname')));
+        $data->firstName = trim(strip_tags((string)$paramFetcher->get('firstname')));
+        $data->lastName = trim(strip_tags((string)$paramFetcher->get('lastname')));
         if (empty($data->firstName) || empty($data->lastName)) {
             throw new BadRequestHttpException('names must not be empty');
         }
 
-        $data->email = trim($paramFetcher->get('email'));
+        $data->email = trim((string)$paramFetcher->get('email'));
         if (
             empty($data->email) || !$this->emailHelper->validEmail($data->email)
             || !$this->isEmailValidForRegistration($data->email)
@@ -378,7 +378,7 @@ class UserRestController extends FoodsharingRestController
             throw new BadRequestHttpException('email is not valid or already used');
         }
 
-        $data->password = trim($paramFetcher->get('password'));
+        $data->password = trim((string)$paramFetcher->get('password'));
         if (strlen($data->password) < self::MIN_PASSWORD_LENGTH) {
             throw new BadRequestHttpException('password is too short');
         }
@@ -434,7 +434,7 @@ class UserRestController extends FoodsharingRestController
             throw new AccessDeniedHttpException();
         }
 
-        $reason = trim($paramFetcher->get('reason'));
+        $reason = trim((string)$paramFetcher->get('reason'));
         if (strlen($reason) > self::DELETE_USER_MAX_REASON_LEN) {
             throw new BadRequestHttpException('reason text is too long: must be at most ' . self::DELETE_USER_MAX_REASON_LEN . ' characters');
         }
@@ -483,7 +483,7 @@ class UserRestController extends FoodsharingRestController
         }
 
         // check length of message
-        $message = trim($paramFetcher->get('message'));
+        $message = trim((string)$paramFetcher->get('message'));
         if (strlen($message) < self::MIN_RATING_MESSAGE_LENGTH) {
             throw new BadRequestHttpException('text too short: ' . strlen($message) . ' < ' . self::MIN_RATING_MESSAGE_LENGTH);
         }
@@ -540,7 +540,7 @@ class UserRestController extends FoodsharingRestController
         }
 
         // check if the photo exists and was uploaded by this user
-        $uuid = trim($paramFetcher->get('uuid'));
+        $uuid = trim((string)$paramFetcher->get('uuid'));
         try {
             if ($this->uploadsGateway->getUser($uuid) !== $userId) {
                 throw new AccessDeniedHttpException();

@@ -257,7 +257,7 @@ class WorkGroupGateway extends BaseGateway
             ['id' => $fsId]
         );
         if ($ret) {
-            $time = strtotime($ret['anmeldedatum']);
+            $time = strtotime((string)$ret['anmeldedatum']);
             // 604800 = seconds per week
             $weeks = (int)round((time() - $time) / 604800);
 

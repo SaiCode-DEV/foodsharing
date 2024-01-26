@@ -43,7 +43,7 @@ class TimezoneIsEuropeBerlinCest
 
         $I->seeFormattedDateInRange($min_time, $max_time, 'Y-m-d H:i:s', $time);
 
-        $time_hm = substr(explode(' ', $time)[1], 0, 5);
+        $time_hm = substr(explode(' ', (string)$time)[1], 0, 5);
 
         $I->amOnPage('/essenskoerbe/' . $id);
         $I->see($time_hm . ' Uhr');

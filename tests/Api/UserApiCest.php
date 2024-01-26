@@ -457,8 +457,8 @@ class UserApiCest
     private function createRandomText(int $minLength, int $maxLength): string
     {
         $text = $this->faker->text($maxLength);
-        while (strlen($text) < $minLength) {
-            $text .= ' ' . $this->faker->text(($maxLength + $minLength) / 2 - strlen($text));
+        while (strlen((string)$text) < $minLength) {
+            $text .= ' ' . $this->faker->text(($maxLength + $minLength) / 2 - strlen((string)$text));
         }
 
         return $text;

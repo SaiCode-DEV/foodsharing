@@ -8,7 +8,7 @@ use Tests\Support\AcceptanceTester;
 
 function convertRegionName($name): array|string|null
 {
-    $name = strtolower($name);
+    $name = strtolower((string)$name);
 
     $name = str_replace(['ä', 'ö', 'ü', 'ß'], ['ae', 'oe', 'ue', 'ss'], $name);
     $name = preg_replace('/[^a-zA-Z]/', '', $name);

@@ -52,10 +52,10 @@ class TeamXhr extends Control
                     $mail->setFrom(DEFAULT_EMAIL);
                 }
 
-                $senderName = strip_tags($_POST['name']);
+                $senderName = strip_tags((string)$_POST['name']);
 
                 $msg = $this->translator->trans('team.name') . ': ' . $senderName . "\n";
-                $msg .= $this->translator->trans('team.email') . ': ' . strip_tags($_POST['email']) . "\n\n";
+                $msg .= $this->translator->trans('team.email') . ': ' . strip_tags((string)$_POST['email']) . "\n\n";
                 $msg .= $_POST['message'];
 
                 $mail->setBody($msg);

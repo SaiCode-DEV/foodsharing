@@ -46,7 +46,7 @@ class AsyncMail
 
     public function setSubject($subject)
     {
-        $subject = str_replace(['\n'], ' ', $subject);
+        $subject = str_replace(['\n'], ' ', (string)$subject);
         $this->data['subject'] = $subject;
     }
 
@@ -58,7 +58,7 @@ class AsyncMail
     public function addAttachment($file, $name = null)
     {
         if ($name == null) {
-            $name = explode('/', $file);
+            $name = explode('/', (string)$file);
             $name = end($name);
         }
 

@@ -46,7 +46,7 @@ return static function (RectorConfig $rectorConfig): void {
         JMSSetList::ANNOTATIONS_TO_ATTRIBUTES,
         SensiolabsSetList::ANNOTATIONS_TO_ATTRIBUTES,
 
-        LevelSetList::UP_TO_PHP_80,
+        LevelSetList::UP_TO_PHP_81,
     ]);
 
     // skip promoting properties until PHP_CS_Fixer can format them on multiple lines
@@ -55,5 +55,6 @@ return static function (RectorConfig $rectorConfig): void {
     // https://github.com/kubawerlos/php-cs-fixer-custom-fixers#multilinepromotedpropertiesfixer
     $rectorConfig->skip([
         ClassPropertyAssignToConstructorPromotionRector::class,
+        Rector\Php81\Rector\Property\ReadOnlyPropertyRector::class,
     ]);
 };

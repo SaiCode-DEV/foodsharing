@@ -11,6 +11,6 @@ namespace Foodsharing\Modules\Core\DBConstants\FoodSharePoint;
  */
 class FollowerType
 {
-    public const FOLLOWER = 1;
-    public const FOOD_SHARE_POINT_MANAGER = 2;
+    final public const FOLLOWER = 1;
+    final public const FOOD_SHARE_POINT_MANAGER = 2;
 }

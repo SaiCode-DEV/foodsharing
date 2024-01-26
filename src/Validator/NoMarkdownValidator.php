@@ -34,7 +34,7 @@ class NoMarkdownValidator extends ConstraintValidator
         }
         $escapedHtmlValue = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
         $escapedValue = $this->parseDown->text($escapedHtmlValue);
-        $escapedValueSkipedContainer = substr($escapedValue, strlen('<p>'), strlen($escapedValue) - (strlen('<p>') + strlen('</p>')));
+        $escapedValueSkipedContainer = substr((string)$escapedValue, strlen('<p>'), strlen((string)$escapedValue) - (strlen('<p>') + strlen('</p>')));
         if ($escapedValueSkipedContainer != $escapedHtmlValue) {
             // the argument must be a string or an object implementing __toString()
             $this->context->buildViolation($constraint->message)

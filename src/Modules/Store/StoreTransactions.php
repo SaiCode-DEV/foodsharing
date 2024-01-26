@@ -43,7 +43,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class StoreTransactions
 {
-    public const DEFAULT_USER_SHOWN_STORE_COOPERATION_STATE = [
+    final public const DEFAULT_USER_SHOWN_STORE_COOPERATION_STATE = [
         CooperationStatus::UNCLEAR,
         CooperationStatus::NO_CONTACT,
         CooperationStatus::IN_NEGOTIATION,
@@ -51,7 +51,7 @@ class StoreTransactions
         CooperationStatus::COOPERATION_ESTABLISHED
     ];
 
-    public const MAX_SLOTS_PER_PICKUP = 10;
+    final public const MAX_SLOTS_PER_PICKUP = 10;
     // status constants for getAvailablePickupStatus
     private const STATUS_RED_TODAY_TOMORROW = 3;
     private const STATUS_ORANGE_3_DAYS = 2;
@@ -523,7 +523,7 @@ class StoreTransactions
             throw new PickupValidationException(PickupValidationException::SLOT_COUNT_OUT_OF_RANGE);
         }
 
-        if (!is_null($pickup->description) && mb_strlen($pickup->description) > self::MAX_PICKUP_DESCRIPTION_LENGTH) {
+        if (!is_null($pickup->description) && mb_strlen((string)$pickup->description) > self::MAX_PICKUP_DESCRIPTION_LENGTH) {
             throw new PickupValidationException(PickupValidationException::DESCRIPTION_OVERSIZED);
         }
 

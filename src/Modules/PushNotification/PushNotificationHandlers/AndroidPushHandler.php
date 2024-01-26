@@ -141,11 +141,11 @@ class AndroidPushHandler implements PushNotificationHandlerInterface
 
         if ($notification instanceof MessagePushNotification) {
             $body = $payload['m']->body;
-            $body = substr($body, 0, strlen($body) - $overlappingChars - 3);
+            $body = substr((string)$body, 0, strlen((string)$body) - $overlappingChars - 3);
             $body .= '...';
             $payload['m']->body = $body;
         } else {
-            $payload['b'] = substr($payload['b'], 0, strlen($payload['b']) - $overlappingChars - 3);
+            $payload['b'] = substr((string)$payload['b'], 0, strlen((string)$payload['b']) - $overlappingChars - 3);
             $payload['b'] .= '...';
         }
 

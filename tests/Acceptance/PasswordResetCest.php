@@ -35,7 +35,7 @@ class PasswordResetCest
         $I->assertEquals($mail->headers->to, $user['email'], 'correct recipient');
 
         $I->assertRegExp('/http:\/\/.*passwordReset.*&amp;k=[a-f0-9]+/', $mail->html, 'mail should contain a link');
-        preg_match('/http:\/\/.*?\/(.*?)"/', $mail->html, $matches);
+        preg_match('/http:\/\/.*?\/(.*?)"/', (string)$mail->html, $matches);
         $link = $matches[1];
 
         // there was a strange %20-whitespace appended to the link in the template.
@@ -63,6 +63,6 @@ class PasswordResetCest
 
         // new hash is valid
         $newHash = $I->grabFromDatabase('fs_foodsaver', 'password', ['email' => $user['email']]);
-        $I->assertTrue(password_verify($newPass, $newHash));
+        $I->assertTrue(password_verify($newPass, (string)$newHash));
     }
 }

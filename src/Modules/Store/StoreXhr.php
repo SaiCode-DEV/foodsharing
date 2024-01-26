@@ -43,7 +43,7 @@ class StoreXhr extends Control
             return XhrResponses::PERMISSION_DENIED;
         }
 
-        if (strtotime($_GET['time']) == false) {
+        if (strtotime((string)$_GET['time']) == false) {
             return;
         }
         $date = Carbon::createFromTimeString($_GET['time']);

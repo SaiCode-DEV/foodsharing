@@ -248,7 +248,7 @@ class Database
         }
 
         $columns = array_map(
-            [$this, 'getQuotedName'],
+            $this->getQuotedName(...),
             array_keys($data)
         );
 
@@ -308,7 +308,7 @@ class Database
         }
         $keys = array_keys($keys);
         $columns = array_map(
-            [$this, 'getQuotedName'],
+            $this->getQuotedName(...),
             $keys
         );
 
@@ -675,7 +675,7 @@ class Database
             $column_query = '*';
         } elseif (is_array($column_names)) {
             $column_query = implode(', ', array_map(
-                [$this, 'getQuotedName'],
+                $this->getQuotedName(...),
                 $column_names
             ));
         } else {
@@ -759,7 +759,7 @@ class Database
 
                 $hasOperand = true;
                 $k = str_ireplace(" $operand", '', $k);
-                $operand = strtoupper($operand);
+                $operand = strtoupper((string)$operand);
                 $params[] = $this->getQuotedName($k) . " $operand ? ";
                 break;
             }

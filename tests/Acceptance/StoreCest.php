@@ -428,7 +428,7 @@ class StoreCest
 
     public function canAccessStoreLog(AcceptanceTester $I)
     {
-        call_user_func([$this, 'loginAs'], $I, 'StoreManager');
+        call_user_func($this->loginAs(...), $I, 'StoreManager');
         $I->amOnPage($I->storeUrl($this->store['id']));
         $I->waitForActiveAPICalls();
 

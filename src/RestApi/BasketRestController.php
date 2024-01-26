@@ -150,7 +150,7 @@ final class BasketRestController extends AbstractFOSRestController
     {
         $basket = [
             self::ID => (int)$basketData[self::ID],
-            self::DESCRIPTION => html_entity_decode($basketData[self::DESCRIPTION]),
+            self::DESCRIPTION => html_entity_decode((string)$basketData[self::DESCRIPTION]),
             self::PICTURE => $basketData[self::PICTURE],
             self::CREATED_AT => (int)$basketData[self::TIME_TS],
             self::UPDATED_AT => (int)$basketData[self::TIME_TS],
@@ -221,9 +221,9 @@ final class BasketRestController extends AbstractFOSRestController
         $basket = [
             self::ID => (int)$basketData[self::ID],
             self::STATUS => (int)$basketData[self::STATUS],
-            self::DESCRIPTION => html_entity_decode($basketData[self::DESCRIPTION]),
+            self::DESCRIPTION => html_entity_decode((string)$basketData[self::DESCRIPTION]),
             self::PICTURE => $basketData[self::PICTURE],
-            self::CONTACT_TYPES => array_map('\intval', explode(':', $basketData['contact_type'])),
+            self::CONTACT_TYPES => array_map('\intval', explode(':', (string)$basketData['contact_type'])),
             self::CREATED_AT => (int)$basketData[self::TIME_TS],
             self::UPDATED_AT => (int)$basketData[self::TIME_TS],
             'until' => (int)$basketData['until_ts'],
@@ -374,7 +374,7 @@ final class BasketRestController extends AbstractFOSRestController
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
         }
 
-        $message = trim(strip_tags($paramFetcher->get('message')));
+        $message = trim(strip_tags((string)$paramFetcher->get('message')));
 
         if (empty($message)) {
             throw new BadRequestHttpException('The request message should not be empty.');

@@ -31,13 +31,13 @@ class FoodSharePointCest
         $I->amOnPage($I->foodSharePointRegionListUrl($this->testBezirk['id']));
         $I->waitForText($this->foodSharePoint['name']);
         $I->click($this->foodSharePoint['name']);
-        $I->waitForText(explode("\n", $this->foodSharePoint['anschrift'])[0]);
+        $I->waitForText(explode("\n", (string)$this->foodSharePoint['anschrift'])[0]);
     }
 
     public function redirectForGetPage(AcceptanceTester $I): void
     {
         $I->amOnPage($I->foodSharePointGetUrlShort($this->foodSharePoint['id']));
-        $I->waitForText(explode("\n", $this->foodSharePoint['anschrift'])[0]);
+        $I->waitForText(explode("\n", (string)$this->foodSharePoint['anschrift'])[0]);
         $I->seeCurrentUrlEquals($I->foodSharePointGetUrl($this->foodSharePoint['id']));
     }
 

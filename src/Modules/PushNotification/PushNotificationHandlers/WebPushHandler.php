@@ -132,7 +132,7 @@ class WebPushHandler implements PushNotificationHandlerInterface
         }
 
         // only cut the body, I assume that the rest is not the critical factor
-        $payload['options']['body'] = substr($payload['options']['body'], 0, strlen($payload['options']['body']) - $overlappingChars - 3);
+        $payload['options']['body'] = substr((string)$payload['options']['body'], 0, strlen((string)$payload['options']['body']) - $overlappingChars - 3);
         $payload['options']['body'] .= '...';
 
         return $payload;

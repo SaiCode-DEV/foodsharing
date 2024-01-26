@@ -6,12 +6,12 @@ namespace Foodsharing\Modules\Core\DBConstants\Store;
 
 class Milestone
 {
-    public const NONE = 0; // regular user wallpost / comment
-    public const CREATED = 1;
-    public const ACCEPTED = 2;
-    public const STATUS_CHANGED = 3; // this is no longer generated
+    final public const NONE = 0; // regular user wallpost / comment
+    final public const CREATED = 1;
+    final public const ACCEPTED = 2;
+    final public const STATUS_CHANGED = 3; // this is no longer generated
     // ancient or unused = 4;
-    public const DROPPED = 5; // this is no longer generated
+    final public const DROPPED = 5; // this is no longer generated
 
     public static function isStoreMilestone(int $value): bool
     {

@@ -100,7 +100,7 @@ final class ImageHelper
 
         // prevent path traversal
         if (!empty($file)) {
-            $file = preg_replace('/%/', '', $file) ?? ''; // Destroys url encoded path elements to load images from other position
+            $file = preg_replace('/%/', '', (string)$file) ?? ''; // Destroys url encoded path elements to load images from other position
             $file = preg_replace('/\.+/', '.', $file) ?? ''; // Destroys url path navigation like /../../
         }
 

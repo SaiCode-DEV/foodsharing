@@ -64,11 +64,11 @@ class WallPostXhr extends Control
             return XhrResponses::PERMISSION_DENIED;
         }
 
-        $message = strip_tags($_POST['text']);
+        $message = strip_tags((string)$_POST['text']);
         if (!(empty($message) && empty($_POST['attach']))) {
             $attach = null;
             if (!empty($_POST['attach'])) {
-                $parts = explode(':', $_POST['attach']);
+                $parts = explode(':', (string)$_POST['attach']);
                 $attach = null;
                 foreach ($parts as $p) {
                     $file = explode('-', $p);
@@ -106,7 +106,7 @@ class WallPostXhr extends Control
         if (isset($_FILES['etattach']['size']) && $_FILES['etattach']['size'] < 9_136_365 && $this->attach_allow($_FILES['etattach']['name'])) {
             $new_filename = uniqid('', true);
 
-            $ext = strtolower($_FILES['etattach']['name']);
+            $ext = strtolower((string)$_FILES['etattach']['name']);
             $ext = explode('.', $ext);
             if (count($ext) > 1) {
                 $ext = end($ext);

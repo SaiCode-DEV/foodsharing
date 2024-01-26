@@ -31,8 +31,8 @@ namespace Flourish;
 class fDirectory implements \Stringable
 {
 	// The following constants allow for nice looking callbacks to static methods
-	public const create = 'fDirectory::create';
-	public const makeCanonical = 'fDirectory::makeCanonical';
+	final public const create = 'fDirectory::create';
+	final public const makeCanonical = 'fDirectory::makeCanonical';
 
 	/**
 	 * Creates a directory on the filesystem and returns an object representing it.
@@ -468,7 +468,7 @@ class fDirectory implements \Stringable
 		foreach ($files as $file) {
 			if ($filter) {
 				$test_path = (is_dir($this->directory . $file)) ? $file . '/' : $file;
-				if (!preg_match($filter, $test_path)) {
+				if (!preg_match($filter, (string) $test_path)) {
 					continue;
 				}
 			}
@@ -509,7 +509,7 @@ class fDirectory implements \Stringable
 			$new_objects = [];
 			$strip_length = strlen($this->getPath());
 			foreach ($objects as $object) {
-				$test_path = substr($object->getPath(), $strip_length);
+				$test_path = substr((string) $object->getPath(), $strip_length);
 				$test_path = str_replace(DIRECTORY_SEPARATOR, '/', $test_path);
 				if (!preg_match($filter, $test_path)) {
 					continue;

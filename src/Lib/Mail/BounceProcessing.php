@@ -21,7 +21,7 @@ class BounceProcessing
 
     public function process()
     {
-        $this->bounceMailHandler->actionFunction = [$this, 'handleBounce'];
+        $this->bounceMailHandler->actionFunction = $this->handleBounce(...);
         $this->bounceMailHandler->openMailbox();
         $this->bounceMailHandler->processMailbox();
         /* catch errors/notices that would otherwise fall through */

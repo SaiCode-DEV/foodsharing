@@ -18,7 +18,7 @@ class UriHelper
     private function uri($index)
     {
         if (isset($_GET['uri'])) {
-            $uri = explode('/', $_SERVER['REQUEST_URI']);
+            $uri = explode('/', (string)$_SERVER['REQUEST_URI']);
             if (isset($uri[$index])) {
                 return $uri[$index];
             }

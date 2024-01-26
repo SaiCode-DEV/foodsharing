@@ -202,7 +202,7 @@ class StoreView extends View
             ]) . '</div>';
         }
 
-        $when = strtotime($store['begin']);
+        $when = strtotime((string)$store['begin']);
         if ($when > 0) {
             $startTime = $this->translator->trans('month.' . intval(date('m', $when))) . ' ' . date('Y', $when);
             $count_info .= '<div>' . $this->translator->trans('storeview.cooperation', [

@@ -407,7 +407,7 @@ class SettingsControl extends Control
             $check = true;
 
             if (!empty($data['homepage'])) {
-                if (!str_starts_with($data['homepage'], 'http')) {
+                if (!str_starts_with((string)$data['homepage'], 'http')) {
                     $data['homepage'] = 'http://' . $data['homepage'];
                 }
 

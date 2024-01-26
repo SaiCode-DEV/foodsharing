@@ -462,7 +462,7 @@ class SettingsView extends View
     {
         $out = '';
 
-        $out .= nl2br($quiz['desc']);
+        $out .= nl2br((string)$quiz['desc']);
 
         if ($quiz['id'] == 1) {
             $out .= '<p><a onclick="ajreq(\'startquiz\',{app:\'quiz\',qid:' . (int)$quiz['id'] . '});" href="#" class="button button-big">' . $this->translator->trans('quiz.timedstart') . '</a></p>';
@@ -487,7 +487,7 @@ class SettingsView extends View
         // find previous picture
         $initialValue = 'img/portrait.png';
         if (!empty($photo)) {
-            if (str_starts_with($photo, '/api/uploads/')) {
+            if (str_starts_with((string)$photo, '/api/uploads/')) {
                 // path for pictures uploaded with the new API
                 $initialValue = $photo . '?w=200&h=257';
             } elseif (file_exists('images/thumb_crop_' . $photo)) {

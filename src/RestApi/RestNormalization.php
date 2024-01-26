@@ -131,7 +131,7 @@ class RestNormalization
                 'fax' => $data['fax'],
                 'email' => $data['email'],
                 'contactPerson' => $data['ansprechpartner'],
-                'updatedAt' => self::normalizeDate(strtotime($data['status_date'])),
+                'updatedAt' => self::normalizeDate(strtotime((string)$data['status_date'])),
                 'notes' => [],
             ]);
 
@@ -169,7 +169,7 @@ class RestNormalization
             'foodsaverId' => (int)$data['foodsaver_id'],
             'text' => $data['text'],
             'author' => self::normalizeUser($data, '', 'foodsaver_'),
-            'createdAt' => self::normalizeDate(strtotime($data['zeit'])),
+            'createdAt' => self::normalizeDate(strtotime((string)$data['zeit'])),
         ];
     }
 }

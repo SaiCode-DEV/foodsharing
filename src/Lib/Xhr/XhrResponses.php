@@ -4,7 +4,7 @@ namespace Foodsharing\Lib\Xhr;
 
 class XhrResponses
 {
-    public const PERMISSION_DENIED = 'permission_denied';
+    final public const PERMISSION_DENIED = 'permission_denied';
 
     public function fail_permissions()
     {

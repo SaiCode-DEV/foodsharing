@@ -9,7 +9,7 @@ namespace Foodsharing\Modules\Core\DBConstants\Quiz;
  */
 class AnswerRating
 {
-    public const WRONG = 0;
-    public const CORRECT = 1;
-    public const NEUTRAL = 2;
+    final public const WRONG = 0;
+    final public const CORRECT = 1;
+    final public const NEUTRAL = 2;
 }

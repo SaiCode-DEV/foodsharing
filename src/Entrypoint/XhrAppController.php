@@ -40,8 +40,8 @@ class XhrAppController extends AbstractController
             return new Response(null, Response::HTTP_BAD_REQUEST);
         }
 
-        $app = str_replace('/', '', $_GET['app']);
-        $meth = str_replace('/', '', $_GET['m']);
+        $app = str_replace('/', '', (string)$_GET['app']);
+        $meth = str_replace('/', '', (string)$_GET['m']);
 
         $session->initIfCookieExists();
 

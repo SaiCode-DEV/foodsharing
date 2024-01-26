@@ -29,18 +29,18 @@ namespace Flourish;
 class fTimestamp implements \Stringable
 {
 	// The following constants allow for nice looking callbacks to static methods
-	public const callFormatCallback = 'fTimestamp::callFormatCallback';
-	public const callUnformatCallback = 'fTimestamp::callUnformatCallback';
-	public const combine = 'fTimestamp::combine';
-	public const defineFormat = 'fTimestamp::defineFormat';
-	public const fixISOWeek = 'fTimestamp::fixISOWeek';
-	public const getDefaultTimezone = 'fTimestamp::getDefaultTimezone';
-	public const isValidTimezone = 'fTimestamp::isValidTimezone';
-	public const registerFormatCallback = 'fTimestamp::registerFormatCallback';
-	public const registerUnformatCallback = 'fTimestamp::registerUnformatCallback';
-	public const reset = 'fTimestamp::reset';
-	public const setDefaultTimezone = 'fTimestamp::setDefaultTimezone';
-	public const translateFormat = 'fTimestamp::translateFormat';
+	final public const callFormatCallback = 'fTimestamp::callFormatCallback';
+	final public const callUnformatCallback = 'fTimestamp::callUnformatCallback';
+	final public const combine = 'fTimestamp::combine';
+	final public const defineFormat = 'fTimestamp::defineFormat';
+	final public const fixISOWeek = 'fTimestamp::fixISOWeek';
+	final public const getDefaultTimezone = 'fTimestamp::getDefaultTimezone';
+	final public const isValidTimezone = 'fTimestamp::isValidTimezone';
+	final public const registerFormatCallback = 'fTimestamp::registerFormatCallback';
+	final public const registerUnformatCallback = 'fTimestamp::registerUnformatCallback';
+	final public const reset = 'fTimestamp::reset';
+	final public const setDefaultTimezone = 'fTimestamp::setDefaultTimezone';
+	final public const translateFormat = 'fTimestamp::translateFormat';
 
 	/**
 	 * Pre-defined formatting styles.

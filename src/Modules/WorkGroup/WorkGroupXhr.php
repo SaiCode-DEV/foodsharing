@@ -78,7 +78,7 @@ class WorkGroupXhr extends Control
         }
 
         $output = [];
-        parse_str($_GET['f'], $output);
+        parse_str((string)$_GET['f'], $output);
         if (empty($output)) {
             return $this->responses->fail_generic();
         }
@@ -126,7 +126,7 @@ class WorkGroupXhr extends Control
         return [
             'status' => 1,
             'script' => 'pulseInfo("' . $this->translator->trans('group.apply.sent') . '");'
-                . '$("#' . preg_replace('/[^a-z0-9\-]/', '', $_GET['d']) . '").dialog("close");',
+                . '$("#' . preg_replace('/[^a-z0-9\-]/', '', (string)$_GET['d']) . '").dialog("close");',
         ];
     }
 

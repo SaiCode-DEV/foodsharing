@@ -13,39 +13,39 @@ use UnexpectedValueException;
 class UnitType
 {
     /* Undefined variable */
-    public const UNDEFINED = 0;
+    final public const UNDEFINED = 0;
 
     /* fourth layer or lower */
-    public const CITY = 1; // default
+    final public const CITY = 1; // default
     /**
      * fourth layer or lower
      * political region.
      */
-    public const DISTRICT = 2;
+    final public const DISTRICT = 2;
     /**
      * fourth layer or lower
      * geographical region.
      */
-    public const REGION = 3;
+    final public const REGION = 3;
     /**
      * third layer
      * no application (direct member access) possible.
      */
-    public const FEDERAL_STATE = 5;
+    final public const FEDERAL_STATE = 5;
     /**
      * second layer
      * no application (direct member access) possible.
      */
-    public const COUNTRY = 6;
+    final public const COUNTRY = 6;
     /* not actually a region and treated differently */
-    public const WORKING_GROUP = 7;
+    final public const WORKING_GROUP = 7;
     /**
      * fourth layer or lower
      * no application (direct member access) possible.
      */
-    public const BIG_CITY = 8;
+    final public const BIG_CITY = 8;
     /* fifth layer or lower */
-    public const PART_OF_TOWN = 9;
+    final public const PART_OF_TOWN = 9;
 
     public static function isGroup(int $type): bool
     {

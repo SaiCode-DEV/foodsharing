@@ -34,7 +34,7 @@ $I->assertEquals($I->getMails()[0]->headers->to, $user['email'], 'correct recipi
 $mail = $I->getMails()[1];
 $I->assertEquals($mail->headers->to, $newmail, 'correct recipient');
 $I->assertRegExp('/http:\/\/.*&amp;newmail=[a-f0-9]+/', $mail->html, 'mail should contain a link');
-preg_match('/http:\/\/.*?(\/.*?)"/', $mail->html, $matches);
+preg_match('/http:\/\/.*?(\/.*?)"/', (string)$mail->html, $matches);
 $link = $matches[1];
 
 // open link, fill in password and submit

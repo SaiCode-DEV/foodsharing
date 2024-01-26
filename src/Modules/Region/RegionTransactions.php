@@ -10,9 +10,9 @@ use Foodsharing\RestApi\Models\Notifications\Region;
 
 class RegionTransactions
 {
-    public const NEW_FOODSAVER_VERIFIED = 'new_foodsaver_verified';
-    public const NEW_FOODSAVER_NEEDS_VERIFICATION = 'new_foodsaver_needs_verification';
-    public const NEW_FOODSAVER_NEEDS_INTRODUCTION = 'new_foodsaver_needs_introduction';
+    final public const NEW_FOODSAVER_VERIFIED = 'new_foodsaver_verified';
+    final public const NEW_FOODSAVER_NEEDS_VERIFICATION = 'new_foodsaver_needs_verification';
+    final public const NEW_FOODSAVER_NEEDS_INTRODUCTION = 'new_foodsaver_needs_introduction';
 
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,

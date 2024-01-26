@@ -98,9 +98,9 @@ final class PassportGeneratorControl extends Control
 		');
     }
 
-    private function download2(): void
+    private function download2(): never
     {
-        $bez = strtolower($this->region['name']);
+        $bez = strtolower((string)$this->region['name']);
 
         $bez = str_replace(['ä', 'ö', 'ü', 'ß'], ['ae', 'oe', 'ue', 'ss'], $bez);
         $bez = preg_replace('/[^a-zA-Z]/', '', $bez);

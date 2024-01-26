@@ -33,7 +33,7 @@ final class RouteHelper
 
     public function goLoginAndExit(): never
     {
-        $this->goPageAndExit('login', ['ref' => urlencode($this->getSelf())]);
+        $this->goPageAndExit('login', ['ref' => urlencode((string)$this->getSelf())]);
     }
 
     public function goPageAndExit(string $page = '', array $params = [], bool $pageIsSymfonyRoute = false): never

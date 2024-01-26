@@ -118,7 +118,7 @@ class ContentController extends FoodsharingController
         // select the partners page for the country and use german as fallback
         $host = $_SERVER['HTTP_HOST'] ?? BASE_URL;
         $contentId = ContentId::PARTNER_PAGE_10;
-        if (str_contains($host, 'foodsharing.at')) {
+        if (str_contains((string)$host, 'foodsharing.at')) {
             $contentId = ContentId::PARTNER_PAGE_AU_79;
         }
 
@@ -244,26 +244,26 @@ class ContentController extends FoodsharingController
 
     private function parseGitlabLinks($markdown)
     {
-        $markdown = preg_replace('/\W@(\S+)/', ' [@\1](https://gitlab.com/\1)', $markdown) ?? $markdown;
+        $markdown = preg_replace('/\W@(\S+)/', ' [@\1](https://gitlab.com/\1)', (string)$markdown) ?? $markdown;
         $markdown = preg_replace(
             '/(android)!([0-9]+)/',
             '[\1!\2](https://gitlab.com/foodsharing-dev/foodsharing-android/merge_requests/\2)',
-            $markdown
+            (string)$markdown
         ) ?? $markdown;
         $markdown = preg_replace(
             '/(android)#([0-9]+)/',
             '[\1#\2](https://gitlab.com/foodsharing-dev/foodsharing-android/issues/\2))',
-            $markdown
+            (string)$markdown
         ) ?? $markdown;
         $markdown = preg_replace(
             '/\W!([0-9]+)/',
             ' [!\1](https://gitlab.com/foodsharing-dev/foodsharing/merge_requests/\1)',
-            $markdown
+            (string)$markdown
         ) ?? $markdown;
         $markdown = preg_replace(
             '/\W#([0-9]+)/',
             ' [#\1](https://gitlab.com/foodsharing-dev/foodsharing/issues/\1)',
-            $markdown
+            (string)$markdown
         ) ?? $markdown;
 
         return $markdown;

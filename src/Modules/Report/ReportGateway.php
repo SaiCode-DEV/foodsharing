@@ -20,8 +20,8 @@ class ReportGateway extends BaseGateway
                 'betrieb_id' => (int)$storeId,
                 'time' => date('Y-m-d H:i:s'),
                 'committed' => 0,
-                'msg' => strip_tags($message),
-                'tvalue' => strip_tags($reason),
+                'msg' => strip_tags((string)$message),
+                'tvalue' => strip_tags((string)$reason),
             ]
         );
     }

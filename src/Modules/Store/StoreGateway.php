@@ -818,7 +818,7 @@ class StoreGateway extends BaseGateway
             'foodsaver_id' => $data['foodsaver_id'],
             'betrieb_id' => $data['betrieb_id'],
             'milestone' => $data['milestone'],
-            'text' => strip_tags($data['text']),
+            'text' => strip_tags((string)$data['text']),
             'zeit' => $data['zeit'],
             'last' => 0, // TODO remove this column entirely
         ]);

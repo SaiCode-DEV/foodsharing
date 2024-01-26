@@ -14,7 +14,7 @@ use Foodsharing\Utility\IMAPFolderCleanupHelper;
 
 class MaintenanceControl extends ConsoleControl
 {
-    public const DELETE_DELAY_DAYS = 30;
+    final public const DELETE_DELAY_DAYS = 30;
 
     public function __construct(
         private readonly StoreGateway $storeGateway,
@@ -223,7 +223,7 @@ class MaintenanceControl extends ConsoleControl
         if ($foodsaver = $this->maintenanceGateway->listUsersWithPhoto()) {
             $update = [];
             foreach ($foodsaver as $fs) {
-                if (!str_starts_with($fs['photo'], '/api/uploads')) {
+                if (!str_starts_with((string)$fs['photo'], '/api/uploads')) {
                     if (!file_exists('images/' . $fs['photo'])) {
                         $update[] = $fs['id'];
                     }
@@ -236,7 +236,7 @@ class MaintenanceControl extends ConsoleControl
         $check = [];
         if ($foodsaver = $this->maintenanceGateway->listUsersWithPhoto()) {
             foreach ($foodsaver as $fs) {
-                if (!str_starts_with('/api/uploads', $fs['photo'])) {
+                if (!str_starts_with('/api/uploads', (string)$fs['photo'])) {
                     $check[$fs['photo']] = $fs['id'];
                 }
             }

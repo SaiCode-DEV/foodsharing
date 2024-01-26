@@ -37,7 +37,7 @@ class QuizView extends View
                 ['cnt' => '<a style="margin-left:10px;" href="#"><img src="' . $this->imageService->img($s['fs_photo']) . '" /></a>'],
                 ['cnt' => '<a class="usersessionlink" href="/?page=quiz&sub=sessiondetail&fsid=' . $s['fs_id'] . '">' . $s['fs_name'] . '</a>'],
                 ['cnt' => $s['max_fp']],
-                ['cnt' => substr($s['time_start'], 0, -3)],
+                ['cnt' => substr((string)$s['time_start'], 0, -3)],
                 ['cnt' => $s['trycount']],
                 ['cnt' => $status]
             ];
@@ -94,7 +94,7 @@ class QuizView extends View
             }
 
             $rows[] = [
-                ['cnt' => substr($s['time_start'], 0, -3)],
+                ['cnt' => substr((string)$s['time_start'], 0, -3)],
                 ['cnt' => $s['fp']],
                 ['cnt' => $status],
                 ['cnt' => $this->legacyToolbar($s['id'])],

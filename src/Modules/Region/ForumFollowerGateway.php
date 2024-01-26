@@ -103,7 +103,7 @@ class ForumFollowerGateway extends BaseGateway
         ]);
 
         foreach ($threadFollowers as &$threadFollower) {
-            $threadFollower['foodsaverIds'] = array_map('intval', explode(',', $threadFollower['foodsaverIds']));
+            $threadFollower['foodsaverIds'] = array_map('intval', explode(',', (string)$threadFollower['foodsaverIds']));
         }
 
         return $threadFollowers;
@@ -136,7 +136,7 @@ class ForumFollowerGateway extends BaseGateway
         ]);
 
         foreach ($results as &$result) {
-            $result['foodsaverIds'] = array_map('intval', explode(',', $result['foodsaverIds']));
+            $result['foodsaverIds'] = array_map('intval', explode(',', (string)$result['foodsaverIds']));
         }
 
         return $results;

@@ -38,7 +38,7 @@ class PostHelper
     public function getPostString($name): bool|string
     {
         if ($val = $this->getPost($name)) {
-            $val = strip_tags($val);
+            $val = strip_tags((string)$val);
             $val = trim($val);
 
             if (!empty($val)) {
@@ -52,7 +52,7 @@ class PostHelper
     public function getPostInt($name): bool|int
     {
         if ($val = $this->getPost($name)) {
-            $val = trim($val);
+            $val = trim((string)$val);
 
             return (int)$val;
         }

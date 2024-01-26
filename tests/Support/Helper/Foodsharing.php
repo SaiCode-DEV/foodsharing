@@ -125,7 +125,7 @@ class Foodsharing extends Db
             'privacy_notice_accepted_date' => '2018-05-24 18:25:28',
             'token' => uniqid('', true)
         ], $extra_params);
-        $params['password'] = password_hash($pass, PASSWORD_ARGON2I, [
+        $params['password'] = password_hash((string)$pass, PASSWORD_ARGON2I, [
             'time_cost' => 1
         ]);
         $params['geb_datum'] = $this->toDateTime($params['geb_datum']);
@@ -1053,7 +1053,7 @@ class Foodsharing extends Db
     public function updateThePrivacyNoticeDate()
     {
         $lastModified = $this->grabFromDatabase('fs_content', 'last_mod', ['name' => 'datenschutzbelehrung']);
-        $beforeLastModified = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($lastModified)));
+        $beforeLastModified = date('Y-m-d H:i:s', strtotime('+1 day', strtotime((string)$lastModified)));
         $this->updateInDatabase('fs_content', ['last_mod' => $beforeLastModified], ['name' => 'datenschutzbelehrung']);
 
         return $lastModified;
@@ -1067,7 +1067,7 @@ class Foodsharing extends Db
     public function updateThePrivacyPolicyDate()
     {
         $lastModified = $this->grabFromDatabase('fs_content', 'last_mod', ['name' => 'datenschutz']);
-        $beforeLastModified = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($lastModified)));
+        $beforeLastModified = date('Y-m-d H:i:s', strtotime('+1 day', strtotime((string)$lastModified)));
         $this->updateInDatabase('fs_content', ['last_mod' => $beforeLastModified], ['name' => 'datenschutz']);
 
         return $lastModified;
@@ -1176,7 +1176,7 @@ class Foodsharing extends Db
     // copied from elsewhere....
     private function encryptMd5($email, $pass)
     {
-        $email = strtolower($email);
+        $email = strtolower((string)$email);
 
         return md5($email . '-lz%&lk4-' . $pass);
     }
@@ -1218,8 +1218,8 @@ class Foodsharing extends Db
     private function createRandomText(int $minLength, int $maxLength): string
     {
         $text = $this->faker->realText($maxLength);
-        while (strlen($text) < $minLength) {
-            $text .= ' ' . $this->faker->realText(($maxLength + $minLength) / 2 - strlen($text));
+        while (strlen((string)$text) < $minLength) {
+            $text .= ' ' . $this->faker->realText(($maxLength + $minLength) / 2 - strlen((string)$text));
         }
 
         return $text;

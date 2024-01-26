@@ -66,8 +66,8 @@ class ContentGateway extends BaseGateway
     public function create($data): int
     {
         return $this->db->insert('fs_content', [
-            'name' => strip_tags($data['name']),
-            'title' => strip_tags($data['title']),
+            'name' => strip_tags((string)$data['name']),
+            'title' => strip_tags((string)$data['title']),
             'body' => $data['body'],
             'last_mod' => $data['last_mod']
         ]);
@@ -76,8 +76,8 @@ class ContentGateway extends BaseGateway
     public function update($id, $data): int
     {
         return $this->db->update('fs_content', [
-            'name' => strip_tags($data['name']),
-            'title' => strip_tags($data['title']),
+            'name' => strip_tags((string)$data['name']),
+            'title' => strip_tags((string)$data['title']),
             'body' => $data['body'],
             'last_mod' => $data['last_mod']
         ], ['id' => $id]);

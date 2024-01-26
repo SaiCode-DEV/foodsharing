@@ -28,7 +28,7 @@ class TeamView extends View
 			<span class="img" style="background-image:url(' . $photo . ');"></span>
 			<h1>' . $user['name'] . '</h1>
 			<small>' . $user['position'] . '</small>
-			<p>' . nl2br($user['desc']) . '</p>
+			<p>' . nl2br((string)$user['desc']) . '</p>
 
 			<span class="foot corner-bottom">
 				' . $socials . '

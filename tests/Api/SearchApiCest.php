@@ -63,7 +63,7 @@ class SearchApiCest
 
     public function canNotSearchInOtherForums(ApiTester $I)
     {
-        $query = substr($this->region2ForumThread['name'], 0, 5);
+        $query = substr((string)$this->region2ForumThread['name'], 0, 5);
 
         $I->login($this->user1['email']);
         $I->sendGET('api/search/forum/' . $this->region2['id'] . '/0?q=' . $query);
@@ -79,7 +79,7 @@ class SearchApiCest
 
     public function canOnlySearchInAmbassadorForumAsAmbassador(ApiTester $I)
     {
-        $query = substr($this->region1AmbassadorForumThread['name'], 0, 5);
+        $query = substr((string)$this->region1AmbassadorForumThread['name'], 0, 5);
 
         $I->login($this->user1['email']);
         $I->sendGET('api/search/forum/' . $this->region1['id'] . '/1?q=' . $query);

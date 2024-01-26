@@ -10,7 +10,7 @@ namespace Foodsharing\Modules\Core\DBConstants\Quiz;
  */
 class SessionStatus
 {
-    public const RUNNING = 0;
-    public const PASSED = 1;
-    public const FAILED = 2;
+    final public const RUNNING = 0;
+    final public const PASSED = 1;
+    final public const FAILED = 2;
 }

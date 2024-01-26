@@ -58,7 +58,7 @@ class RegionSearchResult extends SearchResult
         $result->id = $data['id'];
         $result->name = $data['name'];
         $result->email = $data['email'];
-        if (!empty($data['email']) && !str_contains($data['email'], '@')) {
+        if (!empty($data['email']) && !str_contains((string)$data['email'], '@')) {
             $result->email .= '@foodsharing.network';
         }
         $result->parent_id = $data['parent_id'];

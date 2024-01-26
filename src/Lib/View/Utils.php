@@ -167,7 +167,7 @@ class Utils
             $value['hour'] = 20;
             $value['min'] = 0;
         } elseif (!is_array($value)) {
-            $v = explode(':', $value);
+            $v = explode(':', (string)$value);
             $value = ['hour' => $v[0], 'min' => $v[1]];
         }
         $id = $this->identificationHelper->id($id);
@@ -386,7 +386,7 @@ class Utils
             $value = $this->dataHelper->getValue($id);
         }
 
-        $value = htmlspecialchars($value);
+        $value = htmlspecialchars((string)$value);
 
         $label = $this->translator->trans($id);
 
@@ -455,7 +455,7 @@ class Utils
                 if (isset($checked[$v['id']]) || isset($option['checkall'])) {
                     $sel = ' checked="checked"';
                 }
-                $v['name'] = trim($v['name']);
+                $v['name'] = trim((string)$v['name']);
                 if (!empty($v['name'])) {
                     $out .= '
 					<label><input class="input cb-' . $id . '" type="checkbox" name="' . $id . '[]" value="' . $v['id'] . '"' . $sel . ' />&nbsp;' . $v['name'] . '</label><br />';
@@ -521,8 +521,8 @@ class Utils
 
         $val = $this->dataHelper->getValue($id);
         if (!empty($val)) {
-            $val = json_decode($val, true);
-            $val = substr($val['name'], 0, 30);
+            $val = json_decode((string)$val, true);
+            $val = substr((string)$val['name'], 0, 30);
         }
 
         $this->pageHelper->addJs(
@@ -768,7 +768,7 @@ class Utils
             $value = $this->dataHelper->getValue($id);
         }
 
-        $value = htmlspecialchars($value);
+        $value = htmlspecialchars((string)$value);
 
         $disabled = '';
         if (isset($option['disabled']) && $option['disabled']) {
@@ -804,7 +804,7 @@ class Utils
             if ($titleIcon) {
                 $titleHtml .= '<i class="' . $titleIcon . '"></i> ';
             }
-            $titleHtml .= htmlspecialchars($title);
+            $titleHtml .= htmlspecialchars((string)$title);
             if ($titleSpanId !== null) {
                 $titleHtml .= '</span>';
             }

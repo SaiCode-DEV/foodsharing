@@ -286,7 +286,7 @@ class ActivityTransactions
 
         $out = [];
         foreach ($updates as $u) {
-            $sender = json_decode($u['sender'], true, 512, JSON_THROW_ON_ERROR + JSON_INVALID_UTF8_IGNORE);
+            $sender = json_decode((string)$u['sender'], true, 512, JSON_THROW_ON_ERROR + JSON_INVALID_UTF8_IGNORE);
 
             $out[] = MailboxUpdate::create(
                 Carbon::createFromTimestamp($u['time_ts']),

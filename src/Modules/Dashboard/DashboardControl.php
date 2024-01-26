@@ -85,7 +85,7 @@ class DashboardControl extends Control
             ], [
                 $this->session->user('name'),
                 $this->translator->trans('salutation.' . $this->session->user('gender'))
-            ], $cnt['body']);
+            ], (string)$cnt['body']);
             $cnt['closeable'] = false;
             $cnt['links'] = [
                 (object)[

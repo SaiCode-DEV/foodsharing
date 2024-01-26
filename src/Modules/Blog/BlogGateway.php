@@ -46,14 +46,14 @@ final class BlogGateway extends BaseGateway
         $data_stripped = [
             'bezirk_id' => $data['bezirk_id'],
             'foodsaver_id' => $data['foodsaver_id'],
-            'name' => strip_tags($data['name']),
-            'teaser' => strip_tags($data['teaser']),
+            'name' => strip_tags((string)$data['name']),
+            'teaser' => strip_tags((string)$data['teaser']),
             'body' => $data['body'],
-            'time' => strip_tags($data['time']),
+            'time' => strip_tags((string)$data['time']),
         ];
 
         if (!empty($data['picture'])) {
-            $data_stripped['picture'] = strip_tags($data['picture']);
+            $data_stripped['picture'] = strip_tags((string)$data['picture']);
         }
 
         return $this->db->update(
@@ -203,11 +203,11 @@ final class BlogGateway extends BaseGateway
             [
                 'bezirk_id' => $regionId,
                 'foodsaver_id' => (int)$data['foodsaver_id'],
-                'name' => strip_tags($data['name']),
-                'teaser' => strip_tags($data['teaser']),
+                'name' => strip_tags((string)$data['name']),
+                'teaser' => strip_tags((string)$data['teaser']),
                 'body' => $data['body'],
-                'time' => strip_tags($data['time']),
-                'picture' => strip_tags($data['picture']),
+                'time' => strip_tags((string)$data['time']),
+                'picture' => strip_tags((string)$data['picture']),
                 'active' => $active,
             ]
         );

@@ -85,7 +85,7 @@ class SettingsXhr extends Control
             ['email' => $newEmail],
             ['email']
         );
-        $dialogId = strip_tags($_GET['did']);
+        $dialogId = strip_tags((string)$_GET['did']);
 
         return [
             'status' => 1,

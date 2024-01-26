@@ -48,23 +48,23 @@ use Exception;
 class fCore
 {
 	// The following constants allow for nice looking callbacks to static methods
-	public const backtrace = 'Flourish\\fCore::backtrace';
-	public const call = 'Flourish\\fCore::call';
-	public const callback = 'Flourish\\fCore::callback';
-	public const configureSMTP = 'Flourish\\fCore::configureSMTP';
-	public const disableContext = 'Flourish\\fCore::disableContext';
-	public const dump = 'Flourish\\fCore::dump';
-	public const enableDynamicConstants = 'Flourish\\fCore::enableDynamicConstants';
-	public const enableErrorHandling = 'Flourish\\fCore::enableErrorHandling';
-	public const enableExceptionHandling = 'Flourish\\fCore::enableExceptionHandling';
-	public const expose = 'Flourish\\fCore::expose';
-	public const handleError = 'Flourish\\fCore::handleError';
-	public const handleFatalError = 'Flourish\\fCore::handleFatalError';
-	public const handleException = 'Flourish\\fCore::handleException';
-	public const reset = 'Flourish\\fCore::reset';
-	public const sendMessagesOnShutdown = 'Flourish\\fCore::sendMessagesOnShutdown';
-	public const startErrorCapture = 'Flourish\\fCore::startErrorCapture';
-	public const stopErrorCapture = 'Flourish\\fCore::stopErrorCapture';
+	final public const backtrace = 'Flourish\\fCore::backtrace';
+	final public const call = 'Flourish\\fCore::call';
+	final public const callback = 'Flourish\\fCore::callback';
+	final public const configureSMTP = 'Flourish\\fCore::configureSMTP';
+	final public const disableContext = 'Flourish\\fCore::disableContext';
+	final public const dump = 'Flourish\\fCore::dump';
+	final public const enableDynamicConstants = 'Flourish\\fCore::enableDynamicConstants';
+	final public const enableErrorHandling = 'Flourish\\fCore::enableErrorHandling';
+	final public const enableExceptionHandling = 'Flourish\\fCore::enableExceptionHandling';
+	final public const expose = 'Flourish\\fCore::expose';
+	final public const handleError = 'Flourish\\fCore::handleError';
+	final public const handleFatalError = 'Flourish\\fCore::handleFatalError';
+	final public const handleException = 'Flourish\\fCore::handleException';
+	final public const reset = 'Flourish\\fCore::reset';
+	final public const sendMessagesOnShutdown = 'Flourish\\fCore::sendMessagesOnShutdown';
+	final public const startErrorCapture = 'Flourish\\fCore::startErrorCapture';
+	final public const stopErrorCapture = 'Flourish\\fCore::stopErrorCapture';
 
 	/**
 	 * The nesting level of error capturing.
@@ -222,7 +222,7 @@ class fCore
 				$bt_string .= "\n";
 			}
 			if (isset($call['file'])) {
-				$bt_string .= str_replace($doc_root, '{doc_root}' . DIRECTORY_SEPARATOR, $call['file']) . '(' . $call['line'] . '): ';
+				$bt_string .= str_replace($doc_root, '{doc_root}' . DIRECTORY_SEPARATOR, (string) $call['file']) . '(' . $call['line'] . '): ';
 			} else {
 				$bt_string .= '[internal function]: ';
 			}
@@ -693,7 +693,7 @@ class fCore
 		$first_file_line = preg_replace(
 			'#^.*[/\\\\](.*)$#',
 			'\1',
-			reset(self::$significant_error_lines)
+			(string) reset(self::$significant_error_lines)
 		);
 
 		$subject = self::compose(
@@ -803,7 +803,7 @@ class fCore
 		if ($regex) {
 			$new_captures = [];
 			foreach ($captures as $capture) {
-				if (!preg_match($regex, $capture['string'])) {
+				if (!preg_match($regex, (string) $capture['string'])) {
 					continue;
 				}
 				$new_captures[] = $capture;

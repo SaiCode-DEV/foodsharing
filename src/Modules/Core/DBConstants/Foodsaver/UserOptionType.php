@@ -10,5 +10,5 @@ use Foodsharing\Modules\Settings\SettingsGateway;
  */
 class UserOptionType
 {
-    public const LOCALE = 1;
+    final public const LOCALE = 1;
 }

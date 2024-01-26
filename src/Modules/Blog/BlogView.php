@@ -152,7 +152,7 @@ class BlogView extends View
         // create picture upload component
         $initialValue = '';
         if (!is_null($data) && !empty($data['picture'])) {
-            if (str_starts_with($data['picture'], '/api/uploads/')) {
+            if (str_starts_with((string)$data['picture'], '/api/uploads/')) {
                 // path for pictures uploaded with the new API
                 $initialValue = $data['picture'];
             } else {

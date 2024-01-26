@@ -292,7 +292,7 @@ class ActivityGateway extends BaseGateway
             if (empty($w['attach'])) {
                 continue;
             }
-            $data = json_decode($w['attach'], true);
+            $data = json_decode((string)$w['attach'], true);
             $imgData = $data['image'] ?? [];
 
             $gallery = [];

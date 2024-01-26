@@ -4,18 +4,18 @@ namespace Foodsharing\Modules\Core\DBConstants\Region;
 
 class WorkgroupFunction
 {
-    public const WELCOME = 1; // Begrüßungsteam
-    public const VOTING = 2; // Abstimmung / Wahlen
-    public const FSP = 3; // Fairteiler / FoodSharePoint
-    public const STORES_COORDINATION = 4; // Betriebskoordinationsteam
-    public const REPORT = 5; // Meldebearbeitungsteam
-    public const MEDIATION = 6; // Mediationsteam
-    public const ARBITRATION = 7; // Schiedsstelle
-    public const FSMANAGEMENT = 8; //Foodsaververwaltung
-    public const PR = 9; // Öffentlichkeitsarbeit
-    public const MODERATION = 10; // Moderationsteam
-    public const BOARD = 11; // Vorstand
-    public const ELECTION = 12; // Wahlen
+    final public const WELCOME = 1; // Begrüßungsteam
+    final public const VOTING = 2; // Abstimmung / Wahlen
+    final public const FSP = 3; // Fairteiler / FoodSharePoint
+    final public const STORES_COORDINATION = 4; // Betriebskoordinationsteam
+    final public const REPORT = 5; // Meldebearbeitungsteam
+    final public const MEDIATION = 6; // Mediationsteam
+    final public const ARBITRATION = 7; // Schiedsstelle
+    final public const FSMANAGEMENT = 8; //Foodsaververwaltung
+    final public const PR = 9; // Öffentlichkeitsarbeit
+    final public const MODERATION = 10; // Moderationsteam
+    final public const BOARD = 11; // Vorstand
+    final public const ELECTION = 12; // Wahlen
 
     public static function isValidFunction(int $value): bool
     {

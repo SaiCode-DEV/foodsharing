@@ -723,7 +723,7 @@ class FoodsaverGateway extends BaseGateway
         $clean_data = [];
         foreach ($fields as $field) {
             if (array_key_exists($field, $data)) {
-                $clean_data[$field] = in_array($field, $fieldsToStripTags, true) ? strip_tags($data[$field]) : $data[$field];
+                $clean_data[$field] = in_array($field, $fieldsToStripTags, true) ? strip_tags((string)$data[$field]) : $data[$field];
             }
         }
 
@@ -874,25 +874,25 @@ class FoodsaverGateway extends BaseGateway
     {
         $updateData = [
             'bezirk_id' => $data['bezirk_id'],
-            'plz' => strip_tags(trim($data['plz'])),
-            'stadt' => strip_tags(trim($data['stadt'])),
-            'lat' => strip_tags(trim($data['lat'])),
-            'lon' => strip_tags(trim($data['lon'])),
-            'name' => strip_tags($data['name']),
-            'nachname' => strip_tags($data['nachname']),
-            'anschrift' => strip_tags($data['anschrift']),
-            'telefon' => strip_tags($data['telefon']),
-            'handy' => strip_tags($data['handy']),
+            'plz' => strip_tags(trim((string)$data['plz'])),
+            'stadt' => strip_tags(trim((string)$data['stadt'])),
+            'lat' => strip_tags(trim((string)$data['lat'])),
+            'lon' => strip_tags(trim((string)$data['lon'])),
+            'name' => strip_tags((string)$data['name']),
+            'nachname' => strip_tags((string)$data['nachname']),
+            'anschrift' => strip_tags((string)$data['anschrift']),
+            'telefon' => strip_tags((string)$data['telefon']),
+            'handy' => strip_tags((string)$data['handy']),
             'geschlecht' => $data['geschlecht'],
             'geb_datum' => $data['geb_datum']
         ];
 
         if (isset($data['position'])) {
-            $updateData['position'] = strip_tags($data['position']);
+            $updateData['position'] = strip_tags((string)$data['position']);
         }
 
         if (isset($data['email'])) {
-            $updateData['email'] = strip_tags($data['email']);
+            $updateData['email'] = strip_tags((string)$data['email']);
         }
 
         if (isset($data['orgateam'])) {

@@ -34,29 +34,29 @@ namespace Flourish;
 class fFilesystem
 {
 	// The following constants allow for nice looking callbacks to static methods
-	public const addWebPathTranslation = 'fFilesystem::addWebPathTranslation';
-	public const begin = 'fFilesystem::begin';
-	public const commit = 'fFilesystem::commit';
-	public const convertToBytes = 'fFilesystem::convertToBytes';
-	public const createObject = 'fFilesystem::createObject';
-	public const formatFilesize = 'fFilesystem::formatFilesize';
-	public const getPathInfo = 'fFilesystem::getPathInfo';
-	public const hookDeletedMap = 'fFilesystem::hookDeletedMap';
-	public const hookFilenameMap = 'fFilesystem::hookFilenameMap';
-	public const isInsideTransaction = 'fFilesystem::isInsideTransaction';
-	public const makeUniqueName = 'fFilesystem::makeUniqueName';
-	public const recordAppend = 'fFilesystem::recordAppend';
-	public const recordCreate = 'fFilesystem::recordCreate';
-	public const recordDelete = 'fFilesystem::recordDelete';
-	public const recordDuplicate = 'fFilesystem::recordDuplicate';
-	public const recordRename = 'fFilesystem::recordRename';
-	public const recordWrite = 'fFilesystem::recordWrite';
-	public const reset = 'fFilesystem::reset';
-	public const rollback = 'fFilesystem::rollback';
-	public const translateToWebPath = 'fFilesystem::translateToWebPath';
-	public const updateDeletedMap = 'fFilesystem::updateDeletedMap';
-	public const updateFilenameMap = 'fFilesystem::updateFilenameMap';
-	public const updateFilenameMapForDirectory = 'fFilesystem::updateFilenameMapForDirectory';
+	final public const addWebPathTranslation = 'fFilesystem::addWebPathTranslation';
+	final public const begin = 'fFilesystem::begin';
+	final public const commit = 'fFilesystem::commit';
+	final public const convertToBytes = 'fFilesystem::convertToBytes';
+	final public const createObject = 'fFilesystem::createObject';
+	final public const formatFilesize = 'fFilesystem::formatFilesize';
+	final public const getPathInfo = 'fFilesystem::getPathInfo';
+	final public const hookDeletedMap = 'fFilesystem::hookDeletedMap';
+	final public const hookFilenameMap = 'fFilesystem::hookFilenameMap';
+	final public const isInsideTransaction = 'fFilesystem::isInsideTransaction';
+	final public const makeUniqueName = 'fFilesystem::makeUniqueName';
+	final public const recordAppend = 'fFilesystem::recordAppend';
+	final public const recordCreate = 'fFilesystem::recordCreate';
+	final public const recordDelete = 'fFilesystem::recordDelete';
+	final public const recordDuplicate = 'fFilesystem::recordDuplicate';
+	final public const recordRename = 'fFilesystem::recordRename';
+	final public const recordWrite = 'fFilesystem::recordWrite';
+	final public const reset = 'fFilesystem::reset';
+	final public const rollback = 'fFilesystem::rollback';
+	final public const translateToWebPath = 'fFilesystem::translateToWebPath';
+	final public const updateDeletedMap = 'fFilesystem::updateDeletedMap';
+	final public const updateFilenameMap = 'fFilesystem::updateFilenameMap';
+	final public const updateFilenameMapForDirectory = 'fFilesystem::updateFilenameMapForDirectory';
 
 	/**
 	 * Stores the operations to perform when a commit occurs.
@@ -608,7 +608,7 @@ class fFilesystem
 		foreach (self::$commit_operations as $operation) {
 			if (isset($operation['object'])) {
 				self::updateDeletedMap($operation['object']->getPath(), null);
-				self::updateFilenameMap($operation['object']->getPath(), preg_replace('#*DELETED at \d+ with token [\w.]+* #', '', $operation['filename']));
+				self::updateFilenameMap($operation['object']->getPath(), preg_replace('#*DELETED at \d+ with token [\w.]+* #', '', (string) $operation['filename']));
 			}
 		}
 

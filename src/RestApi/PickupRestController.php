@@ -495,10 +495,10 @@ final class PickupRestController extends AbstractFOSRestController
                         'avatar' => $avatar == '' ? null : $avatar,
                         'confirmed' => (int)$confirmed,
                     ],
-                    str_getcsv($pickup['fs_ids']),
-                    str_getcsv($pickup['fs_names'], ',', '\''),
-                    str_getcsv($pickup['fs_avatars']),
-                    str_getcsv($pickup['slot_confimations'])
+                    str_getcsv((string)$pickup['fs_ids']),
+                    str_getcsv((string)$pickup['fs_names'], ',', '\''),
+                    str_getcsv((string)$pickup['fs_avatars']),
+                    str_getcsv((string)$pickup['slot_confimations'])
                 )
             ],
             'description' => $pickup['description']
@@ -543,10 +543,10 @@ final class PickupRestController extends AbstractFOSRestController
                         'avatar' => $avatar == '' ? null : $avatar,
                         'confirmed' => (int)$confirmed,
                     ],
-                    str_getcsv($pickup['fs_ids']),
-                    str_getcsv($pickup['fs_names'], ',', '\''),
-                    str_getcsv($pickup['fs_avatars']),
-                    str_getcsv($pickup['slot_confimations'])
+                    str_getcsv((string)$pickup['fs_ids']),
+                    str_getcsv((string)$pickup['fs_names'], ',', '\''),
+                    str_getcsv((string)$pickup['fs_avatars']),
+                    str_getcsv((string)$pickup['slot_confimations'])
                 ),
                 'max' => $pickup['max_fetchers'],
             ],
@@ -601,7 +601,7 @@ final class PickupRestController extends AbstractFOSRestController
 
             $pickupOptions = array_merge($pickupOptions, array_map(
                 fn ($slot) => [
-                    'date' => RestNormalization::normalizeDate(strtotime($slot['date'])),
+                    'date' => RestNormalization::normalizeDate(strtotime((string)$slot['date'])),
                     'store' => $store,
                     'confirmed' => $isConfirmed($id, $slot['occupiedSlots']),
                     'slots' => [

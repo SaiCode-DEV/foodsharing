@@ -53,7 +53,7 @@ class ForumRestController extends AbstractFOSRestController
             'regionId' => $thread['regionId'],
             'regionSubId' => $thread['regionSubId'],
             'title' => $thread['title'],
-            'createdAt' => str_replace(' ', 'T', $thread['time']),
+            'createdAt' => str_replace(' ', 'T', (string)$thread['time']),
             'isSticky' => boolval($thread['sticky'] ?? false),
             'isActive' => boolval($thread['active'] ?? true),
             'lastPost' => [
@@ -65,7 +65,7 @@ class ForumRestController extends AbstractFOSRestController
             'status' => intval($thread['status'])
         ];
         if (isset($thread['post_time'])) {
-            $normalizedThread['lastPost']['createdAt'] = str_replace(' ', 'T', $thread['post_time']);
+            $normalizedThread['lastPost']['createdAt'] = str_replace(' ', 'T', (string)$thread['post_time']);
             $normalizedThread['lastPost']['body'] = $this->sanitizerService->markdownToHtml($thread['post_body']);
             $normalizedThread['lastPost']['author'] = RestNormalization::normalizeUser($thread, 'foodsaver_');
         }
@@ -81,7 +81,7 @@ class ForumRestController extends AbstractFOSRestController
         return [
             'id' => $post['id'],
             'body' => $post['body'],
-            'createdAt' => str_replace(' ', 'T', $post['time']),
+            'createdAt' => str_replace(' ', 'T', (string)$post['time']),
             'author' => RestNormalization::normalizeUser($post, 'author_'),
             'reactions' => $post['reactions'] ?: new \ArrayObject(),
             'mayDelete' => $this->forumPermissions->mayDeletePost($post)

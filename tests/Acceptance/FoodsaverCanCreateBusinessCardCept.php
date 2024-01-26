@@ -9,7 +9,7 @@ use Tests\Support\AcceptanceTester;
 
 function convertId($text)
 {
-    $text = strtolower($text);
+    $text = strtolower((string)$text);
     str_replace(
         ['ä', 'ö', 'ü', 'ß', ' '],
         ['ae', 'oe', 'ue', 'ss', '_'],

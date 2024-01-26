@@ -55,12 +55,12 @@ use Exception;
 class fImage extends fFile
 {
 	// The following constants allow for nice looking callbacks to static methods
-	public const create = 'fImage::create';
-	public const getCompatibleMimetypes = 'fImage::getCompatibleMimetypes';
-	public const isImageCompatible = 'fImage::isImageCompatible';
-	public const reset = 'fImage::reset';
-	public const setImageMagickDirectory = 'fImage::setImageMagickDirectory';
-	public const setImageMagickTempDir = 'fImage::setImageMagickTempDir';
+	final public const create = 'fImage::create';
+	final public const getCompatibleMimetypes = 'fImage::getCompatibleMimetypes';
+	final public const isImageCompatible = 'fImage::isImageCompatible';
+	final public const reset = 'fImage::reset';
+	final public const setImageMagickDirectory = 'fImage::setImageMagickDirectory';
+	final public const setImageMagickTempDir = 'fImage::setImageMagickTempDir';
 
 	/**
 	 * If we are using the ImageMagick processor, this stores the path to the binaries.
@@ -575,7 +575,7 @@ class fImage extends fFile
 	 *
 	 * @param  mixed $data  The data to append to the image
 	 */
-	public function append($data)
+	public function append($data): never
 	{
 		throw new fException('It is not possible to append an image');
 	}
@@ -1348,7 +1348,7 @@ class fImage extends fFile
 					);
 				}
 			} else {
-				$output_dir = dirname($output_file);
+				$output_dir = dirname((string) $output_file);
 				if (!is_writable($output_dir)) {
 					throw new fException(
 						'Changes to the image can not be saved because the directory to save the new file, %s, is not writable',

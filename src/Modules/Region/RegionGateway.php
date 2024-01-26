@@ -427,8 +427,8 @@ class RegionGateway extends BaseGateway
         $this->db->update(
             'fs_bezirk',
             [
-                'name' => strip_tags($data['name']),
-                'email_name' => strip_tags($data['email_name']),
+                'name' => strip_tags((string)$data['name']),
+                'email_name' => strip_tags((string)$data['email_name']),
                 'parent_id' => $data['parent_id'],
                 'type' => $data['type'],
                 'master' => $master,
@@ -449,10 +449,10 @@ class RegionGateway extends BaseGateway
         $id = $this->db->insert('fs_bezirk', [
             'parent_id' => (int)$data['parent_id'],
             'has_children' => (int)$data['has_children'],
-            'name' => strip_tags($data['name']),
-            'email' => strip_tags($data['email']),
-            'email_pass' => strip_tags($data['email_pass']),
-            'email_name' => strip_tags($data['email_name'])
+            'name' => strip_tags((string)$data['name']),
+            'email' => strip_tags((string)$data['email']),
+            'email_pass' => strip_tags((string)$data['email_pass']),
+            'email_name' => strip_tags((string)$data['email_name'])
         ]);
 
         $this->db->execute('INSERT INTO `fs_bezirk_closure` (ancestor_id, bezirk_id, depth) SELECT t.ancestor_id, ' . $id . ', t.depth+1 FROM `fs_bezirk_closure` AS t WHERE t.bezirk_id = ' . (int)$data['parent_id'] . ' UNION ALL SELECT ' . $id . ', ' . $id . ', 0');

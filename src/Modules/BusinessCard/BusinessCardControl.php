@@ -36,7 +36,7 @@ class BusinessCardControl extends Control
         if ($data = $this->gateway->getMyData($this->session->id(), $this->session->mayRole(Role::STORE_MANAGER))) {
             $data = array_map(fn ($value) => $value ?? '', $data);
 
-            if (mb_strlen($data['anschrift']) >= self::MAX_CHAR_PER_LINE || mb_strlen($data['plz'] . ' ' . $data['stadt']) >= self::MAX_CHAR_PER_LINE) {
+            if (mb_strlen((string)$data['anschrift']) >= self::MAX_CHAR_PER_LINE || mb_strlen($data['plz'] . ' ' . $data['stadt']) >= self::MAX_CHAR_PER_LINE) {
                 $this->flashMessageHelper->info($this->translator->trans('bcard.info.address_shortened'));
             }
             if (strlen($data['telefon'] . $data['handy']) <= 3) {
@@ -119,15 +119,15 @@ class BusinessCardControl extends Control
         }
         $data['subtitle'] = $this->displayedRole($role, $data['geschlecht'], $mailbox['name']);
 
-        if (mb_strlen($data['anschrift']) > self::MAX_CHAR_PER_LINE) {
+        if (mb_strlen((string)$data['anschrift']) > self::MAX_CHAR_PER_LINE) {
             $street_number_pos = $this->index_of_first_number($data['anschrift']);
-            $length_street_number = mb_strlen($data['anschrift']) - $street_number_pos;
-            $data['anschrift'] = mb_substr($data['anschrift'], 0, self::MAX_CHAR_PER_LINE - $length_street_number - 4) . '... ' .
-                mb_substr($data['anschrift'], $street_number_pos, $length_street_number);
+            $length_street_number = mb_strlen((string)$data['anschrift']) - $street_number_pos;
+            $data['anschrift'] = mb_substr((string)$data['anschrift'], 0, self::MAX_CHAR_PER_LINE - $length_street_number - 4) . '... ' .
+                mb_substr((string)$data['anschrift'], $street_number_pos, $length_street_number);
         }
 
         if (mb_strlen($data['plz'] . ' ' . $data['stadt']) >= self::MAX_CHAR_PER_LINE) {
-            $data['stadt'] = mb_substr($data['stadt'], 0, self::MAX_CHAR_PER_LINE - strlen($data['plz']) - 4) . '...';
+            $data['stadt'] = mb_substr((string)$data['stadt'], 0, self::MAX_CHAR_PER_LINE - strlen((string)$data['plz']) - 4) . '...';
         }
 
         $this->generatePdf($data, $role);
@@ -204,12 +204,12 @@ class BusinessCardControl extends Control
 
     private function index_of_first_number($text)
     {
-        preg_match('/\d/u', $text, $m, PREG_OFFSET_CAPTURE);
+        preg_match('/\d/u', (string)$text, $m, PREG_OFFSET_CAPTURE);
         if (sizeof($m)) {
-            return mb_strlen(substr($text, 0, $m[0][1]));
+            return mb_strlen(substr((string)$text, 0, $m[0][1]));
         }
 
         // return position of the first number in the string
-        return strlen($text);
+        return strlen((string)$text);
     }
 }

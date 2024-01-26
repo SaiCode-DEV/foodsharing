@@ -22,17 +22,17 @@ namespace Flourish;
 class fAuthorization
 {
 	// The following constants allow for nice looking callbacks to static methods
-	public const checkACL = 'fAuthorization::checkACL';
-	public const checkAuthLevel = 'fAuthorization::checkAuthLevel';
-	public const destroyUserInfo = 'fAuthorization::destroyUserInfo';
-	public const getUserACLs = 'fAuthorization::getUserACLs';
-	public const getUserAuthLevel = 'fAuthorization::getUserAuthLevel';
-	public const getUserToken = 'fAuthorization::getUserToken';
-	public const setAuthLevels = 'fAuthorization::setAuthLevels';
-	public const setLoginPage = 'fAuthorization::setLoginPage';
-	public const setUserACLs = 'fAuthorization::setUserACLs';
-	public const setUserAuthLevel = 'fAuthorization::setUserAuthLevel';
-	public const setUserToken = 'fAuthorization::setUserToken';
+	final public const checkACL = 'fAuthorization::checkACL';
+	final public const checkAuthLevel = 'fAuthorization::checkAuthLevel';
+	final public const destroyUserInfo = 'fAuthorization::destroyUserInfo';
+	final public const getUserACLs = 'fAuthorization::getUserACLs';
+	final public const getUserAuthLevel = 'fAuthorization::getUserAuthLevel';
+	final public const getUserToken = 'fAuthorization::getUserToken';
+	final public const setAuthLevels = 'fAuthorization::setAuthLevels';
+	final public const setLoginPage = 'fAuthorization::setLoginPage';
+	final public const setUserACLs = 'fAuthorization::setUserACLs';
+	final public const setUserAuthLevel = 'fAuthorization::setUserAuthLevel';
+	final public const setUserToken = 'fAuthorization::setUserToken';
 
 	/**
 	 * The valid auth levels.

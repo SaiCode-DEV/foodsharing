@@ -181,7 +181,7 @@ return '{null}';
 			throw new Exception($message);
 		}
 
-		$args = array_map([self::class, 'dump'], $args);
+		$args = array_map(self::dump(...), $args);
 
 		parent::__construct(self::compose($message, $args));
 		$this->code = $code;
@@ -218,16 +218,16 @@ return '{null}';
 	{
 		// See if the message has newline characters but not br tags, extracted from fHTML to reduce dependencies
 		static $inline_tags_minus_br = '<a><abbr><acronym><b><big><button><cite><code><del><dfn><em><font><i><img><input><ins><kbd><label><q><s><samp><select><small><span><strike><strong><sub><sup><textarea><tt><u><var>';
-		$content_with_newlines = (strip_tags($content, $inline_tags_minus_br)) ? $content : nl2br($content);
+		$content_with_newlines = (strip_tags((string) $content, $inline_tags_minus_br)) ? $content : nl2br((string) $content);
 
 		// Check to see if we have any block-level html, extracted from fHTML to reduce dependencies
 		$inline_tags = $inline_tags_minus_br . '<br>';
-		$no_block_html = strip_tags($content, $inline_tags) == $content;
+		$no_block_html = strip_tags((string) $content, $inline_tags) == $content;
 
 		// This code ensures the output is properly encoded for display in (X)HTML, extracted from fHTML to reduce dependencies
 		$reg_exp = "/<\s*\/?\s*[\w:]+(?:\s+[\w:]+(?:\s*=\s*(?:\"[^\"]*?\"|'[^']*?'|[^'\">\s]+))?)*\s*\/?\s*>|&(?:#\d+|\w+);|<\!--.*?-->/";
-		preg_match_all($reg_exp, $content, $html_matches, PREG_SET_ORDER);
-		$text_matches = preg_split($reg_exp, $content_with_newlines);
+		preg_match_all($reg_exp, (string) $content, $html_matches, PREG_SET_ORDER);
+		$text_matches = preg_split($reg_exp, (string) $content_with_newlines);
 
 		foreach ($text_matches as $key => $value) {
 			$value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');

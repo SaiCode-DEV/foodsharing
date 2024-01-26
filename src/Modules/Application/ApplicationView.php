@@ -31,7 +31,7 @@ class ApplicationView extends View
             $application['id']
         );
 
-        $cnt = nl2br($application['application']);
+        $cnt = nl2br((string)$application['application']);
 
         $cnt = $this->v_utils->v_input_wrapper($application['name'], $cnt);
         $cnt .= '<div class="clear"></div>';

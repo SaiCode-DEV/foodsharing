@@ -97,7 +97,7 @@ class WallPostGateway extends BaseGateway
 		', ['targetId' => $targetId, 'limit' => $limit]);
         foreach ($posts as $key => $w) {
             if (!empty($w['attach'])) {
-                $data = json_decode($w['attach'], true);
+                $data = json_decode((string)$w['attach'], true);
                 if (isset($data['image'])) {
                     $gallery = [];
                     foreach ($data['image'] as $img) {

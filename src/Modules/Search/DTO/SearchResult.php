@@ -38,7 +38,7 @@ class SearchResult
         } else {
             return array_map(
                 fn (...$values) => FoodsaverForAvatar::createFromArray(array_combine($keys, $values)),
-                ...array_map(fn ($key) => explode(',', $data[$namespace . '_' . $key . 's']), $keys)
+                ...array_map(fn ($key) => explode(',', (string)$data[$namespace . '_' . $key . 's']), $keys)
             );
         }
     }

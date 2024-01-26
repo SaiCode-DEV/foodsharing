@@ -132,7 +132,7 @@ class FoodSharePointControl extends Control
             $infoType = intval($request->query->get('infotype', InfoType::BELL));
 
             if ($this->handleFollowUnfollow($foodSharePointId, $this->session->id() ?? 0, $follow, $infoType)) {
-                $url = explode('&follow=', $this->routeHelper->getSelf());
+                $url = explode('&follow=', (string)$this->routeHelper->getSelf());
                 $this->routeHelper->goAndExit($url[0]);
             }
 
@@ -147,9 +147,9 @@ class FoodSharePointControl extends Control
 
             $this->view->setFoodSharePoint($this->foodSharePoint, $managers, $followers);
 
-            $this->foodSharePoint['urlname'] = str_replace(' ', '_', $this->foodSharePoint['name']);
+            $this->foodSharePoint['urlname'] = str_replace(' ', '_', (string)$this->foodSharePoint['name']);
             $this->foodSharePoint['urlname'] = $this->identificationHelper->id($this->foodSharePoint['urlname']);
-            $this->foodSharePoint['urlname'] = str_replace('_', '-', $this->foodSharePoint['urlname']);
+            $this->foodSharePoint['urlname'] = str_replace('_', '-', (string)$this->foodSharePoint['urlname']);
 
             if ($request->query->has('delete') && $this->foodSharePointPermissions->mayDeleteFoodSharePointOfRegion($this->regionId)) {
                 $this->delete();

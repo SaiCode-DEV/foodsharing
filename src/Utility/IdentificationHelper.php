@@ -31,7 +31,7 @@ class IdentificationHelper
 
     public function makeId($text, $ids = false)
     {
-        $text = strtolower($text);
+        $text = strtolower((string)$text);
         str_replace(
             ['ä', 'ö', 'ü', 'ß', ' '],
             ['ae', 'oe', 'ue', 'ss', '_'],

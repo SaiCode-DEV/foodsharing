@@ -254,7 +254,7 @@ class BellGateway extends BaseGateway
 
             // This onclick-to-href conversion is probably not needed anymore
             if (isset($row['attr']['onclick'])) {
-                preg_match('/profile\((.*?)\)/', $row['attr']['onclick'], $matches);
+                preg_match('/profile\((.*?)\)/', (string)$row['attr']['onclick'], $matches);
                 if ($matches) {
                     $row['attr']['href'] = '/profile/' . $matches[1];
                 }

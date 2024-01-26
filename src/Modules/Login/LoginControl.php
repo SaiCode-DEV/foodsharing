@@ -85,7 +85,7 @@ class LoginControl extends Control
         $k = false;
 
         if (isset($_GET['k'])) {
-            $k = strip_tags($_GET['k']);
+            $k = strip_tags((string)$_GET['k']);
         }
 
         $this->pageHelper->addTitle($this->translator->trans('login.pwreset.bread'));
@@ -118,7 +118,7 @@ class LoginControl extends Control
                             $this->flashMessageHelper->success(
                                 $this->translator->trans('login.pwreset.success')
                             );
-                        } elseif (strlen($_POST['pass1']) < 5) {
+                        } elseif (strlen((string)$_POST['pass1']) < 5) {
                             $check = false;
                             $this->flashMessageHelper->error($this->translator->trans('login.pwreset.tooShort'));
                         } elseif (!$this->loginGateway->checkResetKey($_POST['k'])) {

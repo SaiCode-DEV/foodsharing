@@ -220,9 +220,9 @@ class StoreTransactionsTest extends Unit
     {
         $foods = [$this->tester->addStoreFoodType(),
             $this->tester->addStoreFoodType()];
-        usort($foods, fn ($a, $b) => strcmp($a['name'], $b['name']));
+        usort($foods, fn ($a, $b) => strcmp((string)$a['name'], (string)$b['name']));
         $chains = [$this->tester->addStoreChain(), $this->tester->addStoreChain()];
-        usort($chains, fn ($a, $b) => strcmp($a['name'], $b['name']));
+        usort($chains, fn ($a, $b) => strcmp((string)$a['name'], (string)$b['name']));
 
         $this->tester->createStoreCategories();
 
@@ -292,9 +292,9 @@ class StoreTransactionsTest extends Unit
     {
         $foods = [$this->tester->addStoreFoodType(),
             $this->tester->addStoreFoodType()];
-        usort($foods, fn ($a, $b) => strcmp($a['name'], $b['name']));
+        usort($foods, fn ($a, $b) => strcmp((string)$a['name'], (string)$b['name']));
         $chains = [$this->tester->addStoreChain(), $this->tester->addStoreChain()];
-        usort($chains, fn ($a, $b) => strcmp($a['name'], $b['name']));
+        usort($chains, fn ($a, $b) => strcmp((string)$a['name'], (string)$b['name']));
 
         $this->tester->createStoreCategories();
 

@@ -231,7 +231,7 @@ final class ProfileGateway extends BaseGateway
 
         $bananaList = $this->db->fetchAll($stm, [':fs_id' => $fsId]);
         foreach ($bananaList as &$banana) {
-            $banana['createdAt'] = str_replace(' ', 'T', $banana['time']);
+            $banana['createdAt'] = str_replace(' ', 'T', (string)$banana['time']);
         }
 
         $data['bananen'] = $bananaList;

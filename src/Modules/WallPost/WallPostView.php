@@ -64,7 +64,7 @@ class WallPostView extends View
 					</td>
 					<td' . $gal_col . '>
 					<span class="msg">
-						' . nl2br($p['body']) . '
+						' . nl2br((string)$p['body']) . '
 						' . $gallery . '
 					</span>
 					<div class="foot">

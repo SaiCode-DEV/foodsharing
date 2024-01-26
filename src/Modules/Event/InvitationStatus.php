@@ -4,10 +4,10 @@ namespace Foodsharing\Modules\Event;
 
 class InvitationStatus
 {
-    public const INVITED = 0; // invited
-    public const ACCEPTED = 1; // will join
-    public const MAYBE = 2; // might join
-    public const WONT_JOIN = 3; // will not join (but has been invited)
+    final public const INVITED = 0; // invited
+    final public const ACCEPTED = 1; // will join
+    final public const MAYBE = 2; // might join
+    final public const WONT_JOIN = 3; // will not join (but has been invited)
 
     public static function isValidStatus(int $status): bool
     {

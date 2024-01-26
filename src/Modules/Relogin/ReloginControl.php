@@ -12,7 +12,7 @@ class ReloginControl extends Control
             $this->session->refreshFromDatabase();
 
             if (isset($_GET['url']) && !empty($_GET['url'])) {
-                $url = urldecode($_GET['url']);
+                $url = urldecode((string)$_GET['url']);
                 if (!str_starts_with($url, 'http')) {
                     $this->routeHelper->goAndExit($url);
                 }

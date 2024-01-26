@@ -176,8 +176,8 @@ class VotingRestController extends AbstractFOSRestController
 
         // parse and check parameters
         $poll = new Poll();
-        $poll->name = trim($paramFetcher->get('name'));
-        $poll->description = trim($paramFetcher->get('description'));
+        $poll->name = trim((string)$paramFetcher->get('name'));
+        $poll->description = trim((string)$paramFetcher->get('description'));
         if (empty($poll->name) || empty($poll->description)) {
             throw new BadRequestHttpException('empty name or description: ' . $poll->name . ', ' . $poll->description);
         }
@@ -250,9 +250,9 @@ class VotingRestController extends AbstractFOSRestController
         // check name and description
         $name = $paramFetcher->get('name');
         if (!empty($name)) {
-            $poll->name = trim($name);
+            $poll->name = trim((string)$name);
         }
-        $description = trim($paramFetcher->get('description'));
+        $description = trim((string)$paramFetcher->get('description'));
         if (!empty($description)) {
             $poll->description = $description;
         }

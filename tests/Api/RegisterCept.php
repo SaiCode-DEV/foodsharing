@@ -51,4 +51,4 @@ $I->seeInDatabase('fs_foodsaver', [
 
 // verify password
 $hash = $I->grabFromDatabase('fs_foodsaver', 'password', ['email' => $email]);
-$I->assertTrue(password_verify($pass, $hash));
+$I->assertTrue(password_verify($pass, (string)$hash));

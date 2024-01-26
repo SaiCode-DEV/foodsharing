@@ -4,8 +4,8 @@ namespace Foodsharing\Modules\Core\DBConstants\Event;
 
 class EventType
 {
-    public const MUMBLE = 0;
-    public const OFFLINE = 1;
+    final public const MUMBLE = 0;
+    final public const OFFLINE = 1;
 
     public static function isOnline(int $eventType): bool
     {

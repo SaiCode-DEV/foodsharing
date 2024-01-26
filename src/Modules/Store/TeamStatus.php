@@ -4,9 +4,9 @@ namespace Foodsharing\Modules\Store;
 
 class TeamStatus
 {
-    public const NoMember = 0;
-    public const Applied = 1;
-    public const WaitingList = 2;
-    public const Member = 3;
-    public const Coordinator = 4;
+    final public const NoMember = 0;
+    final public const Applied = 1;
+    final public const WaitingList = 2;
+    final public const Member = 3;
+    final public const Coordinator = 4;
 }

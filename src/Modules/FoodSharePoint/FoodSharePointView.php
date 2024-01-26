@@ -101,7 +101,7 @@ class FoodSharePointView extends View
 
     public function checkFoodSharePoint(array $foodSharePoint): string
     {
-        $htmlEscapedName = htmlspecialchars($foodSharePoint['name']);
+        $htmlEscapedName = htmlspecialchars((string)$foodSharePoint['name']);
         $content = '';
         if ($foodSharePoint['pic']) {
             $content .= $this->v_utils->v_input_wrapper($this->translator->trans('fsp.pic'),
@@ -188,7 +188,7 @@ class FoodSharePointView extends View
         // initial value for the image chooser can be empty (no image yet) or an old or new file path
         $initialValue = '';
         if (!empty($data['picture'])) {
-            $initialValue = (!str_starts_with($data['picture'], '/api/uploads/') ? '/images/' : '') . $data['picture'];
+            $initialValue = (!str_starts_with((string)$data['picture'], '/api/uploads/') ? '/images/' : '') . $data['picture'];
         }
 
         return $this->v_utils->v_field($this->v_utils->v_form('fairteiler', [

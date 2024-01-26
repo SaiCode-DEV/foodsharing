@@ -44,21 +44,21 @@ namespace Flourish;
 class fSession
 {
 	// The following constants allow for nice looking callbacks to static methods
-	public const add = 'fSession::add';
-	public const clear = 'fSession::clear';
-	public const close = 'fSession::close';
-	public const delete = 'fSession::delete';
-	public const destroy = 'fSession::destroy';
-	public const enablePersistence = 'fSession::enablePersistence';
-	public const get = 'fSession::get';
-	public const ignoreSubdomain = 'fSession::ignoreSubdomain';
-	public const open = 'fSession::open';
-	public const regenerateID = 'fSession::regenerateID';
-	public const reset = 'fSession::reset';
-	public const set = 'fSession::set';
-	public const setBackend = 'fSession::setBackend';
-	public const setLength = 'fSession::setLength';
-	public const setPath = 'fSession::setPath';
+	final public const add = 'fSession::add';
+	final public const clear = 'fSession::clear';
+	final public const close = 'fSession::close';
+	final public const delete = 'fSession::delete';
+	final public const destroy = 'fSession::destroy';
+	final public const enablePersistence = 'fSession::enablePersistence';
+	final public const get = 'fSession::get';
+	final public const ignoreSubdomain = 'fSession::ignoreSubdomain';
+	final public const open = 'fSession::open';
+	final public const regenerateID = 'fSession::regenerateID';
+	final public const reset = 'fSession::reset';
+	final public const set = 'fSession::set';
+	final public const setBackend = 'fSession::setBackend';
+	final public const setLength = 'fSession::setLength';
+	final public const setPath = 'fSession::setPath';
 
 	/**
 	 * The length for a normal session.
@@ -376,7 +376,7 @@ class fSession
 			);
 		}
 
-		$params = [$current_params['lifetime'], $current_params['path'], preg_replace('#.*?([a-z0-9\\-]+\.[a-z]+)$#iD', '.\1', $domain), $current_params['secure']];
+		$params = [$current_params['lifetime'], $current_params['path'], preg_replace('#.*?([a-z0-9\\-]+\.[a-z]+)$#iD', '.\1', (string) $domain), $current_params['secure']];
 
 		call_user_func_array('session_set_cookie_params', $params);
 	}

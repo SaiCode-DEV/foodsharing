@@ -16,9 +16,9 @@ class WebpackHelper
         $entry = 'Modules/' . $moduleName;
         if (isset($manifest[$entry])) {
             foreach ($manifest[$entry] as $asset) {
-                if (str_ends_with($asset, '.js')) {
+                if (str_ends_with((string)$asset, '.js')) {
                     $this->pageHelper->addWebpackScript($asset);
-                } elseif (str_ends_with($asset, '.css')) {
+                } elseif (str_ends_with((string)$asset, '.css')) {
                     $this->pageHelper->addWebpackStylesheet($asset);
                 }
             }

@@ -127,8 +127,8 @@ class EmailControl extends Control
                     }
                 } elseif ($data['recip_choose'] == 'manual') {
                     $foodsaver = $data['recip_choosemanual'];
-                    str_replace(["\r"], '', $foodsaver);
-                    $foodsaver = explode("\n", $foodsaver);
+                    str_replace(["\r"], '', (string)$foodsaver);
+                    $foodsaver = explode("\n", (string)$foodsaver);
 
                     $bezirk = $this->regionGateway->getRegion($this->session->getCurrentRegionId());
 
@@ -148,7 +148,7 @@ class EmailControl extends Control
                         }
 
                         if ($this->emailHelper->validEmail($email)) {
-                            $this->emailHelper->libmail($bezirk, $email, $subject, str_replace('{NAME}', $name, $nachricht));
+                            $this->emailHelper->libmail($bezirk, $email, $subject, str_replace('{NAME}', $name, (string)$nachricht));
                             ++$count;
                         } else {
                             unset($foodsaver[$i]);
@@ -194,7 +194,7 @@ class EmailControl extends Control
         $file = $_FILES[$name]['tmp_name'];
         $size = $_FILES[$name]['size'];
         $filename = $_FILES[$name]['name'];
-        $filename = strtolower($filename);
+        $filename = strtolower((string)$filename);
         $filename = str_replace('.jpeg', '.jpg', $filename);
         $extension = strtolower(substr($filename, strlen($filename) - 4, 4));
 
@@ -212,7 +212,7 @@ class EmailControl extends Control
 
     private function handleImages($body)
     {
-        if (!str_contains($body, '<')) {
+        if (!str_contains((string)$body, '<')) {
             return $body;
         }
 

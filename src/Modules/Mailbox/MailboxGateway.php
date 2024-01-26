@@ -304,7 +304,7 @@ class MailboxGateway extends BaseGateway
                 );
 
                 return $mb;
-            } catch (Exception $e) {
+            } catch (Exception) {
             }
 
             try {
@@ -375,7 +375,7 @@ class MailboxGateway extends BaseGateway
                 $insert[] = [
                     'mailbox_id' => $mbid,
                     'foodsaver_id' => (int)$fs,
-                    'email_name' => '\'' . strip_tags($g_data['email_name']) . '\''
+                    'email_name' => '\'' . strip_tags((string)$g_data['email_name']) . '\''
                 ];
             }
 
@@ -433,7 +433,7 @@ class MailboxGateway extends BaseGateway
                 );
                 foreach ($mailboxAdminRegions as $region) {
                     if ($region['mailbox_id'] == 0) {
-                        $mb_name = mb_strtolower($region['name']);
+                        $mb_name = mb_strtolower((string)$region['name']);
                         $mb_name = trim($mb_name);
                         $mb_name = str_replace(
                             ['ä', 'ö', 'ü', 'è', 'à', 'ß', ' ', '-', '/', '\\'],
@@ -496,10 +496,10 @@ class MailboxGateway extends BaseGateway
             // until now it does nothing, if no value is found
         }
         if ($mayStoreManager && $me && $me['mailbox_id'] == 0) {
-            $me['name'] = explode(' ', $me['name']);
+            $me['name'] = explode(' ', (string)$me['name']);
             $me['name'] = $me['name'][0];
 
-            $me['nachname'] = explode(' ', $me['nachname']);
+            $me['nachname'] = explode(' ', (string)$me['nachname']);
             $me['nachname'] = $me['nachname'][0];
 
             $mb_name = mb_strtolower(substr($me['name'], 0, 1) . '.' . $me['nachname']);
@@ -533,7 +533,7 @@ class MailboxGateway extends BaseGateway
                     $m['email_name'] = $m['name'] . '@' . PLATFORM_MAILBOX_HOST;
                     $this->db->update(
                         'fs_mailbox_member',
-                        ['email_name' => strip_tags($m['name']) . '@' . PLATFORM_MAILBOX_HOST],
+                        ['email_name' => strip_tags((string)$m['name']) . '@' . PLATFORM_MAILBOX_HOST],
                         ['mailbox_id' => (int)$m['id'], 'foodsaver_id' => $fsId]
                     );
                 }
@@ -709,7 +709,7 @@ class MailboxGateway extends BaseGateway
 
         // parse the attachments
         if (!empty($data['attach'])) {
-            $attach = json_decode($data['attach'], true);
+            $attach = json_decode((string)$data['attach'], true);
             if (!empty($attach)) {
                 $email->attachments = array_map(function ($a) {
                     $a = $this->fixAttachment($a);

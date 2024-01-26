@@ -253,7 +253,7 @@ class MailsControl extends ConsoleControl
 
     private function getMailAddressParts($str)
     {
-        $parts = explode('@', trim($str));
+        $parts = explode('@', trim((string)$str));
         if (count($parts) != 2) {
             throw new \Exception($str . ' is not a valid email address');
         }
@@ -267,14 +267,14 @@ class MailsControl extends ConsoleControl
     {
         $res = $this->database->fetchAll('SELECT id, sender, `to` FROM fs_mailbox_message WHERE id < 185882 AND id > 175000');
         foreach ($res as $r) {
-            $sender = json_decode($r['sender']);
-            $to = json_decode($r['to']);
+            $sender = json_decode((string)$r['sender']);
+            $to = json_decode((string)$r['to']);
             if (is_string($sender)) {
                 $newSender = json_encode($this->getMailAddressParts($sender));
                 $newTo = [];
                 foreach ($to as $recip) {
-                    if (strpos($recip, ';')) {
-                        foreach (explode(';', $recip) as $rp) {
+                    if (strpos((string)$recip, ';')) {
+                        foreach (explode(';', (string)$recip) as $rp) {
                             $newTo[] = $this->getMailAddressParts($rp);
                         }
                     } else {
@@ -317,7 +317,7 @@ class MailsControl extends ConsoleControl
         self::info('Mail from: ' . $data['from'][0] . ' (' . $data['from'][1] . ')');
         $email = new Email();
 
-        $mailParts = explode('@', $data['from'][0]);
+        $mailParts = explode('@', (string)$data['from'][0]);
         $fromDomain = end($mailParts);
 
         if (in_array($fromDomain, MAILBOX_OWN_DOMAINS, true)) {
@@ -327,7 +327,7 @@ class MailsControl extends ConsoleControl
             $email->replyTo(new Address($data['from'][0], $data['from'][1] ?? ''));
         }
 
-        $subject = preg_replace('/\s+/', ' ', trim($data['subject']));
+        $subject = preg_replace('/\s+/', ' ', trim((string)$data['subject']));
         if (!$subject) {
             $subject = '[Leerer Betreff]';
         }
@@ -343,7 +343,7 @@ class MailsControl extends ConsoleControl
         $mailCount = 0;
         $recipients = [];
         foreach ($data['recipients'] as $r) {
-            $r[0] = strtolower($r[0]);
+            $r[0] = strtolower((string)$r[0]);
             self::info('To: ' . $r[0]);
             $address = explode('@', $r[0]);
             if (count($address) != 2) {
@@ -390,7 +390,7 @@ class MailsControl extends ConsoleControl
 
     public static function parseEmailAddress($email, $name = false)
     {
-        $p = explode('@', $email);
+        $p = explode('@', (string)$email);
 
         if ($name === false) {
             $name = $email;

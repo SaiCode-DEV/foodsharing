@@ -397,7 +397,7 @@ class ForumPostCest
         $I->assertStringContainsString($title, $mail->text);
         $I->assertStringContainsString('tigt werden', $mail->subject);
         $I->assertRegExp('/http:\/\/.*region.*&amp;tid=[0-9]+/', $mail->html, 'mail should contain a link to thread');
-        preg_match('/http:\/\/.*?\/(.*?)"/', $mail->html, $matches);
+        preg_match('/http:\/\/.*?\/(.*?)"/', (string)$mail->html, $matches);
         $link = html_entity_decode($matches[1]);
         $I->deleteAllMails();
         $admin = $I->haveFriend('admin');
@@ -433,7 +433,7 @@ class ForumPostCest
 
         $I->expectNumMails(1, 5);
         $mail = $I->getMails()[0];
-        preg_match('/http:\/\/.*?\/(.*?)"/', $mail->html, $matches);
+        preg_match('/http:\/\/.*?\/(.*?)"/', (string)$mail->html, $matches);
         $link = html_entity_decode($matches[1]);
 
         $admin = $I->haveFriend('admin');

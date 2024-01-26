@@ -75,7 +75,7 @@ class QuizControl extends Control
         }
     }
 
-    private function goBack()
+    private function goBack(): never
     {
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit;
@@ -134,9 +134,9 @@ class QuizControl extends Control
         $quizId = (int)$_GET['qid'];
         if ($quiz = $this->quizGateway->getQuiz($quizId)) {
             if ($this->submitted()) {
-                $name = trim(strip_tags($_POST['name']));
+                $name = trim(strip_tags((string)$_POST['name']));
                 if (!empty($name)) {
-                    $desc = trim($_POST['desc']);
+                    $desc = trim((string)$_POST['desc']);
                     $maxFailurePoints = (int)$_POST['maxfp'];
                     $questionCount = (int)$_POST['questcount'];
 
@@ -155,9 +155,9 @@ class QuizControl extends Control
     public function newquiz(): void
     {
         if ($this->submitted()) {
-            $name = trim(strip_tags($_POST['name']));
+            $name = trim(strip_tags((string)$_POST['name']));
             if (!empty($name)) {
-                $desc = trim($_POST['desc']);
+                $desc = trim((string)$_POST['desc']);
                 $maxFailurePoints = (int)$_POST['maxfp'];
                 $questionCount = (int)$_POST['questcount'];
 

@@ -72,7 +72,7 @@ class LoginGateway extends BaseGateway
     public function checkClient(string $email, $pass = false)
     {
         $email = trim($email);
-        if (strlen($email) < 2 || strlen($pass) < 1) {
+        if (strlen($email) < 2 || strlen((string)$pass) < 1) {
             return false;
         }
 
@@ -89,7 +89,7 @@ class LoginGateway extends BaseGateway
 
         // modern hashing algorithm
         if ($user['password']) {
-            if (password_verify($pass, $user['password'])) {
+            if (password_verify((string)$pass, (string)$user['password'])) {
                 return $user['id'];
             }
         }
@@ -102,7 +102,7 @@ class LoginGateway extends BaseGateway
      */
     public function password_hash($password)
     {
-        return password_hash($password, PASSWORD_ARGON2I);
+        return password_hash((string)$password, PASSWORD_ARGON2I);
     }
 
     public function activate(string $email, string $token): bool
@@ -118,7 +118,7 @@ class LoginGateway extends BaseGateway
                 'rolle' => 0,
                 'active' => 0,
                 'email' => strip_tags($data->email),
-                'password' => strip_tags($this->password_hash($data->password)),
+                'password' => strip_tags((string)$this->password_hash($data->password)),
                 'name' => strip_tags($data->firstName),
                 'nachname' => strip_tags($data->lastName),
                 'geb_datum' => $data->birthday,
@@ -139,14 +139,14 @@ class LoginGateway extends BaseGateway
 
     public function newPassword(array $data)
     {
-        if (strlen($data['pass1']) <= 4) {
+        if (strlen((string)$data['pass1']) <= 4) {
             return false;
         }
 
         $fsid = $this->db->fetchValueByCriteria(
             'fs_pass_request',
             'foodsaver_id',
-            ['name' => strip_tags($data['k'])]
+            ['name' => strip_tags((string)$data['k'])]
         );
         if (!$fsid) {
             return false;
@@ -157,7 +157,7 @@ class LoginGateway extends BaseGateway
         return $this->db->update(
             'fs_foodsaver',
             [
-                'password' => strip_tags($this->password_hash($data['pass1']))
+                'password' => strip_tags((string)$this->password_hash($data['pass1']))
             ],
             ['id' => (int)$fsid]
         );

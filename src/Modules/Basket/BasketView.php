@@ -94,7 +94,7 @@ class BasketView extends View
         foreach ($baskets as $b) {
             $img = '/img/basket.png';
             if (!empty($b['picture'])) {
-                if (str_starts_with($b['picture'], '/api')) {
+                if (str_starts_with((string)$b['picture'], '/api')) {
                     $img = $b['picture'] . '?w=35&h=35';
                 } else {
                     $img = '/images/basket/thumb-' . $b['picture'];
@@ -133,7 +133,7 @@ class BasketView extends View
 					' . $this->pageImg($basket['picture'] ?? '') . '
 				</div>
 				<div class="fbasket-desc">
-					<p>' . nl2br($basket['description']) . '</p>
+					<p>' . nl2br((string)$basket['description']) . '</p>
 				</div>
 			</div>');
 
@@ -224,7 +224,7 @@ class BasketView extends View
             $hasRequested = $requests ? true : false;
 
             if (!empty($basket['contact_type'])) {
-                $contact_type = explode(':', $basket['contact_type']);
+                $contact_type = explode(':', (string)$basket['contact_type']);
             } else {
                 $contact_type = [];
             }

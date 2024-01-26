@@ -45,7 +45,7 @@ class QuizXhr extends Control
         if ($this->quizPermissions->mayEditQuiz()) {
             if (isset($_GET['text'], $_GET['fp'], $_GET['qid'])) {
                 $failurePoints = (int)$_GET['fp'];
-                $text = strip_tags($_GET['text']);
+                $text = strip_tags((string)$_GET['text']);
                 $duration = (int)$_GET['duration'];
 
                 if (!empty($text)) {
@@ -103,8 +103,8 @@ class QuizXhr extends Control
 
         if ($this->quizPermissions->mayEditQuiz()) {
             if (isset($_GET['text'], $_GET['right'], $_GET['qid'])) {
-                $text = strip_tags($_GET['text']);
-                $exp = strip_tags($_GET['explanation']);
+                $text = strip_tags((string)$_GET['text']);
+                $exp = strip_tags((string)$_GET['explanation']);
                 $right = (int)$_GET['right'];
 
                 if (!empty($text) && in_array($right, [AnswerRating::WRONG, AnswerRating::CORRECT, AnswerRating::NEUTRAL])) {
@@ -128,8 +128,8 @@ class QuizXhr extends Control
     {
         if ($this->quizPermissions->mayEditQuiz()) {
             if (isset($_GET['text'], $_GET['right'], $_GET['id'])) {
-                $text = strip_tags($_GET['text']);
-                $exp = strip_tags($_GET['explanation']);
+                $text = strip_tags((string)$_GET['text']);
+                $exp = strip_tags((string)$_GET['explanation']);
                 $right = (int)$_GET['right'];
 
                 if (!empty($text) && in_array($right, [AnswerRating::WRONG, AnswerRating::CORRECT, AnswerRating::NEUTRAL])) {
@@ -485,9 +485,9 @@ class QuizXhr extends Control
                 /*
                  * parse the anser parameter
                  */
-                $answers = urldecode($_GET['answer']);
+                $answers = urldecode((string)$_GET['answer']);
                 $params = [];
-                parse_str($_GET['answer'], $params);
+                parse_str((string)$_GET['answer'], $params);
 
                 /*
                  * store params in the quiz array to save users answers
@@ -944,7 +944,7 @@ class QuizXhr extends Control
 
                     $out[] = [
                         'id' => $a['id'],
-                        'exp' => nl2br($a['explanation']),
+                        'exp' => nl2br((string)$a['explanation']),
                         'bg' => $bg,
                         'atext' => $atext,
                         'color' => $color
@@ -1145,9 +1145,9 @@ class QuizXhr extends Control
              */
             if (isset($_GET['text'], $_GET['fp'], $_GET['id'])) {
                 $failurePoints = (int)$_GET['fp'];
-                $text = strip_tags($_GET['text']);
+                $text = strip_tags((string)$_GET['text']);
                 $duration = (int)$_GET['duration'];
-                $wikiLink = strip_tags($_GET['wikilink']);
+                $wikiLink = strip_tags((string)$_GET['wikilink']);
 
                 if (!empty($text)) {
                     $this->quizGateway->updateQuestion($_GET['id'], $_GET['qid'], $text, $failurePoints, $duration, $wikiLink);
