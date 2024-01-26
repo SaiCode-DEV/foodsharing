@@ -120,7 +120,7 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
 
         // is this actually used anywhere? (prod?)
         global $g_page_cache;
-        if (isset($g_page_cache) && strtolower((string)$_SERVER['REQUEST_METHOD']) == 'get') {
+        if (isset($g_page_cache) && strtolower((string)$_SERVER['REQUEST_METHOD']) === 'get') {
             /* @var Mem $mem */
             $mem = $this->get(Mem::class);
             $this->cache = new Caching($g_page_cache, $session, $mem);
