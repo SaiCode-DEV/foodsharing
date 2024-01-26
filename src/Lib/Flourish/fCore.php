@@ -48,23 +48,23 @@ use Exception;
 class fCore
 {
 	// The following constants allow for nice looking callbacks to static methods
-	const backtrace = 'Flourish\\fCore::backtrace';
-	const call = 'Flourish\\fCore::call';
-	const callback = 'Flourish\\fCore::callback';
-	const configureSMTP = 'Flourish\\fCore::configureSMTP';
-	const disableContext = 'Flourish\\fCore::disableContext';
-	const dump = 'Flourish\\fCore::dump';
-	const enableDynamicConstants = 'Flourish\\fCore::enableDynamicConstants';
-	const enableErrorHandling = 'Flourish\\fCore::enableErrorHandling';
-	const enableExceptionHandling = 'Flourish\\fCore::enableExceptionHandling';
-	const expose = 'Flourish\\fCore::expose';
-	const handleError = 'Flourish\\fCore::handleError';
-	const handleFatalError = 'Flourish\\fCore::handleFatalError';
-	const handleException = 'Flourish\\fCore::handleException';
-	const reset = 'Flourish\\fCore::reset';
-	const sendMessagesOnShutdown = 'Flourish\\fCore::sendMessagesOnShutdown';
-	const startErrorCapture = 'Flourish\\fCore::startErrorCapture';
-	const stopErrorCapture = 'Flourish\\fCore::stopErrorCapture';
+	public const backtrace = 'Flourish\\fCore::backtrace';
+	public const call = 'Flourish\\fCore::call';
+	public const callback = 'Flourish\\fCore::callback';
+	public const configureSMTP = 'Flourish\\fCore::configureSMTP';
+	public const disableContext = 'Flourish\\fCore::disableContext';
+	public const dump = 'Flourish\\fCore::dump';
+	public const enableDynamicConstants = 'Flourish\\fCore::enableDynamicConstants';
+	public const enableErrorHandling = 'Flourish\\fCore::enableErrorHandling';
+	public const enableExceptionHandling = 'Flourish\\fCore::enableExceptionHandling';
+	public const expose = 'Flourish\\fCore::expose';
+	public const handleError = 'Flourish\\fCore::handleError';
+	public const handleFatalError = 'Flourish\\fCore::handleFatalError';
+	public const handleException = 'Flourish\\fCore::handleException';
+	public const reset = 'Flourish\\fCore::reset';
+	public const sendMessagesOnShutdown = 'Flourish\\fCore::sendMessagesOnShutdown';
+	public const startErrorCapture = 'Flourish\\fCore::startErrorCapture';
+	public const stopErrorCapture = 'Flourish\\fCore::stopErrorCapture';
 
 	/**
 	 * The nesting level of error capturing.

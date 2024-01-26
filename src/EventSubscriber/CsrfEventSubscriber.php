@@ -30,7 +30,7 @@ class CsrfEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        list($controller, $methodName) = $controllers;
+        [$controller, $methodName] = $controllers;
         $reflectionObject = new \ReflectionObject($controller);
         $namespaceName = $reflectionObject->getNamespaceName();
         if (!str_starts_with($namespaceName, 'Foodsharing\\RestApi')) {

@@ -32,7 +32,7 @@ namespace Flourish;
 class fUpload
 {
 	// The following constants allow for nice looking callbacks to static methods
-	const check = 'fUpload::check';
+	public const check = 'fUpload::check';
 
 	/**
 	 * Checks to see if the field specified is a valid file upload field.

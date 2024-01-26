@@ -62,7 +62,7 @@ use Iterator;
 class fFile implements Iterator, Countable
 {
 	// The following constants allow for nice looking callbacks to static methods
-	const create = 'fFile::create';
+	public const create = 'fFile::create';
 
 	/**
 	 * Creates a file on the filesystem and returns an object representing it.

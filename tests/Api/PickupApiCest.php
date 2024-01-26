@@ -272,7 +272,7 @@ class PickupApiCest
 
     public function testListPickupWithHistoryShowFutureAndHistory(ApiTester $I): void
     {
-        $pickupBaseDate = Carbon::now()->addMinute(1)->second(0);
+        $pickupBaseDate = Carbon::now()->addMinute()->second(0);
 
         // Pickup 5 hours ago - regular replaced by manual planed
         $regularPickup5HoursBeforeDate = $pickupBaseDate->copy()->subHours(5);

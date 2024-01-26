@@ -57,7 +57,7 @@ class SearchGateway extends BaseGateway
      */
     public function searchRegions(string $query, int $foodsaverId): array
     {
-        list($searchClauses, $parameters) = $this->generateSearchClauses(self::SEARCH_CRITERIA['regions'], $query);
+        [$searchClauses, $parameters] = $this->generateSearchClauses(self::SEARCH_CRITERIA['regions'], $query);
         $workingGroupType = UnitType::WORKING_GROUP;
         $rootRegionId = RegionIDs::ROOT;
 
@@ -134,7 +134,7 @@ class SearchGateway extends BaseGateway
      */
     public function searchWorkingGroups(string $query, int $foodsaverId, bool $searchAllWorkingGroups): array
     {
-        list($searchClauses, $parameters) = $this->generateSearchClauses(self::SEARCH_CRITERIA['workingGroups'], $query);
+        [$searchClauses, $parameters] = $this->generateSearchClauses(self::SEARCH_CRITERIA['workingGroups'], $query);
         $membershipCheck = $searchAllWorkingGroups ? '' : 'AND (NOT ISNULL(has_parent_region.foodsaver_id) OR NOT ISNULL(has_region.foodsaver_id))';
         $workingGroupType = UnitType::WORKING_GROUP;
 
@@ -215,7 +215,7 @@ class SearchGateway extends BaseGateway
      */
     public function searchStores(string $query, int $foodsaverId, bool $includeInactiveStores, bool $searchGlobal): array
     {
-        list($searchClauses, $parameters) = $this->generateSearchClauses(self::SEARCH_CRITERIA['stores'], $query);
+        [$searchClauses, $parameters] = $this->generateSearchClauses(self::SEARCH_CRITERIA['stores'], $query);
         $onlyActiveClause = '';
         if (!$includeInactiveStores) {
             $onlyActiveClause = 'AND 
@@ -305,7 +305,7 @@ class SearchGateway extends BaseGateway
      */
     public function searchFoodSharePoints(string $query, int $foodsaverId, bool $searchGlobal): array
     {
-        list($searchClauses, $parameters) = $this->generateSearchClauses(self::SEARCH_CRITERIA['foodSharePoints'], $query);
+        [$searchClauses, $parameters] = $this->generateSearchClauses(self::SEARCH_CRITERIA['foodSharePoints'], $query);
         $regionRestrictionClause = '';
         $hasRegionJoin = '';
         if (!$searchGlobal) {
@@ -375,7 +375,7 @@ class SearchGateway extends BaseGateway
      */
     public function searchChats(string $query, int $foodsaverId): array
     {
-        list($searchClauses, $parameters) = $this->generateSearchClauses(self::SEARCH_CRITERIA['chats'], $query);
+        [$searchClauses, $parameters] = $this->generateSearchClauses(self::SEARCH_CRITERIA['chats'], $query);
         $chats = $this->db->fetchAll("SELECT
                 conversation.id,
                 conversation.name,
@@ -457,7 +457,7 @@ class SearchGateway extends BaseGateway
      */
     public function searchThreads(string $query, int $foodsaverId, int $regionId = 0, int $subforumId = 0, $disableRegionCheck = false): array
     {
-        list($searchClauses, $parameters) = $this->generateSearchClauses(self::SEARCH_CRITERIA['threads'], $query);
+        [$searchClauses, $parameters] = $this->generateSearchClauses(self::SEARCH_CRITERIA['threads'], $query);
         $regionRestrictionClause = '';
         if ($regionId > 0) {
             $regionRestrictionClause = 'AND has_thread.bezirk_id = ? AND has_thread.bot_theme = ?';
@@ -571,7 +571,7 @@ class SearchGateway extends BaseGateway
             $searchCriteria['basic'][] = 'foodsaver.email';
             $mailReturnClause = 'foodsaver.email,';
         }
-        list($searchClauses, $parameters) = $this->generateSearchClauses($searchCriteria, $query, 'foodsaver.hidden_last_name');
+        [$searchClauses, $parameters] = $this->generateSearchClauses($searchCriteria, $query, 'foodsaver.hidden_last_name');
 
         $users = $this->db->fetchAll("SELECT
                 foodsaver.id,
@@ -755,7 +755,7 @@ class SearchGateway extends BaseGateway
             $searchCriteria['basic'][] = 'foodsaver.email';
             $mailReturnClause = 'foodsaver.email,';
         }
-        list($searchClauses, $parameters) = $this->generateSearchClauses($searchCriteria, $query);
+        [$searchClauses, $parameters] = $this->generateSearchClauses($searchCriteria, $query);
         $parameters[] = $parameters[0]; // Param for id search
         $regionRestrictionClause = '';
         $hasRegionJoin = '';

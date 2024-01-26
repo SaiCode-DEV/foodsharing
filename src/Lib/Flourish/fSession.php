@@ -44,21 +44,21 @@ namespace Flourish;
 class fSession
 {
 	// The following constants allow for nice looking callbacks to static methods
-	const add = 'fSession::add';
-	const clear = 'fSession::clear';
-	const close = 'fSession::close';
-	const delete = 'fSession::delete';
-	const destroy = 'fSession::destroy';
-	const enablePersistence = 'fSession::enablePersistence';
-	const get = 'fSession::get';
-	const ignoreSubdomain = 'fSession::ignoreSubdomain';
-	const open = 'fSession::open';
-	const regenerateID = 'fSession::regenerateID';
-	const reset = 'fSession::reset';
-	const set = 'fSession::set';
-	const setBackend = 'fSession::setBackend';
-	const setLength = 'fSession::setLength';
-	const setPath = 'fSession::setPath';
+	public const add = 'fSession::add';
+	public const clear = 'fSession::clear';
+	public const close = 'fSession::close';
+	public const delete = 'fSession::delete';
+	public const destroy = 'fSession::destroy';
+	public const enablePersistence = 'fSession::enablePersistence';
+	public const get = 'fSession::get';
+	public const ignoreSubdomain = 'fSession::ignoreSubdomain';
+	public const open = 'fSession::open';
+	public const regenerateID = 'fSession::regenerateID';
+	public const reset = 'fSession::reset';
+	public const set = 'fSession::set';
+	public const setBackend = 'fSession::setBackend';
+	public const setLength = 'fSession::setLength';
+	public const setPath = 'fSession::setPath';
 
 	/**
 	 * The length for a normal session.

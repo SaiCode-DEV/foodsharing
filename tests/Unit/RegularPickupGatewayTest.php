@@ -117,14 +117,14 @@ class RegularPickupGatewayTest extends Unit
 
     private function testRegularPickupRangeByStartDay(Carbon $startDate): void
     {
-        $date1HourBefore = $startDate->copy()->setTimezone('Europe/Berlin')->subHour(1);
-        $dateOneDayAfter = $startDate->copy()->setTimezone('Europe/Berlin')->addDay(1);
-        $dateTwoDayWith10MinAfter = $startDate->copy()->setTimezone('Europe/Berlin')->addDay(2)->addMinutes(10);
+        $date1HourBefore = $startDate->copy()->setTimezone('Europe/Berlin')->subHour();
+        $dateOneDayAfter = $startDate->copy()->setTimezone('Europe/Berlin')->addDay();
+        $dateTwoDayWith10MinAfter = $startDate->copy()->setTimezone('Europe/Berlin')->addDay()->addMinutes(10);
         $time = $startDate->copy()->setTimezone('Europe/Berlin')->format('H:i:s');
-        $timePlus2Min = $startDate->copy()->setTimezone('Europe/Berlin')->addMinute(2)->format('H:i:s');
+        $timePlus2Min = $startDate->copy()->setTimezone('Europe/Berlin')->addMinute()->format('H:i:s');
         $weekday = $startDate->copy()->setTimezone('Europe/Berlin')->format('w');
-        $weekdayOneDayAfter = $startDate->copy()->setTimezone('Europe/Berlin')->addDay(1)->format('w');
-        $weekdayThreeDayAfter = $startDate->copy()->setTimezone('Europe/Berlin')->addDay(3)->format('w');
+        $weekdayOneDayAfter = $startDate->copy()->setTimezone('Europe/Berlin')->addDay()->format('w');
+        $weekdayThreeDayAfter = $startDate->copy()->setTimezone('Europe/Berlin')->addDay()->format('w');
 
         $this->tester->addRecurringPickup($this->store['id'],
             ['time' => $time, 'dow' => $weekday, 'fetcher' => 1]

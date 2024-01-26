@@ -55,12 +55,12 @@ use Exception;
 class fImage extends fFile
 {
 	// The following constants allow for nice looking callbacks to static methods
-	const create = 'fImage::create';
-	const getCompatibleMimetypes = 'fImage::getCompatibleMimetypes';
-	const isImageCompatible = 'fImage::isImageCompatible';
-	const reset = 'fImage::reset';
-	const setImageMagickDirectory = 'fImage::setImageMagickDirectory';
-	const setImageMagickTempDir = 'fImage::setImageMagickTempDir';
+	public const create = 'fImage::create';
+	public const getCompatibleMimetypes = 'fImage::getCompatibleMimetypes';
+	public const isImageCompatible = 'fImage::isImageCompatible';
+	public const reset = 'fImage::reset';
+	public const setImageMagickDirectory = 'fImage::setImageMagickDirectory';
+	public const setImageMagickTempDir = 'fImage::setImageMagickTempDir';
 
 	/**
 	 * If we are using the ImageMagick processor, this stores the path to the binaries.

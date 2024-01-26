@@ -31,8 +31,8 @@ namespace Flourish;
 class fDirectory
 {
 	// The following constants allow for nice looking callbacks to static methods
-	const create = 'fDirectory::create';
-	const makeCanonical = 'fDirectory::makeCanonical';
+	public const create = 'fDirectory::create';
+	public const makeCanonical = 'fDirectory::makeCanonical';
 
 	/**
 	 * Creates a directory on the filesystem and returns an object representing it.

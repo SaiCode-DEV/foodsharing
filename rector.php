@@ -45,6 +45,6 @@ return static function (RectorConfig $rectorConfig): void {
         JMSSetList::ANNOTATIONS_TO_ATTRIBUTES,
         SensiolabsSetList::ANNOTATIONS_TO_ATTRIBUTES,
 
-        LevelSetList::UP_TO_PHP_70
+        LevelSetList::UP_TO_PHP_71,
     ]);
 };
