@@ -119,12 +119,12 @@ class RegularPickupGatewayTest extends Unit
     {
         $date1HourBefore = $startDate->copy()->setTimezone('Europe/Berlin')->subHour();
         $dateOneDayAfter = $startDate->copy()->setTimezone('Europe/Berlin')->addDay();
-        $dateTwoDayWith10MinAfter = $startDate->copy()->setTimezone('Europe/Berlin')->addDay()->addMinutes(10);
+        $dateTwoDayWith10MinAfter = $startDate->copy()->setTimezone('Europe/Berlin')->addDays(2)->addMinutes(10);
         $time = $startDate->copy()->setTimezone('Europe/Berlin')->format('H:i:s');
-        $timePlus2Min = $startDate->copy()->setTimezone('Europe/Berlin')->addMinute()->format('H:i:s');
+        $timePlus2Min = $startDate->copy()->setTimezone('Europe/Berlin')->addMinutes(2)->format('H:i:s');
         $weekday = $startDate->copy()->setTimezone('Europe/Berlin')->format('w');
         $weekdayOneDayAfter = $startDate->copy()->setTimezone('Europe/Berlin')->addDay()->format('w');
-        $weekdayThreeDayAfter = $startDate->copy()->setTimezone('Europe/Berlin')->addDay()->format('w');
+        $weekdayThreeDayAfter = $startDate->copy()->setTimezone('Europe/Berlin')->addDays(3)->format('w');
 
         $this->tester->addRecurringPickup($this->store['id'],
             ['time' => $time, 'dow' => $weekday, 'fetcher' => 1]
