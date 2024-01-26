@@ -642,7 +642,7 @@ class MailboxGateway extends BaseGateway
         try {
             $json = $this->fixQuotedAddressJson($json);
             $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR + JSON_INVALID_UTF8_IGNORE);
-            $name = isset($data['personal']) ? $data['personal'] : null;
+            $name = $data['personal'] ?? null;
 
             return new EmailAddress($data['mailbox'], $data['host'] ?? '', $name);
         } catch (Exception) {
@@ -662,7 +662,7 @@ class MailboxGateway extends BaseGateway
             $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR + JSON_INVALID_UTF8_IGNORE);
 
             return array_map(function ($x) {
-                $name = isset($x['personal']) ? $x['personal'] : null;
+                $name = $x['personal'] ?? null;
 
                 return new EmailAddress($x['mailbox'], $x['host'] ?? '', $name);
             }, $data);

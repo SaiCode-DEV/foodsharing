@@ -213,7 +213,7 @@ class Store
         $obj->address->zipCode = $queryResult['zipCode'];
         $obj->address->city = $queryResult['city'];
 
-        $obj->publicInfo = isset($queryResult['public_info']) ? $queryResult['public_info'] : '';
+        $obj->publicInfo = $queryResult['public_info'] ?? '';
         $obj->publicTime = PublicTimes::tryFrom($queryResult['public_time']);
 
         $obj->category = MinimalIdentifier::createFromId($queryResult['categoryId']);

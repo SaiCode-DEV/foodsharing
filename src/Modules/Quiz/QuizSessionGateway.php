@@ -133,10 +133,10 @@ class QuizSessionGateway extends BaseGateway
                         $session['quiz_result'][$quizKey]['answers'][$answerKey]['user_say'] = $isAnswerGiven;
                     }
 
-                    $duration = isset($user['userduration']) ? $user['userduration'] : $user['duration'];
+                    $duration = $user['userduration'] ?? $user['duration'];
                     $session['quiz_result'][$quizKey]['userduration'] = $duration;
 
-                    $noco = isset($user['noco']) ? $user['noco'] : false;
+                    $noco = $user['noco'] ?? false;
                     $session['quiz_result'][$quizKey]['noco'] = $noco;
 
                     unset($session['quiz_result'][$quizKey]['user']);

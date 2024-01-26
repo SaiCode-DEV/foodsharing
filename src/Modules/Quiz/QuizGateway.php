@@ -190,7 +190,7 @@ class QuizGateway extends BaseGateway
 			', [':quizId' => $quizId]);
             if ($questionCounts) {
                 foreach ($questionCounts as $counts) {
-                    $failurePoints = $counts['fp'] ? $counts['fp'] : 0;
+                    $failurePoints = $counts['fp'] ?: 0;
                     if (!isset($result[$failurePoints])) {
                         $result[$failurePoints] = $counts['count'];
                     }

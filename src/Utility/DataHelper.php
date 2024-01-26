@@ -22,11 +22,7 @@ class DataHelper
     {
         global $g_data;
 
-        if (isset($g_data[$id])) {
-            return $g_data[$id];
-        }
-
-        return '';
+        return $g_data[$id] ?? '';
     }
 
     public function unsetAll($array, $fields): array

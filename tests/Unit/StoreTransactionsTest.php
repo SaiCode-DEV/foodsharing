@@ -18,6 +18,7 @@ use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Store\DTO\CreateStoreData;
+use Foodsharing\Modules\Store\DTO\StoreListInformation;
 use Foodsharing\Modules\Store\PickupGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreTransactionException;
@@ -648,7 +649,7 @@ class StoreTransactionsTest extends Unit
         $listOfStores = $this->transactions->listOverviewInformationsOfStoresInRegion($regionTop['id'], false);
         $this->assertIsArray($listOfStores);
         $this->assertEquals(2, count($listOfStores));
-        $this->assertContainsOnlyInstancesOf('Foodsharing\Modules\Store\DTO\StoreListInformation', $listOfStores);
+        $this->assertContainsOnlyInstancesOf(StoreListInformation::class, $listOfStores);
         $storeIds = array_map(function ($store) { return $store->id; }, $listOfStores);
         $this->assertContainsEquals($store1['id'], $storeIds);
         $this->assertContainsEquals($store2['id'], $storeIds);
@@ -674,7 +675,7 @@ class StoreTransactionsTest extends Unit
         $listOfStores = $this->transactions->listOverviewInformationsOfStoresInRegion($regionTop['id'], true);
         $this->assertIsArray($listOfStores);
         $this->assertEquals(2, count($listOfStores));
-        $this->assertContainsOnlyInstancesOf('Foodsharing\Modules\Store\DTO\StoreListInformation', $listOfStores);
+        $this->assertContainsOnlyInstancesOf(StoreListInformation::class, $listOfStores);
         $storeIds = array_map(function ($store) { return $store->id; }, $listOfStores);
         $this->assertContainsEquals($store1['id'], $storeIds);
         $this->assertContainsEquals($store2['id'], $storeIds);

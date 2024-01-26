@@ -182,11 +182,11 @@ class fFile implements Iterator, Countable
 			return 'image/gif';
 		}
 
-		if ($_0_2 == 'BM' && $length > 14 && in_array($content[14], array("\x0C", "\x28", "\x40", "\x80"))) {
+		if ($_0_2 == 'BM' && $length > 14 && in_array($content[14], ["\x0C", "\x28", "\x40", "\x80"])) {
 			return 'image/x-ms-bmp';
 		}
 
-		$normal_jpeg = $length > 10 && in_array(substr($content, 6, 4), array('JFIF', 'Exif'));
+		$normal_jpeg = $length > 10 && in_array(substr($content, 6, 4), ['JFIF', 'Exif']);
 		$photoshop_jpeg = $length > 24 && $_0_4 == "\xFF\xD8\xFF\xED" && substr($content, 20, 4) == '8BIM';
 		if ($normal_jpeg || $photoshop_jpeg) {
 			return 'image/jpeg';
@@ -202,7 +202,7 @@ class fFile implements Iterator, Countable
 
 		// Audio/Video
 		if ($_0_4 == 'MOVI') {
-			if (in_array($_4_4, array('moov', 'mdat'))) {
+			if (in_array($_4_4, ['moov', 'mdat'])) {
 				return 'video/quicktime';
 			}
 		}
@@ -211,7 +211,7 @@ class fFile implements Iterator, Countable
 			$_8_3 = substr($content, 8, 3);
 			$_8_2 = substr($content, 8, 2);
 
-			if (in_array($_8_4, array('isom', 'iso2', 'mp41', 'mp42'))) {
+			if (in_array($_8_4, ['isom', 'iso2', 'mp41', 'mp42'])) {
 				return 'video/mp4';
 			}
 
@@ -290,10 +290,10 @@ class fFile implements Iterator, Countable
 
 		// Office '97-2003 or Office 2007 formats
 		if ($_0_8 == "\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1" || $_0_8 == "PK\x03\x04\x14\x00\x06\x00") {
-			if (in_array($extension, array('xlsx', 'xls', 'csv', 'tab'))) {
+			if (in_array($extension, ['xlsx', 'xls', 'csv', 'tab'])) {
 				return 'application/vnd.ms-excel';
 			}
-			if (in_array($extension, array('pptx', 'ppt'))) {
+			if (in_array($extension, ['pptx', 'ppt'])) {
 				return 'application/vnd.ms-powerpoint';
 			}
 			// We default to word since we need something if the extension isn't recognized
@@ -579,7 +579,7 @@ class fFile implements Iterator, Countable
 	 */
 	public function __get($method)
 	{
-		return array($this, $method);
+		return [$this, $method];
 	}
 
 	/**
@@ -591,7 +591,7 @@ class fFile implements Iterator, Countable
 	 */
 	public function __sleep()
 	{
-		return array('deleted', 'file');
+		return ['deleted', 'file'];
 	}
 
 	/**

@@ -86,7 +86,7 @@ class WorkingGroupRestController extends AbstractFOSRestController
      * @OA\RequestBody(@Model(type=EditWorkGroupData::class))
      */
     #[Rest\Patch('groups/{groupId}', requirements: ['groupId' => '\d+'])]
-    #[ParamConverter('groupData', class: 'Foodsharing\RestApi\Models\Group\EditWorkGroupData', converter: 'fos_rest.request_body')]
+    #[ParamConverter('groupData', class: EditWorkGroupData::class, converter: 'fos_rest.request_body')]
     public function editWorkingGroup(int $groupId, EditWorkGroupData $groupData, ValidatorInterface $validator): Response
     {
         // check permissions

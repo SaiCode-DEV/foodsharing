@@ -266,7 +266,7 @@ final class BasketRestController extends AbstractFOSRestController
      * @OA\RequestBody(@Model(type=Basket::class))
      */
     #[Rest\Post('baskets')]
-    #[ParamConverter('basket', class: 'Foodsharing\Modules\Basket\DTO\Basket', converter: 'fos_rest.request_body')]
+    #[ParamConverter('basket', class: Basket::class, converter: 'fos_rest.request_body')]
     public function addBasket(Basket $basket, ValidatorInterface $validator): Response
     {
         if (!$this->session->mayRole()) {
@@ -337,7 +337,7 @@ final class BasketRestController extends AbstractFOSRestController
      * @param int $basketId ID of an existing basket
      */
     #[Rest\Put('baskets/{basketId}', requirements: ['basketId' => '\d+'])]
-    #[ParamConverter('basket', class: 'Foodsharing\Modules\Basket\DTO\Basket', converter: 'fos_rest.request_body')]
+    #[ParamConverter('basket', class: Basket::class, converter: 'fos_rest.request_body')]
     public function editBasket(int $basketId, Basket $basket, ValidatorInterface $validator): Response
     {
         if (!$this->session->mayRole()) {

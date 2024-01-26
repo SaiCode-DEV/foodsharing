@@ -186,10 +186,7 @@ class fImage extends fFile
 
 				$found = false;
 
-				$locations = array(
-					'/usr/local/bin/',
-					'/usr/bin/'
-				);
+				$locations = ['/usr/local/bin/', '/usr/bin/'];
 
 				foreach ($locations as $location) {
 					if (self::isSafeModeExecDirRestricted($location)) {
@@ -247,7 +244,7 @@ class fImage extends fFile
 	{
 		self::determineProcessor();
 
-		$mimetypes = array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/png');
+		$mimetypes = ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/png'];
 
 		if (self::$processor == 'imagemagick') {
 			$mimetypes[] = 'image/tiff';
@@ -277,7 +274,7 @@ class fImage extends fFile
 	protected static function getInfo($image_path, $element = null)
 	{
 		$extension = strtolower(fFilesystem::getPathInfo($image_path, 'extension'));
-		if (!in_array($extension, array('jpg', 'jpeg', 'png', 'gif', 'tif', 'tiff'))) {
+		if (!in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'tif', 'tiff'])) {
 			$type = self::getImageType($image_path);
 			if ($type === null) {
 				throw new fValidationException(
@@ -298,7 +295,7 @@ class fImage extends fFile
 			);
 		}
 
-		$valid_elements = array('type', 'width', 'height');
+		$valid_elements = ['type', 'width', 'height'];
 		if ($element !== null && !in_array($element, $valid_elements)) {
 			throw new fException(
 				'The element specified, %1$s, is invalid. Must be one of: %2$s.',
@@ -307,13 +304,9 @@ class fImage extends fFile
 			);
 		}
 
-		$types = array(IMAGETYPE_GIF => 'gif',
-					   IMAGETYPE_JPEG => 'jpg',
-					   IMAGETYPE_PNG => 'png',
-					   IMAGETYPE_TIFF_II => 'tif',
-					   IMAGETYPE_TIFF_MM => 'tif');
+		$types = [IMAGETYPE_GIF => 'gif', IMAGETYPE_JPEG => 'jpg', IMAGETYPE_PNG => 'png', IMAGETYPE_TIFF_II => 'tif', IMAGETYPE_TIFF_MM => 'tif'];
 
-		$output = array();
+		$output = [];
 		$output['width'] = $image_info[0];
 		$output['height'] = $image_info[1];
 		if (isset($types[$image_info[2]])) {
@@ -452,7 +445,7 @@ class fImage extends fFile
 	 */
 	private static function isSafeModeExecDirRestricted($path)
 	{
-		if (!in_array(strtolower(ini_get('safe_mode')), array('0', '', 'off'))) {
+		if (!in_array(strtolower(ini_get('safe_mode')), ['0', '', 'off'])) {
 			$exec_dir = ini_get('safe_mode_exec_dir');
 			if (!$exec_dir || stripos($path, $exec_dir) === false) {
 				return true;
@@ -511,7 +504,7 @@ class fImage extends fFile
 	 *
 	 * @var array
 	 */
-	private $pending_modifications = array();
+	private $pending_modifications = [];
 
 	/**
 	 * Inlined and simplified.
@@ -565,7 +558,7 @@ class fImage extends fFile
 		parent::__construct($file_path, $skip_checks);
 
 		if (!self::isImageCompatible($file_path)) {
-			$valid_image_types = array('GIF', 'JPG', 'PNG');
+			$valid_image_types = ['GIF', 'JPG', 'PNG'];
 			if (self::$processor == 'imagemagick') {
 				$valid_image_types[] = 'TIF';
 			}
@@ -623,7 +616,7 @@ class fImage extends fFile
 					throw new fException(
 						'The crop-from x specified, %1$s, is not a valid horizontal position. Must be one of: %2$s.',
 						$crop_from_x,
-						array('left', 'center', 'right')
+						['left', 'center', 'right']
 					);
 			}
 		}
@@ -643,7 +636,7 @@ class fImage extends fFile
 					throw new fException(
 						'The crop-from y specified, %1$s, is not a valid vertical position. Must be one of: %2$s.',
 						$crop_from_y,
-						array('top', 'center', 'bottom')
+						['top', 'center', 'bottom']
 					);
 			}
 		}
@@ -683,15 +676,7 @@ class fImage extends fFile
 		}
 
 		// Record what we are supposed to do
-		$this->pending_modifications[] = array(
-			'operation' => 'crop',
-			'start_x' => $crop_from_x,
-			'start_y' => $crop_from_y,
-			'width' => $new_width,
-			'height' => $new_height,
-			'old_width' => $orig_width,
-			'old_height' => $orig_height
-		);
+		$this->pending_modifications[] = ['operation' => 'crop', 'start_x' => $crop_from_x, 'start_y' => $crop_from_y, 'width' => $new_width, 'height' => $new_height, 'old_width' => $orig_width, 'old_height' => $orig_height];
 
 		return $this;
 	}
@@ -727,7 +712,7 @@ class fImage extends fFile
 		}
 
 		// Make sure
-		$valid_horizontal_positions = array('left', 'center', 'right');
+		$valid_horizontal_positions = ['left', 'center', 'right'];
 		if (!in_array(strtolower($horizontal_position), $valid_horizontal_positions)) {
 			throw new fException(
 				'The horizontal position specified, %1$s, is not valid. Must be one of: %2$s.',
@@ -736,7 +721,7 @@ class fImage extends fFile
 			);
 		}
 
-		$valid_vertical_positions = array('top', 'center', 'bottom');
+		$valid_vertical_positions = ['top', 'center', 'bottom'];
 		if (!in_array(strtolower($vertical_position), $valid_vertical_positions)) {
 			throw new fException(
 				'The vertical position specified, %1$s, is not valid. Must be one of: %2$s.',
@@ -778,13 +763,7 @@ class fImage extends fFile
 		$dim = $this->getCurrentDimensions();
 
 		// Record what we are supposed to do
-		$this->pending_modifications[] = array(
-			'operation' => 'desaturate',
-			'width' => $dim['width'],
-			'height' => $dim['height'],
-			'old_width' => $dim['width'],
-			'old_height' => $dim['height']
-		);
+		$this->pending_modifications[] = ['operation' => 'desaturate', 'width' => $dim['width'], 'height' => $dim['height'], 'old_width' => $dim['width'], 'old_height' => $dim['height']];
 
 		return $this;
 	}
@@ -817,7 +796,7 @@ class fImage extends fFile
 	{
 		$info = self::getInfo($this->file);
 
-		return array($info['width'], $info['height']);
+		return [$info['width'], $info['height']];
 	}
 
 	/**
@@ -882,7 +861,7 @@ class fImage extends fFile
 		$new_type = $path_info['extension'];
 		$new_type = ($type == 'jpeg') ? 'jpg' : $type;
 
-		if (!in_array($new_type, array('gif', 'jpg', 'png'))) {
+		if (!in_array($new_type, ['gif', 'jpg', 'png'])) {
 			$new_type = $type;
 		}
 
@@ -962,7 +941,7 @@ class fImage extends fFile
 				// Perform the desaturate operation
 			} elseif ($mod['operation'] == 'desaturate') {
 				// Create a palette of grays
-				$grays = array();
+				$grays = [];
 				for ($i = 0; $i < 256; ++$i) {
 					$grays[$i] = imagecolorallocate($new_gd_res, $i, $i, $i);
 				}
@@ -1115,7 +1094,7 @@ class fImage extends fFile
 		$new_type = $path_info['extension'];
 		$new_type = ($new_type == 'jpeg') ? 'jpg' : $new_type;
 
-		if (!in_array($new_type, array('gif', 'jpg', 'png'))) {
+		if (!in_array($new_type, ['gif', 'jpg', 'png'])) {
 			$new_type = $type;
 		}
 
@@ -1255,13 +1234,7 @@ class fImage extends fFile
 		}
 
 		// Record what we are supposed to do
-		$this->pending_modifications[] = array(
-			'operation' => 'resize',
-			'width' => $new_width,
-			'height' => $new_height,
-			'old_width' => $orig_width,
-			'old_height' => $orig_height
-		);
+		$this->pending_modifications[] = ['operation' => 'resize', 'width' => $new_width, 'height' => $new_height, 'old_width' => $orig_width, 'old_height' => $orig_height];
 
 		return $this;
 	}
@@ -1278,7 +1251,7 @@ class fImage extends fFile
 		$this->tossIfDeleted();
 
 		// Make sure the user input is valid
-		$valid_degrees = array(90, 180, 270);
+		$valid_degrees = [90, 180, 270];
 		if (!in_array($degrees, $valid_degrees)) {
 			throw new fException(
 				'The number of degrees specified, %1$s, is not valid. Must be one of: %2$s.',
@@ -1301,14 +1274,7 @@ class fImage extends fFile
 		}
 
 		// Record what we are supposed to do
-		$this->pending_modifications[] = array(
-			'operation' => 'rotate',
-			'degrees' => $degrees,
-			'width' => $new_width,
-			'height' => $new_height,
-			'old_width' => $orig_width,
-			'old_height' => $orig_height
-		);
+		$this->pending_modifications[] = ['operation' => 'rotate', 'degrees' => $degrees, 'width' => $new_width, 'height' => $new_height, 'old_width' => $orig_width, 'old_height' => $orig_height];
 
 		return $this;
 	}
@@ -1358,7 +1324,7 @@ class fImage extends fFile
 			);
 		}
 
-		$valid_image_types = array('jpg', 'gif', 'png');
+		$valid_image_types = ['jpg', 'gif', 'png'];
 		if ($new_image_type !== null && !in_array($new_image_type, $valid_image_types)) {
 			throw new fException(
 				'The new image type specified, %1$s, is invalid. Must be one of: %2$s.',
@@ -1439,7 +1405,7 @@ class fImage extends fFile
 			$old_image->delete();
 		}
 
-		$this->pending_modifications = array();
+		$this->pending_modifications = [];
 		clearstatcache();
 
 		return $this;

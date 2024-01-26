@@ -118,11 +118,11 @@ class fSession
 
 			foreach (array_slice($array_keys, 0, -1) as $array_key) {
 				if (!isset($tip[$array_key])) {
-					$tip[$array_key] = array();
+					$tip[$array_key] = [];
 				} elseif (!is_array($tip[$array_key])) {
 					throw new fException(
 						'%1$s was called for the key, %2$s, which is not an array',
-						__CLASS__ . '::add()',
+						self::class . '::add()',
 						$original_key
 					);
 				}
@@ -132,11 +132,11 @@ class fSession
 		}
 
 		if (!isset($tip[$key])) {
-			$tip[$key] = array();
+			$tip[$key] = [];
 		} elseif (!is_array($tip[$key])) {
 			throw new fException(
 				'%1$s was called for the key, %2$s, which is not an array',
-				__CLASS__ . '::add()',
+				self::class . '::add()',
 				$key
 			);
 		}
@@ -170,7 +170,7 @@ class fSession
 				}
 			}
 		} else {
-			$_SESSION = array();
+			$_SESSION = [];
 		}
 
 		$_SESSION['fSession::type'] = $session_type;
@@ -228,7 +228,7 @@ class fSession
 				} elseif (!is_array($tip[$array_key])) {
 					throw new fException(
 						'%1$s was called for an element, %2$s, which is not an array',
-						__CLASS__ . '::delete()',
+						self::class . '::delete()',
 						$original_key
 					);
 				}
@@ -254,7 +254,7 @@ class fSession
 	public static function destroy()
 	{
 		self::open();
-		$_SESSION = array();
+		$_SESSION = [];
 		unset($_SESSION);
 		if (isset($_COOKIE[session_name()])) {
 			$params = session_get_cookie_params();
@@ -281,20 +281,15 @@ class fSession
 		if (self::$persistent_timespan === null) {
 			throw new fException(
 				'The method %1$s must be called with the %2$s parameter before calling %3$s',
-				__CLASS__ . '::setLength()',
+				self::class . '::setLength()',
 				'$persistent_timespan',
-				__CLASS__ . '::enablePersistence()'
+				self::class . '::enablePersistence()'
 			);
 		}
 
 		$current_params = session_get_cookie_params();
 
-		$params = array(
-			self::$persistent_timespan,
-			$current_params['path'],
-			$current_params['domain'],
-			$current_params['secure']
-		);
+		$params = [self::$persistent_timespan, $current_params['path'], $current_params['domain'], $current_params['secure']];
 
 		call_user_func_array('session_set_cookie_params', $params);
 
@@ -355,13 +350,13 @@ class fSession
 		if (self::$open || isset($_SESSION)) {
 			throw new fException(
 				'%1$s must be called before any of %2$s, %3$s, %4$s, %5$s, %6$s, %7$s or %8$s',
-				__CLASS__ . '::ignoreSubdomain()',
-				__CLASS__ . '::add()',
-				__CLASS__ . '::clear()',
-				__CLASS__ . '::enablePersistence()',
-				__CLASS__ . '::get()',
-				__CLASS__ . '::open()',
-				__CLASS__ . '::set()',
+				self::class . '::ignoreSubdomain()',
+				self::class . '::add()',
+				self::class . '::clear()',
+				self::class . '::enablePersistence()',
+				self::class . '::get()',
+				self::class . '::open()',
+				self::class . '::set()',
 				'session_start()'
 			);
 		}
@@ -377,16 +372,11 @@ class fSession
 				'The domain name could not be found in %1$s or %2$s. Please set one of these keys to use %3$s.',
 				'$_SERVER[\'SERVER_NAME\']',
 				'$_SERVER[\'HTTP_HOST\']',
-				__CLASS__ . '::ignoreSubdomain()'
+				self::class . '::ignoreSubdomain()'
 			);
 		}
 
-		$params = array(
-			$current_params['lifetime'],
-			$current_params['path'],
-			preg_replace('#.*?([a-z0-9\\-]+\.[a-z]+)$#iD', '.\1', $domain),
-			$current_params['secure']
-		);
+		$params = [$current_params['lifetime'], $current_params['path'], preg_replace('#.*?([a-z0-9\\-]+\.[a-z]+)$#iD', '.\1', $domain), $current_params['secure']];
 
 		call_user_func_array('session_set_cookie_params', $params);
 	}
@@ -425,7 +415,7 @@ class fSession
 
 		// If the session has existed for too long, reset it
 		if (isset($_SESSION['fSession::expires']) && $_SESSION['fSession::expires'] < $_SERVER['REQUEST_TIME']) {
-			$_SESSION = array();
+			$_SESSION = [];
 			self::regenerateID();
 		}
 
@@ -485,7 +475,7 @@ class fSession
 				} elseif (!is_array($tip[$array_key])) {
 					throw new fException(
 						'%1$s was called for the key, %2$s, which is not an array',
-						__CLASS__ . '::remove()',
+						self::class . '::remove()',
 						$original_key
 					);
 				}
@@ -499,7 +489,7 @@ class fSession
 		} elseif (!is_array($tip[$key])) {
 			throw new fException(
 				'%1$s was called for the key, %2$s, which is not an array',
-				__CLASS__ . '::remove()',
+				self::class . '::remove()',
 				$key
 			);
 		}
@@ -546,7 +536,7 @@ class fSession
 
 			foreach (array_slice($array_keys, 0, -1) as $array_key) {
 				if (!isset($tip[$array_key]) || !is_array($tip[$array_key])) {
-					$tip[$array_key] = array();
+					$tip[$array_key] = [];
 				}
 				$tip = &$tip[$array_key];
 			}
@@ -575,13 +565,13 @@ class fSession
 		if (self::$open || isset($_SESSION)) {
 			throw new fException(
 				'%1$s must be called before any of %2$s, %3$s, %4$s, %5$s, %6$s, %7$s or %8$s',
-				__CLASS__ . '::setLength()',
-				__CLASS__ . '::add()',
-				__CLASS__ . '::clear()',
-				__CLASS__ . '::enablePersistence()',
-				__CLASS__ . '::get()',
-				__CLASS__ . '::open()',
-				__CLASS__ . '::set()',
+				self::class . '::setLength()',
+				self::class . '::add()',
+				self::class . '::clear()',
+				self::class . '::enablePersistence()',
+				self::class . '::get()',
+				self::class . '::open()',
+				self::class . '::set()',
 				'session_start()'
 			);
 		}
@@ -613,13 +603,13 @@ class fSession
 		if (self::$open || isset($_SESSION)) {
 			throw new fException(
 				'%1$s must be called before any of %2$s, %3$s, %4$s, %5$s, %6$s, %7$s or %8$s',
-				__CLASS__ . '::setPath()',
-				__CLASS__ . '::add()',
-				__CLASS__ . '::clear()',
-				__CLASS__ . '::enablePersistence()',
-				__CLASS__ . '::get()',
-				__CLASS__ . '::open()',
-				__CLASS__ . '::set()',
+				self::class . '::setPath()',
+				self::class . '::add()',
+				self::class . '::clear()',
+				self::class . '::enablePersistence()',
+				self::class . '::get()',
+				self::class . '::open()',
+				self::class . '::set()',
 				'session_start()'
 			);
 		}

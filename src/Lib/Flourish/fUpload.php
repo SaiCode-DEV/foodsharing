@@ -97,7 +97,7 @@ class fUpload
 	 *
 	 * @var array
 	 */
-	private $mime_types = array();
+	private $mime_types = [];
 
 	/**
 	 * All requests that hit this method should be requests for callbacks.
@@ -110,7 +110,7 @@ class fUpload
 	 */
 	public function __get($method)
 	{
-		return array($this, $method);
+		return [$this, $method];
 	}
 
 	/**
@@ -142,7 +142,7 @@ class fUpload
 			);
 		}
 
-		$file_array = array();
+		$file_array = [];
 		$file_array['name'] = $_FILES[$field]['name'][$index];
 		$file_array['type'] = $_FILES[$field]['type'][$index];
 		$file_array['tmp_name'] = $_FILES[$field]['tmp_name'][$index];
@@ -257,7 +257,7 @@ class fUpload
 		}
 
 		$file_info = fFilesystem::getPathInfo($file_array['name']);
-		if (in_array(strtolower($file_info['extension']), array('php', 'php4', 'php5'))) {
+		if (in_array(strtolower($file_info['extension']), ['php', 'php4', 'php5'])) {
 			return self::compose('The file uploaded is a PHP file, but those are not permitted');
 		}
 

@@ -105,10 +105,10 @@ class fAuthorization
 	 */
 	public static function destroyUserInfo()
 	{
-		fSession::delete(__CLASS__ . '::user_auth_level');
-		fSession::delete(__CLASS__ . '::user_acls');
-		fSession::delete(__CLASS__ . '::user_token');
-		fSession::delete(__CLASS__ . '::requested_url');
+		fSession::delete(self::class . '::user_auth_level');
+		fSession::delete(self::class . '::user_acls');
+		fSession::delete(self::class . '::user_token');
+		fSession::delete(self::class . '::requested_url');
 	}
 
 	/**
@@ -118,7 +118,7 @@ class fAuthorization
 	 */
 	public static function getUserACLs()
 	{
-		return fSession::get(__CLASS__ . '::user_acls', null);
+		return fSession::get(self::class . '::user_acls', null);
 	}
 
 	/**
@@ -128,7 +128,7 @@ class fAuthorization
 	 */
 	public static function getUserAuthLevel()
 	{
-		return fSession::get(__CLASS__ . '::user_auth_level', null);
+		return fSession::get(self::class . '::user_auth_level', null);
 	}
 
 	/**
@@ -138,7 +138,7 @@ class fAuthorization
 	 */
 	public static function getUserToken()
 	{
-		return fSession::get(__CLASS__ . '::user_token', null);
+		return fSession::get(self::class . '::user_token', null);
 	}
 
 	/**
@@ -171,7 +171,7 @@ class fAuthorization
 	 */
 	public static function setUserACLs($acls)
 	{
-		fSession::set(__CLASS__ . '::user_acls', $acls);
+		fSession::set(self::class . '::user_acls', $acls);
 		fSession::regenerateID();
 	}
 
@@ -183,7 +183,7 @@ class fAuthorization
 	public static function setUserAuthLevel($level)
 	{
 		self::validateAuthLevel($level);
-		fSession::set(__CLASS__ . '::user_auth_level', $level);
+		fSession::set(self::class . '::user_auth_level', $level);
 		fSession::regenerateID();
 	}
 
@@ -194,7 +194,7 @@ class fAuthorization
 	 */
 	public static function setUserToken($token)
 	{
-		fSession::set(__CLASS__ . '::user_token', $token);
+		fSession::set(self::class . '::user_token', $token);
 		fSession::regenerateID();
 	}
 
@@ -208,7 +208,7 @@ class fAuthorization
 		if (self::$levels === null) {
 			throw new fException(
 				'No authorization levels have been set, please call %s',
-				__CLASS__ . '::setAuthLevels()'
+				self::class . '::setAuthLevels()'
 			);
 		}
 		if ($level !== null && !isset(self::$levels[$level])) {

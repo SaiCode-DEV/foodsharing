@@ -179,7 +179,7 @@ class NotificationsController extends AbstractFOSRestController
     #[Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
     #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
     #[RequestBody(content: new Model(type: NewsletterChat::class))]
-    #[ParamConverter(data: 'newsletterChat', class: 'Foodsharing\RestApi\Models\Notifications\NewsletterChat', converter: 'fos_rest.request_body')]
+    #[ParamConverter(data: 'newsletterChat', class: NewsletterChat::class, converter: 'fos_rest.request_body')]
     public function setUserNotification(NewsletterChat $newsletterChat, ValidatorInterface $validator): HttpResponse
     {
         $userId = $this->session->id();

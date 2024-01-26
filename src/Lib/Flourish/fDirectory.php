@@ -171,7 +171,7 @@ class fDirectory
 	 */
 	public function __get($method)
 	{
-		return array($this, $method);
+		return [$this, $method];
 	}
 
 	/**
@@ -453,16 +453,13 @@ class fDirectory
 	{
 		$this->tossIfDeleted();
 
-		$files = array_diff(scandir($this->directory), array('.', '..'));
-		$objects = array();
+		$files = array_diff(scandir($this->directory), ['.', '..']);
+		$objects = [];
 
 		if ($filter && !preg_match('#^([^a-zA-Z0-9\\\\\s]).*\1[imsxeADSUXJu]*$#D', $filter)) {
 			$filter = '#^' . strtr(
 				preg_quote($filter, '#'),
-				array(
-					'\\*' => '.*',
-					'\\?' => '.'
-				)
+				['\\*' => '.*', '\\?' => '.']
 			) . '$#D';
 		}
 
@@ -505,14 +502,11 @@ class fDirectory
 			if (!preg_match('#^([^a-zA-Z0-9\\\\\s*?^$]).*\1[imsxeADSUXJu]*$#D', $filter)) {
 				$filter = '#^' . strtr(
 					preg_quote($filter, '#'),
-					array(
-						'\\*' => '.*',
-						'\\?' => '.'
-					)
+					['\\*' => '.*', '\\?' => '.']
 				) . '$#D';
 			}
 
-			$new_objects = array();
+			$new_objects = [];
 			$strip_length = strlen($this->getPath());
 			foreach ($objects as $object) {
 				$test_path = substr($object->getPath(), $strip_length);

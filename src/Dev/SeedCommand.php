@@ -58,7 +58,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $config = $this->getGlobalConfig();
         $di = new Di();
         $module = new ModuleContainer($di, $config);
-        $this->helper = $module->create('Tests\Support\Helper\Foodsharing');
+        $this->helper = $module->create(Foodsharing::class);
         $this->helper->_initialize();
 
         // Clear existing data to prevent collisions
@@ -577,9 +577,9 @@ class SeedCommand extends Command implements CustomCommandInterface
             foreach ($this->getRandomIDOfArray($this->foodsavers, 10) as $chatpartner) {
                 if ($user !== $chatpartner) {
                     $conv = $I->createConversation([$user, $chatpartner]);
-                    for ($i = 1; $i <= rand(1, 10); ++$i) {
+                    for ($i = 1; $i <= random_int(1, 10); ++$i) {
                         $userId = $user;
-                        if (rand(0, 1)) {
+                        if (random_int(0, 1)) {
                             $userId = $chatpartner;
                         }
                         $I->addConversationMessage($userId, $conv['id']);
@@ -622,7 +622,7 @@ class SeedCommand extends Command implements CustomCommandInterface
             $conv2 = $I->createConversation([$userbot['id']], ['name' => 'springer', 'locked' => 1]);
 
             $extra_params = [];
-            if (rand(0, 1) == 1) {
+            if (random_int(0, 1) == 1) {
                 $extra_params['kette_id'] = $this->chain_ids[random_int(0, 10)];
             }
 

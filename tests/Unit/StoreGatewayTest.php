@@ -291,7 +291,7 @@ class StoreGatewayTest extends Unit
         $listOfStores = $this->gateway->listStoresInRegion($regionTop['id'], true);
         $this->assertIsArray($listOfStores);
         $this->assertEquals(4, count($listOfStores));
-        $this->assertContainsOnlyInstancesOf('Foodsharing\Modules\Store\DTO\Store', $listOfStores);
+        $this->assertContainsOnlyInstancesOf(Store::class, $listOfStores);
         $storeIds = array_map(function ($store) { return $store->id; }, $listOfStores);
         $this->assertContainsEquals($store1['id'], $storeIds);
         $this->assertContainsEquals($store2['id'], $storeIds);
@@ -315,7 +315,7 @@ class StoreGatewayTest extends Unit
         $listOfStores = $this->gateway->listStoresInRegion($regionTop['id'], false);
         $this->assertIsArray($listOfStores);
         $this->assertEquals(2, count($listOfStores));
-        $this->assertContainsOnlyInstancesOf('Foodsharing\Modules\Store\DTO\Store', $listOfStores);
+        $this->assertContainsOnlyInstancesOf(Store::class, $listOfStores);
         $storeIds = array_map(function ($store) { return $store->id; }, $listOfStores);
         $this->assertContainsEquals($store1['id'], $storeIds);
         $this->assertContainsEquals($store2['id'], $storeIds);

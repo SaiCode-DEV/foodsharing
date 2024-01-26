@@ -86,7 +86,7 @@ final class PickupRestController extends AbstractFOSRestController
      * @OA\RequestBody(@Model(type=PickupLeaveMessageOptions::class))
      */
     #[Rest\Delete('stores/{storeId}/pickups/{pickupDate}/{fsId}', requirements: ['storeId' => '\d+', 'pickupDate' => '[^/]+', 'fsId' => '\d+'])]
-    #[ParamConverter('leaveInformation', class: 'Foodsharing\RestApi\Models\Store\PickupLeaveMessageOptions', converter: 'fos_rest.request_body')]
+    #[ParamConverter('leaveInformation', class: PickupLeaveMessageOptions::class, converter: 'fos_rest.request_body')]
     public function leavePickup(int $storeId, string $pickupDate, int $fsId, PickupLeaveMessageOptions $leaveInformation, ValidatorInterface $validator): Response
     {
         if (!$this->session->id()) {
@@ -112,7 +112,7 @@ final class PickupRestController extends AbstractFOSRestController
      * @OA\RequestBody(@Model(type=PickupLeaveMessageOptions::class))
      */
     #[Rest\Delete('pickups/{fsId}', requirements: ['fsId' => '\d+'])]
-    #[ParamConverter('leaveInformation', class: 'Foodsharing\RestApi\Models\Store\PickupLeaveMessageOptions', converter: 'fos_rest.request_body')]
+    #[ParamConverter('leaveInformation', class: PickupLeaveMessageOptions::class, converter: 'fos_rest.request_body')]
     public function leaveAllPickups(int $fsId, PickupLeaveMessageOptions $leaveInformation, ValidatorInterface $validator)
     {
         if (!$this->session->id()) {

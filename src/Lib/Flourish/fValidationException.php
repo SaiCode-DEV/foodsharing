@@ -77,14 +77,14 @@ class fValidationException extends fExpectedException
 
 			$params = array_merge(
 				// This escapes % signs since fException is going to look for sprintf formatting codes
-				array(str_replace('%', '%%', $message)),
+				[str_replace('%', '%%', $message)],
 				// This grabs the exception code if one is defined
 				array_slice($params, 2)
 			);
 		}
 
 		call_user_func_array(
-			array($this, '\\Flourish\\fException::__construct'),
+			[$this, '\\Flourish\\fException::__construct'],
 			$params
 		);
 	}
@@ -98,7 +98,7 @@ class fValidationException extends fExpectedException
 	 */
 	private function formatErrorArray($errors)
 	{
-		$new_errors = array();
+		$new_errors = [];
 		foreach ($errors as $error) {
 			if (!is_array($error)) {
 				$new_errors[] = $error;

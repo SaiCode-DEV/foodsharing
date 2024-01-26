@@ -58,7 +58,7 @@ class ActivityRestController extends AbstractFOSRestController
     #[OA\RequestBody(content: new Model(type: ActivityFilterModel::class))]
     #[ParamConverter(
         data: 'activityExcluded',
-        class: 'Foodsharing\RestApi\Models\Activities\ActivityFilterModel',
+        class: ActivityFilterModel::class,
         converter: 'fos_rest.request_body'
     )]
     #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]

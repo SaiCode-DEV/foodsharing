@@ -47,7 +47,7 @@ class fTimestamp
 	 *
 	 * @var array
 	 */
-	private static $formats = array();
+	private static $formats = [];
 
 	/**
 	 * A callback to process all formatting strings through.
@@ -177,7 +177,7 @@ class fTimestamp
 	 */
 	public static function isValidTimezone($timezone)
 	{
-		static $valid_timezones = array(
+		static $valid_timezones = [
 			'UTC' => true,
 			'Africa/Abidjan' => true,
 			'Africa/Accra' => true,
@@ -624,7 +624,7 @@ class fTimestamp
 			'Pacific/Truk' => true,
 			'Pacific/Wake' => true,
 			'Pacific/Wallis' => true
-		);
+        ];
 
 		return isset($valid_timezones[$timezone]);
 	}
@@ -662,7 +662,7 @@ class fTimestamp
 	 */
 	public static function reset()
 	{
-		self::$formats = array();
+		self::$formats = [];
 		self::$format_callback = null;
 	}
 
@@ -749,12 +749,12 @@ class fTimestamp
 			$timestamp = time();
 		} elseif (is_numeric($datetime) && preg_match('#^-?\d+$#D', $datetime)) {
 			$timestamp = (int)$datetime;
-		} elseif (is_string($datetime) && in_array(strtoupper($datetime), array('CURRENT_TIMESTAMP', 'CURRENT_TIME'))) {
+		} elseif (is_string($datetime) && in_array(strtoupper($datetime), ['CURRENT_TIMESTAMP', 'CURRENT_TIME'])) {
 			$timestamp = time();
 		} elseif (is_string($datetime) && strtoupper($datetime) == 'CURRENT_DATE') {
 			$timestamp = strtotime(date('Y-m-d'));
 		} else {
-			if (is_object($datetime) && is_callable(array($datetime, '__toString'))) {
+			if (is_object($datetime) && is_callable([$datetime, '__toString'])) {
 				$datetime = $datetime->__toString();
 			} elseif (is_numeric($datetime) || is_object($datetime)) {
 				$datetime = (string)$datetime;
@@ -792,7 +792,7 @@ class fTimestamp
 	 */
 	public function __get($method)
 	{
-		return array($this, $method);
+		return [$this, $method];
 	}
 
 	/**
@@ -956,22 +956,22 @@ class fTimestamp
 			return self::compose('at the same time');
 		}
 
-		$break_points = array(
-			/* 45 seconds  */
-			45 => array(1,		self::compose('second'), self::compose('seconds')),
-			/* 45 minutes  */
-			2700 => array(60,	   self::compose('minute'), self::compose('minutes')),
-			/* 18 hours    */
-			64800 => array(3600,	 self::compose('hour'),   self::compose('hours')),
-			/* 5 days      */
-			432000 => array(86400,	self::compose('day'),	self::compose('days')),
-			/* 3 weeks     */
-			1814400 => array(604800,   self::compose('week'),   self::compose('weeks')),
-			/* 9 months    */
-			23328000 => array(2592000,  self::compose('month'),  self::compose('months')),
-			/* largest int */
-			2147483647 => array(31536000, self::compose('year'),   self::compose('years'))
-		);
+		$break_points = [
+      /* 45 seconds  */
+      45 => [1, self::compose('second'), self::compose('seconds')],
+      /* 45 minutes  */
+      2700 => [60, self::compose('minute'), self::compose('minutes')],
+      /* 18 hours    */
+      64800 => [3600, self::compose('hour'), self::compose('hours')],
+      /* 5 days      */
+      432000 => [86400, self::compose('day'), self::compose('days')],
+      /* 3 weeks     */
+      1814400 => [604800, self::compose('week'), self::compose('weeks')],
+      /* 9 months    */
+      23328000 => [2592000, self::compose('month'), self::compose('months')],
+      /* largest int */
+      2147483647 => [31536000, self::compose('year'), self::compose('years')],
+  ];
 
 		foreach ($break_points as $break_point => $unit_info) {
 			if (abs($diff) > $break_point) {
@@ -1076,7 +1076,7 @@ class fTimestamp
 	 */
 	public function modify($format, $timezone = null)
 	{
-		$timezone = ($timezone !== null) ? $timezone : $this->timezone;
+		$timezone = $timezone ?? $this->timezone;
 
 		return new self($this->format($format), $timezone);
 	}

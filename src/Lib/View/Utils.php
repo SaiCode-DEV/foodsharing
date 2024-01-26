@@ -132,7 +132,7 @@ class Utils
      */
     public function v_success(string $msg, string $title = '', string $icon = ''): string
     {
-        $icon = $icon ? $icon : '<i class="fas fa-check-circle"></i>';
+        $icon = $icon ?: '<i class="fas fa-check-circle"></i>';
 
         return $this->v_statusMessage('success', $msg, $title, $icon);
     }
@@ -143,7 +143,7 @@ class Utils
      */
     public function v_info(string $msg, string $title = '', string $icon = ''): string
     {
-        $icon = $icon ? $icon : '<i class="fas fa-info-circle"></i>';
+        $icon = $icon ?: '<i class="fas fa-info-circle"></i>';
 
         return $this->v_statusMessage('info', $msg, $title, $icon);
     }
@@ -154,7 +154,7 @@ class Utils
      */
     public function v_error(string $msg, string $title = '', string $icon = ''): string
     {
-        $icon = $icon ? $icon : '<i class="fas fa-exclamation-triangle"></i>';
+        $icon = $icon ?: '<i class="fas fa-exclamation-triangle"></i>';
 
         return $this->v_statusMessage('error', $msg, $title, $icon);
     }
@@ -736,8 +736,8 @@ class Utils
         $id = $this->identificationHelper->id($id);
         $label = $option['label'] ?? $this->translator->trans($id);
 
-        $yearRangeFrom = (isset($option['yearRangeFrom'])) ? $option['yearRangeFrom'] : ((int)date('Y') - 60);
-        $yearRangeTo = (isset($option['yearRangeTo'])) ? $option['yearRangeTo'] : ((int)date('Y') + 60);
+        $yearRangeFrom = $option['yearRangeFrom'] ?? (int)date('Y') - 60;
+        $yearRangeTo = $option['yearRangeTo'] ?? (int)date('Y') + 60;
 
         $value = $this->dataHelper->getValue($id);
 

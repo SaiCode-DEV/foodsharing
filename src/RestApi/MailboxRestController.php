@@ -44,7 +44,7 @@ class MailboxRestController extends FoodsharingRestController
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Unknown parameters')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to modify the email.')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Email does not exist.')]
-    #[ParamConverter('emailModel', class: 'Foodsharing\RestApi\Models\Mailbox\PatchEmailModel', converter: 'fos_rest.request_body')]
+    #[ParamConverter('emailModel', class: PatchEmailModel::class, converter: 'fos_rest.request_body')]
     public function setEmailProperties(int $emailId, PatchEmailModel $emailModel, ValidatorInterface $validator): Response
     {
         if (!$this->session->id()) {
@@ -165,7 +165,7 @@ class MailboxRestController extends FoodsharingRestController
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to read mail from mailbox')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'At least one of the attachments was not found')]
-    #[ParamConverter('emailData', class: 'Foodsharing\RestApi\Models\Mailbox\EmailSendData', converter: 'fos_rest.request_body')]
+    #[ParamConverter('emailData', class: EmailSendData::class, converter: 'fos_rest.request_body')]
     public function sendMail(int $mailboxId, EmailSendData $emailData, ValidatorInterface $validator, Request $request,
         RateLimiterFactory $loginLimiter): Response
     {

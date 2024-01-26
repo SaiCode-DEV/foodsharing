@@ -70,14 +70,14 @@ class fFilesystem
 	 *
 	 * @var array
 	 */
-	private static $deleted_map = array();
+	private static $deleted_map = [];
 
 	/**
 	 * Stores file and directory names by reference, allowing all object instances to be updated at once.
 	 *
 	 * @var array
 	 */
-	private static $filename_map = array();
+	private static $filename_map = [];
 
 	/**
 	 * Stores the operations to perform if a rollback occurs.
@@ -91,7 +91,7 @@ class fFilesystem
 	 *
 	 * @var array
 	 */
-	private static $web_path_translations = array();
+	private static $web_path_translations = [];
 
 	/**
 	 * Adds a directory to the web path translation list.
@@ -109,8 +109,8 @@ class fFilesystem
 	public static function addWebPathTranslation($search_path, $replace_path)
 	{
 		// Ensure we have the correct kind of slash for the OS being used
-		$search_path = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $search_path);
-		$replace_path = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $replace_path);
+		$search_path = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $search_path);
+		$replace_path = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $replace_path);
 		self::$web_path_translations[$search_path] = $replace_path;
 	}
 
@@ -131,8 +131,8 @@ class fFilesystem
 				'There is already a filesystem transaction in progress'
 			);
 		}
-		self::$commit_operations = array();
-		self::$rollback_operations = array();
+		self::$commit_operations = [];
+		self::$rollback_operations = [];
 	}
 
 	/**
@@ -186,11 +186,7 @@ class fFilesystem
 			$matches[2] = 'b';
 		}
 
-		$size_map = array('b' => 1,
-						  'k' => 1024,
-						  'm' => 1048576,
-						  'g' => 1073741824,
-						  't' => 1099511627776);
+		$size_map = ['b' => 1, 'k' => 1024, 'm' => 1048576, 'g' => 1073741824, 't' => 1099511627776];
 
 		return round($matches[1] * $size_map[$matches[2]]);
 	}
@@ -243,8 +239,8 @@ class fFilesystem
 		if ($bytes < 0) {
 			$bytes = 0;
 		}
-		$suffixes = array('B', 'K', 'M', 'G', 'T');
-		$sizes = array(1, 1024, 1048576, 1073741824, 1099511627776);
+		$suffixes = ['B', 'K', 'M', 'G', 'T'];
+		$sizes = [1, 1024, 1048576, 1073741824, 1099511627776];
 		$suffix = (!$bytes) ? 0 : floor(log($bytes) / 6.9314718);
 
 		return number_format($bytes / $sizes[$suffix], ($suffix == 0) ? 0 : $decimal_places) . ' ' . $suffixes[$suffix];
@@ -260,7 +256,7 @@ class fFilesystem
 	 */
 	public static function getPathInfo($path, $element = null)
 	{
-		$valid_elements = array('dirname', 'basename', 'extension', 'filename');
+		$valid_elements = ['dirname', 'basename', 'extension', 'filename'];
 		if ($element !== null && !in_array($element, $valid_elements)) {
 			throw new fException(
 				'The element specified, %1$s, is invalid. Must be one of: %2$s.',
@@ -456,7 +452,7 @@ class fFilesystem
 			if (preg_match('#^' . preg_quote($existing_dirname, '#') . '#', $filename)) {
 				$new_filename = preg_replace(
 					'#^' . preg_quote($existing_dirname, '#') . '#',
-					strtr($new_dirname, array('\\' => '\\\\', '$' => '\\$')),
+					strtr($new_dirname, ['\\' => '\\\\', '$' => '\\$']),
 					$filename
 				);
 
@@ -481,11 +477,7 @@ class fFilesystem
 	 */
 	public static function recordAppend($file, $data)
 	{
-		self::$rollback_operations[] = array(
-			'action' => 'append',
-			'filename' => $file->getPath(),
-			'length' => strlen($data)
-		);
+		self::$rollback_operations[] = ['action' => 'append', 'filename' => $file->getPath(), 'length' => strlen($data)];
 	}
 
 	/**
@@ -497,10 +489,7 @@ class fFilesystem
 	 */
 	public static function recordCreate($object)
 	{
-		self::$rollback_operations[] = array(
-			'action' => 'delete',
-			'object' => $object
-		);
+		self::$rollback_operations[] = ['action' => 'delete', 'object' => $object];
 	}
 
 	/**
@@ -512,10 +501,7 @@ class fFilesystem
 	 */
 	public static function recordDelete($object)
 	{
-		self::$commit_operations[] = array(
-			'action' => 'delete',
-			'object' => $object
-		);
+		self::$commit_operations[] = ['action' => 'delete', 'object' => $object];
 	}
 
 	/**
@@ -527,10 +513,7 @@ class fFilesystem
 	 */
 	public static function recordDuplicate($file)
 	{
-		self::$rollback_operations[] = array(
-			'action' => 'delete',
-			'filename' => $file->getPath()
-		);
+		self::$rollback_operations[] = ['action' => 'delete', 'filename' => $file->getPath()];
 	}
 
 	/**
@@ -543,19 +526,12 @@ class fFilesystem
 	 */
 	public static function recordRename($old_name, $new_name)
 	{
-		self::$rollback_operations[] = array(
-			'action' => 'rename',
-			'old_name' => $old_name,
-			'new_name' => $new_name
-		);
+		self::$rollback_operations[] = ['action' => 'rename', 'old_name' => $old_name, 'new_name' => $new_name];
 
 		// Create the file with no content to prevent overwriting by another process
 		file_put_contents($old_name, '');
 
-		self::$commit_operations[] = array(
-			'action' => 'delete',
-			'filename' => $old_name
-		);
+		self::$commit_operations[] = ['action' => 'delete', 'filename' => $old_name];
 	}
 
 	/**
@@ -567,11 +543,7 @@ class fFilesystem
 	 */
 	public static function recordWrite($file)
 	{
-		self::$rollback_operations[] = array(
-			'action' => 'write',
-			'filename' => $file->getPath(),
-			'old_data' => file_get_contents($file->getPath())
-		);
+		self::$rollback_operations[] = ['action' => 'write', 'filename' => $file->getPath(), 'old_data' => file_get_contents($file->getPath())];
 	}
 
 	/**
@@ -583,10 +555,10 @@ class fFilesystem
 	{
 		self::rollback();
 		self::$commit_operations = null;
-		self::$deleted_map = array();
-		self::$filename_map = array();
+		self::$deleted_map = [];
+		self::$filename_map = [];
 		self::$rollback_operations = null;
-		self::$web_path_translations = array();
+		self::$web_path_translations = [];
 	}
 
 	/**
@@ -657,12 +629,12 @@ class fFilesystem
 	 */
 	public static function translateToWebPath($path)
 	{
-		$translations = array(realpath($_SERVER['DOCUMENT_ROOT']) => '') + self::$web_path_translations;
+		$translations = [realpath($_SERVER['DOCUMENT_ROOT']) => ''] + self::$web_path_translations;
 
 		foreach ($translations as $search => $replace) {
 			$path = preg_replace(
 				'#^' . preg_quote($search, '#') . '#',
-				strtr($replace, array('\\' => '\\\\', '$' => '\\$')),
+				strtr($replace, ['\\' => '\\\\', '$' => '\\$']),
 				$path
 			);
 		}

@@ -174,8 +174,8 @@ class WorkGroupGateway extends BaseGateway
 					ON			hb.`foodsaver_id` = fs.id
 					WHERE		hb.`bezirk_id` = :bezirk_id
 				', [':bezirk_id' => $g['id']]);
-                $groups[$i]['members'] = $members ? $members : [];
-                $groups[$i]['leaders'] = $leaders ? $leaders : [];
+                $groups[$i]['members'] = $members ?: [];
+                $groups[$i]['leaders'] = $leaders ?: [];
                 try {
                     $groups[$i]['function'] = $this->db->fetchValueByCriteria('fs_region_function', 'function_id',
                         ['region_id' => $g['id']]

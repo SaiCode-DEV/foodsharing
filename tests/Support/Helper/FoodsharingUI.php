@@ -14,7 +14,7 @@ class FoodsharingUI extends Module
      */
     private function getBrowser(): Module
     {
-        return $this->getModule('Tests\Support\Helper\WebDriver');
+        return $this->getModule(WebDriver::class);
     }
 
     /**

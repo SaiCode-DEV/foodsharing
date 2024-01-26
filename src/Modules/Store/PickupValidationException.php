@@ -19,6 +19,6 @@ class PickupValidationException extends \InvalidArgumentException
 
     public function __toString(): string
     {
-        return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
+        return self::class . ": [{$this->code}]: {$this->message}\n";
     }
 }

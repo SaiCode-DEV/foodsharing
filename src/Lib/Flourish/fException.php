@@ -14,7 +14,7 @@ class fException extends \Exception
 	 *
 	 * @var array
 	 */
-	private static array $callbacks = array();
+	private static array $callbacks = [];
 
 	/**
 	 * Composes text using fText if loaded.
@@ -88,7 +88,7 @@ return '{null}';
 
             // Fix indenting issues with the var dump output
             $output_lines = explode("\n", $output);
-            $new_output = array();
+            $new_output = [];
             $stack = 0;
             foreach ($output_lines as $line) {
                 if (preg_match('#^((?: {2})*)([^ ])#', $line, $match)) {
@@ -153,7 +153,7 @@ return '{null}';
 
 		// Handle %s that weren't properly escaped
 		$formats = $matches[1];
-		$delimiters = ($formats) ? array_fill(0, count($formats), '#') : array();
+		$delimiters = ($formats) ? array_fill(0, count($formats), '#') : [];
 		$lookahead = implode(
 			'|',
 			array_map(
@@ -181,7 +181,7 @@ return '{null}';
 			throw new Exception($message);
 		}
 
-		$args = array_map(array(__CLASS__, 'dump'), $args);
+		$args = array_map([self::class, 'dump'], $args);
 
 		parent::__construct(self::compose($message, $args));
 		$this->code = $code;
@@ -206,7 +206,7 @@ return '{null}';
 	 */
 	public function __get(string $method)
 	{
-		return array($this, $method);
+		return [$this, $method];
 	}
 
 	/**
