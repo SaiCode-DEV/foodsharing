@@ -117,7 +117,7 @@ class PatchStoreChain
      *
      * @OA\Property(example="Pickup times between 10:00 and 12:15", nullable=true)
      */
-    #[Assert\Length(max: 16777215)]
+    #[Assert\Length(max: 16_777_215)]
     public ?string $commonStoreInformation = null;
 
     /**

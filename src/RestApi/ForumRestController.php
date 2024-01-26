@@ -142,9 +142,7 @@ class ForumRestController extends AbstractFOSRestController
     private function getNormalizedThreads(int $forumId, int $forumSubId, int $limit, int $offset): array
     {
         $threads = $this->forumGateway->listThreads($forumId, $forumSubId, $limit, $offset);
-        $threads = array_map(function ($thread) {
-            return $this->normalizeThread($thread);
-        }, $threads);
+        $threads = array_map(fn ($thread) => $this->normalizeThread($thread), $threads);
 
         return $threads;
     }
@@ -183,9 +181,7 @@ class ForumRestController extends AbstractFOSRestController
         $thread['isFollowingEmail'] = $this->forumFollowerGateway->isFollowingEmail($this->session->id(), $threadId);
         $thread['isFollowingBell'] = $this->forumFollowerGateway->isFollowingBell($this->session->id(), $threadId);
         $thread['mayModerate'] = $this->forumPermissions->mayModerate($threadId);
-        $thread['posts'] = array_map(function ($post) {
-            return $this->normalizePost($post);
-        }, $posts);
+        $thread['posts'] = array_map(fn ($post) => $this->normalizePost($post), $posts);
 
         $view = $this->view([
             'data' => $thread

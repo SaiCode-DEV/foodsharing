@@ -134,9 +134,7 @@ final class BasketRestController extends AbstractFOSRestController
     {
         $updates = $this->gateway->listUpdates($this->session->id());
         $baskets = $this->gateway->listMyBaskets($this->session->id());
-        $baskets = array_map(function ($b) use ($updates) {
-            return $this->normalizeMyBasket($b, $updates);
-        }, $baskets);
+        $baskets = array_map(fn ($b) => $this->normalizeMyBasket($b, $updates), $baskets);
 
         return $baskets;
     }

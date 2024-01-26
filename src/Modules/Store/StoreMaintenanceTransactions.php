@@ -42,9 +42,7 @@ class StoreMaintenanceTransactions
 
             $emptyPickups = array_filter(
                 $allPickups,
-                function (PickupInformation $pickup) {
-                    return !$pickup->hasConfirmedUser();
-                }
+                fn (PickupInformation $pickup) => !$pickup->hasConfirmedUser()
             );
 
             $countEmptyPickups = count($emptyPickups);

@@ -40,9 +40,7 @@ class WebDriver extends \Codeception\Module\WebDriver
 
     public function waitForFileExists($filename, $timeout = 4): void
     {
-        $condition = function () use ($filename) {
-            return file_exists($filename);
-        };
+        $condition = fn () => file_exists($filename);
         $this->waitFor($condition, $timeout);
     }
 

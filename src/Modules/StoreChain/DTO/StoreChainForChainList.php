@@ -19,7 +19,7 @@ class StoreChainForChainList
      *
      * @OA\Property(example=5)
      */
-    public ?int $storeCount;
+    public ?int $storeCount = null;
 
     public static function createFromArray(array $data): StoreChainForChainList
     {

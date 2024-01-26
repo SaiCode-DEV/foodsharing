@@ -52,7 +52,7 @@ class WebPushHandler implements PushNotificationHandlerInterface
             $subscriptionArray = json_decode($subscriptionAsJson, true);
 
             // Fix inconsistent definition of encoding by some clients
-            $subscriptionArray['contentEncoding'] = $subscriptionArray['contentEncoding'] ?? 'aesgcm';
+            $subscriptionArray['contentEncoding'] ??= 'aesgcm';
 
             $subscription = Subscription::create($subscriptionArray);
 

@@ -429,9 +429,7 @@ final class PickupRestController extends AbstractFOSRestController
             }
         }
         unset($pickup);
-        usort($pickups, function ($a, $b) {
-            return $a['date']->lt($b['date']) ? -1 : 1;
-        });
+        usort($pickups, fn ($a, $b) => $a['date']->lt($b['date']) ? -1 : 1);
 
         $pickups = array_map(function ($pickup) {
             // Check required for history (does not contain dates)

@@ -23,7 +23,7 @@ class OneTimePickup
     /**
      * Description of a pickup.
      */
-    public ?string $description;
+    public ?string $description = null;
 
     public static function createFromArray($queryResult)
     {

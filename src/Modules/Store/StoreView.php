@@ -90,23 +90,21 @@ class StoreView extends View
 
         $editExisting = !$this->identificationHelper->getAction('new');
 
-        $categoryValues = array_map(function ($row) {
-            return (array)$row;
-        }, $common->categories);
-        $storeChainsValues = $common->storeChains ? array_map(function ($row) {return (array)$row; }, $common->storeChains) : [];
-        $cooperationStatus = array_map(function ($row) {return (array)$row; }, $common->status);
-        $groceriesValues = array_map(function ($row) {return (array)$row; }, $common->groceries);
-        $weightValues = array_map(function ($row) {return (array)$row; }, $common->weight);
-        $publicTimesWithoutNotSelected = array_map(function ($row) {return (array)$row; }, $common->publicTimes);
+        $categoryValues = array_map(fn ($row) => (array)$row, $common->categories);
+        $storeChainsValues = $common->storeChains ? array_map(fn ($row) => (array)$row, $common->storeChains) : [];
+        $cooperationStatus = array_map(fn ($row) => (array)$row, $common->status);
+        $groceriesValues = array_map(fn ($row) => (array)$row, $common->groceries);
+        $weightValues = array_map(fn ($row) => (array)$row, $common->weight);
+        $publicTimesWithoutNotSelected = array_map(fn ($row) => (array)$row, $common->publicTimes);
         $publicTimeNotSelected = ['id' => 0, 'name' => $this->translator->trans('store.nodeclaration')];
         $publicTimesWithNoSelection = array_merge([$publicTimeNotSelected], $publicTimesWithoutNotSelected);
 
-        $convinceStatusValues = array_map(function ($row) {return (array)$row; }, $common->convinceStatus);
+        $convinceStatusValues = array_map(fn ($row) => (array)$row, $common->convinceStatus);
         $prefetchTimeValues = [
             ['id' => 604800, 'name' => $this->translator->trans('store.prefetchone')],
-            ['id' => 1209600, 'name' => $this->translator->trans('store.prefetchtwo')],
-            ['id' => 1814400, 'name' => $this->translator->trans('store.prefetchthree')],
-            ['id' => 2419200, 'name' => $this->translator->trans('store.prefetchfour')]
+            ['id' => 1_209_600, 'name' => $this->translator->trans('store.prefetchtwo')],
+            ['id' => 1_814_400, 'name' => $this->translator->trans('store.prefetchthree')],
+            ['id' => 2_419_200, 'name' => $this->translator->trans('store.prefetchfour')]
         ];
 
         $fieldset = array_merge($editExisting ? [] : [

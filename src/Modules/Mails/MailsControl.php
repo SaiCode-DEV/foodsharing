@@ -221,9 +221,7 @@ class MailsControl extends ConsoleControl
                                 $id, // mailbox id
                                 1, // folder
                                 json_encode($from), // sender
-                                json_encode(array_map(function ($r) {
-                                    return ['mailbox' => $r->getMailbox(), 'host' => $r->getHostname()];
-                                }, $recipients)), // all recipients
+                                json_encode(array_map(fn ($r) => ['mailbox' => $r->getMailbox(), 'host' => $r->getHostname()], $recipients)), // all recipients
                                 $msg->getSubject() ?? '',
                                 $body,
                                 $html,

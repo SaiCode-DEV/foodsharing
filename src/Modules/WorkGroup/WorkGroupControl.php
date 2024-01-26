@@ -51,32 +51,24 @@ class WorkGroupControl extends Control
         $countries = $this->workGroupGateway->getCountryGroups();
         $bezirke = $this->session->getRegions();
 
-        $localRegions = array_filter($bezirke, function ($region) {
-            return !in_array($region['type'], [UnitType::COUNTRY, UnitType::WORKING_GROUP]);
-        });
+        $localRegions = array_filter($bezirke, fn ($region) => !in_array($region['type'], [UnitType::COUNTRY, UnitType::WORKING_GROUP]));
 
-        $regionToMenuItem = function ($region) {
-            return [
-                'name' => $region['name'],
-                'href' => '/?page=groups&p=' . $region['id']
-            ];
-        };
+        $regionToMenuItem = fn ($region) => [
+            'name' => $region['name'],
+            'href' => '/?page=groups&p=' . $region['id']
+        ];
 
         $menuGlobal = [['name' => $this->translator->trans('group.show-all'), 'href' => '/?page=groups']];
         $menuLocalRegions = array_map($regionToMenuItem, $localRegions);
         $menuCountries = array_map($regionToMenuItem, $countries);
 
         $myRegions = $_SESSION['client']['bezirke'] ?? [];
-        $myGroups = array_filter($myRegions, function ($group) {
-            return UnitType::isGroup($group['type']);
-        });
+        $myGroups = array_filter($myRegions, fn ($group) => UnitType::isGroup($group['type']));
         $menuMyGroups = array_map(
-            function ($group) {
-                return [
-                    'name' => $group['name'],
-                    'href' => '/region?bid=' . $group['id'] . '&sub=forum'
-                ];
-            }, $myGroups
+            fn ($group) => [
+                'name' => $group['name'],
+                'href' => '/region?bid=' . $group['id'] . '&sub=forum'
+            ], $myGroups
         );
 
         return [
@@ -132,9 +124,7 @@ class WorkGroupControl extends Control
 
     private function getGroups(int $parent, array $applications, array $stats): array
     {
-        $insertLeaderImage = function (array $leader): array {
-            return array_merge($leader, ['image' => $this->imageService->img($leader['photo'])]);
-        };
+        $insertLeaderImage = fn (array $leader): array => array_merge($leader, ['image' => $this->imageService->img($leader['photo'])]);
         $enrichGroupData = function (array $group) use ($insertLeaderImage, $applications, $stats): array {
             $leaders = array_map($insertLeaderImage, $group['leaders']);
             $satisfied = $this->workGroupPermissions->fulfillApplicationRequirements($group, $stats);

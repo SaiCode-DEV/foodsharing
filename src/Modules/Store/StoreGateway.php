@@ -119,7 +119,7 @@ class StoreGateway extends BaseGateway
             $this->buildPaginationSqlLimit($pagination),
             $this->addPaginationSqlLimitParameters($pagination, ['chainId' => $chainId]));
 
-        return array_map(function (array $item) { return MinimalStoreIdentifier::createFromArray($item); }, $results);
+        return array_map(fn (array $item) => MinimalStoreIdentifier::createFromArray($item), $results);
     }
 
     /**
@@ -498,9 +498,7 @@ class StoreGateway extends BaseGateway
     {
         $this->db->delete('fs_betrieb_has_lebensmittel', ['betrieb_id' => $storeId]);
 
-        $newFoodData = array_map(function ($foodId) use ($storeId) {
-            return ['betrieb_id' => $storeId, 'lebensmittel_id' => $foodId];
-        }, $foodTypeIds);
+        $newFoodData = array_map(fn ($foodId) => ['betrieb_id' => $storeId, 'lebensmittel_id' => $foodId], $foodTypeIds);
 
         return $this->db->insertMultiple('fs_betrieb_has_lebensmittel', $newFoodData);
     }
@@ -891,7 +889,7 @@ class StoreGateway extends BaseGateway
             $query .= 'AND 	b.betrieb_status_id IN (' . $inPlaceHolder . ')
 			';
             array_push($queryParams, array_map(
-                function (CooperationStatus $state) { return $state->value; },
+                fn (CooperationStatus $state) => $state->value,
                 $storeCooperationStates
             )
             );
@@ -1035,9 +1033,7 @@ class StoreGateway extends BaseGateway
             $where = 'WHERE b.betrieb_status_id IN (' . $cooperationStatusPlaceHolder . ');';
         }
         $values = array_map(
-            function (CooperationStatus $status) {
-                return $status->value;
-            },
+            fn (CooperationStatus $status) => $status->value,
             $listOfcooperationStatus);
 
         return $this->db->fetchAll(
@@ -1161,9 +1157,7 @@ class StoreGateway extends BaseGateway
             AND 	fs_betrieb.bezirk_id IN(' . $placeholders . ')
 		', $regionIds);
 
-        return array_map(function ($store) {
-            return Store::createFromArray($store);
-        }, $results);
+        return array_map(fn ($store) => Store::createFromArray($store), $results);
     }
 
     /**
@@ -1184,9 +1178,7 @@ class StoreGateway extends BaseGateway
                 'fs_id' => $fs_id
         ]);
 
-        return array_map(function ($store) {
-            return Store::createFromArray($store);
-        }, $results);
+        return array_map(fn ($store) => Store::createFromArray($store), $results);
     }
 
     public function getStoreLogsByActionType(int $storeId, array $storeActions, Carbon $fromDate, Carbon $toDate): array
@@ -1254,21 +1246,19 @@ class StoreGateway extends BaseGateway
         // conditions for the store's cooperation and team status
         if (!empty($excludedStoreTypes)) {
             $conditions[] = 'b.betrieb_status_id NOT IN(' . implode(',', array_fill(0, count($excludedStoreTypes), '?')) . ')';
-            $excludedStoreTypesIds = array_map(function (CooperationStatus $storeType) { return $storeType->value; }, $excludedStoreTypes);
+            $excludedStoreTypesIds = array_map(fn (CooperationStatus $storeType) => $storeType->value, $excludedStoreTypes);
             $params = array_merge($params, $excludedStoreTypesIds);
         }
         if (!empty($teamStatus)) {
             $conditions[] = 'b.team_status IN (' . implode(',', array_fill(0, count($teamStatus), '?')) . ')';
-            $teamStatusIds = array_map(function (TeamSearchStatus $item) { return $item->value; }, $teamStatus);
+            $teamStatusIds = array_map(fn (TeamSearchStatus $item) => $item->value, $teamStatus);
             $params = array_merge($params, $teamStatusIds);
         }
 
         $query .= ' WHERE ' . implode(' AND ', $conditions);
         $markers = $this->db->fetchAll($query, $params);
 
-        return array_map(function ($x) {
-            return MapMarker::create($x['id'], floatval($x['lat']), floatval($x['lon']));
-        }, $markers);
+        return array_map(fn ($x) => MapMarker::create($x['id'], floatval($x['lat']), floatval($x['lon'])), $markers);
     }
 
     private function sqlSelectStoreColumns()

@@ -11,7 +11,7 @@ use Tests\Support\UnitTester;
 class TimeHelperTest extends Unit
 {
     protected UnitTester $tester;
-    private ?TimeHelper $timeHelper;
+    private ?TimeHelper $timeHelper = null;
 
     final public function _before(): void
     {

@@ -151,14 +151,12 @@ class ContentController extends FoodsharingController
             '2020-08',
             '2020-05',
         ];
-        $releaseList = array_map(function ($id) {
-            return [
-                'id' => $id,
-                'title' => $this->translator->trans('releases.' . $id),
-                'markdown' => $this->parseGitlabLinks($this->getNotes($id)),
-                'visible' => false,
-            ];
-        }, $releaseIds);
+        $releaseList = array_map(fn ($id) => [
+            'id' => $id,
+            'title' => $this->translator->trans('releases.' . $id),
+            'markdown' => $this->parseGitlabLinks($this->getNotes($id)),
+            'visible' => false,
+        ], $releaseIds);
         $releaseList[0]['visible'] = true;
 
         $this->pageHelper->addContent($this->view->vueComponent('vue-release-notes', 'ReleaseNotes', [

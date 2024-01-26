@@ -103,7 +103,7 @@ class WallPostXhr extends Control
             return XhrResponses::PERMISSION_DENIED;
         }
 
-        if (isset($_FILES['etattach']['size']) && $_FILES['etattach']['size'] < 9136365 && $this->attach_allow($_FILES['etattach']['name'])) {
+        if (isset($_FILES['etattach']['size']) && $_FILES['etattach']['size'] < 9_136_365 && $this->attach_allow($_FILES['etattach']['name'])) {
             $new_filename = uniqid('', true);
 
             $ext = strtolower($_FILES['etattach']['name']);

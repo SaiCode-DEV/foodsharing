@@ -76,9 +76,7 @@ class MessageTransactions
 
         return implode(', ',
             array_column(array_filter($members ?? [],
-                function ($m) use ($foodsaverId) {
-                    return $m['id'] != $foodsaverId;
-                }),
+                fn ($m) => $m['id'] != $foodsaverId),
                 'name'
             ));
     }
@@ -110,9 +108,7 @@ class MessageTransactions
         if ($members = $this->messageGateway->listConversationMembersWithProfile($conversationId)) {
             $user_ids = array_column($members, 'id');
 
-            $author = array_values(array_filter($members, function ($m) use ($message) {
-                return $m['id'] == $message->authorId;
-            }));
+            $author = array_values(array_filter($members, fn ($m) => $m['id'] == $message->authorId));
             if (!$author) {
                 /* sender of message seem to not be part of the conversation... How to handle? */
                 $author = $this->foodsaverGateway->getFoodsaver($message->authorId);

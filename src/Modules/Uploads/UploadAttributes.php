@@ -10,5 +10,5 @@ final class UploadAttributes
     public const MIN_QUALITY = 1;
     public const MAX_QUALITY = 100;
     public const DEFAULT_QUALITY = 80;
-    public const MAX_UPLOAD_FILE_SIZE = 1572864; // 1.5 * 1024 * 1024
+    public const MAX_UPLOAD_FILE_SIZE = 1_572_864; // 1.5 * 1024 * 1024
 }

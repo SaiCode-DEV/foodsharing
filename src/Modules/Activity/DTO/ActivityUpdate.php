@@ -31,20 +31,20 @@ class ActivityUpdate
 
     #[OA\Property(title: 'The Source of the Update', type: 'string', nullable: true)]
     #[Type('string')]
-    public ?string $source;
+    public ?string $source = null;
 
     #[OA\Property(property: 'source_suffix', title: 'Suffix of the source of the update', type: 'string', nullable: true)]
     #[Type('string')]
     #[SerializedName('source_suffix')]
-    public ?string $sourceSuffix;
+    public ?string $sourceSuffix = null;
 
     #[OA\Property(title: 'Icon path for the update', type: 'string', nullable: true)]
     #[Type('string')]
-    public ?string $icon;
+    public ?string $icon = null;
 
     #[OA\Property(title: 'The Gallery', type: 'array', items: new OA\Items(), nullable: true)]
     #[Type('array')]
-    public ?array $gallery;
+    public ?array $gallery = null;
 
     #[OA\Property(property: 'fs_id', title: 'Id from Creator', type: 'integer')]
     #[Type('int')]
@@ -54,7 +54,7 @@ class ActivityUpdate
     #[OA\Property(property: 'fs_name', title: 'The Name from Creator', type: 'string', nullable: true)]
     #[Type('string')]
     #[SerializedName('fs_name')]
-    public ?string $fsName;
+    public ?string $fsName = null;
 
     #[OA\Property(property: 'entity_id', title: 'id from Update', type: 'integer')]
     #[Type('int')]
@@ -64,17 +64,17 @@ class ActivityUpdate
     #[OA\Property(property: 'region_id', title: 'id of the associated region', type: 'integer', nullable: true)]
     #[Type('int')]
     #[SerializedName('region_id')]
-    public ?int $regionId;
+    public ?int $regionId = null;
 
     #[OA\Property(property: 'forum_post', title: 'the id of the corresponding forum post', type: 'integer', nullable: true)]
     #[Type('int')]
     #[SerializedName('forum_post')]
-    public ?int $forumPost;
+    public ?int $forumPost = null;
 
     #[OA\Property(property: 'forum_type', title: 'Type of forum', type: 'string', nullable: true)]
     #[Type('string')]
     #[SerializedName('forum_type')]
-    public ?string $forumType;
+    public ?string $forumType = null;
 
     public static function create(
         string $type,

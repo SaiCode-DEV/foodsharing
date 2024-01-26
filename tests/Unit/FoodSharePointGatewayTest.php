@@ -100,7 +100,7 @@ class FoodSharePointGatewayTest extends Unit
     {
         $this->expectException(Exception::class);
         $this->gateway->updateFoodSharePoint(
-            99999999, []
+            99_999_999, []
         );
         $this->tester->dontSeeInDatabase('fs_fairteiler', ['name' => 'asdf']);
     }

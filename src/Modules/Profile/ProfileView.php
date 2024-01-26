@@ -120,9 +120,7 @@ class ProfileView extends View
                 } else {
                     $myStores = $this->storeGateway->listMyStores($this->session->id());
                     $myStoreIds = array_column($myStores, 'id');
-                    $reportStores = array_filter($userStores, function ($store) use ($myStoreIds) {
-                        return in_array($store['id'], $myStoreIds);
-                    });
+                    $reportStores = array_filter($userStores, fn ($store) => in_array($store['id'], $myStoreIds));
                 }
 
                 $storeListOptions = [['value' => null, 'text' => $this->translator->trans('profile.choosestore')]];

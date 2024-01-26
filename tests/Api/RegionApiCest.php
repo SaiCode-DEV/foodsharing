@@ -52,7 +52,7 @@ class RegionApiCest
         $I->seeResponseIsJson();
         $I->dontSeeInDatabase('fs_foodsaver_has_bezirk', [
             'foodsaver_id' => $this->user['id'],
-            'bezirk_id' => 999999999
+            'bezirk_id' => 999_999_999
             ]);
     }
 

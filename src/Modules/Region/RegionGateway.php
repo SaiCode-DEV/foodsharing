@@ -367,9 +367,7 @@ class RegionGateway extends BaseGateway
 			AND 	fb.active = 0
 		', ['regionId' => $regionId]);
 
-        return array_map(function ($applicant) {
-            return new Profile($applicant['id'], $applicant['name'], $applicant['photo'], $applicant['sleep_status']);
-        }, $applicants);
+        return array_map(fn ($applicant) => new Profile($applicant['id'], $applicant['name'], $applicant['photo'], $applicant['sleep_status']), $applicants);
     }
 
     public function linkBezirk(int $foodsaverId, int $regionId, int $active = 1)

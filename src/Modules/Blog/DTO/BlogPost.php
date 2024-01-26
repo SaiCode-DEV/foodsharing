@@ -13,7 +13,7 @@ class BlogPost
     /**
      * Name of this post's author or null if the author's profile was deleted.
      */
-    public ?string $authorName;
+    public ?string $authorName = null;
     public string $picture;
 
     public static function create(

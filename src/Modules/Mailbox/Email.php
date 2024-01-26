@@ -58,7 +58,7 @@ class Email
     /**
      * Body of this email in which HTML tags have not been stripped.
      */
-    public ?string $bodyHtml;
+    public ?string $bodyHtml = null;
     /**
      * Optional list of attachments. Can be empty or null.
      *

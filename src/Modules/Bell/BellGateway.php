@@ -44,13 +44,11 @@ class BellGateway extends BaseGateway
         // add the bell for all foodsavers (100 per query)
         $parts = array_chunk($foodsavers, 100);
         foreach ($parts as $part) {
-            $data = array_map(function ($fs) use ($bellId) {
-                return [
-                    'foodsaver_id' => is_array($fs) ? $fs['id'] : $fs,
-                    'bell_id' => $bellId,
-                    'seen' => 0,
-                ];
-            }, $part);
+            $data = array_map(fn ($fs) => [
+                'foodsaver_id' => is_array($fs) ? $fs['id'] : $fs,
+                'bell_id' => $bellId,
+                'seen' => 0,
+            ], $part);
 
             $this->db->insertMultiple('fs_foodsaver_has_bell', $data);
         }

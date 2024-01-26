@@ -867,7 +867,7 @@ class fImage extends fFile
 
 		if (ini_get('memory_limit') != '-1') {
 			// We will estimate memory usage at 3MB if we can't actually check it
-			$beginning_memory_usage = 3145728;
+			$beginning_memory_usage = 3_145_728;
 			if (function_exists('memory_get_usage')) {
 				$beginning_memory_usage = memory_get_usage();
 			}

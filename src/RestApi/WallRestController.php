@@ -74,9 +74,7 @@ class WallRestController extends AbstractFOSRestController
     {
         $posts = $this->wallPostGateway->getPosts($target, $targetId);
 
-        return array_map(function ($value) {
-            return $this->normalizePost($value);
-        }, $posts);
+        return array_map(fn ($value) => $this->normalizePost($value), $posts);
     }
 
     /**

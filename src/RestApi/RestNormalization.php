@@ -121,9 +121,7 @@ class RestNormalization
             $store['chain'] = $data['kette'];
         }
         if (isset($data['verantwortlicher']) && is_array($data['verantwortlicher'])) {
-            $store['responsibleUserIds'] = array_map(function ($u) {
-                return (int)$u['id'];
-            }, $data['verantwortlicher']);
+            $store['responsibleUserIds'] = array_map(fn ($u) => (int)$u['id'], $data['verantwortlicher']);
         }
 
         if ($includeDetails) {
@@ -138,9 +136,7 @@ class RestNormalization
             ]);
 
             if (isset($data['notizen']) && is_array($data['notizen'])) {
-                $store['notes'] = array_map(function ($n) {
-                    return self::normalizeStoreNote($n);
-                }, $data['notizen']);
+                $store['notes'] = array_map(fn ($n) => self::normalizeStoreNote($n), $data['notizen']);
             }
         }
 

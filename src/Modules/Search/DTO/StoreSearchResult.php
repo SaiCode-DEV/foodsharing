@@ -56,7 +56,7 @@ class StoreSearchResult extends SearchResult
      *
      * @OA\Property(example=1)
      */
-    public ?int $membership_status;
+    public ?int $membership_status = null;
 
     /**
      * Whether the searching user is manager of the store.
@@ -70,7 +70,7 @@ class StoreSearchResult extends SearchResult
      *
      * @OA\Property(example=null)
      */
-    public ?string $chain_name;
+    public ?string $chain_name = null;
 
     public static function createFromArray(array $data): StoreSearchResult
     {

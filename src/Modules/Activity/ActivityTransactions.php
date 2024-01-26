@@ -71,24 +71,20 @@ class ActivityTransactions
             $this->session->id(),
             $this->session->mayRole(Role::STORE_MANAGER))
         ) {
-            $mailboxOptions = array_map(function ($b) use ($excluded) {
-                return ActivityFilter::create(
-                    $b['id'], $b['name'] . '@' . PLATFORM_MAILBOX_HOST,
-                    !isset($excluded['mailbox-' . $b['id']])
-                );
-            }, $boxes);
+            $mailboxOptions = array_map(fn ($b) => ActivityFilter::create(
+                $b['id'], $b['name'] . '@' . PLATFORM_MAILBOX_HOST,
+                !isset($excluded['mailbox-' . $b['id']])
+            ), $boxes);
         }
 
         // buddy walls
         $buddyOptions = [];
         if ($buddyIds = $this->session->get('buddy-ids')) {
             $buddies = $this->activityGateway->fetchAllBuddies((array)$buddyIds);
-            $buddyOptions = array_map(function ($b) use ($excluded) {
-                return ImageActivityFilter::create(
-                    $b['name'], $b['id'], !isset($excluded['buddywall-' . $b['id']]),
-                    $this->imageHelper->img($b['photo'])
-                );
-            }, $buddies);
+            $buddyOptions = array_map(fn ($b) => ImageActivityFilter::create(
+                $b['name'], $b['id'], !isset($excluded['buddywall-' . $b['id']]),
+                $this->imageHelper->img($b['photo'])
+            ), $buddies);
         }
 
         return [

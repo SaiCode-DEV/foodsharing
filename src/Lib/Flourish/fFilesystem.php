@@ -186,7 +186,7 @@ class fFilesystem
 			$matches[2] = 'b';
 		}
 
-		$size_map = ['b' => 1, 'k' => 1024, 'm' => 1048576, 'g' => 1073741824, 't' => 1099511627776];
+		$size_map = ['b' => 1, 'k' => 1024, 'm' => 1_048_576, 'g' => 1_073_741_824, 't' => 1_099_511_627_776];
 
 		return round($matches[1] * $size_map[$matches[2]]);
 	}
@@ -240,7 +240,7 @@ class fFilesystem
 			$bytes = 0;
 		}
 		$suffixes = ['B', 'K', 'M', 'G', 'T'];
-		$sizes = [1, 1024, 1048576, 1073741824, 1099511627776];
+		$sizes = [1, 1024, 1_048_576, 1_073_741_824, 1_099_511_627_776];
 		$suffix = (!$bytes) ? 0 : floor(log($bytes) / 6.9314718);
 
 		return number_format($bytes / $sizes[$suffix], ($suffix == 0) ? 0 : $decimal_places) . ' ' . $suffixes[$suffix];

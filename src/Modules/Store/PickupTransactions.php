@@ -76,8 +76,8 @@ class PickupTransactions
     public function getAllPickupsInRange(int $storeId, DateTime $from, DateTime $lastDay): array
     {
         $existingOneTimePickups = $this->oneTimePickupGateway->getOnetimePickupsForRange($storeId, $from, $lastDay);
-        usort($existingOneTimePickups, function ($a, $b) { return strcmp($a->date->format('c'), $b->date->format('c')); });
-        $existingTimeStamps = array_map(function (OneTimePickup $item) { return $item->date->getTimestamp(); }, $existingOneTimePickups);
+        usort($existingOneTimePickups, fn ($a, $b) => strcmp($a->date->format('c'), $b->date->format('c')));
+        $existingTimeStamps = array_map(fn (OneTimePickup $item) => $item->date->getTimestamp(), $existingOneTimePickups);
 
         // load all existing pickups
         $allAsOneTimePickups = $existingOneTimePickups;
@@ -114,9 +114,9 @@ class PickupTransactions
         $signUps = $this->oneTimePickupGateway->getPickupSignUpsForDateRange($storeId, $from, $lastDay);
 
         // merge pickups with dates
-        $listOfPickupInfos = array_map(function (OneTimePickup $item) { return new PickupInformation($item); }, $plannedPickups);
+        $listOfPickupInfos = array_map(fn (OneTimePickup $item) => new PickupInformation($item), $plannedPickups);
 
-        $datesOfPlannedPickups = array_map(function (OneTimePickup $item) { return $item->date->getTimestamp(); }, $plannedPickups);
+        $datesOfPlannedPickups = array_map(fn (OneTimePickup $item) => $item->date->getTimestamp(), $plannedPickups);
         foreach ($signUps as &$signUp) {
             $pickupIndex = array_search($signUp->date->getTimestamp(), $datesOfPlannedPickups);
             if ($pickupIndex !== false) {

@@ -254,9 +254,7 @@ class Database
 
         $updateStatement = '';
         if ($options['update']) {
-            $updateValues = array_map(function ($name) {
-                return sprintf('%s = VALUES (%s)', $name, $name);
-            }, $columns);
+            $updateValues = array_map(fn ($name) => sprintf('%s = VALUES (%s)', $name, $name), $columns);
             $updateValues = implode(', ', $updateValues);
             $updateStatement = sprintf('ON DUPLICATE KEY UPDATE %s', $updateValues);
         }
@@ -323,17 +321,13 @@ class Database
 
         $updateStatement = '';
         if ($options['update']) {
-            $updateValues = array_map(function ($name) {
-                return sprintf('%s = VALUES (%s)', $name, $name);
-            }, $columns);
+            $updateValues = array_map(fn ($name) => sprintf('%s = VALUES (%s)', $name, $name), $columns);
             $updateValues = implode(', ', $updateValues);
             $updateStatement = sprintf('ON DUPLICATE KEY UPDATE %s', $updateValues);
         }
 
         // create placeholders per data set
-        $rowsPlaceholders = array_map(function ($row) {
-            return '(' . $this->generatePlaceholders(count($row)) . ')';
-        }, $fullData);
+        $rowsPlaceholders = array_map(fn ($row) => '(' . $this->generatePlaceholders(count($row)) . ')', $fullData);
 
         $query = sprintf(
             'INSERT %s INTO %s (%s) VALUES %s %s',

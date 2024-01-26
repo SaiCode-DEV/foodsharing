@@ -18,7 +18,7 @@ class MapMarker
     /**
      * The region in which the object of this marker is.
      */
-    public ?int $regionId;
+    public ?int $regionId = null;
 
     public static function create(
         int $id,

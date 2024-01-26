@@ -252,7 +252,7 @@ class FoodsaverGatewayTest extends Unit
 
     final public function testFoodsaverExists(): void
     {
-        $randomNotExistingFsId = 1238513513;
+        $randomNotExistingFsId = 1_238_513_513;
         $this->tester->assertFalse($this->gateway->foodsaverExists($randomNotExistingFsId));
         $fs = $this->tester->createFoodsaver();
         $this->tester->assertTrue($this->gateway->foodsaverExists($fs['id']));
@@ -262,7 +262,7 @@ class FoodsaverGatewayTest extends Unit
 
     final public function testFoodsaversExist(): void
     {
-        $randomNotExistingFsId = 1238513513;
+        $randomNotExistingFsId = 1_238_513_513;
         $fs = $this->tester->createFoodsaver();
         $fs2 = $this->tester->createFoodsaver();
         $this->tester->assertFalse($this->gateway->foodsaversExist([$randomNotExistingFsId, $fs['id']]));

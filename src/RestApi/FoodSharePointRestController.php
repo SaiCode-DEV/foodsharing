@@ -57,9 +57,7 @@ final class FoodSharePointRestController extends AbstractFOSRestController
         }
 
         $fsps = $this->foodSharePointGateway->listNearbyFoodSharePoints($location, $distance);
-        $fsps = array_map(function ($fsp) {
-            return $this->normalizeFoodSharePoint($fsp);
-        }, $fsps);
+        $fsps = array_map(fn ($fsp) => $this->normalizeFoodSharePoint($fsp), $fsps);
 
         return $this->handleView($this->view($fsps, 200));
     }

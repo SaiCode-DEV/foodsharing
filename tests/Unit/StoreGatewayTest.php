@@ -292,7 +292,7 @@ class StoreGatewayTest extends Unit
         $this->assertIsArray($listOfStores);
         $this->assertEquals(4, count($listOfStores));
         $this->assertContainsOnlyInstancesOf(Store::class, $listOfStores);
-        $storeIds = array_map(function ($store) { return $store->id; }, $listOfStores);
+        $storeIds = array_map(fn ($store) => $store->id, $listOfStores);
         $this->assertContainsEquals($store1['id'], $storeIds);
         $this->assertContainsEquals($store2['id'], $storeIds);
         $this->assertContainsEquals($store3['id'], $storeIds);
@@ -316,7 +316,7 @@ class StoreGatewayTest extends Unit
         $this->assertIsArray($listOfStores);
         $this->assertEquals(2, count($listOfStores));
         $this->assertContainsOnlyInstancesOf(Store::class, $listOfStores);
-        $storeIds = array_map(function ($store) { return $store->id; }, $listOfStores);
+        $storeIds = array_map(fn ($store) => $store->id, $listOfStores);
         $this->assertContainsEquals($store1['id'], $storeIds);
         $this->assertContainsEquals($store2['id'], $storeIds);
         $this->assertNotContainsEquals($store3['id'], $storeIds);

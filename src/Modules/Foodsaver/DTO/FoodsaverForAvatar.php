@@ -32,7 +32,7 @@ class FoodsaverForAvatar
      *
      * @OA\Property(example="/api/uploads/bc476952-08be-45a7-b670-db27c966c9c2")
      */
-    public ?string $avatar;
+    public ?string $avatar = null;
 
     /**
      * Converts an dictionary into an FoodsaverForAvatar object.

@@ -358,7 +358,7 @@ class Foodsharing extends Db
             'sticker' => 0,
             'abholmenge' => $this->faker->numberBetween(0, 7),
             'team_status' => 1,
-            'prefetchtime' => 1209600,
+            'prefetchtime' => 1_209_600,
 
             // relations
             'bezirk_id' => $bezirk_id,

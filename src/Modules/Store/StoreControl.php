@@ -214,9 +214,7 @@ class StoreControl extends Control
             $store->options = new PatchStoreOptionModel();
             $store->options->useRegionPickupRule = boolval($g_data['use_region_pickup_rule']);
             if (isset($g_data['lebensmittel'])) {
-                $store->groceries = array_map(function ($value) {
-                    return intval($value);
-                }, $g_data['lebensmittel']);
+                $store->groceries = array_map(fn ($value) => intval($value), $g_data['lebensmittel']);
             }
 
             try {

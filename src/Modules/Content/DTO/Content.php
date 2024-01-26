@@ -20,7 +20,7 @@ class Content
     /**
      * Date and time in UTC timezone at which this content was modified.
      */
-    public ?DateTime $lastModified;
+    public ?DateTime $lastModified = null;
 
     public static function create(int $id, string $name, string $title, string $body, ?DateTime $lastModified): Content
     {

@@ -255,9 +255,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
             $condition
         );
 
-        return array_map(function ($e) {
-            return PickupSignUp::createFromArray($e);
-        }, $result);
+        return array_map(fn ($e) => PickupSignUp::createFromArray($e), $result);
     }
 
     public function getPickupHistory(int $storeId, DateTime $from, DateTime $to): array
@@ -318,7 +316,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
         }
         $result = $this->db->fetchAllByCriteria('fs_fetchdate', ['time', 'fetchercount', 'description'], $condition);
 
-        return array_map(function (array $dbItem): OneTimePickup { return OneTimePickup::createFromArray($dbItem); }, $result);
+        return array_map(fn (array $dbItem): OneTimePickup => OneTimePickup::createFromArray($dbItem), $result);
     }
 
     public function addOnetimePickup(int $storeId, OneTimePickup $pickup)
@@ -378,9 +376,9 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
     public function getPickupSlots(int $storeId, ?Carbon $from = null, ?Carbon $to = null, ?Carbon $oneTimeSlotTo = null): array
     {
         $intervalFuturePickupSignup = $this->getFutureRegularPickupInterval($storeId);
-        $from = $from ?? Carbon::now();
+        $from ??= Carbon::now();
         $extendedToDate = Carbon::now('Europe/Berlin')->add($intervalFuturePickupSignup);
-        $to = $to ?? $extendedToDate;
+        $to ??= $extendedToDate;
         $regularSlots = $this->regularPickupGateway->getRegularPickup($storeId);
         $onetimeSlots = $this->getOnetimePickupsForRange($storeId, $from, $oneTimeSlotTo);
         $signupsTo = is_null($oneTimeSlotTo) ? null : max($to, $oneTimeSlotTo);
@@ -396,19 +394,13 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
                 $date->addDays(7);
             }
             while ($date <= $to) {
-                if (empty(array_filter($onetimeSlots, function ($e) use ($date) {
-                    return $date == $e->date;
-                }))) {
+                if (empty(array_filter($onetimeSlots, fn ($e) => $date == $e->date))) {
                     /* only take this regular slot into account when there is no manual slot for the same time */
                     $occupiedSlots = array_map(
-                        function ($e) {
-                            return ['foodsaverId' => $e->foodsaverId, 'isConfirmed' => $e->isConfirmed];
-                        },
+                        fn ($e) => ['foodsaverId' => $e->foodsaverId, 'isConfirmed' => $e->isConfirmed],
                         array_filter(
                             $signups,
-                            function ($e) use ($date) {
-                                return $date == $e->date;
-                            }
+                            fn ($e) => $date == $e->date
                         )
                     );
                     $isAvailable =
@@ -429,14 +421,10 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
         }
         foreach ($onetimeSlots as $slot) {
             $occupiedSlots = array_map(
-                function ($e) {
-                    return ['foodsaverId' => $e->foodsaverId, 'isConfirmed' => $e->isConfirmed];
-                },
+                fn ($e) => ['foodsaverId' => $e->foodsaverId, 'isConfirmed' => $e->isConfirmed],
                 array_filter(
                     $signups,
-                    function ($e) use ($slot) {
-                        return $slot->date == $e->date;
-                    }
+                    fn ($e) => $slot->date == $e->date
                 )
             );
             if ($slot->slots === 0 && count($occupiedSlots) === 0) {

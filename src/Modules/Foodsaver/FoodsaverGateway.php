@@ -65,9 +65,7 @@ class FoodsaverGateway extends BaseGateway
             ':regionId' => $regionId
         ]);
 
-        return array_map(function ($fs) {
-            return new Profile($fs['id'], $fs['name'], $fs['photo'], $fs['sleep_status']);
-        }, $result);
+        return array_map(fn ($fs) => new Profile($fs['id'], $fs['name'], $fs['photo'], $fs['sleep_status']), $result);
     }
 
     /**
@@ -232,9 +230,7 @@ class FoodsaverGateway extends BaseGateway
         $foodsavers = $this->getActiveFoodsavers();
         $ambassadors = $this->getActiveAmbassadors();
 
-        return array_udiff($foodsavers, $ambassadors, function (array $fs, array $amb) {
-            return $fs['id'] - $amb['id'];
-        });
+        return array_udiff($foodsavers, $ambassadors, fn (array $fs, array $amb) => $fs['id'] - $amb['id']);
     }
 
     private function getActiveFoodsavers(): array

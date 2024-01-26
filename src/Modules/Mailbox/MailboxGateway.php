@@ -67,10 +67,8 @@ class MailboxGateway extends BaseGateway
 		'
         );
 
-        return array_map(function ($region) {
-            return Region::create($region['id'], $region['name'], $region['parent_id'], $region['type'],
-                $region['email'], $region['email_name']);
-        }, $regions);
+        return array_map(fn ($region) => Region::create($region['id'], $region['name'], $region['parent_id'], $region['type'],
+            $region['email'], $region['email_name']), $regions);
     }
 
     public function addMailbox(string $name, int $member = 0): int
@@ -262,9 +260,7 @@ class MailboxGateway extends BaseGateway
             [':mailbox_id' => $mailboxId, ':farray_folder' => $folder]
         );
 
-        return array_map(function ($x) {
-            return $this->parseEmail($x);
-        }, $data);
+        return array_map(fn ($x) => $this->parseEmail($x), $data);
     }
 
     public function saveMessage(Email $email): int
@@ -273,13 +269,11 @@ class MailboxGateway extends BaseGateway
         $to = $this->formatAddresses($email->to);
 
         // convert attachments into an array that is stored as json in the database
-        $attachments = array_map(function ($a) {
-            return [
-                'origname' => $a->fileName,
-                'filename' => $a->hashedFileName,
-                'mime' => $a->mimeType
-            ];
-        }, $email->attachments ?? []);
+        $attachments = array_map(fn ($a) => [
+            'origname' => $a->fileName,
+            'filename' => $a->hashedFileName,
+            'mime' => $a->mimeType
+        ], $email->attachments ?? []);
 
         return $this->db->insert(
             'fs_mailbox_message',
@@ -688,13 +682,11 @@ class MailboxGateway extends BaseGateway
      */
     private function formatAddresses(array $addresses): string
     {
-        $mapped = array_map(function ($a) {
-            return [
-                'mailbox' => $a->getMailbox(),
-                'host' => $a->getHostname(),
-                'personal' => $a->getName()
-            ];
-        }, $addresses);
+        $mapped = array_map(fn ($a) => [
+            'mailbox' => $a->getMailbox(),
+            'host' => $a->getHostname(),
+            'personal' => $a->getName()
+        ], $addresses);
 
         return json_encode($mapped);
     }

@@ -155,9 +155,7 @@ class EventGatewayTest extends Unit
         $this->assertEquals(sizeof($events), sizeof($listedEvents), 'All events of a region should be listed');
 
         foreach ($events as $event) {
-            $this->assertNotEmpty(array_filter($listedEvents, function ($listedEvent) use ($event) {
-                return $listedEvent['name'] == $event['name'];
-            }));
+            $this->assertNotEmpty(array_filter($listedEvents, fn ($listedEvent) => $listedEvent['name'] == $event['name']));
         }
     }
 }

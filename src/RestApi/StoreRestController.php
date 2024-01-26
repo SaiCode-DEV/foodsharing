@@ -501,9 +501,7 @@ class StoreRestController extends AbstractFOSRestController
         if (empty($notes)) {
             $notes = [];
         }
-        $notes = array_map(function ($n) {
-            return RestNormalization::normalizeStoreNote($n);
-        }, $notes);
+        $notes = array_map(fn ($n) => RestNormalization::normalizeStoreNote($n), $notes);
 
         return $this->handleView($this->view($notes, 200));
     }
@@ -542,9 +540,7 @@ class StoreRestController extends AbstractFOSRestController
         $userPhoto = $this->session->user('photo');
         $team = $this->storeGateway->getStoreTeam($storeId);
 
-        $teamWithoutPostAuthor = array_filter($team, function ($x) use ($author) {
-            return $x['id'] !== $author;
-        });
+        $teamWithoutPostAuthor = array_filter($team, fn ($x) => $x['id'] !== $author);
 
         $bellData = Bell::create(
             'store_wallpost_title',

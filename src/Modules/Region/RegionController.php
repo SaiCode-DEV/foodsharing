@@ -146,17 +146,15 @@ final class RegionController extends FoodsharingController
             }
         }
 
-        $avatarListEntry = function ($fs) {
-            return [
-                'user' => [
-                    'id' => $fs['id'],
-                    'name' => $fs['name'],
-                    'sleep_status' => $this->dataHelper->parseSleepingState($fs['sleep_status'], $fs['sleep_from'], $fs['sleep_until'])
-                ],
-                'size' => 50,
-                'imageUrl' => $this->imageService->img($fs['photo'], 50, 'q')
-            ];
-        };
+        $avatarListEntry = fn ($fs) => [
+            'user' => [
+                'id' => $fs['id'],
+                'name' => $fs['name'],
+                'sleep_status' => $this->dataHelper->parseSleepingState($fs['sleep_status'], $fs['sleep_from'], $fs['sleep_until'])
+            ],
+            'size' => 50,
+            'imageUrl' => $this->imageService->img($fs['photo'], 50, 'q')
+        ];
 
         $menu = $this->sortMenuItems($menu);
 

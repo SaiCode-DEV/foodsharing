@@ -140,9 +140,7 @@ class StoreChainGateway extends BaseGateway
             ['chainId' => $chainId]
         );
 
-        return array_map(function ($kam) {
-            return FoodsaverForAvatar::createFromArray($kam, ['id' => 'foodsaver_id', 'name' => 'name', 'avatar' => 'photo']);
-        }, $kams);
+        return array_map(fn ($kam) => FoodsaverForAvatar::createFromArray($kam, ['id' => 'foodsaver_id', 'name' => 'name', 'avatar' => 'photo']), $kams);
     }
 
     /**

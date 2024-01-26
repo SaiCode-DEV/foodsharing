@@ -1407,7 +1407,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['calendarInterval' => 10000000001]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['calendarInterval' => 10_000_000_001]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');

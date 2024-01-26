@@ -293,9 +293,7 @@ class VotingRestController extends AbstractFOSRestController
         }
 
         // check that no two option texts are equal
-        $texts = array_map(function ($o) {
-            return $o->text;
-        }, $options);
+        $texts = array_map(fn ($o) => $o->text, $options);
         if (sizeof(array_unique($texts)) != sizeof($texts)) {
             throw new BadRequestHttpException('poll options must not have the same text');
         }

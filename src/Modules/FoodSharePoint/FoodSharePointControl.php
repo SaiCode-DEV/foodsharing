@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 class FoodSharePointControl extends Control
 {
     private int $regionId;
-    private ?array $region;
+    private ?array $region = null;
     private array $foodSharePoint;
     private array $follower;
     private array $regions;
@@ -141,9 +141,7 @@ class FoodSharePointControl extends Control
             }
 
             $this->follower = $this->foodSharePointGateway->getFollower($foodSharePointId);
-            $mapper = function ($foodsaver) {
-                return new Profile($foodsaver['id'], $foodsaver['name'], $foodsaver['photo'], $foodsaver['sleep_status']);
-            };
+            $mapper = fn ($foodsaver) => new Profile($foodsaver['id'], $foodsaver['name'], $foodsaver['photo'], $foodsaver['sleep_status']);
             $managers = array_map($mapper, $this->follower['fsp_manager']);
             $followers = array_map($mapper, $this->follower['follow']);
 
@@ -177,7 +175,7 @@ class FoodSharePointControl extends Control
 
     public function getRealRegions(): array
     {
-        return array_filter($this->session->getRegions(), function ($region) { return UnitType::isAccessibleRegion($region['type']); });
+        return array_filter($this->session->getRegions(), fn ($region) => UnitType::isAccessibleRegion($region['type']));
     }
 
     public function edit(Request $request): void

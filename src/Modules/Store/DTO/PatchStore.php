@@ -82,7 +82,7 @@ class PatchStore
     /**
      * String which describes the store.
      */
-    #[Assert\Length(max: 16777215)]
+    #[Assert\Length(max: 16_777_215)]
     public ?string $description = null;
 
     /**
@@ -105,7 +105,7 @@ class PatchStore
      * - 1814400: 3 Weeks
      * - 2419200: 4 Weeks
      */
-    #[Assert\Range(min: 0, max: 10000000000)]
+    #[Assert\Range(min: 0, max: 10_000_000_000)]
     public ?int $calendarInterval = null;
 
     /**

@@ -34,9 +34,7 @@ class MapGateway extends BaseGateway
             'status' => 1
         ]);
 
-        return array_map(function ($x) {
-            return MapMarker::create($x['id'], $x['lat'], $x['lon']);
-        }, $markers);
+        return array_map(fn ($x) => MapMarker::create($x['id'], $x['lat'], $x['lon']), $markers);
     }
 
     public function getFoodSharePointMarkers(): array
@@ -46,9 +44,7 @@ class MapGateway extends BaseGateway
             'lat !=' => ''
         ]);
 
-        return array_map(function ($x) {
-            return MapMarker::create($x['id'], $x['lat'], $x['lon'], $x['bezirk_id']);
-        }, $markers);
+        return array_map(fn ($x) => MapMarker::create($x['id'], $x['lat'], $x['lon'], $x['bezirk_id']), $markers);
     }
 
     public function getCommunityMarkers(): array
@@ -58,9 +54,7 @@ class MapGateway extends BaseGateway
             'status' => RegionPinStatus::ACTIVE
         ]);
 
-        return array_map(function ($x) {
-            return MapMarker::create($x['region_id'], $x['lat'], $x['lon']);
-        }, $markers);
+        return array_map(fn ($x) => MapMarker::create($x['region_id'], $x['lat'], $x['lon']), $markers);
     }
 
     /**

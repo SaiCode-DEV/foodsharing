@@ -14,7 +14,7 @@ class CreateStoreModel
      */
     #[Assert\NotNull]
     #[Assert\Valid]
-    public ?CreateStoreInformationModel $store;
+    public ?CreateStoreInformationModel $store = null;
 
     /**
      * Optional first comment in store wall of the new store.

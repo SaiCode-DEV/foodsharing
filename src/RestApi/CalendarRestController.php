@@ -136,9 +136,7 @@ class CalendarRestController extends AbstractFOSRestController
 
         // add all future pickup dates
         $dates = $this->pickupGateway->getNextPickups($userId);
-        $pickups = array_map(function ($date) use ($userId) {
-            return $this->createPickupEvent($date, $userId);
-        }, $dates);
+        $pickups = array_map(fn ($date) => $this->createPickupEvent($date, $userId), $dates);
 
         // add all future meetings
         switch ($paramFetcher->get('events')) {
@@ -150,9 +148,7 @@ class CalendarRestController extends AbstractFOSRestController
                 break;
         }
         $meetings = $this->eventGateway->getEventsByStatus($userId, $statuses);
-        $events = array_map(function ($meeting) use ($userId) {
-            return $this->createMeetingEvent($meeting, $userId);
-        }, $meetings);
+        $events = array_map(fn ($meeting) => $this->createMeetingEvent($meeting, $userId), $meetings);
 
         return new Response($this->formatCalendarResponse(array_merge($pickups, $events)), Response::HTTP_OK, [
             'content-type' => 'text/calendar',

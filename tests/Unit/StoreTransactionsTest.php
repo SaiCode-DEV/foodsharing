@@ -220,9 +220,9 @@ class StoreTransactionsTest extends Unit
     {
         $foods = [$this->tester->addStoreFoodType(),
             $this->tester->addStoreFoodType()];
-        usort($foods, function ($a, $b) { return strcmp($a['name'], $b['name']); });
+        usort($foods, fn ($a, $b) => strcmp($a['name'], $b['name']));
         $chains = [$this->tester->addStoreChain(), $this->tester->addStoreChain()];
-        usort($chains, function ($a, $b) { return strcmp($a['name'], $b['name']); });
+        usort($chains, fn ($a, $b) => strcmp($a['name'], $b['name']));
 
         $this->tester->createStoreCategories();
 
@@ -292,9 +292,9 @@ class StoreTransactionsTest extends Unit
     {
         $foods = [$this->tester->addStoreFoodType(),
             $this->tester->addStoreFoodType()];
-        usort($foods, function ($a, $b) { return strcmp($a['name'], $b['name']); });
+        usort($foods, fn ($a, $b) => strcmp($a['name'], $b['name']));
         $chains = [$this->tester->addStoreChain(), $this->tester->addStoreChain()];
-        usort($chains, function ($a, $b) { return strcmp($a['name'], $b['name']); });
+        usort($chains, fn ($a, $b) => strcmp($a['name'], $b['name']));
 
         $this->tester->createStoreCategories();
 
@@ -650,7 +650,7 @@ class StoreTransactionsTest extends Unit
         $this->assertIsArray($listOfStores);
         $this->assertEquals(2, count($listOfStores));
         $this->assertContainsOnlyInstancesOf(StoreListInformation::class, $listOfStores);
-        $storeIds = array_map(function ($store) { return $store->id; }, $listOfStores);
+        $storeIds = array_map(fn ($store) => $store->id, $listOfStores);
         $this->assertContainsEquals($store1['id'], $storeIds);
         $this->assertContainsEquals($store2['id'], $storeIds);
 
@@ -676,11 +676,11 @@ class StoreTransactionsTest extends Unit
         $this->assertIsArray($listOfStores);
         $this->assertEquals(2, count($listOfStores));
         $this->assertContainsOnlyInstancesOf(StoreListInformation::class, $listOfStores);
-        $storeIds = array_map(function ($store) { return $store->id; }, $listOfStores);
+        $storeIds = array_map(fn ($store) => $store->id, $listOfStores);
         $this->assertContainsEquals($store1['id'], $storeIds);
         $this->assertContainsEquals($store2['id'], $storeIds);
 
-        $storeNames = array_map(function ($store) { return $store->region->name; }, $listOfStores);
+        $storeNames = array_map(fn ($store) => $store->region->name, $listOfStores);
         foreach ($listOfStores as $store) {
             $this->assertNotNull($store->region->name);
         }

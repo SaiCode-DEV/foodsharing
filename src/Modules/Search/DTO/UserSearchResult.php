@@ -15,21 +15,21 @@ class UserSearchResult extends SearchResult
      *
      * @OA\Property(example=null)
      */
-    public ?string $avatar;
+    public ?string $avatar = null;
 
     /**
      * Last name of the user.
      *
      * @OA\Property(example="Mustermann")
      */
-    public ?string $last_name;
+    public ?string $last_name = null;
 
     /**
      * Mobile phone number of the user.
      *
      * @OA\Property(example="+49 1234 56789")
      */
-    public ?string $mobile;
+    public ?string $mobile = null;
 
     /**
      * Whether the searching user and the found user are buddies.
@@ -64,7 +64,7 @@ class UserSearchResult extends SearchResult
      *
      * @OA\Property(example="Münster")
      */
-    public ?string $email;
+    public ?string $email = null;
 
     public static function createFromArray(array $data): UserSearchResult
     {

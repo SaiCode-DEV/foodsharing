@@ -30,9 +30,7 @@ class PickupInformation
         if ($this->information->slots != 0) {
             $confirmedPickups = array_filter(
                 $this->signUps,
-                function (PickupSignUp $signUps) {
-                    return $signUps->isConfirmed;
-                }
+                fn (PickupSignUp $signUps) => $signUps->isConfirmed
             );
 
             $hasConfirmedPickup = count($confirmedPickups) != 0;

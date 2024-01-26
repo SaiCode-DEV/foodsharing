@@ -105,9 +105,7 @@ class BellGatewayTest extends Unit
     /** Helper to find specific bell in array of bells */
     private function findBellInArrayById(array $array, int $id): ?BellForList
     {
-        $result = array_filter($array, function ($obj) use ($id) {
-            return $obj->id == $id;
-        });
+        $result = array_filter($array, fn ($obj) => $obj->id == $id);
 
         return reset($result) ?: false;
     }

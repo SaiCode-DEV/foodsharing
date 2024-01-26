@@ -355,14 +355,12 @@ class RegionRestController extends AbstractFOSRestController
         }
 
         $children = $this->regionGateway->getBezirkByParent($regionId, false);
-        $response = array_map(function ($child) {
-            return [
-                'id' => $child['id'],
-                'name' => $child['name'],
-                'hasChildren' => $child['has_children'],
-                'type' => $child['type']
-            ];
-        }, $children);
+        $response = array_map(fn ($child) => [
+            'id' => $child['id'],
+            'name' => $child['name'],
+            'hasChildren' => $child['has_children'],
+            'type' => $child['type']
+        ], $children);
 
         return $this->handleView($this->view($response, 200));
     }

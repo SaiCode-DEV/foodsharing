@@ -107,18 +107,12 @@ class StoreTransactions
     {
         $store = new CommonStoreMetadata();
 
-        $store->groceries = array_map(function ($row) {
-            return CommonLabel::createFromArray($row);
-        }, $this->storeGateway->getBasics_groceries());
+        $store->groceries = array_map(fn ($row) => CommonLabel::createFromArray($row), $this->storeGateway->getBasics_groceries());
 
         $store->categories = [new CommonLabel(0, $this->translator->trans('store.nodeclaration')),
-            ...array_map(function ($row) {
-                return CommonLabel::createFromArray($row);
-            }, $this->storeGateway->getStoreCategories())];
+            ...array_map(fn ($row) => CommonLabel::createFromArray($row), $this->storeGateway->getStoreCategories())];
 
-        $store->status = array_map(function ($row) {
-            return CommonLabel::createFromArray($row);
-        }, [
+        $store->status = array_map(fn ($row) => CommonLabel::createFromArray($row), [
             ['id' => CooperationStatus::UNCLEAR->value, 'name' => $this->translator->trans('store.nodeclaration')],
             ['id' => CooperationStatus::NO_CONTACT->value, 'name' => $this->translator->trans('storestatus.1')],
             ['id' => CooperationStatus::IN_NEGOTIATION->value, 'name' => $this->translator->trans('storestatus.2')],
@@ -129,9 +123,7 @@ class StoreTransactions
             ['id' => CooperationStatus::PERMANENTLY_CLOSED->value, 'name' => $this->translator->trans('storestatus.7')],
         ]);
 
-        $store->publicTimes = array_map(function ($row) {
-            return CommonLabel::createFromArray($row);
-        }, [
+        $store->publicTimes = array_map(fn ($row) => CommonLabel::createFromArray($row), [
             ['id' => PublicTimes::NOT_SET->value, 'name' => $this->translator->trans('store.nodeclaration')],
             ['id' => PublicTimes::IN_THE_MORNING->value, 'name' => $this->translator->trans('storeview.public_time_in_the_morning')],
             ['id' => PublicTimes::AT_NOON_IN_THE_AFTERNOON->value, 'name' => $this->translator->trans('storeview.public_time_at_noon_or_afternoon')],
@@ -139,9 +131,7 @@ class StoreTransactions
             ['id' => PublicTimes::AT_NIGHT->value, 'name' => $this->translator->trans('storeview.public_time_at_night')]
         ]);
 
-        $store->convinceStatus = array_map(function ($row) {
-            return CommonLabel::createFromArray($row);
-        }, [
+        $store->convinceStatus = array_map(fn ($row) => CommonLabel::createFromArray($row), [
             ['id' => ConvinceStatus::NOT_SET->value, 'name' => $this->translator->trans('store.nodeclaration')],
             ['id' => ConvinceStatus::NO_PROBLEM_AT_ALL->value, 'name' => $this->translator->trans('store.convince.none')],
             ['id' => ConvinceStatus::AFTER_SOME_PERSUASION->value, 'name' => $this->translator->trans('store.convince.some')],
@@ -151,14 +141,10 @@ class StoreTransactions
 
         if (!$supressStoreChains) {
             $store->storeChains = [new CommonLabel(0, $this->translator->trans('store.nodeclaration')),
-                ...array_map(function ($row) {
-                    return CommonLabel::createFromArray($row);
-                }, $this->storeGateway->getBasics_chain())];
+                ...array_map(fn ($row) => CommonLabel::createFromArray($row), $this->storeGateway->getBasics_chain())];
         }
 
-        $store->weight = array_map(function ($row) {
-            return CommonLabel::createFromArray($row);
-        }, (new WeightHelper())->getWeightListEntries());
+        $store->weight = array_map(fn ($row) => CommonLabel::createFromArray($row), (new WeightHelper())->getWeightListEntries());
 
         return $store;
     }
@@ -319,7 +305,7 @@ class StoreTransactions
         ], BellType::createIdentifier(BellType::NEW_STORE, $storeId));
         $this->bellGateway->addBell(
             array_map(
-                function (Profile $f) { return $f->id; },
+                fn (Profile $f) => $f->id,
                 $foodsaver
             ),
             $bellData
@@ -964,7 +950,7 @@ class StoreTransactions
         $storeName = $this->storeGateway->getStoreName($storeId);
 
         $team = $this->storeGateway->getStoreTeam($storeId);
-        $team = array_map(function ($foodsaver) { return $foodsaver['id']; }, $team);
+        $team = array_map(fn ($foodsaver) => $foodsaver['id'], $team);
         $bellData = Bell::create('store_cr_times_title', 'store_cr_times', 'fas fa-user-clock', [
             'href' => '/?page=fsbetrieb&id=' . $storeId,
         ], [
@@ -1035,11 +1021,7 @@ class StoreTransactions
         }
 
         return array_map(
-            function ($teamMember) use ($allowedFields) {
-                return array_filter($teamMember, function ($key) use ($allowedFields) {
-                    return in_array($key, $allowedFields);
-                }, ARRAY_FILTER_USE_KEY);
-            },
+            fn ($teamMember) => array_filter($teamMember, fn ($key) => in_array($key, $allowedFields), ARRAY_FILTER_USE_KEY),
             array_merge($store['foodsaver'], $store['springer']),
         );
     }

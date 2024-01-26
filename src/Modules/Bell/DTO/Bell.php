@@ -77,12 +77,12 @@ class Bell
      * the Gateway that controls your bells to the BellUpdateTrigger service. @see BellUpdateTrigger documentation
      * for how to set this up.
      */
-    public ?DateTime $expiration;
+    public ?DateTime $expiration = null;
 
     /**
      * A timestamp for when the bell got created.
      */
-    public ?DateTime $time;
+    public ?DateTime $time = null;
 
     public static function create(
         string $title,

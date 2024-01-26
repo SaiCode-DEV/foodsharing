@@ -22,7 +22,7 @@ use Twig\Environment;
 
 class FoodSharePointView extends View
 {
-    private ?array $region;
+    private ?array $region = null;
     private array $regions;
 
     private array $foodSharePoint;

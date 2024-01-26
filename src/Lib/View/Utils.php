@@ -468,7 +468,7 @@ class Utils
 
     public function v_form_tagselect(string $id, ?string $label = null, ?array $valueOptions = null, ?array $values = null): string
     {
-        $label = $label ?? $this->translator->trans($id);
+        $label ??= $this->translator->trans($id);
 
         if (is_null($valueOptions)) {
             $source = 'autocompleteURL: async function (request, response) {

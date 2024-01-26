@@ -19,7 +19,7 @@ final class RegionPermissionsTest extends Unit
 
     public function _before(): void
     {
-        $mock = $this->makeEmpty(Session::class, ['mayRole' => function ($role) { return $role == Role::FOODSAVER; }]);
+        $mock = $this->makeEmpty(Session::class, ['mayRole' => fn ($role) => $role == Role::FOODSAVER]);
         $this->regionPermissions = new RegionPermissions($this->tester->get(RegionGateway::class), $mock, $this->tester->get(GroupFunctionGateway::class));
     }
 

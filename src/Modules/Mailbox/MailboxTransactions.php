@@ -179,9 +179,7 @@ class MailboxTransactions
      */
     public function validateRecipients(array $addresses): array
     {
-        $trimmed = array_map(function ($address) {
-            return trim($address);
-        }, $addresses);
+        $trimmed = array_map(fn ($address) => trim($address), $addresses);
 
         $unique = array_unique($trimmed);
 

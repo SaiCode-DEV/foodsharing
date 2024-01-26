@@ -22,7 +22,7 @@ class Session
 {
     // update this whenever adding new fields to the session!!!
     // this should be a unix timestamp, together with a human readable date in a comment.
-    private const LAST_SESSION_SCHEMA_CHANGE = 1668985200; // 2022-11-21 00:00:00 UTC
+    private const LAST_SESSION_SCHEMA_CHANGE = 1_668_985_200; // 2022-11-21 00:00:00 UTC
 
     private const SESSION_TIMESTAMP_FIELD_NAME = 'last_updated_ts';
 
@@ -276,9 +276,7 @@ class Session
         $managedRegions = $this->getManagedRegions();
 
         if (!$includeWorkingGroups) {
-            $managedRegions = array_filter($managedRegions, function ($region) {
-                return !UnitType::isGroup($region['type']);
-            });
+            $managedRegions = array_filter($managedRegions, fn ($region) => !UnitType::isGroup($region['type']));
         }
 
         $out = [];

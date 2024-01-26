@@ -252,13 +252,11 @@ class VotingGateway extends BaseGateway
         // add all voters (100 per query)
         $parts = array_chunk($voterIds, 100);
         foreach ($parts as $part) {
-            $data = array_map(function ($id) use ($pollId) {
-                return [
-                    'foodsaver_id' => $id,
-                    'poll_id' => $pollId,
-                    'time' => null
-                ];
-            }, $part);
+            $data = array_map(fn ($id) => [
+                'foodsaver_id' => $id,
+                'poll_id' => $pollId,
+                'time' => null
+            ], $part);
             $this->db->insertMultiple('fs_foodsaver_has_poll', $data);
         }
 
@@ -349,9 +347,7 @@ class VotingGateway extends BaseGateway
             ]);
         }
 
-        return array_map(function ($x) {
-            return $x['id'];
-        }, $list);
+        return array_map(fn ($x) => $x['id'], $list);
     }
 
     /**

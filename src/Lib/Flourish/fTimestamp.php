@@ -966,11 +966,11 @@ class fTimestamp
       /* 5 days      */
       432000 => [86400, self::compose('day'), self::compose('days')],
       /* 3 weeks     */
-      1814400 => [604800, self::compose('week'), self::compose('weeks')],
+      1_814_400 => [604800, self::compose('week'), self::compose('weeks')],
       /* 9 months    */
-      23328000 => [2592000, self::compose('month'), self::compose('months')],
+      23_328_000 => [2_592_000, self::compose('month'), self::compose('months')],
       /* largest int */
-      2147483647 => [31536000, self::compose('year'), self::compose('years')],
+      2_147_483_647 => [31_536_000, self::compose('year'), self::compose('years')],
   ];
 
 		foreach ($break_points as $break_point => $unit_info) {
@@ -1076,7 +1076,7 @@ class fTimestamp
 	 */
 	public function modify($format, $timezone = null)
 	{
-		$timezone = $timezone ?? $this->timezone;
+		$timezone ??= $this->timezone;
 
 		return new self($this->format($format), $timezone);
 	}

@@ -19,7 +19,7 @@ class SearchResult
      *
      * @OA\Property(example="Name")
      */
-    public ?string $name;
+    public ?string $name = null;
 
     /**
      * Search criteria to test the search against.
@@ -28,7 +28,7 @@ class SearchResult
      *
      * @OA\Property(example="Münster;meunster")
      */
-    public ?string $search_string;
+    public ?string $search_string = null;
 
     protected static function formatUserList(array $data, string $namespace): array
     {

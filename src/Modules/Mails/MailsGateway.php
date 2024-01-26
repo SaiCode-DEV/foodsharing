@@ -90,11 +90,9 @@ class MailsGateway extends BaseGateway
             'bounced_at'
         ], ['email' => $email]);
 
-        return array_map(function ($x) {
-            return [
-                'category' => $x['bounce_category'],
-                'date' => Carbon::createFromFormat(Carbon::DEFAULT_TO_STRING_FORMAT, $x['bounced_at'])
-            ];
-        }, $data);
+        return array_map(fn ($x) => [
+            'category' => $x['bounce_category'],
+            'date' => Carbon::createFromFormat(Carbon::DEFAULT_TO_STRING_FORMAT, $x['bounced_at'])
+        ], $data);
     }
 }

@@ -73,20 +73,12 @@ class EmailSendData
     public function toEmail(): Email
     {
         $e = new Email();
-        $e->to = array_map(function ($x) {
-            return self::stringToEmailAddress($x);
-        }, $this->to);
-        $e->cc = $this->cc ? array_map(function ($x) {
-            return self::stringToEmailAddress($x);
-        }, $this->cc) : null;
-        $e->bcc = $this->cc ? array_map(function ($x) {
-            return self::stringToEmailAddress($x);
-        }, $this->bcc) : null;
+        $e->to = array_map(fn ($x) => self::stringToEmailAddress($x), $this->to);
+        $e->cc = $this->cc ? array_map(fn ($x) => self::stringToEmailAddress($x), $this->cc) : null;
+        $e->bcc = $this->cc ? array_map(fn ($x) => self::stringToEmailAddress($x), $this->bcc) : null;
         $e->subject = $this->subject;
         $e->body = $this->body;
-        $e->attachments = $this->attachments ? array_map(function ($a) {
-            return EmailAttachment::create($a->filename, $a->uuid, -1, '');
-        }, $this->attachments) : null;
+        $e->attachments = $this->attachments ? array_map(fn ($a) => EmailAttachment::create($a->filename, $a->uuid, -1, ''), $this->attachments) : null;
 
         return $e;
     }

@@ -136,9 +136,7 @@ class StatisticsGateway extends BaseGateway
 					group by geschlecht',
             [':regionId' => $regionId]);
 
-        return array_map(function ($StatisticsGender) {
-            return StatisticsGender::create($StatisticsGender['gender'], $StatisticsGender['numberOfGender']);
-        }, $list);
+        return array_map(fn ($StatisticsGender) => StatisticsGender::create($StatisticsGender['gender'], $StatisticsGender['numberOfGender']), $list);
     }
 
     public function genderCountHomeRegion(int $regionId): array
@@ -153,9 +151,7 @@ class StatisticsGateway extends BaseGateway
             [':regionId' => $regionId]
         );
 
-        return array_map(function ($StatisticsGender) {
-            return StatisticsGender::create($StatisticsGender['gender'], $StatisticsGender['numberOfGender']);
-        }, $list);
+        return array_map(fn ($StatisticsGender) => StatisticsGender::create($StatisticsGender['gender'], $StatisticsGender['numberOfGender']), $list);
     }
 
     public function ageBandHomeDistrict(int $districtId): array
@@ -184,9 +180,7 @@ class StatisticsGateway extends BaseGateway
             ['rolle' => Role::FOODSAVER, ':id' => $districtId]
         );
 
-        return array_map(function ($StatisticsAgeBand) {
-            return StatisticsAgeBand::create($StatisticsAgeBand['ageBand'], $StatisticsAgeBand['numberOfAgeBand']);
-        }, $list);
+        return array_map(fn ($StatisticsAgeBand) => StatisticsAgeBand::create($StatisticsAgeBand['ageBand'], $StatisticsAgeBand['numberOfAgeBand']), $list);
     }
 
     public function ageBandDistrict(int $districtId): array
@@ -218,8 +212,6 @@ class StatisticsGateway extends BaseGateway
             ['rolle' => Role::FOODSAVER, ':id' => $districtId]
         );
 
-        return array_map(function ($StatisticsAgeBand) {
-            return StatisticsAgeBand::create($StatisticsAgeBand['ageBand'], $StatisticsAgeBand['numberOfAgeBand']);
-        }, $list);
+        return array_map(fn ($StatisticsAgeBand) => StatisticsAgeBand::create($StatisticsAgeBand['ageBand'], $StatisticsAgeBand['numberOfAgeBand']), $list);
     }
 }

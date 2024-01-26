@@ -16,14 +16,14 @@ class CreateStoreInformationModel
      */
     #[Assert\NotNull]
     #[Assert\Length(max: 120)]
-    public ?string $name;
+    public ?string $name = null;
 
     /**
      * Location of the store.
      */
     #[Assert\NotNull]
     #[Assert\Valid]
-    public ?GeoLocation $location;
+    public ?GeoLocation $location = null;
 
     /**
      * Street name with street number.
@@ -32,14 +32,14 @@ class CreateStoreInformationModel
      */
     #[Assert\NotNull]
     #[Assert\Length(max: 120)]
-    public ?string $street;
+    public ?string $street = null;
 
     /**
      * Zip code.
      */
     #[Assert\NotNull]
     #[Assert\Length(max: 5)]
-    public ?string $zipCode;
+    public ?string $zipCode = null;
 
     /**
      * City name.
@@ -48,7 +48,7 @@ class CreateStoreInformationModel
      */
     #[Assert\NotNull]
     #[Assert\Length(max: 50)]
-    public ?string $city;
+    public ?string $city = null;
 
     /**
      * Public information about the store which is visible
@@ -58,7 +58,7 @@ class CreateStoreInformationModel
      */
     #[Assert\NotNull]
     #[Assert\Length(max: 200)]
-    public ?string $publicInfo;
+    public ?string $publicInfo = null;
 
     public function toCreateStore(): CreateStoreData
     {
