@@ -113,7 +113,7 @@ class Session
 
         $cookieExpires = $this->isPersistent() ? strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN) : 0;
         if (!isset($_COOKIE['CSRF_TOKEN']) || !$_COOKIE['CSRF_TOKEN'] || !$this->isValidCsrfToken('cookie', $_COOKIE['CSRF_TOKEN'])) {
-            setcookie('CSRF_TOKEN', $this->generateCrsfToken('cookie'), $cookieExpires, '/');
+            setcookie('CSRF_TOKEN', $this->generateCrsfToken('cookie'), ['expires' => $cookieExpires, 'path' => '/']);
         }
     }
 

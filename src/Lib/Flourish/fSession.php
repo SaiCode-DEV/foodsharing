@@ -258,7 +258,7 @@ class fSession
 		unset($_SESSION);
 		if (isset($_COOKIE[session_name()])) {
 			$params = session_get_cookie_params();
-			setcookie(session_name(), '', time() - 43200, $params['path'], $params['domain'], $params['secure']);
+			setcookie(session_name(), '', ['expires' => time() - 43200, 'path' => $params['path'], 'domain' => $params['domain'], 'secure' => $params['secure']]);
 		}
 		session_destroy();
 	}
