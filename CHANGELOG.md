@@ -23,6 +23,7 @@
 - Bump nelmio/api-doc-bundle to 4.18.1 !3080 @chris.walg
 - Introduced Rector to modernize code !3084 @\_fridtjof_
 - Update backend dependencies !3094 @\_fridtjof_
+- Modernize code to use PHP 8.1 features !3095 @\_fridtjof_
 
 ## Development documentation
 
