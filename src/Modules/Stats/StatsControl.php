@@ -6,7 +6,7 @@ use Foodsharing\Modules\Console\ConsoleControl;
 
 class StatsControl extends ConsoleControl
 {
-    private StatsGateway $statsGateway;
+    private readonly StatsGateway $statsGateway;
 
     public function __construct(
         StatsGateway $statsGateway

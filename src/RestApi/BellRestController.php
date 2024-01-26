@@ -14,8 +14,8 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class BellRestController extends AbstractFOSRestController
 {
-    private BellGateway $bellGateway;
-    private Session $session;
+    private readonly BellGateway $bellGateway;
+    private readonly Session $session;
 
     public function __construct(
         BellGateway $bellGateway,

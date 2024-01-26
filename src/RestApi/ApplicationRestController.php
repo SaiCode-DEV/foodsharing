@@ -17,10 +17,10 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class ApplicationRestController extends AbstractFOSRestController
 {
-    private RegionGateway $regionGateway;
-    private WorkGroupPermissions $workGroupPermissions;
-    private ApplicationTransactions $applicationTransactions;
-    private Session $session;
+    private readonly RegionGateway $regionGateway;
+    private readonly WorkGroupPermissions $workGroupPermissions;
+    private readonly ApplicationTransactions $applicationTransactions;
+    private readonly Session $session;
 
     public function __construct(
         WorkGroupPermissions $workGroupPermissions,

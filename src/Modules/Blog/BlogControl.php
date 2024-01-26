@@ -11,10 +11,10 @@ use Foodsharing\Utility\TimeHelper;
 
 class BlogControl extends Control
 {
-    private BlogGateway $blogGateway;
-    private BlogPermissions $blogPermissions;
-    private IdentificationHelper $identificationHelper;
-    private TimeHelper $timeHelper;
+    private readonly BlogGateway $blogGateway;
+    private readonly BlogPermissions $blogPermissions;
+    private readonly IdentificationHelper $identificationHelper;
+    private readonly TimeHelper $timeHelper;
 
     public function __construct(
         BlogView $view,

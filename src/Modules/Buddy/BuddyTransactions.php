@@ -9,9 +9,9 @@ use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 
 class BuddyTransactions
 {
-    private BuddyGateway $buddyGateway;
-    private BellGateway $bellGateway;
-    private Session $session;
+    private readonly BuddyGateway $buddyGateway;
+    private readonly BellGateway $bellGateway;
+    private readonly Session $session;
 
     public function __construct(
         BuddyGateway $buddyGateway,

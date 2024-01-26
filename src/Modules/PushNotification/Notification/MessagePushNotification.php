@@ -15,22 +15,22 @@ class MessagePushNotification extends PushNotification
     /**
      * The message to which this notification refers.
      */
-    private Message $message;
+    private readonly Message $message;
 
     /**
      * This is the author of the message. It's a foodsaver's user name, not a conversation title or anything.
      */
-    private Profile $author;
+    private readonly Profile $author;
 
     /**
      * The conversation id will be needed to enable the user to reply to the message this notification resembles.
      */
-    private int $conversationId;
+    private readonly int $conversationId;
 
     /**
      * Optional. This is the name of the conversation, if the conversation has one.
      */
-    private ?string $conversationName;
+    private readonly ?string $conversationName;
 
     public function __construct(Message $message, Profile $author, int $conversationId, ?string $conversationName = null)
     {

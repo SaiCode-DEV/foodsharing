@@ -28,16 +28,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class VerificationRestController extends AbstractFOSRestController
 {
-    private BellGateway $bellGateway;
-    private FoodsaverGateway $foodsaverGateway;
-    private ProfileGateway $profileGateway;
-    private PickupGateway $pickupGateway;
-    private ProfilePermissions $profilePermissions;
-    private Session $session;
-    private EmailHelper $emailHelper;
+    private readonly BellGateway $bellGateway;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly ProfileGateway $profileGateway;
+    private readonly PickupGateway $pickupGateway;
+    private readonly ProfilePermissions $profilePermissions;
+    private readonly Session $session;
+    private readonly EmailHelper $emailHelper;
     protected TranslatorInterface $translator;
-    private PassportPermissions $passportPermissions;
-    private PassportGeneratorTransaction $passportGeneratorTransaction;
+    private readonly PassportPermissions $passportPermissions;
+    private readonly PassportGeneratorTransaction $passportGeneratorTransaction;
 
     public function __construct(
         BellGateway $bellGateway,

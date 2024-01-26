@@ -15,13 +15,13 @@ use Foodsharing\Utility\UriHelper;
 final class ProfileControl extends Control
 {
     private array $foodsaver;
-    private MailsGateway $mailsGateway;
-    private RegionGateway $regionGateway;
-    private ProfileGateway $profileGateway;
-    private BasketGateway $basketGateway;
-    private MailboxGateway $mailboxGateway;
-    private ReportPermissions $reportPermissions;
-    private ProfilePermissions $profilePermissions;
+    private readonly MailsGateway $mailsGateway;
+    private readonly RegionGateway $regionGateway;
+    private readonly ProfileGateway $profileGateway;
+    private readonly BasketGateway $basketGateway;
+    private readonly MailboxGateway $mailboxGateway;
+    private readonly ReportPermissions $reportPermissions;
+    private readonly ProfilePermissions $profilePermissions;
 
     public function __construct(
         MailsGateway $mailsGateway,

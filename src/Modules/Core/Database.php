@@ -11,7 +11,7 @@ use Doctrine\DBAL\Result;
 
 class Database
 {
-    private QueryBuilder $queryBuilder;
+    private readonly QueryBuilder $queryBuilder;
 
     public function __construct(
         private readonly Connection $dbalConnection,

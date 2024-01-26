@@ -20,7 +20,7 @@ use Twig\Environment;
 
 class BlogView extends View
 {
-    private BlogPermissions $blogPermissions;
+    private readonly BlogPermissions $blogPermissions;
 
     // picture size on the blog post page and the upload form
     private const PICTURE_FULL_WIDTH = 528;

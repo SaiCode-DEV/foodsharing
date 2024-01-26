@@ -13,7 +13,7 @@ class vPage
     private array $sections_right = [];
     private $subtitle = false;
     private array $bread;
-    private PageHelper $pageHelper;
+    private readonly PageHelper $pageHelper;
 
     public function __construct($title, $content)
     {

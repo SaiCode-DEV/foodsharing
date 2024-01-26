@@ -21,12 +21,12 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class ReportRestController extends AbstractFOSRestController
 {
-    private BellGateway $bellGateway;
-    private FoodsaverGateway $foodsaverGateway;
-    private Session $session;
-    private ReportGateway $reportGateway;
-    private ReportPermissions $reportPermissions;
-    private GroupFunctionGateway $groupFunctionGateway;
+    private readonly BellGateway $bellGateway;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly Session $session;
+    private readonly ReportGateway $reportGateway;
+    private readonly ReportPermissions $reportPermissions;
+    private readonly GroupFunctionGateway $groupFunctionGateway;
 
     // literal constants
     private const NOT_LOGGED_IN = 'not logged in';

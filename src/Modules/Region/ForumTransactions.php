@@ -20,17 +20,17 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ForumTransactions
 {
     public function __construct(
-        private BellGateway $bellGateway,
-        private FoodsaverGateway $foodsaverGateway,
-        private ForumGateway $forumGateway,
-        private ForumFollowerGateway $forumFollowerGateway,
-        private Session $session,
-        private RegionGateway $regionGateway,
-        private Sanitizer $sanitizerService,
-        private EmailHelper $emailHelper,
-        private FlashMessageHelper $flashMessageHelper,
-        private TranslatorInterface $translator,
-        private GroupFunctionGateway $groupFunctionGateway
+        private readonly BellGateway $bellGateway,
+        private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly ForumGateway $forumGateway,
+        private readonly ForumFollowerGateway $forumFollowerGateway,
+        private readonly Session $session,
+        private readonly RegionGateway $regionGateway,
+        private readonly Sanitizer $sanitizerService,
+        private readonly EmailHelper $emailHelper,
+        private readonly FlashMessageHelper $flashMessageHelper,
+        private readonly TranslatorInterface $translator,
+        private readonly GroupFunctionGateway $groupFunctionGateway
     ) {
     }
 

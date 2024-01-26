@@ -23,10 +23,10 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class WorkingGroupRestController extends AbstractFOSRestController
 {
-    private WorkGroupGateway $workGroupGateway;
-    private FoodsaverGateway $foodsaverGateway;
-    private Session $session;
-    private WorkGroupPermissions $workGroupPermissions;
+    private readonly WorkGroupGateway $workGroupGateway;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly Session $session;
+    private readonly WorkGroupPermissions $workGroupPermissions;
 
     public function __construct(
         WorkGroupGateway $workGroupGateway,

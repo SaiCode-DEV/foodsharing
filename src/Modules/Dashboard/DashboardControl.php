@@ -16,11 +16,11 @@ use Foodsharing\Modules\Settings\SettingsGateway;
 class DashboardControl extends Control
 {
     private array $params;
-    private ContentGateway $contentGateway;
-    private SettingsGateway $settingsGateway;
-    private FoodsaverGateway $foodsaverGateway;
-    private EventGateway $eventGateway;
-    private QuizSessionGateway $quizSessionGateway;
+    private readonly ContentGateway $contentGateway;
+    private readonly SettingsGateway $settingsGateway;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly EventGateway $eventGateway;
+    private readonly QuizSessionGateway $quizSessionGateway;
 
     /**
      * @throws Exception

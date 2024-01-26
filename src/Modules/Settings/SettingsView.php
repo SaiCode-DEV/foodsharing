@@ -25,7 +25,7 @@ use Twig\Environment;
 
 class SettingsView extends View
 {
-    private RegionGateway $regionGateway;
+    private readonly RegionGateway $regionGateway;
 
     public function __construct(
         Environment $twig,

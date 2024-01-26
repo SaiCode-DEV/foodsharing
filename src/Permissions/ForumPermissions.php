@@ -11,9 +11,9 @@ use Foodsharing\Modules\Region\ForumGateway;
 
 class ForumPermissions
 {
-    private ForumGateway $forumGateway;
-    private Session $session;
-    private GroupFunctionGateway $groupFunctionGateway;
+    private readonly ForumGateway $forumGateway;
+    private readonly Session $session;
+    private readonly GroupFunctionGateway $groupFunctionGateway;
 
     public function __construct(
         ForumGateway $forumGateway,

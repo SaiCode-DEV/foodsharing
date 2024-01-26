@@ -35,7 +35,7 @@ class Session
         Role::SITE_ADMIN => 'admin',
     ];
 
-    private array $roleKeysInverse;
+    private readonly array $roleKeysInverse;
 
     final public const DEFAULT_LOCALE = 'de';
 
@@ -44,14 +44,14 @@ class Session
     private const DEFAULT_PERSISTENT_SESSION_TIMESPAN = '14 days';
 
     public function __construct(
-        private Mem $mem,
-        private BuddyGateway $buddyGateway,
-        private FoodsaverGateway $foodsaverGateway,
-        private RegionGateway $regionGateway,
-        private StoreGateway $storeGateway,
-        private MailsGateway $mailsGateway,
-        private LoginGateway $loginGateway,
-        private SettingsGateway $settingsGateway,
+        private readonly Mem $mem,
+        private readonly BuddyGateway $buddyGateway,
+        private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly RegionGateway $regionGateway,
+        private readonly StoreGateway $storeGateway,
+        private readonly MailsGateway $mailsGateway,
+        private readonly LoginGateway $loginGateway,
+        private readonly SettingsGateway $settingsGateway,
         private bool $initialized = false
     ) {
         $this->roleKeysInverse = array_flip(self::ROLE_KEYS);

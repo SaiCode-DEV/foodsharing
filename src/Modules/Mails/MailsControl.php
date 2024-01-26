@@ -16,11 +16,11 @@ use function Sentry\captureException;
 
 class MailsControl extends ConsoleControl
 {
-    private MailsGateway $mailsGateway;
-    private Database $database;
-    private MailerInterface $mailer;
-    private RouteHelper $routeHelper;
-    private EmailHelper $emailHelper;
+    private readonly MailsGateway $mailsGateway;
+    private readonly Database $database;
+    private readonly MailerInterface $mailer;
+    private readonly RouteHelper $routeHelper;
+    private readonly EmailHelper $emailHelper;
 
     /*
      * todo move this to config file as a constant if this becomes a permanent solution
@@ -138,7 +138,7 @@ class MailsControl extends ConsoleControl
                     if ($html) {
                         $h2t = new Html2Text($html);
                         $body = $h2t->get_text();
-                        $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
+                        $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', (string)$html);
                     } else {
                         try {
                             $text = $msg->getBodyText();

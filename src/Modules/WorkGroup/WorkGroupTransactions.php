@@ -6,8 +6,8 @@ use Foodsharing\Modules\Region\ForumFollowerGateway;
 
 class WorkGroupTransactions
 {
-    private WorkGroupGateway $workGroupGateway;
-    private ForumFollowerGateway $forumFollowerGateway;
+    private readonly WorkGroupGateway $workGroupGateway;
+    private readonly ForumFollowerGateway $forumFollowerGateway;
 
     public function __construct(
         WorkGroupGateway $workGroupGateway,

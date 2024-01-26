@@ -15,9 +15,9 @@ use Foodsharing\Modules\Region\RegionGateway;
 
 class FoodSharePointGateway extends BaseGateway
 {
-    private RegionGateway $regionGateway;
-    private BellGateway $bellGateway;
-    private GroupFunctionGateway $groupFunctionGateway;
+    private readonly RegionGateway $regionGateway;
+    private readonly BellGateway $bellGateway;
+    private readonly GroupFunctionGateway $groupFunctionGateway;
 
     public function __construct(
         Database $db,

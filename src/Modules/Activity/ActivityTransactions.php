@@ -18,11 +18,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ActivityTransactions
 {
-    private ActivityGateway $activityGateway;
-    private MailboxGateway $mailboxGateway;
-    private ImageHelper $imageHelper;
-    private TranslatorInterface $translator;
-    private Session $session;
+    private readonly ActivityGateway $activityGateway;
+    private readonly MailboxGateway $mailboxGateway;
+    private readonly ImageHelper $imageHelper;
+    private readonly TranslatorInterface $translator;
+    private readonly Session $session;
 
     public function __construct(
         ActivityGateway $activityGateway,

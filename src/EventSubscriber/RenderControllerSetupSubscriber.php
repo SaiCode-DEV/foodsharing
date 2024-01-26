@@ -56,7 +56,7 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
     private Caching $cache;
 
     // TODO: this can be removed once the 'dialog-confirm' in onKernelController is removed
-    private TranslatorInterface $translator;
+    private readonly TranslatorInterface $translator;
 
     public function __construct(ContainerInterface $container, TranslatorInterface $translator)
     {

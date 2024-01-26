@@ -10,11 +10,11 @@ use Foodsharing\Modules\Store\StoreTransactions;
 
 class FoodsaverTransactions
 {
-    private FoodsaverGateway $foodsaverGateway;
-    private QuizSessionGateway $quizSessionGateway;
-    private BasketGateway $basketGateway;
-    private StoreTransactions $storeTransactions;
-    private Session $session;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly QuizSessionGateway $quizSessionGateway;
+    private readonly BasketGateway $basketGateway;
+    private readonly StoreTransactions $storeTransactions;
+    private readonly Session $session;
 
     public function __construct(
         FoodsaverGateway $foodsaverGateway,

@@ -54,14 +54,14 @@ class StoreRestController extends AbstractFOSRestController
     private const ID = 'id';
 
     public function __construct(
-        private Session $session,
-        private FoodsaverGateway $foodsaverGateway,
-        private StoreGateway $storeGateway,
-        private StoreTransactions $storeTransactions,
-        private StorePermissions $storePermissions,
-        private RegionGateway $regionGateway,
-        private BellGateway $bellGateway,
-        private GroupFunctionGateway $groupFunctionGateway
+        private readonly Session $session,
+        private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly StoreGateway $storeGateway,
+        private readonly StoreTransactions $storeTransactions,
+        private readonly StorePermissions $storePermissions,
+        private readonly RegionGateway $regionGateway,
+        private readonly BellGateway $bellGateway,
+        private readonly GroupFunctionGateway $groupFunctionGateway
     ) {
     }
 

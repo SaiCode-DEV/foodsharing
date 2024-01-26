@@ -8,8 +8,8 @@ use Parsedown;
 
 class Sanitizer
 {
-    private Parsedown $parseDown;
-    private HTMLPurifier $htmlPurifier;
+    private readonly Parsedown $parseDown;
+    private readonly HTMLPurifier $htmlPurifier;
 
     public function __construct(Parsedown $parseDown, HTMLPurifier $HTMLPurifier)
     {

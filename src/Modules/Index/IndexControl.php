@@ -8,7 +8,7 @@ use Foodsharing\Modules\Core\DBConstants\Content\ContentId;
 
 class IndexControl extends Control
 {
-    private ContentGateway $contentGateway;
+    private readonly ContentGateway $contentGateway;
 
     public function __construct(IndexView $view, ContentGateway $contentGateway)
     {

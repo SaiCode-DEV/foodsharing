@@ -35,7 +35,7 @@ class FoodSharePointView extends View
      */
     private array $followers;
 
-    private FoodSharePointPermissions $fspPermissions;
+    private readonly FoodSharePointPermissions $fspPermissions;
 
     public function __construct(
         Environment $twig,

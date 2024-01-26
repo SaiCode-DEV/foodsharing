@@ -8,7 +8,7 @@ use Foodsharing\Modules\Region\RegionGateway;
 
 class EventGateway extends BaseGateway
 {
-    private RegionGateway $regionGateway;
+    private readonly RegionGateway $regionGateway;
 
     public function __construct(Database $db, RegionGateway $regionGateway)
     {

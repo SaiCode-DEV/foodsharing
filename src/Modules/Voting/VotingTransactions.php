@@ -17,12 +17,12 @@ use Foodsharing\Permissions\VotingPermissions;
 
 class VotingTransactions
 {
-    private VotingGateway $votingGateway;
-    private StoreGateway $storeGateway;
-    private RegionGateway $regionGateway;
-    private BellGateway $bellGateway;
-    private VotingPermissions $votingPermissions;
-    private Session $session;
+    private readonly VotingGateway $votingGateway;
+    private readonly StoreGateway $storeGateway;
+    private readonly RegionGateway $regionGateway;
+    private readonly BellGateway $bellGateway;
+    private readonly VotingPermissions $votingPermissions;
+    private readonly Session $session;
 
     public function __construct(
         VotingGateway $votingGateway,

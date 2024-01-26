@@ -11,7 +11,7 @@ use Symfony\Contracts\Service\Attribute\Required;
 
 class LegalControl extends Control
 {
-    private LegalGateway $gateway;
+    private readonly LegalGateway $gateway;
     private FormFactoryInterface $formFactory;
 
     public function __construct(LegalGateway $gateway, View $view)

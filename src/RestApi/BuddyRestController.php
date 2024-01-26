@@ -15,9 +15,9 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class BuddyRestController extends AbstractFOSRestController
 {
-    private BuddyTransactions $buddyTransactions;
-    private BuddyGateway $buddyGateway;
-    private Session $session;
+    private readonly BuddyTransactions $buddyTransactions;
+    private readonly BuddyGateway $buddyGateway;
+    private readonly Session $session;
 
     public function __construct(
         BuddyTransactions $buddyTransactions,

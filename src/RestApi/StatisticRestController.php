@@ -17,8 +17,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class StatisticRestController extends AbstractFOSRestController
 {
     public function __construct(
-        private StatisticsGateway $statisticsGateway,
-        private RegionGateway $regionGateway,
+        private readonly StatisticsGateway $statisticsGateway,
+        private readonly RegionGateway $regionGateway,
     ) {
     }
 

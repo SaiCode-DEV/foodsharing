@@ -10,8 +10,8 @@ class ApplicationControl extends Control
 {
     private $bezirk;
     private $bezirk_id = false;
-    private ApplicationGateway $gateway;
-    private IdentificationHelper $identificationHelper;
+    private readonly ApplicationGateway $gateway;
+    private readonly IdentificationHelper $identificationHelper;
 
     public function __construct(
         ApplicationGateway $gateway,

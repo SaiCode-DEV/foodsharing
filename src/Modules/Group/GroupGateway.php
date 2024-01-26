@@ -8,7 +8,7 @@ use Foodsharing\Modules\Core\Database;
 /* Group gateway meant to collect queries common for regions as well as working groups */
 class GroupGateway extends BaseGateway
 {
-    private GroupFunctionGateway $groupFunctionGateway;
+    private readonly GroupFunctionGateway $groupFunctionGateway;
 
     public function __construct(
         Database $db,

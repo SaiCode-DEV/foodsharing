@@ -20,13 +20,13 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class ForumRestController extends AbstractFOSRestController
 {
-    private Session $session;
-    private RegionTransactions $regionTransactions;
-    private ForumGateway $forumGateway;
-    private ForumFollowerGateway $forumFollowerGateway;
-    private ForumPermissions $forumPermissions;
-    private ForumTransactions $forumTransactions;
-    private Sanitizer $sanitizerService;
+    private readonly Session $session;
+    private readonly RegionTransactions $regionTransactions;
+    private readonly ForumGateway $forumGateway;
+    private readonly ForumFollowerGateway $forumFollowerGateway;
+    private readonly ForumPermissions $forumPermissions;
+    private readonly ForumTransactions $forumTransactions;
+    private readonly Sanitizer $sanitizerService;
 
     public function __construct(
         Session $session,

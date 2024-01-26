@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand('foodsharing:createThemeFollowerEntries', 'Creates theme follower entries for all participants of a forum thread')]
 class CreateThemeFollowerEntriesCommand extends Command
 {
-    private ForumFollowerGateway $forumFollowerGateway;
+    private readonly ForumFollowerGateway $forumFollowerGateway;
 
     public function __construct(ForumFollowerGateway $forumFollowerGateway)
     {

@@ -23,7 +23,7 @@ use Twig\Environment;
 
 class BasketView extends View
 {
-    private BasketPermissions $basketPermissions;
+    private readonly BasketPermissions $basketPermissions;
 
     public function __construct(
         Environment $twig,

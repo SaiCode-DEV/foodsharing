@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand('foodsharing:deleteOldIMAPMails', 'Deletes old mails from IMAP folders.')]
 class DeleteIMAPMailsCommand extends Command
 {
-    private MaintenanceControl $maintenanceControl;
+    private readonly MaintenanceControl $maintenanceControl;
 
     public function __construct(MaintenanceControl $maintenanceControl)
     {

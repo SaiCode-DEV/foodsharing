@@ -10,8 +10,8 @@ use Foodsharing\Modules\Core\DBConstants\Region\ApplyType;
 
 class WorkGroupXhr extends Control
 {
-    private WorkGroupGateway $workGroupGateway;
-    private XhrResponses $responses;
+    private readonly WorkGroupGateway $workGroupGateway;
+    private readonly XhrResponses $responses;
 
     public function __construct(
         WorkGroupView $view,

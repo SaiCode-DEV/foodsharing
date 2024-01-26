@@ -16,9 +16,9 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 final class FoodsaverRestController extends AbstractFOSRestController
 {
-    private PickupGateway $pickupGateway;
-    private ProfilePermissions $profilePermissions;
-    private Session $session;
+    private readonly PickupGateway $pickupGateway;
+    private readonly ProfilePermissions $profilePermissions;
+    private readonly Session $session;
 
     public function __construct(
         PickupGateway $pickupGateway,

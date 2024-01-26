@@ -11,10 +11,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegisterTransactions
 {
-    private LoginGateway $loginGateway;
-    private EmailHelper $emailHelper;
-    private TranslatorInterface $translator;
-    private LoginService $loginService;
+    private readonly LoginGateway $loginGateway;
+    private readonly EmailHelper $emailHelper;
+    private readonly TranslatorInterface $translator;
+    private readonly LoginService $loginService;
 
     public function __construct(
         LoginGateway $loginGateway,
@@ -38,7 +38,7 @@ class RegisterTransactions
     public function registerUser(RegisterData $data): int
     {
         $token = $this->loginService->generateMailActivationToken(1);
-        $activationUrl = BASE_URL . '/?page=login&a=activate&e=' . urlencode($data->email) . '&t=' . urlencode($token);
+        $activationUrl = BASE_URL . '/?page=login&a=activate&e=' . urlencode((string)$data->email) . '&t=' . urlencode($token);
         $id = $this->loginGateway->insertNewUser($data, $token);
         if (!$id) {
             throw new Exception('could not register user');

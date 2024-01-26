@@ -15,8 +15,8 @@ class XhrDialog
     private $scriptBefore = '';
     private $scriptAfter;
     private $classnames = [];
-    private TranslatorInterface $translator;
-    private Sanitizer $sanitizerService;
+    private readonly TranslatorInterface $translator;
+    private readonly Sanitizer $sanitizerService;
 
     public function __construct($title = false)
     {

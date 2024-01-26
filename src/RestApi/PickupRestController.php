@@ -37,15 +37,15 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class PickupRestController extends AbstractFOSRestController
 {
     public function __construct(
-        private FoodsaverGateway $foodsaverGateway,
-        private Session $session,
-        private PickupGateway $pickupGateway,
-        private StoreGateway $storeGateway,
-        private StorePermissions $storePermissions,
-        private ProfilePermissions $profilePermissions,
-        private StoreTransactions $storeTransactions,
-        private MessageTransactions $messageTransactions,
-        private PickupTransactions $pickupTransactions
+        private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly Session $session,
+        private readonly PickupGateway $pickupGateway,
+        private readonly StoreGateway $storeGateway,
+        private readonly StorePermissions $storePermissions,
+        private readonly ProfilePermissions $profilePermissions,
+        private readonly StoreTransactions $storeTransactions,
+        private readonly MessageTransactions $messageTransactions,
+        private readonly PickupTransactions $pickupTransactions
     ) {
     }
 
@@ -628,7 +628,7 @@ final class PickupRestController extends AbstractFOSRestController
             fn ($obj) => count($obj['slots']['occupied']) < $obj['slots']['max'] || !is_null($obj['confirmed'])
         ));
 
-        usort($pickupOptions, fn ($a, $b) => strtotime($a['date']) <=> strtotime($b['date']));
+        usort($pickupOptions, fn ($a, $b) => strtotime((string)$a['date']) <=> strtotime((string)$b['date']));
 
         if ($page != -1 && $pageSize != -1) {
             $pickupOptions = array_slice($pickupOptions, $page * $pageSize, $pageSize);

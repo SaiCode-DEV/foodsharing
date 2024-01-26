@@ -8,8 +8,8 @@ use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 
 class ApplicationTransactions
 {
-    private ApplicationGateway $applicationGateway;
-    private BellGateway $bellGateway;
+    private readonly ApplicationGateway $applicationGateway;
+    private readonly BellGateway $bellGateway;
 
     public function __construct(
         ApplicationGateway $applicationGateway,

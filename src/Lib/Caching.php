@@ -7,7 +7,7 @@ use Foodsharing\Lib\Db\Mem;
 class Caching
 {
     private array $cacheRules;
-    private string $cacheMode;
+    private readonly string $cacheMode;
 
     public function __construct(
         $cacheRules,

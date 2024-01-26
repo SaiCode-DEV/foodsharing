@@ -8,8 +8,8 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 
 class SettingsXhr extends Control
 {
-    private FoodsaverGateway $foodsaverGateway;
-    private SettingsGateway $settingsGateway;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly SettingsGateway $settingsGateway;
 
     public function __construct(
         SettingsView $view,

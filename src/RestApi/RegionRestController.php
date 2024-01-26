@@ -46,19 +46,19 @@ class RegionRestController extends AbstractFOSRestController
     private const STATUS = 'status';
 
     public function __construct(
-        private SettingsGateway $settingsGateway,
-        private BellGateway $bellGateway,
-        private FoodsaverGateway $foodsaverGateway,
-        private RegionPermissions $regionPermissions,
-        private RegionGateway $regionGateway,
-        private StoreGateway $storeGateway,
-        private Session $session,
-        private ImageHelper $imageHelper,
-        private GroupFunctionGateway $groupFunctionGateway,
-        private RegionTransactions $regionTransactions,
-        private WorkGroupPermissions $workGroupPermissions,
-        private WorkGroupTransactions $workGroupTransactions,
-        private EventGateway $eventGateway
+        private readonly SettingsGateway $settingsGateway,
+        private readonly BellGateway $bellGateway,
+        private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly RegionPermissions $regionPermissions,
+        private readonly RegionGateway $regionGateway,
+        private readonly StoreGateway $storeGateway,
+        private readonly Session $session,
+        private readonly ImageHelper $imageHelper,
+        private readonly GroupFunctionGateway $groupFunctionGateway,
+        private readonly RegionTransactions $regionTransactions,
+        private readonly WorkGroupPermissions $workGroupPermissions,
+        private readonly WorkGroupTransactions $workGroupTransactions,
+        private readonly EventGateway $eventGateway
     ) {
     }
 

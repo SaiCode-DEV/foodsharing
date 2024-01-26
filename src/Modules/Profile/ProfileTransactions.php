@@ -9,10 +9,10 @@ use Foodsharing\Modules\Mails\MailsGateway;
 
 class ProfileTransactions
 {
-    private ProfileGateway $profileGateway;
-    private FoodsaverGateway $foodsaverGateway;
-    private BellGateway $bellGateway;
-    private MailsGateway $mailsGateway;
+    private readonly ProfileGateway $profileGateway;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly BellGateway $bellGateway;
+    private readonly MailsGateway $mailsGateway;
 
     public function __construct(
         ProfileGateway $profileGateway,

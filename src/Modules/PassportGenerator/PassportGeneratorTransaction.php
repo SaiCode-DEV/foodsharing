@@ -20,7 +20,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PassportGeneratorTransaction extends AbstractController
 {
-    private string $projectDir;
+    private readonly string $projectDir;
 
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,

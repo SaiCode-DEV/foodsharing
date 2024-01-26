@@ -11,9 +11,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LoginGateway extends BaseGateway
 {
-    private LegalGateway $legalGateway;
-    private EmailHelper $emailHelper;
-    private TranslatorInterface $translator;
+    private readonly LegalGateway $legalGateway;
+    private readonly EmailHelper $emailHelper;
+    private readonly TranslatorInterface $translator;
 
     public function __construct(
         Database $db,
@@ -117,12 +117,12 @@ class LoginGateway extends BaseGateway
             [
                 'rolle' => 0,
                 'active' => 0,
-                'email' => strip_tags($data->email),
+                'email' => strip_tags((string)$data->email),
                 'password' => strip_tags((string)$this->password_hash($data->password)),
-                'name' => strip_tags($data->firstName),
-                'nachname' => strip_tags($data->lastName),
+                'name' => strip_tags((string)$data->firstName),
+                'nachname' => strip_tags((string)$data->lastName),
                 'geb_datum' => $data->birthday,
-                'handy' => strip_tags($data->mobilePhone),
+                'handy' => strip_tags((string)$data->mobilePhone),
                 'newsletter' => (int)$data->subscribeNewsletter,
                 'geschlecht' => (int)$data->gender,
                 'anmeldedatum' => $this->db->now(),

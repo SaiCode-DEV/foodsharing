@@ -12,13 +12,13 @@ use Foodsharing\Utility\TranslationHelper;
 
 class QuizControl extends Control
 {
-    private QuizGateway $quizGateway;
-    private QuizSessionGateway $quizSessionGateway;
-    private FoodsaverGateway $foodsaverGateway;
-    private ImageHelper $imageHelper;
-    private IdentificationHelper $identificationHelper;
-    private DataHelper $dataHelper;
-    private QuizPermissions $quizPermissions;
+    private readonly QuizGateway $quizGateway;
+    private readonly QuizSessionGateway $quizSessionGateway;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly ImageHelper $imageHelper;
+    private readonly IdentificationHelper $identificationHelper;
+    private readonly DataHelper $dataHelper;
+    private readonly QuizPermissions $quizPermissions;
 
     public function __construct(
         QuizView $view,

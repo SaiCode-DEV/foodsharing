@@ -17,10 +17,10 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class MessageRestController extends AbstractFOSRestController
 {
-    private FoodsaverGateway $foodsaverGateway;
-    private MessageGateway $messageGateway;
-    private MessageTransactions $messageTransactions;
-    private Session $session;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly MessageGateway $messageGateway;
+    private readonly MessageTransactions $messageTransactions;
+    private readonly Session $session;
 
     public function __construct(
         FoodsaverGateway $foodsaverGateway,

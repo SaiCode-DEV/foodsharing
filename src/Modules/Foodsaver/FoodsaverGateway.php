@@ -16,8 +16,8 @@ use Foodsharing\Utility\DataHelper;
 
 class FoodsaverGateway extends BaseGateway
 {
-    private DataHelper $dataHelper;
-    private ForumFollowerGateway $forumFollowerGateway;
+    private readonly DataHelper $dataHelper;
+    private readonly ForumFollowerGateway $forumFollowerGateway;
 
     public function __construct(
         Database $db,

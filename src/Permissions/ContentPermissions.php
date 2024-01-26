@@ -9,7 +9,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 
 final class ContentPermissions
 {
-    private Session $session;
+    private readonly Session $session;
 
     private array $PR_PARTNER_AND_TEAM_CONTENT_IDS = [
         ContentId::PARTNER_PAGE_10,

@@ -17,13 +17,13 @@ use Foodsharing\Utility\DataHelper;
 class SettingsControl extends Control
 {
     private array $foodsaver;
-    private SettingsGateway $settingsGateway;
-    private QuizGateway $quizGateway;
-    private QuizSessionGateway $quizSessionGateway;
-    private ContentGateway $contentGateway;
-    private FoodsaverGateway $foodsaverGateway;
-    private DataHelper $dataHelper;
-    private SettingsPermissions $settingsPermissions;
+    private readonly SettingsGateway $settingsGateway;
+    private readonly QuizGateway $quizGateway;
+    private readonly QuizSessionGateway $quizSessionGateway;
+    private readonly ContentGateway $contentGateway;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly DataHelper $dataHelper;
+    private readonly SettingsPermissions $settingsPermissions;
 
     public function __construct(
         SettingsView $view,

@@ -11,9 +11,9 @@ use Foodsharing\Utility\TimeHelper;
 
 class BasketXhr extends Control
 {
-    private BasketGateway $basketGateway;
-    private TimeHelper $timeHelper;
-    private ImageHelper $imageService;
+    private readonly BasketGateway $basketGateway;
+    private readonly TimeHelper $timeHelper;
+    private readonly ImageHelper $imageService;
 
     public function __construct(
         BasketView $view,

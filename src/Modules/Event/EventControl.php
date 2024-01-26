@@ -11,10 +11,10 @@ use Foodsharing\Utility\PostHelper;
 
 class EventControl extends Control
 {
-    private EventGateway $eventGateway;
-    private RegionGateway $regionGateway;
-    private DataHelper $dataHelper;
-    private EventPermissions $eventPermissions;
+    private readonly EventGateway $eventGateway;
+    private readonly RegionGateway $regionGateway;
+    private readonly DataHelper $dataHelper;
+    private readonly EventPermissions $eventPermissions;
 
     public function __construct(
         EventView $view,

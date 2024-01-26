@@ -7,10 +7,10 @@ use GuzzleHttp\Client;
 class BigBlueButton
 {
     final public const DEFAULT_CLIENT = 'meet.example.org';
-    private Client $client;
-    private string $url;
-    private string $secret;
-    private string $dialin;
+    private readonly Client $client;
+    private readonly string $url;
+    private readonly string $secret;
+    private readonly string $dialin;
 
     public function __construct(string $url, string $secret, string $dialin, Client $client)
     {

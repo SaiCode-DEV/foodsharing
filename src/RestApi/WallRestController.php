@@ -15,9 +15,9 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class WallRestController extends AbstractFOSRestController
 {
-    private WallPostGateway $wallPostGateway;
-    private WallPostPermissions $wallPostPermissions;
-    private Session $session;
+    private readonly WallPostGateway $wallPostGateway;
+    private readonly WallPostPermissions $wallPostPermissions;
+    private readonly Session $session;
 
     public function __construct(
         WallPostGateway $wallPostGateway,

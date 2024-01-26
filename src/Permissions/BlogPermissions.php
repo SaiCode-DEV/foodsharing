@@ -8,7 +8,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 
 final class BlogPermissions
 {
-    private Session $session;
+    private readonly Session $session;
 
     public function __construct(Session $session)
     {

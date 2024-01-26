@@ -12,9 +12,9 @@ use Foodsharing\Modules\WallPost\WallPostGateway;
 
 class QuizGateway extends BaseGateway
 {
-    private BellGateway $bellGateway;
-    private FoodsaverGateway $foodsaverGateway;
-    private WallPostGateway $wallPostGateway;
+    private readonly BellGateway $bellGateway;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly WallPostGateway $wallPostGateway;
 
     public function __construct(
         Database $db,

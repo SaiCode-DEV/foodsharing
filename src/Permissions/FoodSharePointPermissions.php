@@ -9,8 +9,8 @@ use Foodsharing\Modules\Group\GroupFunctionGateway;
 
 class FoodSharePointPermissions
 {
-    private Session $session;
-    private GroupFunctionGateway $groupFunctionGateway;
+    private readonly Session $session;
+    private readonly GroupFunctionGateway $groupFunctionGateway;
 
     public function __construct(
         Session $session,

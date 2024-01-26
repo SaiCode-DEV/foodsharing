@@ -17,10 +17,10 @@ use Foodsharing\Utility\Sanitizer;
 
 final class BlogGateway extends BaseGateway
 {
-    private BellGateway $bellGateway;
-    private FoodsaverGateway $foodsaverGateway;
-    private Sanitizer $sanitizerService;
-    private Session $session;
+    private readonly BellGateway $bellGateway;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly Sanitizer $sanitizerService;
+    private readonly Session $session;
 
     public function __construct(
         BellGateway $bellGateway,

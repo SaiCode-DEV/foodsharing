@@ -9,7 +9,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class NumberHelper
 {
-    private TranslatorInterface $translator;
+    private readonly TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {

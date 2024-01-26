@@ -13,9 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class WorkGroupControl extends Control
 {
-    private WorkGroupGateway $workGroupGateway;
-    private WorkGroupPermissions $workGroupPermissions;
-    private ImageHelper $imageService;
+    private readonly WorkGroupGateway $workGroupGateway;
+    private readonly WorkGroupPermissions $workGroupPermissions;
+    private readonly ImageHelper $imageService;
 
     public function __construct(
         WorkGroupView $view,

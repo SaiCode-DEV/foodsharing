@@ -17,7 +17,7 @@ use Foodsharing\Utility\WeightHelper;
 
 final class ProfileGateway extends BaseGateway
 {
-    private WebSocketConnection $webSocketConnection;
+    private readonly WebSocketConnection $webSocketConnection;
     private $weightHelper;
 
     public function __construct(Database $db, WebSocketConnection $webSocketConnection, WeightHelper $weightHelper)

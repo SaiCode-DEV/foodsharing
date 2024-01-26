@@ -8,8 +8,8 @@ use Foodsharing\Modules\Mailbox\MailboxGateway;
 
 class MailboxPermissions
 {
-    private Session $session;
-    private MailboxGateway $mailboxGateway;
+    private readonly Session $session;
+    private readonly MailboxGateway $mailboxGateway;
 
     public function __construct(MailboxGateway $mailboxGateway, Session $session)
     {

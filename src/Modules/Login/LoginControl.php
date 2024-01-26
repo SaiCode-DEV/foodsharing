@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LoginControl extends Control
 {
-    private LoginGateway $loginGateway;
-    private SettingsGateway $settingsGateway;
-    private LoginService $loginService;
+    private readonly LoginGateway $loginGateway;
+    private readonly SettingsGateway $settingsGateway;
+    private readonly LoginService $loginService;
 
     public function __construct(
         LoginView $view,

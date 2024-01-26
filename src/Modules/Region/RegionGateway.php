@@ -15,8 +15,8 @@ use Foodsharing\Modules\Group\GroupFunctionGateway;
 
 class RegionGateway extends BaseGateway
 {
-    private FoodsaverGateway $foodsaverGateway;
-    private GroupFunctionGateway $groupFunctionGateway;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly GroupFunctionGateway $groupFunctionGateway;
 
     public function __construct(
         Database $db,

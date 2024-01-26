@@ -11,12 +11,12 @@ use Foodsharing\Modules\Region\RegionGateway;
 
 class WallPostPermissions
 {
-    private RegionGateway $regionGateway;
-    private EventGateway $eventGateway;
-    private EventPermissions $eventPermission;
-    private FoodSharePointGateway $fspGateway;
-    private FoodSharePointPermissions $fspPermission;
-    private Session $session;
+    private readonly RegionGateway $regionGateway;
+    private readonly EventGateway $eventGateway;
+    private readonly EventPermissions $eventPermission;
+    private readonly FoodSharePointGateway $fspGateway;
+    private readonly FoodSharePointPermissions $fspPermission;
+    private readonly Session $session;
 
     public function __construct(
         RegionGateway $regionGateway,

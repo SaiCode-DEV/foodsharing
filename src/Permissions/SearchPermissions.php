@@ -10,9 +10,9 @@ use Foodsharing\Modules\Group\GroupFunctionGateway;
 
 class SearchPermissions
 {
-    private Session $session;
-    private GroupFunctionGateway $groupFunctionGateway;
-    private RegionPermissions $regionPermissions;
+    private readonly Session $session;
+    private readonly GroupFunctionGateway $groupFunctionGateway;
+    private readonly RegionPermissions $regionPermissions;
 
     public function __construct(
         Session $session,

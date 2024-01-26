@@ -7,7 +7,7 @@ use Foodsharing\Modules\Uploads\DTO\UploadedFile;
 
 final class UploadsPermissions
 {
-    private Session $session;
+    private readonly Session $session;
 
     public function __construct(Session $session)
     {

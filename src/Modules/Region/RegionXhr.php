@@ -8,8 +8,8 @@ use Twig\Environment;
 
 final class RegionXhr extends Control
 {
-    private RegionGateway $regionGateway;
-    private Environment $twig;
+    private readonly RegionGateway $regionGateway;
+    private readonly Environment $twig;
 
     public function __construct(
         RegionGateway $regionGateway,

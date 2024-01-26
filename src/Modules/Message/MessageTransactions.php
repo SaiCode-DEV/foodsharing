@@ -15,13 +15,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MessageTransactions
 {
-    private EmailHelper $emailHelper;
-    private FoodsaverGateway $foodsaverGateway;
-    private MessageGateway $messageGateway;
-    private StoreGateway $storeGateway;
-    private TranslatorInterface $translator;
-    private PushNotificationGateway $pushNotificationGateway;
-    private WebSocketConnection $webSocketConnection;
+    private readonly EmailHelper $emailHelper;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly MessageGateway $messageGateway;
+    private readonly StoreGateway $storeGateway;
+    private readonly TranslatorInterface $translator;
+    private readonly PushNotificationGateway $pushNotificationGateway;
+    private readonly WebSocketConnection $webSocketConnection;
 
     public function __construct(
         EmailHelper $emailHelper,

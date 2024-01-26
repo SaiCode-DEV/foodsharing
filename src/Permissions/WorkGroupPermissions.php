@@ -10,8 +10,8 @@ use Foodsharing\Modules\Group\GroupFunctionGateway;
 
 final class WorkGroupPermissions
 {
-    private Session $session;
-    private GroupFunctionGateway $groupFunctionGateway;
+    private readonly Session $session;
+    private readonly GroupFunctionGateway $groupFunctionGateway;
 
     public function __construct(
         Session $session,

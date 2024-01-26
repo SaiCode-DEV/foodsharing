@@ -16,13 +16,13 @@ use Foodsharing\Utility\DataHelper;
 
 class EmailControl extends Control
 {
-    private StoreGateway $storeGateway;
-    private FoodsaverGateway $foodsaverGateway;
-    private EmailGateway $emailGateway;
-    private RegionGateway $regionGateway;
-    private MailboxGateway $mailboxGateway;
-    private DataHelper $dataHelper;
-    private NewsletterEmailPermissions $newsletterEmailPermissions;
+    private readonly StoreGateway $storeGateway;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly EmailGateway $emailGateway;
+    private readonly RegionGateway $regionGateway;
+    private readonly MailboxGateway $mailboxGateway;
+    private readonly DataHelper $dataHelper;
+    private readonly NewsletterEmailPermissions $newsletterEmailPermissions;
 
     public function __construct(
         EmailView $view,

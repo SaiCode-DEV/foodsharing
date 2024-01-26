@@ -23,11 +23,11 @@ use Throwable;
 
 class SearchRestController extends AbstractFOSRestController
 {
-    private Session $session;
-    private SearchGateway $searchGateway;
-    private SearchTransactions $searchTransactions;
-    private ForumPermissions $forumPermissions;
-    private SearchPermissions $searchPermissions;
+    private readonly Session $session;
+    private readonly SearchGateway $searchGateway;
+    private readonly SearchTransactions $searchTransactions;
+    private readonly ForumPermissions $forumPermissions;
+    private readonly SearchPermissions $searchPermissions;
 
     public function __construct(
         Session $session,

@@ -23,13 +23,13 @@ class FoodSharePointControl extends Control
     private array $follower;
     private array $regions;
 
-    private FoodSharePointGateway $foodSharePointGateway;
-    private RegionGateway $regionGateway;
-    private FoodsaverGateway $foodsaverGateway;
-    private MailboxGateway $mailboxGateway;
-    private Sanitizer $sanitizerService;
-    private IdentificationHelper $identificationHelper;
-    private FoodSharePointPermissions $foodSharePointPermissions;
+    private readonly FoodSharePointGateway $foodSharePointGateway;
+    private readonly RegionGateway $regionGateway;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly MailboxGateway $mailboxGateway;
+    private readonly Sanitizer $sanitizerService;
+    private readonly IdentificationHelper $identificationHelper;
+    private readonly FoodSharePointPermissions $foodSharePointPermissions;
 
     public function __construct(
         FoodSharePointView $view,
@@ -375,7 +375,7 @@ class FoodSharePointControl extends Control
     {
         // For old pictures the upload form needs an additional "/images/" in front of the path, which needs to be removed
         // before storing the path in the database
-        $pic = strip_tags($request->request->get('picture'));
+        $pic = strip_tags((string)$request->request->get('picture'));
         if (str_starts_with($pic, '/images/')) {
             $pic = substr($pic, 8);
         }
@@ -383,9 +383,9 @@ class FoodSharePointControl extends Control
         return [
             'name' => $request->request->get('name'),
             'desc' => $request->request->get('desc'),
-            'anschrift' => strip_tags($request->request->get('anschrift')),
-            'plz' => preg_replace('[^0-9]', '', $request->request->get('plz')),
-            'ort' => strip_tags($request->request->get('ort')),
+            'anschrift' => strip_tags((string)$request->request->get('anschrift')),
+            'plz' => preg_replace('[^0-9]', '', (string)$request->request->get('plz')),
+            'ort' => strip_tags((string)$request->request->get('ort')),
             'picture' => $pic,
             'bezirk_id' => (int)$request->request->getDigits('fsp_bezirk_id'),
             'lat' => $request->request->filter(

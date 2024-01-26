@@ -9,7 +9,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ForumGateway extends BaseGateway
 {
-    private ForumFollowerGateway $forumFollowerGateway;
+    private readonly ForumFollowerGateway $forumFollowerGateway;
     protected TranslatorInterface $translator;
 
     public function __construct(

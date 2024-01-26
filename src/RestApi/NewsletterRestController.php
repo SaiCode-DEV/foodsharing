@@ -19,9 +19,9 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
  */
 final class NewsletterRestController extends AbstractFOSRestController
 {
-    private NewsletterEmailPermissions $newsletterEmailPermissions;
-    private Session $session;
-    private EmailHelper $emailHelper;
+    private readonly NewsletterEmailPermissions $newsletterEmailPermissions;
+    private readonly Session $session;
+    private readonly EmailHelper $emailHelper;
 
     private const NOT_ALLOWED = 'not allowed';
     private const INVALID_ADDRESS = 'invalid address';

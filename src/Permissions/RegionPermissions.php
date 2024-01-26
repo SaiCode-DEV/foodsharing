@@ -12,9 +12,9 @@ use Foodsharing\Modules\Region\RegionGateway;
 
 final class RegionPermissions
 {
-    private RegionGateway $regionGateway;
-    private Session $session;
-    private GroupFunctionGateway $groupFunctionGateway;
+    private readonly RegionGateway $regionGateway;
+    private readonly Session $session;
+    private readonly GroupFunctionGateway $groupFunctionGateway;
 
     public function __construct(RegionGateway $regionGateway, Session $session, GroupFunctionGateway $groupFunctionGateway)
     {

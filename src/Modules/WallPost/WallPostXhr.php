@@ -12,9 +12,9 @@ class WallPostXhr extends Control
 {
     private string $table;
     private int $id;
-    private FoodSharePointTransactions $foodSharePointTransactions;
-    private WallPostGateway $wallPostGateway;
-    private WallPostPermissions $wallPostPermissions;
+    private readonly FoodSharePointTransactions $foodSharePointTransactions;
+    private readonly WallPostGateway $wallPostGateway;
+    private readonly WallPostPermissions $wallPostPermissions;
 
     public function __construct(
         FoodSharePointTransactions $foodSharePointTransactions,

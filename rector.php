@@ -55,6 +55,5 @@ return static function (RectorConfig $rectorConfig): void {
     // https://github.com/kubawerlos/php-cs-fixer-custom-fixers#multilinepromotedpropertiesfixer
     $rectorConfig->skip([
         ClassPropertyAssignToConstructorPromotionRector::class,
-        Rector\Php81\Rector\Property\ReadOnlyPropertyRector::class,
     ]);
 };

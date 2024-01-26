@@ -8,8 +8,8 @@ use Foodsharing\Permissions\MailboxPermissions;
 
 class MailboxControl extends Control
 {
-    private MailboxGateway $mailboxGateway;
-    private MailboxPermissions $mailboxPermissions;
+    private readonly MailboxGateway $mailboxGateway;
+    private readonly MailboxPermissions $mailboxPermissions;
 
     public function __construct(
         MailboxView $view,

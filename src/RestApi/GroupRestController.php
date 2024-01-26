@@ -25,11 +25,11 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 class GroupRestController extends AbstractFOSRestController
 {
     public function __construct(
-        private GroupGateway $groupGateway,
-        private Session $session,
-        private ImageHelper $imageService,
-        private RegionPermissions $regionPermissions,
-        private GroupTransactions $groupTransactions
+        private readonly GroupGateway $groupGateway,
+        private readonly Session $session,
+        private readonly ImageHelper $imageService,
+        private readonly RegionPermissions $regionPermissions,
+        private readonly GroupTransactions $groupTransactions
     ) {
     }
 

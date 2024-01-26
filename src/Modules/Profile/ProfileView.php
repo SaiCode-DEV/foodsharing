@@ -33,13 +33,13 @@ use Twig\Environment;
 class ProfileView extends View
 {
     private array $foodsaver;
-    private ProfilePermissions $profilePermissions;
-    private StorePermissions $storePermissions;
-    private ReportPermissions $reportPermissions;
-    private RegionGateway $regionGateway;
-    private MailboxGateway $mailboxGateway;
-    private GroupFunctionGateway $groupFunctionGateway;
-    private GroupGateway $groupGateway;
+    private readonly ProfilePermissions $profilePermissions;
+    private readonly StorePermissions $storePermissions;
+    private readonly ReportPermissions $reportPermissions;
+    private readonly RegionGateway $regionGateway;
+    private readonly MailboxGateway $mailboxGateway;
+    private readonly GroupFunctionGateway $groupFunctionGateway;
+    private readonly GroupGateway $groupGateway;
 
     public function __construct(
         Environment $twig,

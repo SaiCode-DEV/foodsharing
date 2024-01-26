@@ -28,10 +28,10 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 final class BasketRestController extends AbstractFOSRestController
 {
-    private BasketGateway $gateway;
-    private MessageTransactions $messageTransactions;
-    private Session $session;
-    private BasketPermissions $basketPermissions;
+    private readonly BasketGateway $gateway;
+    private readonly MessageTransactions $messageTransactions;
+    private readonly Session $session;
+    private readonly BasketPermissions $basketPermissions;
 
     // literal constants
     private const TIME_TS = 'time_ts';

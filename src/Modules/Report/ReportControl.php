@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ReportControl extends Control
 {
-    private ReportGateway $reportGateway;
-    private ImageHelper $imageService;
-    private ReportPermissions $reportPermissions;
+    private readonly ReportGateway $reportGateway;
+    private readonly ImageHelper $imageService;
+    private readonly ReportPermissions $reportPermissions;
 
     public function __construct(
         ReportGateway $reportGateway,

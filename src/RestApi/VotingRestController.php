@@ -23,10 +23,10 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class VotingRestController extends AbstractFOSRestController
 {
-    private Session $session;
-    private VotingGateway $votingGateway;
-    private VotingPermissions $votingPermissions;
-    private VotingTransactions $votingTransactions;
+    private readonly Session $session;
+    private readonly VotingGateway $votingGateway;
+    private readonly VotingPermissions $votingPermissions;
+    private readonly VotingTransactions $votingTransactions;
 
     public function __construct(
         Session $session,

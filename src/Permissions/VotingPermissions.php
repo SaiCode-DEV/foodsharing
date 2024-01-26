@@ -17,10 +17,10 @@ use Foodsharing\Modules\Voting\VotingGateway;
 
 final class VotingPermissions
 {
-    private Session $session;
-    private VotingGateway $votingGateway;
-    private RegionGateway $regionGateway;
-    private GroupFunctionGateway $groupFunctionGateway;
+    private readonly Session $session;
+    private readonly VotingGateway $votingGateway;
+    private readonly RegionGateway $regionGateway;
+    private readonly GroupFunctionGateway $groupFunctionGateway;
 
     public function __construct(
         Session $session,

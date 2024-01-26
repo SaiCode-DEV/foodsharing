@@ -11,10 +11,10 @@ final class PassportGeneratorControl extends Control
 {
     private $regionId = false;
     private $region;
-    private RegionGateway $regionGateway;
-    private PassportGeneratorGateway $passportGeneratorGateway;
-    private IdentificationHelper $identificationHelper;
-    private PassportGeneratorTransaction $passportGeneratorTransaction;
+    private readonly RegionGateway $regionGateway;
+    private readonly PassportGeneratorGateway $passportGeneratorGateway;
+    private readonly IdentificationHelper $identificationHelper;
+    private readonly PassportGeneratorTransaction $passportGeneratorTransaction;
 
     public function __construct(
         PassportGeneratorView $view,

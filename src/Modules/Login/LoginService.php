@@ -10,9 +10,9 @@ class LoginService
     final public const ACTIVATION_MAIL_LIMIT_PER_DAY = 3;
     private const MAIL_TOKEN_LENGTH_COMPATIBILIY = 24;
 
-    private LoginGateway $loginGateway;
-    private EmailHelper $emailHelper;
-    private TranslatorInterface $translator;
+    private readonly LoginGateway $loginGateway;
+    private readonly EmailHelper $emailHelper;
+    private readonly TranslatorInterface $translator;
 
     public function __construct(LoginGateway $loginGateway, EmailHelper $emailHelper, TranslatorInterface $translator)
     {

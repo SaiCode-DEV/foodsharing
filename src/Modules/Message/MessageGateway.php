@@ -9,7 +9,7 @@ use Foodsharing\Utility\Sanitizer;
 
 final class MessageGateway extends BaseGateway
 {
-    private Sanitizer $sanitizer;
+    private readonly Sanitizer $sanitizer;
 
     public function __construct(
         Database $db,

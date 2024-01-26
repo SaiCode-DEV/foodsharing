@@ -7,7 +7,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class TimeHelper
 {
-    private TranslatorInterface $translator;
+    private readonly TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {

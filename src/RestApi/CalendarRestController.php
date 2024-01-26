@@ -29,11 +29,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class CalendarRestController extends AbstractFOSRestController
 {
-    private Session $session;
-    private SettingsGateway $settingsGateway;
-    private PickupGateway $pickupGateway;
-    private EventGateway $eventGateway;
-    private TranslatorInterface $translator;
+    private readonly Session $session;
+    private readonly SettingsGateway $settingsGateway;
+    private readonly PickupGateway $pickupGateway;
+    private readonly EventGateway $eventGateway;
+    private readonly TranslatorInterface $translator;
 
     private const TOKEN_LENGTH_IN_BYTES = 10;
 

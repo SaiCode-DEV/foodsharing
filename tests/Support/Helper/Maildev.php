@@ -12,7 +12,7 @@ use GuzzleHttp\Exception\GuzzleException;
 class Maildev extends Module
 {
     protected array $requiredFields = ['url'];
-    private Client $client;
+    private readonly Client $client;
 
     public function __construct($moduleContainer, $config = null)
     {

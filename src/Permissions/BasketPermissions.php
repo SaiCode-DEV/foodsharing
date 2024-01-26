@@ -7,7 +7,7 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 
 class BasketPermissions
 {
-    private Session $session;
+    private readonly Session $session;
 
     public function __construct(
         Session $session

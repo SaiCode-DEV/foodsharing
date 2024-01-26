@@ -14,8 +14,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class WebPushHandler implements PushNotificationHandlerInterface
 {
     private const typeIdentifier = 'webpush';
-    private WebPush $webpush;
-    private TranslatorInterface $translator;
+    private readonly WebPush $webpush;
+    private readonly TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {
@@ -89,7 +89,7 @@ class WebPushHandler implements PushNotificationHandlerInterface
             // set body
             $payloadArray['options']['body'] = $notification->getMessage()->body;
             // set time stamp
-            $payloadArray['options']['timestamp'] = strtotime($notification->getMessage()->sentAt) * 1000; // timestamp needs to be in milliseconds
+            $payloadArray['options']['timestamp'] = strtotime((string)$notification->getMessage()->sentAt) * 1000; // timestamp needs to be in milliseconds
             // set action
             $payloadArray['options']['data']['action'] = ['page' => 'conversations', 'params' => [$notification->getConversationId()]]; // this thing will be resolved to a url by urls.js on client side
             // Set title

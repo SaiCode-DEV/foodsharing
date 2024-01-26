@@ -10,9 +10,9 @@ use Foodsharing\Utility\IdentificationHelper;
 
 class RegionAdminControl extends Control
 {
-    private RegionGateway $regionGateway;
-    private IdentificationHelper $identificationHelper;
-    private RegionPermissions $regionPermissions;
+    private readonly RegionGateway $regionGateway;
+    private readonly IdentificationHelper $identificationHelper;
+    private readonly RegionPermissions $regionPermissions;
 
     public function __construct(
         RegionAdminView $view,

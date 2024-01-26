@@ -14,8 +14,8 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class LocaleRestController extends AbstractFOSRestController
 {
-    private SettingsGateway $settingsGateway;
-    private Session $session;
+    private readonly SettingsGateway $settingsGateway;
+    private readonly Session $session;
 
     public function __construct(
         SettingsGateway $settingsGateway,

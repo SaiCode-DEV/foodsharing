@@ -9,7 +9,7 @@ use Foodsharing\Utility\UriHelper;
 
 class BasketControl extends Control
 {
-    private BasketGateway $basketGateway;
+    private readonly BasketGateway $basketGateway;
 
     public function __construct(
         BasketView $view,

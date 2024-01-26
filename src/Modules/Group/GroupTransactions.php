@@ -8,8 +8,8 @@ use Foodsharing\Modules\Unit\UnitGateway;
 class GroupTransactions
 {
     public function __construct(
-        private GroupGateway $groupGateway,
-        private UnitGateway $unitGateway
+        private readonly GroupGateway $groupGateway,
+        private readonly UnitGateway $unitGateway
     ) {
     }
 

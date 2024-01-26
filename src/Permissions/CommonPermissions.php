@@ -8,8 +8,8 @@ use Foodsharing\Modules\Region\RegionGateway;
 
 class CommonPermissions
 {
-    private Session $session;
-    private RegionGateway $regionGateway;
+    private readonly Session $session;
+    private readonly RegionGateway $regionGateway;
 
     public function __construct(Session $session, RegionGateway $regionGateway)
     {

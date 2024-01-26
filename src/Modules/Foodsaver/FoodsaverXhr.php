@@ -10,10 +10,10 @@ use Foodsharing\Utility\Sanitizer;
 
 class FoodsaverXhr extends Control
 {
-    private FoodsaverGateway $foodsaverGateway;
-    private RegionGateway $regionGateway;
-    private RegionPermissions $regionPermissions;
-    private Sanitizer $sanitizerService;
+    private readonly FoodsaverGateway $foodsaverGateway;
+    private readonly RegionGateway $regionGateway;
+    private readonly RegionPermissions $regionPermissions;
+    private readonly Sanitizer $sanitizerService;
 
     public function __construct(
         FoodsaverView $view,

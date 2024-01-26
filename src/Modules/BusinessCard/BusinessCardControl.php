@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 class BusinessCardControl extends Control
 {
-    private string $projectDir;
+    private readonly string $projectDir;
     private const MAX_CHAR_PER_LINE = 45;
 
     public function __construct(

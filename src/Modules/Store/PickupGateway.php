@@ -17,8 +17,8 @@ use Foodsharing\Modules\Store\DTO\PickupSignUp;
 
 class PickupGateway extends BaseGateway implements BellUpdaterInterface
 {
-    private BellGateway $bellGateway;
-    private RegularPickupGateway $regularPickupGateway;
+    private readonly BellGateway $bellGateway;
+    private readonly RegularPickupGateway $regularPickupGateway;
 
     public function __construct(
         Database $db,
@@ -203,7 +203,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
 
     public function updateExpiredBells(): void
     {
-        $expiredBells = $this->bellGateway->getExpiredByIdentifier(str_replace('%d', '%', BellType::STORE_UNCONFIRMED_PICKUP));
+        $expiredBells = $this->bellGateway->getExpiredByIdentifier(str_replace('%d', '%', (string)BellType::STORE_UNCONFIRMED_PICKUP));
 
         foreach ($expiredBells as $bell) {
             $storeId = substr($bell->identifier, strrpos($bell->identifier, '-') + 1);

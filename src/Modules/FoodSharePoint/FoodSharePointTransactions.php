@@ -13,11 +13,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FoodSharePointTransactions
 {
-    private FoodSharePointGateway $foodSharePointGateway;
-    private BellGateway $bellGateway;
-    private EmailHelper $emailHelper;
-    private Sanitizer $sanitizer;
-    private TranslatorInterface $translator;
+    private readonly FoodSharePointGateway $foodSharePointGateway;
+    private readonly BellGateway $bellGateway;
+    private readonly EmailHelper $emailHelper;
+    private readonly Sanitizer $sanitizer;
+    private readonly TranslatorInterface $translator;
 
     public function __construct(
         FoodSharePointGateway $foodSharePointGateway,

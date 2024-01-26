@@ -9,9 +9,9 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 
 class ProfilePermissions
 {
-    private Session $session;
-    private CommonPermissions $commonPermissions;
-    private FoodsaverGateway $foodsaverGateway;
+    private readonly Session $session;
+    private readonly CommonPermissions $commonPermissions;
+    private readonly FoodsaverGateway $foodsaverGateway;
 
     public function __construct(Session $session, CommonPermissions $commonPermissions, FoodsaverGateway $foodsaverGateway)
     {
