@@ -65,7 +65,7 @@ class StoreXhr extends Control
                 'status' => 1,
                 'script' => 'reload();'
             ];
-        } catch (PickupValidationException $ex) {
+        } catch (PickupValidationException) {
         }
     }
 

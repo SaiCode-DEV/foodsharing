@@ -54,7 +54,7 @@ class VotingGateway extends BaseGateway
         // meta-data of option
         try {
             $data = $this->db->fetchAllByCriteria('fs_poll_has_options', ['option', 'option_text'], ['poll_id' => $pollId]);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             $data = [];
         }
 

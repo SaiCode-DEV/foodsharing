@@ -158,7 +158,7 @@ class StoreChainGateway extends BaseGateway
     {
         try {
             return $this->db->fetchValueByCriteria('fs_chain', 'common_store_information', ['id' => $chainId]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }

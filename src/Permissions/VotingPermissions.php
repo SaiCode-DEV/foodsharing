@@ -65,7 +65,7 @@ final class VotingPermissions
         // only if not voted yet
         try {
             return $this->votingGateway->getVoteDatetime($poll->id, $this->session->id()) === null;
-        } catch (Exception $e) {
+        } catch (Exception) {
             return false;
         }
     }

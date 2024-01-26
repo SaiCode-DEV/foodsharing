@@ -121,7 +121,7 @@ class fUpload
 	 *
 	 * @return array  The file info array from `$_FILES`
 	 */
-	private function extractFileUploadArray($field, $index = null)
+	private function extractFileUploadArray($field, mixed $index = null)
 	{
 		if ($index === null) {
 			return $_FILES[$field];
@@ -163,7 +163,7 @@ class fUpload
 	 *
 	 * @return fFile|null  An fFile (or fImage) object, or `NULL` if no file was uploaded
 	 */
-	public function move($directory, $field, $index = null)
+	public function move($directory, $field, mixed $index = null)
 	{
 		if (!is_object($directory)) {
 			$directory = new fDirectory($directory);
@@ -261,7 +261,7 @@ class fUpload
 			return self::compose('The file uploaded is a PHP file, but those are not permitted');
 		}
 
-		if (substr($file_array['name'], 0, 1) == '.') {
+		if (str_starts_with($file_array['name'], '.')) {
 			return self::compose('The name of the uploaded file may not being with a .');
 		}
 	}

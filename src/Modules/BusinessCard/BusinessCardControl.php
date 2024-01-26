@@ -136,18 +136,11 @@ class BusinessCardControl extends Control
     private function displayedRole(string $role, int $gender, string $regionName): string
     {
         $modifier = 'dmfd'[$gender]; // 0=d 1=m 2=f 3=d
-        switch ($role) {
-            case 'sm':
-                $roleName = $this->translator->trans('terminology.storemanager.' . $modifier);
-                break;
-            case 'bot':
-                $roleName = $this->translator->trans('terminology.ambassador.' . $modifier);
-                break;
-            case 'fs':
-            default:
-                $roleName = $this->translator->trans('terminology.foodsaver.' . $modifier);
-                break;
-        }
+        $roleName = match ($role) {
+            'sm' => $this->translator->trans('terminology.storemanager.' . $modifier),
+            'bot' => $this->translator->trans('terminology.ambassador.' . $modifier),
+            default => $this->translator->trans('terminology.foodsaver.' . $modifier),
+        };
 
         return $this->translator->trans('bcard.for', ['{role}' => $roleName, '{region}' => $regionName]);
     }

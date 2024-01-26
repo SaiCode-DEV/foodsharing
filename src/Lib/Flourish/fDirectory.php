@@ -28,7 +28,7 @@ namespace Flourish;
  * @changes    1.0.0b2   Removed some unnecessary error suppresion operators [wb, 2008-12-11]
  * @changes    1.0.0b    The initial implementation [wb, 2007-12-21]
  */
-class fDirectory
+class fDirectory implements \Stringable
 {
 	// The following constants allow for nice looking callbacks to static methods
 	public const create = 'fDirectory::create';
@@ -92,7 +92,7 @@ class fDirectory
 	 */
 	public static function makeCanonical($directory)
 	{
-		if (substr($directory, -1) != '/' && substr($directory, -1) != '\\') {
+		if (!str_ends_with($directory, '/') && !str_ends_with($directory, '\\')) {
 			$directory .= DIRECTORY_SEPARATOR;
 		}
 
@@ -179,7 +179,7 @@ class fDirectory
 	 *
 	 * @return string  The full filesystem path
 	 */
-	public function __toString()
+	public function __toString(): string
 	{
 		return $this->getPath();
 	}
@@ -354,7 +354,7 @@ class fDirectory
 			$new_parent_directory = new self($new_parent_directory);
 		}
 
-		if (strpos($new_parent_directory->getPath(), $this->getPath()) === 0) {
+		if (str_starts_with($new_parent_directory->getPath(), $this->getPath())) {
 			throw new fValidationException('It is not possible to move a directory into one of its sub-directories');
 		}
 

@@ -59,7 +59,7 @@ use Iterator;
  * @changes    1.0.0b2   Made ::rename() and ::write() return the object for method chaining [wb, 2008-11-22]
  * @changes    1.0.0b    The initial implementation [wb, 2007-06-14]
  */
-class fFile implements Iterator, Countable
+class fFile implements Iterator, Countable, \Stringable
 {
 	// The following constants allow for nice looking callbacks to static methods
 	public const create = 'fFile::create';
@@ -338,26 +338,26 @@ class fFile implements Iterator, Countable
 			return 'application/x-bzip2';
 		}
 
-		if ($_0_4 == 'SIT!' || $_0_4 == 'SITD' || substr($content, 0, 7) == 'StuffIt') {
+		if ($_0_4 == 'SIT!' || $_0_4 == 'SITD' || str_starts_with($content, 'StuffIt')) {
 			return 'application/x-stuffit';
 		}
 
 		// Better detection for text files based on the first line or so.
-		if (strpos($content, '<?php') !== false || strpos($content, '<?=') !== false) {
+		if (str_contains($content, '<?php') || str_contains($content, '<?=')) {
 			return 'application/x-httpd-php';
 		}
 
 		preg_match('/(\S.*?)\s*\n/m', $content, $lines);
 		$first_line = count($lines) > 1 ? $lines[1] : '';
 
-		if (strpos($first_line, '<?xml') !== false) {
+		if (str_contains($first_line, '<?xml')) {
 			if (stripos($content, '<!DOCTYPE') !== false) {
 				return 'application/xhtml+xml';
 			}
-			if (strpos($content, '<svg') !== false) {
+			if (str_contains($content, '<svg')) {
 				return 'image/svg+xml';
 			}
-			if (strpos($content, '<rss') !== false) {
+			if (str_contains($content, '<rss')) {
 				return 'application/rss+xml';
 			}
 
@@ -397,57 +397,22 @@ class fFile implements Iterator, Countable
 	 */
 	private static function determineMimeTypeByExtension($extension)
 	{
-		switch ($extension) {
-			case 'css':
-				return 'text/css';
-
-			case 'csv':
-				return 'text/csv';
-
-			case 'htm':
-			case 'html':
-			case 'xhtml':
-				return 'text/html';
-
-			case 'ics':
-				return 'text/calendar';
-
-			case 'js':
-				return 'application/javascript';
-
-			case 'php':
-			case 'php3':
-			case 'php4':
-			case 'php5':
-			case 'inc':
-				return 'application/x-httpd-php';
-
-			case 'pl':
-			case 'cgi':
-				return 'application/x-perl';
-
-			case 'py':
-				return 'application/x-python';
-
-			case 'rb':
-			case 'rhtml':
-				return 'application/x-ruby';
-
-			case 'rss':
-				return 'application/rss+xml';
-
-			case 'tab':
-				return 'text/tab-separated-values';
-
-			case 'vcf':
-				return 'text/x-vcard';
-
-			case 'xml':
-				return 'application/xml';
-
-			default:
-				return 'text/plain';
-		}
+		return match ($extension) {
+            'css' => 'text/css',
+            'csv' => 'text/csv',
+            'htm', 'html', 'xhtml' => 'text/html',
+            'ics' => 'text/calendar',
+            'js' => 'application/javascript',
+            'php', 'php3', 'php4', 'php5', 'inc' => 'application/x-httpd-php',
+            'pl', 'cgi' => 'application/x-perl',
+            'py' => 'application/x-python',
+            'rb', 'rhtml' => 'application/x-ruby',
+            'rss' => 'application/rss+xml',
+            'tab' => 'text/tab-separated-values',
+            'vcf' => 'text/x-vcard',
+            'xml' => 'application/xml',
+            default => 'text/plain',
+        };
 	}
 
 	/**
@@ -599,11 +564,11 @@ class fFile implements Iterator, Countable
 	 *
 	 * @return string  The filename
 	 */
-	public function __toString()
+	public function __toString(): string
 	{
 		try {
 			return $this->getName();
-		} catch (Exception $e) {
+		} catch (Exception) {
 			return '';
 		}
 	}
@@ -805,7 +770,7 @@ class fFile implements Iterator, Countable
 		copy($this->getPath(), $new_filename);
 		chmod($new_filename, fileperms($this->getPath()));
 
-		$class = get_class($this);
+		$class = static::class;
 		$file = new $class($new_filename);
 
 		// Allow filesystem transactions
@@ -1092,7 +1057,7 @@ class fFile implements Iterator, Countable
 	 *
 	 * @return fFile  The file object, to allow for method chaining
 	 */
-	public function output($headers, $filename = null)
+	public function output($headers, mixed $filename = null)
 	{
 		$this->tossIfDeleted();
 
@@ -1280,7 +1245,7 @@ class fFile implements Iterator, Countable
 	 *
 	 * @return fFile  The file object, to allow for method chaining
 	 */
-	public function write($data)
+	public function write(mixed $data)
 	{
 		$this->tossIfDeleted();
 

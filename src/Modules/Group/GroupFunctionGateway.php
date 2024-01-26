@@ -25,7 +25,7 @@ class GroupFunctionGateway extends BaseGateway
                     'region_id' => $group,
                 ]
             );
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             return null;
         }
     }
@@ -49,7 +49,7 @@ class GroupFunctionGateway extends BaseGateway
                     'function_id' => $function,
                 ]
             );
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             return null;
         }
     }
@@ -126,7 +126,7 @@ class GroupFunctionGateway extends BaseGateway
             } else {
                 return $this->db->exists('fs_region_function', ['region_id' => $group_id, 'function_id' => $function_id, 'target_id' => $target_id]);
             }
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             return false;
         }
     }

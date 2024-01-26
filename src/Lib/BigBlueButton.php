@@ -40,7 +40,7 @@ class BigBlueButton
                 'dialin' => (string)$res->dialNumber,
                 'id' => (string)$res->voiceBridge
             ];
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             return null;
         }
     }

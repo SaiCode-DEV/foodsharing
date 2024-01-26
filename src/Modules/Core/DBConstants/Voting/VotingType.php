@@ -36,16 +36,11 @@ class VotingType
      */
     public static function getNumberOfValues(int $scope): int
     {
-        switch ($scope) {
-            case self::SELECT_ONE_CHOICE:
-            case self::SELECT_MULTIPLE:
-                return 1;
-            case self::THUMB_VOTING:
-                return 3;
-            case self::SCORE_VOTING:
-                return 7;
-            default:
-                return -1;
-        }
+        return match ($scope) {
+            self::SELECT_ONE_CHOICE, self::SELECT_MULTIPLE => 1,
+            self::THUMB_VOTING => 3,
+            self::SCORE_VOTING => 7,
+            default => -1,
+        };
     }
 }

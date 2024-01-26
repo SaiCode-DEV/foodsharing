@@ -123,7 +123,7 @@ class View
                 $click = ' onclick="' . $item['click'] . '"';
             }
             $class = '';
-            if ($active !== false && (strpos($item['href'], '=' . $active) !== false)) {
+            if ($active !== false && str_contains($item['href'], '=' . $active)) {
                 $class = 'active ';
             }
 

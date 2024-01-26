@@ -200,7 +200,7 @@ class StoreRestController extends AbstractFOSRestController
             $result = $this->storeTransactions->getStore($storeId, $maySeeDetails, $maySeeSensitiveDetails);
 
             return $this->handleView($this->view($result, 200));
-        } catch (DatabaseNoValueFoundException $ex) {
+        } catch (DatabaseNoValueFoundException) {
             throw new NotFoundHttpException('Store not found.');
         }
     }
@@ -229,7 +229,7 @@ class StoreRestController extends AbstractFOSRestController
             $result = $this->storeTransactions->getMyStoreTeam($userId, $storeId, $maySeeDetails);
 
             return $this->handleView($this->view($result, 200));
-        } catch (DatabaseNoValueFoundException $ex) {
+        } catch (DatabaseNoValueFoundException) {
             throw new NotFoundHttpException('Store not found.');
         }
     }
@@ -300,7 +300,7 @@ class StoreRestController extends AbstractFOSRestController
             ];
 
             return $this->handleView($this->view($params, 200));
-        } catch (DatabaseNoValueFoundException $ex) {
+        } catch (DatabaseNoValueFoundException) {
             throw new NotFoundHttpException('Store not found.');
         }
     }

@@ -98,17 +98,12 @@ class VotingTransactions
      */
     private function getPossibleValues(int $pollType)
     {
-        switch ($pollType) {
-            case VotingType::SELECT_ONE_CHOICE:
-            case VotingType::SELECT_MULTIPLE:
-                return [1];
-            case VotingType::THUMB_VOTING:
-                return [1, 0, -1];
-            case VotingType::SCORE_VOTING:
-                return [3, 2, 1, 0, -1, -2, -3];
-            default:
-                throw new Exception('invalid poll type');
-        }
+        return match ($pollType) {
+            VotingType::SELECT_ONE_CHOICE, VotingType::SELECT_MULTIPLE => [1],
+            VotingType::THUMB_VOTING => [1, 0, -1],
+            VotingType::SCORE_VOTING => [3, 2, 1, 0, -1, -2, -3],
+            default => throw new Exception('invalid poll type'),
+        };
     }
 
     /**
@@ -123,25 +118,14 @@ class VotingTransactions
      */
     private function listUserIds(int $regionId, int $scope): array
     {
-        switch ($scope) {
-            case VotingScope::FOODSAVERS:
-                $users = $this->votingGateway->listActiveRegionMemberIds($regionId, Role::FOODSAVER, false);
-                break;
-            case VotingScope::VERIFIED_FOODSAVERS:
-                $users = $this->votingGateway->listActiveRegionMemberIds($regionId, Role::FOODSAVER, true);
-                break;
-            case VotingScope::VERIFIED_FOODSAVERS_HOME_DISTRICT:
-                $users = $this->votingGateway->listActiveRegionMemberIds($regionId, Role::FOODSAVER, true, true);
-                break;
-            case VotingScope::STORE_MANAGERS:
-                $users = $this->storeGateway->getStoreManagersOf($regionId);
-                break;
-            case VotingScope::AMBASSADORS:
-                $users = $this->votingGateway->getAmbassadorsIDsOfSubregions($regionId);
-                break;
-            default:
-                throw new Exception('invalid voting scope');
-        }
+        $users = match ($scope) {
+            VotingScope::FOODSAVERS => $this->votingGateway->listActiveRegionMemberIds($regionId, Role::FOODSAVER, false),
+            VotingScope::VERIFIED_FOODSAVERS => $this->votingGateway->listActiveRegionMemberIds($regionId, Role::FOODSAVER, true),
+            VotingScope::VERIFIED_FOODSAVERS_HOME_DISTRICT => $this->votingGateway->listActiveRegionMemberIds($regionId, Role::FOODSAVER, true, true),
+            VotingScope::STORE_MANAGERS => $this->storeGateway->getStoreManagersOf($regionId),
+            VotingScope::AMBASSADORS => $this->votingGateway->getAmbassadorsIDsOfSubregions($regionId),
+            default => throw new Exception('invalid voting scope'),
+        };
 
         return $users;
     }
@@ -238,7 +222,7 @@ class VotingTransactions
         try {
             $bellId = $this->bellGateway->getOneByIdentifier(BellType::createIdentifier(BellType::NEW_POLL, $poll->id));
             $this->bellGateway->delBellsForFoodsaver([$bellId], $this->session->id());
-        } catch (Exception $e) {
+        } catch (Exception) {
             // in case the bell does not exist, do nothing
         }
 

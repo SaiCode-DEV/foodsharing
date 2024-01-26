@@ -173,7 +173,7 @@ class StorePermissions
 
                 // Check user is allowed to create store in specific region
                 return $this->regionGateway->hasMember($this->session->id(), $regionId);
-            } catch (DatabaseNoValueFoundException $ex) {
+            } catch (DatabaseNoValueFoundException) {
                 return false;
             }
         }

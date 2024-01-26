@@ -51,7 +51,7 @@ class VotingControl extends Control
                     $mayVote = $this->votingPermissions->mayVote($poll);
                     try {
                         $voteDateTime = $this->votingGateway->getVoteDatetime($poll->id, $this->session->id());
-                    } catch (Exception $e) {
+                    } catch (Exception) {
                         $voteDateTime = null;
                     }
                     $mayEdit = $this->votingPermissions->mayEditPoll($poll);
@@ -71,7 +71,7 @@ class VotingControl extends Control
                 $this->flashMessageHelper->info($this->translator->trans('poll.not_available'));
                 $this->routeHelper->goAndExit('/?page=dashboard');
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->flashMessageHelper->info($this->translator->trans('poll.not_available'));
             $this->routeHelper->goAndExit('/?page=dashboard');
         }

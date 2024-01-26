@@ -84,13 +84,13 @@ final class TimeHelper
 
         try {
             $date = @Carbon::createFromFormat(DATE_ATOM, $pickupDate);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
         }
 
         if (is_null($date)) {
             try {
                 $date = Carbon::createFromFormat('Y-m-d\TH:i:s.uP', $pickupDate);
-            } catch (\Exception $e) {
+            } catch (\Exception) {
             }
         }
 

@@ -212,7 +212,7 @@ class EmailControl extends Control
 
     private function handleImages($body)
     {
-        if (strpos($body, '<') === false) {
+        if (!str_contains($body, '<')) {
             return $body;
         }
 
@@ -239,10 +239,10 @@ class EmailControl extends Control
                     $file = explode('/', $src);
                     $filename = end($file);
 
-                    if (strpos($src, 'images/upload/') !== false) {
+                    if (str_contains($src, 'images/upload/')) {
                         $old_filepath = explode('images/upload', $src);
                         $old_filepath = end($old_filepath);
-                    } elseif (!empty($iname) && strpos($iname, '/') !== false) {
+                    } elseif (!empty($iname) && str_contains($iname, '/')) {
                         $old_filepath = $iname;
                     }
 
@@ -273,7 +273,7 @@ class EmailControl extends Control
                         $tag->removeAttribute('width');
                         $tag->removeAttribute('height');
                     }
-                } elseif (substr($src, 0, 7) != 'http://' && substr($src, 0, 8) != 'https://') {
+                } elseif (!str_starts_with($src, 'http://') && !str_starts_with($src, 'https://')) {
                     $tag->setAttribute('src', BASE_URL . '/' . $src);
                 }
             }
@@ -285,7 +285,7 @@ class EmailControl extends Control
             $html = $html[0];
 
             return $html;
-        } catch (Exception $e) {
+        } catch (Exception) {
             return $body;
         }
     }

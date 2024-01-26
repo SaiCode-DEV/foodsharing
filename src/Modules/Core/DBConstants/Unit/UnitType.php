@@ -79,19 +79,17 @@ class UnitType
 
     public static function isValid(int $value): bool
     {
-        switch ($value) {
-            case self::PART_OF_TOWN:
-            case self::BIG_CITY:
-            case self::WORKING_GROUP:
-            case self::COUNTRY:
-            case self::FEDERAL_STATE:
-            case self::REGION:
-            case self::DISTRICT:
-            case self::CITY:
-                return true;
-            default:
-                return false;
-        }
+        return match ($value) {
+            self::PART_OF_TOWN,
+            self::BIG_CITY,
+            self::WORKING_GROUP,
+            self::COUNTRY,
+            self::FEDERAL_STATE,
+            self::REGION,
+            self::DISTRICT,
+            self::CITY => true,
+            default => false,
+        };
     }
 
     public static function throwIfInvalid(int $value)

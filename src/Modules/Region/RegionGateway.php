@@ -571,7 +571,7 @@ class RegionGateway extends BaseGateway
                 'region_id' => $regionId,
                 'option_type' => $optionType
             ]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }
@@ -610,7 +610,7 @@ class RegionGateway extends BaseGateway
             }
 
             return $mappedOptions;
-        } catch (Exception $e) {
+        } catch (Exception) {
             return [];
         }
     }
@@ -650,7 +650,7 @@ class RegionGateway extends BaseGateway
 		', [
                 ':regionId' => $regionId,
             ]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
         $optionTypeMap = [];
@@ -665,7 +665,7 @@ class RegionGateway extends BaseGateway
     {
         try {
             return $this->db->fetchByCriteria('fs_region_pin', ['desc', 'lat', 'lon', 'status'], ['region_id' => $regionId]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }

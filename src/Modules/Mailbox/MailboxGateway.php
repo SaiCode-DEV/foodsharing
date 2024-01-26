@@ -15,7 +15,7 @@ class MailboxGateway extends BaseGateway
     {
         try {
             return $this->db->fetchValueByCriteria('fs_mailbox', 'name', ['id' => $mailbox_id]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             // trigger_error('No mailbox found with id ' . $mailbox_id);
             return false;
         }
@@ -33,7 +33,7 @@ class MailboxGateway extends BaseGateway
     {
         try {
             $id = $this->db->fetchValueByCriteria('fs_contact', 'id', ['email' => strip_tags($email)]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $id = $this->db->insert('fs_contact', ['email' => $email]);
         }
 
@@ -315,7 +315,7 @@ class MailboxGateway extends BaseGateway
                 );
 
                 return $mb;
-            } catch (Exception $e) {
+            } catch (Exception) {
             }
 
             try {
@@ -325,7 +325,7 @@ class MailboxGateway extends BaseGateway
                 );
 
                 return $mb;
-            } catch (Exception $e) {
+            } catch (Exception) {
             }
         }
 
@@ -492,7 +492,7 @@ class MailboxGateway extends BaseGateway
                 ['mailbox_id', 'name', 'nachname'],
                 ['id' => $fsId]
             );
-        } catch (Exception $e) {
+        } catch (Exception) {
             // until now it does nothing, if no value is found
         }
         if ($mayStoreManager && $me && $me['mailbox_id'] == 0) {
@@ -571,7 +571,7 @@ class MailboxGateway extends BaseGateway
     {
         try {
             return $this->db->fetchValueByCriteria('fs_mailbox_message', 'mailbox_id', ['id' => $mid]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return 0;
         }
     }

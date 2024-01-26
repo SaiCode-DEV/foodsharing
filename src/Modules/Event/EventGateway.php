@@ -234,7 +234,7 @@ class EventGateway extends BaseGateway
                 'status',
                 ['event_id' => $eventId, 'foodsaver_id' => $foodsaverId]
             );
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             $status = -1;
         }
 

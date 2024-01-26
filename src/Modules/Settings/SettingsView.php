@@ -487,7 +487,7 @@ class SettingsView extends View
         // find previous picture
         $initialValue = 'img/portrait.png';
         if (!empty($photo)) {
-            if (strpos($photo, '/api/uploads/') === 0) {
+            if (str_starts_with($photo, '/api/uploads/')) {
                 // path for pictures uploaded with the new API
                 $initialValue = $photo . '?w=200&h=257';
             } elseif (file_exists('images/thumb_crop_' . $photo)) {

@@ -20,7 +20,7 @@ final class FeatureToggleTwigFunctionExtension extends AbstractExtension
         return [
             new TwigFunction(
                 'isFeatureToggleActive',
-                fn (string $featureToggleIdentifier): bool =>$this->featureToggleChecker->isFeatureToggleActive($featureToggleIdentifier)
+                fn (string $featureToggleIdentifier): bool => $this->featureToggleChecker->isFeatureToggleActive($featureToggleIdentifier)
             )
         ];
     }

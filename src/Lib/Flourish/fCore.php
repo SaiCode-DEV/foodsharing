@@ -246,7 +246,7 @@ class fCore
 					} elseif (is_array($arg)) {
 						$bt_string .= 'Array';
 					} elseif (is_object($arg)) {
-						$bt_string .= 'Object(' . get_class($arg) . ')';
+						$bt_string .= 'Object(' . $arg::class . ')';
 					} elseif (is_string($arg)) {
 						// Shorten the UTF-8 string if it is too long
 						if (strlen(utf8_decode($arg)) > 18) {
@@ -304,7 +304,7 @@ class fCore
 	public static function call($callback, $parameters = [])
 	{
 		// Fix PHP 5.0 and 5.1 static callback syntax
-		if (is_string($callback) && strpos($callback, '::') !== false) {
+		if (is_string($callback) && str_contains($callback, '::')) {
 			$callback = explode('::', $callback);
 		}
 
@@ -325,7 +325,7 @@ class fCore
 	 */
 	public static function callback($callback)
 	{
-		if (is_string($callback) && strpos($callback, '::') !== false) {
+		if (is_string($callback) && str_contains($callback, '::')) {
 			return explode('::', $callback);
 		}
 
@@ -409,7 +409,7 @@ class fCore
 	 *
 	 * @return string  The string representation of the value
 	 */
-	public static function dump($data)
+	public static function dump(mixed $data)
 	{
 		if (is_bool($data)) {
 			return ($data) ? '{true}' : '{false}';
@@ -511,7 +511,7 @@ class fCore
 	 * @param  mixed $data  The value to show
 	 * @param  mixed ...
 	 */
-	public static function expose($data)
+	public static function expose(mixed $data)
 	{
 		$args = func_get_args();
 		if (count($args) > 1) {
@@ -569,7 +569,7 @@ class fCore
 		}
 
 		$doc_root = realpath($_SERVER['DOCUMENT_ROOT']);
-		$doc_root .= (substr($doc_root, -1) != '/' && substr($doc_root, -1) != '\\') ? '/' : '';
+		$doc_root .= (!str_ends_with($doc_root, '/') && !str_ends_with($doc_root, '\\')) ? '/' : '';
 
 		$backtrace = self::backtrace(1);
 

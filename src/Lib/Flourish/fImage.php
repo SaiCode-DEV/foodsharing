@@ -222,7 +222,7 @@ class fImage extends fFile
 
 				self::$imagemagick_dir = $path;
 				self::$processor = 'imagemagick';
-			} catch (Exception $e) {
+			} catch (Exception) {
 				// Look for GD last since it does not support tiff files
 				if (function_exists('gd_info')) {
 					self::$processor = 'gd';
@@ -423,7 +423,7 @@ class fImage extends fFile
 			$found = false;
 
 			foreach ($open_basedirs as $open_basedir) {
-				if (strpos($path, $open_basedir) === 0) {
+				if (str_starts_with($path, $open_basedir)) {
 					$found = true;
 				}
 			}
@@ -602,43 +602,29 @@ class fImage extends fFile
 		$orig_height = $dim['height'];
 
 		if (is_string($crop_from_x) && !is_numeric($crop_from_x)) {
-			switch (strtolower($crop_from_x)) {
-				case 'left':
-					$crop_from_x = 0;
-					break;
-				case 'center':
-					$crop_from_x = floor(max($orig_width - $new_width, 0) / 2);
-					break;
-				case 'right':
-					$crop_from_x = max($orig_width - $new_width, 0);
-					break;
-				default:
-					throw new fException(
-						'The crop-from x specified, %1$s, is not a valid horizontal position. Must be one of: %2$s.',
-						$crop_from_x,
-						['left', 'center', 'right']
-					);
-			}
+			$crop_from_x = match (strtolower($crop_from_x)) {
+                'left' => 0,
+                'center' => floor(max($orig_width - $new_width, 0) / 2),
+                'right' => max($orig_width - $new_width, 0),
+                default => throw new fException(
+                                'The crop-from x specified, %1$s, is not a valid horizontal position. Must be one of: %2$s.',
+                                $crop_from_x,
+                                ['left', 'center', 'right']
+                            ),
+           };
 		}
 
 		if (is_string($crop_from_y) && !is_numeric($crop_from_y)) {
-			switch (strtolower($crop_from_y)) {
-				case 'top':
-					$crop_from_y = 0;
-					break;
-				case 'center':
-					$crop_from_y = floor(max($orig_height - $new_height, 0) / 2);
-					break;
-				case 'bottom':
-					$crop_from_y = max($orig_height - $new_height, 0);
-					break;
-				default:
-					throw new fException(
-						'The crop-from y specified, %1$s, is not a valid vertical position. Must be one of: %2$s.',
-						$crop_from_y,
-						['top', 'center', 'bottom']
-					);
-			}
+			$crop_from_y = match (strtolower($crop_from_y)) {
+                'top' => 0,
+                'center' => floor(max($orig_height - $new_height, 0) / 2),
+                'bottom' => max($orig_height - $new_height, 0),
+                default => throw new fException(
+                                'The crop-from y specified, %1$s, is not a valid vertical position. Must be one of: %2$s.',
+                                $crop_from_y,
+                                ['top', 'center', 'bottom']
+                            ),
+            };
 		}
 
 		// Make sure the user input is valid
@@ -1141,7 +1127,7 @@ class fImage extends fFile
 		}
 
 		// Default to the RGB colorspace
-		if (strpos($command_line, ' -colorspace ') === false) {
+		if (!str_contains($command_line, ' -colorspace ')) {
 			if (version_compare(self::$imagemagick_version, '6.7.5') >= 0) {
 				$command_line .= ' -colorspace sRGB ';
 			} else {

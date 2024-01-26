@@ -97,7 +97,7 @@ final class ProfileGateway extends BaseGateway
                 if ($this->db->fetchValue($stm, [':viewerId' => $viewerId, ':fs_id' => $fsId])) {
                     $data['bouched'] = true;
                 }
-            } catch (\Exception $e) {
+            } catch (\Exception) {
                 // has to be caught until we can check whether a to be fetched value does really exist.
             }
         }
@@ -579,7 +579,7 @@ final class ProfileGateway extends BaseGateway
             )) !== []) {
                 return $status;
             }
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             // has to be caught until we can check whether a to be fetched value does really exist.
         }
 

@@ -407,7 +407,7 @@ class SettingsControl extends Control
             $check = true;
 
             if (!empty($data['homepage'])) {
-                if (substr($data['homepage'], 0, 4) != 'http') {
+                if (!str_starts_with($data['homepage'], 'http')) {
                     $data['homepage'] = 'http://' . $data['homepage'];
                 }
 
@@ -430,7 +430,7 @@ class SettingsControl extends Control
                     try {
                         $this->session->refreshFromDatabase();
                         $this->flashMessageHelper->success($this->translator->trans('foodsaver.edit_success'));
-                    } catch (\Exception $e) {
+                    } catch (\Exception) {
                         $this->routeHelper->goPageAndExit('logout');
                     }
                 } else {

@@ -53,7 +53,7 @@ class fException extends \Exception
 	 *
 	 * @return string  The string representation of the value
 	 */
-	protected static function dump($data): string
+	protected static function dump(mixed $data): string
     {
         if (is_bool($data)) {
             return ($data) ? '{true}' : '{false}';
@@ -175,7 +175,7 @@ return '{null}';
 			$message = self::compose(
 				'%1$d components were passed to the %2$s constructor, while %3$d were specified in the message',
 				count($args),
-				get_class($this),
+				static::class,
 				$required_args
 			);
 			throw new Exception($message);
@@ -237,7 +237,7 @@ return '{null}';
 			$text_matches[$i] .= $html_matches[$i][0];
 		}
 
-		$content_with_newlines = implode($text_matches);
+		$content_with_newlines = implode('', $text_matches);
 
 		$output = ($no_block_html) ? '<p>' : '';
 		$output .= $content_with_newlines;

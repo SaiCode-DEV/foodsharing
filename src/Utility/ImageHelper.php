@@ -105,7 +105,7 @@ final class ImageHelper
         }
 
         if (!empty($file)) {
-            if (strpos($file, '/api/uploads/') === 0) {
+            if (str_starts_with($file, '/api/uploads/')) {
                 // path for pictures uploaded with the new API
                 if (is_numeric($size)) {
                     $file .= '?w=' . $size . '&h=' . $size;
@@ -157,7 +157,7 @@ final class ImageHelper
                 $img->saveChanges();
 
                 return true;
-            } catch (Exception $e) {
+            } catch (Exception) {
             }
         }
 

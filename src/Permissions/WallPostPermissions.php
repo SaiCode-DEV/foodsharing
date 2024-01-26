@@ -72,14 +72,11 @@ class WallPostPermissions
 
     public function mayWriteWall(int $fsId, string $target, int $targetId): bool
     {
-        switch ($target) {
-            case 'foodsaver':
-                return $fsId === $targetId;
-            case 'question':
-                return $fsId > 0;
-            default:
-                return $fsId > 0 && $this->mayReadWall($fsId, $target, $targetId);
-        }
+        return match ($target) {
+            'foodsaver' => $fsId === $targetId,
+            'question' => $fsId > 0,
+            default => $fsId > 0 && $this->mayReadWall($fsId, $target, $targetId),
+        };
     }
 
     /**

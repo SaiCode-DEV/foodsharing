@@ -102,7 +102,7 @@ class fSession
 	 * @param  mixed   $value      The value to add to the array
 	 * @param  bool $beginning  If the value should be added to the beginning
 	 */
-	public static function add($key, $value, $beginning = false)
+	public static function add($key, mixed $value, $beginning = false)
 	{
 		self::open();
 		$tip = &$_SESSION;
@@ -165,7 +165,7 @@ class fSession
 
 		if ($prefix) {
 			foreach ($_SESSION as $key => $value) {
-				if (strpos($key, $prefix) === 0) {
+				if (str_starts_with($key, $prefix)) {
 					unset($_SESSION[$key]);
 				}
 			}
@@ -202,7 +202,7 @@ class fSession
 	 *
 	 * @return mixed  The value of the `$key` that was deleted
 	 */
-	public static function delete($key, $default_value = null)
+	public static function delete($key, mixed $default_value = null)
 	{
 		self::open();
 
@@ -309,7 +309,7 @@ class fSession
 	 *
 	 * @return mixed  The data element requested
 	 */
-	public static function get($key, $default_value = null)
+	public static function get($key, mixed $default_value = null)
 	{
 		self::open();
 
@@ -521,7 +521,7 @@ class fSession
 	 * @param  string $key     The name to save the value under - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
 	 * @param  mixed  $value   The value to store
 	 */
-	public static function set($key, $value)
+	public static function set($key, mixed $value)
 	{
 		self::open();
 		$tip = &$_SESSION;

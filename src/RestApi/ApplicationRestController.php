@@ -52,7 +52,7 @@ class ApplicationRestController extends AbstractFOSRestController
 
         try {
             $group = $this->regionGateway->getRegion($groupId);
-        } catch (Exception $e) {
+        } catch (Exception) {
             throw new NotFoundHttpException();
         }
 
@@ -83,7 +83,7 @@ class ApplicationRestController extends AbstractFOSRestController
 
         try {
             $group = $this->regionGateway->getRegion($groupId);
-        } catch (Exception $e) {
+        } catch (Exception) {
             throw new NotFoundHttpException();
         }
 
@@ -114,7 +114,7 @@ class ApplicationRestController extends AbstractFOSRestController
 
         try {
             $group = $this->regionGateway->getRegion($groupId);
-        } catch (Exception $e) {
+        } catch (Exception) {
             throw new NotFoundHttpException();
         }
 

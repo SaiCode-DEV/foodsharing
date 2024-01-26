@@ -188,7 +188,7 @@ class FoodSharePointView extends View
         // initial value for the image chooser can be empty (no image yet) or an old or new file path
         $initialValue = '';
         if (!empty($data['picture'])) {
-            $initialValue = (strpos($data['picture'], '/api/uploads/') !== 0 ? '/images/' : '') . $data['picture'];
+            $initialValue = (!str_starts_with($data['picture'], '/api/uploads/') ? '/images/' : '') . $data['picture'];
         }
 
         return $this->v_utils->v_field($this->v_utils->v_form('fairteiler', [

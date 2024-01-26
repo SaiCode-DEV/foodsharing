@@ -59,7 +59,7 @@ class LegalControl extends Control
             try {
                 $this->session->refreshFromDatabase();
                 $this->routeHelper->goSelfAndExit();
-            } catch (\Exception $e) {
+            } catch (\Exception) {
                 $this->routeHelper->goPageAndExit('logout');
             }
         }

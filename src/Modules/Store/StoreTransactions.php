@@ -256,7 +256,7 @@ class StoreTransactions
     {
         try {
             $regionType = $this->regionGateway->getType($createStore->regionId);
-        } catch (Exception $dbExpection) {
+        } catch (Exception) {
             throw new StoreTransactionException(StoreTransactionException::INVALID_REGION);
         }
         if (!UnitType::isAccessibleRegion($regionType)) {

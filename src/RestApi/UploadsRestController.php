@@ -85,18 +85,11 @@ class UploadsRestController extends AbstractFOSRestController
         header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 
         $mime = explode('/', $mimetype);
-        switch ($mime[0]) {
-            case 'video':
-            case 'audio':
-            case 'image':
-                header('Content-Type: ' . $mimetype);
-                break;
-            case 'text':
-                header('Content-Type: text/plain');
-                break;
-            default:
-                header('Content-Type: application/octet-stream');
-        }
+        match ($mime[0]) {
+            'video', 'audio', 'image' => header('Content-Type: ' . $mimetype),
+            'text' => header('Content-Type: text/plain'),
+            default => header('Content-Type: application/octet-stream'),
+        };
         readfile($filename);
         exit;
     }

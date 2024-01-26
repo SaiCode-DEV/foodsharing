@@ -180,7 +180,7 @@ class WorkGroupGateway extends BaseGateway
                     $groups[$i]['function'] = $this->db->fetchValueByCriteria('fs_region_function', 'function_id',
                         ['region_id' => $g['id']]
                     );
-                } catch (Exception $e) {
+                } catch (Exception) {
                     $groups[$i]['function'] = null;
                 }
             }

@@ -245,7 +245,7 @@ class MaintenanceControl extends ConsoleControl
             while (($file = readdir($dir)) !== false) {
                 if (strlen($file) > 3 && !is_dir('./images/' . $file)) {
                     $cfile = $file;
-                    if (strpos($file, '_') !== false) {
+                    if (str_contains($file, '_')) {
                         $cfile = explode('_', $file);
                         $cfile = end($cfile);
                     }

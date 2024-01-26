@@ -26,7 +26,7 @@ namespace Flourish;
  * @changes    1.0.0b2   Added support for CURRENT_TIMESTAMP, CURRENT_DATE and CURRENT_TIME SQL keywords [wb, 2009-01-11]
  * @changes    1.0.0b    The initial implementation [wb, 2008-02-12]
  */
-class fTimestamp
+class fTimestamp implements \Stringable
 {
 	// The following constants allow for nice looking callbacks to static methods
 	public const callFormatCallback = 'fTimestamp::callFormatCallback';
@@ -636,7 +636,7 @@ class fTimestamp
 	 */
 	public static function registerFormatCallback($callback)
 	{
-		if (is_string($callback) && strpos($callback, '::') !== false) {
+		if (is_string($callback) && str_contains($callback, '::')) {
 			$callback = explode('::', $callback);
 		}
 		self::$format_callback = $callback;
@@ -649,7 +649,7 @@ class fTimestamp
 	 */
 	public static function registerUnformatCallback($callback)
 	{
-		if (is_string($callback) && strpos($callback, '::') !== false) {
+		if (is_string($callback) && str_contains($callback, '::')) {
 			$callback = explode('::', $callback);
 		}
 		self::$unformat_callback = $callback;
@@ -800,7 +800,7 @@ class fTimestamp
 	 *
 	 * @return string  The `'Y-m-d H:i:s'` format of this date/time
 	 */
-	public function __toString()
+	public function __toString(): string
 	{
 		return $this->format('Y-m-d H:i:s');
 	}
@@ -878,7 +878,7 @@ class fTimestamp
 	 *
 	 * @return string
 	 */
-	public static function fGrammarInflectOnQuantity($quantity, $singular_form, $plural_form)
+	public static function fGrammarInflectOnQuantity(mixed $quantity, $singular_form, $plural_form)
 	{
 		if ($quantity == 1) {
 			return $singular_form;
@@ -886,7 +886,7 @@ class fTimestamp
 			$output = $plural_form;
 
 			// Handle placement of the quantity into the output
-			if (strpos($output, '%d') !== false) {
+			if (str_contains($output, '%d')) {
 				$output = str_replace('%d', $quantity, $output);
 			}
 

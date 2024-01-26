@@ -139,14 +139,10 @@ class CalendarRestController extends AbstractFOSRestController
         $pickups = array_map(fn ($date) => $this->createPickupEvent($date, $userId), $dates);
 
         // add all future meetings
-        switch ($paramFetcher->get('events')) {
-            case 'answered':
-                $statuses = [InvitationStatus::ACCEPTED, InvitationStatus::MAYBE];
-                break;
-            default:
-                $statuses = [InvitationStatus::ACCEPTED, InvitationStatus::MAYBE, InvitationStatus::INVITED];
-                break;
-        }
+        $statuses = match ($paramFetcher->get('events')) {
+            'answered' => [InvitationStatus::ACCEPTED, InvitationStatus::MAYBE],
+            default => [InvitationStatus::ACCEPTED, InvitationStatus::MAYBE, InvitationStatus::INVITED],
+        };
         $meetings = $this->eventGateway->getEventsByStatus($userId, $statuses);
         $events = array_map(fn ($meeting) => $this->createMeetingEvent($meeting, $userId), $meetings);
 
@@ -206,7 +202,7 @@ class CalendarRestController extends AbstractFOSRestController
         $event->setStart(Carbon::createFromTimestamp($meeting['start_ts']));
         try {
             $event->setEnd(Carbon::createFromTimestamp($meeting['end_ts']));
-        } catch (CalendarEventException $e) {
+        } catch (CalendarEventException) {
             /* In some events the end date is before the start date because the event form accidentally allows this.
             This workaround prevents errors and can be removed after the event form was updated. */
             $newEnd = clone $event->getStart();

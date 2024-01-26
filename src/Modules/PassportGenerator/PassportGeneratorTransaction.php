@@ -286,38 +286,29 @@ class PassportGeneratorTransaction extends AbstractController
 
     public function getRole(int $gender_id, int $role_id): string
     {
-        switch ($gender_id) {
-            case Gender::MALE:
-                $roles = [
-                    Role::FOODSHARER => $this->translator->trans('terminology.foodsharer.m'),
-                    Role::FOODSAVER => $this->translator->trans('terminology.foodsaver.m'),
-                    Role::STORE_MANAGER => $this->translator->trans('terminology.storemanager.m'),
-                    Role::AMBASSADOR => $this->translator->trans('terminology.ambassador.m'),
-                    Role::ORGA => $this->translator->trans('terminology.ambassador.m'),
-                ];
-                break;
-
-            case Gender::FEMALE:
-                $roles = [
-                    Role::FOODSHARER => $this->translator->trans('terminology.foodsharer.f'),
-                    Role::FOODSAVER => $this->translator->trans('terminology.foodsaver.f'),
-                    Role::STORE_MANAGER => $this->translator->trans('terminology.storemanager.f'),
-                    Role::AMBASSADOR => $this->translator->trans('terminology.ambassador.f'),
-                    Role::ORGA => $this->translator->trans('terminology.ambassador.f'),
-                ];
-                break;
-
-                // All others
-            default:
-                $roles = [
-                    Role::FOODSHARER => $this->translator->trans('terminology.foodsharer.d'),
-                    Role::FOODSAVER => $this->translator->trans('terminology.foodsaver.d'),
-                    Role::STORE_MANAGER => $this->translator->trans('terminology.storemanager.d'),
-                    Role::AMBASSADOR => $this->translator->trans('terminology.ambassador.d'),
-                    Role::ORGA => $this->translator->trans('terminology.ambassador.d'),
-                ];
-                break;
-        }
+        $roles = match ($gender_id) {
+            Gender::MALE => [
+                Role::FOODSHARER => $this->translator->trans('terminology.foodsharer.m'),
+                Role::FOODSAVER => $this->translator->trans('terminology.foodsaver.m'),
+                Role::STORE_MANAGER => $this->translator->trans('terminology.storemanager.m'),
+                Role::AMBASSADOR => $this->translator->trans('terminology.ambassador.m'),
+                Role::ORGA => $this->translator->trans('terminology.ambassador.m'),
+            ],
+            Gender::FEMALE => [
+                Role::FOODSHARER => $this->translator->trans('terminology.foodsharer.f'),
+                Role::FOODSAVER => $this->translator->trans('terminology.foodsaver.f'),
+                Role::STORE_MANAGER => $this->translator->trans('terminology.storemanager.f'),
+                Role::AMBASSADOR => $this->translator->trans('terminology.ambassador.f'),
+                Role::ORGA => $this->translator->trans('terminology.ambassador.f'),
+            ],
+            default => [
+                Role::FOODSHARER => $this->translator->trans('terminology.foodsharer.d'),
+                Role::FOODSAVER => $this->translator->trans('terminology.foodsaver.d'),
+                Role::STORE_MANAGER => $this->translator->trans('terminology.storemanager.d'),
+                Role::AMBASSADOR => $this->translator->trans('terminology.ambassador.d'),
+                Role::ORGA => $this->translator->trans('terminology.ambassador.d'),
+            ],
+        };
 
         return $roles[$role_id];
     }

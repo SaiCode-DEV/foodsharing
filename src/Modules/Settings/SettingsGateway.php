@@ -138,7 +138,7 @@ class SettingsGateway extends BaseGateway
                     'foodsaver_id' => $fsId
                 ]
             );
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }
@@ -165,7 +165,7 @@ class SettingsGateway extends BaseGateway
                 'foodsaver_id' => $userId,
                 'option_type' => $optionType
             ]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }
@@ -190,7 +190,7 @@ class SettingsGateway extends BaseGateway
     {
         try {
             return $this->db->fetchValueByCriteria('fs_apitoken', 'token', ['foodsaver_id' => $userId]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }
@@ -210,7 +210,7 @@ class SettingsGateway extends BaseGateway
     {
         try {
             return $this->db->fetchValueByCriteria('fs_apitoken', 'foodsaver_id', ['token' => $token]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }

@@ -98,7 +98,7 @@ class SearchRestController extends AbstractFOSRestController
         try {
             $paramFetcher->get('global', true);
             $global = true;
-        } catch (Throwable $e) {
+        } catch (Throwable) {
         }
 
         $results = $this->searchTransactions->search($query, $global);

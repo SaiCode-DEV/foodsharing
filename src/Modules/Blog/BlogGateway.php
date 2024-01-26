@@ -68,7 +68,7 @@ final class BlogGateway extends BaseGateway
         $val = false;
         try {
             $val = $this->db->fetchByCriteria('fs_blog_entry', ['bezirk_id', 'foodsaver_id'], ['id' => $article_id]);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             // has to be caught until we can check whether a to be fetched value does really exist.
         }
 

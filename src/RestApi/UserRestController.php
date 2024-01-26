@@ -545,7 +545,7 @@ class UserRestController extends FoodsharingRestController
             if ($this->uploadsGateway->getUser($uuid) !== $userId) {
                 throw new AccessDeniedHttpException();
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             throw new BadRequestHttpException();
         }
 

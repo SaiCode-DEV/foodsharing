@@ -192,7 +192,7 @@ class fAuthorization
 	 *
 	 * @param  mixed $token  The user's token. This could be a user id, an email address, a user object, etc.
 	 */
-	public static function setUserToken($token)
+	public static function setUserToken(mixed $token)
 	{
 		fSession::set(self::class . '::user_token', $token);
 		fSession::regenerateID();

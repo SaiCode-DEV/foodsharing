@@ -775,14 +775,11 @@ class StoreGateway extends BaseGateway
             if ($result['verantwortlich'] && $result['active'] == MembershipStatus::MEMBER) {
                 return TeamStatus::Coordinator;
             } else {
-                switch ($result['active']) {
-                    case MembershipStatus::JUMPER:
-                        return TeamStatus::WaitingList;
-                    case MembershipStatus::MEMBER:
-                        return TeamStatus::Member;
-                    default:
-                        return TeamStatus::Applied;
-                }
+                return match ($result['active']) {
+                    MembershipStatus::JUMPER => TeamStatus::WaitingList,
+                    MembershipStatus::MEMBER => TeamStatus::Member,
+                    default => TeamStatus::Applied,
+                };
             }
         }
 

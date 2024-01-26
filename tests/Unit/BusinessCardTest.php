@@ -41,7 +41,7 @@ class BusinessCardTest extends Unit
      */
     private function invokePrivateMethod(array $parameters = [])
     {
-        $reflection = new ReflectionClass(get_class($this->business_card));
+        $reflection = new ReflectionClass($this->business_card::class);
         $method = $reflection->getMethod('index_of_first_number');
         $method->setAccessible(true);
 

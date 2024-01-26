@@ -47,7 +47,7 @@ class AndroidPushHandler implements PushNotificationHandlerInterface
 
             try {
                 [$userPublicKey, $userAuthToken, $userFcmToken, $contentEncoding, $keychainUniqueId, $serialNumber] = $this->readData($subscriptionArray);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // Failed to read required elements from the subscription data
                 $deadSubscriptions[] = $subscriptionId;
                 continue;

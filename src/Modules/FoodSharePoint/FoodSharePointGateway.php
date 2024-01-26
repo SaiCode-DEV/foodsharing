@@ -480,7 +480,7 @@ class FoodSharePointGateway extends BaseGateway
      */
     private function getPicturePaths(string $picture): array
     {
-        if (strpos($picture, '/api/uploads/') === 0) {
+        if (str_starts_with($picture, '/api/uploads/')) {
             return [
                 'thumb' => $picture . '?h=60&w=60',
                 'head' => $picture . '?h=169&w=525',
