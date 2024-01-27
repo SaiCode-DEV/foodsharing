@@ -1136,6 +1136,7 @@ storeview:
   show_information: 'Ver información de la empresa'
   cooperation_start: 'Cooperación desde'
   show_settings: Configuración de la empresa
+  choose_chain: Elija una cadena
 store:
   tooltip_red: 'Recogidas vacantes hoy o mañana'
   tooltip_managing: 'Usted es responsable de esta cooperación'
@@ -1366,6 +1367,9 @@ store:
   slotsCurrentlyOccupied: Espacios actualmente ocupados
   deactivatedRegion: La lista de empresas no puede mostrarse por el momento para los
     países y continentes.
+  chain_search_picker:
+    modal_title: Seleccionar cadena operativa
+    search_input: Buscar por nombre de la cadena
 pickup:
   overview:
     status:
@@ -3381,6 +3385,7 @@ releases:
   "2020-12": 'Versión “Pitaya” (diciembre 2020)'
   "2023-09": Versión “Yaca” 🍈 (septiembre 2023)
   "2024-01": Lanzamiento “Kiwi” 🥝 (Enero 2024)
+  "2024-04": Lanzamiento de "Pretzel" 🥨 (abril de 2024)
 salutation:
   "2": 'Querida'
   "3": 'Queride'
