@@ -1,6 +1,7 @@
 # Unreleased
 
 ## Features
+- Added a ChainSearchPicker Modal in StoreInformation !2863 @chriswalg
 
 ## Changes
 - Improves the BBB integration !3050 @stcz

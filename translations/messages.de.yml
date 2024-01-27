@@ -821,7 +821,7 @@ storeview:
     not_set: "Kein Zeitraum festgelegt"
     single: "1 Woche"
     multiply: "{weeks} Wochen"
-
+  choose_chain: "Wähle eine Kette"
 
 store:
   bread: "Alle Betriebe" #also in MapView
@@ -940,6 +940,9 @@ store:
     distance_close: "Wohnt weniger als 1 km entfernt"
     air_line: Die angezeigte Entfernung entspricht der Luftlinie.
   info_container: "Informationen"
+  chain_search_picker:
+    modal_title: "Betriebskette wählen"
+    search_input: "Suche nach Namen der Kette"
 #
 # Store and StoreUser
 # --

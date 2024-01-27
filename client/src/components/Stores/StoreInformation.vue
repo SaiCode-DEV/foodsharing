@@ -98,17 +98,23 @@
               />
             </b-form-group>
           </b-form-group>
+          <ChainSearchPicker
+            ref="modal_open_chain_search_picker"
+            :store-chains="storeChains"
+            @store-chain-selected="selectStoreChainFromSearchPicker"
+          />
           <b-form-group
             :label="$i18n('kette_id')"
             label-for="chainId"
             class="bootstrap input-wrapper"
           >
-            <b-form-select
-              id="chainId"
-              v-model="store.chainId"
-              :options="storeChains"
-              :disabled="!editMode"
-            />
+            {{ getChainTextById }}
+            <b-button
+              variant="primary"
+              @click="openChainSearchPicker"
+            >
+              {{ $i18n('storeview.choose_chain') }}
+            </b-button>
           </b-form-group>
           <b-form-group
             :label="$i18n('address')"
@@ -450,6 +456,7 @@ import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import AutoResizeTextareaMixin from '@/mixins/AutoResizeTextareaMixin'
 import { REGION_UNIT_TYPE } from '@/stores/regions'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
+import ChainSearchPicker from '@/components/Stores/ChainSearchPicker.vue'
 
 export default {
   name: 'StoreInformationEditModal',
@@ -458,6 +465,7 @@ export default {
     RegionTreeVForm,
     RegularPickup,
     MarkdownInput,
+    ChainSearchPicker,
   },
   mixins: [MediaQueryMixin, AutoResizeTextareaMixin],
   props: {
@@ -481,9 +489,17 @@ export default {
         { value: 2, text: this.$i18n('menu.entry.helpneeded') },
       ],
       store: {},
+      chainSearchCriteriaField: '',
     }
   },
   computed: {
+    getChainTextById () {
+      if (this.storeChains > 0) {
+        const chain = this.storeChains.find(chain => chain.value === this.store.chain.id)
+        return chain ? chain.text : ''
+      }
+      return ''
+    },
     REGION_UNIT_TYPE () {
       return REGION_UNIT_TYPE
     },
@@ -573,6 +589,9 @@ export default {
     simpleClone (value) {
       return JSON.parse(JSON.stringify(value))
     },
+    selectStoreChainFromSearchPicker (selectedChain) {
+      this.store.chain.id = selectedChain.value
+    },
     dispatchResize () {
       window.dispatchEvent(new Event('resize'))
     },
@@ -631,6 +650,9 @@ export default {
       this.store.address.zipCode = postalCode
       this.store.address.city = city
     },
+    openChainSearchPicker () {
+      this.$refs.modal_open_chain_search_picker.show()
+    },
   },
 }
 </script>
@@ -657,5 +679,10 @@ export default {
 <style>
 .b-form-btn-label-control.form-control > .btn {
   font-size: 0.5em;
+}
+
+ul.dropdown-menu.w-100.show {
+  max-height: 21rem;
+  overflow-x: auto;
 }
 </style>
