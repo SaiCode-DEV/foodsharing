@@ -73,6 +73,9 @@ export default {
   border-width: 0.5rem;
   font-weight: bolder;
 
+  // Laugenbrezel
+  &[data-id="2024-04"] { border-color: #a0522d; }
+
   // Kiwi
   &[data-id="2024-01"] { border-color: #99bd41; }
 
