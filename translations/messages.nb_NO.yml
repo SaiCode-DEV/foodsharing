@@ -1813,6 +1813,10 @@ upload:
   no_image_chosen: Ingen fil valgt enda
   no_image_yet: Ingen bilder opplastet enda
   no_image: Den opplastede filen er ikke et bilde. Vennligst velg en annen fil.
+  image-problem: Filen din ser ikke ut til å være OK, det er best å bruke et vanlig
+    jpg-bilde
+  invalid_image_files: '{count} valgte filer er ikke gyldige bilder: {fileNames}'
+  images: Last opp bilder
 picture_upload_widget:
   picture_upload: Opplasting av bilder
   choose_picture: Velg et bilde fra datamaskinen din.
@@ -2558,6 +2562,9 @@ store:
   slotsCurrentlyOccupied: Plasser som for øyeblikket er belagt
   deactivatedRegion: Bedriftslisten kan for øyeblikket ikke vises for hele land og
     kontinenter.
+  chain_search_picker:
+    modal_title: Velg driftskjede
+    search_input: Søk etter kjedenavn
 storeview:
   status: Nåværende status
   public_time_at_night: om natten
@@ -2603,6 +2610,7 @@ storeview:
   team: Henteteam
   public_and_statistics: Statistikk og PR
   show_settings: Driftsinnstillinger
+  choose_chain: Velg en kjede
 fsp:
   info:
     none: ikke mer
@@ -2830,6 +2838,9 @@ wall:
   info-logging: Vær oppmerksom på at for å unngå konflikter, logges innholdet og personen
     som har utført det.
   placeholder: Skriv en ny vegginngang …
+  delete_confirmation:
+    text: Er du sikker på at du vil slette denne oppføringen fra {author}?
+    title: Vil du slette veggoppføringen?
 sidenav:
   localgroups: Lokale grupper
   yourgroups: Dine grupper
@@ -2915,13 +2926,14 @@ releases:
   "2023-08": Versjon «Jackfrukt» 🍈 (september 2023)
   "2023-09": Versjon «Jackfrukt» 🍈 (september 2023)
   "2024-01": Versjon «Kiwi» 🥝 (januar 2024)
+  "2024-04": Versjon «Kringle» 🥨 (april 2024)
 push_notifications:
   test_notification_title: Push-varsler er aktivert
   test_notification_body: Flott, det ser ut til å ha fungert :)
 conference:
-  privacy_notice: 'Merk: Videokonferanser håndteres via konferanseserveren til det
-    living utopia kollektivet. Du vil automatisk logges på med fornavnet du skrev
-    inn ved foodsharing.'
+  privacy_notice: 'Merk: Videokonferanser gjennomføres via living utopia-kollektivets
+    konferanseserver. Du vil automatisk bli logget inn der med ditt fornavn, ID og
+    avatar som du skrev inn i foodsharing.'
   join_title: Bli med på konferansen
   join: Bli med på konferansen
   description_text: Her kan du bli med på en videokonferanse for den valgte gruppen.
@@ -3024,6 +3036,7 @@ quiz:
   nownownow: Start quizen nå
   session_deleted: Resultatene for denne quizen er slettet fordi quizen ble fullført
     for mer enn to uker siden.
+  comments: Kommentarer
 fpsingular: feilpunktet
 filter_by: filtrer etter
 groups:
@@ -3327,6 +3340,7 @@ markdown_input:
     hrule: horisontal skillelinje
     link: link
     heading: overskrift
+    image: Legg ved bilder
   empty_preview_placeholder: "Dette er forhåndsvisningen av formateringen. Teksten
     vises her slik den vil vises senere.\n---\n*Men du har ikke skrevet inn noen tekst
     som kan vises her.*"
