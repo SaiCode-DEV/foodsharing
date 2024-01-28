@@ -329,6 +329,7 @@ quiz:
   notfinishedyet: 'Aún no has terminado el examen.'
   nownownow: 'Iniciar cuestionario ahora'
   regstart: 'Empezar el examen sin plazo y 20 preguntas'
+  comments: Comentario
 terminology:
   foodsaver:
     m: rescatista
@@ -2421,6 +2422,8 @@ wall:
   info-somebody-else: 'Como está autorizado a administrar esta operación, puede eliminar
     esta entrada si es necesario.'
   placeholder: Escribe una nueva entrada en el muro …
+  delete_confirmation:
+    text: ¿Seguro que desea eliminar esta entrada de {author}?
 events:
   bread: 'Eventos'
   add_new_event: 'Agregar un nuevo evento'
@@ -3314,9 +3317,9 @@ conference:
   description_text: 'Aquí puede unirse a una conferencia en línea para el grupo seleccionado.
     La conferencia en línea abre BigBlueButton en una nueva pestaña.'
   join_title: 'Unirse a la conferencia'
-  privacy_notice: 'Nota: Las conferencias en línea se llevan a cabo a través del servidor
-    de conferencias del colectivo “living utopía”. Automáticamente iniciarás sesión
-    allí con tu nombre ingresado en foodsharing.'
+  privacy_notice: 'Nota: Las videoconferencias se realizan a través del servidor de
+    conferencias del colectivo living utopia. Entrarás automáticamente con tu nombre,
+    ID y avatar introducidos en Foodsharing.'
   join: 'Unirse a la conferencia'
 base:
   whatfor: 'En foodsharing.network puedes donar tu comida a instituciones sociales
@@ -3451,6 +3454,11 @@ upload:
   preview_image: 'Vista previa'
   no_image_chosen: 'Aún no fichero seleccionado'
   choose_file: 'subir archivo'
+  images: Subir imágenes
+  invalid_image_files: '{count} los archivos seleccionados no son imágenes válidas:
+    {fileNames}'
+  image-problem: Su archivo no parece estar bien, es mejor utilizar una imagen jpg
+    normal
 public_time: 'Tiempo aproximado de recogida'
 quizusercomment: 'Danos retroalimentación por esa pregunta.
 
@@ -3557,6 +3565,7 @@ markdown_input:
     hrule: línea divisoria horizontal
     link: enlace
     heading: titular
+    image: Adjuntar imágenes
   empty_preview_placeholder: "Esta es la vista previa del formato. El texto tiene
     el formato que se mostrará más adelante.\n---\n*Pero no has ingresado ningún texto
     que pueda mostrarse aquí.*"
