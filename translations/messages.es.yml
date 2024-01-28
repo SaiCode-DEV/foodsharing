@@ -2424,6 +2424,7 @@ wall:
   placeholder: Escribe una nueva entrada en el muro …
   delete_confirmation:
     text: ¿Seguro que desea eliminar esta entrada de {author}?
+    title: ¿Borrar una entrada del tablón?
 events:
   bread: 'Eventos'
   add_new_event: 'Agregar un nuevo evento'
