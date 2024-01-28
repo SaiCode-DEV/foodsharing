@@ -1654,6 +1654,7 @@ releases:
   "2023-09": "Release \"Jackfruit\" 🍈 (September 2023)"
   "2024-01": "Release \"Kiwi\" 🍈 (January 2024)"
 
+  "2024-04": Release “Laugenbrezel” 🥨 (April 2024)
 footer:
   it_devdocs: by foodsharing IT
   donate_now: Donate now
@@ -3466,6 +3467,7 @@ markdown_input:
     hrule: horizontal rule
     link: link
     heading: heading
+    image: Attach images
   empty_preview_placeholder: "This is the formatting preview. The text is formatted
     here as it will be displayed later.\n---\n*But you haven’t entered any text that
     could be displayed here.*"
