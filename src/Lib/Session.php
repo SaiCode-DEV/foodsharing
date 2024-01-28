@@ -6,7 +6,6 @@ use Exception;
 use Flourish\fAuthorization;
 use Flourish\fSession;
 use Foodsharing\Lib\Db\Mem;
-use Foodsharing\Modules\Buddy\BuddyGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -45,7 +44,6 @@ class Session
 
     public function __construct(
         private readonly Mem $mem,
-        private readonly BuddyGateway $buddyGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly RegionGateway $regionGateway,
         private readonly StoreGateway $storeGateway,
@@ -363,8 +361,6 @@ class Session
             $this->regionGateway->addMember($fs_id, $master);
         }
 
-        $fs['buddys'] = $this->buddyGateway->listBuddyIds($fs_id);
-
         fAuthorization::setUserToken($fs['id']);
         $this->setAuthLevel(self::ROLE_KEYS[$fs['rolle']]);
 
@@ -384,7 +380,6 @@ class Session
             'privacy_notice_accepted_date' => $fs['privacy_notice_accepted_date'],
             'last_activity' => $fs['last_activity']
         ]);
-        $this->set('buddy-ids', $fs['buddys']);
 
         /*
          * Add entry into user -> session set

@@ -9,35 +9,28 @@ use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 
 class BuddyTransactions
 {
-    private readonly BuddyGateway $buddyGateway;
-    private readonly BellGateway $bellGateway;
-    private readonly Session $session;
+    private const SESSION_BUDDY_IDS_IDENTIFIER = 'buddy-ids';
 
     public function __construct(
-        BuddyGateway $buddyGateway,
-        BellGateway $bellGateway,
-        Session $session
+        private readonly BuddyGateway $buddyGateway,
+        private readonly BellGateway $bellGateway,
+        private readonly Session $session
     ) {
-        $this->buddyGateway = $buddyGateway;
-        $this->bellGateway = $bellGateway;
-        $this->session = $session;
     }
 
     /**
-     * Updates the buddy status and deletes open bell notifications.
+     * Updates the buddy status (in DB and cache) and deletes open bell notifications.
      *
      * @param int $userId ID of another user
      */
     public function acceptBuddyRequest(int $userId): void
     {
-        $this->buddyGateway->confirmBuddy($userId, $this->session->id());
+        $fsId = $this->session->id();
+        $this->buddyGateway->confirmBuddy($userId, $fsId);
 
         $this->deleteBuddyRequestBells($userId);
 
-        $buddyIds = $this->session->get('buddy-ids') ?: [];
-
-        $buddyIds[$userId] = $userId;
-        $this->session->set('buddy-ids', $buddyIds);
+        $this->reloadMyBuddyListSessionCache();
     }
 
     /**
@@ -76,5 +69,22 @@ class BuddyTransactions
     {
         $this->bellGateway->delBellsByIdentifier(BellType::createIdentifier(BellType::BUDDY_REQUEST, $this->session->id(), $userId));
         $this->bellGateway->delBellsByIdentifier(BellType::createIdentifier(BellType::BUDDY_REQUEST, $userId, $this->session->id()));
+    }
+
+    public function listBuddiesIds(): array
+    {
+        $buddies = $this->session->get(self::SESSION_BUDDY_IDS_IDENTIFIER);
+        if ($buddies === false) {
+            $this->reloadMyBuddyListSessionCache();
+            $buddies = $this->session->get(self::SESSION_BUDDY_IDS_IDENTIFIER);
+        }
+
+        return $buddies;
+    }
+
+    private function reloadMyBuddyListSessionCache()
+    {
+        $buddies = $this->buddyGateway->listBuddyIds($this->session->id());
+        $this->session->set(self::SESSION_BUDDY_IDS_IDENTIFIER, $buddies);
     }
 }

@@ -9,6 +9,7 @@ use Foodsharing\Modules\Activity\DTO\ActivityFilterCategory;
 use Foodsharing\Modules\Activity\DTO\ActivityUpdate;
 use Foodsharing\Modules\Activity\DTO\ActivityUpdateMailbox as MailboxUpdate;
 use Foodsharing\Modules\Activity\DTO\ImageActivityFilter;
+use Foodsharing\Modules\Buddy\BuddyTransactions;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
@@ -18,24 +19,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ActivityTransactions
 {
-    private readonly ActivityGateway $activityGateway;
-    private readonly MailboxGateway $mailboxGateway;
-    private readonly ImageHelper $imageHelper;
-    private readonly TranslatorInterface $translator;
-    private readonly Session $session;
-
     public function __construct(
-        ActivityGateway $activityGateway,
-        MailboxGateway $mailboxGateway,
-        ImageHelper $imageHelper,
-        TranslatorInterface $translator,
-        Session $session
+        private readonly ActivityGateway $activityGateway,
+        private readonly MailboxGateway $mailboxGateway,
+        private readonly ImageHelper $imageHelper,
+        private readonly TranslatorInterface $translator,
+        private readonly Session $session,
+        private readonly BuddyTransactions $buddyTransactions
     ) {
-        $this->activityGateway = $activityGateway;
-        $this->mailboxGateway = $mailboxGateway;
-        $this->imageHelper = $imageHelper;
-        $this->translator = $translator;
-        $this->session = $session;
     }
 
     /**
@@ -79,8 +70,8 @@ class ActivityTransactions
 
         // buddy walls
         $buddyOptions = [];
-        if ($buddyIds = $this->session->get('buddy-ids')) {
-            $buddies = $this->activityGateway->fetchAllBuddies((array)$buddyIds);
+        if ($buddyIds = $this->buddyTransactions->listBuddiesIds()) {
+            $buddies = $this->activityGateway->fetchAllBuddies($buddyIds);
             $buddyOptions = array_map(fn ($b) => ImageActivityFilter::create(
                 $b['name'], $b['id'], !isset($excluded['buddywall-' . $b['id']]),
                 $this->imageHelper->img($b['photo'])
@@ -215,7 +206,7 @@ class ActivityTransactions
     {
         $buddy_ids = [];
 
-        if ($b = $this->session->get('buddy-ids')) {
+        if ($b = $this->buddyTransactions->listBuddiesIds()) {
             $buddy_ids = $b;
         }
 
@@ -223,7 +214,7 @@ class ActivityTransactions
 
         $bids = [];
         foreach ($buddy_ids as $id) {
-            if (!isset($hidden_ids[$id])) {
+            if (!in_array($id, $hidden_ids)) {
                 $bids[] = $id;
             }
         }
