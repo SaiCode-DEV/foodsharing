@@ -13,7 +13,6 @@ use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Store\ConvinceStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
-use Foodsharing\Modules\Core\DBConstants\Store\Milestone;
 use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
 use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
@@ -276,21 +275,12 @@ class StoreTransactions
 
         $this->setStoreNameInConversations($storeId, $createStore->name);
 
-        $this->storeGateway->add_betrieb_notiz([
-            'foodsaver_id' => $authorFsId,
-            'betrieb_id' => $storeId,
-            'text' => '{BETRIEB_ADDED}',
-            'zeit' => date('Y-m-d H:i:s', time() - 10),
-            'milestone' => Milestone::CREATED,
-        ]);
-
         if (!empty($firstStorePost)) {
-            $this->storeGateway->add_betrieb_notiz([
+            $this->storeGateway->addStoreWallpost([
                 'foodsaver_id' => $authorFsId,
                 'betrieb_id' => $storeId,
                 'text' => $firstStorePost,
                 'zeit' => date('Y-m-d H:i:s'),
-                'milestone' => Milestone::NONE,
             ]);
         }
 
@@ -870,14 +860,6 @@ class StoreTransactions
         } else {
             $this->moveMemberToRegularTeam($storeId, $userId);
         }
-
-        $this->storeGateway->add_betrieb_notiz([
-            'foodsaver_id' => $userId,
-            'betrieb_id' => $storeId,
-            'text' => '{ACCEPT_REQUEST}',
-            'zeit' => date('Y-m-d H:i:s'),
-            'milestone' => Milestone::ACCEPTED,
-        ]);
     }
 
     // notify people who can do something with the request: store managers, region ambassadors, or orga

@@ -132,6 +132,16 @@ class UploadsTransactions
         $img->writeImage($output);
     }
 
+    public function getImageMetadata(string $input): array
+    {
+        $img = new Imagick($input);
+
+        return [
+            'width' => $img->getImageWidth(),
+            'height' => $img->getImageHeight(),
+        ];
+    }
+
     /**
      * This method generates a temporary file, before it can be saved in the database and on the non-temporary harddrive location.
      * It validates the image and remove exif data too.

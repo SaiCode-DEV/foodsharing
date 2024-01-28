@@ -8,6 +8,7 @@ use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Core\View;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Store\StoreGateway;
@@ -53,7 +54,8 @@ final class RegionController extends FoodsharingController
         private readonly VotingPermissions $votingPermissions,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly StoreGateway $storeGateway,
-        private readonly DataHelper $dataHelper
+        private readonly DataHelper $dataHelper,
+        private readonly View $view
     ) {
         parent::__construct();
     }
@@ -311,10 +313,15 @@ final class RegionController extends FoodsharingController
 
     private function wall(Request $request, array $region): Response
     {
-        $viewdata = $this->regionViewData($region, $request->query->get('sub'));
-        $viewdata['wall'] = ['module' => 'bezirk', 'wallId' => $region['id']];
+        $this->pageHelper->addBread($this->translator->trans('terminology.wall'), '/region?bid=' . $region['id'] . '&sub=wall');
+        $this->pageHelper->addContent($this->view->vueComponent('vue-wall', 'wall', [
+            'target' => 'bezirk',
+            'targetId' => $region['id'],
+        ]));
 
-        return $this->renderGlobal('pages/Region/wall.twig', $viewdata);
+        $viewdata = $this->regionViewData($region, $request->query->get('sub'));
+
+        return $this->renderGlobal('pages/Region/baseRegion.twig', $viewdata);
     }
 
     private function foodSharePoint(Request $request, array $region): Response

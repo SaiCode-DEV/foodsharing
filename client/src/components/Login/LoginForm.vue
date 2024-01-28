@@ -74,6 +74,7 @@ import { login } from '@/api/user'
 import { required, email } from 'vuelidate/lib/validators'
 
 import { pulseError } from '@/script'
+import { HTTP_RESPONSE } from '@/consts'
 
 export default {
   name: 'MenuLogin',
@@ -125,7 +126,7 @@ export default {
         window.location.href = this.$url('dashboard')
       } catch (err) {
         this.isLoading = false
-        if (err.code && err.code === 401) {
+        if (err.code && err.code === HTTP_RESPONSE.UNAUTHORIZED) {
           pulseError(this.$i18n('login.error_no_auth'))
         } else {
           pulseError(this.$i18n('error_unexpected'))

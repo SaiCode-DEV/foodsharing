@@ -244,7 +244,7 @@ class StoreCest
         $I->waitForActiveAPICalls();
         $I->waitForText('Abholungshistorie');
         // expand UI (should be collapsed by default)
-        $I->click('#Abholungshistorie');
+        $I->click('#expand-Abholungshistorie');
         $I->waitForText('Abholungen anzeigen');
         // select a date ~4 years in the past, to see if the calendar works
         $I->click('.date-picker-from');

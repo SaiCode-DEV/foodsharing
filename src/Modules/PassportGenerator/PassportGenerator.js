@@ -16,6 +16,7 @@ import {
   expose,
 } from '@/utils'
 import './PassportGenerator.css'
+import { HTTP_RESPONSE } from '@/consts'
 
 expose({
   checkAllCb,
@@ -87,7 +88,7 @@ $('.verify').on('click', async function () {
       $this.removeClass('verify-undo')
       $this.addClass('verify-do')
     } catch (err) {
-      if (err.code === 400) {
+      if (err.code === HTTP_RESPONSE.BAD_REQUEST) {
         $('#unverifyconfirm-dialog').dialog('open')
       } else {
         console.error(err)

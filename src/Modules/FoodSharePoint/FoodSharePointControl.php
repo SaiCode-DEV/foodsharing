@@ -287,11 +287,13 @@ class FoodSharePointControl extends Control
                     $this->translator->trans('fsp.publicwall'),
                     $this->translator->trans('notice')
                 ) . '
-			</div>
-			<div class="ui-widget ui-widget-content ui-corner-all margin-bottom">
-				' . $this->wallposts('fairteiler', $this->foodSharePoint['id']) . '
 			</div>'
         );
+
+        $this->pageHelper->addContent($this->view->vueComponent('vue-wall', 'wall', [
+            'target' => 'fairteiler',
+            'targetId' => $this->foodSharePoint['id'],
+        ]));
 
         if ($this->foodSharePointPermissions->mayFollow()) {
             $items = [];

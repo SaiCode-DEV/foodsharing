@@ -65,11 +65,12 @@
 
 <script>
 import { getStoreWall, deleteStorePost, writeStorePost } from '@/api/stores'
-import WallPost from '@php/Modules/WallPost/components/WallPost.vue'
+import WallPost from '@php/Modules/WallPost/components/WallPost.vue' // only place to use this component
 import { showLoader, hideLoader, pulseError } from '@/script'
 import ListToggleMixin from '@/mixins/ContainerToggleMixin'
 import Container from '@/components/Container/Container.vue'
 import MarkdownInput from '../Markdown/MarkdownInput.vue'
+import { HTTP_RESPONSE } from '@/consts'
 
 export default {
   components: { WallPost, Container, MarkdownInput },
@@ -142,7 +143,7 @@ export default {
           this.posts.splice(index, 1)
         }
       } catch (e) {
-        if (e.code === 403) {
+        if (e.code === HTTP_RESPONSE.FORBIDDEN) {
           pulseError(this.$i18n('wall.error-delete'))
         } else {
           pulseError(this.$i18n('error_unexpected'))

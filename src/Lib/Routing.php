@@ -37,7 +37,6 @@ use Foodsharing\Modules\Store\StoreXhr;
 use Foodsharing\Modules\StoreChain\StoreChainControl;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
 use Foodsharing\Modules\Voting\VotingControl;
-use Foodsharing\Modules\WallPost\WallPostXhr;
 use Foodsharing\Modules\WorkGroup\WorkGroupControl;
 use Foodsharing\Modules\WorkGroup\WorkGroupXhr;
 
@@ -128,7 +127,6 @@ class Routing
         'report' => ReportXhr::class,
         'settings' => SettingsXhr::class,
         'betrieb' => StoreXhr::class,
-        'wallpost' => WallPostXhr::class,
         'groups' => WorkGroupXhr::class,
         'store' => StoreXhr::class,
         'basket' => BasketXhr::class,

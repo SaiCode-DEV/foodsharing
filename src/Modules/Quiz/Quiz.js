@@ -3,18 +3,16 @@ import '@/globals'
 import '@/tablesorter'
 import 'jquery.tinymce'
 import './Quiz.css'
-
 import { expose } from '@/utils'
 import { ifconfirm } from '@/script'
-
-// Wallpost
 import { GET } from '@/browser'
-import '../WallPost/WallPost.css'
-import { initWall } from '@/wall'
+import Wall from '@/components/Wall/Wall'
+import { vueApply, vueRegister } from '@/vue'
 
 const sub = GET('sub')
 if (sub === 'wall') {
-  initWall('question', GET('id'))
+  vueRegister({ Wall })
+  vueApply('#vue-wall', true)
 }
 
 expose({

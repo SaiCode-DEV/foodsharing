@@ -4,12 +4,11 @@ import { acceptApplication, declineApplication } from '@/api/applications'
 import { pulseError, pulseInfo, goTo } from '@/script'
 import i18n from '@/helper/i18n'
 import { expose } from '@/utils'
-// Wallpost
-import { GET } from '@/browser'
-import '../WallPost/WallPost.css'
-import { initWall } from '@/wall'
+import Wall from '@/components/Wall/Wall'
+import { vueApply, vueRegister } from '@/vue'
 
-initWall('application', GET('fid'))
+vueRegister({ Wall })
+vueApply('#vue-wall', true)
 
 expose({
   tryAcceptApplication,

@@ -182,8 +182,6 @@ class StoreTransactionsTest extends Unit
 
         // Check creation of notes in store wall
         $this->tester->seeInDatabase('fs_betrieb_notiz', [
-            'foodsaver_id' => $storeCreator['id'], 'betrieb_id' => $dbStoreId, 'text' => '{BETRIEB_ADDED}', 'milestone' => Milestone::CREATED]);
-        $this->tester->seeInDatabase('fs_betrieb_notiz', [
             'foodsaver_id' => $storeCreator['id'], 'betrieb_id' => $dbStoreId, 'text' => 'First post', 'milestone' => Milestone::NONE]);
 
         // Test bell for foodsaver

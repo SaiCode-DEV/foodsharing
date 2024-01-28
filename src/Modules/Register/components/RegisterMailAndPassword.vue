@@ -111,6 +111,7 @@
 import { required, email, minLength, sameAs, not } from 'vuelidate/lib/validators'
 import { testRegisterEmail } from '@/api/user'
 import { isFoodsharingDomain } from '@/helper/urls'
+import { HTTP_RESPONSE } from '@/consts'
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -156,7 +157,7 @@ export default {
           const MailExist = await testRegisterEmail($event.target.value)
           this.isMailValidForRegistration = MailExist.valid
         } catch (err) {
-          if (err.code && err.code === 400) {
+          if (err.code && err.code === HTTP_RESPONSE.BAD_REQUEST) {
             this.isMailInvalid = true
             return this.isMailInvalid
           } else {

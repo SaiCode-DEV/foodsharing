@@ -97,10 +97,11 @@ class EventControl extends Control
         if ($event['invites']) {
             $this->pageHelper->addContent($this->view->invites($event['invites']), CNT_RIGHT);
         }
-        $this->pageHelper->addContent($this->v_utils->v_field(
-            $this->wallposts('event', $eventId),
-            $this->translator->trans('wall.name')
-        ));
+
+        $this->pageHelper->addContent($this->view->vueComponent('vue-wall', 'wall', [
+            'target' => 'event',
+            'targetId' => $eventId,
+        ]));
     }
 
     public function edit()

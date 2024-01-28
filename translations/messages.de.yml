@@ -219,6 +219,7 @@ quiz:
   quizleft: " – Jetzt gilt es noch das Quiz zu bestehen!"
   nownownow: "Quiz jetzt starten"
   session_deleted: "Die Ergebnisse für dieses Quiz wurden gelöscht, da das Quiz vor mehr als zwei Wochen abgeschlossen wurde."
+  comments: "Kommentare"
 
 # quiz: "Quiz
 # For legacy UI reasons (QuizView), needs to be toplevel with this exact key:
@@ -238,11 +239,14 @@ upload:
   no_image_chosen: "Noch keine Datei ausgewählt"
   preview_image: "Vorschau"
   image: "Bild hochladen"
+  images: "Bilder hochladen"
   new_image: "Neues Bild hochladen"
   file: "Datei hochladen"
   choose_file: "Datei hochladen"
   new_file: "Neue Datei hochladen"
   crop_dialog_title: "Bild ausschneiden"
+  image-problem: "Deine Datei scheint nicht in Ordnung zu sein, nimm am besten ein normales jpg-Bild"
+  invalid_image_files: "{count} ausgewählte Dateien sind keine gültigen Bilder: {fileNames}"
 
 button:
   save: "Speichern"
@@ -1308,6 +1312,9 @@ wall:
   created: "Klasse, dein Pinnwandeintrag wurde gespeichert."
   error-create: "Dein Pinnwandeintrag konnte nicht gespeichert werden."
   placeholder: "Neuen Pinnwandeintrag schreiben …"
+  delete_confirmation:
+    text: Willst du wirklich diesen Eintrag von {author} löschen?
+    title: Pinnwandeintrag löschen?
 
 events:
   bread: "Termine"
@@ -3221,9 +3228,9 @@ markdown_input:
     orderedList: Nummerierte Liste
     hrule: Trennlinie
     preview: Vorschau
+    image: Bilder anhängen
   empty_preview_placeholder: "Dies ist die Formatierungsvorschau. Der Text wird hier so formatiert, wie er auch später angezeigt wird.
 
     ---
 
     *Du hast aber noch keinen Text eingegeben, der hier angezeigt werden könnte.*"
-

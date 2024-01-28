@@ -213,9 +213,6 @@ class ProfileView extends View
             );
         }
 
-        $wallTitle = $this->translator->trans('profile.pinboard', ['{name}' => $this->foodsaver['name']]);
-        $page->addSection($wallPosts, $wallTitle);
-
         if ($this->session->id() != $fsId) {
             $this->pageHelper->addStyle('#wallposts .tools {display:none;}');
         }
@@ -257,6 +254,7 @@ class ProfileView extends View
         }
 
         $page->render();
+        $this->pageHelper->addContent($wallPosts);
     }
 
     private function infos(): string
@@ -275,18 +273,15 @@ class ProfileView extends View
 			</div>';
     }
 
-    public function userNotes(string $notes, array $userStores): void
+    public function userNotes($wallPosts): void
     {
-        $fsName = $this->foodsaver['name'];
-
-        $page = new vPage(
-            $this->translator->trans('profile.notes.title', ['{name}' => $fsName]),
-            $this->v_utils->v_info($this->translator->trans('profile.notes.info')) . $notes
+        $page = new vPage($this->translator->trans('profile.notes.title', ['{name}' => $this->foodsaver['name']]),
+            $this->v_utils->v_info($this->translator->trans('profile.notes.info'))
+            . $wallPosts
         );
+
         $page->setBread($this->translator->trans('profile.notes.bread'));
-
         $page->addSectionLeft('<a href="#"><img src="' . $this->imageService->img($this->foodsaver['photo'], 130) . '" /></a>');
-
         $page->render();
     }
 

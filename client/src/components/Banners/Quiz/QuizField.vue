@@ -46,6 +46,7 @@
 import { mutations } from '@/stores/calendar'
 // Mixin
 import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
+import { HTTP_RESPONSE } from '@/consts'
 
 export default {
   mixins: [RouteAndDeviceCheckMixin],
@@ -72,7 +73,7 @@ export default {
         await mutations.fetchToken()
         this.close()
       } catch (hidden) {
-        if (hidden.code === 404) return {}
+        if (hidden.code === HTTP_RESPONSE.NOT_FOUND) return {}
       }
     }
     if (!this.isSet && this.type === 'push' && this.isSafari) {

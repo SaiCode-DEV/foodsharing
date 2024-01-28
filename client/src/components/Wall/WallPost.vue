@@ -1,0 +1,73 @@
+<!-- eslint-disable vue/max-attributes-per-line -->
+<template>
+  <div :id="`wallpost-${post.id}`" class="list-group-item d-flex" style="gap: 1em">
+    <a :href="$url('profile', post.author.id)" class="avatar-link">
+      <Avatar :url="post.author.avatar" :size="50" class="member-pic img" :is-sleeping="post.author.sleepStatus" />
+    </a>
+
+    <div class="flex-grow-1 position-relative">
+      <div class="d-flex" style="gap: 0.5em">
+        <a :href="$url('profile', post.author.id)" v-text="post.author.name" />
+        <span class="flex-grow-1" />
+        <Time :time="post.time" />
+        <i v-if="canDelete" v-b-tooltip="$i18n('wall.delete')" class="fas fa-trash-alt text-muted delete-post"
+           @click="$emit('delete', post.id)"
+        />
+      </div>
+      <Markdown :source="post.body" />
+
+      <Gallery :images="post.pictures" />
+    </div>
+  </div>
+</template>
+
+<script>
+import DataUser from '@/stores/user'
+import Avatar from '@/components/Avatar'
+import Markdown from '@/components/Markdown/Markdown'
+import Gallery from '@/components/Images/Gallery'
+import Time from '../Time.vue'
+
+export default {
+  components: { Avatar, Markdown, Gallery, Time },
+  props: {
+    post: { type: Object, required: true },
+    mayDeleteEverything: { type: Boolean, default: false },
+  },
+  computed: {
+    canDelete () {
+      return this.mayDeleteEverything || this.post.author.id === DataUser.getters.getUserId()
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.delete-post:hover {
+  color: var(--fs-color-danger-500) !important;
+  cursor: pointer;
+}
+
+.preview-images {
+  white-space: nowrap;
+  overflow-x: scroll;
+  position: relative;
+  width: 0px;
+  min-width: 100%;
+  margin-top: 1em;
+  padding: .5em;
+  box-shadow: 0 0 4px 2px #0002 inset;
+  border-radius: var(--border-radius);
+  text-align: center;
+  background-color: var(--fs-color-gray-100);
+  > :last-child {
+    margin-right: 0.75em;
+  }
+}
+
+.avatar-link {
+  height: fit-content;
+  position: sticky;
+  top: calc(var(--navbar-height) + 1em);
+}
+</style>

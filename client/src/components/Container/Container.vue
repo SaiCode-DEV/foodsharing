@@ -10,7 +10,7 @@
       />
       <i
         v-if="!disableToggleExpanded"
-        :id="title"
+        :id="`expand-${title}`"
         :alt="isExpanded ? $i18n('globals.show_more') : $i18n('globals.show_less')"
         class="fas fa-angle-down"
         :class="{ 'fa-rotate-180': isExpanded }"

@@ -494,4 +494,16 @@ class FoodSharePointGateway extends BaseGateway
             'orig' => 'images/' . $picture,
         ];
     }
+
+    public function getFollowerStatus(int $foodSharePointId, int $userId): int
+    {
+        try {
+            return $this->db->fetchValueByCriteria('fs_fairteiler_follower', 'type', [
+                'fairteiler_id' => $foodSharePointId,
+                'foodsaver_id' => $userId,
+            ]);
+        } catch (\Exception $error) {
+            return 0;
+        }
+    }
 }

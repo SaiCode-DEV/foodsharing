@@ -48,7 +48,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 
-class UserRestController extends FoodsharingRestController
+class UserRestController extends AbstractFoodsharingRestController
 {
     private const MIN_RATING_MESSAGE_LENGTH = 100;
     private const MIN_PASSWORD_LENGTH = 8;
@@ -56,7 +56,7 @@ class UserRestController extends FoodsharingRestController
     private const DELETE_USER_MAX_REASON_LEN = 200;
 
     public function __construct(
-        private Session $session,
+        protected Session $session,
         private LoginGateway $loginGateway,
         private FoodsaverGateway $foodsaverGateway,
         private ProfileGateway $profileGateway,
@@ -81,7 +81,6 @@ class UserRestController extends FoodsharingRestController
         private GroupTransactions $groupTransactions,
         private DataHelper $dataHelper
     ) {
-        $this->session = $session;
         $this->loginGateway = $loginGateway;
         $this->foodsaverGateway = $foodsaverGateway;
         $this->profileGateway = $profileGateway;

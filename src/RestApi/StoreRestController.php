@@ -15,7 +15,6 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
-use Foodsharing\Modules\Core\DBConstants\Store\Milestone;
 use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
@@ -530,8 +529,6 @@ class StoreRestController extends AbstractFOSRestController
             'betrieb_id' => $storeId,
             'text' => $text,
             'zeit' => date('Y-m-d H:i:s'),
-            'milestone' => Milestone::NONE,
-            'last' => 1
         ];
         $postId = $this->storeGateway->addStoreWallpost($note);
 

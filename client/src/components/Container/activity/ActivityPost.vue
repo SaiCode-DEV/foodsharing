@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO unify with wall post -->
   <li
     class="list-group-item activity-post"
   >
@@ -58,26 +59,13 @@
           v-html="fs_id ? fs_name : sender_email"
         />
       </a>
-      <div class="content">
-        <div
-          v-if="gallery.length > 0"
-          class="d-inline-flex mb-3"
-        >
-          <a
-            v-for="img in gallery.slice(0,4)"
-            :key="img.thumb"
-            :href="dashboardContentLink"
-            class="img-thumbnail mr-1"
-          >
-            <img
-              :alt="$i18n('upload.preview_image')"
-              :src="img.thumb"
-              loading="lazy"
-            >
-          </a>
-        </div>
+      <div class="content w-100">
         <Markdown
           :source="!state ? truncate(desc, truncatedLength) : desc"
+        />
+        <Gallery
+          :images="gallery.slice(0, 4)"
+          :height-in-px="75"
         />
         <button
           v-if="isTruncatable || canQuickreply"
@@ -184,13 +172,14 @@ import AutoResizeTextareaMixin from '@/mixins/AutoResizeTextareaMixin'
 import { pulseInfo } from '@/script'
 import { createPost } from '@/api/forum'
 import { addPost } from '@/api/wall'
+import { sendEmail } from '@/api/mailbox'
 
 import Markdown from '@/components/Markdown/Markdown'
 import Avatar from '@/components/Avatar'
-import { sendEmail } from '@/api/mailbox'
+import Gallery from '@/components/Images/Gallery'
 
 export default {
-  components: { Markdown, Avatar },
+  components: { Markdown, Avatar, Gallery },
   mixins: [StateTogglerMixin, MediaQueryMixin, AutoResizeTextareaMixin],
   /* eslint-disable vue/prop-name-casing */
   props: {

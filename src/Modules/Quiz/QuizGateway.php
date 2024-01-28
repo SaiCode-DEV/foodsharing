@@ -8,6 +8,7 @@ use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\WallPost\DTO\WallPost;
 use Foodsharing\Modules\WallPost\WallPostGateway;
 
 class QuizGateway extends BaseGateway
@@ -347,9 +348,10 @@ class QuizGateway extends BaseGateway
         return $this->db->delete('fs_answer', ['id' => $answerId]);
     }
 
-    public function addUserComment(int $questionId, int $fsId, string $comment): bool
+    public function addUserComment(int $questionId, int $foodsaverId, string $comment): bool
     {
-        $commentId = $this->wallPostGateway->addPost($comment, $fsId, 'question', $questionId);
+        $wallPost = WallPost::createFromArray(['body' => $comment]);
+        $commentId = $this->wallPostGateway->addPost($wallPost, $foodsaverId, 'question', $questionId);
 
         return $this->handleUserComment($questionId, $commentId, $comment);
     }

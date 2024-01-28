@@ -80,6 +80,7 @@ import MultiSelectionVotingComponent from './MultiSelectionVotingComponent'
 import { vote } from '@/api/voting'
 import { pulseError, pulseSuccess, shuffle } from '@/script'
 import i18n from '@/helper/i18n'
+import { HTTP_RESPONSE } from '@/consts'
 
 export default {
   components: {
@@ -126,7 +127,7 @@ export default {
         pulseSuccess(i18n('poll.vote_success'))
         this.$emit('vote-callback')
       } catch (e) {
-        if (e.code === 403) {
+        if (e.code === HTTP_RESPONSE.FORBIDDEN) {
           pulseError(i18n('poll.error_cannot_vote'))
         } else {
           pulseError(i18n('error_unexpected'))

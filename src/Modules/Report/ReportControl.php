@@ -76,12 +76,11 @@ class ReportControl extends Control
                     ),
                     CNT_TOP
                 );
-                $this->pageHelper->addContent(
-                    $this->v_utils->v_field(
-                        $this->wallposts('report', (int)$_GET['id']),
-                        $this->translator->trans('profile.report.control.notes')
-                    )
-                );
+                $this->pageHelper->addContent($this->view->vueComponent('vue-wall', 'wall', [
+                    'target' => 'report',
+                    'targetId' => (int)$_GET['id'],
+                    'title' => $this->translator->trans('profile.report.control.notes')
+                ]));
                 $this->pageHelper->addContent(
                     $this->view->listReportsTiny($foodsaver['reports']),
                     CNT_RIGHT

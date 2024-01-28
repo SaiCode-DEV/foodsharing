@@ -5,12 +5,11 @@ import { vueRegister, vueApply } from '@/vue'
 
 import ReportList from './components/ReportList.vue'
 import { GET } from '@/script'
-// Wallpost
-import '../WallPost/WallPost.css'
-import { initWall } from '@/wall'
+import Wall from '@/components/Wall/Wall'
 
 if (GET('sub') === 'foodsaver') {
-  initWall('report', GET('id'))
+  vueRegister({ Wall })
+  vueApply('#vue-wall', true)
 }
 
 // The container for the report list only exists if a region specific page is requested

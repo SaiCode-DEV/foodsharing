@@ -37,8 +37,9 @@ class FoodsaverForAvatar
     /**
      * Converts an dictionary into an FoodsaverForAvatar object.
      */
-    public static function createFromArray(array $data, array $keys = ['id' => 'id', 'name' => 'name', 'avatar' => 'photo']): FoodsaverForAvatar
+    public static function createFromArray(array $data, array $keys = []): FoodsaverForAvatar
     {
+        $keys = array_merge(['id' => 'id', 'name' => 'name', 'avatar' => 'photo'], $keys);
         $obj = new FoodsaverForAvatar();
         $obj->id = $data[$keys['id']];
         $obj->name = $data[$keys['name']];

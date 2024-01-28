@@ -89,6 +89,7 @@ import { requestBasket, withdrawBasketRequest } from '@/api/baskets'
 import { pulseSuccess, pulseError } from '@/script'
 import i18n from '@/helper/i18n'
 import conversationStore from '@/stores/conversations'
+import { HTTP_RESPONSE } from '@/consts'
 
 export default {
   components: { BFormTextarea, BModal },
@@ -140,11 +141,11 @@ export default {
         this.hasRequested = true
         pulseSuccess(i18n('basket.sent_request'))
       } catch (e) {
-        if (e.code === 400) {
+        if (e.code === HTTP_RESPONSE.BAD_REQUEST) {
           pulseError(i18n('basket.request_empty'))
-        } else if (e.code === 403) {
+        } else if (e.code === HTTP_RESPONSE.FORBIDDEN) {
           pulseError(i18n('basket.request_denied'))
-        } else if (e.code === 404) {
+        } else if (e.code === HTTP_RESPONSE.NOT_FOUND) {
           pulseError(i18n('basket.not_found'))
         } else {
           pulseError('Request basket failed: ' + e)
@@ -160,7 +161,7 @@ export default {
         this.hasRequested = false
         pulseSuccess(i18n('basket.withdrawn_request'))
       } catch (e) {
-        if (e.code === 404) {
+        if (e.code === HTTP_RESPONSE.NOT_FOUND) {
           pulseError(i18n('basket.not_found'))
         } else {
           pulseError(i18n('basket.not_withdrawn') + e)

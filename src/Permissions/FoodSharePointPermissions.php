@@ -4,20 +4,18 @@ namespace Foodsharing\Permissions;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
+use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 
 class FoodSharePointPermissions
 {
-    private readonly Session $session;
-    private readonly GroupFunctionGateway $groupFunctionGateway;
-
     public function __construct(
-        Session $session,
-        GroupFunctionGateway $groupFunctionGateway
+        private readonly Session $session,
+        private readonly GroupFunctionGateway $groupFunctionGateway,
+        private readonly FoodSharePointGateway $foodSharePointGateway,
     ) {
-        $this->session = $session;
-        $this->groupFunctionGateway = $groupFunctionGateway;
     }
 
     public function mayFollow(): bool
@@ -79,5 +77,10 @@ class FoodSharePointPermissions
         }
 
         return false;
+    }
+
+    public function mayAdministrateFoodSharePoint(int $foodSharePointId): bool
+    {
+        return $this->foodSharePointGateway->getFollowerStatus($foodSharePointId, $this->session->id()) === FollowerType::FOOD_SHARE_POINT_MANAGER;
     }
 }

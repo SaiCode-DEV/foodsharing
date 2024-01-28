@@ -24,13 +24,13 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class MailboxRestController extends FoodsharingRestController
+class MailboxRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
+        protected Session $session,
         private readonly MailboxGateway $mailboxGateway,
         private readonly MailboxPermissions $mailboxPermissions,
         private readonly MailboxTransactions $mailboxTransactions,
-        private readonly Session $session,
     ) {
     }
 

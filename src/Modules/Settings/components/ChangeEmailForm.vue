@@ -81,6 +81,7 @@ import { pulseError, pulseInfo } from '@/script'
 import { email, minLength, not, required, sameAs } from 'vuelidate/lib/validators'
 import { requestEmailChange } from '@/api/settings'
 import { isFoodsharingDomain } from '@/helper/urls'
+import { HTTP_RESPONSE } from '@/consts'
 
 export default {
   data () {
@@ -105,9 +106,9 @@ export default {
         pulseInfo(this.$i18n('settings.changemail.sent'), { sticky: true })
       } catch (e) {
         let message = e.message
-        if (e.code === 403) {
+        if (e.code === HTTP_RESPONSE.FORBIDDEN) {
           message = this.$i18n('settings.changemail.wrong_password')
-        } else if (e.code === 400) {
+        } else if (e.code === HTTP_RESPONSE.BAD_REQUEST) {
           message = this.$i18n('settings.changemail.occupied')
         }
         pulseError(message)

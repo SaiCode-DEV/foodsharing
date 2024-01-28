@@ -4,10 +4,8 @@ export function getWallPosts (target, targetId) {
   return get(`/wall/${target}/${targetId}`)
 }
 
-export function addPost (target, targetId, body) {
-  return post(`/wall/${target}/${targetId}`, {
-    body: body,
-  })
+export function addPost (target, targetId, body, pictures) {
+  return post(`/wall/${target}/${targetId}`, { body, pictures })
 }
 
 export function deletePost (target, targetId, postId) {

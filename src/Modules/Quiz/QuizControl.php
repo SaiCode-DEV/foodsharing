@@ -115,7 +115,11 @@ class QuizControl extends Control
 
             $topbarContent = $this->getWallTopbarContent($question);
             $this->pageHelper->addContent($topbarContent, CNT_TOP);
-            $this->pageHelper->addContent($this->v_utils->v_field($this->wallposts('question', $questionId), 'Kommentare'), CNT_MAIN);
+            $this->pageHelper->addContent($this->view->vueComponent('vue-wall', 'wall', [
+                'target' => 'question',
+                'targetId' => $questionId,
+                'title' => $this->translator->trans('quiz.comments')
+            ]));
             $this->pageHelper->addContent($this->view->answerSidebar($this->quizGateway->getAnswers($questionId)), CNT_RIGHT);
         }
     }

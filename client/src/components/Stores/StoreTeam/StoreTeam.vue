@@ -265,6 +265,7 @@ import StoreData, { STORE_TEAM_STATE } from '@/stores/stores'
 import Container from '@/components/Container/Container.vue'
 import ListToggleMixin from '@/mixins/ContainerToggleMixin'
 import StoreApplications from '@/components/Modals/Store/StoreApplications.vue'
+import { HTTP_RESPONSE } from '@/consts'
 
 export default {
   components: { StoreManagementPanel, StoreTeamAvatar, StoreTeamInfo, StoreTeamInfotext, Container, StoreApplications },
@@ -568,7 +569,7 @@ export default {
       try {
         await promoteToStoreManager(this.storeId, fsId)
       } catch (e) {
-        if (e.code === 422) {
+        if (e.code === HTTP_RESPONSE.UNPROCESSABLE_ENTITY) {
           pulseError(this.$i18n('store.sm.promoteToManagerNotPossible'))
         } else {
           pulseError(this.$i18n('error_unexpected'))

@@ -52,7 +52,11 @@ class ActivityGateway extends BaseGateway
             ]
         );
 
-        return $this->prepareImageGallery($posts);
+        foreach ($posts as &$post) {
+            $this->formatImages($post);
+        }
+
+        return $posts;
     }
 
     public function fetchAllFriendWallUpdates(array $buddyIds, int $page): array
@@ -95,7 +99,11 @@ class ActivityGateway extends BaseGateway
             ]
         );
 
-        return $this->prepareImageGallery($posts);
+        foreach ($posts as &$post) {
+            $this->formatImages($post);
+        }
+
+        return $posts;
     }
 
     public function fetchAllMailboxUpdates(array $mb_ids, int $page): array
@@ -282,30 +290,26 @@ class ActivityGateway extends BaseGateway
                 ':items_per_page' => self::ITEMS_PER_PAGE,
             ]
         );
+        foreach ($events as &$event) {
+            $this->formatImages($event);
+        }
 
-        return $this->prepareImageGallery($events);
+        return $events;
     }
 
-    private function prepareImageGallery(array $updateData): array
+    private function formatImages(array &$post): void
     {
-        foreach ($updateData as $key => $w) {
-            if (empty($w['attach'])) {
-                continue;
-            }
-            $data = json_decode((string)$w['attach'], true);
-            $imgData = $data['image'] ?? [];
-
-            $gallery = [];
-            foreach ($imgData as $img) {
-                $gallery[] = [
+        if (!empty($post['attach'])) {
+            $data = json_decode($post['attach'], true);
+            if (isset($data['image'])) {
+                $post['gallery'] = array_map(fn ($img) => [
                     'image' => 'images/wallpost/' . $img['file'],
                     'medium' => 'images/wallpost/medium_' . $img['file'],
                     'thumb' => 'images/wallpost/thumb_' . $img['file']
-                ];
+                ], $data['image']);
+            } elseif (isset($data['images'])) {
+                $post['gallery'] = $data['images'];
             }
-            $updateData[$key]['gallery'] = $gallery;
         }
-
-        return $updateData;
     }
 }

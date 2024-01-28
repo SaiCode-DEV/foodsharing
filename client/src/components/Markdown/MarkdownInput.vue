@@ -27,7 +27,10 @@
         </b-button>
       </b-button-group>
     </b-button-toolbar>
-    <div class="input-content">
+    <div
+      class="input-content"
+      :class="{ rounded: !hasImages}"
+    >
       <b-form-textarea
         v-if="!isPreview"
         ref="input"
@@ -46,10 +49,17 @@
         :source="modelValue || $i18n('markdown_input.empty_preview_placeholder')"
       />
     </div>
+    <ImageUpload
+      v-if="allowImageAttachments"
+      ref="image-upload"
+      :upload-button="false"
+      @change="newValue => { hasImages = newValue }"
+    />
   </div>
 </template>
 
 <script>
+import ImageUpload from '@/components/upload/ImageUpload'
 import Markdown from './Markdown.vue'
 import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 
@@ -61,45 +71,23 @@ function getMaxRowsForScreenSize () {
 }
 
 export default {
-  components: { Markdown },
+  components: { Markdown, ImageUpload },
   mixins: [RouteAndDeviceCheckMixin],
   props: {
-    rows: {
-      type: Number,
-      default: 4,
-    },
-    maxRows: {
-      type: Number,
-      default: getMaxRowsForScreenSize(),
-    },
-    value: {
-      type: String,
-      default: '',
-    },
-    state: {
-      type: Boolean,
-      default: null,
-    },
-    variant: {
-      type: String,
-      default: 'secondary',
-    },
-    placeholder: {
-      type: String,
-      default: '',
-    },
-    concealToolbar: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
+    rows: { type: Number, default: 4 },
+    maxRows: { type: Number, default: getMaxRowsForScreenSize },
+    value: { type: String, default: '' },
+    state: { type: Boolean, default: null },
+    variant: { type: String, default: 'secondary' },
+    placeholder: { type: String, default: '' },
+    concealToolbar: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
+    allowImageAttachments: { type: Boolean, default: false },
   },
   data () {
     return {
       isPreview: false,
+      hasImages: false,
       buttons: [
         { tooltip: 'bold', icon: 'bold', action: this.bold },
         { tooltip: 'italic', icon: 'italic', action: this.italic },
@@ -111,6 +99,7 @@ export default {
         { tooltip: 'unorderedList', icon: 'list', action: this.unorderedList },
         { tooltip: 'orderedList', icon: 'list-ol', action: this.orderedList },
         { tooltip: 'hrule', icon: 'minus', action: this.hrule },
+        ...(this.allowImageAttachments ? [{ tooltip: 'image', icon: 'images', action: this.selectImages }] : []),
         // Additional buttons that could be added in the future:
         // { icon: 'at'}, // supposed to be a way to insert links to user profiles easily
         // { icon: 'table'}, // for adding md tables
@@ -132,8 +121,14 @@ export default {
       if (this.isSafari) return false
       if (this.disabled) return true
       if (this.isPreview) return false
+      if (this.hasImages) return false
       if (this.modelValue.length > 0) return false
       return this.concealToolbar
+    },
+  },
+  watch: {
+    hasImages () {
+      this.$emit('image-change', this.hasImages)
     },
   },
   methods: {
@@ -237,6 +232,15 @@ export default {
         evt.preventDefault()
       }
     },
+    selectImages () {
+      this.$refs['image-upload'].openUploadDialog()
+    },
+    clearImages () {
+      this.$refs['image-upload'].clearImages()
+    },
+    async uploadImages () {
+      return await this.$refs['image-upload'].uploadImages()
+    },
   },
 }
 </script>
@@ -249,8 +253,8 @@ export default {
     border-radius: .2rem .2rem var(--border-radius) var(--border-radius);
   }
   &:not(.conceal-toolbar:not(:focus-within)) .input-content {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
+      border-top-left-radius: 0 !important;
+      border-top-right-radius: 0 !important;
       border-top: 0;
   }
   &.conceal-toolbar:not(:focus-within) .md-button-toolbar {
@@ -276,13 +280,18 @@ export default {
 }
 .input-content {
   border: 1px solid var(--fs-border-default);
-  border-radius: var(--border-radius);
   &:focus-within {
     border-color: #af7a43;
   }
   .markdown {
     padding: .5rem;
   }
+}
+
+::v-deep .image-upload>.gallery {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin-top: 0;
 }
 
 </style>

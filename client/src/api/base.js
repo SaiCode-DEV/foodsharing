@@ -40,7 +40,11 @@ export async function request (path, options = {}) {
     } else if (res.status === 204) {
       return {}
     } else {
-      return await res.json()
+      try {
+        return await res.json()
+      } catch {
+        return {}
+      }
     }
   } finally {
     self.fetch.activeFetchCalls--

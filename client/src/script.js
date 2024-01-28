@@ -10,6 +10,7 @@ import { GET, goTo, isMob } from '@/browser'
 import conversationStore from '@/stores/conversations'
 import { requestStoreTeamMembership, declineStoreRequest } from '@/api/stores'
 import i18n from '@/helper/i18n'
+import { HTTP_RESPONSE } from './consts'
 
 export { goTo, isMob, GET }
 
@@ -382,7 +383,7 @@ export async function wantToHelpStore (storeId, userId) {
     await requestStoreTeamMembership(storeId, userId)
     pulseSuccess(i18n('store.request.got-it'))
   } catch (e) {
-    if (e.code === 422) {
+    if (e.code === HTTP_RESPONSE.UNPROCESSABLE_ENTITY) {
       pulseInfo(i18n('store.request.no-duplicate'))
     } else {
       console.error(e.code)

@@ -94,6 +94,28 @@ class UploadsRestController extends AbstractFOSRestController
         exit;
     }
 
+    #[Rest\Get('uploads/{uuid}/metadata', requirements: ['uuid' => '[0-9a-f\-]+'])]
+    public function getImageMetadata(string $uuid): Response
+    {
+        try {
+            $mimetype = $this->uploadsGateway->getMimeType($uuid);
+        } catch (Exception) {
+            throw new NotFoundHttpException('file not found');
+        }
+        if (!str_starts_with($mimetype, 'image/')) {
+            throw new BadRequestHttpException('Dimensions only fetchable for images');
+        }
+
+        $filename = $this->uploadsTransactions->generateFilePath($uuid);
+
+        if (!file_exists($filename)) {
+            throw new NotFoundHttpException('file not found');
+        }
+        $result = $this->uploadsTransactions->getImageMetadata($filename);
+
+        return $this->handleView($this->view($result, Response::HTTP_OK));
+    }
+
     /**
      * @OA\Tag(name="upload")
      */

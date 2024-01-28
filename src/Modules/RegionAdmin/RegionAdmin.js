@@ -17,6 +17,7 @@ import './RegionAdmin.css'
 import { deleteGroup } from '@/api/groups'
 import { masterUpdate } from '@/api/regions'
 import { searchUser } from '@/api/search'
+import { HTTP_RESPONSE } from '@/consts'
 
 expose({
   img,
@@ -35,7 +36,7 @@ async function deleteActiveGroup () {
       pulseSuccess(i18n('success'))
       goTo('/?page=region')
     } catch (err) {
-      if (err.code === 409) {
+      if (err.code === HTTP_RESPONSE.CONFLICT) {
         pulseError(i18n('region.still_contains_elements'))
       } else {
         pulseError(i18n('error_unexpected'))

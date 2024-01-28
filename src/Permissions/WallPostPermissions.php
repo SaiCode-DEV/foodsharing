@@ -8,107 +8,96 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\WallPost\WallPostGateway;
 
 class WallPostPermissions
 {
-    private readonly RegionGateway $regionGateway;
-    private readonly EventGateway $eventGateway;
-    private readonly EventPermissions $eventPermission;
-    private readonly FoodSharePointGateway $fspGateway;
-    private readonly FoodSharePointPermissions $fspPermission;
-    private readonly Session $session;
-
     public function __construct(
-        RegionGateway $regionGateway,
-        EventGateway $eventGateway,
-        EventPermissions $eventPermissions,
-        FoodSharePointPermissions $fspPermission,
-        FoodSharePointGateway $fspGateway,
-        Session $session
+        private readonly RegionGateway $regionGateway,
+        private readonly EventGateway $eventGateway,
+        private readonly EventPermissions $eventPermissions,
+        private readonly FoodSharePointPermissions $fspPermission,
+        private readonly FoodSharePointGateway $fspGateway,
+        private readonly WallPostGateway $wallPostGateway,
+        private readonly Session $session
     ) {
-        $this->regionGateway = $regionGateway;
-        $this->eventGateway = $eventGateway;
-        $this->eventPermission = $eventPermissions;
-        $this->fspPermission = $fspPermission;
-        $this->fspGateway = $fspGateway;
-        $this->session = $session;
     }
 
-    public function mayReadWall(int $fsId, string $target, int $targetId): bool
+    public function mayReadWall(string $target, int $targetId): bool
     {
+        if ($this->session->mayRole(Role::ORGA)) {
+            return true;
+        }
         switch ($target) {
             case 'foodsaver':
-                $result = $fsId > 0;
-                break;
+                return $this->session->id() > 0;
             case 'bezirk':
-                $result = $fsId && $this->regionGateway->hasMember($fsId, $targetId);
-                break;
+                return $this->regionGateway->hasMember($this->session->id(), $targetId);
             case 'event':
                 $event = $this->eventGateway->getEvent($targetId);
-                $result = ($event === null) ? false : $this->eventPermission->mayCommentInEvent($event);
-                break;
+
+                return !is_null($event) && $this->eventPermissions->mayCommentInEvent($event);
             case 'fairteiler':
-                $result = true;
-                break;
+                return true;
             case 'question':
-                $result = $fsId && $this->regionGateway->hasMember($fsId, RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP);
-                break;
+                return $this->regionGateway->hasMember($this->session->id(), RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP);
             case 'usernotes':
             case 'report':
-                $result = $fsId && ($this->regionGateway->hasMember($fsId, RegionIDs::EUROPE_REPORT_TEAM) || $this->session->mayRole(Role::ORGA));
-                break;
+                return $this->regionGateway->hasMember($this->session->id(), RegionIDs::EUROPE_REPORT_TEAM);
             case 'application':
                 // Uses Session::isAdminForAWorkGroup() instead of the more appropriate and specific Session::isAdminFor() since
                 // there's no good way to pass the required region id at the moment
-                $result = $fsId && $this->session->isAdminForAWorkGroup();
-                break;
+                return $this->session->isAdminForAWorkGroup();
             default:
-                $result = false;
-                break;
+                return false;
         }
-
-        return $result;
     }
 
-    public function mayWriteWall(int $fsId, string $target, int $targetId): bool
+    public function mayWriteWall(string $target, int $targetId): bool
     {
+        if (!$this->session->id()) {
+            return false;
+        }
+
         return match ($target) {
-            'foodsaver' => $fsId === $targetId,
-            'question' => $fsId > 0,
-            default => $fsId > 0 && $this->mayReadWall($fsId, $target, $targetId),
+            'foodsaver' => $this->session->id() === $targetId,
+            'question' => true,
+            default => $this->mayReadWall($target, $targetId),
         };
     }
 
     /**
-     * method describing _global_ deletion access to walls. Every author is always allowed to remove their own posts.
+     * Whether the user may delete any post from the given wall. For specific posts see mayDeleteWallPost.
      */
-    public function mayDeleteFromWall(?int $fsId, string $target, int $targetId): bool
+    public function mayDeleteWall(string $target, int $targetId): bool
     {
-        if ($fsId === null) {
+        if (!$this->session->id()) {
             return false;
+        } elseif ($this->session->mayRole(Role::ORGA)) {
+            return true;
         }
         switch ($target) {
             case 'bezirk':
-                $result = $this->regionGateway->isAdmin($fsId, $targetId);
-                break;
+                return $this->regionGateway->isAdmin($this->session->id(), $targetId);
             case 'question':
             case 'usernotes':
             case 'report':
-                $result = $this->mayReadWall($fsId, $target, $targetId);
-                break;
+                return $this->mayReadWall($target, $targetId);
             case 'fairteiler':
                 $fsp = $this->fspGateway->getFoodSharePoint($targetId);
                 if (empty($fsp) || empty($fsp['bezirk_id'])) {
-                    $result = false;
-                } else {
-                    $result = $this->fspPermission->mayDeleteFoodSharePointWallPostOfRegion($fsp['bezirk_id']);
+                    return false;
                 }
-                break;
-            default:
-                $result = false;
-                break;
-        }
 
-        return $result;
+                return $this->fspPermission->mayAdministrateFoodSharePoint($targetId)
+                    || $this->fspPermission->mayDeleteFoodSharePointWallPostOfRegion($fsp['bezirk_id']);
+            default:
+                return false;
+        }
+    }
+
+    public function mayDeleteWallPost(string $target, int $targetId, int $postId): bool
+    {
+        return $this->mayDeleteWall($target, $targetId) || $this->wallPostGateway->getAuthorId($postId) === $this->session->id();
     }
 }

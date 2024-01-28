@@ -21,13 +21,11 @@ import Options from './components/Options'
 import Pin from './components/Pin'
 import EventList from '../Event/components/EventList'
 import { leaveRegion } from '@/api/regions'
-
-// Wallpost
-import '../WallPost/WallPost.css'
-import { initWall } from '@/wall'
+import Wall from '@/components/Wall/Wall'
 import NewThread from './components/NewThread.vue'
 import ApplicationsList from './components/ApplicationsList'
 import FoodSharePointsList from './components/FoodSharePointsList'
+import { HTTP_RESPONSE } from '@/consts'
 
 $(document).ready(() => {
   $('a[href=\'#signout\']').on('click', function () {
@@ -47,7 +45,7 @@ $(document).ready(() => {
           goTo(`/?page=relogin&url=${encodeURIComponent('/?page=dashboard')}`)
         } catch (e) {
           console.error(e.code)
-          if (e.code === 409) {
+          if (e.code === HTTP_RESPONSE.CONFLICT) {
             pulseError(i18n('region.store_managers_cannot_leave'))
           } else {
             pulseError(i18n('error_unexpected'))
@@ -62,7 +60,8 @@ $(document).ready(() => {
   })
 
   if (GET('sub') == 'wall') {
-    initWall('bezirk', GET('bid'))
+    vueRegister({ Wall })
+    vueApply('#vue-wall')
   } else if (GET('sub') === 'members') {
     vueRegister({
       MemberList,

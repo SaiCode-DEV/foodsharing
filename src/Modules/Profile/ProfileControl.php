@@ -96,9 +96,12 @@ final class ProfileControl extends Control
         $fsId = $this->foodsaver['id'];
         $this->pageHelper->addBread($this->foodsaver['name'], '/profile/' . $fsId);
         if ($this->profilePermissions->maySeeUserNotes($fsId)) {
-            $userNotes = $this->wallposts('usernotes', $fsId);
-            $storeList = $this->profileGateway->listStoresOfFoodsaver($fsId);
-            $this->view->userNotes($userNotes, $storeList);
+            $wallPosts = $this->view->vueComponent('vue-wall', 'wall', [
+                'target' => 'usernotes',
+                'targetId' => $fsId,
+                'title' => $this->translator->trans('profile.notes.title', ['{name}' => $this->foodsaver['name']]),
+            ]);
+            $this->view->userNotes($wallPosts);
         } else {
             $this->routeHelper->goAndExit('/profile/' . $fsId);
         }
@@ -111,7 +114,11 @@ final class ProfileControl extends Control
         $maySeeStores = $this->profilePermissions->maySeeStores($fsId);
         $maySeeCommitmentsStat = $this->profilePermissions->maySeeCommitmentsStat($fsId);
 
-        $wallPosts = $this->wallposts('foodsaver', $fsId);
+        $wallPosts = $this->view->vueComponent('vue-wall', 'wall', [
+            'target' => 'foodsaver',
+            'targetId' => $fsId,
+            'title' => $this->translator->trans('profile.pinboard', ['{name}' => $this->foodsaver['name']]),
+        ]);
         $userStores = $this->profileGateway->listStoresOfFoodsaver($fsId);
 
         $profileCommitmentsStat[0]['respActStores'] = $maySeeCommitmentsStat ? $this->profileGateway->getResponsibleActiveStoresCount($fsId) : 0;

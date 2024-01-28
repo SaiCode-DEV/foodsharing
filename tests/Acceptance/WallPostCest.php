@@ -32,15 +32,15 @@ class WallPostCest
         $I->login($this->{$example[0]}['email']);
         $I->amOnPage($I->regionWallUrl($this->testGroup['id']));
         if ($example[1]) {
-            $I->see('Pinnwand');
+            $I->see('Pinnwand', '.list-group-header > h5');
             $wallPostText = 'Hey there, this is my new wallpost!';
-            $I->fillField('#wallpost-text', $wallPostText);
+            $I->fillField('.md-text-area', $wallPostText);
             $I->click('Senden');
-            $I->waitForElement('.bpost');
+            $I->waitForElement('.wallpost');
             $I->see($wallPostText);
             $I->seeInDatabase('fs_wallpost', ['body' => $wallPostText, 'foodsaver_id' => $this->{$example[0]}['id']]);
         } else {
-            $I->dontSee('Pinnwand', '.head.ui-widget-header.ui-corner-top');
+            $I->dontSee('Pinnwand', '.list-group-header > h5');
         }
     }
 
@@ -48,9 +48,7 @@ class WallPostCest
     {
         $I->login($this->regionMember['email']);
         $I->amOnPage($I->regionWallUrl($this->testGroup['id']));
-        $I->fillField('#wallpost-text', '');
-        $I->click('Senden');
-        $I->waitForPageBody();
-        $I->dontSeeInDatabase('fs_wallpost', ['body' => '', 'foodsaver_id' => $this->regionMember['id']]);
+        $I->fillField('.md-text-area', ' ');
+        $I->dontSee('Senden');
     }
 }

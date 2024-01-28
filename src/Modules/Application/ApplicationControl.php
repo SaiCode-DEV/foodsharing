@@ -46,10 +46,11 @@ class ApplicationControl extends Control
         $this->pageHelper->addBread($this->translator->trans('group.application_from') . $application['name'], '');
         $this->pageHelper->addContent($this->view->application($application));
 
-        $this->pageHelper->addContent($this->v_utils->v_field(
-            $this->wallposts('application', $application['id']),
-            $this->translator->trans('storeview.status_notes')
-        ));
+        $this->pageHelper->addContent($this->view->vueComponent('vue-wall', 'wall', [
+            'target' => 'application',
+            'targetId' => $application['id'],
+            'title' => $this->translator->trans('storeview.status_notes')
+        ]));
 
         $this->pageHelper->addContent($this->view->applicationMenu($application), CNT_LEFT);
     }

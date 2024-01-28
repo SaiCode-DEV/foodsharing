@@ -1,5 +1,6 @@
 <template>
   <b-navbar
+    ref="navbar"
     toggleable="md"
     :sticky="viewIsMD"
     class="navigation"
@@ -120,6 +121,19 @@ export default {
       await DataBells.mutations.fetch()
       await DataConversations.initConversations()
     }
+  },
+  async mounted () {
+    window.addEventListener('resize', this.resizeHandler)
+    window.addEventListener('load', this.resizeHandler)
+  },
+  methods: {
+    resizeHandler () {
+      let height = '0px'
+      if (this.viewIsMD) {
+        height = this.$refs.navbar.$el.getBoundingClientRect().height + 'px'
+      }
+      document.documentElement.style.setProperty('--navbar-height', height)
+    },
   },
 }
 </script>

@@ -79,6 +79,7 @@ import { pulseError, pulseInfo } from '@/script'
 import DataUser from '@/stores/user'
 
 import BananaListEntry from './BananaListEntry'
+import { HTTP_RESPONSE } from '@/consts'
 
 export default {
   components: { BananaListEntry },
@@ -123,9 +124,9 @@ export default {
         this.hasGivenBanana = true
         $.fancybox.update()
       } catch (err) {
-        if (err.code === 400) {
+        if (err.code === HTTP_RESPONSE.BAD_REQUEST) {
           pulseError(i18n('profile.banana.messageTooShort'))
-        } else if (err.code === 403) {
+        } else if (err.code === HTTP_RESPONSE.FORBIDDEN) {
           pulseError(i18n('profile.banana.alreadyGiven', { name: this.recipientName }))
         } else {
           console.error(err)

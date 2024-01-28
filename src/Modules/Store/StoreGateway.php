@@ -804,23 +804,8 @@ class StoreGateway extends BaseGateway
         return $this->db->insert('fs_betrieb_notiz', [
             'foodsaver_id' => $data['foodsaver_id'],
             'betrieb_id' => $data['betrieb_id'],
-            'milestone' => Milestone::NONE,
             'text' => $data['text'],
             'zeit' => $data['zeit'],
-            'last' => 0, // TODO remove this column entirely
-        ]);
-    }
-
-    // TODO rename to addStoreMilestone and clean up data handling
-    public function add_betrieb_notiz(array $data): int
-    {
-        return $this->db->insert('fs_betrieb_notiz', [
-            'foodsaver_id' => $data['foodsaver_id'],
-            'betrieb_id' => $data['betrieb_id'],
-            'milestone' => $data['milestone'],
-            'text' => strip_tags((string)$data['text']),
-            'zeit' => $data['zeit'],
-            'last' => 0, // TODO remove this column entirely
         ]);
     }
 
@@ -950,7 +935,6 @@ class StoreGateway extends BaseGateway
 				   CONCAT(fs.`name`," ",fs.`nachname`) AS name,
 			       sn.`betrieb_id`,
 			       sn.`text`,
-			       sn.`milestone`,
 			       sn.`zeit`
 
 			FROM `fs_betrieb_notiz` sn
