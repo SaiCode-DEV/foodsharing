@@ -3319,8 +3319,8 @@ conference:
     La conferencia en línea abre BigBlueButton en una nueva pestaña.'
   join_title: 'Unirse a la conferencia'
   privacy_notice: 'Nota: Las videoconferencias se realizan a través del servidor de
-    conferencias del colectivo living utopia. Entrarás automáticamente con tu nombre,
-    ID y avatar introducidos en Foodsharing.'
+    conferencias de living utopía colectiva. Iniciará sesión automáticamente allí
+    con su nombre, identificación y avatar que ingresó en FoodSharing.'
   join: 'Unirse a la conferencia'
 base:
   whatfor: 'En foodsharing.network puedes donar tu comida a instituciones sociales
