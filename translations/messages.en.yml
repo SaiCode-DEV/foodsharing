@@ -18,8 +18,7 @@ group:
     banana_count_errors:
       min: Nobody should have less than {{ limit }} trust bananas.
       max: Please do not expect more than {{ limit }} trust bananas.
-    member_since_weeks: How many weeks does an applicant need to be registered on
-      the platform?
+    member_since_weeks: For how many weeks should applicants have been active at foodsharing?
     not_fulfilled: To apply for this group, you have to be registered for at least
       %weeks% weeks, have %bananas% trust bananas and helped %fetches% times picking
       up food.
@@ -2816,7 +2815,7 @@ quizusercomment: "Give us feedback on this question!\nWas it too easy, too diffi
   incomprehensible?\nOr are some answers or explanations not correct?\n"
 questcount: How many questions should be asked during the exam?
 maxfp: Maximum number of failure points to pass
-week_num: How many weeks does an applicant need to be registered on the platform?
+week_num: For how many weeks should one have been active at foodsharing?
 fetch_count: How many pick-ups does an applicant need to have done?
 banana_count: How many trust bananas must an applicant have?
 apply_type: Who can sign up for this group?
@@ -3007,8 +3006,8 @@ startpage:
   how_we_work:
     title: This is how it goes
     text: "All of this is built up voluntary and free of charge, independent and free
-      of advertising. This platform is the heart\nof our community. It is the place
-      where we coordinate ourselve locally and Europe-wide. The website and the beta
+      of advertising. This platform is the heart of our community. It is the place
+      where we coordinate ourselves locally and Europe-wide. The website and the beta
       app are open source and they are based on the involvement and compassion of
       many. How you can participate in the IT department?\n"
   private:
