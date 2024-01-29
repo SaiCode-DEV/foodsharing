@@ -238,6 +238,7 @@ quiz:
     {points} aldınız!
   type: -Test
   learnbreak: Ders arası
+  comments: Yorumlar
 answers: Hangi cevaplar doğru?
 maxfp: Geçilmesi gerekilen maksimum hata puanları
 questcount: Sınavda kaç soru sorulmalıdır?
@@ -272,6 +273,9 @@ upload:
   new_file: Yeni dosya yükle
   crop_dialog_title: Fotoğrafı kes
   preview_image: Ön izleme
+  images: Resimleri yükle
+  image-problem: Dosyanızda bir sorun görünüyor. En doğrusu normal bir jpg resmi kullanman
+  invalid_image_files: 'Seçilen {count} dosya geçerli resimler değil: {fileNames}'
 picture_upload_widget:
   picture_upload: Fotoğraf yükleme
   choose_picture: Bilgisayarınızdan bir fotoğraf seçin.
@@ -1222,6 +1226,9 @@ store:
   lastPickupTitle: Son alım tarihi
   slotsCurrentlyOccupied: Şu anda dolu slotlar
   deactivatedRegion: İşletme listesi şu anda ülkeler ve kıtalar için görüntülenemiyor.
+  chain_search_picker:
+    modal_title: İşletme zinciri seç
+    search_input: İşletme zincir adına göre ara
 polls:
   title: Başlık
   new_poll: Yeni Anket oluştur
@@ -1839,6 +1846,7 @@ releases:
   "2023-08": Release 'Jackfruit' 🍈 (Eylül 2023)
   "2023-09": Release "Jackfruit" 🍈 (Eylül 2023)
   "2024-01": “Kivi”yi yayınlayın 🥝 (Ocak 2024)
+  "2024-04": '"Laugenbrezel"i yayınlayın 🥨 (Nisan 2024)'
 storestatus:
   "5": İşletme bizimle işbirliği halinde
   "2": Görüşmeler devam ediyor
@@ -1994,6 +2002,9 @@ wall:
   info-logging: Anlaşmazlıkları önlemek için, içeriğin ve onu gerçekleştiren kişinin
     günlüğe kaydedildiğini lütfen unutmayın.
   placeholder: Yeni bir pano yazısı yazın …
+  delete_confirmation:
+    title: Pano kayıdı silinsin mi?
+    text: Bu girişi {author}'dan silmek istediğinizden emin misiniz?
 settings:
   changemail:
     done: E-posta adresiniz değiştirildi.
@@ -2775,6 +2786,7 @@ storeview:
   want_to_fetch: Bu ekibe yardım etmek isterim.
   public_time_in_the_morning: sabahları
   show_settings: İşletme ayarları
+  choose_chain: Bir işletme zincirini seç
 fsp:
   suggest: Gıda dağıtım noktası önerin
   accept: Gıda dağıtım noktasının kilidini aç
@@ -3341,6 +3353,7 @@ markdown_input:
     hrule: yatay çizgi
     link: bağlantı
     heading: başlık
+    image: Resim ekleyin
   empty_preview_placeholder: "Bu bir formatlama önizlemesidir. Metin burada, daha
     sonra görüntüleneceği şekilde formatlanmıştır.\n---\n*Henüz burada görüntülenebilecek
     herhangi bir metin girmediniz.*"
