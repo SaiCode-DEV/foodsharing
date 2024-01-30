@@ -291,6 +291,7 @@ upload:
   no_image_chosen: Nessun file ancora selezionato
   no_image_yet: Nessuna immagine ancora caricata
   no_image: Il file caricato non è una foto. Scegli un altro file.
+  images: Carica immagini
 picture_upload_widget:
   choose_picture: Scegli un'immagine dal tuo computer.
   picture_upload: Caricamento foto
@@ -2894,8 +2895,8 @@ conference:
   join: Partecipa alla conferenza
   join_title: Partecipa alla conferenza
   privacy_notice: 'Nota: La videoconferenza si fa tramite il server di conferenza
-    del collettivo Living Utopia. Sarai loggato automaticamente con il tuo primo nome
-    inserito in foodsharing.'
+    del collettivo Living Utopia. Sarai loggato automaticamente con il tuo primo nome,
+    ID e avatar inseriti nel foodsharing.'
   description_text: Qui si può partecipare a una videoconferenza per il gruppo selezionato.
     La videoconferenza apre BigBlueButton in una nuova finestra.
 stats:
@@ -2963,6 +2964,7 @@ releases:
   "2022-01": 'Versione “Pompelmo” 🍋 (gennaio 2022)'
   "2023-09": Versione “Jackfruit” 🍈 (settembre 2023)
   "2024-01": Versione “Kiwi” 🥝 (gennaio 2024)
+  "2024-04": Versione “Pretzel” 🥨 (aprile 2024)
 base:
   jsrequired: Sfortunatamente, qui non funziona nulla senza JavaScript.
   slogan: Condividere il cibo invece di buttarlo via – foodsharing
@@ -3062,6 +3064,7 @@ quiz:
     bot: 'Completa ora la registrazione come ambasciatore.'
   resultsbelow: La valutazione è disponibile di seguito.
   donecorrectly: hai risposto correttamente. Grande!
+  comments: Commenti
 deletelow: elimina
 filter_by: Filtrare per
 fpcapital: Punti di Errore
@@ -3376,6 +3379,7 @@ markdown_input:
     hrule: linea orizzontale
     link: collegamento
     heading: titolo
+    image: Allega immagini
   empty_preview_placeholder: "Questa è l'anteprima. Il testo è formattato qui come
     verrà visualizzato in seguito.\n---\n*Non hai ancora inserito alcun testo che
     possa essere visualizzato qui.*"
