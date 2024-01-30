@@ -105,9 +105,9 @@ In order to work even more closely together, we meet regularly for Hackweeks. He
 
 Here are some articles about the last Hackweek:
 - [yunity heartbeat 2019-02-24](https://yunity.org/en/heartbeat/2019-02-24) (en)
-- [foodsharing ist endlich Open Source!](https://foodsharing.de/?page=blog&sub=read&id=236) (de)
+- [foodsharing ist endlich Open Source!](https://foodsharing.de/blog/236) (de)
 
-Announcements for Hackweeks can be found in the [Slack Channel #foodsharing-hackweek](https://slackin.yunity.org "Slack Channel") and on the [Foodsharing Blog](https://foodsharing.de/?page=blog) (German only).
+Announcements for Hackweeks can be found in the [Slack Channel #foodsharing-hackweek](https://slackin.yunity.org "Slack Channel") and on the [Foodsharing Blog](https://foodsharing.de/blog) (German only).
 
 ## Thank you! 
 

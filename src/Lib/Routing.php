@@ -5,7 +5,6 @@ namespace Foodsharing\Lib;
 use Foodsharing\Modules\Application\ApplicationControl;
 use Foodsharing\Modules\Basket\BasketControl;
 use Foodsharing\Modules\Basket\BasketXhr;
-use Foodsharing\Modules\Blog\BlogControl;
 use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use Foodsharing\Modules\Dashboard\DashboardControl;
 use Foodsharing\Modules\Email\EmailControl;
@@ -54,7 +53,6 @@ class Routing
         'application' => 'Application',
         'basket' => 'Basket',
         'bell' => 'Bell',
-        'blog' => 'Blog',
         'buddy' => 'Buddy',
         'bcard' => 'BusinessCard',
         'dashboard' => 'Dashboard',
@@ -89,7 +87,6 @@ class Routing
 
     private const CLASSES = [
         'application' => ApplicationControl::class,
-        'blog' => BlogControl::class,
         'basket' => BasketControl::class,
         'bcard' => BusinessCardControl::class,
         'dashboard' => DashboardControl::class,
@@ -140,6 +137,7 @@ class Routing
         'bezirk',
         'statistics',
         'map',
+        'blog',
     ];
 
     private const RENAMES = [

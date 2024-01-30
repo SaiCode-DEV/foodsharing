@@ -55,20 +55,6 @@ profile_id_notes:
   requirements:
     id: '\d+'
 
-news:
-  path: /news
-  controller: Foodsharing\Entrypoint\IndexController
-
-blog:
-  path: /blog/{id}
-  controller: Foodsharing\Entrypoint\IndexController
-  requirements:
-    id: '\d+'
-
-mach-mit:
-  path: /mach-mit
-  controller: Foodsharing\Entrypoint\IndexController
-
 fairteiler:
   path: /fairteiler
   controller: Foodsharing\Entrypoint\IndexController

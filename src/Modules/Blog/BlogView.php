@@ -81,13 +81,13 @@ class BlogView extends View
 
     public function newsListItem(array $news): string
     {
-        return '<div class="news-post"><h2><a href="/?page=blog&sub=read&id=' . $news['id'] . '">' . $news['name'] . '</a></h2><p class="small"><span class="time">' . $this->timeHelper->niceDate(
+        return '<div class="news-post"><h2><a href="/blog/' . $news['id'] . '">' . $news['name'] . '</a></h2><p class="small"><span class="time">' . $this->timeHelper->niceDate(
             $news['time_ts']
         ) . '</span><span class="name"> von ' . $news['fs_name'] . '</span></p>' . $this->getImage(
             $news['picture'], $news['id'], [self::PICTURE_PREVIEW_WIDTH, self::PICTURE_PREVIEW_HEIGHT]
         ) . '<p>' . $this->routeHelper->autolink(
             $news['teaser']
-        ) . '</p><p><a class="button" href="/?page=blog&sub=read&id=' . $news['id'] . '">
+        ) . '</p><p><a class="button" href="/blog/' . $news['id'] . '">
 			' . $this->translator->trans('blog.read') . '
 			</a></p><div class="clear"></div></div>';
     }
@@ -109,7 +109,7 @@ class BlogView extends View
             $src = '/images/' . str_replace('/', '/' . $prefix, $postPicture);
         }
 
-        return '<a href="/?page=blog&sub=read&id=' . $postId . '">'
+        return '<a href="/blog/' . $postId . '">'
             . '<img class="corner-all" src="' . $src . '" />'
             . '</a>';
     }
@@ -118,10 +118,10 @@ class BlogView extends View
     {
         $links = '';
         if ($page > 1) {
-            $links .= '<a class="button" href="/?page=blog&p=' . ($page - 1) . '"><i class="fas fa-arrow-circle-left"></i></a>';
+            $links .= '<a class="button" href="/blog?p=' . ($page - 1) . '"><i class="fas fa-arrow-circle-left"></i></a>';
         }
 
-        $links .= '<a class="button" href="/?page=blog&p=' . ($page + 1) . '"><i class="fas fa-arrow-circle-right"></i></a>';
+        $links .= '<a class="button" href="/blog?p=' . ($page + 1) . '"><i class="fas fa-arrow-circle-right"></i></a>';
 
         return '<p class="pager">' . $links . '</p>';
     }

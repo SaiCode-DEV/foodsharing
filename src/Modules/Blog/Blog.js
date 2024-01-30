@@ -4,7 +4,7 @@ import './Blog.css'
 import '@/tablesorter'
 import 'jquery.tinymce'
 import 'jquery-jcrop'
-import { GET } from '@/browser'
+import { GET, URL_PART } from '@/browser'
 import { ifconfirm } from '@/script'
 import { expose } from '@/utils'
 import { vueApply, vueRegister } from '@/vue'
@@ -26,7 +26,7 @@ if (GET('sub') === 'manage') {
     FileUploadVForm,
   })
   vueApply('#image-upload')
-} else if (GET('sub') === 'read') {
+} else if (GET('sub') === 'read' || URL_PART(1) !== undefined) {
   vueRegister({
     BlogPost,
   })

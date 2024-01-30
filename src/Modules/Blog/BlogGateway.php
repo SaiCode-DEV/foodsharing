@@ -227,7 +227,7 @@ final class BlogGateway extends BaseGateway
             'blog_new_check_title',
             'blog_new_check',
             'fas fa-bullhorn',
-            ['href' => '/?page=blog&sub=edit&id=' . $id],
+            ['href' => '/blog?sub=edit&id=' . $id],
             [
                 'user' => $this->session->user('name'),
                 'teaser' => $this->sanitizerService->tt($data['teaser'], 100),

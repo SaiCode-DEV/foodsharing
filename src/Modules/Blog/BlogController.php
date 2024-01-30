@@ -2,63 +2,63 @@
 
 namespace Foodsharing\Modules\Blog;
 
-use Foodsharing\Modules\Core\Control;
+use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\TimeHelper;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class BlogControl extends Control
+class BlogController extends FoodsharingController
 {
-    private readonly BlogGateway $blogGateway;
-    private readonly BlogPermissions $blogPermissions;
-    private readonly IdentificationHelper $identificationHelper;
-    private readonly TimeHelper $timeHelper;
-
     public function __construct(
-        BlogView $view,
-        BlogGateway $blogGateway,
-        BlogPermissions $blogPermissions,
-        IdentificationHelper $identificationHelper,
-        TimeHelper $timeHelper
+        private readonly BlogView $view,
+        private readonly BlogGateway $blogGateway,
+        private readonly BlogPermissions $blogPermissions,
+        private readonly IdentificationHelper $identificationHelper,
+        private readonly TimeHelper $timeHelper
     ) {
-        $this->view = $view;
-        $this->blogGateway = $blogGateway;
-        $this->blogPermissions = $blogPermissions;
-        $this->identificationHelper = $identificationHelper;
-        $this->timeHelper = $timeHelper;
-
         parent::__construct();
-        if ($id = $this->identificationHelper->getActionId('delete')) {
-            if ($this->blogPermissions->mayEdit($id)) {
-                if ($this->blogGateway->del_blog_entry($id)) {
-                    $this->flashMessageHelper->success($this->translator->trans('blog.success.delete'));
-                } else {
-                    $this->flashMessageHelper->error($this->translator->trans('blog.failure.delete'));
-                }
-            } else {
-                $this->flashMessageHelper->info($this->translator->trans('blog.permissions.delete'));
-            }
-            $this->routeHelper->goPageAndExit();
-        }
-        $this->pageHelper->addBread($this->translator->trans('blog.bread'), '/?page=blog');
-        $this->pageHelper->addTitle($this->translator->trans('blog.bread'));
     }
 
-    public function index(): void
+    #[Route(path: '/blog', name: 'blog')]
+    #[Route(path: '/news', name: 'news')]
+    public function index(Request $request): Response
     {
-        if (!isset($_GET['sub'])) {
-            $this->listNews();
+        $this->common();
+
+        if (!$request->query->has('sub')) {
+            $this->listNews($request);
+        } else {
+            match ($request->query->get('sub')) {
+                'listNews' => $this->listNews($request),
+                'read' => $this->read($request),
+                'manage' => $this->manage(),
+                'post' => $this->post($request),
+                'add' => $this->add(),
+                'edit' => $this->edit($request),
+                default => throw $this->createNotFoundException()
+            };
         }
+
+        return $this->renderGlobal();
     }
 
-    public function listNews(): void
+    #[Route(path: '/blog/{id}', name: 'blog_id', requirements: ['id' => '\d+'])]
+    public function blogById(Request $request): Response
     {
-        $page = 1;
-        if (isset($_GET['p'])) {
-            $page = (int)$_GET['p'];
-        }
+        $this->common();
+        $this->read($request);
+
+        return $this->renderGlobal();
+    }
+
+    private function listNews(Request $request): void
+    {
+        $page = (int)$request->query->get('p', 1);
 
         if ($news = $this->blogGateway->listNews($page)) {
             $out = '';
@@ -71,19 +71,20 @@ class BlogControl extends Control
             ));
             $this->pageHelper->addContent($this->view->pager($page));
         } elseif ($page > 1) {
-            $this->routeHelper->goAndExit('/?page=blog');
+            $this->routeHelper->goAndExit('/blog');
         }
     }
 
-    public function read(): void
+    private function read(Request $request): void
     {
-        if (isset($_GET['id']) && is_numeric($_GET['id']) && $news = $this->blogGateway->getPost($_GET['id'])) {
+        $id = $request->query->get('id');
+        if (is_numeric($id) && $news = $this->blogGateway->getPost((int)$id)) {
             $this->pageHelper->addBread($news->title);
             $this->pageHelper->addContent($this->view->newsPost($news->id));
         }
     }
 
-    public function manage(): void
+    private function manage(): void
     {
         if ($this->blogPermissions->mayAdministrateBlog()) {
             $this->pageHelper->addBread($this->translator->trans('blog.manage'));
@@ -96,18 +97,18 @@ class BlogControl extends Control
         }
     }
 
-    public function post()
+    private function post(Request $request): void
     {
-        if (!$this->blogPermissions->mayAdministrateBlog() || !isset($_GET['id'])) {
+        if (!$this->blogPermissions->mayAdministrateBlog() || !$request->query->has('id')) {
             return;
         }
-        $post = $this->blogGateway->getOne_blog_entry($_GET['id']);
+        $post = $this->blogGateway->getOne_blog_entry((int)$request->query->get('id'));
 
         if (!$post || $post['active'] != 1) {
             return;
         }
         $this->pageHelper->addTitle($post['name']);
-        $this->pageHelper->addBread($post['name'], '/?page=blog&post=' . (int)$post['id']);
+        $this->pageHelper->addBread($post['name'], '/blog?post=' . (int)$post['id']);
 
         $when = $this->timeHelper->niceDate($post['time_ts']);
         $this->pageHelper->addContent($this->view->topbar($post['name'], $when));
@@ -116,7 +117,7 @@ class BlogControl extends Control
         ]));
     }
 
-    public function add(): void
+    private function add(): void
     {
         if ($this->blogPermissions->mayAdministrateBlog()) {
             $this->handle_add();
@@ -136,7 +137,7 @@ class BlogControl extends Control
             $this->pageHelper->addContent($this->view->blog_entry_form($regions));
 
             $this->pageHelper->addContent($this->v_utils->v_field($this->v_utils->v_menu([
-                ['href' => '/page=blog', 'name' => $this->translator->trans('bread.backToOverview')]
+                ['href' => '/blog', 'name' => $this->translator->trans('bread.backToOverview')]
             ]), $this->translator->trans('blog.actions')), CNT_LEFT);
         } else {
             $this->flashMessageHelper->info($this->translator->trans('blog.permissions.new'));
@@ -148,7 +149,7 @@ class BlogControl extends Control
     {
         global $g_data;
 
-        if ($this->blogPermissions->mayAdministrateBlog() && $this->submitted()) {
+        if ($this->blogPermissions->mayAdministrateBlog() && !empty($_POST)) {
             $g_data['foodsaver_id'] = $this->session->id();
             $g_data['time'] = date('Y-m-d H:i:s');
 
@@ -161,13 +162,13 @@ class BlogControl extends Control
         }
     }
 
-    public function edit(): void
+    private function edit(Request $request): void
     {
-        $blogId = $_GET['id'] ?? null;
+        $blogId = $request->query->get('id');
         if ($this->blogPermissions->mayAdministrateBlog() && $this->blogPermissions->mayEdit($blogId) && ($data = $this->blogGateway->getOne_blog_entry($blogId))) {
-            $this->handle_edit();
+            $this->handle_edit($request);
 
-            $this->pageHelper->addBread($this->translator->trans('blog.all'), '/?page=blog&sub=manage');
+            $this->pageHelper->addBread($this->translator->trans('blog.all'), '/blog?sub=manage');
             $this->pageHelper->addBread($this->translator->trans('blog.edit'));
 
             $regions = $this->session->getRegions();
@@ -179,21 +180,40 @@ class BlogControl extends Control
         }
     }
 
-    private function handle_edit(): void
+    private function handle_edit(Request $request): void
     {
         global $g_data;
-        if ($this->blogPermissions->mayAdministrateBlog() && $this->submitted()) {
-            $data = $this->blogGateway->getOne_blog_entry($_GET['id']);
+        if ($this->blogPermissions->mayAdministrateBlog() && !empty($_POST)) {
+            $id = $request->query->get('id');
+            $data = $this->blogGateway->getOne_blog_entry($id);
 
             $g_data['foodsaver_id'] = $data['foodsaver_id'];
             $g_data['time'] = $data['time'];
 
-            if ($this->blogGateway->update_blog_entry($_GET['id'], $g_data)) {
+            if ($this->blogGateway->update_blog_entry($id, $g_data)) {
                 $this->flashMessageHelper->success($this->translator->trans('blog.success.edit'));
                 $this->routeHelper->goPageAndExit('blog', ['sub' => 'manage']);
             } else {
                 $this->flashMessageHelper->error($this->translator->trans('blog.failure.edit'));
             }
         }
+    }
+
+    private function common(): void
+    {
+        if ($id = $this->identificationHelper->getActionId('delete')) {
+            if ($this->blogPermissions->mayEdit($id)) {
+                if ($this->blogGateway->del_blog_entry($id)) {
+                    $this->flashMessageHelper->success($this->translator->trans('blog.success.delete'));
+                } else {
+                    $this->flashMessageHelper->error($this->translator->trans('blog.failure.delete'));
+                }
+            } else {
+                $this->flashMessageHelper->info($this->translator->trans('blog.permissions.delete'));
+            }
+            $this->routeHelper->goPageAndExit();
+        }
+        $this->pageHelper->addBread($this->translator->trans('blog.bread'), '/blog');
+        $this->pageHelper->addTitle($this->translator->trans('blog.bread'));
     }
 }

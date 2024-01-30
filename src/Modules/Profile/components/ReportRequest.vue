@@ -19,7 +19,7 @@
           </p>
           <p>
             {{ $i18n('profile.report.oldReportButtonTextPart3') }}
-            <a href="https://foodsharing.de/?page=blog&amp;sub=read&amp;id=255">{{ $i18n('profile.report.inthisblog') }}</a>
+            <a href="https://foodsharing.de/blog?sub=read&amp;id=255">{{ $i18n('profile.report.inthisblog') }}</a>
           </p>
         </div>
       </div>
