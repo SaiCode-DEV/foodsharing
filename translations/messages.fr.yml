@@ -304,6 +304,11 @@ upload:
   no_image_chosen: Aucun fichier n’a été sélectionné
   no_image_yet: Aucune image n’a été téléversée
   no_image: Le fichier téléversé n’est pas une photo. Sélectionne un autre fichier.
+  images: Télécharger des photos
+  image-problem: Votre fichier ne semble pas correct, il est préférable d’utiliser
+    une image jpg normale
+  invalid_image_files: '{count} fichiers sélectionnés ne sont pas des images valides :
+    {fileNames}'
 picture_upload_widget:
   choose_picture: Sélectionne une image depuis ton ordinateur.
   picture_upload: Téléversement d’une photo
@@ -1380,6 +1385,9 @@ store:
   slotsCurrentlyOccupied: Emplacements actuellement occupés
   deactivatedRegion: La liste des coopérations ne peut pas être affichée pour le moment
     pour des pays et des continents entiers.
+  chain_search_picker:
+    modal_title: Choisissez une chaîne
+    search_input: Rechercher par nom de chaîne
 storeview:
   want_to_fetch: J’aimerais m’engager dans cette équipe.
   specials: Particularités
@@ -1426,6 +1434,7 @@ storeview:
   show_information: 'Afficher les informations sur l’établissement'
   visible_for_public: 'Ce texte est visible par tous les Foodsaver.'
   show_settings: Paramètres de coopération
+  choose_chain: Choisissez une chaîne
 day: Jour
 time: Heure
 select: Veuillez choisir
@@ -2074,6 +2083,9 @@ wall:
   message_placeholder: Écrire un message…
   name: Mur
   placeholder: Écrire une nouvelle entrée de mur …
+  delete_confirmation:
+    text: Veux-tu vraiment supprimer cette entrée de {author} ?
+    title: Supprimer cette entrée du mur ?
 chat:
   confirm_draft_discard: "En changeant de conversation, le texte écrit jusqu’ici sera
     automatiquement supprimé.\n\nEn interrompant cet échange, ton brouillon sera automatiquement
@@ -2670,6 +2682,7 @@ releases:
   "2023-08": Version « Jacquier » 🍈 (septembre 2023)
   "2023-09": Version « Jacquier » 🍈 (septembre 2023)
   "2024-01": Version « Kiwi » 🥝 (janvier 2024)
+  "2024-04": Version « Breztel » 🥨 (avril 2024)
 startpage:
   donate:
     text: "Nous nous efforçons de faire parrainer toutes nos dépenses. Cependant,
@@ -3031,8 +3044,9 @@ tablesorter:
 conference:
   join: entrer dans la conférence
   join_title: entrer dans la conférence
-  privacy_notice: 'Remarque : les vidéoconférences se déroulent sur le serveur du
-    collectif living utopia. Tu seras connecté·e sous ton pseudonyme de foodsharing.'
+  privacy_notice: 'Remarque : les vidéoconférences se déroulent via le serveur de
+    conférence du collectif living utopia. Tu y seras automatiquement connecté(e)
+    avec ton prénom, ton identifiant et ton avatar saisis sur foodsharing.'
   description_text: Entrer dans la vidéoconférence du groupe de travail choisi. La
     vidéoconférence (BigBlueButton) s’ouvrira dans un nouvel onglet.
 blog:
@@ -3174,6 +3188,7 @@ quiz:
   goodluck: Bonne chance !
   regstart: Démarrer le quiz sans limite de temps et 20 questions
   quizleft: " – Il ne reste plus qu’à réussir le quiz !"
+  comments: Commentaires
 fpsingular: Point d’erreur
 bootstrap-datepicker:
   labelCurrentMonth: Mois actuel
@@ -3468,6 +3483,7 @@ markdown_input:
     hrule: ligne horizontale
     link: lien
     heading: titre
+    image: Joindre des photos
   empty_preview_placeholder: "Il s’agit de l’aperçu du formatage. Le texte est formaté
     ici tel qu’il sera affiché ultérieurement.\n---\n*Mais vous n’avez saisi aucun
     texte susceptible d’être affiché ici.*"
