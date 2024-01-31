@@ -30,6 +30,23 @@ $breaking-viewport: 767px;
   }
 }
 
+@media (max-width: $breaking-viewport) {
+  .navigation.navbar .nav-container {
+    overflow-y: scroll;
+    max-height: 100vh;
+
+    // make sure the website isn't scrolled behind the menu
+    overscroll-behavior: contain;
+
+    // hide wierdly positioned menu scrollbar
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    & ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
 @media (min-width: $breaking-viewport) {
   .nav-foodsharer .mainnav .nav-item .nav-text {
     display: unset;
@@ -100,7 +117,7 @@ $breaking-viewport: 767px;
 
 @media (max-width: $breaking-viewport) {
   .navigation .navbar-collapse {
-    margin-bottom: 3rem;
+    margin-bottom: 7.25rem;
 
     & .metanav,
     & .sidenav {
@@ -127,6 +144,11 @@ $breaking-viewport: 767px;
       }
     }
   }
+}
+
+
+body.nav-open{
+  overflow: hidden;
 }
 
 .navigation .nav-item {
@@ -237,14 +259,14 @@ $breaking-viewport: 767px;
 
 .navigation .dropdown {
   @media (max-width: $breaking-viewport) {
-    position: unset;
+    position: static;
   }
 }
 
 .navigation .dropdown-menu {
   @media (max-width: $breaking-viewport) {
     min-width: 100%;
-    max-width: 100%;
+    max-width: calc( 91 * 1vw );
   }
 
   & .collapse {

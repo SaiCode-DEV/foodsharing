@@ -2,8 +2,8 @@
   <b-navbar
     ref="navbar"
     toggleable="md"
-    :sticky="viewIsMD"
     class="navigation"
+    sticky
     :class="{
       'nav-not-visible': isLoggedIn,
       'nav-foodsharer': !isFoodsaver,
@@ -128,10 +128,7 @@ export default {
   },
   methods: {
     resizeHandler () {
-      let height = '0px'
-      if (this.viewIsMD) {
-        height = this.$refs.navbar.$el.getBoundingClientRect().height + 'px'
-      }
+      const height = this.$refs.navbar.$el.getBoundingClientRect().height + 'px'
       document.documentElement.style.setProperty('--navbar-height', height)
     },
   },
