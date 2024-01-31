@@ -2,6 +2,7 @@
 
 ## Features
 - Added a ChainSearchPicker Modal in StoreInformation !2863 @chriswalg
+- Added a donation banner !2930 @chriswalg
 
 ## Changes
 - Improves the BBB integration !3050 @stcz

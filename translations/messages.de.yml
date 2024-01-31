@@ -3215,6 +3215,11 @@ thread:
       copy_source: "Quelltext kopieren"
     copy_source_success: "Quelltext kopiert!"
 
+donation_banner:
+  info_button: "Wohin geht meine Spende?"
+  action_button: "Hier spenden!"
+  amount: "Spendenstand"
+
 markdown_input:
   tooltip:
     bold: Fett

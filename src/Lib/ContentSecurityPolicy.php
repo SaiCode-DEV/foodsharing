@@ -42,6 +42,7 @@ class ContentSecurityPolicy
                 'https://tile.openstreetmap.org',
                 'https://search.mapzen.com', // only used in u_loadCoords, gets hopefully replaces soon
                 'https://gitpod.io',
+                'https://spenden.twingle.de',
                 'blob:',
                 'ws:'
             ],
