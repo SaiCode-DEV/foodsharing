@@ -56,17 +56,12 @@ class ContentRestController extends AbstractFOSRestController
      * Returns the content entry for a specific id.
      *
      * @OA\Response(response="200", description="Success", @Model(type=Content::class))
-     * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="404", description="Content id does not exist")
      * @OA\Tag(name="content")
      * @Rest\Get("content/{contentId}", requirements={"contentId" = "\d+", "status" = "[0-1]"})
      */
     public function getContentAction(int $contentId): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
-
         $content = $this->contentGateway->getContent($contentId);
         if ($content == null) {
             throw new NotFoundHttpException('content id does not exist');

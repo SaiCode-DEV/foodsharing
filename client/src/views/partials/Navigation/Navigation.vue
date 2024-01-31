@@ -8,6 +8,7 @@
       'nav-foodsharer': !isFoodsaver,
     }"
   >
+    <DonationModal />
     <div class="metanav-container container">
       <MetaNavLoggedIn v-if="!viewIsMobile && isLoggedIn" />
       <MetaNavLoggedOut v-else-if="!viewIsMobile" />
@@ -46,6 +47,7 @@ import SideNavLoggedIn from './States/SideNav/LoggedIn.vue'
 import SideNavLoggedOut from './States/SideNav/LoggedOut.vue'
 // ModalLoader
 import ModalLoader from '@/views/partials/Modals/ModalLoader.vue'
+import DonationModal from '@/components/Modals/Donation/DonationModal.vue'
 // Mixins
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
@@ -53,6 +55,7 @@ export default {
   name: 'Navigation',
   components: {
     ModalLoader,
+    DonationModal,
     MetaNavLoggedIn,
     MetaNavLoggedOut,
     MainNavLoggedIn,
