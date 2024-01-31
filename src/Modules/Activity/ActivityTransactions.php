@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Activity;
 
 use Carbon\Carbon;
+use DateTime;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Activity\DTO\ActivityFilter;
 use Foodsharing\Modules\Activity\DTO\ActivityFilterCategory;
@@ -44,7 +45,7 @@ class ActivityTransactions
         $groupOptions = [];
         if ($bezirke = $this->session->getRegions()) {
             foreach ($bezirke as $b) {
-                $option = ActivityFilter::create($b['name'], $b['id'],
+                $option = ActivityFilter::create($b['id'], $b['name'],
                     !isset($excluded['bezirk-' . $b['id']])
                 );
                 if (UnitType::isGroup($b['type'])) {
@@ -86,7 +87,7 @@ class ActivityTransactions
             ActivityFilterCategory::create('mailbox', $this->translator->trans('globals.type.my_mailboxes'),
                 $this->translator->trans('globals.type.mailboxes'), $mailboxOptions),
             ActivityFilterCategory::create('buddywall', $this->translator->trans('globals.type.my_buddies'),
-                $this->translator->trans('globals.type.buddies'), $buddyOptions)
+                $this->translator->trans('globals.type.buddies'), $buddyOptions),
         ];
     }
 
@@ -103,7 +104,7 @@ class ActivityTransactions
             if ($item->id > 0) {
                 $list[$item->index . '-' . $item->id] = [
                     'index' => $item->index,
-                    'id' => $item->id
+                    'id' => $item->id,
                 ];
             }
         }
@@ -154,10 +155,10 @@ class ActivityTransactions
         foreach ($updates as $update) {
             $activities[] = ActivityUpdate::create(
                 'event',
-                $update['time_ts'],
+                $this->getCleanedTimestamp($update['time_ts']),
                 $update['name'],
-                $update['body'],
-                $update['region'],
+                $update['body'] ?? '',
+                $update['event_region'],
                 '',
                 $update['fs_photo'] ?? '',
                 $update['gallery'] ?? [],
@@ -180,19 +181,19 @@ class ActivityTransactions
         $activities = [];
 
         foreach ($updates as $update) {
-            $activityItem = ActivityUpdate::create(
+            $activities[] = ActivityUpdate::create(
                 'foodsharepoint',
-                $update['time_ts'],
+                $this->getCleanedTimestamp($update['time_ts']),
                 $update['name'],
                 $update['body'] ?? '',
                 $update['fsp_location'],
                 '',
-                $update['photo'] ?? '',
+                $update['fs_photo'] ?? '',
                 $update['gallery'] ?? [],
                 $update['fs_id'],
                 $update['fs_name'],
                 $update['fsp_id'],
-                $update['region_id'] ?? null,
+                $update['region_id'],
             );
         }
 
@@ -230,12 +231,12 @@ class ActivityTransactions
 
             $activities[] = ActivityUpdate::create(
                 'friendWall',
-                $update['time_ts'],
+                $this->getCleanedTimestamp($update['time_ts']),
                 '',
-                $update['body'],
+                $update['body'] ?? '',
                 $update['fs_name'],
                 $isOwn ? '_own' : '',
-                $update['photo'] ?? '',
+                $update['fs_photo'] ?? '',
                 $update['gallery'] ?? [],
                 $update['fs_id'],
                 $update['fs_name'],
@@ -334,7 +335,7 @@ class ActivityTransactions
 
             $activities[] = ActivityUpdate::create(
                 'forum',
-                $update['update_time_ts'],
+                $this->getCleanedTimestamp($update['update_time_ts']),
                 $update['name'],
                 $update['post_body'] ?? '',
                 $update['bezirk_name'],
@@ -368,7 +369,7 @@ class ActivityTransactions
         foreach ($updates as $update) {
             $activities[] = ActivityUpdate::create(
                 'store',
-                $update['update_time_ts'],
+                $this->getCleanedTimestamp($update['update_time_ts']),
                 $update['betrieb_name'],
                 $update['text'] ?? '',
                 $update['region_name'],
@@ -382,5 +383,10 @@ class ActivityTransactions
         }
 
         return $activities;
+    }
+
+    private function getCleanedTimestamp(?string $timestamp): string
+    {
+        return $timestamp ?? (string)(new DateTime())->getTimestamp();
     }
 }
