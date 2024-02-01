@@ -1,4 +1,9 @@
+# Hotfix 2024-02 (Donation banner)
+
+- Added a donation banner !2930 !3111 @chriswalg
+
 # Release Patch "Kiwi", 2024-01-21
+
 - Removed static IT news content page and changed it to freshdesk page !3056 @chriswalg
 - Optimized width of store and dashboard !3053 @chriswalg
 - Fix saving regular pickups !3060 @AntonBallmaier

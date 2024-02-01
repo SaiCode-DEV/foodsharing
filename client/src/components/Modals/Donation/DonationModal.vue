@@ -72,6 +72,7 @@
                 <b-button
                   variant="primary"
                   block
+                  disabled
                 >
                   {{ $i18n('donation_banner.amount') }}: <span class="donationAmountClass">
                     {{ formatCurrency(donationAmount) }}
@@ -87,6 +88,7 @@
                   class="d-flex align-items-center"
                   variant="primary"
                   block
+                  disabled
                 >
                   <b-progress
                     class="p-0 w-75"
@@ -94,7 +96,7 @@
                     :value="percentage"
                   />
                   <div class="mt-1 text-right w-25">
-                    {{ percentage }} %
+                    {{ formatPercentage(percentage) }} %
                   </div>
                 </b-button>
               </b-col>
@@ -180,6 +182,14 @@ export default {
     formatCurrency (amount) {
       return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(amount)
     },
+    formatPercentage (value) {
+      const roundedValue = value.toFixed(1)
+      if (roundedValue === '0.0') {
+        return '0'
+      } else {
+        return roundedValue
+      }
+    },
   },
 }
 </script>
@@ -200,5 +210,9 @@ export default {
 .donationAmountClass {
   color: #f6f5f4;
   font-weight: bold
+}
+
+.btn.disabled, .btn:disabled {
+  opacity: unset;
 }
 </style>
