@@ -3379,3 +3379,6 @@ save_state_description: Uygulanan filtreleri ve sıralamayı kaydedin ve gelecek
 configure_columns: Sütunları yapılandır
 expand_all: Tümünü kapat
 collapse_all: Tümünü aç
+donation_banner:
+  info_button: Bağışım nereye gidiyor?
+  action_button: Buraya bağış yapın!
