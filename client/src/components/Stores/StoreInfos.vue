@@ -16,7 +16,11 @@
         </div>
         <div>
           {{ street }} <br>
-          {{ postcode }} {{ city }}
+          {{ postcode }} {{ city }} <br>
+          <a :href="$url('mapStore', storeId)">
+            <i class="fas fa-map-marker-alt" />
+            {{ $i18n('store.to_map') }}
+          </a>
         </div>
       </div>
       <div
@@ -158,6 +162,10 @@ export default {
     weightType: {
       type: Number,
       default: null,
+    },
+    storeId: {
+      type: Number,
+      required: true,
     },
   },
   data () {

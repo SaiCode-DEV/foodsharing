@@ -92,6 +92,7 @@
               :city="storeInformation.address.city"
               :last-fetch-date="lastFetchDate"
               :press="storeInformation.publicity"
+              :store-id="storeId"
               :region-pickup-rules="storeInformation.options.useRegionPickupRule"
               :region-pickup-rule-active="regionPickupRule.regionPickupRuleActive"
               :region-pickup-rule-timespan="regionPickupRule.regionPickupRuleTimespan"
