@@ -293,6 +293,7 @@ class FoodSharePointControl extends Control
         $this->pageHelper->addContent($this->view->vueComponent('vue-wall', 'wall', [
             'target' => 'fairteiler',
             'targetId' => $this->foodSharePoint['id'],
+            'galleryHeightInPx' => 250,
         ]));
 
         if ($this->foodSharePointPermissions->mayFollow()) {

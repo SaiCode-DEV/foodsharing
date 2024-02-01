@@ -301,12 +301,8 @@ class ActivityGateway extends BaseGateway
     {
         if (!empty($post['attach'])) {
             $data = json_decode($post['attach'], true);
-            if (isset($data['image'])) {
-                $post['gallery'] = array_map(fn ($img) => [
-                    'image' => 'images/wallpost/' . $img['file'],
-                    'medium' => 'images/wallpost/medium_' . $img['file'],
-                    'thumb' => 'images/wallpost/thumb_' . $img['file']
-                ], $data['image']);
+            if (isset($data['image'])) { // Legacy images
+                $post['gallery'] = array_column($data['image'], 'file');
             } elseif (isset($data['images'])) {
                 $post['gallery'] = $data['images'];
             }

@@ -39,10 +39,11 @@ class FoodsaverForAvatar
      */
     public static function createFromArray(array $data, array $keys = []): FoodsaverForAvatar
     {
+        global $container;
         $keys = array_merge(['id' => 'id', 'name' => 'name', 'avatar' => 'photo'], $keys);
         $obj = new FoodsaverForAvatar();
         $obj->id = $data[$keys['id']];
-        $obj->name = $data[$keys['name']];
+        $obj->name = $data[$keys['name']] ?? $container->get('translator')->trans('forum.deleted_user');
         $obj->avatar = $data[$keys['avatar']];
 
         return $obj;

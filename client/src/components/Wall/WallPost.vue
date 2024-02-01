@@ -16,7 +16,10 @@
       </div>
       <Markdown :source="post.body" />
 
-      <Gallery :images="post.pictures" />
+      <Gallery
+        :images="post.pictures"
+        :height-in-px="galleryHeightInPx"
+      />
     </div>
   </div>
 </template>
@@ -33,6 +36,7 @@ export default {
   props: {
     post: { type: Object, required: true },
     mayDeleteEverything: { type: Boolean, default: false },
+    galleryHeightInPx: { type: Number, default: undefined },
   },
   computed: {
     canDelete () {

@@ -118,6 +118,7 @@ final class ProfileControl extends Control
             'target' => 'foodsaver',
             'targetId' => $fsId,
             'title' => $this->translator->trans('profile.pinboard', ['{name}' => $this->foodsaver['name']]),
+            'galleryHeightInPx' => 250,
         ]);
         $userStores = $this->profileGateway->listStoresOfFoodsaver($fsId);
 

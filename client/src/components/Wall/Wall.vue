@@ -43,9 +43,8 @@
       v-for="p in filteredList"
       :key="p.id"
       :post="p"
-      :managers="managers"
       :may-delete-everything="mayDeleteEverything"
-      :is-coordinator="isCoordinator"
+      :gallery-height-in-px="galleryHeightInPx"
       class="wallpost"
       @delete="deletePost"
     />
@@ -67,11 +66,10 @@ export default {
   props: {
     targetId: { type: Number, required: true },
     target: { type: String, required: true },
-    showOnlyExcerpt: { type: Boolean, default: false },
-    managers: { type: Array, default: () => [] },
-    isCoordinator: { type: Boolean, default: false },
-    numberOfVisiblePostsPerExcerptIteration: { type: Number, default: 3 },
     title: { type: String, default: null },
+    // excerptLength: { type: Number, default: 10 }, // how many entries are shown initially? Also the number of entries shown if "show less" is clicked
+    // TODO for next followup: pagination for wall posts, similar to how the activity overview handles it.
+    galleryHeightInPx: { type: Number, default: undefined },
   },
   data () {
     return {

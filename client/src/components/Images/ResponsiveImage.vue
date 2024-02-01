@@ -12,11 +12,18 @@
       body-class="p-1"
       content-class="w-unset"
       dialog-class="fluid-size-dialog"
-      @show="loadGalleySiblings"
+      @show="showHandler"
     >
       <img
+        ref="img"
         :src="getUrl('image')"
         class="limited-size-image"
+        tabindex="-1"
+        @keydown.left="swapToModal(0)"
+        @keydown.right="swapToModal(1)"
+        @wheel="wheelHandler"
+        @touchstart="touchStartHandler"
+        @touchend="touchEndHandler"
         @load="(evt) => evt.target.classList.add('loaded')"
       >
       <div
@@ -66,6 +73,8 @@ export default {
       wasIntersecting: false,
       isIntersecting: false,
       gallerySiblings: [null, null],
+      canScrollSwap: false,
+      touchStart: null,
     }
   },
   computed: {
@@ -149,9 +158,44 @@ export default {
         this.$bvModal.show(this.gallerySiblings[siblingIndex])
       }
     },
-    loadGalleySiblings () {
+    async showHandler () {
       if (this.galleryIndex === null) return
+      this.canScrollSwap = false
       this.gallerySiblings = this.$parent.getGallerySiblings(this.galleryIndex)
+      await new Promise(resolve => window.setTimeout(resolve, 100)) // timeout for key swapping
+      this.$refs.img?.focus()
+      await new Promise(resolve => window.setTimeout(resolve, 400)) // timeout for scroll swappping
+      this.canScrollSwap = true
+    },
+    wheelHandler (evt) {
+      if (!this.canScrollSwap) return
+      if (evt.deltaX > 0 || evt.deltaY > 0) {
+        this.swapToModal(1)
+      } else if (evt.deltaX < 0 || evt.deltaY < 0) {
+        this.swapToModal(0)
+      }
+    },
+    touchStartHandler (evt) {
+      if (evt.touches.lenght > 1) {
+        this.touchStart = null
+        return
+      }
+      this.touchStart = evt.touches[0]
+    },
+    touchEndHandler (evt) {
+      if (!this.touchStart) return
+      const diffX = this.touchStart.clientX - evt.changedTouches[0].clientX
+      const diffY = this.touchStart.clientY - evt.changedTouches[0].clientY
+      const horizontalSwipe = Math.abs(diffX) > Math.abs(diffY)
+      const distanceThreshold = 50
+      const farEnough = Math.abs(diffX) > distanceThreshold
+      if (farEnough && horizontalSwipe) {
+        if (diffX > 0) {
+          this.swapToModal(1)
+        } else {
+          this.swapToModal(0)
+        }
+      }
     },
   },
 }
@@ -210,6 +254,7 @@ export default {
 ::v-deep .fluid-size-dialog {
   width: fit-content !important;
   max-width: unset;
+  margin: 1.75rem auto;
 }
 
 ::v-deep .w-unset {
@@ -217,11 +262,12 @@ export default {
 }
 
 .limited-size-image {
-  max-width: calc(90vw - 5em);
+  max-width: calc(90vw - 6em);
   max-height: 90vh;
   min-width: 10em;
   min-height: 10em;
   background: url('/img/469.gif') no-repeat center center;
+  outline: none;
   &.loaded {
     min-width: unset;
     min-height: unset;

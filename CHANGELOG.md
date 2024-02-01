@@ -21,7 +21,7 @@
 - Refactored the map control component to vue !3051 @alex.simm
 - Move hastodoquiz from session to Quiz Module !3075 @KoeMai
 - Added a missing bell type !3022 @alex.simm
-- Rebuild the wall using vue #45 #1800 !3045 @AntonBallmaier
+- Rebuild the wall using vue #45 #1800 #1830 !3045 !3112 @AntonBallmaier
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm

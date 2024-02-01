@@ -20,8 +20,16 @@ export default {
 }
 </script>
 
-<style>
-.markdown > p:last-child {
-  margin-bottom: 0;
+<style lang="scss">
+.markdown {
+  p:last-child {
+    margin-bottom: 0;
+  }
+  a {
+    word-break: break-word;
+  }
+  code {
+    word-break: break-all;
+  }
 }
 </style>
