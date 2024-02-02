@@ -62,7 +62,7 @@ class LegalControlCest
         $I->selectOption('#legal_form_privacyNoticeAcknowledged', 'Ich habe die Belehrung zur Kenntnis genommen.');
         $I->click('Einstellungen übernehmen');
         $I->seeCurrentUrlEquals('/?page=legal');
-        $I->seeInDatabase('fs_foodsaver', ['id' => $this->user['id'], 'rolle' => Role::AMBASSADOR]);
+        $I->seeInDatabase('fs_foodsaver', ['id' => $this->user['id'], 'rolle' => Role::AMBASSADOR->value]);
     }
 
     public function testGivenIAmLoggedInAndAHaveRoleHigherThanOneThenICanDegradeToFoodsaver(AcceptanceTester $I): void

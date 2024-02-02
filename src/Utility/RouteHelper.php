@@ -4,6 +4,7 @@ namespace Foodsharing\Utility;
 
 use Foodsharing\Entrypoint\IndexController;
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Legal\LegalGateway;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -126,7 +127,7 @@ final class RouteHelper
 
     private function usersPrivacyNoticeUpToDate(): bool
     {
-        if ($this->session->user('rolle') < 2) {
+        if (!$this->session->mayRole(Role::STORE_MANAGER)) {
             return true;
         }
         $privacyNoticeVersion = $this->legalGateway->getPnVersion();

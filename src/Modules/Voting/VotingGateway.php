@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Voting;
 
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingType;
 use Foodsharing\Modules\Voting\DTO\Poll;
@@ -297,7 +298,7 @@ class VotingGateway extends BaseGateway
      * filtered by a minimal role, verification, and home district.
      *
      * @param int $regionId ID of the region
-     * @param int $minRole minimal role of users that should be included
+     * @param Role $minRole minimal role of users that should be included
      * @param bool $onlyVerified only verified users should be included
      * @param bool $restrict_homeDistrict only users whose home region is the specified region or any subregion (if included)
      * @param bool $includeSubregions whether users from subregions should be included
@@ -306,7 +307,7 @@ class VotingGateway extends BaseGateway
      *
      * @throws \Exception
      */
-    public function listActiveRegionMemberIds(int $regionId, int $minRole, bool $onlyVerified = true, bool $restrict_homeDistrict = false,
+    public function listActiveRegionMemberIds(int $regionId, Role $minRole, bool $onlyVerified = true, bool $restrict_homeDistrict = false,
         bool $includeSubregions = true): array
     {
         $verifiedCondition = $onlyVerified ? 'AND fs.verified = 1' : '';
@@ -328,7 +329,7 @@ class VotingGateway extends BaseGateway
 			WHERE fs.bezirk_id IN ( ' . implode(',', $regionIds) . ')
 			AND fs.rolle >= :role
 			' . $verifiedCondition, [
-                ':role' => $minRole
+                ':role' => $minRole->value
             ]);
         } else {
             /* fetching all subregions is not necessary here because all users from subregions should
@@ -343,7 +344,7 @@ class VotingGateway extends BaseGateway
 				AND fs.rolle >= :role
 				' . $verifiedCondition, [
                 ':regionId' => $regionId,
-                ':role' => $minRole
+                ':role' => $minRole->value
             ]);
         }
 

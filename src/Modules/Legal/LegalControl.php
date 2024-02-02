@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Legal;
 
 use Foodsharing\Modules\Core\Control;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\View;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +35,7 @@ class LegalControl extends Control
         $privacyNoticeDate = $this->gateway->getPnVersion();
 
         if ($this->session->id()) {
-            $privacyNoticeNeccessary = $this->session->user('rolle') >= 2;
+            $privacyNoticeNeccessary = $this->session->mayRole(Role::STORE_MANAGER);
             $privacyPolicyAcknowledged = $this->session->user('privacy_policy_accepted_date') == $privacyPolicyDate;
             $privacyNoticeAcknowledged = $this->session->user('privacy_notice_accepted_date') == $privacyNoticeDate;
             $data = new LegalData($privacyPolicyAcknowledged, $privacyNoticeNeccessary ? $privacyNoticeAcknowledged : true);

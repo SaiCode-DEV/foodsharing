@@ -172,13 +172,13 @@ final class ImageHelper
         $bg = '';
         if (isset($foodsaver['quiz_rolle'])) {
             switch ($foodsaver['quiz_rolle']) {
-                case Role::FOODSAVER:
+                case Role::FOODSAVER->value:
                     $bg = 'box-sizing:border-box;border:3px solid var(--fs-color-role-foodsaver);';
                     break;
-                case Role::STORE_MANAGER:
+                case Role::STORE_MANAGER->value:
                     $bg = 'box-sizing:border-box;border:3px solid var(--fs-color-role-storemanager);';
                     break;
-                case Role::AMBASSADOR:
+                case Role::AMBASSADOR->value:
                     $bg = 'box-sizing:border-box;border:3px solid var(--fs-color-role-ambassador);';
                     break;
                 default:

@@ -354,7 +354,7 @@ class QuizView extends View
 		<p style="text-align: center;">';
 
         if ($failurePoints < $maxFailurePoints) {
-            switch ($this->session->get('quiz-id')) {
+            switch (Role::tryFrom($this->session->get('quiz-id'))) {
                 case Role::FOODSAVER:
                     $out .= '<a href="/?page=settings&sub=up_fs" class="button">'
                         . 'Jetzt die Foodsaver-Anmeldung abschließen.' .

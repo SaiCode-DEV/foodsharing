@@ -43,8 +43,8 @@ class FoodsaverCest
         $I->dontSeeInDatabase('fs_betrieb_team', ['foodsaver_id' => $fsId]);
         $I->dontSeeInDatabase('fs_abholer', ['foodsaver_id' => $fsId]);
         $I->dontSeeInDatabase('fs_foodsaver_has_conversation', ['foodsaver_id' => $fsId]);
-        $I->seeNumRecords(7, 'fs_quiz_session', ['foodsaver_id' => $fsId, 'quiz_id' => Role::FOODSAVER, 'status' => SessionStatus::FAILED]);
-        $I->seeInDatabase('fs_foodsaver', ['rolle' => Role::FOODSHARER, 'quiz_rolle' => Role::FOODSHARER]);
+        $I->seeNumRecords(7, 'fs_quiz_session', ['foodsaver_id' => $fsId, 'quiz_id' => Role::FOODSAVER->value, 'status' => SessionStatus::FAILED]);
+        $I->seeInDatabase('fs_foodsaver', ['rolle' => Role::FOODSHARER->value, 'quiz_rolle' => Role::FOODSHARER->value]);
     }
 
     final public function canEditLocation(AcceptanceTester $I): void

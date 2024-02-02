@@ -21,7 +21,7 @@ class QuizCest
         $this->foodsaver = $I->createFoodsaver();
 
         $this->quizzes = [];
-        foreach ([Role::FOODSAVER, Role::STORE_MANAGER] as $role) {
+        foreach ([Role::FOODSAVER->value, Role::STORE_MANAGER->value] as $role) {
             $this->quizzes[$role] = $I->createQuiz($role);
         }
     }
@@ -55,7 +55,7 @@ class QuizCest
         $I->letUserFailQuiz($this->foodsharer, 29, 3);
 
         $I->login($this->foodsharer['email']);
-        $I->amOnPage($I->upgradeQuizUrl(Role::FOODSAVER));
+        $I->amOnPage($I->upgradeQuizUrl(Role::FOODSAVER->value));
         $I->waitForPageBody();
 
         $I->see('Du hast das Quiz 3x nicht bestanden');
@@ -66,7 +66,7 @@ class QuizCest
         $I->letUserFailQuiz($this->foodsharer, 31, 4);
 
         $I->login($this->foodsharer['email']);
-        $I->amOnPage($I->upgradeQuizUrl(Role::FOODSAVER));
+        $I->amOnPage($I->upgradeQuizUrl(Role::FOODSAVER->value));
         $I->waitForPageBody();
         $I->click('Quiz mit Zeitlimit');
         $I->waitForText('Jetzt geht es los');

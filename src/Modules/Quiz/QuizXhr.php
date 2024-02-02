@@ -294,7 +294,7 @@ class QuizXhr extends Control
         $this->session->set('quiz-questions', $quizSession['quiz_questions']);
         $this->session->set('quiz-index', $quizSession['quiz_index']);
         $this->session->set('quiz-session', $quizSession['id']);
-        $easyMode = $quizSession['easymode'] == 1 && $quizId == Role::FOODSAVER;
+        $easyMode = $quizSession['easymode'] == 1 && $quizId == Role::FOODSAVER->value;
         $this->session->set('quiz-easymode', $easyMode);
 
         /*
@@ -315,7 +315,7 @@ class QuizXhr extends Control
     {
         $quiz = $this->quizGateway->getQuiz($quizId);
         if ($quiz) {
-            if ($quizId == Role::FOODSAVER && isset($_GET['easymode']) && $_GET['easymode'] == 1) {
+            if ($quizId == Role::FOODSAVER->value && isset($_GET['easymode']) && $_GET['easymode'] == 1) {
                 $this->session->set('quiz-easymode', true);
                 $quiz['questcount'] = 20;
             } else {
@@ -384,11 +384,11 @@ class QuizXhr extends Control
         $dia->addAbortButton();
 
         $next_hastodo_role = $this->quizTransactions->refreshQuizData($this->session->id(), $this->session->role());
-        if ($next_hastodo_role == Role::FOODSAVER) {
+        if ($next_hastodo_role == Role::FOODSAVER->value) {
             $dia->addButton('Jetzt mit dem Quiz meine Rolle als Foodsaver bestätigen', 'goTo(\'/?page=settings&sub=up_fs\');');
-        } elseif ($next_hastodo_role == Role::STORE_MANAGER) {
+        } elseif ($next_hastodo_role == Role::STORE_MANAGER->value) {
             $dia->addButton('Jetzt mit dem Quiz meine Rolle als Betriebsverantwortliche*r bestätigen', 'goTo(\'/?page=settings&sub=up_bip\');');
-        } elseif ($next_hastodo_role == Role::AMBASSADOR) {
+        } elseif ($next_hastodo_role == Role::AMBASSADOR->value) {
             $dia->addButton('Jetzt mit dem Quiz meine Rolle als Botschafter*In bestätigen', 'goTo(\'/?page=settings&sub=up_bot\');');
         }
 
@@ -408,11 +408,11 @@ class QuizXhr extends Control
                 $dia->addOpt('width', 720);
                 $dia->addAbortButton();
 
-                if ($nextRole == Role::FOODSAVER) {
+                if ($nextRole == Role::FOODSAVER->value) {
                     $dia->addButton('Ja, ich möchte jetzt mit dem Quiz meine Rolle als Foodsaver bestätigen.', 'goTo(\'/?page=settings&sub=up_fs\');');
-                } elseif ($nextRole == Role::STORE_MANAGER) {
+                } elseif ($nextRole == Role::STORE_MANAGER->value) {
                     $dia->addButton('Ja, ich möchte jetzt mit dem Quiz meine Rolle als Betriebsverantwortliche/r bestätigen.', 'goTo(\'/?page=settings&sub=up_bip\');');
-                } elseif ($nextRole == Role::AMBASSADOR) {
+                } elseif ($nextRole == Role::AMBASSADOR->value) {
                     $dia->addButton('Ja, ich möchte jetzt mit dem Quiz meine Rolle als Botschafter*In bestätigen.', 'goTo(\'/?page=settings&sub=up_bot\');');
                 }
 

@@ -288,25 +288,25 @@ class PassportGeneratorTransaction extends AbstractController
     {
         $roles = match ($gender_id) {
             Gender::MALE => [
-                Role::FOODSHARER => $this->translator->trans('terminology.foodsharer.m'),
-                Role::FOODSAVER => $this->translator->trans('terminology.foodsaver.m'),
-                Role::STORE_MANAGER => $this->translator->trans('terminology.storemanager.m'),
-                Role::AMBASSADOR => $this->translator->trans('terminology.ambassador.m'),
-                Role::ORGA => $this->translator->trans('terminology.ambassador.m'),
+                Role::FOODSHARER->value => $this->translator->trans('terminology.foodsharer.m'),
+                Role::FOODSAVER->value => $this->translator->trans('terminology.foodsaver.m'),
+                Role::STORE_MANAGER->value => $this->translator->trans('terminology.storemanager.m'),
+                Role::AMBASSADOR->value => $this->translator->trans('terminology.ambassador.m'),
+                Role::ORGA->value => $this->translator->trans('terminology.ambassador.m'),
             ],
             Gender::FEMALE => [
-                Role::FOODSHARER => $this->translator->trans('terminology.foodsharer.f'),
-                Role::FOODSAVER => $this->translator->trans('terminology.foodsaver.f'),
-                Role::STORE_MANAGER => $this->translator->trans('terminology.storemanager.f'),
-                Role::AMBASSADOR => $this->translator->trans('terminology.ambassador.f'),
-                Role::ORGA => $this->translator->trans('terminology.ambassador.f'),
+                Role::FOODSHARER->value => $this->translator->trans('terminology.foodsharer.f'),
+                Role::FOODSAVER->value => $this->translator->trans('terminology.foodsaver.f'),
+                Role::STORE_MANAGER->value => $this->translator->trans('terminology.storemanager.f'),
+                Role::AMBASSADOR->value => $this->translator->trans('terminology.ambassador.f'),
+                Role::ORGA->value => $this->translator->trans('terminology.ambassador.f'),
             ],
             default => [
-                Role::FOODSHARER => $this->translator->trans('terminology.foodsharer.d'),
-                Role::FOODSAVER => $this->translator->trans('terminology.foodsaver.d'),
-                Role::STORE_MANAGER => $this->translator->trans('terminology.storemanager.d'),
-                Role::AMBASSADOR => $this->translator->trans('terminology.ambassador.d'),
-                Role::ORGA => $this->translator->trans('terminology.ambassador.d'),
+                Role::FOODSHARER->value => $this->translator->trans('terminology.foodsharer.d'),
+                Role::FOODSAVER->value => $this->translator->trans('terminology.foodsaver.d'),
+                Role::STORE_MANAGER->value => $this->translator->trans('terminology.storemanager.d'),
+                Role::AMBASSADOR->value => $this->translator->trans('terminology.ambassador.d'),
+                Role::ORGA->value => $this->translator->trans('terminology.ambassador.d'),
             ],
         };
 

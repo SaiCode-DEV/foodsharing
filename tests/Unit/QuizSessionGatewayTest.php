@@ -32,7 +32,7 @@ class QuizSessionGatewayTest extends Unit
     public function testAbortQuizSession(): void
     {
         $fsId = $this->foodsaver['id'];
-        $quizId = Role::AMBASSADOR;
+        $quizId = Role::AMBASSADOR->value;
         $this->tester->createQuizTry($fsId, $quizId, 0);
         $runningSessionId = $this->gateway->getRunningSession($quizId, $fsId)['id'];
         $data = ['id' => $runningSessionId, 'quiz_id' => $quizId, 'foodsaver_id' => $fsId];
@@ -129,25 +129,25 @@ class QuizSessionGatewayTest extends Unit
     private function foodsharerTriesQuiz(int $status, int $times = 1, int $daysAgo = 0): void
     {
         foreach (range(1, $times) as $i) {
-            $this->tester->createQuizTry($this->foodsharer['id'], Role::FOODSAVER, $status, $daysAgo);
+            $this->tester->createQuizTry($this->foodsharer['id'], Role::FOODSAVER->value, $status, $daysAgo);
         }
     }
 
     private function foodsharerQuizStatus(): array
     {
-        return $this->gateway->getQuizStatus(Role::FOODSAVER, $this->foodsharer['id']);
+        return $this->gateway->getQuizStatus(Role::FOODSAVER->value, $this->foodsharer['id']);
     }
 
     public function testBlockUserForQuiz(): void
     {
-        $this->gateway->blockUserForQuiz($this->foodsaver['id'], Role::FOODSAVER);
+        $this->gateway->blockUserForQuiz($this->foodsaver['id'], Role::FOODSAVER->value);
 
         $this->tester->seeNumRecords(
             7,
             'fs_quiz_session',
             [
                 'foodsaver_id' => $this->foodsaver['id'],
-                'quiz_id' => Role::FOODSAVER,
+                'quiz_id' => Role::FOODSAVER->value,
                 'status' => SessionStatus::FAILED
             ]
         );

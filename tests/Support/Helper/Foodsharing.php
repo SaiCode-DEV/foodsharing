@@ -169,9 +169,9 @@ class Foodsharing extends Db
     public function createQuiz(int $quizId, int $questionCount = 1): array
     {
         $roles = [
-            Role::FOODSAVER => 'Foodsaver/in',
-            Role::STORE_MANAGER => 'Betriebsverantwortliche/r',
-            Role::AMBASSADOR => 'Botschafter/in'
+            Role::FOODSAVER->value => 'Foodsaver/in',
+            Role::STORE_MANAGER->value => 'Betriebsverantwortliche/r',
+            Role::AMBASSADOR->value => 'Botschafter/in'
         ];
         $params = [
             'id' => $quizId,

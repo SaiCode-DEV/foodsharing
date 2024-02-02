@@ -71,7 +71,7 @@ class FoodsaverView extends View
 
         $cnt .= $this->v_utils->v_input_wrapper($this->translator->trans('foodsaver.manage.role'),
             $this->translator->trans(
-                $this->translationHelper->getRoleName($foodsaver['rolle'], $foodsaver['geschlecht'])
+                $this->translationHelper->getRoleName(Role::tryFrom($foodsaver['rolle']), $foodsaver['geschlecht'])
             )
         );
 

@@ -104,7 +104,7 @@ class ProfileView extends View
         $maySeeStores = $this->profilePermissions->maySeeStores($fsId);
         $maySeeCommitmentsStat = $this->profilePermissions->maySeeCommitmentsStat($fsId);
 
-        if ($this->foodsaver['rolle'] > Role::FOODSHARER) {
+        if ($this->foodsaver['rolle'] > Role::FOODSHARER->value) {
             // MediationRequest
             if ($this->regionGateway->getRegionOption($regionId, RegionOptionType::ENABLE_MEDIATION_BUTTON)) {
                 $mediationGroupEmail = $this->renderMediationRequest($regionId);
@@ -218,7 +218,7 @@ class ProfileView extends View
         }
 
         $fsMail = '';
-        if ($this->foodsaver['rolle'] > Role::FOODSAVER) {
+        if ($this->foodsaver['rolle'] > Role::FOODSAVER->value) {
             if ($this->profilePermissions->maySeeEmailAddress($fsId)) {
                 $fsMail = $this->foodsaver['mailbox'] ?? '';
             }
@@ -231,7 +231,7 @@ class ProfileView extends View
 
         $page->addSectionLeft(
             $this->vueComponent('vue-profile-infos', 'ProfileInfos', [
-                'isfoodsaver' => $this->foodsaver['rolle'] > Role::FOODSHARER,
+                'isfoodsaver' => $this->foodsaver['rolle'] > Role::FOODSHARER->value,
                 'fsMail' => $fsMail,
                 'privateMail' => $this->profilePermissions->maySeePrivateEmail($fsId) ? $this->foodsaver['email'] : '',
                 'registrationDate' => $this->profilePermissions->maySeeRegistrationDate($fsId) ? Carbon::parse($this->foodsaver['anmeldedatum'])->format('d.m.Y') : '',
@@ -366,7 +366,7 @@ class ProfileView extends View
 
     private function renderMediationRequest(int $regionId): string
     {
-        if (($this->foodsaver['rolle'] < Role::FOODSAVER) || ($this->foodsaver['id'] === $this->session->id())) {
+        if (($this->foodsaver['rolle'] < Role::FOODSAVER->value) || ($this->foodsaver['id'] === $this->session->id())) {
             return '';
         }
 
@@ -388,7 +388,7 @@ class ProfileView extends View
         $infos = $this->renderOrgaTeamMemberInformation($infos);
         if (
             $this->foodsaver['id'] != $this->session->id()
-            && $this->foodsaver['rolle'] > Role::FOODSHARER
+            && $this->foodsaver['rolle'] > Role::FOODSHARER->value
             && $this->session->mayRole(Role::FOODSAVER)
         ) {
             $infos = $this->renderFoodsaverTeamMemberInformation($infos);
@@ -506,7 +506,7 @@ class ProfileView extends View
 
     private function renderOrgaUserInformation(array $infos): array
     {
-        if ($this->foodsaver['rolle'] >= Role::ORGA) {
+        if ($this->foodsaver['rolle'] >= Role::ORGA->value) {
             $infos[] = [
                 'name' => $this->translator->trans('profile.orga_rights', [
                     '{name}' => $this->foodsaver['name'],

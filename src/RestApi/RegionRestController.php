@@ -464,7 +464,8 @@ class RegionRestController extends AbstractFOSRestController
             if (!$this->regionPermissions->maySetRegionAdmin()) {
                 throw new AccessDeniedHttpException();
             }
-            if (!$this->foodsaverGateway->getRole($memberId) >= Role::AMBASSADOR) {
+            $memberRole = $this->foodsaverGateway->getRole($memberId);
+            if ($memberRole && $memberRole->isLower(Role::AMBASSADOR)) {
                 throw new AccessDeniedHttpException();
             }
         }
@@ -504,7 +505,8 @@ class RegionRestController extends AbstractFOSRestController
             if (!$this->regionPermissions->mayRemoveRegionAdmin()) {
                 throw new AccessDeniedHttpException();
             }
-            if (!$this->foodsaverGateway->getRole($memberId) >= Role::AMBASSADOR) {
+            $member_role = $this->foodsaverGateway->getRole($memberId);
+            if ($member_role && $member_role->isLower(Role::AMBASSADOR)) {
                 throw new AccessDeniedHttpException();
             }
         }

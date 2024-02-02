@@ -189,7 +189,7 @@ class FoodsaverControl extends Control
             unset($data['rolle']);
         }
 
-        if (isset($data['rolle']) && $data['rolle'] == Role::FOODSHARER && $data['rolle'] < $fs['rolle']) {
+        if (isset($data['rolle']) && $data['rolle'] == Role::FOODSHARER->value && $data['rolle'] < $fs['rolle']) {
             $downgradedRows = $this->foodsaverTransactions->downgradeAndBlockForQuizPermanently($fs['id']);
         } else {
             $downgradedRows = 0;

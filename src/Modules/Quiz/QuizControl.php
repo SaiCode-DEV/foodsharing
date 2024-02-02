@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Quiz;
 
 use Foodsharing\Modules\Core\Control;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Permissions\QuizPermissions;
 use Foodsharing\Utility\DataHelper;
@@ -191,7 +192,7 @@ class QuizControl extends Control
     {
         $title = 'Quiz-Sessions von ' . $fs['name'] . ' ' . $fs['nachname'];
         $subtitle = $this->translator->trans(
-            $this->translationHelper->getRoleName($fs['rolle'], $fs['geschlecht'])
+            $this->translationHelper->getRoleName(Role::tryFrom($fs['rolle']), $fs['geschlecht'])
         );
         $icon = $this->imageHelper->avatar($fs);
 

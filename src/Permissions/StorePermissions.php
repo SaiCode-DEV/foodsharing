@@ -50,7 +50,7 @@ class StorePermissions
         return true;
     }
 
-    public function mayAddUserToStoreTeam(int $storeId, int $userId, int $userRole): bool
+    public function mayAddUserToStoreTeam(int $storeId, int $userId, Role $userRole): bool
     {
         if (!$this->mayEditStoreTeam($storeId)) {
             return false;
@@ -59,7 +59,7 @@ class StorePermissions
             return false;
         }
 
-        return $userRole >= Role::FOODSAVER;
+        return $userRole->isAtLeast(Role::FOODSAVER);
     }
 
     /**
@@ -328,7 +328,7 @@ class StorePermissions
      * This permission roughly assumes that both user and store exist.
      * If that is not guaranteed, you will need to check existence in the callers!
      */
-    public function mayBecomeStoreManager(int $storeId, int $userId, int $userRole): bool
+    public function mayBecomeStoreManager(int $storeId, int $userId, Role $userRole): bool
     {
         $currentManagers = $this->storeGateway->getStoreManagers($storeId);
 
@@ -341,7 +341,7 @@ class StorePermissions
             return false;
         }
 
-        return $userRole >= Role::STORE_MANAGER;
+        return $userRole->isAtLeast(Role::STORE_MANAGER);
     }
 
     public function mayLoseStoreManagement(int $storeId, int $userId): bool

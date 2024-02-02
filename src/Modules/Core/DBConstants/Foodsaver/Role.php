@@ -4,12 +4,34 @@
 
 namespace Foodsharing\Modules\Core\DBConstants\Foodsaver;
 
-class Role
+enum Role: int
 {
-    final public const FOODSHARER = 0;
-    final public const FOODSAVER = 1;
-    final public const STORE_MANAGER = 2;
-    final public const AMBASSADOR = 3;
-    final public const ORGA = 4;
-    final public const SITE_ADMIN = 5; // this role is not used currently
+    case FOODSHARER = 0;
+    case FOODSAVER = 1;
+    case STORE_MANAGER = 2;
+    case AMBASSADOR = 3;
+    case ORGA = 4;
+    case SITE_ADMIN = 5; // this role is not used currently
+
+    public function isLower(Role $role)
+    {
+        return $this->value < $role->value;
+    }
+
+    public function isAtLeast(Role $role)
+    {
+        return $this->value >= $role->value;
+    }
+
+    public function getRoleName(): string
+    {
+        return match ($this) {
+            Role::FOODSHARER => 'foodsharer',
+            Role::FOODSAVER => 'foodsaver',
+            Role::STORE_MANAGER => 'storemanager',
+            Role::AMBASSADOR => 'ambassador',
+            Role::ORGA => 'orga',
+            Role::SITE_ADMIN => 'siteadmin',
+        };
+    }
 }

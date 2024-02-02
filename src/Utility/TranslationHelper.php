@@ -20,20 +20,14 @@ final class TranslationHelper
         return $out;
     }
 
-    public function getRoleName(string $role, int $gender): string
+    public function getRoleName(?Role $role, int $gender): string
     {
-        $role = [
-            Role::FOODSHARER => 'foodsharer',
-            Role::FOODSAVER => 'foodsaver',
-            Role::STORE_MANAGER => 'storemanager',
-            Role::AMBASSADOR => 'ambassador',
-            Role::ORGA => 'orga',
-        ][$role] ?? 'foodsharer';
+        $roleName = $role->getRoleName();
 
         return $this->genderWord($gender,
-            'terminology.' . $role . '.m',
-            'terminology.' . $role . '.f',
-            'terminology.' . $role . '.d'
+            'terminology.' . $roleName . '.m',
+            'terminology.' . $roleName . '.f',
+            'terminology.' . $roleName . '.d'
         );
     }
 }

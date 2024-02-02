@@ -113,8 +113,8 @@ class FoodsharingUrl extends Db
         $result = '/?page=settings&sub=up_';
 
         return match ($quizRole) {
-            Role::STORE_MANAGER => $result . 'bip',
-            Role::AMBASSADOR => $result . 'bot',
+            Role::STORE_MANAGER->value => $result . 'bip',
+            Role::AMBASSADOR->value => $result . 'bot',
             default => $result . 'fs',
         };
     }

@@ -32,7 +32,7 @@ class FoodsaverTransactions
 
     public function downgradeAndBlockForQuizPermanently(int $fsId): int
     {
-        $this->quizSessionGateway->blockUserForQuiz($fsId, Role::FOODSAVER);
+        $this->quizSessionGateway->blockUserForQuiz($fsId, Role::FOODSAVER->value);
 
         $this->storeTransactions->leaveAllStoreTeams($fsId);
 

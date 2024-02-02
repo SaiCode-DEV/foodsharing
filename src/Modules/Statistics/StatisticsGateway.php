@@ -177,7 +177,7 @@ class StatisticsGateway extends BaseGateway
 				 id FROM fs_foodsaver WHERE rolle >= :rolle AND bezirk_id = :id and deleted_at is null
 				) AS tbl
 				GROUP BY ageBand',
-            ['rolle' => Role::FOODSAVER, ':id' => $districtId]
+            ['rolle' => Role::FOODSAVER->value, ':id' => $districtId]
         );
 
         return array_map(fn ($StatisticsAgeBand) => StatisticsAgeBand::create($StatisticsAgeBand['ageBand'], $StatisticsAgeBand['numberOfAgeBand']), $list);
@@ -209,7 +209,7 @@ class StatisticsGateway extends BaseGateway
 					 WHERE fs.rolle >= :rolle AND fb.bezirk_id = :id and fs.deleted_at is null
 				) AS tbl
 				GROUP BY ageBand',
-            ['rolle' => Role::FOODSAVER, ':id' => $districtId]
+            ['rolle' => Role::FOODSAVER->value, ':id' => $districtId]
         );
 
         return array_map(fn ($StatisticsAgeBand) => StatisticsAgeBand::create($StatisticsAgeBand['ageBand'], $StatisticsAgeBand['numberOfAgeBand']), $list);

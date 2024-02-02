@@ -3,7 +3,6 @@
 namespace Foodsharing\Lib;
 
 use Exception;
-use Flourish\fAuthorization;
 use Flourish\fSession;
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
@@ -17,6 +16,8 @@ use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\TeamStatus;
 
+use function array_key_exists;
+
 class Session
 {
     // update this whenever adding new fields to the session!!!
@@ -24,17 +25,6 @@ class Session
     private const LAST_SESSION_SCHEMA_CHANGE = 1_668_985_200; // 2022-11-21 00:00:00 UTC
 
     private const SESSION_TIMESTAMP_FIELD_NAME = 'last_updated_ts';
-
-    private const ROLE_KEYS = [
-        Role::FOODSHARER => 'user',
-        Role::FOODSAVER => 'fs',
-        Role::STORE_MANAGER => 'bieb',
-        Role::AMBASSADOR => 'bot',
-        Role::ORGA => 'orga',
-        Role::SITE_ADMIN => 'admin',
-    ];
-
-    private readonly array $roleKeysInverse;
 
     final public const DEFAULT_LOCALE = 'de';
 
@@ -52,7 +42,6 @@ class Session
         private readonly SettingsGateway $settingsGateway,
         private bool $initialized = false
     ) {
-        $this->roleKeysInverse = array_flip(self::ROLE_KEYS);
     }
 
     public function initIfCookieExists()
@@ -105,8 +94,6 @@ class Session
             fSession::enablePersistence();
         }
 
-        fAuthorization::setAuthLevels($this->roleKeysInverse);
-
         fSession::open();
 
         $cookieExpires = $this->isPersistent() ? strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN) : 0;
@@ -120,26 +107,11 @@ class Session
         return $_SESSION['fSession::type'] === 'persistent';
     }
 
-    private function setAuthLevel($role)
-    {
-        fAuthorization::setUserAuthLevel($role);
-        fAuthorization::setUserACLs(
-            [
-                'posts' => ['*'],
-                'users' => ['add', 'edit', 'delete'],
-                'groups' => ['add'],
-                '*' => ['list']
-            ]
-        );
-    }
-
     public function logout()
     {
         if ($this->initialized) {
             $this->mem->logout($this->id());
             $this->set('user', false);
-            fAuthorization::destroyUserInfo();
-            $this->setAuthLevel(null);
             $this->destroy();
         }
     }
@@ -151,36 +123,44 @@ class Session
         return $user[$index];
     }
 
-    public function id(): ?int
+    protected function setId(int $id)
     {
-        if (!$this->initialized) {
-            return null;
-        }
-
-        return fAuthorization::getUserToken();
+        $this->set('userId', $id);
     }
 
-    public function role(): ?int
+    public function id(): ?int
     {
-        if (!$this->initialized) {
+        if (!$this->has('userId')) {
             return null;
         }
 
-        return $_SESSION['client']['rolle'];
+        return $this->get('userId');
+    }
+
+    protected function setAuthLevel(Role $role)
+    {
+        $this->set('role', $role);
+    }
+
+    public function role(): ?Role
+    {
+        if (!$this->has('role')) {
+            return null;
+        }
+
+        return $this->get('role');
     }
 
     /**
      * Checks if the current user has at least the specified role.
-     *
-     * @param int $role a {@see Role} constant
      */
-    public function mayRole(int $role = Role::FOODSHARER): bool
+    public function mayRole(Role $minimalExpectedRoleLevel = Role::FOODSHARER): bool
     {
-        if (!$this->initialized) {
+        if (!$this->id() || !$this->has('role')) {
             return false;
         }
 
-        return fAuthorization::checkAuthLevel(self::ROLE_KEYS[$role]);
+        return $this->get('role')->isAtLeast($minimalExpectedRoleLevel);
     }
 
     public function getLocation(): ?array
@@ -204,6 +184,15 @@ class Session
         fSession::destroy();
     }
 
+    public function has($key)
+    {
+        if (!$this->initialized) {
+            return false;
+        }
+
+        return array_key_exists($key, $_SESSION);
+    }
+
     public function set($key, $value)
     {
         /* fail silently when session does not exist. This allows us at some point to also support sessions for not logged in users.
@@ -213,13 +202,13 @@ class Session
         }
     }
 
-    public function get($var)
+    public function get($key)
     {
         if (!$this->initialized) {
             return false;
         }
 
-        return fSession::get($var, false);
+        return fSession::get($key, false);
     }
 
     public function getLocale()
@@ -343,6 +332,10 @@ class Session
         if (!$fs) {
             throw new Exception('Foodsaver details not found in database.');
         }
+
+        $this->setId($fs['id']);
+        $this->setAuthLevel(Role::tryFrom($fs['rolle']));
+
         $this->set('g_location', [
             'lat' => $fs['lat'],
             'lon' => $fs['lon']
@@ -353,7 +346,7 @@ class Session
             $mailbox = true;
         }
 
-        if ((int)$fs['bezirk_id'] > 0 && $fs['rolle'] > 0) {
+        if ((int)$fs['bezirk_id'] > 0 && $this->role()->isAtLeast(Role::FOODSAVER)) {
             $this->regionGateway->addMember($fs_id, $fs['bezirk_id']);
         }
 
@@ -361,8 +354,8 @@ class Session
             $this->regionGateway->addMember($fs_id, $master);
         }
 
-        fAuthorization::setUserToken($fs['id']);
-        $this->setAuthLevel(self::ROLE_KEYS[$fs['rolle']]);
+        $this->setId($fs['id']);
+        $this->setAuthLevel(Role::tryFrom($fs['rolle']));
 
         $this->set('user', [
             'name' => $fs['name'],
@@ -370,7 +363,6 @@ class Session
             'photo' => $fs['photo'],
             'bezirk_id' => $fs['bezirk_id'],
             'email' => $fs['email'],
-            'rolle' => $fs['rolle'],
             'type' => $fs['type'],
             'verified' => $fs['verified'],
             'token' => $fs['token'],
@@ -406,7 +398,7 @@ class Session
             'verified' => (int)$fs['verified'],
             'last_activity' => $fs['last_activity']
         ];
-        if ((int)$fs['rolle'] > 0) {
+        if ($this->role()->isAtLeast(Role::FOODSAVER)) {
             if ($r = $this->regionGateway->listRegionsForBotschafter($fs['id'])
             ) {
                 $_SESSION['client']['botschafter'] = $r;
@@ -434,7 +426,7 @@ class Session
 
     public function mayBezirk($regionId): bool
     {
-        if ($this->mayRole(Role::ORGA)) {
+        if ($this->role()->isAtLeast(Role::ORGA)) {
             return true;
         }
         // use database check if the session includes the region to unsure previleges are lost after removal from a region

@@ -721,7 +721,7 @@ class StoreRestController extends AbstractFOSRestController
     {
         $this->handleEditTeamExceptions($storeId, $userId, true);
         $userRole = $this->foodsaverGateway->getRole($userId);
-        if (!$this->storePermissions->mayAddUserToStoreTeam($storeId, $userId, $userRole)) {
+        if (!$userRole || !$this->storePermissions->mayAddUserToStoreTeam($storeId, $userId, $userRole)) {
             throw new UnprocessableEntityHttpException();
         }
 
@@ -772,7 +772,7 @@ class StoreRestController extends AbstractFOSRestController
     {
         $this->handleEditTeamExceptions($storeId, $userId, true);
         $userRole = $this->foodsaverGateway->getRole($userId);
-        if (!$this->storePermissions->mayBecomeStoreManager($storeId, $userId, $userRole)) {
+        if (!$userRole || !$this->storePermissions->mayBecomeStoreManager($storeId, $userId, $userRole)) {
             throw new UnprocessableEntityHttpException();
         }
 

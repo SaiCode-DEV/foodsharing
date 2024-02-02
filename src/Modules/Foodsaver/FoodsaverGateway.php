@@ -366,7 +366,7 @@ class FoodsaverGateway extends BaseGateway
             'email'
         ], [
             'orgateam' => 1,
-            'rolle' => Role::ORGA
+            'rolle' => Role::ORGA->value
         ]);
     }
 
@@ -376,7 +376,7 @@ class FoodsaverGateway extends BaseGateway
             'id'
         ], [
             'orgateam' => 1,
-            'rolle' => Role::ORGA
+            'rolle' => Role::ORGA->value
         ]);
     }
 
@@ -412,14 +412,14 @@ class FoodsaverGateway extends BaseGateway
         return $this->getEmailAddresses(Role::FOODSHARER, Role::ORGA, ['bezirk_id' => $regionIds]);
     }
 
-    public function getNewsletterSubscribersEmailAddresses(int $minRole = Role::FOODSHARER, int $maxRole = Role::ORGA, array $criteria = []): array
+    public function getNewsletterSubscribersEmailAddresses(Role $minRole = Role::FOODSHARER, Role $maxRole = Role::ORGA, array $criteria = []): array
     {
         return $this->getEmailAddresses($minRole, $maxRole, [
             'newsletter' => 1
         ]);
     }
 
-    public function getEmailAddresses(int $minRole = Role::FOODSHARER, int $maxRole = Role::ORGA, array $criteria = []): array
+    public function getEmailAddresses(Role $minRole = Role::FOODSHARER, Role $maxRole = Role::ORGA, array $criteria = []): array
     {
         $foodsavers = $this->db->fetchAllByCriteria(
             'fs_foodsaver',
@@ -430,8 +430,8 @@ class FoodsaverGateway extends BaseGateway
             array_merge([
                 'active' => 1,
                 'deleted_at' => null,
-                'rolle >=' => $minRole,
-                'rolle <=' => $maxRole
+                'rolle >=' => $minRole->value,
+                'rolle <=' => $maxRole->value
             ], $criteria)
         );
 
@@ -840,14 +840,14 @@ class FoodsaverGateway extends BaseGateway
         ]);
     }
 
-    public function riseRole(int $fsId, int $newRoleId): void
+    public function riseRole(int $fsId, Role $newRoleId): void
     {
         $this->db->update(
             'fs_foodsaver',
-            ['rolle' => $newRoleId],
+            ['rolle' => $newRoleId->value],
             [
                 'id' => $fsId,
-                'rolle <' => $newRoleId
+                'rolle <' => $newRoleId->value
             ]
         );
     }
@@ -914,9 +914,9 @@ class FoodsaverGateway extends BaseGateway
         $this->db->delete('fs_foodsaver_has_bezirk', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_botschafter', ['foodsaver_id' => $fsId]);
 
-        $fsUpdateData['rolle'] = Role::FOODSHARER;
+        $fsUpdateData['rolle'] = Role::FOODSHARER->value;
         $fsUpdateData['bezirk_id'] = 0;
-        $fsUpdateData['quiz_rolle'] = Role::FOODSHARER;
+        $fsUpdateData['quiz_rolle'] = Role::FOODSHARER->value;
         $fsUpdateData['verified'] = 0;
 
         return $this->db->update('fs_foodsaver', $fsUpdateData, [
@@ -939,9 +939,11 @@ class FoodsaverGateway extends BaseGateway
         );
     }
 
-    public function getRole(int $fsId): int
+    public function getRole(int $fsId): ?Role
     {
-        return $this->db->fetchValueByCriteria('fs_foodsaver', 'rolle', ['id' => $fsId]);
+        $role = $this->db->fetchValueByCriteria('fs_foodsaver', 'rolle', ['id' => $fsId]);
+
+        return Role::tryFrom($role);
     }
 
     public function getSubscriptions(int $fsId): array

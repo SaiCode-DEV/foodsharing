@@ -75,7 +75,7 @@ class DashboardControl extends Control
 
     private function getQuiz(): ?array
     {
-        $is_foodsharer = !$this->session->mayRole(Role::FOODSAVER) && !$this->quizSessionGateway->hasPassedQuiz($this->session->id(), Role::FOODSAVER);
+        $is_foodsharer = !$this->session->mayRole(Role::FOODSAVER) && !$this->quizSessionGateway->hasPassedQuiz($this->session->id(), Role::FOODSAVER->value);
 
         if ($is_foodsharer) {
             $cnt = $this->contentGateway->get(ContentId::QUIZ_REMARK_PAGE_33);
