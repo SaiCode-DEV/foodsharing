@@ -34,4 +34,23 @@ enum Role: int
             Role::SITE_ADMIN => 'siteadmin',
         };
     }
+
+    /**
+     * Creates a Role from an old fAuthorization role name.
+     * @throws \Exception for invalid names. Should not happen
+     *
+     * @deprecated Can be removed with Release M
+     */
+    public static function fromOldLevelName(string $name): self
+    {
+        return match ($name) {
+            'user' => Role::FOODSHARER,
+            'fs' => Role::FOODSAVER,
+            'bieb' => Role::STORE_MANAGER,
+            'bot' => Role::AMBASSADOR,
+            'orga' => Role::ORGA,
+            'admin' => Role::SITE_ADMIN,
+            default => throw new \Exception('invalid role name')
+        };
+    }
 }

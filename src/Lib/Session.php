@@ -156,7 +156,14 @@ class Session
 
     public function role(): ?Role
     {
-        return $this->fAuthorizationFallbackGet('role', 'user_auth_level');
+        $role = $this->fAuthorizationFallbackGet('role', 'user_auth_level');
+
+        if (is_string($role)) { // came from user_auth_level, so we need to convert it
+            $role = Role::fromOldLevelName($role);
+            $this->setAuthLevel($role); // store it again under the new key, so we stop needing the old key in the future
+        }
+
+        return $role;
     }
 
     /**
