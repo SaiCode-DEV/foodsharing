@@ -3,6 +3,7 @@
 namespace Foodsharing\Lib;
 
 use Exception;
+use Flourish\fAuthorization;
 use Flourish\fSession;
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
@@ -22,7 +23,7 @@ class Session
 {
     // update this whenever adding new fields to the session!!!
     // this should be a unix timestamp, together with a human readable date in a comment.
-    private const LAST_SESSION_SCHEMA_CHANGE = 1_668_985_200; // 2022-11-21 00:00:00 UTC
+    private const LAST_SESSION_SCHEMA_CHANGE = 1_706_911_008; // 2024-02-02 22:57 UTC
 
     private const SESSION_TIMESTAMP_FIELD_NAME = 'last_updated_ts';
 
@@ -97,8 +98,8 @@ class Session
         fSession::open();
 
         $cookieExpires = $this->isPersistent() ? strtotime(self::DEFAULT_PERSISTENT_SESSION_TIMESPAN) : 0;
-        if (!isset($_COOKIE['CSRF_TOKEN']) || !$_COOKIE['CSRF_TOKEN'] || !$this->isValidCsrfToken('cookie', $_COOKIE['CSRF_TOKEN'])) {
-            setcookie('CSRF_TOKEN', (string)$this->generateCrsfToken('cookie'), ['expires' => $cookieExpires, 'path' => '/']);
+        if (!isset($_COOKIE['CSRF_TOKEN']) || !$_COOKIE['CSRF_TOKEN'] || !$this->isValidCsrfToken($_COOKIE['CSRF_TOKEN'])) {
+            setcookie('CSRF_TOKEN', $this->generateCrsfToken(), ['expires' => $cookieExpires, 'path' => '/']);
         }
     }
 
@@ -123,32 +124,39 @@ class Session
         return $user[$index];
     }
 
-    protected function setId(int $id)
+    protected function setId(int $id): void
     {
         $this->set('userId', $id);
     }
 
-    public function id(): ?int
+    // temporary workaround to aid in migration off of fAuthorization
+    private function fAuthorizationFallbackGet(string $key, string $flourishName = null): mixed
     {
-        if (!$this->has('userId')) {
+        $flourishName ??= $key;
+        if ($this->has($key)) {
+            return $this->get($key);
+        } elseif ($this->has('Flourish\fAuthorization::' . $flourishName)) {
+            return $this->get('Flourish\fAuthorization::' . $flourishName);
+        } elseif ($this->has('fAuthorization::' . $flourishName)) {
+            return $this->get('fAuthorization::' . $flourishName);
+        } else {
             return null;
         }
-
-        return $this->get('userId');
     }
 
-    protected function setAuthLevel(Role $role)
+    public function id(): ?int
+    {
+        return $this->fAuthorizationFallbackGet('userId', 'user_token');
+    }
+
+    protected function setAuthLevel(Role $role): void
     {
         $this->set('role', $role);
     }
 
     public function role(): ?Role
     {
-        if (!$this->has('role')) {
-            return null;
-        }
-
-        return $this->get('role');
+        return $this->fAuthorizationFallbackGet('role', 'user_auth_level');
     }
 
     /**
@@ -156,11 +164,11 @@ class Session
      */
     public function mayRole(Role $minimalExpectedRoleLevel = Role::FOODSHARER): bool
     {
-        if (!$this->id() || !$this->has('role')) {
+        if (!$this->id() || !$this->role()) {
             return false;
         }
 
-        return $this->get('role')->isAtLeast($minimalExpectedRoleLevel);
+        return $this->role()->isAtLeast($minimalExpectedRoleLevel);
     }
 
     public function getLocation(): ?array
@@ -184,7 +192,7 @@ class Session
         fSession::destroy();
     }
 
-    public function has($key)
+    public function has($key): bool
     {
         if (!$this->initialized) {
             return false;
@@ -193,7 +201,7 @@ class Session
         return array_key_exists($key, $_SESSION);
     }
 
-    public function set($key, $value)
+    public function set($key, $value): void
     {
         /* fail silently when session does not exist. This allows us at some point to also support sessions for not logged in users.
         It doesn't do any harm in other cases as we previously generated 500 responses */
@@ -494,21 +502,47 @@ class Session
         return false;
     }
 
-    public function generateCrsfToken(string $key)
+    public function generateCrsfToken(): string
     {
         $token = bin2hex(random_bytes(16));
-        $this->set("csrf[$key][$token]", true);
+
+        // old key, uses fSession array logic so:
+        // csrf => [ 'cookie' => [ '<$token>' => true ] ]
+        // commented out but not removed for posterity
+        //$this->set("csrf[$key][$token]", true);
+
+        // the new format gets rid of the 'cookie' key, but keeps the "set" structure
+        // e.g. tokens are keys, and them being set indicates their validity.
+        // this is faster than iterating over a list of tokens to check for presence
+
+        $csrf = $this->get('csrf');
+        if (!$csrf) {
+            $csrf = [];
+        }
+        $csrf[$token] = true;
+
+        $this->set('csrf', $csrf);
 
         return $token;
     }
 
-    public function isValidCsrfToken(string $key, string $token): bool
+    public function isValidCsrfToken(string $token): bool
     {
         if (defined('CSRF_TEST_TOKEN') && $token === CSRF_TEST_TOKEN) {
             return true;
         }
 
-        return $this->get("csrf[$key][$token]");
+        $csrf = $this->get('csrf');
+        if ($csrf !== false) {
+            if (isset($csrf['cookie'])) { // old token storage
+                return isset($csrf['cookie'][$token]) && $csrf['cookie'][$token] === true;
+            }
+
+            // new token, just check if it's in there
+            return $csrf[$token] === true;
+        }
+
+        return false; // no csrf token map stored, should not normally happen, but we treat this as "invalid"
     }
 
     public function isValidCsrfHeader(): bool
@@ -522,7 +556,7 @@ class Session
             return false;
         }
 
-        return $this->isValidCsrfToken('cookie', $_SERVER['HTTP_X_CSRF_TOKEN']);
+        return $this->isValidCsrfToken($_SERVER['HTTP_X_CSRF_TOKEN']);
     }
 
     public function isMob(): bool
