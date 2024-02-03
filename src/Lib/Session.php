@@ -539,7 +539,7 @@ class Session
             }
 
             // new token, just check if it's in there
-            return $csrf[$token] === true;
+            return isset($csrf[$token]) && $csrf[$token] === true;
         }
 
         return false; // no csrf token map stored, should not normally happen, but we treat this as "invalid"
