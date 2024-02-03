@@ -3,7 +3,6 @@
 namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
-use Detection\MobileDetect;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Gender;
@@ -291,11 +290,6 @@ class UserRestController extends AbstractFoodsharingRestController
         $fs_id = $this->loginGateway->login($email, $password);
         if ($fs_id) {
             $this->session->login($fs_id, $rememberMe);
-
-            $mobdet = new MobileDetect();
-            if ($mobdet->isMobile()) {
-                $_SESSION['mob'] = 1;
-            }
 
             // retrieve user data and normalise it
             $user = $this->foodsaverGateway->getProfile($fs_id);

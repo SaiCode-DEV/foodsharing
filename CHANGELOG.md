@@ -16,6 +16,7 @@
 
 ## Refactoring
 - Switched Annotation to Attributes, implements Test and general code style adjust for Activity REST Endpoint !2975 !3090 @BibaltiK
+- Move mobile detection to PageHelper (only user of information) !3116 @KoeMai
 - Move buddy-list management from Session to module "Buddy" !2987 @KoeMai
 - Removed ProfileXhr !3067 @AntonBallmaier
 - Changed mailbox rest controller to php 8 attributes !2980 @chriswalg

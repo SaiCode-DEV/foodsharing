@@ -569,11 +569,6 @@ class Session
         return $this->isValidCsrfToken($_SERVER['HTTP_X_CSRF_TOKEN']);
     }
 
-    public function isMob(): bool
-    {
-        return isset($_SESSION['mob']) && $_SESSION['mob'] == 1;
-    }
-
     public function updateLastActivity()
     {
         $session_last_activity = $_SESSION['client']['last_activity'];
