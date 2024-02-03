@@ -52,7 +52,12 @@ class PickupTransactionsTest extends TestCase
 
         $this->storeTransactions->expects($this->exactly(1))->method('existStore')->with($this->equalTo($storeId))->willReturn(true);
         $this->regularPickupGateway->expects($this->exactly(1))->method('deleteAllRegularPickups')->with($this->equalTo($storeId))->willReturn(1);
-        $this->regularPickupGateway->expects($this->exactly(1))->method('insertOrUpdateRegularPickup')->withConsecutive([$this->equalTo($storeId), $this->equalTo($pickup_1)])->willReturnOnConsecutiveCalls(9000);
+        $matcher = $this->exactly(1);
+        $this->regularPickupGateway->expects($matcher)->method('insertOrUpdateRegularPickup')->willReturnCallback(
+            fn () => match ($matcher->numberOfInvocations()) {
+                1 => [$this->equalTo($storeId), $this->equalTo($pickup_1)],
+            }
+        )->willReturnOnConsecutiveCalls(9000);
         $this->storeTransactions->expects($this->exactly(1))->method('triggerBellForRegularPickupChanged')->with($this->equalTo($storeId));
         $this->regularPickupGateway->expects($this->exactly(1))->method('getRegularPickup')->with($this->equalTo($storeId))->willReturn([$pickup_1]);
         $reloaded = $this->pickupTransactions->replaceRegularPickup($storeId, [$pickup_1]);
@@ -80,10 +85,11 @@ class PickupTransactionsTest extends TestCase
 
         $this->storeTransactions->expects($this->exactly(1))->method('existStore')->with($this->equalTo($storeId))->willReturn(true);
         $this->regularPickupGateway->expects($this->exactly(1))->method('deleteAllRegularPickups')->with($this->equalTo($storeId))->willReturn(2);
-        $this->regularPickupGateway->expects($this->exactly(2))->method('insertOrUpdateRegularPickup')
-            ->withConsecutive(
-                [$this->equalTo($storeId), $this->equalTo($pickup_1)],
-                [$this->equalTo($storeId), $this->equalTo($pickup_2)])->willReturnOnConsecutiveCalls(9000, 100);
+        $matcher = $this->exactly(2);
+        $this->regularPickupGateway->expects($matcher)->method('insertOrUpdateRegularPickup')->willReturnCallback(fn () => match ($matcher->numberOfInvocations()) {
+            1 => [$this->equalTo($storeId), $this->equalTo($pickup_1)],
+            2 => [$this->equalTo($storeId), $this->equalTo($pickup_2)],
+        })->willReturnOnConsecutiveCalls(9000, 100);
         $this->storeTransactions->expects($this->exactly(1))->method('triggerBellForRegularPickupChanged')->with($this->equalTo($storeId));
         $this->regularPickupGateway->expects($this->exactly(1))->method('getRegularPickup')->with($this->equalTo($storeId))->willReturn([$pickup_2, $pickup_1]);
 
@@ -112,10 +118,11 @@ class PickupTransactionsTest extends TestCase
         $pickup_2->maxCountOfSlots = 4;
 
         $this->storeTransactions->expects($this->exactly(1))->method('existStore')->with($this->equalTo($storeId))->willReturn(true);
-        $this->regularPickupGateway->expects($this->exactly(2))->method('insertOrUpdateRegularPickup')
-            ->withConsecutive(
-                [$this->equalTo($storeId), $this->equalTo($pickup_1)],
-                [$this->equalTo($storeId), $this->equalTo($pickup_2)])->willReturnOnConsecutiveCalls(9000, 250);
+        $matcher = $this->exactly(2);
+        $this->regularPickupGateway->expects($matcher)->method('insertOrUpdateRegularPickup')->willReturnCallback(fn () => match ($matcher->numberOfInvocations()) {
+            1 => [$this->equalTo($storeId), $this->equalTo($pickup_1)],
+            2 => [$this->equalTo($storeId), $this->equalTo($pickup_2)],
+        })->willReturnOnConsecutiveCalls(9000, 250);
         $this->storeTransactions->expects($this->exactly(1))->method('triggerBellForRegularPickupChanged')->with($this->equalTo($storeId));
         $this->regularPickupGateway->expects($this->exactly(1))->method('getRegularPickup')->with($this->equalTo($storeId))->willReturn([$pickup_2, $pickup_1]);
 

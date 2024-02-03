@@ -32,6 +32,7 @@
 - Update backend dependencies !3094 @\_fridtjof_
 - Modernize code to use PHP 8.1 features !3095 @\_fridtjof_
 - Modernized BlogControl to a Symfony controller !3096 @\_fridtjof_
+- Upgraded PHPUnit to version 10 !3092 @\_fridtjof_
 
 ## Development documentation
 

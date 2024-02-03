@@ -34,13 +34,13 @@ final class StorePermissionsTest extends Unit
 
     public function testListStoresLoadUserIdFromSession(): void
     {
-        $this->sessionMock->expects($this->once())->method('id')->will($this->returnValue(10));
+        $this->sessionMock->expects($this->once())->method('id')->willReturn(10);
         $this->storePermissions->mayListStores();
     }
 
     public function testListStoresLoadUserIdFromSessionNoUserId(): void
     {
-        $this->sessionMock->expects($this->once())->method('id')->will($this->returnValue(null));
+        $this->sessionMock->expects($this->once())->method('id')->willReturn(null);
         $this->assertFalse($this->storePermissions->mayListStores());
     }
 
@@ -52,59 +52,72 @@ final class StorePermissionsTest extends Unit
 
     public function testListStoresForFoodSharer(): void
     {
-        $this->sessionMock->expects($this->once())->method('mayRole')->with(Role::FOODSAVER)->will($this->returnValue(false));
+        $this->sessionMock->expects($this->once())->method('mayRole')->with(Role::FOODSAVER)->willReturn(false);
         $this->assertFalse($this->storePermissions->mayListStores(1));
     }
 
     public function testCreatePermissionForFoodSharer(): void
     {
-        $this->sessionMock->method('mayRole')->withConsecutive(
-            [Role::ORGA], [Role::STORE_MANAGER]
-        )->willReturnOnConsecutiveCalls(false, false);
+        $this->configureSessionMock([
+            Role::ORGA->value => false,
+            Role::STORE_MANAGER->value => false
+        ]);
         $this->assertFalse($this->storePermissions->mayCreateStore(1));
     }
 
     public function testCreatePermissionForStoreManagerRegionIndependent(): void
     {
-        $this->sessionMock->method('mayRole')
-            ->withConsecutive([Role::ORGA], [Role::STORE_MANAGER])
-            ->willReturnOnConsecutiveCalls(false, true);
+        $this->configureSessionMock([
+            Role::ORGA->value => false,
+            Role::STORE_MANAGER->value => true
+        ]);
         $this->assertTrue($this->storePermissions->mayCreateStore());
     }
 
     public function testCreatePermissionForStoreManagerOfRegion(): void
     {
-        $this->sessionMock->expects($this->once())->method('id')->will($this->returnValue(123));
-        $this->sessionMock->method('mayRole')
-            ->withConsecutive([Role::ORGA], [Role::STORE_MANAGER])
-            ->willReturnOnConsecutiveCalls(false, true);
-        $this->regionGatewayMock->method('hasMember')->with(123, 1)->will($this->returnValue(true));
+        $this->sessionMock->expects($this->once())->method('id')->willReturn(123);
+        $this->configureSessionMock([
+            Role::ORGA->value => false,
+            Role::STORE_MANAGER->value => true
+        ]);
+        $this->regionGatewayMock->method('hasMember')->with(123, 1)->willReturn(true);
         $this->assertTrue($this->storePermissions->mayCreateStore(1));
     }
 
     public function testCreatePermissionForStoreManagerOfOtherRegion(): void
     {
-        $this->sessionMock->expects($this->once())->method('id')->will($this->returnValue(123));
-        $this->sessionMock->method('mayRole')
-            ->withConsecutive([Role::ORGA], [Role::STORE_MANAGER])
-            ->willReturnOnConsecutiveCalls(false, true);
-        $this->regionGatewayMock->method('hasMember')->with(123, 1)->will($this->returnValue(false));
+        $this->sessionMock->expects($this->once())->method('id')->willReturn(123);
+        $this->configureSessionMock([
+            Role::ORGA->value => false,
+            Role::STORE_MANAGER->value => true
+        ]);
+        $this->regionGatewayMock->method('hasMember')->with(123, 1)->willReturn(false);
         $this->assertFalse($this->storePermissions->mayCreateStore(1));
     }
 
     public function testCreatePermissionForStoreManagerOfInvalidRegion(): void
     {
-        $this->sessionMock->expects($this->once())->method('id')->will($this->returnValue(123));
-        $this->sessionMock->method('mayRole')
-            ->withConsecutive([Role::ORGA], [Role::STORE_MANAGER])
-            ->willReturnOnConsecutiveCalls(false, true);
+        $this->sessionMock->expects($this->once())->method('id')->willReturn(123);
+        $this->configureSessionMock([
+            Role::ORGA->value => false,
+            Role::STORE_MANAGER->value => true
+        ]);
         $this->regionGatewayMock->method('hasMember')->with(123, 1234)->will($this->throwException(new DatabaseNoValueFoundException()));
         $this->assertFalse($this->storePermissions->mayCreateStore(1234));
     }
 
     public function testCreatePermissionForOrga(): void
     {
-        $this->sessionMock->expects($this->once())->method('mayRole')->with(Role::ORGA)->will($this->returnValue(true));
+        $this->sessionMock->expects($this->once())->method('mayRole')->with(Role::ORGA)->willReturn(true);
         $this->assertTrue($this->storePermissions->mayCreateStore(1));
+    }
+
+    private function configureSessionMock(array $roleToMay): void
+    {
+        $matcher = $this->exactly(count($roleToMay));
+
+        $this->sessionMock->expects($matcher)->method('mayRole')
+            ->willReturnCallback(fn ($role) => $roleToMay[$role->value]);
     }
 }

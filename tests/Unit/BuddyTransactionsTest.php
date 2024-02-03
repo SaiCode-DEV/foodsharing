@@ -14,11 +14,11 @@ use Tests\Support\UnitTester;
 
 class BuddyTransactionsTest extends Unit
 {
-    protected ?MockObject $session;
+    protected ?MockObject $session = null;
     protected UnitTester $tester;
-    private ?BuddyGateway $buddyGateway;
-    private ?BellGateway $bellGateway;
-    private ?BuddyTransactions $transaction;
+    private ?BuddyGateway $buddyGateway = null;
+    private ?BellGateway $bellGateway = null;
+    private ?BuddyTransactions $transaction = null;
     private array $foodsaver;
     private array $otherFoodsaver;
 
@@ -38,7 +38,7 @@ class BuddyTransactionsTest extends Unit
 
     public function testRequestAndConfim(): void
     {
-        $this->session->expects($this->any())->method('id')->will($this->returnValue($this->foodsaver['id']));
+        $this->session->expects($this->any())->method('id')->willReturn($this->foodsaver['id']);
         $this->buddyGateway->buddyRequest($this->foodsaver['id'], $this->otherFoodsaver['id']);
 
         $this->session->expects($this->once())->method('set')->with('buddy-ids', [$this->otherFoodsaver['id']]);

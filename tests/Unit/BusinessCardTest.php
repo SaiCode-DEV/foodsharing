@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
+use Codeception\Attribute\DataProvider;
 use Codeception\Test\Unit;
 use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use ReflectionClass;
@@ -24,9 +25,7 @@ class BusinessCardTest extends Unit
     {
     }
 
-    /**
-     * @dataProvider pageProvider
-     */
+    #[DataProvider('pageProvider')]
     public function testPositionStreetNumber(string $address, int $index): void
     {
         $out = $this->invokePrivateMethod([$address]);
@@ -43,7 +42,6 @@ class BusinessCardTest extends Unit
     {
         $reflection = new ReflectionClass($this->business_card::class);
         $method = $reflection->getMethod('index_of_first_number');
-        $method->setAccessible(true);
 
         return $method->invokeArgs($this->business_card, $parameters);
     }
@@ -51,7 +49,7 @@ class BusinessCardTest extends Unit
     /**
      * Provides the test data for {@see testPositionStreetNumber}.
      */
-    public function pageProvider(): array
+    public static function pageProvider(): array
     {
         return [
             ['Straße 1', 7],
