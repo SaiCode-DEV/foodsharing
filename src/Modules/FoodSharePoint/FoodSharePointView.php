@@ -137,18 +137,15 @@ class FoodSharePointView extends View
 
     public function address(): string
     {
-        $address = $this->v_utils->v_input_wrapper($this->translator->trans('fsp.street'),
-            $this->foodSharePoint['anschrift']
-        );
-        $location = $this->v_utils->v_input_wrapper($this->translator->trans('fsp.location'),
-            $this->foodSharePoint['plz'] . ' ' . $this->foodSharePoint['ort']
-        );
-
-        return $this->v_utils->v_field(
-            $address . $location,
-            $this->translator->trans('fsp.address'),
-            ['class' => 'ui-padding']
-        );
+        return $this->vueComponent('fsp-address-field', 'AddressField', [
+            'address' => $this->foodSharePoint['anschrift'],
+            'zipCode' => $this->foodSharePoint['plz'],
+            'city' => $this->foodSharePoint['ort'],
+            'coordinates' => [
+                'lat' => $this->foodSharePoint['lat'],
+                'lon' => $this->foodSharePoint['lon']
+            ]
+        ]);
     }
 
     public function foodSharePointForm(array $data = []): string

@@ -13,10 +13,12 @@ import Wall from '@/components/Wall/Wall'
 import './FoodSharePoint.css'
 
 // Wallpost
+import AddressField from './components/AddressField'
 
 vueRegister({
   AvatarList,
   Wall,
+  AddressField,
 })
 
 const sub = GET('sub')
@@ -33,4 +35,5 @@ if (sub === 'add' || sub === 'edit') {
   if (document.getElementById('fsp-managers')) {
     vueApply('#fsp-managers')
   }
+  vueApply('#fsp-address-field')
 }
