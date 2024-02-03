@@ -213,7 +213,7 @@ final class PageHelper
 
     private function getMenu(): string
     {
-        $groups = $_SESSION['client']['bezirke'] ?? [];
+        $groups = $this->session->getRegions();
 
         $regions = [];
         $workingGroups = [];

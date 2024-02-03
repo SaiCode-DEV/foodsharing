@@ -133,8 +133,7 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
         error_reporting(E_ALL);
 
         if (isset($_GET['logout'])) {
-            $_SESSION['client'] = [];
-            unset($_SESSION['client']);
+            $session->logout();
         }
 
         global $content_left_width;

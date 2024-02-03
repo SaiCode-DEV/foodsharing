@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Message;
 
 use Carbon\Carbon;
+use Foodsharing\Lib\Session;
 use Foodsharing\Lib\WebSocketConnection;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -15,36 +16,25 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MessageTransactions
 {
-    private readonly EmailHelper $emailHelper;
-    private readonly FoodsaverGateway $foodsaverGateway;
-    private readonly MessageGateway $messageGateway;
-    private readonly StoreGateway $storeGateway;
-    private readonly TranslatorInterface $translator;
-    private readonly PushNotificationGateway $pushNotificationGateway;
-    private readonly WebSocketConnection $webSocketConnection;
+    private const SESSION_LAST_MAIL_MESSAGE = 'lastMailMessage';
 
     public function __construct(
-        EmailHelper $emailHelper,
-        FoodsaverGateway $foodsaverGateway,
-        MessageGateway $messageGateway,
-        StoreGateway $storeGateway,
-        TranslatorInterface $translator,
-        PushNotificationGateway $pushNotificationGateway,
-        WebSocketConnection $webSocketConnection
+        private readonly EmailHelper $emailHelper,
+        private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly MessageGateway $messageGateway,
+        private readonly StoreGateway $storeGateway,
+        private readonly TranslatorInterface $translator,
+        private readonly PushNotificationGateway $pushNotificationGateway,
+        private readonly WebSocketConnection $webSocketConnection,
+        private readonly Session $session
     ) {
-        $this->emailHelper = $emailHelper;
-        $this->foodsaverGateway = $foodsaverGateway;
-        $this->messageGateway = $messageGateway;
-        $this->storeGateway = $storeGateway;
-        $this->translator = $translator;
-        $this->pushNotificationGateway = $pushNotificationGateway;
-        $this->webSocketConnection = $webSocketConnection;
     }
 
     private function sendNewMessageNotificationEmail(array $recipient, array $templateData): void
     {
         /* skip repeated notification emails in a short interval */
-        if (!isset($_SESSION['lastMailMessage']) || !is_array($sessdata = $_SESSION['lastMailMessage'])) {
+        $sessdata = $this->session->get(self::SESSION_LAST_MAIL_MESSAGE);
+        if ($sessdata === false) {
             $sessdata = [];
         }
 
@@ -58,7 +48,7 @@ class MessageTransactions
 
             $this->emailHelper->tplMail($templateData['emailTemplate'], $recipient['email'], $templateData);
         }
-        $_SESSION['lastMailMessage'] = $sessdata;
+        $this->session->set(self::SESSION_LAST_MAIL_MESSAGE, $sessdata);
     }
 
     /**

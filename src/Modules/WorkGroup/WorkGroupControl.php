@@ -62,7 +62,7 @@ class WorkGroupControl extends Control
         $menuLocalRegions = array_map($regionToMenuItem, $localRegions);
         $menuCountries = array_map($regionToMenuItem, $countries);
 
-        $myRegions = $_SESSION['client']['bezirke'] ?? [];
+        $myRegions = $this->session->getRegions();
         $myGroups = array_filter($myRegions, fn ($group) => UnitType::isGroup($group['type']));
         $menuMyGroups = array_map(
             fn ($group) => [

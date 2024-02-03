@@ -110,6 +110,9 @@ class Session
 
     public function logout()
     {
+        $_SESSION['client'] = [];
+        unset($_SESSION['client']);
+
         if ($this->initialized) {
             $this->mem->logout($this->id());
             $this->set('user', false);
