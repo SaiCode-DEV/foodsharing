@@ -23,7 +23,7 @@
 - Changed mailbox rest controller to php 8 attributes !2980 @chriswalg
 - Refactored the map control component to vue !3051 @alex.simm
 - Move hastodoquiz from session to Quiz Module !3075 @KoeMai
-- Replace Role-class by Role-Enum and remove need of fAuthentication !3078 !3120 !3123 @KoeMai
+- Replace Role-class by Role-Enum and remove need of fAuthentication !3078 !3120 !3123 !3122 @KoeMai
 - Added a missing bell type !3022 @alex.simm
 - Rebuild the wall using vue #45 #1800 #1830 !3045 !3112 @AntonBallmaier
 - Avoid access to global $_SESSION !3099 @KoeMai

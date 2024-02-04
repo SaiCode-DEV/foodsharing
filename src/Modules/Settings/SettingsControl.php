@@ -229,18 +229,18 @@ class SettingsControl extends Control
         }
     }
 
-    private function confirmRole(int $role): void
+    private function confirmRole(int $quizIdForRole): void
     {
-        switch ($role) {
-            case Role::FOODSAVER:
+        switch ($quizIdForRole) {
+            case Role::FOODSAVER->value:
                 $this->confirm_fs();
                 break;
 
-            case Role::STORE_MANAGER:
+            case Role::STORE_MANAGER->value:
                 $this->confirm_bip();
                 break;
 
-            case Role::AMBASSADOR:
+            case Role::AMBASSADOR->value:
                 $this->confirmRoleAmbassador();
                 break;
 

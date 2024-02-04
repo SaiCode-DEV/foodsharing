@@ -441,8 +441,13 @@ class Session
         $this->set('locale', $this->settingsGateway->getUserOption($fs['id'], UserOptionType::LOCALE));
     }
 
-    public function mayBezirk($regionId): bool
+    public function mayBezirk(int $regionId): bool
     {
+        // Users that are not logged in don't have a role we could compare to
+        if ($this->role() === null) {
+            return false;
+        }
+
         if ($this->role()->isAtLeast(Role::ORGA)) {
             return true;
         }
