@@ -19,14 +19,14 @@ class StatisticsView extends View
 					<h4>' . $i . '.</h4>
 				</td>
 				<td class="name">
-					<h4>' . $r['name'] . '</h4>
-					<p class="fetchweight">'
-                . $this->numberHelper->format_number($r['fetchweight'])
+					<h4>' . $r->name . '</h4>
+					<p class="fetchWeight">'
+                . $this->numberHelper->format_number($r->fetchWeight)
                     . '<span style="white-space: nowrap;">&thinsp;</span>kg '
                     . $this->translator->trans('profile.stats.weight')
                     . '</p>
 					<p class="fetchcount">'
-                . $this->numberHelper->format_number($r['fetchcount'])
+                . $this->numberHelper->format_number($r->fetchCount)
                     . '<span style="white-space: nowrap;">&thinsp;</span>x '
                     . $this->translator->trans('profile.stats.count')
                     . '</p>
@@ -53,7 +53,7 @@ class StatisticsView extends View
 				</div>
 			</div>
 			<div class="stat_text">
-				<h4>' . $this->numberHelper->format_number($stat['fetchweight']) . '<span style="white-space: nowrap;">&thinsp;</span>kg</h4>
+				<h4>' . $this->numberHelper->format_number($stat['fetchWeight']) . '<span style="white-space: nowrap;">&thinsp;</span>kg</h4>
 				<p>' . $this->translator->trans('stats.total.weight') . '</p>
 			</div>
 		</div>
@@ -64,7 +64,7 @@ class StatisticsView extends View
 				</div>
 			</div>
 			<div class="stat_text">
-				<h4>' . $this->numberHelper->format_number($stat['cooperationscount']) . '</h4>
+				<h4>' . $this->numberHelper->format_number($stat['cooperationsCount']) . '</h4>
 				<p>' . $this->translator->trans('stats.total.cooperations') . '</p>
 			</div>
 		</div>
@@ -76,7 +76,7 @@ class StatisticsView extends View
 				</div>
 			</div>
 			<div class="stat_text">
-				<h4>' . $this->numberHelper->format_number($stat['fscount']) . '</h4>
+				<h4>' . $this->numberHelper->format_number($stat['foodsaverCount']) . '</h4>
 				<p>' . $this->translator->trans('stats.total.foodsaver') . '</p>
 			</div>
 		</div>
@@ -99,7 +99,7 @@ class StatisticsView extends View
 				</div>
 			</div>
 			<div class="stat_text">
-				<h4>' . $this->numberHelper->format_number($stat['fetchcount']) . '</h4>
+				<h4>' . $this->numberHelper->format_number($stat['fetchCount']) . '</h4>
 				<p>' . $this->translator->trans('stats.total.pickups') . '</p>
 			</div>
 		</div>
@@ -170,14 +170,14 @@ class StatisticsView extends View
 					<h4>' . $i . '.</h4>
 				</td>
 				<td class="name">
-					<h4>' . $fs['name'] . '</h4>
+					<h4>' . $fs->name . '</h4>
 					<p class="fetchweight">'
-                . $this->numberHelper->format_number($fs['fetchweight'])
+                . $this->numberHelper->format_number($fs->fetchWeight)
                     . '<span style="white-space: nowrap;">&thinsp;</span>kg '
                     . $this->translator->trans('profile.stats.weight')
                     . '</p>
 					<p class="fetchcount">'
-                . $this->numberHelper->format_number($fs['fetchcount'])
+                . $this->numberHelper->format_number($fs->fetchCount)
                     . '<span style="white-space: nowrap;">&thinsp;</span>x '
                     . $this->translator->trans('profile.stats.count')
                     . '</p>

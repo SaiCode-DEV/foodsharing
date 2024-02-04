@@ -26,7 +26,7 @@ class StatisticsController extends FoodsharingController
         $this->pageHelper->addTitle($content['title']);
         $this->pageHelper->addBread($content['title']);
 
-        $stat_total = $this->statisticsGateway->listTotalStat();
+        $stat_total = (array)$this->statisticsGateway->listTotalStat();
         $stat_total['totalBaskets'] = $this->statisticsGateway->countAllBaskets();
         $stat_total['avgWeeklyBaskets'] = $this->statisticsGateway->avgWeeklyBaskets();
 

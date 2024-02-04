@@ -6,67 +6,102 @@ use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Statistics\DTO\ActivityStatisticItem;
+use Foodsharing\Modules\Statistics\DTO\PickupItem;
 use Foodsharing\Modules\Statistics\DTO\StatisticsAgeBand;
 use Foodsharing\Modules\Statistics\DTO\StatisticsGender;
+use Foodsharing\Modules\Statistics\DTO\TotalStatisticItem;
 
 class StatisticsGateway extends BaseGateway
 {
-    public function listTotalStat(): array
+    public function listTotalStat(): TotalStatisticItem
     {
         $stm = '
 			SELECT
-				SUM(`stat_fetchweight`) AS fetchweight,
-				SUM(`stat_fetchcount`) AS fetchcount,
-				SUM(`stat_korpcount`) AS cooperationscount,
-				SUM(`stat_botcount`) AS botcount,
-				SUM(`stat_fscount`) AS fscount,
-				SUM(`stat_fairteilercount`) AS fairteilercount
+				SUM(`stat_fetchweight`) AS fetchWeight,
+				SUM(`stat_fetchcount`) AS fetchCount,
+				SUM(`stat_korpcount`) AS cooperationsCount,
+				SUM(`stat_botcount`) AS botCount,
+				SUM(`stat_fscount`) AS foodsaverCount,
+				SUM(`stat_fairteilercount`) AS fairteilerCount
 			FROM
 				fs_bezirk
 			WHERE
 				`id` = :region_id
 		';
 
-        return $this->db->fetch($stm, [':region_id' => RegionIDs::EUROPE]);
+        $result = $this->db->fetch($stm, [':region_id' => RegionIDs::EUROPE]);
+
+        return TotalStatisticItem::create(
+            (float)$result['fetchWeight'],
+            (int)$result['fetchCount'],
+            (int)$result['cooperationsCount'],
+            (int)$result['botCount'],
+            (int)$result['foodsaverCount'],
+            (int)$result['fairteilerCount']
+        );
     }
 
+    /**
+     * @return array<ActivityStatisticItem>
+     */
     public function listStatRegions(): array
     {
         $stm = '
 			SELECT
 				`name`,
-				`stat_fetchweight` AS fetchweight,
-				`stat_fetchcount` AS fetchcount,
+				`stat_fetchweight` AS fetchWeight,
+				`stat_fetchcount` AS fetchCount,
 				`type`
 			FROM
 				fs_bezirk
 			WHERE
 				`type` IN(:city, :bigCity)
-			ORDER BY fetchweight DESC
+			ORDER BY fetchCount DESC
 			LIMIT 10
 		';
 
-        return $this->db->fetchAll($stm, [':city' => UnitType::CITY, ':bigCity' => UnitType::BIG_CITY]);
+        $result = $this->db->fetchAll($stm, [':city' => UnitType::CITY, ':bigCity' => UnitType::BIG_CITY]);
+
+        return array_map(function ($regionsStats) {
+            return ActivityStatisticItem::create(
+                $regionsStats['name'],
+                floatval($regionsStats['fetchWeight']),
+                intval($regionsStats['fetchCount'])
+            );
+        },
+            $result);
     }
 
+    /**
+     * @return array<ActivityStatisticItem>
+     */
     public function listStatFoodsaver(): array
     {
         $stm = '
 			SELECT
 				`id`,
 				`name`,
-				`nachname`,
-				`stat_fetchweight` AS fetchweight,
-				`stat_fetchcount` AS fetchcount
+				`stat_fetchweight` AS fetchWeight,
+				`stat_fetchcount` AS fetchCount
 			FROM
 				fs_foodsaver
 			WHERE
 				deleted_at IS NULL
-			ORDER BY fetchweight DESC
+			ORDER BY fetchCount DESC
 			LIMIT 10
 		';
 
-        return $this->db->fetchAll($stm);
+        $result = $this->db->fetchAll($stm);
+
+        return array_map(function ($foodsaverStats) {
+            return ActivityStatisticItem::create(
+                $foodsaverStats['name'],
+                $foodsaverStats['fetchWeight'],
+                $foodsaverStats['fetchCount']
+            );
+        },
+            $result);
     }
 
     public function countAllFoodsharers(): int
@@ -92,6 +127,131 @@ class StatisticsGateway extends BaseGateway
 
         // divide number of fetches by time difference
         return (int)($fetchCount / $diffDays);
+    }
+
+    /**
+     * @return array<PickupItem>
+     */
+    public function getFoodsaverStatsCurrentMonth(): array
+    {
+        $query = <<<SQL
+            SELECT 
+                foodsaver.`name`,
+                COUNT(abholer.`id`) as fetchCount
+            FROM
+                fs_foodsaver AS foodsaver
+            RIGHT JOIN fs_abholer AS abholer ON (abholer.`foodsaver_id` = foodsaver.`id`)
+            WHERE 
+                foodsaver.`deleted_at` IS NULL 
+            AND MONTH(abholer.`date`) = MONTH(CURDATE())
+            AND YEAR(abholer.`date`) = YEAR(CURDATE())
+
+            GROUP BY foodsaver.`id`
+            ORDER BY fetchCount DESC 
+            LIMIT 10
+        SQL;
+
+        $result = $this->db->fetchAll($query);
+
+        return array_map(function ($foodsaverStats) {
+            return PickupItem::create(
+                $foodsaverStats['name'],
+                intval($foodsaverStats['fetchCount'])
+            );
+        }, $result);
+    }
+
+    /**
+     * @return array<PickupItem>
+     */
+    public function getFoodsaverStatsNumberMonths(int $numberMonths): array
+    {
+        $query = <<<SQL
+            SELECT 
+                foodsaver.`name`,
+                COUNT(abholer.`id`) as fetchCount
+            FROM
+                fs_foodsaver AS foodsaver
+            RIGHT JOIN fs_abholer AS abholer ON (abholer.`foodsaver_id` = foodsaver.`id`)
+            WHERE 
+                foodsaver.`deleted_at` IS NULL 
+            AND abholer.`date` > DATE_ADD(CURDATE(), INTERVAL -$numberMonths MONTH)
+
+            GROUP BY foodsaver.`id`
+            ORDER BY fetchCount DESC 
+            LIMIT 10
+        SQL;
+
+        $result = $this->db->fetchAll($query);
+
+        return array_map(function ($foodsaverStats) {
+            return PickupItem::create(
+                $foodsaverStats['name'],
+                intval($foodsaverStats['fetchCount'])
+            );
+        }, $result);
+    }
+
+    /**
+     * @return array<PickupItem>
+     */
+    public function getRegionStatsCurrentMonth(): array
+    {
+        $query = <<<SQL
+            SELECT 
+                bezirk.`name`,
+                COUNT(abholer.`id`) as fetchCount
+            FROM
+                fs_bezirk AS bezirk
+            INNER JOIN fs_foodsaver AS foodsaver ON (bezirk.`id` = foodsaver.`bezirk_id`)
+            RIGHT JOIN fs_abholer AS abholer ON (abholer.`foodsaver_id` = foodsaver.`id`)
+            WHERE
+                    MONTH(abholer.`date`) = MONTH(CURDATE())              
+                AND 
+                    YEAR(abholer.`date`) = YEAR(CURDATE())
+            GROUP BY bezirk.`id`
+            ORDER BY fetchCount DESC 
+            LIMIT 10
+        SQL;
+
+        $result = $this->db->fetchAll($query);
+
+        return array_map(function ($regionStats) {
+            return PickupItem::create(
+                $regionStats['name'],
+                intval($regionStats['fetchCount'])
+            );
+        }, $result);
+    }
+
+    /**
+     * @return array<PickupItem>
+     */
+    public function getRegionStatsNumberMonth(int $numberMonths): array
+    {
+        $query = <<<SQL
+            SELECT 
+                bezirk.`name`,
+                COUNT(abholer.`id`) as fetchCount
+            FROM
+                fs_bezirk AS bezirk
+            INNER JOIN fs_foodsaver AS foodsaver ON (bezirk.`id` = foodsaver.`bezirk_id`)
+            RIGHT JOIN fs_abholer AS abholer ON (abholer.`foodsaver_id` = foodsaver.`id`)
+            WHERE
+                abholer.`date` > DATE_ADD(CURDATE(), INTERVAL -$numberMonths MONTH)
+            GROUP BY bezirk.`id`
+            ORDER BY fetchCount DESC 
+            LIMIT 10
+        SQL;
+
+        $result = $this->db->fetchAll($query);
+
+        return array_map(function ($regionStats) {
+            return PickupItem::create(
+                $regionStats['name'],
+                intval($regionStats['fetchCount'])
+            );
+        }, $result);
     }
 
     public function countAllBaskets(): int
@@ -124,6 +284,9 @@ class StatisticsGateway extends BaseGateway
         return $this->db->count('fs_fairteiler', ['status' => 1]);
     }
 
+    /**
+     * @return array<StatisticsGender>
+     */
     public function genderCountRegion(int $regionId): array
     {
         $list = $this->db->fetchAll(
@@ -134,11 +297,15 @@ class StatisticsGateway extends BaseGateway
 					where fb.bezirk_id = :regionId
 					and fs.deleted_at is null
 					group by geschlecht',
-            [':regionId' => $regionId]);
+            [':regionId' => $regionId]
+        );
 
         return array_map(fn ($StatisticsGender) => StatisticsGender::create($StatisticsGender['gender'], $StatisticsGender['numberOfGender']), $list);
     }
 
+    /**
+     * @return array<StatisticsGender>
+     */
     public function genderCountHomeRegion(int $regionId): array
     {
         $list = $this->db->fetchAll(
@@ -154,6 +321,9 @@ class StatisticsGateway extends BaseGateway
         return array_map(fn ($StatisticsGender) => StatisticsGender::create($StatisticsGender['gender'], $StatisticsGender['numberOfGender']), $list);
     }
 
+    /**
+     * @return array<StatisticsAgeBand>
+     */
     public function ageBandHomeDistrict(int $districtId): array
     {
         $list = $this->db->fetchAll(
@@ -183,6 +353,9 @@ class StatisticsGateway extends BaseGateway
         return array_map(fn ($StatisticsAgeBand) => StatisticsAgeBand::create($StatisticsAgeBand['ageBand'], $StatisticsAgeBand['numberOfAgeBand']), $list);
     }
 
+    /**
+     * @return array<StatisticsAgeBand>
+     */
     public function ageBandDistrict(int $districtId): array
     {
         $list = $this->db->fetchAll(

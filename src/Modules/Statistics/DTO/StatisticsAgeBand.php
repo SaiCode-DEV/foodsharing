@@ -1,21 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Foodsharing\Modules\Statistics\DTO;
 
-/**
- * Represents one entry in the result of age band Region query.
- */
+use JMS\Serializer\Annotation\Type;
+use OpenApi\Attributes as OA;
+
+#[OA\Schema(description: 'Represents one entry in the result of age band Region query.')]
 class StatisticsAgeBand
 {
+    #[OA\Property(description: 'The age Band', type: 'string', format: 'from-to')]
+    #[Type('string')]
     public string $ageBand;
+
+    #[OA\Property(description: 'number of persons in the age group', type: 'integer')]
+    #[Type('integer')]
     public int $numberOfAgeBand;
 
     public static function create(string $ageBand, int $numberOfAgeBand): StatisticsAgeBand
     {
-        $c = new StatisticsAgeBand();
-        $c->ageBand = $ageBand;
-        $c->numberOfAgeBand = $numberOfAgeBand;
+        $statisticsAgeBand = new StatisticsAgeBand();
+        $statisticsAgeBand->ageBand = $ageBand;
+        $statisticsAgeBand->numberOfAgeBand = $numberOfAgeBand;
 
-        return $c;
+        return $statisticsAgeBand;
     }
 }
