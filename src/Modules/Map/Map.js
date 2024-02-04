@@ -25,7 +25,9 @@ import { getMapMarkers } from '@/api/map'
 import { vueApply, vueRegister } from '@/vue'
 import CommunityBubble from './components/CommunityBubble'
 import BasketBubble from './components/BasketBubble'
+import StoreBubble from './components/StoreBubble'
 import MapControl from '@/views/pages/Map/MapControl'
+import { url } from '@/helper/urls'
 
 const storage = new Storage('map')
 
@@ -170,10 +172,11 @@ async function loadMarker (types, storeTypes, loader) {
           vueApply('#basket-bubble')
         })
       } else if (type === 'b') {
-        ajreq('bubble', { app: 'store', id: id })
+        ajreq('bubble', { app: 'store', id: id }).then(x => {
+          vueApply('#store-bubble')
+        })
       } else if (type === 'f') {
-        const bid = (el.layer.options.bid)
-        goTo(`/?page=fairteiler&sub=ft&bid=${bid}&id=${id}`)
+        goTo(url('foodsharepoint', id))
       } else if (type === 'c') {
         ajreq('bubble', { app: 'bezirk', id: id }).then(x => {
           vueApply('#community-bubble')
@@ -234,6 +237,7 @@ init_bDialog()
 vueRegister({
   CommunityBubble,
   BasketBubble,
+  StoreBubble,
   MapControl,
 })
 

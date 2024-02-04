@@ -112,15 +112,10 @@ class StoreXhr extends Control
         $store['pendingRequest'] = $teamStatus == TeamStatus::Applied;
         $dia = new XhrDialog();
         $dia->setTitle($store['name']);
-        $dia->addContent($this->view->bubble($store));
-        if ($store['inTeam'] || $this->storePermissions->mayEditStore($storeId)) {
-            $dia->addButton($this->translator->trans('store.go'), 'goTo(\'/?page=fsbetrieb&id=' . (int)$store['id'] . '\');');
-        }
-        if ($store['team_status'] != 0 && (!$store['inTeam'] && (!$store['pendingRequest']))) {
-            $dia->addButton($this->translator->trans('store.request.request'), 'wantToHelpStore(' . (int)$store['id'] . ',' . (int)$this->session->id() . ');return false;');
-        } elseif ($store['team_status'] != 0 && (!$store['inTeam'] && $store['pendingRequest'])) {
-            $dia->addButton($this->translator->trans('store.request.withdraw'), 'withdrawStoreRequest(' . (int)$store['id'] . ',' . (int)$this->session->id() . ');return false;');
-        }
+        $dia->addContent($this->view->vueComponent('store-bubble', 'StoreBubble', [
+            'storeId' => $storeId,
+        ]));
+
         $modal = false;
         if (isset($_GET['modal'])) {
             $modal = true;

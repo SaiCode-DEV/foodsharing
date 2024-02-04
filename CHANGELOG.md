@@ -27,6 +27,7 @@
 - Added a missing bell type !3022 @alex.simm
 - Rebuild the wall using vue #45 #1800 #1830 !3045 !3112 @AntonBallmaier
 - Avoid access to global $_SESSION !3099 @KoeMai
+- New map bubble for stores in Vue !2988 @alex.simm
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm

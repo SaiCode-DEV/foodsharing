@@ -8,7 +8,9 @@ use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Map\DTO\BasketBubbleData;
+use Foodsharing\Modules\Map\DTO\StoreMapBubbleData;
 use Foodsharing\Modules\Map\MapGateway;
+use Foodsharing\Modules\Map\MapTransactions;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\RestApi\Models\Map\FoodSharePointBubbleData;
@@ -28,6 +30,7 @@ class MapRestController extends AbstractFOSRestController
         private readonly RegionGateway $regionGateway,
         private readonly StoreGateway $storeGateway,
         private readonly FoodSharePointGateway $foodSharePointGateway,
+        private readonly MapTransactions $mapTransactions,
         private readonly Session $session
     ) {
     }
@@ -164,5 +167,27 @@ class MapRestController extends AbstractFOSRestController
         }
 
         return $this->handleView($this->view($basket, 200));
+    }
+
+    #[OA\Get(summary: 'Returns the data for the bubble of a store marker on the map.')]
+    #[OA\Tag('map')]
+    #[Rest\Get(path: 'map/stores/{storeId}')]
+    #[OA\Response(
+        response: Response::HTTP_OK,
+        description: 'Successful',
+        content: new Model(type: StoreMapBubbleData::class)
+    )]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The store does not exist')]
+    #[Rest\QueryParam(name: 'storeId', requirements: '\d+', description: 'Store for which to return data', nullable: false)]
+    public function getStoreBubbleAction(int $storeId): Response
+    {
+        if (!$this->session->mayRole()) {
+            throw new UnauthorizedHttpException('');
+        }
+
+        $store = $this->mapTransactions->getStoreMapData($storeId);
+
+        return $this->handleView($this->view($store, 200));
     }
 }

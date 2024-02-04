@@ -14,3 +14,7 @@ export function getCommunityBubbleContent (regionId) {
 export function getBasketBubbleContent (basketId) {
   return get(`/map/baskets/${basketId}`)
 }
+
+export function getStoreBubbleContent (storeId) {
+  return get(`/map/stores/${storeId}`)
+}

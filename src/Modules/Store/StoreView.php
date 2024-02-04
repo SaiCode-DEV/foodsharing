@@ -4,11 +4,9 @@ namespace Foodsharing\Modules\Store;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
-use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
 use Foodsharing\Modules\Core\DBConstants\Store\StoreSettings;
 use Foodsharing\Modules\Core\View;
 use Foodsharing\Modules\Store\DTO\CommonStoreMetadata;
-use Foodsharing\Modules\Store\DTO\Store;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\ImageHelper;
@@ -18,14 +16,11 @@ use Foodsharing\Utility\RouteHelper;
 use Foodsharing\Utility\Sanitizer;
 use Foodsharing\Utility\TimeHelper;
 use Foodsharing\Utility\TranslationHelper;
-use Foodsharing\Utility\WeightHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class StoreView extends View
 {
-    private $weightHelper;
-
     public function __construct(
         Environment $twig,
         Session $session,
@@ -39,10 +34,8 @@ class StoreView extends View
         Sanitizer $sanitizerService,
         TimeHelper $timeHelper,
         TranslationHelper $translationHelper,
-        WeightHelper $weightHelper,
         TranslatorInterface $translator,
     ) {
-        $this->weightHelper = $weightHelper;
         parent::__construct(
             $twig,
             $session,
@@ -162,96 +155,6 @@ class StoreView extends View
         ] : []);
 
         return $this->v_utils->v_quickform($this->translator->trans('storeview.store'), $fieldset);
-    }
-
-    public function bubble(array $store): string
-    {
-        $managers = '<ul class="linklist">';
-        foreach ($store['foodsaver'] as $fs) {
-            if ($fs['verantwortlich'] == 1) {
-                $managers .= '<li>' .
-                    '<a style="background-color: var(--fs-color-transparent);" href="/profile/' . intval($fs['id']) . '">'
-                    . $this->imageService->avatar($fs, 50) .
-                    '</a></li>';
-            }
-        }
-        $managers .= '</ul>';
-
-        $count_info = '<div>' . $this->translator->trans('storeview.teamInfo', [
-            '{active}' => count($store['foodsaver']),
-            '{jumper}' => count($store['springer']),
-        ]) . '</div>';
-
-        $pickup_count = intval($store['pickup_count']);
-        if ($pickup_count > 0) {
-            $count_info .= '<div>' . $this->translator->trans('storeview.pickupCount', [
-                '{pickupCount}' => $this->translator->trans('storeview.counter', [
-                    '{suffix}' => 'x',
-                    '{count}' => $pickup_count,
-                ]),
-            ]) . '</div>';
-
-            $pickupWeight = $this->translator->trans('storeview.counter', [
-                '{suffix}' => 'kg',
-                '{count}' => round(floatval(
-                    $pickup_count * $this->weightHelper->mapIdToKilos($store['abholmenge'])
-                ), 2),
-            ]);
-            $count_info .= '<div>' . $this->translator->trans('storeview.pickupWeight', [
-                '{pickupWeight}' => $pickupWeight,
-            ]) . '</div>';
-        }
-
-        $when = strtotime((string)$store['begin']);
-        if ($when > 0) {
-            $startTime = $this->translator->trans('month.' . intval(date('m', $when))) . ' ' . date('Y', $when);
-            $count_info .= '<div>' . $this->translator->trans('storeview.cooperation', [
-                '{startTime}' => $startTime,
-            ]) . '</div>';
-        }
-
-        $fetchTime = intval($store['public_time']);
-        if ($fetchTime != 0) {
-            $meaning = match (PublicTimes::from($fetchTime)) {
-                PublicTimes::NOT_SET => '',
-                PublicTimes::IN_THE_MORNING => $this->translator->trans('storeview.public_time_in_the_morning'),
-                PublicTimes::AT_NOON_IN_THE_AFTERNOON => $this->translator->trans('storeview.public_time_at_noon_or_afternoon'),
-                PublicTimes::IN_THE_EVENING => $this->translator->trans('storeview.public_time_in_the_evening'),
-                PublicTimes::AT_NIGHT => $this->translator->trans('storeview.public_time_at_night')
-            };
-
-            if (!empty($meaning)) {
-                $count_info .= '<div>' . $this->translator->trans('storeview.public_time', [
-                    '{freq}' => $meaning,
-                ]) . '</div>';
-            }
-        }
-
-        $publicInfo = '';
-        if (!empty($store['public_info'])) {
-            $publicInfo = $this->v_utils->v_input_wrapper(
-                $this->translator->trans('storeview.info'),
-                $store['public_info'],
-                'bcntspecial'
-            );
-        }
-
-        $status = $this->v_utils->v_getStatusAmpel($store['betrieb_status_id']);
-
-        // Store status
-        $bstatus = $this->translator->trans('storestatus.' . intval($store['betrieb_status_id'])) . '.';
-        // Team status
-        $tstatus = $this->translator->trans('storeedit.fetch.teamStatus' . intval($store['team_status']));
-
-        $html = $this->v_utils->v_input_wrapper(
-            $this->translator->trans('storeedit.store.status'),
-            $status . '<span class="bstatus">' . $bstatus . '</span>' . $count_info
-        ) . $this->v_utils->v_input_wrapper(
-            $this->translator->trans('storeview.managers'), $managers, 'bcntverantwortlich'
-        ) . $publicInfo . '<div class="ui-padding">'
-        . $this->v_utils->v_info('<strong>' . $tstatus . '</strong>') . '</div>';
-
-        return $html;
     }
 
     public function storeOwnList(): string

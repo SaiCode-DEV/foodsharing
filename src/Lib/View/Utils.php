@@ -834,33 +834,4 @@ class Utils
 
         return $this->v_input_wrapper($this->translator->trans($id), '<input' . $pl . ' class="input text" type="password" name="' . $id . '" id="' . $id . '" />', $id, $option);
     }
-
-    public function v_getStatusAmpel($status): string
-    {
-        if (!in_array($status, range(1, 7))) {
-            $status = 0;
-        }
-        $color = 'light';
-        switch ($status) {
-            case 2:
-                $color = 'warn';
-                break;
-            case 3:
-            case 5:
-                $color = 'success';
-                break;
-            case 4:
-            case 7:
-                $color = 'danger';
-                break;
-            case 6:
-                $color = 'info';
-                break;
-        }
-
-        return '<a href="#" onclick="return false;" title="'
-            . $this->translator->trans('storestatus.' . $status)
-            . '" class="trafficlight store-trafficlight color-'
-            . $color . '"><span>&nbsp;</span></a>';
-    }
 }

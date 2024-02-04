@@ -798,7 +798,7 @@ storeview:
   teamInfo: "Es sind <strong>{active}</strong> Aktive und <strong>{jumper}</strong> Springer im Team."
   counter: "<strong>{count} {suffix}</strong>"
   pickupCount: "Bei diesem Betrieb wurde {pickupCount} abgeholt."
-  pickupWeight: "Es wurden {pickupWeight} gerettet."
+  pickupWeight: "Es wurden {pickupWeight} kg gerettet."
   cooperation: "Kooperation seit {startTime}."
   cooperation_start: "Kooperation seit"
   cooperation_status: "Kooperationsstatus"

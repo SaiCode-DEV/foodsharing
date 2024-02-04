@@ -17,13 +17,14 @@ class MapApiCest
     private $foodSharePoint;
     private $user;
     private $basket;
+    private $store;
 
     final public function _before(ApiTester $I): void
     {
         $this->region = $I->createRegion();
         $this->user = $I->createFoodsaver();
         $this->communityPin = $I->createCommunityPin($this->region['id']);
-        $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::OPEN_SEARCHING->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
+        $this->store = $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::OPEN_SEARCHING->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
         $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::CLOSED->value, 'betrieb_status_id' => CooperationStatus::GIVES_TO_OTHER_CHARITY->value]);
         $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::OPEN_SEARCHING->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
         $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::OPEN->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
@@ -164,5 +165,30 @@ class MapApiCest
                 'id' => $this->user['id']
             ],
         ]);
+    }
+
+    final public function canFetchStoreBubble(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+        $I->sendGet('api/map/stores/' . $this->store['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+        $I->cantSeeResponseContainsJson([[
+            'id' => $this->store['id'],
+            'name' => $this->store['name'],
+        ]]);
+    }
+
+    final public function canNotFetchStoreBubbleWithoutLogin(ApiTester $I)
+    {
+        $I->sendGet('api/map/stores/' . $this->store['id']);
+        $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
+    }
+
+    final public function canNotFetchStoreOfNonexistingStore(ApiTester $I)
+    {
+        $I->login($this->user['email']);
+        $I->sendGet('api/map/stores/9999999');
+        $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 }
