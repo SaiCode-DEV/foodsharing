@@ -43,145 +43,37 @@ namespace Flourish;
  */
 class fSession
 {
-	// The following constants allow for nice looking callbacks to static methods
-	final public const add = 'fSession::add';
-	final public const clear = 'fSession::clear';
-	final public const close = 'fSession::close';
-	final public const delete = 'fSession::delete';
-	final public const destroy = 'fSession::destroy';
-	final public const enablePersistence = 'fSession::enablePersistence';
-	final public const get = 'fSession::get';
-	final public const ignoreSubdomain = 'fSession::ignoreSubdomain';
-	final public const open = 'fSession::open';
-	final public const regenerateID = 'fSession::regenerateID';
-	final public const reset = 'fSession::reset';
-	final public const set = 'fSession::set';
-	final public const setBackend = 'fSession::setBackend';
-	final public const setLength = 'fSession::setLength';
-	final public const setPath = 'fSession::setPath';
-
 	/**
 	 * The length for a normal session.
-	 *
-	 * @var int
 	 */
-	private static $normal_timespan = null;
+	private static ?int $normal_timespan = null;
 
-	/**
-	 * The name of the old session module to revent to when fSession is closed.
-	 *
-	 * @var string
-	 */
-	private static $old_session_module_name = null;
-
-	/**
+    /**
 	 * If the session is open.
 	 *
 	 * @var bool
 	 */
-	private static $open = false;
+	private static bool $open = false;
 
 	/**
 	 * The length for a persistent session cookie - one that survives browser restarts.
 	 *
 	 * @var int
 	 */
-	private static $persistent_timespan = null;
+	private static ?int $persistent_timespan = null;
 
 	/**
 	 * If the session ID was regenerated during this script.
 	 *
 	 * @var bool
 	 */
-	private static $regenerated = false;
-
-	/**
-	 * Adds a value to an already-existing array value, or to a new array value.
-	 *
-	 * @param  string  $key        The name to access the array under - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
-	 * @param  mixed   $value      The value to add to the array
-	 * @param  bool $beginning  If the value should be added to the beginning
-	 */
-	public static function add($key, mixed $value, $beginning = false)
-	{
-		self::open();
-		$tip = &$_SESSION;
-
-		if ($bracket_pos = strpos($key, '[')) {
-			$original_key = $key;
-			$array_dereference = substr($key, $bracket_pos);
-			$key = substr($key, 0, $bracket_pos);
-
-			preg_match_all('#(?<=\[)[^\[\]]+(?=\])#', $array_dereference, $array_keys, PREG_SET_ORDER);
-			$array_keys = array_map('current', $array_keys);
-			array_unshift($array_keys, $key);
-
-			foreach (array_slice($array_keys, 0, -1) as $array_key) {
-				if (!isset($tip[$array_key])) {
-					$tip[$array_key] = [];
-				} elseif (!is_array($tip[$array_key])) {
-					throw new fException(
-						'%1$s was called for the key, %2$s, which is not an array',
-						self::class . '::add()',
-						$original_key
-					);
-				}
-				$tip = &$tip[$array_key];
-			}
-			$key = end($array_keys);
-		}
-
-		if (!isset($tip[$key])) {
-			$tip[$key] = [];
-		} elseif (!is_array($tip[$key])) {
-			throw new fException(
-				'%1$s was called for the key, %2$s, which is not an array',
-				self::class . '::add()',
-				$key
-			);
-		}
-
-		if ($beginning) {
-			array_unshift($tip[$key], $value);
-		} else {
-			$tip[$key][] = $value;
-		}
-	}
-
-	/**
-	 * Removes all session values with the provided prefix.
-	 *
-	 * This method will not remove session variables used by this class, which
-	 * are prefixed with `fSession::`.
-	 *
-	 * @param  string $prefix  The prefix to clear all session values for
-	 */
-	public static function clear($prefix = null)
-	{
-		self::open();
-
-		$session_type = $_SESSION['fSession::type'];
-		$session_expires = $_SESSION['fSession::expires'];
-
-		if ($prefix) {
-			foreach ($_SESSION as $key => $value) {
-				if (str_starts_with($key, $prefix)) {
-					unset($_SESSION[$key]);
-				}
-			}
-		} else {
-			$_SESSION = [];
-		}
-
-		$_SESSION['fSession::type'] = $session_type;
-		$_SESSION['fSession::expires'] = $session_expires;
-	}
+	private static bool $regenerated = false;
 
 	/**
 	 * Closes the session for writing, allowing other pages to open the session.
 	 */
-	public static function close()
-	{
+	public static function close(): void
+    {
 		if (!self::$open) {
 			return;
 		}
@@ -189,70 +81,13 @@ class fSession
 		session_write_close();
 		unset($_SESSION);
 		self::$open = false;
-		if (self::$old_session_module_name) {
-			session_module_name(self::$old_session_module_name);
-		}
-	}
-
-	/**
-	 * Deletes a value from the session.
-	 *
-	 * @param  string $key            The key of the value to delete - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
-	 * @param  mixed  $default_value  The value to return if the `$key` is not set
-	 *
-	 * @return mixed  The value of the `$key` that was deleted
-	 */
-	public static function delete($key, mixed $default_value = null)
-	{
-		self::open();
-
-		$value = $default_value;
-
-		if ($bracket_pos = strpos($key, '[')) {
-			$original_key = $key;
-			$array_dereference = substr($key, $bracket_pos);
-			$key = substr($key, 0, $bracket_pos);
-
-			if (!isset($_SESSION[$key])) {
-				return $value;
-			}
-
-			preg_match_all('#(?<=\[)[^\[\]]+(?=\])#', $array_dereference, $array_keys, PREG_SET_ORDER);
-			$array_keys = array_map('current', $array_keys);
-
-			$tip = &$_SESSION[$key];
-
-			foreach (array_slice($array_keys, 0, -1) as $array_key) {
-				if (!isset($tip[$array_key])) {
-					return $value;
-				} elseif (!is_array($tip[$array_key])) {
-					throw new fException(
-						'%1$s was called for an element, %2$s, which is not an array',
-						self::class . '::delete()',
-						$original_key
-					);
-				}
-				$tip = &$tip[$array_key];
-			}
-
-			$key = end($array_keys);
-		} else {
-			$tip = &$_SESSION;
-		}
-
-		if (isset($tip[$key])) {
-			$value = $tip[$key];
-			unset($tip[$key]);
-		}
-
-		return $value;
 	}
 
 	/**
 	 * Destroys the session, removing all values.
 	 */
-	public static function destroy()
-	{
+	public static function destroy(): void
+    {
 		self::open();
 		$_SESSION = [];
 		unset($_SESSION);
@@ -276,8 +111,8 @@ class fSession
 	 * be controlled by a checkbox or similar where the user can indicate if
 	 * they want to stay logged in for an extended period of time.
 	 */
-	public static function enablePersistence()
-	{
+	public static function enablePersistence(): void
+    {
 		if (self::$persistent_timespan === null) {
 			throw new fException(
 				'The method %1$s must be called with the %2$s parameter before calling %3$s',
@@ -304,82 +139,17 @@ class fSession
 	/**
 	 * Gets data from the `$_SESSION` superglobal.
 	 *
-	 * @param  string $key            The name to get the value for - array elements can be accessed via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
+	 * @param string $key            The name to get the value for - array elements can be accessed via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
 	 * @param  mixed  $default_value  The default value to use if the requested key is not set
 	 *
 	 * @return mixed  The data element requested
 	 */
-	public static function get($key, mixed $default_value = null)
-	{
+	public static function get(string $key, mixed $default_value = null): mixed
+    {
 		self::open();
 
-		$array_dereference = null;
-		if ($bracket_pos = strpos($key, '[')) {
-			$array_dereference = substr($key, $bracket_pos);
-			$key = substr($key, 0, $bracket_pos);
-		}
-
-		if (!isset($_SESSION[$key])) {
-			return $default_value;
-		}
-		$value = $_SESSION[$key];
-
-		if ($array_dereference) {
-			preg_match_all('#(?<=\[)[^\[\]]+(?=\])#', $array_dereference, $array_keys, PREG_SET_ORDER);
-			$array_keys = array_map('current', $array_keys);
-			foreach ($array_keys as $array_key) {
-				if (!is_array($value) || !isset($value[$array_key])) {
-					$value = $default_value;
-					break;
-				}
-				$value = $value[$array_key];
-			}
-		}
-
-		return $value;
-	}
-
-	/**
-	 * Sets the session to run on the main domain, not just the specific subdomain currently being accessed.
-	 *
-	 * This method should be called after any calls to
-	 * [http://php.net/session_set_cookie_params `session_set_cookie_params()`].
-	 */
-	public static function ignoreSubdomain()
-	{
-		if (self::$open || isset($_SESSION)) {
-			throw new fException(
-				'%1$s must be called before any of %2$s, %3$s, %4$s, %5$s, %6$s, %7$s or %8$s',
-				self::class . '::ignoreSubdomain()',
-				self::class . '::add()',
-				self::class . '::clear()',
-				self::class . '::enablePersistence()',
-				self::class . '::get()',
-				self::class . '::open()',
-				self::class . '::set()',
-				'session_start()'
-			);
-		}
-
-		$current_params = session_get_cookie_params();
-
-		if (isset($_SERVER['SERVER_NAME'])) {
-			$domain = $_SERVER['SERVER_NAME'];
-		} elseif (isset($_SERVER['HTTP_HOST'])) {
-			$domain = $_SERVER['HTTP_HOST'];
-		} else {
-			throw new fException(
-				'The domain name could not be found in %1$s or %2$s. Please set one of these keys to use %3$s.',
-				'$_SERVER[\'SERVER_NAME\']',
-				'$_SERVER[\'HTTP_HOST\']',
-				self::class . '::ignoreSubdomain()'
-			);
-		}
-
-		$params = [$current_params['lifetime'], $current_params['path'], preg_replace('#.*?([a-z0-9\\-]+\.[a-z]+)$#iD', '.\1', (string) $domain), $current_params['secure']];
-
-		call_user_func_array('session_set_cookie_params', $params);
-	}
+        return $_SESSION[$key] ?? $default_value;
+    }
 
 	/**
 	 * Opens the session for writing, is automatically called by ::clear(), ::get() and ::set().
@@ -389,10 +159,10 @@ class fSession
 	 * has been sent to the browser. To prevent such a warning, explicitly call
 	 * this method before generating any output.
 	 *
-	 * @param  bool $cookie_only_session_id  If the session id should only be allowed via cookie - this is a security issue and should only be set to `FALSE` when absolutely necessary
+	 * @param bool $cookie_only_session_id  If the session id should only be allowed via cookie - this is a security issue and should only be set to `FALSE` when absolutely necessary
 	 */
-	public static function open($cookie_only_session_id = true)
-	{
+	public static function open(bool $cookie_only_session_id = true): void
+    {
 		if (self::$open) {
 			return;
 		}
@@ -436,69 +206,15 @@ class fSession
 	 *
 	 * @internal
 	 */
-	public static function regenerateID()
-	{
+	public static function regenerateID(): void
+    {
 		if (!self::$regenerated) {
 			self::open();
 			if (!session_regenerate_id(true)) {
-				throw new fUnexpectedException('There was an error regenerating the session id');
+				throw new fException('There was an error regenerating the session id');
 			}
 			self::$regenerated = true;
 		}
-	}
-
-	/**
-	 * Removes and returns the value from the end of an array value.
-	 *
-	 * @param  string  $key        The name of the element to remove the value from - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
-	 * @param  bool $beginning  If the value should be removed to the beginning
-	 *
-	 * @return mixed  The value that was removed
-	 */
-	public static function remove($key, $beginning = false)
-	{
-		self::open();
-		$tip = &$_SESSION;
-
-		if ($bracket_pos = strpos($key, '[')) {
-			$original_key = $key;
-			$array_dereference = substr($key, $bracket_pos);
-			$key = substr($key, 0, $bracket_pos);
-
-			preg_match_all('#(?<=\[)[^\[\]]+(?=\])#', $array_dereference, $array_keys, PREG_SET_ORDER);
-			$array_keys = array_map('current', $array_keys);
-			array_unshift($array_keys, $key);
-
-			foreach (array_slice($array_keys, 0, -1) as $array_key) {
-				if (!isset($tip[$array_key])) {
-					return null;
-				} elseif (!is_array($tip[$array_key])) {
-					throw new fException(
-						'%1$s was called for the key, %2$s, which is not an array',
-						self::class . '::remove()',
-						$original_key
-					);
-				}
-				$tip = &$tip[$array_key];
-			}
-			$key = end($array_keys);
-		}
-
-		if (!isset($tip[$key])) {
-			return null;
-		} elseif (!is_array($tip[$key])) {
-			throw new fException(
-				'%1$s was called for the key, %2$s, which is not an array',
-				self::class . '::remove()',
-				$key
-			);
-		}
-
-		if ($beginning) {
-			return array_shift($tip[$key]);
-		}
-
-		return array_pop($tip[$key]);
 	}
 
 	/**
@@ -506,8 +222,8 @@ class fSession
 	 *
 	 * @internal
 	 */
-	public static function reset()
-	{
+	public static function reset(): void
+    {
 		self::$normal_timespan = null;
 		self::$persistent_timespan = null;
 		self::$regenerated = false;
@@ -518,32 +234,14 @@ class fSession
 	/**
 	 * Sets data to the `$_SESSION` superglobal.
 	 *
-	 * @param  string $key     The name to save the value under - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
+	 * @param string $key     The name to save the value under - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
 	 * @param  mixed  $value   The value to store
 	 */
-	public static function set($key, mixed $value)
-	{
+	public static function set(string $key, mixed $value): void
+    {
 		self::open();
-		$tip = &$_SESSION;
 
-		if ($bracket_pos = strpos($key, '[')) {
-			$array_dereference = substr($key, $bracket_pos);
-			$key = substr($key, 0, $bracket_pos);
-
-			preg_match_all('#(?<=\[)[^\[\]]+(?=\])#', $array_dereference, $array_keys, PREG_SET_ORDER);
-			$array_keys = array_map('current', $array_keys);
-			array_unshift($array_keys, $key);
-
-			foreach (array_slice($array_keys, 0, -1) as $array_key) {
-				if (!isset($tip[$array_key]) || !is_array($tip[$array_key])) {
-					$tip[$array_key] = [];
-				}
-				$tip = &$tip[$array_key];
-			}
-			$tip[end($array_keys)] = $value;
-		} else {
-			$tip[$key] = $value;
-		}
+        $_SESSION[$key] = $value;
 	}
 
 	/**
@@ -557,11 +255,11 @@ class fSession
 	 * or an english description of a timespan (e.g. `'30 minutes'`, `'1 hour'`,
 	 * `'1 day 2 hours'`).
 	 *
-	 * @param  string|int $normal_timespan      The normal, session-based cookie, length for the session
-	 * @param  string|int $persistent_timespan  The persistent, timed-based cookie, length for the session - this is enabled by calling ::enabledPersistence() during login
+	 * @param int|string $normal_timespan      The normal, session-based cookie, length for the session
+	 * @param int|string|null $persistent_timespan  The persistent, timed-based cookie, length for the session - this is enabled by calling ::enabledPersistence() during login
 	 */
-	public static function setLength($normal_timespan, $persistent_timespan = null)
-	{
+	public static function setLength(int|string $normal_timespan, int|string $persistent_timespan = null): void
+    {
 		if (self::$open || isset($_SESSION)) {
 			throw new fException(
 				'%1$s must be called before any of %2$s, %3$s, %4$s, %5$s, %6$s, %7$s or %8$s',
@@ -588,50 +286,7 @@ class fSession
 	}
 
 	/**
-	 * Sets the path to store session files in.
-	 *
-	 * This method should always be called with a non-standard directory
-	 * whenever ::setLength() is called to ensure that another site on the
-	 * server does not garbage collect the session files for this site.
-	 *
-	 * Standard session directories usually include `/tmp` and `/var/tmp`.
-	 *
-	 * @param  string|fDirectory $directory  The directory to store session files in
-	 */
-	public static function setPath($directory)
-	{
-		if (self::$open || isset($_SESSION)) {
-			throw new fException(
-				'%1$s must be called before any of %2$s, %3$s, %4$s, %5$s, %6$s, %7$s or %8$s',
-				self::class . '::setPath()',
-				self::class . '::add()',
-				self::class . '::clear()',
-				self::class . '::enablePersistence()',
-				self::class . '::get()',
-				self::class . '::open()',
-				self::class . '::set()',
-				'session_start()'
-			);
-		}
-
-		if (!$directory instanceof fDirectory) {
-			$directory = new fDirectory($directory);
-		}
-
-		if (!$directory->isWritable()) {
-			throw new fException(
-				'The directory specified, %s, is not writable',
-				$directory->getPath()
-			);
-		}
-
-		session_save_path($directory->getPath());
-	}
-
-	/**
 	 * Forces use as a static class.
-	 *
-	 * @return fSession
 	 */
 	private function __construct()
 	{

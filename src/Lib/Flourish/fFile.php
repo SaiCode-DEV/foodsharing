@@ -880,18 +880,6 @@ class fFile implements Iterator, Countable, \Stringable
 	}
 
 	/**
-	 * Returns the last modification time of the file.
-	 *
-	 * @return fTimestamp  The timestamp of when the file was last modified
-	 */
-	public function getMTime()
-	{
-		$this->tossIfDeleted();
-
-		return new fTimestamp(filemtime($this->file));
-	}
-
-	/**
 	 * Gets the filename (i.e. does not include the directory).
 	 *
 	 * @param  bool $remove_extension  If the extension should be removed from the filename
@@ -1041,48 +1029,6 @@ class fFile implements Iterator, Countable, \Stringable
 
 		$this->current_line = fgets($this->file_handle);
 		++$this->current_line_number;
-	}
-
-	/**
-	 * Prints the contents of the file.
-	 *
-	 * This method is primarily intended for when PHP is used to control access
-	 * to files.
-	 *
-	 * Be sure to close the session, if open, to prevent performance issues.
-	 * Any open output buffers are automatically closed and discarded.
-	 *
-	 * @param  bool $headers   If HTTP headers for the file should be included
-	 * @param  mixed   $filename  Present the file as an attachment instead of just outputting type headers - if a string is passed, that will be used for the filename, if `TRUE` is passed, the current filename will be used
-	 *
-	 * @return fFile  The file object, to allow for method chaining
-	 */
-	public function output($headers, mixed $filename = null)
-	{
-		$this->tossIfDeleted();
-
-		while (ob_get_level() > 0) {
-			ob_end_clean();
-		}
-
-		if ($headers) {
-			if ($filename !== null) {
-				if ($filename === true) {
-					$filename = $this->getName();
-				}
-				header('Content-Disposition: attachment; filename="' . $filename . '"');
-			}
-			header('Cache-Control: ');
-			header('Content-Length: ' . $this->getSize());
-			header('Content-Type: ' . $this->getMimeType());
-			header('Expires: ');
-			header('Last-Modified: ' . $this->getMTime()->format('D, d M Y H:i:s'));
-			header('Pragma: ');
-		}
-
-		readfile($this->file);
-
-		return $this;
 	}
 
 	/**

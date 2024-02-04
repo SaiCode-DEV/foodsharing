@@ -3,7 +3,6 @@
 namespace Foodsharing\Lib;
 
 use Exception;
-use Flourish\fAuthorization;
 use Flourish\fSession;
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
