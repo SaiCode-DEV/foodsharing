@@ -41,11 +41,11 @@
     >
       <div
         v-if="regionId > 0"
-        v-html="$i18n('settings.name_change.foodsaver_info', {link: `href=/region?bid=${regionId}&sub=forum`})"
+        v-html="$i18n('settings.name_change.foodsaver_info', { link: $url('region_forum', regionId)})"
       />
       <div
         v-else
-        v-html="$i18n('settings.name_change.foodsharer_info', { link: `href=${$url('freshdesk')}` })"
+        v-html="$i18n('settings.name_change.foodsharer_info', { link: `${$url('freshdesk')}` })"
       />
     </b-modal>
   </div>

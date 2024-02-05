@@ -14,6 +14,7 @@
 ## Bugfixes
 - remove misplaced line in store team view !3088 @buntel
 - Fixed error caused by broken background color values for image rotation !3105 @\_fridtjof_
+- Fixed link to region page in name change modal !3125 @chriswalg
 
 ## Refactoring
 - Switched Annotation to Attributes, implements Test and general code style adjust for Activity REST Endpoint !2975 !3090 @BibaltiK
