@@ -31,6 +31,8 @@
 - New map bubble for stores in Vue !2988 !3128 @alex.simm
 - Renamed bezirk to region in urls helper !3126 @chriswalg
 - Prepared for removal of run.php in favor of Symfony's console !3118 @\_fridtjof_
+- Modernized BlogControl to a Symfony controller !3096 @\_fridtjof_
+- Modernized BasketControl to a Symfony controller !3127 @\_fridtjof_
 - Cleaned up twig extension config !3124 @\_fridtjof_
 
 ## Dev/Test/CI stuff
@@ -41,7 +43,6 @@
 - Update backend dependencies !3094 @\_fridtjof_
 - Modernize code to use PHP 8.1 features !3095 @\_fridtjof_
 - Added "/api/statistics" Endpoint and Refactor Statistic Api !2989 @BibaltiK
-- Modernized BlogControl to a Symfony controller !3096 @\_fridtjof_
 - Upgraded PHPUnit to version 10 !3092 @\_fridtjof_
 
 ## Development documentation

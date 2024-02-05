@@ -3,7 +3,6 @@
 namespace Foodsharing\Lib;
 
 use Foodsharing\Modules\Application\ApplicationControl;
-use Foodsharing\Modules\Basket\BasketControl;
 use Foodsharing\Modules\Basket\BasketXhr;
 use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use Foodsharing\Modules\Dashboard\DashboardControl;
@@ -51,7 +50,6 @@ class Routing
     private const MODULES = [
         'activity' => 'Activity',
         'application' => 'Application',
-        'basket' => 'Basket',
         'bell' => 'Bell',
         'buddy' => 'Buddy',
         'bcard' => 'BusinessCard',
@@ -87,7 +85,6 @@ class Routing
 
     private const CLASSES = [
         'application' => ApplicationControl::class,
-        'basket' => BasketControl::class,
         'bcard' => BusinessCardControl::class,
         'dashboard' => DashboardControl::class,
         'email' => EmailControl::class,
@@ -143,7 +140,8 @@ class Routing
     private const RENAMES = [
         'bezirk' => 'region',
         'statistics' => 'statistik',
-        'map' => 'karte'
+        'map' => 'karte',
+        'basket' => 'essenskoerbe'
     ];
 
     public static function getClassName(string $appName, $type = 'Xhr'): ?string

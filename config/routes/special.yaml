@@ -64,22 +64,3 @@ fairteiler_id:
   controller: Foodsharing\Entrypoint\IndexController
   requirements:
     id: '\d+'
-
-essenskoerbe:
-  path: /essenskoerbe
-  controller: Foodsharing\Entrypoint\IndexController
-
-essenskoerbe_find:
-  path: /essenskoerbe/find
-  controller: Foodsharing\Entrypoint\IndexController
-
-essenskoerbe_id:
-  path: /essenskoerbe/{id}
-  controller: Foodsharing\Entrypoint\IndexController
-  requirements:
-    id: '\d+'
-
-# method refers to any method name in BasketControl, see BasketControl::index
-essenskoerbe_method:
-  path: /essenskoerbe/{method}
-  controller: Foodsharing\Entrypoint\IndexController

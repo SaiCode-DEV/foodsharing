@@ -2,59 +2,54 @@
 
 namespace Foodsharing\Modules\Basket;
 
-use Foodsharing\Modules\Core\Control;
+use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status;
 use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
-use Foodsharing\Utility\UriHelper;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
-class BasketControl extends Control
+class BasketController extends FoodsharingController
 {
-    private readonly BasketGateway $basketGateway;
-
     public function __construct(
-        BasketView $view,
-        BasketGateway $basketGateway,
-        private readonly UriHelper $uriHelper,
+        private readonly BasketView $view,
+        private readonly BasketGateway $basketGateway,
     ) {
-        $this->view = $view;
-        $this->basketGateway = $basketGateway;
-
         parent::__construct();
+    }
 
+    #[Route('/essenskoerbe', name: 'essenskoerbe')]
+    public function index(): Response
+    {
+        return $this->redirect('/essenskoerbe/find');
+    }
+
+    #[Route('/essenskoerbe/find', name: 'essenskoerbe_find')]
+    public function find(): Response
+    {
         $this->pageHelper->addBread($this->translator->trans('terminology.baskets'));
-    }
 
-    public function index(): void
-    {
-        if ($id = $this->uriHelper->uriInt(2)) {
-            if ($basket = $this->basketGateway->getBasket($id)) {
-                $this->basket($basket);
-            }
-        } else {
-            if ($m = $this->uriHelper->uriStr(2)) {
-                if (method_exists($this, $m)) {
-                    $this->$m();
-                } else {
-                    $this->routeHelper->goAndExit('/essenskoerbe/find');
-                }
-            } else {
-                $this->routeHelper->goAndExit('/essenskoerbe/find');
-            }
-        }
-    }
-
-    public function find(): void
-    {
         $loc = $this->session->getLocation();
         if (!$loc || $loc['lat'] === 0 && $loc['lon'] === 0) {
             $loc = ['lat' => MapConstants::CENTER_GERMANY_LAT, 'lon' => MapConstants::CENTER_GERMANY_LON];
         }
         $baskets = $this->basketGateway->listNearbyBasketsByDistance($this->session->id(), $loc);
         $this->view->find($baskets, $loc);
+
+        return $this->renderGlobal();
     }
 
-    private function basket(array $basket): void
+    #[Route('/essenskoerbe/{id}', name: 'essenskoerbe_id', requirements: ['id' => '\d+'])]
+    public function basket(int $id): Response
     {
+        $basket = $this->basketGateway->getBasket($id);
+
+        if (!$basket) {
+            throw new NotFoundHttpException();
+        }
+
+        $this->pageHelper->addBread($this->translator->trans('terminology.baskets'));
+
         $requests = false;
 
         if ($this->session->mayRole()) {
@@ -69,5 +64,7 @@ class BasketControl extends Control
         } elseif ($basket['status'] === Status::DELETED_OTHER_REASON || $basket['status'] === Status::DENIED || $basket['until_ts'] <= time()) {
             $this->view->basketTaken($basket);
         }
+
+        return $this->renderGlobal();
     }
 }
