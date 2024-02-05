@@ -38,6 +38,7 @@ expose({
   u_map,
   u_init_map,
   u_loadDialog,
+  loadStoreBubble,
 })
 
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
@@ -172,9 +173,7 @@ async function loadMarker (types, storeTypes, loader) {
           vueApply('#basket-bubble')
         })
       } else if (type === 'b') {
-        ajreq('bubble', { app: 'store', id: id }).then(x => {
-          vueApply('#store-bubble')
-        })
+        loadStoreBubble(id)
       } else if (type === 'f') {
         goTo(url('foodsharepoint', id))
       } else if (type === 'c') {
@@ -228,6 +227,12 @@ async function loadMarker (types, storeTypes, loader) {
     u_map.removeLayer(markers)
   }
   hideLoader()
+}
+
+function loadStoreBubble (storeId) {
+  ajreq('bubble', { app: 'store', id: storeId }).then(async x => {
+    vueApply('#store-bubble')
+  })
 }
 
 showLoader()

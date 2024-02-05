@@ -41,7 +41,7 @@ class MapController extends FoodsharingController
         if ($this->session->mayRole(Role::FOODSAVER) && $request->query->has('bid')) {
             $storeId = intval($request->query->get('bid'));
             $center = $this->mapGateway->getStoreLocation($storeId);
-            $this->pageHelper->addJs('ajreq(\'bubble\', { app: \'store\', id: ' . $storeId . ' });');
+            $this->pageHelper->addJs('loadStoreBubble(' . $storeId . ');');
         }
 
         $this->pageHelper->addJs('u_init_map();');

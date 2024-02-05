@@ -56,7 +56,7 @@
           >
             <Avatar
               :url="manager.avatar"
-              size="50"
+              :size="50"
             />
           </a>
         </div>
