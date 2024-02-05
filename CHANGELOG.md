@@ -31,6 +31,7 @@
 - New map bubble for stores in Vue !2988 !3128 @alex.simm
 - Renamed bezirk to region in urls helper !3126 @chriswalg
 - Prepared for removal of run.php in favor of Symfony's console !3118 @\_fridtjof_
+- Cleaned up twig extension config !3124 @\_fridtjof_
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm

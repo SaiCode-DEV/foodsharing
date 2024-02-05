@@ -7,14 +7,14 @@ use Twig\TwigFunction;
 
 class TwigExtensions extends AbstractExtension
 {
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('contentMainWidth', $this->contentMainWidthFunction(...))
         ];
     }
 
-    public function contentMainWidthFunction($hasLeft, $hasRight, $leftWidth, $rightWidth, $baseWidth = 24)
+    public function contentMainWidthFunction($hasLeft, $hasRight, $leftWidth, $rightWidth, $baseWidth = 24): int
     {
         if ($hasLeft) {
             $baseWidth -= $leftWidth;

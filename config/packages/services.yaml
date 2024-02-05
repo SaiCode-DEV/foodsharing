@@ -44,13 +44,7 @@ services:
             maxMessages: 10000
             verbose: 0
 
-    Foodsharing\Lib\TwigExtensions:
-        tags:
-            - twig.extension
-
-    Twig\Extra\Intl\IntlExtension:
-        tags:
-            - twig.extension
+    Twig\Extra\Intl\IntlExtension: ~
 
     GuzzleHttp\Client:
 
