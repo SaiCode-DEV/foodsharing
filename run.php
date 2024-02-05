@@ -1,6 +1,7 @@
 <?php
 
 use Foodsharing\Kernel;
+use Foodsharing\Modules\Console\ConsoleControl;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -30,12 +31,20 @@ if (isset($argv) && is_array($argv)) {
     }
 }
 
+if ($app !== 'Mails' && strtolower($method) !== 'queueworker') {
+    echo "run.php is deprecated, please use bin/console or its dev wrapper scripts/symfony-console\n";
+    exit(1);
+}
+
 $app = '\\Foodsharing\\Modules\\' . $app . '\\' . $app . 'Control';
 echo "Starting $app::$method...\n";
 
 $appInstance = $container->get(ltrim($app, '\\'));
 
-if (is_callable([$appInstance, $method])) {
+if (is_callable([$appInstance, $method]) &&
+    $appInstance instanceof ConsoleControl) {
+    // all callable commands must inherit from ConsoleControl
+    // that way, what can be called is explicit
     $appInstance->$method();
 } else {
     echo 'Modul ' . $app . ' konnte nicht geladen werden';

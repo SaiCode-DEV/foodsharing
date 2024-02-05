@@ -4,7 +4,7 @@ During development everyone knows the moments when the code shows exactly what y
 Some strategies how to find or avoid errors are collected here.
 
 ## Nightly scripts
-With ```./scripts/docker-compose run --rm --no-deps app php -f run.php Maintenance daily``` you can call the nightly scripts.
+With `./scripts/symfony-console foodsharing:daily-cronjob` you can call the nightly scripts.
 
 ## Test artifacts
 

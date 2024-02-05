@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-dir=$(dirname "$0")
-
-# shellcheck source=./__common.sh
-source "$dir"/__common.sh
-
-PARAMS=( "$@" );
-"$dir"/docker-compose exec -T --user 33:33 app sh -c "HOME=./ php -f run.php" "${PARAMS[@]}"

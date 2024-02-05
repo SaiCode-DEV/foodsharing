@@ -20,10 +20,10 @@ class LookupEmailsCest
         $I->seeInDatabase('fs_foodsaver', ['id' => $fsB['id'], 'deleted_at' => null]);
         $I->seeInDatabase('fs_foodsaver', ['id' => $fsC['id'], 'deleted_at' => null]);
         $I->amInPath('');
-        $I->runShellCommand('FS_ENV=test php -f run.php Lookup lookup tests/Support/Data/emaillist.csv', false);
+        $I->runShellCommand('FS_ENV=test bin/console foodsharing:lookup lookup tests/Support/Data/emaillist.csv', false);
         $I->seeInShellOutput($fsA['id'] . ',');
         $I->seeInShellOutput($fsB['id'] . ',');
-        $I->runShellCommand('FS_ENV=test php -f run.php Lookup deleteOldUsers tests/Support/Data/emaillist.csv', false);
+        $I->runShellCommand('FS_ENV=test bin/console foodsharing:lookup deleteOldUsers tests/Support/Data/emaillist.csv', false);
 
         $a = $I->grabFromDatabase('fs_foodsaver', 'deleted_at', ['id' => $fsA['id']]);
         $I->assertNotNull($a);

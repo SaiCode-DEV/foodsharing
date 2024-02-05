@@ -25,7 +25,7 @@ php-fpm -R 2> php_fpm_err.log &
 log-header "Initializing database"
 SECONDS=0
 mysql -u root -proot -hdb --execute="drop database if exists foodsharing; create database foodsharing"
-php run.php Mails queueWorker &
+bin/console foodsharing:mailqueueworker &
 vendor/bin/phinx migrate
 echo $SECONDS seconds elapsed
 

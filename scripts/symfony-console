@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
+
 dir=$(dirname "$0")
-"$dir"/docker-compose exec app ./bin/console "$@"
+
+# shellcheck source=./__common.sh
+source "$dir"/__common.sh
+
+exec-in-container app bin/console "$@"

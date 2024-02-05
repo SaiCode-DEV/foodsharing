@@ -28,6 +28,7 @@
 - Rebuild the wall using vue #45 #1800 #1830 !3045 !3112 @AntonBallmaier
 - Avoid access to global $_SESSION !3099 @KoeMai
 - New map bubble for stores in Vue !2988 @alex.simm
+- Prepared for removal of run.php in favor of Symfony's console !3118 @\_fridtjof_
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm

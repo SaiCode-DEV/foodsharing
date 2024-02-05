@@ -60,12 +60,11 @@ All scripts can be run with `./scripts/[script]`.
 | `db-docs-build`                             | (dev)         | Generates the database overview  |
 
 ## Other helping `scripts`
-| Script                                      | ENV           | Description                                                                           |
-|---------------------------------------------|---------------|---------------------------------------------------------------------------------------|
-| `symfony-console [command]`                 |               |  |
-| `composer [command]`                        | (dev)         |  |
-| `docker-compose [command]`                  | (dev)         |  |
-| `run [command]`                             | dev           | Run a command inside the PHP docker  |
+| Script                                      | ENV           | Description                                                                          |
+|---------------------------------------------|---------------|--------------------------------------------------------------------------------------|
+| `symfony-console [command]`                 |               | Docker wrapper for bin/console, runs both symfony and custom foodsharing commands    |
+| `composer [command]`                        | (dev)         | Docker wrapper for composer                                                          |
+| `docker-compose [command]`                  | (dev)         | Wrapper for docker compose to deal with dev/test envs and our config structure       |
 | `run-daily-maintenance`                     | dev           | Runs the daily maintenance, which is used to calculate stats and some database stuff |
 
 

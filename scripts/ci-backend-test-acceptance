@@ -29,7 +29,7 @@ vendor/bin/phinx migrate
 echo $SECONDS seconds elapsed
 
 log-header "Starting mail queue worker"
-php run.php Mails queueWorker &
+bin/console foodsharing:mailqueueworker &
 
 log-header "Waiting for assets to be generated ..."
 while ! [ "$(ls -A assets)" ];
