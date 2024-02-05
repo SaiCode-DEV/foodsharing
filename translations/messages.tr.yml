@@ -1229,6 +1229,7 @@ store:
   chain_search_picker:
     modal_title: İşletme zinciri seç
     search_input: İşletme zincir adına göre ara
+  to_map: Haritada göster
 polls:
   title: Başlık
   new_poll: Yeni Anket oluştur
@@ -2777,7 +2778,7 @@ storeview:
   select_related_region: Sorumlu bölgenin seçimi
   teamInfo: Ekipde <strong>{active}</strong> aktif olanlar ve <strong>{jumper}</strong>
     yedekte olanlar var.
-  pickupWeight: '{pickupWeight} kurtarıldı.'
+  pickupWeight: '{pickupWeight} kg kurtarıldı.'
   cooperation_start: beri işbirliği
   public_time: Yaklaşık {freq}'da alınıyor.Lütfen önceden anlaşma yapmadan asla işletmeye
     gitmeyin!
@@ -3382,3 +3383,4 @@ collapse_all: Tümünü aç
 donation_banner:
   info_button: Bağışım nereye gidiyor?
   action_button: Buraya bağış yapın!
+  amount: Mevcut bağış durumu
