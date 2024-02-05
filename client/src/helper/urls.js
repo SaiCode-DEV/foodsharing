@@ -113,22 +113,22 @@ const urls = {
   forumThread: (regionId, threadId, postId = null) => {
     return url('forum', regionId, 0, threadId, postId)
   },
-  events: (regionId) => `/?page=bezirk&bid=${regionId}&sub=events`,
+  events: (regionId) => `/region?bid=${regionId}&sub=events`,
   foodsaverList: (regionId) => `/?page=foodsaver&bid=${regionId}`,
-  foodsharepoints: (regionId) => `/?page=bezirk&bid=${regionId}&sub=fairteiler`,
-  members: (regionId) => `/?page=bezirk&bid=${regionId}&sub=members`,
-  options: (regionId) => `/?page=bezirk&bid=${regionId}&sub=options`,
+  foodsharepoints: (regionId) => `/region?bid=${regionId}&sub=fairteiler`,
+  members: (regionId) => `/region?bid=${regionId}&sub=members`,
+  options: (regionId) => `/region?bid=${regionId}&sub=options`,
   passports: (regionId) => `/?page=passgen&bid=${regionId}`,
-  pin: (regionId) => `/?page=bezirk&bid=${regionId}&sub=pin`,
+  pin: (regionId) => `/region?bid=${regionId}&sub=pin`,
   pollNew: (regionId) => `/?page=poll&bid=${regionId}&sub=new`,
-  polls: (regionId) => `/?page=bezirk&bid=${regionId}&sub=polls`,
-  region_forum: (regionId) => `/?page=bezirk&bid=${regionId}&sub=forum`,
+  polls: (regionId) => `/region?bid=${regionId}&sub=polls`,
+  region_forum: (regionId) => `/region?bid=${regionId}&sub=forum`,
   reports: (regionId = null) => regionId ? `/?page=report&bid=${regionId}` : '/?page=report',
-  statistic: (regionId) => `/?page=bezirk&bid=${regionId}&sub=statistic`,
+  statistic: (regionId) => `/region?bid=${regionId}&sub=statistic`,
   storeAdd: (regionId = null) => regionId ? `/?page=betrieb&a=new&bid=${regionId}` : '/?page=betrieb&a=new',
   storeEdit: (storeId) => `/?page=betrieb&a=edit&id=${storeId}`,
   stores: (regionId) => `/?page=betrieb&bid=${regionId}`,
-  wall: (regionId) => `/?page=bezirk&bid=${regionId}&sub=wall`,
+  wall: (regionId) => `/region?bid=${regionId}&sub=wall`,
   workingGroups: (regionId = null) => regionId ? `/?page=groups&p=${regionId}` : '/?page=groups',
   subGroups: (parentGroupId) => parentGroupId ? `/?page=groups&p=${parentGroupId}` : '/?page=groups',
 
@@ -174,7 +174,7 @@ const urls = {
 
   // Beta Testing
   beta: () => 'https://beta.foodsharing.de',
-  beta_testing_forum: () => 'https://beta.foodsharing.de/?page=bezirk&bid=734&sub=forum',
+  beta_testing_forum: () => 'https://beta.foodsharing.de/region?bid=734&sub=forum',
 
   // Gitlab
   git_revision: (revision) => `https://gitlab.com/foodsharing-dev/foodsharing/tree/${revision}`,
