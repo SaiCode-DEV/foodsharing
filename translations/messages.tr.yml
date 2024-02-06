@@ -559,7 +559,7 @@ bell:
   passgen_failed_title: Kimliğiniz oluşturulamadı
   report_reason: '{reason}'
   workgroup_request_accept: Çalışma grubuna kabul edildiniz.
-  new_report_title: '{name} hakkında yeni mesaj'
+  new_report_title: '{name} hakkında yeni bildiri'
   workgroup_request_accept_title: '{name}'
   workgroup_request_decline_title: '{name}'
   new_foodsaver_needs_verification: Doğrulanması gerekir
