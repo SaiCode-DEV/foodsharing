@@ -1096,7 +1096,7 @@ storeview:
   public_and_statistics: 'Estadísticas y Relaciones Públicas'
   public_time_in_the_morning: 'por la mañana'
   public_time_at_noon_or_afternoon: 'por la mediodía'
-  pickupWeight: 'Se ahorraron {pickupWeight}.'
+  pickupWeight: 'Se ahorraron {pickupWeight} kg.'
   info: 'Informaciones'
   teamInfo: 'Hay <strong>{active}</strong> rescatistas activos y <strong>{jumper}</strong>
     suplentes en el equipo.'
@@ -1371,6 +1371,7 @@ store:
   chain_search_picker:
     modal_title: Seleccionar cadena operativa
     search_input: Buscar por nombre de la cadena
+  to_map: Mostrar en el mapa
 pickup:
   overview:
     status:
@@ -3595,3 +3596,6 @@ save_state: Mantener filtros y clasificación
 save_state_description: Guarde los filtros usados y clasifique para futuras llamadas
 expand_all: Expandir todo
 collapse_all: Contraer todo
+donation_banner:
+  info_button: ¿A dónde va mi donación?
+  action_button: ¡Dona aquí!
