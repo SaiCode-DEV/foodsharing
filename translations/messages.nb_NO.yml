@@ -2574,7 +2574,7 @@ storeview:
   info: Informasjon
   store: Drift
   counter: <strong>{count} {suffix}</strong>
-  pickupWeight: '{pickupWeight} mat ble spart.'
+  pickupWeight: '{pickupWeight} kg mat ble spart.'
   cooperation: Samarbeid siden {startTime}.
   public_time: Vi henter her {freq}. Vennligst aldri gå til butikken uten forhåndsavtale!
   want_to_fetch: Jeg ønsker å hjelpe i dette laget.
