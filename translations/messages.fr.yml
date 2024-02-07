@@ -1400,7 +1400,7 @@ storeview:
   public_time: Les interventions ont lieu tous les {freq}. N’interviens JAMAIS dans
     l'établissement sans accord !
   cooperation: Coopère depuis le {startTime}.
-  pickupWeight: Il y a eu {pickupWeight} de collectes.
+  pickupWeight: Il y a eu {pickupWeight} kg de collectes.
   store: Coopération
   pickupCount: Il y a déjà eu {pickupCount} interventions dans cette coopération.
   counter: <strong>{count} {suffix}</strong>
