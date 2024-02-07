@@ -2565,6 +2565,7 @@ store:
   chain_search_picker:
     modal_title: Velg driftskjede
     search_input: Søk etter kjedenavn
+  to_map: Vis på kart
 storeview:
   status: Nåværende status
   public_time_at_night: om natten
@@ -3365,3 +3366,7 @@ save_state: Vedlikeholde filtre og sortering
 save_state_description: Lagre brukte filtre og sortering for fremtidige samtaler
 expand_all: Utvid alle
 collapse_all: Skjul alle
+donation_banner:
+  amount: Donasjonsstatus
+  info_button: Hvor går donasjonen min?
+  action_button: Doner her!
