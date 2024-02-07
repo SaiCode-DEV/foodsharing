@@ -1039,7 +1039,7 @@ storeview:
   status: Current status
   public_time: 'It will be picked up roughly {freq}. Please never go to the store
     without prior consultation!'
-  pickupWeight: '{pickupWeight} were saved.'
+  pickupWeight: '{pickupWeight} kg were saved.'
   counter: <strong>{count} {suffix}</strong>
   teamInfo: There are <strong>{active}</strong> active and <strong>{jumper}</strong>
     standby foodsavers in the team.
