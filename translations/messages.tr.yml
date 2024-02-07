@@ -2778,7 +2778,7 @@ storeview:
   select_related_region: Sorumlu bölgenin seçimi
   teamInfo: Ekipde <strong>{active}</strong> aktif olanlar ve <strong>{jumper}</strong>
     yedekte olanlar var.
-  pickupWeight: '{pickupWeight} kg kurtarıldı.'
+  pickupWeight: '{pickupWeight} kg kurtarıldı.'
   cooperation_start: beri işbirliği
   public_time: Yaklaşık {freq}'da alınıyor.Lütfen önceden anlaşma yapmadan asla işletmeye
     gitmeyin!
