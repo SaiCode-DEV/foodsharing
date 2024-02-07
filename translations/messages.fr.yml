@@ -3509,3 +3509,7 @@ save_state_description: Enregistrez les filtres utilisés et le tri pour les app
   futurs
 expand_all: Développer tout
 collapse_all: Réduire tout
+donation_banner:
+  info_button: Où va mon don ?
+  amount: Montant actuel des dons
+  action_button: Faites un don !
