@@ -2120,6 +2120,7 @@ store:
   chain_search_picker:
     modal_title: Pick a chain
     search_input: Search by chain name
+  to_map: Show on map
 search:
   mygroups: My groups
   mybuddies: My buddies
@@ -3491,3 +3492,7 @@ save_state: Maintain filters and sorting
 save_state_description: Save used filters and sorting for future calls
 expand_all: Expand all
 collapse_all: Collapse all
+donation_banner:
+  info_button: Where does my donation go?
+  action_button: Donate here!
+  amount: Current donation status
