@@ -1096,7 +1096,7 @@ storeview:
   public_and_statistics: 'Estadísticas y Relaciones Públicas'
   public_time_in_the_morning: 'por la mañana'
   public_time_at_noon_or_afternoon: 'por la mediodía'
-  pickupWeight: 'Se ahorraron {pickupWeight} kg.'
+  pickupWeight: 'Se ahorraron {pickupWeight} kg.'
   info: 'Informaciones'
   teamInfo: 'Hay <strong>{active}</strong> rescatistas activos y <strong>{jumper}</strong>
     suplentes en el equipo.'
@@ -3599,3 +3599,4 @@ collapse_all: Contraer todo
 donation_banner:
   info_button: ¿A dónde va mi donación?
   action_button: ¡Dona aquí!
+  amount: Nivel de donación
