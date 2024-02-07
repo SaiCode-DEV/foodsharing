@@ -1118,7 +1118,7 @@ storeview:
   counter: <strong>{count} {suffix}</strong>
   public_time: Sarà rilevato all'incirca {freq}. Si prega di non recarsi mai al negozio
     senza previa consultazione!
-  pickupWeight: '{pickupWeight} sono stati salvati.'
+  pickupWeight: '{pickupWeight} kg sono stati salvati.'
   pickupCount: In questa agenzia e stato {pickupCount} ritirato.
   show_information: Mostra informazioni sull’azienda
   common: Generale
