@@ -45,6 +45,7 @@
 - Added "/api/statistics" Endpoint and Refactor Statistic Api !2989 @BibaltiK
 - Upgraded PHPUnit to version 10 !3092 @\_fridtjof_
 - Upgraded to Symfony 6.4 !3129 @\_fridtjof_
+- Work around a bug in Sentry's query profiling integration !3133 @\_fridtjof_
 
 ## Development documentation
 
