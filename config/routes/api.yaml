@@ -1,7 +1,9 @@
 messages:
-  type: annotation
+  type: attribute
   prefix: /api
-  resource: ../..//src/RestApi/
+  resource:
+    path: ../../src/RestApi/
+    namespace: Foodsharing\RestApi
   defaults: {_format: json}
 
 NelmioApiDocBundle:

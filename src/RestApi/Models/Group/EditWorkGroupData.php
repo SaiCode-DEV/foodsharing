@@ -39,7 +39,7 @@ class EditWorkGroupData
      * @OA\Property(example=0)
      */
     #[Assert\Type('integer')]
-    #[Assert\Range(min: 0, max: 20, minMessage: 'group.application_requirements.banana_count_errors.min', maxMessage: 'group.application_requirements.banana_count_errors.max')]
+    #[Assert\Range(min: 0, max: 20, notInRangeMessage: 'group.application_requirements.banana_count_errors.not_in_range')]
     public int $requiredBananas = 0;
 
     /**

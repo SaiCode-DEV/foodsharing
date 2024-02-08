@@ -1,46 +1,30 @@
+# see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
+    #secret: '%env(APP_SECRET)%'
     secret: 'unused' # this is currently required by symfony but not actually in use
+    #csrf_protection: true
+    # annotations need to stay until we're able to finally get rid of sensio
+    #annotations: false
+    http_method_override: false
+    handle_all_throwables: true
+
+    # Enables session support. Note that the session will ONLY be started if you read or write from it.
+    # Remove or comment this section to explicitly disable session support.
     session:
-        handler_id: ~
+        handler_id: null
+        cookie_secure: auto
+        cookie_samesite: lax
+
+    #esi: true
+    #fragments: true
     php_errors:
         log: true
+
     assets:
         base_path: '/assets'
 
-sensio_framework_extra:
-    router:
-        annotations: false # Required to have no conflict with Symfony Router
-
-jms_serializer:
-    enum_support: true
-    property_naming:
-        id: 'jms_serializer.identical_property_naming_strategy'
-    visitors:
-        json_deserialization:
-            strict: true
-
-fos_rest:
-    param_fetcher_listener: true
-    body_listener: true
-    body_converter:
-        enabled: true
-        validate: true
-        validation_errors_argument: validationErrors
-    exception:
-        serializer_error_renderer: true
-        codes:
-            'DomainException': 409
-        messages:
-            'Symfony\Component\HttpKernel\Exception\BadRequestHttpException': true
-
-    format_listener:
-        rules:
-          - { path: '^/api', priorities: ['json'], fallback_format: json, prefer_extension: false }
-          - { path: '^/', priorities: ['text/html', '*/*'], fallback_format: html, prefer_extension: true }
-
-    serializer:
-        serialize_null: true
-
-doctrine:
-    dbal:
-        url: !php/const DATABASE_URL
+when@test:
+    framework:
+        test: true
+        session:
+          storage_factory_id: session.storage.factory.mock_file

@@ -44,6 +44,7 @@
 - Modernize code to use PHP 8.1 features !3095 @\_fridtjof_
 - Added "/api/statistics" Endpoint and Refactor Statistic Api !2989 @BibaltiK
 - Upgraded PHPUnit to version 10 !3092 @\_fridtjof_
+- Upgraded to Symfony 6.4 !3129 @\_fridtjof_
 
 ## Development documentation
 

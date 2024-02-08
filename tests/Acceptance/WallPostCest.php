@@ -48,6 +48,7 @@ class WallPostCest
     {
         $I->login($this->regionMember['email']);
         $I->amOnPage($I->regionWallUrl($this->testGroup['id']));
+        $I->waitForElement('.md-text-area');
         $I->fillField('.md-text-area', ' ');
         $I->dontSee('Senden');
     }

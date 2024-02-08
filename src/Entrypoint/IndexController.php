@@ -8,11 +8,13 @@ use Foodsharing\Utility\PageHelper;
 use Foodsharing\Utility\RouteHelper;
 use Foodsharing\Utility\WebpackHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\UrlHelper;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 
 class IndexController extends AbstractController
 {
@@ -22,10 +24,11 @@ class IndexController extends AbstractController
         PageHelper $pageHelper,
         WebpackHelper $webpackHelper,
         UrlHelper $urlHelper,
+        #[Autowire(param: 'kernel.project_dir')] string $projectDir,
+        #[MapQueryParameter] string $page = 'index',
     ): Response {
         $response = new Response('--');
 
-        $page = $request->query->get('page', 'index');
         $page = $routeHelper->getLegalControlIfNecessary() ?? $page;
 
         if (Routing::isPorted($page)) {
@@ -40,8 +43,7 @@ class IndexController extends AbstractController
                 // set up assets for this module
                 $moduleName = Routing::getModuleName($page);
                 if (!empty($moduleName)) {
-                    $projectDir = $container->get('kernel')->getProjectDir();
-                    $webpackHelper->prepareWebpackAssets($projectDir, $moduleName);
+                    $webpackHelper->prepareWebpackAssets($moduleName);
                 }
 
                 /** @var Control $controller */

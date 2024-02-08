@@ -8,6 +8,7 @@ use Foodsharing\Permissions\ContentPermissions;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Parsedown;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -43,6 +44,8 @@ class ContentController extends FoodsharingController
         private readonly IdentificationHelper $identificationHelper,
         private readonly DataHelper $dataHelper,
         private readonly ContentPermissions $contentPermissions,
+        #[Autowire(param: 'kernel.project_dir')]
+        private readonly string $projectDir,
     ) {
         parent::__construct();
     }
@@ -172,8 +175,7 @@ class ContentController extends FoodsharingController
         $this->pageHelper->addBread($this->translator->trans('content.changelog'));
         $this->pageHelper->addTitle($this->translator->trans('content.changelog'));
 
-        $projectDir = $this->getParameter('kernel.project_dir');
-        $markdown = $this->parseGitlabLinks(file_get_contents($projectDir . '/CHANGELOG.md') ?: '');
+        $markdown = $this->parseGitlabLinks(file_get_contents($this->projectDir . '/CHANGELOG.md') ?: '');
         $Parsedown = new Parsedown();
         $cl['title'] = $this->translator->trans('content.changelog');
         $cl['body'] = $Parsedown->parse($markdown);
@@ -238,9 +240,7 @@ class ContentController extends FoodsharingController
 
     private function getNotes(string $filename): string
     {
-        $projectDir = $this->getParameter('kernel.project_dir');
-
-        return file_get_contents($projectDir . '/release-notes/' . $filename . '.md') ?: '';
+        return file_get_contents($this->projectDir . '/release-notes/' . $filename . '.md') ?: '';
     }
 
     private function parseGitlabLinks($markdown)

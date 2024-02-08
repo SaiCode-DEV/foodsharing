@@ -12,12 +12,16 @@ xhrapp:
   controller: Foodsharing\Entrypoint\XhrAppController
 
 website:
-  type: annotation
+  type: attribute
   prefix: /
-  resource: ../src/Modules/
+  resource:
+    path: ../src/Modules/
+    namespace: Foodsharing\Modules
 
 mock:
-  type: annotation
+  type: attribute
   prefix: /mock
-  resource: ../src/Mock/
+  resource:
+    path: ../src/Mock/
+    namespace: Foodsharing\Mock
   condition: "'%kernel.environment%' in ['dev', 'test']"

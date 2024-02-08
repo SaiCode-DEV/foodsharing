@@ -10,6 +10,7 @@ use Foodsharing\Lib\Xhr\XhrResponses;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 
 class XhrController extends AbstractController
 {
@@ -17,7 +18,8 @@ class XhrController extends AbstractController
         Request $request,
         Session $session,
         Mem $mem,
-        XhrMethods $xhr
+        XhrMethods $xhr,
+        #[MapQueryParameter] ?string $f,
     ): Response {
         $session->initIfCookieExists();
 
@@ -28,7 +30,7 @@ class XhrController extends AbstractController
             $cache->lookup();
         }
 
-        $action = $request->query->get('f');
+        $action = $f;
 
         if ($action === null) {
             return new Response(null, Response::HTTP_BAD_REQUEST);

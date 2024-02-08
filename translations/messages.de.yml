@@ -398,6 +398,7 @@ group:
     banana_count_errors:
       min: "Niemand soll weniger als {{ limit }} Vertrauensbananen haben."
       max: "Bitte erwarte nicht mehr als {{ limit }} Vertrauensbananen."
+      not_in_range: "{{ limit }} Niemand sollte weniger als {{ min }} oder mehr als {{ max }} Vertrauensbananen haben."
     member_since_weeks: "Seit wie vielen Wochen sollten die Bewerber:innen schon bei foodsharing sein?"
     not_fulfilled: "Um dich für diese Arbeitsgruppe zu bewerben, musst du seit %weeks% Wochen bei foodsharing sein, schon %bananas% Vertrauensbananen gesammelt und schon %fetches% Abholungen mitgemacht haben."
   members: "Mitglieder"

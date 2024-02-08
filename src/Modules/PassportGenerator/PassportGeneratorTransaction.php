@@ -15,13 +15,11 @@ use Foodsharing\Utility\FlashMessageHelper;
 use Foodsharing\Utility\TranslationHelper;
 use setasign\Fpdi\Tcpdf\Fpdi;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PassportGeneratorTransaction extends AbstractController
 {
-    private readonly string $projectDir;
-
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly PassportGeneratorGateway $passportGeneratorGateway,
@@ -32,9 +30,9 @@ class PassportGeneratorTransaction extends AbstractController
         protected FlashMessageHelper $flashMessageHelper,
         protected TranslationHelper $translationHelper,
         protected TranslatorInterface $translator,
-        KernelInterface $kernel,
+        #[Autowire(param: 'kernel.project_dir')]
+        private readonly string $projectDir,
     ) {
-        $this->projectDir = $kernel->getProjectDir();
     }
 
     public function generate(array $foodsavers, ?\DateTime $passDate = null, bool $cutMarkers = true, bool $protectPDF = false, bool $ambassadorGeneration = false, bool $oldGeneration = false): string

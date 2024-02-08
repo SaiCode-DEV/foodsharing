@@ -3,15 +3,16 @@
 namespace Foodsharing\Mock;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class GeoapifyMock extends AbstractController
 {
     public function __construct(
-        private readonly KernelInterface $kernelInterface,
+        #[Autowire(param: 'kernel.project_dir')]
+        private readonly string $projectDir,
     ) {
     }
 
@@ -22,7 +23,7 @@ class GeoapifyMock extends AbstractController
     public function api(): Response
     {
         return new BinaryFileResponse(
-            $this->kernelInterface->getProjectDir() . '/src/Mock/img/mock_tile.png',
+            $this->projectDir . '/src/Mock/img/mock_tile.png',
             Response::HTTP_OK,
             ['Content-Type' => 'text/png']);
     }

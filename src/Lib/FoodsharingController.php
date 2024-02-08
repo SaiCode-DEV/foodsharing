@@ -75,10 +75,9 @@ abstract class FoodsharingController extends AbstractController
             throw new \Exception('Please rename the controller "' . $className . '" to end with "Controller".');
         }
 
-        $projectDir = $container->get('kernel')->getProjectDir();
         // the module name is derived from the controller name and must match the directory it's in
         $moduleName = substr($className, 0, $pos);
-        $controlCommon->prepareWebpackAssets($projectDir, $moduleName);
+        $controlCommon->prepareWebpackAssets($moduleName);
     }
 
     /**

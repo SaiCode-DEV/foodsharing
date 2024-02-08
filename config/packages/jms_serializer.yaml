@@ -1,0 +1,7 @@
+jms_serializer:
+  enum_support: true
+  property_naming:
+    id: 'jms_serializer.identical_property_naming_strategy'
+  visitors:
+    json_deserialization:
+      strict: true

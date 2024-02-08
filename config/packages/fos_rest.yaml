@@ -1,0 +1,21 @@
+fos_rest:
+  param_fetcher_listener: true
+  body_listener: true
+  body_converter:
+    enabled: true
+    validate: true
+    validation_errors_argument: validationErrors
+  exception:
+    serializer_error_renderer: true
+    codes:
+      'DomainException': 409
+    messages:
+      'Symfony\Component\HttpKernel\Exception\BadRequestHttpException': true
+
+  format_listener:
+    rules:
+      - { path: '^/api', priorities: ['json'], fallback_format: json, prefer_extension: false }
+      - { path: '^/', priorities: ['text/html', '*/*'], fallback_format: html, prefer_extension: true }
+
+  serializer:
+    serialize_null: true

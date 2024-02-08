@@ -5,20 +5,19 @@ namespace Foodsharing\Modules\BusinessCard;
 use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use setasign\Fpdi\Tcpdf\Fpdi;
-use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class BusinessCardControl extends Control
 {
-    private readonly string $projectDir;
     private const MAX_CHAR_PER_LINE = 45;
 
     public function __construct(
         BusinessCardView $view,
         private readonly BusinessCardGateway $gateway,
-        KernelInterface $kernel
+        #[Autowire(param: 'kernel.project_dir')]
+        private readonly string $projectDir,
     ) {
         $this->view = $view;
-        $this->projectDir = $kernel->getProjectDir();
 
         parent::__construct();
     }

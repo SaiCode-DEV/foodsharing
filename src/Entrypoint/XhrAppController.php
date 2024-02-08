@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 
 class XhrAppController extends AbstractController
 {
@@ -34,14 +35,18 @@ class XhrAppController extends AbstractController
         'WallPostXhr::attachimage',
     ];
 
-    public function __invoke(Request $request, Session $session): Response
-    {
-        if (!isset($_GET['app'], $_GET['m'])) {
+    public function __invoke(
+        Request $request,
+        Session $session,
+        #[MapQueryParameter] ?string $app,
+        #[MapQueryParameter] ?string $m,
+    ): Response {
+        if ($app === null || $m === null) {
             return new Response(null, Response::HTTP_BAD_REQUEST);
         }
 
-        $app = str_replace('/', '', (string)$_GET['app']);
-        $meth = str_replace('/', '', (string)$_GET['m']);
+        $app = str_replace('/', '', $app);
+        $meth = str_replace('/', '', $m);
 
         $session->initIfCookieExists();
 

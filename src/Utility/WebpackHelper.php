@@ -2,16 +2,20 @@
 
 namespace Foodsharing\Utility;
 
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
+
 class WebpackHelper
 {
     public function __construct(
-        private readonly PageHelper $pageHelper // shared, same instance as other references
+        private readonly PageHelper $pageHelper, // shared, same instance as other references
+        #[Autowire(param: 'kernel.project_dir')]
+        private readonly string $projectDir,
     ) {
     }
 
-    public function prepareWebpackAssets(string $projectDir, string $moduleName): void
+    public function prepareWebpackAssets(string $moduleName): void
     {
-        $webpackModules = $projectDir . '/assets/modules.json';
+        $webpackModules = $this->projectDir . '/assets/modules.json';
         $manifest = json_decode(file_get_contents($webpackModules), true);
         $entry = 'Modules/' . $moduleName;
         if (isset($manifest[$entry])) {

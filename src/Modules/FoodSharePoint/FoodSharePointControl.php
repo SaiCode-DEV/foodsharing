@@ -368,7 +368,7 @@ class FoodSharePointControl extends Control
             return false;
         }
 
-        $fspManager = $this->sanitizerService->tagSelectIds((array)$request->request->get('fspmanagers'));
+        $fspManager = $this->sanitizerService->tagSelectIds((array)$request->request->all()['fspmanagers']);
         $this->foodSharePointGateway->updateFSPManagers($this->foodSharePoint['id'], $fspManager);
 
         return $this->foodSharePointGateway->updateFoodSharePoint($this->foodSharePoint['id'], $data);
