@@ -34,6 +34,7 @@
 - Modernized BlogControl to a Symfony controller !3096 @\_fridtjof_
 - Modernized BasketControl to a Symfony controller !3127 @\_fridtjof_
 - Cleaned up twig extension config !3124 @\_fridtjof_
+- Removed unused store edit code !3137 @chriswalg
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm

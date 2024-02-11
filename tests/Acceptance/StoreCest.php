@@ -191,44 +191,6 @@ class StoreCest
 
     /**
      * @example["StoreManager"]
-     * @example["Foodsaver"]
-     */
-    public function canAccessStoreEditPage(AcceptanceTester $I, Example $example): void
-    {
-        $this->loginAs($I, $example[0]);
-
-        $I->amOnPage($I->storeEditUrl($this->store['id']));
-        if ($example[0] === 'StoreManager') {
-            $I->see('Bezirk ändern');
-            $I->see('Ansprechpersonen im Betrieb');
-        } else {
-            $I->dontSee('Bezirk ändern');
-            $I->dontSee('Ansprechpersonen im Betrieb');
-        }
-    }
-
-    /**
-     * @example["StoreManager"]
-     */
-    public function willKeepApproxPickupTime(AcceptanceTester $I, Example $example): void
-    {
-        $this->loginAs($I, $example[0]);
-
-        // Check original value
-        $I->amOnPage('/?page=betrieb&a=edit&id=' . $this->store['id']);
-        $I->see('Keine Angabe', '#public_time option[selected]');
-
-        // Change option and save the page
-        $I->selectOption('public_time', 'morgens');
-        $I->click('Senden');
-
-        // Check the page again to make sure our option was saved
-        $I->amOnPage('/?page=betrieb&a=edit&id=' . $this->store['id']);
-        $I->see('morgens', '#public_time option[selected]');
-    }
-
-    /**
-     * @example["StoreManager"]
      */
     public function seePickupHistory(AcceptanceTester $I, Example $example): void
     {
