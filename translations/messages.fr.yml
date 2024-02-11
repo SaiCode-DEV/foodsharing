@@ -29,6 +29,8 @@ group:
     banana_count_errors:
       max: Ne t'attends pas à recevoir plus de {{ limit }} bananes-confiance.
       min: Personne ne peut avoir moins de {{ limit }} bananes-confiance.
+      not_in_range: '{{ limit }} Personne n’aurait dû recevoir moins de {{ min }}
+        ou plus de {{ max }} bananes de confiance.'
     banana_count: De combien de bananes-confiance un membre a-t-il besoin ?
   apply:
     declined: Demande refusée
@@ -1388,6 +1390,7 @@ store:
   chain_search_picker:
     modal_title: Choisissez une chaîne
     search_input: Rechercher par nom de chaîne
+  to_map: Afficher sur la carte
 storeview:
   want_to_fetch: J’aimerais m’engager dans cette équipe.
   specials: Particularités
