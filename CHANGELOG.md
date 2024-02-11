@@ -10,6 +10,7 @@
 - Improves the BBB integration !3050 @stcz
 - Make navigation menu sticky @AntonBallmaier @chriswalg
 - Added marker clustering to the basket map !3013 @alex.simm
+- Deleted the newsletter module !3138 @alex.simm
 
 ## Bugfixes
 - remove misplaced line in store team view !3088 @buntel
