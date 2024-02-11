@@ -849,6 +849,8 @@ group:
     banana_count_errors:
       max: 'No espere más de {{ limit }} fideos de fidelidad.'
       min: 'Nadie debería tener menos de {{ limit }} fideos de fidelidad.'
+      not_in_range: '{{ limit }} Nadie debe tener menos de {{ min }} o más de {{ max
+        }} bananas de confianza.'
     not_fulfilled: 'Para postularse para este grupo de trabajo, debes haber sido parte
       de foodsharing durante %weeks% semanas, haber recolectado ya %bananas% fideos
       de fidelidad y haber participado en %fetches% recogidas.'
