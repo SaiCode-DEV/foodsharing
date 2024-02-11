@@ -1658,6 +1658,8 @@ group:
     banana_count_errors:
       min: Ingen kan ha færre enn {{ limit }} tillitsbananer.
       max: Ikke forvent mer enn {{ limit }} tillitsbananer.
+      not_in_range: '{{ limit }} Ingen bør ha mindre enn {{ min }} eller mer enn {{
+        max }} trust bananer.'
     member_since_weeks: Hvor mange uker burde en søker vært hos oss?
     banana_count: Hvor mange tillitsbananer må en søker ha?
     not_fulfilled: For å søke på denne arbeidsgruppen må du ha vært med foodsharing
