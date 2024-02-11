@@ -352,6 +352,8 @@ group:
     banana_count_errors:
       max: 'Lütfen {{ limit }} güven fidanından fazlasını beklemeyin.'
       min: 'Hiç kimse {{ limit }} güven fidanından daha azına sahip olamaz.'
+      not_in_range: "{{ limit }} Hiç kimse {{ min }}'dan az veya {{ max }}'dan fazla
+        güven fidanına sahip olmamalıdır."
     banana_count: 'Bir başvuru sahibinin kaç tane güven fidanına ihtiyacı var?'
     not_fulfilled: 'Bu çalışma grubuna başvurmak için, %weeks% hafta boyunca yiyecek
       paylaşımında bulunmanız, zaten %bananas% güven fidanı toplamış olmanız ve %fetches%
