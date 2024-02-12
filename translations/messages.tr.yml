@@ -1585,7 +1585,7 @@ mailbox:
     written_text: "'de şunu yazdı"
   mails: E-Postalar
   delete_selected: Seçilen e-postaları sil
-  mark_all: hepsini seç
+  mark_all: Hepsini işaretle
   tag_recipient_hint: Alıcılar (noktalı virgülle ayrılmış)
   mailsend_unsuccess: E-posta gönderilemedi. {error}
   attachment:
@@ -1610,6 +1610,7 @@ mailbox:
   addressbook: Adres rehberi
   reply_all: Hepsini cevapla
   show_html_body: HTML olarak görüntüle
+  mark_none: Hiçbirini işaretleme
 basket:
   sent_request: Başvuru gönderildi
   n_requests: 'Şimdiye kadar ki başvurular: <strong>{count}</strong>'
@@ -1926,6 +1927,10 @@ conference:
   privacy_notice: "Not: Video konferansları, living utopia Kollektivs konferans sunucusu
     aracılığıyla gerçekleştirilir.Foodsharing'e girdiğiniz adınız, kimliğiniz ve avatarınızla
     otomatik olarak oturum açacaksınız."
+  confirm_info: "Burada seçilen grup için bir video konferansa katılabilirsiniz. Video
+    konferans BigBlueButton'u yeni bir pencerede açar. Not: Video konferanslar living
+    utopia Kollektivs konferans sunucusu aracılığıyla gerçekleştirilir. Foodsharing'e
+    girdiğiniz adınız, kimliğiniz ve avatarınızla otomatik olarak oturum açacaksınız."
 sidenav:
   localgroups: Yerel gruplar
   yourgroups: Gruplarınız
