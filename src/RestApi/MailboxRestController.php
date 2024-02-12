@@ -205,20 +205,6 @@ class MailboxRestController extends AbstractFoodsharingRestController
         return $this->handleView($this->view($email, Response::HTTP_CREATED));
     }
 
-    /*
-     * Simple rate limiter that stores the last time an email was sent by the user in Redis.
-     */
-    /* private function checkEmailSendingRateLimit()
-     {
-         if ($last = (int)$this->mem->user($this->session->id(), 'mailbox-last')) {
-             if ((time() - $last) < self::SECONDS_PER_EMAIL_SENDING) {
-                 throw new AccessDeniedHttpException($this->translator->trans('mailbox.ratelimit'));
-             }
-         }
-
-         $this->mem->userSet($this->session->id(), 'mailbox-last', time());
-     } */
-
     #[OA\Get(summary: 'Returns all regions and their email addresses.')]
     #[OA\Tag(name: 'mailbox')]
     #[Rest\Get('mailbox/regions')]

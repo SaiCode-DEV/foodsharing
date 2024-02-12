@@ -11,7 +11,7 @@
         >
           <div class="card bg-white">
             <MailboxFolder
-              v-for="mailbox in mailboxes"
+              v-for="mailbox in sortedMailboxes"
               :key="mailbox.id"
               :mailbox-id="mailbox.id"
               :mailbox-name="mailbox.name"
@@ -36,7 +36,7 @@
         <MailboxNewAndAnswer
           v-if="page === MAILBOX_PAGE.NEW_EMAIL"
           :email="email"
-          :mailboxes="mailboxes"
+          :mailboxes="sortedMailboxes"
         />
       </div>
     </div>
@@ -53,7 +53,7 @@ import MailboxSingleEmailView from './MailboxSingleEmailView.vue'
 import { hideLoader, pulseError, showLoader } from '@/script'
 import { getEmail } from '@/api/mailbox'
 import i18n from '@/helper/i18n'
-import { store, MAILBOX_PAGE } from '@/stores/mailbox'
+import { store, MAILBOX_PAGE, MAILBOX_FOLDER } from '@/stores/mailbox'
 
 export default {
   components: { Container, MailboxFolder, MailboxView, MailboxNewAndAnswer, MailboxSingleEmailView },
@@ -62,10 +62,11 @@ export default {
     hostname: { type: String, required: true },
     mailboxes: { type: Array, default: () => { return [] } },
     emailId: { type: Number, default: null },
+    mailboxId: { type: Number, default: null },
   },
   data () {
     return {
-      selectedMailboxId: null,
+      selectedMailboxId: this.mailboxId,
       folderId: null,
       selectedMailboxName: null,
       selectedEmailId: this.emailId,
@@ -79,6 +80,9 @@ export default {
     page () {
       return store.state.page
     },
+    sortedMailboxes () {
+      return [...this.mailboxes].sort((a, b) => a.name.localeCompare(b.name))
+    },
   },
   watch: {
     async selectedEmailId () {
@@ -87,14 +91,21 @@ export default {
     },
   },
   created () {
-    // If an email specified (e.g. by clicking a link on the dashboard), that email is shown. Else the selected mailbox is shown.
     this.MAILBOX_PAGE = MAILBOX_PAGE
     if (this.selectedEmailId) {
+      // If an email was specified (e.g. by clicking a link on the dashboard), that email is shown.
       this.loadSelectedEmail()
       store.setPage(MAILBOX_PAGE.READ_EMAIL)
-    } else if (!this.selectedMailboxId && this.mailboxes.length > 0) {
-      store.setMailbox(this.mailboxes[0].id, this.mailboxes[0].name, 1)
-      store.setPage(MAILBOX_PAGE.EMAIL_LIST)
+    } else if (this.mailboxes.length > 0) {
+      // If a mailbox was specified, that mailbox is selected. Else the first mailbox will be selected.
+      const foundSelectedMailbox = this.selectedMailboxId ? this.mailboxes.find(m => m.id === this.selectedMailboxId) : null
+      if (foundSelectedMailbox) {
+        store.setMailbox(foundSelectedMailbox.id, foundSelectedMailbox.name, MAILBOX_FOLDER.INBOX)
+        store.setPage(MAILBOX_PAGE.EMAIL_LIST)
+      } else {
+        store.setMailbox(this.sortedMailboxes[0].id, this.sortedMailboxes[0].name, MAILBOX_FOLDER.INBOX)
+        store.setPage(MAILBOX_PAGE.EMAIL_LIST)
+      }
     }
   },
   methods: {

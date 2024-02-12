@@ -1798,8 +1798,8 @@ mailbox:
   filesize: "Sorry, die Datei ist zu groß."
   mark_as_unread: "E-Mail ungelesen markieren"
   mark_as_read: "E-Mail gelesen markieren"
-  mark_all: "alle markieren"
-  delete_selected: "Auswahl löschen"
+  mark_all: "Alle markieren"
+  mark_none: "Keine markieren"
   close_edit_mode: "Bearbeiten beenden"
   from: "Von" #MailboxXhr
   to: "An"

@@ -47,11 +47,13 @@ class MailboxControl extends Control
 
         $mailboxIds = array_column($boxes, 'id');
         $emailId = isset($_GET['show']) ? intval($_GET['show']) : null;
+        $mailboxId = isset($_GET['mailbox']) ? intval($_GET['mailbox']) : null;
 
         $this->pageHelper->addContent($this->view->vueComponent('vue-mailbox', 'Mailbox', [
             'hostname' => PLATFORM_MAILBOX_HOST,
             'mailboxes' => $this->mailboxGateway->getMailboxesWithUnreadCount($mailboxIds),
-            'emailId' => $emailId
+            'emailId' => $emailId,
+            'mailboxId' => $mailboxId
         ]));
     }
 

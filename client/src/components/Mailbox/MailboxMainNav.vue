@@ -71,7 +71,7 @@
             variant="outline-primary"
             @click="mailboxViewClearSelected"
           >
-            {{ $i18n('mailbox.delete_selected') }}
+            {{ $i18n('mailbox.mark_none') }}
           </b-button>
           <b-dropdown
             v-if="page === MAILBOX_PAGE.READ_EMAIL || page === MAILBOX_PAGE.EMAIL_LIST"
