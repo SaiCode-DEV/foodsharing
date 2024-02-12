@@ -59,10 +59,11 @@ import Container from '@/components/Container/Container.vue'
 import MarkdownInput from '../Markdown/MarkdownInput.vue'
 import { getWallPosts, addPost, deletePost } from '@/api/wall'
 import { HTTP_RESPONSE } from '@/consts'
+import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
   components: { WallPost, Container, MarkdownInput },
-  mixins: [ListToggleMixin],
+  mixins: [ListToggleMixin, ConfirmationDialogue],
   props: {
     targetId: { type: Number, required: true },
     target: { type: String, required: true },
@@ -127,14 +128,8 @@ export default {
     },
     async deletePost (postId) {
       const index = this.posts.findIndex(post => post.id === postId)
-      const confimation = await this.$bvModal.msgBoxConfirm(this.$i18n('wall.delete_confirmation.text', { author: this.posts[index].author.name }), {
-        title: this.$i18n('wall.delete_confirmation.title'),
-        okVariant: 'danger',
-        okTitle: this.$i18n('button.delete'),
-        cancelTitle: this.$i18n('button.cancel'),
-        centered: true,
-      })
-      if (!confimation) return
+      const params = { author: this.posts[index].author.name }
+      if (!await this.confirmationDialogue('wall.delete_confirmation.text', { params })) return
       try {
         showLoader()
         await deletePost(this.target, this.targetId, postId)

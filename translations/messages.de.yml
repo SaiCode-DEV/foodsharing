@@ -1903,11 +1903,9 @@ settings:
     event_link_desc: "(inkl. Events)"
     create_token:
       button: Neues Token erstellen
-      title: Neues Token erstellen
       message: Du kannst immer nur ein Token anlegen. Durch ein neues Token wird der bisherige Link überschrieben und ungültig. Möchtest du den Link wirklich neu erstellen?
     delete_token:
       button: Token löschen
-      title: Token löschen
       message: Das bisherige Token wird hierdurch ungültig. Möchtest du das Token wirklich löschen?
     include_invitations: Der Kalender soll auch Einladungen zu Terminen enthalten, die ich noch nicht beantwortet habe.
   photo:
@@ -2615,8 +2613,7 @@ stats:
     users: "Aktivste Foodsaver"
 
 conference:
-  description_text: "Hier kannst du einer Videokonferenz für die gewählte Gruppe beitreten. Die Videokonferenz öffnet BigBlueButton in einem neuen Fenster."
-  privacy_notice: "Hinweis: Videokonferenzen werden über den Konferenzserver des living utopia Kollektivs abgewickelt. Du wirst dort automatisch mit deinem bei foodsharing eingegebenen Vornamen, ID und Avatar eingeloggt."
+  confirm_info: "Hier kannst du einer Videokonferenz für die gewählte Gruppe beitreten. Die Videokonferenz öffnet BigBlueButton in einem neuen Fenster. Hinweis: Videokonferenzen werden über den Konferenzserver des living utopia Kollektivs abgewickelt. Du wirst dort automatisch mit deinem bei foodsharing eingegebenen Vornamen, ID und Avatar eingeloggt."
   join_title: "Konferenz beitreten"
   join: "Konferenz beitreten"
 

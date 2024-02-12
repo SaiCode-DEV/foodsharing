@@ -78,9 +78,11 @@ import { pulseError } from '@/script'
 import i18n from '@/helper/i18n'
 import { deleteContent, listContent } from '@/api/content'
 import { BButton, BTable } from 'bootstrap-vue'
+import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
   components: { BButton, BTable },
+  mixins: [ConfirmationDialogue],
   props: {
     mayCreateContent: { type: Boolean, default: false },
     mayEditContent: { type: Boolean, default: false },
@@ -122,30 +124,21 @@ export default {
         : '---'
     },
     async deleteContent (id, name) {
-      const confirmed = await this.$bvModal.msgBoxConfirm(i18n('content.delete', { name: name }), {
-        modalClass: 'bootstrap',
-        title: i18n('content.delete_tooltip'),
-        cancelTitle: i18n('no'),
-        okTitle: i18n('yes'),
-        headerClass: 'd-flex',
-        contentClass: 'pr-3 pt-3',
-      })
-      if (confirmed) {
-        this.isLoading = true
+      if (!await this.confirmationDialogue('content.delete', { params: { name } })) return
+      this.isLoading = true
 
-        // delete the content on the server and remove it from the list
-        try {
-          await deleteContent(id)
-          const index = this.contentList.findIndex(entry => entry.id === id)
-          if (index >= 0) {
-            this.contentList.splice(index, 1)
-          }
-        } catch (e) {
-          pulseError(i18n('error_unexpected'))
+      // delete the content on the server and remove it from the list
+      try {
+        await deleteContent(id)
+        const index = this.contentList.findIndex(entry => entry.id === id)
+        if (index >= 0) {
+          this.contentList.splice(index, 1)
         }
-
-        this.isLoading = false
+      } catch (e) {
+        pulseError(i18n('error_unexpected'))
       }
+
+      this.isLoading = false
     },
   },
 }

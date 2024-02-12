@@ -42,9 +42,11 @@ import { createThread } from '@/api/forum'
 import { pulseError } from '@/script'
 import i18n from '@/helper/i18n'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
+import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
   components: { MarkdownInput },
+  mixins: [ConfirmationDialogue],
   props: {
     groupId: { type: Number, required: true },
     subforumId: { type: Number, required: true },
@@ -69,15 +71,11 @@ export default {
   methods: {
     async createNewThread () {
       if (this.sendMail) {
-        const confimation = await this.$bvModal.msgBoxConfirm(this.$i18n('forum.mail_confirmation.text'), {
+        const dialogueOptions = {
           title: this.$i18n('forum.mail_confirmation.title'),
-          okVariant: 'danger',
           okTitle: this.$i18n('button.send'),
-          cancelTitle: this.$i18n('button.cancel'),
-          hideHeaderClose: false,
-          centered: true,
-        })
-        if (!confimation) {
+        }
+        if (!await this.confirmationDialogue('forum.mail_confirmation.text', dialogueOptions)) {
           this.sendMail = false
           return
         }

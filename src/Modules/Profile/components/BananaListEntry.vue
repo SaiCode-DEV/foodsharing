@@ -38,9 +38,11 @@ import Avatar from '@/components/Avatar'
 import { deleteBanana } from '@/api/profile'
 import { hideLoader, pulseError, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
+import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
   components: { Avatar },
+  mixins: [ConfirmationDialogue],
   props: {
     recipientId: { type: Number, required: true },
     authorId: { type: Number, required: true },
@@ -59,24 +61,16 @@ export default {
     async removeBanana () {
       // the banana dialog has to be closed because the confirm dialog would appear behind it
       this.$emit('close-dialog')
-      const remove = await this.$bvModal.msgBoxConfirm(i18n('profile.banana.remove.confirm_message'), {
-        modalClass: 'bootstrap',
-        title: i18n('profile.banana.remove.confirm_title'),
-        cancelTitle: i18n('no'),
-        okTitle: i18n('yes'),
-        headerClass: 'd-flex',
-        contentClass: 'pr-3 pt-3',
-      })
-      if (remove) {
-        showLoader()
-        try {
-          await deleteBanana(this.recipientId, this.authorId)
-          location.reload()
-        } catch (e) {
-          pulseError(i18n('error_unexpected'))
-        }
-        hideLoader()
+
+      if (!await this.confirmationDialogue('profile.banana.remove.confirm_message')) return
+      showLoader()
+      try {
+        await deleteBanana(this.recipientId, this.authorId)
+        location.reload()
+      } catch (e) {
+        pulseError(i18n('error_unexpected'))
       }
+      hideLoader()
     },
   },
 }

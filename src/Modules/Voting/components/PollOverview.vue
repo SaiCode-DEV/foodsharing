@@ -127,9 +127,11 @@ import { BAlert, BLink, BBadge } from 'bootstrap-vue'
 import { deletePoll } from '@/api/voting'
 import { hideLoader, pulseError, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
+import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
   components: { ResultsTable, VoteForm, Markdown, BAlert, BLink, BBadge },
+  mixins: [ConfirmationDialogue],
   props: {
     poll: {
       type: Object,
@@ -191,28 +193,16 @@ export default {
     },
     async showCancelConfirmDialog (e) {
       e.preventDefault()
-      // show confirmation dialog
-      const cancel = await this.$bvModal.msgBoxConfirm(i18n('poll.cancel.question'), {
-        modalClass: 'bootstrap',
-        title: i18n('poll.cancel.title'),
-        cancelTitle: i18n('no'),
-        okTitle: i18n('yes'),
-        headerClass: 'd-flex',
-        contentClass: 'pr-3 pt-3',
-      })
-      if (cancel) {
-        showLoader()
-
-        try {
-          // cancel poll and redirect to poll list
-          await deletePoll(this.poll.id)
-          window.location.href = this.$url('polls', this.poll.regionId)
-        } catch (e) {
-          pulseError(i18n('error_unexpected'))
-        }
-
-        hideLoader()
+      if (!await this.confirmationDialogue('poll.cancel.question')) return
+      showLoader()
+      try {
+        // cancel poll and redirect to poll list
+        await deletePoll(this.poll.id)
+        window.location.href = this.$url('polls', this.poll.regionId)
+      } catch (e) {
+        pulseError(i18n('error_unexpected'))
       }
+      hideLoader()
     },
   },
 }

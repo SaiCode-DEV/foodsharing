@@ -160,7 +160,7 @@
           v-if="row.item.isVerified"
           class="btn btn-sm btn-primary"
           :title="$i18n('group.member_list.is_verified')"
-          @click="showVerifyConfirmation(false, row.item.id,row.item.name)"
+          @click="changeVerification(false, row.item.id,row.item.name)"
         >
           <i class="fas fa-user-check" />
         </button>
@@ -168,7 +168,7 @@
           v-else
           class="btn btn-sm btn-secondary"
           :title="$i18n('group.member_list.not_verified')"
-          @click="showVerifyConfirmation(true, row.item.id,row.item.name)"
+          @click="changeVerification(true, row.item.id,row.item.name)"
         >
           <i class="fas fa-user-check" />
         </button>
@@ -190,7 +190,7 @@
           size="sm"
           variant="danger"
           :disabled="isBusy"
-          @click="showRemoveAdminMemberConfirmation(row.item.id, row.item.name)"
+          @click="degradeAdmin(row.item)"
         >
           <i class="fas fa-fw fa-user-slash" />
         </b-button>
@@ -205,7 +205,7 @@
           size="sm"
           variant="warning"
           :disabled="isBusy"
-          @click="showSetAdminMemberConfirmation(row.item.id, row.item.name)"
+          @click="makeAdmin(row.item)"
         >
           <i class="fas fa-fw fa-user-graduate" />
         </b-button>
@@ -220,7 +220,7 @@
           size="sm"
           variant="danger"
           :disabled="isBusy"
-          @click="showRemoveMemberConfirmation(row.item.id, row.item.name)"
+          @click="removeMember(row.item)"
         >
           <i class="fas fa-fw fa-user-times" />
         </b-button>
@@ -248,10 +248,12 @@ import i18n from '@/helper/i18n'
 import UserSearchInput from '@/components/UserSearchInput'
 import Avatar from '@/components/Avatar'
 import { verifyUser, deverifyUser } from '@/api/verification'
+import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
   components: { Avatar, BButton, BFormSelect, BTable, BPagination, UserSearchInput },
   directives: { VBTooltip },
+  mixins: [ConfirmationDialogue],
   props: {
     userId: { type: Number, default: null },
     groupId: { type: Number, required: true },
@@ -377,6 +379,9 @@ export default {
       )
       return columns
     },
+    adminName () {
+      return this.isWorkGroup ? 'admin' : 'ambassador'
+    },
   },
   mounted () {
     this.getMemberList()
@@ -386,21 +391,18 @@ export default {
       await RegionsData.mutations.fetchMemberList(this.groupId)
       this.memberList = RegionsData.getters.getMemberList(this.groupId)
     },
-    async showVerifyConfirmation (isVerified, memberId, memberName) {
-      const returnFromModal = await this.$bvModal.msgBoxConfirm(i18n(isVerified ? 'pass.verify.do' : 'pass.verify.undo', { name: memberName, id: memberId }), {
-        modalClass: 'bootstrap',
+    async changeVerification (isVerified, memberId, memberName) {
+      const dialogueOptions = {
         title: i18n(isVerified ? 'pass.button.verify' : 'pass.button.unverify'),
-        cancelTitle: i18n('button.cancel'),
         okTitle: i18n('button.yes_i_am_sure'),
-        headerClass: 'd-flex',
-        contentClass: 'pr-3 pt-3',
-      })
-      if (returnFromModal) {
-        await this.updateVerificationStatusFromUser(isVerified, memberId)
-        const index = this.memberList.findIndex(member => member.id === memberId)
-        if (index >= 0) {
-          this.memberList[index].isVerified = isVerified
-        }
+        okVariant: isVerified ? 'success' : 'danger',
+        params: { name: memberName, id: memberId },
+      }
+      if (!await this.confirmationDialogue('pass.verify.' + (isVerified ? 'do' : 'undo'), dialogueOptions)) return
+      await this.updateVerificationStatusFromUser(isVerified, memberId)
+      const index = this.memberList.findIndex(member => member.id === memberId)
+      if (index >= 0) {
+        this.memberList[index].isVerified = isVerified
       }
     },
     compare: optimizedCompare,
@@ -418,12 +420,18 @@ export default {
     roleCheckForRegionAndWorkGroup (isGroup, itemRole) {
       return isGroup ? itemRole >= 2 : itemRole === 3
     },
-    async tryRemoveAdminMember (memberId) {
+    async degradeAdmin (member) {
+      const dialogueOptions = {
+        title: i18n(`group.member_list.remove_${this.adminName}_title`),
+        okTitle: i18n('yes'),
+        params: member,
+      }
+      if (!await this.confirmationDialogue(`group.member_list.remove_${this.adminName}_text`, dialogueOptions)) return
       showLoader()
       this.isBusy = true
       try {
-        await removeAdminOrAmbassador(this.groupId, memberId)
-        const index = this.memberList.findIndex(member => member.id === memberId)
+        await removeAdminOrAmbassador(this.groupId, member.id)
+        const index = this.memberList.findIndex(m => m.id === member.id)
         if (index >= 0) {
           this.memberList[index].isAdminOrAmbassadorOfRegion = false
         }
@@ -433,25 +441,19 @@ export default {
       this.isBusy = false
       hideLoader()
     },
-    async showRemoveAdminMemberConfirmation (memberId, memberName) {
-      const remove = await this.$bvModal.msgBoxConfirm(i18n(this.isWorkGroup ? 'group.member_list.remove_admin_text' : 'group.member_list.remove_ambassador_text', { name: memberName, id: memberId }), {
-        modalClass: 'bootstrap',
-        title: i18n(this.isWorkGroup ? 'group.member_list.remove_admin_title' : 'group.member_list.remove_ambassador_title'),
-        cancelTitle: i18n('button.cancel'),
+    async makeAdmin (member) {
+      const dialogueOptions = {
+        title: i18n(`group.member_list.set_${this.adminName}_title`),
         okTitle: i18n('yes'),
-        headerClass: 'd-flex',
-        contentClass: 'pr-3 pt-3',
-      })
-      if (remove) {
-        this.tryRemoveAdminMember(memberId)
+        okVariant: undefined,
+        params: member,
       }
-    },
-    async trySetAdminMember (memberId) {
+      if (!await this.confirmationDialogue(`group.member_list.set_${this.adminName}_text`, dialogueOptions)) return
       showLoader()
       this.isBusy = true
       try {
-        await setAdminOrAmbassador(this.groupId, memberId)
-        const index = this.memberList.findIndex(member => member.id === memberId)
+        await setAdminOrAmbassador(this.groupId, member.id)
+        const index = this.memberList.findIndex(m => m.id === member.id)
         if (index >= 0) {
           this.memberList[index].isAdminOrAmbassadorOfRegion = true
         }
@@ -461,25 +463,18 @@ export default {
       this.isBusy = false
       hideLoader()
     },
-    async showSetAdminMemberConfirmation (memberId, memberName) {
-      const remove = await this.$bvModal.msgBoxConfirm(i18n(this.isWorkGroup ? 'group.member_list.set_admin_text' : 'group.member_list.set_ambassador_text', { name: memberName, id: memberId }), {
-        modalClass: 'bootstrap',
-        title: i18n(this.isWorkGroup ? 'group.member_list.set_admin_title' : 'group.member_list.set_ambassador_title'),
-        cancelTitle: i18n('button.cancel'),
+    async removeMember (member) {
+      const dialogueOptions = {
+        title: i18n('group.member_list.remove_title'),
         okTitle: i18n('yes'),
-        headerClass: 'd-flex',
-        contentClass: 'pr-3 pt-3',
-      })
-      if (remove) {
-        this.trySetAdminMember(memberId)
+        params: member,
       }
-    },
-    async tryRemoveMember (memberId) {
+      if (!await this.confirmationDialogue(`group.member_list.remove_text_${this.isWorkGroup ? 'group' : 'region'}`, dialogueOptions)) return
       showLoader()
       this.isBusy = true
       try {
-        await removeMember(this.groupId, memberId)
-        const index = this.memberList.findIndex(member => member.id === memberId)
+        await removeMember(this.groupId, member.id)
+        const index = this.memberList.findIndex(m => m.id === member.id)
         if (index >= 0) {
           this.memberList.splice(index, 1)
         }
@@ -488,19 +483,6 @@ export default {
       }
       this.isBusy = false
       hideLoader()
-    },
-    async showRemoveMemberConfirmation (memberId, memberName) {
-      const remove = await this.$bvModal.msgBoxConfirm(i18n(this.isWorkGroup ? 'group.member_list.remove_text_group' : 'group.member_list.remove_text_region', { name: memberName, id: memberId }), {
-        modalClass: 'bootstrap',
-        title: i18n('group.member_list.remove_title'),
-        cancelTitle: i18n('button.cancel'),
-        okTitle: i18n('yes'),
-        headerClass: 'd-flex',
-        contentClass: 'pr-3 pt-3',
-      })
-      if (remove) {
-        this.tryRemoveMember(memberId)
-      }
     },
     containsMember (memberId) {
       return this.memberList.some(member => member.id === memberId)

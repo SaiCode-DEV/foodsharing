@@ -14,27 +14,21 @@
 </template>
 
 <script>
-
 import { removeBasket } from '@/api/baskets'
-
 import AddBasketModal from '@/views/partials/Modals/AddBasketModal.vue'
+import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
   components: { AddBasketModal },
+  mixins: [ConfirmationDialogue],
   props: {
     basket: { type: Object, required: true },
     mayEdit: { type: Boolean, default: false },
   },
   methods: {
     async deleteBasket () {
-      const confimation = await this.$bvModal.msgBoxConfirm(this.$i18n('basket.delete_confirmation.text'), {
-        title: this.$i18n('basket.delete_confirmation.title'),
-        okVariant: 'danger',
-        okTitle: this.$i18n('button.delete'),
-        cancelTitle: this.$i18n('button.cancel'),
-        centered: true,
-      })
-      if (confimation) await removeBasket(this.basket.id)
+      if (!await this.confirmationDialogue('basket.delete_confirmation.text')) return
+      await removeBasket(this.basket.id)
       location.href = this.$url('baskets')
     },
   },

@@ -76,12 +76,14 @@ import Dropdown from '../_NavItems/NavDropdown'
 import NotificationsEntry from './NavNotificationsEntry'
 // Mixins
 import { pulseError } from '@/script'
+import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
   components: {
     NotificationsEntry,
     Dropdown,
   },
+  mixins: [ConfirmationDialogue],
   computed: {
     bells () {
       const bells = DataBell.getters.get() // returns vue mutation object, you can not sort on this, without driving vue crazy// !
@@ -144,15 +146,8 @@ export default {
     },
     async deleteAllReadBells () {
       const ids = this.bells.filter(b => b.isRead).map(b => b.id)
-      const confimation = await this.$bvModal.msgBoxConfirm(this.$i18n('menu.bell.delete_read_confirmation.text', { count: ids.length }), {
-        title: this.$i18n('menu.bell.delete_read_confirmation.title'),
-        okVariant: 'danger',
-        okTitle: this.$i18n('button.delete'),
-        cancelTitle: this.$i18n('button.cancel'),
-        hideHeaderClose: false,
-        centered: true,
-      })
-      if (!confimation) return
+      const params = { count: ids.length }
+      if (!await this.confirmationDialogue('menu.bell.delete_read_confirmation.text', { params })) return
       try {
         DataBell.mutations.delete(ids)
       } catch {

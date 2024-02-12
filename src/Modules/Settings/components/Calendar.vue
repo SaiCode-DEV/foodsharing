@@ -63,8 +63,10 @@
 import { hideLoader, pulseError, showLoader } from '@/script'
 import { createApiToken, getApiToken, removeApiToken } from '@/api/calendar'
 import i18n from '@/helper/i18n'
+import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
+  mixins: [ConfirmationDialogue],
   props: {
     baseUrlWebcal: { type: String, required: true },
     baseUrlHttp: { type: String, required: true },
@@ -97,46 +99,27 @@ export default {
   },
   methods: {
     async createToken () {
-      let confirmed = true
       if (this.token) {
-        confirmed = await this.$bvModal.msgBoxConfirm(i18n('settings.calendar.create_token.message'), {
-          modalClass: 'bootstrap',
-          title: i18n('settings.calendar.create_token.title'),
-          cancelTitle: i18n('no'),
-          okTitle: i18n('yes'),
-          headerClass: 'd-flex',
-          contentClass: 'pr-3 pt-3',
-        })
+        if (!await this.confirmationDialogue('settings.calendar.create_token.message', { okTitle: i18n('yes') })) return
       }
-      if (confirmed) {
-        showLoader()
-        try {
-          this.token = await createApiToken()
-        } catch (e) {
-          pulseError(i18n('error_unexpected'))
-        }
-        hideLoader()
+      showLoader()
+      try {
+        this.token = await createApiToken()
+      } catch (e) {
+        pulseError(i18n('error_unexpected'))
       }
+      hideLoader()
     },
     async removeToken () {
-      const confirmed = await this.$bvModal.msgBoxConfirm(i18n('settings.calendar.delete_token.message'), {
-        modalClass: 'bootstrap',
-        title: i18n('settings.calendar.delete_token.title'),
-        cancelTitle: i18n('no'),
-        okTitle: i18n('yes'),
-        headerClass: 'd-flex',
-        contentClass: 'pr-3 pt-3',
-      })
-      if (confirmed) {
-        showLoader()
-        try {
-          await removeApiToken()
-          this.token = null
-        } catch (e) {
-          pulseError(i18n('error_unexpected'))
-        }
-        hideLoader()
+      if (!await this.confirmationDialogue('settings.calendar.delete_token.message')) return
+      showLoader()
+      try {
+        await removeApiToken()
+        this.token = null
+      } catch (e) {
+        pulseError(i18n('error_unexpected'))
       }
+      hideLoader()
     },
   },
 }

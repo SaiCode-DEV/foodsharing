@@ -161,6 +161,7 @@ import ReportRequest from './ReportRequest'
 import ProfileHistoryModal from './ProfileHistoryModal'
 import { sendBuddyRequest, removeBuddy } from '@/api/buddy'
 import i18n from '@/helper/i18n'
+import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 const BUDDY_TYPES = Object.freeze({
   NO_BUDDY: -1,
@@ -170,6 +171,7 @@ const BUDDY_TYPES = Object.freeze({
 
 export default {
   components: { Avatar, ReportRequest, MediationRequest, ProfileHistoryModal },
+  mixins: [ConfirmationDialogue],
   props: {
     fsId: { type: Number, required: true },
     fsIdSession: { type: Number, required: true },
@@ -218,14 +220,12 @@ export default {
       conversationStore.openChatWithUser(fsId)
     },
     async sendBuddyRequest (userId) {
-      const confimation = await this.$bvModal.msgBoxConfirm(this.$i18n('buddy.send.confirm_text'), {
+      const dialogueOptions = {
         title: this.$i18n('buddy.send.confirm_title', { name: this.foodSaverName }),
         okTitle: this.$i18n('yes'),
-        cancelTitle: this.$i18n('button.cancel'),
-        hideHeaderClose: false,
-        centered: true,
-      })
-      if (!confimation) return
+        okVariant: undefined,
+      }
+      if (!await this.confirmationDialogue('buddy.send.confirm_text', dialogueOptions)) return
       this.loading = true
       try {
         const request = await sendBuddyRequest(userId)
@@ -243,15 +243,11 @@ export default {
       this.loading = false
     },
     async removeBuddy (userId) {
-      const confimation = await this.$bvModal.msgBoxConfirm(this.$i18n('buddy.remove.confirm_text'), {
+      const dialogueOptions = {
         title: this.$i18n('buddy.remove.confirm_title', { name: this.foodSaverName }),
-        okVariant: 'danger',
         okTitle: this.$i18n('yes'),
-        cancelTitle: this.$i18n('button.cancel'),
-        hideHeaderClose: false,
-        centered: true,
-      })
-      if (!confimation) return
+      }
+      if (!await this.confirmationDialogue('buddy.remove.confirm_text', dialogueOptions)) return
       this.loading = true
       try {
         await removeBuddy(userId)
