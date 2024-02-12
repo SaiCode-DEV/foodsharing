@@ -18,7 +18,8 @@ group:
     banana_count_errors:
       min: Nobody should have less than {{ limit }} trust bananas.
       max: Please do not expect more than {{ limit }} trust bananas.
-      not_in_range: "Nobody should have less than {{ min }} or more than {{ max }} trust bananas."
+      not_in_range: "Nobody should have less than {{ min }} or more than {{ max }}
+        trust bananas."
     member_since_weeks: For how many weeks should applicants have been active at foodsharing?
     not_fulfilled: To apply for this group, you have to be registered for at least
       %weeks% weeks, have %bananas% trust bananas and helped %fetches% times picking
