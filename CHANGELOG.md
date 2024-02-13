@@ -36,6 +36,7 @@
 - Modernized BasketControl to a Symfony controller !3127 @\_fridtjof_
 - Cleaned up twig extension config !3124 @\_fridtjof_
 - Removed unused store edit code !3137 @chriswalg
+- REST endpoint for editing content entries !3098 @alex.simm
 - Created confirmationDialogue mixin !3140 @AntonBallmaier
 
 ## Dev/Test/CI stuff

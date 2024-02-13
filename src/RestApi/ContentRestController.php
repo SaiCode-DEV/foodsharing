@@ -6,11 +6,13 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Content\ContentGateway;
 use Foodsharing\Modules\Content\DTO\Content;
 use Foodsharing\Permissions\ContentPermissions;
+use Foodsharing\RestApi\Models\Content\ContentEntry;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use OpenApi\Attributes as OA2;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -91,5 +93,33 @@ class ContentRestController extends AbstractFOSRestController
         $this->contentGateway->delete($contentId);
 
         return $this->handleView($this->view([], 200));
+    }
+
+    #[OA2\Get(summary: 'Updates the content entry with the specific id.')]
+    #[OA2\Tag(name: 'content')]
+    #[Rest\Patch('content/{contentId}')]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Content id not found')]
+    #[OA2\RequestBody(content: new Model(type: ContentEntry::class))]
+    #[ParamConverter(data: 'content', class: 'Foodsharing\RestApi\Models\Content\ContentEntry', converter: 'fos_rest.request_body')]
+    public function editContentAction(int $contentId, ContentEntry $content): Response
+    {
+        if (!$this->session->id()) {
+            throw new UnauthorizedHttpException('');
+        }
+
+        if (is_null($this->contentGateway->getContent($contentId))) {
+            throw new NotFoundHttpException('content id does not exist');
+        }
+
+        if (!$this->contentPermissions->mayEditContentId($contentId)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $this->contentGateway->update($contentId, $content);
+
+        return $this->handleView($this->view([], Response::HTTP_OK));
     }
 }

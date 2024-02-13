@@ -73,7 +73,7 @@ class ContentController extends FoodsharingController
             $this->pageHelper->addBread($this->translator->trans('content.bread'), '/content');
             $this->pageHelper->addBread($this->translator->trans('content.new'));
 
-            $this->pageHelper->addContent($this->contentForm());
+            $this->pageHelper->addContent($this->contentForm(null));
 
             $this->pageHelper->addContent($this->v_utils->v_field($this->v_utils->v_menu([
                 ['href' => '/content', 'name' => $this->translator->trans('bread.backToOverview')],
@@ -87,15 +87,13 @@ class ContentController extends FoodsharingController
             if (!$this->contentPermissions->mayEditContentId((int)$_GET['id'])) {
                 return $this->redirect('/content');
             }
-            $this->handleEdit();
-
             $this->pageHelper->addBread($this->translator->trans('content.bread'), '/content');
             $this->pageHelper->addBread($this->translator->trans('content.edit'));
 
             $data = $this->contentGateway->getDetail($id);
             $this->dataHelper->setEditData($data);
 
-            $this->pageHelper->addContent($this->contentForm());
+            $this->pageHelper->addContent($this->contentForm($id));
 
             $this->pageHelper->addContent($this->v_utils->v_field($this->v_utils->v_menu([
                 ['href' => '/content', 'name' => $this->translator->trans('bread.backToOverview')],
@@ -184,7 +182,7 @@ class ContentController extends FoodsharingController
         return $this->renderGlobal();
     }
 
-    private function contentForm(string $titleKey = 'contentmanagement'): string
+    private function contentForm(int $contentId = null, string $titleKey = 'contentmanagement'): string
     {
         $title = $this->translator->trans($titleKey);
 
@@ -202,7 +200,11 @@ class ContentController extends FoodsharingController
                 ]),
                 $this->translator->trans('content.content')
             ),
-        ], ['submit' => $this->translator->trans('button.save')]);
+            '<a class="button btn btn-primary" onclick="_editContent(' . $contentId . ');return false;">' . $this->translator->trans('button.save') . '</a>'
+        ], [
+            'submit' => false,
+            'action' => '#'
+        ]);
     }
 
     private function handleEdit(): void
