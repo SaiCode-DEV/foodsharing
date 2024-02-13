@@ -31,5 +31,11 @@ export default {
   code {
     word-break: break-all;
   }
+  img {
+    width: 100%;
+    max-width: fit-content;
+    border: 1px solid var(--fs-border-default);
+    border-radius: var(--border-radius);
+  }
 }
 </style>
