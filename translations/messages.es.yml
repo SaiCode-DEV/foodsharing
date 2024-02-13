@@ -2626,7 +2626,7 @@ mailbox:
   for_quoting:
     has_from: escribió el
     written_text:  
-  mark_all: seleccionar todo
+  mark_all: Marcar todo
   tag_recipient_hint: Destinatari@s (varios separad@s por punto y coma)
   mailsend_unsuccess: No se ha podido enviar el correo electrónico. {error}
   attachment:
@@ -2649,6 +2649,7 @@ mailbox:
   addressbook: Libreta de direcciones
   reply_all: Responder a todos
   show_html_body: Ver como HTML
+  mark_none: No marcar ninguno
 settings:
   follow:
     thread: '¿Quiere mantenerse actualizado sobre el tema del foro “{thread}”?'
@@ -3325,6 +3326,11 @@ conference:
     conferencias de living utopía colectiva. Iniciará sesión automáticamente allí
     con su nombre, identificación y avatar que ingresó en foodsharing.'
   join: 'Unirse a la conferencia'
+  confirm_info: 'Aquí puede unirse a una videoconferencia para el grupo seleccionado.
+    La videoconferencia abre BigBlueButton en una nueva ventana. Nota: Las videoconferencias
+    se organizan a través del servidor de conferencias del colectivo living utopia.
+    Te conectarás automáticamente con el nombre, ID y avatar que hayas introducido
+    en foodsharing.'
 base:
   whatfor: 'En foodsharing.network puedes donar tu comida a instituciones sociales
     o a otras personas antes de que caduque'
