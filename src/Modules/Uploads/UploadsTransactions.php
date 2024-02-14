@@ -223,9 +223,16 @@ class UploadsTransactions
         return $image;
     }
 
+    /**
+     * Deletes all resized versions of the uploaded file with the specified UUID and removes the entry from the
+     * database. After this, the UUID can be reused.
+     */
     public function deleteUploadedFile(string $uuid): void
     {
-        @unlink($this->generateFilePath($uuid));
+        // Use a placeholder because there might be several resized versions of the original file
+        foreach (glob($this->generateFilePath($uuid) . '*') as $file) {
+            unlink($file);
+        }
         $this->uploadsGateway->deleteUpload($uuid);
     }
 }

@@ -11,6 +11,7 @@
 - Make navigation menu sticky @AntonBallmaier @chriswalg
 - Added marker clustering to the basket map !3013 @alex.simm
 - Minor improvements in the mailbox frontend #1668 !3108 @alex.simm
+- Delete uploaded photos when they are not used anymore #1182 !3121 @alex.simm
 
 ## Bugfixes
 - remove misplaced line in store team view !3088 @buntel
