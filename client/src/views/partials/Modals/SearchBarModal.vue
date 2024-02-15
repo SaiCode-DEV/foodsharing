@@ -170,7 +170,7 @@ export default {
       this.fetchIndex()
     },
     focusSearchbar () {
-      this.$refs.searchField.focus()
+      this.$refs.searchField.select()
     },
     delayedFetch (strippedQuery) {
       this.isLoading = true
