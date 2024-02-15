@@ -3326,11 +3326,10 @@ conference:
     conferencias de living utopía colectiva. Iniciará sesión automáticamente allí
     con su nombre, identificación y avatar que ingresó en foodsharing.'
   join: 'Unirse a la conferencia'
-  confirm_info: 'Aquí puede unirse a una videoconferencia para el grupo seleccionado.
-    La videoconferencia abre BigBlueButton en una nueva ventana. Nota: Las videoconferencias
-    se organizan a través del servidor de conferencias del colectivo living utopia.
-    Te conectarás automáticamente con el nombre, ID y avatar que hayas introducido
-    en foodsharing.'
+  confirm_info: 'Aquí puede unirse a una conferencia en línea para el grupo seleccionado,
+    que se abrirá en una nueva ventana. Esta conferencia se llevará a cabo a través
+    del servidor de conferencias BigBlueButton del colectivo living utopía. Te conectarás
+    automáticamente con el nombre, ID y avatar que hayas introducido en foodsharing.'
 base:
   whatfor: 'En foodsharing.network puedes donar tu comida a instituciones sociales
     o a otras personas antes de que caduque'
