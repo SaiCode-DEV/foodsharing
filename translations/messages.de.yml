@@ -3140,6 +3140,8 @@ search:
       last_post: letzter Beitrag
     user:
       no_home_region: Kein Stammbezirk
+      copy_id: ID kopieren
+      copied_id: "Foodsaver-ID von {name} kopiert ({id})"
     working_group:
       admin_tooltip: Du bist Admin dieser AG
       member_tooltip: Du bist Mitglied dieser AG

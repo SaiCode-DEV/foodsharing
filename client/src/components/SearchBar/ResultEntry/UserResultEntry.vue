@@ -23,9 +23,8 @@
         v-b-tooltip.noninteractive="$i18n('store.request.unverified')"
         class="fas fa-user-slash"
       />
-      <!-- TODO translate -->
       <small
-        v-b-tooltip.noninteractive="'ID kopieren'"
+        v-b-tooltip.noninteractive="$i18n('search.results.user.copy_id')"
         class="user-id"
         @click.prevent="copyId"
       >
@@ -80,7 +79,7 @@ export default {
     },
     copyId () {
       navigator.clipboard.writeText(this.user.id)
-      pulseSuccess(`Foodsaver-ID kopiert: ${this.user.id}`)
+      pulseSuccess(this.$i18n('search.results.user.copied_id', this.user))
     },
   },
 }
