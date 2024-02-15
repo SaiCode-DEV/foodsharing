@@ -68,41 +68,6 @@ class EventGatewayTest extends Unit
         $this->tester->seeInDatabase('fs_event', $event);
     }
 
-    public function testInviteFullRegion(): void
-    {
-        $event = [
-            'bezirk_id' => $this->region['id'],
-            'location_id' => null,
-            'public' => 0,
-            'name' => 'name',
-            'start' => '2018-09-01 12:00',
-            'end' => '2018-09-30 12:00',
-            'description' => 'd',
-            'bot' => 0,
-            'online' => 0,
-        ];
-        $eventid = $this->gateway->addEvent($this->foodsaver['id'], $event);
-
-        $usersInRegion = [$this->foodsaver['id']];
-        $fs = $this->tester->createFoodsaver();
-        $this->tester->addRegionMember($this->region['id'], $fs['id']);
-        $usersInRegion[] = $fs['id'];
-
-        $this->gateway->inviteFullRegion($this->region['id'], $eventid, false);
-        foreach ($usersInRegion as $fsid) {
-            $this->tester->seeInDatabase('fs_foodsaver_has_event', ['foodsaver_id' => $fsid, 'event_id' => $eventid, 'status' => 0]);
-        }
-
-        $fs = $this->tester->createFoodsaver();
-        $this->tester->addRegionMember($this->childRegion['id'], $fs['id']);
-        $usersInRegion[] = $fs['id'];
-
-        $this->gateway->inviteFullRegion($this->region['id'], $eventid, true);
-        foreach ($usersInRegion as $fsid) {
-            $this->tester->seeInDatabase('fs_foodsaver_has_event', ['foodsaver_id' => $fsid, 'event_id' => $eventid, 'status' => 0]);
-        }
-    }
-
     public function testListEvents(): void
     {
         $dateFormat = 'Y-m-d H:i';

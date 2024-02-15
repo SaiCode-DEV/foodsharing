@@ -57,7 +57,7 @@ class EventRestController extends AbstractFOSRestController
             throw new BadRequestHttpException();
         }
 
-        $this->eventGateway->setInviteStatus($eventId, [$fsId], $status);
+        $this->eventGateway->setInviteStatus($eventId, $fsId, $status);
 
         return $this->handleView($this->view([], Response::HTTP_NO_CONTENT));
     }

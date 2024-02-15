@@ -1334,9 +1334,6 @@ events:
     who: "Für welchen Bezirk oder welche Arbeitsgruppe soll die Veranstaltung angelegt werden?"
     groups: "Deine Arbeitsgruppen"
     regions: "Deine Bezirke"
-    inviteAll: "Gesamte(n) Gruppe/Bezirk zum Termin einladen?"
-    cascading: "Alle untergeordneten Gruppen/Bezirke einschließen?"
-    delinvites: "Vorhandene Einladungen löschen?"
     multiday: "Das Event geht über mehrere Tage"
     starttime: "Uhrzeit Beginn"
     endtime: "Uhrzeit Ende"
@@ -1344,14 +1341,6 @@ events:
     offline: "Ganz normal im echten Leben"
     online: "Per Video- oder Telefonkonferenz"
     mumble: "Konferenz auf mumble.foodsharing.de"
-    info: |
-      <b>Bitte beachten:</b>
-      <br>
-      Der Termin ist nach dem Anlegen für alle in <b>der jeweiligen Gruppe</b>
-      über einen geteilten Link oder das Termin-Menü erreichbar.
-      <br>
-      Um den Termin auch zwischenzeitlichen Neuzugängen auf dem Dashboard anzuzeigen,
-      speichere ihn zu einem späteren Zeitpunkt erneut ab.
   description: "Beschreibung"
   span: "{from} bis {until}"
   duration: "Dauer: {duration}"

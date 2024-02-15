@@ -59,8 +59,6 @@ class EventView extends View
 
         $g_data = array_merge([
             'online_type' => 1,
-            'invite' => 1,
-            'invitesubs' => 1
         ], $g_data);
 
         $start_time = ['hour' => 15, 'min' => 0];
@@ -175,36 +173,17 @@ class EventView extends View
 			});
 		');
 
-        $delinvites = '';
-        if (isset($_GET['id'])) {
-            $delinvites = '<br />'
-                . '<label>'
-                . '<input type="checkbox" name="delinvites" id="delinvites" value="1" /> '
-                . $this->translator->trans('events.create.delinvites')
-                . '</label>';
-        }
-
         $bezirkchoose = $this->v_utils->v_input_wrapper(
             $this->translator->trans('events.create.who'),
             '<select class="input select value" name="bezirk_id" id="bezirk_id">
 				' . $groups . '
 				' . $regions . '
-			</select>
-			<p style="padding-top:10px;">
-				<label><input type="checkbox" name="invite" id="invite" checked="checked" value="' . $g_data['invite'] . '" /> '
-                . $this->translator->trans('events.create.inviteAll') .
-                '</label>
-				<br />
-				<label><input type="checkbox" name="invitesubs" id="invitesubs" checked="checked" value="' . $g_data['invitesubs'] . '" /> '
-                . $this->translator->trans('events.create.cascading') .
-                '</label>
-				' . $delinvites . '
-			</p>
-		'
+			</select>'
         );
 
         $public_el = '';
 
+        // TODO check what this means. remove?
         if ($this->session->mayRole(Role::ORGA)) {
             $chk = '';
             if (isset($g_data['public']) && $g_data['public'] == 1) {
@@ -256,8 +235,7 @@ class EventView extends View
                 ['id' => 2, 'name' => $this->translator->trans('events.create.online')],
             ]]),
             $this->v_utils->v_form_text('location_name', ['required' => true]),
-            $this->latLonPicker('latLng', $latLonOptions),
-            $this->v_utils->v_info($this->translator->trans('events.create.info'))
+            $this->latLonPicker('latLng', $latLonOptions)
         ], ['submit' => $this->translator->trans('button.save')]), $title, ['class' => 'ui-padding']);
     }
 
@@ -272,7 +250,7 @@ class EventView extends View
             'end' => $event['end'],
             'title' => $event['name'],
             'mayEdit' => $mayEdit,
-            'status' => $event['status'] ?? '',
+            'status' => $event['status'] ?? 0,
             'e' => $event,
             'border' => true,
         ]);
