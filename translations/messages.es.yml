@@ -2579,7 +2579,7 @@ mailbox:
   fromto: 'De/A'
   actions: 'Opciones'
   attach: 'Adjuntar archivo (máximo 1,2 MB)'
-  write: 'Nuevo correo'
+  write: 'Correo electrónico nuevo'
   inbox: 'Correo recibido'
   empty: 'Aún no hay mensajes en este buzón'
   manage: 'Administrador de buzones'
