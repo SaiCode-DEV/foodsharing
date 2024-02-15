@@ -17,7 +17,7 @@ class WorkingGroupSearchResult extends SearchResult
      *
      * @OA\Property(example="bildung.muenster@foodsharing.network")
      */
-    public ?string $email;
+    public string $email;
 
     /**
      * Unique identifier of the working groups parent region.
@@ -64,7 +64,7 @@ class WorkingGroupSearchResult extends SearchResult
         $result = new WorkingGroupSearchResult();
         $result->id = $data['id'];
         $result->name = $data['name'];
-        $result->email = $data['email'];
+        $result->email = $data['email'] ?? '';
         if (!empty($data['email']) && !str_contains((string)$data['email'], '@')) {
             $result->email .= '@' . PLATFORM_MAILBOX_HOST;
         }

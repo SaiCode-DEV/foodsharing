@@ -17,7 +17,7 @@ class RegionSearchResult extends SearchResult
      *
      * @OA\Property(example="muenster@foodsharing.network")
      */
-    public ?string $email;
+    public string $email;
 
     /**
      * Unique identifier of the regions parent region.
@@ -57,7 +57,7 @@ class RegionSearchResult extends SearchResult
         $result = new RegionSearchResult();
         $result->id = $data['id'];
         $result->name = $data['name'];
-        $result->email = $data['email'];
+        $result->email = $data['email'] ?? '';
         if (!empty($data['email']) && !str_contains((string)$data['email'], '@')) {
             $result->email .= '@' . PLATFORM_MAILBOX_HOST;
         }
