@@ -709,7 +709,7 @@ mailbox:
   conformation_modal:
     title: Confirmation
     message: Do you really want to delete this email?
-  mark_all: select all
+  mark_all: Select all
   tag_recipient_hint: Recipients (separated by semicolon)
   attachment:
     not_found_explanation: The attachment could not be found on the server
@@ -732,6 +732,7 @@ mailbox:
   addressbook: Adress book
   reply_all: Reply all
   show_html_body: Show HTML code
+  mark_none: Select none
 events:
   description: Description
   create:
@@ -1539,6 +1540,10 @@ conference:
     name you entered at foodsharing, your ID and avatar.'
   description_text: Here you can join a video conference for the selected group. The
     video conference opens BigBlueButton in a new window.
+  confirm_info: Here you can join an online conference for the selected group, which
+    will open in a new window. This conference will be held via the living utopia
+    collective’s BigBlueButton conference server. You will automatically be logged
+    in there with your first name, ID and avatar that you entered at foodsharing.
 blog:
   status:
     "1": published
