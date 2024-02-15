@@ -2730,6 +2730,7 @@ mailbox:
   reply_all: Rispondi a tutti
   reply_header: '{name} ha scritto il {date}'
   show_html_body: Mostra il codice HTML
+  mark_none: Seleziona nessuno
 messages:
   bread: Notizie
 map:
@@ -2899,6 +2900,10 @@ conference:
     ID e avatar inseriti nel foodsharing.'
   description_text: Qui si può partecipare a una videoconferenza per il gruppo selezionato.
     La videoconferenza apre BigBlueButton in una nuova finestra.
+  confirm_info: Qui è possibile partecipare a una conferenza online per il gruppo
+    selezionato, che si aprirà in una nuova finestra. Questa conferenza è organizzata
+    tramite il server di conferenze BigBlueButton del collettivo living utopia. Verrete
+    automaticamente collegati con il vostro nome, ID e avatar inseriti nel foodsharing.
 stats:
   leader:
     users: Foodsaver più attivi
