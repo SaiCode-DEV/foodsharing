@@ -661,7 +661,7 @@ mailbox:
   for_quoting:
     has_from: a écrit le
     written_text:  
-  mark_all: tout sélectionner
+  mark_all: Marquer tout
   tag_recipient_hint: Destinataires (plusieurs séparés par des points-virgules)
   mailsend_unsuccess: Le mail n’a pas pu être envoyé. {error}
   attachment:
@@ -684,6 +684,7 @@ mailbox:
   addressbook: Carnet d’adresses
   reply_all: Répondre à tous
   show_html_body: Afficher le code HTML
+  mark_none: Marquer aucun
 foodsaver:
   mailchange_error: L’activation de votre nouvelle adresse électronique a échoué.
     Veuillez réessayer.
@@ -3052,6 +3053,10 @@ conference:
     avec ton prénom, ton identifiant et ton avatar saisis sur foodsharing.'
   description_text: Entrer dans la vidéoconférence du groupe de travail choisi. La
     vidéoconférence (BigBlueButton) s’ouvrira dans un nouvel onglet.
+  confirm_info: Ici, tu peux rejoindre une conférence en ligne pour le groupe choisi,
+    qui s'ouvrira dans une nouvelle fenêtre. Cette conférence est organisée via le
+    serveur de conférence BigBlueButton du collectif living utopia. Tu y seras automatiquement
+    connecté(e) avec ton prénom, ton ID et ton avatar saisis sur foodsharing.
 blog:
   permissions:
     delete: Tu ne peux pas supprimer cet article
