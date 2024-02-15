@@ -66,7 +66,7 @@ class WorkingGroupSearchResult extends SearchResult
         $result->name = $data['name'];
         $result->email = $data['email'];
         if (!empty($data['email']) && !str_contains((string)$data['email'], '@')) {
-            $result->email .= '@foodsharing.network';
+            $result->email .= '@' . PLATFORM_MAILBOX_HOST;
         }
         $result->parent_id = $data['parent_id'];
         $result->parent_name = $data['parent_name'];
