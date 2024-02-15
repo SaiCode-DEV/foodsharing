@@ -1142,6 +1142,7 @@ mailbox:
   addressbook: Adressebok
   reply_all: Svar alle
   show_html_body: Vis HTML-kode
+  mark_none: Merk ingen
 map:
   title: Kart
   donates: Selskapet donerer
@@ -2941,6 +2942,10 @@ conference:
   join: Bli med på konferansen
   description_text: Her kan du bli med på en videokonferanse for den valgte gruppen.
     Videokonferansen åpner BigBlueButton i et nytt vindu.
+  confirm_info: Her kan du bli med på en nettkonferanse for den valgte gruppen, som
+    åpnes i et nytt vindu. Denne konferansen vil bli holdt via det liging-utopia-kollektivets
+    BigBlueButton-konferanseserver. Du vil automatisk bli logget inn der med ditt
+    fornavn, ID og avatar som du skrev inn i foodsharing.
 buddy:
   request_accepted: Dere kjenner hverandre nå.
   request_sent: Forespørsel sendt.
