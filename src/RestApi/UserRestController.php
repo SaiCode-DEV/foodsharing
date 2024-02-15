@@ -29,6 +29,7 @@ use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\QuizPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\ReportPermissions;
+use Foodsharing\Permissions\SearchPermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\RestApi\Models\Group\UserGroupModel;
 use Foodsharing\RestApi\Models\Region\UserRegionModel;
@@ -76,6 +77,7 @@ class UserRestController extends AbstractFoodsharingRestController
         private BlogPermissions $blogPermissions,
         private RegionPermissions $regionPermissions,
         private NewsletterEmailPermissions $newsletterEmailPermissions,
+        private SearchPermissions $searchPermissions,
         private RegionTransactions $regionTransactions,
         private GroupTransactions $groupTransactions,
         private DataHelper $dataHelper
@@ -195,6 +197,7 @@ class UserRestController extends AbstractFoodsharingRestController
                 'editContent' => $this->contentPermissions->mayEditContent(),
                 'administrateNewsletterEmail' => $this->newsletterEmailPermissions->mayAdministrateNewsletterEmail(),
                 'administrateRegions' => $this->regionPermissions->mayAdministrateRegions(),
+                'maySearchGlobal' => $this->searchPermissions->maySearchGlobal(),
             ];
         } else {
             $response['firstname'] = ($data['name'] === null) ? null : $data['name'][0]; // Only return first character

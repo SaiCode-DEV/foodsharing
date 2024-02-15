@@ -38,7 +38,7 @@
         />
       </div>
       <b-button
-        v-if="isOrga"
+        v-if="maySearchGlobal"
         v-b-tooltip.bottom.ds1000.hover="$i18n(`search.scope.${globalSearch ? 'global' : 'local'}`)"
         :variant="globalSearch ? 'danger' : 'outline-primary'"
         class="ml-2 p-0 global-search-btn"
@@ -140,8 +140,8 @@ export default {
     idle () {
       return this.recentQueryChangesCount === 0
     },
-    isOrga () {
-      return DataUser.getters.isOrga()
+    maySearchGlobal () {
+      return DataUser.getters.getUserDetails()?.permissions?.maySearchGlobal
     },
   },
   watch: {
