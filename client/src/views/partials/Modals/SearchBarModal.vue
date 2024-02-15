@@ -145,20 +145,13 @@ export default {
     },
   },
   watch: {
-    strippedQuery (strippedQuery) {
-      // Require at least one word of length 3 or two of length 2:
-      const queryLengthScore = strippedQuery.split(' ').map(word => word.length - 1).reduce((a, b) => a + b)
-      if (queryLengthScore > 1) {
-        this.showResults = true
-        this.delayedFetch(strippedQuery)
-        return
-      }
-      clearTimeout(this.timeout)
-      this.showResults = false
-      this.isLoading = false
-      this.directSearchResults = null
+    globalSearch () {
+      this.refreshSearch()
     },
-    async query (query) {
+    strippedQuery () {
+      this.refreshSearch()
+    },
+    async query () {
       this.recentQueryChangesCount++
       await new Promise(resolve => window.setTimeout(resolve, 2000))
       this.recentQueryChangesCount--
@@ -206,6 +199,19 @@ export default {
     searchString (string, detailedSearch) {
       if (!detailedSearch) string = string.split('"!!!"')[0]
       return this.collateString(string)
+    },
+    refreshSearch () {
+      // Require at least one word of length 3 or two of length 2:
+      const queryLengthScore = this.strippedQuery.split(' ').map(word => word.length - 1).reduce((a, b) => a + b)
+      if (queryLengthScore > 1) {
+        this.showResults = true
+        this.delayedFetch(this.strippedQuery)
+        return
+      }
+      clearTimeout(this.timeout)
+      this.showResults = false
+      this.isLoading = false
+      this.directSearchResults = null
     },
   },
 }
