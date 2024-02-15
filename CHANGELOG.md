@@ -12,6 +12,7 @@
 - Added marker clustering to the basket map !3013 @alex.simm
 - Minor improvements in the mailbox frontend #1668 !3108 @alex.simm
 - Delete uploaded photos when they are not used anymore #1182 !3121 @alex.simm
+- Improved search #1728 !3150 @AntonBallmaier
 
 ## Bugfixes
 - remove misplaced line in store team view !3088 @buntel
