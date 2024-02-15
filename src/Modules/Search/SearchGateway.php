@@ -22,8 +22,8 @@ class SearchGateway extends BaseGateway
     private const MAX_CHATS_IN_SEARCH_INDEX_COUNT = 50;
     private const MAX_THREADS_IN_SEARCH_INDEX_COUNT = 200;
     private const SEARCH_CRITERIA = [
-        'regions' => ['basic' => ['region.name', 'region.email']], // TODO email
-        'workingGroups' => ['basic' => ['region.name', 'region.email', 'parent.name']], // TODO email
+        'regions' => ['basic' => ['region.name', 'mailbox.name']],
+        'workingGroups' => ['basic' => ['region.name', 'mailbox.name', 'parent.name']],
         'stores' => [
             'basic' => ['store.name', 'IFNULL(chain.name, "")'],
             'detailed' => ['store.str', 'store.plz', 'store.stadt', 'region.name'],
