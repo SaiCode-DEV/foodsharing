@@ -17,7 +17,7 @@ class RegionSearchResult extends SearchResult
      *
      * @OA\Property(example="muenster@foodsharing.network")
      */
-    public string $email;
+    public ?string $email;
 
     /**
      * Unique identifier of the regions parent region.
