@@ -17,7 +17,7 @@ class WorkingGroupSearchResult extends SearchResult
      *
      * @OA\Property(example="bildung.muenster@foodsharing.network")
      */
-    public string $email;
+    public ?string $email;
 
     /**
      * Unique identifier of the working groups parent region.
