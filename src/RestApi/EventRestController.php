@@ -6,7 +6,6 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Event\InvitationStatus;
 use Foodsharing\Permissions\EventPermissions;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use OpenApi\Annotations as OA;
@@ -16,12 +15,12 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class EventRestController extends AbstractFOSRestController
+class EventRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
         private readonly EventGateway $eventGateway,
         private readonly EventPermissions $eventPermissions,
-        private readonly Session $session
+        protected Session $session,
     ) {
     }
 
@@ -60,5 +59,27 @@ class EventRestController extends AbstractFOSRestController
         $this->eventGateway->setInviteStatus($eventId, $fsId, $status);
 
         return $this->handleView($this->view([], Response::HTTP_NO_CONTENT));
+    }
+
+    /**
+     * List events for region and groups.
+     *
+     * @OA\Response(response="200", description="Success")
+     * @OA\Response(response="401", description="Not logged in")
+     * @OA\Response(response="403", description="Insufficient permissions to get events from this region")
+     * @OA\Tag(name="events")
+     * @Rest\Get("region/{regionId}/events/", requirements={"regionId" = "\d+"})
+     */
+    public function listEventsAction(int $regionId): Response
+    {
+        $this->assertLoggedIn();
+
+        if (!$this->session->mayBezirk($regionId)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $events = $this->eventGateway->listForRegion($regionId);
+
+        return $this->handleView($this->view($events, Response::HTTP_OK));
     }
 }

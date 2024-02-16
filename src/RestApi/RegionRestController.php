@@ -155,7 +155,7 @@ class RegionRestController extends AbstractFOSRestController
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="400", description="Region or group does not exist")
      * @OA\Response(response="403", description="Insufficient permissions")
-     * @OA\Response(response="409", description="User is still an active store manager in the region")
+     * @OA\Response(response="409", description="User is still an active manager in the region")
      */
     #[Rest\Post('region/{regionId}/leave', requirements: ['regionId' => '\d+'])]
     public function leaveRegion(int $regionId): Response

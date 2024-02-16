@@ -1,240 +1,223 @@
 <template>
-  <div class="card mb-3 rounded">
-    <div
-      v-if="isWorkGroup"
-      class="card-header text-white bg-primary"
-    >
-      {{ $i18n('memberlist.header_for_workgroup', {bezirk: regionName}) }}
-      <span>
-        {{ $i18n('filterlist.some_in_all', {some: membersFiltered.length, all: memberList.length}) }}
-      </span>
-    </div>
-    <div
-      v-else
-      class="card-header text-white bg-primary"
-    >
-      {{ $i18n('memberlist.header_for_district', {bezirk: regionName}) }}
-      <span>
-        {{ $i18n('filterlist.some_in_all', {some: membersFiltered.length, all: memberList.length}) }}
-      </span>
-    </div>
-
-    <div
-      v-if="memberList.length"
-      class="card-body p-0"
-    >
-      <div class="row">
-        <div
-          v-if="isWorkGroup && mayEditMembers"
-          class="user-search-input"
-        >
-          <user-search-input
-            id="new-foodsaver-search"
-            class="m-1"
-            :placeholder="$i18n('search.user_search.placeholder')"
-            button-icon="fa-user-plus"
-            :button-tooltip="$i18n('group.member_list.add_member')"
-            :filter="notContainsMember"
-            @user-selected="addNewTeamMember"
-          />
-        </div>
-        <div
-          v-if="mayEditMembers"
-          class="filter-role"
-        >
-          <b-form-select
-            v-model="filterRole"
-            :options="roleOptions"
-            size="sm"
-          />
-        </div>
-        <div
-          v-if="mayEditMembers"
-          class="filter-activity-toggle"
-        >
-          <b-form-checkbox
-            v-model="filterLastActivity"
-            switch
-            size="sm"
-          >
-            {{ $i18n('group.filter_by_last_activity') }}
-          </b-form-checkbox>
-        </div>
-        <div
-          v-if="mayEditMembers"
-          class="filter-activity-chooser"
-        >
-          <b-form-spinbutton
-            v-model="lastActivityFilterMonths"
-            min="1"
-            max="12"
-            size="sm"
-            :disabled="!filterLastActivity"
-          />
-        </div>
-      </div>
+  <Container :title="title">
+    <b-container>
       <div
-        class="form-row"
+        v-if="memberList.length"
+        class="card-body p-0"
       >
-        <div
-          class="filter-for-label"
-        >
-          <label class=" col-form-label col-form-label-sm foo">
-            {{ $i18n('list.filter_for') }}
-          </label>
+        <div class="row">
+          <div
+            v-if="isWorkGroup && mayEditMembers"
+            class="user-search-input"
+          >
+            <user-search-input
+              id="new-foodsaver-search"
+              class="m-1"
+              :placeholder="$i18n('search.user_search.placeholder')"
+              button-icon="fa-user-plus"
+              :button-tooltip="$i18n('group.member_list.add_member')"
+              :filter="notContainsMember"
+              @user-selected="addNewTeamMember"
+            />
+          </div>
+          <div
+            v-if="mayEditMembers"
+            class="filter-role"
+          >
+            <b-form-select
+              v-model="filterRole"
+              :options="roleOptions"
+              size="sm"
+            />
+          </div>
+          <div
+            v-if="mayEditMembers"
+            class="filter-activity-toggle"
+          >
+            <b-form-checkbox
+              v-model="filterLastActivity"
+              switch
+              size="sm"
+            >
+              {{ $i18n('group.filter_by_last_activity') }}
+            </b-form-checkbox>
+          </div>
+          <div
+            v-if="mayEditMembers"
+            class="filter-activity-chooser"
+          >
+            <b-form-spinbutton
+              v-model="lastActivityFilterMonths"
+              min="1"
+              max="12"
+              size="sm"
+              :disabled="!filterLastActivity"
+            />
+          </div>
         </div>
         <div
-          class="filter-for-form"
+          class="form-row"
         >
-          <input
-            v-model="filterText"
-            type="text"
-            class="form-control form-control-sm"
-            :placeholder="$i18n('filterlist.filter_for_name_id')"
+          <div
+            class="filter-for-label"
           >
-        </div>
-        <div
-          class="filter-for-delete"
-        >
-          <button
-            v-b-tooltip.hover
-            :title="$i18n('button.clear_filter')"
-            type="button"
-            class="btn btn-sm"
-            @click="clearFilter"
+            <label class=" col-form-label col-form-label-sm foo">
+              {{ $i18n('list.filter_for') }}
+            </label>
+          </div>
+          <div
+            class="filter-for-form"
           >
-            <i class="fas fa-times" />
-          </button>
+            <input
+              v-model="filterText"
+              type="text"
+              class="form-control form-control-sm"
+              :placeholder="$i18n('filterlist.filter_for_name_id')"
+            >
+          </div>
+          <div
+            class="filter-for-delete"
+          >
+            <button
+              v-b-tooltip.hover
+              :title="$i18n('button.clear_filter')"
+              type="button"
+              class="btn btn-sm"
+              @click="clearFilter"
+            >
+              <i class="fas fa-times" />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <b-table
-      :fields="filteredFields"
-      :items="membersFilteredSorted"
-      :current-page="currentPage"
-      :per-page="perPage"
-      :sort-compare="compare"
-      :busy="isBusy"
-      small
-      hover
-      responsive
-      class="foto-table"
-    >
-      <template #cell(imageUrl)="row">
-        <div>
-          <avatar
-            :url="row.item.avatar"
-            :is-sleeping="row.item.isSleeping"
-            :size="50"
-          />
-        </div>
-      </template>
-      <template #cell(userId)="row">
-        <a
-          :href="$url('profile', row.item.id)"
-        >
-          {{ row.item.id }}
-        </a>
-      </template>
-      <template #cell(userName)="row">
-        <a
-          :href="$url('profile', row.item.id)"
-          :title="row.item.id"
-        >
-          {{ row.item.name }}
-        </a>
-      </template>
-      <template #cell(lastActivity)="row">
-        {{ $dateFormatter.format(row.item.lastActivity, {
-          day: 'numeric',
-          month: 'numeric',
-          year: 'numeric',
-        }) }}
-      </template>
-      <template #cell(role)="row">
-        {{ $i18n('terminology.role.' + row.item.role) }}
-      </template>
-      <template #cell(isVerified)="row">
-        <button
-          v-if="row.item.isVerified"
-          class="btn btn-sm btn-primary"
-          :title="$i18n('group.member_list.is_verified')"
-          @click="changeVerification(false, row.item.id,row.item.name)"
-        >
-          <i class="fas fa-user-check" />
-        </button>
-        <button
-          v-else
-          class="btn btn-sm btn-secondary"
-          :title="$i18n('group.member_list.not_verified')"
-          @click="changeVerification(true, row.item.id,row.item.name)"
-        >
-          <i class="fas fa-user-check" />
-        </button>
-      </template>
-      <template #cell(isHomeRegion)="row">
-        <i
-          v-if="row.item.isHomeRegion"
-          class="fas fa-house-user"
-          :title="$i18n('group.member_list.is_home_region')"
-        />
-      </template>
-      <template
-        v-if="mayRemoveAdminOrAmbassador"
-        #cell(removeAdminButton)="row"
-      >
-        <b-button
-          v-if="rowItemisAdminOrAmbassadorOfRegion(row.item)"
-          v-b-tooltip="$i18n(isWorkGroup ? 'group.member_list.remove_admin_title' : 'group.member_list.remove_ambassador_title')"
-          size="sm"
-          variant="danger"
-          :disabled="isBusy"
-          @click="degradeAdmin(row.item)"
-        >
-          <i class="fas fa-fw fa-user-slash" />
-        </b-button>
-      </template>
-      <template
-        v-if="maySetAdminOrAmbassador"
-        #cell(setAdminButton)="row"
-      >
-        <b-button
-          v-if="rowItemNotqualUserid(userId,row.item.id) && roleCheckForRegionAndWorkGroup(isWorkGroup,row.item.role) && !rowItemisAdminOrAmbassadorOfRegion(row.item)"
-          v-b-tooltip.left="$i18n(isWorkGroup ? 'group.member_list.set_admin_title' : 'group.member_list.set_ambassador_title')"
-          size="sm"
-          variant="warning"
-          :disabled="isBusy"
-          @click="makeAdmin(row.item)"
-        >
-          <i class="fas fa-fw fa-user-graduate" />
-        </b-button>
-      </template>
-      <template
-        v-if="mayEditMembers"
-        #cell(removeButton)="row"
-      >
-        <b-button
-          v-if="rowItemNotqualUserid(userId,row.item.id) && !rowItemisAdminOrAmbassadorOfRegion(row.item)"
-          v-b-tooltip="$i18n('group.member_list.remove_title')"
-          size="sm"
-          variant="danger"
-          :disabled="isBusy"
-          @click="removeMember(row.item)"
-        >
-          <i class="fas fa-fw fa-user-times" />
-        </b-button>
-      </template>
-    </b-table>
-    <div class="float-right p-1 pr-3">
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="membersFiltered.length"
+      <b-table
+        :fields="filteredFields"
+        :items="membersFilteredSorted"
+        :current-page="currentPage"
         :per-page="perPage"
-        class="my-0"
-      />
-    </div>
-  </div>
+        :sort-compare="compare"
+        :busy="isBusy"
+        small
+        hover
+        responsive
+        class="foto-table"
+      >
+        <template #cell(imageUrl)="row">
+          <div>
+            <avatar
+              :url="row.item.avatar"
+              :is-sleeping="row.item.isSleeping"
+              :size="50"
+            />
+          </div>
+        </template>
+        <template #cell(userId)="row">
+          <a
+            :href="$url('profile', row.item.id)"
+          >
+            {{ row.item.id }}
+          </a>
+        </template>
+        <template #cell(userName)="row">
+          <a
+            :href="$url('profile', row.item.id)"
+            :title="row.item.id"
+          >
+            {{ row.item.name }}
+          </a>
+        </template>
+        <template #cell(lastActivity)="row">
+          {{ $dateFormatter.format(row.item.lastActivity, {
+            day: 'numeric',
+            month: 'numeric',
+            year: 'numeric',
+          }) }}
+        </template>
+        <template #cell(role)="row">
+          {{ $i18n('terminology.role.' + row.item.role) }}
+        </template>
+        <template #cell(isVerified)="row">
+          <button
+            v-if="row.item.isVerified"
+            class="btn btn-sm btn-primary"
+            :title="$i18n('group.member_list.is_verified')"
+            @click="changeVerification(false, row.item.id,row.item.name)"
+          >
+            <i class="fas fa-user-check" />
+          </button>
+          <button
+            v-else
+            class="btn btn-sm btn-secondary"
+            :title="$i18n('group.member_list.not_verified')"
+            @click="changeVerification(true, row.item.id,row.item.name)"
+          >
+            <i class="fas fa-user-check" />
+          </button>
+        </template>
+        <template #cell(isHomeRegion)="row">
+          <i
+            v-if="row.item.isHomeRegion"
+            class="fas fa-house-user"
+            :title="$i18n('group.member_list.is_home_region')"
+          />
+        </template>
+        <template
+          v-if="mayRemoveAdminOrAmbassador"
+          #cell(removeAdminButton)="row"
+        >
+          <b-button
+            v-if="rowItemisAdminOrAmbassadorOfRegion(row.item)"
+            v-b-tooltip="$i18n(isWorkGroup ? 'group.member_list.remove_admin_title' : 'group.member_list.remove_ambassador_title')"
+            size="sm"
+            variant="danger"
+            :disabled="isBusy"
+            @click="degradeAdmin(row.item)"
+          >
+            <i class="fas fa-fw fa-user-slash" />
+          </b-button>
+        </template>
+        <template
+          v-if="maySetAdminOrAmbassador"
+          #cell(setAdminButton)="row"
+        >
+          <b-button
+            v-if="rowItemNotqualUserid(userId,row.item.id) && roleCheckForRegionAndWorkGroup(isWorkGroup,row.item.role) && !rowItemisAdminOrAmbassadorOfRegion(row.item)"
+            v-b-tooltip.left="$i18n(isWorkGroup ? 'group.member_list.set_admin_title' : 'group.member_list.set_ambassador_title')"
+            size="sm"
+            variant="warning"
+            :disabled="isBusy"
+            @click="makeAdmin(row.item)"
+          >
+            <i class="fas fa-fw fa-user-graduate" />
+          </b-button>
+        </template>
+        <template
+          v-if="mayEditMembers"
+          #cell(removeButton)="row"
+        >
+          <b-button
+            v-if="rowItemNotqualUserid(userId,row.item.id) && !rowItemisAdminOrAmbassadorOfRegion(row.item)"
+            v-b-tooltip="$i18n('group.member_list.remove_title')"
+            size="sm"
+            variant="danger"
+            :disabled="isBusy"
+            @click="removeMember(row.item)"
+          >
+            <i class="fas fa-fw fa-user-times" />
+          </b-button>
+        </template>
+      </b-table>
+      <div class="float-right p-1 pr-3">
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="membersFiltered.length"
+          :per-page="perPage"
+          class="my-0"
+        />
+      </div>
+    </b-container>
+  </Container>
 </template>
 
 <script>
@@ -248,10 +231,11 @@ import i18n from '@/helper/i18n'
 import UserSearchInput from '@/components/UserSearchInput'
 import Avatar from '@/components/Avatar'
 import { verifyUser, deverifyUser } from '@/api/verification'
+import Container from '@/components/Container/Container.vue'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
-  components: { Avatar, BButton, BFormSelect, BTable, BPagination, UserSearchInput },
+  components: { Avatar, BButton, BFormSelect, BTable, BPagination, UserSearchInput, Container },
   directives: { VBTooltip },
   mixins: [ConfirmationDialogue],
   props: {
@@ -289,6 +273,12 @@ export default {
     }
   },
   computed: {
+    title () {
+      return `${this.isWorkGroup ? this.$i18n('memberlist.header_for_workgroup', { bezirk: this.regionName }) : this.$i18n('memberlist.header_for_district', { bezirk: this.regionName })} ${this.memberCount}`
+    },
+    memberCount () {
+      return this.$i18n('filterlist.some_in_all', { some: this.membersFiltered.length, all: this.memberList.length })
+    },
     dateBeforeMonths () {
       return new Date(new Date().getTime() - this.lastActivityFilterMonths * 30 * 24 * 60 * 60 * 1000)
     },

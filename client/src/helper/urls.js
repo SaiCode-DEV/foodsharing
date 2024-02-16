@@ -7,6 +7,7 @@ const urls = {
   profileNotes: (fsId) => `/profile/${fsId}/notes`,
   academy: () => '/content?sub=academy',
   application: (groupId, userId) => `/?page=application&bid=${groupId}&fid=${userId}`,
+  applications: (groupId) => `/region?bid=${groupId}&sub=applications`,
   basket: (basketId) => `/essenskoerbe/${basketId}`,
   baskets: () => '/essenskoerbe',
   blog: () => '/news',
@@ -114,6 +115,7 @@ const urls = {
     return url('forum', regionId, 0, threadId, postId)
   },
   events: (regionId) => `/region?bid=${regionId}&sub=events`,
+  addEvents: (regionId) => `/?page=event&sub=add&bid=${regionId}`,
   foodsaverList: (regionId) => `/?page=foodsaver&bid=${regionId}`,
   foodsharepoints: (regionId) => `/region?bid=${regionId}&sub=fairteiler`,
   members: (regionId) => `/region?bid=${regionId}&sub=members`,

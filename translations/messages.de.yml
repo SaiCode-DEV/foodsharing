@@ -417,11 +417,11 @@ group:
     join: "Dieser Arbeitsgruppe beitreten"
     save: "Änderungen speichern"
   no_groups: "Hier gibt es noch keine Arbeitsgruppen"
-  quit_name_workgroup: "Team %name% verlassen"
-  quit_name_district: "Bezirk %name% verlassen"
+  quit_name_workgroup: "Team {name} verlassen"
+  quit_name_district: "Bezirk {name} verlassen"
   quit: "Verlassen"
-  really_quit_workgroup: "Möchtest du wirklich die Arbeitsgruppe %name% verlassen?"
-  really_quit_district: "Möchtest du wirklich den Bezirk %name% verlassen?"
+  really_quit_workgroup: "Möchtest du wirklich die Arbeitsgruppe {name} verlassen?"
+  really_quit_district: "Möchtest du wirklich den Bezirk {name} verlassen?"
   quitting_home_district_warning: "Möchtest du wirklich deinen Stammbezirk %name% verlassen? Du verlierst deine Verifizierung und musst dich später beim Botschafter:innen-Team deines neuen Stammbezirks melden."
   delete_group_sure: "Soll die Arbeitsgruppe/der Bezirk {groupName} wirklich gelöscht werden?"
   function:
@@ -689,12 +689,12 @@ terminology:
   subgroups: "Untergruppen"
   settings: "Einstellungen"
   mailboxes: "E-Mail-Postfächer"
-  n_foodsaver: "Ein:e Foodsaver:in|%count% Foodsaver:innen"
-  n_home_regions: "eine(r) mit Stammbezirk|%count% mit Stammbezirk"
-  n_sleeping: "Eine Schlafmütze|%count% Schlafmützen"
-  n_ambassadors: "Ein:e Botschafter:in|%count% Botschafter:innen"
-  n_stores: "Ein Betrieb|%count% Betriebe"
-  n_cooperating_stores: "Eine laufende Kooperation|%count% laufende Kooperationen"
+  n_foodsaver: "{count} Foodsaver:innen"
+  n_home_regions: "{count} mit Stammbezirk"
+  n_sleeping: "{count} Schlafmützen"
+  n_ambassadors: "{count} Botschafter:innen"
+  n_stores: "{count} Betriebe"
+  n_cooperating_stores: "{count} laufende Kooperationen"
   profile_picture: "Profilbild"
   region: "Bezirk"
   regions: "Bezirke"
@@ -707,8 +707,8 @@ terminology:
   pin: "Ortsgruppenbeschreibung"
 
 statistics:
-  kg_food_saved: "%count% kg Lebensmittel gerettet"
-  num_fetches: "Bei einem Rettungseinsatz|Bei %count% Rettungseinsätzen"
+  kg_food_saved: "{count} kg Lebensmittel gerettet"
+  num_fetches: "Bei {count} Rettungseinsätzen"
 
 are_you_sure: "Bist du sicher?"
 really_delete: "Wirklich löschen?"
@@ -2418,6 +2418,7 @@ menu:
     language: "Sprache wählen"
     options: "Optionen"
     pin: "Ortsgruppenbeschreibung"
+    applications: "Bewerbungen ({count})"
   bell:
     delete_read_confirmation:
       text: "Willst du wirklich {count} gelesene Glocken löschen?"
@@ -3093,6 +3094,8 @@ globals:
     my_persons: Meine Personen
     chats: Chats
     threads: Themen
+    groups_menu: "Gruppen-Menü"
+    regions_menu: "Bezirks-Menü"
   you: Du
   telephone_number: Telefonnummer
 
