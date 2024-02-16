@@ -56,6 +56,7 @@ export default {
         style: MAP_TILES_URL,
       }, */
       tileUrl: getMapRasterTilesUrl(),
+      resizeObserver: null,
     }
   },
   computed: {
@@ -67,17 +68,25 @@ export default {
       return `height: ${this.height}px`
     },
   },
+  beforeDestroy () {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect()
+    }
+  },
   methods: {
     resetMap (mapObject) {
       try {
-        const resizeObserver = new ResizeObserver((_) => {
+        this.resizeObserver = new ResizeObserver((_) => {
           mapObject.invalidateSize()
         })
-        resizeObserver.observe(this.$refs.map.$el)
+        this.resizeObserver.observe(this.$refs.map.$el)
       } catch (e) {
         /* ResizeObserver is not defined in some old browser versions, especially in Safari. In this case, fall back to
            a timeout. */
-        setTimeout(function () { mapObject.invalidateSize() }, 1000)
+        try {
+          setTimeout(function () { mapObject.invalidateSize() }, 1000)
+        } catch (e) {
+        }
       }
     },
   },

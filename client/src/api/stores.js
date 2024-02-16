@@ -83,6 +83,13 @@ export async function addStoreMember (storeId, userId) {
   return post(`/stores/${storeId}/members/${userId}`)
 }
 
+export async function addStore (regionId, store, firstPost) {
+  return post(`/region/${regionId}/stores`, {
+    store: store,
+    firstPost: firstPost,
+  })
+}
+
 export async function removeStoreMember (storeId, userId) {
   return remove(`/stores/${storeId}/members/${userId}`)
 }

@@ -250,6 +250,7 @@ upload:
 
 button:
   save: "Speichern"
+  prev: "Zurück"
   next: "Weiter"
   change_picture: "Bild ändern"
   attach_image: "Bild hochladen (png- oder jpg-Format)"
@@ -1029,6 +1030,8 @@ store:
 storeedit:
   bread: "Betrieb bearbeiten"
   add-new: "Neuen Betrieb anlegen"
+  store_name_placeholder: "Name des Betriebs"
+  name_error: "Name muss aus mindestens 3 Zeichen bestehen."
   not-in-region: "Du kannst Betriebe nur in Regionen anlegen, in denen du Mitglied bist."
   actions: "Optionen"
   team:

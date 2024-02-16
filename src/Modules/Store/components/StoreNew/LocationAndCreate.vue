@@ -1,0 +1,63 @@
+<template>
+  <div class="list-group-item">
+    <leaflet-location-search
+      id="location"
+      :zoom="17"
+      :coordinates="location"
+      :street="address.street"
+      :postal-code="address.zipCode"
+      :city="address.city"
+      :disabled="!editMode"
+      @address-change="onAddressChanged"
+    />
+    <div class="float-right">
+      <b-button
+        variant="primary"
+        @click="$emit('prev')"
+      >
+        {{ $i18n('button.prev') }}
+      </b-button>
+      <b-button
+        variant="primary"
+        :disabled="!addressValid"
+        @click.prevent="submit"
+      >
+        {{ $i18n('button.create') }}
+      </b-button>
+    </div>
+  </div>
+</template>
+
+<script>
+import LeafletLocationSearch from '@/components/map/LeafletLocationSearch.vue'
+import { MAP_CONSTANTS } from '@/stores/map'
+
+export default {
+  components: { LeafletLocationSearch },
+  data () {
+    return {
+      editMode: true,
+      location: { lat: MAP_CONSTANTS.CENTER_GERMANY_LAT, lon: MAP_CONSTANTS.CENTER_GERMANY_LON },
+      address: { street: '', zipCode: '', city: '' },
+    }
+  },
+  computed: {
+    addressValid () {
+      return this.address.street !== '' && this.address.zipCode !== '' && this.address.city !== ''
+    },
+  },
+  methods: {
+    submit () {
+      this.$emit('update:location', this.location)
+      this.$emit('update:address', this.address)
+      this.$emit('submit')
+    },
+    onAddressChanged (coordinates, street, postalCode, city) {
+      this.location = coordinates
+      this.address.street = street
+      this.address.zipCode = postalCode
+      this.address.city = city
+    },
+  },
+}
+</script>

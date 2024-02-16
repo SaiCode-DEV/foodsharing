@@ -4,8 +4,8 @@ import 'jquery-dynatree'
 import { vueRegister, vueApply } from '@/vue'
 import StoreRegionList from './components/StoreRegionList.vue'
 import StoreOwnList from './components/StoreOwnList.vue'
+import StoreNew from './components/StoreNew/StoreNew.vue'
 
-import { attachAddressPicker } from '@/addressPicker'
 import { GET } from '@/script'
 
 if (GET('a') === undefined) {
@@ -22,6 +22,9 @@ if (GET('a') === 'own') {
   vueApply('#vue-store-own-list', true)
 }
 
-if (GET('a') === 'edit' || GET('a') === 'new') {
-  attachAddressPicker()
+if (GET('a') === 'new') {
+  vueRegister({
+    StoreNew,
+  })
+  vueApply('#vue-store-new', true)
 }

@@ -6,7 +6,6 @@ namespace Tests\Acceptance;
 
 use Carbon\Carbon;
 use Codeception\Example;
-use Facebook\WebDriver\WebDriverKeys;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Tests\Support\AcceptanceTester;
@@ -96,51 +95,6 @@ class StoreCest
         }
 
         $I->waitForActiveAPICalls();
-    }
-
-    /**
-     * @example["StoreManager"]
-     * @example["Foodsaver"]
-     */
-    public function canAddStore(AcceptanceTester $I, Example $example): void
-    {
-        $this->loginAs($I, $example[0]);
-
-        $I->amOnPage('/?page=betrieb&a=new');
-
-        if ($example[0] === 'StoreManager') {
-            $I->wantTo("Can add store as {$example[0]}");
-
-            $I->unlockAllInputFields();
-            $I->fillField('first_post', 'Testeintrag');
-            $I->fillField('name', 'Testbetrieb');
-            $I->fillField('#addresspicker', 'Test Teststraße 1 37073 Teststadt Deutschland');
-            $I->waitForElementVisible('#addresspicker_listbox');
-
-            $I->pressKey('#addresspicker', WebDriverKeys::ARROW_DOWN);
-            $I->pressKey('#addresspicker', WebDriverKeys::RETURN_KEY);
-            $I->wait(1);
-
-            $I->fillField('public_info', 'Testeintrag im Feld öffentliche Information');
-            $I->click('Senden');
-            $I->waitForPageBody();
-
-            $I->canSee('Kooperationsbetrieb wurde eingetragen', ['css' => '#pulse-success p']);
-            $I->canSeeInDatabase('fs_betrieb', [
-                'name' => 'Testbetrieb',
-                'str' => 'Teststraße 1',
-                'plz' => '37073',
-                'stadt' => 'Teststadt',
-                'public_info' => 'Testeintrag im Feld öffentliche Information',
-            ]);
-        }
-
-        if ($example[0] === 'Foodsaver') {
-            $I->wantTo("Can't add store as {$example[0]}");
-            $I->dontSee('Neuen Betrieb eintragen');
-            $I->cantSee('first_post');
-            $I->seeCurrentUrlEquals('/?page=settings&sub=up_bip');
-        }
     }
 
     /**

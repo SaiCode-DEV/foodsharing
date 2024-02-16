@@ -38,6 +38,7 @@
 - Modernized BlogControl to a Symfony controller !3096 @\_fridtjof_
 - Modernized BasketControl to a Symfony controller !3127 @\_fridtjof_
 - Cleaned up twig extension config !3124 @\_fridtjof_
+- Refactored store creation page to vue !3136 @chriswalg
 - Removed unused store edit code !3137 @chriswalg
 - REST endpoint for editing content entries !3098 @alex.simm
 - Created confirmationDialogue mixin !3140 @AntonBallmaier
