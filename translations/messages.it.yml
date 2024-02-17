@@ -129,11 +129,11 @@ group:
   quitting_home_district_warning: Vuoi davvero lasciare il tuo distretto di provenienza
     %name%? Perderai la tua verifica e dovrai presentarti in seguito al team di ambasciatori
     del tuo nuovo distretto di provenienza.
-  really_quit_district: Sei sicuro di voler lasciare il distretto di %name%?
-  really_quit_workgroup: Sei sicuro di voler lasciare il gruppo di lavoro %name%?
+  really_quit_district: Sei sicuro di voler lasciare il distretto di {name}?
+  really_quit_workgroup: Sei sicuro di voler lasciare il gruppo di lavoro {name}?
   quit: Lascia il gruppo
-  quit_name_district: Lascia il distretto %name%
-  quit_name_workgroup: Lascia la squadra %name%
+  quit_name_district: Lascia il distretto {name}
+  quit_name_workgroup: Lascia la squadra {name}
   no_groups: Non ci sono ancora gruppi di lavoro qui
   actions:
     safe: Salvare le modifiche
@@ -425,8 +425,8 @@ yes: Sì
 really_delete: Eliminare?
 are_you_sure: Sei sicuro?
 statistics:
-  num_fetches: Durante una missione di salvataggio|Durante %count% missioni di salvataggio
-  kg_food_saved: '%count% kg di cibo risparmiato'
+  num_fetches: Durante {count} missioni di salvataggio
+  kg_food_saved: '{count} kg di cibo risparmiato'
 terminology:
   options: Opzioni
   buddies: Conoscente
@@ -437,11 +437,11 @@ terminology:
   regions: Quartieri
   region: Quartiere
   profile_picture: foto del profilo
-  n_cooperating_stores: Una cooperazione in corso|%count% cooperazione in corso
-  n_stores: Un'azienda|%count% aziende
-  n_ambassadors: Un ambasciatore|%count% ambasciatori
-  n_sleeping: Un dormiglione|%count% dormiglione
-  n_foodsaver: Un Foodsaver|%count% Foodsaver
+  n_cooperating_stores: '{count} cooperazione in corso'
+  n_stores: '{count} aziende'
+  n_ambassadors: '{count} ambasciatori'
+  n_sleeping: '{count} dormiglione'
+  n_foodsaver: '{count} Foodsaver'
   mailboxes: Caselle e-mail
   settings: impostazioni
   subgroups: Sottogruppi
@@ -503,7 +503,7 @@ terminology:
   pickup: Ritiro
   boardAdmins: Consiglio di amministrazione
   fsps: 'Punti di condivisione'
-  n_home_regions: uno con il distretto di residenza|%count% con il distretto di residenza
+  n_home_regions: '{count} con il distretto di residenza'
   no_pickups: 'nessuna'
   previous_pickups: 'Collezioni qui'
   electionAdmins: Elezioni
@@ -881,6 +881,7 @@ storeedit:
   not-in-region: Puoi creare agenzie solo nelle regioni di cui sei membro.
   add-new: Crea una nuova agenzia
   unsuccess: 'Impossibile applicare le modifiche. {error}'
+  name_error: Il nome deve essere composto da almeno tre caratteri.
 store:
   request:
     to-nowhere: Rifiutare
@@ -1101,6 +1102,7 @@ store:
   lastPickupTitle: Ultimo recupero qui
   deactivatedRegion: Al momento non è possibile visualizzare l’elenco delle aziende
     per interi paesi e continenti.
+  to_map: Mostra sulla mappa
 storeview:
   want_to_fetch: Vorrei aiutare in questo team.
   specials: particolarità
@@ -2022,6 +2024,7 @@ menu:
     load_more: 'caricare di più'
     refresh: 'Aggiornare'
     delete_read: 'Elimina tutto letto'
+    applications: Applicazioni ({count})
   reports: Messaggi
   content: Modifica contenuti
   manage_mailboxes: Gestire caselle di posta
@@ -2260,7 +2263,7 @@ search:
   results:
     region:
       ambassador_tooltip: 'Sei un ambasciatore di questo distretto'
-      home_region_tooltip: ''
+      home_region_tooltip: 'Questo è il tuo distretto natale'
       member_tooltip: 'Sei un membro di questo distretto'
     working_group:
       member_tooltip: 'Sei un membro di questo gruppo'
@@ -3141,6 +3144,8 @@ globals:
     foodSharePoints: Punti di condivisione
     workingGroups: Gruppi
     users: Persone
+    groups_menu: Menù di gruppo
+    regions_menu: Menù del distretto
   reset: 'Resetta'
   account:
     signout: 'Esci'
@@ -3409,3 +3414,7 @@ save_state_description: Salva i filtri applicati e l’ordinamento per le chiama
 configure_columns: Configura colonne
 expand_all: Espandi tutto
 collapse_all: Comprimi tutto
+donation_banner:
+  info_button: Dove va la mia donazione?
+  action_button: Donate qui!
+  amount: Stato della donazione
