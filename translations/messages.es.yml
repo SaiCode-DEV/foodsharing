@@ -343,7 +343,7 @@ terminology:
     m: 'Administrador global'
     d: 'Administrador(a) global'
     f: 'Administradora global'
-  n_stores: 'Una cooperación|%count% cooperaciones'
+  n_stores: '{count} cooperaciones'
   message: 'Mensaje'
   fspAdmins: 'Equipo del distribuidores'
   foodsharer:
@@ -390,9 +390,9 @@ terminology:
   basket: 'Cesta de comida'
   threads: 'Hilos'
   fsps: 'Distribuidores'
-  n_ambassadors: 'un(a) embajador(a)|%count% embajador@s'
+  n_ambassadors: '{count} embajador@s'
   profile_picture: 'Foto de perfil'
-  n_cooperating_stores: 'Una cooperación en marcha|%count% cooperaciones en marcha'
+  n_cooperating_stores: '{count} cooperaciones en marcha'
   reports: 'Vista de quejas (GQL)'
   community: 'Grupo local de {name}'
   pickup: 'Recogida'
@@ -403,8 +403,8 @@ terminology:
   admins: 'administrador@s'
   mediationAdmins: 'Equipo de mediación'
   arbitration: 'Vista de quejas (JAL)'
-  n_sleeping: 'un(a) dormilón(a)|%count% dormilon@s'
-  n_foodsaver: 'un(a) rescatista|%count% rescatistas'
+  n_sleeping: '{count} dormilon@s'
+  n_foodsaver: '{count} rescatistas'
   reportAdmins: 'Equipo de manejo de quejas'
   n_home_regions: '{count} con distrito principal'
   no_pickups: 'ninguna'
@@ -1596,6 +1596,16 @@ bell:
   forum_announcement_title: 'Aviso importante: {title}'
   forum_mention: en el tema “{title}” del foro {forum}
   forum_new_thread_title: 'Nuovo tema: {title}'
+  new_store_request:
+    one: de {name} de {user}
+    many: de {name} de {count} usuarios
+  store_wall_post:
+    many: '{count} nuevas entradas del tablón de anuncios'
+    one: Entrada del tablón de {user}
+  store_wall_post_title: empresa {name}
+  store_change_regular_pickup_times:
+    one: Las fechas de recogida han sido ajustadas
+    many: fechas de recogida han sido ajustadas
 foodsaver:
   restricted: 'Lamentablemente, no tienes permiso para ver estos datos.'
   upgrade:
@@ -2115,6 +2125,7 @@ menu:
     load_more: Cargar más
     refresh: Actualizar
     delete_read: Borrar todo lo leído
+    applications: Aplicaciones ({count})
   bell:
     delete_read_confirmation:
       text: ¿Realmente quieres borrar {count} campanas leídas?
@@ -2411,6 +2422,8 @@ storeedit:
   unsuccess: 'Los cambios no se pudieron aplicar. {error}'
   not-in-region: 'Sólo puedes crear empresas en los distritos de los que seas miembro.'
   add-new: 'Agregar nueva tienda'
+  store_name_placeholder: Nombre de empresa
+  name_error: El nombre debe tener al menos tres caracteres.
 wall:
   delete: 'Suprimir la contribución'
   created: '¡Excelente! Tu publicación en el tablón de anuncios fue guardada.'
@@ -2933,6 +2946,8 @@ globals:
     foodSharePoints: Distribuidores
     users: Personas
     workingGroups: Grupos
+    regions_menu: Menú del distrito
+    groups_menu: Menú de grupo
   you: 'Tú'
   account:
     signin: 'Iniciar sesión'
@@ -3184,8 +3199,8 @@ teamjs:
     responderle!'
   wrongmail: 'Algo anda mal con tu dirección de correo electrónico.'
 statistics:
-  kg_food_saved: '%count% kg de comida ahorrados'
-  num_fetches: 'Durante una operación de rescate|En %count% operaciones de rescate'
+  kg_food_saved: '{count} kg de comida ahorrados'
+  num_fetches: 'En {count} operaciones de rescate'
 back: 'Atrás'
 chat:
   search: 'Buscar'
