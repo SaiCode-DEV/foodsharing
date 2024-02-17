@@ -161,11 +161,11 @@ group:
   quitting_home_district_warning: Souhaites-tu vraiment quitter ton district principal
     %name% ? Tu perdras ta vérification et devras contacter l’équipe des ambassadeur·rice·s
     de ton nouveau district principal.
-  really_quit_district: Veux-tu vraiment quitter le district %name% ?
-  really_quit_workgroup: Veux-tu vraiment quitter le groupe de travail %name% ?
+  really_quit_district: Veux-tu vraiment quitter le district {name} ?
+  really_quit_workgroup: Veux-tu vraiment quitter le groupe de travail {name} ?
   quit: Quitter
-  quit_name_district: Quitter le district %name%
-  quit_name_workgroup: Quitter l’équipe %name%
+  quit_name_district: Quitter le district {name}
+  quit_name_workgroup: Quitter l’équipe {name}
   no_groups: Il n’y a pas encore de groupes de travail ici
   actions:
     safe: enregistrer les modifications
@@ -295,6 +295,7 @@ button:
   next: Suivant
   save: Enregistrer
   reset_default: Restaurer par défaut
+  prev: dos
 upload:
   crop_dialog_title: Rogner l’image
   new_file: Téléverser un nouveau fichier
@@ -948,7 +949,7 @@ terminology:
     f: Collectrice
     m: Collecteur
   foodsharer:
-    d: foodsharer·euse
+    d: Partageur·euse
     f: Partageuse
     m: Partageur
   stores: Coopérations
@@ -962,11 +963,11 @@ terminology:
   threads: Thèmes
   regions: Districts
   region: Secteur géographique
-  n_cooperating_stores: Une coopération en cours|%count% Coopérations en cours
-  n_stores: Une coopération|%count% coopérations
-  n_ambassadors: Un·e ambassadeur·rice|%count% ambassadeur·rice·s
-  n_sleeping: Un membre en mode sommeil|%count% membres en mode sommeil
-  n_foodsaver: Un·e collecteur·rice|%count% collecteur·rice·s
+  n_cooperating_stores: '{count} coopérations en cours'
+  n_stores: '{count} coopérations'
+  n_ambassadors: '{count} ambassadeur·rice·s'
+  n_sleeping: '{count} membres en mode sommeil'
+  n_foodsaver: '{count} collecteur·rice·s'
   fsp: Frigo solidaire
   homeRegion: District principal
   community: Groupe local {name}
@@ -982,7 +983,7 @@ terminology:
     "4": Membre du groupe organisation
   pickup: Collecte
   store: 'Coopération'
-  n_home_regions: un·e avec district d’origine|%count% avec district d’origine
+  n_home_regions: '{count} avec district d’origine'
   no_pickups: aucune
   previous_pickups: Collectes ici
   electionAdmins: Élections
@@ -1455,8 +1456,8 @@ back: Retour
 really_delete: Supprimer définitivement ?
 are_you_sure: Es-tu sûr·e ?
 statistics:
-  num_fetches: Après une intervention|Après %count% interventions
-  kg_food_saved: '%count% kg de denrées alimentaires sauvées'
+  num_fetches: Après {count} interventions
+  kg_food_saved: '{count} kg de denrées alimentaires sauvées'
 menu:
   entry:
     events: Évènements
@@ -1530,6 +1531,7 @@ menu:
     load_more: Charger plus
     refresh: Actualiser
     delete_read: Effacer tout ce qui a été lu
+    applications: Applications ({count})
   content: modifier les contenus
   manage_mailboxes: gérer les boîtes de réception
   email: envoyer la lettre d'information
@@ -2189,6 +2191,8 @@ storeedit:
   add-new: Ajouter une nouvelle coopération
   bread: Modifier la fiche coopération
   unsuccess: Les modifications n’ont pas pu être appliquées. {error}
+  store_name_placeholder: Nom du magasin
+  name_error: Le nom doit être composé d’au moins trois caractères.
 basket:
   published: Merci ! Ton panier solidaire vient d’être mis en ligne.
   publish_error: Erreur. Le panier solidaire n’a pas pu être publié.
@@ -2535,6 +2539,16 @@ bell:
   forum_new_thread_title: 'Nouveau fil de discussion : {title}'
   forum_announcement_title: 'Message important : {title}'
   forum_mention: dans le sujet « {title} » du forum {forum}
+  store_change_regular_pickup_times:
+    one: horaires de collecte ont été ajustés
+    many: horaires de collecte ont été ajustés
+  new_store_request:
+    one: de {name} de {user}
+    many: de {name} de {count} utilisateurs
+  store_wall_post_title: Magasin {name}
+  store_wall_post:
+    one: Entrée murale de {user}
+    many: '{count} nouvelles entrées murales'
 personal_data:
   landline: Numéro de fixe
   mobile: Numéro de portable
@@ -3242,6 +3256,8 @@ globals:
     foodSharePoints: Frigos solidaires
     users: Personnes
     workingGroups: Groupes
+    groups_menu: Menu des groupes
+    regions_menu: Menu des districts
   show_less: Afficher moins
   close: Fermer
   reset: Réinitialiser
