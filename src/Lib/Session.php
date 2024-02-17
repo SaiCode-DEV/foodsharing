@@ -376,6 +376,7 @@ class Session
             'type' => $fs['type'],
             'verified' => $fs['verified'],
             'token' => $fs['token'],
+            'mailbox_id' => $fs['mailbox_id'],
             'gender' => $fs['geschlecht'],
             'privacy_policy_accepted_date' => $fs['privacy_policy_accepted_date'],
             'privacy_notice_accepted_date' => $fs['privacy_notice_accepted_date'],
