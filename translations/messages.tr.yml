@@ -456,15 +456,15 @@ group:
   subtitle: Burada yardım ve yapacak çok şey bulacaksınız …
   member_count: '{0} Katkıda bulunan yok|{1} Bir katkıda bulunan var| [2, Inf[ %count%
     katkıda bulunanlar'
-  really_quit_workgroup: '%name% çalışma grubundan ayrılmak istediğinize emin misiniz?'
+  really_quit_workgroup: '{name} çalışma grubundan ayrılmak istediğinize emin misiniz?'
   already_applied: Bu grup için zaten başvuruda bulundunuz.
-  quit_name_district: '%name% bölgesinden ayrıl'
+  quit_name_district: '{name} bölgesinden ayrıl'
   quit: Ayrıl
   members: Üyeler
   administrators: Grup Yöneticileri
-  quit_name_workgroup: '%name% Ekipten ayrıl'
+  quit_name_workgroup: '{name} Ekipten ayrıl'
   role_name: Rolü
-  really_quit_district: '%name% bölgesinden ayrılmak istediğinizden emin misiniz?'
+  really_quit_district: '{name} bölgesinden ayrılmak istediğinizden emin misiniz?'
   quitting_home_district_warning: Bağlı olduğunuz %name% bölgesinden gerçekten ayrılmak
     istiyor musunuz? Onaylamanızı kaybedeceksiniz ve daha sonra yeni bölgenizin elçi
     ekibine rapor vermek zorunda kalacaksınız.
@@ -2591,24 +2591,24 @@ terminology:
   boardAdmins: Yönetim Kurulu
   subgroups: Alt gruplar
   settings: Ayarlar
-  n_foodsaver: Bir Foodsaver|%count% Foodsaver
+  n_foodsaver: '{count} Foodsaver'
   arbitrationAdmins: Tahkim Kurulu
   mediationAdmins: Arabuluculuk Ekibi
   fsManagementAdmins: İdare
   statistic: İstatistik
   fsps: Gıda Dağıtım Noktası
   profile_picture: Profil Resmi
-  n_cooperating_stores: Devam eden bir işbirliği|%count% Devam eden bir işbirliği
+  n_cooperating_stores: '{count} Devam eden bir işbirliği'
   basket: Yemek Sepeti
   fsp: Gıda Dağıtım Noktası
   stores: İşletmeler
   homepage: Ana sayfa
   welcomeAdmins: Karşılama Ekibi
   votingAdmins: Oylama Ekibi
-  n_stores: Bir İşletme|%count% İşletme
+  n_stores: '{count} İşletme'
   baskets: Yemek Sepetleri
   group: Çalışma grupları
-  n_ambassadors: Bir Elçi|%count% Elçi
+  n_ambassadors: '{count} Elçi'
   message: Bildiri
   polls: Anketler
   buddies: Tanıdık
@@ -2619,7 +2619,7 @@ terminology:
   regions: Bölgeler
   threads: Konular
   store: İşletme
-  n_sleeping: Bir Uyku beresi|%count% Uyku beresi
+  n_sleeping: '{count} Uyku beresi'
   pickup: Alım
   events: Tarihler
   mailboxes: Posta kutuları
@@ -2629,7 +2629,7 @@ terminology:
     f: Orga İnsanı
     d: Orga İnsanı
   reports: Raporlama Görünümü (Yerel raporlama grubu)
-  n_home_regions: o ana bölgeye sahip bir kişi|İşte %count% kişilik ana bölge
+  n_home_regions: İşte {count} kişilik ana bölge
   previous_pickups: Teslimat burada
   no_pickups: yok
   electionAdmins: Seçimler
@@ -2851,8 +2851,8 @@ fsp:
   summaryRegion: '{region} ve tüm nahiyelerde {count} gıda dağıtım noktaları var'
   edit: Gıda dağıtım noktasını düzenle
 statistics:
-  kg_food_saved: '%count% kg gıda kurtarıldı'
-  num_fetches: Bir kurtarma görevinde|%count% kurtarma görevinde
+  kg_food_saved: '{count} kg gıda kurtarıldı'
+  num_fetches: '{count} kurtarma görevinde'
 are_you_sure: Emin misin?
 day: Gün
 formatting:
