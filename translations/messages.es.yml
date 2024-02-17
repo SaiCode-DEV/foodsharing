@@ -406,7 +406,7 @@ terminology:
   n_sleeping: 'un(a) dormilón(a)|%count% dormilon@s'
   n_foodsaver: 'un(a) rescatista|%count% rescatistas'
   reportAdmins: 'Equipo de manejo de quejas'
-  n_home_regions: un@ con distrito de origen|%count% con distrito de origen
+  n_home_regions: '{count} con distrito principal'
   no_pickups: 'ninguna'
   previous_pickups: Recogidas aquí
   electionAdmins: Elecciones
@@ -938,21 +938,21 @@ group:
   quitting_home_district_warning: '¿Realmente deseas abandonar tu distrito de origen
     %name%? Perderás tu verificación y tendrás que comunicarte con los embajadores
     de tu nuevo distrito de origen más tarde.'
-  really_quit_district: '¿Quiere realmente abandonar el distrito de %name%?'
+  really_quit_district: '¿Quiere realmente abandonar el distrito de {name}?'
   really_quit_workgroup: '¿Estás seguro de que quieres abandonar el grupo de trabajo
-    %name%?'
+    {name}?'
   member_count: '{0} sin contribuyentes|{1} un(a) contribuyente| [2, Inf[ %count%
     contribuyentes'
   enterskills: 'Habilidades:'
   saved: 'Se guardaron los cambios'
-  quit_name_workgroup: 'Dejar el equipo %name%'
+  quit_name_workgroup: 'Dejar el equipo {name}'
   delete_group_sure: '¿Realmente desea eliminar el grupo/el distrito {groupName}?'
   subtitle: 'Aquí encontrarás ayuda y mucho que hacer …'
   admin_count: '{0} sin administratores|{1} un(a) administrador(a)| [2, Inf[ %count%
     administrador@s'
   filter_by_last_activity: 'No activo en meses'
   enterxp: 'Experiencia:'
-  quit_name_district: 'Salir del distrito de %name%'
+  quit_name_district: 'Abandonar el distrito {name}'
   role_name: 'Role'
 register:
   error_email_exist: 'Su dirección de correo electrónico ya existe.'
@@ -1035,6 +1035,7 @@ button:
   cancel: 'Cancelar'
   permadelete: 'borrar permanentemente'
   reset_default: Restablecer valor predeterminado
+  prev: Volver
 pass:
   nav:
     options: 'Opciones'
