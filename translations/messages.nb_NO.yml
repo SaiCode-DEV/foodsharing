@@ -446,6 +446,7 @@ menu:
     load_more: Last mer
     refresh: Oppdatere
     delete_read: Slett alle lesninger
+    applications: Søknader ({count})
   content: Rediger innhold
   email: Send nyhetsbrev
   reports: Overtredelsesrapporter
@@ -1336,6 +1337,16 @@ bell:
   forum_new_thread_title: 'Ny tråd: {title}'
   forum_announcement_title: 'Viktig melding: {title}'
   forum_mention: i emnet “{title}” i forumet {forum}
+  new_store_request:
+    one: for {name} av {user}
+    many: for {name} fra {count} brukere
+  store_wall_post_title: Butikk {name}
+  store_wall_post:
+    one: Veggpost fra {user}
+    many: '{count} nye vegginnganger'
+  store_change_regular_pickup_times:
+    one: Pickup-spor er justert
+    many: Pickup-spor er justert
 reports:
   when: Tid
   time: Tid
@@ -1602,8 +1613,8 @@ group:
       per distrikt.
     election: Valg
   quit: Forlate
-  quit_name_district: Forlate distriktet %name%
-  quit_name_workgroup: Forlate team %name%
+  quit_name_district: Forlate distriktet {name}
+  quit_name_workgroup: Forlate team {name}
   actions:
     safe: Lagre endringer
     join: Ta del i denne gruppen
@@ -1702,8 +1713,8 @@ group:
   member_count: '{0} ingen bidragsytere|{1} en bidragsyter| [2, Inf[ %count% bidragsytere'
   admin_count: '{0} ingen administratorer|{1} en administrator| [2, Inf[ %count% administratorer'
   already_applied: Du har allerede søkt på denne gruppen.
-  really_quit_workgroup: Vil du virkelig forlate Arbeidsgruppe %name%?
-  really_quit_district: Vil du virkelig forlate %name%-distriktet?
+  really_quit_workgroup: Vil du virkelig forlate Arbeidsgruppe {name}?
+  really_quit_district: Vil du virkelig forlate {name}-distriktet?
   delete_group_sure: Vil du virkelig slette {groupName}-arbeidsgruppen / -distriktet?
   quitting_home_district_warning: Vil du virkelig forlate ditt hjemdistrikt %name%?
     Du mister bekreftelsen og må kontakte ambassadørteamet til ditt nye hjemdistrikt
@@ -1805,6 +1816,7 @@ button:
   next: Neste
   save: Lagre
   reset_default: Nullstill standard
+  prev: tilbake
 upload:
   preview_image: Forhåndsvisning
   crop_dialog_title: Beskjær bilde
@@ -2342,6 +2354,8 @@ storeedit:
   not-in-region: Du kan bare legge til selskaper i regioner du er medlem av.
   add_success: Samarbeidende selskap ble registrert
   unsuccess: Endringer kunne ikke vedtas. {error}
+  store_name_placeholder: Butikknavn
+  name_error: Navnet må bestå av minst tre tegn.
 store:
   sm:
     searchPlaceholder: Navn eller ID
@@ -2682,8 +2696,8 @@ yes: Ja
 really_delete: Vil du virkelig slette?
 are_you_sure: Er du sikker?
 statistics:
-  kg_food_saved: '%count% kg mat lagret'
-  num_fetches: Med én pickup|Med %count% pickuper
+  kg_food_saved: '{count} kg mat lagret'
+  num_fetches: Med {count} pickuper
 terminology:
   options: Alternativer
   buddies: Venner
@@ -2694,7 +2708,7 @@ terminology:
   regions: Distrikter
   region: Distrikt
   profile_picture: Profilbilde
-  n_foodsaver: en matredder|%count% matreddere
+  n_foodsaver: '{count} matreddere'
   mailboxes: Postkasser
   settings: Innstillinger
   subgroups: Undergrupper
@@ -2733,22 +2747,22 @@ terminology:
   stores: Bedrifter
   events: Arrangementer
   forum: Forum
-  n_stores: En butikk|%count% butikker
+  n_stores: '{count} butikker'
   orga:
     d: Organisasjonsperson
     f: Organisasjonsperson
     m: Organisasjonsperson
   pin: Lokal gruppebeskrivelse
   community: Lokalgruppe {name}
-  n_ambassadors: En ambassadør|%count% ambassadører
-  n_cooperating_stores: Et løpende samarbeid|%count% løpende samarbeid
+  n_ambassadors: '{count} ambassadører'
+  n_cooperating_stores: '{count} løpende samarbeid'
   fspAdmins: Distribusjonsstasjonsteam
   fsp: Distribusjonsstasjon
   storemanager:
     m: Samarbeidsoffiser
     f: Samarbeidsoffiser
     d: Samarbeidsoffiser
-  n_sleeping: E nattlue|%count% nattlue
+  n_sleeping: '{count} nattlue'
   homepage: Hjemmeside
   fsps: Distribusjonsstasjoner
   boardAdmins: Borde
@@ -2760,7 +2774,7 @@ terminology:
     "0": matdeler
   pickup: Plukke opp
   store: Selskapet
-  n_home_regions: en med hjemdistrikt|%count% med hjemdistrikt
+  n_home_regions: '{count} med hjemdistrikt'
   no_pickups: ingen
   previous_pickups: Henter her
   electionAdmins: Valg
@@ -3176,6 +3190,8 @@ globals:
     foodSharePoints: Distribusjonsstasjoner
     users: Personer
     workingGroups: Grupper
+    groups_menu: Gruppemeny
+    regions_menu: Distriktsmeny
   show_more: Vis mer
   reset: Tilbakestill
   show_less: Vis mindre
