@@ -129,10 +129,10 @@ group:
     accept: Accept the application
     link_description: 'This link will take you directly to the application:'
   show-all: Show all
-  really_quit_district: Do you really want to leave the region %name%?
-  really_quit_workgroup: Do you really want to leave the working group %name%?
-  quit_name_district: Leave region %name%
-  quit_name_workgroup: Leave team %name%
+  really_quit_district: Do you really want to leave the region {name}?
+  really_quit_workgroup: Do you really want to leave the working group {name}?
+  quit_name_district: Leave region {name}
+  quit_name_workgroup: Leave team {name}
   contact:
     send: Send message
     title: Contact {group}
@@ -412,6 +412,7 @@ menu:
     load_more: Load more
     refresh: Refresh
     delete_read: Delete all read
+    applications: Applications ({count})
   bell:
     delete_read_confirmation:
       text: Do you really want to delete {count} read bells?
@@ -1084,8 +1085,8 @@ terminology:
     d: Ambassador
     f: Ambassador
     m: Ambassador
-  n_stores: A store|%count% stores
-  n_ambassadors: One ambassador|%count% ambassadors
+  n_stores: '{count} stores'
+  n_ambassadors: '{count} ambassadors'
   ambassador_forum: Ambassador forum
   orga:
     d: Orga person
@@ -1120,11 +1121,11 @@ terminology:
   arbitrationAdmins: Arbitration board
   mediationAdmins: Mediation team
   reportAdmins: Report processing team
-  n_foodsaver: One foodsaver|%count% foodsavers
-  n_home_regions: "one with home district|%count% with home district"
+  n_foodsaver: '{count} foodsavers'
+  n_home_regions: "{count} with home district"
   storesAdmins: Store coordination team
-  n_sleeping: A nightcap|%count% nightcaps
-  n_cooperating_stores: A running cooperation|%count% running cooperations
+  n_sleeping: '{count} nightcaps'
+  n_cooperating_stores: '{count} running cooperations'
   options: Options
   reports: Reporting View (local reporting group)
   arbitration: Reporting View (LS)
@@ -1190,6 +1191,7 @@ button:
   answer: Answer
   clear_filter: Clear filter
   reset_default: Reset default
+  prev: previous
 bell:
   ft_update_title: '{name}'
   blog_new_check: '{title}'
@@ -1255,6 +1257,16 @@ bell:
   forum_new_thread_title: 'New thread: {title}'
   forum_announcement_title: 'Important notice: {title}'
   forum_mention: in the topic “{title}” of the forum {forum}
+  new_store_request:
+    one: for {name} from {user}
+    many: for {name} from {count} users
+  store_wall_post_title: Store {name}
+  store_change_regular_pickup_times:
+    one: Pick-up slots have changed
+    many: Pick-up slots have changed
+  store_wall_post:
+    one: Wall post from {user}
+    many: '{count} new wall posts'
 reports:
   time: Time
   region: Home district
@@ -2355,6 +2367,8 @@ storeedit:
   actions: Options
   add_success: Cooperating store was added
   not-in-region: You can only add stores to regions, in which you are a member.
+  name_error: The name must consist of at least three characters.
+  store_name_placeholder: Store name
 legal:
   delete_account: I want to delete my account.
   legal_agreement: Legal agreement
@@ -2879,8 +2893,8 @@ error_permissions: Unfortunately, you do not have the necessary permissions for 
   process.
 success: Completed successfully
 statistics:
-  kg_food_saved: '%count% kg food saved'
-  num_fetches: In a pick-up|In %count% pick-ups
+  kg_food_saved: '{count} kg food saved'
+  num_fetches: In {count} pick-ups
 storestatus:
   "0": Status unclear
   "7": Store no longer exists
@@ -3357,6 +3371,8 @@ globals:
     foodSharePoints: Food-Share Points
     users: Persons
     workingGroups: Groups
+    groups_menu: Groups menu
+    regions_menu: Regions menu
   save: Save
   close: Close
   select: Please select …
