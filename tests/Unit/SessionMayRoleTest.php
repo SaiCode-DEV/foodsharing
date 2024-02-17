@@ -10,7 +10,6 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Login\LoginGateway;
-use Foodsharing\Modules\Mails\MailsGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Store\StoreGateway;
@@ -23,12 +22,11 @@ class SessionTestAdapter extends Session
         private FoodsaverGateway $foodsaverGateway,
         private RegionGateway $regionGateway,
         private StoreGateway $storeGateway,
-        private MailsGateway $mailsGateway,
         private LoginGateway $loginGateway,
         private SettingsGateway $settingsGateway,
         protected bool $initialized = false
     ) {
-        parent::__construct($mem, $foodsaverGateway, $regionGateway, $storeGateway, $mailsGateway, $loginGateway, $settingsGateway, $initialized);
+        parent::__construct($mem, $foodsaverGateway, $regionGateway, $storeGateway, $loginGateway, $settingsGateway, $initialized);
     }
 
     public function setTestUser(Role $role)
@@ -50,7 +48,6 @@ class SessionMayRoleTest extends Unit
             $this->tester->get(FoodsaverGateway::class),
             $this->tester->get(RegionGateway::class),
             $this->tester->get(StoreGateway::class),
-            $this->tester->get(MailsGateway::class),
             $this->tester->get(LoginGateway::class),
             $this->tester->get(SettingsGateway::class),
             true

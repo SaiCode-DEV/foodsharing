@@ -10,7 +10,6 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Login\LoginGateway;
-use Foodsharing\Modules\Mails\MailsGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Store\StoreGateway;
@@ -37,7 +36,6 @@ class Session
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly RegionGateway $regionGateway,
         private readonly StoreGateway $storeGateway,
-        private readonly MailsGateway $mailsGateway,
         private readonly LoginGateway $loginGateway,
         private readonly SettingsGateway $settingsGateway,
         private bool $initialized = false
@@ -358,11 +356,6 @@ class Session
             'lon' => $fs['lon']
         ]);
 
-        $mailbox = false;
-        if ((int)$fs['mailbox_id'] > 0) {
-            $mailbox = true;
-        }
-
         if ((int)$fs['bezirk_id'] > 0 && $this->role()->isAtLeast(Role::FOODSAVER)) {
             $this->regionGateway->addMember($fs_id, $fs['bezirk_id']);
         }
@@ -383,7 +376,6 @@ class Session
             'type' => $fs['type'],
             'verified' => $fs['verified'],
             'token' => $fs['token'],
-            'mailbox_id' => $fs['mailbox_id'],
             'gender' => $fs['geschlecht'],
             'privacy_policy_accepted_date' => $fs['privacy_policy_accepted_date'],
             'privacy_notice_accepted_date' => $fs['privacy_notice_accepted_date'],
@@ -419,7 +411,6 @@ class Session
             if ($r = $this->regionGateway->listRegionsForBotschafter($fs['id'])
             ) {
                 $_SESSION['client']['botschafter'] = $r;
-                $mailbox = true;
                 foreach ($r as $rr) {
                     $this->regionGateway->addOrUpdateMember($fs['id'], $rr['id']);
                 }
@@ -431,13 +422,8 @@ class Session
         $_SESSION['client']['verantwortlich'] = [];
         if ($responsibleStoreIds = $this->storeGateway->listStoreIdsWhereResponsible($fs['id'])) {
             $_SESSION['client']['verantwortlich'] = $responsibleStoreIds;
-            $mailbox = true;
         }
 
-        $this->set('mailbox', $mailbox);
-
-        $this->set('email_is_activated', $this->loginGateway->isActivated($fs['id']));
-        $this->set('email_is_bouncing', $this->mailsGateway->emailIsBouncing($fs['email']));
         $this->set('locale', $this->settingsGateway->getUserOption($fs['id'], UserOptionType::LOCALE));
     }
 
