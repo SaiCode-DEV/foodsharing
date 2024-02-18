@@ -1532,6 +1532,9 @@ bell:
   store_new: "{name} wurde eingetragen"
   store_new_request_title: "Neue Teamanfrage"
   store_new_request: "Anfrage für {name}"
+  new_store_request:
+    one: "für {name} von {user}"
+    many: "für {name} von {count} Nutzer:innen"
   store_request_accept_title: "{name}"
   store_request_accept: "Du wurdest in das Team aufgenommen."
   store_request_accept_wait_title: "{name}"
@@ -1545,9 +1548,17 @@ bell:
 
   store_wallpost_title: "{name}"
   store_wallpost: "Neuer Eintrag auf der Pinnwand."
+  store_wall_post_title: "Betrieb {name}"
+  store_wall_post:
+    one: "Pinnwandeintrag von {user}"
+    many: "{count} neue Pinnwandeinträge"
 
   store_cr_times_title: "{name}"
   store_cr_times: "Abholtermine wurden angepasst"
+  store_change_regular_pickup_times:
+    one: "Abholtermine wurden angepasst"
+    many: "Abholtermine wurden angepasst"
+    
 
   fs_sleepmode_title: "Neue Schlafmütze"
   fs_sleepmode: "{name} {nachname} ist jetzt inaktiv"

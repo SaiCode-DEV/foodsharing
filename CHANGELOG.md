@@ -1,3 +1,7 @@
+# Hotfix 2024-02-18 (Bell translations)
+
+- Added translation keys for grouped bells !3152 @AntonBallmaier
+
 # Hotfix 2024-02 (Donation banner)
 
 - Added a donation banner !2930 !3111 @chriswalg
