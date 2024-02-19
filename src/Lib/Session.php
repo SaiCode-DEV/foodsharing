@@ -12,8 +12,6 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Settings\SettingsGateway;
-use Foodsharing\Modules\Store\StoreGateway;
-use Foodsharing\Modules\Store\TeamStatus;
 
 use function array_key_exists;
 
@@ -35,7 +33,6 @@ class Session
         private readonly Mem $mem,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly RegionGateway $regionGateway,
-        private readonly StoreGateway $storeGateway,
         private readonly LoginGateway $loginGateway,
         private readonly SettingsGateway $settingsGateway,
         private bool $initialized = false
@@ -420,11 +417,6 @@ class Session
             $_SESSION['client']['bezirke'] = $this->regionGateway->listForFoodsaver($fs['id']);
         }
 
-        $_SESSION['client']['verantwortlich'] = [];
-        if ($responsibleStoreIds = $this->storeGateway->listStoreIdsWhereResponsible($fs['id'])) {
-            $_SESSION['client']['verantwortlich'] = $responsibleStoreIds;
-        }
-
         $this->set('locale', $this->settingsGateway->getUserOption($fs['id'], UserOptionType::LOCALE));
     }
 
@@ -447,11 +439,6 @@ class Session
         }
 
         return $isMember;
-    }
-
-    public function mayIsStoreResponsible($storeId)
-    {
-        return $this->storeGateway->getUserTeamStatus($this->id(), $storeId) === TeamStatus::Coordinator;
     }
 
     public function isAdminForAWorkGroup()

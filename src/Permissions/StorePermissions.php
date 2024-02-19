@@ -24,6 +24,11 @@ class StorePermissions
     ) {
     }
 
+    private function mayIsStoreResponsible($storeId)
+    {
+        return $this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) === UserTeamStatus::Coordinator;
+    }
+
     /**
      * Assumes that the given user is a foodsaver (i.e. can join store teams).
      * Just the additional permissions for the given, specific store are checked.
@@ -200,7 +205,7 @@ class StorePermissions
             return false;
         }
 
-        if ($this->session->mayIsStoreResponsible($storeId)) {
+        if ($this->mayIsStoreResponsible($storeId)) {
             return true;
         }
 

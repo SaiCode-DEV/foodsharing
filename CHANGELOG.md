@@ -44,6 +44,7 @@
 - REST endpoint for editing content entries !3098 @alex.simm
 - Created confirmationDialogue mixin !3140 @AntonBallmaier
 - Removed unused event invitation code #1739 !3149 @AntonBallmaier
+- Remove unused variables from session #1769 !3161  @KoeMai
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm
