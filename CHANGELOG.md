@@ -5,7 +5,6 @@
 - Added a donation banner !2930 !3111 @chriswalg
 - Added a map link to store pages !3113 @AntonBallmaier
 - Added a map to the foodsharepoint page #1035 !3097 @alex.simm
-- Added translation keys for grouped bells !3152 @AntonBallmaier
 
 ## Changes
 - Improves the BBB integration !3050 @stcz
@@ -60,6 +59,10 @@
 
 ## Development documentation
 
+
+# Hotfix 2024-02-18 (Bell translations)
+
+- Added translation keys for grouped bells !3152 @AntonBallmaier
 
 # Hotfix 2024-02 (Donation banner)
 
