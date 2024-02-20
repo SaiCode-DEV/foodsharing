@@ -262,6 +262,7 @@ button:
   rotate_right: saat yönünde döndür
   permadelete: Geri getirilemez bir şekilde silin
   reset_default: Standardı geri yükle
+  prev: Geri
 upload:
   new_image: Yeni fotoğraf yükle
   file: Dosya yükle
@@ -587,6 +588,16 @@ bell:
   forum_new_thread_title: 'Yeni Gönderi: {title}'
   forum_announcement_title: 'Önemli mesaj: {title}'
   forum_mention: '{forum} forumunun "{title}" konusunda'
+  new_store_request:
+    one: '{user} kullanıcısından {name} için'
+    many: '{count} kullanıcıdan {name} için'
+  store_wall_post:
+    many: '{count} yeni pano girişi'
+    one: '{user} kullanıcısından pano girişi'
+  store_change_regular_pickup_times:
+    one: Gıda kurtarma tarihleri düzenlendi
+    many: Gıda kurtarma tarihleri düzenlendi
+  store_wall_post_title: İşletme{name}
 sig:
   buddies: Tanıdığın insanlar
 error:
@@ -914,6 +925,8 @@ storeedit:
     created: '{user}, işletmeyi {date} tarihinde girdi'
     dropped: '{user} artık ekipte değil'
   edit_success: Değişiklikler kaydedildi
+  store_name_placeholder: İşletmenin adı
+  name_error: İsim en az 3 karakterden oluşmalıdır.
 date:
   -- Tomorrow: Yarın
   yesterday: dün
@@ -1800,6 +1813,7 @@ menu:
     load_more: Daha fazla yükle
     refresh: Güncelle
     delete_read: Tüm okunmuş olanları sil
+    applications: Başvurular ({count})
   bell:
     delete_read_confirmation:
       text: '{count} okuma çanlarını silmek istediğinizden emin misiniz?'
@@ -3195,6 +3209,8 @@ globals:
     foodSharePoints: Gıda Dağıtım Noktası
     workingGroups: Gruplar
     users: Kişiler
+    groups_menu: Grup menüsü
+    regions_menu: Bölge menüsü
   select: 'Lütfen seçin …'
   close: 'Kapat'
   show_more: 'Daha fazla göster'
