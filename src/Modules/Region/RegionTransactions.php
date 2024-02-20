@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Region;
 
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Region\DTO\HierachicalRegion;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Modules\Unit\UnitGateway;
 use Foodsharing\RestApi\Models\Notifications\Region;
@@ -72,5 +73,31 @@ class RegionTransactions
         foreach ($regions as $region) {
             $this->regionGateway->updateRegionNotification($userId, $region->id, $region->notifyByEmailAboutNewThreads);
         }
+    }
+
+    public function buildRegionHierarchie(array $regions, int $rootId): ?HierachicalRegion
+    {
+        $regionsByParentId = [];
+        foreach ($regions as &$region) {
+            $regionsByParentId[$region->parentId][] = &$region;
+            if ($region->id === $rootId) {
+                $root = &$region;
+            }
+        }
+        if (!isset($root)) {
+            return null;
+        }
+
+        return $this->buildHierarchy($root, $regionsByParentId);
+    }
+
+    private function buildHierarchy(HierachicalRegion $node, array $regionsByParentId): HierachicalRegion
+    {
+        $node->children = array_map(
+            fn (HierachicalRegion $node) => $this->buildHierarchy($node, $regionsByParentId),
+            $regionsByParentId[$node->id] ?? []
+        );
+
+        return $node;
     }
 }

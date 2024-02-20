@@ -4,6 +4,9 @@ namespace Foodsharing\Modules\Content;
 
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Content\ContentId;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
+use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Permissions\ContentPermissions;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
@@ -16,27 +19,29 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ContentController extends FoodsharingController
 {
-    private const SUB_TO_ID
-        = [
-            'presse' => ContentId::PRESS,
-            'communitiesGermany' => ContentId::COMMUNITIES_GERMANY,
-            'communitiesAustria' => ContentId::COMMUNITIES_AUSTRIA,
-            'communitiesSwitzerland' => ContentId::COMMUNITIES_SWITZERLAND,
-            'forderungen' => ContentId::DEMANDS,
-            'contact' => ContentId::CONTACT,
-            'academy' => ContentId::ACADEMY,
-            'festival' => ContentId::FESTIVAL,
-            'international' => ContentId::INTERNATIONAL,
-            'transparency' => ContentId::TRANSPARENCY,
-            'leeretonne' => ContentId::PAST_CAMPAIGNS,
-            'foodSharePointRescue' => ContentId::RESCUE_FOOD_SHARE_POINT,
-            'impressum' => ContentId::IMPRINT,
-            'about' => ContentId::ABOUT,
-            'fuer_unternehmen' => ContentId::FOR_COMPANIES,
-            'fsstaedte' => ContentId::FOODSHARING_CITIES,
-            'workshops' => ContentId::WORKSHOPS,
-            'security' => ContentId::SECURITY_PAGE,
-        ];
+    private const SUB_TO_ID = [
+        'presse' => ContentId::PRESS,
+        'forderungen' => ContentId::DEMANDS,
+        'contact' => ContentId::CONTACT,
+        'academy' => ContentId::ACADEMY,
+        'festival' => ContentId::FESTIVAL,
+        'transparency' => ContentId::TRANSPARENCY,
+        'leeretonne' => ContentId::PAST_CAMPAIGNS,
+        'foodSharePointRescue' => ContentId::RESCUE_FOOD_SHARE_POINT,
+        'impressum' => ContentId::IMPRINT,
+        'about' => ContentId::ABOUT,
+        'fuer_unternehmen' => ContentId::FOR_COMPANIES,
+        'fsstaedte' => ContentId::FOODSHARING_CITIES,
+        'workshops' => ContentId::WORKSHOPS,
+        'security' => ContentId::SECURITY_PAGE,
+    ];
+
+    private const REDIRECT = [
+        'communitiesGermany' => 'communities',
+        'communitiesAustria' => 'communities',
+        'communitiesSwitzerland' => 'communities',
+        'international' => 'communities',
+    ];
 
     public function __construct(
         private readonly ContentView $view,
@@ -44,6 +49,8 @@ class ContentController extends FoodsharingController
         private readonly IdentificationHelper $identificationHelper,
         private readonly DataHelper $dataHelper,
         private readonly ContentPermissions $contentPermissions,
+        private readonly RegionTransactions $regionTransactions,
+        private readonly RegionGateway $regionGateway,
         #[Autowire(param: 'kernel.project_dir')]
         private readonly string $projectDir,
     ) {
@@ -182,6 +189,19 @@ class ContentController extends FoodsharingController
         return $this->renderGlobal();
     }
 
+    public function communities(): Response
+    {
+        $this->pageHelper->addTitle($this->translator->trans('content.communities.title'));
+
+        $regionsList = $this->regionGateway->getRegionsForCommunitiesContacts();
+        $regionHierarchie = $this->regionTransactions->buildRegionHierarchie($regionsList, RegionIDs::EUROPE);
+        $this->pageHelper->addContent($this->prepareVueComponent('vue-communities', 'communities', [
+            'rootRegion' => $regionHierarchie,
+        ]));
+
+        return $this->renderGlobal();
+    }
+
     private function contentForm(int $contentId = null, string $titleKey = 'contentmanagement'): string
     {
         $title = $this->translator->trans($titleKey);
@@ -289,6 +309,8 @@ class ContentController extends FoodsharingController
             return $this->renderGlobal();
         } elseif (is_callable([$this, $name])) {
             return $this->$name($request);
+        } elseif (key_exists($name, self::REDIRECT)) {
+            return $this->redirect('/content?sub=' . self::REDIRECT[$name]);
         } else {
             throw new NotFoundHttpException();
         }

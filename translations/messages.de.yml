@@ -1745,6 +1745,11 @@ content:
   title: "Titel"
   last_modified: "Zuletzt bearbeitet"
   delete_tooltip: "Seite löschen"
+  communities:
+    title: Ortsgruppen
+    text: foodsharing wächst täglich. Hier findet ihr immer eine aktuelle Liste aller foodsharing Gemeinschaften und Bezirke. Du kannst eine Mail an jeden dieser Bezirke schicken, indem du auf die verlinkten Namen klickst.
+    searchInfo: Mit Strg+F kann die Liste in vielen Browsern nach Ländern, Städten, Bundesländern oder Stadtteilen durchsucht werden.
+    noAmbassador: Diese Region hat aktuell keine Botschafter:innen und ist daher aktuell nicht per Mail erreichbar. Bitte kontaktiere eine benachbarte oder die nächst-höhere Region.
 
 map:
   title: "Karte"
@@ -2392,10 +2397,6 @@ menu:
     forcompanies: "Für Unternehmen"
     imprint: "Impressum"
     regionalgroups: "Ortsgruppen" #also in MapView
-    Germany: "Deutschland"
-    Austria: "Österreich"
-    Swiss: "Schweiz"
-    international: "International"
     forum: "Forum"
     BOTforum: "Botschafter:innen-Forum"
     wall: "Pinnwand"

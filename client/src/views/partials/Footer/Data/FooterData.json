@@ -1,155 +1,138 @@
 [
-    {
-       "title":"footer.call_to_action",
-       "items":[
-          {
-             "url":"infosCompany",
-             "title":"footer.infosCompany"
-          },
-          {
-             "url":"joininfo",
-             "title":"footer.infosPrivatePersons"
-          },
-          {
-             "url":"devdocs",
-             "title":"footer.infosDeveloper"
-          }
-       ]
-    },
-    {
-       "title":"menu.entry.regionalgroups",
-       "items":[
-          {
-             "url":"communitiesGermany",
-             "title":"menu.entry.Germany"
-          },
-          {
-             "url":"communitiesAustria",
-             "title":"menu.entry.Austria"
-          },
-          {
-             "url":"communitiesSwitzerland",
-             "title":"menu.entry.Swiss"
-          },
-          {
-             "url":"international",
-             "title":"menu.entry.international"
-          }
-       ]
-    },
-    {
-       "title":"menu.entry.aboutUs",
-       "items":[
-          {
-             "url":"vision",
-             "title":"startpage.vision.title"
-          },
-          {
-             "url":"wiki_grundsaetze",
-             "title":"menu.entry.fundamentals"
-          },
-          {
-             "url":"blog",
-             "title":"menu.entry.blog"
-          },
-          {
-             "url":"team",
-             "title":"menu.entry.team"
-          },
-          {
-             "url":"partner",
-             "title":"menu.entry.partners"
-          },
-          {
-             "url":"press",
-             "title":"menu.entry.press"
-          }
-       ]
-    },
-    {
-       "title":"menu.entry.background",
-       "items":[
-          {
-             "url":"freshdesk",
-             "title":"menu.entry.support",
-             "target":"_blank"
-          },
-          {
-             "url":"wiki",
-             "title":"menu.entry.wiki"
-          },
-          {
-             "url":"wiki_guide",
-             "title":"menu.entry.guide",
-             "target":"_blank"
-          },
-          {
-             "url":"statistics",
-             "title":"menu.entry.statistics"
-          },
-          {
-             "url":"release_notes",
-             "title":"menu.entry.release-notes"
-          },
-          {
-             "url":"security",
-             "title":"menu.entry.security"
-          }
-       ]
-    },
-    {
-       "title":"menu.entry.fundraising",
-       "items":[
-          {
-             "url":"donations",
-             "title":"menu.entry.donations"
-          },
-          {
-             "url":"circle_of_friends",
-             "title":"menu.entry.friendcircle"
-          },
-          {
-             "url":"selfservice",
-             "title":"menu.entry.selfservice"
-          },
-          {
-             "url":"transparency",
-             "title":"menu.entry.transparency"
-          }
-       ]
-    },
-    {
-       "title":"menu.entry.politics",
-       "items":[
-          {
-             "url":"fsstaedte",
-             "title":"menu.entry.fscities"
-          },
-          {
-             "url":"claims",
-             "title":"menu.entry.demands"
-          },
-          {
-             "url":"leeretonne",
-             "title":"menu.entry.pastcampaigns"
-          }
-       ]
-    },
-    {
-       "title":"menu.entry.education",
-       "items":[
-          {
-             "url":"academy",
-             "title":"menu.entry.academy"
-          },
-          {
-             "url":"workshops",
-             "title":"menu.entry.talksandworkshops"
-          },
-          {
-             "url":"festival",
-             "title":"menu.entry.fsfestival"
-          }
-       ]
-    }
- ]
+  {
+    "title": "menu.entry.aboutUs",
+    "items": [
+      {
+        "url": "vision",
+        "title": "startpage.vision.title"
+      },
+      {
+        "url": "wiki_grundsaetze",
+        "title": "menu.entry.fundamentals"
+      },
+      {
+        "url": "blog",
+        "title": "menu.entry.blog"
+      },
+      {
+        "url": "team",
+        "title": "menu.entry.team"
+      },
+      {
+        "url": "partner",
+        "title": "menu.entry.partners"
+      },
+      {
+        "url": "press",
+        "title": "menu.entry.press"
+      }
+    ]
+  },
+  {
+    "title": "menu.entry.background",
+    "items": [
+      {
+        "url": "freshdesk",
+        "title": "menu.entry.support",
+        "target": "_blank"
+      },
+      {
+        "url": "wiki",
+        "title": "menu.entry.wiki"
+      },
+      {
+        "url": "wiki_guide",
+        "title": "menu.entry.guide",
+        "target": "_blank"
+      },
+      {
+        "url": "statistics",
+        "title": "menu.entry.statistics"
+      },
+      {
+        "url": "release_notes",
+        "title": "menu.entry.release-notes"
+      },
+      {
+        "url": "security",
+        "title": "menu.entry.security"
+      }
+    ]
+  },
+  {
+    "title": "footer.call_to_action",
+    "items": [
+      {
+        "url": "infosCompany",
+        "title": "footer.infosCompany"
+      },
+      {
+        "url": "joininfo",
+        "title": "footer.infosPrivatePersons"
+      },
+      {
+        "url": "devdocs",
+        "title": "footer.infosDeveloper"
+      },
+      {
+        "url": "communities",
+        "title": "menu.entry.regionalgroups"
+      }
+    ]
+  },
+  {
+    "title": "menu.entry.education",
+    "items": [
+      {
+        "url": "academy",
+        "title": "menu.entry.academy"
+      },
+      {
+        "url": "workshops",
+        "title": "menu.entry.talksandworkshops"
+      },
+      {
+        "url": "festival",
+        "title": "menu.entry.fsfestival"
+      }
+    ]
+  },
+  {
+    "title": "menu.entry.fundraising",
+    "items": [
+      {
+        "url": "donations",
+        "title": "menu.entry.donations"
+      },
+      {
+        "url": "circle_of_friends",
+        "title": "menu.entry.friendcircle"
+      },
+      {
+        "url": "selfservice",
+        "title": "menu.entry.selfservice"
+      },
+      {
+        "url": "transparency",
+        "title": "menu.entry.transparency"
+      }
+    ]
+  },
+  {
+    "title": "menu.entry.politics",
+    "items": [
+      {
+        "url": "fsstaedte",
+        "title": "menu.entry.fscities"
+      },
+      {
+        "url": "claims",
+        "title": "menu.entry.demands"
+      },
+      {
+        "url": "leeretonne",
+        "title": "menu.entry.pastcampaigns"
+      }
+    ]
+  }
+]

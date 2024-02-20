@@ -45,7 +45,6 @@ class Foodsharing extends Db
             258, // Orgateam Archiv, apparently was a parent of some stuff
             RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP,
             RegionIDs::GLOBAL_WORKING_GROUPS,
-            RegionIDs::EUROPE,
             RegionIDs::EUROPE_REPORT_TEAM,
             RegionIDs::TEAM_BOARD_MEMBER,
             RegionIDs::TEAM_ALUMNI_MEMBER,

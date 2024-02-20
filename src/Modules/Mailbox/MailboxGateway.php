@@ -56,10 +56,10 @@ class MailboxGateway extends BaseGateway
         $regions = $this->db->fetchAll(
             '
 			SELECT 	bz.name,
-			        bz.id,
-			        bz.email_name,
-			        bz.parent_id,
-			        bz.type,
+                    bz.id,
+                    bz.email_name,
+                    bz.parent_id,
+                    bz.type,
 			        CONCAT(mb.name,"@' . PLATFORM_MAILBOX_HOST . '") as email
 			FROM 	fs_mailbox mb,
 					fs_bezirk bz

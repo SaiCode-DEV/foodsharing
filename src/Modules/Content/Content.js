@@ -12,6 +12,7 @@ import { vueRegister, vueApply } from '@/vue'
 import './Content.css'
 import ReleaseNotes from './components/ReleaseNotes.vue'
 import ContentList from './components/ContentList'
+import Communities from '@/views/pages/Content/Communities.vue'
 import i18n from '@/helper/i18n'
 import $ from 'jquery'
 import { editContent } from '@/api/content'
@@ -25,6 +26,9 @@ if (GET('sub') === 'releaseNotes') {
     ReleaseNotes,
   })
   vueApply('#vue-release-notes')
+} else if (GET('sub') === 'communities') {
+  vueRegister({ Communities })
+  vueApply('#vue-communities')
 } else if (GET('sub') === undefined && GET('a') === undefined) {
   vueRegister({
     ContentList,
