@@ -719,7 +719,7 @@ class RegionGateway extends BaseGateway
                 region.id,
                 region.parent_id AS parentId,
                 CONCAT(mailbox.name,'@{$host}') AS email,
-                ISNULL(ambassador.foodsaver_id) AS hasAmbassador
+                NOT ISNULL(ambassador.foodsaver_id) AS hasAmbassador
             FROM fs_mailbox mailbox
             JOIN fs_bezirk region ON region.mailbox_id = mailbox.id
             LEFT OUTER JOIN fs_botschafter ambassador ON ambassador.bezirk_id = region.id

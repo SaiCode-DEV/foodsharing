@@ -11,7 +11,7 @@
 - Make navigation menu sticky @AntonBallmaier @chriswalg
 - Added marker clustering to the basket map !3013 @alex.simm
 - Minor improvements in the mailbox frontend #1668 !3108 @alex.simm
-- The contact pages are merged into one, and the content is automated. !3143 @AntonBallmaier
+- The contact pages are merged into one, and the content is automated. !3143 !3174 @AntonBallmaier
 - Delete uploaded photos when they are not used anymore #1182 !3121 @alex.simm
 
 ## Bugfixes
