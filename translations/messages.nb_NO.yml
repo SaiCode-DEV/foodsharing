@@ -1167,6 +1167,15 @@ content:
   title: Tittel
   last_modified: sist redigert
   delete_tooltip: Slett siden
+  communities:
+    title: Lokale grupper
+    searchInfo: Med Ctrl+F kan du søke i listen i mange nettlesere etter land, delstat,
+      by eller nabolag.
+    text: foodsharing vokser for hver dag som går. Her finner du alltid en oppdatert
+      liste over alle foodsharing-fellesskap og -distrikter. Du kan sende en e-post
+      til det aktuelle distriktet ved å klikke på det aktuelle navnet.
+    noAmbassador: Denne regionen har for øyeblikket ingen ambassadører og kan derfor
+      ikke kontaktes via e-post. Ta kontakt med en naboregion eller neste høyere region.
 foodsaver:
   manage:
     actions: Alternativer
@@ -2592,14 +2601,14 @@ storeview:
   info: Informasjon
   store: Drift
   counter: <strong>{count} {suffix}</strong>
-  pickupWeight: '{pickupWeight} kg mat ble spart.'
+  pickupWeight: 'og {pickupWeight} kg mat ble spart.'
   cooperation: Samarbeid siden {startTime}.
   public_time: Vi henter her {freq}. Vennligst aldri gå til butikken uten forhåndsavtale!
   want_to_fetch: Jeg ønsker å hjelpe i dette laget.
   specials: Særtrekk
-  teamInfo: Det er <strong>{active}</strong> aktive og <strong>{jumper}</strong> hoppere
+  teamInfo: <strong>{active}</strong> aktive og <strong>{jumper}</strong> hoppere
     i laget.
-  pickupCount: På denne selskapet har det vært {pickupCount} pickuper.
+  pickupCount: Den ble plukket opp {pickupCount}
   managers: Ansvarlige matreddere
   status_notes: Statusnotater
   show_information: Vis bedriftsinformasjon
@@ -2979,7 +2988,7 @@ storestatus:
   "1": Det er ingen kontakt ennå
   "3": Driften er klar til å samarbeide
   "4": ønsker ikke å samarbeide
-  "5": Drift samarbeider med oss
+  "5": samarbeider med oss
   "7": Selskapet eksisterer ikke lenger
   "6": Gi til matbank etc. eller ikke kast noe
   "5a": Selskapet donerer allerede
