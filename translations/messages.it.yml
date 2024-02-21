@@ -160,6 +160,8 @@ group:
     banana_count_errors:
       max: Per favore, non aspettarti più di {{ limit }} banane fiducia.
       min: Nessuno può avere meno di {{ limit }} banane fiduciarie.
+      not_in_range: Nessuno dovrebbe avere meno di {{ min }} o più di {{ max }} fiducia
+        nelle banane.
     banana_count: Di quante banane fiducia ha bisogno un/a candidato/a?
     fetch_count: Quanti ritiri deve aver effettuato un/a candidato/a?
     open: Chiunque può aderire senza presentare domanda.
@@ -280,6 +282,7 @@ button:
   next: Avanti
   save: Salva
   reset_default: Ripristina l’impostazione predefinita
+  prev: indietro
 upload:
   crop_dialog_title: Ritaglia l'immagine
   new_file: Carica un nuovo file
@@ -292,6 +295,9 @@ upload:
   no_image_yet: Nessuna immagine ancora caricata
   no_image: Il file caricato non è una foto. Scegli un altro file.
   images: Carica immagini
+  image-problem: Il vostro file non sembra essere in ordine, è meglio usare una normale
+    immagine jpg
+  invalid_image_files: '{count} file selezionati non sono immagini valide: {fileNames}'
 picture_upload_widget:
   choose_picture: Scegli un'immagine dal tuo computer.
   picture_upload: Caricamento foto
@@ -1065,14 +1071,14 @@ store:
       4: membri aggiunti senza richiesta
       6: spostato nel team attivo
       9: impostato come coordinatore del negozio
-      14: ''
-      16: ''
-      10: ''
-      12: ''
+      14: 'Confermare la fascia oraria di ritiro'
+      16: 'Ritirare la domanda di adesione'
+      10: 'Segnalazione dei responsabile dell’attività'
+      12: 'Firma per il ritiro'
       5: ''
-      13: ''
-      11: ''
-      15: ''
+      13: 'Essere consegnati per il ritiro'
+      11: 'Inserire per il ritiro'
+      15: 'Cancellare una voce della bacheca'
     log_types_placeholder: Seleziona i tipi di azione da visualizzare
     search: Elenca le azioni selezionate
     selected_log_types: '{amount} tipi di azione selezionati'
@@ -1084,25 +1090,29 @@ store:
       7: '{actor} ha rimosso {target} dalla squadra.'
       8: '{actor} ha lasciato il team.'
       5: "{actor} ha inserito {target} nell'elenco Jolly."
-      1: ''
+      1: '{actor} ha inviato una richiesta di adesione.'
       14: ''
-      11: ''
+      11: '{actor} si è iscrittǝ al ritiro il {date}.'
       13: ''
       13_with_reason: ''
       16: ''
-      10: ''
-      12: ''
-      2: ''
-      9: ''
+      10: '{actor} ha sostituito {target} come responsabile dell’attività.'
+      12: '{actor} ha firmato per il ritiro il {date}.'
+      2: '{actor} ha rifiutato la richiesta di adesione di {target}.'
+      9: '{actor} ha inserito {target} come responsabile dell’attività.'
       15: ''
     max_entries_message: ''
     no_description: nessuno
   signInDateTime: 'Data di ingresso'
-  slot_state: ''
+  slot_state: 'Stato dello slot'
   lastPickupTitle: Ultimo recupero qui
   deactivatedRegion: Al momento non è possibile visualizzare l’elenco delle aziende
     per interi paesi e continenti.
   to_map: Mostra sulla mappa
+  slotsCurrentlyOccupied: Slot attualmente occupati
+  chain_search_picker:
+    search_input: Ricerca per nome della catena
+    modal_title: Seleziona la catena di aziende
 storeview:
   want_to_fetch: Vorrei aiutare in questo team.
   specials: particolarità
@@ -1113,15 +1123,15 @@ storeview:
   public_time_at_noon_or_afternoon: mezzogiorno/pomeriggio
   public_time_in_the_morning: mattina
   cooperation: Cooperazione da {startTime}.
-  teamInfo: Ci sono <strong>{active}</strong> attivi e <strong>{jumper}</strong> sostituti
+  teamInfo: <strong>{active}</strong> attivi e <strong>{jumper}</strong> sostituti
     nella squadra.
   info: Informazioni
   store: Attività
   counter: <strong>{count} {suffix}</strong>
   public_time: Sarà rilevato all'incirca {freq}. Si prega di non recarsi mai al negozio
     senza previa consultazione!
-  pickupWeight: '{pickupWeight} kg sono stati salvati.'
-  pickupCount: In questa agenzia e stato {pickupCount} ritirato.
+  pickupWeight: 'e ne sono stati salvati {pickupWeight} kg.'
+  pickupCount: È stato raccolto {pickupCount}
   show_information: Mostra informazioni sull’azienda
   common: Generale
   visible_for_public: Questo testo è visibile ad ogni Foodsaver, ad esempio sulla
@@ -1150,6 +1160,7 @@ storeview:
     multiply: '{weeks} Settimane'
   cooperation_status: Stato di cooperazione
   show_settings: Impostazioni del negozio
+  choose_chain: Scegliere una catena aziendale
 message_text_to_group_admin_workgroup: 'La regione/gruppo di lavoro <b>{groupName}</b>
   non <b>ha più </b> ambasciatori/amministratori.<br><br><br>Ha la seguente struttura
   ID:<br>{idStructureList}<br><br> L''ID è:{groupId}<br><br>URL: "<a href="/region?bid={groupId}&sub=forum"
@@ -1882,6 +1893,8 @@ content:
   title: Titolo
   last_modified: Ultima modifica
   delete_tooltip: Elimina pagina
+  communities:
+    title: Gruppi locali
 regionOptions:
   save: Salvare opzioni
   success: Opzioni salvate correttamente
@@ -2770,7 +2783,7 @@ storelist:
   actions: Azioni
 storestatus:
   "7": L'agenzia non esiste più
-  "5": L'agenzia collabora con noi
+  "5": collabora con noi
   "4": Non vuole collaborare
   "3": L'agenzia è pronta a collaborare
   "2": Trattative in corso
