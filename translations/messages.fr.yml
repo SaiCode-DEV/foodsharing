@@ -1405,12 +1405,12 @@ storeview:
   public_time: Les interventions ont lieu tous les {freq}. N’interviens JAMAIS dans
     l'établissement sans accord !
   cooperation: Coopère depuis le {startTime}.
-  pickupWeight: Il y a eu {pickupWeight} kg de collectes.
+  pickupWeight: et {pickupWeight} kg ont été sauvés.
   store: Coopération
-  pickupCount: Il y a déjà eu {pickupCount} interventions dans cette coopération.
+  pickupCount: Il a été collecté {pickupCount}
   counter: <strong>{count} {suffix}</strong>
-  teamInfo: Il y a <strong>{active}</strong> actif·ve·s et <strong>{jumper}</strong>
-    remplaçant·e·s dans l’équipe.
+  teamInfo: <strong>{active}</strong> actif·ve·s et <strong>{jumper}</strong> remplaçant·e·s
+    sont dans l’équipe.
   info: Informations
   status_notes: Notes de statut
   common: Général
@@ -2424,6 +2424,16 @@ content:
   title: Titre
   last_modified: dernière édition
   delete_tooltip: Supprimer la page
+  communities:
+    title: Sections locales
+    searchInfo: Dans de nombreux navigateurs, Ctrl+F permet d’effectuer une recherche
+      dans la liste par pays, état, ville ou quartier.
+    text: Le foodsharing se développe chaque jour. Vous trouverez ici une liste actualisée
+      de toutes les communautés et districts de partage alimentaire. Vous pouvez envoyer
+      un courriel au district concerné en cliquant sur le nom de celui-ci.
+    noAmbassador: Cette région n’a actuellement pas d’ambassadeur·trice et n’est donc
+      pas joignable par e-mail. Veuillez contacter une région voisine ou la région
+      immédiatement supérieure.
 genderlist:
   gender_district_table_caption: Répartition par sexe de tous les collecteur·ice·s
     du district
@@ -2679,7 +2689,7 @@ storelist:
 storestatus:
   "7": L'établissement n’existe plus
   "6": Fait don de ses denrées alimentaires à la croix rouge, banques alimentaires
-  "5": L'établissement coopère déjà avec foodsharing
+  "5": coopère avec nous
   "4": Ne souhaite pas coopérer
   "3": L'établissement est prêt à coopérer
   "2": Négociations en cours
