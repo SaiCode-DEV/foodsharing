@@ -307,11 +307,6 @@ class Session
         }
     }
 
-    public function setPhoto($file)
-    {
-        $_SESSION['client']['photo'] = $file;
-    }
-
     public function isAmbassador(): bool
     {
         return isset($_SESSION['client']['botschafter']);
@@ -400,7 +395,6 @@ class Session
             'id' => $fs['id'],
             'bezirk_id' => $fs['bezirk_id'],
             'group' => ['member' => true],
-            'photo' => $fs['photo'],
             'rolle' => (int)$fs['rolle'],
             'verified' => (int)$fs['verified'],
             'last_activity' => $fs['last_activity']
