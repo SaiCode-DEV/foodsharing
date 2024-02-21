@@ -797,10 +797,10 @@ storeview:
   source_data: "Stammdaten"
   select_related_region: "Auswahl des zuständigen Bezirks"
   info: "Informationen"
-  teamInfo: "Es sind <strong>{active}</strong> Aktive und <strong>{jumper}</strong> Springer im Team."
+  teamInfo: "<strong>{active}</strong> Aktive und <strong>{jumper}</strong> Springer im Team."
   counter: "<strong>{count} {suffix}</strong>"
-  pickupCount: "Bei diesem Betrieb wurde {pickupCount} abgeholt."
-  pickupWeight: "Es wurden {pickupWeight} kg gerettet."
+  pickupCount: "Es wurde {pickupCount} abgeholt"
+  pickupWeight: "und {pickupWeight} kg gerettet."
   cooperation: "Kooperation seit {startTime}."
   cooperation_start: "Kooperation seit"
   cooperation_status: "Kooperationsstatus"
@@ -1561,7 +1561,7 @@ bell:
   store_change_regular_pickup_times:
     one: "Abholtermine wurden angepasst"
     many: "Abholtermine wurden angepasst"
-    
+
 
   fs_sleepmode_title: "Neue Schlafmütze"
   fs_sleepmode: "{name} {nachname} ist jetzt inaktiv"
@@ -2493,7 +2493,7 @@ storestatus:
   "3": "Betrieb ist bereit zu kooperieren"
   "3a": "Betrieb ist bereit zu spenden. :-)"
   "4": "Will nicht kooperieren"
-  "5": "Betrieb kooperiert mit uns"
+  "5": "kooperiert mit uns"
   "5a": "Betrieb spendet bereits"
   "6": "Spendet an Tafel etc. und wirft nichts weg"
   "7": "Betrieb existiert nicht mehr"
