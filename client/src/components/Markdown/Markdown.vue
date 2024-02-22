@@ -39,7 +39,10 @@ export default {
       const userNames = await fetchResolve
       data.fetchResolves.delete(fetchResolve)
 
-      Object.assign(data.userNames, userNames)
+      Object.assign(data.userNames, Object.fromEntries(userNames.map(user => [user.id, user.name])))
+      const stillMissing = missing.filter(id => !(id in data.userNames))
+      Object.assign(data.userNames, Object.fromEntries(stillMissing.map(id => [id, null])))
+      console.log(data)
     },
   },
 }
