@@ -2,14 +2,11 @@
 
 namespace Foodsharing\Lib\Xhr;
 
-use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
-use Foodsharing\Modules\Core\DBConstants\Email\EmailStatus;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
-use Foodsharing\Modules\Email\EmailGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Group\GroupGateway;
@@ -18,14 +15,12 @@ use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Permissions\NewsletterEmailPermissions;
 use Foodsharing\Permissions\RegionPermissions;
-use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\Sanitizer;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class XhrMethods
 {
     public function __construct(
-        private readonly Session $session,
         private readonly Database $database,
         private readonly Utils $v_utils,
         private readonly GroupFunctionGateway $groupFunctionGateway,
@@ -33,79 +28,12 @@ class XhrMethods
         private readonly RegionGateway $regionGateway,
         private readonly StoreGateway $storeGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
-        private readonly EmailGateway $emailGateway,
         private readonly MailboxGateway $mailboxGateway,
         private readonly Sanitizer $sanitizerService,
-        private readonly EmailHelper $emailHelper,
         private readonly NewsletterEmailPermissions $newsletterEmailPermissions,
         private readonly RegionPermissions $regionPermissions,
         private readonly TranslatorInterface $translator
     ) {
-    }
-
-    public function xhr_continueMail($data)
-    {
-        if ($this->newsletterEmailPermissions->mayAdministrateNewsletterEmail()) {
-            $mail_id = (int)$data['id'];
-
-            $mail = $this->emailGateway->getOne_send_email($mail_id);
-            $recip = $this->emailGateway->getMailNext($mail_id);
-
-            if (empty($recip)) {
-                return json_encode([
-                    'status' => 2,
-                    'comment' => $this->translator->trans('recipients.done'),
-                ]);
-            }
-
-            $mailbox = $this->mailboxGateway->getMailbox((int)$mail['mailbox_id']);
-            $mailbox['email'] = $mailbox['name'] . '@' . PLATFORM_MAILBOX_HOST;
-
-            $sender = $this->database->fetchByCriteria('foodsaver', ['geschlecht', 'name'], ['id' => $this->session->id()]);
-
-            $this->emailGateway->setEmailStatus($mail['id'], $recip, EmailStatus::STATUS_INITIALISED);
-
-            foreach ($recip as $fs) {
-                $anrede = $this->translator->trans('salutation.' . $fs['geschlecht']);
-
-                $search = ['{NAME}', '{ANREDE}', '{EMAIL}'];
-                $replace = [$fs['name'], $anrede, $fs['email']];
-
-                $attach = false;
-                if (!empty($mail['attach'])) {
-                    $attach = json_decode((string)$mail['attach'], true);
-                }
-
-                $message = str_replace($search, $replace, (string)$mail['message']);
-                $subject = str_replace($search, $replace, (string)$mail['name']);
-
-                $check = false;
-                if ($this->emailHelper->libmail($mailbox, $fs['email'], $subject, $message, $attach, $fs['token'])) {
-                    $check = true;
-                }
-
-                if (!$check) {
-                    $this->emailGateway->setEmailStatus($mail['id'], [$fs['id']], EmailStatus::STATUS_INVALID_MAIL);
-                } else {
-                    $this->emailGateway->setEmailStatus($mail['id'], [$fs['id']], EmailStatus::STATUS_SENT);
-                }
-            }
-
-            $mails_left = $this->emailGateway->getMailsLeft($mail['id']);
-            if ($mails_left) {
-                // throttle to 5 mails per second here to avoid queue bloat
-                sleep(2);
-            }
-            $current = $fs['email'] ?? $this->translator->trans('recipients.unknown');
-
-            return json_encode([
-                'left' => $mails_left,
-                'status' => 1,
-                'comment' => $this->translator->trans('recipients.status', ['{current}' => $current]),
-            ]);
-        }
-
-        return 0;
     }
 
     public function xhr_newregion($data)
@@ -512,13 +440,5 @@ class XhrMethods
             'status' => 1,
             'script' => 'pulseInfo("' . $this->translator->trans('region.edit_success') . '");',
         ]);
-    }
-
-    public function xhr_abortEmail($data)
-    {
-        $mailOwnerId = $this->emailGateway->getOne_send_email($data['id'])['foodsaver_id'];
-        if ($this->session->id() == $mailOwnerId) {
-            $this->emailGateway->setEmailStatus($data['id'], $mailOwnerId, EmailStatus::STATUS_CANCELED);
-        }
     }
 }
