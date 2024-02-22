@@ -33,8 +33,7 @@ md.linkify.data = {
 }
 
 md.linkify.add('@', {
-  validate: function (text, pos, self) {
-    // TODO save regex
+  validate: function (text, pos) {
     const tail = text.slice(pos)
     if (/^\d+/.test(tail)) {
       return tail.match(/\d+/)[0].length
