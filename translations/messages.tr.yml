@@ -1548,6 +1548,8 @@ content:
   title: Başlık
   last_modified: Son değişiklik
   delete_tooltip: Sayfayı sil
+  communities:
+    title: Yerel gruplar
 mailbox:
   empty: Bu posta kutusunda henüz mesaj yok
   to: Kime
@@ -2772,7 +2774,7 @@ storeview:
   source_data: Temel veri
   info: Bilgiler
   counter: <strong>{count} {suffix}</strong>
-  pickupCount: Bu işletmede {pickupCount} alındı.
+  pickupCount: Bu işletmede {pickupCount} alındı
   cooperation_status: İşbirliği durumu
   public_time_at_noon_or_afternoon: öğlen/öğleden sonra
   managers: Sorumlu Foodsaver
@@ -2799,7 +2801,7 @@ storeview:
   select_related_region: Sorumlu bölgenin seçimi
   teamInfo: Ekipde <strong>{active}</strong> aktif olanlar ve <strong>{jumper}</strong>
     yedekte olanlar var.
-  pickupWeight: '{pickupWeight} kg kurtarıldı.'
+  pickupWeight: 've {pickupWeight} kg kurtarıldı.'
   cooperation_start: beri işbirliği
   public_time: Yaklaşık {freq}'da alınıyor.Lütfen önceden anlaşma yapmadan asla işletmeye
     gitmeyin!
