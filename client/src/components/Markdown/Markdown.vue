@@ -11,11 +11,7 @@ export default {
   props: {
     source: { type: String, required: true },
   },
-  data () {
-    return {
-      htmlContent: '',
-    }
-  },
+  data: () => ({ htmlContent: '' }),
   async mounted () {
     this.htmlContent = markdown.render(this.source)
     if (markdown.linkify.data.missingUserNames.size) {
