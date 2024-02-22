@@ -24,4 +24,32 @@ const md = markdownIt('zero', {
     'escape',
   ])
 
+md.linkify.tlds(['network'], true)
+
+md.linkify.data = {
+  userNames: {},
+  missingUserNames: new Set(),
+  fetchResolves: new Set(),
+}
+
+md.linkify.add('@', {
+  validate: function (text, pos, self) {
+    // TODO save regex
+    const tail = text.slice(pos)
+    if (/^\d+/.test(tail)) {
+      return tail.match(/\d+/)[0].length
+    }
+    return false
+  },
+  async normalize (match, self) {
+    const id = match.url.slice(1)
+    match.url = '/profile/' + id
+    if (self.data.userNames[id]) {
+      match.text = '@' + self.data.userNames[id]
+    } else {
+      self.data.missingUserNames.add(id)
+    }
+  },
+})
+
 export default md
