@@ -24,8 +24,6 @@ const md = markdownIt('zero', {
     'escape',
   ])
 
-md.linkify.tlds(['network'], true)
-
 const storageKey = 'linkifyUserNames'
 md.linkify.data = {
   storageKey,
