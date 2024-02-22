@@ -39,7 +39,6 @@ use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use OpenApi\Attributes as OA2;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -574,14 +573,15 @@ class UserRestController extends AbstractFoodsharingRestController
         return $this->handleView($this->view([], 200));
     }
 
-
     #[Rest\Get('user/names/{userIds}', requirements: ['userIds' => '(\d+-)*\d+'])]
     #[OA2\Response(response: Response::HTTP_OK, description: 'Success.')]
-    public function getUserNames(string $userIds) {
+    public function getUserNames(string $userIds)
+    {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
         }
         $userNames = $this->profileGateway->getUserNames(explode('-', $userIds));
+
         return $this->handleView($this->view($userNames, Response::HTTP_OK));
     }
 }
