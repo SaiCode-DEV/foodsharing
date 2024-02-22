@@ -42,7 +42,7 @@ export default {
       Object.assign(data.userNames, Object.fromEntries(userNames.map(user => [user.id, user.name])))
       const stillMissing = missing.filter(id => !(id in data.userNames))
       Object.assign(data.userNames, Object.fromEntries(stillMissing.map(id => [id, null])))
-      console.log(data)
+      sessionStorage.setItem(data.storageKey, JSON.stringify(data.userNames))
     },
   },
 }

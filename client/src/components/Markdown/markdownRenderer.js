@@ -26,8 +26,10 @@ const md = markdownIt('zero', {
 
 md.linkify.tlds(['network'], true)
 
+const storageKey = 'linkifyUserNames'
 md.linkify.data = {
-  userNames: {},
+  storageKey,
+  userNames: JSON.parse(sessionStorage.getItem(storageKey)) ?? {},
   missingUserNames: new Set(),
   fetchResolves: new Set(),
 }
@@ -48,6 +50,8 @@ md.linkify.add('@', {
       match.text = '@' + self.data.userNames[id]
     } else if (!(id in self.data.userNames)) {
       self.data.missingUserNames.add(id)
+    } else {
+      match.url = '#invalid-user'
     }
   },
 })
