@@ -46,7 +46,7 @@ md.linkify.add('@', {
     match.url = '/profile/' + id
     if (self.data.userNames[id]) {
       match.text = '@' + self.data.userNames[id]
-    } else {
+    } else if (!(id in self.data.userNames)) {
       self.data.missingUserNames.add(id)
     }
   },
