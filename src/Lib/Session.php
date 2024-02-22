@@ -428,15 +428,6 @@ class Session
         return $isMember;
     }
 
-    public function isAdminForAWorkGroup()
-    {
-        if ($all_group_admins = $this->mem->get('all_global_group_admins')) {
-            return in_array($this->id(), unserialize($all_group_admins));
-        }
-
-        return false;
-    }
-
     public function isVerified()
     {
         if ($this->mayRole(Role::ORGA)) {
