@@ -858,6 +858,7 @@ store:
   isAppliedForTeam: "Anfrage"
   allStoresOfRegion: "Alle Betriebe aus dem Bezirk"
   ownStores: "Eigene Betriebe"
+  storeFrom: "Betrieb von {name}"
   addNewStoresButton: "Neuen Betrieb eintragen"
   noStores: "Es sind noch keine Betriebe eingetragen"
   deactivatedRegion: "Die Betriebsliste kann für Länder und Kontinente im Moment nicht angezeigt werden."

@@ -3,26 +3,29 @@ import '@/globals'
 import 'jquery-dynatree'
 import { vueRegister, vueApply } from '@/vue'
 import StoreRegionList from './components/StoreRegionList.vue'
-import StoreOwnList from './components/StoreOwnList.vue'
+import StoreUserList from './components/StoreUserList.vue'
 import StoreNew from './components/StoreNew/StoreNew.vue'
 
-import { GET } from '@/script'
+const path = window.location.pathname.toLowerCase()
+const regionNewStoreRegEx = /^\/region\/.*\/store\/new$/
+const regionStoreListRegEx = /^\/region\/.*\/stores$/
+const userStoreListRegEx = /^\/user\/.*\/stores$/
 
-if (GET('a') === undefined) {
+if (regionStoreListRegEx.test(path)) {
   vueRegister({
     StoreRegionList,
   })
   vueApply('#vue-store-region-list', true)
 }
 
-if (GET('a') === 'own') {
+if (userStoreListRegEx.test(path)) {
   vueRegister({
-    StoreOwnList,
+    StoreUserList,
   })
-  vueApply('#vue-store-own-list', true)
+  vueApply('#vue-store-user-list', true)
 }
 
-if (GET('a') === 'new') {
+if (regionNewStoreRegEx.test(path)) {
   vueRegister({
     StoreNew,
   })

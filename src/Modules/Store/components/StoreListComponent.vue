@@ -162,6 +162,7 @@ import StoreStatusIcon from './StoreStatusIcon.vue'
 import ConfigureableList from '@/components/ConfigureableList.vue'
 import BTableMobileFriendly from '@/components/BTableMobileFriendly.vue'
 import { useStoreStore } from '@/stores/store'
+import DataUser from '@/stores/user'
 
 const storeStore = useStoreStore()
 
@@ -293,6 +294,9 @@ export default {
       }
       return fieldOrder
     },
+    userId () {
+      return DataUser.getters.getUserId()
+    },
   },
   created () {
     this.availableFields = this.fieldsDefinition.map(field => field.key)
@@ -301,7 +305,7 @@ export default {
   methods: {
     getUserRole (storeId) {
       if (storeStore.userRelations === null) {
-        storeStore.fetchUserStoreRelations()
+        storeStore.fetchUserStoreRelations(this.userId)
         return '...loading'
       } else {
         const relation = storeStore.userRelations.find(relation => relation.id === storeId)
@@ -319,7 +323,7 @@ export default {
       // not a member
     },
     fetchData () {
-      storeStore.fetchStoresForCurrentUser()
+      storeStore.fetchStoresForUser(this.userId)
     },
     clearFilter () {
       this.state.filterStatus = null

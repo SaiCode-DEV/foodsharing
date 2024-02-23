@@ -48,12 +48,12 @@ export async function deleteStorePost (storeId, postId) {
   return remove(`/stores/${storeId}/posts/${postId}`)
 }
 
-export function listStoresForCurrentUser (filterUnactiveStores = false) {
-  return get(`/user/current/stores?activeStores=${filterUnactiveStores ? 1 : 0}`)
+export function listStoresForUser (filterUnactiveStores = false, userId) {
+  return get(`/user/${userId}/stores?activeStores=${filterUnactiveStores ? 1 : 0}`)
 }
 
-export function listStoresDetailsForCurrentUser (expand) {
-  return get('/user/current/stores/details')
+export function listStoresDetailsForUser (expand, userId) {
+  return get(`/user/${userId}/stores/details`)
 }
 export async function listStoreTeamMembershipRequests (storeId) {
   return get(`/stores/${storeId}/requests`)

@@ -28,7 +28,7 @@ use Foodsharing\Modules\Report\ReportControl;
 use Foodsharing\Modules\Report\ReportXhr;
 use Foodsharing\Modules\Settings\SettingsControl;
 use Foodsharing\Modules\Settings\SettingsXhr;
-use Foodsharing\Modules\Store\StoreControl;
+use Foodsharing\Modules\Store\StoreController;
 use Foodsharing\Modules\Store\StoreXhr;
 use Foodsharing\Modules\StoreChain\StoreChainControl;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
@@ -103,10 +103,9 @@ class Routing
         'relogin' => ReloginControl::class,
         'report' => ReportControl::class,
         'settings' => SettingsControl::class,
-        'betrieb' => StoreControl::class,
         'fsbetrieb' => StoreUserControl::class,
         'groups' => WorkGroupControl::class,
-        'store' => StoreControl::class,
+        'store' => StoreController::class,
         'chain' => StoreChainControl::class,
     ];
 
@@ -130,6 +129,7 @@ class Routing
         'statistics',
         'map',
         'blog',
+        'betrieb'
     ];
 
     private const RENAMES = [

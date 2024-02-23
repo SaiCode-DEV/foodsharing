@@ -26,6 +26,7 @@ use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreTransactionException;
 use Foodsharing\Modules\Store\StoreTransactions;
 use Foodsharing\Modules\Store\TeamStatus as TeamMembershipStatus;
+use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\RestApi\Models\Store\CreateStoreModel;
 use Foodsharing\RestApi\Models\Store\MinimalStoreModel;
@@ -60,7 +61,8 @@ class StoreRestController extends AbstractFOSRestController
         private readonly StorePermissions $storePermissions,
         private readonly RegionGateway $regionGateway,
         private readonly BellGateway $bellGateway,
-        private readonly GroupFunctionGateway $groupFunctionGateway
+        private readonly GroupFunctionGateway $groupFunctionGateway,
+        private readonly ProfilePermissions $profilePermissions
     ) {
     }
 
@@ -107,18 +109,18 @@ class StoreRestController extends AbstractFOSRestController
      *
      * @throws Exception
      */
-    #[Rest\Get('user/current/stores/details')]
-    public function getStoresOfUser(): Response
+    #[Rest\Get('user/{userId}/stores/details')]
+    public function getStoresOfUser(int $userId): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
         }
 
-        if (!$this->storePermissions->mayListStores($this->session->id())) {
+        if (!$this->storePermissions->mayListStores($userId)) {
             throw new AccessDeniedHttpException('No permission see store list');
         }
 
-        $stores = $this->storeTransactions->listOverviewInformationsOfStoresFromUser($this->session->id(), true);
+        $stores = $this->storeTransactions->listOverviewInformationsOfStoresFromUser($userId, true);
         $result = new StorePaginationResult();
         $result->total = count($stores);
         $result->stores = $stores;
@@ -458,16 +460,21 @@ class StoreRestController extends AbstractFOSRestController
      * @OA\Response(response="204", description="No foodsaver related stores found.")
      * @OA\Response(response="401", description="Not logged in")
      */
-    #[Rest\Get('user/current/stores')]
+    #[Rest\Get('user/{userId}/stores')]
     #[Rest\QueryParam(name: 'activeStores')]
-    public function getListOfStoreStatusForCurrentFoodsaver(ParamFetcher $paramFetcher): Response
+    public function getListOfStoreStatusForUser(int $userId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
         }
+
+        if (!$this->profilePermissions->maySeeStores($userId)) {
+            throw new AccessDeniedHttpException('No permission see store list');
+        }
+
         $activeStores = (bool)$paramFetcher->get('activeStores');
 
-        $listOfStoreStatus = $this->storeTransactions->listAllStoreStatusForFoodsaver($this->session->id(), $activeStores);
+        $listOfStoreStatus = $this->storeTransactions->listAllStoreStatusForFoodsaver($userId, $activeStores);
 
         if ($listOfStoreStatus === []) {
             return $this->handleView($this->view([], 204));

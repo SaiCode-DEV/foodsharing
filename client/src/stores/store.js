@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
-import { listStoresDetailsForCurrentUser, listStoresForCurrentUser } from '@/api/stores'
+import { listStoresDetailsForUser, listStoresForUser } from '@/api/stores'
 import { pulseError } from '@/script'
 import { listRegionStores } from '@/api/regions'
 
-let pendingFetchStoresForCurrentUser = null
+let pendingFetchStoresForUser = null
 let pendingFetchUserStoreRelations = null
 
 function showError (callback) {
@@ -57,17 +57,17 @@ export const useStoreStore = defineStore('store', {
       this.regionId = regionId
       this.addStores(stores)
     },
-    async fetchStoresForCurrentUser () {
-      if (!pendingFetchStoresForCurrentUser) {
-        pendingFetchStoresForCurrentUser = showError(listStoresDetailsForCurrentUser)
+    async fetchStoresForUser (userId) {
+      if (!pendingFetchStoresForUser) {
+        pendingFetchStoresForUser = showError(() => listStoresDetailsForUser(false, userId))
       }
-      const { stores } = await pendingFetchStoresForCurrentUser
+      const { stores } = await pendingFetchStoresForUser
       this.addStores(stores)
-      pendingFetchStoresForCurrentUser = null
+      pendingFetchStoresForUser = null
     },
-    async fetchUserStoreRelations () {
+    async fetchUserStoreRelations (userId) {
       if (!pendingFetchUserStoreRelations) {
-        pendingFetchUserStoreRelations = showError(listStoresForCurrentUser)
+        pendingFetchUserStoreRelations = showError(() => listStoresForUser(false, userId))
       }
       this.userRelations = await pendingFetchUserStoreRelations
       pendingFetchUserStoreRelations = null

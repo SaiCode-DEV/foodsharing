@@ -51,8 +51,8 @@ class StoreView extends View
         );
     }
 
-    public function storeOwnList(): string
+    public function storeUserList(): string
     {
-        return $this->vueComponent('vue-store-own-list', 'StoreOwnList');
+        return $this->vueComponent('vue-store-user-list', 'StoreUserList');
     }
 }
