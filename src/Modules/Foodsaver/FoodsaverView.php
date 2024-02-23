@@ -53,60 +53,6 @@ class FoodsaverView extends View
         );
     }
 
-    public function foodsaverForm($foodsaver = false): string
-    {
-        if ($foodsaver === false) {
-            return '<div id="fsform"></div>';
-        }
-
-        $photo = $this->imageService->img($foodsaver['photo'], 'med');
-        $cnt = $this->v_utils->v_input_wrapper($this->translator->trans('foodsaver.manage.photo'),
-            '<a class="avatarlink corner-all" href="/profile/' . (int)$foodsaver['id'] . '">'
-            . '<img style="display: none;" class="corner-all" src="' . $photo . '" />'
-            . '</a>');
-
-        $cnt .= $this->v_utils->v_input_wrapper($this->translator->trans('foodsaver.manage.name'),
-            $foodsaver['name'] . ' ' . $foodsaver['nachname']
-        );
-
-        $cnt .= $this->v_utils->v_input_wrapper($this->translator->trans('foodsaver.manage.role'),
-            $this->translator->trans(
-                $this->translationHelper->getRoleName(Role::tryFrom($foodsaver['rolle']), $foodsaver['geschlecht'])
-            )
-        );
-
-        $cnt .= $this->v_utils->v_input_wrapper($this->translator->trans('foodsaver.manage.last-activity'),
-            $foodsaver['last_activity']
-        );
-
-        $cnt .= $this->v_utils->v_input_wrapper($this->translator->trans('foodsaver.manage.actions'),
-            '<span class="button" onclick="fsapp.deleteFromRegion(' . $foodsaver['id'] . ');">'
-            . $this->translator->trans('foodsaver.manage.remove') .
-            '</span>
-		');
-
-        return $this->v_utils->v_field($cnt, $foodsaver['name'], ['class' => 'ui-padding']);
-    }
-
-    /**
-     * @param Profile[] $foodsaver
-     */
-    public function foodsaverList(array $foodsaver, $bezirk, $inactive = false): string
-    {
-        $avatars = $this->vueComponent('fslist', 'AvatarList', [
-            'profiles' => $foodsaver,
-            'maxVisibleAvatars' => 8,
-        ]);
-        $name = $inactive ? 'inactive' : '';
-        $label = $this->translator->trans('foodsaver.list.summary', [
-            '{count}' => count($foodsaver),
-            '{region}' => $bezirk['name'],
-        ]) . ($inactive ? $this->translator->trans('foodsaver.list.inactive') : '');
-
-        return '<div id="' . $name . 'foodsaverlist">' .
-            $this->v_utils->v_field($avatars, $label) . '</div>';
-    }
-
     public function foodsaver_form($title, $regionDetails): string
     {
         global $g_data;
@@ -202,16 +148,5 @@ class FoodsaverView extends View
             $position,
             $this->v_utils->v_form_text('email', ['required' => true, 'disabled' => true]),
         ], ['submit' => $this->translator->trans('button.save')]);
-    }
-
-    public function u_delete_account(): string
-    {
-        $content = '
-	<div style="text-align: center; margin-bottom: 10px;">
-		<span id="delete-account">' . $this->translator->trans('foodsaver.delete_account_now') . '</span>
-	</div>
-	';
-
-        return $this->v_utils->v_field($content, '⚠️ ' . $this->translator->trans('foodsaver.delete_account'), ['class' => 'ui-padding']);
     }
 }

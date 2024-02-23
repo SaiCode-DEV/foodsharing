@@ -8,7 +8,6 @@ use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use Foodsharing\Modules\Dashboard\DashboardControl;
 use Foodsharing\Modules\Event\EventControl;
 use Foodsharing\Modules\Foodsaver\FoodsaverControl;
-use Foodsharing\Modules\Foodsaver\FoodsaverXhr;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointControl;
 use Foodsharing\Modules\Index\IndexControl;
 use Foodsharing\Modules\Legal\LegalControl;
@@ -112,7 +111,6 @@ class Routing
     ];
 
     private const XHR = [
-        'foodsaver' => FoodsaverXhr::class,
         'map' => MapXhr::class,
         'quiz' => QuizXhr::class,
         'report' => ReportXhr::class,
