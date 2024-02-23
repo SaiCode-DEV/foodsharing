@@ -407,11 +407,6 @@ class FoodsaverGateway extends BaseGateway
         return $this->db->fetchValueByCriteria('fs_foodsaver', 'email', ['id' => $fsId]);
     }
 
-    public function getEmailAddressesFromMainRegions(array $regionIds): array
-    {
-        return $this->getEmailAddresses(Role::FOODSHARER, Role::ORGA, ['bezirk_id' => $regionIds]);
-    }
-
     public function getNewsletterSubscribersEmailAddresses(Role $minRole = Role::FOODSHARER, Role $maxRole = Role::ORGA, array $criteria = []): array
     {
         return $this->getEmailAddresses($minRole, $maxRole, [

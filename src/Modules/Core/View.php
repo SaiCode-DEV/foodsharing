@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Core;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\ImageHelper;
@@ -158,7 +159,9 @@ class View
     public function latLonPicker(string $id, array $options = [], string $context = ''): string
     {
         if (!isset($options['location'])) {
-            $data = $this->session->getLocation() ?? ['lat' => 0, 'lon' => 0];
+            $userLocation = $this->session->user('location') ?? new GeoLocation();
+            $data['lat'] = $userLocation->lat;
+            $data['lon'] = $userLocation->lon;
         } else {
             $data['lat'] = $options['location']['lat'];
             $data['lon'] = $options['location']['lon'];

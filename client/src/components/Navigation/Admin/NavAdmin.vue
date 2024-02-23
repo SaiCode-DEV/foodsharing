@@ -30,6 +30,7 @@
       >
         <i class="icon-subnav fas fa-map" /> {{ $i18n('system_administration.regions') }}
       </a>
+      <!--
       <a
         v-if="permissions.administrateNewsletterEmail"
         :href="$url('email')"
@@ -38,6 +39,7 @@
       >
         <i class="icon-subnav fas fa-envelope" /> {{ $i18n('system_administration.email') }}
       </a>
+      -->
       <a
         v-if="permissions.manageMailboxes"
         :href="$url('mailboxManage')"

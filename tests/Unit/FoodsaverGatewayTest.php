@@ -197,19 +197,6 @@ class FoodsaverGatewayTest extends Unit
         $this->tester->assertCount(count($foodsavers), $intersection, 'Result does not match expectations: ' . serialize($result));
     }
 
-    final public function testGetAllEmailAddressesFromRegion(): void
-    {
-        $foodsavers = [$this->regionAdmin, $this->regionMember];
-        $expectedResult = $this->expectedEmailResult($foodsavers);
-
-        $emails = $this->gateway->getEmailAddressesFromMainRegions([$this->region['id']]);
-
-        $this->tester->assertCount(count($expectedResult), $emails);
-        $result = $this->serializeEmails($emails);
-        $intersection = array_intersect($expectedResult, $result);
-        $this->tester->assertCount(count($foodsavers), $intersection, 'Result does not match expectations: ' . serialize($result));
-    }
-
     private function expectedEmailResult(array $foodsavers): array
     {
         $out = [];

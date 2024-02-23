@@ -8,6 +8,7 @@ use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Region\RegionGateway;
@@ -95,6 +96,17 @@ class Session
         if (!isset($_COOKIE['CSRF_TOKEN']) || !$_COOKIE['CSRF_TOKEN'] || !$this->isValidCsrfToken($_COOKIE['CSRF_TOKEN'])) {
             setcookie('CSRF_TOKEN', $this->generateCrsfToken(), ['expires' => $cookieExpires, 'path' => '/']);
         }
+
+        if ($this->id()) {
+            $loc = $this->user('location');
+            if (!$loc) {
+                $loc = $this->foodsaverGateway->getFoodsaverAddress($this->id());
+                $loc = GeoLocation::createFromArray($loc, false);
+                $user = $this->get('user');
+                $user['location'] = $loc;
+                $this->set('user', $user);
+            }
+        }
     }
 
     private function isPersistent(): bool
@@ -118,7 +130,7 @@ class Session
     {
         $user = $this->get('user');
 
-        return $user[$index];
+        return $user[$index] ?? null;
     }
 
     protected function setId(int $id): void
@@ -173,21 +185,6 @@ class Session
         }
 
         return $this->role()->isAtLeast($minimalExpectedRoleLevel);
-    }
-
-    public function getLocation(): ?array
-    {
-        if (!$this->initialized || !$this->id()) {
-            return null;
-        }
-
-        $loc = fSession::get('g_location', null);
-        if (!$loc) {
-            $loc = $this->foodsaverGateway->getFoodsaverAddress($this->id());
-            $this->set('g_location', ['lat' => $loc['lat'], 'lon' => $loc['lon']]);
-        }
-
-        return $loc;
     }
 
     private function destroy()
@@ -343,11 +340,6 @@ class Session
         $this->setId($fs['id']);
         $this->setAuthLevel(Role::tryFrom($fs['rolle']));
 
-        $this->set('g_location', [
-            'lat' => $fs['lat'],
-            'lon' => $fs['lon']
-        ]);
-
         if ((int)$fs['bezirk_id'] > 0 && $this->role()->isAtLeast(Role::FOODSAVER)) {
             $this->regionGateway->addMember($fs_id, $fs['bezirk_id']);
         }
@@ -360,6 +352,7 @@ class Session
         $this->setAuthLevel(Role::tryFrom($fs['rolle']));
 
         $this->set('user', [
+            'location' => GeoLocation::createFromArray($fs, false),
             'name' => $fs['name'],
             'nachname' => $fs['nachname'],
             'photo' => $fs['photo'],
@@ -433,15 +426,6 @@ class Session
         }
 
         return $isMember;
-    }
-
-    public function isAdminForAWorkGroup()
-    {
-        if ($all_group_admins = $this->mem->get('all_global_group_admins')) {
-            return in_array($this->id(), unserialize($all_group_admins));
-        }
-
-        return false;
     }
 
     public function isVerified()

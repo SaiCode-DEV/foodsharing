@@ -55,6 +55,14 @@ class StorePermissions
         return true;
     }
 
+    /**
+     * Returns if the current user may add a foodsaver to a store team without having a request from that
+     * foodsaver.
+     *
+     * @param int $storeId the store to which the user shall be added
+     * @param int $userId the user to be added
+     * @param Role $userRole the role of the user to be added
+     */
     public function mayAddUserToStoreTeam(int $storeId, int $userId, Role $userRole): bool
     {
         if (!$this->mayEditStoreTeam($storeId)) {
@@ -64,7 +72,15 @@ class StorePermissions
             return false;
         }
 
-        return $userRole->isAtLeast(Role::FOODSAVER);
+        if (!$userRole->isAtLeast(Role::FOODSAVER)) {
+            return false;
+        }
+
+        // Users can only be added if they are a member of the store's region
+        $storeRegionId = $this->storeGateway->getStoreRegionId($storeId);
+        $userRegions = array_keys($this->regionGateway->listForFoodsaver($userId));
+
+        return in_array($storeRegionId, $userRegions);
     }
 
     /**

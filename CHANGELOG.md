@@ -12,14 +12,16 @@
 - Make navigation menu sticky @AntonBallmaier @chriswalg
 - Added marker clustering to the basket map !3013 @alex.simm
 - Minor improvements in the mailbox frontend #1668 !3108 @alex.simm
-- The contact pages are merged into one, and the content is automated. !3143 !3174 @AntonBallmaier
+- The contact pages are merged into one, and the content is automated. !3143 !3174 !3176 @AntonBallmaier
 - Delete uploaded photos when they are not used anymore #1182 !3121 @alex.simm
+- Users can only be added to a store if they are already in that region #20 !3180 @alex.simm
 
 ## Bugfixes
 - remove misplaced line in store team view !3088 @buntel
 - Fixed error caused by broken background color values for image rotation !3105 @\_fridtjof_
 - Fixed link to region page in name change modal !3125 @chriswalg
 - Fixed images breaking markdown layout !3144 @AntonBallmaier
+- Added .network as top level domain recognized in markdown link parsing !3179 @AntonBallmaier
 
 ## Refactoring
 - Switched Annotation to Attributes, implements Test and general code style adjust for Activity REST Endpoint !2975 !3090 @BibaltiK
@@ -47,6 +49,8 @@
 - REST endpoint for editing content entries !3098 @alex.simm
 - Created confirmationDialogue mixin !3140 @AntonBallmaier
 - Removed unused event invitation code #1739 !3149 @AntonBallmaier
+- Move Workgroup is Admin Check method from session to module #1769 !3168 @KoeMai
+- Move location information in session to user #1769 !3148 @KoeMai
 - Remove unused variables from session #1769 !3161  @KoeMai
 
 ## Dev/Test/CI stuff

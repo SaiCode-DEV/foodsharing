@@ -1043,11 +1043,11 @@ storeview:
   status: Current status
   public_time: 'It will be picked up roughly {freq}. Please never go to the store
     without prior consultation!'
-  pickupWeight: '{pickupWeight} kg were saved.'
+  pickupWeight: 'and {pickupWeight} kg were saved.'
   counter: <strong>{count} {suffix}</strong>
-  teamInfo: There are <strong>{active}</strong> active and <strong>{jumper}</strong>
-    standby foodsavers in the team.
-  pickupCount: At this store there have been {pickupCount} pick-ups.
+  teamInfo: <strong>{active}</strong> active and <strong>{jumper}</strong> standby
+    foodsavers in the team.
+  pickupCount: '{pickupCount} pick-ups have taken place'
   status_notes: status notes
   team: Store team
   show_settings: Store settings
@@ -1845,6 +1845,15 @@ content:
   title: Title
   last_modified: Last edited
   delete_tooltip: Delete page
+  communities:
+    title: Local groups
+    text: foodsharing is growing every day. Here you will always find an up-to-date
+      list of all foodsharing communities and districts. You can send an email to
+      the relevant district by clicking on the linked name.
+    searchInfo: With Ctrl+F, the list can be searched in many browsers by country,
+      city, state or district.
+    noAmbassador: This region currently has no ambassadors and therefore cannot be
+      contacted by email. Please contact a neighboring or the next higher region.
 foodsaver:
   kicked: Foodsaver removed
   list:
@@ -2899,7 +2908,7 @@ storestatus:
   "0": Status unclear
   "7": Store no longer exists
   "6": Donate to food bank etc. or doesn’t throw anything away
-  "5": Store is cooperating
+  "5": is cooperating
   "4": Don’t want to cooperate
   "3": Store is ready to cooperate
   "2": Negotiations are ongoing

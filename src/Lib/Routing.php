@@ -6,7 +6,6 @@ use Foodsharing\Modules\Application\ApplicationControl;
 use Foodsharing\Modules\Basket\BasketXhr;
 use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use Foodsharing\Modules\Dashboard\DashboardControl;
-use Foodsharing\Modules\Email\EmailControl;
 use Foodsharing\Modules\Event\EventControl;
 use Foodsharing\Modules\Foodsaver\FoodsaverControl;
 use Foodsharing\Modules\Foodsaver\FoodsaverXhr;
@@ -54,7 +53,6 @@ class Routing
         'buddy' => 'Buddy',
         'bcard' => 'BusinessCard',
         'dashboard' => 'Dashboard',
-        'email' => 'Email',
         'event' => 'Event',
         'fairteiler' => 'FoodSharePoint',
         'foodsaver' => 'Foodsaver',
@@ -87,7 +85,6 @@ class Routing
         'application' => ApplicationControl::class,
         'bcard' => BusinessCardControl::class,
         'dashboard' => DashboardControl::class,
-        'email' => EmailControl::class,
         'event' => EventControl::class,
         'fairteiler' => FoodSharePointControl::class,
         'foodsaver' => FoodsaverControl::class,

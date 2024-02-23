@@ -1099,9 +1099,9 @@ storeview:
   public_and_statistics: 'Estadísticas y Relaciones Públicas'
   public_time_in_the_morning: 'por la mañana'
   public_time_at_noon_or_afternoon: 'por la mediodía'
-  pickupWeight: 'Se ahorraron {pickupWeight} kg.'
+  pickupWeight: 'y se ahorraron {pickupWeight} kg.'
   info: 'Informaciones'
-  teamInfo: 'Hay <strong>{active}</strong> rescatistas activos y <strong>{jumper}</strong>
+  teamInfo: '<strong>{active}</strong> rescatistas activos y <strong>{jumper}</strong>
     suplentes en el equipo.'
   counter: '<strong>{count} {suffix}</strong>'
   public_time_in_the_evening: 'por la tarde'
@@ -1133,7 +1133,7 @@ storeview:
   cooperation_status: 'Estado de cooperación'
   status_notes: 'Notas de estado'
   no_permission_to_view: 'Sólo visible para l@s responsabl@s de la empresa.'
-  pickupCount: 'Recogimos {pickupCount} de esta empresa.'
+  pickupCount: 'Recogimos {pickupCount}'
   specials: 'Particularidades'
   managers: 'rescatistas responsables'
   visible_for_public: 'Este texto es visible para todos l@s rescatistas.'
@@ -3061,6 +3061,16 @@ content:
   title: Título
   last_modified: Última edición
   delete_tooltip: Eliminar página
+  communities:
+    title: Grupos locales
+    text: El foodsharing crece día a día. Aquí encontrará siempre una lista actualizada
+      de todas las comunidades y distritos de foodsharing. Puede enviar un correo
+      electrónico al distrito correspondiente haciendo clic en el nombre vinculado.
+    searchInfo: Con Ctrl+F, la lista puede buscarse en muchos navegadores por país,
+      ciudad, estado o barrio.
+    noAmbassador: Esta región no tiene embajadores y, por tanto, no se puede contactar
+      con ella por correo electrónico. Póngase en contacto con una región vecina o
+      con la región inmediatamente superior.
 personal_data:
   mobile: 'Número de teléfono móvil'
   label: 'Contacto'
@@ -3102,7 +3112,7 @@ picture_upload_widget:
   choose_picture: 'Elige una imagen de tu computadora.'
   picture_upload: 'Subir foto'
 storestatus:
-  "5": 'La empresa coopera con nosotros'
+  "5": 'coopera con nosotros'
   "0": 'Estado poco claro'
   "5a": 'La empresa ya está donando'
   "7": 'La empresa ya no existe'

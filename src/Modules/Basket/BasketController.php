@@ -29,8 +29,8 @@ class BasketController extends FoodsharingController
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.baskets'));
 
-        $loc = $this->session->getLocation();
-        if (!$loc || $loc['lat'] === 0 && $loc['lon'] === 0) {
+        $loc = $this->session->user('location');
+        if (!$loc || $loc->lat === 0 && $loc->lon === 0) {
             $loc = ['lat' => MapConstants::CENTER_GERMANY_LAT, 'lon' => MapConstants::CENTER_GERMANY_LON];
         }
         $baskets = $this->basketGateway->listNearbyBasketsByDistance($this->session->id(), $loc);

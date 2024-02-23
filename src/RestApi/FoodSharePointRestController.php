@@ -3,6 +3,7 @@
 namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Permissions\RegionPermissions;
@@ -91,8 +92,8 @@ final class FoodSharePointRestController extends AbstractFOSRestController
         $lon = $paramFetcher->get('lon');
         if (!$this->isValidNumber($lat, -90.0, 90.0) || !$this->isValidNumber($lon, -180.0, 180.0)) {
             // find user's location
-            $loc = $this->session->getLocation();
-            if (!$loc || (($lat = $loc['lat']) === 0 && ($lon = $loc['lon']) === 0)) {
+            $loc = $this->session->user('location') ?? new GeoLocation();
+            if (!$loc || (($lat = $loc->lat) === 0 && ($lon = $loc->lon) === 0)) {
                 throw new BadRequestHttpException('The user profile has no address.');
             }
         }

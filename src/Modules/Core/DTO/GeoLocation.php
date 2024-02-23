@@ -17,9 +17,13 @@ class GeoLocation
      */
     public float $lon = 0;
 
-    public static function createFromArray($queryResult)
+    public static function createFromArray(array $queryResult, $throwInvalidException = true): ?GeoLocation
     {
         $obj = new GeoLocation();
+        if (!$throwInvalidException & (is_null($queryResult['lat']) || is_null($queryResult['lon']))) {
+            return null;
+        }
+
         if (!is_numeric($queryResult['lat']) || !is_numeric($queryResult['lon'])) {
             throw new \InvalidArgumentException('Longitude/Latitude is invalid.');
         }

@@ -54,4 +54,7 @@ md.linkify.add('@', {
   },
 })
 
+// Add missing top level domains
+md.linkify.tlds(['network'], true)
+
 export default md

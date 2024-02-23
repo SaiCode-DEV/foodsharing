@@ -1395,7 +1395,6 @@ recipients:
   body: "Nachricht"
   send: "E-Mail senden"
   confirm: "E-Mail senden?"
-  test: "Newsletter testen"
   testmail: "Test-Mail senden"
   test_email_sent: "E-Mail wurde versendet."
   test_email_invalid: "Mit der E-Mail-Adresse stimmt etwas nicht."
