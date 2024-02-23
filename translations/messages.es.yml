@@ -343,7 +343,7 @@ terminology:
     m: 'Administrador global'
     d: 'Administrador(a) global'
     f: 'Administradora global'
-  n_stores: 'Una cooperación|%count% cooperaciones'
+  n_stores: '{count} cooperaciones'
   message: 'Mensaje'
   fspAdmins: 'Equipo del distribuidores'
   foodsharer:
@@ -390,9 +390,9 @@ terminology:
   basket: 'Cesta de comida'
   threads: 'Hilos'
   fsps: 'Distribuidores'
-  n_ambassadors: 'un(a) embajador(a)|%count% embajador@s'
+  n_ambassadors: '{count} embajador@s'
   profile_picture: 'Foto de perfil'
-  n_cooperating_stores: 'Una cooperación en marcha|%count% cooperaciones en marcha'
+  n_cooperating_stores: '{count} cooperaciones en marcha'
   reports: 'Vista de quejas (GQL)'
   community: 'Grupo local de {name}'
   pickup: 'Recogida'
@@ -403,10 +403,10 @@ terminology:
   admins: 'administrador@s'
   mediationAdmins: 'Equipo de mediación'
   arbitration: 'Vista de quejas (JAL)'
-  n_sleeping: 'un(a) dormilón(a)|%count% dormilon@s'
-  n_foodsaver: 'un(a) rescatista|%count% rescatistas'
+  n_sleeping: '{count} dormilon@s'
+  n_foodsaver: '{count} rescatistas'
   reportAdmins: 'Equipo de manejo de quejas'
-  n_home_regions: un@ con distrito de origen|%count% con distrito de origen
+  n_home_regions: '{count} con distrito principal'
   no_pickups: 'ninguna'
   previous_pickups: Recogidas aquí
   electionAdmins: Elecciones
@@ -938,21 +938,21 @@ group:
   quitting_home_district_warning: '¿Realmente deseas abandonar tu distrito de origen
     %name%? Perderás tu verificación y tendrás que comunicarte con los embajadores
     de tu nuevo distrito de origen más tarde.'
-  really_quit_district: '¿Quiere realmente abandonar el distrito de %name%?'
+  really_quit_district: '¿Quiere realmente abandonar el distrito de {name}?'
   really_quit_workgroup: '¿Estás seguro de que quieres abandonar el grupo de trabajo
-    %name%?'
+    {name}?'
   member_count: '{0} sin contribuyentes|{1} un(a) contribuyente| [2, Inf[ %count%
     contribuyentes'
   enterskills: 'Habilidades:'
   saved: 'Se guardaron los cambios'
-  quit_name_workgroup: 'Dejar el equipo %name%'
+  quit_name_workgroup: 'Dejar el equipo {name}'
   delete_group_sure: '¿Realmente desea eliminar el grupo/el distrito {groupName}?'
   subtitle: 'Aquí encontrarás ayuda y mucho que hacer …'
   admin_count: '{0} sin administratores|{1} un(a) administrador(a)| [2, Inf[ %count%
     administrador@s'
   filter_by_last_activity: 'No activo en meses'
   enterxp: 'Experiencia:'
-  quit_name_district: 'Salir del distrito de %name%'
+  quit_name_district: 'Abandonar el distrito {name}'
   role_name: 'Role'
 register:
   error_email_exist: 'Su dirección de correo electrónico ya existe.'
@@ -1035,6 +1035,7 @@ button:
   cancel: 'Cancelar'
   permadelete: 'borrar permanentemente'
   reset_default: Restablecer valor predeterminado
+  prev: Volver
 pass:
   nav:
     options: 'Opciones'
@@ -1098,9 +1099,9 @@ storeview:
   public_and_statistics: 'Estadísticas y Relaciones Públicas'
   public_time_in_the_morning: 'por la mañana'
   public_time_at_noon_or_afternoon: 'por la mediodía'
-  pickupWeight: 'Se ahorraron {pickupWeight} kg.'
+  pickupWeight: 'y se ahorraron {pickupWeight} kg.'
   info: 'Informaciones'
-  teamInfo: 'Hay <strong>{active}</strong> rescatistas activos y <strong>{jumper}</strong>
+  teamInfo: '<strong>{active}</strong> rescatistas activos y <strong>{jumper}</strong>
     suplentes en el equipo.'
   counter: '<strong>{count} {suffix}</strong>'
   public_time_in_the_evening: 'por la tarde'
@@ -1132,7 +1133,7 @@ storeview:
   cooperation_status: 'Estado de cooperación'
   status_notes: 'Notas de estado'
   no_permission_to_view: 'Sólo visible para l@s responsabl@s de la empresa.'
-  pickupCount: 'Recogimos {pickupCount} de esta empresa.'
+  pickupCount: 'Recogimos {pickupCount}'
   specials: 'Particularidades'
   managers: 'rescatistas responsables'
   visible_for_public: 'Este texto es visible para todos l@s rescatistas.'
@@ -1595,6 +1596,16 @@ bell:
   forum_announcement_title: 'Aviso importante: {title}'
   forum_mention: en el tema “{title}” del foro {forum}
   forum_new_thread_title: 'Nuovo tema: {title}'
+  new_store_request:
+    one: de {name} de {user}
+    many: de {name} de {count} usuarios
+  store_wall_post:
+    many: '{count} nuevas entradas del tablón de anuncios'
+    one: Entrada del tablón de {user}
+  store_wall_post_title: empresa {name}
+  store_change_regular_pickup_times:
+    one: Las fechas de recogida han sido ajustadas
+    many: fechas de recogida han sido ajustadas
 foodsaver:
   restricted: 'Lamentablemente, no tienes permiso para ver estos datos.'
   upgrade:
@@ -2114,6 +2125,7 @@ menu:
     load_more: Cargar más
     refresh: Actualizar
     delete_read: Borrar todo lo leído
+    applications: Aplicaciones ({count})
   bell:
     delete_read_confirmation:
       text: ¿Realmente quieres borrar {count} campanas leídas?
@@ -2410,6 +2422,8 @@ storeedit:
   unsuccess: 'Los cambios no se pudieron aplicar. {error}'
   not-in-region: 'Sólo puedes crear empresas en los distritos de los que seas miembro.'
   add-new: 'Agregar nueva tienda'
+  store_name_placeholder: Nombre de empresa
+  name_error: El nombre debe tener al menos tres caracteres.
 wall:
   delete: 'Suprimir la contribución'
   created: '¡Excelente! Tu publicación en el tablón de anuncios fue guardada.'
@@ -2579,7 +2593,7 @@ mailbox:
   fromto: 'De/A'
   actions: 'Opciones'
   attach: 'Adjuntar archivo (máximo 1,2 MB)'
-  write: 'Nuevo correo'
+  write: 'Correo electrónico nuevo'
   inbox: 'Correo recibido'
   empty: 'Aún no hay mensajes en este buzón'
   manage: 'Administrador de buzones'
@@ -2932,6 +2946,8 @@ globals:
     foodSharePoints: Distribuidores
     users: Personas
     workingGroups: Grupos
+    regions_menu: Menú del distrito
+    groups_menu: Menú de grupo
   you: 'Tú'
   account:
     signin: 'Iniciar sesión'
@@ -3045,6 +3061,16 @@ content:
   title: Título
   last_modified: Última edición
   delete_tooltip: Eliminar página
+  communities:
+    title: Grupos locales
+    text: El foodsharing crece día a día. Aquí encontrará siempre una lista actualizada
+      de todas las comunidades y distritos de foodsharing. Puede enviar un correo
+      electrónico al distrito correspondiente haciendo clic en el nombre vinculado.
+    searchInfo: Con Ctrl+F, la lista puede buscarse en muchos navegadores por país,
+      ciudad, estado o barrio.
+    noAmbassador: Esta región no tiene embajadores y, por tanto, no se puede contactar
+      con ella por correo electrónico. Póngase en contacto con una región vecina o
+      con la región inmediatamente superior.
 personal_data:
   mobile: 'Número de teléfono móvil'
   label: 'Contacto'
@@ -3086,7 +3112,7 @@ picture_upload_widget:
   choose_picture: 'Elige una imagen de tu computadora.'
   picture_upload: 'Subir foto'
 storestatus:
-  "5": 'La empresa coopera con nosotros'
+  "5": 'coopera con nosotros'
   "0": 'Estado poco claro'
   "5a": 'La empresa ya está donando'
   "7": 'La empresa ya no existe'
@@ -3183,8 +3209,8 @@ teamjs:
     responderle!'
   wrongmail: 'Algo anda mal con tu dirección de correo electrónico.'
 statistics:
-  kg_food_saved: '%count% kg de comida ahorrados'
-  num_fetches: 'Durante una operación de rescate|En %count% operaciones de rescate'
+  kg_food_saved: '{count} kg de comida ahorrados'
+  num_fetches: 'En {count} operaciones de rescate'
 back: 'Atrás'
 chat:
   search: 'Buscar'
@@ -3326,11 +3352,10 @@ conference:
     conferencias de living utopía colectiva. Iniciará sesión automáticamente allí
     con su nombre, identificación y avatar que ingresó en foodsharing.'
   join: 'Unirse a la conferencia'
-  confirm_info: 'Aquí puede unirse a una videoconferencia para el grupo seleccionado.
-    La videoconferencia abre BigBlueButton en una nueva ventana. Nota: Las videoconferencias
-    se organizan a través del servidor de conferencias del colectivo living utopia.
-    Te conectarás automáticamente con el nombre, ID y avatar que hayas introducido
-    en foodsharing.'
+  confirm_info: 'Aquí puede unirse a una conferencia en línea para el grupo seleccionado,
+    que se abrirá en una nueva ventana. Esta conferencia se llevará a cabo a través
+    del servidor de conferencias BigBlueButton del colectivo living utopía. Te conectarás
+    automáticamente con el nombre, ID y avatar que hayas introducido en foodsharing.'
 base:
   whatfor: 'En foodsharing.network puedes donar tu comida a instituciones sociales
     o a otras personas antes de que caduque'

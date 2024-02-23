@@ -129,11 +129,11 @@ group:
   quitting_home_district_warning: Vuoi davvero lasciare il tuo distretto di provenienza
     %name%? Perderai la tua verifica e dovrai presentarti in seguito al team di ambasciatori
     del tuo nuovo distretto di provenienza.
-  really_quit_district: Sei sicuro di voler lasciare il distretto di %name%?
-  really_quit_workgroup: Sei sicuro di voler lasciare il gruppo di lavoro %name%?
+  really_quit_district: Sei sicuro di voler lasciare il distretto di {name}?
+  really_quit_workgroup: Sei sicuro di voler lasciare il gruppo di lavoro {name}?
   quit: Lascia il gruppo
-  quit_name_district: Lascia il distretto %name%
-  quit_name_workgroup: Lascia la squadra %name%
+  quit_name_district: Lascia il distretto {name}
+  quit_name_workgroup: Lascia la squadra {name}
   no_groups: Non ci sono ancora gruppi di lavoro qui
   actions:
     safe: Salvare le modifiche
@@ -160,6 +160,8 @@ group:
     banana_count_errors:
       max: Per favore, non aspettarti più di {{ limit }} banane fiducia.
       min: Nessuno può avere meno di {{ limit }} banane fiduciarie.
+      not_in_range: Nessuno dovrebbe avere meno di {{ min }} o più di {{ max }} fiducia
+        nelle banane.
     banana_count: Di quante banane fiducia ha bisogno un/a candidato/a?
     fetch_count: Quanti ritiri deve aver effettuato un/a candidato/a?
     open: Chiunque può aderire senza presentare domanda.
@@ -280,6 +282,7 @@ button:
   next: Avanti
   save: Salva
   reset_default: Ripristina l’impostazione predefinita
+  prev: indietro
 upload:
   crop_dialog_title: Ritaglia l'immagine
   new_file: Carica un nuovo file
@@ -292,6 +295,9 @@ upload:
   no_image_yet: Nessuna immagine ancora caricata
   no_image: Il file caricato non è una foto. Scegli un altro file.
   images: Carica immagini
+  image-problem: Il vostro file non sembra essere in ordine, è meglio usare una normale
+    immagine jpg
+  invalid_image_files: '{count} file selezionati non sono immagini valide: {fileNames}'
 picture_upload_widget:
   choose_picture: Scegli un'immagine dal tuo computer.
   picture_upload: Caricamento foto
@@ -425,8 +431,8 @@ yes: Sì
 really_delete: Eliminare?
 are_you_sure: Sei sicuro?
 statistics:
-  num_fetches: Durante una missione di salvataggio|Durante %count% missioni di salvataggio
-  kg_food_saved: '%count% kg di cibo risparmiato'
+  num_fetches: Durante {count} missioni di salvataggio
+  kg_food_saved: '{count} kg di cibo risparmiato'
 terminology:
   options: Opzioni
   buddies: Conoscente
@@ -437,11 +443,11 @@ terminology:
   regions: Quartieri
   region: Quartiere
   profile_picture: foto del profilo
-  n_cooperating_stores: Una cooperazione in corso|%count% cooperazione in corso
-  n_stores: Un'azienda|%count% aziende
-  n_ambassadors: Un ambasciatore|%count% ambasciatori
-  n_sleeping: Un dormiglione|%count% dormiglione
-  n_foodsaver: Un Foodsaver|%count% Foodsaver
+  n_cooperating_stores: '{count} cooperazione in corso'
+  n_stores: '{count} aziende'
+  n_ambassadors: '{count} ambasciatori'
+  n_sleeping: '{count} dormiglione'
+  n_foodsaver: '{count} Foodsaver'
   mailboxes: Caselle e-mail
   settings: impostazioni
   subgroups: Sottogruppi
@@ -503,7 +509,7 @@ terminology:
   pickup: Ritiro
   boardAdmins: Consiglio di amministrazione
   fsps: 'Punti di condivisione'
-  n_home_regions: uno con il distretto di residenza|%count% con il distretto di residenza
+  n_home_regions: '{count} con il distretto di residenza'
   no_pickups: 'nessuna'
   previous_pickups: 'Collezioni qui'
   electionAdmins: Elezioni
@@ -881,6 +887,7 @@ storeedit:
   not-in-region: Puoi creare agenzie solo nelle regioni di cui sei membro.
   add-new: Crea una nuova agenzia
   unsuccess: 'Impossibile applicare le modifiche. {error}'
+  name_error: Il nome deve essere composto da almeno tre caratteri.
 store:
   request:
     to-nowhere: Rifiutare
@@ -1064,14 +1071,14 @@ store:
       4: membri aggiunti senza richiesta
       6: spostato nel team attivo
       9: impostato come coordinatore del negozio
-      14: ''
-      16: ''
-      10: ''
-      12: ''
+      14: 'Confermare la fascia oraria di ritiro'
+      16: 'Ritirare la domanda di adesione'
+      10: 'Segnalazione dei responsabile dell’attività'
+      12: 'Firma per il ritiro'
       5: ''
-      13: ''
-      11: ''
-      15: ''
+      13: 'Essere consegnati per il ritiro'
+      11: 'Inserire per il ritiro'
+      15: 'Cancellare una voce della bacheca'
     log_types_placeholder: Seleziona i tipi di azione da visualizzare
     search: Elenca le azioni selezionate
     selected_log_types: '{amount} tipi di azione selezionati'
@@ -1083,24 +1090,29 @@ store:
       7: '{actor} ha rimosso {target} dalla squadra.'
       8: '{actor} ha lasciato il team.'
       5: "{actor} ha inserito {target} nell'elenco Jolly."
-      1: ''
+      1: '{actor} ha inviato una richiesta di adesione.'
       14: ''
-      11: ''
+      11: '{actor} si è iscrittǝ al ritiro il {date}.'
       13: ''
       13_with_reason: ''
       16: ''
-      10: ''
-      12: ''
-      2: ''
-      9: ''
+      10: '{actor} ha sostituito {target} come responsabile dell’attività.'
+      12: '{actor} ha firmato per il ritiro il {date}.'
+      2: '{actor} ha rifiutato la richiesta di adesione di {target}.'
+      9: '{actor} ha inserito {target} come responsabile dell’attività.'
       15: ''
     max_entries_message: ''
     no_description: nessuno
   signInDateTime: 'Data di ingresso'
-  slot_state: ''
+  slot_state: 'Stato dello slot'
   lastPickupTitle: Ultimo recupero qui
   deactivatedRegion: Al momento non è possibile visualizzare l’elenco delle aziende
     per interi paesi e continenti.
+  to_map: Mostra sulla mappa
+  slotsCurrentlyOccupied: Slot attualmente occupati
+  chain_search_picker:
+    search_input: Ricerca per nome della catena
+    modal_title: Seleziona la catena di aziende
 storeview:
   want_to_fetch: Vorrei aiutare in questo team.
   specials: particolarità
@@ -1111,15 +1123,15 @@ storeview:
   public_time_at_noon_or_afternoon: mezzogiorno/pomeriggio
   public_time_in_the_morning: mattina
   cooperation: Cooperazione da {startTime}.
-  teamInfo: Ci sono <strong>{active}</strong> attivi e <strong>{jumper}</strong> sostituti
+  teamInfo: <strong>{active}</strong> attivi e <strong>{jumper}</strong> sostituti
     nella squadra.
   info: Informazioni
   store: Attività
   counter: <strong>{count} {suffix}</strong>
   public_time: Sarà rilevato all'incirca {freq}. Si prega di non recarsi mai al negozio
     senza previa consultazione!
-  pickupWeight: '{pickupWeight} kg sono stati salvati.'
-  pickupCount: In questa agenzia e stato {pickupCount} ritirato.
+  pickupWeight: 'e ne sono stati salvati {pickupWeight} kg.'
+  pickupCount: È stato raccolto {pickupCount}
   show_information: Mostra informazioni sull’azienda
   common: Generale
   visible_for_public: Questo testo è visibile ad ogni Foodsaver, ad esempio sulla
@@ -1148,6 +1160,7 @@ storeview:
     multiply: '{weeks} Settimane'
   cooperation_status: Stato di cooperazione
   show_settings: Impostazioni del negozio
+  choose_chain: Scegliere una catena aziendale
 message_text_to_group_admin_workgroup: 'La regione/gruppo di lavoro <b>{groupName}</b>
   non <b>ha più </b> ambasciatori/amministratori.<br><br><br>Ha la seguente struttura
   ID:<br>{idStructureList}<br><br> L''ID è:{groupId}<br><br>URL: "<a href="/region?bid={groupId}&sub=forum"
@@ -1880,6 +1893,8 @@ content:
   title: Titolo
   last_modified: Ultima modifica
   delete_tooltip: Elimina pagina
+  communities:
+    title: Gruppi locali
 regionOptions:
   save: Salvare opzioni
   success: Opzioni salvate correttamente
@@ -2022,6 +2037,7 @@ menu:
     load_more: 'caricare di più'
     refresh: 'Aggiornare'
     delete_read: 'Elimina tutto letto'
+    applications: Applicazioni ({count})
   reports: Messaggi
   content: Modifica contenuti
   manage_mailboxes: Gestire caselle di posta
@@ -2260,7 +2276,7 @@ search:
   results:
     region:
       ambassador_tooltip: 'Sei un ambasciatore di questo distretto'
-      home_region_tooltip: ''
+      home_region_tooltip: 'Questo è il tuo distretto natale'
       member_tooltip: 'Sei un membro di questo distretto'
     working_group:
       member_tooltip: 'Sei un membro di questo gruppo'
@@ -2730,6 +2746,7 @@ mailbox:
   reply_all: Rispondi a tutti
   reply_header: '{name} ha scritto il {date}'
   show_html_body: Mostra il codice HTML
+  mark_none: Seleziona nessuno
 messages:
   bread: Notizie
 map:
@@ -2766,7 +2783,7 @@ storelist:
   actions: Azioni
 storestatus:
   "7": L'agenzia non esiste più
-  "5": L'agenzia collabora con noi
+  "5": collabora con noi
   "4": Non vuole collaborare
   "3": L'agenzia è pronta a collaborare
   "2": Trattative in corso
@@ -2899,6 +2916,10 @@ conference:
     ID e avatar inseriti nel foodsharing.'
   description_text: Qui si può partecipare a una videoconferenza per il gruppo selezionato.
     La videoconferenza apre BigBlueButton in una nuova finestra.
+  confirm_info: Qui è possibile partecipare a una conferenza online per il gruppo
+    selezionato, che si aprirà in una nuova finestra. Questa conferenza è organizzata
+    tramite il server di conferenze BigBlueButton del collettivo living utopia. Verrete
+    automaticamente collegati con il vostro nome, ID e avatar inseriti nel foodsharing.
 stats:
   leader:
     users: Foodsaver più attivi
@@ -3136,6 +3157,8 @@ globals:
     foodSharePoints: Punti di condivisione
     workingGroups: Gruppi
     users: Persone
+    groups_menu: Menù di gruppo
+    regions_menu: Menù del distretto
   reset: 'Resetta'
   account:
     signout: 'Esci'
@@ -3404,3 +3427,7 @@ save_state_description: Salva i filtri applicati e l’ordinamento per le chiama
 configure_columns: Configura colonne
 expand_all: Espandi tutto
 collapse_all: Comprimi tutto
+donation_banner:
+  info_button: Dove va la mia donazione?
+  action_button: Donate qui!
+  amount: Stato della donazione

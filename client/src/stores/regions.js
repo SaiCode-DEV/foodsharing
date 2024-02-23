@@ -21,6 +21,20 @@ export const store = Vue.observable({
 
 })
 
+export const SUB_PAGE = Object.freeze({
+  FORUM: 'forum',
+  AMBASSADOR_FORUM: 'botforum',
+  EVENTS: 'events',
+  FOODSHARINGPOINT: 'fairteiler',
+  POLLS: 'polls',
+  MEMBERS: 'members',
+  STATISTIC: 'statistic',
+  PIN: 'pin',
+  WALL: 'wall',
+  APPLICATIONS: 'applications',
+  OPTIONS: 'options',
+})
+
 export const getters = {
   get () {
     return store.regions

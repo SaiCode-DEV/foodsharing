@@ -1,4 +1,4 @@
-import { remove, patch, post } from './base'
+import { remove, patch, post, get } from './base'
 
 export function deleteGroup (id) {
   return remove(`/groups/${id}`)
@@ -18,4 +18,8 @@ export function updateGroup (groupId, name, description, photo, applyType, requi
     requiredPickups: requiredPickups,
     requiredWeeks: requiredWeeks,
   })
+}
+
+export function listPolls (groupId) {
+  return get(`/groups/${groupId}/polls`)
 }

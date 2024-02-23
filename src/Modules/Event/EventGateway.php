@@ -3,19 +3,9 @@
 namespace Foodsharing\Modules\Event;
 
 use Foodsharing\Modules\Core\BaseGateway;
-use Foodsharing\Modules\Core\Database;
-use Foodsharing\Modules\Region\RegionGateway;
 
 class EventGateway extends BaseGateway
 {
-    private readonly RegionGateway $regionGateway;
-
-    public function __construct(Database $db, RegionGateway $regionGateway)
-    {
-        parent::__construct($db);
-        $this->regionGateway = $regionGateway;
-    }
-
     /**
      * Gets the current and upcoming events of a specified region and returns them as array.
      *
@@ -214,11 +204,6 @@ class EventGateway extends BaseGateway
         return true;
     }
 
-    public function deleteInvites(int $eventId): int
-    {
-        return $this->db->delete('fs_foodsaver_has_event', ['event_id' => $eventId]);
-    }
-
     public function deleteInvitesForFoodSaver(int $regionId, int $foodsaverId): int
     {
         $eventIds = $this->db->fetchAllValuesByCriteria('fs_event', 'id', ['foodsaver_id' => $foodsaverId, 'bezirk_id' => $regionId]);
@@ -235,56 +220,25 @@ class EventGateway extends BaseGateway
                 ['event_id' => $eventId, 'foodsaver_id' => $foodsaverId]
             );
         } catch (\Exception) {
-            $status = -1;
+            $status = 0;
         }
 
         return (int)$status;
     }
 
-    /**
-     * Sets the invitation status for multiple foodsavers.
-     *
-     * @throws \Exception if the database query fails (which should usually not happen)
-     */
-    public function setInviteStatus(int $eventId, array $foodsaverIds, int $status): bool
+    public function setInviteStatus(int $eventId, int $foodsaverId, int $status): int
     {
-        $parts = array_chunk($foodsaverIds, 100);
-        foreach ($parts as $part) {
-            $data = [];
-            foreach ($part as $userId) {
-                $data[] = [
-                    'status' => $status,
-                    'foodsaver_id' => $userId,
-                    'event_id' => $eventId,
-                ];
-            }
-            $this->db->insertOrUpdateMultiple(
-                'fs_foodsaver_has_event',
-                $data
-            );
+        if ($status === InvitationStatus::INVITED) {
+            return $this->db->delete('fs_foodsaver_has_event', [
+                'event_id' => $eventId,
+                'foodsaver_id' => $foodsaverId,
+            ]);
         }
 
-        return true;
-    }
-
-    public function inviteFullRegion(int $regionId, int $eventId, bool $invite_subs = false): void
-    {
-        $regionIds = [$regionId];
-        if ($invite_subs) {
-            $regionIds = $this->regionGateway->listIdsForDescendantsAndSelf($regionId);
-        }
-
-        $foodsaverIds = $this->db->fetchAllValuesByCriteria(
-            'fs_foodsaver_has_bezirk',
-            'foodsaver_id',
-            ['bezirk_id' => $regionIds, 'active' => 1]
-        );
-        $invited = $this->db->fetchAllValuesByCriteria(
-            'fs_foodsaver_has_event',
-            'foodsaver_id',
-            ['event_id' => $eventId]
-        );
-
-        $this->setInviteStatus($eventId, array_diff($foodsaverIds, $invited), InvitationStatus::INVITED);
+        return $this->db->insertOrUpdate('fs_foodsaver_has_event', [
+            'event_id' => $eventId,
+            'foodsaver_id' => $foodsaverId,
+            'status' => $status,
+        ]);
     }
 }

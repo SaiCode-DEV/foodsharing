@@ -1,119 +1,83 @@
 <template>
+  <!-- eslint-disable vue/max-attributes-per-line -->
   <div>
-    <div
-      v-if="loading && store !== null"
-      class="loader-container mx-auto"
-    >
+    <div v-if="loading && store !== null" class="loader-container mx-auto">
       <i class="fas fa-spinner fa-spin" />
     </div>
     <div v-else>
-      <div class="section">
-        <label class="section-label">
-          {{ $i18n('storeedit.store.status') }}
-        </label>
-        <div class="section-content">
+      <div class="card">
+        <div class="card-header">
           <div class="mb-2">
-            <store-status-icon
-              :cooperation-status="store.cooperationStatus"
-            />
-            <span>{{ $i18n('storestatus.' + store.cooperationStatus) }}</span>
+            <store-status-icon :cooperation-status="store.cooperationStatus" />
+            <span>{{ $i18n('storestatus.' + store.cooperationStatus) }}</span><span v-if="cooperationStartDate">
+              ({{ cooperationStartDate }})
+            </span>
           </div>
 
-          <div
-            v-html="$i18n('storeview.teamInfo', { active: store.teamMemberCount, jumper: store.standbyCount })"
-          />
+          <div v-html="$i18n('storeview.teamInfo', { active: store.teamMemberCount, jumper: store.standbyCount })" />
 
-          <div
-            v-if="store.pickupCount > 0"
-            v-html="$i18n('storeview.pickupCount', { pickupCount: $i18n('storeview.counter', {suffix: 'x', count: store.pickupCount}) })"
-          />
-          <div v-if="store.pickupCount > 0">
-            {{ $i18n('storeview.pickupWeight', { pickupWeight: store.pickupWeightInKg }) }}
+          <div class="mt-2">
+            <span v-if="store.pickupCount > 0" v-html="$i18n('storeview.pickupCount', { pickupCount: $i18n('storeview.counter', {suffix: 'x', count: store.pickupCount}) })" />
+            <span v-if="store.pickupCount > 0">{{ $i18n('storeview.pickupWeight', { pickupWeight: store.pickupWeightInKg }) }}</span>
           </div>
-          <div>
-            {{ $i18n('storeview.cooperation', { startTime: cooperationStartDate }) }}
-          </div>
+
           <div v-if="pickupTimeExplanation">
             {{ $i18n('storeview.public_time', { freq: pickupTimeExplanation }) }}
           </div>
         </div>
-        <div class="clear" />
+        <div class="card-footer text-muted" />
       </div>
 
-      <div
-        v-if="store.managers.length > 0"
-        class="section"
-      >
-        <label class="section-label">
-          {{ $i18n('storeview.managers') }}
-        </label>
-
-        <div class="section-content">
-          <a
-            v-for="manager in store.managers"
-            :key="manager.id"
-            :href="$url('profile', manager.id)"
-          >
-            <Avatar
-              :url="manager.avatar"
-              :size="50"
-            />
-          </a>
+      <div v-if="store.managers.length > 0" class="card mt-3">
+        <div class="card-header">
+          <h5 class="card-title">
+            {{ $i18n('storeview.managers') }}
+          </h5>
         </div>
-        <div class="clear" />
+        <div class="card-body">
+          <div class="d-flex flex-wrap">
+            <a v-for="manager in store.managers" :key="manager.id" :href="$url('profile', manager.id)" class="mr-2 mb-2">
+              <Avatar :url="manager.avatar" :size="50" />
+            </a>
+          </div>
+        </div>
       </div>
 
-      <div
-        v-if="store.publicInformation"
-        class="section"
-      >
-        <label
-          class="section-label ui-widget"
-        >
-          {{ $i18n('storeview.info') }}
-        </label>
-        <div class="section-content">
+      <div v-if="store.publicInformation" class="card mt-3">
+        <div class="card-header">
+          <h5 class="card-title">
+            {{ $i18n('storeview.info') }}
+          </h5>
+        </div>
+        <div class="card-body">
           {{ store.publicInformation }}
         </div>
       </div>
 
-      <b-alert
-        show
-        variant="info"
-      >
+      <b-alert show variant="info">
         {{ $i18n(`storeedit.fetch.teamStatus${store.teamSearchStatus}`) }}
       </b-alert>
 
-      <a
-        v-if="store.mayAccessStorePage"
-        class="btn btn-primary action-button"
-        :href="$url('store', storeId)"
-      >
-        {{ $i18n('store.go') }}
-      </a>
-      <button
-        v-else-if="store.maySendRequest"
-        class="btn btn-primary action-button"
-        @click="sendRequest"
-      >
-        {{ $i18n('store.request.request') }}
-      </button>
-      <button
-        v-else-if="store.mayWithdrawRequest"
-        class="btn btn-primary action-button"
-        @click="sendRequest"
-      >
-        {{ $i18n('store.request.withdraw') }}
-      </button>
+      <div class="text-center">
+        <a v-if="store.mayAccessStorePage" href="#" class="btn btn-primary mt-3 text-wrap">{{ $i18n('store.go') }}</a>
+        <button v-else-if="store.maySendRequest" class="btn btn-primary mt-3 text-wrap" @click="sendRequest">
+          {{ $i18n('store.request.request') }}
+        </button>
+        <button v-else-if="store.mayWithdrawRequest" class="btn btn-primary mt-3 text-wrap" @click="withdrawRequest">
+          {{ $i18n('store.request.withdraw') }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { getStoreBubbleContent } from '@/api/map'
-import { pulseError } from '@/script'
+import { pulseError, pulseSuccess } from '@/script'
 import StoreStatusIcon from '../../Store/components/StoreStatusIcon'
 import Avatar from '@/components/Avatar'
+import { declineStoreRequest, requestStoreTeamMembership } from '@/api/stores'
+import UserData from '@/stores/user'
 
 export default {
   components: { StoreStatusIcon, Avatar },
@@ -130,12 +94,12 @@ export default {
   },
   computed: {
     cooperationStartDate () {
-      return this.store !== null
+      return this.store !== null && this.store.cooperationStart
         ? this.$dateFormatter.format(this.store.cooperationStart, {
           month: 'long',
           year: 'numeric',
         })
-        : ''
+        : null
     },
     pickupTimeExplanation () {
       if (this.store === null) {
@@ -149,8 +113,11 @@ export default {
       }
 
       return this.store.publicPickupTime !== null && this.store.publicPickupTime in translations
-        ? translations[this.store.publicPickupTime]
+        ? this.$i18n(translations[this.store.publicPickupTime])
         : null
+    },
+    userId () {
+      return UserData.getters.getUserId()
     },
   },
   async mounted () {
@@ -163,38 +130,26 @@ export default {
     this.loading = false
   },
   methods: {
-    sendRequest () {
-      // TODO
+    async sendRequest () {
+      try {
+        await requestStoreTeamMembership(this.store.id, this.userId)
+        this.store.maySendRequest = false
+        this.store.mayWithdrawRequest = true
+        pulseSuccess(this.$i18n('store.request.got-it'))
+      } catch (e) {
+        pulseError(this.$i18n('error_unexpected'))
+      }
+    },
+    async withdrawRequest () {
+      try {
+        await declineStoreRequest(this.store.id, this.userId)
+        this.store.maySendRequest = true
+        this.store.mayWithdrawRequest = false
+        pulseSuccess(this.$i18n('store.request.withdrawn'))
+      } catch (e) {
+        pulseError(this.$i18n('error_unexpected'))
+      }
     },
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.section {
-  border-bottom: 1px solid var(--fs-border-default);
-  padding-bottom: 15px;
-  padding-top: 15px;
-  margin-top: 0;
-
-  .section-content {
-    font-size: 14px;
-    line-height: 1.38;
-  }
-
-  .section-label {
-    color: var(--fs-color-primary-500);
-    display: block;
-    font-weight: 500;
-    font-size: 12px;
-    padding-top: 5px;
-    line-height: 1.28;
-  }
-}
-
-.action-button {
-  padding: .375rem .75rem;
-  display: block;
-}
-
-</style>

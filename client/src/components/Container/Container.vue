@@ -2,14 +2,14 @@
   <div class="list-group bg-white mb-2">
     <div
       class="list-group-item list-group-header"
-      @click="!disableToggleExpanded ? toggleExpanded() : null"
+      @click="collapsible ? toggleExpanded() : null"
     >
       <h5
         :class="{ 'expanded': isExpanded }"
         v-text="title"
       />
       <i
-        v-if="!disableToggleExpanded"
+        v-if="collapsible"
         :id="`expand-${title}`"
         :alt="isExpanded ? $i18n('globals.show_more') : $i18n('globals.show_less')"
         class="fas fa-angle-down"
@@ -41,7 +41,7 @@ export default {
     title: { type: String, default: 'title' },
     toggleVisiblity: { type: Boolean, default: false },
     containerIsExpanded: { type: Boolean, default: true },
-    disableToggleExpanded: { type: Boolean, default: false },
+    collapsible: { type: Boolean, default: true },
   },
   data () {
     return {

@@ -6,31 +6,22 @@
       </div>
 
       <div class="rounded applicants-list ui-widget ui-widget-content">
-        <div
-          v-if="isLoading"
-          class="loader-container mx-auto"
-        >
-          <i class="fas fa-spinner fa-spin" />
-        </div>
-        <ul
-          v-else
-          class="container linklist"
-        >
+        <ul class="container linklist">
           <li
-            v-for="applicant in applicants"
-            :key="applicant.id"
+            v-for="application in applications"
+            :key="application.id"
           >
             <a
-              :href="$url('application', groupId, applicant.id)"
+              :href="$url('application', groupId, application.id)"
               class="row justify-content-start"
             >
               <Avatar
-                :url="applicant.avatar"
+                :url="application.avatar"
                 :size="35"
-                :sleep-status="applicant.sleepStatus"
+                :sleep-status="application.sleepStatus"
                 class="mr-2"
               />
-              <span class="d-inline avatar-title">{{ applicant.name }}</span>
+              <span class="d-inline avatar-title">{{ application.name }}</span>
             </a>
           </li>
         </ul>
@@ -40,33 +31,14 @@
 </template>
 
 <script>
-import { getApplications } from '@/api/applications'
-import { pulseError } from '@/script'
-import i18n from '@/helper/i18n'
 import Avatar from '@/components/Avatar'
 
 export default {
   components: { Avatar },
   props: {
-    groupId: { type: Number, required: true },
+    applications: { type: Array, required: true },
     groupName: { type: String, required: true },
-  },
-  data () {
-    return {
-      isLoading: false,
-      applicants: [],
-    }
-  },
-  async mounted () {
-    this.isLoading = true
-
-    try {
-      this.applicants = await getApplications(this.groupId)
-    } catch (err) {
-      pulseError(i18n('error_unexpected'))
-    }
-
-    this.isLoading = false
+    groupId: { type: Number, required: true },
   },
 }
 </script>

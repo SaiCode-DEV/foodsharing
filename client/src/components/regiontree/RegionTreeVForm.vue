@@ -2,7 +2,7 @@
 <template>
   <div
     id="input-wrapper"
-    class="bootstrap input-wrapper"
+    class="bootstrap"
   >
     <label
       v-if="title"

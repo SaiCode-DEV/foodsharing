@@ -343,8 +343,8 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I = $this->helper;
         $I->_getDbh()->beginTransaction();
         $I->_getDriver()->executeQuery('SET FOREIGN_KEY_CHECKS=0;', []);
-        $regionEurope = $I->createRegion('Europa', ['parent_id' => RegionIDs::ROOT, 'type' => UnitType::COUNTRY, 'has_children' => 1]);
-        $regionGermany = $I->createRegion('Deutschland', ['parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1]);
+        $regionEurope = $I->createRegion('Europa', ['id' => RegionIDs::EUROPE, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::COUNTRY, 'has_children' => 1]);
+        $regionGermany = $I->createRegion('Deutschland', ['id' => RegionIDs::GERMANY, 'parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1]);
         $regionLowerSaxony = $I->createRegion('Niedersachsen', ['parent_id' => $regionGermany['id'], 'type' => UnitType::FEDERAL_STATE, 'has_children' => 1]);
         $regionOne = $I->createRegion('Göttingen', ['parent_id' => $regionLowerSaxony['id'], 'type' => UnitType::CITY, 'has_children' => 1]);
         $region1 = $regionOne['id'];

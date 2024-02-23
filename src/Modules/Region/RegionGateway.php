@@ -12,6 +12,7 @@ use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Region\DTO\HierachicalRegion;
 
 class RegionGateway extends BaseGateway
 {
@@ -708,5 +709,30 @@ class RegionGateway extends BaseGateway
                 'bezirk_id' => $regionId,
             ]
         );
+    }
+
+    public function getRegionsForCommunitiesContacts(): array
+    {
+        $host = PLATFORM_MAILBOX_HOST;
+        $data = $this->db->fetchAll("SELECT
+                region.name,
+                region.id,
+                region.parent_id AS parentId,
+                mailbox.name AS email,
+                NOT ISNULL(ambassador.foodsaver_id) AS hasAmbassador
+            FROM fs_mailbox mailbox
+            JOIN fs_bezirk region ON region.mailbox_id = mailbox.id
+            LEFT OUTER JOIN fs_botschafter ambassador ON ambassador.bezirk_id = region.id
+            WHERE region.type != :workingGroup
+            GROUP BY region.id
+            ORDER BY
+                IF(region.type = :country, '', region.name) ASC, # order overything but countries by size
+                region.stat_fscount DESC # order countries by size
+        ", [
+            ':workingGroup' => UnitType::WORKING_GROUP,
+            ':country' => UnitType::COUNTRY,
+        ]);
+
+        return array_map([HierachicalRegion::class, 'createFromArray'], $data);
     }
 }

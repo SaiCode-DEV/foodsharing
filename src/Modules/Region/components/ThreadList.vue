@@ -1,24 +1,26 @@
 <!-- eslint-disable vue/max-attributes-per-line -->
 <template>
-  <div>
-    <div class="ui-widget-content ui-corner-all margin-bottom ui-padding">
-      <a
-        class="button"
-        :href="$url('forum', groupId, subforumId, null, null, true)"
-      >
-        {{ $i18n('forum.new_thread') }}
-      </a>
-    </div>
-    <div class="ui-widget-content ui-corner-all margin-bottom ui-padding">
-      <ForumSearchField
-        :group-id="groupId"
-        :subforum-id="subforumId"
-      />
-    </div>
-    <div class="head ui-widget-header ui-corner-top ui-padding">
-      {{ $i18n('forum.threads') }}
-    </div>
-    <div class="ui-widget ui-widget-content corner-all margin-bottom">
+  <Container :title="$i18n('forum.threads')">
+    <b-container>
+      <b-row class="mt-2">
+        <b-col cols="12" md="7" xl="8">
+          <ForumSearchField
+            :group-id="groupId"
+            :subforum-id="subforumId"
+          />
+        </b-col>
+        <b-col cols="12" md="4" xl="3" class="m-2">
+          <b-button
+            block
+            variant="primary"
+            :href="$url('forum', groupId, subforumId, null, null, true)"
+          >
+            {{ $i18n('forum.new_thread') }}
+          </b-button>
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container>
       <ul class="forum_threads linklist">
         <ThreadListEntry
           v-for="(el, index) in threads"
@@ -37,19 +39,20 @@
           </li>
         </infinite-loading>
       </ul>
-    </div>
-  </div>
+    </b-container>
+  </Container>
 </template>
 
 <script>
 import ForumSearchField from './ForumSearchField'
 import ThreadListEntry from './ThreadListEntry'
 import InfiniteLoading from 'vue-infinite-loading'
+import Container from '@/components/Container/Container.vue'
 
 import { listThreads } from '@/api/forum'
 
 export default {
-  components: { ForumSearchField, ThreadListEntry, InfiniteLoading },
+  components: { ForumSearchField, ThreadListEntry, InfiniteLoading, Container },
   props: {
     groupId: { type: Number, required: true },
     subforumId: { type: Number, required: true },

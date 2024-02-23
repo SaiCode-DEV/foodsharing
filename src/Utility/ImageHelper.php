@@ -92,12 +92,8 @@ final class ImageHelper
         }
     }
 
-    public function img($file = false, $size = 'mini', $format = 'q', $altimg = false)
+    public function img(?string $file, $size = 'mini', $format = 'q', $altimg = false)
     {
-        if ($file === false) {
-            $file = $_SESSION['client']['photo'];
-        }
-
         // prevent path traversal
         if (!empty($file)) {
             $file = preg_replace('/%/', '', (string)$file) ?? ''; // Destroys url encoded path elements to load images from other position

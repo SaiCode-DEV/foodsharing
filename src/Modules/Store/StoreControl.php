@@ -6,27 +6,23 @@ use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Region\RegionGateway;
-use Foodsharing\Modules\Store\DTO\CreateStoreData;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\Utility\IdentificationHelper;
 
 class StoreControl extends Control
 {
     private $storePermissions;
-    private $storeTransactions;
     private $regionGateway;
     private $identificationHelper;
 
     public function __construct(
         StorePermissions $storePermissions,
-        StoreTransactions $storeTransactions,
         StoreView $view,
         RegionGateway $regionGateway,
         IdentificationHelper $identificationHelper,
     ) {
         $this->view = $view;
         $this->storePermissions = $storePermissions;
-        $this->storeTransactions = $storeTransactions;
         $this->regionGateway = $regionGateway;
         $this->identificationHelper = $identificationHelper;
 
@@ -58,20 +54,13 @@ class StoreControl extends Control
         }
         if ($this->identificationHelper->getAction('new')) {
             if ($this->storePermissions->mayCreateStore()) {
-                $this->handle_add($this->session->id());
-
                 $this->pageHelper->addBread($this->translator->trans('storeedit.add-new'), '/?page=fsbetrieb');
 
                 $chosenRegion = ($regionId > 0 && UnitType::isAccessibleRegion($this->regionGateway->getType($regionId))) ? $region : null;
-                $this->pageHelper->addContent($this->view->betrieb_form(
-                    $this->storeTransactions->getCommonStoreMetadata(false),
-                    $chosenRegion,
-                    'betrieb'
-                ));
 
-                $this->pageHelper->addContent($this->v_utils->v_field($this->v_utils->v_menu([
-                    ['name' => $this->translator->trans('bread.backToOverview'), 'href' => '/?page=fsbetrieb&bid=' . $regionId]
-                ]), $this->translator->trans('storeedit.actions')), CNT_RIGHT);
+                $this->pageHelper->addContent($this->view->vueComponent('vue-store-new', 'StoreNew', [
+                    'chosenRegion' => $chosenRegion,
+                ]));
             } else {
                 $this->flashMessageHelper->info($this->translator->trans('store.smneeded'));
                 $this->routeHelper->goAndExit('/?page=settings&sub=up_bip');
@@ -98,39 +87,5 @@ class StoreControl extends Control
                 ]));
             }
         }
-    }
-
-    private function handle_add($coordinator)
-    {
-        global $g_data;
-        if (!$this->submitted()) {
-            return;
-        }
-
-        $g_data['bezirk_id'] ??= $this->session->getCurrentRegionId();
-
-        if (!$this->session->mayBezirk($g_data['bezirk_id'])) {
-            $this->flashMessageHelper->error($this->translator->trans('storeedit.not-in-region'));
-            $this->routeHelper->goPageAndExit();
-        }
-
-        if (isset($g_data['ort'])) {
-            $g_data['stadt'] = $g_data['ort'];
-        }
-        if (isset($g_data['anschrift'])) {
-            $g_data['str'] = $g_data['anschrift'];
-        }
-        $firstStorePost = $g_data['first_post'] ?? null;
-        $storeId = $this->storeTransactions->createStore(CreateStoreData::createFromArray($g_data), $this->session->id(), $firstStorePost);
-
-        if (!$storeId) {
-            $this->flashMessageHelper->error($this->translator->trans('error_unexpected'));
-
-            return;
-        }
-
-        $this->flashMessageHelper->success($this->translator->trans('storeedit.add_success'));
-
-        $this->routeHelper->goAndExit('/?page=fsbetrieb&id=' . (int)$storeId);
     }
 }

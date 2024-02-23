@@ -1,9 +1,10 @@
 import Vue from 'vue'
-import { updateInvitationResponse } from '@/api/events'
+import { updateInvitationResponse, listEvents } from '@/api/events'
 
 export const store = Vue.observable({
   invites: [],
   accepted: [],
+  events: [],
 })
 
 export const getters = {
@@ -12,6 +13,9 @@ export const getters = {
   },
   getAccepted () {
     return store.accepted
+  },
+  getEvents () {
+    return store.events
   },
 }
 
@@ -24,6 +28,9 @@ export const mutations = {
   },
   setInvitationResponse (eventId, status) {
     return updateInvitationResponse(eventId, status)
+  },
+  async listEvents (regionId) {
+    store.events = await listEvents(regionId)
   },
 }
 

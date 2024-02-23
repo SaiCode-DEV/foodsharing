@@ -18,6 +18,8 @@ export const STORE_TEAM_STATE = Object.freeze({
   MANAGE_ROLE: 4,
 })
 
+export const MAX_LEN_FOR_PUBLIC_INFO = 180
+
 export const STORE_LOG_ACTION = Object.freeze({
   REQUEST_TO_JOIN: 1,
   REQUEST_DECLINED: 2,

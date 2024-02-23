@@ -488,12 +488,12 @@ final class BasketRestController extends AbstractFOSRestController
                 return $defaultLocation;
             } else {
                 // find user's location
-                $loc = $this->session->getLocation();
-                if (!$loc || ($loc[self::LAT] === 0 && $loc[self::LON] === 0)) {
+                $loc = $this->session->user('location');
+                if (!$loc || ($loc->lat === 0 && $loc->lon === 0)) {
                     throw new BadRequestHttpException('The user profile has no address.');
                 }
-                $lat = (float)$loc[self::LAT];
-                $lon = (float)$loc[self::LON];
+                $lat = $loc->lat;
+                $lon = $loc->lon;
             }
         }
 

@@ -250,6 +250,7 @@ upload:
 
 button:
   save: "Speichern"
+  prev: "Zurück"
   next: "Weiter"
   change_picture: "Bild ändern"
   attach_image: "Bild hochladen (png- oder jpg-Format)"
@@ -417,11 +418,11 @@ group:
     join: "Dieser Arbeitsgruppe beitreten"
     save: "Änderungen speichern"
   no_groups: "Hier gibt es noch keine Arbeitsgruppen"
-  quit_name_workgroup: "Team %name% verlassen"
-  quit_name_district: "Bezirk %name% verlassen"
+  quit_name_workgroup: "Team {name} verlassen"
+  quit_name_district: "Bezirk {name} verlassen"
   quit: "Verlassen"
-  really_quit_workgroup: "Möchtest du wirklich die Arbeitsgruppe %name% verlassen?"
-  really_quit_district: "Möchtest du wirklich den Bezirk %name% verlassen?"
+  really_quit_workgroup: "Möchtest du wirklich die Arbeitsgruppe {name} verlassen?"
+  really_quit_district: "Möchtest du wirklich den Bezirk {name} verlassen?"
   quitting_home_district_warning: "Möchtest du wirklich deinen Stammbezirk %name% verlassen? Du verlierst deine Verifizierung und musst dich später beim Botschafter:innen-Team deines neuen Stammbezirks melden."
   delete_group_sure: "Soll die Arbeitsgruppe/der Bezirk {groupName} wirklich gelöscht werden?"
   function:
@@ -689,12 +690,12 @@ terminology:
   subgroups: "Untergruppen"
   settings: "Einstellungen"
   mailboxes: "E-Mail-Postfächer"
-  n_foodsaver: "Ein:e Foodsaver:in|%count% Foodsaver:innen"
-  n_home_regions: "eine(r) mit Stammbezirk|%count% mit Stammbezirk"
-  n_sleeping: "Eine Schlafmütze|%count% Schlafmützen"
-  n_ambassadors: "Ein:e Botschafter:in|%count% Botschafter:innen"
-  n_stores: "Ein Betrieb|%count% Betriebe"
-  n_cooperating_stores: "Eine laufende Kooperation|%count% laufende Kooperationen"
+  n_foodsaver: "{count} Foodsaver:innen"
+  n_home_regions: "{count} mit Stammbezirk"
+  n_sleeping: "{count} Schlafmützen"
+  n_ambassadors: "{count} Botschafter:innen"
+  n_stores: "{count} Betriebe"
+  n_cooperating_stores: "{count} laufende Kooperationen"
   profile_picture: "Profilbild"
   region: "Bezirk"
   regions: "Bezirke"
@@ -707,8 +708,8 @@ terminology:
   pin: "Ortsgruppenbeschreibung"
 
 statistics:
-  kg_food_saved: "%count% kg Lebensmittel gerettet"
-  num_fetches: "Bei einem Rettungseinsatz|Bei %count% Rettungseinsätzen"
+  kg_food_saved: "{count} kg Lebensmittel gerettet"
+  num_fetches: "Bei {count} Rettungseinsätzen"
 
 are_you_sure: "Bist du sicher?"
 really_delete: "Wirklich löschen?"
@@ -796,10 +797,10 @@ storeview:
   source_data: "Stammdaten"
   select_related_region: "Auswahl des zuständigen Bezirks"
   info: "Informationen"
-  teamInfo: "Es sind <strong>{active}</strong> Aktive und <strong>{jumper}</strong> Springer im Team."
+  teamInfo: "<strong>{active}</strong> Aktive und <strong>{jumper}</strong> Springer im Team."
   counter: "<strong>{count} {suffix}</strong>"
-  pickupCount: "Bei diesem Betrieb wurde {pickupCount} abgeholt."
-  pickupWeight: "Es wurden {pickupWeight} kg gerettet."
+  pickupCount: "Es wurde {pickupCount} abgeholt"
+  pickupWeight: "und {pickupWeight} kg gerettet."
   cooperation: "Kooperation seit {startTime}."
   cooperation_start: "Kooperation seit"
   cooperation_status: "Kooperationsstatus"
@@ -1029,6 +1030,8 @@ store:
 storeedit:
   bread: "Betrieb bearbeiten"
   add-new: "Neuen Betrieb anlegen"
+  store_name_placeholder: "Name des Betriebs"
+  name_error: "Name muss aus mindestens 3 Zeichen bestehen."
   not-in-region: "Du kannst Betriebe nur in Regionen anlegen, in denen du Mitglied bist."
   actions: "Optionen"
   team:
@@ -1334,9 +1337,6 @@ events:
     who: "Für welchen Bezirk oder welche Arbeitsgruppe soll die Veranstaltung angelegt werden?"
     groups: "Deine Arbeitsgruppen"
     regions: "Deine Bezirke"
-    inviteAll: "Gesamte(n) Gruppe/Bezirk zum Termin einladen?"
-    cascading: "Alle untergeordneten Gruppen/Bezirke einschließen?"
-    delinvites: "Vorhandene Einladungen löschen?"
     multiday: "Das Event geht über mehrere Tage"
     starttime: "Uhrzeit Beginn"
     endtime: "Uhrzeit Ende"
@@ -1344,14 +1344,6 @@ events:
     offline: "Ganz normal im echten Leben"
     online: "Per Video- oder Telefonkonferenz"
     mumble: "Konferenz auf mumble.foodsharing.de"
-    info: |
-      <b>Bitte beachten:</b>
-      <br>
-      Der Termin ist nach dem Anlegen für alle in <b>der jeweiligen Gruppe</b>
-      über einen geteilten Link oder das Termin-Menü erreichbar.
-      <br>
-      Um den Termin auch zwischenzeitlichen Neuzugängen auf dem Dashboard anzuzeigen,
-      speichere ihn zu einem späteren Zeitpunkt erneut ab.
   description: "Beschreibung"
   span: "{from} bis {until}"
   duration: "Dauer: {duration}"
@@ -1403,7 +1395,6 @@ recipients:
   body: "Nachricht"
   send: "E-Mail senden"
   confirm: "E-Mail senden?"
-  test: "Newsletter testen"
   testmail: "Test-Mail senden"
   test_email_sent: "E-Mail wurde versendet."
   test_email_invalid: "Mit der E-Mail-Adresse stimmt etwas nicht."
@@ -1543,6 +1534,9 @@ bell:
   store_new: "{name} wurde eingetragen"
   store_new_request_title: "Neue Teamanfrage"
   store_new_request: "Anfrage für {name}"
+  new_store_request:
+    one: "für {name} von {user}"
+    many: "für {name} von {count} Nutzer:innen"
   store_request_accept_title: "{name}"
   store_request_accept: "Du wurdest in das Team aufgenommen."
   store_request_accept_wait_title: "{name}"
@@ -1556,9 +1550,17 @@ bell:
 
   store_wallpost_title: "{name}"
   store_wallpost: "Neuer Eintrag auf der Pinnwand."
+  store_wall_post_title: "Betrieb {name}"
+  store_wall_post:
+    one: "Pinnwandeintrag von {user}"
+    many: "{count} neue Pinnwandeinträge"
 
   store_cr_times_title: "{name}"
   store_cr_times: "Abholtermine wurden angepasst"
+  store_change_regular_pickup_times:
+    one: "Abholtermine wurden angepasst"
+    many: "Abholtermine wurden angepasst"
+
 
   fs_sleepmode_title: "Neue Schlafmütze"
   fs_sleepmode: "{name} {nachname} ist jetzt inaktiv"
@@ -1742,6 +1744,11 @@ content:
   title: "Titel"
   last_modified: "Zuletzt bearbeitet"
   delete_tooltip: "Seite löschen"
+  communities:
+    title: Ortsgruppen
+    text: foodsharing wächst täglich. Hier findet ihr immer eine aktuelle Liste aller foodsharing Gemeinschaften und Bezirke. Du kannst eine Mail an jeden dieser Bezirke schicken, indem du auf die verlinkten Namen klickst.
+    searchInfo: Mit Strg+F kann die Liste in vielen Browsern nach Ländern, Städten, Bundesländern oder Stadtteilen durchsucht werden.
+    noAmbassador: Diese Region hat aktuell keine Botschafter:innen und ist daher aktuell nicht per Mail erreichbar. Bitte kontaktiere eine benachbarte oder die nächst-höhere Region.
 
 map:
   title: "Karte"
@@ -2389,10 +2396,6 @@ menu:
     forcompanies: "Für Unternehmen"
     imprint: "Impressum"
     regionalgroups: "Ortsgruppen" #also in MapView
-    Germany: "Deutschland"
-    Austria: "Österreich"
-    Swiss: "Schweiz"
-    international: "International"
     forum: "Forum"
     BOTforum: "Botschafter:innen-Forum"
     wall: "Pinnwand"
@@ -2429,6 +2432,7 @@ menu:
     language: "Sprache wählen"
     options: "Optionen"
     pin: "Ortsgruppenbeschreibung"
+    applications: "Bewerbungen ({count})"
   bell:
     delete_read_confirmation:
       text: "Willst du wirklich {count} gelesene Glocken löschen?"
@@ -2488,7 +2492,7 @@ storestatus:
   "3": "Betrieb ist bereit zu kooperieren"
   "3a": "Betrieb ist bereit zu spenden. :-)"
   "4": "Will nicht kooperieren"
-  "5": "Betrieb kooperiert mit uns"
+  "5": "kooperiert mit uns"
   "5a": "Betrieb spendet bereits"
   "6": "Spendet an Tafel etc. und wirft nichts weg"
   "7": "Betrieb existiert nicht mehr"
@@ -3104,6 +3108,8 @@ globals:
     my_persons: Meine Personen
     chats: Chats
     threads: Themen
+    groups_menu: "Gruppen-Menü"
+    regions_menu: "Bezirks-Menü"
   you: Du
   telephone_number: Telefonnummer
 

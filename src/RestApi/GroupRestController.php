@@ -93,7 +93,7 @@ class GroupRestController extends AbstractFOSRestController
         ];
 
         $name = $this->session->user('name') . ' (' . $this->session->id() . ')';
-        $avatar = 'https://' . $host . $this->imageService->img();
+        $avatar = 'https://' . $host . $this->imageService->img($this->session->user('photo'));
 
         /* We do a 301 redirect directly to have less likeliness that the user forwards the BBB join URL as this is already personalized */
         if ($paramFetcher->get('redirect') == 'true') {

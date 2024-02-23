@@ -283,7 +283,7 @@
                 <b-card-text class="pt-4">
                   {{ $i18n('startpage.near_you.text3.part1') }} <b-link
                     class="link"
-                    :href="currentCountry"
+                    :href="$url('communities')"
                   >
                     {{ $i18n('startpage.near_you.text3.part2') }}
                   </b-link>
@@ -427,18 +427,8 @@ export default {
     contentBlock1: { type: String, default: '' },
     contentBlock2: { type: String, default: '' },
     contentBlock3: { type: String, default: '' },
-    country: { type: String, default: 'DE' },
   },
   computed: {
-    currentCountry () {
-      if (this.country === 'AT') {
-        return this.$url('communitiesAustria')
-      } else if (this.country === 'CH') {
-        return this.$url('communitiesSwitzerland')
-      } else {
-        return this.$url('communitiesGermany')
-      }
-    },
     contentBlockVisible () {
       return this.contentBlock1 && this.contentBlock2 && this.contentBlock1
     },

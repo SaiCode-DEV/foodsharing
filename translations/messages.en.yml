@@ -129,10 +129,10 @@ group:
     accept: Accept the application
     link_description: 'This link will take you directly to the application:'
   show-all: Show all
-  really_quit_district: Do you really want to leave the region %name%?
-  really_quit_workgroup: Do you really want to leave the working group %name%?
-  quit_name_district: Leave region %name%
-  quit_name_workgroup: Leave team %name%
+  really_quit_district: Do you really want to leave the region {name}?
+  really_quit_workgroup: Do you really want to leave the working group {name}?
+  quit_name_district: Leave region {name}
+  quit_name_workgroup: Leave team {name}
   contact:
     send: Send message
     title: Contact {group}
@@ -412,6 +412,7 @@ menu:
     load_more: Load more
     refresh: Refresh
     delete_read: Delete all read
+    applications: Applications ({count})
   bell:
     delete_read_confirmation:
       text: Do you really want to delete {count} read bells?
@@ -709,7 +710,7 @@ mailbox:
   conformation_modal:
     title: Confirmation
     message: Do you really want to delete this email?
-  mark_all: select all
+  mark_all: Select all
   tag_recipient_hint: Recipients (separated by semicolon)
   attachment:
     not_found_explanation: The attachment could not be found on the server
@@ -732,6 +733,7 @@ mailbox:
   addressbook: Adress book
   reply_all: Reply all
   show_html_body: Show HTML code
+  mark_none: Select none
 events:
   description: Description
   create:
@@ -1041,11 +1043,11 @@ storeview:
   status: Current status
   public_time: 'It will be picked up roughly {freq}. Please never go to the store
     without prior consultation!'
-  pickupWeight: '{pickupWeight} kg were saved.'
+  pickupWeight: 'and {pickupWeight} kg were saved.'
   counter: <strong>{count} {suffix}</strong>
-  teamInfo: There are <strong>{active}</strong> active and <strong>{jumper}</strong>
-    standby foodsavers in the team.
-  pickupCount: At this store there have been {pickupCount} pick-ups.
+  teamInfo: <strong>{active}</strong> active and <strong>{jumper}</strong> standby
+    foodsavers in the team.
+  pickupCount: '{pickupCount} pick-ups have taken place'
   status_notes: status notes
   team: Store team
   show_settings: Store settings
@@ -1083,8 +1085,8 @@ terminology:
     d: Ambassador
     f: Ambassador
     m: Ambassador
-  n_stores: A store|%count% stores
-  n_ambassadors: One ambassador|%count% ambassadors
+  n_stores: '{count} stores'
+  n_ambassadors: '{count} ambassadors'
   ambassador_forum: Ambassador forum
   orga:
     d: Orga person
@@ -1119,11 +1121,11 @@ terminology:
   arbitrationAdmins: Arbitration board
   mediationAdmins: Mediation team
   reportAdmins: Report processing team
-  n_foodsaver: One foodsaver|%count% foodsavers
-  n_home_regions: "one with home district|%count% with home district"
+  n_foodsaver: '{count} foodsavers'
+  n_home_regions: "{count} with home district"
   storesAdmins: Store coordination team
-  n_sleeping: A nightcap|%count% nightcaps
-  n_cooperating_stores: A running cooperation|%count% running cooperations
+  n_sleeping: '{count} nightcaps'
+  n_cooperating_stores: '{count} running cooperations'
   options: Options
   reports: Reporting View (local reporting group)
   arbitration: Reporting View (LS)
@@ -1189,6 +1191,7 @@ button:
   answer: Answer
   clear_filter: Clear filter
   reset_default: Reset default
+  prev: previous
 bell:
   ft_update_title: '{name}'
   blog_new_check: '{title}'
@@ -1254,6 +1257,16 @@ bell:
   forum_new_thread_title: 'New thread: {title}'
   forum_announcement_title: 'Important notice: {title}'
   forum_mention: in the topic “{title}” of the forum {forum}
+  new_store_request:
+    one: for {name} from {user}
+    many: for {name} from {count} users
+  store_wall_post_title: Store {name}
+  store_change_regular_pickup_times:
+    one: Pick-up slots have changed
+    many: Pick-up slots have changed
+  store_wall_post:
+    one: Wall post from {user}
+    many: '{count} new wall posts'
 reports:
   time: Time
   region: Home district
@@ -1539,6 +1552,10 @@ conference:
     name you entered at foodsharing, your ID and avatar.'
   description_text: Here you can join a video conference for the selected group. The
     video conference opens BigBlueButton in a new window.
+  confirm_info: Here you can join an online conference for the selected group, which
+    will open in a new window. This conference will be held via the living utopia
+    collective’s BigBlueButton conference server. You will automatically be logged
+    in there with your first name, ID and avatar that you entered at foodsharing.
 blog:
   status:
     "1": published
@@ -1828,6 +1845,15 @@ content:
   title: Title
   last_modified: Last edited
   delete_tooltip: Delete page
+  communities:
+    title: Local groups
+    text: foodsharing is growing every day. Here you will always find an up-to-date
+      list of all foodsharing communities and districts. You can send an email to
+      the relevant district by clicking on the linked name.
+    searchInfo: With Ctrl+F, the list can be searched in many browsers by country,
+      city, state or district.
+    noAmbassador: This region currently has no ambassadors and therefore cannot be
+      contacted by email. Please contact a neighboring or the next higher region.
 foodsaver:
   kicked: Foodsaver removed
   list:
@@ -2350,6 +2376,8 @@ storeedit:
   actions: Options
   add_success: Cooperating store was added
   not-in-region: You can only add stores to regions, in which you are a member.
+  name_error: The name must consist of at least three characters.
+  store_name_placeholder: Store name
 legal:
   delete_account: I want to delete my account.
   legal_agreement: Legal agreement
@@ -2874,13 +2902,13 @@ error_permissions: Unfortunately, you do not have the necessary permissions for 
   process.
 success: Completed successfully
 statistics:
-  kg_food_saved: '%count% kg food saved'
-  num_fetches: In a pick-up|In %count% pick-ups
+  kg_food_saved: '{count} kg food saved'
+  num_fetches: In {count} pick-ups
 storestatus:
   "0": Status unclear
   "7": Store no longer exists
   "6": Donate to food bank etc. or doesn’t throw anything away
-  "5": Store is cooperating
+  "5": is cooperating
   "4": Don’t want to cooperate
   "3": Store is ready to cooperate
   "2": Negotiations are ongoing
@@ -3352,6 +3380,8 @@ globals:
     foodSharePoints: Food-Share Points
     users: Persons
     workingGroups: Groups
+    groups_menu: Groups menu
+    regions_menu: Regions menu
   save: Save
   close: Close
   select: Please select …

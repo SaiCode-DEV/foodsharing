@@ -2,7 +2,6 @@
 
 namespace Foodsharing\Modules\Mailbox\DTO;
 
-use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
 
 /**

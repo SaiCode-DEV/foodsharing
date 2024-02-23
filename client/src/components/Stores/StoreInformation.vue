@@ -440,7 +440,7 @@
 
 <script>
 // Stores
-import StoreData from '@/stores/stores'
+import StoreData, { MAX_LEN_FOR_PUBLIC_INFO } from '@/stores/stores'
 import PickupsData from '@/stores/pickups'
 
 // Others
@@ -508,7 +508,7 @@ export default {
     },
     publicInfoState () {
       if (!this.editMode) return null
-      else return this.store.publicInfo.length <= 180
+      else return this.store.publicInfo.length <= MAX_LEN_FOR_PUBLIC_INFO
     },
     calendarInterval: {
       get () {

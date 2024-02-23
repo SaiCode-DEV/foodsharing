@@ -262,6 +262,7 @@ button:
   rotate_right: saat yönünde döndür
   permadelete: Geri getirilemez bir şekilde silin
   reset_default: Standardı geri yükle
+  prev: Geri
 upload:
   new_image: Yeni fotoğraf yükle
   file: Dosya yükle
@@ -456,15 +457,15 @@ group:
   subtitle: Burada yardım ve yapacak çok şey bulacaksınız …
   member_count: '{0} Katkıda bulunan yok|{1} Bir katkıda bulunan var| [2, Inf[ %count%
     katkıda bulunanlar'
-  really_quit_workgroup: '%name% çalışma grubundan ayrılmak istediğinize emin misiniz?'
+  really_quit_workgroup: '{name} çalışma grubundan ayrılmak istediğinize emin misiniz?'
   already_applied: Bu grup için zaten başvuruda bulundunuz.
-  quit_name_district: '%name% bölgesinden ayrıl'
+  quit_name_district: '{name} bölgesinden ayrıl'
   quit: Ayrıl
   members: Üyeler
   administrators: Grup Yöneticileri
-  quit_name_workgroup: '%name% Ekipten ayrıl'
+  quit_name_workgroup: '{name} Ekipten ayrıl'
   role_name: Rolü
-  really_quit_district: '%name% bölgesinden ayrılmak istediğinizden emin misiniz?'
+  really_quit_district: '{name} bölgesinden ayrılmak istediğinizden emin misiniz?'
   quitting_home_district_warning: Bağlı olduğunuz %name% bölgesinden gerçekten ayrılmak
     istiyor musunuz? Onaylamanızı kaybedeceksiniz ve daha sonra yeni bölgenizin elçi
     ekibine rapor vermek zorunda kalacaksınız.
@@ -587,6 +588,16 @@ bell:
   forum_new_thread_title: 'Yeni Gönderi: {title}'
   forum_announcement_title: 'Önemli mesaj: {title}'
   forum_mention: '{forum} forumunun "{title}" konusunda'
+  new_store_request:
+    one: '{user} kullanıcısından {name} için'
+    many: '{count} kullanıcıdan {name} için'
+  store_wall_post:
+    many: '{count} yeni pano girişi'
+    one: '{user} kullanıcısından pano girişi'
+  store_change_regular_pickup_times:
+    one: Gıda kurtarma tarihleri düzenlendi
+    many: Gıda kurtarma tarihleri düzenlendi
+  store_wall_post_title: İşletme{name}
 sig:
   buddies: Tanıdığın insanlar
 error:
@@ -914,6 +925,8 @@ storeedit:
     created: '{user}, işletmeyi {date} tarihinde girdi'
     dropped: '{user} artık ekipte değil'
   edit_success: Değişiklikler kaydedildi
+  store_name_placeholder: İşletmenin adı
+  name_error: İsim en az 3 karakterden oluşmalıdır.
 date:
   -- Tomorrow: Yarın
   yesterday: dün
@@ -1800,6 +1813,7 @@ menu:
     load_more: Daha fazla yükle
     refresh: Güncelle
     delete_read: Tüm okunmuş olanları sil
+    applications: Başvurular ({count})
   bell:
     delete_read_confirmation:
       text: '{count} okuma çanlarını silmek istediğinizden emin misiniz?'
@@ -2591,24 +2605,24 @@ terminology:
   boardAdmins: Yönetim Kurulu
   subgroups: Alt gruplar
   settings: Ayarlar
-  n_foodsaver: Bir Foodsaver|%count% Foodsaver
+  n_foodsaver: '{count} Foodsaver'
   arbitrationAdmins: Tahkim Kurulu
   mediationAdmins: Arabuluculuk Ekibi
   fsManagementAdmins: İdare
   statistic: İstatistik
   fsps: Gıda Dağıtım Noktası
   profile_picture: Profil Resmi
-  n_cooperating_stores: Devam eden bir işbirliği|%count% Devam eden bir işbirliği
+  n_cooperating_stores: '{count} Devam eden bir işbirliği'
   basket: Yemek Sepeti
   fsp: Gıda Dağıtım Noktası
   stores: İşletmeler
   homepage: Ana sayfa
   welcomeAdmins: Karşılama Ekibi
   votingAdmins: Oylama Ekibi
-  n_stores: Bir İşletme|%count% İşletme
+  n_stores: '{count} İşletme'
   baskets: Yemek Sepetleri
   group: Çalışma grupları
-  n_ambassadors: Bir Elçi|%count% Elçi
+  n_ambassadors: '{count} Elçi'
   message: Bildiri
   polls: Anketler
   buddies: Tanıdık
@@ -2619,7 +2633,7 @@ terminology:
   regions: Bölgeler
   threads: Konular
   store: İşletme
-  n_sleeping: Bir Uyku beresi|%count% Uyku beresi
+  n_sleeping: '{count} Uyku beresi'
   pickup: Alım
   events: Tarihler
   mailboxes: Posta kutuları
@@ -2629,7 +2643,7 @@ terminology:
     f: Orga İnsanı
     d: Orga İnsanı
   reports: Raporlama Görünümü (Yerel raporlama grubu)
-  n_home_regions: o ana bölgeye sahip bir kişi|İşte %count% kişilik ana bölge
+  n_home_regions: İşte {count} kişilik ana bölge
   previous_pickups: Teslimat burada
   no_pickups: yok
   electionAdmins: Seçimler
@@ -2851,8 +2865,8 @@ fsp:
   summaryRegion: '{region} ve tüm nahiyelerde {count} gıda dağıtım noktaları var'
   edit: Gıda dağıtım noktasını düzenle
 statistics:
-  kg_food_saved: '%count% kg gıda kurtarıldı'
-  num_fetches: Bir kurtarma görevinde|%count% kurtarma görevinde
+  kg_food_saved: '{count} kg gıda kurtarıldı'
+  num_fetches: '{count} kurtarma görevinde'
 are_you_sure: Emin misin?
 day: Gün
 formatting:
@@ -3195,6 +3209,8 @@ globals:
     foodSharePoints: Gıda Dağıtım Noktası
     workingGroups: Gruplar
     users: Kişiler
+    groups_menu: Grup menüsü
+    regions_menu: Bölge menüsü
   select: 'Lütfen seçin …'
   close: 'Kapat'
   show_more: 'Daha fazla göster'

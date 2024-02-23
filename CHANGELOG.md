@@ -11,14 +11,17 @@
 - Make navigation menu sticky @AntonBallmaier @chriswalg
 - Added marker clustering to the basket map !3013 @alex.simm
 - Minor improvements in the mailbox frontend #1668 !3108 @alex.simm
+- The contact pages are merged into one, and the content is automated. !3143 !3174 !3176 @AntonBallmaier
 - Delete uploaded photos when they are not used anymore #1182 !3121 @alex.simm
 - Improved search #1728 !3150 @AntonBallmaier
+- Users can only be added to a store if they are already in that region #20 !3180 @alex.simm
 
 ## Bugfixes
 - remove misplaced line in store team view !3088 @buntel
 - Fixed error caused by broken background color values for image rotation !3105 @\_fridtjof_
 - Fixed link to region page in name change modal !3125 @chriswalg
 - Fixed images breaking markdown layout !3144 @AntonBallmaier
+- Added .network as top level domain recognized in markdown link parsing !3179 @AntonBallmaier
 
 ## Refactoring
 - Switched Annotation to Attributes, implements Test and general code style adjust for Activity REST Endpoint !2975 !3090 @BibaltiK
@@ -28,19 +31,27 @@
 - Changed mailbox rest controller to php 8 attributes !2980 @chriswalg
 - Refactored the map control component to vue !3051 @alex.simm
 - Move hastodoquiz from session to Quiz Module !3075 @KoeMai
+- Remove not used mail session variables !3147 !3158 @KoeMai
 - Replace Role-class by Role-Enum and remove need of fAuthentication !3078 !3120 !3123 !3122 @KoeMai
 - Added a missing bell type !3022 @alex.simm
 - Rebuild the wall using vue #45 #1800 #1830 !3045 !3112 @AntonBallmaier
 - Avoid access to global $_SESSION !3099 @KoeMai
-- New map bubble for stores in Vue !2988 !3128 @alex.simm
+- Refactor region page to vue !2794 @chriswalg
+- New map bubble for stores in Vue !2988 !3128 !3166 @alex.simm
 - Renamed bezirk to region in urls helper !3126 @chriswalg
 - Prepared for removal of run.php in favor of Symfony's console !3118 @\_fridtjof_
 - Modernized BlogControl to a Symfony controller !3096 @\_fridtjof_
 - Modernized BasketControl to a Symfony controller !3127 @\_fridtjof_
 - Cleaned up twig extension config !3124 @\_fridtjof_
+- Remove session stored user image as default image #1769 !3170 @KoeMai
+- Refactored store creation page to vue !3136 @chriswalg
 - Removed unused store edit code !3137 @chriswalg
 - REST endpoint for editing content entries !3098 @alex.simm
 - Created confirmationDialogue mixin !3140 @AntonBallmaier
+- Removed unused event invitation code #1739 !3149 @AntonBallmaier
+- Move Workgroup is Admin Check method from session to module #1769 !3168 @KoeMai
+- Move location information in session to user #1769 !3148 @KoeMai
+- Remove unused variables from session #1769 !3161  @KoeMai
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm
@@ -57,7 +68,16 @@
 ## Development documentation
 
 
+# Hotfix 2024-02-18 (Bell translations)
+
+- Added translation keys for grouped bells !3152 @AntonBallmaier
+
+# Hotfix 2024-02 (Donation banner)
+
+- Added a donation banner !2930 !3111 @chriswalg
+
 # Release Patch "Kiwi", 2024-01-21
+
 - Removed static IT news content page and changed it to freshdesk page !3056 @chriswalg
 - Optimized width of store and dashboard !3053 @chriswalg
 - Fix saving regular pickups !3060 @AntonBallmaier

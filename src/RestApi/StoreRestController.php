@@ -318,12 +318,13 @@ class StoreRestController extends AbstractFOSRestController
      * @OA\Tag(name="stores")
      * @OA\RequestBody(@Model(type=CreateStoreModel::class))
      * @OA\Response(response=Response::HTTP_CREATED,
-     *	description="Created the new store and informed region members provides",
+     *    description="Created the new store and informed region members provides",
      *  @Model(type=MinimalStoreModel::class)
      * )
      * @OA\Response(response=Response::HTTP_BAD_REQUEST, description="Invalid body data")
      * @OA\Response(response=Response::HTTP_UNAUTHORIZED, description="Not logged in")
      * @OA\Response(response=Response::HTTP_FORBIDDEN, description="No permission to create a store")
+     * @throws StoreTransactionException
      */
     #[Rest\Post('region/{regionId}/stores')]
     #[ParamConverter('storeCreateInformation', converter: 'fos_rest.request_body')]

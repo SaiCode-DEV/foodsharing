@@ -52,7 +52,7 @@
         <b-col
           v-for="(data) in footerData"
           :key="data.title"
-          md="3"
+          md="4"
           cols="6"
           class="links"
         >

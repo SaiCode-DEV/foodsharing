@@ -9,6 +9,7 @@ use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\WallPost\WallPostGateway;
+use Foodsharing\Modules\WorkGroup\WorkGroupTransactions;
 
 class WallPostPermissions
 {
@@ -19,7 +20,8 @@ class WallPostPermissions
         private readonly FoodSharePointPermissions $fspPermission,
         private readonly FoodSharePointGateway $fspGateway,
         private readonly WallPostGateway $wallPostGateway,
-        private readonly Session $session
+        private readonly Session $session,
+        private readonly WorkGroupTransactions $workGroupTransactions
     ) {
     }
 
@@ -45,9 +47,7 @@ class WallPostPermissions
             case 'report':
                 return $this->regionGateway->hasMember($this->session->id(), RegionIDs::EUROPE_REPORT_TEAM);
             case 'application':
-                // Uses Session::isAdminForAWorkGroup() instead of the more appropriate and specific Session::isAdminFor() since
-                // there's no good way to pass the required region id at the moment
-                return $this->session->isAdminForAWorkGroup();
+                return $this->workGroupTransactions->isAdminForAWorkGroup($this->session->id());
             default:
                 return false;
         }

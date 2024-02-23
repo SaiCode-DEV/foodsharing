@@ -124,12 +124,6 @@ class EventControl extends Control
 
         if ($this->submitted() && $data = $this->validateEvent()) {
             if ($this->eventGateway->updateEvent($_GET['id'], $data)) {
-                if (isset($_POST['delinvites']) && $_POST['delinvites'] == 1) {
-                    $this->eventGateway->deleteInvites($_GET['id']);
-                }
-                if ($data['invite']) {
-                    $this->eventGateway->inviteFullRegion($data['bezirk_id'], $_GET['id'], $data['invitesubs']);
-                }
                 $this->flashMessageHelper->success($this->translator->trans('events.edited'));
                 $this->routeHelper->goAndExit('/?page=event&id=' . (int)$_GET['id']);
             }
@@ -158,9 +152,6 @@ class EventControl extends Control
 
         if ($this->submitted()) {
             if (($data = $this->validateEvent()) && $id = $this->eventGateway->addEvent($this->session->id(), $data)) {
-                if ($data['invite']) {
-                    $this->eventGateway->inviteFullRegion($data['bezirk_id'], $id, $data['invitesubs']);
-                }
                 $this->flashMessageHelper->success($this->translator->trans('events.created'));
                 $this->routeHelper->goAndExit('/?page=event&id=' . $id);
             }
@@ -180,19 +171,11 @@ class EventControl extends Control
             'start' => date('Y-m-d') . ' 15:00:00',
             'end' => date('Y-m-d') . ' 16:00:00',
             'bezirk_id' => 0,
-            'invite' => false,
             'online' => 0,
-            'invitesubs' => false,
         ];
 
         if ($regionId = $this->postHelper->getPostInt('bezirk_id')) {
             $out['bezirk_id'] = $regionId;
-            if (isset($_POST['invite']) && $_POST['invite'] == InvitationStatus::ACCEPTED) {
-                $out['invite'] = true;
-                if (isset($_POST['invitesubs']) && $_POST['invitesubs'] == 1) {
-                    $out['invitesubs'] = true;
-                }
-            }
         }
 
         if (($start_date = $this->postHelper->getPostDate('date')) && $start_time = $this->postHelper->getPostTime('time_start')) {
