@@ -24,4 +24,7 @@ const md = markdownIt('zero', {
     'escape',
   ])
 
+// Add missing top level domains
+md.linkify.tlds(['network'], true)
+
 export default md
