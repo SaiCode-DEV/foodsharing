@@ -22,6 +22,7 @@ use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus as STATUS;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingScope;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingType;
+use Foodsharing\Modules\Uploads\DTO\UploadedFile;
 use PDO;
 
 class Foodsharing extends Db
@@ -90,6 +91,34 @@ class Foodsharing extends Db
     }
 
     /**
+     * Simplified and adjusted version of what happens in UploadTransactions::uploadFile.
+     *
+     * Can be used to "upload" profile pictures for generated users.
+     */
+    private function uploadFile(UploadedFile $file)
+    {
+        $uuid = $this->faker->uuid();
+        $this->haveInDatabase('uploads', [
+            'uuid' => $uuid,
+            'user_id' => $file->uploaderId,
+            'sha256hash' => $file->hashedBody,
+            'mimetype' => $file->mimeType,
+            'uploaded_at' => new Carbon(),
+            'lastaccess_at' => new Carbon(),
+            'filesize' => $file->fileSize,
+        ]);
+
+        $pathForPersistentFile = implode('/', [ROOT_DIR, 'data/uploads', $uuid[0], $uuid[1] . $uuid[2], $uuid]);
+        $dir = dirname($pathForPersistentFile);
+        if (!file_exists($dir)) {
+            mkdir($dir, 0775, true);
+        }
+        copy($file->filePath, $pathForPersistentFile);
+
+        return $uuid;
+    }
+
+    /**
      * Insert a new foodsharer into the database.
      *
      * @param string pass to set as foodsharer password
@@ -102,10 +131,23 @@ class Foodsharing extends Db
         if (!isset($pass)) {
             $pass = 'password';
         }
+        $pictureUrl = null;
+        if (rand(0, 10) === 0) {
+            $gender = rand(2, 3);
+        } else {
+            $gender = rand(0, 1);
+            if (isset($extra_params['image'])) {
+                $path = './img/seed-data/profile/' . ['men', 'women'][$gender] . '/' . rand(0, 99) . '.jpg';
+                $profilePicture = new UploadedFile($path, filesize($path), hash_file('sha256', $path), 'image/jpg', 1);
+                $uuid = $this->uploadFile($profilePicture);
+                $pictureUrl = '/api/uploads/' . $uuid;
+            }
+        }
+
         $params = array_merge([
             'email' => $this->faker->unique()->email(),
             'bezirk_id' => 0,
-            'name' => $this->faker->firstName(),
+            'name' => $this->faker->firstName(['male', 'female'][$gender] ?? null),
             'nachname' => $this->faker->lastName(),
             'deleted_at' => null,
             'verified' => 0,
@@ -122,8 +164,11 @@ class Foodsharing extends Db
             'active' => 1,
             'privacy_policy_accepted_date' => '2020-05-16 00:09:33',
             'privacy_notice_accepted_date' => '2018-05-24 18:25:28',
-            'token' => uniqid('', true)
+            'token' => uniqid('', true),
+            'photo' => $pictureUrl,
+            'geschlecht' => $gender,
         ], $extra_params);
+        unset($params['image']);
         $params['password'] = password_hash((string)$pass, PASSWORD_ARGON2I, [
             'time_cost' => 1
         ]);
@@ -252,7 +297,6 @@ class Foodsharing extends Db
             'verified' => 1,
             'rolle' => 1,
             'quiz_rolle' => 1,
-            'geschlecht' => random_int(0, 3)
         ], $extra_params);
         $params = $this->createFoodsharer($pass, $params);
         $this->createQuizTry($params['id'], 1, 1);

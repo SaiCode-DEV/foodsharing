@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Modules\Uploads;
 
+use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Uploads\DTO\UploadedFile;
 use Foodsharing\Modules\Uploads\Exceptions\Base64DecodingException;
 use Foodsharing\Modules\Uploads\Exceptions\FileSizeTooBigException;
@@ -11,7 +12,8 @@ use Imagick;
 class UploadsTransactions
 {
     public function __construct(
-        private readonly UploadsGateway $uploadsGateway
+        private readonly Session $session,
+        private readonly UploadsGateway $uploadsGateway,
     ) {
     }
 
@@ -183,7 +185,7 @@ class UploadsTransactions
             fileSize: $sizeOfTemporaryFile,
             hashedBody: $bodyHashOfTemporaryFile,
             mimeType: $mimeTypeOfTemporaryFile,
-            uploaderId: 0,
+            uploaderId: $this->session->id(),
         );
     }
 
@@ -233,5 +235,17 @@ class UploadsTransactions
             unlink($file);
         }
         $this->uploadsGateway->deleteUpload($uuid);
+    }
+
+    public function uploadFile(UploadedFile $file): array
+    {
+        $fileInfoFromDatabase = $this->uploadsGateway->addFile($file->uploaderId, $file->hashedBody, $file->fileSize, $file->mimeType);
+
+        if (!$fileInfoFromDatabase['isReuploaded']) {
+            $pathForPersistentFile = $this->generateFilePath($fileInfoFromDatabase['uuid']);
+            $this->moveTemporaryFileToPermanentLocation($file->filePath, $pathForPersistentFile, $file->mimeType);
+        }
+
+        return $fileInfoFromDatabase;
     }
 }
