@@ -34,7 +34,7 @@
 - Remove not used mail session variables !3147 !3158 @KoeMai
 - Replace Role-class by Role-Enum and remove need of fAuthentication !3078 !3120 !3123 !3122 @KoeMai
 - Added a missing bell type !3022 @alex.simm
-- Rebuild the wall using vue #45 #1800 #1830 !3045 !3112 @AntonBallmaier
+- Rebuild the wall using vue #45 #1800 #1830 !3045 !3112 !3135 @AntonBallmaier
 - Avoid access to global $_SESSION !3099 @KoeMai
 - Refactor region page to vue !2794 @chriswalg
 - New map bubble for stores in Vue !2988 !3128 !3166 @alex.simm
