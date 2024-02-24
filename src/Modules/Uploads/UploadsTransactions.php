@@ -199,8 +199,7 @@ class UploadsTransactions
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
         }
 
-        // JPEG? strip exif data!
-        if ($temporaryFileMimeType === 'image/jpeg') {
+        if (str_contains($temporaryFileMimeType, 'image/')) {
             $this->stripImageExifData($temporaryFilePath, $reservedFilePathForPersistentFile);
         } else {
             // otherwise just move it

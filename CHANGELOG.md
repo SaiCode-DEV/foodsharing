@@ -13,6 +13,7 @@
 - Minor improvements in the mailbox frontend #1668 !3108 @alex.simm
 - The contact pages are merged into one, and the content is automated. !3143 !3174 !3176 @AntonBallmaier
 - Delete uploaded photos when they are not used anymore #1182 !3121 @alex.simm
+- Strip EXIF data from uploaded PNG files #375 !3151 @alex.simm
 - Users can only be added to a store if they are already in that region #20 !3180 @alex.simm
 
 ## Bugfixes
