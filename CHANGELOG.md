@@ -54,6 +54,7 @@
 - Move Workgroup is Admin Check method from session to module #1769 !3168 @KoeMai
 - Move location information in session to user #1769 !3148 @KoeMai
 - Remove unused variables from session #1769 !3161  @KoeMai
+- Replaced every usage of the Lat-lon-picker with the Vue leaflet component !3185 @alex.simm 
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm

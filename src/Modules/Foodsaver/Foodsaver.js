@@ -6,9 +6,9 @@ import 'jquery-dynatree'
 import i18n from '@/helper/i18n'
 import { deleteUser } from '@/api/user'
 import './Foodsaver.css'
-import { attachAddressPicker } from '@/addressPicker'
 import { vueApply, vueRegister } from '@/vue'
 import RegionTreeVForm from '@/components/regiontree/RegionTreeVForm'
+import LeafletLocationSearchVForm from '@/components/map/LeafletLocationSearchVForm'
 
 export async function confirmDeleteUser (fsId, name) {
   let reason
@@ -26,13 +26,11 @@ expose({
   confirmDeleteUser,
 })
 
-if (document.querySelector('#map')) {
-  attachAddressPicker()
-}
-
 if (GET('a') === 'edit') {
   vueRegister({
     RegionTreeVForm,
+    LeafletLocationSearchVForm,
   })
   vueApply('#region-tree-vform', true)
+  vueApply('#foodsaver-address-search')
 }

@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Event;
 use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\View;
 use Foodsharing\Utility\DataHelper;
@@ -235,7 +236,10 @@ class EventView extends View
                 ['id' => 2, 'name' => $this->translator->trans('events.create.online')],
             ]]),
             $this->v_utils->v_form_text('location_name', ['required' => true]),
-            $this->latLonPicker('latLng', $latLonOptions)
+            $this->vueComponent('event-address-search', 'LeafletLocationSearchVForm', [
+                'zoom' => 4,
+                'coordinates' => ['lat' => MapConstants::CENTER_GERMANY_LAT, 'lon' => MapConstants::CENTER_GERMANY_LON],
+            ]),
         ], ['submit' => $this->translator->trans('button.save')]), $title, ['class' => 'ui-padding']);
     }
 

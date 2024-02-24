@@ -11,7 +11,7 @@ class PhotonMock extends AbstractController
     /**
      * Barebones "emulation" of https://photon.komoot.io/api.
      *
-     * @see client/src/addressPicker.js
+     * @see client/src/components/map/LeafletLocationSearch.vue
      */
     #[Route(path: '/photon/api')]
     public function api(): JsonResponse

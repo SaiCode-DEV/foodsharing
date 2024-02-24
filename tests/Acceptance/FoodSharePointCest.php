@@ -43,6 +43,8 @@ class FoodSharePointCest
 
     public function createFoodSharePoint(AcceptanceTester $I): void
     {
+        $address = 'Teststraße 1 37073 Teststadt Deutschland';
+
         $I->login($this->responsible['email']);
         $I->amOnPage($I->foodSharePointRegionListUrl($this->testBezirk['id']));
         $I->waitForText('Fairteiler eintragen', 10);
@@ -51,10 +53,17 @@ class FoodSharePointCest
         $I->selectOption('#fsp_bezirk_id', $this->testBezirk['id']);
         $I->fillField('#name', 'The greatest fairsharepoint');
         $I->fillField('#desc', 'Blablabla if you come here be hungry!');
-        $I->unlockAllInputFields();
-        $I->fillField('#anschrift', 'Kantstrasse 20');
-        $I->fillField('#plz', '04808');
-        $I->fillField('#ort', 'Wurzen');
+
+        // Find an address in the search field
+        $I->fillField('#searchinput', $address);
+        $I->waitForElementVisible('#searchinput_listbox');
+        $I->click("//*[@id='searchinput_listbox']//*[contains(text(), 'Teststraße 1')]");
+
+        // Codeception's click function doesn't work with this switch checkbox. We have to click it with javascript.
+        $I->executeJs('document.getElementById(\'different_location\').click()');
+        $I->fillField('#input-street', 'Kantstrasse 20');
+        $I->fillField('#input-postal', '04808');
+        $I->fillField('#input-city', 'Wurzen');
         $I->fillFieldJs('#lat', '1.23');
         $I->fillFieldJs('#lon', '2.48');
         $I->click('Speichern');

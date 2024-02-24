@@ -144,7 +144,13 @@ class FoodsaverView extends View
             $this->v_utils->v_form_text('telefon', ['placeholder' => $this->translator->trans('register.landline_example')]),
             $regionPicker,
             $orga,
-            $this->latLonPicker('LatLng', $latLonOptions, '_profile'),
+            $this->vueComponent('foodsaver-address-search', 'LeafletLocationSearchVForm', [
+                'zoom' => 17,
+                'coordinates' => $latLonOptions['location'],
+                'street' => $latLonOptions['anschrift'] ?? null,
+                'postalCode' => $latLonOptions['plz'] ?? null,
+                'city' => $latLonOptions['ort'] ?? null,
+            ]),
             $position,
             $this->v_utils->v_form_text('email', ['required' => true, 'disabled' => true]),
         ], ['submit' => $this->translator->trans('button.save')]);
