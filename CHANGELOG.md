@@ -22,6 +22,7 @@
 - Fixed link to region page in name change modal !3125 @chriswalg
 - Fixed images breaking markdown layout !3144 @AntonBallmaier
 - Added .network as top level domain recognized in markdown link parsing !3179 @AntonBallmaier
+- Improved permission checks for event creation #489 !3187 @alex.simm
 
 ## Refactoring
 - Switched Annotation to Attributes, implements Test and general code style adjust for Activity REST Endpoint !2975 !3090 @BibaltiK
