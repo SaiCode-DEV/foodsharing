@@ -19,14 +19,14 @@
       </small>
     </div>
     <AvatarStack
-      :registered-users="fullSizeMembersList"
+      :users="fullSizeMembersList"
       :max-width-in-px="150"
       :show-overflow-tooltip="false"
     />
   </a>
 </template>
 <script>
-import AvatarStack from '@/components/AvatarStack'
+import AvatarStack from '@/components/Avatar/AvatarStack'
 import conversationStore from '@/stores/conversations'
 
 export default {

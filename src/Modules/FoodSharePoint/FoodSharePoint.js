@@ -6,7 +6,7 @@ import 'jquery-tagedit-auto-grow-input'
 import 'jquery-jcrop'
 import { vueApply, vueRegister } from '@/vue'
 import { GET } from '@/browser'
-import AvatarList from '@/components/AvatarList'
+import AvatarList from '@/components/Avatar/AvatarList'
 import Wall from '@/components/Wall/Wall'
 
 import './FoodSharePoint.css'

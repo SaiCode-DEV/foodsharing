@@ -104,13 +104,10 @@
         class="foto-table"
       >
         <template #cell(imageUrl)="row">
-          <div>
-            <avatar
-              :url="row.item.avatar"
-              :is-sleeping="row.item.isSleeping"
-              :size="50"
-            />
-          </div>
+          <Avatar
+            :user="row.item"
+            :size="50"
+          />
         </template>
         <template #cell(userId)="row">
           <a
@@ -222,21 +219,19 @@
 
 <script>
 import { optimizedCompare } from '@/utils'
-import { BButton, BFormSelect, BTable, BPagination, VBTooltip } from 'bootstrap-vue'
 import { addMember } from '@/api/groups'
 import { removeMember, setAdminOrAmbassador, removeAdminOrAmbassador } from '@/api/regions'
 import RegionsData from '@/stores/regions'
 import { hideLoader, pulseError, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
 import UserSearchInput from '@/components/UserSearchInput'
-import Avatar from '@/components/Avatar'
 import { verifyUser, deverifyUser } from '@/api/verification'
 import Container from '@/components/Container/Container.vue'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
+import Avatar from '@/components/Avatar/Avatar.vue'
 
 export default {
-  components: { Avatar, BButton, BFormSelect, BTable, BPagination, UserSearchInput, Container },
-  directives: { VBTooltip },
+  components: { UserSearchInput, Container, Avatar },
   mixins: [ConfirmationDialogue],
   props: {
     userId: { type: Number, default: null },
@@ -516,6 +511,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.foto-table {
+  overflow: visible; // for sleeping hats
+}
 .foto-table ::v-deep .foto-column {
   width: 60px;
 }

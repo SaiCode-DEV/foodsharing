@@ -192,7 +192,7 @@
 
 <script>
 
-import AvatarStack from '@/components/AvatarStack.vue'
+import AvatarStack from '@/components/Avatar/AvatarStack.vue'
 import InputModal from '@/components/Modals/ChainList/InputModal.vue'
 import StoreDetailsModal from '@/components/Modals/ChainList/StoreDetailsModal.vue'
 import { getters, mutations } from '@/stores/chains'

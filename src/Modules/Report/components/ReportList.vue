@@ -20,25 +20,10 @@
         :per-page="perPage"
         responsive
       >
-        <template
-          slot="avatar"
-          slot-scope="row"
-        >
+        <template #cell(avatar)="row">
           <div class="avatars">
-            <a :href="`/profile/${row.item.fs_id}`">
-              <Avatar
-                :url="row.item.fs_photo"
-                :is-sleeping="0"
-                :size="35"
-              />
-            </a>
-            <a :href="`/profile/${row.item.rp_id}`">
-              <Avatar
-                :url="row.item.rp_photo"
-                :is-sleeping="0"
-                :size="35"
-              />
-            </a>
+            <Avatar :user="{ avatar: row.item.fs_photo, name: row.item.fs_name, id: row.item.fs_id}" />
+            <Avatar :user="{ avatar: row.item.rp_photo, name: row.item.rp_name, id: row.item.rp_id}" />
           </div>
         </template>
 
@@ -100,7 +85,7 @@
 import { BTable, BPagination, BButton } from 'bootstrap-vue'
 import * as api from '@/api/report'
 
-import Avatar from '@/components/Avatar'
+import Avatar from '@/components/Avatar/Avatar.vue'
 
 export default {
   components: { Avatar, BTable, BPagination, BButton },
@@ -122,7 +107,6 @@ export default {
       fields: [
         {
           key: 'avatar',
-
           label: '',
         },
         {

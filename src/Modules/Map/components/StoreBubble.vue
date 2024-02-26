@@ -36,9 +36,13 @@
         </div>
         <div class="card-body">
           <div class="d-flex flex-wrap">
-            <a v-for="manager in store.managers" :key="manager.id" :href="$url('profile', manager.id)" class="mr-2 mb-2">
-              <Avatar :url="manager.avatar" :size="50" />
-            </a>
+            <Avatar
+              v-for="manager in store.managers"
+              :key="manager.id"
+              class="mr-1"
+              :user="manager"
+              :size="50"
+            />
           </div>
         </div>
       </div>
@@ -75,7 +79,7 @@
 import { getStoreBubbleContent } from '@/api/map'
 import { pulseError, pulseSuccess } from '@/script'
 import StoreStatusIcon from '../../Store/components/StoreStatusIcon'
-import Avatar from '@/components/Avatar'
+import Avatar from '@/components/Avatar/Avatar.vue'
 import { declineStoreRequest, requestStoreTeamMembership } from '@/api/stores'
 import UserData from '@/stores/user'
 

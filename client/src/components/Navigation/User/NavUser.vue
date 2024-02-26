@@ -8,7 +8,7 @@
     <template #icon>
       <Avatar
         :size="24"
-        :url="getAvatar"
+        :user="{ avatar: getAvatar }"
         class="icon-subnav"
       />
     </template>
@@ -66,7 +66,7 @@
 // Stores
 import DataUser from '@/stores/user'
 // Components
-import Avatar from '../../Avatar.vue'
+import Avatar from '@/components/Avatar/Avatar.vue'
 import Dropdown from '../_NavItems/NavDropdown'
 // Mixins
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'

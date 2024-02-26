@@ -2,13 +2,12 @@
 <template>
   <li :id="`thread-${thread.id}`" class="thread">
     <a class="ui-corner-all d-flex" :href="threadUrl">
-      <span class="user-picture mr-2">
-        <Avatar
-          :url="thread.lastPost.author.avatar"
-          :is-sleeping="thread.lastPost.author.sleepStatus"
-          :size="50"
-        />
-      </span>
+      <Avatar
+        class="mr-2"
+        :user="{ ...thread.lastPost.author, isSleeping: thread.lastPost.author.sleepStatus }"
+        :size="50"
+        href=""
+      />
       <div class="text-truncate flex-grow-1 d-flex flex-wrap-reverse flex-sm-nowrap">
         <div
           class="text-truncate thread-main px-1 mr-1 align-self-center flex-grow-1 flex-shrink-1 flex-sm-noshrink"
@@ -36,7 +35,7 @@
 </template>
 
 <script>
-import Avatar from '@/components/Avatar'
+import Avatar from '@/components/Avatar/Avatar.vue'
 import ThreadStatus from './ThreadStatus'
 
 export default {

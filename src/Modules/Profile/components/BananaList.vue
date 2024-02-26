@@ -57,9 +57,7 @@
       <BananaListEntry
         v-for="b in bananaList"
         :key="b.id"
-        :author-id="b.id"
-        :author-name="b.name"
-        :avatar="b.photo"
+        :author="{...b, avatar: b.photo }"
         :created-at="b.createdAt"
         :text="b.msg"
         :can-remove="canRemoveBanana"

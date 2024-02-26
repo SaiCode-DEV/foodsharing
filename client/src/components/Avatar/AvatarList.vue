@@ -13,9 +13,8 @@
           class="row justify-content-start"
         >
           <Avatar
-            :url="profile.avatar"
+            :user="{ ...profile, sleeping: profile.sleepStatus }"
             :size="35"
-            :sleep-status="profile.sleepStatus"
             class="mr-2"
           />
           <span class="d-inline avatar-title">{{ profile.name }}</span>

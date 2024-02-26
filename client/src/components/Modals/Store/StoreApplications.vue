@@ -23,18 +23,11 @@
         :key="request.id"
         class="request d-flex align-items-center flex-wrap flex-sm-nowrap py-2"
       >
-        <a
-          v-b-tooltip.hover="$i18n('profile.go')"
-          :href="$url('profile', request.id)"
-        >
-          <Avatar
-            :url="request.photo"
-            :size="50"
-            class="member-pic"
-            :is-sleeping="request.sleep_status"
-          />
-        </a>
-
+        <!-- TODO send data in fitting format -->
+        <Avatar
+          :user="{...request, avatar: request.photo, isSleeping: request.sleep_status }"
+          :size="50"
+        />
         <div class="name font-weight-bolder flex-grow-1 mx-3">
           <i
             v-b-tooltip.hover="request.verified ? $i18n('store.request.verified') : $i18n('store.request.unverified')"
@@ -77,7 +70,7 @@
 
 <script>
 import { acceptStoreRequest, declineStoreRequest } from '@/api/stores'
-import Avatar from '@/components/Avatar'
+import Avatar from '@/components/Avatar/Avatar.vue'
 import { hideLoader, showLoader, pulseError } from '@/script'
 import StoreData from '@/stores/stores'
 
