@@ -1113,6 +1113,7 @@ store:
   chain_search_picker:
     search_input: Ricerca per nome della catena
     modal_title: Seleziona la catena di aziende
+  storeFrom: Attività da {name}
 storeview:
   want_to_fetch: Vorrei aiutare in questo team.
   specials: particolarità
