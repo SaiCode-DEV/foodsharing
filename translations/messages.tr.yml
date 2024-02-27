@@ -1245,6 +1245,7 @@ store:
     modal_title: İşletme zinciri seç
     search_input: İşletme zincir adına göre ara
   to_map: Haritada göster
+  storeFrom: "{name}'nin işletmeleri"
 polls:
   title: Başlık
   new_poll: Yeni Anket oluştur
@@ -1550,6 +1551,13 @@ content:
   delete_tooltip: Sayfayı sil
   communities:
     title: Yerel gruplar
+    text: foodsharing her geçen gün artıyor. Burada her zaman tüm gıda paylaşımı topluluklarının
+      ve bölgelerinin güncel bir listesini bulacaksınız. Bağlantılı isimlere tıklayarak
+      bu ilçelerden herhangi birine e-posta gönderebilirsiniz.
+    searchInfo: Liste, Strgl+F kullanılarak birçok tarayıcıda ülkeye, şehre, federal
+      eyalete veya bölgeye göre aranabilir.
+    noAmbassador: Bu bölgede şu anda elçi bulunmamaktadır ve bu nedenle şu anda e-postayla
+      ulaşılamamaktadır. Lütfen komşu bölgeye veya bir üst bölgeyle iletişime geçin.
 mailbox:
   empty: Bu posta kutusunda henüz mesaj yok
   to: Kime
@@ -1868,7 +1876,7 @@ releases:
   "2024-01": “Kivi”yi yayınlayın 🥝 (Ocak 2024)
   "2024-04": '"Laugenbrezel"i yayınlayın 🥨 (Nisan 2024)'
 storestatus:
-  "5": İşletme bizimle işbirliği halinde
+  "5": bizimle işbirliği halinde
   "2": Görüşmeler devam ediyor
   "6": Tafel vb. için bağış yapıyor ve hiçbir şeyi atmıyor
   "1": Henüz iletişim bulunmuyor
@@ -2799,8 +2807,8 @@ storeview:
   invalid_field: Geçersiz alan içeriği. Değişiklik kaydedilemiyor.
   management: Yönetim
   select_related_region: Sorumlu bölgenin seçimi
-  teamInfo: Ekipde <strong>{active}</strong> aktif olanlar ve <strong>{jumper}</strong>
-    yedekte olanlar var.
+  teamInfo: Ekipde ki <strong>{active}</strong> aktif olanlar ve <strong>{jumper}</strong>
+    yedekte olanlar.
   pickupWeight: 've {pickupWeight} kg kurtarıldı.'
   cooperation_start: beri işbirliği
   public_time: Yaklaşık {freq}'da alınıyor.Lütfen önceden anlaşma yapmadan asla işletmeye
