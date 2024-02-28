@@ -4,6 +4,7 @@
     :title="$i18n('store.log.title')"
     :container-is-expanded="isContainerExpanded"
     tag="store_log"
+    info-key="storeLog"
   >
     <div class="corner-bottom margin-bottom bootstrap store-log">
       <DateRangePicker

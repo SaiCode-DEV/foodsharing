@@ -268,6 +268,7 @@ button:
   create: "Anlegen"
   clear_filter: "Filter leeren"
   reset_default: "Standard wiederherstellen"
+  close: "Schließen"
 
 bread:
   backToOverview: "zurück zur Übersicht"
@@ -3245,3 +3246,29 @@ markdown_input:
     ---
 
     *Du hast aber noch keinen Text eingegeben, der hier angezeigt werden könnte.*"
+
+help:
+  helpTitle: "Hilfe: {title}"
+  tooltip: "Hilfe anzeigen"
+  key:
+    storeLog:
+      title: "Betriebsprotokoll"
+      md: |
+        Das Betriebsprotokoll ist eine Möglichkeit, die **Aktivitäten in einem Betrieb nachzuvollziehen**. Es kann
+        dabei helfen, Konflikte zu lösen oder versehentliche Fehler zu korrigieren.
+        ---
+        ###### Beispiel
+        Angenommen, du wills wissen, wer in den letzten 3 Wochen von wem ins Team aufgenommen wurde.
+        Dann kannst du den Zeitraum mittels Start- und Enddatum über die beiden Datums-Felder festlegen.
+        Als nächstes kannst du aus dem Dropdown alle relevanten Aktionstypen auswählen. In diesem Fall
+        zum Beispiel "*Beitrittsanfragen stellen*", "*Beitrittsanfragen annehmen*" und "*Beitrittsanfragen ablehnen*".
+        Wenn du nun auf den Button "*Ausgewähle Aktionen anzeigen*" klickst, wir dir eine Historie der ausgewählten Ereignisse angezeigt.
+        ---
+        ###### Zugriff
+        Zugriff darauf hat nur, wer auch den Betrieb administrieren kann. Für normale Foodsaver und Springer:innen
+        ist das Betriebsprotokoll nicht einsehbar.
+        ---
+        ###### Einschränkungen
+        Es werden maximal 100 Einträge geladen. Ggf. musst du den Suchzeitraum oder die ausgewählten Aktionstypen einschränken, wenn nicht alle Ergenisse angezeigt werden. 
+
+

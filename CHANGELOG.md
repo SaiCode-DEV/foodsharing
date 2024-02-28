@@ -5,6 +5,7 @@
 - Added a donation banner !2930 !3111 @chriswalg
 - Added a map link to store pages !3113 @AntonBallmaier
 - Added a map to the foodsharepoint page #1035 !3097 @alex.simm
+- Added an Info vue commonent for explainin parts of the website. #1852 !3181 @AntonBallmaier
 - Group different bell events, like it is done for the forum !3073 @AntonBallmaier
 
 ## Changes
