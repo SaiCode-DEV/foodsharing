@@ -7,6 +7,7 @@ namespace Tests\Unit;
 use Codeception\Test\Unit;
 use Foodsharing\Modules\Basket\BasketGateway;
 use Foodsharing\Modules\Core\DBConstants\BasketRequests\Status as RequestStatus;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Tests\Support\UnitTester;
 
 class BasketGatewayTest extends Unit
@@ -91,7 +92,7 @@ class BasketGatewayTest extends Unit
             3,
             $this->gateway->listNearbyBasketsByDistance(
                 $this->otherFoodsaver['id'],
-                ['lat' => 52.520007, 'lon' => 13.404954], // Berlin
+                GeoLocation::createFromArray(['lat' => 52.520007, 'lon' => 13.404954]), // Berlin
                 50
             )
         );

@@ -23,6 +23,7 @@
 - Fixed link to region page in name change modal !3125 @chriswalg
 - Fixed images breaking markdown layout !3144 @AntonBallmaier
 - Added .network as top level domain recognized in markdown link parsing !3179 @AntonBallmaier
+- Improve SQL performance for search of near baskets !3185 @KoeMai
 - Fixed creating and editing region mailboxes for orga users !3182 @AntonBallmaier 
 - Improved permission checks for event creation #489 !3187 @alex.simm
 
@@ -55,7 +56,7 @@
 - Removed duplicate region member page and profile XHR !3169 @AntonBallmaier
 - Modernized StoreControl to a Symfony controller !3160 @chriswalg
 - Move Workgroup is Admin Check method from session to module #1769 !3168 @KoeMai
-- Move location information in session to user #1769 !3148 @KoeMai
+- Move location information in session to user #1769 !3148 !3185 @KoeMai
 - Remove unused variables from session #1769 !3161  @KoeMai
 - Replaced every usage of the Lat-lon-picker with the Vue leaflet component !3185 @alex.simm 
 - Improved Avatar component !3155 @AntonBallmaier
