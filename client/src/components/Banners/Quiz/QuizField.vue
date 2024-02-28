@@ -10,10 +10,7 @@
     />
     <div class="flex-grow-1 d-flex flex-column justify-content-between">
       <div class="alignt-self-start">
-        <h4
-          v-if="title"
-          v-html="title"
-        />
+        <h4 v-if="title" v-html="title" />
         <p
           v-if="description"
           class="description mb-1 w-md-50"

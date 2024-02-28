@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div
-      class="mb-2 text-center"
-    >
+    <div class="mb-2 text-center">
       <Avatar
         :user="{ avatar: photo, isSleeping }"
         :size="130"
@@ -144,9 +142,7 @@
       :reporter-has-report-group="reporterHasReportGroup"
       :mailbox-name="mailboxNameReportRequest"
     />
-    <ProfileHistoryModal
-      ref="profileHistoryModal"
-    />
+    <ProfileHistoryModal ref="profileHistoryModal" />
   </div>
 </template>
 

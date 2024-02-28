@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <div class="event-panel bootstrap margin-bottom">
     <b-card :class="{ border }">

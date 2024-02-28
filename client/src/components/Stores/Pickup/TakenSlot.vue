@@ -6,10 +6,7 @@
     >
       <b-row>
         <b-col cols="5">
-          <Avatar
-            :user="profile"
-            :size="130"
-          />
+          <Avatar :user="profile" :size="130" />
           <p>
             <b>{{ profile.name }}</b>
           </p>

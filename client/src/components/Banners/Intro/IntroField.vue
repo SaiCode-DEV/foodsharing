@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="user"
-    class="introfield"
-  >
+  <div v-if="user" class="introfield">
     <Avatar
       :user="{ ...user, isSleeping }"
       :size="50"

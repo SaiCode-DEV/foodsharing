@@ -54,10 +54,7 @@
         />
       </button>
     </div>
-    <div
-      v-if="showListings"
-      class="list-group-item"
-    >
+    <div v-if="showListings" class="list-group-item">
       <ActivityOptionListings
         @close="showListings = false"
         @reload-data="$refs.thread.reloadData()"

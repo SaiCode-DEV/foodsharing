@@ -72,6 +72,7 @@
 - Upgraded PHPUnit to version 10 !3092 @\_fridtjof_
 - Upgraded to Symfony 6.4 !3129 @\_fridtjof_
 - Work around a bug in Sentry's query profiling integration !3133 @\_fridtjof_
+- Allow more attributes per line in vue #1848 !3175 @AntonBallmaier
 - Added profile pictures to seed data #738 !3172 @AntonBallmaier
 
 ## Development documentation

@@ -1,14 +1,20 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
-  <div :id="`wallpost-${post.id}`" class="list-group-item d-flex" style="gap: 1em">
+  <div
+    :id="`wallpost-${post.id}`"
+    class="list-group-item d-flex"
+    style="gap: 1em"
+  >
     <Avatar :user="post.author" :size="50" />
     <div class="flex-grow-1 position-relative">
       <div class="d-flex" style="gap: 0.5em">
         <a :href="$url('profile', post.author.id)" v-text="post.author.name" />
         <span class="flex-grow-1" />
         <Time :time="post.time" />
-        <i v-if="canDelete" v-b-tooltip="$i18n('wall.delete')" class="fas fa-trash-alt text-muted delete-post"
-           @click="$emit('delete', post.id)"
+        <i
+          v-if="canDelete"
+          v-b-tooltip="$i18n('wall.delete')"
+          class="fas fa-trash-alt text-muted delete-post"
+          @click="$emit('delete', post.id)"
         />
       </div>
       <Markdown :source="post.body" />

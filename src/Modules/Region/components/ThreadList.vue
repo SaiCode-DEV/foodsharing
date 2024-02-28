@@ -1,15 +1,20 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <Container :title="$i18n('forum.threads')">
     <b-container>
       <b-row class="mt-2">
-        <b-col cols="12" md="7" xl="8">
-          <ForumSearchField
-            :group-id="groupId"
-            :subforum-id="subforumId"
-          />
+        <b-col
+          cols="12"
+          md="7"
+          xl="8"
+        >
+          <ForumSearchField :group-id="groupId" :subforum-id="subforumId" />
         </b-col>
-        <b-col cols="12" md="4" xl="3" class="m-2">
+        <b-col
+          cols="12"
+          md="4"
+          xl="3"
+          class="m-2"
+        >
           <b-button
             block
             variant="primary"

@@ -36,9 +36,7 @@
       <ConversationAvatar :conversation="conv" />
     </div>
 
-    <div
-      slot="messages-empty"
-    >
+    <div slot="messages-empty">
       <SelectUsersComponent
         v-if="isNewConversation"
         id="select-users"

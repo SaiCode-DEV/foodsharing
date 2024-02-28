@@ -1,8 +1,5 @@
 <template>
-  <div
-    id="input-wrapper"
-    class="input-wrapper"
-  >
+  <div id="input-wrapper" class="input-wrapper">
     <label class="wrapper-label ui-widget">{{ $i18n('image') }}</label>
 
     <div class="element-wrapper">

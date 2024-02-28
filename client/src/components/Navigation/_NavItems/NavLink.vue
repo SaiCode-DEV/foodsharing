@@ -22,14 +22,8 @@
       />
     </slot>
     <slot name="text">
-      <span
-        class="nav-text"
-        v-html="title"
-      />
-      <span
-        class="sr-only"
-        v-html="title"
-      />
+      <span class="nav-text" v-html="title" />
+      <span class="sr-only" v-html="title" />
     </slot>
   </b-nav-item>
 </template>

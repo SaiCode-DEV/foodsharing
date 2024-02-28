@@ -1,6 +1,10 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
-  <b-tab ref="tab" title-link-class="tab-link" title-item-class="tab-item" @click="initialize()">
+  <b-tab
+    ref="tab"
+    title-link-class="tab-link"
+    title-item-class="tab-item"
+    @click="initialize()"
+  >
     <template #title>
       <div
         v-b-tooltip:hover.window="$i18n(`pickup.overview.tab.${tabName}.tooltip.${isOwnProfile ? 'own' : 'other'}`)"
@@ -29,7 +33,11 @@
         @cancel-slot="deleteSlot"
       />
       <div class="options-button-wrapper">
-        <b-dropdown class="options-dropdown" size="sm" no-caret>
+        <b-dropdown
+          class="options-dropdown"
+          size="sm"
+          no-caret
+        >
           <template #button-content>
             <i class="fas fa-fw fa-cog" />
           </template>

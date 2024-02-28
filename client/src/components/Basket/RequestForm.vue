@@ -2,24 +2,17 @@
   <div :class="{disabledLoading: isLoading}">
     <div class="ui-padding-bottom">
       <h3>{{ $i18n('personal_data.label') }}:</h3>
-      <span
-        v-if="mobileNumber"
-      >
+      <span v-if="mobileNumber">
         {{ $i18n('personal_data.mobile') }}: <a :href="'tel:' + mobileNumber">{{ mobileNumber }}</a>
       </span>
-      <span
-        v-if="landlineNumber"
-      >
+      <span v-if="landlineNumber">
         {{ $i18n('personal_data.landline') }}: {{ landlineNumber }}
       </span>
     </div>
     <div
       v-if="allowRequestByMessage"
     >
-      <div
-        v-if="hasRequested"
-        class="ui-padding-bottom"
-      >
+      <div v-if="hasRequested" class="ui-padding-bottom">
         <a
           class="button button-big"
           href="#"
@@ -28,10 +21,7 @@
           {{ $i18n('chat.open_chat') }}
         </a>
       </div>
-      <div
-        v-if="hasRequested"
-        class="ui-padding-bottom"
-      >
+      <div v-if="hasRequested" class="ui-padding-bottom">
         <a
           class="button button-big"
           href="#"
@@ -40,10 +30,7 @@
           {{ $i18n('basket.withdraw_request') }}
         </a>
       </div>
-      <div
-        v-if="!hasRequested"
-        class="ui-padding-bottom"
-      >
+      <div v-if="!hasRequested" class="ui-padding-bottom">
         <a
           class="button button-big"
           href="#"

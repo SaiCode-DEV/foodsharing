@@ -1,11 +1,7 @@
 <!-- Wrapper for LeafletLocationSearch to embed it into a vForm. Can be removed once the vForms have been replaced by vue. -->
-<!-- eslint-disable vue/max-attributes-per-line -->
 <!-- eslint-disable vue/singleline-html-element-content-newline -->
 <template>
-  <div
-    id="input-wrapper"
-    class="input-wrapper"
-  >
+  <div id="input-wrapper" class="input-wrapper">
     <label class="wrapper-label ui-widget">{{ $i18n('addresspicker.label') }}</label>
 
     <div class="element-wrapper">
@@ -22,11 +18,31 @@
         :disabled="disabled"
         @address-change="onAddressChanged"
       />
-      <input name="lat" :value="currentCoordinates.lat" type="hidden">
-      <input name="lon" :value="currentCoordinates.lon" type="hidden">
-      <input name="anschrift" :value="currentStreet" type="hidden">
-      <input name="plz" :value="currentPostalCode" type="hidden">
-      <input name="ort" :value="currentCity" type="hidden">
+      <input
+        name="lat"
+        :value="currentCoordinates.lat"
+        type="hidden"
+      >
+      <input
+        name="lon"
+        :value="currentCoordinates.lon"
+        type="hidden"
+      >
+      <input
+        name="anschrift"
+        :value="currentStreet"
+        type="hidden"
+      >
+      <input
+        name="plz"
+        :value="currentPostalCode"
+        type="hidden"
+      >
+      <input
+        name="ort"
+        :value="currentCity"
+        type="hidden"
+      >
     </div>
   </div>
 </template>

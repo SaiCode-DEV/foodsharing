@@ -5,10 +5,7 @@
     is-fixed-size
     is-scrollable
   >
-    <template
-      v-if="hasStores"
-      #content
-    >
+    <template v-if="hasStores" #content>
       <div
         v-for="(store, key) in getStores"
         :key="key"
@@ -47,10 +44,7 @@
         </b-collapse>
       </div>
     </template>
-    <template
-      v-else
-      #content
-    >
+    <template v-else #content>
       <small
         role="menuitem"
         class="disabled dropdown-item"

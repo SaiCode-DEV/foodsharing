@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
   <div>
     <div class="head ui-widget-header">
       {{ $i18n('settings.email') }}
@@ -20,10 +19,7 @@
           :placeholder="$i18n('settings.changemail.input_label_email')"
           :disabled="isLoading"
         >
-        <div
-          v-if="$v.email.$error"
-          class="invalid-feedback"
-        >
+        <div v-if="$v.email.$error" class="invalid-feedback">
           <span v-if="!$v.email.notFoodsharingAddress">
             {{ $i18n('settings.changemail.domain') }}
           </span>

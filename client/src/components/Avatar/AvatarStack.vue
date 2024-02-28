@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <!-- Flex container reverses elements for correct draw order without z-index -->
   <div class="avatar-stack">
@@ -6,9 +5,17 @@
       <span v-text="$i18n(`pickup.overview.freeSlots`, {slots: freeSlots})" />
     </div>
 
-    <div v-if="hiddenUsers.length" ref="hidden" class="hidden-users">
+    <div
+      v-if="hiddenUsers.length"
+      ref="hidden"
+      class="hidden-users"
+    >
       <span v-text="`+${hiddenUsers.length}`" />
-      <b-tooltip v-if="hiddenUsers.length && showOverflowTooltip" :target="$refs.hidden" triggers="hover">
+      <b-tooltip
+        v-if="hiddenUsers.length && showOverflowTooltip"
+        :target="$refs.hidden"
+        triggers="hover"
+      >
         <span v-for="(user, index) in hiddenUsers" :key="user.id">
           <span v-if="index != 0">, </span>
           <a :href="$url('profile', user.id)" class="tooltip-link">{{ user.name }}</a>

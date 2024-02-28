@@ -24,10 +24,7 @@
         {{ $i18n('menu.entry.mailbox') }}
         <div class="badge badge-danger badge-inline">{{ getMailUnreadCount }}</div>
       </a>
-      <div
-        v-if="hasMailBox"
-        class="dropdown-divider"
-      />
+      <div v-if="hasMailBox" class="dropdown-divider" />
       <a
         :href="$url('profile', getUserId)"
         role="menuitem"

@@ -1,29 +1,17 @@
 <template>
   <div class="infos">
     <ul>
-      <li
-        v-if="maySeeLastActivity"
-        class="mb-2"
-      >
+      <li v-if="maySeeLastActivity" class="mb-2">
         <b>{{ $i18n('profile.infos.lastActivity') }}:</b> {{ lastActivityText }}
       </li>
-      <li
-        v-if="registrationDate"
-        class="mb-2"
-      >
+      <li v-if="registrationDate" class="mb-2">
         <b>{{ $i18n('profile.infos.registrationDate') }}:</b> {{ registrationDate }}
       </li>
-      <li
-        v-if="privateMail"
-        class="mb-2"
-      >
+      <li v-if="privateMail" class="mb-2">
         <b>{{ $i18n('profile.infos.privateMail') }}:</b>
         <p><a :href="getMailboxUrl(privateMail)">{{ splitMail(privateMail)[0] }}@<wbr>{{ splitMail(privateMail)[1] }}</a></p>
       </li>
-      <li
-        v-if="fsMail"
-        class="mb-2"
-      >
+      <li v-if="fsMail" class="mb-2">
         <b>{{ $i18n('profile.infos.fsMail') }}:</b>
         <p><a :href="getMailboxUrl(fsMail)">{{ splitMail(fsMail)[0] }}@<wbr>{{ splitMail(fsMail)[1] }}</a></p>
       </li>

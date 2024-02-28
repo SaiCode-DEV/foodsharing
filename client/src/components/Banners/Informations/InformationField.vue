@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="!isSet"
-    class="informationfield"
-  >
+  <div v-if="!isSet" class="informationfield">
     <i
       v-if="entry.icon"
       class="informationfield__icon fas"

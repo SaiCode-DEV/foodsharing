@@ -56,12 +56,8 @@
         </div>
       </div>
     </Container>
-    <AddPickupModal
-      :store-id="storeId"
-    />
-    <DeletePickupModal
-      :store-id="storeId"
-    />
+    <AddPickupModal :store-id="storeId" />
+    <DeletePickupModal :store-id="storeId" />
   </div>
 </template>
 

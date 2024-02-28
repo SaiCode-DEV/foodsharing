@@ -1,9 +1,6 @@
 <template>
   <ul>
-    <li
-      v-for="region of regions"
-      :key="region.id"
-    >
+    <li v-for="region of regions" :key="region.id">
       <Region :region="region" />
       <RegionList
         v-if="region.children"

@@ -84,9 +84,7 @@
       v-if="canQuickreply && state"
       class="d-flex w-100 flex-column justify-content-center"
     >
-      <div
-        v-if="!qrLoading"
-      >
+      <div v-if="!qrLoading">
         <div class="position-relative">
           <textarea
             ref="quickreply"
@@ -126,10 +124,7 @@
           <span v-html="$i18n('activitypost.quickreply_info')" />
         </small>
       </div>
-      <span
-        v-else
-        class="loader"
-      >
+      <span v-else class="loader">
         <i class="fas fa-spinner fa-spin" />
       </span>
     </div>

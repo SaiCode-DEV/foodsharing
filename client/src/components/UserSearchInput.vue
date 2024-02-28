@@ -28,10 +28,7 @@
       size="sm"
       @click.prevent="buttonClicked"
     >
-      <i
-        class="fas fa-fw"
-        :class="buttonIcon"
-      />
+      <i class="fas fa-fw" :class="buttonIcon" />
     </b-button>
   </vue-simple-suggest>
 </template>

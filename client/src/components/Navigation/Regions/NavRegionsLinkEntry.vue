@@ -8,10 +8,7 @@
       class="dropdown-item dropdown-action"
       @click="menu.func ? menu.func() : null"
     >
-      <i
-        class="icon-subnav fas"
-        :class="menu.icon"
-      />
+      <i class="icon-subnav fas" :class="menu.icon" />
       {{ $i18n(menu.text) }}
     </a>
   </div>

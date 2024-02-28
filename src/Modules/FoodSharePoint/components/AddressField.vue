@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
   <div class="field">
     <div class="head ui-widget-header ui-corner-top">
       {{ $i18n('fsp.address') }}

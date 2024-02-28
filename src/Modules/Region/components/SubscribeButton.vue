@@ -9,10 +9,7 @@
   >
     <template #button-content>
       <span v-if="isFollowing">
-        <i
-          v-if="isFollowingBell"
-          class="fas fa-bell mr-1"
-        />
+        <i v-if="isFollowingBell" class="fas fa-bell mr-1" />
         <i
           v-if="isFollowingEmail"
           class="fas fa-envelope mr-1"

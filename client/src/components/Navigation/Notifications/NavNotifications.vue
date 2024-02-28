@@ -7,10 +7,7 @@
     is-fixed-size
     is-scrollable
   >
-    <template
-      v-if="bells.length > 0"
-      #content
-    >
+    <template v-if="bells.length > 0" #content>
       <NotificationsEntry
         v-for="bell in bells"
         :key="bell.id"
@@ -19,10 +16,7 @@
         @read="onBellRead"
       />
     </template>
-    <template
-      v-else
-      #content
-    >
+    <template v-else #content>
       <small
         role="menuitem"
         class="disabled dropdown-item"

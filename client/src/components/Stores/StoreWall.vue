@@ -9,10 +9,7 @@
     @reduce-list="reduceList"
   >
     <div class="store-wall">
-      <div
-        v-if="mayWritePost"
-        class="m-1 p-1"
-      >
+      <div v-if="mayWritePost" class="m-1 p-1">
         <MarkdownInput
           variant="outline-primary"
           :placeholder="$i18n('wall.placeholder')"

@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
   <div class="blog-list-item d-flex align-items-center py-1 flex-wrap flex-sm-nowrap">
     <div class="mx-1">
       <b-link
@@ -13,9 +12,7 @@
         />
       </b-link>
     </div>
-    <div
-      class="text-muted mx-1"
-    >
+    <div class="text-muted mx-1">
       {{ $dateFormatter.date(when) }}
     </div>
     <div class="mx-1 flex-shrink-0">

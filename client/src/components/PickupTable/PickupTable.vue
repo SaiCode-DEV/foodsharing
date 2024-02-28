@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
   <b-table
     ref="table"
     hover
@@ -73,7 +72,11 @@
           <small v-if="noMorePages">
             {{ $i18n('pickup.overview.allLoaded') }}
           </small>
-          <b-button v-else size="sm" @click="$emit('load-more')">
+          <b-button
+            v-else
+            size="sm"
+            @click="$emit('load-more')"
+          >
             {{ $i18n('pickup.overview.menu.loadMore') }}
           </b-button>
         </td>

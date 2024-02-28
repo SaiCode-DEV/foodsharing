@@ -399,10 +399,7 @@
                 </b-row>
                 <b-card-text>
                   {{ $i18n('startpage.donate.text') }}
-                  <a
-                    class="link"
-                    href="unterstuetzung"
-                  >
+                  <a class="link" href="unterstuetzung">
                     {{ $i18n('startpage.donate.link') }}
                   </a>
                 </b-card-text>

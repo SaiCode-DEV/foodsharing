@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
   <div class="bootstrap">
     <div class="container">
       <div class="d-flex justify-content-between align-items-center py-2">
@@ -17,7 +16,11 @@
         </b-button>
       </div>
 
-      <div id="releases" class="clear" role="tablist">
+      <div
+        id="releases"
+        class="clear"
+        role="tablist"
+      >
         <b-card no-body class="p-3">
           <ReleaseNotesEntry
             v-for="r in releaseList"

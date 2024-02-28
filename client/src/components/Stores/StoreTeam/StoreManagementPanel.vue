@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="ui-corner-top"
-    :class="classes"
-  >
+  <div class="ui-corner-top" :class="classes">
     <span class="text-muted">{{ $i18n('store.sm.makeRegularTeamMember') }}</span>
     <user-search-input
       id="new-foodsaver-search"

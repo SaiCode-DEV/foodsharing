@@ -1,10 +1,7 @@
 <template>
   <Container :title="title">
     <b-container>
-      <div
-        v-if="memberList.length"
-        class="card-body p-0"
-      >
+      <div v-if="memberList.length" class="card-body p-0">
         <div class="row">
           <div
             v-if="isWorkGroup && mayEditMembers"
@@ -20,10 +17,7 @@
               @user-selected="addNewTeamMember"
             />
           </div>
-          <div
-            v-if="mayEditMembers"
-            class="filter-role"
-          >
+          <div v-if="mayEditMembers" class="filter-role">
             <b-form-select
               v-model="filterRole"
               :options="roleOptions"
@@ -55,19 +49,13 @@
             />
           </div>
         </div>
-        <div
-          class="form-row"
-        >
-          <div
-            class="filter-for-label"
-          >
+        <div class="form-row">
+          <div class="filter-for-label">
             <label class=" col-form-label col-form-label-sm foo">
               {{ $i18n('list.filter_for') }}
             </label>
           </div>
-          <div
-            class="filter-for-form"
-          >
+          <div class="filter-for-form">
             <input
               v-model="filterText"
               type="text"
@@ -75,9 +63,7 @@
               :placeholder="$i18n('filterlist.filter_for_name_id')"
             >
           </div>
-          <div
-            class="filter-for-delete"
-          >
+          <div class="filter-for-delete">
             <button
               v-b-tooltip.hover
               :title="$i18n('button.clear_filter')"
@@ -189,10 +175,7 @@
             <i class="fas fa-fw fa-user-graduate" />
           </b-button>
         </template>
-        <template
-          v-if="mayEditMembers"
-          #cell(removeButton)="row"
-        >
+        <template v-if="mayEditMembers" #cell(removeButton)="row">
           <b-button
             v-if="rowItemNotqualUserid(userId,row.item.id) && !rowItemisAdminOrAmbassadorOfRegion(row.item)"
             v-b-tooltip="$i18n('group.member_list.remove_title')"

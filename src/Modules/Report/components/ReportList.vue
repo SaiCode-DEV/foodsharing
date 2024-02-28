@@ -9,10 +9,7 @@
       card-body
       v-html="$i18n('profile.report.readup')"
     />
-    <div
-      v-if="reports.length"
-      class="card-body p-0"
-    >
+    <div v-if="reports.length" class="card-body p-0">
       <b-table
         :fields="fields"
         :items="reports"
@@ -27,9 +24,7 @@
           </div>
         </template>
 
-        <template
-          #cell(actions)="row"
-        >
+        <template #cell(actions)="row">
           <b-button
             size="sm"
             @click.stop="row.toggleDetails"
@@ -37,9 +32,7 @@
             {{ row.detailsShowing ? 'x' : 'Details' }}
           </b-button>
         </template>
-        <template
-          #row-details="row"
-        >
+        <template #row-details="row">
           <div class="report">
             <p><strong>{{ $i18n('reports.report_id') }}</strong>: {{ row.item.id }}</p>
             <p><strong>{{ $i18n('reports.time') }}</strong>: {{ row.item.time }}</p>
@@ -71,10 +64,7 @@
         />
       </div>
     </div>
-    <div
-      v-else
-      class="card-body"
-    >
+    <div v-else class="card-body">
       {{ $i18n('reports.no_reports_fallback') }}
     </div>
   </div>

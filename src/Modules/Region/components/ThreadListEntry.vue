@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <li :id="`thread-${thread.id}`" class="thread">
     <a class="ui-corner-all d-flex" :href="threadUrl">
@@ -14,7 +13,11 @@
           :class="{'font-weight-bold': thread.isSticky}"
         >
           <span class="thread-title d-inline" :class="titleClass">
-            <i v-if="isClosed" class="fas fa-lock" :title="$i18n('forum.thread.closed')" />
+            <i
+              v-if="isClosed"
+              class="fas fa-lock"
+              :title="$i18n('forum.thread.closed')"
+            />
             {{ thread.title }}
           </span>
         </div>

@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <li
     class="post d-flex flex-column justify-content-between align-items-center"
@@ -41,10 +40,7 @@
       </div>
     </div>
 
-    <span
-      v-if="canDelete"
-      class="moderation"
-    >
+    <span v-if="canDelete" class="moderation">
       <b-button
         v-b-tooltip="$i18n('wall.delete')"
         v-b-modal="`confirmDeletion-${post.id}`"
@@ -71,7 +67,11 @@
       @ok="$emit('delete-post', post.id)"
     >
       <template #modal-header>
-        <div v-if="!isOwn(post)" class="alert alert-warning" role="alert">
+        <div
+          v-if="!isOwn(post)"
+          class="alert alert-warning"
+          role="alert"
+        >
           <div v-if="!mayDeleteEverything">
             <i class="fas fa-fw fa-info-circle" />
             {{ $i18n('wall.info-somebody-else') }}

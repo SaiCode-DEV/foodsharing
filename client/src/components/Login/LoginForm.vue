@@ -1,8 +1,6 @@
 <template>
   <div class="py-3 px-4">
-    <form
-      @submit.prevent
-    >
+    <form @submit.prevent>
       <label class="d-block">
         <div class="mb-1">
           <i class="fas fa-user mr-1" />

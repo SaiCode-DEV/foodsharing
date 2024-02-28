@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
   <div class="bootstrap">
     <div class="card rounded">
       <div class="card-header text-white bg-primary">
@@ -12,9 +11,7 @@
         >
           {{ $i18n('polls.hint_2') }}: <a :href="$url('wiki_voting')">{{ $url('wiki_voting') }}</a>
         </b-alert>
-        <div
-          v-if="mayEdit"
-        >
+        <div v-if="mayEdit">
           <b-link
             :href="$url('pollEdit', poll.id)"
             class="btn btn-sm btn-primary mb-3"
@@ -32,10 +29,18 @@
           <li class="poll-date">
             <b>{{ $i18n('poll.time_period') }}:</b>
             {{ $dateFormatter.dateTime(startDate) }} - {{ $dateFormatter.dateTime(endDate) }}
-            <b-badge v-if="isPollInPast" pill variant="info">
+            <b-badge
+              v-if="isPollInPast"
+              pill
+              variant="info"
+            >
               {{ $i18n('poll.in_past') }}
             </b-badge>
-            <b-badge v-else-if="isPollInFuture" pill variant="secondary">
+            <b-badge
+              v-else-if="isPollInFuture"
+              pill
+              variant="secondary"
+            >
               {{ $i18n('poll.in_future') }}
             </b-badge>
           </li>
@@ -56,10 +61,7 @@
           </li>
         </ul>
 
-        <div
-          v-if="userAlreadyVoted"
-          class="my-1 mt-3"
-        >
+        <div v-if="userAlreadyVoted" class="my-1 mt-3">
           <b-alert
             show
             variant="dark"

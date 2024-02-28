@@ -1,8 +1,16 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
-  <Container id="store-log" :title="$i18n('store.log.title')" :container-is-expanded="isContainerExpanded" tag="store_log">
+  <Container
+    id="store-log"
+    :title="$i18n('store.log.title')"
+    :container-is-expanded="isContainerExpanded"
+    tag="store_log"
+  >
     <div class="corner-bottom margin-bottom bootstrap store-log">
-      <DateRangePicker ref="dateRange" :cooperation-start="cooperationStart" :max-age-in-months="6" />
+      <DateRangePicker
+        ref="dateRange"
+        :cooperation-start="cooperationStart"
+        :max-age-in-months="6"
+      />
 
       <Multiselect
         v-model="selectedActionTypes"
@@ -26,13 +34,23 @@
       </Multiselect>
 
       <div class="p-1">
-        <b-button id="search-store-log" size="sm" class="d-block mx-auto" :disabled="disableSearch" @click="loadStoreLog">
+        <b-button
+          id="search-store-log"
+          size="sm"
+          class="d-block mx-auto"
+          :disabled="disableSearch"
+          @click="loadStoreLog"
+        >
           <i class="fas fa-fw fa-search" />
           {{ $i18n('store.log.search') }}
         </b-button>
       </div>
       <div>
-        <div v-for="(action, i) of loggedActions" :key="i" class="store-log-entry d-flex">
+        <div
+          v-for="(action, i) of loggedActions"
+          :key="i"
+          class="store-log-entry d-flex"
+        >
           <div class="avatar-time-line">
             <Avatar
               class="d-inline-block"

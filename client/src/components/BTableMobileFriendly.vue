@@ -26,10 +26,7 @@
         v-for="(_, name) in $scopedSlots"
         #[name]="slotData"
       >
-        <slot
-          :name="name"
-          v-bind="slotData"
-        />
+        <slot :name="name" v-bind="slotData" />
       </template>
     </b-table>
   </div>

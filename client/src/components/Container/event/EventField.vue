@@ -9,10 +9,7 @@
         class="event-item-date flex-column mr-2 text-center rounded default"
         :class="{'accept': status === 1, 'maybe': status === 2}"
       >
-        <small
-          class="font-weight-bold"
-          v-html="displayedMonth"
-        />
+        <small class="font-weight-bold" v-html="displayedMonth" />
         <div class="event-item-date-container d-flex flex-column bg-white justify-content-center text-dark">
           <span
             v-if="isEventToday"

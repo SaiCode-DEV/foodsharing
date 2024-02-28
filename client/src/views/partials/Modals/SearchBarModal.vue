@@ -47,9 +47,7 @@
         <i :class="{ fas: true, 'fa-globe': globalSearch, 'fa-street-view': !globalSearch }" />
       </b-button>
     </template>
-    <template
-      #default
-    >
+    <template #default>
       <SearchResults
         v-if="showResults"
         class="results"
@@ -57,10 +55,7 @@
         :is-loading="isLoading"
         @close="$refs.searchBarModal.hide"
       />
-      <div
-        v-else
-        class="alert alert-info"
-      >
+      <div v-else class="alert alert-info">
         <span v-text="$i18n('search.informations')" />
         <span
           v-if="idle && query.length"

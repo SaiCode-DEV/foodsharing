@@ -34,12 +34,8 @@
       inkscape:window-maximized="1"
       inkscape:current-layer="svg2"
     />
-    <defs
-      id="defs4"
-    />
-    <metadata
-      id="metadata7"
-    >
+    <defs id="defs4" />
+    <metadata id="metadata7">
       <rdf:RDF>
         <cc:Work
           rdf:about=""
@@ -52,10 +48,7 @@
         </cc:Work>
       </rdf:RDF>
     </metadata>
-    <g
-      id="layer2"
-      style="display:none"
-    >
+    <g id="layer2" style="display:none">
       <rect
         id="rect4244"
         y="0"
@@ -73,9 +66,7 @@
         id="Gabel_gb_RGB"
         transform="matrix(13.123359,0,0,13.123359,-1620.7892,-1064.2922)"
       >
-        <title
-          id="title4277"
-        >Gabel_gb_RGB</title>
+        <title id="title4277">Gabel_gb_RGB</title>
         <path
           id="rect4165"
           style="opacity:1;fill:#64ae24;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"

@@ -1,8 +1,5 @@
 <template>
-  <div
-    :id="`post-${id}`"
-    class="thread"
-  >
+  <div :id="`post-${id}`" class="thread">
     <div
       class="card mb-2"
       :class="{'disabledLoading': isLoading}"

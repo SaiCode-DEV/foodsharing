@@ -1,5 +1,4 @@
 <!-- The component that allows you to select the types of map markers. -->
-<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <div id="map-control-wrapper">
     <div
