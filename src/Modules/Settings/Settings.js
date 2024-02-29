@@ -2,7 +2,6 @@
 import '@/core'
 import '@/globals'
 import './Settings.css'
-import 'jquery-jcrop'
 import 'jquery-dynatree'
 import { GET, collapse_wrapper } from '@/script'
 import { expose } from '@/utils'

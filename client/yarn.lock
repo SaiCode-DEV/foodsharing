@@ -4692,11 +4692,6 @@ jquery-contextmenu@^2.9.2:
   dependencies:
     jquery "^3.5.0"
 
-jquery-jcrop@^0.9.15:
-  version "0.9.15"
-  resolved "https://registry.yarnpkg.com/jquery-jcrop/-/jquery-jcrop-0.9.15.tgz#490f216f922f77a7e6c9be6c1d5d69582f414964"
-  integrity sha512-425X88jEoWojYPS5YhZciEW83z4J/TLPh9gvRfftroUBDr70Er58kerD1kY+cT/z8Ys5/VEkUZ9AA4tFwqgY+w==
-
 jquery-migrate@^3.4.0:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/jquery-migrate/-/jquery-migrate-3.4.1.tgz#6a7114626b80e0d9e1cb77f170623efd85c5fc9c"
