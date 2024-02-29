@@ -167,6 +167,8 @@ search:
       member_tooltip: Eres miembro de este distrito
     user:
       no_home_region: Ningún distrito de origen
+      copy_id: Copiar ID
+      copied_id: ID de Foodsaver copiado de {name} ({id})
   maxresults: El número de resultados mostrados es limitado. Quizás utilice un término
     de búsqueda más específico.
   too_short: Por favor ingrese un término de búsqueda más largo.
@@ -1036,6 +1038,7 @@ button:
   permadelete: 'borrar permanentemente'
   reset_default: Restablecer valor predeterminado
   prev: Volver
+  close: Cerrar
 pass:
   nav:
     options: 'Opciones'
@@ -3634,3 +3637,9 @@ donation_banner:
   info_button: ¿A dónde va mi donación?
   action_button: ¡Dona aquí!
   amount: Nivel de donación
+help:
+  helpTitle: 'Ayuda: {title}'
+  tooltip: Mostrar la ayuda
+  key:
+    storeLog:
+      title: Registro de las operaciones
