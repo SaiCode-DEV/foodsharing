@@ -20,7 +20,7 @@ class BellTransactions
      *      This could be a forum thread id for posts in that forum or store id for store wall posts.
      * @param ?string $pluralIcon replacement for the icon of the $baseBell to be used for grouped bells
      */
-    public function addGroupedBellEvent(array $foodsaverIds, ?Bell $baseBell = null, int $entityId, ?string $pluralIcon = null): void
+    public function addGroupedBellEvent(array $foodsaverIds, ?Bell $baseBell = null, int $entityId = 0, ?string $pluralIcon = null): void
     {
         $groups = $this->bellGateway->groupFoodsaversByUnreadBell($foodsaverIds, $baseBell->identifier, true);
         $this->bellGateway->deleteSeenBellsForFoodsaversByIdentifier($foodsaverIds, $baseBell->identifier);
