@@ -2,7 +2,6 @@
 
 namespace Foodsharing\Lib\View;
 
-use Foodsharing\Lib\Session;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\PageHelper;
@@ -14,7 +13,6 @@ use Twig\Environment;
 class Utils
 {
     private array $id = []; // TODO shouldn't this be a string?
-    private Session $session;
     private Environment $twig;
 
     public function __construct(
@@ -24,12 +22,6 @@ class Utils
         private readonly DataHelper $dataHelper,
         private readonly TranslatorInterface $translator
     ) {
-    }
-
-    #[Required]
-    public function setSession(Session $session): void
-    {
-        $this->session = $session;
     }
 
     #[Required]
