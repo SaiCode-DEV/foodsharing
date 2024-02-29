@@ -29,7 +29,7 @@
         <div
           v-if="!wXS"
           class="mr-2 pr-2 border-right border-light text-center"
-          style="min-width: 150px"
+          style="width: min-content; min-width: 150px;"
         >
           <Avatar
             :user="author"

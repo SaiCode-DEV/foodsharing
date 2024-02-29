@@ -24,7 +24,7 @@
       >
         <!-- TODO send data in fitting format -->
         <Avatar
-          :user="{...request, avatar: request.photo, isSleeping: request.sleep_status }"
+          :user="{...request, avatar: request.photo }"
           :size="50"
         />
         <div class="name font-weight-bolder flex-grow-1 mx-3">

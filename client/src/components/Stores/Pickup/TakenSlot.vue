@@ -104,7 +104,9 @@
       style="margin: 2px 2px 2px 1px;"
       href="#"
       badge-size="100%"
+      :badge-variant="confirmed ? 'success' : 'danger'"
       :options="{ badgeOffset: '-5px' }"
+      :transparent="!confirmed"
       @click="openModal"
     >
       <template #badge>

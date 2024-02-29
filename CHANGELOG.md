@@ -61,7 +61,7 @@
 - Move location information in session to user #1769 !3148 !3185 @KoeMai
 - Remove unused variables from session #1769 !3161  @KoeMai
 - Replaced every usage of the Lat-lon-picker with the Vue leaflet component !3185 @alex.simm 
-- Improved Avatar component !3155 @AntonBallmaier
+- Improved Avatar component !3155 !3189 @AntonBallmaier
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm

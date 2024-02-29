@@ -13,7 +13,7 @@
           class="row justify-content-start"
         >
           <Avatar
-            :user="{ ...profile, sleeping: profile.sleepStatus }"
+            :user="profile"
             :size="35"
             class="mr-2"
           />

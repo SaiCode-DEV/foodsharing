@@ -17,7 +17,7 @@
             >
               <Avatar
                 class="mr-2"
-                :user="{ ...application, isSleeping: application.sleepStatus }"
+                :user="application"
                 :href="$url('application', groupId, application.id)"
               />
               <span class="d-inline avatar-title">{{ application.name }}</span>

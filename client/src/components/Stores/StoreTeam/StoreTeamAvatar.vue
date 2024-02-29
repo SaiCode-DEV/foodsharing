@@ -4,6 +4,7 @@
     :size="50"
     :badge-variant="user.mayManage ? 'secondary' : 'primary'"
     :class="{'jumper': user.isJumper}"
+    :transparent="user.isJumper || !user.isVerified"
   >
     <template #badge>
       <span ref="badgeContent">

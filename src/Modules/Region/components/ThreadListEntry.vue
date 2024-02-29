@@ -3,7 +3,7 @@
     <a class="ui-corner-all d-flex" :href="threadUrl">
       <Avatar
         class="mr-2"
-        :user="{ ...thread.lastPost.author, isSleeping: thread.lastPost.author.sleepStatus }"
+        :user="thread.lastPost.author"
         :size="50"
         href=""
       />

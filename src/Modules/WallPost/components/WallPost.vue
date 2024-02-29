@@ -30,7 +30,7 @@
     <div class="content w-100 m-1 flex-grow-0 flex-shrink-0 d-flex">
       <div class="mr-2 flex-grow-0 flex-shrink-0 align-self-baseline">
         <Avatar
-          :user="{ ...post.author, isSleeping: post.author.sleepStatus }"
+          :user="post.author"
           :size="50"
         />
       </div>

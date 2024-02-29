@@ -46,7 +46,7 @@
       <div class="d-flex align-items-center">
         <Avatar
           class="mr-2"
-          :user="{ ...entry.user, sleeping: entry.user.sleepStatus }"
+          :user="entry.user"
           :size="24"
         />
         <small>

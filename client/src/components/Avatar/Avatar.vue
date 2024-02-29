@@ -7,7 +7,7 @@
     :variant="computedVariant"
     :badge-variant="badgeVariant"
     badge-top
-    :class="`unobtrusive-link avatar-${variant} ${user?.isSleeping ? 'sleep' : ''}`"
+    :class="`unobtrusive-link avatar-${variant} ${isSleeping ? 'sleep' : ''} ${transparent ? 'avatar-transparent' : ''}`"
     :[shape]="true"
     v-bind="options"
     @click="$emit('click', $event)"
@@ -33,6 +33,7 @@ export default {
     badgeSize: { type: String, default: '75%' },
     variant: { type: [String, undefined], default: undefined },
     tooltip: { type: [String, undefined], default: undefined },
+    transparent: { type: Boolean, default: false },
 
     // Allowed values: 'square', 'rounded', 'round'
     shape: { type: String, default: 'rounded' },
@@ -87,8 +88,12 @@ export default {
       if (this.imageSrc) return ''
       return this.variant
     },
+    isSleeping () {
+      if (!this.user) return false
+      return this.user.isSleeping ?? this.user.sleepStatus ?? this.user.sleep_status
+    },
     sleepImageSrc () {
-      if (!this.user?.isSleeping) return ''
+      if (!this.isSleeping) return ''
       const size = [35, 50].find(x => x >= this.size) ?? 130
       return `url('/img/sleep${size}x${size}.png')`
     },
@@ -111,6 +116,17 @@ export default {
   }
   .b-avatar-badge {
     font-size: v-bind("badgeSize") !important;
+    & > span > span { // increase padding for text-badges to improve readability
+      padding: 3px;
+    }
+    &.badge-primary { // slightly brighter border for primary badges to improve contrast
+      border: 1px solid var(--fs-color-primary-400);
+      padding: calc(0.25em - 2px); // reduce size to compensate for added border
+      & > span { // reposotion the text centered
+        position: relative;
+        top: 1px;
+      }
+    }
   }
 }
 
@@ -132,5 +148,7 @@ export default {
 }.avatar-light .avatar-icon {
   color: var(--fs-color-primary-500);
 }
-
+.avatar-transparent::v-deep img {
+  opacity: 0.5;
+}
 </style>
