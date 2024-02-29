@@ -3,7 +3,6 @@
 namespace Foodsharing\Lib\View;
 
 use Foodsharing\Lib\Session;
-use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\PageHelper;
