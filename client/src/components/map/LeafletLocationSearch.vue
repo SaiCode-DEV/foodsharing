@@ -1,5 +1,4 @@
 <!-- Combines the LeafletLocationPicker with a text field that supports searching for addresses via geocoding. -->
-<!-- eslint-disable vue/max-attributes-per-line -->
 <!-- eslint-disable vue/singleline-html-element-content-newline -->
 <template>
   <div class="bootstrap">

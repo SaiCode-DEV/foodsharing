@@ -14,22 +14,17 @@ class FoodsharingUrl extends Db
 {
     public function storeUrl($storeId): string
     {
-        return '/?page=fsbetrieb&id=' . (int)$storeId;
+        return '/store/' . (int)$storeId;
     }
 
-    public function storeEditUrl($storeId): string
+    public function storeListUrl($regionId): string
     {
-        return '/?page=betrieb&id=' . (int)$storeId . '&a=edit';
+        return '/region/' . (int)$regionId . '/stores';
     }
 
-    public function storeListUrl($storeId): string
+    public function storeNewUrl($regionId): string
     {
-        return '/?page=betrieb&bid=' . (int)$storeId;
-    }
-
-    public function storeNewUrl(): string
-    {
-        return '/?page=betrieb&a=new';
+        return '/region/' . (int)$regionId . '/store/new';
     }
 
     public function groupEditUrl($groupId): string

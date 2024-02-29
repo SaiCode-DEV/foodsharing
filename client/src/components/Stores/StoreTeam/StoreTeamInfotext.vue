@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable-next-line vue/max-attributes-per-line -->
   <div class="infowrapper" :class="classes">
     <div v-if="member.joinDate">
       {{ $i18n('store.memberSince', { date: $dateFormatter.dateTime(member.joinDate) }) }}

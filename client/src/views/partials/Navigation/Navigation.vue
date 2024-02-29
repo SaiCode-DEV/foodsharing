@@ -93,6 +93,9 @@ export default {
     homeHref () {
       return (this.isLoggedIn) ? this.$url('dashboard') : this.$url('home')
     },
+    userId () {
+      return DataUser.getters.getUserId()
+    },
   },
   watch: {
     hasMailbox: {
@@ -107,7 +110,7 @@ export default {
     isFoodsaver: {
       async handler (newValue) {
         if (newValue) {
-          await DataStores.mutations.fetch()
+          await DataStores.mutations.fetch(false, this.userId)
         }
       },
       immediate: true,

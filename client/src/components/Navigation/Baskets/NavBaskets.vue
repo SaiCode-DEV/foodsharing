@@ -19,10 +19,7 @@
           @basket-remove="openRemoveBasketForm"
         />
       </template>
-      <template
-        v-else
-        #content
-      >
+      <template v-else #content>
         <small
           role="menuitem"
           class="disabled dropdown-item"

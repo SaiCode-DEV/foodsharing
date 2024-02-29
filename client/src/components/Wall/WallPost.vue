@@ -1,17 +1,20 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
-  <div :id="`wallpost-${post.id}`" class="list-group-item d-flex" style="gap: 1em">
-    <a :href="$url('profile', post.author.id)" class="avatar-link">
-      <Avatar :url="post.author.avatar" :size="50" class="member-pic img" :is-sleeping="post.author.sleepStatus" />
-    </a>
-
+  <div
+    :id="`wallpost-${post.id}`"
+    class="list-group-item d-flex"
+    style="gap: 1em"
+  >
+    <Avatar :user="post.author" :size="50" />
     <div class="flex-grow-1 position-relative">
       <div class="d-flex" style="gap: 0.5em">
         <a :href="$url('profile', post.author.id)" v-text="post.author.name" />
         <span class="flex-grow-1" />
         <Time :time="post.time" />
-        <i v-if="canDelete" v-b-tooltip="$i18n('wall.delete')" class="fas fa-trash-alt text-muted delete-post"
-           @click="$emit('delete', post.id)"
+        <i
+          v-if="canDelete"
+          v-b-tooltip="$i18n('wall.delete')"
+          class="fas fa-trash-alt text-muted delete-post"
+          @click="$emit('delete', post.id)"
         />
       </div>
       <Markdown :source="post.body" />
@@ -26,7 +29,7 @@
 
 <script>
 import DataUser from '@/stores/user'
-import Avatar from '@/components/Avatar'
+import Avatar from '@/components/Avatar/Avatar.vue'
 import Markdown from '@/components/Markdown/Markdown'
 import Gallery from '@/components/Images/Gallery'
 import Time from '../Time.vue'
@@ -69,7 +72,7 @@ export default {
   }
 }
 
-.avatar-link {
+::v-deep.b-avatar {
   height: fit-content;
   position: sticky;
   top: calc(var(--navbar-height) + 1em);

@@ -1393,6 +1393,7 @@ store:
     modal_title: Choisissez une chaîne
     search_input: Rechercher par nom de chaîne
   to_map: Afficher sur la carte
+  storeFrom: Magasin de {name}
 storeview:
   want_to_fetch: J’aimerais m’engager dans cette équipe.
   specials: Particularités

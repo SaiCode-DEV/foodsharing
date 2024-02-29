@@ -8,7 +8,6 @@ use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use Foodsharing\Modules\Dashboard\DashboardControl;
 use Foodsharing\Modules\Event\EventControl;
 use Foodsharing\Modules\Foodsaver\FoodsaverControl;
-use Foodsharing\Modules\Foodsaver\FoodsaverXhr;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointControl;
 use Foodsharing\Modules\Index\IndexControl;
 use Foodsharing\Modules\Legal\LegalControl;
@@ -29,7 +28,7 @@ use Foodsharing\Modules\Report\ReportControl;
 use Foodsharing\Modules\Report\ReportXhr;
 use Foodsharing\Modules\Settings\SettingsControl;
 use Foodsharing\Modules\Settings\SettingsXhr;
-use Foodsharing\Modules\Store\StoreControl;
+use Foodsharing\Modules\Store\StoreController;
 use Foodsharing\Modules\Store\StoreXhr;
 use Foodsharing\Modules\StoreChain\StoreChainControl;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
@@ -104,15 +103,13 @@ class Routing
         'relogin' => ReloginControl::class,
         'report' => ReportControl::class,
         'settings' => SettingsControl::class,
-        'betrieb' => StoreControl::class,
         'fsbetrieb' => StoreUserControl::class,
         'groups' => WorkGroupControl::class,
-        'store' => StoreControl::class,
+        'store' => StoreController::class,
         'chain' => StoreChainControl::class,
     ];
 
     private const XHR = [
-        'foodsaver' => FoodsaverXhr::class,
         'map' => MapXhr::class,
         'quiz' => QuizXhr::class,
         'report' => ReportXhr::class,
@@ -132,6 +129,7 @@ class Routing
         'statistics',
         'map',
         'blog',
+        'betrieb'
     ];
 
     private const RENAMES = [

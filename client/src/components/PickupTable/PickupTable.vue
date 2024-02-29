@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
   <b-table
     ref="table"
     hover
@@ -38,7 +37,7 @@
 
     <template #cell(slots)="entry">
       <AvatarStack
-        :registered-users="entry.item.slots.occupied"
+        :users="entry.item.slots.occupied"
         :total-slots="entry.item.slots.max"
         :max-width-in-px="offsetWidth / 5"
       />
@@ -73,7 +72,11 @@
           <small v-if="noMorePages">
             {{ $i18n('pickup.overview.allLoaded') }}
           </small>
-          <b-button v-else size="sm" @click="$emit('load-more')">
+          <b-button
+            v-else
+            size="sm"
+            @click="$emit('load-more')"
+          >
             {{ $i18n('pickup.overview.menu.loadMore') }}
           </b-button>
         </td>
@@ -84,7 +87,7 @@
 
 <script>
 import { BTable } from 'bootstrap-vue'
-import AvatarStack from '@/components/AvatarStack.vue'
+import AvatarStack from '@/components/Avatar/AvatarStack.vue'
 import i18n from '@/helper/i18n'
 
 const MIN_WIDTH_FOR_WIDE_LAYOUT = 600
@@ -274,10 +277,6 @@ export default {
   button {
     white-space: nowrap;
   }
-}
-
-.tooltip-link {
-  color: var(--fs-color-light);
 }
 
 .table-footer-container {

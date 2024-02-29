@@ -122,14 +122,8 @@
                 height="19px"
                 style="vertical-align: middle"
               >
-              <i
-                v-else
-                :class="social.icon"
-              />
-              <span
-                class="sr-only"
-                v-html="social.name"
-              />
+              <i v-else :class="social.icon" />
+              <span class="sr-only" v-html="social.name" />
             </a>
           </b-row>
         </b-col>

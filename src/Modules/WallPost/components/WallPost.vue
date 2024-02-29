@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <li
     class="post d-flex flex-column justify-content-between align-items-center"
@@ -29,18 +28,11 @@
     </div>
 
     <div class="content w-100 m-1 flex-grow-0 flex-shrink-0 d-flex">
-      <div class="img mr-2 flex-grow-0 flex-shrink-0 align-self-baseline">
-        <a
-          :href="$url('profile', post.author.id)"
-          class="d-inline-block"
-        >
-          <Avatar
-            :url="post.author.avatar"
-            :size="50"
-            class="member-pic img"
-            :is-sleeping="post.author.sleepStatus"
-          />
-        </a>
+      <div class="mr-2 flex-grow-0 flex-shrink-0 align-self-baseline">
+        <Avatar
+          :user="{ ...post.author, isSleeping: post.author.sleepStatus }"
+          :size="50"
+        />
       </div>
 
       <div class="msg ml-1 flex-grow-1">
@@ -48,10 +40,7 @@
       </div>
     </div>
 
-    <span
-      v-if="canDelete"
-      class="moderation"
-    >
+    <span v-if="canDelete" class="moderation">
       <b-button
         v-b-tooltip="$i18n('wall.delete')"
         v-b-modal="`confirmDeletion-${post.id}`"
@@ -78,7 +67,11 @@
       @ok="$emit('delete-post', post.id)"
     >
       <template #modal-header>
-        <div v-if="!isOwn(post)" class="alert alert-warning" role="alert">
+        <div
+          v-if="!isOwn(post)"
+          class="alert alert-warning"
+          role="alert"
+        >
           <div v-if="!mayDeleteEverything">
             <i class="fas fa-fw fa-info-circle" />
             {{ $i18n('wall.info-somebody-else') }}
@@ -108,7 +101,7 @@
 <script>
 import DataUser from '@/stores/user'
 
-import Avatar from '@/components/Avatar'
+import Avatar from '@/components/Avatar/Avatar.vue'
 import Markdown from '@/components/Markdown/Markdown'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
@@ -148,11 +141,6 @@ export default {
   padding: calc(2 * var(--storewall-padding)) var(--storewall-padding);
   position: relative;
   border-top: 1px solid var(--fs-border-default);
-
-  .member-pic ::v-deep img {
-    width: 50px;
-    height: 50px;
-  }
 
   .metadata {
     margin-top: calc(-1 * var(--storewall-padding));

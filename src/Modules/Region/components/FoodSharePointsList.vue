@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
   <div class="field">
     <div class="head ui-widget-header ui-corner-top">
       {{ $i18n('fsp.twig.n_in_region', { count: foodSharePoints.length, name: regionName }) }}
@@ -17,7 +16,11 @@
             :href="$url('foodsharepoint', fsp.id)"
             class="row"
           >
-            <img :src="pictureUrl(fsp)" :alt="$i18n('picture')" class="image">
+            <img
+              :src="pictureUrl(fsp)"
+              :alt="$i18n('picture')"
+              class="image"
+            >
             <span class="d-inline fsp-name">{{ fsp.name }}</span>
           </a>
         </li>

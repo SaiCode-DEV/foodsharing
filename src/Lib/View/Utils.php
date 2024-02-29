@@ -3,7 +3,6 @@
 namespace Foodsharing\Lib\View;
 
 use Foodsharing\Lib\Session;
-use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\PageHelper;
@@ -42,81 +41,6 @@ class Utils
     public function v_quickform(string $title, array $elements, array $option = []): string
     {
         return $this->v_field('<div class="v-form">' . $this->v_form($title, $elements, $option) . '</div>', $title);
-    }
-
-    /**
-     * @deprecated use the vue components RegionTree or RegionTreeVForm instead
-     */
-    public function v_regionPicker(array $region, string $label): string
-    {
-        $id = $this->identificationHelper->id('bezirk_id');
-        $region = $region ?: [
-            'id' => 0,
-            'name' => $this->translator->trans('region.none'),
-        ];
-
-        $this->pageHelper->addJs('$("#' . $id . '-button").button().on("click", function () {
-			$("#' . $id . '-dialog").dialog("open");
-		});');
-        $this->pageHelper->addJs('$("#' . $id . '-dialog").dialog({
-			autoOpen: false,
-			modal: true,
-			title: "' . $this->translator->trans('region.change') . '",
-			buttons: {
-				"' . $this->translator->trans('button.apply') . '": function () {
-					$("#' . $id . '").val($("#' . $id . '-hId").val());
-					$("#' . $id . '-preview").html($("#' . $id . '-hName").val());
-					$("#' . $id . '-dialog").dialog("close");
-				}
-			}
-		});');
-
-        $nodeselect = 'node.data.type == 1 || node.data.type == 2 || node.data.type == 3 || node.data.type == 7 || node.data.type == 9';
-        if ($this->session->mayRole(Role::ORGA)) {
-            $nodeselect = 'true';
-        }
-
-        $this->pageHelper->addJs('$("#' . $id . '-tree").dynatree({
-			onSelect: function (select, node) {
-				$("#' . $id . '-hidden").html("");
-				$.map(node.tree.getSelectedNodes(), function (node) {
-					if (' . $nodeselect . ') {
-						$("#' . $id . '-hId").val(node.data.ident);
-						$("#' . $id . '").val(node.data.ident);
-						$("#' . $id . '-hName").val(node.data.title);
-					} else {
-						node.select(false);
-						pulseError("' . $this->translator->trans('region.no-huge') . '");
-					}
-				});
-			},
-			persist: false,
-			checkbox: true,
-			selectMode: 1,
-			initAjax: {
-				url: "/xhr?f=bezirkTree",
-				data: {p: "0"}
-			},
-			onLazyRead: function (node) {
-				node.appendAjax({url: "/xhr?f=bezirkTree",
-					data: {"p": node.data.ident},
-					dataType: "json",
-					success: function (node) {},
-					error: function (node, XMLHttpRequest, textStatus, errorThrown) {},
-					cache: false
-				});
-			}
-		});');
-        $this->pageHelper->addHidden('<div id="' . $id . '-dialog"><div id="' . $id . '-tree"></div></div>');
-
-        return $this->v_input_wrapper(
-            $label,
-            '<span id="' . $id . '-preview">' . $region['name'] . '</span> '
-                . '<span id="' . $id . '-button">' . $this->translator->trans('region.change') . '</span>'
-                . '<input type="hidden" name="' . $id . '" id="' . $id . '" value="' . $region['id'] . '" />'
-                . '<input type="hidden" name="' . $id . '-hName" id="' . $id . '-hName" value="' . $region['id'] . '" />'
-                . '<input type="hidden" name="' . $id . 'hId" id="' . $id . '-hId" value="' . $region['id'] . '" />'
-        );
     }
 
     private function v_statusMessage(string $type, string $msg, string $title, string $icon): string

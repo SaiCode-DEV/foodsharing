@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\FoodSharePoint;
 use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
+use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\View;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Permissions\FoodSharePointPermissions;
@@ -153,6 +154,7 @@ class FoodSharePointView extends View
         $title = $this->translator->trans('fsp.new');
 
         $tagselect = '';
+        $latLonOptions = [];
         if ($data) {
             $fspName = $this->foodSharePoint['name'];
             $title = $this->translator->trans('fsp.editName', ['{name}' => $fspName]);
@@ -173,7 +175,7 @@ class FoodSharePointView extends View
             }
             $latLonOptions['location'] = ['lat' => $data['lat'], 'lon' => $data['lon']];
         } else {
-            $latLonOptions = [];
+            $latLonOptions['location'] = ['lat' => MapConstants::CENTER_GERMANY_LAT, 'lon' => MapConstants::CENTER_GERMANY_LON];
             $data = [
                 'bezirk_id' => null,
                 'name' => '',
@@ -203,7 +205,13 @@ class FoodSharePointView extends View
                 'imgHeight' => 525,
                 'imgWidth' => 169
             ]),
-            $this->latLonPicker('latLng', $latLonOptions),
+            $this->vueComponent('foodsharepoint-address-search', 'LeafletLocationSearchVForm', [
+                'zoom' => 4,
+                'coordinates' => $latLonOptions['location'],
+                'street' => $latLonOptions['anschrift'] ?? null,
+                'postalCode' => $latLonOptions['plz'] ?? null,
+                'city' => $latLonOptions['ort'] ?? null,
+            ]),
             $tagselect,
         ], ['submit' => $this->translator->trans('button.save')]
         ), $title, ['class' => 'ui-padding']);

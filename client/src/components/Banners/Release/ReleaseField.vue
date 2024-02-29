@@ -1,11 +1,6 @@
 <template>
-  <div
-    v-if="!isSet || isNew"
-    class="releasefield"
-  >
-    <i
-      class="releasefield__icon fas fa-magic"
-    />
+  <div v-if="!isSet || isNew" class="releasefield">
+    <i class="releasefield__icon fas fa-magic" />
     <div class="releasefield__content">
       <div class="releasefield__content-wrapper">
         <h4

@@ -24,10 +24,7 @@
         </div>
       </template>
       <template #no-stores-footer-actions>
-        <div
-          :regionId="regionId"
-          class="col"
-        >
+        <div :regionId="regionId" class="col">
           <a
             :href="$url('storeAdd', regionId)"
             class="btn btn-sm btn-primary btn-block"

@@ -7,6 +7,7 @@ use Foodsharing\Modules\Basket\BasketGateway;
 use Foodsharing\Modules\Basket\DTO\Basket;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status as BasketStatus;
 use Foodsharing\Modules\Core\DBConstants\BasketRequests\Status as RequestStatus;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Message\MessageTransactions;
 use Foodsharing\Permissions\BasketPermissions;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -470,14 +471,14 @@ final class BasketRestController extends AbstractFOSRestController
      * is given, it returns the default location or the user's home address, if the default
      * location is null.
      *
-     * @param array $defaultLocation a fallback value or null
+     * @param GeoLocation $defaultLocation a fallback value or null
      *
-     * @return array the location
+     * @return GeoLocation the location
      *
      * @throws BadRequestHttpException if no location and no default location were given and the user's
      * home address is not set
      */
-    private function fetchLocationOrUserHome(ParamFetcher $paramFetcher, array $defaultLocation = null): array
+    private function fetchLocationOrUserHome(ParamFetcher $paramFetcher, ?GeoLocation $defaultLocation = null): GeoLocation
     {
         $lat = $paramFetcher->get(self::LAT);
         $lon = $paramFetcher->get(self::LON);
@@ -497,6 +498,6 @@ final class BasketRestController extends AbstractFOSRestController
             }
         }
 
-        return ['lat' => $lat, 'lon' => $lon];
+        return GeoLocation::createFromArray(['lat' => $lat, 'lon' => $lon]);
     }
 }

@@ -6,6 +6,7 @@ use Foodsharing\Modules\Basket\DTO\Basket;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status as BasketStatus;
 use Foodsharing\Modules\Core\DBConstants\BasketRequests\Status as RequestStatus;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 
 class BasketGateway extends BaseGateway
 {
@@ -426,8 +427,19 @@ class BasketGateway extends BaseGateway
         return $this->db->count('fs_basket', ['foodsaver_id' => $fs_id]);
     }
 
-    public function listNearbyBasketsByDistance($foodsaver_id, $gps_coordinate, int $distance_km = 30): array
+    /**
+     * Returns a list of baskets which are in side an search area.
+     * The list provides the distance to the basket in kilometer.
+     *
+     * @param int|null $userId Filter baskets of user (null means no filter)
+     * @param GeoLocation $gpsCoordinate Center of search area
+     *
+     * @return array List of all baskets inside search area without baskets of userid
+     */
+    public function listNearbyBasketsByDistance(?int $userId, GeoLocation $gpsCoordinate, int $distanceKm = 30): array
     {
+        $spatialPoint = sprintf('POINT(%f %f)', $gpsCoordinate->lon, $gpsCoordinate->lat);
+
         return $this->db->fetchAll(
             '
 			SELECT
@@ -438,12 +450,7 @@ class BasketGateway extends BaseGateway
 				b.description,
 				b.lat,
 				b.lon,
-				(6371 * acos(
-					cos(radians(:lat)) *
-					cos(radians(b.lat)) *
-					cos(radians(b.lon) - radians(:lon)) +
-					sin(radians(:lat1)) *
-					sin(radians(b.lat)))) AS distance,
+                ST_Distance_Sphere(ST_GeomFromText(:centerPoint), Point(b.lon, b.lat)) / 1000 AS distance,
 				b.until,
 				fs.name AS fs_name
 			FROM
@@ -451,6 +458,17 @@ class BasketGateway extends BaseGateway
 				fs_foodsaver fs
 			WHERE
 				b.foodsaver_id = fs.id
+            AND
+                -- Reduce load for distance calculation by using a bounding box
+                -- Only for all points inside the bounding box is the calculation running
+                ST_INTERSECTS(Point(b.lon, b.lat),
+                    ST_Envelope(
+                        ST_BUFFER(
+                            ST_GeomFromText(:centerPoint),
+                            :distanceKm * 1000
+                        )
+                    )
+                )
 			AND
 				b.status = :status
 			AND
@@ -458,19 +476,17 @@ class BasketGateway extends BaseGateway
 			AND
 			    b.until > NOW()
 			HAVING
-				distance <= :distance
+				distance <= :distanceKm
 			ORDER BY
 				distance
 			LIMIT
 				0, 10
 		',
             [
-                ':lat' => (float)$gps_coordinate['lat'],
-                ':lat1' => (float)$gps_coordinate['lat'],
-                ':lon' => (float)$gps_coordinate['lon'],
+                ':centerPoint' => $spatialPoint,
                 ':status' => BasketStatus::REQUESTED_MESSAGE_READ,
-                ':fs_id' => $foodsaver_id,
-                ':distance' => $distance_km,
+                ':fs_id' => $userId ?? 0,
+                ':distanceKm' => $distanceKm,
             ]
         );
     }

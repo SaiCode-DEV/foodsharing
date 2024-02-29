@@ -8,7 +8,7 @@
     <template #icon>
       <Avatar
         :size="24"
-        :url="getAvatar"
+        :user="{ avatar: getAvatar }"
         class="icon-subnav"
       />
     </template>
@@ -24,10 +24,7 @@
         {{ $i18n('menu.entry.mailbox') }}
         <div class="badge badge-danger badge-inline">{{ getMailUnreadCount }}</div>
       </a>
-      <div
-        v-if="hasMailBox"
-        class="dropdown-divider"
-      />
+      <div v-if="hasMailBox" class="dropdown-divider" />
       <a
         :href="$url('profile', getUserId)"
         role="menuitem"
@@ -66,7 +63,7 @@
 // Stores
 import DataUser from '@/stores/user'
 // Components
-import Avatar from '../../Avatar.vue'
+import Avatar from '@/components/Avatar/Avatar.vue'
 import Dropdown from '../_NavItems/NavDropdown'
 // Mixins
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'

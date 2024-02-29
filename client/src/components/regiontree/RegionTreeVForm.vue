@@ -1,9 +1,6 @@
 <!-- Wrapper class that allows using the RegionTree component in v-forms. -->
 <template>
-  <div
-    id="input-wrapper"
-    class="bootstrap"
-  >
+  <div id="input-wrapper" class="bootstrap">
     <label
       v-if="title"
       class="wrapper-label ui-widget"

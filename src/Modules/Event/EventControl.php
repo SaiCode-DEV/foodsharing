@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Event;
 
 use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\Event\EventType;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Permissions\EventPermissions;
 use Foodsharing\Utility\DataHelper;
@@ -151,7 +152,13 @@ class EventControl extends Control
         $this->pageHelper->addBread($this->translator->trans('events.create.title'));
 
         if ($this->submitted()) {
-            if (($data = $this->validateEvent()) && $id = $this->eventGateway->addEvent($this->session->id(), $data)) {
+            $data = $this->validateEvent();
+            if (!$data ||
+                $data['bezirk_id'] == RegionIDs::ROOT ||
+                !$this->eventPermissions->mayCreateEvent($data['bezirk_id'])) {
+                $this->flashMessageHelper->error($this->translator->trans('region.not-member'));
+                $this->routeHelper->goAndExit('/?page=dashboard');
+            } elseif ($id = $this->eventGateway->addEvent($this->session->id(), $data)) {
                 $this->flashMessageHelper->success($this->translator->trans('events.created'));
                 $this->routeHelper->goAndExit('/?page=event&id=' . $id);
             }

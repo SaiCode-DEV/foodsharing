@@ -7,10 +7,7 @@
           {{ $i18n('filterlist.some_in_all', { some: chainsFiltered.length, all: chains.length }) }}
         </span>
       </div>
-      <div
-        v-if="chains !== null"
-        class="card-body p-0"
-      >
+      <div v-if="chains !== null" class="card-body p-0">
         <ConfigureableList
           :fields.sync="fields"
           :selection.sync="fieldSelection"
@@ -51,10 +48,7 @@
                   <i class="fas fa-times" />
                 </button>
               </div>
-              <div
-                v-if="adminPermissions"
-                class="col"
-              >
+              <div v-if="adminPermissions" class="col">
                 <b-button
                   size="sm"
                   variant="primary"
@@ -183,16 +177,13 @@
       :admin-permissions="adminPermissions"
     />
 
-    <StoreDetailsModal
-      ref="details-modal"
-      :store-list="storeList"
-    />
+    <StoreDetailsModal ref="details-modal" :store-list="storeList" />
   </div>
 </template>
 
 <script>
 
-import AvatarStack from '@/components/AvatarStack.vue'
+import AvatarStack from '@/components/Avatar/AvatarStack.vue'
 import InputModal from '@/components/Modals/ChainList/InputModal.vue'
 import StoreDetailsModal from '@/components/Modals/ChainList/StoreDetailsModal.vue'
 import { getters, mutations } from '@/stores/chains'

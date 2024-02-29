@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <div>
     <div class="pickup">
@@ -38,9 +37,7 @@
             </b-dropdown-item>
           </b-dropdown>
         </div>
-        <div
-          v-if="description"
-        >
+        <div v-if="description">
           <i class="fas fa-info-circle" />
           <i>
             {{ description }}

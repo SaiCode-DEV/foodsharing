@@ -447,13 +447,14 @@ class RegionGateway extends BaseGateway
     {
         $this->db->beginTransaction();
 
+        $mbid = $this->db->insert('fs_mailbox', ['name' => strip_tags((string)$data['email'])]);
+
         $id = $this->db->insert('fs_bezirk', [
             'parent_id' => (int)$data['parent_id'],
             'has_children' => (int)$data['has_children'],
             'name' => strip_tags((string)$data['name']),
-            'email' => strip_tags((string)$data['email']),
-            'email_pass' => strip_tags((string)$data['email_pass']),
-            'email_name' => strip_tags((string)$data['email_name'])
+            'mailbox_id' => $mbid,
+            'email_name' => strip_tags((string)$data['email_name']),
         ]);
 
         $this->db->execute('INSERT INTO `fs_bezirk_closure` (ancestor_id, bezirk_id, depth) SELECT t.ancestor_id, ' . $id . ', t.depth+1 FROM `fs_bezirk_closure` AS t WHERE t.bezirk_id = ' . (int)$data['parent_id'] . ' UNION ALL SELECT ' . $id . ', ' . $id . ', 0');

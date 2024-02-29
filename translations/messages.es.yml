@@ -118,7 +118,7 @@ dashboard:
   source_event: 'Cita {0}'
   source_mailbox: '{0}'
   updates_title_some: 'Resumen de actualizaciones ({0})'
-  invitationCount: 'Invitaciones abiertas ({0})'
+  invitationCount: 'Invitaciones abiertas ({count})'
   settings: 'Ajustes'
   settings_tooltip: 'Configuración del panel'
   foodsaver_amount: 'Recogiste <b>{pickups} x</b> alimentos y salvado <b>{weight} kg</b>.'
@@ -1375,6 +1375,7 @@ store:
     modal_title: Seleccionar cadena operativa
     search_input: Buscar por nombre de la cadena
   to_map: Mostrar en el mapa
+  storeFrom: Operación de {name}
 pickup:
   overview:
     status:

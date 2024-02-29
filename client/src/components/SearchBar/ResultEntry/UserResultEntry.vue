@@ -6,8 +6,7 @@
   >
     <Avatar
       class="mr-2"
-      :size="35"
-      :url="user.avatar"
+      :user="user"
     />
     <div class="text-truncate flex-grow-1">
       <h6 class="m-0 text-truncate d-inline">
@@ -60,17 +59,14 @@
   </a>
 </template>
 <script>
-import Avatar from '@/components/Avatar.vue'
+import Avatar from '@/components/Avatar/Avatar.vue'
 import PhoneButton from '@/components/PhoneButton.vue'
 import { chat, pulseSuccess } from '@/script'
 
 export default {
   components: { Avatar, PhoneButton },
   props: {
-    user: {
-      type: Object,
-      required: true,
-    },
+    user: { type: Object, required: true },
   },
   methods: {
     openChat () {

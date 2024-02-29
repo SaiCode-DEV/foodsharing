@@ -34,10 +34,7 @@
         menu-class="w-100"
       >
         <template #button-content>
-          <i
-            class="fas fa-fw"
-            :class="buttonIcon"
-          />
+          <i class="fas fa-fw" :class="buttonIcon" />
           {{ $i18n('usersearch.select_tag') }}
         </template>
         <b-dropdown-form @submit.stop.prevent="() => {}">

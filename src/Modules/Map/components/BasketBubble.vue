@@ -6,24 +6,15 @@
     >
       <i class="fas fa-spinner fa-spin" />
     </div>
-    <div
-      v-else
-      class="scrolling"
-    >
+    <div v-else class="scrolling">
       <a
         class="btn btn-primary mx-5"
         type="button"
         :href="$url('basket', bubbleData.id)"
         v-text="$i18n('basket.go')"
       />
-      <div
-        v-if="bubbleData.photo"
-        class="mb-2 mt-2"
-      >
-        <img
-          class="basketpicture"
-          :src="photoPath"
-        >
+      <div v-if="bubbleData.photo" class="mb-2 mt-2">
+        <img class="basketpicture" :src="photoPath">
       </div>
 
       <div

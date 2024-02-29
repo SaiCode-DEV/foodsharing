@@ -2149,6 +2149,7 @@ store:
     modal_title: Pick a chain
     search_input: Search by chain name
   to_map: Show on map
+  storeFrom: Store from {name}
 search:
   mygroups: My groups
   mybuddies: My buddies

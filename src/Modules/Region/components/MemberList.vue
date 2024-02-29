@@ -1,10 +1,7 @@
 <template>
   <Container :title="title">
     <b-container>
-      <div
-        v-if="memberList.length"
-        class="card-body p-0"
-      >
+      <div v-if="memberList.length" class="card-body p-0">
         <div class="row">
           <div
             v-if="isWorkGroup && mayEditMembers"
@@ -20,10 +17,7 @@
               @user-selected="addNewTeamMember"
             />
           </div>
-          <div
-            v-if="mayEditMembers"
-            class="filter-role"
-          >
+          <div v-if="mayEditMembers" class="filter-role">
             <b-form-select
               v-model="filterRole"
               :options="roleOptions"
@@ -55,19 +49,13 @@
             />
           </div>
         </div>
-        <div
-          class="form-row"
-        >
-          <div
-            class="filter-for-label"
-          >
+        <div class="form-row">
+          <div class="filter-for-label">
             <label class=" col-form-label col-form-label-sm foo">
               {{ $i18n('list.filter_for') }}
             </label>
           </div>
-          <div
-            class="filter-for-form"
-          >
+          <div class="filter-for-form">
             <input
               v-model="filterText"
               type="text"
@@ -75,9 +63,7 @@
               :placeholder="$i18n('filterlist.filter_for_name_id')"
             >
           </div>
-          <div
-            class="filter-for-delete"
-          >
+          <div class="filter-for-delete">
             <button
               v-b-tooltip.hover
               :title="$i18n('button.clear_filter')"
@@ -104,13 +90,10 @@
         class="foto-table"
       >
         <template #cell(imageUrl)="row">
-          <div>
-            <avatar
-              :url="row.item.avatar"
-              :is-sleeping="row.item.isSleeping"
-              :size="50"
-            />
-          </div>
+          <Avatar
+            :user="row.item"
+            :size="50"
+          />
         </template>
         <template #cell(userId)="row">
           <a
@@ -192,10 +175,7 @@
             <i class="fas fa-fw fa-user-graduate" />
           </b-button>
         </template>
-        <template
-          v-if="mayEditMembers"
-          #cell(removeButton)="row"
-        >
+        <template v-if="mayEditMembers" #cell(removeButton)="row">
           <b-button
             v-if="rowItemNotqualUserid(userId,row.item.id) && !rowItemisAdminOrAmbassadorOfRegion(row.item)"
             v-b-tooltip="$i18n('group.member_list.remove_title')"
@@ -222,21 +202,19 @@
 
 <script>
 import { optimizedCompare } from '@/utils'
-import { BButton, BFormSelect, BTable, BPagination, VBTooltip } from 'bootstrap-vue'
 import { addMember } from '@/api/groups'
 import { removeMember, setAdminOrAmbassador, removeAdminOrAmbassador } from '@/api/regions'
 import RegionsData from '@/stores/regions'
 import { hideLoader, pulseError, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
 import UserSearchInput from '@/components/UserSearchInput'
-import Avatar from '@/components/Avatar'
 import { verifyUser, deverifyUser } from '@/api/verification'
 import Container from '@/components/Container/Container.vue'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
+import Avatar from '@/components/Avatar/Avatar.vue'
 
 export default {
-  components: { Avatar, BButton, BFormSelect, BTable, BPagination, UserSearchInput, Container },
-  directives: { VBTooltip },
+  components: { UserSearchInput, Container, Avatar },
   mixins: [ConfirmationDialogue],
   props: {
     userId: { type: Number, default: null },
@@ -516,6 +494,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.foto-table {
+  overflow: visible; // for sleeping hats
+}
 .foto-table ::v-deep .foto-column {
   width: 60px;
 }

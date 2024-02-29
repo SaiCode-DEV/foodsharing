@@ -1113,6 +1113,7 @@ store:
   chain_search_picker:
     search_input: Ricerca per nome della catena
     modal_title: Seleziona la catena di aziende
+  storeFrom: Attività da {name}
 storeview:
   want_to_fetch: Vorrei aiutare in questo team.
   specials: particolarità
@@ -1895,6 +1896,11 @@ content:
   delete_tooltip: Elimina pagina
   communities:
     title: Gruppi locali
+    searchInfo: Utilizzando Ctrl+F è possibile cercare nell’elenco paesi, stati federali,
+      città o distretti in molti browser.
+    noAmbassador: Questa regione attualmente non ha ambasciatori e pertanto non è
+      attualmente raggiungibile tramite e-mail. Si prega di contattare una regione
+      vicina o immediatamente superiore.
 regionOptions:
   save: Salvare opzioni
   success: Opzioni salvate correttamente

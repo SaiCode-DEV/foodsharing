@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
   <b-modal
     ref="modal_report_request"
     :title="$i18n('profile.report.title', { name: foodSaverName })"
@@ -25,7 +24,8 @@
       </div>
       <b-alert
         v-else-if="!reporterHasReportGroup"
-        variant="info" show
+        variant="info"
+        show
       >
         <div>
           {{ $i18n('profile.report.reporterHasNoReportGroup') }}
@@ -33,7 +33,8 @@
       </b-alert>
       <b-alert
         v-else-if="isReportedIdReportAdmin && !hasArbitrationGroup && !isReporterIdReportAdmin"
-        variant="info" show
+        variant="info"
+        show
       >
         <div>
           {{ $i18n('profile.report.reportedAdminNoArbitration', { name: foodSaverName }) }}
@@ -41,7 +42,8 @@
       </b-alert>
       <b-alert
         v-else-if="isReporterIdReportAdmin && !hasArbitrationGroup"
-        variant="info" show
+        variant="info"
+        show
       >
         <div>
           {{ $i18n('profile.report.reporterAdminNoArbitration') }}
@@ -49,7 +51,8 @@
       </b-alert>
       <b-alert
         v-else-if="isReporterIdReportAdmin && isReportedIdArbitrationAdmin"
-        variant="info" show
+        variant="info"
+        show
       >
         <div>
           {{ $i18n('profile.report.repAdminAgainstArbAdmin') }}
@@ -57,7 +60,8 @@
       </b-alert>
       <b-alert
         v-else-if="isReporterIdArbitrationAdmin && isReportedIdReportAdmin"
-        variant="info" show
+        variant="info"
+        show
       >
         <div>
           {{ $i18n('profile.report.arbAdminAgainstRepAdmin') }}
@@ -65,15 +69,14 @@
       </b-alert>
       <b-alert
         v-else-if="!hasReportGroup"
-        variant="info" show
+        variant="info"
+        show
       >
         <div>
           {{ $i18n('profile.report.noReportGroup') }}
         </div>
       </b-alert>
-      <template
-        v-else
-      >
+      <template v-else>
         <b-alert variant="info" show>
           <div>{{ $i18n('profile.report.info') }}</div>
         </b-alert>

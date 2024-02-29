@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <b-modal
     id="addBasketModal"
@@ -40,10 +39,18 @@
       :invalid-feedback="$i18n('basket.modal_error.no_contact')"
       :state="contact.chat || contact.phone"
     >
-      <b-form-checkbox id="chat-checkbox" v-model="contact.chat" inline>
+      <b-form-checkbox
+        id="chat-checkbox"
+        v-model="contact.chat"
+        inline
+      >
         {{ $i18n('basket.contact.write') }}
       </b-form-checkbox>
-      <b-form-checkbox id="phone-checkbox" v-model="contact.phone" inline>
+      <b-form-checkbox
+        id="phone-checkbox"
+        v-model="contact.phone"
+        inline
+      >
         {{ $i18n('basket.contact.call') }}
       </b-form-checkbox>
     </b-form-group>
@@ -65,7 +72,12 @@
 
     <div v-if="!edit" class="mb-3">
       <label for="duration-select">{{ $i18n('lifetime') }}</label>
-      <b-form-select id="duration-select" v-model="durationInDays" :options="durationOptions" size="sm" />
+      <b-form-select
+        id="duration-select"
+        v-model="durationInDays"
+        :options="durationOptions"
+        size="sm"
+      />
     </div>
 
     <b-form-group
@@ -85,7 +97,12 @@
       :label="$i18n('address') + ':'"
       label-for="location-input"
     >
-      <b-form-checkbox v-model="useHomeAddress" inline switch :disabled="!hasValidHomeAddress">
+      <b-form-checkbox
+        v-model="useHomeAddress"
+        inline
+        switch
+        :disabled="!hasValidHomeAddress"
+      >
         {{ $i18n('basket.use_home_address') }}
         <span v-if="hasValidHomeAddress">
           ({{ user.address }}, {{ user.postcode }} {{ user.city }})

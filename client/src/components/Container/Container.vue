@@ -4,10 +4,13 @@
       class="list-group-item list-group-header"
       @click="collapsible ? toggleExpanded() : null"
     >
-      <h5
-        :class="{ 'expanded': isExpanded }"
-        v-text="title"
-      />
+      <h5 :class="{ 'expanded': isExpanded }">
+        {{ title }}
+        <Info
+          v-if="infoKey"
+          :info-key="infoKey"
+        />
+      </h5>
       <i
         v-if="collapsible"
         :id="`expand-${title}`"
@@ -33,15 +36,18 @@
 </template>
 
 <script>
+import Info from '../Help/Info.vue'
 
 export default {
   name: 'ToggleContainer',
+  components: { Info },
   props: {
     tag: { type: String, default: 'tag' },
     title: { type: String, default: 'title' },
     toggleVisiblity: { type: Boolean, default: false },
     containerIsExpanded: { type: Boolean, default: true },
     collapsible: { type: Boolean, default: true },
+    infoKey: { type: String, default: '' },
   },
   data () {
     return {
@@ -59,7 +65,6 @@ export default {
     if (state !== null) {
       this.setExpanded(state)
     }
-
     const listState = this.getListState()
     if (listState !== null) {
       this.setListState(listState)

@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
   <div class="bootstrap">
     <b-alert variant="danger" show>
       <h3>{{ $i18n('profile.warning') }}</h3>

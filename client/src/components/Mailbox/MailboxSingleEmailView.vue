@@ -26,9 +26,7 @@
               {{ $i18n('mailbox.from') }}:
             </div>
             <div class="col col-7 pl-0">
-              <span
-                v-html="fromHeader"
-              />
+              <span v-html="fromHeader" />
             </div>
             <div
               v-if="!viewIsMobile"
@@ -64,10 +62,7 @@
           <div class="row mt-1">
             <div class="col col-auto">
               <h5>{{ email.subject }}</h5>
-              <div
-                class="pt-2"
-                v-html="emailBody"
-              />
+              <div class="pt-2" v-html="emailBody" />
               <b-list-group
                 v-if="email.attachments"
                 horizontal

@@ -3,7 +3,7 @@
 namespace Foodsharing\Modules\Region;
 
 use Foodsharing\Lib\Session;
-use Foodsharing\Modules\Bell\BellGateway;
+use Foodsharing\Modules\Bell\BellTransactions;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
@@ -20,7 +20,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ForumTransactions
 {
     public function __construct(
-        private readonly BellGateway $bellGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly ForumGateway $forumGateway,
         private readonly ForumFollowerGateway $forumFollowerGateway,
@@ -30,7 +29,8 @@ class ForumTransactions
         private readonly EmailHelper $emailHelper,
         private readonly FlashMessageHelper $flashMessageHelper,
         private readonly TranslatorInterface $translator,
-        private readonly GroupFunctionGateway $groupFunctionGateway
+        private readonly GroupFunctionGateway $groupFunctionGateway,
+        private BellTransactions $bellTransactions,
     ) {
     }
 
@@ -51,81 +51,40 @@ class ForumTransactions
     {
         $rawBody = $body;
         $pid = $this->forumGateway->addPost($foodsaverId, $threadId, $body);
+
         $this->notifyFollowersViaMail($threadId, $rawBody, $foodsaverId, $pid);
-        $this->notifyFollowersViaBell($threadId, $foodsaverId, $pid);
+        $this->bellTransactions->addGroupedBellEvent(...$this->getGroupedBellEventData($threadId, $pid, $foodsaverId));
 
         return $pid;
     }
 
     public function deletePostFromThread(int $postId, int $authorId): void
     {
-        $this->adjustBellNotification($postId, $authorId);
+        $threadId = $this->forumGateway->getThreadForPost($postId);
+        $this->bellTransactions->removeGroupedBellEvent(...$this->getGroupedBellEventData($threadId, $postId, $authorId));
+
         $this->forumGateway->deletePost($postId);
     }
 
-    private function notifyFollowersViaBell(int $threadId, int $authorId, int $postId): void
+    private function getGroupedBellEventData(int $threadId, int $postId, int $authorId)
     {
-        $subscribedGroups = $this->forumFollowerGateway->getThreadFollowersByLastUnseenBellForThread($threadId, $authorId);
-
-        if (empty($subscribedGroups)) {
-            return;
-        }
-
+        $followerIds = array_column($this->forumFollowerGateway->getThreadFollower($authorId, $threadId, InfoType::BELL), 'id');
         $info = $this->forumGateway->getThreadInfo($threadId);
         $regionName = $this->regionGateway->getRegionName($info['region_id']);
-
-        foreach ($subscribedGroups as &$group) {
-            if (empty($group['bellId'])) {
-                $count = 1;
-                $href = $this->url($info['region_id'], $info['ambassador_forum'], $threadId, $postId);
-            } else {
-                $count = unserialize($group['vars'])['count'] + 1;
-                $href = unserialize($group['attr'])['href'];
-                $this->bellGateway->deleteBellForFoodsavers($group['bellId'], $group['foodsaverIds']);
-            }
-
-            $bell = $this->createForumBell($threadId, $postId, $count, $href, $regionName, $info['title']);
-            $this->bellGateway->addBell($group['foodsaverIds'], $bell);
-        }
-    }
-
-    private function adjustBellNotification(int $postId, int $authorId): void
-    {
-        $threadId = $this->forumGateway->getThreadForPost($postId);
-        $groups = $this->forumFollowerGateway->getUsersWithUnseenBellIncludingDeletedPost($threadId, $postId, $authorId);
-
-        if (empty($groups)) {
-            return;
-        }
-
-        foreach ($groups as &$group) {
-            $vars = unserialize($group['vars']);
-            $href = unserialize($group['attr'])['href'];
-
-            $this->bellGateway->deleteBellForFoodsavers($group['bellId'], $group['foodsaverIds']);
-
-            if ($vars['count'] > 1) {
-                $bell = $this->createForumBell($threadId, $postId, $vars['count'] - 1, $href, $vars['forum'], $vars['title']);
-                $this->bellGateway->addBell($group['foodsaverIds'], $bell);
-            }
-        }
-    }
-
-    private function createForumBell(int $threadId, int $postId, int $count, string $href, string $regionName, string $title): Bell
-    {
-        return Bell::create(
+        $baseBell = Bell::create(
             'forum_post_title',
-            'forum_post.' . ($count == 1 ? 'one' : 'many'),
-            'fas fa-comment' . ($count == 1 ? '' : 's'),
-            ['href' => $href],
+            'forum_post',
+            'fas fa-comment',
+            ['href' => $this->url($info['region_id'], $info['ambassador_forum'], $threadId, $postId)],
             [
                 'forum' => $regionName,
-                'title' => $title,
-                'count' => $count,
+                'title' => $info['title'],
                 'user' => $this->session->user('name'),
             ],
-            BellType::createIdentifier(BellType::NEW_FORUM_POST, $threadId, $postId, $count)
+            BellType::createIdentifier(BellType::NEW_FORUM_POST, $threadId)
         );
+
+        return [$followerIds, $baseBell, $postId, 'fas fa-comments'];
     }
 
     public function createThread($fsId, $title, $body, $region, $ambassadorForum, $isActive, $sendMail)
@@ -160,7 +119,7 @@ class ForumTransactions
 
     public function notifyFollowersViaMail($threadId, $rawPostBody, $postFrom, $postId): void
     {
-        if ($follower = $this->forumFollowerGateway->getThreadEmailFollower($postFrom, $threadId)) {
+        if ($follower = $this->forumFollowerGateway->getThreadFollower($postFrom, $threadId, InfoType::EMAIL)) {
             $info = $this->forumGateway->getThreadInfo($threadId);
             $posterName = $this->foodsaverGateway->getFoodsaverName($this->session->id());
             $data = [

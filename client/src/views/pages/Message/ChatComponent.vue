@@ -33,14 +33,10 @@
       :slot="'room-list-avatar_' + conv.id"
       class="mr-2"
     >
-      <ConversationAvatar
-        :conversation="conv"
-      />
+      <ConversationAvatar :conversation="conv" />
     </div>
 
-    <div
-      slot="messages-empty"
-    >
+    <div slot="messages-empty">
       <SelectUsersComponent
         v-if="isNewConversation"
         id="select-users"
@@ -57,15 +53,7 @@
       :slot="'message-avatar_' + msg._id"
       style="height: 100%; align-self: flex-end;"
     >
-      <a
-        :href="$url('profile', msg.senderId)"
-      >
-        <Avatar
-          class="avatar"
-          :url="getAvatar(msg.senderId)"
-          :size="35"
-        />
-      </a>
+      <Avatar :user="getUser(msg.senderId)" />
     </div>
   </vue-advanced-chat>
 </template>
@@ -73,8 +61,8 @@
 <script>
 import { register } from 'vue-advanced-chat'
 
-import Avatar from '@/components/Avatar.vue'
-import ConversationAvatar from '@/components/ConversationAvatar'
+import Avatar from '@/components/Avatar/Avatar.vue'
+import ConversationAvatar from '@/components/Avatar/ConversationAvatar'
 import { pulseError } from '@/script'
 import i18n from '@/helper/i18n'
 import Storage from '@/storage'
@@ -536,8 +524,8 @@ export default {
     newConversationSelectedUsersChanged (users) {
       this.newConversationSelectedUsers = users
     },
-    getAvatar (authorId) {
-      return ProfileStore.profiles[authorId].avatar
+    getUser (authorId) {
+      return ProfileStore.profiles[authorId]
     },
   },
 }

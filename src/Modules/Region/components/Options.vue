@@ -86,9 +86,7 @@
         small
         caption-top
       >
-        <template
-          #cell(storeName)="row"
-        >
+        <template #cell(storeName)="row">
           <a
             :href="$url('store', row.item.storeId)"
             class="ui-corner-all"

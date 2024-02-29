@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
   <div id="bananas" class="popbox bootstrap m-2">
     <h3>
       {{ $i18n('profile.banana.title', { count: (bananaCount ? bananaCount : '') }) }}
@@ -32,7 +31,11 @@
         />
 
         <div class="d-flex justify-content-between">
-          <b-button variant="primary" size="sm" @click="toggleTextarea">
+          <b-button
+            variant="primary"
+            size="sm"
+            @click="toggleTextarea"
+          >
             {{ $i18n('button.cancel') }}
           </b-button>
           <b-button
@@ -47,7 +50,11 @@
         </div>
       </div>
       <div v-else>
-        <b-button variant="secondary" size="sm" @click="toggleTextarea">
+        <b-button
+          variant="secondary"
+          size="sm"
+          @click="toggleTextarea"
+        >
           {{ $i18n('profile.banana.give', { name: recipientName }) }}
         </b-button>
       </div>
@@ -57,9 +64,7 @@
       <BananaListEntry
         v-for="b in bananaList"
         :key="b.id"
-        :author-id="b.id"
-        :author-name="b.name"
-        :avatar="b.photo"
+        :author="{...b, avatar: b.photo }"
         :created-at="b.createdAt"
         :text="b.msg"
         :can-remove="canRemoveBanana"

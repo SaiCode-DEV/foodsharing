@@ -12,10 +12,7 @@
           'in-future': inFuture,
         }"
       >
-        <span
-          class="font-weight-bold"
-          v-html="displayedMonth"
-        />
+        <span class="font-weight-bold" v-html="displayedMonth" />
         <div class="event-item-date-container d-flex flex-column bg-white justify-content-center text-dark">
           <span
             v-if="isEventToday"

@@ -19,10 +19,7 @@
             trim
             :state="$v.name.$error ? false : null"
           />
-          <div
-            v-if="$v.name.$error"
-            class="invalid-feedback"
-          >
+          <div v-if="$v.name.$error" class="invalid-feedback">
             {{ $i18n('poll.new_poll.name_required') }}
           </div>
         </b-form-group>
@@ -83,10 +80,7 @@
               />
             </b-col>
           </b-form-row>
-          <div
-            v-if="$v.options.$error"
-            class="invalid-feedback"
-          >
+          <div v-if="$v.options.$error" class="invalid-feedback">
             {{ $i18n('poll.new_poll.option_texts_required') }}
           </div>
         </b-form-group>
@@ -98,10 +92,7 @@
         >
           {{ $i18n('poll.new_poll.submit') }}
         </b-button>
-        <div
-          v-if="$v.$invalid"
-          class="invalid-feedback"
-        >
+        <div v-if="$v.$invalid" class="invalid-feedback">
           {{ $i18n('poll.new_poll.missing_fields') }}
         </div>
       </b-form>

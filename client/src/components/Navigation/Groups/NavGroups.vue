@@ -6,10 +6,7 @@
     is-fixed-size
     is-scrollable
   >
-    <template
-      v-if="groups.length > 0"
-      #content
-    >
+    <template v-if="groups.length > 0" #content>
       <GroupsEntry
         v-for="(group, idx) in groups"
         :key="idx"
@@ -17,10 +14,7 @@
         :is-alone="groups.length === 1"
       />
     </template>
-    <template
-      v-else
-      #content
-    >
+    <template v-else #content>
       <small
         role="menuitem"
         class="disabled dropdown-item"

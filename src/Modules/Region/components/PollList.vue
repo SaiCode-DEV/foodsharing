@@ -8,10 +8,7 @@
       </div>
     </b-container>
     <b-container>
-      <div
-        v-if="mayCreatePoll"
-        class="p-1"
-      >
+      <div v-if="mayCreatePoll" class="p-1">
         <b-link
           :href="$url('pollNew', regionId)"
           class="btn btn-sm btn-primary btn-block"

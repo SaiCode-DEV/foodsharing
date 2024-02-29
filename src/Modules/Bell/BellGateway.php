@@ -198,6 +198,21 @@ class BellGateway extends BaseGateway
         $this->updateMultipleFoodsaverClients($foodsaverIds);
     }
 
+    public function deleteSeenBellsForFoodsaversByIdentifier(array $foodsaverIds, string $identifier): void
+    {
+        // add the bell for all foodsavers (100 per query)
+        $parts = array_chunk($foodsaverIds, 100);
+        foreach ($parts as $part) {
+            $this->db->execute("DELETE foodsaver_has_bell
+                FROM fs_foodsaver_has_bell foodsaver_has_bell
+                JOIN fs_bell bell ON bell.id = foodsaver_has_bell.bell_id
+                WHERE foodsaver_has_bell.foodsaver_id IN ({$this->db->generatePlaceholders(count($part))})
+                AND foodsaver_has_bell.seen = 1
+                AND bell.identifier LIKE ?",
+                [...$part, $identifier]);
+        }
+    }
+
     public function delBellsByIdentifier(string $identifier): void
     {
         $foodsaverIds = $this->db->fetchAllValues(
@@ -314,5 +329,55 @@ class BellGateway extends BaseGateway
         }
 
         return $output;
+    }
+
+    public function groupFoodsaversByUnreadBell(array $foodsaverIds, string $searchBellIdentifier, bool $selectNewest): array
+    {
+        // Fetch data for groups of 100 foodsavers:
+        $idChucks = array_chunk($foodsaverIds, 100);
+        $groupedLists = [];
+        $order = $selectNewest ? 'DESC' : 'ASC';
+        foreach ($idChucks as $idChuck) {
+            $idChuck = implode(',', $idChuck);
+            $groupedLists[] = $this->db->fetchAll("SELECT
+                    bell.id AS bellId,
+                    bell.attr,
+                    bell.vars,
+                    GROUP_CONCAT(foodsaver_has_bell.foodsaver_id) as foodsaverIds
+                FROM fs_foodsaver_has_bell foodsaver_has_bell
+                JOIN fs_bell bell ON bell.id = foodsaver_has_bell.bell_id
+                WHERE bell.identifier LIKE '{$searchBellIdentifier}%'
+                AND foodsaver_has_bell.seen = 0
+                AND foodsaver_has_bell.foodsaver_id IN ({$idChuck})
+                GROUP BY bell.id
+                ORDER BY bell.time {$order}");
+        }
+
+        // Merge groups and format data
+        $bells = [];
+        foreach ($groupedLists as &$groupedList) {
+            foreach ($groupedList as &$group) {
+                $bell = &$bells[$group['bellId']];
+                $foundFoodsaverIds = array_map('intval', explode(',', $group['foodsaverIds']));
+
+                // Make sure foodsavers end up in only one group:
+                $group['foodsaverIds'] = array_values(array_intersect($foundFoodsaverIds, $foodsaverIds));
+                $foodsaverIds = array_diff($foodsaverIds, $foundFoodsaverIds);
+
+                if ($bell) {
+                    $bell['foodsaverIds'] = array_merge($bell['foodsaverIds'], $group['foodsaverIds']);
+                } else {
+                    $bells[$group['bellId']] = $group;
+                }
+            }
+        }
+
+        // Add group for unfound users
+        $bells[] = [
+            'bellId' => null,
+            'foodsaverIds' => array_values(array_diff($foodsaverIds, ...array_column($bells, 'foodsaverIds')))
+        ];
+
+        return $bells;
     }
 }

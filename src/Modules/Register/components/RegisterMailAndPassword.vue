@@ -50,10 +50,7 @@
           class="form-control"
           @input="$emit('update:password', $event.target.value)"
         >
-        <div
-          v-if="$v.password.$error"
-          class="invalid-feedback"
-        >
+        <div v-if="$v.password.$error" class="invalid-feedback">
           <span v-if="!$v.password.required">{{ $i18n('register.password_required') }}</span>
           <span v-if="!$v.password.minLength">{{ $i18n('register.password_minLength') }}</span>
         </div>

@@ -847,24 +847,6 @@ class FoodsaverGateway extends BaseGateway
         );
     }
 
-    public function loadFoodsaver(int $foodsaverId): array
-    {
-        return $this->db->fetch('
-		SELECT	fs.id,
-				fs.name,
-				fs.nachname,
-				fs.photo,
-				fs.rolle,
-				fs.geschlecht,
-				fs.last_login as last_activity
-
-		FROM	fs_foodsaver fs
-
-		WHERE   fs.deleted_at IS NULL
-		AND     fs.id = :foodsaverId
-		', [':foodsaverId' => $foodsaverId]);
-    }
-
     public function updateFoodsaver(int $fsId, array $data): int
     {
         $updateData = [

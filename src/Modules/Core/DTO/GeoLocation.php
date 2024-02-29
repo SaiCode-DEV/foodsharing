@@ -25,7 +25,11 @@ class GeoLocation
         }
 
         if (!is_numeric($queryResult['lat']) || !is_numeric($queryResult['lon'])) {
-            throw new \InvalidArgumentException('Longitude/Latitude is invalid.');
+            if ($throwInvalidException) {
+                throw new \InvalidArgumentException('Longitude/Latitude is invalid.');
+            } else {
+                return null;
+            }
         }
 
         $obj->lat = floatval($queryResult['lat']);

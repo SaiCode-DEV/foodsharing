@@ -4,10 +4,7 @@
     class="container my-3 my-sm-5 p-0"
   >
     <div class="mb-1 mb-sm-3">
-      <Broadcast
-        v-if="broadcast"
-        :entry="broadcast"
-      />
+      <Broadcast v-if="broadcast" :entry="broadcast" />
       <Release />
       <ErrorContainer />
       <Intro />
@@ -20,10 +17,7 @@
         :is-closeable="quiz.closeable"
         :links="quiz.links"
       />
-      <div
-        v-if="isFoodsaver"
-        class="filter mt-3"
-      >
+      <div v-if="isFoodsaver" class="filter mt-3">
         <b-dropdown
           id="dropdown-header"
           v-b-tooltip="$i18n('dashboard.options.hide.tooltip')"

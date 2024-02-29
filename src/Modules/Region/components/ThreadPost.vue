@@ -1,27 +1,20 @@
 <template>
-  <div
-    :id="`post-${id}`"
-    class="thread"
-  >
+  <div :id="`post-${id}`" class="thread">
     <div
       class="card mb-2"
       :class="{'disabledLoading': isLoading}"
     >
       <div class="card-header d-flex align-items-center justify-content-between">
+        <Avatar
+          v-if="wXS"
+          :user="author"
+          class="mr-2"
+        />
         <a
           class="d-flex align-items-center"
           :href="$url('profile', author.id)"
         >
-          <Avatar
-            v-if="wXS"
-            :url="author.avatar"
-            :is-sleeping="author.sleepStatus"
-            :size="35"
-            class="mr-2"
-          />
-          <strong class="author">
-            {{ author.name }}
-          </strong>
+          <strong class="author">{{ author.name }}</strong>
         </a>
         <ThreadPostDate
           v-if="wXS"
@@ -38,18 +31,11 @@
           class="mr-2 pr-2 border-right border-light text-center"
           style="min-width: 150px"
         >
-          <a
-            :href="$url('profile', author.id)"
-            class="d-block"
-          >
-            <Avatar
-              :url="author.avatar"
-              :is-sleeping="author.sleepStatus"
-              :size="130"
-              class="mb-2"
-              :auto-scale="false"
-            />
-          </a>
+          <Avatar
+            :user="author"
+            class="mb-2"
+            :size="130"
+          />
           <a
             v-if="!wXS && !isMe"
             class="btn btn-sm btn-outline-primary"
@@ -89,7 +75,7 @@
 </template>
 
 <script>
-import Avatar from '@/components/Avatar'
+import Avatar from '@/components/Avatar/Avatar.vue'
 import ThreadPostActions from './ThreadPostActions'
 import ThreadPostDate from './ThreadPostDate'
 import conversationStore from '@/stores/conversations'

@@ -5,20 +5,14 @@
     is-fixed-size
     is-scrollable
   >
-    <template
-      v-if="regions.length > 0"
-      #content
-    >
+    <template v-if="regions.length > 0" #content>
       <RegionsEntry
         v-for="region in regions"
         :key="region.id"
         :entry="region"
       />
     </template>
-    <template
-      v-else
-      #content
-    >
+    <template v-else #content>
       <small
         role="menuitem"
         class="disabled dropdown-item"

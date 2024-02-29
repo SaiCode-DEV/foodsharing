@@ -2592,6 +2592,7 @@ store:
     modal_title: Velg driftskjede
     search_input: Søk etter kjedenavn
   to_map: Vis på kart
+  storeFrom: Selskap fra {name}
 storeview:
   status: Nåværende status
   public_time_at_night: om natten

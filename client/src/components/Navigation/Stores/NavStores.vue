@@ -5,10 +5,7 @@
     is-fixed-size
     is-scrollable
   >
-    <template
-      v-if="hasStores"
-      #content
-    >
+    <template v-if="hasStores" #content>
       <div
         v-for="(store, key) in getStores"
         :key="key"
@@ -47,10 +44,7 @@
         </b-collapse>
       </div>
     </template>
-    <template
-      v-else
-      #content
-    >
+    <template v-else #content>
       <small
         role="menuitem"
         class="disabled dropdown-item"
@@ -60,7 +54,7 @@
     <template #actions>
       <a
         v-if="permissions.addStore"
-        :href="$url('storeAdd')"
+        :href="$url('storeAdd', homeRegionId)"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
@@ -68,7 +62,7 @@
         {{ $i18n('storeedit.add-new') }}
       </a>
       <a
-        :href="$url('storeOwnList')"
+        :href="$url('storeUserList', userId)"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >
@@ -90,11 +84,17 @@ export default {
   name: 'MenuStores',
   components: { Dropdown, StoresEntry },
   computed: {
+    homeRegionId () {
+      return DataUser.getters.getHomeRegion()
+    },
     permissions () {
       return DataUser.getters.getPermissions()
     },
     hasStores () {
       return DataStores.getters.hasStores()
+    },
+    userId () {
+      return DataUser.getters.getUserId()
     },
     getStores () {
       return [

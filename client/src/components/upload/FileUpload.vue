@@ -12,22 +12,13 @@
       v-if="isImage"
       class="column align-items-center"
     >
-      <div
-        v-if="filename"
-        class="mr-auto"
-      >
+      <div v-if="filename" class="mr-auto">
         <div class="preview">
-          <img
-            :src="filename"
-            :alt="previewAlt"
-          >
+          <img :src="filename" :alt="previewAlt">
         </div>
       </div>
       <div class="mr-auto">
-        <div
-          v-if="!filename"
-          class="text-muted"
-        >
+        <div v-if="!filename" class="text-muted">
           {{ $i18n('upload.no_image_yet') }}
         </div>
         <button
@@ -44,10 +35,7 @@
       <div v-if="filename">
         {{ filenameWithoutPath }}
       </div>
-      <div
-        v-else
-        class="text-muted"
-      >
+      <div v-else class="text-muted">
         {{ $i18n('upload.no_image_chosen') }}
       </div>
       <button

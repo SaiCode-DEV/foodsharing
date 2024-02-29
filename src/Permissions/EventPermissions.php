@@ -40,4 +40,9 @@ final class EventPermissions
     {
         return $this->maySeeEvent($event);
     }
+
+    public function mayCreateEvent(int $regionId): bool
+    {
+        return $this->session->mayBezirk($regionId);
+    }
 }

@@ -68,10 +68,7 @@
       </div>
     </div>
     <div id="posts-wrapper">
-      <div
-        v-for="post in posts"
-        :key="post.id"
-      >
+      <div v-for="post in posts" :key="post.id">
         <ThreadPost
           :id="post.id"
           :user-id="userId"

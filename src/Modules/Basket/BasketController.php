@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Basket;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status;
 use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,7 +32,7 @@ class BasketController extends FoodsharingController
 
         $loc = $this->session->user('location');
         if (!$loc || $loc->lat === 0 && $loc->lon === 0) {
-            $loc = ['lat' => MapConstants::CENTER_GERMANY_LAT, 'lon' => MapConstants::CENTER_GERMANY_LON];
+            $loc = GeoLocation::createFromArray(['lat' => MapConstants::CENTER_GERMANY_LAT, 'lon' => MapConstants::CENTER_GERMANY_LON]);
         }
         $baskets = $this->basketGateway->listNearbyBasketsByDistance($this->session->id(), $loc);
         $this->view->find($baskets, $loc);

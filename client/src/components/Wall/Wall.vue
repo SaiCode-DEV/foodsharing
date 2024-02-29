@@ -9,10 +9,7 @@
     @show-full-list="showFullList"
     @reduce-list="reduceList"
   >
-    <div
-      v-if="mayPost"
-      class="list-group-item"
-    >
+    <div v-if="mayPost" class="list-group-item">
       <MarkdownInput
         ref="md-input"
         variant="outline-primary"

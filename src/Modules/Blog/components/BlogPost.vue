@@ -1,17 +1,12 @@
 <template>
   <div class="blogpost ui-widget ui-widget-content">
-    <div
-      v-if="blogPost"
-    >
+    <div v-if="blogPost">
       <h2>{{ blogPost.title }}</h2>
       <p class="subtitle">
         <span v-if="blogPost.authorName">{{ $i18n('blog.author') }} {{ blogPost.authorName }}, </span>
         <span>{{ formattedDate }}</span>
       </p>
-      <img
-        v-if="pictureUrl"
-        :src="pictureUrl"
-      >
+      <img v-if="pictureUrl" :src="pictureUrl">
       <div v-html="blogPost.content" />
     </div>
     <div
