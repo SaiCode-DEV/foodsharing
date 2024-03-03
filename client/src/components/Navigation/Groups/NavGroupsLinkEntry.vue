@@ -15,8 +15,11 @@
 </template>
 
 <script>
+import ConferenceOpener from '@/mixins/ConferenceOpenerMixin'
+
 export default {
   name: 'NavGroupsLinkEntry',
+  mixins: [ConferenceOpener],
   props: {
     entry: {
       type: Object,
