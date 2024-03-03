@@ -263,6 +263,7 @@ button:
   permadelete: Geri getirilemez bir şekilde silin
   reset_default: Standardı geri yükle
   prev: Geri
+  close: Kapamak
 upload:
   new_image: Yeni fotoğraf yükle
   file: Dosya yükle
@@ -3258,6 +3259,8 @@ search:
       chat_with_others: diğerleri
     user:
       no_home_region: Ana bölge yok
+      copy_id: Kimliği kopyala
+      copied_id: Foodsaver {name} ({id}) kaynağından kopyalandı
     store:
       manager_tooltip: Bu işletmeden siz sorumlusunuz
       jumper_tooltip: Bu işletmenin yedek listesindesiniz
@@ -3417,3 +3420,22 @@ donation_banner:
   info_button: Bağışım nereye gidiyor?
   action_button: Buraya bağış yapın!
   amount: Mevcut bağış durumu
+help:
+  key:
+    storeLog:
+      md: "İşletme protokolü, **bir işletmede ki** etkinlikleri izlemenin bir yoludur.
+        Bu olabilir\nÇatışmaların çözülmesine veya kazara oluşan hataların düzeltilmesine
+        yardımcı olur.\n---\n###### Örnek\nDiyelim ki son 3 haftada ekibe kimlerin
+        kimler tarafından eklendiğini öğrenmek istiyorsunuz.\nBunun için iki tarih
+        alanındaki başlangıç ve bitiş tarihlerini kullanarak dönemi belirtebilirsiniz.\n
+        Ondan sonra Dropbox'dan ilgili tüm eylem türlerini seçebilirsiniz. Bu durumda\n
+        örneğin, \"*Üyelik isteklerini yap*\", \"*Üyelik isteklerini kabul et*\" ve
+        \"*Üyelik isteklerini reddet*\".\nŞimdi “*Seçilen eylemleri göster*” düğmesine
+        tıklarsanız, seçili olayların geçmişi gösterilecektir.\n---\n###### Erişim\n
+        Yalnızca işletme yönetebilen kişiler buna erişebilir. Normal Foodsaver ve
+        yedekte olanlar için\nİşletme protokolü görüntülenemiyor.\n---\n###### Kısıtlamalar\n
+        Maksimum 100 giriş yüklenecektir. Tüm sonuçlar görüntülenmiyorsa, arama süresini
+        veya seçilen eylem türlerini sınırlamanız gerekebilir. \n"
+      title: İşletme protokolü
+  helpTitle: 'Yardım: {title}'
+  tooltip: Yardımı göster
