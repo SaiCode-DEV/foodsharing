@@ -64,7 +64,7 @@
       <div class="text-center">
         <a
           v-if="store.mayAccessStorePage"
-          href="#"
+          :href="$url('store', store.id)"
           class="btn btn-primary mt-3 text-wrap"
         >{{ $i18n('store.go') }}</a>
         <button

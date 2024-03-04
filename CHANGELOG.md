@@ -43,7 +43,7 @@
 - Rebuild the wall using vue #45 #1800 #1830 !3045 !3112 !3135 @AntonBallmaier
 - Avoid access to global $_SESSION !3099 @KoeMai
 - Refactor region page to vue !2794 !3157 @chriswalg
-- New map bubble for stores in Vue !2988 !3128 !3166 @alex.simm
+- New map bubble for stores in Vue !2988 !3128 !3166 !3201 @alex.simm
 - Renamed bezirk to region in urls helper !3126 @chriswalg
 - Prepared for removal of run.php in favor of Symfony's console !3118 @\_fridtjof_
 - Modernized BlogControl to a Symfony controller !3096 @\_fridtjof_
