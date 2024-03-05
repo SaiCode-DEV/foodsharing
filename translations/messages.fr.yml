@@ -296,6 +296,7 @@ button:
   save: Enregistrer
   reset_default: Restaurer par défaut
   prev: dos
+  close: Fermer
 upload:
   crop_dialog_title: Rogner l’image
   new_file: Téléverser un nouveau fichier
@@ -2383,6 +2384,8 @@ search:
       chat_with_others: autres
     user:
       no_home_region: Pas de district d’origine
+      copy_id: Copier l’identifiant
+      copied_id: L’identifiant de {name} a été copié ({id})
     store:
       manager_tooltip: Tu es responsable de cette coopération
       jumper_tooltip: Tu es sur la liste d’attente pour cette coopération
@@ -3548,3 +3551,9 @@ donation_banner:
   info_button: Où va mon don ?
   amount: Montant actuel des dons
   action_button: Faites un don !
+help:
+  tooltip: Afficher l’aide
+  helpTitle: 'Aide : {title}'
+  key:
+    storeLog:
+      title: Journal des opérations
