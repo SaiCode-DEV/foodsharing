@@ -1192,6 +1192,7 @@ button:
   clear_filter: Clear filter
   reset_default: Reset default
   prev: previous
+  close: Close
 bell:
   ft_update_title: '{name}'
   blog_new_check: '{title}'
@@ -2186,6 +2187,8 @@ search:
       chat_with_others: others
     user:
       no_home_region: No home district
+      copy_id: Copy ID
+      copied_id: Foodsaver ID from {name} was copied ({id})
     store:
       manager_tooltip: You are responsible for this store
       jumper_tooltip: You are on the standby list for this store
@@ -3529,3 +3532,9 @@ donation_banner:
   info_button: Where does my donation go?
   action_button: Donate here!
   amount: Current donation status
+help:
+  key:
+    storeLog:
+      title: Store log
+  tooltip: Show help
+  helpTitle: 'Help: {title}'
