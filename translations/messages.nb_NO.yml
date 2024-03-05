@@ -705,6 +705,8 @@ search:
       chat_with_others: andre
     user:
       no_home_region: Ingen hjemdistrikt
+      copy_id: Kopier ID
+      copied_id: Foodsaver ID kopiert fra {name} ({id})
     store:
       manager_tooltip: Du er ansvarlig for denne bedriften
       jumper_tooltip: Du er en reserve i teamet for dette bedriften
@@ -1826,6 +1828,7 @@ button:
   save: Lagre
   reset_default: Nullstill standard
   prev: tilbake
+  close: Lukk
 upload:
   preview_image: Forhåndsvisning
   crop_dialog_title: Beskjær bilde
@@ -3403,3 +3406,9 @@ donation_banner:
   amount: Donasjonsstatus
   info_button: Hvor går donasjonen min?
   action_button: Doner her!
+help:
+  key:
+    storeLog:
+      title: Driftslogg
+  helpTitle: 'Hjelp: {title}'
+  tooltip: Vis hjelp
