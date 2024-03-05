@@ -283,6 +283,7 @@ button:
   save: Salva
   reset_default: Ripristina l’impostazione predefinita
   prev: indietro
+  close: Chiudi
 upload:
   crop_dialog_title: Ritaglia l'immagine
   new_file: Carica un nuovo file
@@ -1101,7 +1102,8 @@ store:
       2: '{actor} ha rifiutato la richiesta di adesione di {target}.'
       9: '{actor} ha inserito {target} come responsabile dell’attività.'
       15: ''
-    max_entries_message: ''
+    max_entries_message: 'Vengono visualizzate un massimo di 100 voci. Si prega di
+      limitare l’area di ricerca.'
     no_description: nessuno
   signInDateTime: 'Data di ingresso'
   slot_state: 'Stato dello slot'
@@ -1753,6 +1755,8 @@ wall:
     {name}?
   name: Bacheca
   placeholder: Scrivi una nuova voce sul muro …
+  delete_confirmation:
+    text: Vuoi davvero eliminare questa voce da {author}?
 chat:
   confirm_draft_discard: "Passi a una nuova conversazione. Il testo nel campo della
     risposta viene scartato.\n\nSe interrompi questo dialogo, la tua bozza verrà invece
@@ -1876,6 +1880,7 @@ bell:
   forum_new_thread_title: 'Nuova discussione: {title}'
   forum_announcement_title: 'Messaggio importante: {title}'
   forum_mention: 'nell’argomento “{title}” del forum {forum}'
+  store_wall_post_title: Attività {name}
 content:
   edit: Modifica pagina
   new_success: La pagina è stata creata
@@ -2299,6 +2304,8 @@ search:
       chat_with_others: 'altri'
     user:
       no_home_region: 'Nessun distretto di residenza'
+      copy_id: Copia ID
+      copied_id: ID copiato da {name} ({id})
     store:
       manager_tooltip: 'Sei responsabile di questa attività'
       jumper_tooltip: ''
@@ -3437,3 +3444,6 @@ donation_banner:
   info_button: Dove va la mia donazione?
   action_button: Donate qui!
   amount: Stato della donazione
+help:
+  helpTitle: 'Aiuto: {title}'
+  tooltip: Mostra aiuto
