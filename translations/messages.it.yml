@@ -633,7 +633,7 @@ legal:
     perderai le tue responsabilità operative e dovrai sostenere nuovamente il quiz
     per diventare un manager operativo / ambasciatore.
   privacy_notice_agree:
-    not_acknowledge: Non sono d’accordo e vorrei essere declassato a Foodsaver
+    not_acknowledge: Non sono d’accordo e vorrei essere declassato a Foodsaver.
     acknowledge: Ho preso nota delle istruzioni.
     select: Si prega di selezionare
   privacy_notice: Istruzioni sulla protezione dei dati
@@ -2551,6 +2551,12 @@ profile:
   choosestore: 'Seleziona l''azienda interessata'
   alldatesdeleted: 'Tutti gli appuntamenti sono stati cancellati'
   cantdeletethis: 'Non è possibile eliminare singoli appuntamenti!'
+  editNameInfo: Tieni presente che i campi del nome e del cognome devono essere utilizzati
+    solo per il nome della persona. Si prega di non utilizzare questo campo per memorizzare
+    ulteriori informazioni sull’utente, come il completamento della formazione sull’igiene
+    o simili. Invece, è possibile utilizzare gruppi di lavoro per eseguire tali incarichi.
+    Ulteriori informazioni a riguardo sono disponibili nel <a href="/region?bid=881&sub=forum&tid=58225">Forum
+    degli Ambasciatori</a>
 mail:
   noreply_addresses_not_allowed: Le e-mail non sono consegnabili a indirizzi noreply@…
     .<br>Si prega di controllare l'indirizzo del destinatario.
