@@ -658,6 +658,11 @@ profile:
   choosestore: Please select the affected store
   orga_rights: As an organizational person, {name} has <a target="_blank" href="{wikiurl}">extensive
     permissions</a> on the platform.
+  editNameInfo: Please note that the first and last name fields should only be used
+    for the person’s name. Please do not use these fields to store further information
+    about the user, such as the completion of hygiene training or similar. Instead,
+    workgroups can be used to perform such assignments. Further information on this
+    can be found in the <a href="/region?bid=881&sub=forum&tid=58225">Ambassador Forum</a>
 test:
   plain: This is a nice translation
   vars: 'My name is {NAME} and I am {AGE} years old'
