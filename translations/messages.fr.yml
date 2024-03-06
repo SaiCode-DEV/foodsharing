@@ -377,7 +377,7 @@ lifetime: Combien de temps ton panier solidaire doit-il être valide ?
 fetchstate: Tout s’est bien passé ?
 food_art: De quel type de nourriture s’agit-il ?
 food_type: Quels types d’aliments sont inclus ?
-weight: 'Poids estimé:'
+weight: 'Poids estimé :'
 about_me_intern: Brève description
 about_me_public: Brève description publique
 daterange: Période
@@ -1147,10 +1147,11 @@ pronoun:
   "0": il/elle/iel
 banana_count: De combien de bananes-confiance un membre a-t-il besoin ?
 store_status_impact_explanation: 'Veuillez actualiser le statut (<a href="https://wiki.foodsharing.de/Betrieb"
-  target="_blank">Wiki: Betrieb</a>) de la coopération après chaque contact avec l’entreprise
-  (<a href="https://wiki.foodsharing.de/Kooperationsaufbau_-_Checkliste" target="_blank">Wiki:
-  Kooperationsaufbau – Checkliste</a>) afin qu’il soit visible pour tous.<br><br>Seules
-  les établissements coopérantes seront visibles dans la barre de navigation.'
+  target="_blank">Wiki : Betrieb</a>) de la coopération après chaque contact avec
+  l’entreprise (<a href="https://wiki.foodsharing.de/Kooperationsaufbau_-_Checkliste"
+  target="_blank">Wiki : Kooperationsaufbau – Checkliste</a>) afin qu’il soit visible
+  pour tous.<br><br>Seules les établissements coopérantes seront visibles dans la
+  barre de navigation.'
 kette_id: chaîne (entreprise)
 fetchercount: Nombre de collecteur·rice·s
 storemanagers: Responsables coopération
@@ -1426,7 +1427,7 @@ storeview:
   cooperation_start: Coopération depuis
   cooperation_status: Statut de la coopération
   team: Équipe de collectes
-  no_permission_to_view: Visible uniquement par les responsables coopération
+  no_permission_to_view: Visible uniquement par les responsables coopération.
   groceries:
     label: Quels aliments peuvent être collectés ?
     search_tag: Recherche par catégories d’aliments
@@ -1879,6 +1880,13 @@ profile:
   cantdeletethis: Tu ne peux pas effacer des rendez-vous individuels !
   orga_rights: En tant que personne organisationnelle, {name} dispose <a target="_blank"
     href="{wikiurl}">d’autorisations étendues</a> sur la plateforme.
+  editNameInfo: Veuillez noter que les champs prénom et nom ne doivent être utilisés
+    que pour le nom de la personne. Veuillez ne pas utiliser ce champ pour enregistrer
+    d’autres informations sur l’utilisateur·ice, telles que la mise en œuvre d’une
+    formation en matière d’hygiène ou autre, mais des groupes de travail peuvent être
+    utilisés pour effectuer de telles tâches. De plus amples informations à ce sujet
+    sont disponibles sur le <a href="/region?bid=881&sub=forum&tid=58225">Forum des
+    ambassadeur·rice·s</a>
 pickuplist:
   NumberOfAppointments_table_header: nº de ramassages
   unclear: Statut confus
@@ -1933,7 +1941,7 @@ pickup:
   join_agree: Oui, je m’oblige
   join_cancel: Finalement non
   really_join_date: T’obliges-tu vraiment à réaliser cette collecte le {date} ?
-  join_title_date: Confirmer
+  join_title_date: Sûr ?
   team_message_success: Le message a été envoyé à l’équipe avec succès
   team_message_send_and_leave: Envoyer et se retirer de la collecte
   leave_team_message_template: Cher tout le monde, le {date} …
