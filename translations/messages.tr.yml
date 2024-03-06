@@ -2505,6 +2505,12 @@ profile:
   no_common_workgroups: '{name} ile ortak bir çalışma grubunda değilsiniz.'
   orga_rights: Bir Orgna İnsanı olarak {name}, platformda <a target="_blank" href="{wikiurl}">kapsamlı
     izinlere</a> sahiptir.
+  editNameInfo: Lütfen ad ve soyadı alanlarının yalnızca kişinin adı için kullanılması
+    gerektiğini unutmayın. Lütfen bu alanı, hijyen eğitiminin tamamlanması gibi profil
+    hakkında daha fazla bilgi biriktirmek için kullanmayın. Bunun yerine, profiller
+    hakkında daha fazla bilgi biriktirmek için çalışma grupları kullanılabilir. Bu
+    konuyla ilgili daha fazla bilgiyi <a href="/region?bid=881&sub=forum&tid=58225">Büyükelçi
+    Forumu</a>'nda bulabilirsiniz
 stats:
   total:
     foodsaver: Foodsaverlar gıda israfının olmadığı bir dünya için gönüllü oluyor.
