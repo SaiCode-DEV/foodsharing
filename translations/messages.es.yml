@@ -3649,3 +3649,19 @@ help:
   key:
     storeLog:
       title: Registro de las operaciones
+      md: "El registro de operaciones es una forma de hacer un seguimiento de las
+        **actividades de una explotación**. Podrá:\nayudar a resolver conflictos o
+        corregir errores accidentales.\n---\n###### Ejemplo\nSupongamos que quieres
+        saber quién se unió al equipo en las últimas tres semanas.\nA continuación,
+        puedes definir el período usando las fechas de inicio y finalización en los
+        dos campos de fecha.\nA continuación, puedes seleccionar todos los tipos de
+        acciones relevantes en el menú desplegable. En este caso:\nPor ejemplo, \"\
+        *presentar solicitudes de adhesión*\", \"*aceptar solicitudes de adhesión*\"\
+        \ y \"*rechazar solicitudes de adhesión*\".\nAhora, si haces clic en el botón
+        \"*Seleccionar Mostrar Acciones*\", te mostraremos un historial de los eventos
+        seleccionados.\n---\n###### Acceso\nSólo puede acceder a ella quien sea capaz
+        de administrar la explotación. Para Foodsaver y Springer normales:ins\nno
+        se puede ver el registro de operaciones.\n---\n###### Restricciones\nSe cargarán
+        un máximo de 100 entradas. Puede que tengas que limitar el periodo de búsqueda
+        o los tipos de acciones seleccionados si no se muestran todos los eventos.
+        \n"
