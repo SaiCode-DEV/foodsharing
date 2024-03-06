@@ -1914,6 +1914,12 @@ profile:
   reportRequest: 'Hacer una queja'
   orga_rights: Como miembro de la organización {name} <a target="_blank" href="{wikiurl}">permisos
     plenos</a> en ella.
+  editNameInfo: Tenga en cuenta que los campos de nombre y apellidos sólo deben utilizarse
+    para el nombre de la persona. No utilice este campo para almacenar más información
+    sobre el usuario, como por ejemplo la realización de cursos de higiene o similares,
+    sino que se pueden utilizar grupos de trabajo para realizar dichas tareas. Encontrará
+    más información al respecto en <a href="/region?bid=881&sub=forum&tid=58225">Foro
+    de Embajador@s</a>
 home:
   title: 'Pagina de inicio'
   home: 'Inicio'
