@@ -7,6 +7,7 @@
 - Added a map to the foodsharepoint page #1035 !3097 @alex.simm
 - Added an Info vue commonent for explainin parts of the website. #1852 !3181 @AntonBallmaier
 - Group different bell events, like it is done for the forum !3073 @AntonBallmaier
+- Added an info box for ambassadors to make sure the user name field is not misused #204 !3204 @AntonBallmaier
 
 ## Changes
 - Improves the BBB integration !3050 @stcz

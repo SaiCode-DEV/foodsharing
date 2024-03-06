@@ -126,6 +126,8 @@ class FoodsaverView extends View
         $latLonOptions['location'] = ['lat' => $g_data['lat'], 'lon' => $g_data['lon']];
 
         return $this->v_utils->v_quickform($title, [
+            // TODO: When refactoring this form to vue, only show this alert when the name is actually changed.
+            '<div class="alert alert-danger"><i class="fas fa-exclamation-triangle"></i> ' . $this->translator->trans('profile.editNameInfo') . '</div>',
             $this->v_utils->v_form_text('name', ['required' => true]),
             $this->v_utils->v_form_text('nachname', ['required' => true]),
             $this->v_utils->v_form_date('geb_datum', [

@@ -2150,6 +2150,7 @@ profile:
   deletesuccess: "Einzeltermin gelöscht"
   cantdeletethis: "Du kannst keine Einzeltermine löschen!"
   choosestore: "Bitte den betroffenen Betrieb auswählen" #in ProfileView
+  editNameInfo: "Bitte beachte, dass die Felder für Vor- und Nachname ausschließlich für den Namen der Person genutzt werden sollen. Bitte nutze dieses Feld nicht, um weitere Informationen über das Profil abzulegen, wie bspw. die Durchführung einer Hygieneschulung. Stattdessen können Arbeitsgruppen genutzt werden, um weitere Informationen über Profile zu hinterlegen. Weitere Infos hierzu im <a href=\"/region?bid=881&sub=forum&tid=58225\">Botschafter:innen-Forum</a>"
 
 dashboard:
   title: "Dashboard"
