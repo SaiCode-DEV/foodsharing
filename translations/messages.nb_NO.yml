@@ -947,6 +947,11 @@ profile:
   choosestore: Velg det aktuelle selskapet
   orga_rights: Som organisasjonsperson har {name} <a target="_blank" href="{wikiurl}">omfattende
     tillatelser</a> på plattformen.
+  editNameInfo: Vær oppmerksom på at for- og etternavnsfeltene kun skal brukes for
+    personens navn. Vennligst ikke bruk dette feltet til å lagre ytterligere informasjon
+    om brukeren, for eksempel gjennomføring av hygieneopplæring eller lignende. I
+    stedet kan arbeidsgrupper brukes til å utføre slike oppdrag. Ytterligere informasjon
+    om dette finner du i <a href="/region?bid=881&sub=forum&tid=58225">ambassadørforumet</a>
 settings:
   photo:
     title: Bildet ditt
