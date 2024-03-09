@@ -3541,5 +3541,18 @@ help:
   key:
     storeLog:
       title: Store log
+      md: "The store log is a way to track the **activities in a store**.\nIt can
+        help resolve conflicts or correct accidental mistakes.\n---\n###### Example\n
+        Let’s say you want to know who was added to the team by whom in the last 3
+        weeks.\nThen you can set the period using the start and end dates in the two
+        date fields.\nNext, you can select all relevant action types from the dropdown.
+        In this case, for example,\n\"*Make membership requests*\", \"*Accept membership
+        requests*\" and \"*Reject membership requests*\".\nIf you now click on the
+        “*Show selected actions*” button, you will be shown a history of the selected
+        events.\n---\n###### Access\nOnly those who can manage the company have access
+        to it.\nThe operating log is not visible to normal foodsavers and jumpers.\n
+        ---\n###### Restrictions\nA maximum of 100 entries will be loaded. You may
+        need to limit the search period or the selected action types if not all results
+        are displayed. \n"
   tooltip: Show help
   helpTitle: 'Help: {title}'
