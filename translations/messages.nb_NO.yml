@@ -3415,5 +3415,19 @@ help:
   key:
     storeLog:
       title: Driftslogg
+      md: "Driftsloggen er en måte å spore **aktivitetene i en bedrift**. \nDet kan
+        bidra til å løse konflikter eller rette opp tilfeldige feil.\n---\n######
+        Eksempel\nLa oss si at du vil vite hvem som ble lagt til i teamet av hvem
+        i løpet av de siste 3 ukene.\nDeretter kan du angi perioden ved å bruke start-
+        og sluttdatoene i de to datofeltene.\nDeretter kan du velge alle relevante
+        handlingstyper fra rullegardinmenyen.\nI dette tilfellet, for eksempel \"
+        *Gjør medlemskapsforespørsler*\", \"*Godta medlemskapsforespørsler*\" \nog
+        \"*Avvis medlemskapsforespørsler*\".\nHvis du nå klikker på \"*Vis valgte
+        handlinger*\"-knappen, vil du få vist en historikk over de valgte hendelsene.\n
+        ---\n###### Tilgang\nBare de som kan administrere selskapet har tilgang til
+        det. Driftsloggen er ikke synlig for vanlige matsparere og hoppere.\n---\n
+        ###### Begrensninger\nMaksimalt 100 oppføringer vil bli lastet inn. Du må
+        kanskje begrense søkeperioden eller de valgte handlingstypene hvis ikke alle
+        resultater vises. \n"
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
