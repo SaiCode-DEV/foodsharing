@@ -447,13 +447,13 @@ test:playwright:
     url: http://nginx:8080/
   interruptible: true
   rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
     - !reference [.dirs-app-rule, rules]
     - !reference [.dirs-frontend-rule, rules]
     - !reference [.dirs-playwright-rule, rules]
     - if: $CI_COMMIT_BRANCH == 'production' && $SKIP_CI_TESTS == 'true'
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
   image: registry.gitlab.com/foodsharing-dev/images/playwright:latest
   variables:
@@ -528,9 +528,9 @@ deploy:beta:
   extends:
     - .deploy-app
   rules:
-    - if: $CI_COMMIT_BRANCH == 'master'
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: $CI_COMMIT_BRANCH == 'master'
   environment:
     name: beta
     url: https://beta.foodsharing.de
@@ -550,9 +550,9 @@ deploy:docs:
   extends:
     - .deploy
   rules:
-    - if: $CI_COMMIT_BRANCH == 'master'
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: $CI_COMMIT_BRANCH == 'master'
   needs:
     - build:docs
   script:
