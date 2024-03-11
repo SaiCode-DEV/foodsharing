@@ -192,13 +192,13 @@ build:websocket:
   stage: build
   interruptible: true
   rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
     - !reference [ .dirs-app-rule, rules ]
     - !reference [ .dirs-backend-rule, rules ]
     - !reference [ .dirs-frontend-rule, rules ]
     - !reference [ .dirs-websocket-rule, rules ]
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
   image: registry.gitlab.com/foodsharing-dev/images/node:latest
   script:
     - (cd websocket && yarn && yarn lint)
@@ -213,13 +213,13 @@ build:frontend:
   stage: build
   interruptible: true
   rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
     - !reference [ .dirs-app-rule, rules ]
     - !reference [ .dirs-backend-rule, rules ]
     - !reference [ .dirs-frontend-rule, rules ]
     - !reference [ .dirs-websocket-rule, rules ]
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
   image: registry.gitlab.com/foodsharing-dev/images/node:latest
   script:
     - (cd client && yarn && yarn lint && yarn build)
@@ -239,13 +239,13 @@ build:backend:
   stage: build
   interruptible: true
   rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - if: $CI_COMMIT_BRANCH == 'master' || $CI_COMMIT_BRANCH == 'production'
     - !reference [ .dirs-app-rule, rules ]
     - !reference [ .dirs-backend-rule, rules ]
     - !reference [ .dirs-frontend-rule, rules ]
     - !reference [ .dirs-websocket-rule, rules ]
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
   image: registry.gitlab.com/foodsharing-dev/images/php:latest
   script:
     - ./scripts/ci-backend-build
@@ -265,10 +265,10 @@ build:docs:
   stage: build
   interruptible: true
   rules:
-    - if: $CI_COMMIT_BRANCH == 'master'
-    - !reference [ .dirs-docs-rule, rules ]
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: $CI_COMMIT_BRANCH == 'master'
+    - !reference [ .dirs-docs-rule, rules ]
   image: registry.gitlab.com/foodsharing-dev/images/docs:latest
   variables:
     MYSQL_ROOT_PASSWORD: root
