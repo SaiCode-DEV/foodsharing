@@ -79,6 +79,7 @@
 - Added profile pictures to seed data #738 !3172 @AntonBallmaier
 - Removed the obsolete jquery-jcrop package #1047 !3192 @alex.simm
 - Fixed the outdated notification job !3214 !3215 @\_fridtjof_
+- Optimized client bundle size !3216 @\_fridtjof_
 
 ## Development documentation
 
