@@ -268,6 +268,7 @@ button:
   create: "Anlegen"
   clear_filter: "Filter leeren"
   reset_default: "Standard wiederherstellen"
+  close: "Schließen"
 
 bread:
   backToOverview: "zurück zur Übersicht"
@@ -858,6 +859,7 @@ store:
   isAppliedForTeam: "Anfrage"
   allStoresOfRegion: "Alle Betriebe aus dem Bezirk"
   ownStores: "Eigene Betriebe"
+  storeFrom: "Betrieb von {name}"
   addNewStoresButton: "Neuen Betrieb eintragen"
   noStores: "Es sind noch keine Betriebe eingetragen"
   deactivatedRegion: "Die Betriebsliste kann für Länder und Kontinente im Moment nicht angezeigt werden."
@@ -2148,6 +2150,7 @@ profile:
   deletesuccess: "Einzeltermin gelöscht"
   cantdeletethis: "Du kannst keine Einzeltermine löschen!"
   choosestore: "Bitte den betroffenen Betrieb auswählen" #in ProfileView
+  editNameInfo: "Bitte beachte, dass die Felder für Vor- und Nachname ausschließlich für den Namen der Person genutzt werden sollen. Bitte nutze dieses Feld nicht, um weitere Informationen über das Profil abzulegen, wie bspw. die Durchführung einer Hygieneschulung. Stattdessen können Arbeitsgruppen genutzt werden, um weitere Informationen über Profile zu hinterlegen. Weitere Infos hierzu im <a href=\"/region?bid=881&sub=forum&tid=58225\">Botschafter:innen-Forum</a>"
 
 dashboard:
   title: "Dashboard"
@@ -3146,6 +3149,8 @@ search:
       last_post: letzter Beitrag
     user:
       no_home_region: Kein Stammbezirk
+      copy_id: ID kopieren
+      copied_id: "Foodsaver-ID von {name} kopiert ({id})"
     working_group:
       admin_tooltip: Du bist Admin dieser AG
       member_tooltip: Du bist Mitglied dieser AG
@@ -3244,3 +3249,29 @@ markdown_input:
     ---
 
     *Du hast aber noch keinen Text eingegeben, der hier angezeigt werden könnte.*"
+
+help:
+  helpTitle: "Hilfe: {title}"
+  tooltip: "Hilfe anzeigen"
+  key:
+    storeLog:
+      title: "Betriebsprotokoll"
+      md: |
+        Das Betriebsprotokoll ist eine Möglichkeit, die **Aktivitäten in einem Betrieb nachzuvollziehen**. Es kann
+        dabei helfen, Konflikte zu lösen oder versehentliche Fehler zu korrigieren.
+        ---
+        ###### Beispiel
+        Angenommen, du wills wissen, wer in den letzten 3 Wochen von wem ins Team aufgenommen wurde.
+        Dann kannst du den Zeitraum mittels Start- und Enddatum über die beiden Datums-Felder festlegen.
+        Als nächstes kannst du aus dem Dropdown alle relevanten Aktionstypen auswählen. In diesem Fall
+        zum Beispiel "*Beitrittsanfragen stellen*", "*Beitrittsanfragen annehmen*" und "*Beitrittsanfragen ablehnen*".
+        Wenn du nun auf den Button "*Ausgewähle Aktionen anzeigen*" klickst, wir dir eine Historie der ausgewählten Ereignisse angezeigt.
+        ---
+        ###### Zugriff
+        Zugriff darauf hat nur, wer auch den Betrieb administrieren kann. Für normale Foodsaver und Springer:innen
+        ist das Betriebsprotokoll nicht einsehbar.
+        ---
+        ###### Einschränkungen
+        Es werden maximal 100 Einträge geladen. Ggf. musst du den Suchzeitraum oder die ausgewählten Aktionstypen einschränken, wenn nicht alle Ergenisse angezeigt werden. 
+
+

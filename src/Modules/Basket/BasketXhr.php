@@ -6,6 +6,7 @@ use Foodsharing\Lib\Xhr\Xhr;
 use Foodsharing\Lib\Xhr\XhrDialog;
 use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\BasketRequests\Status as RequestStatus;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Utility\ImageHelper;
 use Foodsharing\Utility\TimeHelper;
 
@@ -53,10 +54,10 @@ class BasketXhr extends Control
 
         if (isset($_GET['coordinates']) && $basket = $this->basketGateway->listNearbyBasketsByDistance(
             $this->session->id(),
-            [
+            GeoLocation::createFromArray([
                 'lat' => $_GET['coordinates'][0],
                 'lon' => $_GET['coordinates'][1],
-            ]
+            ])
         )) {
             $xhr->addData('baskets', $basket);
         }

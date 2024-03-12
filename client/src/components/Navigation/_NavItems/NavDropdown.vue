@@ -27,14 +27,8 @@
         />
       </slot>
       <slot name="text">
-        <span
-          class="nav-text"
-          v-html="title"
-        />
-        <span
-          class="sr-only"
-          v-html="title"
-        />
+        <span class="nav-text" v-html="title" />
+        <span class="sr-only" v-html="title" />
       </slot>
     </template>
     <b-dropdown-header
@@ -42,10 +36,7 @@
       class="for-mobile"
     >
       <span>{{ title }}</span>
-      <button
-        class="btn btn-link"
-        @click="hide()"
-      >
+      <button class="btn btn-link" @click="hide()">
         <i class="fas fa-times" />
       </button>
     </b-dropdown-header>

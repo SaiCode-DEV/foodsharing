@@ -7,7 +7,7 @@ use DateTime;
 use DateTimeZone;
 use Exception;
 use Foodsharing\Lib\Session;
-use Foodsharing\Modules\Bell\BellGateway;
+use Foodsharing\Modules\Bell\BellTransactions;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
@@ -26,6 +26,7 @@ use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreTransactionException;
 use Foodsharing\Modules\Store\StoreTransactions;
 use Foodsharing\Modules\Store\TeamStatus as TeamMembershipStatus;
+use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\RestApi\Models\Store\CreateStoreModel;
 use Foodsharing\RestApi\Models\Store\MinimalStoreModel;
@@ -59,8 +60,9 @@ class StoreRestController extends AbstractFOSRestController
         private readonly StoreTransactions $storeTransactions,
         private readonly StorePermissions $storePermissions,
         private readonly RegionGateway $regionGateway,
-        private readonly BellGateway $bellGateway,
-        private readonly GroupFunctionGateway $groupFunctionGateway
+        private readonly GroupFunctionGateway $groupFunctionGateway,
+        private readonly BellTransactions $bellTransactions,
+        private readonly ProfilePermissions $profilePermissions,
     ) {
     }
 
@@ -107,18 +109,18 @@ class StoreRestController extends AbstractFOSRestController
      *
      * @throws Exception
      */
-    #[Rest\Get('user/current/stores/details')]
-    public function getStoresOfUser(): Response
+    #[Rest\Get('user/{userId}/stores/details')]
+    public function getStoresOfUser(int $userId): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
         }
 
-        if (!$this->storePermissions->mayListStores($this->session->id())) {
+        if (!$this->storePermissions->mayListStores($userId)) {
             throw new AccessDeniedHttpException('No permission see store list');
         }
 
-        $stores = $this->storeTransactions->listOverviewInformationsOfStoresFromUser($this->session->id(), true);
+        $stores = $this->storeTransactions->listOverviewInformationsOfStoresFromUser($userId, true);
         $result = new StorePaginationResult();
         $result->total = count($stores);
         $result->stores = $stores;
@@ -458,16 +460,21 @@ class StoreRestController extends AbstractFOSRestController
      * @OA\Response(response="204", description="No foodsaver related stores found.")
      * @OA\Response(response="401", description="Not logged in")
      */
-    #[Rest\Get('user/current/stores')]
+    #[Rest\Get('user/{userId}/stores')]
     #[Rest\QueryParam(name: 'activeStores')]
-    public function getListOfStoreStatusForCurrentFoodsaver(ParamFetcher $paramFetcher): Response
+    public function getListOfStoreStatusForUser(int $userId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
         }
+
+        if (!$this->profilePermissions->maySeeStores($userId)) {
+            throw new AccessDeniedHttpException('No permission see store list');
+        }
+
         $activeStores = (bool)$paramFetcher->get('activeStores');
 
-        $listOfStoreStatus = $this->storeTransactions->listAllStoreStatusForFoodsaver($this->session->id(), $activeStores);
+        $listOfStoreStatus = $this->storeTransactions->listAllStoreStatusForFoodsaver($userId, $activeStores);
 
         if ($listOfStoreStatus === []) {
             return $this->handleView($this->view([], 204));
@@ -533,30 +540,11 @@ class StoreRestController extends AbstractFOSRestController
         ];
         $postId = $this->storeGateway->addStoreWallpost($note);
 
-        $storeName = $this->storeGateway->getStoreName($storeId);
-        $userName = $this->session->user('name');
-        $userPhoto = $this->session->user('photo');
-        $team = $this->storeGateway->getStoreTeam($storeId);
-
-        $teamWithoutPostAuthor = array_filter($team, fn ($x) => $x['id'] !== $author);
-
-        $bellData = Bell::create(
-            'store_wallpost_title',
-            'store_wallpost',
-            'fas fa-thumbtack',
-            ['href' => '/?page=fsbetrieb&id=' . $storeId],
-            [
-                'user' => $userName,
-                'name' => $storeName
-            ],
-            BellType::createIdentifier(BellType::STORE_WALL_POST, $storeId)
-        );
-
-        $this->bellGateway->addBell($teamWithoutPostAuthor, $bellData);
+        $this->bellTransactions->addGroupedBellEvent(...$this->getGroupedBellEventData($storeId, $postId));
 
         $note = $this->storeGateway->getStoreWallpost($storeId, $postId);
-        $note['name'] = $userName;
-        $note['photo'] = $userPhoto;
+        $note['name'] = $this->session->user('name');
+        $note['photo'] = $this->session->user('photo');
         $post = RestNormalization::normalizeStoreNote($note);
 
         return $this->handleView($this->view(['post' => $post], 200));
@@ -583,7 +571,33 @@ class StoreRestController extends AbstractFOSRestController
 
         $this->storeGateway->deleteStoreWallpost($storeId, $postId);
 
+        $this->bellTransactions->removeGroupedBellEvent(...$this->getGroupedBellEventData($storeId, $postId));
+
         return $this->handleView($this->view([], 200));
+    }
+
+    /**
+     * Prepares parameters needed to add and reduce grouped bells.
+     * @see BellTransactions
+     */
+    private function getGroupedBellEventData(int $storeId, int $postId): array
+    {
+        $teamIds = array_column($this->storeGateway->getStoreTeam($storeId), 'id');
+        $teamWithoutPostAuthor = array_diff($teamIds, [$this->session->id()]);
+
+        $baseBell = Bell::create(
+            'store_wall_post_title',
+            'store_wall_post',
+            'fas fa-thumbtack',
+            ['href' => '/?page=fsbetrieb&id=' . $storeId],
+            [
+                'user' => $this->session->user('name'),
+                'name' => $this->storeGateway->getStoreName($storeId),
+            ],
+            BellType::createIdentifier(BellType::STORE_WALL_POST, $storeId)
+        );
+
+        return [$teamWithoutPostAuthor, $baseBell, $postId];
     }
 
     /**

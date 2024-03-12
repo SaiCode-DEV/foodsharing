@@ -1,8 +1,6 @@
 
 <template>
-  <div
-    class="input-wrapper"
-  >
+  <div class="input-wrapper">
     <label
       class="wrapper-label ui-widget"
     >{{ $i18n('settings.name_change.title') }}</label>

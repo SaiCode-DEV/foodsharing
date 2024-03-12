@@ -658,6 +658,11 @@ profile:
   choosestore: Please select the affected store
   orga_rights: As an organizational person, {name} has <a target="_blank" href="{wikiurl}">extensive
     permissions</a> on the platform.
+  editNameInfo: Please note that the first and last name fields should only be used
+    for the person’s name. Please do not use these fields to store further information
+    about the user, such as the completion of hygiene training or similar. Instead,
+    workgroups can be used to perform such assignments. Further information on this
+    can be found in the <a href="/region?bid=881&sub=forum&tid=58225">Ambassador Forum</a>
 test:
   plain: This is a nice translation
   vars: 'My name is {NAME} and I am {AGE} years old'
@@ -1192,6 +1197,7 @@ button:
   clear_filter: Clear filter
   reset_default: Reset default
   prev: previous
+  close: Close
 bell:
   ft_update_title: '{name}'
   blog_new_check: '{title}'
@@ -2149,6 +2155,7 @@ store:
     modal_title: Pick a chain
     search_input: Search by chain name
   to_map: Show on map
+  storeFrom: Store from {name}
 search:
   mygroups: My groups
   mybuddies: My buddies
@@ -2185,6 +2192,8 @@ search:
       chat_with_others: others
     user:
       no_home_region: No home district
+      copy_id: Copy ID
+      copied_id: Foodsaver ID from {name} was copied ({id})
     store:
       manager_tooltip: You are responsible for this store
       jumper_tooltip: You are on the standby list for this store
@@ -3528,3 +3537,22 @@ donation_banner:
   info_button: Where does my donation go?
   action_button: Donate here!
   amount: Current donation status
+help:
+  key:
+    storeLog:
+      title: Store log
+      md: "The store log is a way to track the **activities in a store**.\nIt can
+        help resolve conflicts or correct accidental mistakes.\n---\n###### Example\n
+        Let’s say you want to know who was added to the team by whom in the last 3
+        weeks.\nThen you can set the period using the start and end dates in the two
+        date fields.\nNext, you can select all relevant action types from the dropdown.
+        In this case, for example,\n\"*Make membership requests*\", \"*Accept membership
+        requests*\" and \"*Reject membership requests*\".\nIf you now click on the
+        “*Show selected actions*” button, you will be shown a history of the selected
+        events.\n---\n###### Access\nOnly those who can manage the company have access
+        to it.\nThe operating log is not visible to normal foodsavers and jumpers.\n
+        ---\n###### Restrictions\nA maximum of 100 entries will be loaded. You may
+        need to limit the search period or the selected action types if not all results
+        are displayed. \n"
+  tooltip: Show help
+  helpTitle: 'Help: {title}'

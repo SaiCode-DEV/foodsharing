@@ -1,6 +1,5 @@
 <template>
   <div class="team-memberinfo">
-    <!-- eslint-disable-next-line vue/max-attributes-per-line -->
     <b-tooltip :target="`member-${user.id}`" triggers="hover blur">
       <div v-if="user.isManager">
         {{ $i18n('store.isManager') }}

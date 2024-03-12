@@ -1,8 +1,17 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
-  <Container id="store-log" :title="$i18n('store.log.title')" :container-is-expanded="isContainerExpanded" tag="store_log">
+  <Container
+    id="store-log"
+    :title="$i18n('store.log.title')"
+    :container-is-expanded="isContainerExpanded"
+    tag="store_log"
+    info-key="storeLog"
+  >
     <div class="corner-bottom margin-bottom bootstrap store-log">
-      <DateRangePicker ref="dateRange" :cooperation-start="cooperationStart" :max-age-in-months="6" />
+      <DateRangePicker
+        ref="dateRange"
+        :cooperation-start="cooperationStart"
+        :max-age-in-months="6"
+      />
 
       <Multiselect
         v-model="selectedActionTypes"
@@ -26,17 +35,29 @@
       </Multiselect>
 
       <div class="p-1">
-        <b-button id="search-store-log" size="sm" class="d-block mx-auto" :disabled="disableSearch" @click="loadStoreLog">
+        <b-button
+          id="search-store-log"
+          size="sm"
+          class="d-block mx-auto"
+          :disabled="disableSearch"
+          @click="loadStoreLog"
+        >
           <i class="fas fa-fw fa-search" />
           {{ $i18n('store.log.search') }}
         </b-button>
       </div>
       <div>
-        <div v-for="(action, i) of loggedActions" :key="i" class="store-log-entry d-flex">
+        <div
+          v-for="(action, i) of loggedActions"
+          :key="i"
+          class="store-log-entry d-flex"
+        >
           <div class="avatar-time-line">
-            <a v-b-tooltip.hover="action.acting_foodsaver.name" :href="$url('profile', action.acting_foodsaver.id)" class="d-inline-block">
-              <Avatar :round="true" :url="action.acting_foodsaver.avatar" :auto-scale="false" />
-            </a>
+            <Avatar
+              class="d-inline-block"
+              shape="round"
+              :user="action.acting_foodsaver"
+            />
           </div>
           <span class="log-entry-content">
             <StoreLogEntryMessage :action="action" />
@@ -61,7 +82,7 @@ import Container from '@/components/Container/Container.vue'
 import DateRangePicker from './DateRangePicker.vue'
 import Multiselect from 'vue-multiselect'
 import { getStoreLog } from '@/api/stores'
-import Avatar from '@/components/Avatar.vue'
+import Avatar from '@/components/Avatar/Avatar.vue'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import { pulseError } from '@/script'
 import StoreLogEntryMessage from './StoreLogEntryMessage.vue'

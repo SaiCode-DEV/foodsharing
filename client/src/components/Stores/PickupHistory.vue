@@ -1,6 +1,9 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
-  <Container :title="$i18n('pickup.history.title')" :container-is-expanded="isContainerExpanded" tag="pickup_history">
+  <Container
+    :title="$i18n('pickup.history.title')"
+    :container-is-expanded="isContainerExpanded"
+    tag="pickup_history"
+  >
     <div class="corner-bottom margin-bottom bootstrap pickup-history">
       <DateRangePicker ref="dateRange" :cooperation-start="cooperationStart" />
       <div class="p-1 pickup-search-button">

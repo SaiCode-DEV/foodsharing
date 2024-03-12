@@ -94,10 +94,15 @@
         <Statistics
           v-if="activeSubpage === SUB_PAGE.STATISTIC"
           :region-id="regionId"
+          :pickup-data="pageData.pickupData"
         />
         <Pin
           v-if="activeSubpage === SUB_PAGE.PIN"
           :region-id="regionId"
+          :lat="pageData.lat"
+          :lon="pageData.lon"
+          :desc="pageData.desc"
+          :status="pageData.status"
         />
         <Wall
           v-if="activeSubpage === SUB_PAGE.WALL"

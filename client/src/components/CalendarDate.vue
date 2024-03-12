@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable-next-line vue/max-attributes-per-line -->
   <div class="datebox corner-all" :class="classes">
     <div class="px-1 month">
       {{ displayedMonthAndYear }}

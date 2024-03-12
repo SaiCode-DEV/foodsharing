@@ -68,10 +68,7 @@
             class="form-control"
             @input="$emit('update:lastname', $event.target.value)"
           >
-          <div
-            v-if="$v.lastname.$error"
-            class="invalid-feedback"
-          >
+          <div v-if="$v.lastname.$error" class="invalid-feedback">
             <span v-if="!$v.lastname.required">{{ $i18n('register.lastname_required') }}</span>
             <span v-if="!$v.lastname.minLength">{{ $i18n('register.lastname_minLength') }}</span>
           </div>

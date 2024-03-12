@@ -88,7 +88,7 @@ class SeedCommand extends Command implements CustomCommandInterface
     {
         $I = $this->helper;
         $password = 'user';
-        $user = $I->createStoreCoordinator($password, ['email' => 'userengagement@example.com', 'bezirk_id' => $region1]);
+        $user = $I->createStoreCoordinator($password, ['email' => 'userengagement@example.com', 'bezirk_id' => $region1, 'image' => true]);
         $I->addRegionMember($region1, $user['id']);
 
         $I->createEvents($region1, $user['id']);
@@ -166,7 +166,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $welcomeGroup = $I->createWorkingGroup('Begrüßung Göttingen', ['parent_id' => $region1, 'email_name' => 'Begruessung.Göttingen', 'teaser' => 'Hier sind die Begrüßer für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $welcomeGroup['id'], 'function_id' => WorkgroupFunction::WELCOME, 'target_id' => $region1]);
         foreach (range(1, 4) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userwelcome' . $i . '@example.com', 'bezirk_id' => $region1]);
+            $user = $I->createStoreCoordinator($password, ['email' => 'userwelcome' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
             $I->addRegionMember($welcomeGroup['id'], $user['id']);
             $I->addRegionAdmin($welcomeGroup['id'], $user['id']);
             $this->welcomeAdmins[] = $user['id'];
@@ -178,7 +178,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $votingGroup = $I->createWorkingGroup('Abstimmungen Göttingen', ['parent_id' => $region1, 'email_name' => 'Abstimmung.Goettingen', 'teaser' => 'Hier sind die Abstimmungen für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $votingGroup['id'], 'function_id' => WorkgroupFunction::VOTING, 'target_id' => $region1]);
         foreach (range(1, 4) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'uservoting' . $i . '@example.com', 'bezirk_id' => $region1]);
+            $user = $I->createStoreCoordinator($password, ['email' => 'uservoting' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
             $I->addRegionMember($votingGroup['id'], $user['id']);
             $I->addRegionAdmin($votingGroup['id'], $user['id']);
             $I->addRegionMember(RegionIDs::VOTING_ADMIN_GROUP, $user['id']);
@@ -191,7 +191,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $fspGroup = $I->createWorkingGroup('Fairteiler Göttingen', ['parent_id' => $region1, 'email_name' => 'Fairteiler.Goettingen', 'teaser' => 'Hier sind die Fairteileransprechpartner für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $fspGroup['id'], 'function_id' => WorkgroupFunction::FSP, 'target_id' => $region1]);
         foreach (range(1, 2) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userfsp' . $i . '@example.com', 'bezirk_id' => $region1]);
+            $user = $I->createStoreCoordinator($password, ['email' => 'userfsp' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
             $I->addRegionMember($fspGroup['id'], $user['id']);
             $I->addRegionAdmin($fspGroup['id'], $user['id']);
             $this->fspAdmins[] = $user['id'];
@@ -203,7 +203,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $storesGroup = $I->createWorkingGroup('Betriebskoordination Göttingen', ['parent_id' => $region1, 'email_name' => 'betriebskoordination.Goettingen', 'teaser' => 'Hier sind die Betriebskoordinationsansprechpartner für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $storesGroup['id'], 'function_id' => WorkgroupFunction::STORES_COORDINATION, 'target_id' => $region1]);
         foreach (range(1, 3) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userstorecoordination' . $i . '@example.com', 'bezirk_id' => $region1]);
+            $user = $I->createStoreCoordinator($password, ['email' => 'userstorecoordination' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
             $I->addRegionMember($storesGroup['id'], $user['id']);
             $I->addRegionAdmin($storesGroup['id'], $user['id']);
             $this->storesGroupAdmin[] = $user['id'];
@@ -215,7 +215,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $reportGroup = $I->createWorkingGroup('Meldungsbearbeitung Göttingen', ['parent_id' => $region1, 'email_name' => 'meldungsbearbeitung.Goettingen', 'teaser' => 'Hier sind die Meldungsbearbeiter für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $reportGroup['id'], 'function_id' => WorkgroupFunction::REPORT, 'target_id' => $region1]);
         foreach (range(1, 4) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userreport' . $i . '@example.com', 'bezirk_id' => $region1]);
+            $user = $I->createStoreCoordinator($password, ['email' => 'userreport' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
             $I->addRegionMember($reportGroup['id'], $user['id']);
             $I->addRegionAdmin($reportGroup['id'], $user['id']);
             $this->reportAdmins[] = $user['id'];
@@ -227,7 +227,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $mediationGroup = $I->createWorkingGroup('Mediation Göttingen', ['parent_id' => $region1, 'email_name' => 'Mediation Göttingen', 'email' => 'mediation.goettingen', 'teaser' => 'Hier sind die Meldungsbearbeiter für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $mediationGroup['id'], 'function_id' => WorkgroupFunction::MEDIATION, 'target_id' => $region1]);
         foreach (range(1, 3) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'usermediation' . $i . '@example.com', 'bezirk_id' => $region1]);
+            $user = $I->createStoreCoordinator($password, ['email' => 'usermediation' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
             $I->addRegionMember($mediationGroup['id'], $user['id']);
             $I->addRegionAdmin($mediationGroup['id'], $user['id']);
             $this->mediationAdmins[] = $user['id'];
@@ -239,7 +239,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $arbitrationGroup = $I->createWorkingGroup('Schiedsstelle Göttingen', ['parent_id' => $region1, 'email_name' => 'schiedstelle.Goettingen', 'teaser' => 'Hier ist das Schiedsstellenteam für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $arbitrationGroup['id'], 'function_id' => WorkgroupFunction::ARBITRATION, 'target_id' => $region1]);
         foreach (range(1, 4) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userarbitration' . $i . '@example.com', 'bezirk_id' => $region1]);
+            $user = $I->createStoreCoordinator($password, ['email' => 'userarbitration' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
             $I->addRegionMember($arbitrationGroup['id'], $user['id']);
             $I->addRegionAdmin($arbitrationGroup['id'], $user['id']);
             $this->arbitrationAdmins[] = $user['id'];
@@ -251,7 +251,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $fsmanagementGroup = $I->createWorkingGroup('Verwaltung Göttingen', ['parent_id' => $region1, 'email_name' => 'verwaltung.Goettingen', 'teaser' => 'Hier ist das Verwaltungsteam für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $fsmanagementGroup['id'], 'function_id' => WorkgroupFunction::FSMANAGEMENT, 'target_id' => $region1]);
         foreach (range(1, 3) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userfsmanagement' . $i . '@example.com', 'bezirk_id' => $region1]);
+            $user = $I->createStoreCoordinator($password, ['email' => 'userfsmanagement' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
             $I->addRegionMember($fsmanagementGroup['id'], $user['id']);
             $I->addRegionAdmin($fsmanagementGroup['id'], $user['id']);
             $this->fsManagementAdmins[] = $user['id'];
@@ -263,7 +263,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $prGroup = $I->createWorkingGroup('Öffentlichkeitsarbeit Göttingen', ['parent_id' => $region1, 'email_name' => 'oeffentlichkeitsarbeit.Goettingen', 'teaser' => 'Hier ist das Öffentlichkeitsarbeitsteam für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $prGroup['id'], 'function_id' => WorkgroupFunction::PR, 'target_id' => $region1]);
         foreach (range(1, 5) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userpr' . $i . '@example.com', 'bezirk_id' => $region1]);
+            $user = $I->createStoreCoordinator($password, ['email' => 'userpr' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
             $I->addRegionMember($prGroup['id'], $user['id']);
             $I->addRegionAdmin($prGroup['id'], $user['id']);
             $this->prGroup[] = $user['id'];
@@ -275,7 +275,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $moderationGroup = $I->createWorkingGroup('Moderation Göttingen', ['parent_id' => $region1, 'email_name' => 'moderation.Goettingen', 'teaser' => 'Hier ist das Moderationsteam für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $moderationGroup['id'], 'function_id' => WorkgroupFunction::MODERATION, 'target_id' => $region1]);
         foreach (range(1, 4) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'usermoderation' . $i . '@example.com', 'bezirk_id' => $region1]);
+            $user = $I->createStoreCoordinator($password, ['email' => 'usermoderation' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
             $I->addRegionMember($moderationGroup['id'], $user['id']);
             $I->addRegionAdmin($moderationGroup['id'], $user['id']);
             $this->moderationAdmins[] = $user['id'];
@@ -287,7 +287,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $boardGroup = $I->createWorkingGroup('Vorstand Göttingen', ['parent_id' => $region1, 'email_name' => 'vorstand.Goettingen', 'teaser' => 'Hier ist der Vorstand für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $boardGroup['id'], 'function_id' => WorkgroupFunction::BOARD, 'target_id' => $region1]);
         foreach (range(1, 4) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userboard' . $i . '@example.com', 'bezirk_id' => $region1]);
+            $user = $I->createStoreCoordinator($password, ['email' => 'userboard' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
             $I->addRegionMember($boardGroup['id'], $user['id']);
             $I->addRegionAdmin($boardGroup['id'], $user['id']);
             $this->boardAdmins[] = $user['id'];
@@ -298,7 +298,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $electionGroup = $I->createWorkingGroup('Wahlen Göttingen', ['parent_id' => $region1, 'email_name' => 'wahlen.Goettingen', 'teaser' => 'Hier ist die Wahlen AG für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $electionGroup['id'], 'function_id' => WorkgroupFunction::ELECTION, 'target_id' => $region1]);
         foreach (range(1, 4) as $i) {
-            $user = $I->createStoreCoordinator($password, ['email' => 'userelection' . $i . '@example.com', 'bezirk_id' => $region1]);
+            $user = $I->createStoreCoordinator($password, ['email' => 'userelection' . $i . '@example.com', 'bezirk_id' => $region1, 'image' => true]);
             $I->addRegionMember($electionGroup['id'], $user['id']);
             $I->addRegionAdmin($electionGroup['id'], $user['id']);
             $I->addRegionMember(RegionIDs::ELECTION_ADMIN_GROUP, $user['id']);
@@ -390,20 +390,21 @@ class SeedCommand extends Command implements CustomCommandInterface
         $user1 = $I->createFoodsharer($password, ['email' => 'user1@example.com', 'name' => 'One']);
         $this->writeUser($I, $user1, $password, 'foodsharer');
 
-        $user2 = $I->createFoodsaver($password, ['email' => 'user2@example.com', 'name' => 'Two', 'bezirk_id' => $region1]);
+        $user2 = $I->createFoodsaver($password, ['email' => 'user2@example.com', 'name' => 'Two', 'bezirk_id' => $region1, 'image' => true]);
         $this->writeUser($I, $user2, $password, 'foodsaver');
 
-        $userStoreManager = $I->createStoreCoordinator($password, ['email' => 'storemanager1@example.com', 'name' => 'Three', 'bezirk_id' => $region1]);
+        $userStoreManager = $I->createStoreCoordinator($password, ['email' => 'storemanager1@example.com', 'name' => 'Three', 'bezirk_id' => $region1, 'image' => true]);
         $this->writeUser($I, $userStoreManager, $password, 'store coordinator');
 
-        $userStoreManager2 = $I->createStoreCoordinator($password, ['email' => 'storemanager2@example.com', 'name' => 'Four', 'bezirk_id' => $region1]);
+        $userStoreManager2 = $I->createStoreCoordinator($password, ['email' => 'storemanager2@example.com', 'name' => 'Four', 'bezirk_id' => $region1, 'image' => true]);
         $this->writeUser($I, $userStoreManager2, $password, 'store coordinator2');
 
         $userbot = $I->createAmbassador($password, [
             'email' => 'userbot@example.com',
             'name' => 'Bot',
             'bezirk_id' => $region1,
-            'about_me_intern' => 'hello!'
+            'about_me_intern' => 'hello!',
+            'image' => true
         ]);
         $this->writeUser($I, $userbot, $password, 'ambassador');
 
@@ -411,7 +412,8 @@ class SeedCommand extends Command implements CustomCommandInterface
             'email' => 'userbot2@example.com',
             'name' => 'Bot2',
             'bezirk_id' => $region1,
-            'about_me_intern' => 'hello!'
+            'about_me_intern' => 'hello!',
+            'image' => true
         ]);
         $this->writeUser($I, $userbot2, $password, 'ambassador');
 
@@ -429,16 +431,17 @@ class SeedCommand extends Command implements CustomCommandInterface
             'email' => 'userbotreg2@example.com',
             'name' => 'Bot Entenhausen',
             'bezirk_id' => $region2,
-            'about_me_intern' => 'hello!'
+            'about_me_intern' => 'hello!',
+            'image' => true
         ]);
         $I->addRegionAdmin($region2, $userbotregion2['id']);
 
         $this->writeUser($I, $userbotregion2, $password, 'ambassador');
 
-        $userorga = $I->createOrga($password, false, ['email' => 'userorga@example.com', 'name' => 'Orga', 'bezirk_id' => $region1]);
+        $userorga = $I->createOrga($password, false, ['email' => 'userorga@example.com', 'name' => 'Orga', 'bezirk_id' => $region1, 'image' => true]);
         $this->writeUser($I, $userorga, $password, 'orga');
 
-        $userorgaWG = $I->createOrga($password, false, ['email' => 'userorgaWG@example.com', 'name' => 'OrgaWG', 'bezirk_id' => $region1, 'id' => RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP]);
+        $userorgaWG = $I->createOrga($password, false, ['email' => 'userorgaWG@example.com', 'name' => 'OrgaWG', 'bezirk_id' => $region1, 'id' => RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, 'image' => true]);
         $this->writeUser($I, $userorgaWG, $password, 'orga');
         $I->addRegionAdmin(RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, $userorgaWG['id']);
         $I->addRegionMember(RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, $userorgaWG['id']);
@@ -548,7 +551,7 @@ class SeedCommand extends Command implements CustomCommandInterface
             $this->addVerificationAndPassHistory($I, $user, $userbot['id']);
         }
         foreach (range(0, 100) as $_) {
-            $user = $I->createFoodsaver($password, ['bezirk_id' => $region1]);
+            $user = $I->createFoodsaver($password, ['bezirk_id' => $region1, 'image' => true]);
             $this->foodsavers[] = $user['id'];
             $I->addStoreTeam($store['id'], $user['id']);
             $I->addCollector($user['id'], $store['id']);

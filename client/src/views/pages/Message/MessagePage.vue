@@ -1,7 +1,5 @@
 <template>
-  <ChatComponent
-    :chat-id="chatId"
-  />
+  <ChatComponent :chat-id="chatId" />
 </template>
 
 <script>

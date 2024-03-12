@@ -8,29 +8,14 @@
     :href="bell.href"
     @click="$emit('read', bell)"
   >
-    <div
-      class="icon icon--big icon--rounded mr-2 d-flex text-center justifiy-content-center align-items-center"
-    >
-      <div
-        class="icon icon-default"
-      >
-        <Avatar
-          v-if="bell.image"
-          class="icon icon--big icon--rounded img-thumbnail"
-          :url="bell.image"
-          :size="35"
-        />
-        <i
-          v-else
-          class="icon icon--big icon--rounded img-thumbnail align-items-center justify-content-center"
-          :class="bell.icon"
-        />
-      </div>
-      <i
-        class="icon icon-close icon--big img-thumbnail align-items-center justify-content-center fas fa-times"
-        @click.stop.prevent="closeBell()"
-      />
-    </div>
+    <Avatar
+      class="mr-2"
+      :image="bell.image"
+      :icon="bell.image ? undefined : bell.icon"
+      variant="light"
+      href="#"
+      @click="closeBell()"
+    />
     <span class="d-flex w-100 flex-column text-truncate">
       <span class="d-flex justify-content-between align-items-center text-truncate">
         <span
@@ -50,25 +35,14 @@
 </template>
 
 <script>
-import Avatar from '@/components/Avatar'
-
+import Avatar from '@/components/Avatar/Avatar.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
 export default {
-  components: {
-    Avatar,
-  },
+  components: { Avatar },
   mixins: [MediaQueryMixin],
   props: {
-    bell: {
-      type: Object,
-      default: () => {},
-    },
-  },
-  data () {
-    return {
-      hover: false,
-    }
+    bell: { type: Object, default: () => ({}) },
   },
   computed: {
     classes () {
@@ -89,11 +63,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../../scss/icon-sizes.scss';
-
-a:hover .icon-default,
-a:not(:hover) .icon-close {
-  display: none;
+::v-deep.b-avatar :hover .avatar-icon::before {
+  content: "\f00d"; // Change icon to "fa-times"
 }
-
 </style>

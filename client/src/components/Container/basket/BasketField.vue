@@ -35,10 +35,7 @@
           v-if="entry.lat && entry.lon"
           class="ml-2 badge list-group-item-dark badge-pill"
         >
-          <i
-            v-if="distanceNumber > 0"
-            class="fas fa-directions"
-          />
+          <i v-if="distanceNumber > 0" class="fas fa-directions" />
           {{ distanceString(distanceNumber) }}
         </span>
       </div>

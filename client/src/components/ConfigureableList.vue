@@ -34,10 +34,7 @@
         </button>
       </template>
       <template #default>
-        <DragAndDropSortList
-          v-model="componentFields"
-          class="mb-1"
-        >
+        <DragAndDropSortList v-model="componentFields" class="mb-1">
           <template #item="{ item, events }">
             <div class="d-flex align-items-center checkbox-nest">
               <input

@@ -1,109 +1,38 @@
 <template>
-  <div class="team-ava">
-    <a
-      v-b-tooltip.hover="$i18n('pickup.open_profile')"
-      :href="`/profile/${user.id}`"
-    >
-      <Avatar
-        :url="user.avatar"
-        :size="50"
-        class="member-pic"
-        :class="{'jumper': user.isJumper}"
-        :is-sleeping="user.sleepStatus"
-      />
-    </a>
-
-    <!-- eslint-disable-next-line vue/max-attributes-per-line -->
-    <b-tooltip :target="`fetchcount-${user.id}`" triggers="hover blur">
-      <div>
-        {{ $i18n('store.fetchCount', {'count': user.fetchCount}) }}
-      </div>
-      <div v-if="user.mayAmb">
-        {{ $i18n('store.mayAmb') }}
-      </div>
-      <div v-if="user.mayManage">
-        {{ $i18n('store.mayManage') }}
-      </div>
-      <div v-if="user.isJumper">
-        {{ $i18n('store.isJumper') }}
-      </div>
-      <div v-if="!user.isVerified">
-        {{ $i18n('store.isNotVerified') }}
-      </div>
-    </b-tooltip>
-    <b-badge
-      :id="`fetchcount-${user.id}`"
-      class="member-fetchcount"
-      :class="{'maysm': user.mayManage, 'waiting': user.isWaiting}"
-      tag="span"
-    >
-      <span v-if="user.isJumper">
-        <i class="fas fa-running" />
+  <Avatar
+    :user="user"
+    :size="50"
+    :badge-variant="user.mayManage ? 'secondary' : 'primary'"
+    :class="{'jumper': user.isJumper}"
+    :transparent="user.isJumper || !user.isVerified"
+  >
+    <template #badge>
+      <span ref="badgeContent">
+        <i v-if="user.isJumper" class="fas fa-running" />
+        <i v-else-if="!user.isVerified" class="fas fa-user-slash" />
+        <span v-else v-text="user.fetchCount" />
       </span>
-      <span v-else-if="!user.isVerified">
-        <i class="fas fa-user-slash" />      </span>
-      <span v-else>{{ user.fetchCount }}</span>
-    </b-badge>
-  </div>
+      <b-tooltip :target="() => $refs?.badgeContent?.parentElement" noninteractive>
+        <div v-text="$i18n('store.fetchCount', {'count': user.fetchCount})" />
+        <div v-if="user.mayManage" v-text="$i18n('store.mayManage')" />
+        <div v-if="user.isJumper" v-text="$i18n('store.isJumper')" />
+        <div v-if="!user.isVerified" v-text="$i18n('store.isNotVerified')" />
+      </b-tooltip>
+    </template>
+  </Avatar>
 </template>
-
 <script>
-import Avatar from '@/components/Avatar.vue'
+import Avatar from '@/components/Avatar/Avatar.vue'
 
 export default {
   components: { Avatar },
   props: {
     user: { type: Object, required: true },
   },
-  methods: {
-  },
 }
 </script>
-
-<style lang="scss" scoped>
-// separate because of loader issues with deep selectors in scoped + nested SCSS
-// (see https://github.com/vuejs/vue-loader/issues/913 for a discussion)
-.team-ava .member-pic ::v-deep img {
-  width: 50px;
-}
-</style>
-
-<style lang="scss" scoped>
-.team-ava {
-  --fetchcount-bg: var(--fs-color-primary-200);
-  --fetchcount-fg: var(--fs-color-primary-500);
-  --fetchcount-border: var(--fs-color-primary-500);
-}
-
-a {
-  display: inline-block;
-}
-
-.member-pic.jumper {
-  opacity: 0.5;
-}
-
-.member-fetchcount {
-  position: absolute;
-  top: 5px;
-  right: -5px;
-  min-width: 1.5rem;
-  border: 1px solid var(--fs-border-default);
-  background-color: var(--fs-color-primary-300);
-  color: var(--fs-color-primary-500);
-
-  &.maysm {
-    color: var(--fs-color-light);
-    background-color: var(--fs-color-role-storemanager);
-    border-color: var(--fs-color-role-storemanager);
-  }
-  // &.mayamb {
-    //   border-color: var(--fs-color-role-ambassador);
-  // }
-  &.waiting {
-    color: var(--fs-color-light);
-    background-color: var(--fs-color-role-jumper);
-    border-color: var(--fs-color-role-jumper);
-  }
+<style scoped>
+.jumper ::v-deep img {
+  opacity: 50%;
 }
 </style>

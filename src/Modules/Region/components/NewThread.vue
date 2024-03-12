@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
 <!-- eslint-disable vue/singleline-html-element-content-newline -->
 <template>
   <div :class="{disabledLoading: isLoading}">
@@ -20,7 +19,12 @@
 
       <div class="row mt-3">
         <div v-if="!isModerated" class="col">
-          <input id="send_mail_button" v-model="sendMail" class="mr-2" type="checkbox">
+          <input
+            id="send_mail_button"
+            v-model="sendMail"
+            class="mr-2"
+            type="checkbox"
+          >
           {{ sendMailLabelText }}
         </div>
         <div class="col-auto">

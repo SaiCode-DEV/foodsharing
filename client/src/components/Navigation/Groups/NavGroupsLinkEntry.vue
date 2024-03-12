@@ -8,18 +8,18 @@
       class="dropdown-item dropdown-action"
       @click="menu.func ? menu.func() : null"
     >
-      <i
-        class="icon-subnav fas"
-        :class="menu.icon"
-      />
+      <i class="icon-subnav fas" :class="menu.icon" />
       {{ menu.text }}
     </a>
   </div>
 </template>
 
 <script>
+import ConferenceOpener from '@/mixins/ConferenceOpenerMixin'
+
 export default {
   name: 'NavGroupsLinkEntry',
+  mixins: [ConferenceOpener],
   props: {
     entry: {
       type: Object,

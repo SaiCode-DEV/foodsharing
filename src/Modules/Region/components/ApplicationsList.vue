@@ -16,10 +16,9 @@
               class="row justify-content-start"
             >
               <Avatar
-                :url="application.avatar"
-                :size="35"
-                :sleep-status="application.sleepStatus"
                 class="mr-2"
+                :user="application"
+                :href="$url('application', groupId, application.id)"
               />
               <span class="d-inline avatar-title">{{ application.name }}</span>
             </a>
@@ -31,7 +30,7 @@
 </template>
 
 <script>
-import Avatar from '@/components/Avatar'
+import Avatar from '@/components/Avatar/Avatar.vue'
 
 export default {
   components: { Avatar },

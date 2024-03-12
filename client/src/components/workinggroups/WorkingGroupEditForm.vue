@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <div class="container bootstrap">
     <div class="card mb-3 rounded">
@@ -20,10 +19,7 @@
               trim
               :state="$v.name.$error ? false : null"
             />
-            <div
-              v-if="$v.name.$error"
-              class="invalid-feedback"
-            >
+            <div v-if="$v.name.$error" class="invalid-feedback">
               {{ $i18n('group.edit.name_required') }}
             </div>
           </b-form-group>

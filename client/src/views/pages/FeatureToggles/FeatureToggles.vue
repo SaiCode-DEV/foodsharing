@@ -20,9 +20,7 @@
         class="p-3 border bg-light mb-2 row mx-0"
       >
         <div class="col-md-10 col-12">
-          <h4
-            class="text-break"
-          >
+          <h4 class="text-break">
             {{ featureToggle.identifier }}
             <span
               class="badge badge-secondary"
@@ -31,9 +29,7 @@
             </span>
           </h4>
         </div>
-        <div
-          class="col-md-2"
-        >
+        <div class="col-md-2">
           <button
             type="button"
             class="btn btn-secondary"

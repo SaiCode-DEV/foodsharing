@@ -58,6 +58,7 @@
           v-b-tooltip="entry.slots.occupied.map(e=> e.name).join(', ')"
           class="slots"
         >
+          <!-- TODO replace with <AvatarStack /> -->
           <span
             v-for="(slot, key) in team"
             :key="key"
@@ -65,10 +66,9 @@
           >
             <Avatar
               v-if="slot"
-              :key="key"
-              :url="slot.avatar"
-              :size="24"
-              :auto-scale="false"
+              :user="{ avatar: slot.avatar }"
+              :size="20"
+              shape="round"
               class="slot-user"
               :class="{
                 'slot-user--need-confirm': !entry.confirmed,
@@ -105,16 +105,12 @@
 </template>
 
 <script>
-// Components
-import Avatar from '@/components/Avatar'
-// Mixin
+import Avatar from '@/components/Avatar/Avatar.vue'
 
 export default {
-  components: {
-    Avatar,
-  },
+  components: { Avatar },
   props: {
-    entry: { type: Object, default: () => {} },
+    entry: { type: Object, default: () => ({}) },
   },
   computed: {
     isSoon () {

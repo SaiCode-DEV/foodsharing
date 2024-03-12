@@ -36,7 +36,7 @@
             type="range"
             min="1"
             max="31"
-            :disabled="!maySetRule"
+            :disabled="!maySetRule || !regionPickupRuleActive"
           />
         </b-col>
       </b-row>
@@ -48,7 +48,7 @@
             type="range"
             min="1"
             max="14"
-            :disabled="!maySetRule"
+            :disabled="!maySetRule || !regionPickupRuleActive"
             @change="onChangeMax()"
           />
         </b-col>
@@ -61,7 +61,7 @@
             type="range"
             min="1"
             :max="rangeDayLimit"
-            :disabled="!maySetRule"
+            :disabled="!maySetRule || !regionPickupRuleActive"
           />
         </b-col>
       </b-row>
@@ -73,7 +73,7 @@
           <b-form-select
             v-model="pickupRuleInactive"
             :options="optionsIgnoreRuleHours"
-            :disabled="!maySetRule"
+            :disabled="!maySetRule || !regionPickupRuleActive"
           />
         </b-col>
       </b-row>
@@ -86,9 +86,7 @@
         small
         caption-top
       >
-        <template
-          #cell(storeName)="row"
-        >
+        <template #cell(storeName)="row">
           <a
             :href="$url('store', row.item.storeId)"
             class="ui-corner-all"

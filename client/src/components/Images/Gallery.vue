@@ -1,6 +1,9 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
-  <div v-if="images?.length" ref="gallery" class="gallery">
+  <div
+    v-if="images?.length"
+    ref="gallery"
+    class="gallery"
+  >
     <div
       v-for="(image, i) of images"
       :key="i"

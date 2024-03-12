@@ -35,7 +35,7 @@ class SearchPermissions
 
     public function maySearchByEmailAddress(): bool
     {
-        return $this->session->mayRole(Role::ORGA) || $this->session->isAdminFor(RegionIDs::IT_SUPPORT_GROUP);
+        return $this->maySearchGlobal();
     }
 
     public function maySearchAllWorkingGroups(): bool
@@ -49,6 +49,6 @@ class SearchPermissions
 
     public function maySearchGlobal(): bool
     {
-        return $this->session->mayRole(Role::ORGA);
+        return $this->session->mayRole(Role::ORGA) || $this->session->isAdminFor(RegionIDs::IT_SUPPORT_GROUP);
     }
 }

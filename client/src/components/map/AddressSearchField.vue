@@ -1,5 +1,4 @@
 <!-- A text field combined with geocoding that allows searching for addresses. The selected suggestion is emitted as a 'change' event. -->
-<!-- eslint-disable vue/max-attributes-per-line -->
 <!-- eslint-disable vue/singleline-html-element-content-newline -->
 <template>
   <b-form-input

@@ -24,9 +24,9 @@ class BellType
      */
     final public const NEW_FOOD_SHARE_POINT = 'new-fairteiler-%d';
     /**
-     * A new forum post in a thread the user is participating in. Arguments: IDs of the thread and post, as well as the count of new posts since last bell marked as read.
+     * A new forum post in a thread the user is participating in. Argument: IDs of the thread.
      */
-    final public const NEW_FORUM_POST = 'forum-%d-post-%d-unseenPostsCount-%d';
+    final public const NEW_FORUM_POST = 'forum-%d';
     /**
      * Notification for ambassadors about a new foodsaver. Argument: the foodsaver's ID.
      */

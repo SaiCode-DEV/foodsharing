@@ -55,18 +55,22 @@ class FoodsaverCest
         $I->login($this->orga['email']);
         $I->amOnPage('/?page=foodsaver&a=edit&id=' . $fsId);
         $I->waitForPageBody();
-        $I->fillField('#addresspicker', $address);
-        $I->waitForElementVisible('#addresspicker_listbox');
-        $I->click("//*[@id='addresspicker_listbox']//*[contains(text(), 'Teststraße 1')]");
+
+        // Find an address in the search field
+        $I->fillField('#searchinput', $address);
+        $I->waitForElementVisible('#searchinput_listbox');
+        $I->click("//*[@id='searchinput_listbox']//*[contains(text(), 'Teststraße 1')]");
         $I->click('Speichern');
         $I->waitForPageBody();
 
         $I->amOnPage('/?page=foodsaver&a=edit&id=' . $fsId);
         $I->waitForPageBody();
-        $I->seeInField('#anschrift', 'Teststraße 1');
-        $I->seeInField('#plz', '37073');
-        $I->seeInField('#ort', 'Teststadt');
-        $I->assertEqualsWithDelta($I->grabValueFrom('#lat'), 51.0, 0.001);
-        $I->assertEqualsWithDelta($I->grabValueFrom('#lon'), 9.0, 0.001);
+        // Codeception's click function doesn't work with this switch checkbox. We have to click it with javascript.
+        $I->executeJs('document.getElementById(\'different_location\').click()');
+        $I->seeInField('#input-street', 'Teststraße 1');
+        $I->seeInField('#input-postal', '37073');
+        $I->seeInField('#input-city', 'Teststadt');
+        $I->assertEqualsWithDelta($I->grabValueFrom('input[name="lat"]'), 51.0, 0.001);
+        $I->assertEqualsWithDelta($I->grabValueFrom('input[name="lon"]'), 9.0, 0.001);
     }
 }

@@ -6,10 +6,7 @@
         {{ $i18n('filterlist.some_in_all', {some: storesFiltered.length, all: stores.length}) }}
       </span>
     </div>
-    <div
-      v-if="stores.length"
-      class="card-body p-0"
-    >
+    <div v-if="stores.length" class="card-body p-0">
       <ConfigureableList
         :fields.sync="fields"
         :selection.sync="fieldSelection"
@@ -83,9 +80,7 @@
                 <StoreStatusIcon :cooperation-status="row.value" />
               </div>
             </template>
-            <template
-              #cell(name)="row"
-            >
+            <template #cell(name)="row">
               <a
                 :href="$url('store', row.item.id)"
                 class="ui-corner-all"
@@ -93,14 +88,10 @@
                 {{ row.value }}
               </a>
             </template>
-            <template
-              #cell(region)="row"
-            >
+            <template #cell(region)="row">
               {{ row.value.name }}
             </template>
-            <template
-              #cell(actions)="row"
-            >
+            <template #cell(actions)="row">
               <b-button
                 size="sm"
                 @click.stop="row.toggleDetails"
@@ -108,9 +99,7 @@
                 {{ row.detailsShowing ? 'x' : 'Details' }}
               </b-button>
             </template>
-            <template
-              #row-details="row"
-            >
+            <template #row-details="row">
               <b-card>
                 <div class="details">
                   <p>
@@ -162,6 +151,7 @@ import StoreStatusIcon from './StoreStatusIcon.vue'
 import ConfigureableList from '@/components/ConfigureableList.vue'
 import BTableMobileFriendly from '@/components/BTableMobileFriendly.vue'
 import { useStoreStore } from '@/stores/store'
+import DataUser from '@/stores/user'
 
 const storeStore = useStoreStore()
 
@@ -293,6 +283,9 @@ export default {
       }
       return fieldOrder
     },
+    userId () {
+      return DataUser.getters.getUserId()
+    },
   },
   created () {
     this.availableFields = this.fieldsDefinition.map(field => field.key)
@@ -301,7 +294,7 @@ export default {
   methods: {
     getUserRole (storeId) {
       if (storeStore.userRelations === null) {
-        storeStore.fetchUserStoreRelations()
+        storeStore.fetchUserStoreRelations(this.userId)
         return '...loading'
       } else {
         const relation = storeStore.userRelations.find(relation => relation.id === storeId)
@@ -319,7 +312,7 @@ export default {
       // not a member
     },
     fetchData () {
-      storeStore.fetchStoresForCurrentUser()
+      storeStore.fetchStoresForUser(this.userId)
     },
     clearFilter () {
       this.state.filterStatus = null

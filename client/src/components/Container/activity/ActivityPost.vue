@@ -38,27 +38,12 @@
     </div>
 
     <div class="d-flex mb-2 text-break">
-      <a
-        v-b-tooltip="fs_id ? fs_name : sender_email"
-        :href="fs_id ? $url('profile', fs_id) : dashboardContentLink"
-        class="icon w-20 mr-2 d-flex text-center justifiy-content-center align-items-center align-self-start"
-      >
-        <Avatar
-          v-if="fs_id"
-          class="img-thumbnail"
-          :url="icon"
-          :size="50"
-        />
-        <i
-          v-else
-          class="d-flex text-secondary img-thumbnail w-100 h-100 align-items-center justify-content-center"
-          :class="icon"
-        />
-        <span
-          class="sr-only"
-          v-html="fs_id ? fs_name : sender_email"
-        />
-      </a>
+      <Avatar
+        class="mr-2"
+        :user="fs_id ? { id: fs_id, name: fs_name, avatar: icon } : null"
+        :icon="fs_id ? '' : icon"
+        :href="fs_id ? undefined : dashboardContentLink"
+      />
       <div class="content w-100">
         <Markdown
           :source="!state ? truncate(desc, truncatedLength) : desc"
@@ -99,9 +84,7 @@
       v-if="canQuickreply && state"
       class="d-flex w-100 flex-column justify-content-center"
     >
-      <div
-        v-if="!qrLoading"
-      >
+      <div v-if="!qrLoading">
         <div class="position-relative">
           <textarea
             ref="quickreply"
@@ -141,10 +124,7 @@
           <span v-html="$i18n('activitypost.quickreply_info')" />
         </small>
       </div>
-      <span
-        v-else
-        class="loader"
-      >
+      <span v-else class="loader">
         <i class="fas fa-spinner fa-spin" />
       </span>
     </div>
@@ -175,11 +155,11 @@ import { addPost } from '@/api/wall'
 import { sendEmail } from '@/api/mailbox'
 
 import Markdown from '@/components/Markdown/Markdown'
-import Avatar from '@/components/Avatar'
 import Gallery from '@/components/Images/Gallery'
+import Avatar from '@/components/Avatar/Avatar.vue'
 
 export default {
-  components: { Markdown, Avatar, Gallery },
+  components: { Markdown, Gallery, Avatar },
   mixins: [StateTogglerMixin, MediaQueryMixin, AutoResizeTextareaMixin],
   /* eslint-disable vue/prop-name-casing */
   props: {

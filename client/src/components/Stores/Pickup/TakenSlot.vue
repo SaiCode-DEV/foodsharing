@@ -6,10 +6,7 @@
     >
       <b-row>
         <b-col cols="5">
-          <Avatar
-            :url="profile.avatar"
-            :size="130"
-          />
+          <Avatar :user="profile" :size="130" />
           <p>
             <b>{{ profile.name }}</b>
           </p>
@@ -101,27 +98,26 @@
       </template>
     </b-modal>
 
-    <b-button
-      :id="`slot-${uniqueId}`"
-      toggle-class="btn p-0 filled"
+    <Avatar
+      :user="profile"
+      :size="50"
+      style="margin: 2px 2px 2px 1px;"
+      href="#"
+      badge-size="100%"
+      :badge-variant="confirmed ? 'success' : 'danger'"
+      :options="{ badgeOffset: '-5px' }"
+      :transparent="!confirmed"
       @click="openModal"
     >
-      <div class="button-container">
-        <Avatar
-          :url="profile.avatar"
-          :size="50"
-          :class="{'pending': !confirmed, 'confirmed': confirmed}"
-        />
-        <div :class="{'slotstatus': true, 'pending': !confirmed, 'confirmed': confirmed}">
-          <i :class="{'slotstatus-icon fas': true, 'fa-clock': !confirmed, 'fa-check-circle': confirmed}" />
-        </div>
-      </div>
-    </b-button>
+      <template #badge>
+        <i :class="{'fas': true, 'fa-clock': !confirmed, 'fa-check-circle': confirmed}" />
+      </template>
+    </Avatar>
   </div>
 </template>
 
 <script>
-import Avatar from '@/components/Avatar'
+import Avatar from '@/components/Avatar/Avatar.vue'
 import { pulseSuccess } from '@/script'
 import PhoneNumbers from '@/helper/phone-numbers'
 import conversationStore from '@/stores/conversations'
@@ -292,48 +288,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.button-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.slotstatus {
-  position: absolute;
-  height: 20px;
-  width: 20px;
-  top: -1em;
-  left: 100%;
-  border-radius: 50%;
-  background-color: var(--fs-color-light);
-
-  &.pending {
-    color: var(--fs-color-danger-500);
-  }
-
-  &.confirmed {
-    color: var(--fs-color-secondary-500);
-  }
-}
-
-// Check / Clock inside the status patch
-.slotstatus-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1rem;
-}
-
-.avatar.pending {
-  opacity: 0.45;
-}
-
-.profile-name {
-  font-size: 1rem;
-}
-</style>

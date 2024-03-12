@@ -6,13 +6,11 @@
     }"
     @click="openChat"
   >
-    <div
+    <ConversationAvatar
       class="mr-2"
-    >
-      <ConversationAvatar
-        :conversation="conversation"
-      />
-    </div>
+      :unread="conversation.hasUnreadMessages"
+      :conversation="conversation"
+    />
     <span class="d-flex w-100 flex-column text-truncate">
       <span class="d-flex justify-content-between align-items-center text-truncate">
         <span
@@ -35,17 +33,12 @@ import DataUser from '@/stores/user'
 import profileStore from '@/stores/profiles'
 import conversationStore from '@/stores/conversations'
 
-import ConversationAvatar from '@/components/ConversationAvatar'
+import ConversationAvatar from '@/components/Avatar/ConversationAvatar'
 
 export default {
-  components: {
-    ConversationAvatar,
-  },
+  components: { ConversationAvatar },
   props: {
-    conversation: {
-      type: Object,
-      default: () => ({}),
-    },
+    conversation: { type: Object, default: () => ({}) },
   },
   computed: {
     title () {

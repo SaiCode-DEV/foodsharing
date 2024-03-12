@@ -8,10 +8,7 @@
       </div>
     </b-container>
     <b-container>
-      <div
-        v-if="mayCreatePoll"
-        class="p-1"
-      >
+      <div v-if="mayCreatePoll" class="p-1">
         <b-link
           :href="$url('pollNew', regionId)"
           class="btn btn-sm btn-primary btn-block"
@@ -31,14 +28,14 @@
           >
             <b-link :href="$url('poll', poll.id)">
               <span class="calendar m-1">
-                <span class="month">{{ formatDate(convertDate(poll.endDate.date), 'MMMM') }}</span>
-                <span class="day">{{ formatDate(convertDate(poll.endDate.date), 'd') }}</span>
+                <span class="month">{{ formatDate(convertDate(poll.endDate), 'MMMM') }}</span>
+                <span class="day">{{ formatDate(convertDate(poll.endDate), 'd') }}</span>
               </span>
               <div class="title mt-2">
                 <b>{{ poll.name }}</b>
               </div>
               <div class="mt-2">
-                {{ $dateFormatter.dateTime(convertDate(poll.startDate.date)) }} - {{ $dateFormatter.dateTime(convertDate(poll.endDate.date)) }}
+                {{ $dateFormatter.dateTime(convertDate(poll.startDate)) }} - {{ $dateFormatter.dateTime(convertDate(poll.endDate)) }}
               </div>
             </b-link>
           </b-list-group-item>
@@ -64,7 +61,7 @@
                 :href="$url('poll', poll.id)"
               >
                 <b>{{ poll.name }}</b>
-                <div>{{ $i18n('poll.begins_at') }}: {{ $dateFormatter.date(convertDate(poll.startDate.date)) }}</div>
+                <div>{{ $i18n('poll.begins_at') }}: {{ $dateFormatter.date(convertDate(poll.startDate)) }}</div>
               </b-link>
             </li>
           </ul>
@@ -102,7 +99,7 @@
                 :href="$url('poll', poll.id)"
               >
                 <b>{{ poll.name }}</b>
-                <div>{{ $i18n('poll.ended_at') }} {{ $dateFormatter.date(convertDate(poll.endDate.date)) }}</div>
+                <div>{{ $i18n('poll.ended_at') }} {{ $dateFormatter.date(convertDate(poll.endDate)) }}</div>
               </b-link>
             </li>
           </ul>

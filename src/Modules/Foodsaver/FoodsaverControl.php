@@ -7,7 +7,6 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Permissions\ProfilePermissions;
-use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 
@@ -20,7 +19,6 @@ class FoodsaverControl extends Control
         private readonly RegionGateway $regionGateway,
         private readonly SettingsGateway $settingsGateway,
         private readonly ProfilePermissions $profilePermissions,
-        private readonly RegionPermissions $regionPermissions,
         private readonly DataHelper $dataHelper,
         private readonly IdentificationHelper $identificationHelper
     ) {
@@ -30,104 +28,65 @@ class FoodsaverControl extends Control
 
     /*
      * Default Method for /?page=foodsaver
-     *
-     * There are two very different cases handled here: editing a user, or viewing all users in a region.
      */
     public function index()
     {
-        $regionId = $_GET['bid'] ?? null;
-        $regionId = is_numeric($regionId) ? (int)$regionId : null;
         $fsId = $this->identificationHelper->getActionId('edit'); // int or false
-
-        if ($regionId && $this->regionPermissions->mayHandleFoodsaverRegionMenu($regionId)) {
-            // begin region-view
-            if (!$region = $this->regionGateway->getRegion($regionId)) {
-                $this->pageHelper->addContent(
-                    $this->v_utils->v_info($this->translator->trans('region.restricted'))
-                );
-
-                return;
-            }
-            if (!$foodsavers = $this->foodsaverGateway->getFoodsaversByRegion($regionId)) {
-                $this->pageHelper->addContent(
-                    $this->v_utils->v_info($this->translator->trans('foodsaver.restricted'))
-                );
-
-                return;
-            }
-            $this->pageHelper->addBread('Foodsaver', '/?page=foodsaver&bid=' . $regionId);
-            $this->pageHelper->addBread($region['name'], '/?page=foodsaver&bid=' . $regionId);
-
-            $this->pageHelper->addContent(
-                $this->view->foodsaverList($foodsavers, $region),
-                CNT_LEFT
-            );
-
-            $this->pageHelper->addContent($this->view->foodsaverForm());
-
-            if ($inactiveFoodsavers = $this->foodsaverGateway->getFoodsaversByRegion($regionId, true)) {
-                $this->pageHelper->addContent(
-                    $this->view->foodsaverList($inactiveFoodsavers, $region, true),
-                    CNT_RIGHT
-                );
-            }
-        } elseif ($fsId && $this->profilePermissions->mayAdministrateUserProfile($fsId)) {
-            // begin user-edit
-            if (!$fs = $this->foodsaverGateway->getFoodsaver($fsId)) {
-                $this->pageHelper->addContent(
-                    $this->v_utils->v_info($this->translator->trans('foodsaver.restricted'))
-                );
-
-                return;
-            }
-            $this->handle_edit();
-            $fs = $this->foodsaverGateway->getFoodsaver($fsId); // refresh data as it may changed
-
-            $name = $fs['name'] . ' ' . $fs['nachname'];
-            $regionDetails = $fs['bezirk_id'] > 0 ? $this->regionGateway->getRegion($fs['bezirk_id']) : false;
-
-            $this->pageHelper->addBread(
-                $this->translator->trans('foodsaver.bread'),
-                $regionDetails ? '/?page=foodsaver&bid=' . $regionDetails['id'] : ''
-            );
-            $this->pageHelper->addBread($name, '/profile/' . $fs['id']);
-            $this->pageHelper->addBread($this->translator->trans('foodsaver.edit'));
-
-            $this->dataHelper->setEditData($fs);
-            $this->pageHelper->addContent(
-                $this->view->foodsaver_form(
-                    $this->translator->trans('foodsaver.editName', ['{name}' => $name]),
-                    $regionDetails
-                )
-            );
-
-            $actions = [];
-            if ($this->session->mayRole()) {
-                $actions[] = [
-                    'href' => '/profile/' . $fs['id'],
-                    'name' => $this->translator->trans('foodsaver.profileBack'),
-                ];
-            }
-            if ($this->profilePermissions->mayDeleteUser($fs['id'])) {
-                $actions[] = [
-                    'click' => ($fsId == $this->session->id())
-                        ? 'confirmDeleteSelf(' . $fs['id'] . ')'
-                        : 'confirmDeleteUser(' . $fs['id'] . ',\'' . $name . '\')',
-                    'name' => '⚠️ ' . $this->translator->trans('foodsaver.delete_account'),
-                ];
-            }
-            $this->pageHelper->addContent(
-                $this->v_utils->v_field(
-                    $this->v_utils->v_menu($actions, $this->translator->trans('foodsaver.actions')),
-                ),
-                CNT_RIGHT
-            );
-        } else {
-            // end user-edit
+        if (!$fsId) {
+            $this->routeHelper->goAndExit('/');
+        } if (!$this->profilePermissions->mayAdministrateUserProfile($fsId)) {
             $this->pageHelper->addContent(
                 $this->v_utils->v_info($this->translator->trans('foodsaver.restricted'))
             );
+
+            return;
         }
+        // begin user-edit
+        if (!$fs = $this->foodsaverGateway->getFoodsaver($fsId)) {
+            $this->pageHelper->addContent(
+                $this->v_utils->v_info($this->translator->trans('foodsaver.restricted'))
+            );
+
+            return;
+        }
+        $this->handle_edit();
+        $fs = $this->foodsaverGateway->getFoodsaver($fsId); // refresh data as it may changed
+
+        $name = $fs['name'] . ' ' . $fs['nachname'];
+        $regionDetails = $fs['bezirk_id'] > 0 ? $this->regionGateway->getRegion($fs['bezirk_id']) : false;
+
+        $this->pageHelper->addBread($name, '/profile/' . $fs['id']);
+        $this->pageHelper->addBread($this->translator->trans('foodsaver.edit'));
+
+        $this->dataHelper->setEditData($fs);
+        $this->pageHelper->addContent(
+            $this->view->foodsaver_form(
+                $this->translator->trans('foodsaver.editName', ['{name}' => $name]),
+                $regionDetails
+            )
+        );
+
+        $actions = [];
+        if ($this->session->mayRole()) {
+            $actions[] = [
+                'href' => '/profile/' . $fs['id'],
+                'name' => $this->translator->trans('foodsaver.profileBack'),
+            ];
+        }
+        if ($this->profilePermissions->mayDeleteUser($fs['id'])) {
+            $actions[] = [
+                'click' => ($fsId == $this->session->id())
+                    ? 'confirmDeleteSelf(' . $fs['id'] . ')'
+                    : 'confirmDeleteUser(' . $fs['id'] . ',\'' . $name . '\')',
+                'name' => '⚠️ ' . $this->translator->trans('foodsaver.delete_account'),
+            ];
+        }
+        $this->pageHelper->addContent(
+            $this->v_utils->v_field(
+                $this->v_utils->v_menu($actions, $this->translator->trans('foodsaver.actions')),
+            ),
+            CNT_RIGHT
+        );
     }
 
     private function handle_edit(): void

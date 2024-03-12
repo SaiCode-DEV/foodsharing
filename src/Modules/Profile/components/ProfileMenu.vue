@@ -1,13 +1,9 @@
 <template>
   <div>
-    <div
-      class="mb-2 text-center"
-    >
+    <div class="mb-2 text-center">
       <Avatar
-        :url="photo"
-        :is-sleeping="isSleeping"
+        :user="{ avatar: photo, isSleeping }"
         :size="130"
-        :auto-scale="true"
       />
     </div>
     <div
@@ -146,14 +142,12 @@
       :reporter-has-report-group="reporterHasReportGroup"
       :mailbox-name="mailboxNameReportRequest"
     />
-    <ProfileHistoryModal
-      ref="profileHistoryModal"
-    />
+    <ProfileHistoryModal ref="profileHistoryModal" />
   </div>
 </template>
 
 <script>
-import Avatar from '@/components/Avatar.vue'
+import Avatar from '@/components/Avatar/Avatar.vue'
 import { pulseError, pulseInfo } from '@/script'
 import conversationStore from '@/stores/conversations'
 import MediationRequest from './MediationRequest'

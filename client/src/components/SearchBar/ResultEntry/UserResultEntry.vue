@@ -6,8 +6,7 @@
   >
     <Avatar
       class="mr-2"
-      :size="35"
-      :url="user.avatar"
+      :user="user"
     />
     <div class="text-truncate flex-grow-1">
       <h6 class="m-0 text-truncate d-inline">
@@ -23,14 +22,19 @@
         v-b-tooltip.noninteractive="$i18n('store.request.unverified')"
         class="fas fa-user-slash"
       />
-      <small>ID: {{ user.id }}</small>
+      <small
+        v-b-tooltip.noninteractive="$i18n('search.results.user.copy_id')"
+        class="user-id"
+        @click.prevent="copyId"
+      >
+        ID: {{ user.id }}
+        <i class="fas fa-copy muted" />
+      </small>
       <br>
       <small class="separate">
         <span v-if="user.region_id">
           {{ $i18n('search.results.from') }}
-          <a :href="$url('forum', user.region_id)">
-            {{ user.region_name }}
-          </a>
+          {{ user.region_name }}
         </span>
         <i v-else>{{ $i18n('search.results.user.no_home_region') }}</i>
         <span v-if="user.email">
@@ -55,22 +59,23 @@
   </a>
 </template>
 <script>
-import Avatar from '@/components/Avatar.vue'
+import Avatar from '@/components/Avatar/Avatar.vue'
 import PhoneButton from '@/components/PhoneButton.vue'
-import { chat } from '@/script'
+import { chat, pulseSuccess } from '@/script'
 
 export default {
   components: { Avatar, PhoneButton },
   props: {
-    user: {
-      type: Object,
-      required: true,
-    },
+    user: { type: Object, required: true },
   },
   methods: {
     openChat () {
       chat(this.user.id)
       this.$emit('close')
+    },
+    copyId () {
+      navigator.clipboard.writeText(this.user.id)
+      pulseSuccess(this.$i18n('search.results.user.copied_id', this.user))
     },
   },
 }
@@ -79,5 +84,9 @@ export default {
 <style lang="scss" scoped>
 .separate>*:not(:last-child)::after {
   content: ' • ';
+}
+
+.user-id {
+  opacity: .5;
 }
 </style>

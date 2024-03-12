@@ -705,6 +705,8 @@ search:
       chat_with_others: andre
     user:
       no_home_region: Ingen hjemdistrikt
+      copy_id: Kopier ID
+      copied_id: Foodsaver ID kopiert fra {name} ({id})
     store:
       manager_tooltip: Du er ansvarlig for denne bedriften
       jumper_tooltip: Du er en reserve i teamet for dette bedriften
@@ -945,6 +947,11 @@ profile:
   choosestore: Velg det aktuelle selskapet
   orga_rights: Som organisasjonsperson har {name} <a target="_blank" href="{wikiurl}">omfattende
     tillatelser</a> på plattformen.
+  editNameInfo: Vær oppmerksom på at for- og etternavnsfeltene kun skal brukes for
+    personens navn. Vennligst ikke bruk dette feltet til å lagre ytterligere informasjon
+    om brukeren, for eksempel gjennomføring av hygieneopplæring eller lignende. I
+    stedet kan arbeidsgrupper brukes til å utføre slike oppdrag. Ytterligere informasjon
+    om dette finner du i <a href="/region?bid=881&sub=forum&tid=58225">ambassadørforumet</a>
 settings:
   photo:
     title: Bildet ditt
@@ -1826,6 +1833,7 @@ button:
   save: Lagre
   reset_default: Nullstill standard
   prev: tilbake
+  close: Lukk
 upload:
   preview_image: Forhåndsvisning
   crop_dialog_title: Beskjær bilde
@@ -2592,6 +2600,7 @@ store:
     modal_title: Velg driftskjede
     search_input: Søk etter kjedenavn
   to_map: Vis på kart
+  storeFrom: Selskap fra {name}
 storeview:
   status: Nåværende status
   public_time_at_night: om natten
@@ -3402,3 +3411,23 @@ donation_banner:
   amount: Donasjonsstatus
   info_button: Hvor går donasjonen min?
   action_button: Doner her!
+help:
+  key:
+    storeLog:
+      title: Driftslogg
+      md: "Driftsloggen er en måte å spore **aktivitetene i en bedrift**. \nDet kan
+        bidra til å løse konflikter eller rette opp tilfeldige feil.\n---\n######
+        Eksempel\nLa oss si at du vil vite hvem som ble lagt til i teamet av hvem
+        i løpet av de siste 3 ukene.\nDeretter kan du angi perioden ved å bruke start-
+        og sluttdatoene i de to datofeltene.\nDeretter kan du velge alle relevante
+        handlingstyper fra rullegardinmenyen.\nI dette tilfellet, for eksempel \"
+        *Gjør medlemskapsforespørsler*\", \"*Godta medlemskapsforespørsler*\" \nog
+        \"*Avvis medlemskapsforespørsler*\".\nHvis du nå klikker på \"*Vis valgte
+        handlinger*\"-knappen, vil du få vist en historikk over de valgte hendelsene.\n
+        ---\n###### Tilgang\nBare de som kan administrere selskapet har tilgang til
+        det. Driftsloggen er ikke synlig for vanlige matsparere og hoppere.\n---\n
+        ###### Begrensninger\nMaksimalt 100 oppføringer vil bli lastet inn. Du må
+        kanskje begrense søkeperioden eller de valgte handlingstypene hvis ikke alle
+        resultater vises. \n"
+  helpTitle: 'Hjelp: {title}'
+  tooltip: Vis hjelp

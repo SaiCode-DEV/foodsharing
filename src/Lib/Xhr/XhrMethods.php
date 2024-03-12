@@ -4,7 +4,6 @@ namespace Foodsharing\Lib\Xhr;
 
 use Foodsharing\Lib\View\Utils;
 use Foodsharing\Modules\Core\Database;
-use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -41,16 +40,14 @@ class XhrMethods
         if (!$this->regionPermissions->mayAdministrateRegions()) {
             return;
         }
+        if (empty($data['name'])) {
+            return;
+        }
 
         $data['name'] = strip_tags((string)$data['name']);
         $data['name'] = str_replace(['/', '"', "'", '.', ';'], '', $data['name']);
         $data['has_children'] = 0;
-        $data['email_pass'] = '';
         $data['email_name'] = 'foodsharing ' . $data['name'];
-
-        if (empty($data['name'])) {
-            return;
-        }
 
         $out = $this->regionGateway->addRegion($data);
 
@@ -400,10 +397,10 @@ class XhrMethods
         $oldRegionData = $this->groupGateway->getGroupLegacy($regionId);
 
         if (strlen((string)$g_data['mailbox_name']) > 1) {
-            try {
-                $mbid = (int)$this->database->fetchValue('SELECT mailbox_id FROM fs_bezirk WHERE id = ?', [$regionId]);
+            $mbid = (int)$this->database->fetchValueById('fs_bezirk', 'mailbox_id', $regionId);
+            if ($mbid) {
                 $this->database->update('fs_mailbox', ['name' => strip_tags((string)$g_data['mailbox_name'])], ['id' => $mbid]);
-            } catch (DatabaseNoValueFoundException) {
+            } else {
                 $mbid = $this->database->insert('fs_mailbox', ['name' => strip_tags((string)$g_data['mailbox_name'])]);
                 $this->database->update('fs_bezirk', ['mailbox_id' => $mbid], ['id' => $regionId]);
             }

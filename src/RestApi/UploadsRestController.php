@@ -145,23 +145,14 @@ class UploadsRestController extends AbstractFOSRestController
             throw new BadRequestHttpException($error->getMessage());
         }
 
-        $temporaryFilePath = $temporaryFile->filePath;
-        $temporaryFileMimeType = $temporaryFile->mimeType;
-        $temporaryFileSize = $temporaryFile->fileSize;
-
-        $fileInfoFromDatabase = $this->uploadsGateway->addFile($this->session->id(), $temporaryFile->hashedBody, $temporaryFileSize, $temporaryFileMimeType);
-
-        if (!$fileInfoFromDatabase['isReuploaded']) {
-            $pathForPersistentFile = $this->uploadsTransactions->generateFilePath($fileInfoFromDatabase['uuid']);
-            $this->uploadsTransactions->moveTemporaryFileToPermanentLocation($temporaryFilePath, $pathForPersistentFile, $temporaryFileMimeType);
-        }
+        $fileInfoFromDatabase = $this->uploadsTransactions->uploadFile($temporaryFile);
 
         $view = $this->view([
             'url' => '/api/uploads/' . $fileInfoFromDatabase['uuid'],
             'uuid' => $fileInfoFromDatabase['uuid'],
             'filename' => $fileName,
-            'mimeType' => $temporaryFileMimeType,
-            'filesize' => $temporaryFileSize,
+            'mimeType' => $temporaryFile->mimeType,
+            'filesize' => $temporaryFile->fileSize,
         ], 200);
 
         return $this->handleView($view);

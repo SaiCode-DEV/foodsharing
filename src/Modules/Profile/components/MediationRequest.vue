@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
   <div class="m-2">
     <b-alert variant="info" show>
       <div v-if="hasLocalMediationGroup && mediationGroupEmail">

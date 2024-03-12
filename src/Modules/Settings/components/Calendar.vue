@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <div class="settings-calendar">
     <div class="head ui-widget-header">

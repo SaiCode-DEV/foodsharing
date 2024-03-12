@@ -4,7 +4,6 @@ namespace Foodsharing\Modules\Core;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
-use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\ImageHelper;
@@ -151,55 +150,6 @@ class View
 				' . $out . '
 			</ul>
 		</div>';
-    }
-
-    /**
-     * @deprecated use the Vue components LeafletLocationPicker and LeafletLocationSearch instead
-     */
-    public function latLonPicker(string $id, array $options = [], string $context = ''): string
-    {
-        if (!isset($options['location'])) {
-            $userLocation = $this->session->user('location') ?? new GeoLocation();
-            $data['lat'] = $userLocation->lat;
-            $data['lon'] = $userLocation->lon;
-        } else {
-            $data['lat'] = $options['location']['lat'];
-            $data['lon'] = $options['location']['lon'];
-        }
-
-        if (empty($data['lat']) || empty($data['lon'])) {
-            /* set empty coordinates, javascript will take over default location */
-            $data['lat'] = 0;
-            $data['lon'] = 0;
-        }
-
-        // Default to blank values for these keys
-        foreach (['anschrift', 'plz', 'ort'] as $key) {
-            if (!isset($options[$key])) {
-                $options[$key] = '';
-            }
-        }
-
-        $out = $this->v_utils->v_input_wrapper(
-            $this->translator->trans('addresspicker.label'),
-            '<div class="lat-lon-picker">' .
-                    $this->v_utils->v_info(
-                        $this->translator->trans('addresspicker.infobox')
-                        . ($context ? '<hr>' . $this->translator->trans('addresspicker.infobox' . $context) : '')
-                    ) .
-                '<input placeholder="' . $this->translator->trans('addresspicker.placeholder') . '" '
-                    . 'type="text" value="" id="addresspicker" type="text" class="input text value ui-corner-top" />
-		<div id="map" class="pickermap"></div>
-	</div>');
-        $out .=
-            $this->v_utils->v_form_text('anschrift', ['value' => $options['anschrift'], 'required' => '1']) .
-            $this->v_utils->v_form_text('plz', ['value' => $options['plz'], 'disabled' => '1', 'required' => '1']) .
-            $this->v_utils->v_form_text('ort', ['value' => $options['ort'], 'disabled' => '1', 'required' => '1']) .
-            $this->v_utils->v_form_text('lat', ['value' => $data['lat']]) .
-            $this->v_utils->v_form_text('lon', ['value' => $data['lon']]) .
-            '';
-
-        return $out;
     }
 
     public function vueComponent(string $id, string $component, array $props = [], array $data = []): string

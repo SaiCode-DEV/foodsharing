@@ -1,40 +1,26 @@
 <template>
   <div id="header">
     <span v-if="conversationId===null">{{ $i18n('chat.new_message') }}</span>
-    <a
-      v-else-if="storeId"
-      id="title"
-      :href="$url('store', storeId)"
-    >
-      {{ title }}
-    </a>
-    <span
-      v-else
-      id="title"
-    >
-      {{ title }}
-    </span>
-
+    <component
+      :is="storeId ? 'a' : 'span'"
+      class="mr-2"
+      :href="storeId ? $url('store', storeId) : ''"
+      v-text="title"
+    />
     <div class="images">
-      <a
+      <Avatar
         v-for="member in members"
         :key="member.id"
-        class="member-img"
-        :title="member.name"
-        :href="$url('profile', member.id)"
-      >
-        <Avatar
-          :url="member.avatar"
-          :size="24"
-          :auto-scale="false"
-        />
-      </a>
+        class="ml-1"
+        :user="member"
+        :size="24"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import Avatar from '@/components/Avatar.vue'
+import Avatar from '@/components/Avatar/Avatar.vue'
 
 // Stores
 import conversationStore from '@/stores/conversations'
@@ -59,7 +45,6 @@ export default {
       title: '',
       storeId: null,
       members: [],
-      defaultAvatar: '/img/mini_q_avatar.png',
     }
   },
   computed: {
@@ -84,14 +69,7 @@ export default {
       const conversation = await conversationStore.getConversation(this.conversationId)
       const otherMembers = conversation.members.filter(m => m !== this.currentUserId).slice(0, LIMIT_DISPLAYED_USERS)
 
-      this.members = otherMembers.map(member => {
-        const userProfile = ProfileStore.profiles[member]
-        return {
-          id: userProfile?.id,
-          name: userProfile?.name || this.$i18n('chat.unknown_username'),
-          avatar: userProfile?.avatar || this.defaultAvatar,
-        }
-      })
+      this.members = otherMembers.map(member => ProfileStore.profiles[member])
 
       this.title = conversation.title || this.members.map(member => member.name).join(', ')
       this.storeId = conversation.storeId

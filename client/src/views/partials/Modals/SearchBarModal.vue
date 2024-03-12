@@ -38,7 +38,7 @@
         />
       </div>
       <b-button
-        v-if="isOrga"
+        v-if="maySearchGlobal"
         v-b-tooltip.bottom.ds1000.hover="$i18n(`search.scope.${globalSearch ? 'global' : 'local'}`)"
         :variant="globalSearch ? 'danger' : 'outline-primary'"
         class="ml-2 p-0 global-search-btn"
@@ -47,9 +47,7 @@
         <i :class="{ fas: true, 'fa-globe': globalSearch, 'fa-street-view': !globalSearch }" />
       </b-button>
     </template>
-    <template
-      #default
-    >
+    <template #default>
       <SearchResults
         v-if="showResults"
         class="results"
@@ -57,10 +55,7 @@
         :is-loading="isLoading"
         @close="$refs.searchBarModal.hide"
       />
-      <div
-        v-else
-        class="alert alert-info"
-      >
+      <div v-else class="alert alert-info">
         <span v-text="$i18n('search.informations')" />
         <span
           v-if="idle && query.length"
@@ -140,25 +135,18 @@ export default {
     idle () {
       return this.recentQueryChangesCount === 0
     },
-    isOrga () {
-      return DataUser.getters.isOrga()
+    maySearchGlobal () {
+      return DataUser.getters.getUserDetails()?.permissions?.maySearchGlobal
     },
   },
   watch: {
-    strippedQuery (strippedQuery) {
-      // Require at least one word of length 3 or two of length 2:
-      const queryLengthScore = strippedQuery.split(' ').map(word => word.length - 1).reduce((a, b) => a + b)
-      if (queryLengthScore > 1) {
-        this.showResults = true
-        this.delayedFetch(strippedQuery)
-        return
-      }
-      clearTimeout(this.timeout)
-      this.showResults = false
-      this.isLoading = false
-      this.directSearchResults = null
+    globalSearch () {
+      this.refreshSearch()
     },
-    async query (query) {
+    strippedQuery () {
+      this.refreshSearch()
+    },
+    async query () {
       this.recentQueryChangesCount++
       await new Promise(resolve => window.setTimeout(resolve, 2000))
       this.recentQueryChangesCount--
@@ -170,7 +158,7 @@ export default {
       this.fetchIndex()
     },
     focusSearchbar () {
-      this.$refs.searchField.focus()
+      this.$refs.searchField.select()
     },
     delayedFetch (strippedQuery) {
       this.isLoading = true
@@ -206,6 +194,19 @@ export default {
     searchString (string, detailedSearch) {
       if (!detailedSearch) string = string.split('"!!!"')[0]
       return this.collateString(string)
+    },
+    refreshSearch () {
+      // Require at least one word of length 3 or two of length 2:
+      const queryLengthScore = this.strippedQuery.split(' ').map(word => word.length - 1).reduce((a, b) => a + b)
+      if (queryLengthScore > 1) {
+        this.showResults = true
+        this.delayedFetch(this.strippedQuery)
+        return
+      }
+      clearTimeout(this.timeout)
+      this.showResults = false
+      this.isLoading = false
+      this.directSearchResults = null
     },
   },
 }

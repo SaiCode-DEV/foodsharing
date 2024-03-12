@@ -3,17 +3,16 @@ import '@/core'
 import '@/globals'
 import 'jquery-tagedit'
 import 'jquery-tagedit-auto-grow-input'
-import 'jquery-jcrop'
-import { attachAddressPicker } from '@/addressPicker'
 import { vueApply, vueRegister } from '@/vue'
 import { GET } from '@/browser'
-import AvatarList from '@/components/AvatarList'
+import AvatarList from '@/components/Avatar/AvatarList'
 import Wall from '@/components/Wall/Wall'
 
 import './FoodSharePoint.css'
 
 // Wallpost
 import AddressField from './components/AddressField'
+import LeafletLocationSearchVForm from '@/components/map/LeafletLocationSearchVForm'
 
 vueRegister({
   AvatarList,
@@ -23,7 +22,8 @@ vueRegister({
 
 const sub = GET('sub')
 if (sub === 'add' || sub === 'edit') {
-  attachAddressPicker()
+  vueRegister({ LeafletLocationSearchVForm })
+  vueApply('#foodsharepoint-address-search')
   vueApply('#image-upload')
 } else if (sub === 'ft') {
   vueApply('#vue-wall')

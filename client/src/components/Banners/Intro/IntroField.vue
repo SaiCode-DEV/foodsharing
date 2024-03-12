@@ -1,20 +1,11 @@
 <template>
-  <div
-    v-if="user"
-    class="introfield"
-  >
-    <a
-      v-if="user"
-      :href="$url('profile', user.id)"
-      class="introfield__avatar"
-    >
-      <Avatar
-        :url="getAvatar"
-        :is-sleeping="isSleeping"
-        :size="50"
-        style="max-width: 50px;"
-      />
-    </a>
+  <div v-if="user" class="introfield">
+    <Avatar
+      :user="{ ...user, isSleeping }"
+      :size="50"
+      class="mr-2"
+    />
+
     <div class="introfield__content">
       <h3
         class="introfield__title testing-intro-field"
@@ -43,19 +34,13 @@
     </div>
   </div>
 </template>
-
 <script>
-// Stores
 import { getters } from '@/stores/user'
-// Components
-import Avatar from '@/components/Avatar'
-// Mixins
+import Avatar from '@/components/Avatar/Avatar.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
 export default {
-  components: {
-    Avatar,
-  },
+  components: { Avatar },
   mixins: [MediaQueryMixin],
   props: {
     title: { type: String, default: 'dashboard.my.regions' },
@@ -77,9 +62,6 @@ export default {
       }
       return null
     },
-    getAvatar () {
-      return getters.getAvatar()
-    },
     isFoodsaver () {
       return getters.isFoodsaver()
     },
@@ -99,11 +81,6 @@ export default {
 
   display: flex;
   align-items: center;
-}
-
-.introfield__avatar {
-  @extend .img-thumbnail;
-  margin-right: 1rem;
 }
 
 .introfield__title {

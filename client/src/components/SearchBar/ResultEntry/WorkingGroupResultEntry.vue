@@ -33,13 +33,11 @@
         />
       </small>
     </div>
-    <AvatarStack
-      :registered-users="workingGroup.admins"
-    />
+    <AvatarStack :users="workingGroup.admins" />
   </a>
 </template>
 <script>
-import AvatarStack from '@/components/AvatarStack.vue'
+import AvatarStack from '@/components/Avatar/AvatarStack.vue'
 import DataUser from '@/stores/user'
 
 export default {

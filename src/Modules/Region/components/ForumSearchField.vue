@@ -1,8 +1,5 @@
 <template>
-  <div
-    id="forum-search"
-    class="form m-2"
-  >
+  <div id="forum-search" class="form m-2">
     <div
       ref="foruminputgroup"
       class="input-group input-group-sm"
@@ -19,10 +16,7 @@
             src="/img/469.gif"
             alt="loading"
           >
-          <i
-            v-else
-            class="fas fa-search"
-          />
+          <i v-else class="fas fa-search" />
         </label>
       </span>
       <input
@@ -35,10 +29,7 @@
         aria-placeholder=""
       >
     </div>
-    <div
-      v-if="isOpen"
-      id="forum-search-results"
-    >
+    <div v-if="isOpen" id="forum-search-results">
       <forum-search-results
         :threads="threads || []"
         :group-id="groupId"

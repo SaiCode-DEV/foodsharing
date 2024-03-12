@@ -17,7 +17,6 @@ use Foodsharing\Permissions\ReportPermissions;
 use Foodsharing\Permissions\VotingPermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
 use Foodsharing\Utility\DataHelper;
-use Foodsharing\Utility\ImageHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,7 +34,6 @@ final class RegionController extends FoodsharingController
         private readonly RegionPermissions $regionPermissions,
         private readonly ForumTransactions $forumTransactions,
         private readonly RegionGateway $gateway,
-        private readonly ImageHelper $imageService,
         private readonly VotingPermissions $votingPermissions,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly StoreGateway $storeGateway,
@@ -128,7 +126,7 @@ final class RegionController extends FoodsharingController
         $avatarListEntry = fn ($fs) => new Profile(
             $fs['id'],
             $fs['name'],
-            $this->imageService->img($fs['photo'], 50, 'q'),
+            $fs['photo'],
             (int)$this->dataHelper->parseSleepingState($fs['sleep_status'], $fs['sleep_from'], $fs['sleep_until'])
         );
 

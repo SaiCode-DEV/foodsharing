@@ -1,20 +1,14 @@
 <template>
   <div class="banana-container d-flex my-1 py-2">
-    <a
-      v-b-tooltip.hover="$i18n('profile.go')"
-      :href="$url('profile', authorId)"
-    >
-      <Avatar
-        :url="avatar"
-        :size="50"
-        class="member-pic mt-1 pr-2 pt-1"
-        :auto-scale="false"
-      />
-    </a>
+    <Avatar
+      :user="author"
+      :size="50"
+      class="mt-1 pr-2 pt-1"
+    />
     <div>
       <div class="time p-1">
-        <a :href="$url('profile', authorId)">
-          {{ authorName }}
+        <a :href="$url('profile', author.id)">
+          {{ author.name }}
         </a>
         <i class="fas fa-fw fa-angle-right" />
         {{ $dateFormatter.date(when) }}
@@ -34,7 +28,7 @@
 </template>
 
 <script>
-import Avatar from '@/components/Avatar'
+import Avatar from '@/components/Avatar/Avatar.vue'
 import { deleteBanana } from '@/api/profile'
 import { hideLoader, pulseError, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
@@ -45,9 +39,7 @@ export default {
   mixins: [ConfirmationDialogue],
   props: {
     recipientId: { type: Number, required: true },
-    authorId: { type: Number, required: true },
-    authorName: { type: String, default: '' },
-    avatar: { type: String, default: '' },
+    author: { type: Object, required: true },
     createdAt: { type: String, required: true },
     text: { type: String, default: '' },
     canRemove: { type: Boolean, default: false },
@@ -65,7 +57,7 @@ export default {
       if (!await this.confirmationDialogue('profile.banana.remove.confirm_message')) return
       showLoader()
       try {
-        await deleteBanana(this.recipientId, this.authorId)
+        await deleteBanana(this.recipientId, this.author.id)
         location.reload()
       } catch (e) {
         pulseError(i18n('error_unexpected'))
@@ -79,11 +71,6 @@ export default {
 <style lang="scss" scoped>
 .banana-container {
   border-top: 1px solid var(--fs-border-default);
-
-  .member-pic ::v-deep img {
-    width: 50px;
-    height: 50px;
-  }
 
   .msg {
     white-space: pre-line;

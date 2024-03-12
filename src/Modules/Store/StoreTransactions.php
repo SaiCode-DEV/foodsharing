@@ -7,6 +7,7 @@ use DateTime;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
+use Foodsharing\Modules\Bell\BellTransactions;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
@@ -64,6 +65,7 @@ class StoreTransactions
         private readonly StoreGateway $storeGateway,
         private readonly TranslatorInterface $translator,
         private readonly BellGateway $bellGateway,
+        private readonly BellTransactions $bellTransactions,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly RegionGateway $regionGateway,
         private readonly Sanitizer $sanitizerService,
@@ -706,7 +708,7 @@ class StoreTransactions
 
         $this->storeGateway->addStoreLog($storeId, $userId, null, null, StoreLogAction::REQUEST_TO_JOIN);
 
-        $this->notifyStoreManagersAboutRequest($storeId, $userId);
+        $this->notifyStoreManagersAboutRequest($storeId);
     }
 
     /**
@@ -863,30 +865,30 @@ class StoreTransactions
     }
 
     // notify people who can do something with the request: store managers, region ambassadors, or orga
-    private function notifyStoreManagersAboutRequest(int $storeId, int $userId): void
+    private function notifyStoreManagersAboutRequest(int $storeId): void
     {
         $bellRecipients = $this->storeGateway->getBiebsForStore($storeId);
-        if (!$bellRecipients) {
+        if (!count($bellRecipients)) {
             $regionId = $this->storeGateway->getStoreRegionId($storeId);
-            $ambassadors = $this->foodsaverGateway->getAdminsOrAmbassadors($regionId);
-
-            if ($ambassadors) {
-                $bellRecipients = array_column($ambassadors, 'id');
-            } else {
-                $bellRecipients = $this->foodsaverGateway->getOrgaTeam();
-            }
+            $bellRecipients = $this->foodsaverGateway->getAdminsOrAmbassadors($regionId);
         }
-
+        if (!count($bellRecipients)) {
+            $bellRecipients = $this->foodsaverGateway->getOrgaTeam();
+        }
         $storeName = $this->storeGateway->getStoreName($storeId);
 
-        $bellData = Bell::create('store_new_request_title', 'store_new_request', 'fas fa-user-plus', [
-            'href' => '/store/' . $storeId . '?showTeamRequests',
-        ], [
-            'user' => $this->session->user('name'),
-            'name' => $storeName,
-        ], BellType::createIdentifier(BellType::NEW_STORE_REQUEST, $storeId));
+        $baseBell = Bell::create(
+            'store_new_request_title',
+            'new_store_request',
+            'fas fa-user-plus',
+            ['href' => '/store/' . $storeId . '?showTeamRequests'], [
+                'user' => $this->session->user('name'),
+                'name' => $storeName,
+            ],
+            BellType::createIdentifier(BellType::NEW_STORE_REQUEST, $storeId)
+        );
 
-        $this->bellGateway->addBell($bellRecipients, $bellData);
+        $this->bellTransactions->addGroupedBellEvent(array_column($bellRecipients, 'id'), $baseBell, $storeId);
     }
 
     private function triggerBellForJoining(int $storeId, int $userId, int $actionType): void
@@ -929,17 +931,17 @@ class StoreTransactions
 
     public function triggerBellForRegularPickupChanged(int $storeId)
     {
-        $storeName = $this->storeGateway->getStoreName($storeId);
+        $teamIds = array_column($this->storeGateway->getStoreTeam($storeId), 'id');
+        $teamWithoutPostAuthor = array_diff($teamIds, [$this->session->id()]);
 
-        $team = $this->storeGateway->getStoreTeam($storeId);
-        $team = array_map(fn ($foodsaver) => $foodsaver['id'], $team);
-        $bellData = Bell::create('store_cr_times_title', 'store_cr_times', 'fas fa-user-clock', [
+        $baseBell = Bell::create('store_cr_times_title', 'store_change_regular_pickup_times', 'fas fa-user-clock', [
             'href' => '/?page=fsbetrieb&id=' . $storeId,
         ], [
             'user' => $this->session->user('name'),
-            'name' => $storeName,
+            'name' => $this->storeGateway->getStoreName($storeId),
         ], BellType::createIdentifier(BellType::STORE_TIME_CHANGED, $storeId));
-        $this->bellGateway->addBell($team, $bellData);
+
+        $this->bellTransactions->addGroupedBellEvent($teamWithoutPostAuthor, $baseBell, 0);
     }
 
     /**

@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/max-attributes-per-line -->
 <template>
   <div>
     <div class="head ui-widget-header">
@@ -15,12 +14,24 @@
             {{ $i18n('notifications.chat.description') }}
           </b-col>
           <b-col lg="1" />
-          <b-col cols="4" lg="2" class="pt-1">
-            <b-form-checkbox id="infomail_message" v-model="infoMailState" size="sm">
+          <b-col
+            cols="4"
+            lg="2"
+            class="pt-1"
+          >
+            <b-form-checkbox
+              id="infomail_message"
+              v-model="infoMailState"
+              size="sm"
+            >
               {{ $i18n('notifications.checkbox_email') }}
             </b-form-checkbox>
           </b-col>
-          <b-col cols="4" lg="3" class="pt-1">
+          <b-col
+            cols="4"
+            lg="3"
+            class="pt-1"
+          >
             <b-form-checkbox
               v-if="getPushNotificationState === null || getPushNotificationState === true"
               v-model="getPushNotificationState"
@@ -42,21 +53,52 @@
           >
             {{ $i18n('notifications.foodSharePoints.description') }}
             <div>
-              <b-button class="mt-2" size="sm" variant="outline-primary" :disabled="currentFoodSharePoints.length <= 0" @click="toogleFoodSharePointDetails">
+              <b-button
+                class="mt-2"
+                size="sm"
+                variant="outline-primary"
+                :disabled="currentFoodSharePoints.length <= 0"
+                @click="toogleFoodSharePointDetails"
+              >
                 {{ $i18n('notifications.config_button') }}
               </b-button>
             </div>
           </b-col>
-          <b-col cols="4" lg="1" class="pt-1">
-            <b-form-checkbox v-model="isFoodSharePointGlobalNotificationActive" switch size="sm" @change="toggleFoodSharePointGlobalNotification" />
+          <b-col
+            cols="4"
+            lg="1"
+            class="pt-1"
+          >
+            <b-form-checkbox
+              v-model="isFoodSharePointGlobalNotificationActive"
+              switch
+              size="sm"
+              @change="toggleFoodSharePointGlobalNotification"
+            />
           </b-col>
-          <b-col cols="4" lg="2" class="pt-1">
-            <b-form-checkbox v-model="isFoodSharePointGlobalEmailNotificationActive" size="sm" @change="toggleFoodSharePointGlobalEmailNotification">
+          <b-col
+            cols="4"
+            lg="2"
+            class="pt-1"
+          >
+            <b-form-checkbox
+              v-model="isFoodSharePointGlobalEmailNotificationActive"
+              size="sm"
+              @change="toggleFoodSharePointGlobalEmailNotification"
+            >
               {{ $i18n('notifications.checkbox_email') }}
             </b-form-checkbox>
           </b-col>
-          <b-col cols="4" lg="3" class="pt-1">
-            <b-form-checkbox v-model="isFoodSharePointGlobalBellNotificationActive" size="sm" @change="toggleFoodSharePointGlobalBellNotification">
+          <b-col
+            cols="4"
+            lg="3"
+            class="pt-1"
+          >
+            <b-form-checkbox
+              v-model="isFoodSharePointGlobalBellNotificationActive"
+              size="sm"
+              @change="toggleFoodSharePointGlobalBellNotification"
+            >
               {{ $i18n('notifications.checkbox_bell') }}
             </b-form-checkbox>
           </b-col>
@@ -93,13 +135,23 @@
             lg="5"
           >
             <div>
-              <b-button class="mt-2" size="sm" variant="outline-primary" :disabled="currentThreads.length <= 0" @click="toogleThreadsDetails">
+              <b-button
+                class="mt-2"
+                size="sm"
+                variant="outline-primary"
+                :disabled="currentThreads.length <= 0"
+                @click="toogleThreadsDetails"
+              >
                 {{ $i18n('notifications.config_button') }}
               </b-button>
             </div>
           </b-col>
           <b-col cols="6" lg="2">
-            <b-form-checkbox v-model="isThreadsPointGlobalEmailNotificationActive" size="sm" @change="toggleThreadsGlobalEmailNotification">
+            <b-form-checkbox
+              v-model="isThreadsPointGlobalEmailNotificationActive"
+              size="sm"
+              @change="toggleThreadsGlobalEmailNotification"
+            >
               {{ $i18n('notifications.checkbox_email') }}
             </b-form-checkbox>
           </b-col>
@@ -136,13 +188,23 @@
             lg="5"
           >
             <div>
-              <b-button class="mt-2" size="sm" variant="outline-primary" :disabled="currentRegions.length <= 0" @click="toogleRegionsDetails">
+              <b-button
+                class="mt-2"
+                size="sm"
+                variant="outline-primary"
+                :disabled="currentRegions.length <= 0"
+                @click="toogleRegionsDetails"
+              >
                 {{ $i18n('notifications.config_button') }}
               </b-button>
             </div>
           </b-col>
           <b-col cols="6" lg="2">
-            <b-form-checkbox v-model="isRegionsPointGlobalEmailNotificationActive" size="sm" @change="toggleRegionsGlobalEmailNotification">
+            <b-form-checkbox
+              v-model="isRegionsPointGlobalEmailNotificationActive"
+              size="sm"
+              @change="toggleRegionsGlobalEmailNotification"
+            >
               {{ $i18n('notifications.checkbox_email') }}
             </b-form-checkbox>
           </b-col>
@@ -179,13 +241,23 @@
             lg="5"
           >
             <div>
-              <b-button class="mt-2" size="sm" variant="outline-primary" :disabled="currentGroups.length <= 0" @click="toogleGroupsDetails">
+              <b-button
+                class="mt-2"
+                size="sm"
+                variant="outline-primary"
+                :disabled="currentGroups.length <= 0"
+                @click="toogleGroupsDetails"
+              >
                 {{ $i18n('notifications.config_button') }}
               </b-button>
             </div>
           </b-col>
           <b-col cols="6" lg="2">
-            <b-form-checkbox v-model="isGroupsGlobalEmailNotificationActive" size="sm" @change="toggleGroupsGlobalEmailNotification">
+            <b-form-checkbox
+              v-model="isGroupsGlobalEmailNotificationActive"
+              size="sm"
+              @change="toggleGroupsGlobalEmailNotification"
+            >
               {{ $i18n('notifications.checkbox_email') }}
             </b-form-checkbox>
           </b-col>
@@ -224,14 +296,22 @@
             {{ $i18n('notifications.newsletter.description') }}
           </b-col>
           <b-col cols="4" lg="6">
-            <b-form-checkbox v-model="newsletterState " name="newsletter" size="sm">
+            <b-form-checkbox
+              v-model="newsletterState "
+              name="newsletter"
+              size="sm"
+            >
               {{ $i18n('notifications.checkbox_email') }}
             </b-form-checkbox>
           </b-col>
         </b-row>
       </div>
 
-      <b-button size="sm" variant="primary" @click="updateNotificationSettings">
+      <b-button
+        size="sm"
+        variant="primary"
+        @click="updateNotificationSettings"
+      >
         {{ $i18n('globals.save') }}
       </b-button>
     </div>

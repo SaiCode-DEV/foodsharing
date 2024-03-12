@@ -1,13 +1,26 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
   <div class="release-entry">
     <b-card no-body class="mb-1">
-      <b-card-header header-tag="header" class="p-1" role="tab">
-        <b-button v-b-toggle="releaseId" class="release-toggle" :data-id="releaseId" variant="light" block>
+      <b-card-header
+        header-tag="header"
+        class="p-1"
+        role="tab"
+      >
+        <b-button
+          v-b-toggle="releaseId"
+          class="release-toggle"
+          :data-id="releaseId"
+          variant="light"
+          block
+        >
           {{ releaseTitle }}
         </b-button>
       </b-card-header>
-      <b-collapse :id="releaseId" :visible="isVisible" role="tabpanel">
+      <b-collapse
+        :id="releaseId"
+        :visible="isVisible"
+        role="tabpanel"
+      >
         <b-card-body>
           <b-card-text>
             <Markdown :source="markdownContent" />

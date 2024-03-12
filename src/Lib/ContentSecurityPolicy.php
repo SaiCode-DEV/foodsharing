@@ -51,7 +51,6 @@ class ContentSecurityPolicy
                 'data:',
                 'https:',
                 'blob:',
-                'blob:http:'
             ],
             'media-src' => [
                 $self

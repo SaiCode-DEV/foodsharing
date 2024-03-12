@@ -6,6 +6,9 @@
 - Added a map link to store pages !3113 @AntonBallmaier
 - Added a map to the foodsharepoint page #1035 !3097 @alex.simm
 - Users can be linked in markdown using @`<userId>` now #1850 @AntonBallmaier
+- Added an Info vue commonent for explainin parts of the website. #1852 !3181 @AntonBallmaier
+- Group different bell events, like it is done for the forum !3073 @AntonBallmaier
+- Added an info box for ambassadors to make sure the user name field is not misused #204 !3204 @AntonBallmaier
 
 ## Changes
 - Improves the BBB integration !3050 @stcz
@@ -14,6 +17,8 @@
 - Minor improvements in the mailbox frontend #1668 !3108 @alex.simm
 - The contact pages are merged into one, and the content is automated. !3143 !3174 !3176 @AntonBallmaier
 - Delete uploaded photos when they are not used anymore #1182 !3121 @alex.simm
+- Improved search #1728 !3150 @AntonBallmaier
+- Strip EXIF data from uploaded PNG files #375 !3151 @alex.simm
 - Users can only be added to a store if they are already in that region #20 !3180 @alex.simm
 
 ## Bugfixes
@@ -22,6 +27,9 @@
 - Fixed link to region page in name change modal !3125 @chriswalg
 - Fixed images breaking markdown layout !3144 @AntonBallmaier
 - Added .network as top level domain recognized in markdown link parsing !3179 @AntonBallmaier
+- Improve SQL performance for search of near baskets !3185 @KoeMai
+- Fixed creating and editing region mailboxes for orga users !3182 @AntonBallmaier 
+- Improved permission checks for event creation #489 !3187 @alex.simm
 
 ## Refactoring
 - Switched Annotation to Attributes, implements Test and general code style adjust for Activity REST Endpoint !2975 !3090 @BibaltiK
@@ -34,10 +42,10 @@
 - Remove not used mail session variables !3147 !3158 @KoeMai
 - Replace Role-class by Role-Enum and remove need of fAuthentication !3078 !3120 !3123 !3122 @KoeMai
 - Added a missing bell type !3022 @alex.simm
-- Rebuild the wall using vue #45 #1800 #1830 !3045 !3112 @AntonBallmaier
+- Rebuild the wall using vue #45 #1800 #1830 !3045 !3112 !3135 @AntonBallmaier
 - Avoid access to global $_SESSION !3099 @KoeMai
-- Refactor region page to vue !2794 @chriswalg
-- New map bubble for stores in Vue !2988 !3128 !3166 @alex.simm
+- Refactor region page to vue !2794 !3157 @chriswalg
+- New map bubble for stores in Vue !2988 !3128 !3166 !3201 @alex.simm
 - Renamed bezirk to region in urls helper !3126 @chriswalg
 - Prepared for removal of run.php in favor of Symfony's console !3118 @\_fridtjof_
 - Modernized BlogControl to a Symfony controller !3096 @\_fridtjof_
@@ -49,9 +57,13 @@
 - REST endpoint for editing content entries !3098 @alex.simm
 - Created confirmationDialogue mixin !3140 @AntonBallmaier
 - Removed unused event invitation code #1739 !3149 @AntonBallmaier
+- Removed duplicate region member page and profile XHR !3169 @AntonBallmaier
+- Modernized StoreControl to a Symfony controller !3160 @chriswalg
 - Move Workgroup is Admin Check method from session to module #1769 !3168 @KoeMai
-- Move location information in session to user #1769 !3148 @KoeMai
+- Move location information in session to user #1769 !3148 !3185 @KoeMai
 - Remove unused variables from session #1769 !3161  @KoeMai
+- Replaced every usage of the Lat-lon-picker with the Vue leaflet component !3185 @alex.simm 
+- Improved Avatar component !3155 !3189 @AntonBallmaier
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm
@@ -64,6 +76,11 @@
 - Upgraded PHPUnit to version 10 !3092 @\_fridtjof_
 - Upgraded to Symfony 6.4 !3129 @\_fridtjof_
 - Work around a bug in Sentry's query profiling integration !3133 @\_fridtjof_
+- Allow more attributes per line in vue #1848 !3175 @AntonBallmaier
+- Added profile pictures to seed data #738 !3172 @AntonBallmaier
+- Removed the obsolete jquery-jcrop package #1047 !3192 @alex.simm
+- Fixed the outdated notification job !3214 !3215 @\_fridtjof_
+- Optimized client bundle size !3216 @\_fridtjof_
 
 ## Development documentation
 

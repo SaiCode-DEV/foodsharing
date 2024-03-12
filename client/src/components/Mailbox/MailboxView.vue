@@ -85,10 +85,7 @@
         <div v-else>
           {{ $i18n('mailbox.empty') }}
         </div>
-        <div
-          v-if="emailId"
-          class="border p-2"
-        />
+        <div v-if="emailId" class="border p-2" />
       </div>
     </Container>
   </div>

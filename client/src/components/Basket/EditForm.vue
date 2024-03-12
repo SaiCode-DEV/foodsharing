@@ -1,11 +1,19 @@
 <template>
-  <!-- eslint-disable vue/max-attributes-per-line -->
   <div>
-    <b-button v-if="mayEdit" v-b-modal="'addBasketModal'" block variant="primary">
+    <b-button
+      v-if="mayEdit"
+      v-b-modal="'addBasketModal'"
+      block
+      variant="primary"
+    >
       <i class="fas fa-pen" />
       {{ $i18n('basket.edit') }}
     </b-button>
-    <b-button block variant="outline-danger" @click="deleteBasket">
+    <b-button
+      block
+      variant="outline-danger"
+      @click="deleteBasket"
+    >
       <i class="fas fa-trash" />
       {{ $i18n('basket.delete') }}
     </b-button>

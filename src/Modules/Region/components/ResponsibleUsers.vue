@@ -14,7 +14,7 @@
 
 <script>
 import Container from '@/components/Container/Container.vue'
-import AvatarList from '@/components/AvatarList.vue'
+import AvatarList from '@/components/Avatar/AvatarList.vue'
 
 export default {
   components: { AvatarList, Container },

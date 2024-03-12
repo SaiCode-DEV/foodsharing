@@ -62,7 +62,7 @@ class CurrentUserApiCest
     public function getStoreNoTeamMembership(ApiTester $I): void
     {
         $I->login($this->user[self::EMAIL]);
-        $I->sendGet(self::API_USER . '/current/stores');
+        $I->sendGet(self::API_USER . '/' . $this->user['id'] . '/stores');
         $I->seeResponseCodeIs(Http::NO_CONTENT);
     }
 
@@ -138,7 +138,7 @@ class CurrentUserApiCest
 
         // Run
         $I->login($this->user[self::EMAIL]);
-        $I->sendGet(self::API_USER . '/current/stores');
+        $I->sendGet(self::API_USER . '/' . $this->user['id'] . '/stores');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
 

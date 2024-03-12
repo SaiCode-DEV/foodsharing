@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import {
-  listStoresForCurrentUser,
+  listStoresForUser,
   getStoreMetaData,
   getStoreMember,
   getStoreInformation,
@@ -140,12 +140,12 @@ export const mutations = {
    *  TODO: refactor this store further
    * @deprecated use stores/store.js instead
    */
-  async fetch (force = false) {
+  async fetch (force = false, userId) {
     if (!store.length || force) {
       // this method actually does not what it says, I fixed it.
       // But in the navigation and dashboard status box it seems useful to only show "active" stores.
       // For now we can give an additional parameter to filter out "unactive" stores, like before
-      store.stores = await listStoresForCurrentUser(true)
+      store.stores = await listStoresForUser(true, userId)
       store.metadata = await getStoreMetaData()
     }
   },

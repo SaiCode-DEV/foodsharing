@@ -118,7 +118,7 @@ dashboard:
   source_event: 'Cita {0}'
   source_mailbox: '{0}'
   updates_title_some: 'Resumen de actualizaciones ({0})'
-  invitationCount: 'Invitaciones abiertas ({0})'
+  invitationCount: 'Invitaciones abiertas ({count})'
   settings: 'Ajustes'
   settings_tooltip: 'Configuración del panel'
   foodsaver_amount: 'Recogiste <b>{pickups} x</b> alimentos y salvado <b>{weight} kg</b>.'
@@ -167,6 +167,8 @@ search:
       member_tooltip: Eres miembro de este distrito
     user:
       no_home_region: Ningún distrito de origen
+      copy_id: Copiar ID
+      copied_id: ID de Foodsaver copiado de {name} ({id})
   maxresults: El número de resultados mostrados es limitado. Quizás utilice un término
     de búsqueda más específico.
   too_short: Por favor ingrese un término de búsqueda más largo.
@@ -1036,6 +1038,7 @@ button:
   permadelete: 'borrar permanentemente'
   reset_default: Restablecer valor predeterminado
   prev: Volver
+  close: Cerrar
 pass:
   nav:
     options: 'Opciones'
@@ -1375,6 +1378,7 @@ store:
     modal_title: Seleccionar cadena operativa
     search_input: Buscar por nombre de la cadena
   to_map: Mostrar en el mapa
+  storeFrom: Operación de {name}
 pickup:
   overview:
     status:
@@ -1910,6 +1914,12 @@ profile:
   reportRequest: 'Hacer una queja'
   orga_rights: Como miembro de la organización {name} <a target="_blank" href="{wikiurl}">permisos
     plenos</a> en ella.
+  editNameInfo: Tenga en cuenta que los campos de nombre y apellidos sólo deben utilizarse
+    para el nombre de la persona. No utilice este campo para almacenar más información
+    sobre el usuario, como por ejemplo la realización de cursos de higiene o similares,
+    sino que se pueden utilizar grupos de trabajo para realizar dichas tareas. Encontrará
+    más información al respecto en <a href="/region?bid=881&sub=forum&tid=58225">Foro
+    de Embajador@s</a>
 home:
   title: 'Pagina de inicio'
   home: 'Inicio'
@@ -3633,3 +3643,25 @@ donation_banner:
   info_button: ¿A dónde va mi donación?
   action_button: ¡Dona aquí!
   amount: Nivel de donación
+help:
+  helpTitle: 'Ayuda: {title}'
+  tooltip: Mostrar la ayuda
+  key:
+    storeLog:
+      title: Registro de las operaciones
+      md: "El registro de operaciones es una forma de hacer un seguimiento de las
+        **actividades de una explotación**. Podrá:\nayudar a resolver conflictos o
+        corregir errores accidentales.\n---\n###### Ejemplo\nSupongamos que quieres
+        saber quién se unió al equipo en las últimas tres semanas.\nA continuación,
+        puedes definir el período usando las fechas de inicio y finalización en los
+        dos campos de fecha.\nA continuación, puedes seleccionar todos los tipos de
+        acciones relevantes en el menú desplegable. En este caso:\nPor ejemplo, \"\
+        *presentar solicitudes de adhesión*\", \"*aceptar solicitudes de adhesión*\"\
+        \ y \"*rechazar solicitudes de adhesión*\".\nAhora, si haces clic en el botón
+        \"*Seleccionar Mostrar Acciones*\", te mostraremos un historial de los eventos
+        seleccionados.\n---\n###### Acceso\nSólo puede acceder a ella quien sea capaz
+        de administrar la explotación. Para Foodsaver y Springer normales:ins\nno
+        se puede ver el registro de operaciones.\n---\n###### Restricciones\nSe cargarán
+        un máximo de 100 entradas. Puede que tengas que limitar el periodo de búsqueda
+        o los tipos de acciones seleccionados si no se muestran todos los eventos.
+        \n"

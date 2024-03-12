@@ -22,8 +22,8 @@ class SearchGateway extends BaseGateway
     private const MAX_CHATS_IN_SEARCH_INDEX_COUNT = 50;
     private const MAX_THREADS_IN_SEARCH_INDEX_COUNT = 200;
     private const SEARCH_CRITERIA = [
-        'regions' => ['basic' => ['region.name', 'region.email']],
-        'workingGroups' => ['basic' => ['region.name', 'region.email', 'parent.name']],
+        'regions' => ['basic' => ['region.name', 'IFNULL(mailbox.name, "")']],
+        'workingGroups' => ['basic' => ['region.name', 'IFNULL(mailbox.name, "")', 'parent.name']],
         'stores' => [
             'basic' => ['store.name', 'IFNULL(chain.name, "")'],
             'detailed' => ['store.str', 'store.plz', 'store.stadt', 'region.name'],
@@ -64,7 +64,7 @@ class SearchGateway extends BaseGateway
         $regions = $this->db->fetchAll("SELECT
                 region.id,
                 region.name,
-                region.email,
+                mailbox.name AS email,
                 parent.id AS parent_id,
                 parent.name AS parent_name,
                 GROUP_CONCAT(foodsaver.id) AS ambassador_ids,
@@ -76,6 +76,7 @@ class SearchGateway extends BaseGateway
             LEFT OUTER JOIN fs_botschafter ambassador ON ambassador.bezirk_id = region.id
             LEFT OUTER JOIN fs_foodsaver foodsaver ON foodsaver.id = ambassador.foodsaver_id
             LEFT OUTER JOIN fs_foodsaver_has_bezirk has_region ON has_region.bezirk_id = region.id AND has_region.foodsaver_id = ?
+            LEFT OUTER JOIN fs_mailbox mailbox ON mailbox.id = region.mailbox_id
             WHERE region.type != {$workingGroupType}
             AND region.id != {$rootRegionId}
             AND {$searchClauses}
@@ -102,7 +103,7 @@ class SearchGateway extends BaseGateway
         $regions = $this->db->fetchAll("SELECT
                 region.id,
                 region.name,
-                region.email,
+                mailbox.name AS email,
                 parent.id AS parent_id,
                 parent.name AS parent_name,
                 GROUP_CONCAT(foodsaver.id) AS ambassador_ids,
@@ -115,6 +116,7 @@ class SearchGateway extends BaseGateway
             LEFT OUTER JOIN fs_bezirk parent ON parent.id = region.parent_id
             LEFT OUTER JOIN fs_botschafter ambassador ON ambassador.bezirk_id = region.id
             LEFT OUTER JOIN fs_foodsaver foodsaver ON foodsaver.id = ambassador.foodsaver_id
+            LEFT OUTER JOIN fs_mailbox mailbox ON mailbox.id = region.mailbox_id
             WHERE region.type != {$workingGroupType}
             AND region.id != {$rootRegionId}
             GROUP BY region.id
@@ -141,7 +143,7 @@ class SearchGateway extends BaseGateway
         $workingGroups = $this->db->fetchAll("SELECT
                 region.id,
                 region.name,
-                region.email,
+                mailbox.name AS email,
                 parent.id AS parent_id,
                 parent.name AS parent_name,
                 has_region.active AS is_member,
@@ -155,6 +157,7 @@ class SearchGateway extends BaseGateway
             LEFT OUTER JOIN fs_foodsaver_has_bezirk has_parent_region ON has_parent_region.bezirk_id = parent.id AND has_parent_region.foodsaver_id = ?
             LEFT OUTER JOIN fs_botschafter ambassador ON ambassador.bezirk_id = region.id
             LEFT OUTER JOIN fs_foodsaver foodsaver ON foodsaver.id = ambassador.foodsaver_id
+            LEFT OUTER JOIN fs_mailbox mailbox ON mailbox.id = region.mailbox_id
             WHERE region.type = {$workingGroupType}
             {$membershipCheck}
             AND {$searchClauses}
@@ -180,7 +183,7 @@ class SearchGateway extends BaseGateway
         $workingGroups = $this->db->fetchAll("SELECT
                 region.id,
                 region.name,
-                region.email,
+                mailbox.name AS email,
                 parent.id AS parent_id,
                 parent.name AS parent_name,
                 has_region.active AS is_member,
@@ -195,6 +198,7 @@ class SearchGateway extends BaseGateway
             LEFT OUTER JOIN fs_foodsaver_has_bezirk has_parent_region ON has_parent_region.bezirk_id = parent.id AND has_parent_region.foodsaver_id = ?
             LEFT OUTER JOIN fs_botschafter ambassador ON ambassador.bezirk_id = region.id
             LEFT OUTER JOIN fs_foodsaver foodsaver ON foodsaver.id = ambassador.foodsaver_id
+            LEFT OUTER JOIN fs_mailbox mailbox ON mailbox.id = region.mailbox_id
             WHERE region.type = {$workingGroupType}
             GROUP BY region.id
             ORDER BY is_admin DESC, is_member DESC, name ASC

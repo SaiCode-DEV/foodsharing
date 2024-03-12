@@ -9,17 +9,12 @@
     <span
       class="d-flex justify-content-between align-items-center text-truncate"
     >
-      <div class="icon icon--rounded mr-2 d-flex text-center justifiy-content-center align-items-center">
-        <img
-          v-if="basket.picture"
-          class="icon icon--big icon--rounded img-thumbnail d-flex align-items-center justify-content-center"
-          :src="getImageUrl(basket.picture)"
-        >
-        <i
-          v-else
-          class="fas fa-shopping-basket icon icon--big d-flex img-thumbnail align-items-center justify-content-center"
-        />
-      </div>
+      <Avatar
+        class="mr-2"
+        :image="basket.picture"
+        :icon="basket.picture ? undefined : 'fas fa-shopping-basket'"
+        variant="light"
+      />
       <span class="w-100 d-flex flex-column text-truncate">
         <span class="d-flex justify-content-between align-items-center text-truncate">
           <span
@@ -51,10 +46,8 @@
       <div class="d-flex align-items-center">
         <Avatar
           class="mr-2"
-          :url="entry.user.avatar"
+          :user="entry.user"
           :size="24"
-          :is-sleeping="entry.user.sleepStatus"
-          :auto-scale="false"
         />
         <small>
           {{ entry.user.name }}
@@ -75,23 +68,14 @@
 
 <script>
 // Others
-import Avatar from '@/components/Avatar'
+import Avatar from '@/components/Avatar/Avatar.vue'
 import conversationStore from '@/stores/conversations'
 
 export default {
   components: { Avatar },
   props: {
-    basket: {
-      type: Object,
-      default: () => ({}),
-    },
+    basket: { type: Object, default: () => ({}) },
   },
-  data () {
-    return {
-      hover: false,
-    }
-  },
-
   methods: {
     getImageUrl (picture) {
       if (picture) {

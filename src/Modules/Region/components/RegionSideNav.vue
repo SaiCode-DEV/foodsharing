@@ -3,9 +3,7 @@
     :title="$i18n('globals.type.regions_menu')"
     class="bg-white"
   >
-    <NavRegionsLinkEntry
-      :entry="regionMenu"
-    />
+    <NavRegionsLinkEntry :entry="regionMenu" />
   </container>
 </template>
 <script>
