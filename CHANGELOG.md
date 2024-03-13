@@ -80,6 +80,7 @@
 - Removed the obsolete jquery-jcrop package #1047 !3192 @alex.simm
 - Fixed the outdated notification job !3214 !3215 @\_fridtjof_
 - Optimized client bundle size !3216 @\_fridtjof_
+- Bump node to 20.11.1 @chriswalg
 
 ## Development documentation
 
