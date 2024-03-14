@@ -768,6 +768,7 @@ group:
     accepted: 'solicitud aceptada'
     motivation: '¿Cuál es tu motivación para unirte al grupo “{group}”?'
     link_description: 'Este enlace te llevará directamente a la aplicación:'
+    ability: ¿Cuáles son tus habilidades en este área?
   show-all: 'mostrar todo'
   function:
     pr: 'Relación pública'
@@ -907,7 +908,7 @@ group:
     tooltip_function_region331: 'L@s administrador@s de este grupo de trabajo pueden
       enviar boletines'
   description: 'Descripción'
-  application_region: 'Solicitud de '
+  application_region: 'Solicitud de {group}'
   quit: 'Salir'
   name: 'Nombre'
   photo: 'Fotografía'
@@ -943,8 +944,8 @@ group:
   really_quit_district: '¿Quiere realmente abandonar el distrito de {name}?'
   really_quit_workgroup: '¿Estás seguro de que quieres abandonar el grupo de trabajo
     {name}?'
-  member_count: '{0} sin contribuyentes|{1} un(a) contribuyente| [2, Inf[ %count%
-    contribuyentes'
+  member_count:
+    zero: Sin contribuyentes
   enterskills: 'Habilidades:'
   saved: 'Se guardaron los cambios'
   quit_name_workgroup: 'Dejar el equipo {name}'
