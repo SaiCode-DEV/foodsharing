@@ -7,10 +7,22 @@ use Ddeboer\Imap\Message\EmailAddress;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Mailbox\DTO\Region;
+use Foodsharing\Utility\Sanitizer;
 
 class MailboxGateway extends BaseGateway
 {
+    private readonly Sanitizer $sanitizer;
+
+    public function __construct(
+        Database $db,
+        Sanitizer $sanitizer,
+    ) {
+        parent::__construct($db);
+        $this->sanitizer = $sanitizer;
+    }
+
     public function getMailboxname(int $mailbox_id)
     {
         try {
@@ -165,6 +177,7 @@ class MailboxGateway extends BaseGateway
 
         $data['sender'] = $this->parseAddress($data['sender']) ?? new EmailAddress('');
         $data['to'] = $this->parseAddresses($data['to']) ?? [];
+        $data['body'] = $this->sanitizer->purifyHtml($data['body'] ?? '');
 
         return $data;
     }
@@ -183,7 +196,7 @@ class MailboxGateway extends BaseGateway
 					m.`read`,
 					m.`answer`,
 					m.`body`,
-					m.body_html,
+					m.`body_html`,
 					m.`mailbox_id`
 			FROM 	fs_mailbox_message m
 			LEFT JOIN fs_mailbox b
@@ -192,6 +205,9 @@ class MailboxGateway extends BaseGateway
 		',
             [':message_id' => $emailId]
         );
+
+        $data['body'] = $this->sanitizer->purifyHtml($data['body'] ?? '');
+        $data['body_html'] = $this->sanitizer->purifyHtml($data['body_html'] ?? '');
 
         return $this->parseEmail($data);
     }
@@ -599,14 +615,6 @@ class MailboxGateway extends BaseGateway
     public function getMailFolderId(int $messageId): int
     {
         return $this->db->fetchValueByCriteria('fs_mailbox_message', 'folder', ['id' => $messageId]);
-    }
-
-    /**
-     * Returns the HTML body of the mail with this message ID.
-     */
-    public function getMessageHtmlBody(int $messageId): string
-    {
-        return $this->db->fetchValueByCriteria('fs_mailbox_message', 'body_html', ['id' => $messageId]);
     }
 
     /**

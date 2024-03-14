@@ -1,3 +1,8 @@
+# Hotfix 2024-03-13 (Fix XSS Vulnerability and Mails)
+
+- Fix XSS vulnerabilities in Baskets, Mails and Blog !3219 @stcz
+- Fix delivering CC mails and add error message for BCC !3171 @stcz
+
 # Hotfix 2024-02-18 (Bell translations)
 
 - Added translation keys for grouped bells !3152 @AntonBallmaier

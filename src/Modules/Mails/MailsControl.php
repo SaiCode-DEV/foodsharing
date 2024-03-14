@@ -7,6 +7,7 @@ use Foodsharing\Modules\Console\ConsoleControl;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\RouteHelper;
+use Html2Text\Html2Text;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
@@ -98,19 +99,18 @@ class MailsControl extends ConsoleControl
         foreach ($messages as $msg) {
             try {
                 $mboxes = [];
-                $recipients = $msg->getTo() + $msg->getCc() + $msg->getBcc();
+                $recipients = array_merge($msg->getTo(), $msg->getCc());
+
                 foreach ($recipients as $to) {
                     if (in_array(strtolower($to->getHostname() ?? ''), MAILBOX_OWN_DOMAINS)) {
                         $mboxes[] = $to->getMailbox();
                     }
                 }
 
-                if (empty($mboxes)) {
-                    $msg->delete();
-                    continue;
+                $mb_ids = [];
+                if (!empty($mboxes)) {
+                    $mb_ids = $this->mailsGateway->getMailboxIds($mboxes);
                 }
-
-                $mb_ids = $this->mailsGateway->getMailboxIds($mboxes);
 
                 if (!$mb_ids) {
                     // send auto-reply message
@@ -121,7 +121,7 @@ class MailsControl extends ConsoleControl
                         $return_path = $return_path[0];
                     }
                     if ($return_path && $return_path != DEFAULT_EMAIL) {
-                        $this->emailHelper->tplMail('general/invalid_email_address', $return_path->getAddress(), ['address' => implode(', ', $mboxes)]);
+                        $this->emailHelper->tplMail('general/invalid_email_address', $return_path->getAddress(), ['address' => implode(', ', $mboxes)], false, true, false);
                     }
                     ++$stats['unknown-recipient'];
                 } else {
@@ -133,9 +133,9 @@ class MailsControl extends ConsoleControl
                     }
 
                     if ($html) {
-                        $h2t = new \Html2Text\Html2Text($html);
-                        $body = $h2t->get_text();
-                        $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $html);
+                        $h2t = new Html2Text($html);
+                        $body = $h2t->getText();
+                        $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', (string)$html);
                     } else {
                         try {
                             $text = $msg->getBodyText();
@@ -218,9 +218,7 @@ class MailsControl extends ConsoleControl
                                 $id, // mailbox id
                                 1, // folder
                                 json_encode($from), // sender
-                                json_encode(array_map(function ($r) {
-                                    return ['mailbox' => $r->getMailbox(), 'host' => $r->getHostname()];
-                                }, $recipients)), // all recipients
+                                json_encode(array_map(fn ($r) => ['mailbox' => $r->getMailbox(), 'host' => $r->getHostname()], $recipients)), // all recipients
                                 $msg->getSubject() ?? '',
                                 $body,
                                 $html,
@@ -252,7 +250,7 @@ class MailsControl extends ConsoleControl
 
     private function getMailAddressParts($str)
     {
-        $parts = explode('@', trim($str));
+        $parts = explode('@', trim((string)$str));
         if (count($parts) != 2) {
             throw new \Exception($str . ' is not a valid email address');
         }
@@ -266,14 +264,14 @@ class MailsControl extends ConsoleControl
     {
         $res = $this->database->fetchAll('SELECT id, sender, `to` FROM fs_mailbox_message WHERE id < 185882 AND id > 175000');
         foreach ($res as $r) {
-            $sender = json_decode($r['sender']);
-            $to = json_decode($r['to']);
+            $sender = json_decode((string)$r['sender']);
+            $to = json_decode((string)$r['to']);
             if (is_string($sender)) {
                 $newSender = json_encode($this->getMailAddressParts($sender));
                 $newTo = [];
                 foreach ($to as $recip) {
-                    if (strpos($recip, ';')) {
-                        foreach (explode(';', $recip) as $rp) {
+                    if (strpos((string)$recip, ';')) {
+                        foreach (explode(';', (string)$recip) as $rp) {
                             $newTo[] = $this->getMailAddressParts($rp);
                         }
                     } else {
@@ -316,7 +314,7 @@ class MailsControl extends ConsoleControl
         self::info('Mail from: ' . $data['from'][0] . ' (' . $data['from'][1] . ')');
         $email = new Email();
 
-        $mailParts = explode('@', $data['from'][0]);
+        $mailParts = explode('@', (string)$data['from'][0]);
         $fromDomain = end($mailParts);
 
         if (in_array($fromDomain, MAILBOX_OWN_DOMAINS, true)) {
@@ -326,7 +324,7 @@ class MailsControl extends ConsoleControl
             $email->replyTo(new Address($data['from'][0], $data['from'][1] ?? ''));
         }
 
-        $subject = preg_replace('/\s+/', ' ', trim($data['subject']));
+        $subject = preg_replace('/\s+/', ' ', trim((string)$data['subject']));
         if (!$subject) {
             $subject = '[Leerer Betreff]';
         }
@@ -342,7 +340,7 @@ class MailsControl extends ConsoleControl
         $mailCount = 0;
         $recipients = [];
         foreach ($data['recipients'] as $r) {
-            $r[0] = strtolower($r[0]);
+            $r[0] = strtolower((string)$r[0]);
             self::info('To: ' . $r[0]);
             $address = explode('@', $r[0]);
             if (count($address) != 2) {
@@ -389,7 +387,7 @@ class MailsControl extends ConsoleControl
 
     public static function parseEmailAddress($email, $name = false)
     {
-        $p = explode('@', $email);
+        $p = explode('@', (string)$email);
 
         if ($name === false) {
             $name = $email;

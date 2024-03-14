@@ -23,12 +23,14 @@ final class EmailHelper
         $this->twig = $twig;
     }
 
-    private function emailBodyTpl(string $message, $email = false, $token = false): string
+    private function emailBodyTpl(string $message, $email = false, $token = false, bool $renderUnsubscribe = true): string
     {
-        $unsubscribe = $this->twig->render('emailTemplates/general/unsubscribe.html.twig', []);
-
-        if ($email !== false && $token !== false) {
+        if ($renderUnsubscribe && $email !== false && $token !== false) {
             $unsubscribe = $this->twig->render('emailTemplates/general/unsubscribe_newsletter.html.twig', ['TOKEN' => $token, 'EMAIL' => $email]);
+        } elseif ($renderUnsubscribe) {
+            $unsubscribe = $this->twig->render('emailTemplates/general/unsubscribe.html.twig', []);
+        } else {
+            $unsubscribe = '';
         }
 
         $message = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $message);
@@ -40,7 +42,7 @@ final class EmailHelper
         return $this->twig->render('emailTemplates/general/body.html.twig', ['MESSAGE' => $message, 'UNSUBSCRIBE' => $unsubscribe]);
     }
 
-    public function tplMail($tpl_id, $to, $var = [], $from_email = false, bool $highPriority = false)
+    public function tplMail($tpl_id, $to, $var = [], $from_email = false, bool $highPriority = false, bool $renderUnsubscribe = true)
     {
         $mail = new AsyncMail($this->mem);
 
@@ -71,7 +73,7 @@ final class EmailHelper
             'body' => $this->twig->render($tpl_prefix . '.body.html.twig', $var)
         ];
 
-        $htmlBody = $this->emailBodyTpl($message['body']);
+        $htmlBody = $this->emailBodyTpl($message['body'], false, false, $renderUnsubscribe);
         $mail->setHTMLBody($htmlBody);
 
         // playintext body
@@ -92,12 +94,10 @@ final class EmailHelper
 
         $mail->setSubject($message['subject']);
 
-        $num_recipients = 1;
         if (is_iterable($to)) {
             foreach ($to as $recipient) {
                 $mail->addRecipient($recipient);
             }
-            $num_recipients = count($to);
         } else {
             $mail->addRecipient($to);
         }
@@ -123,7 +123,7 @@ final class EmailHelper
     }
 
     public function libmail($bezirk, $email, $subject, $message, $attach = false, $token = false,
-        bool $highPriority = false)
+        bool $highPriority = false): bool
     {
         if ($bezirk === false) {
             $bezirk = [
@@ -169,5 +169,7 @@ final class EmailHelper
 
         $mail->setHighPriority($highPriority);
         $mail->send();
+
+        return true;
     }
 }

@@ -104,6 +104,8 @@ final class BlogGateway extends BaseGateway
             return null;
         }
 
+        $blogPost['body'] = $this->sanitizerService->purifyHtml($blogPost['body'] ?? '');
+
         return BlogPost::create(
             $blogPost['id'],
             $blogPost['name'],
@@ -174,7 +176,7 @@ final class BlogGateway extends BaseGateway
 
     public function getOne_blog_entry(int $id): array
     {
-        return $this->db->fetch(
+        $blogEntry = $this->db->fetch(
             '
 			SELECT
 			`id`,
@@ -191,6 +193,10 @@ final class BlogGateway extends BaseGateway
 			WHERE 		`id` = :fs_id',
             [':fs_id' => $id]
         );
+
+        $blogEntry['body'] = $this->sanitizerService->purifyHtml($blogEntry['body'] ?? '');
+
+        return $blogEntry;
     }
 
     public function add_blog_entry(array $data): int
