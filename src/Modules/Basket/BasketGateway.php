@@ -141,6 +141,8 @@ class BasketGateway extends BaseGateway
             $basket = array_merge($basket, $fs);
         }
 
+        $basket['description'] = strip_tags($basket['description']);
+
         return $basket;
     }
 
