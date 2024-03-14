@@ -101,19 +101,18 @@ class MailsControl extends ConsoleControl
         foreach ($messages as $msg) {
             try {
                 $mboxes = [];
-                $recipients = array_merge($msg->getTo(), $msg->getCc(), $msg->getBcc());
+                $recipients = array_merge($msg->getTo(), $msg->getCc());
+
                 foreach ($recipients as $to) {
                     if (in_array(strtolower($to->getHostname() ?? ''), MAILBOX_OWN_DOMAINS)) {
                         $mboxes[] = $to->getMailbox();
                     }
                 }
 
-                if (empty($mboxes)) {
-                    $msg->delete();
-                    continue;
+                $mb_ids = [];
+                if (!empty($mboxes)) {
+                    $mb_ids = $this->mailsGateway->getMailboxIds($mboxes);
                 }
-
-                $mb_ids = $this->mailsGateway->getMailboxIds($mboxes);
 
                 if (!$mb_ids) {
                     // send auto-reply message
@@ -124,7 +123,7 @@ class MailsControl extends ConsoleControl
                         $return_path = $return_path[0];
                     }
                     if ($return_path && $return_path != DEFAULT_EMAIL) {
-                        $this->emailHelper->tplMail('general/invalid_email_address', $return_path->getAddress(), ['address' => implode(', ', $mboxes)]);
+                        $this->emailHelper->tplMail('general/invalid_email_address', $return_path->getAddress(), ['address' => implode(', ', $mboxes)], false, true, false);
                     }
                     ++$stats['unknown-recipient'];
                 } else {

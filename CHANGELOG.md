@@ -30,6 +30,7 @@
 - Fixed creating and editing region mailboxes for orga users !3182 @AntonBallmaier 
 - Improved permission checks for event creation #489 !3187 @alex.simm
 - Fix XSS vulnerabilities in Baskets, Mails and Blog !3219 @stcz
+- Fix delivering CC mails and add error message for BCC !3171 @stcz
 
 ## Refactoring
 - Switched Annotation to Attributes, implements Test and general code style adjust for Activity REST Endpoint !2975 !3090 @BibaltiK
