@@ -555,7 +555,8 @@ email_template:
   newsletter:
     unsubscribe: Tu ne veux plus recevoir de lettres d’information ?
     linktext: Clique ici pour te désabonner.
-  unknown_email2: L’adresse courriel %ADDRESS% n’est pas connue.
+  unknown_email2: "L’adresse courriel %ADDRESS% n’est pas connue.\nVeuillez noter
+    que les e-mails BCC ne peuvent pas être envoyés au domaine @foodsharing.network."
   unknown_email: Adresse courriel inconnue
   yourFSteam: Ton équipe foodsharing
   confirm_topic: 'Le sujet doit être confirmé :'
