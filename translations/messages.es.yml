@@ -3204,7 +3204,9 @@ email_template:
     a nadie, sería bueno que pudieras encargarte de la recogida. Si esto no es posible
     para usted, cancele la cita con la empresa a tiempo.'
   in: 'en'
-  unknown_email2: 'La dirección de correo electrónico %ADDRESS% es desconocida.'
+  unknown_email2: "La dirección de correo electrónico %ADDRESS% es desconocida. \n
+    Tenga en cuenta que los correos electrónicos CCO no se pueden entregar al dominio
+    @foodsharing.network."
   manual_slots_get_ignored: 'Esta notificación se envía actualmente si nadie se ha
     registrado para las citas regulares de recolección. Las citas adicionales añadidas
     individualmente, así como las citas sobrescritas o eliminadas todavía no se tienen
