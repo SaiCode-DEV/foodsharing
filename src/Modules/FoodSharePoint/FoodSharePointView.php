@@ -336,7 +336,7 @@ class FoodSharePointView extends View
 
         $item = [
             'name' => $this->translator->trans($mayCreateFSP ? 'fsp.add' : 'fsp.suggest'),
-            'href' => '/?page=fairteiler&bid=' . $regionId . '&sub=add',
+            'href' => '/fairteiler?bid=' . $regionId . '&sub=add',
         ];
 
         return $this->v_utils->v_menu([$item], $this->translator->trans('options'));

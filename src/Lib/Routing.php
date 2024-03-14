@@ -8,7 +8,6 @@ use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use Foodsharing\Modules\Dashboard\DashboardControl;
 use Foodsharing\Modules\Event\EventControl;
 use Foodsharing\Modules\Foodsaver\FoodsaverControl;
-use Foodsharing\Modules\FoodSharePoint\FoodSharePointControl;
 use Foodsharing\Modules\Index\IndexControl;
 use Foodsharing\Modules\Legal\LegalControl;
 use Foodsharing\Modules\Login\LoginControl;
@@ -53,7 +52,6 @@ class Routing
         'bcard' => 'BusinessCard',
         'dashboard' => 'Dashboard',
         'event' => 'Event',
-        'fairteiler' => 'FoodSharePoint',
         'foodsaver' => 'Foodsaver',
         'index' => 'Index',
         'legal' => 'Legal',
@@ -85,7 +83,6 @@ class Routing
         'bcard' => BusinessCardControl::class,
         'dashboard' => DashboardControl::class,
         'event' => EventControl::class,
-        'fairteiler' => FoodSharePointControl::class,
         'foodsaver' => FoodsaverControl::class,
         'index' => IndexControl::class,
         'legal' => LegalControl::class,
@@ -129,7 +126,8 @@ class Routing
         'statistics',
         'map',
         'blog',
-        'betrieb'
+        'betrieb',
+        'fairteiler',
     ];
 
     private const RENAMES = [

@@ -393,7 +393,7 @@ test:backend-acceptance:
       command: [ "/bin/sh", "-c", 'rm $CI_PROJECT_DIR/code_updated; while [ ! -e $CI_PROJECT_DIR/code_updated ]; do sleep 1; done; cd /builds/foodsharing-dev/foodsharing/websocket && yarn ts-node src/index.ts 0.0.0.0' ]
       # websocket service runs with code that gets checked out later by the main build job.
       # We use a file to synchronize that, so start websocket service only when that file has been recreated.
-    - name: registry.gitlab.com/foodsharing-dev/images/ci/nginx:22
+    - name: registry.gitlab.com/foodsharing-dev/images/ci/nginx:latest
       alias: nginx
   needs:
     - build:backend-dev

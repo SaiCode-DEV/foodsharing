@@ -28,7 +28,7 @@ const urls = {
   event: (eventId) => `/?page=event&id=${eventId}`,
   eventEdit: (eventId) => `/?page=event&id=${eventId}&sub=edit`,
   festival: () => '/content?sub=festival',
-  foodsharepoint: (fspId) => `/?page=fairteiler&sub=ft&id=${fspId}`,
+  foodsharepoint: (fspId) => `/fairteiler/${fspId}`,
   foodsaverEdit: (fsId) => `/?page=foodsaver&a=edit&id=${fsId}`,
   fsstaedte: () => '/content?sub=fsstaedte',
   home: () => '/',

@@ -13,5 +13,5 @@
 {% endblock %}
 
 {% block right %}
-    {{ sidenav.menu_tree({'items': {'href': '/?page=fairteiler&bid=' ~ region.id ~ '&sub=add', 'name': 'fsp.new'|trans }}, 'options'|trans) }}
+    {{ sidenav.menu_tree({'items': {'href': '/fairteiler?bid=' ~ region.id ~ '&sub=add', 'name': 'fsp.new'|trans }}, 'options'|trans) }}
 {% endblock %}

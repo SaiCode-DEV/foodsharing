@@ -83,6 +83,7 @@
 - Fixed the outdated notification job !3214 !3215 @\_fridtjof_
 - Optimized client bundle size !3216 @\_fridtjof_
 - Bump node to 20.11.1 @chriswalg
+- Modernized FoodSharePointControl to a Symfony controller !3106 @\_fridtjof_
 
 ## Development documentation
 

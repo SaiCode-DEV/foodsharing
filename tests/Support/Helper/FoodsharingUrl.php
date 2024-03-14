@@ -65,7 +65,7 @@ class FoodsharingUrl extends Db
 
     public function foodSharePointRegionListUrl($region_id): string
     {
-        return '/?page=fairteiler&bid=' . (int)$region_id;
+        return '/fairteiler?bid=' . (int)$region_id;
     }
 
     public function foodSharePointGetUrlShort($food_share_point_id): string
@@ -75,12 +75,12 @@ class FoodsharingUrl extends Db
 
     public function foodSharePointGetUrl($food_share_point_id): string
     {
-        return '/?page=fairteiler&sub=ft&id=' . (int)$food_share_point_id;
+        return '/fairteiler?sub=ft&id=' . (int)$food_share_point_id;
     }
 
     public function foodSharePointEditUrl($food_share_point_id): string
     {
-        return '/?page=fairteiler&sub=ft&id=' . (int)$food_share_point_id . '&sub=edit';
+        return '/fairteiler?sub=edit&id=' . (int)$food_share_point_id;
     }
 
     public function foodBasketInfoUrl($basket_id): string
