@@ -249,7 +249,8 @@ email_template:
   you_responsible:
     part1: Du er ansvarlig for
     part2: Dessverre er det ingen som har meldt seg på neste samling.
-  unknown_email2: E-postadressen %ADDRESS% er ukjent.
+  unknown_email2: "E-postadressen %ADDRESS% er ukjent.\nVær oppmerksom på at BCC-e-poster
+    ikke kan leveres til domenet @foodsharing.network."
   confirm_link: vil gjerne publisere temaet
   request_from: Forespørsel fra
   confirm_topic: 'Tråden trenger godkjenning:'
