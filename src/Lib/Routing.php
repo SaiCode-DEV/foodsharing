@@ -33,7 +33,6 @@ use Foodsharing\Modules\StoreChain\StoreChainControl;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
 use Foodsharing\Modules\Voting\VotingControl;
 use Foodsharing\Modules\WorkGroup\WorkGroupControl;
-use Foodsharing\Modules\WorkGroup\WorkGroupXhr;
 
 /**
  * @deprecated please don't add anything new to these mappings.
@@ -112,7 +111,6 @@ class Routing
         'report' => ReportXhr::class,
         'settings' => SettingsXhr::class,
         'betrieb' => StoreXhr::class,
-        'groups' => WorkGroupXhr::class,
         'store' => StoreXhr::class,
         'basket' => BasketXhr::class,
         'region' => RegionXhr::class,

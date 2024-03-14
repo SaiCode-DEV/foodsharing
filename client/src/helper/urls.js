@@ -72,6 +72,7 @@ const urls = {
   upload: (uuid) => `/api/uploads/${uuid}`,
 
   workingGroupEdit: (groupId) => `/?page=groups&sub=edit&id=${groupId}`,
+  workingGroup: (groupId) => `/region?bid=${groupId}`,
   workshops: () => '/content?sub=workshops',
   urlencode: (url) => encodeURIComponent(`${url}`),
   donations: () => 'https://spenden.foodsharing.de',

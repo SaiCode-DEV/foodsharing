@@ -10,6 +10,12 @@
           v-if="infoKey"
           :info-key="infoKey"
         />
+        <i
+          v-if="tooltipKey"
+          v-b-tooltip.hover
+          class="fas fa-info-circle fa-fw"
+          :title="tooltipKey"
+        />
       </h5>
       <i
         v-if="collapsible"
@@ -48,6 +54,7 @@ export default {
     containerIsExpanded: { type: Boolean, default: true },
     collapsible: { type: Boolean, default: true },
     infoKey: { type: String, default: '' },
+    tooltipKey: { type: String, default: '' },
   },
   data () {
     return {

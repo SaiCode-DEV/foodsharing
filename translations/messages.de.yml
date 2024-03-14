@@ -342,7 +342,7 @@ group:
   role_name: "Rolle"
   applications: "Bewerbungen"
   applications_for: "Bewerbungen für {name}"
-  application_region: "Bewerbung für "
+  application_region: "Bewerbung für {group}"
   application_from: "von"
   motivation: "Motivationstext"
   entermotivation: "Motivation:" #in WorkGroupXhr
@@ -374,11 +374,11 @@ group:
     summary: "{name} möchte gerne in der Arbeitsgruppe {group} mitmachen."
     link_description: "Über diesen Link kommst du direkt zur Bewerbung:"
     motivation: "Was ist deine Motivation, in der Gruppe {group} mitzuwirken?"
-    faehigkeit: "Was sind deine Fähigkeiten, die du in diesem Bereich hast?"
-    erfahrung: |
+    ability: "Was sind deine Fähigkeiten, die du in diesem Bereich hast?"
+    experience: |
       Kannst du in der Gruppe auf Erfahrungen, die du woanders gesammelt hast zurückgreifen?
       Wenn ja, wo beziehungsweise welche?
-    zeit: "Wie viele Stunden hast du pro Woche Zeit und Lust dafür aufzuwenden?"
+    how_much_time: "Wie viele Stunden hast du pro Woche Zeit und Lust dafür aufzuwenden?"
     time:
       "1": "1-2 Stunden"
       "2": "2-3 Stunden"
@@ -407,8 +407,14 @@ group:
   administrators: "Gruppen-Admins"
   title: "foodsharing-Arbeitsgruppen"
   subtitle: "hier findest du Hilfe und viel zu tun …"
-  member_count: "{0} Keine Mitwirkenden|{1} Ein:e Mitwirkende:r| [2, Inf[ %count% Mitwirkende"
-  admin_count: "{0} Keine Admins|{1} Ein:e Administrator:in| [2, Inf[ %count% Administrator:innen"
+  member_count:
+    zero: "Keine Mitwirkenden"
+    one:  "Ein:e Mitwirkende:r"
+    other: "{count} Mitwirkende"
+  admin_count:
+    zero: "Keine Admins"
+    one: "Ein:e Administrator:in"
+    other: "{count} Administrator:innen"
   image: "Titelbild für %name%"
   already_applied: "Für diese Gruppe hast du dich bereits beworben."
   actions:
@@ -418,6 +424,7 @@ group:
     apply: "Für diese Arbeitsgruppe bewerben"
     join: "Dieser Arbeitsgruppe beitreten"
     save: "Änderungen speichern"
+  filter_placeholder: "Gruppen filtern"
   no_groups: "Hier gibt es noch keine Arbeitsgruppen"
   quit_name_workgroup: "Team {name} verlassen"
   quit_name_district: "Bezirk {name} verlassen"
@@ -2634,9 +2641,9 @@ password:
   insertmail: "Gib deine E-Mail-Adresse ein, um dein Passwort zurückzusetzen."
 
 sidenav:
-  superregional: "Überregionale Gruppen"
-  localgroups: "Lokalgruppen"
-  countryspecific: "Länderspezifische Gruppen"
+  superregional: "Überregional"
+  localgroups: "Regionale Gruppen"
+  yourregions: "Deine Bezirke"
   yourgroups: "Deine Gruppen"
 
 base:
@@ -3272,6 +3279,6 @@ help:
         ist das Betriebsprotokoll nicht einsehbar.
         ---
         ###### Einschränkungen
-        Es werden maximal 100 Einträge geladen. Ggf. musst du den Suchzeitraum oder die ausgewählten Aktionstypen einschränken, wenn nicht alle Ergenisse angezeigt werden. 
+        Es werden maximal 100 Einträge geladen. Ggf. musst du den Suchzeitraum oder die ausgewählten Aktionstypen einschränken, wenn nicht alle Ergenisse angezeigt werden.
 
 

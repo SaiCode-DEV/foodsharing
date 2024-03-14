@@ -77,7 +77,7 @@ class WorkGroupCest
         $group = $this->{$example[1]};
         $I->login($this->{$example[0]}['email']);
         $I->amOnPage($I->groupListUrl());
-        $I->clickWithLeftButton(Locator::contains('.groups .field .head', $group['name']));
+        $I->clickWithLeftButton(Locator::contains('.list-group', $group['name']));
         $I->click('Dieser Arbeitsgruppe beitreten');
         $I->waitForText('Pinnwand');
         $I->amOnPage($I->forumUrl($group['id']));
@@ -101,17 +101,16 @@ class WorkGroupCest
     {
         $I->login($this->regionMember['email']);
         $I->amOnPage($I->groupListUrl());
-        $I->clickWithLeftButton(Locator::contains('.groups .field .head', $this->testGroupApply['name']));
+        $I->clickWithLeftButton(Locator::contains('.list-group', $this->testGroupApply['name']));
         $I->waitForText('Arbeitsgruppe bewerben');
-        //$I->performOn(Locator::combine('.ui-widget', 'div[style="display: block;"]'), ['click' => 'bewerben']);
-        $I->click('a[onclick*="apply\',{id:' . $this->testGroupApply['id'] . '"]');
-        $I->waitForElement('#motivation');
-        $I->fillField('#motivation', 'My Motivation');
-        $I->fillField('#faehigkeit', 'My Skillz');
-        $I->fillField('#erfahrung', 'My Experience');
-        $I->selectOption('#zeit', '1-2 Stunden');
-        $I->click('Bewerbung absenden');
-        $I->waitForText('Bewerbung wurde abgeschickt');
+        $I->click('Für diese Arbeitsgruppe bewerben');
+        $I->waitForElement('#input-motivation');
+        $I->fillField('#input-motivation', 'My Motivation');
+        $I->fillField('#input-ability', 'My Skillz');
+        $I->fillField('#input-experience', 'My Experience');
+        $I->selectOption('#input-time', '1-2 Stunden');
+        $I->click('Senden');
+        $I->waitForText('Erfolgreich abgeschlossen');
         $I->seeInDatabase('fs_foodsaver_has_bezirk', ['foodsaver_id' => $this->regionMember['id'], 'bezirk_id' => $this->testGroupApply['id']]);
         $admin = $I->haveFriend('admin');
         $admin->does(function (AcceptanceTester $I) {

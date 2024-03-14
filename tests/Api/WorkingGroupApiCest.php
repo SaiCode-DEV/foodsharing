@@ -15,6 +15,7 @@ class WorkingGroupApiCest
 {
     private Generator $faker;
     private $workingGroup;
+    private $workingGroupOpen;
     private $user;
     private $userAdmin;
     private $userOrga;
@@ -23,7 +24,8 @@ class WorkingGroupApiCest
     {
         $this->faker = Factory::create('de_DE');
 
-        $this->workingGroup = $I->createWorkingGroup('test');
+        $this->workingGroup = $I->createWorkingGroup('test', ['apply_type' => ApplyType::EVERYBODY]);
+        $this->workingGroupOpen = $I->createWorkingGroup('test open', ['apply_type' => ApplyType::OPEN]);
         $this->user = $I->createFoodsaver();
         $this->userAdmin = $I->createFoodsaver();
         $I->addRegionMember($this->workingGroup['id'], $this->userAdmin['id']);
@@ -44,6 +46,22 @@ class WorkingGroupApiCest
         $I->login($this->userOrga['email']);
         $I->sendDelete('api/region/' . $this->workingGroup['id'] . '/members/' . $this->user['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
+    }
+
+    public function canJoinOpenWorkingGroup(ApiTester $I): void
+    {
+        $I->login($this->user['email']);
+        $I->sendPOST('api/groups/' . $this->workingGroupOpen['id'] . '/members/' . $this->user['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->seeResponseIsJson();
+    }
+
+    public function canNotJoinClosedWorkingGroup(ApiTester $I): void
+    {
+        $I->login($this->user['email']);
+        $I->sendPOST('api/groups/' . $this->workingGroup['id'] . '/members/' . $this->user['id']);
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+        $I->seeResponseIsJson();
     }
 
     public function canNotEditWorkingGroup(ApiTester $I): void

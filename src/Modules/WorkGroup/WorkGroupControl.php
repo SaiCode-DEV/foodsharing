@@ -49,9 +49,9 @@ class WorkGroupControl extends Control
     private function getSideMenuData(?string $activeUrlPartial = null): array
     {
         $countries = $this->workGroupGateway->getCountryGroups();
-        $bezirke = $this->session->getRegions();
+        $regions = $this->session->getRegions();
 
-        $localRegions = array_filter($bezirke, fn ($region) => !in_array($region['type'], [UnitType::COUNTRY, UnitType::WORKING_GROUP]));
+        $localRegions = array_filter($regions, fn ($region) => !in_array($region['type'], [UnitType::COUNTRY, UnitType::WORKING_GROUP]));
 
         $regionToMenuItem = fn ($region) => [
             'name' => $region['name'],
@@ -94,12 +94,11 @@ class WorkGroupControl extends Control
             $group['function_tooltip_key'] = $this->getTooltipKey($group);
         }
 
-        $list = $this->render('pages/WorkGroup/list.twig', [
-            'nav' => $this->getSideMenuData('=' . $parent),
-            'groups' => $groups,
-        ]);
-
-        $response->setContent($list);
+        $this->pageHelper->addContent($this->view->vueComponent('vue-groups', 'Groups', [
+                'groups' => $groups,
+                'nav' => $this->getSideMenuData('=' . $parent),
+                'isGlobalWorkingGroup' => $parent === RegionIDs::GLOBAL_WORKING_GROUPS
+        ]));
     }
 
     /**
@@ -129,13 +128,19 @@ class WorkGroupControl extends Control
             $leaders = array_map($insertLeaderImage, $group['leaders']);
             $satisfied = $this->workGroupPermissions->fulfillApplicationRequirements($group, $stats);
 
+            $memberCount = count($group['members']);
+            $image = $this->fixPhotoPath($group['photo']);
+            unset($group['week_num']);
+            unset($group['banana_count']);
+            unset($group['fetch_count']);
+            unset($group['photo']);
+            unset($group['members']);
+
             return array_merge($group, [
                 'leaders' => $leaders,
-                'image' => $this->fixPhotoPath($group['photo']),
+                'image' => $image,
+                'membersCount' => $memberCount,
                 'appliedFor' => in_array($group['id'], $applications),
-                'applyMinBananaCount' => $group['banana_count'],
-                'applyMinFetchCount' => $group['fetch_count'],
-                'applyMinFoodsaverWeeks' => $group['week_num'],
                 'applicationRequirementsNotFulfilled' => !$satisfied,
                 'mayEdit' => $this->workGroupPermissions->mayEdit($group),
                 'mayAccess' => $this->workGroupPermissions->mayAccess($group),
