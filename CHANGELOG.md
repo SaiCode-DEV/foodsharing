@@ -87,6 +87,11 @@
 ## Development documentation
 
 
+# Hotfix 2024-03-13 (Fix XSS Vulnerability and Mails)
+
+- Fix XSS vulnerabilities in Baskets, Mails and Blog !3219 @stcz
+- Fix delivering CC mails and add error message for BCC !3171 @stcz
+
 # Hotfix 2024-02-18 (Bell translations)
 
 - Added translation keys for grouped bells !3152 @AntonBallmaier
@@ -208,7 +213,6 @@
 - Changes the basket bubble on the map to vue #1608 #1788 !2905 !3028 @alex.simm
 - Refactor StoreListComponent.vue !2733 @buntel
 - Refactor storage.js !2733 @buntel
-
 
 ## Dev/Test/CI stuff
 - removed CHANGELOG.md merge=union !2866 @chriswalg

@@ -136,7 +136,7 @@ class MailsControl extends ConsoleControl
 
                     if ($html) {
                         $h2t = new Html2Text($html);
-                        $body = $h2t->get_text();
+                        $body = $h2t->getText();
                         $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', (string)$html);
                     } else {
                         try {
