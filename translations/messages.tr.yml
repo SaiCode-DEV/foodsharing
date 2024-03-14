@@ -2007,7 +2007,10 @@ email_template:
     nomail: 'hangi e-postaları alacağınızı ayarlayın.'
   foodsharepoint: '---Dağıtım noktası'
   to: -da/de
-  unknown_email2: '%ADDRESS% e-posta adresi bilinmiyor.'
+  unknown_email2: '%ADDRESS% e-posta adresi bilinmiyor.
+
+    Lütfen BCC e-postalarının @foodsharing.network alanına teslim edilemeyeceğini
+    unutmayın.'
   login: Cevaplamak için giriş yapın
   confirm_topic: 'Konunun onaylanması gerekiyor:'
   foodbasket_request: Yemek sepetiniz %SENDER% tarafından istek gönderildi
