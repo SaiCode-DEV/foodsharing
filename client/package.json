@@ -9,7 +9,7 @@
     "fix": "bin/eslint -c package.json --fix",
     "clean-assets": "shx rm -rf ../assets/*",
     "build": "yarn clean-assets && NODE_ENV=production webpack",
-    "dev": "yarn clean-assets && webpack serve --hot --config serve.config.js",
+    "dev": "yarn clean-assets && webpack serve --config serve.config.js",
     "test": "node test"
   },
   "dependencies": {
@@ -97,9 +97,8 @@
     "webpack": "~4.47.0",
     "webpack-bundle-analyzer": "~4.10.1",
     "webpack-cli": "~4.10.0",
-    "webpack-dev-server": "~3.11.3",
+    "webpack-dev-server": "~4.15.1",
     "webpack-merge": "~5.10.0",
-    "write-file-webpack-plugin": "~4.5.1",
     "yaml-loader": "0.6.0"
   },
   "eslintConfig": {

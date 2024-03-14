@@ -85,6 +85,7 @@
 - Optimized client bundle size !3216 @\_fridtjof_
 - Bump node to 20.11.1 @chriswalg
 - Modernized FoodSharePointControl to a Symfony controller !3106 @\_fridtjof_
+- Upgrade webpack-dev-server to v4 !3220 @\_fridtjof_
 
 ## Development documentation
 
