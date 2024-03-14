@@ -1453,7 +1453,8 @@ email_template:
     you_can: In the
     no_notification_link: Do you no longer want to receive these types of notifications?
   information: Information
-  unknown_email2: "The e-mail address %ADDRESS% is not known.\nPlease note that delivering BCC mails to the domain @foodsharing.network is not possible."
+  unknown_email2: "The e-mail address %ADDRESS% is not known.\nPlease note that delivering
+    BCC mails to the domain @foodsharing.network is not possible."
   unknown_email: Unkown e-mail address
   manual_slots_get_ignored: This notification is currently sent, if no-one has signed
     up for regular pick-ups. Manually created, overwritten or deleted slots are therefore
