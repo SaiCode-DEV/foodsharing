@@ -3272,6 +3272,7 @@ sidenav:
   countryspecific: 'Grupos específicos de países'
   yourgroups: 'Tus grupos'
   localgroups: 'Grupos locales'
+  yourregions: Tus distritos
 information:
   push:
     title: 'Ahora puede recibir notificaciones automáticas de foodsharing.'
