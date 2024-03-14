@@ -1419,7 +1419,8 @@ email_template:
   in: a
   yourFSteam: Tuo team foodsharing
   withlove: Tanti auguri,
-  unknown_email2: L'indirizzo e-mail %ADDRESS% non è noto.
+  unknown_email2: "L’indirizzo e-mail %ADDRESS% non è noto.\nTieni presente che le
+    e-mail BCC non possono essere consegnate al dominio @foodsharing.network."
   unknown_email: Indirizzo e-mail sconosciuto
   impress:
     address: "foodsharing e.V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n Rappresentato
