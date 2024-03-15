@@ -12,8 +12,10 @@ use Foodsharing\Modules\Activity\DTO\ActivityUpdateMailbox as MailboxUpdate;
 use Foodsharing\Modules\Activity\DTO\ImageActivityFilter;
 use Foodsharing\Modules\Buddy\BuddyTransactions;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
+use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\RestApi\Models\Activities\ActivityFilterItem;
 use Foodsharing\Utility\ImageHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -26,6 +28,7 @@ class ActivityTransactions
         private readonly ImageHelper $imageHelper,
         private readonly TranslatorInterface $translator,
         private readonly Session $session,
+        private readonly SettingsTransactions $settingsTransaction,
         private readonly BuddyTransactions $buddyTransactions
     ) {
     }
@@ -38,7 +41,7 @@ class ActivityTransactions
     public function getFilters(): array
     {
         // list of currently excluded activities
-        $excluded = $this->session->getOption('activity-listings') ?: [];
+        $excluded = $this->settingsTransaction->getOption(UserOptionType::ACTIVITY_LISTINGS) ?: [];
 
         // regions and groups
         $regionOptions = [];
@@ -109,7 +112,7 @@ class ActivityTransactions
             }
         }
 
-        $this->session->setOption('activity-listings', $list);
+        $this->settingsTransaction->setOption(UserOptionType::ACTIVITY_LISTINGS, json_encode($list));
     }
 
     /**
@@ -126,8 +129,9 @@ class ActivityTransactions
         ];
 
         // Store which update sources to skip, keyed by update type and entity ID
-        if ($sesOptions = $this->session->getOption('activity-listings')) {
-            foreach ($sesOptions as $o) {
+        if ($sesOptions = $this->settingsTransaction->getOption(UserOptionType::ACTIVITY_LISTINGS)) {
+            $activities = json_decode($sesOptions);
+            foreach ($activities as $o) {
                 if (isset($hidden_ids[$o['index']])) {
                     $hidden_ids[$o['index']][$o['id']] = $o['id'];
                 }

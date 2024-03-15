@@ -24,7 +24,7 @@ class SessionTestAdapter extends Session
         private SettingsGateway $settingsGateway,
         protected bool $initialized = false
     ) {
-        parent::__construct($mem, $foodsaverGateway, $regionGateway, $loginGateway, $settingsGateway, $initialized);
+        parent::__construct($mem, $foodsaverGateway, $regionGateway, $loginGateway, $initialized);
     }
 
     public function setTestUser(Role $role)

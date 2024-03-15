@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Settings;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Mails\MailsGateway;
@@ -14,6 +15,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SettingsTransactions
 {
+    final public const DEFAULT_LOCALE = 'de';
+
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly LoginGateway $loginGateway,
@@ -23,6 +26,46 @@ class SettingsTransactions
         private readonly TranslatorInterface $translator,
         private readonly Session $session,
     ) {
+    }
+
+    /**
+     * gets a user specific option and will be available after next login.
+     *
+     * @param UserOptionType $key Identifier of the Setting in fs_foodsaver_has_options
+     * @return mixed Any value of user
+     */
+    public function getOption(UserOptionType $key): mixed
+    {
+        $keyValue = $key->value;
+        if (!$this->session->has('useroption_' . $keyValue)) {
+            if ($this->session->has($key->toString()) && !$this->session->has($key->toString() . '_replaced')) {
+                $this->setOption($key, $this->session->get($key->toString())); // Convert to new format
+                $this->session->set($key->toString() . '_replaced', true);
+            } else {
+                $userId = $this->session->id();
+                if ($userId) {
+                    $this->session->set('useroption_' . $keyValue, $this->settingsGateway->getUserOption($userId, $key));
+                }
+            }
+        }
+
+        return $this->session->get('useroption_' . $keyValue);
+    }
+
+    public function setOption(UserOptionType $key, mixed $val): void
+    {
+        $this->settingsGateway->setUserOption($this->session->id(), $key, $val);
+        $this->session->set('useroption_' . $key->value, $val);
+    }
+
+    public function getLocale(): string
+    {
+        $lang = $this->getOption(UserOptionType::LOCALE);
+        if (empty($lang) || $lang == false) {
+            $lang = SettingsTransactions::DEFAULT_LOCALE;
+        }
+
+        return $lang;
     }
 
     /**

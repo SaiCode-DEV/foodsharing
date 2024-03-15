@@ -22,15 +22,10 @@ class QuizXhr extends Control
         private readonly Sanitizer $sanitizerTransactions,
         private readonly DataHelper $dataHelper,
         private readonly QuizPermissions $quizPermissions,
-        private readonly QuizTransactions $quizTransactions
+        private readonly QuizTransactions $quizTransactions,
     ) {
         parent::__construct();
         $this->view = $view;
-    }
-
-    public function hideinfo()
-    {
-        $this->session->setOption('quiz-infobox-seen', true);
     }
 
     public function addquest()

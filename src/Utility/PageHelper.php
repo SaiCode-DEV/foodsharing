@@ -9,6 +9,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Permissions\ContentPermissions;
 use Foodsharing\Permissions\MailboxPermissions;
@@ -60,7 +61,8 @@ final class PageHelper
         private readonly NewsletterEmailPermissions $newsletterEmailPermissions,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly ProfilePermissions $profilePermissions,
-        private readonly RegionGateway $regionGateway
+        private readonly RegionGateway $regionGateway,
+        private readonly SettingsTransactions $settingsTransactions
     ) {
     }
 
@@ -194,7 +196,7 @@ final class PageHelper
             'ravenConfig' => $sentryConfig,
             'isDev' => getenv('FS_ENV') === 'dev',
             'isTest' => getenv('FS_ENV') === 'test',
-            'locale' => $this->session->getLocale(),
+            'locale' => $this->settingsTransactions->getLocale(),
             'mapTilesApiKey' => $mapTilesApiKey
         ]);
     }

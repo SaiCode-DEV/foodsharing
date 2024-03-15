@@ -6,13 +6,11 @@ use Exception;
 use Flourish\fSession;
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
-use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Region\RegionGateway;
-use Foodsharing\Modules\Settings\SettingsGateway;
 
 use function array_key_exists;
 
@@ -24,8 +22,6 @@ class Session
 
     private const SESSION_TIMESTAMP_FIELD_NAME = 'last_updated_ts';
 
-    final public const DEFAULT_LOCALE = 'de';
-
     private const DEFAULT_NORMAL_SESSION_TIMESPAN = '24 hours';
 
     private const DEFAULT_PERSISTENT_SESSION_TIMESPAN = '14 days';
@@ -35,7 +31,6 @@ class Session
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly RegionGateway $regionGateway,
         private readonly LoginGateway $loginGateway,
-        private readonly SettingsGateway $settingsGateway,
         private bool $initialized = false
     ) {
     }
@@ -220,29 +215,6 @@ class Session
         return fSession::get($key, false);
     }
 
-    public function getLocale()
-    {
-        if (!$this->initialized) {
-            return self::DEFAULT_LOCALE;
-        }
-
-        return fSession::get('locale', self::DEFAULT_LOCALE);
-    }
-
-    /**
-     * gets a user specific option and will be available after next login.
-     */
-    public function getOption($key)
-    {
-        return $this->get('useroption_' . $key);
-    }
-
-    public function setOption($key, $val)
-    {
-        $this->foodsaverGateway->setOption($this->id(), $key, $val);
-        $this->set('useroption_' . $key, $val);
-    }
-
     public function getRegions(): array
     {
         return $_SESSION['client']['bezirke'] ?? [];
@@ -373,16 +345,6 @@ class Session
          */
         $this->mem->userAddSession($fs_id, session_id());
 
-        /*
-         * store all options in the session
-        */
-        if (!empty($fs['option'])) {
-            $options = unserialize($fs['option']);
-            foreach ($options as $key => $val) {
-                $this->setOption($key, $val);
-            }
-        }
-
         $_SESSION['login'] = true;
         $_SESSION['client'] = [
             'id' => $fs['id'],
@@ -403,8 +365,6 @@ class Session
 
             $_SESSION['client']['bezirke'] = $this->regionGateway->listForFoodsaver($fs['id']);
         }
-
-        $this->set('locale', $this->settingsGateway->getUserOption($fs['id'], UserOptionType::LOCALE));
     }
 
     public function mayBezirk(int $regionId): bool

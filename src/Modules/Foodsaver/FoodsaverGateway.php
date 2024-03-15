@@ -159,7 +159,6 @@ class FoodsaverGateway extends BaseGateway
 			fs.email,
 			fs.token,
 			fs.mailbox_id,
-			fs.option,
 			fs.geschlecht,
 			fs.privacy_policy_accepted_date,
 			fs.privacy_notice_accepted_date,
@@ -753,22 +752,16 @@ class FoodsaverGateway extends BaseGateway
     }
 
     /**
-     * set option is an key value store each var is available in the user session.
+     * @deprecated Replaced by SettingsTransactions.getOption()
      */
-    public function setOption(int $fsId, string $key, $val): int
+    public function getOption(int $fsId): array
     {
-        $options = [];
-        if ($opt = $this->db->fetchValueByCriteria('fs_foodsaver', 'option', ['id' => $fsId])) {
-            $options = unserialize($opt);
+        $option = $this->db->fetchValueByCriteria('fs_foodsaver', 'option', ['id' => $fsId]);
+        if (!empty($option) && $option != '') {
+            return unserialize($option);
+        } else {
+            return [];
         }
-
-        $options[$key] = $val;
-
-        return $this->db->update('fs_foodsaver', [
-            'option' => serialize($options)
-        ], [
-            'id' => $fsId
-        ]);
     }
 
     /**
