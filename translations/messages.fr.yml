@@ -185,6 +185,7 @@ group:
   member_count:
     zero: pas de contributeur
     one: un·e contributeur·ant
+    other: contributeurs
   mail_link_title:
     region: Messagerie du district
     workgroup: Messagerie du groupe de travail
