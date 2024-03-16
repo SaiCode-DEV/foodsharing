@@ -948,7 +948,7 @@ group:
   really_quit_workgroup: '¿Estás seguro de que quieres abandonar el grupo de trabajo
     {name}?'
   member_count:
-    zero: Sin contribuyentes
+    zero: Sin colaboradores
     one: Un colaborador
     other: '{count} colaboradores'
   enterskills: 'Habilidades:'
