@@ -1662,6 +1662,10 @@ group:
     motivation: Hva er din motivasjon for å delta i gruppen {group}?
     accept: Godta søknaden
     link_description: 'Denne lenken tar deg direkte til applikasjonen:'
+    ability: Hvilke ferdigheter har du på dette området?
+    experience: "Kan du trekke på erfaringer du har gjort andre steder i gruppen?\n
+      I så fall hvor og hvilke?\n"
+    how_much_time: Hvor mange timer i uken har du tid og lyst til å bruke til det?
   contact:
     send: Sende melding
     sent: Meldingen ble sendt.
@@ -1727,8 +1731,14 @@ group:
     not_verified: ikke låst opp
   saved: Endringene har blitt lagret
   subtitle: her kan du finne hjelp og mye å gjøre …
-  member_count: '{0} ingen bidragsytere|{1} en bidragsyter| [2, Inf[ %count% bidragsytere'
-  admin_count: '{0} ingen administratorer|{1} en administrator| [2, Inf[ %count% administratorer'
+  member_count:
+    zero: ingen bidragsytere
+    one: en bidragsyter
+    other: '{count} bidragsytere'
+  admin_count:
+    zero: ingen administratorer
+    other: '{count} administratorer'
+    one: en administrator
   already_applied: Du har allerede søkt på denne gruppen.
   really_quit_workgroup: Vil du virkelig forlate Arbeidsgruppe {name}?
   really_quit_district: Vil du virkelig forlate {name}-distriktet?
@@ -1763,6 +1773,7 @@ group:
   filter_by_last_activity: Ikke aktiv på måneder
   role_name: Rolle
   userId: ID
+  filter_placeholder: Filtrer grupper
 bcard:
   generate: Lag visittkort
   actions: Alternativer
@@ -2879,10 +2890,11 @@ wall:
     text: Er du sikker på at du vil slette denne oppføringen fra {author}?
     title: Vil du slette veggoppføringen?
 sidenav:
-  localgroups: Lokale grupper
+  localgroups: Regionale grupper
   yourgroups: Dine grupper
-  superregional: Overregionale grupper
+  superregional: Supraregional
   countryspecific: Landsspesifikke grupper
+  yourregions: Distriktene dine
 formatting:
   md: Du kan bruke <a href="https://www.markdownguide.org/">Markdown</a> for formatering.
 regionOptions:
@@ -3429,6 +3441,6 @@ help:
         det. Driftsloggen er ikke synlig for vanlige matsparere og hoppere.\n---\n
         ###### Begrensninger\nMaksimalt 100 oppføringer vil bli lastet inn. Du må
         kanskje begrense søkeperioden eller de valgte handlingstypene hvis ikke alle
-        resultater vises. \n"
+        resultater vises.\n"
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
