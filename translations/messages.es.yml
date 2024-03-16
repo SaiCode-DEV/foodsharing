@@ -769,6 +769,9 @@ group:
     motivation: '¿Cuál es tu motivación para unirte al grupo “{group}”?'
     link_description: 'Este enlace te llevará directamente a la aplicación:'
     ability: ¿Cuáles son tus habilidades en este área?
+    experience: "¿Puedes aprovechar las experiencias que hayas adquirido en otros
+      lugares?\nSi es así, ¿dónde o cuáles?\n"
+    how_much_time: ¿Cuántas horas a la semana tienes tiempo y ganas de dedicarle?
   show-all: 'mostrar todo'
   function:
     pr: 'Relación pública'
@@ -946,17 +949,22 @@ group:
     {name}?'
   member_count:
     zero: Sin contribuyentes
+    one: Un colaborador
+    other: '{count} colaboradores'
   enterskills: 'Habilidades:'
   saved: 'Se guardaron los cambios'
   quit_name_workgroup: 'Dejar el equipo {name}'
   delete_group_sure: '¿Realmente desea eliminar el grupo/el distrito {groupName}?'
   subtitle: 'Aquí encontrarás ayuda y mucho que hacer …'
-  admin_count: '{0} sin administratores|{1} un(a) administrador(a)| [2, Inf[ %count%
-    administrador@s'
+  admin_count:
+    zero: Sin administradores
+    one: Un administrador
+    other: '{count} administradores'
   filter_by_last_activity: 'No activo en meses'
   enterxp: 'Experiencia:'
   quit_name_district: 'Abandonar el distrito {name}'
   role_name: 'Role'
+  filter_placeholder: Grupos de filtro
 register:
   error_email_exist: 'Su dirección de correo electrónico ya existe.'
   login_email: 'Dirección de correo electrónico'
