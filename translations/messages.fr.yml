@@ -51,7 +51,7 @@ group:
     title: Demandes pour {group}
     accept: Accepter la candidature
     link_description: 'Ce lien te permet d’accéder directement à l’application :'
-    how_much_time: Combien d'heures par semaine as-tu le temps et l'envie d'y consacrer ?
+    how_much_time: Combien d’heures par semaine as-tu le temps et l’envie d’y consacrer ?
   contact:
     sent: Le message a bien été envoyé.
     send: Envoyer le message
@@ -211,7 +211,7 @@ group:
   last_activity: Dernière activité
   role_name: Rôle
   entertime: 'Temps :'
-  application_region: 'Candidature pour '
+  application_region: 'Candidature pour {group}'
   filter_by_last_activity: Inactif en mois
   application_from: de
   motivation: Texte de motivation
