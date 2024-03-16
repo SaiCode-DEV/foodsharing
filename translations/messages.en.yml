@@ -128,6 +128,9 @@ group:
     summary: '{name} would like to participate in the {group} working group.'
     accept: Accept the application
     link_description: 'This link will take you directly to the application:'
+    ability: What skills do you have in this area?
+    experience: "Can you draw on experiences in the group that you have gained elsewhere?\n
+      If so, where or which ones?\n"
   show-all: Show all
   really_quit_district: Do you really want to leave the region {name}?
   really_quit_workgroup: Do you really want to leave the working group {name}?
@@ -190,7 +193,7 @@ group:
   entermotivation: 'Motivation:'
   enterskills: 'Skills:'
   entertime: 'Available Time:'
-  application_region: 'Application for '
+  application_region: 'Application for {group}'
   enterxp: 'Experience:'
   motivation: motivation text
   last_activity: Last activity
