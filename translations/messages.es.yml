@@ -3277,7 +3277,7 @@ timepicker:
   labelSeconds: 'segundos'
   labelNoTimeSelected: 'No hay hora seleccionada'
 sidenav:
-  superregional: 'Suprarregional'
+  superregional: 'A escala nacional'
   countryspecific: 'Grupos específicos de países'
   yourgroups: 'Tus grupos'
   localgroups: 'Grupos regionales'
