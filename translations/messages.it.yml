@@ -190,7 +190,7 @@ group:
     is_home_region: Distretto principale
     old_edit_hint: L'amministrazione dei soci si trova ora nella scheda
     not_verified: non verificat@
-  application_region: 'Candidatura per '
+  application_region: 'Candidatura per {group}'
   motivation: Testo motivazionale
   entermotivation: 'Motivazione:'
   enterskills: 'Capacità:'
