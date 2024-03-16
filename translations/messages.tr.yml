@@ -471,7 +471,7 @@ group:
     istiyor musunuz? Onaylamanızı kaybedeceksiniz ve daha sonra yeni bölgenizin elçi
     ekibine rapor vermek zorunda kalacaksınız.
   last_activity: Son Aktivite
-  application_region: 'için başvuru '
+  application_region: '{group} için başvuru'
   application_from: -den
   motivation: Motivasyon Yazısı
   admin_count: '{0} Yönetici yok|{1} Bir yönetici| [2, Inf[ %count% yönetici'
@@ -3444,7 +3444,7 @@ help:
         Yalnızca işletme yönetebilen kişiler buna erişebilir. Normal Foodsaver ve
         yedekte olanlar için\nİşletme protokolü görüntülenemiyor.\n---\n###### Kısıtlamalar\n
         Maksimum 100 giriş yüklenecektir. Tüm sonuçlar görüntülenmiyorsa, arama süresini
-        veya seçilen eylem türlerini sınırlamanız gerekebilir. \n"
+        veya seçilen eylem türlerini sınırlamanız gerekebilir.\n"
       title: İşletme protokolü
   helpTitle: 'Yardım: {title}'
   tooltip: Yardımı göster
