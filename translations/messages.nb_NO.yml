@@ -1753,7 +1753,7 @@ group:
     tooltip_function_region332: Medlemmer av denne arbeidsgruppen har tilgang til
       kjedelisten
   entertime: 'Tilgjengelig tid:'
-  application_region: 'Søknad for '
+  application_region: 'Søknad for {group}'
   motivation: Motivasjonstekst
   entermotivation: 'Motivasjon:'
   enterskills: 'Ferdigheter:'
