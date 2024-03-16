@@ -34,7 +34,7 @@ class StoreController extends FoodsharingController
         }
 
         if ($action === 'own') {
-            return $this->redirectToRoute('store_own');
+            return $this->redirectToRoute('store_own', ['userId' => $this->session->id()]);
         }
 
         if ($action === 'new') {

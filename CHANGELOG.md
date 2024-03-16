@@ -60,7 +60,7 @@
 - Created confirmationDialogue mixin !3140 @AntonBallmaier
 - Removed unused event invitation code #1739 !3149 @AntonBallmaier
 - Removed duplicate region member page and profile XHR !3169 @AntonBallmaier
-- Modernized StoreControl to a Symfony controller !3160 @chriswalg
+- Modernized StoreControl to a Symfony controller !3160 !3198 @chriswalg
 - Move Workgroup is Admin Check method from session to module #1769 !3168 @KoeMai
 - Move location information in session to user #1769 !3148 !3185 @KoeMai
 - Remove unused variables from session #1769 !3161  @KoeMai
