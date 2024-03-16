@@ -221,6 +221,7 @@ group:
   enterxp: 'Expérience :'
   enterskills: 'Compétences :'
   userId: ID
+  filter_placeholder: filtrer les groupes
 bcard:
   generate: Créer une carte de visite
   error:
@@ -958,7 +959,7 @@ terminology:
     m: Collecteur
   foodsharer:
     d: Partageur·euse
-    f: Partageuse
+    f: Partageuse de nourriture
     m: Partageur
   stores: Coopérations
   events: Évènements
