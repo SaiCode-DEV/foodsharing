@@ -28,8 +28,14 @@ group:
   administrators: Group administrators
   title: foodsharing working groups
   subtitle: Here you will find help and lots to do …
-  member_count: '{0} No members|{1} One member| [2, Inf[ %count% members'
-  admin_count: '{0} No administrators|{1} One administrator| [2, Inf[ %count% administrators'
+  member_count:
+    zero: no contributors
+    one: one contributor
+    other: '{count} contributors'
+  admin_count:
+    zero: no admins
+    one: one admin
+    other: '{count} admins'
   image: image for %name%
   already_applied: You already applied for this group.
   actions:
@@ -131,6 +137,8 @@ group:
     ability: What skills do you have in this area?
     experience: "Can you draw on experiences in the group that you have gained elsewhere?\n
       If so, where or which ones?\n"
+    how_much_time: How many hours a week do you have the time and inclination to spend
+      on this?
   show-all: Show all
   really_quit_district: Do you really want to leave the region {name}?
   really_quit_workgroup: Do you really want to leave the working group {name}?
@@ -200,6 +208,7 @@ group:
   filter_by_last_activity: No activity in months
   role_name: Role
   userId: ID
+  filter_placeholder: Filter groups
 settings:
   header: Profile settings
   name_change:
@@ -1490,9 +1499,10 @@ email_template:
   from: -- from
 sidenav:
   yourgroups: Your groups
-  localgroups: Local groups
+  localgroups: Regional groups
   countryspecific: Country-specific groups
-  superregional: Supraregional groups
+  superregional: Supraregional
+  yourregions: Your regions
 password:
   reset: Forgot your password?
   insertmail: Enter your e-mail address here to reset your password.
@@ -3557,6 +3567,6 @@ help:
         to it.\nThe operating log is not visible to normal foodsavers and jumpers.\n
         ---\n###### Restrictions\nA maximum of 100 entries will be loaded. You may
         need to limit the search period or the selected action types if not all results
-        are displayed. \n"
+        are displayed.\n"
   tooltip: Show help
   helpTitle: 'Help: {title}'
