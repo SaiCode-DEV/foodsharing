@@ -3277,7 +3277,7 @@ timepicker:
   labelSeconds: 'segundos'
   labelNoTimeSelected: 'No hay hora seleccionada'
 sidenav:
-  superregional: 'A escala nacional'
+  superregional: 'Suprarregional'
   countryspecific: 'Grupos específicos de países'
   yourgroups: 'Tus grupos'
   localgroups: 'Grupos regionales'
@@ -3675,5 +3675,4 @@ help:
         de administrar la explotación. Para Foodsaver y Springer normales:ins\nno
         se puede ver el registro de operaciones.\n---\n###### Restricciones\nSe cargarán
         un máximo de 100 entradas. Puede que tengas que limitar el periodo de búsqueda
-        o los tipos de acciones seleccionados si no se muestran todos los eventos.
-        \n"
+        o los tipos de acciones seleccionados si no se muestran todos los eventos.\n"
