@@ -12,6 +12,7 @@ const urls = {
   baskets: () => '/essenskoerbe',
   blog: () => '/news',
   blogAdd: () => '/blog?sub=add',
+  blogPost: (blogId) => `/blog/${blogId}`,
   blogEdit: (blogId) => `/blog?sub=edit&id=${blogId}`,
   blogList: () => '/blog?sub=manage',
   claims: () => '/content?sub=forderungen',

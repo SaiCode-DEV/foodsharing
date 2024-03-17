@@ -4,10 +4,12 @@ namespace Foodsharing\Modules\Blog;
 
 use Carbon\Carbon;
 use DateTimeZone;
+use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Blog\DTO\BlogPost;
+use Foodsharing\Modules\Blog\DTO\BlogPostList;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
@@ -68,7 +70,7 @@ final class BlogGateway extends BaseGateway
         $val = false;
         try {
             $val = $this->db->fetchByCriteria('fs_blog_entry', ['bezirk_id', 'foodsaver_id'], ['id' => $article_id]);
-        } catch (\Exception) {
+        } catch (Exception) {
             // has to be caught until we can check whether a to be fetched value does really exist.
         }
 
@@ -116,22 +118,25 @@ final class BlogGateway extends BaseGateway
         );
     }
 
-    public function listNews(int $page): array
+    /**
+     * Returns a page of 10 posts from the list of blog posts. The page numbers start at 0. Instead of the full body,
+     * the posts will only contain a teaser text.
+     *
+     * @throws Exception
+     */
+    public function listNews(int $page): BlogPostList
     {
-        $page = ($page - 1) * 10;
-
-        return $this->db->fetchAll(
+        $postData = $this->db->fetchAll(
             '
 			SELECT
 				b.`id`,
 				b.`name`,
-				b.`time`,
 				UNIX_TIMESTAMP(b.`time`) AS time_ts,
 				b.`active`,
 				b.`teaser`,
-				b.`time`,
 				b.`picture`,
-				CONCAT(fs.name," ",fs.nachname) AS fs_name
+				CONCAT(fs.name," ",fs.nachname) AS fs_name,
+			COUNT(*) OVER () as totalPosts
 			FROM
 				`fs_blog_entry` b,
 				`fs_foodsaver` fs
@@ -142,8 +147,21 @@ final class BlogGateway extends BaseGateway
 			ORDER BY
 				b.`id` DESC
 			LIMIT :page,10',
-            [':page' => $page]
+            [':page' => $page * 10]
         );
+
+        $posts = array_map(function ($post) {
+            return BlogPost::create(
+                $post['id'],
+                $post['name'],
+                $post['teaser'],
+                Carbon::createFromTimestamp($post['time_ts'], new DateTimeZone('Europe/Berlin')),
+                $post['fs_name'],
+                $post['picture']
+            );
+        }, $postData);
+
+        return BlogPostList::create($posts, $postData[0]['totalPosts'] ?? 0);
     }
 
     public function getBlogpostList(): array

@@ -1,5 +1,9 @@
 import { get, patch, remove } from './base'
 
+export async function getBlogposts (page) {
+  return get(`/blog?page=${page}`)
+}
+
 export async function getBlogpost (blogPostId) {
   return get(`/blog/${blogPostId}`)
 }

@@ -25,9 +25,6 @@ class BlogView extends View
     // picture size on the blog post page and the upload form
     private const PICTURE_FULL_WIDTH = 528;
     private const PICTURE_FULL_HEIGHT = 285;
-    // picture size in the blog list
-    private const PICTURE_PREVIEW_WIDTH = 500;
-    private const PICTURE_PREVIEW_HEIGHT = 161;
 
     public function __construct(
         Environment $twig,
@@ -77,53 +74,6 @@ class BlogView extends View
         return $this->vueComponent('blog-post', 'BlogPost', [
             'id' => $blogId
         ]);
-    }
-
-    public function newsListItem(array $news): string
-    {
-        return '<div class="news-post"><h2><a href="/blog/' . $news['id'] . '">' . $news['name'] . '</a></h2><p class="small"><span class="time">' . $this->timeHelper->niceDate(
-            $news['time_ts']
-        ) . '</span><span class="name"> von ' . $news['fs_name'] . '</span></p>' . $this->getImage(
-            $news['picture'], $news['id'], [self::PICTURE_PREVIEW_WIDTH, self::PICTURE_PREVIEW_HEIGHT]
-        ) . '<p>' . $this->routeHelper->autolink(
-            $news['teaser']
-        ) . '</p><p><a class="button" href="/blog/' . $news['id'] . '">
-			' . $this->translator->trans('blog.read') . '
-			</a></p><div class="clear"></div></div>';
-    }
-
-    private function getImage(string $postPicture, int $postId, array $size = null, string $prefix = 'crop_1_528_'): string
-    {
-        if (empty($postPicture)) {
-            return '';
-        }
-
-        if (str_starts_with($postPicture, '/api/uploads/')) {
-            // path for pictures uploaded with the new API
-            $src = $postPicture;
-            if (!empty($size)) {
-                $src .= '?w=' . $size[0] . '&h=' . $size[1];
-            }
-        } else {
-            // backward compatible path for old pictures
-            $src = '/images/' . str_replace('/', '/' . $prefix, $postPicture);
-        }
-
-        return '<a href="/blog/' . $postId . '">'
-            . '<img class="corner-all" src="' . $src . '" />'
-            . '</a>';
-    }
-
-    public function pager(int $page): string
-    {
-        $links = '';
-        if ($page > 1) {
-            $links .= '<a class="button" href="/blog?p=' . ($page - 1) . '"><i class="fas fa-arrow-circle-left"></i></a>';
-        }
-
-        $links .= '<a class="button" href="/blog?p=' . ($page + 1) . '"><i class="fas fa-arrow-circle-right"></i></a>';
-
-        return '<p class="pager">' . $links . '</p>';
     }
 
     public function blog_entry_form(array $regions, array $data = null): string

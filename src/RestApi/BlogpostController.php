@@ -4,6 +4,7 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Blog\BlogGateway;
+use Foodsharing\Modules\Blog\DTO\BlogPostList;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Utility\Sanitizer;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -11,6 +12,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA2;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -24,6 +26,24 @@ class BlogpostController extends AbstractFOSRestController
         private readonly Session $session,
         private readonly Sanitizer $sanitizer,
     ) {
+    }
+
+    #[OA2\Get(summary: 'Returns a page from the list of blog posts. The page can be empty if the page number is too large.')]
+    #[OA2\Tag(name: 'blog')]
+    #[OA2\Response(
+        response: Response::HTTP_OK,
+        description: 'Successful',
+        content: new OA2\JsonContent(ref: new Model(type: BlogPostList::class))
+    )]
+    #[Rest\Get('blog')]
+    #[Rest\QueryParam(name: 'page', requirements: '\d+', default: 0, description: 'Which page of updates to return')]
+    public function getBlogpostsAction(ParamFetcher $paramFetcher): Response
+    {
+        $page = intval($paramFetcher->get('page'));
+
+        $posts = $this->blogGateway->listNews($page);
+
+        return $this->handleView($this->view($posts, 200));
     }
 
     /**

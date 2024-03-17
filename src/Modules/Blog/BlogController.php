@@ -35,7 +35,7 @@ class BlogController extends FoodsharingController
         } else {
             match ($request->query->get('sub')) {
                 'listNews' => $this->listNews($request),
-                'read' => $this->read($request),
+                'read' => $this->read((int)$request->get('id')),
                 'manage' => $this->manage(),
                 'post' => $this->post($request),
                 'add' => $this->add(),
@@ -48,37 +48,22 @@ class BlogController extends FoodsharingController
     }
 
     #[Route(path: '/blog/{id}', name: 'blog_id', requirements: ['id' => '\d+'])]
-    public function blogById(Request $request): Response
+    public function blogById(Request $request, int $id): Response
     {
         $this->common();
-        $this->read($request);
+        $this->read($id);
 
         return $this->renderGlobal();
     }
 
     private function listNews(Request $request): void
     {
-        $page = (int)$request->query->get('p', 1);
-
-        if ($news = $this->blogGateway->listNews($page)) {
-            $out = '';
-            foreach ($news as $n) {
-                $out .= $this->view->newsListItem($n);
-            }
-
-            $this->pageHelper->addContent($this->v_utils->v_field(
-                $out, $this->translator->trans('blog.header')
-            ));
-            $this->pageHelper->addContent($this->view->pager($page));
-        } elseif ($page > 1) {
-            $this->routeHelper->goAndExit('/blog');
-        }
+        $this->pageHelper->addContent($this->view->vueComponent('blog-post-list', 'BlogPostList'));
     }
 
-    private function read(Request $request): void
+    private function read(int $id): void
     {
-        $id = $request->query->get('id');
-        if (is_numeric($id) && $news = $this->blogGateway->getPost((int)$id)) {
+        if ($news = $this->blogGateway->getPost($id)) {
             $this->pageHelper->addBread($news->title);
             $this->pageHelper->addContent($this->view->newsPost($news->id));
         }

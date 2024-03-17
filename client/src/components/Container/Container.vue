@@ -2,6 +2,7 @@
   <div class="list-group bg-white mb-2">
     <div
       class="list-group-item list-group-header"
+      :class="{ 'notCollapsible' : !collapsible }"
       @click="collapsible ? toggleExpanded() : null"
     >
       <h5 :class="{ 'expanded': isExpanded }">
@@ -190,5 +191,9 @@ export default {
 
 .list-group-item-action-toggle {
   border-top-width: 1px;
+}
+
+.notCollapsible {
+  cursor: unset;
 }
 </style>
