@@ -343,6 +343,10 @@ group:
     erfahrung: "Grupta, başka bir yerde edindiğiniz deneyimlerden yararlanabilir misiniz?\n
       Eğer öyleyse, nerede veya ne?\n"
     link_description: 'Bu bağlantı sizi doğrudan uygulamaya yönlendirecektir:'
+    ability: Bu alanda sahip olduğunuz beceriler nelerdir?
+    experience: "Grupta başka yerlerde edindiğiniz deneyimlerden faydalanabilir misiniz?\n
+      Eğer öyleyse, nerede veya hangileri?\n"
+    how_much_time: Haftada kaç saatinizi buna ayırmaya zamanınız ve isteğiniz var?
   application_requirements:
     everybody: Herkes başvurabilir.
     nobody: Kimse (kapalı grup).
@@ -456,8 +460,10 @@ group:
   applications_for: '{name} için müracatlar'
   title: Foodsharing Çalışma Grupları
   subtitle: Burada yardım ve yapacak çok şey bulacaksınız …
-  member_count: '{0} Katkıda bulunan yok|{1} Bir katkıda bulunan var| [2, Inf[ %count%
-    katkıda bulunanlar'
+  member_count:
+    zero: Katkıda bulunan yok
+    one: Bir katkıda bulunan
+    other: '{count} katkıda bulunanlar'
   really_quit_workgroup: '{name} çalışma grubundan ayrılmak istediğinize emin misiniz?'
   already_applied: Bu grup için zaten başvuruda bulundunuz.
   quit_name_district: '{name} bölgesinden ayrıl'
@@ -474,7 +480,10 @@ group:
   application_region: '{group} için başvuru'
   application_from: -den
   motivation: Motivasyon Yazısı
-  admin_count: '{0} Yönetici yok|{1} Bir yönetici| [2, Inf[ %count% yönetici'
+  admin_count:
+    other: '{count} Admin var'
+    zero: Admin yok
+    one: Bir Admin var
   unique_function:
     tooltip_function_region332: Bu çalışma grubunun üyeleri İşletme zinciri listesine
       erişebilir
@@ -519,6 +528,7 @@ group:
   show-all: Hepsini göster
   delete_group_sure: '{groupName} çalışma grubunu/bölgesini silmek istediğinizden
     emin misiniz?'
+  filter_placeholder: Grupları filtrele
 ansprechpartner: İşletmeden sorumlu Yektili (Şube Müdürü vs.)
 text: Metin
 fp: Hata puanları
@@ -1957,10 +1967,11 @@ conference:
     utopia Kollektivs konferans sunucusu aracılığıyla gerçekleştirilir. Foodsharing'e
     girdiğiniz adınız, kimliğiniz ve avatarınızla otomatik olarak oturum açacaksınız."
 sidenav:
-  localgroups: Yerel gruplar
+  localgroups: Bölgesel Gruplar
   yourgroups: Gruplarınız
-  superregional: Bölgeler üstü gruplar
+  superregional: Bölgeler üstü
   countryspecific: Ülkeye Özgü Gruplar
+  yourregions: Senin Bölgelerin
 tablesorter:
   entriespp: Sayfa başına kayıt
   page: Sayfa
