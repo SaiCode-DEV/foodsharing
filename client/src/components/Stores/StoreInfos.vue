@@ -17,7 +17,7 @@
         <div>
           {{ street }} <br>
           {{ postcode }} {{ city }} <br>
-          <a :href="$url('mapStore', storeId)">
+          <a :href="$url('map', { storeId: storeId })">
             <i class="fas fa-map-marker-alt" />
             {{ $i18n('store.to_map') }}
           </a>

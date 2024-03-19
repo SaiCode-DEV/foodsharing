@@ -47,8 +47,15 @@ const urls = {
   mailboxManage: () => '/?page=mailbox&a=manage',
   mailboxMailto: (email) => `/?page=mailbox&mailto=${email}`,
   mailboxOldAttachment: (emailId, attachmentIndex) => `/?page=mailbox&a=dlattach&mid=${emailId}&i=${attachmentIndex}`,
-  map: () => '/karte',
-  mapStore: (storeId) => `/karte?bid=${storeId}`,
+  map: ({ storeId = null, foodSharePointId = null }) => {
+    let path = '/karte'
+    if (storeId) {
+      path += `?bid=${storeId}`
+    } else if (foodSharePointId) {
+      path += `?fspId=${foodSharePointId}`
+    }
+    return path
+  },
   newsFromIT: () => 'https://foodsharing.freshdesk.com/support/solutions/folders/77000160479',
   vision: () => '/ueber-uns',
   partner: () => '/partner',

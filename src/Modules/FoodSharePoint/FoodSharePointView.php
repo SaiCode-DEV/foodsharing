@@ -139,6 +139,7 @@ class FoodSharePointView extends View
     public function address(): string
     {
         return $this->vueComponent('fsp-address-field', 'AddressField', [
+            'id' => $this->foodSharePoint['id'],
             'address' => $this->foodSharePoint['anschrift'],
             'zipCode' => $this->foodSharePoint['plz'],
             'city' => $this->foodSharePoint['ort'],

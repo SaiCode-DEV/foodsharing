@@ -28,6 +28,11 @@ class MapGateway extends BaseGateway
         return $this->db->fetchByCriteria('fs_foodsaver', ['lat', 'lon'], ['id' => $foodsaverId]);
     }
 
+    public function getFoodSharePointLocation(int $foodSharePointId): array
+    {
+        return $this->db->fetchByCriteria('fs_fairteiler', ['lat', 'lon'], ['id' => $foodSharePointId]);
+    }
+
     public function getBasketMarkers(): array
     {
         $markers = $this->db->fetchAllByCriteria('fs_basket', ['id', 'lat', 'lon'], [

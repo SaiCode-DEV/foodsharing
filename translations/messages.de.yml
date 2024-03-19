@@ -771,6 +771,7 @@ fsp:
   address: "Adresse"
   street: "Anschrift"
   location: "Postleitzahl / Ort"
+  show_on_large_map: "Auf der Karte anzeigen"
   pic: "Foto"
   addedOn: "Hinzugefügt am"
   addedBy: "Hinzugefügt von"

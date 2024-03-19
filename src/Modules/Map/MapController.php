@@ -42,6 +42,9 @@ class MapController extends FoodsharingController
             $storeId = intval($request->query->get('bid'));
             $center = $this->mapGateway->getStoreLocation($storeId);
             $this->pageHelper->addJs('loadStoreBubble(' . $storeId . ');');
+        } elseif ($request->query->has('fspId')) {
+            $foodSharePointId = intval($request->query->get('fspId'));
+            $center = $this->mapGateway->getFoodSharePointLocation($foodSharePointId);
         }
 
         $this->pageHelper->addJs('u_init_map();');
