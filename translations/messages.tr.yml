@@ -2207,6 +2207,7 @@ forum:
     subscriptions:
       subscribed: Abone olundu
       subscribe: Abone ol
+    bottom: azaltılmış görünürlük
   hold_back_for_moderation: Konu kaydedildi ve bir elçi/moderatör onaylar onaylamaz
     yayınlanacak.
   sending_error: Gönderilirken bir hata oluştu
@@ -3421,6 +3422,7 @@ thread:
     pin: Gönderiyi sabitle
     lock: Konuyu kapat
     unpin: Artık sabitlemeyi kaldır
+    priority: Görüntüleme önceliğini ayarlayın
   rename:
     description_modal_text: 'Bu yazı için yeni bir başlık girin:'
     placeholder: Başlık
@@ -3430,6 +3432,12 @@ thread:
     options:
       copy_source: Kaynak kodunu kopyala
     copy_source_success: Kaynak kodu kopyalandı!
+  priorityModal:
+    title: Görüntüleme önceliğini ayarlayın
+    lower: en altta
+    normal: normal
+    higher: en yukarda
+    text: 'Bu gönderinin görüntülenme önceliği:'
 save_state: Filtre ve sıralama olduğu gibi kalsın
 save_state_description: Uygulanan filtreleri ve sıralamayı kaydedin ve gelecekteki
   aramalar için kayıtlı bırakın
@@ -3457,5 +3465,14 @@ help:
         Maksimum 100 giriş yüklenecektir. Tüm sonuçlar görüntülenmiyorsa, arama süresini
         veya seçilen eylem türlerini sınırlamanız gerekebilir.\n"
       title: İşletme protokolü
+    threadPriority:
+      md: "Konular görüntüleme önceliğine göre sıralanmış olarak listelenir. Aynı
+        önceliğe sahip konular, son etkinliğin zamanına göre sıralanır.\n---\nSabitlenen
+        konuların önceliği 1, normal konuların önceliği ise 0'dır. Görüntülenen konuları
+        daha düzgün bir şekilde sıralayabilmek için burada daha yüksek değerler de
+        ayarlayabilirsiniz, böylece konuların değişiklik tarihine bakılmaksızın, her
+        zaman, en üstte kalması sağlanır.\nÖnceliği -1 olan Konu sıraları diğer tüm
+        konu sıralarının altında görünür.\n"
+      title: Forumlarda görüntüleme önceliği
   helpTitle: 'Yardım: {title}'
   tooltip: Yardımı göster
