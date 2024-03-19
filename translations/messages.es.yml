@@ -2291,6 +2291,7 @@ forum:
     subscriptions:
       subscribed: suscrito
       subscribe: Suscribir
+    bottom: Visibilidad reducida
   new_thread: 'Componer un nuevo hilo'
   follow:
     bell: 'por campana'
@@ -3637,6 +3638,7 @@ thread:
     pin: Hilo de pasador
     lock: Cerrar hilo
     unpin: Desanclar el hilo
+    priority: Establecer la prioridad de visualización
   rename:
     description_modal_text: 'Ingrese un nuevo título para este hilo:'
     placeholder: Título
@@ -3646,6 +3648,12 @@ thread:
     options:
       copy_source: Copiar código fuente
     copy_source_success: ¡Código fuente copiado!
+  priorityModal:
+    title: Establecer la prioridad de visualización
+    text: 'Prioridad de visualización para esta publicación:'
+    lower: Baja
+    higher: Alta
+    normal: Normal
 configure_columns: Configurar columnas
 save_state: Mantener filtros y clasificación
 save_state_description: Guarde los filtros usados y clasifique para futuras llamadas
