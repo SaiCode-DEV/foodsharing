@@ -3670,17 +3670,26 @@ help:
     storeLog:
       title: Registro de las operaciones
       md: "El registro de operaciones es una forma de hacer un seguimiento de las
-        **actividades de una explotación**. Podrá:\nayudar a resolver conflictos o
-        corregir errores accidentales.\n---\n###### Ejemplo\nSupongamos que quieres
-        saber quién se unió al equipo en las últimas tres semanas.\nA continuación,
-        puedes definir el período usando las fechas de inicio y finalización en los
-        dos campos de fecha.\nA continuación, puedes seleccionar todos los tipos de
-        acciones relevantes en el menú desplegable. En este caso:\nPor ejemplo, \"\
-        *presentar solicitudes de adhesión*\", \"*aceptar solicitudes de adhesión*\"\
-        \ y \"*rechazar solicitudes de adhesión*\".\nAhora, si haces clic en el botón
-        \"*Seleccionar Mostrar Acciones*\", te mostraremos un historial de los eventos
-        seleccionados.\n---\n###### Acceso\nSólo puede acceder a ella quien sea capaz
-        de administrar la explotación. Para Foodsaver y Springer normales:ins\nno
-        se puede ver el registro de operaciones.\n---\n###### Restricciones\nSe cargarán
-        un máximo de 100 entradas. Puede que tengas que limitar el periodo de búsqueda
-        o los tipos de acciones seleccionados si no se muestran todos los eventos.\n"
+        **actividades de una empresa**. Puede ayudar a resolver conflictos o corregir
+        errores involuntarios.\n---\n###### Ejemplo\nSupongamos que desea saber quién
+        se ha incorporado al equipo en las últimas 3 semanas y quién lo ha hecho.
+        Entonces puede definir el periodo utilizando las fechas de inicio y fin en
+        los dos campos de fecha. A continuación, puede seleccionar todos los tipos
+        de acción pertinentes en el desplegable. En este caso, por ejemplo, \"*Solicitar
+        afiliación*\", \"*Aceptar solicitudes de afiliación*\" y \"*Rechazar solicitudes
+        de afiliación*\". Si ahora hace clic en el botón \"*Mostrar acciones seleccionadas*\"\
+        , se le mostrará un historial de los eventos seleccionados. \n---\n######
+        Acceso\nSólo tienen acceso aquellos que también pueden administrar la operación.
+        El registro de operaciones no puede ser visto por los ahorradores y saltadores
+        normales.\n---\n###### Restricciones\nSe carga un máximo de 100 entradas.
+        Es posible que tenga que restringir el periodo de búsqueda o los tipos de
+        acción seleccionados si no se muestran todos los resultados.\n"
+    threadPriority:
+      title: Mostrar la prioridad en los foros
+      md: "Los temas se ordenan según su prioridad de visualización. Los temas con
+        la misma prioridad se ordenan según la hora de la última actividad.\n---\n
+        Los temas anclados tienen una prioridad de 1, los temas normales tienen una
+        prioridad de 0. Para poder ordenar los temas mostrados de forma más precisa,
+        también puede establecer valores más altos aquí para que los temas estén siempre
+        en la parte superior independientemente de la fecha de modificación.\nLos
+        hilos con prioridad -1 se muestran debajo de todos los demás hilos.\n"
