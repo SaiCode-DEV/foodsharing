@@ -2391,6 +2391,7 @@ fsp:
   new: 'Nuevo distribuidor'
   addedBy: 'Añadid@ por'
   addError: 'No se pudo ingresar el distribuidor. ¿Completaste todo correctamente?'
+  show_on_large_map: Mostrar en el mapa
 storeedit:
   team:
     leave: 'Dejar esta empresa'
