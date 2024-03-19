@@ -1270,6 +1270,7 @@ forum:
     open: "Thema wieder öffnen"
     closed: "geschlossenes Thema"
     sticky: "angeheftetes Thema"
+    bottom: "reduzerte Sichtbarkeit"
     navigate_to_newest_post: "zum neuesten Beitrag springen"
     navigate_to_oldest_post: "zum ersten Beitrag springen"
     subscriptions:
@@ -3222,11 +3223,18 @@ thread:
     unpin: "Nicht mehr anheften"
     lock: "Thema schließen"
     unlock: "Thema öffnen"
+    priority: "Anzeigepriorität anpassen"
   rename:
     edit_description: "Titel bearbeiten"
     description_modal_text: "Gib einen neuen Titel für diesen Beitrag ein:"
     placeholder: "Titel"
     max_length_info: "Maximale Länge des Titels erreicht (260 Zeichen)"
+  priorityModal:
+    title: "Anzeigepriorität anpassen"
+    text: "Anzeigepriorität dieses Beitrags:"
+    lower: ganz unten
+    normal: normal
+    higher: ganz oben
   post:
     options:
       copy_source: "Quelltext kopieren"
@@ -3264,21 +3272,20 @@ help:
     storeLog:
       title: "Betriebsprotokoll"
       md: |
-        Das Betriebsprotokoll ist eine Möglichkeit, die **Aktivitäten in einem Betrieb nachzuvollziehen**. Es kann
-        dabei helfen, Konflikte zu lösen oder versehentliche Fehler zu korrigieren.
+        Das Betriebsprotokoll ist eine Möglichkeit, die **Aktivitäten in einem Betrieb nachzuvollziehen**. Es kann dabei helfen, Konflikte zu lösen oder versehentliche Fehler zu korrigieren.
         ---
         ###### Beispiel
-        Angenommen, du wills wissen, wer in den letzten 3 Wochen von wem ins Team aufgenommen wurde.
-        Dann kannst du den Zeitraum mittels Start- und Enddatum über die beiden Datums-Felder festlegen.
-        Als nächstes kannst du aus dem Dropdown alle relevanten Aktionstypen auswählen. In diesem Fall
-        zum Beispiel "*Beitrittsanfragen stellen*", "*Beitrittsanfragen annehmen*" und "*Beitrittsanfragen ablehnen*".
-        Wenn du nun auf den Button "*Ausgewähle Aktionen anzeigen*" klickst, wir dir eine Historie der ausgewählten Ereignisse angezeigt.
+        Angenommen, du wills wissen, wer in den letzten 3 Wochen von wem ins Team aufgenommen wurde. Dann kannst du den Zeitraum mittels Start- und Enddatum über die beiden Datums-Felder festlegen. Als nächstes kannst du aus dem Dropdown alle relevanten Aktionstypen auswählen. In diesem Fall zum Beispiel "*Beitrittsanfragen stellen*", "*Beitrittsanfragen annehmen*" und "*Beitrittsanfragen ablehnen*". Wenn du nun auf den Button "*Ausgewähle Aktionen anzeigen*" klickst, wir dir eine Historie der ausgewählten Ereignisse angezeigt. 
         ---
         ###### Zugriff
-        Zugriff darauf hat nur, wer auch den Betrieb administrieren kann. Für normale Foodsaver und Springer:innen
-        ist das Betriebsprotokoll nicht einsehbar.
+        Zugriff darauf hat nur, wer auch den Betrieb administrieren kann. Für normale Foodsaver und Springer:innen ist das Betriebsprotokoll nicht einsehbar.
         ---
         ###### Einschränkungen
         Es werden maximal 100 Einträge geladen. Ggf. musst du den Suchzeitraum oder die ausgewählten Aktionstypen einschränken, wenn nicht alle Ergenisse angezeigt werden.
-
-
+    threadPriority:
+      title: "Anzeigepriorität in Foren"
+      md: |
+        Themen werden sortiert nach ihrer Anzeigepriorität aufgelistet. Themen mit gleicher Priorität werden nach dem Zeitpunkt der letzten Aktivität sortiert.
+        ---
+        Angepinnte Threads haben eine Priorität von 1, normale Threads die Priorität 0. Um die Angezeigten Threads genauer sortieren zu können, kannst du hier aber auch höhere Werte festlegen, sodass Themen unabhängig vom Änderungsdatum immer ganz oben stehen.
+        Threads mit Priorität -1 werden unter allen anderen Threads angezeigt.

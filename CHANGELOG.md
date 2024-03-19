@@ -7,6 +7,7 @@
 - Added a map to the foodsharepoint page #1035 !3097 @alex.simm
 - Added an Info vue commonent for explainin parts of the website. #1852 !3181 @AntonBallmaier
 - Group different bell events, like it is done for the forum !3073 @AntonBallmaier
+- Stickiness of threads can have more values now allowing for better thread sorting !3205 @AntonBallmaier
 - Added an info box for ambassadors to make sure the user name field is not misused #204 !3204 @AntonBallmaier
 
 ## Changes
@@ -19,6 +20,7 @@
 - Improved search #1728 !3150 @AntonBallmaier
 - Strip EXIF data from uploaded PNG files #375 !3151 @alex.simm
 - Users can only be added to a store if they are already in that region #20 !3180 @alex.simm
+- Pinned threads are no longer sorted by name !3205 @AntonBallmaier
 - Enabling the Display of Occupied Slot Details in the Confirmation Dialogue #1862 !3213 @c-h-i-c-k-e-n
 
 ## Bugfixes

@@ -7,12 +7,17 @@
       <h4 :class="{'text-truncate': title.length > 150}">
         <b-skeleton v-if="isLoading" />
         <i
+          v-if="stickiness < 0"
+          class="fas fa-sign-in-alt fa-rotate-90 mr-1"
+          :title="$i18n('forum.thread.bottom')"
+        />
+        <i
           v-if="!isOpen"
           class="fas fa-lock mr-1"
           :title="$i18n('forum.thread.closed')"
         />
         <i
-          v-if="isSticky"
+          v-if="stickiness > 0"
           class="fas fa-thumbtack mr-1"
           :title="$i18n('forum.thread.sticky')"
         />
@@ -155,6 +160,30 @@
       </small>
     </b-modal>
 
+    <b-modal
+      ref="priorityEditModal"
+      centered
+      :cancel-title="$i18n('button.cancel')"
+      :ok-title="$i18n('button.save')"
+      @ok="updateStickiness(newPriority)"
+    >
+      <template #modal-title>
+        {{ $i18n('thread.priorityModal.title') }}
+        <Info info-key="threadPriority" />
+      </template>
+      <p>
+        {{ $i18n('thread.priorityModal.text') }}
+        {{ newPriority }}
+        ({{ newPriorityText }})
+      </p>
+      <VueSlider
+        v-model="newPriority"
+        :min="-1"
+        :max="10"
+        tooltip="none"
+      />
+    </b-modal>
+
     <JumpScrollButton
       element-id="posts-wrapper"
     />
@@ -173,9 +202,12 @@ import SubscribeButton from './SubscribeButton.vue'
 import ThreadForm from './ThreadForm'
 import ThreadPost from './ThreadPost'
 import ThreadStatus from './ThreadStatus'
+import VueSlider from 'vue-slider-component'
+import 'vue-slider-component/theme/antd.css'
+import Info from '@/components/Help/Info.vue'
 
 export default {
-  components: { ThreadForm, ThreadPost, OverflowMenu, JumpScrollButton, SubscribeButton },
+  components: { ThreadForm, ThreadPost, OverflowMenu, JumpScrollButton, SubscribeButton, VueSlider, Info },
   props: {
     id: {
       type: Number,
@@ -190,7 +222,7 @@ export default {
       posts: [],
       creator: null,
 
-      isSticky: false,
+      stickiness: 0,
       isActive: true,
       mayModerate: false,
       mayDelete: false,
@@ -202,6 +234,7 @@ export default {
       loadingPosts: [],
       errorMessage: null,
       newTitle: '',
+      newPriority: 0,
 
       status: ThreadStatus.THREAD_OPEN,
     }
@@ -223,8 +256,12 @@ export default {
       return [
         { hide: !this.mayRename, icon: 'pen', textKey: 'thread.options.rename', callback: this.openEditTitleModal },
         { hide: !this.mayModerate, icon: `lock${this.isOpen ? '' : '-open'}`, textKey: `thread.options.${this.isOpen ? '' : 'un'}lock`, callback: this.updateClosed },
-        { hide: !this.mayModerate, icon: 'thumbtack', textKey: `thread.options.${this.isSticky ? 'un' : ''}pin`, callback: this.updateStickyness },
+        { hide: !this.mayModerate || this.stickiness < 0, icon: 'thumbtack', textKey: `thread.options.${this.stickiness ? 'un' : ''}pin`, callback: () => this.updateStickiness(+(!this.stickiness)) },
+        { hide: !this.mayModerate, icon: 'sort-amount-down', textKey: 'thread.options.priority', callback: this.updatePriority },
       ]
+    },
+    newPriorityText () {
+      return this.$i18n('thread.priorityModal.' + ['lower', 'normal', 'higher'][Math.sign(this.newPriority) + 1])
     },
   },
   async created () {
@@ -260,7 +297,7 @@ export default {
           regionId: res.regionId,
           regionSubId: res.regionSubId,
           posts: res.posts,
-          isSticky: res.isSticky,
+          stickiness: res.stickiness,
           isActive: res.isActive,
           mayModerate: res.mayModerate,
           mayDelete: res.mayDelete,
@@ -280,15 +317,10 @@ export default {
         }
       }
     },
-    async updateStickyness () {
-      const targetState = !this.isSticky
+    async updateStickiness (targetState) {
       try {
-        if (targetState) {
-          await api.stickThread(this.id)
-        } else {
-          await api.unstickThread(this.id)
-        }
-        this.isSticky = targetState
+        await api.setStickinessThread(this.id, targetState)
+        this.stickiness = targetState
       } catch (err) {
         pulseError(this.$i18n('error_unexpected'))
       }
@@ -416,6 +448,10 @@ export default {
         pulseError(this.$i18n('error_unexpected'))
       }
       this.isLoading = false
+    },
+    updatePriority () {
+      this.newPriority = this.stickiness
+      this.$refs.priorityEditModal.show()
     },
   },
 }

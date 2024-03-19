@@ -67,9 +67,7 @@ class ForumGateway extends BaseGateway
 			AND 		t.`active` = 1
 
 			ORDER BY    t.`sticky` DESC,
-                        CASE WHEN sticky = 1 THEN t.`name` END ASC,
-                        CASE WHEN sticky = 0 THEN p.`time` END DESC
-
+                        p.`time` DESC
 			LIMIT :limit
 			OFFSET :offset
 		', [
@@ -166,20 +164,11 @@ class ForumGateway extends BaseGateway
 		', ['theme_id' => $thread_id]);
     }
 
-    public function stickThread($thread_id)
+    public function setStickiness(int $thread_id, int $stickiness)
     {
         return $this->db->update(
             'fs_theme',
-            ['sticky' => 1],
-            ['id' => $thread_id]
-        );
-    }
-
-    public function unstickThread($thread_id)
-    {
-        $this->db->update(
-            'fs_theme',
-            ['sticky' => 0],
+            ['sticky' => $stickiness],
             ['id' => $thread_id]
         );
     }

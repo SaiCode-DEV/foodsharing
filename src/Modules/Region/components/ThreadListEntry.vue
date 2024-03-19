@@ -10,7 +10,7 @@
       <div class="text-truncate flex-grow-1 d-flex flex-wrap-reverse flex-sm-nowrap">
         <div
           class="text-truncate thread-main px-1 mr-1 align-self-center flex-grow-1 flex-shrink-1 flex-sm-noshrink"
-          :class="{'font-weight-bold': thread.isSticky}"
+          :class="{'font-weight-bold': thread.stickiness > 0}"
         >
           <span class="thread-title d-inline" :class="titleClass">
             <i
