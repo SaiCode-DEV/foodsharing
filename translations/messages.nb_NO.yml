@@ -3442,5 +3442,12 @@ help:
         ###### Begrensninger\nMaksimalt 100 oppføringer vil bli lastet inn. Du må
         kanskje begrense søkeperioden eller de valgte handlingstypene hvis ikke alle
         resultater vises.\n"
+    threadPriority:
+      md: "Emner er oppført sortert etter visningsprioritet. Emner med samme prioritet
+        er sortert etter tidspunktet for siste aktivitet.\n---\nFestede tråder har
+        en prioritet på 1, vanlige tråder har en prioritet på 0. For å kunne sortere
+        de viste trådene mer presist kan du også sette høyere verdier her slik at
+        emner alltid er øverst uavhengig av endringsdato.\nTråder med prioritet -1
+        vises under alle andre tråder.\n"
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
