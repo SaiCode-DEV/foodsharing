@@ -90,6 +90,7 @@
 - Bump node to 20.11.1 @chriswalg
 - Modernized FoodSharePointControl to a Symfony controller !3106 @\_fridtjof_
 - Upgrade webpack-dev-server to v4 !3220 @\_fridtjof_
+- Update some backend dependencies !3232 @\_fridtjof_
 
 ## Development documentation
 
