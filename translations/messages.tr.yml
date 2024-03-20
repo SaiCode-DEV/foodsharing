@@ -2896,6 +2896,7 @@ fsp:
   add: Yeni gıda dağıtım noktası girin
   summaryRegion: '{region} ve tüm nahiyelerde {count} gıda dağıtım noktaları var'
   edit: Gıda dağıtım noktasını düzenle
+  show_on_large_map: Haritada göster
 statistics:
   kg_food_saved: '{count} kg gıda kurtarıldı'
   num_fetches: '{count} kurtarma görevinde'
