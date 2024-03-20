@@ -47,7 +47,7 @@ const urls = {
   mailboxManage: () => '/?page=mailbox&a=manage',
   mailboxMailto: (email) => `/?page=mailbox&mailto=${email}`,
   mailboxOldAttachment: (emailId, attachmentIndex) => `/?page=mailbox&a=dlattach&mid=${emailId}&i=${attachmentIndex}`,
-  map: ({ storeId = null, foodSharePointId = null }) => {
+  map: ({ storeId = null, foodSharePointId = null } = {}) => {
     let path = '/karte'
     if (storeId) {
       path += `?bid=${storeId}`
