@@ -46,7 +46,8 @@ class ForumGateway extends BaseGateway
 						creator.name as creator_name,
 						creator.photo as creator_photo,
 						creator.sleep_status as creator_sleep_status,
-						t.status
+						t.status,
+				        COUNT(*) OVER() AS total_rows
 
 			FROM 		fs_theme t
 						INNER JOIN

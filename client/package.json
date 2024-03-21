@@ -43,7 +43,6 @@
     "vue": "~2.7.14",
     "vue-advanced-chat": "^2.0.10",
     "vue-croppie": "^2.0.2",
-    "vue-infinite-loading": "^2.4.5",
     "vue-jstree": "^2.1.6",
     "vue-multiselect": "^2.1.7",
     "vue-simple-suggest": "^1.11.2",

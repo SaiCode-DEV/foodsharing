@@ -21,6 +21,7 @@
 - Strip EXIF data from uploaded PNG files #375 !3151 @alex.simm
 - Users can only be added to a store if they are already in that region #20 !3180 @alex.simm
 - Pinned threads are no longer sorted by name !3205 @AntonBallmaier
+- Removed infinity loading from forum lists #1231 !3229 @chriswalg
 - Enabling the Display of Occupied Slot Details in the Confirmation Dialogue #1862 !3213 @c-h-i-c-k-e-n
 
 ## Bugfixes

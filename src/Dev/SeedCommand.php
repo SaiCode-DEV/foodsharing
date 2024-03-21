@@ -596,7 +596,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         // Create more Forum Threads
         $this->output->writeln('- Create more forum Threads');
         $randomFsList = array_slice($this->foodsavers, -100, 100, true);
-        foreach ($this->getRandomIDOfArray($randomFsList, 30) as $random_user) {
+        foreach ($this->getRandomIDOfArray($randomFsList, 100) as $random_user) {
             foreach (range(0, 5) as $_) {
                 $I->addForumThread($region1, $random_user);
             }

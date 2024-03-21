@@ -84,7 +84,7 @@ class ForumRestController extends AbstractFOSRestController
             'createdAt' => str_replace(' ', 'T', (string)$post['time']),
             'author' => RestNormalization::normalizeUser($post, 'author_'),
             'reactions' => $post['reactions'] ?: new \ArrayObject(),
-            'mayDelete' => $this->forumPermissions->mayDeletePost($post)
+            'mayDelete' => $this->forumPermissions->mayDeletePost($post),
         ];
     }
 
@@ -133,7 +133,7 @@ class ForumRestController extends AbstractFOSRestController
         $threads = $this->getNormalizedThreads($forumId, $forumSubId, $limit, $offset);
 
         $view = $this->view([
-            'data' => $threads
+            'object' => $threads
         ], 200);
 
         return $this->handleView($view);
@@ -142,9 +142,13 @@ class ForumRestController extends AbstractFOSRestController
     private function getNormalizedThreads(int $forumId, int $forumSubId, int $limit, int $offset): array
     {
         $threads = $this->forumGateway->listThreads($forumId, $forumSubId, $limit, $offset);
-        $threads = array_map(fn ($thread) => $this->normalizeThread($thread), $threads);
+        $totalRows = $threads[0]['total_rows'] ?? 0;
+        $normalizedThreads = array_map(fn ($thread) => $this->normalizeThread($thread), $threads);
 
-        return $threads;
+        return [
+            'totalRows' => $totalRows,
+            'data' => $normalizedThreads,
+        ];
     }
 
     /**
