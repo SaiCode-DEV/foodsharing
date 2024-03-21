@@ -198,6 +198,7 @@ export default {
             { value: this.allAdmins.moderationAdmins, label: 'terminology.moderationAdmins' },
             { value: this.allAdmins.boardAdmins, label: 'terminology.boardAdmins' },
             { value: this.allAdmins.electionAdmins, label: 'terminology.electionAdmins' },
+            { value: this.allAdmins.arbitrationAdmins, label: 'terminology.arbitrationAdmins' },
           ],
       loading: true,
       applications: [],

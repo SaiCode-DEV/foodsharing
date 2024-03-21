@@ -50,7 +50,7 @@
 - Rebuild the wall using vue #45 #1800 #1830 !3045 !3112 !3135 @AntonBallmaier
 - Move UserOptions to Settings Module !3146 @KoeMai
 - Avoid access to global $_SESSION !3099 @KoeMai
-- Refactor region page to vue !2794 !3157 @chriswalg
+- Refactor region page to vue !2794 !3157 !3227 @chriswalg
 - New map bubble for stores in Vue !2988 !3128 !3166 !3201 @alex.simm
 - Renamed bezirk to region in urls helper !3126 @chriswalg
 - Prepared for removal of run.php in favor of Symfony's console !3118 @\_fridtjof_
