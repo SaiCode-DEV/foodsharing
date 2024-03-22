@@ -374,7 +374,7 @@ group:
     summary: "{name} möchte gerne in der Arbeitsgruppe {group} mitmachen."
     link_description: "Über diesen Link kommst du direkt zur Bewerbung:"
     motivation: "Was ist deine Motivation, in der Gruppe {group} mitzuwirken?"
-    ability: "Was sind deine Fähigkeiten, die du in diesem Bereich hast?"
+    ability: "Welche Fähigkeiten hast du in diesem Bereich?"
     experience: |
       Kannst du in der Gruppe auf Erfahrungen, die du woanders gesammelt hast zurückgreifen?
       Wenn ja, wo beziehungsweise welche?
@@ -1271,7 +1271,7 @@ forum:
     open: "Thema wieder öffnen"
     closed: "geschlossenes Thema"
     sticky: "angeheftetes Thema"
-    bottom: "reduzerte Sichtbarkeit"
+    bottom: "reduzierte Sichtbarkeit"
     navigate_to_newest_post: "zum neuesten Beitrag springen"
     navigate_to_oldest_post: "zum ersten Beitrag springen"
     subscriptions:
@@ -1757,9 +1757,9 @@ content:
   delete_tooltip: "Seite löschen"
   communities:
     title: Ortsgruppen
-    text: foodsharing wächst täglich. Hier findet ihr immer eine aktuelle Liste aller foodsharing Gemeinschaften und Bezirke. Du kannst eine Mail an jeden dieser Bezirke schicken, indem du auf die verlinkten Namen klickst.
+    text: foodsharing wächst täglich. Hier findet ihr immer eine aktuelle Liste aller foodsharing-Gemeinschaften und Bezirke. Du kannst eine Mail an den entsprechenden Bezirk schicken, indem du auf den verlinkten Namen klickst.
     searchInfo: Mit Strg+F kann die Liste in vielen Browsern nach Ländern, Städten, Bundesländern oder Stadtteilen durchsucht werden.
-    noAmbassador: Diese Region hat aktuell keine Botschafter:innen und ist daher aktuell nicht per Mail erreichbar. Bitte kontaktiere eine benachbarte oder die nächst-höhere Region.
+    noAmbassador: Diese Region hat aktuell keine Botschafter:innen und ist daher aktuell nicht per Mail erreichbar. Bitte kontaktiere eine benachbarte oder die nächsthöhere Region.
 
 map:
   title: "Karte"
@@ -3288,5 +3288,5 @@ help:
       md: |
         Themen werden sortiert nach ihrer Anzeigepriorität aufgelistet. Themen mit gleicher Priorität werden nach dem Zeitpunkt der letzten Aktivität sortiert.
         ---
-        Angepinnte Threads haben eine Priorität von 1, normale Threads die Priorität 0. Um die Angezeigten Threads genauer sortieren zu können, kannst du hier aber auch höhere Werte festlegen, sodass Themen unabhängig vom Änderungsdatum immer ganz oben stehen.
+        Angepinnte Threads haben eine Priorität von 1, normale Threads die Priorität 0. Um die angezeigten Threads genauer sortieren zu können, kannst du hier aber auch höhere Werte festlegen, sodass Themen unabhängig vom Änderungsdatum immer ganz oben stehen.
         Threads mit Priorität -1 werden unter allen anderen Threads angezeigt.
