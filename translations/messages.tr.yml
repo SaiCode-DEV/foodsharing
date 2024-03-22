@@ -528,7 +528,7 @@ group:
   show-all: Hepsini göster
   delete_group_sure: '{groupName} çalışma grubunu/bölgesini silmek istediğinizden
     emin misiniz?'
-  filter_placeholder: Grupları filtrele
+  filter_placeholder: Grupları isimlerine göre filtrele
 ansprechpartner: İşletmeden sorumlu Yektili (Şube Müdürü vs.)
 text: Metin
 fp: Hata puanları
@@ -1081,7 +1081,7 @@ store:
     distance_close: 1 km'den daha yakın bir mesafede yaşıyor
     distance_unknown: ikamet yeri sağlanmadı
     air_line: Gösterilen mesafe kuş uçuşu uzaklığına denk gelir.
-  filter: … göre filtrele
+  filter: …göre filtrele
   enterdate: Alım tarihini girin
   important: 'Önemli:'
   prefetchtwo: 2 Hafta
@@ -1562,9 +1562,9 @@ content:
   delete_tooltip: Sayfayı sil
   communities:
     title: Yerel gruplar
-    text: foodsharing her geçen gün artıyor. Burada her zaman tüm gıda paylaşımı topluluklarının
+    text: foodsharing her geçen gün büyüyor. Burada her zaman tüm foodsharing topluluklarını
       ve bölgelerinin güncel bir listesini bulacaksınız. Bağlantılı isimlere tıklayarak
-      bu ilçelerden herhangi birine e-posta gönderebilirsiniz.
+      bu bölgelerden herhangi birine e-posta gönderebilirsiniz.
     searchInfo: Liste, Strgl+F kullanılarak birçok tarayıcıda ülkeye, şehre, federal
       eyalete veya bölgeye göre aranabilir.
     noAmbassador: Bu bölgede şu anda elçi bulunmamaktadır ve bu nedenle şu anda e-postayla
@@ -3453,18 +3453,18 @@ help:
   key:
     storeLog:
       md: "İşletme protokolü, **bir işletmede ki** etkinlikleri izlemenin bir yoludur.
-        Bu olabilir\nÇatışmaların çözülmesine veya kazara oluşan hataların düzeltilmesine
-        yardımcı olur.\n---\n###### Örnek\nDiyelim ki son 3 haftada ekibe kimlerin
-        kimler tarafından eklendiğini öğrenmek istiyorsunuz.\nBunun için iki tarih
-        alanındaki başlangıç ve bitiş tarihlerini kullanarak dönemi belirtebilirsiniz.\n
-        Ondan sonra Dropbox'dan ilgili tüm eylem türlerini seçebilirsiniz. Bu durumda\n
-        örneğin, \"*Üyelik isteklerini yap*\", \"*Üyelik isteklerini kabul et*\" ve
-        \"*Üyelik isteklerini reddet*\".\nŞimdi “*Seçilen eylemleri göster*” düğmesine
-        tıklarsanız, seçili olayların geçmişi gösterilecektir.\n---\n###### Erişim\n
-        Yalnızca işletme yönetebilen kişiler buna erişebilir. Normal Foodsaver ve
-        yedekte olanlar için\nİşletme protokolü görüntülenemiyor.\n---\n###### Kısıtlamalar\n
-        Maksimum 100 giriş yüklenecektir. Tüm sonuçlar görüntülenmiyorsa, arama süresini
-        veya seçilen eylem türlerini sınırlamanız gerekebilir.\n"
+        Bu çatışmaların çözülmesine veya kazara oluşan hataların\ndüzeltilmesine yardımcı
+        olur.\n---\n###### Örnek\nDiyelim ki son 3 haftada ekibe kimlerin kimler tarafından
+        eklendiğini öğrenmek istiyorsunuz.\nBunun için iki tarih alanındaki başlangıç
+        ve bitiş tarihlerini kullanarak dönemi belirtebilirsiniz. Sonrasında Dropbox'dan
+        ilgili tüm eylem türlerini seçebilirsiniz. Bu durumda\nörneğin, \"*Üyelik
+        isteklerini yap*\", \"*Üyelik isteklerini kabul et*\" ve \"*Üyelik isteklerini
+        reddet*\".Şimdi “*Seçilen eylemleri göster*” düğmesine tıklarsanız,\nseçilen
+        olayların geçmişi görüntülenecektir.\n---\n###### Erişim\nYalnızca işletmeyi
+        yönetebilen kişiler buna erişebilir. Normal Foodsaver ve yedekte olanlar için
+        İşletme protokolü görüntülenemez.\n---\n###### Kısıtlamalar\nMaksimum 100
+        giriş yüklenecektir. Tüm sonuçlar görüntülenmiyorsa, arama süresini veya seçilen
+        eylem türlerini sınırlamanız gerekebilir.\n"
       title: İşletme protokolü
     threadPriority:
       md: "Konular görüntüleme önceliğine göre sıralanmış olarak listelenir. Aynı
