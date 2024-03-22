@@ -28,14 +28,14 @@
             :label="$i18n('group.description')"
             class="mb-4"
           >
-            <b-form-textarea
-              id="input-description"
-              v-model="$v.description.$model"
+            <MarkdownInput
+              ref="md-input"
+              variant="outline-primary"
               :placeholder="$i18n('group.edit.description_placeholder')"
-              trim
-              :state="$v.description.$error ? false : null"
-              rows="5"
-              class="ml-1"
+              :rows="2"
+              :conceal-toolbar="true"
+              :value="description"
+              @update:value="newValue => description = newValue"
             />
             <div
               v-if="$v.description.$error"
@@ -142,9 +142,10 @@ import i18n from '@/helper/i18n'
 import { BFormSpinbutton } from 'bootstrap-vue'
 import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
 import { updateGroup } from '@/api/groups'
+import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 
 export default {
-  components: { FileUpload, BFormSpinbutton },
+  components: { MarkdownInput, FileUpload, BFormSpinbutton },
   props: {
     group: { type: Object, required: true },
   },

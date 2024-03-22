@@ -424,7 +424,7 @@ group:
     apply: "Für diese Arbeitsgruppe bewerben"
     join: "Dieser Arbeitsgruppe beitreten"
     save: "Änderungen speichern"
-  filter_placeholder: "Gruppen filtern"
+  filter_placeholder: "Gruppen nach Name filtern"
   no_groups: "Hier gibt es noch keine Arbeitsgruppen"
   quit_name_workgroup: "Team {name} verlassen"
   quit_name_district: "Bezirk {name} verlassen"

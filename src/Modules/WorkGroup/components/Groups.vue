@@ -28,12 +28,15 @@
                   :user="{ id: leader.id, name: leader.name, avatar: leader.photo }"
                   :size="50"
                   :href="$url('profile', leader.id)"
+                  class="mr-2 mb-2"
                 />
-                <div>
+                <div class="mt-2">
                   <strong>{{ translateCounted('group.admin_count', group.leaders.length) }}</strong>
                   <p>{{ translateCounted('group.member_count', group.membersCount) }}</p>
-                  <p>{{ group.teaser }}</p>
-                  <p><a :href="$url('mailto_mail_foodsharing_network', group.email)">{{ group.email }}</a></p>
+                  <Markdown :source="group.teaser" />
+                  <div class="mt-2">
+                    <a :href="$url('mailto_mail_foodsharing_network', group.email)">{{ group.email }}</a>
+                  </div>
                 </div>
               </b-col>
               <b-col>
@@ -175,10 +178,11 @@ import { addMember, sendMail, sendRequest } from '@/api/groups'
 import { pulseError, pulseSuccess } from '@/script'
 import i18n from '@/helper/i18n'
 import UserData from '@/stores/user'
+import Markdown from '@/components/Markdown/Markdown.vue'
 
 export default {
   name: 'Groups',
-  components: { Avatar, Container },
+  components: { Markdown, Avatar, Container },
   props: {
     groups: { type: Array, required: true },
     nav: { type: Object, required: true },

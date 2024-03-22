@@ -53,6 +53,11 @@ class WorkGroupControl extends Control
 
         $localRegions = array_filter($regions, fn ($region) => !in_array($region['type'], [UnitType::COUNTRY, UnitType::WORKING_GROUP]));
 
+        // Sort local regions by name in ascending order
+        usort($localRegions, function ($a, $b) {
+            return strcmp($a['name'], $b['name']);
+        });
+
         $regionToMenuItem = fn ($region) => [
             'name' => $region['name'],
             'href' => '/?page=groups&p=' . $region['id']
@@ -64,6 +69,12 @@ class WorkGroupControl extends Control
 
         $myRegions = $this->session->getRegions();
         $myGroups = array_filter($myRegions, fn ($group) => UnitType::isGroup($group['type']));
+
+        // Sort the myGroups array by the 'name' key in ascending order
+        usort($myGroups, function ($a, $b) {
+            return strcmp($a['name'], $b['name']);
+        });
+
         $menuMyGroups = array_map(
             fn ($group) => [
                 'name' => $group['name'],
@@ -130,9 +141,6 @@ class WorkGroupControl extends Control
 
             $memberCount = count($group['members']);
             $image = $this->fixPhotoPath($group['photo']);
-            unset($group['week_num']);
-            unset($group['banana_count']);
-            unset($group['fetch_count']);
             unset($group['photo']);
             unset($group['members']);
 
