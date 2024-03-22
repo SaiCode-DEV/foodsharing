@@ -768,7 +768,7 @@ group:
     accepted: 'solicitud aceptada'
     motivation: '¿Cuál es tu motivación para unirte al grupo “{group}”?'
     link_description: 'Este enlace te llevará directamente a la aplicación:'
-    ability: ¿Cuáles son tus habilidades en este área?
+    ability: ¿Qué habilidades tienes en esta área?
     experience: "¿Puedes aprovechar las experiencias que hayas adquirido en otros
       lugares?\nSi es así, ¿dónde o cuáles?\n"
     how_much_time: ¿Cuántas horas a la semana tienes tiempo y ganas de dedicarle?
@@ -964,7 +964,7 @@ group:
   enterxp: 'Experiencia:'
   quit_name_district: 'Abandonar el distrito {name}'
   role_name: 'Role'
-  filter_placeholder: Filtrar grupos
+  filter_placeholder: Filtrar grupos por nombre
 register:
   error_email_exist: 'Su dirección de correo electrónico ya existe.'
   login_email: 'Dirección de correo electrónico'
@@ -3085,13 +3085,13 @@ content:
   communities:
     title: Grupos locales
     text: El foodsharing crece día a día. Aquí encontrará siempre una lista actualizada
-      de todas las comunidades y distritos de foodsharing. Puede enviar un correo
-      electrónico al distrito correspondiente haciendo clic en el nombre vinculado.
+      de todas las comunidades y regiones de foodsharing. Puede enviar un correo electrónico
+      a cualquiera de estas regiones haciendo clic en los nombres enlazados.
     searchInfo: Con Ctrl+F, la lista puede buscarse en muchos navegadores por país,
       ciudad, estado o barrio.
-    noAmbassador: Esta región no tiene embajadores y, por tanto, no se puede contactar
-      con ella por correo electrónico. Póngase en contacto con una región vecina o
-      con la región inmediatamente superior.
+    noAmbassador: Actualmente no hay embajadores en esta región y, por lo tanto, no
+      es posible contactarlos por correo electrónico en este momento. Póngase en contacto
+      con la región vecina o la región superior.
 personal_data:
   mobile: 'Número de teléfono móvil'
   label: 'Contacto'
@@ -3687,10 +3687,10 @@ help:
         acción seleccionados si no se muestran todos los resultados.\n"
     threadPriority:
       title: Mostrar la prioridad en los foros
-      md: "Los temas se ordenan según su prioridad de visualización. Los temas con
-        la misma prioridad se ordenan según la hora de la última actividad.\n---\n
-        Los temas anclados tienen una prioridad de 1, los temas normales tienen una
-        prioridad de 0. Para poder ordenar los temas mostrados de forma más precisa,
+      md: "Los temas se enumeran ordenados por prioridad de visualización. Los temas
+        con la misma prioridad se ordenan por hora de la última actividad.\n---\n
+        Los hilos fijados tienen una prioridad de 1, los hilos normales tienen una
+        prioridad de 0. Para poder ordenar los hilos mostrados con mayor precisión,
         también puede establecer valores más altos aquí para que los temas estén siempre
         en la parte superior independientemente de la fecha de modificación.\nLos
-        hilos con prioridad -1 se muestran debajo de todos los demás hilos.\n"
+        hilos con prioridad -1 aparecen debajo de todos los demás hilos.\n"
