@@ -35,6 +35,7 @@
 - Improved permission checks for event creation #489 !3187 @alex.simm
 - Fix XSS vulnerabilities in Baskets, Mails and Blog !3219 @stcz
 - Fix delivering CC mails and add error message for BCC !3171 @stcz
+- Fixed mail address to field in mailbox module !3226 @chriswalg
 
 ## Refactoring
 - Switched Annotation to Attributes, implements Test and general code style adjust for Activity REST Endpoint !2975 !3090 @BibaltiK

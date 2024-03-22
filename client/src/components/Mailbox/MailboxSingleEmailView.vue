@@ -39,16 +39,16 @@
             <div class="col col-auto">
               {{ $i18n('mailbox.to') }}:
             </div>
-            <div class="col col-8 col-md-11 pl-0">
+            <div class="col col-8 col-md-10 pl-0">
               <span
                 v-for="(mailAddress, index) in displayedEmails"
                 :key="index"
-                :class="{ 'text-truncate': !viewIsMobile }"
               >
-                {{ index > 0 ? (viewIsMobile ? ',\n' : ', ') : '' }}{{ mailAddress }}
+                {{ index > 0 ? (viewIsMobile ? ',\n' : ', ') : '' }}
+                {{ mailAddress.length > 27 && viewIsMobile ? mailAddress.substring(0, 27) + "..." : mailAddress }}
               </span>
             </div>
-            <div class="col col-1">
+            <div class="col col-1 text-right">
               <b-button
                 v-if="shouldShowToggleButton"
                 size="sm"
