@@ -20,6 +20,7 @@
 - Improved search #1728 !3150 @AntonBallmaier
 - Strip EXIF data from uploaded PNG files #375 !3151 @alex.simm
 - Users can only be added to a store if they are already in that region #20 !3180 @alex.simm
+- Some regions are not listed in the region chooser dialog anymore #1335 !3164 @alex.simm
 - Pinned threads are no longer sorted by name !3205 @AntonBallmaier
 - Removed infinity loading from forum lists #1231 !3229 @chriswalg
 - Enabling the Display of Occupied Slot Details in the Confirmation Dialogue #1862 !3213 @c-h-i-c-k-e-n

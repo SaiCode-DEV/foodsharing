@@ -13,7 +13,12 @@ export const ROLE = Object.freeze({
 })
 export const MAX_UPLOAD_FILE_SIZE = 1572864 // 1.5 * 1024 * 1024
 export const REGION_IDS = Object.freeze({
+  // highest level below root
   EUROPE: 741,
+  GLOBAL_WORKING_GROUPS: 392,
+  FOODSHARING_ON_FESTIVALS: 1432,
+
+  // second level: countries
   GERMANY: 1,
   AUSTRIA: 63,
   SWITZERLAND: 106,

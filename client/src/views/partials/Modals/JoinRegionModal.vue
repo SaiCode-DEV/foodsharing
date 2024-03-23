@@ -74,9 +74,15 @@
 
 <script>
 // Stores
-import DataRegions from '@/stores/regions'
+import DataRegions, { REGION_UNIT_TYPE } from '@/stores/regions'
 // Others
 import { pulseError, showLoader, hideLoader } from '@/script'
+import { REGION_IDS } from '@/consts'
+import DataUser from '@/stores/user'
+
+const EXCLUDED_REGIONS = [REGION_IDS.GLOBAL_WORKING_GROUPS]
+const EXCLUDED_REGIONS_WITHOUT_HOME = [REGION_IDS.FOODSHARING_ON_FESTIVALS]
+
 export default {
   name: 'JoinRegionModal',
   data () {
@@ -126,7 +132,8 @@ export default {
         const region = this.regions.find(r => r.id === id)
         if (id && !region) {
           let list = await DataRegions.mutations.fetchChoosedRegionChildren(id)
-          list = list.filter(r => r.type !== 7) // removes all arbeitsgruppen
+          list = this.filterRegions(list)
+
           if (list.length > 0) {
             this.regions.push({ id, list })
           }
@@ -148,10 +155,22 @@ export default {
     },
     async showModal () {
       this.selected = [0]
-      this.base = await DataRegions.mutations.fetchChoosedRegionChildren(0)
+      this.base = this.filterRegions(await DataRegions.mutations.fetchChoosedRegionChildren(0))
     },
     async resetModal () {
       this.selected = [0]
+    },
+    filterRegions (regions) {
+      // Remove all working groups and all excluded regions
+      let filtered = regions
+        .filter(r => r.type !== REGION_UNIT_TYPE.WORKING_GROUP)
+        .filter(r => EXCLUDED_REGIONS.indexOf(r.id) < 0)
+
+      // Remove all regions that are only shown if the user has a home region
+      if (!DataUser.getters.hasHomeRegion()) {
+        filtered = filtered.filter(r => EXCLUDED_REGIONS_WITHOUT_HOME.indexOf(r.id) < 0)
+      }
+      return filtered
     },
   },
 }

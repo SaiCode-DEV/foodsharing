@@ -9,6 +9,7 @@ class RegionIDs
     final public const GLOBAL_WORKING_GROUPS = 392;
     final public const EUROPE_WELCOME_TEAM = 813;
     final public const EUROPE = 741; // second level from top. First selectable level
+    final public const FOODSHARING_ON_FESTIVALS = 1432;
 
     // workgroups with special permissions:
     final public const NEWSLETTER_WORK_GROUP = 331;
