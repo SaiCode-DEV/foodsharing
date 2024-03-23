@@ -1174,7 +1174,7 @@ store:
     filterJumper: 'Suplentes'
     makeRegularTeamMember: 'Agregar al equipo'
     filterQuizSM: 'Examen aprobado para responsables de cooperación'
-    demoteAsManager: 'Eliminar como responsable de esta empresa'
+    demoteAsManager: 'Retirar la responsabilidad'
     managementActions: 'Acciones para los responsables de la cooperación'
     reloadRequired: 'Para actualizar la información del equipo:'
     promoteToManager: 'Hacerte responsable de esta empresa'
@@ -1183,16 +1183,19 @@ store:
     pickupDesc: 'Últimas entradas primero'
     searchPlaceholder: 'Nombre o DNI'
     managementEffect: 'Ordenando por última fecha de recogida:'
-    filterAll: Todo
+    filterAll: Miembros
     filterActive: Activ@s
     filterSleeping: Dormilon@s
     toogleIsReducedStateOpen: ampliar lista
     toogleIsReducedStateClosed: cerrar lista
-    filterManage: Examen de responsables de cooperación o superior
+    filterManage: con examen de responsables de cooperación
     promoteToManagerNotPossible: La persona no puede ser registrada como responsable
       porque ya hay tres personas responsables de esta empresa o porque la persona
       aún no ha superado el examen correspondiente.
     buttonManagementToggle: Modo de gestión
+    sorting:
+      default: Clasificación estándar
+      pickup: ordenada por última recogida
   lastPickupShort: 'último el {date}'
   request:
     got-it: 'Los responsables han sido informados de su solicitud y se pondrán en
@@ -1264,7 +1267,7 @@ store:
   prefetchfour: '4 semanas'
   tooltip_orange: 'Recogidas vacantes en tres días'
   important: 'Importante:'
-  jumperSince: 'Suplente desde: {date}'
+  jumperSince: 'Suplente desde {date}'
   tooltip_yellow: 'Recogidas vacantes en los próximos cinco días'
   days_before: 'hace'
   joinDate: 'En el equipo desde: {date}'
@@ -1275,7 +1278,7 @@ store:
   maxchar: '(máx. 180 caracteres)'
   noStores: 'Aún no hay empresas registradas'
   attribution: 'Atribución'
-  lastPickup: 'Última recogida: {date}'
+  lastPickup: 'Última recogida {date}'
   nochains: '¡Póngase en contacto únicamente con empresas gestionadas por sus propietarios
     con un máximo de tres sucursales, nunca con sucursales de cadenas más grandes!
     ¡Tenga en cuenta las reglas de cooperación con cadenas corporativas!'
