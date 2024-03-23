@@ -224,9 +224,11 @@ export default {
     },
     signUpPerformedAtDateFormatted () {
       const storeLog = StoreData.getters.getFilteredStoreLog([STORE_LOG_ACTION.SIGN_UP_SLOT], this.profile.id)
-      const filteredEntries = storeLog.filter(entry =>
-        new Date(entry.date_reference).getTime() === this.date.getTime(),
-      )
+      const filteredEntries = storeLog.filter(entry => {
+        const thisDate = this.date.toISOString
+        const entryDateReference = new Date(entry.date_reference).toISOString
+        return thisDate === entryDateReference
+      })
 
       let lastEntryWithOldestDate = null
       let oldestTimestamp = null
