@@ -962,7 +962,7 @@ store:
   lastPickupShort: ultimo {data}
   lastPickup: 'Ultimo recupero: {date}'
   jumperSince: 'Jolly da: {data}'
-  memberSince: 'Nel team da: {data}'
+  joinDate: 'Nel team da: {data}'
   teamName: '{storeTitle}-Team'
   error: Impossibile caricare l´agenzia.
   go: Alla pagina del team

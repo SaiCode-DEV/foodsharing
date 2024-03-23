@@ -198,7 +198,7 @@ store:
   nochains: ''
   enter_date_description: ''
   tooltip_yellow: ''
-  memberSince: ''
+  joinDate: ''
   peoplecame: ''
   may_referred_to_in_public: ''
   noStores: ''

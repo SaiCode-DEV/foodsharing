@@ -42,6 +42,7 @@
               :is-coordinator="permissions.isCoordinator"
               :may-edit-store="permissions.mayEditStore"
               :team="storeMember"
+              :loaded="areMembersLoaded"
               :store-id="storeId"
               :store-title="storeInformation.name"
               :region-id="storeInformation.region.id"
@@ -115,6 +116,7 @@
               :is-coordinator="permissions.isCoordinator"
               :may-edit-store="permissions.mayEditStore"
               :team="storeMember"
+              :loaded="areMembersLoaded"
               :store-id="storeId"
               :store-title="storeInformation.name"
               :region-id="storeInformation.region.id"
@@ -184,6 +186,9 @@ export default {
     },
     storeMember () {
       return StoreData.getters.getStoreMember()
+    },
+    areMembersLoaded () {
+      return StoreData.getters.isStoreMembersLoaded()
     },
     storeInformation () {
       return StoreData.getters.getStoreInformation()

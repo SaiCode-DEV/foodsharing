@@ -662,7 +662,7 @@ store:
   average_collection_quantity: ''
   fetchCount: ''
   tooltip_managing: ''
-  memberSince: ''
+  joinDate: ''
   short_tooltip_orange: ''
   willgetcontacted: ''
   error: ''

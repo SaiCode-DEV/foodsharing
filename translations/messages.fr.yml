@@ -1251,7 +1251,7 @@ store:
   lastPickupShort: dernière collecte le {date}
   lastPickup: 'Dernière collecte : {date}'
   jumperSince: Remplaçant•e depuis le {date}
-  memberSince: Dans l’équipe depuis le {date}
+  joinDate: Dans l’équipe depuis le {date}
   teamName: Équipe {storeTitle}
   error: La page de la coopération n’a pas pu être chargée.
   go: Page de l’équipe

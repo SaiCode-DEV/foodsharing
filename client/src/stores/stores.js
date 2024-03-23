@@ -42,7 +42,7 @@ export const STORE_LOG_ACTION = Object.freeze({
 export const store = Vue.observable({
   stores: [],
   metadata: {},
-  storeMember: [],
+  storeMember: null,
   storeInformation: null,
   permissions: null,
   regionPickupRule: {},
@@ -110,7 +110,10 @@ export const getters = {
     return store.stores.find(store => store.id === id)
   },
   getStoreMember () {
-    return store.storeMember
+    return store.storeMember ?? []
+  },
+  isStoreMembersLoaded () {
+    return store.storeMember !== null
   },
   getStoreInformation () {
     return store.storeInformation
@@ -125,7 +128,7 @@ export const getters = {
     return store.applications
   },
   isManager (userId) {
-    return store.storeMember.find(user => user.id === userId && user.verantwortlich === 1)
+    return getters.getStoreMember.find(user => user.id === userId && user.verantwortlich === 1)
   },
   getFilteredStoreLog (actionIds, userId) {
     return store.log.filter(entry =>

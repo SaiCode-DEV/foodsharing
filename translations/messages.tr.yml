@@ -1156,7 +1156,7 @@ store:
   springer_conversation_name: Yedek {name}
   ownStores: Kendi işletmeleriniz
   teamName: '{storeTitle}-Ekibi'
-  memberSince: Şu tarihten beri ekipte {date}
+  joinDate: Şu tarihten beri ekipte {date}
   lastPickup: 'Son alım tarihi: {date}'
   chat:
     jumper: Yedek listesinde olanlara mesaj

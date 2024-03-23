@@ -1,7 +1,8 @@
 <template>
   <span
-    v-b-tooltip="$dateFormatter.dateTime(date)"
-    class="time text-muted"
+    v-b-tooltip="tooltip ?? tooltipTime"
+    class="time"
+    :class="{ 'text-muted': muted }"
   >
     <i
       v-if="showIcon"
@@ -16,11 +17,20 @@ export default {
   props: {
     time: { type: [Date, String], required: true },
     showIcon: { type: Boolean, default: true },
+    muted: { type: Boolean, default: true },
+    dateOnly: { type: Boolean, default: false },
+    tooltip: { type: [Object, String], default: null },
   },
   data () {
     const date = new Date(this.time)
     if (isNaN(date.valueOf())) throw new Error('invalid time')
     return { date }
+  },
+  computed: {
+    tooltipTime () {
+      const method = this.dateOnly ? 'date' : 'dateTime'
+      return this.$dateFormatter[method](this.date)
+    },
   },
   mounted () {
     this.update()

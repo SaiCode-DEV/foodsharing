@@ -2459,7 +2459,7 @@ store:
   fetchCount: Hentet her {count} ganger.
   particularities: Særtrekk
   mayManage: Har bestått quizen for samarbeidsoffiserer.
-  memberSince: 'I laget siden: {date}'
+  joinDate: 'I laget siden: {date}'
   jumperSince: 'Hopper siden: {date}'
   isJumper: Står på hopperlisten.
   isNotVerified: Er ikke aktivert ennå.

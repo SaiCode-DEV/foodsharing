@@ -13,7 +13,8 @@
     <b-dropdown-item
       v-for="(option, i) in activeOptions"
       :key="i"
-      @click.stop="option.callback"
+      :href="option.href"
+      @click.stop="() => option.callback?.() ?? null"
     >
       <i :class="`fas fa-${option.icon} dropdown-icon`" />
       {{ $i18n(option.textKey) }}

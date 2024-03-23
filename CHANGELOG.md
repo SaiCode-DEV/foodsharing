@@ -74,6 +74,7 @@
 - Replaced every usage of the Lat-lon-picker with the Vue leaflet component !3185 @alex.simm 
 - Improved Avatar component !3155 !3189 @AntonBallmaier
 - Refactored group page to vue !3162 !3223 @chriswalg
+- Improved store team list #1833 !3207 @AntonBallmaier
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm

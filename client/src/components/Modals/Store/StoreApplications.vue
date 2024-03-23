@@ -1,70 +1,68 @@
 <template>
-  <div class="store-applications bootstrap">
-    <b-modal
-      id="requests"
-      :title="$i18n('store.request.title', { storeTitle })"
-      header-class="d-flex"
-      hide-footer
-      static
-      centered
-      scrollable
-      size="lg"
+  <b-modal
+    id="requests"
+    :title="$i18n('store.request.title', { storeTitle })"
+    header-class="d-flex"
+    hide-footer
+    static
+    centered
+    scrollable
+    size="lg"
+  >
+    <b-alert
+      show
+      variant="info"
     >
-      <b-alert
-        show
-        variant="info"
-      >
-        <i class="fas fa-info-circle" />
-        {{ $i18n('store.request.air_line') }}
-      </b-alert>
-      <div
-        v-for="(request, index) in requests"
-        :key="request.id"
-        class="request d-flex align-items-center flex-wrap flex-sm-nowrap py-2"
-      >
-        <!-- TODO send data in fitting format -->
-        <Avatar
-          :user="{...request, avatar: request.photo }"
-          :size="50"
+      <i class="fas fa-info-circle" />
+      {{ $i18n('store.request.air_line') }}
+    </b-alert>
+    <div
+      v-for="(request, index) in requests"
+      :key="request.id"
+      class="request d-flex align-items-center flex-wrap flex-sm-nowrap py-2"
+    >
+      <!-- TODO send data in fitting format -->
+      <Avatar
+        :user="{...request, avatar: request.photo }"
+        :size="50"
+      />
+      <div class="name font-weight-bolder flex-grow-1 mx-3">
+        <i
+          v-b-tooltip.hover="request.verified ? $i18n('store.request.verified') : $i18n('store.request.unverified')"
+          class="fas fa-fw mr-1"
+          :class="{'fa-user-check': request.verified, 'fa-user-slash': !request.verified}"
         />
-        <div class="name font-weight-bolder flex-grow-1 mx-3">
-          <i
-            v-b-tooltip.hover="request.verified ? $i18n('store.request.verified') : $i18n('store.request.unverified')"
-            class="fas fa-fw mr-1"
-            :class="{'fa-user-check': request.verified, 'fa-user-slash': !request.verified}"
-          />
-          <a :href="$url('profile', request.id)">
-            {{ request.name }}
-          </a>
-          <p>
-            {{ formatDistance(request.distance) }}
-          </p>
-        </div>
-
-        <b-button-group class="request-actions my-1" size="sm">
-          <b-button
-            variant="primary"
-            @click="acceptRequest(storeId, request.id, false, index)"
-          >
-            <i class="fas fa-user-check" /> {{ $i18n('store.request.to-team') }}
-          </b-button>
-          <b-button
-            variant="outline-primary"
-            @click="acceptRequest(storeId, request.id, true, index)"
-          >
-            <i class="fas fa-user-tag" /> {{ $i18n('store.request.to-jumper') }}
-          </b-button>
-          <b-button
-            v-b-tooltip.hover="$i18n('store.request.to-nowhere')"
-            variant="outline-danger"
-            @click="denyRequest(storeId, request.id, index)"
-          >
-            <i class="fas fa-user-times" />
-          </b-button>
-        </b-button-group>
+        <a :href="$url('profile', request.id)">
+          {{ request.name }}
+        </a>
+        <p>
+          {{ formatDistance(request.distance) }}
+        </p>
       </div>
-    </b-modal>
-  </div>
+
+      <b-button-group class="request-actions my-1" size="sm">
+        <b-button
+          variant="primary"
+          @click="acceptRequest(storeId, request.id, false, index)"
+        >
+          <i class="fas fa-user-check" /> {{ $i18n('store.request.to-team') }}
+        </b-button>
+        <b-button
+          variant="outline-primary"
+          @click="acceptRequest(storeId, request.id, true, index)"
+        >
+          <i class="fas fa-user-tag" /> {{ $i18n('store.request.to-jumper') }}
+        </b-button>
+        <b-button
+          v-b-tooltip.hover="$i18n('store.request.to-nowhere')"
+          variant="outline-danger"
+          @click="denyRequest(storeId, request.id, index)"
+        >
+          <i class="fas fa-user-times" />
+        </b-button>
+      </b-button-group>
+    </div>
+  </b-modal>
 </template>
 
 <script>

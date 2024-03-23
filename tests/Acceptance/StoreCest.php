@@ -21,6 +21,7 @@ class StoreCest
     private array $foodsaverOnJumperList;
     private array $foodsaverDifferentRegion;
     private array $storeManager;
+    private array $foodsaverWithStoreManagerQuiz;
 
     private array $teamConversation;
     private array $jumperConversation;
@@ -239,15 +240,14 @@ class StoreCest
         $I->amOnPage($I->storeUrl($this->store['id']));
         $I->waitForActiveAPICalls();
 
+        $I->click("#user-{$this->foodsaverOnJumperList['id']} .overflow-menu");
+        $I->waitForElement('.dropdown-menu.show');
+
         if ($example[0] === 'StoreManager') {
-            $I->wantTo("Can remove a member as {$example[0]}");
-            $I->click('Ansicht für Betriebsverantwortliche aktivieren');
             // remove a member from the team entirely
-            $I->click("{$this->foodsaverOnJumperList['name']} {$this->foodsaverOnJumperList['nachname']}", '.store-team');
-            $I->click('Aus dem Team entfernen', '.member-actions');
-            $I->waitForElement('#deleteModal');
-            $I->see('Möchtest du wirklich ' . $this->foodsaverOnJumperList['name'] . ' ' . $this->foodsaverOnJumperList['nachname'] . ' aus diesem Betriebs-Team entfernen?', '#deleteModal');
-            $I->click('Ja, ich bin mir sicher', '#deleteModal');
+            $I->click('Aus dem Team entfernen', '.dropdown-menu.show');
+            $I->waitForText('Bist du sicher?');
+            $I->click('Ja, ich bin mir sicher');
             $I->waitForActiveAPICalls();
             $I->dontSee("{$this->foodsaverOnJumperList['name']} {$this->foodsaverOnJumperList['nachname']}", '.store-team');
             $I->dontSeeInDatabase('fs_betrieb_team', [
@@ -255,91 +255,65 @@ class StoreCest
                 'foodsaver_id' => $this->foodsaverOnJumperList['id'],
             ]);
         }
-
         if ($example[0] === 'Foodsaver') {
-            $I->wantTo("Can't remove a member as {$example[0]}");
-            $I->cantSee('Ansicht für Betriebsverantwortliche aktivieren');
-            $I->canSee("{$this->foodsaverOnJumperList['name']} {$this->foodsaverOnJumperList['nachname']}", '.store-team');
+            $I->cantSee('Aus dem Team entfernen');
         }
     }
 
-    /**
-     * @example["StoreManager"]
-     */
-    public function canPromoteAndDemoteMemberToStoreManager(AcceptanceTester $I, Example $example): void
+    public function canPromoteAndDemoteMemberToStoreManager(AcceptanceTester $I): void
     {
-        $this->loginAs($I, $example[0]);
+        $this->loginAs($I, 'StoreManager');
         $I->amOnPage($I->storeUrl($this->store['id']));
         $I->waitForActiveAPICalls();
 
-        if ($example[0] === 'StoreManager') {
-            $I->click('Ansicht für Betriebsverantwortliche aktivieren');
-            // add new foodsaver to the team
-            $I->fillField('#new-foodsaver-search input', $this->foodsaverWithStoreManagerQuiz['name']);
-            $I->waitForActiveAPICalls();
-            $I->waitForElement('#new-foodsaver-search li.suggest-item');
-            $I->click('#new-foodsaver-search li.suggest-item');
-            $I->click('#new-foodsaver-search button[type="submit"]');
-            $I->waitForActiveAPICalls();
+        // add new foodsaver to the team
+        $I->fillField('#new-member-search input', $this->foodsaverWithStoreManagerQuiz['name']);
+        $I->waitForActiveAPICalls();
+        $I->waitForElement('#new-member-search li.suggest-item');
+        $I->click('#new-member-search li.suggest-item');
+        $I->click('#new-member-search button[type="submit"]');
+        $I->waitForActiveAPICalls();
+        $I->seeElement("#user-{$this->foodsaverWithStoreManagerQuiz['id']}");
 
-            // promote foodsaver to storemanager
-            $I->click("{$this->foodsaverWithStoreManagerQuiz['name']} {$this->foodsaverWithStoreManagerQuiz['nachname']}", '.store-team');
-            $I->click('Verantwortlich machen', '.member-actions');
-            $I->waitForActiveAPICalls();
-            $I->seeInDatabase('fs_betrieb_team', [
-                'betrieb_id' => $this->store['id'],
-                'foodsaver_id' => $this->foodsaverWithStoreManagerQuiz['id'],
-                'active' => MembershipStatus::MEMBER,
-                'verantwortlich' => 1,
-            ]);
-            $I->waitForElement('.store-team tr.table-warning[data-pk="' . $this->storeManager['id'] . '"]', 5);
-            $I->waitForElement('.store-team tr.table-warning[data-pk="' . $this->foodsaverWithStoreManagerQuiz['id'] . '"]', 5);
+        // promote foodsaver to storemanager
+        $I->click("#user-{$this->foodsaverWithStoreManagerQuiz['id']} .overflow-menu");
+        $I->waitForElement('.dropdown-menu.show');
+        $I->click('Verantwortlich machen', '.dropdown-menu.show');
+        $I->waitForActiveAPICalls();
+        $I->seeInDatabase('fs_betrieb_team', [
+            'betrieb_id' => $this->store['id'],
+            'foodsaver_id' => $this->foodsaverWithStoreManagerQuiz['id'],
+            'active' => MembershipStatus::MEMBER,
+            'verantwortlich' => 1,
+        ]);
+        $I->seeElement("#user-{$this->foodsaverWithStoreManagerQuiz['id']}.manager");
 
-            // demote newly promoted storemanager to regular team member
-            $I->click("{$this->foodsaverWithStoreManagerQuiz['name']} {$this->foodsaverWithStoreManagerQuiz['nachname']}", '.store-team');
-            $I->click('Als Betriebsverantwortliche:n entfernen', '.member-actions');
-            $I->seeInPopup('die Verantwortung für diesen Betrieb entziehen?');
-            $I->cancelPopup();
-            $I->seeInDatabase('fs_betrieb_team', [
-                'betrieb_id' => $this->store['id'],
-                'foodsaver_id' => $this->foodsaverWithStoreManagerQuiz['id'],
-                'verantwortlich' => 1,
-            ]);
-            $I->waitForElement('.store-team tr.table-warning[data-pk="' . $this->foodsaverWithStoreManagerQuiz['id'] . '"]', 2);
-            $I->click('Als Betriebsverantwortliche:n entfernen', '.member-actions');
-            $I->seeInPopup('die Verantwortung für diesen Betrieb entziehen?');
-            $I->acceptPopup();
-            $I->waitForActiveAPICalls();
-            $I->seeInDatabase('fs_betrieb_team', [
-                'betrieb_id' => $this->store['id'],
-                'foodsaver_id' => $this->foodsaverWithStoreManagerQuiz['id'],
-                'verantwortlich' => 0,
-            ]);
-
-            // Check if the demoted storemanager is shown as a regular team member
-            $I->waitForElement('.store-team tr[data-pk="' . $this->foodsaverWithStoreManagerQuiz['id'] . '"]:not(.table-warning)', 5);
-        }
+        // demote newly promoted storemanager to regular team member
+        $I->click("#user-{$this->foodsaverWithStoreManagerQuiz['id']} .overflow-menu");
+        $I->waitForElement('.dropdown-menu.show');
+        $I->click('Verantwortung entziehen', '.dropdown-menu.show');
+        $I->waitForText('Bist du sicher?');
+        $I->click('Ja, ich bin mir sicher');
+        $I->waitForActiveAPICalls();
+        $I->seeInDatabase('fs_betrieb_team', [
+            'betrieb_id' => $this->store['id'],
+            'foodsaver_id' => $this->foodsaverWithStoreManagerQuiz['id'],
+            'verantwortlich' => 0,
+        ]);
+        $I->seeElement("#user-{$this->foodsaverWithStoreManagerQuiz['id']}:not(.manager)");
     }
 
-    /**
-     * @example["StoreManager"]
-     */
-    public function canMoveMemberToJumper(AcceptanceTester $I, Example $example): void
+    public function canMoveMemberToJumper(AcceptanceTester $I): void
     {
-        $this->loginAs($I, $example[0]);
+        $this->loginAs($I, 'StoreManager');
         $I->amOnPage($I->storeUrl($this->store['id']));
         $I->waitForActiveAPICalls();
 
-        if ($example[0] === 'StoreManager') {
-            $I->click('Ansicht für Betriebsverantwortliche aktivieren');
-            // move a member to jumper (standby list)
-            $I->click("{$this->foodsaver['name']} {$this->foodsaver['nachname']}", '.store-team');
-            $I->click('Auf die Springerliste', '.member-actions');
-            $I->waitForActiveAPICalls();
-            // check that the jumper is still displayed as team member (but with muted colors)
-            $I->see("{$this->foodsaver['name']} {$this->foodsaver['nachname']}", '.store-team');
-            $I->waitForElement('.store-team #member-' . $this->foodsaver['id'] . '.member-info.jumper', 5);
-        }
+        $I->click("#user-{$this->foodsaver['id']} .overflow-menu");
+        $I->waitForElement('.dropdown-menu.show');
+        $I->click('Auf die Springerliste', '.dropdown-menu.show');
+        $I->waitForActiveAPICalls();
+        $I->seeElement("#user-{$this->foodsaver['id']} .jumper");
     }
 
     public function canAccessStoreLog(AcceptanceTester $I)
@@ -357,8 +331,9 @@ class StoreCest
         $I->cantSeeElement('.log-entry-content');
 
         //Perform store action
-        $I->click("{$this->foodsaver['name']} {$this->foodsaver['nachname']}", '.store-team');
-        $I->click('Auf die Springerliste', '.member-actions');
+        $I->click("#user-{$this->foodsaver['id']} .overflow-menu");
+        $I->waitForElement('.dropdown-menu.show');
+        $I->click('Auf die Springerliste', '.dropdown-menu.show');
         $I->waitForActiveAPICalls();
 
         //See storelog now contains something

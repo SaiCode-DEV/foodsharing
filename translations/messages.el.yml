@@ -977,7 +977,7 @@ store:
   go: ''
   my_last_pickup: ''
   isManager: ''
-  memberSince: ''
+  joinDate: ''
   short_tooltip_red: ''
   jumperSince: ''
   error: ''

@@ -1742,7 +1742,7 @@ store:
   complete: ''
   maxchar: ''
   teamName: ''
-  memberSince: ''
+  joinDate: ''
   attribution: ''
   actions: ''
   prefetchone: ''

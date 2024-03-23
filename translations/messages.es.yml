@@ -1267,7 +1267,7 @@ store:
   jumperSince: 'Suplente desde: {date}'
   tooltip_yellow: 'Recogidas vacantes en los próximos cinco días'
   days_before: 'hace'
-  memberSince: 'En el equipo desde: {date}'
+  joinDate: 'En el equipo desde: {date}'
   mayManage: 'Aprobó el examen de responsables para empresas.'
   mayAmb: 'Aprobó el cuestionario de embajador@s.'
   complete: 'base de datos completa'
