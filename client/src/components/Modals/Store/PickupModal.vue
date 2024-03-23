@@ -9,69 +9,50 @@
       @ok="trySetPickupSlots"
     >
       <p>{{ description }}</p>
-      <b-row>
-        <b-col cols="3">
-          {{ $i18n('day') }}
-        </b-col>
-        <b-col>
-          <b-form-datepicker
-            v-model="selectedSlotDate"
-            v-bind="labelsCalendar || {}"
-            :min="minSlotDate"
-            :locale="$i18n('calendar.locale')"
-            menu-class="w-100"
-            calendar-width="100%"
-            class="mb-2"
-            start-weekday="1"
-          />
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col cols="3">
-          {{ $i18n('time') }}
-        </b-col>
-        <b-col>
-          <b-form-input
-            v-model="selectedSlotTime"
-            type="time"
-            placeholder="HH:mm"
-          />
-        </b-col>
-      </b-row>
-      <b-row
+      {{ $i18n('day') }}
+      <b-form-datepicker
+        v-model="selectedSlotDate"
+        v-bind="labelsCalendar || {}"
+        :min="minSlotDate"
+        :locale="$i18n('calendar.locale')"
+        menu-class="w-100"
+        calendar-width="100%"
+        class="mb-2"
+        start-weekday="1"
+      />
+      {{ $i18n('time') }}
+      <b-form-input
+        v-model="selectedSlotTime"
+        type="time"
+        placeholder="HH:mm"
+      />
+      <div
         v-if="!deletePickupMode"
         class="pt-2"
       >
-        <b-col cols="3">
-          {{ $i18n('pickup.edit.description_titel') }}
-        </b-col>
-        <b-col>
-          <b-form-input
-            v-model="slotDescription"
-            :placeholder="$i18n('pickup.description_optional')"
-            :maxlength="100"
-          />
-          <small v-if="slotDescription?.length === 100">
-            <i class="fas fa-info-circle" />
-            {{ $i18n('pickup.description_max_length_info') }}
-          </small>
-        </b-col>
-      </b-row>
-      <b-row
+        {{ $i18n('pickup.edit.description_titel') }}
+
+        <b-form-input
+          v-model="slotDescription"
+          :placeholder="$i18n('pickup.description_optional')"
+          :maxlength="100"
+        />
+        <small v-if="slotDescription?.length === 100">
+          <i class="fas fa-info-circle" />
+          {{ $i18n('pickup.description_max_length_info') }}
+        </small>
+      </div>
+      <div
         v-if="!deletePickupMode"
         class="pt-2"
       >
-        <b-col cols="3">
-          {{ $i18n('pickup.edit.slot_titel') }}
-        </b-col>
-        <b-col>
-          <b-form-spinbutton
-            v-model="selectedSlotCount"
-            :min="minSlotCount"
-            :max="maxCountPickupSlot"
-          />
-        </b-col>
-      </b-row>
+        {{ $i18n('pickup.edit.slot_titel') }}
+        <b-form-spinbutton
+          v-model="selectedSlotCount"
+          :min="minSlotCount"
+          :max="maxCountPickupSlot"
+        />
+      </div>
     </b-modal>
   </div>
 </template>

@@ -37,6 +37,7 @@
 - Fix delivering CC mails and add error message for BCC !3171 @stcz
 - Fix sign in date time in slot modal #1870 !3228 @chriswalg
 - Fixed mail address to field in mailbox module !3226 @chriswalg
+- Fixed datepicker in pickup modal #1751 !3231 @chriswalg 
 
 ## Refactoring
 - Switched Annotation to Attributes, implements Test and general code style adjust for Activity REST Endpoint !2975 !3090 @BibaltiK
