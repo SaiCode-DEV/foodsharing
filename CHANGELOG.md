@@ -77,6 +77,7 @@
 - Refactored group page to vue !3162 !3223 @chriswalg
 - Improved store team list #1833 !3207 @AntonBallmaier
 - Modernized LoginControl to a Symfony controller !3237 @\_fridtjof_
+- Refactored profile to vue and symfony controller !3184 @chriswalg
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm
