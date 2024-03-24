@@ -930,8 +930,8 @@ store:
     managementToggleOff: Torna alla visualizzazione standard
     managementToggleOn: Attivare la visualizzazione per i responsabili delle agenzie
     searchPlaceholder: Nome o ID
-    filterAll: Tutto
-    filterManage: Quiz per responsabile di negozio o superiore
+    filterAll: Membri
+    filterManage: con quiz per responsabile di negozio
     promoteToManagerNotPossible: Questa persona non può essere promossa a responsabile
       del negozio perché questo negozio ha già tre responsabili o la persona non ha
       ancora superato il quiz.
@@ -3030,8 +3030,8 @@ becomeregion:
 sidenav:
   yourgroups: Tuoi gruppi
   countryspecific: Gruppi specifici per paese
-  localgroups: Gruppi locali
-  superregional: Gruppi sovraregionali
+  localgroups: Gruppi regionali
+  superregional: Sovraregionale
 password:
   insertmail: Inserisci il tuo indirizzo e-mail per reimpostare la tua password.
   reset: Password dimenticata?
