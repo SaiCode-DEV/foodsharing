@@ -208,7 +208,7 @@ group:
   filter_by_last_activity: No activity in months
   role_name: Role
   userId: ID
-  filter_placeholder: Filter groups
+  filter_placeholder: Filter groups by name
 settings:
   header: Profile settings
   name_change:
@@ -1980,7 +1980,7 @@ store:
     reloadRequired: 'For updating the team information:'
     reloadPage: Reload page
     reallyDemote: Do you really want to remove {name} as Store Coordinator?
-    demoteAsManager: Remove as Store Coordinator
+    demoteAsManager: withdraw responsibility
     promoteToManager: Make Store Coordinator
     searchPlaceholder: Name or ID
     buttonManagementToggleOn: toggle management mode
@@ -1988,13 +1988,16 @@ store:
     promoteToManagerNotPossible: This person can not be promoted to store manager
       because either this store already has three managers or the person has not passed
       the quiz yet.
-    filterAll: All
+    filterAll: Members
     filterActive: Active
     buttonManagementToggle: Management mode
     toogleIsReducedStateOpen: expand list
-    filterManage: Store manager quiz or above
+    filterManage: with store manager quiz
     toogleIsReducedStateClosed: collapse list
     filterSleeping: sleepyhead
+    sorting:
+      default: Default sorting
+      pickup: Sorted by last pick-up
   address: Address
   may_referred_to_in_public: This store may be referred to in public.
   isNotVerified: Is not yet verified.
@@ -2016,8 +2019,8 @@ store:
     example in food baskets, on Facebook, or in the press).
   joinDate: 'In team since: {date}'
   lastPickupShort: last {date}
-  lastPickup: 'Last pick-up: {date}'
-  jumperSince: 'Standby since: {date}'
+  lastPickup: 'Last pick-up {date}'
+  jumperSince: 'Standby since {date}'
   tooltip_managing: You are responsible for this store
   not-in-team: You are not a member of this store’s team yet.
   tooltip_yellow: Open collections in the next five days
@@ -2547,6 +2550,7 @@ fsp:
     it is accessible/open.
   suggestSuccess: Food-Share Point has been proposed and now needs to be confirmed
     by an ambassador / responsible person.
+  show_on_large_map: Show on map
 lifetime: How long is your food basket to be valid?
 contact_type: How would you like to be contacted?
 food_art: What kind of food is it?
