@@ -1773,7 +1773,7 @@ group:
   filter_by_last_activity: Ikke aktiv på måneder
   role_name: Rolle
   userId: ID
-  filter_placeholder: Filtrer grupper
+  filter_placeholder: Filtrer grupper etter navn
 bcard:
   generate: Lag visittkort
   actions: Alternativer
@@ -2155,6 +2155,7 @@ forum:
     subscriptions:
       subscribed: abonnerer
       subscribe: Abonnere
+    bottom: redusert sikt
   post:
     body: Beskjed
     delete: Slett innlegget
@@ -2402,7 +2403,7 @@ store:
     makeJumper: legge til hopperlisten
     filterQuizSM: Bestått quiz for samarbeidsoffiserer
     filter: 'Vis kun:'
-    demoteAsManager: Fjern som samarbeidsoffiserer
+    demoteAsManager: trekke tilbake ansvaret
     managementEffect: 'Sortering etter siste hentedato:'
     byLastPickup: Sorter etter siste henting
     reallyRemove: Vil du virkelig fjerne {name} fra dette laget?
@@ -2413,17 +2414,20 @@ store:
     buttonManagementToggleOff: tilbake til normal modus
     promoteToManagerNotPossible: Personen kan ikke holdes ansvarlig fordi det allerede
       er tre ledere eller personen ennå ikke har bestått quizen.
-    filterAll: alle
+    filterAll: Medlemmer
     filterActive: aktive
     filterSleeping: Søvnhode
     buttonManagementToggle: administrere
     toogleIsReducedStateOpen: utvide listen
     toogleIsReducedStateClosed: kollaps liste
-    filterManage: Samarbeidsoffiser-quiz eller høyere
+    filterManage: med samarbeidsoffiser-quiz
+    sorting:
+      default: Standard sortering
+      pickup: Sortert etter siste henting
   address: Adresse
   attribution: Attribusjon
   unknownDate: ukjent
-  lastPickup: 'Siste henting: {date}'
+  lastPickup: 'Siste henting {date}'
   lastPickupShort: siste {date}
   teamName: '{storeTitle} team'
   actions: Alternativer
@@ -2460,7 +2464,7 @@ store:
   particularities: Særtrekk
   mayManage: Har bestått quizen for samarbeidsoffiserer.
   joinDate: 'I laget siden: {date}'
-  jumperSince: 'Hopper siden: {date}'
+  jumperSince: 'Hopper siden {date}'
   isJumper: Står på hopperlisten.
   isNotVerified: Er ikke aktivert ennå.
   pickup_slot_unavailable: Denne datoen ligger for langt frem i tid. Prøv igjen senere.
@@ -2713,6 +2717,7 @@ fsp:
   deleteSuccess: Distribusjonsstasjon ble fjernet
   twig:
     n_in_region: '{count} distribusjonsstasjoner i {name}'
+  show_on_large_map: Vis på kartet
 day: Dag
 time: Tid
 select: Vennligst velg
@@ -3406,6 +3411,7 @@ thread:
     pin: Fest tråden
     lock: Lukk tråden
     unpin: Løsne tråden
+    priority: Justere skjermprioritet
   rename:
     description_modal_text: 'Skriv inn en ny tittel for denne tråden:'
     placeholder: Tittel
@@ -3415,6 +3421,12 @@ thread:
     options:
       copy_source: Kopier kildekoden
     copy_source_success: Kildekoden er kopiert!
+  priorityModal:
+    title: Justere skjermprioritet
+    text: 'Vis prioritet for dette innlegget:'
+    normal: normal
+    lower: nederst
+    higher: øverst
 configure_columns: Konfigurer kolonner
 save_state: Vedlikeholde filtre og sortering
 save_state_description: Lagre brukte filtre og sortering for fremtidige samtaler
@@ -3428,20 +3440,19 @@ help:
   key:
     storeLog:
       title: Driftslogg
-      md: "Driftsloggen er en måte å spore **aktivitetene i en bedrift**. \nDet kan
+      md: "Driftsloggen er en måte å spore **aktivitetene i en bedrift**. Det kan
         bidra til å løse konflikter eller rette opp tilfeldige feil.\n---\n######
         Eksempel\nLa oss si at du vil vite hvem som ble lagt til i teamet av hvem
-        i løpet av de siste 3 ukene.\nDeretter kan du angi perioden ved å bruke start-
-        og sluttdatoene i de to datofeltene.\nDeretter kan du velge alle relevante
-        handlingstyper fra rullegardinmenyen.\nI dette tilfellet, for eksempel \"
-        *Gjør medlemskapsforespørsler*\", \"*Godta medlemskapsforespørsler*\" \nog
-        \"*Avvis medlemskapsforespørsler*\".\nHvis du nå klikker på \"*Vis valgte
-        handlinger*\"-knappen, vil du få vist en historikk over de valgte hendelsene.\n
-        ---\n###### Tilgang\nBare de som kan administrere selskapet har tilgang til
-        det. Driftsloggen er ikke synlig for vanlige matsparere og hoppere.\n---\n
-        ###### Begrensninger\nMaksimalt 100 oppføringer vil bli lastet inn. Du må
-        kanskje begrense søkeperioden eller de valgte handlingstypene hvis ikke alle
-        resultater vises.\n"
+        i løpet av de siste 3 ukene. Deretter kan du angi perioden ved å bruke start-
+        og sluttdatoene i de to datofeltene. Deretter kan du velge alle relevante
+        handlingstyper fra rullegardinmenyen. I dette tilfellet, for eksempel \" *Gjør
+        medlemskapsforespørsler*\", \"*Godta medlemskapsforespørsler*\" og \"*Avvis
+        medlemskapsforespørsler*\". Hvis du nå klikker på \"*Vis valgte handlinger*\"\
+        -knappen, vil du få vist en historikk over de valgte hendelsene\n---\n######
+        Tilgang\nBare de som kan administrere selskapet har tilgang til det. Driftsloggen
+        er ikke synlig for vanlige matsparere og hoppere.\n---\n###### Begrensninger\n
+        Maksimalt 100 oppføringer vil bli lastet inn. Du må kanskje begrense søkeperioden
+        eller de valgte handlingstypene hvis ikke alle resultater vises.\n"
     threadPriority:
       md: "Emner er oppført sortert etter visningsprioritet. Emner med samme prioritet
         er sortert etter tidspunktet for siste aktivitet.\n---\nFestede tråder har
@@ -3449,5 +3460,6 @@ help:
         de viste trådene mer presist kan du også sette høyere verdier her slik at
         emner alltid er øverst uavhengig av endringsdato.\nTråder med prioritet -1
         vises under alle andre tråder.\n"
+      title: Trådprioritet
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
