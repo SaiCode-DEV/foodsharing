@@ -1307,6 +1307,9 @@ chat:
   start_of_conversation: "Konversation gestartet am:"
   display_all_messages: "Alle Nachrichten anzeigen"
   unknown_username: "unbekannter Name"
+  mark_as:
+    read: "Als gelesen markieren"
+    unread: "Als ungelesen markieren"
 
 wall:
   name: "Pinnwand"

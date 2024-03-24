@@ -41,6 +41,6 @@ export function createConversation (userIds) {
   })
 }
 
-export function markConversationRead (conversationId) {
-  return post(`/conversations/${conversationId}/read`)
+export function setReadStatus (conversationId, read) {
+  return post(`/conversations/${conversationId}/readStatus?read=${read ? 1 : 0}`)
 }

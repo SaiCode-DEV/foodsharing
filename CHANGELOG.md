@@ -1973,6 +1973,8 @@ IE11, Safari and slightly older androids should work again, although I can only 
 - introduce new font fontawesome 5.2 !500 @peter.toennies
 - added placeholder text for the birth date in the registration form !505 @peter.toennies
 - Search in navbar shows more results, distinct results page removed as it was the same !515 #315 @NerdyProjects @theolampert
+- The number of unread messages in chats is now displayed. !3153 @AntonBallmaier
+- Chats can be marked as read or unread !3153 @AntonBallmaier
 
 ## Bugfixes
 - Changed button to return to profile on the profile editing page !492 #285 @leisinger.sebastian

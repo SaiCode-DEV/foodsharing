@@ -4,7 +4,7 @@
     :size="size"
     rounded
     badge-offset="-5px"
-    :badge="unread"
+    :badge="badgeContent"
     badge-variant="info"
   >
     <Avatar
@@ -18,17 +18,16 @@
 </template>
 
 <script>
-
 import DataUser from '@/stores/user'
 import profileStore from '@/stores/profiles'
 import Avatar from '@/components/Avatar/Avatar.vue'
+import { MARKED_AS_UNREAD } from '@/stores/conversations'
 
 export default {
   components: { Avatar },
   props: {
     conversation: { type: Object, default: () => ({}) },
     size: { type: Number, default: 35 },
-    unread: { type: Boolean, default: false },
   },
   computed: {
     loggedinUser () {
@@ -61,6 +60,12 @@ export default {
     },
     avatarSize () {
       return this.size / this.gridRows
+    },
+    badgeContent () {
+      if (!this.conversation?.unreadMessages) return false
+      if (this.conversation.unreadMessages === MARKED_AS_UNREAD) return true
+      if (this.conversation.unreadMessages > 99) return '99+'
+      return this.conversation.unreadMessages.toString()
     },
   },
   methods: {

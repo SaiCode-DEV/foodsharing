@@ -7,6 +7,8 @@ import { urls } from '@/helper/urls'
 
 const REQUEST_LIMIT_CONVERSATIONS = 20
 const REQUEST_LIMIT_MESSAGES = 25
+const MARKED_AS_UNREAD = -1
+export { MARKED_AS_UNREAD }
 
 export default new Vue({
   data: {
@@ -18,7 +20,7 @@ export default new Vue({
   },
   computed: {
     unreadCount () {
-      return Object.values(this.conversations).filter(b => b.hasUnreadMessages).length
+      return Object.values(this.conversations).filter(b => b.unreadMessages).length
     },
   },
   methods: {
@@ -109,18 +111,19 @@ export default new Vue({
       Vue.set(this.conversations[conversationId].messages, message.id, convertMessage(message))
       Vue.set(this.conversations[conversationId], 'lastMessage', convertMessage(message))
       if (message.authorId !== DataUser.getters.getUserId()) {
-        Vue.set(this.conversations[conversationId], 'hasUnreadMessages', true)
+        this.conversations[conversationId].unreadMessages = Math.max(1, this.conversations[conversationId].unreadMessages + 1)
       }
     },
-    async markAsRead (conversationId) {
-      if (conversationId in this.conversations && this.conversations[conversationId].hasUnreadMessages) {
-        Vue.set(this.conversations[conversationId], 'hasUnreadMessages', false)
-        await api.markConversationRead(conversationId)
+
+    async setReadStatus (conversationId, read) {
+      if (conversationId in this.conversations) {
+        Vue.set(this.conversations[conversationId], 'unreadMessages', read ? 0 : MARKED_AS_UNREAD)
+        await api.setReadStatus(conversationId, read)
       }
     },
     async markUnreadMessagesAsRead () {
       for (const conversationId in this.conversations) {
-        await this.markAsRead(conversationId)
+        await this.setReadStatus(conversationId, true)
       }
     },
     async sendMessage (conversationId, messageText) {

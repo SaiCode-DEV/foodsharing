@@ -284,7 +284,7 @@ export default {
         // This timeout is required so that the chat component has initialized completely.
 
         this.getMessageTextComponent().addEventListener('click', async () => {
-          await conversationStore.markAsRead(this.roomId)
+          await conversationStore.setReadStatus(this.roomId, true)
         })
 
         this.getMessageTextComponent().addEventListener('input', async () => {
@@ -312,7 +312,7 @@ export default {
       if (options?.reset) {
         this.roomChanging = true
         this.roomId = roomId
-        await conversationStore.markAsRead(roomId)
+        await conversationStore.setReadStatus(roomId, true)
         const storedChatText = this.storage.get(this.roomId)
         if (storedChatText) {
           this.setMessageText(storedChatText)
@@ -410,7 +410,7 @@ export default {
           roomId: String(conv.id),
           roomName: this.getRoomName(conv),
           avatar: null,
-          unreadCount: Number(conv.hasUnreadMessages),
+          unreadCount: Number(conv.unreadMessages),
           index: Number.MAX_SAFE_INTEGER - 1, // order at top of room list, but after new conversation entry
         }
 
@@ -434,7 +434,7 @@ export default {
               // saved: true, // can be activated when 'distributed' is also implemented in backend. Will otherwise confuse users when only 1 check is displayed.
               distributed: false,
               seen: false,
-              new: conv.hasUnreadMessages,
+              new: conv.unreadMessages,
             },
           }
         }
@@ -501,7 +501,7 @@ export default {
       } else {
         await conversationStore.sendMessage(roomId, content)
       }
-      await conversationStore.markAsRead(this.roomId)
+      await conversationStore.setReadStatus(this.roomId, true)
       this.storage.del(this.roomId)
     },
     /**

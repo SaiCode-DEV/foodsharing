@@ -60,7 +60,7 @@ export default {
       /* let res = Array.from(conversationStore.conversations) // .filter(c => c.lastMessage || c.messages)
       return res */
       return Object.values(conversationStore.conversations).filter((a) => (a.lastMessage != null)).sort(
-        (a, b) => (a.hasUnreadMessages === b.hasUnreadMessages) ? ((a.lastMessage.sentAt < b.lastMessage.sentAt) ? 1 : -1) : (a.hasUnreadMessages ? -1 : 1),
+        (a, b) => (!a.unreadMessages === !b.unreadMessages) ? (b.lastMessage.sentAt - a.lastMessage.sentAt) : (a.unreadMessages ? -1 : 1),
       )
     },
     unread () {
