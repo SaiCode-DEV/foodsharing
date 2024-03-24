@@ -221,7 +221,7 @@ group:
   enterxp: 'Expérience :'
   enterskills: 'Compétences :'
   userId: ID
-  filter_placeholder: filtrer les groupes
+  filter_placeholder: filtrer les groupes par nom
 bcard:
   generate: Créer une carte de visite
   error:
@@ -916,6 +916,7 @@ fsp:
   yours: Frigos solidaires dans ton district
   summaryRegion: Il y a {count} frigo·s solidaire·s à {region} et dans les secteurs
     géographiques associés
+  show_on_large_map: Afficher sur la carte
 terminology:
   mailboxes: Messageries
   settings: Paramètres
@@ -1221,13 +1222,13 @@ store:
     buttonManagementToggleOff: retour au mode normal
     promoteToManagerNotPossible: La personne ne peut être promue de responsable coopération
       car il y a déjà trois responsables ou la personne n’a pas encore réussi le quiz.
-    filterAll: Tous
+    filterAll: Membres
     filterActive: actifs
     buttonManagementToggle: Mode de gestion
     toogleIsReducedStateOpen: développer la liste
     filterSleeping: bonnet de couchage
     toogleIsReducedStateClosed: réduire la liste
-    filterManage: Quiz de responsable coopération ou supérieur
+    filterManage: avec quiz de responsable coopération
   springer_conversation_name: Replaçant·e {name}
   team_conversation_name: Équipe {name}
   days_before: avant
@@ -1249,8 +1250,8 @@ store:
   isManager: Responsable pour cette coopération.
   unknownDate: inconnue
   lastPickupShort: dernière collecte le {date}
-  lastPickup: 'Dernière collecte : {date}'
-  jumperSince: Remplaçant•e depuis le {date}
+  lastPickup: 'Dernière collecte le {date}'
+  jumperSince: Remplaçant·e depuis le {date}
   joinDate: Dans l’équipe depuis le {date}
   teamName: Équipe {storeTitle}
   error: La page de la coopération n’a pas pu être chargée.
@@ -3079,8 +3080,9 @@ base:
 sidenav:
   yourgroups: Tes groupes
   countryspecific: Groupes nationaux
-  localgroups: Groupes locaux
-  superregional: Groupes internationaux
+  localgroups: Groupes régionaux
+  superregional: Suprarégional
+  yourregions: Tes districts
 password:
   insertmail: Entre l’adresse courriel avec laquelle tu t’es enregistré·e sur le site
     de foodsharing.
