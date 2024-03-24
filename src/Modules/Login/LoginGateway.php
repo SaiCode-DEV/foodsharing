@@ -198,7 +198,7 @@ class LoginGateway extends BaseGateway
 
         if ($mail) {
             $vars = [
-                'link' => BASE_URL . '/?page=login&sub=passwordReset&k=' . $key,
+                'link' => BASE_URL . '/login?sub=passwordReset&k=' . $key,
                 'name' => $fs['name'],
                 'anrede' => $this->translator->trans('salutation.' . $fs['geschlecht']),
             ];

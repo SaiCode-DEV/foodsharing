@@ -31,16 +31,6 @@
 # The code that actually handles these parameters (Control::uri) only looks at the REQUEST_URI,
 # which is not changed by Symfony.
 
-# Login
-
-recovery:
-  path: /recovery
-  controller: Foodsharing\Entrypoint\IndexController
-
-login:
-  path: /login
-  controller: Foodsharing\Entrypoint\IndexController
-
 # Profile
 
 profile:

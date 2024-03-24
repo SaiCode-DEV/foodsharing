@@ -10,7 +10,6 @@ use Foodsharing\Modules\Event\EventControl;
 use Foodsharing\Modules\Foodsaver\FoodsaverControl;
 use Foodsharing\Modules\Index\IndexControl;
 use Foodsharing\Modules\Legal\LegalControl;
-use Foodsharing\Modules\Login\LoginControl;
 use Foodsharing\Modules\Logout\LogoutControl;
 use Foodsharing\Modules\Mailbox\MailboxControl;
 use Foodsharing\Modules\Map\MapXhr;
@@ -54,7 +53,6 @@ class Routing
         'foodsaver' => 'Foodsaver',
         'index' => 'Index',
         'legal' => 'Legal',
-        'login' => 'Login',
         'logout' => 'Logout',
         'mailbox' => 'Mailbox',
         'msg' => 'Message',
@@ -85,7 +83,6 @@ class Routing
         'foodsaver' => FoodsaverControl::class,
         'index' => IndexControl::class,
         'legal' => LegalControl::class,
-        'login' => LoginControl::class,
         'logout' => LogoutControl::class,
         'mailbox' => MailboxControl::class,
         'msg' => MessageControl::class,
@@ -126,6 +123,7 @@ class Routing
         'blog',
         'betrieb',
         'fairteiler',
+        'login'
     ];
 
     private const RENAMES = [

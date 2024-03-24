@@ -38,7 +38,7 @@ const urls = {
   infosCompany: () => '/fuer-unternehmen',
   joininfo: () => '/content?sub=joininfo',
   leeretonne: () => '/content?sub=leeretonne',
-  login: () => '/?page=login',
+  login: () => '/login',
   logout: () => {
     const url = new URL(window.location.href)
     return '/?page=logout&ref=' + encodeURIComponent(url.pathname + url.search)
@@ -59,7 +59,7 @@ const urls = {
   newsFromIT: () => 'https://foodsharing.freshdesk.com/support/solutions/folders/77000160479',
   vision: () => '/ueber-uns',
   partner: () => '/partner',
-  passwordReset: () => '/?page=login&sub=passwordReset',
+  passwordReset: () => '/login?sub=passwordReset',
   poll: (pollId) => `/?page=poll&id=${pollId}`,
   pollEdit: (pollId) => `/?page=poll&id=${pollId}&sub=edit`,
   press: () => '/content?sub=presse',
@@ -88,7 +88,7 @@ const urls = {
   donation_project_api: () => 'https://spenden.twingle.de/status/E4yxc5T7YJh7nZvL93Yu7PlUzwCMjD2p80u8YK0Vgyw%253D',
   circle_of_friends: () => 'https://spenden.foodsharing.de/freundeskreis',
   selfservice: () => 'https://spenden.foodsharing.de/selfservice',
-  resendActivationMail: () => '/?page=login&a=resendActivationMail',
+  resendActivationMail: () => '/login?sub=resendActivationMail',
 
   // javascript
   javascript: (js) => `javascript:${js}`,

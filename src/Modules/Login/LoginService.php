@@ -100,7 +100,7 @@ class LoginService
         $token = $this->generateMailActivationToken($tokenData['count']);
         $this->loginGateway->updateMailActivationToken($fsId, $token);
 
-        $activationUrl = BASE_URL . '/?page=login&a=activate&e=' . urlencode((string)$data['email']) . '&t=' . urlencode($token);
+        $activationUrl = BASE_URL . '/login?sub=activate&e=' . urlencode((string)$data['email']) . '&t=' . urlencode($token);
 
         $this->emailHelper->tplMail('user/join', $data['email'], [
             'name' => $data['name'],

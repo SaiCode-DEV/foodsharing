@@ -76,6 +76,7 @@
 - Improved Avatar component !3155 !3189 @AntonBallmaier
 - Refactored group page to vue !3162 !3223 @chriswalg
 - Improved store team list #1833 !3207 @AntonBallmaier
+- Modernized LoginControl to a Symfony controller !3237 @\_fridtjof_
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm
@@ -624,7 +625,7 @@
 
 ## Bugfixes
 - Fix the community marker map for regions that do not yet have a pin #1183 !2154 @alex.simm
-- Redirect to login for user that is not logged in at https://foodsharing.de/?page=login&a=resendActivationMail #1136 !2138 @ESchae
+- Redirect to login for user that is not logged in at https://foodsharing.de/?page=login&sub=resendActivationMail #1136 !2138 @ESchae
 - Fix typos in forum markdown hints. !2167 @NINI1988
 - Fixed the user search pointing to a non-existing path !2170 @alex.simm
 - The visibility of the StoreWall can be toggled again !2177 @nudin
