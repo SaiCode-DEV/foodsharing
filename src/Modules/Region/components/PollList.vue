@@ -98,7 +98,7 @@
               <b-link
                 :href="$url('poll', poll.id)"
               >
-                <b>{{ poll.name }}</b>
+                {{ poll.name }}
                 <div>{{ $i18n('poll.ended_at') }} {{ $dateFormatter.date(convertDate(poll.endDate)) }}</div>
               </b-link>
             </li>
@@ -180,10 +180,10 @@ export default {
   methods: {
     compare: optimizedCompare,
     isPollInPast (poll) {
-      return this.convertDate(poll.endDate.date) < new Date()
+      return this.convertDate(poll.endDate) < new Date()
     },
     isPollInFuture (poll) {
-      return this.convertDate(poll.startDate.date) > new Date()
+      return this.convertDate(poll.startDate) > new Date()
     },
     convertDate (date) {
       return new Date(Date.parse(date))
