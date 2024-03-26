@@ -1033,7 +1033,7 @@ store:
     filterUnverified: Onaylanmamış
     makeRegularTeamMember: Bu Gruba alın
     promoteToManager: Yetkili yap
-    demoteAsManager: Yönetici olarak kaldır
+    demoteAsManager: Sorumluluk haklarını al
     reloadRequired: 'Grup Bilgilerini güncellemek için:'
     reloadPage: Yeniden yükle
     filterQuizSM: İşletme yöneticileri için sınavı geçti
@@ -1054,14 +1054,17 @@ store:
     pickupDesc: Önce en yenisi
     managementActions: İşletme Sorumluları için faaliyetler
     filterActive: aktif
-    filterAll: Hepsi
+    filterAll: Üyeler
     promoteToManagerNotPossible: Zaten üç işletme sorumlusu olması veya kişinin henüz
       sınavı geçememiş olması nedeniyle kişi sorumlu olamaz.
     buttonManagementToggle: İşletme Sorumlusu Modu
     toogleIsReducedStateOpen: Listeyi aç
     toogleIsReducedStateClosed: Listeyi kapat
     filterSleeping: Uyku Beresi
-    filterManage: İşletme Sorumlusu Sınavı veya üstü
+    filterManage: İşletme Sorumlusu Sınavı
+    sorting:
+      default: Standart sıralama
+      pickup: Son alıma göre sıralandı
   prefetchthree: 3 Hafta
   prefetchfour: 4 Hafta
   request:
@@ -1133,7 +1136,7 @@ store:
   short_tooltip_yellow: 5 gün içinde ki açık alımlar
   short_tooltip_orange: 3 gün içinde ki açık alımlar
   tooltip_jumping: Bu işletmenin yedek listesindesiniz
-  jumperSince: 'Şu tarihten beri yedek listesinde: {date}'
+  jumperSince: 'Şu tarihten beri yedek listesinde {date}'
   go: Ekip sayfasına
   regionPickupRuleLong: İstenilen teslim alma tarihinden sonraki ±{regionPickupRuleTimespan}
     gün içinde, ülke çapında ki adalet kuralı işletmelerinde, {regionPickupRuleLimit}
@@ -1157,7 +1160,7 @@ store:
   ownStores: Kendi işletmeleriniz
   teamName: '{storeTitle}-Ekibi'
   joinDate: Şu tarihten beri ekipte {date}
-  lastPickup: 'Son alım tarihi: {date}'
+  lastPickup: 'Son alım tarihi {date}'
   chat:
     jumper: Yedek listesinde olanlara mesaj
     team: Ekibe mesaj
@@ -2262,6 +2265,9 @@ chat:
     \nBu iletişim kutusunu iptal ederseniz taslağınız bunun yerine yeni görüşmeye
     taşınacaktır.\n"
   unknown_username: bilinmeyen isim
+  mark_as:
+    read: Okundu olarak işaretle
+    unread: Okunmadı olarak işaretle
 push_notifications:
   test_notification_title: Push bildirimleri etkinleştirildi
   test_notification_body: Harika, bu işe yaramış gibi görünüyor :)
