@@ -78,6 +78,7 @@
 - Improved store team list #1833 !3207 @AntonBallmaier
 - Modernized LoginControl to a Symfony controller !3237 @\_fridtjof_
 - Refactored profile to vue and symfony controller !3184 @chriswalg
+- Modernized ProfileControl to a Symfony controller !3199 @\_fridtjof_
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm
