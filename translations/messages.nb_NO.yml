@@ -1434,7 +1434,7 @@ register:
   geb_datum: Fødselsdatoen din
   login_passwd2: Gjenta passord
   login_passwd1: Passord (minst 8 tegn)
-  login_email: Epostadresse
+  login_email: E-postadresse
   requiredFields: Obligatorisk felt
   register_button_label: Registrering
   title: Registrering
@@ -1501,7 +1501,7 @@ login:
   login_button_label: Logg Inn
   forgotten_password_label: Glemt passord?
   password: Passord
-  email_address: Epostadresse
+  email_address: E-postadresse
   form_title: Velkommen tilbake
   topbar: Logg Inn
   submit_btn: Logg Inn
@@ -1886,7 +1886,7 @@ compose_body: Beskjed
 pass2: Passordrepetisjon
 infotype: Melding
 dateend: Sluttdato
-mailbox_id: Avsenderens epostadresse
+mailbox_id: Avsenderens e-postadresse
 testemail: E-postadresse for testing
 opt: Alternativer
 teaser: Teaser
@@ -1912,7 +1912,7 @@ anschrift: Gatenummer og husnummer (automatisk tatt fra kortet)
 handy: Mobilnummer (inkludert landskode, starter med +)
 telefon: Fasttelefonnummer (inkludert landskode, starter med +)
 attachement: Vedlegg
-email: Epostadresse
+email: E-postadresse
 plz: Postnummer (automatisk tatt fra kortet)
 description: Beskrivelse
 desc: Beskrivelse
