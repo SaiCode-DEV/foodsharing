@@ -225,8 +225,8 @@ export default {
     signUpPerformedAtDateFormatted () {
       const storeLog = StoreData.getters.getFilteredStoreLog([STORE_LOG_ACTION.SIGN_UP_SLOT], this.profile.id)
       const filteredEntries = storeLog.filter(entry => {
-        const thisDate = this.date.toISOString
-        const entryDateReference = new Date(entry.date_reference).toISOString
+        const thisDate = this.date.toISOString()
+        const entryDateReference = new Date(entry.date_reference).toISOString()
         return thisDate === entryDateReference
       })
 

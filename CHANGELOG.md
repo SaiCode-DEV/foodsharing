@@ -36,7 +36,7 @@
 - Improved permission checks for event creation #489 !3187 @alex.simm
 - Fix XSS vulnerabilities in Baskets, Mails and Blog !3219 @stcz
 - Fix delivering CC mails and add error message for BCC !3171 @stcz
-- Fix sign in date time in slot modal #1870 !3228 @chriswalg
+- Fix sign in date time in slot modal #1870 !3228 !3250 @chriswalg
 - Fixed mail address to field in mailbox module !3226 @chriswalg
 - Fixed datepicker in pickup modal #1751 !3231 @chriswalg 
 
