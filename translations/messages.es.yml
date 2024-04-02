@@ -3680,12 +3680,12 @@ help:
         se ha incorporado al equipo en las últimas 3 semanas y quién lo ha hecho.
         Entonces puede definir el periodo utilizando las fechas de inicio y fin en
         los dos campos de fecha. A continuación, puede seleccionar todos los tipos
-        de acción pertinentes en el desplegable. En este caso, por ejemplo, \"*Solicitar
+        de acción relevantes en el desplegable. En este caso, por ejemplo, \"*Solicitar
         afiliación*\", \"*Aceptar solicitudes de afiliación*\" y \"*Rechazar solicitudes
         de afiliación*\". Si ahora hace clic en el botón \"*Mostrar acciones seleccionadas*\"\
-        , se le mostrará un historial de los eventos seleccionados. \n---\n######
-        Acceso\nSólo tienen acceso aquellos que también pueden administrar la operación.
-        El registro de operaciones no puede ser visto por los ahorradores y saltadores
+        , se le mostrará un historial de los eventos seleccionados.\n---\n###### Acceso\n
+        Sólo tienen acceso aquellos que también pueden administrar la operación. El
+        registro de operaciones no puede ser visto por los ahorradores y saltadores
         normales.\n---\n###### Restricciones\nSe carga un máximo de 100 entradas.
         Es posible que tenga que restringir el periodo de búsqueda o los tipos de
         acción seleccionados si no se muestran todos los resultados.\n"
