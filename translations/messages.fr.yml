@@ -52,6 +52,9 @@ group:
     accept: Accepter la candidature
     link_description: 'Ce lien te permet d’accéder directement à l’application :'
     how_much_time: Combien d’heures par semaine as-tu le temps et l’envie d’y consacrer ?
+    ability: Quelles sont tes compétences dans ce domaine ?
+    experience: "Peux-tu te référer à des expériences acquises ailleurs dans le groupe ?\n
+      Si oui, où et lesquels ?\n"
   contact:
     sent: Le message a bien été envoyé.
     send: Envoyer le message
@@ -827,6 +830,7 @@ forum:
     subscriptions:
       subscribed: abonné
       subscribe: s’abonner
+    bottom: visibilité réduite
   follow:
     email: comme courriel
     bell: par la cloche
@@ -2134,6 +2138,9 @@ chat:
   new_messages: Nouveaux messages
   select_recipients: Sélectionner un·e destinataire
   unknown_username: nom inconnu
+  mark_as:
+    read: Marquer comme lu
+    unread: Marquer comme non lu
 timepicker:
   labelNowButton: Maintenant
   labelCloseButton: Fermer
@@ -3548,6 +3555,7 @@ thread:
     pin: épingler le fil
     lock: Fermer la discussion
     unpin: détacher le fil
+    priority: Adapter la priorité d’affichage
   rename:
     description_modal_text: 'Entrez un nouveau titre pour ce fil :'
     placeholder: Titre
@@ -3557,6 +3565,11 @@ thread:
     options:
       copy_source: Copier le code source
     copy_source_success: Code source copié !
+  priorityModal:
+    lower: tout en bas
+    normal: normal
+    higher: tout en haut
+    text: 'Priorité d’affichage de ce message :'
 configure_columns: Configurer les colonnes
 save_state: Maintenir les filtres et le tri
 save_state_description: Enregistrez les filtres utilisés et le tri pour les appels
@@ -3573,3 +3586,28 @@ help:
   key:
     storeLog:
       title: Journal des opérations
+      md: "Le protocole d’exploitation est un moyen de **tracer les activités dans
+        une entreprise**. Il peut aider à résoudre des conflits ou à corriger des
+        erreurs commises par inadvertance.\n---\n###### Exemple\nSupposons que tu
+        veuilles savoir qui a été intégré dans l’équipe et par qui au cours des trois
+        dernières semaines. Tu peux alors définir la période au moyen de la date de
+        début et de la date de fin via les deux champs de date. Ensuite, tu peux sélectionner
+        dans le menu déroulant tous les types d’action pertinents. Dans ce cas, par
+        exemple «*Demander l’adhésion*», «*Accepter les demandes d’adhésion*» et «*Refuser
+        les demandes d’adhésion*». Si tu cliques maintenant sur le bouton «*Afficher
+        les actions sélectionnées*», l'historique des événements sélectionnés s’affiche.
+        \n---\n###### Accès\nSeules les personnes qui peuvent administrer l’entreprise
+        y ont accès. Les foodsavers et les sauteurs ne peuvent pas consulter le journal
+        de fonctionnement.\n---\n###### Restrictions\nUn maximum de 100 entrées est
+        chargé. Le cas échéant, tu dois limiter la période de recherche ou les types
+        d’action sélectionnés si tous les résultats ne sont pas affichés.\n"
+    threadPriority:
+      title: Priorité d’affichage dans les forums
+      md: "Les sujets sont classés en fonction de leur priorité d’affichage. Les sujets
+        ayant la même priorité sont classés en fonction de la date de la dernière
+        activité.\n---\nLes fils de discussion épinglés ont une priorité de 1, les
+        fils de discussion normaux une priorité de 0. Pour trier les fils de discussion
+        affichés de manière plus précise, tu peux définir ici des valeurs plus élevées,
+        de sorte que les thèmes soient toujours en tête, indépendamment de la date
+        de modification.\nLes fils de priorité -1 sont affichés sous tous les autres
+        fils.\n"
