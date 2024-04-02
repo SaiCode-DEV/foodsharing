@@ -1457,7 +1457,6 @@ email_template:
   request_from: Request by
   foodbasket_request: Your food basket was requested by %SENDER%
   foodsharepoint: -- Food-Share Point
-  yourFSteam: Your foodsharing team
   dont_respond:
     noreply: Please do not respond to this e-mail. It was sent from an address, which
       does not correspond to a mailbox.
@@ -1485,7 +1484,6 @@ email_template:
   confirm_BOT: . Since you are an ambassador / moderator for %BEZIRK%, you have to
     confirm it in order that it is published.
   confirm_link: would like to publish the topic
-  withlove: Lots of love
   impress:
     general_information_requirements: Information according to § 5 Telemediengesetz
     title: Legal notice

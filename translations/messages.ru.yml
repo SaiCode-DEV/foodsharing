@@ -2213,7 +2213,6 @@ email_template:
   foodbasket_request: ''
   slot_empty: ''
   unknown_email: ''
-  withlove: ''
 polls:
   ended: ''
   new_poll: ''

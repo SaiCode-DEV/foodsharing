@@ -2064,7 +2064,6 @@ email_template:
   newsletter:
     linktext: ''
     unsubscribe: ''
-  withlove: ''
   confirm_link: ''
   in: ''
   slot_empty: ''
@@ -2094,7 +2093,6 @@ email_template:
     title: ''
     general_information_requirements: ''
     address: ''
-  yourFSteam: ''
   confirm_topic: ''
   manual_slots_get_ignored: ''
   foodsharepoint: ''

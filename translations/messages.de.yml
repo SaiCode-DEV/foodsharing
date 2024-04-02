@@ -2667,8 +2667,6 @@ email_template:
     address: "foodsharing e.V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n Vertreten durch:\n\n Frank Bowinkelmann \n Kontakt:\n E-Mail: info@foodsharing.de\n Registereintrag:\n\n Eintragung im Vereinsregister\n Registergericht: Amtsgericht Köln\n Registernummer: VR 17439\n Verantwortlich für den Inhalt nach § 18 MStV:\n  Frank Bowinkelmann"
   unknown_email: "Unbekannte E-Mail-Adresse"
   unknown_email2: "Die E-Mail-Adresse %ADDRESS% ist nicht bekannt. \nBitte beachte, dass BCC E-Mails an die domain @foodsharing.network nicht zugestellt werden können."
-  withlove: "Alles Liebe"
-  yourFSteam: "dein foodsharing-Team"
   in: "in"
   login: "Einloggen zum Antworten"
   confirm_topic: "Thema muss bestätigt werden:"
@@ -3270,7 +3268,7 @@ help:
         Das Betriebsprotokoll ist eine Möglichkeit, die **Aktivitäten in einem Betrieb nachzuvollziehen**. Es kann dabei helfen, Konflikte zu lösen oder versehentliche Fehler zu korrigieren.
         ---
         ###### Beispiel
-        Angenommen, du wills wissen, wer in den letzten 3 Wochen von wem ins Team aufgenommen wurde. Dann kannst du den Zeitraum mittels Start- und Enddatum über die beiden Datums-Felder festlegen. Als nächstes kannst du aus dem Dropdown alle relevanten Aktionstypen auswählen. In diesem Fall zum Beispiel "*Beitrittsanfragen stellen*", "*Beitrittsanfragen annehmen*" und "*Beitrittsanfragen ablehnen*". Wenn du nun auf den Button "*Ausgewähle Aktionen anzeigen*" klickst, wir dir eine Historie der ausgewählten Ereignisse angezeigt. 
+        Angenommen, du wills wissen, wer in den letzten 3 Wochen von wem ins Team aufgenommen wurde. Dann kannst du den Zeitraum mittels Start- und Enddatum über die beiden Datums-Felder festlegen. Als nächstes kannst du aus dem Dropdown alle relevanten Aktionstypen auswählen. In diesem Fall zum Beispiel "*Beitrittsanfragen stellen*", "*Beitrittsanfragen annehmen*" und "*Beitrittsanfragen ablehnen*". Wenn du nun auf den Button "*Ausgewähle Aktionen anzeigen*" klickst, wir dir eine Historie der ausgewählten Ereignisse angezeigt.
         ---
         ###### Zugriff
         Zugriff darauf hat nur, wer auch den Betrieb administrieren kann. Für normale Foodsaver und Springer:innen ist das Betriebsprotokoll nicht einsehbar.

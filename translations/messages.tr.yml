@@ -2037,7 +2037,6 @@ email_template:
     ve üzerine yazılan veya silinen kontenjanlar henüz dikkate alınmamıştır. Bundan
     sonra bu bildirimi almak istemiyorsanız şirketinizin web sitesindeki normal alım
     saatlerini kaldırın.
-  withlove: Herşey gönlünce olsun
 wall:
   delete: Kaydı sil
   message_placeholder: Mesaj yaz…

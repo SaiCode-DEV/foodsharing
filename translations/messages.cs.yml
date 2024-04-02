@@ -134,7 +134,6 @@ email_template:
     linktext: ''
     unsubscribe: ''
   unknown_email2: ''
-  yourFSteam: ''
   warning: ''
   information: ''
   impress:
@@ -164,7 +163,6 @@ email_template:
   confirm_link: ''
   find_someone: ''
   to: ''
-  withlove: ''
   confirm_BOT: ''
   foodbasket_request: ''
 polls:

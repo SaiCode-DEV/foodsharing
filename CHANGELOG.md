@@ -24,6 +24,7 @@
 - Pinned threads are no longer sorted by name !3205 @AntonBallmaier
 - Removed infinity loading from forum lists #1231 !3229 @chriswalg
 - Enabling the Display of Occupied Slot Details in the Confirmation Dialogue #1862 !3213 @c-h-i-c-k-e-n
+- Removed salutation in email template #1745 !3246 @chriswalg
 
 ## Bugfixes
 - remove misplaced line in store team view !3088 @buntel

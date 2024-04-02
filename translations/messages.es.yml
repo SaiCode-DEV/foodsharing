@@ -3204,8 +3204,6 @@ email_template:
     part2: 'Desafortunadamente, nadie se ha registrado todavía para recoger la próxima
       cita.'
   request_from: 'Petición de'
-  withlove: 'Atentamente'
-  yourFSteam: 'tu equipo de foodsharing'
   foodbasket_request: 'Tu canasta de alimentos fue solicitada por %SENDER%'
   reply: 'Responder'
   slot_empty: 'Nadie se ha registrado para recoger la próxima vez en %BETRIEB%'

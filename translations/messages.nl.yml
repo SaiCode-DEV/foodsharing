@@ -334,7 +334,6 @@ email_template:
     linktext: ''
     unsubscribe: ''
   confirm_topic: ''
-  withlove: ''
   information: ''
   manual_slots_get_ignored: ''
   foodbasket_request: ''
@@ -353,7 +352,6 @@ email_template:
     support_mail: ''
     link: 'https://devdocs.foodsharing.network/'
   unknown_email2: ''
-  yourFSteam: ''
   login: ''
 polls:
   until: ''

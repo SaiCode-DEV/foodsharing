@@ -245,7 +245,6 @@ email_template:
   newsletter:
     linktext: Klikk her for å avslutte abonnementet.
     unsubscribe: Ønsker du ikke lenger å motta vårt nyhetsbrev?
-  yourFSteam: ditt foodsharing-team
   you_responsible:
     part1: Du er ansvarlig for
     part2: Dessverre er det ingen som har meldt seg på neste samling.
@@ -256,7 +255,6 @@ email_template:
   confirm_topic: 'Tråden trenger godkjenning:'
   login: Logg inn for å svare
   slot_empty: Ingen har ennå registrert seg for den neste samlingen fra %BETRIEB%
-  withlove: Mye kjærlighet,
   unknown_email: Ukjent e-postadresse
   foodbasket_request: Matkurven din ble etterspurt av %SENDER%
   manual_slots_get_ignored: Dette varselet sendes for øyeblikket hvis ingen har registrert

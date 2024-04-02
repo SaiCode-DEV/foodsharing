@@ -2360,11 +2360,9 @@ email_template:
     part1: ''
   login: ''
   foodsharepoint: ''
-  withlove: ''
   confirm_link: ''
   foodbasket_request: ''
   information: ''
-  yourFSteam: ''
   unknown_email2: ''
   impress:
     title: ''

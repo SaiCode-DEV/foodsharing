@@ -2418,7 +2418,6 @@ email_template:
     unsubscribe: ''
     linktext: ''
   unknown_email: ''
-  withlove: ''
   confirm_BOT: ''
   manual_slots_get_ignored: ''
   help_needed:
@@ -2438,7 +2437,6 @@ email_template:
     no_notification_link: ''
     notification: ''
     nomail: ''
-  yourFSteam: ''
   login: ''
   you_responsible:
     part2: ''

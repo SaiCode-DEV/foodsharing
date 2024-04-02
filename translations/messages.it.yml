@@ -1417,8 +1417,6 @@ email_template:
   confirm_link: vorrebbe che il tema
   confirm_topic: "L'argomento deve essere confermato:"
   in: a
-  yourFSteam: Tuo team foodsharing
-  withlove: Tanti auguri,
   unknown_email2: "L’indirizzo e-mail %ADDRESS% non è noto.\nTieni presente che le
     e-mail BCC non possono essere consegnate al dominio @foodsharing.network."
   unknown_email: Indirizzo e-mail sconosciuto

@@ -565,7 +565,6 @@ email_template:
   unknown_email2: "L’adresse courriel %ADDRESS% n’est pas connue.\nVeuillez noter
     que les e-mails BCC ne peuvent pas être envoyés au domaine @foodsharing.network."
   unknown_email: Adresse courriel inconnue
-  yourFSteam: Ton équipe foodsharing
   confirm_topic: 'Le sujet doit être confirmé :'
   login: Se connecter pour répondre
   warning: Avertissement
@@ -616,7 +615,6 @@ email_template:
     dois la confirmer avant de sa publication.
   confirm_link: voudrait poster
   in: à
-  withlove: Amitiés,
   request_from: Demande de
 mailbox:
   mark_as_unread: Marquer comme non lu

@@ -328,7 +328,6 @@ email_template:
   from: ''
   unknown_email: ''
   slot_empty: ''
-  withlove: ''
   you_responsible:
     part2: ''
     part1: ''
