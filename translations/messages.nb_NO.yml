@@ -2126,6 +2126,9 @@ chat:
   no_messages: Ingen meldinger
   no_conversation: Ingen samtale er valgt
   unknown_username: ukjent navn
+  mark_as:
+    read: Merk som lest
+    unread: Merk som ulest
 forum:
   thread:
     title: Tittel
