@@ -1,42 +1,48 @@
 <template>
-  <div class="field">
-    <div class="head ui-widget-header ui-corner-top">
-      {{ $i18n('fsp.twig.n_in_region', { count: foodSharePoints.length, name: regionName }) }}
-    </div>
-
-    <!-- body -->
-    <div class="ui-widget ui-widget-content corner-all margin-bottom corner-bottom">
-      <i v-if="isLoading" class="fas fa-spinner fa-spin" />
-      <ul v-else class="linklist food-share-point-list">
-        <li
-          v-for="fsp in foodSharePoints"
-          :key="fsp.id"
-        >
-          <a
-            :href="$url('foodsharepoint', fsp.id)"
-            class="row"
+  <Container :title="$i18n('fsp.twig.n_in_region', { count: foodSharePoints.length, name: regionName })">
+    <i v-if="isLoading" class="fas fa-spinner fa-spin" />
+    <div v-else class="p-2">
+      <b-button
+        v-if="!foodSharePointPermission"
+        variant="primary"
+        class="float-right"
+        :href="$url('foodsharepointAdd', regionId)"
+      >
+        {{ $i18n('fsp.add') }}
+      </b-button>
+      <div :class="{ 'pt-5': !foodSharePointPermission}">
+        <ul class="linklist food-share-point-list">
+          <li
+            v-for="foodSharePoint in foodSharePoints"
+            :key="foodSharePoint.id"
           >
-            <img
-              :src="pictureUrl(fsp)"
-              :alt="$i18n('picture')"
-              class="image"
+            <a
+              :href="$url('foodsharepoint', foodSharePoint.id)"
             >
-            <span class="d-inline fsp-name">{{ fsp.name }}</span>
-          </a>
-        </li>
-      </ul>
+              <img
+                :src="pictureUrl(foodSharePoint)"
+                :alt="$i18n('picture')"
+              >
+              <span class="d-inline fsp-name">{{ foodSharePoint.name }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
+  </Container>
 </template>
 
 <script>
 import { listFoodSharePoints } from '@/api/foodsharepoints'
+import Container from '@/components/Container/Container.vue'
 import { pulseError } from '@/script'
 
 export default {
+  components: { Container },
   props: {
     regionId: { type: Number, required: true },
     regionName: { type: String, required: true },
+    foodSharePointPermission: { type: Boolean, required: true },
   },
   data () {
     return {

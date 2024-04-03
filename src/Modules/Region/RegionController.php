@@ -11,6 +11,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Store\StoreGateway;
+use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\ReportPermissions;
@@ -38,6 +39,7 @@ final class RegionController extends FoodsharingController
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly StoreGateway $storeGateway,
         private readonly DataHelper $dataHelper,
+        private readonly FoodSharePointPermissions $foodSharePointPermissions
     ) {
         parent::__construct();
     }
@@ -244,7 +246,8 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addBread($this->translator->trans('terminology.fsp'), '/region?bid=' . $region['id'] . '&sub=fairteiler');
         $this->pageHelper->addTitle($this->translator->trans('terminology.fsp'));
         $sub = $request->query->get('sub');
-        $params = $this->convertDataToObject($region, $sub, null);
+        $pageData['foodSharePointPermission'] = $this->foodSharePointPermissions->mayAdd($region['id']);
+        $params = $this->convertDataToObject($region, $sub, $pageData);
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();

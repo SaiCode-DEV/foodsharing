@@ -69,6 +69,7 @@
           v-if="activeSubpage === SUB_PAGE.FOODSHARINGPOINT"
           :region-name="name"
           :region-id="regionId"
+          :food-share-point-permission="pageData.foodSharePointPermission"
         />
         <PollList
           v-if="activeSubpage === SUB_PAGE.POLLS"

@@ -123,6 +123,7 @@ const urls = {
   events: (regionId) => `/region?bid=${regionId}&sub=events`,
   addEvents: (regionId) => `/?page=event&sub=add&bid=${regionId}`,
   foodsharepoints: (regionId) => `/region?bid=${regionId}&sub=fairteiler`,
+  foodsharepointAdd: (regionId) => `/fairteiler?bid=${regionId}&sub=add`,
   members: (regionId) => `/region?bid=${regionId}&sub=members`,
   options: (regionId) => `/region?bid=${regionId}&sub=options`,
   passports: (regionId) => `/?page=passgen&bid=${regionId}`,
