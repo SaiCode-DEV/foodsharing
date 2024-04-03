@@ -129,11 +129,14 @@ class ActivityTransactions
         ];
 
         // Store which update sources to skip, keyed by update type and entity ID
-        if ($sesOptions = $this->settingsTransaction->getOption(UserOptionType::ACTIVITY_LISTINGS)) {
-            $activities = json_decode($sesOptions);
-            foreach ($activities as $o) {
-                if (isset($hidden_ids[$o['index']])) {
-                    $hidden_ids[$o['index']][$o['id']] = $o['id'];
+        $sesOptions = $this->settingsTransaction->getOption(UserOptionType::ACTIVITY_LISTINGS);
+        if ($sesOptions) {
+            $activities = json_decode($sesOptions, true);
+            if ($activities) {
+                foreach ($activities as $o) {
+                    if (isset($hidden_ids[$o['index']])) {
+                        $hidden_ids[$o['index']][$o['id']] = $o['id'];
+                    }
                 }
             }
         }
