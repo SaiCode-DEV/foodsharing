@@ -13,6 +13,7 @@ import './FoodSharePoint.css'
 // Wallpost
 import AddressField from './components/AddressField'
 import LeafletLocationSearchVForm from '@/components/map/LeafletLocationSearchVForm'
+import FileUploadVForm from '@/components/upload/FileUploadVForm.vue'
 
 vueRegister({
   AvatarList,
@@ -22,7 +23,7 @@ vueRegister({
 
 const sub = GET('sub')
 if (sub === 'add' || sub === 'edit') {
-  vueRegister({ LeafletLocationSearchVForm })
+  vueRegister({ LeafletLocationSearchVForm, FileUploadVForm })
   vueApply('#foodsharepoint-address-search')
   vueApply('#image-upload')
 } else if (sub === 'ft') {

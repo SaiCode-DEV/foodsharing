@@ -52,7 +52,7 @@
 - Remove not used mail session variables !3147 !3158 @KoeMai
 - Replace Role-class by Role-Enum and remove need of fAuthentication !3078 !3120 !3123 !3122 @KoeMai
 - Added a missing bell type !3022 @alex.simm
-- Rebuild the wall using vue #45 #1800 #1830 !3045 !3112 !3135 @AntonBallmaier
+- Rebuild the wall using vue #45 #1800 #1830 !3045 !3112 !3135 !3255 @AntonBallmaier
 - Move UserOptions to Settings Module !3146 !3225 @KoeMai
 - Avoid access to global $_SESSION !3099 @KoeMai
 - Refactor region page to vue !2794 !3157 !3227 !3241 !3247 @chriswalg
