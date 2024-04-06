@@ -789,7 +789,7 @@ recipients:
   choose: Choisir les secteurs géographiques séparément
   storemanagers_and_ambs: Tous les responsables coopération et ambassadeur·rice·s
   storemanagers: Tous les responsables coopération (international)
-  all_no_botschafter: Tous les Foodsaver sans les Ambassadeurs
+  all_no_botschafter: Tous les Foodsavers sans ambassadeurs
   newsletter_only_foodsharer: SEULEMENT les Foodsharer abonnés à la lettre d’information
   newsletter_all: Tous les abonnés à la lettre d’information (Foodsharer, Foodsaver,
     tous)
@@ -1217,7 +1217,7 @@ store:
     reloadRequired: "Aller à : modifier les infos de l’équipe :"
     reallyDemote: Souhaites-tu réellement retirer {name} en tant que responsable de
       cette coopération ?
-    demoteAsManager: Retirer en tant que responsable coopération
+    demoteAsManager: Retirer la responsabilité
     promoteToManager: Rendre responsable
     searchPlaceholder: Nom ou ID
     buttonManagementToggleOn: basculer en mode de gestion
@@ -1231,6 +1231,9 @@ store:
     filterSleeping: bonnet de couchage
     toogleIsReducedStateClosed: réduire la liste
     filterManage: avec quiz de responsable coopération
+    sorting:
+      default: Tri standard
+      pickup: Trié par dernière collecte
   springer_conversation_name: Replaçant·e {name}
   team_conversation_name: Équipe {name}
   days_before: avant
@@ -2207,7 +2210,7 @@ storeedit:
       pas le quitter.
     leave: Quitter l’équipe de la coopération
     bread: Modifier l’équipe
-    foodsaver: Collecteur
+    foodsaver: Foodsaver
     leave_myself: Toi-même
   actions: Options
   not-in-region: Tu peux ajouter des coopérations uniquement dans la région dont tu
@@ -3570,6 +3573,7 @@ thread:
     normal: normal
     higher: tout en haut
     text: 'Priorité d’affichage de ce message :'
+    title: Ajuster la priorité d’affichage
 configure_columns: Configurer les colonnes
 save_state: Maintenir les filtres et le tri
 save_state_description: Enregistrez les filtres utilisés et le tri pour les appels
@@ -3595,8 +3599,8 @@ help:
         dans le menu déroulant tous les types d’action pertinents. Dans ce cas, par
         exemple «*Demander l’adhésion*», «*Accepter les demandes d’adhésion*» et «*Refuser
         les demandes d’adhésion*». Si tu cliques maintenant sur le bouton «*Afficher
-        les actions sélectionnées*», l'historique des événements sélectionnés s’affiche.
-        \n---\n###### Accès\nSeules les personnes qui peuvent administrer l’entreprise
+        les actions sélectionnées*», l'historique des événements sélectionnés s’affiche.\n
+        ---\n###### Accès\nSeules les personnes qui peuvent administrer l’entreprise
         y ont accès. Les foodsavers et les sauteurs ne peuvent pas consulter le journal
         de fonctionnement.\n---\n###### Restrictions\nUn maximum de 100 entrées est
         chargé. Le cas échéant, tu dois limiter la période de recherche ou les types
