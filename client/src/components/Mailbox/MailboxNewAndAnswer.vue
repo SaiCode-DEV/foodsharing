@@ -289,6 +289,10 @@ export default {
       return store.state.answerAll
     },
     selectedMailbox () {
+      if (store.state.selectedMailbox.length === 0) {
+        const filteredMailbox = this.mailboxes.filter(mailbox => mailbox.id === this.email.mailboxId)
+        return [filteredMailbox[0].id, filteredMailbox[0].name, this.email.mailboxFolder]
+      }
       return store.state.selectedMailbox
     },
     areAllEmailsValid () {
