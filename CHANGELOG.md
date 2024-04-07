@@ -14,7 +14,7 @@
 - Improves the BBB integration !3050 @stcz
 - Make navigation menu sticky @AntonBallmaier @chriswalg
 - Added marker clustering to the basket map !3013 @alex.simm
-- Minor improvements in the mailbox frontend #1668 !3108 !3258 @alex.simm @chriswalg
+- Minor improvements in the mailbox frontend #1668 !3108 !3203 !3258 @alex.simm
 - The contact pages are merged into one, and the content is automated. !3143 !3174 !3176 @AntonBallmaier
 - Delete uploaded photos when they are not used anymore #1182 !3121 @alex.simm
 - Improved search #1728 !3150 @AntonBallmaier

@@ -1787,6 +1787,8 @@ mailbox:
     full: "E-Mail beantworten"
     short: "Antworten"
   reply_all: "Allen antworten"
+  forward: "Weiterleiten"
+  forward_attachment_warning: "Anhänge können bisher nicht weitergeleitet werden. Wenn du die E-Mail mit Anhängen weiterleiten möchtest, kannst du die Anhänge herunterladen und an die neue E-Mail anhängen."
   claim: "foodsharing.de – verwenden statt verschwenden"
   signature: "Nachricht vom {date}"
   manage: "Mailbox-Manager"

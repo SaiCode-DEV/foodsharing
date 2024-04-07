@@ -23,19 +23,29 @@
             variant="outline-primary"
             split
             :disabled="!isValidSender"
-            @click="showAnswerMailPage(false)"
+            @click="showMailPage(MAIL_COMPOSITION_MODE.ANSWER)"
           >
             <b-dropdown-item
-              @click="showAnswerMailPage(false)"
+              @click="showMailPage(MAIL_COMPOSITION_MODE.ANSWER)"
             >
               {{ $i18n('mailbox.reply.short') }}
             </b-dropdown-item>
             <b-dropdown-item
-              @click="showAnswerMailPage(true)"
+              @click="showMailPage(MAIL_COMPOSITION_MODE.ANSWER_ALL)"
             >
               {{ $i18n('mailbox.reply_all') }}
             </b-dropdown-item>
           </b-dropdown>
+          <b-button
+            v-if="page === MAILBOX_PAGE.READ_EMAIL"
+            v-b-tooltip.hover
+            class="mr-md-2"
+            size="sm"
+            variant="outline-primary"
+            @click="showMailPage(MAIL_COMPOSITION_MODE.FORWARD)"
+          >
+            <i class="fas fa-share" /> {{ $i18n('mailbox.forward') }}
+          </b-button>
           <b-button
             v-if="page === MAILBOX_PAGE.EMAIL_LIST"
             v-b-tooltip.hover
@@ -96,7 +106,7 @@
           <b-button
             size="sm"
             variant="primary"
-            @click="showNewMailPage"
+            @click="showMailPage(MAIL_COMPOSITION_MODE.NEW)"
           >
             {{ $i18n('mailbox.write') }}
           </b-button>
@@ -116,7 +126,7 @@
 </template>
 
 <script>
-import { store, MAILBOX_PAGE, MAILBOX_FOLDER } from '@/stores/mailbox'
+import { store, MAILBOX_PAGE, MAILBOX_FOLDER, MAIL_COMPOSITION_MODE } from '@/stores/mailbox'
 
 export default {
   props: {
@@ -154,6 +164,7 @@ export default {
   },
   created () {
     this.MAILBOX_PAGE = MAILBOX_PAGE
+    this.MAIL_COMPOSITION_MODE = MAIL_COMPOSITION_MODE
   },
   methods: {
     getMovedToFolderTranslation () {
@@ -164,12 +175,8 @@ export default {
       }
       return translations[this.folderType]
     },
-    showNewMailPage () {
-      store.setAnswerMode(false)
-      store.setPage(MAILBOX_PAGE.NEW_EMAIL)
-    },
-    showAnswerMailPage (replyAll) {
-      store.setAnswerMode(true, replyAll)
+    showMailPage (compositionMode) {
+      store.setCompositionMode(compositionMode)
       store.setPage(MAILBOX_PAGE.NEW_EMAIL)
     },
     mailboxViewSelectAllRows () {
