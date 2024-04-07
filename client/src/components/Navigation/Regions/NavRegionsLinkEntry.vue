@@ -3,7 +3,7 @@
     <a
       v-for="(menu,key) in menuEntries"
       :key="key"
-      :href="menu.href ? $url(menu.href, entry.id, menu.special) : '#'"
+      :href="formatLink(menu)"
       role="menuitem"
       class="dropdown-item dropdown-action"
       @click="menu.func ? menu.func() : null"
@@ -94,7 +94,7 @@ export default {
 
       if (this.entry.mailboxId > 0) {
         menu.push({
-          href: 'mailbox', icon: 'fa-fas fa-envelope', text: 'menu.entry.mailbox',
+          href: 'mailbox', icon: 'fa-fas fa-envelope', text: 'menu.entry.mailbox', linkId: this.entry.mailboxId,
         })
       }
 
@@ -108,6 +108,12 @@ export default {
       }
 
       return menu
+    },
+  },
+  methods: {
+    formatLink (menu) {
+      const id = menu.linkId ?? this.entry.id
+      return menu.href ? this.$url(menu.href, id, menu.special) : '#'
     },
   },
 }

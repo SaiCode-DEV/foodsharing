@@ -210,7 +210,7 @@ export default {
         case 'forum':
           return this.$url('forum', this.region_id, (this.forum_type === 'botforum'), this.entity_id, this.forum_post)
         case 'mailbox':
-          return this.$url('mailbox', this.entity_id)
+          return this.$url('mailbox', this.mailboxId, this.entity_id)
         case 'store':
           return this.$url('store', this.entity_id)
         default:

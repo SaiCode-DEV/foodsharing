@@ -46,8 +46,12 @@ class MailboxControl extends Control
         );
 
         $mailboxIds = array_column($boxes, 'id');
-        $emailId = isset($_GET['show']) ? intval($_GET['show']) : null;
+        $emailId = isset($_GET['email']) ? intval($_GET['email']) : null;
         $mailboxId = isset($_GET['mailbox']) ? intval($_GET['mailbox']) : null;
+
+        if ($emailId && !$mailboxId) {
+            $mailboxId = $this->mailboxGateway->getMailboxId($emailId);
+        }
 
         $this->pageHelper->addContent($this->view->vueComponent('vue-mailbox', 'Mailbox', [
             'hostname' => PLATFORM_MAILBOX_HOST,

@@ -43,7 +43,16 @@ const urls = {
     const url = new URL(window.location.href)
     return '/?page=logout&ref=' + encodeURIComponent(url.pathname + url.search)
   },
-  mailbox: (mailboxId = null) => `/?page=mailbox${mailboxId ? `&show=${mailboxId}` : ''}`,
+  mailbox: (mailboxId = null, emailId) => {
+    let url = '/?page=mailbox'
+    if (mailboxId) {
+      url += `&mailbox=${mailboxId}`
+    }
+    if (emailId) {
+      url += `&email=${emailId}`
+    }
+    return url
+  },
   mailboxManage: () => '/?page=mailbox&a=manage',
   mailboxMailto: (email) => `/?page=mailbox&mailto=${email}`,
   mailboxOldAttachment: (emailId, attachmentIndex) => `/?page=mailbox&a=dlattach&mid=${emailId}&i=${attachmentIndex}`,
