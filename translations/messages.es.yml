@@ -2688,6 +2688,10 @@ mailbox:
   reply_all: Responder a todos
   show_html_body: Ver como HTML
   mark_none: No marcar ninguno
+  forward: Reenviar
+  forward_attachment_warning: Todavía no es posible reenviar archivos adjuntos. Si
+    desea reenviar el correo electrónico con archivos adjuntos, puede descargarlos
+    y adjuntarlos al nuevo correo electrónico.
 settings:
   follow:
     thread: '¿Quiere mantenerse actualizado sobre el tema del foro “{thread}”?'
