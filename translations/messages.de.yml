@@ -947,6 +947,7 @@ store:
     distance_close: "Wohnt weniger als 1 km entfernt"
     air_line: Die angezeigte Entfernung entspricht der Luftlinie.
   info_container: "Informationen"
+  no_chain_choosen: "keine Kette gewählt"
   chain_search_picker:
     modal_title: "Betriebskette wählen"
     search_input: "Suche nach Namen der Kette"

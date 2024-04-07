@@ -111,6 +111,7 @@
             {{ getChainTextById }}
             <b-button
               variant="primary"
+              class="ml-4"
               @click="openChainSearchPicker"
             >
               {{ $i18n('storeview.choose_chain') }}
@@ -494,11 +495,11 @@ export default {
   },
   computed: {
     getChainTextById () {
-      if (this.storeChains > 0) {
-        const chain = this.storeChains.find(chain => chain.value === this.store.chain.id)
+      if (this.storeChains?.length > 0 && this.store.chainId != null) {
+        const chain = this.storeChains.find(chain => chain.value === this.store.chainId)
         return chain ? chain.text : ''
       }
-      return ''
+      return this.$i18n('store.no_chain_choosen')
     },
     REGION_UNIT_TYPE () {
       return REGION_UNIT_TYPE
@@ -574,10 +575,6 @@ export default {
       this.store.categoryId = 0
     }
 
-    if (this.store.chainId === null) {
-      this.store.chainId = 0
-    }
-
     if (this.store.groceries !== null) {
       const selectedValues = StoreData.getters.getGrocerieTypes().filter(opt => this.store.groceries.indexOf(opt.id) !== -1).map(opt => opt.name)
       this.storeFoodNames = [...new Set(selectedValues)]
@@ -590,7 +587,7 @@ export default {
       return JSON.parse(JSON.stringify(value))
     },
     selectStoreChainFromSearchPicker (selectedChain) {
-      this.store.chain.id = selectedChain.value
+      this.store.chainId = selectedChain.value
     },
     dispatchResize () {
       window.dispatchEvent(new Event('resize'))

@@ -1,7 +1,7 @@
 # Unreleased
 
 ## Features
-- Added a ChainSearchPicker Modal in StoreInformation !2863 @chriswalg
+- Added a ChainSearchPicker Modal in StoreInformation !2863 !3259 @chriswalg
 - Added a donation banner !2930 !3111 @chriswalg
 - Added a map link to store pages !3113 @AntonBallmaier
 - Added a map to the foodsharepoint page #1035 !3097 !3195 !3236 @alex.simm
