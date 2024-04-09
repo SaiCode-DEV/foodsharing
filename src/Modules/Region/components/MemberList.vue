@@ -87,7 +87,6 @@
         small
         hover
         responsive
-        class="foto-table"
       >
         <template #cell(imageUrl)="row">
           <Avatar
@@ -494,17 +493,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.foto-table {
-  overflow: visible; // for sleeping hats
-}
-.foto-table ::v-deep .foto-column {
-  width: 60px;
-}
-
-.foto-table ::v-deep .button-column {
-  width: 50px;
-  vertical-align: middle;
-  text-align: center;
+.sleep::after {
+  top: -26%;
+  left: -9%;
 }
 
 .filter-activity-toggle {
