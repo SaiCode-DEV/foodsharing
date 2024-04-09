@@ -1391,6 +1391,7 @@ store:
     search_input: Buscar por nombre de la cadena
   to_map: Mostrar en el mapa
   storeFrom: Operación de {name}
+  no_chain_choosen: No se ha seleccionado ninguna cadena
 pickup:
   overview:
     status:
