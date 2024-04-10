@@ -1260,6 +1260,7 @@ store:
     search_input: İşletme zincir adına göre ara
   to_map: Haritada göster
   storeFrom: "{name}'nin işletmeleri"
+  no_chain_choosen: Herhangi bir işletme zinciri seçilmedi
 polls:
   title: Başlık
   new_poll: Yeni Anket oluştur
@@ -1648,6 +1649,9 @@ mailbox:
   reply_all: Hepsini cevapla
   show_html_body: HTML olarak görüntüle
   mark_none: Hiçbirini işaretleme
+  forward: Devam ilet
+  forward_attachment_warning: Ekler şu anda iletilemiyor. E-postayı eklerle iletmek
+    istiyorsanız ekleri indirip yeni e-postaya ekleyebilirsiniz.
 basket:
   sent_request: Başvuru gönderildi
   n_requests: 'Şimdiye kadar ki başvurular: <strong>{count}</strong>'
