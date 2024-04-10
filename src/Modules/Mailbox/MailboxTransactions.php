@@ -58,6 +58,8 @@ class MailboxTransactions
      */
     public function getEmail(int $emailId): Email
     {
+        $this->mailboxGateway->markEmailAsRead($emailId, true);
+
         $email = $this->mailboxGateway->getEmail($emailId);
 
         // obtain the file sizes for all attachments
@@ -72,8 +74,6 @@ class MailboxTransactions
                 }
             }
         }
-
-        $this->mailboxGateway->markEmailAsRead($emailId, true);
 
         return $email;
     }

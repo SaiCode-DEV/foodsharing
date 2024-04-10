@@ -55,7 +55,7 @@
             :disabled="areMailsNotSelected"
             @click="mailboxViewToggleReadStateForMails"
           >
-            <i class="fas fa-check" />
+            <i :class="readOrUnreadIconClass" />
           </b-button>
           <b-button
             v-if="page === MAILBOX_PAGE.READ_EMAIL"
@@ -65,7 +65,7 @@
             variant="outline-primary"
             @click="mailboxSingleEmailViewToggleEmailState"
           >
-            <i class="fas fa-check" />
+            <i :class="readOrUnreadIconClass" />
           </b-button>
           <b-button
             v-if="page === MAILBOX_PAGE.EMAIL_LIST && !isSelected"
@@ -148,14 +148,20 @@ export default {
       return this.selectedEmail < 1
     },
     getTranslationForReadOrUnReadState () {
+      return this.isMarkedAsReadState ? this.$i18n('mailbox.mark_as_read') : this.$i18n('mailbox.mark_as_unread')
+    },
+    readOrUnreadIconClass () {
+      return this.isMarkedAsReadState ? 'fas fa-eye' : 'fas fa-eye-slash'
+    },
+    isMarkedAsReadState () {
       if (Array.isArray(this.selectedEmail)) {
-        const areAnyUnread = this.selectedEmail.some((item) => !item.isRead)
-        return areAnyUnread ? this.$i18n('mailbox.mark_as_read') : this.$i18n('mailbox.mark_as_unread')
+        return this.selectedEmail.some((item) => !item.isRead)
       } else if (typeof this.selectedEmail === 'object') {
-        return this.selectedEmail.isRead ? this.$i18n('mailbox.mark_as_unread') : this.$i18n('mailbox.mark_as_read')
+        // When looking at an email, it is always marked as read and can only be marked as unread
+        return false
       } else {
-        console.error('Fehler: selectedEmail hat einen ungültigen Typ')
-        return ''
+        throw new Error('Unexpected type of selectedEmail')
+        return null
       }
     },
     isValidSender () {

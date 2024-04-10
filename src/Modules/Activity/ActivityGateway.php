@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Activity;
 
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Core\DBConstants\Mailbox\MailboxFolder;
 use Foodsharing\Modules\Core\DBConstants\Store\Milestone;
 
 class ActivityGateway extends BaseGateway
@@ -127,6 +128,8 @@ class ActivityGateway extends BaseGateway
 
 				WHERE
 					m.mailbox_id IN(' . implode(',', $mb_ids) . ')
+				AND
+				    m.folder <> ' . MailboxFolder::FOLDER_TRASH . '
 
 				ORDER BY m.id DESC
 			LIMIT :start_item_index, :items_per_page

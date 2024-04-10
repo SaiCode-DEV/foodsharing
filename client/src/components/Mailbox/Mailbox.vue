@@ -97,14 +97,16 @@ export default {
       this.loadSelectedEmail()
       store.setPage(MAILBOX_PAGE.READ_EMAIL)
     }
+
+    let foundSelectedMailbox = null
+    // If a mailbox was specified, that mailbox is selected. Else the first mailbox will be selected.
     if (this.selectedMailboxId) {
-      // If a mailbox was specified, that mailbox is selected. Else the first mailbox will be selected.
-      const foundSelectedMailbox = this.selectedMailboxId ? this.mailboxes.find(m => m.id === this.selectedMailboxId) : null
-      if (foundSelectedMailbox) {
-        store.setMailbox(foundSelectedMailbox.id, foundSelectedMailbox.name, MAILBOX_FOLDER.INBOX)
-      } else if (this.mailboxes.length > 0) {
-        store.setMailbox(this.sortedMailboxes[0].id, this.sortedMailboxes[0].name, MAILBOX_FOLDER.INBOX)
-      }
+      foundSelectedMailbox = this.selectedMailboxId ? this.mailboxes.find(m => m.id === this.selectedMailboxId) : null
+    } else if (this.mailboxes.length > 0) {
+      foundSelectedMailbox = this.sortedMailboxes[0]
+    }
+    if (foundSelectedMailbox) {
+      store.setMailbox(foundSelectedMailbox.id, foundSelectedMailbox.name, MAILBOX_FOLDER.INBOX)
 
       // Only open the mailbox's page if no email is shown
       if (!this.selectedEmailId) {
