@@ -3,14 +3,13 @@
     <i v-if="isLoading" class="fas fa-spinner fa-spin" />
     <div v-else class="p-2">
       <b-button
-        v-if="!foodSharePointPermission"
         variant="primary"
         class="float-right"
         :href="$url('foodsharepointAdd', regionId)"
       >
-        {{ $i18n('fsp.add') }}
+        {{ foodSharePointPermission ? $i18n('fsp.add') : $i18n('fsp.suggest') }}
       </b-button>
-      <div :class="{ 'pt-5': !foodSharePointPermission}">
+      <div class="pt-5">
         <ul class="linklist food-share-point-list">
           <li
             v-for="foodSharePoint in foodSharePoints"
