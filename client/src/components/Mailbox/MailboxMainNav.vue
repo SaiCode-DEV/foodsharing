@@ -161,7 +161,6 @@ export default {
         return false
       } else {
         throw new Error('Unexpected type of selectedEmail')
-        return null
       }
     },
     isValidSender () {
