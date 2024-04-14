@@ -751,6 +751,10 @@ mailbox:
   reply_all: Reply all
   show_html_body: Show HTML code
   mark_none: Select none
+  forward: Forward
+  forward_attachment_warning: Attachments cannot currently be forwarded. If you want
+    to forward the email with attachments, you can download the attachments and attach
+    them to the new email.
 events:
   description: Description
   create:
@@ -2172,6 +2176,7 @@ store:
     search_input: Search by chain name
   to_map: Show on map
   storeFrom: Store from {name}
+  no_chain_choosen: no chain chosen
 search:
   mygroups: My groups
   mybuddies: My buddies
