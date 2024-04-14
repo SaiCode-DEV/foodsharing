@@ -1150,6 +1150,10 @@ mailbox:
   reply_all: Svar alle
   show_html_body: Vis HTML-kode
   mark_none: Merk ingen
+  forward_attachment_warning: Vedlegg kan for øyeblikket ikke videresendes. Hvis du
+    vil videresende e-posten med vedlegg, kan du laste ned vedleggene og legge dem
+    ved den nye e-posten.
+  forward: Framover
 map:
   title: Kart
   donates: Selskapet donerer
@@ -2618,6 +2622,7 @@ store:
     search_input: Søk etter kjedenavn
   to_map: Vis på kart
   storeFrom: Selskap fra {name}
+  no_chain_choosen: ingen kjede valgt
 storeview:
   status: Nåværende status
   public_time_at_night: om natten
