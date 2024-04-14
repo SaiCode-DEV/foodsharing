@@ -696,6 +696,10 @@ mailbox:
   reply_all: Répondre à tous
   show_html_body: Afficher le code HTML
   mark_none: Marquer aucun
+  forward: Avant
+  forward_attachment_warning: Les pièces jointes ne peuvent actuellement pas être
+    transférées. Si vous souhaitez transférer l’e-mail avec les pièces jointes, vous
+    pouvez télécharger les pièces jointes et les joindre au nouvel e-mail.
 foodsaver:
   mailchange_error: L’activation de votre nouvelle adresse électronique a échoué.
     Veuillez réessayer.
@@ -1410,6 +1414,7 @@ store:
     search_input: Rechercher par nom de chaîne
   to_map: Afficher sur la carte
   storeFrom: Magasin de {name}
+  no_chain_choosen: aucune chaîne choisie
 storeview:
   want_to_fetch: J’aimerais m’engager dans cette équipe.
   specials: Particularités
