@@ -22,6 +22,7 @@ group:
     summary: '{name} vorrebbe unirsi al gruppo di lavoro {group}.'
     accept: Accettare candidatura
     link_description: 'Questo collegamento ti porterà direttamente all’applicazione:'
+    ability: Quali competenze avete in questo settore?
   contact:
     send: Invia messaggio
     admins: '{count} referenti:'
@@ -145,9 +146,14 @@ group:
     save: Salvare le modifiche
   already_applied: Hai già fatto domanda per questo gruppo.
   image: Immagine di copertina per %name%
-  admin_count: '{0} Nessun amministratore|{1} Un amministratore| [2, Inf[ %count%
-    amministratori'
-  member_count: '{0} Nessun collaboratore|{1} Un collaboratore| [2, Inf[ %count% contributori'
+  admin_count:
+    zero: nessun amministratore
+    one: un amministratore
+    other: '{count} amministratori'
+  member_count:
+    zero: nessun contributore
+    one: un contributore
+    other: '{count} contributori'
   subtitle: Qui troverai aiuto e tante cose da fare …
   title: Gruppi di lavoro foodsharing
   administrators: Amministratori del gruppo
@@ -201,6 +207,7 @@ group:
   userId: ID
   role_name: Ruolo
   filter_by_last_activity: Non attivo da mesi
+  filter_placeholder: Filtrare i gruppi per nome
 bcard:
   info:
     address_shortened: Il tuo indirizzo e / o codice postale + luogo verranno visualizzati
@@ -722,6 +729,7 @@ fsp:
   rejectConfirm: Attenzione, se cancelli il divisore, non puoi più annullare. Continuare?
   reject: rifiutare il divisore
   accept: Sbloccare il punto di condivisione
+  show_on_large_map: Mostra sulla mappa
 formatting:
   md: Puoi utilizzare <a href="https://markdown.de/">Markdown </a> per la formattazione.
 day: Giorno
