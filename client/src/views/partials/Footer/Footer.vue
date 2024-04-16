@@ -1,13 +1,13 @@
 <template>
   <footer class="bg-white">
     <div class="container py-5">
+      <h2>{{ $i18n(partnerData.title) }}</h2>
       <b-row>
         <b-col
           sm="6"
           cols="12"
           class="mb-5 mb-sm-0"
         >
-          <h2>{{ $i18n(partnerData.title) }}</h2>
           <div class="d-flex flex-wrap">
             <a
               v-for="(item) in partnerData.items"
