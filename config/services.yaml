@@ -72,3 +72,7 @@ services:
             $url: !php/const BBB_DOMAIN
             $secret: !php/const BBB_SECRET
             $dialin: !php/const BBB_DIALIN
+
+    Foodsharing\Modules\Donation\Query\TwingleDonationDataQuery:
+      bind:
+        string $twingleDonationJsonStatusUrl: !php/const TWINGLE_URL

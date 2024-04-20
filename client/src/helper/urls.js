@@ -94,7 +94,6 @@ const urls = {
   urlencode: (url) => encodeURIComponent(`${url}`),
   donations: () => 'https://spenden.foodsharing.de',
   donation_form: () => 'https://spenden.twingle.de/foodsharing-e-v/spendenkampagne-ueberregionale-arbeit/tw65a581c764fa1/page',
-  donation_project_api: () => 'https://spenden.twingle.de/status/E4yxc5T7YJh7nZvL93Yu7PlUzwCMjD2p80u8YK0Vgyw%253D',
   circle_of_friends: () => 'https://spenden.foodsharing.de/freundeskreis',
   selfservice: () => 'https://spenden.foodsharing.de/selfservice',
   resendActivationMail: () => '/login?sub=resendActivationMail',

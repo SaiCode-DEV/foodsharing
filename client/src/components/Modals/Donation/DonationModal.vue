@@ -3,7 +3,7 @@
     <b-container>
       <div>
         <b-alert
-          v-if="showTop && !donationReached"
+          v-if="showTop && !isGoalReached"
           v-model="showTop"
           class="position-fixed fixed-top m-0 rounded-0 alertClass"
           variant="success"
@@ -75,7 +75,7 @@
                   disabled
                 >
                   {{ $i18n('donation_banner.amount') }}: <span class="donationAmountClass">
-                    {{ formatCurrency(donationAmount) }}
+                    {{ formatCurrency(receivedDonationsInEuros) }}
                   </span>
                 </b-button>
               </b-col>
@@ -93,10 +93,10 @@
                   <b-progress
                     class="p-0 w-75"
                     variant="warning"
-                    :value="percentage"
+                    :value="percentOfGoalReached"
                   />
                   <div class="mt-1 text-right w-25">
-                    {{ formatPercentage(percentage) }} %
+                    {{ formatPercentage(percentOfGoalReached) }} %
                   </div>
                 </b-button>
               </b-col>
@@ -110,23 +110,20 @@
 
 <script>
 import { getContent } from '@/api/content'
+import { getDonation } from '@/api/donation'
 
 export default {
   name: 'DonationModal',
   data () {
     return {
       showTop: false,
-      donationAmount: 0,
-      donationGoal: 0,
+      receivedDonationsInEuros: 0,
+      goalInEuros: 0,
       donators: 0,
       content: null,
-      percentage: 0,
+      percentOfGoalReached: 0,
+      isGoalReached: false,
     }
-  },
-  computed: {
-    donationReached () {
-      return this.donationAmount >= this.donationGoal
-    },
   },
   async mounted () {
     const lastClosedTime = localStorage.getItem('bannerClosedTime')
@@ -162,18 +159,18 @@ export default {
     },
     async fetchDonationLink () {
       try {
-        const response = await fetch(this.$url('donation_project_api'))
-        const data = await response.json()
-        this.donationAmount = data.amount
-        this.donationGoal = data.target
-        this.donators = data.donators
-        this.percentage = data.percentage
+        const response = await getDonation()
+        this.receivedDonationsInEuros = response.receivedDonationsInEuros
+        this.goalInEuros = response.goalInEuros
+        this.donators = response.donators
+        this.percentOfGoalReached = response.percentOfGoalReached
+        this.isGoalReached = response.isGoalReached
       } catch (error) {
         console.error('Error fetching donation link:', error)
       }
     },
     replaceKeywords (content) {
-      return content.replace('DONATION_GOAL', this.formatCurrency(this.donationGoal))
+      return content.replace('DONATION_GOAL', this.formatCurrency(this.goalInEuros))
     },
     hideBanner () {
       this.showTop = false
