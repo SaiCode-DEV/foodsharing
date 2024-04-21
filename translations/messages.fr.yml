@@ -2687,9 +2687,9 @@ date:
   time: '{time} heures'
   clock: heure
 addresspicker:
-  infobox_profile: '[Les Foodsharer](https://wiki.foodsharing.de/Foodsharer)
-    ont besoin d’entrer une adresse pour pouvoir proposer des paniers solidaires sur
-    le site. L’adresse est nécessaire aux [Foodsaver](https://wiki.foodsharing.de/Foodsaver)
+  infobox_profile: '[Les Foodsharer](https://wiki.foodsharing.de/Foodsharer) ont besoin
+    d’entrer une adresse pour pouvoir proposer des paniers solidaires sur le site.
+    L’adresse est nécessaire aux [Foodsaver](https://wiki.foodsharing.de/Foodsaver)
     pour pouvoir participer aux collectes.'
   infobox: Entre l’adresse dans la case prévue à cet effet et déplace l’épingle sur
     la carte si nécessaire.
