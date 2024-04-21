@@ -7,8 +7,9 @@
     </div>
     <div
       card-body
-      v-html="$i18n('profile.report.readup')"
-    />
+    >
+      <Markdown :source="$i18n('profile.report.readup')" />
+    </div>
     <div v-if="reports.length" class="card-body p-0">
       <b-table
         :fields="fields"
@@ -76,9 +77,10 @@ import { BTable, BPagination, BButton } from 'bootstrap-vue'
 import * as api from '@/api/report'
 
 import Avatar from '@/components/Avatar/Avatar.vue'
+import Markdown from '@/components/Markdown/Markdown.vue'
 
 export default {
-  components: { Avatar, BTable, BPagination, BButton },
+  components: { Markdown, Avatar, BTable, BPagination, BButton },
   props: {
     regionId: {
       type: String,

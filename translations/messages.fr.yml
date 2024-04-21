@@ -1819,8 +1819,8 @@ profile:
     actionBy: par
   nav:
     storelist: Coopérations ({count})
-    violations: Plaintes <strong>({count})</strong>
-    notes: Notes <strong>({count})</strong>
+    violations: Plaintes
+    notes: Notes
     verificationHistory: Historique de vérification du membre
     history: Historique de la carte de membre
     buddy: Je connais {name}
@@ -2687,10 +2687,10 @@ date:
   time: '{time} heures'
   clock: heure
 addresspicker:
-  infobox_profile: <a href="https://wiki.foodsharing.de/Foodsharer">Les Foodsharer</a>
+  infobox_profile: '[Les Foodsharer](https://wiki.foodsharing.de/Foodsharer)
     ont besoin d’entrer une adresse pour pouvoir proposer des paniers solidaires sur
-    le site. L’adresse est nécessaire aux <a href="https://wiki.foodsharing.de/Foodsaver">Foodsaver</a>
-    pour pouvoir participer aux collectes.
+    le site. L’adresse est nécessaire aux [Foodsaver](https://wiki.foodsharing.de/Foodsaver)
+    pour pouvoir participer aux collectes.'
   infobox: Entre l’adresse dans la case prévue à cet effet et déplace l’épingle sur
     la carte si nécessaire.
   placeholder: Cherche l’adresse ici et si besoin, corrige-la plus bas.
@@ -3352,9 +3352,7 @@ error:
   old_user_avatar:
     description: En septembre 2021, nous avons procédé à un changement technique qui
       concerne les photos de profil. C’est pourquoi nous te demandons de télécharger
-      à nouveau ta photo de profil ou de la renouveler. Si tu veux réutiliser ta photo
-      actuelle, tu peux la télécharger <a href="{link}" download>ici</a>. Excuse-nous
-      pour le dérangement.
+      à nouveau ta photo de profil ou de la renouveler. Excuse-nous pour le dérangement.
     title: Il y a un problème avec ta photo de profil.
     link: Renouveler la photo de profil maintenant
   missing_home_region:
@@ -3402,12 +3400,12 @@ join_region:
     pas le point de contact central pour les questions générales, mais nous pouvons
     t’aider à répondre aux questions sur les secteurs géographiques.
   error:
-    is_state: <strong>Il s’agit d’un département.</strong><br> Choisis une ville,
-      une région ou un secteur géographique !
-    is_country: <strong>Il s’agit d’un pays.</strong><br> Choisis une ville, une région
-      ou un secteur géographique !
-    is_big_city: <strong>Il s’agit d’une grande ville.</strong><br> Choisis une ville,
-      une région ou un secteur géographique !
+    is_state_1: Il s’agit d’un département.
+    is_state_2: Choisis une ville, une région ou un secteur géographique !
+    is_country_1: Il s’agit d’un pays.
+    is_country_2: Choisis une ville, une région ou un secteur géographique !
+    is_big_city_1: Il s’agit d’une grande ville.
+    is_big_city_2: Choisis une ville, une région ou un secteur géographique !
     not_allowed: Tu ne peux pas t’inscrire dans ce secteur géographique.
 use_region_pickup_rule: La règle à l’échelle du district pour les coopérations particulièrement
   populaires s’applique-t-elle à cette coopération ?

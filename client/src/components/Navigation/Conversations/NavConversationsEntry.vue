@@ -11,7 +11,7 @@
       <span class="d-flex justify-content-between align-items-center text-truncate">
         <span
           class="mb-1 text-truncate"
-          v-html="title"
+          v-text="title"
         />
         <Time
           class="font-weight-normal"

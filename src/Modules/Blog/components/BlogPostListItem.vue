@@ -9,7 +9,10 @@
       <span>{{ $dateFormatter.format(blogPost.publishedAt) }}</span>
     </p>
     <img v-if="pictureUrl" :src="pictureUrl">
+    <!-- eslint-disable vue/no-v-html -->
+    <!-- Sanitized in Modules/Blog/BlogGateway.php getPost() -->
     <div v-html="blogPost.content" />
+    <!-- eslint-enable -->
     <p>
       <a class="button" :href="$url('blogPost', blogPost.id)">{{ $i18n('blog.read') }}</a>
     </p>

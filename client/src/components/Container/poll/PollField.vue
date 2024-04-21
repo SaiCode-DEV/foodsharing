@@ -12,25 +12,25 @@
           'in-future': inFuture,
         }"
       >
-        <span class="font-weight-bold" v-html="displayedMonth" />
+        <span class="font-weight-bold" v-text="displayedMonth" />
         <div class="event-item-date-container d-flex flex-column bg-white justify-content-center text-dark">
           <span
             v-if="isEventToday"
-            v-html="$i18n('date.Today')"
+            v-text="$i18n('date.Today')"
           />
           <span
             v-else-if="isEventTomorrow"
             class="small"
-            v-html="$i18n('date.-- Tomorrow')"
+            v-text="$i18n('date.-- Tomorrow')"
           />
           <span
             v-else-if="$dateFormatter.getDifferenceToNowInDays(endDate) < 3"
-            v-html="displayedDay"
+            v-text="displayedDay"
           />
           <span
             v-else
             class="small"
-            v-html="displayedBothDay"
+            v-text="displayedBothDay"
           />
         </div>
       </div>
@@ -52,14 +52,14 @@
           <span
             :href="$url('forum', entry.region_id)"
             class="d-block small text-muted text-truncate"
-            v-html="entry.regionName"
+            v-text="entry.regionName"
           />
         </div>
         <div class="d-flex justify-content-between align-items-center">
           <div class="text-muted mt-auto">
             <i class="fas fa-clock" />
             <span
-              v-html="$i18n('polls.until', { until: displayedEnd })"
+              v-text="$i18n('polls.until', { until: displayedEnd })"
             />
           </div>
         </div>

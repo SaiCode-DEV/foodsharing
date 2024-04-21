@@ -27,7 +27,7 @@
           />
           <span
             class="text-truncate"
-            v-html="$i18n(store.name)"
+            v-text="$i18n(store.name)"
           />
         </button>
         <b-collapse

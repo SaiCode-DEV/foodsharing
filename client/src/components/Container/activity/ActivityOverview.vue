@@ -25,11 +25,11 @@
           />
           <span
             v-else
-            v-html="$i18n(filter.text)"
+            v-text="$i18n(filter.text)"
           />
           <span
             class="sr-only"
-            v-html="$i18n(filter.text)"
+            v-text="$i18n(filter.text)"
           />
         </button>
       </div>

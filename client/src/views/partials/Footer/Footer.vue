@@ -12,7 +12,7 @@
             <a
               v-for="(item) in partnerData.items"
               :key="item.infosCompany"
-              v-b-tooltip.html="$i18n(item.title)"
+              v-b-tooltip="$i18n(item.title)"
               class="partner hide-external"
               :class="{
                 'alone': partnerData.items.length === 1,
@@ -28,7 +28,7 @@
               <p
                 v-if="item.info"
                 class="text-muted mb-0"
-                v-html="$i18n(item.info)"
+                v-text="$i18n(item.info)"
               />
             </a>
           </div>
@@ -66,7 +66,7 @@
               <a
                 :href="$url(item.url)"
                 :aria-label="$i18n(item.title)"
-                v-html="$i18n(item.title)"
+                v-text="$i18n(item.title)"
               />
             </li>
           </ul>
@@ -123,7 +123,7 @@
                 style="vertical-align: middle"
               >
               <i v-else :class="social.icon" />
-              <span class="sr-only" v-html="social.name" />
+              <span class="sr-only" v-text="social.name" />
             </a>
           </b-row>
         </b-col>
@@ -141,17 +141,17 @@
           <a
             v-else
             :href="$url('release_notes')"
-            v-html="$i18n('releases.2024-04')"
+            v-text="$i18n('releases.2024-04')"
           />
           <a
             :href="$url('devdocs')"
-            v-html="$i18n('footer.meta.it_devdocs')"
+            v-text="$i18n('footer.meta.it_devdocs')"
           />
           <a
             v-if="version && isBeta"
             class="text-truncate"
             :href="$url('git_revision', version)"
-            v-html="$i18n('footer.meta.version', { version })"
+            v-text="$i18n('footer.meta.version', { version })"
           />
         </b-col>
       </b-row>

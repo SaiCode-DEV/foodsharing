@@ -22,7 +22,7 @@
             'onlyNine': String(getMailUnreadCount).length === 1,
             'overNinetyNine': String(getMailUnreadCount).length > 2,
           }"
-          v-html="getMailUnreadCount"
+          v-text="getMailUnreadCount"
         />
         <i
           class="fas"

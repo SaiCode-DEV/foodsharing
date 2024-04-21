@@ -19,12 +19,12 @@
       <p
         v-if="!getHomeRegionName && stats.count > 0 && stats.weight > 0"
         class="introfield__description"
-        v-html="$i18n('dashboard.foodsaver_amount', {pickups: stats.count, weight: stats.weight})"
+        v-text="$i18n('dashboard.foodsaver_amount', {pickups: stats.count, weight: stats.weight})"
       />
-      <p
+      <Markdown
         v-if="getHomeRegionName && stats.count > 0 && stats.weight > 0"
-        class="introfield__description"
-        v-html="$i18n('dashboard.full_subline', {pickups: stats.count, weight: stats.weight, region: getHomeRegionName})"
+        classes="introfield__description"
+        :source="$i18n('dashboard.full_subline', {pickups: stats.count, weight: stats.weight, region: getHomeRegionName})"
       />
       <p
         v-else-if="isFoodsaver && getHomeRegionName"
@@ -38,9 +38,10 @@
 import { getters } from '@/stores/user'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
+import Markdown from '@/components/Markdown/Markdown.vue'
 
 export default {
-  components: { Avatar },
+  components: { Avatar, Markdown },
   mixins: [MediaQueryMixin],
   props: {
     title: { type: String, default: 'dashboard.my.regions' },

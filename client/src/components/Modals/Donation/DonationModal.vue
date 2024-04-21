@@ -35,7 +35,10 @@
           <b-container class="mt-2 d-md-block">
             <b-row>
               <b-col md="9">
+                <!-- eslint-disable vue/no-v-html -->
+                <!-- Sanitized in Modules/Content/ContentGateway.php get() -->
                 <p v-html="replaceKeywords(content.body)" />
+                <!-- eslint-enable -->
               </b-col>
               <b-col md="3">
                 <b-button

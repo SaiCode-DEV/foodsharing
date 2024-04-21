@@ -7,7 +7,10 @@
         <span>{{ formattedDate }}</span>
       </p>
       <img v-if="pictureUrl" :src="pictureUrl">
+      <!-- eslint-disable vue/no-v-html -->
+      <!-- Sanitized in Modules/Blog/BlogGateway.php getPost() and getOne_blog_entry() -->
       <div v-html="blogPost.content" />
+      <!-- eslint-enable -->
     </div>
     <div
       v-else

@@ -762,8 +762,8 @@ profile:
     noActor: ukjent
     actionBy: gjennom
   nav:
-    violations: Klager <strong>({count})</strong>
-    notes: Merknader <strong>({count})</strong>
+    violations: Klager
+    notes: Merknader
     buddy: Jeg kjenner {name}
     edit: Rediger profil
     verificationHistory: Verifikasjonshistorikk
@@ -2860,10 +2860,10 @@ addresspicker:
   label: Søk på adresse/sted
   placeholder: Vennligst se etter adressen her. Korriger eventuelt under etterpå.
   infobox: Skriv inn adressen i feltet og flytt knappenålen på kartet om nødvendig.
-  infobox_profile: <a href="https://wiki.foodsharing.de/Foodsharer">Matdelere</a>
+  infobox_profile: "[Matdelere](https://wiki.foodsharing.de/Foodsharer)
     trenger adressen for å kunne tilby matkurver på nettsiden. For å kunne delta i
-    matredninger som <a href="https://wiki.foodsharing.de/Foodsaver">matredder</a>
-    er det til og med obligatorisk.
+    matredninger som [matredder](https://wiki.foodsharing.de/Foodsaver)
+    er det til og med obligatorisk."
   different_location: Adressen er uavhengig av geografisk posisjon
 becomeregion:
   save: Lagre
@@ -3194,9 +3194,7 @@ error:
     link: Oppdater profilbildet ditt nå
     title: Det er et problem med profilbildet ditt.
     description: I september 2021 gjorde vi en teknisk endring, som påvirker profilbildene.
-      Du må derfor laste opp profilbildet ditt på nytt. Hvis du vil bruke det gjeldende
-      bildet på nytt, kan du laste det ned <a href="{link}" download>her</a>. Beklager
-      dette.
+      Du må derfor laste opp profilbildet ditt på nytt. Beklager dette.
   missing_home_region:
     description: For at du skal kunne fortsette, er det nødvendig med et hjemdistrikt.
     title: Velg et hjemdistrikt.
@@ -3256,11 +3254,12 @@ numbers:
 deletefromregion: Virkelig slette fra distriktet?
 join_region:
   error:
-    is_state: <strong>Dette er en føderal stat.</strong><br> Velg en by, region eller
-      distrikt!
-    is_big_city: <strong>Dette er en storby.</strong> <br> Velg en by, region eller
-      distrikt!
-    is_country: <strong>Dette er et land.</strong><br> Velg en by, region eller distrikt!
+    is_state_1: Dette er en føderal stat.
+    is_state_2: Velg en by, region eller distrikt!
+    is_big_city_1: Dette er en storby.
+    is_big_city_2: Velg en by, region eller distrikt!
+    is_country_1: Dette er et land.
+    is_country_2: Velg en by, region eller distrikt!
     not_allowed: Du kan ikke registrere deg i dette området.
   headline: Velg området du vil være aktiv i.
   description: Du kan bli med i ditt første distrikt ved å klikke fra ditt kontinent

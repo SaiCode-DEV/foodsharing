@@ -6,7 +6,6 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Blog\BlogGateway;
 use Foodsharing\Modules\Blog\DTO\BlogPostList;
 use Foodsharing\Permissions\BlogPermissions;
-use Foodsharing\Utility\Sanitizer;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -24,7 +23,6 @@ class BlogpostController extends AbstractFOSRestController
         private readonly BlogGateway $blogGateway,
         private readonly BlogPermissions $blogPermissions,
         private readonly Session $session,
-        private readonly Sanitizer $sanitizer,
     ) {
     }
 
@@ -62,8 +60,6 @@ class BlogpostController extends AbstractFOSRestController
         if (is_null($blogPost)) {
             throw new NotFoundHttpException('Blog post not found');
         }
-
-        $blogPost->content = $this->sanitizer->purifyHtml($blogPost->content);
 
         return $this->handleView($this->view($blogPost, 200));
     }

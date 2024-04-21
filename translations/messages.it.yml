@@ -1586,10 +1586,10 @@ date:
   clock: ' '
 addresspicker:
   label: Ricerca per indirizzo/località
-  infobox_profile: <a href="https://wiki.foodsharing.de/Foodsharer">Foodsharer</a>
+  infobox_profile: "[Foodsharer](https://wiki.foodsharing.de/Foodsharer)
     è necessario l'indirizzo per poter offrire cesti alimentari tramite il sito web.
-    Per poter partecipare ai salvataggi alimentari come <a href="https://wiki.foodsharing.de/Foodsaver">Foodsaver</a>,
-    è necessario.
+    Per poter partecipare ai salvataggi alimentari come [Foodsaver](https://wiki.foodsharing.de/Foodsaver),
+    è necessario."
   infobox: Inserisci l’indirizzo nel campo di testo tra questo messaggio e la carta
     e poi confermalo selezionandolo sulla carta.
   placeholder: Si prega di cercare l’indirizzo qui. Se necessario, correggere in seguito.
@@ -2518,8 +2518,8 @@ profile:
     actionBy: 'attraverso'
   nav:
     storelist: Agenzie ({count})
-    violations: Messaggi <strong>({count})</strong>
-    notes: Notizie <strong>({count})</strong>
+    violations: Messaggi
+    notes: Notizie
     verificationHistory: Cronologia delle verifiche
     history: Cronologia del passaporto
     buddy: Conosco {name}
@@ -3156,8 +3156,7 @@ error:
     title: 'C’è un problema con la tua immagine del profilo.'
     description: 'A settembre 2021 abbiamo apportato una modifica tecnica che influisce
       sulle immagini del profilo. Ti chiediamo pertanto di ricaricare o rinnovare
-      la tua immagine del profilo. Se desideri riutilizzare la tua immagine attuale,
-      puoi scaricarla <a href="{link}" download>qui</a>. Ci scusiamo per l''inconveniente.'
+      la tua immagine del profilo. Ci scusiamo per l''inconveniente.'
   missing_home_region:
     description: 'Per poter continuare è necessario un distretto di residenza.'
     link: 'Seleziona il tuo distretto di residenza'
@@ -3252,13 +3251,13 @@ teamjs:
 join_region:
   headline: 'Seleziona il distretto in cui desideri diventare attivo.'
   error:
-    is_big_city: '<strong>Questa città è molto grande.</strong><br> Seleziona un comune,
-      una regione o un distretto!'
-    is_state: '<strong>Questo è uno stato federale.</strong><br> Seleziona una città,
-      una regione o un distretto!'
+    is_big_city_1: 'Questa città è molto grande.'
+    is_big_city_2: 'Seleziona un comune, una regione o un distretto!'
+    is_state_1: 'Questo è uno stato federale.'
+    is_state_2: 'Seleziona una città, una regione o un distretto!'
     not_allowed: 'Non puoi registrarti in questo distretto.'
-    is_country: '<strong>Questo è un paese.</strong><br> Seleziona una città, una
-      regione o un distretto!'
+    is_country_1: 'Questo è un paese.'
+    is_country_2: 'Seleziona una città, una regione o un distretto!'
   description: 'Puoi unirti al tuo primo distretto facendo clic su di esso dopo aver
     selezionato <em>Europa</em>. Se non riesci a trovare un distretto adatto a te,
     scegli un livello superiore o unisciti al distretto più vicino. Se non hai l’opportunità

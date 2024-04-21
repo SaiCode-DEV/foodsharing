@@ -710,8 +710,7 @@ error:
     title: 'Hay un problema con tu foto de perfil.'
     description: 'En septiembre de 2021 realizamos un cambio técnico que afecta a
       las imágenes de perfil. Por lo tanto, te pedimos que vuelvas a cargar o renovar
-      tu foto de perfil. Si desea reutilizar su imagen actual, puede descargarla <a
-      href="{link}" download>aquí</a>. Por favor disculpe los inconvenientes.'
+      tu foto de perfil. Por favor disculpe los inconvenientes.'
   missing_geolocation:
     description: 'Por favor verifique su dirección. No se pudieron determinar las
       coordenadas.'
@@ -1728,9 +1727,9 @@ profile:
     buddy: 'Conozco a {name}'
     storelist: 'Empresas ({count})'
     verificationHistory: 'Historial de verificación'
-    violations: 'Quejas <strong>({count})</strong>'
+    violations: 'Quejas'
     history: 'Historial de la tarjeta'
-    notes: 'Notas <strong>({count})</strong>'
+    notes: 'Notas'
     edit: 'Editar perfil'
     remove_buddy: Ya no conozco a {name}
   mediation:
@@ -2936,13 +2935,13 @@ password:
 join_region:
   headline: 'Seleccione el distrito en el que le gustaría participar activamente.'
   error:
-    is_country: '<strong>Este es un país.</strong><br> ¡Seleccione una ciudad, una
-      región o un distrito!'
+    is_country_1: 'Este es un país.'
+    is_country_2: '¡Seleccione una ciudad, una región o un distrito!'
     not_allowed: 'No puedes unirte a esta región.'
-    is_state: '<strong>Este es un estado federal.</strong><br> ¡Seleccione una ciudad,
-      una región o un distrito!'
-    is_big_city: '<strong>Esta es una gran ciudad.</strong><br> ¡Seleccione una ciudad,
-      una región o un distrito!'
+    is_state_1: 'Este es un estado federal.'
+    is_state_2: '¡Seleccione una ciudad, una región o un distrito!'
+    is_big_city_1: 'Esta es una gran ciudad.'
+    is_big_city_2: '¡Seleccione una ciudad, una región o un distrito!'
   description: 'Puede unirse a su primer distrito haciendo clic desde su continente
     hasta su distrito. Si no encuentras un distrito para ti, sube de nivel o únete
     al distrito más cercano a ti. Si no tienes la oportunidad de formarte como rescatador
@@ -3369,7 +3368,7 @@ calendar:
   labelNextMonth: 'próximo mes'
   labelNav: 'Navegación del calendario'
 addresspicker:
-  infobox_profile: 'L@s compater@s necesitan la dirección para poder ofrecer cestas
+  infobox_profile: 'Los compateros necesitan la dirección para poder ofrecer cestas
     de alimentos a través del sitio web. Es necesario para poder participar en recogidas
     como rescatista.'
   label: 'Búsqueda de dirección/ubicación'

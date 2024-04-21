@@ -2749,10 +2749,10 @@ addresspicker:
   label: Search for address/location
   placeholder: Please search for the address here and select it. If necessary, correct
     the details below afterwards.
-  infobox_profile: <a href="https://wiki.foodsharing.de/Foodsharer">Foodsharers</a>
+  infobox_profile: "[Foodsharers](https://wiki.foodsharing.de/Foodsharer)
     need the address in order to be able to offer food baskets on the website. In
-    order to be able to participate in food rescues as a <a href="https://wiki.foodsharing.de/Foodsaver">Foodsaver</a>,
-    it is even mandatory.
+    order to be able to participate in food rescues as a [Foodsaver](https://wiki.foodsharing.de/Foodsaver),
+    it is even mandatory."
   infobox: Enter the address in the field provided and/or move the pin on the map
     if necessary.
   different_location: Addresse independent of location
@@ -3374,8 +3374,7 @@ error:
     link: Update profile picture now
     description: In September 2021 we have made a technical change that affects the
       profile pictures. Therefore we ask you to re-upload or renew your profile picture.
-      If you want to reuse your current picture, you can download it <a href="{link}"
-      download>here</a>. Sorry for the inconvenience.
+      Sorry for the inconvenience.
 information:
   push:
     title: "You can now receive push notifications from foodsharing."
@@ -3450,13 +3449,13 @@ system_administration:
   reports: Show reports
 join_region:
   error:
-    is_country: <strong>This is a country.</strong><br> Please choose a city, a region
-      or a district!
-    is_state: <strong>This is a state.</strong><br> Please choose a city, a region
-      or a disctrict!
+    is_country_1: This is a country.
+    is_country_2: Please choose a city, a region or a district!
+    is_state_1: This is a state.
+    is_state_2: Please choose a city, a region or a disctrict!
     not_allowed: You cannot join this district.
-    is_big_city: <strong>This is a large city.</strong><br> Please choose a city,
-      a region or a district!
+    is_big_city_1: This is a large city.
+    is_big_city_2: Please choose a city, a region or a district!
   headline: Please choose the district in which you want to become active.
   description: You can join a district by clicking through to your district starting
     with your continent and your country. If you don’t find a district for you, choose

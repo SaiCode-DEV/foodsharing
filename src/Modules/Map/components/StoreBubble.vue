@@ -13,10 +13,11 @@
             </span>
           </div>
 
-          <div v-html="$i18n('storeview.teamInfo', { active: store.teamMemberCount, jumper: store.standbyCount })" />
+          <div>{{ $i18n('storeview.team_info_active') }} <strong>{{ store.teamMemberCount }}</strong></div>
+          <div>{{ $i18n('storeview.team_info_jumper') }} <strong>{{ store.standbyCount }}</strong></div>
 
           <div class="mt-2">
-            <span v-if="store.pickupCount > 0" v-html="$i18n('storeview.pickupCount', { pickupCount: $i18n('storeview.counter', {suffix: 'x', count: store.pickupCount}) })" />
+            <span v-if="store.pickupCount > 0" v-text="$i18n('storeview.pickupCount', { pickupCount: $i18n('storeview.counter', {suffix: 'x', count: store.pickupCount}) })" />
             <span v-if="store.pickupCount > 0">{{ $i18n('storeview.pickupWeight', { pickupWeight: store.pickupWeightInKg }) }}</span>
           </div>
 

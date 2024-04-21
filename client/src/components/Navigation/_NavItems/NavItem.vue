@@ -3,7 +3,6 @@
     v-if="!isDropdown"
     :title="$i18n(entry.title)"
     :icon="entry.icon"
-    :badge="entry.badge"
     :href="$url(entry.url)"
     :class="{
       'text-warning font-weight-bold': entry.isHighlighted,

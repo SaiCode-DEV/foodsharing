@@ -7,7 +7,7 @@
       {{ $i18n('addresspicker.infobox') }}
       <div v-if="additionalInfoText">
         <hr>
-        <span v-html="additionalInfoText" />
+        <Markdown :source="additionalInfoText" />
       </div>
     </div>
     <b-form-group>
@@ -99,12 +99,13 @@ import 'leaflet.awesome-markers'
 import $ from 'jquery'
 import 'corejs-typeahead'
 import 'typeahead-address-photon'
+import Markdown from '@/components/Markdown/Markdown.vue'
 
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 
 export default {
   name: 'LeafletLocationSearch',
-  components: { BFormGroup, BFormInput, LeafletLocationPicker },
+  components: { Markdown, BFormGroup, BFormInput, LeafletLocationPicker },
   props: {
     zoom: { type: Number, required: true },
     coordinates: { type: Object, required: true },

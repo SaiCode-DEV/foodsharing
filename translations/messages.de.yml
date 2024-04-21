@@ -806,7 +806,8 @@ storeview:
   source_data: "Stammdaten"
   select_related_region: "Auswahl des zuständigen Bezirks"
   info: "Informationen"
-  teamInfo: "<strong>{active}</strong> Aktive und <strong>{jumper}</strong> Springer im Team."
+  team_info_active: "Aktive im Team:"
+  team_info_jumper: "Aktive im Springer:"
   counter: "<strong>{count} {suffix}</strong>"
   pickupCount: "Es wurde {pickupCount} abgeholt"
   pickupWeight: "und {pickupWeight} kg gerettet."
@@ -1424,7 +1425,7 @@ addresspicker:
   label: "Adress-/Standort-Suche"
   placeholder: "Bitte hier nach der Adresse suchen. Falls nötig kannst du sie dann unten noch weiter anpassen."
   infobox: "Bitte gib die Adresse im Textfeld zwischen dieser Nachricht und der Karte ein und korrigiere diese dann ggf. durch Verschieben in der Karte."
-  infobox_profile: "<a href=\"https://wiki.foodsharing.de/Foodsharer\">Foodsharer</a> benötigen die Adresse, um Essenskörbe über die Webseite anbieten zu können. Um als <a href=\"https://wiki.foodsharing.de/Foodsaver\">Foodsaver</a> an Lebensmittelrettungen teilnehmen zu können, ist sie notwendig."
+  infobox_profile: "[Foodsharer](https://wiki.foodsharing.de/Foodsharer) benötigen die Adresse, um Essenskörbe über die Webseite anbieten zu können. Um als [Foodsaver](https://wiki.foodsharing.de/Foodsaver) an Lebensmittelrettungen teilnehmen zu können, ist sie notwendig."
   different_location: Adresse ist unabhängig von Geo-Position
 date:
   time: "{time} Uhr"
@@ -1954,7 +1955,7 @@ settings:
     disabled: "Push-Benachrichtigungen erfolgreich deaktiviert"
   name_change:
     title: Name (Vor- & Nachname)
-    desc: Der eigene Name kann nicht selbstständig geändert werden. Du kannst aber eine <a href="{link}">Namensänderung beantragen</a>.
+    desc: Der eigene Name kann nicht selbstständig geändert werden. Du kannst aber eine [Namensänderung beantragen]({link}).
     request: Namensänderung beantragen
     foodsaver_info: "Um deinen Namen ändern zu lassen, musst du eine:n Botschafter:in aus deinem Stammbezirk kontaktieren. Diese:r kann dann die Namensänderung für dich durchführen.<hr>Wer Botschafter:in in deinem Stammbezirk ist, siehst du im <a href=\"{link}\">Forum deines Bezirks</a> in der linken Seitenleiste."
     foodsharer_info: "Um deinen Namen ändern zu lassen, musst du uns eine Anfrage über das <a href=\"{link}\">Support-Formular</a> stellen."
@@ -2017,8 +2018,8 @@ profile:
     remove_buddy: "Ich kenne {name} nicht mehr"
     history: "Ausweishistorie" #also in ProfileXhr
     verificationHistory: "Verifizierungshistorie" #also in ProfileXhr
-    notes: "Notizen <strong>({count})</strong>"
-    violations: "Meldungen <strong>({count})</strong>"
+    notes: "Notizen"
+    violations: "Meldungen"
     storelist: "Betriebe ({count})"
   history:
     noActor: "unbekannt"
@@ -2150,7 +2151,7 @@ profile:
       plsconfirm: "Diese Meldung wirklich löschen?"
       confirmed: "Meldung wurde bestätigt!"
       deleted: "Meldung wurde gelöscht!"
-    readup: "Hinweise zur Bearbeitung einer Meldung könnt ihr hier nachlesen: <a href=\"https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung\"> Bearbeitung einer Meldung </a>"
+    readup: "Hinweise zur Bearbeitung einer Meldung könnt ihr hier nachlesen: [Bearbeitung einer Meldung](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)"
   alldatesdeleted: "Alle Termine gelöscht"
   cantdeleteall: "Du kannst nicht alle Termine löschen!"
   deletesuccess: "Einzeltermin gelöscht"
@@ -2199,7 +2200,7 @@ dashboard:
   foodsharer: "Viel Spaß beim Retten!"
   foodsharer_amount: "Du hast schon {weight} kg gerettet!"
   foodsaver_amount: Du hast <b>{pickups} x</b> Lebensmittel abgeholt und damit <b>{weight} kg</b> gerettet.
-  full_subline: Du hast <b>{pickups} x</b> Lebensmittel abgeholt und damit <b>{weight} kg</b> gerettet. Dein Stammbezirk ist <b>{region}</b>.
+  full_subline: Du hast **{pickups} x** Lebensmittel abgeholt und damit **{weight} kg** gerettet. Dein Stammbezirk ist **{region}**.
 
   release:
     for_release_notes: "Die wichtigsten Änderungen findet ihr auf"
@@ -2302,7 +2303,7 @@ basket:
   request: "Essenskorb anfragen"
   request-fs: "Essenskorb anfragen auf unserer foodsharing-Homepage"
   withdraw_request: "Anfrage zurückziehen"
-  n_requests: "Bisherige Anfragen: <strong>{count}</strong>"
+  n_requests: "Bisherige Anfragen:"
   send_request: "Anfrage absenden"
   sent_request: "Anfrage wurde versendet"
   withdrawn_request: "Anfrage wurde zurückgezogen"
@@ -2473,8 +2474,8 @@ footer:
     call_to: Du möchtest foodsharing unterstützen?
     cta: Jetzt spenden
   hosting:
-    info: CO<sub>2</sub>-neutral <a href="https://www.manitu.de/webhosting/" title="Webhosting">gehostet</a>
-    tooltip: CO<sub>2</sub>-neutral <a href="https://www.manitu.de/webhosting/" title="Webhosting">gehostet</a> auf manitu
+    info: CO2-neutral gehostet
+    tooltip: CO2-neutral gehostet auf manitu
   partner_names:
     wiener_tafel: Wiener Tafel
     lebensministerium: Bundesministerium für Landwirtschaft, Regionen und Tourismus
@@ -3027,7 +3028,7 @@ error:
     link: "Handynummer jetzt korrigieren"
   old_user_avatar:
     title: "Es gibt ein Problem mit deinem Profilbild."
-    description: "Im September 2021 haben wir eine technische Umstellung vorgenommen, die die Profilbilder betrifft. Daher bitten wir dich, dein Profilbild erneut hochzuladen oder zu erneuern. Wenn du dein aktuelles Bild wiederverwenden willst, kannst du es <a href=\"{link}\" download>hier</a> herunterladen. Entschuldige bitte die Umstände."
+    description: "Im September 2021 haben wir eine technische Umstellung vorgenommen, die die Profilbilder betrifft. Daher bitten wir dich, dein Profilbild erneut hochzuladen oder zu erneuern. Entschuldige bitte die Umstände."
     link: "Jetzt Profilbild erneuern"
   missing_user_avatar:
     title: "Du hast noch kein Profilbild hochgeladen."
@@ -3083,9 +3084,12 @@ join_region:
   description: Deinem ersten Bezirk kannst du beitreten, indem du dich beginnend von deinem Kontinent bis zu deinem Bezirk durchklickst. Solltest du keinen Bezirk für dich finden, wähle eine Ebene höher aus oder tritt dem nächstgelegenen Bezirk bei. Solltest du keine Möglichkeit haben, dich in der Umgebung zur:zum Foodsaver:in ausbilden zu lassen, dann kannst du dir überlegen, einen eigenen Bezirk zu gründen. Lies dir in diesem Fall bitte das Wiki und insbesondere den <a href="{href}">Artikel zum Gründen oder Reaktivieren von Bezirken<a> gut durch. Wenn du den Bezirk eintragen lassen möchtest oder konkrete Fragen hast, die das Wiki nicht beantwortet, schreib uns <a href="{mail}">eine E-Mail</a>. Wir sind nicht die zentrale Anlaufstelle für allgemeine Fragen, können dir aber bei Fragen zu Bezirken gerne weiterhelfen.
   error:
     not_allowed: In diesen Bezirk kannst du dich nicht eintragen.
-    is_state: <strong>Das ist ein Bundesland.</strong><br> Wähle bitte eine Stadt, eine Region oder einen Bezirk aus!
-    is_country: <strong>Das ist ein Land.</strong><br> Wähle bitte eine Stadt, eine Region oder einen Bezirk aus!
-    is_big_city: <strong>Das ist eine Großstadt.</strong><br> Wähle bitte eine Stadt, eine Region oder einen Bezirk aus!
+    is_state_1: Das ist ein Bundesland. Wähle bitte eine Stadt, eine Region oder einen Bezirk aus!
+    is_state_2: Wähle bitte eine Stadt, eine Region oder einen Bezirk aus!
+    is_country_1: Das ist ein Land.
+    is_country_2: Wähle bitte eine Stadt, eine Region oder einen Bezirk aus!
+    is_big_city_1: Das ist eine Großstadt.
+    is_big_city_2: Wähle bitte eine Stadt, eine Region oder einen Bezirk aus!
 
 globals:
   account:

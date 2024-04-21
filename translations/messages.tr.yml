@@ -627,8 +627,7 @@ error:
     link: 'Profil resminizi şimdi güncelleyin'
     description: 'Eylül 2021''de profil fotoğraflarını etkileyen teknik bir değişiklik
       yaptık. Bu nedenle sizden profil fotoğrafınızı tekrar yüklemenizi veya güncellemenizi
-      rica ediyoruz. Mevcut görüntünüzü yeniden kullanmak isterseniz <a href="{link}"
-      download>buradan</a> indirebilirsiniz. Lütfen rahatsızlığı mazur görün.'
+      rica ediyoruz. Lütfen rahatsızlığı mazur görün.'
   mail_bounce:
     link_2: 'Yardıma ihtiyacım var'
     link_1: 'E-posta adresini değiştir'
@@ -2289,10 +2288,10 @@ addresspicker:
   infobox: Lütfen adresi bu mesaj ile kart arasındaki metin alanına girin ve gerekirse
     kartın içine taşıyarak düzeltin.
   label: Adres/Yer arama
-  infobox_profile: <a href="https://wiki.foodsharing.de/Foodsharer"> Foodsharerların
-    </a> web sitesi aracılığıyla yiyecek sepetleri sunabilmeleri için adrese ihtiyaçları
-    vardır. <a href="https://wiki.foodsharing.de/Foodsaver">Foodsaver</a> olarak yiyecek
-    kurtarma çalışmalarına katılabilmek için gereklidir.
+  infobox_profile: "[Foodsharerların](https://wiki.foodsharing.de/Foodsharer)
+    web sitesi aracılığıyla yiyecek sepetleri sunabilmeleri için adrese ihtiyaçları
+    vardır. [Foodsaver](https://wiki.foodsharing.de/Foodsaver) olarak yiyecek
+    kurtarma çalışmalarına katılabilmek için gereklidir."
   different_location: Adres, coğrafi konumdan bağımsızdır
 profile:
   commitments_stat:
@@ -2434,8 +2433,8 @@ profile:
   notFound: Bu kullanıcı profili mevcut değil veya artık mevcut değil
   nav:
     buddy: '{name} tanıyorum'
-    notes: Notlar <strong>({count})</strong>
-    violations: Mesajlar <strong>({count})</strong>
+    notes: Notlar
+    violations: Mesajlar
     edit: Profili düzenle
     history: Kimlik kartı geçmişi
     storelist: İşletmeler ({count})
@@ -3359,12 +3358,12 @@ join_region:
   headline: 'Faaliyet göstermek istediğiniz bölgeyi seçiniz.'
   error:
     not_allowed: 'Bu bölgede kayıt yaptıramazsınız.'
-    is_state: '<strong>Bu bir federal eyalettir.</strong><br> Lütfen bir şehir, bölge
-      veya ilçe seçin!'
-    is_country: '<strong>Bu bir ülke.</strong><br> Lütfen bir şehir, bölge veya semt
-      seçin!'
-    is_big_city: '<strong>Burası büyük bir şehir.</strong><br> Lütfen bir şehir, bölge
-      veya semt seçin!'
+    is_state_1: 'Bu bir federal eyalettir.'
+    is_state_2: 'Lütfen bir şehir, bölge veya ilçe seçin!'
+    is_country_1: 'Bu bir ülke.'
+    is_country_2: 'Lütfen bir şehir, bölge veya semt seçin!'
+    is_big_city_1: 'Burası büyük bir şehir.'
+    is_big_city_2: 'Lütfen bir şehir, bölge veya semt seçin!'
   description: '<em>Avrupa</em> seçeneğinden bölgenize tıklayarak ilk bölgenize katılabilirsiniz.
     Kendinize uygun bir bölge bulamazsanız, bir üst seviye seçin veya en yakın bölgeye
     katılın. Bölgede foodsaver olarak eğitim alma fırsatınız yoksa, kendi bölgenizi

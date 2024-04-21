@@ -29,7 +29,7 @@
       <small
         v-b-tooltip="entry.store.name.length > 30 ? entry.store.name : ''"
         class="field-subline"
-        v-html="entry.store.name"
+        v-text="entry.store.name"
       />
       <span
         class="pickup-status badge badge-pill d-flex p-1 align-items-center"

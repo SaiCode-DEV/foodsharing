@@ -78,16 +78,17 @@ class DashboardControl extends Control
         $is_foodsharer = !$this->session->mayRole(Role::FOODSAVER) && !$this->quizSessionGateway->hasPassedQuiz($this->session->id(), Role::FOODSAVER->value);
 
         if ($is_foodsharer) {
-            $cnt = $this->contentGateway->get(ContentId::QUIZ_REMARK_PAGE_33);
-            $cnt['body'] = str_replace([
+            $cnt = $this->contentGateway->getContent(ContentId::QUIZ_REMARK_PAGE_33);
+            $quiz = [];
+            $quiz['body'] = str_replace([
                 '{NAME}',
                 '{ANREDE}'
             ], [
                 $this->session->user('name'),
                 $this->translator->trans('salutation.' . $this->session->user('gender'))
-            ], (string)$cnt['body']);
-            $cnt['closeable'] = false;
-            $cnt['links'] = [
+            ], $cnt->body);
+            $quiz['closeable'] = false;
+            $quiz['links'] = [
                 (object)[
                     'urlShortHand' => 'quiz_foodsaver',
                     'text' => 'foodsaver.upgrade.to_fs',
@@ -98,7 +99,7 @@ class DashboardControl extends Control
                 ]
             ];
 
-            return $cnt;
+            return $quiz;
         }
 
         return null;

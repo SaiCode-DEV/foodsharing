@@ -82,7 +82,9 @@
         :href="$url('profileNotes', fsId)"
       >
         <i class="far fa-file-alt fa-fw" />
-        <span v-html="$i18n('profile.nav.notes', { count: noteCount })" />
+        <span>
+          {{ $i18n('profile.nav.notes') }} <strong>({{ noteCount }})</strong>
+        </span>
       </b-list-group-item>
       <b-list-group-item
         v-if="mayViolation && violationCount > 0"
@@ -91,7 +93,9 @@
         :href="$url('violations', fsId)"
       >
         <i class="far fa-meh fa-fw" />
-        <span v-html="$i18n('profile.nav.violations', { count: violationCount })" />
+        <span>
+          {{ $i18n('profile.nav.violations') }} <strong>({{ violationCount }})</strong>
+        </span>
       </b-list-group-item>
       <b-list-group-item
         v-if="showReportButton"

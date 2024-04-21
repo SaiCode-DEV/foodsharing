@@ -40,13 +40,12 @@
         </a>
       </div>
       <div>
-        <span v-if="requestCount == 0">
+        <span v-if="requestCount === 0">
           {{ $i18n('basket.no_requests') }}
         </span>
-        <span
-          v-if="requestCount > 0"
-          v-html="$i18n('basket.n_requests', { count: requestCount })"
-        />
+        <span v-if="requestCount > 0">
+          {{ $i18n('basket.n_requests') }} <strong>{{ requestCount }}</strong>
+        </span>
       </div>
     </div>
     <b-modal

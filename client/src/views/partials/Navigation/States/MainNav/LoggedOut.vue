@@ -14,7 +14,7 @@
           :href="$url(entry.url)"
           role="menuitem"
           class="dropdown-item dropdown-action"
-          v-html="$i18n(entry.title)"
+          v-text="$i18n(entry.title)"
         />
       </template>
     </Dropdown>

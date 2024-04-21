@@ -6,10 +6,22 @@ use Carbon\Carbon;
 use DateTimeZone;
 use Foodsharing\Modules\Content\DTO\Content;
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Core\Database;
 use Foodsharing\RestApi\Models\Content\ContentEntry;
+use Foodsharing\Utility\Sanitizer;
 
 class ContentGateway extends BaseGateway
 {
+    private readonly Sanitizer $sanitizer;
+
+    public function __construct(
+        Database $db,
+        Sanitizer $sanitizer,
+    ) {
+        parent::__construct($db);
+        $this->sanitizer = $sanitizer;
+    }
+
     /**
      * @deprecated use getContent instead
      */
@@ -34,12 +46,22 @@ class ContentGateway extends BaseGateway
                 ->shiftTimezone(new DateTimeZone('UTC'))
             : null;
 
+        $content['body'] = $this->sanitizer->purifyHtml($content['body'] ?? '');
+
         return Content::create($id, $content['name'], $content['title'], $content['body'], $lastModified);
     }
 
+    /**
+     * Returns the contents for the given ids.
+     */
     public function getMultiple(array $ids): array
     {
-        return $this->db->fetchAllByCriteria('fs_content', ['id', 'title', 'body'], ['id' => $ids]);
+        $contents = $this->db->fetchAllByCriteria('fs_content', ['id', 'title', 'body'], ['id' => $ids]);
+        foreach ($contents as $content) {
+            $content['body'] = $this->sanitizer->purifyHtml($content['body']);
+        }
+
+        return $contents;
     }
 
     /**

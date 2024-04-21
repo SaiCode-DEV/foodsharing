@@ -12,7 +12,7 @@
     @ok="joinRegion"
   >
     <div class="description">
-      <p v-html="$i18n('join_region.description', {href: $url('wiki_create_region'), mail: $url('mailto_mail_foodsharing_network', 'welcome')})" />
+      <p v-text="$i18n('join_region.description', {href: $url('wiki_create_region'), mail: $url('mailto_mail_foodsharing_network', 'welcome')})" />
     </div>
     <hr>
     <div class="selector">
@@ -23,13 +23,13 @@
       >
         <option
           :value="0"
-          v-html="$i18n('globals.select')"
+          v-text="$i18n('globals.select')"
         />
         <option
           v-for="(entry, key) in base"
           :key="key"
           :value="entry.id"
-          v-html="entry.name"
+          v-text="entry.name"
         />
       </select>
       <select
@@ -47,7 +47,7 @@
           v-for="(entry, key) in region.list"
           :key="key"
           :value="entry.id"
-          v-html="entry.name"
+          v-text="entry.name"
         />
       </select>
     </div>
@@ -56,18 +56,18 @@
       class="alert alert-danger d-flex align-items-center"
     >
       <i class="icon icon--big fas fa-exclamation-triangle" />
-      <span
-        v-if="selectedRegionType === 5"
-        v-html="$i18n('join_region.error.is_state')"
-      />
-      <span
-        v-if="selectedRegionType === 6"
-        v-html="$i18n('join_region.error.is_country')"
-      />
-      <span
-        v-if="selectedRegionType === 8"
-        v-html="$i18n('join_region.error.is_big_city')"
-      />
+      <span v-if="selectedRegionType === 5">
+        <strong>{{ $i18n('join_region.error.is_state_1') }}</strong><br>
+        {{ $i18n('join_region.error.is_state_2') }}
+      </span>
+      <span v-if="selectedRegionType === 6">
+        <strong>{{ $i18n('join_region.error.is_country_1') }}</strong><br>
+        {{ $i18n('join_region.error.is_country_2') }}
+      </span>
+      <span v-if="selectedRegionType === 8">
+        <strong>{{ $i18n('join_region.error.is_big_city_1') }}</strong><br>
+        {{ $i18n('join_region.error.is_big_city_2') }}
+      </span>
     </div>
   </b-modal>
 </template>

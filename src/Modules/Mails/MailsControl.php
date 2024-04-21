@@ -7,6 +7,7 @@ use Foodsharing\Modules\Console\ConsoleControl;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\RouteHelper;
+use Foodsharing\Utility\Sanitizer;
 use Html2Text\Html2Text;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
@@ -21,6 +22,7 @@ class MailsControl extends ConsoleControl
     private readonly MailerInterface $mailer;
     private readonly RouteHelper $routeHelper;
     private readonly EmailHelper $emailHelper;
+    private readonly Sanitizer $sanitizer;
 
     /*
      * todo move this to config file as a constant if this becomes a permanent solution
@@ -33,7 +35,8 @@ class MailsControl extends ConsoleControl
         Database $database,
         MailerInterface $mailer,
         RouteHelper $routeHelper,
-        EmailHelper $emailHelper
+        EmailHelper $emailHelper,
+        Sanitizer $sanitizer
     ) {
         error_reporting(E_ALL);
         ini_set('display_errors', '1');
@@ -42,6 +45,7 @@ class MailsControl extends ConsoleControl
         $this->mailer = $mailer;
         $this->routeHelper = $routeHelper;
         $this->emailHelper = $emailHelper;
+        $this->sanitizer = $sanitizer;
         parent::__construct();
     }
 
@@ -137,7 +141,7 @@ class MailsControl extends ConsoleControl
                     if ($html) {
                         $h2t = new Html2Text($html);
                         $body = $h2t->getText();
-                        $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', (string)$html);
+                        $html = $this->sanitizer->purifyHtml($html);
                     } else {
                         try {
                             $text = $msg->getBodyText();
