@@ -1152,6 +1152,8 @@ storeview:
   cooperation_start: 'Cooperación desde'
   show_settings: Configuración de la empresa
   choose_chain: Elija una cadena
+  team_info_active: 'Miembros activos del equipo:'
+  team_info_jumper: 'Activo en Springer:'
 store:
   tooltip_red: 'Recogidas vacantes hoy o mañana'
   tooltip_managing: 'Usted es responsable de esta cooperación'
