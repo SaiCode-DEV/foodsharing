@@ -107,8 +107,8 @@ dashboard:
   polls: 'Tus votos en curso'
   activation_mail_failure: 'No se pudo enviar ningún nuevo enlace de activación'
   no_updates: 'Sin actualizaciones'
-  full_subline: 'Recogiste <b>{pickups} x</b> alimentos y salvado <b>{weight} kg</b>.
-    Su distrito de origen es <b>{region}</b>.'
+  full_subline: 'Has recogido **{pickups} x** alimentos y ahorrado **{weight} kg**.
+    Tu distrito de origen es **{region}**.'
   source_friendWall: 'Tablón de anuncios de {0}'
   source_friendWall_own: 'Tu tablón de anuncios'
   greeting_short: '¡Hola {name}!'
@@ -1829,9 +1829,8 @@ profile:
       no tiene soporte técnico por el momento. Puede enviar un informe en cualquier
       momento por correo electrónico a la persona responsable localmente en este caso.'
     late: 'Persona llegaba tarde'
-    readup: 'Puede encontrar más información sobre la tramitación de reclamaciones
-      aquí: <a href="https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung">Procesamiento
-      de reclamaciones</a> (texto en alemán)'
+    readup: 'Encontrará información sobre cómo tratar una notificación aquí: [Editar
+      una notificación](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)'
     inthisblog: 'en esta entrada del blog'
     reporterHasNoReportGroup: 'No puede utilizar el sistema de quejas porque no existe
       un grupo de quejas local en su distrito.'
@@ -1992,7 +1991,7 @@ basket:
   not_active: 'La canasta de alimentos ya no está activa.'
   provider: 'Proveedor(a)'
   not_withdrawn: 'La solicitud de canasta de alimentos no pudo ser cancelada: '
-  n_requests: 'Solicitudes anteriores: <strong>{count}</strong>'
+  n_requests: 'Consultas previas:'
   all: 'Todas las cestas de comida'
   on: 'Cesta de comida de {platform}'
   request_denied: 'Su solicitud fue rechazada por el/la proveedor(a) de la canasta
@@ -2842,8 +2841,8 @@ settings:
     title: 'Nombre y apellido'
     foodsharer_info: 'Para cambiar su nombre, debe enviarnos una solicitud mediante
       el <a href="{link}">formulario de soporte</a>.'
-    desc: 'No puedes cambiar tu nombre tú mismo. Sin embargo, puedes <a href="{link}">solicitar
-      un cambio de nombre</a>.'
+    desc: 'No puedes cambiar tu propio nombre. Sin embargo, puede solicitar un [cambio
+      de nombre]({link}).'
     foodsaver_info: 'Para cambiar su nombre, debe comunicarse con un embajador de
       su distrito de origen. Luego, esta persona puede cambiar el nombre por usted.<hr>Puede
       ver quién es el embajador en su distrito de origen en el <a href="{link}">foro
@@ -2940,7 +2939,7 @@ join_region:
     is_country_1: 'Este es un país.'
     is_country_2: '¡Seleccione una ciudad, una región o un distrito!'
     not_allowed: 'No puedes unirte a esta región.'
-    is_state_1: 'Este es un estado federal.'
+    is_state_1: 'Este es un estado federal. ¡Seleccione una ciudad, región o distrito!'
     is_state_2: '¡Seleccione una ciudad, una región o un distrito!'
     is_big_city_1: 'Esta es una gran ciudad.'
     is_big_city_2: '¡Seleccione una ciudad, una región o un distrito!'
@@ -3120,10 +3119,8 @@ footer:
     wiener_tafel: 'Banco de Alimentos de Viena'
     lebensministerium: 'Ministerio Federal de Agricultura, Regiones y Turismo'
   hosting:
-    info: '<a href="https://www.manitu.de/webhosting/" title="Webhosting">Alojad@</a>
-      de forma neutra en CO<sub>2</sub>'
-    tooltip: '<a href="https://www.manitu.de/webhosting/" title="Webhosting">Alojad@</a>
-      de forma neutra en CO<sub>2</sub> en manitu'
+    info: 'Alojado de forma neutra en CO2'
+    tooltip: 'Alojamiento con emisiones neutras de CO2 en Manitu'
   infosDeveloper: 'para desarrollador@s de software'
   imprint: 'Aviso legal'
   partner: 'Soci@s'
