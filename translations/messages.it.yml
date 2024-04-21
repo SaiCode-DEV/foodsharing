@@ -1586,9 +1586,9 @@ date:
   clock: ' '
 addresspicker:
   label: Ricerca per indirizzo/località
-  infobox_profile: "[Foodsharer](https://wiki.foodsharing.de/Foodsharer)
-    è necessario l'indirizzo per poter offrire cesti alimentari tramite il sito web.
-    Per poter partecipare ai salvataggi alimentari come [Foodsaver](https://wiki.foodsharing.de/Foodsaver),
+  infobox_profile: "[Foodsharer](https://wiki.foodsharing.de/Foodsharer) è necessario
+    l'indirizzo per poter offrire cesti alimentari tramite il sito web. Per poter
+    partecipare ai salvataggi alimentari come [Foodsaver](https://wiki.foodsharing.de/Foodsaver),
     è necessario."
   infobox: Inserisci l’indirizzo nel campo di testo tra questo messaggio e la carta
     e poi confermalo selezionandolo sulla carta.
