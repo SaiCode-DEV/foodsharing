@@ -2749,9 +2749,9 @@ addresspicker:
   label: Search for address/location
   placeholder: Please search for the address here and select it. If necessary, correct
     the details below afterwards.
-  infobox_profile: "[Foodsharers](https://wiki.foodsharing.de/Foodsharer)
-    need the address in order to be able to offer food baskets on the website. In
-    order to be able to participate in food rescues as a [Foodsaver](https://wiki.foodsharing.de/Foodsaver),
+  infobox_profile: "[Foodsharers](https://wiki.foodsharing.de/Foodsharer) need the
+    address in order to be able to offer food baskets on the website. In order to
+    be able to participate in food rescues as a [Foodsaver](https://wiki.foodsharing.de/Foodsaver),
     it is even mandatory."
   infobox: Enter the address in the field provided and/or move the pin on the map
     if necessary.
