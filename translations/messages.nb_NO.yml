@@ -2860,10 +2860,9 @@ addresspicker:
   label: Søk på adresse/sted
   placeholder: Vennligst se etter adressen her. Korriger eventuelt under etterpå.
   infobox: Skriv inn adressen i feltet og flytt knappenålen på kartet om nødvendig.
-  infobox_profile: "[Matdelere](https://wiki.foodsharing.de/Foodsharer)
-    trenger adressen for å kunne tilby matkurver på nettsiden. For å kunne delta i
-    matredninger som [matredder](https://wiki.foodsharing.de/Foodsaver)
-    er det til og med obligatorisk."
+  infobox_profile: "[Matdelere](https://wiki.foodsharing.de/Foodsharer) trenger adressen
+    for å kunne tilby matkurver på nettsiden. For å kunne delta i matredninger som
+    [matredder](https://wiki.foodsharing.de/Foodsaver) er det til og med obligatorisk."
   different_location: Adressen er uavhengig av geografisk posisjon
 becomeregion:
   save: Lagre
