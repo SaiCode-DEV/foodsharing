@@ -104,6 +104,7 @@
 - Update some backend dependencies !3232 @\_fridtjof_
 - Added server caching and rest endpoint for donation banner !3163 @martincodes-de
 - Deny v-html elements in vue to reduce XSS risk #1840 !3218 @stcz
+- Updated fontawesome to 6.5.2 #1779 !3263 @alex.simm
 
 ## Development documentation
 
