@@ -2288,10 +2288,10 @@ addresspicker:
   infobox: Lütfen adresi bu mesaj ile kart arasındaki metin alanına girin ve gerekirse
     kartın içine taşıyarak düzeltin.
   label: Adres/Yer arama
-  infobox_profile: "[Foodsharerların](https://wiki.foodsharing.de/Foodsharer)
-    web sitesi aracılığıyla yiyecek sepetleri sunabilmeleri için adrese ihtiyaçları
-    vardır. [Foodsaver](https://wiki.foodsharing.de/Foodsaver) olarak yiyecek
-    kurtarma çalışmalarına katılabilmek için gereklidir."
+  infobox_profile: "[Foodsharerların](https://wiki.foodsharing.de/Foodsharer) web
+    sitesi aracılığıyla yiyecek sepetleri sunabilmeleri için adrese ihtiyaçları vardır.
+    [Foodsaver](https://wiki.foodsharing.de/Foodsaver) olarak yiyecek kurtarma çalışmalarına
+    katılabilmek için gereklidir."
   different_location: Adres, coğrafi konumdan bağımsızdır
 profile:
   commitments_stat:
