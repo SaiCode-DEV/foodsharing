@@ -43,6 +43,7 @@
 - Fix sign in date time in slot modal #1870 !3228 !3250 @chriswalg
 - Fixed mail address to field in mailbox module !3226 @chriswalg
 - Fixed datepicker in pickup modal #1751 !3231 @chriswalg 
+- Fixed date tooltip for events on dashboard #1835 !3275 @alex.simm
 
 ## Refactoring
 - Switched Annotation to Attributes, implements Test and general code style adjust for Activity REST Endpoint !2975 !3090 @BibaltiK

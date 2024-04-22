@@ -136,7 +136,7 @@ export default {
       return this.$dateFormatter.isTomorrow(this.startDate)
     },
     dateTooltip () {
-      return `${this.$dateFormatter.dateTime(this.startDate)} (${this.$dateFormatter.relativeTime(this.startDate)}`
+      return `${this.$dateFormatter.dateTime(this.startDate)} (${this.$dateFormatter.relativeTime(this.startDate)})`
     },
     displayedStart () {
       return this.$dateFormatter.format(this.startDate, {
