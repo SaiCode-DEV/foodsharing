@@ -253,10 +253,9 @@ class MailboxGateway extends BaseGateway
      *
      * @return Email[]
      */
-    public function listEmails(int $mailboxId, int $folder): array
+    public function listEmails(int $mailboxId, int $folder, int $page, int $pageSize): array
     {
-        $data = $this->db->fetchAll(
-            '
+        $query = '
 			SELECT 	`id`,
 					`folder`,
 					`sender`,
@@ -272,9 +271,15 @@ class MailboxGateway extends BaseGateway
 			WHERE	mailbox_id = :mailbox_id
 			AND 	folder = :farray_folder
 			ORDER BY `time` DESC
-		',
-            [':mailbox_id' => $mailboxId, ':farray_folder' => $folder]
-        );
+		';
+        $params = [':mailbox_id' => $mailboxId, ':farray_folder' => $folder];
+
+        if ($page >= 0 && $pageSize >= 0) {
+            $query .= ' LIMIT :page_size OFFSET :start_item_index';
+            $params['start_item_index'] = $page * $pageSize;
+            $params['page_size'] = $pageSize;
+        }
+        $data = $this->db->fetchAll($query, $params);
 
         return array_map(fn ($x) => $this->parseEmail($x), $data);
     }

@@ -11,6 +11,7 @@ use Foodsharing\Permissions\MailboxPermissions;
 use Foodsharing\RestApi\Models\Mailbox\EmailSendData;
 use Foodsharing\RestApi\Models\Mailbox\PatchEmailModel;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Request\ParamFetcherInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use OpenApi\Attributes\Parameter;
@@ -115,13 +116,15 @@ class MailboxRestController extends AbstractFoodsharingRestController
     #[OA\Get(summary: 'Returns all mails from mailbox.')]
     #[OA\Tag(name: 'mailbox')]
     #[Rest\Get(path: 'mailbox/all/{mailboxId}/{folderId}', requirements: ['mailboxId' => '\d+'])]
+    #[Rest\QueryParam(name: 'page', default: 0, nullable: false)]
+    #[Rest\QueryParam(name: 'pageSize', default: 50, nullable: false)]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         type: 'array',
         items: new OA\Items(ref: new Model(type: Email::class)))
     )]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to read mails from mailbox')]
-    public function getAllMailsFromMailbox(int $mailboxId, int $folderId): Response
+    public function getAllMailsFromMailbox(int $mailboxId, int $folderId, ParamFetcherInterface $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('', 'Not logged in.');
@@ -131,7 +134,9 @@ class MailboxRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException();
         }
 
-        $messages = $this->mailboxTransactions->listEmails($mailboxId, $folderId);
+        $page = (int)$paramFetcher->get('page');
+        $pageSize = (int)$paramFetcher->get('pageSize');
+        $messages = $this->mailboxTransactions->listEmails($mailboxId, $folderId, $page, $pageSize);
 
         return $this->handleView($this->view($messages, 200));
     }

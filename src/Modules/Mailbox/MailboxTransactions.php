@@ -45,11 +45,11 @@ class MailboxTransactions
      *
      * @return Email[]
      */
-    public function listEmails(int $mailboxId, int $folder): array
+    public function listEmails(int $mailboxId, int $folder, int $page, int $pageSize): array
     {
         $this->mailboxGateway->updateMailboxActivityIndicator($mailboxId);
 
-        return $this->mailboxGateway->listEmails($mailboxId, $folder);
+        return $this->mailboxGateway->listEmails($mailboxId, $folder, $page, $pageSize);
     }
 
     /**

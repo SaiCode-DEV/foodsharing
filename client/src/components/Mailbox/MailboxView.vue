@@ -15,8 +15,11 @@
           @toggle-read-state-for-mails="toggleReadStateForMails"
           @clear-selected="clearSelected"
         />
+        <span v-if="isBusy && page === 0" class="d-block mx-auto">
+          <i class="fas fa-spinner fa-spin mx-auto" />
+        </span>
         <b-table
-          v-if="selectedMailbox[2] != null && mailboxMails.length > 0"
+          v-else-if="selectedMailbox[2] != null && mailboxMails.length > 0"
           ref="selectableTable"
           :fields="columns"
           :items="mailboxMails"
@@ -81,6 +84,26 @@
               class="fas fa-paperclip"
             />
           </template>
+
+          <template #custom-foot>
+            <tr>
+              <td colspan="100%">
+                <small v-if="noMorePages">
+                  {{ $i18n('pickup.overview.allLoaded') }}
+                </small>
+                <b-button
+                  v-else
+                  size="sm"
+                  :disabled="isBusy"
+                  class="d-block mx-auto"
+                  @click="loadNextPage"
+                >
+                  <i v-if="isBusy" class="fas fa-spinner fa-spin" />
+                  <span v-else>{{ $i18n('pickup.overview.menu.loadMore') }}</span>
+                </b-button>
+              </td>
+            </tr>
+          </template>
         </b-table>
         <div v-else>
           {{ $i18n('mailbox.empty') }}
@@ -100,6 +123,8 @@ import { deleteEmail, getAllEmails, setEmailProperties } from '@/api/mailbox'
 import i18n from '@/helper/i18n'
 import { store, MAILBOX_FOLDER, MAILBOX_PAGE } from '@/stores/mailbox'
 
+const PAGE_SIZE = 50
+
 export default {
   components: { Container, BTable, MailboxMainNav },
   data () {
@@ -107,6 +132,9 @@ export default {
       emailId: null,
       mailboxMails: [],
       selected: [],
+      page: 0,
+      noMorePages: false,
+      isBusy: false,
     }
   },
   computed: {
@@ -136,22 +164,38 @@ export default {
       if (this.$refs.selectableTable) {
         this.$refs.selectableTable.isBusy = true
       }
-      this.tryGetAllEmails()
+      this.page = 0
+      this.noMorePages = false
+      this.mailboxMails = []
+      this.selected = []
+      this.loadNextPage()
       if (this.$refs.selectableTable) {
         this.$refs.selectableTable.isBusy = false
       }
     },
   },
   created () {
-    this.tryGetAllEmails()
+    this.loadNextPage()
   },
   methods: {
+    /**
+     * Removes one or more emails from the client-side list.
+     */
+    removeEmailsFromList (emails) {
+      for (let i = 0; i < emails.length; i++) {
+        const index = this.mailboxMails.indexOf(emails[i])
+        if (index >= 0) {
+          this.mailboxMails.splice(index, 1)
+        }
+      }
+    },
     async tryDeleteEmail () {
       showLoader()
       this.isBusy = true
       try {
         await Promise.all(this.selected.map(email => deleteEmail(email.id)))
-        await this.tryGetAllEmails()
+        this.removeEmailsFromList(this.selected)
+        this.selected = []
       } catch (e) {
         pulseError(i18n('error_unexpected'))
       }
@@ -163,23 +207,28 @@ export default {
       this.isBusy = true
       try {
         await Promise.all(this.selected.map(email => setEmailProperties(email.id, null, folder)))
-        await this.tryGetAllEmails()
+        this.removeEmailsFromList(this.selected)
+        this.selected = []
       } catch (e) {
         pulseError(i18n('error_unexpected'))
       }
       this.isBusy = false
       hideLoader()
     },
-    async tryGetAllEmails () {
-      showLoader()
+    async loadNextPage () {
       this.isBusy = true
       try {
-        this.mailboxMails = await getAllEmails(this.selectedMailbox[0], this.selectedMailbox[2])
+        const emails = await getAllEmails(this.selectedMailbox[0], this.selectedMailbox[2], this.page, PAGE_SIZE)
+        if (emails.length > 0) {
+          this.mailboxMails.push(...emails)
+          this.page++
+        } else {
+          this.noMorePages = true
+        }
       } catch (e) {
         pulseError(i18n('error_unexpected'))
       }
       this.isBusy = false
-      hideLoader()
     },
     formatEmailAddress (address) {
       const result = (address.name !== undefined && address.name !== null) ? address.name : address.address
@@ -204,7 +253,6 @@ export default {
 
       try {
         await Promise.all(this.selected.map(email => setEmailProperties(email.id, areAnyUnread, this.selectedMailbox[2])))
-        await this.tryGetAllEmails()
       } catch (e) {
         pulseError(i18n('error_unexpected'))
       }
@@ -224,7 +272,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 @media (max-width: 576px) {
   .table th, .table td {
     border-top: none;

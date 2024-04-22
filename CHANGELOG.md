@@ -25,7 +25,9 @@
 - Removed infinity loading from forum lists #1231 !3229 @chriswalg
 - Enabling the Display of Occupied Slot Details in the Confirmation Dialogue #1862 !3213 @c-h-i-c-k-e-n
 - Removed salutation in email template #1745 !3246 @chriswalg
+- Emails in the mailbox are listed paginated #1668 !3278 @alex.simm
 - Added caching (5 minutes) for nearby baskets !3267 @chriswalg
+- Emails in the mailbox are listed paginated #1668 !3278 @alex.simm
 
 ## Bugfixes
 - remove misplaced line in store team view !3088 @buntel
