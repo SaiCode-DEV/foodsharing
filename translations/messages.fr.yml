@@ -543,7 +543,7 @@ settings:
   title: Paramètres
   name_change:
     desc: Il n’est pas possible de modifier son propre nom de manière autonome. Tu
-      peux toutefois demander un <a href="{link}">changement de nom</a> .
+      peux toutefois demander un [changement de nom]({link}).
     request: Demander un changement de nom
     title: Nom (Prénom et nom)
     foodsharer_info: Pour changer ton nom, tu dois nous faire une demande sous <a
@@ -1649,8 +1649,8 @@ dashboard:
     reset: Réinitialiser
   eventCount: Prochain événement ({count})
   greeting_short: Salut {name} !
-  full_subline: Tu as récupéré des denrées alimentaires <b>{pickups} x</b> et sauvé
-    ainsi <b>{weight} kg</b>. Ton secteur géographique est <b>{region}</b>.
+  full_subline: Tu as récupéré des denrées alimentaires **{pickups} x** et sauvé ainsi
+    **{weight} kg**. Ton secteur géographique est **{region}**.
   invitationCount: Tu as reçu une invitation ({count})
   polls: Tes votations en cours
   settings: Préférences
@@ -1753,8 +1753,7 @@ profile:
     kindofreport: Veuillez sélectionner le type de plainte
     late: Est arrivé·e trop tard
     readup: "Vous pouvez lire ici des indications sur le traitement d’une plainte :
-      <a href=\"https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung\"\
-      >Traitement d’une plainte</a>"
+      [Traitement d’une plainte](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)"
     doesNotAffectStore: N’affecte aucune ou une autre coopération
   mediation:
     no_group: Il n’existe malheureusement pas encore de groupe local de médiation
@@ -2299,7 +2298,7 @@ basket:
   withdrawn_request: La demande a été retirée
   sent_request: La demande a été envoyée
   send_request: Envoyer la demande
-  n_requests: 'Demandes à ce jour : <strong>{count}</strong>'
+  n_requests: 'Demandes à ce jour :'
   withdraw_request: Retirer ma demande
   requested_by: demandé par {name}
   no_requests: Aucune demande
@@ -2365,10 +2364,8 @@ footer:
   denns_at_alt_text: Denn's Biomarkt
   beta_testing_issues: Tâches de test de la version bêta
   hosting:
-    info: <a href="https://www.manitu.de/webhosting/" title="Webhosting">Hébergement</a>
-      neutre en CO<sub>2</sub>
-    tooltip: <a href="https://www.manitu.de/webhosting/" title="Webhosting">Hébergement</a>
-      neutre en CO<sub>2</sub> sur manitu
+    info: Hébergement neutre en CO₂
+    tooltip: Hébergement neutre en CO₂ sur manitu
   partner_names:
     wiener_tafel: Banque alimentaire de Vienne
     denns: Denn’s Biomarkt
