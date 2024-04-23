@@ -2106,7 +2106,7 @@ basket:
   withdrawn_request: Richiesta ritirata
   sent_request: La richiesta è stata inviata
   send_request: Inviare la richiesta
-  n_requests: 'Richieste precedenti: <strong>{count}</strong>'
+  n_requests: 'Richieste precedenti:'
   withdraw_request: Ritirare la richiesta
   request-fs: Richiesta di cesto alimentare sulla nostra homepage di foodsharing
   request: Richiedere il cesto di cibo
@@ -2265,8 +2265,8 @@ dashboard:
       3_columns: 'Passa alla visualizzazione a 3 colonne'
       2_columns: 'Passa alla visualizzazione a 2 colonne'
     reset: 'Reset'
-  full_subline: 'Hai effettuato <b>{pickups} x</b> ritiri e salvato <b>{weight} kg</b>
-    di generi alimentari. Il tuo distretto di residenza è <b>{region}</b>.'
+  full_subline: 'Hai effettuato **{pickups} x** ritiri e salvato **{weight} kg** di
+    generi alimentari. Il tuo distretto di residenza è **{region}**.'
   polls: 'I tuoi sondaggi in corso'
   invitationCount: 'Hai ricevuto un invito ({count})'
   settings: 'Impostazioni'
@@ -2416,8 +2416,8 @@ profile:
     noshow: 'Non si è presentato/a al ritiro'
     kindofreport: 'Seleziona il tipo di rapporto'
     inthisblog: 'in questo post del blog'
-    readup: 'Trova informazioni su come elaborare una segnalazione qui: <a href="https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung">
-      Elaborazione di una segnalazione</a>'
+    readup: 'Trova informazioni su come elaborare una segnalazione qui: [Elaborazione
+      di una segnalazione](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)'
     sells: 'Vende cibo salvato'
     late: 'È arrivato/a troppo tardi'
     doesNotAffectStore: Non influisce su nessuna o altre aziende
@@ -2680,7 +2680,7 @@ settings:
   title: Impostazioni
   name_change:
     desc: 'Il tuo nome non può essere modificato in modo indipendente. Tuttavia, puoi
-      <a href="{link}">richiedere un cambio di nome</a>.'
+      [richiedere un cambio di nome]({link}).'
     request: 'Richiedi un cambio di nome'
     foodsharer_info: 'Per modificare il tuo nome, devi inviarci una richiesta utilizzando
       il <a href="{link}">modulo di supporto</a>.'
@@ -2854,10 +2854,8 @@ footer:
     it_devdocs: 'by foodsharing IT'
   infosDeveloper: 'per gli sviluppatori'
   hosting:
-    tooltip: '<a href="https://www.manitu.de/webhosting/" title="Webhosting">ospitato</a>
-      ad emissioni neutrali di CO<sub>2</sub> su manitu'
-    info: '<a href="https://www.manitu.de/webhosting/" title="Webhosting">ospitato</a>
-      ad emissioni neutrali di CO<sub>2</sub>'
+    tooltip: 'ospitato ad emissioni neutrali di CO₂ su manitu'
+    info: 'ospitato ad emissioni neutrali di CO₂'
   partner_names:
     wiener_tafel: 'Banco alimentare Vienna'
     denns: 'Denn’s Biomarkt'
