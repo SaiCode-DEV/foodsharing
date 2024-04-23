@@ -510,7 +510,7 @@ basket:
   no_requests: Ingen henvendelser så langt
   request: Be om matkurv
   request-fs: Be om matkurv på vår hjemmeside for foodsharing
-  n_requests: 'Requests so far: <strong>{count}</strong>'
+  n_requests: 'Tidligere henvendelser:'
   state:
     okay: Ja, {pronoun} hentet matkurven.
     gone: Dagligvarene ble hentet av noen andre.
@@ -660,8 +660,8 @@ dashboard:
   greeting_short: Hei {name}!
   invitation: Du ble invitert
   invitationCount: Du ble invitert ({count})
-  full_subline: Du hentet dagligvarer <b>{pickups} ganger</b>, og sparte <b>{weight} kg</b>.
-    Hjemmedistriktet ditt er <b>{region}</b>.
+  full_subline: Du hentet dagligvarer **{pickups} ganger**, og sparte **{weight} kg**.
+    Hjemmedistriktet ditt er **{region}**.
   eventCount: Neste hendelser ({count})
   polls: Dine pågående avstemninger
   release:
@@ -902,8 +902,7 @@ profile:
     noshow: Personen kom ikke
     kindofreport: Vennligst velg type melding
     late: Personen kom for sent
-    readup: "Du kan lese om hvordan du behandler en klage her: <a href=\"https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.
-      29_Bearbeitung_einer_Meldung\">Behandling av rapport</a>"
+    readup: "Du kan lese om hvordan du behandler en klage her: [Behandling av rapport](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)"
     inthisblog: i dette blogginnlegget
     cancellation: Hyppige kanselleringer av samlinger på kort varsel uten å lete etter
       en erstatning
@@ -1064,7 +1063,7 @@ settings:
       Denne personen kan deretter endre navnet for deg.<hr>Du kan se hvem som er ambassadør
       i ditt hjemdistrikt i <a href="{link}">forumet til distriktet ditt</a> i venstre
       sidefelt.
-    desc: Du kan ikke endre ditt eget navn selv. Du kan imidlertid be om en <a href="{link}">navneendring</a>.
+    desc: Du kan ikke endre ditt eget navn selv. Du kan imidlertid be om en [navneendring]({link}).
     title: Navn (for- og etternavn)
   passport:
     menu: Medlemskort
@@ -1983,9 +1982,8 @@ footer:
     beta_testing_issues: Testoppgaver for betaversjonen
   infosDeveloper: for utviklere
   hosting:
-    info: CO<sub>2</sub>-nøytral <a href="https://www.manitu.de/webhosting/" title="Webhosting">hosted</a>
-    tooltip: CO<sub>2</sub>-nøytral <a href="https://www.manitu.de/webhosting/" title="Webhosting">hosted</a>
-      på manitu
+    info: CO₂-nøytral hosted
+    tooltip: CO₂-nøytral hosted på manitu
   partner_names:
     lebensministerium: Det føderale departementet for jordbruk, regioner og turisme
     denns: Denn’s Biomarkt
