@@ -66,8 +66,8 @@ dashboard:
     ack: 'Uyarı okundu ve tekrar gösterme'
     go: 'Teste git'
   polls: 'Devam eden anketleriniz'
-  full_subline: '<b>{pickups} x</b> yiyecek aldınız ve <b>{weight} kg</b> kurtardınız.
-    Yaşadığınız bölge <b>{region}</b>.'
+  full_subline: '**{pickups} x** yiyecek aldınız ve **{weight} kg** kurtardınız. Yaşadığınız
+    bölge **{region}**.'
   chooseHomeRegion: 'Lütfen bir ana bölgesi seçin.'
   foodsaver_amount: '<b>{pickups} x</b> yiyecek aldınız ve <b>{weight} kg</b> kurtardınız.'
   source_foodsharepoint: 'Dağtım Noktası {0}'
@@ -1653,7 +1653,7 @@ mailbox:
     istiyorsanız ekleri indirip yeni e-postaya ekleyebilirsiniz.
 basket:
   sent_request: Başvuru gönderildi
-  n_requests: 'Şimdiye kadar ki başvurular: <strong>{count}</strong>'
+  n_requests: 'Şimdiye kadar ki başvurular:'
   state:
     nope: Hayır, {pronoun} maalesef kararlaştırıldığı gibi gelmedi.
     gone: Yiyecekler başkası tarafından alındı.
@@ -1865,8 +1865,7 @@ footer:
   hosting:
     tooltip: <a href="https://www.manitu.de/webhosting/" title="Webhosting">gehostet</a>
       Manitu da Net <sub>2</sub>- Sıfır Karbon
-    info: Net <sub>2</sub> Sıfır Karbon <a href="https://www.manitu.de/webhosting/"
-      title="Webhosting">gehostet</a>
+    info: CO₂ nötr olarak barındırılır
   partner: Partner
   guide: Hijyen rehberi
   infosCompany: İşletmeler için
@@ -2169,8 +2168,8 @@ settings:
     foodsharer_info: Adınızı değiştirmek için <a href="{link}">Destek Formunda</a>
       bize bir başvuruda bulunmalısınız.
     title: Ad (ad ve soyadı)
-    desc: Kendi adınızı kendiniz değiştiremezsiniz. Ancak <a href="{link}">ad değişikliği
-      talebinde bulunabilirsiniz</a>.
+    desc: Kendi adınızı kendiniz değiştiremezsiniz. Ancak [ad değişikliği talebinde
+      bulunabilirsiniz]({link}).
     request: İsim değişikliği talep edin
     foodsaver_info: Adınızı değiştirmek için, kendi bölgenizden bir elçi ile iletişime
       geçmelisiniz. Bu kişi, adınızı değiştirebilir.<hr>Sol kenar çubuğundaki <a href="{link}">bölgenizin
