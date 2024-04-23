@@ -213,8 +213,7 @@ settings:
   header: Profile settings
   name_change:
     title: Name (first & last name)
-    desc: You cannot change your name yourself. You can however <a href="{link}">request
-      a name change</a>.
+    desc: You cannot change your name yourself. You can however [request a name change]({link}).
     request: Request name change
     info: To get your name changed you have to contact an ambassador of your home
       region. He*She can change your name for you.<hr/>You can find out who the ambassadors
@@ -571,8 +570,7 @@ profile:
     noshow: The person didn’t come
     late: The person was late
     cancellation: Frequent late cancellation of appointments without finding a replacement
-    readup: "Find advice on processing a report here: <a href=\"https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung\"\
-      >Processing a report</a>"
+    readup: "Find advice on processing a report here: [Processing a report](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)"
     doesNotAffectStore: Does not affect any or a different company
   history:
     wasVerified: Verified
@@ -582,12 +580,12 @@ profile:
     actionBy: by
   nav:
     storelist: Stores ({count})
-    notes: Notes <strong>({count})</strong>
+    notes: Notes
     verificationHistory: Verification history
     history: Pass history
     buddy: I know {name}
     edit: Edit profile
-    violations: Reports <strong>({count})</strong>
+    violations: Reports
     remove_buddy: I don’t know {name} anymore
   notes:
     bread: Notes
@@ -1731,10 +1729,8 @@ footer:
     version: 'Version: {version}'
     beta_testing_issues: Test tasks of the Beta version
   hosting:
-    info: <a href="https://www.manitu.de/webhosting/" title="Webhosting">hosted</a>
-      in a CO<sub>2</sub> neutral manner
-    tooltip: Carbon-neutrally <a href="https://www.manitu.de/webhosting/" title="Webhosting">hosted</a>
-      at manitu
+    info: hosted in a CO₂ neutral manner
+    tooltip: Carbon-neutrally hosted at manitu
   partner_names:
     wiener_tafel: Food bank Vienna
     denns: Denn’s Biomarkt
@@ -1814,7 +1810,7 @@ basket:
   withdrawn_request: Request was withdrawn
   sent_request: Request has been sent
   send_request: Send request
-  n_requests: 'Requests so far: <strong>{count}</strong>'
+  n_requests: 'Requests so far:'
   withdraw_request: Withdraw request
   request-fs: Request food basket on our foodsharing homepage
   request: Request food basket
@@ -2840,8 +2836,8 @@ dashboard:
   mail_activation_error_title: Email address not confirmed
   activation_mail_failure: A new activation link could not be sent
   activation_mail_sent: Activation link sent — please check your emails
-  full_subline: You have picked up food <b>{pickups}</b> times and saved <b>{weight} kg</b>.
-    Your home district is <b>{region}</b>.
+  full_subline: You have picked up food **{pickups}** times and saved **{weight} kg**.
+    Your home district is **{region}**.
   polls: Your ongoing polls
   release:
     for_news_from_it: If there are any questions or challenges, first look at
