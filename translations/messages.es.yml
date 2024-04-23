@@ -3119,8 +3119,8 @@ footer:
     wiener_tafel: 'Banco de Alimentos de Viena'
     lebensministerium: 'Ministerio Federal de Agricultura, Regiones y Turismo'
   hosting:
-    info: 'Alojado de forma neutra en CO2'
-    tooltip: 'Alojamiento con emisiones neutras de CO2 en Manitu'
+    info: 'Alojado de forma neutra en CO₂'
+    tooltip: 'Alojamiento con emisiones neutras de CO₂ en Manitu'
   infosDeveloper: 'para desarrollador@s de software'
   imprint: 'Aviso legal'
   partner: 'Soci@s'
