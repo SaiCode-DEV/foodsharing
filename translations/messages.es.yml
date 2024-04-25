@@ -990,7 +990,8 @@ register:
   account-exists: 'Ya estás registrado. Por favor cierre sesión si desea registrarse
     nuevamente.'
   login_passwd1: 'Contraseña (Al menos 8 caracteres)'
-  birthdate_hint: 'Puede encontrar más información en la [declaración de protección de datos]({url}) en el punto 2d.'
+  birthdate_hint: 'Puede encontrar más información en la [declaración de protección
+    de datos]({url}) en el punto 2d.'
   signup_newsletter: 'Me gustaría recibir el boletín de foodsharing aproximadamente
     una vez al mes'
   phone_not_valid: 'El número de teléfono que ingresaste no es válido.'
