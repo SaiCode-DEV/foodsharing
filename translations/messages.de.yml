@@ -580,7 +580,7 @@ register:
   register_button_label: "Registrieren"
   mail_hint: "Wichtig: Achte auf korrekte Schreibweise!"
   requiredFields: "Pflichteingabe"
-  birthdate_hint: "Nähere Informationen findest du in der <a href=\"/?page=legal\" target=\"_blank\">Datenschutzerklärung</a> unter Punkt 2d, „Anmeldung als Foodsharer:in bzw. Foodsaver:in“."
+  birthdate_hint: "Nähere Informationen findest du in der [Datenschutzerklärung]({url}) unter Punkt 2d, „Anmeldung als Foodsharer:in bzw. Foodsaver:in“."
   login_email: "E-Mail-Adresse"
   email_required: "Eine E-Mail-Adresse wird benötigt."
   email_invalid: "Die E-Mail-Adresse ist ungültig."
@@ -2276,7 +2276,7 @@ basket:
   new: "Neuer Essenskorb"
   date: "Einstelldatum"
   created: "Veröffentlicht <strong>{date}</strong>"
-  expires: "Gültig bis <strong>{date}</strong>"
+  expires: "Gültig bis"
   updated: "Aktualisiert <strong>{date}</strong>"
   where: "Wo?"
   provider: "Anbieter:in"
@@ -3081,7 +3081,7 @@ navigation:
 
 join_region:
   headline: Wähle den Bezirk aus, in dem du aktiv werden möchtest.
-  description: Deinem ersten Bezirk kannst du beitreten, indem du dich beginnend von deinem Kontinent bis zu deinem Bezirk durchklickst. Solltest du keinen Bezirk für dich finden, wähle eine Ebene höher aus oder tritt dem nächstgelegenen Bezirk bei. Solltest du keine Möglichkeit haben, dich in der Umgebung zur:zum Foodsaver:in ausbilden zu lassen, dann kannst du dir überlegen, einen eigenen Bezirk zu gründen. Lies dir in diesem Fall bitte das Wiki und insbesondere den <a href="{href}">Artikel zum Gründen oder Reaktivieren von Bezirken<a> gut durch. Wenn du den Bezirk eintragen lassen möchtest oder konkrete Fragen hast, die das Wiki nicht beantwortet, schreib uns <a href="{mail}">eine E-Mail</a>. Wir sind nicht die zentrale Anlaufstelle für allgemeine Fragen, können dir aber bei Fragen zu Bezirken gerne weiterhelfen.
+  description: "Deinem ersten Bezirk kannst du beitreten, indem du dich beginnend von deinem Kontinent bis zu deinem Bezirk durchklickst. Solltest du keinen Bezirk für dich finden, wähle eine Ebene höher aus oder tritt dem nächstgelegenen Bezirk bei. Solltest du keine Möglichkeit haben, dich in der Umgebung zur:zum Foodsaver:in ausbilden zu lassen, dann kannst du dir überlegen, einen eigenen Bezirk zu gründen. Lies dir in diesem Fall bitte das Wiki und insbesondere den [Artikel zum Gründen oder Reaktivieren von Bezirken]({href}) gut durch. Wenn du den Bezirk eintragen lassen möchtest oder konkrete Fragen hast, die das Wiki nicht beantwortet, schreib uns [eine E-Mail]({mail}). Wir sind nicht die zentrale Anlaufstelle für allgemeine Fragen, können dir aber bei Fragen zu Bezirken gerne weiterhelfen."
   error:
     not_allowed: In diesen Bezirk kannst du dich nicht eintragen.
     is_state_1: Das ist ein Bundesland. Wähle bitte eine Stadt, eine Region oder einen Bezirk aus!

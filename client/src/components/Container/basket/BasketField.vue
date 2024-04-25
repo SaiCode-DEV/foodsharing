@@ -28,12 +28,9 @@
         <small
           v-b-tooltip="$i18n('basket.by', { name: entry.creator.name })"
           class="field-subline field-subline--muted"
-          v-text="
-            $i18n('basket.expires', {
-              date: $dateFormatter.dateTime(new Date(entry.until * 1000)),
-            })
-          "
-        />
+        >
+          {{ $i18n('basket.expires') }} <strong>{{ $dateFormatter.dateTime(new Date(entry.until * 1000)) }} </strong>
+        </small>
         <span
           v-if="entry.lat && entry.lon"
           class="ml-2 badge list-group-item-dark badge-pill"

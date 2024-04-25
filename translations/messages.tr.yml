@@ -2759,8 +2759,7 @@ register:
     doğru mu?
   activation_success: <strong>Etkinleştirme başarılı.</strong> E-posta adresiniz ve
     seçtiğiniz şifreyle şimdi oturum açın.
-  birthdate_hint: Foodsharer veya Foodsaver olarak kaydolurken <a href="/?page=legal"
-    target="_blank">Gizlilik Politikası</a>'nın 2d.
+  birthdate_hint: Foodsharer veya Foodsaver olarak kaydolurken [Gizlilik Politikası]({url})'nın 2d.
   topbar: Sen de katıl
   title: Kayıt
   register_button_label: Kayıt ol

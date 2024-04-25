@@ -28,7 +28,7 @@
     <div class="mt-3 col-sm-auto">
       <div class="alert alert-info">
         <i class="fas fa-info-circle" />
-        <span v-text="$i18n('register.birthdate_hint')" />
+        <Markdown :source="$i18n('register.birthdate_hint', { url: $url('dataprivacy') })" />
       </div>
     </div>
     <button
@@ -51,7 +51,10 @@
 </template>
 
 <script>
+import Markdown from '@/components/Markdown/Markdown.vue'
+
 export default {
+  components: { Markdown },
   props: {
     birthdate: {
       type: Date,

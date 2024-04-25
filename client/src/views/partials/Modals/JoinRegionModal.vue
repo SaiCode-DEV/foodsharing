@@ -12,7 +12,7 @@
     @ok="joinRegion"
   >
     <div class="description">
-      <p v-text="$i18n('join_region.description', {href: $url('wiki_create_region'), mail: $url('mailto_mail_foodsharing_network', 'welcome')})" />
+      <Markdown :source="$i18n('join_region.description', {href: $url('wiki_create_region'), mail: $url('mailto_mail_foodsharing_network', 'welcome')})" />
     </div>
     <hr>
     <div class="selector">
@@ -79,12 +79,14 @@ import DataRegions, { REGION_UNIT_TYPE } from '@/stores/regions'
 import { pulseError, showLoader, hideLoader } from '@/script'
 import { REGION_IDS } from '@/consts'
 import DataUser from '@/stores/user'
+import Markdown from '@/components/Markdown/Markdown.vue'
 
 const EXCLUDED_REGIONS = [REGION_IDS.GLOBAL_WORKING_GROUPS]
 const EXCLUDED_REGIONS_WITHOUT_HOME = [REGION_IDS.FOODSHARING_ON_FESTIVALS]
 
 export default {
   name: 'JoinRegionModal',
+  components: { Markdown },
   data () {
     return {
       selected: [0],
