@@ -2688,7 +2688,8 @@ register:
   lastname_minLength: The last name must consist of at least two characters.
   firstname_minLength: The first name must consist of at least two characters.
   confirmPassword_sameAsPassword: The password must match.
-  birthdate_hint: You can find more information in the [privacy policy]({url}) in point 2d.
+  birthdate_hint: You can find more information in the [privacy policy]({url}) in
+    point 2d.
   mail_hint: 'Important: pay attention to the correct spelling!'
   landline_example: Example +49 30 123456789
 bread:
