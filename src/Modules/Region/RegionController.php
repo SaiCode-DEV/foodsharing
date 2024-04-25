@@ -39,7 +39,8 @@ final class RegionController extends FoodsharingController
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly StoreGateway $storeGateway,
         private readonly DataHelper $dataHelper,
-        private readonly FoodSharePointPermissions $foodSharePointPermissions
+        private readonly FoodSharePointPermissions $foodSharePointPermissions,
+        private readonly ForumGateway $forumGateway
     ) {
         parent::__construct();
     }
@@ -261,6 +262,12 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addTitle($trans);
 
         if ($threadId = $request->query->getInt('tid')) {
+            $thread = $this->forumGateway->getThreadInfo($threadId);
+            if (empty($thread)) {
+                $this->flashMessageHelper->error($this->translator->trans('forum.not_found'));
+
+                return $this->redirect('/region?sub=forum&bid=' . $region['id']);
+            }
             $pageData['threadId'] = $threadId;
         } elseif ($request->query->has('newthread')) {
             $this->pageHelper->addTitle($this->translator->trans('forum.new_thread'));
