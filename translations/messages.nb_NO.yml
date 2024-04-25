@@ -1481,7 +1481,8 @@ register:
   error: Det har oppstått en feil
   account-exists: Du er allerede registrert. Logg ut hvis du vil registrere deg på
     nytt.
-  birthdate_hint: Du kan finne mer informasjon i [personvernreglene]({url}) i punkt 2d.
+  birthdate_hint: Du kan finne mer informasjon i [personvernreglene]({url}) i punkt
+    2d.
 geb_datum: Fødselsdato (ÅÅÅÅ-MM-DD)
 login:
   pwreset:
