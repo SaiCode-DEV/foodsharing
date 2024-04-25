@@ -1059,7 +1059,8 @@ register:
   password_required: Il faut renseigner un mot de passe.
   login_passwd2: Nouvelle saisie du mot de passe
   login_passwd1: Mot de passe (minimum 8 caractères)
-  birthdate_hint: Tu trouveras plus d’informations dans la rubrique [Datenschutzerklärung]({url}) au point 2d.
+  birthdate_hint: Tu trouveras plus d’informations dans la rubrique [Datenschutzerklärung]({url})
+    au point 2d.
   requiredFields: Saisie obligatoire
   register_button_label: S’inscrire
   title: Inscription
