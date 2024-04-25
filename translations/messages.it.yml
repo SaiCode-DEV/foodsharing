@@ -576,7 +576,8 @@ register:
   email_invalid: L'indirizzo e-mail non è valido.
   login_email: Indirizzo e-mail
   email_required: È richiesto un indirizzo e-mail.
-  birthdate_hint: Puoi trovare ulteriori informazioni nella [Protezione dati]({url}) al punto 2d.
+  birthdate_hint: Puoi trovare ulteriori informazioni nella [Protezione dati]({url})
+    al punto 2d.
   requiredFields: Campo obbligatorio
   mail_hint: 'Importante: prestare attenzione all''ortografia!'
   register_button_label: Registrati
