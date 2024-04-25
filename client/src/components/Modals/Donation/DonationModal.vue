@@ -114,9 +114,11 @@
 <script>
 import { getContent } from '@/api/content'
 import { getDonation } from '@/api/donation'
+import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 
 export default {
   name: 'DonationModal',
+  mixins: [RouteCheckMixin],
   data () {
     return {
       showTop: false,
@@ -138,7 +140,7 @@ export default {
       this.showTop = false
     } else {
       await this.getDonationContent()
-      if (this.content && this.content.body) {
+      if (this.content && this.content.body && !this.isTest) {
         await this.fetchDonationLink()
         this.showTop = true
       }
@@ -180,7 +182,8 @@ export default {
       localStorage.setItem('bannerClosedTime', new Date().getTime())
     },
     formatCurrency (amount) {
-      return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(amount)
+      const roundedAmount = Math.round(amount)
+      return roundedAmount.toLocaleString('de-DE') + ' €'
     },
     formatPercentage (value) {
       const roundedValue = value.toFixed(1)

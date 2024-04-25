@@ -1,6 +1,7 @@
 export default {
   data () {
     return {
+      isTest: null,
       isDev: null,
       isBeta: null,
       isDotAt: null,
@@ -9,6 +10,7 @@ export default {
     }
   },
   created: function () {
+    this.isTest = window.location.port === '8080'
     this.isDev = window.location.hostname.includes('localhost') || window.location.hostname.includes('gitpod')
     this.isBeta = window.location.hostname.includes('beta.foodsharing')
     this.isDotAt = window.location.hostname.includes('foodsharing.at')
