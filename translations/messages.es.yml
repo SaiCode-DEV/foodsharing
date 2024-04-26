@@ -2002,7 +2002,7 @@ basket:
   request-fs: 'Solicite esta canasta de alimentos en el sitio de foodsharing'
   no_nearby: 'No hay canastas de alimentos en un radio de {radius} km'
   my_list_empty: 'No has introducido ninguna cesta de comida'
-  expires: 'Válido hasta el <strong>{date}</strong>'
+  expires: 'Válido hasta el'
   by: 'Cesta de comida de {name}'
   requested_by: 'solicitado por {name}'
   send_request: 'Enviar solicitud'
@@ -2943,15 +2943,15 @@ join_region:
     is_state_2: '¡Seleccione una ciudad, una región o un distrito!'
     is_big_city_1: 'Esta es una gran ciudad.'
     is_big_city_2: '¡Seleccione una ciudad, una región o un distrito!'
-  description: 'Puede unirse a su primer distrito haciendo clic desde su continente
-    hasta su distrito. Si no encuentras un distrito para ti, sube de nivel o únete
-    al distrito más cercano a ti. Si no tienes la oportunidad de formarte como rescatador
-    de alimentos en la zona, puedes considerar la posibilidad de crear tu propio distrito.
-    En este caso, lea atentamente la Wiki y especialmente el <a href="{href}">artículo
-    sobre la creación o reactivación de distritos<a>.Si desea que creemos el distrito
-    por usted o tiene preguntas específicas que el Wiki no responde, escríbanos <a
-    href="{mail}">un correo electrónico</a>. No somos el punto central de contacto
-    para preguntas generales, pero podemos ayudarlo con preguntas sobre distritos.'
+  description: 'Puedes unirte a tu primer distrito haciendo clic desde tu continente
+    hasta tu distrito. Si no encuentras un distrito para ti, selecciona un nivel superior
+    o únete al distrito más cercano. Si no tienes la oportunidad de formarte como
+    protector de alimentos en el barrio, puedes plantearte fundar tu propio distrito.
+    En este caso, lee atentamente la wiki y, en particular, el [Artículo sobre la
+    creación o reactivación de distritos]({href}). Si quieres registrar el distrito
+    o tienes preguntas específicas que la wiki no responde, escríbenos [un correo
+    electrónico]({mail}). No somos el punto central de contacto para cuestiones generales,
+    pero podemos ayudarte con preguntas sobre los distritos.'
 globals:
   show_less: 'Muestra menos'
   show_more: 'Mostrar más'
