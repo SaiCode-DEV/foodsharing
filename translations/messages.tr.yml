@@ -1720,7 +1720,7 @@ basket:
   where: Nerede?
   requests: İstekte bulun ({count})
   nearby-short: Yakınınızda
-  expires: <strong>{date}</strong> tarihine kadar geçerlidir
+  expires: Son kullanma tarihi
   provider: Sağlayıcı
   new: Yeni yemek sepeti
   date: Giriş tarihi
@@ -1863,8 +1863,7 @@ footer:
     cta: Şimdi Bağış yap
     call_to: foodsharing'i desteklemek ister misiniz?
   hosting:
-    tooltip: <a href="https://www.manitu.de/webhosting/" title="Webhosting">gehostet</a>
-      Manitu da Net <sub>2</sub>- Sıfır Karbon
+    tooltip: Manitu'da CO2 - nötr barındırılıyor
     info: CO₂ nötr olarak barındırılır
   partner: Partner
   guide: Hijyen rehberi
@@ -2372,9 +2371,8 @@ profile:
       reporting: Hakkında mesaj
       reportID: Rapor Kimliği
       reportee: Tarafından rapor edildi
-    readup: "Bir mesajın nasıl işleneceği hakkında buradan bilgi edinebilirsiniz:
-      <a href=\"https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung\"\
-      > Bearbeitung einer Meldung </a>"
+    readup: "Bir raporun nasıl işleneceğine ilişkin bilgileri buradan okuyabilirsiniz:
+      [Bir raporun işlenmesi](https://wiki.foodsharing.de/Regulations_-_Consequences_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)"
     oldReportButton: Kural ihlalini bildir
     oldReportButtonTextPart2: Gerekirse, bölgenizdeki yerel raporlama grubuyla iletişime
       geçin.
@@ -2848,6 +2846,8 @@ storeview:
   public_time_in_the_morning: sabahları
   show_settings: İşletme ayarları
   choose_chain: Bir işletme zincirini seç
+  team_info_active: 'Ekibin aktif üyeleri:'
+  team_info_jumper: 'Ekibin aktif yedek üyeleri:'
 fsp:
   suggest: Gıda dağıtım noktası önerin
   accept: Gıda dağıtım noktasının kilidini aç
@@ -3357,20 +3357,21 @@ join_region:
   headline: 'Faaliyet göstermek istediğiniz bölgeyi seçiniz.'
   error:
     not_allowed: 'Bu bölgede kayıt yaptıramazsınız.'
-    is_state_1: 'Bu bir federal eyalettir.'
+    is_state_1: 'Burası federal bir eyalet. Lütfen bir şehir, bölge veya ilçe seçin!'
     is_state_2: 'Lütfen bir şehir, bölge veya ilçe seçin!'
     is_country_1: 'Bu bir ülke.'
     is_country_2: 'Lütfen bir şehir, bölge veya semt seçin!'
     is_big_city_1: 'Burası büyük bir şehir.'
     is_big_city_2: 'Lütfen bir şehir, bölge veya semt seçin!'
-  description: '<em>Avrupa</em> seçeneğinden bölgenize tıklayarak ilk bölgenize katılabilirsiniz.
-    Kendinize uygun bir bölge bulamazsanız, bir üst seviye seçin veya en yakın bölgeye
-    katılın. Bölgede foodsaver olarak eğitim alma fırsatınız yoksa, kendi bölgenizi
-    kurmayı düşünebilirsiniz. Bu durumda, lütfen viki''yi ve özellikle <a href="{href}">bölgelerin
-    kurulması veya yeniden etkinleştirilmesi hakkındaki makaleyi<a> dikkatlice okuyun.
-    Bölgeyi başlatmak istiyorsanız veya vikinin yanıtlamadığı belirli sorularınız
-    varsa, bize <a href="{mail}">bir e-posta</a> gönderin. Genel sorular için tek
-    adres değiliz, ancak bölgeyle ilgili sorularda yardımcı olabiliriz.'
+  description: 'Bulunduğunuz kıtadan ilçenize tıklayarak ilk ilçenize katılabilirsiniz.
+    Kendinize uygun bir ilçe bulamıyorsanız bir seviye yukarı çıkın veya size en yakın
+    ilçeye katılın. Bölgede gıda koruyucu olmak için eğitim alma fırsatınız yoksa
+    kendi bölgenizi kurmayı düşünebilirsiniz. Bu durumda lütfen Wiki''yi ve özellikle
+    de [Bölgelerin oluşturulması veya yeniden etkinleştirilmesine ilişkin makaleyi]({href})
+    dikkatlice okuyun. Bölgenin girilmesini istiyorsanız veya Wiki''nin yanıtlayamadığı
+    belirli sorularınız varsa, bize [bir e-posta]({mail}) yazın. Genel sorularınız
+    için merkezi irtibat noktası değiliz ancak ilçelerle ilgili sorularınız için size
+    yardımcı olabiliriz.'
 addreaction: 'Herhangi bir tepki ekleyin'
 contentmanagement: 'İçerik yönetimi'
 timefrom: 'Saati'
