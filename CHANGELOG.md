@@ -27,7 +27,6 @@
 - Removed salutation in email template #1745 !3246 @chriswalg
 - Emails in the mailbox are listed paginated #1668 !3278 @alex.simm
 - Added caching (5 minutes) for nearby baskets !3267 @chriswalg
-- Emails in the mailbox are listed paginated #1668 !3278 @alex.simm
 
 ## Bugfixes
 - remove misplaced line in store team view !3088 @buntel
@@ -108,6 +107,7 @@
 - Added server caching and rest endpoint for donation banner !3163 @martincodes-de
 - Deny v-html elements in vue to reduce XSS risk #1840 !3218 !3280 @stcz
 - Updated fontawesome to 6.5.2 #1779 !3263 @alex.simm
+- Uploaded files are tagged with their usage type #1182 !3243 @alex.simm
 
 ## Development documentation
 

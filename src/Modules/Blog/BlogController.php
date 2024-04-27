@@ -5,6 +5,8 @@ namespace Foodsharing\Modules\Blog;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
+use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\TimeHelper;
@@ -19,7 +21,8 @@ class BlogController extends FoodsharingController
         private readonly BlogGateway $blogGateway,
         private readonly BlogPermissions $blogPermissions,
         private readonly IdentificationHelper $identificationHelper,
-        private readonly TimeHelper $timeHelper
+        private readonly TimeHelper $timeHelper,
+        private readonly UploadsGateway $uploadsGateway,
     ) {
         parent::__construct();
     }
@@ -138,11 +141,21 @@ class BlogController extends FoodsharingController
             $g_data['foodsaver_id'] = $this->session->id();
             $g_data['time'] = date('Y-m-d H:i:s');
 
-            if ($this->blogGateway->add_blog_entry($g_data) && $this->blogPermissions->mayAdd()) {
-                $this->flashMessageHelper->success($this->translator->trans('blog.success.new'));
-                $this->routeHelper->goPageAndExit();
-            } else {
+            if (!$this->blogPermissions->mayAdd()) {
                 $this->flashMessageHelper->error($this->translator->trans('blog.failure.new'));
+            } else {
+                $postId = $this->blogGateway->add_blog_entry($g_data);
+                if ($postId) {
+                    if (!empty($g_data['picture'])) {
+                        $uuid = substr($g_data['picture'], 13);
+                        $this->uploadsGateway->setUsage([$uuid], UploadUsage::BLOG_POST, $postId);
+                    }
+
+                    $this->flashMessageHelper->success($this->translator->trans('blog.success.new'));
+                    $this->routeHelper->goPageAndExit();
+                } else {
+                    $this->flashMessageHelper->error($this->translator->trans('blog.failure.new'));
+                }
             }
         }
     }
@@ -176,6 +189,11 @@ class BlogController extends FoodsharingController
             $g_data['time'] = $data['time'];
 
             if ($this->blogGateway->update_blog_entry($id, $g_data)) {
+                if (!empty($g_data['picture'])) {
+                    $uuid = substr($g_data['picture'], 13);
+                    $this->uploadsGateway->setUsage([$uuid], UploadUsage::BLOG_POST, $id);
+                }
+
                 $this->flashMessageHelper->success($this->translator->trans('blog.success.edit'));
                 $this->routeHelper->goPageAndExit('blog', ['sub' => 'manage']);
             } else {

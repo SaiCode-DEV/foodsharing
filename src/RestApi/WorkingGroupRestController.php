@@ -117,7 +117,7 @@ class WorkingGroupRestController extends AbstractFOSRestController
             throw new BadRequestHttpException(json_encode(['field' => $firstError->getPropertyPath(), 'message' => $firstError->getMessage()]));
         }
 
-        $this->workGroupGateway->updateGroup($groupId, $groupData);
+        $this->groupTransactions->updateGroup($groupId, $groupData);
 
         return $this->handleView($this->view($groupData, 200));
     }

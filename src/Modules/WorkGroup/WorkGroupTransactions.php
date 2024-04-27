@@ -3,7 +3,10 @@
 namespace Foodsharing\Modules\WorkGroup;
 
 use Foodsharing\Lib\Db\Mem;
+use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Region\ForumFollowerGateway;
+use Foodsharing\Modules\Uploads\UploadsGateway;
+use Foodsharing\RestApi\Models\Group\EditWorkGroupData;
 use Foodsharing\Utility\EmailHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -13,6 +16,7 @@ class WorkGroupTransactions
         private readonly Mem $mem,
         private readonly WorkGroupGateway $workGroupGateway,
         private readonly ForumFollowerGateway $forumFollowerGateway,
+        private readonly UploadsGateway $uploadsGateway,
         private readonly EmailHelper $emailHelper,
         private readonly TranslatorInterface $translator
     ) {
@@ -88,5 +92,15 @@ class WorkGroupTransactions
                 . $this->translator->trans('group.apply.link_description')
                 . ' <a href="' . $link . '">' . $link . '</a>')
         );
+    }
+
+    public function updateGroup(int $groupId, EditWorkGroupData $groupData)
+    {
+        $this->workGroupGateway->updateGroup($groupId, $groupData);
+
+        if (!empty($groupData->photo)) {
+            $uuid = substr($groupData->photo, 13);
+            $this->uploadsGateway->setUsage([$uuid], UploadUsage::WORKING_GROUP_TITLE, $groupId);
+        }
     }
 }

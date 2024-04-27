@@ -545,7 +545,7 @@ class UserRestController extends AbstractFoodsharingRestController
             throw new BadRequestHttpException();
         }
 
-        $this->foodsaverTransactions->updatePhoto($this->session->id(), '/api/uploads/' . $uuid);
+        $this->foodsaverTransactions->updatePhoto($this->session->id(), $uuid);
         $this->session->refreshFromDatabase();
 
         return $this->handleView($this->view([], 200));

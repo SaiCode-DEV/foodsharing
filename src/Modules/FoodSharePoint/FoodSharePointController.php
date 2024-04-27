@@ -5,10 +5,12 @@ namespace Foodsharing\Modules\FoodSharePoint;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\Sanitizer;
@@ -30,6 +32,7 @@ class FoodSharePointController extends FoodsharingController
         private readonly RegionGateway $regionGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly MailboxGateway $mailboxGateway,
+        private readonly UploadsGateway $uploadsGateway,
         private readonly Sanitizer $sanitizerService,
         private readonly IdentificationHelper $identificationHelper,
         private readonly FoodSharePointPermissions $foodSharePointPermissions,
@@ -381,6 +384,11 @@ class FoodSharePointController extends FoodsharingController
         $fspManager = $this->sanitizerService->tagSelectIds((array)$request->request->all()['fspmanagers']);
         $this->foodSharePointGateway->updateFSPManagers($this->foodSharePoint['id'], $fspManager);
 
+        if (!empty($data['picture'])) {
+            $uuid = substr($data['picture'], 13);
+            $this->uploadsGateway->setUsage([$uuid], UploadUsage::FOOD_SHARE_POINT_TITLE, $this->foodSharePoint['id']);
+        }
+
         return $this->foodSharePointGateway->updateFoodSharePoint($this->foodSharePoint['id'], $data);
     }
 
@@ -440,7 +448,13 @@ class FoodSharePointController extends FoodsharingController
             $data['status'] = 0;
         }
 
-        return $this->foodSharePointGateway->addFoodSharePoint($userId, $data);
+        $id = $this->foodSharePointGateway->addFoodSharePoint($userId, $data);
+        if (!empty($data['picture'])) {
+            $uuid = substr($data['picture'], 13);
+            $this->uploadsGateway->setUsage([$uuid], UploadUsage::FOOD_SHARE_POINT_TITLE, $id);
+        }
+
+        return $id;
     }
 
     private function isFollower(): bool

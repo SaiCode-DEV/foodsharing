@@ -4,6 +4,7 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Basket\BasketGateway;
+use Foodsharing\Modules\Basket\BasketTransactions;
 use Foodsharing\Modules\Basket\DTO\Basket;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status as BasketStatus;
 use Foodsharing\Modules\Core\DBConstants\BasketRequests\Status as RequestStatus;
@@ -29,11 +30,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 final class BasketRestController extends AbstractFOSRestController
 {
-    private readonly BasketGateway $gateway;
-    private readonly MessageTransactions $messageTransactions;
-    private readonly Session $session;
-    private readonly BasketPermissions $basketPermissions;
-
     // literal constants
     private const TIME_TS = 'time_ts';
     private const DESCRIPTION = 'description';
@@ -52,15 +48,12 @@ final class BasketRestController extends AbstractFOSRestController
     private const MAX_BASKET_DISTANCE = 50;
 
     public function __construct(
-        BasketGateway $gateway,
-        MessageTransactions $messageTransactions,
-        Session $session,
-        BasketPermissions $basketPermissions
+        private readonly BasketGateway $gateway,
+        private readonly BasketTransactions $basketTransactions,
+        private readonly MessageTransactions $messageTransactions,
+        private readonly Session $session,
+        private readonly BasketPermissions $basketPermissions
     ) {
-        $this->gateway = $gateway;
-        $this->messageTransactions = $messageTransactions;
-        $this->session = $session;
-        $this->basketPermissions = $basketPermissions;
     }
 
     /**
@@ -278,7 +271,7 @@ final class BasketRestController extends AbstractFOSRestController
             throw new BadRequestHttpException(json_encode(['field' => $firstError->getPropertyPath(), 'message' => $firstError->getMessage()]));
         }
 
-        $basketId = $this->gateway->addBasket($basket, $this->session->user('bezirk_id'), $this->session->id());
+        $basketId = $this->basketTransactions->addBasket($basket);
         if (!$basketId) {
             throw new BadRequestHttpException('Unable to create the basket.');
         }
@@ -351,11 +344,7 @@ final class BasketRestController extends AbstractFOSRestController
         }
 
         //update basket
-        $this->gateway->editBasket(
-            $basketId,
-            $basket,
-            $this->session->id()
-        );
+        $this->basketTransactions->editBasket($basketId, $basket);
 
         return $this->getBasket($basketId);
     }

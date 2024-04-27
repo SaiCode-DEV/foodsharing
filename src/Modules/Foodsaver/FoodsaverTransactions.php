@@ -59,7 +59,7 @@ class FoodsaverTransactions
         $this->deletePhoto($foodsaverId);
 
         // Set the new profile photo and its upload usage
-        $this->foodsaverGateway->updatePhoto($this->session->id(), $uuid);
+        $this->foodsaverGateway->updatePhoto($this->session->id(), '/api/uploads/' . $uuid);
         $this->uploadsGateway->setUsage([$uuid], UploadUsage::PROFILE_PHOTO, $foodsaverId);
     }
 
