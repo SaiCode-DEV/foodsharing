@@ -38,7 +38,7 @@
       </p>
 
       <b-button-group vertical size="lg">
-        <b-button variant="primary" :href="$url('login') + '&ref=' + $url('urlencode', `/profile/${fsId}`)">
+        <b-button variant="primary" :href="$url('login', `/profile/${fsId}`)">
           <i class="fas fa-fw fa-sign-in-alt" />
           {{ $i18n('profile.public.login') }}
         </b-button>

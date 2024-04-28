@@ -38,7 +38,8 @@ const urls = {
   infosCompany: () => '/fuer-unternehmen',
   joininfo: () => '/content?sub=joininfo',
   leeretonne: () => '/content?sub=leeretonne',
-  login: () => '/login',
+  login: (ref = null) => '/login' +
+    ((ref !== null && ref.length > 0) ? '?ref=' + encodeURIComponent(`${ref}`) : ''),
   logout: () => {
     const url = new URL(window.location.href)
     return '/?page=logout&ref=' + encodeURIComponent(url.pathname + url.search)
