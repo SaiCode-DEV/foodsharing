@@ -109,6 +109,7 @@
 - Deny v-html elements in vue to reduce XSS risk #1840 !3218 !3280 @stcz
 - Updated fontawesome to 6.5.2 #1779 !3263 @alex.simm
 - Uploaded files are tagged with their usage type #1182 !3243 @alex.simm
+- Split up "backend" tests by suite !3200 @\_fridtjof_
 
 ## Development documentation
 

@@ -7,6 +7,9 @@ dir=$(dirname "$0")
 # shellcheck source=./__common.sh
 source "$dir"/__common.sh
 
+SUITE=$1 # 1st argument
+TRIES=${2:-1} # 2nd argument, optional - amount of tries
+
 echo $SECONDS seconds elapsed
 
 log-header "Preparing execution environment: Prepare PHP config, application & composer dev dependencies"
@@ -42,11 +45,12 @@ echo
 log-header "Create DB dump file for codeception"
 mysqldump --user root --password=root -hdb foodsharing > dump.sql
 pwd
+
 log-header "Running tests"
 failed=0
 SECONDS=0
 
-vendor/bin/codecept run Acceptance --xml=report-acceptance-0.xml --html=report-acceptance-0.html || failed=1
+vendor/bin/codecept run "$SUITE" --xml=report-"$SUITE"-0.xml --html=report-"$SUITE"-0.html || failed=1
 echo $SECONDS seconds elapsed
 
 if [ $failed -eq 0 ] # first run succeeded, we can finish early
@@ -55,19 +59,19 @@ then
   exit 0
 fi
 
-while [ $failed -le 3 ] # re-run failed tests 3 times
+while [ $failed -le "$TRIES" ] # re-run failed tests $TRIES times
 do
-  log-header "Check for codeception errors"
+  log-header "Attempt $failed/$TRIES: check for codeception errors"
   # check if codeception generated a report file that contains failed tests
   # Otherwise, codeception probably failed itself and the whole job should fail
-  grep -E '<error|<failure' tests/_output/report-acceptance-$((failed - 1)).xml || \
+  grep -E '<error|<failure' tests/_output/report-"$SUITE"-$((failed - 1)).xml || \
     (echo "report.xml is incomplete, aborting" && false)
 
   log-header "Rerunning failed tests"
   SECONDS=0
   # create separate report files for each re-run so we don't overwrite the previous reports
 
-  if vendor/bin/codecept run --xml=report-acceptance-$failed.xml --html=report-acceptance-$failed.html -g failed;
+  if vendor/bin/codecept run --xml=report-"$SUITE"-$failed.xml --html=report-"$SUITE"-$failed.html -g failed;
   then
     log-header "Done!"
     exit 0
