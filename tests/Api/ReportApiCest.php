@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Api;
 
 use Codeception\Util\HttpCode;
-use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Tests\Support\ApiTester;
 
@@ -107,16 +106,6 @@ class ReportApiCest
     public function foodsharerCannotAccessReports(ApiTester $I): void
     {
         $I->login($this->foodsharer['email']);
-        $I->sendGET($I->apiReportListForRegion($this->region['id']));
-        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
-    }
-
-    public function reportTeamCanAccessReports(ApiTester $I): void
-    {
-        $fs = $I->createFoodsaver();
-        $reportTeamRegion = $I->createRegion('report team region', ['id' => RegionIDs::EUROPE_REPORT_TEAM]);
-        $I->addRegionMember(RegionIDs::EUROPE_REPORT_TEAM, $fs['id']);
-        $I->login($fs['email']);
         $I->sendGET($I->apiReportListForRegion($this->region['id']));
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
     }

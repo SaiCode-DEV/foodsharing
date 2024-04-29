@@ -44,8 +44,6 @@ class WallPostPermissions
             case 'question':
                 return $this->regionGateway->hasMember($this->session->id(), RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP);
             case 'usernotes':
-            case 'report':
-                return $this->regionGateway->hasMember($this->session->id(), RegionIDs::EUROPE_REPORT_TEAM);
             case 'application':
                 return $this->workGroupTransactions->isAdminForAWorkGroup($this->session->id());
             default:
@@ -81,7 +79,7 @@ class WallPostPermissions
                 return $this->regionGateway->isAdmin($this->session->id(), $targetId);
             case 'question':
             case 'usernotes':
-            case 'report':
+            case 'fsreports':
                 return $this->mayReadWall($target, $targetId);
             case 'fairteiler':
                 $fsp = $this->fspGateway->getFoodSharePoint($targetId);

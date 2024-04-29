@@ -4,7 +4,6 @@ namespace Foodsharing\Permissions;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
-use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 
@@ -49,8 +48,7 @@ class ReportPermissions
             }
         }
 
-        // ToDo: Need to check that regionId is a subgroup of europe. implied for now.
-        return $this->session->isAdminFor(RegionIDs::EUROPE_REPORT_TEAM);
+        return false;
     }
 
     public function mayAccessArbitrationReports(int $regionId): bool
@@ -67,8 +65,7 @@ class ReportPermissions
             }
         }
 
-        // ToDo: Need to check that regionId is a subgroup of europe. implied for now.
-        return $this->session->isAdminFor(RegionIDs::EUROPE_REPORT_TEAM);
+        return false;
     }
 
     public function mayAccessReportGroupReports(int $regionId): bool
@@ -85,18 +82,11 @@ class ReportPermissions
             }
         }
 
-        // ToDo: Need to check that regionId is a subgroup of europe. implied for now.
-        return $this->session->isAdminFor(RegionIDs::EUROPE_REPORT_TEAM);
-    }
-
-    public function mayAccessReportsForSubRegions(): bool
-    {
-        return $this->session->isAdminFor(RegionIDs::EUROPE_REPORT_TEAM);
+        return false;
     }
 
     public function mayHandleReports(): bool
     {
-        // group "Regelverletzungen/Meldungen"
-        return $this->session->mayRole(Role::ORGA) || $this->session->isAdminFor(RegionIDs::EUROPE_REPORT_TEAM);
+        return $this->session->mayRole(Role::ORGA);
     }
 }
