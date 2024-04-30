@@ -42,6 +42,7 @@
 - Fixed datepicker in pickup modal #1751 !3231 @chriswalg 
 - Fixed date tooltip for events on dashboard #1835 !3275 @alex.simm
 - Fixed the login link on the profile page !1901 !3289 @alex.simm
+- Added a retry for deadlocked database queries !3296 #1869 @AntonBallmaier
 
 ## Refactoring
 - Switched Annotation to Attributes, implements Test and general code style adjust for Activity REST Endpoint !2975 !3090 @BibaltiK

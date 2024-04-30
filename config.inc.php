@@ -78,6 +78,9 @@ if (!defined('BBB_DOMAIN')) {
     define('BBB_DIALIN', '+49xxxxx');
 }
 
+define('MAX_DEADLOCK_QUERY_ATTEMPTS', 3);
+define('DEADLOCK_QUERY_SLEEP_TIME_IN_MS', 200);
+
 /*
  * How to put the webpush keys at the first deployment after webpush was introduced:
  *
