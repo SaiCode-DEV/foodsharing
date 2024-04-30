@@ -17,8 +17,12 @@
           <div>{{ $i18n('storeview.team_info_jumper') }} <strong>{{ store.standbyCount }}</strong></div>
 
           <div class="mt-2">
-            <span v-if="store.pickupCount > 0" v-text="$i18n('storeview.pickupCount', { pickupCount: $i18n('storeview.counter', {suffix: 'x', count: store.pickupCount}) })" />
-            <span v-if="store.pickupCount > 0">{{ $i18n('storeview.pickupWeight', { pickupWeight: store.pickupWeightInKg }) }}</span>
+            <span v-if="store.pickupCount > 0">
+              <strong>{{ store.pickupCount }}</strong> {{ $i18n('storeview.pickupCount') }}
+            </span>
+            <span v-if="store.pickupWeightInKg > 0" class="float-right">
+              <strong>{{ store.pickupWeightInKg }}</strong> {{ $i18n('storeview.pickupWeight') }}
+            </span>
           </div>
 
           <div v-if="pickupTimeExplanation">

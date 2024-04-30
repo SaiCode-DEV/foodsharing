@@ -106,7 +106,7 @@
 - Upgrade webpack-dev-server to v4 !3220 @\_fridtjof_
 - Update some backend dependencies !3232 @\_fridtjof_
 - Added server caching and rest endpoint for donation banner !3163 @martincodes-de
-- Deny v-html elements in vue to reduce XSS risk #1840 !3218 !3280 @stcz
+- Deny v-html elements in vue to reduce XSS risk #1840 !3218 !3280 !3287 @stcz
 - Updated fontawesome to 6.5.2 #1779 !3263 @alex.simm
 - Uploaded files are tagged with their usage type #1182 !3243 @alex.simm
 - Split up "backend" tests by suite !3200 @\_fridtjof_
