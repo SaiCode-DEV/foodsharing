@@ -1,4 +1,4 @@
-# Unreleased
+# Release "Laugenbrezel", 2024-04-30
 
 ## Features
 - Added a ChainSearchPicker Modal in StoreInformation !2863 !3259 @chriswalg
