@@ -23,6 +23,9 @@ group:
     accept: Accettare candidatura
     link_description: 'Questo collegamento ti porterà direttamente all’applicazione:'
     ability: Quali competenze avete in questo settore?
+    experience: "Nel gruppo puoi attingere ad esperienze che hai acquisito altrove?\n
+      Se sì, dove o quali?\n"
+    how_much_time: Quante ore alla settimana hai tempo e voglia di dedicarci?
   contact:
     send: Invia messaggio
     admins: '{count} referenti:'
@@ -897,6 +900,7 @@ storeedit:
   add-new: Crea una nuova agenzia
   unsuccess: 'Impossibile applicare le modifiche. {error}'
   name_error: Il nome deve essere composto da almeno tre caratteri.
+  store_name_placeholder: Nome del negozio
 store:
   request:
     to-nowhere: Rifiutare
@@ -948,6 +952,9 @@ store:
     buttonManagementToggle: Modalità gestione
     toogleIsReducedStateOpen: Espandi elenco
     toogleIsReducedStateClosed: Chiudi elenco
+    sorting:
+      default: Ordinamento standard
+      pickup: Ordina per ultimo ritiro
   days_before: prima
   days: giorni
   my_last_pickup: Il mio ultimo ritiro
@@ -1084,7 +1091,7 @@ store:
       16: 'Ritirare la domanda di adesione'
       10: 'Segnalazione dei responsabile dell’attività'
       12: 'Firma per il ritiro'
-      5: ''
+      5: 'Aggiungi foodsavers all''elenco Jolly'
       13: 'Essere consegnati per il ritiro'
       11: 'Inserire per il ritiro'
       15: 'Cancellare una voce della bacheca'
@@ -1100,16 +1107,17 @@ store:
       8: '{actor} ha lasciato il team.'
       5: "{actor} ha inserito {target} nell'elenco Jolly."
       1: '{actor} ha inviato una richiesta di adesione.'
-      14: ''
+      14: '{attore} ha confermato lo slot di ritiro di {target} del {data}.'
       11: '{actor} si è iscrittǝ al ritiro il {date}.'
-      13: ''
-      13_with_reason: ''
-      16: ''
+      13: '{actor} ha annullato l''iscrizione a {target} per il ritiro del {date}.'
+      13_with_reason: '{actor} ha annullato l''iscrizione a {target} per il ritiro
+        del {date} con il seguente messaggio'
+      16: '{actor} ha ritirato la richiesta di adesione'
       10: '{actor} ha sostituito {target} come responsabile dell’attività.'
       12: '{actor} ha firmato per il ritiro il {date}.'
       2: '{actor} ha rifiutato la richiesta di adesione di {target}.'
       9: '{actor} ha inserito {target} come responsabile dell’attività.'
-      15: ''
+      15: '{actor} ha eliminato il post in bacheca di {target} del {date}'
     max_entries_message: 'Vengono visualizzate un massimo di 100 voci. Si prega di
       limitare l’area di ricerca.'
     no_description: nessuno
@@ -1124,6 +1132,7 @@ store:
     search_input: Ricerca per nome della catena
     modal_title: Seleziona la catena di aziende
   storeFrom: Attività da {name}
+  no_chain_choosen: Nessuna catena selezionata
 storeview:
   want_to_fetch: Vorrei aiutare in questo team.
   specials: particolarità
@@ -1172,6 +1181,8 @@ storeview:
   cooperation_status: Stato di cooperazione
   show_settings: Impostazioni del negozio
   choose_chain: Scegliere una catena aziendale
+  team_info_active: 'Membri attivi del team:'
+  team_info_jumper: 'Attivi tra i Jolly:'
 message_text_to_group_admin_workgroup: 'La regione/gruppo di lavoro <b>{groupName}</b>
   non <b>ha più </b> ambasciatori/amministratori.<br><br><br>Ha la seguente struttura
   ID:<br>{idStructureList}<br><br> L''ID è:{groupId}<br><br>URL: "<a href="/region?bid={groupId}&sub=forum"
@@ -1662,6 +1673,7 @@ forum:
     subscriptions:
       subscribed: sottoscritto
       subscribe: Sottoscrivi
+    bottom: visibilità ridotta
   follow:
     email: come email
     bell: come una campana
@@ -1678,6 +1690,8 @@ forum:
   post:
     delete: Elimina post
     body: Messaggio
+    moderator_info: Questo argomento è chiuso. Come moderatore di questo forum, puoi
+      ancora inviare un messaggio. Gli altri utenti non potranno rispondere!
   new_thread: Scrivi su un nuovo tema
   threads: Temi
   from: Di {name}
@@ -1686,7 +1700,9 @@ forum:
   not_found: Questa discussione non esiste.
   deleted_user: utente eliminato
   mail_confirmation:
-    text: ''
+    text: 'Vuoi davvero che questo nuovo post venga inviato via email a tutti i membri
+      di questo gruppo o distretto? Dovresti farlo solo se la tua preoccupazione riguarda
+      tutti ed è così importante che tutti dovrebbero esserne a conoscenza.'
     title: 'Sei sicuro di voler inviare una notifica email?'
 first_post: Primo post in bacheca
 events:
@@ -1764,6 +1780,7 @@ wall:
   placeholder: Scrivi una nuova voce sul muro …
   delete_confirmation:
     text: Vuoi davvero eliminare questa voce da {author}?
+    title: Eliminare il post dalla bacheca?
 chat:
   confirm_draft_discard: "Passi a una nuova conversazione. Il testo nel campo della
     risposta viene scartato.\n\nSe interrompi questo dialogo, la tua bozza verrà invece
@@ -1789,6 +1806,9 @@ chat:
   select_recipients: 'Seleziona i destinatari'
   incorrect_address: 'Questo indirizzo email non è corretto'
   unknown_username: username sconosciuto
+  mark_as:
+    read: Segna come letto
+    unread: Segna come da leggere
 timepicker:
   labelNowButton: Adesso
   labelCloseButton: Chiudere
@@ -1888,6 +1908,15 @@ bell:
   forum_announcement_title: 'Messaggio importante: {title}'
   forum_mention: 'nell’argomento “{title}” del forum {forum}'
   store_wall_post_title: Attività {name}
+  new_store_request:
+    many: per {name} da {count} utenti
+    one: per {name} da {user}
+  store_change_regular_pickup_times:
+    one: Gli orari di ritiro sono stati modificati
+    many: Gli orari di ritiro sono stati modificati
+  store_wall_post:
+    one: Post in bacheca da {user}
+    many: '{count} nuove voci in bacheca'
 content:
   edit: Modifica pagina
   new_success: La pagina è stata creata
@@ -1913,6 +1942,9 @@ content:
     noAmbassador: Questa regione attualmente non ha ambasciatori e pertanto non è
       attualmente raggiungibile tramite e-mail. Si prega di contattare una regione
       vicina o immediatamente superiore.
+    text: Il foodsharing cresce ogni giorno. Qui troverai sempre un elenco aggiornato
+      di tutte le comunità e i distretti di foodsharing. Puoi inviare un'e-mail ad
+      un quartiere cliccando sul nome collegato.
 regionOptions:
   save: Salvare opzioni
   success: Opzioni salvate correttamente
@@ -2166,6 +2198,8 @@ basket:
   use_home_address: Usa l'indirizzo di casa
   modal_error:
     no_phone: Si prega di fornire un numero di telefono.
+    no_contact: Seleziona la modalità con cui desideri che venga richiesto il cesto
+      alimentare.
   contact_types: Opzioni di contatto
   delete_confirmation:
     title: Eliminare il cestino degli alimenti?
@@ -2315,7 +2349,7 @@ search:
       copied_id: ID copiato da {name} ({id})
     store:
       manager_tooltip: 'Sei responsabile di questa attività'
-      jumper_tooltip: ''
+      jumper_tooltip: 'Sei un Jolly per questa attività'
       member_tooltip: 'Sei un membro del team di questa attività'
     from: 'da'
   too_short: Inserisci un termine di ricerca più lungo.
@@ -2564,6 +2598,8 @@ profile:
     o simili. Invece, è possibile utilizzare gruppi di lavoro per eseguire tali incarichi.
     Ulteriori informazioni a riguardo sono disponibili nel <a href="/region?bid=881&sub=forum&tid=58225">Forum
     degli Ambasciatori</a>
+  orga_rights: In qualità di persona organizzativa, {name} dispone di <a target="_blank"
+    href="{wikiurl}">autorizzazioni estese</a> sulla piattaforma.
 mail:
   noreply_addresses_not_allowed: Le e-mail non sono consegnabili a indirizzi noreply@…
     .<br>Si prega di controllare l'indirizzo del destinatario.
@@ -2773,6 +2809,10 @@ mailbox:
   reply_header: '{name} ha scritto il {date}'
   show_html_body: Mostra il codice HTML
   mark_none: Seleziona nessuno
+  forward_attachment_warning: Al momento non è possibile inoltrare gli allegati. Se
+    desideri inoltrare l'e-mail con allegati, puoi scaricarli e allegarli alla nuova
+    e-mail.
+  forward: Inoltra
 messages:
   bread: Notizie
 map:
@@ -2925,8 +2965,14 @@ buddy:
   request_sent: Richiesta inviata.
   send:
     confirm_title: Conosci {name}?
+    confirm_text: Se vi taggate a vicenda come buddies, i post della bacheca del profilo
+      dell'altra persona appariranno sulla vostra home page. Potete anche trovarvi
+      più facilmente utilizzando la funzione di ricerca.
   remove:
     confirm_title: Termina la tua conoscenza con {name}?
+    confirm_text: Vuoi porre fine alla conoscenza? Gli aggiornamenti sulle bacheche
+      del vostro profilo non verranno più visualizzati sulla pagina iniziale dell'altra
+      persona.
   is_buddy: Siete conoscenti
 tablesorter:
   entriespp: Voci per pagina
@@ -3036,6 +3082,7 @@ sidenav:
   countryspecific: Gruppi specifici per paese
   localgroups: Gruppi regionali
   superregional: Sovraregionale
+  yourregions: Le tue aree
 password:
   insertmail: Inserisci il tuo indirizzo e-mail per reimpostare la tua password.
   reset: Password dimenticata?
@@ -3251,7 +3298,7 @@ join_region:
   error:
     is_big_city_1: 'Questa città è molto grande.'
     is_big_city_2: 'Seleziona un comune, una regione o un distretto!'
-    is_state_1: 'Questo è uno stato federale.'
+    is_state_1: 'Questo è uno stato federale. Seleziona una città, regione o distretto!'
     is_state_2: 'Seleziona una città, una regione o un distretto!'
     not_allowed: 'Non puoi registrarti in questo distretto.'
     is_country_1: 'Questo è un paese.'
@@ -3436,6 +3483,7 @@ thread:
     pin: Appuntare il filo
     lock: Chiudi discussione
     unpin: Spillare il filo
+    priority: Modifica la priorità di visualizzazione
   rename:
     description_modal_text: 'Inserisci un nuovo titolo per questa discussione:'
     placeholder: Titolo
@@ -3445,6 +3493,12 @@ thread:
     options:
       copy_source: 'Copia il codice sorgente'
     copy_source_success: 'Copia il codice sorgente!'
+  priorityModal:
+    title: Modifica la priorità di visualizzazione
+    text: 'Visualizza la priorità di questo post:'
+    lower: in fondo
+    normal: normale
+    higher: in alto
 save_state: Salva filtri e ordinamento
 save_state_description: Salva i filtri applicati e l’ordinamento per le chiamate future
 configure_columns: Configura colonne
@@ -3457,3 +3511,29 @@ donation_banner:
 help:
   helpTitle: 'Aiuto: {title}'
   tooltip: Mostra aiuto
+  key:
+    threadPriority:
+      title: Priorità di visualizzazione nel forum
+      md: "Gli argomenti sono elencati in base alla loro priorità di visualizzazione.
+        Gli argomenti con la stessa priorità sono ordinati in base all'ora dell'ultima
+        attività.\n---\nLe discussioni appuntate hanno priorità 1, quelle normali
+        hanno priorità 0. Per poter ordinare le discussioni visualizzate in modo più
+        preciso, puoi anche impostare valori più alti in modo che le discussioni siano
+        sempre in cima, indipendentemente dalla data di modifica.\nLe discussioni
+        con priorità -1 vengono visualizzate sotto tutte le altre.\n"
+    storeLog:
+      title: Registro delle operazioni
+      md: "Il registro delle operazioni è un modo per tracciare le **attività in un'azienda**.
+        Può aiutare a risolvere conflitti o correggere errori accidentali.\n---\n
+        ###### Esempio\nSupponiamo che tu voglia sapere chi si è stato aggiunto al
+        team nelle ultime 3 settimane e da chi. Puoi specificare il periodo utilizzando
+        le date di inizio e fine nei due campi data. Successivamente, puoi selezionare
+        tutti i tipi di azione pertinenti dal menu a tendina. In questo caso, ad esempio,
+        “*Effettua richieste di iscrizione*”, “*Accetta richieste di iscrizione*”
+        e “*Rifiuta richieste di iscrizione*”. Se ora fai clic sul pulsante “*Mostra
+        azioni selezionate*”, ti verrà mostrata la cronologia degli eventi selezionati.\n
+        ---\n###### Accesso\nL'accesso è consentito solo a chi può gestire l'azienda.
+        Il registro delle operazioni non è visibile ai foodsavers e jolly.\n---\n
+        ###### Restrizioni\nVengono caricate al massimo 100 voci. Potrebbe essere
+        necessario limitare il periodo di ricerca o i tipi di azione selezionati se
+        non vengono visualizzati tutti i risultati.\n"
