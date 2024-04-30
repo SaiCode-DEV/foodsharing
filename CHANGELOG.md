@@ -2,7 +2,7 @@
 
 ## Features
 - Added a ChainSearchPicker Modal in StoreInformation !2863 !3259 @chriswalg
-- Added a donation banner !2930 !3111 !3281 @chriswalg
+- Follow-up for donation banner !3281 @chriswalg
 - Added a map link to store pages !3113 @AntonBallmaier
 - Added a map to the foodsharepoint page #1035 !3097 !3195 !3236 @alex.simm
 - Added an Info vue commonent for explainin parts of the website. #1852 !3181 @AntonBallmaier
@@ -37,8 +37,6 @@
 - Improve SQL performance for search of near baskets !3185 @KoeMai
 - Fixed creating and editing region mailboxes for orga users !3182 @AntonBallmaier 
 - Improved permission checks for event creation #489 !3187 @alex.simm
-- Fix XSS vulnerabilities in Baskets, Mails and Blog !3219 @stcz
-- Fix delivering CC mails and add error message for BCC !3171 @stcz
 - Fix sign in date time in slot modal #1870 !3228 !3250 @chriswalg
 - Fixed mail address to field in mailbox module !3226 @chriswalg
 - Fixed datepicker in pickup modal #1751 !3231 @chriswalg 
@@ -884,11 +882,11 @@
 
 # 2021-02-08 Hotfix
 
-- Make the order of values in voting options consistent from left (negative) to right (positive) !1868 #975 @alex.simm
+- Follow-up: Make the order of values in voting options consistent from left (negative) to right (positive) !1868 #975 @alex.simm
 
 # 2021-01-18 Hotfix
 
-- Make the order of values in voting options consistent from left (negative) to right (positive) !1860 !1863 #975 @alex.simm
+- Make the order of values in voting options consistent from left (negative) to right (positive) !1860 #975 @alex.simm
 
 # Release "Dragonfruit", 2020-12-31
 
