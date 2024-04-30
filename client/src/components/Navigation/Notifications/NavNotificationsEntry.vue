@@ -1,10 +1,7 @@
 <template>
   <a
     class="dropdown-header dropdown-item d-flex justify-content-between align-items-center"
-    :class="{
-      'list-group-item-warning': !bell.isRead,
-      'disabledLoading': bell.isDeleting,
-    }"
+    :class="classes"
     :href="bell.href"
     @click="$emit('read', bell)"
   >

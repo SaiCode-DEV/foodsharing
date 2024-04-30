@@ -42,8 +42,8 @@ export const mutations = {
   },
   async delete (ids) {
     try {
-      await deleteBells(ids)
       store.bells = store.bells.filter(b => !ids.includes(b.id))
+      await deleteBells(ids)
       await setCache(cacheRequestName, store.bells)
       await this.fetch(true)
     } catch (err) {
@@ -63,13 +63,15 @@ export const mutations = {
     return store.bells.filter(b => b.href === bell.href)
   },
   async markBells (bellsToMarkAsRead) {
-    const ids = bellsToMarkAsRead.map(bell => bell.id)
-    bellsToMarkAsRead.forEach(bell => { bell.isRead = true })
+    if (bellsToMarkAsRead.length > 0) {
+      const ids = bellsToMarkAsRead.map(bell => bell.id)
+      bellsToMarkAsRead.forEach(bell => { bell.isRead = true })
 
-    await Promise.all([
-      await setCache(cacheRequestName, store.bells),
-      await markBellsAsRead(ids),
-    ])
+      await Promise.all([
+        await setCache(cacheRequestName, store.bells),
+        await markBellsAsRead(ids),
+      ])
+    }
   },
   async loadMore () {
     if (store.bells.length === store.limit) {
