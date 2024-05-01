@@ -5,6 +5,7 @@
 ## Changes
 
 ## Bugfixes
+- Show missing region menu entries to orgas !3299 @AntonBallmaier
 
 ## Refactoring
 
