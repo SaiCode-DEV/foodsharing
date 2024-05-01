@@ -1,3 +1,17 @@
+# Unreleased
+
+## Features
+
+## Changes
+
+## Bugfixes
+
+## Refactoring
+
+## Dev/Test/CI stuff
+
+## Development documentation
+
 # Release "Laugenbrezel", 2024-04-30
 
 ## Features
