@@ -6,6 +6,7 @@
 
 ## Bugfixes
 - Show missing region menu entries to orgas !3299 @AntonBallmaier
+- Fixed the editing of content pages #1919 !3302 @alex.simm
 
 ## Refactoring
 

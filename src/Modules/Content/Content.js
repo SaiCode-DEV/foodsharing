@@ -44,7 +44,7 @@ async function _editContent (contentId) {
   try {
     const name = $('#name').val()
     const title = $('#title').val()
-    const body = $('#body')[0].value
+    const body = $('#body').tinymce().getContent()
     await editContent(contentId, name, title, body)
     pulseSuccess(i18n('content.edit_success'))
   } catch (e) {
