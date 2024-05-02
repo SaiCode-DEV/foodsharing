@@ -101,8 +101,8 @@ group:
       in the district
     tooltip_function_3: Administrators of this working group can activate and edit
       Food-Share Point of the district as well as remove Food-Share Point contributions
-    tooltip_function_1: Adminsistrators of this work group will be notified when new
-      members join the district
+    tooltip_function_1: Administrators of this working group will be notified when
+      new members join the district
     tooltip_function_2: Administrators of this work group can create votes for the
       district
     tooltip_function_7: Administrators of this working group receive reports with
@@ -250,7 +250,7 @@ settings:
     temp: I am not available for following time period
     none: I am active and fully on board
     missing-date: Please type in a start and end date for a time period.
-    header: Nightcap function
+    header: Nightcap feature
     title: Nightcap
     saved: The settings were saved
     show: "By using this function you agree that your status,\nyour absence period
@@ -866,9 +866,9 @@ forum:
   deleted_user: deleted user
   not_found: This thread does not exist.
   mail_confirmation:
-    text: Do you really want this new post to be sent as an email to all members of
-      this working group or district? You should only do this if your request affects
-      everyone and is so important that everyone should be aware of it.
+    text: Do you really want this new post to be e-mailed to all members of this working
+      group or district? You should only do this if your request affects everyone
+      and is so important that everyone should be aware of it.
     title: Really send e-mail notification?
 timepicker:
   labelNowButton: Now
@@ -1063,15 +1063,17 @@ storeview:
   status: Current status
   public_time: 'It will be picked up roughly {freq}. Please never go to the store
     without prior consultation!'
-  pickupWeight: 'and {pickupWeight} kg were saved.'
+  pickupWeight: 'kg were saved'
   counter: <strong>{count} {suffix}</strong>
   teamInfo: <strong>{active}</strong> active and <strong>{jumper}</strong> standby
     foodsavers in the team.
-  pickupCount: '{pickupCount} pick-ups have taken place'
+  pickupCount: 'pick-ups'
   status_notes: status notes
   team: Store team
   show_settings: Store settings
   choose_chain: Choose a chain
+  team_info_active: 'No of active foodsharers:'
+  team_info_jumper: 'Active stand-bys:'
 day: Day
 time: Time
 select: Please select
@@ -1820,7 +1822,7 @@ basket:
   requests: Requests ({count})
   provider: Provider
   updated: Updated <strong>{date}</strong>
-  expires: Valid until <strong>{date}</strong>
+  expires: Valid until
   created: Published <strong>{date}</strong>
   date: Creation date
   new: New food basket
@@ -1992,7 +1994,7 @@ store:
     toogleIsReducedStateOpen: expand list
     filterManage: with store manager quiz
     toogleIsReducedStateClosed: collapse list
-    filterSleeping: sleepyhead
+    filterSleeping: nightcaps
     sorting:
       default: Default sorting
       pickup: Sorted by last pick-up
@@ -2109,14 +2111,14 @@ store:
   active: active
   info_container: Information
   not_verified: You are unverified. Therefore you cannot see pickup slots and phone
-    numbers of team members at the moment.
+    numbers of team members yet.
   requests: Open requests ({count})
   log:
     message:
       6: '{actor} has added {target} to the active team.'
       1: '{actor} would like to join the team.'
       14: '{actor} has confirmed the pick-up request from {target} on {date}.'
-      3: '{actor} has accepted the membership application from {target}.'
+      3: '{actor} has accepted the request to join the team from {target}.'
       4: '{actor} has added {target} manually.'
       11: '{actor} signed up for the pick-up on {date}.'
       7: '{actor} has removed {target} from the team.'
@@ -2124,10 +2126,10 @@ store:
       13_with_reason: '{actor} has cancelled the pickup from {target} on {date} with
         the following message'
       8: '{actor} has left the team.'
-      16: '{actor} has withdrawn the membership application'
+      16: '{actor} has withdrawn the request to join the team'
       10: '{actor} removed {target} as store coordinator.'
       12: '{actor} signed out for the pick-up on {date}.'
-      2: '{actor} has rejected the membership request from {target}.'
+      2: '{actor} has rejected the request to join the team from {target}.'
       5: '{actor} has put {target} on the list of standby foodsavers.'
       9: '{actor} enlisted {target} as store coordinator.'
       15: '{actor} deleted the wall entry of {target} from {date}'
@@ -3364,7 +3366,7 @@ error:
   missing_user_avatar:
     link: Upload your profile picture now
     title: You haven’t uploaded a profile picture yet.
-    description: Show the other members of Foodsharing who you are!
+    description: Show other members of foodsharing who you are!
   old_user_avatar:
     title: There is a problem with your profile picture.
     link: Update profile picture now
@@ -3457,10 +3459,10 @@ join_region:
     with your continent and your country. If you don’t find a district for you, choose
     a level higher or join the nearest district. If you don’t have the opportunity
     to be trained as a foodsaver in the area, you can consider starting your own district.
-    In this case, please read the wiki carefully, in particular the <a href="{href}">article
-    on founding or reactivating districts<a>. If you want to start the district or
-    have explicit questions that the wiki doesn’t answer, send us a <a href="{mail}">mail</a>.
-    We’re not a central point for questions of all kinds, but we can help with district-related
+    In this case, please read the wiki carefully, in particular the [article on founding
+    or reactivating districts]({href}) . If you want to start the district or have
+    explicit questions that the wiki doesn’t answer, send us [an email]({mail}). We’re
+    not a central point for questions of all kinds, but we can help with district-related
     questions.
 navigation:
   map: Map
