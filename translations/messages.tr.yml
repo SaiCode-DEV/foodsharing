@@ -2809,7 +2809,7 @@ storeview:
   source_data: Temel veri
   info: Bilgiler
   counter: <strong>{count} {suffix}</strong>
-  pickupCount: Bu işletmede {pickupCount} alındı
+  pickupCount: Alımlar
   cooperation_status: İşbirliği durumu
   public_time_at_noon_or_afternoon: öğlen/öğleden sonra
   managers: Sorumlu Foodsaver
@@ -2836,7 +2836,7 @@ storeview:
   select_related_region: Sorumlu bölgenin seçimi
   teamInfo: Ekipde ki <strong>{active}</strong> aktif olanlar ve <strong>{jumper}</strong>
     yedekte olanlar.
-  pickupWeight: 've {pickupWeight} kg kurtarıldı.'
+  pickupWeight: 'kg kurtarıldı'
   cooperation_start: beri işbirliği
   public_time: Yaklaşık {freq}'da alınıyor.Lütfen önceden anlaşma yapmadan asla işletmeye
     gitmeyin!
