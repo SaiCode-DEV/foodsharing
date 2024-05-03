@@ -1,19 +1,9 @@
-# Unreleased
-
-## Features
-
-## Changes
-- Polls can be edited until they start #1920 !3303 @AntonBallmaier
-
-## Bugfixes
+# Hotfix 2024-05-03
 - Show missing region menu entries to orgas !3299 @AntonBallmaier
 - Fixed the editing of content pages #1919 !3302 @alex.simm
+- Polls can be edited until they start #1920 !3303 @AntonBallmaier
+- Workaround for StoreBubble.vue on map !3300 @chriswalg
 
-## Refactoring
-
-## Dev/Test/CI stuff
-
-## Development documentation
 
 # Release "Laugenbrezel", 2024-04-30
 

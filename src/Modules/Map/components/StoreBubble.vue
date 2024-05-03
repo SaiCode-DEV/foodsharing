@@ -5,6 +5,27 @@
     </div>
     <div v-else>
       <div class="card">
+        <div class="text-center mb-2">
+          <a
+            v-if="store.mayAccessStorePage"
+            :href="$url('store', store.id)"
+            class="btn btn-primary text-wrap"
+          >{{ $i18n('store.go') }}</a>
+          <button
+            v-else-if="store.maySendRequest"
+            class="btn btn-primary text-wrap"
+            @click="sendRequest"
+          >
+            {{ $i18n('store.request.request') }}
+          </button>
+          <button
+            v-else-if="store.mayWithdrawRequest"
+            class="btn btn-primary text-wrap"
+            @click="withdrawRequest"
+          >
+            {{ $i18n('store.request.withdraw') }}
+          </button>
+        </div>
         <div class="card-header">
           <div class="mb-2">
             <store-status-icon :cooperation-status="store.cooperationStatus" />
@@ -65,28 +86,6 @@
       <b-alert show variant="info">
         {{ $i18n(`storeedit.fetch.teamStatus${store.teamSearchStatus}`) }}
       </b-alert>
-
-      <div class="text-center">
-        <a
-          v-if="store.mayAccessStorePage"
-          :href="$url('store', store.id)"
-          class="btn btn-primary mt-3 text-wrap"
-        >{{ $i18n('store.go') }}</a>
-        <button
-          v-else-if="store.maySendRequest"
-          class="btn btn-primary mt-3 text-wrap"
-          @click="sendRequest"
-        >
-          {{ $i18n('store.request.request') }}
-        </button>
-        <button
-          v-else-if="store.mayWithdrawRequest"
-          class="btn btn-primary mt-3 text-wrap"
-          @click="withdrawRequest"
-        >
-          {{ $i18n('store.request.withdraw') }}
-        </button>
-      </div>
     </div>
   </div>
 </template>

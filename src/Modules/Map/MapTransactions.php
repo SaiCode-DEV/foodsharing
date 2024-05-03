@@ -49,7 +49,7 @@ class MapTransactions
 
         foreach ($store['foodsaver'] as $fs) {
             if ($fs['verantwortlich'] == 1) {
-                $mapData->managers[] = new Profile($fs['id'], $fs['name'], $fs['photo'], $fs['sleep_status']);
+                $mapData->managers[] = new Profile($fs['id'], $fs['firstName'], $fs['photo'], $fs['sleep_status']);
             }
         }
 

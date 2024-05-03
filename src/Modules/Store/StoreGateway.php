@@ -602,6 +602,7 @@ class StoreGateway extends BaseGateway
                 fs.photo,
                 fs.quiz_rolle,
                 fs.rolle,
+                fs.name AS firstName,
                 CONCAT(fs.name," ",fs.nachname) AS name,
                 name as vorname,
                 t.`active` AS team_active,
@@ -1177,7 +1178,7 @@ class StoreGateway extends BaseGateway
 			WHERE
 				store_id = ?
                 AND date_activity >= ?
-                AND date_activity <= ? 
+                AND date_activity <= ?
                 AND action IN (' . $this->db->generatePlaceholders(count($storeActions)) . ')
             ORDER BY performed_at DESC
             LIMIT 100
