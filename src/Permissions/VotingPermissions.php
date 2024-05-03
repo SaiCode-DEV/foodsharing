@@ -2,9 +2,7 @@
 
 namespace Foodsharing\Permissions;
 
-use Carbon\Carbon;
 use Carbon\CarbonInterval;
-use DateInterval;
 use DateTime;
 use Exception;
 use Foodsharing\Lib\Session;
@@ -21,6 +19,7 @@ final class VotingPermissions
     private readonly VotingGateway $votingGateway;
     private readonly RegionGateway $regionGateway;
     private readonly GroupFunctionGateway $groupFunctionGateway;
+    public readonly CarbonInterval $MIN_POLL_EDIT_TIME;
 
     public function __construct(
         Session $session,
@@ -32,6 +31,7 @@ final class VotingPermissions
         $this->votingGateway = $votingGateway;
         $this->regionGateway = $regionGateway;
         $this->groupFunctionGateway = $groupFunctionGateway;
+        $this->MIN_POLL_EDIT_TIME = CarbonInterval::hours(1);
     }
 
     public function maySeePoll(Poll $poll): bool
@@ -88,20 +88,10 @@ final class VotingPermissions
 
     public function mayEditPoll(Poll $poll): bool
     {
-        // polls can be edited by the author during the first hour after creating the poll
         if ($this->session->id() != $poll->authorId) {
             return false;
         }
 
-        return $poll->creationDate->add($this->editTimeAfterPollCreation()) > Carbon::now();
-    }
-
-    /**
-     * Returns the interval during which a poll can be edited after its creation. This also defined the
-     * poll's minimum start time.
-     */
-    public function editTimeAfterPollCreation(): DateInterval
-    {
-        return CarbonInterval::hours(1);
+        return new DateTime() < $poll->startDate;
     }
 }

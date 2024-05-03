@@ -3,6 +3,7 @@
 ## Features
 
 ## Changes
+- Polls can be edited until they start #1920 !3303 @AntonBallmaier
 
 ## Bugfixes
 - Show missing region menu entries to orgas !3299 @AntonBallmaier
