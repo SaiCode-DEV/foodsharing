@@ -475,8 +475,8 @@ poll:
     submit: 'Guardar voto'
     type: 'Modo de votación'
     start_date: 'Inicio de la votacion'
-    submit_question: 'La encuesta sólo se puede cambiar en el plazo de una hora (hasta
-      el {date}). ¿De verdad quieres crearlo ahora?'
+    submit_question: 'La encuesta puede modificarse hasta su lanzamiento. ¿De verdad
+      quieres crearla ahora?'
     description_placeholder: '¿De qué se trata la votación?'
     start_date_required: 'Seleccione cuándo comienza la votación. Esto debe ser al
       menos una hora en el futuro.'
