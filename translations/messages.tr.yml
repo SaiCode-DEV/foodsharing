@@ -1280,8 +1280,8 @@ poll:
     end_date: Oylama sonu
     options: Aralarından seçim yapabileceğiniz seçenekler.
     submit_success: Oylama oluşturuldu
-    submit_question: Anket yalnızca bir saat içinde değiştirilebilir ({date} tarihine
-      kadar). Bunu gerçekten şimdi oluşturmak istiyor musunuz?
+    submit_question: Anket başlayana kadar değiştirilebilir. Bunu gerçekten şimdi
+      oluşturmak istiyor musun?
     name_required: Lütfen bir isim giriniz.
     type: Oylama Modu
     description_placeholder: Bu neyin Oylaması?
