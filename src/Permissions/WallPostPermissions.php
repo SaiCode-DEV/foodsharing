@@ -44,6 +44,7 @@ class WallPostPermissions
             case 'question':
                 return $this->regionGateway->hasMember($this->session->id(), RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP);
             case 'usernotes':
+                return $this->session->mayRole(Role::ORGA);
             case 'application':
                 return $this->workGroupTransactions->isAdminForAWorkGroup($this->session->id());
             default:

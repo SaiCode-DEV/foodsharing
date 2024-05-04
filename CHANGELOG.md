@@ -1,9 +1,9 @@
-# Hotfix 2024-05-03
+# Hotfix 2024-05-04
 - Show missing region menu entries to orgas !3299 @AntonBallmaier
 - Fixed the editing of content pages #1919 !3302 @alex.simm
 - Polls can be edited until they start #1920 !3303 @AntonBallmaier
 - Workaround for StoreBubble.vue on map !3300 @chriswalg
-
+- Fix permissions for profile notes wall !3305 @alex.simm
 
 # Release "Laugenbrezel", 2024-04-30
 
