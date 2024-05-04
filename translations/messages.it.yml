@@ -1148,8 +1148,8 @@ storeview:
   info: Informazioni
   store: Attività
   counter: <strong>{count} {suffix}</strong>
-  public_time: Sarà rilevato all'incirca {freq}. Si prega di non recarsi mai al negozio
-    senza previa consultazione!
+  public_time: Il ritiro verrà effettuato verso {freq}. Si prega di non recarsi mai
+    al negozio senza previo accordo!
   pickupWeight: 'kg salvati'
   pickupCount: Ritiri
   show_information: Mostra informazioni sull’azienda
@@ -1344,8 +1344,8 @@ poll:
   begins_at: Inizio
   ended_at: in corso fino a
   new_poll:
-    submit_question: Il sondaggio può essere cambiato solo entro un'ora (fino a {date}).
-      Sei sicuro di volerlo creare ora?
+    submit_question: Il sondaggio può essere modificato fino al suo inizio. Sei sicuro
+      di volerlo creare ora?
     missing_fields: Tutti i campi devono essere compilati
     submit_success: La riconciliazione è stata creata
     submit: Salvare il voto
