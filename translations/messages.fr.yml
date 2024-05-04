@@ -1427,9 +1427,9 @@ storeview:
   public_time: Les interventions ont lieu tous les {freq}. N’interviens JAMAIS dans
     l'établissement sans accord !
   cooperation: Coopère depuis le {startTime}.
-  pickupWeight: et {pickupWeight} kg ont été sauvés.
+  pickupWeight: kg ont été sauvés
   store: Coopération
-  pickupCount: Il a été collecté {pickupCount}
+  pickupCount: collectes
   counter: <strong>{count} {suffix}</strong>
   teamInfo: <strong>{active}</strong> actif·ve·s et <strong>{jumper}</strong> remplaçant·e·s
     sont dans l’équipe.
@@ -1462,6 +1462,8 @@ storeview:
   visible_for_public: 'Ce texte est visible par tous les Foodsaver.'
   show_settings: Paramètres de coopération
   choose_chain: Choisissez une chaîne
+  team_info_active: 'Membres actifs de l’équipe :'
+  team_info_jumper: 'Remplaçants actifs :'
 day: Jour
 time: Heure
 select: Veuillez choisir
@@ -2309,7 +2311,7 @@ basket:
   provider: 'Fournisseur·euse'
   where: Où ?
   updated: Actualisé <strong>{date}</strong>
-  expires: Disponible jusqu’au <strong>{date}</strong>
+  expires: Disponible jusqu’au
   created: Publié <strong>{date}</strong>
   date: Date de création
   mapsearch: Recherche d’adresse …
@@ -2914,8 +2916,8 @@ poll:
   begins_at: début
   ended_at: a duré jusqu’à
   new_poll:
-    submit_question: Ce vote peut être modifié uniquement pendant une heure (jusqu’à
-      {date}). Souhaites-tu vraiment le créer ainsi ?
+    submit_question: Ce vote peut être modifié jusqu'à ce qu'il commence. Souhaites-tu
+      vraiment le créer ainsi ?
     missing_fields: Il faut remplir tous les champs
     submit_success: Ce vote a été publié
     submit: soumettre au vote
@@ -3390,12 +3392,12 @@ join_region:
     de secteur géographique qui te convienne, choisis un niveau supérieur ou rejoins
     le district le plus proche. Si tu n’as pas la possibilité de suivre une formation
     de collecteur·ice dans ta région, tu peux envisager de créer ton propre secteur
-    géographique. Dans ce cas, lis attentivement le wiki et en particulier l’<a href="{href}">article
+    géographique. Dans ce cas, lis attentivement le wiki et en particulier l’[article]({href})
     sur la création ou la réactivation de secteurs géographiques<a>. Si tu souhaites
     lancer le secteur géographique ou si tu as des questions explicites auxquelles
-    le wiki ne répond pas, écris-nous <a href="{mail}">un courriel</a>. Nous ne sommes
-    pas le point de contact central pour les questions générales, mais nous pouvons
-    t’aider à répondre aux questions sur les secteurs géographiques.
+    le wiki ne répond pas, écris-nous [un courriel]({mail}). Nous ne sommes pas le
+    point de contact central pour les questions générales, mais nous pouvons t’aider
+    à répondre aux questions sur les secteurs géographiques.
   error:
     is_state_1: Il s’agit d’un département.
     is_state_2: Choisis une ville, une région ou un secteur géographique !
