@@ -155,8 +155,8 @@ poll:
     description_required: Vennligst skriv inn en beskrivelse.
     shuffle_options: Vis alternativene i tilfeldig rekkefølge når du stemmer
     options: Alternativer som bør være tilgjengelige for valg.
-    submit_question: Avstemningen kan endres innen én time (til {date}). Vil du virkelig
-      lage den nå?
+    submit_question: Avstemningen kan endres til den starter. Vil du virkelig lage
+      den nå?
   submit_vote: Send inn stemme
   in_past: fullført
   time_period: Periode
@@ -541,7 +541,7 @@ basket:
   request_close: Lukk forespørsel om matkurv
   send_request: Send forespørsel
   withdraw_request: Trekke tilbake forespørselen
-  expires: Gyldig til <strong>{date}</strong>
+  expires: Gyldig til
   withdrawn_request: Forespørselen ble trukket tilbake
   go-to-settings: til innstillingene
   sent_request: Forespørsel er sendt
@@ -2630,14 +2630,14 @@ storeview:
   info: Informasjon
   store: Drift
   counter: <strong>{count} {suffix}</strong>
-  pickupWeight: 'og {pickupWeight} kg mat ble spart.'
+  pickupWeight: 'kg mat ble spart'
   cooperation: Samarbeid siden {startTime}.
   public_time: Vi henter her {freq}. Vennligst aldri gå til butikken uten forhåndsavtale!
   want_to_fetch: Jeg ønsker å hjelpe i dette laget.
   specials: Særtrekk
   teamInfo: <strong>{active}</strong> aktive og <strong>{jumper}</strong> hoppere
     i laget.
-  pickupCount: Den ble plukket opp {pickupCount}
+  pickupCount: pickuper
   managers: Ansvarlige matreddere
   status_notes: Statusnotater
   show_information: Vis bedriftsinformasjon
@@ -2667,6 +2667,8 @@ storeview:
   public_and_statistics: Statistikk og PR
   show_settings: Driftsinnstillinger
   choose_chain: Velg en kjede
+  team_info_active: 'Aktive medlemmer av teamet:'
+  team_info_jumper: 'Aktive hoppere:'
 fsp:
   info:
     none: ikke mer
@@ -3263,10 +3265,10 @@ join_region:
     til ditt distrikt. Hvis du ikke finner et område, velger du et nivå høyere eller
     blir med i nærmeste område. Hvis du ikke har mulighet til å tjene som matsparer
     i området, kan du vurdere å starte ditt eget område. I sådant fall kan du lese
-    wiki-en, og da spesielt <a href="{href}"> artikkelen om å opprette eller reaktivere
-    områder<a>. Hvis du vil starte et område eller har spørsmål som wiki-en ikke gir
-    deg svaret på kan skrive oss <a href="{mail}">en e-post</a>. Vi er ikke førstelinjestøtte
-    for generelle spørsmål, men vi kan hjelpe deg med spørsmål om områder.
+    wiki-en, og da spesielt [artikkelen om å opprette eller reaktivere områder]({href}).
+    Hvis du vil starte et område eller har spørsmål som wiki-en ikke gir deg svaret
+    på kan skrive oss [en e-post]({mail}). Vi er ikke førstelinjestøtte for generelle
+    spørsmål, men vi kan hjelpe deg med spørsmål om områder.
 timefrom: Fra klokken
 use_region_pickup_rule: Bør den distriktsdekkende rettferdighetsregelen gjelde for
   denne virksomheten?
