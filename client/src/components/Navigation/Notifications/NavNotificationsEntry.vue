@@ -11,7 +11,7 @@
       :icon="bell.image ? undefined : bell.icon"
       variant="light"
       href="#"
-      @click="closeBell()"
+      @click.stop="closeBell"
     />
     <span class="d-flex w-100 flex-column text-truncate">
       <span class="d-flex justify-content-between align-items-center text-truncate">

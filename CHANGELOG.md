@@ -5,6 +5,7 @@
 - Workaround for StoreBubble.vue on map !3300 @chriswalg
 - Fix permissions for profile notes wall !3305 @alex.simm
 - show maySendRequests and mayAccessStorePage buttons together if they true #1925 !3307 @chriswalg
+- Resolve "Bell notification dialog closes after deleting a bell" #1923 !3309 @chriswalg
 
 # Release "Laugenbrezel", 2024-04-30
 

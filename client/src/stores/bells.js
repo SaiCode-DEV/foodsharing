@@ -42,8 +42,8 @@ export const mutations = {
   },
   async delete (ids) {
     try {
-      store.bells = store.bells.filter(b => !ids.includes(b.id))
       await deleteBells(ids)
+      store.bells = store.bells.filter(b => !ids.includes(b.id))
       await setCache(cacheRequestName, store.bells)
       await this.fetch(true)
     } catch (err) {
