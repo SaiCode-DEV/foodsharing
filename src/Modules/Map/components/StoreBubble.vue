@@ -12,7 +12,7 @@
             class="btn btn-primary text-wrap"
           >{{ $i18n('store.go') }}</a>
           <button
-            v-else-if="store.maySendRequest"
+            v-if="store.maySendRequest"
             class="btn btn-primary text-wrap"
             @click="sendRequest"
           >
