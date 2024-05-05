@@ -1201,7 +1201,7 @@ store:
   request:
     got-it: 'Los responsables han sido informados de su solicitud y se pondrán en
       contacto con usted.'
-    request: 'Me gustaría ayudar a este equipo.'
+    request: 'Peticiones'
     withdraw: 'Retirar mi solicitud'
     verified: 'Usuario está verificad@'
     to-team: 'agregar al equipo'
