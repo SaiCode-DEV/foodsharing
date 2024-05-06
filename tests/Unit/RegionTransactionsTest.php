@@ -10,7 +10,6 @@ use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Modules\Unit\UnitGateway;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class RegionTransactionsTest extends TestCase
@@ -52,7 +51,7 @@ class RegionTransactionsTest extends TestCase
     {
         $this->assertSame(
             RegionTransactions::NEW_FOODSAVER_VERIFIED,
-            $this->regionTransactions->getJoinMessage(['verified' => 1, 'id' => 1])
+            $this->regionTransactions->getJoinMessage(1, true)
         );
     }
 
@@ -61,7 +60,7 @@ class RegionTransactionsTest extends TestCase
         $this->foodsaverGateway->method('foodsaverWasVerifiedBefore')->willReturn(true);
         $this->assertSame(
             RegionTransactions::NEW_FOODSAVER_NEEDS_VERIFICATION,
-            $this->regionTransactions->getJoinMessage(['verified' => 0, 'id' => 1])
+            $this->regionTransactions->getJoinMessage(1, false)
         );
     }
 
@@ -70,15 +69,7 @@ class RegionTransactionsTest extends TestCase
         $this->foodsaverGateway->method('foodsaverWasVerifiedBefore')->willReturn(false);
         $this->assertSame(
             RegionTransactions::NEW_FOODSAVER_NEEDS_INTRODUCTION,
-            $this->regionTransactions->getJoinMessage(['verified' => 0, 'id' => 1])
+            $this->regionTransactions->getJoinMessage(1, false)
         );
-    }
-
-    public function testInvalidUserData(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid user data. Id not set.');
-
-        $this->regionTransactions->getJoinMessage([]);
     }
 }

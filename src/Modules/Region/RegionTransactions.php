@@ -22,17 +22,13 @@ class RegionTransactions
     ) {
     }
 
-    public function getJoinMessage(array $userData): string
+    public function getJoinMessage(int $id, bool $verified): string
     {
-        if (!isset($userData['id'])) {
-            throw new \InvalidArgumentException('Invalid user data. Id not set.');
-        }
-
-        if (isset($userData['verified']) && $userData['verified']) {
+        if ($verified) {
             return self::NEW_FOODSAVER_VERIFIED;
         }
 
-        $verifiedBefore = $this->foodsaverGateway->foodsaverWasVerifiedBefore($userData['id']);
+        $verifiedBefore = $this->foodsaverGateway->foodsaverWasVerifiedBefore($id);
 
         return $verifiedBefore ? self::NEW_FOODSAVER_NEEDS_VERIFICATION : self::NEW_FOODSAVER_NEEDS_INTRODUCTION;
     }

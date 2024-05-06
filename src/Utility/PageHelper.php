@@ -157,18 +157,16 @@ final class PageHelper
      */
     public function getServerData(): array
     {
-        $user = $this->session->get('user');
-
         $userData = [
             'id' => $this->session->id(),
-            'firstname' => $user['name'] ?? '',
-            'lastname' => $user['nachname'] ?? '',
+            'firstname' => $this->session->user('name') ?? '',
+            'lastname' => $this->session->user('nachname') ?? '',
             'may' => $this->session->mayRole(),
-            'homeRegionId' => $user['bezirk_id'] ?? null,
-            'mailBoxId' => $user['mailbox_id'] ?? null,
+            'homeRegionId' => $this->session->user('bezirk_id') ?? null,
+            'mailBoxId' => $this->session->user('mailbox_id') ?? null,
             'isFoodsaver' => $this->session->mayRole(Role::FOODSAVER),
             'verified' => $this->session->isVerified(),
-            'avatar' => $user['photo'] ?? null,
+            'avatar' => $this->session->user('photo') ?? null,
         ];
 
         $permissions = null;
@@ -203,11 +201,9 @@ final class PageHelper
 
     private function getPermissions(): array
     {
-        $data = $this->session->get('user');
-
         return [
             'mayEditUserProfile' => $this->profilePermissions->mayEditUserProfile($this->session->id()),
-            'mayAdministrateUserProfile' => $this->profilePermissions->mayAdministrateUserProfile($this->session->id(), $data['bezirk_id']),
+            'mayAdministrateUserProfile' => $this->profilePermissions->mayAdministrateUserProfile($this->session->id(), $this->session->user('bezirk_id')),
             'administrateBlog' => $this->blogPermissions->mayAdministrateBlog(),
             'editQuiz' => $this->quizPermissions->mayEditQuiz(),
             'handleReports' => $this->reportPermissions->mayHandleReports(),

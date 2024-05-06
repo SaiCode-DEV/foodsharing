@@ -388,7 +388,7 @@ class Session
         return $isMember;
     }
 
-    public function isVerified()
+    public function isVerified(): bool
     {
         if ($this->mayRole(Role::ORGA)) {
             return true;

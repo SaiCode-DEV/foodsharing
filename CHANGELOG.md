@@ -7,6 +7,7 @@
 ## Bugfixes
 
 ## Refactoring
+- Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
 
 ## Dev/Test/CI stuff
 

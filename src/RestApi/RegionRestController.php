@@ -95,15 +95,13 @@ class RegionRestController extends AbstractFOSRestController
             $welcomeBellRecipients = $this->foodsaverGateway->getAdminsOrAmbassadors($regionId);
         }
 
-        $foodsaver = $this->session->get('user');
-        $userData = array_merge($foodsaver, ['id' => $sessionId]);
         $bellData = Bell::create(
             'new_foodsaver_title',
-            $this->regionTransactions->getJoinMessage($userData),
-            $this->imageHelper->img($foodsaver['photo'], 50),
+            $this->regionTransactions->getJoinMessage($this->session->id(), $this->session->isVerified()),
+            $this->imageHelper->img($this->session->user('photo'), 50),
             ['href' => '/profile/' . (int)$sessionId . ''],
             [
-                'name' => $foodsaver['name'] . ' ' . $foodsaver['nachname'],
+                'name' => $this->session->user('name') . ' ' . $this->session->user('nachname'),
                 'bezirk' => $region['name']
             ],
             BellType::createIdentifier(BellType::NEW_FOODSAVER_IN_REGION, $sessionId),
