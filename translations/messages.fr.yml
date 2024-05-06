@@ -1193,7 +1193,7 @@ store:
     no-sm: Il n'y a encore aucun(e) responsable pour ce magasin partenaire.
     got-it: Les responsables ont été notifiés de ta demande et se manifesteront sous
       peu.
-    request: Je souhaite aider dans cette équipe.
+    request: demander
     no-duplicate: Il existe déjà une demande.
     unverified: L’utilisateur·rice n’est pas vérifié·e
     distance: Habite à environ {distance} km
