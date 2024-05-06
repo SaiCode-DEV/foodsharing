@@ -1,3 +1,17 @@
+# Unreleased
+
+## Features
+
+## Changes
+
+## Bugfixes
+
+## Refactoring
+
+## Dev/Test/CI stuff
+
+## Development documentation
+
 # Hotfix 2024-05-05
 - Show missing region menu entries to orgas #1927 !3299 !3310 @AntonBallmaier
 - Fixed the editing of content pages #1919 !3302 @alex.simm
