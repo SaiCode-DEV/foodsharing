@@ -99,7 +99,7 @@ export default {
         })
       }
 
-      if (this.entry.isAdmin || DataUser.getters.isOrga) {
+      if (this.entry.isAdmin || DataUser.getters.isOrga()) {
         menu.push({
           href: 'forum', special: 1, icon: 'fa-comment-dots', text: 'menu.entry.BOTforum',
         })

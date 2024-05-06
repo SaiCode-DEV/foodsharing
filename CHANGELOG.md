@@ -1,5 +1,5 @@
 # Hotfix 2024-05-05
-- Show missing region menu entries to orgas !3299 @AntonBallmaier
+- Show missing region menu entries to orgas #1927 !3299 !3310 @AntonBallmaier
 - Fixed the editing of content pages #1919 !3302 @alex.simm
 - Polls can be edited until they start #1920 !3303 @AntonBallmaier
 - Workaround for StoreBubble.vue on map !3300 @chriswalg
