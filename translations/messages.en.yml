@@ -1950,7 +1950,7 @@ store:
     withdrawn: The request was successfully withdrawn.
     orga-instead: The Orga-team is being informed.
     amb-instead: The ambassadors are being informed.
-    request: I would like to help this team.
+    request: request
     no-sm: There are no store managers for this store yet.
     got-it: The responsibles have been informed of your request and will get in touch
       with you.
