@@ -1067,7 +1067,7 @@ store:
   prefetchthree: 3 Hafta
   prefetchfour: 4 Hafta
   request:
-    request: Bu gruba yardım etmek isterim.
+    request: istekler
     no-duplicate: İstek başvurusu zaten var.
     title: '{storeTitle} için başvuru'
     verified: Kullanıcı onaylandı
