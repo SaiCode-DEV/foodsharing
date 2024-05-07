@@ -1,6 +1,7 @@
 # Unreleased
 
 ## Features
+- Improved direct links to forum posts #1912 !3293 @AntonBallmaier
 
 ## Changes
 

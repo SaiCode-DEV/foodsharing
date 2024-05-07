@@ -1,6 +1,7 @@
 <template>
   <div :id="`post-${id}`" class="thread">
     <div
+      ref="card"
       class="card mb-2"
       :class="{'disabledLoading': isLoading}"
     >
@@ -10,18 +11,19 @@
           :user="author"
           class="mr-2"
         />
-        <a
-          class="d-flex align-items-center"
-          :href="$url('profile', author.id)"
-        >
-          <strong class="author">{{ author.name }}</strong>
-        </a>
-        <ThreadPostDate
-          v-if="wXS"
-          :link="deepLink"
-          :date="createdAt"
-          classes="flex-grow-1 text-right"
-          @scroll="$emit('scroll', $event)"
+        <span class="flex-grow-1">
+          <i
+            v-if="isLinked"
+            v-b-tooltip="$i18n('thread.post.linked_post')"
+            class="fas fa-link mr-1"
+          />
+          <a :href="$url('profile', author.id)">
+            <strong class="author">{{ author.name }}</strong>
+          </a>
+        </span>
+        <Time
+          :time="createdAt"
+          class="text-right"
         />
         <OverflowMenu :options="overflowMenuOptions" />
       </div>
@@ -49,26 +51,17 @@
           <Markdown :source="body" />
         </div>
       </div>
-      <div class="card-footer">
-        <div class="d-flex align-items-center justify-content-end justify-content-sm-between">
-          <ThreadPostDate
-            v-if="!wXS"
-            :link="deepLink"
-            :date="createdAt"
-            classes="text-muted"
-            @scroll="$emit('scroll', $event)"
-          />
-          <ThreadPostActions
-            :reactions="reactions"
-            :may-delete="mayDelete"
-            :may-edit="mayEdit"
-            :may-reply="mayReply"
-            @delete="$emit('delete')"
-            @reaction-add="$emit('reaction-add', $event)"
-            @reaction-remove="$emit('reaction-remove', $event)"
-            @reply="$emit('reply', body)"
-          />
-        </div>
+      <div class="card-footer text-right">
+        <ThreadPostActions
+          :reactions="reactions"
+          :may-delete="mayDelete"
+          :may-edit="mayEdit"
+          :may-reply="mayReply"
+          @delete="$emit('delete')"
+          @reaction-add="$emit('reaction-add', $event)"
+          @reaction-remove="$emit('reaction-remove', $event)"
+          @reply="$emit('reply', body)"
+        />
       </div>
     </div>
   </div>
@@ -77,15 +70,15 @@
 <script>
 import Avatar from '@/components/Avatar/Avatar.vue'
 import ThreadPostActions from './ThreadPostActions'
-import ThreadPostDate from './ThreadPostDate'
 import conversationStore from '@/stores/conversations'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import OverflowMenu from '@/components/OverflowMenu.vue'
+import Time from '@/components/Time.vue'
 import { pulseSuccess } from '@/script'
 
 export default {
-  components: { Avatar, ThreadPostActions, ThreadPostDate, Markdown, OverflowMenu },
+  components: { Avatar, ThreadPostActions, Markdown, OverflowMenu, Time },
   mixins: [MediaQueryMixin],
   props: {
     id: { type: Number, default: null },
@@ -99,6 +92,7 @@ export default {
     mayDelete: { type: Boolean, default: false },
     isLoading: { type: Boolean, default: true },
     mayReply: { type: Boolean, default: true },
+    isLinked: { type: Boolean, default: false },
   },
   computed: {
     isMe () {
@@ -107,6 +101,7 @@ export default {
     overflowMenuOptions () {
       return [
         { hide: !navigator.clipboard, icon: 'copy', textKey: 'thread.post.options.copy_source', callback: this.copySourceCodeToClipboard },
+        { icon: 'chain', textKey: 'thread.post.options.copy_direct_link', callback: this.copyDirectLink },
       ]
     },
   },
@@ -117,6 +112,10 @@ export default {
     async copySourceCodeToClipboard () {
       await navigator.clipboard.writeText(this.body)
       pulseSuccess(this.$i18n('thread.post.copy_source_success'))
+    },
+    async copyDirectLink () {
+      await navigator.clipboard.writeText(location.host + this.deepLink)
+      pulseSuccess(this.$i18n('thread.post.copy_direct_link_success'))
     },
   },
 }

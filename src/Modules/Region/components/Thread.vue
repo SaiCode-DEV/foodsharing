@@ -86,11 +86,11 @@
           :is-loading="loadingPosts.indexOf(post.id) != -1"
           :created-at="new Date(post.createdAt)"
           :may-reply="isOpen"
+          :is-linked="linkedPost == post.id"
           @delete="deletePost(post)"
           @reaction-add="reactionAdd(post, arguments[0])"
           @reaction-remove="reactionRemove(post, arguments[0])"
           @reply="reply(post)"
-          @scroll="scrollToPost(post.id)"
         />
       </div>
     </div>
@@ -235,6 +235,7 @@ export default {
       errorMessage: null,
       newTitle: '',
       newPriority: 0,
+      linkedPost: null,
 
       status: ThreadStatus.THREAD_OPEN,
     }
@@ -267,16 +268,28 @@ export default {
   async created () {
     this.isLoading = true
     await this.reload()
-    setTimeout(() => { this.scrollToPost(GET('pid')) }, 200)
+    await new Promise(resolve => window.setTimeout(resolve, 200))
+    this.linkedPost = GET('pid')
+    this.scrollToPost(this.posts.find(post => post.id >= this.linkedPost)?.id)
   },
   methods: {
     getPostLink (postId) {
       return this.$url('forum', this.regionId, this.regionSubId, this.id, postId)
     },
-    scrollToPost (postId) {
-      const p = window.document.getElementById(`post-${postId}`)
+    async scrollToPost (postId) {
+      const p = window.document.querySelector(`#post-${postId} .card-header`)
       if (p) {
         p.scrollIntoView({ behavior: 'smooth', block: 'center' })
+        await new Promise(resolve => window.setTimeout(resolve, 500))
+        p.parentElement.animate({
+          backgroundColor: ['transparent', 'var(--fs-color-warning-alpha-60)', 'transparent'],
+          offset: [0, 0.05, 1],
+          easing: ['ease-out', 'ease-in'],
+        }, {
+          direction: 'alternate',
+          duration: 4000,
+          iterations: 1,
+        })
       }
     },
     reply (post) {

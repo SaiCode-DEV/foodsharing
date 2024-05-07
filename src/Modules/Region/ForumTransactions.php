@@ -41,7 +41,7 @@ class ForumTransactions
             $url .= '&tid=' . $threadId;
         }
         if ($postId) {
-            $url .= '&pid=' . $postId . '#post' . $postId;
+            $url .= '&pid=' . $postId;
         }
 
         return $url;

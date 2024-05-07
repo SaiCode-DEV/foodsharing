@@ -3238,7 +3238,10 @@ thread:
   post:
     options:
       copy_source: "Quelltext kopieren"
+      copy_direct_link: "Direktlink kopieren"
     copy_source_success: "Quelltext kopiert!"
+    copy_direct_link_success: "Direktlink kopiert!"
+    linked_post: "Verlinkter Post"
 
 donation_banner:
   info_button: "Wohin geht meine Spende?"

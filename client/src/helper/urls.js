@@ -117,7 +117,7 @@ const urls = {
       str.push(`&tid=${threadId}`)
     }
     if (postId) {
-      str.push(`&pid=${postId}#post-${postId}`)
+      str.push(`&pid=${postId}`)
     }
     if (newThread) {
       str.push('&newthread=1')
