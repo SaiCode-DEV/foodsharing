@@ -8,6 +8,7 @@
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
+- Remove unneeded u_loadCoords function !3277 @stcz
 
 ## Dev/Test/CI stuff
 

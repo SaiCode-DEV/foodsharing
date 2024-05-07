@@ -93,23 +93,6 @@ class FoodsaverView extends View
 					$("#orgateam-wrapper input")[0].checked = false;
 				}
 			});
-
-			$("#plz, #stadt, #anschrift").on("blur", function () {
-				if ($("#plz").val() != "" && $("#stadt").val() != "" && $("#anschrift").val() != "") {
-					u_loadCoords({
-						plz: $("#plz").val(),
-						stadt: $("#stadt").val(),
-						anschrift: $("#anschrift").val(),
-					},
-					function (lat, lon) {
-						$("#lat").val(lat);
-						$("#lon").val(lon);
-					});
-				}
-			});
-
-			$("#lat-wrapper").hide();
-			$("#lon-wrapper").hide();
 		');
 
         $regionPicker = $this->vueComponent('region-tree-vform', 'RegionTreeVForm', [
