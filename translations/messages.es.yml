@@ -3656,7 +3656,10 @@ thread:
   post:
     options:
       copy_source: Copiar código fuente
+      copy_direct_link: Copiar enlace directo
     copy_source_success: ¡Código fuente copiado!
+    copy_direct_link_success: ¡Enlace directo copiado!
+    linked_post: Publicación vinculada
   priorityModal:
     title: Establecer la prioridad de visualización
     text: 'Prioridad de visualización para esta publicación:'
