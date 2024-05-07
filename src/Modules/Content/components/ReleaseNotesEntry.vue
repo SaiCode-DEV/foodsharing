@@ -86,6 +86,9 @@ export default {
   border-width: 0.5rem;
   font-weight: bolder;
 
+  // Mandarine
+  &[data-id="2024-07"] { border-color: #e68a00; }
+
   // Laugenbrezel
   &[data-id="2024-04"] { border-color: #a0522d; }
 
