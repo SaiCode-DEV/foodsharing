@@ -63,8 +63,7 @@ class RegionIDs
         return in_array($regionId, [
             self::NEWSLETTER_WORK_GROUP, self::QUIZ_AND_REGISTRATION_WORK_GROUP,
             self::PR_PARTNER_AND_TEAM_WORK_GROUP, self::PR_START_PAGE,
-            self::IT_SUPPORT_GROUP, self::IT_AND_SOFTWARE_DEVELOPMENT_GROUP,
-            self::EDITORIAL_GROUP, self::STORE_CHAIN_GROUP
+            self::IT_SUPPORT_GROUP, self::EDITORIAL_GROUP, self::STORE_CHAIN_GROUP
         ]);
     }
 
