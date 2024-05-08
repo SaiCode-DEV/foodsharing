@@ -12,6 +12,7 @@
 - Remove unneeded u_loadCoords function !3277 @stcz
 
 ## Dev/Test/CI stuff
+- Added backend support for getting, adding and updating achievements. #1724 !3317 @AntonBallmaier
 
 ## Development documentation
 
