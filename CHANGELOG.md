@@ -10,6 +10,7 @@
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
 - Remove unneeded u_loadCoords function !3277 @stcz
+- Modernized EventControl to a Symfony controller !3260 @chriswalg
 
 ## Dev/Test/CI stuff
 - Added backend support for getting, adding and updating achievements. #1724 !3317 @AntonBallmaier

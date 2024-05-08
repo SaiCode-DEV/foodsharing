@@ -2,35 +2,29 @@
 
 namespace Foodsharing\Modules\Event;
 
-use Foodsharing\Modules\Core\Control;
+use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Event\EventType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Permissions\EventPermissions;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\PostHelper;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
 
-class EventControl extends Control
+class EventController extends FoodsharingController
 {
-    private readonly EventGateway $eventGateway;
-    private readonly RegionGateway $regionGateway;
-    private readonly DataHelper $dataHelper;
-    private readonly EventPermissions $eventPermissions;
-
     public function __construct(
-        EventView $view,
-        EventGateway $eventGateway,
-        RegionGateway $regionGateway,
-        DataHelper $dataHelper,
-        EventPermissions $eventPermissions,
+        private readonly EventView $view,
+        private readonly EventGateway $eventGateway,
+        private readonly RegionGateway $regionGateway,
+        private readonly DataHelper $dataHelper,
+        private readonly EventPermissions $eventPermissions,
         private readonly PostHelper $postHelper,
     ) {
-        $this->view = $view;
-        $this->eventGateway = $eventGateway;
-        $this->regionGateway = $regionGateway;
-        $this->dataHelper = $dataHelper;
-        $this->eventPermissions = $eventPermissions;
-
         parent::__construct();
 
         if (!$this->session->mayRole()) {
@@ -38,28 +32,92 @@ class EventControl extends Control
         }
     }
 
-    public function index()
+    #[Route('/event/{eventId}/edit', name: 'edit_event', requirements: ['eventId' => Requirement::DIGITS])]
+    public function edit(int $eventId): Response
     {
-        if (isset($_GET['sub'])) {
-            // edit / creation are handled in the other EventControl functions
-            return;
-        }
-        $eventId = $_GET['id'] ?? null;
-        $regionId = $_GET['bid'] ?? null;
+        $event = $this->eventGateway->getEvent($eventId);
 
-        if ($eventId === null) {
-            if ($regionId === null) {
-                // this never worked...
-                $link = '/?page=dashboard';
-            } else {
-                // overview page: events in one region
-                $link = '/region?&sub=events&bid=' . $regionId;
+        if (!$event) {
+            return $this->routeHelper->goAndExit('/?page=dashboard');
+        }
+
+        if (!$this->eventPermissions->mayEditEvent($event)) {
+            return $this->routeHelper->goAndExit('/event/' . $eventId);
+        }
+
+        $regionEventsLink = '/region?sub=events&bid=' . $event['bezirk_id'];
+        $this->pageHelper->addBread($this->translator->trans('events.bread'), $regionEventsLink);
+        $this->pageHelper->addBread($event['name'], '/event/' . $eventId);
+        $this->pageHelper->addBread($this->translator->trans('events.edit'));
+
+        if ($this->isSubmitted() && $data = $this->validateEvent()) {
+            if ($this->eventGateway->updateEvent($eventId, $data)) {
+                $this->flashMessageHelper->success($this->translator->trans('events.edited'));
+                $this->routeHelper->goAndExit('/event/' . $eventId);
             }
-
-            return $this->routeHelper->goAndExit($link);
         }
 
-        $eventId = intval($eventId);
+        $regions = $this->session->getRegions();
+
+        if (($event['location_id'] !== null) && $loc = $this->eventGateway->getLocation($event['location_id'])) {
+            $event['location_name'] = $loc['name'];
+            $event['lat'] = $loc['lat'];
+            $event['lon'] = $loc['lon'];
+            $event['plz'] = $loc['zip'];
+            $event['ort'] = $loc['city'];
+            $event['anschrift'] = $loc['street'];
+        }
+
+        $this->dataHelper->setEditData($event);
+
+        $this->pageHelper->addContent($this->view->eventForm($regions));
+
+        return $this->renderGlobal();
+    }
+
+    #[Route('/event/add', name: 'add_event')]
+    public function addNewEvent(): Response
+    {
+        $this->pageHelper->addBread($this->translator->trans('events.bread'), '/event/add');
+        $this->pageHelper->addBread($this->translator->trans('events.create.title'));
+
+        if ($this->isSubmitted()) {
+            $data = $this->validateEvent();
+            if (!$data ||
+                $data['bezirk_id'] == RegionIDs::ROOT ||
+                !$this->eventPermissions->mayCreateEvent($data['bezirk_id'])) {
+                $this->flashMessageHelper->error($this->translator->trans('region.not-member'));
+                $this->routeHelper->goAndExit('/?page=dashboard');
+            } elseif ($id = $this->eventGateway->addEvent($this->session->id(), $data)) {
+                $this->flashMessageHelper->success($this->translator->trans('events.created'));
+                $this->routeHelper->goAndExit('/event/' . $id);
+            }
+        } else {
+            $regions = $this->session->getRegions();
+
+            $this->pageHelper->addContent($this->view->eventForm($regions));
+        }
+
+        return $this->renderGlobal();
+    }
+
+    #[Route('/event', name: 'event_index')]
+    public function index(Request $request): RedirectResponse
+    {
+        if ($request->query->has('id')) {
+            $eventId = intval($request->query->get('id'));
+        }
+
+        if (empty($eventId)) {
+            return $this->redirect('/?page=dashboard');
+        }
+
+        return $this->redirectToRoute('show_event', ['eventId' => $eventId]);
+    }
+
+    #[Route('/event/{eventId}', name: 'show_event', requirements: ['eventId' => Requirement::DIGITS])]
+    public function showEvent(int $eventId): Response
+    {
         $event = $this->eventGateway->getEvent($eventId, true);
         if (!$event || !$this->eventPermissions->maySeeEvent($event)) {
             $this->flashMessageHelper->info($this->translator->trans('events.notFound'));
@@ -103,70 +161,13 @@ class EventControl extends Control
             'target' => 'event',
             'targetId' => $eventId,
         ]));
+
+        return $this->renderGlobal();
     }
 
-    public function edit()
+    private function isSubmitted(): bool
     {
-        $eventId = $_GET['id'] ?? null;
-        $event = $this->eventGateway->getEvent($eventId);
-
-        if (!$event) {
-            return $this->routeHelper->goAndExit('/?page=dashboard');
-        }
-
-        if (!$this->eventPermissions->mayEditEvent($event)) {
-            return $this->routeHelper->goAndExit('/?page=event&id=' . $eventId);
-        }
-
-        $regionEventsLink = '/region?sub=events&bid=' . $event['bezirk_id'];
-        $this->pageHelper->addBread($this->translator->trans('events.bread'), $regionEventsLink);
-        $this->pageHelper->addBread($event['name'], '/?page=event&id=' . $eventId);
-        $this->pageHelper->addBread($this->translator->trans('events.edit'));
-
-        if ($this->submitted() && $data = $this->validateEvent()) {
-            if ($this->eventGateway->updateEvent($_GET['id'], $data)) {
-                $this->flashMessageHelper->success($this->translator->trans('events.edited'));
-                $this->routeHelper->goAndExit('/?page=event&id=' . (int)$_GET['id']);
-            }
-        }
-
-        $regions = $this->session->getRegions();
-
-        if (($event['location_id'] !== null) && $loc = $this->eventGateway->getLocation($event['location_id'])) {
-            $event['location_name'] = $loc['name'];
-            $event['lat'] = $loc['lat'];
-            $event['lon'] = $loc['lon'];
-            $event['plz'] = $loc['zip'];
-            $event['ort'] = $loc['city'];
-            $event['anschrift'] = $loc['street'];
-        }
-
-        $this->dataHelper->setEditData($event);
-
-        $this->pageHelper->addContent($this->view->eventForm($regions));
-    }
-
-    public function add(): void
-    {
-        $this->pageHelper->addBread($this->translator->trans('events.bread'), '/?page=event');
-        $this->pageHelper->addBread($this->translator->trans('events.create.title'));
-
-        if ($this->submitted()) {
-            $data = $this->validateEvent();
-            if (!$data ||
-                $data['bezirk_id'] == RegionIDs::ROOT ||
-                !$this->eventPermissions->mayCreateEvent($data['bezirk_id'])) {
-                $this->flashMessageHelper->error($this->translator->trans('region.not-member'));
-                $this->routeHelper->goAndExit('/?page=dashboard');
-            } elseif ($id = $this->eventGateway->addEvent($this->session->id(), $data)) {
-                $this->flashMessageHelper->success($this->translator->trans('events.created'));
-                $this->routeHelper->goAndExit('/?page=event&id=' . $id);
-            }
-        } else {
-            $regions = $this->session->getRegions();
-
-            $this->pageHelper->addContent($this->view->eventForm($regions));
-        }
+        return !empty($_POST);
     }
 
     private function validateEvent(): array

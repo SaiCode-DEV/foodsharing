@@ -3,7 +3,7 @@
     <b-container class="p-2">
       <b-button
         variant="primary"
-        :href="$url('addEvents', regionId)"
+        :href="$url('eventAdd')"
       >
         {{ $i18n('events.add_new_event') }}
       </b-button>

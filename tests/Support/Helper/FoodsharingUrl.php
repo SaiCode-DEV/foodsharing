@@ -95,7 +95,7 @@ class FoodsharingUrl extends Db
 
     public function eventAddUrl($regionId): string
     {
-        return '/?page=event&sub=add&bid=' . (int)$regionId;
+        return '/event/add';
     }
 
     public function apiReportListForRegion($regionId): string

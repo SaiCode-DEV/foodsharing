@@ -6,7 +6,6 @@ use Foodsharing\Modules\Application\ApplicationControl;
 use Foodsharing\Modules\Basket\BasketXhr;
 use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use Foodsharing\Modules\Dashboard\DashboardControl;
-use Foodsharing\Modules\Event\EventControl;
 use Foodsharing\Modules\Foodsaver\FoodsaverControl;
 use Foodsharing\Modules\Index\IndexControl;
 use Foodsharing\Modules\Legal\LegalControl;
@@ -48,7 +47,6 @@ class Routing
         'buddy' => 'Buddy',
         'bcard' => 'BusinessCard',
         'dashboard' => 'Dashboard',
-        'event' => 'Event',
         'foodsaver' => 'Foodsaver',
         'index' => 'Index',
         'legal' => 'Legal',
@@ -77,7 +75,6 @@ class Routing
         'application' => ApplicationControl::class,
         'bcard' => BusinessCardControl::class,
         'dashboard' => DashboardControl::class,
-        'event' => EventControl::class,
         'foodsaver' => FoodsaverControl::class,
         'index' => IndexControl::class,
         'legal' => LegalControl::class,
@@ -122,6 +119,7 @@ class Routing
         'fairteiler',
         'login',
         'profile',
+        'event'
     ];
 
     private const RENAMES = [
