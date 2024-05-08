@@ -65,7 +65,9 @@ class BasketView extends View
 
         if ($baskets) {
             $label = $this->translator->trans('basket.nearby-short');
-            $page->addSectionRight($this->nearbyBaskets($baskets), $label);
+            $page->addSectionRight($this->vueComponent('nearby-baskets-list', 'NearbyBasketsList', [
+                'baskets' => $baskets,
+            ]), $label);
         }
 
         $page->render();
@@ -85,43 +87,6 @@ class BasketView extends View
             'center' => $center,
             'zoom' => $zoom,
         ]);
-    }
-
-    public function nearbyBaskets(array $baskets): string
-    {
-        $out = '
-		<ul class="linklist" id="cbasketlist">';
-        foreach ($baskets as $b) {
-            $img = '/img/basket.png';
-            if (!empty($b['picture'])) {
-                if (str_starts_with((string)$b['picture'], '/api')) {
-                    $img = $b['picture'] . '?w=35&h=35';
-                } else {
-                    $img = '/images/basket/thumb-' . $b['picture'];
-                }
-            }
-
-            $distance = $this->numberHelper->format_distance($b['distance']);
-
-            $out .= '<li>
-				<a class="ui-corner-all" onclick="openBasketBubble(' . (int)$b['id'] . '); return false;" href="#">
-					<span style="float: left; margin-right: 7px;">
-						<img width="35px" src="' . $img . '" class="ui-corner-all">
-					</span>
-					<span style="height: 35px; overflow: hidden; font-size: 11px; line-height: 16px;">
-						<strong style="float: right; margin: 0 0 0 3px;">(' . $distance . ')</strong>'
-                        . $this->sanitizerService->tt($b['description'], 50) . '
-					</span>
-					<span class="clear"></span>
-				</a>
-			</li>';
-        }
-
-        return $out . '
-		</ul>
-		<div style="text-align: center;">
-			<a class="button" href="/karte?load=baskets">' . $this->translator->trans('basket.all_map') . '</a>
-		</div>';
     }
 
     public function basket(array $basket, $requests): void
