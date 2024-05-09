@@ -303,7 +303,7 @@ quiz:
   waitxdays: 'Puedes intentarlo otra vez después'
   learnbreak: 'Pausa de estudio'
   donecorrectly: 'Has respondido correctamente todo. ¡Excelente!'
-  timedstart: 'Empezar el examen con plazo y 10 preguntas'
+  timedstart: 'Iniciar el cuestionario con un límite de tiempo y {count} preguntas'
   questions: 'Preguntas'
   session_deleted: 'Los resultados de este examen se eliminaron porque el examen se
     completó hace más de dos semanas.'
@@ -330,9 +330,18 @@ quiz:
   finished: '¡Felicidades, lo lograste!'
   notfinishedyet: 'Aún no has terminado el examen.'
   nownownow: 'Iniciar cuestionario ahora'
-  regstart: 'Empezar el examen sin plazo y 20 preguntas'
+  regstart: 'Iniciar el cuestionario con un límite de tiempo y {count} preguntas'
   comments: Comentario
   plural: Cuestionarios
+  button:
+    pause: Continuar más tarde
+    finish: Cuestionario completo
+  title:
+    NEVER_TRIED: '{name} - ¡Haz el test ahora!'
+    RUNNING: '{name} - ¡Continúa el cuestionario!'
+    FAILED: '{name} - ¡Inténtalo de nuevo!'
+    PAUSE: ({name}) tomate un descanso
+    PASSED: '{name} - ¡Has superado este cuestionario!'
 terminology:
   foodsaver:
     m: rescatista
