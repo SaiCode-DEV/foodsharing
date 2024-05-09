@@ -332,6 +332,7 @@ quiz:
   nownownow: 'Iniciar cuestionario ahora'
   regstart: 'Empezar el examen sin plazo y 20 preguntas'
   comments: Comentario
+  plural: Cuestionarios
 terminology:
   foodsaver:
     m: rescatista
