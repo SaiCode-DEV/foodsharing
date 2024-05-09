@@ -877,6 +877,7 @@ class QuizXhr extends Control
                         }
                     }
                     $this->quizSessionGateway->finishQuizSession($this->session->get('quiz-session'), $questions, $explains, $failurePoints, $quiz['maxfp']);
+                    $this->quizTransactions->refreshFsQuizRole($this->session->id());
 
                     return [
                         'status' => 1,
