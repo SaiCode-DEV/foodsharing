@@ -342,6 +342,30 @@ quiz:
     FAILED: '{name} - ¡Inténtalo de nuevo!'
     PAUSE: ({name}) tomate un descanso
     PASSED: '{name} - ¡Has superado este cuestionario!'
+    PAUSE_ELAPSED: '{name} - ¡Ya puedes intentarlo de nuevo!'
+    DISQUALIFIED: '{name} - Lamentablemente descalificado.'
+  startmodal:
+    title: Notas sobre el cuestionario
+    infos:
+      real_life_examples: La mayoría de las preguntas se basan en casos reales de
+        la vida de compartir los alimentos.
+      alone: No debes recibir ayuda durante el cuestionario. Por lo tanto, busca un
+        lugar tranquilo donde puedas completar el cuestionario sin ser molestado.
+      read_carefully: Lea atentamente todas las preguntas y respuestas. Hay tiempo
+        suficiente para ello.
+      wiki: Por favor, no empieces el cuestionario al azar. Lee atentamente las páginas
+        de la wiki sobre el intercambio de alimentos. Sin los conocimientos de la
+        wiki, no aprobarás el cuestionario.
+      limited_tries: No puedes repetir el cuestionario tantas veces como quieras.
+        Después de tres intentos, tienes que tomarse un descanso de 30 días para estudiar,
+        tras el cual sólo dispones de dos intentos más. Las preguntas que se te plantean
+        en cada intento son diferentes.
+      multiple_choice: Varias respuestas por pregunta pueden ser correctas, o ninguna.
+        Por lo tanto, decide para cada respuesta individualmente si es correcta o
+        incorrecta.
+  answers:
+    timedOut:
+      1: Esta respuesta habría sido correcta.
 terminology:
   foodsaver:
     m: rescatista
