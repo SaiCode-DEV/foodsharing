@@ -3399,7 +3399,8 @@ join_region:
     point de contact central pour les questions générales, mais nous pouvons t’aider
     à répondre aux questions sur les secteurs géographiques.
   error:
-    is_state_1: Il s’agit d’un département.
+    is_state_1: Il s’agit d’un État fédéral. Veuillez sélectionner une ville, une
+      région ou un district !
     is_state_2: Choisis une ville, une région ou un secteur géographique !
     is_country_1: Il s’agit d’un pays.
     is_country_2: Choisis une ville, une région ou un secteur géographique !
