@@ -45,9 +45,9 @@ final class RegionController extends FoodsharingController
         parent::__construct();
     }
 
-    private function mayAccessApplications(int $regionId): bool
+    private function mayAccessApplications(array $group): bool
     {
-        return $this->forumPermissions->mayAccessAmbassadorBoard($regionId);
+        return $this->workGroupPermissions->mayEdit($group);
     }
 
     private function isHomeDistrict($region): bool
@@ -157,7 +157,7 @@ final class RegionController extends FoodsharingController
             'activeSubpage' => $activeSubpage,
             'pageData' => $pageData,
             'menu' => $menu,
-            'mayAccessApplications' => $this->mayAccessApplications($region['id'])
+            'mayAccessApplications' => $this->mayAccessApplications($region)
         ];
     }
 

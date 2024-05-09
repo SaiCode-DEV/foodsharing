@@ -7,6 +7,7 @@
 
 ## Bugfixes
 - Removed special permission text from the IT group #1894 !3273 @alex.simm
+- Fixed the permissions to see applications for working groups #1934 !3320 @alex.simm
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
