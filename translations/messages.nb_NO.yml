@@ -3253,7 +3253,8 @@ numbers:
 deletefromregion: Virkelig slette fra distriktet?
 join_region:
   error:
-    is_state_1: Dette er en føderal stat.
+    is_state_1: Dette er en føderal stat. Vennligst velg en by, en region eller et
+      distrikt!
     is_state_2: Velg en by, region eller distrikt!
     is_big_city_1: Dette er en storby.
     is_big_city_2: Velg en by, region eller distrikt!
