@@ -17,6 +17,7 @@ import Notifications from './components/Notifications.vue'
 import SleepingMode from './components/SleepingMode.vue'
 import ChangeEmailForm from './components/ChangeEmailForm'
 import DeleteAccount from './components/DeleteAccount.vue'
+import Quiz from '@/views/pages/Quiz/Quiz'
 
 // collapse_wrapper is used by v_input_wrapper if it has the parameter 'collapse'
 expose({ collapse_wrapper })
@@ -55,6 +56,11 @@ switch (GET('sub')) {
     if (document.getElementById('region-tree-vform') !== null) {
       vueApply('#region-tree-vform')
     }
+    break
+  case 'rise_role':
+    vueRegister({ Quiz })
+    vueApply('#vue-quiz-page')
+    break
 }
 
 expose({

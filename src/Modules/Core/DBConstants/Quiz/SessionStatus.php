@@ -8,9 +8,9 @@ namespace Foodsharing\Modules\Core\DBConstants\Quiz;
  * only valid for working groups
  * TINYINT(2) | DEFAULT NULL.
  */
-class SessionStatus
+enum SessionStatus: int
 {
-    final public const RUNNING = 0;
-    final public const PASSED = 1;
-    final public const FAILED = 2;
+    case RUNNING = 0;
+    case PASSED = 1;
+    case FAILED = 2;
 }

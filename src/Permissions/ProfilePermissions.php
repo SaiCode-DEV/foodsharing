@@ -45,6 +45,16 @@ class ProfilePermissions
         return $this->commonPermissions->mayAdministrateRegion($fsId);
     }
 
+    public function maySeeQuizSessions(): bool
+    {
+        return $this->session->mayRole(Role::ORGA);
+    }
+
+    public function mayDeleteQuizSessions(): bool
+    {
+        return $this->session->mayRole(Role::ORGA);
+    }
+
     public function maySeeUserNotes(int $userId): bool
     {
         return $this->session->mayRole(Role::ORGA);

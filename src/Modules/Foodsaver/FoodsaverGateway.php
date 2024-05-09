@@ -350,11 +350,6 @@ class FoodsaverGateway extends BaseGateway
         ]);
     }
 
-    public function isAdminForAnyGroupOrRegion(int $fsId): bool
-    {
-        return $this->db->count('fs_botschafter', ['foodsaver_id' => $fsId]) > 0;
-    }
-
     public function getOrgaTeam(): array
     {
         return $this->db->fetchAllByCriteria('fs_foodsaver', [
@@ -819,15 +814,6 @@ class FoodsaverGateway extends BaseGateway
         }
     }
 
-    public function setQuizRole(int $fsId, int $quizRole): int
-    {
-        return $this->db->update('fs_foodsaver', [
-            'quiz_rolle' => $quizRole
-        ], [
-            'id' => $fsId
-        ]);
-    }
-
     public function riseRole(int $fsId, Role $newRoleId): void
     {
         $this->db->update(
@@ -836,6 +822,18 @@ class FoodsaverGateway extends BaseGateway
             [
                 'id' => $fsId,
                 'rolle <' => $newRoleId->value
+            ]
+        );
+    }
+
+    public function riseQuizRole(int $fsId, Role $newRoleId): void
+    {
+        $this->db->update(
+            'fs_foodsaver',
+            ['quiz_rolle' => $newRoleId->value],
+            [
+                'id' => $fsId,
+                'quiz_rolle <' => $newRoleId->value
             ]
         );
     }
@@ -914,6 +912,13 @@ class FoodsaverGateway extends BaseGateway
         $role = $this->db->fetchValueByCriteria('fs_foodsaver', 'rolle', ['id' => $fsId]);
 
         return Role::tryFrom($role);
+    }
+
+    public function getQuizRole(int $fsId): ?Role
+    {
+        $quizRole = $this->db->fetchValueByCriteria('fs_foodsaver', 'quiz_rolle', ['id' => $fsId]);
+
+        return Role::tryFrom($quizRole);
     }
 
     public function getSubscriptions(int $fsId): array

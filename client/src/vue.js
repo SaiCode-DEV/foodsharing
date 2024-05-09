@@ -18,6 +18,16 @@ Vue.prototype.$i18n = (key, variables = {}) => {
 Vue.prototype.$url = url
 Vue.prototype.$dateFormatter = dateFormatter
 Vue.prototype.$isFeatureToggleActive = isFeatureToggleActive
+Vue.prototype.$confirmationDialogue = function (messageKey, options = {}) {
+  options = Object.assign({
+    title: this.$i18n('are_you_sure'),
+    okVariant: 'danger',
+    okTitle: this.$i18n('button.delete'),
+    cancelTitle: this.$i18n('button.cancel'),
+    centered: true,
+  }, options)
+  return this.$bvModal.msgBoxConfirm(this.$i18n(messageKey), options)
+}
 
 export function vueRegister (components) {
   for (const key in components) {

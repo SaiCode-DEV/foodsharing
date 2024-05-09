@@ -169,64 +169,159 @@ collapse_all: "Alle einklappen"
 
 quiz:
   question: "Frage"
-  questions: "Fragen"
-  congrats_details: "Herzlichen Glückwunsch! Mit {points} von maximal {max_points} Fehlerpunkten bestanden!"
-  not_passed_details: "Du hast leider nicht bestanden. Du hattest {points} von maximal {max_points} Fehlerpunkten!"
-  type: "-Quiz"
-  finishnow:
-    fs: "Jetzt die Foodsaver-Anmeldung abschließen."
-    bv: "Jetzt die Betriebsverantwortlichenanmeldung abschließen."
-    bot: "Jetzt die Botschafteranmeldung abschließen."
-  finished: "Herzlichen Glückwunsch, du hast es geschafft!"
-  resultsbelow: "Die Auswertung findest du unten."
-  heavysigh: "Geschafft!"
-  donecorrectly: "hast du komplett richtig beantwortet. Prima!"
-  wikilink: "Passender Wiki-Artikel zu diesem Thema"
-  choice:
-    correcta: "ist richtig!"
-    correctb: "ist falsch. Das hast du richtig erkannt!"
-    neut: "ist neutral und daher ohne Wertung."
-    wronga: "wäre auch richtig gewesen."
-    wrongb: "stimmt so nicht!"
-    answer: "Antwort"
-    fpsum: "gesammelte Fehlerpunkte"
-    sadlywrong: "wurde leider falsch beantwortet."
-    alsowrong: "wurde leider als falsch gewertet, da du nichts ausgewählt hast oder die Zeit abgelaufen ist."
-    percenta: "hast du leider nur zu"
-    percentb: "% richtig beantwortet."
-    responses: "Antworten"
-    cresponses: "Richtige Antworten"
-    nresponses: "Neutrale Antworten"
-    wresponses: "Falsche Antworten"
-    writecomment: "Kommentar zu dieser Frage schreiben"
-    send: "Absenden"
-    joke: "war nur eine Scherzfrage und wird natürlich nicht bewertet"
-    koquestion: "Diese Frage war leider besonders wichtig und du hast sie nicht korrekt beantwortet."
-    whatisko: "Fragen wie diese sind besonders hoch gewichtet und führen leider zum Nichtbestehen, wenn du sie falsch beantwortest."
-  threestrikes: "Du hast das Quiz 3x nicht bestanden."
-  waitxdays: "Du kannst es noch einmal probieren nach"
-  days: "Tagen"
-  learnbreak: "Lernpause"
-  notfinishedyet: "Du hast das Quiz noch nicht beendet."
-  safeandsound: "Aber kein Problem. Deine Sitzung wurde gespeichert. Du kannst jederzeit die Beantwortung fortführen."
+  plural: "Quizze"
   continuenow: "Quiz jetzt weiter beantworten!"
-  continuetype: "-Quiz fortführen"
-  trynumber: "Das war Versuch Nummer"
-  failedbeforebut: " mal hast du das Quiz bisher nicht bestanden. So viele Versuche hast du aber noch übrig:"
-  goodluck: "Viel Glück!"
-  timedstart: "Quiz mit Zeitlimit und 10 Fragen starten"
-  regstart: "Quiz ohne Zeitlimit und 20 Fragen starten"
-  quizleft: " – Jetzt gilt es noch das Quiz zu bestehen!"
-  nownownow: "Quiz jetzt starten"
-  session_deleted: "Die Ergebnisse für dieses Quiz wurden gelöscht, da das Quiz vor mehr als zwei Wochen abgeschlossen wurde."
-  comments: "Kommentare"
-
-# quiz: "Quiz
-# For legacy UI reasons (QuizView), needs to be toplevel with this exact key:
-quizusercomment: |
-    Gib uns Feedback zu dieser Frage.
-    War sie zu leicht, zu schwer, unverständlich?
-    Oder sind einzelne Antworten beziehungsweise Erklärungen nicht richtig?
+  timedstart: "Quiz mit Zeitlimit und {count} Fragen starten"
+  regstart: "Quiz ohne Zeitlimit und {count} Fragen starten"
+  button:
+    pause: Später weitermachen
+    finish: Quiz abschließen
+  title:
+    NEVER_TRIED: "{name} - Jetzt das Quiz durchführen!"
+    RUNNING: "{name} - Quiz fortführen!"
+    PASSED: "{name} - Dieses Quiz hast du bestanden!"
+    FAILED: "{name} - Versuchs nochmal!"
+    PAUSE: "Lernpause ({name})"
+    PAUSE_ELAPSED: "{name} - Jetzt kannst du es nochmal versuchen!"
+    DISQUALIFIED: "{name} - Leider disqualifiziert."
+  startmodal:
+    title: "Hinweise zum Quiz"
+    infos: 
+      wiki: Bitte starte das Quiz nicht auf gut Glück. Lies vorab die aufgeführten Seiten im Foodsharing-Wiki aufmerksam durch. Ohne das Wissen aus dem Wiki, wirst du das Quiz nicht bestehen.
+      real_life_examples: Die meisten Fragen basieren auf echten Fällen aus dem Foodsharing-Leben. 
+      limited_tries: Du kannst das Quiz nicht beliebig oft wiederholen. Nach drei Versuchen musst du eine 30-tägige Lernpause einlegen, danach hast du nur noch zwei weitere Versuche. Die Fragen, die dir in jedem Versuch gestellt werden, unterscheiden sich.
+      alone: Während des Quizes darf dir nicht geholfen werden. Suche dir deswegen einen ruhigen Ort, an dem du ungestört das Quiz durchführen kannst. 
+      read_carefully: Lies dir alle Fragen und Antworten sorfältig durch. Dafür reicht die Zeit aus.
+      multiple_choice: Es können mehrere Antworten pro Frage richtig sein - oder auch keine. Entscheide daher für jede Antwort einzeln, ob sie richtig oder falsch ist.
+      comment: Nach dem Beantworten jeder Frage, siehst du eine Zwischenauswertung mit Erklärungen zu jeder der Antwortmöglichkeiten. Das hilft zu verstehen, welche Antwort warum richtig oder falsch ist. Bei jedem Fehler solltest du dir die Erklärungen sorgfältig durchlesen. Wenn dir etwas unlogisch erscheint, nicht verständlich oder gar falsch ist, hinterlasse bitte einen Kommentar.
+      pause: Du kannst das Quiz nach jeder Frage pausieren und zu einem späteren Zeitpunkt fortsetzen.
+      feedback: Am Ende des Quizes bekommst du direkt eine Auswertung, ob du bestanden hast und welche Fehler du wo gemacht hast. Hier kannst du nocheinmal in Ruhe die Begründungen durchlesen.
+  infomodal:
+    title: "Frage {index} von {questions}"
+  comment:
+    toggle: Kommentar schreiben
+    placeholder: Kommentar eingeben...
+    send: Kommentar abschicken
+    sent: Kommentar abgeschickt.
+    info: Gib uns Feedback zu dieser Frage. War sie zu leicht, zu schwer, unverständlich? Oder sind einzelne Antworten beziehungsweise Erklärungen nicht richtig? # TODO use this
+    wallTitle: "Kommentare zu Frage #{id}"
+    label: Frage Kommentieren
+  answers:
+    name: Antorten
+    none_correct: Keine Antwort ist korrekt.
+    neutral: Neutrale Antwort - wird nicht gewertet.
+    false_false: Diese Antwort war natürlich falsch. Das hast Du richtig erkannt.
+    false_true: Diese Antwort wäre richtig gewesen.
+    true_false: Falsch! Diese Antwort stimmt nicht.
+    true_true: Richtig! Diese Antwort stimmt.
+    timedOut:
+      0: Diese Antwort wäre falsch gewesen.
+      1: Diese Antwort wäre richtig gewesen.
+      2: Diese Antwort wäre neutral gewesen.
+    short:
+      0: Falsch
+      1: Richtig
+      2: Neutral
+  state_based_info:
+    NEVER_TRIED: Dieses Quiz hast du noch nie bearbeitet. Nimm dir Zeit, alle aufgeführten Wiki-Artikel aufmerksam durchzulesen, damit du auf die Fragen vorbereitet bist. 
+    RUNNING: Du hast das Quiz bereits gestartet und bislang {questionsAnswered} von {questionCount} Fragen beantwortet.
+    PASSED: Dieses Quiz hast du bestanden.
+    FAILED:
+      1: Beim ersten Versuch hast du dieses Quiz leider nicht bestanden. Das kann schon mal passieren. Schau dir nochmal in die entsprechenden Wiki-Artikel und probiers nochmal.
+      2: In den ersten beiden Versuchen hast du dieses Quiz leider nicht bestanden. Du hast noch einen dritten Versuch, bevor du einen Monat Lernpause einlegen musst. Schau dir unbedingt die entsprechenden Wiki-Artikel an, damit du das Quiz bestehen kannst.
+    PAUSE: Du hast dieses Quiz drei mal nicht bestanden. Zuverlässigkeit, sicheres Beherrschen der Regeln und professionelles Auftreten sind bei Foodsharing unverzichtbar. Mit deinen Antworten vermittelst du das zum jetzigen Zeitpunkt leider nicht. Daher bekommst du einen Monat Lernpause, bevor du zwei weitere Versuche erhälst, das Quiz zu bestehen. Deine Lernpause endet in {wait} Tagen.
+    PAUSE_ELAPSED: 
+      3: Deine Lernpause ist um. Du darfst jetzt zwei weitere Male am Quiz teilnehmen. Hoffentlich hast du die Zeit genutzt, um dich besser mit den Inhalten vertraut zu machen.
+      4: Du hast nur noch einen letzten Versuch dieses Quiz zu bestehen! Wenn du jetzt durchfällst, wirst du dauerhaft für dieses Quiz disqualifiziert. Bitte nimm nur Teil, wenn du dich ausführlich mit den Inhalten aus dem Wiki beschäftigt hast. 
+    DISQUALIFIED: Leider bist du für dieses Quiz disqualifiziert, da du fünf mal nicht bestanden hast.
+  results:
+    title:
+      1: "Herzlichen Glückwunsch!"
+      2: "Du hast leider nicht bestanden."
+    points:
+      1: "Du hast mit {failurePoints} von maximal {maxFailurePointsToSucceed} Fehlerpunkten bestanden!"
+      2: "Du hattest {failurePoints} Fehlerpunkte und hättest mit höchstens {maxFailurePointsToSucceed} bestanden."
+    deleted: "Die genaue Auswertung wird nur für 2 Wochen nach dem Quiz gespeichert und ist nicht mehr verfügbar."
+  fp_badge:
+    right: "Richtig beantwortet"
+    wrong: "{userFailurePoints} Fehler"
+  timed_out: "Diese Frage hast du nicht in der vorgegebenen Zeit beantwortet."
+  timed_out_last: "Die letzte Frage hast du nicht in der vorgegebenen Zeit beantwortet."
+  timed_out_error: "Die Zeit diese Frage zu beantworten ist bereits abgelaufen."
+  error_tooltip: "Bei dieser Antwort hast du einen Fehler gemacht."
+  show_results: Ergebnisse des letzten Versuchs ansehen
+  wikilink: Weitere Infos dazu im Wiki
+  key_facts:
+    to_pass: "Zum Bestehen:"
+    untimed: "Maximal {maxFailurePointsToSucceed} Fehlerpunkte in {questionCountTimed} Fragen mit, oder {questionCountUntimed} Fragen ohne Zeitbegrenzung"
+    timed: "Maximal {maxFailurePointsToSucceed} Fehlerpunkte in {questionCountTimed} Fragen mit Zeitbegrenzung"
+  general:
+    title: "Allgemeine Informationen"
+    edit: Quiz bearbeiten
+  questions_section:
+    title: Quizfragen ({count})
+  editable_tooltip: "Du kannst dieses Quiz bearbeiten."
+  timelimit: "Zeitlimit"
+  max_fp: Mögliche Fehlerpunkte
+  fp_description: "Insgesamt {failurePoints}, also {perMistake} pro falscher Antwort"
+  question_options:
+    add: "Frage hinzufügen"
+    edit: "Frage bearbeiten"
+    add_answer: "Antwort hinzufügen"
+    show_comments: "Kommentare anzeigen"
+    delete: "Frage löschen"
+  answer_options:
+    edit: "Antwort bearbeiten"
+    delete: "Antwort löschen"
+  fp_options:
+    joke: "{failurePoints} Fehlerpunkte (Keine Wertung)"
+    default: "{failurePoints} Fehlerpunkte"
+    ko: "{failurePoints} Fehlerpunkte (k.o.)"
+  sessionStatus:
+    0: "Läuft aktuell"
+    1: "Bestanden mit {failurePoints} von maximal {maxFailurePointsToSucceed} Fehlerpunkten"
+    2: "Nicht bestanden mit {failurePoints} von maximal {maxFailurePointsToSucceed} Fehlerpunkten"
+  confirmDelete:
+    session: "Willst du diese Quiz-Session wirklich löschen?"
+    question: "Willst du diese Frage wirklich löschen?"
+    answer: "Willst du diese Antwort wirklich löschen?"
+  confirm: "Quiz bestätigen und Prozess abschließen"
+  editModal:
+    quiz:
+      title: Quiz bearbeiten
+      input:
+        name:
+          label: "Name:"
+          placeholder: "Name des Quiz"
+        maxFp: "Maximale Fehlerpunkte zum Bestehen:"
+        questionCountTimed: "Anzahl zu beantwortender Fragen:"
+        allowUntimed: "Bearbeitung ohne Zeitbegrenzung erlauben"
+        questionCountUntimed: "Anzahl zu beantwortender Fragen ohne Zeitbegrenzung:"
+      htmlWarning: "**Achtung:** Die Formatierung der Beschreibung wurde verändert. Was du im Texteingabefeld siehst, ist mit HTML formatiert. Bitte verändere die Beschreibung, sodass sie Markdown nutzt. Bitte nutze die Vorschaufunktion des Eingabefelds um sicherzustellen, dass die Formatierung korrekt angepasst wurde."
+    question:
+      title: Frage bearbeiten
+      input:
+        text:
+          label: "Frage:"
+          placeholder: "Quizfrage..."
+        duration: "Zeit zum Antworten:"
+        fp: "Fehlerpunkte:"
+        wikilink:
+          label: "Link zum passenden Wikiartikel:"
+          placeholder: "https://wiki.foodsharing.de/..."
+      confirmDelete:
+        title: Willst du diese Frage wirklich löschen?
+        text:
+    answer:
+      title: Antwort bearbeiten
+      input:
+        text:
+          label: "Antwort:"
+          placeholder: "Antwort..."
+        explanation:
+          label: "Erklärung:"
+          placeholder: "Erklärung..."
+        answerRating: "Wertung:"
 
 image: "Bild"
 picture_upload_widget:
@@ -268,6 +363,8 @@ button:
   create: "Anlegen"
   clear_filter: "Filter leeren"
   reset_default: "Standard wiederherstellen"
+  start: Los geht's!
+  confirm: Bestätigen
   close: "Schließen"
 
 bread:
@@ -1710,22 +1807,10 @@ foodsaver:
   upgrade:
     learning: "Jetzt Erklärvideo anschauen"
     ad_fs: "Ich möchte jetzt das Foodsaver-Quiz machen und Foodsaver:in werden!"
-    to_fs: "Werde Foodsaver:in"
-    needs_fs: "Du musst erst Foodsaver:in werden"
-    needs_sm: "Du musst erst Betriebsverantwortliche:r werden"
-    needs_fs_quiz: "Du darfst zunächst das Foodsaver-Quiz machen"
-    to_sm: "Werde Betriebsverantwortliche:r"
-    to_amb: "Werde Botschafter:in"
-    amb_region: "In welcher Region möchtest du Botschafter:in werden?"
-    needs_publicinfo: "Deine Kurzbeschreibung ist leer"
-    needs_region: "Wähle bitte aus, in welchem Bezirk du Botschafter:in werden möchtest"
+    FOODSAVER: "Werde Foodsaver:in"
+    STORE_MANAGER: "Werde Betriebsverantwortliche:r"
+    AMBASSADOR: "Werde Botschafter:in"
     rv: "Ja, ich habe die Rechtsvereinbarung gelesen und akzeptiere sie."
-    needs_rv: "Du musst die Rechtsvereinbarung akzeptieren."
-    quiz_error: "Fehler! Quizdaten für deine Rolle konnten nicht geladen werden. Bitte wende dich an den IT-Support:"
-    fs_success: "Danke, du bist jetzt Foodsaver:in!"
-    sm_success: "Danke, du bist jetzt Betriebsverantwortliche:r!"
-    amb_requested: "Anfrage erfolgreich versendet."
-    amb_success: "Danke dir für deine Motivation, mehr Verantwortung zu übernehmen. Die Anfrage wird schnellstmöglich vom globalen Orga-Team bearbeitet."
   restricted: "Du hast leider keine Berechtigung, diese Daten einzusehen."
   list:
     summary: "{count} Foodsaver:innen in {region}"
@@ -2017,6 +2102,7 @@ profile:
     remove_buddy: "Ich kenne {name} nicht mehr"
     history: "Ausweishistorie" #also in ProfileXhr
     verificationHistory: "Verifizierungshistorie" #also in ProfileXhr
+    quizSessionHistory: "Quizversuche"
     notes: "Notizen"
     violations: "Meldungen"
     storelist: "Betriebe ({count})"

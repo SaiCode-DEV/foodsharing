@@ -96,9 +96,9 @@ class MaintenanceControl extends ConsoleControl
         $this->bellUpdateTrigger->triggerUpdate();
 
         /*
-         * removing questions from finished quiz sessions
+         * removing questions and results from finished quiz sessions older than 2 weeks
          */
-        $this->updateFinishedQuizSessions();
+        $this->cleanOldQuizSessionData();
 
         /*
          * Remove failed and unprocessed E-Mais form IMAP folder
@@ -316,10 +316,10 @@ class MaintenanceControl extends ConsoleControl
         self::success($count . ' entries deleted');
     }
 
-    private function updateFinishedQuizSessions()
+    private function cleanOldQuizSessionData()
     {
-        self::info('removing questions from finished quiz sessions...');
-        $count = $this->maintenanceGateway->updateFinishedQuizSessions();
+        self::info('reducing data from finished quiz sessions...');
+        $count = $this->maintenanceGateway->cleanOldQuizSessionData();
         self::success($count . ' sessions updated');
     }
 

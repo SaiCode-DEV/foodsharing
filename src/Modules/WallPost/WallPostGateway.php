@@ -114,4 +114,12 @@ class WallPostGateway extends BaseGateway
 
         return $target . '_id';
     }
+
+    public function countPosts(string $target, int $targetId): int
+    {
+        return $this->db->count(
+            $this->getLinkTableName($target),
+            [$this->getLinkTableForeignIdColumnName($target) => $targetId]
+        );
+    }
 }

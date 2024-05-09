@@ -752,11 +752,6 @@ class StoreGateway extends BaseGateway
         return $this->db->fetchValueByCriteria('fs_betrieb', 'use_region_pickup_rule', ['id' => $storeId]);
     }
 
-    public function getStoreCountForBieb($fs_id)
-    {
-        return $this->db->count('fs_betrieb_team', ['foodsaver_id' => $fs_id, 'verantwortlich' => 1]);
-    }
-
     public function getStoreTeamStatus(int $storeId): TeamSearchStatus
     {
         return TeamSearchStatus::tryFrom($this->db->fetchValueByCriteria('fs_betrieb', 'team_status', ['id' => $storeId]));

@@ -25,8 +25,6 @@ final class ContentPermissions
         ContentId::QUIZ_CONFIRM_FS_PAGE_14,
         ContentId::QUIZ_CONFIRM_SM_PAGE_15,
         ContentId::QUIZ_CONFIRM_AMB_PAGE_16,
-        ContentId::QUIZ_START_PAGE_17,
-        ContentId::QUIZ_POPUP_PAGE_18,
         ContentId::QUIZ_FAILED_FS_TRY_1_PAGE_19,
         ContentId::QUIZ_FAILED_FS_TRY_2_PAGE_20,
         ContentId::QUIZ_FAILED_FS_TRY_3_PAGE_21,
@@ -39,7 +37,6 @@ final class ContentPermissions
         ContentId::QUIZ_REMARK_PAGE_33,
         ContentId::QUIZ_POPUP_SM_PAGE_34,
         ContentId::QUIZ_POPUP_AMB_PAGE_35,
-        ContentId::QUIZ_POPUP_AMB_LAST_PAGE_36,
     ];
 
     private array $START_CONTENT_IDS = [

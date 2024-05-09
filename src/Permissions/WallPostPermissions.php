@@ -4,9 +4,10 @@ namespace Foodsharing\Permissions;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
-use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
+use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
+use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\WallPost\WallPostGateway;
 use Foodsharing\Modules\WorkGroup\WorkGroupTransactions;
@@ -18,10 +19,12 @@ class WallPostPermissions
         private readonly EventGateway $eventGateway,
         private readonly EventPermissions $eventPermissions,
         private readonly FoodSharePointPermissions $fspPermission,
+        private readonly QuizPermissions $quizPermissions,
         private readonly FoodSharePointGateway $fspGateway,
         private readonly WallPostGateway $wallPostGateway,
+        private readonly QuizGateway $quizGateway,
         private readonly Session $session,
-        private readonly WorkGroupTransactions $workGroupTransactions
+        private readonly WorkGroupTransactions $workGroupTransactions,
     ) {
     }
 
@@ -42,7 +45,9 @@ class WallPostPermissions
             case 'fairteiler':
                 return true;
             case 'question':
-                return $this->regionGateway->hasMember($this->session->id(), RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP);
+                $quizId = $this->quizGateway->getQuizIdFromQuestionId($targetId);
+
+                return $this->quizPermissions->mayReadQuiz(QuizID::tryFrom($quizId));
             case 'usernotes':
                 return $this->session->mayRole(Role::ORGA);
             case 'application':
@@ -79,6 +84,9 @@ class WallPostPermissions
             case 'bezirk':
                 return $this->regionGateway->isAdmin($this->session->id(), $targetId);
             case 'question':
+                $quizId = $this->quizGateway->getQuizIdFromQuestionId($targetId);
+
+                return $this->quizPermissions->mayEditQuiz(QuizID::tryFrom($quizId));
             case 'usernotes':
             case 'fsreports':
                 return $this->mayReadWall($target, $targetId);

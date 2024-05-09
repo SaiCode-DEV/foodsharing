@@ -1100,3 +1100,7 @@ blockquote > p:last-child {
 .border {
   border: 1px solid var(--fs-border-default);
 }
+
+.modal {
+  --navbar-height: 0px;
+}

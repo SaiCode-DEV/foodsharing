@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import { getContent } from '@/api/content'
+import { CONTENT_IDS, getContent } from '@/api/content'
 import { getDonation } from '@/api/donation'
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 
@@ -155,9 +155,8 @@ export default {
       window.open(url, '_blank', `width=${width},height=${height},left=${left},top=${top}`)
     },
     async getDonationContent () {
-      const contentIdForDonationBanner = 1
       try {
-        this.content = await getContent(contentIdForDonationBanner)
+        this.content = await getContent(CONTENT_IDS.DONATION)
       } catch (e) {
         this.content = null
       }

@@ -14,8 +14,6 @@ use Foodsharing\Modules\Mailbox\MailboxControl;
 use Foodsharing\Modules\Map\MapXhr;
 use Foodsharing\Modules\Message\MessageControl;
 use Foodsharing\Modules\PassportGenerator\PassportGeneratorControl;
-use Foodsharing\Modules\Quiz\QuizControl;
-use Foodsharing\Modules\Quiz\QuizXhr;
 use Foodsharing\Modules\Region\RegionXhr;
 use Foodsharing\Modules\RegionAdmin\RegionAdminControl;
 use Foodsharing\Modules\Register\RegisterControl;
@@ -56,7 +54,6 @@ class Routing
         'message' => 'Message',
         'passgen' => 'PassportGenerator',
         'poll' => 'Voting',
-        'quiz' => 'Quiz',
         'region' => 'RegionAdmin',
         'register' => 'Register',
         'relogin' => 'Relogin',
@@ -84,7 +81,6 @@ class Routing
         'message' => MessageControl::class,
         'passgen' => PassportGeneratorControl::class,
         'poll' => VotingControl::class,
-        'quiz' => QuizControl::class,
         'region' => RegionAdminControl::class,
         'register' => RegisterControl::class,
         'relogin' => ReloginControl::class,
@@ -98,7 +94,6 @@ class Routing
 
     private const XHR = [
         'map' => MapXhr::class,
-        'quiz' => QuizXhr::class,
         'report' => ReportXhr::class,
         'settings' => SettingsXhr::class,
         'betrieb' => StoreXhr::class,
@@ -119,7 +114,8 @@ class Routing
         'fairteiler',
         'login',
         'profile',
-        'event'
+        'event',
+        'quiz',
     ];
 
     private const RENAMES = [

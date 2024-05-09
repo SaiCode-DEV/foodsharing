@@ -219,7 +219,7 @@ class MaintenanceGateway extends BaseGateway
      *
      * @return int the number of updated entries
      */
-    public function updateFinishedQuizSessions(): int
+    public function cleanOldQuizSessionData(): int
     {
         return $this->db->update(
             'fs_quiz_session',
@@ -228,7 +228,7 @@ class MaintenanceGateway extends BaseGateway
                 'quiz_questions' => null,
             ],
             [
-                'status' => [SessionStatus::FAILED, SessionStatus::PASSED],
+                'status' => [SessionStatus::FAILED->value, SessionStatus::PASSED->value],
                 'time_end <' => Carbon::now()->subWeeks(2)->format('Y-m-d H:i:s'),
             ]
         );

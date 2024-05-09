@@ -190,7 +190,7 @@ class UserRestController extends AbstractFoodsharingRestController
                 'mayEditUserProfile' => $mayEditUserProfile,
                 'mayAdministrateUserProfile' => $mayAdministrateUserProfile,
                 'administrateBlog' => $this->blogPermissions->mayAdministrateBlog(),
-                'editQuiz' => $this->quizPermissions->mayEditQuiz(),
+                'editQuiz' => $this->quizPermissions->maySeeEditQuizPage(),
                 'handleReports' => $this->reportPermissions->mayHandleReports(),
                 'addStore' => $this->storePermissions->mayCreateStore(),
                 'manageMailboxes' => $this->mailboxPermissions->mayManageMailboxes(),

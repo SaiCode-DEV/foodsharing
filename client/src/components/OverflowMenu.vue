@@ -14,7 +14,7 @@
       v-for="(option, i) in activeOptions"
       :key="i"
       :href="option.href"
-      @click.stop="() => option.callback?.() ?? null"
+      @click.stop="() => option.callback?.(...callbackArgs) ?? null"
     >
       <i :class="`fas fa-${option.icon} dropdown-icon`" />
       {{ $i18n(option.textKey) }}
@@ -25,18 +25,10 @@
 <script>
 export default {
   props: {
-    options: {
-      type: Array,
-      default: () => [],
-    },
-    floatRight: {
-      type: Boolean,
-      default: true,
-    },
-    variant: {
-      type: String,
-      default: 'dark',
-    },
+    options: { type: Array, default: () => [] },
+    callbackArgs: { type: Array, default: () => [] },
+    floatRight: { type: Boolean, default: true },
+    variant: { type: String, default: 'dark' },
   },
   computed: {
     activeOptions () {

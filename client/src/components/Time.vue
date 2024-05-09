@@ -1,5 +1,6 @@
 <template>
   <span
+    v-if="time"
     v-b-tooltip="tooltip ?? tooltipTime"
     class="time"
     :class="{ 'text-muted': muted }"
@@ -15,13 +16,14 @@
 <script>
 export default {
   props: {
-    time: { type: [Date, String], required: true },
+    time: { type: [Date, String], default: null },
     showIcon: { type: Boolean, default: true },
     muted: { type: Boolean, default: true },
     dateOnly: { type: Boolean, default: false },
     tooltip: { type: [Object, String], default: null },
   },
   data () {
+    if (this.time === null) return {}
     const date = new Date(this.time)
     if (isNaN(date.valueOf())) throw new Error('invalid time')
     return { date }

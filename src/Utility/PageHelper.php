@@ -205,7 +205,7 @@ final class PageHelper
             'mayEditUserProfile' => $this->profilePermissions->mayEditUserProfile($this->session->id()),
             'mayAdministrateUserProfile' => $this->profilePermissions->mayAdministrateUserProfile($this->session->id(), $this->session->user('bezirk_id')),
             'administrateBlog' => $this->blogPermissions->mayAdministrateBlog(),
-            'editQuiz' => $this->quizPermissions->mayEditQuiz(),
+            'editQuiz' => $this->quizPermissions->maySeeEditQuizPage(),
             'handleReports' => $this->reportPermissions->mayHandleReports(),
             'addStore' => $this->storePermissions->mayCreateStore(),
             'manageMailboxes' => $this->mailboxPermissions->mayManageMailboxes(),

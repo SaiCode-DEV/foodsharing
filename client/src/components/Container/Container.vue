@@ -1,12 +1,15 @@
 <template>
-  <div class="list-group bg-white mb-2">
+  <div class="list-group bg-white">
     <div
+      v-if="!hideHeader"
       class="list-group-item list-group-header"
       :class="{ 'notCollapsible' : !collapsible }"
       @click="collapsible ? toggleExpanded() : null"
     >
-      <h5 :class="{ 'expanded': isExpanded }">
-        {{ title }}
+      <slot name="title">
+        <h5>
+          {{ title }}
+        </h5>
         <Info
           v-if="infoKey"
           :info-key="infoKey"
@@ -17,7 +20,7 @@
           class="fas fa-info-circle fa-fw"
           :title="tooltipKey"
         />
-      </h5>
+      </slot>
       <i
         v-if="collapsible"
         :id="`expand-${title}`"
@@ -26,7 +29,11 @@
         :class="{ 'fa-rotate-180': isExpanded }"
       />
     </div>
-    <slot v-if="isExpanded" />
+    <slot v-if="isExpanded && !wrapContent" />
+    <div v-if="isExpanded && wrapContent" class="list-group-item">
+      <slot />
+    </div>
+
     <template v-if="isExpanded && isToggleVisible">
       <button
         v-if="!isToggled"
@@ -55,6 +62,8 @@ export default {
     title: { type: String, default: 'title' },
     toggleVisiblity: { type: Boolean, default: false },
     containerIsExpanded: { type: Boolean, default: true },
+    wrapContent: { type: Boolean, default: false },
+    hideHeader: { type: Boolean, default: false },
     collapsible: { type: Boolean, default: true },
     infoKey: { type: String, default: '' },
     tooltipKey: { type: String, default: '' },
@@ -83,12 +92,15 @@ export default {
   methods: {
     toggleExpanded () {
       this.setExpanded(!this.isExpanded)
+      this.$emit(this.isExpanded ? 'expand' : 'reduce')
     },
     getExpanded () {
+      if (this.tag === null) return null
       return JSON.parse(localStorage.getItem(`expanded_${this.tag}`))
     },
     setExpanded (state) {
       this.isExpanded = state
+      if (this.tag === null) return
       localStorage.setItem(`expanded_${this.tag}`, JSON.stringify(state))
     },
     showFullList () {

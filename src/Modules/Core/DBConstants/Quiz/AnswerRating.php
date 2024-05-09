@@ -7,9 +7,9 @@ namespace Foodsharing\Modules\Core\DBConstants\Quiz;
 /**
  * Table field `right`.
  */
-class AnswerRating
+enum AnswerRating: int
 {
-    final public const WRONG = 0;
-    final public const CORRECT = 1;
-    final public const NEUTRAL = 2;
+    case WRONG = 0;
+    case CORRECT = 1;
+    case NEUTRAL = 2;
 }

@@ -75,7 +75,7 @@ class DashboardControl extends Control
 
     private function getQuiz(): ?array
     {
-        $is_foodsharer = !$this->session->mayRole(Role::FOODSAVER) && !$this->quizSessionGateway->hasPassedQuiz($this->session->id(), Role::FOODSAVER->value);
+        $is_foodsharer = !$this->session->mayRole(Role::FOODSAVER) && $this->foodsaverGateway->getQuizRole($this->session->id())->value < Role::FOODSAVER->value;
 
         if ($is_foodsharer) {
             $cnt = $this->contentGateway->getContent(ContentId::QUIZ_REMARK_PAGE_33);
@@ -91,7 +91,7 @@ class DashboardControl extends Control
             $quiz['links'] = [
                 (object)[
                     'urlShortHand' => 'quiz_foodsaver',
-                    'text' => 'foodsaver.upgrade.to_fs',
+                    'text' => 'foodsaver.upgrade.FOODSAVER',
                 ],
                 (object)[
                     'urlShortHand' => 'quiz_learning_video',

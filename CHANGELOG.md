@@ -13,6 +13,7 @@
 - Remove unneeded u_loadCoords function !3277 @stcz
 - Modernized EventControl to a Symfony controller !3260 @chriswalg
 - Refactor the nearby baskets list to vue !3294 @alex.simm
+- Rebuild quiz module #1666 !3119 @AntonBallmaier
 
 ## Dev/Test/CI stuff
 - Added backend support for getting, adding and updating achievements. #1724 !3317 @AntonBallmaier

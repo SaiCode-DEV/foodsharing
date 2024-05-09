@@ -61,8 +61,7 @@
         v-if="mayHistory"
         type="button"
         class="list-group-item list-group-item-action"
-        href="#"
-        @click="OpenHistory(1)"
+        @click="openHistory(1)"
       >
         <i class="fas fa-file-alt fa-fw" /> {{ $i18n('profile.nav.history') }}
       </b-list-group-item>
@@ -70,10 +69,17 @@
         v-if="mayHistory"
         type="button"
         class="list-group-item list-group-item-action"
-        href="#"
-        @click="OpenHistory(0)"
+        @click="openHistory(0)"
       >
         <i class="fas fa-file-alt fa-fw" /> {{ $i18n('profile.nav.verificationHistory') }}
+      </b-list-group-item>
+      <b-list-group-item
+        v-if="maySeeQuizSessions"
+        type="button"
+        class="list-group-item list-group-item-action"
+        @click="$bvModal.show('quizSessionHistoryModal')"
+      >
+        <i class="fas fa-file-alt fa-fw" /> {{ $i18n('profile.nav.quizSessionHistory') }}
       </b-list-group-item>
       <b-list-group-item
         v-if="mayNotes"
@@ -147,6 +153,7 @@
       :mailbox-name="mailboxNameReportRequest"
     />
     <ProfileHistoryModal ref="profileHistoryModal" />
+    <QuizSessionHistoryModal :foodsaver-id="fsId" />
   </div>
 </template>
 
@@ -159,6 +166,7 @@ import ReportRequest from './ReportRequest'
 import ProfileHistoryModal from './ProfileHistoryModal'
 import { sendBuddyRequest, removeBuddy } from '@/api/buddy'
 import i18n from '@/helper/i18n'
+import QuizSessionHistoryModal from './QuizSessionHistoryModal.vue'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 const BUDDY_TYPES = Object.freeze({
@@ -168,7 +176,7 @@ const BUDDY_TYPES = Object.freeze({
 })
 
 export default {
-  components: { Avatar, ReportRequest, MediationRequest, ProfileHistoryModal },
+  components: { Avatar, ReportRequest, MediationRequest, ProfileHistoryModal, QuizSessionHistoryModal },
   mixins: [ConfirmationDialogue],
   props: {
     fsId: { type: Number, required: true },
@@ -180,6 +188,7 @@ export default {
     initialBuddyType: { type: Number, default: BUDDY_TYPES.NO_BUDDY },
     mayAdmin: { type: Boolean, default: false },
     mayHistory: { type: Boolean, default: false },
+    maySeeQuizSessions: { type: Boolean, default: false },
     noteCount: { type: Number, default: 0 },
     mayNotes: { type: Boolean, default: false },
     violationCount: { type: Number, default: 0 },
@@ -256,7 +265,7 @@ export default {
       }
       this.loading = false
     },
-    OpenHistory (type) {
+    openHistory (type) {
       this.$refs.profileHistoryModal.showModal(this.fsId, type === 0)
     },
   },

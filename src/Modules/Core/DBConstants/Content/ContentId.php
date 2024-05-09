@@ -19,8 +19,6 @@ class ContentId
     final public const QUIZ_CONFIRM_FS_PAGE_14 = 14;
     final public const QUIZ_CONFIRM_SM_PAGE_15 = 15;
     final public const QUIZ_CONFIRM_AMB_PAGE_16 = 16;
-    final public const QUIZ_START_PAGE_17 = 17;
-    final public const QUIZ_POPUP_PAGE_18 = 18;
     final public const QUIZ_FAILED_FS_TRY_1_PAGE_19 = 19;
     final public const QUIZ_FAILED_FS_TRY_2_PAGE_20 = 20;
     final public const QUIZ_FAILED_FS_TRY_3_PAGE_21 = 21;
@@ -34,7 +32,6 @@ class ContentId
     final public const QUIZ_POPUP_SM_PAGE_34 = 34;
     final public const QUIZ_MESSAGE_SM_UNVERIFIED_PAGE_45 = 45;
     final public const QUIZ_POPUP_AMB_PAGE_35 = 35;
-    final public const QUIZ_POPUP_AMB_LAST_PAGE_36 = 36;
     final public const QUIZ_LEGAL_FOODSAVER = 30;
     final public const QUIZ_LEGAL_STOREMANAGER = 31;
 

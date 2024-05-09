@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\StoreChain;
 
 use Foodsharing\Modules\Core\Control;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\View;
 use Foodsharing\Permissions\StoreChainPermissions;
@@ -26,7 +27,7 @@ class StoreChainControl extends Control
     {
         if (!$this->permissions->maySeeChainList()) {
             $this->flashMessageHelper->info($this->translator->trans('chain.error.notfs'));
-            $this->routeHelper->goAndExit('?page=settings&sub=up_fs');
+            $this->routeHelper->goAndExit('?page=settings&sub=rise_role&role=' . Role::FOODSAVER->value);
         }
 
         $this->pageHelper->addBread($this->translator->trans('chain.bread.workinggroup'), '/region?bid=' . RegionIDs::STORE_CHAIN_GROUP);

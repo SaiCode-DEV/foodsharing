@@ -2,227 +2,143 @@
 
 namespace Foodsharing\Modules\Quiz;
 
-use Foodsharing\Modules\Bell\BellGateway;
-use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\BaseGateway;
-use Foodsharing\Modules\Core\Database;
-use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
-use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
-use Foodsharing\Modules\WallPost\DTO\WallPost;
-use Foodsharing\Modules\WallPost\WallPostGateway;
+use Foodsharing\Modules\Quiz\DTO\Answer;
+use Foodsharing\Modules\Quiz\DTO\Question;
+use Foodsharing\Modules\Quiz\DTO\Quiz;
 
 class QuizGateway extends BaseGateway
 {
-    private readonly BellGateway $bellGateway;
-    private readonly FoodsaverGateway $foodsaverGateway;
-    private readonly WallPostGateway $wallPostGateway;
+    // Quiz
+    public function getQuiz(int $quizId): ?Quiz
+    {
+        $data = $this->db->fetchById('fs_quiz', '*', $quizId);
 
-    public function __construct(
-        Database $db,
-        BellGateway $bellGateway,
-        FoodsaverGateway $foodsaverGateway,
-        WallPostGateway $wallPostGateway
-    ) {
-        parent::__construct($db);
-
-        $this->bellGateway = $bellGateway;
-        $this->foodsaverGateway = $foodsaverGateway;
-        $this->wallPostGateway = $wallPostGateway;
+        return empty($data) ? null : Quiz::createFromArray($data);
     }
 
-    public function listQuiz(): array
+    public function updateQuiz(Quiz $quiz): void
     {
-        return $this->db->fetchAll('
-			SELECT id, name
+        $this->db->update('fs_quiz', [
+            'name' => $quiz->name,
+            'desc' => $quiz->description,
+            'is_desc_htmlentity_encoded' => $quiz->isDescriptionHtmlEncoded,
+            'maxfp' => $quiz->maxFailurePointsToSucceed,
+            'questcount' => $quiz->questionCountTimed,
+            'questcount_untimed' => $quiz->questionCountUntimed,
+        ], ['id' => $quiz->id]);
+    }
+
+    /**
+     * @return array<array<string, mixed>>
+     */
+    public function getQuizzes(): array
+    {
+        return $this->db->fetchAll('SELECT
+                `id`, `name`
 			FROM fs_quiz
 			ORDER BY id
 		');
     }
 
-    public function addQuiz(string $name, string $desc, int $maxFailurePoints, int $questionCount): int
+    // Question
+
+    public function getQuestion(int $questionId): ?Question
     {
-        return $this->db->insert('fs_quiz',
-            [
-                'name' => $name,
-                'desc' => $desc,
-                'maxfp' => $maxFailurePoints,
-                'questcount' => $questionCount
-            ]
-        );
-    }
-
-    public function updateQuiz(int $id, string $name, string $desc, int $maxFailurePoints, int $questionCount): int
-    {
-        return $this->db->update(
-            'fs_quiz',
-            [
-                'name' => $name,
-                'desc' => $desc,
-                'maxfp' => $maxFailurePoints,
-                'questcount' => $questionCount
-            ],
-            ['id' => $id]
-        );
-    }
-
-    public function getQuiz(int $id): array
-    {
-        return $this->db->fetchByCriteria(
-            'fs_quiz',
-            [
-                'id',
-                'name',
-                'desc',
-                'maxfp',
-                'questcount'
-            ],
-            ['id' => $id]
-        );
-    }
-
-    public function getQuizName(int $quizId): string
-    {
-        $quiz = $this->getQuiz($quizId);
-
-        return $quiz ? $quiz['name'] : '';
-    }
-
-    public function addQuestion(int $quizId, string $text, int $failurePoints, int $duration): int
-    {
-        $questionId = $this->db->insert(
-            'fs_question',
-            [
-                'text' => $text,
-                'duration' => $duration
-            ]
-        );
-        if ($questionId > 0) {
-            $this->db->insert(
-                'fs_question_has_quiz',
-                [
-                    'question_id' => $questionId,
-                    'quiz_id' => $quizId,
-                    'fp' => $failurePoints
-                ]
-            );
-
-            return $questionId;
-        }
-
-        return 0;
-    }
-
-    public function getQuestion(int $questionId): array
-    {
-        return $this->db->fetch('
-			SELECT
-					q.id,
-					q.`text`,
-					q.duration,
-					q.wikilink,
-					hq.fp,
-					hq.quiz_id
-
-				FROM
-					fs_question q
-					LEFT JOIN fs_question_has_quiz hq
-					ON hq.question_id = q.id
-
-				WHERE
-					q.id = :questionId
+        $data = $this->db->fetch('SELECT
+                q.*,
+                hq.fp,
+                hq.quiz_id
+            FROM fs_question q
+            LEFT JOIN fs_question_has_quiz hq ON hq.question_id = q.id
+			WHERE q.id = :questionId
 		', [':questionId' => $questionId]);
+
+        return empty($data) ? null : Question::createFromArray($data);
     }
 
+    /**
+     * @return array<Question>
+     */
+    public function getQuestions(int $quizId): array
+    {
+        $questions = $this->db->fetchAll('SELECT
+				question.id,
+				question.text,
+				question.duration,
+				question.wikilink,
+				question_has_quiz.fp
+			FROM fs_question question
+            LEFT JOIN fs_question_has_quiz question_has_quiz ON question_has_quiz.question_id = question.id
+			WHERE question_has_quiz.quiz_id = :quizId
+		', [':quizId' => $quizId]);
+
+        return array_map([Question::class, 'createFromArray'], $questions);
+    }
+
+    /**
+     * @return array<Question>
+     */
     public function getRandomQuestions(int $count, int $failurePoints, int $quizId): array
     {
-        return $this->db->fetchAll('
-			SELECT
-				q.id,
-				q.duration,
-				hq.fp
-
-			FROM
-				fs_question q
-				LEFT JOIN fs_question_has_quiz hq
-				ON hq.question_id = q.id
-
-			WHERE
-				hq.quiz_id = :quizId
-			AND
-				hq.fp = :fp
-
-			ORDER BY
-				RAND()
-
+        $data = $this->db->fetchAll('SELECT
+                q.*,
+                hq.fp,
+                hq.quiz_id
+			FROM fs_question q
+			LEFT JOIN fs_question_has_quiz hq ON hq.question_id = q.id
+			WHERE hq.quiz_id = :quizId AND hq.fp = :fp
+            ORDER BY RAND()
 			LIMIT :count
 		', [':quizId' => $quizId, ':fp' => $failurePoints, ':count' => $count]);
+
+        return array_map([Question::class, 'createFromArray'], $data);
     }
 
+    /**
+     * @return array<array>
+     */
     public function getQuestionCountByFailurePoints(int $quizId): array
     {
-        $questions = $this->db->fetchAll('
-			SELECT
-				q.id,
-				q.duration,
-				hq.fp
-
-			FROM
-				fs_question q
-				LEFT JOIN fs_question_has_quiz hq
-				ON hq.question_id = q.id
-
-			WHERE
-				hq.quiz_id = :quizId
-		', [':quizId' => $quizId]);
-        if ($questions) {
-            $result = [];
-
-            $questionCounts = $this->db->fetchAll('
-				SELECT 	hq.fp, COUNT(q.id) AS `count`
-				FROM fs_question q
-					LEFT JOIN fs_question_has_quiz hq
-					ON hq.question_id = q.id
-
-				WHERE
-					hq.quiz_id = :quizId
-
-				GROUP BY
-					hq.fp
-			', [':quizId' => $quizId]);
-            if ($questionCounts) {
-                foreach ($questionCounts as $counts) {
-                    $failurePoints = $counts['fp'] ?: 0;
-                    if (!isset($result[$failurePoints])) {
-                        $result[$failurePoints] = $counts['count'];
-                    }
-                }
-            }
-
-            return $result;
-        }
-
-        return [];
+        return $this->db->fetchAll('
+            SELECT
+                hq.fp,
+                COUNT(q.id) AS `count`
+            FROM fs_question q
+            LEFT JOIN fs_question_has_quiz hq
+                ON hq.question_id = q.id
+            WHERE hq.quiz_id = :quizId
+            GROUP BY hq.fp
+            ORDER BY hq.fp ASC
+        ', [':quizId' => $quizId]);
     }
 
-    public function updateQuestion(int $questionId, int $quizId, string $text, int $failurePoints, int $duration, string $wikiLink): void
+    public function addQuestion(int $quizId, Question $question): int
     {
-        $this->db->update(
-            'fs_question',
-            [
-                'text' => $text,
-                'duration' => $duration,
-                'wikilink' => $wikiLink
-            ],
-            ['id' => $questionId]
-        );
+        $questionId = $this->db->insert('fs_question', [
+            'text' => $question->text,
+            'duration' => $question->durationInSeconds,
+            'wikilink' => $question->wikilink,
+        ]);
+        $this->db->insert('fs_question_has_quiz', [
+            'question_id' => $questionId,
+            'quiz_id' => $quizId,
+            'fp' => $question->failurePoints
+        ]);
 
-        $this->db->update(
-            'fs_question_has_quiz',
-            ['fp' => $failurePoints],
-            [
-                'question_id' => $questionId,
-                'quiz_id' => $quizId
-            ]
+        return $questionId;
+    }
+
+    public function updateQuestion(Question $question): void
+    {
+        $this->db->update('fs_question', [
+            'text' => $question->text,
+            'duration' => $question->durationInSeconds,
+            'wikilink' => $question->wikilink
+        ], ['id' => $question->id]);
+        $this->db->update('fs_question_has_quiz',
+            ['fp' => $question->failurePoints],
+            ['question_id' => $question->id]
         );
     }
 
@@ -233,152 +149,67 @@ class QuizGateway extends BaseGateway
         $this->db->delete('fs_question_has_quiz', ['question_id' => $questionId]);
     }
 
-    public function listQuestions(int $quizId): array
+    public function getQuizIdFromQuestionId(int $questionId): int
     {
-        $questions = $this->getQuestions($quizId);
-        if ($questions) {
-            foreach ($questions as $key => $q) {
-                $questions[$key]['answers'] = $this->getAnswers($q['id']);
-                $questions[$key]['comment_count'] = $this->countComments($q['id']);
-            }
-
-            return $questions;
-        }
-
-        return [];
+        return $this->db->fetchValueByCriteria('fs_question_has_quiz', 'quiz_id', ['question_id' => $questionId]);
     }
 
-    private function countComments(int $questionId): int
+    // Answer
+
+    public function getAnswer(int $answerId): ?Answer
     {
-        return $this->db->count(
-            'fs_question_has_wallpost',
-            ['question_id' => $questionId]
-        );
-    }
-
-    public function getRightQuestions(int $quizId): array
-    {
-        $out = [];
-        $questions = $this->getQuestions($quizId);
-        if ($questions) {
-            foreach ($questions as $q) {
-                $questionId = $q['id'];
-                $out[$questionId] = $q;
-                $answers = $this->getAnswers($questionId);
-                if ($answers) {
-                    $out[$questionId]['answers'] = [];
-                    foreach ($answers as $a) {
-                        $out[$questionId]['answers'][$a['id']] = $a;
-                    }
-                }
-            }
-
-            return $out;
-        }
-
-        return [];
-    }
-
-    private function getQuestions(int $quizId): array
-    {
-        return $this->db->fetchAll('
-			SELECT
-				q.id,
-				q.text,
-				q.duration,
-				q.wikilink,
-				hq.fp
-
-			FROM
-				fs_question q
-				LEFT JOIN fs_question_has_quiz hq
-				ON hq.question_id = q.id
-
-			WHERE
-				hq.quiz_id = :quizId
-		', [':quizId' => $quizId]);
-    }
-
-    public function addAnswer(int $questionId, string $text, string $explanation, int $right): int
-    {
-        return $this->db->insert(
-            'fs_answer',
-            [
-                'question_id' => $questionId,
-                'text' => $text,
-                'explanation' => $explanation,
-                'right' => $right
-            ]
-        );
-    }
-
-    public function getAnswer(int $answerId): array
-    {
-        return $this->db->fetchByCriteria(
+        $data = $this->db->fetchByCriteria(
             'fs_answer',
             ['id', 'question_id', 'text', 'explanation', 'right'],
             ['id' => $answerId]
         );
+
+        return empty($data) ? null : Answer::createFromArray($data);
     }
 
-    public function getAnswers(int $questionId): array
+    /**
+     * @return array<Answer>
+     */
+    public function getAnswers(int $questionId, bool $includeSolution = true): array
     {
-        return $this->db->fetchAllByCriteria(
-            'fs_answer',
-            ['id', 'text', 'explanation', 'right'],
-            ['question_id' => $questionId]
-        );
-    }
-
-    public function updateAnswer(int $answerId, string $text, string $explanation, int $right): int
-    {
-        return $this->db->update(
-            'fs_answer',
-            [
-                'text' => $text,
-                'explanation' => $explanation,
-                'right' => $right
-            ],
-            ['id' => $answerId]
-        );
-    }
-
-    public function deleteAnswer(int $answerId): int
-    {
-        return $this->db->delete('fs_answer', ['id' => $answerId]);
-    }
-
-    public function addUserComment(int $questionId, int $foodsaverId, string $comment): bool
-    {
-        $wallPost = WallPost::createFromArray(['body' => $comment]);
-        $commentId = $this->wallPostGateway->addPost($wallPost, $foodsaverId, 'question', $questionId);
-
-        return $this->handleUserComment($questionId, $commentId, $comment);
-    }
-
-    private function handleUserComment(int $questionId, int $commentId, string $comment): bool
-    {
-        if ($commentId > 0) {
-            if ($quizAMBs = $this->foodsaverGateway->getAdminsOrAmbassadors(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP)) {
-                $bellData = Bell::create(
-                    'new_quiz_comment_title',
-                    'new_quiz_comment',
-                    'fas fa-question-circle',
-                    ['href' => '/?page=quiz&sub=wall&id=' . $questionId],
-                    ['comment' => $comment]
-                );
-                $this->bellGateway->addBell($quizAMBs, $bellData);
-            }
-
-            $this->db->update(
-                'fs_question_has_wallpost',
-                ['usercomment' => 1],
-                ['wallpost_id' => $commentId]
-            );
-
-            return true;
+        $columns = ['id', 'text'];
+        if ($includeSolution) {
+            $columns[] = 'explanation';
+            $columns[] = 'right';
         }
+        $answers = $this->db->fetchAllByCriteria(
+            'fs_answer', $columns, ['question_id' => $questionId]
+        );
 
-        return false;
+        return array_map([Answer::class, 'createFromArray'], $answers);
+    }
+
+    public function addAnswer(int $questionId, Answer $answer): int
+    {
+        return $this->db->insert('fs_answer', [
+            'question_id' => $questionId,
+            'text' => $answer->text,
+            'explanation' => $answer->explanation,
+            'right' => $answer->answerRating->value
+        ]);
+    }
+
+    public function updateAnswer(Answer $answer): void
+    {
+        $this->db->update('fs_answer', [
+            'text' => $answer->text,
+            'explanation' => $answer->explanation,
+            'right' => $answer->answerRating->value,
+        ], ['id' => $answer->id]);
+    }
+
+    public function deleteAnswer(int $answerId): void
+    {
+        $this->db->delete('fs_answer', ['id' => $answerId]);
+    }
+
+    public function getQuestionIdFromAnswerId(int $answerId): int
+    {
+        return $this->db->fetchValueById('fs_answer', 'question_id', $answerId);
     }
 }

@@ -98,6 +98,7 @@ class ProfileView extends View
 
         // what is the viewer allowed to do in this profile?
         $maySeeHistory = $this->profilePermissions->maySeeHistory($fsId);
+        $maySeeQuizSessions = $this->profilePermissions->maySeeQuizSessions();
         $mayAdmin = $this->profilePermissions->mayAdministrateUserProfile($fsId, $regionId);
         $maySeeBounceWarning = $this->profilePermissions->maySeeBounceWarning($fsId);
         $maySeePickups = $this->profilePermissions->maySeePickups($fsId);
@@ -162,6 +163,7 @@ class ProfileView extends View
                 'initialBuddyType' => $this->foodsaver['buddy'],
                 'mayAdmin' => $mayAdmin,
                 'mayHistory' => $maySeeHistory,
+                'maySeeQuizSessions' => $maySeeQuizSessions,
                 'noteCount' => $this->foodsaver['note_count'] ?? 0,
                 'mayNotes' => $this->reportPermissions->mayHandleReports(),
                 'violationCount' => $this->foodsaver['violation_count'] ?? 0,

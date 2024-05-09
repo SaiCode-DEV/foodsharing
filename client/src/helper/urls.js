@@ -175,12 +175,13 @@ const urls = {
   wiki_grundsaetze: () => 'https://wiki.foodsharing.de/Grundsätze',
   wiki_legal_agreement: () => 'https://wiki.foodsharing.de/Rechtsvereinbarung',
 
-  //
-  quiz_admin_edit: () => '/?page=quiz',
+  // quiz
+  quiz_admin_edit: (quizId) => '/quiz/edit' + (quizId ? `/${quizId}` : ''),
   quiz_learning_video: () => 'https://youtu.be/9Fk6MHC-M1o',
-  quiz_foodsaver: () => '/?page=settings&sub=up_fs',
-  quiz_store_manager: () => '/?page=settings&sub=up_bip',
-  quiz_ambassador: () => '/?page=settings&sub=up_bot',
+  rise_role: (role) => '/?page=settings&sub=rise_role' + (role ? `&role=${role}` : ''),
+  quiz_foodsaver: () => urls.rise_role(1),
+  quiz_store_manager: () => urls.rise_role(2),
+  quiz_ambassador: () => urls.rise_role(3),
 
   // Footer Links
   hosting: () => 'https://www.manitu.de/webhosting/',

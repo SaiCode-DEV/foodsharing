@@ -14,7 +14,7 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Mailbox\MailboxFolder;
-use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
+use Foodsharing\Modules\Core\DBConstants\Quiz\AnswerRating;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
@@ -209,40 +209,43 @@ class Foodsharing extends Db
         }
     }
 
-    public function createQuiz(int $quizId, int $questionCount = 1): array
+    public function createQuiz(int $quizId, ?int $questionCount = null): array
     {
         $roles = [
-            Role::FOODSAVER->value => 'Foodsaver/in',
-            Role::STORE_MANAGER->value => 'Betriebsverantwortliche/r',
-            Role::AMBASSADOR->value => 'Botschafter/in'
+            Role::FOODSAVER->value => 'Foodsaver:in',
+            Role::STORE_MANAGER->value => 'Betriebsverantwortliche:r',
+            Role::AMBASSADOR->value => 'Botschafter:in'
         ];
+        $questionCount ??= random_int(3, 6);
+        $questionCountUntimed = $quizId === 1 ? 2 + $questionCount : null;
         $params = [
             'id' => $quizId,
-            'name' => 'Quiz #' . $quizId,
-            'desc' => 'Werde ' . $roles[$quizId] . ' mit diesem Quiz.',
-            'maxfp' => 0,
+            'name' => 'Quiz für ' . $roles[$quizId],
+            'desc' => 'Werde ' . $roles[$quizId] . ' mit diesem Quiz! ' . $this->faker->realTextBetween(200, 500),
+            'maxfp' => 2,
             'questcount' => $questionCount,
+            'questcount_untimed' => $questionCountUntimed,
         ];
         $params['id'] = $this->haveInDatabase('fs_quiz', $params);
 
         $params['questions'] = [];
-        for ($i = 1; $i <= $questionCount; ++$i) {
-            $questionText = 'Frage #' . $i . ' für Quiz #' . $params['id'];
-            $params['questions'][] = $this->createQuestion($params['id'], $questionText);
+        for ($i = 1; $i <= $questionCount * 2; ++$i) {
+            $params['questions'][] = $this->createQuestion($params['id']);
         }
 
         return $params;
     }
 
-    private function createQuestion(int $quizId, string $text = 'Question', int $failurePoints = 1): array
+    private function createQuestion(int $quizId): array
     {
         $params = [
-            'text' => $text,
-            'duration' => 60,
-            'wikilink' => 'wiki.foodsharing.de'
+            'text' => $this->faker->realTextBetween(100, 300),
+            'duration' => random_int(3, 6) * 10,
+            'wikilink' => 'https://wiki.foodsharing.de/' . $this->faker->slug(),
         ];
         $questionId = $this->haveInDatabase('fs_question', $params);
         $params['id'] = $questionId;
+        $failurePoints = random_int(1, 3);
 
         $this->haveInDatabase('fs_question_has_quiz', [
             'question_id' => $questionId,
@@ -251,31 +254,25 @@ class Foodsharing extends Db
         ]);
 
         $params['answers'] = [];
-        $params['answers'][] = $this->createAnswer($questionId, true);
-        $params['answers'][] = $this->createAnswer($questionId, false);
+        $numAnswers = random_int(2, 5);
+        for ($i = 0; $i < $numAnswers; ++$i) {
+            $params['answers'][] = $this->createAnswer($questionId, AnswerRating::from(random_int(0, 2)));
+        }
 
         return $params;
     }
 
-    private function createAnswer(int $questionId, bool $right = true): array
+    private function createAnswer(int $questionId, AnswerRating $right): array
     {
         $params = [
             'question_id' => $questionId,
-            'text' => ($right ? 'Richtige' : 'Falsche') . ' Antwort',
-            'explanation' => 'Diese Antwort ist ' . ($right ? 'richtig' : 'falsch') . '.',
-            'right' => $right ? 1 : 0
+            'text' => $this->faker->realTextBetween() . ' (' . $right->name . ')',
+            'explanation' => 'Diese Antwort ist ' . $right->name . '. ' . $this->faker->realTextBetween(),
+            'right' => $right->value
         ];
         $params['id'] = $this->haveInDatabase('fs_answer', $params);
 
         return $params;
-    }
-
-    public function letUserFailQuiz(array $user, int $daysAgo, int $times): void
-    {
-        $level = $user['rolle'] + 1;
-        foreach (range(1, $times) as $i) {
-            $this->createQuizTry($user['id'], $level, SessionStatus::FAILED, $daysAgo);
-        }
     }
 
     public function createQuizTry(int $fsId, int $level, int $status, int $daysAgo = 0): void

@@ -687,7 +687,7 @@ class SeedCommand extends Command implements CustomCommandInterface
 
         $this->output->writeln('Create quizzes');
         foreach (range(1, 3) as $quizRole) {
-            $I->createQuiz($quizRole, 3);
+            $I->createQuiz($quizRole);
             $this->output->write('.');
         }
         $this->output->writeln(' done');
