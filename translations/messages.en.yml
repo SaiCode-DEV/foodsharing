@@ -587,6 +587,7 @@ profile:
     edit: Edit profile
     violations: Reports
     remove_buddy: I don’t know {name} anymore
+    quizSessionHistory: Quiz attempts
   notes:
     bread: Notes
     info: "Please use this function carefully. It should help to make processes visible
@@ -1215,6 +1216,8 @@ button:
   reset_default: Reset default
   prev: previous
   close: Close
+  start: Let’s go!
+  confirm: confirm
 bell:
   ft_update_title: '{name}'
   blog_new_check: '{title}'
@@ -1696,6 +1699,7 @@ releases:
   "2024-01": "Release \"Kiwi\" 🍈 (January 2024)"
 
   "2024-04": Release “Laugenbrezel” 🥨 (April 2024)
+  "2024-07": Release “Mandarin” 🍊 (July 2024)
 footer:
   it_devdocs: by foodsharing IT
   donate_now: Donate now
@@ -1902,6 +1906,9 @@ foodsaver:
     needs_publicinfo: Your short description is empty
     amb_region: For which region would you like to become an ambassador?
     ad_fs: I now want to take the foodsaver quiz and become a foodsaver!
+    AMBASSADOR: Become an ambassador
+    FOODSAVER: Become a foodsaver
+    STORE_MANAGER: Become a store manager
   delete_account: Delete account
   profileBack: Back to the profile
   editName: Edit {name}
@@ -3193,9 +3200,9 @@ quiz:
   resultsbelow: You can find the results below.
   heavysigh: Finished!
   goodluck: Good luck!
-  regstart: Start the quiz with unlimited time and 20 questions
+  regstart: Start the quiz with unlimited time and {count} questions
   nownownow: Start the quiz now
-  timedstart: Start the quiz with limited time and 10 questions
+  timedstart: Start the quiz with limited time and {count} questions
   finished: Congratulations, you made it!
   trynumber: This was attempt number
   finishnow:
@@ -3203,7 +3210,7 @@ quiz:
     bv: Finish the signup process for store coordinators now.
     bot: Finish the ambassador signup process now.
   donecorrectly: you answered absolutely correct. Congrats!
-  wikilink: Related wiki article on this topic
+  wikilink: More information on this in the wiki
   learnbreak: learning break
   safeandsound: No problem. Your session is saved. You can continue it at any time.
   continuetype: '-quiz: continue now'
@@ -3213,6 +3220,195 @@ quiz:
   session_deleted: The results of this quiz were deleted because the quiz was finished
     more than two weeks ago.
   comments: Comments
+  button:
+    pause: continue later
+    finish: finish quiz
+  title:
+    PASSED: '{name} — you have passed this quiz!'
+    FAILED: '{name} — try again!'
+    PAUSE: Study break ({name})
+    PAUSE_ELAPSED: '{name} — now you can try again!'
+    DISQUALIFIED: '{name} — unfortunately disqualified.'
+    NEVER_TRIED: '{name} — take the quiz!'
+    RUNNING: '{name} — continue the quiz!'
+  startmodal:
+    infos:
+      real_life_examples: Most of the questions are based on real cases from foodsharing
+        life.
+      alone: You are not allowed to be helped during the quiz. Therefore, find a quiet
+        place where you can take the quiz undisturbed.
+      read_carefully: Read all questions and answers carefully. There is enough time
+        for that.
+      pause: You can pause the quiz after each question and resume it at a later time.
+      feedback: At the end of the quiz you will receive an immediate evaluation of
+        whether you passed and what mistakes you made and where. Here you can read
+        through the reasons again at your leisure.
+      wiki: Please do not start the quiz at random. Read the pages listed on the foodsharing
+        wiki carefully beforehand. Without the knowledge from the wiki you will not
+        pass the quiz.
+      multiple_choice: There may be several correct answers per question — or none.
+        Therefore, decide for each answer individually whether it is right or wrong.
+      limited_tries: You cannot repeat the quiz as many times as you want. After three
+        attempts you have to take a 30-day break to study again, after which you only
+        have two more attempts. The questions you will be asked in each attempt are
+        different.
+      comment: After answering each question, you will see an interim evaluation with
+        explanations for each of the answer options. This helps to understand which
+        answer is right or wrong and why. For each error, you should read the explanations
+        carefully. If something seems illogical, incomprehensible or even wrong, please
+        leave a comment.
+    title: Quiz notes
+  comment:
+    toggle: write a comment
+    placeholder: Enter comment…
+    sent: Comment sent.
+    wallTitle: 'Comments on question #{id}'
+    label: comment on the question
+    info: Give us feedback on this question. Was it too easy, too difficult, incomprehensible?
+      Or are individual answers or explanations incorrect?
+    send: submit comment
+  answers:
+    name: Answers
+    none_correct: Neither answer is correct.
+    neutral: Neutral answer — will not be evaluated.
+    false_false: This answer was of course wrong. You recognized that correctly.
+    false_true: This answer would have been correct.
+    true_false: Wrong! This answer is not correct.
+    timedOut:
+      0: This answer would have been wrong.
+      2: This answer would have been neutral.
+      1: This answer would have been correct.
+    short:
+      0: wrong
+      1: right
+      2: neutral
+    true_true: Right! This answer is correct.
+  state_based_info:
+    RUNNING: You have already started the quiz and answered {questionsAnswered} of
+      {questionCount} questions so far.
+    PASSED: You have passed this quiz.
+    FAILED:
+      2: Unfortunately, you failed this quiz in your first two attempts. You still
+        have a third attempt before you have to take a month break to study again.
+        Be sure to check out the relevant wiki articles so you can pass the quiz.
+      1: Unfortunately, you did not pass this quiz on your first attempt. This can
+        happen sometimes. Have another look at the relevant wiki articles and try
+        again.
+    DISQUALIFIED: Unfortunately, you are disqualified for this quiz because you failed
+      five times.
+    NEVER_TRIED: You have never taken this quiz before. Take the time to read all
+      the wiki articles listed carefully so that you are prepared for the questions.
+    PAUSE: You have failed this quiz three times. Reliability, a firm grasp of the
+      rules and a professional demeanor are essential at Foodsharing. Unfortunately,
+      your answers do not convey this at the moment. Therefore, you will be given
+      a one-month study break before you get two more attempts to pass the quiz. Your
+      study break ends in {wait} days.
+    PAUSE_ELAPSED:
+      3: Your study break is over. You can now take the quiz two more times. Hopefully
+        you have used the time to become more familiar with the content.
+      4: You only have one last attempt to pass this quiz! If you fail now, you will
+        be permanently disqualified from this quiz. Please only take part if you have
+        studied the contents of the wiki in detail.
+  results:
+    title:
+      1: Congratulations!
+      2: Unfortunately, you did not pass.
+    points:
+      2: You had {failurePoints} failure points and would have passed with a maximum
+        of {maxFailurePointsToSucceed}.
+      1: You have passed with {failurePoints} of maximum {maxFailurePointsToSucceed}
+        failure points!
+    deleted: The exact evaluation is only saved for two weeks after the quiz and is
+      no longer available afterwards.
+  error_tooltip: You made a mistake with this answer.
+  show_results: View the results of the last attempt
+  key_facts:
+    to_pass: 'To pass:'
+    untimed: Maximum {maxFailurePointsToSucceed} failure points in {questionCountTimed}
+      questions with, or {questionCountUntimed} questions without a time limit
+    timed: Maximum {maxFailurePointsToSucceed} failure points in {questionCountTimed}
+      questions with a time limit
+  general:
+    title: General information
+    edit: edit quiz
+  questions_section:
+    title: Quiz questions ({count})
+  editable_tooltip: You can edit this quiz.
+  timelimit: Time limit
+  question_options:
+    add: add question
+    edit: edit question
+    add_answer: add answer
+    delete: delete question
+    show_comments: show comments
+  answer_options:
+    edit: edit answer
+    delete: delete answer
+  fp_options:
+    joke: '{failurePoints} failure points (no rating)'
+    default: '{failurePoints} failure points'
+    ko: '{failurePoints} failure points (knockout)'
+  sessionStatus:
+    0: currently running
+    1: Passed with {failurePoints} out of a maximum of {maxFailurePointsToSucceed}
+      failure points
+    2: Failed with {failurePoints} of maximum {maxFailurePointsToSucceed} failure
+      points
+  editModal:
+    quiz:
+      htmlWarning: '**Attention:** The formatting of the description has been changed.
+        What you see in the text input field is formatted with HTML. Please adjust
+        the description and use Markdown instead. Please use the preview function
+        of the input field to ensure that the formatting has been adjusted correctly.'
+      input:
+        name:
+          label: 'Name:'
+          placeholder: Name of the quiz
+        maxFp: 'Maximum failure points to pass:'
+        questionCountTimed: 'Number of questions to be answered:'
+        allowUntimed: Allow editing without time limit
+        questionCountUntimed: 'Number of questions to be answered without time limit:'
+      title: Edit quiz
+    question:
+      title: Edit question
+      input:
+        text:
+          placeholder: Quiz question…
+          label: 'Question:'
+        fp: 'Failure points:'
+        wikilink:
+          label: 'Link to the corresponding wiki article:'
+          placeholder: https://wiki.foodsharing.de/…
+        duration: 'Time to answer:'
+      confirmDelete:
+        title: Do you really want to delete this question?
+    answer:
+      title: Edit answer
+      input:
+        text:
+          label: 'Answer:'
+          placeholder: Answer…
+        explanation:
+          label: 'Explanation:'
+          placeholder: Explanation…
+        answerRating: 'Rating:'
+  plural: Quizzes
+  infomodal:
+    title: Question {index} of {questions}
+  fp_description: Total {failurePoints}, i. e. {perMistake} per incorrect answer
+  fp_badge:
+    right: answered correctly
+    wrong: '{userFailurePoints} mistakes'
+  timed_out: You didn’t answer this question in the allotted time.
+  timed_out_last: Unfortunately, you didn’t answer the last question in the allotted
+    time.
+  timed_out_error: The time to answer this question has already expired.
+  max_fp: Possible failure points
+  confirmDelete:
+    session: Do you really want to delete this quiz session?
+    question: Do you really want to delete this question?
+    answer: Do you really want to delete this answer?
+  confirm: Confirm the quiz and complete the process
 nofp: no error points (not a serious question)
 fpsingular: Error point
 request_time: 'Time of request:'
@@ -3449,7 +3645,7 @@ join_region:
   error:
     is_country_1: This is a country.
     is_country_2: Please choose a city, a region or a district!
-    is_state_1: This is a state.
+    is_state_1: This is a federal state. Please select a city, a region or a district!
     is_state_2: Please choose a city, a region or a disctrict!
     not_allowed: You cannot join this district.
     is_big_city_1: This is a large city.
@@ -3550,7 +3746,10 @@ thread:
   post:
     options:
       copy_source: Copy source code
+      copy_direct_link: copy direct link
     copy_source_success: Source code copied!
+    copy_direct_link_success: Direct link copied!
+    linked_post: linked post
   priorityModal:
     title: Adjust display priority
     text: 'Display priority of this post:'
