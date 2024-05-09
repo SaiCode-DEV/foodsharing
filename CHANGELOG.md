@@ -19,6 +19,9 @@
 
 ## Development documentation
 
+# Hotfix 2024-05-09
+- Fix Quiz Role not increasing #1930 !3315 @AntonBallmaier
+
 # Hotfix 2024-05-05
 - Show missing region menu entries to orgas #1927 !3299 !3310 @AntonBallmaier
 - Fixed the editing of content pages #1919 !3302 @alex.simm
