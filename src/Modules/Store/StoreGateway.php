@@ -204,7 +204,7 @@ class StoreGateway extends BaseGateway
             'telefon' => $store->contact->phone,
             'fax' => $store->contact->fax,
             'email' => $store->contact->email,
-            'begin' => $store->cooperationStart ? $this->db->date($store->cooperationStart, false) : '0000-00-00',
+            'begin' => $store->cooperationStart ? $this->db->date($store->cooperationStart, false) : null,
             'team_status' => $store->teamStatus->value,
 
             'prefetchtime' => $store->calendarInterval,
