@@ -139,6 +139,7 @@ group:
       If so, where or which ones?\n"
     how_much_time: How many hours a week do you have the time and inclination to spend
       on this?
+    error_missing_time: 'Error: no time has been selected.'
   show-all: Show all
   really_quit_district: Do you really want to leave the region {name}?
   really_quit_workgroup: Do you really want to leave the working group {name}?
@@ -464,6 +465,8 @@ profile:
     weight: saved
     posts: posts
     count: pick-ups
+    fetch_count: picked up
+    bananas: Bananas
   infos:
     buddies: Buddies
     never: Never
@@ -674,6 +677,30 @@ profile:
     about the user, such as the completion of hygiene training or similar. Instead,
     workgroups can be used to perform such assignments. Further information on this
     can be found in the <a href="/region?bid=881&sub=forum&tid=58225">Ambassador Forum</a>
+  sections:
+    ambassador_for: Ambassador for
+    foodSaver_in_region: Foodsaver in
+    workgroups_admin: is the contact person for groups
+    workgroups_member: together in the following working groups
+    home_region_from: Home region
+    orga_rights: '##### has [extensive authorizations]({wikiurl}) on the platform
+      as an Orga person.'
+    no_common_workgroups: no working groups in common
+  tab_navigation:
+    profile: Profile
+    pickups: Pick-ups
+    notes: Notes ({count})
+    commitment_statistics: Engagement statistics
+    stores: Stores ({count})
+  stores:
+    store_table: Store table
+    memberState:
+      filterActive: Member
+      filterManage: SM
+      filterAll: all
+      filterRequested: Inquiry submitted
+      filterJumper: Jumper
+    search_placeholder: Search for name
 test:
   plain: This is a nice translation
   vars: 'My name is {NAME} and I am {AGE} years old'
