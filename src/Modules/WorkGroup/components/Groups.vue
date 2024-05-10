@@ -128,7 +128,7 @@
       modal-class="bootstrap"
       header-class="d-flex"
       content-class="pr-3 pt-3"
-      @ok="trySendRequest(selectedGroupId)"
+      @ok.prevent="trySendRequest(selectedGroupId)"
     >
       <p>
         <label>{{ $i18n('group.apply.motivation', { group: selectedGroupName }) }}</label>
@@ -261,8 +261,13 @@ export default {
     },
     async trySendRequest (groupId) {
       try {
+        if (this.selectedTime === null) {
+          pulseError(this.$i18n('group.apply.error_missing_time'))
+          return
+        }
         await sendRequest(groupId, this.motivation, this.ability, this.experience, this.selectedTime)
         pulseSuccess(i18n('success'))
+        this.$refs.groupRequestForm.hide()
       } catch (err) {
         pulseError(`${i18n('error_unexpected')}<br><br> ${err.message}`)
       }

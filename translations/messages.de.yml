@@ -476,6 +476,7 @@ group:
       Kannst du in der Gruppe auf Erfahrungen, die du woanders gesammelt hast zurückgreifen?
       Wenn ja, wo beziehungsweise welche?
     how_much_time: "Wie viele Stunden hast du pro Woche Zeit und Lust dafür aufzuwenden?"
+    error_missing_time: "Fehler: keine Zeit wurde gewählt."
     time:
       "1": "1-2 Stunden"
       "2": "2-3 Stunden"
