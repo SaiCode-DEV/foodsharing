@@ -223,7 +223,7 @@ class StoreGatewayTest extends Unit
         $patch->cooperationStart = null;
         $this->gateway->updateStoreData($patch);
 
-        $this->tester->seeInDatabase('fs_betrieb', ['begin' => '0000-00-00', 'id' => $store['id']]);
+        $this->tester->seeInDatabase('fs_betrieb', ['begin' => null, 'id' => $store['id']]);
     }
 
     /**
