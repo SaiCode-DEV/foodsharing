@@ -2,21 +2,26 @@
   <div>
     <div class="mb-2 text-center">
       <Avatar
-        :user="{ avatar: photo, isSleeping }"
+        :user="{ avatar: profileMenu.photo, isSleeping: profileMenu.isSleeping }"
         :size="130"
       />
     </div>
     <div
-      v-if="isOnline"
+      v-if="profileMenu.isOnline"
       class="alert alert-info text-center"
       role="alert"
     >
       <i class="fas fa-circle text-secondary" />
-      {{ $i18n('profile.online', { name: foodSaverName }) }}
+      {{ $i18n('profile.online', { name: profileMenu.foodSaverName }) }}
     </div>
     <b-list-group>
       <b-list-group-item
-        v-if="fsId === fsIdSession"
+        class="list-group-item list-group-item-action text-center"
+      >
+        <h3>{{ profileMenu.foodSaverName }}</h3>
+      </b-list-group-item>
+      <b-list-group-item
+        v-if="profileMenu.fsId === profileMenu.fsIdSession"
         type="button"
         class="list-group-item list-group-item-action"
         :href="$url('settings')"
@@ -24,41 +29,41 @@
         <i class="fas fa-pencil-alt fa-fw" /> {{ $i18n('settings.header') }}
       </b-list-group-item>
       <b-list-group-item
-        v-if="fsId !== fsIdSession"
+        v-if="profileMenu.fsId !== profileMenu.fsIdSession"
         type="button"
         class="list-group-item list-group-item-action"
-        @click="openChat(fsId)"
+        @click="openChat(profileMenu.fsId)"
       >
         <i class="fas fa-comment fa-fw" /> {{ $i18n('chat.open_chat') }}
       </b-list-group-item>
       <b-list-group-item
-        v-if="mayAdmin"
+        v-if="profileMenu.mayAdmin"
         type="button"
         class="list-group-item list-group-item-action"
-        :href="$url('foodsaverEdit', fsId)"
+        :href="$url('foodsaverEdit', profileMenu.fsId)"
       >
         <i class="fas fa-pencil-alt fa-fw" /> {{ $i18n('profile.nav.edit') }}
       </b-list-group-item>
       <b-list-group-item
-        v-if="fsId !== fsIdSession && buddyType === buddyTypes.NO_BUDDY"
+        v-if="profileMenu.fsId !== profileMenu.fsIdSession && buddyType === buddyTypes.NO_BUDDY"
         type="button"
         class="list-group-item list-group-item-action"
         :disabled="loading"
-        @click="sendBuddyRequest(fsId)"
+        @click="sendBuddyRequest(profileMenu.fsId)"
       >
-        <i class="fas fa-user-friends fa-fw" /> {{ $i18n('profile.nav.buddy', { name: foodSaverName }) }}
+        <i class="fas fa-user-friends fa-fw" /> {{ $i18n('profile.nav.buddy', { name: profileMenu.foodSaverName }) }}
       </b-list-group-item>
       <b-list-group-item
-        v-if="fsId !== fsIdSession && buddyType !== buddyTypes.NO_BUDDY"
+        v-if="profileMenu.fsId !== profileMenu.fsIdSession && buddyType !== buddyTypes.NO_BUDDY"
         type="button"
         class="list-group-item list-group-item-action"
         :disabled="loading"
-        @click="removeBuddy(fsId)"
+        @click="removeBuddy(profileMenu.fsId)"
       >
-        <i class="fas fa-user-slash fa-fw" /> {{ $i18n('profile.nav.remove_buddy', { name: foodSaverName }) }}
+        <i class="fas fa-user-slash fa-fw" /> {{ $i18n('profile.nav.remove_buddy', { name: profileMenu.foodSaverName }) }}
       </b-list-group-item>
       <b-list-group-item
-        v-if="mayHistory"
+        v-if="profileMenu.mayHistory"
         type="button"
         class="list-group-item list-group-item-action"
         @click="openHistory(1)"
@@ -66,7 +71,7 @@
         <i class="fas fa-file-alt fa-fw" /> {{ $i18n('profile.nav.history') }}
       </b-list-group-item>
       <b-list-group-item
-        v-if="mayHistory"
+        v-if="profileMenu.mayHistory"
         type="button"
         class="list-group-item list-group-item-action"
         @click="openHistory(0)"
@@ -74,7 +79,7 @@
         <i class="fas fa-file-alt fa-fw" /> {{ $i18n('profile.nav.verificationHistory') }}
       </b-list-group-item>
       <b-list-group-item
-        v-if="maySeeQuizSessions"
+        v-if="profileMenu.maySeeQuizSessions"
         type="button"
         class="list-group-item list-group-item-action"
         @click="$bvModal.show('quizSessionHistoryModal')"
@@ -82,25 +87,25 @@
         <i class="fas fa-file-alt fa-fw" /> {{ $i18n('profile.nav.quizSessionHistory') }}
       </b-list-group-item>
       <b-list-group-item
-        v-if="mayNotes"
+        v-if="profileMenu.mayNotes"
         type="button"
         class="list-group-item list-group-item-action"
         :href="$url('profileNotes', fsId)"
       >
         <i class="far fa-file-alt fa-fw" />
         <span>
-          {{ $i18n('profile.nav.notes') }} <strong>({{ noteCount }})</strong>
+          {{ $i18n('profile.nav.notes') }} <strong>({{ profileMenu.noteCount }})</strong>
         </span>
       </b-list-group-item>
       <b-list-group-item
-        v-if="mayViolation && violationCount > 0"
+        v-if="profileMenu.mayViolation && profileMenu.violationCount > 0"
         type="button"
         class="list-group-item list-group-item-action"
-        :href="$url('violations', fsId)"
+        :href="$url('violations', profileMenu.fsId)"
       >
         <i class="far fa-meh fa-fw" />
         <span>
-          {{ $i18n('profile.nav.violations') }} <strong>({{ violationCount }})</strong>
+          {{ $i18n('profile.nav.violations') }} <strong>({{ profileMenu.violationCount }})</strong>
         </span>
       </b-list-group-item>
       <b-list-group-item
@@ -110,7 +115,7 @@
         href="#"
         @click="$refs.report_request.show()"
       >
-        <i class="far fa-life-ring fa-fw" /> {{ buttonNameReportRequest }}
+        <i class="far fa-life-ring fa-fw" /> {{ profileMenu.buttonNameReportRequest }}
       </b-list-group-item>
       <b-list-group-item
         v-if="showModerationButton"
@@ -125,35 +130,35 @@
     <b-modal
       v-if="showModerationButton"
       ref="modal_mediation"
-      :title="$i18n('profile.mediation.title', { name: foodSaverName })"
+      :title="$i18n('profile.mediation.title', { name: profileMenu.foodSaverName })"
       :cancel-title="$i18n('button.cancel')"
       header-class="d-flex"
       content-class="pr-3 pt-3"
     >
       <MediationRequest
-        :mediation-group-email="mediationGroupEmail"
-        :has-local-mediation-group="hasLocalMediationGroup"
+        :mediation-group-email="profileMenu.mediationGroupEmail"
+        :has-local-mediation-group="profileMenu.hasLocalMediationGroup"
       />
     </b-modal>
     <ReportRequest
       v-if="showReportButton"
       ref="report_request"
-      :food-saver-name="foodSaverName"
-      :reported-id="fsId"
-      :reporter-id="fsIdSession"
-      :store-list-options="storeListOptions"
-      :has-report-group="hasReportGroup"
-      :has-arbitration-group="hasArbitrationGroup"
-      :is-reported-id-report-admin="isReportedIdReportAdmin"
-      :is-reporter-id-report-admin="isReporterIdReportAdmin"
-      :is-reported-id-arbitration-admin="isReportedIdArbitrationAdmin"
-      :is-reporter-id-arbitration-admin="isReporterIdArbitrationAdmin"
-      :is-report-button-enabled="isReportButtonEnabled"
-      :reporter-has-report-group="reporterHasReportGroup"
-      :mailbox-name="mailboxNameReportRequest"
+      :food-saver-name="profileMenu.foodSaverName"
+      :reported-id="profileMenu.fsId"
+      :reporter-id="profileMenu.fsIdSession"
+      :store-list-options="profileMenu.storeListOptions"
+      :has-report-group="profileMenu.hasReportGroup"
+      :has-arbitration-group="profileMenu.hasArbitrationGroup"
+      :is-reported-id-report-admin="profileMenu.isReportedIdReportAdmin"
+      :is-reporter-id-report-admin="profileMenu.isReporterIdReportAdmin"
+      :is-reported-id-arbitration-admin="profileMenu.isReportedIdArbitrationAdmin"
+      :is-reporter-id-arbitration-admin="profileMenu.isReporterIdArbitrationAdmin"
+      :is-report-button-enabled="profileMenu.isReportButtonEnabled"
+      :reporter-has-report-group="profileMenu.reporterHasReportGroup"
+      :mailbox-name="profileMenu.mailboxNameReportRequest"
     />
     <ProfileHistoryModal ref="profileHistoryModal" />
-    <QuizSessionHistoryModal :foodsaver-id="fsId" />
+    <QuizSessionHistoryModal :foodsaver-id="profileMenu.fsId" />
   </div>
 </template>
 
@@ -178,35 +183,7 @@ const BUDDY_TYPES = Object.freeze({
 export default {
   components: { Avatar, ReportRequest, MediationRequest, ProfileHistoryModal, QuizSessionHistoryModal },
   mixins: [ConfirmationDialogue],
-  props: {
-    fsId: { type: Number, required: true },
-    fsIdSession: { type: Number, required: true },
-    photo: { type: String, default: '' },
-    isSleeping: { type: Boolean, default: false },
-    isOnline: { type: Boolean, default: false },
-    foodSaverName: { type: String, default: '' },
-    initialBuddyType: { type: Number, default: BUDDY_TYPES.NO_BUDDY },
-    mayAdmin: { type: Boolean, default: false },
-    mayHistory: { type: Boolean, default: false },
-    maySeeQuizSessions: { type: Boolean, default: false },
-    noteCount: { type: Number, default: 0 },
-    mayNotes: { type: Boolean, default: false },
-    violationCount: { type: Number, default: 0 },
-    mayViolation: { type: Boolean, default: false },
-    mediationGroupEmail: { type: String, default: '' },
-    hasLocalMediationGroup: { type: Boolean, default: false },
-    buttonNameReportRequest: { type: String, default: '' },
-    storeListOptions: { type: Array, default: () => { return [] } },
-    isReportedIdReportAdmin: { type: Boolean, required: true },
-    hasReportGroup: { type: Boolean, required: true },
-    hasArbitrationGroup: { type: Boolean, required: true },
-    isReporterIdReportAdmin: { type: Boolean, required: true },
-    isReporterIdArbitrationAdmin: { type: Boolean, required: true },
-    isReportedIdArbitrationAdmin: { type: Boolean, required: true },
-    isReportButtonEnabled: { type: Boolean, required: true },
-    reporterHasReportGroup: { type: Boolean, required: true },
-    mailboxNameReportRequest: { type: String, required: true },
-  },
+  props: { profileMenu: { type: Object, required: true } },
   data () {
     return {
       buddyType: this.initialBuddyType,
@@ -216,7 +193,7 @@ export default {
   },
   computed: {
     showReportButton () {
-      return this.buttonNameReportRequest !== null && this.buttonNameReportRequest.length > 0
+      return this.profileMenu.buttonNameReportRequest !== null && this.profileMenu.buttonNameReportRequest.length > 0
     },
     showModerationButton () {
       return this.fsId !== this.fsIdSession
@@ -251,7 +228,7 @@ export default {
     },
     async removeBuddy (userId) {
       const dialogueOptions = {
-        title: this.$i18n('buddy.remove.confirm_title', { name: this.foodSaverName }),
+        title: this.$i18n('buddy.remove.confirm_title', { name: this.profileMenu.foodSaverName }),
         okTitle: this.$i18n('yes'),
       }
       if (!await this.confirmationDialogue('buddy.remove.confirm_text', dialogueOptions)) return
@@ -266,7 +243,7 @@ export default {
       this.loading = false
     },
     openHistory (type) {
-      this.$refs.profileHistoryModal.showModal(this.fsId, type === 0)
+      this.$refs.profileHistoryModal.showModal(this.profileMenu.fsId, type === 0)
     },
   },
 }

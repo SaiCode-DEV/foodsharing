@@ -3,13 +3,22 @@
 namespace Foodsharing\Modules\Profile;
 
 use Carbon\Carbon;
+use Exception;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Basket\BasketGateway;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
+use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
+use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Group\GroupGateway;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Mails\MailsGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\ReportPermissions;
+use Foodsharing\Permissions\StorePermissions;
+use Foodsharing\Utility\DataHelper;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
@@ -18,75 +27,84 @@ final class ProfileController extends FoodsharingController
 {
     public function __construct(
         private readonly MailsGateway $mailsGateway,
-        private readonly ProfileView $view,
         private readonly RegionGateway $regionGateway,
         private readonly ProfileGateway $profileGateway,
         private readonly BasketGateway $basketGateway,
         private readonly MailboxGateway $mailboxGateway,
         private readonly ReportPermissions $reportPermissions,
         private readonly ProfilePermissions $profilePermissions,
+        private readonly GroupFunctionGateway $groupFunctionGateway,
+        private readonly StoreGateway $storeGateway,
+        private readonly GroupGateway $groupGateway,
+        private readonly DataHelper $dataHelper,
+        private readonly StorePermissions $storePermissions
     ) {
         parent::__construct();
     }
 
     #[Route('/profile', name: 'profile_fallback')]
     #[Route('/profile/{userId}', name: 'profile_id', requirements: ['userId' => Requirement::DIGITS])]
-    #[Route('/user/{userId}/profile', name: 'user_profile', requirements: ['userId' => Requirement::DIGITS])]
-    public function byId(?int $userId): Response
+    #[Route('/profile/{userId}/notes', name: 'profile_notes_fallback', requirements: ['userId' => Requirement::DIGITS])]
+    public function oldRouteFallback(?int $userId): Response
     {
         if (empty($userId)) {
             $userId = $this->session->id();
         }
 
+        return $this->redirectToRoute('user_profile', ['userId' => $userId]);
+    }
+
+    #[Route('/profile/{userId}/public', name: 'profile_id_public', requirements: ['userId' => Requirement::DIGITS])]
+    public function oldRoutePublicFallback(int $userId): Response
+    {
+        return $this->redirectToRoute('user_profile_public', ['userId' => $userId]);
+    }
+
+    /**
+     * @throws Exception
+     */
+    #[Route('/user/{userId}/profile', name: 'user_profile', requirements: ['userId' => Requirement::DIGITS])]
+    public function index(?int $userId): Response
+    {
         if (!$this->session->mayRole()) {
             return $this->redirectToRoute('user_profile_public', ['userId' => $userId]);
         }
 
-        $foodsaver = $this->createUserArray($userId);
+        $maySeeStores = $this->profilePermissions->maySeeStores($userId);
+        $userStores = $maySeeStores ? $this->profileGateway->listStoresOfFoodsaver($userId) : [];
+        $userArray = $this->createUserArray($userId);
+        $params = $this->convertDataToObject($userStores, $userArray, $maySeeStores);
 
-        $fsId = $foodsaver['id'];
-
-        $wallPosts = $this->view->vueComponent('vue-wall', 'wall', [
-            'target' => 'foodsaver',
-            'targetId' => $fsId,
-            'title' => $this->translator->trans('profile.pinboard', ['{name}' => $foodsaver['name']]),
-            'galleryHeightInPx' => 250,
-        ]);
-        $userStores = $this->profileGateway->listStoresOfFoodsaver($fsId);
-
-        $profileCommitmentsStat = $this->getProfileCommitmentsStat($fsId);
-
-        $this->view->profile($wallPosts, $userStores, $profileCommitmentsStat);
+        $profilePage = $this->prepareVueComponent('vue-profile', 'Profile', $params);
+        $this->pageHelper->addContent($profilePage);
 
         return $this->renderGlobal();
     }
 
-    #[Route('/profile/{userId}/public', name: 'profile_id_public', requirements: ['userId' => Requirement::DIGITS])]
     #[Route('/user/{userId}/profile/public', name: 'user_profile_public', requirements: ['userId' => Requirement::DIGITS])]
     public function profilePublic(int $userId): Response
     {
-        $viewerId = $this->session->id() ?? -1; // -1 carries special meaning for `profileGateway:getData`
-        $userArray = $this->profileGateway->getData($userId, $viewerId, $this->reportPermissions->mayHandleReports());
+        $userArray = $this->createUserArray($userId);
 
         $isVerified = $userArray['verified'] ?? 0;
         $initials = mb_substr($userArray['name'] ?? '?', 0, 1) . '.';
         $regionId = $userArray['bezirk_id'] ?? null;
         $regionName = ($regionId === null) ? '?' : $this->regionGateway->getRegionName($regionId);
-        $this->pageHelper->addContent(
-            $this->view->vueComponent('profile-public', 'PublicProfile', [
-                'canPickUp' => $isVerified > 0,
-                'fromRegion' => $regionName,
-                'fsId' => $userArray['id'] ?? '',
-                'initials' => $initials,
-            ])
-        );
+
+        $profilePage = $this->prepareVueComponent('profile-public', 'PublicProfile', [
+            'canPickUp' => $isVerified > 0,
+            'fromRegion' => $regionName,
+            'fsId' => $userArray['id'] ?? '',
+            'initials' => $initials,
+        ]);
+        $this->pageHelper->addContent($profilePage);
 
         return $this->renderGlobal();
     }
 
     private function createUserArray(int $userId): array
     {
-        $viewerId = $this->session->id() ?? -1; // -1 carries special meaning for `profileGateway:getData`
+        $viewerId = $this->session->id() ?? -1;
         $userArray = $this->profileGateway->getData($userId, $viewerId, $this->reportPermissions->mayHandleReports());
 
         $isRemoved = (!$userArray) || isset($userArray['deleted_at']);
@@ -108,8 +126,6 @@ final class ProfileController extends FoodsharingController
             $mailbox = $this->mailboxGateway->getMailboxname($userArray['mailbox_id']) . '@' . PLATFORM_MAILBOX_HOST;
             $userArray['mailbox'] = $mailbox;
         }
-
-        $this->view->setData($userArray);
 
         return $userArray;
     }
@@ -135,31 +151,290 @@ final class ProfileController extends FoodsharingController
             ++$pos;
         }
 
-        return $profileCommitmentsStat;
+        return [
+            'maySeeCommitmentsStat' => $maySeeCommitmentsStat,
+            'data' => $profileCommitmentsStat
+        ];
     }
 
-    #[Route('/profile/{userId}/notes', name: 'profile_id_notes', requirements: ['userId' => Requirement::DIGITS])]
-    public function orgaTeamNotes(int $userId): Response
+    /**
+     * @throws Exception
+     */
+    private function convertDataToObject(array $userStores, $userArray, $maySeeStores): array
     {
-        if (!$this->session->mayRole()) {
-            return $this->redirectToRoute('user_profile_public', ['userId' => $userId]);
+        return [
+            'menu' => $this->getProfileMenu($userStores, $userArray, $maySeeStores),
+            'statistics' => $this->renderStatistics($userArray),
+            'bananaStatistics' => $this->renderBananaStatistics($userArray),
+            'ambassadorRegions' => $userArray['botschafter'] ? $userArray['botschafter'] : [],
+            'foodSaverRegions' => $userArray['foodsaver'] ? $userArray['foodsaver'] : [],
+            'homeDistrictHistory' => (object)$this->getHomeDistrictHistory($userArray),
+            'aboutMeIntern' => $userArray['about_me_intern'] ?? '',
+            'workingGroupsAdmins' => $userArray['orga'] ? $userArray['orga'] : [],
+            'workingGroups' => $userArray['working_groups'] ?? [],
+            'sleepingInformation' => $this->getSleepingHatInformation($userArray),
+            'profileInfos' => $this->getProfileInfos($userArray),
+            'profileCommitmentsStat' => $this->getProfileCommitmentsStat($userArray['id']),
+            'bounceWarning' => (object)$this->getBounceWarning($userArray),
+            'pickupsSection' => $this->getPickupsSection($userArray['id']),
+            'maySeeUserNotes' => $this->profilePermissions->maySeeUserNotes($userArray['id']),
+            'noteCount' => $userArray['note_count'] ?? 0,
+            'stores' => $userStores,
+        ];
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function getProfileMenu(array $userStores, array $userArray, bool $maySeeStores): array
+    {
+        $fsId = $userArray['id'];
+        $regionId = $userArray['bezirk_id'];
+        $mayAdmin = $this->profilePermissions->mayAdministrateUserProfile($fsId, $regionId);
+        $maySeeHistory = $this->profilePermissions->maySeeHistory($fsId);
+
+        // what is the viewer allowed to do in this profile?
+        if ($userArray['rolle'] > Role::FOODSHARER->value) {
+            // MediationRequest
+            if ($this->regionGateway->getRegionOption($regionId, RegionOptionType::ENABLE_MEDIATION_BUTTON)) {
+                $mediationGroupEmail = $this->renderMediationRequest($userArray);
+            }
+
+            // ReportRequest
+            $isReportButtonEnabled = intval(
+                $this->regionGateway->getRegionOption($regionId, RegionOptionType::ENABLE_REPORT_BUTTON)
+            ) === 1;
+
+            if ($this->regionGateway->getRegionOption($regionId, RegionOptionType::ENABLE_REPORT_BUTTON)) {
+                // if the current user is not allowed to see all stores of the profile, the report dialog will only show stores in which both users are
+                if ($maySeeStores) {
+                    $reportStores = $userStores;
+                } else {
+                    $myStores = $this->storeGateway->listMyStores($this->session->id());
+                    $myStoreIds = array_column($myStores, 'id');
+                    $reportStores = array_filter($userStores, fn ($store) => in_array($store['id'], $myStoreIds));
+                }
+
+                $storeListOptions = [['value' => null, 'text' => $this->translator->trans('profile.choosestore')]];
+                foreach ($reportStores as $store) {
+                    $storeListOptions[] = ['value' => $store['id'], 'text' => $store['name']];
+                }
+                $isReportedIdReportAdmin = $this->groupFunctionGateway->isRegionFunctionGroupAdmin(
+                    $regionId,
+                    WorkgroupFunction::REPORT,
+                    $userArray['id']
+                );
+                $isReporterIdReportAdmin = $this->groupFunctionGateway->isRegionFunctionGroupAdmin(
+                    $regionId,
+                    WorkgroupFunction::REPORT,
+                    $this->session->id()
+                );
+                $isReportedIdArbitrationAdmin = $this->groupFunctionGateway->isRegionFunctionGroupAdmin(
+                    $regionId,
+                    WorkgroupFunction::ARBITRATION,
+                    $userArray['id']
+                );
+                $isReporterIdArbitrationAdmin = $this->groupFunctionGateway->isRegionFunctionGroupAdmin(
+                    $regionId,
+                    WorkgroupFunction::ARBITRATION,
+                    $this->session->id()
+                );
+
+                $hasReportGroup = $this->groupFunctionGateway->existRegionFunctionGroup(
+                    $regionId,
+                    WorkgroupFunction::REPORT
+                );
+                $reporterHasReportGroup = $hasReportGroup;
+
+                if ($hasReportGroup) {
+                    $reportGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId(
+                        $regionId,
+                        WorkgroupFunction::REPORT
+                    );
+                    $reportGroupDetails = $this->groupGateway->getGroupLegacy($reportGroupId);
+                    $MailboxNameReportRequest = $this->mailboxGateway->getMailboxname(
+                        $reportGroupDetails['mailbox_id']
+                    ) ?? '';
+                }
+
+                $hasArbitrationGroup = $this->groupFunctionGateway->existRegionFunctionGroup(
+                    $regionId,
+                    WorkgroupFunction::ARBITRATION
+                );
+
+                if ($regionId != $this->session->getCurrentRegionId()) {
+                    $reporterHasReportGroup = $this->groupFunctionGateway->existRegionFunctionGroup(
+                        $this->session->getCurrentRegionId(),
+                        WorkgroupFunction::REPORT
+                    );
+                }
+
+                $buttonNameReportRequest = $this->translator->trans('profile.reportRequest');
+            }
         }
 
-        $foodsaver = $this->createUserArray($userId);
+        return [
+            'isOnline' => $userArray['online'],
+            'foodSaverName' => $userArray['name'],
+            'photo' => $userArray['photo'],
+            'fsId' => $userArray['id'],
+            'fsIdSession' => $this->session->id(),
+            'isSleeping' => $this->dataHelper->parseSleepingState($userArray['sleep_status'], $userArray['sleep_from'], $userArray['sleep_until']),
+            'initialBuddyType' => $userArray['buddy'],
+            'mayAdmin' => $mayAdmin,
+            'mayHistory' => $maySeeHistory,
+            'violationCount' => $userArray['violation_count'] ?? 0,
+            'mayViolation' => $this->reportPermissions->mayHandleReports(),
+            'maySeeStores' => $maySeeStores,
+            'hasLocalMediationGroup' => $this->groupFunctionGateway->existRegionFunctionGroup($regionId, WorkgroupFunction::MEDIATION),
+            'mediationGroupEmail' => $mediationGroupEmail ?? '',
+            'storeListOptions' => $storeListOptions ?? [],
+            'isReportedIdReportAdmin' => $isReportedIdReportAdmin ?? false,
+            'hasReportGroup' => $hasReportGroup ?? false,
+            'hasArbitrationGroup' => $hasArbitrationGroup ?? false,
+            'isReporterIdReportAdmin' => $isReporterIdReportAdmin ?? false,
+            'isReporterIdArbitrationAdmin' => $isReporterIdArbitrationAdmin ?? false,
+            'isReportedIdArbitrationAdmin' => $isReportedIdArbitrationAdmin ?? false,
+            'isReportButtonEnabled' => $isReportButtonEnabled ?? false,
+            'reporterHasReportGroup' => $reporterHasReportGroup ?? false,
+            'mailboxNameReportRequest' => $MailboxNameReportRequest ?? '',
+            'buttonNameReportRequest' => $buttonNameReportRequest ?? $this->translator->trans('profile.report.oldReportButton'),
+            'maySeeQuizSessions' => $this->profilePermissions->maySeeQuizSessions()
+        ];
+    }
 
-        $fsId = $foodsaver['id'];
-        $this->pageHelper->addBread($foodsaver['name'], '/profile/' . $fsId);
-        if ($this->profilePermissions->maySeeUserNotes($fsId)) {
-            $wallPosts = $this->view->vueComponent('vue-wall', 'wall', [
-                'target' => 'usernotes',
-                'targetId' => $fsId,
-                'title' => $this->translator->trans('profile.notes.title', ['{name}' => $foodsaver['name']]),
-            ]);
-            $this->view->userNotes($wallPosts);
-        } else {
-            $this->routeHelper->goAndExit('/profile/' . $fsId);
+    /**
+     * @throws Exception
+     */
+    private function renderMediationRequest(array $userArray): string
+    {
+        if (($userArray['rolle'] < Role::FOODSAVER->value) || ($userArray['id'] === $this->session->id())) {
+            return '';
+        }
+        $regionId = $userArray['bezirk_id'];
+
+        $mailboxName = '';
+        if ($this->groupFunctionGateway->existRegionFunctionGroup($regionId, WorkgroupFunction::MEDIATION)) {
+            $mediationGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::MEDIATION);
+            $mediationGroupDetails = $this->groupGateway->getGroupLegacy($mediationGroupId);
+            $mailboxName = $this->mailboxGateway->getMailboxname($mediationGroupDetails['mailbox_id']);
         }
 
-        return $this->renderGlobal();
+        return $mailboxName;
+    }
+
+    private function getHomeDistrictHistory($userArray): array
+    {
+        $history = [];
+
+        if ($this->profilePermissions->maySeeHistory($this->session->id()) && !empty($userArray['home_district_history'])) {
+            $history['homeDistrictHistoryChangerId'] = $userArray['home_district_history']['changer_id'];
+            $history['homeDistrictHistoryChangerFullName'] = $userArray['home_district_history']['changer_full_name'];
+            $history['homeDistrictHistoryDate'] = $userArray['home_district_history']['date'];
+        }
+
+        return $history;
+    }
+
+    private function renderStatistics($userArray): array
+    {
+        $statistics = [
+            'fetchWeight' => $userArray['stat_fetchweight'],
+            'fetchCount' => $userArray['stat_fetchcount'],
+            'basketCount' => $userArray['basketCount'],
+            'buddyCount' => $userArray['stat_buddycount'],
+        ];
+
+        if ($this->session->mayRole(Role::FOODSAVER)) {
+            $statistics['postCount'] = $userArray['stat_postcount'];
+        }
+
+        return $statistics;
+    }
+
+    private function renderBananaStatistics($userArray): array
+    {
+        if (!$this->session->mayRole(Role::FOODSAVER)) {
+            return [];
+        }
+
+        $viewerId = $this->session->id();
+
+        $canGiveBanana = (!$userArray['bouched']) && ($userArray['id'] != $viewerId);
+
+        return [
+            'recipientId' => intval($userArray['id']),
+            'recipientName' => $userArray['name'],
+            'canGiveBanana' => $canGiveBanana,
+            'canRemoveBanana' => $this->profilePermissions->mayDeleteBanana($viewerId),
+            'bananas' => $userArray['bananen']
+        ];
+    }
+
+    private function getSleepingHatInformation(array $userArray): array
+    {
+        return [
+            'sleepStatus' => $userArray['sleep_status'] ?? null,
+            'sleepFrom' => $userArray['sleep_from_ts'] ?? null,
+            'sleepUntil' => $userArray['sleep_until_ts'] ?? null,
+            'sleepMessage' => $userArray['sleep_msg'] ?? null,
+        ];
+    }
+
+    private function getProfileInfos($userArray): array
+    {
+        $userId = $userArray['id'];
+        $maySeeLastActivity = $this->profilePermissions->maySeelastActivity($userId);
+        $formattedLastActivity = ($userArray['last_activity'] !== '0000-00-00 00:00:00')
+            ? Carbon::parse($userArray['last_activity'])->format('d.m.Y')
+            : null;
+
+        $fsMail = ($userArray['rolle'] > Role::FOODSAVER->value && $this->profilePermissions->maySeeEmailAddress($userId)) ? ($userArray['mailbox'] ?? '') : '';
+
+        return [
+            'role' => $userArray['rolle'],
+            'fsMail' => $fsMail,
+            'privateMail' => $this->profilePermissions->maySeePrivateEmail($userId) ? $userArray['email'] : '',
+            'registrationDate' => $this->profilePermissions->maySeeRegistrationDate($userId) ? Carbon::parse($userArray['anmeldedatum'])->format('d.m.Y') : '',
+            'maySeeLastActivity' => $maySeeLastActivity,
+            'lastActivity' => $maySeeLastActivity ? $formattedLastActivity : '',
+            'buddyCount' => $userArray['stat_buddycount'],
+            'name' => $userArray['name'],
+            'fsId' => $userArray['id'],
+            'fsIdSession' => $this->session->id()
+        ];
+    }
+
+    private function getBounceWarning($userArray): array
+    {
+        $userId = $userArray['id'];
+        $maySeeBounceWarning = $this->profilePermissions->maySeeBounceWarning($userId);
+
+        if (!($maySeeBounceWarning && $userArray['emailIsBouncing'])) {
+            return [];
+        }
+
+        $mayRemove = $this->profilePermissions->mayRemoveFromBounceList($userId);
+
+        return [
+            'userId' => $userId,
+            'emailAddress' => $userArray['email'],
+            'mayRemove' => $mayRemove,
+            'bounceEvents' => $mayRemove ? $userArray['emailBounceCategories'] : []
+        ];
+    }
+
+    private function getPickupsSection(int $fsId): array
+    {
+        $maySeePickups = $this->profilePermissions->maySeePickups($fsId);
+
+        return [
+            'showRegisteredTab' => $maySeePickups,
+            'showOptionsTab' => $this->storePermissions->maySeePickupOptions($fsId),
+            'showHistoryTab' => $maySeePickups,
+            'fsId' => $fsId,
+            'allowSlotCancelation' => $this->profilePermissions->mayCancelSlotsFromProfile($fsId),
+            'isOwnProfile' => ($fsId === $this->session->id()),
+        ];
     }
 }

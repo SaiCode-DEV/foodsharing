@@ -19,29 +19,29 @@
       nav-wrapper-class="scroll-nav-wrapper"
     >
       <PickupTab
-        v-if="showRegisteredTab"
+        v-if="pickupsSection.showRegisteredTab"
         tab-name="registered"
         :data-endpoint="listRegisteredPickups"
-        :fs-id="fsId"
-        :allow-slot-cancelation="allowSlotCancelation"
+        :fs-id="pickupsSection.fsId"
+        :allow-slot-cancelation="pickupsSection.allowSlotCancelation"
         init
-        :is-own-profile="isOwnProfile"
+        :is-own-profile="pickupsSection.isOwnProfile"
       />
       <PickupTab
-        v-if="showOptionsTab"
+        v-if="pickupsSection.showOptionsTab"
         tab-name="options"
         :data-endpoint="listPickupOptions"
         table-class="shadow-registered"
         paginated
-        :is-own-profile="isOwnProfile"
+        :is-own-profile="pickupsSection.isOwnProfile"
       />
       <PickupTab
-        v-if="showHistoryTab"
+        v-if="pickupsSection.showHistoryTab"
         tab-name="history"
         :data-endpoint="listPastPickups"
-        :fs-id="fsId"
+        :fs-id="pickupsSection.fsId"
         paginated
-        :is-own-profile="isOwnProfile"
+        :is-own-profile="pickupsSection.isOwnProfile"
       />
     </b-tabs>
   </div>
@@ -54,35 +54,7 @@ import { listRegisteredPickups, listPickupOptions, listPastPickups } from '@/api
 
 export default {
   components: { BTabs, PickupTab },
-  props: {
-    showRegisteredTab: {
-      type: Boolean,
-      default: () => false,
-    },
-    showOptionsTab: {
-      type: Boolean,
-      default: () => false,
-    },
-    showHistoryTab: {
-      type: Boolean,
-      default: () => false,
-    },
-    fsId: {
-      // the foodsaver id of the shown profile page
-      type: Number,
-      default: () => -1,
-    },
-    allowSlotCancelation: {
-      // whether to allow canceling slots
-      type: Boolean,
-      default: () => false,
-    },
-    isOwnProfile: {
-      // whether the profile view is shown to the owner of the profile. Used to differentiate some texts.
-      type: Boolean,
-      default: () => false,
-    },
-  },
+  props: { pickupsSection: { type: Object, required: true } },
   data () {
     return {
       listRegisteredPickups,

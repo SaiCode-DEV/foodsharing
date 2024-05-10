@@ -1,7 +1,7 @@
 <template>
   <div class="card mb-3 rounded">
-    <div>
-      <i
+    <div class="d-flex justify-content-between align-items-center">
+      <h4>{{ $i18n('profile.commitments_stat.title') }}</h4><i
         class="fas fa-info-circle fa-fw"
         :title="$i18n('profile.commitments_stat.tooltip_visibility')"
       />

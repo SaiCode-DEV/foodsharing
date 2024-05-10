@@ -12,6 +12,7 @@
 
 import { VBTooltip } from 'bootstrap-vue'
 import i18n from '@/helper/i18n'
+import { COOPERATION_STATUS } from '@/stores/stores'
 
 export default {
   directives: { VBTooltip },
@@ -24,20 +25,20 @@ export default {
   computed: {
     description () {
       switch (this.cooperationStatus) {
-        case 1: // CooperationStatus::NO_CONTACT
+        case COOPERATION_STATUS.NO_CONTACT:
           return i18n('storestatus.1')
-        case 2: // CooperationStatus::IN_NEGOTIATION
+        case COOPERATION_STATUS.IN_NEGOTIATION:
           return i18n('storestatus.2')
-        case 3: // CooperationStatus::COOPERATION_STARTING
-        case 5: // CooperationStatus::COOPERATION_ESTABLISHED
+        case COOPERATION_STATUS.COOPERATION_STARTING:
+        case COOPERATION_STATUS.COOPERATION_ESTABLISHED:
           return i18n('storestatus.5')
-        case 4: // CooperationStatus::DOES_NOT_WANT_TO_WORK_WITH_US
+        case COOPERATION_STATUS.DOES_NOT_WANT_TO_WORK_WITH_US:
           return i18n('storestatus.4')
-        case 6: // CooperationStatus::GIVES_TO_OTHER_CHARITY
+        case COOPERATION_STATUS.GIVES_TO_OTHER_CHARITY:
           return i18n('storestatus.6')
-        case 7: // CooperationStatus::PERMANENTLY_CLOSED
+        case COOPERATION_STATUS.PERMANENTLY_CLOSED:
           return i18n('storestatus.7')
-        default: // unclear
+        default: // COOPERATION_STATUS.UNCLEAR
           return i18n('storestatus.0')
       }
     },

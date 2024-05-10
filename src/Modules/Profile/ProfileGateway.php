@@ -556,10 +556,13 @@ final class ProfileGateway extends BaseGateway
 					s.name,
 					st.verantwortlich as isManager,
 					st.active,
-					s.betrieb_status_id as cooperationStatus
+					s.betrieb_status_id as cooperationStatus,
+			        s.bezirk_id as regionId,
+			        b.name as regionName
 
 			FROM             fs_betrieb_team st
 			LEFT OUTER JOIN  fs_betrieb s  ON  s.id = st.betrieb_id
+			LEFT OUTER JOIN  fs_bezirk b ON b.id = s.bezirk_id
 
 			WHERE  st.foodsaver_id = :fs_id
 

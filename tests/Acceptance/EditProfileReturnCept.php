@@ -26,4 +26,4 @@ $I->see('Zurück zum Profil');
 $I->see($member['name']);
 $I->click('Zurück zum Profil');
 
-$I->seeCurrentUrlEquals('/profile/' . $member['id']);
+$I->seeCurrentUrlEquals('/user/' . $member['id'] . '/profile');

@@ -2052,6 +2052,14 @@ profile:
   go: "Profil aufrufen"
   notFound: "Dieses Nutzerprofil gibt es nicht oder nicht mehr"
   warning: "Warnung"
+  sections:
+    orga_rights: "##### hat als Orga-Mensch [weitreichende Berechtigungen]({wikiurl}) auf der Plattform."
+    ambassador_for: "Botschafter für"
+    foodSaver_in_region: "Foodsaver in"
+    workgroups_admin: "engagiert sich als Ansprechperson für die Gruppen"
+    workgroups_member: "gemeinsam in folgenden Arbeitsgruppen"
+    no_common_workgroups: "in keiner gemeinsamen Arbeitsgruppe"
+    home_region_from: "Stammbezirk"
   mail_bounce:
     warning_1: "Deine persönliche E-Mail-Adresse {email} ist für foodsharing-Mails und -Kommunikation gesperrt. Durch das"
     warning_2: "Ändern der E-Mail-Adresse"
@@ -2097,6 +2105,22 @@ profile:
     remove:
       confirm_title: "Vertrauensbanane entfernen"
       confirm_message: "Möchtest du diese Vertrauensbanane wirklich entfernen?"
+  tab_navigation:
+    profile: "Profil"
+    pickups: "Abholungen"
+    commitment_statistics: "Engagementstatistik"
+    stores: "Betriebe ({count})"
+    notes: "Notizen ({count})"
+  stores:
+    search_placeholder: "Suche nach Name"
+    store_table: "Betriebs-Tabelle"
+    memberState:
+      filterAll: "Alle"
+      filterRequested: "Anfrage gestellt"
+      filterActive: "Mitglied"
+      filterManage: "BV"
+      filterJumper: "Springer"
+
   nav:
     edit: "Profil bearbeiten"
     buddy: "Ich kenne {name}"
@@ -2133,16 +2157,10 @@ profile:
     foodsharerId: "Foodsharer-ID"
   stats:
     weight: "gerettet"
-    count: "abgeholt"
+    fetch_count: "abgeholt"
     baskets: "Essenskörbe"
     posts: "Beiträge"
-  regions: "{name} ist Foodsaver:in in"
-  ambRegions: "{name} ist {role} für"
-  homeRegion: "Stammbezirk von {name}"
-  workgroups_admin: "{name} engagiert sich als Ansprechperson für die Gruppen"
-  orga_rights: "{name} hat als Orga-Mensch <a target=\"_blank\" href=\"{wikiurl}\">weitreichende Berechtigungen</a> auf der Plattform."
-  workgroups_member: "Du bist mit {name} gemeinsam in folgenden Arbeitsgruppen"
-  no_common_workgroups: "Du bist mit {name} in keiner gemeinsamen Arbeitsgruppe."
+    bananas: "Bananen"
   sleeping: "{name} hat eine Schlafmütze auf unbestimmte Zeit"
   sleepinfo: "{name} hat eine Schlafmütze auf vom {from} bis {until}"
   about_me_intern: "Über sich selbst"

@@ -3,8 +3,7 @@ import phoneNumbers from './phone-numbers'
 // e.g. $url('profile', 15)
 
 const urls = {
-  profile: (id) => `/profile/${id}`,
-  profileNotes: (fsId) => `/profile/${fsId}/notes`,
+  profile: (id) => `/user/${id}/profile`,
   academy: () => '/content?sub=academy',
   application: (groupId, userId) => `/?page=application&bid=${groupId}&fid=${userId}`,
   applications: (groupId) => `/region?bid=${groupId}&sub=applications`,
@@ -77,7 +76,7 @@ const urls = {
   poll: (pollId) => `/?page=poll&id=${pollId}`,
   pollEdit: (pollId) => `/?page=poll&id=${pollId}&sub=edit`,
   press: () => '/content?sub=presse',
-  region: () => '/?page=region',
+  region: (regionId) => regionId ? `/region?bid=${regionId}` : '/?page=region',
   releaseNotes: () => '/content?sub=releaseNotes',
   violations: (fsId) => `/?page=report&sub=foodsaver&id=${fsId}`,
   security: () => '/content?sub=security',

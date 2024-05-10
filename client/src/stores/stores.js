@@ -39,6 +39,17 @@ export const STORE_LOG_ACTION = Object.freeze({
   REQUEST_CANCELLED: 16,
 })
 
+export const COOPERATION_STATUS = Object.freeze({
+  NO_CONTACT: 1,
+  IN_NEGOTIATION: 2,
+  COOPERATION_STARTING: 3,
+  DOES_NOT_WANT_TO_WORK_WITH_US: 4,
+  COOPERATION_ESTABLISHED: 5,
+  GIVES_TO_OTHER_CHARITY: 6,
+  PERMANENTLY_CLOSED: 7,
+  UNCLEAR: 0,
+})
+
 export const store = Vue.observable({
   stores: [],
   metadata: {},

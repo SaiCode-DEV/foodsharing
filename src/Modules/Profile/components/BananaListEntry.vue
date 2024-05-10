@@ -1,5 +1,5 @@
 <template>
-  <div class="banana-container d-flex my-1 py-2">
+  <div class="d-flex my-1 py-2">
     <Avatar
       :user="author"
       :size="50"
@@ -69,17 +69,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.banana-container {
-  border-top: 1px solid var(--fs-border-default);
+.msg {
+  white-space: pre-line;
+  border-left: 3px solid var(--fs-border-default);
+}
 
-  .msg {
-    white-space: pre-line;
-    border-left: 3px solid var(--fs-border-default);
-  }
-
-  .time a {
-    color: var(--fs-color-secondary-500);
-    font-weight: bolder;
-  }
+.time a {
+  color: var(--fs-color-secondary-500);
+  font-weight: bolder;
 }
 </style>

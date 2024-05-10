@@ -338,6 +338,21 @@ class SeedCommand extends Command implements CustomCommandInterface
         $this->output->writeln('- created ' . $name . ' ' . $user['email'] . ' with password "' . $password . '"');
     }
 
+    private function createStoreAndAddToTeam($I, $region, $conv1Id, $conv2Id, $statusId, $teamMembers, $addRecurringPickup = false, $is_waiting = false, $is_confirmed = true): mixed
+    {
+        $store = $I->createStore($region, $conv1Id, $conv2Id, ['betrieb_status_id' => $statusId]);
+
+        foreach ($teamMembers as $teamMember) {
+            $I->addStoreTeam($store['id'], $teamMember['id'], $teamMember['manager'] ?? false, $is_waiting, $is_confirmed);
+        }
+
+        if ($addRecurringPickup) {
+            $I->addRecurringPickup($store['id']);
+        }
+
+        return $store;
+    }
+
     protected function seed()
     {
         $I = $this->helper;
@@ -408,6 +423,7 @@ class SeedCommand extends Command implements CustomCommandInterface
             'image' => true
         ]);
         $this->writeUser($I, $userbot, $password, 'ambassador');
+        $I->addRegionMember($region2, $userbot['id']);
 
         $userbot2 = $I->createAmbassador($password, [
             'email' => 'userbot2@example.com',
@@ -497,7 +513,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $this->output->writeln('- create community pin');
         $I->createCommunityPin($region1);
 
-        // Create store team conversations
+        // Create store team conversation
         $this->output->writeln('- create store team conversations');
         $conv1 = $I->createConversation([$userbot['id'], $user2['id'], $userStoreManager['id']], ['name' => 'betrieb_bla', 'locked' => 1]);
         $conv2 = $I->createConversation([$userbot['id']], ['name' => 'springer_bla', 'locked' => 1]);
@@ -505,13 +521,44 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->addConversationMessage($userbot['id'], $conv1['id']);
         $I->addConversationMessage($userbot['id'], $conv2['id']);
 
-        // Create a store and add team members
         $this->output->writeln('- create store and add team members');
-        $store = $I->createStore($region1, $conv1['id'], $conv2['id'], ['betrieb_status_id' => 5]);
-        $I->addStoreTeam($store['id'], $user2['id']);
-        $I->addStoreTeam($store['id'], $userStoreManager['id'], true);
-        $I->addStoreTeam($store['id'], $userbot['id'], true);
-        $I->addRecurringPickup($store['id']);
+
+        $teamMembers = [
+            ['id' => $user2['id']],
+            ['id' => $userStoreManager['id'], 'manager' => true],
+            ['id' => $userbot['id'], 'manager' => true]
+        ];
+
+        $regions = [
+            $region1 => [
+                CooperationStatus::COOPERATION_ESTABLISHED->value => $teamMembers,
+                CooperationStatus::PERMANENTLY_CLOSED->value => [['id' => $userbot['id'], 'manager' => true]],
+                CooperationStatus::GIVES_TO_OTHER_CHARITY->value => [['id' => $userbot['id'], 'manager' => true]],
+                CooperationStatus::UNCLEAR->value => [['id' => $userbot['id'], 'manager' => true]],
+            ],
+            $region2 => [
+                CooperationStatus::COOPERATION_ESTABLISHED->value => [['id' => $userbot['id']]],
+                CooperationStatus::PERMANENTLY_CLOSED->value => [['id' => $userbot['id'], 'manager' => true]],
+                CooperationStatus::GIVES_TO_OTHER_CHARITY->value => [['id' => $userbot['id'], 'manager' => true]],
+                CooperationStatus::UNCLEAR->value => [['id' => $userbot['id'], 'manager' => true]],
+            ],
+        ];
+
+        foreach ($regions as $region => $statuses) {
+            foreach ($statuses as $status => $teamMembers) {
+                $addRecurringPickup = $status === CooperationStatus::COOPERATION_ESTABLISHED->value;
+                $store = $this->createStoreAndAddToTeam($I, $region, $conv1['id'], $conv2['id'], $status, $teamMembers, $addRecurringPickup);
+
+                $additionalStoreCount = 2;
+                for ($i = 0; $i < $additionalStoreCount; ++$i) {
+                    $memberState = [
+                        ['isWaiting' => true, 'isConfirmed' => false],
+                        ['isWaiting' => false, 'isConfirmed' => true]
+                    ];
+                    $store = $this->createStoreAndAddToTeam($I, $region, $conv1['id'], $conv2['id'], $status, $teamMembers, $addRecurringPickup, $memberState['isWaiting'], $memberState['isConfirmed']);
+                }
+            }
+        }
 
         $this->output->writeln('- create store chains');
         $this->chain_ids = [];
