@@ -1,7 +1,7 @@
-# Hotfix 2024-05-09
+# Hotfix 2024-05-11
 - Fix Quiz Role not increasing #1930 !3315 @AntonBallmaier
-- prevent missing time in group application form !3319 @chriswalg
 - Fixed invalid dates in store bubbles on the map !3322 @alex.simm
+- prevent missing time in group application form !3319 @chriswalg
 
 # Hotfix 2024-05-05
 - Show missing region menu entries to orgas #1927 !3299 !3310 @AntonBallmaier
