@@ -10,6 +10,7 @@
 - Fixed the permissions to see applications for working groups #1934 !3320 @alex.simm
 - prevent missing time in group application form !3319 @chriswalg
 - Fixed invalid dates in store bubbles on the map !3322 @alex.simm
+- Fix typos in info texts !3327 @AntonBallmaier
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
