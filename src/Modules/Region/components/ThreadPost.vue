@@ -114,7 +114,7 @@ export default {
       pulseSuccess(this.$i18n('thread.post.copy_source_success'))
     },
     async copyDirectLink () {
-      await navigator.clipboard.writeText(location.host + this.deepLink)
+      await navigator.clipboard.writeText(location.protocol + '//' + location.host + this.deepLink)
       pulseSuccess(this.$i18n('thread.post.copy_direct_link_success'))
     },
   },
