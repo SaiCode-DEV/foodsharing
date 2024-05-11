@@ -1,6 +1,5 @@
 import '@/core'
 import '@/globals'
-import 'jquery-dynatree'
 import { vueRegister, vueApply } from '@/vue'
 import StoreRegionList from './components/StoreRegionList.vue'
 import StoreUserList from './components/StoreUserList.vue'

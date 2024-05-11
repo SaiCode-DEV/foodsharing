@@ -24,7 +24,7 @@
       </a>
       <a
         v-if="permissions.administrateRegions"
-        :href="$url('region')"
+        :href="$url('regionAdmin')"
         role="menuitem"
         class="dropdown-item dropdown-action"
       >

@@ -232,6 +232,18 @@ final class RegionController extends FoodsharingController
         }
     }
 
+    #[Route('/regions/edit')]
+    public function edit(Request $request): Response
+    {
+        if (!$this->regionPermissions->mayAdministrateRegions()) {
+            return $this->redirect('/');
+        }
+
+        $this->pageHelper->addContent($this->prepareVueComponent('regions-admin-page', 'RegionsAdmin'));
+
+        return $this->renderGlobal();
+    }
+
     private function wall(Request $request, array $region): Response
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.wall'), '/region?bid=' . $region['id'] . '&sub=wall');

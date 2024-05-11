@@ -150,7 +150,7 @@ export default {
     },
     onRemove (option, { removeTag }) {
       removeTag(option)
-      this.userObjects = this.userObjects.filter(x => option !== `${x.name} (${x.id})`)
+      this.userObjects = this.userObjects.filter(x => option !== x.value)
       this.$emit('input', this.userObjects.map(x => x.id))
     },
     async loadingInitialValues () {

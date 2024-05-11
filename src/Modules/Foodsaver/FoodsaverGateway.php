@@ -374,28 +374,6 @@ class FoodsaverGateway extends BaseGateway
         ]);
     }
 
-    public function getFsMap(int $regionId): array
-    {
-        return $this->db->fetchAll('
-            SELECT  `id`,
-                    `lat`,
-                    `lon`,
-                    CONCAT(`name`," ",`nachname`) AS `name`,
-                    `plz`,
-                    `stadt`,
-                    `anschrift`,
-                    `photo`
-
-			FROM    `fs_foodsaver`
-
-			WHERE   `active` = 1
-			AND     `bezirk_id` = :regionId
-			AND     `lat` != ""
-        ', [
-            ':regionId' => $regionId
-        ]);
-    }
-
     public function getEmailAddress(int $fsId): string
     {
         return $this->db->fetchValueByCriteria('fs_foodsaver', 'email', ['id' => $fsId]);

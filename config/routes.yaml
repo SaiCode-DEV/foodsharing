@@ -3,10 +3,6 @@ index:
   path: /
   controller: Foodsharing\Entrypoint\IndexController
 
-xhr:
-  path: /xhr
-  controller: Foodsharing\Entrypoint\XhrController
-
 xhrapp:
   path: /xhrapp
   controller: Foodsharing\Entrypoint\XhrAppController

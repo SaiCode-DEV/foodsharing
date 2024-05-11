@@ -88,6 +88,7 @@ class GroupFunctionGateway extends BaseGateway
      */
     public function deleteRegionFunction(int $regionId, int $functionId): int
     {
+        // TODO remove or use in REST
         return $this->db->delete('fs_region_function', [
             'region_id' => $regionId,
             'function_id' => $functionId,
@@ -105,6 +106,7 @@ class GroupFunctionGateway extends BaseGateway
      */
     public function deleteTargetFunctions(int $targetId): int
     {
+        // TODO remove or use in REST
         return $this->db->delete('fs_region_function', ['target_id' => $targetId]);
     }
 

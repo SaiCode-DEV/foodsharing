@@ -53,7 +53,7 @@ class GroupRestController extends AbstractFOSRestController
 
         // check if the group still contains elements
         if ($this->groupTransactions->hasSubElements($groupId)) {
-            throw new ConflictHttpException();
+            throw new ConflictHttpException('This region contains subelements preventing the deletion.');
         }
 
         $this->groupGateway->deleteGroup($groupId);

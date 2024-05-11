@@ -23,7 +23,7 @@ geschlecht: "Geschlecht"
 botschafter: "Botschafter:in"
 options: "Optionen" # FoodSharePointControl FoodSharePointView foodSharePoint.twig
 picture: "Bild" # BlogView and maybe more
-parent_id: "Elternbezirk" # at least XhrMethods and RegionAdminControl
+parent_id: "Elternbezirk" # at least RegionAdminControl
 fs_id: "foodsharing-ID"
 lat: "Breitengrad"
 lon: "Längengrad"
@@ -536,7 +536,7 @@ group:
     welcome: "Begrüßung"
     voting: "Abstimmung"
     fsp: "Fairteiler"
-    stores: "Betriebe"
+    stores_coordination: "Betriebe"
     report: "Meldungen"
     mediation: "Mediation"
     arbitration: "Schiedsstelle"
@@ -570,6 +570,7 @@ group:
     tooltip_function_10: "Administrator:innen dieser Arbeitsgruppe können in moderierten Foren Beiträge freischalten."
     tooltip_function_11: "Administrator:innen dieser Arbeitsgruppe werden in der Bezirksübersicht angezeigt."
     tooltip_function_12: "Administrator:innen dieser Arbeitsgruppe werden in der Bezirksübersicht angezeigt."
+    none: "Keine GOALS-AG"
   unique_function:
     tooltip_function_region331: "Administrator:innen dieser Arbeitsgruppe können Newsletter versenden"
     tooltip_function_region341: "Administrator:innen dieser Arbeitsgruppe können die Quizfragen verwalten"
@@ -2653,16 +2654,19 @@ region:
   noParent: "Ohne Elternbezirk"
   delete: "Bezirk löschen"
   none: "Noch kein Bezirk gewählt"
+  select: "Bezirk auswählen zum Bearbeiten"
+  createNew: "Neuen Bezirk anlegen"
+  root: "Keiner (Root)"
   type:
     title: "Bezirkstyp"
     city: "Stadt"
-    bigcity: "Großstadt (ohne Anmeldemöglichkeit)"
-    townpart: "Stadtteil"
     district: "Bezirk"
     region: "Region"
-    state: "Bundesland"
+    federal_state: "Bundesland"
     country: "Land"
-    workgroup: "Arbeitsgruppe"
+    working_group: "Arbeitsgruppe"
+    big_city: "Großstadt (ohne Anmeldemöglichkeit)"
+    part_of_town: "Stadtteil"
   hull:
     parent: "Master-Bezirk"
     parent-info: "Alle Foodsaver:innen sind automatisch mit im Master-Bezirk, sofern einer angegeben wurde"
@@ -2673,12 +2677,18 @@ region:
   mail:
     name-info: "Achtung, nicht willkürlich ändern! Auch darauf achten, dass diese Adresse unter Mailboxen verwalten noch nicht existiert."
     sender: "Absendername"
-  confirm: "Sicher, dass du die Änderungen am Bezirk speichern möchtest?"
+  confirm:
+    edit: "Sicher, dass du die Änderungen am Bezirk {name} speichern möchtest?"
+    create: "Sicher, dass du den Bezik {name} neu anlegen möchtest?"
+    delete: "Sicher, dass du Bezirk {name} löschen möchtest?"
   save: "Ja, speichern"
   cancel: "Nein, doch nicht"
   edit_success: "Bezirk wurde gespeichert."
   still_contains_elements: "Der Bezirk kann nicht gelöscht werden, da er noch Unterregionen, Betriebe oder Fairteiler enthält."
-
+  name: "Name"
+  parent: "Elternbezik"
+  master: "Masterbezirk"
+  mailbox: "Mailbox-Name"
 blog:
   read: "weiterlesen"
   bread: "Blog"
@@ -3397,3 +3407,11 @@ help:
         ---
         Angepinnte Threads haben eine Priorität von 1, normale Threads die Priorität 0. Um die angezeigten Threads genauer sortieren zu können, kannst du hier aber auch höhere Werte festlegen, sodass Themen unabhängig vom Änderungsdatum immer ganz oben stehen.
         Threads mit Priorität -1 werden unter allen anderen Threads angezeigt.
+    masterRegion:
+      title: "Masterbezirk"
+      md: |
+        Wenn Bezirke einen Masterbezirk haben, werden alle Mitglieder des Bezirks automatisch auch in den Masterbezirk aufgenommen. In vielen Fällen ist es sinnvoll, den Elternbezirk als Master zu wählen, aber auch andere Anwendungen sind möglich. Ist der Masterbezirk nicht der Elternbezirk, werden Nutzer:innen im Bezirk **nicht** automatisch in den Elternbezirk aufgenommen.
+        
+        Wenn du nicht möchtest, dass Nutzer:innen automatisch in einen anderen Bezirk aufgenommen werden, setze den Master auf Root.
+        ---
+        Die Aufnahme in den Master-Bezirk passiert einmalig jede Nacht. Änderungen treten hier also nicht sofort ein. 

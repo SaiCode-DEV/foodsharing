@@ -223,30 +223,6 @@ class StoreGateway extends BaseGateway
         }
     }
 
-    public function getMapsStores(int $regionId): array
-    {
-        return $this->db->fetchAll('
-            SELECT 	b.id,
-                    b.betrieb_status_id,
-					b.plz,
-					b.`lat`,
-					b.`lon`,
-					b.`stadt`,
-					b.kette_id,
-					b.betrieb_kategorie_id,
-					b.name,
-					b.str
-
-			FROM 	fs_betrieb b
-			WHERE 	b.bezirk_id = :regionId
-			  AND	b.betrieb_status_id <> :permanentlyClosed
-			  AND	b.`lat` != ""
-		', [
-            ':regionId' => $regionId,
-            ':permanentlyClosed' => CooperationStatus::PERMANENTLY_CLOSED->value,
-        ]);
-    }
-
     public function listMyStores(int $fsId): array
     {
         return $this->db->fetchAll('

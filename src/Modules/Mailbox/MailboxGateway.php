@@ -4,12 +4,15 @@ namespace Foodsharing\Modules\Mailbox;
 
 use Carbon\Carbon;
 use Ddeboer\Imap\Message\EmailAddress;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Mailbox\DTO\Region;
+use Foodsharing\RestApi\Models\Region\RegionForAdministration;
 use Foodsharing\Utility\Sanitizer;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class MailboxGateway extends BaseGateway
 {
@@ -758,5 +761,27 @@ class MailboxGateway extends BaseGateway
         }
 
         return $attachment;
+    }
+
+    /**
+     * @throws UniqueConstraintViolationException
+     */
+    public function setRegionMailbox(RegionForAdministration $region): void
+    {
+        $mailboxId = $this->db->fetchValueById('fs_bezirk', 'mailbox_id', $region->id);
+        if ($mailboxId && !$region->mailbox) {
+            throw new BadRequestHttpException('Mailbox cannot be removed.');
+        }
+        if ($mailboxId) {
+            $this->db->update('fs_mailbox', ['name' => $region->mailbox], ['id' => $mailboxId]);
+        } elseif ($region->mailbox) {
+            $mailboxId = $this->db->insert('fs_mailbox', ['name' => $region->mailbox]);
+            $this->db->update('fs_bezirk', ['mailbox_id' => $mailboxId], ['id' => $region->id]);
+        }
+    }
+
+    public function isMailboxNameUsed(string $mailboxName): bool
+    {
+        return $this->db->count('fs_mailbox', ['name' => $mailboxName]) > 0;
     }
 }

@@ -15,7 +15,6 @@ use Foodsharing\Modules\Map\MapXhr;
 use Foodsharing\Modules\Message\MessageControl;
 use Foodsharing\Modules\PassportGenerator\PassportGeneratorControl;
 use Foodsharing\Modules\Region\RegionXhr;
-use Foodsharing\Modules\RegionAdmin\RegionAdminControl;
 use Foodsharing\Modules\Register\RegisterControl;
 use Foodsharing\Modules\Relogin\ReloginControl;
 use Foodsharing\Modules\Report\ReportControl;
@@ -54,7 +53,6 @@ class Routing
         'message' => 'Message',
         'passgen' => 'PassportGenerator',
         'poll' => 'Voting',
-        'region' => 'RegionAdmin',
         'register' => 'Register',
         'relogin' => 'Relogin',
         'report' => 'Report',
@@ -81,7 +79,6 @@ class Routing
         'message' => MessageControl::class,
         'passgen' => PassportGeneratorControl::class,
         'poll' => VotingControl::class,
-        'region' => RegionAdminControl::class,
         'register' => RegisterControl::class,
         'relogin' => ReloginControl::class,
         'report' => ReportControl::class,

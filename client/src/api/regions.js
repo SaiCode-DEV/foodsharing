@@ -8,10 +8,6 @@ export function leaveRegion (regionId) {
   return post(`/region/${regionId}/leave`)
 }
 
-export function masterUpdate (regionId) {
-  return patch(`/region/${regionId}/masterupdate`)
-}
-
 export function setRegionOptions (regionId, enableReportButton, enableMediationButton, regionPickupRuleActive, regionPickupRuleTimespan, regionPickupRuleLimit, regionPickupRuleLimitDay, regionPickupRuleInactive) {
   return post(`/region/${regionId}/options`, {
     enableReportButton: enableReportButton,
@@ -37,8 +33,8 @@ export function setRegionPin (regionId, lat, lon, desc, status) {
   })
 }
 
-export function listRegionChildren (regionId) {
-  return get(`/region/${regionId}/children`)
+export function listRegionChildren (regionId, includeWorkingGroups) {
+  return get(`/region/${regionId}/children${includeWorkingGroups ? '?includeWorkingGroups' : ''}`)
 }
 
 export function listRegionMembers (regionId) {
@@ -59,4 +55,16 @@ export function removeAdminOrAmbassador (regionId, memberId) {
 
 export function setAdminOrAmbassador (regionId, memberId) {
   return post(`/region/${regionId}/members/${memberId}/admin`)
+}
+
+export function getRegionData (regionId) {
+  return get(`/region/${regionId}`)
+}
+
+export function patchRegion (region) {
+  return patch(`/region/${region.id}`, region)
+}
+
+export function createRegion (region) {
+  return post('/region', region)
 }

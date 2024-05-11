@@ -76,6 +76,7 @@ const urls = {
   poll: (pollId) => `/?page=poll&id=${pollId}`,
   pollEdit: (pollId) => `/?page=poll&id=${pollId}&sub=edit`,
   press: () => '/content?sub=presse',
+  regionAdmin: () => '/regions/edit',
   region: (regionId) => regionId ? `/region?bid=${regionId}` : '/?page=region',
   releaseNotes: () => '/content?sub=releaseNotes',
   violations: (fsId) => `/?page=report&sub=foodsaver&id=${fsId}`,

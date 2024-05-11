@@ -13,6 +13,7 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\DTO\HierachicalRegion;
+use Foodsharing\RestApi\Models\Region\RegionForAdministration;
 
 class RegionGateway extends BaseGateway
 {
@@ -48,39 +49,27 @@ class RegionGateway extends BaseGateway
         return $this->db->fetchAllValues($stm);
     }
 
-    public function getBasics_bezirk(): array
+    public function getRegionByParent(int $parentId, bool $includeWorkgroups = false): array
     {
-        return $this->db->fetchAll('
-			SELECT 	 	`id`,
-						`name`
-
-			FROM 		`fs_bezirk`
-			ORDER BY `name`');
-    }
-
-    public function getBezirkByParent(int $parentId, bool $includeOrga = false): array
-    {
-        $sql = 'AND 		`type` != ' . UnitType::WORKING_GROUP;
-        if ($includeOrga) {
-            $sql = '';
+        $typeClause = 'AND `type` != ' . UnitType::WORKING_GROUP;
+        if ($includeWorkgroups) {
+            $typeClause = '';
         }
 
-        return $this->db->fetchAll('
-			SELECT
+        return $this->db->fetchAll("SELECT
 				`id`,
 				`name`,
-				`has_children`,
-				`parent_id`,
-				`type`,
-				`master`
-			FROM 		`fs_bezirk`
-			WHERE 		`parent_id` = :id
+				`has_children` as hasChildren,
+				`type`
+			FROM `fs_bezirk`
+			WHERE `parent_id` = :id
 			AND id != :rootId
-			' . $sql . '
-			ORDER BY 	`name`',
+			{$typeClause}
+			ORDER BY IF(`type` = :workingGroupType, 1, 0), `name`",
             [
+                ':id' => $parentId,
                 ':rootId' => RegionIDs::ROOT,
-                ':id' => $parentId
+                ':workingGroupType' => UnitType::WORKING_GROUP,
             ]
         );
     }
@@ -397,84 +386,7 @@ class RegionGateway extends BaseGateway
         ]);
     }
 
-    public function update_bezirkNew(int $regionId, array $data)
-    {
-        if (isset($data['botschafter']) && is_array($data['botschafter'])) {
-            $this->db->delete('fs_botschafter', ['bezirk_id' => $regionId]);
-            foreach ($data['botschafter'] as $foodsaver_id) {
-                $this->db->insert('fs_botschafter', [
-                    'bezirk_id' => $regionId,
-                    'foodsaver_id' => $foodsaver_id
-                ]);
-            }
-        }
-
-        $master = 0;
-        if (isset($data['master'])) {
-            $master = (int)$data['master'];
-        }
-
-        $this->db->beginTransaction();
-
-        if ((int)$data['parent_id'] > RegionIDs::ROOT) {
-            $this->db->update('fs_bezirk', ['has_children' => 1], ['id' => $data['parent_id']]);
-        }
-
-        $has_children = 0;
-        if ($this->db->exists('fs_bezirk', ['parent_id' => $regionId])) {
-            $has_children = 1;
-        }
-
-        $this->db->update(
-            'fs_bezirk',
-            [
-                'name' => strip_tags((string)$data['name']),
-                'email_name' => strip_tags((string)$data['email_name']),
-                'parent_id' => $data['parent_id'],
-                'type' => $data['type'],
-                'master' => $master,
-                'has_children' => $has_children,
-            ],
-            ['id' => $regionId]
-        );
-
-        $this->db->execute('DELETE a FROM `fs_bezirk_closure` AS a JOIN `fs_bezirk_closure` AS d ON a.bezirk_id = d.bezirk_id LEFT JOIN `fs_bezirk_closure` AS x ON x.ancestor_id = d.ancestor_id AND x.bezirk_id = a.ancestor_id WHERE d.ancestor_id = ' . $regionId . ' AND x.ancestor_id IS NULL');
-        $this->db->execute('INSERT INTO `fs_bezirk_closure` (ancestor_id, bezirk_id, depth) SELECT supertree.ancestor_id, subtree.bezirk_id, supertree.depth+subtree.depth+1 FROM `fs_bezirk_closure` AS supertree JOIN `fs_bezirk_closure` AS subtree WHERE subtree.ancestor_id = ' . $regionId . ' AND supertree.bezirk_id = ' . (int)(int)$data['parent_id']);
-        $this->db->commit();
-    }
-
-    public function addRegion(array $data): int
-    {
-        $this->db->beginTransaction();
-
-        $mbid = $this->db->insert('fs_mailbox', ['name' => strip_tags((string)$data['email'])]);
-
-        $id = $this->db->insert('fs_bezirk', [
-            'parent_id' => (int)$data['parent_id'],
-            'has_children' => (int)$data['has_children'],
-            'name' => strip_tags((string)$data['name']),
-            'mailbox_id' => $mbid,
-            'email_name' => strip_tags((string)$data['email_name']),
-        ]);
-
-        $this->db->execute('INSERT INTO `fs_bezirk_closure` (ancestor_id, bezirk_id, depth) SELECT t.ancestor_id, ' . $id . ', t.depth+1 FROM `fs_bezirk_closure` AS t WHERE t.bezirk_id = ' . (int)$data['parent_id'] . ' UNION ALL SELECT ' . $id . ', ' . $id . ', 0');
-        $this->db->commit();
-
-        if (isset($data['foodsaver']) && is_array($data['foodsaver'])) {
-            foreach ($data['foodsaver'] as $foodsaver_id) {
-                $this->db->insert('fs_botschafter', [
-                    'bezirk_id' => (int)$id,
-                    'foodsaver_id' => (int)$foodsaver_id
-                ]);
-                $this->db->insert('fs_foodsaver_has_bezirk', [
-                    'bezirk_id' => (int)$id,
-                    'foodsaver_id' => (int)$foodsaver_id
-                ]);
-            }
-        }
-
-        return $id;
-    }
+    // TODO move all non-WG-secific methods in GroupGateway to regionGateway
 
     public function getRegionName(int $regionId): string
     {
@@ -524,11 +436,6 @@ class RegionGateway extends BaseGateway
             'active' => 1,
             'added' => $this->db->now()
         ]) > 0;
-    }
-
-    public function updateMasterRegions(array $regionIds, int $masterId): void
-    {
-        $this->db->update('fs_bezirk', ['master' => $masterId], ['id' => $regionIds]);
     }
 
     public function listRegionPickupsByDate(int $regionId, string $dateFormat): array
@@ -735,5 +642,92 @@ class RegionGateway extends BaseGateway
         ]);
 
         return array_map([HierachicalRegion::class, 'createFromArray'], $data);
+    }
+
+    public function getRegionForEditing(int $regionId): array
+    {
+        $region = $this->db->fetchById('fs_bezirk',
+            ['id', 'name', 'parent_id', 'master', 'type', 'mailbox_id', 'email_name'],
+            $regionId
+        );
+        $region['adminIds'] = $this->db->fetchAllValuesByCriteria('fs_botschafter', 'foodsaver_id', ['bezirk_id' => $regionId]);
+
+        return $region;
+    }
+
+    public function editRegion(RegionForAdministration $region): void
+    {
+        $this->db->beginTransaction();
+        $oldParentId = $this->db->fetchValueById('fs_bezirk', 'parent_id', $region->id);
+        $this->db->update('fs_bezirk', [
+            'name' => $region->name,
+            'email_name' => $region->emailName,
+            'parent_id' => $region->parentId,
+            'master' => $region->masterId,
+            'type' => $region->type
+        ], ['id' => $region->id]);
+        $this->removeRegionFromClosure($region->id);
+        $this->addRegionToClosure($region->id, $region->parentId);
+
+        // update hasChildren values for old and new parent
+        $oldParentHasChildren = $this->db->exists('fs_bezirk_closure', ['ancestor_id' => $oldParentId, 'depth' => 1]);
+        $this->db->update('fs_bezirk', ['has_children' => $oldParentHasChildren], ['id' => $oldParentId]);
+        $this->db->update('fs_bezirk', ['has_children' => true], ['id' => $region->parentId]);
+
+        $this->db->commit();
+    }
+
+    public function addRegion(RegionForAdministration $region): void
+    {
+        $this->db->beginTransaction();
+        $region->id = $this->db->insert('fs_bezirk', [
+            'name' => $region->name,
+            'email_name' => $region->emailName,
+            'parent_id' => $region->parentId,
+            'type' => $region->type
+        ], ['id' => $region->id]);
+        $this->addRegionToClosure($region->id, $region->parentId);
+        $this->db->update('fs_bezirk', ['has_children' => true], ['id' => $region->parentId]);
+        $this->db->commit();
+    }
+
+    public function regionHasAncestor(int $regionId, int $ancestorId): bool
+    {
+        return $this->db->exists('fs_bezirk_closure', [
+            'bezirk_id' => $regionId,
+            'ancestor_id' => $ancestorId,
+        ]);
+    }
+
+    public function setRegionAdmins(int $regionId, array $adminIds): void
+    {
+        $this->db->delete('fs_botschafter', ['bezirk_id' => $regionId]);
+        foreach ($adminIds as $adminId) {
+            $this->setRegionAdmin($regionId, $adminId);
+        }
+    }
+
+    private function removeRegionFromClosure(int $regionId): void
+    {
+        $this->db->execute('DELETE a
+            FROM `fs_bezirk_closure` AS a
+            JOIN `fs_bezirk_closure` AS d ON a.bezirk_id = d.bezirk_id
+            LEFT JOIN `fs_bezirk_closure` AS x ON x.ancestor_id = d.ancestor_id AND x.bezirk_id = a.ancestor_id
+            WHERE d.ancestor_id = ? AND x.ancestor_id IS NULL',
+            [$regionId]
+        );
+    }
+
+    private function addRegionToClosure(int $regionId, int $parentId): void
+    {
+        $this->db->execute('INSERT INTO `fs_bezirk_closure`
+                (ancestor_id, bezirk_id, depth)
+            SELECT supertree.ancestor_id, subtree.bezirk_id, supertree.depth+subtree.depth+1
+            FROM `fs_bezirk_closure` AS supertree
+            JOIN `fs_bezirk_closure` AS subtree
+            WHERE subtree.ancestor_id = :regionId AND supertree.bezirk_id = :parentId', [
+                ':regionId' => $regionId,
+                ':parentId' => $parentId,
+        ]);
     }
 }
