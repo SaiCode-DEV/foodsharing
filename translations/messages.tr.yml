@@ -186,7 +186,7 @@ quiz:
   questions: Sorular
   resultsbelow: Değerlendirmeyi aşağıda bulabilirsiniz.
   donecorrectly: Tamamen doğru cevapladınız. Tebrikler!
-  wikilink: Bu konuya uygun Wiki Makalesi
+  wikilink: Bununla ilgili daha fazla bilgi Wiki'de
   finishnow:
     bv: Şimdi İşletmeden Sorumlu Yetkili kaydını tamamlayınız.
     fs: Foodsaver kaydını şimdi tamamlayın.
@@ -215,10 +215,10 @@ quiz:
     percenta: ne yazık ki sadece
     neut: nötrdür ve bu nedenle değerlendirilmez.
   goodluck: Bol şanslar!
-  timedstart: Zaman sınırlı ve 10 sorulu sınava başlayın
+  timedstart: Süre sınırı ve {count} soruyla testi başlatın
   congrats_details: Tebrikler! Maksimum {max_points} ceza puanından {points} ile geçtiniz!
   finished: Tebrikler, başardınız!
-  regstart: Süre sınırlaması olmayan, 20 soru ile sınava başlayın
+  regstart: Süre sınırı ve {count} soru olmadan testi başlatın
   heavysigh: Başardınız!
   notfinishedyet: Testi bitirmediniz.
   threestrikes: Testde 3 kez başarısız oldunuz.
@@ -239,6 +239,56 @@ quiz:
   type: -Test
   learnbreak: Ders arası
   comments: Yorumlar
+  startmodal:
+    infos:
+      alone: Test sırasında yardım almanıza izin verilmez. Bu nedenle teste rahatsız
+        edilmeden girebileceğiniz sessiz bir yer bulun.
+      wiki: Lütfen testi rastgele başlatmayın. Foodsharing Wiki'de listelenen sayfaları
+        önceden dikkatlice okuyun. Wiki'deki bilgiler olmadan teste geçemezsiniz.
+      real_life_examples: Soruların çoğu foodsharing hayatındaki gerçek vakalara dayanıyor.
+      limited_tries: Testi istediğiniz kadar tekrarlayamazsınız. Üç denemeden sonra
+        30 günlük bir ara vermeniz gerekir; bunun ardından yalnızca iki deneme hakkınız
+        daha vardır. Her denemede size sorulacak sorular farklıdır.
+      read_carefully: Tüm soru ve cevapları dikkatlice okuyunuz. Bunun için yeterli
+        zaman var.
+      pause: Her sorudan sonra testi duraklatabilir ve daha sonra devam ettirebilirsiniz.
+      feedback: Testin sonunda geçip geçmediğinize, hangi hataları ve nerede yaptığınıza
+        ilişkin anında bir değerlendirme alacaksınız. Burada boş zamanınızda nedenlerini
+        tekrar okuyabilirsiniz.
+      multiple_choice: Soru başına birkaç doğru cevap olabilir veya hiç olmayabilir.
+        Bu nedenle her cevabın doğru mu yanlış mı olduğuna ayrı ayrı karar verin.
+      comment: Her soruyu yanıtladıktan sonra, her yanıt seçeneği için açıklamalar
+        içeren bir ara değerlendirme göreceksiniz. Bu, hangi cevabın doğru veya yanlış
+        olduğunu ve nedenini anlamanıza yardımcı olur. Her hata için açıklamaları
+        dikkatlice okumalısınız. Bir şey mantıksız, anlaşılmaz ve hatta yanlış görünüyorsa,
+        lütfen yorum bırakın.
+    title: Test notları
+  plural: Testler
+  button:
+    pause: Daha sonra devam et
+    finish: Testi tamamla
+  title:
+    NEVER_TRIED: '{name} - Testi hemen yapın!'
+    RUNNING: '{name} - Teste devam edin!'
+    PASSED: '{name} - Bu testi geçtiniz!'
+    FAILED: '{name} - Tekrar deneyin!'
+    PAUSE: Ders arası molası ({name})
+    PAUSE_ELAPSED: '{name} - Şimdi tekrar deneyebilirsiniz!'
+    DISQUALIFIED: '{name} - Maalesef diskalifiye edildiniz.'
+  infomodal:
+    title: "{questions}'den {index}. soru"
+  comment:
+    toggle: Yorum yaz
+    placeholder: Yorum girin...
+    send: Yorum gönder
+    sent: Yorum gönderildi.
+    info: Bu soruyla ilgili bize geri bildirimde bulunun. Çok mu kolaydı, çok mu zordu,
+      yoksa anlaşılmaz mıydı? Veya bireysel cevaplar veya açıklamalar yanlış mı?
+    wallTitle: '#{id} numaralı soruyla ilgili yorumlar'
+    label: Soruya yorum yaz
+  answers:
+    name: Cevaplar
+    none_correct: Hiç bir cevap da doğru değil.
 answers: Hangi cevaplar doğru?
 maxfp: Geçilmesi gerekilen maksimum hata puanları
 questcount: Sınavda kaç soru sorulmalıdır?
