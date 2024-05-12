@@ -289,6 +289,139 @@ quiz:
   answers:
     name: Cevaplar
     none_correct: Hiç bir cevap da doğru değil.
+    false_false: Bu cevap elbette yanlıştı. Bunu doğru farkettiniz.
+    false_true: Bu cevap doğru olurdu.
+    true_false: Yanlış! Bu cevap doğru değil.
+    true_true: Doğru! Bu cevabı doğru bildiniz.
+    timedOut:
+      0: Bu cevap yanlış olurdu.
+      1: Bu cevap doğru olurdu.
+      2: Bu cevap nötr olurdu.
+    short:
+      0: Yalnış
+      1: Doğru
+      2: Nötr
+    neutral: Nötr cevap - değerlendirilmeyecektir.
+  state_based_info:
+    NEVER_TRIED: Bu teste daha önce hiç girmedin. Sorulara hazırlanmak için listelenen
+      tüm Wiki makalelerini dikkatle okumaya zaman ayırın.
+    RUNNING: Testi zaten başlattınız ve şu ana kadar {questionCount} sorudan {questionsAnswered}
+      tanesini yanıtladınız.
+    PASSED: Testi başardınız.
+    FAILED:
+      1: Maalesef bu testi ilk denemenizde geçemediniz. Bu zaman zaman gerçekleşebilir.
+        İlgili wiki makalelerine göz atın ve tekrar deneyin.
+      2: Ne yazık ki bu testi ilk iki denemenizde başarısız oldunuz. Ders çalışmaya
+        bir ay ara vermek zorunda kalmadan önce hala üçüncü bir denemeniz var. Testi
+        geçebilmeniz için ilgili wiki makalelerine göz atmayı unutmayın.
+    DISQUALIFIED: Ne yazık ki, beş kez başarısız olduğunuz için bu sınavdan diskalifiye
+      edildiniz.
+    PAUSE: Bu testde üç kez başarısız oldunuz. Güvenilirlik, kuralların sıkı bir şekilde
+      kavranması ve profesyonel görünüm, foodsharing'in olmazsa olmazıdır. Ne yazık
+      ki, bu noktada cevaplarınızla bunu aktarmıyorsunuz. Bu nedenle, sınavı geçmek
+      için iki deneme daha yapmadan önce çalışmaya bir ay ara vereceksiniz. Çalışma
+      aranız {wait} gün içinde bitiyor.
+    PAUSE_ELAPSED:
+      3: Teste çalışma zamanın bitti. Artık teste iki kez daha katılabilirsiniz. Umarız
+        bu zamanı içeriğe daha aşina olmak için kullanmışsınızdır.
+      4: Bu testi geçmek için yalnızca son bir deneme hakkınız var! Şimdi başarısız
+        olursanız, bu sınavdan kalıcı olarak diskalifiye edileceksiniz. Lütfen yalnızca
+        wiki içeriğini ayrıntılı olarak incelediyseniz katılın.
+  results:
+    title:
+      2: Maalesef testi geçemediniz.
+      1: Tebrikler!
+    points:
+      1: Maksimum {maxFailurePointsToSucceed} başarısızlık puanı üzerinden {failurePoints}
+        ile geçtiniz!
+      2: '{failurePoints} başarısızlık puanı aldınız ve en fazla {maxFailurePointsToSucceed}
+        puanla geçebilirdiniz.'
+    deleted: Kesin değerlendirme testinden sonraki 2 hafta boyunca kaydedilir ve artık
+      kullanılamaz.
+  fp_badge:
+    right: Doğru cevapladınız
+    wrong: '{userFailurePoints} hatası'
+  timed_out: Bu soruyu ayrılan sürede cevap yazmadınız.
+  timed_out_last: Son soruyu ayrılan sürede cevaplamadınız.
+  timed_out_error: Bu soruyu cevaplama süresi çoktan doldu.
+  error_tooltip: Bu cevapta bir hata yaptınız.
+  show_results: Son denemenin sonuçlarını görüntüle
+  key_facts:
+    to_pass: 'Geçmek için:'
+    timed: '{questionCountTimed} süreli soruda maksimum {maxFailurePointsToSucceed}
+      başarısızlık puanı'
+    untimed: '{questionCountTimed} soruda veya süre sınırı olmadan {questionCountUntimed}
+      soruda maksimum {maxFailurePointsToSucceed} hata puanı'
+  general:
+    title: Genel bilgi
+    edit: Testi düzenle
+  questions_section:
+    title: Test soruları ({count})
+  editable_tooltip: Bu testi düzenleyebilirsiniz.
+  timelimit: Zaman limiti
+  max_fp: Olası hata puanları
+  fp_description: Toplam {failurePoints}, yani yanlış cevap başına {perMistake}
+  question_options:
+    add: Soru ekle
+    edit: Soruyu düzenle
+    add_answer: Yanıt ekle
+    delete: Soruyu sil
+    show_comments: Yorumları göster
+  answer_options:
+    edit: Cevabı düzenle
+    delete: Cevabı sil
+  fp_options:
+    joke: '{failurePoints} Arıza Puanı (Derecelendirme Yok)'
+    default: '{failurePoints} Hata puanları'
+    ko: '{failurePoints} Hata puanları (k.o.)'
+  sessionStatus:
+    1: Maksimum {maxFailurePointsToSucceed} hata puanı {failurePoints} ile geçti
+    2: Maksimum {maxFailurePointsToSucceed} hata puanı {failurePoints} ile başarısız
+      oldu
+    0: Şu anda çalışıyor
+  confirmDelete:
+    session: Bu test oturumunu silmek istediğinizden emin misiniz?
+    answer: Bu yanıtı gerçekten silmek istiyor musunuz?
+    question: Bu soruyu gerçekten silmek istiyor musun?
+  confirm: Testi onaylayın ve süreci tamamlayın
+  editModal:
+    quiz:
+      title: Testi düzenleyin
+      input:
+        name:
+          label: 'İsim:'
+          placeholder: Testin Adı
+        questionCountTimed: 'Cevaplanacak soru sayısı:'
+        allowUntimed: Zaman sınırlaması olmadan düzenlemeye izin ver
+        questionCountUntimed: 'Süre sınırı olmadan cevaplanacak soru sayısı:'
+        maxFp: 'Geçiş için maksimum hata puanı:'
+      htmlWarning: "**Dikkat:** Açıklamanın formatı değiştirildi. Metin giriş alanında
+        gördüğünüz şey HTML ile biçimlendirilmiştir. Lütfen Markdown'ı kullanmak için
+        açıklamayı değiştirin. Biçimlendirmenin doğru şekilde ayarlandığından emin
+        olmak için lütfen giriş alanının önizleme işlevini kullanın."
+    question:
+      title: Soruyu düzenle
+      input:
+        text:
+          label: 'Soru:'
+          placeholder: Test sorusu...
+        duration: 'Cevap verme süresi:'
+        fp: 'Hata puanı:'
+        wikilink:
+          label: 'Link ile bağlantılı Wiki makalesi:'
+          placeholder: https://wiki.foodsharing.de/...
+      confirmDelete:
+        title: Bu soruyu gerçekten silmek istiyor musun?
+    answer:
+      title: Cevabı düzenle
+      input:
+        text:
+          label: 'Cevap:'
+          placeholder: Cevap...
+        explanation:
+          label: 'Açıklama:'
+          placeholder: Açıklama...
+        answerRating: 'Değerlendirme:'
 answers: Hangi cevaplar doğru?
 maxfp: Geçilmesi gerekilen maksimum hata puanları
 questcount: Sınavda kaç soru sorulmalıdır?
@@ -314,6 +447,8 @@ button:
   reset_default: Standardı geri yükle
   prev: Geri
   close: Kapamak
+  start: Haydi başlayalım!
+  confirm: Onayla
 upload:
   new_image: Yeni fotoğraf yükle
   file: Dosya yükle
@@ -353,8 +488,8 @@ pass:
     checkPickups: Doğrulamayı iptal etmeden önce, girilen kurtarma tarihlerini kontrol
       etmelisiniz.
   button:
-    unverify: Onaylamayı iptal et
-    verify: Onayla
+    unverify: Doğrulamayı iptal et
+    verify: Doğrula
     check: Tarihleri kontrol et
   none: '- henüz oluşturulmadı -'
   verified: Onaylandı mı?
@@ -397,6 +532,7 @@ group:
     experience: "Grupta başka yerlerde edindiğiniz deneyimlerden faydalanabilir misiniz?\n
       Eğer öyleyse, nerede veya hangileri?\n"
     how_much_time: Haftada kaç saatinizi buna ayırmaya zamanınız ve isteğiniz var?
+    error_missing_time: 'Hata: Zaman seçilmedi.'
   application_requirements:
     everybody: Herkes başvurabilir.
     nobody: Kimse (kapalı grup).
@@ -480,6 +616,8 @@ group:
       görüntülenir.
     duplicate_election_team: Seçimler çoktan planlandı! Her bölgede yalnızca bir seçim
       grubu bulunabilir.
+    stores_coordination: İşletmeler
+    none: GOALS-AG yok
   entermotivation: 'Motivasyon:'
   mail_link_title:
     region: Bölge Posta Kutusu
@@ -1565,6 +1703,9 @@ foodsaver:
       ederiz.Talep, küresel organizasyon ekibi tarafından mümkün olan en kısa sürede
       işlenecektir.
     learning: Açıklama videosunu şimdi izleyin
+    FOODSAVER: Foodsaver ol
+    STORE_MANAGER: İşletme sorumlusu ol
+    AMBASSADOR: Yetkili Elçi ol
   edit: Foodsaverı düzenle
   profileBack: Profile geri dön
   delete_own_account: Hesabınızı silmek üzeresiniz. Gerçekten emin misin?
@@ -2487,6 +2628,7 @@ profile:
     storelist: İşletmeler ({count})
     verificationHistory: Doğrulama geçmişi
     remove_buddy: Artık {name}'i tanımıyorum
+    quizSessionHistory: Test denemeleri
   history:
     wasVerified: Onaylandı
     lostVerification: Onaylanmadı
@@ -2564,6 +2706,8 @@ profile:
     posts: Gönderiler
     count: alındı
     weight: kurtarıldı
+    fetch_count: alındı
+    bananas: Muzlar
   workgroups_admin: '{name}, grupların irtibat kişisidir'
   ambRegions: '{name} {role} için'
   workgroups_member: '{name} ile aşağıdaki çalışma gruplarındasınız'
@@ -2581,6 +2725,30 @@ profile:
     hakkında daha fazla bilgi biriktirmek için çalışma grupları kullanılabilir. Bu
     konuyla ilgili daha fazla bilgiyi <a href="/region?bid=881&sub=forum&tid=58225">Büyükelçi
     Forumu</a>'nda bulabilirsiniz
+  sections:
+    orga_rights: 'Bir Orga insanı olarak #####, platformda [kapsamlı izinlere]({wikiurl})
+      sahiptir.'
+    ambassador_for: 'İçin Yetkili Elçi:'
+    foodSaver_in_region: Foodsaver
+    workgroups_admin: Gruplar için irtibat kişisi olarak yer alır
+    workgroups_member: aşağıdaki çalışma gruplarında birlikte
+    no_common_workgroups: herhangi ortak çalışma grubunda değil
+    home_region_from: Ana Bölge
+  tab_navigation:
+    profile: Profil
+    pickups: Alımlar
+    commitment_statistics: Etkileşim istatistikleri
+    stores: İşletmeler ({count})
+    notes: Notlar ({count})
+  stores:
+    search_placeholder: İsime göre ara
+    store_table: İşletme Tabelası
+    memberState:
+      filterAll: Hepsi
+      filterRequested: İstek yapıldı
+      filterActive: Üye
+      filterManage: İşletme Sorumlusu
+      filterJumper: Yedek
 stats:
   total:
     foodsaver: Foodsaverlar gıda israfının olmadığı bir dünya için gönüllü oluyor.
