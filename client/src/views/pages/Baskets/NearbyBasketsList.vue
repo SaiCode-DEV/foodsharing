@@ -8,7 +8,7 @@
         <a
           class="ui-corner-all"
           href="#"
-          @click="openBubble(basket)"
+          @click="openBubble(basket.id)"
         >
           <img
             width="35px"
@@ -27,15 +27,16 @@
     <div id="go-to-map-button">
       <a class="button" :href="$url('map', { markers: 'baskets' })">{{ $i18n('basket.all_map') }}</a>
     </div>
+    <basket-bubble ref="basketBubble" />
   </div>
 </template>
 
 <script>
 
-import { ajreq } from '@/script'
-import { vueApply } from '@/vue'
+import BasketBubble from '@php/Modules/Map/components/BasketBubble.vue'
 
 export default {
+  components: { BasketBubble },
   props: {
     baskets: { type: Array, default: () => [] },
   },
@@ -51,13 +52,8 @@ export default {
       }
       return img
     },
-    openBubble (basket) {
-      ajreq('bubble', {
-        app: 'basket',
-        id: basket.id,
-      }).then(_ => {
-        vueApply('#basket-bubble')
-      })
+    openBubble (id) {
+      this.$refs.basketBubble.show(id)
     },
     formattedDistance (basket) {
       const distance = Math.round(basket.distance)

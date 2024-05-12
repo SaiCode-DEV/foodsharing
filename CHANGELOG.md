@@ -125,6 +125,7 @@
 - Modernized LoginControl to a Symfony controller !3237 @\_fridtjof_
 - Refactored profile to vue and symfony controller !3184 @chriswalg
 - Modernized ProfileControl to a Symfony controller !3199 @\_fridtjof_
+- Refactored the main map to vue !3230 @alex.simm
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm

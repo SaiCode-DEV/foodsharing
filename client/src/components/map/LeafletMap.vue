@@ -8,8 +8,8 @@
     :center="[center.lat, center.lon]"
     :bounds="bounds"
     @ready="resetMap"
-    @move="$emit('move', $event)"
-    @dragend="$emit('dragend', $event)"
+    @update:zoom="$emit('update:zoom', $event.valueOf())"
+    @update:center="$emit('update:center', { lat: $event.valueOf().lat, lon: $event.valueOf().lng })"
   >
     <!-- <l-tile-layer
       v-if="useVectorMap"
@@ -45,7 +45,7 @@ export default {
     zoom: { type: Number, required: true },
     center: { type: Object, required: true },
     bounds: { type: Array, default: null },
-    height: { type: Number, default: 300 },
+    height: { type: String, default: '300px' },
   },
   data () {
     return {
@@ -65,7 +65,7 @@ export default {
       return false
     },
     mapStyle () {
-      return `height: ${this.height}px`
+      return `height: ${this.height}`
     },
   },
   beforeDestroy () {

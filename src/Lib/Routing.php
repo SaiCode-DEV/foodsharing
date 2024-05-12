@@ -11,10 +11,8 @@ use Foodsharing\Modules\Index\IndexControl;
 use Foodsharing\Modules\Legal\LegalControl;
 use Foodsharing\Modules\Logout\LogoutControl;
 use Foodsharing\Modules\Mailbox\MailboxControl;
-use Foodsharing\Modules\Map\MapXhr;
 use Foodsharing\Modules\Message\MessageControl;
 use Foodsharing\Modules\PassportGenerator\PassportGeneratorControl;
-use Foodsharing\Modules\Region\RegionXhr;
 use Foodsharing\Modules\Register\RegisterControl;
 use Foodsharing\Modules\Relogin\ReloginControl;
 use Foodsharing\Modules\Report\ReportControl;
@@ -90,14 +88,11 @@ class Routing
     ];
 
     private const XHR = [
-        'map' => MapXhr::class,
         'report' => ReportXhr::class,
         'settings' => SettingsXhr::class,
         'betrieb' => StoreXhr::class,
         'store' => StoreXhr::class,
         'basket' => BasketXhr::class,
-        'region' => RegionXhr::class,
-        'bezirk' => RegionXhr::class,
     ];
 
     private const PORTED = [

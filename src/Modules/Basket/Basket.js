@@ -4,8 +4,7 @@ import '@/globals'
 
 import $ from 'jquery'
 
-import { ajax, ajreq } from '@/script'
-import { expose } from '@/utils'
+import { ajax } from '@/script'
 import './Basket.css'
 
 import { vueApply, vueRegister } from '@/vue'
@@ -15,7 +14,6 @@ import { listBasketCoordinates } from '@/api/baskets'
 import AvatarList from '@/components/Avatar/AvatarList'
 import BasketLocationMap from '@/components/Basket/BasketLocationMap'
 import BasketsLocationMap from '@/components/Basket/BasketsLocationMap'
-import BasketBubble from '../Map/components/BasketBubble'
 import NearbyBasketsList from '@/views/pages/Baskets/NearbyBasketsList'
 
 const mapsearch = {
@@ -94,19 +92,8 @@ $(document).ready(() => {
     vueApply('#basket-creator')
     vueApply('#basket-location-map')
   } else if (document.getElementById('baskets-location-map')) {
-    vueRegister({ BasketsLocationMap, BasketBubble, NearbyBasketsList })
+    vueRegister({ BasketsLocationMap, NearbyBasketsList })
     vueApply('#baskets-location-map')
     vueApply('#nearby-baskets-list')
   }
 })
-
-export function openBasketBubble (id) {
-  ajreq('bubble', {
-    app: 'basket',
-    id: id,
-  }).then(x => {
-    vueApply('#basket-bubble')
-  })
-}
-
-expose({ openBasketBubble })

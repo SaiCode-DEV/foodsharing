@@ -1,5 +1,25 @@
 <template>
-  <div>
+  <b-modal
+    id="communityBubbleModal"
+    ref="communityBubbleModal"
+    v-b-modal.modal-scrollable
+  >
+    <template #modal-header="{ close }">
+      <h3>{{ name }}</h3>
+      <button
+        type="button"
+        class="btn btn-sm no-shadow"
+        @click="close"
+      >
+        <i class="fas fa-xmark" />
+      </button>
+    </template>
+    <template #modal-footer="{ hide }">
+      <b-button variant="primary" @click="hide('forget')">
+        {{ $i18n('globals.close') }}
+      </b-button>
+    </template>
+
     <div
       v-if="loading"
       class="loader-container mx-auto"
@@ -7,10 +27,9 @@
       <i class="fas fa-spinner fa-spin" />
     </div>
     <div class="card mb-3 rounded">
-      <h3>{{ name }}</h3>
       <Markdown :source="description" />
     </div>
-  </div>
+  </b-modal>
 </template>
 
 <script>
@@ -20,9 +39,6 @@ import { pulseError } from '@/script'
 
 export default {
   components: { Markdown },
-  props: {
-    regionId: { type: Number, required: true },
-  },
   data () {
     return {
       loading: true,
@@ -30,16 +46,20 @@ export default {
       description: '',
     }
   },
-  async mounted () {
-    this.loading = true
-    try {
-      const bubbleData = await getCommunityBubbleContent(this.regionId)
-      this.regionName = bubbleData.name
-      this.description = bubbleData.description
-    } catch (e) {
-      pulseError(this.$i18n('error_unexpected'))
-    }
-    this.loading = false
+  methods: {
+    async show (regionId) {
+      this.loading = true
+      this.$bvModal.show('communityBubbleModal')
+
+      try {
+        const bubbleData = await getCommunityBubbleContent(regionId)
+        this.name = bubbleData.name
+        this.description = bubbleData.description
+      } catch (e) {
+        pulseError(this.$i18n('error_unexpected'))
+      }
+      this.loading = false
+    },
   },
 }
 </script>

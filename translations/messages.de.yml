@@ -186,11 +186,11 @@ quiz:
     DISQUALIFIED: "{name} - Leider disqualifiziert."
   startmodal:
     title: "Hinweise zum Quiz"
-    infos: 
+    infos:
       wiki: Bitte starte das Quiz nicht auf gut Glück. Lies vorab die aufgeführten Seiten im Foodsharing-Wiki aufmerksam durch. Ohne das Wissen aus dem Wiki, wirst du das Quiz nicht bestehen.
-      real_life_examples: Die meisten Fragen basieren auf echten Fällen aus dem Foodsharing-Leben. 
+      real_life_examples: Die meisten Fragen basieren auf echten Fällen aus dem Foodsharing-Leben.
       limited_tries: Du kannst das Quiz nicht beliebig oft wiederholen. Nach drei Versuchen musst du eine 30-tägige Lernpause einlegen, danach hast du nur noch zwei weitere Versuche. Die Fragen, die dir in jedem Versuch gestellt werden, unterscheiden sich.
-      alone: Während des Quizes darf dir nicht geholfen werden. Suche dir deswegen einen ruhigen Ort, an dem du ungestört das Quiz durchführen kannst. 
+      alone: Während des Quizes darf dir nicht geholfen werden. Suche dir deswegen einen ruhigen Ort, an dem du ungestört das Quiz durchführen kannst.
       read_carefully: Lies dir alle Fragen und Antworten sorfältig durch. Dafür reicht die Zeit aus.
       multiple_choice: Es können mehrere Antworten pro Frage richtig sein - oder auch keine. Entscheide daher für jede Antwort einzeln, ob sie richtig oder falsch ist.
       comment: Nach dem Beantworten jeder Frage, siehst du eine Zwischenauswertung mit Erklärungen zu jeder der Antwortmöglichkeiten. Das hilft zu verstehen, welche Antwort warum richtig oder falsch ist. Bei jedem Fehler solltest du dir die Erklärungen sorgfältig durchlesen. Wenn dir etwas unlogisch erscheint, nicht verständlich oder gar falsch ist, hinterlasse bitte einen Kommentar.
@@ -223,16 +223,16 @@ quiz:
       1: Richtig
       2: Neutral
   state_based_info:
-    NEVER_TRIED: Dieses Quiz hast du noch nie bearbeitet. Nimm dir Zeit, alle aufgeführten Wiki-Artikel aufmerksam durchzulesen, damit du auf die Fragen vorbereitet bist. 
+    NEVER_TRIED: Dieses Quiz hast du noch nie bearbeitet. Nimm dir Zeit, alle aufgeführten Wiki-Artikel aufmerksam durchzulesen, damit du auf die Fragen vorbereitet bist.
     RUNNING: Du hast das Quiz bereits gestartet und bislang {questionsAnswered} von {questionCount} Fragen beantwortet.
     PASSED: Dieses Quiz hast du bestanden.
     FAILED:
       1: Beim ersten Versuch hast du dieses Quiz leider nicht bestanden. Das kann schon mal passieren. Schau dir nochmal in die entsprechenden Wiki-Artikel und probiers nochmal.
       2: In den ersten beiden Versuchen hast du dieses Quiz leider nicht bestanden. Du hast noch einen dritten Versuch, bevor du einen Monat Lernpause einlegen musst. Schau dir unbedingt die entsprechenden Wiki-Artikel an, damit du das Quiz bestehen kannst.
     PAUSE: Du hast dieses Quiz drei mal nicht bestanden. Zuverlässigkeit, sicheres Beherrschen der Regeln und professionelles Auftreten sind bei Foodsharing unverzichtbar. Mit deinen Antworten vermittelst du das zum jetzigen Zeitpunkt leider nicht. Daher bekommst du einen Monat Lernpause, bevor du zwei weitere Versuche erhälst, das Quiz zu bestehen. Deine Lernpause endet in {wait} Tagen.
-    PAUSE_ELAPSED: 
+    PAUSE_ELAPSED:
       3: Deine Lernpause ist um. Du darfst jetzt zwei weitere Male am Quiz teilnehmen. Hoffentlich hast du die Zeit genutzt, um dich besser mit den Inhalten vertraut zu machen.
-      4: Du hast nur noch einen letzten Versuch dieses Quiz zu bestehen! Wenn du jetzt durchfällst, wirst du dauerhaft für dieses Quiz disqualifiziert. Bitte nimm nur Teil, wenn du dich ausführlich mit den Inhalten aus dem Wiki beschäftigt hast. 
+      4: Du hast nur noch einen letzten Versuch dieses Quiz zu bestehen! Wenn du jetzt durchfällst, wirst du dauerhaft für dieses Quiz disqualifiziert. Bitte nimm nur Teil, wenn du dich ausführlich mit den Inhalten aus dem Wiki beschäftigt hast.
     DISQUALIFIED: Leider bist du für dieses Quiz disqualifiziert, da du fünf mal nicht bestanden hast.
   results:
     title:
@@ -970,7 +970,7 @@ store:
   addNewStoresButton: "Neuen Betrieb eintragen"
   noStores: "Es sind noch keine Betriebe eingetragen"
   deactivatedRegion: "Die Betriebsliste kann für Länder und Kontinente im Moment nicht angezeigt werden."
-  go: "Zur Teamseite"
+  go: "Zum Team"
   error: "Betrieb konnte nicht geladen werden."
   teamName: "{storeTitle}-Team"
   joinDate: "Im Team seit {date}"
@@ -1030,7 +1030,7 @@ store:
     reloadPage: "Neu laden"
     searchPlaceholder: "Name oder ID"
   request:
-    request: "anfragen"
+    request: "Für dieses Team bewerben"
     got-it: "Die Verantwortlichen wurden über deine Anfrage informiert und werden sich bei dir melden."
     withdraw: "Anfrage zurückziehen"
     withdrawn: "Die Anfrage wurde erfolgreich zurückgezogen."

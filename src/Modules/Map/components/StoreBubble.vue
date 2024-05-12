@@ -1,31 +1,14 @@
 <template>
-  <div>
-    <div v-if="loading && store !== null" class="loader-container mx-auto">
+  <b-modal
+    id="storeBubbleModal"
+    ref="storeBubbleModal"
+    v-b-modal.modal-scrollable
+  >
+    <div v-if="loading" class="loader-container mx-auto">
       <i class="fas fa-spinner fa-spin" />
     </div>
-    <div v-else>
+    <div v-else-if="store !== null">
       <div class="card">
-        <div class="text-center mb-2">
-          <a
-            v-if="store.mayAccessStorePage"
-            :href="$url('store', store.id)"
-            class="btn btn-primary text-wrap"
-          >{{ $i18n('store.go') }}</a>
-          <button
-            v-if="store.maySendRequest"
-            class="btn btn-primary text-wrap"
-            @click="sendRequest"
-          >
-            {{ $i18n('store.request.request') }}
-          </button>
-          <button
-            v-else-if="store.mayWithdrawRequest"
-            class="btn btn-primary text-wrap"
-            @click="withdrawRequest"
-          >
-            {{ $i18n('store.request.withdraw') }}
-          </button>
-        </div>
         <div class="card-header">
           <div class="mb-2">
             <store-status-icon :cooperation-status="store.cooperationStatus" />
@@ -46,7 +29,7 @@
             </span>
           </div>
 
-          <div v-if="pickupTimeExplanation">
+          <div v-if="pickupTimeExplanation" class="mt-2">
             {{ $i18n('storeview.public_time', { freq: pickupTimeExplanation }) }}
           </div>
         </div>
@@ -87,7 +70,41 @@
         {{ $i18n(`storeedit.fetch.teamStatus${store.teamSearchStatus}`) }}
       </b-alert>
     </div>
-  </div>
+
+    <template #modal-header="{ close }">
+      <h3>{{ store.name }}</h3>
+      <button
+        type="button"
+        class="btn btn-sm no-shadow"
+        @click="close"
+      >
+        <i class="fas fa-xmark" />
+      </button>
+    </template>
+    <template #modal-footer>
+      <div class="text-center">
+        <a
+          v-if="store.mayAccessStorePage"
+          :href="$url('store', store.id)"
+          class="btn btn-primary mt-3 text-wrap"
+        >{{ $i18n('store.go') }}</a>
+        <button
+          v-if="store.maySendRequest"
+          class="btn btn-primary mt-3 text-wrap"
+          @click="sendRequest"
+        >
+          {{ $i18n('store.request.request') }}
+        </button>
+        <button
+          v-else-if="store.mayWithdrawRequest"
+          class="btn btn-primary mt-3 text-wrap"
+          @click="withdrawRequest"
+        >
+          {{ $i18n('store.request.withdraw') }}
+        </button>
+      </div>
+    </template>
+  </b-modal>
 </template>
 
 <script>
@@ -100,15 +117,13 @@ import UserData from '@/stores/user'
 
 export default {
   components: { StoreStatusIcon, Avatar },
-  props: {
-    storeId: { type: Number, required: true },
-  },
   data () {
     return {
       loading: true,
       name: '',
       description: '',
       store: [],
+      storeId: null,
     }
   },
   computed: {
@@ -139,16 +154,19 @@ export default {
       return UserData.getters.getUserId()
     },
   },
-  async mounted () {
-    this.loading = true
-    try {
-      this.store = await getStoreBubbleContent(this.storeId)
-    } catch (e) {
-      pulseError(this.$i18n('error_unexpected'))
-    }
-    this.loading = false
-  },
   methods: {
+    async show (storeId) {
+      this.loading = true
+      this.storeId = storeId
+      this.$bvModal.show('storeBubbleModal')
+
+      try {
+        this.store = await getStoreBubbleContent(this.storeId)
+      } catch (e) {
+        pulseError(this.$i18n('error_unexpected'))
+      }
+      this.loading = false
+    },
     async sendRequest () {
       try {
         await requestStoreTeamMembership(this.store.id, this.userId)

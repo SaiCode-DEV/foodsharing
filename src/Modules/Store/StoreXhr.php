@@ -4,7 +4,6 @@ namespace Foodsharing\Modules\Store;
 
 use Carbon\Carbon;
 use Foodsharing\Lib\Xhr\Xhr;
-use Foodsharing\Lib\Xhr\XhrDialog;
 use Foodsharing\Lib\Xhr\XhrResponses;
 use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
@@ -88,42 +87,5 @@ class StoreXhr extends Control
             $xhr->addMessage($this->translator->trans('store.not-in-team'), 'error');
         }
         $xhr->send();
-    }
-
-    public function bubble(): array
-    {
-        $storeId = intval($_GET['id']);
-        if ($store = $this->storeGateway->getMyStore($this->session->id(), $storeId)) {
-            $dia = $this->buildBubbleDialog($store, $storeId);
-
-            return $dia->xhrout();
-        }
-
-        return [
-                'status' => 1,
-                'script' => 'pulseError("' . $this->translator->trans('store.error') . '");',
-        ];
-    }
-
-    private function buildBubbleDialog(array $store, int $storeId): XhrDialog
-    {
-        $teamStatus = $this->storeGateway->getUserTeamStatus($this->session->id(), $storeId);
-        $store['inTeam'] = $teamStatus > TeamStatus::Applied;
-        $store['pendingRequest'] = $teamStatus == TeamStatus::Applied;
-        $dia = new XhrDialog();
-        $dia->setTitle($store['name']);
-        $dia->addContent($this->view->vueComponent('store-bubble', 'StoreBubble', [
-            'storeId' => $storeId,
-        ]));
-
-        $modal = false;
-        if (isset($_GET['modal'])) {
-            $modal = true;
-        }
-        $dia->addOpt('modal', 'false', $modal);
-        $dia->addOpt('resizeable', 'false', false);
-        $dia->noOverflow();
-
-        return $dia;
     }
 }

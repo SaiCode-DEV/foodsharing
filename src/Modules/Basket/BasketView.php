@@ -236,24 +236,4 @@ class BasketView extends View
 
         return '<img class="basket-img" src="' . $imgUrl . '" />';
     }
-
-    public function fsBubble(array $basket): string
-    {
-        $img = '';
-        if (!empty($basket['picture'])) {
-            $img = '<div style="width: 100%; max-height: 200px; overflow: hidden;">
-				<img src="http://media.myfoodsharing.org/de/items/200/' . $basket['picture'] . '" />
-			</div>';
-        }
-
-        return $img . $this->v_utils->v_input_wrapper(
-            $this->translator->trans('basket.description'),
-            nl2br($this->routeHelper->autolink($basket['description']))
-        ) . '
-		<div style="text-align: center;">
-			<a class="fsbutton" href="' . BASE_URL . '/essenskoerbe/' . $basket['fsf_id'] . '" target="_blank">'
-            . $this->translator->trans('basket.request-fs') .
-            '</a>
-		</div>';
-    }
 }

@@ -59,7 +59,7 @@ class MapApiCest
         $I->sendGet('api/map/markers', ['types' => 'stores']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
-        $stores = $I->grabDataFromResponseByJsonPath('$.betriebe');
+        $stores = $I->grabDataFromResponseByJsonPath('$.stores');
         $I->assertCount(1, $stores);
         $I->assertCount(6, $stores[0]);
     }
@@ -70,7 +70,7 @@ class MapApiCest
         $I->sendGet('api/map/markers', ['types' => 'stores', 'status' => ['needhelpinstant']]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
-        $stores = $I->grabDataFromResponseByJsonPath('$.betriebe');
+        $stores = $I->grabDataFromResponseByJsonPath('$.stores');
         $I->assertCount(1, $stores);
         $I->assertCount(2, $stores[0]);
     }
@@ -81,7 +81,7 @@ class MapApiCest
         $I->sendGet('api/map/markers', ['types' => 'stores', 'status' => ['needhelp']]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
-        $stores = $I->grabDataFromResponseByJsonPath('$.betriebe');
+        $stores = $I->grabDataFromResponseByJsonPath('$.stores');
         $I->assertCount(1, $stores);
         $I->assertCount(2, $stores[0]);
     }
@@ -92,7 +92,7 @@ class MapApiCest
         $I->sendGet('api/map/markers', ['types' => 'stores', 'status' => ['nkoorp']]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
-        $stores = $I->grabDataFromResponseByJsonPath('$.betriebe');
+        $stores = $I->grabDataFromResponseByJsonPath('$.stores');
         $I->assertCount(1, $stores);
         $I->assertCount(1, $stores[0]);
     }

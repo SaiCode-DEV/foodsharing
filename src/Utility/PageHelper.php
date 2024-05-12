@@ -7,7 +7,6 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
-use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\Permissions\BlogPermissions;
@@ -175,7 +174,7 @@ final class PageHelper
             $permissions = $this->getPermissions();
         }
 
-        $location = $this->session->user('location') ?? new GeoLocation();
+        $location = $this->session->user('location') ?? null;
 
         $sentryConfig = null;
 
@@ -190,7 +189,7 @@ final class PageHelper
             'permissions' => $permissions,
             'page' => $this->routeHelper->getPage(),
             'subPage' => $this->routeHelper->getSubPage(),
-            'locations' => (array)$location,
+            'locations' => $location,
             'ravenConfig' => $sentryConfig,
             'isDev' => getenv('FS_ENV') === 'dev',
             'isTest' => getenv('FS_ENV') === 'test',
