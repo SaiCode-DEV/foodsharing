@@ -1255,7 +1255,7 @@ store:
   prefetchthree: 3 Hafta
   prefetchfour: 4 Hafta
   request:
-    request: istekler
+    request: Bu Ekibe başvur
     no-duplicate: İstek başvurusu zaten var.
     title: '{storeTitle} için başvuru'
     verified: Kullanıcı onaylandı
@@ -1324,7 +1324,7 @@ store:
   short_tooltip_orange: 3 gün içinde ki açık alımlar
   tooltip_jumping: Bu işletmenin yedek listesindesiniz
   jumperSince: 'Şu tarihten beri yedek listesinde {date}'
-  go: Ekip sayfasına
+  go: Ekibe
   regionPickupRuleLong: İstenilen teslim alma tarihinden sonraki ±{regionPickupRuleTimespan}
     gün içinde, ülke çapında ki adalet kuralı işletmelerinde, {regionPickupRuleLimit}
     defadan fazla alım yapılamaz. Bu işletmelerde, günde en fazla {regionPickupRuleLimitDay}
@@ -1577,6 +1577,7 @@ region:
   bread: Bölgeleri yönet
   no-huge: Üzgünüz, bölge olarak ülke veya eyalet seçemezsiniz.
   not-member: Bu bölgenin veya çalışma grubunun bir parçası değilsiniz.
+  select: Düzenlenecek ilçeyi seçin
 events:
   duration: 'Süre: {duration}'
   create:
@@ -2081,6 +2082,7 @@ releases:
   "2023-09": Release "Jackfruit" 🍈 (Eylül 2023)
   "2024-01": “Kivi”yi yayınlayın 🥝 (Ocak 2024)
   "2024-04": '"Laugenbrezel"i yayınlayın 🥨 (Nisan 2024)'
+  "2024-07": Release „Mandarine“🍊 (Temmuz 2024)
 storestatus:
   "5": bizimle işbirliği halinde
   "2": Görüşmeler devam ediyor
