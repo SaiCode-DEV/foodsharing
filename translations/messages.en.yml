@@ -1657,6 +1657,10 @@ region:
     title: Type of region
     bigcity: Big city (without registration option)
     townpart: Part of a town
+    federal_state: Federal state
+    working_group: Working group
+    big_city: Large city (without registration)
+    part_of_town: Quarter
   delete: Delete region
   edit: Edit region
   save: Yes, save
@@ -1678,7 +1682,10 @@ region:
     subregions, stores, or Food-Share Points.
   edit_success: Region was saved.
   cancel: No, not really
-  confirm: Are you sure you want to save the changes to the district?
+  confirm:
+    edit: Are you sure you want to save the changes to the district {name} ?
+    create: Are you sure you want to create the disctrict {name} again?
+    delete: Are you sure you want to delete district {name}?
   none: No district chosen yet
   new: New district
   bread: Manage districts
@@ -1690,6 +1697,13 @@ region:
     Coordinator for one or more stores here.
   no-huge: Sorry, you cannot select a country or state as a region.
   change: Change district
+  root: No (root)
+  select: Select district to edit
+  createNew: Create new district
+  name: Name
+  parent: Parent district
+  master: Master district
+  mailbox: Mailbox name
 storelist:
   others: More stores in {region}
   region: Region
@@ -1986,7 +2000,7 @@ store:
     withdrawn: The request was successfully withdrawn.
     orga-instead: The Orga-team is being informed.
     amb-instead: The ambassadors are being informed.
-    request: request
+    request: Apply for this team
     no-sm: There are no store managers for this store yet.
     got-it: The responsibles have been informed of your request and will get in touch
       with you.
@@ -2073,7 +2087,7 @@ store:
   fetchCount: Picked up {count}× here.
   isJumper: Is on the list of standby foodsavers.
   noPickup: Has never picked up here.
-  go: To the team page
+  go: To the team
   pickup_slot_unavailable: This pick-up slot is further in the future than intended
     by the responsibles. So please try again at a later date.
   appliedFor: Request made
@@ -3819,5 +3833,14 @@ help:
         threads more precisely, you can also set higher values here so that topics
         are always at the top regardless of the modification date.\nThreads with priority
         -1 appear below all other threads.\n"
+    masterRegion:
+      md: "In case districts have a master district, all members of the district will
+        automatically be included into the master district. In many cases it makes
+        sense to assign the parent district as master. If the master district is not
+        the parent district, users of the district will **not** be included into the
+        parent district. \n\nIf you don't want users to be automatically included
+        in another district, set the Master to Root.\n---\nThe inclusion into the
+        master district happens over night. Changes do not occur immediately. \n"
+      title: Master district
   tooltip: Show help
   helpTitle: 'Help: {title}'
