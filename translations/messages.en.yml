@@ -115,6 +115,8 @@ group:
     duplicate_election_team: Electoral group already created! There can only be one
       electoral group per district.
     election: Election
+    stores_coordination: Stores
+    none: Not a GOALS working group
   apply:
     sent: The application was sent.
     send: Send application
