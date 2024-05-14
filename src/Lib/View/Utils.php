@@ -46,33 +46,11 @@ class Utils
      * @deprecated Before using this in new code, please consider bootstrap-vue alerts instead:
      * https://bootstrap-vue.org/docs/components/alert
      */
-    public function v_success(string $msg, string $title = '', string $icon = ''): string
-    {
-        $icon = $icon ?: '<i class="fas fa-check-circle"></i>';
-
-        return $this->v_statusMessage('success', $msg, $title, $icon);
-    }
-
-    /**
-     * @deprecated Before using this in new code, please consider bootstrap-vue alerts instead:
-     * https://bootstrap-vue.org/docs/components/alert
-     */
     public function v_info(string $msg, string $title = '', string $icon = ''): string
     {
         $icon = $icon ?: '<i class="fas fa-info-circle"></i>';
 
         return $this->v_statusMessage('info', $msg, $title, $icon);
-    }
-
-    /**
-     * @deprecated Before using this in new code, please consider bootstrap-vue alerts instead:
-     * https://bootstrap-vue.org/docs/components/alert
-     */
-    public function v_error(string $msg, string $title = '', string $icon = ''): string
-    {
-        $icon = $icon ?: '<i class="fas fa-exclamation-triangle"></i>';
-
-        return $this->v_statusMessage('error', $msg, $title, $icon);
     }
 
     // TODO clean up $value type handling
@@ -431,37 +409,6 @@ class Utils
         return $this->v_input_wrapper($label, '<div id="' . $id . '">' . $input . '</div>', $id, []);
     }
 
-    public function v_form_file(string $id, array $option = []): string
-    {
-        $id = $this->identificationHelper->id($id);
-
-        $val = $this->dataHelper->getValue($id);
-        if (!empty($val)) {
-            $val = json_decode((string)$val, true);
-            $val = substr((string)$val['name'], 0, 30);
-        }
-
-        $this->pageHelper->addJs(
-            '
-			$("#' . $id . '-button").button().on("click", function () {
-				$("#' . $id . '").trigger("click");
-			});
-
-			$("#' . $id . '").on("change", function () {
-				$("#' . $id . '-info").html($("#' . $id . '").val().split("\\\").pop());
-			});'
-        );
-
-        $btlabel = $this->translator->trans('upload.choose_file');
-        if (isset($option['btlabel'])) {
-            $btlabel = $option['btlabel'];
-        }
-
-        $out = '<input style="display: block; visibility: hidden; margin-bottom: -23px;" type="file" name="' . $id . '" id="' . $id . '" size="chars" maxlength="100000" /><span id="' . $id . '-button">' . $btlabel . '</span> <span id="' . $id . '-info">' . $val . '</span>';
-
-        return $this->v_input_wrapper($this->translator->trans($id), $out);
-    }
-
     public function v_form_radio(string $id, array $option = []): string
     {
         $id = $this->identificationHelper->id($id);
@@ -612,39 +559,6 @@ class Utils
 		<input type="hidden" id="' . $id . '-error-msg" value="' . $error_msg . '" />
 		<div class="clear"></div>
 		</div>';
-    }
-
-    public function v_form_daterange(string $id, string $label = ''): string
-    {
-        $id = $this->identificationHelper->id($id);
-
-        $this->pageHelper->addJs('
-			$(function () {
-				$("#' . $id . '_from").datepicker({
-					changeMonth: true,
-					onClose: function (selectedDate) {
-						$("#' . $id . '_to").datepicker("option", "minDate", selectedDate);
-					}
-				});
-
-				$("#' . $id . '_to").datepicker({
-					changeMonth: true,
-					onClose: function (selectedDate) {
-						$("#' . $id . '_from").datepicker("option", "maxDate", selectedDate);
-					}
-				});
-			});
-		');
-
-        return $this->v_input_wrapper(
-            $label,
-            '<input placeholder="' . $this->translator->trans('date.from') . '" class="input text date value"'
-                . ' type="text" id="' . $id . '_from" name="' . $id . '[from]">
-			<input placeholder="' . $this->translator->trans('date.to') . '" class="input text date value"'
-                . ' type="text" id="' . $id . '_to" name="' . $id . '[to]">',
-            $id,
-            []
-        );
     }
 
     public function v_form_date(string $id, array $option = []): string

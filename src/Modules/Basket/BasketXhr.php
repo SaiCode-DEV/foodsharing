@@ -2,11 +2,9 @@
 
 namespace Foodsharing\Modules\Basket;
 
-use Foodsharing\Lib\Xhr\Xhr;
 use Foodsharing\Lib\Xhr\XhrDialog;
 use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\BasketRequests\Status as RequestStatus;
-use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Utility\ImageHelper;
 use Foodsharing\Utility\TimeHelper;
 
@@ -31,9 +29,7 @@ class BasketXhr extends Control
 
         // allowed methods for users who are not logged in
         $allowed = [
-            'bubble',
             'login',
-            'nearbyBaskets',
         ];
 
         if (!$this->session->mayRole() && !in_array($_GET['m'], $allowed)) {
@@ -46,23 +42,6 @@ class BasketXhr extends Control
             );
             exit;
         }
-    }
-
-    public function nearbyBaskets(): void
-    {
-        $xhr = new Xhr();
-
-        if (isset($_GET['coordinates']) && $basket = $this->basketGateway->listNearbyBasketsByDistance(
-            $this->session->id(),
-            GeoLocation::createFromArray([
-                'lat' => $_GET['coordinates'][0],
-                'lon' => $_GET['coordinates'][1],
-            ])
-        )) {
-            $xhr->addData('baskets', $basket);
-        }
-
-        $xhr->send();
     }
 
     public function removeRequest(): ?array
