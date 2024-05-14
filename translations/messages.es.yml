@@ -412,6 +412,69 @@ quiz:
   show_results: Ver los resultados del último intento
   key_facts:
     to_pass: 'Para pasar:'
+  questions_section:
+    title: Preguntas del cuestionario ({count})
+  question_options:
+    add_answer: añadir respuesta
+    edit: editar esta pregunta
+    add: añadir una pregunta
+    show_comments: mostrar comentarios
+    delete: borrar pregunta
+  editModal:
+    quiz:
+      input:
+        maxFp: 'Puntos máximos de fallo para aprobar:'
+        name:
+          label: 'Nombre:'
+          placeholder: Nombre del cuestionario
+        questionCountTimed: 'Número de preguntas que hay que responder:'
+        allowUntimed: permitir la edición sin límite de tiempo
+        questionCountUntimed: 'Número de preguntas a responder sin límite de tiempo:'
+      title: editar cuestionario
+      htmlWarning: '**Atención:** Se ha cambiado el formato de la descripción. Lo
+        que ve en el campo de entrada de texto está formateado con HTML. Por favor,
+        ajuste la descripción y utilice Markdown en su lugar. Por favor, utilice la
+        función de vista previa del campo de entrada para asegurarse de que el formato
+        se ha ajustado correctamente.'
+    question:
+      input:
+        text:
+          label: 'Pregunta:'
+          placeholder: Pregunta del cuestionario…
+        fp: 'Puntos de error:'
+        duration: 'Hora de responder:'
+        wikilink:
+          label: 'Enlace al artículo wiki correspondiente:'
+          placeholder: https://wiki.foodsharing.de/…
+      title: Editar pregunta
+      confirmDelete:
+        title: ¿De verdad quieres borrar esta pregunta?
+    answer:
+      title: Editar respuesta
+      input:
+        text:
+          label: 'Respuesta:'
+          placeholder: Respuesta…
+        explanation:
+          label: 'Explicación:'
+          placeholder: Explicación…
+        answerRating: 'Valoración:'
+  confirmDelete:
+    session: ¿De verdad quieres borrar esta sesión de preguntas?
+    question: ¿De verdad quieres borrar esta pregunta?
+    answer: ¿De verdad quieres borrar esta respuesta?
+  editable_tooltip: Puedes editar este cuestionario.
+  timelimit: Límite de tiempo
+  max_fp: Posibles puntos de error
+  answer_options:
+    edit: editar respuesta
+    delete: borrar respuesta
+  fp_options:
+    default: '{failurePoints} Puntos de fallo'
+    ko: '{failurePoints} Puntos de fallo (nocaut)'
+  sessionStatus:
+    0: en ejecución
+  confirm: Confirme el cuestionario y complete el proceso
 terminology:
   foodsaver:
     m: rescatista
@@ -851,6 +914,7 @@ group:
     experience: "¿Puedes aprovechar las experiencias que hayas adquirido en otros
       lugares?\nSi es así, ¿dónde o cuáles?\n"
     how_much_time: ¿Cuántas horas a la semana tienes tiempo y ganas de dedicarle?
+    error_missing_time: 'Error: no se ha seleccionado ninguna hora.'
   show-all: 'mostrar todo'
   function:
     pr: 'Relación pública'
@@ -918,6 +982,8 @@ group:
     duplicate_election_team: ¡Grupo electoral ya creado! Sólo puede haber un grupo
       electoral por distrito.
     election: Elecciones
+    none: No es un grupo de trabajo GOALS
+    stores_coordination: Empresas
   actions:
     edit: 'Editar grupo'
     join: 'Unase a este grupo'
@@ -966,6 +1032,14 @@ group:
     remove_ambassador_title: 'eliminar como embajador(a)'
     old_edit_hint: 'Ahora puede encontrar la gestión de miembros en la pestaña'
     not_verified: no verificad@
+    default:
+      lastname: Apellido
+      title: por defecto
+    passports:
+      title: Tarjetas
+      generate_button: Crear tarjeta(s) de membresía para la(s) persona(s) seleccionada(s)
+      never_before: nunca
+      created_at: Tarjeta creada el
   edit:
     title: 'Editar {group}'
     name_required: 'Por favor ingrese un nombre.'
@@ -1127,6 +1201,8 @@ button:
   reset_default: Restablecer valor predeterminado
   prev: Volver
   close: Cerrar
+  start: ¡Vamos!
+  confirm: confirmar
 pass:
   nav:
     options: 'Opciones'
@@ -1281,7 +1357,7 @@ store:
   request:
     got-it: 'Los responsables han sido informados de su solicitud y se pondrán en
       contacto con usted.'
-    request: 'Peticiones'
+    request: 'Aplicar para este equipo'
     withdraw: 'Retirar mi solicitud'
     verified: 'Usuario está verificad@'
     to-team: 'agregar al equipo'
@@ -1297,7 +1373,7 @@ store:
     air_line: La distancia indicada es en línea recta.
   all_of_my_stores: 'Todas mis empresas'
   prefetchone: '1 semana'
-  go: 'A la página del equipo'
+  go: 'Al equipo'
   isManager: 'Responsable de esta tienda.'
   noPickup: 'Nunca recogió nada aquí.'
   isJumper: 'Está en la lista de suplentes.'
@@ -1729,6 +1805,9 @@ foodsaver:
     to_amb: 'Conviértete en embajador(a)'
     learning: 'Mira ahora el vídeo explicativo'
     needs_rv: 'Tienes que aceptar el acuerdo legal.'
+    STORE_MANAGER: Conviértete en gestor de cooperaciones
+    AMBASSADOR: Conviértete en embajador
+    FOODSAVER: Conviértete en un ahorrador de alimentos
   url_error: 'Algo anda mal con la URL de tu página de inicio'
   title: 'Rescatistas'
   actions: 'Actividades'
@@ -1814,6 +1893,7 @@ profile:
     notes: 'Notas'
     edit: 'Editar perfil'
     remove_buddy: Ya no conozco a {name}
+    quizSessionHistory: Intentos de concurso
   mediation:
     title: 'Solicitud de mediación para {name}'
     no_group: 'Desgraciadamente todavía no existe un grupo de mediación local en el
@@ -1927,7 +2007,7 @@ profile:
     actionBy: 'por'
     lostVerification: 'Deverificado'
   cantdeletethis: '¡No puedes eliminar eventos individuales!'
-  sleeping: '{name} se toma un descanso por tiempo indefinido'
+  sleeping: 'se toma un descanso por tiempo indefinido'
   title: 'Perfil'
   notes:
     title: 'Notas sobre {name}'
@@ -1978,8 +2058,10 @@ profile:
   stats:
     baskets: 'Cestas de alimentos'
     posts: 'Publicaciones'
-    weight: 'salvado'
+    weight: 'kg salvado'
     count: 'recogido'
+    fetch_count: recogido
+    bananas: Plátanos
   regions: '{name} guarda comida en'
   workgroups_admin: '{name} participa como persona de contacto para los grupos'
   about_me_intern: 'Acerca de mí'
@@ -2013,6 +2095,29 @@ profile:
     sino que se pueden utilizar grupos de trabajo para realizar dichas tareas. Encontrará
     más información al respecto en <a href="/region?bid=881&sub=forum&tid=58225">Foro
     de Embajador@s</a>
+  sections:
+    home_region_from: Región de origen
+    foodSaver_in_region: Ahorrador de alimentos en
+    ambassador_for: de
+    workgroups_admin: es la persona de contacto de los grupos
+    workgroups_member: en los siguientes grupos de trabajo
+    no_common_workgroups: en ningún grupo de trabajo conjunto
+  tab_navigation:
+    pickups: Recogidas
+    commitment_statistics: Estadísticas de participación
+    profile: Perfil
+    notes: Notas ({count})
+    stores: Empresas ({count})
+  stores:
+    search_placeholder: Buscar por nombre
+    memberState:
+      filterAll: todos
+      filterRequested: Solicitud realizada
+      filterActive: miembro
+      filterManage: RE
+      filterJumper: Suplente
+    store_table: Lista de empresas
+  sleeping_info_from_until: hace una pausa del {from} al {until}
 home:
   title: 'Pagina de inicio'
   home: 'Inicio'
@@ -2977,6 +3082,10 @@ region:
     region: 'Región'
     workgroup: 'Grupo de trabajo'
     district: 'Distrito'
+    federal_state: Estado federal
+    working_group: Grupo de trabajo
+    big_city: Gran ciudad (sin opción de registro)
+    part_of_town: Barrio
   forum-redirect: 'No hay tablero de anuncios para las regiones. Has sido redirigido
     al foro.'
   hull:
@@ -2988,7 +3097,10 @@ region:
       maestro si se ha especificado uno'
     closure: 'Ingrese {region} como maestro para todos los distritos secundarios'
   edit: 'Editar distrito'
-  confirm: '¿Está seguro de que desea guardar los cambios del distrito?'
+  confirm:
+    edit: ¿Está seguro de que desea guardar los cambios en el distrito {name}?
+    create: ¿Está seguro de que desea crear el distrito {name}?
+    delete: ¿Está seguro de que desea eliminar el distrito {name}?
   change: 'Cambiar distrito'
   noParent: 'Sin distrito principal'
   new: 'Nuevo distrito'
@@ -3010,6 +3122,12 @@ region:
   no-huge: 'No puede seleccionar un país o estado como distrito.'
   created: 'Se creó {region}'
   restricted: 'Lamentablemente, no tienes permiso para ver estos datos.'
+  createNew: crear un nuevo distrito
+  master: Distrito principal
+  mailbox: Nombre del buzón
+  root: Ninguno (raíz)
+  select: Seleccione el distrito para editar
+  name: Nombre
 password:
   insertmail: 'Ingrese su correo electrónico para restablecer su contraseña.'
   reset: '¿Has olvidado tu contraseña?'
@@ -3785,3 +3903,7 @@ help:
         también puede establecer valores más altos aquí para que los temas estén siempre
         en la parte superior independientemente de la fecha de modificación.\nLos
         hilos con prioridad -1 aparecen debajo de todos los demás hilos.\n"
+    masterRegion:
+      title: Distrito principal
+    profileCommitmentsStat:
+      title: Estadísticas de participación
