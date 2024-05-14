@@ -3230,7 +3230,7 @@ quiz:
     send: Envoyer
     joke: c’était juste une question pour rire et elle ne sera bien sûr pas évaluée
   nownownow: Commencer le quiz maintenant
-  timedstart: Démarrer le quiz avec une limite de temps et 10 questions
+  timedstart: Démarrer le quiz avec une limite de temps et {count} questions
   finishnow:
     fs: Terminer maintenant ton inscription Foodsaver.
     bv: Terminer maintenant l’inscription du responsable coopération.
@@ -3252,7 +3252,7 @@ quiz:
   failedbeforebut: " fois déjà, tu as échoué au quiz. C’est le nombre d’essais qu’il
     te reste à faire :"
   goodluck: Bonne chance !
-  regstart: Démarrer le quiz sans limite de temps et 20 questions
+  regstart: Démarrer le quiz sans limite de temps et {count} questions
   quizleft: " – Il ne reste plus qu’à réussir le quiz !"
   comments: Commentaires
 fpsingular: Point d’erreur
