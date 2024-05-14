@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Foodsharing\Modules\Achievement;
 
+use Carbon\Carbon;
 use Foodsharing\Modules\Achievement\DTO\Achievement;
+use Foodsharing\Modules\Achievement\DTO\AwardedAchievement;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 
@@ -55,5 +57,34 @@ class AchievementGateway extends BaseGateway
         $achievement = $this->db->fetchById('fs_achievement', '*', $id);
 
         return Achievement::createFromArray($achievement);
+    }
+
+    /**
+     * Awards an achievement to a user.
+     *
+     * @return int the id of the added AwardedAchievement (not the achievement id)
+     */
+    public function awardAchievement(AwardedAchievement $awardedAchievement): int
+    {
+        return $this->db->insert('fs_foodsaver_has_achievement', [
+            'foodsaver_id' => $awardedAchievement->foodsaverId,
+            'achievement_id' => $awardedAchievement->achievementId,
+            'reviewer_id' => $awardedAchievement->reviewerId,
+            'notice' => $awardedAchievement->notice,
+            'valid_until' => $awardedAchievement->validUntil,
+        ]);
+    }
+
+    /**
+     * Checks whether a user currently has a certain achievement.
+     */
+    public function hasAchievement(int $foodsaverId, int $achievementId): bool
+    {
+        // TODO needs to be adjsted to exclude requests as soon as they can be represented in the database
+        return $this->db->exists('fs_foodsaver_has_achievement', [
+            'foodsaver_id' => $foodsaverId,
+            'achievement_id' => $achievementId,
+            'valid_until >' => Carbon::now(),
+        ]);
     }
 }

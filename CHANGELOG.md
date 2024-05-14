@@ -24,7 +24,7 @@
 - Rework team page in vue !3248 @chriswalg
 
 ## Dev/Test/CI stuff
-- Added backend support for getting, adding and updating achievements. #1724 !3317 @AntonBallmaier
+- Added backend support for getting, adding and updating achievements. #1724 !3317 !3318 @AntonBallmaier
 - Reduced the number of emails per mailbox in the test data !3330 @alex.simm
 - Remove unused code !3340 @alex.simm
 
