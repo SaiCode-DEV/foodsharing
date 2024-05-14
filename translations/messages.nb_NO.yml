@@ -3079,7 +3079,7 @@ quiz:
   finished: Gratulerer, du klarte det!
   resultsbelow: Du finner resultatene nedenfor.
   donecorrectly: du svarte helt riktig. Flott!
-  wikilink: Matchende wikiartikkel om dette emnet
+  wikilink: Mer informasjon i wikien
   threestrikes: Du mislyktes i quizen tre ganger.
   waitxdays: Du kan prøve igjen om
   days: dager
@@ -3134,6 +3134,74 @@ quiz:
         og med feil, kan du legge igjen en kommentar.
       pause: Du kan sette quizen på pause etter hvert spørsmål og fortsette på et
         senere tidspunkt.
+      feedback: Når du er ferdig med quizen, får du umiddelbart en evaluering av om
+        du har bestått og hvilke feil du har gjort hvor. Deretter kan du lese gjennom
+        begrunnelsene igjen i ro og mak.
+  infomodal:
+    title: Spørsmål {index} av {questions}
+  comment:
+    toggle: skriv en kommentar
+    placeholder: Skriv inn kommentar…
+    send: send kommentar
+    sent: Kommentar sendt.
+    info: Gi oss gjerne tilbakemelding på dette spørsmålet. Var det for lett, for
+      vanskelig, uforståelig? Eller er noen svar eller forklaringer feil?
+    label: kommentere spørsmålet
+    wallTitle: 'kommentarer til spørsmål #{id}'
+  answers:
+    name: svar
+    neutral: Nøytralt svar – vil ikke bli vurdert.
+    false_false: Dette svaret var selvsagt feil. Du innså det helt riktig.
+    false_true: Dette svaret ville vært riktig.
+    timedOut:
+      0: Dette svaret ville vært feil.
+      1: Dette svaret ville vært riktig.
+      2: Dette svaret ville vært nøytralt.
+    short:
+      0: stemmer ikke
+      1: riktig
+      2: nøytral
+    none_correct: Ingen svar er riktige.
+    true_false: Feil! Dette svaret er ikke riktig.
+    true_true: Riktig! Dette svaret er riktig.
+  state_based_info:
+    RUNNING: Du har allerede startet quizen og svart på {questionsAnswered} av {questionCount}
+      spørsmål så langt.
+    PASSED: Du har bestått denne testen.
+    FAILED:
+      1: Dessverre besto du ikke denne quizen på ditt første forsøk. Det kan skje
+        fra tid til annen. Ta en titt på de relevante wiki-artiklene og prøv igjen.
+      2: Dessverre mislyktes du denne quizen på de to første forsøkene dine. Du har
+        fortsatt et tredje forsøk før du må ta en måneds pause for å studere igjen.
+        Sørg for å sjekke ut de relevante wiki-artiklene slik at du kan bestå quizen.
+    PAUSE_ELAPSED:
+      3: Studiepausen din er over. Du kan nå ta quizen to ganger til. Forhåpentligvis
+        har du brukt tiden til å bli mer kjent med innholdet.
+      4: Du har bare ett siste forsøk på å bestå denne quizen! Hvis du mislykkes nå,
+        vil du bli permanent diskvalifisert fra denne quizen. Vennligst bare delta
+        hvis du har studert innholdet i wikien i detalj.
+    DISQUALIFIED: Dessverre er du diskvalifisert for denne quizen fordi du mislyktes
+      fem ganger.
+    NEVER_TRIED: Du har aldri tatt denne quizen før. Ta deg tid til å lese alle wiki-artiklene
+      nøye slik at du er forberedt på spørsmålene.
+    PAUSE: Du mislyktes i denne quizen tre ganger. Pålitelighet, et godt grep om reglene
+      og et profesjonelt utseende er avgjørende for matdeling. Dessverre formidler
+      du ikke det med svarene dine på dette tidspunktet. Derfor får du en måneds pause
+      fra studiene før du får ytterligere to forsøk på å bestå quizen. Studiepausen
+      din avsluttes om {wait} dager.
+  results:
+    title:
+      1: Gratulerer!
+      2: Dessverre besto du ikke.
+  key_facts:
+    to_pass: 'For å bestå:'
+  general:
+    title: Generell informasjon
+    edit: rediger quiz
+  questions_section:
+    title: Quizspørsmål ({count})
+  editable_tooltip: Du kan redigere denne quizen.
+  timelimit: tidsbegrensning
 fpsingular: feilpunktet
 filter_by: filtrer etter
 groups:
@@ -3500,5 +3568,27 @@ help:
         emner alltid er øverst uavhengig av endringsdato.\nTråder med prioritet -1
         vises under alle andre tråder.\n"
       title: Trådprioritet
+    profileCommitmentsStat:
+      title: Engasjementsstatistikk
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
+team_page:
+  board_member:
+    title: Klubbstyret
+    text: "Styret i foodsharing e.V. holder trådene sammen, nettverker Tyskland, Østerrike
+      og Sveits som brukere av foodsharing.de-plattformen og er ansvarlig for overregionale
+      saker. Hovedstyret jobber tett sammen som et team og hovedsakelig online for
+      å håndtere alle bekymringer fra det store foodsharing-fellesskapet og eksterne
+      parter. I tillegg arbeider hovedstyret mye med organisasjonsutvikling og den
+      politiske dimensjonen ved matsvinn.\n"
+  it_member:
+    title: IT-teamet
+    text: "foodsharing er bare mulig takket være engasjementet til tusenvis av frivillige!
+      Her er noen av dem som koordinerer nasjonale arbeidsgrupper, utvikler nettstedet
+      eller tar på seg andre viktige oppgaver for foodsharing som helhet:\n"
+  alumni_member:
+    title: Tidligere
+    text: Sammen kan vi se tilbake på en vellykket historie med foodsharing. Vi vil
+      gjerne benytte anledningen til å takke alle som har bidratt til dette, noen
+      av dem har jobbet fulltid på frivillig basis eller i svært stor grad for arrangørteamet
+      eller styret!
