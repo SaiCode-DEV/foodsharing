@@ -11,12 +11,9 @@ final class ContentPermissions
 {
     private readonly Session $session;
 
-    private array $PR_PARTNER_AND_TEAM_CONTENT_IDS = [
+    private array $PR_PARTNER_CONTENT_IDS = [
         ContentId::PARTNER_PAGE_10,
         ContentId::PARTNER_PAGE_AU_79,
-        ContentId::TEAM_HEADER_PAGE_39,
-        ContentId::TEAM_ACTIVE_PAGE_53,
-        ContentId::TEAM_FORMER_ACTIVE_PAGE_54,
     ];
 
     private array $QUIZ_CONTENT_IDS = [
@@ -87,7 +84,7 @@ final class ContentPermissions
 
         $regionContentMap = [
             RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP => $this->QUIZ_CONTENT_IDS,
-            RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP => $this->PR_PARTNER_AND_TEAM_CONTENT_IDS,
+            RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP => $this->PR_PARTNER_CONTENT_IDS,
             RegionIDs::IT_SUPPORT_GROUP => $this->IT_CONTENT_IDS,
             RegionIDs::PR_START_PAGE => $this->START_CONTENT_IDS,
         ];
@@ -111,7 +108,7 @@ final class ContentPermissions
 
         $regionContentMap = [
             RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP => $this->QUIZ_CONTENT_IDS,
-            RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP => $this->PR_PARTNER_AND_TEAM_CONTENT_IDS,
+            RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP => $this->PR_PARTNER_CONTENT_IDS,
             RegionIDs::PR_START_PAGE => $this->START_CONTENT_IDS,
         ];
 

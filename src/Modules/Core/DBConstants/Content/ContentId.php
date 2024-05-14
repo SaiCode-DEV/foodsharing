@@ -36,9 +36,7 @@ class ContentId
     final public const QUIZ_LEGAL_STOREMANAGER = 31;
 
     final public const PRIVACY_POLICY_CONTENT = 28;
-    final public const TEAM_HEADER_PAGE_39 = 39;
-    final public const TEAM_ACTIVE_PAGE_53 = 53;
-    final public const TEAM_FORMER_ACTIVE_PAGE_54 = 54;
+
     final public const PRIVACY_NOTICE_CONTENT = 64;
     final public const BROADCAST_MESSAGE = 51;
 

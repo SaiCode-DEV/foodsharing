@@ -3390,3 +3390,17 @@ help:
       title: "Engagementstatistik"
       md: ist sichtbar ab der Rolle des Betriebsverantwortlichen. Sie wird eingeschränkt auf gemeinsamen Stammbezirk oder gemeinsame Betriebe.
 
+
+team_page:
+  board_member:
+    title: "Vorstand"
+    text: |
+      Der Vorstand des foodsharing e.V. hält die Fäden zusammen, vernetzt Deutschland, Österreich und die Schweiz als Nutzer:innen der Plattform foodsharing.de und ist für überregionale Angelegenheiten zuständig. Der Vorstand arbeitet im Team sehr viel in engen Absprachen miteinander und hauptsächlich online zusammen, um alle Anliegen der großen foodsharing-Community und von Extern zu bekümmern. Darüber hinaus beschäftigt sich der Vorstand ausgiebig mit der Organisationsentwicklung und der politischen Dimension der Lebensmittelverschwendung.
+  it_member:
+    title: "IT-Team"
+    text: |
+      foodsharing ist nur dank dem Engagement tausender Ehrenamtlicher möglich! Hier stellen sich einige Menschen vor, die überregionale Arbeitsgruppen koordinieren, die Webseite entwickeln oder andere wichtige Aufgaben für ganz foodsharing übernehmen:
+  alumni_member:
+    title: "Ehemalige"
+    text: |
+      Gemeinsam blicken wir auf eine erfolgreiche Entstehungsgeschichte von foodsharing zurück. Wir möchten an dieser Stelle all den Menschen danken, die daran mitwirkten, indem sie zum Teil Vollzeit-ehrenamtlich, oder in einem sehr hohen Maße, für das Orgateam oder den Vorstand aktiv waren!

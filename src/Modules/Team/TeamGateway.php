@@ -11,31 +11,29 @@ class TeamGateway extends BaseGateway
     {
         $out = [];
         $stm = '
-				SELECT 
-					fs.id, 
-					CONCAT(mb.name,"@' . PLATFORM_MAILBOX_HOST . '") AS email, 
+				SELECT
+					fs.id,
+					CONCAT(mb.name,"@' . PLATFORM_MAILBOX_HOST . '") AS email,
 					fs.name,
-					fs.nachname,
 					fs.photo,
-					fs.about_me_public AS `desc`,
+					fs.about_me_public,
 					fs.rolle,
 					fs.geschlecht,
-					fs.homepage,
 					fs.position,
-					fs.contact_public				
-				FROM 
+					fs.contact_public
+				FROM
 					fs_foodsaver_has_bezirk hb
 
 				LEFT JOIN
 					fs_foodsaver fs
 				ON
 					hb.foodsaver_id = fs.id
-				
+
 				LEFT JOIN
-					fs_mailbox mb 
-				ON 
+					fs_mailbox mb
+				ON
 					fs.mailbox_id = mb.id
-				WHERE 
+				WHERE
 					hb.bezirk_id = :region_id
 				ORDER BY fs.name
 		';
@@ -45,65 +43,5 @@ class TeamGateway extends BaseGateway
         }
 
         return $out;
-    }
-
-    public function getUser($id)
-    {
-        $stm = '
-                    SELECT
-                        fs.id,
-				CONCAT(fs.name, " ", fs.nachname) AS name,
-                        fs.about_me_public AS `desc`,
-                        fs.rolle,
-                        fs.geschlecht,
-                        fs.photo,
-                        fs.homepage,
-                        fs.position,
-                        fs.email,
-                        fs.contact_public
-                    FROM
-                        fs_foodsaver_has_bezirk fb
-                    INNER JOIN fs_foodsaver fs ON
-                        fb.foodsaver_id = fs.id
-                    WHERE
-                        fb.foodsaver_id = :id AND(
-                            fb.bezirk_id = :id_1 OR fb.bezirk_id = :id_2 OR fb.bezirk_id = :id_3
-                        )
-                    LIMIT 1
-		';
-        if ($user = $this->db->fetch($stm, [':id' => (int)$id, ':id_1' => RegionIDs::TEAM_ALUMNI_MEMBER, ':id_2' => RegionIDs::TEAM_ADMINISTRATION_MEMBER, ':id_3' => RegionIDs::TEAM_BOARD_MEMBER])
-        ) {
-            return $user;
-        }
-    }
-
-    /**
-     * Function to check and block an IP address.
-     */
-    public function isABlockedIP(int $durationSeconds, string $context): bool
-    {
-        if (!isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = strip_tags((string)$_SERVER['REMOTE_ADDR']);
-        } else {
-            $ip = strip_tags((string)$_SERVER['HTTP_X_FORWARDED_FOR']);
-        }
-
-        $context = strip_tags($context);
-
-        if (($block = $this->db->fetch(
-            'SELECT UNIX_TIMESTAMP(`start`) AS `start`,`duration` FROM fs_ipblock WHERE ip = :ip AND context = :context',
-            [[':ip' => $ip], [':context' => $context]]
-        )) && time() < ((int)$block['start'] + (int)$block['duration'])) {
-            return true;
-        }
-
-        $this->db->insertOrUpdate('fs_ipblock', [
-            'ip' => $ip,
-            'context' => $context,
-            'start' => $this->db->now(),
-            'duration' => $durationSeconds
-        ]);
-
-        return false;
     }
 }

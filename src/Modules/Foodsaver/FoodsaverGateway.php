@@ -279,7 +279,6 @@ class FoodsaverGateway extends BaseGateway
             'data',
             'rolle',
             'position',
-            'homepage'
         ], [
             'id' => $fsId
         ]);
@@ -673,7 +672,6 @@ class FoodsaverGateway extends BaseGateway
             'geb_datum',
             'about_me_intern',
             'about_me_public',
-            'homepage',
             'position'
         ];
 
@@ -687,7 +685,6 @@ class FoodsaverGateway extends BaseGateway
             'handy',
             'about_me_intern',
             'about_me_public',
-            'homepage',
             'position'
         ];
 

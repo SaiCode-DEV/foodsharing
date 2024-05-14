@@ -21,6 +21,7 @@
 - Refactored profile to vue !3184 !3225 @chriswalg
 - Moved passports to region memberlist #1799 #1326 !3251 @chriswalg
 - Modernized StoreChainControl to a Symfony controller !3292 @chriswalg
+- Rework team page in vue !3248 @chriswalg
 
 ## Dev/Test/CI stuff
 - Added backend support for getting, adding and updating achievements. #1724 !3317 @AntonBallmaier

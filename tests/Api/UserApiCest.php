@@ -172,7 +172,6 @@ class UserApiCest
             'isVerified' => 'boolean',
             'regionId' => 'integer',
             'regionName' => 'string',
-            'homepage' => 'string|null',
             'aboutMePublic' => 'string|null',
         ]);
 

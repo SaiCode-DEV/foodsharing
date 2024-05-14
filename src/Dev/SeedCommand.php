@@ -370,6 +370,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $region_vorstand = RegionIDs::TEAM_BOARD_MEMBER;
         $ag_aktive = RegionIDs::TEAM_ADMINISTRATION_MEMBER;
         $ag_testimonials = RegionIDs::TEAM_BOARD_MEMBER;
+        $team_alumni = RegionIDs::TEAM_ALUMNI_MEMBER;
         $ag_quiz = RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP;
         $ag_startpage = RegionIDs::PR_START_PAGE;
         $ag_partnerandteam = RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP;
@@ -406,13 +407,47 @@ class SeedCommand extends Command implements CustomCommandInterface
         $user1 = $I->createFoodsharer($password, ['email' => 'user1@example.com', 'name' => 'One']);
         $this->writeUser($I, $user1, $password, 'foodsharer');
 
-        $user2 = $I->createFoodsaver($password, ['email' => 'user2@example.com', 'name' => 'Two', 'bezirk_id' => $region1, 'image' => true]);
+        $userDataFile = 'src/Dev/userData.json';
+        if (!file_exists($userDataFile)) {
+            $this->output->write($userDataFile . 'not found');
+            exit(1);
+        }
+        $userData = json_decode(file_get_contents($userDataFile), true);
+
+        if ($userData === null) {
+            $this->output->write('userData is NULL');
+            exit(1);
+        }
+
+        $user2 = $I->createFoodsaver($password,
+            [
+                'email' => 'user2@example.com',
+                'name' => 'Two',
+                'bezirk_id' => $region1,
+                'about_me_public' => $userData['user2']['about_me_public'],
+                'position' => $userData['user2']['position'],
+                'image' => true
+            ]);
         $this->writeUser($I, $user2, $password, 'foodsaver');
 
-        $userStoreManager = $I->createStoreCoordinator($password, ['email' => 'storemanager1@example.com', 'name' => 'Three', 'bezirk_id' => $region1, 'image' => true]);
+        $userStoreManager = $I->createStoreCoordinator($password, [
+            'email' => 'storemanager1@example.com',
+            'name' => 'Three',
+            'bezirk_id' => $region1,
+            'about_me_public' => $userData['userStoreManager']['about_me_public'],
+            'position' => $userData['userStoreManager']['position'],
+            'image' => true]
+        );
         $this->writeUser($I, $userStoreManager, $password, 'store coordinator');
 
-        $userStoreManager2 = $I->createStoreCoordinator($password, ['email' => 'storemanager2@example.com', 'name' => 'Four', 'bezirk_id' => $region1, 'image' => true]);
+        $userStoreManager2 = $I->createStoreCoordinator($password, [
+            'email' => 'storemanager2@example.com',
+            'name' => 'Four',
+            'bezirk_id' => $region1,
+            'about_me_public' => $userData['userStoreManager2']['about_me_public'],
+            'position' => $userData['userStoreManager2']['position'],
+            'image' => true]
+        );
         $this->writeUser($I, $userStoreManager2, $password, 'store coordinator2');
 
         $userbot = $I->createAmbassador($password, [
@@ -420,6 +455,8 @@ class SeedCommand extends Command implements CustomCommandInterface
             'name' => 'Bot',
             'bezirk_id' => $region1,
             'about_me_intern' => 'hello!',
+            'about_me_public' => $userData['userbot']['about_me_public'],
+            'position' => $userData['userbot']['position'],
             'image' => true
         ]);
         $this->writeUser($I, $userbot, $password, 'ambassador');
@@ -430,6 +467,8 @@ class SeedCommand extends Command implements CustomCommandInterface
             'name' => 'Bot2',
             'bezirk_id' => $region1,
             'about_me_intern' => 'hello!',
+            'about_me_public' => $userData['userbot2']['about_me_public'],
+            'position' => $userData['userbot2']['position'],
             'image' => true
         ]);
         $this->writeUser($I, $userbot2, $password, 'ambassador');
@@ -456,7 +495,15 @@ class SeedCommand extends Command implements CustomCommandInterface
 
         $this->writeUser($I, $userbotregion2, $password, 'ambassador');
 
-        $userorga = $I->createOrga($password, false, ['email' => 'userorga@example.com', 'name' => 'Orga', 'bezirk_id' => $region1, 'image' => true]);
+        $userorga = $I->createOrga($password, false, [
+            'email' => 'userorga@example.com',
+            'name' => 'Orga',
+            'bezirk_id' => $region1,
+            'about_me_intern' => 'hello!',
+            'about_me_public' => $userData['userorga']['about_me_public'],
+            'position' => $userData['userorga']['position'],
+            'image' => true
+        ]);
         $this->writeUser($I, $userorga, $password, 'orga');
 
         $userorgaWG = $I->createOrga($password, false, ['email' => 'userorgaWG@example.com', 'name' => 'OrgaWG', 'bezirk_id' => $region1, 'id' => RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, 'image' => true]);
@@ -485,7 +532,17 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->addRegionMember($ag_partnerandteam, $userbot['id']);
         $I->addRegionAdmin($ag_partnerandteam, $userbot['id']);
         $I->addRegionMember($region_vorstand, $userbot['id']);
+        $I->addRegionMember($region_vorstand, $userorga['id']);
+        $I->addRegionMember($region_vorstand, $userStoreManager['id']);
+        $I->addRegionMember($region_vorstand, $userStoreManager2['id']);
         $I->addRegionMember($ag_aktive, $userbot['id']);
+        $I->addRegionMember($ag_aktive, $userorga['id']);
+        $I->addRegionMember($ag_aktive, $userStoreManager['id']);
+        $I->addRegionMember($ag_aktive, $userStoreManager2['id']);
+        $I->addRegionMember($team_alumni, $userbot2['id']);
+        $I->addRegionMember($team_alumni, $userorga['id']);
+        $I->addRegionMember($team_alumni, $userStoreManager['id']);
+        $I->addRegionMember($team_alumni, $userStoreManager2['id']);
 
         $I->addRegionMember($ag_testimonials, $user2['id']);
         $I->addRegionMember(RegionIDs::STORE_CHAIN_GROUP, $user2['id']);

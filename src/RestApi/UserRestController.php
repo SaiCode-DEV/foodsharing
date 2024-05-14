@@ -181,7 +181,6 @@ class UserRestController extends AbstractFoodsharingRestController
             $response['gender'] = $data['geschlecht'];
             $response['photo'] = $data['photo'];
             $response['sleeping'] = boolval($data['sleep_status']);
-            $response['homepage'] = $data['homepage'];
 
             $response['stats']['weight'] = floatval($infos['stat_fetchweight']);
             $response['stats']['count'] = $infos['stat_fetchcount'];

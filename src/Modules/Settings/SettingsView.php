@@ -154,7 +154,6 @@ class SettingsView extends View
             $this->v_utils->v_form_textarea('about_me_public', [
                 'desc' => $this->translator->trans('foodsaver.about_me_public'),
             ]),
-            $this->v_utils->v_form_text('homepage'),
         ], ['submit' => $this->translator->trans('button.save')]);
     }
 
