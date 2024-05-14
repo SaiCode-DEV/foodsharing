@@ -472,7 +472,7 @@ profile:
   regions: '{name} is a foodsaver in'
   stats:
     baskets: food baskets
-    weight: saved
+    weight: kg saved
     posts: posts
     count: pick-ups
     fetch_count: picked up
@@ -624,7 +624,7 @@ profile:
   mediationRequest: Request mediation
   reportRequest: Submit report
   sleepinfo: '{name} is inactive from {from} to {until}'
-  sleeping: '{name} is inactive for an indefinite period'
+  sleeping: 'is inactive for an indefinite period'
   workgroups: '{name} is responsible for the following working groups'
   homeRegion: Home district of {name}
   ambRegions: '{name} is {role} for'
@@ -688,7 +688,7 @@ profile:
     workgroups can be used to perform such assignments. Further information on this
     can be found in the <a href="/region?bid=881&sub=forum&tid=58225">Ambassador Forum</a>
   sections:
-    ambassador_for: Ambassador for
+    ambassador_for: for
     foodSaver_in_region: Foodsaver in
     workgroups_admin: is the contact person for groups
     workgroups_member: together in the following working groups
@@ -711,6 +711,7 @@ profile:
       filterRequested: Inquiry submitted
       filterJumper: Jumper
     search_placeholder: Search for name
+  sleeping_info_from_until: is inactive from {from} to {until}
 test:
   plain: This is a nice translation
   vars: 'My name is {NAME} and I am {AGE} years old'
@@ -3848,7 +3849,11 @@ help:
         the parent district, users of the district will **not** be included into the
         parent district. \n\nIf you don't want users to be automatically included
         in another district, set the Master to Root.\n---\nThe inclusion into the
-        master district happens over night. Changes do not occur immediately. \n"
+        master district happens over night. Changes do not occur immediately.\n"
       title: Master district
+    profileCommitmentsStat:
+      title: Engagement statistics
+      md: is visible from the role of the store manager. It is restricted to a common
+        master district or common stores.
   tooltip: Show help
   helpTitle: 'Help: {title}'
