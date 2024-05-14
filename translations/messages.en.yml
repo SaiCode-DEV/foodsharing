@@ -200,6 +200,14 @@ group:
     is_verified: verified
     is_home_region: Home region
     not_verified: not verified
+    default:
+      title: Default
+      lastname: Surname
+    passports:
+      title: Passes
+      created_at: Pass created at
+      generate_button: Create membership card(s) for selected person(s)
+      never_before: never before
   application_from: by
   entermotivation: 'Motivation:'
   enterskills: 'Skills:'
