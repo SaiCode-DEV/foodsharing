@@ -318,7 +318,7 @@ quiz:
   heavysigh: '¡Hecho!'
   not_passed_details: 'Lamentablemente has reprobado. ¡Tuviste {points} del máximo
     permitido de {max_points} errores puntuales!'
-  wikilink: 'Artículo wiki relacionado sobre este tema'
+  wikilink: 'Más información en la wiki'
   threestrikes: 'No has pasado el examen 3 veces.'
   failedbeforebut: ' veces no has pasado el examen hasta ahora. Aún tienes ese número
     de intentos:'
@@ -363,9 +363,55 @@ quiz:
       multiple_choice: Varias respuestas por pregunta pueden ser correctas, o ninguna.
         Por lo tanto, decide para cada respuesta individualmente si es correcta o
         incorrecta.
+      pause: Puedes pausar el cuestionario después de cada pregunta y continuar más
+        tarde.
+      feedback: Al final del cuestionario, recibirá inmediatamente una evaluación
+        en la que se le indicará si ha aprobado y qué errores ha cometido y dónde.
+        Aquí podrá volver a leer los motivos con tranquilidad.
   answers:
     timedOut:
       1: Esta respuesta habría sido correcta.
+      0: Esta respuesta habría sido errónea.
+      2: Esta respuesta habría sido neutra.
+    name: Respuestas
+    none_correct: Ninguna respuesta es correcta.
+    neutral: 'Respuesta neutra: no se puntuará.'
+    false_true: Esta respuesta habría sido correcta.
+    true_false: ¡Incorrecto! Esta respuesta no es correcta.
+    true_true: ¡Correcto! Esta respuesta es correcta.
+    short:
+      0: incorrecto
+      1: correcto
+      2: neutral
+  general:
+    title: Información general
+  infomodal:
+    title: Pregunta {index} de {questions}
+  comment:
+    toggle: escribir un comentario
+    placeholder: Escribir comentario…
+    send: enviar comentario
+    sent: Comentario enviado.
+    info: Danos tu opinión sobre esta pregunta. ¿Era demasiado fácil, demasiado difícil,
+      incomprensible? ¿O algunas respuestas o explicaciones son incorrectas?
+    wallTitle: 'Comentarios a la pregunta #{id}'
+    label: comenta la pregunta
+  state_based_info:
+    PASSED: Has superado esta prueba.
+  results:
+    title:
+      1: ¡Felicidades!
+      2: Por desgracia, no ha aprobado.
+  fp_badge:
+    right: contestado correctamente
+    wrong: '{userFailurePoints} errores'
+  timed_out: No ha respondido a esta pregunta en el tiempo previsto.
+  timed_out_last: No has respondido a la última pregunta en el tiempo previsto.
+  timed_out_error: El plazo para responder a esta pregunta ya ha expirado.
+  error_tooltip: Has cometido un error con esta respuesta.
+  show_results: Ver los resultados del último intento
+  key_facts:
+    to_pass: 'Para pasar:'
 terminology:
   foodsaver:
     m: rescatista
