@@ -3093,13 +3093,47 @@ quiz:
   failedbeforebut: ' ganger du har mislyktes i quizen så langt. Men du har fortsatt
     så mange forsøk igjen:'
   goodluck: Lykke til!
-  timedstart: Start quiz med tidsbegrensning og 10 spørsmål
-  regstart: Start quizen uten tidsbegrensning og 20 spørsmål
+  timedstart: Start quiz med tidsbegrensning og {count} spørsmål
+  regstart: Start quizen uten tidsbegrensning og {count} spørsmål
   quizleft: ' – nå gjenstår det bare å bestå quizen!'
   nownownow: Start quizen nå
   session_deleted: Resultatene for denne quizen er slettet fordi quizen ble fullført
     for mer enn to uker siden.
   comments: Kommentarer
+  plural: Quizer
+  button:
+    pause: fortsette senere
+    finish: fullfør quiz
+  title:
+    NEVER_TRIED: '{name} – ta quizen!'
+    RUNNING: '{name} – fortsett quizen!'
+    PASSED: '{name} – du har bestått denne testen!'
+    FAILED: '{name} – prøv igjen!'
+    PAUSE: Pause for å studere ({name})
+    PAUSE_ELAPSED: '{name} – nå kan du prøve igjen!'
+    DISQUALIFIED: '{name} – dessverre diskvalifisert.'
+  startmodal:
+    title: Quiznotater
+    infos:
+      wiki: Ikke start quizen tilfeldig. Les sidene som er oppført i matdelingswikien
+        nøye på forhånd. Uten kunnskapen fra wikien vil du ikke bestå quizen.
+      real_life_examples: De fleste av spørsmålene er basert på virkelige tilfeller
+        fra foodsharing-livet.
+      limited_tries: Du kan ikke gjenta prøven så mange ganger du vil. Etter tre forsøk
+        må du ta en pause på 30 dager for å studere på nytt, og deretter har du bare
+        to forsøk til. Spørsmålene du blir stilt i hvert forsøk, er forskjellige.
+      alone: Du har ikke lov til å bli hjulpet under quizen. Finn derfor et rolig
+        sted hvor du kan ta quizen uforstyrret.
+      read_carefully: Les alle spørsmål og svar nøye. Det er nok tid til det.
+      multiple_choice: Flere svar per spørsmål kan være riktige – eller ingen i det
+        hele tatt. Avgjør derfor for hvert enkelt svar om det er riktig eller feil.
+      comment: Etter at du har svart på hvert spørsmål, vil du se en mellomevaluering
+        med forklaringer for hvert av de mulige svarene. Dette hjelper deg med å forstå
+        hvilket svar som er riktig eller galt, og hvorfor. Hvis du gjør en feil, bør
+        du lese forklaringene nøye. Hvis noe virker ulogisk, uforståelig eller til
+        og med feil, kan du legge igjen en kommentar.
+      pause: Du kan sette quizen på pause etter hvert spørsmål og fortsette på et
+        senere tidspunkt.
 fpsingular: feilpunktet
 filter_by: filtrer etter
 groups:
