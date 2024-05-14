@@ -183,10 +183,10 @@ const BUDDY_TYPES = Object.freeze({
 export default {
   components: { Avatar, ReportRequest, MediationRequest, ProfileHistoryModal, QuizSessionHistoryModal },
   mixins: [ConfirmationDialogue],
-  props: { profileMenu: { type: Object, required: true } },
+  props: { profileMenu: { type: Object, required: true }, currentUserId: { type: Number, default: null } },
   data () {
     return {
-      buddyType: this.initialBuddyType,
+      buddyType: this.profileMenu.initialBuddyType,
       buddyTypes: BUDDY_TYPES,
       loading: false,
     }
@@ -196,7 +196,7 @@ export default {
       return this.profileMenu.buttonNameReportRequest !== null && this.profileMenu.buttonNameReportRequest.length > 0
     },
     showModerationButton () {
-      return this.fsId !== this.fsIdSession
+      return this.fsId !== this.currentUserId
     },
   },
   methods: {

@@ -3,7 +3,7 @@
     <b-container>
       <b-row>
         <b-col cols="12" xl="3">
-          <ProfileMenu :profile-menu="menu" />
+          <ProfileMenu :profile-menu="menu" :current-user-id="currentUserId" />
           <ProfileInfos :profile-infos="profileInfos" class="pt-2" />
         </b-col>
         <b-col cols="12" xl="9">
@@ -33,6 +33,8 @@
                 :sleeping-information="sleepingInformation"
                 :home-district-history="homeDistrictHistory"
                 :role="profileInfos.role"
+                :home-region-id="profileInfos.homeRegionId"
+                :home-region-name="profileInfos.homeRegionName"
                 class="mt-2"
               />
             </b-tab>
@@ -95,6 +97,7 @@ import ProfileCommitmentsStat from './ProfileCommitmentsStat.vue'
 import EmailBounceList from './EmailBounceList.vue'
 import PickupsSection from '@/components/PickupTable/PickupsSection.vue'
 import ProfileStoreList from './ProfileStoreList.vue'
+import DataUser from '@/stores/user'
 
 export default {
   name: 'Profile',
@@ -117,6 +120,11 @@ export default {
     noteCount: { type: Number, required: true },
     stores: { type: Array, required: true },
     homeDistrictHistory: { type: Object, required: true },
+  },
+  data () {
+    return {
+      currentUserId: DataUser.getters.getUserId(),
+    }
   },
 }
 </script>

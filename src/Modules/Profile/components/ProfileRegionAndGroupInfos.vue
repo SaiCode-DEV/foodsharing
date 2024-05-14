@@ -30,41 +30,61 @@
     </div>
 
     <div v-for="section in sections" :key="section.id">
-      <div v-if="section.value.length > 0">
-        <h4 class="mb-2 mt-4">
+      <div v-if="section.value.length > 0 && !(isMe && section.id === 'JOINT_WORK_GROUPS')">
+        <h5 class="mb-2 mt-4">
           {{ section.title }}
-        </h4>
-        <div
-          class="d-inline d-flex flex-wrap flex-row"
-          style="gap: 10px"
-        >
+        </h5>
+        <div class="d-inline d-flex flex-wrap flex-row" style="gap: 5px">
           <a
-            v-for="item in section.value"
+            v-for="(item, index) in section.value"
             :key="item.id"
             :href="$url('region', item.id)"
-            class="badge sectionClass"
+            class="sectionClass"
           >
-            {{ item.name }}
+            {{ item.name }}<span v-if="index !== section.value.length - 1">,</span>
           </a>
         </div>
       </div>
     </div>
 
     <div v-if="homeRegionName">
-      <h4 class="mb-2 mt-4">
+      <h5 class="mb-2 mt-4">
         {{ $i18n('profile.sections.home_region_from') }}:
-      </h4>
+      </h5>
       <div class="d-inline d-flex flex-wrap flex-row">
-        <a
-          :href="$url('region', homeRegionId)"
-          class="badge sectionClass"
-        >{{ homeRegionName }}</a>
-        <span v-if="homeDistrictHistory.length > 0">(
+        <div class="sectionClass">
           <a
-            :href="$url('profile', homeDistrictHistory.homeDistrictHistoryChangerId)"
-          >
-            {{ homeDistrictHistory.homeDistrictHistoryChangerFullName }}</a>
-          {{ $dateFormatter.date(homeDistrictHistory.homeDistrictHistoryDate, {type: 'full'}) }})</span>
+            :href="$url('region', homeRegionId)"
+          >{{ homeRegionName }}</a>
+          <span v-if="homeDistrictHistory.homeDistrictHistoryChangerFullName">(
+            <a
+              :href="$url('profile', homeDistrictHistory.homeDistrictHistoryChangerId)"
+            >
+              {{ homeDistrictHistory.homeDistrictHistoryChangerFullName }}</a>
+            {{ $dateFormatter.date(homeDistrictHistory.homeDistrictHistoryDate, {type: 'full'}) }})</span>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="sleepingInformation.sleepStatus > SLEEP_STATUS.NONE">
+      <h5 class="mb-2 mt-4">
+        <span v-if="sleepingInformation.sleepStatus === SLEEP_STATUS.TEMP">
+          {{
+            $i18n('profile.sleeping_info_from_until', {
+              from: $dateFormatter.format(new Date(sleepingInformation.sleepFrom * 1000), { day: '2-digit', month: '2-digit', year: 'numeric' }),
+              until: $dateFormatter.format(new Date(sleepingInformation.sleepUntil * 1000), { day: '2-digit', month: '2-digit', year: 'numeric' })
+            })
+          }}
+        </span>
+        <span v-if="sleepingInformation.sleepStatus === SLEEP_STATUS.FULL">
+          {{ $i18n('profile.sleeping') }}
+        </span>
+        :
+      </h5>
+      <div v-if="sleepingInformation.sleepMessage" class="d-inline d-flex flex-wrap flex-row">
+        <div class="sectionClass">
+          {{ sleepingInformation.sleepMessage }}
+        </div>
       </div>
     </div>
 
@@ -83,7 +103,7 @@
 </template>
 
 <script>
-import DataUser from '@/stores/user'
+import DataUser, { SLEEP_STATUS } from '@/stores/user'
 import BananaModal from '@/components/Modals/Profile/BananaModal.vue'
 import { ROLE } from '@/consts'
 import Markdown from '@/components/Markdown/Markdown.vue'
@@ -103,22 +123,27 @@ export default {
     sleepingInformation: { type: Object, required: true },
     homeDistrictHistory: { type: Object, required: true },
     role: { type: Number, required: true },
+    homeRegionId: { type: Number, required: true },
+    homeRegionName: { type: String, default: '' },
   },
   data () {
     return {
       sections: [
-        { id: 1, title: this.$i18n('profile.sections.ambassador_for'), value: this.ambassadorRegions },
-        { id: 2, title: this.$i18n('profile.sections.foodSaver_in_region'), value: this.foodSaverRegions },
-        { id: 3, title: this.$i18n('profile.sections.workgroups_member'), value: this.workingGroups },
-        { id: 4, title: this.$i18n('profile.sections.workgroups_admin'), value: this.workingGroupsAdmins },
+        { id: 'AMBASSADOR_FOR', title: `${this.$i18n('terminology.ambassadors')} ${this.$i18n('profile.sections.ambassador_for')}`, value: this.ambassadorRegions },
+        { id: 'FOOD_SAVER_IN_REGION', title: this.$i18n('profile.sections.foodSaver_in_region'), value: this.foodSaverRegions },
+        { id: 'JOINT_WORK_GROUPS', title: this.$i18n('profile.sections.workgroups_member'), value: this.workingGroups },
+        { id: 'WORKGROUPS_ADMIN', title: this.$i18n('profile.sections.workgroups_admin'), value: this.workingGroupsAdmins },
       ],
     }
   },
   computed: {
+    SLEEP_STATUS () {
+      return SLEEP_STATUS
+    },
     badges () {
       return [
         { id: 'posts', text: this.$i18n('profile.stats.posts'), value: this.statistics.postCount.toString() },
-        { id: 'fetched', text: this.$i18n('profile.stats.fetch_count'), value: this.statistics.fetchCount.toString() },
+        { id: 'fetched', text: this.$i18n('profile.stats.fetch_count'), value: this.statistics.fetchCount.toString() + ' X' },
         { id: 'baskets', text: this.$i18n('profile.stats.baskets'), value: this.statistics.basketCount.toString() },
         { id: 'bananas', text: this.$i18n('profile.stats.bananas'), value: this.bananaStatistics.bananas.length.toString(), link: this.openBananaModal },
         { id: 'saved', text: this.$i18n('profile.stats.weight'), value: this.formatFetchWeight.toString() },
@@ -127,12 +152,6 @@ export default {
     },
     isOrgUser () {
       return this.role === ROLE.ORGA
-    },
-    homeRegionId () {
-      return DataUser.getters.getHomeRegion()
-    },
-    homeRegionName () {
-      return DataUser.getters.getHomeRegionName()
     },
     currentUserId () {
       return DataUser.getters.getUserId()
@@ -206,9 +225,7 @@ div.customBadge .bananaCountAdd {
 .sectionClass {
   color: var(--fs-color-gray-600);
   font-size: medium;
-  border: 1px solid #ccc;
   background-color: transparent;
-  padding: 8px;
-  border-radius: 10rem;
+  padding: 0;
 }
 </style>

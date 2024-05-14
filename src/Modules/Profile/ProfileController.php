@@ -358,15 +358,16 @@ final class ProfileController extends FoodsharingController
             return [];
         }
 
+        $recipientId = intval($userArray['id']);
         $viewerId = $this->session->id();
 
         $canGiveBanana = (!$userArray['bouched']) && ($userArray['id'] != $viewerId);
 
         return [
-            'recipientId' => intval($userArray['id']),
+            'recipientId' => $recipientId,
             'recipientName' => $userArray['name'],
             'canGiveBanana' => $canGiveBanana,
-            'canRemoveBanana' => $this->profilePermissions->mayDeleteBanana($viewerId),
+            'canRemoveBanana' => $this->profilePermissions->mayDeleteBanana($recipientId),
             'bananas' => $userArray['bananen']
         ];
     }
@@ -390,6 +391,7 @@ final class ProfileController extends FoodsharingController
             : null;
 
         $fsMail = ($userArray['rolle'] > Role::FOODSAVER->value && $this->profilePermissions->maySeeEmailAddress($userId)) ? ($userArray['mailbox'] ?? '') : '';
+        $homeRegionName = $userArray['bezirk_id'] !== null ? $this->regionGateway->getRegionName($userArray['bezirk_id']) : null;
 
         return [
             'role' => $userArray['rolle'],
@@ -401,7 +403,9 @@ final class ProfileController extends FoodsharingController
             'buddyCount' => $userArray['stat_buddycount'],
             'name' => $userArray['name'],
             'fsId' => $userArray['id'],
-            'fsIdSession' => $this->session->id()
+            'fsIdSession' => $this->session->id(),
+            'homeRegionId' => $userArray['bezirk_id'],
+            'homeRegionName' => $homeRegionName
         ];
     }
 

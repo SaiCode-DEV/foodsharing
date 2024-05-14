@@ -18,8 +18,8 @@
 - Modernized EventControl to a Symfony controller !3260 @chriswalg
 - Refactor the nearby baskets list to vue !3294 @alex.simm
 - Rebuild quiz module #1666 !3119 @AntonBallmaier
+- Refactored profile to vue !3184 !3225 @chriswalg
 - Moved passports to region memberlist #1799 #1326 !3251 @chriswalg
-- Refactored profile to vue !3184 @chriswalg
 - Modernized StoreChainControl to a Symfony controller !3292 @chriswalg
 
 ## Dev/Test/CI stuff

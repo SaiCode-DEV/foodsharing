@@ -2027,7 +2027,7 @@ profile:
   warning: "Warnung"
   sections:
     orga_rights: "##### hat als Orga-Mensch [weitreichende Berechtigungen]({wikiurl}) auf der Plattform."
-    ambassador_for: "Botschafter für"
+    ambassador_for: "für"
     foodSaver_in_region: "Foodsaver in"
     workgroups_admin: "engagiert sich als Ansprechperson für die Gruppen"
     workgroups_member: "gemeinsam in folgenden Arbeitsgruppen"
@@ -2042,7 +2042,6 @@ profile:
     remove_button: "Von der Bounce-Liste entfernen"
   commitments_stat:
     title: "Engagementstatistik"
-    tooltip_visibility: "Die Engagementstatistik ist sichtbar ab der Rolle des Betriebsverantwortlichen. Sie wird eingeschränkt auf gemeinsamen Stammbezirk oder gemeinsame Betriebe."
     respActStores: "Danke für das Koordinieren von {count} aktiven "
     securePickupWeek: "Danke für das {count}-malige kurzfristige Einspringen und Sicherstellen von Abholungen!"
     eventsCreatedWeek: "Danke für das {count}-malige Erstellen von Events in dieser Woche."
@@ -2129,13 +2128,13 @@ profile:
     foodsaverId: "Foodsaver-ID"
     foodsharerId: "Foodsharer-ID"
   stats:
-    weight: "gerettet"
+    weight: "kg gerettet"
     fetch_count: "abgeholt"
     baskets: "Essenskörbe"
     posts: "Beiträge"
     bananas: "Bananen"
-  sleeping: "{name} hat eine Schlafmütze auf unbestimmte Zeit"
-  sleepinfo: "{name} hat eine Schlafmütze auf vom {from} bis {until}"
+  sleeping: "hat eine Schlafmütze auf unbestimmte Zeit"
+  sleeping_info_from_until: "hat eine Schlafmütze auf vom {from} bis {until}"
   about_me_intern: "Über sich selbst"
   pinboard: "Status-Updates von {name}"
   reportRequest: "Meldung einreichen"
@@ -3383,7 +3382,11 @@ help:
       title: "Masterbezirk"
       md: |
         Wenn Bezirke einen Masterbezirk haben, werden alle Mitglieder des Bezirks automatisch auch in den Masterbezirk aufgenommen. In vielen Fällen ist es sinnvoll, den Elternbezirk als Master zu wählen, aber auch andere Anwendungen sind möglich. Ist der Masterbezirk nicht der Elternbezirk, werden Nutzer:innen im Bezirk **nicht** automatisch in den Elternbezirk aufgenommen.
-        
+
         Wenn du nicht möchtest, dass Nutzer:innen automatisch in einen anderen Bezirk aufgenommen werden, setze den Master auf Root.
         ---
-        Die Aufnahme in den Master-Bezirk passiert einmalig jede Nacht. Änderungen treten hier also nicht sofort ein. 
+        Die Aufnahme in den Master-Bezirk passiert einmalig jede Nacht. Änderungen treten hier also nicht sofort ein.
+    profileCommitmentsStat:
+      title: "Engagementstatistik"
+      md: ist sichtbar ab der Rolle des Betriebsverantwortlichen. Sie wird eingeschränkt auf gemeinsamen Stammbezirk oder gemeinsame Betriebe.
+

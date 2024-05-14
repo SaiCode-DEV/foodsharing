@@ -134,6 +134,12 @@ final class ProfileGateway extends BaseGateway
 			WHERE 	b.`bezirk_id` = bz.`id`
 			AND 	b.foodsaver_id = :fs_id
 			AND		bz.type != :type
+			ORDER BY CASE
+                WHEN bz.type = ' . UnitType::COUNTRY . ' THEN 1
+                WHEN bz.type = ' . UnitType::FEDERAL_STATE . ' THEN 2
+                ELSE 3
+             END,
+             bz.name
 		';
         if ($fs = $this->db->fetchAll($stm, [':fs_id' => $fsId, ':type' => UnitType::WORKING_GROUP])) {
             $data['foodsaver'] = $fs;
@@ -153,6 +159,7 @@ final class ProfileGateway extends BaseGateway
 			AND 	b2.foodsaver_id = :viewerId
 			AND     b2.active = 1
 			AND     bz.type = :type
+			ORDER BY bz.name
 		';
         if ($fs = $this->db->fetchAll($stm, [
             ':fs_id' => $fsId,
@@ -170,6 +177,7 @@ final class ProfileGateway extends BaseGateway
 			WHERE 	b.`bezirk_id` = bz.`id`
 			AND 	b.foodsaver_id = :fs_id
 			AND 	bz.type = 7
+			ORDER BY bz.name
 		';
         if ($orga = $this->db->fetchAll($stm, [':fs_id' => $fsId])) {
             $data['orga'] = $orga;

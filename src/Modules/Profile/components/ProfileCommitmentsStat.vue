@@ -1,9 +1,8 @@
 <template>
   <div class="card mb-3 rounded">
-    <div class="d-flex justify-content-between align-items-center">
-      <h4>{{ $i18n('profile.commitments_stat.title') }}</h4><i
-        class="fas fa-info-circle fa-fw"
-        :title="$i18n('profile.commitments_stat.tooltip_visibility')"
+    <div class="text-right">
+      <Info
+        info-key="profileCommitmentsStat"
       />
     </div>
     <div v-if="commitmentsStats[0].respActStores > 0">
@@ -71,7 +70,10 @@
 
 <script>
 
+import Info from '@/components/Help/Info.vue'
+
 export default {
+  components: { Info },
   props: {
     commitmentsStats: {
       type: Array,

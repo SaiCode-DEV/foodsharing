@@ -1,10 +1,9 @@
 <template>
   <div>
-    <div class="d-flex justify-content-between align-items-center">
-      <h1>{{ $i18n('pickup.overview.header') }}</h1>
+    <div class="text-right pb-2">
       <b-button
+        v-if="pickupsSection.isOwnProfile"
         v-b-tooltip="$i18n('settings.calendar.export_tooltip')"
-        class="d-none d-md-block"
         variant="primary"
         size="sm"
         :href="$url('settingsCalendar')"
