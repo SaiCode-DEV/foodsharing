@@ -10,6 +10,7 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Gender;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Profile\ProfileGateway;
+use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Uploads\UploadsTransactions;
 use Foodsharing\Utility\FlashMessageHelper;
 use Foodsharing\Utility\TranslationHelper;
@@ -21,6 +22,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class PassportGeneratorTransaction extends AbstractController
 {
     public function __construct(
+        private readonly RegionGateway $regionGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly PassportGeneratorGateway $passportGeneratorGateway,
         private readonly ProfileGateway $profileGateway,
@@ -35,7 +37,7 @@ class PassportGeneratorTransaction extends AbstractController
     ) {
     }
 
-    public function generate(array $foodsavers, ?\DateTime $passDate = null, bool $cutMarkers = true, bool $protectPDF = false, bool $ambassadorGeneration = false, bool $oldGeneration = false): string
+    public function generate(array $foodsavers, ?\DateTime $passDate = null, bool $cutMarkers = true, bool $protectPDF = false, bool $ambassadorGeneration = false): string
     {
         $tmp = [];
         foreach ($foodsavers as $foodsaver) {
@@ -274,12 +276,7 @@ class PassportGeneratorTransaction extends AbstractController
             $this->passportGeneratorGateway->updateLastGen($is_generated);
         }
 
-        if ($oldGeneration) {
-            $pdf->Output('foodsaver_pass_.pdf', 'D');
-            exit;
-        } else {
-            return $pdf->Output('', 'S');
-        }
+        return $pdf->Output('', 'S');
     }
 
     public function getRole(int $gender_id, int $role_id): string
@@ -324,5 +321,23 @@ class PassportGeneratorTransaction extends AbstractController
         }
 
         return $date;
+    }
+
+    public function areUsersInRegion(array $userIds, int $regionId): object
+    {
+        $result = true;
+        $missingUserIds = [];
+
+        foreach ($userIds as $userId) {
+            if (!$this->regionGateway->hasMember($userId, $regionId)) {
+                $result = false;
+                $missingUserIds[] = $userId;
+            }
+        }
+
+        return (object)[
+            'result' => $result,
+            'message' => $result ? '' : 'The following user IDs are not included in the region: ' . implode(', ', $missingUserIds)
+        ];
     }
 }

@@ -376,42 +376,6 @@ ui:
     on: "veröffentlicht"
     off: "inaktiv"
 
-pass:
-  bread: "Pass-Generator"
-  none: "– noch nicht erstellt –"
-  photo: "Foto"
-  name: "Name"
-  date: "Zuletzt erstellt"
-  verified: "Verifiziert?"
-  nav:
-    options: "Optionen"
-    select: "Alle markieren"
-    deselect: "Keine markieren"
-    title: "Und los!"
-    generate: "Markierte Ausweise generieren"
-  hint: "Hinweise"
-  hintSelect: |
-    Mit einem Klick auf das Erstellungsdatum werden alle Foodsaver:innen mit dem gleichen Datum beziehungsweise ohne Erstellungsdatum markiert.
-  hintVerify: |
-    Foodsaver, die einen Ausweis bekommen haben und die Richtigkeit ihrer Personendaten bestätigt haben, können verifiziert werden.
-  claim: "Teile Lebensmittel, anstatt sie wegzuwerfen!"
-  verify:
-    do: "Account von {name} ({id}) verifizieren"
-    undo: "Verifizierung von {name} ({id}) aufheben"
-    confirm: "Sicher?"
-    text: |
-      Persodaten gecheckt? <br>
-      Ausweis übergeben?
-    failed: "Es ist ein Problem aufgetreten"
-    hasPickup: "Noch für Abholungen eingetragen"
-    checkPickups: "Vor dem Entverifizieren musst du die eingetragenen Abholtermine prüfen."
-  button:
-    verify: "Verifizieren"
-    unverify: "Entverifizieren"
-    check: "Termine prüfen"
-  noPhoto: "Die folgenden Personen haben noch kein Foto hochgeladen:"
-  notGenerated: "Ihr Ausweis konnte daher nicht erstellt werden."
-
 bcard:
   title: "Visitenkarten-Generator"
   card: "Deine foodsharing-Visitenkarte"
@@ -601,6 +565,14 @@ group:
     is_verified: "Verifiziert"
     not_verified: "Nicht verifiziert"
     is_home_region: "Stammbezirk"
+    default:
+      title: "Standard"
+      lastname: "Nachname"
+    passports:
+      title: "Ausweise"
+      created_at: "Ausweis erstellt am"
+      generate_button: "Ausweis/e für markierte erstellen"
+      never_before: "noch nie"
 
 legal:
   pp: "Datenschutzerklärung"

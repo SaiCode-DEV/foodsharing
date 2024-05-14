@@ -80,6 +80,7 @@
           v-if="activeSubpage === SUB_PAGE.MEMBERS"
           :group-id="regionId"
           :region-name="name"
+          :region-id="regionId"
           :user-id="pageData.userId"
           :may-set-admin-or-ambassador="pageData.maySetAdminOrAmbassador"
           :may-remove-admin-or-ambassador="pageData.mayRemoveAdminOrAmbassador"

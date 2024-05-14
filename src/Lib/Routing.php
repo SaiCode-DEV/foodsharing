@@ -12,7 +12,6 @@ use Foodsharing\Modules\Legal\LegalControl;
 use Foodsharing\Modules\Logout\LogoutControl;
 use Foodsharing\Modules\Mailbox\MailboxControl;
 use Foodsharing\Modules\Message\MessageControl;
-use Foodsharing\Modules\PassportGenerator\PassportGeneratorControl;
 use Foodsharing\Modules\Register\RegisterControl;
 use Foodsharing\Modules\Relogin\ReloginControl;
 use Foodsharing\Modules\Report\ReportControl;
@@ -48,7 +47,6 @@ class Routing
         'mailbox' => 'Mailbox',
         'msg' => 'Message',
         'message' => 'Message',
-        'passgen' => 'PassportGenerator',
         'poll' => 'Voting',
         'register' => 'Register',
         'relogin' => 'Relogin',
@@ -73,7 +71,6 @@ class Routing
         'mailbox' => MailboxControl::class,
         'msg' => MessageControl::class,
         'message' => MessageControl::class,
-        'passgen' => PassportGeneratorControl::class,
         'poll' => VotingControl::class,
         'register' => RegisterControl::class,
         'relogin' => ReloginControl::class,

@@ -1,15 +1,23 @@
 <template>
   <Container :title="title">
-    <b-container>
-      <div v-if="memberList.length" class="card-body p-0">
-        <div class="row">
-          <div
-            v-if="isWorkGroup && mayEditMembers"
-            class="user-search-input"
-          >
+    <b-tabs
+      v-model="activeTab"
+      content-class="mt-2"
+      class="p-2"
+    >
+      <b-tab
+        :title="!mayEditMembers ? '' : $i18n('group.member_list.default.title')"
+        active
+        :disabled="!mayEditMembers"
+      >
+        <div
+          v-if="mayEditMembers"
+          class="row p-2"
+        >
+          <div class="col col-12 col-md-6">
             <user-search-input
+              v-if="isWorkGroup"
               id="new-foodsaver-search"
-              class="m-1"
               :placeholder="$i18n('search.user_search.placeholder')"
               button-icon="fa-user-plus"
               :button-tooltip="$i18n('group.member_list.add_member')"
@@ -17,17 +25,16 @@
               @user-selected="addNewTeamMember"
             />
           </div>
-          <div v-if="mayEditMembers" class="filter-role">
+          <div class="col col-12 col-md-6">
             <b-form-select
               v-model="filterRole"
               :options="roleOptions"
-              size="sm"
+              size="xl"
             />
           </div>
-          <div
-            v-if="mayEditMembers"
-            class="filter-activity-toggle"
-          >
+        </div>
+        <div class="row p-2">
+          <div class="col col-md-6">
             <b-form-checkbox
               v-model="filterLastActivity"
               switch
@@ -36,10 +43,7 @@
               {{ $i18n('group.filter_by_last_activity') }}
             </b-form-checkbox>
           </div>
-          <div
-            v-if="mayEditMembers"
-            class="filter-activity-chooser"
-          >
+          <div class="col col-md-6">
             <b-form-spinbutton
               v-model="lastActivityFilterMonths"
               min="1"
@@ -49,6 +53,20 @@
             />
           </div>
         </div>
+      </b-tab>
+      <b-tab v-if="!isWorkGroup && mayEditMembers" :title="$i18n('group.member_list.passports.title')">
+        <b-button
+          variant="primary"
+          :disabled="!isSelected"
+          :class="{'float-right': !viewIsMobile, 'btn-block': viewIsMobile}"
+          @click="createPassports"
+        >
+          {{ $i18n('group.member_list.passports.generate_button') }}
+        </b-button>
+      </b-tab>
+    </b-tabs>
+    <b-container>
+      <div v-if="memberList.length" class="card-body p-0">
         <div class="form-row">
           <div class="filter-for-label">
             <label class=" col-form-label col-form-label-sm foo">
@@ -57,6 +75,7 @@
           </div>
           <div class="filter-for-form">
             <input
+              id="filterMember"
               v-model="filterText"
               type="text"
               class="form-control form-control-sm"
@@ -84,10 +103,24 @@
         :per-page="perPage"
         :sort-compare="compare"
         :busy="isBusy"
+        :select-mode="selectMode"
         small
         hover
         responsive
+        selectable
+        class="foto-table"
+        @row-selected="onRowSelected"
       >
+        <template #cell(selected)="{ rowSelected }">
+          <template v-if="rowSelected">
+            <span aria-hidden="true">&check;</span>
+            <span class="sr-only">Selected</span>
+          </template>
+          <template v-else>
+            <span aria-hidden="true">&nbsp;</span>
+            <span class="sr-only">Not selected</span>
+          </template>
+        </template>
         <template #cell(imageUrl)="row">
           <Avatar
             :user="row.item"
@@ -108,6 +141,21 @@
           >
             {{ row.item.name }}
           </a>
+        </template>
+        <template #cell(lastName)="row">
+          <a
+            :href="$url('profile', row.item.id)"
+            :title="row.item.id"
+          >
+            {{ row.item.lastName }}
+          </a>
+        </template>
+        <template #cell(lastPassDate)="row">
+          {{ row.item.lastPassDate === null ? $i18n('group.member_list.passports.never_before') : $dateFormatter.format(row.item.lastPassDate, {
+            day: 'numeric',
+            month: 'numeric',
+            year: 'numeric',
+          }) }}
         </template>
         <template #cell(lastActivity)="row">
           {{ $dateFormatter.format(row.item.lastActivity, {
@@ -207,14 +255,15 @@ import RegionsData from '@/stores/regions'
 import { hideLoader, pulseError, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
 import UserSearchInput from '@/components/UserSearchInput'
-import { verifyUser, deverifyUser } from '@/api/verification'
+import { verifyUser, deverifyUser, createPassportAsAmbassador } from '@/api/verification'
 import Container from '@/components/Container/Container.vue'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import Avatar from '@/components/Avatar/Avatar.vue'
+import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
 export default {
   components: { UserSearchInput, Container, Avatar },
-  mixins: [ConfirmationDialogue],
+  mixins: [ConfirmationDialogue, MediaQueryMixin],
   props: {
     userId: { type: Number, default: null },
     groupId: { type: Number, required: true },
@@ -222,6 +271,7 @@ export default {
       type: String,
       default: '',
     },
+    regionId: { type: Number, required: true },
     isWorkGroup: {
       type: Boolean,
       default: false,
@@ -232,6 +282,8 @@ export default {
   },
   data () {
     return {
+      ACTIVE_TAB_DEFAULT: 0,
+      ACTIVE_TAB_PASSPORT: 1,
       currentPage: 1,
       perPage: 20,
       filterText: '',
@@ -247,9 +299,15 @@ export default {
         { value: 3, text: i18n('terminology.role.3') },
         { value: 4, text: i18n('terminology.role.4') },
       ],
+      selectMode: 'multi',
+      selected: [],
+      activeTab: null,
     }
   },
   computed: {
+    isSelected () {
+      return this.selected.length > 0
+    },
     title () {
       return `${this.isWorkGroup ? this.$i18n('memberlist.header_for_workgroup', { bezirk: this.regionName }) : this.$i18n('memberlist.header_for_district', { bezirk: this.regionName })} ${this.memberCount}`
     },
@@ -266,9 +324,14 @@ export default {
       const filterText = this.filterText ? this.filterText.toLowerCase() : null
       return this.memberList.filter((member) => {
         return (
-          ((!filterText || (member.id.toString().startsWith(filterText))) || (member.name.toLowerCase().indexOf(filterText) !== -1)) &&
+          ((!filterText ||
+            (member.id.toString().startsWith(filterText))) ||
+            (member.name.toLowerCase().includes(filterText)) ||
+            (this.activeTab === this.ACTIVE_TAB_PASSPORT && member.lastName.toLowerCase().includes(filterText))
+          ) &&
           (this.filterRole === null || (member.role === this.filterRole)) &&
-          (!this.filterLastActivity || (Date.parse(member.lastActivity) <= this.dateBeforeMonths))
+          (!this.filterLastActivity || (Date.parse(member.lastActivity) <= this.dateBeforeMonths)) &&
+          ((this.activeTab !== this.ACTIVE_TAB_PASSPORT) || (member.isHomeRegion))
         )
       })
     },
@@ -286,64 +349,99 @@ export default {
           sortable: false,
           label: '',
           class: 'foto-column',
-        }, {
+        },
+        {
           key: 'userName',
           label: this.$i18n('group.name'),
           sortable: false,
           class: 'align-middle',
         },
-        {
-          key: 'userId',
-          label: this.$i18n('group.userId'),
-          sortable: false,
-          class: 'align-middle',
-        },
       ]
-      if (this.mayEditMembers) {
+
+      if (this.activeTab === this.ACTIVE_TAB_PASSPORT) {
         columns.push({
-          key: 'lastActivity',
-          label: this.$i18n('group.last_activity'),
-          sortable: true,
-          class: 'align-middle',
-        }, {
-          key: 'role',
-          label: this.$i18n('group.role_name'),
+          key: 'lastName',
+          label: this.$i18n('group.member_list.default.lastname'),
           sortable: true,
           class: 'align-middle',
         })
+      }
 
-        if (!this.isWorkGroup) {
-          columns.push({
+      columns.push({
+        key: 'userId',
+        label: this.$i18n('group.userId'),
+        sortable: false,
+        class: 'align-middle',
+      })
+
+      if (!this.isWorkGroup && this.activeTab === this.ACTIVE_TAB_PASSPORT) {
+        columns.push({
+          key: 'lastPassDate',
+          label: this.$i18n('group.member_list.passports.created_at'),
+          sortable: true,
+          class: 'align-middle',
+        })
+      }
+
+      if (this.mayEditMembers) {
+        columns.push(
+          {
+            key: 'lastActivity',
+            label: this.$i18n('group.last_activity'),
+            sortable: true,
+            class: 'align-middle',
+          },
+        )
+      }
+
+      if (this.activeTab === this.ACTIVE_TAB_DEFAULT) {
+        columns.push(
+          {
+            key: 'role',
+            label: this.$i18n('group.role_name'),
+            sortable: true,
+            class: 'align-middle',
+          },
+        )
+      }
+
+      if (this.activeTab === this.ACTIVE_TAB_PASSPORT) {
+        columns.push(
+          {
             key: 'isVerified',
             label: this.$i18n('group.member_list.is_verified'),
             sortable: true,
             class: 'align-middle',
-          }, {
+          },
+        )
+      }
+
+      if (this.activeTab === this.ACTIVE_TAB_DEFAULT) {
+        columns.push(
+          {
             key: 'isHomeRegion',
             label: this.$i18n('group.member_list.is_home_region'),
             sortable: true,
             class: 'align-middle',
-          })
-        }
+          },
+        )
       }
-      columns.push(
-        {
+
+      if (this.mayEditMembers && this.activeTab === this.ACTIVE_TAB_DEFAULT) {
+        columns.push({
           key: 'setAdminButton',
           label: '',
           sortable: false,
           class: 'button-column',
-        }, {
-          key: 'removeAdminButton',
-          label: '',
-          sortable: false,
-          class: 'button-column',
-        }, {
+        },
+        {
           key: 'removeButton',
           label: '',
           sortable: false,
           class: 'button-column',
-        },
-      )
+        })
+      }
+
       return columns
     },
     adminName () {
@@ -488,6 +586,31 @@ export default {
       this.isBusy = false
       hideLoader()
     },
+    onRowSelected (items) {
+      this.selected = items
+    },
+    async createPassports () {
+      const selectedUserIds = this.selected.map(({ id }) => id)
+      showLoader()
+      try {
+        const jsonData = await createPassportAsAmbassador(this.regionId, selectedUserIds)
+        const blob = new Blob(jsonData.response, { type: 'application/json' })
+        const filename = `fs_passports_${this.regionId}_${this.regionName}.pdf`
+        this.downloadFile(blob, filename)
+      } catch (e) {
+        pulseError(i18n('error_unexpected'))
+      }
+      hideLoader()
+    },
+    downloadFile (blob, filename) {
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', filename)
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    },
   },
 }
 </script>
@@ -496,40 +619,6 @@ export default {
 .sleep::after {
   top: -26%;
   left: -9%;
-}
-
-.filter-activity-toggle {
-  margin:0.5rem;
-  margin-left:1.5rem;
-  @media (min-width: 375px) {
-    flex-basis: 50%;
-    order: 1;
-  }
-
-  @media (min-width: 1200px) {
-    flex-basis: 25%;
-    order: 1;
-  }
-}
-
-.filter-activity-chooser {
-  margin:0.5rem;
-  flex-basis: 25%;
-  order: 2;
-}
-
-.filter-role {
-  margin:0.5rem;
-  margin-left:1.5rem;
-  @media (min-width: 375px) {
-    flex-basis: 85%;
-    order: 3;
-  }
-
-  @media (min-width: 1200px) {
-    flex-basis: 40%;
-    order: 3;
-  }
 }
 
 .filter-for-label {

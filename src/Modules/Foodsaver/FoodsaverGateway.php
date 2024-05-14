@@ -78,6 +78,7 @@ class FoodsaverGateway extends BaseGateway
 			SELECT 	fs.`id`,
 					fs.`photo`,
 					fs.`name`,
+					fs.`nachname` as lastname,
 					fs.sleep_status,
 					fs.sleep_from,
 					fs.sleep_until,
@@ -85,6 +86,7 @@ class FoodsaverGateway extends BaseGateway
 					fs.last_login as last_activity,
 					fs.anmeldedatum as registration_date,
 					fs.verified,
+					fs.last_pass,
 					fs.bezirk_id as home_region,
                     if (isnull(fsbot.`bezirk_id`) , false, true) as isAdminOrAmbassadorOfRegion
 
@@ -109,6 +111,8 @@ class FoodsaverGateway extends BaseGateway
                 $foodsaver['isAdminOrAmbassadorOfRegion']);
             if ($includeAdminFields) {
                 $member->role = $foodsaver['role'];
+                $member->lastPassDate = $foodsaver['last_pass'];
+                $member->lastName = $foodsaver['lastname'];
                 $member->lastActivity = ($foodsaver['last_activity'] === '0000-00-00 00:00:00') ? new DateTime($foodsaver['registration_date']) : new DateTime($foodsaver['last_activity']);
                 $member->isVerified = $foodsaver['verified'];
                 $member->isHomeRegion = $foodsaver['home_region'] == $regionId;

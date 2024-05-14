@@ -103,9 +103,6 @@ export default {
         menu.push({
           href: 'forum', special: 1, icon: 'fa-comment-dots', text: 'menu.entry.BOTforum',
         })
-        menu.push({
-          href: 'passports', icon: 'fa-address-card', text: 'menu.entry.ids',
-        })
       }
 
       return menu

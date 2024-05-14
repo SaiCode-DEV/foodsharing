@@ -5,16 +5,11 @@ namespace Foodsharing\Modules\PassportGenerator;
 use Carbon\Carbon;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
-use Foodsharing\Modules\Region\RegionGateway;
 
 final class PassportGeneratorGateway extends BaseGateway
 {
-    private readonly RegionGateway $regionGateway;
-
-    public function __construct(Database $db, RegionGateway $regionGateway)
+    public function __construct(Database $db)
     {
-        $this->regionGateway = $regionGateway;
-
         parent::__construct($db);
     }
 
@@ -37,45 +32,5 @@ final class PassportGeneratorGateway extends BaseGateway
         $lastPass = $this->db->fetchValueByCriteria('fs_foodsaver', 'last_pass', ['id' => $fsId]);
 
         return $lastPass ? Carbon::parse($lastPass) : null; // 'Y-m-d H:i:s'
-    }
-
-    public function getPassFoodsaver(int $regionId): array
-    {
-        $stm = '
-				SELECT 	fs.`id`,
-						CONCAT(fs.`name`," ",fs.`nachname`) AS `name`,
-						fs.verified,
-						fs.last_pass,
-						fs.photo,
-						UNIX_TIMESTAMP(fs.last_pass) AS last_pass_ts,
-						b.name AS bezirk_name,
-						b.id AS bezirk_id
-
-				FROM 	fs_foodsaver_has_bezirk fb,
-						fs_foodsaver fs,
-						fs_bezirk b
-
-				WHERE 	fb.foodsaver_id = fs.id
-				AND 	fb.bezirk_id = b.id
-				AND 	fb.`bezirk_id` IN(' . implode(',', $this->regionGateway->listIdsForDescendantsAndSelf($regionId, true, false)) . ')
-				AND		fs.deleted_at IS NULL
-
-				ORDER BY bezirk_name, fs.name
-		';
-        $req = $this->db->fetchAll($stm);
-
-        $out = [];
-        foreach ($req as $r) {
-            if (!isset($out[$r['bezirk_id']])) {
-                $out[$r['bezirk_id']] = [
-                    'id' => $r['bezirk_id'],
-                    'bezirk' => $r['bezirk_name'],
-                    'foodsaver' => []
-                ];
-            }
-            $out[$r['bezirk_id']]['foodsaver'][] = $r;
-        }
-
-        return $out;
     }
 }

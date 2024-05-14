@@ -14,30 +14,35 @@ use Foodsharing\Modules\Profile\ProfileGateway;
 use Foodsharing\Modules\Store\PickupGateway;
 use Foodsharing\Permissions\PassportPermissions;
 use Foodsharing\Permissions\ProfilePermissions;
+use Foodsharing\RestApi\Models\Passport\CreateRegionPassportModel;
 use Foodsharing\Utility\EmailHelper;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA2;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class VerificationRestController extends AbstractFOSRestController
+class VerificationRestController extends AbstractFoodsharingRestController
 {
     private readonly BellGateway $bellGateway;
     private readonly FoodsaverGateway $foodsaverGateway;
     private readonly ProfileGateway $profileGateway;
     private readonly PickupGateway $pickupGateway;
     private readonly ProfilePermissions $profilePermissions;
-    private readonly Session $session;
     private readonly EmailHelper $emailHelper;
     protected TranslatorInterface $translator;
     private readonly PassportPermissions $passportPermissions;
     private readonly PassportGeneratorTransaction $passportGeneratorTransaction;
+    protected Session $session;
 
     public function __construct(
         BellGateway $bellGateway,
@@ -45,22 +50,22 @@ class VerificationRestController extends AbstractFOSRestController
         ProfileGateway $profileGateway,
         PickupGateway $pickupGateway,
         ProfilePermissions $profilePermissions,
-        Session $session,
         EmailHelper $emailHelper,
         TranslatorInterface $translator,
         PassportPermissions $passportPermissions,
         PassportGeneratorTransaction $passportGeneratorTransaction,
+        Session $session,
     ) {
         $this->bellGateway = $bellGateway;
         $this->foodsaverGateway = $foodsaverGateway;
         $this->profileGateway = $profileGateway;
         $this->pickupGateway = $pickupGateway;
         $this->profilePermissions = $profilePermissions;
-        $this->session = $session;
         $this->emailHelper = $emailHelper;
         $this->translator = $translator;
         $this->passportPermissions = $passportPermissions;
         $this->passportGeneratorTransaction = $passportGeneratorTransaction;
+        $this->session = $session;
     }
 
     /**
@@ -207,20 +212,22 @@ class VerificationRestController extends AbstractFOSRestController
         return $this->handleView($this->view($history, 200));
     }
 
-    /**
-     * User can create own passport.
-     *
-     * @OA\Response(
-     *     response="200", description="Success.",
-     *     @OA\MediaType(mediaType="application/pdf",
-     *     @OA\Schema(type="string", format="binary", description="Passport as PDF-File")
-     *     )
-     * )
-     * @OA\Response(response="401", description="Not logged in.")
-     * @OA\Response(response="403", description="Insufficient permissions to create own passport.")
-     * @OA\Response(response="404", description="User not found.")
-     * @OA\Tag(name="verification")
-     */
+    #[OA2\Post(summary: 'User can create own passport')]
+    #[OA2\Response(
+        response: 200,
+        description: 'Success.',
+        content: new OA2\MediaType(
+            mediaType: 'application/pdf',
+            schema: new OA2\Schema(
+                description: 'Passport as PDF-File',
+                type: 'string',
+                format: 'binary'
+            )
+        )
+    )]
+    #[OA2\Response(response: 401, description: 'Not logged in.')]
+    #[OA2\Response(response: 403, description: 'Insufficient permissions to create own passport.')]
+    #[OA2\Tag(name: 'verification')]
     #[Rest\Post('user/current/passport')]
     public function createAsUser(): Response
     {
@@ -239,6 +246,55 @@ class VerificationRestController extends AbstractFOSRestController
 
         $response = new Response($pdf);
         $response->headers->set('Content-Type', 'application/pdf');
+
+        return $response;
+    }
+
+    #[OA2\Post(summary: 'Ambassador can create passports for users in region')]
+    #[OA2\Response(
+        response: 200,
+        description: 'Success.',
+        content: new OA2\MediaType(
+            mediaType: 'application/pdf',
+            schema: new OA2\Schema(
+                description: 'Passport as PDF-File',
+                type: 'string',
+                format: 'binary'
+            )
+        )
+    )]
+    #[OA2\Response(response: 401, description: 'Not logged in.')]
+    #[OA2\Response(response: 403, description: 'Insufficient permissions to create passport as ambassador in region.')]
+    #[OA2\Response(response: 404, description: 'User not found.')]
+    #[OA2\Tag(name: 'verification')]
+    #[Rest\Post('region/{regionId}/passport')]
+    #[ParamConverter('regionPassportModel', converter: 'fos_rest.request_body')]
+    public function createAsAmbassador(int $regionId, CreateRegionPassportModel $regionPassportModel, ValidatorInterface $validator): Response
+    {
+        $sessionId = $this->session->id();
+        if (!$sessionId) {
+            throw new UnauthorizedHttpException('');
+        }
+
+        if (!$this->passportPermissions->mayCreatePassportAsAmbassador($sessionId, $regionId)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $this->assertThereAreNoValidationErrors($validator, $regionPassportModel);
+
+        $areUsersInRegion = $this->passportGeneratorTransaction->areUsersInRegion($regionPassportModel->userIds, $regionId);
+        if (!$areUsersInRegion->result) {
+            throw new NotFoundHttpException($areUsersInRegion->message);
+        }
+
+        try {
+            $pdf = $this->passportGeneratorTransaction->generate($regionPassportModel->userIds, null, true, false, true);
+
+            $response = new Response($pdf);
+            $response->headers->set('Content-Type', 'application/pdf');
+        } catch (\Exception $ex) {
+            throw new BadRequestException($ex->getMessage());
+        }
 
         return $response;
     }

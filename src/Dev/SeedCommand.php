@@ -452,6 +452,7 @@ class SeedCommand extends Command implements CustomCommandInterface
             'image' => true
         ]);
         $I->addRegionAdmin($region2, $userbotregion2['id']);
+        $I->addRegionMember($region1, $userbotregion2['id']);
 
         $this->writeUser($I, $userbotregion2, $password, 'ambassador');
 
