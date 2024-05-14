@@ -1693,7 +1693,7 @@ region:
   cancel: No, not really
   confirm:
     edit: Are you sure you want to save the changes to the district {name} ?
-    create: Are you sure you want to create the disctrict {name} again?
+    create: Are you sure you want to create the disctrict {name}?
     delete: Are you sure you want to delete district {name}?
   none: No district chosen yet
   new: New district
@@ -1706,7 +1706,7 @@ region:
     Coordinator for one or more stores here.
   no-huge: Sorry, you cannot select a country or state as a region.
   change: Change district
-  root: No (root)
+  root: None (root)
   select: Select district to edit
   createNew: Create new district
   name: Name
@@ -3857,3 +3857,23 @@ help:
         master district or common stores.
   tooltip: Show help
   helpTitle: 'Help: {title}'
+team_page:
+  it_member:
+    title: IT team
+    text: "foodsharing is only possible thanks to the commitment of thousands of volunteers!
+      Here are some of the people who coordinate national working groups, develop
+      the website or take on other important tasks for foodsharing as a whole:\n"
+  alumni_member:
+    title: Alumni
+    text: Together, we can look back on a successful history of foodsharing. We would
+      like to take this opportunity to thank all the people who have contributed to
+      this, some of whom have worked full-time on a voluntary basis or to a very large
+      extent for the organizing team or the board!
+  board_member:
+    title: Club board
+    text: "The board of foodsharing e.V. holds the strings together, networks Germany,
+      Austria and Switzerland as users of the foodsharing.de platform and is responsible
+      for supra-regional matters. The Executive Board works closely together as a
+      team and mainly online to deal with all the concerns of the large foodsharing
+      community and external parties. In addition, the Executive Board deals extensively
+      with organizational development and the political dimension of food waste.\n"
