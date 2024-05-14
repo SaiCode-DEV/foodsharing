@@ -3135,13 +3135,13 @@ quiz:
   trynumber: Questo era il tentativo numero
   failedbeforebut: ' volte non hai superato il quiz. Ti rimangono ancora questi tentativi:'
   goodluck: Buona fortuna!
-  regstart: Iniziare il quiz senza limite di tempo e 20 domande
+  regstart: Iniziare il quiz senza limite di tempo e {count} domande
   quizleft: ' - adesso conta superare il quiz!'
   type: -Quiz
   safeandsound: Ma nessun problema. La tua sessione è stata salvata. Puoi riprendere
     la risposta alle domande in qualsiasi momento.
   nownownow: Inizia il quiz adesso
-  timedstart: Iniziare il quiz con tempo limitato e 10 domande
+  timedstart: Iniziare il quiz con tempo limitato e {count} domande
   wikilink: Articolo Wiki adatto a questo argomento
   session_deleted: I risultati di questo quiz sono stati cancellati perché il quiz
     è stato completato più di due settimane fa.
