@@ -280,6 +280,7 @@ final class RegionController extends FoodsharingController
 
                 return $this->redirect('/region?sub=forum&bid=' . $region['id']);
             }
+            $this->pageHelper->addTitle($thread['title']);
             $pageData['threadId'] = $threadId;
         } elseif ($request->query->has('newthread')) {
             $this->pageHelper->addTitle($this->translator->trans('forum.new_thread'));

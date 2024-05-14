@@ -2,6 +2,7 @@
 
 ## Features
 - Improved direct links to forum posts #1912 !3293 !3328 @AntonBallmaier
+- Show title of forum post in window header (again) !3338 #1591 @McGoldi
 
 ## Changes
 
