@@ -19,6 +19,7 @@
 - Refactor the nearby baskets list to vue !3294 @alex.simm
 - Rebuild quiz module #1666 !3119 @AntonBallmaier
 - Refactored profile to vue !3184 @chriswalg
+- Modernized StoreChainControl to a Symfony controller !3292 @chriswalg
 
 ## Dev/Test/CI stuff
 - Added backend support for getting, adding and updating achievements. #1724 !3317 @AntonBallmaier

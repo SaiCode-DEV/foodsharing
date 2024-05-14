@@ -2,20 +2,18 @@
 
 namespace Foodsharing\Modules\StoreChain;
 
-use Foodsharing\Modules\Core\Control;
+use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
-use Foodsharing\Modules\Core\View;
 use Foodsharing\Permissions\StoreChainPermissions;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class StoreChainControl extends Control
+class StoreChainController extends FoodsharingController
 {
     public function __construct(
-        View $view,
         private readonly StoreChainPermissions $permissions
     ) {
-        $this->view = $view;
-
         parent::__construct();
 
         if (!$this->session->mayRole()) {
@@ -23,7 +21,8 @@ class StoreChainControl extends Control
         }
     }
 
-    public function index()
+    #[Route('/chain', name: 'chain_index')]
+    public function chainIndex(): Response
     {
         if (!$this->permissions->maySeeChainList()) {
             $this->flashMessageHelper->info($this->translator->trans('chain.error.notfs'));
@@ -34,9 +33,12 @@ class StoreChainControl extends Control
         $this->pageHelper->addBread($this->translator->trans('chain.bread.list'), '/#');
         $this->pageHelper->addTitle($this->translator->trans('chain.pagetitle'));
 
-        $this->pageHelper->addContent($this->view->vueComponent('vue-chainlist', 'chain-list', [
+        $storeChainPage = $this->prepareVueComponent('vue-chainlist', 'chain-list', [
             'adminPermissions' => $this->permissions->mayAdministrateStoreChains(),
             'ownId' => $this->session->id(),
-        ]));
+        ]);
+        $this->pageHelper->addContent($storeChainPage);
+
+        return $this->renderGlobal();
     }
 }

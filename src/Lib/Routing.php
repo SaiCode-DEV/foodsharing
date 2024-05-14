@@ -21,7 +21,6 @@ use Foodsharing\Modules\Settings\SettingsControl;
 use Foodsharing\Modules\Settings\SettingsXhr;
 use Foodsharing\Modules\Store\StoreController;
 use Foodsharing\Modules\Store\StoreXhr;
-use Foodsharing\Modules\StoreChain\StoreChainControl;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
 use Foodsharing\Modules\Voting\VotingControl;
 use Foodsharing\Modules\WorkGroup\WorkGroupControl;
@@ -61,7 +60,6 @@ class Routing
         'wallpost' => 'WallPost',
         'groups' => 'WorkGroup',
         'store' => 'Store',
-        'chain' => 'StoreChain',
     ];
 
     private const CLASSES = [
@@ -84,7 +82,6 @@ class Routing
         'fsbetrieb' => StoreUserControl::class,
         'groups' => WorkGroupControl::class,
         'store' => StoreController::class,
-        'chain' => StoreChainControl::class,
     ];
 
     private const XHR = [
@@ -106,6 +103,7 @@ class Routing
         'fairteiler',
         'login',
         'profile',
+        'chain',
         'event',
         'quiz',
     ];
