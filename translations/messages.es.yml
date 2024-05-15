@@ -368,6 +368,11 @@ quiz:
       feedback: Al final del cuestionario, recibirá inmediatamente una evaluación
         en la que se le indicará si ha aprobado y qué errores ha cometido y dónde.
         Aquí podrá volver a leer los motivos con tranquilidad.
+      comment: Después de responder a cada pregunta, verá una evaluación intermedia
+        con explicaciones para cada una de las posibles respuestas. Esto le ayudará
+        a comprender qué respuesta es correcta o incorrecta y por qué. Si comete un
+        error, lea atentamente las explicaciones. Si algo te parece ilógico, incomprensible
+        o incluso erróneo, deja un comentario.
   answers:
     timedOut:
       1: Esta respuesta habría sido correcta.
@@ -383,6 +388,7 @@ quiz:
       0: incorrecto
       1: correcto
       2: neutral
+    false_false: Esta respuesta era, por supuesto, incorrecta. Lo ha reconocido correctamente.
   general:
     title: Información general
   infomodal:
@@ -398,6 +404,19 @@ quiz:
     label: comenta la pregunta
   state_based_info:
     PASSED: Has superado esta prueba.
+    NEVER_TRIED: Nunca has completado este cuestionario antes. Tómate tu tiempo para
+      leer detenidamente todos los artículos de la wiki que aparecen en la lista para
+      estar preparado para las preguntas.
+    RUNNING: Ya ha comenzado el cuestionario y ha respondido a {questionsAnswered}
+      de {questionCount} preguntas hasta el momento.
+    FAILED:
+      1: Lamentablemente, no ha superado este cuestionario en su primer intento. Esto
+        puede ocurrir a veces. Eche otro vistazo a los artículos pertinentes de la
+        Wiki y vuelva a intentarlo.
+      2: Lamentablemente, no has aprobado este examen en tus dos primeros intentos.
+        Tienes un tercer intento antes de que tengas que tomarte un mes de descanso
+        del estudio. Asegúrate de consultar los artículos pertinentes de la Wiki para
+        poder aprobar el cuestionario.
   results:
     title:
       1: ¡Felicidades!
