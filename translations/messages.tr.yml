@@ -713,6 +713,14 @@ group:
     admin_mode_off: Standart görünüme dön
     old_edit_hint: Artık üye yönetimini sekmesinde bulabilirsiniz
     not_verified: Doğrulanmadı
+    default:
+      title: Standart
+      lastname: Soyad
+    passports:
+      title: Kimlikler
+      created_at: Kimlik kartı oluşturuldu
+      generate_button: İşaretli kişiler için kimlik kartı/kartları oluşturun
+      never_before: asla
   show-all: Hepsini göster
   delete_group_sure: '{groupName} çalışma grubunu/bölgesini silmek istediğinizden
     emin misiniz?'
@@ -1547,6 +1555,10 @@ region:
     workgroup: Çalışma Grubu
     townpart: Semt
     state: Eyalet
+    big_city: Büyük şehir (kayıt seçeneği olmadan)
+    federal_state: Federal Eyalet
+    working_group: Çalışma grubu
+    part_of_town: Semt
   hull:
     confirm: Ana güncelleme gerçekten başlatılsın mı?
     start: Ana güncellemeyi başlat
@@ -1560,7 +1572,10 @@ region:
     name-info: Dikkat, keyfi olarak değiştirmeyin! Ayrıca, bu adresin Posta Kutularını
       Yönet altında henüz bulunmadığından emin olun.
   cancel: Hayır, aslında değil
-  confirm: Bölge değişikliklerini kaydetmek istediğinizden emin misiniz?
+  confirm:
+    edit: Değişiklikleri {name} bölgesine kaydetmek istediğinizden emin misiniz?
+    create: '{name} bölgesini yeniden oluşturmak istediğinizden emin misiniz?'
+    delete: '{name} bölgesini silmek istediğinizden emin misiniz?'
   restricted: Ne yazık ki, bu verileri görüntüleme yetkiniz yok.
   forum-redirect: Bölgeler için panel yoktur. Foruma yönlendirildiniz.
   delete: Bölgeyi/İlçeyi sil
@@ -1578,6 +1593,10 @@ region:
   no-huge: Üzgünüz, bölge olarak ülke veya eyalet seçemezsiniz.
   not-member: Bu bölgenin veya çalışma grubunun bir parçası değilsiniz.
   select: Düzenlenecek ilçeyi seçin
+  createNew: Yeni bir bölge oluştur
+  root: (Root) yok
+  name: İsim
+  mailbox: Posta kutusu adı
 events:
   duration: 'Süre: {duration}'
   create:
@@ -2678,7 +2697,7 @@ profile:
       aynı seviyede ve karşılıklı saygı içinde yürütülmesini sağlamaya yardımcı olabilir.
       Yerel arabuluculuk çalışma grubuna aşağıdaki e-posta adresinden ulaşabilirsiniz:'
   online: '{name} online.'
-  sleeping: '{name} süresiz bir uyku beresi var'
+  sleeping: 'süresiz bir uyku beresi var'
   banana:
     placeholder: en az 100 karakter …
     remove:
@@ -2707,7 +2726,7 @@ profile:
     baskets: Yemek Sepetleri
     posts: Gönderiler
     count: alındı
-    weight: kurtarıldı
+    weight: kg kurtarıldı
     fetch_count: alındı
     bananas: Muzlar
   workgroups_admin: '{name}, grupların irtibat kişisidir'
@@ -2730,7 +2749,7 @@ profile:
   sections:
     orga_rights: 'Bir Orga insanı olarak #####, platformda [kapsamlı izinlere]({wikiurl})
       sahiptir.'
-    ambassador_for: 'İçin Yetkili Elçi:'
+    ambassador_for: 'için'
     foodSaver_in_region: Foodsaver
     workgroups_admin: Gruplar için irtibat kişisi olarak yer alır
     workgroups_member: aşağıdaki çalışma gruplarında birlikte
@@ -2751,6 +2770,7 @@ profile:
       filterActive: Üye
       filterManage: İşletme Sorumlusu
       filterJumper: Yedek
+  sleeping_info_from_until: '{from} ile {until} arasında uyku beresi var'
 stats:
   total:
     foodsaver: Foodsaverlar gıda israfının olmadığı bir dünya için gönüllü oluyor.
@@ -2878,7 +2898,7 @@ terminology:
   votingAdmins: Oylama Ekibi
   n_stores: '{count} İşletme'
   baskets: Yemek Sepetleri
-  group: Çalışma grupları
+  group: Çalışma grubu
   n_ambassadors: '{count} Elçi'
   message: Bildiri
   polls: Anketler
@@ -3660,7 +3680,10 @@ thread:
   post:
     options:
       copy_source: Kaynak kodunu kopyala
+      copy_direct_link: Doğrudan bağlantıyı kopyala
     copy_source_success: Kaynak kodu kopyalandı!
+    copy_direct_link_success: Doğrudan bağlantı kopyalandı!
+    linked_post: Bağlantılı yayın
   priorityModal:
     title: Görüntüleme önceliğini ayarlayın
     lower: en altta
@@ -3703,5 +3726,30 @@ help:
         zaman, en üstte kalması sağlanır.\nÖnceliği -1 olan Konu sıraları diğer tüm
         konu sıralarının altında görünür.\n"
       title: Forumlarda görüntüleme önceliği
+    profileCommitmentsStat:
+      title: Etkileşim istatistikleri
+      md: İşletme Sorumlusu rolünden görülebilir. Ortak ana bölgeler veya ortak işletmelerle
+        sınırlıdır.
   helpTitle: 'Yardım: {title}'
   tooltip: Yardımı göster
+team_page:
+  board_member:
+    text: "Foodsharing e.V. Yönetim kurulu, konuları bir arada tutuyor, foodsharing.de
+      platformunun kullanıcıları olarak Almanya, Avusturya ve İsviçre arasında ağ
+      oluşturuyor ve ulusal meselelerden sorumlu. Yönetim kurulu, büyük gıda paylaşım
+      topluluğunun ve dış tarafların tüm endişelerini gidermek için ekip içinde birbirleriyle
+      yakın istişarede bulunarak ve çoğunlukla çevrimiçi olarak çalışıyor. Ayrıca
+      kurul, organizasyonel gelişim ve gıda israfının politik boyutuyla da kapsamlı
+      bir şekilde ilgileniyor.\n"
+    title: Yönetim kurulu
+  it_member:
+    title: IT-Ekibi
+    text: "foodsharing ancak binlerce gönüllünün kararlılığı sayesinde mümkün! Bölgeler
+      arası çalışma gruplarını koordine eden, web sitesini geliştiren veya bir bütün
+      olarak foodsharing`e yönelik diğer önemli görevleri üstlenen kişilerden bazıları
+      şunlardır:\n"
+  alumni_member:
+    title: Önceki
+    text: Birlikte foodsharing´in başarılı geçmişine bakıyoruz. Bu fırsattan yararlanarak,
+      organizasyon ekibi veya yönetim kurulu adına, tam zamanlı gönüllü olarak veya
+      çok yüksek derecede bu organizasyona katılan herkese teşekkür etmek istiyoruz!
