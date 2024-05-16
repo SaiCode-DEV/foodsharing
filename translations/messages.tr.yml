@@ -125,7 +125,7 @@ bezirk: Bölge
 betrieb: İşbirliğinde olan İşletmeler
 rolle: Kullanıcı Rolü
 mailbox_name: Posta Kutusu Adı
-title: Başlık
+title: Ana Başlık
 body: Mesaj
 active: Aktif Durumda
 photo: Fotoğraf
@@ -256,7 +256,7 @@ quiz:
         ilişkin anında bir değerlendirme alacaksınız. Burada boş zamanınızda nedenlerini
         tekrar okuyabilirsiniz.
       multiple_choice: Soru başına birkaç doğru cevap olabilir veya hiç olmayabilir.
-        Bu nedenle her cevabın doğru mu yanlış mı olduğuna ayrı ayrı karar verin.
+        Bu nedenle her cevabın doğru mu yanlış mı olduğuna, ayrı ayrı karar verin.
       comment: Her soruyu yanıtladıktan sonra, her yanıt seçeneği için açıklamalar
         içeren bir ara değerlendirme göreceksiniz. Bu, hangi cevabın doğru veya yanlış
         olduğunu ve nedenini anlamanıza yardımcı olur. Her hata için açıklamaları
@@ -309,8 +309,8 @@ quiz:
       tanesini yanıtladınız.
     PASSED: Testi başardınız.
     FAILED:
-      1: Maalesef bu testi ilk denemenizde geçemediniz. Bu zaman zaman gerçekleşebilir.
-        İlgili wiki makalelerine göz atın ve tekrar deneyin.
+      1: Maalesef bu testi ilk denemenizde geçemediniz. Bu olabilir. İlgili wiki makalelerine
+        göz atın ve tekrar deneyin.
       2: Ne yazık ki bu testi ilk iki denemenizde başarısız oldunuz. Ders çalışmaya
         bir ay ara vermek zorunda kalmadan önce hala üçüncü bir denemeniz var. Testi
         geçebilmeniz için ilgili wiki makalelerine göz atmayı unutmayın.
@@ -883,7 +883,7 @@ pickuplist:
   NumberOfFoodSavers_table_header: Foodsaver sayısı
   NumberOfAppointments_table_header: Randevu sayısı
 list:
-  filter_for: '… göre filtrele'
+  filter_for: '…göre filtrele…'
 startpage:
   towns:
     title: foodsharing şehirleri
@@ -1279,7 +1279,7 @@ store:
     distance_close: 1 km'den daha yakın bir mesafede yaşıyor
     distance_unknown: ikamet yeri sağlanmadı
     air_line: Gösterilen mesafe kuş uçuşu uzaklığına denk gelir.
-  filter: …göre filtrele
+  filter: …göre filtrele…
   enterdate: Alım tarihini girin
   important: 'Önemli:'
   prefetchtwo: 2 Hafta
@@ -1597,6 +1597,8 @@ region:
   root: (Root) yok
   name: İsim
   mailbox: Posta kutusu adı
+  parent: Baş Bölge
+  master: Yüksek Bölge
 events:
   duration: 'Süre: {duration}'
   create:
@@ -2670,11 +2672,11 @@ profile:
     never: Hiç
     privateMail: Özel e-posta adresi
     buddycount_known: '{name}, {count} Foodsaverı (er./kd.) tanır'
-    foodsaverId: Foodsaver-ID
+    foodsaverId: Foodsaver-ID´si
     lastActivity: Son Aktivite
     fetchrate: Alma oranı
     fsMail: Dahili E-Posta Kutusu
-    foodsharerId: Foodsharer-ID
+    foodsharerId: Foodsharer-ID´si
   about_me_intern: Kendisi hakkında
   mediationRequest: Arabuluculuk talep et
   public:
@@ -3659,7 +3661,7 @@ markdown_input:
     bold: kalın
     hrule: yatay çizgi
     link: bağlantı
-    heading: başlık
+    heading: Ana Başlık
     image: Resim ekleyin
   empty_preview_placeholder: "Bu bir formatlama önizlemesidir. Metin burada, daha
     sonra görüntüleneceği şekilde formatlanmıştır.\n---\n*Henüz burada görüntülenebilecek
@@ -3730,6 +3732,15 @@ help:
       title: Etkileşim istatistikleri
       md: İşletme Sorumlusu rolünden görülebilir. Ortak ana bölgeler veya ortak işletmelerle
         sınırlıdır.
+    masterRegion:
+      md: "Bölgelerin bir ana bölgesi olduğunda, bölgenin tüm üyeleri de otomatik
+        olarak ana bölgeye dahil edilir. Çoğu durumda ana bölgeyi ana bölge olarak
+        seçmek mantıklıdır ancak başka uygulamalar da mümkündür. Ana bölge ana bölge
+        değilse, bölgedeki kullanıcılar otomatik olarak ana bölgeye **dahil edilmeyecektir**.\n
+        \nKullanıcıların otomatik olarak başka bir bölgeye eklenmesini istemiyorsanız
+        yöneticiyi root olarak ayarlayın.\n---\nAna Bölgeye giriş her gece bir kez
+        yapılır. Yani değişiklikler hemen gerçekleşmez.\n"
+      title: Yüksek Bölge
   helpTitle: 'Yardım: {title}'
   tooltip: Yardımı göster
 team_page:
