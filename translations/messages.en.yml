@@ -710,7 +710,7 @@ profile:
       filterAll: all
       filterRequested: Inquiry submitted
       filterJumper: Jumper
-    search_placeholder: Search for name
+    search_placeholder: Search by name
   sleeping_info_from_until: is inactive from {from} to {until}
 test:
   plain: This is a nice translation
@@ -3455,7 +3455,7 @@ quiz:
   timed_out_last: Unfortunately, you didn’t answer the last question in the allotted
     time.
   timed_out_error: The time to answer this question has already expired.
-  max_fp: Possible failure points
+  max_fp: Maximum tolerable error points
   confirmDelete:
     session: Do you really want to delete this quiz session?
     question: Do you really want to delete this question?
