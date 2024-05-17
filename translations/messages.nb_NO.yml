@@ -345,6 +345,10 @@ region:
     bigcity: Stor by (uten registreringsalternativ)
     city: By
     title: Distriktstype
+    big_city: Storby (uten registreringsmulighet)
+    federal_state: Føderalstat
+    working_group: Arbeidsgruppe
+    part_of_town: Nabolag
   new: Nytt distrikt
   delete: Slette distrikt
   none: Ingen distrikt er valgt ennå
@@ -365,13 +369,23 @@ region:
     for minst ett selskap der.
   bread: Administrere distrikter
   noParent: Uten foreldredistrikter
-  confirm: Er du sikker på at du vil lagre endringene i distriktet?
+  confirm:
+    edit: Er du sikker på at du vil lagre endringene i distriktet {name}?
+    create: Er du sikker på at du vil opprette distriktet {name}?
+    delete: Er du sikker på at du vil slette distrikt {name}?
   not-member: Du er ikke medlem av denne regionen eller arbeidsgruppen.
   restricted: Dessverre er du ikke autorisert til å se disse dataene.
   no-huge: Beklager, du kan ikke velge land eller stat som region.
   created: '{region} ble opprettet'
   forum-redirect: Det er ingen anslagstavle for regioner. Du har blitt omdirigert
     til forumet.
+  createNew: Opprett nytt distrikt
+  mailbox: Postkassenavn
+  select: Velg distrikt for å redigere
+  root: Ingen (rot)
+  name: Navn
+  parent: Foreldredistrikt
+  master: Mesterdistrikt
 menu:
   entry:
     donations: Donasjoner
@@ -731,8 +745,10 @@ profile:
   stats:
     posts: Foruminnlegg
     baskets: Matkurver
-    weight: lagret
+    weight: kg lagret
     count: plukket opp
+    bananas: Bananer
+    fetch_count: plukket opp
   infos:
     buddycount1: '{name} kjenner {count} Foodsaver'
     buddycount: '{name} kjenner {count} Foodsaver'
@@ -770,6 +786,7 @@ profile:
     history: Pass historikk
     storelist: Selskaper ({count})
     remove_buddy: Jeg kjenner ikke {name} lenger
+    quizSessionHistory: Quizforsøk
   banana:
     remove:
       confirm_title: Fjern banan
@@ -912,7 +929,7 @@ profile:
   go: Gå til profilsiden
   workgroups_member: Du og {name} er i følgende arbeidsgrupper
   sleepinfo: '{name} er inaktiv fra {from} til {until}'
-  sleeping: '{name} er inaktiv på ubestemt tid'
+  sleeping: 'er inaktiv på ubestemt tid'
   commitments_stat:
     eventsCreatedWeek: 'Takk for at du opprettet arrangementer {count} ganger denne
       uken.'
@@ -950,6 +967,31 @@ profile:
     om brukeren, for eksempel gjennomføring av hygieneopplæring eller lignende. I
     stedet kan arbeidsgrupper brukes til å utføre slike oppdrag. Ytterligere informasjon
     om dette finner du i <a href="/region?bid=881&sub=forum&tid=58225">ambassadørforumet</a>
+  sections:
+    ambassador_for: for
+    no_common_workgroups: ingen felles arbeidsgruppe
+    home_region_from: Hjemdistrikt
+    orga_rights: 'Som organisasjonsperson har ##### [omfattende tillatelser]({wikiurl})
+      på plattformen.'
+    foodSaver_in_region: Matsparer for
+    workgroups_admin: er kontaktperson for grupper
+    workgroups_member: sammen i følgende arbeidsgrupper
+  stores:
+    memberState:
+      filterActive: Medlem
+      filterAll: alle
+      filterRequested: forespørsel gjort
+      filterManage: SO
+      filterJumper: Innbytter
+    search_placeholder: Søk etter navn
+    store_table: Driftsliste
+  sleeping_info_from_until: er inaktiv fra {from} til {until}
+  tab_navigation:
+    pickups: Pickuper
+    profile: Brukerprofil
+    commitment_statistics: Engasjementsstatistikk
+    stores: Bedrifter ({count})
+    notes: Merknader ({count})
 settings:
   photo:
     title: Bildet ditt
@@ -1218,6 +1260,9 @@ foodsaver:
       av det globale orga-laget så raskt som mulig.
     ad_fs: Jeg vil ta matredder-quiz-en og bli en matredder!
     learning: Se forklaringsvideoen nå
+    FOODSAVER: Bli en matsparer
+    STORE_MANAGER: Bli samarbeidsoffiser
+    AMBASSADOR: Bli en ambassadør
   kicked: Matredder er fjernet
   bread: Alle matreddere
   actions: Handlinger
@@ -1630,6 +1675,8 @@ group:
     duplicate_election_team: Valggruppe allerede opprettet! Det kan bare være én valggruppe
       per distrikt.
     election: Valg
+    none: Ikke en GOALS-arbeidsgruppe
+    stores_coordination: Bedrifter
   quit: Forlate
   quit_name_district: Forlate distriktet {name}
   quit_name_workgroup: Forlate team {name}
@@ -1667,6 +1714,7 @@ group:
     experience: "Kan du trekke på erfaringer du har gjort andre steder i gruppen?\n
       I så fall hvor og hvilke?\n"
     how_much_time: Hvor mange timer i uken har du tid og lyst til å bruke til det?
+    error_missing_time: 'Feil: Ingen tid er valgt.'
   contact:
     send: Sende melding
     sent: Meldingen ble sendt.
@@ -1730,6 +1778,14 @@ group:
     remove_text_group: Er du sikker på at du vil fjerne {name} ({id}) fra arbeidsgruppen?
     remove_text_region: Er du sikker på at du vil fjerne {name} ({id}) fra regionen?
     not_verified: ikke låst opp
+    default:
+      title: Standard
+      lastname: Etternavn
+    passports:
+      title: Medlemskort
+      created_at: Medlemskort opprettet på
+      generate_button: Opprett medlemskort for utvalgte personer
+      never_before: aldri før
   saved: Endringene har blitt lagret
   subtitle: her kan du finne hjelp og mye å gjøre …
   member_count:
@@ -1847,6 +1903,8 @@ button:
   reset_default: Nullstill standard
   prev: tilbake
   close: Lukk
+  start: Kom igjen!
+  confirm: bekrefte
 upload:
   preview_image: Forhåndsvisning
   crop_dialog_title: Beskjær bilde
@@ -2438,7 +2496,7 @@ store:
     to-nowhere: Avslå
     to-team: Ta med i laget
     to-jumper: Hoppliste
-    request: forespørsel
+    request: Søk på dette teamet
     got-it: De ansvarlige har blitt informert om forespørselen din og vil ta kontakt
       med deg.
     withdraw: Trekk tilbake forespørsel
@@ -2456,7 +2514,7 @@ store:
   bread: Alle virksomheter
   days: dager
   days_before: før
-  go: Til teamsiden
+  go: Til teamet
   springer_conversation_name: Hopper {name}
   chat:
     team: Melding til laget
@@ -2986,6 +3044,7 @@ releases:
   "2023-09": Versjon «Jackfrukt» 🍈 (september 2023)
   "2024-01": Versjon «Kiwi» 🥝 (januar 2024)
   "2024-04": Versjon «Kringle» 🥨 (april 2024)
+  "2024-07": Versjon «Mandarin» 🍊 (juli 2024)
 push_notifications:
   test_notification_title: Push-varsler er aktivert
   test_notification_body: Flott, det ser ut til å ha fungert :)
@@ -3193,8 +3252,18 @@ quiz:
     title:
       1: Gratulerer!
       2: Dessverre besto du ikke.
+    points:
+      1: Du har bestått med {failurePoints} av maksimalt {maxFailurePointsToSucceed}
+        feilpoeng!
+      2: Du hadde {failurePoints} feilpunkter og ville ha bestått med maksimalt {maxFailurePointsToSucceed}.
+    deleted: Den nøyaktige evalueringen lagres bare i fjorten dager etter quizen og
+      er ikke lenger tilgjengelig.
   key_facts:
     to_pass: 'For å bestå:'
+    untimed: Maksimum {maxFailurePointsToSucceed} feilpoeng i {questionCountTimed}
+      spørsmål med, eller i {questionCountUntimed} spørsmål uten tidsbegrensning
+    timed: Maksimalt {maxFailurePointsToSucceed} feilpoeng i {questionCountTimed}
+      spørsmål med en tidsbegrensning
   general:
     title: Generell informasjon
     edit: rediger quiz
@@ -3202,6 +3271,76 @@ quiz:
     title: Quizspørsmål ({count})
   editable_tooltip: Du kan redigere denne quizen.
   timelimit: tidsbegrensning
+  sessionStatus:
+    1: Bestått med {failurePoints} av maksimalt {maxFailurePointsToSucceed} feilpunkter
+    0: kjører for øyeblikket
+    2: Mislyktes med {failurePoints} av maksimalt {maxFailurePointsToSucceed} feilpunkter
+  confirmDelete:
+    session: Vil du virkelig slette denne quizøkten?
+    question: Vil du virkelig slette dette spørsmålet?
+    answer: Vil du virkelig slette dette svaret?
+  fp_badge:
+    right: svarte riktig
+    wrong: '{userFailurePoints} feil'
+  timed_out: Du svarte ikke på dette spørsmålet innen den tillatte tiden.
+  timed_out_last: Du svarte ikke på det siste spørsmålet på den tilmålte tiden.
+  timed_out_error: Tiden for å svare på dette spørsmålet er allerede utløpt.
+  error_tooltip: Du gjorde en feil med dette svaret.
+  show_results: Se resultatene av det siste forsøket
+  max_fp: Tillatte feilpunkter
+  fp_description: Totalt {failurePoints}, dvs. {perMistake} per feil svar
+  question_options:
+    add: legge til spørsmål
+    edit: redigere spørsmål
+    add_answer: legg til svar
+    show_comments: Vis kommentarer
+    delete: slette spørsmål
+  answer_options:
+    edit: redigere svar
+    delete: slette svar
+  fp_options:
+    joke: '{failurePoints} feilpunkter (uten vurdering)'
+    default: '{failurePoints} feilpunkter'
+    ko: '{failurePoints} feilpunkter (knockout)'
+  confirm: Bekreft quizen og fullfør prosessen
+  editModal:
+    quiz:
+      title: Rediger quiz
+      input:
+        name:
+          label: 'Navn:'
+          placeholder: Navn på quizen
+        maxFp: 'Maksimalt antall feilpoeng for å bestå:'
+        questionCountTimed: 'Antall spørsmål som skal besvares:'
+        allowUntimed: Tillat fullføring uten tidsbegrensning
+        questionCountUntimed: 'Antall spørsmål som skal besvares uten tidsbegrensning:'
+      htmlWarning: '**OBS:** Formateringen av beskrivelsen er endret. Det du ser i
+        tekstinntastingsfeltet, er formatert med HTML. Vennligst juster beskrivelsen
+        og bruk Markdown i stedet. Bruk forhåndsvisningsfunksjonen i inndatafeltet
+        for å sikre at formateringen er riktig justert.'
+    question:
+      title: Rediger spørsmål
+      input:
+        text:
+          label: 'Spørsmål:'
+          placeholder: Quizspørsmål…
+        duration: 'På tide å svare:'
+        fp: 'Feilpoeng:'
+        wikilink:
+          label: 'Lenke til den tilsvarende wiki-artikkelen:'
+          placeholder: https://wiki.foodsharing.de/…
+      confirmDelete:
+        title: Vil du virkelig slette dette spørsmålet?
+    answer:
+      title: Rediger svar
+      input:
+        text:
+          label: 'Svar:'
+          placeholder: Svar…
+        explanation:
+          label: 'Forklaring:'
+          placeholder: Forklaring…
+        answerRating: 'Vurdering:'
 fpsingular: feilpunktet
 filter_by: filtrer etter
 groups:
@@ -3527,7 +3666,10 @@ thread:
   post:
     options:
       copy_source: Kopier kildekoden
+      copy_direct_link: Kopier direkte lenke
     copy_source_success: Kildekoden er kopiert!
+    linked_post: lenket innlegg
+    copy_direct_link_success: Direkte lenke kopiert!
   priorityModal:
     title: Justere skjermprioritet
     text: 'Vis prioritet for dette innlegget:'
@@ -3570,6 +3712,18 @@ help:
       title: Trådprioritet
     profileCommitmentsStat:
       title: Engasjementsstatistikk
+      md: er synlig fra rollen som samarbeidsleder. Det er begrenset til et felles
+        hjemdistrikt eller vanlige butikker.
+    masterRegion:
+      md: "Hvis distriktene har et masterdistrikt, blir alle medlemmene i distriktet
+        automatisk inkludert i masterdistriktet. I mange tilfeller er det fornuftig
+        å velge foreldredistriktet som masterdistrikt, men det er også mulig å velge
+        andre anvendelser. Hvis masterdistrikt ikke er foreldredistriktet, vil brukere
+        i distriktet **ikke** automatisk bli inkludert i foreldredistriktet.\n\nHvis
+        du ikke ønsker at brukere automatisk skal legges til i et annet distrikt,
+        må du sette masterdistriktet til root.\n---\nInkludering i masterdistrikt
+        skjer én gang hver natt. Endringer skjer ikke umiddelbart.\n"
+      title: Mesterdistrikt
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
 team_page:
