@@ -391,6 +391,7 @@ quiz:
     false_false: Esta respuesta era, por supuesto, incorrecta. Lo ha reconocido correctamente.
   general:
     title: Información general
+    edit: Editar cuestionario
   infomodal:
     title: Pregunta {index} de {questions}
   comment:
@@ -417,10 +418,19 @@ quiz:
         Tienes un tercer intento antes de que tengas que tomarte un mes de descanso
         del estudio. Asegúrate de consultar los artículos pertinentes de la Wiki para
         poder aprobar el cuestionario.
+    DISQUALIFIED: Lamentablemente, está descalificado para este examen, ya que ha
+      suspendido cinco veces.
   results:
     title:
       1: ¡Felicidades!
       2: Por desgracia, no ha aprobado.
+    points:
+      1: ¡Ha pasado con {failurePoints} de un máximo de {maxFailurePointsToSucceed}
+        puntos de fallo!
+      2: Tenías {failurePoints} puntos de fallo y habrías pasado con un máximo de
+        {maxFailurePointsToSucceed}.
+    deleted: La evaluación exacta sólo se guarda quince días después del concurso
+      y ya no está disponible.
   fp_badge:
     right: contestado correctamente
     wrong: '{userFailurePoints} errores'
@@ -431,6 +441,10 @@ quiz:
   show_results: Ver los resultados del último intento
   key_facts:
     to_pass: 'Para pasar:'
+    untimed: Máximo {maxFailurePointsToSucceed} puntos de fallo en {questionCountTimed}
+      preguntas con o en {questionCountUntimed} preguntas sin límite de tiempo
+    timed: Máximo {maxFailurePointsToSucceed} puntos de fallo en {questionCountTimed}
+      preguntas con límite de tiempo
   questions_section:
     title: Preguntas del cuestionario ({count})
   question_options:
@@ -491,9 +505,15 @@ quiz:
   fp_options:
     default: '{failurePoints} Puntos de fallo'
     ko: '{failurePoints} Puntos de fallo (nocaut)'
+    joke: '{failurePoints} Puntos de fallo (sin puntuación)'
   sessionStatus:
     0: en ejecución
+    1: Superado con {failurePoints} de un máximo de {maxFailurePointsToSucceed} puntos
+      de fallo
+    2: Falló con {failurePoints} de {maxFailurePointsToSucceed} puntos de fallo como
+      máximo
   confirm: Confirme el cuestionario y complete el proceso
+  fp_description: Total {PuntosFallo}, es decir, {perMistake} por respuesta incorrecta
 terminology:
   foodsaver:
     m: rescatista
@@ -2121,6 +2141,8 @@ profile:
     workgroups_admin: es la persona de contacto de los grupos
     workgroups_member: en los siguientes grupos de trabajo
     no_common_workgroups: en ningún grupo de trabajo conjunto
+    orga_rights: 'Como persona de la organización, ##### tiene [amplias autorizaciones]({wikiurl})
+      en la plataforma.'
   tab_navigation:
     pickups: Recogidas
     commitment_statistics: Estadísticas de participación
@@ -3926,3 +3948,25 @@ help:
       title: Distrito principal
     profileCommitmentsStat:
       title: Estadísticas de participación
+team_page:
+  board_member:
+    text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
+      a Alemania, Austria y Suiza como usuarios de la plataforma foodsharing.de y
+      es responsable de los asuntos nacionales. La junta directiva trabaja mucho en
+      equipo, en estrecha consulta entre sí y principalmente en línea para abordar
+      todas las inquietudes de la gran comunidad de intercambio de alimentos y de
+      partes externas. Además, la junta se ocupa ampliamente del desarrollo organizacional
+      y la dimensión política del desperdicio de alimentos.\n"
+    title: Junta Directiva
+  alumni_member:
+    text: Juntos, podemos echar la vista atrás a una exitosa historia de foodsharing.
+      Queremos aprovechar esta oportunidad para dar las gracias a todas las personas
+      que han contribuido a ello, algunas de las cuales han trabajado a tiempo completo
+      de forma voluntaria o en gran medida para el equipo organizador o la junta directiva.
+    title: Antiguos alumnos
+  it_member:
+    title: Equipo de TI
+    text: "El foodsharing sólo es posible gracias al compromiso de miles de voluntarios.
+      Estas son algunas de las personas que coordinan grupos de trabajo nacionales,
+      desarrollan el sitio web o asumen otras tareas importantes para el foodsharing
+      en su conjunto:\n"
