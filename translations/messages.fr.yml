@@ -1854,7 +1854,7 @@ profile:
   go: Afficher le profil
   title: Profil
   sleepinfo: '{name} est indisponible de {from} à {until}'
-  sleeping: '{name} est indisponible pour une période indéterminée'
+  sleeping: 'est indisponible pour une période indéterminée'
   mail_bounce:
     remove_button: Retirer de la liste de diffusion
     warning_others: L’adresse courriel personnelle {email} de ce membre est suspendue
