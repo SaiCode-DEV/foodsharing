@@ -5,6 +5,7 @@
 - Show title of forum post in window header (again) !3338 #1591 @McGoldi
 
 ## Changes
+- Restricted access to email attachments !3345 @alex.simm
 
 ## Bugfixes
 - Removed special permission text from the IT group #1894 !3273 @alex.simm
