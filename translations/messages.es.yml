@@ -420,6 +420,11 @@ quiz:
         poder aprobar el cuestionario.
     DISQUALIFIED: Lamentablemente, está descalificado para este examen, ya que ha
       suspendido cinco veces.
+    PAUSE: Fallaste esta prueba tres veces. La fiabilidad, un buen conocimiento de
+      las reglas y una apariencia profesional son esenciales para compartir alimentos.
+      Desafortunadamente, no transmites eso con tus respuestas en este momento. Por
+      lo tanto, tendrás un mes de descanso en tus estudios antes de tener dos intentos
+      más para aprobar el examen. Tu descanso finaliza en {wait} días.
   results:
     title:
       1: ¡Felicidades!
