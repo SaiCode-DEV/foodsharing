@@ -4,12 +4,15 @@ namespace Foodsharing\Modules\Team;
 
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
+use Foodsharing\Modules\Team\DTO\TeamMember;
 
 class TeamGateway extends BaseGateway
 {
+    /**
+     * @return TeamMember[]
+     */
     public function getTeam($region_id = RegionIDs::TEAM_BOARD_MEMBER): array
     {
-        $out = [];
         $stm = '
 				SELECT
 					fs.id,
@@ -38,10 +41,9 @@ class TeamGateway extends BaseGateway
 				ORDER BY fs.name
 		';
         $orgas = $this->db->fetchAll($stm, [':region_id' => $region_id]);
-        foreach ($orgas as $o) {
-            $out[(int)$o['id']] = $o;
-        }
 
-        return $out;
+        return array_map(function ($entry) {
+            return TeamMember::createFromArray($entry);
+        }, $orgas);
     }
 }

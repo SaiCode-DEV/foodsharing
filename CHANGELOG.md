@@ -23,7 +23,7 @@
 - Refactored profile to vue !3184 !3225 @chriswalg
 - Moved passports to region memberlist #1799 #1326 !3251 @chriswalg
 - Modernized StoreChainControl to a Symfony controller !3292 @chriswalg
-- Rework team page in vue !3248 @chriswalg
+- Rework team page in vue !3248 !3351 @chriswalg
 - Refactored the main map to vue !3230 !3335 @alex.simm
 
 ## Dev/Test/CI stuff

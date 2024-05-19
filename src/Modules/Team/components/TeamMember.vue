@@ -12,7 +12,7 @@
         {{ member.name }}
       </p>
       <p>{{ member.position }}</p>
-      <Markdown :source="member.about_me_public" :classes="isLineClampClass" />
+      <Markdown :source="member.aboutMePublic" :classes="isLineClampClass" />
     </div>
   </div>
 </template>

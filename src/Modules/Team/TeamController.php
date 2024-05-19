@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Team;
 
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
+use Foodsharing\Modules\Team\DTO\TeamMember;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -39,6 +40,9 @@ class TeamController extends FoodsharingController
         ];
     }
 
+    /**
+     * @return TeamMember[]
+     */
     private function getTeamMember(int $regionId): array
     {
         if ($team = $this->gateway->getTeam($regionId)) {
