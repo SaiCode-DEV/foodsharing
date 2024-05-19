@@ -1112,7 +1112,7 @@ storeview:
   show_settings: Store settings
   choose_chain: Choose a chain
   team_info_active: 'No of active foodsharers:'
-  team_info_jumper: 'Active stand-bys:'
+  team_info_jumper: 'Stand-bys:'
 day: Day
 time: Time
 select: Please select
