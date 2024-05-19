@@ -425,6 +425,13 @@ quiz:
       Desafortunadamente, no transmites eso con tus respuestas en este momento. Por
       lo tanto, tendrás un mes de descanso en tus estudios antes de tener dos intentos
       más para aprobar el examen. Tu descanso finaliza en {wait} días.
+    PAUSE_ELAPSED:
+      3: Tu descanso ha terminado. Ahora puede realizar el cuestionario dos veces
+        más. Esperamos que haya aprovechado el tiempo para familiarizarse más con
+        el contenido.
+      4: ¡Solo tienes un último intento para aprobar este cuestionario! Si falla ahora,
+        quedará descalificado permanentemente de esta prueba. Por favor, participe
+        únicamente si ha estudiado el contenido de la wiki en detalle.
   results:
     title:
       1: ¡Felicidades!
@@ -3174,6 +3181,7 @@ region:
   root: Ninguno (raíz)
   select: Seleccione el distrito para editar
   name: Nombre
+  parent: Referencia a los padres
 password:
   insertmail: 'Ingrese su correo electrónico para restablecer su contraseña.'
   reset: '¿Has olvidado tu contraseña?'
@@ -3951,8 +3959,18 @@ help:
         hilos con prioridad -1 aparecen debajo de todos los demás hilos.\n"
     masterRegion:
       title: Distrito principal
+      md: "Si los distritos tienen un distrito maestro, todos los miembros del distrito
+        se incluyen automáticamente en el distrito maestro. En muchos casos, tiene
+        sentido seleccionar el distrito padre como maestro, pero también son posibles
+        otras aplicaciones. Si el distrito maestro no es el distrito padre, los usuarios
+        del distrito **no** se incluirán automáticamente en el distrito padre.\n\n
+        Si no desea que los usuarios se añadan automáticamente a otro distrito, establezca
+        el maestro como raíz.\n---\nLa inclusión en el distrito maestro ocurre una
+        vez cada noche. Los cambios no se producen inmediatamente.\n"
     profileCommitmentsStat:
       title: Estadísticas de participación
+      md: es visible desde el papel del responsable de la empresa. Se limita a un
+        distrito de domicilio común o a operaciones conjuntas.
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
