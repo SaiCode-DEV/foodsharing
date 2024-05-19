@@ -2,7 +2,8 @@
   <b-modal
     id="basketBubbleModal"
     ref="basketBubbleModal"
-    v-b-modal.modal-scrollable
+    scrollable
+    centered
   >
     <div
       v-if="loading"
@@ -40,6 +41,9 @@
     <template #modal-header="{ close }">
       <h3 v-if="isLoggedIn && bubbleData?.creator?.name">
         {{ $i18n('basket.by', { name: bubbleData.creator.name }) }}
+      </h3>
+      <h3 v-else>
+        {{ $i18n('terminology.basket') }}
       </h3>
       <button
         type="button"

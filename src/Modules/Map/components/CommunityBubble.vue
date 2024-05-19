@@ -2,7 +2,8 @@
   <b-modal
     id="communityBubbleModal"
     ref="communityBubbleModal"
-    v-b-modal.modal-scrollable
+    scrollable
+    centered
   >
     <template #modal-header="{ close }">
       <h3>{{ name }}</h3>

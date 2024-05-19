@@ -878,7 +878,7 @@ storeview:
   select_related_region: "Auswahl des zuständigen Bezirks"
   info: "Informationen"
   team_info_active: "Aktive im Team:"
-  team_info_jumper: "Aktive im Springer:"
+  team_info_jumper: "Springer:"
   pickupCount: "Abholungen"
   pickupWeight: "kg gerettet"
   cooperation: "Kooperation seit {startTime}."

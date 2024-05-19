@@ -81,14 +81,6 @@ export default {
       return objectMap(MARKER_TYPES, type => L.AwesomeMarkers.icon({ icon: type.icon, markerColor: type.color }))
     },
   },
-  watch: {
-    currentCenter () {
-      this.storage.set('center', this.currentCenter)
-    },
-    currentZoom () {
-      this.storage.set('zoom', this.currentZoom)
-    },
-  },
   created () {
     // Restore the selected marker types from the local storage
     this.storage = new Storage('map')
@@ -112,16 +104,12 @@ export default {
       }
       this.currentCenter = this.center
       this.currentZoom = MAP_CONSTANTS.ZOOM_CITY
-    } else if (this.storage.get('center', null)) {
-      // 2. Use previously stored coordinates, if there are any
-      this.currentCenter = this.storage.get('center')
-      this.currentZoom = this.storage.get('zoom')
     } else if (DataUser.getters.hasLocations()) {
-      // 3. Use the user's home location
+      // 2. Use the user's home location
       this.currentCenter = DataUser.getters.getLocations()
       this.currentZoom = MAP_CONSTANTS.ZOOM_CITY
     } else {
-      // 4. Fall back to the default location and zoom
+      // 3. Fall back to the default location and zoom
       this.currentCenter = { lat: MAP_CONSTANTS.CENTER_GERMANY_LAT, lon: MAP_CONSTANTS.CENTER_GERMANY_LON }
       this.currentZoom = MAP_CONSTANTS.ZOOM_COUNTRY
     }

@@ -2,7 +2,8 @@
   <b-modal
     id="storeBubbleModal"
     ref="storeBubbleModal"
-    v-b-modal.modal-scrollable
+    scrollable
+    centered
   >
     <div v-if="loading" class="loader-container mx-auto">
       <i class="fas fa-spinner fa-spin" />
@@ -24,7 +25,8 @@
             <span v-if="store.pickupCount > 0">
               <strong>{{ store.pickupCount }}</strong> {{ $i18n('storeview.pickupCount') }}
             </span>
-            <span v-if="store.pickupWeightInKg > 0" class="float-right">
+            <br>
+            <span v-if="store.pickupWeightInKg > 0">
               <strong>{{ store.pickupWeightInKg }}</strong> {{ $i18n('storeview.pickupWeight') }}
             </span>
           </div>
