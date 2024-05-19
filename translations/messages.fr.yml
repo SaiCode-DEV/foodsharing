@@ -1463,7 +1463,7 @@ storeview:
   show_settings: Paramètres de coopération
   choose_chain: Choisissez une chaîne
   team_info_active: 'Membres actifs de l’équipe :'
-  team_info_jumper: 'Remplaçants actifs :'
+  team_info_jumper: 'Remplaçants :'
 day: Jour
 time: Heure
 select: Veuillez choisir
@@ -3255,6 +3255,64 @@ quiz:
   regstart: Démarrer le quiz sans limite de temps et {count} questions
   quizleft: " – Il ne reste plus qu’à réussir le quiz !"
   comments: Commentaires
+  title:
+    PAUSE: Pause pour étudier ({name})
+    DISQUALIFIED: '{name} – malheureusement disqualifié.'
+    PAUSE_ELAPSED: '{name} – tu peux maintenant réessayer !'
+    PASSED: '{name} – tu as réussi ce quiz !'
+    FAILED: '{name} – réessayer !'
+    RUNNING: '{name} – continue le quiz !'
+    NEVER_TRIED: '{name} – fais le quiz maintenant !'
+  startmodal:
+    title: Notes du quiz
+    infos:
+      real_life_examples: La plupart des questions sont basées sur des cas réels de
+        foodsharing.
+      alone: Tu ne dois pas être aidé pendant le quiz. C’est pourquoi tu dois trouver
+        un endroit calme où tu pourras faire le quiz sans être dérangé.
+      read_carefully: Lis attentivement toutes les questions et réponses. Tu as suffisamment
+        de temps pour le faire.
+      wiki: Ne commence pas le quiz au hasard. Lis attentivement les pages répertoriées
+        sur le Wiki foodsharing au préalable. Sans les connaissances du wiki, tu ne
+        réussiras pas le quiz.
+      multiple_choice: Plusieurs réponses peuvent être correctes par question – ou
+        aucune. Décide donc pour chaque réponse si elle est juste ou fausse.
+      pause: Tu peux mettre le quiz en pause après chaque question et le reprendre
+        plus tard.
+      feedback: À la fin du quiz, tu reçois directement une évaluation qui te dit
+        si tu as réussi ou non et quelles erreurs tu as commises. Ici, tu peux encore
+        une fois lire tranquillement les justifications.
+  plural: Quiz
+  button:
+    pause: continuer plus tard
+    finish: finir le quiz
+  infomodal:
+    title: Question {index} sur {questions}
+  comment:
+    toggle: écrire un commentaire
+    placeholder: Saisis un commentaire…
+    send: soumettre le commentaire
+    sent: Commentaire envoyé.
+    info: Donne-nous ton avis sur cette question. Était-elle trop facile, trop difficile,
+      incompréhensible ? Certaines réponses ou explications ne sont-elles pas correctes ?
+    wallTitle: 'Commentaires sur la question #{id}'
+    label: commenter la question
+  answers:
+    name: Réponses
+    none_correct: Aucune réponse n’est correcte.
+    neutral: Réponse neutre – ne sera pas évaluée.
+    false_false: Cette réponse était évidemment fausse. Tu as vu juste.
+    false_true: Cette réponse aurait été correcte.
+    true_false: Faux ! Cette réponse n’est pas correcte.
+    true_true: Correct ! Cette réponse est correcte.
+    timedOut:
+      0: Cette réponse aurait été fausse.
+      1: Cette réponse aurait été correcte.
+      2: Cette réponse aurait été neutre.
+    short:
+      0: faux
+      1: vrai
+      2: neutre
 fpsingular: Point d’erreur
 bootstrap-datepicker:
   labelCurrentMonth: Mois actuel
