@@ -196,7 +196,7 @@ class CalendarRestController extends AbstractFOSRestController
         $description = '<a href="' . $url . '">' . $this->translator->trans('calendar.export.event.linkTitle') . '</a><br>'
             . $descriptionHint
             . '<b>' . $this->translator->trans('calendar.export.event.description') . '</b>: '
-            . str_replace("\n", '<br>', (string)$meeting['description']);
+            . str_replace(["\r\n", "\n", "\r"], '<br>', (string)$meeting['description']);
 
         $event = new CalendarEvent();
         $event->setStart(Carbon::createFromTimestamp($meeting['start_ts']));
