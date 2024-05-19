@@ -2726,7 +2726,7 @@ storeview:
   show_settings: Driftsinnstillinger
   choose_chain: Velg en kjede
   team_info_active: 'Aktive medlemmer av teamet:'
-  team_info_jumper: 'Aktive hoppere:'
+  team_info_jumper: 'Hoppere:'
 fsp:
   info:
     none: ikke mer
