@@ -3089,7 +3089,7 @@ storeview:
   show_settings: İşletme ayarları
   choose_chain: Bir işletme zincirini seç
   team_info_active: 'Ekibin aktif üyeleri:'
-  team_info_jumper: 'Ekibin aktif yedek üyeleri:'
+  team_info_jumper: 'Yedek üyeler:'
 fsp:
   suggest: Gıda dağıtım noktası önerin
   accept: Gıda dağıtım noktasının kilidini aç
