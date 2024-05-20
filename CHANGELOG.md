@@ -9,6 +9,7 @@
 - Restricted access to email attachments !3345 @alex.simm
 
 ## Bugfixes
+- Changed the headline for group applications #1916 !3353 @ToLei
 - Removed special permission text from the IT group #1894 !3273 @alex.simm
 - Fixed the permissions to see applications for working groups #1934 !3320 @alex.simm
 - Fix typos in info texts !3327 @AntonBallmaier

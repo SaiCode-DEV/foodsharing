@@ -26,7 +26,7 @@ class ApplicationView extends View
     public function application($application)
     {
         $out = $this->headline(
-            $this->translator->trans('group.application_region') . $this->bezirk['name'] . ' ' . $this->translator->trans('group.application_from') . ' ' . $application['name'],
+            $this->translator->trans('group.application_region', ['{group}' => $this->bezirk['name']]) . ' ' . $this->translator->trans('group.application_from') . ' ' . $application['name'],
             $application['photo'],
             $application['id']
         );
