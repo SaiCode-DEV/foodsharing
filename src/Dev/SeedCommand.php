@@ -602,6 +602,10 @@ class SeedCommand extends Command implements CustomCommandInterface
             ],
         ];
 
+        $possibleMemberStates = [
+            ['isWaiting' => true, 'isConfirmed' => false],
+            ['isWaiting' => false, 'isConfirmed' => true]
+        ];
         foreach ($regions as $region => $statuses) {
             foreach ($statuses as $status => $teamMembers) {
                 $addRecurringPickup = $status === CooperationStatus::COOPERATION_ESTABLISHED->value;
@@ -609,10 +613,7 @@ class SeedCommand extends Command implements CustomCommandInterface
 
                 $additionalStoreCount = 2;
                 for ($i = 0; $i < $additionalStoreCount; ++$i) {
-                    $memberState = [
-                        ['isWaiting' => true, 'isConfirmed' => false],
-                        ['isWaiting' => false, 'isConfirmed' => true]
-                    ];
+                    $memberState = $possibleMemberStates[random_int(0, 1)];
                     $store = $this->createStoreAndAddToTeam($I, $region, $conv1['id'], $conv2['id'], $status, $teamMembers, $addRecurringPickup, $memberState['isWaiting'], $memberState['isConfirmed']);
                 }
             }

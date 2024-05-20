@@ -20,6 +20,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus as STATUS;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingScope;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingType;
 use Foodsharing\Modules\Uploads\DTO\UploadedFile;
@@ -135,12 +136,13 @@ class Foodsharing extends Db
             $gender = rand(2, 3);
         } else {
             $gender = rand(0, 1);
-            if (isset($extra_params['image'])) {
-                $path = './img/seed-data/profile/' . ['men', 'women'][$gender] . '/' . rand(0, 99) . '.jpg';
-                $profilePicture = new UploadedFile($path, filesize($path), hash_file('sha256', $path), 'image/jpg', 1);
-                $uuid = $this->uploadFile($profilePicture);
-                $pictureUrl = '/api/uploads/' . $uuid;
-            }
+        }
+
+        if (isset($extra_params['image']) && ($gender == 0 || $gender == 1)) {
+            $path = './img/seed-data/profile/' . ['men', 'women'][$gender] . '/' . rand(0, 99) . '.jpg';
+            $profilePicture = new UploadedFile($path, filesize($path), hash_file('sha256', $path), 'image/jpg', 1, null, null);
+            $uuid = $this->uploadFile($profilePicture);
+            $pictureUrl = '/api/uploads/' . $uuid;
         }
 
         $params = array_merge([
@@ -179,6 +181,13 @@ class Foodsharing extends Db
             $this->addRegionMember($params['bezirk_id'], $id);
         }
         $params['id'] = $id;
+
+        if (isset($extra_params['image']) && isset($uuid)) {
+            $this->updateInDatabase('uploads', [
+                'used_in' => UploadUsage::PROFILE_PHOTO->value,
+                'usage_id' => $id,
+            ], ['uuid' => $uuid]);
+        }
 
         return $params;
     }

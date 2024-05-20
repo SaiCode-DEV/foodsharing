@@ -32,6 +32,7 @@
 - Added backend support for getting, adding and updating achievements. #1724 !3317 !3318 @AntonBallmaier
 - Reduced the number of emails per mailbox in the test data !3330 @alex.simm
 - Remove unused code !3340 @alex.simm
+- Fixed errors in the seed script !3355 @alex.simm
 
 ## Development documentation
 
