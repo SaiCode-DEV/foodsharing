@@ -805,6 +805,8 @@ bell:
     one: Gıda kurtarma tarihleri düzenlendi
     many: Gıda kurtarma tarihleri düzenlendi
   store_wall_post_title: İşletme{name}
+  workinggroup_new_request_title: '{name}'
+  internal_email_changed_title: '{address}'
 sig:
   buddies: Tanıdığın insanlar
 error:
