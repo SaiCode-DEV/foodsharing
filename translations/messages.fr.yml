@@ -2592,6 +2592,8 @@ bell:
   store_wall_post:
     one: Entrée murale de {user}
     many: '{count} nouvelles entrées murales'
+  workinggroup_new_request_title: '{name}'
+  internal_email_changed_title: '{address}'
 personal_data:
   landline: Numéro de fixe
   mobile: Numéro de portable
@@ -3282,6 +3284,15 @@ quiz:
       feedback: À la fin du quiz, tu reçois directement une évaluation qui te dit
         si tu as réussi ou non et quelles erreurs tu as commises. Ici, tu peux encore
         une fois lire tranquillement les justifications.
+      limited_tries: Tu ne peux pas refaire le quiz autant de fois que tu le souhaites.
+        Après trois tentatives, tu dois faire une pause de 30 jours pour étudier à
+        nouveau, après quoi tu n’as droit qu’à deux tentatives supplémentaires. Les
+        questions qui te sont posées à chaque tentative sont différentes.
+      comment: Après avoir répondu à chaque question, tu vois une évaluation intermédiaire
+        avec des explications pour chacune des possibilités de réponse. Cela aide
+        à comprendre quelle réponse est correcte ou incorrecte et pourquoi. Pour chaque
+        erreur, tu dois lire attentivement les explications. Si quelque chose te semble
+        illogique, incompréhensible ou même faux, n’hésite pas à laisser un commentaire.
   plural: Quiz
   button:
     pause: continuer plus tard
@@ -3313,6 +3324,29 @@ quiz:
       0: faux
       1: vrai
       2: neutre
+  state_based_info:
+    RUNNING: Tu as déjà commencé le quiz et tu as répondu jusqu’à présent à {questionsAnswered}
+      des {questionCount} questions.
+    PASSED: Tu as réussi ce quiz.
+    FAILED:
+      1: Lors de ta première tentative, tu n’as malheureusement pas réussi ce quiz.
+        Cela peut arriver de temps en temps. Consulte à nouveau les articles wiki
+        correspondants et réessaie.
+      2: Lors des deux premières tentatives, tu n’as malheureusement pas réussi ce
+        quiz. Il te reste encore une troisième tentative avant de devoir faire une
+        pause d’un mois dans tes études. Consulte impérativement les articles wiki
+        correspondants pour réussir le quiz.
+    PAUSE_ELAPSED:
+      3: Ta pause d’apprentissage est terminée. Tu peux maintenant participer deux
+        fois de plus au quiz. J’espère que tu as profité de ce temps pour mieux te
+        familiariser avec le contenu.
+    NEVER_TRIED: Tu n’as jamais fait ce quiz auparavant. Prends le temps de lire attentivement
+      tous les articles Wiki mentionnés afin d’être prêt à répondre aux questions.
+    PAUSE: Tu as échoué trois fois à ce quiz. La fiabilité, la maîtrise des règles
+      et le professionnalisme sont des qualités indispensables pour le foodsharing.
+      Malheureusement, tes réponses ne le prouvent pas pour l’instant. C’est pourquoi
+      tu auras une pause d’un mois avant de recevoir deux nouvelles tentatives pour
+      réussir le quiz. Ta pause d’apprentissage se termine dans {wait} jours.
 fpsingular: Point d’erreur
 bootstrap-datepicker:
   labelCurrentMonth: Mois actuel
