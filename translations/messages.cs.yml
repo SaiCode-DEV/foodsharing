@@ -657,7 +657,7 @@ register:
   finish: ''
   login_name: ''
 terminology:
-  events: ''
+  events: 'Termíny'
   role:
     "4": ''
     "3": ''
@@ -672,8 +672,8 @@ terminology:
   region: ''
   regions: ''
   threads: ''
-  homepage: ''
-  forum: ''
+  homepage: 'Domovská stránka'
+  forum: 'Fórum'
   storemanager:
     d: ''
     f: ''
@@ -732,9 +732,11 @@ terminology:
   store: ''
   subgroups: ''
   ambassadors: ''
-  no_pickups: ''
+  no_pickups: 'žádné'
   previous_pickups: ''
   n_home_regions: ''
+  yes: Ano
+  no: Ne
 store:
   bread: ''
   error: ''
