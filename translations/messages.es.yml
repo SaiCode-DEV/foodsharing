@@ -1831,6 +1831,14 @@ bell:
   store_change_regular_pickup_times:
     one: Las fechas de recogida han sido ajustadas
     many: fechas de recogida han sido ajustadas
+  event_post:
+    many: '{count} nuevos comentarios sobre {event}'
+    one: 'Nuevo comentario de {user} '
+  workinggroup_new_request: Nueva solicitud para un grupo de trabajo
+  internal_email_changed_title: '{address}'
+  event_post_title: Fecha de {event} en {region}
+  workinggroup_new_request_title: '{name}'
+  internal_email_changed: Tu dirección de correo electrónico personal ha sido cambiada.
 foodsaver:
   restricted: 'Lamentablemente, no tienes permiso para ver estos datos.'
   upgrade:
@@ -2510,12 +2518,7 @@ forum:
     title: 'Título'
     no_mail: 'El hilo se inició sin enviar correos electrónicos'
     open: 'Reabrir hilo'
-    delivery_mail:
-      title: 'Entrega de correo'
-      non_active: ''
-      active: ''
-      disable: desactivar
-      activate: activar
+    delivery_mail: Activar el envío de correos electrónicos
     too_big_to_mail: 'No se enviaron correos electrónicos sobre el tema porque es
       un país o estado federal.'
     navigate_to_newest_post: 'saltar a la última publicación'
