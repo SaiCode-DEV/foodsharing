@@ -1319,6 +1319,8 @@ terminology:
   no_pickups: ''
   previous_pickups: ''
   n_home_regions: ''
+  no: Нет
+  yes: Да
 storeview:
   common: ''
   visible_for_public: ''
