@@ -1003,6 +1003,8 @@ terminology:
   no_pickups: aucune
   previous_pickups: Collectes ici
   electionAdmins: Élections
+  no: Non
+  yes: Oui
 register:
   activation_success: <strong>Activation réussie.</strong> Connecte-toi maintenant
     avec ton adresse courriel et le mot de passe que tu as choisi.
@@ -3710,3 +3712,6 @@ help:
         de sorte que les thèmes soient toujours en tête, indépendamment de la date
         de modification.\nLes fils de priorité -1 sont affichés sous tous les autres
         fils.\n"
+automatic_delete: '- le profil doit être supprimé.'
+automatic_not_delete: '- le profil doit être conservé.'
+no_automatic_delete: 'Si la dernière connexion remonte à cinq ans :'
