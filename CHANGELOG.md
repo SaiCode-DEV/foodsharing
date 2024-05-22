@@ -6,6 +6,7 @@
 - Add page-redirect after login !3334 @AntonBallmaier
 
 ## Changes
+- Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei
 - Restricted access to email attachments !3345 @alex.simm
 
 ## Bugfixes

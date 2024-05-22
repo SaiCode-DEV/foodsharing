@@ -1316,10 +1316,7 @@ forum:
     body: "Nachricht"
     moderator_info: "Dieses Thema ist geschlossen. Als Moderator dieses Forums kannst du trotzdem eine Nachricht verfassen. Andere Nutzer*innen können nicht antworten!"
   thread:
-    delivery_mail:
-      title: "Mailversand"
-      activate: "aktivieren"
-      disable: "deaktivieren"
+    delivery_mail: "Mailversand aktivieren"
     with_mail: "Thema eröffnet und alle per E-Mail darüber informiert"
     no_mail: "Das Thema wurde eröffnet, ohne E-Mails zu versenden"
     too_big_to_mail: "Für das Thema wurden keine E-Mails versendet, da es sich um ein Land oder ein Bundesland handelt."
