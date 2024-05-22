@@ -1913,11 +1913,11 @@ terminology:
   fsps: ''
   fsp: ''
   fsManagementAdmins: ''
-  forum: ''
+  forum: 'Fórum'
   message: ''
   boardAdmins: ''
   fspAdmins: ''
-  events: ''
+  events: 'Datas'
   group: ''
   welcomeAdmins: ''
   reports: ''
@@ -1927,7 +1927,7 @@ terminology:
   community: ''
   pin: ''
   n_home_regions: ''
-  homepage: ''
+  homepage: 'Página inicial'
   arbitrationAdmins: ''
   storesAdmins: ''
   n_ambassadors: ''
@@ -1937,6 +1937,8 @@ terminology:
   store: ''
   basket: ''
   region: ''
+  no: Não
+  yes: Sim
 timepicker:
   labelCloseButton: ''
   labelMinutes: ''
