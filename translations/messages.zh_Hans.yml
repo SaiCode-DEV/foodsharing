@@ -888,6 +888,8 @@ terminology:
   no_pickups: ''
   previous_pickups: ''
   n_home_regions: ''
+  no: 没有
+  yes: 是
 yes: ''
 delete: ''
 select: ''
