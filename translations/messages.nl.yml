@@ -2006,6 +2006,8 @@ terminology:
   no_pickups: ''
   previous_pickups: ''
   n_home_regions: ''
+  no: Nee
+  yes: Ja
 delete: ''
 fsp:
   description: ''
