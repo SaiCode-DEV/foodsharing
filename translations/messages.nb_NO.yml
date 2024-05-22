@@ -2880,6 +2880,8 @@ terminology:
   no_pickups: ingen
   previous_pickups: Henter her
   electionAdmins: Valg
+  yes: Ja
+  no: Nei
 gender:
   d: mangfoldig
   f: Fru
@@ -3749,3 +3751,6 @@ team_page:
       gjerne benytte anledningen til å takke alle som har bidratt til dette, noen
       av dem har jobbet fulltid på frivillig basis eller i svært stor grad for arrangørteamet
       eller styret!
+automatic_not_delete: '- profilen skal opprettholdes.'
+automatic_delete: '- profilen skal slettes.'
+no_automatic_delete: 'Hvis siste pålogging var for fem år siden:'
