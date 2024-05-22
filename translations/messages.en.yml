@@ -1197,6 +1197,8 @@ terminology:
   no_pickups: none
   previous_pickups: Pick-ups here
   electionAdmins: Elections
+  no: No
+  yes: Yes
 login:
   pwreset:
     bread: Reset password
@@ -3880,3 +3882,6 @@ team_page:
       team and mainly online to deal with all the concerns of the large foodsharing
       community and external parties. In addition, the Executive Board deals extensively
       with organizational development and the political dimension of food waste.\n"
+automatic_delete: '- the profile should be deleted.'
+no_automatic_delete: 'In case the last login was five years ago:'
+automatic_not_delete: '- the profile should be kept.'
