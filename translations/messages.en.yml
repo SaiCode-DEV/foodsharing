@@ -873,12 +873,7 @@ forum:
     closed: Closed thread
     navigate_to_newest_post: "jump to latest post"
     navigate_to_oldest_post: "jump to first post"
-    delivery_mail:
-      title: Mail dispatch
-      active: activated
-      non_active: disabled
-      disable: disabled
-      activate: enabled
+    delivery_mail: Activate mail delivery
     sticky: pinned Thread
     subscriptions:
       subscribed: subscribed
@@ -1331,6 +1326,14 @@ bell:
   store_wall_post:
     one: Wall post from {user}
     many: '{count} new wall posts'
+  event_post_title: Event {event} in {region}
+  event_post:
+    one: 'New comment from {user} '
+    many: '{count} new comments on the event {event}'
+  workinggroup_new_request_title: '{name}'
+  internal_email_changed_title: '{address}'
+  workinggroup_new_request: New application for a working group
+  internal_email_changed: Your personal e-mail address has been changed.
 reports:
   time: Time
   region: Home district
@@ -3351,7 +3354,7 @@ quiz:
     NEVER_TRIED: You have never taken this quiz before. Take the time to read all
       the wiki articles listed carefully so that you are prepared for the questions.
     PAUSE: You have failed this quiz three times. Reliability, a firm grasp of the
-      rules and a professional demeanor are essential at Foodsharing. Unfortunately,
+      rules and a professional demeanor are essential at foodsharing. Unfortunately,
       your answers do not convey this at the moment. Therefore, you will be given
       a one-month study break before you get two more attempts to pass the quiz. Your
       study break ends in {wait} days.
