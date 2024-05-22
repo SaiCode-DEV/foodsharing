@@ -1527,6 +1527,10 @@ bell:
   forum_post:
     one: "Neuer Beitrag von {user} im Forum {forum}"
     many: "{count} neue Beiträge im Forum {forum}"
+  event_post_title: "Termin {event} in {region}"
+  event_post:
+    one: "Neuer Kommentar von {user} "
+    many: "{count} neue Kommentare zum Termin {event}"
   forum_announcement_title: "Wichtige Mitteilung: {title}"
   forum_announcement: "von {user} im Forum {forum}"
   forum_mention_title: "{user} hat dich erwähnt ({forum})"
@@ -1597,12 +1601,17 @@ bell:
   workgroup_request_accept: "Du wurdest in die Arbeitsgruppe aufgenommen."
   workgroup_request_decline_title: "{name}"
   workgroup_request_decline: "Du wurdest nicht in die Arbeitsgruppe aufgenommen."
+  workinggroup_new_request_title: "{name}"
+  workinggroup_new_request: "Neue Bewerbung für eine Arbeitsgruppe"
 
   banana_given_title: "Neue Vertrauensbanane"
   banana_given: "{name} hat dir eine Vertrauensbanane spendiert."
 
   new_report_title: "Neue Meldung über {name}"
   report_reason: "{reason}"
+
+  internal_email_changed_title: "{address}"
+  internal_email_changed: "Deine persönliche E-Mail-Adresse wurde geändert."
 
 list:
   filter_for: "Filtern nach …"
