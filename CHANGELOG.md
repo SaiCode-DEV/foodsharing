@@ -37,6 +37,9 @@
 
 ## Development documentation
 
+# Hotfix 2024-05-21
+- Added translations for new bell types !3337 @AntonBallmaier @alex.simm
+
 # Hotfix 2024-05-11
 - Fix Quiz Role not increasing #1930 !3315 @AntonBallmaier
 - Fixed invalid dates in store bubbles on the map !3322 @alex.simm
