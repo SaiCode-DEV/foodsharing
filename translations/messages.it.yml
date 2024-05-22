@@ -1916,6 +1916,8 @@ bell:
   store_wall_post:
     one: Post in bacheca da {user}
     many: '{count} nuove voci in bacheca'
+  workinggroup_new_request_title: '{name}'
+  internal_email_changed_title: '{address}'
 content:
   edit: Modifica pagina
   new_success: La pagina è stata creata
