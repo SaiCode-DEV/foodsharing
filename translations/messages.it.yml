@@ -524,6 +524,8 @@ terminology:
   no_pickups: 'nessuna'
   previous_pickups: 'Collezioni qui'
   electionAdmins: Elezioni
+  no: No
+  yes: Sì
 register:
   woman: femmina
   signup_newsletter: Vorrei ricevere la newsletter di foodsharing circa una volta
@@ -3537,3 +3539,6 @@ help:
         ###### Restrizioni\nVengono caricate al massimo 100 voci. Potrebbe essere
         necessario limitare il periodo di ricerca o i tipi di azione selezionati se
         non vengono visualizzati tutti i risultati.\n"
+no_automatic_delete: 'Se l’ultimo accesso è avvenuto cinque anni fa:'
+automatic_delete: '- il profilo deve essere cancellato.'
+automatic_not_delete: '- il profilo deve essere mantenuto.'
