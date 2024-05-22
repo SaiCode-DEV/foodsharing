@@ -1410,6 +1410,14 @@ bell:
   store_change_regular_pickup_times:
     one: Pickup-spor er justert
     many: Pickup-spor er justert
+  event_post_title: Dato {event} i {region}
+  event_post:
+    one: 'Ny kommentar fra {user} '
+    many: '{count} nye kommentarer til «{event}»-arrangementet'
+  workinggroup_new_request: Ny søknad for en arbeidsgruppe
+  internal_email_changed_title: '{address}'
+  workinggroup_new_request_title: '{name}'
+  internal_email_changed: Den personlige e-postadressen din er endret.
 reports:
   when: Tid
   time: Tid
@@ -2206,12 +2214,7 @@ forum:
       en stat.
     navigate_to_newest_post: gå til siste innlegg
     navigate_to_oldest_post: gå til første innlegg
-    delivery_mail:
-      active: aktivert
-      non_active: deaktivert
-      title: Postlevering
-      disable: deaktivere
-      activate: aktivere
+    delivery_mail: Aktiver e-postlevering
     sticky: festet tråd
     subscriptions:
       subscribed: abonnerer
