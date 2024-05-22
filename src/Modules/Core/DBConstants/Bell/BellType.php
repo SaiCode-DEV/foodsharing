@@ -97,6 +97,11 @@ class BellType
     final public const NEW_REPORT = 'new-report-%d';
 
     /**
+     * A new post on an event wall the user is maybe participating in. Argument: IDs of the event.
+     */
+    final public const NEW_EVENT_POST = 'event-post-%d';
+
+    /**
      * Creates a bell identifier from a template and an optional list of parameters.
      */
     public static function createIdentifier(string $typeString, ...$params)

@@ -103,7 +103,7 @@ class WallRestController extends AbstractFoodsharingRestController
             throw new NotFoundHttpException();
         }
 
-        $this->wallPostGateway->deletePost($postId, $target);
+        $this->wallPostTransactions->deletePost($postId, $target, $targetId);
 
         return $this->handleView($this->view(null, Response::HTTP_OK));
     }

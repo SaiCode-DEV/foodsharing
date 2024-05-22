@@ -2,6 +2,7 @@
 
 ## Features
 - Improved direct links to forum posts #1912 !3293 !3328 @AntonBallmaier
+- People who (maybe) attend an event are now informed via bell when there are new posts on the event wall. #228 !3336 @AntonBallmaier
 - Show title of forum post in window header (again) !3338 #1591 @McGoldi
 - Add page-redirect after login !3334 @AntonBallmaier
 
