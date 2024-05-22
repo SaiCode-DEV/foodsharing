@@ -5,6 +5,7 @@
 - People who (maybe) attend an event are now informed via bell when there are new posts on the event wall. #228 !3336 @AntonBallmaier
 - Show title of forum post in window header (again) !3338 #1591 @McGoldi
 - Add page-redirect after login !3334 @AntonBallmaier
+- Delete users older then 5 Years activity. Have profile setting to protect account from deletion#19 !3134 @fs_k
 
 ## Changes
 - Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei

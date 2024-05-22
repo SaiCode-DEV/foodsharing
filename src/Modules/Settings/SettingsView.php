@@ -154,6 +154,12 @@ class SettingsView extends View
             $this->v_utils->v_form_textarea('about_me_public', [
                 'desc' => $this->translator->trans('foodsaver.about_me_public'),
             ]),
+            $this->v_utils->v_form_select('no_automatic_delete', [
+                'values' => [
+                    ['id' => 0, 'name' => $this->translator->trans('automatic_delete')],
+                    ['id' => 1, 'name' => $this->translator->trans('automatic_not_delete')],
+                ]
+            ]),
         ], ['submit' => $this->translator->trans('button.save')]);
     }
 

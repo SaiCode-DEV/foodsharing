@@ -137,6 +137,12 @@ class FoodsaverView extends View
                 'city' => $latLonOptions['ort'] ?? null,
             ]),
             $position,
+            $this->v_utils->v_form_select('no_automatic_delete', [
+                'values' => [
+                    ['id' => 0, 'name' => $this->translator->trans('terminology.no')],
+                    ['id' => 1, 'name' => $this->translator->trans('terminology.yes')],
+                ]
+            ]),
             $this->v_utils->v_form_text('email', ['required' => true, 'disabled' => true]),
         ], ['submit' => $this->translator->trans('button.save')]);
     }

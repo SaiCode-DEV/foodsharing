@@ -38,6 +38,9 @@ body: "Nachricht"
 status: "Aktueller Status"
 info: "Informationen"
 photo: "Foto"
+no_automatic_delete: "In dem Fall, dass die letzte Anmeldung 5 Jahre zurück liegt:"
+automatic_delete : "- soll das Profil gelöscht werden."
+automatic_not_delete : "- soll das Profil erhalten bleiben."
 ort: "Stadt/Gemeinde (automatisch aus Karte oben)"
 daterange: "Zeitraum"
 regions: "Bezirke" # TODO check if used anywhere else
@@ -706,6 +709,8 @@ gender:
   d: "Beides oder Sonstiges"
 
 terminology:
+  no: "Nein"
+  yes: "Ja"
   homepage: "Homepage"
   forum: "Forum"
   events: "Termine"

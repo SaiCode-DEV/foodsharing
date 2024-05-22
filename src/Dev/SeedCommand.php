@@ -670,6 +670,18 @@ class SeedCommand extends Command implements CustomCommandInterface
             $this->output->write('.');
         }
         $this->output->writeln(' done');
+        $this->output->writeln(' Create old users');
+        foreach (range(0, 20) as $_) {
+            $I->createFoodsaver($password, ['bezirk_id' => $region1, 'last_login' => Carbon::now()->subyears(6)]);
+            $this->output->write('.');
+        }
+        $this->output->writeln(' done');
+        $this->output->writeln('Create old users with no_automatic_delete flag');
+        foreach (range(0, 20) as $_) {
+            $I->createFoodsaver($password, ['bezirk_id' => $region1, 'last_login' => Carbon::now()->subyears(6), 'no_automatic_delete' => 1]);
+            $this->output->write('.');
+        }
+        $this->output->writeln(' done');
 
         // give some trust bananas
         $this->output->writeln('Give some trust bananas');

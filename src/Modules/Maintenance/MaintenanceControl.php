@@ -23,7 +23,7 @@ class MaintenanceControl extends ConsoleControl
         private readonly BellUpdateTrigger $bellUpdateTrigger,
         private readonly GroupGateway $groupGateway,
         private readonly StoreMaintenanceTransactions $storeMaintenanceTransactions,
-        private readonly IMAPFolderCleanupHelper $imapFolderCleanupHelper
+        private readonly IMAPFolderCleanupHelper $imapFolderCleanupHelper,
     ) {
         parent::__construct();
     }
@@ -35,6 +35,11 @@ class MaintenanceControl extends ConsoleControl
 
     public function daily()
     {
+        /*
+         * delete users that have been inactive for > 5 years
+         */
+        $this->deleteInactiveUsers();
+
         /*
          * warn store manager if there are no fetching people
          */
@@ -105,6 +110,32 @@ class MaintenanceControl extends ConsoleControl
          */
         if (getenv('FS_ENV') !== 'dev') {
             $this->deleteImapFolderMails();
+        }
+    }
+
+    public function deleteInactiveUsers()
+    {
+        $arrayAccountsNotDeleted = [];
+        $accountsDeleted = 0;
+        self::info('deleting users inactive > 5 years');
+        $inactiveUsers = $this->foodsaverGateway->listInactiveUsers();
+        if ($inactiveUsers) {
+            self::info('...checking ' . count($inactiveUsers) . ' accounts');
+            foreach ($inactiveUsers as $fs) {
+                if ($this->storeGateway->listStoreIds($fs)) {
+                    $arrayAccountsNotDeleted[] = $fs;
+                } else {
+                    $this->foodsaverGateway->deleteFoodsaver($fs, null, 'Automatic inactivity deletion');
+                    ++$accountsDeleted;
+                }
+                if ($accountsDeleted === MAX_DELETE_OLD_ACCOUNTS_PER_DAY) {
+                    break;
+                }
+            }
+            self::info(count($arrayAccountsNotDeleted) . ' users where not deleted due to store memberships');
+            self::info('Number of Accounts deleted: ' . $accountsDeleted);
+        } else {
+            self::info('no inactive users found');
         }
     }
 

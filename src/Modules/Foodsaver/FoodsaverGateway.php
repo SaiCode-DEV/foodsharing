@@ -279,6 +279,7 @@ class FoodsaverGateway extends BaseGateway
             'data',
             'rolle',
             'position',
+            'no_automatic_delete'
         ], [
             'id' => $fsId
         ]);
@@ -672,7 +673,8 @@ class FoodsaverGateway extends BaseGateway
             'geb_datum',
             'about_me_intern',
             'about_me_public',
-            'position'
+            'position',
+            'no_automatic_delete'
         ];
 
         $fieldsToStripTags = [
@@ -836,6 +838,10 @@ class FoodsaverGateway extends BaseGateway
 
         if (isset($data['position'])) {
             $updateData['position'] = strip_tags((string)$data['position']);
+        }
+
+        if (isset($data['no_automatic_delete'])) {
+            $updateData['no_automatic_delete'] = $data['no_automatic_delete'];
         }
 
         if (isset($data['email'])) {
@@ -1043,5 +1049,13 @@ class FoodsaverGateway extends BaseGateway
         ]);
 
         return !empty($applications);
+    }
+
+    /**
+     * @return int[]
+     */
+    public function listInactiveUsers(): array
+    {
+        return $this->db->fetchAllValuesByCriteria('fs_foodsaver', 'id', ['last_login <=' => Carbon::now()->subYears(5)->toDateString(), 'deleted_at' => null, 'no_automatic_delete' => 0]);
     }
 }

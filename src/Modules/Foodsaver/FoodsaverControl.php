@@ -118,7 +118,8 @@ class FoodsaverControl extends Control
                         'geb_datum',
                         'rolle',
                         'orgateam',
-                        'bezirk_id'
+                        'bezirk_id',
+                        'no_automatic_delete'
                     ];
                     $this->settingsGateway->logChangedSetting(
                         $fsId,
