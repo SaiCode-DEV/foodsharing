@@ -606,6 +606,8 @@ terminology:
   no_pickups: 'ninguna'
   previous_pickups: Recogidas aquí
   electionAdmins: Elecciones
+  no: No
+  yes: Sí
 groups:
   empty: Aún no estás en ningún grupo de trabajo
 position: Puesto en foodsharing (público)
@@ -3996,3 +3998,6 @@ team_page:
       Estas son algunas de las personas que coordinan grupos de trabajo nacionales,
       desarrollan el sitio web o asumen otras tareas importantes para el foodsharing
       en su conjunto:\n"
+no_automatic_delete: 'En el caso de que la última inscripción haya sido hace 5 años:'
+automatic_delete: '- el perfil debe ser eliminado.'
+automatic_not_delete: '- el perfil debe conservarse.'
