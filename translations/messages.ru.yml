@@ -2143,6 +2143,8 @@ bell:
   forum_new_thread_title: ''
   forum_announcement_title: ''
   forum_mention: ''
+  workinggroup_new_request_title: '{name}'
+  internal_email_changed_title: '{address}'
 memberlist:
   header_for_district: ''
   header_for_workgroup: ''
