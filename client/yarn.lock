@@ -4912,6 +4912,11 @@ leaflet.awesome-markers@^2.0.5:
   resolved "https://registry.yarnpkg.com/leaflet.awesome-markers/-/leaflet.awesome-markers-2.0.5.tgz#b7b0210d87e2566359bf478c1ab3ab07c7246f30"
   integrity sha512-Ne/xDjkGyaujwNVVkv2tyXQUV0ZW7gZ0Mo0FuQY4jp2qWrvXi0hwDBvmZyF/8YOvybyMabTMM/mFWCTd1jZIQA==
 
+leaflet.locatecontrol@^0.74.0:
+  version "0.74.1"
+  resolved "https://registry.yarnpkg.com/leaflet.locatecontrol/-/leaflet.locatecontrol-0.74.1.tgz#f34cdf9afa982e15bcabda6469fee5096f36ffd4"
+  integrity sha512-TsgoiAU62Yj7W3dtpOGWXhFDUe2RpPuHmW0tS5QR/5RFgvmrUflcnsUGgozBScnRF/1cUJ00WjtlGPPxBMTXkQ==
+
 leaflet.markercluster@^1.4.1, leaflet.markercluster@^1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/leaflet.markercluster/-/leaflet.markercluster-1.5.3.tgz#9cdb52a4eab92671832e1ef9899669e80efc4056"
@@ -7905,6 +7910,13 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
+
+vue2-leaflet-locatecontrol@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/vue2-leaflet-locatecontrol/-/vue2-leaflet-locatecontrol-1.0.2.tgz#2055ce6ca701836d7238c12b63ac3b5b2bf02338"
+  integrity sha512-rTTUMSl+2e7clWco0jaLtQSc2Dp1sqesZNZ7EKeLtiw9kTQCQ02nkjG5/+fd3mdHuYZYjct9d0TDNQiIKe+Xgw==
+  dependencies:
+    leaflet.locatecontrol "^0.74.0"
 
 vue2-leaflet-markercluster@^3.1.0:
   version "3.1.0"

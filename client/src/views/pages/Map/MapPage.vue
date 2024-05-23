@@ -18,6 +18,7 @@
           @click="markerClicked(type, marker.id)"
         />
       </vue2-leaflet-marker-cluster>
+      <vue2-leaflet-locatecontrol />
     </leaflet-map>
     <map-control
       :visible-types="visibleTypes"
@@ -38,6 +39,7 @@
 import L from 'leaflet'
 import 'leaflet.awesome-markers'
 import Vue2LeafletMarkerCluster from 'vue2-leaflet-markercluster'
+import Vue2LeafletLocatecontrol from 'vue2-leaflet-locatecontrol'
 import LeafletMap from '@/components/map/LeafletMap.vue'
 import MapControl from '@/views/pages/Map/MapControl.vue'
 import { store, MAP_CONSTANTS, MARKER_TYPES, STORE_MARKER_TYPES } from '@/stores/map'
@@ -53,7 +55,16 @@ import DataUser from '@/stores/user.js'
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 
 export default {
-  components: { MapControl, LeafletMap, Vue2LeafletMarkerCluster, LMarker, BasketBubble, CommunityBubble, StoreBubble },
+  components: {
+    MapControl,
+    LeafletMap,
+    Vue2LeafletMarkerCluster,
+    LMarker,
+    BasketBubble,
+    CommunityBubble,
+    StoreBubble,
+    Vue2LeafletLocatecontrol,
+  },
   props: {
     center: { type: Object, default: null },
     maySeeStores: { type: Boolean, default: false },
