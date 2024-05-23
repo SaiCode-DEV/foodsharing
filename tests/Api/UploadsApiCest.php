@@ -72,10 +72,10 @@ class UploadsApiCest
      */
     private function uploadFile(ApiTester $I): void
     {
-        $file = $this->faker->image(null, 10, 10, null, true, true, null, false, 'png');
+        $file = $this->faker->paragraph();
 
         $I->sendPost('api/uploads', [
-            'filename' => 'text.png',
+            'filename' => 'text.txt',
             'body' => base64_encode($file)
         ]);
     }
