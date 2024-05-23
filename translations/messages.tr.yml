@@ -807,6 +807,8 @@ bell:
   store_wall_post_title: İşletme{name}
   workinggroup_new_request_title: '{name}'
   internal_email_changed_title: '{address}'
+  event_post:
+    one: '{user} adlı kişiden yeni yorum '
 sig:
   buddies: Tanıdığın insanlar
 error:
@@ -3766,3 +3768,4 @@ team_page:
     text: Birlikte foodsharing´in başarılı geçmişine bakıyoruz. Bu fırsattan yararlanarak,
       organizasyon ekibi veya yönetim kurulu adına, tam zamanlı gönüllü olarak veya
       çok yüksek derecede bu organizasyona katılan herkese teşekkür etmek istiyoruz!
+no_automatic_delete: 'Son kaydın 5 yıl önce olması durumunda:'
