@@ -1194,6 +1194,14 @@ quiz:
   safeandsound: ''
   notfinishedyet: ''
   type: ''
+  results:
+    title:
+      1: Gratulatioun!
+  editModal:
+    question:
+      input:
+        wikilink:
+          placeholder: https://wiki.foodsharing.de/…
 upload:
   no_image: ''
   file: ''
