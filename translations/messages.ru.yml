@@ -354,6 +354,9 @@ quiz:
   safeandsound: 'Но ничего страшного: твоя сессия сохранена, и ты можешь в любое время
     продолжить отвечать на вопросы.'
   resultsbelow: 'Рейтинг можешь посмотреть ниже.'
+  results:
+    title:
+      1: Поздравляю!
 genderlist:
   gender_not_selected: ''
   district_tab: ''
