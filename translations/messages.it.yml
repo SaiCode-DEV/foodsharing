@@ -3159,6 +3159,14 @@ quiz:
   resultsbelow: La valutazione è disponibile di seguito.
   donecorrectly: hai risposto correttamente. Grande!
   comments: Commenti
+  editModal:
+    question:
+      input:
+        wikilink:
+          placeholder: https://wiki.foodsharing.de/…
+  results:
+    title:
+      1: Congratulazioni!
 deletelow: elimina
 filter_by: Filtrare per
 fpcapital: Punti di Errore
