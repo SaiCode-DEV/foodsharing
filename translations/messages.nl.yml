@@ -56,6 +56,14 @@ quiz:
   heavysigh: ''
   type: ''
   trynumber: ''
+  editModal:
+    question:
+      input:
+        wikilink:
+          placeholder: https://wiki.foodsharing.de/…
+  results:
+    title:
+      1: Gefeliciteerd!
 group:
   photo: Foto
   description: Beschrijving
