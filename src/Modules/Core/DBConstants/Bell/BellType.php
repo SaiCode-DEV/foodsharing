@@ -84,6 +84,13 @@ class BellType
      */
     final public const NEW_POLL = 'new-poll-%d';
     /**
+     * Sent to the admins of a working group to notify them about a new application.
+     * Parameters:
+     *   the group's id and
+     *   the applicant's id.
+     */
+    public const WORKING_GROUP_NEW_APPLICATION = 'workinggroup-%d-application-%d';
+    /**
      * The user's request to join a work group was accepted.
      */
     final public const WORK_GROUP_REQUEST_ACCEPTED = 'workgroup-arequest-%d';

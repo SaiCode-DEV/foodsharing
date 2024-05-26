@@ -281,4 +281,16 @@ class WorkGroupGateway extends BaseGateway
 			WHERE	`type` = :type
 		', [':type' => UnitType::COUNTRY]);
     }
+
+    /**
+     * Returns the ids of all admins of the specified working group.
+     *
+     * @return int[]
+     */
+    public function getGroupAdminIds(int $groupId): array
+    {
+        return $this->db->fetchAllValuesByCriteria('fs_botschafter', 'foodsaver_id',
+            ['bezirk_id' => $groupId]
+        );
+    }
 }

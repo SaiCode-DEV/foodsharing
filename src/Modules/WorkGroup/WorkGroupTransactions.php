@@ -3,6 +3,9 @@
 namespace Foodsharing\Modules\WorkGroup;
 
 use Foodsharing\Lib\Db\Mem;
+use Foodsharing\Modules\Bell\BellGateway;
+use Foodsharing\Modules\Bell\DTO\Bell;
+use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Region\ForumFollowerGateway;
 use Foodsharing\Modules\Uploads\UploadsGateway;
@@ -17,6 +20,7 @@ class WorkGroupTransactions
         private readonly WorkGroupGateway $workGroupGateway,
         private readonly ForumFollowerGateway $forumFollowerGateway,
         private readonly UploadsGateway $uploadsGateway,
+        private readonly BellGateway $bellGateway,
         private readonly EmailHelper $emailHelper,
         private readonly TranslatorInterface $translator
     ) {
@@ -92,6 +96,25 @@ class WorkGroupTransactions
                 . $this->translator->trans('group.apply.link_description')
                 . ' <a href="' . $link . '">' . $link . '</a>')
         );
+
+        $this->createBellNotificationForRequest($group, $userId);
+    }
+
+    /**
+     * Create a bell notification for the group's admins about a new request to join the group.
+     *
+     * @param array $group containing the name and id of the group
+     * @param int $userId the user who requested to join the group
+     */
+    private function createBellNotificationForRequest(array $group, int $userId): void
+    {
+        $adminIds = $this->workGroupGateway->getGroupAdminIds($group['id']);
+        $bellData = Bell::create('workinggroup_new_request_title', 'workinggroup_new_request', 'fas fa-user-clock', [
+            'href' => '/?page=application&bid=' . $group['id'] . '&fid=' . $userId
+        ], [
+            'name' => $group['name']
+        ], BellType::createIdentifier(BellType::WORKING_GROUP_NEW_APPLICATION, $group['id'], $userId));
+        $this->bellGateway->addBell($adminIds, $bellData);
     }
 
     public function updateGroup(int $groupId, EditWorkGroupData $groupData)

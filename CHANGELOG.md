@@ -68,6 +68,7 @@
 - Group different bell events, like it is done for the forum !3073 !3271 @AntonBallmaier
 - Stickiness of threads can have more values now allowing for better thread sorting !3205 @AntonBallmaier
 - Added an info box for ambassadors to make sure the user name field is not misused #204 !3204 @AntonBallmaier
+- Applications to working groups trigger a bell notification to the admins #933 !3274 @alex.simm
 
 ## Changes
 - Improves the BBB integration !3050 @stcz

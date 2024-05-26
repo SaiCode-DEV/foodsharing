@@ -1673,8 +1673,6 @@ bell:
   workgroup_request_accept: "Du wurdest in die Arbeitsgruppe aufgenommen."
   workgroup_request_decline_title: "{name}"
   workgroup_request_decline: "Du wurdest nicht in die Arbeitsgruppe aufgenommen."
-  workinggroup_new_request_title: "{name}"
-  workinggroup_new_request: "Neue Bewerbung für eine Arbeitsgruppe"
 
   banana_given_title: "Neue Vertrauensbanane"
   banana_given: "{name} hat dir eine Vertrauensbanane spendiert."
