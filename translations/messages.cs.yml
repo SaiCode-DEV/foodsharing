@@ -2570,6 +2570,14 @@ quiz:
   question: ''
   heavysigh: ''
   failedbeforebut: ''
+  results:
+    title:
+      1: Gratulujeme!
+  editModal:
+    question:
+      input:
+        wikilink:
+          placeholder: https://wiki.foodsharing.de/…
 search:
   title: ''
   informations: ''
