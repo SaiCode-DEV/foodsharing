@@ -809,6 +809,9 @@ bell:
   internal_email_changed_title: '{address}'
   event_post:
     one: '{user} adlı kişiden yeni yorum '
+    many: '{event} etkinliğine {count} yeni yorum'
+  event_post_title: '{region} bölgesindeki {etkinlik} tarihi'
+  internal_email_changed: Kişisel e-posta adresiniz değiştirildi.
 sig:
   buddies: Tanıdığın insanlar
 error:
@@ -2410,12 +2413,7 @@ forum:
     closed: Kapalı Konu
     open: Konuyu tekrar aç
     close: Konuyu kapat
-    delivery_mail:
-      non_active: devre dışı
-      title: Posta gönderimi
-      active: aktifleştirildi
-      activate: etkinleştir
-      disable: devre dışı bırak
+    delivery_mail: E-posta dağıtımını etkinleştir
     with_mail: Konu açıldı ve herkes bu konuda e-posta ile bilgilendirildi
     activate: Konuyu etkinleştir
     too_big_to_mail: Bu konu için, bir ülke veya eyalet olduğundan, dolayı e-posta
@@ -2930,6 +2928,8 @@ terminology:
   previous_pickups: Teslimat burada
   no_pickups: yok
   electionAdmins: Seçimler
+  no: Hayır
+  yes: Evet
 legal:
   if_delete:
     this_doesnt_get_deleted: 'Aşağıdaki bilgiler artık aktif sistemde mevcut değildir,
@@ -3769,3 +3769,5 @@ team_page:
       organizasyon ekibi veya yönetim kurulu adına, tam zamanlı gönüllü olarak veya
       çok yüksek derecede bu organizasyona katılan herkese teşekkür etmek istiyoruz!
 no_automatic_delete: 'Son kaydın 5 yıl önce olması durumunda:'
+automatic_delete: '- bu Profil silinmelidir.'
+automatic_not_delete: '- bu profil kalmalıdır.'
