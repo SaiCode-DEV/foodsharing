@@ -501,6 +501,9 @@ quiz:
   continuetype: ''
   nownownow: ''
   question: ''
+  results:
+    title:
+      1: Συγχαρητήρια!
 picture_upload_widget:
   picture_upload: ''
   choose_picture: ''
