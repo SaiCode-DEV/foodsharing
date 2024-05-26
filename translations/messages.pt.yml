@@ -1589,6 +1589,14 @@ quiz:
   continuetype: ''
   regstart: ''
   resultsbelow: ''
+  results:
+    title:
+      1: Parabéns!
+  editModal:
+    question:
+      input:
+        wikilink:
+          placeholder: https://wiki.foodsharing.de/…
 chat:
   incorrect_address: ''
   receivermissing: ''
