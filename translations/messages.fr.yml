@@ -55,6 +55,7 @@ group:
     ability: Quelles sont tes compétences dans ce domaine ?
     experience: "Peux-tu te référer à des expériences acquises ailleurs dans le groupe ?\n
       Si oui, où et lesquels ?\n"
+    error_missing_time: 'Erreur : aucune heure n’a été choisie.'
   contact:
     sent: Le message a bien été envoyé.
     send: Envoyer le message
@@ -160,6 +161,8 @@ group:
     duplicate_election_team: Groupe électoral déjà créé ! Il ne peut y avoir qu’un
       seul groupe électoral par secteur géographique.
     election: Élections
+    stores_coordination: Établissements
+    none: Aucun groupe de travail GOALS
   delete_group_sure: Le groupe de travail/le district {groupName} doit-il réellement
     être supprimé ?
   quitting_home_district_warning: Souhaites-tu vraiment quitter ton district principal
@@ -200,7 +203,7 @@ group:
     admin_mode_off: Retour à l’affichage standard
     remove_ambassador_text: Veux-tu vraiment supprimer {name} ({id}) en tant qu’ambassadeur·rice ?
     remove_admin_text: Veux-tu vraiment supprimer {name} ({id}) en tant qu’admin ?
-    old_edit_hint_link: Membre
+    old_edit_hint_link: Membres
     set_admin_title: Inscrire un·e membre en tant qu’admin
     set_ambassador_title: Inscrire un·e membre en tant qu’ambassadeur·rice
     set_admin_text: Veux-tu vraiment inscrire {name} ({id}) comme admin ?
@@ -213,6 +216,13 @@ group:
     is_verified: vérifié
     is_home_region: District principal
     not_verified: Non vérifié
+    passports:
+      created_at: Carte établie le
+      never_before: jamais
+      title: Cartes de membre
+    default:
+      lastname: Nom de famille
+      title: Défaut
   last_activity: Dernière activité
   role_name: Rôle
   entertime: 'Temps :'
@@ -307,6 +317,7 @@ button:
   reset_default: Restaurer par défaut
   prev: dos
   close: Fermer
+  start: Allons-y !
 upload:
   crop_dialog_title: Rogner l’image
   new_file: Téléverser un nouveau fichier
@@ -824,12 +835,7 @@ forum:
     close: Fermer le sujet
     navigate_to_newest_post: Aller au dernier article
     navigate_to_oldest_post: Aller au premier article
-    delivery_mail:
-      non_active: désactivé
-      title: Envoi de courrier
-      active: activé
-      activate: activer
-      disable: désactiver
+    delivery_mail: Activer l’envoi de mails
     sticky: fil épinglé
     subscriptions:
       subscribed: abonné
@@ -1046,11 +1052,11 @@ register:
   phone_example: Exemple +33 1 22 33 44 55
   login_phone_info: Partager ton numéro de téléphone avec les autres foodsharer peut
     être plus pratique
-  lastname_minLength: Ton nom doit se composer d’au moins deux caractères.
-  lastname_required: Saisis ton nom.
+  lastname_minLength: Ton nom de famille doit se composer d’au moins deux caractères.
+  lastname_required: Saisis ton nom de famille.
   firstname_minLength: Ton prénom doit se composer d’au moins deux caractères.
   firstname_required: Saisis ton/tes prénom(s).
-  login_surname: Nom
+  login_surname: Ton nom de famille
   login_name: Prénom
   login_location: Adresse postale
   login_mobile_phone: Numéro de téléphone portable
@@ -1195,7 +1201,7 @@ store:
     no-sm: Il n'y a encore aucun(e) responsable pour ce magasin partenaire.
     got-it: Les responsables ont été notifiés de ta demande et se manifesteront sous
       peu.
-    request: demander
+    request: Postuler pour cette équipe
     no-duplicate: Il existe déjà une demande.
     unverified: L’utilisateur·rice n’est pas vérifié·e
     distance: Habite à environ {distance} km
@@ -1266,7 +1272,7 @@ store:
   joinDate: Dans l’équipe depuis le {date}
   teamName: Équipe {storeTitle}
   error: La page de la coopération n’a pas pu être chargée.
-  go: Page de l’équipe
+  go: Voir l’équipe
   noStores: Il n’y a encore aucune coopération
   addNewStoresButton: Inscrire une nouvelle coopération
   allStoresOfRegion: Toutes les coopérations dans ce district
@@ -1791,7 +1797,9 @@ profile:
     posts: Contributions
     baskets: Paniers solidaires
     count: collecté(s)
-    weight: collecté(s)
+    weight: kg collecté(s)
+    fetch_count: collecté
+    bananas: Bananes
   infos:
     foodsharerId: ID de partageur
     foodsaverId: ID de collecteur·ice
@@ -1829,6 +1837,7 @@ profile:
     buddy: Je connais {name}
     edit: Modifier le profil
     remove_buddy: Je ne connais plus {name}
+    quizSessionHistory: Essais de quiz
   banana:
     remove:
       confirm_message: Souhaites-tu vraiment retirer la banane-confiance ?
@@ -1909,6 +1918,24 @@ profile:
     utilisés pour effectuer de telles tâches. De plus amples informations à ce sujet
     sont disponibles sur le <a href="/region?bid=881&sub=forum&tid=58225">Forum des
     ambassadeur·rice·s</a>
+  stores:
+    memberState:
+      filterRequested: Demande soumise
+      filterActive: Membre
+      filterManage: RC
+      filterAll: tous
+    search_placeholder: Chercher par nom
+    store_table: Liste des entreprises
+  sections:
+    orga_rights: "En tant que personne chargée de l'organisation, ##### dispose de
+      [droits étendus]({wikiurl}) sur la plate-forme."
+    workgroups_admin: est la personne de contact pour les groupes
+    ambassador_for: pour
+  tab_navigation:
+    profile: Profil
+    pickups: Ramassages
+    commitment_statistics: Statistique d’engagement
+    notes: Notes ({count})
 pickuplist:
   NumberOfAppointments_table_header: nº de ramassages
   unclear: Statut confus
@@ -2596,6 +2623,11 @@ bell:
     many: '{count} nouvelles entrées murales'
   workinggroup_new_request_title: '{name}'
   internal_email_changed_title: '{address}'
+  event_post_title: Événement {event} dans {region}
+  event_post:
+    one: 'Nouveau commentaire de {user} '
+    many: '{count} nouveaux commentaires sur l’événement {event}'
+  internal_email_changed: Ton adresse e-mail personnelle a été modifiée.
 personal_data:
   landline: Numéro de fixe
   mobile: Numéro de portable
@@ -2748,6 +2780,7 @@ releases:
   "2023-09": Version « Jacquier » 🍈 (septembre 2023)
   "2024-01": Version « Kiwi » 🥝 (janvier 2024)
   "2024-04": Version « Breztel » 🥨 (avril 2024)
+  "2024-07": Version « Mandarine » 🍊 (juillet 2024)
 startpage:
   donate:
     text: "Nous nous efforçons de faire parrainer toutes nos dépenses. Cependant,
@@ -3015,7 +3048,11 @@ region:
   still_contains_elements: Le district ne peut pas être supprimé car il contient encore
     des régions affiliées, des coopérations et/ou des frigos solidaires.
   edit_success: Le secteur géographique a été enregistré.
-  confirm: Es-tu sûr·e de vouloir enregistrer les modifications dans le secteur géographique ?
+  confirm:
+    create: Tu es sûr de vouloir recréer le district {name} ?
+    delete: Tu es sûr de vouloir supprimer le district {name} ?
+    edit: Tu es sûr de vouloir sauvegarder les modifications apportées à la circonscription
+      de {name} ?
   hull:
     start: Commencer la mise à jour du secteur géographique principal
     closure: Inscrire {region} en tant que secteur géographique principal pour toutes
@@ -3036,6 +3073,10 @@ region:
     bigcity: Grande ville (pas de possibilité de rejoindre, veuillez choisir un quartier
       précis)
     city: Ville
+    part_of_town: Quartier
+    federal_state: État fédéral
+    working_group: Groupe de travail
+    big_city: Grande ville (sans possibilité de s’inscrire)
   none: Aucun secteur géographique sélectionné
   delete: supprimer le secteur géographique
   noParent: Secteur géographique sans affiliation
@@ -3058,6 +3099,10 @@ region:
     le forum.
   restricted: Tu n’as pas les droits pour accéder à ces informations.
   not-member: Tu ne fais pas partie de cette région / de ce groupe de travail.
+  name: Nom
+  createNew: Créer un nouveau district
+  mailbox: Nom de la boîte aux lettres
+  root: Aucun (racine)
 polls:
   filter_by: Filtrer par
   future: Votes futurs
@@ -3208,7 +3253,7 @@ quiz:
   type: -Questionnaire
   donecorrectly: tu as répondu entièrement correctement. C’est super !
   heavysigh: Tu as réussi !
-  wikilink: Article wiki correspondant à ce sujet
+  wikilink: Plus d’infos dans le wiki
   choice:
     koquestion: Malheureusement, cette question était particulièrement importante
       et tu n’y as pas répondu correctement.
@@ -3342,6 +3387,9 @@ quiz:
       3: Ta pause d’apprentissage est terminée. Tu peux maintenant participer deux
         fois de plus au quiz. J’espère que tu as profité de ce temps pour mieux te
         familiariser avec le contenu.
+      4: Il ne te reste qu’une dernière chance de réussir ce quiz ! Si tu échoues
+        maintenant, tu seras définitivement disqualifié pour ce quiz. Merci de ne
+        participer que si tu as étudié en détail le contenu du wiki.
     NEVER_TRIED: Tu n’as jamais fait ce quiz auparavant. Prends le temps de lire attentivement
       tous les articles Wiki mentionnés afin d’être prêt à répondre aux questions.
     PAUSE: Tu as échoué trois fois à ce quiz. La fiabilité, la maîtrise des règles
@@ -3349,6 +3397,104 @@ quiz:
       Malheureusement, tes réponses ne le prouvent pas pour l’instant. C’est pourquoi
       tu auras une pause d’un mois avant de recevoir deux nouvelles tentatives pour
       réussir le quiz. Ta pause d’apprentissage se termine dans {wait} jours.
+    DISQUALIFIED: Malheureusement, tu es disqualifié pour ce quiz, car tu as échoué
+      cinq fois.
+  results:
+    title:
+      1: Félicitations !
+      2: Tu n’as malheureusement pas réussi.
+    deleted: L’évaluation exacte n’est enregistrée que pendant deux semaines après
+      le quiz et n’est plus disponible.
+    points:
+      1: Tu as réussi avec {failurePoints} d’erreur sur un maximum de {maxFailurePointsToSucceed} !
+      2: Tu avais {failurePoints} points d’erreur et tu aurais réussi avec un maximum
+        de {maxFailurePointsToSucceed}.
+  timed_out_error: Le temps de répondre à cette question est déjà écoulé.
+  error_tooltip: Tu as fait une erreur dans cette réponse.
+  show_results: Voir les résultats du dernier essai
+  key_facts:
+    to_pass: 'Pour réussir :'
+    timed: Maximum de {maxFailurePointsToSucceed} points d'erreur dans {questionCountTimed}
+      questions à temps limité
+    untimed: Maximum {maxFailurePointsToSucceed} points d’erreur dans {questionCountTimed}
+      questions avec limite de temps, ou dans {questionCountUntimed} questions sans
+      limite de temps
+  timed_out: Tu n’as pas répondu à cette question dans le temps imparti.
+  timed_out_last: Tu n’as pas répondu à la dernière question dans le temps imparti.
+  general:
+    edit: Modifier le quiz
+    title: Informations générales
+  max_fp: Points d’erreur maximum tolérables
+  timelimit: Limite de temps
+  question_options:
+    add: Ajouter une question
+    add_answer: Ajouter une réponse
+    show_comments: Afficher les commentaires
+    delete: Supprimer la question
+    edit: Modifier la question
+  editModal:
+    quiz:
+      input:
+        name:
+          label: 'Nom :'
+          placeholder: Nom du quiz
+        questionCountTimed: 'Nombre de questions auxquelles il faut répondre :'
+        allowUntimed: Autoriser la participation sans limite de temps
+        maxFp: 'Points d’erreur maximum pour réussir :'
+        questionCountUntimed: 'Nombre de questions auxquelles il faut répondre sans
+          limite de temps :'
+      title: Modifier le quiz
+      htmlWarning: '**Attention:** Le formatage de la description a été modifié. Ce
+        que tu vois dans le champ de saisie de texte est formaté en HTML. Veuillez
+        modifier la description de manière à utiliser Markdown à la place. Utilise
+        la fonction de prévisualisation du champ de saisie pour t’assurer que le formatage
+        a été correctement adapté.'
+    question:
+      input:
+        fp: 'Points d’erreur :'
+        text:
+          label: 'Question :'
+          placeholder: Question quiz…
+        duration: 'Temps de répondre :'
+        wikilink:
+          label: 'Lien vers l’article wiki correspondant :'
+          placeholder: https://wiki.foodsharing.de/…
+      confirmDelete:
+        title: Tu veux vraiment supprimer cette question ?
+      title: Modifier la question
+    answer:
+      title: Modifier la réponse
+      input:
+        text:
+          label: 'Réponse :'
+          placeholder: Réponse …
+        explanation:
+          label: 'Explication :'
+          placeholder: Explication …
+  sessionStatus:
+    1: Réussite avec {failurePoints} sur un maximum de {maxFailurePointsToSucceed}
+      points d’erreur
+    2: Échec avec {failurePoints} points d’erreur sur un maximum de {maxFailurePointsToSucceed}
+    0: en cours
+  confirmDelete:
+    session: Tu veux vraiment supprimer cette session de quiz ?
+    question: Tu veux vraiment supprimer cette question ?
+    answer: Veux-tu vraiment supprimer cette réponse ?
+  confirm: Confirmer le quiz et clore le processus
+  fp_badge:
+    right: réponses correctes
+    wrong: '{userFailurePoints} erreurs'
+  questions_section:
+    title: Questions de quiz ({count})
+  editable_tooltip: Tu peux modifier ce quiz.
+  answer_options:
+    edit: Modifier la réponse
+    delete: Supprimer la réponse
+  fp_options:
+    default: '{failurePoints} Points d’erreur'
+    joke: '{failurePoints} points d’erreur (sans classement)'
+    ko: '{failurePoints} Points d’erreur (KO)'
+  fp_description: Total {failurePoints}, soit {parMistake} par mauvaise réponse
 fpsingular: Point d’erreur
 bootstrap-datepicker:
   labelCurrentMonth: Mois actuel
@@ -3664,7 +3810,9 @@ thread:
   post:
     options:
       copy_source: Copier le code source
+      copy_direct_link: Copier le lien direct
     copy_source_success: Code source copié !
+    copy_direct_link_success: Lien direct copié !
   priorityModal:
     lower: tout en bas
     normal: normal
@@ -3712,6 +3860,15 @@ help:
         de sorte que les thèmes soient toujours en tête, indépendamment de la date
         de modification.\nLes fils de priorité -1 sont affichés sous tous les autres
         fils.\n"
+    profileCommitmentsStat:
+      title: Statistique d’engagement
 automatic_delete: '- le profil doit être supprimé.'
 automatic_not_delete: '- le profil doit être conservé.'
 no_automatic_delete: 'Si la dernière connexion remonte à cinq ans :'
+team_page:
+  alumni_member:
+    title: Anciennes
+  it_member:
+    title: Équipe informatique
+  board_member:
+    title: Comité d’association
