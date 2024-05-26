@@ -244,7 +244,7 @@ class ForumRestController extends AbstractFOSRestController
         $title = $paramFetcher->get('title');
         $sendMail = $paramFetcher->get('sendMail') ?? false;
         $regionDetails = $this->regionTransactions->getRegionDetails($forumId);
-        $postActiveWithoutModeration = ($this->session->user('verified') && !$regionDetails['moderated']) || $this->session->isAmbassadorForRegion([$forumId]);
+        $postActiveWithoutModeration = ($this->session->isVerified() && !$regionDetails['moderated']) || $this->session->isAmbassadorForRegion([$forumId]);
 
         $threadId = $this->forumTransactions->createThread($this->session->id(), $title, $body, $regionDetails, $forumSubId, $postActiveWithoutModeration, $sendMail);
 

@@ -77,11 +77,8 @@ export const getters = {
   hasCalendarToken () {
     return store.user?.hasCalendarToken !== null || false
   },
-  getMailBox () {
-    return store.user?.mailBoxId
-  },
   hasMailBox () {
-    return store.user?.mailBoxId > 0 || false
+    return store.user?.hasMailbox || false
   },
   getMailUnreadCount () {
     if (store.mailUnreadCount > 0) {

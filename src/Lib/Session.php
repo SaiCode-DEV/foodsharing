@@ -328,16 +328,10 @@ class Session
             'name' => $fs['name'],
             'nachname' => $fs['nachname'],
             'photo' => $fs['photo'],
-            'bezirk_id' => $fs['bezirk_id'],
             'email' => $fs['email'],
-            'type' => $fs['type'],
-            'verified' => $fs['verified'],
-            'token' => $fs['token'],
-            'mailbox_id' => $fs['mailbox_id'],
             'gender' => $fs['geschlecht'],
             'privacy_policy_accepted_date' => $fs['privacy_policy_accepted_date'],
             'privacy_notice_accepted_date' => $fs['privacy_notice_accepted_date'],
-            'last_activity' => $fs['last_activity']
         ]);
 
         /*
@@ -349,10 +343,9 @@ class Session
         $_SESSION['client'] = [
             'id' => $fs['id'],
             'bezirk_id' => $fs['bezirk_id'],
-            'group' => ['member' => true],
             'rolle' => (int)$fs['rolle'],
             'verified' => (int)$fs['verified'],
-            'last_activity' => $fs['last_activity']
+            'last_activity' => $fs['last_activity'],
         ];
         if ($this->role()->isAtLeast(Role::FOODSAVER)) {
             if ($r = $this->regionGateway->listRegionsForBotschafter($fs['id'])

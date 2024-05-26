@@ -154,7 +154,6 @@ class FoodsaverGateway extends BaseGateway
 			fs.bezirk_id,
 			fs.photo,
 			fs.rolle,
-			fs.type,
 			fs.verified,
 			fs.name,
 			fs.nachname,

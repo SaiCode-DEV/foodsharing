@@ -161,8 +161,8 @@ final class PageHelper
             'firstname' => $this->session->user('name') ?? '',
             'lastname' => $this->session->user('nachname') ?? '',
             'may' => $this->session->mayRole(),
-            'homeRegionId' => $this->session->user('bezirk_id') ?? null,
-            'mailBoxId' => $this->session->user('mailbox_id') ?? null,
+            'homeRegionId' => $this->session->getCurrentRegionId() ?? null,
+            'hasMailbox' => $this->mailboxPermissions->mayHaveMailbox(),
             'isFoodsaver' => $this->session->mayRole(Role::FOODSAVER),
             'verified' => $this->session->isVerified(),
             'avatar' => $this->session->user('photo') ?? null,
@@ -170,7 +170,6 @@ final class PageHelper
 
         $permissions = null;
         if ($this->session->mayRole()) {
-            $userData['token'] = $this->session->user('token');
             $permissions = $this->getPermissions();
         }
 

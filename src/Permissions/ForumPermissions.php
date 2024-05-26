@@ -27,7 +27,7 @@ class ForumPermissions
 
     public function mayStartUnmoderatedThread(array $region, $ambassadorForum): bool
     {
-        if (!$this->session->user('verified')) {
+        if (!$this->session->isVerified()) {
             return false;
         }
         $regionId = $region['id'];

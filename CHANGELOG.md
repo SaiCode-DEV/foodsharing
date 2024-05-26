@@ -31,6 +31,7 @@
 - Modernized StoreChainControl to a Symfony controller !3292 @chriswalg
 - Rework team page in vue !3248 !3351 @chriswalg
 - Refactored the main map to vue !3230 !3335 @alex.simm
+- Remove unused session code !3361 @koemai
 
 ## Dev/Test/CI stuff
 - Added backend support for getting, adding and updating achievements. #1724 !3317 !3318 @AntonBallmaier
