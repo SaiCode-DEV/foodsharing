@@ -331,6 +331,9 @@ quiz:
   continuetype: ''
   resultsbelow: ''
   not_passed_details: ''
+  results:
+    title:
+      1: تهانينا!
 pass:
   nav:
     generate: ''
