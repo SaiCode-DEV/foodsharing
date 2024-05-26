@@ -560,6 +560,9 @@ quiz:
   continuenow: ''
   question: ''
   learnbreak: ''
+  results:
+    title:
+      1: 祝贺你
 picture_upload_widget:
   choose_picture: ''
   picture_upload: ''
