@@ -1354,6 +1354,7 @@ forum:
   mail_confirmation:
     text: "Möchtest du wirklich, dass dieser neue Beitrag als E-Mail an alle Mitglieder dieser AG bzw. dieses Bezirks versendet wird? Das solltest du nur dann tun, wenn dein Anliegen alle betrifft und so wichtig ist, dass es auch alle mitbekommen sollten."
     title: "Wirklich E-Mail-Benachrichtigung versenden?"
+  go: "Zum Forum"
 
 chat:
   open_chat: "Nachricht schreiben"

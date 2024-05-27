@@ -29,7 +29,7 @@
           <b-form-input
             v-model="region.name"
             :state="region.name ? null : false"
-            @change="autofillMailbox"
+            @change="autofill"
           />
         </b-form-group>
 
@@ -66,6 +66,7 @@
           <b-form-select
             v-model="region.type"
             :options="regionTypeOptions"
+            @change="updateMasterRegion"
           />
         </b-form-group>
 
@@ -91,18 +92,23 @@
         <div class="float-right">
           <b-button
             v-if="!isNewRegion"
+            variant="outline-primary"
+            :href="$url('forum', region.id)"
+            target="_blank"
+            v-text="$i18n('forum.go')"
+          />
+          <b-button
+            v-if="!isNewRegion"
             variant="danger"
             @click="deleteRegion"
-          >
-            {{ $i18n('button.delete') }}
-          </b-button>
+            v-text="$i18n('button.delete')"
+          />
           <b-button
             :disabled="!(region.name && mailboxState !== false)"
             variant="success"
             @click="saveRegion"
-          >
-            {{ $i18n('button.save') }}
-          </b-button>
+            v-text="$i18n('button.save')"
+          />
         </div>
       </div>
     </Container>
@@ -147,8 +153,8 @@ export default {
     },
     formTitle () {
       if (!this.region) return this.$i18n('region.select')
-      if (this.region.id) return `${this.$i18n('region.edit')} - ${this.region.name}`
-      return this.$i18n('region.createNew')
+      if (this.isNewRegion) return this.$i18n('region.createNew')
+      return `${this.$i18n('region.edit')} - ${this.region.name}`
     },
     isNewRegion () {
       return !this.region.id
@@ -159,18 +165,19 @@ export default {
     },
   },
   methods: {
-    updateRegionOptions () {
+    async updateRegionOptions () {
+      await new Promise(resolve => window.setTimeout(resolve, 100))
       // TODO disable self and parents
       this.regionOptions = [
         { value: 0, text: this.$i18n('region.root') },
-        ...this.$refs.tree.regions.map(region => ({
+        ...this.$refs.tree.getRegions().map(region => ({
           value: region.id,
           text: '\u2002'.repeat(region.depth) + region.name,
         })),
       ]
     },
-    async fetchRegionData (region) {
-      this.region = await getRegionData(region.id)
+    async fetchRegionData (regionId) {
+      this.region = await getRegionData(regionId)
       await this.$nextTick()
       this.$refs.adminSearch.loadingInitialValues()
     },
@@ -182,12 +189,20 @@ export default {
       }
       if (!await this.confirmationDialogue(`region.confirm.${this.isNewRegion ? 'create' : 'edit'}`, dialogueOptions)) return
       try {
-        this.region = await (this.isNewRegion ? createRegion : patchRegion)(this.region)
-        await this.$refs.tree.reset()
+        if (this.region.type !== REGION_UNIT_TYPE.WORKING_GROUP) {
+          delete this.region.workgroupFunction
+        }
+        if (this.isNewRegion) {
+          this.region.id = await createRegion(this.region)
+          await this.$refs.tree.addRegion(this.region)
+        } else {
+          await patchRegion(this.region)
+          await this.$refs.tree.updateRegion(this.region)
+        }
       } catch (e) {
         // Simply show the error to the user. Since only orgas use this, this should be user friendly enough.
         pulseError(e?.jsonContent?.message ?? this.$i18n('error_unexpected'))
-        this.fetchRegionData(this.region)
+        this.fetchRegionData(this.region.id)
       }
     },
     prepareNewRegion () {
@@ -200,13 +215,15 @@ export default {
         type: 1,
         adminIds: [],
         workgroupFunction: 0,
+        id: null,
       }
+      this.$refs.tree.unselect()
     },
     async deleteRegion () {
       if (!await this.confirmationDialogue('region.confirm.delete', { params: this.region })) return
       try {
         await deleteGroup(this.region.id)
-        await this.$refs.tree.reset()
+        await this.$refs.tree.deleteRegion(this.region)
         this.region = null
       } catch (e) {
         pulseError(e?.jsonContent?.message ?? this.$i18n('error_unexpected'))
@@ -216,7 +233,7 @@ export default {
       const replacements = [
         [' ', '.'],
         ['ä', 'ae'],
-        ['ö', 'öe'],
+        ['ö', 'oe'],
         ['ü', 'ue'],
         ['ß', 'ss'],
       ]
@@ -226,9 +243,19 @@ export default {
       }
       return text
     },
-    autofillMailbox (newName) {
+    autofill (newName) {
       if (!this.region.mailbox) {
         this.region.mailbox = this.mailboxFormatter(newName)
+      }
+      if (!this.region.emailName) {
+        this.region.emailName = `foodsharing ${newName}`
+      }
+    },
+    updateMasterRegion () {
+      if (this.region.type === REGION_UNIT_TYPE.WORKING_GROUP) {
+        this.region.masterId = 0
+      } else if (this.region.masterId === 0 && this.region.type !== REGION_UNIT_TYPE.WORKING_GROUP) {
+        this.region.masterId = this.region.parentId
       }
     },
   },

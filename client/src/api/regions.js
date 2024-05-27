@@ -65,6 +65,6 @@ export function patchRegion (region) {
   return patch(`/region/${region.id}`, region)
 }
 
-export function createRegion (region) {
-  return post('/region', region)
+export async function createRegion (region) {
+  return (await post('/region', region)).regionId
 }

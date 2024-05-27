@@ -24,7 +24,7 @@
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
 - Remove unneeded u_loadCoords function !3277 @stcz
-- Reworked region admin page and removed XhrMethods #1412 #1414 #1416 #1417 #1181 !3193 @AntonBallmaier
+- Reworked region admin page and removed XhrMethods #1412 #1414 #1416 #1417 #1181 #1939 !3193 !3346 @AntonBallmaier
 - Modernized EventControl to a Symfony controller !3260 @chriswalg
 - Refactor the nearby baskets list to vue !3294 @alex.simm
 - Rebuild quiz module #1666 !3119 @AntonBallmaier

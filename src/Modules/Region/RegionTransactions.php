@@ -133,21 +133,24 @@ class RegionTransactions
         $this->regionGateway->setRegionAdmins($region->id, $region->adminIds);
         $this->regionGateway->editRegion($region);
 
-        // TODO set group function
+        $this->groupFunctionGateway->deleteRegionFunction($region->id);
+        if ($region->workgroupFunction) {
+            $this->groupFunctionGateway->addRegionFunction($region->id, $region->parentId, $region->workgroupFunction);
+        }
     }
 
-    public function addRegion(RegionForAdministration $region): void
+    public function addRegion(RegionForAdministration $region): int
     {
         $this->assertNoDuplicateFunctionGroup($region);
         $this->cleanUpRegionParameters($region);
         if ($this->mailboxGateway->isMailboxNameUsed($region->mailbox)) {
             throw new BadRequestHttpException('This mailbox name is already used.');
         }
-        $this->regionGateway->addRegion($region);
+        $regionId = $this->regionGateway->addRegion($region);
         $this->mailboxGateway->setRegionMailbox($region);
         $this->regionGateway->setRegionAdmins($region->id, $region->adminIds);
 
-        // TODO set group function
+        return $regionId;
     }
 
     private function assertNoDuplicateFunctionGroup(RegionForAdministration $region): void
@@ -159,7 +162,7 @@ class RegionTransactions
             $region->parentId,
             $region->workgroupFunction,
         );
-        if ($currentGroupId !== $region->id) {
+        if ($currentGroupId && $currentGroupId !== $region->id) {
             throw new BadRequestHttpException('There cannot be more than one special working group per type in each region.');
         }
     }

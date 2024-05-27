@@ -46,32 +46,25 @@ export default {
   methods: {
     // callback function that loads data for the tree
     async loadData (node) {
-      const id = node.id === 'root' ? 0 : node.id
+      const id = node.id === 'root' ? 0 : node.states.id
 
       const regions = await listRegionChildren(id, this.includeWorkingGroups)
-      const index = this.regions.findIndex(region => region.id === id)
-      const depth = index === -1 ? 0 : this.regions[index].depth + 1
-      for (const region of regions) {
-        region.depth = depth
-      }
-      this.regions.splice(index + 1, 0, ...regions)
       this.$emit('update')
       return regions.map(region => {
         return {
-          id: region.id,
           text: region.name,
           isBatch: region.hasChildren,
           children: [],
-          regions: region,
           state: {
             selectable: this.selectableRegionTypes === null || this.selectableRegionTypes.includes(region.type),
             type: region.type,
+            id: region.id,
           },
         }
       })
     },
     itemSelected (node) {
-      this.$emit('change', node)
+      this.$emit('change', node.states.id)
     },
     iconClass (regionType) {
       switch (regionType) {
@@ -87,9 +80,63 @@ export default {
     },
     async reset () {
       this.displayed = false
-      this.regions = []
       await this.$nextTick()
       this.displayed = true
+    },
+    async deleteRegion (region) {
+      this.$refs.tree.remove({ states: { id: region.id } })
+      this.$emit('update')
+    },
+    async addRegion (region) {
+      let parent = this.$refs.tree.find({ states: { id: region.parentId } })[0]
+      parent?.expand?.()
+      parent ??= this.$refs.tree
+      const regionNode = {
+        text: region.name,
+        state: {
+          type: region.type,
+          id: region.id,
+          selected: true,
+        },
+      }
+      this.addRegionNode(regionNode, parent, region.name)
+      this.$emit('update')
+    },
+    async updateRegion (region) {
+      let newParent = this.$refs.tree.find({ states: { id: region.parentId } })[0]
+      newParent?.expand?.()
+      newParent ??= this.$refs.tree
+      const node = this.$refs.tree.find({ states: { id: region.id } })[0]
+      node.data.text = region.name
+      node.states.type = region.type
+      this.$refs.tree.remove(node)
+      this.addRegionNode(node, newParent, region.name)
+      this.$emit('update')
+    },
+    addRegionNode (regionNode, parent, regionName) {
+      const nextSibling = parent.children.find(child => child.text > regionName)
+      if (nextSibling) {
+        nextSibling.before(regionNode)
+      } else {
+        parent.append(regionNode)
+      }
+    },
+    getRegions () {
+      const elements = this.$refs.tree.toJSON().map(x => [x, 1])
+      const regions = []
+      while (elements.length) {
+        const [element, depth] = elements.shift()
+        elements.unshift(...element.children.map(x => [x, depth + 1]))
+        regions.push({
+          name: element.data.text,
+          id: element.state.id,
+          depth: depth,
+        })
+      }
+      return regions
+    },
+    unselect () {
+      this.$refs.tree.find({ states: { selected: true } })[0]?.unselect?.()
     },
   },
 }

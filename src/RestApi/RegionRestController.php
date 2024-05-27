@@ -529,7 +529,9 @@ class RegionRestController extends AbstractFoodsharingRestController
     }
 
     #[OA2\Get(summary: 'Adds a region using the given data.')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'success', content: new OA2\JsonContent(type: 'object', properties: [
+        new OA2\Property(property: 'regionId', type: 'integer', description: 'The id of the newly created region')
+    ]))]
     #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid data')]
     #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
@@ -552,8 +554,8 @@ class RegionRestController extends AbstractFoodsharingRestController
             }
         }
 
-        $this->regionTransactions->addRegion($region);
+        $regionId = $this->regionTransactions->addRegion($region);
 
-        return $this->respondOK();
+        return $this->respondOK(['regionId' => $regionId]);
     }
 }

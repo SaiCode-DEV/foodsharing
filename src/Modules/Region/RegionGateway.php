@@ -677,7 +677,7 @@ class RegionGateway extends BaseGateway
         $this->db->commit();
     }
 
-    public function addRegion(RegionForAdministration $region): void
+    public function addRegion(RegionForAdministration $region): int
     {
         $this->db->beginTransaction();
         $region->id = $this->db->insert('fs_bezirk', [
@@ -689,6 +689,8 @@ class RegionGateway extends BaseGateway
         $this->addRegionToClosure($region->id, $region->parentId);
         $this->db->update('fs_bezirk', ['has_children' => true], ['id' => $region->parentId]);
         $this->db->commit();
+
+        return $region->id;
     }
 
     public function regionHasAncestor(int $regionId, int $ancestorId): bool
