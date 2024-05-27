@@ -7,7 +7,7 @@
 - Add page-redirect after login !3334 @AntonBallmaier
 - Delete users older then 5 Years activity. Have profile setting to protect account from deletion#19 !3134 @fs_k
 - Added a location button to the map main #638 !3357 @alex.simm
-- Added a popup for food share points on the map !3360 @alex.simm
+- Added a popup for food share points on the map !3360 !3371 @alex.simm
 
 ## Changes
 - Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei

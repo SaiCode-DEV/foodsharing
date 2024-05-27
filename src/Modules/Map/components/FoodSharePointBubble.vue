@@ -16,7 +16,7 @@
     </template>
 
     <div v-if="picture">
-      <img class="picture" :src="picture">
+      <img class="picture" :src="picturePath">
     </div>
     <div class="card my-3">
       <Markdown :source="description" />
@@ -40,6 +40,17 @@ export default {
       description: '',
       picture: null,
     }
+  },
+  computed: {
+    picturePath () {
+      if (!this.picture) {
+        return null
+      } else if (this.picture.startsWith('/api/uploads')) {
+        return this.picture
+      } else {
+        return '/images/'.this.picture.replace('/', '/crop_0_528_')
+      }
+    },
   },
   methods: {
     async show (foodSharePointId) {
