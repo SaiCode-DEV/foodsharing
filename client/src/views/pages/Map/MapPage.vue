@@ -31,6 +31,7 @@
     <basket-bubble ref="basketBubble" />
     <community-bubble ref="communityBubble" />
     <store-bubble ref="storeBubble" />
+    <food-share-point-bubble ref="foodSharePointBubble" />
   </div>
 </template>
 
@@ -49,6 +50,7 @@ import { hideLoader, showLoader } from '@/script'
 import BasketBubble from '@php/Modules/Map/components/BasketBubble.vue'
 import CommunityBubble from '@php/Modules/Map/components/CommunityBubble.vue'
 import StoreBubble from '@php/Modules/Map/components/StoreBubble.vue'
+import FoodSharePointBubble from '@php/Modules/Map/components/FoodSharePointBubble.vue'
 import Storage from '@/storage'
 import DataUser from '@/stores/user.js'
 
@@ -63,6 +65,7 @@ export default {
     BasketBubble,
     CommunityBubble,
     StoreBubble,
+    FoodSharePointBubble,
     Vue2LeafletLocatecontrol,
   },
   props: {
@@ -179,7 +182,7 @@ export default {
           this.$refs.basketBubble.show(id)
           break
         case MARKER_TYPES.foodsharepoints.name:
-          location.href = this.$url('foodsharepoint', id)
+          this.$refs.foodSharePointBubble.show(id)
           break
         case MARKER_TYPES.stores.name:
           this.$refs.storeBubble.show(id)

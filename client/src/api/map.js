@@ -18,3 +18,7 @@ export function getBasketBubbleContent (basketId) {
 export function getStoreBubbleContent (storeId) {
   return get(`/map/stores/${storeId}`)
 }
+
+export function getFoodSharePointBubbleContent (foodSharePointId) {
+  return get(`/map/foodSharePoint/${foodSharePointId}`)
+}

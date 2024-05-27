@@ -1829,6 +1829,8 @@ map:
   donates: "Betrieb spendet" #MapView
   filters:
     my_stores: "Nur meine Betriebe"
+  foodsharepoint:
+    go: "Zum Fairteiler"
 
 messages:
   bread: "Nachrichten"

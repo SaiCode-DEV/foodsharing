@@ -1,14 +1,6 @@
 <template>
-  <b-modal
-    id="storeBubbleModal"
-    ref="storeBubbleModal"
-    scrollable
-    centered
-  >
-    <div v-if="loading" class="loader-container mx-auto">
-      <i class="fas fa-spinner fa-spin" />
-    </div>
-    <div v-else-if="store !== null">
+  <map-popup id="storeBubbleModal" :show-footer-close-button="showFooterCloseButton">
+    <div v-if="store">
       <div class="card">
         <div class="card-header">
           <div class="mb-2">
@@ -73,18 +65,13 @@
       </b-alert>
     </div>
 
-    <template #modal-header="{ close }">
-      <h3>{{ store.name }}</h3>
-      <button
-        type="button"
-        class="btn btn-sm no-shadow"
-        @click="close"
-      >
-        <i class="fas fa-xmark" />
-      </button>
+    <template #popup-header>
+      <h3 v-if="store">
+        {{ store.name }}
+      </h3>
     </template>
-    <template #modal-footer>
-      <div class="text-center">
+    <template #popup-footer>
+      <div v-if="store">
         <a
           v-if="store.mayAccessStorePage"
           :href="$url('store', store.id)"
@@ -106,7 +93,7 @@
         </button>
       </div>
     </template>
-  </b-modal>
+  </map-popup>
 </template>
 
 <script>
@@ -116,15 +103,16 @@ import StoreStatusIcon from '../../Store/components/StoreStatusIcon'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import { declineStoreRequest, requestStoreTeamMembership } from '@/api/stores'
 import UserData from '@/stores/user'
+import MapPopup from './MapPopup.vue'
 
 export default {
-  components: { StoreStatusIcon, Avatar },
+  components: { StoreStatusIcon, Avatar, MapPopup },
   data () {
     return {
       loading: true,
       name: '',
       description: '',
-      store: [],
+      store: null,
       storeId: null,
     }
   },
@@ -154,6 +142,11 @@ export default {
     },
     userId () {
       return UserData.getters.getUserId()
+    },
+    showFooterCloseButton () {
+      /* The default close button in the footer is only shown if no other button is visible, so that the footer does not
+         become too crowded */
+      return !this.store || (!this.store.mayAccessStorePage && !this.store.maySendRequest && !this.store.mayWithdrawRequest)
     },
   },
   methods: {
