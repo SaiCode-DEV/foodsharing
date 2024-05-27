@@ -904,6 +904,7 @@ forum:
       group or district? You should only do this if your request affects everyone
       and is so important that everyone should be aware of it.
     title: Really send e-mail notification?
+  go: to the forum
 timepicker:
   labelNowButton: Now
   labelCloseButton: Close
@@ -1909,6 +1910,8 @@ map:
   donates: company donates
   filters:
     my_stores: My stores only
+  foodsharepoint:
+    go: to the Food-Share Point
 content:
   content: Content
   name: Unique name
