@@ -2456,6 +2456,7 @@ forum:
       gönderilmesini gerçekten istiyor musunuz? Bunu yalnızca Konu herkesi ilgilendiriyorsa
       ve herkesin bunun farkında olmasını gerektirecek kadar önemliyse yapmalısınız.
     title: Gerçekten e-posta bildirimleri göndermek istiyor musunuz?
+  go: Foruma
 chat:
   open_chat: Bir mesaj yaz
   new_messages: Yeni Mesajlar
@@ -2797,6 +2798,8 @@ map:
   donates: İşletme bağışlıyor
   filters:
     my_stores: Yalnızca benim işletmelerim
+  foodsharepoint:
+    go: Dağıtım Noktası
 buddy:
   request_sent: İstek gönderildi.
   request_accepted: Artık birbirinizi tanıyorsunuz.
