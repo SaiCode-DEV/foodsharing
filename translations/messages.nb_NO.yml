@@ -1200,6 +1200,8 @@ map:
   donates: Selskapet donerer
   filters:
     my_stores: Kun mine bedrifter
+  foodsharepoint:
+    go: til distribusjonsstasjonen
 content:
   content: innhold
   bread: alle sider
@@ -2255,6 +2257,7 @@ forum:
       hvis forespørselen din påvirker alle og er så viktig at alle bør være klar over
       det.
     title: Sender du virkelig e-postvarsling?
+  go: til forumet
 timepicker:
   labelNowButton: nå
   labelCloseButton: Lukk
