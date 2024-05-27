@@ -12,6 +12,7 @@
 ## Changes
 - Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei
 - Restricted access to email attachments !3345 @alex.simm
+- Stores, where you are a jumper are now displayed at the bottom of the stores dropdown menu !3364 @AntonBallmaier
 
 ## Bugfixes
 - Changed the headline for group applications #1916 !3353 @ToLei
