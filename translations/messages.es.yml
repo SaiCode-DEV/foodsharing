@@ -2569,6 +2569,7 @@ forum:
     text: ¿Realmente quieres que este nuevo post sea enviado por correo electrónico
       a todos los miembros de este grupo o distrito? Solo debes hacerlo si tu petición
       afecta a todos y es tan importante que todos deberían saberlo.
+  go: al foro
 buddy:
   request_sent: 'Solicitud enviada.'
   request_accepted: 'Ahora son amig@s.'
