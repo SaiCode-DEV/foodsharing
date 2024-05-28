@@ -3742,6 +3742,8 @@ map:
   title: 'Mapa'
   filters:
     my_stores: Solo mis empresas
+  foodsharepoint:
+    go: Punto para compartir alimentos
 addreaction: 'Añadir una reacción'
 mail:
   noreply_addresses_not_allowed: 'Los correos electrónicos a direcciones noreply@…
