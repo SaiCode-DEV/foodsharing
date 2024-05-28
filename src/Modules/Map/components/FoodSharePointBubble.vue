@@ -48,7 +48,7 @@ export default {
       } else if (this.picture.startsWith('/api/uploads')) {
         return this.picture
       } else {
-        return '/images/'.this.picture.replace('/', '/crop_0_528_')
+        return '/images/' + this.picture.replace('/', '/crop_0_528_')
       }
     },
   },
