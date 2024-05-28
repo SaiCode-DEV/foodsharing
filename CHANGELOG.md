@@ -20,6 +20,7 @@
 - Fixed the permissions to see applications for working groups #1934 !3320 @alex.simm
 - Fix typos in info texts !3327 @AntonBallmaier
 - Fixed calendar exports breaking for events with linebreaks in their description !3350
+- The correct region is now preselected when creating an event !3366 @AntonBallmaier
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai

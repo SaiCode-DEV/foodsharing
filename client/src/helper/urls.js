@@ -26,7 +26,7 @@ const urls = {
   donate: () => '/unterstuetzung',
   email: () => '/?page=email',
   event: (eventId) => `/event/${eventId}`,
-  eventAdd: () => '/event/add',
+  eventAdd: (regionId) => '/event/add' + (regionId ? `?bid=${regionId}` : ''),
   eventEdit: (eventId) => `/event/${eventId}/edit`,
   festival: () => '/content?sub=festival',
   foodsharepoint: (fspId) => `/fairteiler/${fspId}`,
