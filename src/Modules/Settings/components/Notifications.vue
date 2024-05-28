@@ -33,10 +33,11 @@
             class="pt-1"
           >
             <b-form-checkbox
-              v-if="pushNotificationState === null || pushNotificationState === true"
-              :checked="pushNotificationState"
+              v-if="mayUsePushNotifications"
+              :checked="usePushNotifications"
+              :disabled="pushNotificationsLoading"
               size="sm"
-              @change="trySetPushNotification"
+              @change="updatePushNotifications"
             >
               {{ $i18n('notifications.checkbox_push') }}
             </b-form-checkbox>
@@ -332,9 +333,10 @@ import {
 } from '@/api/notifications'
 import { pulseError, pulseSuccess } from '@/script'
 import i18n from '@/helper/i18n'
-import { subscribeForPushNotifications, unsubscribeFromPushNotifications } from '@/pushNotifications'
+import PushNotificationMixin from '@/mixins/PushNotificationMixin.js'
 
 export default {
+  mixins: [PushNotificationMixin],
   data () {
     return {
       foodSharePointNotificationOptions: [
@@ -347,7 +349,6 @@ export default {
         { value: 1, text: this.$i18n('notifications.checkbox_email') },
       ],
       subscription: {},
-      pushNotificationState: null,
       infoMailState: null,
       newsletterState: false,
       currentFoodSharePoints: [],
@@ -419,12 +420,6 @@ export default {
     this.currentThreads = await getThreadsNotification()
     this.currentRegions = await listRegionsWithoutWorkingGroups()
     this.currentGroups = await listWorkingGroups()
-
-    if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
-      this.pushNotificationState = false
-    } else {
-      await this.isSubscriptionValid()
-    }
   },
   methods: {
     toggleFoodSharePointGlobalEmailNotification () {
@@ -475,38 +470,6 @@ export default {
     },
     toogleGroupsDetails () {
       this.editGroupsNotification = !this.editGroupsNotification
-    },
-    async isSubscriptionValid () {
-      try {
-        const subscription = await (await navigator.serviceWorker.ready).pushManager.getSubscription()
-        if (subscription) {
-          this.pushNotificationState = this.isURL(subscription.endpoint) ? true : null
-        } else {
-          this.pushNotificationState = null
-        }
-      } catch {
-        this.pushNotificationState = false
-      }
-    },
-    isURL (variable) {
-      const urlPattern = '^(http(s):\\/\\/.)[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)$'
-      const regex = new RegExp(urlPattern)
-      return regex.test(variable)
-    },
-    async trySetPushNotification () {
-      try {
-        if (!this.pushNotificationState) {
-          await subscribeForPushNotifications()
-          pulseSuccess(i18n('settings.push.success'))
-        } else {
-          await unsubscribeFromPushNotifications()
-          pulseSuccess(i18n('settings.push.disabled'))
-        }
-        await this.isSubscriptionValid()
-      } catch (error) {
-        pulseError(i18n('error_ajax'))
-        throw error
-      }
     },
     async updateNotificationSettings () {
       try {
