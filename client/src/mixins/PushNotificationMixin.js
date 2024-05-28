@@ -6,9 +6,10 @@ export default {
     mayUsePushNotifications: false, // true if the users device has the technical requirements for push notifications
     usePushNotifications: false, // true if using, false if unable, null if not using
     pushNotificationsLoading: true, // true while async methods are running. Other data has to be reliable only if this is false.
+    mountedLoaded: null,
   }),
-  async mounted () {
-    this.updateNotificationStatus()
+  mounted () {
+    this.mountedLoaded = this.updateNotificationStatus()
   },
   methods: {
     async updateNotificationStatus () {
