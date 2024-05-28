@@ -3313,6 +3313,17 @@ notifications:
   checkbox_disabled: 'Deaktiviert'
   success: "Erfolgreich gespeichert"
   config_button: 'einzeln konfigurieren'
+  pushModal:
+    title: "Push-Benachrichtigungen erhalten?"
+    ok: "Push-Benachrichtigungen erhalten"
+    cancel: "Nicht aktivieren"
+    content: |
+      Damit du schneller mitbekommst, wenn andere Foodsaver:innen dir Nachrichten schicken,
+      kannst du auf diesem Gerät Push-Benachrichtigungen aktivieren!
+      
+      In deinen [Benachichtigungseinstellungen](/?page=settings&sub=info) kannst du diese
+      Benachrichtigungen jeder Zeit wieder abschalten.
+    dontAskAgain: "Nicht wieder fragen"
 
 thread:
   options:

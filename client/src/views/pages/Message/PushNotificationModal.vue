@@ -2,26 +2,26 @@
   <b-modal
     ref="modal"
     centered
-    title="Push-Benachrichtigungen erhalten?"
-    ok-title="Push-Benachrichtigungen erhalten"
-    cancel-title="nicht aktivieren"
+    :title="$i18n('notifications.pushModal.title')"
+    :ok-title="$i18n('notifications.pushModal.ok')"
+    :cancel-title="$i18n('notifications.pushModal.cancel')"
     :cancel-variant="dontAskAgain ? 'outline-danger' : ''"
     @ok="enablePushNotifications"
     @cancel="cancel"
   >
-    Damit du schneller mitbekommst, wenn andere Foodsaver:innen dir Nachrichten schicken, kannst du auf diesem Gerät Push-Benachrichtigungen aktivieren!
-    <hr>
-    In deinen <a href="#">Benachichtigungseinstellungen</a> kannst du diese Benachrichtigungen jeder Zeit wieder abschalten.
+    <Markdown :source="$i18n('notifications.pushModal.content')" />
     <hr>
     <b-form-checkbox v-model="dontAskAgain">
-      Nicht wieder nachfragen
+      {{ $i18n('notifications.pushModal.dontAskAgain') }}
     </b-form-checkbox>
   </b-modal>
 </template>
 <script>
+import Markdown from '@/components/Markdown/Markdown.vue'
 import PushNotificationMixin from '@/mixins/PushNotificationMixin.js'
 
 export default {
+  components: { Markdown },
   mixins: [PushNotificationMixin],
   data: () => ({
     dontAskAgain: false,
