@@ -33,8 +33,8 @@
             class="pt-1"
           >
             <b-form-checkbox
-              v-if="getPushNotificationState === null || getPushNotificationState === true"
-              v-model="getPushNotificationState"
+              v-if="pushNotificationState === null || pushNotificationState === true"
+              :checked="pushNotificationState"
               size="sm"
               @change="trySetPushNotification"
             >
@@ -362,9 +362,6 @@ export default {
     }
   },
   computed: {
-    getPushNotificationState () {
-      return this.pushNotificationState
-    },
     isFoodSharePointGlobalNotificationActive: {
       get () {
         return this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype !== 0)
