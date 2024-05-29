@@ -1419,8 +1419,6 @@ email_template:
   manual_slots_get_ignored: Questa notifica è attualmente inviata se nessuno si è
     registrato agli orari di ritiro regolari. Le date aggiuntive inserite individualmente
     e gli slot sovrascritti o cancellati non vengono attualmente presi in considerazione.
-    Per non ricevere più queste notifiche, rimuovi eventuali orari di ritiro regolari
-    che non sono più necessari nella configurazione di ritiro della tua struttura.
   information: Informazioni
   find_someone: Per favore, coinvolgi qualcuno del tuo team operativo il prima possibile
     in modo che il ritiro possa avvenire. Se non sei in grado di mobilitare nessuno,
