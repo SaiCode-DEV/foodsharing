@@ -259,9 +259,7 @@ email_template:
   foodbasket_request: Matkurven din ble etterspurt av %SENDER%
   manual_slots_get_ignored: Dette varselet sendes for øyeblikket hvis ingen har registrert
     seg for de vanlige hentetidene. Individuelle tilleggsdatoer samt overskrevne eller
-    slettede plasser er ennå ikke tatt i betraktning. For å slutte å motta dette varselet,
-    fjern eventuelle vanlige hentetider som ikke lenger er nødvendige i anleggets
-    hentekonfigurasjon.
+    slettede plasser er ennå ikke tatt i betraktning.
   find_someone: Ta vare på noen fra ditt driftsteam så snart som mulig slik at henting
     kan finne sted. Hvis du ikke kan mobilisere noen, ville det vært fint om du kunne
     hente dem. Dersom dette ikke er mulig for deg, vennligst avbestill avtalen med
@@ -2286,11 +2284,14 @@ calendar:
       name: '{store} henting'
       unconfirmed: ubekreftet
       description: Matdeling hentes i <a href="{url}">{store}</a>
+      otherFoodsavers: 'Registrert sammen med deg: '
+      freeSlots: '{count} plasser er fortsatt ledige'
     event:
       statusUnspecified: Du har ennå ikke angitt om du vil møte på denne avtalen.
         Du kan gjøre det på den koblede siden.
       linkTitle: Matdelingsarrangement
       description: Beskrivelse
+    updated: '(Sist oppdatert: {dato})'
 pickup:
   edit:
     bread: 'Rediger hentetider'
@@ -3641,6 +3642,10 @@ notifications:
   config_button: konfigurere individuelt
   checkbox_bell: Klokke
   checkbox_disabled: deaktivert
+  pickupReminder:
+    title: Påminnelser om ledige plasser
+    description: Motta en e-postmelding hvis det ikke er noen ledige stillinger neste
+      dag i bedriftene du administrerer.
 markdown_input:
   tooltip:
     orderedList: nummerert liste
