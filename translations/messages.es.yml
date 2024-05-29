@@ -3481,11 +3481,9 @@ email_template:
     Tenga en cuenta que los correos electrónicos CCO no se pueden entregar al dominio
     @foodsharing.network."
   manual_slots_get_ignored: 'Esta notificación se envía actualmente si nadie se ha
-    registrado para las citas regulares de recolección. Las citas adicionales añadidas
-    individualmente, así como las citas sobrescritas o eliminadas todavía no se tienen
-    en cuenta. Para dejar de recibir esta notificación, elimine cualquier cita de
-    recogida regular que ya no sea necesaria en la configuración de recogida de la
-    empresa.'
+    registrado para los horarios de recogida habituales. Aún no se tienen en cuenta
+    las fechas adicionales añadidas individualmente ni los espacios sobrescritos o
+    eliminados.'
   confirm_BOT: '. Como eres embajador/moderador de %BEZIRK%, tienes que confirmarlo
     para que se publique.'
 contentmanagement: 'Gestión de contenido'
@@ -3619,6 +3617,7 @@ calendar:
       unconfirmed: 'inconfirmado'
       name: 'recogida {store}'
       freeSlots: '{count} espacios todavía están libres'
+      otherFoodsavers: 'Ingresó junto contigo: '
     updated: '(Última actualización: {date})'
   labelPrevMonth: 'el mes pasado'
   labelCurrentMonth: 'mes actual'
@@ -3881,6 +3880,10 @@ notifications:
     title: Distribuidores
     description: Reciba notificaciones de nuevos comentarios en los foros de distribuidores
       que sigue.
+  pickupReminder:
+    title: Recordatorios de espacio libre
+    description: Recibe correos electrónicos que te avisan si las plazas en los establecimientos
+      que gestionas aún no están ocupadas al día siguiente.
 markdown_input:
   tooltip:
     orderedList: lista numerada
