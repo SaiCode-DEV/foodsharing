@@ -152,6 +152,11 @@ class CalendarRestController extends AbstractFOSRestController
         ]);
     }
 
+    private function updateDateInfo(): string
+    {
+        return '<br><br><i>(Zuletzt aktualisiert: ' . date('d.m.Y H:i') . ')</i>';
+    }
+
     private function createPickupEvent(array $pickup, int $userId): CalendarEvent
     {
         $start = Carbon::createFromTimestamp($pickup['timestamp']);
@@ -171,13 +176,35 @@ class CalendarRestController extends AbstractFOSRestController
         $event->setEnd($start->clone()->addMinutes(30));
         $event->setSummary($summary);
         $event->setUid($userId . $pickup['store_id'] . $pickup['timestamp'] . '@fetch.foodsharing.de');
-        $event->setDescription($this->translator->trans(
-            'calendar.export.pickup.description',
-            [
-                '{url}' => $store_url,
-                '{store}' => $pickup['store_name'],
-            ]
-        ));
+        $description = $this->translator->trans('calendar.export.pickup.description', [
+            '{url}' => $store_url,
+            '{store}' => $pickup['store_name'],
+        ]);
+        $foodsaverIds = str_getcsv($pickup['fs_ids']);
+        $foodsaverNames = str_getcsv($pickup['fs_names'], ',', "'");
+        $index = array_search($this->session->id(), $foodsaverIds);
+        if ($index !== false) {
+            unset($foodsaverIds[$index]);
+            unset($foodsaverNames[$index]);
+        }
+        if (count($foodsaverIds)) {
+            $description .= '<br>' . $this->translator->trans('calendar.export.pickup.otherFoodsavers');
+            $description .= implode(', ', array_map(fn ($id, $name) => '<a href="' . BASE_URL . "/profile/{$id}\">{$name}</a>", $foodsaverIds, $foodsaverNames));
+        }
+
+        if ($freeSlots = $pickup['max_fetchers'] - count($foodsaverIds) - 1) {
+            $description .= '<br>' . $this->translator->trans('calendar.export.pickup.freeSlots', [
+                '{count}' => $freeSlots,
+            ]);
+        }
+
+        if ($pickup['description']) {
+            $description .= '<br><br>' . $pickup['description'];
+        }
+
+        $description .= $this->updateDateInfo();
+
+        $event->setDescription($description);
         $event->setUrl($store_url);
         $event->setStatus($status);
         $event->addLocation($location);
@@ -196,7 +223,8 @@ class CalendarRestController extends AbstractFOSRestController
         $description = '<a href="' . $url . '">' . $this->translator->trans('calendar.export.event.linkTitle') . '</a><br>'
             . $descriptionHint
             . '<b>' . $this->translator->trans('calendar.export.event.description') . '</b>: '
-            . str_replace(["\r\n", "\n", "\r"], '<br>', (string)$meeting['description']);
+            . str_replace(["\r\n", "\n", "\r"], '<br>', (string)$meeting['description'])
+            . $this->updateDateInfo();
 
         $event = new CalendarEvent();
         $event->setStart(Carbon::createFromTimestamp($meeting['start_ts']));
@@ -208,6 +236,7 @@ class CalendarRestController extends AbstractFOSRestController
             $newEnd = clone $event->getStart();
             $event->setEnd($newEnd->modify('+1 hour'));
         }
+
         $event->setSummary($meeting['name']);
         $event->setUid($userId . $meeting['id'] . '@meeting.foodsharing.de');
         $event->setDescription($description);

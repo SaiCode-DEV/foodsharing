@@ -1291,6 +1291,9 @@ calendar:
       name: "{store} Abholung"
       unconfirmed: "unbestätigt"
       description: 'foodsharing-Abholung bei <a href="{url}">{store}</a>'
+      otherFoodsavers: "Zusammen mit dir eingetragen: "
+      freeSlots: "{count} Slots sind noch frei"
+    updated: "(Zuletzt aktualisiert: {date})"
     event:
       statusUnspecified: Du hast noch nicht angegeben, ob du an diesem Termin teilnimmst. Das kannst du auf der verlinkten Seite tun.
       linkTitle: foodsharing-Veranstaltung
