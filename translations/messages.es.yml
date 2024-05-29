@@ -3618,6 +3618,8 @@ calendar:
       description: 'Recoger foodsharing en <a href="{url}">{store}</a>'
       unconfirmed: 'inconfirmado'
       name: 'recogida {store}'
+      freeSlots: '{count} espacios todavía están libres'
+    updated: '(Última actualización: {date})'
   labelPrevMonth: 'el mes pasado'
   labelCurrentMonth: 'mes actual'
   labelSelected: 'Fecha seleccionada'
