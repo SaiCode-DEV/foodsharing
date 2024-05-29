@@ -610,10 +610,7 @@ email_template:
       télémédias (Telemediengesetz)
   manual_slots_get_ignored: Cette notification est actuellement envoyée si personne
     ne s’est inscrit pour les heures de collecte régulières. Les collectes particulières
-    ajoutées manuellement, modifiées ou supprimées ne sont pas prises en compte. Pour
-    ne plus recevoir cette notification, supprime les heures de collectes régulières
-    qui ne sont plus nécessaires dans la configuration de collecte sur la page de
-    ta coopération.
+    ajoutées manuellement, modifiées ou supprimées ne sont pas prises en compte.
   foodbasket_request: Ton panier solidaire vient de faire l’objet d’une requête de
     la part de %SENDER%
   find_someone: Il te faut trouver quelqu’un le plus rapidement possible dans ton
