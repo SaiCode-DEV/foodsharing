@@ -171,6 +171,37 @@ class SettingsGateway extends BaseGateway
     }
 
     /**
+     * Returns an array of options for the users, or null if the option is not set for a user.
+     *
+     * @return array<array<string, mixed>>
+     */
+    public function getUsersOption(array $userIds, UserOptionType $optionType): array
+    {
+        try {
+            $results = $this->db->fetchAllByCriteria('fs_foodsaver_has_options', ['foodsaver_id', 'option_value'], [
+                'foodsaver_id' => $userIds,
+                'option_type' => $optionType->value
+            ]);
+        } catch (Exception) {
+            $results = [];
+        }
+
+        $optionMap = [];
+        $userOptions = [];
+        foreach ($results as $result) {
+            $optionMap[$result['foodsaver_id']] = $result['option_value'];
+        }
+        foreach ($userIds as $userId) {
+            $userOptions[] = [
+                'userId' => $userId,
+                'option' => $optionMap[$userId] ?? null
+            ];
+        }
+
+        return $userOptions;
+    }
+
+    /**
      * Sets an option for the user. If the option is already existing for this user, it will be
      * overwritten. See {@see UserOptionType},.
      */

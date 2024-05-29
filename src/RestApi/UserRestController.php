@@ -215,6 +215,7 @@ class UserRestController extends AbstractFoodsharingRestController
             $response['mobile'] = $data['handy'];
             $response['birthday'] = $data['geb_datum'];
             $response['aboutMeIntern'] = $data['about_me_intern'];
+            $response['role'] = $data['rolle'];
 
             // load region
             $regions = $this->regionTransactions->getUserRegions($data['id']);
@@ -226,7 +227,6 @@ class UserRestController extends AbstractFoodsharingRestController
         }
 
         if ($mayAdministrateUserProfile) {
-            $response['role'] = $data['rolle'];
             $response['position'] = $data['position'];
         }
 

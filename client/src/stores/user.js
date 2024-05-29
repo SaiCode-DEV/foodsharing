@@ -41,6 +41,9 @@ export const getters = {
   isOrga () {
     return store.details?.role >= ROLE.ORGA
   },
+  isStoreManager () {
+    return store.details?.role >= ROLE.STORE_MANAGER
+  },
   getUser () {
     return store.user
   },

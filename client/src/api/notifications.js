@@ -20,6 +20,10 @@ export function listWorkingGroups () {
   return get('/notifications/groups')
 }
 
+export function getPickupReminderNotification () {
+  return get('/notifications/pickupreminder')
+}
+
 export function updateRegionsAndWorkgroupsNotification (regions) {
   return patch('/notifications/regions', regions)
 }
@@ -30,6 +34,10 @@ export function setThreadsNotification (threads) {
 
 export function setFoodSharePointsNotification (foodSharePoints) {
   return patch('/notifications/foodsharepoints', foodSharePoints)
+}
+
+export function setPickupReminderNotification (sendMail) {
+  return patch('/notifications/pickupreminder', { sendMail })
 }
 
 export function setUserNotification (newsletter, chat) {

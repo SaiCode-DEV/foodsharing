@@ -2786,7 +2786,7 @@ email_template:
     part2: "Leider hat sich für den nächsten Termin noch niemand zum Abholen eingetragen."
   find_someone: "Bitte kümmere dich schnellstmöglich um jemanden aus deinem Betriebsteam, damit die Abholung stattfinden kann. Solltest du niemanden mobilisieren können, wäre es schön, wenn du die Abholung übernehmen könntest. Sollte dir das nicht möglich sein, dann sage den Termin bitte rechtzeitig beim Betrieb ab."
   information: "Info"
-  manual_slots_get_ignored: "Diese Benachrichtigung wird aktuell versendet, wenn sich niemand für die regelmäßigen Abholzeiten eingetragen hat. Einzeln hinzugefügte Zusatztermine sowie überschriebene oder gelöschte Slots werden bislang nicht berücksichtigt. Um diese Benachrichtigung nicht mehr zu erhalten, entferne ggf. nicht mehr benötigte regelmäßige Abholzeiten in der Abholkonfiguration deines Betriebs."
+  manual_slots_get_ignored: "Diese Benachrichtigung wird aktuell versendet, wenn sich niemand für die regelmäßigen Abholzeiten eingetragen hat. Einzeln hinzugefügte Zusatztermine sowie überschriebene oder gelöschte Slots werden bislang nicht berücksichtigt."
   help_needed:
     main: "Um diese Funktion zu überarbeiten, benötigen wir die Unterstützung weiterer Programmierer:innen, Tester:innen und Helfer:innen aus deinem Bezirk."
     link: "https://devdocs.foodsharing.network/it-tasks.html"
@@ -3310,6 +3310,9 @@ notifications:
   newsletter:
     title: 'Newsletter'
     description: 'Erhalte ca. 1x monatlich aktuelle Informationen rund um foodsharing per E-Mail.'
+  pickupReminder:
+    title: 'Erinnerungen für unbelegte Slots'
+    description: 'Erhalte Mails, die dich warnen, wenn Slots in von dir verwalteten Betrieben am nächsten Tag noch nicht vergeben sind.'
   checkbox_email: 'E-Mail'
   checkbox_push: 'Push'
   checkbox_bell: 'Glocke'

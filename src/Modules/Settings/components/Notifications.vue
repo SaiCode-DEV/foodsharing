@@ -307,6 +307,27 @@
         </b-row>
       </div>
 
+      <div v-if="isStoreManager" class="pt-2 pb-2">
+        <h4>{{ $i18n('notifications.pickupReminder.title') }}</h4>
+        <b-row>
+          <b-col
+            cols="8"
+            lg="5"
+          >
+            {{ $i18n('notifications.pickupReminder.description') }}
+          </b-col>
+          <b-col cols="4" lg="6">
+            <b-form-checkbox
+              v-model="pickupReminderState"
+              name="pickupReminder"
+              size="sm"
+            >
+              {{ $i18n('notifications.checkbox_email') }}
+            </b-form-checkbox>
+          </b-col>
+        </b-row>
+      </div>
+
       <b-button
         size="sm"
         variant="primary"
@@ -329,10 +350,12 @@ import {
   setFoodSharePointsNotification,
   setThreadsNotification,
   setUserNotification,
+  getPickupReminderNotification,
+  setPickupReminderNotification,
 } from '@/api/notifications'
 import { pulseError, pulseSuccess } from '@/script'
-import i18n from '@/helper/i18n'
 import { subscribeForPushNotifications, unsubscribeFromPushNotifications } from '@/pushNotifications'
+import DataUser from '@/stores/user'
 
 export default {
   data () {
@@ -350,6 +373,7 @@ export default {
       pushNotificationState: null,
       infoMailState: null,
       newsletterState: false,
+      pickupReminderState: true,
       currentFoodSharePoints: [],
       currentThreads: [],
       currentRegions: [],
@@ -365,56 +389,30 @@ export default {
     getPushNotificationState () {
       return this.pushNotificationState
     },
-    isFoodSharePointGlobalNotificationActive: {
-      get () {
-        return this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype !== 0)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
+    isFoodSharePointGlobalNotificationActive () {
+      return this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype !== 0)
     },
-    isFoodSharePointGlobalEmailNotificationActive: {
-      get () {
-        return this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype === 1)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
+    isFoodSharePointGlobalEmailNotificationActive () {
+      return this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype === 1)
     },
-    isGroupsGlobalEmailNotificationActive: {
-      get () {
-        return this.currentGroups.some(group => group.notifyByEmailAboutNewThreads === 1)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
+    isGroupsGlobalEmailNotificationActive () {
+      return this.currentGroups.some(group => group.notifyByEmailAboutNewThreads === 1)
     },
-    isThreadsPointGlobalEmailNotificationActive: {
-      get () {
-        return this.currentThreads.some(threads => threads.infotype === 1)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
+    isThreadsPointGlobalEmailNotificationActive () {
+      return this.currentThreads.some(threads => threads.infotype === 1)
     },
-    isRegionsPointGlobalEmailNotificationActive: {
-      get () {
-        return this.currentRegions.some(region => region.notifyByEmailAboutNewThreads === 1)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
+    isRegionsPointGlobalEmailNotificationActive () {
+      return this.currentRegions.some(region => region.notifyByEmailAboutNewThreads === 1)
     },
-    isFoodSharePointGlobalBellNotificationActive: {
-      get () {
-        return this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype === 2)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
+    isFoodSharePointGlobalBellNotificationActive () {
+      return this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype === 2)
+    },
+    isStoreManager () {
+      return DataUser.getters.isStoreManager()
     },
   },
   async mounted () {
+    await DataUser.mutations.fetchDetails()
     this.subscription = await getUserNotification()
     this.newsletterState = this.convertNumberToBoolean(this.subscription.newsletter)
     this.infoMailState = this.convertNumberToBoolean(this.subscription.infomail_message)
@@ -422,6 +420,9 @@ export default {
     this.currentThreads = await getThreadsNotification()
     this.currentRegions = await listRegionsWithoutWorkingGroups()
     this.currentGroups = await listWorkingGroups()
+    if (this.isStoreManager) {
+      this.pickupReminderState = this.convertNumberToBoolean(await getPickupReminderNotification())
+    }
 
     if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
       this.pushNotificationState = false
@@ -500,14 +501,14 @@ export default {
       try {
         if (!this.pushNotificationState) {
           await subscribeForPushNotifications()
-          pulseSuccess(i18n('settings.push.success'))
+          pulseSuccess(this.$i18n('settings.push.success'))
         } else {
           await unsubscribeFromPushNotifications()
-          pulseSuccess(i18n('settings.push.disabled'))
+          pulseSuccess(this.$i18n('settings.push.disabled'))
         }
         await this.isSubscriptionValid()
       } catch (error) {
-        pulseError(i18n('error_ajax'))
+        pulseError(this.$i18n('error_ajax'))
         throw error
       }
     },
@@ -524,9 +525,12 @@ export default {
           return { id: group.id, notifyByEmailAboutNewThreads: group.notifyByEmailAboutNewThreads === 1 }
         }))
         await setThreadsNotification(this.currentThreads)
-        pulseSuccess(i18n('notifications.success'))
+        if (this.isStoreManager) {
+          await setPickupReminderNotification(this.pickupReminderState)
+        }
+        pulseSuccess(this.$i18n('notifications.success'))
       } catch {
-        pulseError(i18n('error_ajax'))
+        pulseError(this.$i18n('error_ajax'))
       }
     },
     convertBooleanToNumber (value) {
