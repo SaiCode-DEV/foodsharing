@@ -2256,9 +2256,7 @@ email_template:
     önce onaylamanız gerekir.
   manual_slots_get_ignored: Bu bildirim şu anda yalnızca hiç kimse normal teslim alma
     saatleri için kaydolmamışsa gönderilir. Bireysel olarak eklenmiş ek randevular
-    ve üzerine yazılan veya silinen kontenjanlar henüz dikkate alınmamıştır. Bundan
-    sonra bu bildirimi almak istemiyorsanız şirketinizin web sitesindeki normal alım
-    saatlerini kaldırın.
+    ve üzerine yazılan veya silinen kontenjanlar henüz dikkate alınmamıştır.
 wall:
   delete: Kaydı sil
   message_placeholder: Mesaj yaz…
