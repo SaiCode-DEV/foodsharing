@@ -933,12 +933,15 @@ calendar:
       name: "{store} Pick-up"
       unconfirmed: not confirmed
       description: 'Foodsharing pick-up at <a href="{url}">{store}</a>'
+      freeSlots: '{count} slots are still free'
+      otherFoodsavers: 'Registered together with you: '
     event:
       statusUnspecified: You have not stated whether you would like to participate
         in this event. You can do so on the linked page.
       linkTitle: Foodsharing event
       description: Description
 
+    updated: '(last updated: {date})'
 pickup:
   signout_confirm: Are you sure?
   copyNumber: Copy phone number
@@ -1521,9 +1524,7 @@ email_template:
   unknown_email: Unkown e-mail address
   manual_slots_get_ignored: This notification is currently sent, if no-one has signed
     up for regular pick-ups. Manually created, overwritten or deleted slots are therefore
-    not taken into account at the moment. To stop receiving this notifications, remove
-    any regular pick-up slots that are no longer needed in the facility’s pick-up
-    configuration.
+    not taken into account at the moment.
   find_someone: Please look for someone from the team as soon as possible so that
     the pick-up can take place. If you can’t mobilise anyone, it would be nice if
     you could perform the pick-up. If this is not possible for you, please cancel
@@ -3773,6 +3774,10 @@ notifications:
   checkbox_bell: Bell
   checkbox_disabled: Deactivated
   success: Saved successfully
+  pickupReminder:
+    title: Reminders for unoccupied slots
+    description: Receive emails warning you if slots in stores you manage are not
+      yet taken the next day.
 markdown_input:
   tooltip:
     orderedList: numbered list
