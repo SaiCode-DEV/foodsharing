@@ -593,8 +593,7 @@ export default {
       const selectedUserIds = this.selected.map(({ id }) => id)
       showLoader()
       try {
-        const jsonData = await createPassportAsAmbassador(this.regionId, selectedUserIds)
-        const blob = new Blob(jsonData.response, { type: 'application/json' })
+        const blob = await createPassportAsAmbassador(this.regionId, selectedUserIds)
         const filename = `fs_passports_${this.regionId}_${this.regionName}.pdf`
         this.downloadFile(blob, filename)
       } catch (e) {

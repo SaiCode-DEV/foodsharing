@@ -55,14 +55,14 @@ export function get (path, options) {
   return request(path, options)
 }
 
-export function post (path, body) {
-  return request(path, {
+export function post (path, body, options = {}) {
+  return request(path, Object.assign({
     method: 'POST',
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
     },
     body: JSON.stringify(body),
-  })
+  }, options))
 }
 
 export function put (path, body) {

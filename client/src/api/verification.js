@@ -21,5 +21,5 @@ export async function createPassportAsUser () {
 }
 
 export async function createPassportAsAmbassador (regionId, userIds) {
-  return await post(`/region/${regionId}/passport`, { userIds: userIds })
+  return await post(`/region/${regionId}/passport`, { userIds: userIds }, { responseType: 'blob' })
 }
