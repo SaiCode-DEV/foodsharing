@@ -37,7 +37,7 @@ import i18n from '@/helper/i18n'
 
 export default {
   components: { BAlert, BButton },
-  props: { bounceWarning: { type: Array, required: true } },
+  props: { bounceWarning: { type: Object, required: true } },
   methods: {
     convertDate (date) {
       return new Date(Date.parse(date))

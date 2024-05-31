@@ -22,7 +22,7 @@
       />
       <b-button
         variant="outline-primary"
-        @click="resetFilterName"
+        @click="resetFilter"
       >
         <i class="fas fa-times" />
       </b-button>
@@ -53,8 +53,9 @@
     </div>
     <div class="float-right p-1 pr-3">
       <b-pagination
+        v-if="filteredStores.length > 0"
         v-model="currentPage"
-        :total-rows="storeData.length"
+        :total-rows="getTotalRows"
         :per-page="perPage"
         class="my-0"
       />
@@ -82,10 +83,10 @@ export default {
     return {
       filterButtons: [
         { tooltip: 'filterAll', state: null, icon: 'users' },
-        { tooltip: 'filterActive', state: PROFILE_STORE_TEAM_STATE.ACTIVE, icon: 'user' },
-        { tooltip: 'filterRequested', state: PROFILE_STORE_TEAM_STATE.REQUESTED, icon: 'fas fa-fw fa-question-circle' },
-        { tooltip: 'filterJumper', state: PROFILE_STORE_TEAM_STATE.JUMPER, icon: 'running' },
         { tooltip: 'filterManage', state: PROFILE_STORE_TEAM_STATE.MANAGE_ROLE, icon: 'fas fa-hat-cowboy' },
+        { tooltip: 'filterActive', state: PROFILE_STORE_TEAM_STATE.ACTIVE, icon: 'user' },
+        { tooltip: 'filterJumper', state: PROFILE_STORE_TEAM_STATE.JUMPER, icon: 'running' },
+        { tooltip: 'filterRequested', state: PROFILE_STORE_TEAM_STATE.REQUESTED, icon: 'fas fa-fw fa-question-circle' },
       ],
       currentPage: 1,
       perPage: 10,
@@ -97,6 +98,12 @@ export default {
     }
   },
   computed: {
+    getTotalRows () {
+      if (this.filterMemberState === null) {
+        return this.storeData.length
+      }
+      return this.filteredStores.length
+    },
     filteredStores () {
       const regionFilter = this.filterRegionId
       const nameFilter = this.filterName
@@ -158,10 +165,11 @@ export default {
     }))
   },
   methods: {
-    resetFilterName () {
+    resetFilter () {
       this.filterName = null
       this.filterRegionId = null
       this.filterCooperationState = null
+      this.filterMemberState = null
     },
     filterToRegion (regionId) {
       this.filterRegionId = regionId

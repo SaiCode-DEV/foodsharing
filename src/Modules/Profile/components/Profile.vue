@@ -8,7 +8,7 @@
         </b-col>
         <b-col cols="12" xl="9">
           <EmailBounceList
-            v-if="bounceWarning > 0"
+            v-if="isBounceWarningNotEmpty"
             :bounce-warning="bounceWarning"
           />
           <b-tabs
@@ -39,6 +39,7 @@
               />
             </b-tab>
             <b-tab
+              v-if="showPickupsTab"
               :title="$i18n('profile.tab_navigation.pickups')"
             >
               <PickupsSection :pickups-section="pickupsSection" />
@@ -125,6 +126,14 @@ export default {
     return {
       currentUserId: DataUser.getters.getUserId(),
     }
+  },
+  computed: {
+    isBounceWarningNotEmpty () {
+      return Object.keys(this.bounceWarning).length > 0
+    },
+    showPickupsTab () {
+      return this.pickupsSection.showHistoryTab || this.pickupsSection.showOptionsTab || this.pickupsSection.showRegisteredTab
+    },
   },
 }
 </script>

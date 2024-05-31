@@ -205,7 +205,7 @@ export default {
     },
     async sendBuddyRequest (userId) {
       const dialogueOptions = {
-        title: this.$i18n('buddy.send.confirm_title', { name: this.foodSaverName }),
+        title: this.$i18n('buddy.send.confirm_title', { name: this.profileMenu.foodSaverName }),
         okTitle: this.$i18n('yes'),
         okVariant: undefined,
       }

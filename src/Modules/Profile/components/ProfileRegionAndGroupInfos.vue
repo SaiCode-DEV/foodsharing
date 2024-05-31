@@ -1,48 +1,32 @@
 <template>
   <div class="container bg-white">
-    <div
-      v-for="(badgeItem, index) in badges"
-      :id="badgeItem.id"
-      :key="'badge_' + index"
-      class="d-inline mr-2"
-    >
-      <div :id="badgeItem.id" class="customBadge">
-        <a
-          v-if="badgeItem.link"
-          href="#"
-          @click="badgeItem.link"
-        >
-          <span
-            class="item mb-4 mr-3"
-            :class="{
-              'bananaCount': badgeItem.id === 'bananas' && isMe,
-              'bananaCountAdd': badgeItem.id === 'bananas' && !isMe
-            }"
-          >
-            <span class="value mb-4">{{ badgeItem.value }}</span>
-          </span>
-        </a>
-        <span v-else class="item mb-4 mr-3">
-          <span class="value">{{ badgeItem.value }}</span>
-          <span class="text">{{ badgeItem.text }}</span>
-        </span>
-      </div>
-    </div>
-
-    <div v-for="section in sections" :key="section.id">
-      <div v-if="section.value.length > 0 && !(isMe && section.id === 'JOINT_WORK_GROUPS')">
-        <h5 class="mb-2 mt-4">
-          {{ section.title }}
-        </h5>
-        <div class="d-inline d-flex flex-wrap flex-row" style="gap: 5px">
+    <div class="row justify-content-center">
+      <div
+        v-for="(badgeItem, index) in badges"
+        :id="badgeItem.id"
+        :key="'badge_' + index"
+        class="d-inline mr-2"
+      >
+        <div :id="badgeItem.id" class="customBadge">
           <a
-            v-for="(item, index) in section.value"
-            :key="item.id"
-            :href="$url('region', item.id)"
-            class="sectionClass"
+            v-if="badgeItem.link"
+            href="#"
+            @click="badgeItem.link"
           >
-            {{ item.name }}<span v-if="index !== section.value.length - 1">,</span>
+            <span
+              class="item mb-4 mr-3"
+              :class="{
+                'bananaCount': badgeItem.id === 'bananas' && isMe,
+                'bananaCountAdd': badgeItem.id === 'bananas' && !isMe
+              }"
+            >
+              <span class="value mb-4">{{ badgeItem.value }}</span>
+            </span>
           </a>
+          <span v-else class="item mb-4 mr-3">
+            <span class="value">{{ badgeItem.value }}</span>
+            <span class="text">{{ badgeItem.text }}</span>
+          </span>
         </div>
       </div>
     </div>
@@ -62,6 +46,24 @@
             >
               {{ homeDistrictHistory.homeDistrictHistoryChangerFullName }}</a>
             {{ $dateFormatter.date(homeDistrictHistory.homeDistrictHistoryDate, {type: 'full'}) }})</span>
+        </div>
+      </div>
+    </div>
+
+    <div v-for="section in sections" :key="section.id">
+      <div v-if="section.value.length > 0 && !(isMe && section.id === 'JOINT_WORK_GROUPS')">
+        <h5 class="mb-2 mt-4">
+          {{ section.title }}
+        </h5>
+        <div class="d-inline d-flex flex-wrap flex-row" style="gap: 5px">
+          <a
+            v-for="(item, index) in section.value"
+            :key="item.id"
+            :href="$url('region', item.id)"
+            class="sectionClass"
+          >
+            {{ item.name }}<span v-if="index !== section.value.length - 1">,</span>
+          </a>
         </div>
       </div>
     </div>
@@ -129,7 +131,7 @@ export default {
   data () {
     return {
       sections: [
-        { id: 'AMBASSADOR_FOR', title: `${this.$i18n('terminology.ambassadors')} ${this.$i18n('profile.sections.ambassador_for')}`, value: this.ambassadorRegions },
+        { id: 'AMBASSADOR_FOR', title: `${this.$i18n('terminology.ambassador.d')} ${this.$i18n('profile.sections.ambassador_for')}`, value: this.ambassadorRegions },
         { id: 'FOOD_SAVER_IN_REGION', title: this.$i18n('profile.sections.foodSaver_in_region'), value: this.foodSaverRegions },
         { id: 'JOINT_WORK_GROUPS', title: this.$i18n('profile.sections.workgroups_member'), value: this.workingGroups },
         { id: 'WORKGROUPS_ADMIN', title: this.$i18n('profile.sections.workgroups_admin'), value: this.workingGroupsAdmins },

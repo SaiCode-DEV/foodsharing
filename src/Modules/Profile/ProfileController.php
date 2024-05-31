@@ -73,6 +73,7 @@ final class ProfileController extends FoodsharingController
         $maySeeStores = $this->profilePermissions->maySeeStores($userId);
         $userStores = $maySeeStores ? $this->profileGateway->listStoresOfFoodsaver($userId) : [];
         $userArray = $this->createUserArray($userId);
+        $this->pageHelper->addTitle($userArray['name']);
         $params = $this->convertDataToObject($userStores, $userArray, $maySeeStores);
 
         $profilePage = $this->prepareVueComponent('vue-profile', 'Profile', $params);
@@ -327,7 +328,7 @@ final class ProfileController extends FoodsharingController
     {
         $history = [];
 
-        if ($this->profilePermissions->maySeeHistory($this->session->id()) && !empty($userArray['home_district_history'])) {
+        if ($this->profilePermissions->maySeeHistory($userArray['id']) && !empty($userArray['home_district_history'])) {
             $history['homeDistrictHistoryChangerId'] = $userArray['home_district_history']['changer_id'];
             $history['homeDistrictHistoryChangerFullName'] = $userArray['home_district_history']['changer_full_name'];
             $history['homeDistrictHistoryDate'] = $userArray['home_district_history']['date'];
