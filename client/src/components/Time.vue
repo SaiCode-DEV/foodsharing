@@ -3,24 +3,26 @@
     v-if="time"
     v-b-tooltip="tooltip ?? tooltipTime"
     class="time"
-    :class="{ 'text-muted': muted }"
+    :class="{ 'text-muted': muted, small: !plain }"
   >
     <i
       v-if="showIcon"
       class="far fa-fw fa-clock"
     />
-    {{ $dateFormatter.relativeTime(date) }}
+    {{ $dateFormatter.relativeTime(date, options) }}
   </span>
 </template>
 
 <script>
 export default {
   props: {
+    plain: { type: Boolean, default: false },
     time: { type: [Date, String], default: null },
-    showIcon: { type: Boolean, default: true },
-    muted: { type: Boolean, default: true },
+    showIcon: { type: Boolean, default: function () { return !this.plain } },
+    muted: { type: Boolean, default: function () { return !this.plain } },
     dateOnly: { type: Boolean, default: false },
-    tooltip: { type: [Object, String], default: null },
+    tooltip: { type: [Object, String], default: function () { return this.plain ? false : null } },
+    options: { type: Object, default: () => {} },
   },
   data () {
     if (this.time === null) return {}
@@ -50,7 +52,7 @@ export default {
 </script>
 
 <style scoped>
-.time {
+.small {
   font-size: smaller;
 }
 </style>

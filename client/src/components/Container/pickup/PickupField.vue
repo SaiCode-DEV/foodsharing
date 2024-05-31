@@ -16,7 +16,11 @@
         v-if="isSoon"
         class="field-headline field-headline--big text-danger"
       >
-        {{ $dateFormatter.relativeTime(date, {short: true}) }}
+        <Time
+          :time="date"
+          plain
+          :options="{ short: true }"
+        />
       </h6>
       <h6
         v-else
@@ -106,9 +110,10 @@
 
 <script>
 import Avatar from '@/components/Avatar/Avatar.vue'
+import Time from '@/components/Time.vue'
 
 export default {
-  components: { Avatar },
+  components: { Avatar, Time },
   props: {
     entry: { type: Object, default: () => ({}) },
   },
