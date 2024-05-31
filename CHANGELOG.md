@@ -1,3 +1,6 @@
+# Hotfix 2024-07-01
+- Fixed type error in DonationGoalInformation #1970 !3385 @chriswalg
+
 # Hotfix 2024-05-21
 - Added translations for new bell types !3337 @AntonBallmaier @alex.simm
 
