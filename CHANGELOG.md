@@ -23,6 +23,7 @@
 - Fix typos in info texts !3327 @AntonBallmaier
 - Fixed calendar exports breaking for events with linebreaks in their description !3350
 - The correct region is now preselected when creating an event !3366 @AntonBallmaier
+- Fixed type error in DonationGoalInformation #1970 !3385 @chriswalg
 - Fixed passport generation not working #1944 !3376 @AntonBallmaier
 
 ## Refactoring

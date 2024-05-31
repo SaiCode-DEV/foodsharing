@@ -18,7 +18,7 @@ class DonationGoalInformation
         description: 'amount of recevied donations in euros',
         example: 1337,
     )]
-    public readonly int $receivedDonationsInEuros;
+    public readonly float $receivedDonationsInEuros;
 
     #[OA\Property(
         description: 'amount of donation-goal in euros',
@@ -49,7 +49,7 @@ class DonationGoalInformation
         int $goalInEuros,
         bool $isGoalReached,
         float $percentOfGoalReached,
-        int $receivedDonationsInEuros,
+        float $receivedDonationsInEuros,
         string $updatedAt,
     ) {
         $this->donators = $donators;
