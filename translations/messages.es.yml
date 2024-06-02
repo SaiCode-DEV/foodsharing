@@ -1406,6 +1406,8 @@ store:
     sorting:
       default: Clasificación estándar
       pickup: ordenada por última recogida
+    userHasPickupsWarning: '{name} aún está registrado para recoger {occupiedSlots}
+      en esta empresa. Estas franjas horarias quedarán libres. ¿Deseas continuar?'
   lastPickupShort: 'último el {date}'
   request:
     got-it: 'Los responsables han sido informados de su solicitud y se pondrán en
