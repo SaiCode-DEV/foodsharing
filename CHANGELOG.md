@@ -9,6 +9,7 @@
 - Delete users older then 5 Years activity. Have profile setting to protect account from deletion#19 !3134 @fs_k
 - Added a location button to the map main #638 !3357 @alex.simm
 - Added a popup for food share points on the map !3360 !3371 @alex.simm
+- Storemanagers get an extra warning before removing users from a store team, if they currently occupy slots #1825 !3368 @AntonBallmaier
 
 ## Changes
 - Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei

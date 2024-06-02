@@ -104,6 +104,7 @@ import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import StoreTeamManagementPanel from './StoreTeamManagementPanel.vue'
 import StoreTeamFilterPanel from './StoreTeamFilterPanel.vue'
 import StoreApplications from '@/components/Modals/Store/StoreApplications.vue'
+import PickupsData from '@/stores/pickups'
 
 export default {
   components: { StoreTeamAvatar, Container, PhoneButton, Time, OverflowMenu, StoreTeamManagementPanel, StoreTeamFilterPanel, StoreApplications },
@@ -260,6 +261,12 @@ export default {
         okTitle: this.$i18n('button.yes_i_am_sure'),
       }
       if (!await this.confirmationDialogue('store.sm.reallyRemove', dialogueOptions)) return
+
+      const pickups = PickupsData.getters.getPickups()
+      const occupiedSlots = pickups.filter(pickup => pickup.occupiedSlots.find(slot => slot.profile.id === user.id))
+      dialogueOptions.params.occupiedSlots = occupiedSlots.length
+      if (occupiedSlots.length && !await this.confirmationDialogue('store.sm.userHasPickupsWarning', dialogueOptions)) return
+
       try {
         await removeStoreMember(this.storeId, user.id)
         await StoreData.mutations.loadStoreMember(this.storeId)

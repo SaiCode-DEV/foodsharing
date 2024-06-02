@@ -997,6 +997,7 @@ store:
     filterQuizSM: "Quiz für Betriebsverantwortliche bestanden"
     removeFromTeam: "Aus dem Team entfernen"
     reallyRemove: "Möchtest du wirklich {name} aus diesem Betriebs-Team entfernen?"
+    userHasPickupsWarning: "{name} ist noch für {occupiedSlots} Abholungen in diesem Betrieb eingetragen. Diese Slots werden dann frei. Möchtest du trotzdem fortfahren?"
     makeJumper: "Auf die Springerliste"
     makeRegularTeamMember: "In das Team aufnehmen"
     promoteToManager: "Verantwortlich machen"
