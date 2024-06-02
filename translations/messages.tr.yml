@@ -256,7 +256,7 @@ quiz:
         ilişkin anında bir değerlendirme alacaksınız. Burada boş zamanınızda nedenlerini
         tekrar okuyabilirsiniz.
       multiple_choice: Soru başına birkaç doğru cevap olabilir veya hiç olmayabilir.
-        Bu nedenle her cevabın doğru mu yanlış mı olduğuna, ayrı ayrı karar verin.
+        Bu nedenle her cevabın doğru mu yanlış mı olduğuna, ayrı - ayrı karar verin.
       comment: Her soruyu yanıtladıktan sonra, her yanıt seçeneği için açıklamalar
         içeren bir ara değerlendirme göreceksiniz. Bu, hangi cevabın doğru veya yanlış
         olduğunu ve nedenini anlamanıza yardımcı olur. Her hata için açıklamaları
@@ -1267,6 +1267,8 @@ store:
     sorting:
       default: Standart sıralama
       pickup: Son alıma göre sıralandı
+    userHasPickupsWarning: '{name} hâlâ bu işletmedeki {occupiedSlots} alım için kayıtlı.
+      Bu slotlar daha sonra boşalacaktır. Buna rağmen etmek istiyor musun?'
   prefetchthree: 3 Hafta
   prefetchfour: 4 Hafta
   request:
@@ -3305,11 +3307,14 @@ calendar:
       name: '{store} Alım'
       unconfirmed: onaylanmamış
       description: <a href="{url}">{store}</a> 'a Foodsharing alımı
+      otherFoodsavers: 'Sizinle kayıtlı: '
+      freeSlots: '{count} Slotlar hâlâ boş'
     event:
       linkTitle: Foodsharing etkinliği
       statusUnspecified: Bu randevuya katılıp katılmayacağınızı henüz belirtmediniz.
         Bunu bağlantılı sayfada yapabilirsiniz.
       description: Açıklama
+    updated: '(Son güncelleme: {date})'
   labelCurrentMonth: Bu ay
   labelSelected: Seçilmiş Tarih
   labelHelp: Ok tuşlarıyla da navigasyon mümkündür
@@ -3654,6 +3659,10 @@ notifications:
   checkbox_push: Push
   groups:
     title: Çalışma grupları
+  pickupReminder:
+    title: Boş slotlar için hatırlatmalar
+    description: Yönettiğiniz işletmelerdeki slotlar ertesi gün henüz dolmamışsa sizi
+      uyaran e-postalar alın.
 markdown_input:
   tooltip:
     orderedList: numaralı liste
