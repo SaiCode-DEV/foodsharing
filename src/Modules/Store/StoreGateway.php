@@ -1134,7 +1134,7 @@ class StoreGateway extends BaseGateway
         return array_map(fn ($store) => Store::createFromArray($store), $results);
     }
 
-    public function getStoreLogsByActionType(int $storeId, array $storeActions, Carbon $fromDate, Carbon $toDate): array
+    public function getStoreLogsByActionType(int $storeId, array $storeActions, Carbon $fromDate, Carbon $toDate, Pagination $pagination): array
     {
         $logEntries = $this->db->fetchAll('SELECT
 				date_activity as performed_at,
@@ -1152,9 +1152,9 @@ class StoreGateway extends BaseGateway
                 AND date_activity <= ?
                 AND action IN (' . $this->db->generatePlaceholders(count($storeActions)) . ')
             ORDER BY performed_at DESC
-            LIMIT 100
+            LIMIT ?, ?
 		    ',
-            [$storeId, $fromDate, $toDate, ...$storeActions]);
+            [$storeId, $fromDate, $toDate, ...$storeActions, $pagination->offset, $pagination->pageSize]);
 
         return $logEntries;
     }

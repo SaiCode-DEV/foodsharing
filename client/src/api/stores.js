@@ -102,11 +102,11 @@ export async function moveMemberToRegularTeam (storeId, userId) {
   return remove(`/stores/${storeId}/members/${userId}/standby`)
 }
 
-export async function getStoreLog (storeId, storeActionTypes, dateRange) {
+export async function getStoreLog (storeId, storeActionTypes, dateRange, offset = 0) {
   dateRange[0].setHours(0, 0, 0, 0)
   dateRange[1].setHours(24, 0, 0, 0)
   const [fromDate, toDate] = dateRange.map(date => date.toISOString())
-  return get(`/stores/${storeId}/log/${fromDate}/${toDate}/${storeActionTypes.join(',')}`)
+  return get(`/stores/${storeId}/log/${fromDate}/${toDate}/${storeActionTypes.join(',')}?offset=${offset}`)
 }
 
 export async function getStorePermissions (storeId) {

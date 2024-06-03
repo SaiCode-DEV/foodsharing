@@ -68,10 +68,14 @@
             </blockquote>
           </span>
         </div>
-        <div v-if="loggedActions.length >= 100" class="alert alert-info">
-          <i class="fas fa-info-circle" />
-          {{ $i18n('store.log.max_entries_message') }}
-        </div>
+        <b-button
+          v-if="pagesLoaded && loggedActions.length >= pagesLoaded * pageSize"
+          variant="outline-primary"
+          @click="loadMore"
+        >
+          <i class="fas fa-plus-circle" />
+          {{ $i18n('menu.entry.load_more') }}
+        </b-button>
       </div>
     </div>
   </Container>
@@ -106,6 +110,8 @@ export default {
       selectedActionTypes: [],
       actionTypeOptions,
       loggedActions: [],
+      pagesLoaded: 0,
+      pageSize: 100,
     }
   },
   computed: {
@@ -122,6 +128,21 @@ export default {
           this.selectedActionTypes.map((selected) => selected.id),
           this.$refs.dateRange.getDateRange(),
         )
+        this.pagesLoaded = 1
+      } catch (e) {
+        pulseError(this.$i18n('error_unexpected') + e)
+      }
+      this.isLoading = false
+    },
+    async loadMore () {
+      this.isLoading = true
+      try {
+        this.loggedActions.push(...await getStoreLog(
+          this.storeId,
+          this.selectedActionTypes.map((selected) => selected.id),
+          this.$refs.dateRange.getDateRange(),
+          this.pagesLoaded++ * this.pageSize,
+        ))
       } catch (e) {
         pulseError(this.$i18n('error_unexpected') + e)
       }

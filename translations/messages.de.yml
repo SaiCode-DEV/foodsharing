@@ -1103,7 +1103,6 @@ store:
       14: "{actor} hat den Abholslot von {target} am {date} bestätigt."
       15: "{actor} hat {target}s Pinnwandeintrag vom {date} gelöscht"
       16: "{actor} hat die Beitrittsanfrage zurückgezogen"
-    max_entries_message: Maximal 100 Einträge werden angezeigt. Bitte grenze den Suchbereich ein.
   to_map: "Auf der Karte anzeigen"
 
 storeedit:
