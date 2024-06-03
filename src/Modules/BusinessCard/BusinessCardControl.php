@@ -35,9 +35,6 @@ class BusinessCardControl extends Control
         if ($data = $this->gateway->getMyData($this->session->id(), $this->session->mayRole(Role::STORE_MANAGER))) {
             $data = array_map(fn ($value) => $value ?? '', $data);
 
-            if (mb_strlen((string)$data['anschrift']) >= self::MAX_CHAR_PER_LINE || mb_strlen($data['plz'] . ' ' . $data['stadt']) >= self::MAX_CHAR_PER_LINE) {
-                $this->flashMessageHelper->info($this->translator->trans('bcard.info.address_shortened'));
-            }
             if (strlen($data['telefon'] . $data['handy']) <= 3) {
                 $this->flashMessageHelper->error($this->translator->trans('bcard.error.phone'));
                 $this->routeHelper->goAndExit('/?page=settings');
@@ -118,13 +115,6 @@ class BusinessCardControl extends Control
         }
         $data['subtitle'] = $this->displayedRole($role, $data['geschlecht'], $mailbox['name']);
 
-        if (mb_strlen((string)$data['anschrift']) > self::MAX_CHAR_PER_LINE) {
-            $street_number_pos = $this->index_of_first_number($data['anschrift']);
-            $length_street_number = mb_strlen((string)$data['anschrift']) - $street_number_pos;
-            $data['anschrift'] = mb_substr((string)$data['anschrift'], 0, self::MAX_CHAR_PER_LINE - $length_street_number - 4) . '... ' .
-                mb_substr((string)$data['anschrift'], $street_number_pos, $length_street_number);
-        }
-
         if (mb_strlen($data['plz'] . ' ' . $data['stadt']) >= self::MAX_CHAR_PER_LINE) {
             $data['stadt'] = mb_substr((string)$data['stadt'], 0, self::MAX_CHAR_PER_LINE - strlen((string)$data['plz']) - 4) . '...';
         }
@@ -172,16 +162,12 @@ class BusinessCardControl extends Control
             }
 
             $pdf->SetFont('Ubuntu-L', '', 7);
-            if (strlen($data['anschrift'] . ', ' . $data['plz'] . ' ' . $data['stadt']) > 32) {
-                $pdf->SetFont('Ubuntu-L', '', 6);
-            }
 
             $pdf->SetXY(48.5 + $x, 35.2 + $y);
             $pdf->MultiCell(50, 12, $data['subtitle'], 0, 'L');
 
             $pdf->SetTextColor(0, 0, 0);
-            $pdf->Text(52.3 + $x, 44.8 + $y, $data['anschrift']);
-            $pdf->Text(52.3 + $x, 47.8 + $y, $data['plz'] . ' ' . $data['stadt']);
+
             $tel = $data['handy'];
             if (empty($tel)) {
                 $tel = $data['telefon'];
@@ -199,16 +185,5 @@ class BusinessCardControl extends Control
         }
 
         $pdf->Output('bcard-' . $role . '.pdf', 'D');
-    }
-
-    private function index_of_first_number($text)
-    {
-        preg_match('/\d/u', (string)$text, $m, PREG_OFFSET_CAPTURE);
-        if (sizeof($m)) {
-            return mb_strlen(substr((string)$text, 0, $m[0][1]));
-        }
-
-        // return position of the first number in the string
-        return strlen((string)$text);
     }
 }
