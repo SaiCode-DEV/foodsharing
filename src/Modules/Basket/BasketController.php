@@ -33,9 +33,12 @@ class BasketController extends FoodsharingController
         $loc = $this->session->user('location');
         if (!$loc || $loc->lat === 0 && $loc->lon === 0) {
             $loc = GeoLocation::createFromArray(['lat' => MapConstants::CENTER_GERMANY_LAT, 'lon' => MapConstants::CENTER_GERMANY_LON]);
+            $zoom = MapConstants::ZOOM_COUNTRY;
+        } else {
+            $zoom = MapConstants::ZOOM_CITY;
         }
         $baskets = $this->basketGateway->listNearbyBasketsByDistance($this->session->id(), $loc);
-        $this->view->find($baskets, $loc);
+        $this->view->find($baskets, $loc, $zoom);
 
         return $this->renderGlobal();
     }

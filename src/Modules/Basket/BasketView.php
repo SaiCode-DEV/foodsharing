@@ -6,6 +6,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
 use Foodsharing\Lib\View\vPage;
 use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Core\View;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Permissions\BasketPermissions;
@@ -59,9 +60,13 @@ class BasketView extends View
         );
     }
 
-    public function find(array $baskets, $location): void
+    public function find(array $baskets, GeoLocation $location, int $zoom): void
     {
-        $page = new vPage($this->translator->trans('terminology.baskets'), $this->findMap($location));
+        $map = $this->vueComponent('baskets-location-map', 'BasketsLocationMap', [
+            'center' => $location,
+            'zoom' => $zoom,
+        ]);
+        $page = new vPage($this->translator->trans('terminology.baskets'), $map);
 
         if ($baskets) {
             $label = $this->translator->trans('basket.nearby-short');
@@ -71,22 +76,6 @@ class BasketView extends View
         }
 
         $page->render();
-    }
-
-    private function findMap($location): string
-    {
-        if (is_array($location)) {
-            $center = ['lat' => $location['lat'], 'lon' => $location['lon']];
-            $zoom = MapConstants::ZOOM_CITY;
-        } else {
-            $center = ['lat' => MapConstants::CENTER_GERMANY_LAT, 'lon' => MapConstants::CENTER_GERMANY_LON];
-            $zoom = MapConstants::ZOOM_COUNTRY;
-        }
-
-        return $this->vueComponent('baskets-location-map', 'BasketsLocationMap', [
-            'center' => $center,
-            'zoom' => $zoom,
-        ]);
     }
 
     public function basket(array $basket, $requests): void
