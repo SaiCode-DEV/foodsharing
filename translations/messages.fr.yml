@@ -1243,6 +1243,9 @@ store:
     sorting:
       default: Tri standard
       pickup: Trié par dernière collecte
+    userHasPickupsWarning: '{name} est encore inscrite pour {occupiedSlots} collectes
+      dans cette magasin. Ces créneaux seront ensuite libérés. Tu veux quand même
+      continuer ?'
   springer_conversation_name: Replaçant·e {name}
   team_conversation_name: Équipe {name}
   days_before: avant
