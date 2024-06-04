@@ -29,7 +29,13 @@ final class StorePermissionsTest extends Unit
     {
         $this->sessionMock = $this->createMock(Session::class);
         $this->regionGatewayMock = $this->createMock(RegionGateway::class);
-        $this->storePermissions = new StorePermissions($this->tester->get(StoreGateway::class), $this->sessionMock, $this->tester->get(GroupFunctionGateway::class), $this->tester->get(ProfilePermissions::class), $this->regionGatewayMock);
+        $this->storePermissions = new StorePermissions(
+            $this->tester->get(StoreGateway::class),
+            $this->sessionMock,
+            $this->tester->get(GroupFunctionGateway::class),
+            $this->tester->get(ProfilePermissions::class),
+            $this->regionGatewayMock,
+            $this->sessionMock);
     }
 
     public function testListStoresLoadUserIdFromSession(): void

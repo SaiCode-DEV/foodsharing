@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Basket;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Basket\DTO\Basket;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\Uploads\UploadsGateway;
 
 class BasketTransactions
@@ -13,6 +14,7 @@ class BasketTransactions
         private readonly BasketGateway $basketGateway,
         private readonly UploadsGateway $uploadsGateway,
         private readonly Session $session,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
 
@@ -23,7 +25,7 @@ class BasketTransactions
      */
     public function addBasket(Basket $basket): int
     {
-        $basketId = $this->basketGateway->addBasket($basket, $this->session->user('bezirk_id'), $this->session->id());
+        $basketId = $this->basketGateway->addBasket($basket, $this->currentUserUnits->getCurrentRegionId() ?? 0, $this->session->id());
 
         if ($basketId && !empty($basket->imageUrl)) {
             $uuid = substr($basket->imageUrl, 13);

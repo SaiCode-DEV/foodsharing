@@ -26,6 +26,7 @@ use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreTransactionException;
 use Foodsharing\Modules\Store\StoreTransactions;
 use Foodsharing\Modules\Store\TeamStatus as TeamMembershipStatus;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\RestApi\Models\Store\CreateStoreModel;
@@ -62,6 +63,7 @@ class StoreRestController extends AbstractFoodsharingRestController
         private readonly GroupFunctionGateway $groupFunctionGateway,
         private readonly BellTransactions $bellTransactions,
         private readonly ProfilePermissions $profilePermissions,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
 
@@ -271,10 +273,10 @@ class StoreRestController extends AbstractFoodsharingRestController
             if (!$isOrgUser) {
                 $storeGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($store['bezirk_id'], WorkgroupFunction::STORES_COORDINATION);
                 if (empty($storeGroup)) {
-                    if ($this->session->isAdminFor($store['bezirk_id'])) {
+                    if ($this->currentUserUnits->isAdminFor($store['bezirk_id'])) {
                         $isAmbassador = true;
                     }
-                } elseif ($this->session->isAdminFor($storeGroup)) {
+                } elseif ($this->currentUserUnits->isAdminFor($storeGroup)) {
                     $isCoordinator = true;
                 }
             }

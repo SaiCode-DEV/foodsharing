@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Core;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\ImageHelper;
@@ -47,7 +48,8 @@ class View
         Sanitizer $sanitizerService,
         TimeHelper $timeHelper,
         TranslationHelper $translationHelper,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        protected readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
         $this->twig = $twig;
         $this->session = $session;

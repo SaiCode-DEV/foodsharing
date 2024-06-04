@@ -40,7 +40,7 @@ class MailboxControl extends Control
         $this->pageHelper->addBread($this->translator->trans('mailbox.title'));
 
         $boxes = $this->mailboxGateway->getBoxes(
-            $this->session->isAmbassador(),
+            $this->currentUserUnits->isAmbassador(),
             $this->session->id(),
             $this->session->mayRole(Role::STORE_MANAGER)
         );

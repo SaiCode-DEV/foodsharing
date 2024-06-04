@@ -57,7 +57,7 @@ class EventController extends FoodsharingController
             }
         }
 
-        $regions = $this->session->getRegions();
+        $regions = $this->currentUserUnits->getRegions();
 
         if (($event['location_id'] !== null) && $loc = $this->eventGateway->getLocation($event['location_id'])) {
             $event['location_name'] = $loc['name'];
@@ -93,7 +93,7 @@ class EventController extends FoodsharingController
                 $this->routeHelper->goAndExit('/event/' . $id);
             }
         } else {
-            $regions = $this->session->getRegions();
+            $regions = $this->currentUserUnits->getRegions();
 
             $this->pageHelper->addContent($this->view->eventForm($regions));
         }

@@ -112,9 +112,9 @@ class BlogController extends FoodsharingController
 
             $this->pageHelper->addBread($this->translator->trans('blog.new'));
 
-            $regions = $this->session->getRegions();
+            $regions = $this->currentUserUnits->getRegions();
             if (!$this->session->mayRole(Role::ORGA)) {
-                $bot_ids = $this->session->getMyAmbassadorRegionIds();
+                $bot_ids = $this->currentUserUnits->getMyAmbassadorRegionIds();
                 foreach ($regions as $k => $v) {
                     if (!UnitType::isGroup($v['type']) || !in_array($v['id'], $bot_ids)) {
                         unset($regions[$k]);
@@ -169,7 +169,7 @@ class BlogController extends FoodsharingController
             $this->pageHelper->addBread($this->translator->trans('blog.all'), '/blog?sub=manage');
             $this->pageHelper->addBread($this->translator->trans('blog.edit'));
 
-            $regions = $this->session->getRegions();
+            $regions = $this->currentUserUnits->getRegions();
 
             $this->pageHelper->addContent($this->view->blog_entry_form($regions, $data));
         } else {

@@ -7,6 +7,7 @@ use Foodsharing\Lib\View\Utils;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\View;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\ImageHelper;
@@ -34,7 +35,8 @@ class FoodsaverView extends View
         Sanitizer $sanitizer,
         TimeHelper $timeHelper,
         TranslationHelper $translationHelper,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        CurrentUserUnitsInterface $currentUserUnitsInterface,
     ) {
         parent::__construct(
             $twig,
@@ -49,7 +51,8 @@ class FoodsaverView extends View
             $sanitizer,
             $timeHelper,
             $translationHelper,
-            $translator
+            $translator,
+            $currentUserUnitsInterface
         );
     }
 

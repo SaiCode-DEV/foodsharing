@@ -9,6 +9,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Permissions\ContentPermissions;
 use Foodsharing\Permissions\MailboxPermissions;
@@ -61,7 +62,8 @@ final class PageHelper
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly ProfilePermissions $profilePermissions,
         private readonly RegionGateway $regionGateway,
-        private readonly SettingsTransactions $settingsTransactions
+        private readonly SettingsTransactions $settingsTransactions,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
 
@@ -161,7 +163,7 @@ final class PageHelper
             'firstname' => $this->session->user('name') ?? '',
             'lastname' => $this->session->user('nachname') ?? '',
             'may' => $this->session->mayRole(),
-            'homeRegionId' => $this->session->getCurrentRegionId() ?? null,
+            'homeRegionId' => $this->currentUserUnits->getCurrentRegionId() ?? null,
             'hasMailbox' => $this->mailboxPermissions->mayHaveMailbox(),
             'isFoodsaver' => $this->session->mayRole(Role::FOODSAVER),
             'verified' => $this->session->isVerified(),
@@ -201,7 +203,7 @@ final class PageHelper
     {
         return [
             'mayEditUserProfile' => $this->profilePermissions->mayEditUserProfile($this->session->id()),
-            'mayAdministrateUserProfile' => $this->profilePermissions->mayAdministrateUserProfile($this->session->id(), $this->session->user('bezirk_id')),
+            'mayAdministrateUserProfile' => $this->profilePermissions->mayAdministrateUserProfile($this->session->id(), $this->currentUserUnits->getCurrentRegionId()),
             'administrateBlog' => $this->blogPermissions->mayAdministrateBlog(),
             'editQuiz' => $this->quizPermissions->maySeeEditQuizPage(),
             'handleReports' => $this->reportPermissions->mayHandleReports(),
@@ -215,7 +217,7 @@ final class PageHelper
 
     private function getMenu(): string
     {
-        $groups = $this->session->getRegions();
+        $groups = $this->currentUserUnits->getRegions();
 
         $regions = [];
         $workingGroups = [];
@@ -228,7 +230,7 @@ final class PageHelper
                 'hasConference' => $this->regionPermissions->hasConference($groupType)
             ]);
             if (UnitType::isRegion($groupType)) {
-                $group['isAdmin'] = $this->session->isAdminFor($groupId);
+                $group['isAdmin'] = $this->currentUserUnits->isAdminFor($groupId);
                 $group['mayAccessReportGroupReports'] = $this->reportPermissions->mayAccessReportGroupReports($groupId);
                 $group['mayAccessArbitrationGroupReports'] = $this->reportPermissions->mayAccessArbitrationReports($groupId);
                 $group['maySetRegionPin'] = $this->regionPermissions->maySetRegionPin($groupId);

@@ -131,7 +131,7 @@ class FoodsaverControl extends Control
                 }
 
                 if (!isset($g_data['bezirk_id'])) {
-                    $g_data['bezirk_id'] = $this->session->getCurrentRegionId();
+                    $g_data['bezirk_id'] = $this->currentUserUnits->getCurrentRegionId();
                 }
 
                 if ($this->updateFoodsaver($oldFs, $g_data)) {

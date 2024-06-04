@@ -21,7 +21,7 @@ class WorkGroupControl extends Control
         WorkGroupView $view,
         WorkGroupGateway $workGroupGateway,
         WorkGroupPermissions $workGroupPermissions,
-        ImageHelper $imageService
+        ImageHelper $imageService,
     ) {
         $this->view = $view;
         $this->workGroupGateway = $workGroupGateway;
@@ -49,7 +49,7 @@ class WorkGroupControl extends Control
     private function getSideMenuData(?string $activeUrlPartial = null): array
     {
         $countries = $this->workGroupGateway->getCountryGroups();
-        $regions = $this->session->getRegions();
+        $regions = $this->currentUserUnits->getRegions();
 
         $localRegions = array_filter($regions, fn ($region) => !in_array($region['type'], [UnitType::COUNTRY, UnitType::WORKING_GROUP]));
 
@@ -67,7 +67,7 @@ class WorkGroupControl extends Control
         $menuLocalRegions = array_map($regionToMenuItem, $localRegions);
         $menuCountries = array_map($regionToMenuItem, $countries);
 
-        $myRegions = $this->session->getRegions();
+        $myRegions = $this->currentUserUnits->getRegions();
         $myGroups = array_filter($myRegions, fn ($group) => UnitType::isGroup($group['type']));
 
         // Sort the myGroups array by the 'name' key in ascending order

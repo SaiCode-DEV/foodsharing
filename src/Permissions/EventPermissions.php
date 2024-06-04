@@ -4,12 +4,13 @@ namespace Foodsharing\Permissions;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 final class EventPermissions
 {
     private readonly Session $session;
 
-    public function __construct(Session $session)
+    public function __construct(Session $session, private readonly CurrentUserUnitsInterface $currentUserUnits)
     {
         $this->session = $session;
     }
@@ -19,7 +20,7 @@ final class EventPermissions
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
-        if ($this->session->isAdminFor($event['bezirk_id'])) {
+        if ($this->currentUserUnits->isAdminFor($event['bezirk_id'])) {
             return true;
         }
 
@@ -28,7 +29,7 @@ final class EventPermissions
 
     public function maySeeEvent(array $event): bool
     {
-        return $this->session->mayBezirk($event['bezirk_id']);
+        return $this->currentUserUnits->mayBezirk($event['bezirk_id']);
     }
 
     public function mayJoinEvent(array $event): bool
@@ -43,6 +44,6 @@ final class EventPermissions
 
     public function mayCreateEvent(int $regionId): bool
     {
-        return $this->session->mayBezirk($regionId);
+        return $this->currentUserUnits->mayBezirk($regionId);
     }
 }

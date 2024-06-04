@@ -9,6 +9,7 @@ use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\View;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\ImageHelper;
@@ -39,7 +40,8 @@ class SettingsView extends View
         Sanitizer $sanitizerService,
         TimeHelper $timeHelper,
         TranslationHelper $translationHelper,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        CurrentUserUnitsInterface $currentUserUnitsInterface
     ) {
         $this->regionGateway = $regionGateway;
 
@@ -56,7 +58,8 @@ class SettingsView extends View
             $sanitizerService,
             $timeHelper,
             $translationHelper,
-            $translator
+            $translator,
+            $currentUserUnitsInterface
         );
     }
 
@@ -111,7 +114,7 @@ class SettingsView extends View
 
         if ($this->session->mayRole(Role::ORGA)) {
             $bezirk = ['id' => 0, 'name' => false];
-            if ($b = $this->regionGateway->getRegion($this->session->getCurrentRegionId())) {
+            if ($b = $this->regionGateway->getRegion($this->currentUserUnits->getCurrentRegionId())) {
                 $bezirk['id'] = $b['id'];
                 $bezirk['name'] = $b['name'];
             }

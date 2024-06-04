@@ -15,6 +15,7 @@ use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Utility\Sanitizer;
 
 final class BlogGateway extends BaseGateway
@@ -29,7 +30,8 @@ final class BlogGateway extends BaseGateway
         Database $db,
         FoodsaverGateway $foodsaverGateway,
         Sanitizer $sanitizerService,
-        Session $session
+        Session $session,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
         parent::__construct($db);
         $this->bellGateway = $bellGateway;
@@ -169,7 +171,7 @@ final class BlogGateway extends BaseGateway
         if ($this->session->mayRole(Role::ORGA)) {
             $filter = '';
         } else {
-            $ownRegionIds = implode(',', array_map('intval', $this->session->listRegionIDs()));
+            $ownRegionIds = implode(',', array_map('intval', $this->currentUserUnits->listRegionIDs()));
             $filter = 'WHERE `bezirk_id` IN (' . $ownRegionIds . ')';
         }
 
@@ -220,7 +222,7 @@ final class BlogGateway extends BaseGateway
     public function add_blog_entry(array $data): int
     {
         $regionId = intval($data['bezirk_id']);
-        $active = intval($this->session->mayRole(Role::ORGA) || $this->session->isAdminFor($regionId));
+        $active = intval($this->session->mayRole(Role::ORGA) || $this->currentUserUnits->isAdminFor($regionId));
 
         $id = $this->db->insert(
             'fs_blog_entry',

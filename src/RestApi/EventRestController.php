@@ -5,6 +5,7 @@ namespace Foodsharing\RestApi;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Event\InvitationStatus;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\EventPermissions;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -21,6 +22,7 @@ class EventRestController extends AbstractFoodsharingRestController
         private readonly EventGateway $eventGateway,
         private readonly EventPermissions $eventPermissions,
         protected Session $session,
+        protected readonly CurrentUserUnitsInterface $currentUserUnits
     ) {
     }
 
@@ -74,7 +76,7 @@ class EventRestController extends AbstractFoodsharingRestController
     {
         $this->assertLoggedIn();
 
-        if (!$this->session->mayBezirk($regionId)) {
+        if (!$this->currentUserUnits->mayBezirk($regionId)) {
             throw new AccessDeniedHttpException();
         }
 

@@ -7,6 +7,7 @@ use Foodsharing\Modules\Region\ForumFollowerGateway;
 use Foodsharing\Modules\Region\ForumGateway;
 use Foodsharing\Modules\Region\ForumTransactions;
 use Foodsharing\Modules\Region\RegionTransactions;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\Utility\Sanitizer;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -35,7 +36,8 @@ class ForumRestController extends AbstractFOSRestController
         ForumFollowerGateway $forumFollowerGateway,
         ForumPermissions $forumPermissions,
         ForumTransactions $forumTransactions,
-        Sanitizer $sanitizerService
+        Sanitizer $sanitizerService,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
         $this->session = $session;
         $this->regionTransactions = $regionTransactions;
@@ -244,7 +246,7 @@ class ForumRestController extends AbstractFOSRestController
         $title = $paramFetcher->get('title');
         $sendMail = $paramFetcher->get('sendMail') ?? false;
         $regionDetails = $this->regionTransactions->getRegionDetails($forumId);
-        $postActiveWithoutModeration = ($this->session->isVerified() && !$regionDetails['moderated']) || $this->session->isAmbassadorForRegion([$forumId]);
+        $postActiveWithoutModeration = ($this->session->isVerified() && !$regionDetails['moderated']) || $this->currentUserUnits->isAmbassadorForRegion([$forumId]);
 
         $threadId = $this->forumTransactions->createThread($this->session->id(), $title, $body, $regionDetails, $forumSubId, $postActiveWithoutModeration, $sendMail);
 

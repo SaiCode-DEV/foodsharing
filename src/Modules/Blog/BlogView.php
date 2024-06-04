@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Blog;
 use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
 use Foodsharing\Modules\Core\View;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
@@ -40,7 +41,8 @@ class BlogView extends View
         Sanitizer $sanitizerService,
         TimeHelper $timeHelper,
         TranslationHelper $translationHelper,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        CurrentUserUnitsInterface $currentUserUnits,
     ) {
         parent::__construct(
             $twig,
@@ -55,7 +57,8 @@ class BlogView extends View
             $sanitizerService,
             $timeHelper,
             $translationHelper,
-            $translator
+            $translator,
+            $currentUserUnits,
         );
         $this->blogPermissions = $blogPermissions;
     }
@@ -64,7 +67,7 @@ class BlogView extends View
     {
         return $this->vueComponent('vue-blog-overview', 'BlogOverview', [
             'mayAdministrateBlog' => $this->blogPermissions->mayAdministrateBlog(),
-            'managedRegions' => $this->session->getMyAmbassadorRegionIds(),
+            'managedRegions' => $this->currentUserUnits->getMyAmbassadorRegionIds(),
             'blogList' => $data,
         ]);
     }

@@ -8,6 +8,7 @@ use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\View;
 use Foodsharing\Modules\Foodsaver\Profile;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
@@ -52,7 +53,8 @@ class FoodSharePointView extends View
         TimeHelper $timeHelper,
         TranslationHelper $translationHelper,
         TranslatorInterface $translator,
-        FoodSharePointPermissions $fspPermissions
+        FoodSharePointPermissions $fspPermissions,
+        CurrentUserUnitsInterface $currentUserUnitsInterface,
     ) {
         $this->fspPermissions = $fspPermissions;
         parent::__construct(
@@ -68,7 +70,8 @@ class FoodSharePointView extends View
             $sanitizerService,
             $timeHelper,
             $translationHelper,
-            $translator
+            $translator,
+            $currentUserUnitsInterface,
         );
     }
 

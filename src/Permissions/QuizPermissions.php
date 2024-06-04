@@ -8,6 +8,7 @@ use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 final class QuizPermissions
 {
@@ -15,12 +16,13 @@ final class QuizPermissions
         private readonly Session $session,
         private readonly RegionGateway $regionGateway,
         private readonly QuizGateway $quizGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
 
     public function maySeeEditQuizPage(): bool
     {
-        return $this->session->mayRole(Role::ORGA) || $this->session->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP);
+        return $this->session->mayRole(Role::ORGA) || $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP);
     }
 
     public function mayEditQuiz(?QuizID $quizId): bool
@@ -30,7 +32,7 @@ final class QuizPermissions
         }
 
         return match ($quizId) {
-            QuizID::FOODSAVER, QuizID::STORE_MANAGER, QuizID::AMBASSADOR => $this->session->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP),
+            QuizID::FOODSAVER, QuizID::STORE_MANAGER, QuizID::AMBASSADOR => $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP),
             default => false,
         };
     }
@@ -47,7 +49,7 @@ final class QuizPermissions
         // TODO change to only if the quiz is passed
         return match ($quizId) {
             QuizID::FOODSAVER => $this->regionGateway->hasMember($this->session->id(), RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP),
-            QuizID::STORE_MANAGER, QuizID::AMBASSADOR => $this->session->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP),
+            QuizID::STORE_MANAGER, QuizID::AMBASSADOR => $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP),
             default => false,
         };
     }

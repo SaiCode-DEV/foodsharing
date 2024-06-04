@@ -52,7 +52,7 @@ final class RegionController extends FoodsharingController
 
     private function isHomeDistrict($region): bool
     {
-        return (int)$region['id'] === $this->session->getCurrentRegionId();
+        return (int)$region['id'] === $this->currentUserUnits->getCurrentRegionId();
     }
 
     private function getMenu(array $group, bool $isWorkgroup): array
@@ -68,12 +68,12 @@ final class RegionController extends FoodsharingController
         $menu['mayHandleFoodsaverRegionMenu'] = $this->regionPermissions->mayHandleFoodsaverRegionMenu($groupId);
         $menu['hasConference'] = $this->regionPermissions->hasConference($groupType);
 
-        if ($this->session->isAdminFor($groupId)) {
+        if ($this->currentUserUnits->isAdminFor($groupId)) {
             $menu['mailboxId'] = $group['mailbox_id'];
         }
 
         if (UnitType::isRegion($groupType)) {
-            $menu['isAdmin'] = $this->session->isAdminFor($groupId);
+            $menu['isAdmin'] = $this->currentUserUnits->isAdminFor($groupId);
             $menu['mayAccessReportGroupReports'] = $this->reportPermissions->mayAccessReportGroupReports($groupId);
             $menu['mayAccessArbitrationGroupReports'] = $this->reportPermissions->mayAccessArbitrationReports($groupId);
             $menu['maySetRegionPin'] = $this->regionPermissions->maySetRegionPin($groupId);
@@ -168,9 +168,9 @@ final class RegionController extends FoodsharingController
             $this->routeHelper->goLoginAndExit();
         }
 
-        $region_id = $request->query->getInt('bid', $this->session->getCurrentRegionId());
+        $region_id = $request->query->getInt('bid', $this->currentUserUnits->getCurrentRegionId());
 
-        if ($this->session->mayBezirk($region_id) && ($region = $this->gateway->getRegionDetails($region_id))) {
+        if ($this->currentUserUnits->mayBezirk($region_id) && ($region = $this->gateway->getRegionDetails($region_id))) {
             $big = [UnitType::BIG_CITY, UnitType::FEDERAL_STATE, UnitType::COUNTRY];
             $region['moderated'] = $region['moderated'] || in_array($region['type'], $big);
             $this->region = $region;

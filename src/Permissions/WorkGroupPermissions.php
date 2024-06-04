@@ -7,6 +7,7 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\ApplyType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 final class WorkGroupPermissions
 {
@@ -15,7 +16,8 @@ final class WorkGroupPermissions
 
     public function __construct(
         Session $session,
-        GroupFunctionGateway $groupFunctionGateway
+        GroupFunctionGateway $groupFunctionGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
         $this->session = $session;
         $this->groupFunctionGateway = $groupFunctionGateway;
@@ -35,14 +37,14 @@ final class WorkGroupPermissions
 
         // Workgroup admins
         $regionId = $group['id'];
-        if ($this->session->isAdminFor($regionId)) {
+        if ($this->currentUserUnits->isAdminFor($regionId)) {
             return true;
         }
 
         // Ambassadors of _direct parents_ (not all hierarchical parents)
         if (array_key_exists('parent_id', $group)) {
             $parentId = $group['parent_id'];
-            if ($this->session->isAdminFor($parentId)) {
+            if ($this->currentUserUnits->isAdminFor($parentId)) {
                 return true;
             }
         }
@@ -54,7 +56,7 @@ final class WorkGroupPermissions
     {
         // Workgroup members
         $regionId = $group['id'];
-        if ($this->session->mayBezirk($regionId)) {
+        if ($this->currentUserUnits->mayBezirk($regionId)) {
             return true;
         }
         $groupFunction = $this->groupFunctionGateway->getRegionGroupFunctionId($group['id'], $group['parent_id']);
@@ -64,7 +66,7 @@ final class WorkGroupPermissions
 
         // Ambassadors of _direct parents_ (not all hierarchical parents)
         $parentId = $group['parent_id'];
-        if ($this->session->isAdminFor($parentId)) {
+        if ($this->currentUserUnits->isAdminFor($parentId)) {
             return true;
         }
 
@@ -74,7 +76,7 @@ final class WorkGroupPermissions
     public function mayApply(array $group, array $applications, array $stats): bool
     {
         $regionId = $group['id'];
-        if (isset($this->session->getRegions()[$regionId])) {
+        if (isset($this->currentUserUnits->getRegions()[$regionId])) {
             return false; // may not apply if already a member
         }
         if (in_array($regionId, $applications)) {
@@ -93,7 +95,7 @@ final class WorkGroupPermissions
     public function mayJoin(array $group): bool
     {
         $regionId = $group['id'];
-        if (isset($this->session->getRegions()[$regionId])) {
+        if (isset($this->currentUserUnits->getRegions()[$regionId])) {
             return false; // may not join if already a member
         }
 

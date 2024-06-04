@@ -9,6 +9,7 @@ use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Core\View;
 use Foodsharing\Modules\Foodsaver\Profile;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\BasketPermissions;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
@@ -40,7 +41,8 @@ class BasketView extends View
         TimeHelper $timeHelper,
         TranslationHelper $translationHelper,
         TranslatorInterface $translator,
-        BasketPermissions $basketPermissions
+        BasketPermissions $basketPermissions,
+        CurrentUserUnitsInterface $currentUserUnitsInterface
     ) {
         $this->basketPermissions = $basketPermissions;
         parent::__construct(
@@ -56,7 +58,8 @@ class BasketView extends View
             $sanitizerService,
             $timeHelper,
             $translationHelper,
-            $translator
+            $translator,
+            $currentUserUnitsInterface,
         );
     }
 

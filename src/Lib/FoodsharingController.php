@@ -4,6 +4,7 @@ namespace Foodsharing\Lib;
 
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\View\Utils;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\FlashMessageHelper;
 use Foodsharing\Utility\PageHelper;
@@ -33,6 +34,7 @@ abstract class FoodsharingController extends AbstractController
     protected FlashMessageHelper $flashMessageHelper;
     protected RouteHelper $routeHelper;
     protected TranslatorInterface $translator;
+    protected CurrentUserUnitsInterface $currentUserUnits;
 
     /**
      * @throws \Exception if the inheriting class does not end with "Controller"
@@ -49,6 +51,7 @@ abstract class FoodsharingController extends AbstractController
 
         $this->mem = $container->get(Mem::class);
         $this->session = $container->get(Session::class);
+        $this->currentUserUnits = $this->session;
         $this->v_utils = $container->get(Utils::class);
         $this->pageHelper = $container->get(PageHelper::class);
         $this->emailHelper = $container->get(EmailHelper::class);

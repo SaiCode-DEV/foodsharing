@@ -75,7 +75,7 @@ class FoodSharePointController extends FoodsharingController
 
     private function subIndex(): void
     {
-        $this->regions = $this->session->getRegions();
+        $this->regions = $this->currentUserUnits->getRegions();
 
         if ($this->regionId === 0) {
             if ($this->session->id()) {
@@ -188,7 +188,7 @@ class FoodSharePointController extends FoodsharingController
 
     private function getRealRegions(): array
     {
-        return array_filter($this->session->getRegions(), fn ($region) => UnitType::isAccessibleRegion($region['type']));
+        return array_filter($this->currentUserUnits->getRegions(), fn ($region) => UnitType::isAccessibleRegion($region['type']));
     }
 
     private function edit(Request $request): void
@@ -234,7 +234,7 @@ class FoodSharePointController extends FoodsharingController
             $data['bfoodsaver'][$key]['name'] = $fs['name'] . ' ' . $fs['nachname'];
         }
 
-        $data['bfoodsaver_values'] = $this->foodsaverGateway->getFsAutocomplete($this->session->getRegions());
+        $data['bfoodsaver_values'] = $this->foodsaverGateway->getFsAutocomplete($this->currentUserUnits->getRegions());
 
         $this->pageHelper->addContent($this->view->options($items), CNT_RIGHT);
 

@@ -6,6 +6,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 class ProfilePermissions
 {
@@ -13,7 +14,7 @@ class ProfilePermissions
     private readonly CommonPermissions $commonPermissions;
     private readonly FoodsaverGateway $foodsaverGateway;
 
-    public function __construct(Session $session, CommonPermissions $commonPermissions, FoodsaverGateway $foodsaverGateway)
+    public function __construct(Session $session, CommonPermissions $commonPermissions, FoodsaverGateway $foodsaverGateway, private readonly CurrentUserUnitsInterface $currentUserUnits)
     {
         $this->session = $session;
         $this->commonPermissions = $commonPermissions;
@@ -101,7 +102,7 @@ class ProfilePermissions
                 return true;
             }
             $getFsID = $this->foodsaverGateway->getFoodsaverBasics($fsId);
-            if ($getFsID['bezirk_id'] == $this->session->getCurrentRegionId()) {
+            if ($getFsID['bezirk_id'] == $this->currentUserUnits->getCurrentRegionId()) {
                 return true;
             }
         }
@@ -146,12 +147,12 @@ class ProfilePermissions
     public function mayDeleteBanana(int $recipientId): bool
     {
         // users , orga and admin of IT-Support can delete bananas that were given to them by someone else
-        return $this->session->isAdminFor(RegionIDs::IT_SUPPORT_GROUP) || $this->session->id() == $recipientId;
+        return $this->currentUserUnits->isAdminFor(RegionIDs::IT_SUPPORT_GROUP) || $this->session->id() == $recipientId;
     }
 
     public function mayRemoveFromBounceList(int $userId): bool
     {
-        return $this->session->id() == $userId || $this->session->mayRole(Role::ORGA) || $this->session->isAdminFor(RegionIDs::IT_SUPPORT_GROUP);
+        return $this->session->id() == $userId || $this->session->mayRole(Role::ORGA) || $this->currentUserUnits->isAdminFor(RegionIDs::IT_SUPPORT_GROUP);
     }
 
     public function mayAdministrateUserProfile(int $userId, ?int $regionId = null): bool

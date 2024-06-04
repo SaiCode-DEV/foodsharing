@@ -34,7 +34,8 @@ class ActivityTransactionsTest extends Unit
             $this->tester->get(TranslatorInterface::class),
             $this->sessionTransaction,
             $this->settingsTransaction,
-            $this->tester->get(BuddyTransactions::class)
+            $this->tester->get(BuddyTransactions::class),
+            $this->sessionTransaction
         );
     }
 

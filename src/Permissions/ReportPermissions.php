@@ -6,6 +6,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 class ReportPermissions
 {
@@ -14,7 +15,8 @@ class ReportPermissions
 
     public function __construct(
         Session $session,
-        GroupFunctionGateway $groupFunctionGateway
+        GroupFunctionGateway $groupFunctionGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
         $this->session = $session;
         $this->groupFunctionGateway = $groupFunctionGateway;
@@ -35,7 +37,7 @@ class ReportPermissions
         $reportGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::REPORT);
 
         if (!empty($reportGroup)) {
-            if ($this->session->isAdminFor($reportGroup)) {
+            if ($this->currentUserUnits->isAdminFor($reportGroup)) {
                 return true;
             }
         }
@@ -43,7 +45,7 @@ class ReportPermissions
         $arbitrationGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::ARBITRATION);
 
         if (!empty($arbitrationGroup)) {
-            if ($this->session->isAdminFor($arbitrationGroup)) {
+            if ($this->currentUserUnits->isAdminFor($arbitrationGroup)) {
                 return true;
             }
         }
@@ -60,7 +62,7 @@ class ReportPermissions
         $arbitrationGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::ARBITRATION);
 
         if (!empty($arbitrationGroup)) {
-            if ($this->session->isAdminFor($arbitrationGroup)) {
+            if ($this->currentUserUnits->isAdminFor($arbitrationGroup)) {
                 return true;
             }
         }
@@ -77,7 +79,7 @@ class ReportPermissions
         $reportGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::REPORT);
 
         if (!empty($reportGroup)) {
-            if ($this->session->isAdminFor($reportGroup)) {
+            if ($this->currentUserUnits->isAdminFor($reportGroup)) {
                 return true;
             }
         }

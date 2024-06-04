@@ -6,6 +6,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Content\ContentId;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 final class ContentPermissions
 {
@@ -56,7 +57,7 @@ final class ContentPermissions
         ContentId::BROADCAST_MESSAGE,
     ];
 
-    public function __construct(Session $session)
+    public function __construct(Session $session, private readonly CurrentUserUnitsInterface $currentUserUnits)
     {
         $this->session = $session;
     }
@@ -64,10 +65,10 @@ final class ContentPermissions
     public function mayEditContent(): bool
     {
         return $this->session->mayRole(Role::ORGA)
-            || $this->session->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP)
-            || $this->session->isAdminFor(RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP)
-            || $this->session->isAdminFor(RegionIDs::IT_SUPPORT_GROUP)
-            || $this->session->isAdminFor(RegionIDs::PR_START_PAGE);
+            || $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP)
+            || $this->currentUserUnits->isAdminFor(RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP)
+            || $this->currentUserUnits->isAdminFor(RegionIDs::IT_SUPPORT_GROUP)
+            || $this->currentUserUnits->isAdminFor(RegionIDs::PR_START_PAGE);
     }
 
     /**
@@ -92,7 +93,7 @@ final class ContentPermissions
         $ids = [];
 
         foreach ($regionContentMap as $regionID => $contentIDs) {
-            if ($this->session->isAdminFor($regionID)) {
+            if ($this->currentUserUnits->isAdminFor($regionID)) {
                 $ids = array_merge($ids, $contentIDs);
             }
         }
@@ -113,7 +114,7 @@ final class ContentPermissions
         ];
 
         foreach ($regionContentMap as $regionID => $contentIDs) {
-            if ($this->session->isAdminFor($regionID) && in_array($id, $contentIDs)) {
+            if ($this->currentUserUnits->isAdminFor($regionID) && in_array($id, $contentIDs)) {
                 return true;
             }
         }

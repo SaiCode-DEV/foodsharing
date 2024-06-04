@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Core;
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\FlashMessageHelper;
 use Foodsharing\Utility\PageHelper;
@@ -29,12 +30,14 @@ abstract class Control
     protected FlashMessageHelper $flashMessageHelper;
     protected RouteHelper $routeHelper;
     protected TranslatorInterface $translator;
+    protected CurrentUserUnitsInterface $currentUserUnits;
 
     public function __construct()
     {
         global $container;
         $this->mem = $container->get(Mem::class);
         $this->session = $container->get(Session::class);
+        $this->currentUserUnits = $this->session;
         $this->v_utils = $container->get(Utils::class);
         $this->pageHelper = $container->get(PageHelper::class);
         $this->emailHelper = $container->get(EmailHelper::class);

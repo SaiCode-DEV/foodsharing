@@ -5,12 +5,13 @@ namespace Foodsharing\Permissions;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 final class BlogPermissions
 {
     private readonly Session $session;
 
-    public function __construct(Session $session)
+    public function __construct(Session $session, private readonly CurrentUserUnitsInterface $currentUserUnits)
     {
         $this->session = $session;
     }
@@ -41,6 +42,6 @@ final class BlogPermissions
             return true;
         }
 
-        return $this->session->isAdminFor(RegionIDs::EDITORIAL_GROUP);
+        return $this->currentUserUnits->isAdminFor(RegionIDs::EDITORIAL_GROUP);
     }
 }

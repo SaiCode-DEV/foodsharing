@@ -10,6 +10,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\Voting\DTO\Poll;
 use Foodsharing\Modules\Voting\VotingGateway;
 
@@ -25,7 +26,8 @@ final class VotingPermissions
         Session $session,
         VotingGateway $votingGateway,
         RegionGateway $regionGateway,
-        GroupFunctionGateway $groupFunctionGateway
+        GroupFunctionGateway $groupFunctionGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
         $this->session = $session;
         $this->votingGateway = $votingGateway;
@@ -36,12 +38,12 @@ final class VotingPermissions
 
     public function maySeePoll(Poll $poll): bool
     {
-        return $this->session->mayBezirk($poll->regionId);
+        return $this->currentUserUnits->mayBezirk($poll->regionId);
     }
 
     public function mayListPolls(int $regionId): bool
     {
-        return $this->session->mayBezirk($regionId);
+        return $this->currentUserUnits->mayBezirk($regionId);
     }
 
     public function maySeeResults(Poll $poll): bool
@@ -52,7 +54,7 @@ final class VotingPermissions
     public function mayVote(Poll $poll): bool
     {
         // only as member of the region
-        if (!$this->session->mayBezirk($poll->regionId)) {
+        if (!$this->currentUserUnits->mayBezirk($poll->regionId)) {
             return false;
         }
 
@@ -72,17 +74,17 @@ final class VotingPermissions
 
     public function mayCreatePoll(int $regionId): bool
     {
-        if (!$this->session->mayBezirk($regionId) || !$this->session->isVerified()) {
+        if (!$this->currentUserUnits->mayBezirk($regionId) || !$this->session->isVerified()) {
             return false;
         }
 
         $type = $this->regionGateway->getType($regionId);
         if (UnitType::isGroup($type)) {
-            return $this->session->isAdminFor($regionId);
+            return $this->currentUserUnits->isAdminFor($regionId);
         } else {
             $votingGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::VOTING);
 
-            return !empty($votingGroup) && $this->session->isAdminFor($votingGroup);
+            return !empty($votingGroup) && $this->currentUserUnits->isAdminFor($votingGroup);
         }
     }
 

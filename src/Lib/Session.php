@@ -11,14 +11,15 @@ use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 use function array_key_exists;
 
-class Session
+class Session implements CurrentUserUnitsInterface
 {
     // update this whenever adding new fields to the session!!!
     // this should be a unix timestamp, together with a human readable date in a comment.
-    private const LAST_SESSION_SCHEMA_CHANGE = 1_706_911_008; // 2024-02-02 22:57 UTC
+    private const LAST_SESSION_SCHEMA_CHANGE = 1_716_804_439; // 2024-05-28 19:07 UTC
 
     private const SESSION_TIMESTAMP_FIELD_NAME = 'last_updated_ts';
 
@@ -269,11 +270,13 @@ class Session
         return false;
     }
 
-    public function getCurrentRegionId()
+    public function getCurrentRegionId(): ?int
     {
         if (isset($_SESSION['client']['bezirk_id'])) {
             return $_SESSION['client']['bezirk_id'];
         }
+
+        return null;
     }
 
     public function isAmbassador(): bool

@@ -7,6 +7,7 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 class SearchPermissions
 {
@@ -17,7 +18,8 @@ class SearchPermissions
     public function __construct(
         Session $session,
         GroupFunctionGateway $groupFunctionGateway,
-        RegionPermissions $regionPermissions
+        RegionPermissions $regionPermissions,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
         $this->session = $session;
         $this->groupFunctionGateway = $groupFunctionGateway;
@@ -30,7 +32,7 @@ class SearchPermissions
             return true;
         }
 
-        return $this->session->mayBezirk($regionId);
+        return $this->currentUserUnits->mayBezirk($regionId);
     }
 
     public function maySearchByEmailAddress(): bool
@@ -49,6 +51,6 @@ class SearchPermissions
 
     public function maySearchGlobal(): bool
     {
-        return $this->session->mayRole(Role::ORGA) || $this->session->isAdminFor(RegionIDs::IT_SUPPORT_GROUP);
+        return $this->session->mayRole(Role::ORGA) || $this->currentUserUnits->isAdminFor(RegionIDs::IT_SUPPORT_GROUP);
     }
 }

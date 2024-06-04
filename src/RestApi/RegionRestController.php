@@ -19,6 +19,7 @@ use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Store\StoreGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Modules\WorkGroup\WorkGroupTransactions;
 use Foodsharing\Permissions\RegionPermissions;
@@ -63,6 +64,7 @@ class RegionRestController extends AbstractFoodsharingRestController
         private readonly WorkGroupTransactions $workGroupTransactions,
         private readonly EventGateway $eventGateway,
         protected Session $session,
+        protected readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
 
@@ -84,7 +86,7 @@ class RegionRestController extends AbstractFoodsharingRestController
 
         $this->regionGateway->linkBezirk($sessionId, $regionId);
 
-        if (!$this->session->getCurrentRegionId()) {
+        if (!$this->currentUserUnits->getCurrentRegionId()) {
             $this->settingsGateway->logChangedSetting($sessionId, ['bezirk_id' => 0], ['bezirk_id' => $regionId], ['bezirk_id']);
             $this->foodsaverGateway->updateProfile($sessionId, ['bezirk_id' => $regionId]);
         }
@@ -322,7 +324,7 @@ class RegionRestController extends AbstractFoodsharingRestController
             throw new UnauthorizedHttpException('');
         }
         $includeWorkingGroups = !is_null($paramFetcher->get('includeWorkingGroups'));
-        if ($includeWorkingGroups && !$this->session->mayBezirk($regionId)) {
+        if ($includeWorkingGroups && !$this->currentUserUnits->mayBezirk($regionId)) {
             throw new UnauthorizedHttpException('');
         }
 
