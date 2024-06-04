@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Modules\Maintenance;
 
+use Carbon\Carbon;
 use Foodsharing\Modules\Bell\BellUpdateTrigger;
 use Foodsharing\Modules\Console\ConsoleControl;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
@@ -10,6 +11,7 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreMaintenanceTransactions;
+use Foodsharing\Modules\Uploads\UploadsTransactions;
 use Foodsharing\Utility\IMAPFolderCleanupHelper;
 
 class MaintenanceControl extends ConsoleControl
@@ -23,6 +25,7 @@ class MaintenanceControl extends ConsoleControl
         private readonly BellUpdateTrigger $bellUpdateTrigger,
         private readonly GroupGateway $groupGateway,
         private readonly StoreMaintenanceTransactions $storeMaintenanceTransactions,
+        private readonly UploadsTransactions $uploadsTransactions,
         private readonly IMAPFolderCleanupHelper $imapFolderCleanupHelper,
     ) {
         parent::__construct();
@@ -54,6 +57,7 @@ class MaintenanceControl extends ConsoleControl
          * delete unused images
          */
         $this->deleteImages();
+        $this->deleteUnusedImages();
 
         /*
          * deactivate too old food baskets
@@ -294,6 +298,25 @@ class MaintenanceControl extends ConsoleControl
                 }
             }
         }
+    }
+
+    private function deleteUnusedImages()
+    {
+        /*
+         * Delete all files that were uploaded after release "Laugenbrezel" (when usage types were introduced) and up
+         * to two days ago, which do not have a usage type yet. If a file was uploaded but a usage type was not set, it
+         * can be safely deleted. The offset of two days is used to make sure that there was enough time for the user to
+         * set the file's usage.
+         */
+        $fromDate = Carbon::parse('2024-05-08 00:00:00');
+        $toDate = Carbon::now()->subDays(2);
+
+        self::info('deleting uploaded files without usage...');
+        $uuids = $this->maintenanceGateway->listUploadsWithoutUsage($fromDate, $toDate);
+        foreach ($uuids as $uuid) {
+            $this->uploadsTransactions->deleteUploadedFile($uuid);
+        }
+        self::success(sizeof($uuids) . ' files deleted');
     }
 
     private function memcacheUserInfo()
