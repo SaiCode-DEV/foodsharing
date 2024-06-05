@@ -140,7 +140,7 @@ class WorkingGroupRestController extends AbstractFOSRestController
             throw new NotFoundHttpException();
         }
 
-        $userMail = $this->session->user('email');
+        $userMail = $this->foodsaverGateway->getEmailAddress($this->session->id());
         $userName = $this->session->user('name');
         $recipients = [$group['email'], $userMail];
 

@@ -81,7 +81,7 @@ class SettingsXhr extends Control
 
         $this->settingsGateway->logChangedSetting(
             $fsId,
-            ['email' => $this->session->user('email')],
+            ['email' => $currentEmail],
             ['email' => $newEmail],
             ['email']
         );

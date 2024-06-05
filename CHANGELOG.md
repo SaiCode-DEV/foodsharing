@@ -43,6 +43,7 @@
 - Rework team page in vue !3248 !3351 @chriswalg
 - Refactored the main map to vue !3230 !3335 @alex.simm
 - Remove unused session code !3361 @koemai
+- Remove E-Mail address from session !3394 @KoeMai
 - Extend Session with CurrentUserRegionInterface !3354 @koimai
 - Remove obsolete and unused run.php !3395 @\_fridtjof_
 

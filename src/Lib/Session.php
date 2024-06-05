@@ -331,7 +331,6 @@ class Session implements CurrentUserUnitsInterface
             'name' => $fs['name'],
             'nachname' => $fs['nachname'],
             'photo' => $fs['photo'],
-            'email' => $fs['email'],
             'gender' => $fs['geschlecht'],
             'privacy_policy_accepted_date' => $fs['privacy_policy_accepted_date'],
             'privacy_notice_accepted_date' => $fs['privacy_notice_accepted_date'],
