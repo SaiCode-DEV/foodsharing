@@ -45,6 +45,7 @@
 - Remove unused session code !3361 @koemai
 - Remove E-Mail address from session !3394 @KoeMai
 - Extend Session with CurrentUserRegionInterface !3354 @koimai
+- Extract `updateLastActivity()` into new service `UserStatusTransactions` !3377 @koemai
 - Remove obsolete and unused run.php !3395 @\_fridtjof_
 
 ## Dev/Test/CI stuff

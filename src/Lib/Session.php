@@ -9,7 +9,6 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
-use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
@@ -31,7 +30,6 @@ class Session implements CurrentUserUnitsInterface
         private readonly Mem $mem,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly RegionGateway $regionGateway,
-        private readonly LoginGateway $loginGateway,
         private bool $initialized = false
     ) {
     }
@@ -101,6 +99,14 @@ class Session implements CurrentUserUnitsInterface
                 $user = $this->get('user');
                 $user['location'] = $loc;
                 $this->set('user', $user);
+            }
+        }
+
+        // Refresh content of session if it is older then 1 day
+        if ($this->id() !== null && $this->has(self::SESSION_TIMESTAMP_FIELD_NAME)) {
+            $last_update = $this->get(self::SESSION_TIMESTAMP_FIELD_NAME);
+            if (strtotime($last_update) > strtotime('+1 day', time())) {
+                $this->refreshFromDatabase();
             }
         }
     }
@@ -478,21 +484,5 @@ class Session implements CurrentUserUnitsInterface
         }
 
         return $this->isValidCsrfToken($_SERVER['HTTP_X_CSRF_TOKEN']);
-    }
-
-    public function updateLastActivity()
-    {
-        $session_last_activity = $_SESSION['client']['last_activity'];
-        if ($session_last_activity === '0000-00-00 00:00:00') {
-            $session_last_activity = date('Y-m-d');
-        }
-
-        $last_activity = date('Y-m-d', strtotime((string)$session_last_activity));
-        $today = date('Y-m-d');
-
-        if ($this->isPersistent() && $today != $last_activity) {
-            $this->loginGateway->updateLastActivityInDatabase($this->id());
-            $this->refreshFromDatabase();
-        }
     }
 }

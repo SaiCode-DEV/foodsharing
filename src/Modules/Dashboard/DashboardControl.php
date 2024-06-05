@@ -10,6 +10,7 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Event\InvitationStatus;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Login\UserStatusTransactions;
 use Foodsharing\Modules\Quiz\QuizSessionGateway;
 use Foodsharing\Modules\Settings\SettingsGateway;
 
@@ -32,6 +33,7 @@ class DashboardControl extends Control
         FoodsaverGateway $foodsaverGateway,
         EventGateway $eventGateway,
         QuizSessionGateway $quizSessionGateway,
+        private readonly UserStatusTransactions $userStatusTransactions,
     ) {
         $this->view = $view;
         $this->contentGateway = $contentGateway;
@@ -54,7 +56,7 @@ class DashboardControl extends Control
      */
     public function index(): void
     {
-        $this->session->updateLastActivity();
+        $this->userStatusTransactions->updateLastUserStatus($this->session->id());
 
         $this->params['quiz'] = $this->getQuiz();
 
