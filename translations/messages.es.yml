@@ -1299,7 +1299,7 @@ pass:
   noPhoto: 'Las siguientes personas aún no han subido una foto:'
 bcard:
   actions: 'Opciones'
-  role: 'Función/Región'
+  role: 'Rol/Región'
   choose: 'Tienes que elegir una opción'
   for: '{role} para {region}'
   desc: 'Elija aquí para qué distrito y función le gustaría crear su tarjeta de presentación.'
