@@ -306,9 +306,6 @@ class Session implements CurrentUserUnitsInterface
     {
         $this->checkInitialized();
 
-        // used by Session::initIfCookieExists to determine if it should call this method to update session data
-        $this->set(self::SESSION_TIMESTAMP_FIELD_NAME, time());
-
         if ($fs_id === null) {
             $fs_id = $this->id();
         }
@@ -317,6 +314,18 @@ class Session implements CurrentUserUnitsInterface
         if (!$fs) {
             throw new Exception('Foodsaver details not found in database.');
         }
+
+        // Clean up session so that all content from other models are removed
+        $bType = $_SESSION['fSession::type'];
+        $bExpired = $_SESSION['fSession::expires'];
+        $bCsrf = $_SESSION['csrf'];
+        session_unset();
+        $_SESSION['fSession::type'] = $bType;
+        $_SESSION['fSession::expires'] = $bExpired;
+        $_SESSION['csrf'] = $bCsrf;
+
+        // used by Session::initIfCookieExists to determine if it should call this method to update session data
+        $this->set(self::SESSION_TIMESTAMP_FIELD_NAME, time());
 
         $this->setId($fs['id']);
         $this->setAuthLevel(Role::tryFrom($fs['rolle']));
@@ -328,9 +337,6 @@ class Session implements CurrentUserUnitsInterface
         if ($master = $this->regionGateway->getMasterId($fs['bezirk_id'])) {
             $this->regionGateway->addMember($fs_id, $master);
         }
-
-        $this->setId($fs['id']);
-        $this->setAuthLevel(Role::tryFrom($fs['rolle']));
 
         $this->set('user', [
             'location' => GeoLocation::createFromArray($fs, false),

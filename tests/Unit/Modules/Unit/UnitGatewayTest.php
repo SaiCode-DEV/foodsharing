@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit;
+namespace Tests\Unit\Modules\Unit;
 
 use Codeception\Test\Unit;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;

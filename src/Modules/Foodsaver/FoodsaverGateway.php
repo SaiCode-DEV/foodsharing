@@ -173,6 +173,16 @@ class FoodsaverGateway extends BaseGateway
 		', [':id' => $fsId]);
     }
 
+    /**
+     * Returns the home region id of the foodsaver.
+     *
+     * @return int RegionId or 0 for not set home region (DB default)
+     */
+    public function getHomeRegionOfFoodsaver(int $foodsaverId): int
+    {
+        return $this->db->fetchValueById('fs_foodsaver', 'bezirk_id', $foodsaverId);
+    }
+
     public function getCountCommonStores(int $fs_viewer, int $fs_viewed): int
     {
         $stm = '

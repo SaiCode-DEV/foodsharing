@@ -17,6 +17,8 @@ services:
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
 
+    Foodsharing\Modules\Unit\CurrentUserUnitsInterface:  '@Foodsharing\Modules\Unit\CurrentUserUnitsSessionTransactions'
+
     Foodsharing\:
         resource: '../src/*'
         exclude:
