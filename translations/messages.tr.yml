@@ -1067,7 +1067,7 @@ bcard:
   actions: Opsiyonlar
   desc: Kartvizitinizi hangi bölge için veya hangi sıfat için oluşturmak istediğinizi
     buradan seçin.
-  role: Rol/Bölge
+  role: Rol-/Bölge
 month:
   "4": Nisan
   "6": Haziran
