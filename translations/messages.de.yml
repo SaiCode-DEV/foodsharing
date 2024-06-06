@@ -394,7 +394,7 @@ bcard:
   generate: "Visitenkarten erstellen"
   info:
     address_shortened: "Deine Anschrift und/oder PLZ + Ort werden auf der Visitenkarte gekürzt ausgegeben."
-  role: "Role/Region"
+  role: "Rolle/Region"
 
 group:
   name: "Name"
