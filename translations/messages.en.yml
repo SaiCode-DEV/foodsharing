@@ -1262,7 +1262,7 @@ bell:
   blog_new_check: '{title}'
   forum_reply_title: '{forum}: {title}'
   forum_answer_title: '{forum}'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   store_cr_times_title: '{name}'
   store_wallpost_title: '{name}'
   poll_new: '{title}'
@@ -1301,7 +1301,7 @@ bell:
   new_foodsaver: Needs introductory pick-ups
   new_foodsaver_needs_introduction: Needs introductory pick-ups
   new_foodsaver_needs_verification: Needs to be verified
-  new_quiz_comment_title: New quiz comment
+  new_quiz_comment_title: 'New comment on question #{questionId}'
   fs_sleepmode: '{name} {nachname} is now inactive'
   fs_sleepmode_title: New nightcap
   store_cr_times: Pick-up slots have changed
@@ -1970,6 +1970,7 @@ foodsaver:
     AMBASSADOR: Become an ambassador
     FOODSAVER: Become a foodsaver
     STORE_MANAGER: Become a store manager
+    pn: Yes, I have read the privacy policy and accept it.
   delete_account: Delete account
   profileBack: Back to the profile
   editName: Edit {name}
@@ -3472,6 +3473,9 @@ quiz:
     question: Do you really want to delete this question?
     answer: Do you really want to delete this answer?
   confirm: Confirm the quiz and complete the process
+  confirmComment: Should your comment be sent to the administrators of this quiz?
+  confirmDashboardText: You have passed a quiz that you have not yet confirmed. [Click
+    here]({url}) to complete the process!
 nofp: no error points (not a serious question)
 fpsingular: Error point
 request_time: 'Time of request:'
