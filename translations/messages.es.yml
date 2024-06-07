@@ -526,6 +526,10 @@ quiz:
       máximo
   confirm: Confirme el cuestionario y complete el proceso
   fp_description: Total {PuntosFallo}, es decir, {perMistake} por respuesta incorrecta
+  confirmComment: ¿Quieres que tu comentario sea enviado a los administradores de
+    este cuestionario?
+  confirmDashboardText: ¡Has superado un cuestionario que aún no has confirmado. [Haga
+    clic aquí]({url}) para completar el proceso!
 terminology:
   foodsaver:
     m: rescatista
