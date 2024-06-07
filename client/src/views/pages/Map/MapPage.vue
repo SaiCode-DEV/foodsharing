@@ -8,6 +8,7 @@
       <vue2-leaflet-marker-cluster
         v-for="type in selectedTypes"
         :key="type"
+        :options="markerClusterOptions"
       >
         <l-marker
           v-for="marker in markers[type]"
@@ -81,6 +82,9 @@ export default {
       selectedTypes: [MARKER_TYPES.baskets.name],
       selectedStoreTypes: [STORE_MARKER_TYPES.needHelp.name, STORE_MARKER_TYPES.needHelpUrgently.name],
       markers: store.state.markers,
+      markerClusterOptions: {
+        maxClusterRadius: 120,
+      },
     }
   },
   computed: {
