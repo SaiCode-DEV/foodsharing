@@ -1803,7 +1803,7 @@ bell:
   buddy_request: '{name} te conoce.'
   new_foodsaver: 'Necesita recogidas introductorias'
   store_request_accept_wait: 'Ahora estás en la lista de espera/suplente.'
-  new_quiz_comment_title: 'Nuevo comentario sobre el cuestionario'
+  new_quiz_comment_title: 'Nuevo comentario a la pregunta #{questionId}'
   poll_new: '{title}'
   store_request_deny: 'Su solicitud ha sido rechazada.'
   fs_sleepmode: '{name} {nachname} ahora está inactiv@'
