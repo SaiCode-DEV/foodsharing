@@ -2104,7 +2104,7 @@ bell:
   store_request_deny: ''
   poll_new_title: ''
   store_cr_times_title: '{name}'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   betrieb_fetch_title: '{betrieb}'
   forum_reply_title: '{forum}: {title}'
   forum_answer_title: '{forum}'
