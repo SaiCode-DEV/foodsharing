@@ -2026,7 +2026,7 @@ bell:
   no_bells: ''
   workgroup_request_decline: ''
   fs_sleepmode_title: ''
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   store_cr_times_title: '{name}'
   passgen_failed: ''
   blog_new_check_title: ''
