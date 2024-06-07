@@ -736,7 +736,7 @@ bell:
   buddy_request_title: '{name} tanıyor musunuz?'
   store_request_accept: Ekibe kabul edildiniz.
   fs_sleepmode: '{name} {nachname} artık etkin değil'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   store_request_accept_wait: Artık yedek listesindesiniz.
   store_request_imposed_title: '{name}'
   store_cr_times: Alım slotları uyarlandı
