@@ -1765,7 +1765,7 @@ date:
   -- Tomorrow: 'Mañana'
   tomorrow: 'mañana'
 bell:
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   store_cr_times_title: '{name}'
   new_foodsaver_verified: 'Ya verificad@: list@ para ir'
   store_request_deny_title: '{name}'
@@ -1875,6 +1875,7 @@ foodsaver:
     STORE_MANAGER: Conviértete en gestor de cooperaciones
     AMBASSADOR: Conviértete en embajador
     FOODSAVER: Conviértete en un ahorrador de alimentos
+    pn: Sí, he leído la política de protección de datos y la acepto.
   url_error: 'Algo anda mal con la URL de tu página de inicio'
   title: 'Rescatistas'
   actions: 'Actividades'
