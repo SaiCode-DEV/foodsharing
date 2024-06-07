@@ -2567,7 +2567,7 @@ bell:
   new_foodsaver: A besoin d’être formé·e
   new_foodsaver_needs_introduction: A besoin d’être formé·e
   new_foodsaver_title: '{name} nouvellement arrivé(e) à {bezirk}'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user} : {comment}'
   new_quiz_comment_title: Nouveau commentaire sur le Quiz
   fs_sleepmode: '{name} {nachname} est inacti.f.ve'
   fs_sleepmode_title: Nouveau membre en mode sommeil
