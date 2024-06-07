@@ -1263,6 +1263,7 @@ foodsaver:
     FOODSAVER: Bli en matsparer
     STORE_MANAGER: Bli samarbeidsoffiser
     AMBASSADOR: Bli en ambassadør
+    pn: Ja, jeg har lest personvernerklæringen og godtar den.
   kicked: Matredder er fjernet
   bread: Alle matreddere
   actions: Handlinger
@@ -1344,7 +1345,7 @@ bell:
   betrieb_fetch_title: '{betrieb}'
   new_foodsaver_verified_title: '{name} er ny i {bezirk}'
   new_foodsaver_title: '{name} er ny i {bezirk}'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   store_cr_times_title: '{name}'
   store_wallpost_title: '{name}'
   poll_new: '{title}'
@@ -1383,7 +1384,7 @@ bell:
   new_foodsaver: Trenger innledende pickuper
   new_foodsaver_needs_introduction: Trenger innledende pickuper
   passgen_failed: Last opp et bilde, så fungerer det.
-  new_quiz_comment_title: Ny quizkommentar
+  new_quiz_comment_title: 'Ny kommentar til spørsmål #{questionId}'
   store_new_title: Nytt selskap
   store_wallpost: Nytt innlegg på oppslagstavlen.
   fs_sleepmode_title: Ny nattlue
@@ -3353,6 +3354,9 @@ quiz:
           label: 'Forklaring:'
           placeholder: Forklaring…
         answerRating: 'Vurdering:'
+  confirmDashboardText: Du har bestått en prøve som du ennå ikke har bekreftet. [Klikk
+    her]({url}) for å fullføre prosessen!
+  confirmComment: Skal kommentaren din sendes til administratoren av denne quizen?
 fpsingular: feilpunktet
 filter_by: filtrer etter
 groups:
