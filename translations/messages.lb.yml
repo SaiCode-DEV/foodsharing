@@ -1995,7 +1995,7 @@ bell:
   new_foodsaver: ''
   new_report_title: ''
   store_request_imposed: ''
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   no_bells: ''
   forum_post_title: '{title}'
   forum_new_thread: ''
