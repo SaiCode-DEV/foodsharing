@@ -1172,7 +1172,7 @@ bell:
   store_request_accept_title: '{name}'
   fs_sleepmode: ''
   betrieb_fetch_title: '{betrieb}'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   workgroup_request_accept_title: '{name}'
   forum_post_title: '{title}'
   forum_new_thread: ''
