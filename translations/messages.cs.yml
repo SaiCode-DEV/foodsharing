@@ -1194,7 +1194,7 @@ bell:
   banana_given_title: ''
   banana_given: ''
   store_request_deny: ''
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   no_bells: ''
   fs_sleepmode_title: ''
   store_request_accept_title: '{name}'
