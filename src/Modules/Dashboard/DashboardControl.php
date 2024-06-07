@@ -13,6 +13,7 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Login\UserStatusTransactions;
 use Foodsharing\Modules\Quiz\QuizSessionGateway;
 use Foodsharing\Modules\Settings\SettingsGateway;
+use Foodsharing\Permissions\QuizPermissions;
 
 class DashboardControl extends Control
 {
@@ -22,6 +23,7 @@ class DashboardControl extends Control
     private readonly FoodsaverGateway $foodsaverGateway;
     private readonly EventGateway $eventGateway;
     private readonly QuizSessionGateway $quizSessionGateway;
+    private readonly QuizPermissions $quizPermissions;
 
     /**
      * @throws Exception
@@ -33,6 +35,7 @@ class DashboardControl extends Control
         FoodsaverGateway $foodsaverGateway,
         EventGateway $eventGateway,
         QuizSessionGateway $quizSessionGateway,
+        QuizPermissions $quizPermissions,
         private readonly UserStatusTransactions $userStatusTransactions,
     ) {
         $this->view = $view;
@@ -41,6 +44,7 @@ class DashboardControl extends Control
         $this->foodsaverGateway = $foodsaverGateway;
         $this->eventGateway = $eventGateway;
         $this->quizSessionGateway = $quizSessionGateway;
+        $this->quizPermissions = $quizPermissions;
 
         parent::__construct();
 
@@ -59,6 +63,7 @@ class DashboardControl extends Control
         $this->userStatusTransactions->updateLastUserStatus($this->session->id());
 
         $this->params['quiz'] = $this->getQuiz();
+        $this->params['quizConfirmation'] = $this->getMissingQuizConfirmation();
 
         if ($this->session->mayRole(Role::FOODSAVER)) {
             $this->params['events'] = $this->getEvents();
@@ -105,5 +110,18 @@ class DashboardControl extends Control
         }
 
         return null;
+    }
+
+    private function getMissingQuizConfirmation(): ?int
+    {
+        $quizRole = $this->session->quizRole()->value;
+        if ($this->session->role()->value >= $quizRole) {
+            return null;
+        }
+        if (!$this->quizPermissions->requiresConfirmation($quizRole)) {
+            return null;
+        }
+
+        return $quizRole;
     }
 }

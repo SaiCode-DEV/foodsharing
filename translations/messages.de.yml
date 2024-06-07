@@ -251,7 +251,6 @@ quiz:
   timed_out: "Diese Frage hast du nicht in der vorgegebenen Zeit beantwortet."
   timed_out_last: "Die letzte Frage hast du nicht in der vorgegebenen Zeit beantwortet."
   timed_out_error: "Die Zeit diese Frage zu beantworten ist bereits abgelaufen."
-  error_tooltip: "Bei dieser Antwort hast du einen Fehler gemacht."
   show_results: Ergebnisse des letzten Versuchs ansehen
   wikilink: Weitere Infos dazu im Wiki
   key_facts:
@@ -289,6 +288,8 @@ quiz:
     question: "Willst du diese Frage wirklich löschen?"
     answer: "Willst du diese Antwort wirklich löschen?"
   confirm: "Quiz bestätigen und Prozess abschließen"
+  confirmComment: "Soll den Administrator:innen dieses Quizzes dein Kommentar geschickt werden?" 
+  confirmDashboardText: "Du hast ein Quiz bestanden, dass du noch nicht bestätigt hast. [Klicke hier]({url}) um den Prozess abzuschließen!"
   editModal:
     quiz:
       title: Quiz bearbeiten
@@ -1651,8 +1652,8 @@ bell:
 
   fs_sleepmode_title: "Neue Schlafmütze"
   fs_sleepmode: "{name} {nachname} ist jetzt inaktiv"
-  new_quiz_comment_title: "Neuer Quizkommentar"
-  new_quiz_comment: "{comment}"
+  new_quiz_comment_title: "Neuer Kommentar zu Frage #{questionId}"
+  new_quiz_comment: "{user}: {comment}"
 
   new_foodsaver_title: "{name} neu in {bezirk}"
   new_foodsaver: "Braucht Einführungsabholungen"
@@ -1798,6 +1799,7 @@ foodsaver:
     STORE_MANAGER: "Werde Betriebsverantwortliche:r"
     AMBASSADOR: "Werde Botschafter:in"
     rv: "Ja, ich habe die Rechtsvereinbarung gelesen und akzeptiere sie."
+    pn: "Ja, ich habe die Datenschutzbelehrung gelesen und akzeptiere sie."
   restricted: "Du hast leider keine Berechtigung, diese Daten einzusehen."
   list:
     summary: "{count} Foodsaver:innen in {region}"

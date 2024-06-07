@@ -6,6 +6,7 @@ export const CONTENT_IDS = Object.freeze({
   CONFIRM_STORE_MANAGER_QUIZ: 15,
   LEGAL_FOODSAVER_QUIZ: 30,
   LEGAL_STORE_MANAGER_QUIZ: 31,
+  PRIVACY_NOTICE_CONTENT: 64,
 })
 
 export async function getContent (contentId) {

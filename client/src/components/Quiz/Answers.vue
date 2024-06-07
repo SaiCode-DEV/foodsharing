@@ -6,18 +6,13 @@
       :key="answer.id"
       class="result-answer-container"
     >
-      <span :class="answerColorClass(answer.answerRating)">
-        <i
-          v-if="'selected' in answer && !answer.timedOut && (answer.selected ^ answer.answerRating) === 1"
-          v-b-tooltip="$i18n(`quiz.error_tooltip`)"
-          class="fas fa-exclamation-triangle mistake-icon"
-        />
+      <span :class="answerColorClass(answer)">
         <OverflowMenu
           :options="menuOptions"
           :callback-args="[answer.id]"
           :variant="menuVariant(answer)"
         />
-        <b>{{ $i18n(`quiz.answers.short.${answer.answerRating}`) }}:</b>
+        <b>{{ $i18n(answerText(answer)) }}</b><br>
         {{ answer.text }}
         <ExpandableExplanation :text="answer.explanation" />
       </span>
@@ -41,8 +36,17 @@ export default {
     },
   },
   methods: {
-    answerColorClass (answerRating) {
-      return ['failure', 'success', 'neutral'][answerRating]
+    answerColorClass (answer) {
+      if (answer.answerRating === 2) return ['neutral']
+      if (answer.timedOut) return ['failure', 'success', 'neutral'][answer.answerRating]
+      if (!answer.answerRating ^ answer.selected) return 'success'
+      return 'failure'
+    },
+    answerText (answer) {
+      const path = 'quiz.answers.'
+      if (answer.timedOut) return `${path}timedOut.${answer.answerRating}`
+      if (answer.answerRating === 2) return path + 'neutral'
+      return `${path}${!!answer.selected}_${!!answer.answerRating}`
     },
     menuVariant (answer) {
       return answer.answerRating === ANSWER_RATING.NEUTRAL ? 'dark' : 'light'

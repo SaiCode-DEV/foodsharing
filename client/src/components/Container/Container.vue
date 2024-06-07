@@ -7,13 +7,12 @@
       @click="collapsible ? toggleExpanded() : null"
     >
       <slot name="title">
-        <h5>
-          {{ title }}
-        </h5>
+        <h5 v-text="title" />
         <Info
           v-if="infoKey"
           :info-key="infoKey"
         />
+        <span class="flex-grow-1" />
         <i
           v-if="tooltipKey"
           v-b-tooltip.hover

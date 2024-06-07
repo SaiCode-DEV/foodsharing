@@ -24,7 +24,7 @@
 
             <b-badge
               v-if="question.commentCount"
-              class="comment-badge"
+              class="comment-badge ml-2"
               @click.stop="$bvModal.show(`wall-${i}`)"
             >
               {{ question.commentCount }}

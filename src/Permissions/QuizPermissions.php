@@ -6,6 +6,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
+use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
@@ -15,6 +16,7 @@ final class QuizPermissions
     public function __construct(
         private readonly Session $session,
         private readonly RegionGateway $regionGateway,
+        private readonly FoodsaverGateway $foodsaverGateway,
         private readonly QuizGateway $quizGateway,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
@@ -88,5 +90,27 @@ final class QuizPermissions
         }
 
         return $visible;
+    }
+
+    /**
+     * Returns the people who are allowed to administrate a given quiz.
+     *
+     * With future quizzes this function is supposed to define who is responsible for what quiz.
+     * Therefor it is part of this permissions class.
+     */
+    public function getQuizAdmins(int $quizId): array
+    {
+        return $this->foodsaverGateway->getAdminsOrAmbassadors(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP);
+    }
+
+    public function requiresConfirmation(int $quizId): bool
+    {
+        switch ($quizId) {
+            case QuizID::FOODSAVER->value:
+            case QuizID::STORE_MANAGER->value:
+                return true;
+            default:
+                return false;
+        }
     }
 }

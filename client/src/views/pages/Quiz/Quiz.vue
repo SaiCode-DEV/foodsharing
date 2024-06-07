@@ -133,7 +133,7 @@ export default {
         await this.fetchResults()
         await this.$nextTick()
       }
-      this.$refs.resultsContainer.setExpanded(true)
+      this.$refs.resultsContainer?.setExpanded?.(true)
     },
     onFinishedQuiz () {
       this.results = null

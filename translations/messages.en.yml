@@ -3384,7 +3384,6 @@ quiz:
         failure points!
     deleted: The exact evaluation is only saved for two weeks after the quiz and is
       no longer available afterwards.
-  error_tooltip: You made a mistake with this answer.
   show_results: View the results of the last attempt
   key_facts:
     to_pass: 'To pass:'

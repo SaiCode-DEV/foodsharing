@@ -329,6 +329,7 @@ class Session implements CurrentUserUnitsInterface
 
         $this->setId($fs['id']);
         $this->setAuthLevel(Role::tryFrom($fs['rolle']));
+        $this->updateQuizRole();
 
         if ((int)$fs['bezirk_id'] > 0 && $this->role()->isAtLeast(Role::FOODSAVER)) {
             $this->regionGateway->addMember($fs_id, $fs['bezirk_id']);
@@ -490,5 +491,15 @@ class Session implements CurrentUserUnitsInterface
         }
 
         return $this->isValidCsrfToken($_SERVER['HTTP_X_CSRF_TOKEN']);
+    }
+
+    public function updateQuizRole()
+    {
+        $this->set('quiz_role', $this->foodsaverGateway->getQuizRole($this->id())->value);
+    }
+
+    public function quizRole(): Role
+    {
+        return Role::from($this->get('quiz_role'));
     }
 }

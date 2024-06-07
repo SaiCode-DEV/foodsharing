@@ -244,7 +244,7 @@ export default {
         isJumper: fs.team_active === 2, // MembershipStatus::JUMPER
         isManager: !!fs.verantwortlich,
         isVerified: fs.verified === 1,
-        mayManage: fs.quiz_rolle >= 2, // Role::STORE_MANAGER
+        mayManage: fs.rolle >= 2, // Role::STORE_MANAGER
         avatar: fs.photo,
         sleepStatus: fs.sleep_status,
         name: fs.name,

@@ -104,6 +104,11 @@ class BellType
     final public const NEW_REPORT = 'new-report-%d';
 
     /**
+     * A new report for a user was created.
+     */
+    final public const NEW_QUESTION_COMMENT = 'question-comment-%d';
+
+    /**
      * A new post on an event wall the user is maybe participating in. Argument: IDs of the event.
      */
     final public const NEW_EVENT_POST = 'event-post-%d';

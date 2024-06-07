@@ -3,20 +3,26 @@
 namespace Foodsharing\Modules\WallPost;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\BellTransactions;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Event\EventGateway;
+use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
+use Foodsharing\Permissions\QuizPermissions;
 
 class WallPostTransactions
 {
     public function __construct(
         private readonly WallPostGateway $wallPostGateway,
         private readonly UploadsGateway $uploadsGateway,
+        private readonly QuizGateway $quizGateway,
+        private readonly QuizPermissions $quizPermissions,
+        private readonly BellGateway $bellGateway,
         private readonly EventGateway $eventGateway,
         private readonly RegionGateway $regionGateway,
         private readonly BellTransactions $bellTransactions,
@@ -45,12 +51,35 @@ class WallPostTransactions
         }
 
         switch ($target) {
+            case 'question':
+                $this->sendQuestionCommentBell($targetId, $post);
+                // no break
             case 'event':
                 $this->sendEventCommentBell($targetId);
                 break;
         }
 
         return $post;
+    }
+
+    private function sendQuestionCommentBell(int $questionId, WallPost $post)
+    {
+        $quizId = $this->quizGateway->getQuizIdFromQuestionId($questionId);
+        $recipients = $this->quizPermissions->getQuizAdmins($quizId);
+
+        $bell = Bell::create(
+            'new_quiz_comment_title',
+            'new_quiz_comment',
+            'fas fa-comment',
+            ['href' => "/quiz/edit/$quizId"],
+            [
+                'comment' => $post->body,
+                'questionId' => $questionId,
+                'user' => $this->session->user('name'),
+            ],
+            BellType::createIdentifier(BellType::NEW_QUESTION_COMMENT, $questionId)
+        );
+        $this->bellGateway->addBell($recipients, $bell);
     }
 
     public function deletePost(int $postId, string $target, int $targetId): void

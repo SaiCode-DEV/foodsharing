@@ -10,6 +10,7 @@ use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Quiz\QuizStatus;
 use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Legal\LegalGateway;
 use Foodsharing\Modules\Quiz\DTO\ActiveQuestion;
 use Foodsharing\Modules\Quiz\DTO\FullQuizStatus;
 use Foodsharing\Modules\Quiz\DTO\Question;
@@ -31,6 +32,7 @@ class QuizTransactions
         private readonly QuizGateway $quizGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly WallPostGateway $wallPostGateway,
+        private readonly LegalGateway $legalGateway,
     ) {
     }
 
@@ -188,6 +190,7 @@ class QuizTransactions
                     break;
             }
         }
+        $this->session->updateQuizRole();
     }
 
     /**
@@ -288,8 +291,11 @@ class QuizTransactions
     public function confirmQuiz(int $quizId, int $foodsaverId): bool
     {
         switch ($quizId) {
-            case QuizID::FOODSAVER->value:
             case QuizID::STORE_MANAGER->value:
+                $currentPrivacyNoticeVersion = $this->legalGateway->getPnVersion();
+                $this->legalGateway->agreeToPn($this->session->id(), $currentPrivacyNoticeVersion);
+                // no break
+            case QuizID::FOODSAVER->value:
                 $this->foodsaverGateway->riseRole($foodsaverId, Role::from($quizId));
                 $this->session->refreshFromDatabase();
 

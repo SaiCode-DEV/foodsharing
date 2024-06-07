@@ -13,15 +13,15 @@
       <!-- Sanitized in src/Modules/Content/ContentGateway.php getContent() -->
       <div v-html="content.body" />
       <b-form-checkbox
-        v-if="i === contents.length - 1"
-        v-model="accepted"
+        v-if="content.confirm"
+        v-model="accepted[content.id]"
       >
-        {{ $i18n('foodsaver.upgrade.rv') }}
+        {{ $i18n(content.confirm) }}
       </b-form-checkbox>
     </div>
 
     <button
-      :disabled.attr="!accepted"
+      :disabled.attr="Object.values(accepted).some(x=>!x)"
       class="list-group-item list-group-item-action list-group-item-secondary small font-weight-bold text-center"
       @click="confirm"
       v-text="$i18n('button.confirm')"
@@ -41,19 +41,29 @@ export default {
   },
   data: () => ({
     contents: [],
-    accepted: false,
+    accepted: [],
   }),
   computed: {
-    contentIDs () {
+    contentSources () {
       return {
-        [QUIZ_ID.FOODSAVER]: [CONTENT_IDS.CONFIRM_FOODSAVER_QUIZ, CONTENT_IDS.LEGAL_FOODSAVER_QUIZ],
-        [QUIZ_ID.STORE_MANAGER]: [CONTENT_IDS.CONFIRM_STORE_MANAGER_QUIZ, CONTENT_IDS.LEGAL_STORE_MANAGER_QUIZ],
+        [QUIZ_ID.FOODSAVER]: [
+          { contentId: CONTENT_IDS.CONFIRM_FOODSAVER_QUIZ, confirm: false },
+          { contentId: CONTENT_IDS.LEGAL_FOODSAVER_QUIZ, confirm: 'foodsaver.upgrade.rv' },
+        ],
+        [QUIZ_ID.STORE_MANAGER]: [
+          { contentId: CONTENT_IDS.CONFIRM_STORE_MANAGER_QUIZ, confirm: false },
+          { contentId: CONTENT_IDS.LEGAL_STORE_MANAGER_QUIZ, confirm: 'foodsaver.upgrade.rv' },
+          { contentId: CONTENT_IDS.PRIVACY_NOTICE_CONTENT, confirm: 'foodsaver.upgrade.pn' },
+        ],
       }[this.quizId] ?? []
     },
   },
   async mounted () {
-    for (const contentId of this.contentIDs) {
-      this.contents.push(await getContent(contentId))
+    for (const contentSource of this.contentSources) {
+      const content = await getContent(contentSource.contentId)
+      content.confirm = contentSource.confirm
+      if (content.confirm) this.accepted[content.id] = false
+      this.contents.push(content)
     }
   },
   methods: {
