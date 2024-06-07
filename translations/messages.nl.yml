@@ -2273,7 +2273,7 @@ bell:
   store_new_request_title: ''
   sharepoint_activate: ''
   betrieb_fetch_title: '{betrieb}'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   store_cr_times: ''
   buddy_request: ''
   passgen_failed: ''
