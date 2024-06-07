@@ -1207,6 +1207,21 @@ class Foodsharing extends Db
         $this->haveInDatabase('fs_region_options', ['region_id' => $region, 'option_type' => RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS, 'option_value' => $ignoreHours]);
     }
 
+    public function createContent(): array
+    {
+        $title = $this->faker->title;
+        $content = [
+            'name' => strtolower(str_replace(' ', '_', $title)),
+            'title' => $title,
+            'body' => $this->faker->text,
+            'last_mod' => $this->faker->dateTimeBetween('-5 years', '-5 days')->format('Y-m-d H:i:s'),
+        ];
+
+        $id = $this->haveInDatabase('fs_content', $content);
+        $content['id'] = $id;
+
+        return $content;
+    }
     // =================================================================================================================
     // private methods
     // =================================================================================================================

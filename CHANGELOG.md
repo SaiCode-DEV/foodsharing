@@ -55,6 +55,7 @@
 - Remove unused code !3340 @alex.simm
 - Fixed errors in the seed script !3355 @alex.simm
 - Uploaded files without a usage type are deleted in the nightly maintenance #1182 !3363 @alex.simm
+- Added an API endpoint for creating content entries !3379 @alex.simm
 
 ## Development documentation
 

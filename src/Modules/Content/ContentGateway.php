@@ -86,17 +86,20 @@ class ContentGateway extends BaseGateway
         return $this->db->fetchByCriteria('fs_content', ['id', 'name', 'title', 'body', 'last_mod'], ['id' => $id]);
     }
 
-    public function create($data): int
+    /**
+     * Adds a new content entry and returns the id.
+     */
+    public function create(ContentEntry $data): int
     {
         return $this->db->insert('fs_content', [
-            'name' => strip_tags((string)$data['name']),
-            'title' => strip_tags((string)$data['title']),
-            'body' => $data['body'],
-            'last_mod' => $data['last_mod']
+            'name' => strip_tags($data->name),
+            'title' => strip_tags($data->title),
+            'body' => $data->body,
+            'last_mod' => date('Y-m-d H:i:s')
         ]);
     }
 
-    public function update($id, ContentEntry $data): int
+    public function update(int $id, ContentEntry $data): int
     {
         return $this->db->update('fs_content', [
             'name' => strip_tags($data->name),

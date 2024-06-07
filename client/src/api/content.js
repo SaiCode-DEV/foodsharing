@@ -1,4 +1,4 @@
-import { get, patch, remove } from './base'
+import { get, patch, post, remove } from './base'
 
 export const CONTENT_IDS = Object.freeze({
   DONATION: 1,
@@ -26,4 +26,8 @@ export async function editContent (contentId, name, title, body) {
     title: title,
     body: body,
   })
+}
+
+export async function addContent (name, title, body) {
+  return await post('/content', { name, title, body })
 }
