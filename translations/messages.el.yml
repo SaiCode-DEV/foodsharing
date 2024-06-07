@@ -1794,7 +1794,7 @@ bell:
   blog_new_check_title: ''
   ft_update_title: '{name}'
   ft_update: '{teaser}'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   store_new_title: ''
   store_new: ''
   store_new_request: ''
