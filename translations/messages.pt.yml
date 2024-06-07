@@ -241,7 +241,7 @@ bell:
   workgroup_request_accept_title: '{name}'
   blog_new_check: '{title}'
   ft_update_title: '{name}'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   betrieb_fetch_title: '{betrieb}'
   store_cr_times_title: '{name}'
   store_request_accept_title: '{name}'
