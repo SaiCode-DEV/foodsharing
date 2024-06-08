@@ -19,7 +19,6 @@ use Foodsharing\Modules\Report\ReportXhr;
 use Foodsharing\Modules\Settings\SettingsControl;
 use Foodsharing\Modules\Settings\SettingsXhr;
 use Foodsharing\Modules\Store\StoreController;
-use Foodsharing\Modules\Store\StoreXhr;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
 use Foodsharing\Modules\Voting\VotingControl;
 use Foodsharing\Modules\WorkGroup\WorkGroupControl;
@@ -84,8 +83,6 @@ class Routing
     private const XHR = [
         'report' => ReportXhr::class,
         'settings' => SettingsXhr::class,
-        'betrieb' => StoreXhr::class,
-        'store' => StoreXhr::class,
         'basket' => BasketXhr::class,
     ];
 

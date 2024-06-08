@@ -37,29 +37,6 @@ class Xhr
     }
 
     /**
-     * Method to add an simple pop up message to the cloent, there are 3 types of messages info, error and success can be added as 2nd parameter, default is info.
-     *
-     * @deprecated Only StoreXhr and TeamXhr are still using this, do not add new usage!
-     */
-    public function addMessage(string $msg, string $type = 'info'): void
-    {
-        $this->messages[] = [
-            'type' => $type,
-            'text' => $msg
-        ];
-    }
-
-    /**
-     * Method to programmatically add javascript code that will be executed on client side.
-     *
-     * @deprecated Only StoreXhr and TeamXhr are still using this, do not add new usage!
-     */
-    public function addScript(string $js): void
-    {
-        $this->script .= "\n" . $js;
-    }
-
-    /**
      * Method to send everything to the client in the expected format.
      */
     public function send()
