@@ -1,7 +1,48 @@
 import { urls } from '@/helper/urls'
 import { subscribeForPushNotifications } from '@/pushNotifications'
 
-self.addEventListener('push', function (event) {
+self.addEventListener('push', async function (event) {
+  const roundCorners = (() => {
+    const size = 32
+    const radius = 6
+    const canvas = new OffscreenCanvas(size, size)
+    const ctx = canvas.getContext('2d')
+
+    // Prepare clip path for rounded corners:
+    ctx.beginPath()
+    ctx.moveTo(radius, 0)
+    ctx.lineTo(size - radius, 0)
+    ctx.quadraticCurveTo(size, 0, size, radius)
+    ctx.lineTo(size, size - radius)
+    ctx.quadraticCurveTo(size, size, size - radius, size)
+    ctx.lineTo(radius, size)
+    ctx.quadraticCurveTo(0, size, 0, size - radius)
+    ctx.lineTo(0, radius)
+    ctx.quadraticCurveTo(0, 0, radius, 0)
+    ctx.closePath()
+    ctx.clip()
+    ctx.save()
+
+    async function fetchImageBitmap (imageUrl) {
+      const response = await fetch(imageUrl)
+      const blob = await response.blob()
+      const imageBitmap = await createImageBitmap(blob)
+      return imageBitmap
+    }
+
+    return async function (imageUrl) {
+      ctx.restore()
+      const image = await fetchImageBitmap(imageUrl)
+      ctx.drawImage(image, 0, 0, size, size)
+      const blob = await canvas.toBlob()
+      const fileReader = new FileReader()
+      const loaded = new Promise(resolve => fileReader.addEventListener('load', resolve))
+      fileReader.readAsDataURL(blob)
+      await loaded
+      return fileReader.result
+    }
+  })()
+
   if (!self.Notification || self.Notification.permission !== 'granted') {
     return
   }
@@ -11,6 +52,9 @@ self.addEventListener('push', function (event) {
   }
 
   const data = event.data.json()
+  if (data.options.icon) {
+    data.options.icon = await roundCorners(data.options.icon)
+  }
   event.waitUntil(self.registration.showNotification(data.title, data.options))
 })
 
