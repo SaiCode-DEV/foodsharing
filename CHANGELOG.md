@@ -30,6 +30,7 @@
 - The correct region is now preselected when creating an event !3366 @AntonBallmaier
 - Fixed type error in DonationGoalInformation #1970 !3385 @chriswalg
 - Fixed passport generation not working #1944 !3376 @AntonBallmaier
+- Resolved some UI inconsistancies !3370 @AntonBallmaier
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai

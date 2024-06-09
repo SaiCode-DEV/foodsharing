@@ -29,7 +29,7 @@
       />
     </div>
     <slot v-if="isExpanded && !wrapContent" />
-    <div v-if="isExpanded && wrapContent" class="list-group-item">
+    <div v-if="isExpanded && wrapContent" :class="wrapperClasses">
       <slot />
     </div>
 
@@ -61,7 +61,10 @@ export default {
     title: { type: String, default: 'title' },
     toggleVisiblity: { type: Boolean, default: false },
     containerIsExpanded: { type: Boolean, default: true },
-    wrapContent: { type: Boolean, default: false },
+
+    // Wraps the content placed in the conainers default slot in a `div.list-group-item` wrapper if given a truthy value.
+    // Further classes to wrap the content with can be given as a string.
+    wrapContent: { type: [Boolean, String], default: false },
     hideHeader: { type: Boolean, default: false },
     collapsible: { type: Boolean, default: true },
     infoKey: { type: String, default: '' },
@@ -76,6 +79,9 @@ export default {
   computed: {
     isToggleVisible () {
       return this.toggleVisiblity
+    },
+    wrapperClasses () {
+      return 'list-group-item ' + (typeof this.wrapContent === 'string' ? this.wrapContent : '')
     },
   },
   created () {

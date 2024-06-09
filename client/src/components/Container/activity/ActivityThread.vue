@@ -1,5 +1,5 @@
 <template>
-  <ul class="p-0 m-0">
+  <div>
     <ActivityPost
       v-for="(post, index) in showActivePosts"
       :key="index"
@@ -30,7 +30,7 @@
       class="list-group-item activity-item list-group-item-info text-center"
       v-text="$i18n('dashboard.no_more_updates_' + activeType)"
     />
-  </ul>
+  </div>
 </template>
 
 <script>
@@ -104,16 +104,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep.activity-item:first-child {
-  border-bottom-right-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
-  margin-bottom: .5rem;
+::v-deep.activity-item:not(:last-child) {
+  border-bottom: 0;
 }
 
-::v-deep.activity-item:not(:first-child) {
-  border-radius: var(--border-radius);
-  margin-bottom: .5rem;
-  border-top-width: 1px;
+::v-deep.activity-item:last-child {
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
 }
 
 ::v-deep.clickable {

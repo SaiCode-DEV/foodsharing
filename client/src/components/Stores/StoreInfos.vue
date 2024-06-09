@@ -2,10 +2,11 @@
   <Container
     :title="$i18n('store.info_container')"
     tag="store_information"
+    wrap-content="p-2"
   >
     <div
       v-show="displayInfos"
-      class="store-desc card-body p-2"
+      class="store-desc"
     >
       <div
         id="inputAdress"

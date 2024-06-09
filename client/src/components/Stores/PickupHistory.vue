@@ -3,6 +3,7 @@
     :title="$i18n('pickup.history.title')"
     :container-is-expanded="isContainerExpanded"
     tag="pickup_history"
+    wrap-content
   >
     <div class="corner-bottom margin-bottom bootstrap pickup-history">
       <DateRangePicker ref="dateRange" :cooperation-start="cooperationStart" />

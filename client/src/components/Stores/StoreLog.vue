@@ -5,6 +5,7 @@
     :container-is-expanded="isContainerExpanded"
     tag="store_log"
     info-key="storeLog"
+    wrap-content
   >
     <div class="corner-bottom margin-bottom bootstrap store-log">
       <DateRangePicker
