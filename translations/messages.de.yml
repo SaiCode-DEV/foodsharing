@@ -288,7 +288,7 @@ quiz:
     question: "Willst du diese Frage wirklich löschen?"
     answer: "Willst du diese Antwort wirklich löschen?"
   confirm: "Quiz bestätigen und Prozess abschließen"
-  confirmComment: "Soll den Administrator:innen dieses Quizzes dein Kommentar geschickt werden?" 
+  confirmComment: "Soll den Administrator:innen dieses Quizzes dein Kommentar geschickt werden?"
   confirmDashboardText: "Du hast ein Quiz bestanden, dass du noch nicht bestätigt hast. [Klicke hier]({url}) um den Prozess abzuschließen!"
   editModal:
     quiz:
@@ -1678,6 +1678,8 @@ bell:
   workgroup_request_accept: "Du wurdest in die Arbeitsgruppe aufgenommen."
   workgroup_request_decline_title: "{name}"
   workgroup_request_decline: "Du wurdest nicht in die Arbeitsgruppe aufgenommen."
+  workinggroup_new_request_title: "{name}"
+  workinggroup_new_request: "Neue Bewerbung für eine Arbeitsgruppe"
 
   banana_given_title: "Neue Vertrauensbanane"
   banana_given: "{name} hat dir eine Vertrauensbanane spendiert."
