@@ -300,6 +300,7 @@ bell:
   new_foodsaver_needs_verification: ''
   store_request_deny: ''
   new_quiz_comment_title: ''
+  workinggroup_new_request_title: '{name}'
 email_template:
   help_needed:
     link: https://devdocs.foodsharing.network/
