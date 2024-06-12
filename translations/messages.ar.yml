@@ -1184,6 +1184,7 @@ bell:
   forum_new_thread_title: ''
   forum_announcement_title: ''
   forum_mention: ''
+  workinggroup_new_request_title: '{name}'
 list:
   filter_for: ''
 genderlist:
