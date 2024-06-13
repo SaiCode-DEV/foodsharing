@@ -35,7 +35,7 @@
                   <p>{{ translateCounted('group.member_count', group.membersCount) }}</p>
                   <Markdown :source="group.teaser" />
                   <div class="mt-2">
-                    <a :href="$url('mailto_mail_foodsharing_network', group.email)">{{ group.email }}</a>
+                    <a :href="$url('mailto_mail', group.email)">{{ group.email }}</a>
                   </div>
                 </div>
               </b-col>

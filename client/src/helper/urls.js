@@ -161,6 +161,7 @@ const urls = {
   // mailto
   mail_foodsharing_network: (mail) => `${mail}@foodsharing.network`,
   mailto_mail_foodsharing_network: (mail) => `mailto:${mail}@foodsharing.network`,
+  mailto_mail: (mail) => `mailto:${mail}`,
 
   // freshdesk support
   freshdesk: () => 'https://foodsharing.freshdesk.com/support/home',

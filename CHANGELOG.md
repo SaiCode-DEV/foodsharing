@@ -31,6 +31,7 @@
 - Fixed type error in DonationGoalInformation #1970 !3385 @chriswalg
 - Fixed passport generation not working #1944 !3376 @AntonBallmaier
 - Resolved some UI inconsistancies !3370 @AntonBallmaier
+- double foodsharing.network in group links #1978 !3409 @McGoldi
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
