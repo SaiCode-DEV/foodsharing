@@ -23,28 +23,37 @@ Every Sunday a schedules pipeline "send outdated dependency report to slack" is 
 
 ### Manually check the version
 
-* ```./scripts/docker-compose run --rm client sh```
-* ```yarn outdated```
+```bash
+./scripts/docker-compose run --rm client sh
+yarn outdated
+```
 
 ### Manually check for security vulnerabilities
 
-* ```./scripts/docker-compose run --rm client sh```
-* ```yarn audit```
+```bash
+./scripts/docker-compose run --rm client sh
+yarn audit
+```
 
 ### Update client
 
-* Change the version number in ```client/package.json``` 
-* ```./scripts/docker-compose run --rm client sh```
-* ```yarn PACKAGENAME```
+Change the version number in ```client/package.json```
+
+```bash
+./scripts/docker-compose run --rm client sh
+yarn PACKAGENAME
+```
 
 ### Update chat
 
-* Change the version number in ```chat/package.json```
-* ```./scripts/docker-compose run --rm chat sh```
-* ```yarn PACKAGENAME```
+Change the version number in ```chat/package.json```
+```bash
+./scripts/docker-compose run --rm chat sh
+yarn PACKAGENAME
+```
 
 ### Update deployer
-* Change the version number in ```deployer/package.json```
+Change the version number in ```deployer/package.json```
 * ```./scripts/composer update -d deployer```
 
 ### Tests after every single update

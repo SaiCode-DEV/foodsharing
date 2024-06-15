@@ -21,25 +21,25 @@ Useful commands for testing and common pitfalls.
 
 Run the tests with:
 
-```
+```bash
 ./scripts/test
 ```
 
 or 
 
-```
+```bash
 ./scripts/test Acceptance LoginCest
 ```
 
 or
 
-```
+```bash
 ./scripts/test api SearchApiCest
 ```
 
 or to run a specific test
 
-```
+```bash
 ./scripts/test api SearchApiCest:canOnlySearchWhenLoggedIn
 ```
 
@@ -73,13 +73,13 @@ Selenium does at most points not know what the browser is doing!
 It is especially hard to get waits right as the blocking/waiting behaviour
 of the commands may change with the test driver (PhantomJS, Firefox, Chromium, etc.).
 
-```
+```php
 $I->amOnPage
 ```
 uses WebDriver GET command and waits for the HTML body of the page to be loaded (JavaScript onload handler fired),
 but nothing else.
 
-```
+```php
 $I->click
 ```
 just fires a click event on the given element. It does not wait for anything afterwards!
@@ -88,7 +88,7 @@ being able to assert any content.
 
 Even just a javascript popup, like an alert, may not be visible immediately!
 
-```
+```php
 $I->waitForPageBody()
 ```
 can be used to wait for the static page load to be done.

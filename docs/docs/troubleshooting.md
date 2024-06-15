@@ -26,13 +26,13 @@ This is a safety feature:
 There are several work-arounds:
 - You write tests. You should write tests anyway and since they emulate a complete session, the CSRF-Token is sent and valid.
 - You add an API call in some javascript-file that gets executed. For example add the following into `/src/Modules/Dashboard/Dashboard.js`:
-```
+```js
 import { get } from '@/api/base'
 get('/activity')
 ```
 Make sure that you do not commit those temporary changes!
 - You disable the CSRF-Check in `/src/EventListener/CsrfListener.php` by commenting the lines
-```
+```php
 // if (!$this->session->isValidCsrfHeader()) {
 //  throw new SuspiciousOperationException('CSRF Failed: CSRF token missing or incorrect.');
 //}
@@ -42,7 +42,7 @@ Make sure that you do not commit those temporary changes!
 ## Restart
 
 Sometimes the docker container get into some weird state. It might help to restart them:
-```
+```bash
 ./scripts/stop
 sudo ./scripts/clean # sudo necessary since the container run with root privileges and therefore create directories with root ownership
 ./scripts/start
@@ -54,7 +54,7 @@ But it takes quite a while.
 Symfony that is running inside docker container are using a cache directory that is persistent over docker restarts and sometimes changes in the source files are not reflected in the running containers.
 Then errors that are already fixed might still appear during experiments.
 Hence sometimes it helps to remove the cache directory:
-```
+```bash
 sudo rm -rf ./cache/dev
 ```
 or even `sudo rm -rf cache`.
@@ -75,7 +75,7 @@ Those ports are configured in `/docker/docker-compose.*.yml`.
 ## Logs
 
 The server (also the local one) writes logs about a lot that happens including errors. To view those logs, run
-```
+```bash
 ./scripts/docker-compose logs -f app
 ```
 where you can also replace `app` by other components of the application that are listed by `./scripts/docker-compose ps` or just remove it to show all logs.
@@ -84,7 +84,7 @@ where you can also replace `app` by other components of the application that are
 
 In order to print specific information in the logs, you can print them in your `php`-code.
 In order to do so, add a `LoggerInterface` in the constructor `__construct`:
-```
+```php
 use Psr/Log/LoggerInterface;
 ...
   private $logger;
@@ -102,7 +102,7 @@ use Psr/Log/LoggerInterface;
 ## Changes in js, vue etc. aren't showing up
 
 In order to have the webpack-dev-server recognize changes you have to add this watchOptions block to ```client/serve.config.js```
-```
+```json
 [...]
 module.exports = {
   [...]
