@@ -89,7 +89,7 @@ class FoodsharingUrl extends Db
 
     public function settingsUrl(): string
     {
-        return '/?page=settings&sub=general';
+        return '/user/current/settings?sub=general';
     }
 
     public function eventAddUrl($regionId): string

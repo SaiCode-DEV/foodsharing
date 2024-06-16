@@ -10,9 +10,11 @@ use Tests\Support\AcceptanceTester;
 class LegalControlCest
 {
     private $user;
+    private $isDeleted;
 
     public function _before(AcceptanceTester $I): void
     {
+        $this->isDeleted = false;
         $this->user = $I->createAmbassador();
         $I->login($this->user['email']);
         $I->amOnPage('/?page=legal');
@@ -21,10 +23,12 @@ class LegalControlCest
 
     public function _after(AcceptanceTester $I): void
     {
-        $lastModified = $I->updateThePrivacyPolicyDate();
-        $I->resetThePrivacyPolicyDate($lastModified);
-        $I->logMeOut();
-        $I->seeCurrentUrlEquals('/');
+        if (!$this->isDeleted) {
+            $lastModified = $I->updateThePrivacyPolicyDate();
+            $I->resetThePrivacyPolicyDate($lastModified);
+            $I->logMeOut();
+            $I->seeCurrentUrlEquals('/');
+        }
     }
 
     public function testGivenIAmNotLoggedInThenTheLegalPageShowsThePrivacyPolicyWithoutAskingForConsent(AcceptanceTester $I): void
@@ -52,8 +56,9 @@ class LegalControlCest
 
     public function testGivenIAmLoggedInAndWantToDeleteMyAccountThenIGetRedirectedToTheDeleteAccountPage(AcceptanceTester $I): void
     {
+        $this->isDeleted = true;
         $I->click('ich möchte meinen Account löschen.');
-        $I->seeCurrentUrlEquals('/?page=settings&sub=deleteaccount');
+        $I->seeCurrentUrlEquals('/user/' . $this->user['id'] . '/settings?sub=deleteaccount');
     }
 
     public function testGivenIAmLoggedInAndHaveARoleHigherThanOneThenICanAcceptThePrivacyPolicyAndNotice(AcceptanceTester $I): void

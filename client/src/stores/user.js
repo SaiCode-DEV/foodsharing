@@ -44,6 +44,9 @@ export const getters = {
   isStoreManager () {
     return store.details?.role >= ROLE.STORE_MANAGER
   },
+  isAmbassador () {
+    return store.details?.role >= ROLE.AMBASSADOR
+  },
   getUser () {
     return store.user
   },

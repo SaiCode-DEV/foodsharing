@@ -153,7 +153,7 @@ class PassportGeneratorTransaction extends AbstractController
                         'passgen_failed_title',
                         'passgen_failed',
                         'fas fa-camera',
-                        ['href' => '/?page=settings'],
+                        ['href' => '/user/current/settings'],
                         ['user' => $this->session->user('name')],
                         BellType::createIdentifier(BellType::PASS_CREATION_FAILED, $foodsaver['id'])
                     );

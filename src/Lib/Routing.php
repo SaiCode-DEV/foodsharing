@@ -6,7 +6,6 @@ use Foodsharing\Modules\Application\ApplicationControl;
 use Foodsharing\Modules\Basket\BasketXhr;
 use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use Foodsharing\Modules\Dashboard\DashboardControl;
-use Foodsharing\Modules\Foodsaver\FoodsaverControl;
 use Foodsharing\Modules\Index\IndexControl;
 use Foodsharing\Modules\Legal\LegalControl;
 use Foodsharing\Modules\Logout\LogoutControl;
@@ -16,7 +15,6 @@ use Foodsharing\Modules\Register\RegisterControl;
 use Foodsharing\Modules\Relogin\ReloginControl;
 use Foodsharing\Modules\Report\ReportControl;
 use Foodsharing\Modules\Report\ReportXhr;
-use Foodsharing\Modules\Settings\SettingsControl;
 use Foodsharing\Modules\Settings\SettingsXhr;
 use Foodsharing\Modules\Store\StoreController;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
@@ -39,7 +37,6 @@ class Routing
         'buddy' => 'Buddy',
         'bcard' => 'BusinessCard',
         'dashboard' => 'Dashboard',
-        'foodsaver' => 'Foodsaver',
         'index' => 'Index',
         'legal' => 'Legal',
         'logout' => 'Logout',
@@ -51,7 +48,6 @@ class Routing
         'relogin' => 'Relogin',
         'report' => 'Report',
         'search' => 'Search',
-        'settings' => 'Settings',
         'betrieb' => 'Store',
         'fsbetrieb' => 'StoreUser',
         'wallpost' => 'WallPost',
@@ -63,7 +59,6 @@ class Routing
         'application' => ApplicationControl::class,
         'bcard' => BusinessCardControl::class,
         'dashboard' => DashboardControl::class,
-        'foodsaver' => FoodsaverControl::class,
         'index' => IndexControl::class,
         'legal' => LegalControl::class,
         'logout' => LogoutControl::class,
@@ -74,7 +69,6 @@ class Routing
         'register' => RegisterControl::class,
         'relogin' => ReloginControl::class,
         'report' => ReportControl::class,
-        'settings' => SettingsControl::class,
         'fsbetrieb' => StoreUserControl::class,
         'groups' => WorkGroupControl::class,
         'store' => StoreController::class,
@@ -100,6 +94,7 @@ class Routing
         'chain',
         'event',
         'quiz',
+        'settings'
     ];
 
     private const RENAMES = [

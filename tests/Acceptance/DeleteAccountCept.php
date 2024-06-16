@@ -17,7 +17,7 @@ $foodsaver = $I->createFoodsaver($pass);
 
 $I->login($foodsaver['email'], $pass);
 
-$I->amOnPage('/?page=settings&sub=deleteaccount');
+$I->amOnPage('/user/current/settings?sub=deleteaccount');
 
 $I->click('#delete-account');
 $I->performOn('#modal-delete-account', ActionSequence::build()

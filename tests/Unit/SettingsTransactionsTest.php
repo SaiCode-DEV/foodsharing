@@ -8,11 +8,15 @@ use Codeception\Test\Unit;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Mails\MailsGateway;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
+use Foodsharing\Modules\Unit\UnitGateway;
+use Foodsharing\Permissions\SettingsPermissions;
 use Foodsharing\Utility\EmailHelper;
+use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Tests\Support\UnitTester;
@@ -22,9 +26,11 @@ class SettingsTransactionsTest extends Unit
     protected ?MockObject $session = null;
     protected UnitTester $tester;
     private ?SettingsTransactions $transaction = null;
-    private array $foodsaver;
 
-    public function _before()
+    /**
+     * @throws Exception
+     */
+    public function _before(): void
     {
         $this->session = $this->createMock(Session::class);
         $this->transaction = new SettingsTransactions(
@@ -34,7 +40,11 @@ class SettingsTransactionsTest extends Unit
             $this->tester->get(MailsGateway::class),
             $this->tester->get(EmailHelper::class),
             $this->tester->get(TranslatorInterface::class),
-            $this->session);
+            $this->session,
+            $this->tester->get(SettingsPermissions::class),
+            $this->tester->get(FoodsaverTransactions::class),
+            $this->tester->get(UnitGateway::class),
+        );
     }
 
     protected function _after()

@@ -11,6 +11,7 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Foodsaver\DTO\EditableProfileDTO;
 use Foodsharing\Modules\Region\ForumFollowerGateway;
 use Foodsharing\Utility\DataHelper;
 
@@ -151,6 +152,7 @@ class FoodsaverGateway extends BaseGateway
 			fs.id,
 			fs.admin,
 			fs.orgateam,
+			fs.position,
 			fs.bezirk_id,
 			fs.photo,
 			fs.rolle,
@@ -165,11 +167,21 @@ class FoodsaverGateway extends BaseGateway
 			fs.geschlecht,
 			fs.privacy_policy_accepted_date,
 			fs.privacy_notice_accepted_date,
-			fs.last_login as last_activity
+			fs.last_login as last_activity,
+			fs.geb_datum,
+			fs.handy as mobile,
+			fs.telefon as phone,
+			fs.anschrift as street,
+			fs.plz as postalCode,
+			fs.stadt as city,
+			fs.about_me_public,
+			fs.about_me_intern,
+			fs.no_automatic_delete
 
 		FROM	fs_foodsaver fs
 
 		WHERE     fs.id = :id
+		AND       fs.deleted_at IS NULL
 		', [':id' => $fsId]);
     }
 
@@ -668,6 +680,9 @@ class FoodsaverGateway extends BaseGateway
         );
     }
 
+    /**
+     * @deprecated
+     */
     public function updateProfile(int $fsId, array $data): bool
     {
         $fields = [
@@ -828,42 +843,32 @@ class FoodsaverGateway extends BaseGateway
         );
     }
 
-    public function updateFoodsaver(int $fsId, array $data): int
+    public function updateFoodsaver(int $fsId, EditableProfileDTO $editableProfileDTO): int
     {
+        // This is necessary because trimming null returns an empty string
+        $trimIfNotNull = fn ($value) => is_null($value) ? null : strip_tags(trim($value));
+
         $updateData = [
-            'bezirk_id' => $data['bezirk_id'],
-            'plz' => strip_tags(trim((string)$data['plz'])),
-            'stadt' => strip_tags(trim((string)$data['stadt'])),
-            'lat' => strip_tags(trim((string)$data['lat'])),
-            'lon' => strip_tags(trim((string)$data['lon'])),
-            'name' => strip_tags((string)$data['name']),
-            'nachname' => strip_tags((string)$data['nachname']),
-            'anschrift' => strip_tags((string)$data['anschrift']),
-            'telefon' => strip_tags((string)$data['telefon']),
-            'handy' => strip_tags((string)$data['handy']),
-            'geschlecht' => $data['geschlecht'],
-            'geb_datum' => $data['geb_datum']
+            'bezirk_id' => $editableProfileDTO->regionId,
+            'plz' => $trimIfNotNull($editableProfileDTO->location?->postalCode),
+            'stadt' => $trimIfNotNull($editableProfileDTO->location?->city),
+            'lat' => $editableProfileDTO->coordinate ? (string)$editableProfileDTO->coordinate->lat : null,
+            'lon' => $editableProfileDTO->coordinate ? (string)$editableProfileDTO->coordinate->lon : null,
+            'name' => $trimIfNotNull($editableProfileDTO->firstName),
+            'nachname' => $trimIfNotNull($editableProfileDTO->lastName),
+            'anschrift' => $trimIfNotNull($editableProfileDTO->location?->street),
+            'telefon' => $trimIfNotNull($editableProfileDTO->phone),
+            'handy' => $trimIfNotNull($editableProfileDTO->mobile),
+            'geschlecht' => $editableProfileDTO->gender,
+            'geb_datum' => $trimIfNotNull($editableProfileDTO->birthday),
+            'position' => $trimIfNotNull($editableProfileDTO->position),
+            'no_automatic_delete' => $editableProfileDTO->noAutoDelete,
+            'rolle' => $editableProfileDTO->role,
+            'about_me_intern' => $trimIfNotNull($editableProfileDTO->aboutMeInternal),
+            'about_me_public' => $trimIfNotNull($editableProfileDTO->aboutMePublic),
         ];
-
-        if (isset($data['position'])) {
-            $updateData['position'] = strip_tags((string)$data['position']);
-        }
-
-        if (isset($data['no_automatic_delete'])) {
-            $updateData['no_automatic_delete'] = $data['no_automatic_delete'];
-        }
-
-        if (isset($data['email'])) {
-            $updateData['email'] = strip_tags((string)$data['email']);
-        }
-
-        if (isset($data['orgateam'])) {
-            $updateData['orgateam'] = $data['orgateam'];
-        }
-
-        if (isset($data['rolle'])) {
-            $updateData['rolle'] = $data['rolle'];
-        }
+        // Only use fields with a non-null value because a null value means that the field should not be updated
+        $updateData = array_filter($updateData, fn ($var) => $var !== null);
 
         return $this->db->update('fs_foodsaver', $updateData, [
             'id' => $fsId

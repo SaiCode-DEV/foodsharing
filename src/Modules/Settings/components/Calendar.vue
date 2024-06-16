@@ -1,59 +1,53 @@
 <template>
   <div class="settings-calendar">
-    <div class="head ui-widget-header">
-      {{ $i18n('settings.calendar.title') }}
-    </div>
+    <h3 class="heading">
+      <i class="fas fa-fw fa-lightbulb" />
+      {{ $i18n('settings.calendar.link_title') }}
+    </h3>
+    <div class="bootstrap">
+      <p> {{ $i18n('settings.calendar.teaser') }} <a :href="$url('wiki_calendar')" target="_blank">{{ $url('wiki_calendar') }}</a></p>
+      <b-button
+        class="my-2"
+        @click="createToken"
+      >
+        {{ $i18n('settings.calendar.create_token.button') }}
+      </b-button>
+      <b-button
+        v-if="token"
+        class="my-2"
+        @click="removeToken"
+      >
+        {{ $i18n('settings.calendar.delete_token.button') }}
+      </b-button>
 
-    <div class="ui-widget-content corner-bottom margin-bottom ui-padding">
-      <h3 class="heading">
-        <i class="fas fa-fw fa-lightbulb" />
-        {{ $i18n('settings.calendar.link_title') }}
-      </h3>
-      <div class="bootstrap">
-        <p> {{ $i18n('settings.calendar.teaser') }} <a :href="$url('wiki_calendar')" target="_blank">{{ $url('wiki_calendar') }}</a></p>
-        <b-button
-          class="my-2"
-          @click="createToken"
-        >
-          {{ $i18n('settings.calendar.create_token.button') }}
-        </b-button>
-        <b-button
-          v-if="token"
-          class="my-2"
-          @click="removeToken"
-        >
-          {{ $i18n('settings.calendar.delete_token.button') }}
-        </b-button>
+      <div v-if="token" class="mt-3">
+        <hr>
 
-        <div v-if="token" class="mt-3">
-          <hr>
+        <b-form-checkbox v-model="includeInvitations" class="mt-3">
+          {{ $i18n('settings.calendar.include_invitations') }}
+        </b-form-checkbox>
 
-          <b-form-checkbox v-model="includeInvitations" class="mt-3">
-            {{ $i18n('settings.calendar.include_invitations') }}
-          </b-form-checkbox>
-
-          <ul class="webcal">
-            <li class="pb-1">
-              <a :href="webcalPickups">
-                {{ webcalPickups }}
-              </a>
-            </li>
-            <li class="pb-1">
-              <a :href="httpPickups">
-                {{ httpPickups }}
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <b-alert variant="warning" show>
-          {{ $i18n('settings.calendar.token-warning') }}
-        </b-alert>
-
-        <b-alert variant="secondary" show>
-          {{ $i18n('settings.calendar.sync') }}
-        </b-alert>
+        <ul class="webcal">
+          <li class="pb-1">
+            <a :href="webcalPickups">
+              {{ webcalPickups }}
+            </a>
+          </li>
+          <li class="pb-1">
+            <a :href="httpPickups">
+              {{ httpPickups }}
+            </a>
+          </li>
+        </ul>
       </div>
+
+      <b-alert variant="warning" show>
+        {{ $i18n('settings.calendar.token-warning') }}
+      </b-alert>
+
+      <b-alert variant="secondary" show>
+        {{ $i18n('settings.calendar.sync') }}
+      </b-alert>
     </div>
   </div>
 </template>

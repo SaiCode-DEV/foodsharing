@@ -24,7 +24,7 @@
         v-if="profileMenu.fsId === profileMenu.fsIdSession"
         type="button"
         class="list-group-item list-group-item-action"
-        :href="$url('settings')"
+        :href="$url('settings', profileMenu.fsId)"
       >
         <i class="fas fa-pencil-alt fa-fw" /> {{ $i18n('settings.header') }}
       </b-list-group-item>
@@ -40,7 +40,7 @@
         v-if="profileMenu.mayAdmin"
         type="button"
         class="list-group-item list-group-item-action"
-        :href="$url('foodsaverEdit', profileMenu.fsId)"
+        :href="$url('settings', profileMenu.fsId)"
       >
         <i class="fas fa-pencil-alt fa-fw" /> {{ $i18n('profile.nav.edit') }}
       </b-list-group-item>

@@ -37,11 +37,11 @@ class BusinessCardControl extends Control
 
             if (strlen($data['telefon'] . $data['handy']) <= 3) {
                 $this->flashMessageHelper->error($this->translator->trans('bcard.error.phone'));
-                $this->routeHelper->goAndExit('/?page=settings');
+                $this->routeHelper->goAndExit('/user/current/settings');
             }
             if ($data['verified'] == 0) {
                 $this->flashMessageHelper->error($this->translator->trans('bcard.error.verified'));
-                $this->routeHelper->goAndExit('/?page=settings');
+                $this->routeHelper->goAndExit('/user/current/settings');
             }
 
             $choices = [];

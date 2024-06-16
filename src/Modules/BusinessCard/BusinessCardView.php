@@ -29,7 +29,7 @@ class BusinessCardView extends View
                 if (value == "") {
                     pulseError(\'' . $this->translator->trans('bcard.choose') . '\');
                 } else {
-                    goTo("/?page=bcard&sub=makeCard&opt=" + encodeURIComponent(value));
+                    goTo("/user/current/settings?sub=makeCard&opt=" + encodeURIComponent(value));
                 }
             });
         ');

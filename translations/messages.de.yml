@@ -16,7 +16,6 @@ description: "Beschreibung"
 plz: "Postleitzahl (automatisch aus Karte oben)"
 email: "E-Mail-Adresse"
 attachement: "Anhang" # EmailControl
-telefon: "Festnetznummer (inkl. Ländervorwahl, beginnt mit +)"
 handy: "Handynummer (inkl. Ländervorwahl, beginnt mit +)"
 anschrift: "Straße und Hausnummer (automatisch aus Karte oben, gegebenenfalls anschließend korrigieren)"
 geschlecht: "Geschlecht"
@@ -108,7 +107,6 @@ compose_body: "Nachricht"
 # --
 # comment: "Anregungen, Kritik und Kommentare" # this looks very unused
 passcheck: "Bestätige die Änderung bitte mit deinem Passwort"
-homepage: "Deine Webseite"
 #
 # FORM DATA KEYS: StoreView (team + pickup time management)
 # --
@@ -384,10 +382,7 @@ bcard:
   title: "Visitenkarten-Generator"
   card: "Deine foodsharing-Visitenkarte"
   claim: "Hier einfach generieren, ausdrucken und ausschneiden …"
-  for: "{role} für {region}"
-  actions: "Optionen"
   desc: "Wähle hier, für welchen Bezirk beziehungsweise für welche Rolle du deine Visitenkarte erstellen möchtest."
-  choose: "Du musst eine Option wählen"
   error:
     length: "Deine Anschrift ist zu lang. Anschrift, Postleitzahl und Stadt dürfen zusammen maximal 49 Zeichen haben."
     phone: "Du musst eine gültige Telefonnummer angegeben haben, um deine Visitenkarte zu generieren."
@@ -395,7 +390,9 @@ bcard:
   generate: "Visitenkarten erstellen"
   info:
     address_shortened: "Deine Anschrift und/oder PLZ + Ort werden auf der Visitenkarte gekürzt ausgegeben."
-  role: "Rolle/Region"
+  role: "Rolle"
+  region: "Region"
+
 
 group:
   name: "Name"
@@ -672,8 +669,10 @@ register:
   login_surname: "Dein Nachname"
   firstname_required: "Bitte gib deinen Vornamen ein."
   firstname_minLength: "Der Vorname muss aus mindestens zwei Zeichen bestehen."
+  firstname_maxLength: "Der Vorname darf aus maximal 30 Zeichen bestehen."
   lastname_required: "Bitte gib deinen Nachnamen ein."
   lastname_minLength: "Der Nachname muss aus mindestens zwei Zeichen bestehen."
+  lastname_maxLength: "Der Nachname darf aus maximal 30 Zeichen bestehen."
   login_phone_info: "Es kann hilfreich sein, deine Telefonnummer mit anderen Foodsharer:innen zu teilen"
   phone_example: "Beispiel +49 179 12345678"
   landline_example: "Beispiel +49 30 123456789"
@@ -781,7 +780,7 @@ terminology:
   n_ambassadors: "{count} Botschafter:innen"
   n_stores: "{count} Betriebe"
   n_cooperating_stores: "{count} laufende Kooperationen"
-  profile_picture: "Profilbild"
+  profile_picture: "Profil-Foto"
   region: "Bezirk"
   regions: "Bezirke"
   threads: "Themen"
@@ -1773,6 +1772,7 @@ foodsaver:
   edit_failure: "Es wurde nichts verändert oder Änderungen wurden nicht gespeichert"
   profileBack: "Zurück zum Profil"
   delete_account: "Account löschen"
+  delete_account_reason: "Grund der Account-Löschung"
   delete_account_sure: "Soll dein Account wirklich gelöscht werden?"
   delete_account_sure_reason: "Soll der Account von {name} wirklich gelöscht werden? Du kannst hier optional eine Begründung angeben, mit der sich später nachvollziehen lässt, warum der Account gelöscht wurde:"
   delete_account_now: "Account jetzt löschen"
@@ -1788,12 +1788,9 @@ foodsaver:
     remove: "Aus Bezirk löschen"
     orga: "ist im globalen Orgateam dabei"
   about_me_public: |
-    Diese Kurzbeschreibung wird für alle auf der <a href="/team">Team-</a>
-    und der <a href="/team/ehemalige">Ehemaligenseite</a> aufgeführten
-    Personen angezeigt und kann dort auf der Webseite von allen eingesehen werden.
+    wird für alle auf der [Team- und Ehemaligen-Seite](/team) aufgeführten Personen angezeigt und kann dort auf der Webseite von allen eingesehen werden.
   about_me_intern: |
-    Diese Kurzbeschreibung wird auf deiner Profilseite angezeigt
-    und ist dort für alle in der foodsharing-Community sichtbar.
+    wird auf deiner Profilseite angezeigt und ist dort für alle in der foodsharing-Community sichtbar.
   upgrade:
     learning: "Jetzt Erklärvideo anschauen"
     ad_fs: "Ich möchte jetzt das Foodsaver-Quiz machen und Foodsaver:in werden!"
@@ -1916,7 +1913,12 @@ mailbox:
   show_html_body: "Als HTML anzeigen"
 
 settings:
+  no_rights: "Du hast keine Rechte, um die Profile-Einstellungen zu ändern."
   title: "Einstellungen"
+  delete_profile: "Profil löschen"
+  address:
+    title: "Adresse auswählen"
+    choose: "Adresse übernehmen"
   header: "Profil-Einstellungen"
   notifications: "Benachrichtigungen"
   follow:
@@ -1933,6 +1935,10 @@ settings:
     Möchtest du das?
   businesscard: "Persönliche Visitenkarte"
   account: "Account-Optionen"
+  quiz:
+    1: "Foodsaver:innen Quiz"
+    2: "Betriebsverantwortlichen Quiz"
+    3: "Botschafter:innen Quiz"
   sleep:
     title: "Schlafmütze"
     header: "Schlafmützenfunktion"
@@ -2034,10 +2040,13 @@ settings:
     title: Name (Vor- & Nachname)
     desc: Der eigene Name kann nicht selbstständig geändert werden. Du kannst aber eine [Namensänderung beantragen]({link}).
     request: Namensänderung beantragen
-    foodsaver_info: "Um deinen Namen ändern zu lassen, musst du eine:n Botschafter:in aus deinem Stammbezirk kontaktieren. Diese:r kann dann die Namensänderung für dich durchführen.<hr>Wer Botschafter:in in deinem Stammbezirk ist, siehst du im <a href=\"{link}\">Forum deines Bezirks</a> in der linken Seitenleiste."
-    foodsharer_info: "Um deinen Namen ändern zu lassen, musst du uns eine Anfrage über das <a href=\"{link}\">Support-Formular</a> stellen."
+    foodsaver_info: "Um deinen Namen ändern zu lassen, musst du eine:n Botschafter:in aus deinem Stammbezirk kontaktieren. Diese:r kann dann die Namensänderung für dich durchführen.<hr>Wer Botschafter:in in deinem Stammbezirk ist, siehst du im [Forum deines Bezirks]({link}) in der linken Seitenleiste."
+  general:
+    phone: "Deine Festnetznummer"
+    current_address: "Aktuelle Adresse"
 mail:
   noreply_addresses_not_allowed: "E-Mails an noreply@…-Adressen sind nicht zustellbar.<br>Bitte überprüfe die Empfangsadresse."
+
 
 profile:
   title: "Profil"
@@ -2252,7 +2261,7 @@ profile:
   deletesuccess: "Einzeltermin gelöscht"
   cantdeletethis: "Du kannst keine Einzeltermine löschen!"
   choosestore: "Bitte den betroffenen Betrieb auswählen" #in ProfileView
-  editNameInfo: "Bitte beachte, dass die Felder für Vor- und Nachname ausschließlich für den Namen der Person genutzt werden sollen. Bitte nutze dieses Feld nicht, um weitere Informationen über das Profil abzulegen, wie bspw. die Durchführung einer Hygieneschulung. Stattdessen können Arbeitsgruppen genutzt werden, um weitere Informationen über Profile zu hinterlegen. Weitere Infos hierzu im <a href=\"/region?bid=881&sub=forum&tid=58225\">Botschafter:innen-Forum</a>"
+  editNameInfo: "Bitte beachte, dass die Felder für Vor- und Nachname ausschließlich für den Namen der Person genutzt werden sollen. Bitte nutze dieses Feld nicht, um weitere Informationen über das Profil abzulegen, wie bspw. die Durchführung einer Hygieneschulung. Stattdessen können Arbeitsgruppen genutzt werden, um weitere Informationen über Profile zu hinterlegen. Weitere Infos hierzu im [Botschafter:innen-Forum](region?bid=881&sub=forum&tid=58225)"
 
 dashboard:
   title: "Dashboard"
@@ -3412,7 +3421,6 @@ help:
       title: "Engagementstatistik"
       md: ist sichtbar ab der Rolle des Betriebsverantwortlichen. Sie wird eingeschränkt auf gemeinsamen Stammbezirk oder gemeinsame Betriebe.
 
-
 team_page:
   board_member:
     title: "Vorstand"
@@ -3426,3 +3434,6 @@ team_page:
     title: "Ehemalige"
     text: |
       Gemeinsam blicken wir auf eine erfolgreiche Entstehungsgeschichte von foodsharing zurück. Wir möchten an dieser Stelle all den Menschen danken, die daran mitwirkten, indem sie zum Teil Vollzeit-ehrenamtlich, oder in einem sehr hohen Maße, für das Orgateam oder den Vorstand aktiv waren!
+
+validation:
+  phone_number_invalid: "Die Telefonnummer ist ungültig (z. B. +49 fehlt, ist zu kurz, zu lang oder enthält ungültige Zeichen)"

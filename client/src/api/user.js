@@ -35,6 +35,10 @@ export function registerUser (firstName, lastName, email, password, gender, birt
   })
 }
 
+export function patchUserProfile (userId, data) {
+  return patch(`/user/${userId}/profile`, data)
+}
+
 export function testRegisterEmail (email) {
   return post('/user/isvalidemail', { email: email })
 }

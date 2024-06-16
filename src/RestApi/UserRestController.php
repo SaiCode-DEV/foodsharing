@@ -7,6 +7,7 @@ use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Gender;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Foodsaver\DTO\EditableProfileDTO;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Modules\Foodsaver\Profile;
@@ -19,6 +20,7 @@ use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Register\DTO\RegisterData;
 use Foodsharing\Modules\Register\RegisterTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
+use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Permissions\BlogPermissions;
@@ -39,6 +41,8 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA2;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -47,6 +51,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserRestController extends AbstractFoodsharingRestController
 {
@@ -80,31 +85,9 @@ class UserRestController extends AbstractFoodsharingRestController
         private SearchPermissions $searchPermissions,
         private RegionTransactions $regionTransactions,
         private GroupTransactions $groupTransactions,
-        private DataHelper $dataHelper
+        private DataHelper $dataHelper,
+        private readonly SettingsTransactions $settingsTransactions
     ) {
-        $this->loginGateway = $loginGateway;
-        $this->foodsaverGateway = $foodsaverGateway;
-        $this->profileGateway = $profileGateway;
-        $this->uploadsGateway = $uploadsGateway;
-        $this->regionGateway = $regionGateway;
-        $this->emailHelper = $emailHelper;
-        $this->registerTransactions = $registerTransactions;
-        $this->profileTransactions = $profileTransactions;
-        $this->foodsaverTransactions = $foodsaverTransactions;
-        $this->settingsGateway = $settingsGateway;
-        $this->regionTransactions = $regionTransactions;
-        $this->groupTransactions = $groupTransactions;
-
-        $this->profilePermissions = $profilePermissions;
-        $this->mailboxPermissions = $mailboxPermissions;
-        $this->quizPermissions = $quizPermissions;
-        $this->reportPermissions = $reportPermissions;
-        $this->storePermissions = $storePermissions;
-        $this->contentPermissions = $contentPermissions;
-        $this->blogPermissions = $blogPermissions;
-        $this->regionPermissions = $regionPermissions;
-        $this->newsletterEmailPermissions = $newsletterEmailPermissions;
-        $this->dataHelper = $dataHelper;
     }
 
     /**
@@ -572,5 +555,32 @@ class UserRestController extends AbstractFoodsharingRestController
         $this->profileTransactions->removeUserFromBounceList($userId);
 
         return $this->handleView($this->view([], 200));
+    }
+
+    /**
+     * @throws Exception
+     */
+    #[OA2\Patch(summary: 'Updates the user profile information.')]
+    #[OA2\Tag(name: 'user')]
+    #[Rest\Patch('user/{userId}/profile')]
+    #[OA2\RequestBody(ref: EditableProfileDTO::class)]
+    #[OA2\Response(ref: EditableProfileDTO::class, response: Response::HTTP_OK, description: 'Success.')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Unauthorized.')]
+    #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Bad Request.')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'User not found.')]
+    #[ParamConverter('editableProfileDTO', converter: 'fos_rest.request_body')]
+    public function patchUserProfile(int $userId, EditableProfileDTO $editableProfileDTO, ValidatorInterface $validator): Response
+    {
+        $this->assertLoggedIn();
+        $editableProfileDTO->id = $userId;
+        $this->assertThereAreNoValidationErrors($validator, $editableProfileDTO);
+
+        try {
+            $this->settingsTransactions->patchProfile($userId, $editableProfileDTO);
+        } catch (NotFoundHttpException $e) {
+            throw new NotFoundHttpException('User not found.');
+        }
+
+        return $this->respondOK();
     }
 }

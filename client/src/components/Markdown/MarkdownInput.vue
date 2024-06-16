@@ -33,6 +33,7 @@
     >
       <b-form-textarea
         v-if="!isPreview"
+        :id="inputName"
         ref="input"
         v-model="modelValue"
         class="md-text-area"
@@ -74,6 +75,7 @@ export default {
   components: { Markdown, ImageUpload },
   mixins: [RouteAndDeviceCheckMixin],
   props: {
+    inputName: { type: String, default: null },
     rows: { type: Number, default: 4 },
     maxRows: { type: Number, default: getMaxRowsForScreenSize },
     value: { type: String, default: '' },
@@ -130,6 +132,15 @@ export default {
     hasImages () {
       this.$emit('image-change', this.hasImages)
     },
+  },
+  async mounted () {
+    // v-bootstrap doesn't handel initial values with row and max-row correctly.
+    // This code updates the input height.
+    if (this.modelValue === '') return
+    const modelValue = this.modelValue
+    this.modelValue += '\n'
+    await new Promise(resolve => window.setTimeout(resolve, 200))
+    this.modelValue = modelValue
   },
   methods: {
     getBaseTextArea () {

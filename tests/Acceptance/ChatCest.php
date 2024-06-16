@@ -31,7 +31,7 @@ class ChatCest
         // Activate chat notifications by mail
         $I->login($this->foodsaver2['email']);
 
-        $I->amOnPage('/?page=settings&sub=info');
+        $I->amOnPage('/user/current/settings?sub=info');
         $I->selectOption('form input[name=infomail_message]', '1');
         $I->click('Speichern');
         $I->see('Änderungen wurden gespeichert.');

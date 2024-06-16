@@ -26,7 +26,7 @@ class StoreChainController extends FoodsharingController
     {
         if (!$this->permissions->maySeeChainList()) {
             $this->flashMessageHelper->info($this->translator->trans('chain.error.notfs'));
-            $this->routeHelper->goAndExit('?page=settings&sub=rise_role&role=' . Role::FOODSAVER->value);
+            $this->routeHelper->goAndExit('settings?sub=rise_role&role=' . Role::FOODSAVER->value);
         }
 
         $this->pageHelper->addBread($this->translator->trans('chain.bread.workinggroup'), '/region?bid=' . RegionIDs::STORE_CHAIN_GROUP);
