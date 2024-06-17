@@ -1237,6 +1237,8 @@ register:
   select_your_gender: 'Para el saludo …'
   change-password: 'Ahora puedes cambiar tu contraseña.'
   confirmPassword_sameAsPassword: 'La contraseña debe coincidir.'
+  lastname_maxLength: El apellido sólo puede constar de un máximo de 30 caracteres.
+  firstname_maxLength: El nombre sólo puede constar de un máximo de 30 caracteres.
 button:
   rotate_right: 'rotar las agujas del reloj'
   save: 'ahorrar'
@@ -1902,20 +1904,19 @@ foodsaver:
     fallado. Inténtalo de nuevo.'
   delete_account_now: 'Eliminar cuenta ahora'
   bread: 'Todos l@s rescatistas'
-  about_me_public: "Esta breve descripción se muestra y puede ser utilizada por todas
-    las personas\nque figuran en la <a href=\"/team\">página de personal</a> y en
-    la \n<a href=\"/team/former\">página de anteriormente activ@s</a>. Puede ser visto
-    por todos en el sitio web.\n"
+  about_me_public: "se muestra y puede ser utilizada por todas las personas que figuran
+    en la [página de personal y en la página de anteriormente activ@s](/team). Puede
+    ser visto por todos en el sitio web.\n"
   delete_account_sure: '¿Realmente quieres eliminar tu cuenta?'
   delete_account_sure_reason: '¿Realmente debería eliminarse la cuenta de {name}?
     Opcionalmente, puedes proporcionar un motivo aquí para que otros puedan entender
     más adelante por qué se eliminó la cuenta:'
   profileBack: 'Volver al perfil'
-  about_me_intern: 'Esta breve descripción se mostrará en su página de perfil
-
-    y será visible para todos los miembros de la comunidad de foodsharing.
+  about_me_intern: 'se mostrará en su página de perfil y será visible para todos los
+    miembros de la comunidad de foodsharing.
 
     '
+  delete_account_reason: Motivo de la eliminación de la cuenta
 profile:
   mail_bounce:
     warning_4: 'este artículo de soporte.'
@@ -3128,6 +3129,13 @@ settings:
     ¿Quieres eso?
 
     '
+  no_rights: No está autorizado a modificar la configuración del perfil.
+  delete_profile: Eliminar este perfil
+  address:
+    title: Seleccionar dirección
+    choose: Adoptar dirección
+  general:
+    phone: Su número de teléfono fijo
 team:
   former: 'Antiguos alumnos'
   ratelimit: 'Espere {minutes} minutos antes de poder enviar el siguiente mensaje.'
