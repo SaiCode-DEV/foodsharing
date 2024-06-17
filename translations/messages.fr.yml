@@ -254,8 +254,9 @@ bcard:
   info:
     address_shortened: Ton adresse ou ton code postal + ville seront raccourcis sur
       la carte de visite.
-  role: "Rôle/District"
+  role: "Rôle"
 
+  region: Région
 pass:
   notGenerated: Leurs passeports n’ont pas pu être générés.
   noPhoto: "Les personnes suivantes n’ont pas encore importé de photo :"
@@ -560,9 +561,9 @@ settings:
     foodsharer_info: Pour changer ton nom, tu dois nous faire une demande sous <a
       href="{link}">formulaire de support</a>.
     foodsaver_info: Pour changer ton nom, tu dois contacter un·e ambassadeur·ice de
-      ton secteur géographique de rattachement. <hr>Pour savoir qui est l’ambassadeur·ice
-      de ton secteur géographique, consulte le <a href="{link}">forum de ton secteur
-      géographique</a> dans la barre latérale gauche.
+      ton secteur géographique de rattachement.<hr>Pour savoir qui est l’ambassadeur·ice
+      de ton secteur géographique, consulte le [forum de ton secteur géographique]({link})
+      dans la barre latérale gauche.
   passport:
     menu: Carte de collecteur·ice
     button: Télécharger la carte d’identité
@@ -1916,8 +1917,7 @@ profile:
     d’autres informations sur l’utilisateur·ice, telles que la mise en œuvre d’une
     formation en matière d’hygiène ou autre, mais des groupes de travail peuvent être
     utilisés pour effectuer de telles tâches. De plus amples informations à ce sujet
-    sont disponibles sur le <a href="/region?bid=881&sub=forum&tid=58225">Forum des
-    ambassadeur·rice·s</a>
+    sont disponibles sur le [Forum des ambassadeur·rice·s](/region?bid=881&sub=forum&tid=58225)
   stores:
     memberState:
       filterRequested: Demande soumise
@@ -3872,3 +3872,6 @@ team_page:
     title: Équipe informatique
   board_member:
     title: Comité d’association
+validation:
+  phone_number_invalid: Le numéro de téléphone n’est pas valide (par exemple, l’indicatif
+    du pays est manquant, trop court, trop long ou contient des caractères non valides)
