@@ -422,6 +422,9 @@ quiz:
           label: 'Açıklama:'
           placeholder: Açıklama...
         answerRating: 'Değerlendirme:'
+  confirmDashboardText: Bir testi başardınız, ancak daha onaylamadınız. İşlemi tamamlamak
+    için [ burayı tıklayın]({url})!
+  confirmComment: Bu testin adminlerine notunuz gönderilsin mi?
 answers: Hangi cevaplar doğru?
 maxfp: Geçilmesi gerekilen maksimum hata puanları
 questcount: Sınavda kaç soru sorulmalıdır?
@@ -751,7 +754,7 @@ bell:
   poll_new_title: Yeni oylama
   store_wallpost: Pano da yeni yazı.
   fs_sleepmode_title: Yeni Uyku Kepi
-  new_quiz_comment_title: Yeni Test yorumu
+  new_quiz_comment_title: 'Soruya yeni bir yorum geldi #{questionId}'
   ft_update: '{teaser}'
   forum_answer_title: '{forum}'
   forum_answer: '{user} size yanıt verdi'
@@ -812,6 +815,7 @@ bell:
     many: '{event} etkinliğine {count} yeni yorum'
   event_post_title: '{region} bölgesindeki {etkinlik} tarihi'
   internal_email_changed: Kişisel e-posta adresiniz değiştirildi.
+  workinggroup_new_request: Çalışma grubu için yeni bir başvuru
 sig:
   buddies: Tanıdığın insanlar
 error:
@@ -1067,7 +1071,8 @@ bcard:
   actions: Opsiyonlar
   desc: Kartvizitinizi hangi bölge için veya hangi sıfat için oluşturmak istediğinizi
     buradan seçin.
-  role: Rol-/Bölge
+  role: Rol
+  region: Bölge_
 month:
   "4": Nisan
   "6": Haziran
@@ -1144,7 +1149,7 @@ date:
   -- Tomorrow: Yarın
   yesterday: dün
   sunday: Pazar
-  Today: Bugün
+  Today: Bugün_
   today: bugün
   saturday: Cumartesi
   tomorrow: yarın
@@ -1319,7 +1324,7 @@ store:
   bread: Tüm işletmeler
   actions: Opsiyonlar
   not-in-team: Henüz bu işletme ekibinin bir parçası değilsiniz.
-  pickup_slot_unavailable: Bu Slot, operasyon yöneticinizin planladığından daha ileride.
+  pickup_slot_unavailable: Bu Slot, işletme yöneticisinin planladığından daha ileride.
     Bu yüzden lütfen daha sonra tekrar deneyin.
   fetchCount: '{count}× buradan aldı.'
   mayManage: İşletme yöneticisi sınavını geçti.
@@ -1737,6 +1742,7 @@ foodsaver:
     FOODSAVER: Foodsaver ol
     STORE_MANAGER: İşletme sorumlusu ol
     AMBASSADOR: Yetkili Elçi ol
+    pn: Evet, veri koruma politikasını okudum ve kabul ediyorum.
   edit: Foodsaverı düzenle
   profileBack: Profile geri dön
   delete_own_account: Hesabınızı silmek üzeresiniz. Gerçekten emin misin?
@@ -1753,8 +1759,8 @@ foodsaver:
   edit_failure: Hiçbir şey değiştirilmedi veya değişiklikler kaydedilmedi
   delete_account: Hesabı sil
   delete_account_now: Hesabı şimdi sil
-  about_me_intern: "Bu kısa açıklama profil sayfanızda görüntülenecektir.\nve orada
-    foodsharing topluluğundaki herkes tarafından görülebilir.\n"
+  about_me_intern: "profil sayfanızda görüntülenecek ve foodsharing topluluğundaki
+    herkes tarafından görülebilecek.\n"
   restricted: Ne yazık ki, bu verileri görüntüleme yetkiniz yok.
   actions: Faaliyetler
   title: Foodsaver
@@ -1762,11 +1768,11 @@ foodsaver:
     buraya daha sonra hesabın neden silindiğini anlamak için bir neden girebilirsiniz:'
   mailchange_error: Yeni e-posta adresinizin etkinleştirilmesi başarısız oldu. Lütfen
     tekrar deneyin.
-  about_me_public: "Bu kısa açıklama, <a href=\"/team\">Ekibindeki</a> herkes tarafından
-    kullanılabilir.\nve <a href=\"/team/ehemals\">eski üyeler sayfasında</a>\nkişiler
-    ve web sitesinde bulunan herkes tarafından görüntülenebilir.\n"
+  about_me_public: "[Ekip ve eski Ekip Sayfası](/team)'nda listelenen herkese gösterilecek
+    ve web sitesindeki herkes tarafından görüntülenebilecek.\n"
   kicked: Foodsaver kaldırıldı
   bread: Tüm Foodsaverlar
+  delete_account_reason: Hesabın silinme nedeni
 content:
   empty: Şu ana kadar herhangi bir sayfa girilmedi.
   delete: "{name}'i gerçekten silmek istiyor musunuz?"
@@ -2351,7 +2357,7 @@ settings:
     export_tooltip: Seçtiğiniz bir takvim programı ile tahsilat tarihlerinizi görüntüleyebilirsiniz.
     export: Takvimi dışa aktar
     include_invitations: Takvimde henüz yanıtlamadığım randevu davetleri de bulunmalıdır.
-  title: Ayarlar
+  title: Ayarlar_
   passport:
     menu: Kimlik Kartı
     verified_text: Bu kimlik kartı akıllı telefonlarda kullanılmak üzere tasarlanmıştır.
@@ -2391,9 +2397,10 @@ settings:
     desc: Kendi adınızı kendiniz değiştiremezsiniz. Ancak [ad değişikliği talebinde
       bulunabilirsiniz]({link}).
     request: İsim değişikliği talep edin
-    foodsaver_info: Adınızı değiştirmek için, kendi bölgenizden bir elçi ile iletişime
-      geçmelisiniz. Bu kişi, adınızı değiştirebilir.<hr>Sol kenar çubuğundaki <a href="{link}">bölgenizin
-      forumunda</a> kendi bölgenizdeki elçinin kim olduğunu görebilirsiniz.
+    foodsaver_info: Adınızı değiştirmek için kendi bölgenizdeki yetkili bir elçiyle
+      iletişime geçmelisiniz. Bu kişi daha sonra sizin için isim değişikliğini gerçekleştirebilir.<hr>Sol
+      kenar çubuğundaki [bölgenizin forumunda]({link}) kendi bölgenizdeki elçinin
+      kim olduğunu görebilirsiniz.
   chatmail: "Foodsharing ana sayfasında dahili bir mesaj alırsanız,\nve o anda giriş
     yapmadıysanız, e-posta ile bilgilendirilebilirsiniz.\nBunu istiyor musunuz?\n"
   newsletter: "Yaklaşık ayda 1x yiyecek kurtarımı hakkında \ngünceli bilgileri bir
@@ -2404,6 +2411,18 @@ settings:
       olmalıdır,\nFoodsharing <a href=\"{link_id}\">ID</a> için kullanıldığından,\n
       daha sonra <a href=\"{link_fs}\">Foodsaver</a> olunca işletmelerden gıda alımı
       yapıcaksınız.\n"
+  general:
+    phone: Sabit hat numaranız
+    current_address: Güncel Adresiniz
+  no_rights: Profil ayarlarını değiştirme hakkınız yok.
+  delete_profile: Profili sil
+  address:
+    title: Adres seç
+    choose: Adresi kabul et
+  quiz:
+    1: Foodsaver Testiniz
+    2: işletme yöneticisi Testi
+    3: Elçilik Testiniz
 forum:
   thread:
     navigate_to_oldest_post: ilk gönderiye git
@@ -2641,7 +2660,7 @@ profile:
     remove_button: Hemen çıkma listesinden kaldır
     warning_others: Bu kullanıcının e-posta adresi {email}, foodsharing e-postaları
       ve iletişiminden engellendi. Bu engeli, buton ile kaldırabilirsiniz.
-  title: Profil
+  title: Profil_
   go: Profile git
   warning: Uyarı
   notFound: Bu kullanıcı profili mevcut değil veya artık mevcut değil
@@ -2749,8 +2768,8 @@ profile:
     gerektiğini unutmayın. Lütfen bu alanı, hijyen eğitiminin tamamlanması gibi profil
     hakkında daha fazla bilgi biriktirmek için kullanmayın. Bunun yerine, profiller
     hakkında daha fazla bilgi biriktirmek için çalışma grupları kullanılabilir. Bu
-    konuyla ilgili daha fazla bilgiyi <a href="/region?bid=881&sub=forum&tid=58225">Büyükelçi
-    Forumu</a>'nda bulabilirsiniz
+    konuyla ilgili daha fazla bilgiyi [Botschafter:innen-Forum](region?bid=881&sub=forum&tid=58225)
+    da bulabilirsiniz
   sections:
     orga_rights: 'Bir Orga insanı olarak #####, platformda [kapsamlı izinlere]({wikiurl})
       sahiptir.'
@@ -2888,14 +2907,14 @@ terminology:
   storesAdmins: İşletme Koordinasyon Ekibi
   boardAdmins: Yönetim Kurulu
   subgroups: Alt gruplar
-  settings: Ayarlar
+  settings: Ayarlar_
   n_foodsaver: '{count} Foodsaver'
   arbitrationAdmins: Tahkim Kurulu
   mediationAdmins: Arabuluculuk Ekibi
   fsManagementAdmins: İdare
   statistic: İstatistik
   fsps: Gıda Dağıtım Noktası
-  profile_picture: Profil Resmi
+  profile_picture: Profil- Resmi
   n_cooperating_stores: '{count} Devam eden bir işbirliği'
   basket: Yemek Sepeti
   fsp: Gıda Dağıtım Noktası
@@ -3044,6 +3063,8 @@ register:
   have_read_the_legal_stuff2: anlaşıldı
   select_your_gender: Hitap için …
   have_read_the_legal_stuff1: Ben
+  firstname_maxLength: Ön isim en fazla 30 karakterden oluşabilir.
+  lastname_maxLength: Soyisim en fazla 30 karakterden oluşabilir.
 gender:
   f: Kadın
   d: Her ikisi veya diğer
@@ -3322,7 +3343,7 @@ calendar:
   labelPrevYear: Geçen yıl
   labelNextYear: Gelecek yıl
   labelNextMonth: Gelecek ay
-  labelToday: Bugün
+  labelToday: Bugün_
   labelNoDateSelected: Tarih seç
   labelCalendar: Takvim
   labelNav: Takvim Navigasyonu
@@ -3775,9 +3796,12 @@ team_page:
       şunlardır:\n"
   alumni_member:
     title: Önceki
-    text: Birlikte foodsharing´in başarılı geçmişine bakıyoruz. Bu fırsattan yararlanarak,
+    text: "Birlikte foodsharing´in başarılı geçmişine bakıyoruz. Bu fırsattan yararlanarak,
       organizasyon ekibi veya yönetim kurulu adına, tam zamanlı gönüllü olarak veya
-      çok yüksek derecede bu organizasyona katılan herkese teşekkür etmek istiyoruz!
+      çok yüksek derecede bu organizasyona katılan herkese teşekkür etmek istiyoruz!\n"
 no_automatic_delete: 'Son kaydın 5 yıl önce olması durumunda:'
 automatic_delete: '- bu Profil silinmelidir.'
 automatic_not_delete: '- bu profil kalmalıdır.'
+validation:
+  phone_number_invalid: Telefon numarası geçersiz (örneğin +49 eksik, çok kısa, çok
+    uzun veya geçersiz karakterler içeriyor)
