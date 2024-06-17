@@ -233,8 +233,8 @@ settings:
       form</a>.
     foodsaver_info: To change your name, you must contact an ambassador from your
       home district. This person can then change the name for you.<hr>You can see
-      who is the ambassador in your home district in the <a href="{link}">forum of
-      your district</a> in the left sidebar.
+      who is the ambassador in your home district in the [forum of your district]({link})
+      in the left sidebar.
   push:
     not-supported: Your browser does not support push notifications.
     title: Push notifications
@@ -350,6 +350,18 @@ settings:
     verified_text: This badge is intended for use on smartphones. You can save it
       there and then show it when requested. If you don’t have a smartphone or need
       a traditional badge for another reason, contact your local ambassadors.
+  delete_profile: Delete profile
+  quiz:
+    2: Quiz for store managers
+    1: Foodsavers quiz
+    3: Ambassador quiz
+  no_rights: You do not have the rights to change the profile settings.
+  address:
+    title: Select address
+    choose: Accept address
+  general:
+    phone: Your landline number
+    current_address: Current address
 menu:
   manage_regions: Manage regions
   blog: Manage blog content
@@ -686,7 +698,7 @@ profile:
     for the person’s name. Please do not use these fields to store further information
     about the user, such as the completion of hygiene training or similar. Instead,
     workgroups can be used to perform such assignments. Further information on this
-    can be found in the <a href="/region?bid=881&sub=forum&tid=58225">Ambassador Forum</a>
+    can be found in the [Ambassador Forum](/region?bid=881&sub=forum&tid=58225)
   sections:
     ambassador_for: for
     foodSaver_in_region: Foodsaver in
@@ -1129,7 +1141,7 @@ terminology:
   threads: Threads
   regions: Regions
   region: Region
-  profile_picture: Profile picture
+  profile_picture: Profile photo
   settings: Settings
   subgroups: Subgroups
   group: Working group
@@ -1989,11 +2001,10 @@ foodsaver:
   delete_own_account: You are about to delete your own account. Are you sure?
   delete_account_now: Delete account now
   actions: Activities
-  about_me_intern: "This short description will be displayed on your profile page\n
-    and is visible there for everyone in the foodsharing community.\n"
-  about_me_public: "This short description will be displayed on the <a href=\"/team\"\
-    >team page</a>\nor on the <a href=\"/team/ehemalige\">former team page</a>, if
-    you belong to one of these groups.\nPeople listed there can be viewed by everyone
+  about_me_intern: "will be displayed on your profile page and is visible there for
+    everyone in the foodsharing community.\n"
+  about_me_public: "will be displayed on the [team and former team page](/team), if
+    you belong to one of these groups. People listed there can be viewed by everyone
     in the internet.\n"
   restricted: Unfortunately, you are not authorised to view this data.
   mailchange_error: Activation of your new email address has failed. Please try again.
@@ -2004,6 +2015,7 @@ foodsaver:
   delete_account_sure_reason: "Do you really want to delete {name}’s account? You
     can optionally enter a reason here that can later be used to understand why the
     account was deleted:"
+  delete_account_reason: Reason for account deletion
 store:
   addNewStoresButton: Add new store
   allStoresOfRegion: All stores in the region
@@ -2541,7 +2553,8 @@ bcard:
   claim: Generate, print and cut easily here …
   info:
     address_shortened: Your address will be abbreviated on the business card.
-  role: "Role/Region"
+  role: "Role"
+  region: Region
 picture_upload_widget:
   picture_upload: Upload image
   choose_picture: Choose a picture from your computer.
@@ -2766,6 +2779,8 @@ register:
     point 2d.
   mail_hint: 'Important: pay attention to the correct spelling!'
   landline_example: Example +49 30 123456789
+  firstname_maxLength: The first name may only consist of a maximum of 30 characters.
+  lastname_maxLength: The last name may only consist of a maximum of 30 characters.
 bread:
   backToOverview: back to overview
   backToStore: back to the store
@@ -3884,10 +3899,10 @@ team_page:
       the website or take on other important tasks for foodsharing as a whole:\n"
   alumni_member:
     title: Alumni
-    text: Together, we can look back on a successful history of foodsharing. We would
+    text: "Together, we can look back on a successful history of foodsharing. We would
       like to take this opportunity to thank all the people who have contributed to
       this, some of whom have worked full-time on a voluntary basis or to a very large
-      extent for the organizing team or the board!
+      extent for the organizing team or the board!\n"
   board_member:
     title: Club board
     text: "The board of foodsharing e.V. holds the strings together, networks Germany,
@@ -3899,3 +3914,6 @@ team_page:
 automatic_delete: '- the profile should be deleted.'
 no_automatic_delete: 'In case the last login was five years ago:'
 automatic_not_delete: '- the profile should be kept.'
+validation:
+  phone_number_invalid: The telephone number is invalid (e.g. country code is missing,
+    it is too short, too long or contains invalid characters)
