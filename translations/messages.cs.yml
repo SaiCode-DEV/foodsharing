@@ -2877,3 +2877,6 @@ usersearch:
   search_tag: ''
   no_tag_preset: ''
   select_tag: ''
+validation:
+  phone_number_invalid: Telefonní číslo je neplatné (např. chybí kód země, je příliš
+    krátké, příliš dlouhé nebo obsahuje neplatné znaky)
