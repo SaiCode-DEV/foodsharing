@@ -1303,7 +1303,7 @@ pass:
   noPhoto: 'Las siguientes personas aún no han subido una foto:'
 bcard:
   actions: 'Opciones'
-  role: 'Rol/Región'
+  role: 'Rol'
   choose: 'Tienes que elegir una opción'
   for: '{role} para {region}'
   desc: 'Elija aquí para qué distrito y función le gustaría crear su tarjeta de presentación.'
@@ -1319,6 +1319,7 @@ bcard:
   title: 'Generador de tarjetas de visita'
   claim: 'Simplemente genere, imprima y corte aquí …'
   card: 'Tu tarjeta de presentación de foodsharing'
+  region: Región
 storeview:
   public_and_statistics: 'Estadísticas y Relaciones Públicas'
   public_time_in_the_morning: 'por la mañana'
@@ -2161,8 +2162,7 @@ profile:
     para el nombre de la persona. No utilice este campo para almacenar más información
     sobre el usuario, como por ejemplo la realización de cursos de higiene o similares,
     sino que se pueden utilizar grupos de trabajo para realizar dichas tareas. Encontrará
-    más información al respecto en <a href="/region?bid=881&sub=forum&tid=58225">Foro
-    de Embajador@s</a>
+    más información al respecto en [Foro de Embajador@s](/region?bid=881&sub=forum&tid=58225)
   sections:
     home_region_from: Región de origen
     foodSaver_in_region: Ahorrador de alimentos en
@@ -3096,8 +3096,8 @@ settings:
       de nombre]({link}).'
     foodsaver_info: 'Para cambiar su nombre, debe comunicarse con un embajador de
       su distrito de origen. Luego, esta persona puede cambiar el nombre por usted.<hr>Puede
-      ver quién es el embajador en su distrito de origen en el <a href="{link}">foro
-      de su distrito</a> en la barra lateral izquierda.'
+      ver quién es el embajador en su distrito de origen en el [foro de su distrito]({link})
+      en la barra lateral izquierda.'
     request: 'Solicitar cambio de nombre'
   photo:
     info: 'Tu cara debe ser <a href="{link_photo}">reconocible</a> en la foto de perfil,
@@ -4016,3 +4016,7 @@ team_page:
 no_automatic_delete: 'En el caso de que la última inscripción haya sido hace 5 años:'
 automatic_delete: '- el perfil debe ser eliminado.'
 automatic_not_delete: '- el perfil debe conservarse.'
+validation:
+  phone_number_invalid: El número de teléfono no es válido (por ejemplo, falta el
+    prefijo del país, es demasiado corto, demasiado largo o contiene caracteres no
+    válidos)
