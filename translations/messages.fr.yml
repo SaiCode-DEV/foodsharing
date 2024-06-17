@@ -220,6 +220,7 @@ group:
       created_at: Carte établie le
       never_before: jamais
       title: Cartes de membre
+      generate_button: Créer une/des carte(s) de membre pour la/les personne(s) sélectionnée(s)
     default:
       lastname: Nom de famille
       title: Défaut
@@ -319,6 +320,7 @@ button:
   prev: dos
   close: Fermer
   start: Allons-y !
+  confirm: confirmer
 upload:
   crop_dialog_title: Rogner l’image
   new_file: Téléverser un nouveau fichier
@@ -573,6 +575,10 @@ settings:
       pour une autre raison, adresse-toi à tes ambassadeurs.
     non_verified_text: Vous n’êtes pas encore vérifié. Seuls les Foodsavers vérifiés
       peuvent être téléchargés à partir du badge.
+  no_rights: Tu n’as pas le droit de modifier les paramètres du profil.
+  delete_profile: Supprimer ce profil
+  general:
+    phone: Ton numéro de téléphone fixe
 email_template:
   newsletter:
     unsubscribe: Tu ne veux plus recevoir de lettres d’information ?
@@ -739,12 +745,14 @@ foodsaver:
     ad_fs: Participer au Quiz et devenir collecteur·ice !
     needs_fs: Tu dois d’abord devenir collecteur·ice
     learning: Regarder maintenant la vidéo explicative
+    STORE_MANAGER: Deviens responsable de la coopération
+    FOODSAVER: Deviens collecteur·rice
+    AMBASSADOR: Deviens ambassadeur
   edit: Modifier le profil du collecteur / de la collectrice
-  about_me_intern: "Cette description sera affichée sur ta page de profil\net sera
-    visible par toute la communauté de foodsharing.\n"
-  about_me_public: "Cette description sera visible sur la <a href=\"/team\">page d’équipe</a>\n
-    et sur la <a href=\"/team/ehemalige\">liste des anciens élèves</a>\net peut être
-    consulté sur le site Web.\n"
+  about_me_intern: "sera affichée sur ta page de profil et sera visible par toute
+    la communauté de foodsharing.\n"
+  about_me_public: "sera visible sur la [page d’équipe et sur la liste des anciens
+    élèves](/team) et peut être consulté sur le site Web.\n"
   manage:
     orga: fait partie de l’équipe d’administration mondiale
     remove: Supprimer du secteur géographique
@@ -770,6 +778,7 @@ foodsaver:
   delete_account_sure_reason: 'Le compte de {name} doit-il vraiment être supprimé ?
     Tu peux éventuellement indiquer ici une raison qui permettra de comprendre plus
     tard pourquoi le compte a été supprimé :'
+  delete_account_reason: Motif de la suppression du compte
 recipients:
   done: Tous les courriels ont été envoyés
   status: 'Envoyer des courriels … (adresse électronique actuelle : {current})'
@@ -868,6 +877,7 @@ forum:
       ta demande concerne tout le monde et qu’elle est suffisamment importante pour
       que tout le monde en soit informé.
     title: Vraiment envoyer la notification par courriel ?
+  go: vers le forum
 fsp:
   info:
     mail: Cloche et notification par courriel
@@ -1072,6 +1082,8 @@ register:
   title: Inscription
   topbar: Rejoins-nous
   landline_example: Exemple +33 1 22 33 44 55
+  firstname_maxLength: Le prénom ne peut comporter que 30 caractères au maximum.
+  lastname_maxLength: Le nom de famille ne peut comporter que 30 caractères au maximum.
 login:
   pwreset:
     mailSent: Très bien, un lien t’a été envoyé par courriel pour modifier ton mot
@@ -2212,6 +2224,8 @@ calendar:
       name: '{store} collecte'
       unconfirmed: non confirmé
       description: Collecte Foodsharing chez <a href="{url}">{store}</a>
+      freeSlots: '{count} places sont encore disponibles'
+    updated: '(Dernière mise à jour : {date})'
 storeedit:
   milestone:
     dropped: "{user} ne fait désormais plus partie de l’équipe"
@@ -2568,7 +2582,7 @@ bell:
   new_foodsaver_needs_introduction: A besoin d’être formé·e
   new_foodsaver_title: '{name} nouvellement arrivé(e) à {bezirk}'
   new_quiz_comment: '{user} : {comment}'
-  new_quiz_comment_title: Nouveau commentaire sur le Quiz
+  new_quiz_comment_title: Nouveau commentaire sur la question n°{questionId}
   fs_sleepmode: '{name} {nachname} est inacti.f.ve'
   fs_sleepmode_title: Nouveau membre en mode sommeil
   store_cr_times: Les horaires de collecte ont été ajustés
@@ -2628,6 +2642,7 @@ bell:
     one: 'Nouveau commentaire de {user} '
     many: '{count} nouveaux commentaires sur l’événement {event}'
   internal_email_changed: Ton adresse e-mail personnelle a été modifiée.
+  workinggroup_new_request: Nouvelle demande pour un groupe de travail
 personal_data:
   landline: Numéro de fixe
   mobile: Numéro de portable
@@ -3495,6 +3510,8 @@ quiz:
     joke: '{failurePoints} points d’erreur (sans classement)'
     ko: '{failurePoints} Points d’erreur (KO)'
   fp_description: Total {failurePoints}, soit {parMistake} par mauvaise réponse
+  confirmDashboardText: Tu as réussi un quiz que tu n’as pas encore validé. [Clique
+    ici]({url}) pour terminer le processus !
 fpsingular: Point d’erreur
 bootstrap-datepicker:
   labelCurrentMonth: Mois actuel
