@@ -230,8 +230,9 @@ bcard:
   for: '{role} per {region}'
   card: Il tuo biglietto da visita foodsharing
   title: Generatore di biglietti da visita
-  role: Rotolo/Distretto
+  role: Rotolo
 
+  region: Regione
 pass:
   button:
     check: Controlla gli appuntamenti
@@ -2597,7 +2598,7 @@ profile:
     ulteriori informazioni sull’utente, come il completamento della formazione sull’igiene
     o simili. Al contrario, i gruppi di lavoro possono essere utilizzati per memorizzare
     informazioni aggiuntive sui profili. Ulteriori informazioni a riguardo sono disponibili
-    nel <a href="/region?bid=881&sub=forum&tid=58225">Forum degli Ambasciatori</a>
+    nel [Forum degli Ambasciatori](/region?bid=881&sub=forum&tid=58225)
   orga_rights: In qualità di persona organizzativa, {name} dispone di <a target="_blank"
     href="{wikiurl}">autorizzazioni estese</a> sulla piattaforma.
 mail:
@@ -2723,7 +2724,7 @@ settings:
     foodsaver_info: 'Per cambiare il tuo nome devi contattare un ambasciatore del
       tuo distretto di residenza. Questa persona potrà quindi effettuare il cambio
       di nome per te.<hr>Puoi vedere chi è l’ambasciatore nel tuo distretto di residenza
-      nel <a href="{link}">forum del tuo distretto</a> nella barra laterale sinistra.'
+      nel [forum del tuo distretto]({link}) nella barra laterale sinistra.'
     title: 'Nome (nome e cognome)'
   passport:
     menu: 'Carta d''identità'
@@ -3548,3 +3549,6 @@ help:
 no_automatic_delete: 'Se l’ultimo accesso è avvenuto cinque anni fa:'
 automatic_delete: '- il profilo deve essere cancellato.'
 automatic_not_delete: '- il profilo deve essere mantenuto.'
+validation:
+  phone_number_invalid: Il numero di telefono non è valido (ad esempio, manca il prefisso
+    nazionale, è troppo corto, troppo lungo o contiene caratteri non validi)
