@@ -3803,5 +3803,5 @@ no_automatic_delete: 'Son kaydın 5 yıl önce olması durumunda:'
 automatic_delete: '- bu Profil silinmelidir.'
 automatic_not_delete: '- bu profil kalmalıdır.'
 validation:
-  phone_number_invalid: Telefon numarası geçersiz (örneğin +49 eksik, çok kısa, çok
+  phone_number_invalid: Telefon numarası geçersiz (örneğin +90 eksik, çok kısa, çok
     uzun veya geçersiz karakterler içeriyor)
