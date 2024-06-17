@@ -2859,3 +2859,6 @@ ansprechpartner: ''
 homepage: ''
 passcheck: ''
 apply_type: ''
+validation:
+  phone_number_invalid: O número de telefone é inválido (por exemplo, falta o indicativo
+    do país, é demasiado curto, demasiado longo ou contém caracteres inválidos)
