@@ -1510,10 +1510,9 @@ foodsaver:
   title: Foodsaver
   bread: Tutti i Foodsaver
   restricted: Spiacente, non hai il permesso di visualizzare questi dati.
-  about_me_intern: "Questa breve descrizione sarà visualizzata sulla pagina del tuo
-    profilo\ne sarà visibile a tutti nella comunità del foodsharing.\n"
-  about_me_public: "Questa breve descrizione sarà disponibile a tutti sul <a href=\"\
-    /team\">Team-</a>\ne nella <a href=\"/team/ehemalige\">pagina degli alumni</a>\n
+  about_me_intern: "sarà visualizzata sulla pagina del tuo profilo e sarà visibile
+    a tutti nella comunità del foodsharing.\n"
+  about_me_public: "sarà disponibile a tutti sul [Team- e nella pagina degli alumni](/team)
     e può essere visto da tutti sul sito web.\n"
   mailchange_error: L'attivazione del tuo nuovo indirizzo email non è riuscita. Si
     prega di riprovare.
@@ -2734,6 +2733,10 @@ settings:
     non_verified_text: 'Non sei ancora verificato. Il download del passaporto è disponibile
       solo per i foodsavers verificati.'
     button: 'Scarica il passaporto'
+  no_rights: L’utente non è autorizzato a modificare le impostazioni del profilo.
+  delete_profile: Cancellare questo profilo
+  general:
+    phone: Il vostro numero di telefono fisso
 mailbox:
   mark_as_unread: Contrassegna l'e-mail come non letta
   filesize: Scusa, il file è troppo grande.
