@@ -603,6 +603,8 @@ settings:
   notifications: ''
   businesscard: ''
   account: ''
+  general:
+    phone: Ваш номер стационарного телефона
 profile:
   mail_bounce:
     remove_button: ''
