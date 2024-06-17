@@ -121,6 +121,10 @@ settings:
   header: ''
   account: ''
   title: ''
+  no_rights: Nejste oprávněni měnit nastavení profilu.
+  delete_profile: Smazání profilu
+  general:
+    phone: Vaše číslo pevné linky
 tablesorter:
   page: ''
   entriespp: ''
