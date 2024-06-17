@@ -964,7 +964,7 @@ profile:
     personens navn. Vennligst ikke bruk dette feltet til å lagre ytterligere informasjon
     om brukeren, for eksempel gjennomføring av hygieneopplæring eller lignende. I
     stedet kan arbeidsgrupper brukes til å utføre slike oppdrag. Ytterligere informasjon
-    om dette finner du i <a href="/region?bid=881&sub=forum&tid=58225">ambassadørforumet</a>
+    om dette finner du i [ambassadørforumet](/region?bid=881&sub=forum&tid=58225)
   sections:
     ambassador_for: for
     no_common_workgroups: ingen felles arbeidsgruppe
@@ -1101,8 +1101,7 @@ settings:
       <a href="{link}">støtteskjema</a>.
     foodsaver_info: For å endre navn må du kontakte en ambassadør fra ditt hjemdistrikt.
       Denne personen kan deretter endre navnet for deg.<hr>Du kan se hvem som er ambassadør
-      i ditt hjemdistrikt i <a href="{link}">forumet til distriktet ditt</a> i venstre
-      sidefelt.
+      i ditt hjemdistrikt i [forumet til distriktet ditt]({link}) i venstre sidefelt.
     desc: Du kan ikke endre ditt eget navn selv. Du kan imidlertid be om en [navneendring]({link}).
     title: Navn (for- og etternavn)
   passport:
@@ -1537,6 +1536,8 @@ register:
     nytt.
   birthdate_hint: Du kan finne mer informasjon i [personvernreglene]({url}) i punkt
     2d.
+  firstname_maxLength: Fornavnet kan kun bestå av maksimalt 30 tegn.
+  lastname_maxLength: Etternavnet kan kun bestå av maksimalt 30 tegn.
 geb_datum: Fødselsdato (ÅÅÅÅ-MM-DD)
 login:
   pwreset:
@@ -1857,7 +1858,8 @@ bcard:
     address_shortened: Din adresse og/eller postnummer + sted vil vises i forkortet
       form på visittkortet.
   desc: Velg hvilket distrikt eller hvilken rolle du vil lage visittkortet ditt for.
-  role: Rolle/Region
+  role: Rolle
+  region: Region
 pass:
   nav:
     options: Alternativer
@@ -3769,3 +3771,6 @@ team_page:
 automatic_not_delete: '- profilen skal opprettholdes.'
 automatic_delete: '- profilen skal slettes.'
 no_automatic_delete: 'Hvis siste pålogging var for fem år siden:'
+validation:
+  phone_number_invalid: Telefonnummeret er ugyldig (f.eks. mangler landskode, det
+    er for kort, for langt eller inneholder ugyldige tegn)
