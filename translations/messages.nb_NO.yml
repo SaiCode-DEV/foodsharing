@@ -1113,6 +1113,18 @@ settings:
     non_verified_text: Du er ennå ikke bekreftet. Bare verifiserte matsparere har
       lov til å laste ned passet sitt.
     button: Last ned ID-kort
+  no_rights: Du er ikke autorisert til å endre profilinnstillingene.
+  general:
+    current_address: Nåværende adresse
+    phone: Fasttelefonnummeret ditt
+  quiz:
+    1: Quiz for matsparere
+    2: Quiz for samarbeidsansvarlige
+    3: Quiz for ambassadører
+  delete_profile: Slett profilen
+  address:
+    title: Velg adresse
+    choose: Godta adresse
 mailbox:
   date: Dato
   recipient: Mottaker
@@ -1277,18 +1289,17 @@ foodsaver:
   restricted: Du er ikke autorisert til å se disse dataene.
   your_account: din
   delete_own_account: Du er i ferd med å slette din egen konto. Er du sikker?
-  about_me_intern: "Denne korte beskrivelsen vil vises på profilsiden din\nog er synlig
-    der for alle i matdelingssamfunnet.\n"
+  about_me_intern: "vil vises på profilsiden din og er synlig der for alle i matdelingssamfunnet.\n"
   mailchange_error: Aktivering av den nye e-postadressen din mislyktes. Vær så snill,
     prøv på nytt.
   edit_failure: Ingenting ble endret eller endringer ble ikke lagret
-  about_me_public: "Denne korte beskrivelsen vil bli vist på <a href=\"/team\">teamsiden</a>\n
-    eller på <a href=\"/team/ehemalige\">siden til de tidligere teammedlemmene</a>,
-    hvis du tilhører en av disse gruppene.\n Personer som er oppført der kan sees
-    av alle på internett.\n"
+  about_me_public: "vil bli vist på [teamsiden eller på siden til de tidligere teammedlemmene](/team),
+    hvis du tilhører en av disse gruppene. Personer som er oppført der kan sees av
+    alle på internett.\n"
   delete_account_sure_reason: 'Er du sikker på at du vil slette kontoen til {name}?
     Hvis du vil, kan du gi en grunn her slik at du senere kan forstå hvorfor kontoen
     ble slettet:'
+  delete_account_reason: Årsak til sletting av kontoen
 ageBandList:
   NumberOfAgeband: nummer
   ageBand: Aldersgruppe
@@ -3764,10 +3775,10 @@ team_page:
       eller tar på seg andre viktige oppgaver for foodsharing som helhet:\n"
   alumni_member:
     title: Tidligere
-    text: Sammen kan vi se tilbake på en vellykket historie med foodsharing. Vi vil
+    text: "Sammen kan vi se tilbake på en vellykket historie med foodsharing. Vi vil
       gjerne benytte anledningen til å takke alle som har bidratt til dette, noen
       av dem har jobbet fulltid på frivillig basis eller i svært stor grad for arrangørteamet
-      eller styret!
+      eller styret!\n"
 automatic_not_delete: '- profilen skal opprettholdes.'
 automatic_delete: '- profilen skal slettes.'
 no_automatic_delete: 'Hvis siste pålogging var for fem år siden:'
