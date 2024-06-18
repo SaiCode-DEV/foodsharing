@@ -37,6 +37,7 @@ use Foodsharing\Modules\Store\DTO\PatchStoreOptionModel;
 use Foodsharing\Modules\Store\DTO\Store;
 use Foodsharing\Modules\Store\DTO\StoreListInformation;
 use Foodsharing\Modules\Store\DTO\StoreStatusForMember;
+use Foodsharing\Modules\StoreCategories\StoreCategoriesGateway;
 use Foodsharing\Utility\Sanitizer;
 use Foodsharing\Utility\WeightHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -68,6 +69,7 @@ class StoreTransactions
         private readonly BellTransactions $bellTransactions,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly RegionGateway $regionGateway,
+        private readonly StoreCategoriesGateway $storeCategoriesGateway,
         private readonly Sanitizer $sanitizerService,
         private readonly Session $session
     ) {
@@ -110,8 +112,8 @@ class StoreTransactions
 
         $store->groceries = array_map(fn ($row) => CommonLabel::createFromArray($row), $this->storeGateway->getBasics_groceries());
 
-        $store->categories = [new CommonLabel(0, $this->translator->trans('store.nodeclaration')),
-            ...array_map(fn ($row) => CommonLabel::createFromArray($row), $this->storeGateway->getStoreCategories())];
+        $store->categories = $this->storeCategoriesGateway->getStoreCategories();
+        $store->categories[] = new CommonLabel(0, $this->translator->trans('store.nodeclaration'));
 
         $store->status = array_map(fn ($row) => CommonLabel::createFromArray($row), [
             ['id' => CooperationStatus::UNCLEAR->value, 'name' => $this->translator->trans('store.nodeclaration')],
@@ -375,7 +377,7 @@ class StoreTransactions
         if (!is_null($storeChange->categoryId)) {
             $changeInformation->informationChanged = true;
             if ($storeChange->categoryId !== 0) {
-                $storeCategoryExists = $this->storeGateway->existStoreCategory($storeChange->categoryId);
+                $storeCategoryExists = $this->storeCategoriesGateway->existStoreCategory($storeChange->categoryId);
                 if (!$storeCategoryExists) {
                     throw new StoreTransactionException(StoreTransactionException::STORE_CATEGORY_NOT_EXISTS);
                 }

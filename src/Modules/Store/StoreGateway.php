@@ -527,21 +527,6 @@ class StoreGateway extends BaseGateway
         return $this->db->fetchValueByCriteria('fs_betrieb', 'bezirk_id', ['id' => $storeId]);
     }
 
-    public function getStoreCategories(): array
-    {
-        return $this->db->fetchAll('
-			SELECT	`id`,
-					`name`
-			FROM	`fs_betrieb_kategorie`
-			ORDER BY `name`
-		');
-    }
-
-    public function existStoreCategory(int $id): bool
-    {
-        return $this->db->exists('fs_betrieb_kategorie', ['id' => $id]);
-    }
-
     public function getBasics_groceries(): array
     {
         return $this->db->fetchAll('

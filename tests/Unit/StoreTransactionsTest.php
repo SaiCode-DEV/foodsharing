@@ -246,7 +246,7 @@ class StoreTransactionsTest extends Unit
         $this->assertNull($common->storeChains);
 
         // Check categories
-        array_shift($common->categories); // Remove "Not selected"
+        $common->categories = array_filter($common->categories, fn ($cat) => $cat->id > 0); // Remove "Not selected"
         $this->assertEquals($this->tester->grabNumRecords('fs_betrieb_kategorie'), count($common->categories));
 
         foreach ($common->categories as $category) {
@@ -322,7 +322,7 @@ class StoreTransactionsTest extends Unit
         }
 
         // Check categories
-        array_shift($common->categories); // Remove "Not selected"
+        $common->categories = array_filter($common->categories, fn ($cat) => $cat->id > 0); // Remove "Not selected"
         $this->assertEquals($this->tester->grabNumRecords('fs_betrieb_kategorie'), count($common->categories));
         foreach ($common->categories as $category) {
             $this->tester->seeInDatabase('fs_betrieb_kategorie', ['id' => $category->id, 'name' => $category->name]);

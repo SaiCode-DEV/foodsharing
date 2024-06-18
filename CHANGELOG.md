@@ -11,7 +11,8 @@
 - Added a popup for food share points on the map !3360 !3371 @alex.simm
 - You can now load more entries in the store log #1969 !3383 @AntonBallmaier
 - Storemanagers get an extra warning before removing users from a store team, if they currently occupy slots #1825 !3368 @AntonBallmaier
-- Display senders message in notifications !3373 @AntonBallmaier
+- Added API endpoints for managing store categories #1263 !3405 @alex.simm
+- Display senders picture in notifications !3373 @AntonBallmaier
 
 ## Changes
 - Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei
