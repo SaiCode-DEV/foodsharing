@@ -59,6 +59,7 @@
         </b-card-header>
         <b-collapse
           :id="`accordion-${i}`"
+          :ref="`question-${question.id}`"
           accordion="results-accordion"
         >
           <b-card-body>
@@ -151,6 +152,14 @@ export default {
   methods: {
     async fetchQuestions () {
       this.questions = await getQuestions(this.quizId)
+      const selectedQuestion = +location.search.match(/question=(\d+)/)?.[1]
+      if (selectedQuestion) {
+        await this.$nextTick()
+        const ref = this.$refs[`question-${selectedQuestion}`]
+        if (ref) {
+          ref[0].toggle()
+        }
+      }
     },
     async deleteQuestionHandler (questionId) {
       if (await this.$confirmationDialogue('quiz.confirmDelete.question')) {

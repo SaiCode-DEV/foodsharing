@@ -53,7 +53,7 @@ class WallPostTransactions
         switch ($target) {
             case 'question':
                 $this->sendQuestionCommentBell($targetId, $post);
-                // no break
+                break;
             case 'event':
                 $this->sendEventCommentBell($targetId);
                 break;
@@ -66,12 +66,11 @@ class WallPostTransactions
     {
         $quizId = $this->quizGateway->getQuizIdFromQuestionId($questionId);
         $recipients = $this->quizPermissions->getQuizAdmins($quizId);
-
         $bell = Bell::create(
             'new_quiz_comment_title',
             'new_quiz_comment',
             'fas fa-comment',
-            ['href' => "/quiz/edit/$quizId"],
+            ['href' => "/quiz/edit/$quizId?question=$questionId"],
             [
                 'comment' => $post->body,
                 'questionId' => $questionId,

@@ -63,7 +63,7 @@
           <ChangeEmailForm />
         </b-tab>
         <b-tab
-          v-if="targetRole !== null"
+          v-if="showQuiz"
           :title="getQuizTranslation"
           :active="subPage === SUB_PAGE.QUIZ"
         >
@@ -137,6 +137,11 @@ export default {
     },
     SUB_PAGE () {
       return SUB_PAGE
+    },
+    showQuiz () {
+      if (this.targetRole === null) return false
+      if (this.targetRole === 3) return /show-bot-quiz/.test(location.search) // Hide ambassador quiz
+      return true
     },
   },
 }

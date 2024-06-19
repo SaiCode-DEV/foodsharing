@@ -37,16 +37,21 @@ export default {
   },
   methods: {
     answerColorClass (answer) {
-      if (answer.answerRating === 2) return ['neutral']
-      if (answer.timedOut) return ['failure', 'success', 'neutral'][answer.answerRating]
-      if (!answer.answerRating ^ answer.selected) return 'success'
-      return 'failure'
+      if ('selected' in answer && !answer.timedOut) {
+        if (answer.answerRating === 2) return ['neutral']
+        if (!answer.answerRating ^ answer.selected) return 'success'
+        return 'failure'
+      }
+      return ['failure', 'success', 'neutral'][answer.answerRating]
     },
     answerText (answer) {
-      const path = 'quiz.answers.'
-      if (answer.timedOut) return `${path}timedOut.${answer.answerRating}`
-      if (answer.answerRating === 2) return path + 'neutral'
-      return `${path}${!!answer.selected}_${!!answer.answerRating}`
+      if ('selected' in answer) {
+        const path = 'quiz.answers.'
+        if (answer.timedOut) return `${path}timedOut.${answer.answerRating}`
+        if (answer.answerRating === 2) return path + 'neutral'
+        return `${path}${!!answer.selected}_${!!answer.answerRating}`
+      }
+      return `quiz.answers.short.${answer.answerRating}`
     },
     menuVariant (answer) {
       return answer.answerRating === ANSWER_RATING.NEUTRAL ? 'dark' : 'light'
