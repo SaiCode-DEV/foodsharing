@@ -1806,7 +1806,7 @@ bell:
   buddy_request: '{name} te conoce.'
   new_foodsaver: 'Necesita recogidas introductorias'
   store_request_accept_wait: 'Ahora estás en la lista de espera/suplente.'
-  new_quiz_comment_title: 'Nuevo comentario a la pregunta #{questionId}'
+  new_quiz_comment_title: 'Comenta la pregunta #{questionId}'
   poll_new: '{title}'
   store_request_deny: 'Su solicitud ha sido rechazada.'
   fs_sleepmode: '{name} {nachname} ahora está inactiv@'
@@ -3136,6 +3136,11 @@ settings:
     choose: Adoptar dirección
   general:
     phone: Su número de teléfono fijo
+    current_address: Direccion actual
+  quiz:
+    1: 'Ahorro de alimentos: en el cuestionario'
+    2: Cuestionario para gerentes de tienda
+    3: Prueba de embajador
 team:
   former: 'Antiguos alumnos'
   ratelimit: 'Espere {minutes} minutos antes de poder enviar el siguiente mensaje.'
@@ -4010,10 +4015,10 @@ team_page:
       y la dimensión política del desperdicio de alimentos.\n"
     title: Junta Directiva
   alumni_member:
-    text: Juntos, podemos echar la vista atrás a una exitosa historia de foodsharing.
-      Queremos aprovechar esta oportunidad para dar las gracias a todas las personas
-      que han contribuido a ello, algunas de las cuales han trabajado a tiempo completo
-      de forma voluntaria o en gran medida para el equipo organizador o la junta directiva.
+    text: "Juntos recordamos la exitosa historia del intercambio de alimentos. ¡Aprovechamos
+      esta oportunidad para agradecer a todas las personas que participaron en esto,
+      ya sea como voluntarios a tiempo completo o en muy alto grado, al equipo de
+      organización o a la junta directiva!\n"
     title: Antiguos alumnos
   it_member:
     title: Equipo de TI
