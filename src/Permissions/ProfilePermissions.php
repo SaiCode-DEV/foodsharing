@@ -48,12 +48,12 @@ class ProfilePermissions
 
     public function maySeeQuizSessions(): bool
     {
-        return $this->session->mayRole(Role::ORGA);
+        return $this->session->mayRole(Role::ORGA) || $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP);
     }
 
     public function mayDeleteQuizSessions(): bool
     {
-        return $this->session->mayRole(Role::ORGA);
+        return $this->session->mayRole(Role::ORGA) || $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP);
     }
 
     public function maySeeUserNotes(int $userId): bool

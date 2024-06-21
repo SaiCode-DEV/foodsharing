@@ -21,6 +21,7 @@
 - Improved the calendar export !3378 @AntonBallmaier
 - Pickups are displayed on dashboard for 30 minutes longer !3382
 - Removed address on businessCard !3362 @chriswalg
+- Give admins of quiz group permission to view and delete quiz sessions !3422 @AntonBallmaier
 
 ## Bugfixes
 - Changed the headline for group applications #1916 !3353 @ToLei
