@@ -49,18 +49,19 @@ class CurrentUserUnitsSessionTransactions implements CurrentUserUnitsInterface
      *
      * Addional it checks and fix membership relations for the home region and home master region.
      *
-     * @return UserUnitsInformation Collection of user related unit informations from database
+     * @return UserUnitsInformation|null Collection of user related unit informations from database
      */
-    private function loadUnitsInformation(): UserUnitsInformation
+    private function loadUnitsInformation(): ?UserUnitsInformation
     {
-        $informations = new UserUnitsInformation();
         $fsId = $this->session->id();
 
-        if ($fsId && $this->session->role()->isAtLeast(Role::FOODSAVER)) {
+        if ($fsId === null) {
+            return null;
+        }
+
+        $informations = new UserUnitsInformation();
+        if ($this->session->role()->isAtLeast(Role::FOODSAVER)) {
             $informations->homeRegionId = $this->foodsaverGateway->getHomeRegionOfFoodsaver($fsId);
-            if ($informations->homeRegionId == 0) {
-                $informations->homeRegionId = null;
-            }
 
             // Correct membership if homeregion is set
             if ($informations->homeRegionId) {
@@ -94,9 +95,9 @@ class CurrentUserUnitsSessionTransactions implements CurrentUserUnitsInterface
      * The session is used as cache so that not every access requires to load data from database.
      *
      * @param bool $forceLoad Force to load information from database
-     * @return UserUnitsInformation Collection of user related unit informations
+     * @return UserUnitsInformation|null Collection of user related unit informations
      */
-    private function getOrFetchUserUnitsInformation(bool $forceLoad = false): UserUnitsInformation
+    private function getOrFetchUserUnitsInformation(bool $forceLoad = false): ?UserUnitsInformation
     {
         $unitsInformation = null;
         if (!$forceLoad && $this->session->has(CurrentUserUnitsSessionTransactions::SESSION_FIELD_NAME)) {
@@ -105,7 +106,9 @@ class CurrentUserUnitsSessionTransactions implements CurrentUserUnitsInterface
 
         if (!$unitsInformation) {
             $unitsInformation = $this->loadUnitsInformation();
-            $this->session->set(CurrentUserUnitsSessionTransactions::SESSION_FIELD_NAME, serialize($unitsInformation));
+            if ($unitsInformation) {
+                $this->session->set(CurrentUserUnitsSessionTransactions::SESSION_FIELD_NAME, serialize($unitsInformation));
+            }
         }
 
         return $unitsInformation;
@@ -113,12 +116,12 @@ class CurrentUserUnitsSessionTransactions implements CurrentUserUnitsInterface
 
     public function getCurrentRegionId(): ?int
     {
-        return $this->getOrFetchUserUnitsInformation()->homeRegionId;
+        return $this->getOrFetchUserUnitsInformation()->homeRegionId ?? null;
     }
 
     public function getRegions(): array
     {
-        return $this->getOrFetchUserUnitsInformation()->unitsWithMembership;
+        return $this->getOrFetchUserUnitsInformation()->unitsWithMembership ?? [];
     }
 
     public function listRegionIDs(): array
@@ -128,7 +131,7 @@ class CurrentUserUnitsSessionTransactions implements CurrentUserUnitsInterface
 
     public function getMyAmbassadorRegionIds(bool $includeWorkingGroups = true): array
     {
-        $managedUnits = $this->getOrFetchUserUnitsInformation()->unitsWithAdminMembership;
+        $managedUnits = $this->getOrFetchUserUnitsInformation()->unitsWithAdminMembership ?? [];
 
         if (!$includeWorkingGroups) {
             $managedUnits = array_filter($managedUnits, fn ($unit) => !UnitType::isGroup($unit['type']));
@@ -139,7 +142,7 @@ class CurrentUserUnitsSessionTransactions implements CurrentUserUnitsInterface
 
     public function isAdminFor(?int $regionId): bool
     {
-        $managedUnits = $this->getOrFetchUserUnitsInformation()->unitsWithAdminMembership;
+        $managedUnits = $this->getOrFetchUserUnitsInformation()->unitsWithAdminMembership ?? [];
         if ($regionId) {
             $managedUnits = array_filter($managedUnits, fn ($unit) => $unit['bezirk_id'] == $regionId);
         }
@@ -149,7 +152,7 @@ class CurrentUserUnitsSessionTransactions implements CurrentUserUnitsInterface
 
     private function isMemberFor(?int $regionId): bool
     {
-        $units = $this->getOrFetchUserUnitsInformation()->unitsWithMembership;
+        $units = $this->getOrFetchUserUnitsInformation()->unitsWithMembership ?? [];
         $searchUnits = array_filter($units, fn ($unit) => $unit['id'] == $regionId);
 
         return count($searchUnits) > 0;
@@ -157,13 +160,13 @@ class CurrentUserUnitsSessionTransactions implements CurrentUserUnitsInterface
 
     public function isAmbassador(): bool
     {
-        return count($this->getOrFetchUserUnitsInformation()->unitsWithAdminMembership) > 0;
+        return count($this->getOrFetchUserUnitsInformation()->unitsWithAdminMembership ?? []) > 0;
     }
 
     public function mayBezirk(int $regionId): bool
     {
         // Users that are not logged in don't have a role we could compare to
-        if ($this->session->role() === null) {
+        if ($this->session->role() === null || $this->session->id() === null) {
             return false;
         }
 
@@ -194,7 +197,8 @@ class CurrentUserUnitsSessionTransactions implements CurrentUserUnitsInterface
             if ($include_parent_regions) {
                 $regionIds = $this->regionGateway->listRegionsIncludingParents($regionIds);
             }
-            foreach ($this->getOrFetchUserUnitsInformation()->unitsWithAdminMembership as $unit) {
+            $unitsWithAdminRelation = $this->getOrFetchUserUnitsInformation()->unitsWithAdminMembership ?? [];
+            foreach ($unitsWithAdminRelation as $unit) {
                 foreach ($regionIds as $unitId) {
                     $consider = $include_groups || UnitType::isRegion($unit['type']);
                     if ($consider && $unit['bezirk_id'] == $unitId) {

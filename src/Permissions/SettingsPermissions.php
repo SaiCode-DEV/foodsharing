@@ -5,12 +5,14 @@ namespace Foodsharing\Permissions;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 class SettingsPermissions
 {
     public function __construct(
         private readonly Session $session,
-        private readonly RegionGateway $regionGateway
+        private readonly RegionGateway $regionGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnitsInterface,
     ) {
     }
 
@@ -36,7 +38,7 @@ class SettingsPermissions
 
         $regionIds = $this->regionGateway->getFsRegionIds($userId);
 
-        if ($this->session->isAmbassadorForRegion($regionIds, false, true)) {
+        if ($this->currentUserUnitsInterface->isAmbassadorForRegion($regionIds, false, true)) {
             return true;
         }
 
@@ -55,7 +57,7 @@ class SettingsPermissions
 
         $regionIds = $this->regionGateway->getFsRegionIds($userId);
 
-        if ($this->session->isAmbassadorForRegion($regionIds, false, true)) {
+        if ($this->currentUserUnitsInterface->isAmbassadorForRegion($regionIds, false, true)) {
             return true;
         }
 
@@ -79,7 +81,7 @@ class SettingsPermissions
 
         $regionIds = $this->regionGateway->getFsRegionIds($userId);
 
-        if ($this->session->isAmbassadorForRegion($regionIds, false, true)) {
+        if ($this->currentUserUnitsInterface->isAmbassadorForRegion($regionIds, false, true)) {
             return true;
         }
 

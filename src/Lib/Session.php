@@ -6,15 +6,12 @@ use Exception;
 use Flourish\fSession;
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
-use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
-use Foodsharing\Modules\Region\RegionGateway;
-use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 use function array_key_exists;
 
-class Session implements CurrentUserUnitsInterface
+class Session
 {
     // update this whenever adding new fields to the session!!!
     // this should be a unix timestamp, together with a human readable date in a comment.
@@ -29,7 +26,6 @@ class Session implements CurrentUserUnitsInterface
     public function __construct(
         private readonly Mem $mem,
         private readonly FoodsaverGateway $foodsaverGateway,
-        private readonly RegionGateway $regionGateway,
         private bool $initialized = false
     ) {
     }
@@ -222,74 +218,6 @@ class Session implements CurrentUserUnitsInterface
         return fSession::get($key, false);
     }
 
-    public function getRegions(): array
-    {
-        return $_SESSION['client']['bezirke'] ?? [];
-    }
-
-    /**
-     * @deprecated helper that makes ancient code easier to read (in theory, DashboardControl could use this)
-     */
-    private function getManagedRegions(): array
-    {
-        return $_SESSION['client']['botschafter'] ?? [];
-    }
-
-    public function listRegionIDs(): array
-    {
-        $regions = $this->getRegions();
-        $out = [];
-        foreach ($regions as $region) {
-            $out[] = $region['id'];
-        }
-
-        return $out;
-    }
-
-    public function getMyAmbassadorRegionIds(bool $includeWorkingGroups = true): array
-    {
-        $managedRegions = $this->getManagedRegions();
-
-        if (!$includeWorkingGroups) {
-            $managedRegions = array_filter($managedRegions, fn ($region) => !UnitType::isGroup($region['type']));
-        }
-
-        $out = [];
-        foreach ($managedRegions as $region) {
-            $out[] = $region['bezirk_id'];
-        }
-
-        return $out;
-    }
-
-    public function isAdminFor(?int $regionId): bool
-    {
-        if ($this->isAmbassador()) {
-            $managedRegions = $this->getManagedRegions();
-            foreach ($managedRegions as $region) {
-                if ($region['bezirk_id'] == $regionId) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public function getCurrentRegionId(): ?int
-    {
-        if (isset($_SESSION['client']['bezirk_id'])) {
-            return $_SESSION['client']['bezirk_id'];
-        }
-
-        return null;
-    }
-
-    public function isAmbassador(): bool
-    {
-        return isset($_SESSION['client']['botschafter']);
-    }
-
     public function login($fs_id = null, $rememberMe = false)
     {
         if (!$this->initialized) {
@@ -331,14 +259,6 @@ class Session implements CurrentUserUnitsInterface
         $this->setAuthLevel(Role::tryFrom($fs['rolle']));
         $this->updateQuizRole();
 
-        if ((int)$fs['bezirk_id'] > 0 && $this->role()->isAtLeast(Role::FOODSAVER)) {
-            $this->regionGateway->addMember($fs_id, $fs['bezirk_id']);
-        }
-
-        if ($master = $this->regionGateway->getMasterId($fs['bezirk_id'])) {
-            $this->regionGateway->addMember($fs_id, $master);
-        }
-
         $this->set('user', [
             'location' => GeoLocation::createFromArray($fs, false),
             'name' => $fs['name'],
@@ -362,38 +282,6 @@ class Session implements CurrentUserUnitsInterface
             'verified' => (int)$fs['verified'],
             'last_activity' => $fs['last_activity'],
         ];
-        if ($this->role()->isAtLeast(Role::FOODSAVER)) {
-            if ($r = $this->regionGateway->listRegionsForBotschafter($fs['id'])
-            ) {
-                $_SESSION['client']['botschafter'] = $r;
-                foreach ($r as $rr) {
-                    $this->regionGateway->addOrUpdateMember($fs['id'], $rr['id']);
-                }
-            }
-
-            $_SESSION['client']['bezirke'] = $this->regionGateway->listForFoodsaver($fs['id']);
-        }
-    }
-
-    public function mayBezirk(int $regionId): bool
-    {
-        // Users that are not logged in don't have a role we could compare to
-        if ($this->role() === null) {
-            return false;
-        }
-
-        if ($this->role()->isAtLeast(Role::ORGA)) {
-            return true;
-        }
-        // use database check if the session includes the region to unsure previleges are lost after removal from a region
-        $isMember = isset($_SESSION['client']['bezirke'][$regionId]);
-        if ($isMember && !$this->regionGateway->hasMember($this->id(), $regionId)) {
-            unset($_SESSION['client']['bezirke'][$regionId]);
-
-            return false;
-        }
-
-        return $isMember;
     }
 
     public function isVerified(): bool
@@ -404,33 +292,6 @@ class Session implements CurrentUserUnitsInterface
 
         if (isset($_SESSION['client']['verified']) && $_SESSION['client']['verified'] == 1) {
             return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Checks if the current user is an ambassador for one of the regions in the list of region IDs.
-     *
-     * @param array $regionIds list of region IDs
-     * @param bool $include_groups if working group should be included in the check
-     * @param bool $include_parent_regions if the parent regions should be included in the check
-     */
-    public function isAmbassadorForRegion($regionIds, $include_groups = true, $include_parent_regions = false): bool
-    {
-        if (is_array($regionIds) && count($regionIds) && $this->isAmbassador()) {
-            if ($include_parent_regions) {
-                $regionIds = $this->regionGateway->listRegionsIncludingParents($regionIds);
-            }
-            $managedRegions = $this->getManagedRegions();
-            foreach ($managedRegions as $region) {
-                foreach ($regionIds as $regId) {
-                    $consider = $include_groups || UnitType::isRegion($region['type']);
-                    if ($consider && $region['bezirk_id'] == $regId) {
-                        return true;
-                    }
-                }
-            }
         }
 
         return false;

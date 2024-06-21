@@ -168,7 +168,7 @@ final class RegionController extends FoodsharingController
             $this->routeHelper->goLoginAndExit();
         }
 
-        $region_id = $request->query->getInt('bid', $this->currentUserUnits->getCurrentRegionId());
+        $region_id = $request->query->getInt('bid', $this->currentUserUnits->getCurrentRegionId() ?? 0);
 
         if ($this->currentUserUnits->mayBezirk($region_id) && ($region = $this->gateway->getRegionDetails($region_id))) {
             $big = [UnitType::BIG_CITY, UnitType::FEDERAL_STATE, UnitType::COUNTRY];

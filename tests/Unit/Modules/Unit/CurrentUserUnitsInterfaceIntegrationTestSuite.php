@@ -45,18 +45,28 @@ abstract class CurrentUserUnitsInterfaceIntegrationTestSuite extends Unit
 
     abstract protected function createCurrentUserUnitsInterface();
 
+    final public function testGetHomeRegionIdNotLoginUser()
+    {
+        $this->session->expects($this->never())->method('set');
+        $this->session->expects($this->once())->method('id')->willReturn(null);
+
+        $current = $this->createCurrentUserUnitsInterface();
+
+        $this->assertNull($current->getCurrentRegionId());
+    }
+
     final public function testGetHomeRegionIdIsNotSet()
     {
         $foodsaverWithoutHomeRegion = $this->tester->createFoodsaver(null, ['bezirk_id' => 0]);
 
         $this->session->expects($this->once())->method('has')->with('units_information')->willReturn(false);
         $this->session->expects($this->once())->method('set');
-        $this->session->expects($this->once())->method('id')->willReturn($foodsaverWithoutHomeRegion['id']);
+        $this->session->expects($this->atLeastOnce())->method('id')->willReturn($foodsaverWithoutHomeRegion['id']);
         $this->session->expects($this->once())->method('role')->willReturn(Role::FOODSAVER);
 
         $current = $this->createCurrentUserUnitsInterface();
 
-        $this->assertNull($current->getCurrentRegionId());
+        $this->assertEquals(0, $current->getCurrentRegionId());
     }
 
     final public function testGetHomeRegionIdIsSet()
@@ -67,21 +77,12 @@ abstract class CurrentUserUnitsInterfaceIntegrationTestSuite extends Unit
 
         $this->session->expects($this->once())->method('has')->with('units_information')->willReturn(false);
         $this->session->expects($this->once())->method('set');
-        $this->session->expects($this->once())->method('id')->willReturn($this->foodsaver['id']);
+        $this->session->expects($this->atLeastOnce())->method('id')->willReturn($this->foodsaver['id']);
         $this->session->expects($this->once())->method('role')->willReturn(Role::FOODSAVER);
 
         $current = $this->createCurrentUserUnitsInterface();
 
         $this->assertEquals($this->homeRegion['id'], $current->getCurrentRegionId());
-    }
-
-    final public function testGetHomeRegionIdWithoutUser()
-    {
-        $this->session->expects($this->once())->method('id')->willReturn(null);
-
-        $current = $this->createCurrentUserUnitsInterface();
-
-        $this->assertNull($current->getCurrentRegionId());
     }
 
     protected function createUnitHierarchyForFoodsaver(bool $asAdmin = true)
@@ -116,6 +117,17 @@ abstract class CurrentUserUnitsInterfaceIntegrationTestSuite extends Unit
         $this->tester->addRegionMember($this->globalWorkingGroup['id'], $this->foodsaver['id']);
     }
 
+    final public function testGetRegionsNotLoginUser()
+    {
+        $this->session->expects($this->never())->method('set');
+        $this->session->expects($this->once())->method('id')->willReturn(null);
+
+        $current = $this->createCurrentUserUnitsInterface();
+
+        $regions = $current->getRegions();
+        $this->assertCount(0, $regions);
+    }
+
     final public function testGetRegionsNoRelatedRegions()
     {
         $this->foodsaver = $this->tester->createFoodsaver(null, ['bezirk_id' => 0]);
@@ -143,6 +155,17 @@ abstract class CurrentUserUnitsInterfaceIntegrationTestSuite extends Unit
         $this->assertContains(
             ['id' => $this->relatedWorkingGroup['id'], 'name' => $this->relatedWorkingGroup['name'], 'type' => $this->relatedWorkingGroup['type'], 'parent_id' => $this->relatedWorkingGroup['parent_id']],
             $regions);
+    }
+
+    final public function testListRegionIdsNotLoginUser()
+    {
+        $this->session->expects($this->never())->method('set');
+        $this->session->expects($this->once())->method('id')->willReturn(null);
+
+        $current = $this->createCurrentUserUnitsInterface();
+
+        $regions = $current->listRegionIDs();
+        $this->assertCount(0, $regions);
     }
 
     final public function testListRegionIdsNoRelatedRegions()
@@ -177,6 +200,17 @@ abstract class CurrentUserUnitsInterfaceIntegrationTestSuite extends Unit
         $this->assertContains($this->relatedAdminWorkingGroup['id'], $regions);
         $this->assertContains($this->globalWorkingGroup['id'], $regions);
         $this->assertNotContains($this->unrelatedWorkingGroup['id'], $regions);
+    }
+
+    final public function testGetMyAmbassadorRegionIdsNotLoginUser()
+    {
+        $this->session->expects($this->never())->method('set');
+        $this->session->expects($this->once())->method('id')->willReturn(null);
+
+        $current = $this->createCurrentUserUnitsInterface();
+
+        $regions = $current->getMyAmbassadorRegionIds();
+        $this->assertCount(0, $regions);
     }
 
     final public function testGetMyAmbassadorRegionIdsNoRelatedRegions()
@@ -325,6 +359,17 @@ abstract class CurrentUserUnitsInterfaceIntegrationTestSuite extends Unit
         $this->assertFalse($current->isAmbassador());
     }
 
+    final public function testMayBezirkNotLoginUser()
+    {
+        $this->createUnitHierarchyForFoodsaver(false);
+        $this->session->expects($this->never())->method('set');
+        $this->session->expects($this->atLeast(0))->method('id')->willReturn(null);
+
+        $current = $this->createCurrentUserUnitsInterface();
+
+        $this->assertFalse($current->mayBezirk($this->homeRegion['id']));
+    }
+
     final public function testMayBezirkNoUserRole()
     {
         $this->createUnitHierarchyForFoodsaver(false);
@@ -367,6 +412,20 @@ abstract class CurrentUserUnitsInterfaceIntegrationTestSuite extends Unit
         $current = $this->createCurrentUserUnitsInterface();
 
         $this->assertFalse($current->mayBezirk($this->unrelatedRegion['id']));
+    }
+
+    final public function testIsAmbassadorForRegionNotLoginUser()
+    {
+        $this->createUnitHierarchyForFoodsaver();
+        $this->session->expects($this->any())->method('has')->with('units_information')->willReturn(false);
+        $this->session->expects($this->any())->method('id')->willReturn(null);
+        $this->session->expects($this->any())->method('role')->willReturn(null);
+        $current = $this->createCurrentUserUnitsInterface();
+
+        $this->assertFalse($current->isAmbassadorForRegion([$this->relatedRegion['id']]));
+        $this->assertFalse($current->isAmbassadorForRegion([$this->relatedAdminRegion['id']]));
+        $this->assertFalse($current->isAmbassadorForRegion([$this->relatedWorkingGroup['id']]));
+        $this->assertFalse($current->isAmbassadorForRegion([$this->relatedAdminWorkingGroup['id']]));
     }
 
     final public function testIsAmbassadorForRegion()

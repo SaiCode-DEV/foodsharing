@@ -13,6 +13,7 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\StorePermissions;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -23,11 +24,13 @@ final class StorePermissionsTest extends Unit
     protected UnitTester $tester;
     protected MockObject $sessionMock;
     protected MockObject $regionGatewayMock;
+    protected MockObject $currentUserUnitsMock;
     protected StorePermissions $storePermissions;
 
     public function _before(): void
     {
         $this->sessionMock = $this->createMock(Session::class);
+        $this->currentUserUnitsMock = $this->createMock(CurrentUserUnitsInterface::class);
         $this->regionGatewayMock = $this->createMock(RegionGateway::class);
         $this->storePermissions = new StorePermissions(
             $this->tester->get(StoreGateway::class),
@@ -35,7 +38,7 @@ final class StorePermissionsTest extends Unit
             $this->tester->get(GroupFunctionGateway::class),
             $this->tester->get(ProfilePermissions::class),
             $this->regionGatewayMock,
-            $this->sessionMock);
+            $this->currentUserUnitsMock);
     }
 
     public function testListStoresLoadUserIdFromSession(): void

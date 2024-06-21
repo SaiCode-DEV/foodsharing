@@ -51,7 +51,7 @@ abstract class FoodsharingController extends AbstractController
 
         $this->mem = $container->get(Mem::class);
         $this->session = $container->get(Session::class);
-        $this->currentUserUnits = $this->session;
+        $this->currentUserUnits = $container->get(CurrentUserUnitsInterface::class);
         $this->v_utils = $container->get(Utils::class);
         $this->pageHelper = $container->get(PageHelper::class);
         $this->emailHelper = $container->get(EmailHelper::class);

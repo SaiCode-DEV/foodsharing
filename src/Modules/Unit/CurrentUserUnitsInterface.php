@@ -10,7 +10,7 @@ interface CurrentUserUnitsInterface
     /**
      * Returns the home region id of current user.
      *
-     * @return int|null home region identifier of user if it exits
+     * @return int|null home region identifier of user the user exists (Not set home region is the value 0)
      */
     public function getCurrentRegionId(): ?int;
 

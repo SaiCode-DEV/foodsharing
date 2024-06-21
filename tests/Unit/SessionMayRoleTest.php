@@ -9,7 +9,6 @@ use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
-use Foodsharing\Modules\Region\RegionGateway;
 use Tests\Support\UnitTester;
 
 class SessionTestAdapter extends Session
@@ -17,10 +16,9 @@ class SessionTestAdapter extends Session
     public function __construct(
         private Mem $mem,
         private FoodsaverGateway $foodsaverGateway,
-        private RegionGateway $regionGateway,
         protected bool $initialized = false
     ) {
-        parent::__construct($mem, $foodsaverGateway, $regionGateway, $initialized);
+        parent::__construct($mem, $foodsaverGateway, $initialized);
     }
 
     public function setTestUser(Role $role)
@@ -40,7 +38,6 @@ class SessionMayRoleTest extends Unit
         $this->session = new SessionTestAdapter(
             $this->tester->get(Mem::class),
             $this->tester->get(FoodsaverGateway::class),
-            $this->tester->get(RegionGateway::class),
             true
         );
     }

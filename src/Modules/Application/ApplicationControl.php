@@ -24,7 +24,7 @@ class ApplicationControl extends Control
 
         parent::__construct();
         if (($this->bezirk_id = $this->identificationHelper->getGetId('bid')) === false) {
-            $this->bezirk_id = $this->currentUserUnits->getCurrentRegionId();
+            $this->bezirk_id = $this->currentUserUnits->getCurrentRegionId() ?? 0;
         }
 
         $mayManageApplications = ($this->currentUserUnits->isAdminFor($this->bezirk_id) || $this->session->mayRole(Role::ORGA));

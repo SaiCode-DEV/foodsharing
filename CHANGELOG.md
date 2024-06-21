@@ -52,7 +52,7 @@
 - Extend Session with CurrentUserRegionInterface !3354 @koemai
 - Extract `updateLastActivity()` into new service `UserStatusTransactions` !3377 @KoeMai
 - Remove obsolete and unused run.php !3395 @\_fridtjof_
-- Provide CurrentUserRegionInterface for Session as independent implementation !3390 @KoeMai
+- Provide CurrentUserRegionInterface for Session as independent implementation !3390 !3400 @KoeMai
 - Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 @chriswalg
 
 ## Dev/Test/CI stuff
