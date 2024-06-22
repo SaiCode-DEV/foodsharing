@@ -1807,6 +1807,14 @@ group:
       created_at: Medlemskort opprettet på
       generate_button: Opprett medlemskort for utvalgte personer
       never_before: aldri før
+      clear_selection: Tilbakestill alle valgte
+      filter_selection: Filtrer etter utvalgte medlemmer
+      button:
+        verify: bekrefte
+        unverify: ubekrefte
+      verify:
+        do: Bekreft konto for {name} ({id})
+        undo: Avbryt aktivering av {name} ({id})
   saved: Endringene har blitt lagret
   subtitle: her kan du finne hjelp og mye å gjøre …
   member_count:
