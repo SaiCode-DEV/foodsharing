@@ -2,38 +2,40 @@
 
 namespace Foodsharing\Modules\Application;
 
+use Foodsharing\Modules\Application\DTO\WorkingGroupApplication;
 use Foodsharing\Modules\Core\View;
+use Foodsharing\Modules\Foodsaver\Profile;
 
 class ApplicationView extends View
 {
-    private $bezirk;
-    private $bezirk_id;
+    private string $groupName;
+    private int $groupId;
 
-    public function setBezirk($bezirk)
+    public function setGroupName(int $id, string $name)
     {
-        $this->bezirk = $bezirk;
-        $this->bezirk_id = $bezirk['id'];
+        $this->groupName = $name;
+        $this->groupId = $id;
     }
 
-    public function applicationMenu($application)
+    public function applicationMenu(Profile $applicant)
     {
         return $this->v_utils->v_menu([
-            ['click' => 'tryAcceptApplication(' . (int)$this->bezirk_id . ',' . (int)$application['id'] . ');return false;', 'name' => $this->translator->trans('yes')],
-            ['click' => 'tryDeclineApplication(' . (int)$this->bezirk_id . ',' . (int)$application['id'] . ');return false;', 'name' => $this->translator->trans('no')]
+            ['click' => 'tryAcceptApplication(' . $this->groupId . ',' . $applicant->id . ');return false;', 'name' => $this->translator->trans('yes')],
+            ['click' => 'tryDeclineApplication(' . $this->groupId . ',' . $applicant->id . ');return false;', 'name' => $this->translator->trans('no')]
         ], $this->translator->trans('group.apply.accept'));
     }
 
-    public function application($application)
+    public function application(WorkingGroupApplication $application)
     {
         $out = $this->headline(
-            $this->translator->trans('group.application_region', ['{group}' => $this->bezirk['name']]) . ' ' . $this->translator->trans('group.application_from') . ' ' . $application['name'],
-            $application['photo'],
-            $application['id']
+            $this->translator->trans('group.application_region', ['{group}' => $this->groupName]) . ' ' . $this->translator->trans('group.application_from') . ' ' . $application->applicant->name,
+            $application->applicant->avatar,
+            $application->applicant->id
         );
 
-        $cnt = nl2br((string)$application['application']);
+        $cnt = nl2br($application->applicationText);
 
-        $cnt = $this->v_utils->v_input_wrapper($application['name'], $cnt);
+        $cnt = $this->v_utils->v_input_wrapper($application->applicant->name, $cnt);
         $cnt .= '<div class="clear"></div>';
 
         $out .= $this->v_utils->v_field($cnt, $this->translator->trans('group.motivation'), ['class' => 'ui-padding']);

@@ -4,54 +4,52 @@ namespace Foodsharing\Modules\Application;
 
 use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Utility\IdentificationHelper;
 
 class ApplicationControl extends Control
 {
-    private $bezirk;
-    private $bezirk_id = false;
-    private readonly ApplicationGateway $gateway;
-    private readonly IdentificationHelper $identificationHelper;
+    private string $groupName;
+    private int $groupId;
 
     public function __construct(
-        ApplicationGateway $gateway,
+        private readonly ApplicationGateway $gateway,
+        private readonly RegionGateway $regionGateway,
         ApplicationView $view,
-        IdentificationHelper $identificationHelper
+        private readonly IdentificationHelper $identificationHelper
     ) {
         $this->view = $view;
-        $this->gateway = $gateway;
-        $this->identificationHelper = $identificationHelper;
 
         parent::__construct();
-        if (($this->bezirk_id = $this->identificationHelper->getGetId('bid')) === false) {
-            $this->bezirk_id = $this->currentUserUnits->getCurrentRegionId() ?? 0;
+        if (($this->groupId = $this->identificationHelper->getGetId('bid')) === false) {
+            $this->groupId = $this->currentUserUnits->getCurrentRegionId() ?? 0;
         }
 
-        $mayManageApplications = ($this->currentUserUnits->isAdminFor($this->bezirk_id) || $this->session->mayRole(Role::ORGA));
+        $mayManageApplications = ($this->currentUserUnits->isAdminFor($this->groupId) || $this->session->mayRole(Role::ORGA));
         if (!$mayManageApplications) {
             $this->routeHelper->goAndExit('/');
         }
 
-        $this->bezirk = $this->gateway->getRegion($this->bezirk_id);
-        $this->view->setBezirk($this->bezirk);
+        $this->groupName = $this->regionGateway->getRegionName($this->groupId);
+        $this->view->setGroupName($this->groupId, $this->groupName);
     }
 
     public function index(): void
     {
-        $application = $this->gateway->getApplication($this->bezirk_id, $_GET['fid']);
+        $application = $this->gateway->getApplication($this->groupId, $_GET['fid']);
         if (!$application) {
             return;
         }
-        $this->pageHelper->addBread($this->bezirk['name'], '/region?bid=' . $this->bezirk_id);
-        $this->pageHelper->addBread($this->translator->trans('group.application_from') . $application['name'], '');
+        $this->pageHelper->addBread($this->groupName, '/region?bid=' . $this->groupId);
+        $this->pageHelper->addBread($this->translator->trans('group.application_from') . $application->applicant->name, '');
         $this->pageHelper->addContent($this->view->application($application));
 
         $this->pageHelper->addContent($this->view->vueComponent('vue-wall', 'wall', [
             'target' => 'application',
-            'targetId' => $application['id'],
+            'targetId' => $application->applicant->id,
             'title' => $this->translator->trans('storeview.status_notes')
         ]));
 
-        $this->pageHelper->addContent($this->view->applicationMenu($application), CNT_LEFT);
+        $this->pageHelper->addContent($this->view->applicationMenu($application->applicant), CNT_LEFT);
     }
 }
