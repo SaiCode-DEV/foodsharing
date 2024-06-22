@@ -190,7 +190,21 @@ class QuizTransactions
                     break;
             }
         }
-        $this->session->updateQuizRole();
+        $this->updateQuizRoleForCurrentUser();
+    }
+
+    public function updateQuizRoleForCurrentUser()
+    {
+        $this->session->set('quiz_role', $this->foodsaverGateway->getQuizRole($this->session->id())->value);
+    }
+
+    public function getQuizRoleOfCurrentUser(): Role
+    {
+        if (!$this->session->has('quiz_role')) {
+            $this->updateQuizRoleForCurrentUser();
+        }
+
+        return Role::from($this->session->get('quiz_role'));
     }
 
     /**

@@ -12,6 +12,7 @@ use Foodsharing\Modules\Event\InvitationStatus;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Login\UserStatusTransactions;
 use Foodsharing\Modules\Quiz\QuizSessionGateway;
+use Foodsharing\Modules\Quiz\QuizTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Permissions\QuizPermissions;
 
@@ -37,6 +38,7 @@ class DashboardControl extends Control
         QuizSessionGateway $quizSessionGateway,
         QuizPermissions $quizPermissions,
         private readonly UserStatusTransactions $userStatusTransactions,
+        private readonly QuizTransactions $quizTransactions,
     ) {
         $this->view = $view;
         $this->contentGateway = $contentGateway;
@@ -114,7 +116,7 @@ class DashboardControl extends Control
 
     private function getMissingQuizConfirmation(): ?int
     {
-        $quizRole = $this->session->quizRole()->value;
+        $quizRole = $this->quizTransactions->getQuizRoleOfCurrentUser()->value;
         if ($this->session->role()->value >= $quizRole) {
             return null;
         }

@@ -257,7 +257,6 @@ class Session
 
         $this->setId($fs['id']);
         $this->setAuthLevel(Role::tryFrom($fs['rolle']));
-        $this->updateQuizRole();
 
         $this->set('user', [
             'location' => GeoLocation::createFromArray($fs, false),
@@ -352,15 +351,5 @@ class Session
         }
 
         return $this->isValidCsrfToken($_SERVER['HTTP_X_CSRF_TOKEN']);
-    }
-
-    public function updateQuizRole()
-    {
-        $this->set('quiz_role', $this->foodsaverGateway->getQuizRole($this->id())->value);
-    }
-
-    public function quizRole(): Role
-    {
-        return Role::from($this->get('quiz_role'));
     }
 }
