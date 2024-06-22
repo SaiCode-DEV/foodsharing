@@ -817,7 +817,7 @@ events:
     title: Create a new event
     mumble: Conference using Mumble
     offline: A normal real life event
-    online: Via video or telephone conference
+    online: via telephone or video conference
     multiday: The event lasts for several days
     delinvites: Delete existing invitations?
     cascading: Include all subgroups / districts?
@@ -831,6 +831,10 @@ events:
     type: How will the event take place?
     name: Name of the event
     time: Time
+    other: other
+    locationOther: Where will the event take place?
+    fillCompletely: Please fill out the form completely.
+    locationDetails: Location details (room number etc.)
   bread: Events
   past: Past events
   menu:
@@ -866,6 +870,22 @@ events:
   duration: 'Duration: {duration}'
   span: '{from} until {until}'
   edit: Edit event
+  noneAccepted: So far, no persons have confirmed their participation in this event.
+  meeting:
+    past: This event took place online.
+    present: This event takes place online. You can join now.
+    future: This event will take place online. As soon as it starts, you can join
+      via the button below.
+    not_started: This event has not yet started
+  attendees: Attendees
+  location: Location
+  online_info: "Telephone and video conferences from foodsharing run best via our
+    own [BigBlueButton](https://bigbluebutton.org) server. From 10 minutes before
+    the start of the appointment, users can easily join the conference with one click
+    from the appointment page. No additional programs are required, just a reasonably
+    modern internet browser. It is also possible to join by phone.\n\nIf you still
+    want to use a different platform for a telephone or video conference, please select
+    the option *“Other ”*. \n"
 forum:
   threads: Threads
   quickreply:
@@ -1320,7 +1340,7 @@ bell:
   new_foodsaver: Needs introductory pick-ups
   new_foodsaver_needs_introduction: Needs introductory pick-ups
   new_foodsaver_needs_verification: Needs to be verified
-  new_quiz_comment_title: 'New comment on question #{questionId}'
+  new_quiz_comment_title: 'Comment on question #{questionId}'
   fs_sleepmode: '{name} {nachname} is now inactive'
   fs_sleepmode_title: New nightcap
   store_cr_times: Pick-up slots have changed
