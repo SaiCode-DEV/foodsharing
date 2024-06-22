@@ -828,6 +828,9 @@ events:
     who: For which district or which working group should the event be created?
     desc: What kind of event is that?
     inviteAll: Invite entire group / district?
+    type: How will the event take place?
+    name: Name of the event
+    time: Time
   bread: Events
   past: Past events
   menu:
@@ -927,6 +930,9 @@ timepicker:
   labelSelected: Selected time
   labelDecrement: Decrease
   labelIncrement: Increase
+  placeholder: Enter time
+  to: to
+  from: from
 calendar:
   labelCalendar: Calendar
   labelSelected: Selected date
@@ -954,6 +960,7 @@ calendar:
       description: Description
 
     updated: '(last updated: {date})'
+  placeholder: Select a date
 pickup:
   signout_confirm: Are you sure?
   copyNumber: Copy phone number
