@@ -2729,7 +2729,7 @@ events:
     date: 'Fecha'
     groups: 'Tus grupos de trabajo'
     inviteAll: '¿Invitar a todo el grupo/distrito a la cita?'
-    online: 'Reunión en línea'
+    online: 'por teléfono o videoconferencia'
     mumble: 'Conferencia en Mumble'
     isPublic: 'Sí, el evento es público'
     multiday: 'El evento dura varios días'
@@ -2755,6 +2755,10 @@ events:
     who: '¿Para qué distrito o grupo de trabajo debería crearse el evento?'
     endtime: 'Hora de finalización'
     regions: 'Tus distritos'
+    name: Nombre del evento
+    locationDetails: Detalles de la ubicación (número de habitación, etc.)
+    locationOther: ¿Dónde se celebrará?
+    fillCompletely: Rellene completamente el formulario.
   mumble:
     title: 'Cita en línea (Mumble)'
     guide: 'Instrucciones: <strong><a href="https://wiki.foodsharing.de/Mumble">wiki.foodsharing.de/Mumble</a></strong>
@@ -2788,6 +2792,16 @@ events:
   maybeCount: '{count} tal vez venga'
   duration: 'Duración: {duration}'
   notFound: 'O este evento no existe o no puedes acceder a él.'
+  location: Ubicación
+  meeting:
+    past: Este acto se celebró en línea.
+    not_started: El acto aún no ha comenzado
+    present: Este acto se celebra en línea. Puede inscribirse ahora.
+    future: Este acto se celebrará en línea. En cuanto empiece, puede unirse a través
+      del botón de abajo.
+  attendees: Participantes
+  noneAccepted: Hasta el momento, ninguna persona ha confirmado su participación en
+    este acto.
 recipients:
   orga_team: 'Equipo organizacional global'
   newsletter: 'Todos los suscriptores del boletín (al menos rescatista)'
@@ -3561,6 +3575,8 @@ timepicker:
   labelNowButton: 'Ahora'
   labelSeconds: 'segundos'
   labelNoTimeSelected: 'No hay hora seleccionada'
+  from: de
+  to: a
 sidenav:
   superregional: 'Suprarregional'
   countryspecific: 'Grupos específicos de países'
@@ -3645,6 +3661,7 @@ calendar:
   labelPrevYear: 'el año pasado'
   labelNextMonth: 'próximo mes'
   labelNav: 'Navegación del calendario'
+  placeholder: Elija una fecha
 addresspicker:
   infobox_profile: 'Los compateros necesitan la dirección para poder ofrecer cestas
     de alimentos a través del sitio web. Es necesario para poder participar en recogidas
