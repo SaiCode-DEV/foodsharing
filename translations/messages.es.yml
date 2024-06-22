@@ -1097,6 +1097,14 @@ group:
       generate_button: Crear tarjeta(s) de membresía para la(s) persona(s) seleccionada(s)
       never_before: nunca
       created_at: Tarjeta creada el
+      filter_selection: Filtrar por miembros seleccionados
+      button:
+        verify: Para verificar
+        unverify: Sin verificar
+      verify:
+        do: Verificar la cuenta de {name} ({id})
+        undo: Sin verificar {name} ({id})
+      clear_selection: Restablecer todos los seleccionados
   edit:
     title: 'Editar {group}'
     name_required: 'Por favor ingrese un nombre.'
@@ -2759,6 +2767,9 @@ events:
     locationDetails: Detalles de la ubicación (número de habitación, etc.)
     locationOther: ¿Dónde se celebrará?
     fillCompletely: Rellene completamente el formulario.
+    time: Hora
+    type: ¿Cómo se desarrolla el evento?
+    other: Mezcla
   mumble:
     title: 'Cita en línea (Mumble)'
     guide: 'Instrucciones: <strong><a href="https://wiki.foodsharing.de/Mumble">wiki.foodsharing.de/Mumble</a></strong>
@@ -2802,6 +2813,13 @@ events:
   attendees: Participantes
   noneAccepted: Hasta el momento, ninguna persona ha confirmado su participación en
     este acto.
+  online_info: "Las videoconferencias y de video de FoodSharing se ejecutan mejor
+    a través de nuestro propio servidor [BigBlueButton](https://bigbluebutton.org).
+    Después de 10 minutos antes del inicio de la reunión, los usuarios pueden participar
+    fácilmente en la conferencia con un clic en la página de la reunión. No se requieren
+    programas adicionales, solo un navegador bastante moderno. También es posible
+    registrarse por teléfono.\n\nSi aún deseas utilizar otra plataforma para teléfono
+    o videoconferencia, puedes seleccionar la opción *\"Otro\"*. \n"
 recipients:
   orga_team: 'Equipo organizacional global'
   newsletter: 'Todos los suscriptores del boletín (al menos rescatista)'
@@ -3577,6 +3595,7 @@ timepicker:
   labelNoTimeSelected: 'No hay hora seleccionada'
   from: de
   to: a
+  placeholder: Introduzca la hora
 sidenav:
   superregional: 'Suprarregional'
   countryspecific: 'Grupos específicos de países'
