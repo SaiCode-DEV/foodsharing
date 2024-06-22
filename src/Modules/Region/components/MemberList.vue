@@ -1,70 +1,98 @@
 <template>
   <Container :title="title">
+    <slot v-if="isWorkGroup" name="user-search-input">
+      <div class="row p-2">
+        <div class="col col-12 col-md-6">
+          <user-search-input
+            v-if="mayEditMembers"
+            id="new-foodsaver-search"
+            :placeholder="$i18n('search.user_search.placeholder')"
+            button-icon="fa-user-plus"
+            :button-tooltip="$i18n('group.member_list.add_member')"
+            :filter="!containsMember"
+            @user-selected="addNewTeamMember"
+          />
+        </div>
+      </div>
+    </slot>
     <b-tabs
+      v-if="!isWorkGroup && mayEditMembers"
       v-model="activeTab"
       content-class="mt-2"
       class="p-2"
     >
       <b-tab
-        :title="!mayEditMembers ? '' : $i18n('group.member_list.default.title')"
+        :title="$i18n('group.member_list.default.title')"
         active
-        :disabled="!mayEditMembers"
       >
-        <div
-          v-if="mayEditMembers"
-          class="row p-2"
-        >
-          <div class="col col-12 col-md-6">
-            <user-search-input
-              v-if="isWorkGroup"
-              id="new-foodsaver-search"
-              :placeholder="$i18n('search.user_search.placeholder')"
-              button-icon="fa-user-plus"
-              :button-tooltip="$i18n('group.member_list.add_member')"
-              :filter="notContainsMember"
-              @user-selected="addNewTeamMember"
-            />
-          </div>
-          <div class="col col-12 col-md-6">
+        <slot />
+        <div class="row p-2">
+          <div class="col col-md-6">
             <b-form-select
               v-model="filterRole"
               :options="roleOptions"
               size="xl"
             />
           </div>
-        </div>
-        <div class="row p-2">
           <div class="col col-md-6">
-            <b-form-checkbox
-              v-model="filterLastActivity"
-              switch
-              size="sm"
-            >
-              {{ $i18n('group.filter_by_last_activity') }}
-            </b-form-checkbox>
-          </div>
-          <div class="col col-md-6">
-            <b-form-spinbutton
-              v-model="lastActivityFilterMonths"
-              min="1"
-              max="12"
-              size="sm"
-              :disabled="!filterLastActivity"
-            />
+            <div class="row">
+              <div class="col col-md-6">
+                <b-form-checkbox
+                  v-model="filterLastActivity"
+                  switch
+                  size="sm"
+                >
+                  {{ $i18n('group.filter_by_last_activity') }}
+                </b-form-checkbox>
+              </div>
+              <div class="col col-md-6">
+                <b-form-spinbutton
+                  v-model="lastActivityFilterMonths"
+                  min="1"
+                  max="12"
+                  size="sm"
+                  :disabled="!filterLastActivity"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </b-tab>
       <b-tab v-if="!isWorkGroup && mayEditMembers" :title="$i18n('group.member_list.passports.title')">
-        <b-button
-          variant="primary"
-          :disabled="!isSelected"
-          :class="{'float-right': !viewIsMobile, 'btn-block': viewIsMobile}"
-          @click="createPassports"
-        >
-          {{ $i18n('group.member_list.passports.generate_button') }}
-        </b-button>
+        <div class="row">
+          <div class="col-md-4 mb-2">
+            <b-button
+              :disabled="passportMember <= 0"
+              variant="outline-primary"
+              size="sm"
+              @click="clearSelected"
+            >
+              {{ $i18n('group.member_list.passports.clear_selection') }}
+            </b-button>
+          </div>
+          <div class="col-md-4 mb-2">
+            <b-button
+              variant="outline-primary"
+              size="sm"
+              :disabled="!passportMember"
+              @click="createPassports"
+            >
+              {{ $i18n('group.member_list.passports.generate_button') }} ({{ passportMember.length }})
+            </b-button>
+          </div>
+          <div class="col-md-4">
+            <b-form-checkbox
+              v-model="filterPassportMember"
+              switch
+              size="sm"
+            >
+              {{ $i18n('group.member_list.passports.filter_selection') }}
+            </b-form-checkbox>
+          </div>
+        </div>
       </b-tab>
     </b-tabs>
+
     <b-container>
       <div v-if="memberList.length" class="card-body p-0">
         <div class="form-row">
@@ -97,29 +125,27 @@
       </div>
 
       <b-table
+        ref="selectableTable"
         :fields="filteredFields"
-        :items="membersFilteredSorted"
+        :items="membersFiltered"
         :current-page="currentPage"
         :per-page="perPage"
-        :sort-compare="compare"
+        :sort-by="sortBy"
         :busy="isBusy"
         :select-mode="selectMode"
         small
         hover
         responsive
-        selectable
         class="foto-table"
-        @row-selected="onRowSelected"
+        @sort-changed="sortBy = $event.sortBy ? $event.sortBy : ''"
       >
-        <template #cell(selected)="{ rowSelected }">
-          <template v-if="rowSelected">
-            <span aria-hidden="true">&check;</span>
-            <span class="sr-only">Selected</span>
-          </template>
-          <template v-else>
-            <span aria-hidden="true">&nbsp;</span>
-            <span class="sr-only">Not selected</span>
-          </template>
+        <template v-if="mayEditMembers" #cell(passportToggle)="row">
+          <b-form-checkbox
+            v-if="activeTab === ACTIVE_TAB_PASSPORT && row.item.avatar !== null"
+            size="sm"
+            :checked="containsPassportMember(row.item.id)"
+            @change="togglePassportMember(row.item.id)"
+          />
         </template>
         <template #cell(imageUrl)="row">
           <Avatar
@@ -127,14 +153,14 @@
             :size="50"
           />
         </template>
-        <template #cell(userId)="row">
+        <template #cell(id)="row">
           <a
             :href="$url('profile', row.item.id)"
           >
             {{ row.item.id }}
           </a>
         </template>
-        <template #cell(userName)="row">
+        <template #cell(name)="row">
           <a
             :href="$url('profile', row.item.id)"
             :title="row.item.id"
@@ -192,39 +218,21 @@
             :title="$i18n('group.member_list.is_home_region')"
           />
         </template>
-        <template
-          v-if="mayRemoveAdminOrAmbassador"
-          #cell(removeAdminButton)="row"
-        >
+        <template #cell(adminButton)="row">
           <b-button
-            v-if="rowItemisAdminOrAmbassadorOfRegion(row.item)"
-            v-b-tooltip="$i18n(isWorkGroup ? 'group.member_list.remove_admin_title' : 'group.member_list.remove_ambassador_title')"
+            v-if="getAdminButton(row.item)"
+            v-b-tooltip="getAdminButton(row.item).title"
             size="sm"
-            variant="danger"
+            :variant="getAdminButton(row.item).variant"
             :disabled="isBusy"
-            @click="degradeAdmin(row.item)"
+            @click="getAdminButton(row.item).action(row.item)"
           >
-            <i class="fas fa-fw fa-user-slash" />
-          </b-button>
-        </template>
-        <template
-          v-if="maySetAdminOrAmbassador"
-          #cell(setAdminButton)="row"
-        >
-          <b-button
-            v-if="rowItemNotqualUserid(userId,row.item.id) && roleCheckForRegionAndWorkGroup(isWorkGroup,row.item.role) && !rowItemisAdminOrAmbassadorOfRegion(row.item)"
-            v-b-tooltip.left="$i18n(isWorkGroup ? 'group.member_list.set_admin_title' : 'group.member_list.set_ambassador_title')"
-            size="sm"
-            variant="warning"
-            :disabled="isBusy"
-            @click="makeAdmin(row.item)"
-          >
-            <i class="fas fa-fw fa-user-graduate" />
+            <i class="fas fa-fw" :class="getAdminButton(row.item).icon" />
           </b-button>
         </template>
         <template v-if="mayEditMembers" #cell(removeButton)="row">
           <b-button
-            v-if="rowItemNotqualUserid(userId,row.item.id) && !rowItemisAdminOrAmbassadorOfRegion(row.item)"
+            v-if="activeTab === ACTIVE_TAB_DEFAULT && rowItemNotqualUserid(userId,row.item.id) && !rowItemisAdminOrAmbassadorOfRegion(row.item)"
             v-b-tooltip="$i18n('group.member_list.remove_title')"
             size="sm"
             variant="danger"
@@ -248,7 +256,6 @@
 </template>
 
 <script>
-import { optimizedCompare } from '@/utils'
 import { addMember } from '@/api/groups'
 import { removeMember, setAdminOrAmbassador, removeAdminOrAmbassador } from '@/api/regions'
 import RegionsData from '@/stores/regions'
@@ -300,11 +307,33 @@ export default {
         { value: 4, text: i18n('terminology.role.4') },
       ],
       selectMode: 'multi',
-      selected: [],
+      passportMember: [],
+      filterPassportMember: false,
       activeTab: null,
+      sortBy: '',
     }
   },
   computed: {
+    getAdminButton () {
+      return (item) => {
+        if (this.mayRemoveAdminOrAmbassador && this.rowItemisAdminOrAmbassadorOfRegion(item)) {
+          return {
+            title: this.$i18n(this.isWorkGroup ? 'group.member_list.remove_admin_title' : 'group.member_list.remove_ambassador_title'),
+            variant: 'danger',
+            icon: 'fa-user-slash',
+            action: this.degradeAdmin,
+          }
+        } else if (this.maySetAdminOrAmbassador && this.rowItemNotqualUserid(this.userId, item.id) && this.roleCheckForRegionAndWorkGroup(this.isWorkGroup, item.role)) {
+          return {
+            title: this.$i18n(this.isWorkGroup ? 'group.member_list.set_admin_title' : 'group.member_list.set_ambassador_title'),
+            variant: 'warning',
+            icon: 'fa-user-graduate',
+            action: this.makeAdmin,
+          }
+        }
+        return null
+      }
+    },
     isSelected () {
       return this.selected.length > 0
     },
@@ -318,32 +347,51 @@ export default {
       return new Date(new Date().getTime() - this.lastActivityFilterMonths * 30 * 24 * 60 * 60 * 1000)
     },
     membersFiltered () {
-      if (!this.filterText.trim() && this.filterRole === null && !this.filterLastActivity) {
-        return this.memberList
-      }
       const filterText = this.filterText ? this.filterText.toLowerCase() : null
+
       return this.memberList.filter((member) => {
-        return (
-          ((!filterText ||
-            (member.id.toString().startsWith(filterText))) ||
-            (member.name.toLowerCase().includes(filterText)) ||
-            (this.activeTab === this.ACTIVE_TAB_PASSPORT && member.lastName.toLowerCase().includes(filterText))
-          ) &&
-          (this.filterRole === null || (member.role === this.filterRole)) &&
-          (!this.filterLastActivity || (Date.parse(member.lastActivity) <= this.dateBeforeMonths)) &&
-          ((this.activeTab !== this.ACTIVE_TAB_PASSPORT) || (member.isHomeRegion))
-        )
-      })
-    },
-    membersFilteredSorted () {
-      // sorts the member list alphabetically
-      const copy = this.membersFiltered
-      return copy.sort(function (a, b) {
-        return a.name.localeCompare(b.name)
+        if (this.activeTab === this.ACTIVE_TAB_PASSPORT && !member.isHomeRegion) {
+          return false
+        }
+
+        if (filterText) {
+          const idMatches = member.id.toString().startsWith(filterText)
+          const nameMatches = member.name.toLowerCase().includes(filterText)
+          const lastNameMatches = this.activeTab === this.ACTIVE_TAB_PASSPORT && member.lastName.toLowerCase().includes(filterText)
+
+          if (!(idMatches || nameMatches || lastNameMatches)) {
+            return false
+          }
+        }
+
+        if (this.activeTab !== this.ACTIVE_TAB_PASSPORT && this.filterRole !== null && member.role !== this.filterRole) {
+          return false
+        }
+
+        if (this.activeTab !== this.ACTIVE_TAB_PASSPORT && this.filterLastActivity && Date.parse(member.lastActivity) > this.dateBeforeMonths) {
+          return false
+        }
+
+        if (this.filterPassportMember && !this.passportMember.includes(member.id)) {
+          return false
+        }
+
+        return true
       })
     },
     filteredFields () {
-      const columns = [
+      const columns = []
+
+      if (this.activeTab === this.ACTIVE_TAB_PASSPORT) {
+        columns.push({
+          key: 'passportToggle',
+          label: '',
+          sortable: false,
+          class: 'align-middle',
+        })
+      }
+
+      columns.push(
         {
           key: 'imageUrl',
           sortable: false,
@@ -351,12 +399,12 @@ export default {
           class: 'foto-column',
         },
         {
-          key: 'userName',
+          key: 'name',
           label: this.$i18n('group.name'),
-          sortable: false,
+          sortable: true,
           class: 'align-middle',
         },
-      ]
+      )
 
       if (this.activeTab === this.ACTIVE_TAB_PASSPORT) {
         columns.push({
@@ -368,9 +416,9 @@ export default {
       }
 
       columns.push({
-        key: 'userId',
+        key: 'id',
         label: this.$i18n('group.userId'),
-        sortable: false,
+        sortable: true,
         class: 'align-middle',
       })
 
@@ -394,7 +442,7 @@ export default {
         )
       }
 
-      if (this.activeTab === this.ACTIVE_TAB_DEFAULT) {
+      if (this.mayEditMembers && this.activeTab === this.ACTIVE_TAB_DEFAULT) {
         columns.push(
           {
             key: 'role',
@@ -416,7 +464,7 @@ export default {
         )
       }
 
-      if (this.activeTab === this.ACTIVE_TAB_DEFAULT) {
+      if (this.mayEditMembers && this.activeTab === this.ACTIVE_TAB_DEFAULT) {
         columns.push(
           {
             key: 'isHomeRegion',
@@ -427,9 +475,9 @@ export default {
         )
       }
 
-      if (this.mayEditMembers && this.activeTab === this.ACTIVE_TAB_DEFAULT) {
+      if ((this.mayEditMembers && this.activeTab === this.ACTIVE_TAB_DEFAULT && !this.isWorkGroup) || this.mayEditMembers) {
         columns.push({
-          key: 'setAdminButton',
+          key: 'adminButton',
           label: '',
           sortable: false,
           class: 'button-column',
@@ -452,26 +500,34 @@ export default {
     this.getMemberList()
   },
   methods: {
+    containsPassportMember (memberId) {
+      return this.passportMember.some(member => member === memberId)
+    },
+    togglePassportMember (itemId) {
+      if (!this.containsPassportMember(itemId)) {
+        this.passportMember.push(itemId)
+      } else {
+        this.passportMember.pop(itemId)
+      }
+    },
     async getMemberList () {
       await RegionsData.mutations.fetchMemberList(this.groupId)
       this.memberList = RegionsData.getters.getMemberList(this.groupId)
     },
     async changeVerification (isVerified, memberId, memberName) {
       const dialogueOptions = {
-        title: i18n(isVerified ? 'pass.button.verify' : 'pass.button.unverify'),
+        title: i18n(isVerified ? 'group.member_list.passports.button.verify' : 'group.member_list.passports.button.unverify'),
         okTitle: i18n('button.yes_i_am_sure'),
         okVariant: isVerified ? 'success' : 'danger',
         params: { name: memberName, id: memberId },
       }
-      if (!await this.confirmationDialogue('pass.verify.' + (isVerified ? 'do' : 'undo'), dialogueOptions)) return
+      if (!await this.confirmationDialogue('group.member_list.passports.verify.' + (isVerified ? 'do' : 'undo'), dialogueOptions)) return
       await this.updateVerificationStatusFromUser(isVerified, memberId)
       const index = this.memberList.findIndex(member => member.id === memberId)
       if (index >= 0) {
         this.memberList[index].isVerified = isVerified
       }
     },
-    compare: optimizedCompare,
-
     clearFilter () {
       this.filterStatus = null
       this.filterText = ''
@@ -552,9 +608,6 @@ export default {
     containsMember (memberId) {
       return this.memberList.some(member => member.id === memberId)
     },
-    notContainsMember (memberId) {
-      return !this.containsMember(memberId)
-    },
     async addNewTeamMember (userId) {
       showLoader()
       this.isBusy = true
@@ -586,14 +639,13 @@ export default {
       this.isBusy = false
       hideLoader()
     },
-    onRowSelected (items) {
-      this.selected = items
+    clearSelected () {
+      this.passportMember = []
     },
     async createPassports () {
-      const selectedUserIds = this.selected.map(({ id }) => id)
       showLoader()
       try {
-        const blob = await createPassportAsAmbassador(this.regionId, selectedUserIds)
+        const blob = await createPassportAsAmbassador(this.regionId, this.passportMember)
         const filename = `fs_passports_${this.regionId}_${this.regionName}.pdf`
         this.downloadFile(blob, filename)
       } catch (e) {

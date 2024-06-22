@@ -44,7 +44,7 @@
 - Rebuild quiz module #1666 !3119 !3329 @AntonBallmaier
 - Refactor the nearby baskets list to vue !3294 !3391 @alex.simm
 - Refactored profile to vue !3184 !3225 !3343 @chriswalg
-- Moved passports to region memberlist #1799 #1326 !3251 @chriswalg
+- Moved passports to region memberlist #1799 #1326 !3251 !3388 @chriswalg
 - Modernized StoreChainControl to a Symfony controller !3292 @chriswalg
 - Rework team page in vue !3248 !3351 @chriswalg
 - Refactored event page and creation / editing to vue #952 #997 #1514 #1740 #1910 !3387 @AntonBallmaier

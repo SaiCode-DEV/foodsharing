@@ -573,7 +573,15 @@ group:
       title: "Ausweise"
       created_at: "Ausweis erstellt am"
       generate_button: "Ausweis/e für markierte erstellen"
+      clear_selection: "Alle markierte zurücksetzen"
+      filter_selection: "Filter nach ausgewählten Mitgliedern"
       never_before: "noch nie"
+      button:
+        verify: "Verifizieren"
+        unverify: "Entverifizieren"
+      verify:
+        do: "Account von {name} ({id}) verifizieren"
+        undo: "Verifizierung von {name} ({id}) aufheben"
 
 legal:
   pp: "Datenschutzerklärung"
