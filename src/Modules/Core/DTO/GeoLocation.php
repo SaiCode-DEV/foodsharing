@@ -2,6 +2,8 @@
 
 namespace Foodsharing\Modules\Core\DTO;
 
+use OpenApi\Attributes as OA;
+
 /**
  * Describes a location by its coordinates, so that a representation on a map is possible.
  */
@@ -10,11 +12,13 @@ class GeoLocation
     /**
      * Latitude of the location.
      */
+    #[OA\Property(example: 52.5)]
     public float $lat = 0;
 
     /**
      * Longitude of the location.
      */
+    #[OA\Property(example: 13.4)]
     public float $lon = 0;
 
     public static function createFromArray(array $queryResult, $throwInvalidException = true): ?GeoLocation

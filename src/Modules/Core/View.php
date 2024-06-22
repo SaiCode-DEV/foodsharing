@@ -85,20 +85,6 @@ class View
 		</div>';
     }
 
-    public function location($location)
-    {
-        $out = $this->v_utils->v_field('
-		<p>' . $location['name'] . '</p>
-		<p>
-			' . $location['street'] . '<br />
-			' . $location['zip'] . ' ' . $location['city'] . '
-		</p>
-
-		', 'Ort', ['class' => 'ui-padding event-location']);
-
-        return $out;
-    }
-
     public function menu(array $items, array $option = []): string
     {
         $title = false;

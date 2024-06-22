@@ -131,10 +131,6 @@ export default {
   min-width: 250px;
   margin-bottom: 1rem;
   height: fit-content;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
 }
 
 .list-group-header {

@@ -9,9 +9,12 @@
   >
     <div class="corner-bottom margin-bottom bootstrap store-log">
       <DateRangePicker
-        ref="dateRange"
-        :cooperation-start="cooperationStart"
-        :max-age-in-months="6"
+        :from-date.sync="fromDate"
+        :to-date.sync="toDate"
+        :min-from-date="minFromDate"
+        :max-to-date="new Date()"
+        class="py-2"
+        short
       />
 
       <Multiselect
@@ -84,7 +87,7 @@
 
 <script>
 import Container from '@/components/Container/Container.vue'
-import DateRangePicker from './DateRangePicker.vue'
+import DateRangePicker from '@/components/DateTime/DateRangePicker.vue'
 import Multiselect from 'vue-multiselect'
 import { getStoreLog } from '@/api/stores'
 import Avatar from '@/components/Avatar/Avatar.vue'
@@ -105,12 +108,23 @@ export default {
     const actionTypeIds = [...Array(NUMBER_OF_ACTION_TYPES).keys()].map((id) => id + 1) // action type IDs start at 1
     const actionTypeOptions = actionTypeIds.map((id) => ({ id, name: this.$i18n(`store.log.type.${id}`) }))
 
+    const now = new Date()
+    const lastWeek = new Date(now)
+    lastWeek.setDate(now.getDate() - 7)
+    let minFromDate = new Date(now)
+    minFromDate.setMonth(now.getMonth() - 6)
+    const cooperationStartDate = new Date(Date.parse(this.cooperationStart))
+    minFromDate = new Date(Math.max(minFromDate, cooperationStartDate))
+
     return {
       isContainerExpanded: false,
       isLoading: false,
       selectedActionTypes: [],
       actionTypeOptions,
       loggedActions: [],
+      fromDate: lastWeek,
+      toDate: now,
+      minFromDate,
       pagesLoaded: 0,
       pageSize: 100,
     }
@@ -124,10 +138,12 @@ export default {
     async loadStoreLog () {
       this.isLoading = true
       try {
+        const endOfToDate = new Date(this.toDate)
+        endOfToDate.setDate(this.toDate.getDate() + 1)
         this.loggedActions = await getStoreLog(
           this.storeId,
           this.selectedActionTypes.map((selected) => selected.id),
-          this.$refs.dateRange.getDateRange(),
+          [this.fromDate, endOfToDate],
         )
         this.pagesLoaded = 1
       } catch (e) {

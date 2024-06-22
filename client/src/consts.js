@@ -54,3 +54,9 @@ export const QUIZ_ID = Object.freeze({
   STORE_MANAGER: 2,
   AMBASSADOR: 3,
 })
+
+export const EVENT_TYPE = Object.freeze({
+  OFFLINE: 0,
+  ONLINE: 1,
+  OTHER: 2,
+})

@@ -2,13 +2,9 @@
 
 namespace Foodsharing\Modules\Core\DBConstants\Event;
 
-class EventType
+enum EventType: int
 {
-    final public const MUMBLE = 0;
-    final public const OFFLINE = 1;
-
-    public static function isOnline(int $eventType): bool
-    {
-        return $eventType == self::MUMBLE;
-    }
+    case OFFLINE = 0;
+    case ONLINE = 1;
+    case OTHER = 2;
 }

@@ -1286,6 +1286,7 @@ calendar:
   labelCalendar: "Kalender"
   labelNav: "Kalendernavigation"
   labelHelp: "Navigation ist auch mit Pfeiltasten möglich"
+  placeholder: "Datum auswählen"
   export:
     pickup:
       name: "{store} Abholung"
@@ -1309,6 +1310,9 @@ timepicker:
   labelNoTimeSelected: "Keine Zeit ausgewählt"
   labelCloseButton: "Schließen"
   labelNowButton: "Jetzt"
+  placeholder: "Uhrzeit eingeben"
+  from: "von"
+  to: "bis"
 
 forum:
   deleted_user: "gelöschte:r Benutzer:in"
@@ -1413,20 +1417,22 @@ events:
   edit: "Event bearbeiten"
   edited: "Event wurde erfolgreich geändert."
   create:
-    date: "Datum" #also in QuizView
     title: "Neue Veranstaltung eintragen"
-    public: "Ist die Veranstaltung öffentlich?"
-    isPublic: "Ja, die Veranstaltung ist öffentlich"
     who: "Für welchen Bezirk oder welche Arbeitsgruppe soll die Veranstaltung angelegt werden?"
+    name: "Name der Veranstaltung"
+    date: "Datum" #also in QuizView
+    time: "Uhrzeit"
+    desc: "Was ist das für ein Event?"
+    multiday: "Das Event geht über mehrere Tage"
     groups: "Deine Arbeitsgruppen"
     regions: "Deine Bezirke"
-    multiday: "Das Event geht über mehrere Tage"
-    starttime: "Uhrzeit Beginn"
-    endtime: "Uhrzeit Ende"
-    desc: "Was ist das für ein Event?"
+    type: "Wie findet das Event statt?"
     offline: "Ganz normal im echten Leben"
-    online: "Per Video- oder Telefonkonferenz"
-    mumble: "Konferenz auf mumble.foodsharing.de"
+    online: "Per Telefon- oder Videokonferenz"
+    other: "Sonstiges"
+    locationDetails: "Adressdetails (Raumnummer etc.)"
+    locationOther: "Wo findet das Event statt?"
+    fillCompletely: "Bitte fülle das Formular vollständig aus."
   description: "Beschreibung"
   span: "{from} bis {until}"
   duration: "Dauer: {duration}"
@@ -1441,6 +1447,7 @@ events:
   maybeCount: "{count} kommen vielleicht"
   invitedCount: "{count} Einladungen"
   morePeople: "… und {count} weitere"
+  noneAccepted: "Bislang haben keine Personen für diese Veranstaltung zugesagt."
   button:
     change: "Antwort ändern"
     yes: "Bin dabei"
@@ -1454,6 +1461,17 @@ events:
     yes: "Lieben Dank, du hast die Einladung angenommen."
     maybe: "Schön, dass du vielleicht dabei bist!"
     no: "Einladungsstatus geändert: Du nimmst nun nicht teil."
+  location: 'Ort'
+  meeting:
+    past: "Diese Veranstaltung hat online stattgefunden."
+    present: "Diese Verantstaltung findet online statt. Du kannst jetzt beitreten."
+    future: "Diese Verantstaltung findet online statt. Sobald sie beginnt, kannst du über den Button unten beitreten."
+    not_started: "Dieser Termin hat noch nicht begonnen"
+  attendees: "Teilnehmer:innen"
+  online_info: |
+    Telefon- und Videokonferenzen von foodsharing laufen am besten über unseren eigenen [BigBlueButton](https://bigbluebutton.org)-Server. Ab 10 Minuten vor Beginn des Termins können Nutzer:innen ganz leicht mit einem Klick von der Terminseite der Konferenz beitreten. Dafür sind keine weiteren Programme notwendig, sondern nur ein halbwegs moderner Internet-Browser. Außerdem ist es auch möglich, per Telefon beizutreten.
+
+    Solltest du trotzdem eine andere Platform für eine Telefon- oder Videokonferenz nutzen wollen, wähle bitte die Option *"Sonstiges"* aus. 
 
 recipients:
   bread: "Newsletter-Verteiler"

@@ -106,9 +106,10 @@ class WallPostTransactions
 
     private function getEventCommentBellData(int $eventId): array
     {
-        $event = $this->eventGateway->getEvent($eventId, true);
-        $region = $this->regionGateway->getRegionName($event['bezirk_id']);
-        $recipients = array_merge($event['invites']['accepted'], $event['invites']['maybe']);
+        $event = $this->eventGateway->getEvent($eventId);
+        $region = $this->regionGateway->getRegionName($event->regionId);
+        $attendees = $this->eventGateway->getEventAttendees($eventId);
+        $recipients = array_merge($attendees['accepted'], $attendees['maybe']);
         $recipientIds = array_column($recipients, 'id');
         $recipientIds = array_diff($recipientIds, [$this->session->id()]);
 
@@ -118,7 +119,7 @@ class WallPostTransactions
             'fas fa-calendar',
             ['href' => '/event/' . $eventId],
             [
-                'event' => $event['name'],
+                'event' => $event->name,
                 'region' => $region,
                 'user' => $this->session->user('name'),
             ],
