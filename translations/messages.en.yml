@@ -208,6 +208,14 @@ group:
       created_at: Pass created at
       generate_button: Create membership card(s) for selected person(s)
       never_before: never before
+      clear_selection: Reset all selected
+      filter_selection: Filter by selected members
+      button:
+        verify: verify
+        unverify: unverify
+      verify:
+        do: Verify account of {name} ({id})
+        undo: Cancel verification of {name} ({id})
   application_from: by
   entermotivation: 'Motivation:'
   enterskills: 'Skills:'
