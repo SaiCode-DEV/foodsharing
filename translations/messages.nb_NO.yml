@@ -1394,7 +1394,7 @@ bell:
   new_foodsaver: Trenger innledende pickuper
   new_foodsaver_needs_introduction: Trenger innledende pickuper
   passgen_failed: Last opp et bilde, så fungerer det.
-  new_quiz_comment_title: 'Ny kommentar til spørsmål #{questionId}'
+  new_quiz_comment_title: 'Kommentar til spørsmål #{questionId}'
   store_new_title: Nytt selskap
   store_wallpost: Nytt innlegg på oppslagstavlen.
   fs_sleepmode_title: Ny nattlue
@@ -2150,7 +2150,7 @@ events:
     cascading: Inkludere alle undergrupper / distrikter?
     desc: Hva slags hendelse er det?
     offline: En normal hendelse i det virkelige liv
-    online: Video- eller telefonkonferanse
+    online: via telefon- eller videokonferanse
     mumble: Konferanse om Mumble
     delinvites: Slette eksisterende invitasjoner?
     title: Registrer et nytt arrangement
@@ -2160,6 +2160,13 @@ events:
       gruppen</b>\ntilgjengelig via en delt lenke eller avtalemenyen.\n<br>\nFor å
       også vise avtalen på dashbordet til nykommere i mellomtiden,\nlagre den igjen
       på et senere tidspunkt.\n"
+    name: Navn på arrangementet
+    time: Tidspunkt
+    type: Hvordan vil arrangementet finne sted?
+    other: diverse
+    locationDetails: Stedsopplysninger (romnummer osv.)
+    locationOther: Hvor vil arrangementet finne sted?
+    fillCompletely: Vennligst fyll ut skjemaet fullstendig.
   bread: Arrangementer
   past: Tidligere arrangementer
   button:
@@ -2183,6 +2190,21 @@ events:
   edit: Redigere hendelsen
   created: Arrangementet ble lagt inn.
   edited: Arrangementet ble endret.
+  noneAccepted: Så langt har ingen personer bekreftet sin deltakelse i dette arrangementet.
+  location: Beliggenhet
+  meeting:
+    past: Dette arrangementet fant sted på nettet.
+    present: Dette arrangementet foregår på nett. Du kan bli med nå.
+    future: Dette arrangementet vil finne sted på nettet. Så snart det starter, kan
+      du bli med via knappen nedenfor.
+    not_started: Dette arrangementet har ennå ikke startet
+  attendees: Deltakere
+  online_info: "Telefon- og videokonferanser fra foodsharing kjører best via vår egen
+    [BigBlueButton](https://bigbluebutton.org)-server. Fra 10 minutter før møtestart
+    kan brukerne enkelt delta i konferansen med ett klikk fra møtesiden. Det kreves
+    ingen ekstra programmer, bare en noenlunde moderne nettleser. Det er også mulig
+    å melde seg på via telefon.\n\nHvis du likevel ønsker å bruke en annen plattform
+    for telefon- eller videokonferanser, kan du velge alternativet *«Annet»*. \n"
 chat:
   conversations: Samtaler
   notification_unnamed_conversation: '{foodsaver} skrev til deg.'
@@ -2280,6 +2302,9 @@ timepicker:
   labelDecrement: Senk
   labelSelected: Valgt tid
   labelNoTimeSelected: Ingen tid valgt
+  placeholder: Angi tid
+  from: fra
+  to: til
 calendar:
   labelCalendar: Kalender
   labelToday: i dag
@@ -2306,6 +2331,7 @@ calendar:
       linkTitle: Matdelingsarrangement
       description: Beskrivelse
     updated: '(Sist oppdatert: {dato})'
+  placeholder: Velg en dato
 pickup:
   edit:
     bread: 'Rediger hentetider'
