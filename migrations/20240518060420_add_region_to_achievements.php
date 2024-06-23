@@ -10,7 +10,7 @@ final class AddRegionToAchievements extends AbstractMigration
     {
         $this->table('fs_achievement')->addColumn('region_id', 'integer', [
             'null' => false,
-            'limit' => '10',
+            'limit' => 10,
             'signed' => false,
             'after' => 'id',
             'comment' => 'region defining the scope in which this achievement is relevant'
