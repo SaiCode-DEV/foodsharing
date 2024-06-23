@@ -227,7 +227,7 @@ final class PageHelper
             $groupType = $group['type'];
             $group = array_merge($group, [
                 'mayHandleFoodsaverRegionMenu' => $this->regionPermissions->mayHandleFoodsaverRegionMenu($groupId),
-                'hasConference' => $this->regionPermissions->hasConference($groupType)
+                'hasConference' => $this->regionPermissions->hasConference($groupType),
             ]);
             if (UnitType::isRegion($groupType)) {
                 $group['isAdmin'] = $this->currentUserUnits->isAdminFor($groupId);

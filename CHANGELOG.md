@@ -4,6 +4,7 @@
 - Improved direct links to forum posts #1912 !3293 !3328 @AntonBallmaier
 - People who (maybe) attend an event are now informed via bell when there are new posts on the event wall. #228 !3336 @AntonBallmaier
 - Show title of forum post in window header (again) !3338 #1591 @McGoldi
+- Added an achievements overview page !3348 @AntonBallmaier
 - Warning mails informing store managers about empty pickup slots can now be disabled #1941 !3341 @AntonBallmaier
 - Add page-redirect after login !3334 @AntonBallmaier
 - Delete users older then 5 Years activity. Have profile setting to protect account from deletion#19 !3134 @fs_k

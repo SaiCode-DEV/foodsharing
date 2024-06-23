@@ -798,6 +798,8 @@ terminology:
   buddies: "Bekannte"
   options: "Optionen"
   pin: "Ortsgruppenbeschreibung"
+  achievement: "Errungenschaft"
+  achievements: "Errungenschaften"
 
 statistics:
   kg_food_saved: "{count} kg Lebensmittel gerettet"
@@ -3411,6 +3413,13 @@ markdown_input:
 
     *Du hast aber noch keinen Text eingegeben, der hier angezeigt werden könnte.*"
 
+achievements:
+  inThis:
+    region: "Folgende Errungenschaften können in diesem Bezirk vergeben werden:"
+    group: "Folgende Errungenschaften können in dieser Arbeitsgruppe vergeben werden:"
+  validity:
+    days: "Gültig für {validityInDaysAfterAssignment} Tage nach der Vergabe."
+    indefinite: "Nach der Vergabe beliebig lange gültig."
 help:
   helpTitle: "Hilfe: {title}"
   tooltip: "Hilfe anzeigen"
@@ -3446,6 +3455,10 @@ help:
     profileCommitmentsStat:
       title: "Engagementstatistik"
       md: ist sichtbar ab der Rolle des Betriebsverantwortlichen. Sie wird eingeschränkt auf gemeinsamen Stammbezirk oder gemeinsame Betriebe.
+    achievements:
+      title: "Errungenschaften"
+      md: |
+        Hier muss noch eine Erklärung für Errungenschaften ergänzt werden. Das mache ich später. TODO
 
 team_page:
   board_member:

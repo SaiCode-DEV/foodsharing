@@ -15,7 +15,7 @@ class CurrentUserUnitsSessionTransactionsTest extends CurrentUserUnitsInterfaceI
 
     protected function createCurrentUserUnitsInterface()
     {
-        return new CurrentUserUnitsSessionTransactions($this->foodsaverGateway, $this->regionGateway, $this->session);
+        return new CurrentUserUnitsSessionTransactions($this->foodsaverGateway, $this->regionGateway, $this->achievementGateway, $this->session);
     }
 
     final public function testStoreRestoreFromSession()
@@ -39,7 +39,7 @@ class CurrentUserUnitsSessionTransactionsTest extends CurrentUserUnitsInterfaceI
         $this->session->expects($this->any())->method('id')->willReturn($this->foodsaver['id']);
         $this->session->expects($this->any())->method('role')->willReturn(Role::FOODSAVER);
 
-        $current = new CurrentUserUnitsSessionTransactions($this->foodsaverGateway, $this->regionGateway, $this->session);
+        $current = new CurrentUserUnitsSessionTransactions($this->foodsaverGateway, $this->regionGateway, $this->achievementGateway, $this->session);
 
         $this->assertEquals($this->homeRegion['id'], $current->getCurrentRegionId());
         $this->assertEquals($this->homeRegion['id'], $current->getCurrentRegionId());
@@ -60,7 +60,7 @@ class CurrentUserUnitsSessionTransactionsTest extends CurrentUserUnitsInterfaceI
         $this->session->expects($this->any())->method('id')->willReturn($this->foodsaver['id']);
         $this->session->expects($this->any())->method('role')->willReturn(Role::FOODSAVER);
 
-        $current = new CurrentUserUnitsSessionTransactions($this->foodsaverGateway, $this->regionGateway, $this->session);
+        $current = new CurrentUserUnitsSessionTransactions($this->foodsaverGateway, $this->regionGateway, $this->achievementGateway, $this->session);
 
         $this->assertEquals($this->homeRegion['id'], $current->getCurrentRegionId());
         $this->assertEquals(123, $current->getCurrentRegionId());
@@ -79,7 +79,7 @@ class CurrentUserUnitsSessionTransactionsTest extends CurrentUserUnitsInterfaceI
         $this->session->expects($this->once())->method('get')->willReturn(serialize($sessionContent)); // Read from session
         $this->session->expects($this->any())->method('id')->willReturn($this->foodsaver['id']);
         $this->session->expects($this->any())->method('role')->willReturn(Role::FOODSAVER);
-        $current = new CurrentUserUnitsSessionTransactions($this->foodsaverGateway, $this->regionGateway, $this->session);
+        $current = new CurrentUserUnitsSessionTransactions($this->foodsaverGateway, $this->regionGateway, $this->achievementGateway, $this->session);
 
         // Load content from DB
         $this->assertTrue($current->mayBezirk($this->relatedRegion['id']));

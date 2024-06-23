@@ -65,6 +65,12 @@ export default {
         })
       }
 
+      if (this.entry.hasAchievements) {
+        menu.push({
+          href: 'achievements', icon: 'fa-medal', text: this.$i18n('terminology.achievements'),
+        })
+      }
+
       if (this.applicationCount > 0) {
         menu.push({
           href: 'applications', icon: 'fa-cog', text: this.$i18n('menu.entry.applications', { count: this.applicationCount }),

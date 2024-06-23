@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Unit;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -41,6 +42,7 @@ class CurrentUserUnitsSessionTransactions implements CurrentUserUnitsInterface
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly RegionGateway $regionGateway,
+        private readonly AchievementGateway $achievementGateway,
         private readonly Session $session
     ) {
     }
@@ -84,6 +86,9 @@ class CurrentUserUnitsSessionTransactions implements CurrentUserUnitsInterface
             }
 
             $informations->unitsWithMembership = $this->regionGateway->listForFoodsaver($fsId);
+            foreach ($informations->unitsWithMembership as &$region) {
+                $region['hasAchievements'] = $this->achievementGateway->regionHasAchievements($region['id']);
+            }
         }
 
         return $informations;

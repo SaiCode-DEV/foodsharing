@@ -117,6 +117,12 @@
           :applications="applications"
           :group-id="regionId"
         />
+        <Achievements
+          v-if="activeSubpage === SUB_PAGE.ACHIEVEMENTS"
+          :group-name="name"
+          :group-id="regionId"
+          :is-work-group="isWorkGroup"
+        />
       </div>
     </div>
   </div>
@@ -141,10 +147,12 @@ import NewThread from './NewThread.vue'
 import RemoveFromRegion from './RemoveFromRegion.vue'
 import { getApplications } from '@/api/applications'
 import ApplicationsList from './ApplicationsList.vue'
+import Achievements from './Achievements.vue'
 import { SUB_PAGE } from '@/stores/regions'
 
 export default {
   components: {
+    Achievements,
     ApplicationsList,
     RemoveFromRegion,
     NewThread,

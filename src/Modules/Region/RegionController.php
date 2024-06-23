@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Region;
 
 use Exception;
 use Foodsharing\Lib\FoodsharingController;
+use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Content\ContentView;
 use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
@@ -40,7 +41,8 @@ final class RegionController extends FoodsharingController
         private readonly StoreGateway $storeGateway,
         private readonly DataHelper $dataHelper,
         private readonly FoodSharePointPermissions $foodSharePointPermissions,
-        private readonly ForumGateway $forumGateway
+        private readonly ForumGateway $forumGateway,
+        private readonly AchievementGateway $achievementGateway,
     ) {
         parent::__construct();
     }
@@ -67,6 +69,7 @@ final class RegionController extends FoodsharingController
         $menu['parent_id'] = $group['parent_id'];
         $menu['mayHandleFoodsaverRegionMenu'] = $this->regionPermissions->mayHandleFoodsaverRegionMenu($groupId);
         $menu['hasConference'] = $this->regionPermissions->hasConference($groupType);
+        $menu['hasAchievements'] = $this->achievementGateway->regionHasAchievements($group['id']);
 
         if ($this->currentUserUnits->isAdminFor($groupId)) {
             $menu['mailboxId'] = $group['mailbox_id'];
@@ -223,6 +226,8 @@ final class RegionController extends FoodsharingController
                 }
 
                 return $this->pin($request, $region);
+            case 'achievements':
+                return $this->achievements($request, $region);
             default:
                 if (UnitType::isGroup($region['type'])) {
                     return $this->redirect('/region?bid=' . $region_id . '&sub=wall');
@@ -424,6 +429,18 @@ final class RegionController extends FoodsharingController
         $pageData['status'] = $result['status'] ?? null;
 
         $params = $this->convertDataToObject($region, $request->query->get('sub'), $pageData);
+
+        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
+
+        return $this->renderGlobal();
+    }
+
+    private function achievements(Request $request, array $region): Response
+    {
+        $this->pageHelper->addBread($this->translator->trans('terminology.achievements'), '/region?bid=' . $region['id'] . '&sub=achievements');
+        $this->pageHelper->addTitle($this->translator->trans('terminology.achievements'));
+
+        $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
 
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 

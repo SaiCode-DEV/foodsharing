@@ -840,8 +840,26 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->createBlacklistedEmailAddress();
         $this->output->writeln(' done');
 
+        $this->output->writeln('Create achievements');
+        $this->createAchievements($I);
+        $this->output->writeln(' done');
+
         $I->_getDriver()->executeQuery('SET FOREIGN_KEY_CHECKS=1;', []);
         $I->_getDbh()->commit();
+    }
+
+    private function createAchievements(Foodsharing $I)
+    {
+        $achievementsDataFile = 'src/Dev/achievements.json';
+        if (!file_exists($achievementsDataFile)) {
+            $this->output->write($achievementsDataFile . ' not found');
+            exit(1);
+        }
+        $achievementsData = json_decode(file_get_contents($achievementsDataFile), true);
+
+        foreach ($achievementsData as $achievement) {
+            $I->addAchievement($achievement);
+        }
     }
 
     private function createPoll(int $regionId, int $authorId, int $type, array $voterIds,

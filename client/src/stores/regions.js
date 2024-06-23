@@ -47,6 +47,7 @@ export const SUB_PAGE = Object.freeze({
   WALL: 'wall',
   APPLICATIONS: 'applications',
   OPTIONS: 'options',
+  ACHIEVEMENTS: 'achievements',
 })
 
 export const getters = {

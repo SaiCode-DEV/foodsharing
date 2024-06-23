@@ -6,6 +6,7 @@ namespace Tests\Unit\Modules\Unit;
 
 use Codeception\Test\Unit;
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Region\RegionGateway;
@@ -17,6 +18,7 @@ abstract class CurrentUserUnitsInterfaceIntegrationTestSuite extends Unit
 
     protected $foodsaverGateway;
     protected $regionGateway;
+    protected $achievementGateway;
     protected $session;
 
     protected $masterRegion;
@@ -40,6 +42,7 @@ abstract class CurrentUserUnitsInterfaceIntegrationTestSuite extends Unit
     {
         $this->foodsaverGateway = $this->tester->get(FoodsaverGateway::class);
         $this->regionGateway = $this->tester->get(RegionGateway::class);
+        $this->achievementGateway = $this->tester->get(AchievementGateway::class);
         $this->session = $this->createMock(Session::class);
     }
 
@@ -150,10 +153,10 @@ abstract class CurrentUserUnitsInterfaceIntegrationTestSuite extends Unit
 
         $regions = $current->getRegions();
         $this->assertContains(
-            ['id' => $this->masterRegion['id'], 'name' => $this->masterRegion['name'], 'type' => $this->masterRegion['type'], 'parent_id' => $this->masterRegion['parent_id']],
+            ['id' => $this->masterRegion['id'], 'name' => $this->masterRegion['name'], 'type' => $this->masterRegion['type'], 'parent_id' => $this->masterRegion['parent_id'], 'hasAchievements' => false],
             $regions);
         $this->assertContains(
-            ['id' => $this->relatedWorkingGroup['id'], 'name' => $this->relatedWorkingGroup['name'], 'type' => $this->relatedWorkingGroup['type'], 'parent_id' => $this->relatedWorkingGroup['parent_id']],
+            ['id' => $this->relatedWorkingGroup['id'], 'name' => $this->relatedWorkingGroup['name'], 'type' => $this->relatedWorkingGroup['type'], 'parent_id' => $this->relatedWorkingGroup['parent_id'], 'hasAchievements' => false],
             $regions);
     }
 

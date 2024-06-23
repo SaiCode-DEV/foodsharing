@@ -741,6 +741,11 @@ class Foodsharing extends Db
         }
     }
 
+    public function addAchievement($achievementData): void
+    {
+        $this->haveInDatabase('fs_achievement', $achievementData);
+    }
+
     public function addRegionMember($region_id, $fs_id, $is_active = true): void
     {
         if (is_array($fs_id)) {

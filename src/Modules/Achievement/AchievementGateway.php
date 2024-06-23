@@ -27,7 +27,9 @@ class AchievementGateway extends BaseGateway
     {
         return $this->db->insert('fs_achievement', [
             'name' => $achievement->name,
+            'region_id' => $achievement->regionId,
             'description' => $achievement->description,
+            'icon' => $achievement->icon,
             'validity_in_days_after_assignment' => $achievement->validityInDaysAfterAssignment,
             'is_requestable_by_foodsaver' => $achievement->isRequestableByFoodsaver,
         ]);
@@ -41,7 +43,9 @@ class AchievementGateway extends BaseGateway
     {
         $this->db->update('fs_achievement', [
             'name' => $achievement->name,
+            'region_id' => $achievement->regionId,
             'description' => $achievement->description,
+            'icon' => $achievement->icon,
             'validity_in_days_after_assignment' => $achievement->validityInDaysAfterAssignment,
             'is_requestable_by_foodsaver' => $achievement->isRequestableByFoodsaver,
         ], [
@@ -57,6 +61,23 @@ class AchievementGateway extends BaseGateway
         $achievement = $this->db->fetchById('fs_achievement', '*', $id);
 
         return Achievement::createFromArray($achievement);
+    }
+
+    /**
+     * @return array<Achievement> the list of achievements scoped to that region. This does not include those scoped to ancestor regions.
+     */
+    public function getAchievementsFromRegion(int $regionId): array
+    {
+        $achievements = $this->db->fetchAllByCriteria('fs_achievement', '*', [
+            'region_id' => $regionId,
+        ]);
+
+        return array_map([Achievement::class, 'createFromArray'], $achievements);
+    }
+
+    public function regionHasAchievements(int $regionId): bool
+    {
+        return $this->db->exists('fs_achievement', ['region_id' => $regionId]);
     }
 
     /**

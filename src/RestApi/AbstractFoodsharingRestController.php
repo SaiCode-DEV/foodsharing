@@ -41,7 +41,7 @@ abstract class AbstractFoodsharingRestController extends AbstractFOSRestControll
     protected function assertLoggedIn(): void
     {
         if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('Not logged in');
+            throw new UnauthorizedHttpException('', 'Not logged in');
         }
     }
 

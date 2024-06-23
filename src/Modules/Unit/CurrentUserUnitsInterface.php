@@ -20,7 +20,8 @@ interface CurrentUserUnitsInterface
      * - id
      * - name
      * - type
-     * - parent_id.
+     * - parent_id
+     * - hasAchievements.
      */
     public function getRegions(): array;
 
