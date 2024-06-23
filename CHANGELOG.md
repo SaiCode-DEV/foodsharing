@@ -68,6 +68,7 @@
 - Added an API endpoint for creating content entries !3379 @alex.simm
 - Removed obsolete functions in StoreXhr #1609 !3399 @alex.simm
 - Added missing languages for syntax highlighting in the docs #1547 !3407 @alex.simm
+- Updated phinx to version 0.16 #1774 @alex.simm
 
 ## Development documentation
 

@@ -16,7 +16,7 @@ class AddVoting extends AbstractMigration
                 'null' => false,
                 'signed' => false,
                 'limit' => 10,
-                'identity' => 'enable',
+                'identity' => true,
                 'comment' => 'unique id of the poll'
             ])
             ->addColumn('region_id', 'integer', [

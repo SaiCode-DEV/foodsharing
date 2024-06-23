@@ -29,13 +29,13 @@ final class AddFsreportsWallpost extends AbstractMigration
         ])
             ->addColumn('fsreports_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'comment' => 'foodsaver Id that has all reports',
             ])
             ->addColumn('wallpost_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'comment' => 'wallpost_id',
             ])

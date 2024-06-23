@@ -11,7 +11,7 @@ final class RecreateStartpageRows extends AbstractMigration
      */
     public function up()
     {
-        $builder = $this->getQueryBuilder();
+        $builder = $this->getDeleteBuilder();
         $builder
             ->delete('fs_content')
             ->whereInList('id', [37, 38, 47, 48])

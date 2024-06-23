@@ -19,7 +19,7 @@ final class RemoveContentId1 extends AbstractMigration
      */
     public function up()
     {
-        $builder = $this->getQueryBuilder();
+        $builder = $this->getDeleteBuilder();
         $builder
             ->delete('fs_content')
             ->where(['id' => 1])
