@@ -35,9 +35,11 @@ use Foodsharing\Modules\Store\DTO\PatchContactData;
 use Foodsharing\Modules\Store\DTO\PatchStore;
 use Foodsharing\Modules\Store\DTO\PatchStoreOptionModel;
 use Foodsharing\Modules\Store\DTO\Store;
+use Foodsharing\Modules\Store\DTO\StoreChainInformation;
 use Foodsharing\Modules\Store\DTO\StoreListInformation;
 use Foodsharing\Modules\Store\DTO\StoreStatusForMember;
 use Foodsharing\Modules\StoreCategories\StoreCategoriesGateway;
+use Foodsharing\Modules\StoreChain\StoreChainGateway;
 use Foodsharing\Utility\Sanitizer;
 use Foodsharing\Utility\WeightHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -70,6 +72,7 @@ class StoreTransactions
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly RegionGateway $regionGateway,
         private readonly StoreCategoriesGateway $storeCategoriesGateway,
+        private readonly StoreChainGateway $storeChainGateway,
         private readonly Sanitizer $sanitizerService,
         private readonly Session $session
     ) {
@@ -220,6 +223,10 @@ class StoreTransactions
         $suppressLoadingGroceries = !$showSensitiveDetails;
         $dbResult = $this->storeGateway->getStore($storeId, $suppressLoadingGroceries);
         $dbResult->region->name = $this->regionGateway->getRegionName($dbResult->region->id);
+
+        if ($dbResult->chain) {
+            $dbResult->chain->information = $this->storeChainGateway->getCommonStoreInformation($dbResult->chain->id);
+        }
 
         if (!$showDetails) {
             $dbResult->description = null;
@@ -394,7 +401,7 @@ class StoreTransactions
                 if (!$storeChainExists) {
                     throw new StoreTransactionException(StoreTransactionException::STORE_CHAIN_NOT_EXISTS);
                 }
-                $store->chain = MinimalIdentifier::createFromId($storeChange->chainId);
+                $store->chain = StoreChainInformation::createFromId($storeChange->chainId);
             } else {
                 $store->chain = null;
             }

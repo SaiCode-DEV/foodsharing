@@ -86,6 +86,7 @@
           <div class="col-lg-3">
             <StoreInfos
               :particularities-description="storeInformation.description"
+              :particularities-chain="storeInformation.chain?.information"
               :weight-type="storeInformation.weight"
               :store-title="storeInformation.name"
               :street="storeInformation.address.street"

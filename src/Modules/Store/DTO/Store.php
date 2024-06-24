@@ -63,14 +63,14 @@ class Store
     public ?MinimalIdentifier $category = null;
 
     /**
-     * Identifier of the store chain.
+     * Information about the store chain.
      *
      * Only set if store is related to a store chain.
      *
      * @see StoreGateway::getBasics_chain()
      */
     #[OA\Property(nullable: true)]
-    public ?MinimalIdentifier $chain = null;
+    public ?StoreChainInformation $chain = null;
 
     /**
      * Enum which represents the current state of cooperation between foodsharing and store.
@@ -217,7 +217,7 @@ class Store
         $obj->publicTime = PublicTimes::tryFrom($queryResult['public_time']);
 
         $obj->category = MinimalIdentifier::createFromId($queryResult['categoryId']);
-        $obj->chain = MinimalIdentifier::createFromId($queryResult['chainId']);
+        $obj->chain = StoreChainInformation::createFromId($queryResult['chainId']);
 
         $obj->cooperationStatus = CooperationStatus::tryFrom($queryResult['cooperationStatus']);
         if ($queryResult['cooperationStart'] && $queryResult['cooperationStart'] != '0000-00-00') {
