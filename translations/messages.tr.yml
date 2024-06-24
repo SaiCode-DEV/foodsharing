@@ -724,6 +724,14 @@ group:
       created_at: Kimlik kartı oluşturuldu
       generate_button: İşaretli kişiler için kimlik kartı/kartları oluşturun
       never_before: asla
+      clear_selection: İşaretli olanların tümünü sıfırla
+      button:
+        unverify: Onaylamayı iptal et
+        verify: Onayla_
+      verify:
+        do: '{name} ({id}) hesabını onaylayın'
+        undo: '{name} ({id}) onaylamasını iptal edin'
+      filter_selection: Seçilen üyelere göre filtrele
   show-all: Hepsini göster
   delete_group_sure: '{groupName} çalışma grubunu/bölgesini silmek istediğinizden
     emin misiniz?'
@@ -1637,6 +1645,8 @@ events:
       <br>\nRandevuyu bu arada gösterge tablosunda yeni gelenlere de göstermek için,\n
       daha sonra tekrar kaydedin.\n"
     endtime: Zaman sonu
+    name: Etkinliğin adı
+    time: Saat
   bread: Randevular
   add_new_event: Şimdi yeni bir tarih girin
   mumble:
@@ -2952,6 +2962,8 @@ terminology:
   electionAdmins: Seçimler
   no: Hayır
   yes: Evet
+  achievements: Başarılar
+  achievement: Başarı
 legal:
   if_delete:
     this_doesnt_get_deleted: 'Aşağıdaki bilgiler artık aktif sistemde mevcut değildir,
@@ -3202,6 +3214,9 @@ timepicker:
   labelDecrement: Azalt
   labelSeconds: Saniyeler
   labelMinutes: Dakikalar
+  placeholder: Zamanı girin
+  to: "'e kadar"
+  from: "'den"
 pickup:
   dates: Alım tarihleri
   edit:
@@ -3348,6 +3363,7 @@ calendar:
   labelCalendar: Takvim
   labelNav: Takvim Navigasyonu
   locale: tk
+  placeholder: Tarih seç_
 fpcapital: Hata Noktası
 memberlist:
   header_for_district: '{bezirk} bölgesinde Foodsaver'
