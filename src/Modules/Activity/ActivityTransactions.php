@@ -43,7 +43,7 @@ class ActivityTransactions
     public function getFilters(): array
     {
         // list of currently excluded activities
-        $excluded = $this->settingsTransaction->getOption(UserOptionType::ACTIVITY_LISTINGS) ?: [];
+        $excluded = json_decode($this->settingsTransaction->getOption(UserOptionType::ACTIVITY_LISTINGS), true) ?: [];
 
         // regions and groups
         $regionOptions = [];
