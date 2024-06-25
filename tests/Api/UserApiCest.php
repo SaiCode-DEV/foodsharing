@@ -483,4 +483,18 @@ class UserApiCest
             'date >' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
     }
+
+    public function canFetchUserNamesWhenLoggedIn(ApiTester $I): void
+    {
+        $I->sendGet(self::API_USER . '/names/' . $this->userOrga['id'] . '-' . $this->user['id']);
+        $I->seeResponseCodeIs(Http::UNAUTHORIZED);
+        $I->login($this->user[self::EMAIL]);
+        $I->sendGet(self::API_USER . '/names/' . $this->userOrga['id'] . '-' . $this->user['id']);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson([
+            ['id' => $this->userOrga['id'], 'name' => $this->userOrga['name']],
+            ['id' => $this->user['id'], 'name' => $this->user['name']]
+        ]);
+    }
+
 }
