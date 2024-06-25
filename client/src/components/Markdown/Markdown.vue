@@ -1,8 +1,11 @@
 <template>
+  <!-- the markdown renderer is save -->
+  <!-- eslint-disable vue/no-v-html -->
   <div
     class="markdown"
     v-html="htmlContent"
   />
+  <!-- eslint-enable -->
 </template>
 <script>
 import markdown from './markdownRenderer'
