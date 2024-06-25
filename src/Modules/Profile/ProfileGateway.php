@@ -595,9 +595,4 @@ final class ProfileGateway extends BaseGateway
 
         return -1;
     }
-
-    public function getUserNames(array $userIds): array
-    {
-        return $this->db->fetchAllByCriteria('fs_foodsaver', ['id', 'name'], ['id' => $userIds, 'deleted_at' => null]);
-    }
 }

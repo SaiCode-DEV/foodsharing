@@ -564,7 +564,7 @@ class UserRestController extends AbstractFoodsharingRestController
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
         }
-        $userNames = $this->profileGateway->getUserNames(explode('-', $userIds));
+        $userNames = $this->foodsaverGateway->getUserNames(explode('-', $userIds));
 
         return $this->handleView($this->view($userNames, Response::HTTP_OK));
     }

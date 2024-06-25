@@ -1072,4 +1072,9 @@ class FoodsaverGateway extends BaseGateway
     {
         return $this->db->fetchAllValuesByCriteria('fs_foodsaver', 'id', ['last_login <=' => Carbon::now()->subYears(5)->toDateString(), 'deleted_at' => null, 'no_automatic_delete' => 0]);
     }
+
+    public function getUserNames(array $userIds): array
+    {
+        return $this->db->fetchAllByCriteria('fs_foodsaver', ['id', 'name'], ['id' => $userIds, 'deleted_at' => null]);
+    }
 }
