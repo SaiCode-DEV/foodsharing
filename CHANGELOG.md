@@ -37,6 +37,7 @@
 - double foodsharing.network in group links #1978 !3409 @McGoldi
 - Some fixes for the quiz module !3418 @AntonBallmaier
 - Store chain information is visible on the store page again #1946 @alex.simm
+- Fixed the rendering of dates that is close to now #1948 !3430 @alex.simm
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai

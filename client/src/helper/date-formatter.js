@@ -260,7 +260,8 @@ export default {
 
         return null
       })
-      .find(({ value = 0 }) => value >= 1) || {}
+      .filter(e => e !== null)
+      .find(e => e.value >= 1) || {}
 
     return rtf.format(isInFuture ? value : -value, unit)
   },
