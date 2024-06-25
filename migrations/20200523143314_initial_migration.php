@@ -21,13 +21,13 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
@@ -121,14 +121,14 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('bezirk_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'lon',
             ])
             ->addColumn('fs_id', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '10',
+                'limit' => 10,
                 'after' => 'bezirk_id',
             ])
             ->addColumn('appost', 'integer', [
@@ -164,12 +164,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('basket_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -209,12 +209,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('basket_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('art_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'basket_id',
             ])
@@ -229,12 +229,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('basket_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('types_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'basket_id',
             ])
@@ -249,13 +249,13 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('question_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
@@ -315,7 +315,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('newmail', 'string', [
@@ -349,7 +349,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('token', 'string', [
@@ -400,19 +400,19 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
             ->addColumn('quiz_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -502,12 +502,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('question_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('quiz_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'question_id',
             ])
@@ -537,13 +537,13 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('betrieb_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
@@ -578,9 +578,9 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('name', 'string', [
                 'null' => true,
@@ -621,7 +621,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('betrieb_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('date', 'datetime', [
@@ -649,9 +649,9 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('text', 'text', [
                 'null' => true,
@@ -663,7 +663,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('duration', 'integer', [
                 'null' => false,
-                'limit' => '3',
+                'limit' => 3,
                 'signed' => false,
                 'after' => 'text',
             ])
@@ -684,18 +684,18 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('bezirk_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('ancestor_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'bezirk_id',
             ])
             ->addColumn('depth', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'ancestor_id',
             ])
@@ -747,9 +747,9 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('name', 'string', [
                 'null' => true,
@@ -782,20 +782,20 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
             ->addColumn('reporter_id', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -809,7 +809,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('betrieb_id', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'reporttype',
             ])
@@ -864,9 +864,9 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('name', 'string', [
                 'null' => true,
@@ -950,20 +950,20 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
             ->addColumn('faq_kategorie_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -1002,7 +1002,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('betrieb_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('dow', 'integer', [
@@ -1034,19 +1034,19 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('conversation_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'conversation_id',
             ])
@@ -1088,9 +1088,9 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('name', 'string', [
                 'null' => true,
@@ -1132,12 +1132,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('application_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('wallpost_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'application_id',
             ])
@@ -1160,12 +1160,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('basket_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('wallpost_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'basket_id',
             ])
@@ -1196,12 +1196,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('theme_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('bezirk_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'theme_id',
             ])
@@ -1227,12 +1227,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('betrieb_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('lebensmittel_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'betrieb_id',
             ])
@@ -1247,19 +1247,19 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
             ->addColumn('betrieb_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -1308,9 +1308,9 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('parent_id', 'integer', [
                 'null' => true,
@@ -1358,14 +1358,14 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('master', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'photo',
             ])
             ->addColumn('mailbox_id', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'master',
             ])
@@ -1447,56 +1447,56 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('stat_fetchcount', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'stat_fetchweight',
             ])
             ->addColumn('stat_postcount', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'stat_fetchcount',
             ])
             ->addColumn('stat_betriebcount', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '7',
+                'limit' => 7,
                 'signed' => false,
                 'after' => 'stat_postcount',
             ])
             ->addColumn('stat_korpcount', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '7',
+                'limit' => 7,
                 'signed' => false,
                 'after' => 'stat_betriebcount',
             ])
             ->addColumn('stat_botcount', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '7',
+                'limit' => 7,
                 'signed' => false,
                 'after' => 'stat_korpcount',
             ])
             ->addColumn('stat_fscount', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '7',
+                'limit' => 7,
                 'signed' => false,
                 'after' => 'stat_botcount',
             ])
             ->addColumn('stat_fairteilercount', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '7',
+                'limit' => 7,
                 'signed' => false,
                 'after' => 'stat_fscount',
             ])
             ->addColumn('conversation_id', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'stat_fairteilercount',
             ])
@@ -1533,19 +1533,19 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('bezirk_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'bezirk_id',
             ])
@@ -1614,12 +1614,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('conversation_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -1632,9 +1632,9 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
                 'after' => 'unread',
             ])
             ->addIndex(['foodsaver_id', 'conversation_id'], [
@@ -1660,9 +1660,9 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('name', 'string', [
                 'null' => true,
@@ -1702,12 +1702,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('event_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('wallpost_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'event_id',
             ])
@@ -1730,20 +1730,20 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
             ->addColumn('last_post_id', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -1796,12 +1796,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('bezirk_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('wallpost_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'bezirk_id',
             ])
@@ -1824,12 +1824,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('bezirk_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -1852,12 +1852,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('buddy_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -1887,9 +1887,9 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('locked', 'boolean', [
                 'null' => false,
@@ -1913,14 +1913,14 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('last_foodsaver_id', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'last',
             ])
             ->addColumn('last_message_id', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'last_foodsaver_id',
             ])
@@ -1953,13 +1953,13 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'default' => 0,
                 'signed' => false,
             ])
             ->addColumn('contact_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'default' => 0,
                 'after' => 'foodsaver_id',
@@ -1979,27 +1979,27 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
             ->addColumn('bezirk_id', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
             ->addColumn('location_id', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'bezirk_id',
             ])
@@ -2070,12 +2070,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('email_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'email_id',
             ])
@@ -2101,12 +2101,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('wallpost_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -2162,7 +2162,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('duration', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'start',
             ])
@@ -2177,7 +2177,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('date', 'datetime', [
@@ -2187,7 +2187,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('bot_id', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'date',
             ])
@@ -2206,9 +2206,9 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('name', 'string', [
                 'null' => true,
@@ -2229,12 +2229,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('fairteiler_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'fairteiler_id',
             ])
@@ -2279,12 +2279,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('betrieb_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -2309,7 +2309,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('stat_fetchcount', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'stat_last_update',
             ])
@@ -2330,9 +2330,9 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
                 'after' => 'stat_add_date',
             ])
             ->addIndex(['foodsaver_id', 'betrieb_id'], [
@@ -2358,12 +2358,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('fairteiler_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('wallpost_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'fairteiler_id',
             ])
@@ -2386,9 +2386,9 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('name', 'string', [
                 'null' => true,
@@ -2417,9 +2417,9 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('name', 'string', [
                 'null' => true,
@@ -2440,14 +2440,14 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('bezirk_id', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
@@ -2530,7 +2530,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('add_foodsaver', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'add_date',
             ])
@@ -2549,7 +2549,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('fs_id', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('date', 'datetime', [
@@ -2559,7 +2559,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('bot_id', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'date',
             ])
@@ -2612,12 +2612,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('rater_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -2664,9 +2664,9 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('name', 'string', [
                 'null' => true,
@@ -2725,12 +2725,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('bell_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -2760,19 +2760,19 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('bezirk_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
             ->addColumn('active', 'integer', [
                 'null' => true,
                 'default' => '0',
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'comment' => '0=beworben,1=aktiv,10=vielleicht',
                 'after' => 'bezirk_id',
@@ -2809,12 +2809,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('fsreport_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('wallpost_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'fsreport_id',
             ])
@@ -2837,12 +2837,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('question_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('wallpost_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'question_id',
             ])
@@ -2879,7 +2879,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('name', 'string', [
@@ -2906,12 +2906,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('mailbox_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'mailbox_id',
             ])
@@ -2941,12 +2941,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('theme_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -2981,13 +2981,13 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('bezirk_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
@@ -3027,7 +3027,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('mailbox_id', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'want_new',
             ])
@@ -3243,14 +3243,14 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('stat_fetchcount', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'stat_fetchweight',
             ])
             ->addColumn('stat_ratecount', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'stat_fetchcount',
             ])
@@ -3270,14 +3270,14 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('stat_buddycount', 'integer', [
                 'null' => false,
-                'limit' => '7',
+                'limit' => 7,
                 'signed' => false,
                 'after' => 'stat_postcount',
             ])
             ->addColumn('stat_bananacount', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '7',
+                'limit' => 7,
                 'signed' => false,
                 'after' => 'stat_buddycount',
             ])
@@ -3360,7 +3360,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('post_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('time', 'datetime', [
@@ -3399,13 +3399,13 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('bezirk_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
@@ -3446,7 +3446,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('mailbox_id', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'want_new',
             ])
@@ -3664,14 +3664,14 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('stat_fetchcount', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'stat_fetchweight',
             ])
             ->addColumn('stat_ratecount', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'stat_fetchcount',
             ])
@@ -3692,14 +3692,14 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('stat_buddycount', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '7',
+                'limit' => 7,
                 'signed' => false,
                 'after' => 'stat_postcount',
             ])
             ->addColumn('stat_bananacount', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '7',
+                'limit' => 7,
                 'signed' => false,
                 'after' => 'stat_buddycount',
             ])
@@ -3815,12 +3815,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('betrieb_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -3837,9 +3837,9 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
                 'after' => 'confirmed',
             ])
             ->addIndex(['foodsaver_id', 'betrieb_id', 'date'], [
@@ -3861,19 +3861,19 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
             ->addColumn('mailbox_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -3940,13 +3940,13 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('mailbox_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
@@ -4041,19 +4041,19 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('betrieb_status_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
             ->addColumn('bezirk_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'betrieb_status_id',
             ])
@@ -4094,7 +4094,7 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('kette_id', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'lon',
             ])
@@ -4228,21 +4228,21 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ->addColumn('prefetchtime', 'integer', [
                 'null' => false,
                 'default' => '1209600',
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'team_status',
             ])
             ->addColumn('team_conversation_id', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'prefetchtime',
             ])
             ->addColumn('springer_conversation_id', 'integer', [
                 'null' => true,
                 'default' => null,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'team_conversation_id',
             ])
@@ -4282,13 +4282,13 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
@@ -4328,26 +4328,26 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('theme_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'id',
             ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'theme_id',
             ])
             ->addColumn('reply_post', 'integer', [
                 'null' => false,
                 'default' => '0',
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -4387,12 +4387,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('usernotes_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('wallpost_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'usernotes_id',
             ])
@@ -4429,12 +4429,12 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('event_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
             ])
@@ -4464,9 +4464,9 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
         ])
             ->addColumn('id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
-                'identity' => 'enable',
+                'identity' => true,
             ])
             ->addColumn('name', 'string', [
                 'null' => true,

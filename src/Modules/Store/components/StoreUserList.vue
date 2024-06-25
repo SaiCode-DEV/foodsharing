@@ -5,7 +5,7 @@
       config-store-key="OwnStores"
     >
       <template #head-title>
-        <span v-if="user && isOwnUserId">
+        <span>
           {{ isOwnUserId ? $i18n('store.ownStores') : $i18n('store.storeFrom', { name: user.name }) }}
         </span>
       </template>

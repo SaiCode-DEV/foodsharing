@@ -3,8 +3,7 @@ import phoneNumbers from './phone-numbers'
 // e.g. $url('profile', 15)
 
 const urls = {
-  profile: (id) => `/profile/${id}`,
-  profileNotes: (fsId) => `/profile/${fsId}/notes`,
+  profile: (id) => `/user/${id}/profile`,
   academy: () => '/content?sub=academy',
   application: (groupId, userId) => `/?page=application&bid=${groupId}&fid=${userId}`,
   applications: (groupId) => `/region?bid=${groupId}&sub=applications`,
@@ -12,6 +11,7 @@ const urls = {
   baskets: () => '/essenskoerbe',
   blog: () => '/news',
   blogAdd: () => '/blog?sub=add',
+  blogPost: (blogId) => `/blog/${blogId}`,
   blogEdit: (blogId) => `/blog?sub=edit&id=${blogId}`,
   blogList: () => '/blog?sub=manage',
   claims: () => '/content?sub=forderungen',
@@ -21,15 +21,16 @@ const urls = {
   contentEditEntry: (id) => `/content?a=edit&id=${id}`,
   contentNew: () => '/content?a=neu',
   conversations: (conversationId = null) => `/?page=msg${conversationId ? `&cid=${conversationId}` : ''}`,
+  createBusinessCard: (data) => `/user/current/settings?sub=makeCard&opt=${data.role}:${data.regionGroupId}`,
   dashboard: () => '/?page=dashboard',
   dataprivacy: () => '/?page=legal',
   donate: () => '/unterstuetzung',
   email: () => '/?page=email',
-  event: (eventId) => `/?page=event&id=${eventId}`,
-  eventEdit: (eventId) => `/?page=event&id=${eventId}&sub=edit`,
+  event: (eventId) => `/event/${eventId}`,
+  eventAdd: (regionId) => '/event/add' + (regionId ? `?bid=${regionId}` : ''),
+  eventEdit: (eventId) => `/event/${eventId}/edit`,
   festival: () => '/content?sub=festival',
-  foodsharepoint: (fspId) => `/?page=fairteiler&sub=ft&id=${fspId}`,
-  foodsaverEdit: (fsId) => `/?page=foodsaver&a=edit&id=${fsId}`,
+  foodsharepoint: (fspId) => `/fairteiler/${fspId}`,
   fsstaedte: () => '/content?sub=fsstaedte',
   home: () => '/',
   imprint: () => '/impressum',
@@ -37,31 +38,52 @@ const urls = {
   infosCompany: () => '/fuer-unternehmen',
   joininfo: () => '/content?sub=joininfo',
   leeretonne: () => '/content?sub=leeretonne',
-  login: () => '/?page=login',
+  login: (ref = null) => '/login' +
+    ((ref !== null && ref.length > 0) ? '?ref=' + encodeURIComponent(`${ref}`) : ''),
   logout: () => {
     const url = new URL(window.location.href)
     return '/?page=logout&ref=' + encodeURIComponent(url.pathname + url.search)
   },
-  mailbox: (mailboxId = null) => `/?page=mailbox${mailboxId ? `&show=${mailboxId}` : ''}`,
+  mailbox: (mailboxId = null, emailId) => {
+    let url = '/?page=mailbox'
+    if (mailboxId) {
+      url += `&mailbox=${mailboxId}`
+    }
+    if (emailId) {
+      url += `&email=${emailId}`
+    }
+    return url
+  },
   mailboxManage: () => '/?page=mailbox&a=manage',
   mailboxMailto: (email) => `/?page=mailbox&mailto=${email}`,
   mailboxOldAttachment: (emailId, attachmentIndex) => `/?page=mailbox&a=dlattach&mid=${emailId}&i=${attachmentIndex}`,
-  map: () => '/karte',
-  mapStore: (storeId) => `/karte?bid=${storeId}`,
+  map: ({ storeId = null, foodSharePointId = null, markers = null } = {}) => {
+    const params = []
+    if (storeId) {
+      params.push(`bid=${storeId}`)
+    } else if (foodSharePointId) {
+      params.push(`fspId=${foodSharePointId}`)
+    }
+    if (markers?.length > 0) {
+      params.push(`loadMarkers=${markers}`)
+    }
+    return '/karte' + (params.length > 0 ? '?' + params.join('&') : '')
+  },
   newsFromIT: () => 'https://foodsharing.freshdesk.com/support/solutions/folders/77000160479',
   vision: () => '/ueber-uns',
   partner: () => '/partner',
-  passwordReset: () => '/?page=login&sub=passwordReset',
+  passwordReset: () => '/login?sub=passwordReset',
   poll: (pollId) => `/?page=poll&id=${pollId}`,
   pollEdit: (pollId) => `/?page=poll&id=${pollId}&sub=edit`,
   press: () => '/content?sub=presse',
-  region: () => '/?page=region',
+  regionAdmin: () => '/regions/edit',
+  region: (regionId) => regionId ? `/region?bid=${regionId}` : '/?page=region',
   releaseNotes: () => '/content?sub=releaseNotes',
   violations: (fsId) => `/?page=report&sub=foodsaver&id=${fsId}`,
   security: () => '/content?sub=security',
-  settings: () => '/?page=settings',
-  settingsCalendar: () => '/?page=settings&sub=calendar',
-  settingsNotifications: () => '/?page=settings&sub=info',
+  settings: (userId) => userId ? `/user/${userId}/settings` : '/user/current/settings',
+  settingsNotifications: () => '/user/current/settings?sub=info',
+  settingsCalendar: () => '/user/current/settings?sub=calendar',
   statistics: () => '/statistik',
   store: (storeId) => `/store/${storeId}`,
   storeList: () => '/?page=fsbetrieb',
@@ -72,14 +94,14 @@ const urls = {
   upload: (uuid) => `/api/uploads/${uuid}`,
 
   workingGroupEdit: (groupId) => `/?page=groups&sub=edit&id=${groupId}`,
+  workingGroup: (groupId) => `/region?bid=${groupId}`,
   workshops: () => '/content?sub=workshops',
   urlencode: (url) => encodeURIComponent(`${url}`),
   donations: () => 'https://spenden.foodsharing.de',
   donation_form: () => 'https://spenden.twingle.de/foodsharing-e-v/spendenkampagne-ueberregionale-arbeit/tw65a581c764fa1/page',
-  donation_project_api: () => 'https://spenden.twingle.de/status/E4yxc5T7YJh7nZvL93Yu7PlUzwCMjD2p80u8YK0Vgyw%253D',
   circle_of_friends: () => 'https://spenden.foodsharing.de/freundeskreis',
   selfservice: () => 'https://spenden.foodsharing.de/selfservice',
-  resendActivationMail: () => '/?page=login&a=resendActivationMail',
+  resendActivationMail: () => '/login?sub=resendActivationMail',
 
   // javascript
   javascript: (js) => `javascript:${js}`,
@@ -99,7 +121,7 @@ const urls = {
       str.push(`&tid=${threadId}`)
     }
     if (postId) {
-      str.push(`&pid=${postId}#post-${postId}`)
+      str.push(`&pid=${postId}`)
     }
     if (newThread) {
       str.push('&newthread=1')
@@ -112,8 +134,8 @@ const urls = {
     return url('forum', regionId, 0, threadId, postId)
   },
   events: (regionId) => `/region?bid=${regionId}&sub=events`,
-  addEvents: (regionId) => `/?page=event&sub=add&bid=${regionId}`,
   foodsharepoints: (regionId) => `/region?bid=${regionId}&sub=fairteiler`,
+  foodsharepointAdd: (regionId) => `/fairteiler?bid=${regionId}&sub=add`,
   members: (regionId) => `/region?bid=${regionId}&sub=members`,
   options: (regionId) => `/region?bid=${regionId}&sub=options`,
   passports: (regionId) => `/?page=passgen&bid=${regionId}`,
@@ -129,6 +151,7 @@ const urls = {
   wall: (regionId) => `/region?bid=${regionId}&sub=wall`,
   workingGroups: (regionId = null) => regionId ? `/?page=groups&p=${regionId}` : '/?page=groups',
   subGroups: (parentGroupId) => parentGroupId ? `/?page=groups&p=${parentGroupId}` : '/?page=groups',
+  achievements: (regionId) => `/region?bid=${regionId}&sub=achievements`,
 
   // whats new & changelog
   changelog: () => '/content?sub=changelog',
@@ -139,6 +162,7 @@ const urls = {
   // mailto
   mail_foodsharing_network: (mail) => `${mail}@foodsharing.network`,
   mailto_mail_foodsharing_network: (mail) => `mailto:${mail}@foodsharing.network`,
+  mailto_mail: (mail) => `mailto:${mail}`,
 
   // freshdesk support
   freshdesk: () => 'https://foodsharing.freshdesk.com/support/home',
@@ -153,12 +177,13 @@ const urls = {
   wiki_grundsaetze: () => 'https://wiki.foodsharing.de/Grundsätze',
   wiki_legal_agreement: () => 'https://wiki.foodsharing.de/Rechtsvereinbarung',
 
-  //
-  quiz_admin_edit: () => '/?page=quiz',
+  // quiz
+  quiz_admin_edit: (quizId) => '/quiz/edit' + (quizId ? `/${quizId}` : ''),
   quiz_learning_video: () => 'https://youtu.be/9Fk6MHC-M1o',
-  quiz_foodsaver: () => '/?page=settings&sub=up_fs',
-  quiz_store_manager: () => '/?page=settings&sub=up_bip',
-  quiz_ambassador: () => '/?page=settings&sub=up_bot',
+  rise_role: (role) => '/user/current/settings?sub=rise_role' + (role ? `&role=${role}` : ''),
+  quiz_foodsaver: () => urls.rise_role(1),
+  quiz_store_manager: () => urls.rise_role(2),
+  quiz_ambassador: () => urls.rise_role(3),
 
   // Footer Links
   hosting: () => 'https://www.manitu.de/webhosting/',

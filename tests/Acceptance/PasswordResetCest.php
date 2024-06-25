@@ -54,7 +54,7 @@ class PasswordResetCest
         $I->fillField('#pass2', $newPass);
         $I->click('Speichern');
 
-        $I->seeCurrentUrlEquals('/?page=login');
+        $I->seeCurrentUrlEquals('/login');
 
         // password got replaced after login
         $I->seeInDatabase('fs_foodsaver', [

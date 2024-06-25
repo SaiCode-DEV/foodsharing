@@ -51,22 +51,6 @@ class Sanitizer
         return $result;
     }
 
-    public function handleTagSelect(string $identifier): void
-    {
-        global $g_data;
-        $recip = [];
-        if (isset($g_data[$identifier]) && is_array($g_data[$identifier])) {
-            foreach ($g_data[$identifier] as $key => $r) {
-                if ($key != '') {
-                    $part = explode('-', $key);
-                    $recip[$part[0]] = $part[0];
-                }
-            }
-        }
-
-        $g_data[$identifier] = $recip;
-    }
-
     public function jsSafe(string $str, string $quote = "'"): string
     {
         return str_replace([$quote, "\n", "\r"], ['\\' . $quote . '', '\\n', ''], $str);

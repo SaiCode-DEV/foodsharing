@@ -25,7 +25,7 @@
             class="mr-2"
             type="checkbox"
           >
-          {{ sendMailLabelText }}
+          {{ $i18n('forum.thread.delivery_mail') }}
         </div>
         <div class="col-auto">
           <button
@@ -63,14 +63,6 @@ export default {
       title: null,
       isLoading: false,
     }
-  },
-  computed: {
-    sendMailLabelText () {
-      const deliveryMail = this.$i18n('forum.thread.delivery_mail.title')
-      const activate = this.$i18n('forum.thread.delivery_mail.activate')
-      const disable = this.$i18n('forum.thread.delivery_mail.disable')
-      return this.sendMail ? deliveryMail + ' ' + disable : deliveryMail + ' ' + activate
-    },
   },
   methods: {
     async createNewThread () {

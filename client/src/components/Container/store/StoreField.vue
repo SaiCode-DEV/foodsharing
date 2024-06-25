@@ -7,7 +7,7 @@
       <h6
         v-b-tooltip="entry.name.length > 30 ? entry.name : ''"
         class="field-headline"
-        v-html="entry.name"
+        v-text="entry.name"
       />
       <i
         v-if="entry.isManaging"
@@ -36,7 +36,7 @@
       />
       <small
         class="field-subline"
-        v-html="$i18n('store.short_tooltip_'+['yellow', 'orange', 'red'][entry.pickupStatus - 1])"
+        v-text="$i18n('store.short_tooltip_'+['yellow', 'orange', 'red'][entry.pickupStatus - 1])"
       />
     </div>
   </a>

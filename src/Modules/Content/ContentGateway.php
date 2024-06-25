@@ -6,10 +6,22 @@ use Carbon\Carbon;
 use DateTimeZone;
 use Foodsharing\Modules\Content\DTO\Content;
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Core\Database;
 use Foodsharing\RestApi\Models\Content\ContentEntry;
+use Foodsharing\Utility\Sanitizer;
 
 class ContentGateway extends BaseGateway
 {
+    private readonly Sanitizer $sanitizer;
+
+    public function __construct(
+        Database $db,
+        Sanitizer $sanitizer,
+    ) {
+        parent::__construct($db);
+        $this->sanitizer = $sanitizer;
+    }
+
     /**
      * @deprecated use getContent instead
      */
@@ -34,12 +46,22 @@ class ContentGateway extends BaseGateway
                 ->shiftTimezone(new DateTimeZone('UTC'))
             : null;
 
+        $content['body'] = $this->sanitizer->purifyHtml($content['body'] ?? '');
+
         return Content::create($id, $content['name'], $content['title'], $content['body'], $lastModified);
     }
 
+    /**
+     * Returns the contents for the given ids.
+     */
     public function getMultiple(array $ids): array
     {
-        return $this->db->fetchAllByCriteria('fs_content', ['id', 'title', 'body'], ['id' => $ids]);
+        $contents = $this->db->fetchAllByCriteria('fs_content', ['id', 'title', 'body'], ['id' => $ids]);
+        foreach ($contents as $content) {
+            $content['body'] = $this->sanitizer->purifyHtml($content['body']);
+        }
+
+        return $contents;
     }
 
     /**
@@ -64,17 +86,20 @@ class ContentGateway extends BaseGateway
         return $this->db->fetchByCriteria('fs_content', ['id', 'name', 'title', 'body', 'last_mod'], ['id' => $id]);
     }
 
-    public function create($data): int
+    /**
+     * Adds a new content entry and returns the id.
+     */
+    public function create(ContentEntry $data): int
     {
         return $this->db->insert('fs_content', [
-            'name' => strip_tags((string)$data['name']),
-            'title' => strip_tags((string)$data['title']),
-            'body' => $data['body'],
-            'last_mod' => $data['last_mod']
+            'name' => strip_tags($data->name),
+            'title' => strip_tags($data->title),
+            'body' => $data->body,
+            'last_mod' => date('Y-m-d H:i:s')
         ]);
     }
 
-    public function update($id, ContentEntry $data): int
+    public function update(int $id, ContentEntry $data): int
     {
         return $this->db->update('fs_content', [
             'name' => strip_tags($data->name),

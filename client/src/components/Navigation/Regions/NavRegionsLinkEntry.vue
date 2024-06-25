@@ -3,7 +3,7 @@
     <a
       v-for="(menu,key) in menuEntries"
       :key="key"
-      :href="menu.href ? $url(menu.href, entry.id, menu.special) : '#'"
+      :href="formatLink(menu)"
       role="menuitem"
       class="dropdown-item dropdown-action"
       @click="menu.func ? menu.func() : null"
@@ -16,6 +16,7 @@
 
 <script>
 import ConferenceOpener from '@/mixins/ConferenceOpenerMixin'
+import DataUser from '@/stores/user'
 
 export default {
   name: 'NavRegionsLinkEntry',
@@ -94,20 +95,23 @@ export default {
 
       if (this.entry.mailboxId > 0) {
         menu.push({
-          href: 'mailbox', icon: 'fa-fas fa-envelope', text: 'menu.entry.mailbox',
+          href: 'mailbox', icon: 'fa-fas fa-envelope', text: 'menu.entry.mailbox', linkId: this.entry.mailboxId,
         })
       }
 
-      if (this.entry.isAdmin) {
+      if (this.entry.isAdmin || DataUser.getters.isOrga()) {
         menu.push({
           href: 'forum', special: 1, icon: 'fa-comment-dots', text: 'menu.entry.BOTforum',
-        })
-        menu.push({
-          href: 'passports', icon: 'fa-address-card', text: 'menu.entry.ids',
         })
       }
 
       return menu
+    },
+  },
+  methods: {
+    formatLink (menu) {
+      const id = menu.linkId ?? this.entry.id
+      return menu.href ? this.$url(menu.href, id, menu.special) : '#'
     },
   },
 }

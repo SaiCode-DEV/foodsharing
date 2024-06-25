@@ -56,17 +56,13 @@ export function get (path, options) {
 }
 
 export function post (path, body, options = {}) {
-  const contentType = options.responseType === 'blob' ? 'text/plain' : 'application/json; charset=utf-8'
-  const requestBody = options.responseType === 'blob' ? body : JSON.stringify(body)
-
-  return request(path, {
+  return request(path, Object.assign({
     method: 'POST',
     headers: {
-      'Content-Type': contentType,
+      'Content-Type': 'application/json; charset=utf-8',
     },
-    body: requestBody,
-    ...options,
-  })
+    body: JSON.stringify(body),
+  }, options))
 }
 
 export function put (path, body) {

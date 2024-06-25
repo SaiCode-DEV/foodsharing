@@ -52,7 +52,7 @@ class MapRestController extends AbstractFOSRestController
             $markers['baskets'] = $this->mapGateway->getBasketMarkers();
         }
         if (in_array('foodsharepoints', $types)) {
-            $markers['fairteiler'] = $this->mapGateway->getFoodSharePointMarkers();
+            $markers['foodsharepoints'] = $this->mapGateway->getFoodSharePointMarkers();
         }
         if (in_array('communities', $types)) {
             $markers['communities'] = $this->mapGateway->getCommunityMarkers();
@@ -93,7 +93,7 @@ class MapRestController extends AbstractFOSRestController
                 }
             }
 
-            $markers['betriebe'] = $this->storeGateway->getStoreMarkers(
+            $markers['stores'] = $this->storeGateway->getStoreMarkers(
                 $excludedStoreTypes,
                 $teamSearchStatus,
                 $userId

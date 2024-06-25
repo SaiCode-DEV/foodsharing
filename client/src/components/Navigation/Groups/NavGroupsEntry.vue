@@ -7,13 +7,13 @@
       class="dropdown-header dropdown-item text-truncate"
       target="_self"
       @click.stop
-      v-html="entry.name"
+      v-text="entry.name"
     />
     <h6
       v-if="isAlone"
       role="menuitem"
       class="dropdown-header text-truncate"
-      v-html="entry.name"
+      v-text="entry.name"
     />
     <b-collapse
       :id="toggleId(entry.id)"

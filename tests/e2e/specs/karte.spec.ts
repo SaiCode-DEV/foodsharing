@@ -9,6 +9,6 @@ test.describe("karte", () => {
     await expect(page.getByText("Essenskörbe")).toBeVisible();
     await expect(page.getByText("Fairteiler", { exact: true })).toBeVisible();
     await expect(page.getByText("Ortsgruppen")).toBeVisible();
-    await expect(page.locator("#map")).toBeVisible();
+    await expect(page.locator("#map-control")).toBeVisible();
   });
 });

@@ -8,6 +8,7 @@ use Foodsharing\Lib\ContentSecurityPolicy;
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\Utility\PageHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -128,7 +129,9 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
         }
 
         $translator = $this->get('translator');
-        $translator->setLocale($session->getLocale());
+        $settings = $this->get(SettingsTransactions::class);
+        $lang = $settings->getLocale();
+        $translator->setLocale($lang);
 
         error_reporting(E_ALL);
 

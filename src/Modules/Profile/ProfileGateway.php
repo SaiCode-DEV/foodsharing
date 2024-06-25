@@ -47,7 +47,6 @@ final class ProfileGateway extends BaseGateway
 					fs.`nachname`,
 					fs.`anschrift`,
 					fs.`telefon`,
-					fs.`homepage`,
 					fs.`handy`,
 					fs.`geschlecht`,
 					fs.`geb_datum`,
@@ -134,6 +133,12 @@ final class ProfileGateway extends BaseGateway
 			WHERE 	b.`bezirk_id` = bz.`id`
 			AND 	b.foodsaver_id = :fs_id
 			AND		bz.type != :type
+			ORDER BY CASE
+                WHEN bz.type = ' . UnitType::COUNTRY . ' THEN 1
+                WHEN bz.type = ' . UnitType::FEDERAL_STATE . ' THEN 2
+                ELSE 3
+             END,
+             bz.name
 		';
         if ($fs = $this->db->fetchAll($stm, [':fs_id' => $fsId, ':type' => UnitType::WORKING_GROUP])) {
             $data['foodsaver'] = $fs;
@@ -153,6 +158,7 @@ final class ProfileGateway extends BaseGateway
 			AND 	b2.foodsaver_id = :viewerId
 			AND     b2.active = 1
 			AND     bz.type = :type
+			ORDER BY bz.name
 		';
         if ($fs = $this->db->fetchAll($stm, [
             ':fs_id' => $fsId,
@@ -170,6 +176,7 @@ final class ProfileGateway extends BaseGateway
 			WHERE 	b.`bezirk_id` = bz.`id`
 			AND 	b.foodsaver_id = :fs_id
 			AND 	bz.type = 7
+			ORDER BY bz.name
 		';
         if ($orga = $this->db->fetchAll($stm, [':fs_id' => $fsId])) {
             $data['orga'] = $orga;
@@ -556,10 +563,13 @@ final class ProfileGateway extends BaseGateway
 					s.name,
 					st.verantwortlich as isManager,
 					st.active,
-					s.betrieb_status_id as cooperationStatus
+					s.betrieb_status_id as cooperationStatus,
+			        s.bezirk_id as regionId,
+			        b.name as regionName
 
 			FROM             fs_betrieb_team st
 			LEFT OUTER JOIN  fs_betrieb s  ON  s.id = st.betrieb_id
+			LEFT OUTER JOIN  fs_bezirk b ON b.id = s.bezirk_id
 
 			WHERE  st.foodsaver_id = :fs_id
 

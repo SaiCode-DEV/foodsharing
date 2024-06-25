@@ -158,12 +158,12 @@ class SettingsGateway extends BaseGateway
      * Returns an option for the user, or null if the option is not set for the user.
      * See {@see UserOptionType},.
      */
-    public function getUserOption(int $userId, int $optionType): ?string
+    public function getUserOption(int $userId, UserOptionType $optionType): ?string
     {
         try {
             return $this->db->fetchValueByCriteria('fs_foodsaver_has_options', 'option_value', [
                 'foodsaver_id' => $userId,
-                'option_type' => $optionType
+                'option_type' => $optionType->value
             ]);
         } catch (Exception) {
             return null;
@@ -171,14 +171,45 @@ class SettingsGateway extends BaseGateway
     }
 
     /**
+     * Returns an array of options for the users, or null if the option is not set for a user.
+     *
+     * @return array<array<string, mixed>>
+     */
+    public function getUsersOption(array $userIds, UserOptionType $optionType): array
+    {
+        try {
+            $results = $this->db->fetchAllByCriteria('fs_foodsaver_has_options', ['foodsaver_id', 'option_value'], [
+                'foodsaver_id' => $userIds,
+                'option_type' => $optionType->value
+            ]);
+        } catch (Exception) {
+            $results = [];
+        }
+
+        $optionMap = [];
+        $userOptions = [];
+        foreach ($results as $result) {
+            $optionMap[$result['foodsaver_id']] = $result['option_value'];
+        }
+        foreach ($userIds as $userId) {
+            $userOptions[] = [
+                'userId' => $userId,
+                'option' => $optionMap[$userId] ?? null
+            ];
+        }
+
+        return $userOptions;
+    }
+
+    /**
      * Sets an option for the user. If the option is already existing for this user, it will be
      * overwritten. See {@see UserOptionType},.
      */
-    public function setUserOption(int $userId, int $optionType, string $value): void
+    public function setUserOption(int $userId, UserOptionType $optionType, string $value): void
     {
         $this->db->insertOrUpdate('fs_foodsaver_has_options', [
             'foodsaver_id' => $userId,
-            'option_type' => $optionType,
+            'option_type' => $optionType->value,
             'option_value' => $value,
         ]);
     }

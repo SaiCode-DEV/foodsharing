@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <div v-if="loading && store !== null" class="loader-container mx-auto">
-      <i class="fas fa-spinner fa-spin" />
-    </div>
-    <div v-else>
+  <map-popup id="storeBubbleModal" :show-footer-close-button="showFooterCloseButton">
+    <div v-if="store">
       <div class="card">
         <div class="card-header">
           <div class="mb-2">
@@ -13,14 +10,20 @@
             </span>
           </div>
 
-          <div v-html="$i18n('storeview.teamInfo', { active: store.teamMemberCount, jumper: store.standbyCount })" />
+          <div>{{ $i18n('storeview.team_info_active') }} <strong>{{ store.teamMemberCount }}</strong></div>
+          <div>{{ $i18n('storeview.team_info_jumper') }} <strong>{{ store.standbyCount }}</strong></div>
 
           <div class="mt-2">
-            <span v-if="store.pickupCount > 0" v-html="$i18n('storeview.pickupCount', { pickupCount: $i18n('storeview.counter', {suffix: 'x', count: store.pickupCount}) })" />
-            <span v-if="store.pickupCount > 0">{{ $i18n('storeview.pickupWeight', { pickupWeight: store.pickupWeightInKg }) }}</span>
+            <span v-if="store.pickupCount > 0">
+              <strong>{{ store.pickupCount }}</strong> {{ $i18n('storeview.pickupCount') }}
+            </span>
+            <br>
+            <span v-if="store.pickupWeightInKg > 0">
+              <strong>{{ store.pickupWeightInKg }}</strong> {{ $i18n('storeview.pickupWeight') }}
+            </span>
           </div>
 
-          <div v-if="pickupTimeExplanation">
+          <div v-if="pickupTimeExplanation" class="mt-2">
             {{ $i18n('storeview.public_time', { freq: pickupTimeExplanation }) }}
           </div>
         </div>
@@ -60,15 +63,22 @@
       <b-alert show variant="info">
         {{ $i18n(`storeedit.fetch.teamStatus${store.teamSearchStatus}`) }}
       </b-alert>
+    </div>
 
-      <div class="text-center">
+    <template #popup-header>
+      <h3 v-if="store">
+        {{ store.name }}
+      </h3>
+    </template>
+    <template #popup-footer>
+      <div v-if="store">
         <a
           v-if="store.mayAccessStorePage"
           :href="$url('store', store.id)"
           class="btn btn-primary mt-3 text-wrap"
         >{{ $i18n('store.go') }}</a>
         <button
-          v-else-if="store.maySendRequest"
+          v-if="store.maySendRequest"
           class="btn btn-primary mt-3 text-wrap"
           @click="sendRequest"
         >
@@ -82,8 +92,8 @@
           {{ $i18n('store.request.withdraw') }}
         </button>
       </div>
-    </div>
-  </div>
+    </template>
+  </map-popup>
 </template>
 
 <script>
@@ -93,18 +103,17 @@ import StoreStatusIcon from '../../Store/components/StoreStatusIcon'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import { declineStoreRequest, requestStoreTeamMembership } from '@/api/stores'
 import UserData from '@/stores/user'
+import MapPopup from './MapPopup.vue'
 
 export default {
-  components: { StoreStatusIcon, Avatar },
-  props: {
-    storeId: { type: Number, required: true },
-  },
+  components: { StoreStatusIcon, Avatar, MapPopup },
   data () {
     return {
       loading: true,
       name: '',
       description: '',
-      store: [],
+      store: null,
+      storeId: null,
     }
   },
   computed: {
@@ -134,17 +143,25 @@ export default {
     userId () {
       return UserData.getters.getUserId()
     },
-  },
-  async mounted () {
-    this.loading = true
-    try {
-      this.store = await getStoreBubbleContent(this.storeId)
-    } catch (e) {
-      pulseError(this.$i18n('error_unexpected'))
-    }
-    this.loading = false
+    showFooterCloseButton () {
+      /* The default close button in the footer is only shown if no other button is visible, so that the footer does not
+         become too crowded */
+      return !this.store || (!this.store.mayAccessStorePage && !this.store.maySendRequest && !this.store.mayWithdrawRequest)
+    },
   },
   methods: {
+    async show (storeId) {
+      this.loading = true
+      this.storeId = storeId
+      this.$bvModal.show('storeBubbleModal')
+
+      try {
+        this.store = await getStoreBubbleContent(this.storeId)
+      } catch (e) {
+        pulseError(this.$i18n('error_unexpected'))
+      }
+      this.loading = false
+    },
     async sendRequest () {
       try {
         await requestStoreTeamMembership(this.store.id, this.userId)

@@ -1,4 +1,13 @@
-import { get, patch, remove } from './base'
+import { get, patch, post, remove } from './base'
+
+export const CONTENT_IDS = Object.freeze({
+  DONATION: 1,
+  CONFIRM_FOODSAVER_QUIZ: 14,
+  CONFIRM_STORE_MANAGER_QUIZ: 15,
+  LEGAL_FOODSAVER_QUIZ: 30,
+  LEGAL_STORE_MANAGER_QUIZ: 31,
+  PRIVACY_NOTICE_CONTENT: 64,
+})
 
 export async function getContent (contentId) {
   return await get(`/content/${contentId}`)
@@ -18,4 +27,8 @@ export async function editContent (contentId, name, title, body) {
     title: title,
     body: body,
   })
+}
+
+export async function addContent (name, title, body) {
+  return await post('/content', { name, title, body })
 }

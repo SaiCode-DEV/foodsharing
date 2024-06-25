@@ -1,23 +1,19 @@
 import '@/core'
 import '@/globals'
 import './Event.css'
-import { GET } from '@/browser'
 // Wallpost
 import { vueRegister, vueApply } from '@/vue'
-import Wall from '@/components/Wall/Wall'
-import EventPanel from './components/EventPanel'
-import LeafletLocationSearchVForm from '@/components/map/LeafletLocationSearchVForm'
+import EventForm from '@/components/Event/EventForm.vue'
+import EventPage from '@/views/pages/Event/EventPage.vue'
 
-const sub = GET('sub')
-if (sub === 'add' || sub === 'edit') {
-  vueRegister({ LeafletLocationSearchVForm })
-  vueApply('#event-address-search')
+const path = window.location.pathname.toLowerCase()
+const eventEditRegEx = /^\/event\/\d+\/edit(\?|$)/
+const eventAddRegEx = /^\/event\/add(\?|$)/
+
+if (eventAddRegEx.test(path) || eventEditRegEx.test(path)) {
+  vueRegister({ EventForm })
+  vueApply('#event-form')
 } else {
-  vueRegister({
-    EventPanel,
-    Wall,
-  })
-
-  vueApply('#event-panel', true)
-  vueApply('#vue-wall', true)
+  vueRegister({ EventPage })
+  vueApply('#event-page')
 }

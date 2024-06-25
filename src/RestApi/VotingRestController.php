@@ -185,7 +185,7 @@ class VotingRestController extends AbstractFOSRestController
         $poll->startDate = \DateTime::createFromFormat(\DateTime::ISO8601, $paramFetcher->get('startDate'));
         $poll->endDate = \DateTime::createFromFormat(\DateTime::ISO8601, $paramFetcher->get('endDate'));
         if (!$poll->startDate || !$poll->endDate || $poll->startDate >= $poll->endDate
-        || Carbon::now()->add($this->votingPermissions->editTimeAfterPollCreation()) >= $poll->startDate) {
+        || Carbon::now()->add($this->votingPermissions->MIN_POLL_EDIT_TIME) >= $poll->startDate) {
             throw new BadRequestHttpException('invalid start or end date');
         }
 

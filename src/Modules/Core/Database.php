@@ -653,7 +653,18 @@ class Database
             $statement->bindValue($param, $value, $type);
         }
 
-        return $statement->executeQuery();
+        $exception = null;
+        for ($i = 1; $i <= MAX_DEADLOCK_QUERY_ATTEMPTS; ++$i) {
+            try {
+                return $statement->executeQuery();
+            } catch (\Doctrine\DBAL\Exception\DeadlockException $e) {
+                $exception = $e;
+                if ($i < MAX_DEADLOCK_QUERY_ATTEMPTS) {
+                    usleep(DEADLOCK_QUERY_SLEEP_TIME_IN_MS * 1000);
+                }
+            }
+        }
+        throw $exception;
     }
 
     /**

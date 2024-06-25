@@ -186,16 +186,16 @@ class PickupApiCest
         $I->login($coordinator['email']);
 
         //Create a pickup
-        $pickupBaseDate = Carbon::now()->next('Monday')->add('1 weeks');
-        $pickupBaseDate->hours(10)->minutes(30)->seconds(0);
+        $pickupBaseDate = Carbon::now()->addDay()->add('1 weeks');
+        $pickupBaseDate->hours(11)->minutes(30)->seconds(0);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPut('api/stores/' . $this->store['id'] . '/regularPickup',
             [[
                 'description' => 'regular slot description',
                 'maxCountOfSlots' => 1,
-                'startTimeOfPickup' => '10:30:00',
-                'weekday' => 1,
+                'startTimeOfPickup' => '11:30:00',
+                'weekday' => $pickupBaseDate->dayOfWeek,
             ]]
         );
         $I->seeResponseIsJson();

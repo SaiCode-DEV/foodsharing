@@ -6,32 +6,24 @@ use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
 use Rector\Config\RectorConfig;
 use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
-use Rector\Set\ValueObject\LevelSetList;
-use Rector\Symfony\Set\FOSRestSetList;
-use Rector\Symfony\Set\JMSSetList;
-use Rector\Symfony\Set\SensiolabsSetList;
 use Rector\Symfony\Set\SymfonySetList;
 
-return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->paths([
+return RectorConfig::configure()
+    ->withPaths([
         __DIR__ . '/src',
         __DIR__ . '/tests',
-    ]);
-
-    $rectorConfig->skip([
+    ])
+    ->withSkip([
         __DIR__ . '/tests/_support/_generated',
-    ]);
-
-    $rectorConfig->importNames();
-    $rectorConfig->importShortClasses(false);
-
-    $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
-
-    $rectorConfig->symfonyContainerXml(__DIR__ . '/var/cache/dev/Foodsharing_KernelDevDebugContainer.xml');
+    ])
+    ->withImportNames(true, true, false)
+    ->withRules([InlineConstructorDefaultToPropertyRector::class])
     // todo create and specify kernel/container php according to
     //  https://github.com/rectorphp/rector-symfony/blob/main/README.md#provide-symfony-php-container
-
-    $rectorConfig->sets([
+    ->withSymfonyContainerXml(__DIR__ . '/var/cache/dev/Foodsharing_KernelDevDebugContainer.xml')
+    ->withPhpSets() // autoconfigured based on version set in composer.json
+    ->withAttributesSets()
+    ->withSets([
         SymfonySetList::SYMFONY_54,
         SymfonySetList::SYMFONY_60,
         SymfonySetList::SYMFONY_61,
@@ -42,21 +34,12 @@ return static function (RectorConfig $rectorConfig): void {
         SymfonySetList::SYMFONY_CODE_QUALITY,
         SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
 
-        SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
-        FOSRestSetList::ANNOTATIONS_TO_ATTRIBUTES,
-        JMSSetList::ANNOTATIONS_TO_ATTRIBUTES,
-        SensiolabsSetList::ANNOTATIONS_TO_ATTRIBUTES,
-
         PHPUnitSetList::PHPUNIT_100,
-
-        LevelSetList::UP_TO_PHP_81,
-    ]);
-
+    ])
     // skip promoting properties until PHP_CS_Fixer can format them on multiple lines
     // https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues/6325
     // or if we add this extra rule
     // https://github.com/kubawerlos/php-cs-fixer-custom-fixers#multilinepromotedpropertiesfixer
-    $rectorConfig->skip([
+    ->withSkip([
         ClassPropertyAssignToConstructorPromotionRector::class,
     ]);
-};

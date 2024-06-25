@@ -42,6 +42,7 @@
               :is-coordinator="permissions.isCoordinator"
               :may-edit-store="permissions.mayEditStore"
               :team="storeMember"
+              :loaded="areMembersLoaded"
               :store-id="storeId"
               :store-title="storeInformation.name"
               :region-id="storeInformation.region.id"
@@ -85,6 +86,7 @@
           <div class="col-lg-3">
             <StoreInfos
               :particularities-description="storeInformation.description"
+              :particularities-chain="storeInformation.chain?.information"
               :weight-type="storeInformation.weight"
               :store-title="storeInformation.name"
               :street="storeInformation.address.street"
@@ -115,6 +117,7 @@
               :is-coordinator="permissions.isCoordinator"
               :may-edit-store="permissions.mayEditStore"
               :team="storeMember"
+              :loaded="areMembersLoaded"
               :store-id="storeId"
               :store-title="storeInformation.name"
               :region-id="storeInformation.region.id"
@@ -184,6 +187,9 @@ export default {
     },
     storeMember () {
       return StoreData.getters.getStoreMember()
+    },
+    areMembersLoaded () {
+      return StoreData.getters.isStoreMembersLoaded()
     },
     storeInformation () {
       return StoreData.getters.getStoreInformation()

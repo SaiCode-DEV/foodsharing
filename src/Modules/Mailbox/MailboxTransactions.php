@@ -45,11 +45,11 @@ class MailboxTransactions
      *
      * @return Email[]
      */
-    public function listEmails(int $mailboxId, int $folder): array
+    public function listEmails(int $mailboxId, int $folder, int $page, int $pageSize): array
     {
         $this->mailboxGateway->updateMailboxActivityIndicator($mailboxId);
 
-        return $this->mailboxGateway->listEmails($mailboxId, $folder);
+        return $this->mailboxGateway->listEmails($mailboxId, $folder, $page, $pageSize);
     }
 
     /**
@@ -58,6 +58,8 @@ class MailboxTransactions
      */
     public function getEmail(int $emailId): Email
     {
+        $this->mailboxGateway->markEmailAsRead($emailId, true);
+
         $email = $this->mailboxGateway->getEmail($emailId);
 
         // obtain the file sizes for all attachments
@@ -72,8 +74,6 @@ class MailboxTransactions
                 }
             }
         }
-
-        $this->mailboxGateway->markEmailAsRead($emailId, true);
 
         return $email;
     }

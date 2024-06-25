@@ -2,7 +2,7 @@
 <template>
   <b-form-tags
     id="tags-with-dropdown"
-    v-model="users"
+    v-model="userObjects"
     n-outer-focus
     class="mb-2"
   >
@@ -12,18 +12,16 @@
         class="list-inline d-inline-block mb-2"
       >
         <li
-          v-for="tag in tags"
-          :key="tag"
+          v-for="userObj in tags"
+          :key="userObj"
           class="list-inline-item"
         >
           <b-form-tag
-            :title="tag"
+            :title="JSON.parse(userObj).value"
             :disabled="disabled"
             variant="info"
-            @remove="onRemove(tag, {removeTag})"
-          >
-            {{ tag }}
-          </b-form-tag>
+            @remove="onRemove(userObj, {removeTag})"
+          />
         </li>
       </ul>
 
@@ -93,7 +91,6 @@ export default {
     return {
       loadingInitial: true,
       user: null,
-      users: [],
       userObjects: [],
       userSearch: '',
       possibleUsers: [],
@@ -112,13 +109,15 @@ export default {
       },
     }
   },
+  watch: {
+    value (newValue) {
+      this.loadingInitialValues()
+    },
+  },
   mounted () {
     this.loadingInitialValues()
   },
   methods: {
-    filterSelectedUsers (userId) {
-      return !this.userObjects.some(x => x.id === userId)
-    },
     async searchUser (query) {
       this.loading = true
 
@@ -128,8 +127,8 @@ export default {
       if (query.length > 2 || isNumber) {
         try {
           users = await searchUser(query, this.regionId)
-          const filteredIds = users.map(x => x.id).filter(this.filterSelectedUsers)
-          users = users.filter(x => filteredIds.includes(x.id))
+          const selectedIDs = this.userObjects.map(x => JSON.parse(x).id)
+          users = users.filter(user => !selectedIDs.some(id => id === user.id))
         } catch (e) {
           pulseError(this.$i18n('error_unexpected'))
         }
@@ -145,20 +144,25 @@ export default {
       const newUser = this.possibleUsers.filter(x => x.value === option)[0]
       this.userSearch = ''
       this.possibleUsers = []
-      this.userObjects.push(newUser)
-      this.$emit('input', this.userObjects.map(x => x.id))
+      this.userObjects.push(JSON.stringify(newUser))
+      this.emitValue()
     },
     onRemove (option, { removeTag }) {
       removeTag(option)
-      this.userObjects = this.userObjects.filter(x => option !== `${x.name} (${x.id})`)
-      this.$emit('input', this.userObjects.map(x => x.id))
+      this.userObjects = this.userObjects.filter(x => option !== x)
+      this.emitValue()
+    },
+    emitValue () {
+      this.$emit('input', this.userObjects.map(x => JSON.parse(x).id))
     },
     async loadingInitialValues () {
       this.userObjects = await Promise.all(this.value.map(async (id) => {
-        const result = (getBasicUser(id))
-        return result
+        const user = await getBasicUser(id)
+        return JSON.stringify({
+          id: user.id,
+          value: `${user.name} (${user.id})`,
+        })
       }))
-      this.users = this.userObjects.map(x => `${x.name} (${x.id})`)
     },
   },
 }

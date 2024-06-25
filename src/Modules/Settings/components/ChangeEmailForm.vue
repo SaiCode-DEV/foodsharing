@@ -1,74 +1,68 @@
 <template>
   <div>
-    <div class="head ui-widget-header">
-      {{ $i18n('settings.email') }}
+    <p class="m-1">
+      {{ $i18n('settings.changemail.explanation') }}
+    </p>
+
+    <div class="col-sm-auto">
+      <input
+        id="new-email"
+        v-model="$v.email.$model"
+        class="form-control mt-3"
+        :class="{ 'is-invalid': $v.email.$error }"
+        type="email"
+        :placeholder="$i18n('settings.changemail.input_label_email')"
+        :disabled="isLoading"
+      >
+      <div v-if="$v.email.$error" class="invalid-feedback">
+        <span v-if="!$v.email.notFoodsharingAddress">
+          {{ $i18n('settings.changemail.domain') }}
+        </span>
+      </div>
     </div>
 
-    <div class="ui-widget-content corner-bottom margin-bottom ui-padding">
-      <p class="m-1">
-        {{ $i18n('settings.changemail.explanation') }}
-      </p>
-
-      <div class="col-sm-auto">
-        <input
-          id="new-email"
-          v-model="$v.email.$model"
-          class="form-control mt-3"
-          :class="{ 'is-invalid': $v.email.$error }"
-          type="email"
-          :placeholder="$i18n('settings.changemail.input_label_email')"
-          :disabled="isLoading"
-        >
-        <div v-if="$v.email.$error" class="invalid-feedback">
-          <span v-if="!$v.email.notFoodsharingAddress">
-            {{ $i18n('settings.changemail.domain') }}
-          </span>
-        </div>
+    <div class="col-sm-auto">
+      <input
+        id="new-email-confirm"
+        v-model="$v.confirmEmail.$model"
+        class="form-control mt-3"
+        :class="{ 'is-invalid': $v.confirmEmail.$error }"
+        type="email"
+        :placeholder="$i18n('settings.changemail.input_label_email_confirm')"
+        :disabled="isLoading"
+      >
+      <div
+        v-if="$v.confirmEmail.$error"
+        class="invalid-feedback"
+      >
+        <span v-if="!$v.confirmEmail.required || !$v.confirmEmail.sameAsEmail">
+          {{ $i18n('settings.changemail.confirm_email_required') }}
+        </span>
       </div>
-
-      <div class="col-sm-auto">
-        <input
-          id="new-email-confirm"
-          v-model="$v.confirmEmail.$model"
-          class="form-control mt-3"
-          :class="{ 'is-invalid': $v.confirmEmail.$error }"
-          type="email"
-          :placeholder="$i18n('settings.changemail.input_label_email_confirm')"
-          :disabled="isLoading"
-        >
-        <div
-          v-if="$v.confirmEmail.$error"
-          class="invalid-feedback"
-        >
-          <span v-if="!$v.confirmEmail.required || !$v.confirmEmail.sameAsEmail">
-            {{ $i18n('settings.changemail.confirm_email_required') }}
-          </span>
-        </div>
-      </div>
-
-      <p class="m-1 mt-3">
-        {{ $i18n('settings.changemail.explanation_password') }}
-      </p>
-
-      <div class="col-sm-auto">
-        <input
-          id="password"
-          v-model="$v.password.$model"
-          class="form-control mt-3"
-          :class="{ 'is-invalid': $v.password.$error }"
-          type="password"
-          :placeholder="$i18n('settings.changemail.input_label_password')"
-          :disabled="isLoading"
-        >
-      </div>
-
-      <button
-        class="btn btn-primary btn-sm m-2 mt-3"
-        :disabled="$v.$invalid"
-        @click="submitEmail"
-        v-text="$i18n('settings.email')"
-      />
     </div>
+
+    <p class="m-1 mt-3">
+      {{ $i18n('settings.changemail.explanation_password') }}
+    </p>
+
+    <div class="col-sm-auto">
+      <input
+        id="password"
+        v-model="$v.password.$model"
+        class="form-control mt-3"
+        :class="{ 'is-invalid': $v.password.$error }"
+        type="password"
+        :placeholder="$i18n('settings.changemail.input_label_password')"
+        :disabled="isLoading"
+      >
+    </div>
+
+    <button
+      class="btn btn-primary btn-sm m-2 mt-3"
+      :disabled="$v.$invalid"
+      @click="submitEmail"
+      v-text="$i18n('settings.email')"
+    />
   </div>
 </template>
 

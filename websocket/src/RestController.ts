@@ -12,8 +12,8 @@ export class RestController {
     }
 
     @Get('/stats')
-    stats (request: Request, response: Response): void {
-        response.send({
+    async stats (request: Request, response: Response): Promise<any> {
+        return response.send({
             connections: this.connectionRegistry.numConnections,
             registrations: this.connectionRegistry.numRegistrations,
             sessions: this.connectionRegistry.numRegisteredSessions

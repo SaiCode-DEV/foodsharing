@@ -198,7 +198,7 @@ store:
   nochains: ''
   enter_date_description: ''
   tooltip_yellow: ''
-  memberSince: ''
+  joinDate: ''
   peoplecame: ''
   may_referred_to_in_public: ''
   noStores: ''
@@ -241,7 +241,7 @@ bell:
   workgroup_request_accept_title: '{name}'
   blog_new_check: '{title}'
   ft_update_title: '{name}'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   betrieb_fetch_title: '{betrieb}'
   store_cr_times_title: '{name}'
   store_request_accept_title: '{name}'
@@ -300,6 +300,7 @@ bell:
   new_foodsaver_needs_verification: ''
   store_request_deny: ''
   new_quiz_comment_title: ''
+  workinggroup_new_request_title: '{name}'
 email_template:
   help_needed:
     link: https://devdocs.foodsharing.network/
@@ -328,7 +329,6 @@ email_template:
   from: ''
   unknown_email: ''
   slot_empty: ''
-  withlove: ''
   you_responsible:
     part2: ''
     part1: ''
@@ -1590,6 +1590,14 @@ quiz:
   continuetype: ''
   regstart: ''
   resultsbelow: ''
+  results:
+    title:
+      1: Parabéns!
+  editModal:
+    question:
+      input:
+        wikilink:
+          placeholder: https://wiki.foodsharing.de/…
 chat:
   incorrect_address: ''
   receivermissing: ''
@@ -1914,11 +1922,11 @@ terminology:
   fsps: ''
   fsp: ''
   fsManagementAdmins: ''
-  forum: ''
+  forum: 'Fórum'
   message: ''
   boardAdmins: ''
   fspAdmins: ''
-  events: ''
+  events: 'Datas'
   group: ''
   welcomeAdmins: ''
   reports: ''
@@ -1928,7 +1936,7 @@ terminology:
   community: ''
   pin: ''
   n_home_regions: ''
-  homepage: ''
+  homepage: 'Página inicial'
   arbitrationAdmins: ''
   storesAdmins: ''
   n_ambassadors: ''
@@ -1938,6 +1946,8 @@ terminology:
   store: ''
   basket: ''
   region: ''
+  no: Não
+  yes: Sim
 timepicker:
   labelCloseButton: ''
   labelMinutes: ''
@@ -2849,3 +2859,6 @@ ansprechpartner: ''
 homepage: ''
 passcheck: ''
 apply_type: ''
+validation:
+  phone_number_invalid: O número de telefone é inválido (por exemplo, falta o indicativo
+    do país, é demasiado curto, demasiado longo ou contém caracteres inválidos)

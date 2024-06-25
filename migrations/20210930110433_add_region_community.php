@@ -15,7 +15,7 @@ final class AddRegionCommunity extends AbstractMigration
         ])
             ->addColumn('region_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'comment' => 'region id'
             ])

@@ -3,7 +3,7 @@
         <ul class="linklist food-share-point-list">
             {% for fsp in food_share_points %}
                 <li>
-                    <a href="/?page=fairteiler&bid={{ region.id }}&sub=ft&id={{ fsp.id }}">
+                    <a href="/fairteiler?bid={{ region.id }}&sub=ft&id={{ fsp.id }}">
                         {% if fsp.picture %}
                             <span class="image ui-corner-all" style="background-image:url({{ fsp.pic.thumb }});"></span>
                         {% else %}

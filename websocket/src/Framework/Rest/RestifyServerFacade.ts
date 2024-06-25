@@ -32,18 +32,17 @@ export class RestifyServerFacade implements ServerFacade {
                 throw new Error(`Method ${methodName} is not defined on the given controller.`);
             }
 
-            this.server[route.requestMethod](route.path, (request: Request, response: Response) => {
+            this.server[route.requestMethod](route.path, async (request: Request, response: Response) => {
                 let result: any;
 
                 try {
-                    result = controller[methodName](request, response);
+                    result = await controller[methodName](request, response);
                 } catch (error) {
-                    response.send(500, error);
-                    return;
+                    return response.send(500, error);
                 }
 
                 if (result instanceof Promise) {
-                    result.catch(error => response.send(500, error));
+                    return await result.catch(error => response.send(500, error));
                 }
             });
         }

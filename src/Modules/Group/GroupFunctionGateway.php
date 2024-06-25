@@ -76,36 +76,17 @@ class GroupFunctionGateway extends BaseGateway
     }
 
     /**
-     * Removes a function from all working groups in a region that have the specific function. The groups
-     * themselves are not altered. If no group in the region has that function, nothing happens.
+     * Removes any function from a working group.
      *
      * @param int $regionId ID of the region
-     * @param int $functionId function type to be removed, see {@see WorkgroupFunction}
-     *
      * @return int the number of groups that lost the function
-     *
      * @throws \Exception
      */
-    public function deleteRegionFunction(int $regionId, int $functionId): int
+    public function deleteRegionFunction(int $regionId): int
     {
         return $this->db->delete('fs_region_function', [
             'region_id' => $regionId,
-            'function_id' => $functionId,
         ]);
-    }
-
-    /**
-     * Removes all functions from a given working group.
-     *
-     * @param int $targetId the group's ID
-     *
-     * @return int how many functions were removed from that group
-     *
-     * @throws \Exception
-     */
-    public function deleteTargetFunctions(int $targetId): int
-    {
-        return $this->db->delete('fs_region_function', ['target_id' => $targetId]);
     }
 
     /**

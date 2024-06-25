@@ -1,61 +1,68 @@
 <template>
-  <div>
-    <div
-      v-if="loading"
-      class="loader-container mx-auto"
-    >
-      <i class="fas fa-spinner fa-spin" />
+  <map-popup id="basketBubbleModal">
+    <div v-if="bubbleData.photo" class="mb-2 mt-2">
+      <img class="basketpicture" :src="photoPath">
     </div>
-    <div v-else class="scrolling">
-      <a
-        class="btn btn-primary mx-5"
-        type="button"
-        :href="$url('basket', bubbleData.id)"
-        v-text="$i18n('basket.go')"
-      />
-      <div v-if="bubbleData.photo" class="mb-2 mt-2">
-        <img class="basketpicture" :src="photoPath">
-      </div>
 
-      <div
-        v-if="bubbleData.createdAt"
-        class="mb-3"
-      >
-        <div
-          class="mb-1 section-label"
-        >
-          {{ $i18n('basket.date') }}
-        </div>
-        <div>{{ displayDate }}</div>
-      </div>
-
+    <div
+      v-if="isLoggedIn && bubbleData.createdAt"
+      class="mb-3"
+    >
       <div
         class="mb-1 section-label"
       >
-        {{ $i18n('basket.description') }}
+        {{ $i18n('basket.date') }}
       </div>
-      <div class="mb-3">
-        {{ bubbleData.description }}
-      </div>
+      <div>{{ displayDate }}</div>
     </div>
-  </div>
+
+    <div
+      class="mb-1 section-label"
+    >
+      {{ $i18n('basket.description') }}
+    </div>
+    <div class="mb-3">
+      {{ bubbleData.description }}
+    </div>
+
+    <template #popup-header>
+      <h3 v-if="isLoggedIn && bubbleData?.creator?.name">
+        {{ $i18n('basket.by', { name: bubbleData.creator.name }) }}
+      </h3>
+      <h3 v-else>
+        {{ $i18n('terminology.basket') }}
+      </h3>
+    </template>
+    <template #popup-footer>
+      <a
+        class="btn btn-primary mx-5"
+        type="button"
+        :href="$url('basket', basketId)"
+        v-text="$i18n('basket.go')"
+      />
+    </template>
+  </map-popup>
 </template>
 
 <script>
 import { getBasketBubbleContent } from '@/api/map'
 import { pulseError } from '@/script'
+import DataUser from '@/stores/user'
+import MapPopup from './MapPopup.vue'
 
 export default {
-  props: {
-    basketId: { type: Number, required: true },
-  },
+  components: { MapPopup },
   data () {
     return {
       loading: true,
       bubbleData: '',
+      basketId: null,
     }
   },
   computed: {
+    isLoggedIn () {
+      return DataUser.getters.isLoggedIn()
+    },
     photoPath () {
       return this.bubbleData.photo.startsWith('/api')
         ? this.bubbleData.photo + '?w=300&h=300'
@@ -73,14 +80,20 @@ export default {
         : null
     },
   },
-  async mounted () {
-    this.loading = true
-    try {
-      this.bubbleData = await getBasketBubbleContent(this.basketId)
-    } catch (e) {
-      pulseError(this.$i18n('error_unexpected'))
-    }
-    this.loading = false
+  methods: {
+    async show (basketId) {
+      this.loading = true
+
+      this.basketId = basketId
+      this.$bvModal.show('basketBubbleModal')
+
+      try {
+        this.bubbleData = await getBasketBubbleContent(this.basketId)
+      } catch (e) {
+        pulseError(this.$i18n('error_unexpected'))
+      }
+      this.loading = false
+    },
   },
 }
 </script>
@@ -93,10 +106,5 @@ export default {
 .section-label {
   color: var(--fs-color-primary-500);
   font-weight: 500;
-}
-
-.scrolling {
-  height: calc(100vh - 27rem);
-  overflow-y: auto;
 }
 </style>

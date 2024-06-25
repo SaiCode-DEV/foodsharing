@@ -33,7 +33,7 @@ Helper classes could be used to put some functions unorganized there. Please thi
 
 ## Database Access
 
-Currently there are SQL statements in ```*Model``` classes, in XhrMethods and in ```*Gateway``` classes.
+Currently there are SQL statements in ```*Model``` classes and in ```*Gateway``` classes.
 More information can be found [here](../backend/php/php-modules#newer-code-structure).
 
 [Issue #9](https://gitlab.com/foodsharing-dev/foodsharing/-/issues/9)  tracks the refactor procress of moving everything to ```*Gateway``` classes. 

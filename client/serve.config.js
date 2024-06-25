@@ -9,17 +9,25 @@ module.exports = {
     host,
     port: 8082,
     hot: true,
-    index: '',
-    contentBase: false,
-    publicPath: '/assets/',
-    public: host,
-    disableHostCheck: true,
-    overlay: {
-      warnings: true,
-      errors: true,
+    devMiddleware: {
+      index: '',
+      publicPath: '/assets/',
+      writeToDisk: true,
+    },
+    static: false,
+    allowedHosts: 'all',
+    client: {
+      overlay: {
+        warnings: true,
+        errors: true,
+      },
+      webSocketURL: {
+        hostname: host,
+        port: 18090, // see docker/docker-compose.dev.yml
+      },
     },
     proxy: {
-      '!/sockjs-node/**': {
+      '!/ws/**': {
         target,
         changeOrigin: false,
         xfwd: true,

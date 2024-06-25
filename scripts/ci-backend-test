@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+export FS_ENV=test
+
+dir=$(dirname "$0")
+
+# shellcheck source=./__common.sh
+source "$dir"/__common.sh
+
+SUITE=$1 # 1st argument
+TRIES=${2:-1} # 2nd argument, optional - amount of tries
+
+echo $SECONDS seconds elapsed
+
+log-header "Preparing execution environment: Prepare PHP config, application & composer dev dependencies"
+bin/console foodsharing:setup
+# configure path to application
+# *https://forums.docker.com/t/sed-couldnt-open-temporary-file-xyz-permission-denied-when-using-virtiofs/125473/2
+tmpfile=$(mktemp tmp_file_XXXXXX)
+sed "s#/app#$CI_PROJECT_DIR#g" /usr/local/etc/php-fpm.d/fpm.conf > $tmpfile; cat $tmpfile > /usr/local/etc/php-fpm.d/fpm.conf; rm $tmpfile
+# let PHP-FPM run as root
+# sed -i "s#www-data#root#g" /usr/local/etc/php-fpm.d/fpm.conf
+# disable xdebug
+# rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+php-fpm -R 2> php_fpm_err.log &
+
+log-header "Initializing database"
+SECONDS=0
+mysql -u root -proot -hdb --execute="drop database if exists foodsharing; create database foodsharing"
+vendor/bin/phinx migrate
+echo $SECONDS seconds elapsed
+
+log-header "Starting mail queue worker"
+bin/console foodsharing:mailqueueworker &
+
+log-header "Waiting for assets to be generated ..."
+while ! [ "$(ls -A assets)" ];
+do
+sleep 1;
+echo -ne ".";
+done
+echo
+
+log-header "Create DB dump file for codeception"
+mysqldump --user root --password=root -hdb foodsharing > dump.sql
+pwd
+
+log-header "Running tests"
+failed=0
+SECONDS=0
+
+vendor/bin/codecept run "$SUITE" --xml=report-"$SUITE"-0.xml --html=report-"$SUITE"-0.html || failed=1
+echo $SECONDS seconds elapsed
+
+if [ $failed -eq 0 ] # first run succeeded, we can finish early
+then
+  log-header "Done!"
+  exit 0
+fi
+
+while [ $failed -le "$TRIES" ] # re-run failed tests $TRIES times
+do
+  log-header "Attempt $failed/$TRIES: check for codeception errors"
+  # check if codeception generated a report file that contains failed tests
+  # Otherwise, codeception probably failed itself and the whole job should fail
+  grep -E '<error|<failure' tests/_output/report-"$SUITE"-$((failed - 1)).xml || \
+    (echo "report.xml is incomplete, aborting" && false)
+
+  log-header "Rerunning failed tests"
+  SECONDS=0
+  # create separate report files for each re-run so we don't overwrite the previous reports
+
+  if vendor/bin/codecept run --xml=report-"$SUITE"-$failed.xml --html=report-"$SUITE"-$failed.html -g failed;
+  then
+    log-header "Done!"
+    exit 0
+  else
+    ((failed++))
+  fi
+  echo $SECONDS seconds elapsed
+done
+
+# maximum tries reached
+exit 1

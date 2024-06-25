@@ -3,7 +3,7 @@
     <b-container class="p-2">
       <b-button
         variant="primary"
-        :href="$url('addEvents', regionId)"
+        :href="$url('eventAdd', regionId)"
       >
         {{ $i18n('events.add_new_event') }}
       </b-button>
@@ -14,10 +14,7 @@
         :key="event.id"
       >
         <EventPanel
-          :event-id="event.id"
-          :start="event.start"
-          :end="event.end"
-          :title="event.name"
+          :event="event"
           :status="-1"
         />
       </div>
@@ -46,10 +43,7 @@
             :key="event.id"
           >
             <EventPanel
-              :event-id="event.id"
-              :start="event.start"
-              :end="event.end"
-              :title="event.name"
+              :event="event"
               :status="-1"
             />
           </div>
@@ -94,8 +88,8 @@ export default {
       }
 
       return filtered.sort((a, b) => {
-        const aDate = this.convertDate(a.start)
-        const bDate = this.convertDate(b.start)
+        const aDate = this.convertDate(a.startDate)
+        const bDate = this.convertDate(b.startDate)
         if (aDate.getTime() === bDate.getTime()) return 0
         return aDate < bDate ? 1 : -1
       })
@@ -107,7 +101,7 @@ export default {
   methods: {
     compare: optimizedCompare,
     isEventInPast (event) {
-      return this.convertDate(event.end) < new Date()
+      return this.convertDate(event.endDate) < new Date()
     },
     convertDate (date) {
       return new Date(Date.parse(date))

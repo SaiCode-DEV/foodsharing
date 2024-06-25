@@ -14,6 +14,8 @@
       >
     </div>
     <div class="field-container field-container--stack">
+      <!-- eslint-disable vue/no-v-html -->
+      <!-- Sanitized in Modules/Basket/BasketGateway.php getBasket() -->
       <div class="field-container">
         <h6
           v-b-tooltip="entry.description.length > 30 ? entry.description : ''"
@@ -21,16 +23,14 @@
           v-html="entry.description"
         />
       </div>
+      <!-- eslint-enable -->
       <div class="field-container">
         <small
-          v-b-tooltip.html="$i18n('basket.by', { name: entry.creator.name })"
+          v-b-tooltip="$i18n('basket.by', { name: entry.creator.name })"
           class="field-subline field-subline--muted"
-          v-html="
-            $i18n('basket.expires', {
-              date: $dateFormatter.dateTime(new Date(entry.until * 1000)),
-            })
-          "
-        />
+        >
+          {{ $i18n('basket.expires') }} <strong>{{ $dateFormatter.dateTime(new Date(entry.until * 1000)) }} </strong>
+        </small>
         <span
           v-if="entry.lat && entry.lon"
           class="ml-2 badge list-group-item-dark badge-pill"

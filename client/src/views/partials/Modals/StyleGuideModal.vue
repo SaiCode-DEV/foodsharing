@@ -16,7 +16,7 @@
             class="col col-6"
           >
             <small
-              v-html="color[0].type.name.toUpperCase()"
+              v-text="color[0].type.name.toUpperCase()"
             />
             <div class="flex">
               <div
@@ -106,7 +106,10 @@
             Font Preview
           </h2>
           <hr>
+          <!-- eslint-disable vue/no-v-html -->
+          <!-- Html is generated in the javascript function below -->
           <div v-html="generateFontRules()" />
+          <!-- eslint-enable -->
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
-use Foodsharing\Modules\Settings\SettingsGateway;
+use Foodsharing\Modules\Settings\SettingsTransactions;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -14,15 +14,10 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class LocaleRestController extends AbstractFOSRestController
 {
-    private readonly SettingsGateway $settingsGateway;
-    private readonly Session $session;
-
     public function __construct(
-        SettingsGateway $settingsGateway,
-        Session $session
+        private readonly SettingsTransactions $settingsTransactions,
+        private readonly Session $session
     ) {
-        $this->settingsGateway = $settingsGateway;
-        $this->session = $session;
     }
 
     /**
@@ -37,7 +32,7 @@ class LocaleRestController extends AbstractFOSRestController
             throw new UnauthorizedHttpException('');
         }
 
-        $locale = $this->session->getLocale();
+        $locale = $this->settingsTransactions->getLocale();
 
         return $this->handleView($this->view(['locale' => $locale], 200));
     }
@@ -57,11 +52,9 @@ class LocaleRestController extends AbstractFOSRestController
 
         $locale = $paramFetcher->get('locale');
         if (empty($locale)) {
-            $locale = Session::DEFAULT_LOCALE;
+            $locale = SettingsTransactions::DEFAULT_LOCALE;
         }
-
-        $this->session->set('locale', $locale);
-        $this->settingsGateway->setUserOption($this->session->id(), UserOptionType::LOCALE, $locale);
+        $this->settingsTransactions->setOption(UserOptionType::LOCALE, $locale);
 
         return $this->getLocale();
     }

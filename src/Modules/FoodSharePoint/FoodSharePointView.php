@@ -8,6 +8,7 @@ use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\View;
 use Foodsharing\Modules\Foodsaver\Profile;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
@@ -52,7 +53,8 @@ class FoodSharePointView extends View
         TimeHelper $timeHelper,
         TranslationHelper $translationHelper,
         TranslatorInterface $translator,
-        FoodSharePointPermissions $fspPermissions
+        FoodSharePointPermissions $fspPermissions,
+        CurrentUserUnitsInterface $currentUserUnitsInterface,
     ) {
         $this->fspPermissions = $fspPermissions;
         parent::__construct(
@@ -68,7 +70,8 @@ class FoodSharePointView extends View
             $sanitizerService,
             $timeHelper,
             $translationHelper,
-            $translator
+            $translator,
+            $currentUserUnitsInterface,
         );
     }
 
@@ -139,6 +142,7 @@ class FoodSharePointView extends View
     public function address(): string
     {
         return $this->vueComponent('fsp-address-field', 'AddressField', [
+            'id' => $this->foodSharePoint['id'],
             'address' => $this->foodSharePoint['anschrift'],
             'zipCode' => $this->foodSharePoint['plz'],
             'city' => $this->foodSharePoint['ort'],
@@ -336,7 +340,7 @@ class FoodSharePointView extends View
 
         $item = [
             'name' => $this->translator->trans($mayCreateFSP ? 'fsp.add' : 'fsp.suggest'),
-            'href' => '/?page=fairteiler&bid=' . $regionId . '&sub=add',
+            'href' => '/fairteiler?bid=' . $regionId . '&sub=add',
         ];
 
         return $this->v_utils->v_menu([$item], $this->translator->trans('options'));

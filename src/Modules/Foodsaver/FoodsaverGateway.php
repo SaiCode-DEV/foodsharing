@@ -11,6 +11,7 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Foodsaver\DTO\EditableProfileDTO;
 use Foodsharing\Modules\Region\ForumFollowerGateway;
 use Foodsharing\Utility\DataHelper;
 
@@ -78,6 +79,7 @@ class FoodsaverGateway extends BaseGateway
 			SELECT 	fs.`id`,
 					fs.`photo`,
 					fs.`name`,
+					fs.`nachname` as lastname,
 					fs.sleep_status,
 					fs.sleep_from,
 					fs.sleep_until,
@@ -85,6 +87,7 @@ class FoodsaverGateway extends BaseGateway
 					fs.last_login as last_activity,
 					fs.anmeldedatum as registration_date,
 					fs.verified,
+					fs.last_pass,
 					fs.bezirk_id as home_region,
                     if (isnull(fsbot.`bezirk_id`) , false, true) as isAdminOrAmbassadorOfRegion
 
@@ -109,6 +112,8 @@ class FoodsaverGateway extends BaseGateway
                 $foodsaver['isAdminOrAmbassadorOfRegion']);
             if ($includeAdminFields) {
                 $member->role = $foodsaver['role'];
+                $member->lastPassDate = $foodsaver['last_pass'];
+                $member->lastName = $foodsaver['lastname'];
                 $member->lastActivity = ($foodsaver['last_activity'] === '0000-00-00 00:00:00') ? new DateTime($foodsaver['registration_date']) : new DateTime($foodsaver['last_activity']);
                 $member->isVerified = $foodsaver['verified'];
                 $member->isHomeRegion = $foodsaver['home_region'] == $regionId;
@@ -147,10 +152,10 @@ class FoodsaverGateway extends BaseGateway
 			fs.id,
 			fs.admin,
 			fs.orgateam,
+			fs.position,
 			fs.bezirk_id,
 			fs.photo,
 			fs.rolle,
-			fs.type,
 			fs.verified,
 			fs.name,
 			fs.nachname,
@@ -159,16 +164,35 @@ class FoodsaverGateway extends BaseGateway
 			fs.email,
 			fs.token,
 			fs.mailbox_id,
-			fs.option,
 			fs.geschlecht,
 			fs.privacy_policy_accepted_date,
 			fs.privacy_notice_accepted_date,
-			fs.last_login as last_activity
+			fs.last_login as last_activity,
+			fs.geb_datum,
+			fs.handy as mobile,
+			fs.telefon as phone,
+			fs.anschrift as street,
+			fs.plz as postalCode,
+			fs.stadt as city,
+			fs.about_me_public,
+			fs.about_me_intern,
+			fs.no_automatic_delete
 
 		FROM	fs_foodsaver fs
 
 		WHERE     fs.id = :id
+		AND       fs.deleted_at IS NULL
 		', [':id' => $fsId]);
+    }
+
+    /**
+     * Returns the home region id of the foodsaver.
+     *
+     * @return int RegionId or 0 for not set home region (DB default)
+     */
+    public function getHomeRegionOfFoodsaver(int $foodsaverId): int
+    {
+        return $this->db->fetchValueById('fs_foodsaver', 'bezirk_id', $foodsaverId);
     }
 
     public function getCountCommonStores(int $fs_viewer, int $fs_viewed): int
@@ -276,7 +300,7 @@ class FoodsaverGateway extends BaseGateway
             'data',
             'rolle',
             'position',
-            'homepage'
+            'no_automatic_delete'
         ], [
             'id' => $fsId
         ]);
@@ -351,11 +375,6 @@ class FoodsaverGateway extends BaseGateway
         ]);
     }
 
-    public function isAdminForAnyGroupOrRegion(int $fsId): bool
-    {
-        return $this->db->count('fs_botschafter', ['foodsaver_id' => $fsId]) > 0;
-    }
-
     public function getOrgaTeam(): array
     {
         return $this->db->fetchAllByCriteria('fs_foodsaver', [
@@ -377,28 +396,6 @@ class FoodsaverGateway extends BaseGateway
         ], [
             'orgateam' => 1,
             'rolle' => Role::ORGA->value
-        ]);
-    }
-
-    public function getFsMap(int $regionId): array
-    {
-        return $this->db->fetchAll('
-            SELECT  `id`,
-                    `lat`,
-                    `lon`,
-                    CONCAT(`name`," ",`nachname`) AS `name`,
-                    `plz`,
-                    `stadt`,
-                    `anschrift`,
-                    `photo`
-
-			FROM    `fs_foodsaver`
-
-			WHERE   `active` = 1
-			AND     `bezirk_id` = :regionId
-			AND     `lat` != ""
-        ', [
-            ':regionId' => $regionId
         ]);
     }
 
@@ -683,6 +680,9 @@ class FoodsaverGateway extends BaseGateway
         );
     }
 
+    /**
+     * @deprecated
+     */
     public function updateProfile(int $fsId, array $data): bool
     {
         $fields = [
@@ -697,8 +697,8 @@ class FoodsaverGateway extends BaseGateway
             'geb_datum',
             'about_me_intern',
             'about_me_public',
-            'homepage',
-            'position'
+            'position',
+            'no_automatic_delete'
         ];
 
         $fieldsToStripTags = [
@@ -711,7 +711,6 @@ class FoodsaverGateway extends BaseGateway
             'handy',
             'about_me_intern',
             'about_me_public',
-            'homepage',
             'position'
         ];
 
@@ -753,22 +752,16 @@ class FoodsaverGateway extends BaseGateway
     }
 
     /**
-     * set option is an key value store each var is available in the user session.
+     * @deprecated Replaced by SettingsTransactions.getOption()
      */
-    public function setOption(int $fsId, string $key, $val): int
+    public function getOption(int $fsId): array
     {
-        $options = [];
-        if ($opt = $this->db->fetchValueByCriteria('fs_foodsaver', 'option', ['id' => $fsId])) {
-            $options = unserialize($opt);
+        $option = $this->db->fetchValueByCriteria('fs_foodsaver', 'option', ['id' => $fsId]);
+        if (!empty($option) && $option != '') {
+            return unserialize($option);
+        } else {
+            return [];
         }
-
-        $options[$key] = $val;
-
-        return $this->db->update('fs_foodsaver', [
-            'option' => serialize($options)
-        ], [
-            'id' => $fsId
-        ]);
     }
 
     /**
@@ -826,15 +819,6 @@ class FoodsaverGateway extends BaseGateway
         }
     }
 
-    public function setQuizRole(int $fsId, int $quizRole): int
-    {
-        return $this->db->update('fs_foodsaver', [
-            'quiz_rolle' => $quizRole
-        ], [
-            'id' => $fsId
-        ]);
-    }
-
     public function riseRole(int $fsId, Role $newRoleId): void
     {
         $this->db->update(
@@ -847,38 +831,44 @@ class FoodsaverGateway extends BaseGateway
         );
     }
 
-    public function updateFoodsaver(int $fsId, array $data): int
+    public function riseQuizRole(int $fsId, Role $newRoleId): void
     {
+        $this->db->update(
+            'fs_foodsaver',
+            ['quiz_rolle' => $newRoleId->value],
+            [
+                'id' => $fsId,
+                'quiz_rolle <' => $newRoleId->value
+            ]
+        );
+    }
+
+    public function updateFoodsaver(int $fsId, EditableProfileDTO $editableProfileDTO): int
+    {
+        // This is necessary because trimming null returns an empty string
+        $trimIfNotNull = fn ($value) => is_null($value) ? null : strip_tags(trim($value));
+
         $updateData = [
-            'bezirk_id' => $data['bezirk_id'],
-            'plz' => strip_tags(trim((string)$data['plz'])),
-            'stadt' => strip_tags(trim((string)$data['stadt'])),
-            'lat' => strip_tags(trim((string)$data['lat'])),
-            'lon' => strip_tags(trim((string)$data['lon'])),
-            'name' => strip_tags((string)$data['name']),
-            'nachname' => strip_tags((string)$data['nachname']),
-            'anschrift' => strip_tags((string)$data['anschrift']),
-            'telefon' => strip_tags((string)$data['telefon']),
-            'handy' => strip_tags((string)$data['handy']),
-            'geschlecht' => $data['geschlecht'],
-            'geb_datum' => $data['geb_datum']
+            'bezirk_id' => $editableProfileDTO->regionId,
+            'plz' => $trimIfNotNull($editableProfileDTO->location?->postalCode),
+            'stadt' => $trimIfNotNull($editableProfileDTO->location?->city),
+            'lat' => $editableProfileDTO->coordinate ? (string)$editableProfileDTO->coordinate->lat : null,
+            'lon' => $editableProfileDTO->coordinate ? (string)$editableProfileDTO->coordinate->lon : null,
+            'name' => $trimIfNotNull($editableProfileDTO->firstName),
+            'nachname' => $trimIfNotNull($editableProfileDTO->lastName),
+            'anschrift' => $trimIfNotNull($editableProfileDTO->location?->street),
+            'telefon' => $trimIfNotNull($editableProfileDTO->phone),
+            'handy' => $trimIfNotNull($editableProfileDTO->mobile),
+            'geschlecht' => $editableProfileDTO->gender,
+            'geb_datum' => $trimIfNotNull($editableProfileDTO->birthday),
+            'position' => $trimIfNotNull($editableProfileDTO->position),
+            'no_automatic_delete' => $editableProfileDTO->noAutoDelete,
+            'rolle' => $editableProfileDTO->role,
+            'about_me_intern' => $trimIfNotNull($editableProfileDTO->aboutMeInternal),
+            'about_me_public' => $trimIfNotNull($editableProfileDTO->aboutMePublic),
         ];
-
-        if (isset($data['position'])) {
-            $updateData['position'] = strip_tags((string)$data['position']);
-        }
-
-        if (isset($data['email'])) {
-            $updateData['email'] = strip_tags((string)$data['email']);
-        }
-
-        if (isset($data['orgateam'])) {
-            $updateData['orgateam'] = $data['orgateam'];
-        }
-
-        if (isset($data['rolle'])) {
-            $updateData['rolle'] = $data['rolle'];
-        }
+        // Only use fields with a non-null value because a null value means that the field should not be updated
+        $updateData = array_filter($updateData, fn ($var) => $var !== null);
 
         return $this->db->update('fs_foodsaver', $updateData, [
             'id' => $fsId
@@ -921,6 +911,13 @@ class FoodsaverGateway extends BaseGateway
         $role = $this->db->fetchValueByCriteria('fs_foodsaver', 'rolle', ['id' => $fsId]);
 
         return Role::tryFrom($role);
+    }
+
+    public function getQuizRole(int $fsId): ?Role
+    {
+        $quizRole = $this->db->fetchValueByCriteria('fs_foodsaver', 'quiz_rolle', ['id' => $fsId]);
+
+        return Role::tryFrom($quizRole);
     }
 
     public function getSubscriptions(int $fsId): array
@@ -1066,5 +1063,13 @@ class FoodsaverGateway extends BaseGateway
         ]);
 
         return !empty($applications);
+    }
+
+    /**
+     * @return int[]
+     */
+    public function listInactiveUsers(): array
+    {
+        return $this->db->fetchAllValuesByCriteria('fs_foodsaver', 'id', ['last_login <=' => Carbon::now()->subYears(5)->toDateString(), 'deleted_at' => null, 'no_automatic_delete' => 0]);
     }
 }

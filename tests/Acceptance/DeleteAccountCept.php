@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Acceptance;
 
+use Codeception\Util\ActionSequence;
 use Tests\Support\AcceptanceTester;
 
 $I = new AcceptanceTester($scenario);
@@ -16,12 +17,14 @@ $foodsaver = $I->createFoodsaver($pass);
 
 $I->login($foodsaver['email'], $pass);
 
-$I->amOnPage('/?page=settings&sub=deleteaccount');
+$I->amOnPage('/user/current/settings?sub=deleteaccount');
 
 $I->click('#delete-account');
-$I->waitForElement('#modal-delete-account');
-$I->see('wirklich');
-$I->executeJS("$('button:contains(Account löschen)').trigger('click')");
+$I->performOn('#modal-delete-account', ActionSequence::build()
+    ->wait(1) // Required screen fading hides text
+    ->see('wirklich')
+    ->click('//button[text()="Account löschen"]')
+);
 $I->waitForActiveAPICalls();
 
 $I->seeInDatabase('fs_foodsaver', [

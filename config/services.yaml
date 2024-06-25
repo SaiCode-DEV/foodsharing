@@ -17,6 +17,8 @@ services:
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
 
+    Foodsharing\Modules\Unit\CurrentUserUnitsInterface:  '@Foodsharing\Modules\Unit\CurrentUserUnitsSessionTransactions'
+
     Foodsharing\:
         resource: '../src/*'
         exclude:
@@ -73,13 +75,6 @@ services:
             $secret: !php/const BBB_SECRET
             $dialin: !php/const BBB_DIALIN
 
-    # Fix query tracing/profiling.
-    # needed to work around broken middleware injection in sentry-symfony:
-    # copied verbatim from the original service definition, but with autoconfiguration enabled
-    # DBAL can then find and attach it automatically instead of relying on sentry's (broken) DbalTracingPass
-    # https://github.com/getsentry/sentry-symfony/issues/805
-    # Needed until the linked issue is fixed, the fix is released, and we updated to that version
-    Sentry\SentryBundle\Tracing\Doctrine\DBAL\TracingDriverMiddleware:
-        autoconfigure: true
-        arguments:
-            - '@Sentry\SentryBundle\Tracing\Doctrine\DBAL\TracingDriverConnectionFactoryInterface'
+    Foodsharing\Modules\Donation\Query\TwingleDonationDataQuery:
+      bind:
+        string $twingleDonationJsonStatusUrl: !php/const TWINGLE_URL

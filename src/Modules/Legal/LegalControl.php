@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Legal;
 use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\View;
+use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ class LegalControl extends Control
     private readonly LegalGateway $gateway;
     private FormFactoryInterface $formFactory;
 
-    public function __construct(LegalGateway $gateway, View $view)
+    public function __construct(LegalGateway $gateway, View $view, private readonly FoodsaverGateway $foodsaverGateway)
     {
         $this->view = $view;
         $this->gateway = $gateway;
@@ -51,7 +52,8 @@ class LegalControl extends Control
             if ($privacyNoticeNeccessary) {
                 if ($data->isPrivacyNoticeAcknowledged()) {
                     $this->gateway->agreeToPn($this->session->id(), $privacyNoticeDate);
-                    $this->emailHelper->tplMail('user/privacy_notice', $this->session->user('email'), ['vorname' => $this->session->user('name')]);
+                    $userEmail = $this->foodsaverGateway->getEmailAddress($this->session->id());
+                    $this->emailHelper->tplMail('user/privacy_notice', $userEmail, ['vorname' => $this->session->user('name')]);
                 } else {
                     $this->gateway->downgradeToFoodsaver($this->session->id());
                 }

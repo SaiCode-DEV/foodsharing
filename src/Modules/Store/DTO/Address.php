@@ -23,4 +23,14 @@ class Address
      */
     #[Assert\Length(max: 5)]
     public ?string $zipCode = null;
+
+    public static function createFromArray(array $data): Address
+    {
+        $result = new Address();
+        $result->street = $data['street'];
+        $result->city = $data['city'];
+        $result->zipCode = $data['zip'];
+
+        return $result;
+    }
 }

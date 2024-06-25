@@ -526,7 +526,7 @@ final class PickupRestController extends AbstractFOSRestController
             throw new AccessDeniedHttpException();
         }
 
-        $pickups = $this->pickupGateway->getNextPickups($fsId);
+        $pickups = $this->pickupGateway->getNextPickups($fsId, null, 30);
 
         $pickups = array_map(fn ($pickup) => [
             'date' => RestNormalization::normalizeDate($pickup['timestamp']),

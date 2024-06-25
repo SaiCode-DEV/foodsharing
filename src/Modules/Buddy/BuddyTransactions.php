@@ -79,7 +79,7 @@ class BuddyTransactions
             $buddies = $this->session->get(self::SESSION_BUDDY_IDS_IDENTIFIER);
         }
 
-        return $buddies;
+        return $buddies ?: [];
     }
 
     private function reloadMyBuddyListSessionCache()

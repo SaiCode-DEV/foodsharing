@@ -82,14 +82,6 @@ class StoreGatewayTest extends Unit
         $this->assertTrue($storeId !== 0);
     }
 
-    public function testExistCategory(): void
-    {
-        $this->tester->haveInDatabase('fs_betrieb_kategorie', ['id' => 2, 'name' => 'Category']);
-
-        $this->assertTrue($this->gateway->existStoreCategory(2));
-        $this->assertFalse($this->gateway->existStoreCategory(3));
-    }
-
     public function testExistChain(): void
     {
         $this->tester->haveInDatabase('fs_chain', ['id' => 2, 'name' => 'Chain']);
@@ -223,7 +215,7 @@ class StoreGatewayTest extends Unit
         $patch->cooperationStart = null;
         $this->gateway->updateStoreData($patch);
 
-        $this->tester->seeInDatabase('fs_betrieb', ['begin' => '0000-00-00', 'id' => $store['id']]);
+        $this->tester->seeInDatabase('fs_betrieb', ['begin' => null, 'id' => $store['id']]);
     }
 
     /**

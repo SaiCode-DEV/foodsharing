@@ -166,8 +166,8 @@ final class ImageHelper
          * temporary for quiz
          */
         $bg = '';
-        if (isset($foodsaver['quiz_rolle'])) {
-            switch ($foodsaver['quiz_rolle']) {
+        if (isset($foodsaver['rolle'])) {
+            switch ($foodsaver['rolle']) {
                 case Role::FOODSAVER->value:
                     $bg = 'box-sizing:border-box;border:3px solid var(--fs-color-role-foodsaver);';
                     break;

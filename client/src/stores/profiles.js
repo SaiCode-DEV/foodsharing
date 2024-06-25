@@ -1,5 +1,11 @@
 import Vue from 'vue'
 
+export const PROFILE_STORE_TEAM_STATE = Object.freeze({
+  REQUESTED: 0,
+  ACTIVE: 1,
+  JUMPER: 2,
+  MANAGE_ROLE: 4,
+})
 export default new Vue({
   data: {
     profiles: {},

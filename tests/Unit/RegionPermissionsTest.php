@@ -9,6 +9,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\RegionPermissions;
 use Tests\Support\UnitTester;
 
@@ -17,10 +18,18 @@ final class RegionPermissionsTest extends Unit
     protected UnitTester $tester;
     protected RegionPermissions $regionPermissions;
 
+    protected $userUnitMock;
+    protected $sessionFake;
+
     public function _before(): void
     {
-        $mock = $this->makeEmpty(Session::class, ['mayRole' => fn ($role) => $role == Role::FOODSAVER]);
-        $this->regionPermissions = new RegionPermissions($this->tester->get(RegionGateway::class), $mock, $this->tester->get(GroupFunctionGateway::class));
+        $this->sessionFake = $this->makeEmpty(Session::class, ['mayRole' => fn ($role) => $role == Role::FOODSAVER]);
+        $this->userUnitMock = $this->createMock(CurrentUserUnitsInterface::class);
+        $this->regionPermissions = new RegionPermissions(
+            $this->tester->get(RegionGateway::class),
+            $this->sessionFake,
+            $this->tester->get(GroupFunctionGateway::class),
+            $this->userUnitMock);
     }
 
     public function testMayNotJoinWorkGroup(): void

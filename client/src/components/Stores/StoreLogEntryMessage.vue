@@ -1,5 +1,8 @@
 <template>
+  <!-- eslint-disable vue/no-v-html -->
+  <!-- Only translation content -->
   <span v-html="actionText(action)" />
+  <!-- eslint-enable -->
 </template>
 
 <script>

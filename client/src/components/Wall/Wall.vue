@@ -6,6 +6,7 @@
     :title="title ?? $i18n('wall.name')"
     tag="store_wall"
     :toggle-visiblity="filteredPosts.length > defaultAmount"
+    :hide-header="hideHeader"
     @show-full-list="showFullList"
     @reduce-list="reduceList"
   >
@@ -65,6 +66,7 @@ export default {
     targetId: { type: Number, required: true },
     target: { type: String, required: true },
     title: { type: String, default: null },
+    hideHeader: { type: Boolean, default: false },
     // excerptLength: { type: Number, default: 10 }, // how many entries are shown initially? Also the number of entries shown if "show less" is clicked
     // TODO for next followup: pagination for wall posts, similar to how the activity overview handles it.
     galleryHeightInPx: { type: Number, default: undefined },

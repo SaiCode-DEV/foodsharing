@@ -9,7 +9,7 @@
       :zoom="currentZoom"
       :center="currentCenter"
       :bounds="currentBounds"
-      :height="400"
+      height="400px"
     >
       <vue2-leaflet-marker-cluster>
         <l-marker
@@ -23,6 +23,7 @@
         />
       </vue2-leaflet-marker-cluster>
     </leaflet-map>
+    <basket-bubble ref="basketBubble" />
   </div>
 </template>
 
@@ -33,12 +34,12 @@ import 'leaflet.awesome-markers'
 import LeafletMap from '@/components/map/LeafletMap'
 import BasketsData from '@/stores/baskets'
 import AddressSearchField from '@/components/map/AddressSearchField'
-import { openBasketBubble } from '@php/Modules/Basket/Basket'
 import Vue2LeafletMarkerCluster from 'vue2-leaflet-markercluster'
+import BasketBubble from '@php/Modules/Map/components/BasketBubble.vue'
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 
 export default {
-  components: { AddressSearchField, LeafletMap, LMarker, Vue2LeafletMarkerCluster },
+  components: { AddressSearchField, LeafletMap, LMarker, Vue2LeafletMarkerCluster, BasketBubble },
   props: {
     zoom: { type: Number, required: true },
     center: { type: Object, required: true },
@@ -57,7 +58,9 @@ export default {
     this.baskets = BasketsData.getters.getAllBasketCoordinates()
   },
   methods: {
-    openBasketBubble,
+    openBasketBubble (id) {
+      this.$refs.basketBubble.show(id)
+    },
     updateMapCenter (coordinates, bounds, address) {
       if (bounds) {
         this.currentBounds = bounds

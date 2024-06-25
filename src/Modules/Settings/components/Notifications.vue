@@ -1,320 +1,336 @@
 <template>
   <div>
-    <div class="head ui-widget-header">
-      {{ $i18n('settings.notifications') }}
+    <div>
+      <h4>{{ $i18n('notifications.chat.title') }}</h4>
+      <b-row>
+        <b-col
+          cols="12"
+          lg="5"
+        >
+          {{ $i18n('notifications.chat.description') }}
+        </b-col>
+        <b-col lg="1" />
+        <b-col
+          cols="4"
+          lg="2"
+          class="pt-1"
+        >
+          <b-form-checkbox
+            id="infomail_message"
+            v-model="infoMailState"
+            size="sm"
+          >
+            {{ $i18n('notifications.checkbox_email') }}
+          </b-form-checkbox>
+        </b-col>
+        <b-col
+          cols="4"
+          lg="3"
+          class="pt-1"
+        >
+          <b-form-checkbox
+            v-if="getPushNotificationState === null || getPushNotificationState === true"
+            v-model="getPushNotificationState"
+            size="sm"
+            @change="trySetPushNotification"
+          >
+            {{ $i18n('notifications.checkbox_push') }}
+          </b-form-checkbox>
+        </b-col>
+      </b-row>
     </div>
-    <div class="ui-widget-content corner-bottom margin-bottom ui-padding">
-      <div>
-        <h4>{{ $i18n('notifications.chat.title') }}</h4>
-        <b-row>
-          <b-col
-            cols="12"
-            lg="5"
-          >
-            {{ $i18n('notifications.chat.description') }}
-          </b-col>
-          <b-col lg="1" />
-          <b-col
-            cols="4"
-            lg="2"
-            class="pt-1"
-          >
-            <b-form-checkbox
-              id="infomail_message"
-              v-model="infoMailState"
-              size="sm"
-            >
-              {{ $i18n('notifications.checkbox_email') }}
-            </b-form-checkbox>
-          </b-col>
-          <b-col
-            cols="4"
-            lg="3"
-            class="pt-1"
-          >
-            <b-form-checkbox
-              v-if="getPushNotificationState === null || getPushNotificationState === true"
-              v-model="getPushNotificationState"
-              size="sm"
-              @change="trySetPushNotification"
-            >
-              {{ $i18n('notifications.checkbox_push') }}
-            </b-form-checkbox>
-          </b-col>
-        </b-row>
-      </div>
 
-      <div class="pt-2">
-        <h4>{{ $i18n('notifications.foodSharePoints.title') }}</h4>
-        <b-row>
-          <b-col
-            cols="12"
-            lg="5"
-          >
-            {{ $i18n('notifications.foodSharePoints.description') }}
-            <div>
-              <b-button
-                class="mt-2"
-                size="sm"
-                variant="outline-primary"
-                :disabled="currentFoodSharePoints.length <= 0"
-                @click="toogleFoodSharePointDetails"
-              >
-                {{ $i18n('notifications.config_button') }}
-              </b-button>
-            </div>
-          </b-col>
-          <b-col
-            cols="4"
-            lg="1"
-            class="pt-1"
-          >
-            <b-form-checkbox
-              v-model="isFoodSharePointGlobalNotificationActive"
-              switch
+    <div class="pt-2">
+      <h4>{{ $i18n('notifications.foodSharePoints.title') }}</h4>
+      <b-row>
+        <b-col
+          cols="12"
+          lg="5"
+        >
+          {{ $i18n('notifications.foodSharePoints.description') }}
+          <div>
+            <b-button
+              class="mt-2"
               size="sm"
-              @change="toggleFoodSharePointGlobalNotification"
+              variant="outline-primary"
+              :disabled="currentFoodSharePoints.length <= 0"
+              @click="toogleFoodSharePointDetails"
+            >
+              {{ $i18n('notifications.config_button') }}
+            </b-button>
+          </div>
+        </b-col>
+        <b-col
+          cols="4"
+          lg="1"
+          class="pt-1"
+        >
+          <b-form-checkbox
+            v-model="isFoodSharePointGlobalNotificationActive"
+            switch
+            size="sm"
+            @change="toggleFoodSharePointGlobalNotification"
+          />
+        </b-col>
+        <b-col
+          cols="4"
+          lg="2"
+          class="pt-1"
+        >
+          <b-form-checkbox
+            v-model="isFoodSharePointGlobalEmailNotificationActive"
+            size="sm"
+            @change="toggleFoodSharePointGlobalEmailNotification"
+          >
+            {{ $i18n('notifications.checkbox_email') }}
+          </b-form-checkbox>
+        </b-col>
+        <b-col
+          cols="4"
+          lg="3"
+          class="pt-1"
+        >
+          <b-form-checkbox
+            v-model="isFoodSharePointGlobalBellNotificationActive"
+            size="sm"
+            @change="toggleFoodSharePointGlobalBellNotification"
+          >
+            {{ $i18n('notifications.checkbox_bell') }}
+          </b-form-checkbox>
+        </b-col>
+      </b-row>
+    </div>
+
+    <div v-if="editFoodSharePointNotification">
+      <div
+        v-for="foodSharePoint in currentFoodSharePoints"
+        :key="foodSharePoint.id"
+        class="pb-2 pt-2"
+      >
+        <b-row align-v="center">
+          <b-col cols="12" lg="6">
+            {{ foodSharePoint.name }}
+          </b-col>
+          <b-col cols="12" lg="6">
+            <b-form-radio-group
+              v-model="foodSharePoint.infotype"
+              :options="foodSharePointNotificationOptions"
+              :name="'radio-button-' + foodSharePoint.id"
             />
           </b-col>
-          <b-col
-            cols="4"
-            lg="2"
-            class="pt-1"
-          >
-            <b-form-checkbox
-              v-model="isFoodSharePointGlobalEmailNotificationActive"
-              size="sm"
-              @change="toggleFoodSharePointGlobalEmailNotification"
-            >
-              {{ $i18n('notifications.checkbox_email') }}
-            </b-form-checkbox>
-          </b-col>
-          <b-col
-            cols="4"
-            lg="3"
-            class="pt-1"
-          >
-            <b-form-checkbox
-              v-model="isFoodSharePointGlobalBellNotificationActive"
-              size="sm"
-              @change="toggleFoodSharePointGlobalBellNotification"
-            >
-              {{ $i18n('notifications.checkbox_bell') }}
-            </b-form-checkbox>
-          </b-col>
         </b-row>
+        <hr class="my-2"> <!-- Linie -->
       </div>
-
-      <div v-if="editFoodSharePointNotification">
-        <div
-          v-for="foodSharePoint in currentFoodSharePoints"
-          :key="foodSharePoint.id"
-          class="pb-2 pt-2"
-        >
-          <b-row align-v="center">
-            <b-col cols="12" lg="6">
-              {{ foodSharePoint.name }}
-            </b-col>
-            <b-col cols="12" lg="6">
-              <b-form-radio-group
-                v-model="foodSharePoint.infotype"
-                :options="foodSharePointNotificationOptions"
-                :name="'radio-button-' + foodSharePoint.id"
-              />
-            </b-col>
-          </b-row>
-          <hr class="my-2"> <!-- Linie -->
-        </div>
-      </div>
-
-      <div class="pt-2">
-        <h4>{{ $i18n('notifications.threads.title') }}</h4>
-        <b-row>
-          <b-col
-            cols="6"
-            lg="5"
-          >
-            <div>
-              <b-button
-                class="mt-2"
-                size="sm"
-                variant="outline-primary"
-                :disabled="currentThreads.length <= 0"
-                @click="toogleThreadsDetails"
-              >
-                {{ $i18n('notifications.config_button') }}
-              </b-button>
-            </div>
-          </b-col>
-          <b-col cols="6" lg="2">
-            <b-form-checkbox
-              v-model="isThreadsPointGlobalEmailNotificationActive"
-              size="sm"
-              @change="toggleThreadsGlobalEmailNotification"
-            >
-              {{ $i18n('notifications.checkbox_email') }}
-            </b-form-checkbox>
-          </b-col>
-        </b-row>
-      </div>
-
-      <div v-if="editThreadsNotification">
-        <div
-          v-for="thread in currentThreads"
-          :key="thread.id"
-          class="pb-2 pt-2"
-        >
-          <b-row align-v="center">
-            <b-col cols="12" lg="6">
-              {{ thread.region_or_group_name }} / {{ thread.theme_name }}
-            </b-col>
-            <b-col cols="12" lg="6">
-              <b-form-radio-group
-                v-model="thread.infotype"
-                :options="emailNotificationOptions"
-                :name="'radio-button-' + thread.id"
-              />
-            </b-col>
-          </b-row>
-          <hr class="my-2"> <!-- Linie -->
-        </div>
-      </div>
-
-      <div class="pt-2">
-        <h4>{{ $i18n('notifications.regions.title') }}</h4>
-        <b-row>
-          <b-col
-            cols="6"
-            lg="5"
-          >
-            <div>
-              <b-button
-                class="mt-2"
-                size="sm"
-                variant="outline-primary"
-                :disabled="currentRegions.length <= 0"
-                @click="toogleRegionsDetails"
-              >
-                {{ $i18n('notifications.config_button') }}
-              </b-button>
-            </div>
-          </b-col>
-          <b-col cols="6" lg="2">
-            <b-form-checkbox
-              v-model="isRegionsPointGlobalEmailNotificationActive"
-              size="sm"
-              @change="toggleRegionsGlobalEmailNotification"
-            >
-              {{ $i18n('notifications.checkbox_email') }}
-            </b-form-checkbox>
-          </b-col>
-        </b-row>
-      </div>
-
-      <div v-if="editRegionsNotification">
-        <div
-          v-for="region in currentRegions"
-          :key="region.id"
-          class="pb-2 pt-2"
-        >
-          <b-row align-v="center">
-            <b-col cols="12" lg="6">
-              {{ region.name }}
-            </b-col>
-            <b-col cols="12" lg="6">
-              <b-form-radio-group
-                v-model="region.notifyByEmailAboutNewThreads"
-                :options="emailNotificationOptions"
-                :name="'radio-button-' + region.id"
-              />
-            </b-col>
-          </b-row>
-          <hr class="my-2"> <!-- Linie -->
-        </div>
-      </div>
-
-      <div class="pt-2">
-        <h4>{{ $i18n('notifications.groups.title') }}</h4>
-        <b-row>
-          <b-col
-            cols="6"
-            lg="5"
-          >
-            <div>
-              <b-button
-                class="mt-2"
-                size="sm"
-                variant="outline-primary"
-                :disabled="currentGroups.length <= 0"
-                @click="toogleGroupsDetails"
-              >
-                {{ $i18n('notifications.config_button') }}
-              </b-button>
-            </div>
-          </b-col>
-          <b-col cols="6" lg="2">
-            <b-form-checkbox
-              v-model="isGroupsGlobalEmailNotificationActive"
-              size="sm"
-              @change="toggleGroupsGlobalEmailNotification"
-            >
-              {{ $i18n('notifications.checkbox_email') }}
-            </b-form-checkbox>
-          </b-col>
-        </b-row>
-      </div>
-
-      <div v-if="editGroupsNotification">
-        <div
-          v-for="group in currentGroups"
-          :key="group.id"
-          class="pb-2 pt-2"
-        >
-          <b-row align-v="center">
-            <b-col cols="12" lg="6">
-              {{ group.name }}
-            </b-col>
-            <b-col cols="12" lg="6">
-              <b-form-radio-group
-                v-model="group.notifyByEmailAboutNewThreads"
-                :options="emailNotificationOptions"
-                :name="'radio-button-' + group.id"
-              />
-            </b-col>
-          </b-row>
-          <hr class="my-2"> <!-- Linie -->
-        </div>
-      </div>
-
-      <div class="pt-2 pb-2">
-        <h4>{{ $i18n('notifications.newsletter.title') }}</h4>
-        <b-row>
-          <b-col
-            cols="8"
-            lg="5"
-          >
-            {{ $i18n('notifications.newsletter.description') }}
-          </b-col>
-          <b-col cols="4" lg="6">
-            <b-form-checkbox
-              v-model="newsletterState "
-              name="newsletter"
-              size="sm"
-            >
-              {{ $i18n('notifications.checkbox_email') }}
-            </b-form-checkbox>
-          </b-col>
-        </b-row>
-      </div>
-
-      <b-button
-        size="sm"
-        variant="primary"
-        @click="updateNotificationSettings"
-      >
-        {{ $i18n('globals.save') }}
-      </b-button>
     </div>
+
+    <div class="pt-2">
+      <h4>{{ $i18n('notifications.threads.title') }}</h4>
+      <b-row>
+        <b-col
+          cols="6"
+          lg="5"
+        >
+          <div>
+            <b-button
+              class="mt-2"
+              size="sm"
+              variant="outline-primary"
+              :disabled="currentThreads.length <= 0"
+              @click="toogleThreadsDetails"
+            >
+              {{ $i18n('notifications.config_button') }}
+            </b-button>
+          </div>
+        </b-col>
+        <b-col cols="6" lg="2">
+          <b-form-checkbox
+            v-model="isThreadsPointGlobalEmailNotificationActive"
+            size="sm"
+            @change="toggleThreadsGlobalEmailNotification"
+          >
+            {{ $i18n('notifications.checkbox_email') }}
+          </b-form-checkbox>
+        </b-col>
+      </b-row>
+    </div>
+
+    <div v-if="editThreadsNotification">
+      <div
+        v-for="thread in currentThreads"
+        :key="thread.id"
+        class="pb-2 pt-2"
+      >
+        <b-row align-v="center">
+          <b-col cols="12" lg="6">
+            {{ thread.region_or_group_name }} / {{ thread.theme_name }}
+          </b-col>
+          <b-col cols="12" lg="6">
+            <b-form-radio-group
+              v-model="thread.infotype"
+              :options="emailNotificationOptions"
+              :name="'radio-button-' + thread.id"
+            />
+          </b-col>
+        </b-row>
+        <hr class="my-2"> <!-- Linie -->
+      </div>
+    </div>
+
+    <div class="pt-2">
+      <h4>{{ $i18n('notifications.regions.title') }}</h4>
+      <b-row>
+        <b-col
+          cols="6"
+          lg="5"
+        >
+          <div>
+            <b-button
+              class="mt-2"
+              size="sm"
+              variant="outline-primary"
+              :disabled="currentRegions.length <= 0"
+              @click="toogleRegionsDetails"
+            >
+              {{ $i18n('notifications.config_button') }}
+            </b-button>
+          </div>
+        </b-col>
+        <b-col cols="6" lg="2">
+          <b-form-checkbox
+            v-model="isRegionsPointGlobalEmailNotificationActive"
+            size="sm"
+            @change="toggleRegionsGlobalEmailNotification"
+          >
+            {{ $i18n('notifications.checkbox_email') }}
+          </b-form-checkbox>
+        </b-col>
+      </b-row>
+    </div>
+
+    <div v-if="editRegionsNotification">
+      <div
+        v-for="region in currentRegions"
+        :key="region.id"
+        class="pb-2 pt-2"
+      >
+        <b-row align-v="center">
+          <b-col cols="12" lg="6">
+            {{ region.name }}
+          </b-col>
+          <b-col cols="12" lg="6">
+            <b-form-radio-group
+              v-model="region.notifyByEmailAboutNewThreads"
+              :options="emailNotificationOptions"
+              :name="'radio-button-' + region.id"
+            />
+          </b-col>
+        </b-row>
+        <hr class="my-2"> <!-- Linie -->
+      </div>
+    </div>
+
+    <div class="pt-2">
+      <h4>{{ $i18n('notifications.groups.title') }}</h4>
+      <b-row>
+        <b-col
+          cols="6"
+          lg="5"
+        >
+          <div>
+            <b-button
+              class="mt-2"
+              size="sm"
+              variant="outline-primary"
+              :disabled="currentGroups.length <= 0"
+              @click="toogleGroupsDetails"
+            >
+              {{ $i18n('notifications.config_button') }}
+            </b-button>
+          </div>
+        </b-col>
+        <b-col cols="6" lg="2">
+          <b-form-checkbox
+            v-model="isGroupsGlobalEmailNotificationActive"
+            size="sm"
+            @change="toggleGroupsGlobalEmailNotification"
+          >
+            {{ $i18n('notifications.checkbox_email') }}
+          </b-form-checkbox>
+        </b-col>
+      </b-row>
+    </div>
+
+    <div v-if="editGroupsNotification">
+      <div
+        v-for="group in currentGroups"
+        :key="group.id"
+        class="pb-2 pt-2"
+      >
+        <b-row align-v="center">
+          <b-col cols="12" lg="6">
+            {{ group.name }}
+          </b-col>
+          <b-col cols="12" lg="6">
+            <b-form-radio-group
+              v-model="group.notifyByEmailAboutNewThreads"
+              :options="emailNotificationOptions"
+              :name="'radio-button-' + group.id"
+            />
+          </b-col>
+        </b-row>
+        <hr class="my-2"> <!-- Linie -->
+      </div>
+    </div>
+
+    <div class="pt-2 pb-2">
+      <h4>{{ $i18n('notifications.newsletter.title') }}</h4>
+      <b-row>
+        <b-col
+          cols="8"
+          lg="5"
+        >
+          {{ $i18n('notifications.newsletter.description') }}
+        </b-col>
+        <b-col cols="4" lg="6">
+          <b-form-checkbox
+            v-model="newsletterState "
+            name="newsletter"
+            size="sm"
+          >
+            {{ $i18n('notifications.checkbox_email') }}
+          </b-form-checkbox>
+        </b-col>
+      </b-row>
+    </div>
+
+    <div v-if="isStoreManager" class="pt-2 pb-2">
+      <h4>{{ $i18n('notifications.pickupReminder.title') }}</h4>
+      <b-row>
+        <b-col
+          cols="8"
+          lg="5"
+        >
+          {{ $i18n('notifications.pickupReminder.description') }}
+        </b-col>
+        <b-col cols="4" lg="6">
+          <b-form-checkbox
+            v-model="pickupReminderState"
+            name="pickupReminder"
+            size="sm"
+          >
+            {{ $i18n('notifications.checkbox_email') }}
+          </b-form-checkbox>
+        </b-col>
+      </b-row>
+    </div>
+
+    <b-button
+      size="sm"
+      variant="primary"
+      @click="updateNotificationSettings"
+    >
+      {{ $i18n('globals.save') }}
+    </b-button>
   </div>
 </template>
 
@@ -329,10 +345,12 @@ import {
   setFoodSharePointsNotification,
   setThreadsNotification,
   setUserNotification,
+  getPickupReminderNotification,
+  setPickupReminderNotification,
 } from '@/api/notifications'
 import { pulseError, pulseSuccess } from '@/script'
-import i18n from '@/helper/i18n'
 import { subscribeForPushNotifications, unsubscribeFromPushNotifications } from '@/pushNotifications'
+import DataUser from '@/stores/user'
 
 export default {
   data () {
@@ -350,6 +368,7 @@ export default {
       pushNotificationState: null,
       infoMailState: null,
       newsletterState: false,
+      pickupReminderState: true,
       currentFoodSharePoints: [],
       currentThreads: [],
       currentRegions: [],
@@ -359,62 +378,24 @@ export default {
       editRegionsNotification: false,
       editGroupsNotification: false,
       isFoodSharePointGlobalNotification: null,
+      isFoodSharePointGlobalNotificationActive: false,
+      isFoodSharePointGlobalEmailNotificationActive: false,
+      isRegionsPointGlobalEmailNotificationActive: false,
+      isGroupsGlobalEmailNotificationActive: false,
+      isThreadsPointGlobalEmailNotificationActive: false,
+      isFoodSharePointGlobalBellNotificationActive: false,
     }
   },
   computed: {
     getPushNotificationState () {
       return this.pushNotificationState
     },
-    isFoodSharePointGlobalNotificationActive: {
-      get () {
-        return this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype !== 0)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
-    },
-    isFoodSharePointGlobalEmailNotificationActive: {
-      get () {
-        return this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype === 1)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
-    },
-    isGroupsGlobalEmailNotificationActive: {
-      get () {
-        return this.currentGroups.some(group => group.notifyByEmailAboutNewThreads === 1)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
-    },
-    isThreadsPointGlobalEmailNotificationActive: {
-      get () {
-        return this.currentThreads.some(threads => threads.infotype === 1)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
-    },
-    isRegionsPointGlobalEmailNotificationActive: {
-      get () {
-        return this.currentRegions.some(region => region.notifyByEmailAboutNewThreads === 1)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
-    },
-    isFoodSharePointGlobalBellNotificationActive: {
-      get () {
-        return this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype === 2)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
+    isStoreManager () {
+      return DataUser.getters.isStoreManager()
     },
   },
   async mounted () {
+    await DataUser.mutations.fetchDetails()
     this.subscription = await getUserNotification()
     this.newsletterState = this.convertNumberToBoolean(this.subscription.newsletter)
     this.infoMailState = this.convertNumberToBoolean(this.subscription.infomail_message)
@@ -422,6 +403,15 @@ export default {
     this.currentThreads = await getThreadsNotification()
     this.currentRegions = await listRegionsWithoutWorkingGroups()
     this.currentGroups = await listWorkingGroups()
+    if (this.isStoreManager) {
+      this.pickupReminderState = this.convertNumberToBoolean(await getPickupReminderNotification())
+    }
+    this.isFoodSharePointGlobalNotificationActive = this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype !== 0)
+    this.isFoodSharePointGlobalEmailNotificationActive = this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype === 1)
+    this.isRegionsPointGlobalEmailNotificationActive = this.currentRegions.some(region => region.notifyByEmailAboutNewThreads === 1)
+    this.isGroupsGlobalEmailNotificationActive = this.currentGroups.some(group => group.notifyByEmailAboutNewThreads === 1)
+    this.isThreadsPointGlobalEmailNotificationActive = this.currentThreads.some(threads => threads.infotype === 1)
+    this.isFoodSharePointGlobalBellNotificationActive = this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype === 2)
 
     if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
       this.pushNotificationState = false
@@ -500,14 +490,14 @@ export default {
       try {
         if (!this.pushNotificationState) {
           await subscribeForPushNotifications()
-          pulseSuccess(i18n('settings.push.success'))
+          pulseSuccess(this.$i18n('settings.push.success'))
         } else {
           await unsubscribeFromPushNotifications()
-          pulseSuccess(i18n('settings.push.disabled'))
+          pulseSuccess(this.$i18n('settings.push.disabled'))
         }
         await this.isSubscriptionValid()
       } catch (error) {
-        pulseError(i18n('error_ajax'))
+        pulseError(this.$i18n('error_ajax'))
         throw error
       }
     },
@@ -524,9 +514,12 @@ export default {
           return { id: group.id, notifyByEmailAboutNewThreads: group.notifyByEmailAboutNewThreads === 1 }
         }))
         await setThreadsNotification(this.currentThreads)
-        pulseSuccess(i18n('notifications.success'))
+        if (this.isStoreManager) {
+          await setPickupReminderNotification(this.pickupReminderState)
+        }
+        pulseSuccess(this.$i18n('notifications.success'))
       } catch {
-        pulseError(i18n('error_ajax'))
+        pulseError(this.$i18n('error_ajax'))
       }
     },
     convertBooleanToNumber (value) {

@@ -229,7 +229,7 @@
       content-class="pr-3 pt-3"
       @ok="submitPoll"
     >
-      {{ $i18n('poll.new_poll.submit_question', { 'date': formattedEditTime }) }}
+      {{ $i18n('poll.new_poll.submit_question') }}
     </b-modal>
   </div>
 </template>

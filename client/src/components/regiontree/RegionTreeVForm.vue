@@ -1,21 +1,23 @@
 <!-- Wrapper class that allows using the RegionTree component in v-forms. -->
 <template>
   <div id="input-wrapper" class="bootstrap">
-    <label
-      v-if="title"
-      class="wrapper-label ui-widget"
-    >
-      {{ title }}
-    </label>
-    <div>
-      {{ selectedRegion.name }}
-      <b-link
-        v-if="!disabled"
-        class="btn btn-sm btn-secondary ml-2"
-        @click="openModal"
+    <div v-if="!noDisplay">
+      <label
+        v-if="title"
+        class="wrapper-label ui-widget"
       >
-        {{ $i18n('region.change') }}
-      </b-link>
+        {{ title }}
+      </label>
+      <div>
+        {{ selectedRegion.name }}
+        <b-link
+          v-if="!disabled"
+          class="btn btn-sm btn-secondary ml-2"
+          @click="openModal"
+        >
+          {{ $i18n('region.change') }}
+        </b-link>
+      </div>
     </div>
 
     <b-modal
@@ -80,6 +82,7 @@ export default {
       type: Boolean,
       default: false,
     },
+    noDisplay: { type: Boolean, default: false },
   },
   data () {
     return {

@@ -77,7 +77,7 @@ class ReportControl extends Control
                     CNT_TOP
                 );
                 $this->pageHelper->addContent($this->view->vueComponent('vue-wall', 'wall', [
-                    'target' => 'report',
+                    'target' => 'fsreports',
                     'targetId' => (int)$_GET['id'],
                     'title' => $this->translator->trans('profile.report.control.notes')
                 ]));

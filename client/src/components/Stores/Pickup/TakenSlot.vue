@@ -5,12 +5,54 @@
       :title="modalTitle"
     >
       <b-row>
-        <b-col cols="5">
+        <b-col cols="5" class="text-center">
           <Avatar :user="profile" :size="130" />
-          <p>
-            <b>{{ profile.name }}</b>
-          </p>
+
+          <div class="my-2">
+            <b>{{ profile.name }}</b><br>
+            <small>{{ phoneNumber }}</small>
+          </div>
+
+          <b-button
+            v-b-tooltip="$i18n('profile.go')"
+            variant="outline-primary"
+            :href="$url('profile', profile.id)"
+            size="sm"
+          >
+            <i class="fas fa-fw fa-user" :aria-label="$i18n('profile.go')" />
+          </b-button>
+
+          <b-button
+            v-if="allowChat && !isMe"
+            v-b-tooltip="$i18n('chat.open_chat')"
+            variant="outline-primary"
+            size="sm"
+            @click="openChat"
+          >
+            <i class="fas fa-fw fa-comment" :aria-label="$i18n('chat.open_chat')" />
+          </b-button>
+
+          <b-button
+            v-if="phoneNumber && !isMe"
+            v-b-tooltip="$i18n('pickup.call')"
+            :href="$url('phone_number', phoneNumber)"
+            size="sm"
+            variant="outline-primary"
+          >
+            <i class="fas fa-fw fa-phone" :aria-label="$i18n('pickup.call')" />
+          </b-button>
+
+          <b-button
+            v-if="phoneNumber && !isMe && canCopy"
+            v-b-tooltip="$i18n('pickup.copyNumber')"
+            variant="outline-primary"
+            size="sm"
+            @click="copyIntoClipboard(phoneNumber)"
+          >
+            <i class="fas fa-fw fa-clone" :aria-label="$i18n('pickup.copyNumber')" />
+          </b-button>
         </b-col>
+
         <b-col cols="7">
           <p>
             <b>{{ $i18n('store.slot_state') }}:</b><br>
@@ -27,51 +69,37 @@
             <b>{{ $i18n('store.lastPickupTitle') }}:</b><br>
             {{ getLastFetchDate }}
           </p>
-          <p>
-            <b>{{ $i18n('store.slotsCurrentlyOccupied') }}</b>: {{ countUserIdInPickups }}
+
+          <details v-if="userOccupiedSlots.length">
+            <summary role="button occupied-slot-details-button">
+              <b>{{ $i18n('store.slotsCurrentlyOccupied') }}:</b> {{ userOccupiedSlots.length }}
+            </summary>
+
+            <ul class="pl-2">
+              <li
+                v-for="slot of userOccupiedSlots"
+                :key="slot.date.getTime()"
+                role="listitem user-occupied-slots-listitem"
+                class="m-0"
+              >
+                <span :title="$dateFormatter.date(slot.date, { type: 'full' })">
+                  {{ $dateFormatter.date(slot.date, { short: true }) }}
+                </span>
+
+                &ndash;
+
+                <span v-if="slot.isConfirmed">{{ $i18n('pickup.overview.status.confirmed') }}</span>
+                <span v-else>{{ $i18n('pickup.overview.status.pending') }}</span>
+              </li>
+            </ul>
+          </details>
+
+          <p v-if="!userOccupiedSlots.length">
+            <b>{{ $i18n('store.slotsCurrentlyOccupied') }}:</b> {{ $i18n('terminology.no_pickups') }}
           </p>
         </b-col>
       </b-row>
-      <b-button
-        variant="outline-primary"
-        :href="`/profile/${profile.id}`"
-        size="sm"
-        class="mb-2"
-      >
-        <i class="fas fa-fw fa-user" /> {{ $i18n('profile.go') }}
-      </b-button>
-      <b-button
-        v-if="allowChat && !isMe"
-        variant="outline-primary"
-        class="mb-2"
-        size="sm"
-        @click="openChat"
-      >
-        <i class="fas fa-fw fa-comment" />  {{ $i18n('chat.open_chat') }}
-      </b-button>
-      <b-button
-        v-if="phoneNumber && !isMe"
-        :href="$url('phone_number', phoneNumber)"
-        class="mb-2"
-        size="sm"
-        variant="outline-primary"
-      >
-        <i class="fas fa-fw fa-phone" /> {{ $i18n('pickup.call') }}
-      </b-button>
-      <b-button
-        v-if="phoneNumber && !isMe"
-        variant="outline-primary"
-        class="mb-2"
-        size="sm"
-        @click="copyIntoClipboard(phoneNumber)"
-      >
-        <i
-          class="fas fa-fw"
-          :class="[canCopy ? 'fa-clone' : 'fa-phone-slash']"
-        />
-        <span v-if="canCopy">{{ $i18n('pickup.copyNumber') }}</span>
-        <span v-else>{{ phoneNumber }}</span>
-      </b-button>
+
       <template #modal-footer="{ hide }">
         <b-button
           size="sm"
@@ -103,6 +131,7 @@
       :size="50"
       style="margin: 2px 2px 2px 1px;"
       href="#"
+      role="button taken-slot-dialog-button"
       badge-size="100%"
       :badge-variant="confirmed ? 'success' : 'danger'"
       :options="{ badgeOffset: '-5px' }"
@@ -168,10 +197,14 @@ export default {
     pickups () {
       return PickupsData.getters.getPickups()
     },
-    countUserIdInPickups () {
-      return this.pickups.reduce((count, pickup) => {
-        return count + pickup.occupiedSlots.filter(slot => slot.profile.id === this.profile.id).length
-      }, 0)
+    userOccupiedSlots () {
+      return this.pickups.flatMap(pickup => pickup.occupiedSlots
+        .filter(slot => slot.profile.id === this.profile.id)
+        .map(slot => ({
+          date: pickup.date,
+          ...slot,
+        })),
+      )
     },
     isConfirmedText () {
       return this.confirmed ? this.$i18n('pickup.overview.status.confirmed') : this.$i18n('pickup.overview.status.pending')
@@ -191,9 +224,11 @@ export default {
     },
     signUpPerformedAtDateFormatted () {
       const storeLog = StoreData.getters.getFilteredStoreLog([STORE_LOG_ACTION.SIGN_UP_SLOT], this.profile.id)
-      const filteredEntries = storeLog.filter(entry =>
-        new Date(entry.date_reference).getTime() === this.date.getTime(),
-      )
+      const filteredEntries = storeLog.filter(entry => {
+        const thisDate = this.date.toISOString()
+        const entryDateReference = new Date(entry.date_reference).toISOString()
+        return thisDate === entryDateReference
+      })
 
       let lastEntryWithOldestDate = null
       let oldestTimestamp = null

@@ -12,7 +12,7 @@
     @ok="joinRegion"
   >
     <div class="description">
-      <p v-html="$i18n('join_region.description', {href: $url('wiki_create_region'), mail: $url('mailto_mail_foodsharing_network', 'welcome')})" />
+      <Markdown :source="$i18n('join_region.description', {href: $url('wiki_create_region'), mail: $url('mailto_mail_foodsharing_network', 'welcome')})" />
     </div>
     <hr>
     <div class="selector">
@@ -23,13 +23,13 @@
       >
         <option
           :value="0"
-          v-html="$i18n('globals.select')"
+          v-text="$i18n('globals.select')"
         />
         <option
           v-for="(entry, key) in base"
           :key="key"
           :value="entry.id"
-          v-html="entry.name"
+          v-text="entry.name"
         />
       </select>
       <select
@@ -47,7 +47,7 @@
           v-for="(entry, key) in region.list"
           :key="key"
           :value="entry.id"
-          v-html="entry.name"
+          v-text="entry.name"
         />
       </select>
     </div>
@@ -56,29 +56,37 @@
       class="alert alert-danger d-flex align-items-center"
     >
       <i class="icon icon--big fas fa-exclamation-triangle" />
-      <span
-        v-if="selectedRegionType === 5"
-        v-html="$i18n('join_region.error.is_state')"
-      />
-      <span
-        v-if="selectedRegionType === 6"
-        v-html="$i18n('join_region.error.is_country')"
-      />
-      <span
-        v-if="selectedRegionType === 8"
-        v-html="$i18n('join_region.error.is_big_city')"
-      />
+      <span v-if="selectedRegionType === 5">
+        <strong>{{ $i18n('join_region.error.is_state_1') }}</strong><br>
+        {{ $i18n('join_region.error.is_state_2') }}
+      </span>
+      <span v-if="selectedRegionType === 6">
+        <strong>{{ $i18n('join_region.error.is_country_1') }}</strong><br>
+        {{ $i18n('join_region.error.is_country_2') }}
+      </span>
+      <span v-if="selectedRegionType === 8">
+        <strong>{{ $i18n('join_region.error.is_big_city_1') }}</strong><br>
+        {{ $i18n('join_region.error.is_big_city_2') }}
+      </span>
     </div>
   </b-modal>
 </template>
 
 <script>
 // Stores
-import DataRegions from '@/stores/regions'
+import DataRegions, { REGION_UNIT_TYPE } from '@/stores/regions'
 // Others
 import { pulseError, showLoader, hideLoader } from '@/script'
+import { REGION_IDS } from '@/consts'
+import DataUser from '@/stores/user'
+import Markdown from '@/components/Markdown/Markdown.vue'
+
+const EXCLUDED_REGIONS = [REGION_IDS.GLOBAL_WORKING_GROUPS]
+const EXCLUDED_REGIONS_WITHOUT_HOME = [REGION_IDS.FOODSHARING_ON_FESTIVALS]
+
 export default {
   name: 'JoinRegionModal',
+  components: { Markdown },
   data () {
     return {
       selected: [0],
@@ -126,7 +134,8 @@ export default {
         const region = this.regions.find(r => r.id === id)
         if (id && !region) {
           let list = await DataRegions.mutations.fetchChoosedRegionChildren(id)
-          list = list.filter(r => r.type !== 7) // removes all arbeitsgruppen
+          list = this.filterRegions(list)
+
           if (list.length > 0) {
             this.regions.push({ id, list })
           }
@@ -148,10 +157,22 @@ export default {
     },
     async showModal () {
       this.selected = [0]
-      this.base = await DataRegions.mutations.fetchChoosedRegionChildren(0)
+      this.base = this.filterRegions(await DataRegions.mutations.fetchChoosedRegionChildren(0))
     },
     async resetModal () {
       this.selected = [0]
+    },
+    filterRegions (regions) {
+      // Remove all working groups and all excluded regions
+      let filtered = regions
+        .filter(r => r.type !== REGION_UNIT_TYPE.WORKING_GROUP)
+        .filter(r => EXCLUDED_REGIONS.indexOf(r.id) < 0)
+
+      // Remove all regions that are only shown if the user has a home region
+      if (!DataUser.getters.hasHomeRegion()) {
+        filtered = filtered.filter(r => EXCLUDED_REGIONS_WITHOUT_HOME.indexOf(r.id) < 0)
+      }
+      return filtered
     },
   },
 }

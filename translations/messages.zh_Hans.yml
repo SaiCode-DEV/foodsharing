@@ -560,6 +560,9 @@ quiz:
   continuenow: ''
   question: ''
   learnbreak: ''
+  results:
+    title:
+      1: 祝贺你
 picture_upload_widget:
   choose_picture: ''
   picture_upload: ''
@@ -888,6 +891,8 @@ terminology:
   no_pickups: ''
   previous_pickups: ''
   n_home_regions: ''
+  no: 没有
+  yes: 是
 yes: ''
 delete: ''
 select: ''
@@ -1742,7 +1747,7 @@ store:
   complete: ''
   maxchar: ''
   teamName: ''
-  memberSince: ''
+  joinDate: ''
   attribution: ''
   actions: ''
   prefetchone: ''
@@ -2021,7 +2026,7 @@ bell:
   no_bells: ''
   workgroup_request_decline: ''
   fs_sleepmode_title: ''
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   store_cr_times_title: '{name}'
   passgen_failed: ''
   blog_new_check_title: ''
@@ -2036,6 +2041,7 @@ bell:
   forum_new_thread_title: ''
   forum_announcement_title: ''
   forum_mention: ''
+  workinggroup_new_request_title: '{name}'
 basket:
   howto: ''
   is:
@@ -2416,7 +2422,6 @@ email_template:
   foodbasket_request: ''
   information: ''
   confirm_link: ''
-  withlove: ''
   warning: ''
   confirm_topic: ''
   foodsharepoint: ''

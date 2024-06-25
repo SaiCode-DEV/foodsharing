@@ -2,11 +2,9 @@
 
 namespace Foodsharing\Modules\Basket;
 
-use Foodsharing\Lib\Xhr\Xhr;
 use Foodsharing\Lib\Xhr\XhrDialog;
 use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\BasketRequests\Status as RequestStatus;
-use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Utility\ImageHelper;
 use Foodsharing\Utility\TimeHelper;
 
@@ -31,9 +29,7 @@ class BasketXhr extends Control
 
         // allowed methods for users who are not logged in
         $allowed = [
-            'bubble',
             'login',
-            'nearbyBaskets',
         ];
 
         if (!$this->session->mayRole() && !in_array($_GET['m'], $allowed)) {
@@ -46,88 +42,6 @@ class BasketXhr extends Control
             );
             exit;
         }
-    }
-
-    public function nearbyBaskets(): void
-    {
-        $xhr = new Xhr();
-
-        if (isset($_GET['coordinates']) && $basket = $this->basketGateway->listNearbyBasketsByDistance(
-            $this->session->id(),
-            GeoLocation::createFromArray([
-                'lat' => $_GET['coordinates'][0],
-                'lon' => $_GET['coordinates'][1],
-            ])
-        )) {
-            $xhr->addData('baskets', $basket);
-        }
-
-        $xhr->send();
-    }
-
-    public function bubble(): array
-    {
-        $basket = $this->basketGateway->getBasket($_GET['id']);
-        if (!$basket) {
-            return [
-                'status' => 1,
-                'script' => 'pulseError("' . $this->translator->trans('basket.error') . '");',
-            ];
-        }
-
-        if ($basket['fsf_id'] == 0) {
-            $dia = new XhrDialog();
-
-            // What does the user see if not logged in?
-            if (!$this->session->mayRole()) {
-                $dia->setTitle($this->translator->trans('terminology.basket'));
-            } else {
-                $dia->setTitle($this->translator->trans('basket.by', ['{name}' => $basket['fs_name']]));
-            }
-            $dia->addContent($this->view->twig->render('partials/vue-wrapper.twig', [
-                'id' => 'basket-bubble',
-                'component' => 'BasketBubble',
-                'props' => [
-                    'basketId' => $basket['id'],
-                ],
-                'initialData' => [],
-            ]));
-
-            $modal = false;
-            if (isset($_GET['modal'])) {
-                $modal = true;
-            }
-            $dia->addOpt('modal', 'false', $modal);
-            $dia->addOpt('resizeable', 'false', false);
-
-            $dia->noOverflow();
-
-            return $dia->xhrout();
-        }
-
-        return $this->fsBubble($basket);
-    }
-
-    private function fsBubble(array $basket): array
-    {
-        $dia = new XhrDialog();
-
-        $dia->setTitle($this->translator->trans('basket.on', ['{platform}' => BASE_URL]));
-
-        $dia->addContent($this->view->fsBubble($basket));
-        $modal = false;
-        if (isset($_GET['modal'])) {
-            $modal = true;
-        }
-        $dia->addOpt('modal', 'false', $modal);
-        $dia->addOpt('resizeable', 'false', false);
-
-        $dia->addOpt('width', 400);
-        $dia->noOverflow();
-
-        $dia->addJs('$(".fsbutton").button();');
-
-        return $dia->xhrout();
     }
 
     public function removeRequest(): ?array

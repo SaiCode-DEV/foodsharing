@@ -121,7 +121,9 @@ export default {
       this.isLoading = true
       try {
         await login(this.email, this.password, this.rememberMe)
-        window.location.href = this.$url('dashboard')
+        let ref = new URL(location.href).searchParams.get('ref')
+        if (!ref?.startsWith('/')) ref = null
+        location.replace(ref ?? this.$url('dashboard'))
       } catch (err) {
         this.isLoading = false
         if (err.code && err.code === HTTP_RESPONSE.UNAUTHORIZED) {

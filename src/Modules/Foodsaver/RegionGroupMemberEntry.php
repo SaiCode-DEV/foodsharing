@@ -10,11 +10,15 @@ class RegionGroupMemberEntry
 
     public ?string $name = null;
 
+    public ?string $lastName = null;
+
     public ?string $avatar = null;
 
     public bool $isSleeping = false;
 
     public ?int $role = null;
+
+    public ?string $lastPassDate = null;
 
     public ?DateTime $lastActivity = null;
 

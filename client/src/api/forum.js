@@ -27,16 +27,8 @@ export function unfollowThreadByBell (threadId) {
   return remove(`/forum/thread/${threadId}/follow/bell`)
 }
 
-export function stickThread (threadId) {
-  return patch(`/forum/thread/${threadId}`, {
-    isSticky: true,
-  })
-}
-
-export function unstickThread (threadId) {
-  return patch(`/forum/thread/${threadId}`, {
-    isSticky: false,
-  })
+export function setStickinessThread (threadId, stickiness) {
+  return patch(`/forum/thread/${threadId}`, { stickiness })
 }
 
 export function activateThread (threadId) {

@@ -1,26 +1,40 @@
 <template>
   <span
-    v-b-tooltip="$dateFormatter.dateTime(date)"
-    class="time text-muted"
+    v-if="time"
+    v-b-tooltip="tooltip ?? tooltipTime"
+    class="time"
+    :class="{ 'text-muted': muted, small: !plain }"
   >
     <i
       v-if="showIcon"
       class="far fa-fw fa-clock"
     />
-    {{ $dateFormatter.relativeTime(date) }}
+    {{ $dateFormatter.relativeTime(date, options) }}
   </span>
 </template>
 
 <script>
 export default {
   props: {
-    time: { type: [Date, String], required: true },
-    showIcon: { type: Boolean, default: true },
+    plain: { type: Boolean, default: false },
+    time: { type: [Date, String], default: null },
+    showIcon: { type: Boolean, default: function () { return !this.plain } },
+    muted: { type: Boolean, default: function () { return !this.plain } },
+    dateOnly: { type: Boolean, default: false },
+    tooltip: { type: [Object, String], default: function () { return this.plain ? false : null } },
+    options: { type: Object, default: () => {} },
   },
   data () {
+    if (this.time === null) return {}
     const date = new Date(this.time)
     if (isNaN(date.valueOf())) throw new Error('invalid time')
     return { date }
+  },
+  computed: {
+    tooltipTime () {
+      const method = this.dateOnly ? 'date' : 'dateTime'
+      return this.$dateFormatter[method](this.date)
+    },
   },
   mounted () {
     this.update()
@@ -38,7 +52,7 @@ export default {
 </script>
 
 <style scoped>
-.time {
+.small {
   font-size: smaller;
 }
 </style>

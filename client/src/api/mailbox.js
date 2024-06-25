@@ -15,8 +15,8 @@ export async function deleteEmail (emailId) {
   return remove(`/mailbox/${emailId}`)
 }
 
-export async function getAllEmails (mailboxId, folderId) {
-  return get(`/mailbox/all/${mailboxId}/${folderId}`)
+export async function getAllEmails (mailboxId, folderId, page, pageSize) {
+  return get(`/mailbox/all/${mailboxId}/${folderId}?page=${page}&pageSize=${pageSize}`)
 }
 
 export async function getEmail (emailId) {

@@ -53,7 +53,7 @@ class BellTransactions
         foreach ($groups as &$group) {
             if ($group['bellId']) {
                 $vars = unserialize($group['vars']);
-                $bellEntityId = $vars['entityId'];
+                $bellEntityId = $vars['entityId'] ?? null;
                 if ($bellEntityId && $bellEntityId <= $entityId) { // Don't remove bells with unknown or newer target
                     $this->bellGateway->deleteBellForFoodsavers($group['bellId'], $group['foodsaverIds']);
                     $count = ($vars['count'] ?? 1) - 1;

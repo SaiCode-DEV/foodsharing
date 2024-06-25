@@ -26,7 +26,7 @@
               {{ $i18n('mailbox.from') }}:
             </div>
             <div class="col col-7 pl-0">
-              <span v-html="fromHeader" />
+              <span>{{ fromHeaderName }}{{ fromHeaderAddress }}</span>
             </div>
             <div
               v-if="!viewIsMobile"
@@ -39,16 +39,16 @@
             <div class="col col-auto">
               {{ $i18n('mailbox.to') }}:
             </div>
-            <div class="col col-8 col-md-11 pl-0">
+            <div class="col col-8 col-md-10 pl-0">
               <span
                 v-for="(mailAddress, index) in displayedEmails"
                 :key="index"
-                :class="{ 'text-truncate': !viewIsMobile }"
               >
-                {{ index > 0 ? (viewIsMobile ? ',\n' : ', ') : '' }}{{ mailAddress }}
+                {{ index > 0 ? (viewIsMobile ? ',\n' : ', ') : '' }}
+                {{ mailAddress.length > 27 && viewIsMobile ? mailAddress.substring(0, 27) + "..." : mailAddress }}
               </span>
             </div>
-            <div class="col col-1">
+            <div class="col col-1 text-right">
               <b-button
                 v-if="shouldShowToggleButton"
                 size="sm"
@@ -62,7 +62,10 @@
           <div class="row mt-1">
             <div class="col col-auto">
               <h5>{{ email.subject }}</h5>
+              <!-- eslint-disable vue/no-v-html -->
+              <!-- Sanitized in Modules/Mailbox/MailboxGateway.php getMessage() -->
               <div class="pt-2" v-html="emailBody" />
+              <!-- eslint-enable -->
               <b-list-group
                 v-if="email.attachments"
                 horizontal
@@ -146,11 +149,13 @@ export default {
         minute: 'numeric',
       })
     },
-    fromHeader () {
+    fromHeaderName () {
+      return this.email.from.name ? this.email.from.name : ''
+    },
+    fromHeaderAddress () {
       const name = this.email.from.name ? this.email.from.name : ''
       const address = this.email.from.address
-      const combined = name ? `<a href="mailto:${address}">${address}</a>` : address
-      const result = name ? combined : address
+      const result = name ? ` <${address}>` : address
       return result || `(${this.$i18n('mailbox.unknown_sender')})`
     },
     hasHtmlBody () {

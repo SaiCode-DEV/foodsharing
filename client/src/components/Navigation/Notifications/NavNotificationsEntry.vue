@@ -1,10 +1,7 @@
 <template>
   <a
     class="dropdown-header dropdown-item d-flex justify-content-between align-items-center"
-    :class="{
-      'list-group-item-warning': !bell.isRead,
-      'disabledLoading': bell.isDeleting,
-    }"
+    :class="classes"
     :href="bell.href"
     @click="$emit('read', bell)"
   >
@@ -14,13 +11,13 @@
       :icon="bell.image ? undefined : bell.icon"
       variant="light"
       href="#"
-      @click="closeBell()"
+      @click.stop="closeBell"
     />
     <span class="d-flex w-100 flex-column text-truncate">
       <span class="d-flex justify-content-between align-items-center text-truncate">
         <span
           class="mb-1 text-truncate"
-          v-html="$i18n(`bell.${bell.title}`, bell.payload)"
+          v-text="$i18n(`bell.${bell.title}`, bell.payload)"
         />
         <small class="text-muted text-right nowrap">
           {{ $dateFormatter.relativeTime(new Date(bell.createdAt)) }}
@@ -28,7 +25,7 @@
       </span>
       <small
         class="text-truncate"
-        v-html="$i18n(`bell.${bell.key}`, bell.payload)"
+        v-text="$i18n(`bell.${bell.key}`, bell.payload)"
       />
     </span>
   </a>

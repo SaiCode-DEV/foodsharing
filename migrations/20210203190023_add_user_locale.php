@@ -15,12 +15,12 @@ final class AddUserLocale extends AbstractMigration
         ])
             ->addColumn('foodsaver_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('option_type', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'foodsaver_id',
                 'comment' => 'category of the option',

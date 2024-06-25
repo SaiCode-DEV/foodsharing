@@ -13,7 +13,7 @@
         v-b-tooltip="$i18n('dashboard.homeRegion', {region: entry.name})"
         class="icon-subnav fas fa-home"
       />
-      <span v-html="entry.name" />
+      <span v-text="entry.name" />
     </button>
     <h6
       v-if="isAlone"

@@ -10,12 +10,15 @@
     />
     <div class="flex-grow-1 d-flex flex-column justify-content-between">
       <div class="alignt-self-start">
-        <h4 v-if="title" v-html="title" />
+        <h4 v-if="title" v-text="title" />
+        <!-- eslint-disable vue/no-v-html -->
+        <!-- Sanitized in src/Modules/Content/ContentGateway.php get() -->
         <p
           v-if="description"
           class="description mb-1 w-md-50"
           v-html="description"
         />
+        <!-- eslint-enable -->
       </div>
       <div
         v-if="links.length > 0"
@@ -26,7 +29,7 @@
           :key="key"
           class="btn btn-sm btn-info font-weight-bold align-self-start mr-2"
           :href="link.urlShortHand ? $url(link.urlShortHand) : link.href"
-          v-html="$i18n(link.text)"
+          v-text="$i18n(link.text)"
         />
       </div>
     </div>

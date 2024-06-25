@@ -1,16 +1,25 @@
 <template>
-  <div class="list-group bg-white mb-2">
+  <div class="list-group bg-white">
     <div
+      v-if="!hideHeader"
       class="list-group-item list-group-header"
+      :class="{ 'notCollapsible' : !collapsible }"
       @click="collapsible ? toggleExpanded() : null"
     >
-      <h5 :class="{ 'expanded': isExpanded }">
-        {{ title }}
+      <slot name="title">
+        <h5 v-text="title" />
         <Info
           v-if="infoKey"
           :info-key="infoKey"
         />
-      </h5>
+        <span class="flex-grow-1" />
+        <i
+          v-if="tooltipKey"
+          v-b-tooltip.hover
+          class="fas fa-info-circle fa-fw"
+          :title="tooltipKey"
+        />
+      </slot>
       <i
         v-if="collapsible"
         :id="`expand-${title}`"
@@ -19,19 +28,25 @@
         :class="{ 'fa-rotate-180': isExpanded }"
       />
     </div>
-    <slot v-if="isExpanded" />
-    <button
-      v-if="isExpanded && isToggleVisible && !isToggled"
-      class="list-group-item small list-group-item-secondary list-group-item-action list-group-item-action-toggle font-weight-bold text-center"
-      @click="showFullList"
-      v-text="$i18n('globals.show_more')"
-    />
-    <button
-      v-else-if="isExpanded && isToggled"
-      class="list-group-item small list-group-item-action list-group-item-action-toggle font-weight-bold text-center"
-      @click="reduceList"
-      v-text="$i18n('globals.show_less')"
-    />
+    <slot v-if="isExpanded && !wrapContent" />
+    <div v-if="isExpanded && wrapContent" :class="wrapperClasses">
+      <slot />
+    </div>
+
+    <template v-if="isExpanded && isToggleVisible">
+      <button
+        v-if="!isToggled"
+        class="list-group-item small list-group-item-secondary list-group-item-action list-group-item-action-toggle font-weight-bold text-center"
+        @click="showFullList"
+        v-text="$i18n('globals.show_more')"
+      />
+      <button
+        v-else
+        class="list-group-item small list-group-item-action list-group-item-action-toggle font-weight-bold text-center"
+        @click="reduceList"
+        v-text="$i18n('globals.show_less')"
+      />
+    </template>
   </div>
 </template>
 
@@ -46,8 +61,14 @@ export default {
     title: { type: String, default: 'title' },
     toggleVisiblity: { type: Boolean, default: false },
     containerIsExpanded: { type: Boolean, default: true },
+
+    // Wraps the content placed in the conainers default slot in a `div.list-group-item` wrapper if given a truthy value.
+    // Further classes to wrap the content with can be given as a string.
+    wrapContent: { type: [Boolean, String], default: false },
+    hideHeader: { type: Boolean, default: false },
     collapsible: { type: Boolean, default: true },
     infoKey: { type: String, default: '' },
+    tooltipKey: { type: String, default: '' },
   },
   data () {
     return {
@@ -58,6 +79,9 @@ export default {
   computed: {
     isToggleVisible () {
       return this.toggleVisiblity
+    },
+    wrapperClasses () {
+      return 'list-group-item ' + (typeof this.wrapContent === 'string' ? this.wrapContent : '')
     },
   },
   created () {
@@ -73,12 +97,15 @@ export default {
   methods: {
     toggleExpanded () {
       this.setExpanded(!this.isExpanded)
+      this.$emit(this.isExpanded ? 'expand' : 'reduce')
     },
     getExpanded () {
+      if (this.tag === null) return null
       return JSON.parse(localStorage.getItem(`expanded_${this.tag}`))
     },
     setExpanded (state) {
       this.isExpanded = state
+      if (this.tag === null) return
       localStorage.setItem(`expanded_${this.tag}`, JSON.stringify(state))
     },
     showFullList () {
@@ -103,10 +130,7 @@ export default {
 .list-group {
   min-width: 250px;
   margin-bottom: 1rem;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
+  height: fit-content;
 }
 
 .list-group-header {
@@ -183,5 +207,9 @@ export default {
 
 .list-group-item-action-toggle {
   border-top-width: 1px;
+}
+
+.notCollapsible {
+  cursor: unset;
 }
 </style>

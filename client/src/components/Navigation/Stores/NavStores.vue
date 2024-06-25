@@ -27,7 +27,7 @@
           />
           <span
             class="text-truncate"
-            v-html="$i18n(store.name)"
+            v-text="$i18n(store.name)"
           />
         </button>
         <b-collapse
@@ -105,15 +105,15 @@ export default {
           list: DataStores.getters.getManaging(),
         },
         {
+          icon: 'fa-shopping-cart',
+          name: 'dashboard.my.stores',
+          list: DataStores.getters.getOthers(),
+        },
+        {
           icon: 'fa-people-carry',
           tooltip: 'store.tooltip_jumping',
           name: 'dashboard.my.jumping_stores',
           list: DataStores.getters.getJumping(),
-        },
-        {
-          icon: 'fa-shopping-cart',
-          name: 'dashboard.my.stores',
-          list: DataStores.getters.getOthers(),
         },
       ].filter(e => e.list.length > 0)
     },

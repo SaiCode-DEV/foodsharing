@@ -22,7 +22,7 @@ final class FeatureTogglesController extends FoodsharingController
     ): Response {
         $this->pageHelper->addTitle('FeatureToggle Management');
 
-        if (!$hasPermissionToManageFeatureTogglesQuery->execute($this->session)) {
+        if (!$hasPermissionToManageFeatureTogglesQuery->execute($this->session, $this->currentUserUnits)) {
             $this->routeHelper->goLoginAndExit();
         }
 

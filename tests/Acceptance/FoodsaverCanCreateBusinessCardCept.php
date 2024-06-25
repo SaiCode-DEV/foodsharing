@@ -35,7 +35,7 @@ function convertId($text)
 
     $I->login($foodsaver['email']);
 
-    $I->amOnPage('/?page=bcard');
+    $I->amOnPage('/user/current/settings?sub=bcard');
     $sanitizedId = $idHelper->makeId('businesscard-options');
     $I->selectOption($sanitizedId, 'Foodsaver*in für ' . $region['name']);
 }

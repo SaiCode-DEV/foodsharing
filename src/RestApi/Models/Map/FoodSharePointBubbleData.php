@@ -44,6 +44,13 @@ class FoodSharePointBubbleData
     )]
     public readonly string $city;
 
+    #[OA\Property(
+        description: 'Path of the header picture of the point or null',
+        type: 'string',
+        example: '/img/foodSharePointHead.jpg'
+    )]
+    public readonly ?string $picture;
+
     public function __construct(array $foodSharePoint)
     {
         $this->name = $foodSharePoint['name'];
@@ -51,5 +58,6 @@ class FoodSharePointBubbleData
         $this->street = $foodSharePoint['anschrift'];
         $this->zipCode = $foodSharePoint['plz'];
         $this->city = $foodSharePoint['ort'];
+        $this->picture = $foodSharePoint['picture'];
     }
 }

@@ -75,8 +75,6 @@ class ContentController extends FoodsharingController
         }
 
         if ($this->identificationHelper->getAction('neu')) {
-            $this->handleAdd();
-
             $this->pageHelper->addBread($this->translator->trans('content.bread'), '/content');
             $this->pageHelper->addBread($this->translator->trans('content.new'));
 
@@ -147,6 +145,7 @@ class ContentController extends FoodsharingController
     public function releaseNotes(): Response
     {
         $releaseIds = [
+            '2024-07',
             '2024-04',
             '2024-01',
             '2023-09',
@@ -220,44 +219,11 @@ class ContentController extends FoodsharingController
                 ]),
                 $this->translator->trans('content.content')
             ),
-            '<a class="button btn btn-primary" onclick="_editContent(' . $contentId . ');return false;">' . $this->translator->trans('button.save') . '</a>'
+            '<a class="button btn btn-primary" onclick="_addOrEditContent(' . $contentId . ');return false;">' . $this->translator->trans('button.save') . '</a>'
         ], [
             'submit' => false,
             'action' => '#'
         ]);
-    }
-
-    private function handleEdit(): void
-    {
-        global $g_data;
-        if ($this->submitted()) {
-            $g_data['last_mod'] = date('Y-m-d H:i:s');
-            if ($this->contentGateway->update($_GET['id'], $g_data)) {
-                $this->flashMessageHelper->success($this->translator->trans('content.edit_success'));
-                $this->routeHelper->goAndExit('/content?a=edit&id=' . (int)$_GET['id']);
-            } else {
-                $this->flashMessageHelper->error($this->translator->trans('error_unexpected'));
-            }
-        }
-    }
-
-    private function handleAdd(): void
-    {
-        global $g_data;
-        if ($this->submitted()) {
-            $g_data['last_mod'] = date('Y-m-d H:i:s');
-            if ($this->contentGateway->create($g_data)) {
-                $this->flashMessageHelper->success($this->translator->trans('content.new_success'));
-                $this->routeHelper->goPageAndExit();
-            } else {
-                $this->flashMessageHelper->error($this->translator->trans('error_unexpected'));
-            }
-        }
-    }
-
-    private function submitted(): bool
-    {
-        return !empty($_POST);
     }
 
     private function getNotes(string $filename): string

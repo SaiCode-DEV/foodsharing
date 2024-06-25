@@ -4,9 +4,9 @@ namespace Foodsharing\Permissions;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
-use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 class ReportPermissions
 {
@@ -15,7 +15,8 @@ class ReportPermissions
 
     public function __construct(
         Session $session,
-        GroupFunctionGateway $groupFunctionGateway
+        GroupFunctionGateway $groupFunctionGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
         $this->session = $session;
         $this->groupFunctionGateway = $groupFunctionGateway;
@@ -36,7 +37,7 @@ class ReportPermissions
         $reportGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::REPORT);
 
         if (!empty($reportGroup)) {
-            if ($this->session->isAdminFor($reportGroup)) {
+            if ($this->currentUserUnits->isAdminFor($reportGroup)) {
                 return true;
             }
         }
@@ -44,13 +45,12 @@ class ReportPermissions
         $arbitrationGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::ARBITRATION);
 
         if (!empty($arbitrationGroup)) {
-            if ($this->session->isAdminFor($arbitrationGroup)) {
+            if ($this->currentUserUnits->isAdminFor($arbitrationGroup)) {
                 return true;
             }
         }
 
-        // ToDo: Need to check that regionId is a subgroup of europe. implied for now.
-        return $this->session->isAdminFor(RegionIDs::EUROPE_REPORT_TEAM);
+        return false;
     }
 
     public function mayAccessArbitrationReports(int $regionId): bool
@@ -62,13 +62,12 @@ class ReportPermissions
         $arbitrationGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::ARBITRATION);
 
         if (!empty($arbitrationGroup)) {
-            if ($this->session->isAdminFor($arbitrationGroup)) {
+            if ($this->currentUserUnits->isAdminFor($arbitrationGroup)) {
                 return true;
             }
         }
 
-        // ToDo: Need to check that regionId is a subgroup of europe. implied for now.
-        return $this->session->isAdminFor(RegionIDs::EUROPE_REPORT_TEAM);
+        return false;
     }
 
     public function mayAccessReportGroupReports(int $regionId): bool
@@ -80,23 +79,16 @@ class ReportPermissions
         $reportGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::REPORT);
 
         if (!empty($reportGroup)) {
-            if ($this->session->isAdminFor($reportGroup)) {
+            if ($this->currentUserUnits->isAdminFor($reportGroup)) {
                 return true;
             }
         }
 
-        // ToDo: Need to check that regionId is a subgroup of europe. implied for now.
-        return $this->session->isAdminFor(RegionIDs::EUROPE_REPORT_TEAM);
-    }
-
-    public function mayAccessReportsForSubRegions(): bool
-    {
-        return $this->session->isAdminFor(RegionIDs::EUROPE_REPORT_TEAM);
+        return false;
     }
 
     public function mayHandleReports(): bool
     {
-        // group "Regelverletzungen/Meldungen"
-        return $this->session->mayRole(Role::ORGA) || $this->session->isAdminFor(RegionIDs::EUROPE_REPORT_TEAM);
+        return $this->session->mayRole(Role::ORGA);
     }
 }

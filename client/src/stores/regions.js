@@ -3,7 +3,6 @@ import { joinRegion, listRegionChildren, listRegionMembers } from '@/api/regions
 import { url } from '@/helper/urls'
 
 export const REGION_UNIT_TYPE = Object.freeze({
-  UNDEFINED: 0,
   CITY: 1,
   DISTRICT: 2,
   REGION: 3,
@@ -12,6 +11,21 @@ export const REGION_UNIT_TYPE = Object.freeze({
   WORKING_GROUP: 7,
   BIG_CITY: 8,
   PART_OF_TOWN: 9,
+})
+
+export const WORKGROUP_FUNCTION = Object.freeze({
+  WELCOME: 1,
+  VOTING: 2,
+  FSP: 3,
+  STORES_COORDINATION: 4,
+  REPORT: 5,
+  MEDIATION: 6,
+  ARBITRATION: 7,
+  FSMANAGEMENT: 8,
+  PR: 9,
+  MODERATION: 10,
+  BOARD: 11,
+  ELECTION: 12,
 })
 
 export const store = Vue.observable({
@@ -33,6 +47,7 @@ export const SUB_PAGE = Object.freeze({
   WALL: 'wall',
   APPLICATIONS: 'applications',
   OPTIONS: 'options',
+  ACHIEVEMENTS: 'achievements',
 })
 
 export const getters = {

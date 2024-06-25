@@ -335,40 +335,6 @@ export function closeBox () {
   $.fancybox.close()
 }
 
-export function u_loadCoords (addressdata, func) {
-  let anschrift = ''
-  if (addressdata.str != undefined) {
-    anschrift = `${addressdata.str}`
-  } else {
-    const tmp = addressdata.anschrift.split('/')
-    anschrift = tmp[0]
-  }
-  const address = encodeURIComponent(`${anschrift}, ${addressdata.plz}, ${addressdata.stadt}, Germany`)
-
-  const url = `https://search.mapzen.com/v1/search?text=${address}`
-
-  showLoader()
-  $(function () {
-    $.getJSON(url,
-      function (data) {
-        if (data.features) {
-          for (let i = 0; i < data.features.length; i++) {
-            if (data.features[i].properties.postalcode == addressdata.plz) {
-              $('#pulse-error').hide()
-              hideLoader()
-              func(data.features[i].geometry.coordinates[0], data.features[i].geometry.coordinates[1])
-              return true
-            }
-          }
-        }
-
-        hideLoader()
-
-        pulseError('<strong>Die Koordinaten konnten nicht berechnet werden</strong><br />sind alle Eingaben Richtig? Ohne Koordinaten wird die Adresse nicht auf der Karte zu sehen sein')
-      })
-  })
-}
-
 export function showLoader () {
   $.fancybox.showLoading()
 }

@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Event;
 
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Event\DTO\Event;
 
 class EventGateway extends BaseGateway
 {
@@ -17,10 +18,8 @@ class EventGateway extends BaseGateway
 			SELECT
 				e.id,
 				e.name,
-				e.start,
-				UNIX_TIMESTAMP(e.start) AS start_ts,
-				e.end,
-				UNIX_TIMESTAMP(e.end) AS end_ts
+				e.start as startDate,
+				e.end as endDate
 			FROM
 				fs_event e
 			WHERE
@@ -30,78 +29,31 @@ class EventGateway extends BaseGateway
 		', [':regionId' => $regionId]);
     }
 
-    public function getEvent(int $eventId, bool $withAttendees = false): ?array
+    public function getEvent(int $eventId): ?Event
     {
         $event = $this->db->fetch('
 			SELECT
-				e.id,
-				fs.id AS fs_id,
-				fs.name AS fs_name,
-				fs.photo AS fs_photo,
-				e.bezirk_id,
-				e.location_id,
-				e.name,
-				e.`start`,
-				UNIX_TIMESTAMP(e.start) AS start_ts,
-				e.`end`,
-				UNIX_TIMESTAMP(e.end) AS end_ts,
-				e.description,
-				e.bot,
-				e.online,
-				e.public
-			FROM
-				fs_event e,
-				fs_foodsaver fs
-			WHERE
-				e.foodsaver_id = fs.id
-			AND
-				e.id = :eventId
+				e.id, e.foodsaver_id, e.bezirk_id, e.name, e.description, e.online, e.`start`, e.`end`,
+                l.name as location_details, l.lat, l.lon, l.zip, l.city, l.street
+			FROM fs_event e
+            LEFT OUTER JOIN fs_location l ON e.location_id = l.id
+			WHERE e.id = :eventId
 		', [':eventId' => $eventId]);
 
-        if (!$event) {
-            return null;
-        }
-
-        if ($withAttendees) {
-            $event['invites'] = $this->getEventAttendees($eventId);
-        }
-
-        if ($event['location_id'] === null) {
-            $event['location'] = false;
-        } else {
-            $event['location'] = $this->getLocation($event['location_id']);
-        }
-
-        return $event;
+        return $event ? Event::createFromArray($event) : null;
     }
 
-    public function getLocation(int $locationId)
+    public function getEventAuthor(int $eventId): int
     {
-        return $this->db->fetch('
-			SELECT id, name, lat, lon, zip, city, street
-			FROM   fs_location
-			WHERE  id = :locationId
-		', [':locationId' => $locationId]);
+        return $this->db->fetchValueById('fs_event', 'foodsaver_id', $eventId);
     }
 
-    public function addLocation(string $locationName, float $lat, float $lon, string $address, string $zip, string $city): int
-    {
-        return $this->db->insert('fs_location', [
-            'name' => strip_tags($locationName),
-            'lat' => round($lat, 8),
-            'lon' => round($lon, 8),
-            'zip' => strip_tags($zip),
-            'city' => strip_tags($city),
-            'street' => strip_tags($address),
-        ]);
-    }
-
-    private function getEventAttendees($eventId)
+    public function getEventAttendees($eventId): array
     {
         $invites = $this->db->fetchAll('
 			SELECT 	fs.id,
 					fs.name,
-					fs.photo,
+					fs.photo as avatar,
 					fhe.status
 			FROM
 				`fs_foodsaver_has_event` fhe,
@@ -118,14 +70,12 @@ class EventGateway extends BaseGateway
         $out = [
             'accepted' => [],
             'maybe' => [],
-            'may' => []
         ];
-        foreach ($invites as $i) {
-            $out['may'][$i['id']] = true;
-            if ($i['status'] == InvitationStatus::ACCEPTED) {
-                $out['accepted'][] = $i;
-            } elseif ($i['status'] == InvitationStatus::MAYBE) {
-                $out['maybe'][] = $i;
+        foreach ($invites as $invite) {
+            if ($invite['status'] == InvitationStatus::ACCEPTED) {
+                $out['accepted'][] = $invite;
+            } elseif ($invite['status'] == InvitationStatus::MAYBE) {
+                $out['maybe'][] = $invite;
             }
         }
 
@@ -169,39 +119,51 @@ class EventGateway extends BaseGateway
 		', ['fs_id' => $userId]);
     }
 
-    public function addEvent(int $creatorId, array $event): int
+    public function addLocation(Event $event): int
     {
-        $extracted_event = [
-            'foodsaver_id' => $creatorId,
-            'bezirk_id' => $event['bezirk_id'],
-            'location_id' => $event['location_id'],
-            'name' => $event['name'],
-            'start' => $event['start'],
-            'end' => $event['end'],
-            'description' => $event['description'],
-            'bot' => 0,
-            'online' => $event['online'],
-        ];
-
-        return $this->db->insert('fs_event', $extracted_event);
+        return $this->db->insert('fs_location', [
+            'name' => $event->locationDetails,
+            'lat' => isset($event->location) ? round($event->location->lat, 8) : null,
+            'lon' => isset($event->location) ? round($event->location->lon, 8) : null,
+            'zip' => isset($event->address) ? $event->address->zipCode : null,
+            'city' => isset($event->address) ? $event->address->city : null,
+            'street' => isset($event->address) ? $event->address->street : null,
+        ]);
     }
 
-    public function updateEvent(int $eventId, array $event): bool
+    public function deleteCurrentLocation(Event $event): void
     {
-        $extracted_event = [
-            'bezirk_id' => $event['bezirk_id'],
-            'location_id' => $event['location_id'],
-            'name' => $event['name'],
-            'start' => $event['start'],
-            'end' => $event['end'],
-            'description' => $event['description'],
-            'online' => $event['online'],
-        ];
+        $locationId = $this->db->fetchValueById('fs_event', 'location_id', $event->id);
+        $this->db->update('fs_event', ['location_id' => null], ['id' => $event->id]);
+        $this->db->delete('fs_location', ['id' => $locationId]);
+    }
 
-        $this->db->requireExists('fs_event', ['id' => $eventId]);
-        $this->db->update('fs_event', $extracted_event, ['id' => $eventId]);
+    public function addEvent(int $creatorId, Event $event, ?int $locationId): int
+    {
+        return $this->db->insert('fs_event', [
+            'foodsaver_id' => $creatorId,
+            'bezirk_id' => $event->regionId,
+            'location_id' => $locationId,
+            'name' => $event->name,
+            'start' => date('Y-m-d H:i:s', $event->startDate->getTimestamp()),
+            'end' => date('Y-m-d H:i:s', $event->endDate->getTimestamp()),
+            'description' => $event->description,
+            'bot' => 0, // deprecated, remove column!
+            'online' => $event->type->value,
+        ]);
+    }
 
-        return true;
+    public function updateEvent(Event $event, ?int $locationId): void
+    {
+        $this->db->update('fs_event', [
+            'bezirk_id' => $event->regionId,
+            'location_id' => $locationId,
+            'name' => $event->name,
+            'start' => date('Y-m-d H:i:s', $event->startDate->getTimestamp()),
+            'end' => date('Y-m-d H:i:s', $event->endDate->getTimestamp()),
+            'description' => $event->description,
+            'online' => $event->type->value,
+        ], ['id' => $event->id]);
     }
 
     public function deleteInvitesForFoodSaver(int $regionId, int $foodsaverId): int

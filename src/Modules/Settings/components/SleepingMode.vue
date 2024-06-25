@@ -1,90 +1,84 @@
 <template>
-  <div class="settings-calendar">
-    <div class="head ui-widget-header">
-      {{ $i18n('settings.sleep.header') }}
+  <div>
+    <div
+      class="alert alert-secondary"
+      role="alert"
+    >
+      {{ $i18n('settings.sleep.info') }}
     </div>
 
-    <div class="ui-widget-content corner-bottom margin-bottom ui-padding">
+    <label>{{ $i18n('settings.sleep.status') }}</label>
+    <b-form-select
+      v-model="currentSleepStatus"
+      :options="sleepingOptions"
+    />
+
+    <div
+      v-if="currentSleepStatus === SLEEP_STATUS.TEMP"
+      class="pt-4"
+    >
+      <label>{{ $i18n('settings.sleep.range') }}</label>
+      <b-row>
+        <b-col
+          cols="12"
+          lg="6"
+        >
+          <label>{{ $i18n('settings.sleep.from') }}</label>
+          <b-form-datepicker
+            v-model="currentSleepFrom"
+            :min="new Date()"
+            v-bind="labelsCalendar || {}"
+            :locale="locale"
+            :state="isSleepDateValid(currentSleepFrom)"
+            class="mb-2"
+          />
+        </b-col>
+        <b-col
+          cols="12"
+          lg="6"
+        >
+          <label>{{ $i18n('settings.sleep.until') }}</label>
+          <b-form-datepicker
+            v-model="currentSleepUntil"
+            v-bind="labelsCalendar || {}"
+            :min="new Date(currentSleepFrom) > new Date() ? new Date(currentSleepFrom) : new Date()"
+            :locale="locale"
+            :state="isSleepDateValid(currentSleepUntil)"
+            class="mb-2"
+          />
+        </b-col>
+      </b-row>
+    </div>
+
+    <div
+      v-if="currentSleepStatus > SLEEP_STATUS.NONE"
+      class="pt-4"
+    >
+      <label>{{ $i18n('settings.sleep.message') }}</label>
+      <b-form-textarea
+        id="textarea"
+        v-model="currentSleepMessage"
+        rows="3"
+        max-rows="6"
+      />
+    </div>
+
+    <div class="pt-4">
       <div
-        class="alert alert-secondary"
+        class="alert alert-warning"
         role="alert"
       >
-        {{ $i18n('settings.sleep.info') }}
+        {{ $i18n('settings.sleep.show') }}
       </div>
-
-      <label>{{ $i18n('settings.sleep.status') }}</label>
-      <b-form-select
-        v-model="currentSleepStatus"
-        :options="sleepingOptions"
-      />
-
-      <div
-        v-if="currentSleepStatus === SLEEP_STATUS.TEMP"
-        class="pt-4"
-      >
-        <label>{{ $i18n('settings.sleep.range') }}</label>
-        <b-row>
-          <b-col
-            cols="12"
-            lg="6"
-          >
-            <label>{{ $i18n('settings.sleep.from') }}</label>
-            <b-form-datepicker
-              v-model="currentSleepFrom"
-              :min="new Date()"
-              v-bind="labelsCalendar || {}"
-              :locale="locale"
-              :state="isSleepDateValid(currentSleepFrom)"
-              class="mb-2"
-            />
-          </b-col>
-          <b-col
-            cols="12"
-            lg="6"
-          >
-            <label>{{ $i18n('settings.sleep.until') }}</label>
-            <b-form-datepicker
-              v-model="currentSleepUntil"
-              v-bind="labelsCalendar || {}"
-              :min="new Date(currentSleepFrom) > new Date() ? new Date(currentSleepFrom) : new Date()"
-              :locale="locale"
-              :state="isSleepDateValid(currentSleepUntil)"
-              class="mb-2"
-            />
-          </b-col>
-        </b-row>
-      </div>
-
-      <div
-        v-if="currentSleepStatus > SLEEP_STATUS.NONE"
-        class="pt-4"
-      >
-        <label>{{ $i18n('settings.sleep.message') }}</label>
-        <b-form-textarea
-          id="textarea"
-          v-model="currentSleepMessage"
-          rows="3"
-          max-rows="6"
-        />
-      </div>
-
-      <div class="pt-4">
-        <div
-          class="alert alert-warning"
-          role="alert"
-        >
-          {{ $i18n('settings.sleep.show') }}
-        </div>
-      </div>
-
-      <b-button
-        :disabled="!sendButtonIsValid()"
-        variant="primary"
-        @click="trySetSleepStatus"
-      >
-        {{ $i18n('globals.save') }}
-      </b-button>
     </div>
+
+    <b-button
+      :disabled="!sendButtonIsValid()"
+      variant="primary"
+      @click="trySetSleepStatus"
+    >
+      {{ $i18n('globals.save') }}
+    </b-button>
   </div>
 </template>
 

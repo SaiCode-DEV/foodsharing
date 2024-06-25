@@ -20,6 +20,21 @@ export function updateGroup (groupId, name, description, photo, applyType, requi
   })
 }
 
+export function sendMail (groupId, message) {
+  return post(`/groups/${groupId}/mail`, {
+    message: message,
+  })
+}
+
+export function sendRequest (groupId, motivation, ability, experience, selectedTime) {
+  return post(`/groups/${groupId}/request`, {
+    motivation: motivation,
+    ability: ability,
+    experience: experience,
+    selectedTime: selectedTime,
+  })
+}
+
 export function listPolls (groupId) {
   return get(`/groups/${groupId}/polls`)
 }

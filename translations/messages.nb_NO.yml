@@ -155,8 +155,8 @@ poll:
     description_required: Vennligst skriv inn en beskrivelse.
     shuffle_options: Vis alternativene i tilfeldig rekkefølge når du stemmer
     options: Alternativer som bør være tilgjengelige for valg.
-    submit_question: Avstemningen kan endres innen én time (til {date}). Vil du virkelig
-      lage den nå?
+    submit_question: Avstemningen kan endres til den starter. Vil du virkelig lage
+      den nå?
   submit_vote: Send inn stemme
   in_past: fullført
   time_period: Periode
@@ -245,24 +245,21 @@ email_template:
   newsletter:
     linktext: Klikk her for å avslutte abonnementet.
     unsubscribe: Ønsker du ikke lenger å motta vårt nyhetsbrev?
-  yourFSteam: ditt foodsharing-team
   you_responsible:
     part1: Du er ansvarlig for
     part2: Dessverre er det ingen som har meldt seg på neste samling.
-  unknown_email2: E-postadressen %ADDRESS% er ukjent.
+  unknown_email2: "E-postadressen %ADDRESS% er ukjent.\nVær oppmerksom på at BCC-e-poster
+    ikke kan leveres til domenet @foodsharing.network."
   confirm_link: vil gjerne publisere temaet
   request_from: Forespørsel fra
   confirm_topic: 'Tråden trenger godkjenning:'
   login: Logg inn for å svare
   slot_empty: Ingen har ennå registrert seg for den neste samlingen fra %BETRIEB%
-  withlove: Mye kjærlighet,
   unknown_email: Ukjent e-postadresse
   foodbasket_request: Matkurven din ble etterspurt av %SENDER%
   manual_slots_get_ignored: Dette varselet sendes for øyeblikket hvis ingen har registrert
     seg for de vanlige hentetidene. Individuelle tilleggsdatoer samt overskrevne eller
-    slettede plasser er ennå ikke tatt i betraktning. For å slutte å motta dette varselet,
-    fjern eventuelle vanlige hentetider som ikke lenger er nødvendige i anleggets
-    hentekonfigurasjon.
+    slettede plasser er ennå ikke tatt i betraktning.
   find_someone: Ta vare på noen fra ditt driftsteam så snart som mulig slik at henting
     kan finne sted. Hvis du ikke kan mobilisere noen, ville det vært fint om du kunne
     hente dem. Dersom dette ikke er mulig for deg, vennligst avbestill avtalen med
@@ -346,6 +343,10 @@ region:
     bigcity: Stor by (uten registreringsalternativ)
     city: By
     title: Distriktstype
+    big_city: Storby (uten registreringsmulighet)
+    federal_state: Føderalstat
+    working_group: Arbeidsgruppe
+    part_of_town: Nabolag
   new: Nytt distrikt
   delete: Slette distrikt
   none: Ingen distrikt er valgt ennå
@@ -366,13 +367,23 @@ region:
     for minst ett selskap der.
   bread: Administrere distrikter
   noParent: Uten foreldredistrikter
-  confirm: Er du sikker på at du vil lagre endringene i distriktet?
+  confirm:
+    edit: Er du sikker på at du vil lagre endringene i distriktet {name}?
+    create: Er du sikker på at du vil opprette distriktet {name}?
+    delete: Er du sikker på at du vil slette distrikt {name}?
   not-member: Du er ikke medlem av denne regionen eller arbeidsgruppen.
   restricted: Dessverre er du ikke autorisert til å se disse dataene.
   no-huge: Beklager, du kan ikke velge land eller stat som region.
   created: '{region} ble opprettet'
   forum-redirect: Det er ingen anslagstavle for regioner. Du har blitt omdirigert
     til forumet.
+  createNew: Opprett nytt distrikt
+  mailbox: Postkassenavn
+  select: Velg distrikt for å redigere
+  root: Ingen (rot)
+  name: Navn
+  parent: Foreldredistrikt
+  master: Mesterdistrikt
 menu:
   entry:
     donations: Donasjoner
@@ -511,7 +522,7 @@ basket:
   no_requests: Ingen henvendelser så langt
   request: Be om matkurv
   request-fs: Be om matkurv på vår hjemmeside for foodsharing
-  n_requests: 'Requests so far: <strong>{count}</strong>'
+  n_requests: 'Tidligere henvendelser:'
   state:
     okay: Ja, {pronoun} hentet matkurven.
     gone: Dagligvarene ble hentet av noen andre.
@@ -542,7 +553,7 @@ basket:
   request_close: Lukk forespørsel om matkurv
   send_request: Send forespørsel
   withdraw_request: Trekke tilbake forespørselen
-  expires: Gyldig til <strong>{date}</strong>
+  expires: Gyldig til
   withdrawn_request: Forespørselen ble trukket tilbake
   go-to-settings: til innstillingene
   sent_request: Forespørsel er sendt
@@ -661,8 +672,8 @@ dashboard:
   greeting_short: Hei {name}!
   invitation: Du ble invitert
   invitationCount: Du ble invitert ({count})
-  full_subline: Du hentet dagligvarer <b>{pickups} ganger</b>, og sparte <b>{weight} kg</b>.
-    Hjemmedistriktet ditt er <b>{region}</b>.
+  full_subline: Du hentet dagligvarer **{pickups} ganger**, og sparte **{weight} kg**.
+    Hjemmedistriktet ditt er **{region}**.
   eventCount: Neste hendelser ({count})
   polls: Dine pågående avstemninger
   release:
@@ -732,8 +743,10 @@ profile:
   stats:
     posts: Foruminnlegg
     baskets: Matkurver
-    weight: lagret
+    weight: kg lagret
     count: plukket opp
+    bananas: Bananer
+    fetch_count: plukket opp
   infos:
     buddycount1: '{name} kjenner {count} Foodsaver'
     buddycount: '{name} kjenner {count} Foodsaver'
@@ -763,14 +776,15 @@ profile:
     noActor: ukjent
     actionBy: gjennom
   nav:
-    violations: Klager <strong>({count})</strong>
-    notes: Merknader <strong>({count})</strong>
+    violations: Klager
+    notes: Merknader
     buddy: Jeg kjenner {name}
     edit: Rediger profil
     verificationHistory: Verifikasjonshistorikk
     history: Pass historikk
     storelist: Selskaper ({count})
     remove_buddy: Jeg kjenner ikke {name} lenger
+    quizSessionHistory: Quizforsøk
   banana:
     remove:
       confirm_title: Fjern banan
@@ -903,8 +917,7 @@ profile:
     noshow: Personen kom ikke
     kindofreport: Vennligst velg type melding
     late: Personen kom for sent
-    readup: "Du kan lese om hvordan du behandler en klage her: <a href=\"https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.
-      29_Bearbeitung_einer_Meldung\">Behandling av rapport</a>"
+    readup: "Du kan lese om hvordan du behandler en klage her: [Behandling av rapport](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)"
     inthisblog: i dette blogginnlegget
     cancellation: Hyppige kanselleringer av samlinger på kort varsel uten å lete etter
       en erstatning
@@ -914,7 +927,7 @@ profile:
   go: Gå til profilsiden
   workgroups_member: Du og {name} er i følgende arbeidsgrupper
   sleepinfo: '{name} er inaktiv fra {from} til {until}'
-  sleeping: '{name} er inaktiv på ubestemt tid'
+  sleeping: 'er inaktiv på ubestemt tid'
   commitments_stat:
     eventsCreatedWeek: 'Takk for at du opprettet arrangementer {count} ganger denne
       uken.'
@@ -951,7 +964,32 @@ profile:
     personens navn. Vennligst ikke bruk dette feltet til å lagre ytterligere informasjon
     om brukeren, for eksempel gjennomføring av hygieneopplæring eller lignende. I
     stedet kan arbeidsgrupper brukes til å utføre slike oppdrag. Ytterligere informasjon
-    om dette finner du i <a href="/region?bid=881&sub=forum&tid=58225">ambassadørforumet</a>
+    om dette finner du i [ambassadørforumet](/region?bid=881&sub=forum&tid=58225)
+  sections:
+    ambassador_for: for
+    no_common_workgroups: ingen felles arbeidsgruppe
+    home_region_from: Hjemdistrikt
+    orga_rights: 'Som organisasjonsperson har ##### [omfattende tillatelser]({wikiurl})
+      på plattformen.'
+    foodSaver_in_region: Matsparer for
+    workgroups_admin: er kontaktperson for grupper
+    workgroups_member: sammen i følgende arbeidsgrupper
+  stores:
+    memberState:
+      filterActive: Medlem
+      filterAll: alle
+      filterRequested: forespørsel gjort
+      filterManage: SO
+      filterJumper: Innbytter
+    search_placeholder: Søk etter navn
+    store_table: Driftsliste
+  sleeping_info_from_until: er inaktiv fra {from} til {until}
+  tab_navigation:
+    pickups: Pickuper
+    profile: Brukerprofil
+    commitment_statistics: Engasjementsstatistikk
+    stores: Bedrifter ({count})
+    notes: Merknader ({count})
 settings:
   photo:
     title: Bildet ditt
@@ -1063,9 +1101,8 @@ settings:
       <a href="{link}">støtteskjema</a>.
     foodsaver_info: For å endre navn må du kontakte en ambassadør fra ditt hjemdistrikt.
       Denne personen kan deretter endre navnet for deg.<hr>Du kan se hvem som er ambassadør
-      i ditt hjemdistrikt i <a href="{link}">forumet til distriktet ditt</a> i venstre
-      sidefelt.
-    desc: Du kan ikke endre ditt eget navn selv. Du kan imidlertid be om en <a href="{link}">navneendring</a>.
+      i ditt hjemdistrikt i [forumet til distriktet ditt]({link}) i venstre sidefelt.
+    desc: Du kan ikke endre ditt eget navn selv. Du kan imidlertid be om en [navneendring]({link}).
     title: Navn (for- og etternavn)
   passport:
     menu: Medlemskort
@@ -1076,6 +1113,18 @@ settings:
     non_verified_text: Du er ennå ikke bekreftet. Bare verifiserte matsparere har
       lov til å laste ned passet sitt.
     button: Last ned ID-kort
+  no_rights: Du er ikke autorisert til å endre profilinnstillingene.
+  general:
+    current_address: Nåværende adresse
+    phone: Fasttelefonnummeret ditt
+  quiz:
+    1: Quiz for matsparere
+    2: Quiz for samarbeidsansvarlige
+    3: Quiz for ambassadører
+  delete_profile: Slett profilen
+  address:
+    title: Velg adresse
+    choose: Godta adresse
 mailbox:
   date: Dato
   recipient: Mottaker
@@ -1151,11 +1200,17 @@ mailbox:
   reply_all: Svar alle
   show_html_body: Vis HTML-kode
   mark_none: Merk ingen
+  forward_attachment_warning: Vedlegg kan for øyeblikket ikke videresendes. Hvis du
+    vil videresende e-posten med vedlegg, kan du laste ned vedleggene og legge dem
+    ved den nye e-posten.
+  forward: Framover
 map:
   title: Kart
   donates: Selskapet donerer
   filters:
     my_stores: Kun mine bedrifter
+  foodsharepoint:
+    go: til distribusjonsstasjonen
 content:
   content: innhold
   bread: alle sider
@@ -1216,6 +1271,10 @@ foodsaver:
       av det globale orga-laget så raskt som mulig.
     ad_fs: Jeg vil ta matredder-quiz-en og bli en matredder!
     learning: Se forklaringsvideoen nå
+    FOODSAVER: Bli en matsparer
+    STORE_MANAGER: Bli samarbeidsoffiser
+    AMBASSADOR: Bli en ambassadør
+    pn: Ja, jeg har lest personvernerklæringen og godtar den.
   kicked: Matredder er fjernet
   bread: Alle matreddere
   actions: Handlinger
@@ -1230,18 +1289,17 @@ foodsaver:
   restricted: Du er ikke autorisert til å se disse dataene.
   your_account: din
   delete_own_account: Du er i ferd med å slette din egen konto. Er du sikker?
-  about_me_intern: "Denne korte beskrivelsen vil vises på profilsiden din\nog er synlig
-    der for alle i matdelingssamfunnet.\n"
+  about_me_intern: "vil vises på profilsiden din og er synlig der for alle i matdelingssamfunnet.\n"
   mailchange_error: Aktivering av den nye e-postadressen din mislyktes. Vær så snill,
     prøv på nytt.
   edit_failure: Ingenting ble endret eller endringer ble ikke lagret
-  about_me_public: "Denne korte beskrivelsen vil bli vist på <a href=\"/team\">teamsiden</a>\n
-    eller på <a href=\"/team/ehemalige\">siden til de tidligere teammedlemmene</a>,
-    hvis du tilhører en av disse gruppene.\n Personer som er oppført der kan sees
-    av alle på internett.\n"
+  about_me_public: "vil bli vist på [teamsiden eller på siden til de tidligere teammedlemmene](/team),
+    hvis du tilhører en av disse gruppene. Personer som er oppført der kan sees av
+    alle på internett.\n"
   delete_account_sure_reason: 'Er du sikker på at du vil slette kontoen til {name}?
     Hvis du vil, kan du gi en grunn her slik at du senere kan forstå hvorfor kontoen
     ble slettet:'
+  delete_account_reason: Årsak til sletting av kontoen
 ageBandList:
   NumberOfAgeband: nummer
   ageBand: Aldersgruppe
@@ -1297,7 +1355,7 @@ bell:
   betrieb_fetch_title: '{betrieb}'
   new_foodsaver_verified_title: '{name} er ny i {bezirk}'
   new_foodsaver_title: '{name} er ny i {bezirk}'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   store_cr_times_title: '{name}'
   store_wallpost_title: '{name}'
   poll_new: '{title}'
@@ -1336,7 +1394,7 @@ bell:
   new_foodsaver: Trenger innledende pickuper
   new_foodsaver_needs_introduction: Trenger innledende pickuper
   passgen_failed: Last opp et bilde, så fungerer det.
-  new_quiz_comment_title: Ny quizkommentar
+  new_quiz_comment_title: 'Kommentar til spørsmål #{questionId}'
   store_new_title: Nytt selskap
   store_wallpost: Nytt innlegg på oppslagstavlen.
   fs_sleepmode_title: Ny nattlue
@@ -1363,6 +1421,14 @@ bell:
   store_change_regular_pickup_times:
     one: Pickup-spor er justert
     many: Pickup-spor er justert
+  event_post_title: Dato {event} i {region}
+  event_post:
+    one: 'Ny kommentar fra {user} '
+    many: '{count} nye kommentarer til «{event}»-arrangementet'
+  workinggroup_new_request: Ny søknad for en arbeidsgruppe
+  internal_email_changed_title: '{address}'
+  workinggroup_new_request_title: '{name}'
+  internal_email_changed: Den personlige e-postadressen din er endret.
 reports:
   when: Tid
   time: Tid
@@ -1433,7 +1499,7 @@ register:
   geb_datum: Fødselsdatoen din
   login_passwd2: Gjenta passord
   login_passwd1: Passord (minst 8 tegn)
-  login_email: Epostadresse
+  login_email: E-postadresse
   requiredFields: Obligatorisk felt
   register_button_label: Registrering
   title: Registrering
@@ -1479,8 +1545,10 @@ register:
   error: Det har oppstått en feil
   account-exists: Du er allerede registrert. Logg ut hvis du vil registrere deg på
     nytt.
-  birthdate_hint: Du kan finne mer informasjon i <a href="/?page=legal" target="_blank">personvernreglene</a>
-    i punkt 2d.
+  birthdate_hint: Du kan finne mer informasjon i [personvernreglene]({url}) i punkt
+    2d.
+  firstname_maxLength: Fornavnet kan kun bestå av maksimalt 30 tegn.
+  lastname_maxLength: Etternavnet kan kun bestå av maksimalt 30 tegn.
 geb_datum: Fødselsdato (ÅÅÅÅ-MM-DD)
 login:
   pwreset:
@@ -1500,7 +1568,7 @@ login:
   login_button_label: Logg Inn
   forgotten_password_label: Glemt passord?
   password: Passord
-  email_address: Epostadresse
+  email_address: E-postadresse
   form_title: Velkommen tilbake
   topbar: Logg Inn
   submit_btn: Logg Inn
@@ -1628,6 +1696,8 @@ group:
     duplicate_election_team: Valggruppe allerede opprettet! Det kan bare være én valggruppe
       per distrikt.
     election: Valg
+    none: Ikke en GOALS-arbeidsgruppe
+    stores_coordination: Bedrifter
   quit: Forlate
   quit_name_district: Forlate distriktet {name}
   quit_name_workgroup: Forlate team {name}
@@ -1661,6 +1731,11 @@ group:
     motivation: Hva er din motivasjon for å delta i gruppen {group}?
     accept: Godta søknaden
     link_description: 'Denne lenken tar deg direkte til applikasjonen:'
+    ability: Hvilke ferdigheter har du på dette området?
+    experience: "Kan du trekke på erfaringer du har gjort andre steder i gruppen?\n
+      I så fall hvor og hvilke?\n"
+    how_much_time: Hvor mange timer i uken har du tid og lyst til å bruke til det?
+    error_missing_time: 'Feil: Ingen tid er valgt.'
   contact:
     send: Sende melding
     sent: Meldingen ble sendt.
@@ -1724,10 +1799,32 @@ group:
     remove_text_group: Er du sikker på at du vil fjerne {name} ({id}) fra arbeidsgruppen?
     remove_text_region: Er du sikker på at du vil fjerne {name} ({id}) fra regionen?
     not_verified: ikke låst opp
+    default:
+      title: Standard
+      lastname: Etternavn
+    passports:
+      title: Medlemskort
+      created_at: Medlemskort opprettet på
+      generate_button: Opprett medlemskort for utvalgte personer
+      never_before: aldri før
+      clear_selection: Tilbakestill alle valgte
+      filter_selection: Filtrer etter utvalgte medlemmer
+      button:
+        verify: bekrefte
+        unverify: ubekrefte
+      verify:
+        do: Bekreft konto for {name} ({id})
+        undo: Avbryt aktivering av {name} ({id})
   saved: Endringene har blitt lagret
   subtitle: her kan du finne hjelp og mye å gjøre …
-  member_count: '{0} ingen bidragsytere|{1} en bidragsyter| [2, Inf[ %count% bidragsytere'
-  admin_count: '{0} ingen administratorer|{1} en administrator| [2, Inf[ %count% administratorer'
+  member_count:
+    zero: ingen bidragsytere
+    one: en bidragsyter
+    other: '{count} bidragsytere'
+  admin_count:
+    zero: ingen administratorer
+    other: '{count} administratorer'
+    one: en administrator
   already_applied: Du har allerede søkt på denne gruppen.
   really_quit_workgroup: Vil du virkelig forlate Arbeidsgruppe {name}?
   really_quit_district: Vil du virkelig forlate {name}-distriktet?
@@ -1752,7 +1849,7 @@ group:
     tooltip_function_region332: Medlemmer av denne arbeidsgruppen har tilgang til
       kjedelisten
   entertime: 'Tilgjengelig tid:'
-  application_region: 'Søknad for '
+  application_region: 'Søknad for {group}'
   motivation: Motivasjonstekst
   entermotivation: 'Motivasjon:'
   enterskills: 'Ferdigheter:'
@@ -1762,6 +1859,7 @@ group:
   filter_by_last_activity: Ikke aktiv på måneder
   role_name: Rolle
   userId: ID
+  filter_placeholder: Filtrer grupper etter navn
 bcard:
   generate: Lag visittkort
   actions: Alternativer
@@ -1779,7 +1877,8 @@ bcard:
     address_shortened: Din adresse og/eller postnummer + sted vil vises i forkortet
       form på visittkortet.
   desc: Velg hvilket distrikt eller hvilken rolle du vil lage visittkortet ditt for.
-  role: Rolle/Region
+  role: Rolle
+  region: Region
 pass:
   nav:
     options: Alternativer
@@ -1834,6 +1933,8 @@ button:
   reset_default: Nullstill standard
   prev: tilbake
   close: Lukk
+  start: Kom igjen!
+  confirm: bekrefte
 upload:
   preview_image: Forhåndsvisning
   crop_dialog_title: Beskjær bilde
@@ -1874,7 +1975,7 @@ compose_body: Beskjed
 pass2: Passordrepetisjon
 infotype: Melding
 dateend: Sluttdato
-mailbox_id: Avsenderens epostadresse
+mailbox_id: Avsenderens e-postadresse
 testemail: E-postadresse for testing
 opt: Alternativer
 teaser: Teaser
@@ -1900,7 +2001,7 @@ anschrift: Gatenummer og husnummer (automatisk tatt fra kortet)
 handy: Mobilnummer (inkludert landskode, starter med +)
 telefon: Fasttelefonnummer (inkludert landskode, starter med +)
 attachement: Vedlegg
-email: Epostadresse
+email: E-postadresse
 plz: Postnummer (automatisk tatt fra kortet)
 description: Beskrivelse
 desc: Beskrivelse
@@ -1969,9 +2070,8 @@ footer:
     beta_testing_issues: Testoppgaver for betaversjonen
   infosDeveloper: for utviklere
   hosting:
-    info: CO<sub>2</sub>-nøytral <a href="https://www.manitu.de/webhosting/" title="Webhosting">hosted</a>
-    tooltip: CO<sub>2</sub>-nøytral <a href="https://www.manitu.de/webhosting/" title="Webhosting">hosted</a>
-      på manitu
+    info: CO₂-nøytral hosted
+    tooltip: CO₂-nøytral hosted på manitu
   partner_names:
     lebensministerium: Det føderale departementet for jordbruk, regioner og turisme
     denns: Denn’s Biomarkt
@@ -2058,7 +2158,7 @@ events:
     cascading: Inkludere alle undergrupper / distrikter?
     desc: Hva slags hendelse er det?
     offline: En normal hendelse i det virkelige liv
-    online: Video- eller telefonkonferanse
+    online: via telefon- eller videokonferanse
     mumble: Konferanse om Mumble
     delinvites: Slette eksisterende invitasjoner?
     title: Registrer et nytt arrangement
@@ -2068,6 +2168,13 @@ events:
       gruppen</b>\ntilgjengelig via en delt lenke eller avtalemenyen.\n<br>\nFor å
       også vise avtalen på dashbordet til nykommere i mellomtiden,\nlagre den igjen
       på et senere tidspunkt.\n"
+    name: Navn på arrangementet
+    time: Tidspunkt
+    type: Hvordan vil arrangementet finne sted?
+    other: diverse
+    locationDetails: Stedsopplysninger (romnummer osv.)
+    locationOther: Hvor vil arrangementet finne sted?
+    fillCompletely: Vennligst fyll ut skjemaet fullstendig.
   bread: Arrangementer
   past: Tidligere arrangementer
   button:
@@ -2091,6 +2198,21 @@ events:
   edit: Redigere hendelsen
   created: Arrangementet ble lagt inn.
   edited: Arrangementet ble endret.
+  noneAccepted: Så langt har ingen personer bekreftet sin deltakelse i dette arrangementet.
+  location: Beliggenhet
+  meeting:
+    past: Dette arrangementet fant sted på nettet.
+    present: Dette arrangementet foregår på nett. Du kan bli med nå.
+    future: Dette arrangementet vil finne sted på nettet. Så snart det starter, kan
+      du bli med via knappen nedenfor.
+    not_started: Dette arrangementet har ennå ikke startet
+  attendees: Deltakere
+  online_info: "Telefon- og videokonferanser fra foodsharing kjører best via vår egen
+    [BigBlueButton](https://bigbluebutton.org)-server. Fra 10 minutter før møtestart
+    kan brukerne enkelt delta i konferansen med ett klikk fra møtesiden. Det kreves
+    ingen ekstra programmer, bare en noenlunde moderne nettleser. Det er også mulig
+    å melde seg på via telefon.\n\nHvis du likevel ønsker å bruke en annen plattform
+    for telefon- eller videokonferanser, kan du velge alternativet *«Annet»*. \n"
 chat:
   conversations: Samtaler
   notification_unnamed_conversation: '{foodsaver} skrev til deg.'
@@ -2116,6 +2238,9 @@ chat:
   no_messages: Ingen meldinger
   no_conversation: Ingen samtale er valgt
   unknown_username: ukjent navn
+  mark_as:
+    read: Merk som lest
+    unread: Merk som ulest
 forum:
   thread:
     title: Tittel
@@ -2133,16 +2258,12 @@ forum:
       en stat.
     navigate_to_newest_post: gå til siste innlegg
     navigate_to_oldest_post: gå til første innlegg
-    delivery_mail:
-      active: aktivert
-      non_active: deaktivert
-      title: Postlevering
-      disable: deaktivere
-      activate: aktivere
+    delivery_mail: Aktiver e-postlevering
     sticky: festet tråd
     subscriptions:
       subscribed: abonnerer
       subscribe: Abonnere
+    bottom: redusert sikt
   post:
     body: Beskjed
     delete: Slett innlegget
@@ -2178,6 +2299,7 @@ forum:
       hvis forespørselen din påvirker alle og er så viktig at alle bør være klar over
       det.
     title: Sender du virkelig e-postvarsling?
+  go: til forumet
 timepicker:
   labelNowButton: nå
   labelCloseButton: Lukk
@@ -2188,6 +2310,9 @@ timepicker:
   labelDecrement: Senk
   labelSelected: Valgt tid
   labelNoTimeSelected: Ingen tid valgt
+  placeholder: Angi tid
+  from: fra
+  to: til
 calendar:
   labelCalendar: Kalender
   labelToday: i dag
@@ -2206,11 +2331,15 @@ calendar:
       name: '{store} henting'
       unconfirmed: ubekreftet
       description: Matdeling hentes i <a href="{url}">{store}</a>
+      otherFoodsavers: 'Registrert sammen med deg: '
+      freeSlots: '{count} plasser er fortsatt ledige'
     event:
       statusUnspecified: Du har ennå ikke angitt om du vil møte på denne avtalen.
         Du kan gjøre det på den koblede siden.
       linkTitle: Matdelingsarrangement
       description: Beskrivelse
+    updated: '(Sist oppdatert: {dato})'
+  placeholder: Velg en dato
 pickup:
   edit:
     bread: 'Rediger hentetider'
@@ -2390,7 +2519,7 @@ store:
     makeJumper: legge til hopperlisten
     filterQuizSM: Bestått quiz for samarbeidsoffiserer
     filter: 'Vis kun:'
-    demoteAsManager: Fjern som samarbeidsoffiserer
+    demoteAsManager: trekke tilbake ansvaret
     managementEffect: 'Sortering etter siste hentedato:'
     byLastPickup: Sorter etter siste henting
     reallyRemove: Vil du virkelig fjerne {name} fra dette laget?
@@ -2401,17 +2530,23 @@ store:
     buttonManagementToggleOff: tilbake til normal modus
     promoteToManagerNotPossible: Personen kan ikke holdes ansvarlig fordi det allerede
       er tre ledere eller personen ennå ikke har bestått quizen.
-    filterAll: alle
+    filterAll: Medlemmer
     filterActive: aktive
     filterSleeping: Søvnhode
     buttonManagementToggle: administrere
     toogleIsReducedStateOpen: utvide listen
     toogleIsReducedStateClosed: kollaps liste
-    filterManage: Samarbeidsoffiser-quiz eller høyere
+    filterManage: med samarbeidsoffiser-quiz
+    sorting:
+      default: Standard sortering
+      pickup: Sortert etter siste henting
+    userHasPickupsWarning: '{name} er fortsatt registrert for {occupiedSlots} hentinger
+      hos dette selskapet. Disse plassene vil da bli ledige. Ønsker du fortsatt å
+      fortsette?'
   address: Adresse
   attribution: Attribusjon
   unknownDate: ukjent
-  lastPickup: 'Siste henting: {date}'
+  lastPickup: 'Siste henting {date}'
   lastPickupShort: siste {date}
   teamName: '{storeTitle} team'
   actions: Alternativer
@@ -2419,7 +2554,7 @@ store:
     to-nowhere: Avslå
     to-team: Ta med i laget
     to-jumper: Hoppliste
-    request: Jeg ønsker å hjelpe i dette laget.
+    request: Søk på dette teamet
     got-it: De ansvarlige har blitt informert om forespørselen din og vil ta kontakt
       med deg.
     withdraw: Trekk tilbake forespørsel
@@ -2437,7 +2572,7 @@ store:
   bread: Alle virksomheter
   days: dager
   days_before: før
-  go: Til teamsiden
+  go: Til teamet
   springer_conversation_name: Hopper {name}
   chat:
     team: Melding til laget
@@ -2447,8 +2582,8 @@ store:
   fetchCount: Hentet her {count} ganger.
   particularities: Særtrekk
   mayManage: Har bestått quizen for samarbeidsoffiserer.
-  memberSince: 'I laget siden: {date}'
-  jumperSince: 'Hopper siden: {date}'
+  joinDate: 'I laget siden: {date}'
+  jumperSince: 'Hopper siden {date}'
   isJumper: Står på hopperlisten.
   isNotVerified: Er ikke aktivert ennå.
   pickup_slot_unavailable: Denne datoen ligger for langt frem i tid. Prøv igjen senere.
@@ -2601,6 +2736,7 @@ store:
     search_input: Søk etter kjedenavn
   to_map: Vis på kart
   storeFrom: Selskap fra {name}
+  no_chain_choosen: ingen kjede valgt
 storeview:
   status: Nåværende status
   public_time_at_night: om natten
@@ -2610,14 +2746,14 @@ storeview:
   info: Informasjon
   store: Drift
   counter: <strong>{count} {suffix}</strong>
-  pickupWeight: 'og {pickupWeight} kg mat ble spart.'
+  pickupWeight: 'kg mat ble spart'
   cooperation: Samarbeid siden {startTime}.
   public_time: Vi henter her {freq}. Vennligst aldri gå til butikken uten forhåndsavtale!
   want_to_fetch: Jeg ønsker å hjelpe i dette laget.
   specials: Særtrekk
   teamInfo: <strong>{active}</strong> aktive og <strong>{jumper}</strong> hoppere
     i laget.
-  pickupCount: Den ble plukket opp {pickupCount}
+  pickupCount: pickuper
   managers: Ansvarlige matreddere
   status_notes: Statusnotater
   show_information: Vis bedriftsinformasjon
@@ -2647,6 +2783,8 @@ storeview:
   public_and_statistics: Statistikk og PR
   show_settings: Driftsinnstillinger
   choose_chain: Velg en kjede
+  team_info_active: 'Aktive medlemmer av teamet:'
+  team_info_jumper: 'Hoppere:'
 fsp:
   info:
     none: ikke mer
@@ -2701,6 +2839,7 @@ fsp:
   deleteSuccess: Distribusjonsstasjon ble fjernet
   twig:
     n_in_region: '{count} distribusjonsstasjoner i {name}'
+  show_on_large_map: Vis på kartet
 day: Dag
 time: Tid
 select: Vennligst velg
@@ -2796,6 +2935,8 @@ terminology:
   no_pickups: ingen
   previous_pickups: Henter her
   electionAdmins: Valg
+  yes: Ja
+  no: Nei
 gender:
   d: mangfoldig
   f: Fru
@@ -2837,10 +2978,9 @@ addresspicker:
   label: Søk på adresse/sted
   placeholder: Vennligst se etter adressen her. Korriger eventuelt under etterpå.
   infobox: Skriv inn adressen i feltet og flytt knappenålen på kartet om nødvendig.
-  infobox_profile: <a href="https://wiki.foodsharing.de/Foodsharer">Matdelere</a>
-    trenger adressen for å kunne tilby matkurver på nettsiden. For å kunne delta i
-    matredninger som <a href="https://wiki.foodsharing.de/Foodsaver">matredder</a>
-    er det til og med obligatorisk.
+  infobox_profile: "[Matdelere](https://wiki.foodsharing.de/Foodsharer) trenger adressen
+    for å kunne tilby matkurver på nettsiden. For å kunne delta i matredninger som
+    [matredder](https://wiki.foodsharing.de/Foodsaver) er det til og med obligatorisk."
   different_location: Adressen er uavhengig av geografisk posisjon
 becomeregion:
   save: Lagre
@@ -2878,10 +3018,11 @@ wall:
     text: Er du sikker på at du vil slette denne oppføringen fra {author}?
     title: Vil du slette veggoppføringen?
 sidenav:
-  localgroups: Lokale grupper
+  localgroups: Regionale grupper
   yourgroups: Dine grupper
-  superregional: Overregionale grupper
+  superregional: Supraregional
   countryspecific: Landsspesifikke grupper
+  yourregions: Distriktene dine
 formatting:
   md: Du kan bruke <a href="https://www.markdownguide.org/">Markdown</a> for formatering.
 regionOptions:
@@ -2963,6 +3104,7 @@ releases:
   "2023-09": Versjon «Jackfrukt» 🍈 (september 2023)
   "2024-01": Versjon «Kiwi» 🥝 (januar 2024)
   "2024-04": Versjon «Kringle» 🥨 (april 2024)
+  "2024-07": Versjon «Mandarin» 🍊 (juli 2024)
 push_notifications:
   test_notification_title: Push-varsler er aktivert
   test_notification_body: Flott, det ser ut til å ha fungert :)
@@ -3056,7 +3198,7 @@ quiz:
   finished: Gratulerer, du klarte det!
   resultsbelow: Du finner resultatene nedenfor.
   donecorrectly: du svarte helt riktig. Flott!
-  wikilink: Matchende wikiartikkel om dette emnet
+  wikilink: Mer informasjon i wikien
   threestrikes: Du mislyktes i quizen tre ganger.
   waitxdays: Du kan prøve igjen om
   days: dager
@@ -3070,13 +3212,198 @@ quiz:
   failedbeforebut: ' ganger du har mislyktes i quizen så langt. Men du har fortsatt
     så mange forsøk igjen:'
   goodluck: Lykke til!
-  timedstart: Start quiz med tidsbegrensning og 10 spørsmål
-  regstart: Start quizen uten tidsbegrensning og 20 spørsmål
+  timedstart: Start quiz med tidsbegrensning og {count} spørsmål
+  regstart: Start quizen uten tidsbegrensning og {count} spørsmål
   quizleft: ' – nå gjenstår det bare å bestå quizen!'
   nownownow: Start quizen nå
   session_deleted: Resultatene for denne quizen er slettet fordi quizen ble fullført
     for mer enn to uker siden.
   comments: Kommentarer
+  plural: Quizer
+  button:
+    pause: fortsette senere
+    finish: fullfør quiz
+  title:
+    NEVER_TRIED: '{name} – ta quizen!'
+    RUNNING: '{name} – fortsett quizen!'
+    PASSED: '{name} – du har bestått denne testen!'
+    FAILED: '{name} – prøv igjen!'
+    PAUSE: Pause for å studere ({name})
+    PAUSE_ELAPSED: '{name} – nå kan du prøve igjen!'
+    DISQUALIFIED: '{name} – dessverre diskvalifisert.'
+  startmodal:
+    title: Quiznotater
+    infos:
+      wiki: Ikke start quizen tilfeldig. Les sidene som er oppført i matdelingswikien
+        nøye på forhånd. Uten kunnskapen fra wikien vil du ikke bestå quizen.
+      real_life_examples: De fleste av spørsmålene er basert på virkelige tilfeller
+        fra foodsharing-livet.
+      limited_tries: Du kan ikke gjenta prøven så mange ganger du vil. Etter tre forsøk
+        må du ta en pause på 30 dager for å studere på nytt, og deretter har du bare
+        to forsøk til. Spørsmålene du blir stilt i hvert forsøk, er forskjellige.
+      alone: Du har ikke lov til å bli hjulpet under quizen. Finn derfor et rolig
+        sted hvor du kan ta quizen uforstyrret.
+      read_carefully: Les alle spørsmål og svar nøye. Det er nok tid til det.
+      multiple_choice: Flere svar per spørsmål kan være riktige – eller ingen i det
+        hele tatt. Avgjør derfor for hvert enkelt svar om det er riktig eller feil.
+      comment: Etter at du har svart på hvert spørsmål, vil du se en mellomevaluering
+        med forklaringer for hvert av de mulige svarene. Dette hjelper deg med å forstå
+        hvilket svar som er riktig eller galt, og hvorfor. Hvis du gjør en feil, bør
+        du lese forklaringene nøye. Hvis noe virker ulogisk, uforståelig eller til
+        og med feil, kan du legge igjen en kommentar.
+      pause: Du kan sette quizen på pause etter hvert spørsmål og fortsette på et
+        senere tidspunkt.
+      feedback: Når du er ferdig med quizen, får du umiddelbart en evaluering av om
+        du har bestått og hvilke feil du har gjort hvor. Deretter kan du lese gjennom
+        begrunnelsene igjen i ro og mak.
+  infomodal:
+    title: Spørsmål {index} av {questions}
+  comment:
+    toggle: skriv en kommentar
+    placeholder: Skriv inn kommentar…
+    send: send kommentar
+    sent: Kommentar sendt.
+    info: Gi oss gjerne tilbakemelding på dette spørsmålet. Var det for lett, for
+      vanskelig, uforståelig? Eller er noen svar eller forklaringer feil?
+    label: kommentere spørsmålet
+    wallTitle: 'kommentarer til spørsmål #{id}'
+  answers:
+    name: svar
+    neutral: Nøytralt svar – vil ikke bli vurdert.
+    false_false: Dette svaret var selvsagt feil. Du innså det helt riktig.
+    false_true: Dette svaret ville vært riktig.
+    timedOut:
+      0: Dette svaret ville vært feil.
+      1: Dette svaret ville vært riktig.
+      2: Dette svaret ville vært nøytralt.
+    short:
+      0: stemmer ikke
+      1: riktig
+      2: nøytral
+    none_correct: Ingen svar er riktige.
+    true_false: Feil! Dette svaret er ikke riktig.
+    true_true: Riktig! Dette svaret er riktig.
+  state_based_info:
+    RUNNING: Du har allerede startet quizen og svart på {questionsAnswered} av {questionCount}
+      spørsmål så langt.
+    PASSED: Du har bestått denne testen.
+    FAILED:
+      1: Dessverre besto du ikke denne quizen på ditt første forsøk. Det kan skje
+        fra tid til annen. Ta en titt på de relevante wiki-artiklene og prøv igjen.
+      2: Dessverre mislyktes du denne quizen på de to første forsøkene dine. Du har
+        fortsatt et tredje forsøk før du må ta en måneds pause for å studere igjen.
+        Sørg for å sjekke ut de relevante wiki-artiklene slik at du kan bestå quizen.
+    PAUSE_ELAPSED:
+      3: Studiepausen din er over. Du kan nå ta quizen to ganger til. Forhåpentligvis
+        har du brukt tiden til å bli mer kjent med innholdet.
+      4: Du har bare ett siste forsøk på å bestå denne quizen! Hvis du mislykkes nå,
+        vil du bli permanent diskvalifisert fra denne quizen. Vennligst bare delta
+        hvis du har studert innholdet i wikien i detalj.
+    DISQUALIFIED: Dessverre er du diskvalifisert for denne quizen fordi du mislyktes
+      fem ganger.
+    NEVER_TRIED: Du har aldri tatt denne quizen før. Ta deg tid til å lese alle wiki-artiklene
+      nøye slik at du er forberedt på spørsmålene.
+    PAUSE: Du mislyktes i denne quizen tre ganger. Pålitelighet, et godt grep om reglene
+      og et profesjonelt utseende er avgjørende for matdeling. Dessverre formidler
+      du ikke det med svarene dine på dette tidspunktet. Derfor får du en måneds pause
+      fra studiene før du får ytterligere to forsøk på å bestå quizen. Studiepausen
+      din avsluttes om {wait} dager.
+  results:
+    title:
+      1: Gratulerer!
+      2: Dessverre besto du ikke.
+    points:
+      1: Du har bestått med {failurePoints} av maksimalt {maxFailurePointsToSucceed}
+        feilpoeng!
+      2: Du hadde {failurePoints} feilpunkter og ville ha bestått med maksimalt {maxFailurePointsToSucceed}.
+    deleted: Den nøyaktige evalueringen lagres bare i fjorten dager etter quizen og
+      er ikke lenger tilgjengelig.
+  key_facts:
+    to_pass: 'For å bestå:'
+    untimed: Maksimum {maxFailurePointsToSucceed} feilpoeng i {questionCountTimed}
+      spørsmål med, eller i {questionCountUntimed} spørsmål uten tidsbegrensning
+    timed: Maksimalt {maxFailurePointsToSucceed} feilpoeng i {questionCountTimed}
+      spørsmål med en tidsbegrensning
+  general:
+    title: Generell informasjon
+    edit: rediger quiz
+  questions_section:
+    title: Quizspørsmål ({count})
+  editable_tooltip: Du kan redigere denne quizen.
+  timelimit: tidsbegrensning
+  sessionStatus:
+    1: Bestått med {failurePoints} av maksimalt {maxFailurePointsToSucceed} feilpunkter
+    0: kjører for øyeblikket
+    2: Mislyktes med {failurePoints} av maksimalt {maxFailurePointsToSucceed} feilpunkter
+  confirmDelete:
+    session: Vil du virkelig slette denne quizøkten?
+    question: Vil du virkelig slette dette spørsmålet?
+    answer: Vil du virkelig slette dette svaret?
+  fp_badge:
+    right: svarte riktig
+    wrong: '{userFailurePoints} feil'
+  timed_out: Du svarte ikke på dette spørsmålet innen den tillatte tiden.
+  timed_out_last: Du svarte ikke på det siste spørsmålet på den tilmålte tiden.
+  timed_out_error: Tiden for å svare på dette spørsmålet er allerede utløpt.
+  error_tooltip: Du gjorde en feil med dette svaret.
+  show_results: Se resultatene av det siste forsøket
+  max_fp: Tillatte feilpunkter
+  fp_description: Totalt {failurePoints}, dvs. {perMistake} per feil svar
+  question_options:
+    add: legge til spørsmål
+    edit: redigere spørsmål
+    add_answer: legg til svar
+    show_comments: Vis kommentarer
+    delete: slette spørsmål
+  answer_options:
+    edit: redigere svar
+    delete: slette svar
+  fp_options:
+    joke: '{failurePoints} feilpunkter (uten vurdering)'
+    default: '{failurePoints} feilpunkter'
+    ko: '{failurePoints} feilpunkter (knockout)'
+  confirm: Bekreft quizen og fullfør prosessen
+  editModal:
+    quiz:
+      title: Rediger quiz
+      input:
+        name:
+          label: 'Navn:'
+          placeholder: Navn på quizen
+        maxFp: 'Maksimalt antall feilpoeng for å bestå:'
+        questionCountTimed: 'Antall spørsmål som skal besvares:'
+        allowUntimed: Tillat fullføring uten tidsbegrensning
+        questionCountUntimed: 'Antall spørsmål som skal besvares uten tidsbegrensning:'
+      htmlWarning: '**OBS:** Formateringen av beskrivelsen er endret. Det du ser i
+        tekstinntastingsfeltet, er formatert med HTML. Vennligst juster beskrivelsen
+        og bruk Markdown i stedet. Bruk forhåndsvisningsfunksjonen i inndatafeltet
+        for å sikre at formateringen er riktig justert.'
+    question:
+      title: Rediger spørsmål
+      input:
+        text:
+          label: 'Spørsmål:'
+          placeholder: Quizspørsmål…
+        duration: 'På tide å svare:'
+        fp: 'Feilpoeng:'
+        wikilink:
+          label: 'Lenke til den tilsvarende wiki-artikkelen:'
+          placeholder: https://wiki.foodsharing.de/…
+      confirmDelete:
+        title: Vil du virkelig slette dette spørsmålet?
+    answer:
+      title: Rediger svar
+      input:
+        text:
+          label: 'Svar:'
+          placeholder: Svar…
+        explanation:
+          label: 'Forklaring:'
+          placeholder: Forklaring…
+        answerRating: 'Vurdering:'
+  confirmDashboardText: Du har bestått en prøve som du ennå ikke har bekreftet. [Klikk
+    her]({url}) for å fullføre prosessen!
+  confirmComment: Skal kommentaren din sendes til administratoren av denne quizen?
 fpsingular: feilpunktet
 filter_by: filtrer etter
 groups:
@@ -3170,9 +3497,7 @@ error:
     link: Oppdater profilbildet ditt nå
     title: Det er et problem med profilbildet ditt.
     description: I september 2021 gjorde vi en teknisk endring, som påvirker profilbildene.
-      Du må derfor laste opp profilbildet ditt på nytt. Hvis du vil bruke det gjeldende
-      bildet på nytt, kan du laste det ned <a href="{link}" download>her</a>. Beklager
-      dette.
+      Du må derfor laste opp profilbildet ditt på nytt. Beklager dette.
   missing_home_region:
     description: For at du skal kunne fortsette, er det nødvendig med et hjemdistrikt.
     title: Velg et hjemdistrikt.
@@ -3232,21 +3557,23 @@ numbers:
 deletefromregion: Virkelig slette fra distriktet?
 join_region:
   error:
-    is_state: <strong>Dette er en føderal stat.</strong><br> Velg en by, region eller
+    is_state_1: Dette er en føderal stat. Vennligst velg en by, en region eller et
       distrikt!
-    is_big_city: <strong>Dette er en storby.</strong> <br> Velg en by, region eller
-      distrikt!
-    is_country: <strong>Dette er et land.</strong><br> Velg en by, region eller distrikt!
+    is_state_2: Velg en by, region eller distrikt!
+    is_big_city_1: Dette er en storby.
+    is_big_city_2: Velg en by, region eller distrikt!
+    is_country_1: Dette er et land.
+    is_country_2: Velg en by, region eller distrikt!
     not_allowed: Du kan ikke registrere deg i dette området.
   headline: Velg området du vil være aktiv i.
   description: Du kan bli med i ditt første distrikt ved å klikke fra ditt kontinent
     til ditt distrikt. Hvis du ikke finner et område, velger du et nivå høyere eller
     blir med i nærmeste område. Hvis du ikke har mulighet til å tjene som matsparer
     i området, kan du vurdere å starte ditt eget område. I sådant fall kan du lese
-    wiki-en, og da spesielt <a href="{href}"> artikkelen om å opprette eller reaktivere
-    områder<a>. Hvis du vil starte et område eller har spørsmål som wiki-en ikke gir
-    deg svaret på kan skrive oss <a href="{mail}">en e-post</a>. Vi er ikke førstelinjestøtte
-    for generelle spørsmål, men vi kan hjelpe deg med spørsmål om områder.
+    wiki-en, og da spesielt [artikkelen om å opprette eller reaktivere områder]({href}).
+    Hvis du vil starte et område eller har spørsmål som wiki-en ikke gir deg svaret
+    på kan skrive oss [en e-post]({mail}). Vi er ikke førstelinjestøtte for generelle
+    spørsmål, men vi kan hjelpe deg med spørsmål om områder.
 timefrom: Fra klokken
 use_region_pickup_rule: Bør den distriktsdekkende rettferdighetsregelen gjelde for
   denne virksomheten?
@@ -3369,6 +3696,10 @@ notifications:
   config_button: konfigurere individuelt
   checkbox_bell: Klokke
   checkbox_disabled: deaktivert
+  pickupReminder:
+    title: Påminnelser om ledige plasser
+    description: Motta en e-postmelding hvis det ikke er noen ledige stillinger neste
+      dag i bedriftene du administrerer.
 markdown_input:
   tooltip:
     orderedList: nummerert liste
@@ -3393,6 +3724,7 @@ thread:
     pin: Fest tråden
     lock: Lukk tråden
     unpin: Løsne tråden
+    priority: Justere skjermprioritet
   rename:
     description_modal_text: 'Skriv inn en ny tittel for denne tråden:'
     placeholder: Tittel
@@ -3401,7 +3733,16 @@ thread:
   post:
     options:
       copy_source: Kopier kildekoden
+      copy_direct_link: Kopier direkte lenke
     copy_source_success: Kildekoden er kopiert!
+    linked_post: lenket innlegg
+    copy_direct_link_success: Direkte lenke kopiert!
+  priorityModal:
+    title: Justere skjermprioritet
+    text: 'Vis prioritet for dette innlegget:'
+    normal: normal
+    lower: nederst
+    higher: øverst
 configure_columns: Konfigurer kolonner
 save_state: Vedlikeholde filtre og sortering
 save_state_description: Lagre brukte filtre og sortering for fremtidige samtaler
@@ -3415,19 +3756,66 @@ help:
   key:
     storeLog:
       title: Driftslogg
-      md: "Driftsloggen er en måte å spore **aktivitetene i en bedrift**. \nDet kan
+      md: "Driftsloggen er en måte å spore **aktivitetene i en bedrift**. Det kan
         bidra til å løse konflikter eller rette opp tilfeldige feil.\n---\n######
         Eksempel\nLa oss si at du vil vite hvem som ble lagt til i teamet av hvem
-        i løpet av de siste 3 ukene.\nDeretter kan du angi perioden ved å bruke start-
-        og sluttdatoene i de to datofeltene.\nDeretter kan du velge alle relevante
-        handlingstyper fra rullegardinmenyen.\nI dette tilfellet, for eksempel \"
-        *Gjør medlemskapsforespørsler*\", \"*Godta medlemskapsforespørsler*\" \nog
-        \"*Avvis medlemskapsforespørsler*\".\nHvis du nå klikker på \"*Vis valgte
-        handlinger*\"-knappen, vil du få vist en historikk over de valgte hendelsene.\n
-        ---\n###### Tilgang\nBare de som kan administrere selskapet har tilgang til
-        det. Driftsloggen er ikke synlig for vanlige matsparere og hoppere.\n---\n
-        ###### Begrensninger\nMaksimalt 100 oppføringer vil bli lastet inn. Du må
-        kanskje begrense søkeperioden eller de valgte handlingstypene hvis ikke alle
-        resultater vises. \n"
+        i løpet av de siste 3 ukene. Deretter kan du angi perioden ved å bruke start-
+        og sluttdatoene i de to datofeltene. Deretter kan du velge alle relevante
+        handlingstyper fra rullegardinmenyen. I dette tilfellet, for eksempel \" *Gjør
+        medlemskapsforespørsler*\", \"*Godta medlemskapsforespørsler*\" og \"*Avvis
+        medlemskapsforespørsler*\". Hvis du nå klikker på \"*Vis valgte handlinger*\"\
+        -knappen, vil du få vist en historikk over de valgte hendelsene.\n---\n######
+        Tilgang\nBare de som kan administrere selskapet har tilgang til det. Driftsloggen
+        er ikke synlig for vanlige matsparere og hoppere.\n---\n###### Begrensninger\n
+        Maksimalt 100 oppføringer vil bli lastet inn. Du må kanskje begrense søkeperioden
+        eller de valgte handlingstypene hvis ikke alle resultater vises.\n"
+    threadPriority:
+      md: "Emner er oppført sortert etter visningsprioritet. Emner med samme prioritet
+        er sortert etter tidspunktet for siste aktivitet.\n---\nFestede tråder har
+        en prioritet på 1, vanlige tråder har en prioritet på 0. For å kunne sortere
+        de viste trådene mer presist kan du også sette høyere verdier her slik at
+        emner alltid er øverst uavhengig av endringsdato.\nTråder med prioritet -1
+        vises under alle andre tråder.\n"
+      title: Trådprioritet
+    profileCommitmentsStat:
+      title: Engasjementsstatistikk
+      md: er synlig fra rollen som samarbeidsleder. Det er begrenset til et felles
+        hjemdistrikt eller vanlige butikker.
+    masterRegion:
+      md: "Hvis distriktene har et masterdistrikt, blir alle medlemmene i distriktet
+        automatisk inkludert i masterdistriktet. I mange tilfeller er det fornuftig
+        å velge foreldredistriktet som masterdistrikt, men det er også mulig å velge
+        andre anvendelser. Hvis masterdistrikt ikke er foreldredistriktet, vil brukere
+        i distriktet **ikke** automatisk bli inkludert i foreldredistriktet.\n\nHvis
+        du ikke ønsker at brukere automatisk skal legges til i et annet distrikt,
+        må du sette masterdistriktet til root.\n---\nInkludering i masterdistrikt
+        skjer én gang hver natt. Endringer skjer ikke umiddelbart.\n"
+      title: Mesterdistrikt
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
+team_page:
+  board_member:
+    title: Klubbstyret
+    text: "Styret i foodsharing e.V. holder trådene sammen, nettverker Tyskland, Østerrike
+      og Sveits som brukere av foodsharing.de-plattformen og er ansvarlig for overregionale
+      saker. Hovedstyret jobber tett sammen som et team og hovedsakelig online for
+      å håndtere alle bekymringer fra det store foodsharing-fellesskapet og eksterne
+      parter. I tillegg arbeider hovedstyret mye med organisasjonsutvikling og den
+      politiske dimensjonen ved matsvinn.\n"
+  it_member:
+    title: IT-teamet
+    text: "foodsharing er bare mulig takket være engasjementet til tusenvis av frivillige!
+      Her er noen av dem som koordinerer nasjonale arbeidsgrupper, utvikler nettstedet
+      eller tar på seg andre viktige oppgaver for foodsharing som helhet:\n"
+  alumni_member:
+    title: Tidligere
+    text: "Sammen kan vi se tilbake på en vellykket historie med foodsharing. Vi vil
+      gjerne benytte anledningen til å takke alle som har bidratt til dette, noen
+      av dem har jobbet fulltid på frivillig basis eller i svært stor grad for arrangørteamet
+      eller styret!\n"
+automatic_not_delete: '- profilen skal opprettholdes.'
+automatic_delete: '- profilen skal slettes.'
+no_automatic_delete: 'Hvis siste pålogging var for fem år siden:'
+validation:
+  phone_number_invalid: Telefonnummeret er ugyldig (f.eks. mangler landskode, det
+    er for kort, for langt eller inneholder ugyldige tegn)

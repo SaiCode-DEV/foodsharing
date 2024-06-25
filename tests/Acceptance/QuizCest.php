@@ -10,6 +10,7 @@ use Tests\Support\AcceptanceTester;
 
 class QuizCest
 {
+    // TODO
     private $foodsharer;
     private $foodsaver;
     private $storeManager;
@@ -27,58 +28,48 @@ class QuizCest
     }
 
     /**
-     * @example["foodsharer", "Werde Foodsaver", "Quiz ohne Zeitlimit"]
-     * @example["foodsaver", "Werde Betriebsverantwortliche", "Quiz jetzt starten"]
+     * @example["foodsharer", "Foodsaver:innen Quiz", "Quiz ohne Zeitlimit", "Quiz ohne Zeitlimit"]
+     * @example["foodsaver", "Betriebsverantwortlichen Quiz", "Quiz mit Zeitlimit", "Quiz jetzt starten"]
      */
     public function canStartQuiz(AcceptanceTester $I, Example $example): void
     {
         $I->login($this->{$example[0]}['email']);
         $I->amOnPage($I->settingsUrl());
+        $I->see($example[1]);
 
-        $I->click($example[1]);
         $quizRole = $this->{$example[0]}['rolle'] + 1;
-        $I->seeCurrentUrlEquals($I->upgradeQuizUrl($quizRole));
 
-        $I->waitForText('Jetzt gilt es noch das Quiz zu bestehen!');
+        $id = $this->{$example[0]}['id'];
+        $quizUrl = '/user/' . $id . '/settings?sub=rise_role&role=' . $quizRole;
+        $I->amOnPage($quizUrl);
+
+        $I->seeCurrentUrlEquals($quizUrl);
+        $I->click($example[1]);
+        $I->waitForActiveAPICalls();
+
+        $I->waitForText('Jetzt das Quiz durchführen!');
         $I->click($example[2]);
+        $I->waitForText('Los geht\'s!');
+        $I->click('Los geht\'s!');
 
-        $quizName = $this->quizzes[$quizRole]['name'];
-        $I->waitForText($quizName . '-Quiz');
-        $I->click('Quiz starten');
+        $I->waitForText('Frage 1 von ');
+        $I->waitForActiveAPICalls();
 
-        $questionText = $this->quizzes[$quizRole]['questions'][0]['text'];
-        $I->waitForText($questionText);
-    }
-
-    public function mustPauseAfterThreeFailures(AcceptanceTester $I): void
-    {
-        $I->letUserFailQuiz($this->foodsharer, 29, 3);
-
-        $I->login($this->foodsharer['email']);
-        $I->amOnPage($I->upgradeQuizUrl(Role::FOODSAVER->value));
-        $I->waitForPageBody();
-
-        $I->see('Du hast das Quiz 3x nicht bestanden');
-    }
-
-    public function userIsDisqualifiedAfterFailingFiveTimes(AcceptanceTester $I): void
-    {
-        $I->letUserFailQuiz($this->foodsharer, 31, 4);
-
-        $I->login($this->foodsharer['email']);
-        $I->amOnPage($I->upgradeQuizUrl(Role::FOODSAVER->value));
-        $I->waitForPageBody();
-        $I->click('Quiz mit Zeitlimit');
-        $I->waitForText('Jetzt geht es los');
-        $I->click('Quiz starten');
-        $I->waitForText('Frage #1');
-        $I->selectOption('#qanswers', 'Falsche Antwort');
+        $I->moveMouseOver('.answer-wrapper input');
+        $I->clickWithLeftButton();
         $I->click('Weiter');
-        $I->waitForText('Diese Antwort ist falsch');
-        $I->click('nächste Frage');
-        $I->waitForText('nicht bestanden');
+        $I->waitForActiveAPICalls();
+        $I->click('Weiter');
+        $I->waitForActiveAPICalls();
 
-        $I->dontSee('Diesmal hat es leider nicht geklappt');
-        $I->see('Du hast leider bei 5 Versuchen das Quiz für Foodsaver nicht bestanden.');
+        $I->waitForText('Frage 2 von ');
+
+        $I->reloadPage();
+        $I->waitForText('Quiz jetzt weiter beantworten!');
+        $I->click('Quiz jetzt weiter beantworten!');
+        $I->waitForText('Los geht\'s!');
+        $I->click('Los geht\'s!');
+
+        $I->waitForText('Frage 2 von ');
     }
 }

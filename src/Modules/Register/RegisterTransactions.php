@@ -38,7 +38,7 @@ class RegisterTransactions
     public function registerUser(RegisterData $data): int
     {
         $token = $this->loginService->generateMailActivationToken(1);
-        $activationUrl = BASE_URL . '/?page=login&a=activate&e=' . urlencode((string)$data->email) . '&t=' . urlencode($token);
+        $activationUrl = BASE_URL . '/login?sub=activate&e=' . urlencode((string)$data->email) . '&t=' . urlencode($token);
         $id = $this->loginGateway->insertNewUser($data, $token);
         if (!$id) {
             throw new Exception('could not register user');

@@ -121,6 +121,10 @@ settings:
   header: ''
   account: ''
   title: ''
+  no_rights: Nejste oprávněni měnit nastavení profilu.
+  delete_profile: Smazání profilu
+  general:
+    phone: Vaše číslo pevné linky
 tablesorter:
   page: ''
   entriespp: ''
@@ -134,7 +138,6 @@ email_template:
     linktext: ''
     unsubscribe: ''
   unknown_email2: ''
-  yourFSteam: ''
   warning: ''
   information: ''
   impress:
@@ -164,7 +167,6 @@ email_template:
   confirm_link: ''
   find_someone: ''
   to: ''
-  withlove: ''
   confirm_BOT: ''
   foodbasket_request: ''
 polls:
@@ -659,7 +661,7 @@ register:
   finish: ''
   login_name: ''
 terminology:
-  events: ''
+  events: 'Termíny'
   role:
     "4": ''
     "3": ''
@@ -674,8 +676,8 @@ terminology:
   region: ''
   regions: ''
   threads: ''
-  homepage: ''
-  forum: ''
+  homepage: 'Domovská stránka'
+  forum: 'Fórum'
   storemanager:
     d: ''
     f: ''
@@ -734,9 +736,11 @@ terminology:
   store: ''
   subgroups: ''
   ambassadors: ''
-  no_pickups: ''
+  no_pickups: 'žádné'
   previous_pickups: ''
   n_home_regions: ''
+  yes: Ano
+  no: Ne
 store:
   bread: ''
   error: ''
@@ -801,7 +805,7 @@ store:
     jumper: ''
     team: ''
   tooltip_jumping: ''
-  memberSince: ''
+  joinDate: ''
   lastPickupShort: ''
   fetchCount: ''
   enternumber: ''
@@ -1194,7 +1198,7 @@ bell:
   banana_given_title: ''
   banana_given: ''
   store_request_deny: ''
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   no_bells: ''
   fs_sleepmode_title: ''
   store_request_accept_title: '{name}'
@@ -1239,6 +1243,8 @@ bell:
   forum_new_thread_title: ''
   forum_announcement_title: ''
   forum_mention: ''
+  workinggroup_new_request_title: '{name}'
+  internal_email_changed_title: '{address}'
 genderlist:
   home_district_tab: ''
   gender_female: ''
@@ -2568,6 +2574,14 @@ quiz:
   question: ''
   heavysigh: ''
   failedbeforebut: ''
+  results:
+    title:
+      1: Gratulujeme!
+  editModal:
+    question:
+      input:
+        wikilink:
+          placeholder: https://wiki.foodsharing.de/…
 search:
   title: ''
   informations: ''
@@ -2867,3 +2881,6 @@ usersearch:
   search_tag: ''
   no_tag_preset: ''
   select_tag: ''
+validation:
+  phone_number_invalid: Telefonní číslo je neplatné (např. chybí kód země, je příliš
+    krátké, příliš dlouhé nebo obsahuje neplatné znaky)

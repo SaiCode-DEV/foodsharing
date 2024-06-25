@@ -1,6 +1,7 @@
 <template>
   <Avatar
     :user="user"
+    tooltip=""
     :size="50"
     :badge-variant="user.mayManage ? 'secondary' : 'primary'"
     :class="{'jumper': user.isJumper}"

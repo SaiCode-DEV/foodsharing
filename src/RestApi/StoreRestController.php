@@ -26,6 +26,7 @@ use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreTransactionException;
 use Foodsharing\Modules\Store\StoreTransactions;
 use Foodsharing\Modules\Store\TeamStatus as TeamMembershipStatus;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\RestApi\Models\Store\CreateStoreModel;
@@ -33,7 +34,6 @@ use Foodsharing\RestApi\Models\Store\MinimalStoreModel;
 use Foodsharing\RestApi\Models\Store\StorePaginationResult;
 use Foodsharing\RestApi\Models\Store\StoreStatusForMemberModel;
 use Foodsharing\Utility\TimeHelper;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -47,14 +47,14 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-class StoreRestController extends AbstractFOSRestController
+class StoreRestController extends AbstractFoodsharingRestController
 {
     // literal constants
     private const NOT_LOGGED_IN = 'not logged in';
     private const ID = 'id';
 
     public function __construct(
-        private readonly Session $session,
+        protected Session $session,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly StoreGateway $storeGateway,
         private readonly StoreTransactions $storeTransactions,
@@ -63,6 +63,7 @@ class StoreRestController extends AbstractFOSRestController
         private readonly GroupFunctionGateway $groupFunctionGateway,
         private readonly BellTransactions $bellTransactions,
         private readonly ProfilePermissions $profilePermissions,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
 
@@ -272,10 +273,10 @@ class StoreRestController extends AbstractFOSRestController
             if (!$isOrgUser) {
                 $storeGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($store['bezirk_id'], WorkgroupFunction::STORES_COORDINATION);
                 if (empty($storeGroup)) {
-                    if ($this->session->isAdminFor($store['bezirk_id'])) {
+                    if ($this->currentUserUnits->isAdminFor($store['bezirk_id'])) {
                         $isAmbassador = true;
                     }
-                } elseif ($this->session->isAdminFor($storeGroup)) {
+                } elseif ($this->currentUserUnits->isAdminFor($storeGroup)) {
                     $isCoordinator = true;
                 }
             }
@@ -893,7 +894,9 @@ class StoreRestController extends AbstractFOSRestController
      * @OA\Tag(name="stores")
      */
     #[Rest\Get('stores/{storeId}/log/{fromDate}/{toDate}/{storeLogActionIds}', requirements: ['storeId' => '\d+', 'fromDate' => '[^/]+', 'toDate' => '[^/]+', 'storeLogActionIds' => '(\d+,)*\d+'])]
-    public function showStoreLogHistory(int $storeId, string $fromDate, string $toDate, string $storeLogActionIds): Response
+    #[Rest\QueryParam(name: 'limit', requirements: '\d+', default: '100', description: 'How many bells to return.')]
+    #[Rest\QueryParam(name: 'offset', requirements: '\d+', default: '0', description: 'Offset for returned bells.')]
+    public function showStoreLogHistory(int $storeId, string $fromDate, string $toDate, string $storeLogActionIds, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
@@ -922,7 +925,9 @@ class StoreRestController extends AbstractFOSRestController
         }
 
         $storeLogActions = explode(',', $storeLogActionIds);
-        $storeLogEntries = $this->storeGateway->getStoreLogsByActionType($storeId, $storeLogActions, $fromDate, $toDate);
+        $pagination = $this->getPagination($paramFetcher);
+
+        $storeLogEntries = $this->storeGateway->getStoreLogsByActionType($storeId, $storeLogActions, $fromDate, $toDate, $pagination);
         $extendedLogEntries = $this->extendStoreLogWithFoodsaverProfilData($storeId, $storeLogEntries);
 
         $timeZone = new DateTimeZone('Europe/Berlin');

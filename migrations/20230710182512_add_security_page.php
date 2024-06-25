@@ -19,7 +19,7 @@ final class AddSecurityPage extends AbstractMigration
      */
     public function change(): void
     {
-        $builder = $this->getQueryBuilder();
+        $builder = $this->getDeleteBuilder();
         $builder
             ->delete('fs_content')
             ->where(['id' => 59])

@@ -3,8 +3,9 @@
     <Container
       :title="$i18n('pickup.dates')"
       tag="pickup_list"
+      wrap-content="p-0"
     >
-      <div class="text-right mt-2">
+      <div class="text-right mt-2 pr-2">
         <button
           v-if="(isCoordinator || mayEditStore)"
           v-b-tooltip

@@ -3,7 +3,7 @@
     <Logo v-if="viewIsMobile" />
     <Link
       v-if="!isFoodsaver"
-      :title="$i18n('foodsaver.upgrade.to_fs')"
+      :title="$i18n('foodsaver.upgrade.FOODSAVER')"
       icon="fa-hands-helping"
       :href="$url('quiz_foodsaver')"
     />
@@ -22,7 +22,7 @@
             'onlyNine': String(getMailUnreadCount).length === 1,
             'overNinetyNine': String(getMailUnreadCount).length > 2,
           }"
-          v-html="getMailUnreadCount"
+          v-text="getMailUnreadCount"
         />
         <i
           class="fas"

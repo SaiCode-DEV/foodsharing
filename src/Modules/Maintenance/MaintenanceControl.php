@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Modules\Maintenance;
 
+use Carbon\Carbon;
 use Foodsharing\Modules\Bell\BellUpdateTrigger;
 use Foodsharing\Modules\Console\ConsoleControl;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
@@ -10,6 +11,7 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreMaintenanceTransactions;
+use Foodsharing\Modules\Uploads\UploadsTransactions;
 use Foodsharing\Utility\IMAPFolderCleanupHelper;
 
 class MaintenanceControl extends ConsoleControl
@@ -23,7 +25,8 @@ class MaintenanceControl extends ConsoleControl
         private readonly BellUpdateTrigger $bellUpdateTrigger,
         private readonly GroupGateway $groupGateway,
         private readonly StoreMaintenanceTransactions $storeMaintenanceTransactions,
-        private readonly IMAPFolderCleanupHelper $imapFolderCleanupHelper
+        private readonly UploadsTransactions $uploadsTransactions,
+        private readonly IMAPFolderCleanupHelper $imapFolderCleanupHelper,
     ) {
         parent::__construct();
     }
@@ -35,6 +38,11 @@ class MaintenanceControl extends ConsoleControl
 
     public function daily()
     {
+        /*
+         * delete users that have been inactive for > 5 years
+         */
+        $this->deleteInactiveUsers();
+
         /*
          * warn store manager if there are no fetching people
          */
@@ -49,6 +57,7 @@ class MaintenanceControl extends ConsoleControl
          * delete unused images
          */
         $this->deleteImages();
+        $this->deleteUnusedImages();
 
         /*
          * deactivate too old food baskets
@@ -96,15 +105,41 @@ class MaintenanceControl extends ConsoleControl
         $this->bellUpdateTrigger->triggerUpdate();
 
         /*
-         * removing questions from finished quiz sessions
+         * removing questions and results from finished quiz sessions older than 2 weeks
          */
-        $this->updateFinishedQuizSessions();
+        $this->cleanOldQuizSessionData();
 
         /*
          * Remove failed and unprocessed E-Mais form IMAP folder
          */
         if (getenv('FS_ENV') !== 'dev') {
             $this->deleteImapFolderMails();
+        }
+    }
+
+    public function deleteInactiveUsers()
+    {
+        $arrayAccountsNotDeleted = [];
+        $accountsDeleted = 0;
+        self::info('deleting users inactive > 5 years');
+        $inactiveUsers = $this->foodsaverGateway->listInactiveUsers();
+        if ($inactiveUsers) {
+            self::info('...checking ' . count($inactiveUsers) . ' accounts');
+            foreach ($inactiveUsers as $fs) {
+                if ($this->storeGateway->listStoreIds($fs)) {
+                    $arrayAccountsNotDeleted[] = $fs;
+                } else {
+                    $this->foodsaverGateway->deleteFoodsaver($fs, null, 'Automatic inactivity deletion');
+                    ++$accountsDeleted;
+                }
+                if ($accountsDeleted === MAX_DELETE_OLD_ACCOUNTS_PER_DAY) {
+                    break;
+                }
+            }
+            self::info(count($arrayAccountsNotDeleted) . ' users where not deleted due to store memberships');
+            self::info('Number of Accounts deleted: ' . $accountsDeleted);
+        } else {
+            self::info('no inactive users found');
         }
     }
 
@@ -265,6 +300,25 @@ class MaintenanceControl extends ConsoleControl
         }
     }
 
+    private function deleteUnusedImages()
+    {
+        /*
+         * Delete all files that were uploaded after release "Laugenbrezel" (when usage types were introduced) and up
+         * to two days ago, which do not have a usage type yet. If a file was uploaded but a usage type was not set, it
+         * can be safely deleted. The offset of two days is used to make sure that there was enough time for the user to
+         * set the file's usage.
+         */
+        $fromDate = Carbon::parse('2024-05-08 00:00:00');
+        $toDate = Carbon::now()->subDays(2);
+
+        self::info('deleting uploaded files without usage...');
+        $uuids = $this->maintenanceGateway->listUploadsWithoutUsage($fromDate, $toDate);
+        foreach ($uuids as $uuid) {
+            $this->uploadsTransactions->deleteUploadedFile($uuid);
+        }
+        self::success(sizeof($uuids) . ' files deleted');
+    }
+
     private function memcacheUserInfo()
     {
         $admins = $this->foodsaverGateway->getAllWorkGroupAmbassadorIds();
@@ -316,10 +370,10 @@ class MaintenanceControl extends ConsoleControl
         self::success($count . ' entries deleted');
     }
 
-    private function updateFinishedQuizSessions()
+    private function cleanOldQuizSessionData()
     {
-        self::info('removing questions from finished quiz sessions...');
-        $count = $this->maintenanceGateway->updateFinishedQuizSessions();
+        self::info('reducing data from finished quiz sessions...');
+        $count = $this->maintenanceGateway->cleanOldQuizSessionData();
         self::success($count . ' sessions updated');
     }
 

@@ -6,8 +6,10 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
 use Foodsharing\Lib\View\vPage;
 use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Core\View;
 use Foodsharing\Modules\Foodsaver\Profile;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\BasketPermissions;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
@@ -39,7 +41,8 @@ class BasketView extends View
         TimeHelper $timeHelper,
         TranslationHelper $translationHelper,
         TranslatorInterface $translator,
-        BasketPermissions $basketPermissions
+        BasketPermissions $basketPermissions,
+        CurrentUserUnitsInterface $currentUserUnitsInterface
     ) {
         $this->basketPermissions = $basketPermissions;
         parent::__construct(
@@ -55,73 +58,27 @@ class BasketView extends View
             $sanitizerService,
             $timeHelper,
             $translationHelper,
-            $translator
+            $translator,
+            $currentUserUnitsInterface,
         );
     }
 
-    public function find(array $baskets, $location): void
+    public function find(array $baskets, GeoLocation $location, int $zoom): void
     {
-        $page = new vPage($this->translator->trans('terminology.baskets'), $this->findMap($location));
+        $map = $this->vueComponent('baskets-location-map', 'BasketsLocationMap', [
+            'center' => $location,
+            'zoom' => $zoom,
+        ]);
+        $page = new vPage($this->translator->trans('terminology.baskets'), $map);
 
         if ($baskets) {
             $label = $this->translator->trans('basket.nearby-short');
-            $page->addSectionRight($this->nearbyBaskets($baskets), $label);
+            $page->addSectionRight($this->vueComponent('nearby-baskets-list', 'NearbyBasketsList', [
+                'baskets' => $baskets,
+            ]), $label);
         }
 
         $page->render();
-    }
-
-    private function findMap($location): string
-    {
-        if (is_array($location)) {
-            $center = ['lat' => $location['lat'], 'lon' => $location['lon']];
-            $zoom = MapConstants::ZOOM_CITY;
-        } else {
-            $center = ['lat' => MapConstants::CENTER_GERMANY_LAT, 'lon' => MapConstants::CENTER_GERMANY_LON];
-            $zoom = MapConstants::ZOOM_COUNTRY;
-        }
-
-        return $this->vueComponent('baskets-location-map', 'BasketsLocationMap', [
-            'center' => $center,
-            'zoom' => $zoom,
-        ]);
-    }
-
-    public function nearbyBaskets(array $baskets): string
-    {
-        $out = '
-		<ul class="linklist" id="cbasketlist">';
-        foreach ($baskets as $b) {
-            $img = '/img/basket.png';
-            if (!empty($b['picture'])) {
-                if (str_starts_with((string)$b['picture'], '/api')) {
-                    $img = $b['picture'] . '?w=35&h=35';
-                } else {
-                    $img = '/images/basket/thumb-' . $b['picture'];
-                }
-            }
-
-            $distance = $this->numberHelper->format_distance($b['distance']);
-
-            $out .= '<li>
-				<a class="ui-corner-all" onclick="openBasketBubble(' . (int)$b['id'] . '); return false;" href="#">
-					<span style="float: left; margin-right: 7px;">
-						<img width="35px" src="' . $img . '" class="ui-corner-all">
-					</span>
-					<span style="height: 35px; overflow: hidden; font-size: 11px; line-height: 16px;">
-						<strong style="float: right; margin: 0 0 0 3px;">(' . $distance . ')</strong>'
-                        . $this->sanitizerService->tt($b['description'], 50) . '
-					</span>
-					<span class="clear"></span>
-				</a>
-			</li>';
-        }
-
-        return $out . '
-		</ul>
-		<div style="text-align: center;">
-			<a class="button" href="/karte?load=baskets">' . $this->translator->trans('basket.all_map') . '</a>
-		</div>';
     }
 
     public function basket(array $basket, $requests): void
@@ -270,25 +227,5 @@ class BasketView extends View
         }
 
         return '<img class="basket-img" src="' . $imgUrl . '" />';
-    }
-
-    public function fsBubble(array $basket): string
-    {
-        $img = '';
-        if (!empty($basket['picture'])) {
-            $img = '<div style="width: 100%; max-height: 200px; overflow: hidden;">
-				<img src="http://media.myfoodsharing.org/de/items/200/' . $basket['picture'] . '" />
-			</div>';
-        }
-
-        return $img . $this->v_utils->v_input_wrapper(
-            $this->translator->trans('basket.description'),
-            nl2br($this->routeHelper->autolink($basket['description']))
-        ) . '
-		<div style="text-align: center;">
-			<a class="fsbutton" href="' . BASE_URL . '/essenskoerbe/' . $basket['fsf_id'] . '" target="_blank">'
-            . $this->translator->trans('basket.request-fs') .
-            '</a>
-		</div>';
     }
 }

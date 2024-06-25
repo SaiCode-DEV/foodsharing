@@ -13,7 +13,7 @@ class WallPostGateway extends BaseGateway
         'event',
         'fairteiler',
         'foodsaver',
-        'report',
+        'fsreports',
         'question',
         'usernotes',
         // 'store', // table exists, no access for now
@@ -59,7 +59,7 @@ class WallPostGateway extends BaseGateway
         $posts = $this->db->fetchAll("SELECT {$this->selectColumns}
 		    FROM fs_wallpost post
             LEFT JOIN fs_foodsaver foodsaver ON post.foodsaver_id = foodsaver.id
-            LEFT JOIN {$this->getLinkTableName($target)} has_post ON post.id = has_post.wallpost_id 
+            LEFT JOIN {$this->getLinkTableName($target)} has_post ON post.id = has_post.wallpost_id
 			WHERE has_post.`{$this->getLinkTableForeignIdColumnName($target)}` = :targetId
 			ORDER BY post.time DESC
 			LIMIT :limit
@@ -112,12 +112,14 @@ class WallPostGateway extends BaseGateway
     {
         $this->assertIsValidTarget($target);
 
-        // The naming in table fs_report_has_wallpost is not consistent.
-        // The foreign key column is named "fsreport_id" instead of "report_id"
-        if ($target === 'report') {
-            return 'fsreport_id';
-        }
-
         return $target . '_id';
+    }
+
+    public function countPosts(string $target, int $targetId): int
+    {
+        return $this->db->count(
+            $this->getLinkTableName($target),
+            [$this->getLinkTableForeignIdColumnName($target) => $targetId]
+        );
     }
 }

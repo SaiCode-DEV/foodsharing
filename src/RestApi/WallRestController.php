@@ -5,6 +5,7 @@ namespace Foodsharing\RestApi;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
 use Foodsharing\Modules\WallPost\WallPostGateway;
+use Foodsharing\Modules\WallPost\WallPostTransactions;
 use Foodsharing\Permissions\WallPostPermissions;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -23,6 +24,7 @@ class WallRestController extends AbstractFoodsharingRestController
         protected Session $session,
         private readonly WallPostGateway $wallPostGateway,
         private readonly WallPostPermissions $wallPostPermissions,
+        private readonly WallPostTransactions $wallPostTransactions,
     ) {
     }
 
@@ -78,8 +80,7 @@ class WallRestController extends AbstractFoodsharingRestController
             throw new BadRequestHttpException('Post cannot be empty');
         }
 
-        $postId = $this->wallPostGateway->addPost($wallPost, $this->session->id(), $target, $targetId);
-        $post = $this->wallPostGateway->getPost($postId);
+        $post = $this->wallPostTransactions->addPost($wallPost, $target, $targetId);
 
         return $this->handleView($this->view($post, Response::HTTP_OK));
     }
@@ -102,7 +103,7 @@ class WallRestController extends AbstractFoodsharingRestController
             throw new NotFoundHttpException();
         }
 
-        $this->wallPostGateway->deletePost($postId, $target);
+        $this->wallPostTransactions->deletePost($postId, $target, $targetId);
 
         return $this->handleView($this->view(null, Response::HTTP_OK));
     }

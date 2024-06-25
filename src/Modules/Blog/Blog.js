@@ -1,6 +1,5 @@
 import '@/core'
 import '@/globals'
-import './Blog.css'
 import '@/tablesorter'
 import 'jquery.tinymce'
 import { GET, URL_PART } from '@/browser'
@@ -9,6 +8,7 @@ import { expose } from '@/utils'
 import { vueApply, vueRegister } from '@/vue'
 import BlogOverview from './components/BlogOverview.vue'
 import BlogPost from './components/BlogPost'
+import BlogPostList from './components/BlogPostList'
 import FileUploadVForm from '@/components/upload/FileUploadVForm'
 
 expose({
@@ -30,4 +30,9 @@ if (GET('sub') === 'manage') {
     BlogPost,
   })
   vueApply('#blog-post')
+} else {
+  vueRegister({
+    BlogPostList,
+  })
+  vueApply('#blog-post-list')
 }

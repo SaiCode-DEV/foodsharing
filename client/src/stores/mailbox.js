@@ -13,6 +13,13 @@ export const MAILBOX_FOLDER = Object.freeze({
   TRASH: 3,
 })
 
+export const MAIL_COMPOSITION_MODE = Object.freeze({
+  NEW: 1,
+  ANSWER: 2,
+  ANSWER_ALL: 3,
+  FORWARD: 4,
+})
+
 export const MAILBOX_ADDRESSBOOK_FILTER_TYPES = Object.freeze({
   REGIONS: [
     REGION_UNIT_TYPE.CITY,
@@ -29,16 +36,14 @@ export const MAILBOX_ADDRESSBOOK_FILTER_TYPES = Object.freeze({
 export const store = {
   state: reactive({
     page: null,
-    answerMode: false,
-    answerAll: false,
+    compositionMode: MAIL_COMPOSITION_MODE.NONE,
     selectedMailbox: [],
   }),
   setPage (value) {
     this.state.page = value
   },
-  setAnswerMode (value, answerAll = false) {
-    this.state.answerMode = value
-    this.state.answerAll = answerAll
+  setCompositionMode (value) {
+    this.state.compositionMode = value
   },
   setMailbox (mailboxId, mailboxName, folderId) {
     this.state.selectedMailbox = [mailboxId, mailboxName, folderId]

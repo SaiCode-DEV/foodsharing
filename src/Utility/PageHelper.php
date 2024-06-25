@@ -7,8 +7,9 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
-use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Settings\SettingsTransactions;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Permissions\ContentPermissions;
 use Foodsharing\Permissions\MailboxPermissions;
@@ -60,7 +61,9 @@ final class PageHelper
         private readonly NewsletterEmailPermissions $newsletterEmailPermissions,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly ProfilePermissions $profilePermissions,
-        private readonly RegionGateway $regionGateway
+        private readonly RegionGateway $regionGateway,
+        private readonly SettingsTransactions $settingsTransactions,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
 
@@ -155,27 +158,24 @@ final class PageHelper
      */
     public function getServerData(): array
     {
-        $user = $this->session->get('user');
-
         $userData = [
             'id' => $this->session->id(),
-            'firstname' => $user['name'] ?? '',
-            'lastname' => $user['nachname'] ?? '',
+            'firstname' => $this->session->user('name') ?? '',
+            'lastname' => $this->session->user('nachname') ?? '',
             'may' => $this->session->mayRole(),
-            'homeRegionId' => $user['bezirk_id'] ?? null,
-            'mailBoxId' => $user['mailbox_id'] ?? null,
+            'homeRegionId' => $this->currentUserUnits->getCurrentRegionId() ?? null,
+            'hasMailbox' => $this->mailboxPermissions->mayHaveMailbox(),
             'isFoodsaver' => $this->session->mayRole(Role::FOODSAVER),
             'verified' => $this->session->isVerified(),
-            'avatar' => $user['photo'] ?? null,
+            'avatar' => $this->session->user('photo') ?? null,
         ];
 
         $permissions = null;
         if ($this->session->mayRole()) {
-            $userData['token'] = $this->session->user('token');
             $permissions = $this->getPermissions();
         }
 
-        $location = $this->session->user('location') ?? new GeoLocation();
+        $location = $this->session->user('location') ?? null;
 
         $sentryConfig = null;
 
@@ -190,24 +190,22 @@ final class PageHelper
             'permissions' => $permissions,
             'page' => $this->routeHelper->getPage(),
             'subPage' => $this->routeHelper->getSubPage(),
-            'locations' => (array)$location,
+            'locations' => $location,
             'ravenConfig' => $sentryConfig,
             'isDev' => getenv('FS_ENV') === 'dev',
             'isTest' => getenv('FS_ENV') === 'test',
-            'locale' => $this->session->getLocale(),
+            'locale' => $this->settingsTransactions->getLocale(),
             'mapTilesApiKey' => $mapTilesApiKey
         ]);
     }
 
     private function getPermissions(): array
     {
-        $data = $this->session->get('user');
-
         return [
             'mayEditUserProfile' => $this->profilePermissions->mayEditUserProfile($this->session->id()),
-            'mayAdministrateUserProfile' => $this->profilePermissions->mayAdministrateUserProfile($this->session->id(), $data['bezirk_id']),
+            'mayAdministrateUserProfile' => $this->profilePermissions->mayAdministrateUserProfile($this->session->id(), $this->currentUserUnits->getCurrentRegionId()),
             'administrateBlog' => $this->blogPermissions->mayAdministrateBlog(),
-            'editQuiz' => $this->quizPermissions->mayEditQuiz(),
+            'editQuiz' => $this->quizPermissions->maySeeEditQuizPage(),
             'handleReports' => $this->reportPermissions->mayHandleReports(),
             'addStore' => $this->storePermissions->mayCreateStore(),
             'manageMailboxes' => $this->mailboxPermissions->mayManageMailboxes(),
@@ -219,7 +217,7 @@ final class PageHelper
 
     private function getMenu(): string
     {
-        $groups = $this->session->getRegions();
+        $groups = $this->currentUserUnits->getRegions();
 
         $regions = [];
         $workingGroups = [];
@@ -229,10 +227,10 @@ final class PageHelper
             $groupType = $group['type'];
             $group = array_merge($group, [
                 'mayHandleFoodsaverRegionMenu' => $this->regionPermissions->mayHandleFoodsaverRegionMenu($groupId),
-                'hasConference' => $this->regionPermissions->hasConference($groupType)
+                'hasConference' => $this->regionPermissions->hasConference($groupType),
             ]);
             if (UnitType::isRegion($groupType)) {
-                $group['isAdmin'] = $this->session->isAdminFor($groupId);
+                $group['isAdmin'] = $this->currentUserUnits->isAdminFor($groupId);
                 $group['mayAccessReportGroupReports'] = $this->reportPermissions->mayAccessReportGroupReports($groupId);
                 $group['mayAccessArbitrationGroupReports'] = $this->reportPermissions->mayAccessArbitrationReports($groupId);
                 $group['maySetRegionPin'] = $this->regionPermissions->maySetRegionPin($groupId);

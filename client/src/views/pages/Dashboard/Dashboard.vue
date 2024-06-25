@@ -17,6 +17,7 @@
         :is-closeable="quiz.closeable"
         :links="quiz.links"
       />
+      <QuizConfirmationField v-if="quizConfirmation" :quiz-confirmation="quizConfirmation" />
       <div v-if="isFoodsaver" class="filter mt-3">
         <b-dropdown
           id="dropdown-header"
@@ -119,6 +120,7 @@ import Broadcast from '@/components/Banners/Broadcast/BroadcastField.vue'
 import Intro from '@/components/Banners/Intro/IntroField.vue'
 import Release from '@/components/Banners/Release/ReleaseField.vue'
 import Quiz from '@/components/Banners/Quiz/QuizField.vue'
+import QuizConfirmationField from '@/components/Banners/Quiz/QuizConfirmationField.vue'
 import ErrorContainer from '@/components/Banners/Errors/ErrorContainer.vue'
 import InformationsContainer from '@/components/Banners/Informations/InformationContainer.vue'
 import ActivityContainer from '@/components/Container/activity/ActivityOverview.vue'
@@ -142,6 +144,7 @@ export default {
     Intro,
     Release,
     Quiz,
+    QuizConfirmationField,
     ErrorContainer,
     InformationsContainer,
     ActivityContainer,
@@ -158,6 +161,7 @@ export default {
   mixins: [MediaQueryMixin, StateTogglerMixin, RouteAndDeviceCheckMixin],
   props: {
     quiz: { type: Object, default: () => null },
+    quizConfirmation: { type: Number, default: () => null },
     events: { type: Object, default: () => ({ accepted: null, invites: null }) },
   },
   data () {

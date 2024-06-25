@@ -20,6 +20,11 @@
         <div id="fsp-city" class="element-wrapper">
           {{ zipCode }} {{ city }}
         </div>
+
+        <a :href="$url('map', { foodSharePointId: id })">
+          <i class="fas fa-map-marker-alt" />
+          {{ $i18n('fsp.show_on_large_map') }}
+        </a>
       </div>
 
       <leaflet-location-picker
@@ -41,6 +46,7 @@ L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 export default {
   components: { LeafletLocationPicker },
   props: {
+    id: { type: Number, required: true },
     address: { type: String, required: true },
     zipCode: { type: String, required: true },
     city: { type: String, required: true },

@@ -69,6 +69,7 @@
           v-if="activeSubpage === SUB_PAGE.FOODSHARINGPOINT"
           :region-name="name"
           :region-id="regionId"
+          :food-share-point-permission="pageData.foodSharePointPermission"
         />
         <PollList
           v-if="activeSubpage === SUB_PAGE.POLLS"
@@ -79,6 +80,7 @@
           v-if="activeSubpage === SUB_PAGE.MEMBERS"
           :group-id="regionId"
           :region-name="name"
+          :region-id="regionId"
           :user-id="pageData.userId"
           :may-set-admin-or-ambassador="pageData.maySetAdminOrAmbassador"
           :may-remove-admin-or-ambassador="pageData.mayRemoveAdminOrAmbassador"
@@ -115,6 +117,12 @@
           :applications="applications"
           :group-id="regionId"
         />
+        <Achievements
+          v-if="activeSubpage === SUB_PAGE.ACHIEVEMENTS"
+          :group-name="name"
+          :group-id="regionId"
+          :is-work-group="isWorkGroup"
+        />
       </div>
     </div>
   </div>
@@ -139,10 +147,12 @@ import NewThread from './NewThread.vue'
 import RemoveFromRegion from './RemoveFromRegion.vue'
 import { getApplications } from '@/api/applications'
 import ApplicationsList from './ApplicationsList.vue'
+import Achievements from './Achievements.vue'
 import { SUB_PAGE } from '@/stores/regions'
 
 export default {
   components: {
+    Achievements,
     ApplicationsList,
     RemoveFromRegion,
     NewThread,
@@ -198,6 +208,7 @@ export default {
             { value: this.allAdmins.moderationAdmins, label: 'terminology.moderationAdmins' },
             { value: this.allAdmins.boardAdmins, label: 'terminology.boardAdmins' },
             { value: this.allAdmins.electionAdmins, label: 'terminology.electionAdmins' },
+            { value: this.allAdmins.arbitrationAdmins, label: 'terminology.arbitrationAdmins' },
           ],
       loading: true,
       applications: [],

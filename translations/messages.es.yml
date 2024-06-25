@@ -107,8 +107,8 @@ dashboard:
   polls: 'Tus votos en curso'
   activation_mail_failure: 'No se pudo enviar ningún nuevo enlace de activación'
   no_updates: 'Sin actualizaciones'
-  full_subline: 'Recogiste <b>{pickups} x</b> alimentos y salvado <b>{weight} kg</b>.
-    Su distrito de origen es <b>{region}</b>.'
+  full_subline: 'Has recogido **{pickups} x** alimentos y ahorrado **{weight} kg**.
+    Tu distrito de origen es **{region}**.'
   source_friendWall: 'Tablón de anuncios de {0}'
   source_friendWall_own: 'Tu tablón de anuncios'
   greeting_short: '¡Hola {name}!'
@@ -303,7 +303,7 @@ quiz:
   waitxdays: 'Puedes intentarlo otra vez después'
   learnbreak: 'Pausa de estudio'
   donecorrectly: 'Has respondido correctamente todo. ¡Excelente!'
-  timedstart: 'Empezar el examen con plazo y 10 preguntas'
+  timedstart: 'Iniciar el cuestionario con un límite de tiempo y {count} preguntas'
   questions: 'Preguntas'
   session_deleted: 'Los resultados de este examen se eliminaron porque el examen se
     completó hace más de dos semanas.'
@@ -318,7 +318,7 @@ quiz:
   heavysigh: '¡Hecho!'
   not_passed_details: 'Lamentablemente has reprobado. ¡Tuviste {points} del máximo
     permitido de {max_points} errores puntuales!'
-  wikilink: 'Artículo wiki relacionado sobre este tema'
+  wikilink: 'Más información en la wiki'
   threestrikes: 'No has pasado el examen 3 veces.'
   failedbeforebut: ' veces no has pasado el examen hasta ahora. Aún tienes ese número
     de intentos:'
@@ -330,8 +330,206 @@ quiz:
   finished: '¡Felicidades, lo lograste!'
   notfinishedyet: 'Aún no has terminado el examen.'
   nownownow: 'Iniciar cuestionario ahora'
-  regstart: 'Empezar el examen sin plazo y 20 preguntas'
+  regstart: 'Iniciar el cuestionario con un límite de tiempo y {count} preguntas'
   comments: Comentario
+  plural: Cuestionarios
+  button:
+    pause: Continuar más tarde
+    finish: Cuestionario completo
+  title:
+    NEVER_TRIED: '{name} - ¡Haz el test ahora!'
+    RUNNING: '{name} - ¡Continúa el cuestionario!'
+    FAILED: '{name} - ¡Inténtalo de nuevo!'
+    PAUSE: ({name}) tomate un descanso
+    PASSED: '{name} - ¡Has superado este cuestionario!'
+    PAUSE_ELAPSED: '{name} - ¡Ya puedes intentarlo de nuevo!'
+    DISQUALIFIED: '{name} - Lamentablemente descalificado.'
+  startmodal:
+    title: Notas sobre el cuestionario
+    infos:
+      real_life_examples: La mayoría de las preguntas se basan en casos reales de
+        la vida de compartir los alimentos.
+      alone: No debes recibir ayuda durante el cuestionario. Por lo tanto, busca un
+        lugar tranquilo donde puedas completar el cuestionario sin ser molestado.
+      read_carefully: Lea atentamente todas las preguntas y respuestas. Hay tiempo
+        suficiente para ello.
+      wiki: Por favor, no empieces el cuestionario al azar. Lee atentamente las páginas
+        de la wiki sobre el intercambio de alimentos. Sin los conocimientos de la
+        wiki, no aprobarás el cuestionario.
+      limited_tries: No puedes repetir el cuestionario tantas veces como quieras.
+        Después de tres intentos, tienes que tomarse un descanso de 30 días para estudiar,
+        tras el cual sólo dispones de dos intentos más. Las preguntas que se te plantean
+        en cada intento son diferentes.
+      multiple_choice: Varias respuestas por pregunta pueden ser correctas, o ninguna.
+        Por lo tanto, decide para cada respuesta individualmente si es correcta o
+        incorrecta.
+      pause: Puedes pausar el cuestionario después de cada pregunta y continuar más
+        tarde.
+      feedback: Al final del cuestionario, recibirá inmediatamente una evaluación
+        en la que se le indicará si ha aprobado y qué errores ha cometido y dónde.
+        Aquí podrá volver a leer los motivos con tranquilidad.
+      comment: Después de responder a cada pregunta, verá una evaluación intermedia
+        con explicaciones para cada una de las posibles respuestas. Esto le ayudará
+        a comprender qué respuesta es correcta o incorrecta y por qué. Si comete un
+        error, lea atentamente las explicaciones. Si algo te parece ilógico, incomprensible
+        o incluso erróneo, deja un comentario.
+  answers:
+    timedOut:
+      1: Esta respuesta habría sido correcta.
+      0: Esta respuesta habría sido errónea.
+      2: Esta respuesta habría sido neutra.
+    name: Respuestas
+    none_correct: Ninguna respuesta es correcta.
+    neutral: 'Respuesta neutra: no se puntuará.'
+    false_true: Esta respuesta habría sido correcta.
+    true_false: ¡Incorrecto! Esta respuesta no es correcta.
+    true_true: ¡Correcto! Esta respuesta es correcta.
+    short:
+      0: incorrecto
+      1: correcto
+      2: neutral
+    false_false: Esta respuesta era, por supuesto, incorrecta. Lo ha reconocido correctamente.
+  general:
+    title: Información general
+    edit: Editar cuestionario
+  infomodal:
+    title: Pregunta {index} de {questions}
+  comment:
+    toggle: escribir un comentario
+    placeholder: Escribir comentario…
+    send: enviar comentario
+    sent: Comentario enviado.
+    info: Danos tu opinión sobre esta pregunta. ¿Era demasiado fácil, demasiado difícil,
+      incomprensible? ¿O algunas respuestas o explicaciones son incorrectas?
+    wallTitle: 'Comentarios a la pregunta #{id}'
+    label: comenta la pregunta
+  state_based_info:
+    PASSED: Has superado esta prueba.
+    NEVER_TRIED: Nunca has completado este cuestionario antes. Tómate tu tiempo para
+      leer detenidamente todos los artículos de la wiki que aparecen en la lista para
+      estar preparado para las preguntas.
+    RUNNING: Ya ha comenzado el cuestionario y ha respondido a {questionsAnswered}
+      de {questionCount} preguntas hasta el momento.
+    FAILED:
+      1: Lamentablemente, no ha superado este cuestionario en su primer intento. Esto
+        puede ocurrir a veces. Eche otro vistazo a los artículos pertinentes de la
+        Wiki y vuelva a intentarlo.
+      2: Lamentablemente, no has aprobado este examen en tus dos primeros intentos.
+        Tienes un tercer intento antes de que tengas que tomarte un mes de descanso
+        del estudio. Asegúrate de consultar los artículos pertinentes de la Wiki para
+        poder aprobar el cuestionario.
+    DISQUALIFIED: Lamentablemente, está descalificado para este examen, ya que ha
+      suspendido cinco veces.
+    PAUSE: Fallaste esta prueba tres veces. La fiabilidad, un buen conocimiento de
+      las reglas y una apariencia profesional son esenciales para compartir alimentos.
+      Desafortunadamente, no transmites eso con tus respuestas en este momento. Por
+      lo tanto, tendrás un mes de descanso en tus estudios antes de tener dos intentos
+      más para aprobar el examen. Tu descanso finaliza en {wait} días.
+    PAUSE_ELAPSED:
+      3: Tu descanso ha terminado. Ahora puede realizar el cuestionario dos veces
+        más. Esperamos que haya aprovechado el tiempo para familiarizarse más con
+        el contenido.
+      4: ¡Solo tienes un último intento para aprobar este cuestionario! Si falla ahora,
+        quedará descalificado permanentemente de esta prueba. Por favor, participe
+        únicamente si ha estudiado el contenido de la wiki en detalle.
+  results:
+    title:
+      1: ¡Felicidades!
+      2: Por desgracia, no ha aprobado.
+    points:
+      1: ¡Ha pasado con {failurePoints} de un máximo de {maxFailurePointsToSucceed}
+        puntos de fallo!
+      2: Tenías {failurePoints} puntos de fallo y habrías pasado con un máximo de
+        {maxFailurePointsToSucceed}.
+    deleted: La evaluación exacta sólo se guarda quince días después del concurso
+      y ya no está disponible.
+  fp_badge:
+    right: contestado correctamente
+    wrong: '{userFailurePoints} errores'
+  timed_out: No ha respondido a esta pregunta en el tiempo previsto.
+  timed_out_last: No has respondido a la última pregunta en el tiempo previsto.
+  timed_out_error: El plazo para responder a esta pregunta ya ha expirado.
+  error_tooltip: Has cometido un error con esta respuesta.
+  show_results: Ver los resultados del último intento
+  key_facts:
+    to_pass: 'Para pasar:'
+    untimed: Máximo {maxFailurePointsToSucceed} puntos de fallo en {questionCountTimed}
+      preguntas con o en {questionCountUntimed} preguntas sin límite de tiempo
+    timed: Máximo {maxFailurePointsToSucceed} puntos de fallo en {questionCountTimed}
+      preguntas con límite de tiempo
+  questions_section:
+    title: Preguntas del cuestionario ({count})
+  question_options:
+    add_answer: añadir respuesta
+    edit: editar esta pregunta
+    add: añadir una pregunta
+    show_comments: mostrar comentarios
+    delete: borrar pregunta
+  editModal:
+    quiz:
+      input:
+        maxFp: 'Puntos máximos de fallo para aprobar:'
+        name:
+          label: 'Nombre:'
+          placeholder: Nombre del cuestionario
+        questionCountTimed: 'Número de preguntas que hay que responder:'
+        allowUntimed: permitir la edición sin límite de tiempo
+        questionCountUntimed: 'Número de preguntas a responder sin límite de tiempo:'
+      title: editar cuestionario
+      htmlWarning: '**Atención:** Se ha cambiado el formato de la descripción. Lo
+        que ve en el campo de entrada de texto está formateado con HTML. Por favor,
+        ajuste la descripción y utilice Markdown en su lugar. Por favor, utilice la
+        función de vista previa del campo de entrada para asegurarse de que el formato
+        se ha ajustado correctamente.'
+    question:
+      input:
+        text:
+          label: 'Pregunta:'
+          placeholder: Pregunta del cuestionario…
+        fp: 'Puntos de error:'
+        duration: 'Hora de responder:'
+        wikilink:
+          label: 'Enlace al artículo wiki correspondiente:'
+          placeholder: https://wiki.foodsharing.de/…
+      title: Editar pregunta
+      confirmDelete:
+        title: ¿De verdad quieres borrar esta pregunta?
+    answer:
+      title: Editar respuesta
+      input:
+        text:
+          label: 'Respuesta:'
+          placeholder: Respuesta…
+        explanation:
+          label: 'Explicación:'
+          placeholder: Explicación…
+        answerRating: 'Valoración:'
+  confirmDelete:
+    session: ¿De verdad quieres borrar esta sesión de preguntas?
+    question: ¿De verdad quieres borrar esta pregunta?
+    answer: ¿De verdad quieres borrar esta respuesta?
+  editable_tooltip: Puedes editar este cuestionario.
+  timelimit: Límite de tiempo
+  max_fp: Posibles puntos de error
+  answer_options:
+    edit: editar respuesta
+    delete: borrar respuesta
+  fp_options:
+    default: '{failurePoints} Puntos de fallo'
+    ko: '{failurePoints} Puntos de fallo (nocaut)'
+    joke: '{failurePoints} Puntos de fallo (sin puntuación)'
+  sessionStatus:
+    0: en ejecución
+    1: Superado con {failurePoints} de un máximo de {maxFailurePointsToSucceed} puntos
+      de fallo
+    2: Falló con {failurePoints} de {maxFailurePointsToSucceed} puntos de fallo como
+      máximo
+  confirm: Confirme el cuestionario y complete el proceso
+  fp_description: Total {PuntosFallo}, es decir, {perMistake} por respuesta incorrecta
+  confirmComment: ¿Quieres que tu comentario sea enviado a los administradores de
+    este cuestionario?
+  confirmDashboardText: ¡Has superado un cuestionario que aún no has confirmado. [Haga
+    clic aquí]({url}) para completar el proceso!
 terminology:
   foodsaver:
     m: rescatista
@@ -412,6 +610,8 @@ terminology:
   no_pickups: 'ninguna'
   previous_pickups: Recogidas aquí
   electionAdmins: Elecciones
+  no: No
+  yes: Sí
 groups:
   empty: Aún no estás en ningún grupo de trabajo
 position: Puesto en foodsharing (público)
@@ -475,8 +675,8 @@ poll:
     submit: 'Guardar voto'
     type: 'Modo de votación'
     start_date: 'Inicio de la votacion'
-    submit_question: 'La encuesta sólo se puede cambiar en el plazo de una hora (hasta
-      el {date}). ¿De verdad quieres crearlo ahora?'
+    submit_question: 'La encuesta puede modificarse hasta su lanzamiento. ¿De verdad
+      quieres crearla ahora?'
     description_placeholder: '¿De qué se trata la votación?'
     start_date_required: 'Seleccione cuándo comienza la votación. Esto debe ser al
       menos una hora en el futuro.'
@@ -710,8 +910,7 @@ error:
     title: 'Hay un problema con tu foto de perfil.'
     description: 'En septiembre de 2021 realizamos un cambio técnico que afecta a
       las imágenes de perfil. Por lo tanto, te pedimos que vuelvas a cargar o renovar
-      tu foto de perfil. Si desea reutilizar su imagen actual, puede descargarla <a
-      href="{link}" download>aquí</a>. Por favor disculpe los inconvenientes.'
+      tu foto de perfil. Por favor disculpe los inconvenientes.'
   missing_geolocation:
     description: 'Por favor verifique su dirección. No se pudieron determinar las
       coordenadas.'
@@ -768,6 +967,11 @@ group:
     accepted: 'solicitud aceptada'
     motivation: '¿Cuál es tu motivación para unirte al grupo “{group}”?'
     link_description: 'Este enlace te llevará directamente a la aplicación:'
+    ability: ¿Qué habilidades tienes en esta área?
+    experience: "¿Puedes aprovechar las experiencias que hayas adquirido en otros
+      lugares?\nSi es así, ¿dónde o cuáles?\n"
+    how_much_time: ¿Cuántas horas a la semana tienes tiempo y ganas de dedicarle?
+    error_missing_time: 'Error: no se ha seleccionado ninguna hora.'
   show-all: 'mostrar todo'
   function:
     pr: 'Relación pública'
@@ -835,6 +1039,8 @@ group:
     duplicate_election_team: ¡Grupo electoral ya creado! Sólo puede haber un grupo
       electoral por distrito.
     election: Elecciones
+    none: No es un grupo de trabajo GOALS
+    stores_coordination: Empresas
   actions:
     edit: 'Editar grupo'
     join: 'Unase a este grupo'
@@ -883,6 +1089,22 @@ group:
     remove_ambassador_title: 'eliminar como embajador(a)'
     old_edit_hint: 'Ahora puede encontrar la gestión de miembros en la pestaña'
     not_verified: no verificad@
+    default:
+      lastname: Apellido
+      title: por defecto
+    passports:
+      title: Tarjetas
+      generate_button: Crear tarjeta(s) de membresía para la(s) persona(s) seleccionada(s)
+      never_before: nunca
+      created_at: Tarjeta creada el
+      filter_selection: Filtrar por miembros seleccionados
+      button:
+        verify: Para verificar
+        unverify: Sin verificar
+      verify:
+        do: Verificar la cuenta de {name} ({id})
+        undo: Sin verificar {name} ({id})
+      clear_selection: Restablecer todos los seleccionados
   edit:
     title: 'Editar {group}'
     name_required: 'Por favor ingrese un nombre.'
@@ -907,7 +1129,7 @@ group:
     tooltip_function_region331: 'L@s administrador@s de este grupo de trabajo pueden
       enviar boletines'
   description: 'Descripción'
-  application_region: 'Solicitud de '
+  application_region: 'Solicitud de {group}'
   quit: 'Salir'
   name: 'Nombre'
   photo: 'Fotografía'
@@ -943,19 +1165,24 @@ group:
   really_quit_district: '¿Quiere realmente abandonar el distrito de {name}?'
   really_quit_workgroup: '¿Estás seguro de que quieres abandonar el grupo de trabajo
     {name}?'
-  member_count: '{0} sin contribuyentes|{1} un(a) contribuyente| [2, Inf[ %count%
-    contribuyentes'
+  member_count:
+    zero: Sin colaboradores
+    one: Un colaborador
+    other: '{count} colaboradores'
   enterskills: 'Habilidades:'
   saved: 'Se guardaron los cambios'
   quit_name_workgroup: 'Dejar el equipo {name}'
   delete_group_sure: '¿Realmente desea eliminar el grupo/el distrito {groupName}?'
   subtitle: 'Aquí encontrarás ayuda y mucho que hacer …'
-  admin_count: '{0} sin administratores|{1} un(a) administrador(a)| [2, Inf[ %count%
-    administrador@s'
+  admin_count:
+    zero: Sin administradores
+    one: Un administrador
+    other: '{count} administradores'
   filter_by_last_activity: 'No activo en meses'
   enterxp: 'Experiencia:'
   quit_name_district: 'Abandonar el distrito {name}'
   role_name: 'Role'
+  filter_placeholder: Filtrar grupos por nombre
 register:
   error_email_exist: 'Su dirección de correo electrónico ya existe.'
   login_email: 'Dirección de correo electrónico'
@@ -982,8 +1209,8 @@ register:
   account-exists: 'Ya estás registrado. Por favor cierre sesión si desea registrarse
     nuevamente.'
   login_passwd1: 'Contraseña (Al menos 8 caracteres)'
-  birthdate_hint: 'Puede encontrar más información en la <a href="/?page=legal" target="_blank">declaración
-    de protección de datos</a> en el punto 2d.'
+  birthdate_hint: 'Puede encontrar más información en la [declaración de protección
+    de datos]({url}) en el punto 2d.'
   signup_newsletter: 'Me gustaría recibir el boletín de foodsharing aproximadamente
     una vez al mes'
   phone_not_valid: 'El número de teléfono que ingresaste no es válido.'
@@ -1018,6 +1245,8 @@ register:
   select_your_gender: 'Para el saludo …'
   change-password: 'Ahora puedes cambiar tu contraseña.'
   confirmPassword_sameAsPassword: 'La contraseña debe coincidir.'
+  lastname_maxLength: El apellido sólo puede constar de un máximo de 30 caracteres.
+  firstname_maxLength: El nombre sólo puede constar de un máximo de 30 caracteres.
 button:
   rotate_right: 'rotar las agujas del reloj'
   save: 'ahorrar'
@@ -1039,6 +1268,8 @@ button:
   reset_default: Restablecer valor predeterminado
   prev: Volver
   close: Cerrar
+  start: ¡Vamos!
+  confirm: confirmar
 pass:
   nav:
     options: 'Opciones'
@@ -1082,7 +1313,7 @@ pass:
   noPhoto: 'Las siguientes personas aún no han subido una foto:'
 bcard:
   actions: 'Opciones'
-  role: 'Función/Región'
+  role: 'Rol'
   choose: 'Tienes que elegir una opción'
   for: '{role} para {region}'
   desc: 'Elija aquí para qué distrito y función le gustaría crear su tarjeta de presentación.'
@@ -1098,11 +1329,12 @@ bcard:
   title: 'Generador de tarjetas de visita'
   claim: 'Simplemente genere, imprima y corte aquí …'
   card: 'Tu tarjeta de presentación de foodsharing'
+  region: Región
 storeview:
   public_and_statistics: 'Estadísticas y Relaciones Públicas'
   public_time_in_the_morning: 'por la mañana'
   public_time_at_noon_or_afternoon: 'por la mediodía'
-  pickupWeight: 'y se ahorraron {pickupWeight} kg.'
+  pickupWeight: 'kg rectificados'
   info: 'Informaciones'
   teamInfo: '<strong>{active}</strong> rescatistas activos y <strong>{jumper}</strong>
     suplentes en el equipo.'
@@ -1136,7 +1368,7 @@ storeview:
   cooperation_status: 'Estado de cooperación'
   status_notes: 'Notas de estado'
   no_permission_to_view: 'Sólo visible para l@s responsabl@s de la empresa.'
-  pickupCount: 'Recogimos {pickupCount}'
+  pickupCount: 'Recogidas'
   specials: 'Particularidades'
   managers: 'rescatistas responsables'
   visible_for_public: 'Este texto es visible para todos l@s rescatistas.'
@@ -1144,6 +1376,8 @@ storeview:
   cooperation_start: 'Cooperación desde'
   show_settings: Configuración de la empresa
   choose_chain: Elija una cadena
+  team_info_active: 'Miembros activos del equipo:'
+  team_info_jumper: 'Springer:'
 store:
   tooltip_red: 'Recogidas vacantes hoy o mañana'
   tooltip_managing: 'Usted es responsable de esta cooperación'
@@ -1165,7 +1399,7 @@ store:
     filterJumper: 'Suplentes'
     makeRegularTeamMember: 'Agregar al equipo'
     filterQuizSM: 'Examen aprobado para responsables de cooperación'
-    demoteAsManager: 'Eliminar como responsable de esta empresa'
+    demoteAsManager: 'Retirar la responsabilidad'
     managementActions: 'Acciones para los responsables de la cooperación'
     reloadRequired: 'Para actualizar la información del equipo:'
     promoteToManager: 'Hacerte responsable de esta empresa'
@@ -1174,21 +1408,26 @@ store:
     pickupDesc: 'Últimas entradas primero'
     searchPlaceholder: 'Nombre o DNI'
     managementEffect: 'Ordenando por última fecha de recogida:'
-    filterAll: Todo
+    filterAll: Miembros
     filterActive: Activ@s
     filterSleeping: Dormilon@s
     toogleIsReducedStateOpen: ampliar lista
     toogleIsReducedStateClosed: cerrar lista
-    filterManage: Examen de responsables de cooperación o superior
+    filterManage: con examen de responsables de cooperación
     promoteToManagerNotPossible: La persona no puede ser registrada como responsable
       porque ya hay tres personas responsables de esta empresa o porque la persona
       aún no ha superado el examen correspondiente.
     buttonManagementToggle: Modo de gestión
+    sorting:
+      default: Clasificación estándar
+      pickup: ordenada por última recogida
+    userHasPickupsWarning: '{name} aún está registrado para recoger {occupiedSlots}
+      en esta empresa. Estas franjas horarias quedarán libres. ¿Deseas continuar?'
   lastPickupShort: 'último el {date}'
   request:
     got-it: 'Los responsables han sido informados de su solicitud y se pondrán en
       contacto con usted.'
-    request: 'Me gustaría ayudar a este equipo.'
+    request: 'Aplicar para este equipo'
     withdraw: 'Retirar mi solicitud'
     verified: 'Usuario está verificad@'
     to-team: 'agregar al equipo'
@@ -1204,7 +1443,7 @@ store:
     air_line: La distancia indicada es en línea recta.
   all_of_my_stores: 'Todas mis empresas'
   prefetchone: '1 semana'
-  go: 'A la página del equipo'
+  go: 'Al equipo'
   isManager: 'Responsable de esta tienda.'
   noPickup: 'Nunca recogió nada aquí.'
   isJumper: 'Está en la lista de suplentes.'
@@ -1255,10 +1494,10 @@ store:
   prefetchfour: '4 semanas'
   tooltip_orange: 'Recogidas vacantes en tres días'
   important: 'Importante:'
-  jumperSince: 'Suplente desde: {date}'
+  jumperSince: 'Suplente desde {date}'
   tooltip_yellow: 'Recogidas vacantes en los próximos cinco días'
   days_before: 'hace'
-  memberSince: 'En el equipo desde: {date}'
+  joinDate: 'En el equipo desde: {date}'
   mayManage: 'Aprobó el examen de responsables para empresas.'
   mayAmb: 'Aprobó el cuestionario de embajador@s.'
   complete: 'base de datos completa'
@@ -1266,7 +1505,7 @@ store:
   maxchar: '(máx. 180 caracteres)'
   noStores: 'Aún no hay empresas registradas'
   attribution: 'Atribución'
-  lastPickup: 'Última recogida: {date}'
+  lastPickup: 'Última recogida {date}'
   nochains: '¡Póngase en contacto únicamente con empresas gestionadas por sus propietarios
     con un máximo de tres sucursales, nunca con sucursales de cadenas más grandes!
     ¡Tenga en cuenta las reglas de cooperación con cadenas corporativas!'
@@ -1379,6 +1618,7 @@ store:
     search_input: Buscar por nombre de la cadena
   to_map: Mostrar en el mapa
   storeFrom: Operación de {name}
+  no_chain_choosen: No se ha seleccionado ninguna cadena
 pickup:
   overview:
     status:
@@ -1536,7 +1776,7 @@ date:
   -- Tomorrow: 'Mañana'
   tomorrow: 'mañana'
 bell:
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   store_cr_times_title: '{name}'
   new_foodsaver_verified: 'Ya verificad@: list@ para ir'
   store_request_deny_title: '{name}'
@@ -1574,7 +1814,7 @@ bell:
   buddy_request: '{name} te conoce.'
   new_foodsaver: 'Necesita recogidas introductorias'
   store_request_accept_wait: 'Ahora estás en la lista de espera/suplente.'
-  new_quiz_comment_title: 'Nuevo comentario sobre el cuestionario'
+  new_quiz_comment_title: 'Comenta la pregunta #{questionId}'
   poll_new: '{title}'
   store_request_deny: 'Su solicitud ha sido rechazada.'
   fs_sleepmode: '{name} {nachname} ahora está inactiv@'
@@ -1610,6 +1850,14 @@ bell:
   store_change_regular_pickup_times:
     one: Las fechas de recogida han sido ajustadas
     many: fechas de recogida han sido ajustadas
+  event_post:
+    many: '{count} nuevos comentarios sobre {event}'
+    one: 'Nuevo comentario de {user} '
+  workinggroup_new_request: Nueva solicitud para un grupo de trabajo
+  internal_email_changed_title: '{address}'
+  event_post_title: Fecha de {event} en {region}
+  workinggroup_new_request_title: '{name}'
+  internal_email_changed: Tu dirección de correo electrónico personal ha sido cambiada.
 foodsaver:
   restricted: 'Lamentablemente, no tienes permiso para ver estos datos.'
   upgrade:
@@ -1635,6 +1883,10 @@ foodsaver:
     to_amb: 'Conviértete en embajador(a)'
     learning: 'Mira ahora el vídeo explicativo'
     needs_rv: 'Tienes que aceptar el acuerdo legal.'
+    STORE_MANAGER: Conviértete en gestor de cooperaciones
+    AMBASSADOR: Conviértete en embajador
+    FOODSAVER: Conviértete en un ahorrador de alimentos
+    pn: Sí, he leído la política de protección de datos y la acepto.
   url_error: 'Algo anda mal con la URL de tu página de inicio'
   title: 'Rescatistas'
   actions: 'Actividades'
@@ -1660,20 +1912,19 @@ foodsaver:
     fallado. Inténtalo de nuevo.'
   delete_account_now: 'Eliminar cuenta ahora'
   bread: 'Todos l@s rescatistas'
-  about_me_public: "Esta breve descripción se muestra y puede ser utilizada por todas
-    las personas\nque figuran en la <a href=\"/team\">página de personal</a> y en
-    la \n<a href=\"/team/former\">página de anteriormente activ@s</a>. Puede ser visto
-    por todos en el sitio web.\n"
+  about_me_public: "se muestra y puede ser utilizada por todas las personas que figuran
+    en la [página de personal y en la página de anteriormente activ@s](/team). Puede
+    ser visto por todos en el sitio web.\n"
   delete_account_sure: '¿Realmente quieres eliminar tu cuenta?'
   delete_account_sure_reason: '¿Realmente debería eliminarse la cuenta de {name}?
     Opcionalmente, puedes proporcionar un motivo aquí para que otros puedan entender
     más adelante por qué se eliminó la cuenta:'
   profileBack: 'Volver al perfil'
-  about_me_intern: 'Esta breve descripción se mostrará en su página de perfil
-
-    y será visible para todos los miembros de la comunidad de foodsharing.
+  about_me_intern: 'se mostrará en su página de perfil y será visible para todos los
+    miembros de la comunidad de foodsharing.
 
     '
+  delete_account_reason: Motivo de la eliminación de la cuenta
 profile:
   mail_bounce:
     warning_4: 'este artículo de soporte.'
@@ -1715,11 +1966,12 @@ profile:
     buddy: 'Conozco a {name}'
     storelist: 'Empresas ({count})'
     verificationHistory: 'Historial de verificación'
-    violations: 'Quejas <strong>({count})</strong>'
+    violations: 'Quejas'
     history: 'Historial de la tarjeta'
-    notes: 'Notas <strong>({count})</strong>'
+    notes: 'Notas'
     edit: 'Editar perfil'
     remove_buddy: Ya no conozco a {name}
+    quizSessionHistory: Intentos de concurso
   mediation:
     title: 'Solicitud de mediación para {name}'
     no_group: 'Desgraciadamente todavía no existe un grupo de mediación local en el
@@ -1815,9 +2067,8 @@ profile:
       no tiene soporte técnico por el momento. Puede enviar un informe en cualquier
       momento por correo electrónico a la persona responsable localmente en este caso.'
     late: 'Persona llegaba tarde'
-    readup: 'Puede encontrar más información sobre la tramitación de reclamaciones
-      aquí: <a href="https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung">Procesamiento
-      de reclamaciones</a> (texto en alemán)'
+    readup: 'Encontrará información sobre cómo tratar una notificación aquí: [Editar
+      una notificación](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)'
     inthisblog: 'en esta entrada del blog'
     reporterHasNoReportGroup: 'No puede utilizar el sistema de quejas porque no existe
       un grupo de quejas local en su distrito.'
@@ -1834,7 +2085,7 @@ profile:
     actionBy: 'por'
     lostVerification: 'Deverificado'
   cantdeletethis: '¡No puedes eliminar eventos individuales!'
-  sleeping: '{name} se toma un descanso por tiempo indefinido'
+  sleeping: 'se toma un descanso por tiempo indefinido'
   title: 'Perfil'
   notes:
     title: 'Notas sobre {name}'
@@ -1885,8 +2136,10 @@ profile:
   stats:
     baskets: 'Cestas de alimentos'
     posts: 'Publicaciones'
-    weight: 'salvado'
+    weight: 'kg salvado'
     count: 'recogido'
+    fetch_count: recogido
+    bananas: Plátanos
   regions: '{name} guarda comida en'
   workgroups_admin: '{name} participa como persona de contacto para los grupos'
   about_me_intern: 'Acerca de mí'
@@ -1918,8 +2171,32 @@ profile:
     para el nombre de la persona. No utilice este campo para almacenar más información
     sobre el usuario, como por ejemplo la realización de cursos de higiene o similares,
     sino que se pueden utilizar grupos de trabajo para realizar dichas tareas. Encontrará
-    más información al respecto en <a href="/region?bid=881&sub=forum&tid=58225">Foro
-    de Embajador@s</a>
+    más información al respecto en [Foro de Embajador@s](/region?bid=881&sub=forum&tid=58225)
+  sections:
+    home_region_from: Región de origen
+    foodSaver_in_region: Ahorrador de alimentos en
+    ambassador_for: de
+    workgroups_admin: es la persona de contacto de los grupos
+    workgroups_member: en los siguientes grupos de trabajo
+    no_common_workgroups: en ningún grupo de trabajo conjunto
+    orga_rights: 'Como persona de la organización, ##### tiene [amplias autorizaciones]({wikiurl})
+      en la plataforma.'
+  tab_navigation:
+    pickups: Recogidas
+    commitment_statistics: Estadísticas de participación
+    profile: Perfil
+    notes: Notas ({count})
+    stores: Empresas ({count})
+  stores:
+    search_placeholder: Buscar por nombre
+    memberState:
+      filterAll: todos
+      filterRequested: Solicitud realizada
+      filterActive: miembro
+      filterManage: RE
+      filterJumper: Suplente
+    store_table: Lista de empresas
+  sleeping_info_from_until: hace una pausa del {from} al {until}
 home:
   title: 'Pagina de inicio'
   home: 'Inicio'
@@ -1978,7 +2255,7 @@ basket:
   not_active: 'La canasta de alimentos ya no está activa.'
   provider: 'Proveedor(a)'
   not_withdrawn: 'La solicitud de canasta de alimentos no pudo ser cancelada: '
-  n_requests: 'Solicitudes anteriores: <strong>{count}</strong>'
+  n_requests: 'Consultas previas:'
   all: 'Todas las cestas de comida'
   on: 'Cesta de comida de {platform}'
   request_denied: 'Su solicitud fue rechazada por el/la proveedor(a) de la canasta
@@ -1989,7 +2266,7 @@ basket:
   request-fs: 'Solicite esta canasta de alimentos en el sitio de foodsharing'
   no_nearby: 'No hay canastas de alimentos en un radio de {radius} km'
   my_list_empty: 'No has introducido ninguna cesta de comida'
-  expires: 'Válido hasta el <strong>{date}</strong>'
+  expires: 'Válido hasta el'
   by: 'Cesta de comida de {name}'
   requested_by: 'solicitado por {name}'
   send_request: 'Enviar solicitud'
@@ -2259,12 +2536,7 @@ forum:
     title: 'Título'
     no_mail: 'El hilo se inició sin enviar correos electrónicos'
     open: 'Reabrir hilo'
-    delivery_mail:
-      title: 'Entrega de correo'
-      non_active: ''
-      active: ''
-      disable: desactivar
-      activate: activar
+    delivery_mail: Activar el envío de correos electrónicos
     too_big_to_mail: 'No se enviaron correos electrónicos sobre el tema porque es
       un país o estado federal.'
     navigate_to_newest_post: 'saltar a la última publicación'
@@ -2282,6 +2554,7 @@ forum:
     subscriptions:
       subscribed: suscrito
       subscribe: Suscribir
+    bottom: Visibilidad reducida
   new_thread: 'Componer un nuevo hilo'
   follow:
     bell: 'por campana'
@@ -2312,6 +2585,7 @@ forum:
     text: ¿Realmente quieres que este nuevo post sea enviado por correo electrónico
       a todos los miembros de este grupo o distrito? Solo debes hacerlo si tu petición
       afecta a todos y es tan importante que todos deberían saberlo.
+  go: al foro
 buddy:
   request_sent: 'Solicitud enviada.'
   request_accepted: 'Ahora son amig@s.'
@@ -2381,6 +2655,7 @@ fsp:
   new: 'Nuevo distribuidor'
   addedBy: 'Añadid@ por'
   addError: 'No se pudo ingresar el distribuidor. ¿Completaste todo correctamente?'
+  show_on_large_map: Mostrar en el mapa
 storeedit:
   team:
     leave: 'Dejar esta empresa'
@@ -2462,7 +2737,7 @@ events:
     date: 'Fecha'
     groups: 'Tus grupos de trabajo'
     inviteAll: '¿Invitar a todo el grupo/distrito a la cita?'
-    online: 'Reunión en línea'
+    online: 'por teléfono o videoconferencia'
     mumble: 'Conferencia en Mumble'
     isPublic: 'Sí, el evento es público'
     multiday: 'El evento dura varios días'
@@ -2488,6 +2763,13 @@ events:
     who: '¿Para qué distrito o grupo de trabajo debería crearse el evento?'
     endtime: 'Hora de finalización'
     regions: 'Tus distritos'
+    name: Nombre del evento
+    locationDetails: Detalles de la ubicación (número de habitación, etc.)
+    locationOther: ¿Dónde se celebrará?
+    fillCompletely: Rellene completamente el formulario.
+    time: Hora
+    type: ¿Cómo se desarrolla el evento?
+    other: Mezcla
   mumble:
     title: 'Cita en línea (Mumble)'
     guide: 'Instrucciones: <strong><a href="https://wiki.foodsharing.de/Mumble">wiki.foodsharing.de/Mumble</a></strong>
@@ -2521,6 +2803,23 @@ events:
   maybeCount: '{count} tal vez venga'
   duration: 'Duración: {duration}'
   notFound: 'O este evento no existe o no puedes acceder a él.'
+  location: Ubicación
+  meeting:
+    past: Este acto se celebró en línea.
+    not_started: El acto aún no ha comenzado
+    present: Este acto se celebra en línea. Puede inscribirse ahora.
+    future: Este acto se celebrará en línea. En cuanto empiece, puede unirse a través
+      del botón de abajo.
+  attendees: Participantes
+  noneAccepted: Hasta el momento, ninguna persona ha confirmado su participación en
+    este acto.
+  online_info: "Las videoconferencias y de video de FoodSharing se ejecutan mejor
+    a través de nuestro propio servidor [BigBlueButton](https://bigbluebutton.org).
+    Después de 10 minutos antes del inicio de la reunión, los usuarios pueden participar
+    fácilmente en la conferencia con un clic en la página de la reunión. No se requieren
+    programas adicionales, solo un navegador bastante moderno. También es posible
+    registrarse por teléfono.\n\nSi aún deseas utilizar otra plataforma para teléfono
+    o videoconferencia, puedes seleccionar la opción *\"Otro\"*. \n"
 recipients:
   orga_team: 'Equipo organizacional global'
   newsletter: 'Todos los suscriptores del boletín (al menos rescatista)'
@@ -2674,6 +2973,10 @@ mailbox:
   reply_all: Responder a todos
   show_html_body: Ver como HTML
   mark_none: No marcar ninguno
+  forward: Reenviar
+  forward_attachment_warning: Todavía no es posible reenviar archivos adjuntos. Si
+    desea reenviar el correo electrónico con archivos adjuntos, puede descargarlos
+    y adjuntarlos al nuevo correo electrónico.
 settings:
   follow:
     thread: '¿Quiere mantenerse actualizado sobre el tema del foro “{thread}”?'
@@ -2822,12 +3125,12 @@ settings:
     title: 'Nombre y apellido'
     foodsharer_info: 'Para cambiar su nombre, debe enviarnos una solicitud mediante
       el <a href="{link}">formulario de soporte</a>.'
-    desc: 'No puedes cambiar tu nombre tú mismo. Sin embargo, puedes <a href="{link}">solicitar
-      un cambio de nombre</a>.'
+    desc: 'No puedes cambiar tu propio nombre. Sin embargo, puede solicitar un [cambio
+      de nombre]({link}).'
     foodsaver_info: 'Para cambiar su nombre, debe comunicarse con un embajador de
       su distrito de origen. Luego, esta persona puede cambiar el nombre por usted.<hr>Puede
-      ver quién es el embajador en su distrito de origen en el <a href="{link}">foro
-      de su distrito</a> en la barra lateral izquierda.'
+      ver quién es el embajador en su distrito de origen en el [foro de su distrito]({link})
+      en la barra lateral izquierda.'
     request: 'Solicitar cambio de nombre'
   photo:
     info: 'Tu cara debe ser <a href="{link_photo}">reconocible</a> en la foto de perfil,
@@ -2858,6 +3161,18 @@ settings:
     ¿Quieres eso?
 
     '
+  no_rights: No está autorizado a modificar la configuración del perfil.
+  delete_profile: Eliminar este perfil
+  address:
+    title: Seleccionar dirección
+    choose: Adoptar dirección
+  general:
+    phone: Su número de teléfono fijo
+    current_address: Direccion actual
+  quiz:
+    1: 'Ahorro de alimentos: en el cuestionario'
+    2: Cuestionario para gerentes de tienda
+    3: Prueba de embajador
 team:
   former: 'Antiguos alumnos'
   ratelimit: 'Espere {minutes} minutos antes de poder enviar el siguiente mensaje.'
@@ -2878,6 +3193,10 @@ region:
     region: 'Región'
     workgroup: 'Grupo de trabajo'
     district: 'Distrito'
+    federal_state: Estado federal
+    working_group: Grupo de trabajo
+    big_city: Gran ciudad (sin opción de registro)
+    part_of_town: Barrio
   forum-redirect: 'No hay tablero de anuncios para las regiones. Has sido redirigido
     al foro.'
   hull:
@@ -2889,7 +3208,10 @@ region:
       maestro si se ha especificado uno'
     closure: 'Ingrese {region} como maestro para todos los distritos secundarios'
   edit: 'Editar distrito'
-  confirm: '¿Está seguro de que desea guardar los cambios del distrito?'
+  confirm:
+    edit: ¿Está seguro de que desea guardar los cambios en el distrito {name}?
+    create: ¿Está seguro de que desea crear el distrito {name}?
+    delete: ¿Está seguro de que desea eliminar el distrito {name}?
   change: 'Cambiar distrito'
   noParent: 'Sin distrito principal'
   new: 'Nuevo distrito'
@@ -2911,28 +3233,35 @@ region:
   no-huge: 'No puede seleccionar un país o estado como distrito.'
   created: 'Se creó {region}'
   restricted: 'Lamentablemente, no tienes permiso para ver estos datos.'
+  createNew: crear un nuevo distrito
+  master: Distrito principal
+  mailbox: Nombre del buzón
+  root: Ninguno (raíz)
+  select: Seleccione el distrito para editar
+  name: Nombre
+  parent: Referencia a los padres
 password:
   insertmail: 'Ingrese su correo electrónico para restablecer su contraseña.'
   reset: '¿Has olvidado tu contraseña?'
 join_region:
   headline: 'Seleccione el distrito en el que le gustaría participar activamente.'
   error:
-    is_country: '<strong>Este es un país.</strong><br> ¡Seleccione una ciudad, una
-      región o un distrito!'
+    is_country_1: 'Este es un país.'
+    is_country_2: '¡Seleccione una ciudad, una región o un distrito!'
     not_allowed: 'No puedes unirte a esta región.'
-    is_state: '<strong>Este es un estado federal.</strong><br> ¡Seleccione una ciudad,
-      una región o un distrito!'
-    is_big_city: '<strong>Esta es una gran ciudad.</strong><br> ¡Seleccione una ciudad,
-      una región o un distrito!'
-  description: 'Puede unirse a su primer distrito haciendo clic desde su continente
-    hasta su distrito. Si no encuentras un distrito para ti, sube de nivel o únete
-    al distrito más cercano a ti. Si no tienes la oportunidad de formarte como rescatador
-    de alimentos en la zona, puedes considerar la posibilidad de crear tu propio distrito.
-    En este caso, lea atentamente la Wiki y especialmente el <a href="{href}">artículo
-    sobre la creación o reactivación de distritos<a>.Si desea que creemos el distrito
-    por usted o tiene preguntas específicas que el Wiki no responde, escríbanos <a
-    href="{mail}">un correo electrónico</a>. No somos el punto central de contacto
-    para preguntas generales, pero podemos ayudarlo con preguntas sobre distritos.'
+    is_state_1: 'Este es un estado federal. ¡Seleccione una ciudad, región o distrito!'
+    is_state_2: '¡Seleccione una ciudad, una región o un distrito!'
+    is_big_city_1: 'Esta es una gran ciudad.'
+    is_big_city_2: '¡Seleccione una ciudad, una región o un distrito!'
+  description: 'Puedes unirte a tu primer distrito haciendo clic desde tu continente
+    hasta tu distrito. Si no encuentras un distrito para ti, selecciona un nivel superior
+    o únete al distrito más cercano. Si no tienes la oportunidad de formarte como
+    protector de alimentos en el barrio, puedes plantearte fundar tu propio distrito.
+    En este caso, lee atentamente la wiki y, en particular, el [Artículo sobre la
+    creación o reactivación de distritos]({href}). Si quieres registrar el distrito
+    o tienes preguntas específicas que la wiki no responde, escríbenos [un correo
+    electrónico]({mail}). No somos el punto central de contacto para cuestiones generales,
+    pero podemos ayudarte con preguntas sobre los distritos.'
 globals:
   show_less: 'Muestra menos'
   show_more: 'Mostrar más'
@@ -3074,13 +3403,13 @@ content:
   communities:
     title: Grupos locales
     text: El foodsharing crece día a día. Aquí encontrará siempre una lista actualizada
-      de todas las comunidades y distritos de foodsharing. Puede enviar un correo
-      electrónico al distrito correspondiente haciendo clic en el nombre vinculado.
+      de todas las comunidades y regiones de foodsharing. Puede enviar un correo electrónico
+      a cualquiera de estas regiones haciendo clic en los nombres enlazados.
     searchInfo: Con Ctrl+F, la lista puede buscarse en muchos navegadores por país,
       ciudad, estado o barrio.
-    noAmbassador: Esta región no tiene embajadores y, por tanto, no se puede contactar
-      con ella por correo electrónico. Póngase en contacto con una región vecina o
-      con la región inmediatamente superior.
+    noAmbassador: Actualmente no hay embajadores en esta región y, por lo tanto, no
+      es posible contactarlos por correo electrónico en este momento. Póngase en contacto
+      con la región vecina o la región superior.
 personal_data:
   mobile: 'Número de teléfono móvil'
   label: 'Contacto'
@@ -3100,10 +3429,8 @@ footer:
     wiener_tafel: 'Banco de Alimentos de Viena'
     lebensministerium: 'Ministerio Federal de Agricultura, Regiones y Turismo'
   hosting:
-    info: '<a href="https://www.manitu.de/webhosting/" title="Webhosting">Alojad@</a>
-      de forma neutra en CO<sub>2</sub>'
-    tooltip: '<a href="https://www.manitu.de/webhosting/" title="Webhosting">Alojad@</a>
-      de forma neutra en CO<sub>2</sub> en manitu'
+    info: 'Alojado de forma neutra en CO₂'
+    tooltip: 'Alojamiento con emisiones neutras de CO₂ en Manitu'
   infosDeveloper: 'para desarrollador@s de software'
   imprint: 'Aviso legal'
   partner: 'Soci@s'
@@ -3190,8 +3517,6 @@ email_template:
     part2: 'Desafortunadamente, nadie se ha registrado todavía para recoger la próxima
       cita.'
   request_from: 'Petición de'
-  withlove: 'Atentamente'
-  yourFSteam: 'tu equipo de foodsharing'
   foodbasket_request: 'Tu canasta de alimentos fue solicitada por %SENDER%'
   reply: 'Responder'
   slot_empty: 'Nadie se ha registrado para recoger la próxima vez en %BETRIEB%'
@@ -3204,13 +3529,13 @@ email_template:
     a nadie, sería bueno que pudieras encargarte de la recogida. Si esto no es posible
     para usted, cancele la cita con la empresa a tiempo.'
   in: 'en'
-  unknown_email2: 'La dirección de correo electrónico %ADDRESS% es desconocida.'
+  unknown_email2: "La dirección de correo electrónico %ADDRESS% es desconocida. \n
+    Tenga en cuenta que los correos electrónicos CCO no se pueden entregar al dominio
+    @foodsharing.network."
   manual_slots_get_ignored: 'Esta notificación se envía actualmente si nadie se ha
-    registrado para las citas regulares de recolección. Las citas adicionales añadidas
-    individualmente, así como las citas sobrescritas o eliminadas todavía no se tienen
-    en cuenta. Para dejar de recibir esta notificación, elimine cualquier cita de
-    recogida regular que ya no sea necesaria en la configuración de recogida de la
-    empresa.'
+    registrado para los horarios de recogida habituales. Aún no se tienen en cuenta
+    las fechas adicionales añadidas individualmente ni los espacios sobrescritos o
+    eliminados.'
   confirm_BOT: '. Como eres embajador/moderador de %BEZIRK%, tienes que confirmarlo
     para que se publique.'
 contentmanagement: 'Gestión de contenido'
@@ -3251,6 +3576,9 @@ chat:
   no_conversation: 'Ninguna conversación seleccionada'
   start_of_conversation: 'La conversación comenzó el:'
   unknown_username: nombre desconocido
+  mark_as:
+    unread: Marcar como no leído
+    read: Marcar como leído
 tablesorter:
   from: 'de'
   entriespp: 'entradas por página'
@@ -3265,11 +3593,15 @@ timepicker:
   labelNowButton: 'Ahora'
   labelSeconds: 'segundos'
   labelNoTimeSelected: 'No hay hora seleccionada'
+  from: de
+  to: a
+  placeholder: Introduzca la hora
 sidenav:
-  superregional: 'Grupos suprarregionales'
+  superregional: 'Suprarregional'
   countryspecific: 'Grupos específicos de países'
   yourgroups: 'Tus grupos'
-  localgroups: 'Grupos locales'
+  localgroups: 'Grupos regionales'
+  yourregions: Tus distritos
 information:
   push:
     title: 'Ahora puede recibir notificaciones automáticas de foodsharing.'
@@ -3339,14 +3671,18 @@ calendar:
       description: 'Recoger foodsharing en <a href="{url}">{store}</a>'
       unconfirmed: 'inconfirmado'
       name: 'recogida {store}'
+      freeSlots: '{count} espacios todavía están libres'
+      otherFoodsavers: 'Ingresó junto contigo: '
+    updated: '(Última actualización: {date})'
   labelPrevMonth: 'el mes pasado'
   labelCurrentMonth: 'mes actual'
   labelSelected: 'Fecha seleccionada'
   labelPrevYear: 'el año pasado'
   labelNextMonth: 'próximo mes'
   labelNav: 'Navegación del calendario'
+  placeholder: Elija una fecha
 addresspicker:
-  infobox_profile: 'L@s compater@s necesitan la dirección para poder ofrecer cestas
+  infobox_profile: 'Los compateros necesitan la dirección para poder ofrecer cestas
     de alimentos a través del sitio web. Es necesario para poder participar en recogidas
     como rescatista.'
   label: 'Búsqueda de dirección/ubicación'
@@ -3434,6 +3770,7 @@ releases:
   "2023-09": Versión “Yaca” 🍈 (septiembre 2023)
   "2024-01": Lanzamiento “Kiwi” 🥝 (Enero 2024)
   "2024-04": Lanzamiento de "Pretzel" 🥨 (abril de 2024)
+  "2024-07": Lanzamiento de "Mandarine" 🍊 (julio de 2024)
 salutation:
   "2": 'Querida'
   "3": 'Queride'
@@ -3462,6 +3799,8 @@ map:
   title: 'Mapa'
   filters:
     my_stores: Solo mis empresas
+  foodsharepoint:
+    go: Punto para compartir alimentos
 addreaction: 'Añadir una reacción'
 mail:
   noreply_addresses_not_allowed: 'Los correos electrónicos a direcciones noreply@…
@@ -3597,6 +3936,10 @@ notifications:
     title: Distribuidores
     description: Reciba notificaciones de nuevos comentarios en los foros de distribuidores
       que sigue.
+  pickupReminder:
+    title: Recordatorios de espacio libre
+    description: Recibe correos electrónicos que te avisan si las plazas en los establecimientos
+      que gestionas aún no están ocupadas al día siguiente.
 markdown_input:
   tooltip:
     orderedList: lista numerada
@@ -3625,6 +3968,7 @@ thread:
     pin: Hilo de pasador
     lock: Cerrar hilo
     unpin: Desanclar el hilo
+    priority: Establecer la prioridad de visualización
   rename:
     description_modal_text: 'Ingrese un nuevo título para este hilo:'
     placeholder: Título
@@ -3633,7 +3977,16 @@ thread:
   post:
     options:
       copy_source: Copiar código fuente
+      copy_direct_link: Copiar enlace directo
     copy_source_success: ¡Código fuente copiado!
+    copy_direct_link_success: ¡Enlace directo copiado!
+    linked_post: Publicación vinculada
+  priorityModal:
+    title: Establecer la prioridad de visualización
+    text: 'Prioridad de visualización para esta publicación:'
+    lower: Baja
+    higher: Alta
+    normal: Normal
 configure_columns: Configurar columnas
 save_state: Mantener filtros y clasificación
 save_state_description: Guarde los filtros usados y clasifique para futuras llamadas
@@ -3650,18 +4003,69 @@ help:
     storeLog:
       title: Registro de las operaciones
       md: "El registro de operaciones es una forma de hacer un seguimiento de las
-        **actividades de una explotación**. Podrá:\nayudar a resolver conflictos o
-        corregir errores accidentales.\n---\n###### Ejemplo\nSupongamos que quieres
-        saber quién se unió al equipo en las últimas tres semanas.\nA continuación,
-        puedes definir el período usando las fechas de inicio y finalización en los
-        dos campos de fecha.\nA continuación, puedes seleccionar todos los tipos de
-        acciones relevantes en el menú desplegable. En este caso:\nPor ejemplo, \"\
-        *presentar solicitudes de adhesión*\", \"*aceptar solicitudes de adhesión*\"\
-        \ y \"*rechazar solicitudes de adhesión*\".\nAhora, si haces clic en el botón
-        \"*Seleccionar Mostrar Acciones*\", te mostraremos un historial de los eventos
-        seleccionados.\n---\n###### Acceso\nSólo puede acceder a ella quien sea capaz
-        de administrar la explotación. Para Foodsaver y Springer normales:ins\nno
-        se puede ver el registro de operaciones.\n---\n###### Restricciones\nSe cargarán
-        un máximo de 100 entradas. Puede que tengas que limitar el periodo de búsqueda
-        o los tipos de acciones seleccionados si no se muestran todos los eventos.
-        \n"
+        **actividades de una empresa**. Puede ayudar a resolver conflictos o corregir
+        errores involuntarios.\n---\n###### Ejemplo\nSupongamos que desea saber quién
+        se ha incorporado al equipo en las últimas 3 semanas y quién lo ha hecho.
+        Entonces puede definir el periodo utilizando las fechas de inicio y fin en
+        los dos campos de fecha. A continuación, puede seleccionar todos los tipos
+        de acción relevantes en el desplegable. En este caso, por ejemplo, \"*Solicitar
+        afiliación*\", \"*Aceptar solicitudes de afiliación*\" y \"*Rechazar solicitudes
+        de afiliación*\". Si ahora hace clic en el botón \"*Mostrar acciones seleccionadas*\"\
+        , se le mostrará un historial de los eventos seleccionados.\n---\n###### Acceso\n
+        Sólo tienen acceso aquellos que también pueden administrar la operación. El
+        registro de operaciones no puede ser visto por los ahorradores y saltadores
+        normales.\n---\n###### Restricciones\nSe carga un máximo de 100 entradas.
+        Es posible que tenga que restringir el periodo de búsqueda o los tipos de
+        acción seleccionados si no se muestran todos los resultados.\n"
+    threadPriority:
+      title: Mostrar la prioridad en los foros
+      md: "Los temas se enumeran ordenados por prioridad de visualización. Los temas
+        con la misma prioridad se ordenan por hora de la última actividad.\n---\n
+        Los hilos fijados tienen una prioridad de 1, los hilos normales tienen una
+        prioridad de 0. Para poder ordenar los hilos mostrados con mayor precisión,
+        también puede establecer valores más altos aquí para que los temas estén siempre
+        en la parte superior independientemente de la fecha de modificación.\nLos
+        hilos con prioridad -1 aparecen debajo de todos los demás hilos.\n"
+    masterRegion:
+      title: Distrito principal
+      md: "Si los distritos tienen un distrito maestro, todos los miembros del distrito
+        se incluyen automáticamente en el distrito maestro. En muchos casos, tiene
+        sentido seleccionar el distrito padre como maestro, pero también son posibles
+        otras aplicaciones. Si el distrito maestro no es el distrito padre, los usuarios
+        del distrito **no** se incluirán automáticamente en el distrito padre.\n\n
+        Si no desea que los usuarios se añadan automáticamente a otro distrito, establezca
+        el maestro como raíz.\n---\nLa inclusión en el distrito maestro ocurre una
+        vez cada noche. Los cambios no se producen inmediatamente.\n"
+    profileCommitmentsStat:
+      title: Estadísticas de participación
+      md: es visible desde el papel del responsable de la empresa. Se limita a un
+        distrito de domicilio común o a operaciones conjuntas.
+team_page:
+  board_member:
+    text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
+      a Alemania, Austria y Suiza como usuarios de la plataforma foodsharing.de y
+      es responsable de los asuntos nacionales. La junta directiva trabaja mucho en
+      equipo, en estrecha consulta entre sí y principalmente en línea para abordar
+      todas las inquietudes de la gran comunidad de intercambio de alimentos y de
+      partes externas. Además, la junta se ocupa ampliamente del desarrollo organizacional
+      y la dimensión política del desperdicio de alimentos.\n"
+    title: Junta Directiva
+  alumni_member:
+    text: "Juntos recordamos la exitosa historia del intercambio de alimentos. ¡Aprovechamos
+      esta oportunidad para agradecer a todas las personas que participaron en esto,
+      ya sea como voluntarios a tiempo completo o en muy alto grado, al equipo de
+      organización o a la junta directiva!\n"
+    title: Antiguos alumnos
+  it_member:
+    title: Equipo de TI
+    text: "El foodsharing sólo es posible gracias al compromiso de miles de voluntarios.
+      Estas son algunas de las personas que coordinan grupos de trabajo nacionales,
+      desarrollan el sitio web o asumen otras tareas importantes para el foodsharing
+      en su conjunto:\n"
+no_automatic_delete: 'En el caso de que la última inscripción haya sido hace 5 años:'
+automatic_delete: '- el perfil debe ser eliminado.'
+automatic_not_delete: '- el perfil debe conservarse.'
+validation:
+  phone_number_invalid: El número de teléfono no es válido (por ejemplo, falta el
+    prefijo del país, es demasiado corto, demasiado largo o contiene caracteres no
+    válidos)

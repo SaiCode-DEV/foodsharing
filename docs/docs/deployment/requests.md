@@ -26,7 +26,7 @@ For example, the `activity.js` requests were answered by
 `/src/Modules/Activity/ActivityXhr.php`.
 In this example, the database was queried for information via `ActivityModel.php` which in turn used the `/src/Modules/Activity/ActivityGateway.php`.
 
-There are a two mostly identical XHR endpoints - `/xhr` and `/xhrapp`. Nowadays, those are handled by `XhrController.php` and `XhrAppController.php` respectively.
+There were two mostly identical XHR endpoints - `/xhr` and `/xhrapp`. Nowadays, `/xhrapp` is handled by `XhrAppController.php`, `/xhr` is already removed.
 
 XHR-request answers contain a status and data and <!-- todo --> ? and always sends the HTTP status 200.
 So errors are not recognizable by the HTTP status, but by a custom status in the returned json response.

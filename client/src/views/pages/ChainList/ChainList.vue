@@ -93,7 +93,7 @@
 
             <template #cell(kams)="row">
               <AvatarStack
-                :registered-users="row.value"
+                :users="row.value"
                 :max-width-in-px="100"
               />
             </template>

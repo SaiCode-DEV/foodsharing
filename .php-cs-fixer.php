@@ -37,6 +37,7 @@ $config->setRules([
     'phpdoc_separation' => false,
     'nullable_type_declaration_for_default_null_value' => false,
     'operator_linebreak' => false,
+    'array_indentation' => false,
 ])
     ->setFinder($finder);
 return $config;

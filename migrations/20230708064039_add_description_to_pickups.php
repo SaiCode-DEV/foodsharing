@@ -12,7 +12,7 @@ final class AddDescriptionToPickups extends AbstractMigration
             ->addColumn('description', 'string', [
                 'null' => true,
                 'default' => null,
-                'limit' => '100',
+                'limit' => 100,
                 'signed' => false,
                 'collation' => 'utf8mb4_unicode_ci',
                 'encoding' => 'utf8mb4',
@@ -24,7 +24,7 @@ final class AddDescriptionToPickups extends AbstractMigration
             ->addColumn('description', 'string', [
                 'null' => true,
                 'default' => null,
-                'limit' => '100',
+                'limit' => 100,
                 'signed' => false,
                 'collation' => 'utf8mb4_unicode_ci',
                 'encoding' => 'utf8mb4',

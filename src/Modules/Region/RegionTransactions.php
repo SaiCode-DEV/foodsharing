@@ -2,12 +2,17 @@
 
 namespace Foodsharing\Modules\Region;
 
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Region\DTO\HierachicalRegion;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Modules\Unit\UnitGateway;
 use Foodsharing\RestApi\Models\Notifications\Region;
+use Foodsharing\RestApi\Models\Region\RegionForAdministration;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class RegionTransactions
 {
@@ -19,20 +24,18 @@ class RegionTransactions
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly UnitGateway $unitGateway,
         private readonly RegionGateway $regionGateway,
+        private readonly GroupFunctionGateway $groupFunctionGateway,
+        private readonly MailboxGateway $mailboxGateway,
     ) {
     }
 
-    public function getJoinMessage(array $userData): string
+    public function getJoinMessage(int $id, bool $verified): string
     {
-        if (!isset($userData['id'])) {
-            throw new \InvalidArgumentException('Invalid user data. Id not set.');
-        }
-
-        if (isset($userData['verified']) && $userData['verified']) {
+        if ($verified) {
             return self::NEW_FOODSAVER_VERIFIED;
         }
 
-        $verifiedBefore = $this->foodsaverGateway->foodsaverWasVerifiedBefore($userData['id']);
+        $verifiedBefore = $this->foodsaverGateway->foodsaverWasVerifiedBefore($id);
 
         return $verifiedBefore ? self::NEW_FOODSAVER_NEEDS_VERIFICATION : self::NEW_FOODSAVER_NEEDS_INTRODUCTION;
     }
@@ -99,5 +102,81 @@ class RegionTransactions
         );
 
         return $node;
+    }
+
+    public function getRegionForEditing(int $regionId): RegionForAdministration
+    {
+        $data = $this->regionGateway->getRegionForEditing($regionId);
+        $region = RegionForAdministration::createFromArray($data);
+        if ($region->type === UnitType::WORKING_GROUP) {
+            $region->workgroupFunction = $this->groupFunctionGateway->getRegionGroupFunctionId($regionId, $region->parentId) ?? 0;
+        }
+        if ($mailboxId = $data['mailbox_id']) {
+            $region->mailbox = $this->mailboxGateway->getMailboxname($mailboxId);
+        }
+
+        return $region;
+    }
+
+    public function editRegion(RegionForAdministration $region): void
+    {
+        $this->assertNoDuplicateFunctionGroup($region);
+        $this->cleanUpRegionParameters($region);
+        if ($this->regionGateway->regionHasAncestor($region->parentId, $region->id)) {
+            throw new BadRequestHttpException('Cyclic region graph not allowed.');
+        }
+        try {
+            $this->mailboxGateway->setRegionMailbox($region);
+        } catch (UniqueConstraintViolationException $e) {
+            throw new BadRequestHttpException('This mailbox name is already used.');
+        }
+        $this->regionGateway->setRegionAdmins($region->id, $region->adminIds);
+        $this->regionGateway->editRegion($region);
+
+        $this->groupFunctionGateway->deleteRegionFunction($region->id);
+        if ($region->workgroupFunction) {
+            $this->groupFunctionGateway->addRegionFunction($region->id, $region->parentId, $region->workgroupFunction);
+        }
+    }
+
+    public function addRegion(RegionForAdministration $region): int
+    {
+        $this->assertNoDuplicateFunctionGroup($region);
+        $this->cleanUpRegionParameters($region);
+        if ($this->mailboxGateway->isMailboxNameUsed($region->mailbox)) {
+            throw new BadRequestHttpException('This mailbox name is already used.');
+        }
+        $regionId = $this->regionGateway->addRegion($region);
+        $this->mailboxGateway->setRegionMailbox($region);
+        $this->regionGateway->setRegionAdmins($region->id, $region->adminIds);
+
+        return $regionId;
+    }
+
+    private function assertNoDuplicateFunctionGroup(RegionForAdministration $region): void
+    {
+        if (!$region->workgroupFunction) {
+            return;
+        }
+        $currentGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId(
+            $region->parentId,
+            $region->workgroupFunction,
+        );
+        if ($currentGroupId && $currentGroupId !== $region->id) {
+            throw new BadRequestHttpException('There cannot be more than one special working group per type in each region.');
+        }
+    }
+
+    private function cleanUpRegionParameters(RegionForAdministration $region): void
+    {
+        $region->name = strip_tags($region->name);
+        $region->emailName = strip_tags($region->emailName);
+        if (!$region->mailbox) {
+            $region->emailName = '';
+        } elseif ($region->emailName) {
+            $region->emailName = strip_tags($region->emailName);
+        } else {
+            $region->emailName = 'foodsharing ' . strip_tags($region->name);
+        }
     }
 }

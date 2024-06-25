@@ -60,5 +60,10 @@ if (!defined('ROOT_DIR')) {
 define('WEBPUSH_PUBLIC_KEY', 'BGBBW8RtRe4LpGT+6Q7BJGGSbgcULM/w9BrxBLva2AVf85Pj7t4xrViT3lsxn8Dp0fpJ1SPoDbwP1n6gt3/R7ps='); // test public key
 define('WEBPUSH_PRIVATE_KEY', 'z5g0ssYryhDhQnwVAZ2Q2oOiqF3ZngJzkLXMrww8gDU='); // test private key
 
+// # Geoapify map tiles
+define('GEOAPIFY_API_KEY', 'b4e6bf0dbc48447fb4ee29d77c08eb09');
+
 // Test key for firebase cloud messaging
 define('FCM_KEY', '');
+
+define('TWINGLE_URL', 'https://spenden.twingle.de/status/E4yxc5T7YJh7nZvL93Yu7PlUzwCMjD2p80u8YK0Vgyw');

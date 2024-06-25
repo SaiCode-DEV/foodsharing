@@ -11,7 +11,7 @@ const userDetailsRateLimitInterval = 60000 // 1 minute in milliseconds
 export const store = Vue.observable({
   mailUnreadCount: 0,
   details: {},
-  locations: serverData.locations || {},
+  locations: serverData.locations, // null if the user is not logged in or does not have a home address
   user: serverData.user,
   permissions: serverData.permissions,
   isLoggedIn: serverData.user?.id !== null,
@@ -40,6 +40,12 @@ export const getters = {
   },
   isOrga () {
     return store.details?.role >= ROLE.ORGA
+  },
+  isStoreManager () {
+    return store.details?.role >= ROLE.STORE_MANAGER
+  },
+  isAmbassador () {
+    return store.details?.role >= ROLE.AMBASSADOR
   },
   getUser () {
     return store.user
@@ -77,11 +83,8 @@ export const getters = {
   hasCalendarToken () {
     return store.user?.hasCalendarToken !== null || false
   },
-  getMailBox () {
-    return store.user?.mailBoxId
-  },
   hasMailBox () {
-    return store.user?.mailBoxId > 0 || false
+    return store.user?.hasMailbox || false
   },
   getMailUnreadCount () {
     if (store.mailUnreadCount > 0) {
@@ -93,10 +96,15 @@ export const getters = {
     return store.details?.stats || {}
   },
   hasLocations () {
-    return store.locations.lat !== null && store.locations.lng !== null
+    return store.locations && store.locations.lat !== null && store.locations.lon !== null
   },
+  /**
+   * Returns the user's home coordinates as a {lat, lon} object. Returns {lat: 0, lon: 0} if the user is not logged in
+   * or does not have home coordinates. The default value is only used to prevent errors. Users should check with
+   * hasLocations() if this function will return the default value.
+   */
   getLocations () {
-    return store.locations || { lat: 0, lng: 0 }
+    return store.locations || { lat: 0, lon: 0 }
   },
   getPermissions () {
     return store.permissions || {}

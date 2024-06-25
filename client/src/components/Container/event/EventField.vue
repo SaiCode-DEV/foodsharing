@@ -9,25 +9,25 @@
         class="event-item-date flex-column mr-2 text-center rounded default"
         :class="{'accept': status === 1, 'maybe': status === 2}"
       >
-        <small class="font-weight-bold" v-html="displayedMonth" />
+        <small class="font-weight-bold" v-text="displayedMonth" />
         <div class="event-item-date-container d-flex flex-column bg-white justify-content-center text-dark">
           <span
             v-if="isEventToday"
-            v-html="$i18n('date.Today')"
+            v-text="$i18n('date.Today')"
           />
           <span
             v-else-if="isEventTomorrow"
             class="small"
-            v-html="$i18n('date.-- Tomorrow')"
+            v-text="$i18n('date.-- Tomorrow')"
           />
           <span
             v-else-if="$dateFormatter.getDifferenceToNowInDays(startDate) < 3"
-            v-html="displayedDay"
+            v-text="displayedDay"
           />
           <span
             v-else
             class="small"
-            v-html="displayedBothDay"
+            v-text="displayedBothDay"
           />
         </div>
       </div>
@@ -36,19 +36,19 @@
           <h6
             v-b-tooltip.hover="entry.name.length > 30 ? entry.name : null"
             class="field-headline m-0 text-truncate"
-            v-html="entry.name"
+            v-text="entry.name"
           />
           <span
             :href="$url('forum', entry.region_id)"
             class="d-block small text-muted text-truncate"
-            v-html="entry.regionName"
+            v-text="entry.regionName"
           />
         </div>
         <div class="d-flex justify-content-between align-items-center">
           <div class="text-muted mt-auto">
             <i class="fas fa-clock" />
             <span
-              v-html="$i18n('events.span', { from: displayedStart, until: displayedEnd })"
+              v-text="$i18n('events.span', { from: displayedStart, until: displayedEnd })"
             />
           </div>
           <a
@@ -136,7 +136,7 @@ export default {
       return this.$dateFormatter.isTomorrow(this.startDate)
     },
     dateTooltip () {
-      return `${this.$dateFormatter.dateTime(this.startDate)} (${this.$dateFormatter.relativeTime(this.startDate)}`
+      return `${this.$dateFormatter.dateTime(this.startDate)} (${this.$dateFormatter.relativeTime(this.startDate)})`
     },
     displayedStart () {
       return this.$dateFormatter.format(this.startDate, {

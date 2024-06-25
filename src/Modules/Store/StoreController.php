@@ -34,7 +34,7 @@ class StoreController extends FoodsharingController
         }
 
         if ($action === 'own') {
-            return $this->redirectToRoute('store_own');
+            return $this->redirectToRoute('store_own', ['userId' => $this->session->id()]);
         }
 
         if ($action === 'new') {
@@ -107,7 +107,7 @@ class StoreController extends FoodsharingController
             return $this->renderGlobal();
         } else {
             $this->flashMessageHelper->info($this->translator->trans('store.smneeded'));
-            $this->routeHelper->goAndExit('/?page=settings&sub=up_bip');
+            $this->routeHelper->goAndExit('/user/current/settings?sub=up_bip');
         }
     }
 }

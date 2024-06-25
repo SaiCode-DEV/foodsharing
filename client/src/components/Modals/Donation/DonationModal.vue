@@ -3,7 +3,7 @@
     <b-container>
       <div>
         <b-alert
-          v-if="showTop && !donationReached"
+          v-if="showTop && !isGoalReached"
           v-model="showTop"
           class="position-fixed fixed-top m-0 rounded-0 alertClass"
           variant="success"
@@ -35,7 +35,10 @@
           <b-container class="mt-2 d-md-block">
             <b-row>
               <b-col md="9">
+                <!-- eslint-disable vue/no-v-html -->
+                <!-- Sanitized in Modules/Content/ContentGateway.php get() -->
                 <p v-html="replaceKeywords(content.body)" />
+                <!-- eslint-enable -->
               </b-col>
               <b-col md="3">
                 <b-button
@@ -75,7 +78,7 @@
                   disabled
                 >
                   {{ $i18n('donation_banner.amount') }}: <span class="donationAmountClass">
-                    {{ formatCurrency(donationAmount) }}
+                    {{ formatCurrency(receivedDonationsInEuros) }}
                   </span>
                 </b-button>
               </b-col>
@@ -93,10 +96,10 @@
                   <b-progress
                     class="p-0 w-75"
                     variant="warning"
-                    :value="percentage"
+                    :value="percentOfGoalReached"
                   />
                   <div class="mt-1 text-right w-25">
-                    {{ formatPercentage(percentage) }} %
+                    {{ formatPercentage(percentOfGoalReached) }} %
                   </div>
                 </b-button>
               </b-col>
@@ -109,24 +112,23 @@
 </template>
 
 <script>
-import { getContent } from '@/api/content'
+import { CONTENT_IDS, getContent } from '@/api/content'
+import { getDonation } from '@/api/donation'
+import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 
 export default {
   name: 'DonationModal',
+  mixins: [RouteCheckMixin],
   data () {
     return {
       showTop: false,
-      donationAmount: 0,
-      donationGoal: 0,
+      receivedDonationsInEuros: 0,
+      goalInEuros: 0,
       donators: 0,
       content: null,
-      percentage: 0,
+      percentOfGoalReached: 0,
+      isGoalReached: false,
     }
-  },
-  computed: {
-    donationReached () {
-      return this.donationAmount >= this.donationGoal
-    },
   },
   async mounted () {
     const lastClosedTime = localStorage.getItem('bannerClosedTime')
@@ -138,7 +140,7 @@ export default {
       this.showTop = false
     } else {
       await this.getDonationContent()
-      if (this.content && this.content.body) {
+      if (this.content && this.content.body && !this.isTest) {
         await this.fetchDonationLink()
         this.showTop = true
       }
@@ -153,34 +155,34 @@ export default {
       window.open(url, '_blank', `width=${width},height=${height},left=${left},top=${top}`)
     },
     async getDonationContent () {
-      const contentIdForDonationBanner = 1
       try {
-        this.content = await getContent(contentIdForDonationBanner)
+        this.content = await getContent(CONTENT_IDS.DONATION)
       } catch (e) {
         this.content = null
       }
     },
     async fetchDonationLink () {
       try {
-        const response = await fetch(this.$url('donation_project_api'))
-        const data = await response.json()
-        this.donationAmount = data.amount
-        this.donationGoal = data.target
-        this.donators = data.donators
-        this.percentage = data.percentage
+        const response = await getDonation()
+        this.receivedDonationsInEuros = response.receivedDonationsInEuros
+        this.goalInEuros = response.goalInEuros
+        this.donators = response.donators
+        this.percentOfGoalReached = response.percentOfGoalReached
+        this.isGoalReached = response.isGoalReached
       } catch (error) {
         console.error('Error fetching donation link:', error)
       }
     },
     replaceKeywords (content) {
-      return content.replace('DONATION_GOAL', this.formatCurrency(this.donationGoal))
+      return content.replace('DONATION_GOAL', this.formatCurrency(this.goalInEuros))
     },
     hideBanner () {
       this.showTop = false
       localStorage.setItem('bannerClosedTime', new Date().getTime())
     },
     formatCurrency (amount) {
-      return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(amount)
+      const roundedAmount = Math.round(amount)
+      return roundedAmount.toLocaleString('de-DE') + ' €'
     },
     formatPercentage (value) {
       const roundedValue = value.toFixed(1)

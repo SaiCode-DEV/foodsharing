@@ -9,6 +9,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 final class RegionPermissions
 {
@@ -16,7 +17,8 @@ final class RegionPermissions
     private readonly Session $session;
     private readonly GroupFunctionGateway $groupFunctionGateway;
 
-    public function __construct(RegionGateway $regionGateway, Session $session, GroupFunctionGateway $groupFunctionGateway)
+    public function __construct(RegionGateway $regionGateway, Session $session, GroupFunctionGateway $groupFunctionGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnits, )
     {
         $this->regionGateway = $regionGateway;
         $this->session = $session;
@@ -48,7 +50,7 @@ final class RegionPermissions
     public function mayAdministrateWorkgroupFunction(int $wgfunction): bool
     {
         if (WorkgroupFunction::isRestrictedWorkgroupFunction($wgfunction)) {
-            return $this->session->mayRole(Role::ORGA) && $this->session->isAdminFor(RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP);
+            return $this->session->mayRole(Role::ORGA) && $this->currentUserUnits->isAdminFor(RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP);
         }
 
         return true;
@@ -70,7 +72,7 @@ final class RegionPermissions
             return true;
         }
 
-        return $this->session->isAmbassadorForRegion([$regionId], false, false);
+        return $this->currentUserUnits->isAmbassadorForRegion([$regionId], false, false);
     }
 
     public function maySetRegionOptionsReportButtons(int $regionId): bool
@@ -79,7 +81,7 @@ final class RegionPermissions
             return true;
         }
 
-        return $this->session->isAmbassadorForRegion([$regionId], false, false);
+        return $this->currentUserUnits->isAmbassadorForRegion([$regionId], false, false);
     }
 
     public function maySetRegionOptionsRegionPickupRule(int $regionId): bool
@@ -96,7 +98,7 @@ final class RegionPermissions
             return false;
         }
 
-        return $this->session->isAmbassadorForRegion([$regionId], false, false);
+        return $this->currentUserUnits->isAmbassadorForRegion([$regionId], false, false);
     }
 
     public function maySetRegionPin(int $regionId): bool
@@ -113,7 +115,7 @@ final class RegionPermissions
             return false;
         }
 
-        return $this->session->isAmbassadorForRegion([$regionId], false, false);
+        return $this->currentUserUnits->isAmbassadorForRegion([$regionId], false, false);
     }
 
     public function hasConference(int $regionType): bool
@@ -132,7 +134,7 @@ final class RegionPermissions
             return true;
         }
 
-        return $this->session->mayBezirk($regionId);
+        return $this->currentUserUnits->mayBezirk($regionId);
     }
 
     public function mayListFoodSharePointsInRegion(int $regionId)
@@ -141,7 +143,7 @@ final class RegionPermissions
             return true;
         }
 
-        return $this->session->mayBezirk($regionId);
+        return $this->currentUserUnits->mayBezirk($regionId);
     }
 
     /**

@@ -7,6 +7,7 @@ use Foodsharing\Modules\Console\ConsoleControl;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\RouteHelper;
+use Foodsharing\Utility\Sanitizer;
 use Html2Text\Html2Text;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
@@ -21,6 +22,7 @@ class MailsControl extends ConsoleControl
     private readonly MailerInterface $mailer;
     private readonly RouteHelper $routeHelper;
     private readonly EmailHelper $emailHelper;
+    private readonly Sanitizer $sanitizer;
 
     /*
      * todo move this to config file as a constant if this becomes a permanent solution
@@ -33,7 +35,8 @@ class MailsControl extends ConsoleControl
         Database $database,
         MailerInterface $mailer,
         RouteHelper $routeHelper,
-        EmailHelper $emailHelper
+        EmailHelper $emailHelper,
+        Sanitizer $sanitizer
     ) {
         error_reporting(E_ALL);
         ini_set('display_errors', '1');
@@ -42,6 +45,7 @@ class MailsControl extends ConsoleControl
         $this->mailer = $mailer;
         $this->routeHelper = $routeHelper;
         $this->emailHelper = $emailHelper;
+        $this->sanitizer = $sanitizer;
         parent::__construct();
     }
 
@@ -101,19 +105,18 @@ class MailsControl extends ConsoleControl
         foreach ($messages as $msg) {
             try {
                 $mboxes = [];
-                $recipients = array_merge($msg->getTo(), $msg->getCc(), $msg->getBcc());
+                $recipients = array_merge($msg->getTo(), $msg->getCc());
+
                 foreach ($recipients as $to) {
                     if (in_array(strtolower($to->getHostname() ?? ''), MAILBOX_OWN_DOMAINS)) {
                         $mboxes[] = $to->getMailbox();
                     }
                 }
 
-                if (empty($mboxes)) {
-                    $msg->delete();
-                    continue;
+                $mb_ids = [];
+                if (!empty($mboxes)) {
+                    $mb_ids = $this->mailsGateway->getMailboxIds($mboxes);
                 }
-
-                $mb_ids = $this->mailsGateway->getMailboxIds($mboxes);
 
                 if (!$mb_ids) {
                     // send auto-reply message
@@ -124,7 +127,7 @@ class MailsControl extends ConsoleControl
                         $return_path = $return_path[0];
                     }
                     if ($return_path && $return_path != DEFAULT_EMAIL) {
-                        $this->emailHelper->tplMail('general/invalid_email_address', $return_path->getAddress(), ['address' => implode(', ', $mboxes)]);
+                        $this->emailHelper->tplMail('general/invalid_email_address', $return_path->getAddress(), ['address' => implode(', ', $mboxes)], false, true, false);
                     }
                     ++$stats['unknown-recipient'];
                 } else {
@@ -137,8 +140,8 @@ class MailsControl extends ConsoleControl
 
                     if ($html) {
                         $h2t = new Html2Text($html);
-                        $body = $h2t->get_text();
-                        $html = preg_replace('#<script(.*?)>(.*?)</script>#is', '', (string)$html);
+                        $body = $h2t->getText();
+                        $html = $this->sanitizer->purifyHtml($html);
                     } else {
                         try {
                             $text = $msg->getBodyText();

@@ -21,7 +21,7 @@
       :placeholder="placeholder"
     >
     <b-button
-      v-b-tooltip="buttonTooltip"
+      v-b-tooltip.hover="user ? buttonTooltip : ''"
       :disabled="!user"
       variant="secondary"
       type="submit"

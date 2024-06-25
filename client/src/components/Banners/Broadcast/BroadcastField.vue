@@ -8,13 +8,16 @@
         <h4
           v-if="entry.title"
           class="broadcastfield__title"
-          v-html="entry.title"
+          v-text="entry.title"
         />
+        <!-- eslint-disable vue/no-v-html -->
+        <!-- Sanitized in src/Modules/Content/ContentGateway.php get() -->
         <div
           v-if="entry.body"
           class="broadcastfield__description"
           v-html="entry.body"
         />
+        <!-- eslint-enable -->
       </div>
     </div>
     <i

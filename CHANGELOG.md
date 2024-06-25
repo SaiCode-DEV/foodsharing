@@ -1,25 +1,129 @@
 # Unreleased
 
 ## Features
-- Added a ChainSearchPicker Modal in StoreInformation !2863 @chriswalg
-- Added a donation banner !2930 !3111 @chriswalg
+- Improved direct links to forum posts #1912 !3293 !3328 @AntonBallmaier
+- People who (maybe) attend an event are now informed via bell when there are new posts on the event wall. #228 !3336 @AntonBallmaier
+- Show title of forum post in window header (again) !3338 #1591 @McGoldi
+- Added an achievements overview page !3348 @AntonBallmaier
+- Warning mails informing store managers about empty pickup slots can now be disabled #1941 !3341 @AntonBallmaier
+- Add page-redirect after login !3334 @AntonBallmaier
+- Delete users older then 5 Years activity. Have profile setting to protect account from deletion#19 !3134 @fs_k
+- Added a location button to the map main #638 !3357 @alex.simm
+- Added a popup for food share points on the map !3360 !3371 @alex.simm
+- You can now load more entries in the store log #1969 !3383 @AntonBallmaier
+- Storemanagers get an extra warning before removing users from a store team, if they currently occupy slots #1825 !3368 @AntonBallmaier
+- Added API endpoints for managing store categories #1263 !3405 @alex.simm
+- Display senders picture in notifications !3373 @AntonBallmaier
+- Users can be linked in markdown using @`<userId>` now #1850 !3177 @AntonBallmaier
+
+## Changes
+- Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei
+- Restricted access to email attachments !3345 @alex.simm
+- Stores, where you are a jumper are now displayed at the bottom of the stores dropdown menu !3364 @AntonBallmaier
+- Improved the calendar export !3378 @AntonBallmaier
+- Pickups are displayed on dashboard for 30 minutes longer !3382
+- Removed address on businessCard !3362 @chriswalg
+- Give admins of quiz group permission to view and delete quiz sessions !3422 @AntonBallmaier
+
+## Bugfixes
+- Changed the headline for group applications #1916 !3353 @ToLei
+- Removed special permission text from the IT group #1894 !3273 @alex.simm
+- Fixed the permissions to see applications for working groups #1934 !3320 @alex.simm
+- Fix typos in info texts !3327 @AntonBallmaier
+- Fixed calendar exports breaking for events with linebreaks in their description !3350
+- The correct region is now preselected when creating an event !3366 @AntonBallmaier
+- Fixed type error in DonationGoalInformation #1970 !3385 @chriswalg
+- Fixed passport generation not working #1944 !3376 @AntonBallmaier
+- Resolved some UI inconsistancies !3370 @AntonBallmaier
+- double foodsharing.network in group links #1978 !3409 @McGoldi
+- Some fixes for the quiz module !3418 @AntonBallmaier
+- Store chain information is visible on the store page again #1946 @alex.simm
+- Fixed the rendering of dates that is close to now #1948 !3430 @alex.simm
+- Fixed activity setting on dashboard #1937 !3433 @AntonBallmaier
+
+## Refactoring
+- Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
+- Remove unneeded u_loadCoords function !3277 @stcz
+- Reworked region admin page and removed XhrMethods #1412 #1414 #1416 #1417 #1181 #1939 !3193 !3346 @AntonBallmaier
+- Modernized EventControl to a Symfony controller !3260 @chriswalg
+- Rebuild quiz module #1666 !3119 !3329 !3403 @AntonBallmaier
+- Refactor the nearby baskets list to vue !3294 !3391 @alex.simm
+- Refactored profile to vue !3184 !3225 !3343 @chriswalg
+- Moved passports to region memberlist #1799 #1326 !3251 !3388 @chriswalg
+- Modernized StoreChainControl to a Symfony controller !3292 @chriswalg
+- Rework team page in vue !3248 !3351 @chriswalg
+- Refactored event page and creation / editing to vue #952 #997 #1514 #1740 #1910 !3387 @AntonBallmaier
+- Refactored the main map to vue !3230 !3335 !3402 @alex.simm
+- Remove unused session code !3361 @KoeMai
+- Remove E-Mail address from session !3394 @KoeMai
+- Extend Session with CurrentUserRegionInterface !3354 @koemai
+- Extract `updateLastActivity()` into new service `UserStatusTransactions` !3377 @KoeMai
+- Remove obsolete and unused run.php !3395 @\_fridtjof_
+- Provide CurrentUserRegionInterface for Session as independent implementation !3390 !3400 @KoeMai
+- Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 @chriswalg
+- Cleaned up the ApplicationGateway #1975 !3411 @alex.simm
+
+## Dev/Test/CI stuff
+- Added backend support for getting, adding and updating achievements. #1724 !3317 !3318 @AntonBallmaier
+- Reduced the number of emails per mailbox in the test data !3330 @alex.simm
+- Remove unused code !3340 @alex.simm
+- Fixed errors in the seed script !3355 @alex.simm
+- Uploaded files without a usage type are deleted in the nightly maintenance #1182 !3363 @alex.simm
+- Added an API endpoint for creating content entries !3379 @alex.simm
+- Removed obsolete functions in StoreXhr #1609 !3399 @alex.simm
+- Added missing languages for syntax highlighting in the docs #1547 !3407 @alex.simm
+- Updated phinx to version 0.16 #1774 @alex.simm
+
+## Development documentation
+
+# Hotfix 2024-05-21
+- Added translations for new bell types !3337 @AntonBallmaier @alex.simm
+
+# Hotfix 2024-05-11
+- Fix Quiz Role not increasing #1930 !3315 @AntonBallmaier
+- Fixed invalid dates in store bubbles on the map !3322 @alex.simm
+- prevent missing time in group application form !3319 @chriswalg
+
+# Hotfix 2024-05-05
+- Show missing region menu entries to orgas #1927 !3299 !3310 @AntonBallmaier
+- Fixed the editing of content pages #1919 !3302 @alex.simm
+- Polls can be edited until they start #1920 !3303 @AntonBallmaier
+- Workaround for StoreBubble.vue on map !3300 @chriswalg
+- Fix permissions for profile notes wall !3305 @alex.simm
+- show maySendRequests and mayAccessStorePage buttons together if they true #1925 !3307 @chriswalg
+- Resolve "Bell notification dialog closes after deleting a bell" #1923 !3309 @chriswalg
+
+# Release "Laugenbrezel", 2024-04-30
+
+## Features
+- Added a ChainSearchPicker Modal in StoreInformation !2863 !3259 @chriswalg
+- Follow-up for donation banner !3281 @chriswalg
 - Added a map link to store pages !3113 @AntonBallmaier
 - Added a map to the foodsharepoint page #1035 !3097 @alex.simm
-- Users can be linked in markdown using @`<userId>` now #1850 @AntonBallmaier
+- Added a map to the foodsharepoint page #1035 !3097 !3195 !3236 @alex.simm
 - Added an Info vue commonent for explainin parts of the website. #1852 !3181 @AntonBallmaier
-- Group different bell events, like it is done for the forum !3073 @AntonBallmaier
+- Group different bell events, like it is done for the forum !3073 !3271 @AntonBallmaier
+- Stickiness of threads can have more values now allowing for better thread sorting !3205 @AntonBallmaier
 - Added an info box for ambassadors to make sure the user name field is not misused #204 !3204 @AntonBallmaier
+- Applications to working groups trigger a bell notification to the admins #933 !3274 @alex.simm
 
 ## Changes
 - Improves the BBB integration !3050 @stcz
 - Make navigation menu sticky @AntonBallmaier @chriswalg
 - Added marker clustering to the basket map !3013 @alex.simm
-- Minor improvements in the mailbox frontend #1668 !3108 @alex.simm
+- Minor improvements in the mailbox frontend #1668 !3108 !3203 !3258 !3266 @alex.simm
 - The contact pages are merged into one, and the content is automated. !3143 !3174 !3176 @AntonBallmaier
 - Delete uploaded photos when they are not used anymore #1182 !3121 @alex.simm
 - Improved search #1728 !3150 @AntonBallmaier
 - Strip EXIF data from uploaded PNG files #375 !3151 @alex.simm
 - Users can only be added to a store if they are already in that region #20 !3180 @alex.simm
+- Some regions are not listed in the region chooser dialog anymore #1335 !3164 @alex.simm
+- Pinned threads are no longer sorted by name !3205 @AntonBallmaier
+- Removed infinity loading from forum lists #1231 !3229 @chriswalg
+- Enabling the Display of Occupied Slot Details in the Confirmation Dialogue #1862 !3213 @c-h-i-c-k-e-n
+- Removed salutation in email template #1745 !3246 @chriswalg
+- Emails in the mailbox are listed paginated #1668 !3278 @alex.simm
+- Added caching (5 minutes) for nearby baskets !3267 @chriswalg
 
 ## Bugfixes
 - remove misplaced line in store team view !3088 @buntel
@@ -30,6 +134,13 @@
 - Improve SQL performance for search of near baskets !3185 @KoeMai
 - Fixed creating and editing region mailboxes for orga users !3182 @AntonBallmaier 
 - Improved permission checks for event creation #489 !3187 @alex.simm
+- Fix sign in date time in slot modal #1870 !3228 !3250 @chriswalg
+- Fixed mail address to field in mailbox module !3226 @chriswalg
+- Fixed datepicker in pickup modal #1751 !3231 @chriswalg 
+- Fixed date tooltip for events on dashboard #1835 !3275 @alex.simm
+- Fixed the login link on the profile page !1901 !3289 @alex.simm
+- Added a retry for deadlocked database queries !3296 #1869 @AntonBallmaier
+- Prevent marking a bell as read if it was already deleted !3298 @alex.simm
 
 ## Refactoring
 - Switched Annotation to Attributes, implements Test and general code style adjust for Activity REST Endpoint !2975 !3090 @BibaltiK
@@ -42,9 +153,10 @@
 - Remove not used mail session variables !3147 !3158 @KoeMai
 - Replace Role-class by Role-Enum and remove need of fAuthentication !3078 !3120 !3123 !3122 @KoeMai
 - Added a missing bell type !3022 @alex.simm
-- Rebuild the wall using vue #45 #1800 #1830 !3045 !3112 !3135 @AntonBallmaier
+- Rebuild the wall using vue #45 #1800 #1830 !3045 !3112 !3135 !3255 @AntonBallmaier
+- Move UserOptions to Settings Module !3146 !3225 @KoeMai
 - Avoid access to global $_SESSION !3099 @KoeMai
-- Refactor region page to vue !2794 !3157 @chriswalg
+- Refactor region page to vue !2794 !3157 !3227 !3241 !3247 !3253 !3268 !3284 @chriswalg
 - New map bubble for stores in Vue !2988 !3128 !3166 !3201 @alex.simm
 - Renamed bezirk to region in urls helper !3126 @chriswalg
 - Prepared for removal of run.php in favor of Symfony's console !3118 @\_fridtjof_
@@ -58,12 +170,17 @@
 - Created confirmationDialogue mixin !3140 @AntonBallmaier
 - Removed unused event invitation code #1739 !3149 @AntonBallmaier
 - Removed duplicate region member page and profile XHR !3169 @AntonBallmaier
-- Modernized StoreControl to a Symfony controller !3160 @chriswalg
+- Modernized StoreControl to a Symfony controller !3160 !3198 @chriswalg
 - Move Workgroup is Admin Check method from session to module #1769 !3168 @KoeMai
 - Move location information in session to user #1769 !3148 !3185 @KoeMai
 - Remove unused variables from session #1769 !3161  @KoeMai
 - Replaced every usage of the Lat-lon-picker with the Vue leaflet component !3185 @alex.simm 
-- Improved Avatar component !3155 !3189 @AntonBallmaier
+- Improved Avatar component !3155 !3189 !3257 @AntonBallmaier
+- Refactored group page to vue !3162 !3223 @chriswalg
+- Improved store team list #1833 !3207 !3270 @AntonBallmaier
+- Modernized LoginControl to a Symfony controller !3237 @\_fridtjof_
+- Refactored profile to vue and symfony controller !3184 @chriswalg
+- Modernized ProfileControl to a Symfony controller !3199 @\_fridtjof_
 
 ## Dev/Test/CI stuff
 - Remove obsolete picture upload code !2990 @alex.simm
@@ -81,9 +198,23 @@
 - Removed the obsolete jquery-jcrop package #1047 !3192 @alex.simm
 - Fixed the outdated notification job !3214 !3215 @\_fridtjof_
 - Optimized client bundle size !3216 @\_fridtjof_
+- Bump node to 20.11.1 @chriswalg
+- Modernized FoodSharePointControl to a Symfony controller !3106 @\_fridtjof_
+- Upgrade webpack-dev-server to v4 !3220 @\_fridtjof_
+- Update some backend dependencies !3232 @\_fridtjof_
+- Added server caching and rest endpoint for donation banner !3163 @martincodes-de
+- Deny v-html elements in vue to reduce XSS risk #1840 !3218 !3280 !3287 @stcz
+- Updated fontawesome to 6.5.2 #1779 !3263 @alex.simm
+- Uploaded files are tagged with their usage type #1182 !3243 @alex.simm
+- Split up "backend" tests by suite !3200 @\_fridtjof_
 
 ## Development documentation
 
+
+# Hotfix 2024-03-13 (Fix XSS Vulnerability and Mails)
+
+- Fix XSS vulnerabilities in Baskets, Mails and Blog !3219 @stcz
+- Fix delivering CC mails and add error message for BCC !3171 @stcz
 
 # Hotfix 2024-02-18 (Bell translations)
 
@@ -206,7 +337,6 @@
 - Changes the basket bubble on the map to vue #1608 #1788 !2905 !3028 @alex.simm
 - Refactor StoreListComponent.vue !2733 @buntel
 - Refactor storage.js !2733 @buntel
-
 
 ## Dev/Test/CI stuff
 - removed CHANGELOG.md merge=union !2866 @chriswalg
@@ -604,7 +734,7 @@
 
 ## Bugfixes
 - Fix the community marker map for regions that do not yet have a pin #1183 !2154 @alex.simm
-- Redirect to login for user that is not logged in at https://foodsharing.de/?page=login&a=resendActivationMail #1136 !2138 @ESchae
+- Redirect to login for user that is not logged in at https://foodsharing.de/?page=login&sub=resendActivationMail #1136 !2138 @ESchae
 - Fix typos in forum markdown hints. !2167 @NINI1988
 - Fixed the user search pointing to a non-existing path !2170 @alex.simm
 - The visibility of the StoreWall can be toggled again !2177 @nudin
@@ -851,11 +981,11 @@
 
 # 2021-02-08 Hotfix
 
-- Make the order of values in voting options consistent from left (negative) to right (positive) !1868 #975 @alex.simm
+- Follow-up: Make the order of values in voting options consistent from left (negative) to right (positive) !1868 #975 @alex.simm
 
 # 2021-01-18 Hotfix
 
-- Make the order of values in voting options consistent from left (negative) to right (positive) !1860 !1863 #975 @alex.simm
+- Make the order of values in voting options consistent from left (negative) to right (positive) !1860 #975 @alex.simm
 
 # Release "Dragonfruit", 2020-12-31
 
@@ -1953,6 +2083,8 @@ IE11, Safari and slightly older androids should work again, although I can only 
 - introduce new font fontawesome 5.2 !500 @peter.toennies
 - added placeholder text for the birth date in the registration form !505 @peter.toennies
 - Search in navbar shows more results, distinct results page removed as it was the same !515 #315 @NerdyProjects @theolampert
+- The number of unread messages in chats is now displayed. !3153 @AntonBallmaier
+- Chats can be marked as read or unread !3153 @AntonBallmaier
 
 ## Bugfixes
 - Changed button to return to profile on the profile editing page !492 #285 @leisinger.sebastian

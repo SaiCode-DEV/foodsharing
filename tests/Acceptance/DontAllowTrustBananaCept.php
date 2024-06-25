@@ -15,11 +15,11 @@ $foodsaver = $I->createFoodsaver($pass);
 
 $I->login($foodsaver['email'], $pass);
 
-$I->amOnPage('/profile/' . $foodsaver['id']);
-$I->see('Status-Updates von ' . $foodsaver['name']);
+$I->amOnPage('/user/' . $foodsaver['id'] . '/profile');
+$I->see($foodsaver['name']);
 
-$I->waitForElementVisible('a.item.stat_bananacount.bouched', 4);
-$I->click('a.item.stat_bananacount.bouched');
+$I->waitForElementVisible('#bananas > a > span', 4);
+$I->click('#bananas > a > span');
 // This might need a wait as well but it would be a bit harder to figure out.
 // if this test ever fails here, rerun & think about a fix!
-$I->dontSee('Schenke User eine Banane');
+$I->dontSee('Schenke ' . $foodsaver['id'] . ' eine Banane');

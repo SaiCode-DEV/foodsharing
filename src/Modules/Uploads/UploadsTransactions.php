@@ -186,6 +186,8 @@ class UploadsTransactions
             hashedBody: $bodyHashOfTemporaryFile,
             mimeType: $mimeTypeOfTemporaryFile,
             uploaderId: $this->session->id(),
+            usedIn: null,
+            usageId: null
         );
     }
 

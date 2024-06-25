@@ -1,14 +1,10 @@
 <template>
-  <div id="bananas" class="popbox bootstrap m-2">
-    <h3>
-      {{ $i18n('profile.banana.title', { count: (bananaCount ? bananaCount : '') }) }}
-    </h3>
-
-    <div v-if="!bananaCount" class="no-banana my-1">
+  <div id="bananas">
+    <div v-if="!bananaCount" class="my-1">
       {{ $i18n('profile.banana.none', { name: recipientName }) }}
     </div>
 
-    <div v-if="canGiveBanana && !hasGivenBanana" class="give-banana mb-2">
+    <div v-if="canGiveBanana && !hasGivenBanana" class="mb-2">
       <div v-if="showTextarea">
         <b-alert variant="success" show>
           {{ $i18n('profile.banana.details', { name: recipientName }) }}
@@ -60,18 +56,16 @@
       </div>
     </div>
 
-    <div class="banana-list w-100">
-      <BananaListEntry
-        v-for="b in bananaList"
-        :key="b.id"
-        :author="{...b, avatar: b.photo }"
-        :created-at="b.createdAt"
-        :text="b.msg"
-        :can-remove="canRemoveBanana"
-        :recipient-id="recipientId"
-        @close-dialog="closeDialog"
-      />
-    </div>
+    <BananaListEntry
+      v-for="b in bananaList"
+      :key="b.id"
+      :author="{...b, avatar: b.photo }"
+      :created-at="b.createdAt"
+      :text="b.msg"
+      :can-remove="canRemoveBanana"
+      :recipient-id="recipientId"
+      @close-dialog="closeDialog"
+    />
   </div>
 </template>
 
@@ -157,10 +151,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-#bananas {
-  min-width: 50vw;
-  max-width: 750px;
-}
-</style>

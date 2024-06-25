@@ -338,11 +338,27 @@ class SeedCommand extends Command implements CustomCommandInterface
         $this->output->writeln('- created ' . $name . ' ' . $user['email'] . ' with password "' . $password . '"');
     }
 
+    private function createStoreAndAddToTeam($I, $region, $conv1Id, $conv2Id, $statusId, $teamMembers, $addRecurringPickup = false, $is_waiting = false, $is_confirmed = true): mixed
+    {
+        $store = $I->createStore($region, $conv1Id, $conv2Id, ['betrieb_status_id' => $statusId]);
+
+        foreach ($teamMembers as $teamMember) {
+            $I->addStoreTeam($store['id'], $teamMember['id'], $teamMember['manager'] ?? false, $is_waiting, $is_confirmed);
+        }
+
+        if ($addRecurringPickup) {
+            $I->addRecurringPickup($store['id']);
+        }
+
+        return $store;
+    }
+
     protected function seed()
     {
         $I = $this->helper;
         $I->_getDbh()->beginTransaction();
         $I->_getDriver()->executeQuery('SET FOREIGN_KEY_CHECKS=0;', []);
+        $I->createRegion('Foodsharing auf Festivals', ['id' => RegionIDs::FOODSHARING_ON_FESTIVALS, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::CITY, 'has_children' => 0]);
         $regionEurope = $I->createRegion('Europa', ['id' => RegionIDs::EUROPE, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::COUNTRY, 'has_children' => 1]);
         $regionGermany = $I->createRegion('Deutschland', ['id' => RegionIDs::GERMANY, 'parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1]);
         $regionLowerSaxony = $I->createRegion('Niedersachsen', ['parent_id' => $regionGermany['id'], 'type' => UnitType::FEDERAL_STATE, 'has_children' => 1]);
@@ -354,6 +370,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $region_vorstand = RegionIDs::TEAM_BOARD_MEMBER;
         $ag_aktive = RegionIDs::TEAM_ADMINISTRATION_MEMBER;
         $ag_testimonials = RegionIDs::TEAM_BOARD_MEMBER;
+        $team_alumni = RegionIDs::TEAM_ALUMNI_MEMBER;
         $ag_quiz = RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP;
         $ag_startpage = RegionIDs::PR_START_PAGE;
         $ag_partnerandteam = RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP;
@@ -390,13 +407,47 @@ class SeedCommand extends Command implements CustomCommandInterface
         $user1 = $I->createFoodsharer($password, ['email' => 'user1@example.com', 'name' => 'One']);
         $this->writeUser($I, $user1, $password, 'foodsharer');
 
-        $user2 = $I->createFoodsaver($password, ['email' => 'user2@example.com', 'name' => 'Two', 'bezirk_id' => $region1, 'image' => true]);
+        $userDataFile = 'src/Dev/userData.json';
+        if (!file_exists($userDataFile)) {
+            $this->output->write($userDataFile . 'not found');
+            exit(1);
+        }
+        $userData = json_decode(file_get_contents($userDataFile), true);
+
+        if ($userData === null) {
+            $this->output->write('userData is NULL');
+            exit(1);
+        }
+
+        $user2 = $I->createFoodsaver($password,
+            [
+                'email' => 'user2@example.com',
+                'name' => 'Two',
+                'bezirk_id' => $region1,
+                'about_me_public' => $userData['user2']['about_me_public'],
+                'position' => $userData['user2']['position'],
+                'image' => true
+            ]);
         $this->writeUser($I, $user2, $password, 'foodsaver');
 
-        $userStoreManager = $I->createStoreCoordinator($password, ['email' => 'storemanager1@example.com', 'name' => 'Three', 'bezirk_id' => $region1, 'image' => true]);
+        $userStoreManager = $I->createStoreCoordinator($password, [
+            'email' => 'storemanager1@example.com',
+            'name' => 'Three',
+            'bezirk_id' => $region1,
+            'about_me_public' => $userData['userStoreManager']['about_me_public'],
+            'position' => $userData['userStoreManager']['position'],
+            'image' => true]
+        );
         $this->writeUser($I, $userStoreManager, $password, 'store coordinator');
 
-        $userStoreManager2 = $I->createStoreCoordinator($password, ['email' => 'storemanager2@example.com', 'name' => 'Four', 'bezirk_id' => $region1, 'image' => true]);
+        $userStoreManager2 = $I->createStoreCoordinator($password, [
+            'email' => 'storemanager2@example.com',
+            'name' => 'Four',
+            'bezirk_id' => $region1,
+            'about_me_public' => $userData['userStoreManager2']['about_me_public'],
+            'position' => $userData['userStoreManager2']['position'],
+            'image' => true]
+        );
         $this->writeUser($I, $userStoreManager2, $password, 'store coordinator2');
 
         $userbot = $I->createAmbassador($password, [
@@ -404,15 +455,20 @@ class SeedCommand extends Command implements CustomCommandInterface
             'name' => 'Bot',
             'bezirk_id' => $region1,
             'about_me_intern' => 'hello!',
+            'about_me_public' => $userData['userbot']['about_me_public'],
+            'position' => $userData['userbot']['position'],
             'image' => true
         ]);
         $this->writeUser($I, $userbot, $password, 'ambassador');
+        $I->addRegionMember($region2, $userbot['id']);
 
         $userbot2 = $I->createAmbassador($password, [
             'email' => 'userbot2@example.com',
             'name' => 'Bot2',
             'bezirk_id' => $region1,
             'about_me_intern' => 'hello!',
+            'about_me_public' => $userData['userbot2']['about_me_public'],
+            'position' => $userData['userbot2']['position'],
             'image' => true
         ]);
         $this->writeUser($I, $userbot2, $password, 'ambassador');
@@ -435,10 +491,19 @@ class SeedCommand extends Command implements CustomCommandInterface
             'image' => true
         ]);
         $I->addRegionAdmin($region2, $userbotregion2['id']);
+        $I->addRegionMember($region1, $userbotregion2['id']);
 
         $this->writeUser($I, $userbotregion2, $password, 'ambassador');
 
-        $userorga = $I->createOrga($password, false, ['email' => 'userorga@example.com', 'name' => 'Orga', 'bezirk_id' => $region1, 'image' => true]);
+        $userorga = $I->createOrga($password, false, [
+            'email' => 'userorga@example.com',
+            'name' => 'Orga',
+            'bezirk_id' => $region1,
+            'about_me_intern' => 'hello!',
+            'about_me_public' => $userData['userorga']['about_me_public'],
+            'position' => $userData['userorga']['position'],
+            'image' => true
+        ]);
         $this->writeUser($I, $userorga, $password, 'orga');
 
         $userorgaWG = $I->createOrga($password, false, ['email' => 'userorgaWG@example.com', 'name' => 'OrgaWG', 'bezirk_id' => $region1, 'id' => RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP, 'image' => true]);
@@ -467,7 +532,17 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->addRegionMember($ag_partnerandteam, $userbot['id']);
         $I->addRegionAdmin($ag_partnerandteam, $userbot['id']);
         $I->addRegionMember($region_vorstand, $userbot['id']);
+        $I->addRegionMember($region_vorstand, $userorga['id']);
+        $I->addRegionMember($region_vorstand, $userStoreManager['id']);
+        $I->addRegionMember($region_vorstand, $userStoreManager2['id']);
         $I->addRegionMember($ag_aktive, $userbot['id']);
+        $I->addRegionMember($ag_aktive, $userorga['id']);
+        $I->addRegionMember($ag_aktive, $userStoreManager['id']);
+        $I->addRegionMember($ag_aktive, $userStoreManager2['id']);
+        $I->addRegionMember($team_alumni, $userbot2['id']);
+        $I->addRegionMember($team_alumni, $userorga['id']);
+        $I->addRegionMember($team_alumni, $userStoreManager['id']);
+        $I->addRegionMember($team_alumni, $userStoreManager2['id']);
 
         $I->addRegionMember($ag_testimonials, $user2['id']);
         $I->addRegionMember(RegionIDs::STORE_CHAIN_GROUP, $user2['id']);
@@ -496,7 +571,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $this->output->writeln('- create community pin');
         $I->createCommunityPin($region1);
 
-        // Create store team conversations
+        // Create store team conversation
         $this->output->writeln('- create store team conversations');
         $conv1 = $I->createConversation([$userbot['id'], $user2['id'], $userStoreManager['id']], ['name' => 'betrieb_bla', 'locked' => 1]);
         $conv2 = $I->createConversation([$userbot['id']], ['name' => 'springer_bla', 'locked' => 1]);
@@ -504,13 +579,45 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->addConversationMessage($userbot['id'], $conv1['id']);
         $I->addConversationMessage($userbot['id'], $conv2['id']);
 
-        // Create a store and add team members
         $this->output->writeln('- create store and add team members');
-        $store = $I->createStore($region1, $conv1['id'], $conv2['id'], ['betrieb_status_id' => 5]);
-        $I->addStoreTeam($store['id'], $user2['id']);
-        $I->addStoreTeam($store['id'], $userStoreManager['id'], true);
-        $I->addStoreTeam($store['id'], $userbot['id'], true);
-        $I->addRecurringPickup($store['id']);
+
+        $teamMembers = [
+            ['id' => $user2['id']],
+            ['id' => $userStoreManager['id'], 'manager' => true],
+            ['id' => $userbot['id'], 'manager' => true]
+        ];
+
+        $regions = [
+            $region1 => [
+                CooperationStatus::COOPERATION_ESTABLISHED->value => $teamMembers,
+                CooperationStatus::PERMANENTLY_CLOSED->value => [['id' => $userbot['id'], 'manager' => true]],
+                CooperationStatus::GIVES_TO_OTHER_CHARITY->value => [['id' => $userbot['id'], 'manager' => true]],
+                CooperationStatus::UNCLEAR->value => [['id' => $userbot['id'], 'manager' => true]],
+            ],
+            $region2 => [
+                CooperationStatus::COOPERATION_ESTABLISHED->value => [['id' => $userbot['id']]],
+                CooperationStatus::PERMANENTLY_CLOSED->value => [['id' => $userbot['id'], 'manager' => true]],
+                CooperationStatus::GIVES_TO_OTHER_CHARITY->value => [['id' => $userbot['id'], 'manager' => true]],
+                CooperationStatus::UNCLEAR->value => [['id' => $userbot['id'], 'manager' => true]],
+            ],
+        ];
+
+        $possibleMemberStates = [
+            ['isWaiting' => true, 'isConfirmed' => false],
+            ['isWaiting' => false, 'isConfirmed' => true]
+        ];
+        foreach ($regions as $region => $statuses) {
+            foreach ($statuses as $status => $teamMembers) {
+                $addRecurringPickup = $status === CooperationStatus::COOPERATION_ESTABLISHED->value;
+                $store = $this->createStoreAndAddToTeam($I, $region, $conv1['id'], $conv2['id'], $status, $teamMembers, $addRecurringPickup);
+
+                $additionalStoreCount = 2;
+                for ($i = 0; $i < $additionalStoreCount; ++$i) {
+                    $memberState = $possibleMemberStates[random_int(0, 1)];
+                    $store = $this->createStoreAndAddToTeam($I, $region, $conv1['id'], $conv2['id'], $status, $teamMembers, $addRecurringPickup, $memberState['isWaiting'], $memberState['isConfirmed']);
+                }
+            }
+        }
 
         $this->output->writeln('- create store chains');
         $this->chain_ids = [];
@@ -563,6 +670,18 @@ class SeedCommand extends Command implements CustomCommandInterface
             $this->output->write('.');
         }
         $this->output->writeln(' done');
+        $this->output->writeln(' Create old users');
+        foreach (range(0, 20) as $_) {
+            $I->createFoodsaver($password, ['bezirk_id' => $region1, 'last_login' => Carbon::now()->subyears(6)]);
+            $this->output->write('.');
+        }
+        $this->output->writeln(' done');
+        $this->output->writeln('Create old users with no_automatic_delete flag');
+        foreach (range(0, 20) as $_) {
+            $I->createFoodsaver($password, ['bezirk_id' => $region1, 'last_login' => Carbon::now()->subyears(6), 'no_automatic_delete' => 1]);
+            $this->output->write('.');
+        }
+        $this->output->writeln(' done');
 
         // give some trust bananas
         $this->output->writeln('Give some trust bananas');
@@ -596,7 +715,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         // Create more Forum Threads
         $this->output->writeln('- Create more forum Threads');
         $randomFsList = array_slice($this->foodsavers, -100, 100, true);
-        foreach ($this->getRandomIDOfArray($randomFsList, 30) as $random_user) {
+        foreach ($this->getRandomIDOfArray($randomFsList, 100) as $random_user) {
             foreach (range(0, 5) as $_) {
                 $I->addForumThread($region1, $random_user);
             }
@@ -686,7 +805,7 @@ class SeedCommand extends Command implements CustomCommandInterface
 
         $this->output->writeln('Create quizzes');
         foreach (range(1, 3) as $quizRole) {
-            $I->createQuiz($quizRole, 3);
+            $I->createQuiz($quizRole);
             $this->output->write('.');
         }
         $this->output->writeln(' done');
@@ -721,8 +840,26 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->createBlacklistedEmailAddress();
         $this->output->writeln(' done');
 
+        $this->output->writeln('Create achievements');
+        $this->createAchievements($I);
+        $this->output->writeln(' done');
+
         $I->_getDriver()->executeQuery('SET FOREIGN_KEY_CHECKS=1;', []);
         $I->_getDbh()->commit();
+    }
+
+    private function createAchievements(Foodsharing $I)
+    {
+        $achievementsDataFile = 'src/Dev/achievements.json';
+        if (!file_exists($achievementsDataFile)) {
+            $this->output->write($achievementsDataFile . ' not found');
+            exit(1);
+        }
+        $achievementsData = json_decode(file_get_contents($achievementsDataFile), true);
+
+        foreach ($achievementsData as $achievement) {
+            $I->addAchievement($achievement);
+        }
     }
 
     private function createPoll(int $regionId, int $authorId, int $type, array $voterIds,

@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Maintenance;
 
 use Carbon\Carbon;
+use DateTime;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
@@ -219,7 +220,7 @@ class MaintenanceGateway extends BaseGateway
      *
      * @return int the number of updated entries
      */
-    public function updateFinishedQuizSessions(): int
+    public function cleanOldQuizSessionData(): int
     {
         return $this->db->update(
             'fs_quiz_session',
@@ -228,9 +229,25 @@ class MaintenanceGateway extends BaseGateway
                 'quiz_questions' => null,
             ],
             [
-                'status' => [SessionStatus::FAILED, SessionStatus::PASSED],
+                'status' => [SessionStatus::FAILED->value, SessionStatus::PASSED->value],
                 'time_end <' => Carbon::now()->subWeeks(2)->format('Y-m-d H:i:s'),
             ]
         );
+    }
+
+    /**
+     * Returns the UUIDs of all entries in the uploads table that were created in a specific interval which do not have
+     * a usage type and id yet.
+     *
+     * @return string[]
+     */
+    public function listUploadsWithoutUsage(DateTime $from, DateTime $to): array
+    {
+        return $this->db->fetchAllValuesByCriteria('uploads', 'uuid', [
+            'used_in' => null,
+            'usage_id' => null,
+            'uploaded_at >' => $from->format('Y-m-d H:i:s'),
+            'uploaded_at <' => $to->format('Y-m-d H:i:s')
+        ]);
     }
 }

@@ -35,8 +35,11 @@ use Foodsharing\Modules\Store\DTO\PatchContactData;
 use Foodsharing\Modules\Store\DTO\PatchStore;
 use Foodsharing\Modules\Store\DTO\PatchStoreOptionModel;
 use Foodsharing\Modules\Store\DTO\Store;
+use Foodsharing\Modules\Store\DTO\StoreChainInformation;
 use Foodsharing\Modules\Store\DTO\StoreListInformation;
 use Foodsharing\Modules\Store\DTO\StoreStatusForMember;
+use Foodsharing\Modules\StoreCategories\StoreCategoriesGateway;
+use Foodsharing\Modules\StoreChain\StoreChainGateway;
 use Foodsharing\Utility\Sanitizer;
 use Foodsharing\Utility\WeightHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -68,6 +71,8 @@ class StoreTransactions
         private readonly BellTransactions $bellTransactions,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly RegionGateway $regionGateway,
+        private readonly StoreCategoriesGateway $storeCategoriesGateway,
+        private readonly StoreChainGateway $storeChainGateway,
         private readonly Sanitizer $sanitizerService,
         private readonly Session $session
     ) {
@@ -110,8 +115,8 @@ class StoreTransactions
 
         $store->groceries = array_map(fn ($row) => CommonLabel::createFromArray($row), $this->storeGateway->getBasics_groceries());
 
-        $store->categories = [new CommonLabel(0, $this->translator->trans('store.nodeclaration')),
-            ...array_map(fn ($row) => CommonLabel::createFromArray($row), $this->storeGateway->getStoreCategories())];
+        $store->categories = $this->storeCategoriesGateway->getStoreCategories();
+        $store->categories[] = new CommonLabel(0, $this->translator->trans('store.nodeclaration'));
 
         $store->status = array_map(fn ($row) => CommonLabel::createFromArray($row), [
             ['id' => CooperationStatus::UNCLEAR->value, 'name' => $this->translator->trans('store.nodeclaration')],
@@ -218,6 +223,10 @@ class StoreTransactions
         $suppressLoadingGroceries = !$showSensitiveDetails;
         $dbResult = $this->storeGateway->getStore($storeId, $suppressLoadingGroceries);
         $dbResult->region->name = $this->regionGateway->getRegionName($dbResult->region->id);
+
+        if ($dbResult->chain) {
+            $dbResult->chain->information = $this->storeChainGateway->getCommonStoreInformation($dbResult->chain->id);
+        }
 
         if (!$showDetails) {
             $dbResult->description = null;
@@ -375,7 +384,7 @@ class StoreTransactions
         if (!is_null($storeChange->categoryId)) {
             $changeInformation->informationChanged = true;
             if ($storeChange->categoryId !== 0) {
-                $storeCategoryExists = $this->storeGateway->existStoreCategory($storeChange->categoryId);
+                $storeCategoryExists = $this->storeCategoriesGateway->existStoreCategory($storeChange->categoryId);
                 if (!$storeCategoryExists) {
                     throw new StoreTransactionException(StoreTransactionException::STORE_CATEGORY_NOT_EXISTS);
                 }
@@ -392,7 +401,7 @@ class StoreTransactions
                 if (!$storeChainExists) {
                     throw new StoreTransactionException(StoreTransactionException::STORE_CHAIN_NOT_EXISTS);
                 }
-                $store->chain = MinimalIdentifier::createFromId($storeChange->chainId);
+                $store->chain = StoreChainInformation::createFromId($storeChange->chainId);
             } else {
                 $store->chain = null;
             }
@@ -776,7 +785,8 @@ class StoreTransactions
         $this->pickupGateway->deleteAllDatesFromAFoodsaver($userId, $storeId);
         $this->storeGateway->removeUserFromTeam($storeId, $userId);
 
-        $this->storeGateway->addStoreLog($storeId, $this->session->id(), $userId, null, StoreLogAction::REMOVED_FROM_STORE);
+        $storeLogAction = $this->session->id() == $userId ? StoreLogAction::LEFT_STORE : StoreLogAction::REMOVED_FROM_STORE;
+        $this->storeGateway->addStoreLog($storeId, $this->session->id(), $userId, null, $storeLogAction);
 
         if ($teamChatConversationId = $this->storeGateway->getBetriebConversation($storeId)) {
             $this->messageGateway->deleteUserFromConversation($teamChatConversationId, $userId);
@@ -996,7 +1006,7 @@ class StoreTransactions
     {
         $allowedFields = [
             // personal info
-            'id', 'name', 'photo', 'quiz_rolle', 'sleep_status', 'verified',
+            'id', 'name', 'photo', 'rolle', 'sleep_status', 'verified',
             // team-related info
             'verantwortlich', 'team_active', 'stat_fetchcount', 'add_date',
         ];

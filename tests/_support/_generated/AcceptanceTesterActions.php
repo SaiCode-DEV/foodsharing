@@ -5180,16 +5180,6 @@ trait AcceptanceTesterActions
     /**
      * [!] Method is generated. Documentation taken from corresponding module.
      *
-     * @see \Helper\Foodsharing::letUserFailQuiz()
-     */
-    public function letUserFailQuiz(array $user, int $daysAgo, int $times)
-    {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('letUserFailQuiz', func_get_args()));
-    }
-
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
      * @see \Helper\Foodsharing::createQuizTry()
      */
     public function createQuizTry(int $fsId, int $level, int $status, int $daysAgo = 0)
@@ -5903,16 +5893,6 @@ trait AcceptanceTesterActions
     public function apiReportListForRegion($regionId)
     {
         return $this->getScenario()->runStep(new \Codeception\Step\Action('apiReportListForRegion', func_get_args()));
-    }
-
-    /**
-     * [!] Method is generated. Documentation taken from corresponding module.
-     *
-     * @see \Helper\FoodsharingUrl::upgradeQuizUrl()
-     */
-    public function upgradeQuizUrl(int $quizRole): string
-    {
-        return $this->getScenario()->runStep(new \Codeception\Step\Action('upgradeQuizUrl', func_get_args()));
     }
 
     /**

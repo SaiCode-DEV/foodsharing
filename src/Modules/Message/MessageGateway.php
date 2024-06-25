@@ -9,6 +9,9 @@ use Foodsharing\Utility\Sanitizer;
 
 final class MessageGateway extends BaseGateway
 {
+    // value -1 is reserved for chats that are marked as unread manually.
+    final public const MARKED_AS_UNREAD = -1;
+
     private readonly Sanitizer $sanitizer;
 
     public function __construct(
@@ -187,7 +190,7 @@ final class MessageGateway extends BaseGateway
 				c.`last_message`,
 				c.`last_foodsaver_id` AS last_message_author_id,
 				c.`last_message_id`,
-				hc.unread as has_unread_messages,
+				hc.unread as unread_messages,
 				c.name,
 				c.last_message_is_htmlentity_encoded,
                 ifnull(cstore.id, cjumpstore.id) as store_id
@@ -210,7 +213,7 @@ final class MessageGateway extends BaseGateway
         }
         $query .= '
 			ORDER BY
-				hc.unread DESC,
+				CASE WHEN hc.unread = 0 THEN 0 ELSE 1 END DESC,
 				c.`last` DESC';
         if ($limit !== null) {
             $query .= ' LIMIT :offset, :limit';
@@ -229,7 +232,7 @@ final class MessageGateway extends BaseGateway
             $conversation = new Conversation();
             $conversation->id = $c['id'];
             $conversation->title = $c['name'];
-            $conversation->hasUnreadMessages = (bool)$c['has_unread_messages'];
+            $conversation->unreadMessages = $c['unread_messages'];
 
             // add the storeId, if this is the team conversation of a store
             $conversation->storeId = $c['store_id'] ?? null;
@@ -330,20 +333,22 @@ final class MessageGateway extends BaseGateway
         );
     }
 
-    private function markAsUnread(int $conversationId, int $exceptFsId): void
+    private function increaseUnread(int $conversationId, int $exceptFsId): void
     {
-        $this->db->update('fs_foodsaver_has_conversation',
-            ['unread' => 1],
-            [
-                'conversation_id' => $conversationId,
-                'foodsaver_id !=' => $exceptFsId
-            ]);
+        $this->db->execute('UPDATE fs_foodsaver_has_conversation
+            SET unread = GREATEST(1, unread + 1)
+            WHERE conversation_id = :conversationId
+            AND foodsaver_id != :foodsaverId', [
+            'conversationId' => $conversationId,
+            'foodsaverId' => $exceptFsId,
+        ]);
     }
 
-    public function markAsRead(int $conversationId, int $fsId): void
+    public function setReadStatus(int $conversationId, int $fsId, bool $isRead): void
     {
+        $value = $isRead ? 0 : self::MARKED_AS_UNREAD;
         $this->db->update('fs_foodsaver_has_conversation',
-            ['unread' => 0],
+            ['unread' => $value],
             [
                 'foodsaver_id' => $fsId,
                 'conversation_id' => $conversationId]
@@ -363,7 +368,7 @@ final class MessageGateway extends BaseGateway
                 'time' => $this->db->date($sentAt),
                 'is_htmlentity_encoded' => 0
             ]);
-        $this->markAsUnread($conversationId, $senderId);
+        $this->increaseUnread($conversationId, $senderId);
         $this->updateLastConversationMessage($conversationId, $messageId, $body, $senderId, $sentAt);
 
         return new Message($body, $senderId, $sentAt, $messageId);

@@ -22,16 +22,16 @@
             :key="type.name"
           >
             <a
-              v-if="type.visible"
+              v-if="visibleTypes.includes(type.name)"
               :ref="`button-${type.name}`"
               class="map-legend-entry"
-              :class="`${type.name} ${activeButtonClass(type)}`"
-              @click="toggleMarkerType(type)"
+              :class="`${type.name} ${activeButtonClass(type.name)}`"
+              @click="toggleMarkerType(type.name)"
             >
-              <i class="fas" :class="type.icon" /> {{ $i18n(type.label) }}
+              <i :class="`fas fa-${type.icon}`" /> {{ $i18n(type.label) }}
             </a>
             <div
-              v-if="type.name === 'stores' && type.selected"
+              v-if="type.name === 'stores' && selectedTypes.includes(type.name)"
               class="map-legend-selection"
             >
               <label
@@ -41,9 +41,9 @@
                 <input
                   type="checkbox"
                   name="viewopt[]"
-                  :checked="storeType.selected"
+                  :checked="selectedStoreTypes.includes(storeType.name)"
                   :value="storeType.name"
-                  @click="toggleStoreType(storeType)"
+                  @click="toggleStoreType(storeType.name)"
                 >
                 {{ $i18n(storeType.label) }}
               </label>
@@ -56,73 +56,35 @@
 </template>
 
 <script>
-import { loadMarker } from '@php/Modules/Map/Map'
+import { MARKER_TYPES, STORE_MARKER_TYPES } from '@/stores/map'
 
 export default {
   props: {
-    maySeeStores: { type: Boolean, default: false },
+    visibleTypes: { type: Array, required: true },
+    selectedTypes: { type: Array, required: true },
+    selectedStoreTypes: { type: Array, required: true },
   },
   data () {
     return {
       isCollapsed: false,
-      markerTypes: [
-        { name: 'baskets', label: 'terminology.baskets', icon: 'fa-shopping-basket', visible: true, selected: true },
-        { name: 'stores', label: 'menu.entry.stores', icon: 'fa-shopping-cart', visible: this.maySeeStores, selected: false },
-        { name: 'foodsharepoints', label: 'terminology.fsp', icon: 'fa-recycle', visible: true, selected: false },
-        { name: 'communities', label: 'menu.entry.regionalgroups', icon: 'fa-users', visible: true, selected: false },
-      ],
-      storeMarkerTypes: [
-        { name: 'allebetriebe', label: 'store.bread', selected: false },
-        { name: 'needhelp', label: 'menu.entry.helpwanted', selected: true },
-        { name: 'needhelpinstant', label: 'menu.entry.helpneeded', selected: true },
-        { name: 'nkoorp', label: 'menu.entry.other_stores', selected: false },
-        { name: 'mine', label: 'map.filters.my_stores', selected: false },
-      ],
+      markerTypes: Object.values(MARKER_TYPES),
+      storeMarkerTypes: Object.values(STORE_MARKER_TYPES),
     }
   },
   computed: {
     collapsedClass () {
       return this.isCollapsed ? 'collapsed' : ''
     },
-    selectedTypes () {
-      return this.markerTypes.filter(type => type.selected).map(type => type.name)
-    },
-    selectedStoreTypes () {
-      return this.storeMarkerTypes.filter(type => type.selected).map(type => type.name)
-    },
-  },
-  mounted () {
-    loadMarker(this.selectedTypes, this.selectedStoreTypes)
   },
   methods: {
-    activeButtonClass (type) {
-      return type.selected ? 'active' : ''
+    activeButtonClass (name) {
+      return this.selectedTypes.includes(name) ? 'active' : ''
     },
-    toggleMarkerType (type) {
-      type.selected = !type.selected
-      loadMarker(this.selectedTypes, this.selectedStoreTypes)
+    toggleMarkerType (name) {
+      this.$emit('toggle-marker-type', name)
     },
-    toggleStoreType (storeType) {
-      storeType.selected = !storeType.selected
-
-      if (storeType.name === this.storeMarkerTypes[0].name) {
-        if (this.storeMarkerTypes[0].selected) {
-          for (let i = 1; i < this.storeMarkerTypes.length; i++) {
-            this.storeMarkerTypes[i].selected = false
-          }
-        } else {
-          this.storeMarkerTypes[1].selected = true
-          this.storeMarkerTypes[2].selected = true
-        }
-      } else {
-        this.storeMarkerTypes[0].selected = false
-      }
-
-      if (this.selectedStoreTypes.length < 1) {
-        this.storeMarkerTypes[0].selected = true
-      }
-
-      loadMarker(this.selectedTypes, this.selectedStoreTypes)
+    toggleStoreType (name) {
+      this.$emit('toggle-store-marker-type', name)
     },
     collapseControl () {
       this.isCollapsed = !this.isCollapsed

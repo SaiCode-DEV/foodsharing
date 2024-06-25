@@ -8,6 +8,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\StoreChain\StoreChainGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 class StoreChainPermissions
 {
@@ -15,13 +16,14 @@ class StoreChainPermissions
         private readonly Session $session,
         private readonly StoreChainGateway $gateway,
         private readonly StoreGateway $storeGateway,
-        private readonly RegionGateway $regionGateway
+        private readonly RegionGateway $regionGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
 
     public function mayAdministrateStoreChains(): bool
     {
-        return $this->session->mayRole(Role::ORGA) || $this->session->isAdminFor(RegionIDs::STORE_CHAIN_GROUP);
+        return $this->session->mayRole(Role::ORGA) || $this->currentUserUnits->isAdminFor(RegionIDs::STORE_CHAIN_GROUP);
     }
 
     public function mayAdministrateStoreChain($chainId): bool

@@ -326,7 +326,7 @@ quiz:
     fpsum: 'набранные минус-пункты'
     nresponses: 'Нейтральные ответы'
     wronga: 'мог бы тоже быть верным.'
-  regstart: 'Начать тест без ограничения по времени и 20 вопросами'
+  regstart: 'Начать тест без ограничения по времени и {count} вопросами'
   quizleft: ' - теперь осталось только успешно пройти тест!'
   nownownow: 'Начать тест'
   trynumber: 'Это была попытка номер'
@@ -343,7 +343,7 @@ quiz:
     bv: ''
     bot: 'Завершить регистрацию послом.'
     fs: 'Завершить регистрацию фудсейвером.'
-  timedstart: 'Начать тест с ограничением по времени и десятью вопросами'
+  timedstart: 'Начать тест с ограничением по времени и {count} вопросами'
   continuenow: 'Продолжить прохождение теста!'
   goodluck: 'Удачи!'
   session_deleted: 'Результаты этого теста удалены, потому что он был закончен более
@@ -354,6 +354,9 @@ quiz:
   safeandsound: 'Но ничего страшного: твоя сессия сохранена, и ты можешь в любое время
     продолжить отвечать на вопросы.'
   resultsbelow: 'Рейтинг можешь посмотреть ниже.'
+  results:
+    title:
+      1: Поздравляю!
 genderlist:
   gender_not_selected: ''
   district_tab: ''
@@ -600,6 +603,8 @@ settings:
   notifications: ''
   businesscard: ''
   account: ''
+  general:
+    phone: Ваш номер стационарного телефона
 profile:
   mail_bounce:
     remove_button: ''
@@ -1319,6 +1324,8 @@ terminology:
   no_pickups: ''
   previous_pickups: ''
   n_home_regions: ''
+  no: Нет
+  yes: Да
 storeview:
   common: ''
   visible_for_public: ''
@@ -1425,7 +1432,7 @@ store:
   my_last_pickup: ''
   team_conversation_name: ''
   tooltip_managing: ''
-  memberSince: ''
+  joinDate: ''
   unknownDate: ''
   isJumper: ''
   appliedFor: ''
@@ -2099,7 +2106,7 @@ bell:
   store_request_deny: ''
   poll_new_title: ''
   store_cr_times_title: '{name}'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   betrieb_fetch_title: '{betrieb}'
   forum_reply_title: '{forum}: {title}'
   forum_answer_title: '{forum}'
@@ -2143,6 +2150,8 @@ bell:
   forum_new_thread_title: ''
   forum_announcement_title: ''
   forum_mention: ''
+  workinggroup_new_request_title: '{name}'
+  internal_email_changed_title: '{address}'
 memberlist:
   header_for_district: ''
   header_for_workgroup: ''
@@ -2213,7 +2222,6 @@ email_template:
   foodbasket_request: ''
   slot_empty: ''
   unknown_email: ''
-  withlove: ''
 polls:
   ended: ''
   new_poll: ''
@@ -2894,3 +2902,6 @@ usersearch:
   search_tag: ''
   no_tag_preset: ''
   select_tag: ''
+validation:
+  phone_number_invalid: Телефонный номер недействителен (например, отсутствует код
+    страны, он слишком короткий, слишком длинный или содержит недопустимые символы)

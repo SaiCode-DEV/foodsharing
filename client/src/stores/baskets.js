@@ -1,10 +1,14 @@
 import Vue from 'vue'
 import { getBaskets, getBasketsNearby, listBasketCoordinates } from '@/api/baskets'
+import { getCache, getCacheInterval, setCache } from '@/helper/cache'
+
+const nearbyCacheRequestName = 'nearbyBaskets'
+const nearbyCacheInterval = 300000 // 5 Minuten in Millisekunden
 
 export const store = Vue.observable({
   own: [],
   nearby: [],
-  radius: 45,
+  radius: 30,
   allCoordinates: [],
 })
 
@@ -31,8 +35,18 @@ export const mutations = {
     store.own = await getBaskets()
   },
   async fetchNearby ({ lat, lon } = {}, distance = store.radius) {
-    store.nearby = await getBasketsNearby(parseFloat(lat), parseFloat(lon), distance)
-    return store.nearby
+    try {
+      if (await getCacheInterval(nearbyCacheRequestName, nearbyCacheInterval)) {
+        store.nearby = await getBasketsNearby(parseFloat(lat), parseFloat(lon), distance)
+        await setCache(nearbyCacheRequestName, store.nearby)
+      } else {
+        store.nearby = await getCache(nearbyCacheRequestName)
+      }
+      return store.nearby
+    } catch (e) {
+      console.error('Error fetching nearby baskets:', e)
+      return null
+    }
   },
   async fetchGermany () {
     return await this.fetchNearby({ lat: 50.89, lon: 10.13 }, 50)

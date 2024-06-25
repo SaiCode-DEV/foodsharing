@@ -204,7 +204,7 @@ class StoreGateway extends BaseGateway
             'telefon' => $store->contact->phone,
             'fax' => $store->contact->fax,
             'email' => $store->contact->email,
-            'begin' => $store->cooperationStart ? $this->db->date($store->cooperationStart, false) : '0000-00-00',
+            'begin' => $store->cooperationStart ? $this->db->date($store->cooperationStart, false) : null,
             'team_status' => $store->teamStatus->value,
 
             'prefetchtime' => $store->calendarInterval,
@@ -221,30 +221,6 @@ class StoreGateway extends BaseGateway
         if ($groceriesChanged) {
             $this->setGroceries($store->id, $store->groceries);
         }
-    }
-
-    public function getMapsStores(int $regionId): array
-    {
-        return $this->db->fetchAll('
-            SELECT 	b.id,
-                    b.betrieb_status_id,
-					b.plz,
-					b.`lat`,
-					b.`lon`,
-					b.`stadt`,
-					b.kette_id,
-					b.betrieb_kategorie_id,
-					b.name,
-					b.str
-
-			FROM 	fs_betrieb b
-			WHERE 	b.bezirk_id = :regionId
-			  AND	b.betrieb_status_id <> :permanentlyClosed
-			  AND	b.`lat` != ""
-		', [
-            ':regionId' => $regionId,
-            ':permanentlyClosed' => CooperationStatus::PERMANENTLY_CLOSED->value,
-        ]);
     }
 
     public function listMyStores(int $fsId): array
@@ -551,21 +527,6 @@ class StoreGateway extends BaseGateway
         return $this->db->fetchValueByCriteria('fs_betrieb', 'bezirk_id', ['id' => $storeId]);
     }
 
-    public function getStoreCategories(): array
-    {
-        return $this->db->fetchAll('
-			SELECT	`id`,
-					`name`
-			FROM	`fs_betrieb_kategorie`
-			ORDER BY `name`
-		');
-    }
-
-    public function existStoreCategory(int $id): bool
-    {
-        return $this->db->exists('fs_betrieb_kategorie', ['id' => $id]);
-    }
-
     public function getBasics_groceries(): array
     {
         return $this->db->fetchAll('
@@ -600,8 +561,8 @@ class StoreGateway extends BaseGateway
                 fs.`telefon`,
                 fs.`handy`,
                 fs.photo,
-                fs.quiz_rolle,
                 fs.rolle,
+                fs.name AS firstName,
                 CONCAT(fs.name," ",fs.nachname) AS name,
                 name as vorname,
                 t.`active` AS team_active,
@@ -658,7 +619,6 @@ class StoreGateway extends BaseGateway
 						fs.`telefon`,
 						fs.`handy`,
 						fs.photo,
-						fs.quiz_rolle,
 						fs.rolle,
 						CONCAT(fs.name," ",fs.nachname) AS name,
 						name as vorname,
@@ -749,11 +709,6 @@ class StoreGateway extends BaseGateway
     public function getUseRegionPickupRule(int $storeId)
     {
         return $this->db->fetchValueByCriteria('fs_betrieb', 'use_region_pickup_rule', ['id' => $storeId]);
-    }
-
-    public function getStoreCountForBieb($fs_id)
-    {
-        return $this->db->count('fs_betrieb_team', ['foodsaver_id' => $fs_id, 'verantwortlich' => 1]);
     }
 
     public function getStoreTeamStatus(int $storeId): TeamSearchStatus
@@ -1162,7 +1117,7 @@ class StoreGateway extends BaseGateway
         return array_map(fn ($store) => Store::createFromArray($store), $results);
     }
 
-    public function getStoreLogsByActionType(int $storeId, array $storeActions, Carbon $fromDate, Carbon $toDate): array
+    public function getStoreLogsByActionType(int $storeId, array $storeActions, Carbon $fromDate, Carbon $toDate, Pagination $pagination): array
     {
         $logEntries = $this->db->fetchAll('SELECT
 				date_activity as performed_at,
@@ -1177,12 +1132,12 @@ class StoreGateway extends BaseGateway
 			WHERE
 				store_id = ?
                 AND date_activity >= ?
-                AND date_activity <= ? 
+                AND date_activity <= ?
                 AND action IN (' . $this->db->generatePlaceholders(count($storeActions)) . ')
             ORDER BY performed_at DESC
-            LIMIT 100
+            LIMIT ?, ?
 		    ',
-            [$storeId, $fromDate, $toDate, ...$storeActions]);
+            [$storeId, $fromDate, $toDate, ...$storeActions, $pagination->offset, $pagination->pageSize]);
 
         return $logEntries;
     }

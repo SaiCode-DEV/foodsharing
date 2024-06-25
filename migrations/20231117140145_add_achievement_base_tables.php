@@ -23,12 +23,17 @@ final class AddAchievementBaseTables extends AbstractMigration
         $foodsaverHasAchievementTable->addColumn('foodsaver_id', 'integer', [
             'length' => 10,
             'signed' => false,
+            'null' => false,
         ]);
         $foodsaverHasAchievementTable->addForeignKey('foodsaver_id', 'fs_foodsaver', 'id', [
             'delete' => 'CASCADE',
             'update' => 'NO_ACTION',
         ]);
-        $foodsaverHasAchievementTable->addColumn('achievement_id', 'integer');
+        $foodsaverHasAchievementTable->addColumn('achievement_id', 'integer', [
+            'length' => 11,
+            'signed' => false,
+            'null' => false,
+        ]);
         $foodsaverHasAchievementTable->addForeignKey('achievement_id', 'fs_achievement', 'id', [
             'delete' => 'CASCADE',
             'update' => 'NO_ACTION',

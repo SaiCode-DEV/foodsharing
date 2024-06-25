@@ -91,7 +91,7 @@ export default {
       isLoading: false,
       inlat: this.lat,
       inlon: this.lon,
-      description: this.desc,
+      description: this.desc ?? '',
       isActive: this.status === STATUS_ACTIVE,
       locationPickerIcon: L.AwesomeMarkers.icon({ icon: 'users', markerColor: 'green' }),
     }

@@ -3,14 +3,26 @@
 namespace Foodsharing\Modules\WorkGroup;
 
 use Foodsharing\Lib\Db\Mem;
+use Foodsharing\Modules\Bell\BellGateway;
+use Foodsharing\Modules\Bell\DTO\Bell;
+use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
+use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Region\ForumFollowerGateway;
+use Foodsharing\Modules\Uploads\UploadsGateway;
+use Foodsharing\RestApi\Models\Group\EditWorkGroupData;
+use Foodsharing\Utility\EmailHelper;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class WorkGroupTransactions
 {
     public function __construct(
         private readonly Mem $mem,
         private readonly WorkGroupGateway $workGroupGateway,
-        private readonly ForumFollowerGateway $forumFollowerGateway
+        private readonly ForumFollowerGateway $forumFollowerGateway,
+        private readonly UploadsGateway $uploadsGateway,
+        private readonly BellGateway $bellGateway,
+        private readonly EmailHelper $emailHelper,
+        private readonly TranslatorInterface $translator
     ) {
     }
 
@@ -41,5 +53,77 @@ class WorkGroupTransactions
         }
 
         return false;
+    }
+
+    public function sendMailToGroup(string $groupName, string $message, string $username, int $userId, array $recipients, string $userMail): void
+    {
+        $this->emailHelper->tplMail('general/workgroup_contact', $recipients, [
+            'gruppenname' => $groupName,
+            'message' => $message,
+            'username' => $username,
+            'userprofile' => BASE_URL . '/profile/' . $userId,
+        ], $userMail);
+    }
+
+    public function requestToGroup(int $groupId, int $userId, string $motivation, string $ability, string $experience, int $selectedTime): void
+    {
+        $content = [
+            $this->translator->trans('group.entermotivation') . "\n===========\n" . trim($motivation),
+            $this->translator->trans('group.enterskills') . "\n============\n" . trim($ability),
+            $this->translator->trans('group.enterxp') . "\n==========\n" . trim($experience),
+            $this->translator->trans('group.entertime') . "\n=====\n" . $selectedTime,
+        ];
+
+        $this->workGroupGateway->groupApply($groupId, $userId, implode("\n\n", $content));
+        $groupMail = $this->workGroupGateway->getGroupMail($groupId);
+        $group = $this->workGroupGateway->getGroup($groupId);
+
+        $userWithMail = $this->workGroupGateway->getFsWithMail($userId);
+
+        $link = BASE_URL . '/?page=application&bid=' . $groupId . '&fid=' . $userId;
+
+        $this->emailHelper->libmail(
+            [
+                'email' => $userWithMail['email'],
+                'email_name' => $userWithMail['name'],
+            ],
+            $groupMail,
+            $this->translator->trans('group.apply.title', ['{group}' => $group['name']]),
+            nl2br($this->translator->trans('group.apply.summary', [
+                    '{name}' => $userWithMail['name'],
+                    '{group}' => $group['name'],
+                ]) . "\n\n" . implode("\n\n", $content) . "\n\n"
+                . $this->translator->trans('group.apply.link_description')
+                . ' <a href="' . $link . '">' . $link . '</a>')
+        );
+
+        $this->createBellNotificationForRequest($group, $userId);
+    }
+
+    /**
+     * Create a bell notification for the group's admins about a new request to join the group.
+     *
+     * @param array $group containing the name and id of the group
+     * @param int $userId the user who requested to join the group
+     */
+    private function createBellNotificationForRequest(array $group, int $userId): void
+    {
+        $adminIds = $this->workGroupGateway->getGroupAdminIds($group['id']);
+        $bellData = Bell::create('workinggroup_new_request_title', 'workinggroup_new_request', 'fas fa-user-clock', [
+            'href' => '/?page=application&bid=' . $group['id'] . '&fid=' . $userId
+        ], [
+            'name' => $group['name']
+        ], BellType::createIdentifier(BellType::WORKING_GROUP_NEW_APPLICATION, $group['id'], $userId));
+        $this->bellGateway->addBell($adminIds, $bellData);
+    }
+
+    public function updateGroup(int $groupId, EditWorkGroupData $groupData)
+    {
+        $this->workGroupGateway->updateGroup($groupId, $groupData);
+
+        if (!empty($groupData->photo)) {
+            $uuid = substr($groupData->photo, 13);
+            $this->uploadsGateway->setUsage([$uuid], UploadUsage::WORKING_GROUP_TITLE, $groupId);
+        }
     }
 }

@@ -10,7 +10,7 @@
           :class="{'today': isToday, 'past': isInPast, 'soon': isSoon, 'empty': emptySlots > 0, 'coord': (isCoordinator || mayEditStore)}"
         >
           <span
-            v-html="$dateFormatter.dateTime(date)"
+            v-text="$dateFormatter.dateTime(date)"
           />
 
           <b-dropdown

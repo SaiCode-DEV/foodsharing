@@ -140,6 +140,13 @@
           <b-row class="p-2">
             <b-col md="2" />
             <b-col md="10">
+              <b-alert
+                v-if="showForwardAttachmentWarning"
+                variant="danger"
+                show
+              >
+                {{ $i18n('mailbox.forward_attachment_warning') }}
+              </b-alert>
               <div class="flex-container">
                 <b-form-tags
                   v-model="attachmentFilesName"
@@ -248,7 +255,7 @@ import { sendEmail, setEmailProperties } from '@/api/mailbox'
 import { uploadFile } from '@/api/uploads'
 import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
-import { store, MAILBOX_PAGE } from '@/stores/mailbox'
+import { store, MAILBOX_PAGE, MAIL_COMPOSITION_MODE } from '@/stores/mailbox'
 import { MAX_UPLOAD_FILE_SIZE } from '@/consts'
 import AddressBook from '@/components/Mailbox/AddressBook'
 
@@ -271,7 +278,15 @@ export default {
   },
   computed: {
     showTitel () {
-      return store.state.answerMode ? this.$i18n('mailbox.reply.full') : this.$i18n('mailbox.write')
+      switch (store.state.compositionMode) {
+        case MAIL_COMPOSITION_MODE.ANSWER:
+        case MAIL_COMPOSITION_MODE.ANSWER_ALL:
+          return this.$i18n('mailbox.reply.full')
+        case MAIL_COMPOSITION_MODE.FORWARD:
+          return this.$i18n('mailbox.forward')
+        default:
+          return this.$i18n('mailbox.write')
+      }
     },
     displayedMailDate () {
       return this.$dateFormatter.format(this.email.time, {
@@ -282,13 +297,14 @@ export default {
         minute: 'numeric',
       })
     },
-    answerMode () {
-      return store.state.answerMode
-    },
-    answerAll () {
-      return store.state.answerAll
+    compositionMode () {
+      return store.state.compositionMode
     },
     selectedMailbox () {
+      if (store.state.selectedMailbox.length === 0) {
+        const filteredMailbox = this.mailboxes.filter(mailbox => mailbox.id === this.email.mailboxId)
+        return [filteredMailbox[0].id, filteredMailbox[0].name, this.email.mailboxFolder]
+      }
       return store.state.selectedMailbox
     },
     areAllEmailsValid () {
@@ -307,6 +323,10 @@ export default {
     isSubjectValid () {
       return this.subject.length >= 3
     },
+    // TODO: can be removed when forwarding of attachments is implemented
+    showForwardAttachmentWarning () {
+      return store.state.compositionMode === MAIL_COMPOSITION_MODE.FORWARD && this.email.attachments?.length > 0
+    },
   },
   watch: {
     attachmentFilesName (newFiles, oldFiles) {
@@ -318,7 +338,7 @@ export default {
         }
       })
     },
-    answerMode (newVal, oldVal) {
+    compositionMode (newVal, oldVal) {
       if (newVal) {
         this.updateRecipientsForAnswerMode()
       } else if (!newVal && oldVal) {
@@ -338,9 +358,15 @@ export default {
     window.addEventListener('resize', this.checkMobile)
     this.checkMobile()
     this.getMailBody()
-    if (this.answerMode) {
-      this.subject = this.email.subject
-      this.updateRecipientsForAnswerMode()
+    switch (this.compositionMode) {
+      case MAIL_COMPOSITION_MODE.ANSWER:
+      case MAIL_COMPOSITION_MODE.ANSWER_ALL:
+        this.subject = 'Re: ' + this.email.subject
+        this.updateRecipientsForAnswerMode()
+        break
+      case MAIL_COMPOSITION_MODE.FORWARD:
+        this.subject = 'Fwd: ' + this.email.subject
+        break
     }
   },
   destroyed () {
@@ -357,16 +383,25 @@ export default {
       }
     },
     getMailBody () {
-      if (this.answerMode) {
-        const mailFromAddress = `<${this.email.from.address}>`
-        const mailFromAndAddress = this.email.from.name ? `${this.email.from.name} ${mailFromAddress}` : mailFromAddress
-        const mailFromAndDate = this.$i18n('mailbox.reply_header', { name: mailFromAndAddress, date: this.displayedMailDate })
-        let replacedContent = this.email.body.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
-        replacedContent = replacedContent.split('\n').map(line => '> ' + line).join('\n')
+      switch (this.compositionMode) {
+        case MAIL_COMPOSITION_MODE.ANSWER:
+        case MAIL_COMPOSITION_MODE.ANSWER_ALL:
+        case MAIL_COMPOSITION_MODE.FORWARD: {
+          const mailFromAddress = `<${this.email.from.address}>`
+          const mailFromAndAddress = this.email.from.name ? `${this.email.from.name} ${mailFromAddress}` : mailFromAddress
+          const mailFromAndDate = this.$i18n('mailbox.reply_header', {
+            name: mailFromAndAddress,
+            date: this.displayedMailDate,
+          })
+          let replacedContent = this.email.body.replace(/\r\n/g, '\n').replace(/\r/g, '\n')
+          replacedContent = replacedContent.split('\n').map(line => '> ' + line).join('\n')
 
-        this.mailBody = '\n\n ---\n\n' + mailFromAndDate + ': \n\n' + replacedContent
-      } else {
-        this.mailBody = null
+          this.mailBody = '\n\n ---\n\n' + mailFromAndDate + ': \n\n' + replacedContent
+          break
+        }
+        default:
+          this.mailBody = null
+          break
       }
     },
     checkMobile () {
@@ -419,7 +454,7 @@ export default {
           }
         })
 
-        const emailId = this.answerMode ? this.email.id : null
+        const emailId = ([MAIL_COMPOSITION_MODE.ANSWER, MAIL_COMPOSITION_MODE.ANSWER_ALL].includes(this.compositionMode)) ? this.email.id : null
         await sendEmail(this.selectedMailbox[0], this.emailTo, null, null, this.subject, this.mailBody, attachments, emailId)
         this.closeAndReturnToMailbox()
         pulseSuccess(this.$i18n('mailbox.okay'))
@@ -473,7 +508,7 @@ export default {
       this.emailTo.push(this.email.from.address)
 
       // if replying to all, add all except the currently selected mailbox to the recipients
-      if (this.answerAll) {
+      if (this.compositionMode === MAIL_COMPOSITION_MODE.ANSWER_ALL) {
         const addressToFilter = this.selectedMailbox[1] + '@'
         const additionalRecipients = this.email.to
           .map(x => x.address)

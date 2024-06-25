@@ -84,6 +84,13 @@ class BellType
      */
     final public const NEW_POLL = 'new-poll-%d';
     /**
+     * Sent to the admins of a working group to notify them about a new application.
+     * Parameters:
+     *   the group's id and
+     *   the applicant's id.
+     */
+    public const WORKING_GROUP_NEW_APPLICATION = 'workinggroup-%d-application-%d';
+    /**
      * The user's request to join a work group was accepted.
      */
     final public const WORK_GROUP_REQUEST_ACCEPTED = 'workgroup-arequest-%d';
@@ -95,6 +102,16 @@ class BellType
      * A new report for a user was created.
      */
     final public const NEW_REPORT = 'new-report-%d';
+
+    /**
+     * A new report for a user was created.
+     */
+    final public const NEW_QUESTION_COMMENT = 'question-comment-%d';
+
+    /**
+     * A new post on an event wall the user is maybe participating in. Argument: IDs of the event.
+     */
+    final public const NEW_EVENT_POST = 'event-post-%d';
 
     /**
      * Creates a bell identifier from a template and an optional list of parameters.

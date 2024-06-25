@@ -2,9 +2,7 @@
 
 namespace Foodsharing\Permissions;
 
-use Carbon\Carbon;
 use Carbon\CarbonInterval;
-use DateInterval;
 use DateTime;
 use Exception;
 use Foodsharing\Lib\Session;
@@ -12,6 +10,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\Voting\DTO\Poll;
 use Foodsharing\Modules\Voting\VotingGateway;
 
@@ -21,27 +20,30 @@ final class VotingPermissions
     private readonly VotingGateway $votingGateway;
     private readonly RegionGateway $regionGateway;
     private readonly GroupFunctionGateway $groupFunctionGateway;
+    public readonly CarbonInterval $MIN_POLL_EDIT_TIME;
 
     public function __construct(
         Session $session,
         VotingGateway $votingGateway,
         RegionGateway $regionGateway,
-        GroupFunctionGateway $groupFunctionGateway
+        GroupFunctionGateway $groupFunctionGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
         $this->session = $session;
         $this->votingGateway = $votingGateway;
         $this->regionGateway = $regionGateway;
         $this->groupFunctionGateway = $groupFunctionGateway;
+        $this->MIN_POLL_EDIT_TIME = CarbonInterval::hours(1);
     }
 
     public function maySeePoll(Poll $poll): bool
     {
-        return $this->session->mayBezirk($poll->regionId);
+        return $this->currentUserUnits->mayBezirk($poll->regionId);
     }
 
     public function mayListPolls(int $regionId): bool
     {
-        return $this->session->mayBezirk($regionId);
+        return $this->currentUserUnits->mayBezirk($regionId);
     }
 
     public function maySeeResults(Poll $poll): bool
@@ -52,7 +54,7 @@ final class VotingPermissions
     public function mayVote(Poll $poll): bool
     {
         // only as member of the region
-        if (!$this->session->mayBezirk($poll->regionId)) {
+        if (!$this->currentUserUnits->mayBezirk($poll->regionId)) {
             return false;
         }
 
@@ -72,36 +74,26 @@ final class VotingPermissions
 
     public function mayCreatePoll(int $regionId): bool
     {
-        if (!$this->session->mayBezirk($regionId) || !$this->session->isVerified()) {
+        if (!$this->currentUserUnits->mayBezirk($regionId) || !$this->session->isVerified()) {
             return false;
         }
 
         $type = $this->regionGateway->getType($regionId);
         if (UnitType::isGroup($type)) {
-            return $this->session->isAdminFor($regionId);
+            return $this->currentUserUnits->isAdminFor($regionId);
         } else {
             $votingGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::VOTING);
 
-            return !empty($votingGroup) && $this->session->isAdminFor($votingGroup);
+            return !empty($votingGroup) && $this->currentUserUnits->isAdminFor($votingGroup);
         }
     }
 
     public function mayEditPoll(Poll $poll): bool
     {
-        // polls can be edited by the author during the first hour after creating the poll
         if ($this->session->id() != $poll->authorId) {
             return false;
         }
 
-        return $poll->creationDate->add($this->editTimeAfterPollCreation()) > Carbon::now();
-    }
-
-    /**
-     * Returns the interval during which a poll can be edited after its creation. This also defined the
-     * poll's minimum start time.
-     */
-    public function editTimeAfterPollCreation(): DateInterval
-    {
-        return CarbonInterval::hours(1);
+        return new DateTime() < $poll->startDate;
     }
 }

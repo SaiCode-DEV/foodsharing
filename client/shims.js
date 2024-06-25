@@ -84,16 +84,6 @@ Object.assign(module.exports, convert({
     },
   },
 
-  'jquery-dynatree': {
-    resolve: lib('dynatree/jquery.dynatree.js'),
-    imports: {
-      jQuery: 'jquery',
-    },
-    dependencies: [
-      lib('dynatree/skin/ui.dynatree.css'),
-    ],
-  },
-
   'jquery-tablesorter': {
     resolve: lib('tablesorter/jquery.tablesorter.js'),
     imports: {

@@ -1,6 +1,6 @@
 <template>
   <!-- TODO unify with wall post -->
-  <li
+  <div
     class="list-group-item activity-post"
   >
     <div
@@ -22,7 +22,7 @@
         :href="dashboardContentLink"
         class="d-inline-block text-truncate"
         style="max-width: 125px;"
-        v-html="sender_email"
+        v-text="sender_email"
       />
       <i
         v-if="type !== 'friendWall'"
@@ -33,7 +33,7 @@
         v-b-tooltip="title.length > 100 ? title : null"
         :href="dashboardContentLink"
         class="d-inline-block text-truncate"
-        v-html="title"
+        v-text="title"
       />
     </div>
 
@@ -97,6 +97,7 @@
             @keyup="resizeTextarea"
             @keydown.enter.exact.prevent="send()"
           />
+          <!-- Only translation content in tooltip.html -->
           <button
             v-b-tooltip.html="$i18n('activitypost.quickreply_button')"
             class="btn mt-2 btn-primary"
@@ -121,7 +122,10 @@
           class="d-inline-flex align-items-center mt-2 text-muted"
         >
           <i class="fas fa-info-circle mr-1" />
+          <!-- eslint-disable vue/no-v-html -->
+          <!-- Only translation content -->
           <span v-html="$i18n('activitypost.quickreply_info')" />
+          <!-- eslint-enable -->
         </small>
       </div>
       <span v-else class="loader">
@@ -138,10 +142,10 @@
         v-if="source"
         v-b-tooltip="source.length > 40 ? source : null"
         class="text-truncate order-1 order-sm-2 mb-0"
-        v-html="$i18n(translationKey, [source])"
+        v-text="$i18n(translationKey, [source])"
       />
     </div>
-  </li>
+  </div>
 </template>
 
 <script>
@@ -210,7 +214,7 @@ export default {
         case 'forum':
           return this.$url('forum', this.region_id, (this.forum_type === 'botforum'), this.entity_id, this.forum_post)
         case 'mailbox':
-          return this.$url('mailbox', this.entity_id)
+          return this.$url('mailbox', this.mailboxId, this.entity_id)
         case 'store':
           return this.$url('store', this.entity_id)
         default:

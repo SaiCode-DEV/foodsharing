@@ -58,6 +58,11 @@ class LoginGateway extends BaseGateway
         return $fsid;
     }
 
+    public function getLastLogin(int $fsId): string
+    {
+        return $this->db->fetchValueByCriteria('fs_foodsaver', 'last_login', ['id' => $fsId]);
+    }
+
     public function isActivated(int $fsId): bool
     {
         $isActivated = $this->db->fetchValueByCriteria('fs_foodsaver', 'active', ['id' => $fsId]);
@@ -198,7 +203,7 @@ class LoginGateway extends BaseGateway
 
         if ($mail) {
             $vars = [
-                'link' => BASE_URL . '/?page=login&sub=passwordReset&k=' . $key,
+                'link' => BASE_URL . '/login?sub=passwordReset&k=' . $key,
                 'name' => $fs['name'],
                 'anrede' => $this->translator->trans('salutation.' . $fs['geschlecht']),
             ];

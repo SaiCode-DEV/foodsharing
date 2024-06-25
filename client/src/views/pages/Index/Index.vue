@@ -59,21 +59,30 @@
         xl="3"
         class="text-xl-right"
       >
+        <!-- eslint-disable vue/no-v-html -->
+        <!-- Sanitized in src/Modules/Content/ContentGateway.php getMultiple() -->
         <span v-html="contentBlock1" />
+        <!-- eslint-enable -->
       </b-col>
       <b-col
         cols="12"
         xl="5"
         md="6"
       >
+        <!-- eslint-disable vue/no-v-html -->
+        <!-- Sanitized in src/Modules/Content/ContentGateway.php getMultiple() -->
         <span v-html="contentBlock2" />
+        <!-- eslint-enable -->
       </b-col>
       <b-col
         cols="12"
         md="6"
         xl="4"
       >
+        <!-- eslint-disable vue/no-v-html -->
+        <!-- Sanitized in src/Modules/Content/ContentGateway.php getMultiple() -->
         <span v-html="contentBlock3" />
+        <!-- eslint-enable -->
       </b-col>
     </b-row>
     <div
@@ -294,7 +303,7 @@
         </b-row>
       </div>
       <div class="map-copyright">
-        <span v-html="MapAttribution" />
+        <span v-text="MapAttribution" />
         <span class="ml-2">
           Image by
           <a href="https://de.freepik.com/freie-psd/laptop-mockup-design_11653801.htm">

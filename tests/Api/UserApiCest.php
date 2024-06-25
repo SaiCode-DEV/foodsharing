@@ -172,7 +172,6 @@ class UserApiCest
             'isVerified' => 'boolean',
             'regionId' => 'integer',
             'regionName' => 'string',
-            'homepage' => 'string|null',
             'aboutMePublic' => 'string|null',
         ]);
 
@@ -230,7 +229,6 @@ class UserApiCest
             'landline' => 'string|null',
             'mobile' => 'string|null',
             'birthday' => 'string|date',
-            'homepage' => 'string|null',
             'aboutMeIntern' => 'string|null',
             'aboutMePublic' => 'string|null',
             'gender' => 'integer',
@@ -299,7 +297,6 @@ class UserApiCest
             'landline' => 'string|null',
             'mobile' => 'string|null',
             'birthday' => 'string|date',
-            'homepage' => 'string|null',
             'aboutMeIntern' => 'string|null',
             'aboutMePublic' => 'string|null',
             'role' => 'integer',

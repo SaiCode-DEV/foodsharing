@@ -3,11 +3,9 @@ const clientRoot = path.resolve(__dirname)
 const shims = require('./shims')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const WriteFilePlugin = require('write-file-webpack-plugin')
 
 const plugins = [
   new VueLoaderPlugin(),
-  new WriteFilePlugin(), // to write files to filesystem when using webpack-dev-server
 ]
 
 const production = process.env.NODE_ENV === 'production'
@@ -55,6 +53,10 @@ module.exports = {
                 '@babel/preset-env',
                 {
                   targets: {
+                    // ie_mob is load bearing here with webpack 4.
+                    // removing it makes babel pass through a lot of modern JS,
+                    // which webpack 4 can't handle.
+                    // can be removed after upgrading to webpack 5
                     browsers: ['> 0.5%', 'ie_mob >=11'],
                   },
                   useBuiltIns: 'usage',

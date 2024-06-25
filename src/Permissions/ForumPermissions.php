@@ -8,6 +8,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\ThreadStatus;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\ForumGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 class ForumPermissions
 {
@@ -18,7 +19,8 @@ class ForumPermissions
     public function __construct(
         ForumGateway $forumGateway,
         Session $session,
-        GroupFunctionGateway $groupFunctionGateway
+        GroupFunctionGateway $groupFunctionGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
         $this->forumGateway = $forumGateway;
         $this->session = $session;
@@ -27,7 +29,7 @@ class ForumPermissions
 
     public function mayStartUnmoderatedThread(array $region, $ambassadorForum): bool
     {
-        if (!$this->session->user('verified')) {
+        if (!$this->session->isVerified()) {
             return false;
         }
         $regionId = $region['id'];
@@ -39,10 +41,10 @@ class ForumPermissions
         $moderationGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::MODERATION);
 
         if (empty($moderationGroup)) {
-            if ($this->session->isAmbassadorForRegion($regionId)) {
+            if ($this->currentUserUnits->isAmbassadorForRegion($regionId)) {
                 return true;
             }
-        } elseif ($this->session->isAdminFor($moderationGroup)) {
+        } elseif ($this->currentUserUnits->isAdminFor($moderationGroup)) {
             return true;
         }
 
@@ -55,10 +57,10 @@ class ForumPermissions
             return true;
         }
 
-        if ($ambassadorForum && !$this->session->isAdminFor($regionId)) {
+        if ($ambassadorForum && !$this->currentUserUnits->isAdminFor($regionId)) {
             return false;
         }
-        if (!$this->session->mayBezirk($regionId)) {
+        if (!$this->currentUserUnits->mayBezirk($regionId)) {
             return false;
         }
 
@@ -97,10 +99,10 @@ class ForumPermissions
         foreach ($forums as $forum) {
             $moderationGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($forum['forumId'], WorkgroupFunction::MODERATION);
             if (empty($moderationGroup)) {
-                if ($this->session->isAdminFor($forum['forumId'])) {
+                if ($this->currentUserUnits->isAdminFor($forum['forumId'])) {
                     return true;
                 }
-            } elseif ($this->session->isAdminFor($moderationGroup)) {
+            } elseif ($this->currentUserUnits->isAdminFor($moderationGroup)) {
                 return true;
             }
         }
@@ -147,10 +149,10 @@ class ForumPermissions
         $moderationGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::MODERATION);
 
         if (empty($moderationGroup)) {
-            if ($this->session->isAdminFor($regionId)) {
+            if ($this->currentUserUnits->isAdminFor($regionId)) {
                 return true;
             }
-        } elseif ($this->session->isAdminFor($moderationGroup)) {
+        } elseif ($this->currentUserUnits->isAdminFor($moderationGroup)) {
             return true;
         }
 

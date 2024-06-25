@@ -33,6 +33,7 @@ Closes #____ (e.g. #230)
 - [ ] no unrelated changes
 - [ ] asked someone for a code review
 - [ ] set a "for:" label to indicate who will be affected by this change
+- [ ] set the "API change" label if changes in the API are not backward compatible
 - [ ] added to the next milestone (see https://gitlab.com/foodsharing-dev/foodsharing/-/milestones, unless it has a "for:Dev" label)
 - [ ] added an entry to `CHANGELOG.md`
 - [ ] added a short text in the release notes to /release-notes/YYYY-MM.md

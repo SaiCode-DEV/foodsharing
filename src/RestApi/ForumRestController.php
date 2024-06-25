@@ -7,6 +7,7 @@ use Foodsharing\Modules\Region\ForumFollowerGateway;
 use Foodsharing\Modules\Region\ForumGateway;
 use Foodsharing\Modules\Region\ForumTransactions;
 use Foodsharing\Modules\Region\RegionTransactions;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\Utility\Sanitizer;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -35,7 +36,8 @@ class ForumRestController extends AbstractFOSRestController
         ForumFollowerGateway $forumFollowerGateway,
         ForumPermissions $forumPermissions,
         ForumTransactions $forumTransactions,
-        Sanitizer $sanitizerService
+        Sanitizer $sanitizerService,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
         $this->session = $session;
         $this->regionTransactions = $regionTransactions;
@@ -54,7 +56,7 @@ class ForumRestController extends AbstractFOSRestController
             'regionSubId' => $thread['regionSubId'],
             'title' => $thread['title'],
             'createdAt' => str_replace(' ', 'T', (string)$thread['time']),
-            'isSticky' => boolval($thread['sticky'] ?? false),
+            'stickiness' => $thread['sticky'] ?? 0,
             'isActive' => boolval($thread['active'] ?? true),
             'lastPost' => [
                 'id' => $thread['last_post_id'],
@@ -84,7 +86,7 @@ class ForumRestController extends AbstractFOSRestController
             'createdAt' => str_replace(' ', 'T', (string)$post['time']),
             'author' => RestNormalization::normalizeUser($post, 'author_'),
             'reactions' => $post['reactions'] ?: new \ArrayObject(),
-            'mayDelete' => $this->forumPermissions->mayDeletePost($post)
+            'mayDelete' => $this->forumPermissions->mayDeletePost($post),
         ];
     }
 
@@ -105,7 +107,7 @@ class ForumRestController extends AbstractFOSRestController
      *     @OA\Property(property="regionSubId", type="integer", description="region/forum sub id"),
      *     @OA\Property(property="title", type="string", description="thread title"),
      *     @OA\Property(property="createdAt", type="integer", description="region/forum sub id"),
-     *     @OA\Property(property="isSticky", type="integer", description="region/forum sub id"),
+     *     @OA\Property(property="stickiness", type="integer", description="stickiness of the thread"),
      *     @OA\Property(property="isActive", type="integer", description="region/forum sub id"),
      *     @OA\Property(property="lastPost", type="object", @OA\Items()),
      *     @OA\Property(property="creator", type="object", @OA\Items()),
@@ -133,7 +135,7 @@ class ForumRestController extends AbstractFOSRestController
         $threads = $this->getNormalizedThreads($forumId, $forumSubId, $limit, $offset);
 
         $view = $this->view([
-            'data' => $threads
+            'object' => $threads
         ], 200);
 
         return $this->handleView($view);
@@ -142,9 +144,13 @@ class ForumRestController extends AbstractFOSRestController
     private function getNormalizedThreads(int $forumId, int $forumSubId, int $limit, int $offset): array
     {
         $threads = $this->forumGateway->listThreads($forumId, $forumSubId, $limit, $offset);
-        $threads = array_map(fn ($thread) => $this->normalizeThread($thread), $threads);
+        $totalRows = $threads[0]['total_rows'] ?? 0;
+        $normalizedThreads = array_map(fn ($thread) => $this->normalizeThread($thread), $threads);
 
-        return $threads;
+        return [
+            'totalRows' => $totalRows,
+            'data' => $normalizedThreads,
+        ];
     }
 
     /**
@@ -240,7 +246,7 @@ class ForumRestController extends AbstractFOSRestController
         $title = $paramFetcher->get('title');
         $sendMail = $paramFetcher->get('sendMail') ?? false;
         $regionDetails = $this->regionTransactions->getRegionDetails($forumId);
-        $postActiveWithoutModeration = ($this->session->user('verified') && !$regionDetails['moderated']) || $this->session->isAmbassadorForRegion([$forumId]);
+        $postActiveWithoutModeration = ($this->session->isVerified() && !$regionDetails['moderated']) || $this->currentUserUnits->isAmbassadorForRegion([$forumId]);
 
         $threadId = $this->forumTransactions->createThread($this->session->id(), $title, $body, $regionDetails, $forumSubId, $postActiveWithoutModeration, $sendMail);
 
@@ -248,7 +254,7 @@ class ForumRestController extends AbstractFOSRestController
     }
 
     /**
-     * Change attributes for a thread: Stickyness, activate thread, status.
+     * Change attributes for a thread: Stickiness, activate thread, status.
      *
      * @OA\Tag(name="forum")
      * @OA\Response(response="200", description="success")
@@ -256,7 +262,7 @@ class ForumRestController extends AbstractFOSRestController
      * @OA\Response(response="403", description="Insufficient permissions")
      */
     #[Rest\Patch('forum/thread/{threadId}', requirements: ['threadId' => '\d+'])]
-    #[Rest\RequestParam(name: 'isSticky', nullable: true, default: null, description: 'should thread be pinned to the top of forum?')]
+    #[Rest\RequestParam(name: 'stickiness', nullable: true, default: null, description: 'should thread be pinned to the top of forum?')]
     #[Rest\RequestParam(name: 'isActive', nullable: true, default: null, description: 'should a thread in a moderated forum be activated?')]
     #[Rest\RequestParam(name: 'status', nullable: true, default: null, description: 'if the thread is open or closed')]
     #[Rest\RequestParam(name: 'title', nullable: true, default: null, description: 'the title of the thread')]
@@ -268,15 +274,13 @@ class ForumRestController extends AbstractFOSRestController
 
         $mayModerate = $this->forumPermissions->mayModerate($threadId);
 
-        $isSticky = $paramFetcher->get('isSticky');
-        if (!is_null($isSticky)) {
+        $stickiness = $paramFetcher->get('stickiness');
+        if (!is_null($stickiness)) {
             if (!$mayModerate) {
                 throw new AccessDeniedHttpException();
             }
-            if ($isSticky === true) {
-                $this->forumGateway->stickThread($threadId);
-            } else {
-                $this->forumGateway->unstickThread($threadId);
+            if (is_int($stickiness)) {
+                $this->forumGateway->setStickiness($threadId, $stickiness);
             }
         }
         $isActive = $paramFetcher->get('isActive');

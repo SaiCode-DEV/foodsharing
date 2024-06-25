@@ -17,10 +17,13 @@
       />
       <span class="w-100 d-flex flex-column text-truncate">
         <span class="d-flex justify-content-between align-items-center text-truncate">
+          <!-- eslint-disable vue/no-v-html -->
+          <!-- Sanitized in Modules/Basket/BasketGateway.php getBasket() -->
           <span
             class="mb-1 text-truncate"
             v-html="basket.description"
           />
+          <!-- eslint-enable -->
           <small class="time-ago text-right nowrap">
             {{ $dateFormatter.relativeTime(basket.createdAt) }}
           </small>

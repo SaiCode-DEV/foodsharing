@@ -1,54 +1,100 @@
 <template>
   <Container :title="title">
-    <b-container>
-      <div v-if="memberList.length" class="card-body p-0">
-        <div class="row">
-          <div
-            v-if="isWorkGroup && mayEditMembers"
-            class="user-search-input"
-          >
-            <user-search-input
-              id="new-foodsaver-search"
-              class="m-1"
-              :placeholder="$i18n('search.user_search.placeholder')"
-              button-icon="fa-user-plus"
-              :button-tooltip="$i18n('group.member_list.add_member')"
-              :filter="notContainsMember"
-              @user-selected="addNewTeamMember"
-            />
-          </div>
-          <div v-if="mayEditMembers" class="filter-role">
+    <slot v-if="isWorkGroup" name="user-search-input">
+      <div class="row p-2">
+        <div class="col col-12 col-md-6">
+          <user-search-input
+            v-if="mayEditMembers"
+            id="new-foodsaver-search"
+            :placeholder="$i18n('search.user_search.placeholder')"
+            button-icon="fa-user-plus"
+            :button-tooltip="$i18n('group.member_list.add_member')"
+            :filter="!containsMember"
+            @user-selected="addNewTeamMember"
+          />
+        </div>
+      </div>
+    </slot>
+    <b-tabs
+      v-if="!isWorkGroup && mayEditMembers"
+      v-model="activeTab"
+      content-class="mt-2"
+      class="p-2"
+    >
+      <b-tab
+        :title="$i18n('group.member_list.default.title')"
+        active
+      >
+        <slot />
+        <div class="row p-2">
+          <div class="col col-md-6">
             <b-form-select
               v-model="filterRole"
               :options="roleOptions"
-              size="sm"
+              size="xl"
             />
           </div>
-          <div
-            v-if="mayEditMembers"
-            class="filter-activity-toggle"
-          >
+          <div class="col col-md-6">
+            <div class="row">
+              <div class="col col-md-6">
+                <b-form-checkbox
+                  v-model="filterLastActivity"
+                  switch
+                  size="sm"
+                >
+                  {{ $i18n('group.filter_by_last_activity') }}
+                </b-form-checkbox>
+              </div>
+              <div class="col col-md-6">
+                <b-form-spinbutton
+                  v-model="lastActivityFilterMonths"
+                  min="1"
+                  max="12"
+                  size="sm"
+                  :disabled="!filterLastActivity"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </b-tab>
+      <b-tab v-if="!isWorkGroup && mayEditMembers" :title="$i18n('group.member_list.passports.title')">
+        <div class="row">
+          <div class="col-md-4 mb-2">
+            <b-button
+              :disabled="passportMember <= 0"
+              variant="outline-primary"
+              size="sm"
+              @click="clearSelected"
+            >
+              {{ $i18n('group.member_list.passports.clear_selection') }}
+            </b-button>
+          </div>
+          <div class="col-md-4 mb-2">
+            <b-button
+              variant="outline-primary"
+              size="sm"
+              :disabled="!passportMember"
+              @click="createPassports"
+            >
+              {{ $i18n('group.member_list.passports.generate_button') }} ({{ passportMember.length }})
+            </b-button>
+          </div>
+          <div class="col-md-4">
             <b-form-checkbox
-              v-model="filterLastActivity"
+              v-model="filterPassportMember"
               switch
               size="sm"
             >
-              {{ $i18n('group.filter_by_last_activity') }}
+              {{ $i18n('group.member_list.passports.filter_selection') }}
             </b-form-checkbox>
           </div>
-          <div
-            v-if="mayEditMembers"
-            class="filter-activity-chooser"
-          >
-            <b-form-spinbutton
-              v-model="lastActivityFilterMonths"
-              min="1"
-              max="12"
-              size="sm"
-              :disabled="!filterLastActivity"
-            />
-          </div>
         </div>
+      </b-tab>
+    </b-tabs>
+
+    <b-container>
+      <div v-if="memberList.length" class="card-body p-0">
         <div class="form-row">
           <div class="filter-for-label">
             <label class=" col-form-label col-form-label-sm foo">
@@ -57,6 +103,7 @@
           </div>
           <div class="filter-for-form">
             <input
+              id="filterMember"
               v-model="filterText"
               type="text"
               class="form-control form-control-sm"
@@ -78,37 +125,63 @@
       </div>
 
       <b-table
+        ref="selectableTable"
         :fields="filteredFields"
-        :items="membersFilteredSorted"
+        :items="membersFiltered"
         :current-page="currentPage"
         :per-page="perPage"
-        :sort-compare="compare"
+        :sort-by="sortBy"
         :busy="isBusy"
+        :select-mode="selectMode"
         small
         hover
         responsive
         class="foto-table"
+        @sort-changed="sortBy = $event.sortBy ? $event.sortBy : ''"
       >
+        <template v-if="mayEditMembers" #cell(passportToggle)="row">
+          <b-form-checkbox
+            v-if="activeTab === ACTIVE_TAB_PASSPORT && row.item.avatar !== null"
+            size="sm"
+            :checked="containsPassportMember(row.item.id)"
+            @change="togglePassportMember(row.item.id)"
+          />
+        </template>
         <template #cell(imageUrl)="row">
           <Avatar
             :user="row.item"
             :size="50"
           />
         </template>
-        <template #cell(userId)="row">
+        <template #cell(id)="row">
           <a
             :href="$url('profile', row.item.id)"
           >
             {{ row.item.id }}
           </a>
         </template>
-        <template #cell(userName)="row">
+        <template #cell(name)="row">
           <a
             :href="$url('profile', row.item.id)"
             :title="row.item.id"
           >
             {{ row.item.name }}
           </a>
+        </template>
+        <template #cell(lastName)="row">
+          <a
+            :href="$url('profile', row.item.id)"
+            :title="row.item.id"
+          >
+            {{ row.item.lastName }}
+          </a>
+        </template>
+        <template #cell(lastPassDate)="row">
+          {{ row.item.lastPassDate === null ? $i18n('group.member_list.passports.never_before') : $dateFormatter.format(row.item.lastPassDate, {
+            day: 'numeric',
+            month: 'numeric',
+            year: 'numeric',
+          }) }}
         </template>
         <template #cell(lastActivity)="row">
           {{ $dateFormatter.format(row.item.lastActivity, {
@@ -145,39 +218,21 @@
             :title="$i18n('group.member_list.is_home_region')"
           />
         </template>
-        <template
-          v-if="mayRemoveAdminOrAmbassador"
-          #cell(removeAdminButton)="row"
-        >
+        <template #cell(adminButton)="row">
           <b-button
-            v-if="rowItemisAdminOrAmbassadorOfRegion(row.item)"
-            v-b-tooltip="$i18n(isWorkGroup ? 'group.member_list.remove_admin_title' : 'group.member_list.remove_ambassador_title')"
+            v-if="getAdminButton(row.item)"
+            v-b-tooltip="getAdminButton(row.item).title"
             size="sm"
-            variant="danger"
+            :variant="getAdminButton(row.item).variant"
             :disabled="isBusy"
-            @click="degradeAdmin(row.item)"
+            @click="getAdminButton(row.item).action(row.item)"
           >
-            <i class="fas fa-fw fa-user-slash" />
-          </b-button>
-        </template>
-        <template
-          v-if="maySetAdminOrAmbassador"
-          #cell(setAdminButton)="row"
-        >
-          <b-button
-            v-if="rowItemNotqualUserid(userId,row.item.id) && roleCheckForRegionAndWorkGroup(isWorkGroup,row.item.role) && !rowItemisAdminOrAmbassadorOfRegion(row.item)"
-            v-b-tooltip.left="$i18n(isWorkGroup ? 'group.member_list.set_admin_title' : 'group.member_list.set_ambassador_title')"
-            size="sm"
-            variant="warning"
-            :disabled="isBusy"
-            @click="makeAdmin(row.item)"
-          >
-            <i class="fas fa-fw fa-user-graduate" />
+            <i class="fas fa-fw" :class="getAdminButton(row.item).icon" />
           </b-button>
         </template>
         <template v-if="mayEditMembers" #cell(removeButton)="row">
           <b-button
-            v-if="rowItemNotqualUserid(userId,row.item.id) && !rowItemisAdminOrAmbassadorOfRegion(row.item)"
+            v-if="activeTab === ACTIVE_TAB_DEFAULT && rowItemNotqualUserid(userId,row.item.id) && !rowItemisAdminOrAmbassadorOfRegion(row.item)"
             v-b-tooltip="$i18n('group.member_list.remove_title')"
             size="sm"
             variant="danger"
@@ -201,21 +256,21 @@
 </template>
 
 <script>
-import { optimizedCompare } from '@/utils'
 import { addMember } from '@/api/groups'
 import { removeMember, setAdminOrAmbassador, removeAdminOrAmbassador } from '@/api/regions'
 import RegionsData from '@/stores/regions'
 import { hideLoader, pulseError, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
 import UserSearchInput from '@/components/UserSearchInput'
-import { verifyUser, deverifyUser } from '@/api/verification'
+import { verifyUser, deverifyUser, createPassportAsAmbassador } from '@/api/verification'
 import Container from '@/components/Container/Container.vue'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import Avatar from '@/components/Avatar/Avatar.vue'
+import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
 export default {
   components: { UserSearchInput, Container, Avatar },
-  mixins: [ConfirmationDialogue],
+  mixins: [ConfirmationDialogue, MediaQueryMixin],
   props: {
     userId: { type: Number, default: null },
     groupId: { type: Number, required: true },
@@ -223,6 +278,7 @@ export default {
       type: String,
       default: '',
     },
+    regionId: { type: Number, required: true },
     isWorkGroup: {
       type: Boolean,
       default: false,
@@ -233,6 +289,8 @@ export default {
   },
   data () {
     return {
+      ACTIVE_TAB_DEFAULT: 0,
+      ACTIVE_TAB_PASSPORT: 1,
       currentPage: 1,
       perPage: 20,
       filterText: '',
@@ -248,9 +306,37 @@ export default {
         { value: 3, text: i18n('terminology.role.3') },
         { value: 4, text: i18n('terminology.role.4') },
       ],
+      selectMode: 'multi',
+      passportMember: [],
+      filterPassportMember: false,
+      activeTab: null,
+      sortBy: '',
     }
   },
   computed: {
+    getAdminButton () {
+      return (item) => {
+        if (this.mayRemoveAdminOrAmbassador && this.rowItemisAdminOrAmbassadorOfRegion(item)) {
+          return {
+            title: this.$i18n(this.isWorkGroup ? 'group.member_list.remove_admin_title' : 'group.member_list.remove_ambassador_title'),
+            variant: 'danger',
+            icon: 'fa-user-slash',
+            action: this.degradeAdmin,
+          }
+        } else if (this.maySetAdminOrAmbassador && this.rowItemNotqualUserid(this.userId, item.id) && this.roleCheckForRegionAndWorkGroup(this.isWorkGroup, item.role)) {
+          return {
+            title: this.$i18n(this.isWorkGroup ? 'group.member_list.set_admin_title' : 'group.member_list.set_ambassador_title'),
+            variant: 'warning',
+            icon: 'fa-user-graduate',
+            action: this.makeAdmin,
+          }
+        }
+        return null
+      }
+    },
+    isSelected () {
+      return this.selected.length > 0
+    },
     title () {
       return `${this.isWorkGroup ? this.$i18n('memberlist.header_for_workgroup', { bezirk: this.regionName }) : this.$i18n('memberlist.header_for_district', { bezirk: this.regionName })} ${this.memberCount}`
     },
@@ -261,90 +347,149 @@ export default {
       return new Date(new Date().getTime() - this.lastActivityFilterMonths * 30 * 24 * 60 * 60 * 1000)
     },
     membersFiltered () {
-      if (!this.filterText.trim() && this.filterRole === null && !this.filterLastActivity) {
-        return this.memberList
-      }
       const filterText = this.filterText ? this.filterText.toLowerCase() : null
+
       return this.memberList.filter((member) => {
-        return (
-          ((!filterText || (member.id.toString().startsWith(filterText))) || (member.name.toLowerCase().indexOf(filterText) !== -1)) &&
-          (this.filterRole === null || (member.role === this.filterRole)) &&
-          (!this.filterLastActivity || (Date.parse(member.lastActivity) <= this.dateBeforeMonths))
-        )
-      })
-    },
-    membersFilteredSorted () {
-      // sorts the member list alphabetically
-      const copy = this.membersFiltered
-      return copy.sort(function (a, b) {
-        return a.name.localeCompare(b.name)
+        if (this.activeTab === this.ACTIVE_TAB_PASSPORT && !member.isHomeRegion) {
+          return false
+        }
+
+        if (filterText) {
+          const idMatches = member.id.toString().startsWith(filterText)
+          const nameMatches = member.name.toLowerCase().includes(filterText)
+          const lastNameMatches = this.activeTab === this.ACTIVE_TAB_PASSPORT && member.lastName.toLowerCase().includes(filterText)
+
+          if (!(idMatches || nameMatches || lastNameMatches)) {
+            return false
+          }
+        }
+
+        if (this.activeTab !== this.ACTIVE_TAB_PASSPORT && this.filterRole !== null && member.role !== this.filterRole) {
+          return false
+        }
+
+        if (this.activeTab !== this.ACTIVE_TAB_PASSPORT && this.filterLastActivity && Date.parse(member.lastActivity) > this.dateBeforeMonths) {
+          return false
+        }
+
+        if (this.filterPassportMember && !this.passportMember.includes(member.id)) {
+          return false
+        }
+
+        return true
       })
     },
     filteredFields () {
-      const columns = [
+      const columns = []
+
+      if (this.activeTab === this.ACTIVE_TAB_PASSPORT) {
+        columns.push({
+          key: 'passportToggle',
+          label: '',
+          sortable: false,
+          class: 'align-middle',
+        })
+      }
+
+      columns.push(
         {
           key: 'imageUrl',
           sortable: false,
           label: '',
           class: 'foto-column',
-        }, {
-          key: 'userName',
-          label: this.$i18n('group.name'),
-          sortable: false,
-          class: 'align-middle',
         },
         {
-          key: 'userId',
-          label: this.$i18n('group.userId'),
-          sortable: false,
-          class: 'align-middle',
-        },
-      ]
-      if (this.mayEditMembers) {
-        columns.push({
-          key: 'lastActivity',
-          label: this.$i18n('group.last_activity'),
+          key: 'name',
+          label: this.$i18n('group.name'),
           sortable: true,
           class: 'align-middle',
-        }, {
-          key: 'role',
-          label: this.$i18n('group.role_name'),
+        },
+      )
+
+      if (this.activeTab === this.ACTIVE_TAB_PASSPORT) {
+        columns.push({
+          key: 'lastName',
+          label: this.$i18n('group.member_list.default.lastname'),
           sortable: true,
           class: 'align-middle',
         })
+      }
 
-        if (!this.isWorkGroup) {
-          columns.push({
+      columns.push({
+        key: 'id',
+        label: this.$i18n('group.userId'),
+        sortable: true,
+        class: 'align-middle',
+      })
+
+      if (!this.isWorkGroup && this.activeTab === this.ACTIVE_TAB_PASSPORT) {
+        columns.push({
+          key: 'lastPassDate',
+          label: this.$i18n('group.member_list.passports.created_at'),
+          sortable: true,
+          class: 'align-middle',
+        })
+      }
+
+      if (this.mayEditMembers) {
+        columns.push(
+          {
+            key: 'lastActivity',
+            label: this.$i18n('group.last_activity'),
+            sortable: true,
+            class: 'align-middle',
+          },
+        )
+      }
+
+      if (this.mayEditMembers && this.activeTab === this.ACTIVE_TAB_DEFAULT) {
+        columns.push(
+          {
+            key: 'role',
+            label: this.$i18n('group.role_name'),
+            sortable: true,
+            class: 'align-middle',
+          },
+        )
+      }
+
+      if (this.activeTab === this.ACTIVE_TAB_PASSPORT) {
+        columns.push(
+          {
             key: 'isVerified',
             label: this.$i18n('group.member_list.is_verified'),
             sortable: true,
             class: 'align-middle',
-          }, {
+          },
+        )
+      }
+
+      if (this.mayEditMembers && this.activeTab === this.ACTIVE_TAB_DEFAULT) {
+        columns.push(
+          {
             key: 'isHomeRegion',
             label: this.$i18n('group.member_list.is_home_region'),
             sortable: true,
             class: 'align-middle',
-          })
-        }
+          },
+        )
       }
-      columns.push(
-        {
-          key: 'setAdminButton',
-          label: '',
-          sortable: false,
-          class: 'button-column',
-        }, {
-          key: 'removeAdminButton',
-          label: '',
-          sortable: false,
-          class: 'button-column',
-        }, {
-          key: 'removeButton',
+
+      if ((this.mayEditMembers && this.activeTab === this.ACTIVE_TAB_DEFAULT && !this.isWorkGroup) || this.mayEditMembers) {
+        columns.push({
+          key: 'adminButton',
           label: '',
           sortable: false,
           class: 'button-column',
         },
-      )
+        {
+          key: 'removeButton',
+          label: '',
+          sortable: false,
+          class: 'button-column',
+        })
+      }
+
       return columns
     },
     adminName () {
@@ -355,26 +500,34 @@ export default {
     this.getMemberList()
   },
   methods: {
+    containsPassportMember (memberId) {
+      return this.passportMember.some(member => member === memberId)
+    },
+    togglePassportMember (itemId) {
+      if (!this.containsPassportMember(itemId)) {
+        this.passportMember.push(itemId)
+      } else {
+        this.passportMember.pop(itemId)
+      }
+    },
     async getMemberList () {
       await RegionsData.mutations.fetchMemberList(this.groupId)
       this.memberList = RegionsData.getters.getMemberList(this.groupId)
     },
     async changeVerification (isVerified, memberId, memberName) {
       const dialogueOptions = {
-        title: i18n(isVerified ? 'pass.button.verify' : 'pass.button.unverify'),
+        title: i18n(isVerified ? 'group.member_list.passports.button.verify' : 'group.member_list.passports.button.unverify'),
         okTitle: i18n('button.yes_i_am_sure'),
         okVariant: isVerified ? 'success' : 'danger',
         params: { name: memberName, id: memberId },
       }
-      if (!await this.confirmationDialogue('pass.verify.' + (isVerified ? 'do' : 'undo'), dialogueOptions)) return
+      if (!await this.confirmationDialogue('group.member_list.passports.verify.' + (isVerified ? 'do' : 'undo'), dialogueOptions)) return
       await this.updateVerificationStatusFromUser(isVerified, memberId)
       const index = this.memberList.findIndex(member => member.id === memberId)
       if (index >= 0) {
         this.memberList[index].isVerified = isVerified
       }
     },
-    compare: optimizedCompare,
-
     clearFilter () {
       this.filterStatus = null
       this.filterText = ''
@@ -455,9 +608,6 @@ export default {
     containsMember (memberId) {
       return this.memberList.some(member => member.id === memberId)
     },
-    notContainsMember (memberId) {
-      return !this.containsMember(memberId)
-    },
     async addNewTeamMember (userId) {
       showLoader()
       this.isBusy = true
@@ -489,56 +639,37 @@ export default {
       this.isBusy = false
       hideLoader()
     },
+    clearSelected () {
+      this.passportMember = []
+    },
+    async createPassports () {
+      showLoader()
+      try {
+        const blob = await createPassportAsAmbassador(this.regionId, this.passportMember)
+        const filename = `fs_passports_${this.regionId}_${this.regionName}.pdf`
+        this.downloadFile(blob, filename)
+      } catch (e) {
+        pulseError(i18n('error_unexpected'))
+      }
+      hideLoader()
+    },
+    downloadFile (blob, filename) {
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', filename)
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.foto-table {
-  overflow: visible; // for sleeping hats
-}
-.foto-table ::v-deep .foto-column {
-  width: 60px;
-}
-
-.foto-table ::v-deep .button-column {
-  width: 50px;
-  vertical-align: middle;
-  text-align: center;
-}
-
-.filter-activity-toggle {
-  margin:0.5rem;
-  margin-left:1.5rem;
-  @media (min-width: 375px) {
-    flex-basis: 50%;
-    order: 1;
-  }
-
-  @media (min-width: 1200px) {
-    flex-basis: 25%;
-    order: 1;
-  }
-}
-
-.filter-activity-chooser {
-  margin:0.5rem;
-  flex-basis: 25%;
-  order: 2;
-}
-
-.filter-role {
-  margin:0.5rem;
-  margin-left:1.5rem;
-  @media (min-width: 375px) {
-    flex-basis: 85%;
-    order: 3;
-  }
-
-  @media (min-width: 1200px) {
-    flex-basis: 40%;
-    order: 3;
-  }
+.sleep::after {
+  top: -26%;
+  left: -9%;
 }
 
 .filter-for-label {

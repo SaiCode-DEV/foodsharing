@@ -1,25 +1,4 @@
-import { ajreq } from '@/script'
-import DataUser from '@/stores/user'
 // this last call imports the text in the respective languages
-
-export function getBrowserLocation (success) {
-  if (DataUser.getters.isLoggedIn()) {
-    return success(DataUser.getters.getLocations())
-  }
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(pos => {
-      ajreq('savebpos', {
-        app: 'map',
-        lat: pos.coords.latitude,
-        lon: pos.coords.longitude,
-      })
-      success({
-        lat: pos.coords.latitude,
-        lon: pos.coords.longitude,
-      })
-    })
-  }
-}
 
 /**
  * Make things available globally via the browser window object

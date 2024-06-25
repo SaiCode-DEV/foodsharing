@@ -3,15 +3,17 @@
 namespace Foodsharing\Permissions;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Uploads\DTO\UploadedFile;
+use Foodsharing\Modules\Uploads\UploadsGateway;
 
 final class UploadsPermissions
 {
-    private readonly Session $session;
-
-    public function __construct(Session $session)
-    {
-        $this->session = $session;
+    public function __construct(
+        private readonly Session $session,
+        private readonly UploadsGateway $uploadsGateway,
+        private readonly MailboxPermissions $mailboxPermissions,
+    ) {
     }
 
     /**
@@ -20,5 +22,22 @@ final class UploadsPermissions
     public function mayUseUploadAsEmailAttachment(UploadedFile $file): bool
     {
         return $file->uploaderId === $this->session->id();
+    }
+
+    /**
+     * Returns whether a user may download a previously uploaded file.
+     */
+    public function mayAccessUpload(string $uuid): bool
+    {
+        $file = $this->uploadsGateway->getUploadedFile($uuid);
+        if (!$file) {
+            // Users should not be able to download a file before its usage has been set
+            return false;
+        }
+
+        return match ($file->usedIn) {
+            UploadUsage::EMAIL_ATTACHMENT => $this->session->mayRole() && $this->mailboxPermissions->mayMessage($file->usageId),
+            default => true,
+        };
     }
 }

@@ -165,7 +165,7 @@ store:
     final: ''
     none: ''
     some: ''
-  memberSince: ''
+  joinDate: ''
   isJumper: ''
   appliedFor: ''
   fetchCount: ''
@@ -1194,6 +1194,14 @@ quiz:
   safeandsound: ''
   notfinishedyet: ''
   type: ''
+  results:
+    title:
+      1: Gratulatioun!
+  editModal:
+    question:
+      input:
+        wikilink:
+          placeholder: https://wiki.foodsharing.de/…
 upload:
   no_image: ''
   file: ''
@@ -1987,7 +1995,7 @@ bell:
   new_foodsaver: ''
   new_report_title: ''
   store_request_imposed: ''
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   no_bells: ''
   forum_post_title: '{title}'
   forum_new_thread: ''
@@ -1999,6 +2007,7 @@ bell:
   forum_new_thread_title: ''
   forum_announcement_title: ''
   forum_mention: ''
+  workinggroup_new_request_title: '{name}'
 list:
   filter_for: ''
 genderlist:
@@ -2418,7 +2427,6 @@ email_template:
     unsubscribe: ''
     linktext: ''
   unknown_email: ''
-  withlove: ''
   confirm_BOT: ''
   manual_slots_get_ignored: ''
   help_needed:
@@ -2438,7 +2446,6 @@ email_template:
     no_notification_link: ''
     notification: ''
     nomail: ''
-  yourFSteam: ''
   login: ''
   you_responsible:
     part2: ''

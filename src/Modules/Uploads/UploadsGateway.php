@@ -89,13 +89,14 @@ class UploadsGateway extends BaseGateway
      */
     public function getUploadedFile(string $uuid): ?UploadedFile
     {
-        $upload = $this->db->fetchByCriteria('uploads', ['user_id', 'filesize', 'sha256hash', 'mimetype'], ['uuid' => $uuid]);
+        $upload = $this->db->fetchByCriteria('uploads', ['user_id', 'filesize', 'sha256hash', 'mimetype', 'used_in', 'usage_id'], ['uuid' => $uuid]);
 
         if (empty($upload)) {
             return null;
         }
 
-        return new UploadedFile('', $upload['filesize'], $upload['sha256hash'], $upload['mimetype'], $upload['user_id']);
+        return new UploadedFile('', $upload['filesize'], $upload['sha256hash'], $upload['mimetype'], $upload['user_id'],
+            UploadUsage::tryFrom($upload['used_in']), $upload['usage_id']);
     }
 
     /**

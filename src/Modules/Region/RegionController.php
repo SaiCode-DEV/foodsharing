@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Region;
 
 use Exception;
 use Foodsharing\Lib\FoodsharingController;
+use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Content\ContentView;
 use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
@@ -11,6 +12,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Store\StoreGateway;
+use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\ReportPermissions;
@@ -38,18 +40,21 @@ final class RegionController extends FoodsharingController
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly StoreGateway $storeGateway,
         private readonly DataHelper $dataHelper,
+        private readonly FoodSharePointPermissions $foodSharePointPermissions,
+        private readonly ForumGateway $forumGateway,
+        private readonly AchievementGateway $achievementGateway,
     ) {
         parent::__construct();
     }
 
-    private function mayAccessApplications(int $regionId): bool
+    private function mayAccessApplications(array $group): bool
     {
-        return $this->forumPermissions->mayAccessAmbassadorBoard($regionId);
+        return $this->workGroupPermissions->mayEdit($group);
     }
 
     private function isHomeDistrict($region): bool
     {
-        return (int)$region['id'] === $this->session->getCurrentRegionId();
+        return (int)$region['id'] === $this->currentUserUnits->getCurrentRegionId();
     }
 
     private function getMenu(array $group, bool $isWorkgroup): array
@@ -64,13 +69,14 @@ final class RegionController extends FoodsharingController
         $menu['parent_id'] = $group['parent_id'];
         $menu['mayHandleFoodsaverRegionMenu'] = $this->regionPermissions->mayHandleFoodsaverRegionMenu($groupId);
         $menu['hasConference'] = $this->regionPermissions->hasConference($groupType);
+        $menu['hasAchievements'] = $this->achievementGateway->regionHasAchievements($group['id']);
 
-        if ($this->session->isAdminFor($groupId)) {
+        if ($this->currentUserUnits->isAdminFor($groupId)) {
             $menu['mailboxId'] = $group['mailbox_id'];
         }
 
         if (UnitType::isRegion($groupType)) {
-            $menu['isAdmin'] = $this->session->isAdminFor($groupId);
+            $menu['isAdmin'] = $this->currentUserUnits->isAdminFor($groupId);
             $menu['mayAccessReportGroupReports'] = $this->reportPermissions->mayAccessReportGroupReports($groupId);
             $menu['mayAccessArbitrationGroupReports'] = $this->reportPermissions->mayAccessArbitrationReports($groupId);
             $menu['maySetRegionPin'] = $this->regionPermissions->maySetRegionPin($groupId);
@@ -154,7 +160,7 @@ final class RegionController extends FoodsharingController
             'activeSubpage' => $activeSubpage,
             'pageData' => $pageData,
             'menu' => $menu,
-            'mayAccessApplications' => $this->mayAccessApplications($region['id'])
+            'mayAccessApplications' => $this->mayAccessApplications($region)
         ];
     }
 
@@ -165,9 +171,9 @@ final class RegionController extends FoodsharingController
             $this->routeHelper->goLoginAndExit();
         }
 
-        $region_id = $request->query->getInt('bid', $this->session->getCurrentRegionId());
+        $region_id = $request->query->getInt('bid', $this->currentUserUnits->getCurrentRegionId() ?? 0);
 
-        if ($this->session->mayBezirk($region_id) && ($region = $this->gateway->getRegionDetails($region_id))) {
+        if ($this->currentUserUnits->mayBezirk($region_id) && ($region = $this->gateway->getRegionDetails($region_id))) {
             $big = [UnitType::BIG_CITY, UnitType::FEDERAL_STATE, UnitType::COUNTRY];
             $region['moderated'] = $region['moderated'] || in_array($region['type'], $big);
             $this->region = $region;
@@ -220,6 +226,8 @@ final class RegionController extends FoodsharingController
                 }
 
                 return $this->pin($request, $region);
+            case 'achievements':
+                return $this->achievements($request, $region);
             default:
                 if (UnitType::isGroup($region['type'])) {
                     return $this->redirect('/region?bid=' . $region_id . '&sub=wall');
@@ -227,6 +235,18 @@ final class RegionController extends FoodsharingController
                     return $this->redirect($this->forumTransactions->url($region_id, false));
                 }
         }
+    }
+
+    #[Route('/regions/edit')]
+    public function edit(Request $request): Response
+    {
+        if (!$this->regionPermissions->mayAdministrateRegions()) {
+            return $this->redirect('/');
+        }
+
+        $this->pageHelper->addContent($this->prepareVueComponent('regions-admin-page', 'RegionsAdmin'));
+
+        return $this->renderGlobal();
     }
 
     private function wall(Request $request, array $region): Response
@@ -244,7 +264,8 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addBread($this->translator->trans('terminology.fsp'), '/region?bid=' . $region['id'] . '&sub=fairteiler');
         $this->pageHelper->addTitle($this->translator->trans('terminology.fsp'));
         $sub = $request->query->get('sub');
-        $params = $this->convertDataToObject($region, $sub, null);
+        $pageData['foodSharePointPermission'] = $this->foodSharePointPermissions->mayAdd($region['id']);
+        $params = $this->convertDataToObject($region, $sub, $pageData);
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
@@ -258,6 +279,13 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addTitle($trans);
 
         if ($threadId = $request->query->getInt('tid')) {
+            $thread = $this->forumGateway->getThreadInfo($threadId);
+            if (empty($thread)) {
+                $this->flashMessageHelper->error($this->translator->trans('forum.not_found'));
+
+                return $this->redirect('/region?sub=forum&bid=' . $region['id']);
+            }
+            $this->pageHelper->addTitle($thread['title']);
             $pageData['threadId'] = $threadId;
         } elseif ($request->query->has('newthread')) {
             $this->pageHelper->addTitle($this->translator->trans('forum.new_thread'));
@@ -401,6 +429,18 @@ final class RegionController extends FoodsharingController
         $pageData['status'] = $result['status'] ?? null;
 
         $params = $this->convertDataToObject($region, $request->query->get('sub'), $pageData);
+
+        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
+
+        return $this->renderGlobal();
+    }
+
+    private function achievements(Request $request, array $region): Response
+    {
+        $this->pageHelper->addBread($this->translator->trans('terminology.achievements'), '/region?bid=' . $region['id'] . '&sub=achievements');
+        $this->pageHelper->addTitle($this->translator->trans('terminology.achievements'));
+
+        $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
 
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 

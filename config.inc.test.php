@@ -70,3 +70,5 @@ define('WEBPUSH_PRIVATE_KEY', 'z5g0ssYryhDhQnwVAZ2Q2oOiqF3ZngJzkLXMrww8gDU='); /
 
 // Test key for firebase cloud messaging
 define('FCM_KEY', '');
+
+define('TWINGLE_URL', 'https://spenden.twingle.de/status/E4yxc5T7YJh7nZvL93Yu7PlUzwCMjD2p80u8YK0Vgyw');

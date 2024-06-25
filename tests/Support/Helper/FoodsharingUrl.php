@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Support\Helper;
 
 use Codeception\Module\Db;
-use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
@@ -65,7 +64,7 @@ class FoodsharingUrl extends Db
 
     public function foodSharePointRegionListUrl($region_id): string
     {
-        return '/?page=fairteiler&bid=' . (int)$region_id;
+        return '/fairteiler?bid=' . (int)$region_id;
     }
 
     public function foodSharePointGetUrlShort($food_share_point_id): string
@@ -75,12 +74,12 @@ class FoodsharingUrl extends Db
 
     public function foodSharePointGetUrl($food_share_point_id): string
     {
-        return '/?page=fairteiler&sub=ft&id=' . (int)$food_share_point_id;
+        return '/fairteiler?sub=ft&id=' . (int)$food_share_point_id;
     }
 
     public function foodSharePointEditUrl($food_share_point_id): string
     {
-        return '/?page=fairteiler&sub=ft&id=' . (int)$food_share_point_id . '&sub=edit';
+        return '/fairteiler?sub=edit&id=' . (int)$food_share_point_id;
     }
 
     public function foodBasketInfoUrl($basket_id): string
@@ -90,27 +89,16 @@ class FoodsharingUrl extends Db
 
     public function settingsUrl(): string
     {
-        return '/?page=settings&sub=general';
+        return '/user/current/settings?sub=general';
     }
 
     public function eventAddUrl($regionId): string
     {
-        return '/?page=event&sub=add&bid=' . (int)$regionId;
+        return '/event/add';
     }
 
     public function apiReportListForRegion($regionId): string
     {
         return 'api/report/region/' . (int)$regionId;
-    }
-
-    public function upgradeQuizUrl(int $quizRole): string
-    {
-        $result = '/?page=settings&sub=up_';
-
-        return match ($quizRole) {
-            Role::STORE_MANAGER->value => $result . 'bip',
-            Role::AMBASSADOR->value => $result . 'bot',
-            default => $result . 'fs',
-        };
     }
 }

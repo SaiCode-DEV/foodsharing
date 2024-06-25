@@ -501,6 +501,9 @@ quiz:
   continuetype: ''
   nownownow: ''
   question: ''
+  results:
+    title:
+      1: Συγχαρητήρια!
 picture_upload_widget:
   picture_upload: ''
   choose_picture: ''
@@ -771,7 +774,7 @@ terminology:
   groups: ''
   n_foodsaver: ''
   options: ''
-  forum: ''
+  forum: 'Φόρουμ'
   foodsaver:
     m: ''
     d: ''
@@ -785,9 +788,9 @@ terminology:
   profile_picture: ''
   n_ambassadors: ''
   ambassador_forum: ''
-  events: ''
+  events: 'Ημερομηνίες'
   storesAdmins: ''
-  stores: ''
+  stores: 'Εταιρείες'
   welcomeAdmins: ''
   pin: ''
   n_stores: ''
@@ -803,12 +806,12 @@ terminology:
   boardAdmins: ''
   admins: ''
   regions: ''
-  store: ''
+  store: 'Επιχείρηση'
   n_cooperating_stores: ''
   homeRegion: ''
   region: ''
   subgroups: ''
-  homepage: ''
+  homepage: 'Αρχική σελίδα'
   statistic: ''
   n_sleeping: ''
   mediationAdmins: ''
@@ -816,6 +819,8 @@ terminology:
   no_pickups: ''
   previous_pickups: ''
   n_home_regions: ''
+  yes: Ναι
+  no: Όχι
 fsp:
   yours: ''
   noManager: ''
@@ -977,7 +982,7 @@ store:
   go: ''
   my_last_pickup: ''
   isManager: ''
-  memberSince: ''
+  joinDate: ''
   short_tooltip_red: ''
   jumperSince: ''
   error: ''
@@ -1789,7 +1794,7 @@ bell:
   blog_new_check_title: ''
   ft_update_title: '{name}'
   ft_update: '{teaser}'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   store_new_title: ''
   store_new: ''
   store_new_request: ''
@@ -1839,6 +1844,7 @@ bell:
   forum_new_thread_title: ''
   forum_announcement_title: ''
   forum_mention: ''
+  workinggroup_new_request_title: '{name}'
 genderlist:
   gender_female: ''
   number_table_header: ''
@@ -2064,7 +2070,6 @@ email_template:
   newsletter:
     linktext: ''
     unsubscribe: ''
-  withlove: ''
   confirm_link: ''
   in: ''
   slot_empty: ''
@@ -2094,7 +2099,6 @@ email_template:
     title: ''
     general_information_requirements: ''
     address: ''
-  yourFSteam: ''
   confirm_topic: ''
   manual_slots_get_ignored: ''
   foodsharepoint: ''

@@ -19,7 +19,7 @@ final class AddChainTables extends AbstractMigration
                 'null' => false,
                 'signed' => false,
                 'limit' => 10,
-                'identity' => 'enable',
+                'identity' => true,
                 'comment' => 'unique id of the chain'
             ])
             ->addColumn('name', 'string', [
@@ -43,7 +43,7 @@ final class AddChainTables extends AbstractMigration
             ])
             ->addColumn('status', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('modification_date', 'date', [

@@ -4,13 +4,28 @@ namespace Foodsharing\Modules\Mailbox;
 
 use Carbon\Carbon;
 use Ddeboer\Imap\Message\EmailAddress;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Mailbox\DTO\Region;
+use Foodsharing\RestApi\Models\Region\RegionForAdministration;
+use Foodsharing\Utility\Sanitizer;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class MailboxGateway extends BaseGateway
 {
+    private readonly Sanitizer $sanitizer;
+
+    public function __construct(
+        Database $db,
+        Sanitizer $sanitizer,
+    ) {
+        parent::__construct($db);
+        $this->sanitizer = $sanitizer;
+    }
+
     public function getMailboxname(int $mailbox_id)
     {
         try {
@@ -163,6 +178,7 @@ class MailboxGateway extends BaseGateway
 
         $data['sender'] = $this->parseAddress($data['sender']) ?? new EmailAddress('');
         $data['to'] = $this->parseAddresses($data['to']) ?? [];
+        $data['body'] = $this->sanitizer->purifyHtml($data['body'] ?? '');
 
         return $data;
     }
@@ -181,7 +197,7 @@ class MailboxGateway extends BaseGateway
 					m.`read`,
 					m.`answer`,
 					m.`body`,
-					m.body_html,
+					m.`body_html`,
 					m.`mailbox_id`
 			FROM 	fs_mailbox_message m
 			LEFT JOIN fs_mailbox b
@@ -190,6 +206,9 @@ class MailboxGateway extends BaseGateway
 		',
             [':message_id' => $emailId]
         );
+
+        $data['body'] = $this->sanitizer->purifyHtml($data['body'] ?? '');
+        $data['body_html'] = $this->sanitizer->purifyHtml($data['body_html'] ?? '');
 
         return $this->parseEmail($data);
     }
@@ -237,10 +256,9 @@ class MailboxGateway extends BaseGateway
      *
      * @return Email[]
      */
-    public function listEmails(int $mailboxId, int $folder): array
+    public function listEmails(int $mailboxId, int $folder, int $page, int $pageSize): array
     {
-        $data = $this->db->fetchAll(
-            '
+        $query = '
 			SELECT 	`id`,
 					`folder`,
 					`sender`,
@@ -256,9 +274,15 @@ class MailboxGateway extends BaseGateway
 			WHERE	mailbox_id = :mailbox_id
 			AND 	folder = :farray_folder
 			ORDER BY `time` DESC
-		',
-            [':mailbox_id' => $mailboxId, ':farray_folder' => $folder]
-        );
+		';
+        $params = [':mailbox_id' => $mailboxId, ':farray_folder' => $folder];
+
+        if ($page >= 0 && $pageSize >= 0) {
+            $query .= ' LIMIT :page_size OFFSET :start_item_index';
+            $params['start_item_index'] = $page * $pageSize;
+            $params['page_size'] = $pageSize;
+        }
+        $data = $this->db->fetchAll($query, $params);
 
         return array_map(fn ($x) => $this->parseEmail($x), $data);
     }
@@ -327,79 +351,6 @@ class MailboxGateway extends BaseGateway
                 return $mb;
             } catch (Exception) {
             }
-        }
-
-        return false;
-    }
-
-    public function getMemberBoxes()
-    {
-        if ($boxes = $this->db->fetchAllByCriteria('fs_mailbox', ['name', 'id'], ['member' => 1])) {
-            foreach ($boxes as $key => $b) {
-                $boxes[$key]['email_name'] = '';
-                if ($boxes[$key]['member'] = $this->db->fetchAll(
-                    '
-					SELECT 	fs.id AS id,
-							CONCAT(fs.name," ",fs.nachname) AS name,
-							mm.email_name
-					FROM 	`fs_mailbox_member` mm,
-							`fs_foodsaver` fs
-					WHERE 	mm.foodsaver_id = fs.id
-					AND 	mm.mailbox_id = :b_id
-				',
-                    [':b_id' => (int)$b['id']]
-                )) {
-                    foreach ($boxes[$key]['member'] as $mm) {
-                        if (!empty($mm['email_name'])) {
-                            $boxes[$key]['email_name'] = $mm['email_name'];
-                        }
-                    }
-                }
-            }
-
-            return $boxes;
-        }
-
-        return false;
-    }
-
-    public function updateMember(int $mbid, array $foodsaver): bool
-    {
-        global $g_data;
-        if ($mbid > 0) {
-            $this->db->delete('fs_mailbox_member', ['mailbox_id' => $mbid]);
-
-            $insert = [];
-
-            foreach ($foodsaver as $fs) {
-                $insert[] = [
-                    'mailbox_id' => $mbid,
-                    'foodsaver_id' => (int)$fs,
-                    'email_name' => '\'' . strip_tags((string)$g_data['email_name']) . '\''
-                ];
-            }
-
-            $this->db->insertMultiple('fs_mailbox_member', $insert);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    public function filterName(string $mb_name)
-    {
-        $mb_name = mb_strtolower($mb_name);
-        $mb_name = trim($mb_name);
-        $mb_name = str_replace(
-            ['ä', 'ö', 'ü', 'è', 'à', 'ß', ' ', '-', '/', '\\'],
-            ['ae', 'oe', 'ue', 'e', 'a', 'ss', '.', '.', '.', '.'],
-            $mb_name
-        );
-        $mb_name = preg_replace('/[^0-9a-z\.]/', '', $mb_name);
-
-        if (!empty($mb_name)) {
-            return $mb_name;
         }
 
         return false;
@@ -596,14 +547,6 @@ class MailboxGateway extends BaseGateway
     }
 
     /**
-     * Returns the HTML body of the mail with this message ID.
-     */
-    public function getMessageHtmlBody(int $messageId): string
-    {
-        return $this->db->fetchValueByCriteria('fs_mailbox_message', 'body_html', ['id' => $messageId]);
-    }
-
-    /**
      * Creates a Mailbox for the user and returns its ID.
      */
     private function createMailbox(string $name): int
@@ -745,5 +688,27 @@ class MailboxGateway extends BaseGateway
         }
 
         return $attachment;
+    }
+
+    /**
+     * @throws UniqueConstraintViolationException
+     */
+    public function setRegionMailbox(RegionForAdministration $region): void
+    {
+        $mailboxId = $this->db->fetchValueById('fs_bezirk', 'mailbox_id', $region->id);
+        if ($mailboxId && !$region->mailbox) {
+            throw new BadRequestHttpException('Mailbox cannot be removed.');
+        }
+        if ($mailboxId) {
+            $this->db->update('fs_mailbox', ['name' => $region->mailbox], ['id' => $mailboxId]);
+        } elseif ($region->mailbox) {
+            $mailboxId = $this->db->insert('fs_mailbox', ['name' => $region->mailbox]);
+            $this->db->update('fs_bezirk', ['mailbox_id' => $mailboxId], ['id' => $region->id]);
+        }
+    }
+
+    public function isMailboxNameUsed(string $mailboxName): bool
+    {
+        return $this->db->count('fs_mailbox', ['name' => $mailboxName]) > 0;
     }
 }

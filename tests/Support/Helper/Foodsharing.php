@@ -14,12 +14,13 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Mailbox\MailboxFolder;
-use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
+use Foodsharing\Modules\Core\DBConstants\Quiz\AnswerRating;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus as STATUS;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingScope;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingType;
 use Foodsharing\Modules\Uploads\DTO\UploadedFile;
@@ -46,7 +47,6 @@ class Foodsharing extends Db
             258, // Orgateam Archiv, apparently was a parent of some stuff
             RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP,
             RegionIDs::GLOBAL_WORKING_GROUPS,
-            RegionIDs::EUROPE_REPORT_TEAM,
             RegionIDs::TEAM_BOARD_MEMBER,
             RegionIDs::TEAM_ALUMNI_MEMBER,
             RegionIDs::TEAM_ADMINISTRATION_MEMBER,
@@ -136,12 +136,13 @@ class Foodsharing extends Db
             $gender = rand(2, 3);
         } else {
             $gender = rand(0, 1);
-            if (isset($extra_params['image'])) {
-                $path = './img/seed-data/profile/' . ['men', 'women'][$gender] . '/' . rand(0, 99) . '.jpg';
-                $profilePicture = new UploadedFile($path, filesize($path), hash_file('sha256', $path), 'image/jpg', 1);
-                $uuid = $this->uploadFile($profilePicture);
-                $pictureUrl = '/api/uploads/' . $uuid;
-            }
+        }
+
+        if (isset($extra_params['image']) && ($gender == 0 || $gender == 1)) {
+            $path = './img/seed-data/profile/' . ['men', 'women'][$gender] . '/' . rand(0, 99) . '.jpg';
+            $profilePicture = new UploadedFile($path, filesize($path), hash_file('sha256', $path), 'image/jpg', 1, null, null);
+            $uuid = $this->uploadFile($profilePicture);
+            $pictureUrl = '/api/uploads/' . $uuid;
         }
 
         $params = array_merge([
@@ -181,6 +182,13 @@ class Foodsharing extends Db
         }
         $params['id'] = $id;
 
+        if (isset($extra_params['image']) && isset($uuid)) {
+            $this->updateInDatabase('uploads', [
+                'used_in' => UploadUsage::PROFILE_PHOTO->value,
+                'usage_id' => $id,
+            ], ['uuid' => $uuid]);
+        }
+
         return $params;
     }
 
@@ -210,40 +218,43 @@ class Foodsharing extends Db
         }
     }
 
-    public function createQuiz(int $quizId, int $questionCount = 1): array
+    public function createQuiz(int $quizId, ?int $questionCount = null): array
     {
         $roles = [
-            Role::FOODSAVER->value => 'Foodsaver/in',
-            Role::STORE_MANAGER->value => 'Betriebsverantwortliche/r',
-            Role::AMBASSADOR->value => 'Botschafter/in'
+            Role::FOODSAVER->value => 'Foodsaver:in',
+            Role::STORE_MANAGER->value => 'Betriebsverantwortliche:r',
+            Role::AMBASSADOR->value => 'Botschafter:in'
         ];
+        $questionCount ??= random_int(3, 6);
+        $questionCountUntimed = $quizId === 1 ? 2 + $questionCount : null;
         $params = [
             'id' => $quizId,
-            'name' => 'Quiz #' . $quizId,
-            'desc' => 'Werde ' . $roles[$quizId] . ' mit diesem Quiz.',
-            'maxfp' => 0,
+            'name' => 'Quiz für ' . $roles[$quizId],
+            'desc' => 'Werde ' . $roles[$quizId] . ' mit diesem Quiz! ' . $this->faker->realTextBetween(200, 500),
+            'maxfp' => 2,
             'questcount' => $questionCount,
+            'questcount_untimed' => $questionCountUntimed,
         ];
         $params['id'] = $this->haveInDatabase('fs_quiz', $params);
 
         $params['questions'] = [];
-        for ($i = 1; $i <= $questionCount; ++$i) {
-            $questionText = 'Frage #' . $i . ' für Quiz #' . $params['id'];
-            $params['questions'][] = $this->createQuestion($params['id'], $questionText);
+        for ($i = 1; $i <= $questionCount * 2; ++$i) {
+            $params['questions'][] = $this->createQuestion($params['id']);
         }
 
         return $params;
     }
 
-    private function createQuestion(int $quizId, string $text = 'Question', int $failurePoints = 1): array
+    private function createQuestion(int $quizId): array
     {
         $params = [
-            'text' => $text,
-            'duration' => 60,
-            'wikilink' => 'wiki.foodsharing.de'
+            'text' => $this->faker->realTextBetween(100, 300),
+            'duration' => random_int(3, 6) * 10,
+            'wikilink' => 'https://wiki.foodsharing.de/' . $this->faker->slug(),
         ];
         $questionId = $this->haveInDatabase('fs_question', $params);
         $params['id'] = $questionId;
+        $failurePoints = random_int(1, 3);
 
         $this->haveInDatabase('fs_question_has_quiz', [
             'question_id' => $questionId,
@@ -252,31 +263,25 @@ class Foodsharing extends Db
         ]);
 
         $params['answers'] = [];
-        $params['answers'][] = $this->createAnswer($questionId, true);
-        $params['answers'][] = $this->createAnswer($questionId, false);
+        $numAnswers = random_int(2, 5);
+        for ($i = 0; $i < $numAnswers; ++$i) {
+            $params['answers'][] = $this->createAnswer($questionId, AnswerRating::from(random_int(0, 2)));
+        }
 
         return $params;
     }
 
-    private function createAnswer(int $questionId, bool $right = true): array
+    private function createAnswer(int $questionId, AnswerRating $right): array
     {
         $params = [
             'question_id' => $questionId,
-            'text' => ($right ? 'Richtige' : 'Falsche') . ' Antwort',
-            'explanation' => 'Diese Antwort ist ' . ($right ? 'richtig' : 'falsch') . '.',
-            'right' => $right ? 1 : 0
+            'text' => $this->faker->realTextBetween() . ' (' . $right->name . ')',
+            'explanation' => 'Diese Antwort ist ' . $right->name . '. ' . $this->faker->realTextBetween(),
+            'right' => $right->value
         ];
         $params['id'] = $this->haveInDatabase('fs_answer', $params);
 
         return $params;
-    }
-
-    public function letUserFailQuiz(array $user, int $daysAgo, int $times): void
-    {
-        $level = $user['rolle'] + 1;
-        foreach (range(1, $times) as $i) {
-            $this->createQuizTry($user['id'], $level, SessionStatus::FAILED, $daysAgo);
-        }
     }
 
     public function createQuizTry(int $fsId, int $level, int $status, int $daysAgo = 0): void
@@ -624,7 +629,7 @@ class Foodsharing extends Db
 
         // add up to 10 emails to each folder
         foreach ([MailboxFolder::FOLDER_INBOX, MailboxFolder::FOLDER_SENT, MailboxFolder::FOLDER_TRASH] as $folder) {
-            $numMails = $this->faker->numberBetween(1, 10);
+            $numMails = $this->faker->numberBetween(10, 20);
             for ($i = 0; $i < $numMails; ++$i) {
                 $this->createEmail($mb, $folder);
             }
@@ -734,6 +739,11 @@ class Foodsharing extends Db
         if ($result <= 0) {
             $this->haveInDatabase('fs_botschafter', $v);
         }
+    }
+
+    public function addAchievement($achievementData): void
+    {
+        $this->haveInDatabase('fs_achievement', $achievementData);
     }
 
     public function addRegionMember($region_id, $fs_id, $is_active = true): void
@@ -1202,6 +1212,21 @@ class Foodsharing extends Db
         $this->haveInDatabase('fs_region_options', ['region_id' => $region, 'option_type' => RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS, 'option_value' => $ignoreHours]);
     }
 
+    public function createContent(): array
+    {
+        $title = $this->faker->title;
+        $content = [
+            'name' => strtolower(str_replace(' ', '_', $title)),
+            'title' => $title,
+            'body' => $this->faker->text,
+            'last_mod' => $this->faker->dateTimeBetween('-5 years', '-5 days')->format('Y-m-d H:i:s'),
+        ];
+
+        $id = $this->haveInDatabase('fs_content', $content);
+        $content['id'] = $id;
+
+        return $content;
+    }
     // =================================================================================================================
     // private methods
     // =================================================================================================================
