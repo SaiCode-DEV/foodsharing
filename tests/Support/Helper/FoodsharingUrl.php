@@ -54,7 +54,7 @@ class FoodsharingUrl extends Db
     {
         $sub = $botforum ? 'botforum' : 'forum';
 
-        return '/region?bid=' . (int)$id . '&sub=' . $sub;
+        return '/region?&sub=' . $sub . '&bid=' . (int)$id;
     }
 
     public function regionWallUrl($id): string
