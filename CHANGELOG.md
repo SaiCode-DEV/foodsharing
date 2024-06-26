@@ -24,6 +24,8 @@
 - Pickups are displayed on dashboard for 30 minutes longer !3382
 - Removed address on businessCard !3362 @chriswalg
 - Give admins of quiz group permission to view and delete quiz sessions !3422 @AntonBallmaier
+- Change region link generation from /?page=bezirk& to /region?
+- Removed store state COOPERATION_STARTING #414 !3410 @chriswalg
 
 ## Bugfixes
 - Changed the headline for group applications #1916 !3353 @ToLei
@@ -39,6 +41,7 @@
 - Some fixes for the quiz module !3418 @AntonBallmaier
 - Store chain information is visible on the store page again #1946 @alex.simm
 - Fixed the rendering of dates that is close to now #1948 !3430 @alex.simm
+- Fixed display error of deleted users in store log #1971 !3432 @AntonBallmaier 
 - Fixed activity setting on dashboard #1937 !3433 @AntonBallmaier
 
 ## Refactoring

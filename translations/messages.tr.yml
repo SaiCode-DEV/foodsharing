@@ -724,6 +724,14 @@ group:
       created_at: Kimlik kartı oluşturuldu
       generate_button: İşaretli kişiler için kimlik kartı/kartları oluşturun
       never_before: asla
+      clear_selection: İşaretli olanların tümünü sıfırla
+      button:
+        unverify: Onaylamayı iptal et
+        verify: Onayla_
+      verify:
+        do: '{name} ({id}) hesabını onaylayın'
+        undo: '{name} ({id}) onaylamasını iptal edin'
+      filter_selection: Seçilen üyelere göre filtrele
   show-all: Hepsini göster
   delete_group_sure: '{groupName} çalışma grubunu/bölgesini silmek istediğinizden
     emin misiniz?'
@@ -754,7 +762,7 @@ bell:
   poll_new_title: Yeni oylama
   store_wallpost: Pano da yeni yazı.
   fs_sleepmode_title: Yeni Uyku Kepi
-  new_quiz_comment_title: 'Soruya yeni bir yorum geldi #{questionId}'
+  new_quiz_comment_title: 'Soruya bir yorum geldi #{questionId}'
   ft_update: '{teaser}'
   forum_answer_title: '{forum}'
   forum_answer: '{user} size yanıt verdi'
@@ -1620,7 +1628,7 @@ events:
     delinvites: Mevcut davetiyeler silinsin mi?
     regions: Sizin Bölgeleriniz
     offline: Gerçek hayatta tamamen normal
-    online: Video veya telefon konferansı yoluyla
+    online: Telefon veya video konferans yoluyla
     mumble: Mumble Konferansı
     groups: Sizin çalışma gruplarınız
     multiday: Etkinlik birkaç gün sürecek
@@ -1637,6 +1645,12 @@ events:
       <br>\nRandevuyu bu arada gösterge tablosunda yeni gelenlere de göstermek için,\n
       daha sonra tekrar kaydedin.\n"
     endtime: Zaman sonu
+    name: Etkinliğin adı
+    time: Saat
+    other: Vesaire
+    locationDetails: Adres bilgileri (Oda numarası vb.)
+    locationOther: Etkinlik nerede gerçekleşiyor?
+    fillCompletely: Lütfen formu eksiksiz doldurunuz.
   bread: Randevular
   add_new_event: Şimdi yeni bir tarih girin
   mumble:
@@ -1670,6 +1684,22 @@ events:
   past: Geçmiş Tarihler
   add_event: Yeni Tarih
   span: '{from} den {until} kadar'
+  location: Konum
+  meeting:
+    present: Bu etkinlik çevrimiçi olarak gerçekleşir. Şimdi katılabilirsiniz.
+    not_started: Bu Randevu henüz başlamadı
+    past: Bu etkinlik çevrimiçi olarak gerçekleşti.
+    future: Bu etkinlik çevrimiçi olarak gerçekleşir. Başladıktan sonra aşağıdaki
+      düğmeyi kullanarak katılabilirsiniz.
+  noneAccepted: Şu ana kadar hiç kimse bu etkinliğe katılımını onaylamadı.
+  attendees: Katılımcılar
+  online_info: "foodsharing kaynaklanan telefon ve video konferanslar en iyi şekilde
+    kendi [BigBlueButton](https://bigbluebutton.org) sunucumuz aracılığıyla gerçekleştirilir.
+    Randevunun başlamasına 10 dakika kala kullanıcılar randevu sayfasından tek tıkla
+    kolayca konferansa katılabilirler. Bunun için başka hiçbir programa gerek yoktur,
+    yalnızca oldukça modern bir İnternet tarayıcısı yeterlidir. Telefonla da katılmak
+    mümkündür.\n\nTelefon veya video konferans için yine de başka bir platform kullanmak
+    istiyorsanız lütfen *\"Diğer\"* seçeneğini seçin. \n"
 recipients:
   orga_team: Ülke çapındaki organizasyon ekibi
   all_no_botschafter: Elçileri olmayan tüm Foodsaverlar
@@ -2952,6 +2982,8 @@ terminology:
   electionAdmins: Seçimler
   no: Hayır
   yes: Evet
+  achievements: Başarılar
+  achievement: Başarı
 legal:
   if_delete:
     this_doesnt_get_deleted: 'Aşağıdaki bilgiler artık aktif sistemde mevcut değildir,
@@ -3202,6 +3234,9 @@ timepicker:
   labelDecrement: Azalt
   labelSeconds: Saniyeler
   labelMinutes: Dakikalar
+  placeholder: Zamanı girin
+  to: "'e kadar"
+  from: "'den"
 pickup:
   dates: Alım tarihleri
   edit:
@@ -3348,6 +3383,7 @@ calendar:
   labelCalendar: Takvim
   labelNav: Takvim Navigasyonu
   locale: tk
+  placeholder: Tarih seç_
 fpcapital: Hata Noktası
 memberlist:
   header_for_district: '{bezirk} bölgesinde Foodsaver'
@@ -3776,6 +3812,10 @@ help:
         yöneticiyi root olarak ayarlayın.\n---\nAna Bölgeye giriş her gece bir kez
         yapılır. Yani değişiklikler hemen gerçekleşmez.\n"
       title: Yüksek Bölge
+    achievements:
+      md: "Başarılara ilişkin bir açıklamanın buraya eklenmesi gerekmektedir. Bunu
+        daha sonra yapacağım. TODO\n"
+      title: Başarılar
   helpTitle: 'Yardım: {title}'
   tooltip: Yardımı göster
 team_page:
@@ -3805,3 +3845,10 @@ automatic_not_delete: '- bu profil kalmalıdır.'
 validation:
   phone_number_invalid: Telefon numarası geçersiz (örneğin +90 eksik, çok kısa, çok
     uzun veya geçersiz karakterler içeriyor)
+achievements:
+  inThis:
+    region: 'Bu bölgede aşağıdaki başarılar kazanılabilir:'
+    group: 'Bu çalışma grubunda aşağıdaki başarılar ödüllendirilebilir:'
+  validity:
+    days: Görevlendirmeden sonraki {validityInDaysAfterAssignment} gün boyunca geçerlidir.
+    indefinite: Veriltikten sonraki herhangi bir süre için geçerlidir.

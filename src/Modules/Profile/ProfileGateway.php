@@ -386,14 +386,13 @@ final class ProfileGateway extends BaseGateway
 			LEFT OUTER JOIN  fs_betrieb s  ON  s.id = st.betrieb_id
 
 			WHERE  st.foodsaver_id = :fs_id
-			AND    s.betrieb_status_id in (:stat_start, :stat_est)
+			AND    s.betrieb_status_id = :coop_est
 			AND    st.verantwortlich = 1
 		';
 
         $res = $this->db->fetchAll($stm, [
             ':fs_id' => $fsId,
-            ':stat_start' => CooperationStatus::COOPERATION_STARTING->value,
-            ':stat_est' => CooperationStatus::COOPERATION_ESTABLISHED->value
+            ':coop_est' => CooperationStatus::COOPERATION_ESTABLISHED->value
         ]);
 
         return $res['0']['count'];

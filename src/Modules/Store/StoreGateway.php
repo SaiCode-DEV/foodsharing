@@ -1002,7 +1002,6 @@ class StoreGateway extends BaseGateway
                 'fs_id' => $fs_id,
                 'membership_status' => MembershipStatus::MEMBER,
                 ':established' => CooperationStatus::COOPERATION_ESTABLISHED->value,
-                ':starting' => CooperationStatus::COOPERATION_STARTING->value
             ]);
         } else {
             return $this->getAllStores($cooperationStatus);

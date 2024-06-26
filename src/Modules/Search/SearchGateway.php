@@ -222,8 +222,8 @@ class SearchGateway extends BaseGateway
         [$searchClauses, $parameters] = $this->generateSearchClauses(self::SEARCH_CRITERIA['stores'], $query);
         $onlyActiveClause = '';
         if (!$includeInactiveStores) {
-            $onlyActiveClause = 'AND 
-                (store.betrieb_status_id IN (' . CooperationStatus::COOPERATION_STARTING->value . ',' . CooperationStatus::COOPERATION_ESTABLISHED->value . ')
+            $onlyActiveClause = 'AND
+                (store.betrieb_status_id = ' . CooperationStatus::COOPERATION_ESTABLISHED->value . '
                     OR store.team_status != 0 OR NOT ISNULL(store_team.active)) AND
                 store.betrieb_status_id != ' . CooperationStatus::PERMANENTLY_CLOSED->value;
         }
@@ -395,7 +395,7 @@ class SearchGateway extends BaseGateway
             JOIN fs_conversation AS conversation ON conversation.id = has_conversation.conversation_id
             JOIN fs_foodsaver_has_conversation AS has_member ON has_member.conversation_id = conversation.id
             JOIN fs_foodsaver AS foodsaver ON foodsaver.id = has_member.foodsaver_id
-            JOIN fs_foodsaver AS last_author ON last_author.id = conversation.last_foodsaver_id 
+            JOIN fs_foodsaver AS last_author ON last_author.id = conversation.last_foodsaver_id
             WHERE has_conversation.foodsaver_id = ? -- Only include own chats
             AND has_member.foodsaver_id != has_conversation.foodsaver_id -- Exclude searching for oneself in chat member lists
             AND foodsaver.deleted_at IS NULL
@@ -435,7 +435,7 @@ class SearchGateway extends BaseGateway
             JOIN fs_conversation AS conversation ON conversation.id = has_conversation.conversation_id
             JOIN fs_foodsaver_has_conversation AS has_member ON has_member.conversation_id = conversation.id
             JOIN fs_foodsaver AS foodsaver ON foodsaver.id = has_member.foodsaver_id
-            JOIN fs_foodsaver AS last_author ON last_author.id = conversation.last_foodsaver_id 
+            JOIN fs_foodsaver AS last_author ON last_author.id = conversation.last_foodsaver_id
             WHERE has_conversation.foodsaver_id = ? -- Only include own chats
             AND has_member.foodsaver_id != has_conversation.foodsaver_id -- Exclude searching for oneself in chat member lists
             AND foodsaver.deleted_at IS NULL
@@ -605,12 +605,12 @@ class SearchGateway extends BaseGateway
                 JOIN fs_foodsaver_has_bezirk has_region ON has_region.foodsaver_id = foodsaver.id
                 JOIN fs_bezirk region ON region.id = has_region.bezirk_id
                 JOIN fs_foodsaver_has_bezirk have_region ON have_region.bezirk_id = region.id
-                LEFT OUTER JOIN fs_botschafter ambassador ON ambassador.bezirk_id = region.id and ambassador.foodsaver_id = have_region.foodsaver_id 
+                LEFT OUTER JOIN fs_botschafter ambassador ON ambassador.bezirk_id = region.id and ambassador.foodsaver_id = have_region.foodsaver_id
                 WHERE have_region.foodsaver_id = ?
                 AND region.type IN (' . UnitType::CITY . ',' . UnitType::PART_OF_TOWN . ',' . UnitType::WORKING_GROUP . ')
                 GROUP BY foodsaver.id
                 UNION ALL
-            
+
                 -- Buddies:
                 SELECT
                     foodsaver.id,
@@ -627,7 +627,7 @@ class SearchGateway extends BaseGateway
                 WHERE buddy.confirmed = 1
                 AND buddy.buddy_id = ?
                 UNION ALL
-            
+
                 -- By store team:
                 SELECT
                     foodsaver.id,
@@ -642,12 +642,12 @@ class SearchGateway extends BaseGateway
                     0
                 FROM fs_betrieb_team AS my_store_team
                 JOIN fs_betrieb_team AS store_team ON store_team.betrieb_id = my_store_team.betrieb_id
-                JOIN fs_foodsaver AS foodsaver ON foodsaver.id = store_team.foodsaver_id 
+                JOIN fs_foodsaver AS foodsaver ON foodsaver.id = store_team.foodsaver_id
                 WHERE my_store_team.foodsaver_id = ?
                 AND my_store_team.active != 0
                 GROUP BY foodsaver.id
                 UNION ALL
-            
+
                 -- By Chat membership:
                 SELECT
                     foodsaver.id,
@@ -682,7 +682,7 @@ class SearchGateway extends BaseGateway
             JOIN fs_bezirk AS region ON region.id = foodsaver.home_region
             WHERE (foodsaver.id = ? OR (' . $searchClauses . '))
             GROUP BY foodsaver.id
-            ORDER BY MAX(foodsaver.is_buddy) DESC, ISNULL(foodsaver.last_name), foodsaver.name, foodsaver.last_name 
+            ORDER BY MAX(foodsaver.is_buddy) DESC, ISNULL(foodsaver.last_name), foodsaver.name, foodsaver.last_name
             LIMIT ' . self::MAX_SEARCH_RESULT_COUNT,
             [$foodsaverId, $foodsaverId, $foodsaverId, $foodsaverId, $parameters[0], $parameters[0], ...$parameters]
         );

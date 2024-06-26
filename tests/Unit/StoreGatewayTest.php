@@ -448,7 +448,7 @@ class StoreGatewayTest extends Unit
         $result = $this->gateway->listAllStoreTeamMembershipsForFoodsaver(
             $this->foodsaver['id'], [
                 CooperationStatus::UNCLEAR, CooperationStatus::NO_CONTACT, CooperationStatus::IN_NEGOTIATION,
-                CooperationStatus::COOPERATION_STARTING, CooperationStatus::COOPERATION_ESTABLISHED,
+                CooperationStatus::COOPERATION_ESTABLISHED,
                 CooperationStatus::PERMANENTLY_CLOSED,
             ]
         );

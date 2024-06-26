@@ -111,22 +111,11 @@ const urls = {
 
   // region id
   forum: (regionId, subforumId = 0, threadId = null, postId = null, newThread = false) => {
-    const str = [`/?page=bezirk${regionId ? `&bid=${regionId}` : ''}`]
-    if (subforumId === 1) {
-      str.push('&sub=botforum')
-    } else {
-      str.push('&sub=forum')
-    }
-    if (threadId) {
-      str.push(`&tid=${threadId}`)
-    }
-    if (postId) {
-      str.push(`&pid=${postId}`)
-    }
-    if (newThread) {
-      str.push('&newthread=1')
-    }
-    return str.join('')
+    const str = [`/region?${regionId ? `bid=${regionId}&` : ''}sub=${subforumId === 1 ? 'botforum' : 'forum'}`]
+    if (threadId) str.push(`tid=${threadId}`)
+    if (postId) str.push(`pid=${postId}`)
+    if (newThread) str.push('newthread=1')
+    return str.join('&')
   },
 
   // simplified url for forum threads

@@ -232,7 +232,7 @@ class StatsGateway extends BaseGateway
 				SELECT
 					c.ancestor_id AS region_id,
 					COUNT(b.id) AS stores,
-					COUNT(b.betrieb_status_id IN (:coop_starting, :coop_established) OR NULL) AS coops
+					COUNT(b.betrieb_status_id = :coop_established OR NULL) AS coops
 				FROM fs_bezirk_closure c
 				INNER JOIN fs_betrieb b ON b.bezirk_id = c.bezirk_id
 				WHERE c.ancestor_id > 0
@@ -247,7 +247,6 @@ class StatsGateway extends BaseGateway
 				region.stat_korpcount = IFNULL(stores.coops, 0)
 		', [
             'type_working_group' => UnitType::WORKING_GROUP,
-            'coop_starting' => CooperationStatus::COOPERATION_STARTING->value,
             'coop_established' => CooperationStatus::COOPERATION_ESTABLISHED->value,
         ]);
     }

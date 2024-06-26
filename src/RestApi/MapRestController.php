@@ -82,7 +82,6 @@ class MapRestController extends AbstractFOSRestController
                             break;
                         case 'nkoorp':
                             $excludedStoreTypes = array_merge($excludedStoreTypes, [
-                                CooperationStatus::COOPERATION_STARTING,
                                 CooperationStatus::COOPERATION_ESTABLISHED,
                             ]);
                             break;
