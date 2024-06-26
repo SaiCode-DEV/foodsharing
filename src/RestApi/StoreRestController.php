@@ -298,7 +298,7 @@ class StoreRestController extends AbstractFoodsharingRestController
                 'mayReadStoreWall' => $this->storePermissions->mayReadStoreWall($storeId),
                 'mayWritePost' => $this->storePermissions->mayWriteStoreWall($storeId),
                 'mayDeleteEverything' => $this->storePermissions->mayDeleteStoreWall($storeId),
-                'maySeePickups' => $this->storePermissions->maySeePickups($storeId) && $store['betrieb_status_id'] === CooperationStatus::COOPERATION_STARTING || $store['betrieb_status_id'] === CooperationStatus::COOPERATION_ESTABLISHED,
+                'maySeePickups' => $this->storePermissions->maySeePickups($storeId) || $store['betrieb_status_id'] === CooperationStatus::COOPERATION_ESTABLISHED,
             ];
 
             return $this->handleView($this->view($params, 200));

@@ -27,14 +27,13 @@ class StoreMaintenanceTransactionsTest extends Unit
         $this->tester->createStore($region['id'], null, null, ['betrieb_status_id' => CooperationStatus::UNCLEAR->value]);
         $this->tester->createStore($region['id'], null, null, ['betrieb_status_id' => CooperationStatus::NO_CONTACT->value]);
         $this->tester->createStore($region['id'], null, null, ['betrieb_status_id' => CooperationStatus::IN_NEGOTIATION->value]);
-        $this->tester->createStore($region['id'], null, null, ['betrieb_status_id' => CooperationStatus::COOPERATION_STARTING->value]);
         $this->tester->createStore($region['id'], null, null, ['betrieb_status_id' => CooperationStatus::DOES_NOT_WANT_TO_WORK_WITH_US->value]);
         $this->tester->createStore($region['id'], null, null, ['betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
         $this->tester->createStore($region['id'], null, null, ['betrieb_status_id' => CooperationStatus::GIVES_TO_OTHER_CHARITY->value]);
         $this->tester->createStore($region['id'], null, null, ['betrieb_status_id' => CooperationStatus::PERMANENTLY_CLOSED->value]);
 
         $statistics = $this->transactions->triggerFetchWarningNotification();
-        $this->assertEquals(2, $statistics['count_stores']);
+        $this->assertEquals(1, $statistics['count_stores']);
     }
 
     public function testTriggerFetchWarningNotificationWithFor48HourBeforePickup(): void

@@ -50,7 +50,6 @@ class StoreTransactions
         CooperationStatus::UNCLEAR,
         CooperationStatus::NO_CONTACT,
         CooperationStatus::IN_NEGOTIATION,
-        CooperationStatus::COOPERATION_STARTING,
         CooperationStatus::COOPERATION_ESTABLISHED
     ];
 
@@ -122,7 +121,6 @@ class StoreTransactions
             ['id' => CooperationStatus::UNCLEAR->value, 'name' => $this->translator->trans('store.nodeclaration')],
             ['id' => CooperationStatus::NO_CONTACT->value, 'name' => $this->translator->trans('storestatus.1')],
             ['id' => CooperationStatus::IN_NEGOTIATION->value, 'name' => $this->translator->trans('storestatus.2')],
-            ['id' => CooperationStatus::COOPERATION_STARTING->value, 'name' => $this->translator->trans('storestatus.3a')],
             ['id' => CooperationStatus::DOES_NOT_WANT_TO_WORK_WITH_US->value, 'name' => $this->translator->trans('storestatus.4')],
             ['id' => CooperationStatus::COOPERATION_ESTABLISHED->value, 'name' => $this->translator->trans('storestatus.5')],
             ['id' => CooperationStatus::GIVES_TO_OTHER_CHARITY->value, 'name' => $this->translator->trans('storestatus.6')],

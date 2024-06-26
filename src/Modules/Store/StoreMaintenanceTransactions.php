@@ -27,8 +27,7 @@ class StoreMaintenanceTransactions
     public function triggerFetchWarningNotification(): array
     {
         $activeStores = $this->storeGateway->getAllStores(
-            [CooperationStatus::COOPERATION_STARTING,
-            CooperationStatus::COOPERATION_ESTABLISHED]
+            [CooperationStatus::COOPERATION_ESTABLISHED]
         );
 
         $start = new DateTime(); // Now

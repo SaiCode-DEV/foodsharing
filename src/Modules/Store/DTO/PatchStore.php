@@ -70,7 +70,6 @@ class PatchStore
      * - 0: UNCLEAR
      * - 1: NO_CONTACT
      * - 2: IN_NEGOTIATION
-     * - 3: COOPERATION_STARTING
      * - 4: DOES_NOT_WANT_TO_WORK_WITH_US
      * - 5:COOPERATION_ESTABLISHED
      * - 6: GIVES_TO_OTHER_CHARITY
