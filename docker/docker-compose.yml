@@ -1,7 +1,6 @@
 # expose, ports are additive, means each environment requires a own port mapping instead of a global one.
-# Prebuild custom images are located at gitlab.com/foodsharing-dev/images/
+# Prebuilt custom images are located at gitlab.com/foodsharing-dev/images/
 
-version: '2'
 services:
   # nginx
   #------------------------------------

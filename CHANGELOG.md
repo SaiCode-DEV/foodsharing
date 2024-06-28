@@ -75,6 +75,7 @@
 - Removed obsolete functions in StoreXhr #1609 !3399 @alex.simm
 - Added missing languages for syntax highlighting in the docs #1547 !3407 @alex.simm
 - Updated phinx to version 0.16 #1774 @alex.simm
+- Removed obsolete version field from docker compose files !3442 @\_fridtjof_
 
 ## Development documentation
 
