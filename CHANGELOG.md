@@ -24,7 +24,7 @@
 - Removed address on businessCard !3362 @chriswalg
 - Give admins of quiz group permission to view and delete quiz sessions !3422 @AntonBallmaier
 - Change region link generation from /?page=bezirk& to /region?
-- Removed store state COOPERATION_STARTING #414 !3410 @chriswalg
+- Removed store state COOPERATION_STARTING #414 !3410 !3444 @chriswalg
 
 ## Bugfixes
 - Changed the headline for group applications #1916 !3353 @ToLei

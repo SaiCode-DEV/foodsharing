@@ -18,6 +18,7 @@ use Foodsharing\Modules\Core\DBConstants\Quiz\AnswerRating;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
+use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus as STATUS;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
@@ -382,7 +383,7 @@ class Foodsharing extends Db
     public function createStore($bezirk_id, $team_conversation = null, $springer_conversation = null, $extra_params = []): array
     {
         $params = array_merge([
-            'betrieb_status_id' => $this->faker->numberBetween(0, 6),
+            'betrieb_status_id' => $this->faker->randomElement(array_slice(CooperationStatus::cases(), 0, -1))->value,
             'status' => 1,
             'added' => $this->toDate($this->faker->dateTime()),
             'betrieb_kategorie_id' => $this->faker->numberBetween(1, 10),
