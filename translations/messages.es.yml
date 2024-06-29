@@ -612,6 +612,8 @@ terminology:
   electionAdmins: Elecciones
   no: No
   yes: Sí
+  achievement: Logro
+  achievements: Logros
 groups:
   empty: Aún no estás en ningún grupo de trabajo
 position: Puesto en foodsharing (público)
@@ -4040,6 +4042,10 @@ help:
       title: Estadísticas de participación
       md: es visible desde el papel del responsable de la empresa. Se limita a un
         distrito de domicilio común o a operaciones conjuntas.
+    achievements:
+      title: Logros
+      md: "Es necesario agregar aquí una explicación de los logros. Lo haré más tarde.
+        HACER\n"
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
@@ -4069,3 +4075,10 @@ validation:
   phone_number_invalid: El número de teléfono no es válido (por ejemplo, falta el
     prefijo del país, es demasiado corto, demasiado largo o contiene caracteres no
     válidos)
+achievements:
+  inThis:
+    group: 'En este grupo de trabajo se pueden premiar los siguientes logros:'
+    region: 'En este distrito se pueden otorgar los siguientes logros:'
+  validity:
+    days: Válido por {validityInDaysAfterAssignment} días después de la asignación.
+    indefinite: Válido para cualquier período de tiempo después de la adjudicación.

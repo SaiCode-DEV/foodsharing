@@ -995,7 +995,7 @@ class StoreGateway extends BaseGateway
 			FROM
 				fs_betrieb_team t
 			JOIN fs_betrieb b ON
-				b.id = t.betrieb_id AND b.betrieb_status_id IN (:established, :starting)
+				b.id = t.betrieb_id AND b.betrieb_status_id = :established
 			WHERE
 				t.foodsaver_id = :fs_id AND t.active = :membership_status
 			', [

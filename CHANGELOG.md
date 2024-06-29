@@ -25,7 +25,7 @@
 - Removed address on businessCard !3362 @chriswalg
 - Give admins of quiz group permission to view and delete quiz sessions !3422 @AntonBallmaier
 - Change region link generation from /?page=bezirk& to /region?
-- Removed store state COOPERATION_STARTING #414 !3410 @chriswalg
+- Removed store state COOPERATION_STARTING #414 !3410 !3444 !3445 @chriswalg
 
 ## Bugfixes
 - Changed the headline for group applications #1916 !3353 @ToLei
@@ -76,6 +76,7 @@
 - Removed obsolete functions in StoreXhr #1609 !3399 @alex.simm
 - Added missing languages for syntax highlighting in the docs #1547 !3407 @alex.simm
 - Updated phinx to version 0.16 #1774 @alex.simm
+- Removed obsolete version field from docker compose files !3442 @\_fridtjof_
 
 ## Development documentation
 

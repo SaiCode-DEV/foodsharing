@@ -1,6 +1,5 @@
 # expose, ports are additive, means each environment requires a own port mapping instead of a global one.
 
-version: '2'
 services:
   # nginx
   #------------------------------------

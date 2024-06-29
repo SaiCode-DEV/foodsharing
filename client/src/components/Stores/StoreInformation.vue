@@ -67,7 +67,7 @@
               />
             </b-form-group>
             <b-form-group
-              :label="$i18n('telefon')"
+              :label="$i18n('handy')"
               label-for="phone"
             >
               <b-form-input
