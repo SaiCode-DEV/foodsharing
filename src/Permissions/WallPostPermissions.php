@@ -10,7 +10,6 @@ use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\WallPost\WallPostGateway;
-use Foodsharing\Modules\WorkGroup\WorkGroupTransactions;
 
 class WallPostPermissions
 {
@@ -24,7 +23,6 @@ class WallPostPermissions
         private readonly WallPostGateway $wallPostGateway,
         private readonly QuizGateway $quizGateway,
         private readonly Session $session,
-        private readonly WorkGroupTransactions $workGroupTransactions,
     ) {
     }
 
@@ -50,8 +48,6 @@ class WallPostPermissions
                 return $this->quizPermissions->mayReadQuiz(QuizID::tryFrom($quizId));
             case 'usernotes':
                 return $this->session->mayRole(Role::ORGA);
-            case 'application':
-                return $this->workGroupTransactions->isAdminForAWorkGroup($this->session->id());
             default:
                 return false;
         }
