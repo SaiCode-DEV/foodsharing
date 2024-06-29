@@ -141,7 +141,7 @@
       >
         <template v-if="mayEditMembers" #cell(passportToggle)="row">
           <b-form-checkbox
-            v-if="activeTab === ACTIVE_TAB_PASSPORT && isNullOrEmptyOrWhitespace(row.item.avatar)"
+            v-if="activeTab === ACTIVE_TAB_PASSPORT && !isNullOrEmptyOrWhitespace(row.item.avatar)"
             size="sm"
             :checked="containsPassportMember(row.item.id)"
             @change="togglePassportMember(row.item.id)"
