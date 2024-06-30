@@ -8,7 +8,6 @@ use Foodsharing\Modules\WallPost\DTO\WallPost;
 class WallPostGateway extends BaseGateway
 {
     private array $targets = [
-        'application',
         'bezirk',
         'event',
         'fairteiler',

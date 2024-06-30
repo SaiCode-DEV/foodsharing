@@ -25,6 +25,7 @@
 - Removed address on businessCard !3362 @chriswalg
 - Give admins of quiz group permission to view and delete quiz sessions !3422 @AntonBallmaier
 - Change region link generation from /?page=bezirk& to /region?
+- Removed application wall #321 !3436 @AntonBallmaier
 - Removed store state COOPERATION_STARTING #414 !3410 !3444 !3445 @chriswalg
 
 ## Bugfixes
@@ -52,7 +53,7 @@
 - Rebuild quiz module #1666 !3119 !3329 !3403 @AntonBallmaier
 - Refactor the nearby baskets list to vue !3294 !3391 @alex.simm
 - Refactored profile to vue !3184 !3225 !3343 @chriswalg
-- Moved passports to region memberlist #1799 #1326 !3251 !3388 @chriswalg
+- Moved passports to region memberlist #1799 #1326 !3251 !3388 !3439 @chriswalg
 - Modernized StoreChainControl to a Symfony controller !3292 @chriswalg
 - Rework team page in vue !3248 !3351 @chriswalg
 - Refactored event page and creation / editing to vue #952 #997 #1514 #1740 #1910 !3387 @AntonBallmaier

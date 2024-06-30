@@ -141,7 +141,7 @@
       >
         <template v-if="mayEditMembers" #cell(passportToggle)="row">
           <b-form-checkbox
-            v-if="activeTab === ACTIVE_TAB_PASSPORT && row.item.avatar !== null"
+            v-if="activeTab === ACTIVE_TAB_PASSPORT && !isNullOrEmptyOrWhitespace(row.item.avatar)"
             size="sm"
             :checked="containsPassportMember(row.item.id)"
             @change="togglePassportMember(row.item.id)"
@@ -232,7 +232,7 @@
         </template>
         <template v-if="mayEditMembers" #cell(removeButton)="row">
           <b-button
-            v-if="activeTab === ACTIVE_TAB_DEFAULT && rowItemNotqualUserid(userId,row.item.id) && !rowItemisAdminOrAmbassadorOfRegion(row.item)"
+            v-if="canRemoveMember(row.item)"
             v-b-tooltip="$i18n('group.member_list.remove_title')"
             size="sm"
             variant="danger"
@@ -316,14 +316,14 @@ export default {
   computed: {
     getAdminButton () {
       return (item) => {
-        if (this.mayRemoveAdminOrAmbassador && this.rowItemisAdminOrAmbassadorOfRegion(item)) {
+        if (this.mayRemoveAdminOrAmbassador && this.rowItemIsAdminOrAmbassadorOfRegion(item)) {
           return {
             title: this.$i18n(this.isWorkGroup ? 'group.member_list.remove_admin_title' : 'group.member_list.remove_ambassador_title'),
             variant: 'danger',
             icon: 'fa-user-slash',
             action: this.degradeAdmin,
           }
-        } else if (this.maySetAdminOrAmbassador && this.rowItemNotqualUserid(this.userId, item.id) && this.roleCheckForRegionAndWorkGroup(this.isWorkGroup, item.role)) {
+        } else if (this.maySetAdminOrAmbassador && this.rowItemNotEqualUserId(this.userId, item.id) && this.roleCheckForRegionAndWorkGroup(this.isWorkGroup, item.role)) {
           return {
             title: this.$i18n(this.isWorkGroup ? 'group.member_list.set_admin_title' : 'group.member_list.set_ambassador_title'),
             variant: 'warning',
@@ -500,6 +500,19 @@ export default {
     this.getMemberList()
   },
   methods: {
+    isNullOrEmptyOrWhitespace (str) {
+      return (str ?? '').trim().length === 0
+    },
+    canRemoveMember (item) {
+      const isNotCurrentUser = this.rowItemNotEqualUserId(this.userId, item.id)
+      const isNotAdminOrAmbassador = !this.rowItemIsAdminOrAmbassadorOfRegion(item)
+
+      if (this.isWorkGroup) {
+        return isNotCurrentUser && isNotAdminOrAmbassador
+      } else {
+        return this.activeTab === this.ACTIVE_TAB_DEFAULT && isNotCurrentUser && isNotAdminOrAmbassador
+      }
+    },
     containsPassportMember (memberId) {
       return this.passportMember.some(member => member === memberId)
     },
@@ -532,10 +545,10 @@ export default {
       this.filterStatus = null
       this.filterText = ''
     },
-    rowItemisAdminOrAmbassadorOfRegion (value) {
+    rowItemIsAdminOrAmbassadorOfRegion (value) {
       return value.isAdminOrAmbassadorOfRegion === true
     },
-    rowItemNotqualUserid (user, value) {
+    rowItemNotEqualUserId (user, value) {
       return user !== value
     },
     roleCheckForRegionAndWorkGroup (isGroup, itemRole) {

@@ -510,11 +510,6 @@ class FoodsaverGateway extends BaseGateway
         return $current - $before;
     }
 
-    public function getAllWorkGroupAmbassadorIds(): array
-    {
-        return $this->getAmbassadorIds(RegionIDs::ROOT, false, true);
-    }
-
     public function getRegionAmbassadorIds(int $regionId): array
     {
         return $this->getAmbassadorIds($regionId);
@@ -599,7 +594,6 @@ class FoodsaverGateway extends BaseGateway
         $this->archiveFoodsaver($fsId);
 
         $this->db->delete('fs_apitoken', ['foodsaver_id' => $fsId]);
-        $this->db->delete('fs_application_has_wallpost', ['application_id' => $fsId]);
         $this->db->delete('fs_basket_anfrage', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_botschafter', ['foodsaver_id' => $fsId]);
         $this->db->delete('fs_buddy', ['foodsaver_id' => $fsId]);

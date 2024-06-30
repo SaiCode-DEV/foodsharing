@@ -49,11 +49,6 @@ class MaintenanceControl extends ConsoleControl
         $this->storeTriggerPickupWarnings();
 
         /*
-         * fill memcache with info about users if they want information mails etc.
-         */
-        $this->memcacheUserInfo();
-
-        /*
          * delete unused images
          */
         $this->deleteImages();
@@ -317,15 +312,6 @@ class MaintenanceControl extends ConsoleControl
             $this->uploadsTransactions->deleteUploadedFile($uuid);
         }
         self::success(sizeof($uuids) . ' files deleted');
-    }
-
-    private function memcacheUserInfo()
-    {
-        $admins = $this->foodsaverGateway->getAllWorkGroupAmbassadorIds();
-        if (!$admins) {
-            $admins = [];
-        }
-        $this->mem->set('all_global_group_admins', serialize($admins));
     }
 
     private function masterBezirkUpdate()
