@@ -65,6 +65,7 @@
 - Provide CurrentUserRegionInterface for Session as independent implementation !3390 !3400 @KoeMai
 - Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 @chriswalg
 - Cleaned up the ApplicationGateway #1975 !3411 @alex.simm
+- unused columns in fs_foodsaver have been removed #1945 !3440 @fs_k
 
 ## Dev/Test/CI stuff
 - Added backend support for getting, adding and updating achievements. #1724 !3317 !3318 @AntonBallmaier

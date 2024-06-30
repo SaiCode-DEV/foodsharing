@@ -371,8 +371,6 @@ class Foodsharing extends Db
     {
         $params = array_merge([
             'rolle' => ($is_admin ? 5 : 4),
-            'orgateam' => 1,
-            'admin' => ($is_admin ? 1 : 0),
         ], $extra_params);
 
         $params = $this->createAmbassador($pass, $params);

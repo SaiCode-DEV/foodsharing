@@ -150,8 +150,6 @@ class FoodsaverGateway extends BaseGateway
         return $this->db->fetch('
 		SELECT
 			fs.id,
-			fs.admin,
-			fs.orgateam,
 			fs.position,
 			fs.bezirk_id,
 			fs.photo,
@@ -296,8 +294,6 @@ class FoodsaverGateway extends BaseGateway
             'photo',
             'about_me_intern',
             'about_me_public',
-            'orgateam',
-            'data',
             'rolle',
             'position',
             'no_automatic_delete'
@@ -384,7 +380,6 @@ class FoodsaverGateway extends BaseGateway
             'geschlecht',
             'email'
         ], [
-            'orgateam' => 1,
             'rolle' => Role::ORGA->value
         ]);
     }
@@ -394,7 +389,6 @@ class FoodsaverGateway extends BaseGateway
         return $this->db->fetchAllByCriteria('fs_foodsaver', [
             'id'
         ], [
-            'orgateam' => 1,
             'rolle' => Role::ORGA->value
         ]);
     }

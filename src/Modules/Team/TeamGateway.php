@@ -16,14 +16,10 @@ class TeamGateway extends BaseGateway
         $stm = '
 				SELECT
 					fs.id,
-					CONCAT(mb.name,"@' . PLATFORM_MAILBOX_HOST . '") AS email,
 					fs.name,
 					fs.photo,
 					fs.about_me_public,
-					fs.rolle,
-					fs.geschlecht,
-					fs.position,
-					fs.contact_public
+					fs.position
 				FROM
 					fs_foodsaver_has_bezirk hb
 

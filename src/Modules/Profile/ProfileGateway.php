@@ -54,8 +54,6 @@ final class ProfileGateway extends BaseGateway
 					fs.`photo`,
 					fs.`about_me_intern`,
 					fs.`about_me_public`,
-					fs.`orgateam`,
-					fs.`data`,
 					fs.`last_login` as last_activity,
 					fs.stat_fetchweight,
 					fs.stat_fetchcount,
