@@ -18,7 +18,6 @@ define('DB_PASS', 'root');
 define('DB_DB', 'foodsharing');
 define('ERROR_REPORT', E_ALL);
 define('BASE_URL', $protocol . '://' . $host);
-define('WEBCAL_URL', 'webcal://' . $host);
 
 define('VERSION', '0.8.3');
 

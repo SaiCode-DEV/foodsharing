@@ -94,8 +94,6 @@ class SettingsController extends FoodsharingController
         if ($isMe) {
             $params['sleepingData'] = $this->settingsGateway->getSleepData($userId);
             $params['businessCardData'] = $this->businessCardGateway->getMyData($userId, $this->session->mayRole(Role::STORE_MANAGER));
-            $params['baseUrlWebCal'] = WEBCAL_URL . '/api/calendar/';
-            $params['baseUrlHttp'] = BASE_URL . '/api/calendar/';
         }
 
         $profileSettings = $this->prepareVueComponent('profile-settings-page', 'ProfileSettingsPage', $params);

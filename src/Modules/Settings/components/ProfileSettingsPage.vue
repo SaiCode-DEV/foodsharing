@@ -34,7 +34,7 @@
           :title="$i18n('settings.calendar.menu')"
           :active="subPage === SUB_PAGE.CALENDAR"
         >
-          <Calendar :base-url-http="baseUrlHttp" :base-url-webcal="baseUrlWebCal" />
+          <Calendar />
         </b-tab>
         <b-tab
           v-if="isMe"
@@ -111,8 +111,6 @@ export default {
   mixins: [MediaQueryMixin],
   props: {
     userDetails: { type: Object, default: () => {} },
-    baseUrlWebCal: { type: String, default: '' },
-    baseUrlHttp: { type: String, default: '' },
     sleepingData: { type: Object, default: () => {} },
     businessCardData: { type: Object, default: () => {} },
     permissions: { type: Object, default: () => {} },
