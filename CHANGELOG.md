@@ -14,6 +14,7 @@
 - Storemanagers get an extra warning before removing users from a store team, if they currently occupy slots #1825 !3368 @AntonBallmaier
 - Added API endpoints for managing store categories #1263 !3405 @alex.simm
 - Display senders picture in notifications !3373 @AntonBallmaier
+- Applications to working groups trigger a bell notification to the admins #933 !3274 @alex.simm
 
 ## Changes
 - Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei
@@ -34,7 +35,6 @@
 - Fix typos in info texts !3327 @AntonBallmaier
 - Fixed calendar exports breaking for events with linebreaks in their description !3350
 - The correct region is now preselected when creating an event !3366 @AntonBallmaier
-- Fixed type error in DonationGoalInformation #1970 !3385 @chriswalg
 - Fixed passport generation not working #1944 !3376 @AntonBallmaier
 - Resolved some UI inconsistancies !3370 @AntonBallmaier
 - double foodsharing.network in group links #1978 !3409 @McGoldi
@@ -81,6 +81,9 @@
 
 ## Development documentation
 
+# Hotfix 2024-07-01
+- Fixed type error in DonationGoalInformation #1970 !3385 @chriswalg
+
 # Hotfix 2024-05-21
 - Added translations for new bell types !3337 @AntonBallmaier @alex.simm
 
@@ -109,7 +112,6 @@
 - Group different bell events, like it is done for the forum !3073 !3271 @AntonBallmaier
 - Stickiness of threads can have more values now allowing for better thread sorting !3205 @AntonBallmaier
 - Added an info box for ambassadors to make sure the user name field is not misused #204 !3204 @AntonBallmaier
-- Applications to working groups trigger a bell notification to the admins #933 !3274 @alex.simm
 
 ## Changes
 - Improves the BBB integration !3050 @stcz
