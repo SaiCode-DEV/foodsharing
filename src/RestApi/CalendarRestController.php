@@ -8,6 +8,7 @@ use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Event\InvitationStatus;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Store\PickupGateway;
+use Foodsharing\Utility\Sanitizer;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -59,7 +60,8 @@ class CalendarRestController extends AbstractFOSRestController
         SettingsGateway $settingsGateway,
         PickupGateway $pickupGateway,
         EventGateway $eventGateway,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        private readonly Sanitizer $sanitizer,
     ) {
         $this->session = $session;
         $this->settingsGateway = $settingsGateway;
@@ -247,10 +249,17 @@ class CalendarRestController extends AbstractFOSRestController
         if ($meeting['status'] == InvitationStatus::INVITED) {
             $descriptionHint = '<i>' . $this->translator->trans('calendar.export.event.statusUnspecified') . '</i><br>';
         }
+        $descriptionContent = (string)$meeting['description'];
+        $linebreakReplacement = '<br>';
+        if($formatting === FormattingType::HTML) {
+            $descriptionContent = $this->sanitizer->markdownToHtml($descriptionContent);
+            $linebreakReplacement = '';
+        }
+        $descriptionContent = str_replace(["\r\n", "\n", "\r"], $linebreakReplacement, $descriptionContent);
         $description = '<a href="' . $url . '">' . $this->translator->trans('calendar.export.event.linkTitle') . '</a><br>'
             . $descriptionHint
-            . '<b>' . $this->translator->trans('calendar.export.event.description') . '</b>: '
-            . str_replace(["\r\n", "\n", "\r"], '<br>', (string)$meeting['description']);
+            . '<br><b>' . $this->translator->trans('calendar.export.event.description') . '</b>: '
+            . $descriptionContent;
 
         $event = new CalendarEvent();
         $event->setStart(Carbon::createFromTimestamp($meeting['start_ts']));
@@ -283,7 +292,8 @@ class CalendarRestController extends AbstractFOSRestController
         $description .= $this->updateDateInfo();
         $html = $description;
         if ($formatting !== FormattingType::HTML) {
-            $description = strip_tags(str_replace('<br>', '\n', $description));
+            $description = str_replace('<br>', '\n', $description);
+            $description = strip_tags($description);
         }
         $event->setDescription($description);
         if ($formatting === FormattingType::ALT) {
