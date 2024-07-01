@@ -22,7 +22,6 @@ use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -161,7 +160,7 @@ class CalendarRestController extends AbstractFOSRestController
         $includeHistory = $includeHistory ? $includeHistory !== 'false' : false;
         $includePickups = $paramFetcher->get('pickups');
         $includePickups = $includePickups ? $includePickups !== 'false' : false;
-        if(!$formatting || !$includedEvents) {
+        if (!$formatting || !$includedEvents) {
             throw new BadRequestHttpException();
         }
         $bufferDays = $includeHistory ? 14 : 0;
@@ -170,7 +169,7 @@ class CalendarRestController extends AbstractFOSRestController
         // add all future pickup dates
         $dates = $this->pickupGateway->getNextPickups($userId, null, $bufferMinutes);
         $pickups = [];
-        if($includePickups) {
+        if ($includePickups) {
             $pickups = array_map(fn ($date) => $this->createPickupEvent($date, $userId, $formatting), $dates);
         }
 
@@ -189,11 +188,6 @@ class CalendarRestController extends AbstractFOSRestController
             'content-type' => 'text/calendar',
             'content-disposition' => 'attachment; filename="calendar.ics"'
         ]);
-    }
-
-    private function updateDateInfo(): string
-    {
-        return '<br><br><i>(Zuletzt aktualisiert: ' . date('d.m.Y H:i') . ')</i>';
     }
 
     private function createPickupEvent(array $pickup, int $userId, FormattingType $formatting): CalendarEvent
@@ -245,19 +239,6 @@ class CalendarRestController extends AbstractFOSRestController
         return $event;
     }
 
-    private function setEventDescription(CalendarEvent &$event, string $description, FormattingType $formatting): void
-    {
-        $description .= $this->updateDateInfo();
-        $html = $description;
-        if ($formatting !== FormattingType::HTML) {
-            $description = strip_tags(str_replace('<br>', '\n', $description));
-        }
-        $event->setDescription($description);
-        if ($formatting === FormattingType::ALT) {
-            $event->setCustomProperties(['X-ALT-DESC;FMTTYPE=text/html' =>  $html]);
-        }
-    }
-
     private function createMeetingEvent(array $meeting, int $userId, FormattingType $formatting): CalendarEvent
     {
         $url = BASE_URL . '/?page=event&id=' . $meeting['id'];
@@ -295,6 +276,24 @@ class CalendarRestController extends AbstractFOSRestController
         }
 
         return $event;
+    }
+
+    private function setEventDescription(CalendarEvent &$event, string $description, FormattingType $formatting): void
+    {
+        $description .= $this->updateDateInfo();
+        $html = $description;
+        if ($formatting !== FormattingType::HTML) {
+            $description = strip_tags(str_replace('<br>', '\n', $description));
+        }
+        $event->setDescription($description);
+        if ($formatting === FormattingType::ALT) {
+            $event->setCustomProperties(['X-ALT-DESC;FMTTYPE=text/html' => $html]);
+        }
+    }
+
+    private function updateDateInfo(): string
+    {
+        return '<br><br><i>(Zuletzt aktualisiert: ' . date('d.m.Y H:i') . ')</i>';
     }
 
     /**
