@@ -83,7 +83,7 @@ class LoginGateway extends BaseGateway
 
         $user = $this->db->fetchByCriteria(
             'fs_foodsaver',
-            ['id', 'password', 'bezirk_id', 'admin', 'orgateam', 'photo'],
+            ['id', 'password'],
             ['email' => $email, 'deleted_at' => null]
         );
 
