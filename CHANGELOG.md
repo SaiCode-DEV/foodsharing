@@ -21,7 +21,7 @@
 - Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei
 - Restricted access to email attachments !3345 @alex.simm
 - Stores, where you are a jumper are now displayed at the bottom of the stores dropdown menu !3364 @AntonBallmaier
-- Improved the calendar export !3378 @AntonBallmaier
+- Improved the calendar export !3378 !3449 @AntonBallmaier
 - Pickups are displayed on dashboard for 30 minutes longer !3382
 - Removed address on businessCard !3362 @chriswalg
 - Give admins of quiz group permission to view and delete quiz sessions !3422 @AntonBallmaier
