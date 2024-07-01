@@ -21,8 +21,26 @@ use Jsvrcek\ICS\Utility\Formatter;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
+
+enum FormattingType: string
+{
+    case HTML = 'html';
+    case ALT = 'alt';
+    case TEXT = 'text';
+}
+
+enum IncludeEventsType: string
+{
+    case ALL = 'all';
+    case INVITATIONS = 'invitations';
+    case MAYBE = 'maybe';
+    case ACCEPTED = 'accepted';
+    case NONE = 'none';
+}
 
 /**
  * Provides endpoints for exporting pickup dates and other events to iCal and managing access tokens.
@@ -125,7 +143,10 @@ class CalendarRestController extends AbstractFOSRestController
      * @OA\Tag(name="calendar")
      */
     #[Rest\Get('calendar/{token}')]
-    #[Rest\QueryParam(name: 'events', requirements: '(all|answered)', default: 'all', description: 'Include all or only answered invitations to events')]
+    #[Rest\QueryParam(name: 'formatting', default: 'alt', description: 'How to format description texts')]
+    #[Rest\QueryParam(name: 'events', default: 'all', description: 'Include all or only answered invitations to events')]
+    #[Rest\QueryParam(name: 'pickups', default: true, description: 'Whether to include pickups')]
+    #[Rest\QueryParam(name: 'history', default: true, description: 'Whether to include some past events')]
     public function listAppointments(string $token, ParamFetcher $paramFetcher): Response
     {
         // check access token
@@ -134,17 +155,35 @@ class CalendarRestController extends AbstractFOSRestController
             throw new AccessDeniedHttpException();
         }
 
+        $formatting = FormattingType::tryFrom($paramFetcher->get('formatting'));
+        $includedEvents = IncludeEventsType::tryFrom($paramFetcher->get('events'));
+        $includeHistory = $paramFetcher->get('history');
+        $includeHistory = $includeHistory ? $includeHistory !== 'false' : false;
+        $includePickups = $paramFetcher->get('pickups');
+        $includePickups = $includePickups ? $includePickups !== 'false' : false;
+        if(!$formatting || !$includedEvents) {
+            throw new BadRequestHttpException();
+        }
+        $bufferDays = $includeHistory ? 14 : 0;
+        $bufferMinutes = $bufferDays * 24 * 60;
+
         // add all future pickup dates
-        $dates = $this->pickupGateway->getNextPickups($userId);
-        $pickups = array_map(fn ($date) => $this->createPickupEvent($date, $userId), $dates);
+        $dates = $this->pickupGateway->getNextPickups($userId, null, $bufferMinutes);
+        $pickups = [];
+        if($includePickups) {
+            $pickups = array_map(fn ($date) => $this->createPickupEvent($date, $userId, $formatting), $dates);
+        }
 
         // add all future meetings
-        $statuses = match ($paramFetcher->get('events')) {
-            'answered' => [InvitationStatus::ACCEPTED, InvitationStatus::MAYBE],
-            default => [InvitationStatus::ACCEPTED, InvitationStatus::MAYBE, InvitationStatus::INVITED],
+        $statuses = match ($includedEvents) {
+            IncludeEventsType::ALL => [InvitationStatus::ACCEPTED, InvitationStatus::MAYBE, InvitationStatus::INVITED, InvitationStatus::WONT_JOIN],
+            IncludeEventsType::INVITATIONS => [InvitationStatus::ACCEPTED, InvitationStatus::MAYBE, InvitationStatus::INVITED],
+            IncludeEventsType::MAYBE => [InvitationStatus::ACCEPTED, InvitationStatus::MAYBE],
+            IncludeEventsType::ACCEPTED => [InvitationStatus::ACCEPTED],
+            IncludeEventsType::NONE => [],
         };
-        $meetings = $this->eventGateway->getEventsByStatus($userId, $statuses);
-        $events = array_map(fn ($meeting) => $this->createMeetingEvent($meeting, $userId), $meetings);
+        $meetings = $this->eventGateway->getEventsByStatus($userId, $statuses, $bufferDays);
+        $events = array_map(fn ($meeting) => $this->createMeetingEvent($meeting, $userId, $formatting), $meetings);
 
         return new Response($this->formatCalendarResponse(array_merge($pickups, $events)), Response::HTTP_OK, [
             'content-type' => 'text/calendar',
@@ -157,7 +196,7 @@ class CalendarRestController extends AbstractFOSRestController
         return '<br><br><i>(Zuletzt aktualisiert: ' . date('d.m.Y H:i') . ')</i>';
     }
 
-    private function createPickupEvent(array $pickup, int $userId): CalendarEvent
+    private function createPickupEvent(array $pickup, int $userId, FormattingType $formatting): CalendarEvent
     {
         $start = Carbon::createFromTimestamp($pickup['timestamp']);
 
@@ -182,17 +221,13 @@ class CalendarRestController extends AbstractFOSRestController
         ]);
         $foodsaverIds = str_getcsv($pickup['fs_ids']);
         $foodsaverNames = str_getcsv($pickup['fs_names'], ',', "'");
-        $index = array_search($this->session->id(), $foodsaverIds);
-        if ($index !== false) {
-            unset($foodsaverIds[$index]);
-            unset($foodsaverNames[$index]);
-        }
+
         if (count($foodsaverIds)) {
-            $description .= '<br>' . $this->translator->trans('calendar.export.pickup.otherFoodsavers');
+            $description .= '<br>' . $this->translator->trans('calendar.export.pickup.foodsavers');
             $description .= implode(', ', array_map(fn ($id, $name) => '<a href="' . BASE_URL . "/profile/{$id}\">{$name}</a>", $foodsaverIds, $foodsaverNames));
         }
 
-        if ($freeSlots = $pickup['max_fetchers'] - count($foodsaverIds) - 1) {
+        if ($freeSlots = $pickup['max_fetchers'] - count($foodsaverIds)) {
             $description .= '<br>' . $this->translator->trans('calendar.export.pickup.freeSlots', [
                 '{count}' => $freeSlots,
             ]);
@@ -202,9 +237,7 @@ class CalendarRestController extends AbstractFOSRestController
             $description .= '<br><br>' . $pickup['description'];
         }
 
-        $description .= $this->updateDateInfo();
-
-        $event->setDescription($description);
+        $this->setEventDescription($event, $description, $formatting);
         $event->setUrl($store_url);
         $event->setStatus($status);
         $event->addLocation($location);
@@ -212,7 +245,20 @@ class CalendarRestController extends AbstractFOSRestController
         return $event;
     }
 
-    private function createMeetingEvent(array $meeting, int $userId): CalendarEvent
+    private function setEventDescription(CalendarEvent &$event, string $description, FormattingType $formatting): void
+    {
+        $description .= $this->updateDateInfo();
+        $html = $description;
+        if ($formatting !== FormattingType::HTML) {
+            $description = strip_tags(str_replace('<br>', '\n', $description));
+        }
+        $event->setDescription($description);
+        if ($formatting === FormattingType::ALT) {
+            $event->setCustomProperties(['X-ALT-DESC;FMTTYPE=text/html' =>  $html]);
+        }
+    }
+
+    private function createMeetingEvent(array $meeting, int $userId, FormattingType $formatting): CalendarEvent
     {
         $url = BASE_URL . '/?page=event&id=' . $meeting['id'];
 
@@ -223,8 +269,7 @@ class CalendarRestController extends AbstractFOSRestController
         $description = '<a href="' . $url . '">' . $this->translator->trans('calendar.export.event.linkTitle') . '</a><br>'
             . $descriptionHint
             . '<b>' . $this->translator->trans('calendar.export.event.description') . '</b>: '
-            . str_replace(["\r\n", "\n", "\r"], '<br>', (string)$meeting['description'])
-            . $this->updateDateInfo();
+            . str_replace(["\r\n", "\n", "\r"], '<br>', (string)$meeting['description']);
 
         $event = new CalendarEvent();
         $event->setStart(Carbon::createFromTimestamp($meeting['start_ts']));
@@ -239,7 +284,7 @@ class CalendarRestController extends AbstractFOSRestController
 
         $event->setSummary($meeting['name']);
         $event->setUid($userId . $meeting['id'] . '@meeting.foodsharing.de');
-        $event->setDescription($description);
+        $this->setEventDescription($event, $description, $formatting);
         $event->setUrl($url);
         $event->setStatus(['TENTATIVE', 'CONFIRMED', 'TENTATIVE'][$meeting['status']]);
 
