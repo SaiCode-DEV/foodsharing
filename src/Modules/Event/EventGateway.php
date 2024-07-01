@@ -92,9 +92,10 @@ class EventGateway extends BaseGateway
      */
     public function getEventsByStatus(int $userId, array $statuses, int $pastEventsBufferInDays = 0): array
     {
-        if(count($statuses) === 0) {
+        if (count($statuses) === 0) {
             return [];
         }
+
         return $this->db->fetchAll('SELECT
 			e.id,
 			e.name,
