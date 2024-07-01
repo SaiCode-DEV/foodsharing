@@ -2015,26 +2015,50 @@ settings:
     menu: "Kalender"
     export: "Kalender exportieren"
     export_tooltip: "Du kannst deine Abholtermine mit einem Kalenderprogramm deiner Wahl abonnieren."
-    title: "Dein Abholkalender"
-    teaser: |
-      Du kannst deinen Abholkalender mit einem Kalenderprogramm deiner Wahl abonnieren.
-      Erstelle dir dafür zunächst ein Token und abonniere dann einen der beiden Kalender-Links.
-      Weitere Informationen findest du im Wiki unter
-    token-warning: |
-      Wichtig: Halte den Link unbedingt geheim.
-      Er enthält einen Schlüssel, um ohne Passwort auf die Daten deiner Abholungen zugreifen zu können.
-    sync: |
-      Dein Kalenderprogramm muss diesen Kalender regelmäßig neu synchronisieren.
-      Nur dann tauchen neue Abholtermine auf und abgesagte Termine nicht mehr.
-    link_title: "ics/iCal/WebCal:"
-    event_link_desc: "(inkl. Events)"
-    create_token:
-      button: Neues Token erstellen
-      message: Du kannst immer nur ein Token anlegen. Durch ein neues Token wird der bisherige Link überschrieben und ungültig. Möchtest du den Link wirklich neu erstellen?
+
     delete_token:
       button: Token löschen
-      message: Das bisherige Token wird hierdurch ungültig. Möchtest du das Token wirklich löschen?
-    include_invitations: Der Kalender soll auch Einladungen zu Terminen enthalten, die ich noch nicht beantwortet habe.
+      message: Alle bislang erzeugten Kalender-Links werden hierdurch ungültig. Möchtest du das Token wirklich löschen?
+    generate_url:
+      button: Kalender-URL generieren
+    download: Kalender herunterladen
+
+    info: |
+      Hier kannst du deine foodsharing Termine mit einem Kalenderprogramm deiner Wahl verknüpfen. Damit können automatisch all deine Abholungen und/oder Termine in deinem Kalender eingetragen werden.
+
+      **Halte Kalender-Links unbedingt geheim.** Sie enthalten ein *Token*, mit dem ohne Passwort auf die Daten deiner Abholungen zugegriffen werden kann. Du kannst dein aktuelles Token jederzeit löschen, womit früher erstellte Kalender-Links ungültig werden.
+
+      Dein Kalenderprogramm muss diesen Kalender regelmäßig **synchronisieren**. Nur dann tauchen neue Abholtermine auf und abgesagte Termine nicht mehr. Wenn du stattdessen deinen aktuellen Kalender herunterlädst, enthält dieser nur deine jetzigen Termine und wird nicht automatisch aktualisiert.
+
+      Weitere Informationen findest du [hier im Wiki]({calendarUrl})
+    pickup:
+      label: "Sollen Abholtermine enthalten sein?"
+      "true": "Ja, meine Abholungen im Kalender anzeigen"
+      "false": "Nein, keine Abholungen im Kalender anzeigen"
+    event:
+      label: "Welche Termine deiner Bezirke und Arbeitsgruppen sollen enthalten sein?"
+      all: "Alle Termine"
+      invitations: "Termine, bei denen ich nicht abgesagt habe"
+      maybe: "Termine, bei denen ich angegeben habe (vielleicht) dabei zu sein"
+      accepted: "Termine, bei denen ich angegeben habe dabei zu sein"
+      none: "Keine"
+    history:
+      label: "Sollen vergangene Termine der letzten 2 Wochen enthalten sein?"
+      "true": "Ja, meine letzten Termine im Kalender anzeigen"
+      "false": "Nein, keine vergangenen Termine im Kalender anzeigen"
+    program:
+      label: "Welches Kalenderprogramm nutzt du?"
+      google: "Google calendar"
+      outlook: "Outlook"
+      thunderbird: "Thunderbird"
+      other: "Etwas anderes"
+    protocol: "Welches Protokoll nutzt dein Kalenderprogramm?"
+    formatting:
+      label: "Wie sollen Terminbeschreibungen formatiert werden?"
+      html: "HTML"
+      alt: "Text und HTML als Alternativrepräsentation"
+      text: "Nur Text"
+
   photo:
     title: "Dein Foto"
     info: |
