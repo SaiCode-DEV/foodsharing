@@ -1302,7 +1302,7 @@ calendar:
       name: "{store} Abholung"
       unconfirmed: "unbestätigt"
       description: 'foodsharing-Abholung bei <a href="{url}">{store}</a>'
-      otherFoodsavers: "Zusammen mit dir eingetragen: "
+      foodsavers: "Eingetragene foodsaver: "
       freeSlots: "{count} Slots sind noch frei"
     updated: "(Zuletzt aktualisiert: {date})"
     event:
@@ -2056,7 +2056,7 @@ settings:
     formatting:
       label: "Wie sollen Terminbeschreibungen formatiert werden?"
       html: "HTML"
-      alt: "Text und HTML als Alternativrepräsentation"
+      alt: "Text mit HTML als Alternativrepräsentation"
       text: "Nur Text"
 
   photo:

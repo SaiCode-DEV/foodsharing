@@ -90,8 +90,11 @@ class EventGateway extends BaseGateway
      *
      * @return array all events matching the invitation status
      */
-    public function getEventsByStatus(int $userId, array $statuses): array
+    public function getEventsByStatus(int $userId, array $statuses, int $pastEventsBufferInDays = 0): array
     {
+        if(count($statuses) === 0) {
+            return [];
+        }
         return $this->db->fetchAll('SELECT
 			e.id,
 			e.name,
@@ -113,10 +116,10 @@ class EventGateway extends BaseGateway
 		LEFT JOIN fs_bezirk r ON e.bezirk_id = r.id
 		WHERE
 			fhb.foodsaver_id = :fs_id
-			AND e.end > NOW()
+			AND e.end > DATE_SUB(NOW(), INTERVAL :buffer DAY)
 			AND IFNULL(fhe.status, ' . InvitationStatus::INVITED . ') IN (' . implode(',', $statuses) . ')
 		ORDER BY e.start
-		', ['fs_id' => $userId]);
+		', ['fs_id' => $userId, 'buffer' => $pastEventsBufferInDays]);
     }
 
     public function addLocation(Event $event): int
