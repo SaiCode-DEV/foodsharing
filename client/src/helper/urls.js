@@ -23,7 +23,7 @@ const urls = {
   conversations: (conversationId = null) => `/?page=msg${conversationId ? `&cid=${conversationId}` : ''}`,
   createBusinessCard: (data) => `/user/current/settings?sub=makeCard&opt=${data.role}:${data.regionGroupId}`,
   dashboard: () => '/?page=dashboard',
-  dataprivacy: () => '/?page=legal',
+  dataprivacy: () => '/legal',
   donate: () => '/unterstuetzung',
   email: () => '/?page=email',
   event: (eventId) => `/event/${eventId}`,

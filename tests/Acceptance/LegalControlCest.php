@@ -17,7 +17,7 @@ class LegalControlCest
         $this->isDeleted = false;
         $this->user = $I->createAmbassador();
         $I->login($this->user['email']);
-        $I->amOnPage('/?page=legal');
+        $I->amOnPage('/legal');
         $I->see('Datenschutzerklärung');
     }
 
@@ -44,7 +44,7 @@ class LegalControlCest
         $I->checkOption('#legal_form_privacyPolicyAcknowledged');
         $I->click('Einstellungen übernehmen');
         $I->waitForActiveAPICalls();
-        $I->seeCurrentUrlEquals('/?page=legal');
+        $I->seeCurrentUrlEquals('/legal');
     }
 
     public function testGivenIAmLoggedInAndIDontAcceptThePrivacyPolicyThenIAmStillAskedForConsent(AcceptanceTester $I): void
@@ -66,7 +66,7 @@ class LegalControlCest
         $I->checkOption('#legal_form_privacyPolicyAcknowledged');
         $I->selectOption('#legal_form_privacyNoticeAcknowledged', 'Ich habe die Belehrung zur Kenntnis genommen.');
         $I->click('Einstellungen übernehmen');
-        $I->seeCurrentUrlEquals('/?page=legal');
+        $I->seeCurrentUrlEquals('/legal');
         $I->seeInDatabase('fs_foodsaver', ['id' => $this->user['id'], 'rolle' => Role::AMBASSADOR->value]);
     }
 
@@ -81,7 +81,7 @@ class LegalControlCest
         $I->seeInPopup('Bist du dir sicher?');
         $I->seeInDatabase('fs_foodsaver', ['id' => $this->user['id'], 'rolle' => 3]);
         $I->acceptPopup();
-        $I->seeCurrentUrlEquals('/?page=legal');
+        $I->seeCurrentUrlEquals('/legal');
         $I->seeInDatabase('fs_foodsaver', ['id' => $this->user['id'], 'rolle' => 1]);
     }
 }
