@@ -31,7 +31,7 @@
         variant="success"
         right
         :text="$i18n('settings.calendar.generate_url.button')"
-        :disabled="!selectedProgram"
+        :disabled="disableGenerating"
         @click="copyUrl"
       >
         <b-dropdown-item @click="download">
@@ -85,6 +85,11 @@ export default {
       const programSettings = this.selectedProgram === 'other' ? this : this.selectedProgram
       if (!programSettings || !this.token) return false
       return `${programSettings.protocol}://${location.host}/api/calendar/${this.token}?formatting=${programSettings.formatting}&events=${this.includeEvents}&pickups=${this.includePickups}&history=${this.includeHistory}`
+    },
+    disableGenerating () {
+      if (!this.selectedProgram) return true
+      if (!this.includePickups && this.includeEvents === 'none') return true
+      return false
     },
   },
   async mounted () {
