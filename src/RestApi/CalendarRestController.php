@@ -251,7 +251,7 @@ class CalendarRestController extends AbstractFOSRestController
         }
         $descriptionContent = (string)$meeting['description'];
         $linebreakReplacement = '<br>';
-        if($formatting === FormattingType::HTML) {
+        if ($formatting === FormattingType::HTML) {
             $descriptionContent = $this->sanitizer->markdownToHtml($descriptionContent);
             $linebreakReplacement = '';
         }
