@@ -8,6 +8,7 @@ use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
+use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 
 class MaintenanceGateway extends BaseGateway
 {
@@ -72,7 +73,7 @@ class MaintenanceGateway extends BaseGateway
 			ON
 				z.betrieb_id = b.id
 			WHERE
-				b.betrieb_status_id IN(3,5)
+				b.betrieb_status_id = :established
 			AND
 			(
 				(
@@ -86,7 +87,8 @@ class MaintenanceGateway extends BaseGateway
 		', [
             ':dow' => $dow,
             ':time' => date('H:i:s'),
-            ':dowTomorrow' => $dowTomorrow
+            ':dowTomorrow' => $dowTomorrow,
+            ':established' => CooperationStatus::COOPERATION_ESTABLISHED->value,
         ]);
 
         if (!empty($storesInRange)) {
