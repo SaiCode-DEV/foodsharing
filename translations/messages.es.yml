@@ -2174,9 +2174,9 @@ profile:
     plenos</a> en ella.
   editNameInfo: Tenga en cuenta que los campos de nombre y apellidos sólo deben utilizarse
     para el nombre de la persona. No utilice este campo para almacenar más información
-    sobre el usuario, como por ejemplo la realización de cursos de higiene o similares,
-    sino que se pueden utilizar grupos de trabajo para realizar dichas tareas. Encontrará
-    más información al respecto en [Foro de Embajador@s](/region?bid=881&sub=forum&tid=58225)
+    sobre el perfil, como la organización de un curso de formación sobre higiene.
+    En su lugar, se pueden utilizar los grupos de trabajo para almacenar más información
+    sobre los perfiles. Encontrará más información al respecto en el foro [Ambassador:inside]({url})
   sections:
     home_region_from: Región de origen
     foodSaver_in_region: Ahorrador de alimentos en
@@ -2818,13 +2818,14 @@ events:
   attendees: Participantes
   noneAccepted: Hasta el momento, ninguna persona ha confirmado su participación en
     este acto.
-  online_info: "Las videoconferencias y de video de FoodSharing se ejecutan mejor
-    a través de nuestro propio servidor [BigBlueButton](https://bigbluebutton.org).
-    Después de 10 minutos antes del inicio de la reunión, los usuarios pueden participar
-    fácilmente en la conferencia con un clic en la página de la reunión. No se requieren
-    programas adicionales, solo un navegador bastante moderno. También es posible
-    registrarse por teléfono.\n\nSi aún deseas utilizar otra plataforma para teléfono
-    o videoconferencia, puedes seleccionar la opción *\"Otro\"*. \n"
+  online_info: "Las conferencias telefónicas y videoconferencias de foodsharing funcionan
+    mejor a través de nuestro propio servidor [BigBlueButton](https://bigbluebutton.org).
+    Desde 10 minutos antes del inicio de la cita, los usuarios pueden unirse fácilmente
+    a la conferencia con un solo clic desde la página de la cita. No se necesitan
+    programas adicionales, sólo un navegador de Internet razonablemente moderno. También
+    es posible participar por teléfono.\n\nSi aún así desea utilizar otra plataforma
+    para una conferencia telefónica o videoconferencia, seleccione la opción *\"Otros
+    \"*.\n"
 recipients:
   orga_team: 'Equipo organizacional global'
   newsletter: 'Todos los suscriptores del boletín (al menos rescatista)'
