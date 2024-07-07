@@ -176,8 +176,8 @@ export default {
         })),
       ]
     },
-    async fetchRegionData (regionId) {
-      this.region = await getRegionData(regionId)
+    async fetchRegionData (region) {
+      this.region = await getRegionData(region.states.id)
       await this.$nextTick()
       this.$refs.adminSearch.loadingInitialValues()
     },

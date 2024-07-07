@@ -671,7 +671,6 @@ register:
   confirmPassword_required: "Bitte wiederhole das Passwort."
   confirmPassword_sameAsPassword: "Das Passwort muss übereinstimmen."
   geb_datum: "Dein Geburtsdatum"
-  login_mobile_phone: "Deine Handynummer"
   login_location: "Deine Adresse"
   login_name: "Dein Vorname"
   login_surname: "Dein Nachname"
@@ -800,6 +799,9 @@ terminology:
   pin: "Ortsgruppenbeschreibung"
   achievement: "Errungenschaft"
   achievements: "Errungenschaften"
+  phone: "Telefonnummer"
+  landline: "Festnetznummer"
+  mobile_phone: "Handynummer"
 
 statistics:
   kg_food_saved: "{count} kg Lebensmittel gerettet"
@@ -1481,7 +1483,7 @@ events:
   online_info: |
     Telefon- und Videokonferenzen von foodsharing laufen am besten über unseren eigenen [BigBlueButton](https://bigbluebutton.org)-Server. Ab 10 Minuten vor Beginn des Termins können Nutzer:innen ganz leicht mit einem Klick von der Terminseite der Konferenz beitreten. Dafür sind keine weiteren Programme notwendig, sondern nur ein halbwegs moderner Internet-Browser. Außerdem ist es auch möglich, per Telefon beizutreten.
 
-    Solltest du trotzdem eine andere Platform für eine Telefon- oder Videokonferenz nutzen wollen, wähle bitte die Option *"Sonstiges"* aus. 
+    Solltest du trotzdem eine andere Platform für eine Telefon- oder Videokonferenz nutzen wollen, wähle bitte die Option *"Sonstiges"* aus.
 
 recipients:
   bread: "Newsletter-Verteiler"
@@ -2150,7 +2152,6 @@ profile:
       filterJumper: "Springer"
 
   nav:
-    edit: "Profil bearbeiten"
     buddy: "Ich kenne {name}"
     remove_buddy: "Ich kenne {name} nicht mehr"
     history: "Ausweishistorie" #also in ProfileXhr
@@ -2289,7 +2290,7 @@ profile:
   deletesuccess: "Einzeltermin gelöscht"
   cantdeletethis: "Du kannst keine Einzeltermine löschen!"
   choosestore: "Bitte den betroffenen Betrieb auswählen" #in ProfileView
-  editNameInfo: "Bitte beachte, dass die Felder für Vor- und Nachname ausschließlich für den Namen der Person genutzt werden sollen. Bitte nutze dieses Feld nicht, um weitere Informationen über das Profil abzulegen, wie bspw. die Durchführung einer Hygieneschulung. Stattdessen können Arbeitsgruppen genutzt werden, um weitere Informationen über Profile zu hinterlegen. Weitere Infos hierzu im [Botschafter:innen-Forum](region?bid=881&sub=forum&tid=58225)"
+  editNameInfo: "Bitte beachte, dass die Felder für Vor- und Nachname ausschließlich für den Namen der Person genutzt werden sollen. Bitte nutze dieses Feld nicht, um weitere Informationen über das Profil abzulegen, wie bspw. die Durchführung einer Hygieneschulung. Stattdessen können Arbeitsgruppen genutzt werden, um weitere Informationen über Profile zu hinterlegen. Weitere Infos hierzu im [Botschafter:innen-Forum]({url})"
 
 dashboard:
   title: "Dashboard"

@@ -21,7 +21,7 @@
         <h3>{{ profileMenu.foodSaverName }}</h3>
       </b-list-group-item>
       <b-list-group-item
-        v-if="profileMenu.fsId === profileMenu.fsIdSession"
+        v-if="profileMenu.mayAdmin || profileMenu.fsId === profileMenu.fsIdSession"
         type="button"
         class="list-group-item list-group-item-action"
         :href="$url('settings', profileMenu.fsId)"
@@ -35,14 +35,6 @@
         @click="openChat(profileMenu.fsId)"
       >
         <i class="fas fa-comment fa-fw" /> {{ $i18n('chat.open_chat') }}
-      </b-list-group-item>
-      <b-list-group-item
-        v-if="profileMenu.mayAdmin"
-        type="button"
-        class="list-group-item list-group-item-action"
-        :href="$url('settings', profileMenu.fsId)"
-      >
-        <i class="fas fa-pencil-alt fa-fw" /> {{ $i18n('profile.nav.edit') }}
       </b-list-group-item>
       <b-list-group-item
         v-if="profileMenu.fsId !== profileMenu.fsIdSession && buddyType === buddyTypes.NO_BUDDY"

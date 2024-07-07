@@ -21,7 +21,7 @@ const urls = {
   contentEditEntry: (id) => `/content?a=edit&id=${id}`,
   contentNew: () => '/content?a=neu',
   conversations: (conversationId = null) => `/?page=msg${conversationId ? `&cid=${conversationId}` : ''}`,
-  createBusinessCard: (data) => `/user/current/settings?sub=makeCard&opt=${data.role}:${data.regionGroupId}`,
+  createBusinessCard: (data) => `/?page=bcard&sub=makeCard&opt=${data.role}:${data.regionGroupId}`,
   dashboard: () => '/?page=dashboard',
   dataprivacy: () => '/legal',
   donate: () => '/unterstuetzung',
@@ -88,6 +88,7 @@ const urls = {
   store: (storeId) => `/store/${storeId}`,
   storeList: () => '/?page=fsbetrieb',
   storeUserList: (userId) => `/user/${userId}/stores`,
+  editNameInfoUrl: () => '/region?bid=881&sub=forum&tid=58225',
 
   team: () => '/team',
   transparency: () => '/content?sub=transparency',

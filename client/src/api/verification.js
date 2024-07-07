@@ -17,7 +17,7 @@ export async function getPassHistory (userId) {
 }
 
 export async function createPassportAsUser () {
-  return await post('/user/current/passport', {})
+  return await post('/user/current/passport', {}, { responseType: 'blob' })
 }
 
 export async function createPassportAsAmbassador (regionId, userIds) {

@@ -33,8 +33,7 @@ export default {
     async tryCreateAsUser () {
       showLoader()
       try {
-        const jsonData = await createPassportAsUser()
-        const blob = new Blob(jsonData.response, { type: 'application/json' })
+        const blob = await createPassportAsUser()
         const filename = 'fs_passport_' + this.userDetails.id + '.pdf'
         this.downloadFile(blob, filename)
       } catch (e) {
