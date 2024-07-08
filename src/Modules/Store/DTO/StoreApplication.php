@@ -5,7 +5,6 @@ namespace Foodsharing\Modules\Store\DTO;
 use Carbon\Carbon;
 use DateTime;
 use Foodsharing\Modules\Foodsaver\Profile;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class StoreApplication
 {
@@ -15,7 +14,8 @@ class StoreApplication
     public ?DateTime $date;
     public ?string $message;
 
-    public static function createFromArray(array $data) {
+    public static function createFromArray(array $data)
+    {
         $application = new self();
         $application->user = new Profile(
             $data['id'],
