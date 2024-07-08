@@ -19,6 +19,7 @@ use Foodsharing\Modules\Map\DTO\MapMarker;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\DTO\MinimalStoreIdentifier;
 use Foodsharing\Modules\Store\DTO\Store;
+use Foodsharing\Modules\Store\DTO\StoreApplication;
 use Foodsharing\Modules\Store\DTO\StoreTeamMembership;
 use Foodsharing\Utility\DataHelper;
 
@@ -475,7 +476,7 @@ class StoreGateway extends BaseGateway
     }
 
     /**
-     * @return list<array<mixed>> all foodsavers that currently apply to the store team
+     * @return StoreApplication[] all foodsavers that currently apply to the store team
      */
     public function getApplications(int $storeId, GeoLocation $storePosition): array
     {
@@ -490,8 +491,8 @@ class StoreGateway extends BaseGateway
                     Point(NULLIF(foodsaver.lon, ""), NULLIF(foodsaver.lat, "")),
                     Point(:storeLon, :storeLat)
                 ) / 1000) AS distance,
-                log.date_activity as application_date,
-                log.content AS application_text
+                log.date_activity,
+                log.content
             FROM fs_betrieb_team betrieb_team
             INNER JOIN fs_foodsaver foodsaver
                 ON foodsaver.id = betrieb_team.foodsaver_id
@@ -516,14 +517,8 @@ class StoreGateway extends BaseGateway
             ':storeId2' => $storeId,
             ':membershipStatus' => MembershipStatus::APPLIED_FOR_TEAM,
         ]);
-        foreach ($applications as &$application) {
-            if (is_null($application['distance'])) {
-                continue;
-            }
-            $application['distance'] = $application['distance'] < 1 ? 0 : round($application['distance']);
-        }
 
-        return $applications;
+        return array_map([StoreApplication::class, 'createFromArray'], $applications);
     }
 
     public function getStoreName(int $storeId): string
