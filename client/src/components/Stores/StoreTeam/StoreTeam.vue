@@ -78,7 +78,7 @@
     <StoreApplications
       :store-id="storeId"
       :store-title="storeTitle"
-      :store-requests="applications.storeRequests"
+      :store-requests="applications"
     />
   </div>
 </template>
