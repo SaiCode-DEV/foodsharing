@@ -15,6 +15,7 @@
 - Added API endpoints for managing store categories #1263 !3405 @alex.simm
 - Display senders picture in notifications !3373 @AntonBallmaier
 - Users can be linked in markdown using @`<userId>` now #1850 !3177 @AntonBallmaier
+- Applications to working groups trigger a bell notification to the admins #933 !3274 @alex.simm
 
 ## Changes
 - Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei
@@ -26,7 +27,7 @@
 - Give admins of quiz group permission to view and delete quiz sessions !3422 @AntonBallmaier
 - Change region link generation from /?page=bezirk& to /region?
 - Removed application wall #321 !3436 @AntonBallmaier
-- Removed store state COOPERATION_STARTING #414 !3410 !3444 !3445 @chriswalg
+- Removed store state COOPERATION_STARTING #414 !3410 !3444 !3445 !3448 @chriswalg
 
 ## Bugfixes
 - Changed the headline for group applications #1916 !3353 @ToLei
@@ -35,7 +36,6 @@
 - Fix typos in info texts !3327 @AntonBallmaier
 - Fixed calendar exports breaking for events with linebreaks in their description !3350
 - The correct region is now preselected when creating an event !3366 @AntonBallmaier
-- Fixed type error in DonationGoalInformation #1970 !3385 @chriswalg
 - Fixed passport generation not working #1944 !3376 @AntonBallmaier
 - Resolved some UI inconsistancies !3370 @AntonBallmaier
 - double foodsharing.network in group links #1978 !3409 @McGoldi
@@ -44,6 +44,8 @@
 - Fixed the rendering of dates that is close to now #1948 !3430 @alex.simm
 - Fixed display error of deleted users in store log #1971 !3432 @AntonBallmaier 
 - Fixed activity setting on dashboard #1937 !3433 @AntonBallmaier
+- Fixed tooltip display in member list #2009 !3453 @AntonBallmaier
+- Fixed store log null access error #2007 !3451 @AntonBallmaier
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
@@ -64,8 +66,11 @@
 - Extract `updateLastActivity()` into new service `UserStatusTransactions` !3377 @KoeMai
 - Remove obsolete and unused run.php !3395 @\_fridtjof_
 - Provide CurrentUserRegionInterface for Session as independent implementation !3390 !3400 @KoeMai
-- Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 @chriswalg
+- Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 !3426 @chriswalg
 - Cleaned up the ApplicationGateway #1975 !3411 @alex.simm
+- make ActivityGateway:fetchAllStoreUpdates faster #1907 !3441 @fs_k @AntonBallmaier
+- Modernized LegalControl to a Symfony controller !3447 @chriswalg
+- unused columns in fs_foodsaver have been removed #1945 !3440 @fs_k
 
 ## Dev/Test/CI stuff
 - Added backend support for getting, adding and updating achievements. #1724 !3317 !3318 @AntonBallmaier
@@ -78,8 +83,12 @@
 - Added missing languages for syntax highlighting in the docs #1547 !3407 @alex.simm
 - Updated phinx to version 0.16 #1774 @alex.simm
 - Removed obsolete version field from docker compose files !3442 @\_fridtjof_
+- Added a rate limiting to the file upload #1896 !3450 @alex.simm
 
 ## Development documentation
+
+# Hotfix 2024-07-01
+- Fixed type error in DonationGoalInformation #1970 !3385 @chriswalg
 
 # Hotfix 2024-05-21
 - Added translations for new bell types !3337 @AntonBallmaier @alex.simm
@@ -109,7 +118,6 @@
 - Group different bell events, like it is done for the forum !3073 !3271 @AntonBallmaier
 - Stickiness of threads can have more values now allowing for better thread sorting !3205 @AntonBallmaier
 - Added an info box for ambassadors to make sure the user name field is not misused #204 !3204 @AntonBallmaier
-- Applications to working groups trigger a bell notification to the admins #933 !3274 @alex.simm
 
 ## Changes
 - Improves the BBB integration !3050 @stcz

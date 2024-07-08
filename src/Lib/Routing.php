@@ -7,7 +7,6 @@ use Foodsharing\Modules\Basket\BasketXhr;
 use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use Foodsharing\Modules\Dashboard\DashboardControl;
 use Foodsharing\Modules\Index\IndexControl;
-use Foodsharing\Modules\Legal\LegalControl;
 use Foodsharing\Modules\Logout\LogoutControl;
 use Foodsharing\Modules\Mailbox\MailboxControl;
 use Foodsharing\Modules\Message\MessageControl;
@@ -38,7 +37,6 @@ class Routing
         'bcard' => 'BusinessCard',
         'dashboard' => 'Dashboard',
         'index' => 'Index',
-        'legal' => 'Legal',
         'logout' => 'Logout',
         'mailbox' => 'Mailbox',
         'msg' => 'Message',
@@ -60,7 +58,6 @@ class Routing
         'bcard' => BusinessCardControl::class,
         'dashboard' => DashboardControl::class,
         'index' => IndexControl::class,
-        'legal' => LegalControl::class,
         'logout' => LogoutControl::class,
         'mailbox' => MailboxControl::class,
         'msg' => MessageControl::class,
@@ -94,7 +91,8 @@ class Routing
         'chain',
         'event',
         'quiz',
-        'settings'
+        'settings',
+        'legal'
     ];
 
     private const RENAMES = [

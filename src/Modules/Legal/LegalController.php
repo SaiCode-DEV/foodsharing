@@ -2,25 +2,23 @@
 
 namespace Foodsharing\Modules\Legal;
 
-use Foodsharing\Modules\Core\Control;
+use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
-use Foodsharing\Modules\Core\View;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Service\Attribute\Required;
 
-class LegalControl extends Control
+class LegalController extends FoodsharingController
 {
-    private readonly LegalGateway $gateway;
     private FormFactoryInterface $formFactory;
 
-    public function __construct(LegalGateway $gateway, View $view, private readonly FoodsaverGateway $foodsaverGateway)
-    {
-        $this->view = $view;
-        $this->gateway = $gateway;
-
+    public function __construct(
+        private readonly LegalGateway $gateway,
+        private readonly FoodsaverGateway $foodsaverGateway,
+    ) {
         parent::__construct();
     }
 
@@ -30,7 +28,11 @@ class LegalControl extends Control
         $this->formFactory = $formFactory;
     }
 
-    public function index(Request $request, Response $response): void
+    /**
+     * @throws \Exception
+     */
+    #[Route('/legal', name: 'legal')]
+    public function index(Request $request): Response
     {
         $privacyPolicyDate = $this->gateway->getPpVersion();
         $privacyNoticeDate = $this->gateway->getPnVersion();
@@ -67,11 +69,14 @@ class LegalControl extends Control
             }
         }
 
-        $response->setContent($this->render('pages/Legal/page.twig', [
+        $legalPageData = [
             'privacyPolicyContent' => $this->gateway->getPp(),
             'privacyNoticeContent' => $this->gateway->getPn(),
             'showPrivacyNotice' => $privacyNoticeNeccessary,
             'loggedIn' => $this->session->mayRole(),
-            'form' => $form->createView()]));
+            'form' => $form->createView()
+        ];
+
+        return $this->renderGlobal('pages/Legal/page.twig', $legalPageData);
     }
 }

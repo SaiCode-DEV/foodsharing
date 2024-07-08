@@ -5,6 +5,10 @@ when@prod: &prod
         policy: 'token_bucket'
         limit: 30
         rate: { interval: '1 second', amount: 1 }
+      upload:
+        policy: 'token_bucket'
+        limit: 30
+        rate: { interval: '1 second', amount: 1 }
 
 when@dev: *prod
 

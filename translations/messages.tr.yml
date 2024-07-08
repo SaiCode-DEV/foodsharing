@@ -7,7 +7,7 @@ dashboard:
   updates_title_some: Güncelleme-Anasayfa ({0})
   no_updates: Güncelleme yok
   title: Gösterge Paneli
-  settings: Ayarlar
+  settings: Ayarlar_
   no_more_updates_event: Başka randevu yok
   activity_filter_info: Burada, ana sayfanızda hangi güncellemelerin görüntüleneceğini
     ayarlayabilirsiniz.
@@ -879,7 +879,7 @@ bootstrap-datepicker:
   labelPrevDecade: Önceki on yıl
   labelCalendar: Takvim
   labelPrevYear: Geçen sene
-  labelToday: Bugün
+  labelToday: Bugün_
 pickuplist:
   error_leave: 'Çıkış başarısız oldu: '
   tryagain: Yeniden yükledikten sonra tekrar deneyiniz.
@@ -1651,6 +1651,7 @@ events:
     locationDetails: Adres bilgileri (Oda numarası vb.)
     locationOther: Etkinlik nerede gerçekleşiyor?
     fillCompletely: Lütfen formu eksiksiz doldurunuz.
+    type: Etkinlik nasıl gerçekleşiyor?
   bread: Randevular
   add_new_event: Şimdi yeni bir tarih girin
   mumble:
@@ -1941,7 +1942,7 @@ basket:
   request_denied: Talebiniz yemek sepeti sahibi tarafından reddedildi.
   contact:
     write: Mesaj yoluyla
-    call: Telefon görüşmesi ile
+    call: Telefon görüşmesi ile_
   public-info: Açıklama, resim, teslim yeri ve zaman periyodu herkes tarafından görülebilir.
   published: Teşekkürler, yemek sepeti yayınlandı.
   error: Yemek sepeti yüklenemedi.
@@ -2060,7 +2061,7 @@ menu:
     other_stores: Diğer İşletmeler
     fs: Foodsaver
     ids: Kimlikler
-    partners: Partner
+    partners: Partner_
     education: Eğitim
     wall: Panel
     mark_as_read: Hepsini okundu olarak işaretle
@@ -2123,7 +2124,7 @@ footer:
   hosting:
     tooltip: Manitu'da CO2 - nötr barındırılıyor
     info: CO₂ nötr olarak barındırılır
-  partner: Partner
+  partner: Partner,
   guide: Hijyen rehberi
   infosCompany: İşletmeler için
   about_us: Hakkımızda
@@ -2810,7 +2811,7 @@ profile:
     no_common_workgroups: herhangi ortak çalışma grubunda değil
     home_region_from: Ana Bölge
   tab_navigation:
-    profile: Profil
+    profile: Profil_
     pickups: Alımlar
     commitment_statistics: Etkileşim istatistikleri
     stores: İşletmeler ({count})
@@ -2865,7 +2866,7 @@ buddy:
 personal_data:
   label: İletişim
   mobile: Cep telefonu numarası
-  landline: Sabit hatlı telefon
+  landline: Sabit hatlı telefon_
 bread:
   backToOverview: Ana içeriğe geri dön
   backToStore: İşletmeye geri dön

@@ -221,7 +221,7 @@
         <template #cell(adminButton)="row">
           <b-button
             v-if="getAdminButton(row.item)"
-            v-b-tooltip="getAdminButton(row.item).title"
+            v-b-tooltip.viewport="getAdminButton(row.item).title"
             size="sm"
             :variant="getAdminButton(row.item).variant"
             :disabled="isBusy"
@@ -233,7 +233,7 @@
         <template v-if="mayEditMembers" #cell(removeButton)="row">
           <b-button
             v-if="canRemoveMember(row.item)"
-            v-b-tooltip="$i18n('group.member_list.remove_title')"
+            v-b-tooltip.viewport="$i18n('group.member_list.remove_title')"
             size="sm"
             variant="danger"
             :disabled="isBusy"

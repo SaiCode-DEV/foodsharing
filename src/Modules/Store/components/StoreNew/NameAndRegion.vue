@@ -7,14 +7,21 @@
       @input="$emit('update:name', $event)"
     />
     <span v-if="$v.name.$error">{{ $i18n('storeedit.name_error') }}</span>
-    <region-tree-v-form
-      v-model="region"
-      modal-title="storeview.select_related_region"
-      input-name="regionId"
-      :selectable-region-types="selectableRegionTypes"
-      :disabled="!editMode"
-      class="my-3"
-    />
+    <b-input-group class="pt-2 pb-2">
+      <b-form-input
+        :value="region.name"
+        type="text"
+        :disabled="true"
+      />
+      <b-input-group-append>
+        <b-button
+          variant="outline-secondary"
+          @click="$refs.storeRegionTree.openModal()"
+        >
+          <i class="far fa-edit" />
+        </b-button>
+      </b-input-group-append>
+    </b-input-group>
 
     <b-button
       class="float-right"
@@ -24,16 +31,26 @@
     >
       {{ $i18n('button.next') }}
     </b-button>
+    <region-tree-modal
+      ref="storeRegionTree"
+      :value="region"
+      modal-title="storeview.select_related_region"
+      input-name="regionId"
+      :selectable-region-types="selectableRegionTypes"
+      :disabled="!editMode"
+      class="my-3"
+      @input="updateStoreRegion"
+    />
   </div>
 </template>
 
 <script>
-import RegionTreeVForm from '@/components/regiontree/RegionTreeVForm.vue'
+import RegionTreeModal from '@/components/regiontree/RegionTreeModal.vue'
 import { REGION_UNIT_TYPE } from '@/stores/regions'
 import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
-  components: { RegionTreeVForm },
+  components: { RegionTreeModal },
   props: {
     chosenRegion: { type: Object, required: true },
   },
@@ -53,6 +70,10 @@ export default {
     },
   },
   methods: {
+    updateStoreRegion (region) {
+      this.region.id = region.states.id
+      this.region.name = region.data.text
+    },
     redirect () {
       this.$v.$touch()
       if (!this.$v.$invalid) {

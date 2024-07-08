@@ -614,6 +614,9 @@ terminology:
   yes: Sí
   achievement: Logro
   achievements: Logros
+  phone: Número de teléfono
+  landline: Número de teléfono fijo
+  mobile_phone: Número de teléfono móvil
 groups:
   empty: Aún no estás en ningún grupo de trabajo
 position: Puesto en foodsharing (público)
