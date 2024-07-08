@@ -303,7 +303,9 @@ class CalendarRestController extends AbstractFOSRestController
 
     private function updateDateInfo(): string
     {
-        return '<br><br><i>(Zuletzt aktualisiert: ' . date('d.m.Y H:i') . ')</i>';
+        $updated = $this->translator->trans('calendar.export.updated', ['{date}' => date('d.m.Y H:i')]);
+
+        return "<br><br><i>{$updated}</i>";
     }
 
     /**
