@@ -19,6 +19,7 @@ use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Core\DTO\MinimalIdentifier;
 use Foodsharing\Modules\Core\DTO\PatchGeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -99,13 +100,11 @@ class StoreTransactions
      *
      * @return array an array containing store requests
      */
-    public function getStoreApplications(int $userId, int $storeId): array
+    public function getStoreApplications(int $storeId): array
     {
-        $store = $this->storeGateway->getMyStore($userId, $storeId);
+        $store = $this->storeGateway->getStore($storeId);
 
-        return [
-            'storeRequests' => $store['requests'] ?? [],
-        ];
+        return $this->storeGateway->getApplications($storeId, $store->location);
     }
 
     public function getCommonStoreMetadata($supressStoreChains = true): CommonStoreMetadata
