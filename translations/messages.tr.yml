@@ -2985,6 +2985,9 @@ terminology:
   yes: Evet
   achievements: Başarılar
   achievement: Başarı
+  phone: Telefon numarası
+  landline: Sabit hat numarası
+  mobile_phone: Cep telefonu numarası
 legal:
   if_delete:
     this_doesnt_get_deleted: 'Aşağıdaki bilgiler artık aktif sistemde mevcut değildir,
