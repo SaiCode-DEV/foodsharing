@@ -1700,7 +1700,7 @@ events:
     kolayca konferansa katılabilirler. Bunun için başka hiçbir programa gerek yoktur,
     yalnızca oldukça modern bir İnternet tarayıcısı yeterlidir. Telefonla da katılmak
     mümkündür.\n\nTelefon veya video konferans için yine de başka bir platform kullanmak
-    istiyorsanız lütfen *\"Diğer\"* seçeneğini seçin. \n"
+    istiyorsanız lütfen *\"Diğer\"* seçeneğini seçin.\n"
 recipients:
   orga_team: Ülke çapındaki organizasyon ekibi
   all_no_botschafter: Elçileri olmayan tüm Foodsaverlar
@@ -2799,8 +2799,7 @@ profile:
     gerektiğini unutmayın. Lütfen bu alanı, hijyen eğitiminin tamamlanması gibi profil
     hakkında daha fazla bilgi biriktirmek için kullanmayın. Bunun yerine, profiller
     hakkında daha fazla bilgi biriktirmek için çalışma grupları kullanılabilir. Bu
-    konuyla ilgili daha fazla bilgiyi [Botschafter:innen-Forum](region?bid=881&sub=forum&tid=58225)
-    da bulabilirsiniz
+    konuyla ilgili daha fazla bilgiyi [Botschafter:innen-Forum]({url}) da bulabilirsiniz
   sections:
     orga_rights: 'Bir Orga insanı olarak #####, platformda [kapsamlı izinlere]({wikiurl})
       sahiptir.'
