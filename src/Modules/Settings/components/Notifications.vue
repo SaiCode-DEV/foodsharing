@@ -62,25 +62,13 @@
         </b-col>
         <b-col
           cols="4"
-          lg="1"
-          class="pt-1"
-        >
-          <b-form-checkbox
-            v-model="isFoodSharePointGlobalNotificationActive"
-            switch
-            size="sm"
-            @change="toggleFoodSharePointGlobalNotification"
-          />
-        </b-col>
-        <b-col
-          cols="4"
           lg="2"
           class="pt-1"
         >
           <b-form-checkbox
             v-model="isFoodSharePointGlobalEmailNotificationActive"
             size="sm"
-            @change="toggleFoodSharePointGlobalEmailNotification"
+            @change="toggleGlobalNotification('currentFoodSharePoints', 'infotype', 1)"
           >
             {{ $i18n('notifications.checkbox_email') }}
           </b-form-checkbox>
@@ -93,7 +81,7 @@
           <b-form-checkbox
             v-model="isFoodSharePointGlobalBellNotificationActive"
             size="sm"
-            @change="toggleFoodSharePointGlobalBellNotification"
+            @change="toggleGlobalNotification('currentFoodSharePoints', 'infotype', 2)"
           >
             {{ $i18n('notifications.checkbox_bell') }}
           </b-form-checkbox>
@@ -146,7 +134,7 @@
           <b-form-checkbox
             v-model="isThreadsPointGlobalEmailNotificationActive"
             size="sm"
-            @change="toggleThreadsGlobalEmailNotification"
+            @change="toggleGlobalNotification('currentThreads', 'infotype', 1)"
           >
             {{ $i18n('notifications.checkbox_email') }}
           </b-form-checkbox>
@@ -199,7 +187,7 @@
           <b-form-checkbox
             v-model="isRegionsPointGlobalEmailNotificationActive"
             size="sm"
-            @change="toggleRegionsGlobalEmailNotification"
+            @change="toggleGlobalNotification('currentRegions', 'notifyByEmailAboutNewThreads', 1)"
           >
             {{ $i18n('notifications.checkbox_email') }}
           </b-form-checkbox>
@@ -252,7 +240,7 @@
           <b-form-checkbox
             v-model="isGroupsGlobalEmailNotificationActive"
             size="sm"
-            @change="toggleGroupsGlobalEmailNotification"
+            @change="toggleGlobalNotification('currentGroups', 'notifyByEmailAboutNewThreads', 1)"
           >
             {{ $i18n('notifications.checkbox_email') }}
           </b-form-checkbox>
@@ -378,7 +366,6 @@ export default {
       editRegionsNotification: false,
       editGroupsNotification: false,
       isFoodSharePointGlobalNotification: null,
-      isFoodSharePointGlobalNotificationActive: false,
       isFoodSharePointGlobalEmailNotificationActive: false,
       isRegionsPointGlobalEmailNotificationActive: false,
       isGroupsGlobalEmailNotificationActive: false,
@@ -406,7 +393,6 @@ export default {
     if (this.isStoreManager) {
       this.pickupReminderState = this.convertNumberToBoolean(await getPickupReminderNotification())
     }
-    this.isFoodSharePointGlobalNotificationActive = this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype !== 0)
     this.isFoodSharePointGlobalEmailNotificationActive = this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype === 1)
     this.isRegionsPointGlobalEmailNotificationActive = this.currentRegions.some(region => region.notifyByEmailAboutNewThreads === 1)
     this.isGroupsGlobalEmailNotificationActive = this.currentGroups.some(group => group.notifyByEmailAboutNewThreads === 1)
@@ -420,42 +406,10 @@ export default {
     }
   },
   methods: {
-    toggleFoodSharePointGlobalEmailNotification () {
-      const value = !this.isFoodSharePointGlobalEmailNotificationActive ? 1 : 0
-      this.currentFoodSharePoints.forEach(foodSharePoint => {
-        foodSharePoint.infotype = value
+    toggleGlobalNotification (array, property, value) {
+      this[array].forEach(item => {
+        item[property] = item[property] === 0 ? value : 0
       })
-    },
-    toggleGroupsGlobalEmailNotification () {
-      const value = !this.isGroupsGlobalEmailNotificationActive ? 1 : 0
-      this.currentGroups.forEach(group => {
-        group.notifyByEmailAboutNewThreads = value
-      })
-    },
-    toggleRegionsGlobalEmailNotification () {
-      const value = !this.isRegionsPointGlobalEmailNotificationActive ? 1 : 0
-      this.currentRegions.forEach(region => {
-        region.notifyByEmailAboutNewThreads = value
-      })
-    },
-    toggleThreadsGlobalEmailNotification () {
-      const value = !this.isThreadsPointGlobalEmailNotificationActive ? 1 : 0
-      this.currentThreads.forEach(thread => {
-        thread.infotype = value
-      })
-    },
-    toggleFoodSharePointGlobalBellNotification () {
-      const value = !this.isFoodSharePointGlobalBellNotificationActive ? 2 : 0
-      this.currentFoodSharePoints.forEach(foodSharePoint => {
-        foodSharePoint.infotype = value
-      })
-    },
-    toggleFoodSharePointGlobalNotification () {
-      if (!this.isFoodSharePointGlobalNotification) {
-        this.currentFoodSharePoints.forEach(foodSharePoint => {
-          foodSharePoint.infotype = 0
-        })
-      }
     },
     toogleFoodSharePointDetails () {
       this.editFoodSharePointNotification = !this.editFoodSharePointNotification

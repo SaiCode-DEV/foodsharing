@@ -64,7 +64,7 @@ export default {
       })
     },
     itemSelected (node) {
-      this.$emit('change', node.states.id)
+      this.$emit('change', node)
     },
     iconClass (regionType) {
       switch (regionType) {

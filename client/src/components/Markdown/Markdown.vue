@@ -1,21 +1,48 @@
+<template>
+  <!-- the markdown renderer is save -->
+  <!-- eslint-disable vue/no-v-html -->
+  <div
+    class="markdown"
+    v-html="htmlContent"
+  />
+  <!-- eslint-enable -->
+</template>
 <script>
 import markdown from './markdownRenderer'
+import { getUserNames } from '@/api/user'
 export default {
-  functional: true,
   props: {
     source: { type: String, required: true },
-    classes: { type: String, default: '' },
   },
-  render (h, { props, data }) {
-    if (data.style || data.class || data.staticClass) {
-      throw new Error('Markdown component does not support style or class attributes')
+  data: () => ({ htmlContent: '' }),
+  async mounted () {
+    this.htmlContent = markdown.render(this.source)
+    if (markdown.linkify.data.missingUserNames.size) {
+      await this.fetchMissingUserNames()
+      this.htmlContent = markdown.render(this.source)
     }
-    return h('div', {
-      class: 'markdown ' + props.classes,
-      domProps: {
-        innerHTML: markdown.render(props.source),
-      },
-    })
+  },
+  methods: {
+    async fetchMissingUserNames () {
+      const data = markdown.linkify.data
+      await this.$nextTick()
+      if (!data.missingUserNames.size) {
+        return await Promise.all(data.fetchResolves)
+      }
+
+      const missing = [...data.missingUserNames]
+      data.missingUserNames.clear()
+
+      const fetchResolve = getUserNames(missing)
+      data.fetchResolves.add(fetchResolve)
+      const userNames = await fetchResolve
+      data.fetchResolves.delete(fetchResolve)
+
+      Object.assign(data.userNames, Object.fromEntries(userNames.map(user => [user.id, user.name])))
+      const stillMissing = missing.filter(id => !(id in data.userNames))
+      Object.assign(data.userNames, Object.fromEntries(stillMissing.map(id => [id, null])))
+      sessionStorage.setItem(data.storageKey, JSON.stringify(data.userNames))
+    },
   },
 }
 </script>

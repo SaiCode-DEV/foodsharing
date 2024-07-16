@@ -67,7 +67,7 @@
               />
             </b-form-group>
             <b-form-group
-              :label="$i18n('handy')"
+              :label="$i18n('terminology.phone')"
               label-for="phone"
             >
               <b-form-input
@@ -142,14 +142,21 @@
             :label="$i18n('bezirk')"
             label-for="region"
           >
-            <region-tree-v-form
-              v-if="store.region"
-              v-model="store.region"
-              modal-title="storeview.select_related_region"
-              input-name="regionId"
-              :selectable-region-types="[REGION_UNIT_TYPE.CITY, REGION_UNIT_TYPE.BIG_CITY, REGION_UNIT_TYPE.PART_OF_TOWN]"
-              :disabled="!editMode"
-            />
+            <b-input-group>
+              <b-form-input
+                :value="store.region.name"
+                type="text"
+                :disabled="true"
+              />
+              <b-input-group-append>
+                <b-button
+                  variant="outline-secondary"
+                  @click="$refs.storeRegionTree.openModal()"
+                >
+                  <i class="far fa-edit" />
+                </b-button>
+              </b-input-group-append>
+            </b-input-group>
           </b-form-group>
           <b-form-group
             :label="$i18n('betrieb_kategorie_id')"
@@ -436,6 +443,16 @@
     >
       {{ $i18n('button.save') }}
     </b-button>
+    <region-tree-modal
+      v-if="store.region"
+      ref="storeRegionTree"
+      :value="store.region"
+      modal-title="storeview.select_related_region"
+      input-name="regionId"
+      :selectable-region-types="[REGION_UNIT_TYPE.CITY, REGION_UNIT_TYPE.BIG_CITY, REGION_UNIT_TYPE.PART_OF_TOWN]"
+      :disabled="!editMode"
+      @input="updateRegion"
+    />
   </b-card>
 </template>
 
@@ -450,7 +467,7 @@ import { updateStore } from '@/api/stores'
 import { editRegularPickup } from '@/api/pickups'
 
 import LeafletLocationSearch from '@/components/map/LeafletLocationSearch.vue'
-import RegionTreeVForm from '@/components/regiontree/RegionTreeVForm.vue'
+import RegionTreeModal from '@/components/regiontree/RegionTreeModal.vue'
 import RegularPickup from '@/components/Stores/RegularPickup.vue'
 
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
@@ -463,7 +480,7 @@ export default {
   name: 'StoreInformationEditModal',
   components: {
     LeafletLocationSearch,
-    RegionTreeVForm,
+    RegionTreeModal,
     RegularPickup,
     MarkdownInput,
     ChainSearchPicker,
@@ -583,6 +600,10 @@ export default {
     }
   },
   methods: {
+    updateRegion (region) {
+      this.store.region.id = region.states.id
+      this.store.region.name = region.data.text
+    },
     simpleClone (value) {
       return JSON.parse(JSON.stringify(value))
     },

@@ -22,6 +22,10 @@ export function deleteUser (id, reason) {
   })
 }
 
+export function getUserNames (ids) {
+  return get(`/user/names/${ids.join('-')}`)
+}
+
 export function registerUser (firstName, lastName, email, password, gender, birthdate, mobilePhone, subscribeNewsletter) {
   return post('/user', {
     firstname: firstName,

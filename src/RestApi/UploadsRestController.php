@@ -11,17 +11,19 @@ use Foodsharing\Modules\Uploads\UploadAttributes;
 use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Modules\Uploads\UploadsTransactions;
 use Foodsharing\Permissions\UploadsPermissions;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\RateLimiter\RateLimiterFactory;
 
-class UploadsRestController extends AbstractFOSRestController
+#[OA\Tag(name: 'upload')]
+class UploadsRestController extends AbstractFoodsharingRestController
 {
     private const EXPIRATION_TIME_SECONDS = 86400 * 7; // one week
 
@@ -29,16 +31,12 @@ class UploadsRestController extends AbstractFOSRestController
         private readonly UploadsGateway $uploadsGateway,
         private readonly UploadsTransactions $uploadsTransactions,
         private readonly UploadsPermissions $uploadsPermissions,
-        private readonly Session $session,
+        protected Session $session,
     ) {
+        parent::__construct($this->session);
     }
 
-    /**
-     * Returns the image with the requested UUID. Width and height must both be given or can be set both to 0 to
-     * indicate no resizing.
-     *
-     * @OA\Tag(name="upload")
-     */
+    #[OA\Get(summary: 'Returns the image with the requested UUID. Width and height must both be given or can be set both to 0 to indicate no resizing.')]
     #[Rest\Get('uploads/{uuid}', requirements: ['uuid' => '[0-9a-f\-]+'])]
     #[Rest\QueryParam(name: 'w', requirements: '\d+', default: 0, description: 'Max image width')]
     #[Rest\QueryParam(name: 'h', requirements: '\d+', default: 0, description: 'Max image height')]
@@ -123,14 +121,13 @@ class UploadsRestController extends AbstractFOSRestController
         return $this->handleView($this->view($result, Response::HTTP_OK));
     }
 
-    /**
-     * @OA\Tag(name="upload")
-     */
     #[Rest\Post('uploads')]
     #[Rest\RequestParam(name: 'filename')]
     #[Rest\RequestParam(name: 'body')]
-    public function uploadImage(ParamFetcher $paramFetcher): Response
+    public function uploadImage(ParamFetcher $paramFetcher, Request $request, RateLimiterFactory $loginLimiter): Response
     {
+        $this->checkRateLimit($request, $loginLimiter);
+
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
         }

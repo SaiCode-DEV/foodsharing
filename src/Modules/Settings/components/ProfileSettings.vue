@@ -8,7 +8,7 @@
       <Markdown :source="$i18n('settings.name_change.desc', {link:'#'})" />
     </div>
     <b-alert :show="isAmbassador || isOrgUser">
-      <Markdown :source="$i18n('profile.editNameInfo')" />
+      <Markdown :source="$i18n('profile.editNameInfo', {url: $url('editNameInfoUrl')})" />
     </b-alert>
     <div class="row">
       <div class="col-md-6">
@@ -72,7 +72,7 @@
       </div>
 
       <div class="col-md-6">
-        <b-form-group :label="$i18n('register.login_mobile_phone')">
+        <b-form-group :label="$i18n('terminology.mobile_phone')">
           <PhoneNumberInput
             :input-value="mobile"
             input-name="mobile"
@@ -81,7 +81,7 @@
         </b-form-group>
       </div>
       <div class="col-md-6">
-        <b-form-group :label="$i18n('settings.general.phone')">
+        <b-form-group :label="$i18n('terminology.landline')">
           <PhoneNumberInput
             :input-value="phone"
             input-name="phone"
@@ -169,7 +169,7 @@
               <b-input-group-append>
                 <b-button
                   variant="outline-secondary"
-                  @click="$refs.regionTree.openModal()"
+                  @click="$refs.homeRegionTree.openModal()"
                 >
                   <i class="far fa-edit" />
                 </b-button>
@@ -231,11 +231,10 @@
       :zoom="zoom"
       @update-location="handleUpdateLocation"
     />
-    <RegionTreeVForm
+    <RegionTreeModal
       v-if="userDetails.bezirk_id > 0"
-      ref="regionTree"
+      ref="homeRegionTree"
       :value="region"
-      :no-display="true"
       input-name="regionId"
       modal-title="storeview.select_related_region"
       :selectable-region-types="selectableRegionTypes"
@@ -253,7 +252,7 @@ import ProfileAddressModal from './ProfileAddressModal.vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import Markdown from '@/components/Markdown/Markdown'
 import DataUser from '@/stores/user'
-import RegionTreeVForm from '@/components/regiontree/RegionTreeVForm.vue'
+import RegionTreeModal from '@/components/regiontree/RegionTreeModal.vue'
 import { REGION_UNIT_TYPE } from '@/stores/regions'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import { pulseError, pulseSuccess } from '@/script'
@@ -267,7 +266,7 @@ export default {
     PhoneNumberInput,
     NameInputModal,
     Markdown,
-    RegionTreeVForm,
+    RegionTreeModal,
   },
   props: {
     userDetails: { type: Object, default: () => {} },
@@ -363,9 +362,9 @@ export default {
     },
   },
   methods: {
-    updateHomeRegion (value) {
-      this.region.id = value.id
-      this.region.name = value.data.text
+    updateHomeRegion (region) {
+      this.region.id = region.states.id
+      this.region.name = region.data.text
     },
     handleUpdateLocation (data) {
       this.location = data.location

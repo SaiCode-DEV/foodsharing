@@ -3791,6 +3791,8 @@ help:
         må du sette masterdistriktet til root.\n---\nInkludering i masterdistrikt
         skjer én gang hver natt. Endringer skjer ikke umiddelbart.\n"
       title: Mesterdistrikt
+    achievements:
+      md: "…\n"
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
 team_page:

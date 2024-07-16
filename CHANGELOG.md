@@ -14,6 +14,7 @@
 - Storemanagers get an extra warning before removing users from a store team, if they currently occupy slots #1825 !3368 @AntonBallmaier
 - Added API endpoints for managing store categories #1263 !3405 @alex.simm
 - Display senders picture in notifications !3373 @AntonBallmaier
+- Users can be linked in markdown using @`<userId>` now #1850 !3177 @AntonBallmaier
 - Applications to working groups trigger a bell notification to the admins #933 !3274 @alex.simm
 
 ## Changes
@@ -26,7 +27,7 @@
 - Give admins of quiz group permission to view and delete quiz sessions !3422 @AntonBallmaier
 - Change region link generation from /?page=bezirk& to /region?
 - Removed application wall #321 !3436 @AntonBallmaier
-- Removed store state COOPERATION_STARTING #414 !3410 !3444 !3445 @chriswalg
+- Removed store state COOPERATION_STARTING #414 !3410 !3444 !3445 !3448 @chriswalg
 
 ## Bugfixes
 - Changed the headline for group applications #1916 !3353 @ToLei
@@ -43,6 +44,8 @@
 - Fixed the rendering of dates that is close to now #1948 !3430 @alex.simm
 - Fixed display error of deleted users in store log #1971 !3432 @AntonBallmaier 
 - Fixed activity setting on dashboard #1937 !3433 @AntonBallmaier
+- Fixed tooltip display in member list #2009 !3453 @AntonBallmaier
+- Fixed store log null access error #2007 !3451 @AntonBallmaier
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
@@ -63,8 +66,10 @@
 - Extract `updateLastActivity()` into new service `UserStatusTransactions` !3377 @KoeMai
 - Remove obsolete and unused run.php !3395 @\_fridtjof_
 - Provide CurrentUserRegionInterface for Session as independent implementation !3390 !3400 @KoeMai
-- Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 @chriswalg
+- Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 !3426 @chriswalg
 - Cleaned up the ApplicationGateway #1975 !3411 @alex.simm
+- make ActivityGateway:fetchAllStoreUpdates faster #1907 !3441 @fs_k @AntonBallmaier
+- Modernized LegalControl to a Symfony controller !3447 @chriswalg
 - unused columns in fs_foodsaver have been removed #1945 !3440 @fs_k
 
 ## Dev/Test/CI stuff
@@ -78,6 +83,7 @@
 - Added missing languages for syntax highlighting in the docs #1547 !3407 @alex.simm
 - Updated phinx to version 0.16 #1774 @alex.simm
 - Removed obsolete version field from docker compose files !3442 @\_fridtjof_
+- Added a rate limiting to the file upload #1896 !3450 @alex.simm
 
 ## Development documentation
 

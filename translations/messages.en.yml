@@ -1250,6 +1250,8 @@ terminology:
   electionAdmins: Elections
   no: No
   yes: Yes
+  achievement: Achievement
+  achievements: Achievements
 login:
   pwreset:
     bread: Reset password
@@ -3924,6 +3926,10 @@ help:
       title: Engagement statistics
       md: is visible from the role of the store manager. It is restricted to a common
         master district or common stores.
+    achievements:
+      title: Achievements
+      md: "An explanation for achievements still needs to be added here. I’ll do that
+        later. TODO\n"
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -3952,3 +3958,10 @@ automatic_not_delete: '- the profile should be kept.'
 validation:
   phone_number_invalid: The telephone number is invalid (e.g. country code is missing,
     it is too short, too long or contains invalid characters)
+achievements:
+  inThis:
+    region: 'The following achievements can be awarded in this district:'
+    group: 'The following achievements can be awarded in this working group:'
+  validity:
+    days: Valid for {validityInDaysAfterAssignment} days after award.
+    indefinite: Valid indefinitely after allocation.

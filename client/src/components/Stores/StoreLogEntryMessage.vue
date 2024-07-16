@@ -23,7 +23,7 @@ export default {
       return this.$i18n(`store.log.message.${action.action_id}${reason}`, params)
     },
     userLinkHtml (user) {
-      if (!user.id) return ''
+      if (!user?.id) return ''
       if (!user.name) return this.$i18n('forum.deleted_user')
       return `<a href="${this.$url('profile', user.id)}">${user.name}</a>`
     },
