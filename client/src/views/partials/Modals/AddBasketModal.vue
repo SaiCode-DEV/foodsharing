@@ -119,6 +119,7 @@
         icon-name="shopping-basket"
         icon-color="green"
         :show-address-fields="false"
+        :do-reverse-geocoding="false"
         @address-change="onAddressChanged"
       />
     </b-form-group>
@@ -178,7 +179,7 @@ export default {
       durationInDays: undefined,
       location: { lat: this.basket.lat, lon: this.basket.lon },
       address: {},
-      useHomeAddress: false,
+      useHomeAddress: this.useHomeAddress,
       weightInput: Math.max(0, weights.findIndex(weight => weight.weightInGrams === this.basket.weightInKg * 1000)),
     }
   },
@@ -228,14 +229,15 @@ export default {
       }
     },
     getBasketData () {
+      const location = Object.assign({}, this.useHomeAddress ? this.user.coordinates : this.location)
       return {
         description: this.description,
         imageUrl: this.imageUrl,
         contactTypes: [...(this.contact.chat ? [1] : []), ...(this.contact.phone ? [2] : [])],
         mobile: this.phoneNumber,
         lifeTimeInDays: this.durationInDays,
-        lat: this.location.lat,
-        lon: this.location.lon,
+        lat: location.lat,
+        lon: location.lon,
         weightInGrams: this.weights[this.weightInput].weightInGrams,
       }
     },

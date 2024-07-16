@@ -16,6 +16,7 @@
 - Display senders picture in notifications !3373 @AntonBallmaier
 - Users can be linked in markdown using @`<userId>` now #1850 !3177 @AntonBallmaier
 - Applications to working groups trigger a bell notification to the admins #933 !3274 @alex.simm
+- Baskets can be placed at any location !3452 @AntonBallmaier
 
 ## Changes
 - Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei
@@ -44,6 +45,7 @@
 - Fixed the rendering of dates that is close to now #1948 !3430 @alex.simm
 - Fixed display error of deleted users in store log #1971 !3432 @AntonBallmaier 
 - Fixed activity setting on dashboard #1937 !3433 @AntonBallmaier
+- Fixed "use home address"-switch in edit basket modal #1897 !3452 @AntonBallmaier 
 - Fixed tooltip display in member list #2009 !3453 @AntonBallmaier
 - Fixed store log null access error #2007 !3451 @AntonBallmaier
 
