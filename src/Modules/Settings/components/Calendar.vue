@@ -49,7 +49,7 @@
   </div>
 </template>
 <script>
-import { hideLoader, pulseError, showLoader } from '@/script'
+import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
 import { createApiToken, getApiToken, removeApiToken } from '@/api/calendar'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import Markdown from '@/components/Markdown/Markdown.vue'
@@ -119,7 +119,8 @@ export default {
     },
     async copyUrl () {
       await this.haveToken()
-      console.debug(this.url)
+      navigator.clipboard.writeText(this.url)
+      pulseSuccess(this.$i18n('calendar.copiedUrl'))
     },
     async download () {
       await this.haveToken()

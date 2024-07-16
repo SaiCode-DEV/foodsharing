@@ -1299,6 +1299,7 @@ calendar:
   labelNav: "Kalendernavigation"
   labelHelp: "Navigation ist auch mit Pfeiltasten möglich"
   placeholder: "Datum auswählen"
+  copiedUrl: "Kalender-URL kopiert!"
   export:
     pickup:
       name: "{store} Abholung"
