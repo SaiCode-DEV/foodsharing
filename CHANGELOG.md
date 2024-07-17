@@ -48,6 +48,7 @@
 - Fixed "use home address"-switch in edit basket modal #1897 !3452 @AntonBallmaier 
 - Fixed tooltip display in member list #2009 !3453 @AntonBallmaier
 - Fixed store log null access error #2007 !3451 @AntonBallmaier
+- Handle service worker registration error #1914 !3469 @AntonBallmaier
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
