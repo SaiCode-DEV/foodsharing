@@ -15,12 +15,13 @@ export default {
     source: { type: String, required: true },
   },
   data: () => ({ htmlContent: '' }),
+  watch: {
+    source () {
+      this.render()
+    },
+  },
   async mounted () {
-    this.htmlContent = markdown.render(this.source)
-    if (markdown.linkify.data.missingUserNames.size) {
-      await this.fetchMissingUserNames()
-      this.htmlContent = markdown.render(this.source)
-    }
+    this.render()
   },
   methods: {
     async fetchMissingUserNames () {
@@ -42,6 +43,13 @@ export default {
       const stillMissing = missing.filter(id => !(id in data.userNames))
       Object.assign(data.userNames, Object.fromEntries(stillMissing.map(id => [id, null])))
       sessionStorage.setItem(data.storageKey, JSON.stringify(data.userNames))
+    },
+    async render () {
+      this.htmlContent = markdown.render(this.source)
+      if (markdown.linkify.data.missingUserNames.size) {
+        await this.fetchMissingUserNames()
+        this.htmlContent = markdown.render(this.source)
+      }
     },
   },
 }

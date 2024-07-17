@@ -49,6 +49,7 @@
 - Fixed tooltip display in member list #2009 !3453 @AntonBallmaier
 - Fixed store log null access error #2007 !3451 @AntonBallmaier
 - Handle service worker registration error #1914 !3469 @AntonBallmaier
+- Fixed `<Markdown>` rerender on source change #2020 !3467 @AntonBallmaier
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
