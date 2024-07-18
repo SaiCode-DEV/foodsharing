@@ -1019,6 +1019,9 @@ terminology:
   electionAdmins: Élections
   no: Non
   yes: Oui
+  phone: Numéro de téléphone
+  landline: Numéro de téléphone fixe
+  mobile_phone: Numéro de mobile
 register:
   activation_success: <strong>Activation réussie.</strong> Connecte-toi maintenant
     avec ton adresse courriel et le mot de passe que tu as choisi.
@@ -1929,7 +1932,7 @@ profile:
     d’autres informations sur l’utilisateur·ice, telles que la mise en œuvre d’une
     formation en matière d’hygiène ou autre, mais des groupes de travail peuvent être
     utilisés pour effectuer de telles tâches. De plus amples informations à ce sujet
-    sont disponibles sur le [Forum des ambassadeur·rice·s](/region?bid=881&sub=forum&tid=58225)
+    sont disponibles sur le [Forum des ambassadeur·rice·s]({url})
   stores:
     memberState:
       filterRequested: Demande soumise
