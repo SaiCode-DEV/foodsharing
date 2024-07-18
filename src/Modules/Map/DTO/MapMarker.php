@@ -10,27 +10,23 @@ class MapMarker
     public int $id;
 
     /**
+     * Name of the object. Can be displayed as tooltip.
+     */
+    public ?string $name;
+
+    /**
      * Coordinates of the marker.
      */
     public float $lat;
     public float $lon;
 
-    /**
-     * The region in which the object of this marker is.
-     */
-    public ?int $regionId = null;
-
-    public static function create(
-        int $id,
-        float $lat,
-        float $lon,
-        ?int $regionId = null
-    ): MapMarker {
-        $marker = new MapMarker();
-        $marker->id = $id;
-        $marker->lat = $lat;
-        $marker->lon = $lon;
-        $marker->regionId = $regionId;
+    public static function createFromArray(array $data): MapMarker
+    {
+        $marker = new self();
+        $marker->id = $data['id'];
+        $marker->name = $data['name'] ?? null;
+        $marker->lat = round($data['lat'], 6);
+        $marker->lon = round($data['lon'], 6);
 
         return $marker;
     }

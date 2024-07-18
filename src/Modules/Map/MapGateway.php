@@ -30,31 +30,34 @@ class MapGateway extends BaseGateway
 
     public function getBasketMarkers(): array
     {
-        $markers = $this->db->fetchAllByCriteria('fs_basket', ['id', 'lat', 'lon'], [
-            'status' => 1
-        ]);
+        $markers = $this->db->fetchAll('SELECT
+                `id`, `lat`, `lon`, LEFT(`description`, 30) as `name`
+            FROM fs_basket
+            WHERE `status` = 1');
 
-        return array_map(fn ($x) => MapMarker::create($x['id'], $x['lat'], $x['lon']), $markers);
+        return array_map([MapMarker::class, 'createFromArray'], $markers);
     }
 
     public function getFoodSharePointMarkers(): array
     {
-        $markers = $this->db->fetchAllByCriteria('fs_fairteiler', ['id', 'lat', 'lon', 'bezirk_id'], [
+        $markers = $this->db->fetchAllByCriteria('fs_fairteiler', ['id', 'lat', 'lon', 'name'], [
             'status' => 1,
             'lat !=' => ''
         ]);
 
-        return array_map(fn ($x) => MapMarker::create($x['id'], $x['lat'], $x['lon'], $x['bezirk_id']), $markers);
+        return array_map([MapMarker::class, 'createFromArray'], $markers);
     }
 
     public function getCommunityMarkers(): array
     {
-        $markers = $this->db->fetchAllByCriteria('fs_region_pin', ['region_id', 'lat', 'lon'], [
-            'lat !=' => '',
-            'status' => RegionPinStatus::ACTIVE
-        ]);
+        $markers = $this->db->fetchAll("SELECT
+                r.id, p.lat, p.lon, r.name
+            FROM fs_region_pin p
+            JOIN fs_bezirk r ON r.id = p.region_id
+            WHERE p.lat != '' AND p.status = ?",
+            [RegionPinStatus::ACTIVE]);
 
-        return array_map(fn ($x) => MapMarker::create($x['region_id'], $x['lat'], $x['lon']), $markers);
+        return array_map([MapMarker::class, 'createFromArray'], $markers);
     }
 
     /**

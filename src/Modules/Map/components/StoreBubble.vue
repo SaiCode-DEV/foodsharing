@@ -1,5 +1,9 @@
 <template>
-  <map-popup id="storeBubbleModal" :show-footer-close-button="showFooterCloseButton">
+  <map-popup
+    id="storeBubbleModal"
+    :show-footer-close-button="showFooterCloseButton"
+    :is-loading="loading"
+  >
     <div v-if="store">
       <div class="card">
         <div class="card-header">
@@ -103,19 +107,17 @@ import StoreStatusIcon from '../../Store/components/StoreStatusIcon'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import { declineStoreRequest, requestStoreTeamMembership } from '@/api/stores'
 import UserData from '@/stores/user'
-import MapPopup from './MapPopup.vue'
+import MapBubbleMixin from './MapBubbleMixin'
 
 export default {
-  components: { StoreStatusIcon, Avatar, MapPopup },
-  data () {
-    return {
-      loading: true,
-      name: '',
-      description: '',
-      store: null,
-      storeId: null,
-    }
-  },
+  components: { StoreStatusIcon, Avatar },
+  mixins: [MapBubbleMixin],
+  data: () => ({
+    name: '',
+    description: '',
+    store: null,
+    storeId: null,
+  }),
   computed: {
     cooperationStartDate () {
       return this.store !== null && this.store.cooperationStart
@@ -151,16 +153,12 @@ export default {
   },
   methods: {
     async show (storeId) {
-      this.loading = true
       this.storeId = storeId
-      this.$bvModal.show('storeBubbleModal')
-
-      try {
-        this.store = await getStoreBubbleContent(this.storeId)
-      } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
-      }
-      this.loading = false
+      await this.timedFetchAction(
+        getStoreBubbleContent(storeId),
+        'storeBubbleModal',
+        (data) => { this.store = data },
+      )
     },
     async sendRequest () {
       try {

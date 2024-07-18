@@ -1,5 +1,5 @@
 <template>
-  <map-popup id="basketBubbleModal">
+  <map-popup id="basketBubbleModal" :is-loading="loading">
     <div v-if="bubbleData.photo" class="mb-2 mt-2">
       <img class="basketpicture" :src="photoPath">
     </div>
@@ -46,19 +46,15 @@
 
 <script>
 import { getBasketBubbleContent } from '@/api/map'
-import { pulseError } from '@/script'
 import DataUser from '@/stores/user'
-import MapPopup from './MapPopup.vue'
+import MapBubbleMixin from './MapBubbleMixin'
 
 export default {
-  components: { MapPopup },
-  data () {
-    return {
-      loading: true,
-      bubbleData: '',
-      basketId: null,
-    }
-  },
+  mixins: [MapBubbleMixin],
+  data: () => ({
+    bubbleData: '',
+    basketId: null,
+  }),
   computed: {
     isLoggedIn () {
       return DataUser.getters.isLoggedIn()
@@ -82,17 +78,12 @@ export default {
   },
   methods: {
     async show (basketId) {
-      this.loading = true
-
       this.basketId = basketId
-      this.$bvModal.show('basketBubbleModal')
-
-      try {
-        this.bubbleData = await getBasketBubbleContent(this.basketId)
-      } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
-      }
-      this.loading = false
+      await this.timedFetchAction(
+        getBasketBubbleContent(this.basketId),
+        'basketBubbleModal',
+        (data) => { this.bubbleData = data },
+      )
     },
   },
 }

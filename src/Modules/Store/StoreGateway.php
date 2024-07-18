@@ -1165,7 +1165,7 @@ class StoreGateway extends BaseGateway
      */
     public function getStoreMarkers(array $excludedStoreTypes, array $teamStatus, ?int $userId = null): array
     {
-        $query = 'SELECT b.id, b.lat, b.lon FROM fs_betrieb b';
+        $query = 'SELECT b.id, b.lat, b.lon, b.name FROM fs_betrieb b';
         $conditions = ['lat != ""', 'lon != ""'];
 
         // condition for the user's membership
@@ -1193,7 +1193,7 @@ class StoreGateway extends BaseGateway
         $query .= ' WHERE ' . implode(' AND ', $conditions);
         $markers = $this->db->fetchAll($query, $params);
 
-        return array_map(fn ($x) => MapMarker::create($x['id'], floatval($x['lat']), floatval($x['lon'])), $markers);
+        return array_map([MapMarker::class, 'createFromArray'], $markers);
     }
 
     private function sqlSelectStoreColumns()

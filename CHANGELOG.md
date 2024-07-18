@@ -17,6 +17,7 @@
 - Users can be linked in markdown using @`<userId>` now #1850 !3177 @AntonBallmaier
 - Applications to working groups trigger a bell notification to the admins #933 !3274 @alex.simm
 - Baskets can be placed at any location !3452 @AntonBallmaier
+- Added tooltips to map markers !3466 @AntonBallmaier
 
 ## Changes
 - Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei
@@ -48,6 +49,7 @@
 - Fixed "use home address"-switch in edit basket modal #1897 !3452 @AntonBallmaier 
 - Fixed tooltip display in member list #2009 !3453 @AntonBallmaier
 - Fixed store log null access error #2007 !3451 @AntonBallmaier
+- Fixed map performance problems #1940 !3466 @AntonBallmaier
 - Handle service worker registration error #1914 !3469 @AntonBallmaier
 - Fixed `<Markdown>` rerender on source change #2020 !3467 @AntonBallmaier
 
