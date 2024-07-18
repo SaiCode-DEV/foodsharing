@@ -527,6 +527,9 @@ terminology:
   electionAdmins: Elezioni
   no: No
   yes: Sì
+  landline: Numero di rete fissa
+  mobile_phone: Numero di cellulare
+  phone: Numero di telefono
 register:
   woman: femmina
   signup_newsletter: Vorrei ricevere la newsletter di foodsharing circa una volta
@@ -2597,7 +2600,7 @@ profile:
     ulteriori informazioni sull’utente, come il completamento della formazione sull’igiene
     o simili. Al contrario, i gruppi di lavoro possono essere utilizzati per memorizzare
     informazioni aggiuntive sui profili. Ulteriori informazioni a riguardo sono disponibili
-    nel [Forum degli Ambasciatori](/region?bid=881&sub=forum&tid=58225)
+    nel [Forum degli Ambasciatori]({url})
   orga_rights: In qualità di persona organizzativa, {name} dispone di <a target="_blank"
     href="{wikiurl}">autorizzazioni estese</a> sulla piattaforma.
 mail:
