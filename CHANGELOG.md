@@ -52,6 +52,7 @@
 - Fixed map performance problems #1940 !3466 @AntonBallmaier
 - Handle service worker registration error #1914 !3469 @AntonBallmaier
 - Fixed `<Markdown>` rerender on source change #2020 !3467 @AntonBallmaier
+- Fixed link in food share point map bubble #1940 !3471 @AntonBallmaier
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai

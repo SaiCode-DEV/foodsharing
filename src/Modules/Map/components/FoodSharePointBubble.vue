@@ -54,7 +54,7 @@ export default {
       await this.timedFetchAction(
         getFoodSharePointBubbleContent(foodSharePointId),
         'foodSharePointBubbleModal',
-        (data) => { Object.assign(this, data) },
+        (data) => { Object.assign(this, data, { id: foodSharePointId }) },
       )
     },
   },
