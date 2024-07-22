@@ -18,6 +18,7 @@
 - Applications to working groups trigger a bell notification to the admins #933 !3274 @alex.simm
 - Baskets can be placed at any location !3452 @AntonBallmaier
 - Added tooltips to map markers !3466 @AntonBallmaier
+- Display the distance to the store when applying #2016 !3460 @AntonBallmaier
 
 ## Changes
 - Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei

@@ -894,6 +894,7 @@ storeview:
   source_data: "Stammdaten"
   select_related_region: "Auswahl des zuständigen Bezirks"
   info: "Informationen"
+  team_info_distance: "Entfernung zum Betrieb:"
   team_info_active: "Aktive im Team:"
   team_info_jumper: "Springer:"
   pickupCount: "Abholungen"
@@ -1035,6 +1036,7 @@ store:
     distance_unknown: "Kein Wohnort eingetragen"
     distance_close: "Wohnt weniger als 1 km entfernt"
     air_line: Die angezeigte Entfernung entspricht der Luftlinie.
+    confirm-far: "Laut deiner gespeicherten Adresse wohnst du sehr weit von diesem Betrieb entfernt ({distance}). Bist du dir sicher, dass du hier regelmäßig und zuverlässig das Team unterstützen kannst?"
   info_container: "Informationen"
   no_chain_choosen: "keine Kette gewählt"
   chain_search_picker:

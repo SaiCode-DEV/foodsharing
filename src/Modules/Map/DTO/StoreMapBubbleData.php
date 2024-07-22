@@ -6,6 +6,7 @@ use DateTime;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\Profile;
 
 class StoreMapBubbleData
@@ -86,4 +87,9 @@ class StoreMapBubbleData
      * Whether the user has sent a request for joining the store team and is allowed to withdraw it.
      */
     public bool $mayWithdrawRequest = false;
+
+    /**
+     * Position of the store.
+     */
+    public ?GeoLocation $location = null;
 }

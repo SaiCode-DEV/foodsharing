@@ -14,6 +14,7 @@
             </span>
           </div>
 
+          <div>{{ $i18n('storeview.team_info_distance') }} <strong :class="distanceClass">{{ distanceDisplay }}</strong></div>
           <div>{{ $i18n('storeview.team_info_active') }} <strong>{{ store.teamMemberCount }}</strong></div>
           <div>{{ $i18n('storeview.team_info_jumper') }} <strong>{{ store.standbyCount }}</strong></div>
 
@@ -107,11 +108,15 @@ import StoreStatusIcon from '../../Store/components/StoreStatusIcon'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import { declineStoreRequest, requestStoreTeamMembership } from '@/api/stores'
 import UserData from '@/stores/user'
+import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import MapBubbleMixin from './MapBubbleMixin'
+
+const maxGoodDistanceInKm = 2
+const minBadDistanceInKm = 10
 
 export default {
   components: { StoreStatusIcon, Avatar },
-  mixins: [MapBubbleMixin],
+  mixins: [ConfirmationDialogue, MapBubbleMixin],
   data: () => ({
     name: '',
     description: '',
@@ -145,6 +150,30 @@ export default {
     userId () {
       return UserData.getters.getUserId()
     },
+    userLocation () {
+      return UserData.getters.getUserDetails().coordinates
+    },
+    distanceInKm () {
+      const toRadians = (degrees) => degrees * (Math.PI / 180)
+      const R = 6371 // Earth's radius in kilometers
+      const dLat = toRadians(this.store.location.lat - this.userLocation.lat)
+      const dLon = toRadians(this.store.location.lon - this.userLocation.lon)
+      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(toRadians(this.userLocation.lat)) * Math.cos(toRadians(this.store.location.lat)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2)
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+      return R * c // Distance in kilometers
+    },
+    distanceDisplay () {
+      if (this.distanceInKm < 0.95) return Math.round(this.distanceInKm * 20) * 50 + ' m'
+      if (this.distanceInKm < 9.5) return Math.round(this.distanceInKm * 10) / 10 + ' km'
+      return Math.round(this.distanceInKm) + ' km'
+    },
+    distanceClass () {
+      if (this.distanceInKm < maxGoodDistanceInKm) return 'good-distance'
+      if (this.distanceInKm > minBadDistanceInKm) return 'bad-distance'
+      return ''
+    },
     showFooterCloseButton () {
       /* The default close button in the footer is only shown if no other button is visible, so that the footer does not
          become too crowded */
@@ -162,6 +191,12 @@ export default {
     },
     async sendRequest () {
       try {
+        const dialogueOptions = {
+          params: { distance: this.distanceDisplay },
+          okTitle: this.$i18n('store.request.request'),
+          okVariant: 'outline-danger',
+        }
+        if (this.distanceInKm > minBadDistanceInKm && !await this.confirmationDialogue('store.request.confirm-far', dialogueOptions)) return
         await requestStoreTeamMembership(this.store.id, this.userId)
         this.store.maySendRequest = false
         this.store.mayWithdrawRequest = true
@@ -183,3 +218,7 @@ export default {
   },
 }
 </script>
+<style scoped>
+.good-distance { color: var(--fs-color-success-600) }
+.bad-distance { color: var(--fs-color-danger-500) }
+</style>
