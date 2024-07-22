@@ -168,7 +168,7 @@ search:
     user:
       no_home_region: Ningún distrito de origen
       copy_id: Copiar ID
-      copied_id: ID de Foodsaver copiado de {name} ({id})
+      copied_id: ID de Foodsaver copiado de {name} ({text})
   maxresults: El número de resultados mostrados es limitado. Quizás utilice un término
     de búsqueda más específico.
   too_short: Por favor ingrese un término de búsqueda más largo.
@@ -198,6 +198,11 @@ reports:
   from_first_name: 'De nombre'
   city: 'Ciudad'
   reportmessage: 'Indique cómo podemos comunicarnos con usted si tenemos más preguntas.'
+  reports_region: Mensajes de {regionName}
+  reports_user: Todos los informes sobre {userName} ({userId})
+  id: ID
+  reporter: Informant@
+  reported: Denunciad@
 month:
   short:
     "12": dec.
@@ -591,9 +596,9 @@ terminology:
   threads: 'Hilos'
   fsps: 'Distribuidores'
   n_ambassadors: '{count} embajador@s'
-  profile_picture: 'Foto de perfil'
+  profile_picture: 'Foto del perfil'
   n_cooperating_stores: '{count} cooperaciones en marcha'
-  reports: 'Vista de quejas (GQL)'
+  reports: 'Vista de mensajes'
   community: 'Grupo local de {name}'
   pickup: 'Recogida'
   prAdmins: 'Equipo de relaciones publicas'
@@ -1383,6 +1388,7 @@ storeview:
   choose_chain: Elija una cadena
   team_info_active: 'Miembros activos del equipo:'
   team_info_jumper: 'Springer:'
+  team_info_distance: 'Distancia a la explotación:'
 store:
   tooltip_red: 'Recogidas vacantes hoy o mañana'
   tooltip_managing: 'Usted es responsable de esta cooperación'
@@ -1446,6 +1452,9 @@ store:
     distance_unknown: no se especifica el lugar de residencia
     unverified: Usuario no está verificad@
     air_line: La distancia indicada es en línea recta.
+    confirm-far: Según la dirección guardada, vives muy lejos de este establecimiento
+      ({distance}). ¿Estás seguro de que puedes apoyar al equipo de forma regular
+      y confiable?
   all_of_my_stores: 'Todas mis empresas'
   prefetchone: '1 semana'
   go: 'Al equipo'
@@ -2079,10 +2088,17 @@ profile:
       un grupo de quejas local en su distrito.'
     oldReportButtonTextPart2: 'Si es necesario, comuníquese con el grupo de quejas
       local de su distrito.'
-    mail: 'También puede comunicarse con su grupo de quejas local en la siguiente
-      dirección de correo electrónico:'
+    mail:
+      reportGroup: 'Este mensaje se envía al grupo local de mensajes. También puedes
+        contactar con este grupo en la siguiente dirección de correo electrónico:'
+      arbitrationGroup: 'Esta notificación se transmitirá al órgano de arbitraje,
+        ya que una de las personas implicadas es miembro del grupo local de notificación.
+        También puedes ponerte en contacto con la oficina de arbitraje en la siguiente
+        dirección de correo electrónico:'
     title: 'Queja sobre {name}'
     doesNotAffectStore: No afecta a ninguna o a otra empresa
+    notes: Notas y decisiones
+    confirmDelete: ¿Seguro que deseas eliminar este mensaje?
   history:
     noData: 'Datos no disponibles.'
     noActor: 'desconocid@'
@@ -4050,6 +4066,14 @@ help:
       title: Logros
       md: "Es necesario agregar aquí una explicación de los logros. Lo haré más tarde.
         HACER\n"
+    report:
+      title: Procesamiento de mensajes
+      md: "Aquí veras mensajes escritos sobre personas de este distrito de origen.
+        Sin embargo, no se mostrarán todos los mensajes:\n- En principio, no verás
+        ningún mensaje en el que tu o tus coadministradores de LMG o LS estén involucrados.\n
+        - Como administrador de LS, solo tienes acceso a los informes en los que participan
+        los administradores de LMG.\n---\nPuedes leer información sobre cómo procesar
+        un informe: [Procesar un informe](https://wiki.foodsharing.de/Rulestraumas_-_Konsequences_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)\n"
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
