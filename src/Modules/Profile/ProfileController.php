@@ -253,7 +253,7 @@ final class ProfileController extends FoodsharingController
                         WorkgroupFunction::REPORT
                     );
                     $reportGroupDetails = $this->groupGateway->getGroupLegacy($reportGroupId);
-                    $MailboxNameReportRequest = $this->mailboxGateway->getMailboxname(
+                    $mailboxNameReportRequest = $this->mailboxGateway->getMailboxname(
                         $reportGroupDetails['mailbox_id']
                     ) ?? '';
                 }
@@ -262,6 +262,17 @@ final class ProfileController extends FoodsharingController
                     $regionId,
                     WorkgroupFunction::ARBITRATION
                 );
+
+                if ($hasArbitrationGroup) {
+                    $arbitrationGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId(
+                        $regionId,
+                        WorkgroupFunction::ARBITRATION
+                    );
+                    $arbitrationGroupDetails = $this->groupGateway->getGroupLegacy($arbitrationGroupId);
+                    $mailboxNameArbitrationRequest = $this->mailboxGateway->getMailboxname(
+                        $arbitrationGroupDetails['mailbox_id']
+                    ) ?? '';
+                }
 
                 if ($regionId != $this->currentUserUnits->getCurrentRegionId()) {
                     $reporterHasReportGroup = $this->groupFunctionGateway->existRegionFunctionGroup(
@@ -298,7 +309,8 @@ final class ProfileController extends FoodsharingController
             'isReportedIdArbitrationAdmin' => $isReportedIdArbitrationAdmin ?? false,
             'isReportButtonEnabled' => $isReportButtonEnabled ?? false,
             'reporterHasReportGroup' => $reporterHasReportGroup ?? false,
-            'mailboxNameReportRequest' => $MailboxNameReportRequest ?? '',
+            'mailboxNameReportRequest' => $mailboxNameReportRequest ?? '',
+            'mailboxNameArbitrationRequest' => $mailboxNameArbitrationRequest ?? '',
             'buttonNameReportRequest' => $buttonNameReportRequest ?? $this->translator->trans('profile.report.oldReportButton'),
             'maySeeQuizSessions' => $this->profilePermissions->maySeeQuizSessions()
         ];

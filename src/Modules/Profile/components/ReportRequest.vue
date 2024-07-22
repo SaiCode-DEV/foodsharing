@@ -105,9 +105,9 @@
           size="sm"
         />
         <b-alert variant="info" show>
-          <div>{{ $i18n('profile.report.mail') }}</div>
-          <a :href="$url('mailto_mail_foodsharing_network', mailboxName)">
-            {{ $url('mail_foodsharing_network', mailboxName) }}
+          <div>{{ $i18n(`profile.report.mail.${isReportForArbitration ? 'arbitrationGroup' : 'reportGroup'}`) }}</div>
+          <a :href="$url('mailto_mail_foodsharing_network', responsibleGroupMail)">
+            {{ $url('mail_foodsharing_network', responsibleGroupMail) }}
           </a>
         </b-alert>
       </template>
@@ -148,7 +148,8 @@ export default {
     isReporterIdArbitrationAdmin: { type: Boolean, required: true },
     isReportButtonEnabled: { type: Boolean, required: true },
     reporterHasReportGroup: { type: Boolean, required: true },
-    mailboxName: { type: String, required: true },
+    mailboxNameReport: { type: String, required: true },
+    mailboxNameArbitration: { type: String, required: true },
   },
   data () {
     return {
@@ -172,6 +173,12 @@ export default {
       } else {
         return this.reportText.length <= 0 || this.reportReason === null || this.storeList === null
       }
+    },
+    isReportForArbitration () {
+      return this.isReportedIdReportAdmin || this.isReporterIdReportAdmin
+    },
+    responsibleGroupMail () {
+      return this.isReportForArbitration ? this.mailboxNameArbitration : this.mailboxNameReport
     },
   },
   mounted () {

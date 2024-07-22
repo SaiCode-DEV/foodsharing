@@ -107,7 +107,7 @@
         href="#"
         @click="$refs.report_request.show()"
       >
-        <i class="far fa-life-ring fa-fw" /> {{ profileMenu.buttonNameReportRequest }}
+        <i class="fas fa-people-arrows fa-fw" /> {{ profileMenu.buttonNameReportRequest }}
       </b-list-group-item>
       <b-list-group-item
         v-if="showModerationButton"
@@ -147,7 +147,8 @@
       :is-reporter-id-arbitration-admin="profileMenu.isReporterIdArbitrationAdmin"
       :is-report-button-enabled="profileMenu.isReportButtonEnabled"
       :reporter-has-report-group="profileMenu.reporterHasReportGroup"
-      :mailbox-name="profileMenu.mailboxNameReportRequest"
+      :mailbox-name-report="profileMenu.mailboxNameReportRequest"
+      :mailbox-name-arbitration="profileMenu.mailboxNameArbitrationRequest"
     />
     <ProfileHistoryModal ref="profileHistoryModal" />
     <QuizSessionHistoryModal :foodsaver-id="profileMenu.fsId" />

@@ -82,14 +82,9 @@ export default {
           href: 'pin', icon: 'fa-users', text: 'menu.entry.pin',
         })
       }
-      if (this.entry.mayAccessReportGroupReports) {
+      if (this.entry.mayAccessReports) {
         menu.push({
-          href: 'reports', icon: 'fa-poo', text: 'terminology.reports',
-        })
-      }
-      if (this.entry.mayAccessArbitrationGroupReports) {
-        menu.push({
-          href: 'reports', icon: 'fa-poo', text: 'terminology.arbitration',
+          href: 'reports', icon: 'fa-people-arrows', text: 'terminology.reports',
         })
       }
 

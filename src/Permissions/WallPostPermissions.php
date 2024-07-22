@@ -28,6 +28,9 @@ class WallPostPermissions
 
     public function mayReadWall(string $target, int $targetId): bool
     {
+        if ($target == 'fsreports' && $this->session->id() === $targetId) {
+            return false;
+        }
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }

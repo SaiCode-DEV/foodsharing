@@ -14,6 +14,7 @@
 - Storemanagers get an extra warning before removing users from a store team, if they currently occupy slots #1825 !3368 @AntonBallmaier
 - Added API endpoints for managing store categories #1263 !3405 @alex.simm
 - Display senders picture in notifications !3373 @AntonBallmaier
+- Give access to reporter private mail address #1765 !3423 @AntonBallmaier
 - Users can be linked in markdown using @`<userId>` now #1850 !3177 @AntonBallmaier
 - Applications to working groups trigger a bell notification to the admins #933 !3274 @alex.simm
 - The password in the login form can be made visible !3459 @alex.simm
@@ -29,6 +30,7 @@
 - Pickups are displayed on dashboard for 30 minutes longer !3382
 - Removed address on businessCard !3362 @chriswalg
 - Give admins of quiz group permission to view and delete quiz sessions !3422 @AntonBallmaier
+- Refactored report module to Controller, vue and api !3423 @AntonBallmaier
 - Change region link generation from /?page=bezirk& to /region?
 - Removed application wall #321 !3436 @AntonBallmaier
 - Removed store state COOPERATION_STARTING #414 !3410 !3444 !3445 !3448 @chriswalg

@@ -36,6 +36,14 @@ export default {
       return this.$dateFormatter[method](this.date)
     },
   },
+  watch: {
+    time () {
+      if (this.time === null) return {}
+      const date = new Date(this.time)
+      if (isNaN(date.valueOf())) throw new Error('invalid time')
+      this.date = date
+    },
+  },
   mounted () {
     this.update()
   },

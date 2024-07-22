@@ -46,6 +46,7 @@ regions: "Bezirke" # TODO check if used anywhere else
 groups:
   empty: "Du bist noch in keinen Arbeitsgruppen"
 message_text_to_group_admin_workgroup: "Die Region/Arbeitsgruppe <b>{groupName}</b> hat <b>keine</b> Botschafter:innen bzw. Administrator:innen mehr.<br><br><br>Sie besitzt folgende ID-Struktur:<br>{idStructureList}<br><br>Die ID lautet: {groupId}<br><br>URL: \"<a href=\"https://foodsharing.de/region?bid={groupId}&sub=forum\" target=\"_blank\">Klicke hier um zur Region/Arbeitsgruppe zu gehen</a>"
+copied_to_clipboard: "„{text}“ wurde in die Zwischenablage kopiert."
 #
 # FORM DATA KEYS: SettingsView
 # --
@@ -769,8 +770,7 @@ terminology:
   electionAdmins : "Wahlen"
   wall: "Pinnwand"
   statistic: "Statistik"
-  reports: "Meldungsansicht (LMG)"
-  arbitration: "Meldungsansicht (LS)"
+  reports: "Meldungsansicht"
   fsp: "Fairteiler" #also in MapView
   fsps: "Fairteiler"
   basket: "Essenskorb"
@@ -1172,7 +1172,6 @@ pickup:
   leave: "Austragen"
   open_profile: "Profil von"
   copyNumber: "Nummer kopieren"
-  copiedNumber: "„{number}“ wurde in die Zwischenablage kopiert."
   signout_sure: "Möchtest du dieses Team wirklich verlassen?"
   signout_info: "Deine anstehenden Abholungen werden gelöscht."
   signout_confirm: "Bist du dir sicher?"
@@ -1591,28 +1590,18 @@ month:
     "12": "Dez."
 
 reports:
-  about: "Über" #also in ReportView
-  about_first_name: "Über Name"
-  about_last_name: "Über Nachname"
-  about_email: "Über E-Mail"
-  all_reports: "Alle Meldungen"
-  city: "Stadt"
-  from: "Von" #also in Reportview
-  from_first_name: "Von Name"
-  from_last_name: "Von Nachname"
+  reports_region: "Meldungen aus {regionName}"
+  reports_user: "Alle Meldungen über {userName} ({userId})"
   message: "Beschreibung"
   reason: "Grund"
-  region: "Stammbezirk"
-  report_id: "Meldungs-ID"
+  reporter: "Meldende Person"
+  reported: "Gemeldete Person"
+  id: "ID"
   time: "Zeitpunkt"
   no_reports_fallback: "Es sind noch keine Meldungen vorhanden"
   store: "Zugeordneter Betrieb"
-  in-store: "Betrifft die Meldung einen bestimmten Betrieb, in dem {user} abholt?"
-  when: "Zeitpunkt"
-  info: '
-    Bitte gib das <b>Datum</b>, den <b>Ort</b> und die <b>Uhrzeit</b> des Vorfalls an! <br>
-    Gib an, ob du bereits mit der Person direkt gesprochen hast und den Sachverhalt klären konntest.
-    Gib bitte an, wie du am besten für Rückfragen zu erreichen bist.'
+  report_id: "Meldungs-ID"
+  
 
   #|
   #  Es ist wichtig alle Fälle, die gegen die Verhaltensregeln verstoßen, zu melden,
@@ -2217,7 +2206,9 @@ profile:
     doesNotAffectStore: "Betrifft keinen oder anderen Betrieb"
     send: "Meldung abschicken"
     sent: "Meldung wurde versendet"
-    mail: "Du erreichst deine lokale Meldungsgruppe auch unter folgender E-Mail-Adresse:"
+    mail:
+      reportGroup: "Diese Meldung wird an die lokale Meldungsgruppe übermittelt. Du erreichst diese Gruppe auch unter folgender E-Mail-Adresse:"
+      arbitrationGroup: "Diese Meldung wird an die Schiedsstelle übermittelt, da eine der beteiligten Personen Mitglied der lokalen Meldungsgruppe ist. Du erreichst die Schiedsstelle auch unter folgender E-Mail-Adresse:"
     oldReportButton: "Regelverletzung melden"
     oldReportButtonTextPart1: "Aktuell werden Regelverletzungen nicht an dieser Stelle gemeldet."
     oldReportButtonTextPart2: "Wendet euch bei Bedarf an die lokale Meldungsgruppe in eurem Bezirk."
@@ -2234,59 +2225,8 @@ profile:
     noshow: "Ist nicht zum Abholen erschienen"
     cancellation: "Häufiges kurzfristiges Absagen der Abholungen ohne Suche nach Ersatz"
     sells: "Verkauft gerettete Lebensmittel"
-    control: #this key is for ReportControl
-      newreports: "Neue Meldungen"
-      total: "insgesamt"
-      tot: "gesamt"
-      delivered: "Zugestellte Meldungen"
-      from: "Meldungen von"
-      notes: "Notizen und Entscheidungen"
-    view: #this key is for ReportView
-      why: "Weshalb meldest du diese Person?"
-      tardy: "Ist zu spät zum Abholen gekommen"
-      noshow: "Ist gar nicht zum Abholen gekommen"
-      respect: "Hat sich unhöflich oder respektlos verhalten"
-      dirty: "Hat den Abholort nicht sauber hinterlassen"
-      social: "Hat sich nicht gemeinschaftlich und sozial beim Abholen verhalten"
-      bossy: "Hat sich fordernd/übergriffig verhalten"
-      complaints: "Hat Vorwürfe gemacht"
-      thief: "Hat Sachen mitgenommen die nicht für ihn/sie bestimmt waren"
-      returned: "Hat Pfandflaschen/-kisten etc. nicht zurückgebracht"
-      unreliable: "Häufiges kurzfristiges Absagen der Abholungen ohne Ersatzsuche"
-      trasher: "Schmeißt gerettete Lebensmittel weg"
-      picky: "Nimmt nicht alle zur Abholung vorgesehenen Lebensmittel mit"
-      additional: "Hat sich außerhalb der Abholzeit beim Betrieb zu rettende Lebensmittel genommen oder nachgefragt"
-      sells: "Verkauft gerettete Lebensmittel"
-      other: "Hat gegen andere Verhaltensregeln verstoßen (alles andere)"
-      vsfs: "gegenüber Foodsaver:innen"
-      nearfs: "vor Foodsaver:innen"
-      offs: "von Foodsaver:innen"
-      vsstore: "gegenüber Betriebsmitarbeiter:innen"
-      nearstore: "vor Betriebsmitarbeiter:innen"
-      ofstore: "von Betriebsmitarbeiter:innen"
-      vsclients: "gegenüber Kund:innen"
-      nearclients: "vor Kund:innen"
-      ofclients: "von Kund:innen"
-      what:
-        hurtful: "beleidigende Äußerungen"
-        racist: "rassistische Äußerungen"
-        sexist: "sexistische Äußerungen"
-        homophobe: "homophobe Äußerungen"
-        brutal: "Gewalttätigkeit und Drohung"
-        other: "Andere unangebrachte Äußerungen und Verhalten"
-      newreport: "Neue Meldungen"
-      delivered: "Zugestellte"
-      residence: "FS-Wohnort"
-    xhr: #this key is for ReportXhr
-      reporting: "Meldung über"
-      reportID: "Report-ID"
-      reportee: "Gemeldet von"
-      allofthem: "Alle Meldungen über"
-      delivered: "Meldung zugestellt"
-      plsconfirm: "Diese Meldung wirklich löschen?"
-      confirmed: "Meldung wurde bestätigt!"
-      deleted: "Meldung wurde gelöscht!"
-    readup: "Hinweise zur Bearbeitung einer Meldung könnt ihr hier nachlesen: [Bearbeitung einer Meldung](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)"
+    notes: "Notizen und Entscheidungen"
+    confirmDelete: "Soll diese Meldung wirklich gelöscht werden?"
   alldatesdeleted: "Alle Termine gelöscht"
   cantdeleteall: "Du kannst nicht alle Termine löschen!"
   deletesuccess: "Einzeltermin gelöscht"
@@ -3303,7 +3243,7 @@ search:
     user:
       no_home_region: Kein Stammbezirk
       copy_id: ID kopieren
-      copied_id: "Foodsaver-ID von {name} kopiert ({id})"
+      copied_id: "Foodsaver-ID von {name} kopiert ({text})"
     working_group:
       admin_tooltip: Du bist Admin dieser AG
       member_tooltip: Du bist Mitglied dieser AG
@@ -3458,6 +3398,14 @@ help:
     profileCommitmentsStat:
       title: "Engagementstatistik"
       md: ist sichtbar ab der Rolle des Betriebsverantwortlichen. Sie wird eingeschränkt auf gemeinsamen Stammbezirk oder gemeinsame Betriebe.
+    report:
+      title: "Meldungsbearbeitung"
+      md: |
+        Hier werden dir Meldungen angezeigt, die über Personen mit diesem Stammbezirk verfasst wurden. Dabei werden dir allerdings nicht alle Meldungen angezeigt:
+        - Grundsätzlich werden dir keine Meldungen angezeigt, an denen du oder deine mit-Admins aus LMG oder LS beteiligt sind.
+        - Als Admin der LS hast du nur Zugriff auf Meldungen, an denen die Admins der LMG beteiligt sind.
+        ---
+        Hinweise zur Bearbeitung einer Meldung könnt ihr hier nachlesen: [Bearbeitung einer Meldung](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)
     achievements:
       title: "Errungenschaften"
       md: |

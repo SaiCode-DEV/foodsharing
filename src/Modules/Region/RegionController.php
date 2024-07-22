@@ -77,8 +77,7 @@ final class RegionController extends FoodsharingController
 
         if (UnitType::isRegion($groupType)) {
             $menu['isAdmin'] = $this->currentUserUnits->isAdminFor($groupId);
-            $menu['mayAccessReportGroupReports'] = $this->reportPermissions->mayAccessReportGroupReports($groupId);
-            $menu['mayAccessArbitrationGroupReports'] = $this->reportPermissions->mayAccessArbitrationReports($groupId);
+            $menu['mayAccessReports'] = $this->reportPermissions->mayAccessReportsForRegion($groupId);
             $menu['maySetRegionPin'] = $this->regionPermissions->maySetRegionPin($groupId);
         } else {
             $menu['isAdmin'] = $this->workGroupPermissions->mayEdit($group);
