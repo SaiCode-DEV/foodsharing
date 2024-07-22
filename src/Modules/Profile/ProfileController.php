@@ -166,7 +166,7 @@ final class ProfileController extends FoodsharingController
         return [
             'menu' => $this->getProfileMenu($userStores, $userArray, $maySeeStores),
             'statistics' => $this->renderStatistics($userArray),
-            'bananaStatistics' => $this->renderBananaStatistics($userArray),
+            'bananaStatistics' => (object)$this->renderBananaStatistics($userArray),
             'ambassadorRegions' => $userArray['botschafter'] ? $userArray['botschafter'] : [],
             'foodSaverRegions' => $userArray['foodsaver'] ? $userArray['foodsaver'] : [],
             'homeDistrictHistory' => (object)$this->getHomeDistrictHistory($userArray),
@@ -195,7 +195,7 @@ final class ProfileController extends FoodsharingController
         $maySeeHistory = $this->profilePermissions->maySeeHistory($fsId);
 
         // what is the viewer allowed to do in this profile?
-        if ($userArray['rolle'] > Role::FOODSHARER->value) {
+        if (!empty($regionId) && $userArray['rolle'] > Role::FOODSHARER->value) {
             // MediationRequest
             if ($this->regionGateway->getRegionOption($regionId, RegionOptionType::ENABLE_MEDIATION_BUTTON)) {
                 $mediationGroupEmail = $this->renderMediationRequest($userArray);
