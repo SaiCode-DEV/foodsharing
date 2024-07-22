@@ -96,6 +96,7 @@
 - Updated phinx to version 0.16 #1774 @alex.simm
 - Removed obsolete version field from docker compose files !3442 @\_fridtjof_
 - Added a rate limiting to the file upload #1896 !3450 @alex.simm
+- Updated the version of tecnickcom/tcpdf !3473 @alex.simm
 
 ## Development documentation
 
