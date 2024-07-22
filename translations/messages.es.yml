@@ -4086,3 +4086,4 @@ achievements:
   validity:
     days: Válido por {validityInDaysAfterAssignment} días después de la asignación.
     indefinite: Válido para cualquier período de tiempo después de la adjudicación.
+copied_to_clipboard: Se ha copiado «{text}» al portapapeles.
