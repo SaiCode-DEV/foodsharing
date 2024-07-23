@@ -274,7 +274,9 @@ final class ProfileController extends FoodsharingController
                     ) ?? '';
                 }
 
-                if ($regionId != $this->currentUserUnits->getCurrentRegionId()) {
+                if (!$this->currentUserUnits->getCurrentRegionId()) {
+                    $reporterHasReportGroup = false;
+                } elseif ($regionId != $this->currentUserUnits->getCurrentRegionId()) {
                     $reporterHasReportGroup = $this->groupFunctionGateway->existRegionFunctionGroup(
                         $this->currentUserUnits->getCurrentRegionId(),
                         WorkgroupFunction::REPORT
