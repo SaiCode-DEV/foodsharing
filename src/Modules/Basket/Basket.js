@@ -40,6 +40,8 @@ $(document).ready(() => {
   } else if (document.getElementById('baskets-location-map')) {
     vueRegister({ BasketsLocationMap, NearbyBasketsList })
     vueApply('#baskets-location-map')
-    vueApply('#nearby-baskets-list')
+    if (document.getElementById('nearby-baskets-list')) {
+      vueApply('#nearby-baskets-list')
+    }
   }
 })

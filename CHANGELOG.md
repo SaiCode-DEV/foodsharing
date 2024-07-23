@@ -67,7 +67,7 @@
 - Reworked region admin page and removed XhrMethods #1412 #1414 #1416 #1417 #1181 #1939 !3193 !3346 @AntonBallmaier
 - Modernized EventControl to a Symfony controller !3260 @chriswalg
 - Rebuild quiz module #1666 !3119 !3329 !3403 @AntonBallmaier
-- Refactor the nearby baskets list to vue !3294 !3391 @alex.simm
+- Refactor the nearby baskets list to vue !3294 !3391 !3477 @alex.simm
 - Refactored profile to vue !3184 !3225 !3343 !3446 @chriswalg
 - Moved passports to region memberlist #1799 #1326 !3251 !3388 !3439 @chriswalg
 - Modernized StoreChainControl to a Symfony controller !3292 @chriswalg
