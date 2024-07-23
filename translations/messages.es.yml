@@ -2056,10 +2056,20 @@ profile:
       delivered: 'Denuncia atendida'
       reportID: 'ID de queja'
       reporting: 'Queja sobre'
-    info: 'Incluya la fecha, el lugar y la hora del incidente. Indique si ha intentado
-      abordar el incidente directamente con la persona y aclare el asunto. Indique
-      la mejor manera de comunicarnos con usted si tiene alguna pregunta sobre el
-      procesamiento.'
+    info: 'Para que su informe pueda tramitarse con la mayor eficacia posible, debe
+      contener la siguiente información:
+
+      - Fecha, hora y lugar del incidente
+
+      - lo que ya ha hecho, por ejemplo, si ha hablado directamente con la persona
+      y ha podido aclarar el asunto
+
+      - cuál es la mejor manera de ponerse en contacto con usted.
+
+
+      Aquí puedes encontrar las [normas de comportamiento en la wiki](https://wiki.foodsharing.de/Verhaltensregeln).
+
+      '
     send: 'Enviar queja'
     noshow: 'Persona no vino'
     sells: 'Vende comida rescatada'
@@ -2096,9 +2106,35 @@ profile:
         También puedes ponerte en contacto con la oficina de arbitraje en la siguiente
         dirección de correo electrónico:'
     title: 'Queja sobre {name}'
-    doesNotAffectStore: No afecta a ninguna o a otra empresa
+    doesNotAffectStore: No afecta a ninguna empresa
     notes: Notas y decisiones
     confirmDelete: ¿Seguro que deseas eliminar este mensaje?
+    report_b1_4: No tenía su identificación de compartir alimentos con él (B01-5)
+    report_b2: Realizó una recolección fuera de las fechas especificadas sin consultar
+      a los BV (B02)
+    report_b3_0: Saliste o entraste de la empresa solo(B03-1)
+    report_b3_1: La recogida no se llevó a cabo sin discusión o con discusión (B03-2)
+    report_b4_1: La comida no fue distribuida equitativamente (B04-2)
+    report_b5: Han entrado personas no autorizadas a la empresa (B05)
+    report_b6_0: No se ha tenido en cuenta a los clientes ni a los empleados de la
+      empresa (B06-1)
+    report_b6_1: El lugar de recogida no se ha dejado en buen estado (B06-2)
+    report_b8: Ha sido grosero con los empleados de la empresa (B08)
+    report_b9: Se han formulado observaciones sobre la cantidad, la naturaleza y el
+      uso de los alimentos rescatados (B09)
+    report_b10: Vende alimentos rescatados (B10)
+    report_b12: A quienes recogían los alimentos no se les permitía decidir de forma
+      independiente a quién se los pasaría (B12)
+    report_other: Mezcla
+    report_b1_1: No se presentó a la recogida (B01-2)
+    report_b1_2: Llevaste animales al negocio sin permiso (B01-3)
+    report_b1_0: Llegó demasiado tarde para la recogida (B01-1)
+    report_b1_3: Has llevado niños en la empresa sin permiso (B01-4)
+    report_b4_0: No se llevaron todos los alimentos comestibles (B04-1)
+    report_b7: Incumplimiento del período de espera de la explotación (B07)
+    report_b13: No se hicieron esfuerzos para consumir o distribuir los alimentos
+      rescatados (B13)
+    report_b11: No se han utilizado medios ecológicos en la recogida (B11)
   history:
     noData: 'Datos no disponibles.'
     noActor: 'desconocid@'
@@ -2218,6 +2254,8 @@ profile:
       filterJumper: Suplente
     store_table: Lista de empresas
   sleeping_info_from_until: hace una pausa del {from} al {until}
+  choosereasonnostore: No afecta ningún negocio
+  chooseantherstore: Se trata de una empresa que no cotiza en bolsa
 home:
   title: 'Pagina de inicio'
   home: 'Inicio'
@@ -2895,8 +2933,8 @@ recipients:
   all: 'Todos l@s rescatistas del mundo'
   unknown: 'desconocido'
 regionOptions:
-  enableMediationButton: 'Habilitar enlace de solicitud de mediación en los perfiles
-    de rescatistas de este distrito de origen.'
+  enableMediationButton: 'Activar el formulario de mediación en las páginas de perfil
+    de los comensales habituales del distrito'
   regionPickupLimitDayNumber: 'Número máximo de recogidas permitidas de empresas populares
     en un día'
   regionPickupTimespan: 'Período de tiempo (días antes y después de la fecha de recogida
@@ -2909,12 +2947,16 @@ regionOptions:
   success: 'Opciones guardadas exitosamente'
   regionPickupInactiveHours: '¿Cuántas horas antes de la recogida debería dejar de
     aplicarse la regla?'
-  enableReportButton: 'Habilitar enlace de quejas en los perfiles de rescatistas de
-    este distrito de origen.'
+  enableReportButton: 'Activar el formulario de inscripción en las páginas de perfil
+    de los ahorradores habituales de alimentos del distrito'
   header_page: 'Configuración para {bezirk}'
   regionPickupRuleActiveStoreList: 'Relación de empresas del distrito que son empresas
     populares en el sentido de este reglamento. A los efectos del reglamento, se suman
     y tienen en cuenta todos los cobros de empresas populares.'
+  regionReportReasonOther: Permitir "Otros" como motivo de notificación
+  regionReportReasonSimple: Motivos de notificación simplificados
+  regionReportReasonCategoryB: 'Motivos de denuncia ampliados: Normas de conducta
+    - B) Comportamiento durante los cobros'
 mailbox:
   mark_as_unread: 'Marcar correo como no leído'
   date: 'Fecha'
@@ -4074,6 +4116,20 @@ help:
         - Como administrador de LS, solo tienes acceso a los informes en los que participan
         los administradores de LMG.\n---\nPuedes leer información sobre cómo procesar
         un informe: [Procesar un informe](https://wiki.foodsharing.de/Rulestraumas_-_Konsequences_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)\n"
+    reportReasons:
+      title: Formulario del informe
+      md: "Foodsavers puede informar infracciones de las reglas directamente utilizando
+        el formulario de informe. Al activarlo, los responsables de los reportes recibirán
+        rápida y fácilmente notificaciones de los reportes realizados de esta manera.\n
+        ---\nLa LMG del distrito puede establecer qué motivos de notificación se muestran
+        en el formulario de notificación.\nPuede elegir entre motivos de informes
+        simplificados y detallados. Los motivos detallados para informar incluyen
+        todas las reglas enumeradas [aquí en la wiki en el punto B](https://wiki.foodsharing.de/Verhaltensregelen#B.29_Verhalten_bei_Abholungen).\n
+        También puede elegir si la opción \"Otro\" debe aparecer como motivo adicional
+        del mensaje.\n---\nSe pueden hacer recomendaciones sobre la configuración
+        a la LMG. Sin embargo, la decisión y la responsabilidad de estas configuraciones
+        recae únicamente en los administradores del grupo de informes local, quienes
+        no *tienen* que seguir estas recomendaciones.\n"
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
