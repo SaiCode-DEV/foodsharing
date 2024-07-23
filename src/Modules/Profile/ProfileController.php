@@ -206,7 +206,7 @@ final class ProfileController extends FoodsharingController
                 $this->regionGateway->getRegionOption($regionId, RegionOptionType::ENABLE_REPORT_BUTTON)
             ) === 1;
 
-            if ($this->regionGateway->getRegionOption($regionId, RegionOptionType::ENABLE_REPORT_BUTTON)) {
+            if ($isReportButtonEnabled) {
                 // if the current user is not allowed to see all stores of the profile, the report dialog will only show stores in which both users are
                 if ($maySeeStores) {
                     $reportStores = $userStores;
@@ -284,6 +284,9 @@ final class ProfileController extends FoodsharingController
                 }
 
                 $buttonNameReportRequest = $this->translator->trans('profile.reportRequest');
+
+                $reasonOptionOther = boolval($this->regionGateway->getRegionOption($regionId, RegionOptionType::REPORT_REASON_OTHER) ?? 1);
+                $reasonOptionSettings = intval($this->regionGateway->getRegionOption($regionId, RegionOptionType::REPORT_REASON_OPTIONS) ?? 1);
             }
         }
 
@@ -310,6 +313,8 @@ final class ProfileController extends FoodsharingController
             'isReporterIdArbitrationAdmin' => $isReporterIdArbitrationAdmin ?? false,
             'isReportedIdArbitrationAdmin' => $isReportedIdArbitrationAdmin ?? false,
             'isReportButtonEnabled' => $isReportButtonEnabled ?? false,
+            'reasonOptionOther' => $reasonOptionOther ?? false,
+            'reasonOptionSettings' => $reasonOptionSettings ?? 1,
             'reporterHasReportGroup' => $reporterHasReportGroup ?? false,
             'mailboxNameReportRequest' => $mailboxNameReportRequest ?? '',
             'mailboxNameArbitrationRequest' => $mailboxNameArbitrationRequest ?? '',

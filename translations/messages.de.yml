@@ -1766,14 +1766,18 @@ regionOptions:
   header_page: "Optionen für {bezirk}"
   success: "Optionen erfolgreich gespeichert"
   save: "Optionen speichern"
-  enableReportButton: "Technische Unterstützung für Meldungen durch einen Meldungs-Link auf den Profilen der Stammfoodsaver:innen des Bezirks aktivieren."
-  enableMediationButton: "Technische Unterstützung für Mediationen durch einen Mediations-Link auf den Profilen der Stammfoodsaver:innen des Bezirks aktivieren."
+  enableReportButton: "Meldungsformular auf Profilseiten der Stammfoodsaver:innen des Bezirks aktivieren"
+  regionReportReasonSimple: "Vereinfachte Meldungsgründe"
+  regionReportReasonCategoryB: "Erweiterte Meldungsgründe: Verhaltensregeln - B) Verhalten bei Abholungen"
+  regionReportReasonOther: "\"Sonstiges\" als Meldungsgrund erlauben"
+  enableMediationButton: "Mediationsformular auf Profilseiten der Stammfoodsaver:innen des Bezirks aktivieren"
   regionPickupRuleActive: "Folgende Bezirksregel für Abholungen bei beliebten „Rosinen“-Betrieben aktivieren:"
   regionPickupTimespan: "Zeitspanne (Tage vor und nach dem gewünschten Abholtermin), auf die sich die Rosinen-Regel bezieht"
   regionPickupLimitNumber: "Maximale Anzahl der zulässigen Rosinen-Abholungen im gewählten Zeitraum"
   regionPickupLimitDayNumber: "Maximale Anzahl von Rosinen-Abholungen pro Tag"
   regionPickupInactiveHours: "Wie viele Stunden vor einer Abholung soll die Regel nicht mehr angewandt werden"
   regionPickupRuleActiveStoreList: "Liste der Betriebe im Bezirk, die für die Rosinen-Regel berücksichtigt werden. Alle Abholungen der aufgelisteten Betriebe werden zusammengezählt und für die Regel berücksichtigt."
+  noPickupRuleActiveStores: "Aktuell ist die Rosinen-Regel für keinen Betrieb im Bezirk ativiert."
 
 regionPin:
   header_page: "Öffentliche Ortsgruppenbeschreibung für {bezirk}"
@@ -2202,8 +2206,14 @@ profile:
     no_group: "Leider gibt es für den Stammbezirk des Foodsavers noch keine lokale Mediationsgruppe. Du kannst das Thema bei einem Gruppentreffen oder im Forum ansprechen, so dass ein lokales Mediationsteam gewählt wird."
   report:
     title: "Meldung über {name}"
-    info: "Bitte gib Datum, Ort und Uhrzeit des Vorfalls an. Gib an, ob du bereits mit der Person direkt gesprochen hast und den Sachverhalt klären konntest. Gib bitte an, wie du am besten für Rückfragen zu erreichen bist."
-    doesNotAffectStore: "Betrifft keinen oder anderen Betrieb"
+    info: |
+      Damit deine Meldung möglichst gut bearbeitet werden kann, solltes sie folgende Informationen enthalten:
+      - Datum, Uhrzeit und Ort des Vorfalls
+      - was du bereits unternommen hast, also z.B. ob du bereits mit der Person direkt gesprochen hast und den Sachverhalt klären konntest
+      - wie du am besten für Rückfragen zu erreichen bist.
+
+      Hier findest du die [Verhaltensregeln im Wiki](https://wiki.foodsharing.de/Verhaltensregeln).
+    doesNotAffectStore: "Betrifft keinen oder einen anderen Betrieb"
     send: "Meldung abschicken"
     sent: "Meldung wurde versendet"
     mail:
@@ -2221,6 +2231,27 @@ profile:
     arbAdminAgainstRepAdmin: "Du bist Administrator:in der Schiedsstelle und willst eine:n Administrator:in der Meldungsbearbeitung melden. Dies wird im Moment technisch nicht unterstützt. Du kannst jederzeit eine Meldung per E-Mail an die für euch lokal Verantwortlichen für diesen Fall einreichen."
     inthisblog: "in diesem Blogeintrag" #this and the following appear in ReportRequest
     kindofreport: "Bitte wähle die Art der Meldung"
+    report_b1_0: "Ist zu spät zur Abholung gekommen (B01-1)"
+    report_b1_1: "Ist nicht zum Abholen erschienen (B01-2)"
+    report_b1_2: "Hat unerlaubt Tiere in den Betrieb mitgenommen (B01-3)"
+    report_b1_3: "Hat unerlaubt Kinder in den Betrieb mitgenommen (B01-4)"
+    report_b1_4: "Hat seinen foodsharing Ausweis nicht dabei gehabt (B01-5)"
+    report_b2: "Hat außerhalb der festgelegten Termine ohne Absprache mit den BV's eine Abholung durchgeführt (B02)"
+    report_b3_0: "Hat nicht gemeinsam mit allen den Betrieb betreten/verlassen (B03-1)"
+    report_b3_1: "Hat die Abholung nicht ohne Streit oder Diskussion durchgeführt (B03-2)"
+    report_b4_0: "Es wurden nicht alle noch genießbaren Lebensmittel mitgenommen (B04-1)"
+    report_b4_1: "Die Lebensmittel wurden nicht gerecht aufgeteilt (B04-2)"
+    report_b5: "Es haben nicht berechtigte Personen den Betrieb betreten (B05)"
+    report_b6_0: "Es wurde keine Rücksicht auf die Kundschaft und Beschäftigte des Betriebes genommen (B06-1)"
+    report_b6_1: "Der Abholort wurde nicht ordentlich hinterlassen (B06-2)"
+    report_b7: "Es wurde die Wartezeit des Betriebes nicht eingehalten (B07)"
+    report_b8: "Ist unhöflich gegenüber den Beschäftigten des Betriebes geblieben (B08)"
+    report_b9: "Es wurden Kommentare über Menge, Art und Verwendung der geretteten Lebensmittel gemacht (B09)"
+    report_b10: "Verkauft gerettete Lebensmittel (B10)"
+    report_b11: "Es wurden keine ökologischen Mittel bei der Abholung eingesetzt (B11)"
+    report_b12: "Es wurde den Abholenden nicht zugestanden, eigenständig zu entscheiden, an wen die Lebensmittel weitergegeben werden (B12)"
+    report_b13: "Es wurde sich nicht darum bemüht, die geretteten Lebensmittel zu verbrauchen / verteilen (B13)"
+    report_other: "Sonstiges"
     late: "Ist zu spät gekommen"
     noshow: "Ist nicht zum Abholen erschienen"
     cancellation: "Häufiges kurzfristiges Absagen der Abholungen ohne Suche nach Ersatz"
@@ -2232,6 +2263,8 @@ profile:
   deletesuccess: "Einzeltermin gelöscht"
   cantdeletethis: "Du kannst keine Einzeltermine löschen!"
   choosestore: "Bitte den betroffenen Betrieb auswählen" #in ProfileView
+  choosereasonnostore: "Betrifft keinen Betrieb" #in ProfileView
+  chooseantherstore: "Betrifft einen nicht aufgeführten Betrieb" #in ProfileView
   editNameInfo: "Bitte beachte, dass die Felder für Vor- und Nachname ausschließlich für den Namen der Person genutzt werden sollen. Bitte nutze dieses Feld nicht, um weitere Informationen über das Profil abzulegen, wie bspw. die Durchführung einer Hygieneschulung. Stattdessen können Arbeitsgruppen genutzt werden, um weitere Informationen über Profile zu hinterlegen. Weitere Infos hierzu im [Botschafter:innen-Forum]({url})"
 
 dashboard:
@@ -3398,6 +3431,16 @@ help:
     profileCommitmentsStat:
       title: "Engagementstatistik"
       md: ist sichtbar ab der Rolle des Betriebsverantwortlichen. Sie wird eingeschränkt auf gemeinsamen Stammbezirk oder gemeinsame Betriebe.
+    reportReasons:
+      title: Meldungsformular
+      md: |
+        Über das Meldungsformular können Foodsaver:innen Regelverletzungen direkt melden. Durch die Aktivierung, erhalten die für Meldungen verantwortlichen Personen schnell und einfach Benachrichtigungen für auf diese Weise abgegebenen Meldungen.
+        ---
+        Die LMG des Bezirkes kann einstellen, welche Meldungsgründe im Meldungsformular angezeigt werden.
+        Dabei kann zwischen vereinfachten und ausführlichen Meldungsgründen gewählt werden. Bei den ausfühlichen Meldungsgründen sind alle [hier im Wiki unter B](https://wiki.foodsharing.de/Verhaltensregeln#B.29_Verhalten_bei_Abholungen) aufgelisteten Regeln enthalten.
+        Darüber hinaus kann ausgewählt werden, ob die Option "Sonstiges" als weiterer Meldungsgrund aufgelistet werden soll.
+        ---
+        Empfehlungen zu der Einstellung kann an die LMG gegeben werden. Die Entscheidung sowie die Verantwortung über diese Einstellungen liegt aber alleine bei den Administrator:innen der lokalen Meldegruppe, die diesen Empfehlungen nicht folgen *muss*.
     report:
       title: "Meldungsbearbeitung"
       md: |

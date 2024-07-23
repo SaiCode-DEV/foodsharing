@@ -409,6 +409,8 @@ final class RegionController extends FoodsharingController
         $pageData['regionPickupRuleLimitDayNumber'] = intval(array_key_exists(RegionOptionType::REGION_PICKUP_RULE_LIMIT_DAY_NUMBER, $regionOptions) ? $regionOptions[RegionOptionType::REGION_PICKUP_RULE_LIMIT_DAY_NUMBER] : 0);
         $pageData['regionPickupRuleInactiveHours'] = intval(array_key_exists(RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS, $regionOptions) ? $regionOptions[RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS] : 0);
         $pageData['regionPickupRuleActiveStoreList'] = $this->storeGateway->listRegionStoresActivePickupRule($region['id']);
+        $pageData['selectedReportReasonOptions'] = intval($regionOptions[RegionOptionType::REPORT_REASON_OPTIONS] ?? 1);
+        $pageData['reportReasonOtherEnabled'] = boolval($regionOptions[RegionOptionType::REPORT_REASON_OTHER] ?? 1);
 
         $params = $this->convertDataToObject($region, $request->query->get('sub'), $pageData);
 

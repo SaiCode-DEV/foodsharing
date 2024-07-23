@@ -8,6 +8,7 @@ use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
+use Foodsharing\Modules\Core\DBConstants\Report\ReportType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Report\ReportGateway;
@@ -101,9 +102,11 @@ class ReportRestController extends AbstractFoodsharingRestController
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
         }
+
         $this->reportGateway->addBetriebReport(
             $paramFetcher->get('reportedId'),
             $paramFetcher->get('reporterId'),
+            ReportType::LOCAL,
             $paramFetcher->get('reasonId'),
             $paramFetcher->get('reason'),
             $paramFetcher->get('message'),
@@ -114,7 +117,7 @@ class ReportRestController extends AbstractFoodsharingRestController
         $bellData = Bell::create(
             'new_report_title',
             'report_reason',
-            'far fa-people-arrows fa-fw',
+            'fas fa-people-arrows fa-fw',
             ['href' => '/report/region/' . $reportedFs['bezirk_id']],
             [
                 'name' => $reportedFs['name'] . ' ' . $reportedFs['nachname'],

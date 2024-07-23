@@ -4,19 +4,19 @@ namespace Foodsharing\Modules\Report;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Core\DBConstants\Report\ReportType;
 
 class ReportGateway extends BaseGateway
 {
-    /* Reporttype: 1: Other (see list ReportView for list of possible reasons, they are all mapped to 1...), 2: missed pickup */
-
-    public function addBetriebReport($reportedId, $reporterId, $reasonId, $reason, $message, $storeId = 0): int
+    public function addBetriebReport($reportedId, $reporterId, ReportType $reporttype, $reasonId, $reason, $message, $storeId = 0): int
     {
         return $this->db->insert(
             'fs_report',
             [
                 'foodsaver_id' => (int)$reportedId,
                 'reporter_id' => (int)$reporterId,
-                'reporttype' => (int)$reasonId,
+                'reporttype' => $reporttype->value,
+                'report_reason_id' => (int)$reasonId,
                 'betrieb_id' => (int)$storeId,
                 'time' => date('Y-m-d H:i:s'),
                 'committed' => 0,
@@ -35,6 +35,7 @@ class ReportGateway extends BaseGateway
                 'r.`msg`',
                 'r.`tvalue`',
                 'r.`reporttype`',
+                'r.`report_reason_id`',
                 'r.`time`',
                 'r.`betrieb_id`',
                 's.`name` as betrieb_name',
@@ -74,6 +75,7 @@ class ReportGateway extends BaseGateway
     {
         $query = $this->reportSelectDbal();
         $query->andWhere($query->expr()->eq('fs.bezirk_id', $regionId));
+        $query->andWhere('r.reporttype = ' . ReportType::LOCAL->value);
 
         if (!empty($excludeReportsWithUsers)) {
             $query->andWhere($query->expr()->notIn('r.reporter_id', $excludeReportsWithUsers));
