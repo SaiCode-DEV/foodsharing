@@ -68,7 +68,7 @@
           <b-form-checkbox
             v-model="isFoodSharePointGlobalEmailNotificationActive"
             size="sm"
-            @change="toggleGlobalNotification('currentFoodSharePoints', 'infotype', 1)"
+            @change="toggleGlobalNotification('currentFoodSharePoints', 'infotype', Number(isFoodSharePointGlobalEmailNotificationActive))"
           >
             {{ $i18n('notifications.checkbox_email') }}
           </b-form-checkbox>
@@ -81,7 +81,7 @@
           <b-form-checkbox
             v-model="isFoodSharePointGlobalBellNotificationActive"
             size="sm"
-            @change="toggleGlobalNotification('currentFoodSharePoints', 'infotype', 2)"
+            @change="toggleGlobalNotification('currentFoodSharePoints', 'infotype', toggleFoodSharePointBell(isFoodSharePointGlobalBellNotificationActive))"
           >
             {{ $i18n('notifications.checkbox_bell') }}
           </b-form-checkbox>
@@ -134,7 +134,7 @@
           <b-form-checkbox
             v-model="isThreadsPointGlobalEmailNotificationActive"
             size="sm"
-            @change="toggleGlobalNotification('currentThreads', 'infotype', 1)"
+            @change="toggleGlobalNotification('currentThreads', 'infotype', Number(isThreadsPointGlobalEmailNotificationActive))"
           >
             {{ $i18n('notifications.checkbox_email') }}
           </b-form-checkbox>
@@ -187,7 +187,7 @@
           <b-form-checkbox
             v-model="isRegionsPointGlobalEmailNotificationActive"
             size="sm"
-            @change="toggleGlobalNotification('currentRegions', 'notifyByEmailAboutNewThreads', 1)"
+            @change="toggleGlobalNotification('currentRegions', 'notifyByEmailAboutNewThreads', Number(isRegionsPointGlobalEmailNotificationActive))"
           >
             {{ $i18n('notifications.checkbox_email') }}
           </b-form-checkbox>
@@ -240,7 +240,7 @@
           <b-form-checkbox
             v-model="isGroupsGlobalEmailNotificationActive"
             size="sm"
-            @change="toggleGlobalNotification('currentGroups', 'notifyByEmailAboutNewThreads', 1)"
+            @change="toggleGlobalNotification('currentGroups', 'notifyByEmailAboutNewThreads', Number(isGroupsGlobalEmailNotificationActive))"
           >
             {{ $i18n('notifications.checkbox_email') }}
           </b-form-checkbox>
@@ -406,9 +406,12 @@ export default {
     }
   },
   methods: {
+    toggleFoodSharePointBell (value) {
+      return value ? 2 : 0
+    },
     toggleGlobalNotification (array, property, value) {
       this[array].forEach(item => {
-        item[property] = item[property] === 0 ? value : 0
+        item[property] = value
       })
     },
     toogleFoodSharePointDetails () {

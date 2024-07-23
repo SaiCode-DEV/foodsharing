@@ -383,6 +383,7 @@ bcard:
   title: "Visitenkarten-Generator"
   card: "Deine foodsharing-Visitenkarte"
   claim: "Hier einfach generieren, ausdrucken und ausschneiden …"
+  for: "{role} für {region}"
   desc: "Wähle hier, für welchen Bezirk beziehungsweise für welche Rolle du deine Visitenkarte erstellen möchtest."
   error:
     length: "Deine Anschrift ist zu lang. Anschrift, Postleitzahl und Stadt dürfen zusammen maximal 49 Zeichen haben."
