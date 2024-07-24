@@ -3238,6 +3238,9 @@ globals:
     my_persons: Meine Personen
     chats: Chats
     threads: Themen
+    mails: E-Mails
+    events: Termine
+    polls: Abstimmungen
     groups_menu: "Gruppen-Menü"
     regions_menu: "Bezirks-Menü"
   you: Du
@@ -3257,6 +3260,11 @@ search:
   results:
     in: in
     from: aus
+    time_relation:
+      future: Beginnt
+      past: Beendet
+      present_since: Begonnen
+      present_until: Endet
     chat:
       chat_with: "Chat mit {names}"
       chat_with_others: "weiteren"
@@ -3270,6 +3278,7 @@ search:
       jumper_tooltip: Du bist Springer:in dieses Betriebs
     thread:
       sticky_tooltip: Thema ist angeheftet
+      bottom_tooltip: Thema hat reduzierte Sichtbarkeit
       closed_tooltip: Thema ist geschlossen
       forum: Forum
       ambassador_forum: BOT-Forum
@@ -3281,6 +3290,24 @@ search:
     working_group:
       admin_tooltip: Du bist Admin dieser AG
       member_tooltip: Du bist Mitglied dieser AG
+    mail:
+      attachment_tooltip: Mit dieser Mail wurde ein Anhang versendet.
+      mail_name: "{name} <{mail}>"
+      from_to: "Von {from} an {to}"
+      from_to_many: "Von {from} an {to} und {other} weitere"
+      recieved_tooltip: Diese Mail wurde an dich versendet.
+      sent_tooltip: Du hast diese Mail versendet.
+    event:
+      invitation_tooltip:
+        0: Du hast nicht angegeben, ob du bei diesem Termin dabei bist.
+        1: Du bist bei diesem Termin dabei.
+        2: Du bist vielleicht bei diesem Termin dabei.
+        3: Du bist nicht bei diesem Termin dabei.
+      location_online: "Online"
+    poll:
+      can_vote: "Du kannst noch abstimmen"
+      has_voted: "Du hast bereits abgestimmt"
+      not_eligible: "Du bist nicht wahlberechtigt"
   scope:
     global: Globale Suche
     local: Nutzerspezifische Suche

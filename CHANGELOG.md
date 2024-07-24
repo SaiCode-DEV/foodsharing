@@ -12,6 +12,7 @@
 - Added a popup for food share points on the map !3360 !3371 @alex.simm
 - You can now load more entries in the store log #1969 !3383 @AntonBallmaier
 - Storemanagers get an extra warning before removing users from a store team, if they currently occupy slots #1825 !3368 @AntonBallmaier
+- Added three new search result types: mail, event and poll #1728 !3398 @AntonBallmaier
 - Optional reason for reports added !2833 @fs_k @AntonBallmaier
 - Added API endpoints for managing store categories #1263 !3405 @alex.simm
 - Display senders picture in notifications !3373 @AntonBallmaier
@@ -46,6 +47,7 @@
 - Fixed passport generation not working #1944 !3376 @AntonBallmaier
 - Resolved some UI inconsistancies !3370 @AntonBallmaier
 - double foodsharing.network in group links #1978 !3409 @McGoldi
+- Threads with reduced visibility get handled in the search properly now #1728 !3398 @AntonBallmaier
 - Some fixes for the quiz module !3418 @AntonBallmaier
 - Store chain information is visible on the store page again #1946 @alex.simm
 - Fixed the rendering of dates that is close to now #1948 !3430 @alex.simm

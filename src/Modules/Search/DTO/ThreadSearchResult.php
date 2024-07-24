@@ -18,9 +18,9 @@ class ThreadSearchResult extends SearchResult
     /**
      * Whether the thread is sticky / pinned.
      *
-     * @OA\Property(example=true)
+     * @OA\Property(example=1)
      */
-    public bool $is_sticky;
+    public int $stickiness;
 
     /**
      * Whether the thread is closed.
@@ -56,7 +56,7 @@ class ThreadSearchResult extends SearchResult
         $result->id = $data['id'];
         $result->name = $data['name'];
         $result->time = $data['time'];
-        $result->is_sticky = boolval($data['is_sticky']);
+        $result->stickiness = $data['stickiness'];
         $result->is_closed = boolval($data['is_closed']);
         $result->is_inside_ambassador_forum = boolval($data['is_inside_ambassador_forum']);
         $result->region_id = $data['region_id'];

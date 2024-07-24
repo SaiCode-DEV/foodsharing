@@ -4,15 +4,19 @@ namespace Foodsharing\Modules\Search;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Search\DTO\MixedSearchResult;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\SearchPermissions;
 
 class SearchTransactions
 {
     public function __construct(
         private readonly SearchGateway $searchGateway,
+        private readonly MailboxGateway $mailboxGateway,
         private readonly Session $session,
-        private readonly SearchPermissions $searchPermissions
+        private readonly SearchPermissions $searchPermissions,
+        private readonly CurrentUserUnitsInterface $currentUserUnits
     ) {
     }
 
@@ -30,6 +34,7 @@ class SearchTransactions
         // TODO: remove timing measurement before release
         $result = new MixedSearchResult();
         $result->timings = [];
+        sleep(1);
 
         $start = microtime(true);
         $foodsaverId = $this->session->id();
@@ -60,6 +65,17 @@ class SearchTransactions
         $start = microtime(true);
         $result->users = $this->searchGateway->searchUsers($query, $foodsaverId, $searchGlobal, $this->searchPermissions->maySearchByEmailAddress());
         $result->timings['users'] = microtime(true) - $start;
+        $start = microtime(true);
+        $boxes = $this->mailboxGateway->getBoxes($this->currentUserUnits->isAdminFor(null), $foodsaverId, $this->session->mayRole(Role::STORE_MANAGER));
+        $mailboxIds = array_column($boxes, 'id');
+        $result->mails = $this->searchGateway->searchMails($query, $mailboxIds);
+        $result->timings['mails'] = microtime(true) - $start;
+        $start = microtime(true);
+        $result->events = $this->searchGateway->searchEvents($query, $foodsaverId, $searchGlobal);
+        $result->timings['events'] = microtime(true) - $start;
+        $start = microtime(true);
+        $result->polls = $this->searchGateway->searchPolls($query, $foodsaverId, $searchGlobal);
+        $result->timings['polls'] = microtime(true) - $start;
 
         return $result;
     }
@@ -70,6 +86,9 @@ class SearchTransactions
     public function searchIndex(): MixedSearchResult
     {
         $foodsaverId = $this->session->id();
+        $boxes = $this->mailboxGateway->getBoxes($this->currentUserUnits->isAdminFor(null), $foodsaverId, $this->session->mayRole(Role::STORE_MANAGER));
+        $mailboxIds = array_column($boxes, 'id');
+
         $result = new MixedSearchResult();
         $result->regions = $this->searchGateway->getRegionsForSearchIndex($foodsaverId);
         $result->workingGroups = $this->searchGateway->getWorkingGroupsForSearchIndex($foodsaverId);
@@ -78,6 +97,9 @@ class SearchTransactions
         $result->chats = $this->searchGateway->getChatsForSearchIndex($foodsaverId);
         $result->threads = $this->searchGateway->getThreadsForSearchIndex($foodsaverId);
         $result->users = $this->searchGateway->getUsersForSearchIndex($foodsaverId);
+        $result->mails = $this->searchGateway->getMailsForSearchIndex($mailboxIds);
+        $result->events = $this->searchGateway->getEventsForSearchIndex($foodsaverId);
+        $result->polls = $this->searchGateway->getPollsForSearchIndex($foodsaverId);
 
         return $result;
     }
