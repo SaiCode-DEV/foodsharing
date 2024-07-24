@@ -18,7 +18,7 @@ class MailSearchResult extends SearchResult
     public string $recipient_mail;
 
     #[OA\Property(description: 'The first recipients name.', example: 'foodsharing Developer')]
-    public string $recipient_name;
+    public ?string $recipient_name;
 
     #[OA\Property(description: 'The number of recipients', example: '3')]
     public int $recipient_count;
