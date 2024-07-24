@@ -50,9 +50,9 @@ class SearchGateway extends BaseGateway
         'mails' => [
             'basic' => [
                 'subject',
-                "JSON_UNQUOTE(JSON_EXTRACT(sender, '$.personal'))", //senderName,
+                "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(sender, '$.personal')), '')", //senderName,
                 "CONCAT(JSON_UNQUOTE(JSON_EXTRACT(sender, '$.mailbox')), '@', JSON_UNQUOTE(JSON_EXTRACT(sender, '$.host')))", //senderMail
-                "JSON_UNQUOTE(JSON_EXTRACT(`to`, '$[0].personal'))", //recipientName,
+                "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(`to`, '$[0].personal')), '')", //recipientName,
                 "CONCAT(JSON_UNQUOTE(JSON_EXTRACT(`to`, '$[0].mailbox')), '@', JSON_UNQUOTE(JSON_EXTRACT(`to`, '$[0].host')))", //recipientMail
             ],
             'detailed' => [],
