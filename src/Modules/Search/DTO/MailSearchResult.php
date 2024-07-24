@@ -12,7 +12,7 @@ class MailSearchResult extends SearchResult
     public string $sender_mail;
 
     #[OA\Property(description: 'The senders name', example: 'Sender')]
-    public string $sender_name;
+    public ?string $sender_name;
 
     #[OA\Property(description: 'The first recipients mail address', example: 'developer@foodsharing.network')]
     public string $recipient_mail;
