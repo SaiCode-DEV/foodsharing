@@ -152,6 +152,7 @@ search:
       closed_tooltip: Tema cerrado
       forum: Foro
       sticky_tooltip: Hilo fijado
+      bottom_tooltip: Tema con visibilidad limitada
     store:
       manager_tooltip: Eres responsable de esta colaboración
       member_tooltip: Eres miembro de este negocio
@@ -169,6 +170,29 @@ search:
       no_home_region: Ningún distrito de origen
       copy_id: Copiar ID
       copied_id: ID de Foodsaver copiado de {name} ({text})
+    time_relation:
+      future: Empieza
+      past: Finaliza
+      present_since: Empezó
+      present_until: Finalizó
+    mail:
+      attachment_tooltip: Se ha enviado un archivo adjunto con este correo electrónico.
+      from_to: De {from} a {to}
+      from_to_many: De {from} a {to} y a {other}
+      recieved_tooltip: Este correo electrónico te ha sido enviado.
+      sent_tooltip: Enviaste este correo electrónico.
+      mail_name: '{name} <{mail}>'
+    event:
+      invitation_tooltip:
+        2: Podrás acudir a esta cita.
+        3: No acudirás a esta cita.
+        0: No has dicho si estarás en este evento.
+        1: Acudirás a esta cita.
+      location_online: Conectado
+    poll:
+      can_vote: Aún puedes votar
+      has_voted: Ya has votado
+      not_eligible: No está autorizado para votar
   maxresults: El número de resultados mostrados es limitado. Quizás utilice un término
     de búsqueda más específico.
   too_short: Por favor ingrese un término de búsqueda más largo.
@@ -3351,6 +3375,9 @@ globals:
     workingGroups: Grupos
     regions_menu: Menú del distrito
     groups_menu: Menú de grupo
+    polls: Votación
+    mails: Correos electrónicos
+    events: Eventos
   you: 'Tú'
   account:
     signin: 'Iniciar sesión'
