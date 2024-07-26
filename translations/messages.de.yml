@@ -1038,6 +1038,8 @@ store:
     distance_close: "Wohnt weniger als 1 km entfernt"
     air_line: Die angezeigte Entfernung entspricht der Luftlinie.
     confirm-far: "Laut deiner gespeicherten Adresse wohnst du sehr weit von diesem Betrieb entfernt ({distance}). Bist du dir sicher, dass du hier regelmäßig und zuverlässig das Team unterstützen kannst?"
+    confirm-no-location: "Du hast keine gültige Adresse in deinen Profil hinterlegt. Bitte trag eine Heimatadresse ein, um es den Betriebsverantwortlichen leichter zu machen, über deine Bewerbung zu entscheiden."
+    confirm-no-location-ok: "Trotzdem bewerben"
   info_container: "Informationen"
   no_chain_choosen: "keine Kette gewählt"
   chain_search_picker:
@@ -3138,7 +3140,7 @@ error:
     link_1: "Eine neue Aktivierungsmail anfordern"
     link_2: "E-Mail-Adresse ändern"
   missing_geolocation:
-    title: "Es gab einen Fehler mit deiner Adresse."
+    title: "Keine gültige Adresse eingegeben"
     description: "Bitte überprüfe deine Adresse. Die Koordinaten konnten nicht ermittelt werden."
     link: "Zur Adresseingabe"
   invalid_mobile_phonenumber:

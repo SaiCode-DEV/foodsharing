@@ -14,7 +14,10 @@
             </span>
           </div>
 
-          <div>{{ $i18n('storeview.team_info_distance') }} <strong :class="distanceClass">{{ distanceDisplay }}</strong></div>
+          <div v-if="userHasLocation">
+            {{ $i18n('storeview.team_info_distance') }}
+            <strong :class="distanceClass">{{ distanceDisplay }}</strong>
+          </div>
           <div>{{ $i18n('storeview.team_info_active') }} <strong>{{ store.teamMemberCount }}</strong></div>
           <div>{{ $i18n('storeview.team_info_jumper') }} <strong>{{ store.standbyCount }}</strong></div>
 
@@ -153,6 +156,9 @@ export default {
     userLocation () {
       return UserData.getters.getUserDetails().coordinates
     },
+    userHasLocation () {
+      return UserData.getters.hasLocations()
+    },
     distanceInKm () {
       const toRadians = (degrees) => degrees * (Math.PI / 180)
       const R = 6371 // Earth's radius in kilometers
@@ -191,7 +197,15 @@ export default {
     },
     async sendRequest () {
       try {
-        const dialogueOptions = {
+        let dialogueOptions = {
+          title: this.$i18n('error.missing_geolocation.title'),
+          okTitle: this.$i18n('store.request.confirm-no-location-ok'),
+          okVariant: 'outline-danger',
+        }
+        if (!this.userHasLocation) {
+          if (!await this.confirmationDialogue('store.request.confirm-no-location', dialogueOptions)) return
+        }
+        dialogueOptions = {
           params: { distance: this.distanceDisplay },
           okTitle: this.$i18n('store.request.request'),
           okVariant: 'outline-danger',
