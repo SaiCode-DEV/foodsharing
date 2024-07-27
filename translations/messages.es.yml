@@ -948,7 +948,7 @@ error:
   missing_geolocation:
     description: 'Por favor verifique su dirección. No se pudieron determinar las
       coordenadas.'
-    title: 'Hubo un error con tu dirección.'
+    title: 'No se ha introducido ninguna dirección válida'
     link: 'Para entrada de dirección'
   invalid_mobile_phonenumber:
     title: 'Hay un problema con tu número de celular.'
@@ -1479,6 +1479,10 @@ store:
     confirm-far: Según la dirección guardada, vives muy lejos de este establecimiento
       ({distance}). ¿Estás seguro de que puedes apoyar al equipo de forma regular
       y confiable?
+    confirm-no-location-ok: Aplicar de todos modos
+    confirm-no-location: No has introducido una dirección válida en tu perfil. Por
+      favor, introduzca una dirección para facilitar a los responsables de la empresa
+      la decisión sobre tu candidatura.
   all_of_my_stores: 'Todas mis empresas'
   prefetchone: '1 semana'
   go: 'Al equipo'
