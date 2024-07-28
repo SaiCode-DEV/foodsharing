@@ -63,6 +63,7 @@
 - Fixed loading more entries in store log #2023 !3472 @AntonBallmaier
 - Fixed link in food share point map bubble #1940 !3471 @AntonBallmaier
 - Fixed store distance display for users without valid geolocation !3476 @AntonBallmaier
+- Fixed query problem in `ActivityGateway::fetchAllForumUpdates` #1828 !3470 @AntonBallmaier
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
