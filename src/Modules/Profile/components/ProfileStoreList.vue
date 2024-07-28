@@ -9,7 +9,7 @@
         variant="outline-primary"
         :pressed="button.state === filterMemberState"
         class="flex-grow-1"
-        @click="filterMemberState = button.state"
+        @click="setMemberState(button)"
       >
         <i :class="`fas fa-${button.icon}`" /><br>
         {{ button.count }}
@@ -164,6 +164,10 @@ export default {
     }))
   },
   methods: {
+    setMemberState (button) {
+      this.filterMemberState = button.state
+      this.currentPage = 1
+    },
     resetFilter () {
       this.filterName = null
       this.filterRegionId = null
