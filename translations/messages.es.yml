@@ -3121,8 +3121,8 @@ settings:
         enlace anterior y lo invalida. ¿Estás seguro de que quieres recrear el enlace?'
       title: 'Crear nuevo token'
     delete_token:
-      message: 'El enlace actual dejará de ser válido. ¿Realmente deseas eliminar
-        el token?'
+      message: 'Esto invalidará todos los enlaces de calendario creados anteriormente.
+        ¿Realmente deseas eliminar el token?'
       button: 'eliminar token'
       title: 'Eliminar token'
     token-warning: 'Importante: mantenga el enlace en secreto.
@@ -3153,6 +3153,9 @@ settings:
     export: Exportar calendario
     export_tooltip: Puede ver sus fechas de recogida utilizando un programa de calendario
       de su elección.
+    download: Descargar el calendario
+    generate_url:
+      button: Generar la URL del calendario
   changemail:
     sent: 'Ahora va a tu <strong>nuevo</strong> buzón para confirmar la nueva dirección
       de correo electrónico.'
