@@ -154,7 +154,7 @@ class CalendarRestController extends AbstractFOSRestController
      */
     #[Rest\Get('calendar/{token}')]
     #[Rest\QueryParam(name: 'formatting', default: 'alt', description: 'How to format description texts')]
-    #[Rest\QueryParam(name: 'events', default: IncludeEventsType::INVITATIONS, description: 'Include all or only answered invitations to events')]
+    #[Rest\QueryParam(name: 'events', default: 'invitations', description: 'Include all or only answered invitations to events')]
     #[Rest\QueryParam(name: 'pickups', default: true, description: 'Whether to include pickups')]
     #[Rest\QueryParam(name: 'history', default: true, description: 'Whether to include some past events')]
     public function listAppointments(string $token, ParamFetcher $paramFetcher): Response
