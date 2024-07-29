@@ -3776,6 +3776,7 @@ calendar:
   labelNextMonth: 'próximo mes'
   labelNav: 'Navegación del calendario'
   placeholder: Elija una fecha
+  copiedUrl: ¡URL del calendario copiada!
 addresspicker:
   infobox_profile: 'Los compateros necesitan la dirección para poder ofrecer cestas
     de alimentos a través del sitio web. Es necesario para poder participar en recogidas
