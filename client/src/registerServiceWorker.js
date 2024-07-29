@@ -6,7 +6,11 @@ function registerServiceWorker () {
       console.warn('Service workers are not supported by this browser')
       return
     }
-    runtime.register()
+    try {
+      runtime.register()
+    } catch (error) {
+      console.warn('Service worker registration failed:', error)
+    }
   })
 }
 

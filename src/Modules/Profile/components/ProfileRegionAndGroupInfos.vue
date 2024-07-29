@@ -2,12 +2,15 @@
   <div class="container bg-white">
     <div class="row justify-content-center">
       <div
-        v-for="(badgeItem, index) in badges"
+        v-for="(badgeItem, index) in filteredBadges"
         :id="badgeItem.id"
         :key="'badge_' + index"
         class="d-inline mr-2"
       >
-        <div :id="badgeItem.id" class="customBadge">
+        <div
+          :id="badgeItem.id"
+          class="customBadge"
+        >
           <a
             v-if="badgeItem.link"
             href="#"
@@ -98,7 +101,7 @@
       <h4 class="mb-2 mt-4">
         {{ $i18n('profile.about_me_intern') }}:
       </h4>
-      {{ aboutMeIntern }}
+      <Markdown :source="aboutMeIntern" />
     </div>
     <BananaModal :banana-statistics="bananaStatistics" />
   </div>
@@ -144,13 +147,23 @@ export default {
     },
     badges () {
       return [
-        { id: 'posts', text: this.$i18n('profile.stats.posts'), value: this.statistics.postCount.toString() },
-        { id: 'fetched', text: this.$i18n('profile.stats.fetch_count'), value: this.statistics.fetchCount.toString() + ' X' },
-        { id: 'baskets', text: this.$i18n('profile.stats.baskets'), value: this.statistics.basketCount.toString() },
-        { id: 'bananas', text: this.$i18n('profile.stats.bananas'), value: this.bananaStatistics.bananas.length.toString(), link: this.openBananaModal },
-        { id: 'saved', text: this.$i18n('profile.stats.weight'), value: this.formatFetchWeight.toString() },
-        { id: 'buddies', text: this.$i18n('profile.infos.buddies'), value: this.statistics.buddyCount.toString() },
+        { id: 'posts', text: this.$i18n('profile.stats.posts'), value: this.statistics.postCount >= 0 ? this.statistics.postCount.toString() : null },
+        { id: 'fetched', text: this.$i18n('profile.stats.fetch_count'), value: this.statistics.fetchCount >= 0 ? this.statistics.fetchCount.toString() + ' x' : null },
+        { id: 'baskets', text: this.$i18n('profile.stats.baskets'), value: this.statistics.basketCount >= 0 ? this.statistics.basketCount.toString() : null },
+        { id: 'bananas', text: this.$i18n('profile.stats.bananas'), value: this.bananaStatistics.bananas !== undefined ? this.bananaStatistics.bananas.length.toString() : null, link: this.openBananaModal },
+        { id: 'saved', text: this.$i18n('profile.stats.weight'), value: this.formatFetchWeight >= 0.00 ? this.formatFetchWeight.toString() : null },
+        { id: 'buddies', text: this.$i18n('profile.infos.buddies'), value: this.statistics.buddyCount >= 0 ? this.statistics.buddyCount.toString() : null },
       ]
+    },
+    filteredBadges () {
+      if (!this.isCurrentUserFoodSaver || (this.isCurrentUserFoodSaver && !this.isSessionUserFoodsaver)) {
+        const itemsToFilter = ['bananas', 'posts']
+        if (!this.isCurrentUserFoodSaver || (!this.isCurrentUserFoodSaver && !this.isSessionUserFoodsaver)) {
+          itemsToFilter.push('fetched', 'saved')
+        }
+        return this.badges.filter(badge => !itemsToFilter.includes(badge.id))
+      }
+      return this.badges
     },
     isOrgUser () {
       return this.role === ROLE.ORGA
@@ -160,6 +173,12 @@ export default {
     },
     isMe () {
       return this.currentUserId === this.userId
+    },
+    isSessionUserFoodsaver () {
+      return DataUser.getters.isFoodsaver()
+    },
+    isCurrentUserFoodSaver () {
+      return this.role > ROLE.FOODSHARER
     },
     formatFetchWeight () {
       const value = parseFloat(this.statistics.fetchWeight)

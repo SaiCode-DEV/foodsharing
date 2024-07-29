@@ -55,6 +55,11 @@ export const QUIZ_ID = Object.freeze({
   AMBASSADOR: 3,
 })
 
+export const REPORT_REASON_OPTIONS = Object.freeze({
+  SIMPLE: 1,
+  EXTENDED: 2,
+})
+
 export const EVENT_TYPE = Object.freeze({
   OFFLINE: 0,
   ONLINE: 1,

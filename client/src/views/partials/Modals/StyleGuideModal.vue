@@ -27,7 +27,7 @@
                 :class="{ 'base': base }"
                 :style="`background-color: var(${rule})`"
                 :data-content="type.step"
-                @click="copyToClipBoard(rule)"
+                @click="copyToClipboard(rule)"
               />
             </div>
           </div>
@@ -117,8 +117,11 @@
 </template>
 
 <script>
+import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin'
+
 export default {
   name: 'StyleGuideModal',
+  mixins: [CopyToClipboardMixin],
   data () {
     return {
       bootstrapMainRules: ['primary', 'light', 'secondary', 'danger', 'warning', 'info'],
@@ -207,9 +210,6 @@ export default {
         tempArray.push(myArray.slice(index, index + chunkSize))
       }
       return tempArray
-    },
-    copyToClipBoard (text) {
-      navigator.clipboard.writeText(`var(${text})`)
     },
   },
 }

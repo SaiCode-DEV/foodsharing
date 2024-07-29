@@ -166,7 +166,7 @@ final class ProfileController extends FoodsharingController
         return [
             'menu' => $this->getProfileMenu($userStores, $userArray, $maySeeStores),
             'statistics' => $this->renderStatistics($userArray),
-            'bananaStatistics' => $this->renderBananaStatistics($userArray),
+            'bananaStatistics' => (object)$this->renderBananaStatistics($userArray),
             'ambassadorRegions' => $userArray['botschafter'] ? $userArray['botschafter'] : [],
             'foodSaverRegions' => $userArray['foodsaver'] ? $userArray['foodsaver'] : [],
             'homeDistrictHistory' => (object)$this->getHomeDistrictHistory($userArray),
@@ -195,7 +195,7 @@ final class ProfileController extends FoodsharingController
         $maySeeHistory = $this->profilePermissions->maySeeHistory($fsId);
 
         // what is the viewer allowed to do in this profile?
-        if ($userArray['rolle'] > Role::FOODSHARER->value) {
+        if (!empty($regionId) && $userArray['rolle'] > Role::FOODSHARER->value) {
             // MediationRequest
             if ($this->regionGateway->getRegionOption($regionId, RegionOptionType::ENABLE_MEDIATION_BUTTON)) {
                 $mediationGroupEmail = $this->renderMediationRequest($userArray);
@@ -206,7 +206,7 @@ final class ProfileController extends FoodsharingController
                 $this->regionGateway->getRegionOption($regionId, RegionOptionType::ENABLE_REPORT_BUTTON)
             ) === 1;
 
-            if ($this->regionGateway->getRegionOption($regionId, RegionOptionType::ENABLE_REPORT_BUTTON)) {
+            if ($isReportButtonEnabled) {
                 // if the current user is not allowed to see all stores of the profile, the report dialog will only show stores in which both users are
                 if ($maySeeStores) {
                     $reportStores = $userStores;
@@ -253,7 +253,7 @@ final class ProfileController extends FoodsharingController
                         WorkgroupFunction::REPORT
                     );
                     $reportGroupDetails = $this->groupGateway->getGroupLegacy($reportGroupId);
-                    $MailboxNameReportRequest = $this->mailboxGateway->getMailboxname(
+                    $mailboxNameReportRequest = $this->mailboxGateway->getMailboxname(
                         $reportGroupDetails['mailbox_id']
                     ) ?? '';
                 }
@@ -263,7 +263,20 @@ final class ProfileController extends FoodsharingController
                     WorkgroupFunction::ARBITRATION
                 );
 
-                if ($regionId != $this->currentUserUnits->getCurrentRegionId()) {
+                if ($hasArbitrationGroup) {
+                    $arbitrationGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId(
+                        $regionId,
+                        WorkgroupFunction::ARBITRATION
+                    );
+                    $arbitrationGroupDetails = $this->groupGateway->getGroupLegacy($arbitrationGroupId);
+                    $mailboxNameArbitrationRequest = $this->mailboxGateway->getMailboxname(
+                        $arbitrationGroupDetails['mailbox_id']
+                    ) ?? '';
+                }
+
+                if (!$this->currentUserUnits->getCurrentRegionId()) {
+                    $reporterHasReportGroup = false;
+                } elseif ($regionId != $this->currentUserUnits->getCurrentRegionId()) {
                     $reporterHasReportGroup = $this->groupFunctionGateway->existRegionFunctionGroup(
                         $this->currentUserUnits->getCurrentRegionId(),
                         WorkgroupFunction::REPORT
@@ -271,6 +284,9 @@ final class ProfileController extends FoodsharingController
                 }
 
                 $buttonNameReportRequest = $this->translator->trans('profile.reportRequest');
+
+                $reasonOptionOther = boolval($this->regionGateway->getRegionOption($regionId, RegionOptionType::REPORT_REASON_OTHER) ?? 1);
+                $reasonOptionSettings = intval($this->regionGateway->getRegionOption($regionId, RegionOptionType::REPORT_REASON_OPTIONS) ?? 1);
             }
         }
 
@@ -297,8 +313,11 @@ final class ProfileController extends FoodsharingController
             'isReporterIdArbitrationAdmin' => $isReporterIdArbitrationAdmin ?? false,
             'isReportedIdArbitrationAdmin' => $isReportedIdArbitrationAdmin ?? false,
             'isReportButtonEnabled' => $isReportButtonEnabled ?? false,
+            'reasonOptionOther' => $reasonOptionOther ?? false,
+            'reasonOptionSettings' => $reasonOptionSettings ?? 1,
             'reporterHasReportGroup' => $reporterHasReportGroup ?? false,
-            'mailboxNameReportRequest' => $MailboxNameReportRequest ?? '',
+            'mailboxNameReportRequest' => $mailboxNameReportRequest ?? '',
+            'mailboxNameArbitrationRequest' => $mailboxNameArbitrationRequest ?? '',
             'buttonNameReportRequest' => $buttonNameReportRequest ?? $this->translator->trans('profile.report.oldReportButton'),
             'maySeeQuizSessions' => $this->profilePermissions->maySeeQuizSessions()
         ];

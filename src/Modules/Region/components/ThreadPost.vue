@@ -75,11 +75,11 @@ import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import Time from '@/components/Time.vue'
-import { pulseSuccess } from '@/script'
+import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin'
 
 export default {
   components: { Avatar, ThreadPostActions, Markdown, OverflowMenu, Time },
-  mixins: [MediaQueryMixin],
+  mixins: [MediaQueryMixin, CopyToClipboardMixin],
   props: {
     id: { type: Number, default: null },
     userId: { type: Number, required: true },
@@ -100,7 +100,7 @@ export default {
     },
     overflowMenuOptions () {
       return [
-        { hide: !navigator.clipboard, icon: 'copy', textKey: 'thread.post.options.copy_source', callback: this.copySourceCodeToClipboard },
+        { hide: !navigator.clipboard, icon: 'copy', textKey: 'thread.post.options.copy_source', callback: () => this.copyToClipboard(this.body, 'thread.post.copy_source_success') },
         { icon: 'chain', textKey: 'thread.post.options.copy_direct_link', callback: this.copyDirectLink },
       ]
     },
@@ -109,13 +109,8 @@ export default {
     openChat () {
       conversationStore.openChatWithUser(this.author.id)
     },
-    async copySourceCodeToClipboard () {
-      await navigator.clipboard.writeText(this.body)
-      pulseSuccess(this.$i18n('thread.post.copy_source_success'))
-    },
     async copyDirectLink () {
-      await navigator.clipboard.writeText(location.protocol + '//' + location.host + this.deepLink)
-      pulseSuccess(this.$i18n('thread.post.copy_direct_link_success'))
+      this.copyToClipboard(location.protocol + '//' + location.host + this.deepLink, 'thread.post.copy_direct_link_success')
     },
   },
 }

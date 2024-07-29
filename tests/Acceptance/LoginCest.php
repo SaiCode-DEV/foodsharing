@@ -24,7 +24,7 @@ class LoginCest
         $I->waitForElement('.testing-login-dropdown');
         $I->click('.testing-login-dropdown');
         $I->fillField('.testing-login-input-email', $this->foodsaver['email']);
-        $I->fillField('.testing-login-input-password', $this->pass);
+        $I->fillField('#testing-login-input-password > input', $this->pass);
         $I->click('.testing-login-click-submit');
         $I->waitForActiveAPICalls();
         $I->waitForElementNotVisible('#pulse-success');
@@ -43,7 +43,7 @@ class LoginCest
         $I->waitForElement('.testing-login-dropdown');
         $I->click('.testing-login-dropdown');
         $I->fillField('.testing-login-input-email', $this->foodsaver['email']);
-        $I->fillField('.testing-login-input-password', $this->pass);
+        $I->fillField('#testing-login-input-password > input', $this->pass);
         $I->dontSeeCheckboxIsChecked('.testing-login-input-remember');
         $I->click('.testing-login-input-remember');
         $I->seeCheckboxIsChecked('.testing-login-input-remember');

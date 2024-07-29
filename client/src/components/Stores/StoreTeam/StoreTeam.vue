@@ -90,7 +90,7 @@ import {
   removeStoreMember,
 } from '@/api/stores'
 import phoneNumber from '@/helper/phone-numbers'
-import { chat, pulseSuccess, pulseError } from '@/script'
+import { chat, pulseError } from '@/script'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import StoreTeamAvatar from '@/components/Stores/StoreTeam/StoreTeamAvatar.vue'
 import StoreData from '@/stores/stores'
@@ -105,10 +105,11 @@ import StoreTeamManagementPanel from './StoreTeamManagementPanel.vue'
 import StoreTeamFilterPanel from './StoreTeamFilterPanel.vue'
 import StoreApplications from '@/components/Modals/Store/StoreApplications.vue'
 import PickupsData from '@/stores/pickups'
+import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin'
 
 export default {
   components: { StoreTeamAvatar, Container, PhoneButton, Time, OverflowMenu, StoreTeamManagementPanel, StoreTeamFilterPanel, StoreApplications },
-  mixins: [MediaQueryMixin, ListToggleMixin, ConfirmationDialogue],
+  mixins: [MediaQueryMixin, ListToggleMixin, ConfirmationDialogue, CopyToClipboardMixin],
   props: {
     fsId: { type: Number, required: true },
     mayEditStore: { type: Boolean, default: false },
@@ -166,12 +167,6 @@ export default {
       const newList = this.foodsaver.filter(this.filterFunction.func)
       newList.sort(this.sortingFunction.func)
       this.setList(newList)
-    },
-    async copyIntoClipboard (text) {
-      if (navigator.clipboard) {
-        await navigator.clipboard.writeText(text)
-        pulseSuccess(this.$i18n('pickup.copiedNumber', { number: text }))
-      }
     },
     mayRemoveFromStore (user) {
       if (user.isManager) return false
@@ -278,7 +273,7 @@ export default {
       return [
         { icon: 'comment', textKey: 'chat.open_chat', callback: () => chat(user.id) },
         { icon: 'phone', textKey: 'pickup.call', href: this.$url('phone_number', user.phoneNumber, true) },
-        { icon: 'clone', textKey: 'pickup.copyNumber', callback: () => this.copyIntoClipboard(user.phoneNumber) },
+        { icon: 'clone', textKey: 'pickup.copyNumber', callback: () => this.copyToClipboard(user.phoneNumber) },
         { icon: 'user', textKey: 'profile.go', href: this.$url('profile', user.id) },
         { hide: !this.mayEditStore || user.isActive, icon: 'clipboard-check', textKey: 'store.sm.makeRegularTeamMember', callback: () => this.toggleStandbyState(user) },
         { hide: !this.mayEditStore || !user.isActive || user.isManager, icon: 'running', textKey: 'store.sm.makeJumper', callback: () => this.toggleStandbyState(user) },

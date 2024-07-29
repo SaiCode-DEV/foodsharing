@@ -25,7 +25,7 @@
       <small
         v-b-tooltip.noninteractive="$i18n('search.results.user.copy_id')"
         class="user-id"
-        @click.prevent="copyId"
+        @click.prevent="copyToClipboard(user.id, 'search.results.user.copied_id', user)"
       >
         ID: {{ user.id }}
         <i class="fas fa-copy muted" />
@@ -61,10 +61,12 @@
 <script>
 import Avatar from '@/components/Avatar/Avatar.vue'
 import PhoneButton from '@/components/PhoneButton.vue'
-import { chat, pulseSuccess } from '@/script'
+import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin'
+import { chat } from '@/script'
 
 export default {
   components: { Avatar, PhoneButton },
+  mixins: [CopyToClipboardMixin],
   props: {
     user: { type: Object, required: true },
   },
@@ -72,10 +74,6 @@ export default {
     openChat () {
       chat(this.user.id)
       this.$emit('close')
-    },
-    copyId () {
-      navigator.clipboard.writeText(this.user.id)
-      pulseSuccess(this.$i18n('search.results.user.copied_id', this.user))
     },
   },
 }

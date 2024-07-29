@@ -12,8 +12,6 @@ use Foodsharing\Modules\Mailbox\MailboxControl;
 use Foodsharing\Modules\Message\MessageControl;
 use Foodsharing\Modules\Register\RegisterControl;
 use Foodsharing\Modules\Relogin\ReloginControl;
-use Foodsharing\Modules\Report\ReportControl;
-use Foodsharing\Modules\Report\ReportXhr;
 use Foodsharing\Modules\Settings\SettingsXhr;
 use Foodsharing\Modules\Store\StoreController;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
@@ -65,14 +63,12 @@ class Routing
         'poll' => VotingControl::class,
         'register' => RegisterControl::class,
         'relogin' => ReloginControl::class,
-        'report' => ReportControl::class,
         'fsbetrieb' => StoreUserControl::class,
         'groups' => WorkGroupControl::class,
         'store' => StoreController::class,
     ];
 
     private const XHR = [
-        'report' => ReportXhr::class,
         'settings' => SettingsXhr::class,
         'basket' => BasketXhr::class,
     ];

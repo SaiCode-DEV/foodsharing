@@ -231,8 +231,7 @@ final class PageHelper
             ]);
             if (UnitType::isRegion($groupType)) {
                 $group['isAdmin'] = $this->currentUserUnits->isAdminFor($groupId);
-                $group['mayAccessReportGroupReports'] = $this->reportPermissions->mayAccessReportGroupReports($groupId);
-                $group['mayAccessArbitrationGroupReports'] = $this->reportPermissions->mayAccessArbitrationReports($groupId);
+                $group['mayAccessReports'] = $this->reportPermissions->mayAccessReportsForRegion($groupId);
                 $group['maySetRegionPin'] = $this->regionPermissions->maySetRegionPin($groupId);
                 $regions[] = $group;
             } else {

@@ -964,7 +964,7 @@ profile:
     personens navn. Vennligst ikke bruk dette feltet til å lagre ytterligere informasjon
     om brukeren, for eksempel gjennomføring av hygieneopplæring eller lignende. I
     stedet kan arbeidsgrupper brukes til å utføre slike oppdrag. Ytterligere informasjon
-    om dette finner du i [ambassadørforumet](/region?bid=881&sub=forum&tid=58225)
+    om dette finner du i [ambassadørforumet]({url})
   sections:
     ambassador_for: for
     no_common_workgroups: ingen felles arbeidsgruppe
@@ -2212,7 +2212,7 @@ events:
     kan brukerne enkelt delta i konferansen med ett klikk fra møtesiden. Det kreves
     ingen ekstra programmer, bare en noenlunde moderne nettleser. Det er også mulig
     å melde seg på via telefon.\n\nHvis du likevel ønsker å bruke en annen plattform
-    for telefon- eller videokonferanser, kan du velge alternativet *«Annet»*. \n"
+    for telefon- eller videokonferanser, kan du velge alternativet *«Annet»*.\n"
 chat:
   conversations: Samtaler
   notification_unnamed_conversation: '{foodsaver} skrev til deg.'
@@ -2937,6 +2937,9 @@ terminology:
   electionAdmins: Valg
   yes: Ja
   no: Nei
+  phone: Telefonnummer
+  landline: Fasttelefonnummer
+  mobile_phone: Mobilnummer
 gender:
   d: mangfoldig
   f: Fru

@@ -89,7 +89,7 @@ class WorkGroupTransactions
     private function createBellNotificationForRequest(array $group, int $userId): void
     {
         $adminIds = $this->workGroupGateway->getGroupAdminIds($group['id']);
-        $bellData = Bell::create('workinggroup_new_request_title', 'workinggroup_new_request', 'fas fa-user-clock', [
+        $bellData = Bell::create('workinggroup_new_request_title', 'workinggroup_new_request', 'fas fa-user-plus', [
             'href' => '/?page=application&bid=' . $group['id'] . '&fid=' . $userId
         ], [
             'name' => $group['name']

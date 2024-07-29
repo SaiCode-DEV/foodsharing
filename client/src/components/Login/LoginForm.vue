@@ -24,15 +24,10 @@
           <i class="fas fa-key mr-1" />
           {{ $i18n('login.password') }}
         </div>
-        <input
+        <password-field
+          id="testing-login-input-password"
           v-model="password"
-          :placeholder="$i18n('login.password')"
-          :aria-label="$i18n('login.password')"
-          type="password"
-          name="login-password"
-          class="testing-login-input-password form-control"
-          autocomplete="current-password"
-        >
+        />
       </label>
       <label class="d-flex align-items-center mt-3 mb-3">
         <input
@@ -73,9 +68,11 @@ import { required, email } from 'vuelidate/lib/validators'
 
 import { pulseError } from '@/script'
 import { HTTP_RESPONSE } from '@/consts'
+import PasswordField from '@/components/Login/PasswordField.vue'
 
 export default {
   name: 'MenuLogin',
+  components: { PasswordField },
   data () {
     return {
       email: isDev ? 'userbot@example.com' : '',

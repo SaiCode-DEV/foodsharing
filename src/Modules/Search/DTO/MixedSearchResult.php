@@ -93,5 +93,41 @@ class MixedSearchResult
      */
     public array $users;
 
+    /**
+     * Array of mails.
+     *
+     * @var array<MailSearchResult> Array of mails
+     *
+     * @OA\Property(
+     *     type="array",
+     *     @OA\Items(ref=@Model(type=MailSearchResult::class))
+     * )
+     */
+    public array $mails;
+
+    /**
+     * Array of events.
+     *
+     * @var array<EventSearchResult> Array of events
+     *
+     * @OA\Property(
+     *     type="array",
+     *     @OA\Items(ref=@Model(type=EventSearchResult::class))
+     * )
+     */
+    public array $events;
+
+    /**
+     * Array of polls.
+     *
+     * @var array<PollSearchResult> Array of polls
+     *
+     * @OA\Property(
+     *     type="array",
+     *     @OA\Items(ref=@Model(type=PollSearchResult::class))
+     * )
+     */
+    public array $polls;
+
     public array $timings; // Only used for testing in beta.
 }

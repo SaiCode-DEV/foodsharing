@@ -51,6 +51,7 @@
       <SearchResults
         v-if="showResults"
         class="results"
+        :class="{'no-interaction': accidentalClickPrevention }"
         :results="results"
         :is-loading="isLoading"
         @close="$refs.searchBarModal.hide"
@@ -83,6 +84,13 @@ import DataUser, { mutations as userStoreMutations } from '@/stores/user.js'
 const cacheRequestName = 'searchIndex'
 const rateLimitInterval = 1000 * 60 * 5 // 5 minutes in milliseconds
 
+// While results from the index can be displayed quickly, the search results might only arive a bit later.
+// A user might just want to click on an index entry, when the other entries arrive. That way the user likely
+// clicks the wrong entry. To prevent this, clicking links is disabled for a short time after adding the loaded
+// results. This does not apply to tab naviagion and opening a link via Enter, since the right element will stay
+// selected.
+const accidentalClickPreventionThreshhold = 700 // milliseconds
+
 export default {
   components: { SearchResults },
   data () {
@@ -95,6 +103,7 @@ export default {
       index: null,
       recentQueryChangesCount: 0,
       globalSearch: false,
+      accidentalClickPrevention: false,
     }
   },
   computed: {
@@ -177,6 +186,10 @@ export default {
         return false
       }
       this.directSearchResults = results
+      if (this.accidentalClickPrevention) {
+        clearTimeout(this.accidentalClickPrevention)
+      }
+      this.accidentalClickPrevention = setTimeout(() => { this.accidentalClickPrevention = false }, accidentalClickPreventionThreshhold)
       this.isLoading = false
     },
     async fetchIndex () {
@@ -274,6 +287,10 @@ export default {
   position: relative;
   flex-grow: 1;
   align-items: center;
+}
+
+.no-interaction ::v-deep a {
+  pointer-events: none;
 }
 
 </style>

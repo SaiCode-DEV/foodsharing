@@ -18,6 +18,7 @@ use Foodsharing\Modules\Core\DBConstants\Quiz\AnswerRating;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
+use Foodsharing\Modules\Core\DBConstants\Report\ReportType;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus as STATUS;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -1091,7 +1092,8 @@ class Foodsharing extends Db
             'reporter_id' => $reporterId,
             'foodsaver_id' => $reporteeId,
             'betrieb_id' => $storeId,
-            'reporttype' => 1,
+            'reporttype' => ReportType::LOCAL->value,
+            'report_reason_id' => 2,
             'time' => $this->toDateTime($this->faker->dateTimeBetween('first day of january this year', $max = 'now')),
             'msg' => $msg ?? $this->faker->text(500),
             'tvalue' => $reason ?? $this->faker->text(50),

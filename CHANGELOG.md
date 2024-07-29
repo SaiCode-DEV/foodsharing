@@ -12,10 +12,17 @@
 - Added a popup for food share points on the map !3360 !3371 @alex.simm
 - You can now load more entries in the store log #1969 !3383 @AntonBallmaier
 - Storemanagers get an extra warning before removing users from a store team, if they currently occupy slots #1825 !3368 @AntonBallmaier
+- Added three new search result types: mail, event and poll #1728 !3398 @AntonBallmaier
+- Optional reason for reports added !2833 @fs_k @AntonBallmaier
 - Added API endpoints for managing store categories #1263 !3405 @alex.simm
 - Display senders picture in notifications !3373 @AntonBallmaier
+- Give access to reporter private mail address #1765 !3423 @AntonBallmaier
 - Users can be linked in markdown using @`<userId>` now #1850 !3177 @AntonBallmaier
-- Applications to working groups trigger a bell notification to the admins #933 !3274 @alex.simm
+- Applications to working groups trigger a bell notification to the admins #933 !3274 !3479 @alex.simm
+- The password in the login form can be made visible !3459 @alex.simm
+- Baskets can be placed at any location !3452 @AntonBallmaier
+- Added tooltips to map markers !3466 @AntonBallmaier
+- Display the distance to the store when applying #2016 !3460 @AntonBallmaier
 
 ## Changes
 - Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei
@@ -25,6 +32,7 @@
 - Pickups are displayed on dashboard for 30 minutes longer !3382
 - Removed address on businessCard !3362 @chriswalg
 - Give admins of quiz group permission to view and delete quiz sessions !3422 @AntonBallmaier
+- Refactored report module to Controller, vue and api !3423 @AntonBallmaier
 - Change region link generation from /?page=bezirk& to /region?
 - Removed application wall #321 !3436 @AntonBallmaier
 - Removed store state COOPERATION_STARTING #414 !3410 !3444 !3445 !3448 @chriswalg
@@ -39,13 +47,23 @@
 - Fixed passport generation not working #1944 !3376 @AntonBallmaier
 - Resolved some UI inconsistancies !3370 @AntonBallmaier
 - double foodsharing.network in group links #1978 !3409 @McGoldi
+- Threads with reduced visibility get handled in the search properly now #1728 !3398 @AntonBallmaier
 - Some fixes for the quiz module !3418 @AntonBallmaier
 - Store chain information is visible on the store page again #1946 @alex.simm
 - Fixed the rendering of dates that is close to now #1948 !3430 @alex.simm
 - Fixed display error of deleted users in store log #1971 !3432 @AntonBallmaier 
 - Fixed activity setting on dashboard #1937 !3433 @AntonBallmaier
+- Fixed "use home address"-switch in edit basket modal #1897 !3452 @AntonBallmaier 
 - Fixed tooltip display in member list #2009 !3453 @AntonBallmaier
 - Fixed store log null access error #2007 !3451 @AntonBallmaier
+- Fixed type error in profile menu #2002 !3468 @AntonBallmaier
+- Fixed map performance problems #1940 !3466 @AntonBallmaier
+- Handle service worker registration error #1914 !3469 @AntonBallmaier
+- Fixed `<Markdown>` rerender on source change #2020 !3467 @AntonBallmaier
+- Fixed loading more entries in store log #2023 !3472 @AntonBallmaier
+- Fixed link in food share point map bubble #1940 !3471 @AntonBallmaier
+- Fixed store distance display for users without valid geolocation !3476 @AntonBallmaier
+- Fixed query problem in `ActivityGateway::fetchAllForumUpdates` #1828 !3470 @AntonBallmaier
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
@@ -53,8 +71,8 @@
 - Reworked region admin page and removed XhrMethods #1412 #1414 #1416 #1417 #1181 #1939 !3193 !3346 @AntonBallmaier
 - Modernized EventControl to a Symfony controller !3260 @chriswalg
 - Rebuild quiz module #1666 !3119 !3329 !3403 @AntonBallmaier
-- Refactor the nearby baskets list to vue !3294 !3391 @alex.simm
-- Refactored profile to vue !3184 !3225 !3343 @chriswalg
+- Refactor the nearby baskets list to vue !3294 !3391 !3477 @alex.simm
+- Refactored profile to vue !3184 !3225 !3343 !3446 !3485 @chriswalg
 - Moved passports to region memberlist #1799 #1326 !3251 !3388 !3439 @chriswalg
 - Modernized StoreChainControl to a Symfony controller !3292 @chriswalg
 - Rework team page in vue !3248 !3351 @chriswalg
@@ -66,7 +84,7 @@
 - Extract `updateLastActivity()` into new service `UserStatusTransactions` !3377 @KoeMai
 - Remove obsolete and unused run.php !3395 @\_fridtjof_
 - Provide CurrentUserRegionInterface for Session as independent implementation !3390 !3400 @KoeMai
-- Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 !3426 @chriswalg
+- Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 !3426 !3457 @chriswalg
 - Cleaned up the ApplicationGateway #1975 !3411 @alex.simm
 - make ActivityGateway:fetchAllStoreUpdates faster #1907 !3441 @fs_k @AntonBallmaier
 - Modernized LegalControl to a Symfony controller !3447 @chriswalg
@@ -84,6 +102,8 @@
 - Updated phinx to version 0.16 #1774 @alex.simm
 - Removed obsolete version field from docker compose files !3442 @\_fridtjof_
 - Added a rate limiting to the file upload #1896 !3450 @alex.simm
+- Updated the version of tecnickcom/tcpdf !3473 @alex.simm
+- Replaced goAndExit with Symfony's redirect !3474 @alex.simm
 
 ## Development documentation
 

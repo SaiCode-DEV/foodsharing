@@ -706,7 +706,7 @@ profile:
     for the person’s name. Please do not use these fields to store further information
     about the user, such as the completion of hygiene training or similar. Instead,
     workgroups can be used to perform such assignments. Further information on this
-    can be found in the [Ambassador Forum](/region?bid=881&sub=forum&tid=58225)
+    can be found in the [Ambassador Forum]({url})
   sections:
     ambassador_for: for
     foodSaver_in_region: Foodsaver in
@@ -893,7 +893,7 @@ events:
     from the appointment page. No additional programs are required, just a reasonably
     modern internet browser. It is also possible to join by phone.\n\nIf you still
     want to use a different platform for a telephone or video conference, please select
-    the option *“Other ”*. \n"
+    the option *“Other ”*.\n"
 forum:
   threads: Threads
   quickreply:
@@ -1252,6 +1252,9 @@ terminology:
   yes: Yes
   achievement: Achievement
   achievements: Achievements
+  phone: phone number
+  landline: landline
+  mobile_phone: mobile
 login:
   pwreset:
     bread: Reset password

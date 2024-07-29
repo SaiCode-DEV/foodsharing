@@ -6,7 +6,10 @@
     centered
   >
     <template #modal-header="{ close }">
-      <slot name="popup-header" />
+      <slot v-if="!isLoading" name="popup-header" />
+      <h3 v-else class="d-block w-100">
+        <b-skeleton width="80%" />
+      </h3>
       <button
         type="button"
         class="btn btn-sm no-shadow"
@@ -34,7 +37,7 @@
       >
         {{ $i18n('globals.close') }}
       </b-button>
-      <slot name="popup-footer" />
+      <slot v-if="!isLoading" name="popup-footer" />
     </template>
   </b-modal>
 </template>

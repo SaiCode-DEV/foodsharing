@@ -46,6 +46,7 @@ regions: "Bezirke" # TODO check if used anywhere else
 groups:
   empty: "Du bist noch in keinen Arbeitsgruppen"
 message_text_to_group_admin_workgroup: "Die Region/Arbeitsgruppe <b>{groupName}</b> hat <b>keine</b> Botschafter:innen bzw. Administrator:innen mehr.<br><br><br>Sie besitzt folgende ID-Struktur:<br>{idStructureList}<br><br>Die ID lautet: {groupId}<br><br>URL: \"<a href=\"https://foodsharing.de/region?bid={groupId}&sub=forum\" target=\"_blank\">Klicke hier um zur Region/Arbeitsgruppe zu gehen</a>"
+copied_to_clipboard: "„{text}“ wurde in die Zwischenablage kopiert."
 #
 # FORM DATA KEYS: SettingsView
 # --
@@ -382,6 +383,7 @@ bcard:
   title: "Visitenkarten-Generator"
   card: "Deine foodsharing-Visitenkarte"
   claim: "Hier einfach generieren, ausdrucken und ausschneiden …"
+  for: "{role} für {region}"
   desc: "Wähle hier, für welchen Bezirk beziehungsweise für welche Rolle du deine Visitenkarte erstellen möchtest."
   error:
     length: "Deine Anschrift ist zu lang. Anschrift, Postleitzahl und Stadt dürfen zusammen maximal 49 Zeichen haben."
@@ -769,8 +771,7 @@ terminology:
   electionAdmins : "Wahlen"
   wall: "Pinnwand"
   statistic: "Statistik"
-  reports: "Meldungsansicht (LMG)"
-  arbitration: "Meldungsansicht (LS)"
+  reports: "Meldungsansicht"
   fsp: "Fairteiler" #also in MapView
   fsps: "Fairteiler"
   basket: "Essenskorb"
@@ -894,6 +895,7 @@ storeview:
   source_data: "Stammdaten"
   select_related_region: "Auswahl des zuständigen Bezirks"
   info: "Informationen"
+  team_info_distance: "Entfernung zum Betrieb:"
   team_info_active: "Aktive im Team:"
   team_info_jumper: "Springer:"
   pickupCount: "Abholungen"
@@ -1035,6 +1037,9 @@ store:
     distance_unknown: "Kein Wohnort eingetragen"
     distance_close: "Wohnt weniger als 1 km entfernt"
     air_line: Die angezeigte Entfernung entspricht der Luftlinie.
+    confirm-far: "Laut deiner gespeicherten Adresse wohnst du sehr weit von diesem Betrieb entfernt ({distance}). Bist du dir sicher, dass du hier regelmäßig und zuverlässig das Team unterstützen kannst?"
+    confirm-no-location: "Du hast keine gültige Adresse in deinen Profil hinterlegt. Bitte trag eine Heimatadresse ein, um es den Betriebsverantwortlichen leichter zu machen, über deine Bewerbung zu entscheiden."
+    confirm-no-location-ok: "Trotzdem bewerben"
   info_container: "Informationen"
   no_chain_choosen: "keine Kette gewählt"
   chain_search_picker:
@@ -1170,7 +1175,6 @@ pickup:
   leave: "Austragen"
   open_profile: "Profil von"
   copyNumber: "Nummer kopieren"
-  copiedNumber: "„{number}“ wurde in die Zwischenablage kopiert."
   signout_sure: "Möchtest du dieses Team wirklich verlassen?"
   signout_info: "Deine anstehenden Abholungen werden gelöscht."
   signout_confirm: "Bist du dir sicher?"
@@ -1590,28 +1594,18 @@ month:
     "12": "Dez."
 
 reports:
-  about: "Über" #also in ReportView
-  about_first_name: "Über Name"
-  about_last_name: "Über Nachname"
-  about_email: "Über E-Mail"
-  all_reports: "Alle Meldungen"
-  city: "Stadt"
-  from: "Von" #also in Reportview
-  from_first_name: "Von Name"
-  from_last_name: "Von Nachname"
+  reports_region: "Meldungen aus {regionName}"
+  reports_user: "Alle Meldungen über {userName} ({userId})"
   message: "Beschreibung"
   reason: "Grund"
-  region: "Stammbezirk"
-  report_id: "Meldungs-ID"
+  reporter: "Meldende Person"
+  reported: "Gemeldete Person"
+  id: "ID"
   time: "Zeitpunkt"
   no_reports_fallback: "Es sind noch keine Meldungen vorhanden"
   store: "Zugeordneter Betrieb"
-  in-store: "Betrifft die Meldung einen bestimmten Betrieb, in dem {user} abholt?"
-  when: "Zeitpunkt"
-  info: '
-    Bitte gib das <b>Datum</b>, den <b>Ort</b> und die <b>Uhrzeit</b> des Vorfalls an! <br>
-    Gib an, ob du bereits mit der Person direkt gesprochen hast und den Sachverhalt klären konntest.
-    Gib bitte an, wie du am besten für Rückfragen zu erreichen bist.'
+  report_id: "Meldungs-ID"
+  
 
   #|
   #  Es ist wichtig alle Fälle, die gegen die Verhaltensregeln verstoßen, zu melden,
@@ -1776,14 +1770,18 @@ regionOptions:
   header_page: "Optionen für {bezirk}"
   success: "Optionen erfolgreich gespeichert"
   save: "Optionen speichern"
-  enableReportButton: "Technische Unterstützung für Meldungen durch einen Meldungs-Link auf den Profilen der Stammfoodsaver:innen des Bezirks aktivieren."
-  enableMediationButton: "Technische Unterstützung für Mediationen durch einen Mediations-Link auf den Profilen der Stammfoodsaver:innen des Bezirks aktivieren."
+  enableReportButton: "Meldungsformular auf Profilseiten der Stammfoodsaver:innen des Bezirks aktivieren"
+  regionReportReasonSimple: "Vereinfachte Meldungsgründe"
+  regionReportReasonCategoryB: "Erweiterte Meldungsgründe: Verhaltensregeln - B) Verhalten bei Abholungen"
+  regionReportReasonOther: "\"Sonstiges\" als Meldungsgrund erlauben"
+  enableMediationButton: "Mediationsformular auf Profilseiten der Stammfoodsaver:innen des Bezirks aktivieren"
   regionPickupRuleActive: "Folgende Bezirksregel für Abholungen bei beliebten „Rosinen“-Betrieben aktivieren:"
   regionPickupTimespan: "Zeitspanne (Tage vor und nach dem gewünschten Abholtermin), auf die sich die Rosinen-Regel bezieht"
   regionPickupLimitNumber: "Maximale Anzahl der zulässigen Rosinen-Abholungen im gewählten Zeitraum"
   regionPickupLimitDayNumber: "Maximale Anzahl von Rosinen-Abholungen pro Tag"
   regionPickupInactiveHours: "Wie viele Stunden vor einer Abholung soll die Regel nicht mehr angewandt werden"
   regionPickupRuleActiveStoreList: "Liste der Betriebe im Bezirk, die für die Rosinen-Regel berücksichtigt werden. Alle Abholungen der aufgelisteten Betriebe werden zusammengezählt und für die Regel berücksichtigt."
+  noPickupRuleActiveStores: "Aktuell ist die Rosinen-Regel für keinen Betrieb im Bezirk ativiert."
 
 regionPin:
   header_page: "Öffentliche Ortsgruppenbeschreibung für {bezirk}"
@@ -2236,11 +2234,19 @@ profile:
     no_group: "Leider gibt es für den Stammbezirk des Foodsavers noch keine lokale Mediationsgruppe. Du kannst das Thema bei einem Gruppentreffen oder im Forum ansprechen, so dass ein lokales Mediationsteam gewählt wird."
   report:
     title: "Meldung über {name}"
-    info: "Bitte gib Datum, Ort und Uhrzeit des Vorfalls an. Gib an, ob du bereits mit der Person direkt gesprochen hast und den Sachverhalt klären konntest. Gib bitte an, wie du am besten für Rückfragen zu erreichen bist."
-    doesNotAffectStore: "Betrifft keinen oder anderen Betrieb"
+    info: |
+      Damit deine Meldung möglichst gut bearbeitet werden kann, solltes sie folgende Informationen enthalten:
+      - Datum, Uhrzeit und Ort des Vorfalls
+      - was du bereits unternommen hast, also z.B. ob du bereits mit der Person direkt gesprochen hast und den Sachverhalt klären konntest
+      - wie du am besten für Rückfragen zu erreichen bist.
+
+      Hier findest du die [Verhaltensregeln im Wiki](https://wiki.foodsharing.de/Verhaltensregeln).
+    doesNotAffectStore: "Betrifft keinen oder einen anderen Betrieb"
     send: "Meldung abschicken"
     sent: "Meldung wurde versendet"
-    mail: "Du erreichst deine lokale Meldungsgruppe auch unter folgender E-Mail-Adresse:"
+    mail:
+      reportGroup: "Diese Meldung wird an die lokale Meldungsgruppe übermittelt. Du erreichst diese Gruppe auch unter folgender E-Mail-Adresse:"
+      arbitrationGroup: "Diese Meldung wird an die Schiedsstelle übermittelt, da eine der beteiligten Personen Mitglied der lokalen Meldungsgruppe ist. Du erreichst die Schiedsstelle auch unter folgender E-Mail-Adresse:"
     oldReportButton: "Regelverletzung melden"
     oldReportButtonTextPart1: "Aktuell werden Regelverletzungen nicht an dieser Stelle gemeldet."
     oldReportButtonTextPart2: "Wendet euch bei Bedarf an die lokale Meldungsgruppe in eurem Bezirk."
@@ -2253,68 +2259,40 @@ profile:
     arbAdminAgainstRepAdmin: "Du bist Administrator:in der Schiedsstelle und willst eine:n Administrator:in der Meldungsbearbeitung melden. Dies wird im Moment technisch nicht unterstützt. Du kannst jederzeit eine Meldung per E-Mail an die für euch lokal Verantwortlichen für diesen Fall einreichen."
     inthisblog: "in diesem Blogeintrag" #this and the following appear in ReportRequest
     kindofreport: "Bitte wähle die Art der Meldung"
+    report_b1_0: "Ist zu spät zur Abholung gekommen (B01-1)"
+    report_b1_1: "Ist nicht zum Abholen erschienen (B01-2)"
+    report_b1_2: "Hat unerlaubt Tiere in den Betrieb mitgenommen (B01-3)"
+    report_b1_3: "Hat unerlaubt Kinder in den Betrieb mitgenommen (B01-4)"
+    report_b1_4: "Hat seinen foodsharing Ausweis nicht dabei gehabt (B01-5)"
+    report_b2: "Hat außerhalb der festgelegten Termine ohne Absprache mit den BV's eine Abholung durchgeführt (B02)"
+    report_b3_0: "Hat nicht gemeinsam mit allen den Betrieb betreten/verlassen (B03-1)"
+    report_b3_1: "Hat die Abholung nicht ohne Streit oder Diskussion durchgeführt (B03-2)"
+    report_b4_0: "Es wurden nicht alle noch genießbaren Lebensmittel mitgenommen (B04-1)"
+    report_b4_1: "Die Lebensmittel wurden nicht gerecht aufgeteilt (B04-2)"
+    report_b5: "Es haben nicht berechtigte Personen den Betrieb betreten (B05)"
+    report_b6_0: "Es wurde keine Rücksicht auf die Kundschaft und Beschäftigte des Betriebes genommen (B06-1)"
+    report_b6_1: "Der Abholort wurde nicht ordentlich hinterlassen (B06-2)"
+    report_b7: "Es wurde die Wartezeit des Betriebes nicht eingehalten (B07)"
+    report_b8: "Ist unhöflich gegenüber den Beschäftigten des Betriebes geblieben (B08)"
+    report_b9: "Es wurden Kommentare über Menge, Art und Verwendung der geretteten Lebensmittel gemacht (B09)"
+    report_b10: "Verkauft gerettete Lebensmittel (B10)"
+    report_b11: "Es wurden keine ökologischen Mittel bei der Abholung eingesetzt (B11)"
+    report_b12: "Es wurde den Abholenden nicht zugestanden, eigenständig zu entscheiden, an wen die Lebensmittel weitergegeben werden (B12)"
+    report_b13: "Es wurde sich nicht darum bemüht, die geretteten Lebensmittel zu verbrauchen / verteilen (B13)"
+    report_other: "Sonstiges"
     late: "Ist zu spät gekommen"
     noshow: "Ist nicht zum Abholen erschienen"
     cancellation: "Häufiges kurzfristiges Absagen der Abholungen ohne Suche nach Ersatz"
     sells: "Verkauft gerettete Lebensmittel"
-    control: #this key is for ReportControl
-      newreports: "Neue Meldungen"
-      total: "insgesamt"
-      tot: "gesamt"
-      delivered: "Zugestellte Meldungen"
-      from: "Meldungen von"
-      notes: "Notizen und Entscheidungen"
-    view: #this key is for ReportView
-      why: "Weshalb meldest du diese Person?"
-      tardy: "Ist zu spät zum Abholen gekommen"
-      noshow: "Ist gar nicht zum Abholen gekommen"
-      respect: "Hat sich unhöflich oder respektlos verhalten"
-      dirty: "Hat den Abholort nicht sauber hinterlassen"
-      social: "Hat sich nicht gemeinschaftlich und sozial beim Abholen verhalten"
-      bossy: "Hat sich fordernd/übergriffig verhalten"
-      complaints: "Hat Vorwürfe gemacht"
-      thief: "Hat Sachen mitgenommen die nicht für ihn/sie bestimmt waren"
-      returned: "Hat Pfandflaschen/-kisten etc. nicht zurückgebracht"
-      unreliable: "Häufiges kurzfristiges Absagen der Abholungen ohne Ersatzsuche"
-      trasher: "Schmeißt gerettete Lebensmittel weg"
-      picky: "Nimmt nicht alle zur Abholung vorgesehenen Lebensmittel mit"
-      additional: "Hat sich außerhalb der Abholzeit beim Betrieb zu rettende Lebensmittel genommen oder nachgefragt"
-      sells: "Verkauft gerettete Lebensmittel"
-      other: "Hat gegen andere Verhaltensregeln verstoßen (alles andere)"
-      vsfs: "gegenüber Foodsaver:innen"
-      nearfs: "vor Foodsaver:innen"
-      offs: "von Foodsaver:innen"
-      vsstore: "gegenüber Betriebsmitarbeiter:innen"
-      nearstore: "vor Betriebsmitarbeiter:innen"
-      ofstore: "von Betriebsmitarbeiter:innen"
-      vsclients: "gegenüber Kund:innen"
-      nearclients: "vor Kund:innen"
-      ofclients: "von Kund:innen"
-      what:
-        hurtful: "beleidigende Äußerungen"
-        racist: "rassistische Äußerungen"
-        sexist: "sexistische Äußerungen"
-        homophobe: "homophobe Äußerungen"
-        brutal: "Gewalttätigkeit und Drohung"
-        other: "Andere unangebrachte Äußerungen und Verhalten"
-      newreport: "Neue Meldungen"
-      delivered: "Zugestellte"
-      residence: "FS-Wohnort"
-    xhr: #this key is for ReportXhr
-      reporting: "Meldung über"
-      reportID: "Report-ID"
-      reportee: "Gemeldet von"
-      allofthem: "Alle Meldungen über"
-      delivered: "Meldung zugestellt"
-      plsconfirm: "Diese Meldung wirklich löschen?"
-      confirmed: "Meldung wurde bestätigt!"
-      deleted: "Meldung wurde gelöscht!"
-    readup: "Hinweise zur Bearbeitung einer Meldung könnt ihr hier nachlesen: [Bearbeitung einer Meldung](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)"
+    notes: "Notizen und Entscheidungen"
+    confirmDelete: "Soll diese Meldung wirklich gelöscht werden?"
   alldatesdeleted: "Alle Termine gelöscht"
   cantdeleteall: "Du kannst nicht alle Termine löschen!"
   deletesuccess: "Einzeltermin gelöscht"
   cantdeletethis: "Du kannst keine Einzeltermine löschen!"
   choosestore: "Bitte den betroffenen Betrieb auswählen" #in ProfileView
+  choosereasonnostore: "Betrifft keinen Betrieb" #in ProfileView
+  chooseantherstore: "Betrifft einen nicht aufgeführten Betrieb" #in ProfileView
   editNameInfo: "Bitte beachte, dass die Felder für Vor- und Nachname ausschließlich für den Namen der Person genutzt werden sollen. Bitte nutze dieses Feld nicht, um weitere Informationen über das Profil abzulegen, wie bspw. die Durchführung einer Hygieneschulung. Stattdessen können Arbeitsgruppen genutzt werden, um weitere Informationen über Profile zu hinterlegen. Weitere Infos hierzu im [Botschafter:innen-Forum]({url})"
 
 dashboard:
@@ -3187,7 +3165,7 @@ error:
     link_1: "Eine neue Aktivierungsmail anfordern"
     link_2: "E-Mail-Adresse ändern"
   missing_geolocation:
-    title: "Es gab einen Fehler mit deiner Adresse."
+    title: "Keine gültige Adresse eingegeben"
     description: "Bitte überprüfe deine Adresse. Die Koordinaten konnten nicht ermittelt werden."
     link: "Zur Adresseingabe"
   invalid_mobile_phonenumber:
@@ -3287,6 +3265,9 @@ globals:
     my_persons: Meine Personen
     chats: Chats
     threads: Themen
+    mails: E-Mails
+    events: Termine
+    polls: Abstimmungen
     groups_menu: "Gruppen-Menü"
     regions_menu: "Bezirks-Menü"
   you: Du
@@ -3306,6 +3287,11 @@ search:
   results:
     in: in
     from: aus
+    time_relation:
+      future: Beginnt
+      past: Beendet
+      present_since: Begonnen
+      present_until: Endet
     chat:
       chat_with: "Chat mit {names}"
       chat_with_others: "weiteren"
@@ -3319,6 +3305,7 @@ search:
       jumper_tooltip: Du bist Springer:in dieses Betriebs
     thread:
       sticky_tooltip: Thema ist angeheftet
+      bottom_tooltip: Thema hat reduzierte Sichtbarkeit
       closed_tooltip: Thema ist geschlossen
       forum: Forum
       ambassador_forum: BOT-Forum
@@ -3326,10 +3313,28 @@ search:
     user:
       no_home_region: Kein Stammbezirk
       copy_id: ID kopieren
-      copied_id: "Foodsaver-ID von {name} kopiert ({id})"
+      copied_id: "Foodsaver-ID von {name} kopiert ({text})"
     working_group:
       admin_tooltip: Du bist Admin dieser AG
       member_tooltip: Du bist Mitglied dieser AG
+    mail:
+      attachment_tooltip: Mit dieser Mail wurde ein Anhang versendet.
+      mail_name: "{name} <{mail}>"
+      from_to: "Von {from} an {to}"
+      from_to_many: "Von {from} an {to} und {other} weitere"
+      recieved_tooltip: Diese Mail wurde an dich versendet.
+      sent_tooltip: Du hast diese Mail versendet.
+    event:
+      invitation_tooltip:
+        0: Du hast nicht angegeben, ob du bei diesem Termin dabei bist.
+        1: Du bist bei diesem Termin dabei.
+        2: Du bist vielleicht bei diesem Termin dabei.
+        3: Du bist nicht bei diesem Termin dabei.
+      location_online: "Online"
+    poll:
+      can_vote: "Du kannst noch abstimmen"
+      has_voted: "Du hast bereits abgestimmt"
+      not_eligible: "Du bist nicht wahlberechtigt"
   scope:
     global: Globale Suche
     local: Nutzerspezifische Suche
@@ -3481,6 +3486,24 @@ help:
     profileCommitmentsStat:
       title: "Engagementstatistik"
       md: ist sichtbar ab der Rolle des Betriebsverantwortlichen. Sie wird eingeschränkt auf gemeinsamen Stammbezirk oder gemeinsame Betriebe.
+    reportReasons:
+      title: Meldungsformular
+      md: |
+        Über das Meldungsformular können Foodsaver:innen Regelverletzungen direkt melden. Durch die Aktivierung, erhalten die für Meldungen verantwortlichen Personen schnell und einfach Benachrichtigungen für auf diese Weise abgegebenen Meldungen.
+        ---
+        Die LMG des Bezirkes kann einstellen, welche Meldungsgründe im Meldungsformular angezeigt werden.
+        Dabei kann zwischen vereinfachten und ausführlichen Meldungsgründen gewählt werden. Bei den ausfühlichen Meldungsgründen sind alle [hier im Wiki unter B](https://wiki.foodsharing.de/Verhaltensregeln#B.29_Verhalten_bei_Abholungen) aufgelisteten Regeln enthalten.
+        Darüber hinaus kann ausgewählt werden, ob die Option "Sonstiges" als weiterer Meldungsgrund aufgelistet werden soll.
+        ---
+        Empfehlungen zu der Einstellung kann an die LMG gegeben werden. Die Entscheidung sowie die Verantwortung über diese Einstellungen liegt aber alleine bei den Administrator:innen der lokalen Meldegruppe, die diesen Empfehlungen nicht folgen *muss*.
+    report:
+      title: "Meldungsbearbeitung"
+      md: |
+        Hier werden dir Meldungen angezeigt, die über Personen mit diesem Stammbezirk verfasst wurden. Dabei werden dir allerdings nicht alle Meldungen angezeigt:
+        - Grundsätzlich werden dir keine Meldungen angezeigt, an denen du oder deine mit-Admins aus LMG oder LS beteiligt sind.
+        - Als Admin der LS hast du nur Zugriff auf Meldungen, an denen die Admins der LMG beteiligt sind.
+        ---
+        Hinweise zur Bearbeitung einer Meldung könnt ihr hier nachlesen: [Bearbeitung einer Meldung](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)
     achievements:
       title: "Errungenschaften"
       md: |
