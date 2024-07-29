@@ -35,11 +35,20 @@ enum FormattingType: string
 
 enum IncludeEventsType: string
 {
-    case ALL = 'all';
-    case INVITATIONS = 'invitations';
-    case MAYBE = 'maybe';
+    case EVERY = 'every';
+    case INVITATIONS = 'invitations'; // previously called 'all'
+    case MAYBE = 'maybe'; // previously called 'answered'
     case ACCEPTED = 'accepted';
     case NONE = 'none';
+
+    public static function tryFromString(string $value): ?self
+    {
+        return match ($value) {
+            'all' => self::EVERY,
+            'answered' => self::MAYBE,
+            default => self::tryFrom($value),
+        };
+    }
 }
 
 /**
@@ -145,7 +154,7 @@ class CalendarRestController extends AbstractFOSRestController
      */
     #[Rest\Get('calendar/{token}')]
     #[Rest\QueryParam(name: 'formatting', default: 'alt', description: 'How to format description texts')]
-    #[Rest\QueryParam(name: 'events', default: 'all', description: 'Include all or only answered invitations to events')]
+    #[Rest\QueryParam(name: 'events', default: IncludeEventsType::INVITATIONS, description: 'Include all or only answered invitations to events')]
     #[Rest\QueryParam(name: 'pickups', default: true, description: 'Whether to include pickups')]
     #[Rest\QueryParam(name: 'history', default: true, description: 'Whether to include some past events')]
     public function listAppointments(string $token, ParamFetcher $paramFetcher): Response
@@ -157,7 +166,7 @@ class CalendarRestController extends AbstractFOSRestController
         }
 
         $formatting = FormattingType::tryFrom($paramFetcher->get('formatting'));
-        $includedEvents = IncludeEventsType::tryFrom($paramFetcher->get('events'));
+        $includedEvents = IncludeEventsType::tryFromString($paramFetcher->get('events'));
         $includeHistory = $paramFetcher->get('history');
         $includeHistory = $includeHistory ? $includeHistory !== 'false' : false;
         $includePickups = $paramFetcher->get('pickups');
@@ -177,7 +186,7 @@ class CalendarRestController extends AbstractFOSRestController
 
         // add all future meetings
         $statuses = match ($includedEvents) {
-            IncludeEventsType::ALL => [InvitationStatus::ACCEPTED, InvitationStatus::MAYBE, InvitationStatus::INVITED, InvitationStatus::WONT_JOIN],
+            IncludeEventsType::EVERY => [InvitationStatus::ACCEPTED, InvitationStatus::MAYBE, InvitationStatus::INVITED, InvitationStatus::WONT_JOIN],
             IncludeEventsType::INVITATIONS => [InvitationStatus::ACCEPTED, InvitationStatus::MAYBE, InvitationStatus::INVITED],
             IncludeEventsType::MAYBE => [InvitationStatus::ACCEPTED, InvitationStatus::MAYBE],
             IncludeEventsType::ACCEPTED => [InvitationStatus::ACCEPTED],
