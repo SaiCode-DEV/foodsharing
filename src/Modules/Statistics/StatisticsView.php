@@ -28,7 +28,7 @@ class StatisticsView extends View
 					<p class="fetchcount">'
                 . $this->numberHelper->format_number($r->fetchCount)
                     . '<span style="white-space: nowrap;">&thinsp;</span>x '
-                    . $this->translator->trans('profile.stats.count')
+                    . $this->translator->trans('profile.stats.fetch_count')
                     . '</p>
 				</td>
 			</tr>';
@@ -179,7 +179,7 @@ class StatisticsView extends View
 					<p class="fetchcount">'
                 . $this->numberHelper->format_number($fs->fetchCount)
                     . '<span style="white-space: nowrap;">&thinsp;</span>x '
-                    . $this->translator->trans('profile.stats.count')
+                    . $this->translator->trans('profile.stats.fetch_count')
                     . '</p>
 				</td>
 			</tr>';

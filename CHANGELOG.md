@@ -63,7 +63,7 @@
 - Fixed loading more entries in store log #2023 !3472 @AntonBallmaier
 - Fixed link in food share point map bubble #1940 !3471 @AntonBallmaier
 - Fixed store distance display for users without valid geolocation !3476 @AntonBallmaier
-- Fixed query problem in `ActivityGateway::fetchAllForumUpdates` #1828 !3470 @AntonBallmaier
+- Fixed query problem in `ActivityGateway::fetchAllForumUpdates` #1828 !3470 @AntonBallmaier 
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
@@ -72,7 +72,7 @@
 - Modernized EventControl to a Symfony controller !3260 @chriswalg
 - Rebuild quiz module #1666 !3119 !3329 !3403 @AntonBallmaier
 - Refactor the nearby baskets list to vue !3294 !3391 !3477 @alex.simm
-- Refactored profile to vue !3184 !3225 !3343 !3446 !3485 !3494 @chriswalg
+- Refactored profile to vue !3184 !3225 !3343 !3446 !3485 !3494 @chriswalg #2040 !3496 @AntonBallmaier
 - Moved passports to region memberlist #1799 #1326 !3251 !3388 !3439 @chriswalg
 - Modernized StoreChainControl to a Symfony controller !3292 @chriswalg
 - Rework team page in vue !3248 !3351 @chriswalg
