@@ -45,7 +45,7 @@ export default {
     async removeBounces () {
       showLoader()
       try {
-        await removeUserFromBounceList(this.userId)
+        await removeUserFromBounceList(this.bounceWarning.userId)
         reload()
       } catch (e) {
         pulseError(i18n('error_unexpected'))
