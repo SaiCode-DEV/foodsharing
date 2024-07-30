@@ -36,6 +36,7 @@
 - Change region link generation from /?page=bezirk& to /region?
 - Removed application wall #321 !3436 @AntonBallmaier
 - Removed store state COOPERATION_STARTING #414 !3410 !3444 !3445 !3448 @chriswalg
+- Added the WhatsApp link to the social icons in the footer #2035 !3484 @alex.simm
 
 ## Bugfixes
 - Changed the headline for group applications #1916 !3353 @ToLei

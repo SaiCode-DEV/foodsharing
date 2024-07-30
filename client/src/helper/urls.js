@@ -205,6 +205,8 @@ const urls = {
   facebook_at: () => 'https://www.facebook.com/oesterreichfoodsharing',
   tiktok_de: () => 'https://www.tiktok.com/@foodsharing.de',
   tiktok_at: () => 'https://www.tiktok.com/@foodsharing.de', // GERMAN VERSION
+  whatsapp_de: () => 'https://whatsapp.com/channel/0029VaerhFPADTOAPGeJQ71R',
+  whatsapp_at: () => 'https://whatsapp.com/channel/0029VaerhFPADTOAPGeJQ71R',
 }
 
 const url = (key, ...params) => {
