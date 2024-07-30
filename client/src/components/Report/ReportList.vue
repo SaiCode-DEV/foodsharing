@@ -19,8 +19,10 @@
         </template>
         <template #cell(fs_name)="row">
           <Avatar :user="{ avatar: row.item.fs_photo, name: row.item.fs_name, id: row.item.fs_id}" />
-          <a :href="$url('profile', row.item.fs_id)">{{ row.item.fs_name }} {{ row.item.fs_nachname }}</a>
+          <a v-if="row.item.fs_name" :href="$url('profile', row.item.fs_id)">{{ row.item.fs_name }} {{ row.item.fs_nachname }}</a>
+          <span v-else v-text="$i18n('forum.deleted_user')" />
           <i
+            v-if="row.item.fs_name"
             v-b-tooltip="row.item.fs_email"
             class="fas fa-envelope ml-1"
             @click.stop="copyToClipboard(row.item.fs_email)"
@@ -48,8 +50,8 @@
               <strong>{{ $i18n('reports.store') }}</strong>: <a :href="`/?page=fsbetrieb&id=${row.item.betrieb_id}`">
                 {{ row.item.betrieb_name }}</a> ({{ row.item.betrieb_id }})
             </p>
-            <p><strong>{{ $i18n('reports.reported') }}</strong>: {{ row.item.fs_name }} {{ row.item.fs_nachname }} ({{ row.item.fs_id }})</p>
-            <p><strong>{{ $i18n('reports.reporter') }}</strong>: {{ row.item.rp_name }} {{ row.item.rp_nachname }} ({{ row.item.rp_id }})</p>
+            <p><strong>{{ $i18n('reports.reported') }}</strong>: {{ row.item.fs_name }} {{ row.item.fs_nachname }} ({{ row.item.fs_id }}), {{ row.item.fs_email }}</p>
+            <p><strong>{{ $i18n('reports.reporter') }}</strong>: {{ row.item.rp_name }} {{ row.item.rp_nachname }} ({{ row.item.rp_id }}), {{ row.item.rp_email }}</p>
             <p><strong>{{ $i18n('reports.reason') }}</strong>: {{ row.item.tvalue }}</p>
             <p><strong>{{ $i18n('reports.message') }}</strong>: {{ row.item.msg }}</p>
           </div>

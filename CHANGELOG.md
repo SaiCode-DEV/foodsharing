@@ -16,7 +16,7 @@
 - Optional reason for reports added !2833 @fs_k @AntonBallmaier
 - Added API endpoints for managing store categories #1263 !3405 @alex.simm
 - Display senders picture in notifications !3373 @AntonBallmaier
-- Give access to reporter private mail address #1765 !3423 @AntonBallmaier
+- Give access to reporter private mail address #1765 !3423 !3489 @AntonBallmaier
 - Users can be linked in markdown using @`<userId>` now #1850 !3177 @AntonBallmaier
 - Applications to working groups trigger a bell notification to the admins #933 !3274 !3479 @alex.simm
 - The password in the login form can be made visible !3459 @alex.simm

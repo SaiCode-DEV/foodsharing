@@ -88,7 +88,8 @@ class Routing
         'event',
         'quiz',
         'settings',
-        'legal'
+        'legal',
+        'report',
     ];
 
     private const RENAMES = [

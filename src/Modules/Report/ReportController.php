@@ -3,9 +3,11 @@
 namespace Foodsharing\Modules\Report;
 
 use Foodsharing\Lib\FoodsharingController;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Permissions\ReportPermissions;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
@@ -26,7 +28,11 @@ final class ReportController extends FoodsharingController
         if (!$this->session->mayRole() || !$this->reportPermissions->mayAccessReportsForRegion($regionId)) {
             $this->routeHelper->goAndExit('/');
         }
-        $regionName = $this->regionGateway->getRegionName($regionId);
+        try {
+            $regionName = $this->regionGateway->getRegionName($regionId);
+        } catch (DatabaseNoValueFoundException $e) {
+            return $this->redirect('/?page=dashboard');
+        }
 
         $this->pageHelper->addContent($this->prepareVueComponent('report-page', 'RegionReportPage', [
             'regionId' => $regionId,
@@ -50,5 +56,13 @@ final class ReportController extends FoodsharingController
         ]));
 
         return $this->renderGlobal();
+    }
+
+    #[Route('/report', name: 'fallback')]
+    public function fallback(Request $request): Response
+    {
+        $regionId = $request->query->getInt('bid', $this->currentUserUnits->getCurrentRegionId() ?? 0);
+
+        return $this->redirect('/report/region/' . $regionId);
     }
 }
