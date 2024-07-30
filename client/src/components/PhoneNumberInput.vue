@@ -51,14 +51,6 @@ export default {
       return this.phoneNumberValid !== undefined && !this.phoneNumberValid
     },
   },
-  mounted () {
-    const inputElement = this.$refs.telInput.$el.querySelector('input')
-    inputElement.addEventListener('keypress', this.preventNonNumericInput)
-  },
-  beforeDestroy () {
-    const inputElement = this.$refs.telInput.$el.querySelector('input')
-    inputElement.removeEventListener('keypress', this.preventNonNumericInput)
-  },
   methods: {
     validate (phoneObject) {
       if (phoneObject === null || phoneObject.valid === undefined || phoneObject === '') {
@@ -69,24 +61,6 @@ export default {
     },
     emitValidPhoneNumber (phoneNumber) {
       this.$emit('update-phone-number', { id: this.inputName, value: phoneNumber, valid: this.phoneNumberValid })
-    },
-    preventNonNumericInput (event) {
-      const allowedKeys = [
-        'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Enter',
-        '+', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-      ]
-
-      if (!allowedKeys.includes(event.key)) {
-        event.preventDefault()
-        return false
-      }
-
-      if (event.key === '+' && event.target.value.includes('+')) {
-        event.preventDefault()
-        return false
-      }
-
-      return true
     },
   },
 }
