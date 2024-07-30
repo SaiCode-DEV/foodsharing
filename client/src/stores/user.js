@@ -96,7 +96,7 @@ export const getters = {
     return store.details?.stats || {}
   },
   hasLocations () {
-    return store.locations && store.locations.lat !== null && store.locations.lon !== null
+    return store.locations?.lat && store.locations?.lon
   },
   /**
    * Returns the user's home coordinates as a {lat, lon} object. Returns {lat: 0, lon: 0} if the user is not logged in

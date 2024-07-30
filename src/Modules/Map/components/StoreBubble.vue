@@ -14,7 +14,7 @@
             </span>
           </div>
 
-          <div v-if="userHasLocation">
+          <div v-if="userAndStoreHaveLocation">
             {{ $i18n('storeview.team_info_distance') }}
             <strong :class="distanceClass">{{ distanceDisplay }}</strong>
           </div>
@@ -156,10 +156,11 @@ export default {
     userLocation () {
       return UserData.getters.getUserDetails().coordinates
     },
-    userHasLocation () {
-      return UserData.getters.hasLocations()
+    userAndStoreHaveLocation () {
+      return UserData.getters.hasLocations() && this.store?.location?.lat && this.store?.location?.lon
     },
     distanceInKm () {
+      if (!this.userAndStoreHaveLocation) return 0
       const toRadians = (degrees) => degrees * (Math.PI / 180)
       const R = 6371 // Earth's radius in kilometers
       const dLat = toRadians(this.store.location.lat - this.userLocation.lat)
@@ -202,7 +203,7 @@ export default {
           okTitle: this.$i18n('store.request.confirm-no-location-ok'),
           okVariant: 'outline-danger',
         }
-        if (!this.userHasLocation) {
+        if (!UserData.getters.hasLocations()) {
           if (!await this.confirmationDialogue('store.request.confirm-no-location', dialogueOptions)) return
         }
         dialogueOptions = {
