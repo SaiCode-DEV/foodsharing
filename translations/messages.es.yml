@@ -3156,6 +3156,44 @@ settings:
     download: Descargar el calendario
     generate_url:
       button: Generar la URL del calendario
+    pickup:
+      label: ¿Deberían incluirse las fechas de recogida?
+      "true": Sí, mostrar mis recogidas en el calendario
+      "false": No, no mostrar recogidas en el calendario
+    event:
+      label: ¿Qué fechas de tus distritos y grupos de trabajo deberían incluirse?
+      all: Todas las citas
+      invitations: Citas no canceladas
+      maybe: Fechas en las que (quizás) he declarado que estaría allí
+      accepted: Fechas en las que he dicho que estaré allí
+      none: Ninguna
+    history:
+      label: ¿Deberían incluirse las citas anteriores a las últimas 2 semanas?
+      "false": No, no mostrar eventos pasados en el calendario
+      "true": Sí, mostrar mis últimas citas en el calendario
+    program:
+      google: El calendario de Google
+      outlook: Outlook
+      thunderbird: Thunderbird
+      other: Otra
+      label: ¿Qué programa de calendario utilizas?
+    formatting:
+      label: ¿Qué formato deben tener las descripciones de los nombramientos?
+      html: HTML
+      alt: Texto con HTML como representación alternativa
+      text: Solo texto
+    info: "Aquí puede vincular sus citas para compartir comida con un programa de
+      calendario de su elección. Esto permite que todas sus recogidas y/o citas se
+      ingresen automáticamente en su calendario.\n\n**Asegúrate de mantener los enlaces
+      del calendario en secreto.** Contienen un *token* que puede usarse para acceder
+      a tus datos de recogida sin contraseña. Puede eliminar su token actual en cualquier
+      momento, lo que invalidará los enlaces de calendario creados anteriormente.\n
+      \nSu programa de calendario necesita **sincronizar** este calendario periódicamente.
+      Solo entonces aparecerán nuevas fechas de recogida y ya no aparecerán las fechas
+      canceladas. Si descarga su calendario actual, solo contendrá sus citas actuales
+      y no se actualizará automáticamente.\n\nPuedes encontrar más información [aquí
+      en la wiki]({calendarUrl})\n"
+    protocol: ¿Qué protocolo utiliza tu programa de calendario?
   changemail:
     sent: 'Ahora va a tu <strong>nuevo</strong> buzón para confirmar la nueva dirección
       de correo electrónico.'
@@ -3771,6 +3809,7 @@ calendar:
       name: 'recogida {store}'
       freeSlots: '{count} espacios todavía están libres'
       otherFoodsavers: 'Ingresó junto contigo: '
+      foodsavers: 'Registrar como ahorrador de alimentos: '
     updated: '(Última actualización: {date})'
   labelPrevMonth: 'el mes pasado'
   labelCurrentMonth: 'mes actual'
