@@ -59,6 +59,7 @@ export default {
   },
   methods: {
     mailDisplay (name, mail) {
+      mail ??= ''
       if (!name || name === mail || name === 'null') {
         return mail
       }
