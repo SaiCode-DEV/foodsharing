@@ -1,7 +1,7 @@
 import { get, post, remove } from './base'
 
-export function getWallPosts (target, targetId) {
-  return get(`/wall/${target}/${targetId}`)
+export function getWallPosts (target, targetId, limit) {
+  return get(`/wall/${target}/${targetId}?limit=${limit}`)
 }
 
 export function addPost (target, targetId, body, pictures) {

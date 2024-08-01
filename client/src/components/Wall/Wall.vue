@@ -70,6 +70,7 @@ export default {
     // excerptLength: { type: Number, default: 10 }, // how many entries are shown initially? Also the number of entries shown if "show less" is clicked
     // TODO for next followup: pagination for wall posts, similar to how the activity overview handles it.
     galleryHeightInPx: { type: Number, default: undefined },
+    limit: { type: Number, default: 50 },
   },
   data () {
     return {
@@ -97,7 +98,7 @@ export default {
     },
   },
   async created () {
-    const data = await getWallPosts(this.target, this.targetId)
+    const data = await getWallPosts(this.target, this.targetId, this.limit)
     this.posts = data.posts
     this.mayPost = data.mayPost
     this.mayDeleteEverything = data.mayDelete

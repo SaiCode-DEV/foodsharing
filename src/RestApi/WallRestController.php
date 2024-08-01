@@ -12,6 +12,7 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -38,13 +39,16 @@ class WallRestController extends AbstractFoodsharingRestController
         new OA\Property(property: 'mayDelete', type: 'boolean', description: 'whether the user is permitted to delete all posts on this wall'),
     ]))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to read this wall')]
-    public function getPosts(string $target, int $targetId): Response
-    {
+    public function getPosts(
+        string $target,
+        int $targetId,
+        #[MapQueryParameter] int $limit = 50,
+    ): Response {
         if (!$this->wallPostPermissions->mayReadWall($target, $targetId)) {
             throw new AccessDeniedHttpException();
         }
 
-        $posts = $this->wallPostGateway->getPosts($target, $targetId);
+        $posts = $this->wallPostGateway->getPosts($target, $targetId, $limit);
         $response = [
             'posts' => $posts,
             'mayPost' => $this->wallPostPermissions->mayWriteWall($target, $targetId),
