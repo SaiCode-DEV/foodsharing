@@ -1,7 +1,7 @@
 <template>
   <form class="my-1">
     <div class="col-sm-auto">
-      <label>{{ $i18n('register.login_mobile_phone') }}<sup><i class="fas fa-asterisk" /></sup></label>
+      <label>{{ $i18n('terminology.mobile_phone') }}<sup><i class="fas fa-asterisk" /></sup></label>
     </div>
     <div class="col-sm-auto">
       <VueTelInput
@@ -24,7 +24,7 @@
     </div>
     <div class="mt-3 col-sm-auto">
       <div class="alert alert-info">
-        <i class="fas fa-info-circle" /> {{ $i18n('terminology.mobile_phone') }}
+        <i class="fas fa-info-circle" /> {{ $i18n('register.login_phone_info') }}
       </div>
     </div>
     <div class="col-sm-auto">
