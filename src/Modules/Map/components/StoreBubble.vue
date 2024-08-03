@@ -154,7 +154,7 @@ export default {
       return UserData.getters.getUserId()
     },
     userLocation () {
-      return UserData.getters.getUserDetails().coordinates
+      return UserData.getters.getLocations()
     },
     userAndStoreHaveLocation () {
       return UserData.getters.hasLocations() && this.store?.location?.lat && this.store?.location?.lon
