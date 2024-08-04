@@ -106,6 +106,7 @@
 - Added a rate limiting to the file upload #1896 !3450 @alex.simm
 - Updated the version of tecnickcom/tcpdf !3473 @alex.simm
 - Replaced goAndExit with Symfony's redirect !3474 @alex.simm
+- Bump minishlink/web-push to 9.0.1 !3507 @chriswalg
 
 ## Development documentation
 
