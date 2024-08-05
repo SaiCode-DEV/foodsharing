@@ -44,7 +44,7 @@ enum IncludeEventsType: string
     public static function tryFromString(string $value): ?self
     {
         return match ($value) {
-            'all' => self::EVERY,
+            'all' => self::INVITATIONS,
             'answered' => self::MAYBE,
             default => self::tryFrom($value),
         };
@@ -285,7 +285,7 @@ class CalendarRestController extends AbstractFOSRestController
         $event->setUid($userId . $meeting['id'] . '@meeting.foodsharing.de');
         $this->setEventDescription($event, $description, $formatting);
         $event->setUrl($url);
-        $event->setStatus(['TENTATIVE', 'CONFIRMED', 'TENTATIVE'][$meeting['status']]);
+        $event->setStatus(['TENTATIVE', 'CONFIRMED', 'TENTATIVE', 'CANCELLED'][$meeting['status']]);
 
         if ($meeting['street']) {
             $full_address = $meeting['street'] . ', ' . $meeting['zip'] . ' ' . $meeting['city'];
