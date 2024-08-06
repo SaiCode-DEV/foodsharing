@@ -66,6 +66,7 @@
 - Fixed link in food share point map bubble #1940 !3471 @AntonBallmaier
 - Fixed store distance display for users without valid geolocation !3476 !3503 @AntonBallmaier
 - Fixed query problem in `ActivityGateway::fetchAllForumUpdates` #1828 !3470 @AntonBallmaier 
+- Fixed food basket expired at not shown #2058 !3511 @McGoldi
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai

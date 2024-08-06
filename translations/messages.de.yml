@@ -1605,7 +1605,7 @@ reports:
   no_reports_fallback: "Es sind noch keine Meldungen vorhanden"
   store: "Zugeordneter Betrieb"
   report_id: "Meldungs-ID"
-  
+
 
   #|
   #  Es ist wichtig alle Fälle, die gegen die Verhaltensregeln verstoßen, zu melden,
@@ -2413,6 +2413,7 @@ basket:
   date: "Einstelldatum"
   created: "Veröffentlicht <strong>{date}</strong>"
   expires: "Gültig bis"
+  expires_at: "Gültig bis <strong>{date}</strong>"
   updated: "Aktualisiert <strong>{date}</strong>"
   where: "Wo?"
   provider: "Anbieter:in"

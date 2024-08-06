@@ -163,7 +163,7 @@ class BasketView extends View
         $expires = $this->timeHelper->niceDate($basket['until_ts']);
 
         $subtitle = '<p>' . $this->translator->trans('basket.created', ['{date}' => $created]) . '</p>';
-        $subtitle .= '<p>' . $this->translator->trans('basket.expires', ['{date}' => $expires]) . '</p>';
+        $subtitle .= '<p>' . $this->translator->trans('basket.expires_at', ['{date}' => $expires]) . '</p>';
 
         if ($basket['update_ts']) {
             $updated = $this->timeHelper->niceDate($basket['update_ts']);
