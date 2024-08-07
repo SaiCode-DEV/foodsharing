@@ -2426,6 +2426,7 @@ basket:
   delete_confirmation:
     text: ¿Realmente quieres eliminar esta canasta de alimentos?
     title: ¿Eliminar canasta de alimentos?
+  expires_at: Válido hasta <strong>{date}</strong>
 menu:
   entry:
     press: 'Prensa'
