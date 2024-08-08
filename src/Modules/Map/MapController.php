@@ -27,12 +27,18 @@ class MapController extends FoodsharingController
 
         if ($this->session->mayRole(Role::FOODSAVER) && $request->query->has('bid')) {
             $storeId = intval($request->query->get('bid'));
-            $params['center'] = $this->mapGateway->getStoreLocation($storeId);
-            $params['selectedStoreId'] = $storeId;
+            $location = $this->mapGateway->getStoreLocation($storeId);
+            if (!empty($location)) {
+                $params['center'] = $location;
+                $params['selectedStoreId'] = $storeId;
+            }
         } elseif ($request->query->has('fspId')) {
             $foodSharePointId = intval($request->query->get('fspId'));
-            $params['center'] = $this->mapGateway->getFoodSharePointLocation($foodSharePointId);
-            $params['selectedFoodSharePointId'] = $foodSharePointId;
+            $location = $this->mapGateway->getFoodSharePointLocation($foodSharePointId);
+            if (!empty($location)) {
+                $params['center'] = $location;
+                $params['selectedFoodSharePointId'] = $foodSharePointId;
+            }
         }
 
         $this->pageHelper->addContent($this->prepareVueComponent('map-page', 'MapPage', $params));

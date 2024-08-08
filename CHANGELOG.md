@@ -80,7 +80,7 @@
 - Modernized StoreChainControl to a Symfony controller !3292 @chriswalg
 - Rework team page in vue !3248 !3351 @chriswalg
 - Refactored event page and creation / editing to vue #952 #997 #1514 #1740 #1910 !3387 @AntonBallmaier
-- Refactored the main map to vue !3230 !3335 !3402 @alex.simm
+- Refactored the main map to vue !3230 !3335 !3402 !3486 @alex.simm
 - Remove unused session code !3361 @KoeMai
 - Remove E-Mail address from session !3394 @KoeMai
 - Extend Session with CurrentUserRegionInterface !3354 @koemai
