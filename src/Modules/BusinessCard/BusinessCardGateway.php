@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\BusinessCard;
 
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 
 class BusinessCardGateway extends BaseGateway
 {
@@ -28,8 +29,11 @@ class BusinessCardGateway extends BaseGateway
         $fs = $this->db->fetch($stm, [':foodsaver_id' => $fsId]);
 
         $stm = 'SELECT mb.name FROM fs_mailbox mb, fs_foodsaver fs WHERE fs.mailbox_id = mb.id AND fs.id = :foodsaver_id';
-        if ($isStoreManager && $mailbox = $this->db->fetchValue($stm, [':foodsaver_id' => $fsId])) {
-            $fs['email'] = $mailbox . '@' . PLATFORM_MAILBOX_HOST;
+        try {
+            if ($isStoreManager && $mailbox = $this->db->fetchValue($stm, [':foodsaver_id' => $fsId])) {
+                $fs['email'] = $mailbox . '@' . PLATFORM_MAILBOX_HOST;
+            }
+        } catch (DatabaseNoValueFoundException) {
         }
 
         $stm = '
