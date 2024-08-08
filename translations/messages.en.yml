@@ -307,8 +307,8 @@ settings:
       your choice.\nTo do this, subscribe to one of the two following calendar links.\n
       You can find further information in the wiki at\n"
     delete_token:
-      message: The current link will become invalid. Do you really want to delete
-        the token?
+      message: All previously generated calendar links will become invalid. Do you
+        really want to delete the token?
       title: Delete token
       button: Delete token
     create_token:
@@ -322,6 +322,13 @@ settings:
       of your choice.
     include_invitations: The calendar should also contain invitations to appointments
       that I have not yet responded to.
+    generate_url:
+      button: Generate a calendar URL
+    download: Download the calendar
+    formatting:
+      alt: Text with HTML as alternative
+      html: HTML
+      text: Text only
   saved: The changes were saved.
   changemail:
     done: Your e-mail address was changed.
@@ -604,7 +611,8 @@ profile:
     late: The person was late
     cancellation: Frequent late cancellation of appointments without finding a replacement
     readup: "Find advice on processing a report here: [Processing a report](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)"
-    doesNotAffectStore: Does not affect any or a different company
+    doesNotAffectStore: Affects a different company or no company at all
+    notes: Notes and decisions
   history:
     wasVerified: Verified
     lostVerification: De-verified
@@ -989,6 +997,7 @@ calendar:
 
     updated: '(last updated: {date})'
   placeholder: Select a date
+  copiedUrl: Calendar URL was copied!
 pickup:
   signout_confirm: Are you sure?
   copyNumber: Copy phone number
@@ -1159,6 +1168,7 @@ storeview:
   choose_chain: Choose a chain
   team_info_active: 'No of active foodsharers:'
   team_info_jumper: 'Stand-bys:'
+  team_info_distance: 'Distance to the store:'
 day: Day
 time: Time
 select: Please select
@@ -1234,7 +1244,7 @@ terminology:
   n_sleeping: '{count} nightcaps'
   n_cooperating_stores: '{count} running cooperations'
   options: Options
-  reports: Reporting View (local reporting group)
+  reports: Reporting View
   arbitration: Reporting View (LS)
   pin: Description of the local group
   homepage: Homepage
@@ -1416,6 +1426,11 @@ reports:
     channels to address the incident directly with the person and to clarify the facts.
     Please indicate how you can best be reached for further questions.'
   about_email: via email
+  reported: Reported person
+  reports_region: Reports from {regionName}
+  reports_user: All reports about {userName} ({userId})
+  id: ID
+  reporter: Reporting person
 recipients:
   test: Test the newsletter
   done: All e-mails have been sent
@@ -1958,6 +1973,7 @@ basket:
   delete_confirmation:
     text: Do you really want to delete this food basket?
     title: Delete the food basket?
+  expires_at: Valid until <strong>{date}</strong>
 map:
   title: Map
   donates: company donates
@@ -2081,6 +2097,10 @@ store:
     distance_unknown: no place of residence provided
     distance: Lives about {distance} km away
     air_line: The distance shown is as the crow flies.
+    confirm-far: According to the address in your profile settings you live far from
+      this store ({distance}). Are you sure that you will be able to support this
+      store's team regularly and reliably?
+    confirm-no-location-ok: Apply anyway
   sm:
     reallyRemove: Do you really want to remove {name} from the store team?
     removeFromTeam: Remove from the team
@@ -2329,6 +2349,7 @@ search:
       sticky_tooltip: Thread is pinned
       ambassador_forum: Ambassadors’ Forum
       last_post: last post
+      bottom_tooltip: Thread has a reduced visibility
     in: in
     chat:
       chat_with: Chat with {names}
@@ -2336,12 +2357,30 @@ search:
     user:
       no_home_region: No home district
       copy_id: Copy ID
-      copied_id: Foodsaver ID from {name} was copied ({id})
+      copied_id: Foodsaver ID from {name} was copied ({text})
     store:
       manager_tooltip: You are responsible for this store
       jumper_tooltip: You are on the standby list for this store
       member_tooltip: You are a member of this store team
     from: from
+    mail:
+      recieved_tooltip: This e-mail was set to you.
+      sent_tooltip: You sent this e-mail.
+      attachment_tooltip: This e-mail contained an attachment.
+      from_to: From {from} to {to}
+      from_to_many: From {from} to {to} and {other} others
+      mail_name: '{name} <{mail}>'
+    event:
+      invitation_tooltip:
+        2: You might join this event.
+        3: You are not going to join this event.
+        1: You are going to join this event.
+        0: You have not specified if you are going to join this event.
+      location_online: Online
+    poll:
+      has_voted: You have already voted
+      not_eligible: You are not eligible to vote
+      can_vote: You can still vote
   maxresults: The number of results displayed is limited. Maybe use a more specific
     search term.
   too_short: Please enter a longer search term.
@@ -3109,9 +3148,9 @@ mail:
     check the recipient address.
 regionOptions:
   enableMediationButton: Enable mediation request link on the profiles of foodsavers
-    with this home district.
+    with this home district
   enableReportButton: Enable report link on the profile pages of foodsavers with this
-    home district.
+    home district
   save: Save options
   success: Options saved successfully
   header_page: Settings for {bezirk}
@@ -3128,6 +3167,8 @@ regionOptions:
     added up and considered.'
   regionPickupRuleActive: 'Activate the following district-wide rule for pick-ups
     in CHERRY (Consummate, High-level, Exceptional and Really, Really Yielding) stores:'
+  regionReportReasonSimple: Simplified report regions
+  regionReportReasonOther: Allow "Other" as a report reason
 list:
   filter_for: filter for …
 startpage:
@@ -3675,7 +3716,7 @@ error:
       be called.
   missing_geolocation:
     description: Please check your address. The coordinates couldn’t be determined.
-    title: There was an error with your address.
+    title: No valid address entered
     link: To the address entry
   missing_home_region:
     link: Choose your home disctrict now
@@ -3731,6 +3772,9 @@ globals:
     workingGroups: Groups
     groups_menu: Groups menu
     regions_menu: Regions menu
+    events: Events
+    polls: Polls
+    mails: E-Mails
   save: Save
   close: Close
   select: Please select …
@@ -3933,6 +3977,8 @@ help:
       title: Achievements
       md: "An explanation for achievements still needs to be added here. I’ll do that
         later. TODO\n"
+    reportReasons:
+      title: Report form
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -3968,3 +4014,4 @@ achievements:
   validity:
     days: Valid for {validityInDaysAfterAssignment} days after award.
     indefinite: Valid indefinitely after allocation.
+copied_to_clipboard: '"{text}" was copied to the clipboard.'
