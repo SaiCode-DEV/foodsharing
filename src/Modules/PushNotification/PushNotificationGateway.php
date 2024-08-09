@@ -5,7 +5,6 @@ namespace Foodsharing\Modules\PushNotification;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\PushNotification\Notification\PushNotification;
-use Foodsharing\Modules\PushNotification\PushNotificationHandlers\AndroidPushHandler;
 use Foodsharing\Modules\PushNotification\PushNotificationHandlers\WebPushHandler;
 
 class PushNotificationGateway extends BaseGateway
@@ -15,10 +14,16 @@ class PushNotificationGateway extends BaseGateway
      */
     private $pushNotificationHandlers = [];
 
-    public function __construct(Database $db, WebPushHandler $webPushHandler, AndroidPushHandler $androidPushHandler)
+    public function __construct(Database $db, WebPushHandler $webPushHandler)
     {
         parent::__construct($db);
-        $this->addHandler($androidPushHandler);
+        /*
+         * TODO:
+         * The Android handler is disabled because it uses Firebase's old API which does not work anymore. It needs to
+         * be changed to use the new API, see https://gitlab.com/foodsharing-dev/foodsharing/-/issues/2050. It is
+         * commented out to prevent errors in Sentry until this is fixed.
+         */
+        // $this->addHandler($androidPushHandler);
         $this->addHandler($webPushHandler);
     }
 

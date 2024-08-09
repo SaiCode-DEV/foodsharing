@@ -230,6 +230,8 @@ class RegionGateway extends BaseGateway
      *
      * Warning: this function does not properly set the moderated flag for large regions. In most cases you might want
      * to use RegionTransactions::getRegionDetails instead.
+     *
+     * @return array an empty array if it does not exist
      */
     public function getRegionDetails(int $regionId): array
     {
@@ -282,6 +284,9 @@ class RegionGateway extends BaseGateway
 			WHERE 	b.`id` = :id
 			LIMIT 1
 		', ['id' => $regionId]);
+        if (empty($region)) {
+            return [];
+        }
 
         $region['botschafter'] = $this->foodsaverGateway->getAdminsOrAmbassadors($regionId);
         shuffle($region['botschafter']);

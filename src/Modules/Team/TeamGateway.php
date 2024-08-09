@@ -34,6 +34,8 @@ class TeamGateway extends BaseGateway
 					fs.mailbox_id = mb.id
 				WHERE
 					hb.bezirk_id = :region_id
+				AND
+				    hb.active = 1
 				ORDER BY fs.name
 		';
         $orgas = $this->db->fetchAll($stm, [':region_id' => $region_id]);

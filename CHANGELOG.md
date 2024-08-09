@@ -38,6 +38,7 @@
 - Removed store state COOPERATION_STARTING #414 !3410 !3444 !3445 !3448 @chriswalg
 - Added the WhatsApp link to the social icons in the footer #2035 !3484 @alex.simm
 - The profile wall now shows up to 200 posts #2055 !3505 @AntonBallmaier
+- Temporarily deactivated the Android push handler !3512 @alex.simm
 - Show error for invalid landline number on dashboard !3514 @chriswalg
 
 ## Bugfixes
