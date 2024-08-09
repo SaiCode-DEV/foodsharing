@@ -3173,6 +3173,10 @@ error:
     title: "Es gibt ein Problem mit deiner Handynummer."
     description: "Deine Handynummer hat leider ein Format, das nicht anrufbar ist."
     link: "Handynummer jetzt korrigieren"
+  invalid_landline_phonenumber:
+    title: "Es gibt ein Problem mit deiner Festnetznummer."
+    description: "Deine Festnetznummer hat leider ein Format, das nicht anrufbar ist."
+    link: "Festnetznummer jetzt korrigieren"
   old_user_avatar:
     title: "Es gibt ein Problem mit deinem Profilbild."
     description: "Im September 2021 haben wir eine technische Umstellung vorgenommen, die die Profilbilder betrifft. Daher bitten wir dich, dein Profilbild erneut hochzuladen oder zu erneuern. Entschuldige bitte die Umstände."
