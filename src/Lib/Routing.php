@@ -12,7 +12,6 @@ use Foodsharing\Modules\Mailbox\MailboxControl;
 use Foodsharing\Modules\Message\MessageControl;
 use Foodsharing\Modules\Register\RegisterControl;
 use Foodsharing\Modules\Relogin\ReloginControl;
-use Foodsharing\Modules\Settings\SettingsXhr;
 use Foodsharing\Modules\Store\StoreController;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
 use Foodsharing\Modules\Voting\VotingControl;
@@ -69,7 +68,6 @@ class Routing
     ];
 
     private const XHR = [
-        'settings' => SettingsXhr::class,
         'basket' => BasketXhr::class,
     ];
 

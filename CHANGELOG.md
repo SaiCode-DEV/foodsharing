@@ -40,6 +40,7 @@
 - The profile wall now shows up to 200 posts #2055 !3505 @AntonBallmaier
 - Temporarily deactivated the Android push handler !3512 @alex.simm
 - Show error for invalid landline number on dashboard !3514 @chriswalg
+- Change EMail Address Verification replaced by new implementation !3481 @KoeMai
 
 ## Bugfixes
 - Changed the headline for group applications #1916 !3353 @ToLei

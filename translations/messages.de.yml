@@ -2006,6 +2006,8 @@ settings:
     wrong_password: "Das Passwort stimmt nicht."
     sent: "Gehe jetzt zu deinem <strong>neuen</strong> E-Mail-Postfach, um die Adresse zu bestätigen."
     done: "Deine E-Mail-Adresse wurde geändert."
+    not_changed: "Deine E-Mail-Addresse wurde nicht geändert."
+    dashboard_link: "Weiter zum Dashboard"
   saved: "Änderungen wurden gespeichert."
   passport:
     menu: "Ausweis"

@@ -129,18 +129,14 @@ class SettingsGateway extends BaseGateway
 
     public function getNewMail(int $fsId, string $token): ?string
     {
-        try {
-            return $this->db->fetchValueByCriteria(
-                'fs_mailchange',
-                'newmail',
-                [
-                    'token' => strip_tags($token),
-                    'foodsaver_id' => $fsId
-                ]
-            );
-        } catch (Exception) {
-            return null;
-        }
+        return $this->db->fetchValueByCriteria(
+            'fs_mailchange',
+            'newmail',
+            [
+                'token' => strip_tags($token),
+                'foodsaver_id' => $fsId
+            ]
+        );
     }
 
     public function saveApiToken(int $fsId, string $token): void

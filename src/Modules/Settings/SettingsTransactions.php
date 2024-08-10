@@ -116,7 +116,7 @@ class SettingsTransactions
             'anrede' => $this->translator->trans('salutation.' . $user['geschlecht']),
             'name' => $user['name'],
             'address' => $request->email,
-            'link' => BASE_URL . '/content?sub=contact'
+            'link' => BASE_URL . '/user/current/settings/email/verifyAbort?token=' . $token
         ], false, true);
 
         // send a confirmation email to the new address
@@ -124,8 +124,50 @@ class SettingsTransactions
         $this->emailHelper->tplMail('user/change_email', $request->email, [
             'anrede' => $this->translator->trans('salutation.' . $user['geschlecht']),
             'name' => $user['name'],
-            'link' => BASE_URL . '/user/current/settings?sub=general&newmail=' . $token
+            'link' => BASE_URL . '/user/current/settings/email/verify?token=' . $token
         ], false, true);
+    }
+
+    public function abortEMailChange(string $token)
+    {
+        $userId = $this->session->id();
+        $newEmail = $this->settingsGateway->getNewMail($userId, $token);
+        $currentEmail = $this->foodsaverGateway->getEmailAddress($userId);
+
+        $this->settingsGateway->abortChangemail($userId);
+        $this->settingsGateway->logChangedSetting(
+            $userId,
+            ['emailAbort' => $currentEmail],
+            ['emailAbort' => $newEmail],
+            ['emailAbort']
+        );
+    }
+
+    /**
+     * Changes the E-Mail address when token is valid.
+     *
+     * @throws \Foodsharing\Modules\Core\DatabaseNoValueFoundException
+     * @throws \ValueError E-Mail address is in use
+     */
+    public function verifyAndCompleteEMailChange(string $token)
+    {
+        $userId = $this->session->id();
+
+        $newEmail = $this->settingsGateway->getNewMail($userId, $token);
+        $inUse = $this->foodsaverGateway->emailExists($newEmail);
+        if ($inUse) {
+            $this->settingsGateway->abortChangemail($userId);
+            throw new \ValueError('Email address is already in use.');
+        }
+        $currentEmail = $this->foodsaverGateway->getEmailAddress($userId);
+
+        $this->settingsGateway->changeMail($userId, $newEmail);
+        $this->settingsGateway->logChangedSetting(
+            $userId,
+            ['email' => $currentEmail],
+            ['email' => $newEmail],
+            ['email']
+        );
     }
 
     /**
