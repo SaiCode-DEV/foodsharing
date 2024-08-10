@@ -955,6 +955,11 @@ error:
     link: 'Corrige tu número de móvil ahora'
     description: 'Desafortunadamente, su número de teléfono celular está en un formato
       al que no se puede llamar.'
+  invalid_landline_phonenumber:
+    link: Corrige el número del fijo
+    title: Tu número de fijo no es correcto o tiene algún fallo.
+    description: Lamentablemente, el número del fijo está mal escrito o no se puede
+      llamar.
 system_administration:
   regions: 'Administrar distritos'
   blog: 'Editar publicaciones de blog'
@@ -3218,6 +3223,8 @@ settings:
     explanation: Aquí puede cambiar la dirección de correo electrónico con la que
       registró su cuenta. Después de enviar, recibirá un correo electrónico a la nueva
       dirección con un enlace de confirmación.
+    not_changed: Tu dirección de correo electrónico no ha sido modificada.
+    dashboard_link: Continuar en el cuadro de mando
   saved: 'Los cambios han sido guardados.'
   sleep:
     none: 'Soy activo y totalmente involucrado'
