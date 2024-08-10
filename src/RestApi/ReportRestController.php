@@ -82,7 +82,7 @@ class ReportRestController extends AbstractFoodsharingRestController
         }
         $reports = $this->reportGateway->getReportsByUser($userId);
 
-        return $this->handleView($this->view(['data' => $reports], 200));
+        return $this->handleView($this->view($reports, 200));
     }
 
     /**
