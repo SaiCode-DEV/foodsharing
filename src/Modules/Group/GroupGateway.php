@@ -4,45 +4,31 @@ namespace Foodsharing\Modules\Group;
 
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 
 /* Group gateway meant to collect queries common for regions as well as working groups */
 class GroupGateway extends BaseGateway
 {
-    private readonly GroupFunctionGateway $groupFunctionGateway;
-
     public function __construct(
         Database $db,
-        GroupFunctionGateway $groupFunctionGateway
     ) {
         parent::__construct($db);
-        $this->groupFunctionGateway = $groupFunctionGateway;
     }
 
-    public function getGroupLegacy(int $groupId): array
+    /**
+     * Returns the mailbox name, i.e. the email address without the domain part, for a region or working group.
+     *
+     * @throws DatabaseNoValueFoundException if the group does not exist
+     */
+    public function getGroupMailName(int $groupId): ?string
     {
-        $out = $this->db->fetchByCriteria('fs_bezirk',
-            ['id', 'parent_id', 'has_children', 'name', 'email', 'email_pass', 'email_name', 'type', 'master', 'mailbox_id'],
-            ['id' => $groupId]
-        );
-
-        $out['workgroup_function'] = $this->groupFunctionGateway->getRegionGroupFunctionId($out['id'], $out['parent_id']);
-
-        $out['botschafter'] = $this->db->fetchAll('
-			SELECT  `fs_foodsaver`.`id`,
-			        CONCAT(`fs_foodsaver`.`name`," ",`fs_foodsaver`.`nachname`) AS name
-
-			FROM    `fs_botschafter`,
-			        `fs_foodsaver`
-
-			WHERE   `fs_foodsaver`.`id` = `fs_botschafter`.`foodsaver_id`
-			AND     `fs_botschafter`.`bezirk_id` = ' . $groupId . '
-		');
-
-        $out['foodsaver'] = $this->db->fetchAllValuesByCriteria('fs_botschafter', 'foodsaver_id',
-            ['bezirk_id' => $groupId]
-        );
-
-        return $out;
+        return $this->db->fetchValue('
+			SELECT		mb.`name`
+			FROM		`fs_bezirk` bz
+			INNER JOIN	`fs_mailbox` mb
+			ON			bz.`mailbox_id` = mb.`id`
+			WHERE		bz.`id` = :bezirk_id
+		', [':bezirk_id' => $groupId]);
     }
 
     public function deleteGroup($groupId)

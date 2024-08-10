@@ -97,6 +97,7 @@
 - make ActivityGateway:fetchAllStoreUpdates faster #1907 !3441 @fs_k @AntonBallmaier
 - Modernized LegalControl to a Symfony controller !3447 @chriswalg
 - unused columns in fs_foodsaver have been removed #1945 !3440 @fs_k
+- Removed a legacy gateway function for groups #2049 !3501 @alex.simm
 
 ## Dev/Test/CI stuff
 - Added backend support for getting, adding and updating achievements. #1724 !3317 !3318 @AntonBallmaier

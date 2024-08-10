@@ -252,10 +252,7 @@ final class ProfileController extends FoodsharingController
                         $regionId,
                         WorkgroupFunction::REPORT
                     );
-                    $reportGroupDetails = $this->groupGateway->getGroupLegacy($reportGroupId);
-                    $mailboxNameReportRequest = $this->mailboxGateway->getMailboxname(
-                        $reportGroupDetails['mailbox_id']
-                    ) ?? '';
+                    $mailboxNameReportRequest = $this->groupGateway->getGroupMailName($reportGroupId);
                 }
 
                 $hasArbitrationGroup = $this->groupFunctionGateway->existRegionFunctionGroup(
@@ -268,10 +265,7 @@ final class ProfileController extends FoodsharingController
                         $regionId,
                         WorkgroupFunction::ARBITRATION
                     );
-                    $arbitrationGroupDetails = $this->groupGateway->getGroupLegacy($arbitrationGroupId);
-                    $mailboxNameArbitrationRequest = $this->mailboxGateway->getMailboxname(
-                        $arbitrationGroupDetails['mailbox_id']
-                    ) ?? '';
+                    $mailboxNameArbitrationRequest = $this->groupGateway->getGroupMailName($arbitrationGroupId);
                 }
 
                 if (!$this->currentUserUnits->getCurrentRegionId()) {
@@ -336,8 +330,7 @@ final class ProfileController extends FoodsharingController
         $mailboxName = '';
         if ($this->groupFunctionGateway->existRegionFunctionGroup($regionId, WorkgroupFunction::MEDIATION)) {
             $mediationGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::MEDIATION);
-            $mediationGroupDetails = $this->groupGateway->getGroupLegacy($mediationGroupId);
-            $mailboxName = $this->mailboxGateway->getMailboxname($mediationGroupDetails['mailbox_id']);
+            $mailboxName = $this->groupGateway->getGroupMailName($mediationGroupId) ?? '';
         }
 
         return $mailboxName;
