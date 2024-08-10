@@ -70,6 +70,7 @@
 - Fixed query problem in `ActivityGateway::fetchAllForumUpdates` #1828 !3470 @AntonBallmaier 
 - Fixed unexpected exception in BusinessCardGateway #2051 !3504 @alex.simm
 - Fixed food basket expired at not shown #2058 !3511 @McGoldi
+- Fixed encoding for publicInfo field in store #2043 !3516 @chriswalg
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai

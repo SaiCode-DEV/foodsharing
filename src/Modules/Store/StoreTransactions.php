@@ -367,7 +367,8 @@ class StoreTransactions
 
         if (!empty($storeChange->publicInfo)) {
             $changeInformation->informationChanged = true;
-            $store->publicInfo = $this->sanitizerService->purifyHtml($storeChange->publicInfo);
+            $sanitizedPublicInfo = $this->sanitizerService->purifyHtml($storeChange->publicInfo);
+            $store->publicInfo = html_entity_decode($sanitizedPublicInfo, ENT_QUOTES, 'UTF-8');
         }
 
         if (!is_null($storeChange->publicTime)) {
