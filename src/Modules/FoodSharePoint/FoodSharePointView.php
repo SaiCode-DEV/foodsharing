@@ -85,17 +85,6 @@ class FoodSharePointView extends View
         $this->region = $region;
     }
 
-    /**
-     * @param Profile[] $managers
-     * @param Profile[] $followers
-     */
-    public function setFoodSharePoint(array $foodSharePoint, array $managers, array $followers): void
-    {
-        $this->foodSharePoint = $foodSharePoint;
-        $this->managers = $managers;
-        $this->followers = $followers;
-    }
-
     public function foodSharePointHead(): string
     {
         return $this->twig->render('pages/FoodSharePoint/foodSharePointTop.html.twig', [

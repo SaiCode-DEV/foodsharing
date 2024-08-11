@@ -26,6 +26,15 @@ class FoodSharePointController extends FoodsharingController
     private array $follower;
     private array $regions;
 
+    /**
+     * @var Profile[]
+     */
+    private array $managers;
+    /**
+     * @var Profile[]
+     */
+    private array $followers;
+
     public function __construct(
         private readonly FoodSharePointView $view,
         private readonly FoodSharePointGateway $foodSharePointGateway,
@@ -151,7 +160,7 @@ class FoodSharePointController extends FoodsharingController
             $managers = array_map($mapper, $this->follower['fsp_manager']);
             $followers = array_map($mapper, $this->follower['follow']);
 
-            $this->view->setFoodSharePoint($this->foodSharePoint, $managers, $followers);
+            $this->setFoodSharePoint($this->foodSharePoint, $managers, $followers);
 
             $this->foodSharePoint['urlname'] = str_replace(' ', '_', (string)$this->foodSharePoint['name']);
             $this->foodSharePoint['urlname'] = $this->identificationHelper->id($this->foodSharePoint['urlname']);
@@ -209,35 +218,39 @@ class FoodSharePointController extends FoodsharingController
 
         $data = $this->foodSharePoint;
 
-        $items = [
-            [
-                'name' => $this->translator->trans('back'),
-                'href' => '/fairteiler?sub=ft&bid=' . $this->regionId . '&id=' . $this->foodSharePoint['id'],
-            ],
-        ];
+        /* $items = [
+             [
+                 'name' => $this->translator->trans('back'),
+                 'href' => '/fairteiler?sub=ft&bid=' . $this->regionId . '&id=' . $this->foodSharePoint['id'],
+             ],
+         ];
 
-        if ($this->foodSharePointPermissions->mayDeleteFoodSharePointOfRegion($this->regionId)) {
-            $items[] = [
-                'name' => $this->translator->trans('fsp.delete'),
-                'click' => 'if(confirm(\''
-                    . $this->translator->trans('fsp.deleteConfirm')
-                    . '\')){goTo(\'/fairteiler?sub=ft&bid=' . $this->regionId . '&id=' . $this->foodSharePoint['id'] . '&delete=1\');}return false;',
-            ];
-        }
+         if ($this->foodSharePointPermissions->mayDeleteFoodSharePointOfRegion($this->regionId)) {
+             $items[] = [
+                 'name' => $this->translator->trans('fsp.delete'),
+                 'click' => 'if(confirm(\''
+                     . $this->translator->trans('fsp.deleteConfirm')
+                     . '\')){goTo(\'/fairteiler?sub=ft&bid=' . $this->regionId . '&id=' . $this->foodSharePoint['id'] . '&delete=1\');}return false;',
+             ];
+         } */
 
-        $data['bfoodsaver'] = $this->follower['fsp_manager'];
+        /*   $data['bfoodsaver'] = $this->follower['fsp_manager'];
 
-        foreach ($data['bfoodsaver'] as $key => $fs) {
-            $data['bfoodsaver'][$key]['name'] = $fs['name'] . ' ' . $fs['nachname'];
-        }
+           foreach ($data['bfoodsaver'] as $key => $fs) {
+               $data['bfoodsaver'][$key]['name'] = $fs['name'] . ' ' . $fs['nachname'];
+           }
 
-        $data['bfoodsaver_values'] = $this->foodsaverGateway->getFsAutocomplete($this->currentUserUnits->getRegions());
+        $data['bfoodsaver_values'] = $this->foodsaverGateway->getFsAutocomplete($this->currentUserUnits->getRegions()); */
 
-        $this->pageHelper->addContent($this->view->options($items), CNT_RIGHT);
+        $params['regions'] = $this->regions;
+        $params['foodSharePointData'] = $this->foodSharePoint;
+        $params['managers'] = $this->managers;
+        $foodSharePoint = $this->prepareVueComponent('food-share-point-add-or-edit', 'FoodSharePointAddOrEdit', $params);
+        $this->pageHelper->addContent($foodSharePoint);
 
-        $this->pageHelper->addContent($this->view->foodSharePointForm($data));
+        /* $this->pageHelper->addContent($this->view->foodSharePointForm($data));
 
-        return $this->renderGlobal();
+        return $this->renderGlobal(); */
     }
 
     private function check(Request $request): void
@@ -462,5 +475,16 @@ class FoodSharePointController extends FoodsharingController
     private function isFollower(): bool
     {
         return isset($this->follower['all'][$this->session->id()]);
+    }
+
+    /**
+     * @param Profile[] $managers
+     * @param Profile[] $followers
+     */
+    public function setFoodSharePoint(array $foodSharePoint, array $managers, array $followers): void
+    {
+        $this->foodSharePoint = $foodSharePoint;
+        $this->managers = $managers;
+        $this->followers = $followers;
     }
 }
