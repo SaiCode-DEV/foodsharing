@@ -115,6 +115,7 @@
 - Updated the version of tecnickcom/tcpdf !3473 @alex.simm
 - Replaced goAndExit with Symfony's redirect !3474 @alex.simm
 - Bump minishlink/web-push to 9.0.1 !3507 @chriswalg
+- Added a git blame ignore file !3525 @\_fridtjof_
 
 ## Development documentation
 
