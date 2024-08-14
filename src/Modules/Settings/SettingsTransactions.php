@@ -189,9 +189,10 @@ class SettingsTransactions
 
         $this->downgradeProfile($userId, $currentUserProfile['rolle'], $editableProfileDTO);
 
+        $oldData = $this->foodsaverGateway->getFoodsaver($userId);
         $isUpdated = (bool)$this->foodsaverGateway->updateFoodsaver($userId, $editableProfileDTO);
         if ($isUpdated) {
-            $this->logProfileSettings($userId, $editableProfileDTO);
+            $this->logProfileSettings($userId, $oldData, $editableProfileDTO);
         }
 
         return $isUpdated;
@@ -256,38 +257,36 @@ class SettingsTransactions
      * Logs the changes made to a user's profile.
      *
      * @param int $userId the ID of the user whose profile changes are being logged
+     * @param array $oldData the profile data before it was changed
      * @param EditableProfileDTO $editableProfileDTO the new profile data
      */
-    private function logProfileSettings(int $userId, EditableProfileDTO $editableProfileDTO): void
+    private function logProfileSettings(int $userId, array $oldData, EditableProfileDTO $editableProfileDTO): void
     {
-        if (isset($editableProfileDTO->id) && $userId === $editableProfileDTO->id) {
-            if ($oldData = $this->foodsaverGateway->getFoodsaver($userId)) {
-                $changedFields = [
-                    'name',
-                    'nachname',
-                    'stadt',
-                    'plz',
-                    'anschrift',
-                    'telefon',
-                    'handy',
-                    'geschlecht',
-                    'geb_datum',
-                    'rolle',
-                    'orgateam',
-                    'bezirk_id',
-                    'no_automatic_delete'
-                ];
-                $currentUser = $this->session->id();
-                $newDataAsArray = get_object_vars($editableProfileDTO);
-                $this->settingsGateway->logChangedSetting(
-                    $userId,
-                    $oldData,
-                    $newDataAsArray,
-                    $changedFields,
-                    $currentUser
-                );
-            }
-        }
+        // Map the DTO fields to the database column names
+        $trimIfNotNull = fn ($value) => is_null($value) ? null : strip_tags(trim($value));
+        $newDataAsArray = array_filter([
+            'name' => $trimIfNotNull($editableProfileDTO->firstName),
+            'nachname' => $trimIfNotNull($editableProfileDTO->lastName),
+            'stadt' => $trimIfNotNull($editableProfileDTO->location?->city),
+            'plz' => $trimIfNotNull($editableProfileDTO->location?->postalCode),
+            'anschrift' => $trimIfNotNull($editableProfileDTO->location?->street),
+            'telefon' => $trimIfNotNull($editableProfileDTO->phone),
+            'handy' => $trimIfNotNull($editableProfileDTO->mobile),
+            'geschlecht' => $editableProfileDTO->gender,
+            'geb_datum' => $trimIfNotNull($editableProfileDTO->birthday),
+            'rolle' => $editableProfileDTO->role,
+            'bezirk_id' => $editableProfileDTO->regionId,
+            'no_automatic_delete' => $editableProfileDTO->noAutoDelete,
+        ], fn ($var) => $var !== null);
+
+        $currentUser = $this->session->id();
+        $this->settingsGateway->logChangedSetting(
+            $userId,
+            $oldData,
+            $newDataAsArray,
+            array_keys($newDataAsArray),
+            $currentUser
+        );
     }
 
     /**

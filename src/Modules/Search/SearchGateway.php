@@ -498,6 +498,7 @@ class SearchGateway extends BaseGateway
             $hasRegionJoins = 'JOIN fs_foodsaver_has_bezirk AS has_region ON has_region.bezirk_id = region.id
                     LEFT OUTER JOIN fs_botschafter AS ambassador ON ambassador.foodsaver_id = has_region.foodsaver_id AND ambassador.bezirk_id = region.id';
             $hasRegionClause = 'AND has_region.foodsaver_id = ?
+                                AND has_region.active = 1
                                 AND(NOT ISNULL(ambassador.foodsaver_id) OR has_thread.bot_theme = 0) -- show Bot forums only to bots';
             array_push($parameters, $foodsaverId);
         }
@@ -556,6 +557,7 @@ class SearchGateway extends BaseGateway
             JOIN fs_foodsaver_has_bezirk AS has_region ON has_region.bezirk_id = region.id AND has_region.foodsaver_id = ?
             LEFT OUTER JOIN fs_botschafter AS ambassador ON ambassador.foodsaver_id = has_region.foodsaver_id AND ambassador.bezirk_id = region.id
             WHERE thread.active = 1
+            AND has_region.active = 1
             AND (NOT ISNULL(ambassador.foodsaver_id) OR has_thread.bot_theme = 0) -- show Bot forums only to bots'
             ORDER BY (sticky < 0), time DESC
             LIMIT " . self::MAX_THREADS_IN_SEARCH_INDEX_COUNT,
@@ -631,6 +633,8 @@ class SearchGateway extends BaseGateway
                 JOIN fs_foodsaver_has_bezirk have_region ON have_region.bezirk_id = region.id
                 LEFT OUTER JOIN fs_botschafter ambassador ON ambassador.bezirk_id = region.id and ambassador.foodsaver_id = have_region.foodsaver_id
                 WHERE have_region.foodsaver_id = ?
+                AND have_region.active = 1
+                AND has_region.active = 1
                 AND region.type IN (' . UnitType::CITY . ',' . UnitType::PART_OF_TOWN . ',' . UnitType::WORKING_GROUP . ')
                 GROUP BY foodsaver.id
                 UNION ALL
@@ -905,7 +909,7 @@ class SearchGateway extends BaseGateway
         $regionRestrictionClause = '';
         $hasRegionJoin = '';
         if (!$searchGlobal) {
-            $regionRestrictionClause = 'AND has_region.foodsaver_id = ?';
+            $regionRestrictionClause = 'AND has_region.foodsaver_id = ? AND has_region.active = 1';
             $parameters[] = $foodsaverId;
             $hasRegionJoin = 'JOIN fs_foodsaver_has_bezirk has_region ON has_region.bezirk_id = region.id';
         }
@@ -953,7 +957,8 @@ class SearchGateway extends BaseGateway
             LEFT OUTER JOIN fs_location `location` ON location.id = event.location_id
             WHERE
                 has_event.status IN (?, ?) AND
-                NOW() - INTERVAL 14 DAY <= event.end
+                NOW() - INTERVAL 14 DAY <= event.end AND
+                has_region.active = 1
             ORDER BY
                 IF(NOW() < start, start - NOW(), IF(NOW() > end, NOW() - end, 0)), # temporal distance from the event
                 event.name ASC",
@@ -976,7 +981,7 @@ class SearchGateway extends BaseGateway
         $regionRestrictionClause = '';
         $hasRegionJoin = '';
         if (!$searchGlobal) {
-            $regionRestrictionClause = 'AND has_region.foodsaver_id = ?';
+            $regionRestrictionClause = 'AND has_region.foodsaver_id = ? AND has_region.active = 1';
             $parameters[] = $foodsaverId;
             $hasRegionJoin = 'JOIN fs_foodsaver_has_bezirk has_region ON has_region.bezirk_id = region.id';
         }

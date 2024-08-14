@@ -73,6 +73,7 @@
 - Fixed unexpected exception in BusinessCardGateway #2051 !3504 @alex.simm
 - Fixed food basket expired at not shown #2058 !3511 @McGoldi
 - Fixed encoding for publicInfo field in store #2043 !3516 @chriswalg
+- Removed search results for groups the user has only applied to #2062 !3523 @AntonBallmaier
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
@@ -93,7 +94,7 @@
 - Extract `updateLastActivity()` into new service `UserStatusTransactions` !3377 @KoeMai
 - Remove obsolete and unused run.php !3395 @\_fridtjof_
 - Provide CurrentUserRegionInterface for Session as independent implementation !3390 !3400 @KoeMai
-- Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 !3426 !3457 !3495 @chriswalg
+- Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 !3426 !3457 !3495 !3526 @chriswalg
 - Cleaned up the ApplicationGateway #1975 !3411 @alex.simm
 - make ActivityGateway:fetchAllStoreUpdates faster #1907 !3441 @fs_k @AntonBallmaier
 - Modernized LegalControl to a Symfony controller !3447 @chriswalg
@@ -115,6 +116,7 @@
 - Updated the version of tecnickcom/tcpdf !3473 @alex.simm
 - Replaced goAndExit with Symfony's redirect !3474 @alex.simm
 - Bump minishlink/web-push to 9.0.1 !3507 @chriswalg
+- Added a git blame ignore file !3525 @\_fridtjof_
 
 ## Development documentation
 
