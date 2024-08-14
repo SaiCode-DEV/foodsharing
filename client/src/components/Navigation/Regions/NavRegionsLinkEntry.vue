@@ -83,8 +83,9 @@ export default {
         })
       }
       if (this.entry.mayAccessReports) {
+        const viewer = this.entry.isReportAdmin ? 'report' : this.entry.isArbitrationAdmin ? 'arbitration' : 'orga'
         menu.push({
-          href: 'reports', icon: 'fa-people-arrows', text: 'terminology.reports',
+          href: 'reports', icon: 'fa-people-arrows', text: `terminology.reports.${viewer}`,
         })
       }
 
