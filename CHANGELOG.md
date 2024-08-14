@@ -22,7 +22,7 @@
 - The password in the login form can be made visible !3459 @alex.simm
 - Baskets can be placed at any location !3452 @AntonBallmaier
 - Added tooltips to map markers !3466 @AntonBallmaier
-- Display the distance to the store when applying #2016 !3460 @AntonBallmaier
+- Display the distance to the store when applying #2016 !3460 #2070 !3530 @AntonBallmaier
 
 ## Changes
 - Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei

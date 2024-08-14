@@ -895,7 +895,7 @@ storeview:
   source_data: "Stammdaten"
   select_related_region: "Auswahl des zuständigen Bezirks"
   info: "Informationen"
-  team_info_distance: "Entfernung zum Betrieb:"
+  team_info_distance: "Luftlinien-Entfernung zum Betrieb:"
   team_info_active: "Aktive im Team:"
   team_info_jumper: "Springer:"
   pickupCount: "Abholungen"
