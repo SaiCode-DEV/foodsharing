@@ -95,7 +95,7 @@ export default {
       return objectMap(this.results, list => list.length >= MAX_SEARCH_RESULT_COUNT)
     },
     resultSections () {
-      return this.possibleResultSections.filter(section => this.results[section.key].length)
+      return this.possibleResultSections.filter(section => this.results[section.key]?.length ?? 0)
     },
     shownResults () {
       return objectMap(this.results, (list, key) => this.expanded[key] ? list : list.slice(0, MAX_DISPLAYED_RESULTS_REDUCED))

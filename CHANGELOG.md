@@ -117,6 +117,7 @@
 - Replaced goAndExit with Symfony's redirect !3474 @alex.simm
 - Bump minishlink/web-push to 9.0.1 !3507 @chriswalg
 - Added a git blame ignore file !3525 @\_fridtjof_
+- Add feature toggle for mail search #2066 !3528 @AntonBallmaier
 
 ## Development documentation
 

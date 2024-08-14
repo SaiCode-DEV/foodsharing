@@ -4,6 +4,8 @@ namespace Foodsharing\Modules\Search;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Development\FeatureToggles\DependencyInjection\FeatureToggleChecker;
+use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Search\DTO\MixedSearchResult;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
@@ -16,7 +18,8 @@ class SearchTransactions
         private readonly MailboxGateway $mailboxGateway,
         private readonly Session $session,
         private readonly SearchPermissions $searchPermissions,
-        private readonly CurrentUserUnitsInterface $currentUserUnits
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
+        private readonly FeatureToggleChecker $featureToggleChecker,
     ) {
     }
 
@@ -65,11 +68,15 @@ class SearchTransactions
         $start = microtime(true);
         $result->users = $this->searchGateway->searchUsers($query, $foodsaverId, $searchGlobal, $this->searchPermissions->maySearchByEmailAddress());
         $result->timings['users'] = microtime(true) - $start;
-        $start = microtime(true);
-        $boxes = $this->mailboxGateway->getBoxes($this->currentUserUnits->isAdminFor(null), $foodsaverId, $this->session->mayRole(Role::STORE_MANAGER));
-        $mailboxIds = array_column($boxes, 'id');
-        $result->mails = $this->searchGateway->searchMails($query, $mailboxIds);
-        $result->timings['mails'] = microtime(true) - $start;
+
+        if ($this->featureToggleChecker->isFeatureToggleActive(FeatureToggleDefinitions::MAIL_SEARCH->value)) {
+            $start = microtime(true);
+            $boxes = $this->mailboxGateway->getBoxes($this->currentUserUnits->isAdminFor(null), $foodsaverId, $this->session->mayRole(Role::STORE_MANAGER));
+            $mailboxIds = array_column($boxes, 'id');
+            $result->mails = $this->searchGateway->searchMails($query, $mailboxIds);
+            $result->timings['mails'] = microtime(true) - $start;
+        }
+
         $start = microtime(true);
         $result->events = $this->searchGateway->searchEvents($query, $foodsaverId, $searchGlobal);
         $result->timings['events'] = microtime(true) - $start;
@@ -97,7 +104,9 @@ class SearchTransactions
         $result->chats = $this->searchGateway->getChatsForSearchIndex($foodsaverId);
         $result->threads = $this->searchGateway->getThreadsForSearchIndex($foodsaverId);
         $result->users = $this->searchGateway->getUsersForSearchIndex($foodsaverId);
-        $result->mails = $this->searchGateway->getMailsForSearchIndex($mailboxIds);
+        if ($this->featureToggleChecker->isFeatureToggleActive(FeatureToggleDefinitions::MAIL_SEARCH->value)) {
+            $result->mails = $this->searchGateway->getMailsForSearchIndex($mailboxIds);
+        }
         $result->events = $this->searchGateway->getEventsForSearchIndex($foodsaverId);
         $result->polls = $this->searchGateway->getPollsForSearchIndex($foodsaverId);
 

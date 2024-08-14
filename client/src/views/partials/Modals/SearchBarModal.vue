@@ -128,10 +128,11 @@ export default {
           entry => queryWords.every(word => this.searchString(entry.search_string, detailedSearch).includes(this.collateString(word))),
         )
         if (this.directSearchResults) {
+          const directSearchResult = this.directSearchResults?.[key] ?? []
           // Replace local result entries by search results, since they may be more recent
-          results[key] = results[key].map(localEntry => this.directSearchResults[key].find(entry => entry.id === localEntry.id) ?? localEntry)
+          results[key] = results[key].map(localEntry => directSearchResult.find(entry => entry.id === localEntry.id) ?? localEntry)
           // Append additional search results that were not found locally
-          results[key].push(...this.directSearchResults[key].filter(
+          results[key].push(...directSearchResult.filter(
             entry => !results[key].some(indexedEntry => entry.id === indexedEntry.id),
           ))
         }
