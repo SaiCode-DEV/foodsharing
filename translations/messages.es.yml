@@ -3183,6 +3183,7 @@ settings:
       thunderbird: Thunderbird
       other: Otra
       label: ¿Qué programa de calendario utilizas?
+      apple_etar: Calendario de Apple / Etar
     formatting:
       label: ¿Qué formato deben tener las descripciones de los nombramientos?
       html: HTML
@@ -3310,6 +3311,7 @@ settings:
   general:
     phone: Su número de teléfono fijo
     current_address: Direccion actual
+    no_address: Aún no se ha introducido ninguna dirección
   quiz:
     1: 'Ahorro de alimentos: en el cuestionario'
     2: Cuestionario para gerentes de tienda
