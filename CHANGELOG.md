@@ -74,6 +74,7 @@
 - Fixed food basket expired at not shown #2058 !3511 @McGoldi
 - Fixed encoding for publicInfo field in store #2043 !3516 @chriswalg
 - Removed search results for groups the user has only applied to #2062 !3523 @AntonBallmaier
+- Fixed Attribution showing html istead of the resulting rendered html #2067 !3532 @SaiCode
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
