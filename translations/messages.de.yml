@@ -2054,6 +2054,7 @@ settings:
       google: "Google calendar"
       outlook: "Outlook"
       thunderbird: "Thunderbird"
+      apple_etar: "Apple-Kalender / Etar"
       other: "Etwas anderes"
     protocol: "Welches Protokoll nutzt dein Kalenderprogramm?"
     formatting:
