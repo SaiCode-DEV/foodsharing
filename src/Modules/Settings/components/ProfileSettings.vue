@@ -253,7 +253,7 @@ import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import Markdown from '@/components/Markdown/Markdown'
 import DataUser from '@/stores/user'
 import RegionTreeModal from '@/components/regiontree/RegionTreeModal.vue'
-import { REGION_UNIT_TYPE } from '@/stores/regions'
+import { SELECTABLE_REGION_TYPES } from '@/stores/regions'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import { pulseError, pulseSuccess } from '@/script'
 
@@ -334,12 +334,11 @@ export default {
           labelHelp: this.$i18n('bootstrap-datepicker.labelHelp'),
         },
       },
-      selectableRegionTypes: Object.values(REGION_UNIT_TYPE),
     }
   },
   computed: {
-    isFoodSaver () {
-      return DataUser.getters.isFoodsaver()
+    selectableRegionTypes () {
+      return SELECTABLE_REGION_TYPES
     },
     isOrgUser () {
       return DataUser.getters.isOrga()
@@ -398,7 +397,7 @@ export default {
       patchUserProfile(this.userId, formData).then(() => {
         pulseSuccess(this.$i18n('success'))
       }).catch((error) => {
-        pulseError(this.$i18n('error_unexpected: ', error))
+        pulseError(this.$i18n('error_unexpected') + ': ' + error)
         console.error(error)
       })
     },

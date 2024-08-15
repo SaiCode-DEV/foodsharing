@@ -94,7 +94,7 @@
 - Extract `updateLastActivity()` into new service `UserStatusTransactions` !3377 @KoeMai
 - Remove obsolete and unused run.php !3395 @\_fridtjof_
 - Provide CurrentUserRegionInterface for Session as independent implementation !3390 !3400 @KoeMai
-- Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 !3426 !3457 !3495 !3526 @chriswalg
+- Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 !3426 !3457 !3495 !3519 !3526 @chriswalg
 - Cleaned up the ApplicationGateway #1975 !3411 @alex.simm
 - make ActivityGateway:fetchAllStoreUpdates faster #1907 !3441 @fs_k @AntonBallmaier
 - Modernized LegalControl to a Symfony controller !3447 @chriswalg

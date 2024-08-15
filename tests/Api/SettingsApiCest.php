@@ -9,6 +9,7 @@ use Codeception\Example;
 use Codeception\Util\HttpCode;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
+use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Tests\Support\ApiTester;
 
 class SettingsApiCest
@@ -19,11 +20,13 @@ class SettingsApiCest
     private $userOrga;
     private $region1;
     private $region2;
+    private $regionState;
 
     public function _before(ApiTester $I): void
     {
         $this->region1 = $I->createRegion();
         $this->region2 = $I->createRegion();
+        $this->regionState = $I->createRegion(extra_params: ['type' => UnitType::FEDERAL_STATE]);
         $this->user = $I->createFoodsaver();
         $I->addRegionMember($this->region1['id'], $this->user['id']);
 
@@ -288,6 +291,41 @@ class SettingsApiCest
         } else {
             // make sure that the values did not change
             $I->seeInDatabase('fs_foodsaver', ['about_me_intern' => $aboutMeOld, 'id' => $testUser['id']]);
+        }
+    }
+
+    /**
+     * Region IDs that don't exist or that have a type which is not allowed for home regions should return 400. A null
+     * value for the region id should return a 200 response but not change the database entry.
+     *
+     * @example {"regionId": null, "result": true, "changed": false}
+     * @example {"regionId": 99999, "result": false, "changed": false}
+     * @example {"regionId": "region2", "result": true, "changed": true}
+     * @example {"regionId": "regionState", "result": false, "changed": false}
+     */
+    public function canOnlySetValidHomeRegion(ApiTester $I, Example $example): void
+    {
+        $oldRegionId = $I->grabFromDatabase('fs_foodsaver', 'bezirk_id', ['id' => $this->user['id']]);
+        $regionId = is_string($example['regionId']) ? $this->{$example['regionId']}['id'] : $example['regionId'];
+
+        $I->login($this->userOrga['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/user/' . $this->user['id'] . '/profile', [
+            'regionId' => $regionId
+        ]);
+
+        if ($example['result']) {
+            $I->seeResponseCodeIs(HttpCode::OK);
+        } else {
+            $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
+        }
+
+        if ($example['changed']) {
+            // make sure that the values changed
+            $I->seeInDatabase('fs_foodsaver', ['bezirk_id' => $regionId, 'id' => $this->user['id']]);
+        } else {
+            // make sure that the values did not change
+            $I->seeInDatabase('fs_foodsaver', ['bezirk_id' => $oldRegionId, 'id' => $this->user['id']]);
         }
     }
 }

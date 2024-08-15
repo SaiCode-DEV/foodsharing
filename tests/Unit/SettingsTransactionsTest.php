@@ -11,6 +11,7 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Mails\MailsGateway;
+use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\Modules\Unit\UnitGateway;
@@ -46,6 +47,7 @@ class SettingsTransactionsTest extends Unit
             $this->tester->get(SettingsPermissions::class),
             $this->tester->get(FoodsaverTransactions::class),
             $this->tester->get(UnitGateway::class),
+            $this->tester->get(RegionGateway::class),
         );
     }
 

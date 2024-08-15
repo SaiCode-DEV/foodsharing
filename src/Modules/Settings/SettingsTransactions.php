@@ -4,8 +4,10 @@ namespace Foodsharing\Modules\Settings;
 
 use Exception;
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
+use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DTO\Address;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\DTO\EditableProfileDTO;
@@ -13,6 +15,7 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Mails\MailsGateway;
+use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Unit\UnitGateway;
 use Foodsharing\Permissions\SettingsPermissions;
 use Foodsharing\RestApi\Models\Settings\EmailChangeRequest;
@@ -36,7 +39,8 @@ class SettingsTransactions
         private readonly Session $session,
         private readonly SettingsPermissions $settingsPermissions,
         private readonly FoodsaverTransactions $foodsaverTransactions,
-        private readonly UnitGateway $unitGateway
+        private readonly UnitGateway $unitGateway,
+        private readonly RegionGateway $regionGateway,
     ) {
     }
 
@@ -146,7 +150,7 @@ class SettingsTransactions
     /**
      * Changes the E-Mail address when token is valid.
      *
-     * @throws \Foodsharing\Modules\Core\DatabaseNoValueFoundException
+     * @throws DatabaseNoValueFoundException
      * @throws \ValueError E-Mail address is in use
      */
     public function verifyAndCompleteEMailChange(string $token)
@@ -186,6 +190,18 @@ class SettingsTransactions
         }
 
         $editableProfileDTO = $this->filterProfile($userId, $currentUserProfile, $editableProfileDTO);
+
+        // If the home region was changed, it needs to be an existing region with a type that is allowed for home regions
+        if (!is_null($editableProfileDTO->regionId) && $editableProfileDTO->regionId != $currentUserProfile['bezirk_id']) {
+            try {
+                $type = $this->regionGateway->getType($editableProfileDTO->regionId);
+                if (!UnitType::isAccessibleRegion($type)) {
+                    throw new BadRequestHttpException('new home region has an invalid type');
+                }
+            } catch (DatabaseNoValueFoundException) {
+                throw new BadRequestHttpException('new home region does not exist');
+            }
+        }
 
         $this->downgradeProfile($userId, $currentUserProfile['rolle'], $editableProfileDTO);
 
