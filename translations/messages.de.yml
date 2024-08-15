@@ -2099,6 +2099,7 @@ settings:
   general:
     phone: "Deine Festnetznummer"
     current_address: "Aktuelle Adresse"
+    no_address: "Noch keine Adresse eingegeben"
 mail:
   noreply_addresses_not_allowed: "E-Mails an noreply@…-Adressen sind nicht zustellbar.<br>Bitte überprüfe die Empfangsadresse."
 
