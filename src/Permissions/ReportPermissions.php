@@ -35,21 +35,31 @@ class ReportPermissions
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
-
-        $reportGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::REPORT);
-
-        if (!empty($reportGroup)) {
-            if ($this->currentUserUnits->isAdminFor($reportGroup)) {
-                return true;
-            }
+        if ($this->isReportAdmin($regionId)) {
+            return true;
+        }
+        if ($this->isArbitrationAdmin($regionId)) {
+            return true;
         }
 
-        $arbitrationGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::ARBITRATION);
+        return false;
+    }
 
-        if (!empty($arbitrationGroup)) {
-            if ($this->currentUserUnits->isAdminFor($arbitrationGroup)) {
-                return true;
-            }
+    public function isReportAdmin(int $regionId)
+    {
+        $reportGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::REPORT);
+        if (!empty($reportGroup)) {
+            return $this->currentUserUnits->isAdminFor($reportGroup);
+        }
+
+        return false;
+    }
+
+    public function isArbitrationAdmin(int $regionId)
+    {
+        $reportGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::ARBITRATION);
+        if (!empty($reportGroup)) {
+            return $this->currentUserUnits->isAdminFor($reportGroup);
         }
 
         return false;

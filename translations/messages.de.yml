@@ -771,7 +771,10 @@ terminology:
   electionAdmins : "Wahlen"
   wall: "Pinnwand"
   statistic: "Statistik"
-  reports: "Meldungsansicht"
+  reports:
+    report: "Meldungsansicht (LMG)"
+    arbitration: "Meldungsansicht (LS)"
+    orga: "Meldungsansicht (Orga)"
   fsp: "Fairteiler" #also in MapView
   fsps: "Fairteiler"
   basket: "Essenskorb"
