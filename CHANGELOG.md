@@ -22,13 +22,13 @@
 - The password in the login form can be made visible !3459 @alex.simm
 - Baskets can be placed at any location !3452 @AntonBallmaier
 - Added tooltips to map markers !3466 @AntonBallmaier
-- Display the distance to the store when applying #2016 !3460 @AntonBallmaier
+- Display the distance to the store when applying #2016 !3460 #2070 !3530 @AntonBallmaier
 
 ## Changes
 - Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei
 - Restricted access to email attachments !3345 @alex.simm
 - Stores, where you are a jumper are now displayed at the bottom of the stores dropdown menu !3364 @AntonBallmaier
-- Improved the calendar export !3378 !3449 !3497 @AntonBallmaier
+- Improved the calendar export !3378 !3449 !3497 !3534 @AntonBallmaier
 - Pickups are displayed on dashboard for 30 minutes longer !3382
 - Removed address on businessCard !3362 @chriswalg
 - Give admins of quiz group permission to view and delete quiz sessions !3422 @AntonBallmaier
@@ -75,6 +75,7 @@
 - Fixed food basket expired at not shown #2058 !3511 @McGoldi
 - Fixed encoding for publicInfo field in store #2043 !3516 @chriswalg
 - Removed search results for groups the user has only applied to #2062 !3523 @AntonBallmaier
+- Fixed Attribution showing html istead of the resulting rendered html #2067 !3532 @SaiCode
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
@@ -83,7 +84,7 @@
 - Modernized EventControl to a Symfony controller !3260 @chriswalg
 - Rebuild quiz module #1666 !3119 !3329 !3403 @AntonBallmaier
 - Refactor the nearby baskets list to vue !3294 !3391 !3477 @alex.simm
-- Refactored profile to vue !3184 !3225 !3343 !3446 !3485 !3494 @chriswalg #2040 !3496 @AntonBallmaier
+- Refactored profile to vue !3184 !3225 !3343 !3446 !3485 !3494 !3536 @chriswalg #2040 !3496 @AntonBallmaier
 - Moved passports to region memberlist #1799 #1326 !3251 !3388 !3439 @chriswalg
 - Modernized StoreChainControl to a Symfony controller !3292 @chriswalg
 - Rework team page in vue !3248 !3351 @chriswalg
@@ -95,7 +96,7 @@
 - Extract `updateLastActivity()` into new service `UserStatusTransactions` !3377 @KoeMai
 - Remove obsolete and unused run.php !3395 @\_fridtjof_
 - Provide CurrentUserRegionInterface for Session as independent implementation !3390 !3400 @KoeMai
-- Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 !3426 !3457 !3495 !3526 @chriswalg
+- Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 !3426 !3457 !3495 !3526 !3524 !3526 @chriswalg
 - Cleaned up the ApplicationGateway #1975 !3411 @alex.simm
 - make ActivityGateway:fetchAllStoreUpdates faster #1907 !3441 @fs_k @AntonBallmaier
 - Modernized LegalControl to a Symfony controller !3447 @chriswalg
@@ -118,6 +119,8 @@
 - Replaced goAndExit with Symfony's redirect !3474 @alex.simm
 - Bump minishlink/web-push to 9.0.1 !3507 @chriswalg
 - Added a git blame ignore file !3525 @\_fridtjof_
+- Add feature toggle for mail search #2066 !3528 @AntonBallmaier
+- Added a Symfony command for deleting old accounts !3538 @alex.simm
 
 ## Development documentation
 

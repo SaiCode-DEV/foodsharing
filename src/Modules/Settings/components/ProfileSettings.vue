@@ -96,7 +96,7 @@
         <b-form-group :label="$i18n('settings.general.current_address')">
           <b-input-group>
             <b-form-input
-              :value="`${location.street} ${location.postalCode} ${location.city}`"
+              :value="locationString"
               type="text"
               :disabled="true"
             />
@@ -253,7 +253,7 @@ import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import Markdown from '@/components/Markdown/Markdown'
 import DataUser from '@/stores/user'
 import RegionTreeModal from '@/components/regiontree/RegionTreeModal.vue'
-import { REGION_UNIT_TYPE } from '@/stores/regions'
+import { SELECTABLE_REGION_TYPES } from '@/stores/regions'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import { pulseError, pulseSuccess } from '@/script'
 
@@ -334,12 +334,11 @@ export default {
           labelHelp: this.$i18n('bootstrap-datepicker.labelHelp'),
         },
       },
-      selectableRegionTypes: Object.values(REGION_UNIT_TYPE),
     }
   },
   computed: {
-    isFoodSaver () {
-      return DataUser.getters.isFoodsaver()
+    selectableRegionTypes () {
+      return SELECTABLE_REGION_TYPES
     },
     isOrgUser () {
       return DataUser.getters.isOrga()
@@ -360,6 +359,11 @@ export default {
       const age = this.$dateFormatter.getDifferenceToNowInYears(this.date)
       return age >= 18 && age <= 125 && !!this.birthday
     },
+    locationString () {
+      return (!this.location.street && !this.location.postalCode && !this.location.city)
+        ? this.$i18n('settings.general.no_address')
+        : `${this.location.street} ${this.location.postalCode} ${this.location.city}`
+    },
   },
   methods: {
     updateHomeRegion (region) {
@@ -374,6 +378,8 @@ export default {
       this[`${data.id}`] = { value: data.value, valid: data.valid }
     },
     handleSubmit () {
+      const nullableLocation = (!this.location?.street && !this.location?.postalCode && !this.location?.city) ? null : this.location
+      const nullableCoordinates = (!this.coordinate?.lat && !this.coordinate?.lon) ? null : this.coordinate
       const formData = {
         id: this.userId,
         firstName: this.firstName,
@@ -384,8 +390,8 @@ export default {
         birthday: this.birthday,
         mobile: this.mobile.value,
         phone: this.phone.value,
-        location: this.location,
-        coordinate: { lon: this.coordinate.lon, lat: this.coordinate.lat },
+        location: nullableLocation,
+        coordinate: nullableCoordinates,
         aboutMeInternal: this.aboutMeInternal,
         role: this.role,
         position: this.position,
@@ -398,7 +404,7 @@ export default {
       patchUserProfile(this.userId, formData).then(() => {
         pulseSuccess(this.$i18n('success'))
       }).catch((error) => {
-        pulseError(this.$i18n('error_unexpected: ', error))
+        pulseError(this.$i18n('error_unexpected') + ': ' + error)
         console.error(error)
       })
     },

@@ -46,7 +46,7 @@
 
 <script>
 import RegionTreeModal from '@/components/regiontree/RegionTreeModal.vue'
-import { REGION_UNIT_TYPE } from '@/stores/regions'
+import { SELECTABLE_REGION_TYPES } from '@/stores/regions'
 import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
@@ -66,7 +66,7 @@ export default {
   },
   computed: {
     selectableRegionTypes () {
-      return [REGION_UNIT_TYPE.CITY, REGION_UNIT_TYPE.BIG_CITY, REGION_UNIT_TYPE.PART_OF_TOWN]
+      return SELECTABLE_REGION_TYPES
     },
   },
   methods: {

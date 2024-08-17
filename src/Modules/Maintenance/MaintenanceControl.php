@@ -112,8 +112,14 @@ class MaintenanceControl extends ConsoleControl
         }
     }
 
-    public function deleteInactiveUsers()
+    public function deleteInactiveUsers(bool $dryRun = false, int $maximum = MAX_DELETE_OLD_ACCOUNTS_PER_DAY)
     {
+        if ($maximum < 0) {
+            self::error('The maximal number of accounts must be positive');
+
+            return;
+        }
+
         $arrayAccountsNotDeleted = [];
         $accountsDeleted = 0;
         self::info('deleting users inactive > 5 years');
@@ -124,10 +130,12 @@ class MaintenanceControl extends ConsoleControl
                 if ($this->storeGateway->listStoreIds($fs)) {
                     $arrayAccountsNotDeleted[] = $fs;
                 } else {
-                    $this->foodsaverGateway->deleteFoodsaver($fs, null, 'Automatic inactivity deletion');
+                    if (!$dryRun) {
+                        $this->foodsaverGateway->deleteFoodsaver($fs, null, 'Automatic inactivity deletion');
+                    }
                     ++$accountsDeleted;
                 }
-                if ($accountsDeleted === MAX_DELETE_OLD_ACCOUNTS_PER_DAY) {
+                if ($accountsDeleted === $maximum) {
                     break;
                 }
             }

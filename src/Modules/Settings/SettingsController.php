@@ -82,8 +82,8 @@ class SettingsController extends FoodsharingController
         }
 
         if ($this->settingsPermissions->mayEditProfileSettings($userId)) {
-            $userDetails['lat'] = (float)$userDetails['lat'];
-            $userDetails['lon'] = (float)$userDetails['lon'];
+            $userDetails['lat'] = is_null($userDetails['lat']) ? null : (float)$userDetails['lat'];
+            $userDetails['lon'] = is_null($userDetails['lon']) ? null : (float)$userDetails['lon'];
             $params['userDetails'] = $userDetails;
             $params['userDetails']['homeRegionName'] = $params['userDetails']['bezirk_id'] !== null ? $this->regionGateway->getRegionName($params['userDetails']['bezirk_id']) : null;
             $params['permissions']['isOnTeamPage'] = $this->unitGateway->isUserOnTeamPage($userId);

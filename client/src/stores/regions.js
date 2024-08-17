@@ -13,6 +13,12 @@ export const REGION_UNIT_TYPE = Object.freeze({
   PART_OF_TOWN: 9,
 })
 
+export const SELECTABLE_REGION_TYPES = Object.freeze([
+  REGION_UNIT_TYPE.CITY,
+  REGION_UNIT_TYPE.BIG_CITY,
+  REGION_UNIT_TYPE.PART_OF_TOWN,
+])
+
 export const WORKGROUP_FUNCTION = Object.freeze({
   WELCOME: 1,
   VOTING: 2,

@@ -74,6 +74,7 @@ export default {
         { value: { protocol: 'http', formatting: 'html' }, text: this.$i18n('settings.calendar.program.google') },
         { value: { protocol: 'webcal', formatting: 'alt' }, text: this.$i18n('settings.calendar.program.outlook') },
         { value: { protocol: 'http', formatting: 'alt' }, text: this.$i18n('settings.calendar.program.thunderbird') },
+        { value: { protocol: 'webcal', formatting: 'text' }, text: this.$i18n('settings.calendar.program.apple_etar') },
         { value: 'other', text: this.$i18n('settings.calendar.program.other') },
       ],
       protocolOptions: ['http', 'webcal'].map(value => ({ value, text: `${value}://...` })),
