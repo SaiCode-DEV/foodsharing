@@ -641,7 +641,7 @@ class FoodsaverGateway extends BaseGateway
             'id' => $fsId
         ]);
 
-        if (is_null($foodsaver['deleted_at'])) {
+        if (!is_null($foodsaver['name'])) {
             $this->db->insertOrUpdate('fs_foodsaver_archive', $foodsaver);
         }
     }
