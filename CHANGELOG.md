@@ -1,4 +1,4 @@
-# Unreleased
+# Release "Mandarine", 2024-08-18
 
 ## Features
 - Improved direct links to forum posts #1912 !3293 !3328 @AntonBallmaier
