@@ -7,7 +7,7 @@
 - Added an achievements overview page !3348 @AntonBallmaier
 - Warning mails informing store managers about empty pickup slots can now be disabled #1941 !3341 @AntonBallmaier
 - Add page-redirect after login !3334 @AntonBallmaier
-- Delete users older then 5 Years activity. Have profile setting to protect account from deletion#19 !3134 @fs_k
+- Delete accounts that were more than 5 years inactive. Add profile setting to protect account from deletion #19 !3134 !3541 @fs_k @AntonBallmaier
 - Added a location button to the map main #638 !3357 @alex.simm
 - Added a popup for food share points on the map !3360 !3371 @alex.simm
 - You can now load more entries in the store log #1969 !3383 @AntonBallmaier

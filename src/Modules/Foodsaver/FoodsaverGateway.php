@@ -641,7 +641,9 @@ class FoodsaverGateway extends BaseGateway
             'id' => $fsId
         ]);
 
-        $this->db->insert('fs_foodsaver_archive', $foodsaver);
+        if (is_null($foodsaver['deleted_at'])) {
+            $this->db->insertOrUpdate('fs_foodsaver_archive', $foodsaver);
+        }
     }
 
     public function getFsAutocomplete(array $regions): array

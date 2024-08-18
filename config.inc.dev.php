@@ -66,3 +66,5 @@ define('GEOAPIFY_API_KEY', 'b4e6bf0dbc48447fb4ee29d77c08eb09');
 define('FCM_KEY', '');
 
 define('TWINGLE_URL', 'https://spenden.twingle.de/status/E4yxc5T7YJh7nZvL93Yu7PlUzwCMjD2p80u8YK0Vgyw');
+
+define('MAX_DELETE_OLD_ACCOUNTS_PER_DAY', 100);
