@@ -32,7 +32,7 @@
 - Pickups are displayed on dashboard for 30 minutes longer !3382
 - Removed address on businessCard !3362 @chriswalg
 - Give admins of quiz group permission to view and delete quiz sessions !3422 @AntonBallmaier
-- Refactored report module to Controller, vue and api !3423 !3518 @AntonBallmaier
+- Refactored report module to Controller, vue and api !3423 !3518 !3539 @AntonBallmaier
 - Change region link generation from /?page=bezirk& to /region?
 - Removed application wall #321 !3436 @AntonBallmaier
 - Removed store state COOPERATION_STARTING #414 !3410 !3444 !3445 !3448 @chriswalg

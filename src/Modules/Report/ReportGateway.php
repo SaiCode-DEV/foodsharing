@@ -65,9 +65,6 @@ class ReportGateway extends BaseGateway
         $query = $this->reportSelectDbal();
         $query->andWhere($query->expr()->eq('r.foodsaver_id', $userId));
 
-        // restrict access only to new reports to avoid social conflicts from old entries
-        $query->andWhere('time >= \'2021-01-01\'');
-
         return $query->fetchAllAssociative();
     }
 
