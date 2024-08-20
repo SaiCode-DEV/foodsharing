@@ -1,3 +1,9 @@
+# Unreleased
+
+## Bugfixes
+- Made private mail address of users accessible to Ambassadors again. #2081 !3555 @AntonBallmaier
+
+
 # Release "Mandarine", 2024-08-18
 
 ## Features
