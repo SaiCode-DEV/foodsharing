@@ -622,7 +622,10 @@ terminology:
   n_ambassadors: '{count} embajador@s'
   profile_picture: 'Foto del perfil'
   n_cooperating_stores: '{count} cooperaciones en marcha'
-  reports: 'Vista de mensajes'
+  reports:
+    report: Vista de mensajes (LMG)
+    arbitration: Vista de mensajes (LS)
+    orga: Vista de mensajes (Orga)
   community: 'Grupo local de {name}'
   pickup: 'Recogida'
   prAdmins: 'Equipo de relaciones publicas'
@@ -1417,7 +1420,7 @@ storeview:
   choose_chain: Elija una cadena
   team_info_active: 'Miembros activos del equipo:'
   team_info_jumper: 'Springer:'
-  team_info_distance: 'Distancia a la explotación:'
+  team_info_distance: 'Distancia en línea recta a la granja:'
 store:
   tooltip_red: 'Recogidas vacantes hoy o mañana'
   tooltip_managing: 'Usted es responsable de esta cooperación'

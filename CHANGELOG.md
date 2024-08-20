@@ -2,6 +2,10 @@
 
 ## Bugfixes
 - Fix loading only selected stores on inital map marker load #2085 !3557 @AntonBallmaier
+- Made private mail address of users accessible to Ambassadors again. #2081 !3555 @AntonBallmaier
+- Fixed banana icon to show checkmark instead of plus on user profiles where you anready gave a banana. #2082 !3554 @AntonBallmaier
+- Fix store wall loading issue #2091 !3558 @AntonBallmaier
+- Fixed phone number input on profile settings !3546 @chriswalg @SaiCode
 
 # Release "Mandarine", 2024-08-18
 

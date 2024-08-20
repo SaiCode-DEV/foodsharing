@@ -121,7 +121,7 @@ class ProfilePermissions
 
     public function maySeePrivateEmail(int $userId): bool
     {
-        return $this->session->id() === $userId || $this->session->mayRole(Role::ORGA);
+        return $this->mayEditUserProfile($userId);
     }
 
     public function maySeelastActivity(int $userId): bool
