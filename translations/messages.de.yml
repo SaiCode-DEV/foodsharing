@@ -3323,7 +3323,7 @@ search:
       ambassador_forum: BOT-Forum
       last_post: letzter Beitrag
     user:
-      no_home_region: Kein Stammbezirk
+      no_home_region: Kein Stammbezirk #also used in ProfileSettings.vue 
       copy_id: ID kopieren
       copied_id: "Foodsaver-ID von {name} kopiert ({text})"
     working_group:
