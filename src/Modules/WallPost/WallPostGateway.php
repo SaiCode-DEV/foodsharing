@@ -57,8 +57,8 @@ class WallPostGateway extends BaseGateway
     {
         $posts = $this->db->fetchAll("SELECT {$this->selectColumns}
 		    FROM fs_wallpost post
-            LEFT JOIN fs_foodsaver foodsaver ON post.foodsaver_id = foodsaver.id
-            LEFT JOIN {$this->getLinkTableName($target)} has_post ON post.id = has_post.wallpost_id
+            INNER JOIN fs_foodsaver foodsaver ON post.foodsaver_id = foodsaver.id
+            INNER JOIN {$this->getLinkTableName($target)} has_post ON post.id = has_post.wallpost_id
 			WHERE has_post.`{$this->getLinkTableForeignIdColumnName($target)}` = :targetId
 			ORDER BY post.time DESC
 			LIMIT :limit
