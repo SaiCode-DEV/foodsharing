@@ -1,6 +1,7 @@
 # Unreleased
 
 ## Bugfixes
+- Fixed banana icon to show checkmark instead of plus on user profiles where you anready gave a banana. #2082 !3554 @AntonBallmaier
 - Fix store wall loading issue #2091 !3558 @AntonBallmaier
 
 # Release "Mandarine", 2024-08-18
