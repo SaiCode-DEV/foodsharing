@@ -1,3 +1,8 @@
+# Unreleased
+
+## Bugfixes
+- Fix loading only selected stores on inital map marker load #2085 !3557 @AntonBallmaier
+
 # Release "Mandarine", 2024-08-18
 
 ## Features
