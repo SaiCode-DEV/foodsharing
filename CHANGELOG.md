@@ -3,6 +3,7 @@
 ## Bugfixes
 - Fixed banana icon to show checkmark instead of plus on user profiles where you anready gave a banana. #2082 !3554 @AntonBallmaier
 - Fix store wall loading issue #2091 !3558 @AntonBallmaier
+- Fixed phone number input on profile settings !3546 @chriswalg @SaiCode
 
 # Release "Mandarine", 2024-08-18
 
