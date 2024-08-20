@@ -664,7 +664,7 @@ group:
   quit_name_workgroup: '{name} Ekipten ayrıl'
   role_name: Rolü
   really_quit_district: '{name} bölgesinden ayrılmak istediğinizden emin misiniz?'
-  quitting_home_district_warning: Bağlı olduğunuz %name% bölgesinden gerçekten ayrılmak
+  quitting_home_district_warning: Bağlı olduğunuz {name} bölgesinden gerçekten ayrılmak
     istiyor musunuz? Onaylamanızı kaybedeceksiniz ve daha sonra yeni bölgenizin elçi
     ekibine rapor vermek zorunda kalacaksınız.
   last_activity: Son Aktivite

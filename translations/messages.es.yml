@@ -1202,7 +1202,7 @@ group:
       electrónico.\n"
   applications_for: 'Aplicaciones para {name}'
   quitting_home_district_warning: '¿Realmente deseas abandonar tu distrito de origen
-    %name%? Perderás tu verificación y tendrás que comunicarte con los embajadores
+    {name}? Perderás tu verificación y tendrás que comunicarte con los embajadores
     de tu nuevo distrito de origen más tarde.'
   really_quit_district: '¿Quiere realmente abandonar el distrito de {name}?'
   really_quit_workgroup: '¿Estás seguro de que quieres abandonar el grupo de trabajo

@@ -166,7 +166,7 @@ group:
   delete_group_sure: Le groupe de travail/le district {groupName} doit-il réellement
     être supprimé ?
   quitting_home_district_warning: Souhaites-tu vraiment quitter ton district principal
-    %name% ? Tu perdras ta vérification et devras contacter l’équipe des ambassadeur·rice·s
+    {name} ? Tu perdras ta vérification et devras contacter l’équipe des ambassadeur·rice·s
     de ton nouveau district principal.
   really_quit_district: Veux-tu vraiment quitter le district {name} ?
   really_quit_workgroup: Veux-tu vraiment quitter le groupe de travail {name} ?

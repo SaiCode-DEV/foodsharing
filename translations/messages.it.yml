@@ -131,7 +131,7 @@ group:
       nella visione d’insieme dei distretti.
   delete_group_sure: Vuoi davvero eliminare il gruppo di lavoro/distretto {groupName}?
   quitting_home_district_warning: Vuoi davvero lasciare il tuo distretto di provenienza
-    %name%? Perderai la tua verifica e dovrai presentarti in seguito al team di ambasciatori
+    {name}? Perderai la tua verifica e dovrai presentarti in seguito al team di ambasciatori
     del tuo nuovo distretto di provenienza.
   really_quit_district: Sei sicuro di voler lasciare il distretto di {name}?
   really_quit_workgroup: Sei sicuro di voler lasciare il gruppo di lavoro {name}?

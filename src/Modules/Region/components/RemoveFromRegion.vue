@@ -15,9 +15,10 @@
       :title="$i18n('are_you_sure')"
       :ok-title="$i18n('button.yes_i_am_sure')"
       :cancel-title="$i18n('button.cancel')"
+      ok-variant="danger"
       @ok="removeMeFromRegion"
     >
-      {{ isWorkGroup ? $i18n('group.really_quit_workgroup', { name: name }) : $i18n('group.really_quit_district', { name: name }) }}
+      {{ $i18n(translationKey, { name: name }) }}
     </b-modal>
   </div>
 </template>
@@ -34,6 +35,19 @@ export default {
     regionId: { type: Number, required: true },
     name: { type: String, required: true },
     isWorkGroup: { type: Boolean, required: true },
+    isHomeDistrict: { type: Boolean, required: true },
+  },
+  computed: {
+    translationKey () {
+      switch (true) {
+        case this.isWorkGroup:
+          return 'group.quit_name_workgroup'
+        case this.isHomeDistrict:
+          return 'group.quitting_home_district_warning'
+        default:
+          return 'group.really_quit_district'
+      }
+    },
   },
   methods: {
     async removeMeFromRegion () {

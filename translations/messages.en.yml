@@ -161,7 +161,7 @@ group:
     name_required: Please enter a name.
     description_required: Please enter a description.
     description_placeholder: Description of working group
-  quitting_home_district_warning: Do you really want to leave your home district %name%?
+  quitting_home_district_warning: Do you really want to leave your home district {name}?
     You will lose your verification and have to contact the ambassador team of your
     new home district later.
   saved: Changes were saved

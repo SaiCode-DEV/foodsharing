@@ -1829,7 +1829,7 @@ group:
   really_quit_workgroup: Vil du virkelig forlate Arbeidsgruppe {name}?
   really_quit_district: Vil du virkelig forlate {name}-distriktet?
   delete_group_sure: Vil du virkelig slette {groupName}-arbeidsgruppen / -distriktet?
-  quitting_home_district_warning: Vil du virkelig forlate ditt hjemdistrikt %name%?
+  quitting_home_district_warning: Vil du virkelig forlate ditt hjemdistrikt {name}?
     Du mister bekreftelsen og må kontakte ambassadørteamet til ditt nye hjemdistrikt
     senere.
   unique_function:
