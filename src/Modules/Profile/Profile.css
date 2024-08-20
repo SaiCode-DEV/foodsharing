@@ -75,11 +75,11 @@ div.statdisplay a.item:hover {
 }
 
 .stat_bananacount {
-  background: url("/img/banana.png") no-repeat center 2rem;
+  background: url("/img/banana-plus.png") no-repeat center 2rem;
 }
 
 .stat_bananacount.bouched {
-  background-image: url("/img/bananan.png");
+  background-image: url("/img/banana-checkmark.png");
 }
 
 .page .linklist {

@@ -239,11 +239,11 @@ div.customBadge .item a {
 }
 
 div.customBadge .bananaCount {
-  background: var(--fs-color-secondary-500) url(/img/bananan.png) no-repeat center 3.5em;
+  background: var(--fs-color-secondary-500) url(/img/banana-checkmark.png) no-repeat center 3.5em;
 }
 
 div.customBadge .bananaCount.bananaCountAdd {
-  background: var(--fs-color-secondary-500) url(/img/banana.png) no-repeat center 3.5em;
+  background: var(--fs-color-secondary-500) url(/img/banana-plus.png) no-repeat center 3.5em;
 }
 
 .sectionClass {
