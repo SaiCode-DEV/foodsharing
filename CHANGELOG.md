@@ -1,7 +1,7 @@
 # Unreleased
 
 ## Bugfixes
-- Fixed banana icon to show checkmark instead of plus on user profiles where you anready gave a banana.
+- Fixed banana icon to show checkmark instead of plus on user profiles where you anready gave a banana. #2082 !3554 @AntonBallmaier
 
 # Release "Mandarine", 2024-08-18
 
