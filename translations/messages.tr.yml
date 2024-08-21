@@ -2975,7 +2975,10 @@ terminology:
     m: Orga İnsanı
     f: Orga İnsanı
     d: Orga İnsanı
-  reports: Raporlama Görünümü (Yerel raporlama grubu)
+  reports:
+    arbitration: Şikayet panosu (LS)
+    orga: Şikayet panosu (Orga)
+    report: Şikayet panosu(LMG)
   n_home_regions: İşte {count} kişilik ana bölge
   previous_pickups: Teslimat burada
   no_pickups: yok
@@ -3855,3 +3858,4 @@ achievements:
   validity:
     days: Görevlendirmeden sonraki {validityInDaysAfterAssignment} gün boyunca geçerlidir.
     indefinite: Veriltikten sonraki herhangi bir süre için geçerlidir.
+copied_to_clipboard: “{text}” panoya kopyalandı.
