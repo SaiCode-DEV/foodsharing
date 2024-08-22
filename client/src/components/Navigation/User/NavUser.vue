@@ -47,6 +47,16 @@
       >
         <i class="icon-subnav fas fa-language" /> {{ $i18n('menu.entry.language') }}
       </button>
+      <button
+        role="menuitem"
+        class="dropdown-item dropdown-action"
+        @click.prevent="$bvModal.show('themeSwitcherModal')"
+      >
+        <i
+          class="icon-subnav fas fa-language"
+          :class="themeStore.getCurrentIcon"
+        /> {{ $i18n('theme_switcher.title') }}
+      </button>
     </template>
     <template #actions>
       <button
@@ -62,6 +72,7 @@
 <script>
 // Stores
 import DataUser from '@/stores/user'
+import { useThemeStore } from '@/stores/theme'
 // Components
 import Avatar from '@/components/Avatar/Avatar.vue'
 import Dropdown from '../_NavItems/NavDropdown'
@@ -69,12 +80,19 @@ import Dropdown from '../_NavItems/NavDropdown'
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 import { clearCaches } from '@/helper/cache'
 
+const themeStore = useThemeStore()
+
 export default {
   components: {
     Avatar,
     Dropdown,
   },
   mixins: [RouteCheckMixin],
+  setup () {
+    return {
+      themeStore,
+    }
+  },
   computed: {
     getAvatar () {
       return DataUser.getters.getAvatar()

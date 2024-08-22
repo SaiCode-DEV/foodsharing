@@ -5,7 +5,7 @@
     :icon="entry.icon"
     :href="$url(entry.url)"
     :class="{
-      'text-warning font-weight-bold': entry.isHighlighted,
+      'text-success font-weight-bold': entry.isHighlighted,
     }"
   />
   <Dropdown

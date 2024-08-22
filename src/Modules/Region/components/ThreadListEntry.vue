@@ -95,7 +95,7 @@ export default {
   &:hover {
     .user-picture,
     .thread-title {
-      color: var(--fs-color-light);
+      color: var(--fs-color-primary-900);
     }
 
     .user-picture .avatar ::v-deep img {

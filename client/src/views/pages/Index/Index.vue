@@ -508,7 +508,7 @@ svg {
 }
 
 .header-desktop {
-  background-image: url(/img/startpage/header.png);
+  background: url(/img/startpage/header.png);
   background-size: cover;
 }
 

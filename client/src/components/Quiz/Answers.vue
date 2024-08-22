@@ -74,14 +74,15 @@ export default {
   float: right;
 }
 .success {
-  background-color: var(--fs-color-success-500);
-  color:white;
+  background-color: var(--fs-color-success-400);
+  color: var(--fs-color-black);
 }
 .failure {
-  background-color: var(--fs-color-danger-500);
-  color:white;
+  background-color: var(--fs-color-danger-400);
+  color: var(--fs-color-black);
 }
 .neutral {
   background-color: var(--fs-color-warning-200);
+  color: var(--fs-color-black);
 }
 </style>

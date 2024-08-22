@@ -135,8 +135,8 @@ export default {
 
 .list-group-header {
   align-items: center;
-  background-color: var(--fs-color-primary-500);
-  color: var(--fs-color-primary-100);
+  background-color: var(--fs-color-primary-300);
+  color: var(--fs-color-primary-900);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -144,7 +144,7 @@ export default {
   padding: 0 1rem;
 
   &:hover {
-    background-color: var(--fs-color-primary-600);
+    background-color: var(--fs-color-primary-200);
   }
 
   h5 {

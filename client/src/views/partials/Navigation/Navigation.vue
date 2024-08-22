@@ -27,6 +27,7 @@
       </b-collapse>
     </div>
     <ModalLoader v-if="isLoggedIn" />
+    <ThemeSwitcherModal />
   </b-navbar>
 </template>
 
@@ -49,6 +50,7 @@ import SideNavLoggedOut from './States/SideNav/LoggedOut.vue'
 // ModalLoader
 import ModalLoader from '@/views/partials/Modals/ModalLoader.vue'
 import DonationModal from '@/components/Modals/Donation/DonationModal.vue'
+import ThemeSwitcherModal from '@/views/partials/Modals/ThemeSwitcherModal.vue'
 // Mixins
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
@@ -57,6 +59,7 @@ export default {
   components: {
     ModalLoader,
     DonationModal,
+    ThemeSwitcherModal,
     MetaNavLoggedIn,
     MetaNavLoggedOut,
     MainNavLoggedIn,

@@ -234,6 +234,10 @@ export default {
 }
 </script>
 <style scoped>
-.good-distance { color: var(--fs-color-success-600) }
-.bad-distance { color: var(--fs-color-danger-500) }
+.good-distance {
+  color: var(--fs-color-success-600)
+}
+.bad-distance {
+  color: var(--fs-color-danger-500)
+}
 </style>

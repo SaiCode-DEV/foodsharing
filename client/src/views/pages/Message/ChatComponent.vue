@@ -16,6 +16,7 @@
     :load-first-room="String(roomId !== null)"
     :single-room="popupMode"
     :text-messages="JSON.stringify(textMessages)"
+    :theme="themeStore.isDark ? 'dark' : 'light'"
     emoji-data-source="/assets/emoji-picker-element-data/de/data.json"
     @fetch-messages="fetchMessages($event.detail[0])"
     @fetch-more-rooms="fetchMoreRooms"
@@ -71,11 +72,13 @@ import Storage from '@/storage'
 import conversationStore from '@/stores/conversations'
 import ProfileStore from '@/stores/profiles'
 import DataUser from '@/stores/user'
+import { useThemeStore } from '@/stores/theme'
 import SelectUsersComponent from './SelectUsersComponent.vue'
 import ChatTitleComponent from './ChatTitleComponent.vue'
 
 register()
 
+const themeStore = useThemeStore()
 const NEW_CONVERSATION_ID = Number.MAX_SAFE_INTEGER
 
 export default {
@@ -96,6 +99,11 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  setup () {
+    return {
+      themeStore,
+    }
   },
   data () {
     return {

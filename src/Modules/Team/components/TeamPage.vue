@@ -74,7 +74,6 @@ export default {
 }
 
 .alert-warning {
-  color: var(--fs-color-gray-900);
   font-size: large;
 }
 </style>

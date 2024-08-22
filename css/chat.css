@@ -8,9 +8,9 @@
 }
 
 .chatboxhead {
-  background-color: var(--fs-color-primary-500);
+  background-color: var(--fs-color-primary-300);
   padding: 0;
-  color: var(--fs-color-light);
+  color: var(--fs-color-primary-900);
 
   outline: 0;
 }

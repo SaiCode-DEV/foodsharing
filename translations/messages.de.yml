@@ -2948,6 +2948,15 @@ language_chooser:
   translation_help: "Du sprichst noch andere Sprachen? Foodsharing sucht immer Helfer:innen beim Übersetzen"
   translation_help_info_text: "Dieser Link führt zum Übersetzungsportal, dort anmelden und auf den Stift klicken um loszulegen"
 
+theme_switcher:
+  title: "Design wählen"
+  content: "Bitte wähle ein Design aus"
+  choose_button: "OK"
+  theme:
+    system: "System"
+    light: "Hell"
+    dark: "Dunkel"
+
 startpage:
   welcome_text: "Willkommen bei foodsharing"
   slogan_1: "Gemeinsam für mehr Lebensmittelwertschätzung"

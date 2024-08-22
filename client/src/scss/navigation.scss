@@ -4,7 +4,7 @@ $breaking-viewport: 767px;
   box-shadow: var(--fs-shadow);
   display: block;
   color: var(--fs-color-primary-500);
-  background-color: var(--fs-color-primary-100);
+  background-color: var( --fs-color-elevated);
   z-index: 1030;
 
   & .metanav,
@@ -181,7 +181,7 @@ body.nav-open{
   &:hover,
   &:focus,
   &:active {
-    outline: 0;
+    outline: 2px solid var(--fs-color-primary-alpha-50);
     border-radius: var(--border-radius);
   }
 
@@ -190,7 +190,6 @@ body.nav-open{
     background-color: var(--fs-color-primary-300);
   }
 
-  &:focus,
   &:active {
     color: var(--fs-color-primary-100) !important;
     background-color: var(--fs-color-primary-500);

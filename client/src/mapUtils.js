@@ -1,8 +1,13 @@
 import L from 'leaflet'
 // import 'mapbox-gl-leaflet'
 
-import { MAP_RASTER_TILES_URL_GEOAPIFY, MAP_RASTER_TILES_URL_OSM, MAP_ATTRIBUTION } from '@/consts'
+import {
+  MAP_RASTER_TILES_URL_GEOAPIFY,
+  MAP_RASTER_TILES_URL_GEOAPIFY_DARK,
+  MAP_RASTER_TILES_URL_OSM, MAP_ATTRIBUTION,
+} from '@/consts'
 import { isWebGLSupported } from '@/utils'
+import { useThemeStore } from '@/stores/theme'
 import { mapTilesApiKey, isDev, isTest } from '@/helper/server-data'
 
 /**
@@ -30,6 +35,10 @@ export function getMapRasterTilesUrl () {
   } else if (isDev) {
     return MAP_RASTER_TILES_URL_OSM
   } else {
-    return MAP_RASTER_TILES_URL_GEOAPIFY + mapTilesApiKey
+    if (useThemeStore().isDark) {
+      return MAP_RASTER_TILES_URL_GEOAPIFY_DARK + mapTilesApiKey
+    } else {
+      return MAP_RASTER_TILES_URL_GEOAPIFY + mapTilesApiKey
+    }
   }
 }

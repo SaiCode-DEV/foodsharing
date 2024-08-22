@@ -2661,6 +2661,16 @@ language_chooser:
     help with translations"
   translation_help_info_text: "The link takes you to the translation portal. Register
     and click on the pen to get started"
+
+theme_switcher:
+  title: "Choose design"
+  content: "Please choose a design"
+  choose_button: "OK"
+  theme:
+    system: "System"
+    light: "Light"
+    dark: "Dark"
+
 plz: Post code (automatically filled by the map above)
 fsp:
   twig:

@@ -62,7 +62,7 @@
 .ui-widget-content { border: 1px solid var(--fs-color-gray-200); background: var(--fs-border-default) url(images/ui-bg_highlight-soft_100_eeeeee_1x100.png) 50% top repeat-x; color: var(--fs-color-dark); }
 .ui-widget-content a { color: var(--fs-color-dark); }
 .ui-widget-header { border: 1px solid #e78f08; background: #f6a828 url(images/ui-bg_gloss-wave_35_f6a828_500x100.png) 50% 50% repeat-x; color: var(--fs-color-light); font-weight: bold; }
-.ui-widget-header a { color: var(--fs-color-light); }
+.ui-widget-header a { color: var(--fs-color-white); }
 
 /* Interaction states
 ----------------------------------*/
