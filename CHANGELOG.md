@@ -4,6 +4,7 @@
 - Add API endpoint for creating blog posts !3455 @alex.simm
 
 ## Changes
+- Improve accessibility in create forum thread form !3488 @iron9
 
 ## Bugfixes
 

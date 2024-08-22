@@ -134,7 +134,7 @@ export default {
     },
   },
   async mounted () {
-    // v-bootstrap doesn't handel initial values with row and max-row correctly.
+    // v-bootstrap doesn't handle initial values with row and max-row correctly.
     // This code updates the input height.
     if (this.modelValue === '') return
     const modelValue = this.modelValue
