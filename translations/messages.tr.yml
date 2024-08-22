@@ -849,7 +849,7 @@ error:
     title: 'Engellenen e-posta adresi!'
     description: 'E-posta adresiniz, foodsharing e-postaları ve iletişiminden engellendi.'
   missing_geolocation:
-    title: 'Adresinizle ilgili bir hata oluştu.'
+    title: 'Geçerli bir adres girilmedi'
     link: 'Adres girişi için'
     description: 'Lütfen adresinizi kontrol edin. Koordinatlar belirlenemedi.'
   missing_user_avatar:
@@ -1187,12 +1187,12 @@ ageBandList:
   NumberOfAgeband: Sayısı
 regionOptions:
   header_page: '{bezirk} için seçenekler'
-  enableMediationButton: Bölgenin foodsaver profillerine bir arabuluculuk bağlantısı
-    yerleştirerek arabuluculuk için teknik destek sağlayın.
+  enableMediationButton: Bölgenin düzenli foodsaverlarının profil sayfalarındaki arabuluculuk
+    formunu etkinleştirin
   success: Seçenekler başarıyla kaydedildi
   save: Seçenekleri kaydet
-  enableReportButton: Bölgedeki düzenli Foodsaverların profillerine ilişkin bir rapor
-    bağlantısı aracılığıyla raporlar için teknik desteği etkinleştirin.
+  enableReportButton: Bölgenin düzenli foodsaverlarının profil sayfalarındaki şikayet
+    formunu etkinleştirin
   regionPickupLimitNumber: Lütfen bu dönem için mümkün olan maksimum alım sayısını
     girin
   regionPickupTimespan: Lütfen düzenlemenin geçerli olduğu süreyi gün olarak belirtiniz
@@ -1205,6 +1205,7 @@ regionOptions:
   regionPickupRuleActiveStoreList: 'İlçe çapında adalet kuralı açısından dikkate alınan
     ilçedeki işletmelerin listesi. Listelenen firmalara ait tüm tahsilatlar birbirine
     eklenir ve kurala göre dikkate alınır.'
+  regionReportReasonSimple: Basitleştirilmiş şikayet nedenleri
 validate:
   required: '{it} boş kalamaz'
 select: Lütfen seçiniz
@@ -1233,6 +1234,11 @@ reports:
     size sunulan iletişim kanallarını deneyip denemediğinizi kontrol edin. Lütfen
     soruları işleme almak için size ulaşmanın en uygun yolunu belirtin.'
   message: Açıklama
+  reports_region: '{regionName} bölgesinden şikayetler'
+  reports_user: '{userName} ({userId}) hakkındaki tüm şikayetler'
+  reporter: Rapor eden kişi
+  reported: Rapor edilen kişi
+  id: ID
 message_text_to_group_admin_workgroup: '<b>{groupName}</b> bölgesi/çalışma grubu artık
   <b>herhangi bir</b> Elçiye/Yöneticiye sahip değil.<br><br><br>Şu kimlik yapısına
   sahip: <br>{idStructureList}<br><br>Kimlik: {groupId}<br><br>URL: <a href="/region?bid={groupId}&sub=forum"
@@ -1301,6 +1307,13 @@ store:
     distance_close: 1 km'den daha yakın bir mesafede yaşıyor
     distance_unknown: ikamet yeri sağlanmadı
     air_line: Gösterilen mesafe kuş uçuşu uzaklığına denk gelir.
+    confirm-no-location-ok: Yine de başvur
+    confirm-no-location: Profilinize geçerli bir adres girmediniz. İşletmeden sorumlu
+      kişilerin başvurunuza karar vermesini kolaylaştırmak için lütfen bir ev adresi
+      girin.
+    confirm-far: Kayıtlı adresinize göre bu işletmeden çok uzakta oturuyorsunuz ({distance}).
+      Buradaki ekibe düzenli ve güvenilir bir şekilde destek verebileceğinizden emin
+      misiniz?
   filter: …göre filtrele…
   enterdate: Alım tarihini girin
   important: 'Önemli:'
@@ -2375,8 +2388,8 @@ settings:
       Ancak o zaman yeni teslim alma tarihleri görünür ve iptal edilen tarihler artık
       görünmez.\n"
     delete_token:
-      message: Bu, önceki bağlantıyı geçersiz kılacaktır. Jetonu gerçekten silmek
-        istiyor musunuz?
+      message: Bu, şu ana kadar oluşturulan tüm takvim bağlantılarını geçersiz kılacaktır.
+        Belirteci silmek istediğinizden emin misiniz?
       title: Jetonu sil
       button: Jetonu sil
     create_token:
@@ -2651,10 +2664,12 @@ profile:
     title: '{name} hakkında rapor'
     oldReportButtonTextPart3: Raporlama sistemi hakkında daha fazla bilgi bulabilirsiniz
     mail: 'Yerel raporlama grubunuza aşağıdaki e-posta adresinden de ulaşabilirsiniz:'
-    info: Lütfen olayın tarihini, yerini ve saatini belirtiniz. Olayı doğrudan ele
-      almak ve konuyu o kişiyle açıklığa kavuşturmak için, lütfen size sunulan iletişim
-      kanallarını deneyip denemediğinizi kontrol edin. Ve lütfen soruları işleme almak
-      için size ulaşmanın en iyi yolunu belirtin.
+    info: "Şikayet Raporunuzun mümkün olduğu kadar etkili bir şekilde işlenebilmesi
+      için aşağıdaki bilgileri içermesi gerekir:\n- Olayın tarihi, saati ve yeri\n
+      - daha önce ne yaptığınız, örneğin o kişiyle doğrudan konuşup konuşmadığınız
+      ve konuyu açıklığa kavuşturup açıklayamadığınız.\n- Sorularınız için size en
+      iyi nasıl ulaşacağım.\n\nBurada [wiki'deki davranış kurallarını](https://wiki.foodsharing.de/Verhaltensrules)
+      bulabilirsiniz.\n"
     noshow: 'Kişi almak için gelmedi'
     late: 'Kişi geç kaldı'
     inthisblog: 'Bu blog yazısında'
@@ -2676,7 +2691,7 @@ profile:
     kindofreport: 'Lütfen mesaj türünü seçiniz'
     reportedAdminNoArbitration: '{name} aleyhinde şikayette bulunamazsınız çünkü bu
       Admin, bölgenin yerel raporlama grubundadır ve orada bir tahkim kurulu yoktur.'
-    doesNotAffectStore: Hiçbir işletmeyi veya başka bir işletmeyi etkilemez
+    doesNotAffectStore: Hiçbir işletmeyi, veya başka bir işletmeyi etkilemez
   choosestore: Lütfen ilgili işletmeyi seçiniz
   cantdeleteall: Tüm randevuları silemezsiniz!
   deletesuccess: Tek randevu silindi
@@ -3156,6 +3171,7 @@ storeview:
   choose_chain: Bir işletme zincirini seç
   team_info_active: 'Ekibin aktif üyeleri:'
   team_info_jumper: 'Yedek üyeler:'
+  team_info_distance: 'Hava Mesafesinin İşletmeye uzaklığı:'
 fsp:
   suggest: Gıda dağıtım noktası önerin
   accept: Gıda dağıtım noktasının kilidini aç
@@ -3371,6 +3387,7 @@ calendar:
       description: <a href="{url}">{store}</a> 'a Foodsharing alımı
       otherFoodsavers: 'Sizinle kayıtlı: '
       freeSlots: '{count} Slotlar hâlâ boş'
+      foodsavers: 'Kayıtlı foodsaver: '
     event:
       linkTitle: Foodsharing etkinliği
       statusUnspecified: Bu randevuya katılıp katılmayacağınızı henüz belirtmediniz.
@@ -3390,6 +3407,7 @@ calendar:
   labelNav: Takvim Navigasyonu
   locale: tk
   placeholder: Tarih seç_
+  copiedUrl: Takvim URL'si kopyalandı!
 fpcapital: Hata Noktası
 memberlist:
   header_for_district: '{bezirk} bölgesinde Foodsaver'
@@ -3604,7 +3622,7 @@ search:
     user:
       no_home_region: Ana bölge yok
       copy_id: Kimliği kopyala
-      copied_id: Foodsaver {name} ({id}) kaynağından kopyalandı
+      copied_id: Foodsaver Kimliği {name} ({text}) kaynağından kopyalandı
     store:
       manager_tooltip: Bu işletmeden siz sorumlusunuz
       jumper_tooltip: Bu işletmenin yedek listesindesiniz
