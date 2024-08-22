@@ -496,7 +496,7 @@ group:
   quit: "Verlassen"
   really_quit_workgroup: "Möchtest du wirklich die Arbeitsgruppe {name} verlassen?"
   really_quit_district: "Möchtest du wirklich den Bezirk {name} verlassen?"
-  quitting_home_district_warning: "Möchtest du wirklich deinen Stammbezirk %name% verlassen? Du verlierst deine Verifizierung und musst dich später beim Botschafter:innen-Team deines neuen Stammbezirks melden."
+  quitting_home_district_warning: "Möchtest du wirklich deinen Stammbezirk {name} verlassen? Du verlierst deine Verifizierung und musst dich später beim Botschafter:innen-Team deines neuen Stammbezirks melden."
   delete_group_sure: "Soll die Arbeitsgruppe/der Bezirk {groupName} wirklich gelöscht werden?"
   function:
     title: "Arbeitsgruppenfunktion"
@@ -3323,7 +3323,7 @@ search:
       ambassador_forum: BOT-Forum
       last_post: letzter Beitrag
     user:
-      no_home_region: Kein Stammbezirk
+      no_home_region: Kein Stammbezirk #also used in ProfileSettings.vue 
       copy_id: ID kopieren
       copied_id: "Foodsaver-ID von {name} kopiert ({text})"
     working_group:

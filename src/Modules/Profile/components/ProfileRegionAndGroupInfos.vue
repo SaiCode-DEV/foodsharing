@@ -19,8 +19,8 @@
             <span
               class="item mb-4 mr-3"
               :class="{
-                'bananaCount': badgeItem.id === 'bananas' && isMe,
-                'bananaCountAdd': badgeItem.id === 'bananas' && !isMe
+                'bananaCount': badgeItem.id === 'bananas',
+                'bananaCountAdd': badgeItem.id === 'bananas' && canAddBanana,
               }"
             >
               <span class="value mb-4">{{ badgeItem.value }}</span>
@@ -155,6 +155,9 @@ export default {
         { id: 'buddies', text: this.$i18n('profile.infos.buddies'), value: this.statistics.buddyCount >= 0 ? this.statistics.buddyCount.toString() : null },
       ]
     },
+    canAddBanana () {
+      return !this.bananaStatistics.bananas.some(banana => banana.id === this.currentUserId) && !this.isMe
+    },
     filteredBadges () {
       if (!this.isCurrentUserFoodSaver || (this.isCurrentUserFoodSaver && !this.isSessionUserFoodsaver)) {
         const itemsToFilter = ['bananas', 'posts']
@@ -236,11 +239,11 @@ div.customBadge .item a {
 }
 
 div.customBadge .bananaCount {
-  background: var(--fs-color-secondary-500) url(/img/bananan.png) no-repeat center 3.5em;
+  background: var(--fs-color-secondary-500) url(/img/banana-checkmark.png) no-repeat center 3.5em;
 }
 
-div.customBadge .bananaCountAdd {
-  background: var(--fs-color-secondary-500) url(/img/banana.png) no-repeat center 3.5em;
+div.customBadge .bananaCount.bananaCountAdd {
+  background: var(--fs-color-secondary-500) url(/img/banana-plus.png) no-repeat center 3.5em;
 }
 
 .sectionClass {

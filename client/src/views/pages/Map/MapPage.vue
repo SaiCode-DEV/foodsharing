@@ -121,7 +121,7 @@ export default {
 
     // Load all markers that are initially selected
     showLoader()
-    await Promise.all(this.selectedTypes.map(name => store.getMarkers(name)))
+    await Promise.all(this.selectedTypes.map(name => store.getMarkers(name, name === MARKER_TYPES.stores.name ? this.selectedStoreTypes : [])))
     hideLoader()
     for (const type of this.selectedTypes) {
       this.drawMarkerLayer(type)
@@ -190,6 +190,7 @@ export default {
     },
     drawMarkerLayer (type) {
       const layer = this.$refs[`markerCluster-${type}`][0]
+      if (!layer) return
 
       const markerList = []
 

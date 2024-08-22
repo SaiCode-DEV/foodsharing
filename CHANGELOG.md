@@ -1,3 +1,16 @@
+# Hotfix 2024-08-22
+
+## Bugfixes
+- Fix loading only selected stores on inital map marker load #2085 !3557 @AntonBallmaier
+- Made private mail address of users accessible to Ambassadors again. #2081 !3555 @AntonBallmaier
+- Fixed banana icon to show checkmark instead of plus on user profiles where you anready gave a banana. #2082 !3554 @AntonBallmaier
+- Fix store wall loading issue #2091 !3558 @AntonBallmaier
+- Fixed phone number input on profile settings !3546 @chriswalg @SaiCode
+- Fixed "Missing special warning message, if foodsaver leaves home district" !3551 @chriswalg
+- Fixed ambassadors being able to set the home region of users without home region that are in their region #2088 !3560 @AntonBallmaier
+- Fixed some browsers disallowing downloading files because of http #2086 !3561 @AntonBallmaier
+- Fixed an error in map marker drawing #2080 !3563 @AntonBallmaier
+
 # Release "Mandarine", 2024-08-18
 
 ## Features

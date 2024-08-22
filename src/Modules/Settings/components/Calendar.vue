@@ -126,7 +126,7 @@ export default {
     async download () {
       await this.haveToken()
       const link = document.createElement('a')
-      link.href = this.url.replace('webcal', 'http') // always use http for download
+      link.href = this.url.replace(/^(webcal)|(http)/, 'https') // always use https for download
       link.click()
     },
     async removeToken () {

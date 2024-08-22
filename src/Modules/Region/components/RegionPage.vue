@@ -43,6 +43,7 @@
           :region-id="regionId"
           :name="name"
           :is-work-group="isWorkGroup"
+          :is-home-district="isHomeDistrict"
         />
       </div>
       <div class="col-12 col-lg-8 col-xl-9">

@@ -158,15 +158,15 @@
             />
           </b-form-group>
         </div>
-        <div v-if="!isMe && userDetails.bezirk_id > 0">
+        <div>
           <b-form-group :label="$i18n('terminology.homeRegion')">
             <b-input-group>
               <b-form-input
-                :value="region.name"
+                :value="region.name || $i18n('search.results.user.no_home_region')"
                 type="text"
                 :disabled="true"
               />
-              <b-input-group-append>
+              <b-input-group-append v-if="!isMe">
                 <b-button
                   variant="outline-secondary"
                   @click="$refs.homeRegionTree.openModal()"
@@ -232,7 +232,7 @@
       @update-location="handleUpdateLocation"
     />
     <RegionTreeModal
-      v-if="userDetails.bezirk_id > 0"
+      v-if="!isMe"
       ref="homeRegionTree"
       :value="region"
       input-name="regionId"

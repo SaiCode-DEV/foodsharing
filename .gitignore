@@ -84,6 +84,7 @@ yarn-error.log*
 
 dump.sql
 
+/keys/*
 
 # +----------------------------+
 # |    Keep .gitkeep files     |
