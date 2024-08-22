@@ -14,7 +14,6 @@ use Tests\Support\ApiTester;
 class BasketApiCest
 {
     private $user;
-    private $userOrga;
     private $faker;
 
     private const EMAIL = 'email';
@@ -25,7 +24,6 @@ class BasketApiCest
     public function _before(ApiTester $I)
     {
         $this->user = $I->createFoodsaver();
-        $this->userOrga = $I->createOrga();
         $this->faker = Factory::create('de_DE');
     }
 
@@ -63,7 +61,8 @@ class BasketApiCest
 
         $basket2 = $I->createFoodbasket($this->user[self::ID]);
 
-        $I->login($this->userOrga[self::EMAIL]);
+        $userOrga = $I->createOrga();
+        $I->login($userOrga[self::EMAIL]);
         $I->sendDELETE(self::API_BASKETS . '/' . $basket2[self::ID]);
         $I->seeResponseCodeIs(Http::OK);
         $I->sendGET(self::API_BASKETS . '/' . $basket2[self::ID]);
@@ -99,7 +98,8 @@ class BasketApiCest
     public function listNearbyBaskets(ApiTester $I)
     {
         // create a basket owned by userorga close to user's location
-        $basket = $I->createFoodbasket($this->userOrga[self::ID], [
+        $userOrga = $I->createOrga();
+        $basket = $I->createFoodbasket($userOrga[self::ID], [
             'lat' => $this->user['lat'],
             'lon' => $this->user['lon']
         ]);

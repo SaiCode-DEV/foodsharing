@@ -619,7 +619,7 @@ class Foodsharing extends Db
         $this->haveInDatabase('fs_email_blacklist', ['email' => 'bad.com', 'since' => $since, 'reason' => 'Disposable email addresses should not be used for registration.']);
     }
 
-    public function createMailbox($name = null)
+    public function createMailbox($name = null, bool $fillMailbox = true)
     {
         if ($name == null) {
             $name = $this->faker->unique()->userName();
@@ -628,10 +628,12 @@ class Foodsharing extends Db
         $mb['id'] = $this->haveInDatabase('fs_mailbox', $mb);
 
         // add up to 10 emails to each folder
-        foreach ([MailboxFolder::FOLDER_INBOX, MailboxFolder::FOLDER_SENT, MailboxFolder::FOLDER_TRASH] as $folder) {
-            $numMails = $this->faker->numberBetween(10, 20);
-            for ($i = 0; $i < $numMails; ++$i) {
-                $this->createEmail($mb, $folder);
+        if ($fillMailbox) {
+            foreach ([MailboxFolder::FOLDER_INBOX, MailboxFolder::FOLDER_SENT, MailboxFolder::FOLDER_TRASH] as $folder) {
+                $numMails = $this->faker->numberBetween(10, 20);
+                for ($i = 0; $i < $numMails; ++$i) {
+                    $this->createEmail($mb, $folder);
+                }
             }
         }
 
@@ -698,7 +700,7 @@ class Foodsharing extends Db
         $this->haveInDatabase('fs_buddy', ['foodsaver_id' => $user1, 'buddy_id' => $user2, 'confirmed' => $confirmedInt]);
     }
 
-    public function createRegion($name = null, $extra_params = [])
+    public function createRegion($name = null, $extra_params = [], bool $fillMailbox = true)
     {
         if ($name == null) {
             $name = $this->faker->lastName() . '-region';
@@ -714,9 +716,9 @@ class Foodsharing extends Db
         );
         $v['id'] = $this->haveInDatabase('fs_bezirk', $v);
         if (empty($v['email'])) {
-            $mailbox = $this->createMailbox('region-' . $v['id']);
+            $mailbox = $this->createMailbox('region-' . $v['id'], $fillMailbox);
         } else {
-            $mailbox = $this->createMailbox($v['email']);
+            $mailbox = $this->createMailbox($v['email'], $fillMailbox);
         }
 
         $this->updateInDatabase('fs_bezirk', ['mailbox_id' => $mailbox['id']], ['id' => $v['id']]);

@@ -26,7 +26,7 @@ class FoodsaverGatewayTest extends Unit
         $this->foodsharer = $this->tester->createFoodsharer(null, ['newsletter' => 1]);
         $this->foodsaver = $this->tester->createFoodsaver(null, ['newsletter' => 1]);
 
-        $this->region = $this->tester->createRegion('TestRegion');
+        $this->region = $this->tester->createRegion('TestRegion', fillMailbox: false);
         $regionId = $this->region['id'];
         $this->regionMember = $this->tester->createFoodsaver(null, ['bezirk_id' => $regionId]);
         $this->regionAdmin = $this->tester->createAmbassador(null, ['bezirk_id' => $regionId]);

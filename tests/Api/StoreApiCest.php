@@ -23,7 +23,6 @@ class StoreApiCest
     private $unverifiedUser;
     private $teamMember;
     private $manager;
-    private $orga;
     private $region;
     private $otherRegion;
     private $nextRegion;
@@ -34,7 +33,7 @@ class StoreApiCest
     private const EMAIL = 'email';
     private const ID = 'id';
 
-    public function createDefaultNewStoreJson(): array
+    private function createDefaultNewStoreJson(): array
     {
         return ['store' => [
             'name' => 'Store Name', 'regionId' => $this->region['id'],
@@ -49,9 +48,9 @@ class StoreApiCest
 
     public function _before(ApiTester $I): void
     {
-        $this->region = $I->createRegion();
-        $this->nextRegion = $I->createRegion();
-        $this->otherRegion = $I->createRegion();
+        $this->region = $I->createRegion(fillMailbox: false);
+        $this->nextRegion = $I->createRegion(fillMailbox: false);
+        $this->otherRegion = $I->createRegion(fillMailbox: false);
         $I->haveInDatabase('fs_chain', ['id' => 40, 'name' => 'Chain']);
         $I->haveInDatabase('fs_betrieb_kategorie', ['id' => 20, 'name' => 'Category']);
         $this->foodsharer = $I->createFoodsharer(null, ['verified' => 0]);
@@ -59,7 +58,6 @@ class StoreApiCest
         $this->unverifiedUser = $I->createFoodsaver(null, ['verified' => 0]);
         $this->teamMember = $I->createFoodsaver();
         $this->manager = $I->createStoreCoordinator(null, ['bezirk_id' => $this->region['id']]);
-        $this->orga = $I->createOrga();
         $this->teamConversation = $I->createConversation([$this->manager['id'], $this->teamMember['id']]);
         $this->springerConversation = $I->createConversation([$this->manager['id'], $this->teamMember['id']]);
         $this->store = $I->createStore($this->region['id'], $this->teamConversation['id'], $this->springerConversation['id'], ['kette_id' => 40, 'betrieb_kategorie_id' => 20, 'use_region_pickup_rule' => 1]);
@@ -248,7 +246,9 @@ class StoreApiCest
 
     public function getAccessToGetStoreInformationAsOrga(ApiTester $I)
     {
-        $I->login($this->orga[self::EMAIL]);
+        $orga = $I->createOrga();
+
+        $I->login($orga[self::EMAIL]);
         $I->sendGET(self::API_STORES . '/' . $this->store['id'] . '/information');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
@@ -319,7 +319,7 @@ class StoreApiCest
 
     public function canAnonymUserNotAccessToGetListOfStoresInRegion(ApiTester $I): void
     {
-        $regionRelatedRegion = $I->createRegion();
+        $regionRelatedRegion = $I->createRegion(fillMailbox: false);
 
         $I->sendGET(self::API_REGIONS . '/' . $regionRelatedRegion['id'] . '/stores');
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
@@ -333,7 +333,7 @@ class StoreApiCest
 
     public function foodsharerCanNotAccessToGetListOfStoresInRegion(ApiTester $I): void
     {
-        $regionRelatedRegion = $I->createRegion();
+        $regionRelatedRegion = $I->createRegion(fillMailbox: false);
 
         $I->login($this->foodsharer[self::EMAIL]);
         $I->sendGET(self::API_REGIONS . '/' . $regionRelatedRegion['id'] . '/stores');
@@ -342,7 +342,7 @@ class StoreApiCest
 
     public function unverifiedFoodsaverCanAccessToGetListOfStoresInRegion(ApiTester $I): void
     {
-        $regionRelatedRegion = $I->createRegion();
+        $regionRelatedRegion = $I->createRegion(fillMailbox: false);
 
         $I->login($this->unverifiedUser[self::EMAIL]);
         $I->sendGET(self::API_REGIONS . '/' . $regionRelatedRegion['id'] . '/stores');
@@ -351,7 +351,7 @@ class StoreApiCest
 
     public function verifiedFoodsaverCanAccessToGetListOfStoresInRegion(ApiTester $I): void
     {
-        $regionRelatedRegion = $I->createRegion();
+        $regionRelatedRegion = $I->createRegion(fillMailbox: false);
 
         $I->login($this->user[self::EMAIL]);
         $I->sendGET(self::API_REGIONS . '/' . $regionRelatedRegion['id'] . '/stores');
@@ -360,7 +360,7 @@ class StoreApiCest
 
     public function foodsaverWithRegionRelationCanAccessToGetListOfStoresInRegion(ApiTester $I): void
     {
-        $regionRelatedRegion = $I->createRegion();
+        $regionRelatedRegion = $I->createRegion(fillMailbox: false);
         $I->addRegionMember($regionRelatedRegion['id'], $this->user['id'], true);
 
         $I->login($this->user[self::EMAIL]);
@@ -370,12 +370,12 @@ class StoreApiCest
 
     public function testContentofGetListOfStoresInRegion(ApiTester $I): void
     {
-        $regionTop = $I->createRegion(null, ['type' => UnitType::CITY]);
+        $regionTop = $I->createRegion(null, ['type' => UnitType::CITY], false);
         $I->addRegionMember($regionTop['id'], $this->user['id'], true);
 
-        $regionChild1 = $I->createRegion(null, ['parent_id' => $regionTop['id'], 'type' => UnitType::PART_OF_TOWN]);
+        $regionChild1 = $I->createRegion(null, ['parent_id' => $regionTop['id'], 'type' => UnitType::PART_OF_TOWN], false);
         $store1 = $I->createStore($regionChild1['id']);
-        $regionChild2 = $I->createRegion(null, ['parent_id' => $regionTop['id'], 'type' => UnitType::PART_OF_TOWN]);
+        $regionChild2 = $I->createRegion(null, ['parent_id' => $regionTop['id'], 'type' => UnitType::PART_OF_TOWN], false);
         $store2 = $I->createStore($regionChild2['id']);
 
         $I->login($this->user[self::EMAIL]);
@@ -395,12 +395,12 @@ class StoreApiCest
 
     public function testContentofGetListOfStoresInRegionExpanded(ApiTester $I): void
     {
-        $regionTop = $I->createRegion(null, ['type' => UnitType::CITY]);
+        $regionTop = $I->createRegion(null, ['type' => UnitType::CITY], false);
         $I->addRegionMember($regionTop['id'], $this->user['id'], true);
 
-        $regionChild1 = $I->createRegion(null, ['parent_id' => $regionTop['id'], 'type' => UnitType::PART_OF_TOWN]);
+        $regionChild1 = $I->createRegion(null, ['parent_id' => $regionTop['id'], 'type' => UnitType::PART_OF_TOWN], false);
         $store1 = $I->createStore($regionChild1['id']);
-        $regionChild2 = $I->createRegion(null, ['parent_id' => $regionTop['id'], 'type' => UnitType::PART_OF_TOWN]);
+        $regionChild2 = $I->createRegion(null, ['parent_id' => $regionTop['id'], 'type' => UnitType::PART_OF_TOWN], false);
         $store2 = $I->createStore($regionChild2['id']);
 
         $I->login($this->user[self::EMAIL]);

@@ -24,9 +24,9 @@ class SettingsApiCest
 
     public function _before(ApiTester $I): void
     {
-        $this->region1 = $I->createRegion();
-        $this->region2 = $I->createRegion();
-        $this->regionState = $I->createRegion(extra_params: ['type' => UnitType::FEDERAL_STATE]);
+        $this->region1 = $I->createRegion(fillMailbox: false);
+        $this->region2 = $I->createRegion(fillMailbox: false);
+        $this->regionState = $I->createRegion(fillMailbox: false, extra_params: ['type' => UnitType::FEDERAL_STATE]);
         $this->user = $I->createFoodsaver();
         $I->addRegionMember($this->region1['id'], $this->user['id']);
 

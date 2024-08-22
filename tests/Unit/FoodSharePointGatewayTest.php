@@ -25,7 +25,7 @@ class FoodSharePointGatewayTest extends Unit
         $this->gateway = $this->tester->get(FoodSharePointGateway::class);
         $this->foodsaver = $this->tester->createFoodsaver();
         $this->otherFoodsaver = $this->tester->createFoodsaver();
-        $this->region = $this->tester->createRegion('peter');
+        $this->region = $this->tester->createRegion('peter', fillMailbox: false);
         $this->foodSharePoint = $this->tester->createFoodSharePoint(
             $this->foodsaver['id'],
             $this->region['id'],

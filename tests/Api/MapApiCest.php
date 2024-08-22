@@ -21,7 +21,7 @@ class MapApiCest
 
     final public function _before(ApiTester $I): void
     {
-        $this->region = $I->createRegion();
+        $this->region = $I->createRegion(fillMailbox: false);
         $this->user = $I->createFoodsaver();
         $this->communityPin = $I->createCommunityPin($this->region['id']);
         $this->store = $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::OPEN_SEARCHING->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);

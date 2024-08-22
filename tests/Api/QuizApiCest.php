@@ -16,14 +16,12 @@ class QuizApiCest
 {
     private $foodsharer;
     private $foodsaver;
-    private $storeManager;
     private $foodsaverQuiz;
 
     public function _before(ApiTester $I): void
     {
         $this->foodsharer = $I->createFoodsharer();
         $this->foodsaver = $I->createFoodsaver();
-        $this->storeManager = $I->createStoreCoordinator();
         $this->foodsaverQuiz = $I->createQuiz(1, 3);
         $I->createQuiz(2, 3);
         $I->createQuiz(3, 3);
@@ -322,8 +320,10 @@ class QuizApiCest
 
     public function cannotConfirmUnconfirmableQuiz(ApiTester $I)
     {
-        $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $this->storeManager['id'], 'quiz_id' => 3, 'status' => SessionStatus::PASSED->value]);
-        $I->login($this->storeManager['email']);
+        $storeManager = $I->createStoreCoordinator();
+
+        $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $storeManager['id'], 'quiz_id' => 3, 'status' => SessionStatus::PASSED->value]);
+        $I->login($storeManager['email']);
         $I->sendPost('/api/user/current/quizsessions/3/confirm');
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
     }

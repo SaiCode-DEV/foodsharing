@@ -17,7 +17,7 @@ class FoodSharePointCest
 
     public function _before(AcceptanceTester $I): void
     {
-        $this->testBezirk = $I->createRegion('MyFunnyBezirk');
+        $this->testBezirk = $I->createRegion('MyFunnyBezirk', fillMailbox: false);
         $this->user = $I->createFoodsharer(null, ['bezirk_id' => $this->testBezirk['id']]);
         $this->responsible = $I->createAmbassador(null, ['bezirk_id' => $this->testBezirk['id']]);
         $I->addRegionAdmin($this->testBezirk['id'], $this->responsible['id']);

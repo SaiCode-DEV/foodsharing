@@ -13,14 +13,11 @@ class RegionApiCest
 {
     private $user;
     private $userAmbassador;
-    private $userOrga;
     private $region;
 
     public function _before(ApiTester $I): void
     {
-        $this->tester = $I;
         $this->user = $I->createFoodsaver();
-        $this->userOrga = $I->createOrga();
         $this->region = $I->createRegion();
 
         $this->userAmbassador = $I->createFoodsaver();
@@ -180,7 +177,9 @@ class RegionApiCest
 
     public function canListRegionMembersAsOrga(ApiTester $I): void
     {
-        $I->login($this->userOrga['email']);
+        $userOrga = $I->createOrga();
+
+        $I->login($userOrga['email']);
         $I->sendGET('api/region/' . $this->region['id'] . '/members');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
@@ -226,8 +225,8 @@ class RegionApiCest
     public function listOwnRegions(ApiTester $I): void
     {
         // Create region hierarchies
-        $city1 = $I->createRegion('Ladenburg', ['type' => UnitType::CITY]);
-        $city2 = $I->createRegion('Mannheim', ['type' => UnitType::BIG_CITY]);
+        $city1 = $I->createRegion('Ladenburg', ['type' => UnitType::CITY], false);
+        $city2 = $I->createRegion('Mannheim', ['type' => UnitType::BIG_CITY], false);
 
         // Allocate users to region and groups
         $I->addRegionMember($city1['id'], $this->user['id']);

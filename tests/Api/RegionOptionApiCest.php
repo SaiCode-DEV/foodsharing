@@ -21,7 +21,7 @@ class RegionOptionApiCest
 
     public function _before(ApiTester $I): void
     {
-        $this->region = $I->createRegion();
+        $this->region = $I->createRegion(fillMailbox: false);
         $this->userBot = $I->createAmbassador();
         $I->addRegionAdmin($this->region['id'], $this->userBot['id']);
     }

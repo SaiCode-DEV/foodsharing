@@ -11,6 +11,7 @@
 ## Refactoring
 
 ## Dev/Test/CI stuff
+- Improved API tests runtime !3506 @alex.simm
 
 # Hotfix 2024-08-22
 

@@ -24,9 +24,9 @@ class ReportApiCest
     public function _before(ApiTester $I): void
     {
         //Create regions
-        $this->parentRegion = $I->createRegion();
-        $this->region = $I->createRegion(null, ['parent_id' => $this->parentRegion['id']]);
-        $this->subRegion = $I->createRegion(null, ['parent_id' => $this->region['id']]);
+        $this->parentRegion = $I->createRegion(fillMailbox: false);
+        $this->region = $I->createRegion(null, ['parent_id' => $this->parentRegion['id']], false);
+        $this->subRegion = $I->createRegion(null, ['parent_id' => $this->region['id']], false);
 
         // Create Workgroup and Workgroup Function for report
         $this->reportGroup = $I->createWorkingGroup('Meldungsbearbeitung', ['parent_id' => $this->region['id']]);

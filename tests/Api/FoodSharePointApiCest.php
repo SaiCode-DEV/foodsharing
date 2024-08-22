@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Api;
 
 use Codeception\Util\HttpCode as Http;
-use Faker\Factory;
 use Tests\Support\ApiTester;
 
 /**
@@ -15,7 +14,6 @@ class FoodSharePointApiCest
 {
     private $user;
     private $region;
-    private $faker;
 
     private const EMAIL = 'email';
     private const API_FSPS = 'api/foodSharePoints';
@@ -25,9 +23,8 @@ class FoodSharePointApiCest
     public function _before(ApiTester $I): void
     {
         $this->user = $I->createFoodsaver();
-        $this->region = $I->createRegion();
+        $this->region = $I->createRegion(fillMailbox: false);
         $I->addRegionMember($this->region['id'], $this->user['id']);
-        $this->faker = Factory::create('de_DE');
     }
 
     public function getFoodSharePoint(ApiTester $I): void

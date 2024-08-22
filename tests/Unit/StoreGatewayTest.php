@@ -57,7 +57,7 @@ class StoreGatewayTest extends Unit
     final public function _before(): void
     {
         $this->gateway = $this->tester->get(StoreGateway::class);
-        $this->region = $this->tester->createRegion();
+        $this->region = $this->tester->createRegion(fillMailbox: false);
         $this->store = $this->tester->createStore($this->region['id']);
         $this->foodsaver = $this->tester->createFoodsaver();
     }
