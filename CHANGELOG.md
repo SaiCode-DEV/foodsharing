@@ -1,4 +1,4 @@
-# Unreleased
+# Hotfix 2024-08-22
 
 ## Bugfixes
 - Fix loading only selected stores on inital map marker load #2085 !3557 @AntonBallmaier
