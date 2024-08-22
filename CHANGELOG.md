@@ -1,3 +1,16 @@
+# Release "N" (Unreleased)
+
+## Features
+- Add API endpoint for creating blog posts !3455 @alex.simm
+
+## Changes
+
+## Bugfixes
+
+## Refactoring
+
+## Dev/Test/CI stuff
+
 # Hotfix 2024-08-22
 
 ## Bugfixes
