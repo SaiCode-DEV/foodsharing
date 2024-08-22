@@ -190,6 +190,7 @@ export default {
     },
     drawMarkerLayer (type) {
       const layer = this.$refs[`markerCluster-${type}`][0]
+      if (!layer) return
 
       const markerList = []
 

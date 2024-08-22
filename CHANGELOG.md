@@ -9,6 +9,7 @@
 - Fixed "Missing special warning message, if foodsaver leaves home district" !3551 @chriswalg
 - Fixed ambassadors being able to set the home region of users without home region that are in their region #2088 !3560 @AntonBallmaier
 - Fixed some browsers disallowing downloading files because of http #2086 !3561 @AntonBallmaier
+- Fixed an error in map marker drawing #2080 !3563 @AntonBallmaier
 
 # Release "Mandarine", 2024-08-18
 
