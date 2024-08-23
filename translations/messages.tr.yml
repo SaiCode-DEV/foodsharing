@@ -1206,6 +1206,11 @@ regionOptions:
     ilçedeki işletmelerin listesi. Listelenen firmalara ait tüm tahsilatlar birbirine
     eklenir ve kurala göre dikkate alınır.'
   regionReportReasonSimple: Basitleştirilmiş şikayet nedenleri
+  noPickupRuleActiveStores: İlçedeki hiçbir işletmede bölge adalet kuralı şu anda
+    aktif değil.
+  regionReportReasonCategoryB: 'Genişletilmiş raporlama nedenleri: Davranış kuralları
+    - B) Gıda kurtarma sırasındaki davranışlar'
+  regionReportReasonOther: Raporlama nedeni olarak "Diğer"e izin ver
 validate:
   required: '{it} boş kalamaz'
 select: Lütfen seçiniz
@@ -2347,6 +2352,8 @@ settings:
     input_label_email_confirm: Lütfen yeni e-posta adresinizi burada doğrulayın
     input_label_email: Yeni e-posta adresinizi buraya girin
     explanation_password: Değişiklik isteğini mevcut şifrenizle onaylayın
+    not_changed: E-posta adresiniz değiştirilmedi.
+    dashboard_link: Kontrol paneline devam et
   notifications: Bildirimler
   sleep:
     range: 'Lütfen müsait olmayacağınız yaklaşık süreyi belirtiniz:'
@@ -2401,6 +2408,9 @@ settings:
     export_tooltip: Seçtiğiniz bir takvim programı ile tahsilat tarihlerinizi görüntüleyebilirsiniz.
     export: Takvimi dışa aktar
     include_invitations: Takvimde henüz yanıtlamadığım randevu davetleri de bulunmalıdır.
+    download: Takvimi indir
+    generate_url:
+      button: Takvim URL'si oluştur
   title: Ayarlar_
   passport:
     menu: Kimlik Kartı
