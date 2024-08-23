@@ -4254,3 +4254,11 @@ achievements:
     days: Válido por {validityInDaysAfterAssignment} días después de la asignación.
     indefinite: Válido para cualquier período de tiempo después de la adjudicación.
 copied_to_clipboard: Se ha copiado «{text}» al portapapeles.
+theme_switcher:
+  title: Elegir diseño
+  content: Seleccionar un diseño
+  choose_button: De acuerdo
+  theme:
+    system: Sistema
+    light: Claro
+    dark: Oscuro
