@@ -299,7 +299,7 @@ export default {
 
 <style lang="scss" scoped>
 .manager {
-  background-color: var(--fs-color-warning-200);
+  background-color: var(--fs-color-warning-200) !important;
 }
 .manager + div, .manager.store-member {
   border-top-color: var(--fs-color-warning-500);

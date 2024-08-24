@@ -2,6 +2,7 @@ body {
   color: var(--fs-color-text) !important;
 }
 
+body:not(.light-mode) {
 .bg-white {
   background-color: var(--fs-color-elevated) !important;
 }
@@ -76,6 +77,11 @@ select[readonly] {
   color: var(--fs-color-secondary-800);
   background-color: var(--fs-color-elevated);
   border: 1px solid var(--fs-color-primary-300);
+}
+
+.list-group-item-warning {
+  color: var(--fs-color-warning-900) !important;
+  background-color: var(--fs-color-warning-300);
 }
 
 .list-group-item-action:hover,
@@ -377,4 +383,11 @@ tbody tr:hover td {
 
 .multiselect--disabled {
   background: var(--fs-color-primary-200);
+}
+}
+
+body.light-mode {
+  .text-success {
+    color: var(--fs-color-success-600) !important;
+  }
 }
