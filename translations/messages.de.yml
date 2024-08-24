@@ -1484,8 +1484,8 @@ events:
   location: 'Ort'
   meeting:
     past: "Diese Veranstaltung hat online stattgefunden."
-    present: "Diese Verantstaltung findet online statt. Du kannst jetzt beitreten."
-    future: "Diese Verantstaltung findet online statt. Sobald sie beginnt, kannst du über den Button unten beitreten."
+    present: "Diese Veranstaltung findet online statt. Du kannst jetzt beitreten."
+    future: "Diese Veranstaltung findet online statt. Sobald sie beginnt, kannst du über den Button unten beitreten."
     not_started: "Dieser Termin hat noch nicht begonnen"
   attendees: "Teilnehmer:innen"
   online_info: |
@@ -3332,7 +3332,7 @@ search:
       ambassador_forum: BOT-Forum
       last_post: letzter Beitrag
     user:
-      no_home_region: Kein Stammbezirk #also used in ProfileSettings.vue 
+      no_home_region: Kein Stammbezirk #also used in ProfileSettings.vue
       copy_id: ID kopieren
       copied_id: "Foodsaver-ID von {name} kopiert ({text})"
     working_group:

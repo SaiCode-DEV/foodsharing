@@ -8,6 +8,7 @@
 - Improve accessibility in create forum thread form !3488 @iron9
 
 ## Bugfixes
+- Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
 
 ## Refactoring
 
