@@ -2903,9 +2903,9 @@ events:
   meeting:
     past: Este acto se celebró en línea.
     not_started: El acto aún no ha comenzado
-    present: Este acto se celebra en línea. Puede inscribirse ahora.
-    future: Este acto se celebrará en línea. En cuanto empiece, puede unirse a través
-      del botón de abajo.
+    present: Este acto se celebra en línea. Puedes inscribirte ahora.
+    future: Este acto se celebrará en línea. En cuanto empiece, puede unirte a través
+      del botón inferior.
   attendees: Participantes
   noneAccepted: Hasta el momento, ninguna persona ha confirmado su participación en
     este acto.
