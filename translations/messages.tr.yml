@@ -136,7 +136,7 @@ about_me_intern: Özet
 daterange: Süre
 regions: Bölgeler
 status: Güncel Durum
-parent_id: Ebeveyn kimliği
+parent_id: Ana -Bölge
 fs_id: foodsharing-ID
 location_name: Etkinlik mekanı / konferans salonu
 infomail_message: foodsharing üzerinden sohbet mesajlarının bildirimi
@@ -1705,11 +1705,11 @@ events:
   span: '{from} den {until} kadar'
   location: Konum
   meeting:
-    present: Bu etkinlik çevrimiçi olarak gerçekleşir. Şimdi katılabilirsiniz.
+    present: Bu etkinlik çevrimiçi olarak gerçekleşir.Şimdi katılabilirsiniz.
     not_started: Bu Randevu henüz başlamadı
     past: Bu etkinlik çevrimiçi olarak gerçekleşti.
-    future: Bu etkinlik çevrimiçi olarak gerçekleşir. Başladıktan sonra aşağıdaki
-      düğmeyi kullanarak katılabilirsiniz.
+    future: Bu etkinlik çevrimiçi olarak gerçekleşir.Başladıktan sonra aşağıdaki düğmeyi
+      kullanarak katılabilirsiniz.
   noneAccepted: Şu ana kadar hiç kimse bu etkinliğe katılımını onaylamadı.
   attendees: Katılımcılar
   online_info: "foodsharing kaynaklanan telefon ve video konferanslar en iyi şekilde
@@ -2411,6 +2411,44 @@ settings:
     download: Takvimi indir
     generate_url:
       button: Takvim URL'si oluştur
+    program:
+      outlook: Outlook-
+      google: Google Takvimi
+      thunderbird: Thunderbird-
+      other: Başka bir şey
+      apple_etar: Apple-Kalender / Etar-
+      label: Hangi takvim programını kullanıyorsunuz?
+    formatting:
+      alt: Alternatif bir temsil olarak HTML içeren metin
+      label: Randevu açıklamaları nasıl biçimlendirilmelidir?
+      html: HTML
+      text: Yalnızca metin (yazı)
+    protocol: Takvim programınız hangi protokolü kullanıyor?
+    pickup:
+      label: Gıda kurtarma tarihleri dahil edilmeli mi?
+      "true": Evet,gıda kurtarma tarihlerini takvimde göster
+      "false": Hayır, gıda kurtarımlarını takvimde gösterme
+    event:
+      label: Bölgelerinizden ve çalışma gruplarınızdan hangi tarihler dahil edilmeli?
+      invitations: İptal etmediğim randevular
+      maybe: (Belki) Orada olacağımı belirttiğim tarihler
+      accepted: Orada olacağımı belirttiğim tarihler
+      none: Hiçbiri
+      all: Tüm tarihler
+    history:
+      label: Son 2 haftaya ait geçmiş randevular dahil edilmeli mi?
+      "true": Evet, takvimde en son randevularımı göster
+      "false": Hayır, takvimde geçmiş etkinlikleri gösterme
+    info: "Burada foodsharing randevularınızı seçtiğiniz bir takvim programına bağlayabilirsiniz.
+      Bu, tüm alımlarınızın ve/veya randevularınızın takviminize otomatik olarak girilmesine
+      olanak tanır.\n\n**Takvim bağlantılarını gizli tuttuğunuzdan emin olun.** Teslim
+      alma verilerinize şifre olmadan erişmek için kullanılabilecek bir *jeton* içerirler.
+      Mevcut jetonunuzu istediğiniz zaman silebilirsiniz; bu, önceden oluşturulmuş
+      takvim bağlantılarını geçersiz kılacaktır.\n\nTakvim programınızın bu takvimi
+      düzenli olarak **senkronize etmesi** gerekiyor. Ancak o zaman yeni alım tarihleri
+      görünecek ve iptal edilen tarihler artık görünmeyecek. Bunun yerine mevcut takviminizi
+      indirirseniz, yalnızca mevcut randevularınızı içerecek ve otomatik olarak güncellenmeyecektir.\n
+      \nDaha fazla bilgiyi [wiki'de]({calendarUrl}) bulabilirsiniz\n"
   title: Ayarlar_
   passport:
     menu: Kimlik Kartı
@@ -2468,6 +2506,7 @@ settings:
   general:
     phone: Sabit hat numaranız
     current_address: Güncel Adresiniz
+    no_address: Henüz adres girilmedi
   no_rights: Profil ayarlarını değiştirme hakkınız yok.
   delete_profile: Profili sil
   address:
@@ -2673,7 +2712,9 @@ profile:
     sent: Rapor gönderildi
     title: '{name} hakkında rapor'
     oldReportButtonTextPart3: Raporlama sistemi hakkında daha fazla bilgi bulabilirsiniz
-    mail: 'Yerel raporlama grubunuza aşağıdaki e-posta adresinden de ulaşabilirsiniz:'
+    mail:
+      reportGroup: 'Bu şikayet yerel mesaj grubuna iletilir. Bu gruba aşağıdaki e-posta
+        adresinden de ulaşabilirsiniz:'
     info: "Şikayet Raporunuzun mümkün olduğu kadar etkili bir şekilde işlenebilmesi
       için aşağıdaki bilgileri içermesi gerekir:\n- Olayın tarihi, saati ve yeri\n
       - daha önce ne yaptığınız, örneğin o kişiyle doğrudan konuşup konuşmadığınız
