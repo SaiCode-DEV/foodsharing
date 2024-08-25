@@ -202,8 +202,6 @@ class FoodSharePointController extends FoodsharingController
         if ($request->request->get('form_submit') === 'fairteiler') {
             if ($this->handleEditFsp($request)) {
                 $this->flashMessageHelper->success($this->translator->trans('fsp.editSuccess'));
-
-                return $this->redirect($this->routeHelper->getSelf());
             } else {
                 $this->flashMessageHelper->error($this->translator->trans('error_unexpected'));
             }

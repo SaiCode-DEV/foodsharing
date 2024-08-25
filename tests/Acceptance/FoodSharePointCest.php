@@ -87,6 +87,7 @@ class FoodSharePointCest
         $I->addInTagSelect($user['name'], '#fspmanagers');
         $I->click('Speichern');
         $I->waitForText('erfolgreich bearbeitet');
+        $I->reloadPage();
         $I->waitForText($user['name'] . ' ' . $user['nachname']);
     }
 

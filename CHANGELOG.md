@@ -14,6 +14,7 @@
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm
+- Removed redirect after submit in foodsharepoint edit form to fix test !3527 @chriswalg
 
 # Hotfix 2024-08-22
 
