@@ -9,6 +9,7 @@ use Foodsharing\Modules\Core\DBConstants\Quiz\AnswerRating;
 use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Quiz\QuizStatus;
 use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
+use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Legal\LegalGateway;
 use Foodsharing\Modules\Quiz\DTO\ActiveQuestion;
@@ -329,7 +330,7 @@ class QuizTransactions
         $questions = $this->quizGateway->getQuestions($quizId);
         foreach ($questions as &$question) {
             $question->answers = $this->quizGateway->getAnswers($question->id);
-            $question->commentCount = $this->wallPostGateway->countPosts('question', $question->id);
+            $question->commentCount = $this->wallPostGateway->countPosts(WallType::QUIZ_QUESTION, $question->id);
         }
 
         return $questions;

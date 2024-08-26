@@ -8,6 +8,7 @@ use Foodsharing\Modules\Bell\BellTransactions;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
+use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Region\RegionGateway;
@@ -34,11 +35,11 @@ class WallPostTransactions
      * Adds a post to a wall and takes care of marking the attached pictures, if there are any.
      *
      * @param WallPost $wallPost the post to be added
-     * @param string $target the wall type
+     * @param WallType $target the wall type
      * @param int $targetId id of the wall
      * @return WallPost the post as it was stored in the database
      */
-    public function addPost(WallPost $wallPost, string $target, int $targetId): WallPost
+    public function addPost(WallPost $wallPost, WallType $target, int $targetId): WallPost
     {
         $postId = $this->wallPostGateway->addPost($wallPost, $this->session->id(), $target, $targetId);
         $post = $this->wallPostGateway->getPost($postId);
@@ -51,10 +52,10 @@ class WallPostTransactions
         }
 
         switch ($target) {
-            case 'question':
+            case WallType::QUIZ_QUESTION:
                 $this->sendQuestionCommentBell($targetId, $post);
                 break;
-            case 'event':
+            case WallType::EVENT:
                 $this->sendEventCommentBell($targetId);
                 break;
         }
@@ -81,12 +82,12 @@ class WallPostTransactions
         $this->bellGateway->addBell($recipients, $bell);
     }
 
-    public function deletePost(int $postId, string $target, int $targetId): void
+    public function deletePost(int $postId, WallType $target, int $targetId): void
     {
         $this->wallPostGateway->deletePost($postId, $target);
 
         switch ($target) {
-            case 'event':
+            case WallType::EVENT:
                 $this->removeEventCommentBell($targetId);
                 break;
         }

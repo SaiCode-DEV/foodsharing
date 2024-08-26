@@ -3,24 +3,14 @@
 namespace Foodsharing\Modules\WallPost;
 
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
 
 class WallPostGateway extends BaseGateway
 {
-    private array $targets = [
-        'bezirk',
-        'event',
-        'fairteiler',
-        'foodsaver',
-        'fsreports',
-        'question',
-        'usernotes',
-        // 'store', // table exists, no access for now
-    ];
-
     private string $selectColumns = 'post.id, post.time, post.body, post.attach, foodsaver.id AS foodsaver_id, foodsaver.name, foodsaver.photo';
 
-    public function addPost(WallPost $wallPost, int $foodsaverId, string $target, int $targetId): int
+    public function addPost(WallPost $wallPost, int $foodsaverId, WallType $target, int $targetId): int
     {
         $attach = $wallPost->pictures ? json_encode(['images' => $wallPost->pictures]) : null;
         $postId = $this->db->insert('fs_wallpost', [
@@ -34,7 +24,7 @@ class WallPostGateway extends BaseGateway
         return $postId;
     }
 
-    public function deletePost(int $postId, string $target): int
+    public function deletePost(int $postId, WallType $target): int
     {
         $this->unlinkPost($postId, $target);
 
@@ -53,7 +43,7 @@ class WallPostGateway extends BaseGateway
         return WallPost::createFromArray($post);
     }
 
-    public function getPosts(string $target, int $targetId, int $limit = 50): array
+    public function getPosts(WallType $target, int $targetId, int $limit = 50): array
     {
         $posts = $this->db->fetchAll("SELECT {$this->selectColumns}
 		    FROM fs_wallpost post
@@ -72,7 +62,7 @@ class WallPostGateway extends BaseGateway
         return $this->db->fetchValueByCriteria('fs_wallpost', 'foodsaver_id', ['id' => $postId]);
     }
 
-    public function isLinkedToTarget(int $postId, string $target, int $targetId): bool
+    public function isLinkedToTarget(int $postId, WallType $target, int $targetId): bool
     {
         return $this->db->exists(
             $this->getLinkTableName($target),
@@ -83,38 +73,27 @@ class WallPostGateway extends BaseGateway
         );
     }
 
-    private function linkPost(int $postId, string $target, int $targetId): void
+    private function linkPost(int $postId, WallType $target, int $targetId): void
     {
         $this->db->insert($this->getLinkTableName($target), [$this->getLinkTableForeignIdColumnName($target) => $targetId, 'wallpost_id' => $postId]);
     }
 
-    private function unlinkPost(int $postId, string $target): int
+    private function unlinkPost(int $postId, WallType $target): int
     {
         return $this->db->delete($this->getLinkTableName($target), ['wallpost_id' => $postId]);
     }
 
-    private function assertIsValidTarget(string $target): void
+    private function getLinkTableName(WallType $target): string
     {
-        if (!in_array($target, $this->targets, true)) {
-            throw new \Exception('Invalid wall target');
-        }
+        return "fs_{$target->value}_has_wallpost";
     }
 
-    private function getLinkTableName(string $target): string
+    private function getLinkTableForeignIdColumnName(WallType $target): string
     {
-        $this->assertIsValidTarget($target);
-
-        return "fs_{$target}_has_wallpost";
+        return $target->value . '_id';
     }
 
-    private function getLinkTableForeignIdColumnName(string $target): string
-    {
-        $this->assertIsValidTarget($target);
-
-        return $target . '_id';
-    }
-
-    public function countPosts(string $target, int $targetId): int
+    public function countPosts(WallType $target, int $targetId): int
     {
         return $this->db->count(
             $this->getLinkTableName($target),

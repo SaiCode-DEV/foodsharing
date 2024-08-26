@@ -11,6 +11,7 @@
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
 
 ## Refactoring
+- Added an enum for wall types in the backend #1996 !3573 @alex.simm
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm
