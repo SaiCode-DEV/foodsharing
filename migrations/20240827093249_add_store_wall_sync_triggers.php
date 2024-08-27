@@ -9,6 +9,7 @@ use Phinx\Migration\AbstractMigration;
  * This way, no matter in which of the tables posts are accessed, created or deleted, they always are 
  * represented properly in both tables.
  * This allows to transition to the newer wallpost system while still supporting the old way used in production until release N.
+ * These triggers can be removed after that release alongside the fs_betrieb_notiz table.
  */
 final class AddStoreWallSyncTriggers extends AbstractMigration
 {
