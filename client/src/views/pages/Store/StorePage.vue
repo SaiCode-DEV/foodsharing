@@ -27,7 +27,6 @@
               :is-coordinator="permissions.isCoordinator"
               :is-verified="isVerified"
             />
-            <!-- TODO: add store log info -->
             <Wall
               v-if="viewIsMobile"
               target="store"

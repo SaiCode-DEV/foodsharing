@@ -373,7 +373,7 @@ class BellGateway extends BaseGateway
         }
 
         $unfoundUsers = array_values(array_diff($foodsaverIds, ...array_column($bells, 'foodsaverIds')));
-        if(!empty($unfoundUsers)) {
+        if (!empty($unfoundUsers)) {
             $bells[] = [
                 'bellId' => null,
                 'foodsaverIds' => $unfoundUsers,
