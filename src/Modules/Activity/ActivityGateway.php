@@ -4,7 +4,6 @@ namespace Foodsharing\Modules\Activity;
 
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Mailbox\MailboxFolder;
-use Foodsharing\Modules\Core\DBConstants\Store\Milestone;
 
 class ActivityGateway extends BaseGateway
 {
@@ -163,11 +162,11 @@ class ActivityGateway extends BaseGateway
 					b.name AS bezirk_name,
 					bt.bot_theme
 
-			FROM fs_theme t
-			JOIN fs_theme_post p ON p.id = t.last_post_id
-			JOIN fs_bezirk_has_theme bt ON bt.theme_id = t.id
-			JOIN fs_foodsaver fs ON fs.id = p.foodsaver_id
-			JOIN fs_bezirk b ON b.id = bt.bezirk_id
+			FROM            fs_theme t
+			LEFT OUTER JOIN fs_theme_post p ON p.id = t.last_post_id
+			LEFT OUTER JOIN	fs_bezirk_has_theme bt ON bt.theme_id = t.id
+			LEFT OUTER JOIN	fs_foodsaver fs ON fs.id = p.foodsaver_id
+			LEFT OUTER JOIN	fs_bezirk b ON b.id = bt.bezirk_id
 
 			WHERE	t.active = 1
 			AND 	bt.bezirk_id IN ( ' . implode(',', $regionIds) . ' )
@@ -192,10 +191,8 @@ class ActivityGateway extends BaseGateway
     {
         $stm = 'SELECT
                 n.id,
-                n.milestone,
-                n.`text`,
-                n.`zeit` AS update_time,
-                UNIX_TIMESTAMP( n.`zeit` ) AS update_time_ts,
+                n.`body` as `text`,
+                UNIX_TIMESTAMP( n.`time` ) AS update_time_ts,
                 fs.name AS foodsaver_name,
                 fs.sleep_status,
                 fs.id AS foodsaver_id,
@@ -205,16 +202,16 @@ class ActivityGateway extends BaseGateway
                 b.stadt AS region_name
             FROM (
                 SELECT max(n.id) AS last_post_id
-                FROM fs_betrieb_notiz n
-                INNER JOIN fs_betrieb b ON b.id = n.betrieb_id
-                INNER JOIN fs_betrieb_team bt ON bt.betrieb_id = b.id
+                FROM fs_wallpost n
+								INNER JOIN fs_store_has_wallpost hp ON hp.wallpost_id = n.id  
+                INNER JOIN fs_betrieb_team bt ON bt.betrieb_id = hp.store_id
                 WHERE bt.active = 1 AND bt.foodsaver_id = :foodsaver_id
-                GROUP BY n.betrieb_id
+                GROUP BY hp.store_id
                 ) source
-            INNER JOIN fs_betrieb_notiz n ON n.id = last_post_id
+            INNER JOIN fs_wallpost n ON n.id = last_post_id
+						INNER JOIN fs_store_has_wallpost hp ON hp.wallpost_id = n.id  
             INNER JOIN fs_foodsaver fs ON fs.id = n.foodsaver_id
-            INNER JOIN fs_betrieb b ON b.id = n.betrieb_id
-            WHERE n.milestone = :wall_message
+            INNER JOIN fs_betrieb b ON b.id = hp.store_id
             ORDER BY n.id DESC
             LIMIT :start_item_index, :items_per_page
 		';
@@ -223,7 +220,6 @@ class ActivityGateway extends BaseGateway
             $stm,
             [
                 ':foodsaver_id' => $fsId,
-                ':wall_message' => Milestone::NONE,
                 ':start_item_index' => $page * self::ITEMS_PER_PAGE,
                 ':items_per_page' => self::ITEMS_PER_PAGE,
             ]
