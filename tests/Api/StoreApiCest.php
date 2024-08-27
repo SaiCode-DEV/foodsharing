@@ -695,11 +695,6 @@ class StoreApiCest
             'plz' => $storeInfo['zipCode'],
             'stadt' => $storeInfo['city'],
             'public_info' => $storeInfo['publicInfo']]);
-
-        $I->dontSeeInDatabase('fs_betrieb_notiz', [
-            'foodsaver_id' => $this->manager['id'],
-            'betrieb_id' => $storeIds[0],
-            'milestone' => Milestone::NONE]);
     }
 
     public function createStoreAsStoreManagerOfRegionSuccessfulWithFirstPost(ApiTester $I): void
@@ -730,11 +725,12 @@ class StoreApiCest
             'stadt' => $storeInfo['city'],
             'public_info' => $storeInfo['publicInfo']]);
 
-        $I->seeInDatabase('fs_betrieb_notiz', [
+        $post = $I->grabEntryFromDatabase('fs_store_has_wallpost', ['store_id' => $storeIds[0]]);
+        $I->seeInDatabase('fs_wallpost', [
+            'id' => $post['wallpost_id'],
             'foodsaver_id' => $this->manager['id'],
-            'betrieb_id' => $storeIds[0],
-            'milestone' => Milestone::NONE,
-            'text' => 'First post']);
+            'body' => 'First post'
+        ]);
     }
 
     public function getStore(ApiTester $I): void
