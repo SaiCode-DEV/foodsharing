@@ -134,10 +134,6 @@ class RestNormalization
                 'updatedAt' => self::normalizeDate(strtotime((string)$data['status_date'])),
                 'notes' => [],
             ]);
-
-            if (isset($data['notizen']) && is_array($data['notizen'])) {
-                $store['notes'] = array_map(fn ($n) => self::normalizeStoreNote($n), $data['notizen']);
-            }
         }
 
         return $store;
@@ -154,22 +150,6 @@ class RestNormalization
             'street' => $data['str'],
             'city' => $data['stadt'],
             'postalCode' => $data['plz']
-        ];
-    }
-
-    /**
-     * Returns the response data for a note on a store's wall (milestone).
-     *
-     * @param array $data the note data from the database
-     */
-    public static function normalizeStoreNote(array $data): array
-    {
-        return [
-            'id' => (int)$data['id'],
-            'foodsaverId' => (int)$data['foodsaver_id'],
-            'text' => $data['text'],
-            'author' => self::normalizeUser($data, '', 'foodsaver_'),
-            'createdAt' => self::normalizeDate(strtotime((string)$data['zeit'])),
         ];
     }
 }
