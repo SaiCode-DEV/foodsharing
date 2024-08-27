@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
+/**
+ * Adds triggers that sync the contents of fs_betrieb_notiz with fs_wallpost and fs_store_has_wallpost.
+ * This way, no matter in which of the tables posts are accessed, created or deleted, they always are 
+ * represented properly in both tables.
+ * This allows to transition to the newer wallpost system while still supporting the old way used in production until release N.
+ */
 final class AddStoreWallSyncTriggers extends AbstractMigration
 {
     public function change()
