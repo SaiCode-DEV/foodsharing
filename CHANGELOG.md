@@ -3,6 +3,7 @@
 ## Features
 - Add API endpoint for creating blog posts !3455 @alex.simm
 - Create option for multiple themes with dark mode as a start #2054 !3500 @SaiCode
+- Store walls now support image attachments !3577 @AntonBallmaier
 
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9
@@ -13,6 +14,7 @@
 
 ## Refactoring
 - Added an enum for wall types in the backend #1996 !3573 @alex.simm
+- Handle store walls like all other walls #2010 !3577 @AntonBallmaier
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm
