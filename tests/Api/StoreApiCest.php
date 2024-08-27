@@ -7,8 +7,6 @@ namespace Tests\Api;
 use Codeception\Example;
 use Codeception\Util\HttpCode as Http;
 use Faker\Factory;
-use Foodsharing\Modules\Core\DBConstants\Store\Milestone;
-use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Tests\Support\ApiTester;
 
