@@ -36,4 +36,8 @@ enum WallType: string
      * The wall is attached to personal reports about a user.
      */
     case FOODSAVER_REPORTS = 'fsreports';
+    /**
+     * The wall is attached to a store.
+     */
+    case STORE = 'store';
 }
