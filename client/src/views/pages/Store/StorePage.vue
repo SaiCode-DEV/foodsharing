@@ -27,15 +27,7 @@
               :is-coordinator="permissions.isCoordinator"
               :is-verified="isVerified"
             />
-            <!-- <StoreWall
-              v-if="viewIsMobile"
-              :may-read-store-wall="permissions.mayReadStoreWall"
-              :store-id="storeId"
-              :managers="storeManagers"
-              :may-write-post="permissions.mayWritePost"
-              :may-delete-everything="permissions.mayDeleteEverything"
-              :is-coordinator="permissions.isCoordinator"
-            /> -->
+            <!-- TODO: add store log info -->
             <Wall
               v-if="viewIsMobile"
               target="store"
