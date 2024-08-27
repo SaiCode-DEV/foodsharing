@@ -329,6 +329,21 @@ settings:
       alt: Text with HTML as alternative
       html: HTML
       text: Text only
+    program:
+      apple_etar: Apple calendar / Etar
+      label: Which calendar app do you use?
+      outlook: Outlook
+      thunderbird: Thunderbird
+      other: Another one
+      google: Google calendar
+    event:
+      maybe: Events that I indicated I will / may attend
+      accepted: Events that I indicated I will attend
+      none: None
+    pickup:
+      label: Do you want to have pick-up dates included?
+      "true": Yes, show my pick-up slots in the calender
+      "false": No, don't show my pick-up slots in the calendar
   saved: The changes were saved.
   changemail:
     done: Your e-mail address was changed.
@@ -349,6 +364,8 @@ settings:
     explanation_password: Please confirm the change with you current password
     confirm_email_required: The e-mail addresses do not match
     input_label_password: Please enter your password for validation
+    not_changed: Your email address has not been changed.
+    dashboard_link: Continue to dashboard
   chatmail: "If you receive an internal message on the foodsharing homepage,\nbut
     you are not logged in at the moment, we can inform you by mail.\nDo you want that?\n"
   follow:
@@ -1168,7 +1185,7 @@ storeview:
   choose_chain: Choose a chain
   team_info_active: 'No of active foodsharers:'
   team_info_jumper: 'Stand-bys:'
-  team_info_distance: 'Distance to the store:'
+  team_info_distance: 'Airline distance to the store:'
 day: Day
 time: Time
 select: Please select
@@ -1244,7 +1261,10 @@ terminology:
   n_sleeping: '{count} nightcaps'
   n_cooperating_stores: '{count} running cooperations'
   options: Options
-  reports: Reporting View
+  reports:
+    orga: Report view (orga)
+    report: Reports view (report processing team)
+    arbitration: report view (arbitration board)
   arbitration: Reporting View (LS)
   pin: Description of the local group
   homepage: Homepage
@@ -2101,6 +2121,9 @@ store:
       this store ({distance}). Are you sure that you will be able to support this
       store's team regularly and reliably?
     confirm-no-location-ok: Apply anyway
+    confirm-no-location: You haven't entered a valid address in your profile. Please
+      indicate your home address. This makes it easier for store maagers to decide
+      on your application.
   sm:
     reallyRemove: Do you really want to remove {name} from the store team?
     removeFromTeam: Remove from the team
@@ -2582,10 +2605,10 @@ legal:
   pp: Privacy policy
   are_you_sure_to_downgrade: 'Warning: You have chosen to be downgraded to Foodsaver.
     Are you sure?'
-  not_acknowledge_pn_description: If you disagree with the teaching, you will be downgraded
-    to a food saver. This means that you are no longer an ambassador for districts,
-    that you lose your operational responsibilities and that you have to take the
-    quiz about the operational manager / ambassador again.
+  not_acknowledge_pn_description: If you do not accept the instructions, you will
+    be downgraded to a food saver. This means that you are no longer an ambassador
+    for districts, that you lose your store coordinator rights and that you have to
+    take the quiz for store coordinators / ambassadors again.
   agree_privacy_notice: I was informed about the confidentiality obligation of personal
     data and the resulting behaviour. I will receive a confirmation of this by email
     for my records to the address I have given.
@@ -2602,8 +2625,7 @@ legal:
       cannot be recovered:'
     this_gets_deleted_stores: Stores you had joined.
     this_gets_deleted_quiz: All your quizzes will be removed.
-    this_gets_deleted_trustbananas: Bananas that you received from and gave to others
-      will be removed.
+    this_gets_deleted_trustbananas: Bananas you received from others will be removed.
     this_doesnt_get_deleted_name: Your Name
     this_doesnt_get_deleted_address: Your Address
     this_doesnt_get_deleted_history: Your verification history
