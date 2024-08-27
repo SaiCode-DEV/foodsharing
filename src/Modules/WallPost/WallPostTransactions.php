@@ -2,11 +2,13 @@
 
 namespace Foodsharing\Modules\WallPost;
 
+use DateTime;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\BellTransactions;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
+use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Event\EventGateway;
@@ -63,12 +65,19 @@ class WallPostTransactions
 
     public function deletePost(int $postId, WallType $target, int $targetId): void
     {
-        $this->wallPostGateway->deletePost($postId, $target);
-
         $bellData = $this->getWallPostBellData(null, $target, $targetId);
         if ($bellData) {
             $this->bellTransactions->removeGroupedBellEvent($bellData['recipients'], $bellData['bell'], $postId);
         }
+
+        switch ($target) {
+            case WallType::STORE:
+                $post = $this->wallPostGateway->getPost($postId);
+                $this->storeGateway->addStoreLog($targetId, $this->session->id(), $post->author->id, new DateTime($post->time), StoreLogAction::DELETED_FROM_WALL, $post->body);
+                break;
+        }
+
+        $this->wallPostGateway->deletePost($postId, $target);
     }
 
     private function getWallPostBellData(?WallPost $wallPost, WallType $target, int $targetId): ?array
@@ -128,6 +137,3 @@ class WallPostTransactions
         return ['recipients' => $recipients, 'bell' => $bell];
     }
 }
-
-
-// $this->storeGateway->addStoreLog($result['betrieb_id'], $this->session->id(), $result['foodsaver_id'], new DateTime($result['zeit']), StoreLogAction::DELETED_FROM_WALL, $result['text']);
