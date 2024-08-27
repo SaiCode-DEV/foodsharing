@@ -600,7 +600,7 @@ legal:
     this_gets_deleted_quiz: "Alle deine Quizze werden entfernt."
     this_gets_deleted_verify: "Deine Verifizierung wird entfernt."
     this_gets_deleted_friendlist: "Deine Freundesliste wird entfernt."
-    this_gets_deleted_trustbananas: "Bananen, die du erhalten oder vergeben hast, werden entfernt."
+    this_gets_deleted_trustbananas: "Bananen, die du erhalten hast, werden entfernt."
     this_doesnt_get_deleted: "Folgende Informationen sind nicht mehr im aktiven System verfügbar, werden aber seperat archiviert auf Grund von Artikel 17 Abs. 3 S. 1 lit. b DSGVO:"
     this_doesnt_get_deleted_name: "Dein Name"
     this_doesnt_get_deleted_address: "Deine Adresse"

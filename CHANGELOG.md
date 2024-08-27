@@ -6,6 +6,7 @@
 
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9
+- Bananas given by a user are kept when that user is deleted #1864 !3492 @AntonBallmaier
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
