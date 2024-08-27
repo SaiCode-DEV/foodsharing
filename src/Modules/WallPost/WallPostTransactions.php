@@ -4,7 +4,6 @@ namespace Foodsharing\Modules\WallPost;
 
 use DateTime;
 use Foodsharing\Lib\Session;
-use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\BellTransactions;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
@@ -26,7 +25,6 @@ class WallPostTransactions
         private readonly UploadsGateway $uploadsGateway,
         private readonly QuizGateway $quizGateway,
         private readonly QuizPermissions $quizPermissions,
-        private readonly BellGateway $bellGateway,
         private readonly EventGateway $eventGateway,
         private readonly RegionGateway $regionGateway,
         private readonly BellTransactions $bellTransactions,

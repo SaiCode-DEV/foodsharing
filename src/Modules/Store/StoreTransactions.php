@@ -304,7 +304,7 @@ class StoreTransactions
             ),
             $bellData
         );
-        if($firstStorePost) {
+        if ($firstStorePost) {
             $wallpost = new WallPost();
             $wallpost->body = $firstStorePost;
             $this->wallPostGateway->addPost($wallpost, $authorFsId, WallType::STORE, $storeId);
