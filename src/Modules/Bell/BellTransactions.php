@@ -3,11 +3,13 @@
 namespace Foodsharing\Modules\Bell;
 
 use Foodsharing\Modules\Bell\DTO\Bell;
+use Psr\Log\LoggerInterface;
 
 class BellTransactions
 {
     public function __construct(
-        private readonly BellGateway $bellGateway
+        private readonly BellGateway $bellGateway,
+        private readonly LoggerInterface $logger,
     ) {
     }
 

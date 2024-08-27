@@ -372,11 +372,13 @@ class BellGateway extends BaseGateway
             }
         }
 
-        // Add group for unfound users
-        $bells[] = [
-            'bellId' => null,
-            'foodsaverIds' => array_values(array_diff($foodsaverIds, ...array_column($bells, 'foodsaverIds')))
-        ];
+        $unfoundUsers = array_values(array_diff($foodsaverIds, ...array_column($bells, 'foodsaverIds')));
+        if(!empty($unfoundUsers)) {
+            $bells[] = [
+                'bellId' => null,
+                'foodsaverIds' => $unfoundUsers,
+            ];
+        }
 
         return $bells;
     }

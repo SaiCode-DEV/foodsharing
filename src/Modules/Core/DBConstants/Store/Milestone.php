@@ -1,6 +1,7 @@
 <?php
 
 // table `fs_betrieb_notiz`
+// TODO remove all releated code
 
 namespace Foodsharing\Modules\Core\DBConstants\Store;
 

@@ -262,6 +262,7 @@ class StoreTransactions
      */
     public function createStore(CreateStoreData $createStore, int $authorFsId, ?string $firstStorePost = null): int
     {
+        // TODO remove firstStorePost
         try {
             $regionType = $this->regionGateway->getType($createStore->regionId);
         } catch (Exception) {
@@ -283,15 +284,6 @@ class StoreTransactions
         $this->storeGateway->updateStoreConversation($storeId, $standbyTeamChatId, true);
 
         $this->setStoreNameInConversations($storeId, $createStore->name);
-
-        if (!empty($firstStorePost)) {
-            $this->storeGateway->addStoreWallpost([
-                'foodsaver_id' => $authorFsId,
-                'betrieb_id' => $storeId,
-                'text' => $firstStorePost,
-                'zeit' => date('Y-m-d H:i:s'),
-            ]);
-        }
 
         $authorName = $this->foodsaverGateway->getFoodsaverName($authorFsId);
         $foodsaver = $this->foodsaverGateway->getFoodsaversByRegion($createStore->regionId);

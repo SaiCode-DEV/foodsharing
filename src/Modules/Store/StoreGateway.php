@@ -747,23 +747,6 @@ class StoreGateway extends BaseGateway
         return $this->db->fetchValueByCriteria('fs_betrieb', $chatType, ['id' => $storeId]);
     }
 
-    // TODO clean up data handling (use a DTO)
-    // TODO eventually, switch to wallpost system
-    public function addStoreWallpost(array $data): int
-    {
-        return $this->db->insert('fs_betrieb_notiz', [
-            'foodsaver_id' => $data['foodsaver_id'],
-            'betrieb_id' => $data['betrieb_id'],
-            'text' => $data['text'],
-            'zeit' => $data['zeit'],
-        ]);
-    }
-
-    public function deleteStoreWallpost(int $storeId, int $postId): int
-    {
-        return $this->db->delete('fs_betrieb_notiz', ['id' => $postId, 'betrieb_id' => $storeId]);
-    }
-
     /**
      * retrieves all store managers for a given region (by being store manager in a store that is part of that region,
      * which is semantically not the same we use on platform).
@@ -859,18 +842,6 @@ class StoreGateway extends BaseGateway
         ', [
             ':id' => $id
         ]);
-    }
-
-    /**
-     * Returns the store comment with the specified ID.
-     */
-    public function getStoreWallpost(int $storeId, int $postId): array
-    {
-        return $this->db->fetchByCriteria(
-            'fs_betrieb_notiz',
-            ['id', 'foodsaver_id', 'betrieb_id', 'text', 'zeit'],
-            ['id' => $postId, 'betrieb_id' => $storeId]
-        );
     }
 
     public function updateStoreRegion(int $storeId, int $regionId): int

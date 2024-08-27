@@ -12,6 +12,7 @@ use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
 use Foodsharing\Permissions\QuizPermissions;
@@ -27,6 +28,7 @@ class WallPostTransactions
         private readonly EventGateway $eventGateway,
         private readonly RegionGateway $regionGateway,
         private readonly BellTransactions $bellTransactions,
+        private readonly StoreGateway $storeGateway,
         private readonly Session $session,
     ) {
     }
@@ -51,82 +53,81 @@ class WallPostTransactions
             }
         }
 
-        switch ($target) {
-            case WallType::QUIZ_QUESTION:
-                $this->sendQuestionCommentBell($targetId, $post);
-                break;
-            case WallType::EVENT:
-                $this->sendEventCommentBell($targetId);
-                break;
+        $bellData = $this->getWallPostBellData($wallPost, $target, $targetId);
+        if ($bellData) {
+            $this->bellTransactions->addGroupedBellEvent($bellData['recipients'], $bellData['bell'], $postId);
         }
 
         return $post;
-    }
-
-    private function sendQuestionCommentBell(int $questionId, WallPost $post)
-    {
-        $quizId = $this->quizGateway->getQuizIdFromQuestionId($questionId);
-        $recipients = $this->quizPermissions->getQuizAdmins($quizId);
-        $bell = Bell::create(
-            'new_quiz_comment_title',
-            'new_quiz_comment',
-            'fas fa-comment',
-            ['href' => "/quiz/edit/$quizId?question=$questionId"],
-            [
-                'comment' => $post->body,
-                'questionId' => $questionId,
-                'user' => $this->session->user('name'),
-            ],
-            BellType::createIdentifier(BellType::NEW_QUESTION_COMMENT, $questionId)
-        );
-        $this->bellGateway->addBell($recipients, $bell);
     }
 
     public function deletePost(int $postId, WallType $target, int $targetId): void
     {
         $this->wallPostGateway->deletePost($postId, $target);
 
-        switch ($target) {
-            case WallType::EVENT:
-                $this->removeEventCommentBell($targetId);
-                break;
+        $bellData = $this->getWallPostBellData(null, $target, $targetId);
+        if ($bellData) {
+            $this->bellTransactions->removeGroupedBellEvent($bellData['recipients'], $bellData['bell'], $postId);
         }
     }
 
-    private function sendEventCommentBell(int $eventId): void
+    private function getWallPostBellData(?WallPost $wallPost, WallType $target, int $targetId): ?array
     {
-        $bellData = $this->getEventCommentBellData($eventId);
-        $this->bellTransactions->addGroupedBellEvent(...$bellData);
-    }
+        switch ($target) {
+            case WallType::QUIZ_QUESTION:
+                $quizId = $this->quizGateway->getQuizIdFromQuestionId($targetId);
+                $recipients = array_column($this->quizPermissions->getQuizAdmins($quizId), 'id');
+                $bell = Bell::create(
+                    'new_quiz_comment_title',
+                    'new_quiz_comment',
+                    'fas fa-comment',
+                    ['href' => "/quiz/edit/$quizId?question=$targetId"],
+                    [
+                        'comment' => $wallPost ? $wallPost->body : '',
+                        'questionId' => $targetId,
+                    ],
+                    BellType::createIdentifier(BellType::NEW_QUESTION_COMMENT, $targetId)
+                );
+                break;
+            case WallType::EVENT:
+                $event = $this->eventGateway->getEvent($targetId);
+                $region = $this->regionGateway->getRegionName($event->regionId);
+                $attendees = $this->eventGateway->getEventAttendees($targetId);
+                $recipients = array_merge($attendees['accepted'], $attendees['maybe']);
+                $recipients = array_column($recipients, 'id');
+                $bell = Bell::create(
+                    'event_post_title',
+                    'event_post',
+                    'fas fa-calendar',
+                    ['href' => '/event/' . $targetId],
+                    [
+                        'event' => $event->name,
+                        'region' => $region,
+                    ],
+                    BellType::createIdentifier(BellType::NEW_EVENT_POST, $targetId)
+                );
+                break;
+            case WallType::STORE:
+                $recipients = array_column($this->storeGateway->getStoreTeam($targetId), 'id');
+                $bell = Bell::create(
+                    'store_wall_post_title',
+                    'store_wall_post',
+                    'fas fa-thumbtack',
+                    ['href' => '/?page=fsbetrieb&id=' . $targetId],
+                    ['name' => $this->storeGateway->getStoreName($targetId)],
+                    BellType::createIdentifier(BellType::STORE_WALL_POST, $targetId)
+                );
+                break;
+            default:
+                return null;
+        }
 
-    private function removeEventCommentBell(int $eventId): void
-    {
-        $bellData = $this->getEventCommentBellData($eventId);
-        $this->bellTransactions->removeGroupedBellEvent(...$bellData);
-    }
+        $recipients = array_diff($recipients, [$this->session->id()]);
+        $bell->vars['user'] = $this->session->user('name');
 
-    private function getEventCommentBellData(int $eventId): array
-    {
-        $event = $this->eventGateway->getEvent($eventId);
-        $region = $this->regionGateway->getRegionName($event->regionId);
-        $attendees = $this->eventGateway->getEventAttendees($eventId);
-        $recipients = array_merge($attendees['accepted'], $attendees['maybe']);
-        $recipientIds = array_column($recipients, 'id');
-        $recipientIds = array_diff($recipientIds, [$this->session->id()]);
-
-        $baseBell = Bell::create(
-            'event_post_title',
-            'event_post',
-            'fas fa-calendar',
-            ['href' => '/event/' . $eventId],
-            [
-                'event' => $event->name,
-                'region' => $region,
-                'user' => $this->session->user('name'),
-            ],
-            BellType::createIdentifier(BellType::NEW_EVENT_POST, $eventId)
-        );
-
-        return [$recipientIds, $baseBell, $eventId];
+        return ['recipients' => $recipients, 'bell' => $bell];
     }
 }
+
+
+// $this->storeGateway->addStoreLog($result['betrieb_id'], $this->session->id(), $result['foodsaver_id'], new DateTime($result['zeit']), StoreLogAction::DELETED_FROM_WALL, $result['text']);
