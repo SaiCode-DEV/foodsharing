@@ -13,7 +13,6 @@ use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Store\ConvinceStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
-use Foodsharing\Modules\Core\DBConstants\Store\Milestone;
 use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -180,9 +179,12 @@ class StoreTransactionsTest extends Unit
         $this->tester->seeInDatabase('fs_conversation', ['locked' => 1, 'id' => $teamConversation, 'name' => 'Team ' . $store->name]);
         $this->tester->seeInDatabase('fs_conversation', ['locked' => 1, 'id' => $sprinterConversation, 'name' => 'Springer ' . $store->name]);
 
-        // Check creation of notes in store wall
-        $this->tester->seeInDatabase('fs_betrieb_notiz', [
-            'foodsaver_id' => $storeCreator['id'], 'betrieb_id' => $dbStoreId, 'text' => 'First post', 'milestone' => Milestone::NONE]);
+        $post = $this->tester->grabEntryFromDatabase('fs_store_has_wallpost', ['store_id' => $dbStoreId]);
+        $this->tester->seeInDatabase('fs_wallpost', [
+            'id' => $post['wallpost_id'],
+            'foodsaver_id' => $storeCreator['id'],
+            'body' => 'First post'
+        ]);
 
         // Test bell for foodsaver
         $this->tester->seeInDatabase('fs_bell', [
@@ -210,8 +212,7 @@ class StoreTransactionsTest extends Unit
         $dbStoreId = $this->transactions->createStore($store, $storeCreator['id']);
 
         // Check creation of notes in store wall
-        $this->tester->dontSeeInDatabase('fs_betrieb_notiz', [
-            'foodsaver_id' => $storeCreator['id'], 'betrieb_id' => $dbStoreId, 'milestone' => Milestone::NONE]);
+        $this->tester->dontSeeInDatabase('fs_store_has_wallpost', ['store_id' => $dbStoreId]);
     }
 
     public function testDefaultCommonStoreMetaData(): void
