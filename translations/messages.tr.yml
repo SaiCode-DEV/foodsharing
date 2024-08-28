@@ -2715,6 +2715,9 @@ profile:
     mail:
       reportGroup: 'Bu şikayet yerel mesaj grubuna iletilir. Bu gruba aşağıdaki e-posta
         adresinden de ulaşabilirsiniz:'
+      arbitrationGroup: 'Bu şikayet raporu, olaya karışan kişilerden birinin yerel
+        raporlama grubunun üyesi olması nedeniyle şikayet hakem kuruluna gönderiliyor.
+        Tahkim kuruluna aşağıdaki e-posta adresinden de ulaşabilirsiniz:'
     info: "Şikayet Raporunuzun mümkün olduğu kadar etkili bir şekilde işlenebilmesi
       için aşağıdaki bilgileri içermesi gerekir:\n- Olayın tarihi, saati ve yeri\n
       - daha önce ne yaptığınız, örneğin o kişiyle doğrudan konuşup konuşmadığınız
@@ -2743,6 +2746,11 @@ profile:
     reportedAdminNoArbitration: '{name} aleyhinde şikayette bulunamazsınız çünkü bu
       Admin, bölgenin yerel raporlama grubundadır ve orada bir tahkim kurulu yoktur.'
     doesNotAffectStore: Hiçbir işletmeyi, veya başka bir işletmeyi etkilemez
+    report_b1_0: Gıda kurtarımı için geç geldi (B01-1)
+    report_b1_1: Gıda kurtarımına gelmedi (B01-2)
+    report_b1_2: Hayvanları izinsiz işletmeye getirdi (B01-3)
+    report_b1_3: Çocukları izinsiz olarak işletmete getirdi (B01-4)
+    report_b1_4: Foodsharing kimliğini yanında getirmemiş (B01-5)
   choosestore: Lütfen ilgili işletmeyi seçiniz
   cantdeleteall: Tüm randevuları silemezsiniz!
   deletesuccess: Tek randevu silindi
@@ -3071,7 +3079,7 @@ legal:
     this_gets_deleted_verify: Onaylanmanız kaldırılacak.
     this_doesnt_get_deleted_name: Adınız
     this_doesnt_get_deleted_address: Adresiniz
-    this_gets_deleted_trustbananas: 'Verdiğiniz fidanlar kaldırılacaktır.'
+    this_gets_deleted_trustbananas: 'Verdiğiniz fidanlar, kaldırılacaktır.'
   agree_privacy_notice: Kişisel verilerin gizliliğini koruma yükümlülüğü ve bunun
     sonucunda ortaya çıkan davranışlar konusunda bilgilendirildim. Kayıtlarım için
     verdiğim adrese e-posta ile bunun teyidini alacağım.
