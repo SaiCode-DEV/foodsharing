@@ -3461,8 +3461,7 @@ legal:
     this_doesnt_get_deleted_name: 'Su nombre'
     this_doesnt_get_deleted_address: 'Su dirección'
     this_gets_deleted_main: 'La siguiente información se eliminará y no se podrá restaurar:'
-    this_gets_deleted_trustbananas: 'Se eliminarán los plátanos que le hayas dado
-      a otras personas.'
+    this_gets_deleted_trustbananas: 'Se eliminarán los plátanos que hayas recibido.'
     this_gets_deleted_quiz: 'Se eliminarán todos los cuestionarios aprobados.'
     this_doesnt_get_deleted_history: 'Tu historial de verificación'
     this_gets_deleted_verify: 'Su verificación será eliminada.'
