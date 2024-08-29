@@ -329,6 +329,7 @@ settings:
       alt: Text with HTML as alternative
       html: HTML
       text: Text only
+      label: How shall the description texts of events be formatted?
     program:
       apple_etar: Apple calendar / Etar
       label: Which calendar app do you use?
@@ -344,6 +345,9 @@ settings:
       label: Do you want to have pick-up dates included?
       "true": Yes, show my pick-up slots in the calender
       "false": No, don't show my pick-up slots in the calendar
+    history:
+      "false": No, do not show past events in the calendar
+    protocol: Which protocol is your calendar software using?
   saved: The changes were saved.
   changemail:
     done: Your e-mail address was changed.
@@ -394,6 +398,7 @@ settings:
   general:
     phone: Your landline number
     current_address: Current address
+    no_address: No address entered yet
 menu:
   manage_regions: Manage regions
   blog: Manage blog content
@@ -554,11 +559,19 @@ profile:
       district.
     oldReportButtonTextPart1: Rule violations are currently not reported here.
     oldReportButton: Report rule violation
-    mail: 'You can also reach your local reporting group at the following email address:'
-    info: Please provide the date, place and time of the incident. Please check whether
-      you have tried the communication channels available to you in order to address
-      the incident directly to the person and to clarify the matter. Please indicate
-      how you can be reached best in case we have further questions.
+    mail:
+      arbitrationGroup: 'This report will be sent to the local arbitration group,
+        because one of the included persons is a member of the local reporting group.
+        You can also reach the arbitration group via the following e-mail address:'
+      reportGroup: 'This report will be sent to the local report group. You can also
+        reach that group via the following e-mail address:'
+    info: "In order to make the report easier processable, it should contain the following
+      information\n- Date, time and place of the incident.\n- What you have already
+      done, for example whether you have tried the communication channels available
+      to you in order to address the incident directly to the person and to clarify
+      the matter.\n- How you can be reached best in case we have further questions.\n
+      \nYou can find the [rules of conduct](https://wiki.foodsharing.de/Verhaltensregeln)
+      in the Wiki.\n"
     repAdminAgainstArbAdmin: You are an admin of the report processing team and want
       to report an admin of the arbitration board. This is not technically supported
       at the moment. You can always submit a report by email to the local responsible
@@ -630,6 +643,10 @@ profile:
     readup: "Find advice on processing a report here: [Processing a report](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)"
     doesNotAffectStore: Affects a different company or no company at all
     notes: Notes and decisions
+    report_b1_0: Came too late to a pickup (B01-1)
+    confirmDelete: Do you really want to delete this report?
+    report_b1_1: Did not come to a pickup (B01-2)
+    report_other: Other
   history:
     wasVerified: Verified
     lostVerification: De-verified
@@ -757,6 +774,8 @@ profile:
       filterJumper: Jumper
     search_placeholder: Search by name
   sleeping_info_from_until: is inactive from {from} to {until}
+  choosereasonnostore: Is not related to any store
+  chooseantherstore: Related to a store that is not in the list
 test:
   plain: This is a nice translation
   vars: 'My name is {NAME} and I am {AGE} years old'
@@ -3764,6 +3783,10 @@ error:
     description: In September 2021 we have made a technical change that affects the
       profile pictures. Therefore we ask you to re-upload or renew your profile picture.
       Sorry for the inconvenience.
+  invalid_landline_phonenumber:
+    title: There is a problem with your landline phone number.
+    description: Your landline phone number is in an invalid format and can not be
+      called.
 information:
   push:
     title: "You can now receive push notifications from foodsharing."
