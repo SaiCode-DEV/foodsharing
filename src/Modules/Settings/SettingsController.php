@@ -94,6 +94,11 @@ class SettingsController extends FoodsharingController
         if ($isMe) {
             $params['sleepingData'] = $this->settingsGateway->getSleepData($userId);
             $params['businessCardData'] = $this->businessCardGateway->getMyData($userId, $this->session->mayRole(Role::STORE_MANAGER));
+        } else {
+            $params['userDetails']['token'] = null;
+            $params['userDetails']['privacy_policy_accepted_date'] = null;
+            $params['userDetails']['privacy_notice_accepted_date'] = null;
+            $params['userDetails']['last_activity'] = null;
         }
 
         $profileSettings = $this->prepareVueComponent('profile-settings-page', 'ProfileSettingsPage', $params);

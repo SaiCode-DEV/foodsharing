@@ -10,6 +10,7 @@
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
+- Hide some private data in profile settings page if is not me !3575 @chriswalg
 
 ## Refactoring
 - Added an enum for wall types in the backend #1996 !3573 @alex.simm
