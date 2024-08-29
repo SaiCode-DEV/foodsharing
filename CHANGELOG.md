@@ -10,7 +10,6 @@
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
-- Hide some private data in profile settings page if is not me !3575 @chriswalg
 
 ## Refactoring
 - Added an enum for wall types in the backend #1996 !3573 @alex.simm
@@ -18,6 +17,12 @@
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm
 - Removed redirect after submit in foodsharepoint edit form to fix test !3527 @chriswalg
+
+# Hotfix 2024-08-29
+
+## Bugfixes
+
+- Hide some private data in profile settings page if is not me !3575 @chriswalg
 
 # Hotfix 2024-08-22
 
