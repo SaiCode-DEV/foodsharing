@@ -1,3 +1,9 @@
+# Hotfix 2024-08-29
+
+## Bugfixes
+
+- Hide some private data in profile settings page if is not me !3575 @chriswalg
+
 # Hotfix 2024-08-22
 
 ## Bugfixes
