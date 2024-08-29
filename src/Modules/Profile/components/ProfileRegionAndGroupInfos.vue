@@ -237,13 +237,15 @@ div.customBadge .item a {
   color: var(--fs-color-white);
   font-weight: initial;
 }
-
+div.customBadge .bananaCount > .mb-4 {
+  margin-bottom: 2.1rem !important;
+}
 div.customBadge .bananaCount {
-  background: var(--fs-color-secondary-500) url(/img/banana-checkmark.png) no-repeat center 3.5em;
+  background: var(--fs-color-secondary-500) url(/img/banana-checkmark.png) no-repeat center 2.5em;
 }
 
 div.customBadge .bananaCount.bananaCountAdd {
-  background: var(--fs-color-secondary-500) url(/img/banana-plus.png) no-repeat center 3.5em;
+  background: var(--fs-color-secondary-500) url(/img/banana-plus.png) no-repeat center 2.5em;
 }
 
 .sectionClass {
