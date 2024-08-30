@@ -49,7 +49,7 @@ export function editQuestion (quizId, questionId, data) {
 }
 
 export function editAnswer (quizId, questionId, answerId, data) {
-  return patch(`/quiz/${quizId}/questions/${questionId}/answer/${answerId}`, data)
+  return patch(`/quiz/${quizId}/questions/${questionId}/answers/${answerId}`, data)
 }
 
 export function deleteQuestion (quizId, questionId) {
@@ -57,11 +57,11 @@ export function deleteQuestion (quizId, questionId) {
 }
 
 export function deleteAnswer (quizId, questionId, answerId) {
-  return remove(`/quiz/${quizId}/questions/${questionId}/answer/${answerId}`)
+  return remove(`/quiz/${quizId}/questions/${questionId}/answers/${answerId}`)
 }
 
 export function addAnswer (quizId, questionId, data) {
-  return post(`/quiz/${quizId}/questions/${questionId}/answer`, data)
+  return post(`/quiz/${quizId}/questions/${questionId}/answers`, data)
 }
 
 export function addQuestion (quizId, data) {

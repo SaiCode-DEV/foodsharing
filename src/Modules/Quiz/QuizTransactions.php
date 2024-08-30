@@ -189,6 +189,9 @@ class QuizTransactions
                 case QuizID::AMBASSADOR->value:
                     $this->foodsaverGateway->riseQuizRole($this->session->id(), Role::AMBASSADOR);
                     break;
+                case QuizID::HYGIENE->value:
+                    // TODO award achievement
+                    break;
             }
         }
         $this->updateQuizRoleForCurrentUser();

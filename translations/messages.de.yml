@@ -806,6 +806,7 @@ terminology:
   phone: "Telefonnummer"
   landline: "Festnetznummer"
   mobile_phone: "Handynummer"
+  hygiene_training: "Hygieneschulung"
 
 statistics:
   kg_food_saved: "{count} kg Lebensmittel gerettet"

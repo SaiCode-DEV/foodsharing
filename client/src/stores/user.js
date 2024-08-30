@@ -111,7 +111,7 @@ export const getters = {
   },
   hasAdminPermissions () {
     const permissions = Object.entries(store.permissions)
-    return permissions.some(([key, value]) => !['mayAdministrateUserProfile', 'mayEditUserProfile', 'addStore'].includes(key) && value)
+    return permissions.some(([key, value]) => ['administrateBlog', 'editQuiz', 'administrateRegions', 'manageMailboxes', 'editContent'].includes(key) && value)
   },
   hasBouncingEmail () {
     return false

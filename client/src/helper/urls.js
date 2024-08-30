@@ -84,6 +84,7 @@ const urls = {
   settings: (userId) => userId ? `/user/${userId}/settings` : '/user/current/settings',
   settingsNotifications: () => '/user/current/settings?sub=info',
   settingsCalendar: () => '/user/current/settings?sub=calendar',
+  settingsHygiene: () => '/user/current/settings?sub=hygiene',
   statistics: () => '/statistik',
   store: (storeId) => `/store/${storeId}`,
   storeList: () => '/?page=fsbetrieb',

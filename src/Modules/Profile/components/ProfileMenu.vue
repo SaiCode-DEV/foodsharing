@@ -119,6 +119,17 @@
         <i class="far fa-handshake fa-fw" /> {{ $i18n('profile.mediationRequest') }}
       </b-list-group-item>
     </b-list-group>
+    <b-list-group>
+      <b-list-group-item
+        v-if="profileMenu.fsId === profileMenu.fsIdSession && isHygieneQuizEnabled"
+        type="button"
+        class="list-group-item list-group-item-action"
+        :href="$url('settingsHygiene')"
+      >
+        <i class="fas fa-hand-sparkles fa-fw" />
+        {{ $i18n('terminology.hygiene_training') }}
+      </b-list-group-item>
+    </b-list-group>
     <b-modal
       v-if="showModerationButton"
       ref="modal_mediation"
@@ -187,6 +198,7 @@ export default {
       buddyType: this.profileMenu.initialBuddyType,
       buddyTypes: BUDDY_TYPES,
       loading: false,
+      isHygieneQuizEnabled: null,
     }
   },
   computed: {
@@ -196,6 +208,9 @@ export default {
     showModerationButton () {
       return this.fsId !== this.currentUserId
     },
+  },
+  async mounted () {
+    this.isHygieneQuizEnabled = await this.$isFeatureToggleActive('hygieneQuiz')
   },
   methods: {
     openChat (fsId) {

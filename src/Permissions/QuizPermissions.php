@@ -24,7 +24,7 @@ final class QuizPermissions
 
     public function maySeeEditQuizPage(): bool
     {
-        return $this->session->mayRole(Role::ORGA) || $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP);
+        return $this->session->mayRole(Role::ORGA) || $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP) || $this->currentUserUnits->isAdminFor(RegionIDs::HYGIENE_GROUP);
     }
 
     public function mayEditQuiz(?QuizID $quizId): bool
@@ -35,6 +35,7 @@ final class QuizPermissions
 
         return match ($quizId) {
             QuizID::FOODSAVER, QuizID::STORE_MANAGER, QuizID::AMBASSADOR => $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP),
+            QuizID::HYGIENE => $this->currentUserUnits->isAdminFor(RegionIDs::HYGIENE_GROUP),
             default => false,
         };
     }
@@ -52,6 +53,7 @@ final class QuizPermissions
         return match ($quizId) {
             QuizID::FOODSAVER => $this->regionGateway->hasMember($this->session->id(), RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP),
             QuizID::STORE_MANAGER, QuizID::AMBASSADOR => $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP),
+            QuizID::HYGIENE => $this->currentUserUnits->mayBezirk(RegionIDs::HYGIENE_GROUP),
             default => false,
         };
     }
@@ -70,6 +72,7 @@ final class QuizPermissions
 
             // Allow if the user is verified and role is sufficiently high:
             QuizID::STORE_MANAGER, QuizID::AMBASSADOR => $this->session->isVerified() && $this->session->role()->value >= $quizId->value - 1,
+            QuizID::HYGIENE => $this->session->mayRole(Role::FOODSAVER),
         };
     }
 

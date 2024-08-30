@@ -70,6 +70,14 @@
           <Quiz :quiz-id="targetRole" />
         </b-tab>
         <b-tab
+          v-if="isHygieneQuizEnabled"
+          ref="hygieneTab"
+          :title="$i18n('terminology.hygiene_training')"
+          :active="subPage === SUB_PAGE.HYGIENE"
+        >
+          <Quiz :quiz-id="4" />
+        </b-tab>
+        <b-tab
           v-if="isMe || isOrgaUser"
           :title="$i18n('foodsaver.delete_account')"
           :active="subPage === SUB_PAGE.DELETE_ACCOUNT"
@@ -117,6 +125,9 @@ export default {
     targetRole: { type: Number, default: null },
     subPage: { type: String, default: null },
   },
+  data: () => ({
+    isHygieneQuizEnabled: null,
+  }),
   computed: {
     getQuizTranslation () {
       if (this.targetRole !== null) {
@@ -141,6 +152,13 @@ export default {
       if (this.targetRole === 3) return /show-bot-quiz/.test(location.search) // Hide ambassador quiz
       return true
     },
+  },
+  async mounted () {
+    this.isHygieneQuizEnabled = await this.$isFeatureToggleActive('hygieneQuiz')
+    if (this.subPage === SUB_PAGE.HYGIENE && this.isHygieneQuizEnabled) {
+      await this.$nextTick()
+      this.$refs.hygieneTab.activate()
+    }
   },
 }
 </script>

@@ -3,6 +3,7 @@
 ## Features
 - Add API endpoint for creating blog posts !3455 @alex.simm
 - Create option for multiple themes with dark mode as a start #2054 !3500 @SaiCode
+- Add a hygiene quiz that can be edited by the hygiene working group #2074 !3540 @AntonBallmaier
 
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9

@@ -15,6 +15,7 @@ use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Mailbox\MailboxFolder;
 use Foodsharing\Modules\Core\DBConstants\Quiz\AnswerRating;
+use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
@@ -222,21 +223,27 @@ class Foodsharing extends Db
 
     public function createQuiz(int $quizId, ?int $questionCount = null): array
     {
-        $roles = [
-            Role::FOODSAVER->value => 'Foodsaver:in',
-            Role::STORE_MANAGER->value => 'Betriebsverantwortliche:r',
-            Role::AMBASSADOR->value => 'Botschafter:in'
-        ];
         $questionCount ??= random_int(3, 6);
         $questionCountUntimed = $quizId === 1 ? 2 + $questionCount : null;
         $params = [
             'id' => $quizId,
-            'name' => 'Quiz für ' . $roles[$quizId],
-            'desc' => 'Werde ' . $roles[$quizId] . ' mit diesem Quiz! ' . $this->faker->realTextBetween(200, 500),
             'maxfp' => 2,
             'questcount' => $questionCount,
             'questcount_untimed' => $questionCountUntimed,
         ];
+        if ($quizId <= QuizID::AMBASSADOR->value) {
+            $roles = [
+                Role::FOODSAVER->value => 'Foodsaver:in',
+                Role::STORE_MANAGER->value => 'Betriebsverantwortliche:r',
+                Role::AMBASSADOR->value => 'Botschafter:in'
+            ];
+            $params['name'] = 'Quiz für ' . $roles[$quizId];
+            $params['desc'] = 'Werde ' . $roles[$quizId] . ' mit diesem Quiz!';
+        } elseif ($quizId === QuizID::HYGIENE->value) {
+            $params['name'] = 'Hygieneschulung';
+            $params['desc'] = 'Mit diesem Quiz qualifizierst du dich für Abholungen in bestimmten Betrieben...';
+        }
+        $params['desc'] .= ' ' . $this->faker->realTextBetween(200, 500);
         $params['id'] = $this->haveInDatabase('fs_quiz', $params);
 
         $params['questions'] = [];
