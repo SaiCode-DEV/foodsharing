@@ -12,3 +12,10 @@ export function requestEmailChange (email, password) {
     password: password,
   })
 }
+
+export function requestPasswordChange (oldPassword, newPassword) {
+  return patch('/user/current/password', {
+    oldPassword: oldPassword,
+    newPassword: newPassword,
+  })
+}

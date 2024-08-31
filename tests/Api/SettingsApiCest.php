@@ -7,6 +7,8 @@ namespace Tests\Api;
 use Carbon\Carbon;
 use Codeception\Example;
 use Codeception\Util\HttpCode;
+use Faker\Factory;
+use Faker\Generator;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -14,16 +16,21 @@ use Tests\Support\ApiTester;
 
 class SettingsApiCest
 {
+    private Generator $faker;
     private $user;
     private $userAmbassador;
     private $userAmbassadorWithoutRegion;
     private $userOrga;
+    private array $userWithPassword;
+    private string $passwordOfUser;
     private $region1;
     private $region2;
     private $regionState;
 
     public function _before(ApiTester $I): void
     {
+        $this->faker = Factory::create('de_DE');
+
         $this->region1 = $I->createRegion(fillMailbox: false);
         $this->region2 = $I->createRegion(fillMailbox: false);
         $this->regionState = $I->createRegion(fillMailbox: false, extra_params: ['type' => UnitType::FEDERAL_STATE]);
@@ -39,6 +46,9 @@ class SettingsApiCest
         $I->addRegionAdmin($this->region2['id'], $this->userAmbassadorWithoutRegion['id']);
 
         $this->userOrga = $I->createOrga();
+
+        $this->passwordOfUser = $this->faker->password(8);
+        $this->userWithPassword = $I->createFoodsaver($this->passwordOfUser);
     }
 
     public function canOnlySetSleepStatusWhenLoggedIn(ApiTester $I): void
@@ -327,5 +337,53 @@ class SettingsApiCest
             // make sure that the values did not change
             $I->seeInDatabase('fs_foodsaver', ['bezirk_id' => $oldRegionId, 'id' => $this->user['id']]);
         }
+    }
+
+    public function canNotChangePasswordWithoutLogin(ApiTester $I): void
+    {
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/user/current/password', [
+            'oldPassword' => $this->passwordOfUser,
+            'newPassword' => $this->faker->password(8)
+        ]);
+        $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
+    }
+
+    public function canNotChangePasswordWithoutOldPassword(ApiTester $I): void
+    {
+        $I->login($this->userWithPassword['email'], $this->passwordOfUser);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/user/current/password', [
+            'oldPassword' => 'abcdefghi',
+            'newPassword' => $this->faker->password(8)
+        ]);
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+    }
+
+    public function canNotChangePasswordIfTooShort(ApiTester $I): void
+    {
+        $I->login($this->userWithPassword['email'], $this->passwordOfUser);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/user/current/password', [
+            'oldPassword' => $this->passwordOfUser,
+            'newPassword' => $this->faker->password(2, 7)
+        ]);
+        $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
+    }
+
+    public function canChangeValidPassword(ApiTester $I): void
+    {
+        $newPassword = $this->faker->password(8);
+
+        $I->login($this->userWithPassword['email'], $this->passwordOfUser);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/user/current/password', [
+            'oldPassword' => $this->passwordOfUser,
+            'newPassword' => $newPassword
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->login($this->userWithPassword['email'], $newPassword);
+        $I->seeResponseCodeIs(HttpCode::OK);
     }
 }

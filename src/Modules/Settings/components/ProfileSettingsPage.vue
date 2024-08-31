@@ -61,6 +61,8 @@
           :active="subPage === SUB_PAGE.CHANGE_EMAIL"
         >
           <ChangeEmailForm />
+          <hr class="my-3">
+          <ChangePasswordForm />
         </b-tab>
         <b-tab
           v-if="showQuiz"
@@ -95,6 +97,7 @@ import Calendar from './Calendar.vue'
 import Passport from './Passport.vue'
 import SleepingMode from './SleepingMode.vue'
 import ChangeEmailForm from './ChangeEmailForm.vue'
+import ChangePasswordForm from './ChangePasswordForm.vue'
 import DeleteAccount from './DeleteAccount.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import BusinessCard from '../../BusinessCard/components/BusinessCard.vue'
@@ -112,6 +115,7 @@ export default {
     Passport,
     SleepingMode,
     ChangeEmailForm,
+    ChangePasswordForm,
     DeleteAccount,
     BusinessCard,
     Quiz,

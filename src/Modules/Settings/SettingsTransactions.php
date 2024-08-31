@@ -19,6 +19,7 @@ use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Unit\UnitGateway;
 use Foodsharing\Permissions\SettingsPermissions;
 use Foodsharing\RestApi\Models\Settings\EmailChangeRequest;
+use Foodsharing\RestApi\Models\Settings\PasswordChangeRequest;
 use Foodsharing\Utility\EmailHelper;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -28,6 +29,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class SettingsTransactions
 {
     final public const DEFAULT_LOCALE = 'de';
+    public const MIN_PASSWORD_LENGTH = 8;
 
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,
@@ -318,5 +320,30 @@ class SettingsTransactions
         if (isset($editableProfileDTO->role) && $editableProfileDTO->role === Role::FOODSHARER->value && $editableProfileDTO->role < $currentRole) {
             $this->foodsaverTransactions->downgradeAndBlockForQuizPermanently($userId);
         }
+    }
+
+    /**
+     * Updates the user's password if the request is valid.
+     *
+     * @param PasswordChangeRequest $request the request containing the old and new password
+     *
+     * @throws BadRequestHttpException if the new password is too short
+     * @throws AccessDeniedHttpException if the old password is wrong
+     */
+    public function requestPasswordChange(PasswordChangeRequest $request): void
+    {
+        // check that the old password is correct
+        $currentEmail = $this->foodsaverGateway->getEmailAddress($this->session->id());
+        if (!$this->loginGateway->checkClient($currentEmail, $request->oldPassword)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        // check that the new one meets the criteria
+        $request->newPassword = trim($request->newPassword);
+        if (strlen($request->newPassword) < self::MIN_PASSWORD_LENGTH) {
+            throw new BadRequestHttpException('password is too short');
+        }
+
+        $this->loginGateway->setPassword($this->session->id(), $request->newPassword);
     }
 }

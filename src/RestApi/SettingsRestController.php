@@ -9,7 +9,7 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\RestApi\Models\Settings\EmailChangeRequest;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
+use Foodsharing\RestApi\Models\Settings\PasswordChangeRequest;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -21,13 +21,14 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class SettingsRestController extends AbstractFOSRestController
+class SettingsRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
         private readonly SettingsGateway $settingsGateway,
         private readonly SettingsTransactions $settingsTransactions,
-        private readonly Session $session
+        protected Session $session
     ) {
+        parent::__construct($this->session);
     }
 
     /**
@@ -106,5 +107,24 @@ class SettingsRestController extends AbstractFOSRestController
         $this->settingsTransactions->requestEmailChange($request);
 
         return $this->handleView($this->view([], 200));
+    }
+
+    #[OA2\Patch(summary: 'Allows users to change their own password.')]
+    #[OA2\Tag(name: 'user')]
+    #[Rest\Patch('user/current/password')]
+    #[ParamConverter('request', converter: 'fos_rest.request_body')]
+    #[OA2\RequestBody(content: new Model(type: PasswordChangeRequest::class))]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'The new password is too short')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'The old password is wrong')]
+    public function requestPasswordChangeAction(PasswordChangeRequest $request, ValidatorInterface $validator): Response
+    {
+        $this->assertLoggedIn();
+        $this->assertThereAreNoValidationErrors($validator, $request);
+
+        $this->settingsTransactions->requestPasswordChange($request);
+
+        return $this->respondOK();
     }
 }

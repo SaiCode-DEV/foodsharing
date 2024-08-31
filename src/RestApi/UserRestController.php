@@ -56,7 +56,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class UserRestController extends AbstractFoodsharingRestController
 {
     private const MIN_RATING_MESSAGE_LENGTH = 100;
-    private const MIN_PASSWORD_LENGTH = 8;
     private const MIN_AGE_YEARS = 18;
     private const DELETE_USER_MAX_REASON_LEN = 200;
 
@@ -357,7 +356,7 @@ class UserRestController extends AbstractFoodsharingRestController
         }
 
         $data->password = trim((string)$paramFetcher->get('password'));
-        if (strlen($data->password) < self::MIN_PASSWORD_LENGTH) {
+        if (strlen($data->password) < SettingsTransactions::MIN_PASSWORD_LENGTH) {
             throw new BadRequestHttpException('password is too short');
         }
 
