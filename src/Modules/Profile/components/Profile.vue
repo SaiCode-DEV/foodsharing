@@ -103,7 +103,6 @@
           <Wall
             target="foodsaver"
             :target-id="profileInfos.fsId"
-            :limit="200"
           />
         </b-col>
       </b-row>

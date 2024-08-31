@@ -43,7 +43,7 @@ class WallPostGateway extends BaseGateway
         return WallPost::createFromArray($post);
     }
 
-    public function getPosts(WallType $target, int $targetId, int $limit = 50): array
+    public function getPosts(WallType $target, int $targetId, int $limit = 50, int $offset = 0): array
     {
         $posts = $this->db->fetchAll("SELECT {$this->selectColumns}
 		    FROM fs_wallpost post
@@ -51,8 +51,8 @@ class WallPostGateway extends BaseGateway
             INNER JOIN {$this->getLinkTableName($target)} has_post ON post.id = has_post.wallpost_id
 			WHERE has_post.`{$this->getLinkTableForeignIdColumnName($target)}` = :targetId
 			ORDER BY post.time DESC
-			LIMIT :limit
-		", ['targetId' => $targetId, 'limit' => $limit]);
+			LIMIT :offset, :limit 
+		", ['targetId' => $targetId, 'limit' => $limit, 'offset' => $offset]);
 
         return array_map([WallPost::class, 'createFromArray'], $posts);
     }
