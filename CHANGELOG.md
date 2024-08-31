@@ -38,6 +38,7 @@
 - Fixed banana icon to show checkmark instead of plus on user profiles where you anready gave a banana. #2082 !3554 @AntonBallmaier
 - Fix store wall loading issue #2091 !3558 @AntonBallmaier
 - Fixed phone number input on profile settings !3546 @chriswalg @SaiCode
+- Fixed breadcrumb dissapearing on phones #2077 !3548 @SaiCode
 - Fixed "Missing special warning message, if foodsaver leaves home district" !3551 @chriswalg
 - Fixed ambassadors being able to set the home region of users without home region that are in their region #2088 !3560 @AntonBallmaier
 - Fixed some browsers disallowing downloading files because of http #2086 !3561 @AntonBallmaier
