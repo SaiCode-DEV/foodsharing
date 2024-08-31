@@ -3123,7 +3123,7 @@ settings:
       ni responderá con un sonido o vibración.
 
       '
-  email: 'Cambiar dirección de correo electrónico'
+  email: 'Correo electrónico y contraseña'
   calendar:
     create_token:
       button: 'Crear nuevo token'
@@ -3320,6 +3320,17 @@ settings:
     1: 'Ahorro de alimentos: en el cuestionario'
     2: Cuestionario para gerentes de tienda
     3: Prueba de embajador
+  change_password:
+    title: Puedes cambiar tu contraseña aquí
+    old_password_label: Contraseña anterior
+    new_password_label: Nueva contraseña
+    new_password_must_be_trimmed: La contraseña no puede empezar ni terminar con espacios
+    new_password_confirmation_label: Confirmar la nueva contraseña
+    new_password_confirmation_invalid: Las contraseñas no coinciden
+    submit: Cambiar la contraseña
+    success: Tu contraseña ha sido cambiada correctamente
+    old_password_required: Debes ingresar tu contraseña anterior.
+    new_password_required: La contraseña debe contener al menos 8 caracteres
 team:
   former: 'Antiguos alumnos'
   ratelimit: 'Espere {minutes} minutos antes de poder enviar el siguiente mensaje.'
