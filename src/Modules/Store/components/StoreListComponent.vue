@@ -318,14 +318,17 @@ export default {
       this.state.filterText = ''
     },
     mapLink (store) {
-      if (['iPad', 'iPhone', 'iPod'].includes(
-        navigator?.userAgentData?.platform ||
-        navigator?.platform ||
-        'unknown')) {
-        return `maps://?q=?q=${store.location.lat},${store.location.lon})`
+      const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+      if (regex.test(navigator.userAgent)) {
+        if (['iPad', 'iPhone', 'iPod'].includes(
+          navigator?.userAgentData?.platform ||
+          navigator?.platform ||
+          'unknown')) {
+          return `maps://?q=${store.location.lat},${store.location.lon}`
+        }
+        return `geo:0,0?q=${store.location.lat},${store.location.lon}`
       }
-
-      return `geo:0,0?q=${store.location.lat},${store.location.lon}`
+      return this.$url('map', { storeId: store.id })
     },
   },
 }

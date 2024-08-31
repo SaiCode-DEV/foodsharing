@@ -9,6 +9,7 @@
 - Improve accessibility in create forum thread form !3488 @iron9
 - Slightly adjusted the banana badge in the user profile @tripleb-fs 
 - Bananas given by a user are kept when that user is deleted #1864 !3492 @AntonBallmaier
+- Changing the geo link to map in storelist for desktop #1993 !3550 @Nika-Mel @McGoldi
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
