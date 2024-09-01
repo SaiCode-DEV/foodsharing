@@ -21,20 +21,7 @@
               :disabled="!editMode"
             />
           </b-form-group>
-          <b-form-group
-            :description="$i18n('storeview.visible_for_public')"
-            :label="$i18n('public_info')"
-            label-for="publicInfo"
-          >
-            <b-form-textarea
-              id="publicInfo"
-              v-model="store.publicInfo"
-              :state="publicInfoState"
-              rows="5"
-              max-rows="10"
-              :disabled="!editMode"
-            />
-          </b-form-group>
+          <PublicInfo :public-info="store.publicInfo" @update:public-info="updatePublicInfo" />
         </b-card-text>
       </b-tab>
       <b-tab
@@ -439,6 +426,7 @@
     <b-button
       v-if="mayEditStore"
       variant="primary"
+      :disabled="!publicInfoState"
       @click="submit"
     >
       {{ $i18n('button.save') }}
@@ -458,7 +446,7 @@
 
 <script>
 // Stores
-import StoreData, { MAX_LEN_FOR_PUBLIC_INFO } from '@/stores/stores'
+import StoreData from '@/stores/stores'
 import PickupsData from '@/stores/pickups'
 
 // Others
@@ -475,6 +463,7 @@ import AutoResizeTextareaMixin from '@/mixins/AutoResizeTextareaMixin'
 import { REGION_UNIT_TYPE } from '@/stores/regions'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import ChainSearchPicker from '@/components/Stores/ChainSearchPicker.vue'
+import PublicInfo from '@/components/Stores/PublicInfo.vue'
 
 export default {
   name: 'StoreInformationEditModal',
@@ -484,6 +473,7 @@ export default {
     RegularPickup,
     MarkdownInput,
     ChainSearchPicker,
+    PublicInfo,
   },
   mixins: [MediaQueryMixin, AutoResizeTextareaMixin],
   props: {
@@ -508,6 +498,7 @@ export default {
       ],
       store: {},
       chainSearchCriteriaField: '',
+      publicInfoState: true,
     }
   },
   computed: {
@@ -523,10 +514,6 @@ export default {
     },
     storeInformation () {
       return StoreData.getters.getStoreInformation()
-    },
-    publicInfoState () {
-      if (!this.editMode) return null
-      else return this.store.publicInfo.length <= MAX_LEN_FOR_PUBLIC_INFO
     },
     calendarInterval: {
       get () {
@@ -603,6 +590,10 @@ export default {
     updateRegion (region) {
       this.store.region.id = region.states.id
       this.store.region.name = region.data.text
+    },
+    updatePublicInfo ({ publicInfo, publicInfoState }) {
+      this.store.publicInfo = publicInfo
+      this.publicInfoState = publicInfoState
     },
     simpleClone (value) {
       return JSON.parse(JSON.stringify(value))

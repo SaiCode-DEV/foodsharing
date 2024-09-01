@@ -64,7 +64,7 @@
           </h5>
         </div>
         <div class="card-body">
-          {{ store.publicInformation }}
+          <Markdown :source="store.publicInformation" />
         </div>
       </div>
 
@@ -113,12 +113,14 @@ import { declineStoreRequest, requestStoreTeamMembership } from '@/api/stores'
 import UserData from '@/stores/user'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import MapBubbleMixin from './MapBubbleMixin'
+import MapPopup from './MapPopup.vue'
+import Markdown from '@/components/Markdown/Markdown.vue'
 
 const maxGoodDistanceInKm = 2
 const minBadDistanceInKm = 10
 
 export default {
-  components: { StoreStatusIcon, Avatar },
+  components: { MapPopup, Markdown, StoreStatusIcon, Avatar },
   mixins: [ConfirmationDialogue, MapBubbleMixin],
   data: () => ({
     name: '',

@@ -14,6 +14,7 @@
 - Slightly adjusted the banana badge in the user profile @tripleb-fs 
 - Bananas given by a user are kept when that user is deleted #1864 !3492 @AntonBallmaier
 - Changing the geo link to map in storelist for desktop #1993 !3550 @Nika-Mel @McGoldi
+- Added markdown for publicInfo in store and map bubble !3389 @chriswalg
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi

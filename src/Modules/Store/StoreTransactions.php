@@ -40,7 +40,6 @@ use Foodsharing\Modules\Store\DTO\StoreListInformation;
 use Foodsharing\Modules\Store\DTO\StoreStatusForMember;
 use Foodsharing\Modules\StoreCategories\StoreCategoriesGateway;
 use Foodsharing\Modules\StoreChain\StoreChainGateway;
-use Foodsharing\Utility\Sanitizer;
 use Foodsharing\Utility\WeightHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -72,7 +71,6 @@ class StoreTransactions
         private readonly RegionGateway $regionGateway,
         private readonly StoreCategoriesGateway $storeCategoriesGateway,
         private readonly StoreChainGateway $storeChainGateway,
-        private readonly Sanitizer $sanitizerService,
         private readonly Session $session
     ) {
     }
@@ -367,8 +365,7 @@ class StoreTransactions
 
         if (!empty($storeChange->publicInfo)) {
             $changeInformation->informationChanged = true;
-            $sanitizedPublicInfo = $this->sanitizerService->purifyHtml($storeChange->publicInfo);
-            $store->publicInfo = html_entity_decode($sanitizedPublicInfo, ENT_QUOTES, 'UTF-8');
+            $store->publicInfo = $storeChange->publicInfo;
         }
 
         if (!is_null($storeChange->publicTime)) {
