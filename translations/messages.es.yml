@@ -1422,6 +1422,10 @@ storeview:
   team_info_active: 'Miembros activos del equipo:'
   team_info_jumper: 'Springer:'
   team_info_distance: 'Distancia en línea recta a la granja:'
+  public_info:
+    label: Información pública sobre la empresa
+    error_message: El texto es demasiado largo (máx. {count} caracteres)
+    available_count: Número de caracteres disponibles
 store:
   tooltip_red: 'Recogidas vacantes hoy o mañana'
   tooltip_managing: 'Usted es responsable de esta cooperación'
@@ -4267,6 +4271,17 @@ achievements:
     indefinite: Válido para cualquier período de tiempo después de la adjudicación.
     indefiniteShort: Cualquier período de tiempo
   awardedNoReviewer: Automáticamente
+  awardedTo: A
+  reviewer: De
+  notice: Observación
+  validUntil: Válido hasta
+  award: Logro otorgado
+  findUser: Buscar usuario
+  editDetails: Ajustar detalles
+  revoke: Retirar
+  edit: Personalizar {achievement} para {user}
+  notAwarded: Este logro no se ha concedido actualmente a nadie.
+  revokeConfirmation: ¿De verdad quieres privar a {name} de este logro?
 copied_to_clipboard: Se ha copiado «{text}» al portapapeles.
 theme_switcher:
   title: Elegir diseño
