@@ -3843,6 +3843,7 @@ calendar:
   labelNav: 'Navegación del calendario'
   placeholder: Elija una fecha
   copiedUrl: ¡URL del calendario copiada!
+  labelResetButton: Eliminar selección
 addresspicker:
   infobox_profile: 'Los compateros necesitan la dirección para poder ofrecer cestas
     de alimentos a través del sitio web. Es necesario para poder participar en recogidas
@@ -4264,6 +4265,8 @@ achievements:
   validity:
     days: Válido por {validityInDaysAfterAssignment} días después de la asignación.
     indefinite: Válido para cualquier período de tiempo después de la adjudicación.
+    indefiniteShort: Cualquier período de tiempo
+  awardedNoReviewer: Automáticamente
 copied_to_clipboard: Se ha copiado «{text}» al portapapeles.
 theme_switcher:
   title: Elegir diseño
