@@ -94,6 +94,13 @@
                   :target-id="profileInfos.fsId"
                 />
               </b-tab>
+              <b-tab v-if="awardedAchievements?.length" :title="$i18n('terminology.achievements') + `(${awardedAchievements.length})`">
+                <Achievement
+                  v-for="achievement in awardedAchievements"
+                  :key="achievement.id"
+                  :achievement="achievement"
+                />
+              </b-tab>
             </b-tabs>
           </div>
         </b-col>
@@ -120,11 +127,12 @@ import EmailBounceList from './EmailBounceList.vue'
 import PickupsSection from '@/components/PickupTable/PickupsSection.vue'
 import ProfileStoreList from './ProfileStoreList.vue'
 import DataUser from '@/stores/user'
+import Achievement from '@/components/Achievement/Achievement.vue'
 import { ROLE } from '@/consts'
 
 export default {
   name: 'Profile',
-  components: { ProfileStoreList, ProfileMenu, ProfileInfos, ProfileRegionAndGroupInfos, Wall, ProfileCommitmentsStat, EmailBounceList, PickupsSection },
+  components: { ProfileStoreList, ProfileMenu, ProfileInfos, ProfileRegionAndGroupInfos, Wall, ProfileCommitmentsStat, EmailBounceList, PickupsSection, Achievement },
   props: {
     menu: { type: Object, required: true },
     statistics: { type: Object, required: true },
@@ -143,6 +151,7 @@ export default {
     noteCount: { type: Number, required: true },
     stores: { type: Array, required: true },
     homeDistrictHistory: { type: Object, required: true },
+    awardedAchievements: { type: [Array, Object], default: null },
   },
   data () {
     return {

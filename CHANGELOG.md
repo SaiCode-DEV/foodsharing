@@ -3,6 +3,7 @@
 ## Features
 - Add API endpoint for creating blog posts !3455 @alex.simm
 - Create option for multiple themes with dark mode as a start #2054 !3500 @SaiCode
+- Achievements can be awarded, edited and revoked. They get displayed on the profile !3429 @AntonBallmaier
 - Allow users to change their own passwords #581 !3435 @alex.simm
 - Allow loading more wall posts #2056 !3580 @AntonBallmaier
 - Add a hygiene quiz that can be edited by the hygiene working group #2074 !3540 @AntonBallmaier

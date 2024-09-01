@@ -1,6 +1,6 @@
 <template>
   <span
-    v-if="time"
+    v-if="time || fallback"
     v-b-tooltip="tooltip ?? tooltipTime"
     class="time"
     :class="{ 'text-muted': muted, small: !plain }"
@@ -9,7 +9,8 @@
       v-if="showIcon"
       class="far fa-fw fa-clock"
     />
-    {{ $dateFormatter.relativeTime(date, options) }}
+    <span v-if="time" v-text="$dateFormatter.relativeTime(date, options)" />
+    <span v-else v-text="fallback" />
   </span>
 </template>
 
@@ -23,6 +24,7 @@ export default {
     dateOnly: { type: Boolean, default: false },
     tooltip: { type: [Object, String], default: function () { return this.plain ? false : null } },
     options: { type: Object, default: () => {} },
+    fallback: { type: String, default: '' },
   },
   data () {
     if (this.time === null) return {}
@@ -32,6 +34,7 @@ export default {
   },
   computed: {
     tooltipTime () {
+      if (!this.time) return ''
       const method = this.dateOnly ? 'date' : 'dateTime'
       return this.$dateFormatter[method](this.date)
     },

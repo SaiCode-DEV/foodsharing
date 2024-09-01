@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Profile;
 use Carbon\Carbon;
 use Exception;
 use Foodsharing\Lib\FoodsharingController;
+use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Basket\BasketGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
@@ -15,6 +16,7 @@ use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Mails\MailsGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
+use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\ReportPermissions;
 use Foodsharing\Permissions\StorePermissions;
@@ -37,7 +39,9 @@ final class ProfileController extends FoodsharingController
         private readonly StoreGateway $storeGateway,
         private readonly GroupGateway $groupGateway,
         private readonly DataHelper $dataHelper,
-        private readonly StorePermissions $storePermissions
+        private readonly StorePermissions $storePermissions,
+        private readonly AchievementPermissions $achievementPermissions,
+        private readonly AchievementGateway $achievementGateway,
     ) {
         parent::__construct();
     }
@@ -181,6 +185,7 @@ final class ProfileController extends FoodsharingController
             'maySeeUserNotes' => $this->profilePermissions->maySeeUserNotes($userArray['id']),
             'noteCount' => $userArray['note_count'] ?? 0,
             'stores' => $userStores,
+            'awardedAchievements' => $this->getAchievementsData($userArray['id']),
         ];
     }
 
@@ -453,5 +458,15 @@ final class ProfileController extends FoodsharingController
             'allowSlotCancelation' => $this->profilePermissions->mayCancelSlotsFromProfile($fsId),
             'isOwnProfile' => ($fsId === $this->session->id()),
         ];
+    }
+
+    private function getAchievementsData(int $userId): ?array
+    {
+        $achievements = null;
+        if ($this->achievementPermissions->maySeeUserAchievements($userId)) {
+            $achievements = $this->achievementGateway->getAwardedAchievementsForUser($userId);
+        }
+
+        return $achievements;
     }
 }

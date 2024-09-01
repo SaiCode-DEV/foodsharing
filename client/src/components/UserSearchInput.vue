@@ -26,6 +26,7 @@
       variant="secondary"
       type="submit"
       size="sm"
+      class="add-button"
       @click.prevent="buttonClicked"
     >
       <i class="fas fa-fw" :class="buttonIcon" />
@@ -84,6 +85,7 @@ export default {
           }
         } catch (e) {
           pulseError(this.$i18n('error_unexpected'))
+          console.debug(e)
         }
       } else {
         this.user = null
@@ -143,4 +145,13 @@ export default {
 .vue-simple-suggest-leave-to.suggestions {
   opacity: 0 !important;
 }
+
+.add-button {
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+input {
+  border-right: 0;
+}
+
 </style>

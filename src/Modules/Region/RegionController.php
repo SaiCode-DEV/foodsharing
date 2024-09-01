@@ -12,6 +12,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Store\StoreGateway;
+use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\Permissions\RegionPermissions;
@@ -43,6 +44,7 @@ final class RegionController extends FoodsharingController
         private readonly FoodSharePointPermissions $foodSharePointPermissions,
         private readonly ForumGateway $forumGateway,
         private readonly AchievementGateway $achievementGateway,
+        private readonly AchievementPermissions $achievementPermissions,
     ) {
         parent::__construct();
     }
@@ -445,6 +447,7 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addTitle($this->translator->trans('terminology.achievements'));
 
         $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
+        $params['mayAdministrateAchievements'] = $this->achievementPermissions->mayAdministrateAchievementsFromRegion($region['id']);
 
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 

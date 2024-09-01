@@ -1306,6 +1306,7 @@ calendar:
   labelCalendar: "Kalender"
   labelNav: "Kalendernavigation"
   labelHelp: "Navigation ist auch mit Pfeiltasten möglich"
+  labelResetButton: "Auswahl löschen"
   placeholder: "Datum auswählen"
   copiedUrl: "Kalender-URL kopiert!"
   export:
@@ -3484,6 +3485,20 @@ achievements:
   validity:
     days: "Gültig für {validityInDaysAfterAssignment} Tage nach der Vergabe."
     indefinite: "Nach der Vergabe beliebig lange gültig."
+    indefiniteShort: "Beliebig lange"
+  awarded: "Vergeben"
+  awardedNoReviewer: "Automatisch"
+  awardedTo: "An"
+  reviewer: "Von"
+  notice: "Bemerkung"
+  validUntil: "Gültig bis"
+  award: "Errungenschaft vergeben"
+  findUser: "Nutzer:in suchen"
+  editDetails: "Details anpassen"
+  revoke: "Entziehen"
+  edit: "Errungenschaft {achievement} für {user} anpassen"
+  revokeConfirmation: "Möchtest du wirklich {name} diese Errungenschaft entziehen?"
+  notAwarded: "Diese Errungenschaft ist aktuell an niemanden verliehen."
 help:
   helpTitle: "Hilfe: {title}"
   tooltip: "Hilfe anzeigen"
