@@ -6,8 +6,8 @@ export async function setProfilePhoto (uuid) {
   })
 }
 
-export function requestEmailChange (email, password) {
-  return patch('/user/current/email', {
+export function requestEmailChange (userId, email, password) {
+  return patch(`/user/${userId}/email`, {
     email: email,
     password: password,
   })

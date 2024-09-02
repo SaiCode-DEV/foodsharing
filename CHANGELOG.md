@@ -7,6 +7,7 @@
 - Allow users to change their own passwords #581 !3435 @alex.simm
 - Allow loading more wall posts #2056 !3580 @AntonBallmaier
 - Add a hygiene quiz that can be edited by the hygiene working group #2074 !3540 @AntonBallmaier
+- Allow support group admins to change someone else's login email address #2031 !3482 @alex.simm
 
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9

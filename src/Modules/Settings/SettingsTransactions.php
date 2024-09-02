@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Settings;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\ChangeHistoryKey;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -30,6 +31,7 @@ class SettingsTransactions
 {
     final public const DEFAULT_LOCALE = 'de';
     public const MIN_PASSWORD_LENGTH = 8;
+    private const SUPPORT_URL = 'https://foodsharing.freshdesk.com/support/home';
 
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,
@@ -89,7 +91,7 @@ class SettingsTransactions
     /**
      * Stores the request for changing the user's email address in the database and sends confirmation emails to the
      * old and the new address. After this, the change still needs to be confirmed by the link in the confirmation
-     * email.
+     * email. If Orga wants to change someone's email address immediately, changeLoginEmail should be used.
      *
      * @param EmailChangeRequest $request the request containing the new email address and the user's password
      *
@@ -105,9 +107,7 @@ class SettingsTransactions
         }
 
         // check that the new address is valid and not in use
-        if (!$this->emailHelper->validEmail($request->email)
-            || $this->emailHelper->isFoodsharingEmailAddress($request->email)
-            || $this->foodsaverGateway->emailExists($request->email)) {
+        if (!$this->isValidNewEmailAddress($request->email)) {
             throw new BadRequestHttpException();
         }
 
@@ -122,7 +122,8 @@ class SettingsTransactions
             'anrede' => $this->translator->trans('salutation.' . $user['geschlecht']),
             'name' => $user['name'],
             'address' => $request->email,
-            'link' => BASE_URL . '/user/current/settings/email/verifyAbort?token=' . $token
+            'link' => BASE_URL . '/user/current/settings/email/verifyAbort?token=' . $token,
+            'support_link' => self::SUPPORT_URL
         ], false, true);
 
         // send a confirmation email to the new address
@@ -132,6 +133,58 @@ class SettingsTransactions
             'name' => $user['name'],
             'link' => BASE_URL . '/user/current/settings/email/verify?token=' . $token
         ], false, true);
+    }
+
+    /**
+     * Immediately changes someone's login email address without sending a confirmation email. If users want to change
+     * their own email address, requestEmailChange should be used.
+     *
+     * @param EmailChangeRequest $request The request containing the new email address. The password is not required.
+     * @param int $userId the user whose email address should be changed
+     * @throws AccessDeniedHttpException missing permission
+     * @throws BadRequestHttpException if the new email address is not valid
+     */
+    public function changeLoginEmail(EmailChangeRequest $request, int $userId): void
+    {
+        // check the permissions and that the email is valid and not in use
+        if (!$this->settingsPermissions->mayChangeLoginEmail($userId)) {
+            throw new AccessDeniedHttpException();
+        }
+        if (!$this->isValidNewEmailAddress($request->email)) {
+            throw new BadRequestHttpException('new email is not valid');
+        }
+
+        $this->settingsGateway->changeMail($userId, $request->email);
+
+        // log this change request
+        $currentEmail = $this->foodsaverGateway->getEmailAddress($userId);
+        $this->settingsGateway->logChangedSetting(
+            $userId,
+            [ChangeHistoryKey::CHANGE_EMAIL_REQUEST => $currentEmail],
+            [ChangeHistoryKey::CHANGE_EMAIL_REQUEST => $request->email],
+            [ChangeHistoryKey::CHANGE_EMAIL_REQUEST],
+            $this->session->id()
+        );
+
+        // send a notification about the change to the old address
+        $this->mailsGateway->removeBounceForMail($currentEmail);
+        $user = $this->foodsaverGateway->getFoodsaverBasics($userId);
+        $this->emailHelper->tplMail('user/change_email_notification_without_confirmation', $currentEmail, [
+            'anrede' => $this->translator->trans('salutation.' . $user['geschlecht']),
+            'name' => $user['name'],
+            'address' => $request->email,
+            'support_link' => self::SUPPORT_URL
+        ], false, true);
+    }
+
+    /**
+     * Returns whether an email address can be used as a valid login address.
+     */
+    private function isValidNewEmailAddress(string $address): bool
+    {
+        return $this->emailHelper->validEmail($address)
+            && !$this->emailHelper->isFoodsharingEmailAddress($address)
+            && !$this->foodsaverGateway->emailExists($address);
     }
 
     public function abortEMailChange(string $token)

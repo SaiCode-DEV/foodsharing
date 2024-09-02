@@ -386,4 +386,50 @@ class SettingsApiCest
         $I->login($this->userWithPassword['email'], $newPassword);
         $I->seeResponseCodeIs(HttpCode::OK);
     }
+
+    /**
+     * Users are allowed to request a change of their own email. This should trigger a confirmation email. Orga users
+     * that are support admins are allowed to change the email address of a profile without triggering a confirmation
+     * email.
+     *
+     * Users: 0=foodsaver, 1=ambassador, 2=orga, 3=orga and support group admin
+     *
+     * @example {"loginUser": 0, "allowChange": true, "changeImmediately": false}
+     * @example {"loginUser": 1, "allowChange": false, "changeImmediately": false}
+     * @example {"loginUser": 2, "allowChange": false, "changeImmediately": false}
+     * @example {"loginUser": 3, "allowChange": true, "changeImmediately": true}
+     */
+    public function canRequestEmailChange(ApiTester $I, Example $example): void
+    {
+        if ($example['loginUser'] == 3) {
+            // Create an orga user who is also admin of the support group
+            $loginUser = $I->createOrga();
+            $I->createWorkingGroup('Support', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::IT_SUPPORT_GROUP]);
+            $I->addRegionMember(RegionIDs::IT_SUPPORT_GROUP, $loginUser['id']);
+            $I->addRegionAdmin(RegionIDs::IT_SUPPORT_GROUP, $loginUser['id']);
+        } else {
+            $users = [$this->user, $this->userAmbassador, $this->userOrga];
+            $loginUser = $users[$example['loginUser']];
+        }
+        $newEmail = $this->faker->email();
+
+        $I->login($loginUser['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/user/' . $this->user['id'] . '/email', [
+            'email' => $newEmail,
+            'password' => 'password'
+        ]);
+
+        if ($example['allowChange']) {
+            $I->seeResponseCodeIs(HttpCode::OK);
+            if ($example['changeImmediately']) {
+                $I->seeInDatabase('fs_foodsaver', ['id' => $this->user['id'], 'email' => $newEmail]);
+            } else {
+                $I->seeInDatabase('fs_mailchange', ['foodsaver_id' => $this->user['id'], 'newmail' => $newEmail]);
+            }
+        } else {
+            $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+            $I->dontSeeInDatabase('fs_mailchange', ['foodsaver_id' => $this->user['id'], 'newmail' => $newEmail]);
+        }
+    }
 }

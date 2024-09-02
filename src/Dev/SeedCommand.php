@@ -552,6 +552,8 @@ class SeedCommand extends Command implements CustomCommandInterface
 
         $I->addRegionAdmin(RegionIDs::IT_SUPPORT_GROUP, $userStoreManager2['id']);
         $I->addRegionMember(RegionIDs::IT_SUPPORT_GROUP, $userStoreManager2['id']);
+        $I->addRegionAdmin(RegionIDs::IT_SUPPORT_GROUP, $userorga['id']);
+        $I->addRegionMember(RegionIDs::IT_SUPPORT_GROUP, $userorga['id']);
         $I->addRegionAdmin(RegionIDs::NEWSLETTER_WORK_GROUP, $user2['id']);
         $I->addRegionAdmin(RegionIDs::EDITORIAL_GROUP, $userbot['id']);
         $I->addRegionAdmin(RegionIDs::STORE_CHAIN_GROUP, $userbot['id']);

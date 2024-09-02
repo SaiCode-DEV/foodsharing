@@ -56,13 +56,13 @@
           />
         </b-tab>
         <b-tab
-          v-if="isMe"
+          v-if="isMe || permissions.mayChangeEmailImmediately"
           :title="$i18n('settings.email')"
           :active="subPage === SUB_PAGE.CHANGE_EMAIL"
         >
-          <ChangeEmailForm />
+          <ChangeEmailForm :is-me="isMe" :user-id="userDetails.id" />
           <hr class="my-3">
-          <ChangePasswordForm />
+          <ChangePasswordForm v-if="isMe" />
         </b-tab>
         <b-tab
           v-if="showQuiz"
