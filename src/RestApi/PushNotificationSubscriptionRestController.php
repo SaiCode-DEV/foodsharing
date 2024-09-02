@@ -65,7 +65,7 @@ class PushNotificationSubscriptionRestController extends AbstractFOSRestControll
 
         $subscriptionId = $this->gateway->addSubscription($foodsaverId, $pushSubscription, $type);
 
-        $this->gateway->sendPushNotificationsToFoodsaver($foodsaverId, new TestPushNotification());
+        $this->gateway->sendPushNotificationsToFoodsaver($foodsaverId, new TestPushNotification(), $subscriptionId);
 
         return $this->handleView($this->view(['id' => $subscriptionId], 200));
     }

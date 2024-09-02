@@ -65,12 +65,28 @@ class PushNotificationGateway extends BaseGateway
         $this->pushNotificationHandlers[$handler::getTypeIdentifier()] = $handler;
     }
 
-    public function sendPushNotificationsToFoodsaver(int $foodsaverId, PushNotification $notification): void
-    {
+    /**
+     * Sends a push notification to one or all of a user's subscriptions.
+     *
+     * @param int $foodsaverId the user to which the message will be sent
+     * @param PushNotification $notification content of the message
+     * @param int|null $subscriptionId The subscription to which the message will be sent. If this is null, it will be
+     *                                 sent to all of the user's subscriptions.
+     * @throws \Exception
+     */
+    public function sendPushNotificationsToFoodsaver(
+        int $foodsaverId,
+        PushNotification $notification,
+        int $subscriptionId = null
+    ): void {
+        $criteria = ['foodsaver_id' => $foodsaverId];
+        if ($subscriptionId) {
+            $criteria['id'] = $subscriptionId;
+        }
         $subscriptions = $this->db->fetchAllByCriteria(
             'fs_push_notification_subscription',
             ['id', 'data', 'type'],
-            ['foodsaver_id' => $foodsaverId]
+            $criteria
         );
 
         foreach ($this->pushNotificationHandlers as $handler) {

@@ -20,6 +20,7 @@
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
+- Test push notifications are only sent to the new device #960 @alex.simm
 
 ## Refactoring
 - Added an enum for wall types in the backend #1996 !3573 @alex.simm
