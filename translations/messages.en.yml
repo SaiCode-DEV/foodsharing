@@ -2209,12 +2209,12 @@ store:
   jumperSince: 'Standby since {date}'
   tooltip_managing: You are responsible for this store
   not-in-team: You are not a member of this store’s team yet.
-  tooltip_yellow: Open collections in the next five days
-  tooltip_orange: Vacant pick-ups in the next three days
-  tooltip_red: Vacant pick-ups today or tomorrow
-  short_tooltip_yellow: Open pick-ups in 5 days
-  short_tooltip_orange: Open pick-ups in 3 days
-  short_tooltip_red: Open pick-ups today or tomorrow
+  tooltip_yellow: Open slots during the next five days
+  tooltip_orange: Open slots during the next three days
+  tooltip_red: Open slots today or tomorrow
+  short_tooltip_yellow: Open slots during the next 5 days
+  short_tooltip_orange: Open slots during the next 3 days
+  short_tooltip_red: Open slots today or tomorrow
   springer_conversation_name: Standby {name}
   my_last_pickup: My last pick-up
   average_collection_quantity: Pick-up quantity on average
@@ -3212,7 +3212,7 @@ regionOptions:
   regionPickupLimitDayNumber: 'Indicate the maximum number of CHERRY pick-ups per
     day'
   regionPickupTimespan: Please enter the time span (in days before and after the desired
-    pickup date) which the rule applies
+    pick-up date) in which the rule applies
   regionPickupRuleActiveStoreList: 'List of stores within the dictrict that shall
     be considered for the CHERRY rule. Note: pick-ups in all listed stores will be
     added up and considered.'
