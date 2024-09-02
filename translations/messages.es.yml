@@ -3234,6 +3234,10 @@ settings:
       dirección con un enlace de confirmación.
     not_changed: Tu dirección de correo electrónico no ha sido modificada.
     dashboard_link: Continuar en el cuadro de mando
+    explanation_other_user: Aquí puedes cambiar la dirección de correo electrónico
+      con la que te registraste en este perfil. Tras enviarlo, el usuario recibirá
+      un correo electrónico a la nueva dirección con un enlace que deberá utilizar
+      para confirmarlo.
   saved: 'Los cambios han sido guardados.'
   sleep:
     none: 'Soy activo y totalmente involucrado'
