@@ -3222,13 +3222,13 @@ settings:
     passcheck: ''
     occupied: 'La dirección de correo electrónico no se pudo cambiar porque ya está
       en uso.'
-    input_label_email_confirm: Por favor confirme su nueva dirección de correo electrónico
-      aquí
+    input_label_email_confirm: Por favor, confirma aquí tu nueva dirección de correo
+      electrónico
     explanation_password: Confirme el cambio con su contraseña actual
     wrong_password: La contraseña es incorrecta.
     confirm_email_required: Las direcciones de correo electrónico no coinciden
     input_label_password: Por favor ingrese su contraseña para confirmar
-    input_label_email: Introduzca aquí su nueva dirección de correo electrónico
+    input_label_email: Introduce aquí la nueva dirección de correo electrónico
     explanation: Aquí puede cambiar la dirección de correo electrónico con la que
       registró su cuenta. Después de enviar, recibirá un correo electrónico a la nueva
       dirección con un enlace de confirmación.
@@ -3238,6 +3238,12 @@ settings:
       con la que te registraste en este perfil. Tras enviarlo, el usuario recibirá
       un correo electrónico a la nueva dirección con un enlace que deberá utilizar
       para confirmarlo.
+    sent_other_user: Se ha enviado un correo electrónico a la nueva dirección con
+      el que se puede confirmar la dirección.
+    question_other_user: '¿Debería cambiarse realmente la dirección de correo electrónico
+      por ésta?:'
+    insufficient_permission: No tienes permiso para cambiar la dirección de correo
+      electrónico de este perfil.
   saved: 'Los cambios han sido guardados.'
   sleep:
     none: 'Soy activo y totalmente involucrado'
@@ -4286,6 +4292,7 @@ achievements:
   edit: Personalizar {achievement} para {user}
   notAwarded: Este logro no se ha concedido actualmente a nadie.
   revokeConfirmation: ¿De verdad quieres privar a {name} de este logro?
+  awarded: Conceder
 copied_to_clipboard: Se ha copiado «{text}» al portapapeles.
 theme_switcher:
   title: Elegir diseño
