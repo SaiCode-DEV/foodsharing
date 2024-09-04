@@ -264,7 +264,7 @@ settings:
     enable: Enable push notifications
   title: Settings
   notifications: Notifications
-  email: Change e-mail address
+  email: E-mail address & password
   sleep:
     temp: I am not available for following time period
     none: I am active and fully on board
@@ -341,12 +341,17 @@ settings:
       maybe: Events that I indicated I will / may attend
       accepted: Events that I indicated I will attend
       none: None
+      label: Which appointments of your districts and working groups should be included?
+      invitations: Appointments that I have not yet cancelled
+      all: All appointments
     pickup:
       label: Do you want to have pick-up dates included?
       "true": Yes, show my pick-up slots in the calender
       "false": No, don't show my pick-up slots in the calendar
     history:
       "false": No, do not show past events in the calendar
+      label: Should past appointments from the last 2 weeks be included?
+      "true": Yes, include recent appointments
     protocol: Which protocol is your calendar software using?
   saved: The changes were saved.
   changemail:
@@ -359,17 +364,21 @@ settings:
     sent: Now go to your <strong>new</strong> email inbox to confirm the address.
     passfail: Your password is wrong, you made a mistake?
     question: 'Do you really want us to change your email address to this:'
-    input_label_email_confirm: Please confirm your new e-mail address here
+    input_label_email_confirm: Please confirm the new e-mail address here
     wrong_password: The password is wrong.
     explanation: Here you can change the e-mail address with which you registered
       your account. After submitting, you will receive an e-mail to the new address
       with a confirmation link.
-    input_label_email: Enter your new e-mail address here
+    input_label_email: Enter the new e-mail address here
     explanation_password: Please confirm the change with you current password
     confirm_email_required: The e-mail addresses do not match
     input_label_password: Please enter your password for validation
     not_changed: Your email address has not been changed.
     dashboard_link: Continue to dashboard
+    question_other_user: 'Should the e-mail address really be changed to this one:'
+    insufficient_permission: You do not have permission to change the e-mail address
+      of this profile.
+    sent_other_user: An e-mail with a confirmation link has been sent to the new address.
   chatmail: "If you receive an internal message on the foodsharing homepage,\nbut
     you are not logged in at the moment, we can inform you by mail.\nDo you want that?\n"
   follow:
@@ -399,6 +408,17 @@ settings:
     phone: Your landline number
     current_address: Current address
     no_address: No address entered yet
+  change_password:
+    new_password_confirmation_invalid: The passwords do not match
+    submit: Change password
+    title: You can change your current password here
+    old_password_label: Current password
+    old_password_required: You must enter your current password.
+    new_password_label: New password
+    new_password_required: The password must contain at least 8 characters
+    new_password_must_be_trimmed: The password must not begin or end with spaces
+    new_password_confirmation_label: Confirm new password
+    success: Your password has been successfully changed
 menu:
   manage_regions: Manage regions
   blog: Manage blog content
@@ -647,6 +667,28 @@ profile:
     confirmDelete: Do you really want to delete this report?
     report_b1_1: Did not come to a pickup (B01-2)
     report_other: Other
+    report_b1_2: Took animals to the pick-up without permission (B01-4)
+    report_b4_1: The food was not distributed fairly (B04-2)
+    report_b5: Unauthorized persons have entered the premises (B05)
+    report_b6_1: The pick-up location was not left tidy (B06-2)
+    report_b6_0: No consideration was given to customers and employees (B06-1)
+    report_b7: The company’s waiting time was not observed (B07)
+    report_b12: The other collectors were not allowed to decide independently to whom
+      the food should be passed on (B12)
+    report_b10: Sells rescued food (B10)
+    report_b13: No adequate effort was made to consume / distribute the rescued food
+      (B13)
+    report_b11: No ecological means were used to carry out the collection (B11)
+    report_b3_1: Did not carry out the collection without dispute or discussion (B03-2)
+    report_b8: Has been rude to the company’s employees (B08)
+    report_b9: Inappropriate comments were made about the quantity, type and use of
+      the rescued food (B09)
+    report_b1_3: Took children to the pick-up without permission (B01-4)
+    report_b1_4: The person did not carry their foodsharing ID card with them (B01-5)
+    report_b2: Carried out a pick-up outside the specified dates without clarifying
+      this with those responsible (B02)
+    report_b3_0: Did not enter/leave the company together with the others (B03-1)
+    report_b4_0: Not all edible food was taken (B04-1)
   history:
     wasVerified: Verified
     lostVerification: De-verified
@@ -1025,6 +1067,7 @@ calendar:
       description: 'Foodsharing pick-up at <a href="{url}">{store}</a>'
       freeSlots: '{count} slots are still free'
       otherFoodsavers: 'Registered together with you: '
+      foodsavers: 'Registered Foodsavers: '
     event:
       statusUnspecified: You have not stated whether you would like to participate
         in this event. You can do so on the linked page.
@@ -1034,6 +1077,7 @@ calendar:
     updated: '(last updated: {date})'
   placeholder: Select a date
   copiedUrl: Calendar URL was copied!
+  labelResetButton: Deselect
 pickup:
   signout_confirm: Are you sure?
   copyNumber: Copy phone number
@@ -1205,6 +1249,10 @@ storeview:
   team_info_active: 'No of active foodsharers:'
   team_info_jumper: 'Stand-bys:'
   team_info_distance: 'Airline distance to the store:'
+  public_info:
+    error_message: Text is too long (max. {count} characters)
+    label: Public information about the store
+    available_count: Available number of characters
 day: Day
 time: Time
 select: Please select
@@ -1304,6 +1352,7 @@ terminology:
   phone: phone number
   landline: landline
   mobile_phone: mobile
+  hygiene_training: Hygiene training
 login:
   pwreset:
     bread: Reset password
@@ -2424,6 +2473,11 @@ search:
       has_voted: You have already voted
       not_eligible: You are not eligible to vote
       can_vote: You can still vote
+    time_relation:
+      past: Ended
+      present_since: Started
+      present_until: Ends
+      future: Begins
   maxresults: The number of results displayed is limited. Maybe use a more specific
     search term.
   too_short: Please enter a longer search term.
@@ -3221,6 +3275,10 @@ regionOptions:
     in CHERRY (Consummate, High-level, Exceptional and Really, Really Yielding) stores:'
   regionReportReasonSimple: Simplified report regions
   regionReportReasonOther: Allow "Other" as a report reason
+  regionReportReasonCategoryB: 'Extended reasons for reporting: Rules of conduct -
+    B) Behavior during pickups'
+  noPickupRuleActiveStores: Currently, the CHERRY rule is not activated for any company
+    in the district.
 list:
   filter_for: filter for …
 startpage:
@@ -3788,6 +3846,7 @@ error:
     title: There is a problem with your landline phone number.
     description: Your landline phone number is in an invalid format and can not be
       called.
+    link: Correct your landline number now
 information:
   push:
     title: "You can now receive push notifications from foodsharing."
@@ -4035,6 +4094,8 @@ help:
         later. TODO\n"
     reportReasons:
       title: Report form
+    report:
+      title: Report processing
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -4070,4 +4131,18 @@ achievements:
   validity:
     days: Valid for {validityInDaysAfterAssignment} days after award.
     indefinite: Valid indefinitely after allocation.
+    indefiniteShort: Permanently
+  reviewer: From
+  notice: Remark
+  editDetails: Edit details
+  revoke: Revoke
+  edit: Edit {achievement} for {user}
+  awardedNoReviewer: Automatically
+  awarded: Awarded
+  awardedTo: To
+  validUntil: Valid until
+  award: Award achievement
+  findUser: Find user
+  revokeConfirmation: Are you sure you want to revoke this achievement from {name}?
+  notAwarded: This achievement is currently not awarded to anyone.
 copied_to_clipboard: '"{text}" was copied to the clipboard.'
