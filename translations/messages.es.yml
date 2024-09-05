@@ -1313,6 +1313,7 @@ button:
   close: Cerrar
   start: ¡Vamos!
   confirm: confirmar
+  countdown_clickable: Clicable en {countdown} segundos
 pass:
   nav:
     options: 'Opciones'
