@@ -358,6 +358,7 @@ button:
   delete: "Löschen"
   permadelete: "Unwiderruflich löschen"
   yes_i_am_sure: "Ja, ich bin mir sicher"
+  countdown_clickable: "In {countdown} Sekunden klickbar"
   apply: "Übernehmen"
   cancel: "Abbrechen"
   send: "Senden"

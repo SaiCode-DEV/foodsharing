@@ -1341,6 +1341,7 @@ button:
   cancel: Cancel
   apply: Apply
   yes_i_am_sure: Yes, I am sure
+  countdown_clickable: "Clickable in {seconds} seconds"
   permadelete: Delete permanently
   delete: Delete
   new: 'New'
