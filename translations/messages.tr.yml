@@ -452,6 +452,7 @@ button:
   close: Kapamak
   start: Haydi başlayalım!
   confirm: Onayla
+  countdown_clickable: '{geri sayım} saniye içinde tıklanabilir'
 upload:
   new_image: Yeni fotoğraf yükle
   file: Dosya yükle
