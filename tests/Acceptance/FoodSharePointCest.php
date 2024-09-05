@@ -67,7 +67,7 @@ class FoodSharePointCest
         $I->fillFieldJs('#lat', '1.23');
         $I->fillFieldJs('#lon', '2.48');
         $I->click('Speichern');
-        $I->waitForText('wurde erfolgreich eingetragen');
+        $I->waitForActiveAPICalls();
         $id = $I->grabFromDatabase('fs_fairteiler', 'id', [
             'name' => 'The greatest fairsharepoint',
             'bezirk_id' => $this->testBezirk['id'],

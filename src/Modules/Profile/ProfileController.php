@@ -170,7 +170,6 @@ final class ProfileController extends FoodsharingController
         return [
             'menu' => $this->getProfileMenu($userStores, $userArray, $maySeeStores),
             'statistics' => $this->renderStatistics($userArray),
-            'bananaStatistics' => (object)$this->renderBananaStatistics($userArray),
             'ambassadorRegions' => $userArray['botschafter'] ? $userArray['botschafter'] : [],
             'foodSaverRegions' => $userArray['foodsaver'] ? $userArray['foodsaver'] : [],
             'homeDistrictHistory' => (object)$this->getHomeDistrictHistory($userArray),
@@ -368,26 +367,6 @@ final class ProfileController extends FoodsharingController
         }
 
         return $statistics;
-    }
-
-    private function renderBananaStatistics($userArray): array
-    {
-        if (!$this->session->mayRole(Role::FOODSAVER)) {
-            return [];
-        }
-
-        $recipientId = intval($userArray['id']);
-        $viewerId = $this->session->id();
-
-        $canGiveBanana = (!$userArray['bouched']) && ($userArray['id'] != $viewerId);
-
-        return [
-            'recipientId' => $recipientId,
-            'recipientName' => $userArray['name'],
-            'canGiveBanana' => $canGiveBanana,
-            'canRemoveBanana' => $this->profilePermissions->mayDeleteBanana($recipientId),
-            'bananas' => $userArray['bananen']
-        ];
     }
 
     private function getSleepingHatInformation(array $userArray): array

@@ -99,7 +99,6 @@ final class ProfileGateway extends BaseGateway
                 // has to be caught until we can check whether a to be fetched value does really exist.
             }
         }
-        $this->loadBananas($data, $fsId);
 
         $data['botschafter'] = false;
         $data['foodsaver'] = false;
@@ -216,43 +215,6 @@ final class ProfileGateway extends BaseGateway
         return boolval($this->db->fetchValueByCriteria('fs_foodsaver', 'verified', ['id' => $userId]));
     }
 
-    /**
-     * @param array $data pass by reference with "&" --> otherwise the array will only be changed in scope of the method
-     * @param int $fsId the foodsaver id for which bananas should be loaded
-     */
-    private function loadBananas(array &$data, int $fsId): void
-    {
-        $stm = '
-					SELECT 	fs.id,
-							fs.name,
-							fs.photo,
-							r.`msg`,
-							r.`time`
-					FROM 	`fs_foodsaver` fs,
-							 `fs_rating` r
-					WHERE 	r.rater_id = fs.id
-					AND 	r.foodsaver_id = :fs_id
-					ORDER BY time DESC
-			';
-
-        $bananaList = $this->db->fetchAll($stm, [':fs_id' => $fsId]);
-        foreach ($bananaList as &$banana) {
-            $banana['createdAt'] = str_replace(' ', 'T', (string)$banana['time']);
-        }
-
-        $data['bananen'] = $bananaList;
-        $bananaCountNew = count($bananaList);
-
-        if ($data['stat_bananacount'] != $bananaCountNew) {
-            $this->db->update('fs_foodsaver', ['stat_bananacount' => $bananaCountNew], ['id' => $fsId]);
-            $data['stat_bananacount'] = $bananaCountNew;
-        }
-
-        if (!$data['bananen']) {
-            $data['bananen'] = [];
-        }
-    }
-
     private function getViolationCount(int $fsId): int
     {
         return (int)$this->db->count('fs_report', ['foodsaver_id' => $fsId, 'reporttype' => ReportType::LOCAL->value]);
@@ -270,42 +232,6 @@ final class ProfileGateway extends BaseGateway
 		';
 
         return (int)$this->db->fetchValue($stm, [':fs_id' => $fsId]);
-    }
-
-    public function giveBanana(int $fsId, ?int $sessionId, string $message = ''): int
-    {
-        if ($sessionId === null) {
-            throw new \UnexpectedValueException('Must be logged in to give banana.');
-        }
-
-        $bananaId = $this->db->insert('fs_rating', [
-            'foodsaver_id' => $fsId,
-            'rater_id' => $sessionId,
-            'msg' => $message,
-            'time' => $this->db->now(),
-        ]);
-
-        return $bananaId;
-    }
-
-    /**
-     * Returns whether the user with the raterId has already given a banana with the user with userId.
-     */
-    public function hasGivenBanana(?int $raterId, int $userId): bool
-    {
-        if ($raterId === null) {
-            return false;
-        }
-
-        return $this->db->exists('fs_rating', ['foodsaver_id' => $userId, 'rater_id' => $raterId]);
-    }
-
-    /**
-     * Deletes a banana. Returns whether it existed and was deleted.
-     */
-    public function removeBanana(int $userId, int $raterId): bool
-    {
-        return $this->db->delete('fs_rating', ['foodsaver_id' => $userId, 'rater_id' => $raterId]) > 0;
     }
 
     /**

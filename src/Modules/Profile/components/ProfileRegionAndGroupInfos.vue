@@ -20,7 +20,7 @@
               class="item mb-4 mr-3"
               :class="{
                 'bananaCount': badgeItem.id === 'bananas',
-                'bananaCountAdd': badgeItem.id === 'bananas' && canAddBanana,
+                'bananaCountAdd': badgeItem.id === 'bananas' && bananaData?.mayGiveBanana,
               }"
             >
               <span class="value mb-4">{{ badgeItem.value }}</span>
@@ -103,7 +103,7 @@
       </h4>
       <Markdown :source="aboutMeIntern" />
     </div>
-    <BananaModal :banana-statistics="bananaStatistics" />
+    <BananaModal :recipient="{ id: userId, name }" :metadata="bananaData" />
   </div>
 </template>
 
@@ -112,6 +112,7 @@ import DataUser, { SLEEP_STATUS } from '@/stores/user'
 import BananaModal from '@/components/Modals/Profile/BananaModal.vue'
 import { ROLE } from '@/consts'
 import Markdown from '@/components/Markdown/Markdown.vue'
+import { getBananaMetadata } from '@/api/banana'
 
 export default {
   components: { Markdown, BananaModal },
@@ -119,7 +120,6 @@ export default {
     userId: { type: Number, required: true },
     name: { type: String, required: true },
     statistics: { type: Object, required: true },
-    bananaStatistics: { type: Object, required: true },
     ambassadorRegions: { type: Array, required: true },
     foodSaverRegions: { type: Array, required: true },
     aboutMeIntern: { type: String, required: true },
@@ -139,6 +139,7 @@ export default {
         { id: 'JOINT_WORK_GROUPS', title: this.$i18n('profile.sections.workgroups_member'), value: this.workingGroups },
         { id: 'WORKGROUPS_ADMIN', title: this.$i18n('profile.sections.workgroups_admin'), value: this.workingGroupsAdmins },
       ],
+      bananaData: null,
     }
   },
   computed: {
@@ -150,13 +151,10 @@ export default {
         { id: 'posts', text: this.$i18n('profile.stats.posts'), value: this.statistics.postCount >= 0 ? this.statistics.postCount.toString() : null },
         { id: 'fetched', text: this.$i18n('profile.stats.fetch_count'), value: this.statistics.fetchCount >= 0 ? this.statistics.fetchCount.toString() + ' x' : null },
         { id: 'baskets', text: this.$i18n('profile.stats.baskets'), value: this.statistics.basketCount >= 0 ? this.statistics.basketCount.toString() : null },
-        { id: 'bananas', text: this.$i18n('profile.stats.bananas'), value: this.bananaStatistics.bananas !== undefined ? this.bananaStatistics.bananas.length.toString() : null, link: this.openBananaModal },
+        { id: 'bananas', text: this.$i18n('profile.stats.bananas'), value: this.bananaData?.receivedCount, link: this.openBananaModal },
         { id: 'saved', text: this.$i18n('profile.stats.weight'), value: this.formatFetchWeight >= 0.00 ? this.formatFetchWeight.toString() : null },
         { id: 'buddies', text: this.$i18n('profile.infos.buddies'), value: this.statistics.buddyCount >= 0 ? this.statistics.buddyCount.toString() : null },
       ]
-    },
-    canAddBanana () {
-      return !this.bananaStatistics.bananas.some(banana => banana.id === this.currentUserId) && !this.isMe
     },
     filteredBadges () {
       if (!this.isCurrentUserFoodSaver || (this.isCurrentUserFoodSaver && !this.isSessionUserFoodsaver)) {
@@ -187,6 +185,9 @@ export default {
       const value = parseFloat(this.statistics.fetchWeight)
       return value.toFixed(0)
     },
+  },
+  async mounted () {
+    this.bananaData = await getBananaMetadata(this.userId)
   },
   methods: {
     openBananaModal () {

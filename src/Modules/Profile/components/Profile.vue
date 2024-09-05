@@ -15,7 +15,6 @@
             <ProfileRegionAndGroupInfos
               :user-id="menu.fsId"
               :name="menu.foodSaverName"
-              :banana-statistics="bananaStatistics"
               :statistics="statistics"
               :ambassador-regions="ambassadorRegions"
               :food-saver-regions="foodSaverRegions"
@@ -43,7 +42,6 @@
                 <ProfileRegionAndGroupInfos
                   :user-id="menu.fsId"
                   :name="menu.foodSaverName"
-                  :banana-statistics="bananaStatistics"
                   :statistics="statistics"
                   :ambassador-regions="ambassadorRegions"
                   :food-saver-regions="foodSaverRegions"
@@ -136,7 +134,6 @@ export default {
   props: {
     menu: { type: Object, required: true },
     statistics: { type: Object, required: true },
-    bananaStatistics: { type: Object, required: true },
     ambassadorRegions: { type: Array, required: true },
     foodSaverRegions: { type: Array, required: true },
     aboutMeIntern: { type: String, required: true },
