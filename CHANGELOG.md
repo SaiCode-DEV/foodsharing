@@ -9,6 +9,7 @@
 - Add a hygiene quiz that can be edited by the hygiene working group #2074 !3540 @AntonBallmaier
 - Allow support group admins to change someone else's login email address #2031 !3482 @alex.simm
 - Added wait timer to leaving home district #2090 !3562 @SaiCode
+- Added a new frontend for managing store categories #1263 !3405 @alex.simm
 
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9

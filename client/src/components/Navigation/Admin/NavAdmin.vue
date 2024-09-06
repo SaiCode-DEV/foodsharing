@@ -56,6 +56,14 @@
       >
         <i class="icon-subnav fas fa-file-alt" /> {{ $i18n('system_administration.content') }}
       </a>
+      <a
+        v-if="permissions.editStoreCategories"
+        :href="$url('storeCategories')"
+        role="menuitem"
+        class="dropdown-item dropdown-action"
+      >
+        <i class="icon-subnav fas fa-store" /> {{ $i18n('system_administration.store_categories') }}
+      </a>
     </template>
   </Dropdown>
 </template>

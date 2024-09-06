@@ -3245,6 +3245,7 @@ system_administration:
   email: "Newsletter versenden"
   mailboxes: "Mailboxen verwalten"
   content: "Inhalte bearbeiten"
+  store_categories: "Betriebskategorien bearbeiten"
 
 navigation:
   map: Karte
@@ -3581,3 +3582,16 @@ team_page:
 
 validation:
   phone_number_invalid: "Die Telefonnummer ist ungültig (z. B. +49 fehlt, ist zu kurz, zu lang oder enthält ungültige Zeichen)"
+
+store_categories:
+  columns:
+    id: 'ID'
+    name: 'Name'
+    number_of_stores: 'Betriebe in der Kategorie'
+  title: 'Betriebskategorien'
+  empty: 'Bisher wurde keine Kategorie eingetragen'
+  edit: 'Kategorie umbenennen'
+  delete: 'Kategorie entfernen'
+  confirm_delete: 'Kategorie {name} wirklich löschen?'
+  confirm_delete_hint: 'Es sind noch {count} Betriebe dieser Kategorie zugeordnet. Diese Betriebe werden danach keine Kategorie mehr haben.'
+  new: 'Neue Kategorie eintragen'
