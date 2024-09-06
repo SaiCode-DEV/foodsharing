@@ -972,6 +972,7 @@ system_administration:
   mailboxes: 'Administrar buzones'
   email: 'Enviar boletín'
   content: 'Contenido editado'
+  store_categories: Editar categorías de negocios
 bootstrap-datepicker:
   labelPrevMonth: 'mes pasado'
   labelNextYear: 'próximo año'
@@ -4303,3 +4304,16 @@ theme_switcher:
     system: Sistema
     light: Claro
     dark: Oscuro
+store_categories:
+  edit: Cambiar nombre de categoría
+  columns:
+    id: ID
+    name: Nombre
+    number_of_stores: Explotaciones de la categoría
+  empty: Aún no se ha ingresado ninguna categoría
+  delete: Eliminar categoría
+  confirm_delete: ¿Realmente eliminar la categoría {name}?
+  confirm_delete_hint: Todavía hay {count} empresas asignadas a esta categoría. Estas
+    empresas ya no tendrán categoría.
+  new: Ingresar nueva categoría
+  title: Categorías de la explotación
