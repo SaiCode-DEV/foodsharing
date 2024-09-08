@@ -2,19 +2,19 @@
 
 namespace Foodsharing\Modules\Register;
 
-use Foodsharing\Modules\Core\Control;
+use Foodsharing\Lib\FoodsharingController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class RegisterControl extends Control
+class RegisterController extends FoodsharingController
 {
-    public function __construct(
-        RegisterView $view
-    ) {
-        $this->view = $view;
-
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    public function index()
+    #[Route(path: '/register', name: 'register')]
+    public function index(): Response
     {
         if ($this->session->mayRole()) {
             $this->flashMessageHelper->info($this->translator->trans('register.account-exists'));
@@ -23,7 +23,9 @@ class RegisterControl extends Control
             $this->pageHelper->addBread($this->translator->trans('register.title'));
             $this->pageHelper->addTitle($this->translator->trans('register.title'));
 
-            $this->pageHelper->addContent($this->view->registerForm());
+            $this->pageHelper->addContent($this->prepareVueComponent('register-form', 'RegisterForm'));
         }
+
+        return $this->renderGlobal();
     }
 }

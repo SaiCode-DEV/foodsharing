@@ -10,7 +10,6 @@ use Foodsharing\Modules\Index\IndexControl;
 use Foodsharing\Modules\Logout\LogoutControl;
 use Foodsharing\Modules\Mailbox\MailboxControl;
 use Foodsharing\Modules\Message\MessageControl;
-use Foodsharing\Modules\Register\RegisterControl;
 use Foodsharing\Modules\Relogin\ReloginControl;
 use Foodsharing\Modules\Store\StoreController;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
@@ -60,7 +59,6 @@ class Routing
         'msg' => MessageControl::class,
         'message' => MessageControl::class,
         'poll' => VotingControl::class,
-        'register' => RegisterControl::class,
         'relogin' => ReloginControl::class,
         'fsbetrieb' => StoreUserControl::class,
         'groups' => WorkGroupControl::class,
@@ -88,6 +86,7 @@ class Routing
         'settings',
         'legal',
         'report',
+        'register',
     ];
 
     private const RENAMES = [
