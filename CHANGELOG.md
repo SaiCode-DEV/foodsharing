@@ -24,6 +24,7 @@
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
 - Fix sleeping hat display for future sleep times #1881 !3437 @AntonBallmaier
 - Test push notifications are only sent to the new device #960 @alex.simm
+- Split email in businesscard if is too long !3600 @chriswalg
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
