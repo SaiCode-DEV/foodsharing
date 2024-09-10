@@ -78,7 +78,7 @@ class MapGateway extends BaseGateway
 				fs.id AS fs_id,
 				fs.name AS fs_name,
 				fs.photo AS fs_photo,
-				fs.sleep_status AS fs_sleep_status
+				fs.is_sleeping AS fs_is_sleeping
 			FROM
 				fs_basket b
 			INNER JOIN
@@ -97,7 +97,7 @@ class MapGateway extends BaseGateway
         $bubbleData = BasketBubbleData::createFromArray($basket);
         if ($includeDetails) {
             $bubbleData->createdAt = Carbon::createFromTimestamp($basket['created_at']);
-            $bubbleData->creator = new Profile($basket['fs_id'], $basket['fs_name'], $basket['fs_photo'], $basket['fs_sleep_status']);
+            $bubbleData->creator = new Profile($basket, 'fs_');
         }
 
         return $bubbleData;

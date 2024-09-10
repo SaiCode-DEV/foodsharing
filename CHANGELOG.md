@@ -22,15 +22,18 @@
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
+- Fix sleeping hat display for future sleep times #1881 !3437 @AntonBallmaier
 - Test push notifications are only sent to the new device #960 @alex.simm
 
 ## Refactoring
+- Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
 - Added an enum for wall types in the backend #1996 !3573 @alex.simm
 - Bananas now use the API !3581 @AntonBallmaier
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm
 - Removed redirect after submit in foodsharepoint edit form to fix test !3527 @chriswalg
+- Added a dev docs article on "Logic in the Database" !3437 @AntonBallmaier
 - Port the register controller to Symfony !3594 @alex.simm
 
 # Hotfix 2024-08-29

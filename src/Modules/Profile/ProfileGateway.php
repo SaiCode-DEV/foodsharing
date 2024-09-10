@@ -70,6 +70,7 @@ final class ProfileGateway extends BaseGateway
 					fs.sleep_msg,
 					fs.sleep_from,
 					fs.sleep_until,
+                    fs.is_sleeping,
 					fs.rolle,
 					UNIX_TIMESTAMP(fs.sleep_from) AS sleep_from_ts,
 					UNIX_TIMESTAMP(fs.sleep_until) AS sleep_until_ts,
@@ -403,40 +404,28 @@ final class ProfileGateway extends BaseGateway
      */
     public function getPassHistory(int $fsId): array
     {
-        $stm = '
-			SELECT
-			  pg.foodsaver_id,
-			  UNIX_TIMESTAMP(pg.date) AS date_ts,
-			  pg.bot_id,
-			  fs.nachname,
-			  fs.name,
-			  fs.photo,
-			  fs.sleep_status
-			FROM
-			  fs_pass_gen pg
-			LEFT JOIN
-			  fs_foodsaver fs
-			ON
-			  pg.bot_id = fs.id
-			WHERE
-			  pg.foodsaver_id = :fs_id
-			ORDER BY
-			  pg.date
-			DESC
+        $stm = 'SELECT
+                pg.foodsaver_id,
+                UNIX_TIMESTAMP(pg.date) AS date_ts,
+                pg.bot_id,
+                CONCAT(bot.name, " ", bot.nachname) AS bot_name,
+                bot.photo AS bot_photo,
+                bot.is_sleeping AS bot_is_sleeping
+			FROM fs_pass_gen pg
+			LEFT JOIN fs_foodsaver bot ON pg.bot_id = bot.id
+			WHERE pg.foodsaver_id = :fs_id
+			ORDER BY pg.date
+			DESC 
 			LIMIT 15
 		';
 
         $passHistory = $this->db->fetchAll($stm, [':fs_id' => $fsId]);
 
-        return array_map(function ($entry) {
-            $actor = $entry['bot_id']
-                ? new Profile($entry['bot_id'], $entry['name'] . ' ' . $entry['nachname'], $entry['photo'],
-                    $entry['sleep_status'] ?? 0)
-                : null;
-
-            return PassHistoryEntry::create($entry['foodsaver_id'], Carbon::createFromTimestamp($entry['date_ts']), $actor
-            );
-        }, $passHistory);
+        return array_map(fn ($entry) => PassHistoryEntry::create(
+            $entry['foodsaver_id'],
+            Carbon::createFromTimestamp($entry['date_ts']),
+            new Profile($entry, 'bot_'),
+        ), $passHistory);
     }
 
     /**
@@ -453,7 +442,7 @@ final class ProfileGateway extends BaseGateway
 			  fs.nachname,
 			  fs.name,
 			  fs.photo,
-			  fs.sleep_status,
+			  fs.is_sleeping,
 			  fs.deleted_at
 			FROM
 			  fs_verify_history vh
@@ -470,8 +459,13 @@ final class ProfileGateway extends BaseGateway
         $verificationHistory = $this->db->fetchAll($stm, [':fs_id' => $fsId]);
 
         return array_map(function ($entry) {
-            $actor = $entry['bot_id'] && $entry['deleted_at'] == null
-                ? new Profile($entry['bot_id'], $entry['name'] . ' ' . $entry['nachname'], $entry['photo'], $entry['sleep_status'] ?? 0)
+            $actor = $entry['bot_id'] && $entry['deleted_at'] == null ?
+                new Profile([
+                    'id' => $entry['bot_id'],
+                    'name' => $entry['name'] . ' ' . $entry['nachname'],
+                    'photo' => $entry['photo'],
+                    'is_sleeping' => $entry['is_sleeping'] ?? 0,
+                ])
                 : null;
 
             return VerificationHistoryEntry::create($entry['fs_id'], Carbon::createFromTimestamp($entry['date_ts']),

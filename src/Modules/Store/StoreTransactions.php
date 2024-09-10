@@ -1002,7 +1002,7 @@ class StoreTransactions
     {
         $allowedFields = [
             // personal info
-            'id', 'name', 'photo', 'rolle', 'sleep_status', 'verified',
+            'id', 'name', 'photo', 'rolle', 'is_sleeping', 'verified',
             // team-related info
             'verantwortlich', 'team_active', 'stat_fetchcount', 'add_date',
         ];

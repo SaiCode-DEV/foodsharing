@@ -5,34 +5,21 @@ namespace Foodsharing\Modules\Foodsaver;
 class Profile
 {
     public int $id;
+    public ?string $name = null;
+    public ?string $avatar = null;
+    public ?bool $isSleeping;
 
-    public ?string $name;
-
-    public ?string $avatar;
-
-    public ?int $sleepStatus;
-
-    public function __construct(int $id, ?string $name, ?string $avatar, ?int $sleepStatus)
+    public function __construct(array $data, string $prefix = '')
     {
-        $this->id = $id;
-        $this->name = $name;
-        $this->avatar = $avatar;
-        if (!is_null($sleepStatus)) {
-            $this->sleepStatus = $sleepStatus;
+        $this->id = $data[$prefix . 'id'];
+        if (isset($data[$prefix . 'name'])) {
+            $this->name = $data[$prefix . 'name'];
         }
-    }
-
-    public static function createFromArray(array $data, string $prefix = ''): ?Profile
-    {
-        if (!isset($data[$prefix . 'id'])) {
-            return null;
+        if (isset($data[$prefix . 'photo'])) {
+            $this->avatar = $data[$prefix . 'photo'];
         }
-
-        return new self(
-            $data[$prefix . 'id'],
-            $data[$prefix . 'name'],
-            $data[$prefix . 'photo'],
-            $data[$prefix . 'sleep_status'] ?? null
-        );
+        if (isset($data[$prefix . 'is_sleeping']) && !is_null($data[$prefix . 'is_sleeping'])) {
+            $this->isSleeping = $data[$prefix . 'is_sleeping'];
+        }
     }
 }

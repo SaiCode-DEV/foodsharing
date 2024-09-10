@@ -23,8 +23,8 @@ class AwardedAchievementWithUserDetails
     public static function createFromArray(array $data): AwardedAchievementWithUserDetails
     {
         $awarded = new self();
-        $awarded->user = Profile::createFromArray($data, 'user_');
-        $awarded->reviewer = Profile::createFromArray($data, 'reviewer_');
+        $awarded->user = new Profile($data, 'user_');
+        $awarded->reviewer = new Profile($data, 'reviewer_');
         $awarded->achievementId = $data['achievement_id'];
         $awarded->notice = $data['notice'];
         $awarded->validUntil = isset($data['valid_until']) ? new DateTime($data['valid_until']) : null;

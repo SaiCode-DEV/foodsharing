@@ -21,12 +21,12 @@ class WorkingGroupApplication
      */
     public string $applicationText;
 
-    public static function create(int $groupId, Profile $applicant, string $applicationText): WorkingGroupApplication
+    public static function create(int $groupId, array $data): WorkingGroupApplication
     {
-        $application = new WorkingGroupApplication();
+        $application = new self();
         $application->groupId = $groupId;
-        $application->applicant = $applicant;
-        $application->applicationText = $applicationText;
+        $application->applicant = new Profile($data);
+        $application->applicationText = $data['application'];
 
         return $application;
     }

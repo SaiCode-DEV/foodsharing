@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use DateTime;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status;
-use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 
@@ -23,34 +22,6 @@ class MaintenanceGateway extends BaseGateway
             'fs_basket',
             ['status' => Status::DELETED_OTHER_REASON],
             ['status' => Status::REQUESTED_MESSAGE_READ, 'until <' => $this->db->now()]
-        );
-    }
-
-    /**
-     * Removes sleep status from users if it was active since yesterday and the user is not endless inactive.
-     *
-     * @return int the number of users that were changed
-     */
-    public function wakeupSleepingUsers(): int
-    {
-        return $this->db->update(
-            'fs_foodsaver',
-            ['sleep_status' => SleepStatus::NONE, 'sleep_from' => null, 'sleep_until' => null],
-            ['sleep_until <' => $this->db->curdate(), 'sleep_status !=' => SleepStatus::FULL]
-        );
-    }
-
-    /**
-     * Sets sleep status if the sleep status is now and in the future active.
-     *
-     * @return int the number of users that were changed
-     */
-    public function putUsersToSleep(): int
-    {
-        return $this->db->update(
-            'fs_foodsaver',
-            ['sleep_status' => SleepStatus::TEMP],
-            ['sleep_until >=' => $this->db->curdate()]
         );
     }
 

@@ -147,7 +147,7 @@ class FoodSharePointController extends FoodsharingController
             }
 
             $this->follower = $this->foodSharePointGateway->getFollower($foodSharePointId);
-            $mapper = fn ($foodsaver) => new Profile($foodsaver['id'], $foodsaver['name'], $foodsaver['photo'], $foodsaver['sleep_status']);
+            $mapper = fn ($user) => new Profile($user);
             $managers = array_map($mapper, $this->follower['fsp_manager']);
             $followers = array_map($mapper, $this->follower['follow']);
 

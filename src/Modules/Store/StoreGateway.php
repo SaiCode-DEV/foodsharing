@@ -20,22 +20,18 @@ use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\DTO\MinimalStoreIdentifier;
 use Foodsharing\Modules\Store\DTO\Store;
 use Foodsharing\Modules\Store\DTO\StoreTeamMembership;
-use Foodsharing\Utility\DataHelper;
 
 class StoreGateway extends BaseGateway
 {
     private readonly RegionGateway $regionGateway;
-    private readonly DataHelper $dataHelper;
 
     public function __construct(
         Database $db,
         RegionGateway $regionGateway,
-        DataHelper $dataHelper
     ) {
         parent::__construct($db);
 
         $this->regionGateway = $regionGateway;
-        $this->dataHelper = $dataHelper;
     }
 
     public function addStore(Store $store): int
@@ -573,9 +569,7 @@ class StoreGateway extends BaseGateway
                 t.`stat_add_date`,
                 UNIX_TIMESTAMP(t.`stat_last_fetch`) AS last_fetch,
                 UNIX_TIMESTAMP(t.`stat_add_date`) AS add_date,
-                fs.sleep_status,
-                fs.sleep_from,
-                fs.sleep_until
+                fs.is_sleeping
         FROM    `fs_betrieb_team` t
         INNER JOIN `fs_foodsaver` fs ON fs.id = t.foodsaver_id
         WHERE   `betrieb_id` = :id
@@ -586,10 +580,6 @@ class StoreGateway extends BaseGateway
             ':id' => $storeId,
             ':membershipStatus' => MembershipStatus::MEMBER
         ]);
-
-        foreach ($members as &$member) {
-            $member['sleep_status'] = $this->dataHelper->parseSleepingState($member['sleep_status'], $member['sleep_from'], $member['sleep_until']);
-        }
 
         return $members;
     }
@@ -630,7 +620,8 @@ class StoreGateway extends BaseGateway
 						t.`stat_add_date`,
 						UNIX_TIMESTAMP(t.`stat_last_fetch`) AS last_fetch,
 						UNIX_TIMESTAMP(t.`stat_add_date`) AS add_date,
-						fs.sleep_status
+						fs.sleep_status,
+                        fs.is_sleeping
 
 				FROM 	`fs_betrieb_team` t
 						INNER JOIN `fs_foodsaver` fs

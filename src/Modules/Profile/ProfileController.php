@@ -20,7 +20,6 @@ use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\ReportPermissions;
 use Foodsharing\Permissions\StorePermissions;
-use Foodsharing\Utility\DataHelper;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
@@ -38,7 +37,6 @@ final class ProfileController extends FoodsharingController
         private readonly GroupFunctionGateway $groupFunctionGateway,
         private readonly StoreGateway $storeGateway,
         private readonly GroupGateway $groupGateway,
-        private readonly DataHelper $dataHelper,
         private readonly StorePermissions $storePermissions,
         private readonly AchievementPermissions $achievementPermissions,
         private readonly AchievementGateway $achievementGateway,
@@ -294,7 +292,7 @@ final class ProfileController extends FoodsharingController
             'photo' => $userArray['photo'],
             'fsId' => $userArray['id'],
             'fsIdSession' => $this->session->id(),
-            'isSleeping' => $this->dataHelper->parseSleepingState($userArray['sleep_status'], $userArray['sleep_from'], $userArray['sleep_until']),
+            'isSleeping' => $userArray['is_sleeping'],
             'initialBuddyType' => $userArray['buddy'],
             'mayAdmin' => $mayAdmin,
             'mayHistory' => $maySeeHistory,

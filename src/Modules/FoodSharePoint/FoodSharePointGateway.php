@@ -310,7 +310,7 @@ class FoodSharePointGateway extends BaseGateway
 					fs.`id`,
 					fs.`photo`,
 					ff.type,
-					fs.sleep_status
+					fs.is_sleeping
 
 			FROM 	fs_foodsaver fs,
 					fs_fairteiler_follower ff

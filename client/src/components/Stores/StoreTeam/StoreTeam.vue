@@ -225,7 +225,7 @@ export default {
       if (a.isManager !== b.isManager) return b.isManager - a.isManager
       if (a.isJumper !== b.isJumper) return a.isJumper - b.isJumper
       if (a.isVerified !== b.isVerified) return b.isVerified - a.isVerified
-      if (a.sleepStatus !== b.sleepStatus) return a.sleepStatus - b.sleepStatus
+      if (a.isSleeping !== b.isSleeping) return a.isSleeping - b.isSleeping
       if (a.fetchCount !== b.fetchCount) return b.fetchCount - a.fetchCount
       if (a.lastPickup && b.lastPickup) return b.lastPickup - a.lastPickup
       if (a.joinDate && b.joinDate) return b.joinDate - a.joinDate
@@ -241,7 +241,7 @@ export default {
         isVerified: fs.verified === 1,
         mayManage: fs.rolle >= 2, // Role::STORE_MANAGER
         avatar: fs.photo,
-        sleepStatus: fs.sleep_status,
+        isSleeping: fs.is_sleeping,
         name: fs.name,
         phoneNumber: validPhoneNumber,
         phoneNumberIsValid: !!validPhoneNumber,

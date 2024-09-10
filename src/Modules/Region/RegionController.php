@@ -19,7 +19,6 @@ use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\ReportPermissions;
 use Foodsharing\Permissions\VotingPermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
-use Foodsharing\Utility\DataHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,7 +39,6 @@ final class RegionController extends FoodsharingController
         private readonly VotingPermissions $votingPermissions,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly StoreGateway $storeGateway,
-        private readonly DataHelper $dataHelper,
         private readonly FoodSharePointPermissions $foodSharePointPermissions,
         private readonly ForumGateway $forumGateway,
         private readonly AchievementGateway $achievementGateway,
@@ -132,12 +130,7 @@ final class RegionController extends FoodsharingController
     {
         $regionId = (int)$region['id'];
 
-        $avatarListEntry = fn ($fs) => new Profile(
-            $fs['id'],
-            $fs['name'],
-            $fs['photo'],
-            (int)$this->dataHelper->parseSleepingState($fs['sleep_status'], $fs['sleep_from'], $fs['sleep_until'])
-        );
+        $avatarListEntry = fn ($fs) => new Profile($fs);
 
         $isWorkGroup = UnitType::isGroup($region['type']);
 

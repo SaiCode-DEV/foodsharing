@@ -4,7 +4,6 @@ namespace Foodsharing\Modules\Application;
 
 use Foodsharing\Modules\Application\DTO\WorkingGroupApplication;
 use Foodsharing\Modules\Core\BaseGateway;
-use Foodsharing\Modules\Foodsaver\Profile;
 
 class ApplicationGateway extends BaseGateway
 {
@@ -20,28 +19,19 @@ class ApplicationGateway extends BaseGateway
         $stm = '
 			SELECT 	fs.`id`,
 					fs.`name`,
-					fs.`sleep_status`,
+					fs.`is_sleeping`,
 					fs.`photo`,
-					fb.application,
-					fb.active
-
+					fb.application
 			FROM 	`fs_foodsaver_has_bezirk` fb,
 					`fs_foodsaver` fs
-
 			WHERE 	fb.foodsaver_id = fs.id
 			AND 	fb.bezirk_id =  :region_id
 			AND     fb.active = :not_active
-
 			AND 	fb.foodsaver_id = :foodsaver_id
 		';
         $data = $this->db->fetch($stm, [':region_id' => $regionId, ':foodsaver_id' => $fsId, ':not_active' => self::STATUS_NOT_ACTIVE]);
-        if (empty($data)) {
-            return null;
-        }
 
-        $applicant = new Profile($fsId, $data['name'], $data['photo'], $data['sleep_status']);
-
-        return WorkingGroupApplication::create($regionId, $applicant, $data['application']);
+        return empty($data) ? null : WorkingGroupApplication::create($regionId, $data);
     }
 
     /**
