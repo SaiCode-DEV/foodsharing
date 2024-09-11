@@ -3823,6 +3823,7 @@ system_administration:
   reports: 'Raporları görüntüle'
   regions: 'Bölgeleri yönet'
   content: 'İçeriği düzenle'
+  store_categories: İşletme kategorilerini düzenleyin
 teamjs:
   wrongmail: 'E-posta adresinizle ilgili bir sorun var.'
   entermail: 'Size cevap verebilmemiz için lütfen geçerli bir e-posta adresi girin!'
@@ -4061,3 +4062,16 @@ theme_switcher:
     dark: Karanlık
   choose_button: Okey
   content: Lütfen bir tasarım seçin
+store_categories:
+  columns:
+    id: ID
+    name: İsim
+    number_of_stores: Kategorideki İşletmeler
+  title: İşletme kategorileri
+  empty: Henüz kategori girilmedi
+  edit: Kategorinin adını değiştir
+  delete: Kategoriyi kaldır
+  confirm_delete: '{name} kategorisi gerçekten silinsin mi?'
+  confirm_delete_hint: Hala bu kategoriye atanmış {count} şirket var. Bu işletmenin
+    artık bir kategorisi olmayacak.
+  new: Yeni kategori girin
