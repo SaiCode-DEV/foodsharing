@@ -1871,7 +1871,22 @@ map:
   title: "Karte"
   donates: "Betrieb spendet" #MapView
   filters:
-    my_stores: "Nur meine Betriebe"
+    stores:
+      status:
+        label: "Status"
+        all: "Alle"
+        cooperating: "Kooperiert"
+        not-cooperating: "Kooperiert nicht"
+      help:
+        label: "Helfer:innen"
+        all: "Egal"
+        open: "Gesucht"
+        searching: "Dringend gesucht"
+      scope:
+        label: "Zugehörigkeit"
+        all: "Alle"
+        region: "Nur meine Bezirke"
+        member: "Nur meine Betriebe"
   foodsharepoint:
     go: "Zum Fairteiler"
 

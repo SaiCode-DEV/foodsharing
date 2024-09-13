@@ -4,34 +4,37 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
-use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
-use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Map\DTO\BasketBubbleData;
+use Foodsharing\Modules\Map\DTO\MapMarkerType;
 use Foodsharing\Modules\Map\DTO\StoreMapBubbleData;
+use Foodsharing\Modules\Map\DTO\StoreMarkerHelpType;
+use Foodsharing\Modules\Map\DTO\StoreMarkerScopeType;
+use Foodsharing\Modules\Map\DTO\StoreMarkerStatusType;
 use Foodsharing\Modules\Map\MapGateway;
 use Foodsharing\Modules\Map\MapTransactions;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\RestApi\Models\Map\FoodSharePointBubbleData;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use ValueError;
 
-class MapRestController extends AbstractFOSRestController
+class MapRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
+        protected Session $session,
         private readonly MapGateway $mapGateway,
         private readonly RegionGateway $regionGateway,
         private readonly StoreGateway $storeGateway,
         private readonly FoodSharePointGateway $foodSharePointGateway,
         private readonly MapTransactions $mapTransactions,
-        private readonly Session $session
     ) {
     }
 
@@ -39,67 +42,38 @@ class MapRestController extends AbstractFOSRestController
      * Returns the coordinates of all baskets.
      */
     #[OA\Tag('map')]
-    #[Rest\Get(path: 'map/markers')]
-    #[Rest\QueryParam(name: 'types')]
-    #[Rest\QueryParam(name: 'status')]
+    #[Rest\Get(path: 'map/markers/{markerType}', requirements: ['markerType' => '[a-z]+'])]
+    #[Rest\QueryParam(name: 'status', default: 'all')]
+    #[Rest\QueryParam(name: 'help', default: 'all')]
+    #[Rest\QueryParam(name: 'scope', default: 'all')]
     #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
-    public function getMapMarkers(ParamFetcher $paramFetcher): Response
+    public function getMapMarkers(string $markerType, ParamFetcher $paramFetcher): Response
     {
-        $types = (array)$paramFetcher->get('types');
-        $markers = [];
-        if (in_array('baskets', $types)) {
-            $markers['baskets'] = $this->mapGateway->getBasketMarkers();
+        try {
+            $markerType = MapMarkerType::from($markerType);
+        } catch (ValueError $error) {
+            throw new NotFoundHttpException();
         }
-        if (in_array('foodsharepoints', $types)) {
-            $markers['foodsharepoints'] = $this->mapGateway->getFoodSharePointMarkers();
-        }
-        if (in_array('communities', $types)) {
-            $markers['communities'] = $this->mapGateway->getCommunityMarkers();
-        }
-        if (in_array('stores', $types)) {
-            if (!$this->session->id()) {
-                throw new UnauthorizedHttpException('', 'Not logged in.');
+        if ($markerType === MapMarkerType::BASKETS) {
+            return $this->respondOK($this->mapGateway->getBasketMarkers());
+        } elseif ($markerType === MapMarkerType::FOOD_SHARE_POINTS) {
+            return $this->respondOK($this->mapGateway->getFoodSharePointMarkers());
+        } elseif ($markerType === MapMarkerType::COMMUNITIES) {
+            return $this->respondOK($this->mapGateway->getCommunityMarkers());
+        } elseif ($markerType === MapMarkerType::STORES) {
+            $this->assertLoggedIn();
+
+            try {
+                $status = StoreMarkerStatusType::from($paramFetcher->get('status'));
+                $help = StoreMarkerHelpType::from($paramFetcher->get('help'));
+                $scope = StoreMarkerScopeType::from($paramFetcher->get('scope'));
+            } catch (ValueError $error) {
+                throw new BadRequestHttpException();
             }
 
-            $excludedStoreTypes = [];
-            $teamSearchStatus = [];
-            $status = $paramFetcher->get('status');
-            $userId = null;
-
-            $excludedStoreTypes = array_merge($excludedStoreTypes, [
-                CooperationStatus::PERMANENTLY_CLOSED,
-            ]);
-
-            if (is_array($status) && !empty($status)) {
-                foreach ($status as $s) {
-                    switch ($s) {
-                        case 'needhelpinstant':
-                            $teamSearchStatus[] = TeamSearchStatus::OPEN_SEARCHING;
-                            break;
-                        case 'needhelp':
-                            $teamSearchStatus[] = TeamSearchStatus::OPEN;
-                            break;
-                        case 'nkoorp':
-                            $excludedStoreTypes = array_merge($excludedStoreTypes, [
-                                CooperationStatus::COOPERATION_ESTABLISHED,
-                            ]);
-                            break;
-                        case 'mine':
-                            $userId = $this->session->id();
-                            break;
-                    }
-                }
-            }
-
-            $markers['stores'] = $this->storeGateway->getStoreMarkers(
-                $excludedStoreTypes,
-                $teamSearchStatus,
-                $userId
-            );
+            return $this->respondOK($this->storeGateway->getStoreMarkers($this->session->id(), $status, $help, $scope));
         }
-
-        return $this->handleView($this->view($markers, Response::HTTP_OK));
     }
 
     /**
