@@ -3978,6 +3978,22 @@ map:
   title: 'Mapa'
   filters:
     my_stores: Solo mis empresas
+    stores:
+      status:
+        label: Estado
+        all: Todos
+        not-cooperating: No coopera
+        cooperating: Cooperado
+      help:
+        label: Colaboradores
+        all: No importa
+        open: Buscado
+        searching: Se busca urgentemente
+      scope:
+        label: Afiliación
+        all: todos
+        region: Solo en mis distritos
+        member: Únicamente mis empresas
   foodsharepoint:
     go: Punto para compartir alimentos
 addreaction: 'Añadir una reacción'
