@@ -2969,6 +2969,21 @@ map:
   donates: İşletme bağışlıyor
   filters:
     my_stores: Yalnızca benim işletmelerim
+    stores:
+      status:
+        label: Durum
+        all: Hepsi
+        cooperating: işbirliği içinde
+        not-cooperating: İşbirliği yapmıyor
+      help:
+        label: Yardımcılar
+        all: Farketmez
+        open: Aranıyor
+        searching: Acilen aranıyor
+      scope:
+        all: Hepsi
+        region: Sadece benim Bölgelerim
+        member: Sadece benim İşletmelerim
   foodsharepoint:
     go: Dağıtım Noktası
 buddy:
