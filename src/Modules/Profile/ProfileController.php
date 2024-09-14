@@ -73,7 +73,7 @@ final class ProfileController extends FoodsharingController
         }
 
         $maySeeStores = $this->profilePermissions->maySeeStores($userId);
-        $userStores = $maySeeStores ? $this->profileGateway->listStoresOfFoodsaver($userId) : [];
+        $userStores = $this->profileGateway->listStoresOfFoodsaver($userId);
         $userArray = $this->createUserArray($userId);
         $this->pageHelper->addTitle($userArray['name']);
         $params = $this->convertDataToObject($userStores, $userArray, $maySeeStores);
@@ -181,7 +181,7 @@ final class ProfileController extends FoodsharingController
             'pickupsSection' => $this->getPickupsSection($userArray['id']),
             'maySeeUserNotes' => $this->profilePermissions->maySeeUserNotes($userArray['id']),
             'noteCount' => $userArray['note_count'] ?? 0,
-            'stores' => $userStores,
+            'stores' => $maySeeStores ? $userStores : [],
             'awardedAchievements' => $this->getAchievementsData($userArray['id']),
         ];
     }

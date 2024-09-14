@@ -26,6 +26,7 @@
 - Fix sleeping hat display for future sleep times #1881 !3437 @AntonBallmaier
 - Test push notifications are only sent to the new device #960 @alex.simm
 - Split email in businesscard if is too long !3600 @chriswalg
+- foodsavers can't report a store (empty list) #2107 !3605 @McGoldi
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
