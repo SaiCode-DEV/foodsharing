@@ -1,6 +1,7 @@
 # Release "N" (Unreleased)
 
 ## Features
+- Add feedback on login form for invalid / missing email address #2061 @tq-bit
 - Add API endpoint for creating blog posts !3455 @alex.simm
 - Create option for multiple themes with dark mode as a start #2054 !3500 @SaiCode
 - Achievements can be awarded, edited and revoked. They get displayed on the profile !3429 @AntonBallmaier
