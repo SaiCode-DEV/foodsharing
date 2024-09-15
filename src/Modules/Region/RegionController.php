@@ -35,7 +35,6 @@ final class RegionController extends FoodsharingController
         private readonly ForumPermissions $forumPermissions,
         private readonly RegionPermissions $regionPermissions,
         private readonly ForumTransactions $forumTransactions,
-        private readonly RegionGateway $gateway,
         private readonly VotingPermissions $votingPermissions,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly StoreGateway $storeGateway,
@@ -169,7 +168,7 @@ final class RegionController extends FoodsharingController
 
         $region_id = $request->query->getInt('bid', $this->currentUserUnits->getCurrentRegionId() ?? 0);
 
-        $region = $this->gateway->getRegionDetails($region_id);
+        $region = $this->regionGateway->getRegionDetails($region_id);
         if (!empty($region) && $this->currentUserUnits->mayBezirk($region_id)) {
             $big = [UnitType::BIG_CITY, UnitType::FEDERAL_STATE, UnitType::COUNTRY];
             $region['moderated'] = $region['moderated'] || in_array($region['type'], $big);
@@ -181,6 +180,11 @@ final class RegionController extends FoodsharingController
         }
 
         $this->pageHelper->addTitle($region['name']);
+
+        if ($region['parent_id'] !== RegionIDs::ROOT) {
+            $parent = $this->regionGateway->getRegionName($region['parent_id']);
+            $this->pageHelper->addBread($parent, '/region?bid=' . $region['parent_id']);
+        }
         $this->pageHelper->addBread($region['name'], '/region?bid=' . $region_id);
 
         switch ($request->query->get('sub')) {
@@ -365,10 +369,10 @@ final class RegionController extends FoodsharingController
         $pageData['pickupData']['yearly'] = 0;
 
         if ($region['type'] !== UnitType::COUNTRY || $this->regionPermissions->mayAccessStatisticCountry()) {
-            $pageData['pickupData']['daily'] = $this->gateway->listRegionPickupsByDate((int)$region['id'], '%Y-%m-%d');
-            $pageData['pickupData']['weekly'] = $this->gateway->listRegionPickupsByDate((int)$region['id'], '%Y/%v');
-            $pageData['pickupData']['monthly'] = $this->gateway->listRegionPickupsByDate((int)$region['id'], '%Y-%m');
-            $pageData['pickupData']['yearly'] = $this->gateway->listRegionPickupsByDate((int)$region['id'], '%Y');
+            $pageData['pickupData']['daily'] = $this->regionGateway->listRegionPickupsByDate((int)$region['id'], '%Y-%m-%d');
+            $pageData['pickupData']['weekly'] = $this->regionGateway->listRegionPickupsByDate((int)$region['id'], '%Y/%v');
+            $pageData['pickupData']['monthly'] = $this->regionGateway->listRegionPickupsByDate((int)$region['id'], '%Y-%m');
+            $pageData['pickupData']['yearly'] = $this->regionGateway->listRegionPickupsByDate((int)$region['id'], '%Y');
         }
         $params = $this->convertDataToObject($region, $sub, $pageData);
 
@@ -396,7 +400,7 @@ final class RegionController extends FoodsharingController
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.options'), '/region?bid=' . $region['id'] . '&sub=options');
         $this->pageHelper->addTitle($this->translator->trans('terminology.options'));
-        $regionOptions = $this->gateway->getAllRegionOptions($region['id']);
+        $regionOptions = $this->regionGateway->getAllRegionOptions($region['id']);
         $pageData['maySetRegionOptionsReportButtons'] = boolval($this->regionPermissions->maySetRegionOptionsReportButtons($region['id']));
         $pageData['maySetRegionOptionsRegionPickupRule'] = boolval($this->regionPermissions->maySetRegionOptionsRegionPickupRule($region['id']));
         $pageData['isReportButtonEnabled'] = boolval(array_key_exists(RegionOptionType::ENABLE_REPORT_BUTTON, $regionOptions) ? $regionOptions[RegionOptionType::ENABLE_REPORT_BUTTON] : 0);
@@ -421,7 +425,7 @@ final class RegionController extends FoodsharingController
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.pin'), '/region?bid=' . $region['id'] . '&sub=pin');
         $this->pageHelper->addTitle($this->translator->trans('terminology.pin'));
-        $result = $this->gateway->getRegionPin($region['id']);
+        $result = $this->regionGateway->getRegionPin($region['id']);
         $pageData['lat'] = $result['lat'] ?? MapConstants::CENTER_GERMANY_LAT;
         $pageData['lon'] = $result['lon'] ?? MapConstants::CENTER_GERMANY_LON;
         $pageData['desc'] = $result['desc'] ?? null;

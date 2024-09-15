@@ -21,6 +21,7 @@
 - Changing the geo link to map in storelist for desktop #1993 !3550 @Nika-Mel @McGoldi
 - Added an attachment label to the mailbox #1988 !3583 @alex.simm
 - Added markdown for publicInfo in store and map bubble !3389 @chriswalg
+- Add more breadcrumbs where needed !3606 #1987 @McGoldi
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
