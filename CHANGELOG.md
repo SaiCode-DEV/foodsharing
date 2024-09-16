@@ -40,6 +40,7 @@
 - Removed redirect after submit in foodsharepoint edit form to fix test !3527 @chriswalg
 - Added a dev docs article on "Logic in the Database" !3437 @AntonBallmaier
 - Port the register controller to Symfony !3594 @alex.simm
+- New API for submitting food share points !3372 @alex.simm
 
 # Hotfix 2024-08-29
 

@@ -12,6 +12,7 @@ use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 
 class FoodSharePointGateway extends BaseGateway
 {
@@ -409,16 +410,22 @@ class FoodSharePointGateway extends BaseGateway
         return [];
     }
 
-    public function addFoodSharePoint(int $foodsaverId, array $data): int
+    public function addFoodSharePoint(int $foodsaverId, FoodSharePointForCreation $data, bool $isProposal): int
     {
-        $db_data = array_merge(
-            $data,
-            [
-                'add_date' => date('Y-m-d H:i:s'),
-                'add_foodsaver' => $foodsaverId,
-            ]
-        );
-        $food_share_point_id = $this->db->insert('fs_fairteiler', $db_data);
+        $food_share_point_id = $this->db->insert('fs_fairteiler', [
+            'bezirk_id' => $data->regionId,
+            'name' => $data->name,
+            'picture' => $data->picture,
+            'desc' => $data->description,
+            'anschrift' => strip_tags($data->address),
+            'plz' => preg_replace('[^0-9]', '', $data->postalCode),
+            'ort' => strip_tags($data->city),
+            'lon' => $data->location->lon,
+            'lat' => $data->location->lat,
+            'status' => $isProposal ? 0 : 1,
+            'add_date' => date('Y-m-d H:i:s'),
+            'add_foodsaver' => $foodsaverId,
+        ]);
         if ($food_share_point_id) {
             $this->db->insert(
                 'fs_fairteiler_follower',
