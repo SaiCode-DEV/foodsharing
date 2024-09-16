@@ -41,7 +41,7 @@ class WorkGroupControl extends Control
             $this->routeHelper->goLoginAndExit();
         }
 
-        $region_id = $request->query->getInt('bid', $this->currentUserUnits->getCurrentRegionId() ?? 0);
+        $region_id = $request->query->getInt('p', $this->currentUserUnits->getCurrentRegionId() ?? 0);
         $parent = $this->regionGateway->getRegionName($region_id);
 
         $this->pageHelper->addBread($parent, '/region?bid=' . $region_id);
