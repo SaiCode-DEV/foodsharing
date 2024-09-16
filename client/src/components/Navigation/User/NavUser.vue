@@ -71,7 +71,7 @@
 </template>
 <script>
 // Stores
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import { useThemeStore } from '@/stores/theme'
 // Components
 import Avatar from '@/components/Avatar/Avatar.vue'
@@ -80,6 +80,7 @@ import Dropdown from '../_NavItems/NavDropdown'
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 import { clearCaches } from '@/helper/cache'
 
+const userStore = useUserStore()
 const themeStore = useThemeStore()
 
 export default {
@@ -90,24 +91,25 @@ export default {
   mixins: [RouteCheckMixin],
   setup () {
     return {
+      userStore,
       themeStore,
     }
   },
   computed: {
     getAvatar () {
-      return DataUser.getters.getAvatar()
+      return userStore.getAvatar
     },
     getUserFirstName () {
-      return DataUser.getters.getUserFirstName()
+      return userStore.getUserFirstName
     },
     getUserId () {
-      return DataUser.getters.getUserId()
+      return userStore.getUserId
     },
     getMailUnreadCount () {
-      return DataUser.getters.getMailUnreadCount()
+      return userStore.getMailUnreadCount
     },
     hasMailBox () {
-      return DataUser.getters.hasMailBox()
+      return userStore.hasMailBox
     },
   },
   methods: {

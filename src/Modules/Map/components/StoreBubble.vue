@@ -110,7 +110,7 @@ import { pulseError, pulseSuccess } from '@/script'
 import StoreStatusIcon from '../../Store/components/StoreStatusIcon'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import { declineStoreRequest, requestStoreTeamMembership } from '@/api/stores'
-import UserData from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import MapBubbleMixin from './MapBubbleMixin'
 import MapPopup from './MapPopup.vue'
@@ -119,15 +119,24 @@ import Markdown from '@/components/Markdown/Markdown.vue'
 const maxGoodDistanceInKm = 2
 const minBadDistanceInKm = 10
 
+const userStore = useUserStore()
+
 export default {
   components: { MapPopup, Markdown, StoreStatusIcon, Avatar },
   mixins: [ConfirmationDialogue, MapBubbleMixin],
-  data: () => ({
-    name: '',
-    description: '',
-    store: null,
-    storeId: null,
-  }),
+  setup () {
+    return {
+      userStore,
+    }
+  },
+  data () {
+    return {
+      name: '',
+      description: '',
+      store: null,
+      storeId: null,
+    }
+  },
   computed: {
     cooperationStartDate () {
       return this.store !== null && this.store.cooperationStart
@@ -153,13 +162,13 @@ export default {
         : null
     },
     userId () {
-      return UserData.getters.getUserId()
+      return this.userStore.getUserId
     },
     userLocation () {
-      return UserData.getters.getLocations()
+      return this.userStore.getUserDetails.coordinates
     },
     userAndStoreHaveLocation () {
-      return UserData.getters.hasLocations() && this.store?.location?.lat && this.store?.location?.lon
+      return this.userStore.hasLocations && this.store?.location?.lat && this.store?.location?.lon
     },
     distanceInKm () {
       if (!this.userAndStoreHaveLocation) return 0
@@ -168,8 +177,8 @@ export default {
       const dLat = toRadians(this.store.location.lat - this.userLocation.lat)
       const dLon = toRadians(this.store.location.lon - this.userLocation.lon)
       const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(toRadians(this.userLocation.lat)) * Math.cos(toRadians(this.store.location.lat)) *
-                Math.sin(dLon / 2) * Math.sin(dLon / 2)
+        Math.cos(toRadians(this.userLocation.lat)) * Math.cos(toRadians(this.store.location.lat)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2)
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
       return R * c // Distance in kilometers
     },
@@ -205,7 +214,7 @@ export default {
           okTitle: this.$i18n('store.request.confirm-no-location-ok'),
           okVariant: 'outline-danger',
         }
-        if (!UserData.getters.hasLocations()) {
+        if (!userStore.hasLocations) {
           if (!await this.confirmationDialogue('store.request.confirm-no-location', dialogueOptions)) return
         }
         dialogueOptions = {

@@ -5,7 +5,7 @@
     </div>
 
     <div
-      v-if="isLoggedIn && bubbleData.createdAt"
+      v-if="userStore.isLoggedIn && bubbleData.createdAt"
       class="mb-3"
     >
       <div
@@ -26,7 +26,7 @@
     </div>
 
     <template #popup-header>
-      <h3 v-if="isLoggedIn && bubbleData?.creator?.name">
+      <h3 v-if="userStore.isLoggedIn && bubbleData?.creator?.name">
         {{ $i18n('basket.by', { name: bubbleData.creator.name }) }}
       </h3>
       <h3 v-else>
@@ -46,19 +46,25 @@
 
 <script>
 import { getBasketBubbleContent } from '@/api/map'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import MapBubbleMixin from './MapBubbleMixin'
+
+const userStore = useUserStore()
 
 export default {
   mixins: [MapBubbleMixin],
-  data: () => ({
-    bubbleData: '',
-    basketId: null,
-  }),
+  setup () {
+    return {
+      userStore,
+    }
+  },
+  data () {
+    return {
+      bubbleData: '',
+      basketId: null,
+    }
+  },
   computed: {
-    isLoggedIn () {
-      return DataUser.getters.isLoggedIn()
-    },
     photoPath () {
       return this.bubbleData.photo.startsWith('/api')
         ? this.bubbleData.photo + '?w=300&h=300'

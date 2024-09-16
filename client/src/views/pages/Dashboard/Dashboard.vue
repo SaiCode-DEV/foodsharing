@@ -112,7 +112,7 @@
 import DataStores from '@/stores/stores.js'
 import DataPickups from '@/stores/pickups.js'
 import DataBaskets from '@/stores/baskets.js'
-import DataUser, { mutations } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user'
 import DataEvents from '@/stores/events.js'
 import DataBroadcast from '@/stores/broadcast.js'
 // Components
@@ -137,6 +137,8 @@ import PollContainer from '@/components/Container/poll/PollContainer.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import StateTogglerMixin from '@/mixins/StateTogglerMixin'
 import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
+
+const userStore = useUserStore()
 
 export default {
   components: {
@@ -164,6 +166,11 @@ export default {
     quizConfirmation: { type: Number, default: () => null },
     events: { type: Object, default: () => ({ accepted: null, invites: null }) },
   },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   data () {
     return {
       stateHasAutoSave: true,
@@ -180,9 +187,8 @@ export default {
     }
   },
   computed: {
-    user: () => DataUser.getters.getUser(),
-    isLoggedIn: () => DataUser.getters.isLoggedIn(),
-    isFoodsaver: () => DataUser.getters.isFoodsaver(),
+    user: () => useUserStore().getUser,
+    isFoodsaver: () => useUserStore().isFoodsaver,
     hasStores: () => DataStores.getters.hasStores(),
     hasPickups: () => DataPickups.getters.getRegistered(),
     isStoresVisible () {
@@ -191,7 +197,6 @@ export default {
     hasRightColumn () {
       return (this.hasPickups && this.visible.pickups) || (this.hasStores && this.isStoresVisible)
     },
-    getLocations: () => DataUser.getters.getLocations(),
     broadcast: () => DataBroadcast.getters.getBroadcastMessage(),
   },
   watch: {
@@ -201,22 +206,18 @@ export default {
       },
       deep: true,
     },
-    isFoodsaver: {
-      async handler (newVal) {
-        if (newVal) {
+    userStore: {
+      async handler (newVal, oldVal) {
+        if (newVal.isLoggedIn !== oldVal?.isLoggedIn) {
           await DataPickups.mutations.fetchRegistered()
           // TODO: NO APIS :(
           DataEvents.mutations.setAccepted(this.events.accepted)
           DataEvents.mutations.setInvited(this.events.invites)
         }
-      },
-      immediate: true,
-      deep: true,
-    },
-    getLocations: {
-      async handler (coords) {
-        if (coords.lat && coords.lon) {
-          await DataBaskets.mutations.fetchNearby(coords)
+        if (newVal.getLocations !== oldVal?.getLocations) {
+          if (newVal.getLocations.lat && newVal.getLocations.lon) {
+            await DataBaskets.mutations.fetchNearby(newVal.getLocations)
+          }
         }
       },
       immediate: true,
@@ -226,7 +227,7 @@ export default {
   async mounted () {
     this.visible = JSON.parse(localStorage.getItem('dashboard.visible')) || this.visible
     await DataBroadcast.mutations.fetch()
-    await mutations.fetchDetails()
+    await userStore.fetchDetails()
   },
   methods: {
     resetHiding () {

@@ -81,13 +81,20 @@ import Avatar from '@/components/Avatar/Avatar.vue'
 import Time from '@/components/Time.vue'
 import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin.js'
 import OverflowMenu from '@/components/OverflowMenu.vue'
-import { getters } from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 export default {
   components: { Avatar, Time, OverflowMenu },
   mixins: [CopyToClipboardMixin],
   props: {
     reports: { type: Array, default: null },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     return {
@@ -105,7 +112,7 @@ export default {
   },
   computed: {
     mayDelete () {
-      return getters.isOrga()
+      return userStore.isOrga
     },
   },
   methods: {

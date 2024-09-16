@@ -146,7 +146,7 @@ import StoreInfos from '@/components/Stores/StoreInfos.vue'
 import PickupHistory from '@/components/Stores/PickupHistory.vue'
 import StoreWall from '@/components/Stores/StoreWall.vue'
 import PickupList from '@/components/Stores/PickupList.vue'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import StoreData from '@/stores/stores'
 import { pulseInfo } from '@/script'
 import StoreLog from '@/components/Stores/StoreLog.vue'
@@ -172,6 +172,12 @@ export default {
     storeManagers: { type: Array, default: () => [] },
     showTeamRequests: { type: Boolean, default: false },
   },
+  setup () {
+    const userStore = useUserStore()
+    return {
+      userStore,
+    }
+  },
   data () {
     return {
       isUserInStore: false,
@@ -180,10 +186,10 @@ export default {
   },
   computed: {
     isVerified () {
-      return DataUser.getters.isVerified()
+      return this.userStore.isVerified
     },
     userId () {
-      return DataUser.getters.getUserId()
+      return this.userStore.getUserId
     },
     storeMember () {
       return StoreData.getters.getStoreMember()
@@ -206,7 +212,7 @@ export default {
   },
   async mounted () {
     await StoreData.mutations.loadPermissions(this.storeId)
-    await DataUser.mutations.fetchDetails()
+    await this.userStore.fetchDetails()
     await StoreData.mutations.loadStoreInformation(this.storeId)
     await StoreData.mutations.loadGetRegionOptions(this.storeInformation.region.id)
     await StoreData.mutations.loadStoreMember(this.storeId)

@@ -35,10 +35,12 @@
   </div>
 </template>
 <script>
-import { getters } from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import Markdown from '@/components/Markdown/Markdown.vue'
+
+const userStore = useUserStore()
 
 export default {
   components: { Avatar, Markdown },
@@ -46,25 +48,30 @@ export default {
   props: {
     title: { type: String, default: 'dashboard.my.regions' },
   },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   computed: {
     user () {
-      return getters.getUser()
+      return userStore.getUser
     },
     isSleeping () {
-      return getters.isSleeping()
+      return userStore.isSleeping
     },
     stats () {
-      return getters.getStats()
+      return userStore.getStats
     },
     getHomeRegionName () {
-      const regionHome = getters.getHomeRegionName()
+      const regionHome = userStore.getHomeRegionName
       if (regionHome?.length > 0) {
         return regionHome
       }
       return null
     },
     isFoodsaver () {
-      return getters.isFoodsaver()
+      return userStore.isFoodsaver
     },
   },
 }

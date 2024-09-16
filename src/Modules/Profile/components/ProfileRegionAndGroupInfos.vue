@@ -108,11 +108,13 @@
 </template>
 
 <script>
-import DataUser, { SLEEP_STATUS } from '@/stores/user'
+import { useUserStore, SLEEP_STATUS } from '@/stores/user'
 import BananaModal from '@/components/Modals/Profile/BananaModal.vue'
 import { ROLE } from '@/consts'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import { getBananaMetadata } from '@/api/banana'
+
+const userStore = useUserStore()
 
 export default {
   components: { Markdown, BananaModal },
@@ -130,6 +132,11 @@ export default {
     role: { type: Number, required: true },
     homeRegionId: { type: Number, required: true },
     homeRegionName: { type: String, default: '' },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     return {
@@ -170,13 +177,13 @@ export default {
       return this.role === ROLE.ORGA
     },
     currentUserId () {
-      return DataUser.getters.getUserId()
+      return userStore.getUserId
     },
     isMe () {
       return this.currentUserId === this.userId
     },
     isSessionUserFoodsaver () {
-      return DataUser.getters.isFoodsaver()
+      return userStore.isFoodsaver
     },
     isCurrentUserFoodSaver () {
       return this.role > ROLE.FOODSHARER

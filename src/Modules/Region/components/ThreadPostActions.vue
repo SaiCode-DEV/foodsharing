@@ -78,7 +78,9 @@ import { BDropdown, BModal, VBTooltip, BLink } from 'bootstrap-vue'
 
 import Emoji from '@/components/Emoji'
 import emojiList from '@/emojiList.json'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 export default {
   components: { BDropdown, Emoji, BModal, BLink },
@@ -96,6 +98,11 @@ export default {
      * Whether the user can write a reply or send emoji reactions. This is disabled in closed threads.
      */
     mayReply: { type: Boolean, default: true },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     return {
@@ -137,10 +144,10 @@ export default {
       if (!this.reactions[key]) {
         return false
       }
-      return !!this.reactions[key].find(r => r.id === DataUser.getters.getUserId())
+      return !!this.reactions[key].find(r => r.id === userStore.getUserId)
     },
     concatUsers (users) {
-      const names = users.map(u => u.id === DataUser.getters.getUserId() ? this.$i18n('globals.you') : u.name ?? this.$i18n('forum.deleted_user'))
+      const names = users.map(u => u.id === userStore.getUserId ? this.$i18n('globals.you') : u.name ?? this.$i18n('forum.deleted_user'))
       return names.length > 1 ? `${names.slice(0, names.length - 1).join(', ')} & ${names[names.length - 1]}` : names[0]
     },
   },

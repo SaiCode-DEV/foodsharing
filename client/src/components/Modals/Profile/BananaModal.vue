@@ -19,7 +19,9 @@
 <script>
 import BananaList from '@php/Modules/Profile/components/BananaList.vue'
 import { getReceivedBananas } from '@/api/banana'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 export default {
   name: 'BananaModal',
@@ -33,7 +35,7 @@ export default {
   }),
   computed: {
     isRecipient () {
-      return DataUser.getters.getUserId() === this.recipient.id
+      return userStore.getUserId === this.recipient.id
     },
   },
   methods: {

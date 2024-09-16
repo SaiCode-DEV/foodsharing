@@ -124,9 +124,11 @@ import ProfileCommitmentsStat from './ProfileCommitmentsStat.vue'
 import EmailBounceList from './EmailBounceList.vue'
 import PickupsSection from '@/components/PickupTable/PickupsSection.vue'
 import ProfileStoreList from './ProfileStoreList.vue'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import Achievement from '@/components/Achievement/Achievement.vue'
 import { ROLE } from '@/consts'
+
+const userStore = useUserStore()
 
 export default {
   name: 'Profile',
@@ -150,9 +152,14 @@ export default {
     homeDistrictHistory: { type: Object, required: true },
     awardedAchievements: { type: [Array, Object], default: null },
   },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   data () {
     return {
-      currentUserId: DataUser.getters.getUserId(),
+      currentUserId: userStore.getUserId,
     }
   },
   computed: {

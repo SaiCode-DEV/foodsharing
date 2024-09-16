@@ -20,14 +20,21 @@
 import { hideLoader, pulseError, showLoader } from '@/script'
 import { createPassportAsUser } from '@/api/verification'
 import i18n from '@/helper/i18n'
-import DataUser from '@/stores/user.js'
+import { useUserStore } from '@/stores/user.js'
+
+const userStore = useUserStore()
 
 export default {
+  setup () {
+    return {
+      userStore,
+    }
+  },
   computed: {
-    userDetails: () => DataUser.getters.getUserDetails(),
+    userDetails: () => userStore.getUserDetails,
   },
   async mounted () {
-    await DataUser.mutations.fetchDetails()
+    await userStore.fetchDetails()
   },
   methods: {
     async tryCreateAsUser () {

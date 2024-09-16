@@ -111,16 +111,23 @@ import Markdown from '@/components/Markdown/Markdown.vue'
 
 import DataGroups from '@/stores/groups'
 import DataRegions from '@/stores/regions'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import { addEvent, editEvent } from '@/api/events'
 import { toISOStringWithTimezone } from '@/helper/date-formatter'
 import { EVENT_TYPE } from '@/consts'
+
+const userStore = useUserStore()
 
 export default {
   components: { Container, DateRangePicker, DatePicker, TimeRangePicker, MarkdownInput, LeafletLocationSearch, Markdown },
   props: {
     regionId: { type: Number, default: 0 },
     edit: { type: Object, default: null },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     if (!this.edit) {
@@ -163,7 +170,7 @@ export default {
     EVENT_TYPE: () => EVENT_TYPE,
     groups: () => DataGroups.getters.get(),
     regions: () => DataRegions.getters.get(),
-    location: () => DataUser.getters.getLocations(),
+    location: () => userStore.getLocations,
     regionSelectOptions () {
       return [
         {

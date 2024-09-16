@@ -69,23 +69,30 @@
 </template>
 <script>
 // Stores
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 // Components
 import Dropdown from '../_NavItems/NavDropdown'
 // Mixins
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
+
+const userStore = useUserStore()
 
 export default {
   components: {
     Dropdown,
   },
   mixins: [RouteCheckMixin],
+  setup () {
+    return {
+      userStore,
+    }
+  },
   computed: {
     permissions () {
-      return DataUser.getters.getPermissions()
+      return userStore.getPermissions
     },
     hasAdminPermissions () {
-      return DataUser.getters.hasAdminPermissions()
+      return userStore.hasAdminPermissions
     },
   },
 }

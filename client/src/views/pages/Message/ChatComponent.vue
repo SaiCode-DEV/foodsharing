@@ -1,6 +1,6 @@
 <template>
   <vue-advanced-chat
-    :current-user-id="String(currentUserId)"
+    :current-user-id="String(userStore.currentUserId)"
     :room-id="String(roomId)"
     :rooms="JSON.stringify(getRooms)"
     :loading-rooms="loadingRooms"
@@ -71,14 +71,16 @@ import Storage from '@/storage'
 // Stores
 import conversationStore from '@/stores/conversations'
 import ProfileStore from '@/stores/profiles'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import { useThemeStore } from '@/stores/theme'
 import SelectUsersComponent from './SelectUsersComponent.vue'
 import ChatTitleComponent from './ChatTitleComponent.vue'
 
 register()
 
+const userStore = useUserStore()
 const themeStore = useThemeStore()
+
 const NEW_CONVERSATION_ID = Number.MAX_SAFE_INTEGER
 
 export default {
@@ -107,9 +109,9 @@ export default {
   },
   data () {
     return {
+      userStore,
       defaultAvatar: '/img/mini_q_avatar.png',
       loadingRooms: true, // can be used to show/hide a spinner icon while rooms are loading the first time. Fetch more rooms don't need this boolean afterwards.
-      currentUserId: DataUser.getters.getUserId(),
 
       roomId: this.chatId,
       roomChanging: true, // This must be set to inform the chat component about changing messages.
@@ -346,7 +348,7 @@ export default {
     getRoomName (conversation) {
       if (conversation.title) { return conversation.title }
       return conversation.members
-        .filter(m => m !== this.currentUserId)
+        .filter(m => m !== userStore.currentUserId)
         .map(m => {
           if (ProfileStore.profiles[m]) {
             return ProfileStore.profiles[m].name
@@ -379,7 +381,7 @@ export default {
           system: false,
           // saved: !message.failure, // can be activated when 'distributed' is also implemented in backend. Will otherwise confuse users when only 1 check is displayed.
           distributed: false,
-          seen: this.currentUserId !== message.authorId, // Setting the other users seen, will hide "New Messages" indicator in chat. TODO: https://gitlab.com/foodsharing-dev/foodsharing/-/issues/1484
+          seen: userStore.currentUserId !== message.authorId, // Setting the other users seen, will hide "New Messages" indicator in chat. TODO: https://gitlab.com/foodsharing-dev/foodsharing/-/issues/1484
           deleted: false,
           failure: message.failure,
           disableActions: true,
@@ -400,9 +402,9 @@ export default {
 
       room.users = []
       const user = {
-        _id: this.currentUserId,
-        username: ProfileStore.profiles[this.currentUserId].name,
-        avatar: ProfileStore.profiles[this.currentUserId].avatar,
+        _id: userStore.currentUserId,
+        username: ProfileStore.profiles[userStore.currentUserId].name,
+        avatar: ProfileStore.profiles[userStore.currentUserId].avatar,
         status: {
         },
       }

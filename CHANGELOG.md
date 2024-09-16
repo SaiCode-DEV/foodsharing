@@ -34,6 +34,7 @@
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
 - Added an enum for wall types in the backend #1996 !3573 @alex.simm
 - Bananas now use the API !3581 @AntonBallmaier
+- Moved userStore to pinia for future improvements !3531 @SaiCode
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm

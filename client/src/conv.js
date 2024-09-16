@@ -4,7 +4,7 @@ import $ from 'jquery'
 
 import Storage from '@/storage'
 import { GET, isMob, pulseError } from '@/script'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user.js'
 import conversationStore from '@/stores/conversations'
 import profileStore from '@/stores/profiles'
 import * as api from '@/api/conversations'
@@ -21,6 +21,8 @@ const storage = new Storage()
 
 const CHAT_BOX_WIDTH = 370
 
+const userStore = useUserStore()
+
 const conv = {
 
   initiated: false,
@@ -28,6 +30,8 @@ const conv = {
   chatboxes: null,
 
   isBigPageMode: false,
+
+  userStore,
 
   /*
    * init function have to be called one time on domready
@@ -198,7 +202,7 @@ const conv = {
       if (title == null) {
         title = []
         for (const memberId of conversation.members) {
-          if (memberId === DataUser.getters.getUserId() || profileStore.profiles[memberId].name === null) {
+          if (memberId === this.userStore.getUserId || profileStore.profiles[memberId].name === null) {
             continue
           }
           title.push(`
@@ -247,7 +251,7 @@ const conv = {
   },
 
   leaveConversation: async function (cid) {
-    await api.removeUserFromConversation(cid, DataUser.getters.getUserId())
+    await api.removeUserFromConversation(cid, this.userStore.getUserId)
     conv.close(cid)
     conversationStore.loadConversations()
   },

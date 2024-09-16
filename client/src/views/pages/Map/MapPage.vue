@@ -43,10 +43,11 @@ import CommunityBubble from '@php/Modules/Map/components/CommunityBubble.vue'
 import StoreBubble from '@php/Modules/Map/components/StoreBubble.vue'
 import FoodSharePointBubble from '@php/Modules/Map/components/FoodSharePointBubble.vue'
 import Storage from '@/storage'
-import DataUser from '@/stores/user.js'
+import { useUserStore } from '@/stores/user.js'
 
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 const maxBasketNameLength = 30
+const userStore = useUserStore()
 
 export default {
   components: {
@@ -64,6 +65,11 @@ export default {
     maySeeStores: { type: Boolean, default: false },
     selectedStoreId: { type: Number, default: null },
     selectedFoodSharePointId: { type: Number, default: null },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     return {
@@ -117,9 +123,9 @@ export default {
       }
       this.currentCenter = this.center
       this.currentZoom = MAP_CONSTANTS.ZOOM_CITY
-    } else if (DataUser.getters.hasLocations()) {
+    } else if (userStore.hasLocations) {
       // 2. Use the user's home location
-      this.currentCenter = DataUser.getters.getLocations()
+      this.currentCenter = userStore.getLocations
       this.currentZoom = MAP_CONSTANTS.ZOOM_CITY
     } else {
       // 3. Fall back to the default location and zoom

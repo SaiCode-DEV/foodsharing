@@ -103,8 +103,10 @@ import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import BusinessCard from '../../BusinessCard/components/BusinessCard.vue'
 import ProfileSettings from './ProfileSettings.vue'
 import Quiz from '@/views/pages/Quiz/Quiz.vue'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import { SUB_PAGE } from '@/stores/settings'
+
+const userStore = useUserStore()
 
 export default {
   name: 'ProfileSettingsPage',
@@ -129,6 +131,11 @@ export default {
     targetRole: { type: Number, default: null },
     subPage: { type: String, default: null },
   },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   data: () => ({
     isHygieneQuizEnabled: null,
   }),
@@ -140,13 +147,13 @@ export default {
       return null
     },
     isMe () {
-      return DataUser.getters.getUserId() === this.userDetails.id
+      return userStore.getUserId === this.userDetails.id
     },
     isFoodsaver () {
-      return DataUser.getters.isFoodsaver()
+      return userStore.isFoodsaver
     },
     isOrgaUser () {
-      return DataUser.getters.isOrga()
+      return userStore.isOrga
     },
     SUB_PAGE () {
       return SUB_PAGE

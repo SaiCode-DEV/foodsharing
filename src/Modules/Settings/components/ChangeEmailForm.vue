@@ -73,7 +73,9 @@ import { email, minLength, not, required, requiredIf, sameAs } from 'vuelidate/l
 import { requestEmailChange } from '@/api/settings'
 import { isFoodsharingDomain } from '@/helper/urls'
 import { HTTP_RESPONSE } from '@/consts'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 export default {
   props: {
@@ -86,6 +88,11 @@ export default {
      * Id of the profile that is being edited.
      */
     userId: { type: Number, required: true },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     return {
@@ -119,7 +126,7 @@ export default {
       this.isLoading = true
 
       try {
-        const id = this.isMe ? DataUser.getters.getUserId() : this.userId
+        const id = this.isMe ? this.userStore.getUserId : this.userId
         await requestEmailChange(id, this.email.trim(), this.password)
         pulseInfo(this.$i18n(this.isMe ? 'settings.changemail.sent' : 'settings.changemail.sent_other_user'), { sticky: true })
       } catch (e) {

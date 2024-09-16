@@ -149,7 +149,7 @@
 import Avatar from '@/components/Avatar/Avatar.vue'
 import PhoneNumbers from '@/helper/phone-numbers'
 import conversationStore from '@/stores/conversations'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import StoreData, { STORE_LOG_ACTION } from '@/stores/stores'
 
 import { v4 as uuidv4 } from 'uuid'
@@ -188,6 +188,12 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  setup () {
+    const userStore = useUserStore()
+    return {
+      userStore,
+    }
   },
   data () {
     return {
@@ -253,7 +259,7 @@ export default {
       return StoreData.getters.getStoreMember()
     },
     userId () {
-      return DataUser.getters.getUserId()
+      return this.userStore.getUserId
     },
     isManager () {
       return StoreData.getters.isManager(this.userId)
@@ -270,7 +276,7 @@ export default {
       return !!navigator.clipboard
     },
     isMe () {
-      return DataUser.getters.getUserId() === this.profile.id
+      return this.userStore.getUserId === this.profile.id
     },
   },
   mounted () {
