@@ -1,6 +1,6 @@
 <template>
   <vue-advanced-chat
-    :current-user-id="String(userStore.currentUserId)"
+    :current-user-id="String(userStore.getUserId)"
     :room-id="String(roomId)"
     :rooms="JSON.stringify(getRooms)"
     :loading-rooms="loadingRooms"
@@ -348,7 +348,7 @@ export default {
     getRoomName (conversation) {
       if (conversation.title) { return conversation.title }
       return conversation.members
-        .filter(m => m !== userStore.currentUserId)
+        .filter(m => m !== userStore.getUserId)
         .map(m => {
           if (ProfileStore.profiles[m]) {
             return ProfileStore.profiles[m].name
@@ -381,7 +381,7 @@ export default {
           system: false,
           // saved: !message.failure, // can be activated when 'distributed' is also implemented in backend. Will otherwise confuse users when only 1 check is displayed.
           distributed: false,
-          seen: userStore.currentUserId !== message.authorId, // Setting the other users seen, will hide "New Messages" indicator in chat. TODO: https://gitlab.com/foodsharing-dev/foodsharing/-/issues/1484
+          seen: userStore.getUserId !== message.authorId, // Setting the other users seen, will hide "New Messages" indicator in chat. TODO: https://gitlab.com/foodsharing-dev/foodsharing/-/issues/1484
           deleted: false,
           failure: message.failure,
           disableActions: true,
@@ -402,9 +402,9 @@ export default {
 
       room.users = []
       const user = {
-        _id: userStore.currentUserId,
-        username: ProfileStore.profiles[userStore.currentUserId].name,
-        avatar: ProfileStore.profiles[userStore.currentUserId].avatar,
+        _id: userStore.getUserId,
+        username: ProfileStore.profiles[userStore.getUserId].name,
+        avatar: ProfileStore.profiles[userStore.getUserId].avatar,
         status: {
         },
       }
