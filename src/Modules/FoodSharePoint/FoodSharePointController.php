@@ -39,7 +39,6 @@ class FoodSharePointController extends FoodsharingController
         private readonly FoodSharePointView $view,
         private readonly FoodSharePointGateway $foodSharePointGateway,
         private readonly RegionGateway $regionGateway,
-        private readonly FoodsaverGateway $foodsaverGateway,
         private readonly MailboxGateway $mailboxGateway,
         private readonly UploadsGateway $uploadsGateway,
         private readonly Sanitizer $sanitizerService,
@@ -248,9 +247,9 @@ class FoodSharePointController extends FoodsharingController
         $foodSharePoint = $this->prepareVueComponent('food-share-point-add-or-edit', 'FoodSharePointAddOrEdit', $params);
         $this->pageHelper->addContent($foodSharePoint);
 
-        /* $this->pageHelper->addContent($this->view->foodSharePointForm($data));
+        /* $this->pageHelper->addContent($this->view->foodSharePointForm($data)); */
 
-        return $this->renderGlobal(); */
+        return $this->renderGlobal();
     }
 
     private function check(Request $request): void
@@ -444,5 +443,10 @@ class FoodSharePointController extends FoodsharingController
         $this->foodSharePoint = $foodSharePoint;
         $this->managers = $managers;
         $this->followers = $followers;
+    }
+
+    public function getFollowers(): array
+    {
+        return $this->followers;
     }
 }
