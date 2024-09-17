@@ -3,7 +3,6 @@
 namespace Foodsharing\Modules\Foodsaver;
 
 use Carbon\Carbon;
-use DateTime;
 use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
@@ -48,10 +47,8 @@ class FoodsaverGateway extends BaseGateway
         $result = $this->db->fetchAll('
 		    SELECT	fs.id,
 					fs.name,
-					fs.nachname,
 					fs.photo,
-					fs.sleep_status,
-					CONCAT("#",fs.id) AS href
+					fs.is_sleeping
 
 		    FROM	fs_foodsaver fs
 					INNER JOIN fs_foodsaver_has_bezirk fsreg
@@ -66,29 +63,27 @@ class FoodsaverGateway extends BaseGateway
             ':regionId' => $regionId
         ]);
 
-        return array_map(fn ($fs) => new Profile($fs['id'], $fs['name'], $fs['photo'], $fs['sleep_status']), $result);
+        return array_map(fn ($item) => new Profile($item), $result);
     }
 
     /**
-     * @return RegionGroupMemberEntry[]
+     * @return UnitMember[]
      * @throws Exception
      */
     public function listActiveFoodsaversByRegion(int $regionId, bool $includeAdminFields): array
     {
-        $res = $this->db->fetchAll('
+        $users = $this->db->fetchAll('
 			SELECT 	fs.`id`,
 					fs.`photo`,
 					fs.`name`,
 					fs.`nachname` as lastname,
-					fs.sleep_status,
-					fs.sleep_from,
-					fs.sleep_until,
+					fs.is_sleeping,
 					fs.rolle as role,
 					fs.last_login as last_activity,
 					fs.anmeldedatum as registration_date,
 					fs.verified,
 					fs.last_pass,
-					fs.bezirk_id as home_region,
+					(fs.bezirk_id = ?) AS is_home_region,
                     if (isnull(fsbot.`bezirk_id`) , false, true) as isAdminOrAmbassadorOfRegion
 
 		    FROM	fs_foodsaver fs
@@ -99,28 +94,14 @@ class FoodsaverGateway extends BaseGateway
 
 			WHERE   fs.deleted_at IS NULL
 			AND 	fsreg.active = 1
-			AND 	fsreg.bezirk_id = :regionId
+			AND 	fsreg.bezirk_id = ?
 
 			ORDER BY fs.`name`
-		', [
-            ':regionId' => $regionId
-        ]);
+		', [$regionId, $regionId]);
 
-        return array_map(function ($foodsaver) use ($includeAdminFields, $regionId) {
-            $isSleeping = $this->dataHelper->parseSleepingState($foodsaver['sleep_status'], $foodsaver['sleep_from'], $foodsaver['sleep_until']);
-            $member = RegionGroupMemberEntry::create($foodsaver['id'], $foodsaver['name'], $foodsaver['photo'], $isSleeping,
-                $foodsaver['isAdminOrAmbassadorOfRegion']);
-            if ($includeAdminFields) {
-                $member->role = $foodsaver['role'];
-                $member->lastPassDate = $foodsaver['last_pass'];
-                $member->lastName = $foodsaver['lastname'];
-                $member->lastActivity = ($foodsaver['last_activity'] === '0000-00-00 00:00:00') ? new DateTime($foodsaver['registration_date']) : new DateTime($foodsaver['last_activity']);
-                $member->isVerified = $foodsaver['verified'];
-                $member->isHomeRegion = $foodsaver['home_region'] == $regionId;
-            }
+        $resultClass = $includeAdminFields ? UnitMemberForAdmin::class : UnitMember::class;
 
-            return $member;
-        }, $res);
+        return array_map(fn ($user) => $resultClass::createFromArray($user), $users);
     }
 
     public function listActiveWithFullNameByRegion(int $regionId): array
@@ -229,7 +210,7 @@ class FoodsaverGateway extends BaseGateway
             'geschlecht',
             'stat_fetchweight',
             'stat_fetchcount',
-            'sleep_status'
+            'is_sleeping'
         ], [
             'id' => $fsId
         ]);
@@ -334,7 +315,7 @@ class FoodsaverGateway extends BaseGateway
 					fs.`photo`,
 					fs.`email`,
 					fs.`geschlecht`,
-					fs.`sleep_status`,
+					fs.`is_sleeping`,
 					fs.`sleep_from`,
 					fs.`sleep_until`
 
@@ -639,6 +620,7 @@ class FoodsaverGateway extends BaseGateway
         $foodsaver = $this->db->fetchByCriteria('fs_foodsaver', '*', [
             'id' => $fsId
         ]);
+        unset($foodsaver['is_sleeping']); // dont archive computed column
 
         if (!is_null($foodsaver['name'])) {
             $this->db->insertOrUpdate('fs_foodsaver_archive', $foodsaver);
@@ -932,19 +914,10 @@ class FoodsaverGateway extends BaseGateway
     {
         $data = $this->db->fetchByCriteria(
             'fs_foodsaver',
-            ['id', 'name', 'photo', 'sleep_status'],
+            ['id', 'name', 'photo', 'is_sleeping'],
             ['id' => $userId]);
 
-        if (empty($data)) {
-            return null;
-        }
-
-        return new Profile(
-            $data['id'],
-            $data['name'],
-            $data['photo'],
-            $data['sleep_status']
-        );
+        return empty($data) ? null : new Profile($data);
     }
 
     /**
@@ -956,23 +929,12 @@ class FoodsaverGateway extends BaseGateway
      */
     public function getProfileForUsers(array $fsIds): array
     {
-        $res = $this->db->fetchAllByCriteria(
+        $users = $this->db->fetchAllByCriteria(
             'fs_foodsaver',
-            ['id', 'name', 'photo', 'sleep_status'],
+            ['id', 'name', 'photo', 'is_sleeping'],
             ['id' => $fsIds]);
 
-        $profiles = [];
-        foreach ($res as $p) {
-            $profile = new Profile(
-                $p['id'],
-                $p['name'],
-                $p['photo'],
-                $p['sleep_status']
-            );
-            $profiles[$p['id']] = $profile;
-        }
-
-        return $profiles;
+        return array_map(fn ($user) => new Profile($user), $users);
     }
 
     /**

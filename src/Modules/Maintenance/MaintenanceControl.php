@@ -85,16 +85,6 @@ class MaintenanceControl extends ConsoleControl
         $this->updateSpecialGroupMemberships();
 
         /*
-         * sleeping users, where the time period of sleepiness ended
-         */
-        $this->wakeupSleepingUsers();
-
-        /*
-        * put users to sleep whose sleeping period begins
-        */
-        $this->putUsersToSleep();
-
-        /*
          * updates outdated bells with passed expiration date
          */
         $this->bellUpdateTrigger->triggerUpdate();
@@ -341,20 +331,6 @@ class MaintenanceControl extends ConsoleControl
         } catch (\Exception $ex) {
             self::error($ex);
         }
-    }
-
-    private function wakeupSleepingUsers()
-    {
-        self::info('wake up sleeping users...');
-        $count = $this->maintenanceGateway->wakeupSleepingUsers();
-        self::success($count . ' users woken up');
-    }
-
-    private function putUsersToSleep()
-    {
-        self::info('put to sleep users...');
-        $count = $this->maintenanceGateway->putUsersToSleep();
-        self::success($count . ' users put to sleep');
     }
 
     private function deleteOldIpBlocks()

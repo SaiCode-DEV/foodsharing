@@ -1,5 +1,5 @@
 {% if items|length > 0 %}
-<ul class="d-none d-sm-flex bread">
+<ul class="d-flex bread">
     {% for item in items %}
         {% if loop.last %}
             <li class="last">{{ item.name }}</li>

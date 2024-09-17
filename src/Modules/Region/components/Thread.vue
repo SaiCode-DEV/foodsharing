@@ -196,7 +196,7 @@ import * as api from '@/api/forum'
 import { GET } from '@/browser'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import { pulseError } from '@/script'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import JumpScrollButton from './JumpScrollButton'
 import SubscribeButton from './SubscribeButton.vue'
 import ThreadForm from './ThreadForm'
@@ -206,6 +206,8 @@ import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
 import Info from '@/components/Help/Info.vue'
 
+const userStore = useUserStore()
+
 export default {
   components: { ThreadForm, ThreadPost, OverflowMenu, JumpScrollButton, SubscribeButton, VueSlider, Info },
   props: {
@@ -213,6 +215,11 @@ export default {
       type: Number,
       default: null,
     },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     return {
@@ -242,10 +249,10 @@ export default {
   },
   computed: {
     userId () {
-      return DataUser.getters.getUserId()
+      return userStore.getUserId
     },
     userFirstName () {
-      return DataUser.getters.getUserFirstName()
+      return userStore.getUserFirstName
     },
     isOpen () {
       return this.status === ThreadStatus.THREAD_OPEN
@@ -396,8 +403,8 @@ export default {
         body: body,
         reactions: {},
         author: {
-          name: `${this.userFirstName} ${DataUser.getters.getUserLastName()}`,
-          avatar: DataUser.getters.getAvatar(),
+          name: `${this.userFirstName} ${userStore.getUserLastName}`,
+          avatar: userStore.getAvatar,
         },
       }
       this.loadingPosts.push(-1)

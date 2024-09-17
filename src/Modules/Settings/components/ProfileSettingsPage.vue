@@ -56,11 +56,13 @@
           />
         </b-tab>
         <b-tab
-          v-if="isMe"
+          v-if="isMe || permissions.mayChangeEmailImmediately"
           :title="$i18n('settings.email')"
           :active="subPage === SUB_PAGE.CHANGE_EMAIL"
         >
-          <ChangeEmailForm />
+          <ChangeEmailForm :is-me="isMe" :user-id="userDetails.id" />
+          <hr class="my-3">
+          <ChangePasswordForm v-if="isMe" />
         </b-tab>
         <b-tab
           v-if="showQuiz"
@@ -95,13 +97,16 @@ import Calendar from './Calendar.vue'
 import Passport from './Passport.vue'
 import SleepingMode from './SleepingMode.vue'
 import ChangeEmailForm from './ChangeEmailForm.vue'
+import ChangePasswordForm from './ChangePasswordForm.vue'
 import DeleteAccount from './DeleteAccount.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import BusinessCard from '../../BusinessCard/components/BusinessCard.vue'
 import ProfileSettings from './ProfileSettings.vue'
 import Quiz from '@/views/pages/Quiz/Quiz.vue'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import { SUB_PAGE } from '@/stores/settings'
+
+const userStore = useUserStore()
 
 export default {
   name: 'ProfileSettingsPage',
@@ -112,6 +117,7 @@ export default {
     Passport,
     SleepingMode,
     ChangeEmailForm,
+    ChangePasswordForm,
     DeleteAccount,
     BusinessCard,
     Quiz,
@@ -125,6 +131,11 @@ export default {
     targetRole: { type: Number, default: null },
     subPage: { type: String, default: null },
   },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   data: () => ({
     isHygieneQuizEnabled: null,
   }),
@@ -136,13 +147,13 @@ export default {
       return null
     },
     isMe () {
-      return DataUser.getters.getUserId() === this.userDetails.id
+      return userStore.getUserId === this.userDetails.id
     },
     isFoodsaver () {
-      return DataUser.getters.isFoodsaver()
+      return userStore.isFoodsaver
     },
     isOrgaUser () {
-      return DataUser.getters.isOrga()
+      return userStore.isOrga
     },
     SUB_PAGE () {
       return SUB_PAGE

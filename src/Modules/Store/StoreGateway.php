@@ -16,26 +16,25 @@ use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Map\DTO\MapMarker;
+use Foodsharing\Modules\Map\DTO\StoreMarkerHelpType;
+use Foodsharing\Modules\Map\DTO\StoreMarkerScopeType;
+use Foodsharing\Modules\Map\DTO\StoreMarkerStatusType;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\DTO\MinimalStoreIdentifier;
 use Foodsharing\Modules\Store\DTO\Store;
 use Foodsharing\Modules\Store\DTO\StoreTeamMembership;
-use Foodsharing\Utility\DataHelper;
 
 class StoreGateway extends BaseGateway
 {
     private readonly RegionGateway $regionGateway;
-    private readonly DataHelper $dataHelper;
 
     public function __construct(
         Database $db,
         RegionGateway $regionGateway,
-        DataHelper $dataHelper
     ) {
         parent::__construct($db);
 
         $this->regionGateway = $regionGateway;
-        $this->dataHelper = $dataHelper;
     }
 
     public function addStore(Store $store): int
@@ -482,7 +481,7 @@ class StoreGateway extends BaseGateway
     /**
      * @return list<array<mixed>> all foodsavers that currently apply to the store team
      */
-    private function getApplications(int $storeId, GeoLocation $storePosition): array
+    public function getApplications(int $storeId, GeoLocation $storePosition): array
     {
         $applications = $this->db->fetchAll('SELECT
                 foodsaver.id,
@@ -573,9 +572,7 @@ class StoreGateway extends BaseGateway
                 t.`stat_add_date`,
                 UNIX_TIMESTAMP(t.`stat_last_fetch`) AS last_fetch,
                 UNIX_TIMESTAMP(t.`stat_add_date`) AS add_date,
-                fs.sleep_status,
-                fs.sleep_from,
-                fs.sleep_until
+                fs.is_sleeping
         FROM    `fs_betrieb_team` t
         INNER JOIN `fs_foodsaver` fs ON fs.id = t.foodsaver_id
         WHERE   `betrieb_id` = :id
@@ -586,10 +583,6 @@ class StoreGateway extends BaseGateway
             ':id' => $storeId,
             ':membershipStatus' => MembershipStatus::MEMBER
         ]);
-
-        foreach ($members as &$member) {
-            $member['sleep_status'] = $this->dataHelper->parseSleepingState($member['sleep_status'], $member['sleep_from'], $member['sleep_until']);
-        }
 
         return $members;
     }
@@ -630,7 +623,8 @@ class StoreGateway extends BaseGateway
 						t.`stat_add_date`,
 						UNIX_TIMESTAMP(t.`stat_last_fetch`) AS last_fetch,
 						UNIX_TIMESTAMP(t.`stat_add_date`) AS add_date,
-						fs.sleep_status
+						fs.sleep_status,
+                        fs.is_sleeping
 
 				FROM 	`fs_betrieb_team` t
 						INNER JOIN `fs_foodsaver` fs
@@ -1156,38 +1150,38 @@ class StoreGateway extends BaseGateway
     /**
      * Provides Stores with position markers.
      *
-     * @param array<CooperationStatus> $excludedStoreTypes Excludes stores of this types
-     * @param array<TeamSearchStatus> $teamStatus Store team status values to be included. If empty, all team status
-     *                                            values will be included.
-     * @param int|null $userId if not null, only list stores in which this user is a member (this includes jumpers)
-     *
      * @return MapMarker[]
      */
-    public function getStoreMarkers(array $excludedStoreTypes, array $teamStatus, ?int $userId = null): array
+    public function getStoreMarkers(int $userId, StoreMarkerStatusType $status, StoreMarkerHelpType $help, StoreMarkerScopeType $scope): array
     {
         $query = 'SELECT b.id, b.lat, b.lon, b.name FROM fs_betrieb b';
-        $conditions = ['lat != ""', 'lon != ""'];
+        $conditions = [
+            'b.lat != ""',
+            'b.lon != ""',
+            'b.betrieb_status_id != :deletedStatus',
+        ];
+        $params = [':deletedStatus' => CooperationStatus::PERMANENTLY_CLOSED->value];
 
-        // condition for the user's membership
-        $params = [];
-        if (!empty($userId)) {
-            $query .= ' INNER JOIN fs_betrieb_team t
-			            ON b.id = t.betrieb_id';
-            $conditions[] = 't.foodsaver_id = ?';
-            $conditions[] = 't.active >= ?';
-            $params = [$userId, MembershipStatus::MEMBER];
+        if ($scope === StoreMarkerScopeType::MEMBER) {
+            $query .= ' INNER JOIN fs_betrieb_team t ON b.id = t.betrieb_id';
+            $conditions[] = 't.foodsaver_id = :userId';
+            $conditions[] = 't.active >= :memberStatus';
+            array_push($params, [':userId' => $userId, ':memberStatus' => MembershipStatus::MEMBER]);
+        } elseif ($scope === StoreMarkerScopeType::REGION) {
+            $query .= ' INNER JOIN fs_foodsaver_has_bezirk r ON r.bezirk_id = b.bezirk_id';
+            $conditions[] = 'r.foodsaver_id = :userId';
+            $params[] = [':userId' => $userId];
         }
 
-        // conditions for the store's cooperation and team status
-        if (!empty($excludedStoreTypes)) {
-            $conditions[] = 'b.betrieb_status_id NOT IN(' . implode(',', array_fill(0, count($excludedStoreTypes), '?')) . ')';
-            $excludedStoreTypesIds = array_map(fn (CooperationStatus $storeType) => $storeType->value, $excludedStoreTypes);
-            $params = array_merge($params, $excludedStoreTypesIds);
+        if ($status !== StoreMarkerStatusType::ALL) {
+            $operator = $status === StoreMarkerStatusType::COOPERATING ? '=' : '!=';
+            $conditions[] = "b.betrieb_status_id {$operator} :cooperatingStatus";
+            $params[':cooperatingStatus'] = CooperationStatus::COOPERATION_ESTABLISHED->value;
         }
-        if (!empty($teamStatus)) {
-            $conditions[] = 'b.team_status IN (' . implode(',', array_fill(0, count($teamStatus), '?')) . ')';
-            $teamStatusIds = array_map(fn (TeamSearchStatus $item) => $item->value, $teamStatus);
-            $params = array_merge($params, $teamStatusIds);
+
+        if ($help !== StoreMarkerHelpType::ALL) {
+            $conditions[] = 'b.team_status >= :searchStatus';
+            $params[':searchStatus'] = $help === StoreMarkerHelpType::OPEN ? TeamSearchStatus::OPEN->value : TeamSearchStatus::OPEN_SEARCHING->value;
         }
 
         $query .= ' WHERE ' . implode(' AND ', $conditions);

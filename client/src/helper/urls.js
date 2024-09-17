@@ -87,6 +87,7 @@ const urls = {
   settingsHygiene: () => '/user/current/settings?sub=hygiene',
   statistics: () => '/statistik',
   store: (storeId) => `/store/${storeId}`,
+  storeCategories: () => '/storecategories',
   storeList: () => '/?page=fsbetrieb',
   storeUserList: (userId) => `/user/${userId}/stores`,
   editNameInfoUrl: () => '/region?bid=881&sub=forum&tid=58225',

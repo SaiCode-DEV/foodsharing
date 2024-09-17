@@ -114,6 +114,11 @@ class BellType
     final public const NEW_EVENT_POST = 'event-post-%d';
 
     /**
+     * A new banana was given to the user. Argument: IDs of the recipient and sender.
+     */
+    final public const BANANA = 'banana-%d-%d';
+
+    /**
      * Creates a bell identifier from a template and an optional list of parameters.
      */
     public static function createIdentifier(string $typeString, ...$params)

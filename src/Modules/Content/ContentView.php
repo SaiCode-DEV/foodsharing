@@ -40,7 +40,7 @@ class ContentView extends View
 			<h5><span>5</span> ' . $this->translator->trans('startpage.makeproposals') . '</h5>
 			<p>' . $this->translator->trans('startpage.proposals') . '</p>
 			</div>', $this->translator->trans('startpage.etiquette'), ['class' => 'ui-padding']) . '
-			<p class="buttons"><br><a href="/?page=register" style="font-size:180%;" class="button">' . $this->translator->trans('startpage.registernow') . '</a><br></p>
+			<p class="buttons"><br><a href="/register" style="font-size:180%;" class="button">' . $this->translator->trans('startpage.registernow') . '</a><br></p>
 		</div>
 		';
     }

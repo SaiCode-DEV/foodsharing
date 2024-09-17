@@ -194,14 +194,10 @@ class RegionApiCest
         $I->seeResponseIsJson();
 
         // the following fields should only be visible to admins
-        $responseItem = $I->grabDataFromResponseByJsonPath('$[*].lastActivity');
-        $I->assertNull($responseItem[0]);
-        $responseItem = $I->grabDataFromResponseByJsonPath('$[*].role');
-        $I->assertNull($responseItem[0]);
-        $responseItem = $I->grabDataFromResponseByJsonPath('$[*].isVerified');
-        $I->assertNull($responseItem[0]);
-        $responseItem = $I->grabDataFromResponseByJsonPath('$[*].isHomeRegion');
-        $I->assertNull($responseItem[0]);
+        $I->dontSeeResponseJsonMatchesJsonPath('$[*].lastActivity');
+        $I->dontSeeResponseJsonMatchesJsonPath('$[*].role');
+        $I->dontSeeResponseJsonMatchesJsonPath('$[*].isVerified');
+        $I->dontSeeResponseJsonMatchesJsonPath('$[*].isHomeRegion');
     }
 
     public function canSeeMemberDetailsAsAmbassador(ApiTester $I)

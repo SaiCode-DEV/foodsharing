@@ -33,8 +33,10 @@
 </template>
 <script>
 // Store
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import NavRegionsLinkEntry from '@/components/Navigation/Regions/NavRegionsLinkEntry.vue'
+
+const userStore = useUserStore()
 
 export default {
   name: 'MenuGroupsEntry',
@@ -49,9 +51,14 @@ export default {
       default: () => {},
     },
   },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   computed: {
     isHomeRegion () {
-      return this.entry.id === DataUser.getters.getHomeRegion()
+      return this.entry.id === userStore.getHomeRegion
     },
   },
   methods: {

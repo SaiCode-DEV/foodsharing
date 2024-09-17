@@ -67,7 +67,7 @@ export default {
 
       if (this.entry.hasAchievements) {
         menu.push({
-          href: 'achievements', icon: 'fa-medal', text: this.$i18n('terminology.achievements'),
+          href: 'achievements', icon: 'fa-tags', text: this.$i18n('terminology.achievements'),
         })
       }
 

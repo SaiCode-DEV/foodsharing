@@ -42,7 +42,9 @@
   </a>
 </template>
 <script>
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 export default {
   props: {
@@ -55,10 +57,15 @@ export default {
       default: false,
     },
   },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   computed: {
     isAmbassador () {
       // eslint-disable-next-line eqeqeq
-      return this.region.ambassadors.includes(ambassador => ambassador.id == DataUser.getters.getUserId())
+      return this.region.ambassadors.includes(ambassador => ambassador.id == userStore.getUserId)
     },
   },
 }

@@ -173,9 +173,9 @@ class BusinessCardControl extends Control
                 $tel = $data['telefon'];
             }
 
-            $pdf->Text(52.3 + $x, 51.8 + $y, $tel);
-            $pdf->Text(52.3 + $x, 56.2 + $y, $data['email']);
-            $pdf->Text(52.3 + $x, 61.6 + $y, BASE_URL);
+            $pdf->Text(53.3 + $x, 45.8 + $y, $tel);
+            $this->formatEmail($pdf, $x, $y, $data['email']);
+            $pdf->Text(53.3 + $x, 61.2 + $y, BASE_URL);
             if ($x == 0) {
                 $x += 91;
             } else {
@@ -185,5 +185,24 @@ class BusinessCardControl extends Control
         }
 
         $pdf->Output('bcard-' . $role . '.pdf', 'D');
+    }
+
+    private function formatEmail(Fpdi $pdf, float $x, float $y, string $email): void
+    {
+        $emailWidth = $pdf->GetStringWidth($email);
+
+        if ($emailWidth > 51) {
+            $parts = explode('@', $email);
+
+            if (count($parts) == 2) {
+                $firstPart = $parts[0];
+                $secondPart = '@' . $parts[1];
+
+                $pdf->Text(53.3 + $x, 52.2 + $y, $firstPart);
+                $pdf->Text(53.3 + $x, 55.2 + $y, $secondPart);
+            }
+        } else {
+            $pdf->Text(53.3 + $x, 52.2 + $y, $email);
+        }
     }
 }

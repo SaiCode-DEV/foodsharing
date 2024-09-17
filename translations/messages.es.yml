@@ -649,6 +649,7 @@ terminology:
   phone: Número de teléfono
   landline: Número de teléfono fijo
   mobile_phone: Número de teléfono móvil
+  hygiene_training: Formación en higiene
 groups:
   empty: Aún no estás en ningún grupo de trabajo
 position: Puesto en foodsharing (público)
@@ -971,6 +972,7 @@ system_administration:
   mailboxes: 'Administrar buzones'
   email: 'Enviar boletín'
   content: 'Contenido editado'
+  store_categories: Editar categorías de negocios
 bootstrap-datepicker:
   labelPrevMonth: 'mes pasado'
   labelNextYear: 'próximo año'
@@ -1312,6 +1314,7 @@ button:
   close: Cerrar
   start: ¡Vamos!
   confirm: confirmar
+  countdown_clickable: Clicable en {countdown} segundos
 pass:
   nav:
     options: 'Opciones'
@@ -1421,6 +1424,10 @@ storeview:
   team_info_active: 'Miembros activos del equipo:'
   team_info_jumper: 'Springer:'
   team_info_distance: 'Distancia en línea recta a la granja:'
+  public_info:
+    label: Información pública sobre la empresa
+    error_message: El texto es demasiado largo (máx. {count} caracteres)
+    available_count: Número de caracteres disponibles
 store:
   tooltip_red: 'Recogidas vacantes hoy o mañana'
   tooltip_managing: 'Usted es responsable de esta cooperación'
@@ -3122,7 +3129,7 @@ settings:
       ni responderá con un sonido o vibración.
 
       '
-  email: 'Cambiar dirección de correo electrónico'
+  email: 'Correo electrónico y contraseña'
   calendar:
     create_token:
       button: 'Crear nuevo token'
@@ -3217,18 +3224,28 @@ settings:
     passcheck: ''
     occupied: 'La dirección de correo electrónico no se pudo cambiar porque ya está
       en uso.'
-    input_label_email_confirm: Por favor confirme su nueva dirección de correo electrónico
-      aquí
+    input_label_email_confirm: Por favor, confirma aquí tu nueva dirección de correo
+      electrónico
     explanation_password: Confirme el cambio con su contraseña actual
     wrong_password: La contraseña es incorrecta.
     confirm_email_required: Las direcciones de correo electrónico no coinciden
     input_label_password: Por favor ingrese su contraseña para confirmar
-    input_label_email: Introduzca aquí su nueva dirección de correo electrónico
+    input_label_email: Introduce aquí la nueva dirección de correo electrónico
     explanation: Aquí puede cambiar la dirección de correo electrónico con la que
       registró su cuenta. Después de enviar, recibirá un correo electrónico a la nueva
       dirección con un enlace de confirmación.
     not_changed: Tu dirección de correo electrónico no ha sido modificada.
     dashboard_link: Continuar en el cuadro de mando
+    explanation_other_user: Aquí puedes cambiar la dirección de correo electrónico
+      con la que te registraste en este perfil. Tras enviarlo, el usuario recibirá
+      un correo electrónico a la nueva dirección con un enlace que deberá utilizar
+      para confirmarlo.
+    sent_other_user: Se ha enviado un correo electrónico a la nueva dirección con
+      el que se puede confirmar la dirección.
+    question_other_user: '¿Debería cambiarse realmente la dirección de correo electrónico
+      por ésta?:'
+    insufficient_permission: No tienes permiso para cambiar la dirección de correo
+      electrónico de este perfil.
   saved: 'Los cambios han sido guardados.'
   sleep:
     none: 'Soy activo y totalmente involucrado'
@@ -3319,6 +3336,17 @@ settings:
     1: 'Ahorro de alimentos: en el cuestionario'
     2: Cuestionario para gerentes de tienda
     3: Prueba de embajador
+  change_password:
+    title: Puedes cambiar tu contraseña aquí
+    old_password_label: Contraseña anterior
+    new_password_label: Nueva contraseña
+    new_password_must_be_trimmed: La contraseña no puede empezar ni terminar con espacios
+    new_password_confirmation_label: Confirmar la nueva contraseña
+    new_password_confirmation_invalid: Las contraseñas no coinciden
+    submit: Cambiar la contraseña
+    success: Tu contraseña ha sido cambiada correctamente
+    old_password_required: Debes ingresar tu contraseña anterior.
+    new_password_required: La contraseña debe contener al menos 8 caracteres
 team:
   former: 'Antiguos alumnos'
   ratelimit: 'Espere {minutes} minutos antes de poder enviar el siguiente mensaje.'
@@ -3831,6 +3859,7 @@ calendar:
   labelNav: 'Navegación del calendario'
   placeholder: Elija una fecha
   copiedUrl: ¡URL del calendario copiada!
+  labelResetButton: Eliminar selección
 addresspicker:
   infobox_profile: 'Los compateros necesitan la dirección para poder ofrecer cestas
     de alimentos a través del sitio web. Es necesario para poder participar en recogidas
@@ -3949,6 +3978,22 @@ map:
   title: 'Mapa'
   filters:
     my_stores: Solo mis empresas
+    stores:
+      status:
+        label: Estado
+        all: Todos
+        not-cooperating: No coopera
+        cooperating: Cooperado
+      help:
+        label: Colaboradores
+        all: No importa
+        open: Buscado
+        searching: Se busca urgentemente
+      scope:
+        label: Afiliación
+        all: todos
+        region: Solo en mis distritos
+        member: Únicamente mis empresas
   foodsharepoint:
     go: Punto para compartir alimentos
 addreaction: 'Añadir una reacción'
@@ -4252,6 +4297,20 @@ achievements:
   validity:
     days: Válido por {validityInDaysAfterAssignment} días después de la asignación.
     indefinite: Válido para cualquier período de tiempo después de la adjudicación.
+    indefiniteShort: Cualquier período de tiempo
+  awardedNoReviewer: Automáticamente
+  awardedTo: A
+  reviewer: De
+  notice: Observación
+  validUntil: Válido hasta
+  award: Logro otorgado
+  findUser: Buscar usuario
+  editDetails: Ajustar detalles
+  revoke: Retirar
+  edit: Personalizar {achievement} para {user}
+  notAwarded: Este logro no se ha concedido actualmente a nadie.
+  revokeConfirmation: ¿De verdad quieres privar a {name} de este logro?
+  awarded: Conceder
 copied_to_clipboard: Se ha copiado «{text}» al portapapeles.
 theme_switcher:
   title: Elegir diseño
@@ -4261,3 +4320,16 @@ theme_switcher:
     system: Sistema
     light: Claro
     dark: Oscuro
+store_categories:
+  edit: Cambiar nombre de categoría
+  columns:
+    id: ID
+    name: Nombre
+    number_of_stores: Explotaciones de la categoría
+  empty: Aún no se ha ingresado ninguna categoría
+  delete: Eliminar categoría
+  confirm_delete: ¿Realmente eliminar la categoría {name}?
+  confirm_delete_hint: Todavía hay {count} empresas asignadas a esta categoría. Estas
+    empresas ya no tendrán categoría.
+  new: Ingresar nueva categoría
+  title: Categorías de la explotación

@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import Markdown from '@/components/Markdown/Markdown'
 import Gallery from '@/components/Images/Gallery'
@@ -41,9 +41,15 @@ export default {
     mayDeleteEverything: { type: Boolean, default: false },
     galleryHeightInPx: { type: Number, default: undefined },
   },
+  setup () {
+    const userStore = useUserStore()
+    return {
+      userStore,
+    }
+  },
   computed: {
     canDelete () {
-      return this.mayDeleteEverything || this.post.author.id === DataUser.getters.getUserId()
+      return this.mayDeleteEverything || this.post.author.id === this.userStore.getUserId
     },
   },
 }

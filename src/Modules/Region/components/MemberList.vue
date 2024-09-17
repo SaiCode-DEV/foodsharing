@@ -49,7 +49,7 @@
                 <b-form-spinbutton
                   v-model="lastActivityFilterMonths"
                   min="1"
-                  max="12"
+                  max="36"
                   size="sm"
                   :disabled="!filterLastActivity"
                 />
@@ -344,7 +344,9 @@ export default {
       return this.$i18n('filterlist.some_in_all', { some: this.membersFiltered.length, all: this.memberList.length })
     },
     dateBeforeMonths () {
-      return new Date(new Date().getTime() - this.lastActivityFilterMonths * 30 * 24 * 60 * 60 * 1000)
+      const dateInPast = new Date()
+      dateInPast.setMonth(dateInPast.getMonth() - this.lastActivityFilterMonths)
+      return dateInPast
     },
     membersFiltered () {
       const filterText = this.filterText ? this.filterText.toLowerCase() : null

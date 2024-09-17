@@ -7,6 +7,8 @@ namespace Tests\Api;
 use Carbon\Carbon;
 use Codeception\Example;
 use Codeception\Util\HttpCode;
+use Faker\Factory;
+use Faker\Generator;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -14,16 +16,21 @@ use Tests\Support\ApiTester;
 
 class SettingsApiCest
 {
+    private Generator $faker;
     private $user;
     private $userAmbassador;
     private $userAmbassadorWithoutRegion;
     private $userOrga;
+    private array $userWithPassword;
+    private string $passwordOfUser;
     private $region1;
     private $region2;
     private $regionState;
 
     public function _before(ApiTester $I): void
     {
+        $this->faker = Factory::create('de_DE');
+
         $this->region1 = $I->createRegion(fillMailbox: false);
         $this->region2 = $I->createRegion(fillMailbox: false);
         $this->regionState = $I->createRegion(fillMailbox: false, extra_params: ['type' => UnitType::FEDERAL_STATE]);
@@ -39,6 +46,9 @@ class SettingsApiCest
         $I->addRegionAdmin($this->region2['id'], $this->userAmbassadorWithoutRegion['id']);
 
         $this->userOrga = $I->createOrga();
+
+        $this->passwordOfUser = $this->faker->password(8);
+        $this->userWithPassword = $I->createFoodsaver($this->passwordOfUser);
     }
 
     public function canOnlySetSleepStatusWhenLoggedIn(ApiTester $I): void
@@ -326,6 +336,100 @@ class SettingsApiCest
         } else {
             // make sure that the values did not change
             $I->seeInDatabase('fs_foodsaver', ['bezirk_id' => $oldRegionId, 'id' => $this->user['id']]);
+        }
+    }
+
+    public function canNotChangePasswordWithoutLogin(ApiTester $I): void
+    {
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/user/current/password', [
+            'oldPassword' => $this->passwordOfUser,
+            'newPassword' => $this->faker->password(8)
+        ]);
+        $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
+    }
+
+    public function canNotChangePasswordWithoutOldPassword(ApiTester $I): void
+    {
+        $I->login($this->userWithPassword['email'], $this->passwordOfUser);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/user/current/password', [
+            'oldPassword' => 'abcdefghi',
+            'newPassword' => $this->faker->password(8)
+        ]);
+        $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+    }
+
+    public function canNotChangePasswordIfTooShort(ApiTester $I): void
+    {
+        $I->login($this->userWithPassword['email'], $this->passwordOfUser);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/user/current/password', [
+            'oldPassword' => $this->passwordOfUser,
+            'newPassword' => $this->faker->password(2, 7)
+        ]);
+        $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
+    }
+
+    public function canChangeValidPassword(ApiTester $I): void
+    {
+        $newPassword = $this->faker->password(8);
+
+        $I->login($this->userWithPassword['email'], $this->passwordOfUser);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/user/current/password', [
+            'oldPassword' => $this->passwordOfUser,
+            'newPassword' => $newPassword
+        ]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        $I->login($this->userWithPassword['email'], $newPassword);
+        $I->seeResponseCodeIs(HttpCode::OK);
+    }
+
+    /**
+     * Users are allowed to request a change of their own email. This should trigger a confirmation email. Orga users
+     * that are support admins are allowed to change the email address of a profile without triggering a confirmation
+     * email.
+     *
+     * Users: 0=foodsaver, 1=ambassador, 2=orga, 3=orga and support group admin
+     *
+     * @example {"loginUser": 0, "allowChange": true, "changeImmediately": false}
+     * @example {"loginUser": 1, "allowChange": false, "changeImmediately": false}
+     * @example {"loginUser": 2, "allowChange": false, "changeImmediately": false}
+     * @example {"loginUser": 3, "allowChange": true, "changeImmediately": true}
+     */
+    public function canRequestEmailChange(ApiTester $I, Example $example): void
+    {
+        if ($example['loginUser'] == 3) {
+            // Create an orga user who is also admin of the support group
+            $loginUser = $I->createOrga();
+            $I->createWorkingGroup('Support', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::IT_SUPPORT_GROUP]);
+            $I->addRegionMember(RegionIDs::IT_SUPPORT_GROUP, $loginUser['id']);
+            $I->addRegionAdmin(RegionIDs::IT_SUPPORT_GROUP, $loginUser['id']);
+        } else {
+            $users = [$this->user, $this->userAmbassador, $this->userOrga];
+            $loginUser = $users[$example['loginUser']];
+        }
+        $newEmail = $this->faker->email();
+
+        $I->login($loginUser['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/user/' . $this->user['id'] . '/email', [
+            'email' => $newEmail,
+            'password' => 'password'
+        ]);
+
+        if ($example['allowChange']) {
+            $I->seeResponseCodeIs(HttpCode::OK);
+            if ($example['changeImmediately']) {
+                $I->seeInDatabase('fs_foodsaver', ['id' => $this->user['id'], 'email' => $newEmail]);
+            } else {
+                $I->seeInDatabase('fs_mailchange', ['foodsaver_id' => $this->user['id'], 'newmail' => $newEmail]);
+            }
+        } else {
+            $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
+            $I->dontSeeInDatabase('fs_mailchange', ['foodsaver_id' => $this->user['id'], 'newmail' => $newEmail]);
         }
     }
 }

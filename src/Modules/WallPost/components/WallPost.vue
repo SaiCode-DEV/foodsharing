@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 
 import Avatar from '@/components/Avatar/Avatar.vue'
 import Markdown from '@/components/Markdown/Markdown'
@@ -114,11 +114,17 @@ export default {
     mayDeleteEverything: { type: Boolean, default: false },
     isCoordinator: { type: Boolean, default: false },
   },
+  setup () {
+    const userStore = useUserStore()
+    return {
+      userStore,
+    }
+  },
   computed: {
     canDelete () {
-      if (!DataUser.getters.getUserId()) return false
+      if (!this.userStore.getUserId) return false
       // see StorePermissions:mayDeleteStoreWallPost
-      return this.isOwn(this.post) || this.mayDeleteEverything || this.isManager(DataUser.getters.getUserId()) || this.isCoordinator
+      return this.isOwn(this.post) || this.mayDeleteEverything || this.isManager(this.userStore.getUserId) || this.isCoordinator
     },
   },
   methods: {
@@ -127,7 +133,7 @@ export default {
       return (this.managers.indexOf(userId) > -1) // no IE: this.managers.includes(userId)
     },
     isOwn (post) {
-      return (post.foodsaverId === DataUser.getters.getUserId())
+      return (post.foodsaverId === this.userStore.getUserId)
     },
   },
 }

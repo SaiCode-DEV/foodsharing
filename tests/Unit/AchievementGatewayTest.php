@@ -95,8 +95,9 @@ class AchievementGatewayTest extends Unit
         $awardedAchievement->achievementId = $achievementId;
         $awardedAchievement->reviewerId = $this->otherUser['id'];
         $awardedAchievement->notice = 'Some notice';
+        $awardedAchievement->validUntil = null;
 
-        $this->transactions->awardAchievement($awardedAchievement);
+        $this->gateway->awardAchievement($awardedAchievement);
         $this->assertEquals(true, $this->gateway->hasAchievement($this->user['id'], $achievementId));
     }
 
@@ -110,7 +111,7 @@ class AchievementGatewayTest extends Unit
         $awardedAchievement->notice = 'Some notice';
         $awardedAchievement->validUntil = Carbon::now()->subDay();
 
-        $this->transactions->awardAchievement($awardedAchievement);
+        $this->gateway->awardAchievement($awardedAchievement);
         $this->assertEquals(false, $this->gateway->hasAchievement($this->user['id'], $achievementId));
     }
 

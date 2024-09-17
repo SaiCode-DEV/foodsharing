@@ -13,7 +13,7 @@
 
 <script>
 // Stores
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 // Components
 import InformationField from './InformationField.vue'
 // Mixin
@@ -24,6 +24,12 @@ export default {
     InformationField,
   },
   mixins: [RouteAndDeviceCheckMixin],
+  setup () {
+    const userStore = useUserStore()
+    return {
+      userStore,
+    }
+  },
   data () {
     return {
       list: [],
@@ -33,7 +39,7 @@ export default {
     /**
      * Checks if the foodsaver has already an calendar token
      */
-    if (DataUser.getters.isFoodsaver() && !DataUser.getters.hasCalendarToken()) {
+    if (this.userStore.isFoodsaver && !this.userStore.hasCalendarToken) {
       this.list.push({
         icon: 'fa-calendar-alt',
         field: 'calendar_sync',
@@ -47,7 +53,7 @@ export default {
     /**
      * Checks if the user is a foodsaver and does not use an safari browser
      */
-    if (DataUser.getters.isFoodsaver() && !this.isSafari) {
+    if (this.userStore.isFoodsaver && !this.isSafari) {
       this.list.push({
         icon: 'fa-info-circle',
         field: 'push',

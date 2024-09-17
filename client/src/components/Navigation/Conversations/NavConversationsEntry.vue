@@ -33,17 +33,24 @@
   </button>
 </template>
 <script>
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import profileStore from '@/stores/profiles'
 import conversationStore from '@/stores/conversations'
 
 import ConversationAvatar from '@/components/Avatar/ConversationAvatar'
 import Time from '@/components/Time.vue'
 
+const userStore = useUserStore()
+
 export default {
   components: { ConversationAvatar, Time },
   props: {
     conversation: { type: Object, default: () => ({}) },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   computed: {
     title () {
@@ -59,10 +66,10 @@ export default {
         .join(', ')
     },
     loggedinUser () {
-      return DataUser.getters.getUser()
+      return userStore.getUser
     },
     lastAuthorName () {
-      if (this.conversation.lastMessage.authorId === DataUser.getters.getUserId()) return this.$i18n('globals.you')
+      if (this.conversation.lastMessage.authorId === userStore.getUserId) return this.$i18n('globals.you')
       return profileStore.profiles[this.conversation.lastMessage.authorId].name
     },
   },

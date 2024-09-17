@@ -1,7 +1,7 @@
 <template>
   <Container
-    :tag="hasLocations ? 'basket.nearby' : 'basket.recent'"
-    :title="$i18n(hasLocations ? 'basket.nearby' : 'basket.recent')"
+    :tag="userStore.hasLocations ? 'basket.nearby' : 'basket.recent'"
+    :title="$i18n(userStore.hasLocations ? 'basket.nearby' : 'basket.recent')"
     :toggle-visiblity="data.length > defaultAmount"
     @show-full-list="showFullList"
     @reduce-list="reduceList"
@@ -21,12 +21,14 @@
 <script>
 // Stores
 import { getters } from '@/stores/baskets'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 // Components
 import Container from '../Container.vue'
 import BasketField from './BasketField'
 // Mixin
 import ListToggleMixin from '@/mixins/ContainerToggleMixin'
+
+const userStore = useUserStore()
 
 export default {
   components: {
@@ -37,12 +39,14 @@ export default {
   props: {
     title: { type: String, default: 'dashboard.pickupdates' },
   },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   computed: {
     radius () {
       return getters.getRadius()
-    },
-    hasLocations () {
-      return DataUser.getters.hasLocations()
     },
     data () {
       const data = getters.getNearby()

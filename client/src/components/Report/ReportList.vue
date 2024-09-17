@@ -50,6 +50,9 @@
               <strong>{{ $i18n('reports.store') }}</strong>: <a :href="`/?page=fsbetrieb&id=${row.item.betrieb_id}`">
                 {{ row.item.betrieb_name }}</a> ({{ row.item.betrieb_id }})
             </p>
+            <p v-else>
+              <strong>{{ $i18n('reports.store') }}</strong>: -
+            </p>
             <p><strong>{{ $i18n('reports.reported') }}</strong>: {{ row.item.fs_name }} {{ row.item.fs_nachname }} ({{ row.item.fs_id }}), {{ row.item.fs_email }}</p>
             <p><strong>{{ $i18n('reports.reporter') }}</strong>: {{ row.item.rp_name }} {{ row.item.rp_nachname }} ({{ row.item.rp_id }}), {{ row.item.rp_email }}</p>
             <p><strong>{{ $i18n('reports.reason') }}</strong>: {{ row.item.tvalue }}</p>
@@ -78,13 +81,20 @@ import Avatar from '@/components/Avatar/Avatar.vue'
 import Time from '@/components/Time.vue'
 import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin.js'
 import OverflowMenu from '@/components/OverflowMenu.vue'
-import { getters } from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 export default {
   components: { Avatar, Time, OverflowMenu },
   mixins: [CopyToClipboardMixin],
   props: {
     reports: { type: Array, default: null },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     return {
@@ -102,7 +112,7 @@ export default {
   },
   computed: {
     mayDelete () {
-      return getters.isOrga()
+      return userStore.isOrga
     },
   },
   methods: {

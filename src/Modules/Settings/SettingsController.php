@@ -88,6 +88,7 @@ class SettingsController extends FoodsharingController
             $params['userDetails']['homeRegionName'] = $params['userDetails']['bezirk_id'] !== null ? $this->regionGateway->getRegionName($params['userDetails']['bezirk_id']) : null;
             $params['permissions']['isOnTeamPage'] = $this->unitGateway->isUserOnTeamPage($userId);
             $params['permissions']['mayChangeName'] = $this->settingsPermissions->mayChangeName($userId);
+            $params['permissions']['mayChangeEmailImmediately'] = $this->settingsPermissions->mayChangeLoginEmail($userId);
         }
 
         $isMe = $userId === $sessionUserId;

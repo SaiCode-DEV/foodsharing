@@ -123,6 +123,7 @@
           :group-name="name"
           :group-id="regionId"
           :is-work-group="isWorkGroup"
+          :may-administrate-achievements="mayAdministrateAchievements"
         />
       </div>
     </div>
@@ -192,6 +193,7 @@ export default {
     pageData: { type: [Array, Object], default: () => {} },
     menu: { type: Object, required: true },
     mayAccessApplications: { type: Boolean, required: true },
+    mayAdministrateAchievements: { type: Boolean, default: false },
   },
   data () {
     return {

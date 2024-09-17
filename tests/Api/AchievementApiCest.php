@@ -1,0 +1,141 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Tests\Api;
+
+use Codeception\Util\HttpCode;
+use Foodsharing\Modules\Achievement\DTO\Achievement;
+use Symfony\Component\HttpFoundation\Response;
+use Tests\Support\ApiTester;
+
+class AchievementApiCest
+{
+    protected ApiTester $tester;
+    private Achievement $achievement;
+    private Achievement $otherAchievement;
+    private array $admin;
+    private array $user;
+    private $region;
+
+    public function _before(ApiTester $I): void
+    {
+        $this->tester = $I;
+
+        $this->user = $this->tester->createFoodsaver();
+        $this->admin = $this->tester->createAmbassador();
+
+        $this->region = $this->tester->createRegion('region', ['parent_id' => 0], fillMailbox: false);
+        $this->tester->addRegionMember($this->region['id'], $this->user['id']);
+        $this->tester->addRegionMember($this->region['id'], $this->admin['id']);
+        $this->tester->addRegionAdmin($this->region['id'], $this->admin['id']);
+
+        $this->achievement = new Achievement();
+        $this->achievement->id = 1;
+        $this->achievement->regionId = $this->region['id'];
+        $this->achievement->name = 'Some name';
+        $this->achievement->description = 'Some description';
+        $this->achievement->icon = 'icon';
+        $this->achievement->validityInDaysAfterAssignment = 365;
+        $this->achievement->isRequestableByFoodsaver = true;
+
+        $this->otherAchievement = clone $this->achievement;
+        $this->otherAchievement->id = 2;
+        $this->otherAchievement->regionId = 0;
+
+        $this->tester->addAchievement($this->achievementToArray($this->achievement));
+        $this->tester->addAchievement($this->achievementToArray($this->otherAchievement));
+    }
+
+    private function achievementToArray(Achievement $achievement): array
+    {
+        return [
+            'id' => $achievement->id,
+            'name' => $achievement->name,
+            'region_id' => $achievement->regionId,
+            'description' => $achievement->description,
+            'icon' => $achievement->icon,
+            'validity_in_days_after_assignment' => $achievement->validityInDaysAfterAssignment,
+            'is_requestable_by_foodsaver' => $achievement->isRequestableByFoodsaver,
+        ];
+    }
+
+    public function getAchievementsFromRegion(ApiTester $I): void
+    {
+        $I->sendGET('api/achievements/region/' . $this->region['id']);
+        $I->seeResponseCodeIs(Response::HTTP_UNAUTHORIZED);
+
+        $I->login($this->user['email']);
+
+        $I->sendGET('api/achievements/region/' . $this->region['id'] + 10);
+        $I->seeResponseCodeIs(Response::HTTP_FORBIDDEN);
+
+        $I->sendGET('api/achievements/region/' . $this->region['id']);
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $expected = get_object_vars($this->achievement);
+        unset($expected['createdAt']);
+        $I->seeResponseContainsJson([$expected]);
+
+        $I->dontSeeResponseContainsJson(['id' => $this->otherAchievement->id]);
+    }
+
+    public function awardingAchievementForUser(ApiTester $I): void
+    {
+        // Not allowed logged out
+        $I->sendGET("api/achievements/{$this->achievement->id}/users");
+        $I->seeResponseCodeIs(Response::HTTP_UNAUTHORIZED);
+        $I->sendPOST("api/achievements/{$this->achievement->id}/users/{$this->user['id']}");
+        $I->seeResponseCodeIs(Response::HTTP_UNAUTHORIZED);
+
+        $I->login($this->user['email']);
+
+        // Not allowed as normal user
+        $I->sendGET("api/achievements/{$this->achievement->id}/users");
+        $I->seeResponseCodeIs(Response::HTTP_FORBIDDEN);
+        $I->sendPOST("api/achievements/{$this->achievement->id}/users/{$this->user['id']}");
+        $I->seeResponseCodeIs(Response::HTTP_FORBIDDEN);
+
+        // Allowed as admin
+        $I->login($this->admin['email']);
+
+        // Awarding achievement
+        $I->sendGET("api/achievements/{$this->achievement->id}/users");
+        $I->seeResponseCodeIs(Response::HTTP_OK);
+        $I->dontSeeResponseJsonMatchesJsonPath('$[0]');
+
+        // Not allowed to award oneself
+        $I->sendPOST("api/achievements/{$this->achievement->id}/users/{$this->admin['id']}");
+        $I->seeResponseCodeIs(Response::HTTP_FORBIDDEN);
+
+        // Awarding achievement
+        $I->sendPOST("api/achievements/{$this->achievement->id}/users/{$this->user['id']}", ['notice' => 'notice']);
+        $I->seeResponseCodeIs(Response::HTTP_OK);
+
+        // Seeing awarded achievement
+        $I->sendGET("api/achievements/{$this->achievement->id}/users");
+        $I->seeResponseCodeIs(Response::HTTP_OK);
+        $I->seeResponseContainsJson([[
+            'user' => ['id' => $this->user['id']],
+            'reviewer' => ['id' => $this->admin['id']],
+            'achievementId' => $this->achievement->id,
+            'notice' => 'notice',
+        ]]);
+
+        // Updating awarded achievement
+        $I->sendPATCH("api/achievements/{$this->achievement->id}/users/{$this->user['id']}", [
+            'notice' => 'notice2',
+            'validUntil' => 'infinite',
+        ]);
+        $I->seeResponseCodeIs(Response::HTTP_OK);
+        $I->seeResponseContainsJson([
+            'notice' => 'notice2',
+            'validUntil' => null,
+        ]);
+
+        // Revoking awarded achievement
+        $I->sendDELETE("api/achievements/{$this->achievement->id}/users/{$this->user['id']}");
+        $I->seeResponseCodeIs(Response::HTTP_OK);
+        $I->sendGET("api/achievements/{$this->achievement->id}/users");
+        $I->dontSeeResponseJsonMatchesJsonPath('$[0]');
+    }
+}

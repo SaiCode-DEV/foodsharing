@@ -388,11 +388,18 @@ class Foodsharing extends Db
 
     public function createStore($bezirk_id, $team_conversation = null, $springer_conversation = null, $extra_params = []): array
     {
+        // one third of the stores are assigned to an existing store category
+        $storeCategoryId = null;
+        if (rand(0, 2) > 1) {
+            $categories = $this->grabColumnFromDatabase('fs_betrieb_kategorie', 'id');
+            $storeCategoryId = $this->faker->randomElement($categories);
+        }
+
         $params = array_merge([
             'betrieb_status_id' => $this->faker->randomElement(array_slice(CooperationStatus::cases(), 0, -1))->value,
             'status' => 1,
             'added' => $this->toDate($this->faker->dateTime()),
-            'betrieb_kategorie_id' => $this->faker->numberBetween(1, 10),
+            'betrieb_kategorie_id' => $storeCategoryId,
             'plz' => $this->faker->postcode(),
             'stadt' => $this->faker->city(),
             'str' => $this->faker->streetAddress(),

@@ -206,8 +206,10 @@ class FoodSharePointView extends View
                 'city' => $latLonOptions['ort'] ?? null,
             ]),
             $tagselect,
-        ], ['submit' => $this->translator->trans('button.save')]
-        ), $title, ['class' => 'ui-padding']);
+            '<a class="button btn btn-primary" onclick="_addFoodSharePoint();return false;">' . $this->translator->trans('button.save') . '</a>'
+        ], ['submit' => false,
+            'action' => '#'
+        ]), $title, ['class' => 'ui-padding']);
     }
 
     public function options(array $items): string

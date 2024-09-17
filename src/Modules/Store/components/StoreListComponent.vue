@@ -151,9 +151,10 @@ import StoreStatusIcon from './StoreStatusIcon.vue'
 import ConfigureableList from '@/components/ConfigureableList.vue'
 import BTableMobileFriendly from '@/components/BTableMobileFriendly.vue'
 import { useStoreStore } from '@/stores/store'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 
 const storeStore = useStoreStore()
+const userStore = useUserStore()
 
 export default {
   components: { BCard, BTableMobileFriendly, BButton, BPagination, BFormSelect, StoreStatusIcon, ConfigureableList },
@@ -283,7 +284,7 @@ export default {
       return fieldOrder
     },
     userId () {
-      return DataUser.getters.getUserId()
+      return userStore.getUserId
     },
   },
   created () {
@@ -318,14 +319,17 @@ export default {
       this.state.filterText = ''
     },
     mapLink (store) {
-      if (['iPad', 'iPhone', 'iPod'].includes(
-        navigator?.userAgentData?.platform ||
-        navigator?.platform ||
-        'unknown')) {
-        return `maps://?q=?q=${store.location.lat},${store.location.lon})`
+      const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+      if (regex.test(navigator.userAgent)) {
+        if (['iPad', 'iPhone', 'iPod'].includes(
+          navigator?.userAgentData?.platform ||
+          navigator?.platform ||
+          'unknown')) {
+          return `maps://?q=${store.location.lat},${store.location.lon}`
+        }
+        return `geo:0,0?q=${store.location.lat},${store.location.lon}`
       }
-
-      return `geo:0,0?q=${store.location.lat},${store.location.lon}`
+      return this.$url('map', { storeId: store.id })
     },
   },
 }

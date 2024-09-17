@@ -33,7 +33,7 @@
 
 <script>
 // Store
-import DataUser from '@/stores/user.js'
+import { useUserStore } from '@/stores/user.js'
 import DataBells from '@/stores/bells.js'
 import DataStores from '@/stores/stores.js'
 import DataBaskets from '@/stores/baskets.js'
@@ -53,6 +53,8 @@ import DonationModal from '@/components/Modals/Donation/DonationModal.vue'
 import ThemeSwitcherModal from '@/views/partials/Modals/ThemeSwitcherModal.vue'
 // Mixins
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
+
+const userStore = useUserStore()
 
 export default {
   name: 'Navigation',
@@ -78,6 +80,11 @@ export default {
       default: () => [],
     },
   },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   data () {
     return {
       navIsSmall: false,
@@ -85,26 +92,26 @@ export default {
   },
   computed: {
     isLoggedIn () {
-      return DataUser.getters.isLoggedIn()
+      return userStore.isLoggedIn
     },
     isFoodsaver () {
-      return DataUser.getters.isFoodsaver()
+      return userStore.isFoodsaver
     },
     hasMailbox () {
-      return DataUser.getters.hasMailBox()
+      return userStore.hasMailBox
     },
     homeHref () {
       return (this.isLoggedIn) ? this.$url('dashboard') : this.$url('home')
     },
     userId () {
-      return DataUser.getters.getUserId()
+      return userStore.getUserId
     },
   },
   watch: {
     hasMailbox: {
       async handler (newValue) {
         if (newValue) {
-          await DataUser.mutations.fetchMailUnreadCount()
+          await userStore.fetchMailUnreadCount
         }
       },
       immediate: true,
