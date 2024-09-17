@@ -9,7 +9,7 @@
         >
           <b-form-select
             id="district-select"
-            v-model="foodSharePointStore.regionId"
+            v-model="foodSharePointStore.foodSharePoint.regionId"
             :options="filteredRegions"
             required
           />
@@ -18,7 +18,7 @@
         <b-form-group label="Name" label-for="name-input">
           <b-form-input
             id="name-input"
-            v-model="foodSharePointStore.name"
+            v-model="foodSharePointStore.foodSharePoint.name"
             type="text"
             required
             placeholder="Geben Sie den Namen ein"
@@ -34,13 +34,13 @@
             :is-image="true"
             :img-height="900"
             :img-width="400"
-            :initial-value="foodSharePointStore.picture"
+            :initial-value="foodSharePointStore.foodSharePoint.picture"
           />
         </b-form-group>
 
         <b-form-group label="Adress-/Standort-Suche" label-for="name-input">
           <LeafletLocationSearchVForm
-            :coordinates="{ lat: foodSharePointStore.lat, lon: foodSharePointStore.lon }"
+            :coordinates="{ lat: foodSharePointStore.foodSharePoint.lat, lon: foodSharePointStore.foodSharePoint.lon }"
             :zoom="zoom"
           />
         </b-form-group>
@@ -106,6 +106,7 @@ export default {
     this.foodSharePointId = parseInt(searchParams.get('id'))
     console.log('foodSharePointId', this.foodSharePointId)
     foodSharePointStore.fetchFoodSharePoint(this.foodSharePointId)
+    console.log('foodSharePointStore', foodSharePointStore)
     // this.choosenRegion = this.foodSharePointStore.regionId ?? this.regionId
     // this.setChoosenManagers()
   },
