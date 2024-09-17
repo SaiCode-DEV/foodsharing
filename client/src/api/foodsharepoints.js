@@ -7,3 +7,7 @@ export async function listFoodSharePoints (regionId) {
 export async function addFoodSharePoint (regionId, data) {
   return post(`/regions/${regionId}/foodSharePoints`, data)
 }
+
+export async function getFoodSharePoint (foodSharePointId) {
+  return await get(`/foodSharePoints/${foodSharePointId}`)
+}
