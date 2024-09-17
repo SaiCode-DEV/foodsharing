@@ -75,6 +75,21 @@ class FoodSharePointView extends View
         );
     }
 
+    public function setFoodSharePoint(array $foodSharePoint): void
+    {
+        $this->foodSharePoint = $foodSharePoint;
+    }
+
+    public function setManagers(array $managers): void
+    {
+        $this->managers = $managers;
+    }
+
+    public function setFollowers(array $followers): void
+    {
+        $this->followers = $followers;
+    }
+
     public function setRegions(array $regions): void
     {
         $this->regions = $regions;
