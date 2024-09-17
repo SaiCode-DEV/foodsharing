@@ -9,7 +9,7 @@
         >
           <b-form-select
             id="district-select"
-            v-model="choosenRegion"
+            v-model="foodSharePointStore.regionId"
             :options="filteredRegions"
             required
           />
@@ -18,7 +18,7 @@
         <b-form-group label="Name" label-for="name-input">
           <b-form-input
             id="name-input"
-            v-model="foodSharePointName"
+            v-model="foodSharePointStore.name"
             type="text"
             required
             placeholder="Geben Sie den Namen ein"
@@ -34,12 +34,15 @@
             :is-image="true"
             :img-height="900"
             :img-width="400"
-            :initial-value="foodSharePointData.pic.head"
+            :initial-value="foodSharePointStore.picture"
           />
         </b-form-group>
 
         <b-form-group label="Adress-/Standort-Suche" label-for="name-input">
-          <LeafletLocationSearchVForm :coordinates="coordinates" :zoom="zoom" />
+          <LeafletLocationSearchVForm
+            :coordinates="{ lat: foodSharePointStore.lat, lon: foodSharePointStore.lon }"
+            :zoom="zoom"
+          />
         </b-form-group>
 
         <label for="tags-basic">Foodsaver:innen, die Ansprechpersonen für den Fairteiler sind</label>
@@ -62,22 +65,29 @@ import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import FileUploadVForm from '@/components/upload/FileUploadVForm.vue'
 import LeafletLocationSearchVForm from '@/components/map/LeafletLocationSearchVForm'
 import MultiUserSearchInput from '@/components/MultiUserSearchInput.vue'
+import { useFoodSharePointStore } from '@/stores/foodSharePoint'
 
+const foodSharePointStore = useFoodSharePointStore()
 export default {
   name: 'FoodSharePointAddOrEdit',
   components: { MultiUserSearchInput, MarkdownInput, FileUploadVForm, LeafletLocationSearchVForm },
   props: {
     regions: { type: Object, required: true },
-    foodSharePointData: { type: Object, default: () => {} },
     managers: { type: Array, default: () => [] },
+  },
+  setup () {
+    return {
+      foodSharePointStore,
+    }
   },
   data () {
     return {
+      foodSharePointId: null,
+      regionId: null,
       zoom: 17,
-      choosenRegion: this.foodSharePointData.bezirk_id ?? [],
+      choosenRegion: null,
       choosenManagers: [],
-      foodSharePointName: this.foodSharePointData.name ?? '',
-      coordinates: { lat: this.foodSharePointData.lat, lon: this.foodSharePointData.lon },
+      coordinates: null,
     }
   },
   computed: {
@@ -89,7 +99,15 @@ export default {
     },
   },
   created () {
-    this.setChoosenManagers()
+    const url = new URL(window.location.href)
+    const searchParams = new URLSearchParams(url.search)
+    this.regionId = parseInt(searchParams.get('bid'))
+    console.log('regionId', this.regionId)
+    this.foodSharePointId = parseInt(searchParams.get('id'))
+    console.log('foodSharePointId', this.foodSharePointId)
+    foodSharePointStore.fetchFoodSharePoint(this.foodSharePointId)
+    // this.choosenRegion = this.foodSharePointStore.regionId ?? this.regionId
+    // this.setChoosenManagers()
   },
   methods: {
     setChoosenManagers () {
