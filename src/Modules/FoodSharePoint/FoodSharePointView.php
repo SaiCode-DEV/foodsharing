@@ -75,6 +75,16 @@ class FoodSharePointView extends View
         );
     }
 
+    public function setRegions(array $regions): void
+    {
+        $this->regions = $regions;
+    }
+
+    public function setRegion(?array $region): void
+    {
+        $this->region = $region;
+    }
+
     public function setFoodSharePoint(array $foodSharePoint): void
     {
         $this->foodSharePoint = $foodSharePoint;
@@ -90,20 +100,10 @@ class FoodSharePointView extends View
         $this->followers = $followers;
     }
 
-    public function setRegions(array $regions): void
-    {
-        $this->regions = $regions;
-    }
-
-    public function setRegion(?array $region): void
-    {
-        $this->region = $region;
-    }
-
-    public function foodSharePointHead(): string
+    public function foodSharePointHead($foodSharePoint): string
     {
         return $this->twig->render('pages/FoodSharePoint/foodSharePointTop.html.twig', [
-            'food_share_point' => $this->foodSharePoint,
+            'food_share_point' => $foodSharePoint,
         ]);
     }
 
@@ -143,16 +143,16 @@ class FoodSharePointView extends View
         );
     }
 
-    public function address(): string
+    public function address($foodSharePoint): string
     {
         return $this->vueComponent('fsp-address-field', 'AddressField', [
-            'id' => $this->foodSharePoint['id'],
-            'address' => $this->foodSharePoint['anschrift'],
-            'zipCode' => $this->foodSharePoint['plz'],
-            'city' => $this->foodSharePoint['ort'],
+            'id' => $foodSharePoint['id'],
+            'address' => $foodSharePoint['anschrift'],
+            'zipCode' => $foodSharePoint['plz'],
+            'city' => $foodSharePoint['ort'],
             'coordinates' => [
-                'lat' => $this->foodSharePoint['lat'],
-                'lon' => $this->foodSharePoint['lon']
+                'lat' => $foodSharePoint['lat'],
+                'lon' => $foodSharePoint['lon']
             ]
         ]);
     }
@@ -299,10 +299,10 @@ class FoodSharePointView extends View
         return $out;
     }
 
-    public function desc(): string
+    public function desc($foodSharePoint): string
     {
         return $this->v_utils->v_field(
-            '<p>' . $this->sanitizerService->markdownToHtml($this->foodSharePoint['desc']) . '</p>',
+            '<p>' . $this->sanitizerService->markdownToHtml($foodSharePoint['desc']) . '</p>',
             $this->translator->trans('fsp.description'),
             ['class' => 'ui-padding fsp-desc']
         );

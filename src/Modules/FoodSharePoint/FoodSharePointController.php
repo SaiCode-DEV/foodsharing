@@ -305,7 +305,7 @@ class FoodSharePointController extends FoodsharingController
         $this->pageHelper->addBread($this->foodSharePoint['name']);
         $this->pageHelper->addTitle($this->foodSharePoint['name']);
         $this->pageHelper->addContent(
-            $this->view->foodSharePointHead() . '
+            $this->view->foodSharePointHead($this->foodSharePoint) . '
 			<div>'
                 . $this->v_utils->v_info(
                     $this->translator->trans('fsp.publicwall'),
@@ -349,8 +349,8 @@ class FoodSharePointController extends FoodsharingController
             $this->pageHelper->addContent($this->view->follower(), CNT_LEFT);
         }
 
-        $this->pageHelper->addContent($this->view->desc(), CNT_RIGHT);
-        $this->pageHelper->addContent($this->view->address(), CNT_RIGHT);
+        $this->pageHelper->addContent($this->view->desc($this->foodSharePoint), CNT_RIGHT);
+        $this->pageHelper->addContent($this->view->address($this->foodSharePoint), CNT_RIGHT);
     }
 
     private function add(Request $request): Response
