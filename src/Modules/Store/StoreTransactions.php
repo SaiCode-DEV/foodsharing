@@ -19,6 +19,7 @@ use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Core\DTO\MinimalIdentifier;
 use Foodsharing\Modules\Core\DTO\PatchGeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -78,31 +79,39 @@ class StoreTransactions
     /**
      * Returns a store's data including the team members in a format suitable for the frontend.
      *
-     * @param int $userId the user who is requesting the data
      * @param int $storeId the store
      * @param bool $includeUserDetails whether to include phone numbers and last fetch dates for the team members
      */
-    public function getMyStoreTeam(int $userId, int $storeId, bool $includeUserDetails): array
+    public function getMyStoreTeam(int $storeId, bool $includeUserDetails): array
     {
-        $store = $this->storeGateway->getMyStore($userId, $storeId);
+        $storeTeam = $this->storeGateway->getStoreTeam($storeId);
+        $standbyTeam = $this->storeGateway->getBetriebSpringer($storeId);
 
-        return $this->getDisplayedStoreTeam($store, $includeUserDetails);
+        return $this->getDisplayedStoreTeam($storeTeam, $standbyTeam, $includeUserDetails);
     }
 
     /**
      * Get store applications for a specific user and store.
      *
-     * @param int $userId   the ID of the user
      * @param int $storeId  the ID of the store
      *
      * @return array an array containing store requests
      */
-    public function getStoreApplications(int $userId, int $storeId): array
+    public function getStoreApplications(int $storeId): array
     {
-        $store = $this->storeGateway->getMyStore($userId, $storeId);
+        $requests = [];
+        try {
+            $store = $this->storeGateway->getStore($storeId, true);
+            $requests = $this->storeGateway->getApplications($storeId, GeoLocation::createFromArray([
+                'lat' => $store->location->lat,
+                'lon' => $store->location->lon,
+            ]));
+        } catch (DatabaseNoValueFoundException) {
+            // store does not exist
+        }
 
         return [
-            'storeRequests' => $store['requests'] ?? [],
+            'storeRequests' => $requests,
         ];
     }
 
@@ -995,10 +1004,11 @@ class StoreTransactions
      * Returns all team member of the store (active and waiting list) and makes sure that details like the phone
      * number are only included if allowed.
      *
-     * @param array $store store data from the database
+     * @param array $storeTeam the list of active team members from the database
+     * @param array $standbyTeam the list of standby team members from the database
      * @param bool $includeUserDetails whether to include or omit phone numbers and last fetch date
      */
-    private function getDisplayedStoreTeam(array $store, bool $includeUserDetails): array
+    private function getDisplayedStoreTeam(array $storeTeam, array $standbyTeam, bool $includeUserDetails): array
     {
         $allowedFields = [
             // personal info
@@ -1012,7 +1022,7 @@ class StoreTransactions
 
         return array_map(
             fn ($teamMember) => array_filter($teamMember, fn ($key) => in_array($key, $allowedFields), ARRAY_FILTER_USE_KEY),
-            array_merge($store['foodsaver'], $store['springer']),
+            array_merge($storeTeam, $standbyTeam),
         );
     }
 }

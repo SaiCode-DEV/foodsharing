@@ -481,7 +481,7 @@ class StoreGateway extends BaseGateway
     /**
      * @return list<array<mixed>> all foodsavers that currently apply to the store team
      */
-    private function getApplications(int $storeId, GeoLocation $storePosition): array
+    public function getApplications(int $storeId, GeoLocation $storePosition): array
     {
         $applications = $this->db->fetchAll('SELECT
                 foodsaver.id,

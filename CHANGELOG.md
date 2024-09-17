@@ -36,6 +36,7 @@
 - Added an enum for wall types in the backend #1996 !3573 @alex.simm
 - Bananas now use the API !3581 @AntonBallmaier
 - Moved userStore to pinia for future improvements !3531 @SaiCode
+- Reduced the number of database requests in some store API endpoints #1662 !3615 @alex.simm
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm
