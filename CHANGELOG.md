@@ -29,13 +29,12 @@
 - Test push notifications are only sent to the new device #960 @alex.simm
 - Split email in businesscard if is too long !3600 @chriswalg
 - foodsavers can't report a store (empty list) #2107 !3605 @McGoldi
-- Fixes Chat message appearing on wrong side #2115 !3616
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
 - Added an enum for wall types in the backend #1996 !3573 @alex.simm
 - Bananas now use the API !3581 @AntonBallmaier
-- Moved userStore to pinia for future improvements !3531 @SaiCode
+- Moved userStore to pinia for future improvements !3531 !3617 @SaiCode
 - Reduced the number of database requests in some store API endpoints #1662 !3615 @alex.simm
 
 ## Dev/Test/CI stuff

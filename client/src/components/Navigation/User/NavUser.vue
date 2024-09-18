@@ -3,7 +3,7 @@
     class="nav-user is-open-on-mobile"
     :title="$i18n('navigation.profil', {name: getUserFirstName})"
     direction="right"
-    :badge="getMailUnreadCount"
+    :badge="userStore.getMailUnreadCount"
   >
     <template #icon>
       <Avatar
@@ -22,7 +22,7 @@
       >
         <i class="icon-subnav fas fa-envelope" />
         {{ $i18n('menu.entry.mailbox') }}
-        <div class="badge badge-danger badge-inline">{{ getMailUnreadCount }}</div>
+        <div class="badge badge-danger badge-inline">{{ userStore.getMailUnreadCount }}</div>
       </a>
       <div v-if="hasMailBox" class="dropdown-divider" />
       <a
@@ -104,9 +104,6 @@ export default {
     },
     getUserId () {
       return userStore.getUserId
-    },
-    getMailUnreadCount () {
-      return userStore.getMailUnreadCount
     },
     hasMailBox () {
       return userStore.hasMailBox

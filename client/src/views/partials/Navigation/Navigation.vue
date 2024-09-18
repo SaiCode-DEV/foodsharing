@@ -97,9 +97,6 @@ export default {
     isFoodsaver () {
       return userStore.isFoodsaver
     },
-    hasMailbox () {
-      return userStore.hasMailBox
-    },
     homeHref () {
       return (this.isLoggedIn) ? this.$url('dashboard') : this.$url('home')
     },
@@ -108,15 +105,6 @@ export default {
     },
   },
   watch: {
-    hasMailbox: {
-      async handler (newValue) {
-        if (newValue) {
-          await userStore.fetchMailUnreadCount
-        }
-      },
-      immediate: true,
-      deep: true,
-    },
     isFoodsaver: {
       async handler (newValue) {
         if (newValue) {
@@ -141,6 +129,9 @@ export default {
   async mounted () {
     window.addEventListener('resize', this.resizeHandler)
     window.addEventListener('load', this.resizeHandler)
+    if (userStore.hasMailBox) {
+      userStore.fetchMailUnreadCount()
+    }
   },
   methods: {
     resizeHandler () {
