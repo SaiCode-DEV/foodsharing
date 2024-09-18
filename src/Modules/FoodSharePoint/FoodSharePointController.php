@@ -116,7 +116,7 @@ class FoodSharePointController extends FoodsharingController
         $this->follower = [];
         $this->regions = $this->getRealRegions();
         if ($foodSharePointId = intval($request->query->get('id'))) {
-            $this->foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId);
+            // $this->foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId);
 
             if (!$this->foodSharePoint) {
                 $this->routeHelper->goAndExit('/fairteiler');
@@ -242,7 +242,6 @@ class FoodSharePointController extends FoodsharingController
         $data['bfoodsaver_values'] = $this->foodsaverGateway->getFsAutocomplete($this->currentUserUnits->getRegions()); */
 
         $params['regions'] = $this->regions;
-        $params['foodSharePointData'] = $this->foodSharePoint;
         $params['managers'] = $this->managers;
         $foodSharePoint = $this->prepareVueComponent('food-share-point-add-or-edit', 'FoodSharePointAddOrEdit', $params);
         $this->pageHelper->addContent($foodSharePoint);

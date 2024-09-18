@@ -48,7 +48,7 @@
         <label for="tags-basic">Foodsaver:innen, die Ansprechpersonen für den Fairteiler sind</label>
         <multi-user-search-input
           v-model="choosenManagers"
-          :region-id="choosenRegion"
+          :region-id="foodSharePointStore.foodSharePoint.regionId"
           button-icon="fa-user-plus"
         />
 
@@ -108,7 +108,7 @@ export default {
     foodSharePointStore.fetchFoodSharePoint(this.foodSharePointId)
     console.log('foodSharePointStore', foodSharePointStore)
     // this.choosenRegion = this.foodSharePointStore.regionId ?? this.regionId
-    // this.setChoosenManagers()
+    this.setChoosenManagers()
   },
   methods: {
     setChoosenManagers () {
