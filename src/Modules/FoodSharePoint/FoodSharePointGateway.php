@@ -366,6 +366,95 @@ class FoodSharePointGateway extends BaseGateway
         return $result;
     }
 
+    public function getFoodSharePointWithFollowers(int $foodSharePointId): array
+    {
+        $result = $this->db->fetchAll(
+            '
+        SELECT  ft.id AS food_share_point_id,
+                ft.bezirk_id,
+                ft.`name` AS food_share_point_name,
+                ft.`picture`,
+                ft.`status`,
+                ft.`desc`,
+                ft.`anschrift`,
+                ft.`plz`,
+                ft.`ort`,
+                ft.`lat`,
+                ft.`lon`,
+                ft.`add_date`,
+                UNIX_TIMESTAMP(ft.`add_date`) AS time_ts,
+                ft.`add_foodsaver`,
+                fs.name AS fs_name,
+                fs.nachname AS fs_nachname,
+                fs.id AS fs_id,
+                folfs.name AS follower_name,
+                folfs.nachname AS follower_nachname,
+                folfs.id AS follower_id,
+                folfs.photo AS follower_photo,
+                folfs.is_sleeping AS follower_is_sleeping,
+                ff.type AS follower_type
+        FROM    fs_fairteiler ft
+        LEFT JOIN fs_foodsaver fs ON ft.add_foodsaver = fs.id
+        LEFT JOIN fs_fairteiler_follower ff ON ff.fairteiler_id = ft.id
+        LEFT JOIN fs_foodsaver folfs ON ff.foodsaver_id = folfs.id
+        WHERE   ft.id = :foodSharePointId
+        ',
+            [':foodSharePointId' => $foodSharePointId]
+        );
+
+        if (!$result) {
+            return [];
+        }
+
+        $foodSharePoint = [
+            'id' => $result[0]['food_share_point_id'],
+            'bezirk_id' => $result[0]['bezirk_id'],
+            'name' => $result[0]['food_share_point_name'],
+            'picture' => $result[0]['picture'],
+            'status' => $result[0]['status'],
+            'desc' => $result[0]['desc'],
+            'anschrift' => $result[0]['anschrift'],
+            'plz' => $result[0]['plz'],
+            'ort' => $result[0]['ort'],
+            'lat' => $result[0]['lat'],
+            'lon' => $result[0]['lon'],
+            'add_date' => $result[0]['add_date'],
+            'time_ts' => $result[0]['time_ts'],
+            'add_foodsaver' => $result[0]['add_foodsaver'],
+            'fs_name' => $result[0]['fs_name'],
+            'fs_nachname' => $result[0]['fs_nachname'],
+            'fs_id' => $result[0]['fs_id'],
+            'pic' => !empty($result[0]['picture']) ? $this->getPicturePaths($result[0]['picture']) : false,
+            'followers' => [
+                'follow' => [],
+                'manager' => [],
+                'all' => [],
+            ],
+        ];
+
+        foreach ($result as $row) {
+            if ($row['follower_id']) {
+                $follower = [
+                    'name' => $row['follower_name'],
+                    'nachname' => $row['follower_nachname'],
+                    'id' => $row['follower_id'],
+                    'photo' => $row['follower_photo'],
+                    'is_sleeping' => $row['follower_is_sleeping'],
+                ];
+
+                if ($row['follower_type'] === FollowerType::FOLLOWER) {
+                    $foodSharePoint['followers']['follow'][] = $follower;
+                    $foodSharePoint['followers']['all'][$row['follower_id']] = 'follow';
+                } elseif ($row['follower_type'] === FollowerType::FOOD_SHARE_POINT_MANAGER) {
+                    $foodSharePoint['followers']['manager'][] = $follower;
+                    $foodSharePoint['followers']['all'][$row['follower_id']] = 'manager';
+                }
+            }
+        }
+
+        return $foodSharePoint;
+    }
+
     public function getFoodSharePoint(int $foodSharePointId): array
     {
         if ($foodSharePoint = $this->db->fetch(

@@ -116,7 +116,7 @@ class FoodSharePointController extends FoodsharingController
         $this->follower = [];
         $this->regions = $this->getRealRegions();
         if ($foodSharePointId = intval($request->query->get('id'))) {
-            // $this->foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId);
+            $this->foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId);
 
             if (!$this->foodSharePoint) {
                 $this->routeHelper->goAndExit('/fairteiler');
@@ -154,7 +154,7 @@ class FoodSharePointController extends FoodsharingController
                 $this->regions[] = $this->regionGateway->getRegion($this->foodSharePoint['bezirk_id']);
             }
 
-            $this->follower = $this->foodSharePointGateway->getFollower($foodSharePointId);
+           $this->follower = $this->foodSharePointGateway->getFollower($foodSharePointId);
             $mapper = fn ($user) => new Profile($user);
             $managers = array_map($mapper, $this->follower['fsp_manager']);
             $followers = array_map($mapper, $this->follower['follow']);
@@ -239,11 +239,11 @@ class FoodSharePointController extends FoodsharingController
                $data['bfoodsaver'][$key]['name'] = $fs['name'] . ' ' . $fs['nachname'];
            }
 
-        $data['bfoodsaver_values'] = $this->foodsaverGateway->getFsAutocomplete($this->currentUserUnits->getRegions()); */
+        $data['bfoodsaver_values'] = $this->foodsaverGateway->getFsAutocomplete($this->currentUserUnits->getRegions());
 
         $params['regions'] = $this->regions;
-        $params['managers'] = $this->managers;
-        $foodSharePoint = $this->prepareVueComponent('food-share-point-add-or-edit', 'FoodSharePointAddOrEdit', $params);
+        $params['managers'] = $this->managers; */
+        $foodSharePoint = $this->prepareVueComponent('food-share-point-add-or-edit', 'FoodSharePointAddOrEdit');
         $this->pageHelper->addContent($foodSharePoint);
 
         /* $this->pageHelper->addContent($this->view->foodSharePointForm($data)); */

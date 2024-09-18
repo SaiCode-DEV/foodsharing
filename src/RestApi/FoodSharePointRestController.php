@@ -87,7 +87,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
         }
 
-        $foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId);
+        $foodSharePoint = $this->foodSharePointGateway->getFoodSharePointWithFollowers($foodSharePointId);
         if (!$foodSharePoint || $foodSharePoint['status'] !== 1) {
             throw new NotFoundHttpException('Food share point does not exist or was deleted.');
         }
@@ -129,8 +129,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
      */
     private function normalizeFoodSharePoint(array $data): array
     {
-        // set main properties
-        $fsp = [
+        return [
             'id' => (int)$data['id'],
             'regionId' => (int)$data['bezirk_id'],
             'name' => $data['name'],
@@ -141,14 +140,13 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
             'lat' => (float)$data['lat'],
             'lon' => (float)$data['lon'],
             'createdAt' => RestNormalization::normalizeDate($data['time_ts']),
-            'picture' => $data['picture']
+            'picture' => $data['picture'] ?: null,
+            'followers' => [
+                'follow' => $data['followers']['follow'],
+                'manager' => $data['followers']['manager'],
+                'all' => $data['followers']['all'],
+            ]
         ];
-
-        if ($fsp['picture'] == '' || !$fsp['picture']) {
-            $fsp['picture'] = null;
-        }
-
-        return $fsp;
     }
 
     /**
