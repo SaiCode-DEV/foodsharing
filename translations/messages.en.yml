@@ -379,6 +379,9 @@ settings:
     insufficient_permission: You do not have permission to change the e-mail address
       of this profile.
     sent_other_user: An e-mail with a confirmation link has been sent to the new address.
+    explanation_other_user: Here you can change the e-mail address with which this
+      profile was registered. After submitting, the user will receive an e-mail to
+      the new address with a confirmation link.
   chatmail: "If you receive an internal message on the foodsharing homepage,\nbut
     you are not logged in at the moment, we can inform you by mail.\nDo you want that?\n"
   follow:
@@ -2068,6 +2071,22 @@ map:
   donates: company donates
   filters:
     my_stores: My stores only
+    stores:
+      status:
+        label: status
+        all: all
+        cooperating: cooperates
+        not-cooperating: does not cooperate
+      help:
+        label: helpers
+        all: no preference
+        open: searching
+        searching: searching urgently
+      scope:
+        all: all
+        region: only my districts
+        member: only my stores
+        label: affiliation
   foodsharepoint:
     go: to the Food-Share Point
 content:
