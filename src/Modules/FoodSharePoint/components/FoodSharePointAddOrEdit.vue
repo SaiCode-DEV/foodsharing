@@ -10,7 +10,7 @@
           <b-form-select
             id="district-select"
             v-model="foodSharePointStore.foodSharePoint.regionId"
-            :options="filteredRegions"
+            :options="null"
             required
           />
         </b-form-group>
@@ -47,9 +47,10 @@
 
         <label for="tags-basic">Foodsaver:innen, die Ansprechpersonen für den Fairteiler sind</label>
         <multi-user-search-input
-          v-model="choosenManagers"
+          v-model="foodSharePointStore.foodSharePoint.followers.manager"
           :region-id="foodSharePointStore.foodSharePoint.regionId"
           button-icon="fa-user-plus"
+          :is-value-object="true"
         />
 
         <b-button type="submit" variant="primary">
@@ -71,10 +72,6 @@ const foodSharePointStore = useFoodSharePointStore()
 export default {
   name: 'FoodSharePointAddOrEdit',
   components: { MultiUserSearchInput, MarkdownInput, FileUploadVForm, LeafletLocationSearchVForm },
-  props: {
-    regions: { type: Object, required: true },
-    managers: { type: Array, default: () => [] },
-  },
   setup () {
     return {
       foodSharePointStore,
@@ -86,36 +83,17 @@ export default {
       regionId: null,
       zoom: 17,
       choosenRegion: null,
-      choosenManagers: [],
       coordinates: null,
     }
-  },
-  computed: {
-    filteredRegions () {
-      return Object.values(this.regions).map(region => ({
-        value: region.id,
-        text: region.name,
-      }))
-    },
   },
   created () {
     const url = new URL(window.location.href)
     const searchParams = new URLSearchParams(url.search)
     this.regionId = parseInt(searchParams.get('bid'))
-    console.log('regionId', this.regionId)
     this.foodSharePointId = parseInt(searchParams.get('id'))
     console.log('foodSharePointId', this.foodSharePointId)
     foodSharePointStore.fetchFoodSharePoint(this.foodSharePointId)
     console.log('foodSharePointStore', foodSharePointStore)
-    // this.choosenRegion = this.foodSharePointStore.regionId ?? this.regionId
-    this.setChoosenManagers()
-  },
-  methods: {
-    setChoosenManagers () {
-      if (this.managers && this.managers.length > 0) {
-        this.choosenManagers = Object.values(this.managers).map(manager => manager.id)
-      }
-    },
   },
 }
 </script>
