@@ -44,7 +44,6 @@ use Foodsharing\Modules\StoreCategories\StoreCategoriesGateway;
 use Foodsharing\Modules\StoreChain\StoreChainGateway;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
 use Foodsharing\Modules\WallPost\WallPostGateway;
-use Foodsharing\Utility\Sanitizer;
 use Foodsharing\Utility\WeightHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -77,7 +76,6 @@ class StoreTransactions
         private readonly StoreCategoriesGateway $storeCategoriesGateway,
         private readonly StoreChainGateway $storeChainGateway,
         private readonly WallPostGateway $wallPostGateway,
-        private readonly Sanitizer $sanitizerService,
         private readonly Session $session
     ) {
     }

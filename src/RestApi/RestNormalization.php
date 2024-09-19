@@ -4,7 +4,6 @@ namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
-use Foodsharing\Modules\Foodsaver\Profile;
 
 /**
  * Utility class that can be user by all controllers to format objects for
