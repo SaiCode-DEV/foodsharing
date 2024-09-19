@@ -300,7 +300,7 @@ export default {
       memberList: [],
       isBusy: false,
       roleOptions: [
-        { value: null, text: i18n('group.role_name') },
+        { value: null, text: i18n('group.member_list.all_roles') },
         { value: 1, text: i18n('terminology.role.1') },
         { value: 2, text: i18n('terminology.role.2') },
         { value: 3, text: i18n('terminology.role.3') },

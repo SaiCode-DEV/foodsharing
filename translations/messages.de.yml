@@ -584,6 +584,7 @@ group:
       verify:
         do: "Account von {name} ({id}) verifizieren"
         undo: "Verifizierung von {name} ({id}) aufheben"
+    all_roles: "Alle Rollen"
 
 legal:
   pp: "Datenschutzerklärung"
