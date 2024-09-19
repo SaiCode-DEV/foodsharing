@@ -29,7 +29,7 @@
 
 <script>
 import Avatar from '@/components/Avatar/Avatar.vue'
-import { deleteBanana } from '@/api/profile'
+import { deleteBanana } from '@/api/banana'
 import { hideLoader, pulseError, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'

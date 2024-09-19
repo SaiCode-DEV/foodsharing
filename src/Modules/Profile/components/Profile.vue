@@ -15,7 +15,6 @@
             <ProfileRegionAndGroupInfos
               :user-id="menu.fsId"
               :name="menu.foodSaverName"
-              :banana-statistics="bananaStatistics"
               :statistics="statistics"
               :ambassador-regions="ambassadorRegions"
               :food-saver-regions="foodSaverRegions"
@@ -43,7 +42,6 @@
                 <ProfileRegionAndGroupInfos
                   :user-id="menu.fsId"
                   :name="menu.foodSaverName"
-                  :banana-statistics="bananaStatistics"
                   :statistics="statistics"
                   :ambassador-regions="ambassadorRegions"
                   :food-saver-regions="foodSaverRegions"
@@ -94,6 +92,13 @@
                   :target-id="profileInfos.fsId"
                 />
               </b-tab>
+              <b-tab v-if="awardedAchievements?.length" :title="$i18n('terminology.achievements') + `(${awardedAchievements.length})`">
+                <Achievement
+                  v-for="achievement in awardedAchievements"
+                  :key="achievement.id"
+                  :achievement="achievement"
+                />
+              </b-tab>
             </b-tabs>
           </div>
         </b-col>
@@ -103,7 +108,6 @@
           <Wall
             target="foodsaver"
             :target-id="profileInfos.fsId"
-            :limit="200"
           />
         </b-col>
       </b-row>
@@ -120,16 +124,18 @@ import ProfileCommitmentsStat from './ProfileCommitmentsStat.vue'
 import EmailBounceList from './EmailBounceList.vue'
 import PickupsSection from '@/components/PickupTable/PickupsSection.vue'
 import ProfileStoreList from './ProfileStoreList.vue'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+import Achievement from '@/components/Achievement/Achievement.vue'
 import { ROLE } from '@/consts'
+
+const userStore = useUserStore()
 
 export default {
   name: 'Profile',
-  components: { ProfileStoreList, ProfileMenu, ProfileInfos, ProfileRegionAndGroupInfos, Wall, ProfileCommitmentsStat, EmailBounceList, PickupsSection },
+  components: { ProfileStoreList, ProfileMenu, ProfileInfos, ProfileRegionAndGroupInfos, Wall, ProfileCommitmentsStat, EmailBounceList, PickupsSection, Achievement },
   props: {
     menu: { type: Object, required: true },
     statistics: { type: Object, required: true },
-    bananaStatistics: { type: Object, required: true },
     ambassadorRegions: { type: Array, required: true },
     foodSaverRegions: { type: Array, required: true },
     aboutMeIntern: { type: String, required: true },
@@ -144,10 +150,16 @@ export default {
     noteCount: { type: Number, required: true },
     stores: { type: Array, required: true },
     homeDistrictHistory: { type: Object, required: true },
+    awardedAchievements: { type: [Array, Object], default: null },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     return {
-      currentUserId: DataUser.getters.getUserId(),
+      currentUserId: userStore.getUserId,
     }
   },
   computed: {

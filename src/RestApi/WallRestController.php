@@ -44,13 +44,14 @@ class WallRestController extends AbstractFoodsharingRestController
         string $target,
         int $targetId,
         #[MapQueryParameter] int $limit = 50,
+        #[MapQueryParameter] int $offset = 0,
     ): Response {
         $wallType = $this->parseWallType($target);
         if (!$this->wallPostPermissions->mayReadWall($wallType, $targetId)) {
             throw new AccessDeniedHttpException();
         }
 
-        $posts = $this->wallPostGateway->getPosts($wallType, $targetId, $limit);
+        $posts = $this->wallPostGateway->getPosts($wallType, $targetId, $limit, $offset);
         $response = [
             'posts' => $posts,
             'mayPost' => $this->wallPostPermissions->mayWriteWall($wallType, $targetId),

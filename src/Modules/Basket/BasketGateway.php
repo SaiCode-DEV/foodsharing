@@ -93,7 +93,7 @@ class BasketGateway extends BaseGateway
 				fs.id AS fs_id,
 				fs.name AS fs_name,
 				fs.photo AS fs_photo,
-				fs.sleep_status,
+				fs.is_sleeping AS fs_is_sleeping,
 				COUNT(a.foodsaver_id) AS request_count
 			FROM
 				fs_basket b
@@ -155,7 +155,7 @@ class BasketGateway extends BaseGateway
 					fs.photo AS fs_photo,
 					fs.id AS fs_id,
 					fs.geschlecht AS fs_gender,
-					fs.sleep_status,
+					fs.is_sleeping,
 					b.id
 
 				FROM
@@ -266,7 +266,7 @@ class BasketGateway extends BaseGateway
 				fs.name AS fs_name,
 				fs.photo AS fs_photo,
 				fs.id AS fs_id,
-				fs.sleep_status,
+				fs.is_sleeping,
 				b.id,
 				b.description
 

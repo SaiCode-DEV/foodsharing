@@ -3,23 +3,47 @@
     id="BananaModal"
     size="xl"
     :cancel-title="$i18n('button.cancel')"
-    :title="$i18n('profile.banana.title', { count: (bananaStatistics.bananas ? bananaStatistics.bananas.length : '') })"
+    :title="$i18n('profile.banana.title', { count: (receivedBananas?.length ?? '') })"
+    @show="loadBananas"
   >
     <BananaList
-      :recipient-name="bananaStatistics.recipientName"
-      :recipient-id="bananaStatistics.recipientId"
-      :can-give-banana="bananaStatistics.canGiveBanana"
-      :can-remove-banana="bananaStatistics.canRemoveBanana"
-      :bananas="bananaStatistics.bananas"
+      v-if="receivedBananas"
+      :recipient="recipient"
+      :can-give-banana="metadata.mayGiveBanana"
+      :can-remove-banana="metadata.mayDeleteBananas || isRecipient"
+      :bananas="receivedBananas"
     />
   </b-modal>
 </template>
 
 <script>
 import BananaList from '@php/Modules/Profile/components/BananaList.vue'
+import { getReceivedBananas } from '@/api/banana'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
+
 export default {
   name: 'BananaModal',
   components: { BananaList },
-  props: { bananaStatistics: { type: Object, required: true } },
+  props: {
+    recipient: { type: Object, required: true },
+    metadata: { type: Object, default: null },
+  },
+  data: () => ({
+    receivedBananas: null,
+  }),
+  computed: {
+    isRecipient () {
+      return userStore.getUserId === this.recipient.id
+    },
+  },
+  methods: {
+    async loadBananas () {
+      if (!this.receivedBananas) {
+        this.receivedBananas = await getReceivedBananas(this.recipient.id)
+      }
+    },
+  },
 }
 </script>

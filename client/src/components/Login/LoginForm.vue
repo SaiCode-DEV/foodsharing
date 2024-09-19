@@ -14,10 +14,18 @@
           type="email"
           name="login-email"
           class="testing-login-input-email form-control"
+          :class="{ 'is-invalid': $v.email.$invalid }"
           autocomplete="email"
           autofocus
           @focus="focusLogin=true"
         >
+        <div
+          v-if="$v.email.$invalid"
+          class="invalid-feedback"
+        >
+          <span v-if="!$v.email.required">{{ $i18n('register.email_required') }}</span>
+          <span v-else-if="!$v.email.email">{{ $i18n('register.email_invalid') }}</span>
+        </div>
       </label>
       <label class="d-block">
         <div class="mb-1">

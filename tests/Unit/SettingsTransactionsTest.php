@@ -17,9 +17,12 @@ use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\Modules\Unit\UnitGateway;
 use Foodsharing\Permissions\SettingsPermissions;
 use Foodsharing\RestApi\Models\Settings\EmailChangeRequest;
+use Foodsharing\RestApi\Models\Settings\PasswordChangeRequest;
 use Foodsharing\Utility\EmailHelper;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Tests\Support\UnitTester;
 use ValueError;
@@ -250,5 +253,53 @@ class SettingsTransactionsTest extends Unit
         $this->tester->dontSeeInDatabase('fs_foodsaver_change_history', ['fs_id' => $foodsaver['id'], 'object_name' => 'email', 'old_value' => $foodsaver['email'], 'new_value' => strtolower($changeRequest->email)]);
 
         // E-Mail??
+    }
+
+    public function testRequestPasswordChangeWithInvalidOldPassword(): void
+    {
+        $request = new PasswordChangeRequest();
+        $request->oldPassword = '';
+        $request->newPassword = '';
+
+        $foodsaver = $this->tester->createFoodsaver('oldpassword', ['option' => '']);
+        $this->session->expects($this->any())->method('id')->willReturn($foodsaver['id']);
+
+        $this->expectException(AccessDeniedHttpException::class);
+        $this->transaction->requestPasswordChange($request);
+        $this->tester->seeInDatabase('fs_foodsaver', ['id' => $foodsaver['id'], 'password' => $foodsaver['password']]);
+    }
+
+    public function testRequestPasswordChangeWithShortPassword(): void
+    {
+        $request = new PasswordChangeRequest();
+        $request->oldPassword = 'oldpassword';
+        $request->newPassword = 'abc';
+
+        $foodsaver = $this->tester->createFoodsaver($request->oldPassword, ['option' => '']);
+        $this->session->expects($this->any())->method('id')->willReturn($foodsaver['id']);
+
+        $this->expectException(BadRequestHttpException::class);
+        $this->transaction->requestPasswordChange($request);
+        $this->tester->seeInDatabase('fs_foodsaver', ['id' => $foodsaver['id'], 'password' => $foodsaver['password']]);
+    }
+
+    public function testRequestPasswordChangeValid(): void
+    {
+        $request = new PasswordChangeRequest();
+        $request->oldPassword = 'oldpassword';
+        $request->newPassword = 'abcdefghij';
+
+        $foodsaver = $this->tester->createFoodsaver($request->oldPassword, ['option' => '']);
+        $this->session->expects($this->any())->method('id')->willReturn($foodsaver['id']);
+        $this->tester->assertTrue(password_verify(
+            $request->oldPassword,
+            $this->tester->grabFromDatabase('fs_foodsaver', 'password', ['id' => $foodsaver['id']])
+        ));
+
+        $this->transaction->requestPasswordChange($request);
+        $this->tester->assertTrue(password_verify(
+            $request->newPassword,
+            $this->tester->grabFromDatabase('fs_foodsaver', 'password', ['id' => $foodsaver['id']])
+        ));
     }
 }

@@ -351,7 +351,7 @@ class RegionGateway extends BaseGateway
 			SELECT 	fs.`id`,
 					fs.`name`,
 					fs.`photo`,
-					fs.sleep_status,
+					fs.is_sleeping,
 					fb.active
 
 			FROM 	`fs_foodsaver_has_bezirk` fb,
@@ -362,7 +362,7 @@ class RegionGateway extends BaseGateway
 			AND 	fb.active = 0
 		', ['regionId' => $regionId]);
 
-        return array_map(fn ($applicant) => new Profile($applicant['id'], $applicant['name'], $applicant['photo'], $applicant['sleep_status']), $applicants);
+        return array_map(fn ($applicant) => new Profile($applicant), $applicants);
     }
 
     public function linkBezirk(int $foodsaverId, int $regionId, int $active = 1)
@@ -411,6 +411,11 @@ class RegionGateway extends BaseGateway
     public function getMasterId(int $regionId): int
     {
         return $this->db->fetchValueByCriteria('fs_bezirk', 'master', ['id' => $regionId]);
+    }
+
+    public function getParentId(int $regionId): int
+    {
+        return $this->db->fetchValueByCriteria('fs_bezirk', 'parent_id', ['id' => $regionId]);
     }
 
     public function listRegionsForBotschafter(int $foodsaverId): array

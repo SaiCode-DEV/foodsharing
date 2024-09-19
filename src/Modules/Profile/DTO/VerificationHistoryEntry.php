@@ -32,24 +32,14 @@ class VerificationHistoryEntry
      */
     public ?Profile $actor;
 
-    public function __construct()
+    public static function create(int $foodsaverId, DateTime $date, bool $wasVerified, ?Profile $actor): VerificationHistoryEntry
     {
-        $this->date = new DateTime();
-        $this->actor = new Profile(0, null, null, 0);
-    }
+        $entry = new self();
+        $entry->foodsaverId = $foodsaverId;
+        $entry->date = $date;
+        $entry->wasVerified = $wasVerified;
+        $entry->actor = $actor;
 
-    public static function create(
-        int $foodsaverId,
-        DateTime $date,
-        bool $wasVerified,
-        ?Profile $actor
-    ): VerificationHistoryEntry {
-        $v = new VerificationHistoryEntry();
-        $v->foodsaverId = $foodsaverId;
-        $v->date = $date;
-        $v->wasVerified = $wasVerified;
-        $v->actor = $actor;
-
-        return $v;
+        return $entry;
     }
 }

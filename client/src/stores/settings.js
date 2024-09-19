@@ -8,4 +8,5 @@ export const SUB_PAGE = Object.freeze({
   CHANGE_EMAIL: 'changeEmail',
   DELETE_ACCOUNT: 'deleteaccount',
   QUIZ: 'rise_role',
+  HYGIENE: 'hygiene',
 })

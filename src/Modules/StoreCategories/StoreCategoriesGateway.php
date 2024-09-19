@@ -48,6 +48,27 @@ class StoreCategoriesGateway extends BaseGateway
     }
 
     /**
+     * Lists all store categories including the number of stores in each category for the store category admin tool.
+     *
+     * @return StoreCategory[] all existing store categories
+     */
+    public function getStoreCategoriesWithStoreNumbers(): array
+    {
+        $entries = $this->db->fetchAll('
+            SELECT
+              c.id,
+              c.name,
+              COUNT(b.id) AS numberOfStores
+            FROM fs_betrieb_kategorie c
+            LEFT OUTER JOIN fs_betrieb b
+            ON c.id = b.betrieb_kategorie_id
+            GROUP BY c.id
+        ');
+
+        return array_map(fn ($entry) => new StoreCategory($entry['id'], $entry['name'], $entry['numberOfStores']), $entries);
+    }
+
+    /**
      * Adds a new store category and returns its id.
      */
     public function addStoreCategory(CommonLabel $category): int

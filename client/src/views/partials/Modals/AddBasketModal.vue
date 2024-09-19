@@ -129,10 +129,12 @@
 <script>
 import FileUpload from '@/components/upload/FileUpload.vue'
 import LeafletLocationSearch from '@/components/map/LeafletLocationSearch.vue'
-import DataUser, { mutations as userStoreMutations } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user.js'
 import { addBasket, editBasket } from '@/api/baskets'
 import { mutations as basketStoreMutations } from '@/stores/baskets'
 import { pulseInfo } from '@/script'
+
+const userStore = useUserStore()
 
 const defaultBasketData = {
   imageUrl: null,
@@ -154,6 +156,11 @@ export default {
   props: {
     basket: { type: Object, default: null },
     edit: { type: Boolean, default: false },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     const durationOptions = [1, 2, 3, 5, 7, 14, 21].map(days => ({ value: days, text: this.$i18n(`basket.valid.${days}`) }))
@@ -185,7 +192,7 @@ export default {
   },
   computed: {
     user () {
-      return DataUser.getters.getUserDetails()
+      return userStore.getUserDetails
     },
     isDataValid () {
       return this.description.trim() && (this.contact.chat || this.contact.phone) && (this.contact.phone ? this.phoneNumber : true)
@@ -202,7 +209,7 @@ export default {
       this.address.city = city
     },
     async initUsingUserDetails () {
-      await userStoreMutations.fetchDetails()
+      await userStore.fetchDetails()
       this.phoneNumber = this.user.mobile || this.user.landline || ''
       if (this.hasValidHomeAddress) {
         this.useHomeAddress = true
@@ -215,7 +222,7 @@ export default {
       }
     },
     async testHomeRegion () {
-      await userStoreMutations.fetchDetails()
+      await userStore.fetchDetails()
       this.phoneNumber ||= this.user.mobile
       this.useHomeAddress = this.hasValidHomeAddress &&
         Math.abs(this.basket.lat - this.user.coordinates.lat) < 1e-5 &&

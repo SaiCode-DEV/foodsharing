@@ -1,24 +1,56 @@
 # Release "N" (Unreleased)
 
 ## Features
+- Add feedback on login form for invalid / missing email address #2061 @tq-bit
 - Add API endpoint for creating blog posts !3455 @alex.simm
 - Create option for multiple themes with dark mode as a start #2054 !3500 @SaiCode
 - Store walls now support image attachments !3577 @AntonBallmaier
+- Achievements can be awarded, edited and revoked. They get displayed on the profile !3429 @AntonBallmaier
+- Allow users to change their own passwords #581 !3435 @alex.simm
+- Allow loading more wall posts #2056 !3580 @AntonBallmaier
+- Add a hygiene quiz that can be edited by the hygiene working group #2074 !3540 @AntonBallmaier
+- Allow support group admins to change someone else's login email address #2031 !3482 @alex.simm
+- Added wait timer to leaving home district #2090 !3562 @SaiCode
+- Added a new frontend for managing store categories #1263 !3405 @alex.simm
+- Improved map marker selection for stores #1659 !3596 @AntonBallmaier 
 
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9
+- Improve listing of non-active region members !3568 @iron9
+- Slightly adjusted the banana badge in the user profile @tripleb-fs 
 - Bananas given by a user are kept when that user is deleted #1864 !3492 @AntonBallmaier
+- Changing the geo link to map in storelist for desktop #1993 !3550 @Nika-Mel @McGoldi
+- Added an attachment label to the mailbox #1988 !3583 @alex.simm
+- Added markdown for publicInfo in store and map bubble !3389 @chriswalg
+- Add more breadcrumbs where needed !3606 !3614 #1987 @McGoldi
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
+- Fix sleeping hat display for future sleep times #1881 !3437 @AntonBallmaier
+- Test push notifications are only sent to the new device #960 @alex.simm
+- Split email in businesscard if is too long !3600 @chriswalg
+- foodsavers can't report a store (empty list) #2107 !3605 @McGoldi
 
 ## Refactoring
+- Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
 - Added an enum for wall types in the backend #1996 !3573 @alex.simm
 - Handle store walls like all other walls #2010 !3577 @AntonBallmaier
+- Bananas now use the API !3581 @AntonBallmaier
+- Moved userStore to pinia for future improvements !3531 !3617 @SaiCode
+- Reduced the number of database requests in some store API endpoints #1662 !3615 @alex.simm
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm
 - Removed redirect after submit in foodsharepoint edit form to fix test !3527 @chriswalg
+- Added a dev docs article on "Logic in the Database" !3437 @AntonBallmaier
+- Port the register controller to Symfony !3594 @alex.simm
+- New API for submitting food share points !3372 @alex.simm
+
+# Hotfix 2024-08-29
+
+## Bugfixes
+
+- Hide some private data in profile settings page if is not me !3575 @chriswalg
 
 # Hotfix 2024-08-22
 
@@ -28,6 +60,7 @@
 - Fixed banana icon to show checkmark instead of plus on user profiles where you anready gave a banana. #2082 !3554 @AntonBallmaier
 - Fix store wall loading issue #2091 !3558 @AntonBallmaier
 - Fixed phone number input on profile settings !3546 @chriswalg @SaiCode
+- Fixed breadcrumb dissapearing on phones #2077 !3548 @SaiCode
 - Fixed "Missing special warning message, if foodsaver leaves home district" !3551 @chriswalg
 - Fixed ambassadors being able to set the home region of users without home region that are in their region #2088 !3560 @AntonBallmaier
 - Fixed some browsers disallowing downloading files because of http #2086 !3561 @AntonBallmaier

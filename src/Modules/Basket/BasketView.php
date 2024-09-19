@@ -206,7 +206,7 @@ class BasketView extends View
             ]);
         }
 
-        $basketUser = new Profile($basket['fs_id'], $basket['fs_name'], $basket['fs_photo'], $basket['sleep_status']);
+        $basketUser = new Profile($basket, 'fs_');
         $creator = $this->vueComponent('basket-creator', 'AvatarList', [
             'profiles' => [$basketUser],
             'maxVisibleAvatars' => 1,

@@ -3,7 +3,7 @@
     class="nav-user is-open-on-mobile"
     :title="$i18n('navigation.profil', {name: getUserFirstName})"
     direction="right"
-    :badge="getMailUnreadCount"
+    :badge="userStore.getMailUnreadCount"
   >
     <template #icon>
       <Avatar
@@ -22,7 +22,7 @@
       >
         <i class="icon-subnav fas fa-envelope" />
         {{ $i18n('menu.entry.mailbox') }}
-        <div class="badge badge-danger badge-inline">{{ getMailUnreadCount }}</div>
+        <div class="badge badge-danger badge-inline">{{ userStore.getMailUnreadCount }}</div>
       </a>
       <div v-if="hasMailBox" class="dropdown-divider" />
       <a
@@ -71,7 +71,7 @@
 </template>
 <script>
 // Stores
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import { useThemeStore } from '@/stores/theme'
 // Components
 import Avatar from '@/components/Avatar/Avatar.vue'
@@ -80,6 +80,7 @@ import Dropdown from '../_NavItems/NavDropdown'
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 import { clearCaches } from '@/helper/cache'
 
+const userStore = useUserStore()
 const themeStore = useThemeStore()
 
 export default {
@@ -90,24 +91,22 @@ export default {
   mixins: [RouteCheckMixin],
   setup () {
     return {
+      userStore,
       themeStore,
     }
   },
   computed: {
     getAvatar () {
-      return DataUser.getters.getAvatar()
+      return userStore.getAvatar
     },
     getUserFirstName () {
-      return DataUser.getters.getUserFirstName()
+      return userStore.getUserFirstName
     },
     getUserId () {
-      return DataUser.getters.getUserId()
-    },
-    getMailUnreadCount () {
-      return DataUser.getters.getMailUnreadCount()
+      return userStore.getUserId
     },
     hasMailBox () {
-      return DataUser.getters.hasMailBox()
+      return userStore.hasMailBox
     },
   },
   methods: {

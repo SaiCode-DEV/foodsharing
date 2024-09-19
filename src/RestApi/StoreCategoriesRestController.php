@@ -5,6 +5,7 @@ namespace Foodsharing\RestApi;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Store\DTO\CommonLabel;
 use Foodsharing\Modules\StoreCategories\StoreCategoriesGateway;
+use Foodsharing\Modules\StoreCategories\StoreCategory;
 use Foodsharing\Permissions\StoreCategoriesPermissions;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -30,13 +31,13 @@ class StoreCategoriesRestController extends AbstractFoodsharingRestController
     #[Rest\Get(path: 'storecategories')]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA\JsonContent(
         type: 'array',
-        items: new OA\Items(ref: new Model(type: CommonLabel::class))
+        items: new OA\Items(ref: new Model(type: StoreCategory::class))
     ))]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     public function getStoreCategories(): Response
     {
         $this->assertLoggedIn();
-        $categories = $this->storeCategoriesGateway->getStoreCategories();
+        $categories = $this->storeCategoriesGateway->getStoreCategoriesWithStoreNumbers();
 
         return $this->respondOK($categories);
     }

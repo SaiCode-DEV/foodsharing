@@ -34,6 +34,10 @@ final class ReportController extends FoodsharingController
             return $this->redirect('/?page=dashboard');
         }
 
+        $this->pageHelper->addTitle($regionName);
+        $this->pageHelper->addBread($regionName, '/region?bid=' . $regionId);
+        $this->pageHelper->addBread($this->translator->trans('reports.reports_region', ['{regionName}' => $regionName]), '/?page=fsbetrieb');
+
         $this->pageHelper->addContent($this->prepareVueComponent('report-page', 'RegionReportPage', [
             'regionId' => $regionId,
             'regionName' => $regionName,

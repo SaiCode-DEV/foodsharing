@@ -38,7 +38,7 @@
 
 <script>
 // Store
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 //
 import Link from '@/components/Navigation/_NavItems/NavLink'
 import Logo from '@/components/Navigation/Logo'
@@ -52,6 +52,8 @@ import NavRegions from '@/components/Navigation/Regions/NavRegions'
 // Mixins
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
+const userStore = useUserStore()
+
 export default {
   components: {
     Logo,
@@ -64,15 +66,20 @@ export default {
     NavRegions,
   },
   mixins: [MediaQueryMixin],
+  setup () {
+    return {
+      userStore,
+    }
+  },
   computed: {
     isFoodsaver () {
-      return DataUser.getters.isFoodsaver()
+      return userStore.isFoodsaver
     },
     hasMailBox () {
-      return DataUser.getters.hasMailBox()
+      return userStore.hasMailBox
     },
     getMailUnreadCount () {
-      return DataUser.getters.getMailUnreadCount()
+      return userStore.getMailUnreadCount
     },
   },
 }

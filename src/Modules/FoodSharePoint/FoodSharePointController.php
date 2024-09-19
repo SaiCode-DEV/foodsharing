@@ -147,7 +147,7 @@ class FoodSharePointController extends FoodsharingController
             }
 
             $this->follower = $this->foodSharePointGateway->getFollower($foodSharePointId);
-            $mapper = fn ($foodsaver) => new Profile($foodsaver['id'], $foodsaver['name'], $foodsaver['photo'], $foodsaver['sleep_status']);
+            $mapper = fn ($user) => new Profile($user);
             $managers = array_map($mapper, $this->follower['fsp_manager']);
             $followers = array_map($mapper, $this->follower['follow']);
 
@@ -344,20 +344,6 @@ class FoodSharePointController extends FoodsharingController
     private function add(Request $request): Response
     {
         $this->pageHelper->addBread($this->translator->trans('fsp.add'));
-
-        if ($request->request->get('form_submit') === 'fairteiler') {
-            if ($this->handleAdd($request)) {
-                if ($this->foodSharePointPermissions->mayAdd($this->regionId)) {
-                    $this->flashMessageHelper->success($this->translator->trans('fsp.addSuccess'));
-                } else {
-                    $this->flashMessageHelper->success($this->translator->trans('fsp.suggestSuccess'));
-                }
-
-                return $this->redirect('/fairteiler?bid=' . (int)$this->regionId);
-            } else {
-                $this->flashMessageHelper->error($this->translator->trans('fsp.addError'));
-            }
-        }
         $this->pageHelper->addContent($this->view->foodSharePointForm());
 
         $goBack = [
@@ -429,34 +415,6 @@ class FoodSharePointController extends FoodsharingController
     private function validateInput(array $data): bool
     {
         return $data['lat'] && $data['lon'] && $data['bezirk_id'];
-    }
-
-    private function handleAdd(Request $request): int
-    {
-        $data = $this->prepareInput($request);
-        if (!$this->validateInput($data)) {
-            return 0;
-        }
-
-        $userId = $this->session->id();
-
-        if ($userId === null) {
-            return 0;
-        }
-
-        if ($this->foodSharePointPermissions->mayAdd($this->regionId)) {
-            $data['status'] = 1;
-        } else {
-            $data['status'] = 0;
-        }
-
-        $id = $this->foodSharePointGateway->addFoodSharePoint($userId, $data);
-        if (!empty($data['picture'])) {
-            $uuid = substr($data['picture'], 13);
-            $this->uploadsGateway->setUsage([$uuid], UploadUsage::FOOD_SHARE_POINT_TITLE, $id);
-        }
-
-        return $id;
     }
 
     private function isFollower(): bool

@@ -17,36 +17,36 @@
     >
       <div class="ui-dialog-content ui-widget-content">
         <ul id="map-control" class="linklist">
-          <li
-            v-for="type in markerTypes"
-            :key="type.name"
-          >
+          <li v-for="markerType in Object.values(markerTypes)" :key="markerType.name">
             <a
-              v-if="visibleTypes.includes(type.name)"
-              :ref="`button-${type.name}`"
+              v-if="visibleTypes.includes(markerType.name)"
+              :ref="`button-${markerType.name}`"
               class="map-legend-entry"
-              :class="`${type.name} ${activeButtonClass(type.name)}`"
-              @click="toggleMarkerType(type.name)"
+              :class="`${markerType.name} ${activeButtonClass(markerType.name)}`"
+              @click="$emit('toggle-marker-type', markerType.name)"
             >
-              <i :class="`fas fa-${type.icon}`" /> {{ $i18n(type.label) }}
+              <i :class="`fas fa-${markerType.icon}`" /> {{ $i18n(markerType.label) }}
             </a>
             <div
-              v-if="type.name === 'stores' && selectedTypes.includes(type.name)"
+              v-if="markerType === markerTypes.stores && selectedTypes.includes(markerType.name)"
               class="map-legend-selection"
             >
-              <label
-                v-for="storeType in storeMarkerTypes"
-                :key="storeType.name"
+              <b-form-group
+                v-for="[selectType, options] in Object.entries(storeMarkerSelectTypes)"
+                :key="selectType"
+                label-cols="4"
+                :label="$i18n(`map.filters.stores.${selectType}.label`) + ':'"
+                :label-for="`${selectType}-select`"
               >
-                <input
-                  type="checkbox"
-                  name="viewopt[]"
-                  :checked="selectedStoreTypes.includes(storeType.name)"
-                  :value="storeType.name"
-                  @click="toggleStoreType(storeType.name)"
-                >
-                {{ $i18n(storeType.label) }}
-              </label>
+                <b-select
+                  :id="`${selectType}-select`"
+                  :value.sync="selectedStoreTypes[selectType]"
+                  class="w-100"
+                  size="sm"
+                  :options="options.map(x => ({ text: $i18n(`map.filters.stores.${selectType}.${x}`), value: x }))"
+                  @change="newValue => $emit('select-store-marker-type', selectType, newValue)"
+                />
+              </b-form-group>
             </div>
           </li>
         </ul>
@@ -56,19 +56,19 @@
 </template>
 
 <script>
-import { MARKER_TYPES, STORE_MARKER_TYPES } from '@/stores/map'
+import { MARKER_TYPES, STORE_MARKER_SELECT_TYPES } from '@/stores/map'
 
 export default {
   props: {
     visibleTypes: { type: Array, required: true },
     selectedTypes: { type: Array, required: true },
-    selectedStoreTypes: { type: Array, required: true },
+    selectedStoreTypes: { type: Object, required: true },
   },
   data () {
     return {
       isCollapsed: false,
-      markerTypes: Object.values(MARKER_TYPES),
-      storeMarkerTypes: Object.values(STORE_MARKER_TYPES),
+      markerTypes: MARKER_TYPES,
+      storeMarkerSelectTypes: STORE_MARKER_SELECT_TYPES,
     }
   },
   computed: {
@@ -79,12 +79,6 @@ export default {
   methods: {
     activeButtonClass (name) {
       return this.selectedTypes.includes(name) ? 'active' : ''
-    },
-    toggleMarkerType (name) {
-      this.$emit('toggle-marker-type', name)
-    },
-    toggleStoreType (name) {
-      this.$emit('toggle-store-marker-type', name)
     },
     collapseControl () {
       this.isCollapsed = !this.isCollapsed
@@ -99,12 +93,8 @@ export default {
   margin: 0;
   position: absolute;
   right: 16px;
-  top: 160px;
+  top: calc(var(--navbar-height) + 16px);
   z-index: 450;
-
-  @media (max-width: 575px) {
-    top: 94px;
-  }
 
   > div {
     position: relative;
@@ -147,12 +137,13 @@ export default {
   .map-legend-selection {
     margin: 0;
     padding: 0.5rem;
-
-    label {
-      width: 100%;
-      cursor: pointer;
-      display: block;
-      font-size: 11px;
+    ::v-deep {
+      label, select {
+        font-size: 12px !important;
+      }
+      .form-row {
+        margin-bottom: 0.5rem;
+      }
     }
   }
 
@@ -166,54 +157,26 @@ export default {
     font-weight: 600;
     font-size: 1rem;
 
-    &.baskets {
-      i::after {
-        background-color: var(--fs-color-type-baskets);
-      }
-    }
-    &.stores {
-      i::after {
-        background-color: var(--fs-color-type-stores);
-      }
-    }
-    &.foodsharepoints {
-      i::after {
-        background-color: var(--fs-color-type-foodsharepoints);
-      }
-    }
-    &.communities {
-      i::after {
-        background-color: var(--fs-color-type-communities);
-      }
-    }
+    &.baskets { --type-color: var(--fs-color-type-baskets); }
+    &.stores { --type-color: var(--fs-color-type-stores); }
+    &.foodsharepoints { --type-color: var(--fs-color-type-foodsharepoints); }
+    &.communities { --type-color: var(--fs-color-type-communities); }
+
     &:hover {
       background-color: var(--fs-color-primary-100);
-      &.baskets {
-        color: var(--fs-color-type-baskets);
-      }
-      &.stores {
-        color: var(--fs-color-type-stores);
-      }
-      &.foodsharepoints {
-        color: var(--fs-color-type-foodsharepoints);
-      }
-      &.communities {
-        color: var(--fs-color-type-communities);
-      }
+      color: var(--type-color);
     }
 
     i {
-      color: var(--fs-color-light);
       font-size: 1rem;
       margin-left: .5rem;
       margin-right: 1rem;
       position: relative;
-
+      color: var(--fs-color-light);
       &::before {
         position: relative;
         z-index: 2;
       }
-
       &::after {
         content: '';
         position: absolute;
@@ -221,43 +184,20 @@ export default {
         left: 50%;
         width: var(--size);
         height: var(--size);
-        background-color: var(--fs-color-white);
         border-radius: 50%;
         z-index: 1;
         transform: translate(-50%, -50%);
+        background-color: var(--type-color);
       }
     }
 
     &.active {
-      i::after {
-        background-color: var(--fs-color-white);
-      }
-      &.baskets {
-        color: var(--fs-color-light);
-        background-color: var(--fs-color-type-baskets);
-        i {
-          color: var(--fs-color-type-baskets);
-        }
-      }
-      &.stores {
-        color: var(--fs-color-light);
-        background-color: var(--fs-color-type-stores);
-        i {
-          color: var(--fs-color-type-stores);
-        }
-      }
-      &.foodsharepoints {
-        color: var(--fs-color-light);
-        background-color: var(--fs-color-type-foodsharepoints);
-        i {
-          color: var(--fs-color-type-foodsharepoints);
-        }
-      }
-      &.communities {
-        color: var(--fs-color-light);
-        background-color: var(--fs-color-type-communities);
-        i {
-          color: var(--fs-color-type-communities);
+      color: var(--fs-color-light);
+      background-color: var(--type-color);
+      i {
+        color: var(--type-color);
+        &::after {
+          background-color: var(--fs-color-white);
         }
       }
     }

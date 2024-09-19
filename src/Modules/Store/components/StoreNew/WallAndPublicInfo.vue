@@ -9,21 +9,7 @@
       :value="firstPost"
       @update:value="newValue => firstPost = newValue"
     />
-    <b-form-group
-      :description="$i18n('storeview.visible_for_public')"
-      :label="$i18n('public_info')"
-      label-for="publicInfo"
-      class="my-3"
-    >
-      <b-form-textarea
-        id="publicInfo"
-        v-model="publicInfo"
-        :state="publicInfoState"
-        rows="5"
-        max-rows="10"
-        :disabled="!editMode"
-      />
-    </b-form-group>
+    <PublicInfo @update:public-info="updatePublicInfo" />
     <div class="float-right">
       <button
         class="btn btn-primary ml-3 mt-3"
@@ -35,6 +21,7 @@
       <button
         class="btn btn-primary ml-3 mt-3"
         type="submit"
+        :disabled="!publicInfoState"
         @click.prevent="redirect()"
       >
         {{ $i18n('button.next') }}
@@ -45,25 +32,24 @@
 
 <script>
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
-import { MAX_LEN_FOR_PUBLIC_INFO } from '@/stores/stores'
+import PublicInfo from '@/components/Stores/PublicInfo.vue'
 
 export default {
-  components: { MarkdownInput },
+  components: { PublicInfo, MarkdownInput },
   data () {
     return {
       name: null,
       editMode: true,
       publicInfo: '',
       firstPost: '',
+      publicInfoState: true,
     }
   },
-  computed: {
-    publicInfoState () {
-      if (!this.editMode) return null
-      else return this.publicInfo.length <= MAX_LEN_FOR_PUBLIC_INFO
-    },
-  },
   methods: {
+    updatePublicInfo ({ publicInfo, publicInfoState }) {
+      this.publicInfo = publicInfo
+      this.publicInfoState = publicInfoState
+    },
     redirect () {
       this.$emit('update:firstPost', this.firstPost)
       this.$emit('update:publicInfo', this.publicInfo)

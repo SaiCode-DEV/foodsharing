@@ -8,7 +8,9 @@ use Codeception\Test\Unit;
 use Exception;
 use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 use Tests\Support\UnitTester;
 
 class FoodSharePointGatewayTest extends Unit
@@ -172,20 +174,21 @@ class FoodSharePointGatewayTest extends Unit
 
     final public function testAddFoodSharePoint(): void
     {
-        $data = [
-            'bezirk_id' => $this->region['id'],
-            'name' => 'my nice new food share point',
-            'desc' => $this->foodSharePoint['desc'],
-            'anschrift' => $this->foodSharePoint['anschrift'],
-            'plz' => $this->foodSharePoint['plz'],
-            'ort' => $this->foodSharePoint['ort'],
-            'lat' => $this->foodSharePoint['lat'],
-            'lon' => $this->foodSharePoint['lon'],
-            'picture' => 'picture/cat.jpg'
-        ];
+        $data = new FoodSharePointForCreation();
+        $data->regionId = $this->region['id'];
+        $data->name = 'my nice new food share point';
+        $data->description = $this->foodSharePoint['desc'];
+        $data->address = $this->foodSharePoint['anschrift'];
+        $data->postalCode = $this->foodSharePoint['plz'];
+        $data->city = $this->foodSharePoint['ort'];
+        $data->location = new GeoLocation();
+        $data->location->lat = $this->foodSharePoint['lat'];
+        $data->location->lon = $this->foodSharePoint['lon'];
+        $data->picture = 'picture/cat.jpg';
         $id = $this->gateway->addFoodSharePoint(
             $this->foodsaver['id'],
-            $data
+            $data,
+            true
         );
 
         $this->assertGreaterThanOrEqual(0, $id);

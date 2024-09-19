@@ -78,8 +78,10 @@ import DataRegions, { REGION_UNIT_TYPE } from '@/stores/regions'
 // Others
 import { pulseError, showLoader, hideLoader } from '@/script'
 import { REGION_IDS } from '@/consts'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import Markdown from '@/components/Markdown/Markdown.vue'
+
+const userStore = useUserStore()
 
 const EXCLUDED_REGIONS = [REGION_IDS.GLOBAL_WORKING_GROUPS]
 const EXCLUDED_REGIONS_WITHOUT_HOME = [REGION_IDS.FOODSHARING_ON_FESTIVALS]
@@ -87,6 +89,11 @@ const EXCLUDED_REGIONS_WITHOUT_HOME = [REGION_IDS.FOODSHARING_ON_FESTIVALS]
 export default {
   name: 'JoinRegionModal',
   components: { Markdown },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   data () {
     return {
       selected: [0],
@@ -169,7 +176,7 @@ export default {
         .filter(r => EXCLUDED_REGIONS.indexOf(r.id) < 0)
 
       // Remove all regions that are only shown if the user has a home region
-      if (!DataUser.getters.hasHomeRegion()) {
+      if (!userStore.hasHomeRegion) {
         filtered = filtered.filter(r => EXCLUDED_REGIONS_WITHOUT_HOME.indexOf(r.id) < 0)
       }
       return filtered

@@ -27,22 +27,13 @@ class PassHistoryEntry
      */
     public ?Profile $actor;
 
-    public function __construct()
+    public static function create(int $foodsaverId, DateTime $date, ?Profile $actor)
     {
-        $this->date = new DateTime();
-        $this->actor = new Profile(0, null, null, 0);
-    }
+        $entry = new self();
+        $entry->foodsaverId = $foodsaverId;
+        $entry->date = $date;
+        $entry->actor = $actor;
 
-    public static function create(
-        int $foodsaverId,
-        DateTime $date,
-        ?Profile $actor
-    ): PassHistoryEntry {
-        $p = new PassHistoryEntry();
-        $p->foodsaverId = $foodsaverId;
-        $p->date = $date;
-        $p->actor = $actor;
-
-        return $p;
+        return $entry;
     }
 }

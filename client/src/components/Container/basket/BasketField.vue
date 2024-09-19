@@ -45,11 +45,18 @@
 
 <script>
 // Stores
-import { getters } from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 export default {
   props: {
     entry: { type: Object, default: () => {} },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   computed: {
     distanceNumber () {
@@ -84,7 +91,7 @@ export default {
     },
     getDistanceNumber (lat, lon) {
       const deg2rad = (degrees) => degrees * (Math.PI / 180)
-      const uC = getters.getLocations()
+      const uC = useUserStore().getLocations
       const R = 6371 // Radius of the earth in km
       const dLat = deg2rad(uC.lat - lat) // deg2rad below
       const dLon = deg2rad(uC.lon - lon)

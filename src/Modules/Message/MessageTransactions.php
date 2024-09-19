@@ -5,7 +5,6 @@ namespace Foodsharing\Modules\Message;
 use Carbon\Carbon;
 use Foodsharing\Lib\Session;
 use Foodsharing\Lib\WebSocketConnection;
-use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\PushNotification\Notification\MessagePushNotification;
@@ -117,12 +116,7 @@ class MessageTransactions
                     $conversationName = $this->getProperConversationNameForFoodsaver($m['id'], $notificationTemplateData['chatName'], $members);
                     $pushNotification = new MessagePushNotification(
                         $message,
-                        new Profile(
-                            $author['id'],
-                            $author['name'] ?? '?',
-                            $author['photo'],
-                            SleepStatus::NONE
-                        ),
+                        new Profile($author),
                         $conversationId,
                         count($members) > 2 ? $conversationName : null
                     );

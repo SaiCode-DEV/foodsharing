@@ -6,6 +6,7 @@ use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Permissions\WorkGroupPermissions;
 use Foodsharing\Utility\ImageHelper;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,17 +17,20 @@ class WorkGroupControl extends Control
     private readonly WorkGroupGateway $workGroupGateway;
     private readonly WorkGroupPermissions $workGroupPermissions;
     private readonly ImageHelper $imageService;
+    private readonly RegionGateway $regionGateway;
 
     public function __construct(
         WorkGroupView $view,
         WorkGroupGateway $workGroupGateway,
         WorkGroupPermissions $workGroupPermissions,
         ImageHelper $imageService,
+        RegionGateway $regionGateway,
     ) {
         $this->view = $view;
         $this->workGroupGateway = $workGroupGateway;
         $this->workGroupPermissions = $workGroupPermissions;
         $this->imageService = $imageService;
+        $this->regionGateway = $regionGateway;
 
         parent::__construct();
     }
@@ -37,6 +41,10 @@ class WorkGroupControl extends Control
             $this->routeHelper->goLoginAndExit();
         }
 
+        $region_id = $request->query->getInt('p', $this->currentUserUnits->getCurrentRegionId() ?? 0);
+        $parent = $this->regionGateway->getRegionName($region_id);
+
+        $this->pageHelper->addBread($parent, '/region?bid=' . $region_id);
         $this->pageHelper->addBread($this->translator->trans('terminology.groups'), '/?page=groups');
 
         if (!$request->query->has('sub')) {

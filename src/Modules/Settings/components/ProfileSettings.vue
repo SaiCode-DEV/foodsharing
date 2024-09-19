@@ -251,11 +251,13 @@ import NameInputModal from './NameInputModal.vue'
 import ProfileAddressModal from './ProfileAddressModal.vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import Markdown from '@/components/Markdown/Markdown'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import RegionTreeModal from '@/components/regiontree/RegionTreeModal.vue'
 import { SELECTABLE_REGION_TYPES } from '@/stores/regions'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import { pulseError, pulseSuccess } from '@/script'
+
+const userStore = useUserStore()
 
 export default {
   name: 'ProfileSettings',
@@ -275,6 +277,11 @@ export default {
   validations: {
     firstName: { required, minLength: minLength(2), maxLength: maxLength(40) },
     lastName: { required, minLength: minLength(2), maxLength: maxLength(40) },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     const date = new Date()
@@ -337,17 +344,20 @@ export default {
     }
   },
   computed: {
+    isFoodSaver () {
+      return userStore.isFoodsaver
+    },
     selectableRegionTypes () {
       return SELECTABLE_REGION_TYPES
     },
     isOrgUser () {
-      return DataUser.getters.isOrga()
+      return userStore.isOrga
     },
     isMe () {
-      return DataUser.getters.getUserId() === this.userDetails.id
+      return userStore.getUserId === this.userDetails.id
     },
     isAmbassador () {
-      return DataUser.getters.isAmbassador()
+      return userStore.isAmbassador
     },
     isFieldsValid () {
       return this.phone.valid && this.mobile.valid && !this.$v.$invalid

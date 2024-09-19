@@ -18,6 +18,7 @@ use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\QuizPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\ReportPermissions;
+use Foodsharing\Permissions\StoreCategoriesPermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
 use Twig\Environment;
@@ -61,6 +62,7 @@ final class PageHelper
         private readonly NewsletterEmailPermissions $newsletterEmailPermissions,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly ProfilePermissions $profilePermissions,
+        private readonly StoreCategoriesPermissions $storeCategoriesPermissions,
         private readonly RegionGateway $regionGateway,
         private readonly SettingsTransactions $settingsTransactions,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
@@ -212,6 +214,7 @@ final class PageHelper
             'editContent' => $this->contentPermissions->mayEditContent(),
             'administrateNewsletterEmail' => $this->newsletterEmailPermissions->mayAdministrateNewsletterEmail(),
             'administrateRegions' => $this->regionPermissions->mayAdministrateRegions(),
+            'editStoreCategories' => $this->storeCategoriesPermissions->mayEditStoreCategories(),
         ];
     }
 

@@ -64,11 +64,18 @@
 import { deleteUser } from '@/api/user'
 import { goTo, pulseError, pulseSuccess } from '@/script'
 import i18n from '@/helper/i18n'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 export default {
   props: {
     userId: { type: Number, required: true },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     return {
@@ -80,7 +87,7 @@ export default {
       return !this.isMe && this.reason === null
     },
     isMe () {
-      return DataUser.getters.getUserId() === this.userId
+      return userStore.getUserId === this.userId
     },
   },
   methods: {

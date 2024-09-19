@@ -3,34 +3,45 @@
 namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
+use Foodsharing\Modules\FoodSharePoint\FoodSharePointTransactions;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\RegionPermissions;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
+use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA2;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Rest controller for food share points.
  */
-final class FoodSharePointRestController extends AbstractFOSRestController
+final class FoodSharePointRestController extends AbstractFoodsharingRestController
 {
     private const NOT_LOGGED_IN = 'not logged in';
     private const MAX_FSP_DISTANCE = 50;
 
     public function __construct(
         private readonly FoodSharePointGateway $foodSharePointGateway,
+        private readonly FoodSharePointTransactions $foodSharePointTransactions,
         private readonly RegionGateway $regionGateway,
         private readonly RegionPermissions $regionPermissions,
-        private readonly Session $session
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
+        protected Session $session
     ) {
+        parent::__construct($session);
     }
 
     /**
@@ -164,5 +175,27 @@ final class FoodSharePointRestController extends AbstractFOSRestController
         $foodSharePoints = $this->foodSharePointGateway->listActiveFoodSharePoints($regionIds);
 
         return $this->handleView($this->view($foodSharePoints, 200));
+    }
+
+    #[OA2\Post(summary: 'Adds or suggests a new food share point.')]
+    #[OA2\RequestBody(content: new Model(type: FoodSharePointForCreation::class))]
+    #[ParamConverter('foodSharePoint', class: FoodSharePointForCreation::class, converter: 'fos_rest.request_body')]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to access this region')]
+    #[Rest\Post('regions/{regionId}/foodSharePoints', requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    public function addFoodSharePoint(int $regionId, FoodSharePointForCreation $foodSharePoint, ValidatorInterface $validator): Response
+    {
+        $this->assertLoggedIn();
+        $this->assertThereAreNoValidationErrors($validator, $foodSharePoint);
+
+        if (!$this->currentUserUnits->mayBezirk($regionId)) {
+            throw new AccessDeniedHttpException('Not a member of the region');
+        }
+        if (!UnitType::isRegion($this->regionGateway->getType($regionId))) {
+            throw new BadRequestHttpException('Food share points can only be added to regions');
+        }
+        $response = $this->foodSharePointTransactions->addFoodSharePoint($foodSharePoint);
+
+        return $this->respondOK($response);
     }
 }

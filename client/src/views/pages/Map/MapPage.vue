@@ -17,7 +17,7 @@
       :selected-types="selectedTypes"
       :selected-store-types="selectedStoreTypes"
       @toggle-marker-type="toggleMarkerType"
-      @toggle-store-marker-type="toggleStoreMarkerType"
+      @select-store-marker-type="selectStoreMarkerType"
     />
 
     <basket-bubble ref="basketBubble" />
@@ -35,7 +35,7 @@ import Vue2LeafletMarkerCluster from 'vue2-leaflet-markercluster'
 import Vue2LeafletLocatecontrol from 'vue2-leaflet-locatecontrol'
 import LeafletMap from '@/components/map/LeafletMap.vue'
 import MapControl from '@/views/pages/Map/MapControl.vue'
-import { store, MAP_CONSTANTS, MARKER_TYPES, STORE_MARKER_TYPES } from '@/stores/map'
+import { store, MAP_CONSTANTS, MARKER_TYPES } from '@/stores/map'
 import { objectMap } from '@/utils'
 import { hideLoader, showLoader } from '@/script'
 import BasketBubble from '@php/Modules/Map/components/BasketBubble.vue'
@@ -43,10 +43,11 @@ import CommunityBubble from '@php/Modules/Map/components/CommunityBubble.vue'
 import StoreBubble from '@php/Modules/Map/components/StoreBubble.vue'
 import FoodSharePointBubble from '@php/Modules/Map/components/FoodSharePointBubble.vue'
 import Storage from '@/storage'
-import DataUser from '@/stores/user.js'
+import { useUserStore } from '@/stores/user.js'
 
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 const maxBasketNameLength = 30
+const userStore = useUserStore()
 
 export default {
   components: {
@@ -65,12 +66,21 @@ export default {
     selectedStoreId: { type: Number, default: null },
     selectedFoodSharePointId: { type: Number, default: null },
   },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   data () {
     return {
       currentCenter: { lat: MAP_CONSTANTS.CENTER_GERMANY_LAT, lon: MAP_CONSTANTS.CENTER_GERMANY_LON },
       currentZoom: MAP_CONSTANTS.ZOOM_COUNTRY,
       selectedTypes: [MARKER_TYPES.baskets.name],
-      selectedStoreTypes: [STORE_MARKER_TYPES.needHelp.name, STORE_MARKER_TYPES.needHelpUrgently.name],
+      selectedStoreTypes: {
+        status: 'cooperating',
+        help: 'all',
+        scope: 'region',
+      },
       markers: store.state.markers,
     }
   },
@@ -90,7 +100,11 @@ export default {
     // Restore the selected marker types from the local storage
     this.storage = new Storage('map')
     this.selectedTypes = this.storage.get('selectedTypes', this.selectedTypes)
-    this.selectedStoreTypes = this.storage.get('selectedStoreTypes', this.selectedStoreTypes)
+
+    const saved = this.storage.get('selectedStoreTypes', this.selectedStoreTypes)
+    if (!(saved instanceof Array)) { // Don't load data saved in the old format
+      this.selectedStoreTypes = saved
+    }
 
     // Remove the stores from the selected types if the user is not allowed to see them
     if (!this.maySeeStores && this.selectedTypes.includes(MARKER_TYPES.stores.name)) {
@@ -109,9 +123,9 @@ export default {
       }
       this.currentCenter = this.center
       this.currentZoom = MAP_CONSTANTS.ZOOM_CITY
-    } else if (DataUser.getters.hasLocations()) {
+    } else if (userStore.hasLocations) {
       // 2. Use the user's home location
-      this.currentCenter = DataUser.getters.getLocations()
+      this.currentCenter = userStore.getLocations
       this.currentZoom = MAP_CONSTANTS.ZOOM_CITY
     } else {
       // 3. Fall back to the default location and zoom
@@ -121,7 +135,7 @@ export default {
 
     // Load all markers that are initially selected
     showLoader()
-    await Promise.all(this.selectedTypes.map(name => store.getMarkers(name, name === MARKER_TYPES.stores.name ? this.selectedStoreTypes : [])))
+    await Promise.all(this.selectedTypes.map(name => store.getMarkers(name, name === MARKER_TYPES.stores.name ? this.selectedStoreTypes : {})))
     hideLoader()
     for (const type of this.selectedTypes) {
       this.drawMarkerLayer(type)
@@ -136,7 +150,7 @@ export default {
         this.selectedTypes.splice(this.selectedTypes.indexOf(name), 1)
       } else {
         this.selectedTypes.push(name)
-        await store.getMarkers(name, name === MARKER_TYPES.stores.name ? this.selectedStoreTypes : [])
+        await store.getMarkers(name, name === MARKER_TYPES.stores.name ? this.selectedStoreTypes : {})
         this.drawMarkerLayer(name)
       }
       this.storage.set('selectedTypes', this.selectedTypes)
@@ -144,27 +158,8 @@ export default {
     /**
      * (De-)activates a store marker type. Fetches the store marker data if the type is being activated.
      */
-    async toggleStoreMarkerType (name) {
-      if (this.selectedStoreTypes.includes(name)) {
-        // removed
-        if (this.selectedStoreTypes.length === 1) {
-          if (this.selectedStoreTypes[0] === STORE_MARKER_TYPES.allStores.name) {
-            this.selectedStoreTypes = [STORE_MARKER_TYPES.needHelp.name, STORE_MARKER_TYPES.needHelpUrgently.name]
-          } else {
-            this.selectedStoreTypes = [STORE_MARKER_TYPES.allStores.name]
-          }
-        } else {
-          this.selectedStoreTypes.splice(this.selectedStoreTypes.indexOf(name), 1)
-        }
-      } else {
-        // added
-        if ([STORE_MARKER_TYPES.allStores.name, STORE_MARKER_TYPES.myStores.name].includes(name)) {
-          this.selectedStoreTypes = [name]
-        } else {
-          this.selectedStoreTypes.push(name)
-        }
-      }
-
+    async selectStoreMarkerType (type, value) {
+      this.selectedStoreTypes[type] = value
       this.storage.set('selectedStoreTypes', this.selectedStoreTypes)
       await store.getMarkers(MARKER_TYPES.stores.name, this.selectedStoreTypes)
       this.drawMarkerLayer(MARKER_TYPES.stores.name)

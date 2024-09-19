@@ -291,7 +291,7 @@
       </b-row>
     </div>
 
-    <div v-if="isStoreManager" class="pt-2 pb-2">
+    <div v-if="userStore.isStoreManager" class="pt-2 pb-2">
       <h4>{{ $i18n('notifications.pickupReminder.title') }}</h4>
       <b-row>
         <b-col
@@ -338,9 +338,16 @@ import {
 } from '@/api/notifications'
 import { pulseError, pulseSuccess } from '@/script'
 import { subscribeForPushNotifications, unsubscribeFromPushNotifications } from '@/pushNotifications'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 export default {
+  setup () {
+    return {
+      userStore,
+    }
+  },
   data () {
     return {
       foodSharePointNotificationOptions: [
@@ -377,12 +384,9 @@ export default {
     getPushNotificationState () {
       return this.pushNotificationState
     },
-    isStoreManager () {
-      return DataUser.getters.isStoreManager()
-    },
   },
   async mounted () {
-    await DataUser.mutations.fetchDetails()
+    await userStore.fetchDetails()
     this.subscription = await getUserNotification()
     this.newsletterState = this.convertNumberToBoolean(this.subscription.newsletter)
     this.infoMailState = this.convertNumberToBoolean(this.subscription.infomail_message)
@@ -390,7 +394,7 @@ export default {
     this.currentThreads = await getThreadsNotification()
     this.currentRegions = await listRegionsWithoutWorkingGroups()
     this.currentGroups = await listWorkingGroups()
-    if (this.isStoreManager) {
+    if (userStore.isStoreManager) {
       this.pickupReminderState = this.convertNumberToBoolean(await getPickupReminderNotification())
     }
     this.isFoodSharePointGlobalEmailNotificationActive = this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype === 1)
@@ -471,7 +475,7 @@ export default {
           return { id: group.id, notifyByEmailAboutNewThreads: group.notifyByEmailAboutNewThreads === 1 }
         }))
         await setThreadsNotification(this.currentThreads)
-        if (this.isStoreManager) {
+        if (userStore.isStoreManager) {
           await setPickupReminderNotification(this.pickupReminderState)
         }
         pulseSuccess(this.$i18n('notifications.success'))

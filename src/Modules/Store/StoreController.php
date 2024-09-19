@@ -61,6 +61,7 @@ class StoreController extends FoodsharingController
             $this->flashMessageHelper->info($this->translator->trans('store.error'));
             $this->routeHelper->goAndExit('/');
         } else {
+            $this->pageHelper->addBread($region['name'], '/region?bid=' . $regionId);
             $this->pageHelper->addBread($this->translator->trans('store.bread'), '/?page=fsbetrieb');
             $this->pageHelper->addContent($this->view->vueComponent('vue-store-region-list', 'store-region-list', [
                 'regionName' => $region['name'],

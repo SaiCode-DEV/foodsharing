@@ -2,7 +2,7 @@
 import { BFormDatepicker } from 'bootstrap-vue'
 import i18n from '@/helper/i18n'
 
-const translations = ['locale', 'placeholder', 'labelPrevYear', 'labelPrevYear', 'labelPrevMonth', 'labelCurrentMonth', 'labelNextMonth', 'labelNextYear', 'labelToday', 'labelSelected', 'labelNoDateSelected', 'labelCalendar', 'labelNav', 'labelHelp']
+const translations = ['locale', 'placeholder', 'labelPrevYear', 'labelPrevYear', 'labelPrevMonth', 'labelCurrentMonth', 'labelNextMonth', 'labelNextYear', 'labelToday', 'labelSelected', 'labelNoDateSelected', 'labelCalendar', 'labelNav', 'labelHelp', 'labelResetButton']
 
 export default {
   extends: BFormDatepicker,

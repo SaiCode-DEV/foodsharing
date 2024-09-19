@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Profile;
 use Carbon\Carbon;
 use Exception;
 use Foodsharing\Lib\FoodsharingController;
+use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Basket\BasketGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
@@ -15,10 +16,10 @@ use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Mails\MailsGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
+use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\ReportPermissions;
 use Foodsharing\Permissions\StorePermissions;
-use Foodsharing\Utility\DataHelper;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
@@ -36,8 +37,9 @@ final class ProfileController extends FoodsharingController
         private readonly GroupFunctionGateway $groupFunctionGateway,
         private readonly StoreGateway $storeGateway,
         private readonly GroupGateway $groupGateway,
-        private readonly DataHelper $dataHelper,
-        private readonly StorePermissions $storePermissions
+        private readonly StorePermissions $storePermissions,
+        private readonly AchievementPermissions $achievementPermissions,
+        private readonly AchievementGateway $achievementGateway,
     ) {
         parent::__construct();
     }
@@ -71,7 +73,7 @@ final class ProfileController extends FoodsharingController
         }
 
         $maySeeStores = $this->profilePermissions->maySeeStores($userId);
-        $userStores = $maySeeStores ? $this->profileGateway->listStoresOfFoodsaver($userId) : [];
+        $userStores = $this->profileGateway->listStoresOfFoodsaver($userId);
         $userArray = $this->createUserArray($userId);
         $this->pageHelper->addTitle($userArray['name']);
         $params = $this->convertDataToObject($userStores, $userArray, $maySeeStores);
@@ -166,7 +168,6 @@ final class ProfileController extends FoodsharingController
         return [
             'menu' => $this->getProfileMenu($userStores, $userArray, $maySeeStores),
             'statistics' => $this->renderStatistics($userArray),
-            'bananaStatistics' => (object)$this->renderBananaStatistics($userArray),
             'ambassadorRegions' => $userArray['botschafter'] ? $userArray['botschafter'] : [],
             'foodSaverRegions' => $userArray['foodsaver'] ? $userArray['foodsaver'] : [],
             'homeDistrictHistory' => (object)$this->getHomeDistrictHistory($userArray),
@@ -180,7 +181,8 @@ final class ProfileController extends FoodsharingController
             'pickupsSection' => $this->getPickupsSection($userArray['id']),
             'maySeeUserNotes' => $this->profilePermissions->maySeeUserNotes($userArray['id']),
             'noteCount' => $userArray['note_count'] ?? 0,
-            'stores' => $userStores,
+            'stores' => $maySeeStores ? $userStores : [],
+            'awardedAchievements' => $this->getAchievementsData($userArray['id']),
         ];
     }
 
@@ -290,7 +292,7 @@ final class ProfileController extends FoodsharingController
             'photo' => $userArray['photo'],
             'fsId' => $userArray['id'],
             'fsIdSession' => $this->session->id(),
-            'isSleeping' => $this->dataHelper->parseSleepingState($userArray['sleep_status'], $userArray['sleep_from'], $userArray['sleep_until']),
+            'isSleeping' => $userArray['is_sleeping'],
             'initialBuddyType' => $userArray['buddy'],
             'mayAdmin' => $mayAdmin,
             'mayHistory' => $maySeeHistory,
@@ -365,26 +367,6 @@ final class ProfileController extends FoodsharingController
         return $statistics;
     }
 
-    private function renderBananaStatistics($userArray): array
-    {
-        if (!$this->session->mayRole(Role::FOODSAVER)) {
-            return [];
-        }
-
-        $recipientId = intval($userArray['id']);
-        $viewerId = $this->session->id();
-
-        $canGiveBanana = (!$userArray['bouched']) && ($userArray['id'] != $viewerId);
-
-        return [
-            'recipientId' => $recipientId,
-            'recipientName' => $userArray['name'],
-            'canGiveBanana' => $canGiveBanana,
-            'canRemoveBanana' => $this->profilePermissions->mayDeleteBanana($recipientId),
-            'bananas' => $userArray['bananen']
-        ];
-    }
-
     private function getSleepingHatInformation(array $userArray): array
     {
         return [
@@ -453,5 +435,15 @@ final class ProfileController extends FoodsharingController
             'allowSlotCancelation' => $this->profilePermissions->mayCancelSlotsFromProfile($fsId),
             'isOwnProfile' => ($fsId === $this->session->id()),
         ];
+    }
+
+    private function getAchievementsData(int $userId): ?array
+    {
+        $achievements = null;
+        if ($this->achievementPermissions->maySeeUserAchievements($userId)) {
+            $achievements = $this->achievementGateway->getAwardedAchievementsForUser($userId);
+        }
+
+        return $achievements;
     }
 }

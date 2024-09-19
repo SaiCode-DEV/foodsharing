@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import * as api from '@/api/conversations'
 import ProfileStore from '@/stores/profiles'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import { goTo } from '@/script'
 import { urls } from '@/helper/urls'
 
@@ -110,7 +110,7 @@ export default new Vue({
     async assignMessageToStore (conversationId, message) {
       Vue.set(this.conversations[conversationId].messages, message.id, convertMessage(message))
       Vue.set(this.conversations[conversationId], 'lastMessage', convertMessage(message))
-      if (message.authorId !== DataUser.getters.getUserId()) {
+      if (message.authorId !== useUserStore().getUserId) {
         this.conversations[conversationId].unreadMessages = Math.max(1, this.conversations[conversationId].unreadMessages + 1)
       }
     },
@@ -135,7 +135,7 @@ export default new Vue({
           id: this.failureMessageId,
           body: messageText,
           sentAt: new Date(),
-          authorId: DataUser.getters.getUserId(),
+          authorId: useUserStore().getUserId,
           failure: true,
         }
         Vue.set(this.conversations[conversationId].messages, this.failureMessageId, errorMessage)

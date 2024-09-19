@@ -17,12 +17,10 @@ export const MARKER_TYPES = Object.freeze({
   communities: { name: 'communities', label: 'menu.entry.regionalgroups', icon: 'users', color: 'blue' },
 })
 
-export const STORE_MARKER_TYPES = Object.freeze({
-  allStores: { name: 'allebetriebe', label: 'store.bread' },
-  needHelp: { name: 'needhelp', label: 'menu.entry.helpwanted' },
-  needHelpUrgently: { name: 'needhelpinstant', label: 'menu.entry.helpneeded' },
-  cooperating: { name: 'nkoorp', label: 'menu.entry.other_stores' },
-  myStores: { name: 'mine', label: 'map.filters.my_stores' },
+export const STORE_MARKER_SELECT_TYPES = Object.freeze({
+  status: ['all', 'cooperating', 'not-cooperating'],
+  help: ['all', 'open', 'searching'],
+  scope: ['all', 'region', 'member'],
 })
 
 // Markers are reloaded from the server if they are older than this
@@ -32,22 +30,24 @@ export const store = {
   state: reactive({
     markers: objectMap(MARKER_TYPES, key => { return null }),
     lastMarkerFetchTime: objectMap(MARKER_TYPES, key => { return null }),
+    lastMarkerFetchSpecifiers: objectMap(MARKER_TYPES, key => { return null }),
   }),
   /**
    * Loads markers of a specific type and saves them in the store's state.
    */
-  async getMarkers (name, statusNames = []) {
+  async getMarkers (name, specifiers = {}) {
     const now = new Date()
+    const specifiersJson = JSON.stringify(specifiers)
+    const isCached = this.state.markers[name] !== null &&
+      this.state.lastMarkerFetchTime[name] !== null &&
+      new Date(this.state.lastMarkerFetchTime[name].getTime() + MAX_MARKER_CACHING_TIME) >= now
+    const isCorrectSpecifier = this.state.lastMarkerFetchSpecifiers[name] === specifiersJson
 
-    // The list of stores can not be cached because it can be different depending on the status names
-    if (name === MARKER_TYPES.stores.name || this.state.markers[name] === null ||
-      this.state.lastMarkerFetchTime[name] === null ||
-      new Date(this.state.lastMarkerFetchTime[name].getTime() + MAX_MARKER_CACHING_TIME) < now) {
-      const result = await getMapMarkers([name], statusNames)
-      for (const key in result) {
-        this.state.markers[key] = result[key]
-        this.state.lastMarkerFetchTime[key] = now
-      }
+    if (!isCached || !isCorrectSpecifier) {
+      const result = await getMapMarkers(name, specifiers)
+      this.state.markers[name] = result
+      this.state.lastMarkerFetchTime[name] = now
+      this.state.lastMarkerFetchSpecifiers[name] = specifiersJson
     }
     return this.state.markers[name]
   },

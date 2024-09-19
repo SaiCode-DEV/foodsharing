@@ -80,7 +80,9 @@
 import SearchResults from '@/components/SearchBar/SearchResults'
 import { search, getSearchIndex } from '@/api/search'
 import { getCache, getCacheInterval, setCache } from '@/helper/cache'
-import DataUser, { mutations as userStoreMutations } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user.js'
+
+const userStore = useUserStore()
 const cacheRequestName = 'searchIndex'
 const rateLimitInterval = 1000 * 60 * 5 // 5 minutes in milliseconds
 
@@ -93,8 +95,13 @@ const accidentalClickPreventionThreshhold = 700 // milliseconds
 
 export default {
   components: { SearchResults },
+  setup () {
+    userStore.fetchDetails()
+    return {
+      userStore,
+    }
+  },
   data () {
-    userStoreMutations.fetchDetails()
     return {
       query: '',
       showResults: false,
@@ -146,7 +153,7 @@ export default {
       return this.recentQueryChangesCount === 0
     },
     maySearchGlobal () {
-      return DataUser.getters.getUserDetails()?.permissions?.maySearchGlobal
+      return userStore.getUserDetails?.permissions?.maySearchGlobal
     },
   },
   watch: {

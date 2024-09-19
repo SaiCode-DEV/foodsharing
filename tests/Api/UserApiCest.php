@@ -405,59 +405,6 @@ class UserApiCest
         ]);
     }
 
-    public function canGiveBanana(ApiTester $I): void
-    {
-        $testUser = $I->createFoodsaver();
-        $I->login($this->user[self::EMAIL]);
-        $I->sendPUT(self::API_USER . '/' . $testUser['id'] . '/banana', ['message' => $this->createRandomText(100, 150)]);
-
-        // Check for Bell as well
-        $bellIdentifier = 'banana-' . $testUser[self::ID] . '-' . $this->user[self::ID];
-        $I->seeInDatabase('fs_bell', ['identifier' => $bellIdentifier]);
-        $bellId = $I->grabFromDatabase('fs_bell', 'id', ['identifier' => $bellIdentifier]);
-        $I->seeInDatabase('fs_foodsaver_has_bell', [
-            'foodsaver_id' => $testUser[self::ID],
-            'bell_id' => $bellId,
-        ]);
-
-        $I->seeResponseCodeIs(Http::OK);
-    }
-
-    public function canNotGiveBananaWithShortMessage(ApiTester $I): void
-    {
-        $testUser = $I->createFoodsaver();
-        $I->login($this->user[self::EMAIL]);
-        $I->sendPUT(self::API_USER . '/' . $testUser['id'] . '/banana', ['message' => $this->faker->text(50)]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
-    }
-
-    public function canNotGiveBananaTwice(ApiTester $I): void
-    {
-        $testUser = $I->createFoodsaver();
-        $I->login($this->user[self::EMAIL]);
-        $I->sendPUT(self::API_USER . '/' . $testUser['id'] . '/banana', ['message' => $this->createRandomText(100, 150)]);
-        $I->seeResponseCodeIs(Http::OK);
-        $I->sendPUT(self::API_USER . '/' . $testUser['id'] . '/banana', ['message' => $this->createRandomText(100, 150)]);
-        $I->seeResponseCodeIs(Http::FORBIDDEN);
-    }
-
-    public function canNotGiveBananaToMyself(ApiTester $I): void
-    {
-        $I->login($this->user[self::EMAIL]);
-        $I->sendPUT(self::API_USER . '/' . $this->user['id'] . '/banana', ['message' => $this->createRandomText(100, 150)]);
-        $I->seeResponseCodeIs(Http::FORBIDDEN);
-    }
-
-    private function createRandomText(int $minLength, int $maxLength): string
-    {
-        $text = $this->faker->text($maxLength);
-        while (strlen((string)$text) < $minLength) {
-            $text .= ' ' . $this->faker->text(($maxLength + $minLength) / 2 - strlen((string)$text));
-        }
-
-        return $text;
-    }
-
     public function canDeleteUser(ApiTester $I): void
     {
         $store = $I->createStore($this->region['id']);

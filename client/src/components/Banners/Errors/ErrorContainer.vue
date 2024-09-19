@@ -11,7 +11,7 @@
 
 <script>
 // Stores
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 // components
 import ErrorField from './ErrorField.vue'
 import ModalLoader from '@/views/partials/Modals/ModalLoader.vue'
@@ -22,13 +22,19 @@ export default {
     ErrorField,
     ModalLoader, // is required because the website is not a single vue instance (each module has its own instance)  and otherwise the modals are only over datastore accessable and not by the global $bvmodal function
   },
+  setup () {
+    const userStore = useUserStore()
+    return {
+      userStore,
+    }
+  },
   computed: {
     list () {
       const list = []
 
-      DataUser.mutations.fetchDetails()
+      this.userStore.fetchDetails()
 
-      const mobilePhoneNumber = DataUser.getters.getMobilePhoneNumber()
+      const mobilePhoneNumber = this.userStore.getMobilePhoneNumber
       if (mobilePhoneNumber && !isValidPhoneNumber(mobilePhoneNumber)) {
         list.push({
           field: 'invalid_mobile_phonenumber',
@@ -39,7 +45,7 @@ export default {
         })
       }
 
-      const landlinePhoneNumber = DataUser.getters.getPhoneNumber()
+      const landlinePhoneNumber = this.userStore.getPhoneNumber
       if (landlinePhoneNumber && !isValidPhoneNumber(landlinePhoneNumber)) {
         list.push({
           field: 'invalid_landline_phonenumber',
@@ -50,7 +56,7 @@ export default {
         })
       }
 
-      if (DataUser.getters.getAvatar() === null) {
+      if (this.userStore.getAvatar === null) {
         list.push({
           field: 'missing_user_avatar',
           links: [{
@@ -60,10 +66,10 @@ export default {
         })
       }
 
-      if (DataUser.getters.getAvatar() && !DataUser.getters.getAvatar().startsWith('/api/uploads/')) {
+      if (this.userStore.getAvatar && !this.userStore.getAvatar.startsWith('/api/uploads/')) {
         list.push({
           field: 'old_user_avatar',
-          link: 'images/' + DataUser.getters.getAvatar(),
+          link: 'images/' + this.userStore.getAvatar,
           links: [{
             text: 'error.old_user_avatar.link',
             urlShortHand: 'settings',
@@ -71,11 +77,11 @@ export default {
         })
       }
 
-      if (DataUser.getters.isFoodsaver() && !DataUser.getters.hasHomeRegion()) {
+      if (this.userStore.isFoodsaver && !this.userStore.hasHomeRegion) {
         this.$bvModal.show('joinRegionModal')
       }
 
-      if (DataUser.getters.isFoodsaver() && !DataUser.getters.hasLocations()) {
+      if (this.userStore.isFoodsaver && !this.userStore.hasLocations) {
         list.push({
           field: 'missing_geolocation',
           links: [{
@@ -85,7 +91,7 @@ export default {
         })
       }
 
-      if (!DataUser.getters.hasActiveEmail()) {
+      if (!this.userStore.hasActiveEmail) {
         list.push({
           field: 'mail_activation',
           links: [{
@@ -99,7 +105,7 @@ export default {
         })
       }
 
-      if (DataUser.getters.hasBouncingEmail()) {
+      if (this.userStore.hasBouncingEmail) {
         list.push({
           field: 'mail_bounce',
           links: [{

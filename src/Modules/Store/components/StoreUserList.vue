@@ -17,10 +17,11 @@
 import StoreListComponent from './StoreListComponent.vue'
 import { hideLoader, showLoader } from '@/script'
 import { useStoreStore } from '@/stores/store'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import { getBasicUser } from '@/api/user'
 
 const storeStore = useStoreStore()
+const userStore = useUserStore()
 
 export default {
   components: { StoreListComponent },
@@ -33,7 +34,7 @@ export default {
   computed: {
     stores: () => storeStore.userStores,
     isOwnUserId () {
-      return this.userId === DataUser.getters.getUserId()
+      return this.userId === userStore.getUserId
     },
   },
   async created () {
