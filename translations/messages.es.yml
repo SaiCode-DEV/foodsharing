@@ -1149,6 +1149,7 @@ group:
         do: Verificar la cuenta de {name} ({id})
         undo: Sin verificar {name} ({id})
       clear_selection: Restablecer todos los seleccionados
+    all_roles: Todas las funciones
   edit:
     title: 'Editar {group}'
     name_required: 'Por favor ingrese un nombre.'
