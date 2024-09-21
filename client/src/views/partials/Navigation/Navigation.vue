@@ -39,7 +39,7 @@ import DataStores from '@/stores/stores.js'
 import DataBaskets from '@/stores/baskets.js'
 import DataConversations from '@/stores/conversations.js'
 import DataGroups from '@/stores/groups.js'
-import DataRegions from '@/stores/regions.js'
+import { useRegionStore } from '@/stores/regions.js'
 // States
 import MetaNavLoggedIn from './States/MetaNav/LoggedIn.vue'
 import MetaNavLoggedOut from './States/MetaNav/LoggedOut.vue'
@@ -55,6 +55,7 @@ import ThemeSwitcherModal from '@/views/partials/Modals/ThemeSwitcherModal.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
 const userStore = useUserStore()
+const regionStore = useRegionStore()
 
 export default {
   name: 'Navigation',
@@ -97,9 +98,6 @@ export default {
     isFoodsaver () {
       return userStore.isFoodsaver
     },
-    hasMailbox () {
-      return userStore.hasMailBox
-    },
     homeHref () {
       return (this.isLoggedIn) ? this.$url('dashboard') : this.$url('home')
     },
@@ -108,15 +106,6 @@ export default {
     },
   },
   watch: {
-    hasMailbox: {
-      async handler (newValue) {
-        if (newValue) {
-          await userStore.fetchMailUnreadCount
-        }
-      },
-      immediate: true,
-      deep: true,
-    },
     isFoodsaver: {
       async handler (newValue) {
         if (newValue) {
@@ -132,7 +121,7 @@ export default {
     if (this.isLoggedIn) {
       // TODO: NO APIS :(
       DataGroups.mutations.set(this.groups)
-      DataRegions.mutations.set(this.regions)
+      regionStore.regions = this.regions
       await DataBaskets.mutations.fetchOwn()
       await DataBells.mutations.fetch()
       await DataConversations.initConversations()
@@ -141,6 +130,9 @@ export default {
   async mounted () {
     window.addEventListener('resize', this.resizeHandler)
     window.addEventListener('load', this.resizeHandler)
+    if (userStore.hasMailBox) {
+      userStore.fetchMailUnreadCount()
+    }
   },
   methods: {
     resizeHandler () {

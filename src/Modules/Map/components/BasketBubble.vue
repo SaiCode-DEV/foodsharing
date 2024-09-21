@@ -1,7 +1,13 @@
 <template>
   <map-popup id="basketBubbleModal" :is-loading="loading">
-    <div v-if="bubbleData.photo" class="mb-2 mt-2">
-      <img class="basketpicture" :src="photoPath">
+    <div v-if="bubbleData.pictures?.length" class="mb-2 mt-2">
+      <b-carousel indicators controls>
+        <b-carousel-slide
+          v-for="(photoPath, i) in photoPaths"
+          :key="i"
+          :img-src="photoPath"
+        />
+      </b-carousel>
     </div>
 
     <div
@@ -65,10 +71,13 @@ export default {
     }
   },
   computed: {
-    photoPath () {
-      return this.bubbleData.photo.startsWith('/api')
-        ? this.bubbleData.photo + '?w=300&h=300'
-        : `/images/basket/medium-${this.bubbleData.photo}`
+    photoPaths () {
+      const photos = this.bubbleData?.pictures ?? []
+      return photos.map(photo => photo.startsWith('/api')
+        ? photo + '?w=465&h=300'
+        : `/images/basket/medium-${photo}`,
+        // TOOD This destinction can be removed three weeks after Update "N", since all active baskets will be replaced by that time.
+      )
     },
     displayDate () {
       return this.bubbleData.createdAt

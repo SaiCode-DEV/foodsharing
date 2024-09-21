@@ -94,7 +94,7 @@
     </b-tabs>
 
     <b-container>
-      <div v-if="memberList.length" class="card-body p-0">
+      <div v-if="regionStore.memberList.length" class="card-body p-0">
         <div class="form-row">
           <div class="filter-for-label">
             <label class=" col-form-label col-form-label-sm foo">
@@ -258,7 +258,7 @@
 <script>
 import { addMember } from '@/api/groups'
 import { removeMember, setAdminOrAmbassador, removeAdminOrAmbassador } from '@/api/regions'
-import RegionsData from '@/stores/regions'
+import { useRegionStore } from '@/stores/regions'
 import { hideLoader, pulseError, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
 import UserSearchInput from '@/components/UserSearchInput'
@@ -267,6 +267,8 @@ import Container from '@/components/Container/Container.vue'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
+
+const regionStore = useRegionStore()
 
 export default {
   components: { UserSearchInput, Container, Avatar },
@@ -287,6 +289,11 @@ export default {
     maySetAdminOrAmbassador: { type: Boolean, default: false },
     mayRemoveAdminOrAmbassador: { type: Boolean, default: false },
   },
+  setup () {
+    return {
+      regionStore,
+    }
+  },
   data () {
     return {
       ACTIVE_TAB_DEFAULT: 0,
@@ -297,10 +304,9 @@ export default {
       filterRole: null,
       filterLastActivity: false,
       lastActivityFilterMonths: 6,
-      memberList: [],
       isBusy: false,
       roleOptions: [
-        { value: null, text: i18n('group.role_name') },
+        { value: null, text: i18n('group.member_list.all_roles') },
         { value: 1, text: i18n('terminology.role.1') },
         { value: 2, text: i18n('terminology.role.2') },
         { value: 3, text: i18n('terminology.role.3') },
@@ -341,7 +347,7 @@ export default {
       return `${this.isWorkGroup ? this.$i18n('memberlist.header_for_workgroup', { bezirk: this.regionName }) : this.$i18n('memberlist.header_for_district', { bezirk: this.regionName })} ${this.memberCount}`
     },
     memberCount () {
-      return this.$i18n('filterlist.some_in_all', { some: this.membersFiltered.length, all: this.memberList.length })
+      return this.$i18n('filterlist.some_in_all', { some: this.membersFiltered.length, all: regionStore.memberList.length })
     },
     dateBeforeMonths () {
       const dateInPast = new Date()
@@ -351,7 +357,7 @@ export default {
     membersFiltered () {
       const filterText = this.filterText ? this.filterText.toLowerCase() : null
 
-      return this.memberList.filter((member) => {
+      return regionStore.memberList.filter((member) => {
         if (this.activeTab === this.ACTIVE_TAB_PASSPORT && !member.isHomeRegion) {
           return false
         }
@@ -499,7 +505,7 @@ export default {
     },
   },
   mounted () {
-    this.getMemberList()
+    regionStore.fetchMemberList(this.groupId)
   },
   methods: {
     isNullOrEmptyOrWhitespace (str) {
@@ -525,10 +531,6 @@ export default {
         this.passportMember.pop(itemId)
       }
     },
-    async getMemberList () {
-      await RegionsData.mutations.fetchMemberList(this.groupId)
-      this.memberList = RegionsData.getters.getMemberList(this.groupId)
-    },
     async changeVerification (isVerified, memberId, memberName) {
       const dialogueOptions = {
         title: i18n(isVerified ? 'group.member_list.passports.button.verify' : 'group.member_list.passports.button.unverify'),
@@ -538,9 +540,9 @@ export default {
       }
       if (!await this.confirmationDialogue('group.member_list.passports.verify.' + (isVerified ? 'do' : 'undo'), dialogueOptions)) return
       await this.updateVerificationStatusFromUser(isVerified, memberId)
-      const index = this.memberList.findIndex(member => member.id === memberId)
+      const index = regionStore.memberList.findIndex(member => member.id === memberId)
       if (index >= 0) {
-        this.memberList[index].isVerified = isVerified
+        regionStore.memberList[index].isVerified = isVerified
       }
     },
     clearFilter () {
@@ -567,9 +569,9 @@ export default {
       this.isBusy = true
       try {
         await removeAdminOrAmbassador(this.groupId, member.id)
-        const index = this.memberList.findIndex(m => m.id === member.id)
+        const index = regionStore.memberList.findIndex(m => m.id === member.id)
         if (index >= 0) {
-          this.memberList[index].isAdminOrAmbassadorOfRegion = false
+          regionStore.memberList[index].isAdminOrAmbassadorOfRegion = false
         }
       } catch (e) {
         pulseError(i18n('error_unexpected'))
@@ -589,9 +591,9 @@ export default {
       this.isBusy = true
       try {
         await setAdminOrAmbassador(this.groupId, member.id)
-        const index = this.memberList.findIndex(m => m.id === member.id)
+        const index = regionStore.memberList.findIndex(m => m.id === member.id)
         if (index >= 0) {
-          this.memberList[index].isAdminOrAmbassadorOfRegion = true
+          regionStore.memberList[index].isAdminOrAmbassadorOfRegion = true
         }
       } catch (e) {
         pulseError(i18n('error_unexpected'))
@@ -610,9 +612,9 @@ export default {
       this.isBusy = true
       try {
         await removeMember(this.groupId, member.id)
-        const index = this.memberList.findIndex(m => m.id === member.id)
+        const index = regionStore.memberList.findIndex(m => m.id === member.id)
         if (index >= 0) {
-          this.memberList.splice(index, 1)
+          regionStore.memberList.splice(index, 1)
         }
       } catch (e) {
         pulseError(i18n('error_unexpected'))
@@ -621,7 +623,7 @@ export default {
       hideLoader()
     },
     containsMember (memberId) {
-      return this.memberList.some(member => member.id === memberId)
+      return regionStore.memberList.some(member => member.id === memberId)
     },
     async addNewTeamMember (userId) {
       showLoader()
@@ -631,7 +633,7 @@ export default {
 
         // the backend doesn't care if the user was already in the group, so we have to check here
         if (!this.containsMember(userId)) {
-          this.getMemberList()
+          await regionStore.fetchMemberList(this.groupId)
         }
       } catch (e) {
         pulseError(i18n('error_unexpected'))

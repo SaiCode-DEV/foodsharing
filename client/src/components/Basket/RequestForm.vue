@@ -123,7 +123,7 @@ export default {
       this.isLoading = true
       try {
         const response = await requestBasket(this.basketId, message)
-        this.requestCount = response.basket.requestCount
+        this.requestCount = response.requestCount
         this.hasRequested = true
         pulseSuccess(i18n('basket.sent_request'))
       } catch (e) {

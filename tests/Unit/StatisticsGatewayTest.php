@@ -259,7 +259,10 @@ class StatisticsGatewayTest extends Unit
 
     public function testCountAllBaskets()
     {
-        $this->tester->haveInDatabase('fs_basket', ['foodsaver_id' => $this->foodsaverOne['id']]);
+        $this->tester->haveInDatabase('fs_basket', [
+            'foodsaver_id' => $this->foodsaverOne['id'],
+            'description' => 'description',
+        ]);
         $countBaskets = $this->gateway->countAllBaskets();
 
         $this->assertIsInt($countBaskets);
@@ -272,6 +275,7 @@ class StatisticsGatewayTest extends Unit
             $this->tester->haveInDatabase('fs_basket', [
                 'foodsaver_id' => $count,
                 'time' => $this->dateInterval1D,
+                'description' => 'description',
             ]);
         }
 

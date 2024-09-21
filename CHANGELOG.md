@@ -12,6 +12,7 @@
 - Added wait timer to leaving home district #2090 !3562 @SaiCode
 - Added a new frontend for managing store categories #1263 !3405 @alex.simm
 - Improved map marker selection for stores #1659 !3596 @AntonBallmaier 
+- Food baskets support multiple images now. Image quality issues are resolve. #1797 #1714 !3304 @AntonBallmaier
 
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9
@@ -29,13 +30,13 @@
 - Test push notifications are only sent to the new device #960 @alex.simm
 - Split email in businesscard if is too long !3600 @chriswalg
 - foodsavers can't report a store (empty list) #2107 !3605 @McGoldi
-- Fixes Chat message appearing on wrong side #2115 !3616
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
 - Added an enum for wall types in the backend #1996 !3573 @alex.simm
 - Bananas now use the API !3581 @AntonBallmaier
-- Moved userStore to pinia for future improvements !3531 @SaiCode
+- Moved region store to pinia !3619 @chriswalg
+- Moved userStore to pinia for future improvements !3531 !3617 @SaiCode
 - Reduced the number of database requests in some store API endpoints #1662 !3615 @alex.simm
 
 ## Dev/Test/CI stuff

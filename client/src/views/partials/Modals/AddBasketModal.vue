@@ -15,14 +15,11 @@
       <i class="fas fa-info-circle" />
       {{ $i18n('basket.public-info') }}
     </b-alert>
-    <FileUpload
-      class="mb-3"
-      :filename="imageUrl"
-      :is-image="true"
-      :img-width="300"
-      :img-height="200"
-      :enable-resize="true"
-      @change="(file) => imageUrl = file.url"
+    <ImageUpload
+      ref="image-upload"
+      class="mb-4"
+      :gallery-height-in-px="250"
+      :previous-images="previousImages"
     />
 
     <label for="basket-description-input">{{ $i18n('basket.description') }}:</label>
@@ -127,17 +124,16 @@
 </template>
 
 <script>
-import FileUpload from '@/components/upload/FileUpload.vue'
 import LeafletLocationSearch from '@/components/map/LeafletLocationSearch.vue'
 import { useUserStore } from '@/stores/user.js'
 import { addBasket, editBasket } from '@/api/baskets'
 import { mutations as basketStoreMutations } from '@/stores/baskets'
 import { pulseInfo } from '@/script'
+import ImageUpload from '@/components/upload/ImageUpload.vue'
 
 const userStore = useUserStore()
 
 const defaultBasketData = {
-  imageUrl: null,
   description: '',
   contact: {
     phone: false,
@@ -149,10 +145,11 @@ const defaultBasketData = {
   address: {},
   useHomeAddress: false,
   weightInput: 4,
+  previousImages: [],
 }
 
 export default {
-  components: { FileUpload, LeafletLocationSearch },
+  components: { LeafletLocationSearch, ImageUpload },
   props: {
     basket: { type: Object, default: null },
     edit: { type: Boolean, default: false },
@@ -176,18 +173,18 @@ export default {
     return {
       durationOptions,
       weights,
-      imageUrl: this.basket.picture,
       description: this.basket.description,
       contact: {
-        chat: this.basket.contact_type.includes(1),
-        phone: this.basket.contact_type.includes(2),
+        chat: this.basket.contactTypes.includes(1),
+        phone: this.basket.contactTypes.includes(2),
       },
-      phoneNumber: this.basket.handy || this.basket.tel,
+      phoneNumber: this.basket.mobile || this.basket.telephone,
       durationInDays: undefined,
-      location: { lat: this.basket.lat, lon: this.basket.lon },
+      location: this.basket.location,
       address: {},
       useHomeAddress: this.useHomeAddress,
-      weightInput: Math.max(0, weights.findIndex(weight => weight.weightInGrams === this.basket.weightInKg * 1000)),
+      weightInput: Math.max(0, weights.findIndex(weight => weight.weightInGrams === this.basket.weightInGrams)),
+      previousImages: this.basket.pictures,
     }
   },
   computed: {
@@ -235,11 +232,13 @@ export default {
         }
       }
     },
-    getBasketData () {
+    async getBasketData () {
+      const pictures = await this.$refs['image-upload'].uploadImages()
       const location = Object.assign({}, this.useHomeAddress ? this.user.coordinates : this.location)
+
       return {
         description: this.description,
-        imageUrl: this.imageUrl,
+        pictures,
         contactTypes: [...(this.contact.chat ? [1] : []), ...(this.contact.phone ? [2] : [])],
         mobile: this.phoneNumber,
         lifeTimeInDays: this.durationInDays,
@@ -249,13 +248,13 @@ export default {
       }
     },
     async addBasket () {
-      await addBasket(this.getBasketData())
+      await addBasket(await this.getBasketData())
       pulseInfo(this.$i18n('basket.published'))
       this.resetModal()
       basketStoreMutations.fetchOwn()
     },
     async editBasket () {
-      await editBasket(this.basket.id, this.getBasketData())
+      await editBasket(this.basket.id, await this.getBasketData())
       location.reload() // as long as part of the basket page is written in php, the new basket data only is used in the page upon reload.
     },
     resetModal () {
