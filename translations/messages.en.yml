@@ -216,6 +216,7 @@ group:
       verify:
         do: Verify account of {name} ({id})
         undo: Cancel verification of {name} ({id})
+    all_roles: all roles
   application_from: by
   entermotivation: 'Motivation:'
   enterskills: 'Skills:'
@@ -592,9 +593,7 @@ profile:
       information\n- Date, time and place of the incident.\n- What you have already
       done, for example whether you have tried the communication channels available
       to you in order to address the incident directly to the person and to clarify
-      the matter.\n- How you can be reached best in case we have further questions.\n
-      \nYou can find the [rules of conduct](https://wiki.foodsharing.de/Verhaltensregeln)
-      in the Wiki.\n"
+      the matter.\n- How you can be reached best in case we have further questions.\n"
     repAdminAgainstArbAdmin: You are an admin of the report processing team and want
       to report an admin of the arbitration board. This is not technically supported
       at the moment. You can always submit a report by email to the local responsible
@@ -2047,9 +2046,9 @@ basket:
   no_requests: No inquiries so far
   requests: Requests ({count})
   provider: Provider
-  updated: Updated <strong>{date}</strong>
+  updated: 'Updated:'
   expires: Valid until
-  created: Published <strong>{date}</strong>
+  created: 'Published:'
   date: Creation date
   new: New food basket
   delete: Delete food basket
@@ -2070,6 +2069,7 @@ basket:
     text: Do you really want to delete this food basket?
     title: Delete the food basket?
   expires_at: Valid until <strong>{date}</strong>
+  until: 'Valid until:'
 map:
   title: Map
   donates: company donates
@@ -3298,7 +3298,7 @@ regionOptions:
     in CHERRY (Consummate, High-level, Exceptional and Really, Really Yielding) stores:'
   regionReportReasonSimple: Simplified report regions
   regionReportReasonOther: Allow "Other" as a report reason
-  regionReportReasonCategoryB: 'Extended reasons for reporting: Rules of conduct -
+  regionReportReasonCategoryB: 'Extended reasons for reporting: Rules of conduct —
     B) Behavior during pickups'
   noPickupRuleActiveStores: Currently, the CHERRY rule is not activated for any company
     in the district.
@@ -3945,6 +3945,7 @@ system_administration:
   mailboxes: Manage mailboxes
   content: Edit content
   reports: Show reports
+  store_categories: Edit store categories
 join_region:
   error:
     is_country_1: This is a country.
@@ -4119,6 +4120,10 @@ help:
       title: Report form
     report:
       title: Report processing
+    basket:
+      title: Food baskets
+      md: "Food baskets are offered by users who want to give away (often rescued)
+        food **for free**. Registered users can request a food basket to pick it up.\n"
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -4169,3 +4174,16 @@ achievements:
   revokeConfirmation: Are you sure you want to revoke this achievement from {name}?
   notAwarded: This achievement is currently not awarded to anyone.
 copied_to_clipboard: '"{text}" was copied to the clipboard.'
+store_categories:
+  columns:
+    id: ID
+    name: Name
+    number_of_stores: Stores in the category
+  confirm_delete_hint: There are still {count} companies assigned to this category.
+    These companies will no longer have a category after this.
+  confirm_delete: Really delete category {name}?
+  new: Enter new category
+  title: Store categories
+  empty: No category has been entered yet
+  edit: Rename category
+  delete: Remove category
