@@ -844,10 +844,10 @@ profile:
       noen voldgiftsnemnd der.
     noReportGroup: Du kan ikke bruke meldesystemet da det ikke er aktivert for matredderdistriktet.
     title: Rapporter om {name}
-    info: Vennligst oppgi dato, sted og klokkeslett for hendelsen. Vennligst sjekk
-      om du har prøvd kommunikasjonskanalene som er tilgjengelige for deg for å adressere
-      hendelsen direkte til personen og avklare saken. Vennligst angi hvordan du best
-      kan nås for videre behandling av spørsmål.
+    info: "For å sikre at rapporten din kan behandles så effektivt som mulig, bør
+      den inneholde følgende informasjon:\n- Dato, klokkeslett og sted for hendelsen\n
+      - hva du allerede har gjort, f.eks. B. om du allerede har snakket direkte med
+      personen og klart å avklare saken\n- hvordan du best kan nå deg for spørsmål.\n"
     oldReportButtonTextPart2: Ta eventuelt kontakt med den lokale krenkelsesgruppen
       i ditt distrikt.
     reporterAdminNoArbitration: Du kan ikke sende inn en rapport fordi du er administrator
@@ -1005,7 +1005,8 @@ settings:
     delete_token:
       button: Slette token
       title: Slette token
-      message: Dette ugyldiggjør den forrige lenken. Vil du virkelig slette tokenet?
+      message: Alle kalenderlenker som er opprettet så langt vil bli ugyldige. Er
+        du sikker på at du vil slette tokenet?
     token-warning: "Viktig: Hold lenken hemmelig.\nDen inneholder en nøkkel for å
       få tilgang til hentedatoene dine uten passord.\n"
     teaser: "Du kan se samlingskalenderen din med et kalenderprogram du velger.\n
@@ -1022,6 +1023,37 @@ settings:
       du velger.
     include_invitations: Kalenderen skal også inneholde invitasjoner til avtaler som
       jeg ennå ikke har svart på.
+    program:
+      apple_etar: Apple Kalender / Etar
+      label: Hvilket kalenderprogram bruker du?
+      outlook: Outlook
+      thunderbird: Thunderbird
+      google: Google calendar
+      other: En annen
+    generate_url:
+      button: Generer en kalender-URL
+    download: Last ned kalenderen
+    pickup:
+      label: Vil du ha hentedatoer inkludert?
+      "true": Ja, vis hentingene mine i kalenderen
+      "false": Nei, ikke vis henting i kalenderen
+    event:
+      all: Alle datoer
+      invitations: Avtaler som jeg ikke kansellerte
+      maybe: Datoer da jeg indikerte at jeg (kanskje) ville være der
+      accepted: Datoer som jeg har oppgitt at jeg skal være der
+      label: Hvilke datoer fra dine distrikter og arbeidsgrupper bør inkluderes?
+      none: ingen
+    history:
+      "true": Ja, ta med nylige avtaler
+      "false": Nei, ikke vis tidligere hendelser i kalenderen
+      label: Bør tidligere avtaler fra de siste to ukene inkluderes?
+    protocol: Hvilken protokoll bruker kalenderprogrammet ditt?
+    formatting:
+      text: Bare tekst
+      label: Hvordan skal avtalebeskrivelser formateres?
+      html: HTML
+      alt: Tekst med HTML som alternativ representasjon
   notifications: Varsler
   title: Innstillinger
   account: Kontoalternativer
@@ -1053,7 +1085,7 @@ settings:
     none: Slutt å varsle deg om nye innlegg på e-post.
   newsletter: "Ca en gang i måneden sender vi ut aktuell informasjon\nom matsparebevegelsen
     i et nyhetsbrev.\nØnsker du å motta disse e-postene?\n"
-  email: Endre epostadresse
+  email: E-postadresse og passord
   changemail:
     passcheck: Vennligst bekreft endringen med passordet ditt
     passfail: Passordet er feil, skrev det feil?
@@ -1068,11 +1100,20 @@ settings:
       innsending vil en e-post bli sendt til den nye adressen din med en lenke for
       å bekrefte den nye adressen.
     explanation_password: Bekreft endringsforespørselen med ditt nåværende passord
-    input_label_email: Skriv inn din nye e-postadresse her
-    input_label_email_confirm: Vennligst bekreft din nye e-postadresse her
+    input_label_email: Skriv inn den nye e-postadressen her
+    input_label_email_confirm: Vennligst bekreft den nye e-postadressen her
     input_label_password: Vennligst skriv inn passordet ditt for å bekrefte
     confirm_email_required: De angitte e-postadressene stemmer ikke overens
     wrong_password: Passordet er feil.
+    not_changed: E-postadressen din er ikke endret.
+    dashboard_link: Fortsett til dashbordet
+    question_other_user: 'Skulle e-postadressen virkelig endres til dette:'
+    explanation_other_user: Her kan du endre e-postadressen som ble brukt til å registrere
+      denne profilen. Etter sending vil brukeren motta en e-post til den nye adressen
+      som inneholder en lenke der den nye adressen må bekreftes.
+    insufficient_permission: Du har ikke tillatelse til å endre e-postadressen til
+      denne profilen.
+    sent_other_user: En e-post er sendt til den nye adressen for å bekrefte adressen.
   saved: Endringene ble lagret.
   push:
     disabled: Push-varsler er deaktivert
@@ -1117,6 +1158,7 @@ settings:
   general:
     current_address: Nåværende adresse
     phone: Fasttelefonnummeret ditt
+    no_address: Ingen adresse angitt ennå
   quiz:
     1: Quiz for matsparere
     2: Quiz for samarbeidsansvarlige
@@ -1125,6 +1167,17 @@ settings:
   address:
     title: Velg adresse
     choose: Godta adresse
+  change_password:
+    old_password_required: Du må skrive inn ditt nåværende passord.
+    new_password_label: Nytt passord
+    new_password_required: Passordet må inneholde minst åtte tegn
+    new_password_confirmation_invalid: Passordene stemmer ikke
+    old_password_label: Gjeldende passord
+    title: Du kan endre ditt nåværende passord her
+    new_password_must_be_trimmed: Passordet kan ikke begynne eller slutte med mellomrom
+    new_password_confirmation_label: Bekreft nytt passord
+    submit: Endre passord
+    success: Passordet ditt er endret
 mailbox:
   date: Dato
   recipient: Mottaker
@@ -1209,6 +1262,22 @@ map:
   donates: Selskapet donerer
   filters:
     my_stores: Kun mine bedrifter
+    stores:
+      help:
+        open: ønsket
+        searching: snarest ønsket
+        label: Hjelpere
+        all: ingen preferanse
+      status:
+        label: Status
+        all: alle
+        cooperating: samarbeidet
+        not-cooperating: samarbeider ikke
+      scope:
+        label: Tilhørighet
+        all: alle
+        region: bare mine distrikter
+        member: bare bedriftene mine
   foodsharepoint:
     go: til distribusjonsstasjonen
 content:
@@ -1452,6 +1521,11 @@ reports:
     for hendelsen! <br> Prøvde du å snakke direkte med personen om hendelsen og avklare
     saken? Vennligst angi hvordan du best kan nås for videre behandling av spørsmål.'
   about_email: via epost
+  reports_region: Klager fra {regionName}
+  reporter: Klagende person
+  reported: Tiltalte person
+  id: ID
+  reports_user: Alle klager på {userName} ({userId})
 month:
   short:
     "12": des
@@ -1619,8 +1693,7 @@ legal:
     legal_1: vår nåværende databeskyttelsesavtale
     this_gets_deleted_main: 'Følgende informasjon vil bli slettet fra deg og kan ikke
       gjenopprettes:'
-    this_gets_deleted_trustbananas: Bananer du har mottatt eller gitt til andre vil
-      bli fjernet.
+    this_gets_deleted_trustbananas: Bananer du har mottatt vil bli fjernet.
     this_gets_deleted_friendlist: Vennelisten din vil bli fjernet.
     this_gets_deleted_verify: Bekreftelsen din vil bli fjernet.
     this_gets_deleted_quiz: Din matsparingsquiz vil bli fjernet.
@@ -1815,6 +1888,7 @@ group:
       verify:
         do: Bekreft konto for {name} ({id})
         undo: Avbryt aktivering av {name} ({id})
+    all_roles: alle roller
   saved: Endringene har blitt lagret
   subtitle: her kan du finne hjelp og mye å gjøre …
   member_count:
@@ -1935,6 +2009,7 @@ button:
   close: Lukk
   start: Kom igjen!
   confirm: bekrefte
+  countdown_clickable: Klikkbar om {seconds} sekunder
 upload:
   preview_image: Forhåndsvisning
   crop_dialog_title: Beskjær bilde
@@ -2333,6 +2408,7 @@ calendar:
       description: Matdeling hentes i <a href="{url}">{store}</a>
       otherFoodsavers: 'Registrert sammen med deg: '
       freeSlots: '{count} plasser er fortsatt ledige'
+      foodsavers: 'Registrerte matsparere: '
     event:
       statusUnspecified: Du har ennå ikke angitt om du vil møte på denne avtalen.
         Du kan gjøre det på den koblede siden.
@@ -2340,6 +2416,8 @@ calendar:
       description: Beskrivelse
     updated: '(Sist oppdatert: {dato})'
   placeholder: Velg en dato
+  copiedUrl: Kalender-URL ble kopiert!
+  labelResetButton: Fjern markeringen
 pickup:
   edit:
     bread: 'Rediger hentetider'
@@ -2567,6 +2645,13 @@ store:
     distance: Bor ca {distance} km unna
     distance_close: Bor mindre enn 1 km unna
     air_line: Avstanden som vises er i luftlinje.
+    confirm-no-location-ok: Søk uansett
+    confirm-far: I henhold til den lagrede adressen din bor du veldig langt unna dette
+      selskapet ({distance}). Er du sikker på at du kan støtte laget her regelmessig
+      og pålitelig?
+    confirm-no-location: Du har ikke oppgitt en gyldig adresse i profilen din. Vennligst
+      skriv inn en hjemmeadresse for å gjøre det lettere for de driftsansvarlige å
+      avgjøre søknaden din.
   team_conversation_name: '{name}-laget'
   appliedFor: Forespørsel fremsatt
   bread: Alle virksomheter
@@ -2785,6 +2870,11 @@ storeview:
   choose_chain: Velg en kjede
   team_info_active: 'Aktive medlemmer av teamet:'
   team_info_jumper: 'Hoppere:'
+  team_info_distance: 'Flyselskapets avstand til drift:'
+  public_info:
+    error_message: Teksten er for lang (maks. {count} tegn)
+    label: Offentlig informasjon om selskapet
+    available_count: Tilgjengelig antall tegn
 fsp:
   info:
     none: ikke mer
@@ -2874,7 +2964,10 @@ terminology:
   baskets: Matkurver
   basket: Matkurv
   arbitration: Meldingsvisning (lokale voldgiftsnemnda)
-  reports: Rapportvisning (lokal krenkelsesgruppen)
+  reports:
+    report: Klager (klageteam)
+    arbitration: Klager (voldgiftsnemnd)
+    orga: Klager (Orga)
   statistic: Statistikk
   wall: Oppslagstavle
   moderationAdmins: Moderasjonsteam
@@ -2940,6 +3033,9 @@ terminology:
   phone: Telefonnummer
   landline: Fasttelefonnummer
   mobile_phone: Mobilnummer
+  achievements: Prestasjoner
+  achievement: Prestasjon
+  hygiene_training: Hygienetrening
 gender:
   d: mangfoldig
   f: Fru
@@ -3032,10 +3128,10 @@ regionOptions:
   header_page: Innstillinger for {bezirk}
   save: Lagre alternativer
   success: Alternativer er lagret
-  enableMediationButton: Aktiver formidlingsforespørsel-knapp på profilene til hjemmebrukerne
-    i dette distriktet.
-  enableReportButton: Aktiver rapportknapp på profilene til hjemmebrukerne i dette
-    distriktet.
+  enableMediationButton: Aktiver formidlingsforespørsel-knapp på profilsidene til
+    hjemmebrukerne i dette distriktet
+  enableReportButton: Aktiver klageknappen på profilsidene til hjemmebrukerne i dette
+    distriktet
   regionPickupInactiveHours: 'Vennligst angi hvor mange timer før henting denne regelen
     skal slutte å være implementert'
   regionPickupLimitNumber: 'Angi maksimalt antall mulige samlinger på populære virksomheter
@@ -3049,6 +3145,12 @@ regionOptions:
   regionPickupRuleActiveStoreList: 'Liste over selskaper innenfor distriktet som skal
     vurderes for regelen. Merk: henting i alle børsnoterte selskaper vil bli lagt
     sammen og vurdert.'
+  regionReportReasonCategoryB: 'Utvidet klagegrunnlag: Atferdsregler – B) Atferd under
+    samlinger'
+  regionReportReasonOther: Tillat «annet» som grunn for klage
+  regionReportReasonSimple: Forenklet klagegrunnlag
+  noPickupRuleActiveStores: Det er foreløpig ingen distriktsomfattende regel aktivert
+    for populære virksomheter i distriktet.
 messages:
   bread: Meldinger
 list:
@@ -3824,3 +3926,4 @@ no_automatic_delete: 'Hvis siste pålogging var for fem år siden:'
 validation:
   phone_number_invalid: Telefonnummeret er ugyldig (f.eks. mangler landskode, det
     er for kort, for langt eller inneholder ugyldige tegn)
+copied_to_clipboard: «{text}» ble kopiert til utklippstavlen.
