@@ -29,10 +29,6 @@ class FoodSharePointController extends FoodsharingController
     /**
      * @var Profile[]
      */
-    private array $managers;
-    /**
-     * @var Profile[]
-     */
     private array $followers;
 
     public function __construct(
@@ -156,10 +152,10 @@ class FoodSharePointController extends FoodsharingController
 
             $this->follower = $this->foodSharePointGateway->getFollower($foodSharePointId);
             $mapper = fn ($user) => new Profile($user);
-            $managers = array_map($mapper, $this->follower['fsp_manager']);
+            // $managers = array_map($mapper, $this->follower['fsp_manager']);
             $followers = array_map($mapper, $this->follower['follow']);
 
-            $this->setFoodSharePoint($this->foodSharePoint, $managers, $followers);
+            $this->setFoodSharePoint($this->foodSharePoint, $followers);
 
             $this->foodSharePoint['urlname'] = str_replace(' ', '_', (string)$this->foodSharePoint['name']);
             $this->foodSharePoint['urlname'] = $this->identificationHelper->id($this->foodSharePoint['urlname']);
@@ -434,13 +430,11 @@ class FoodSharePointController extends FoodsharingController
     }
 
     /**
-     * @param Profile[] $managers
      * @param Profile[] $followers
      */
-    public function setFoodSharePoint(array $foodSharePoint, array $managers, array $followers): void
+    public function setFoodSharePoint(array $foodSharePoint, array $followers): void
     {
         $this->foodSharePoint = $foodSharePoint;
-        $this->managers = $managers;
         $this->followers = $followers;
     }
 
