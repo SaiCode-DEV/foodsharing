@@ -1710,7 +1710,7 @@ events:
   span: '{from} den {until} kadar'
   location: Konum
   meeting:
-    present: Bu etkinlik çevrimiçi olarak gerçekleşir.Şimdi katılabilirsiniz.
+    present: Bu etkinlik çevrimiçi olarak gerçekleşir. Şimdi katılabilirsiniz.
     not_started: Bu Randevu henüz başlamadı
     past: Bu etkinlik çevrimiçi olarak gerçekleşti.
     future: Bu etkinlik çevrimiçi olarak gerçekleşir.Başladıktan sonra aşağıdaki düğmeyi
@@ -2745,8 +2745,7 @@ profile:
       için aşağıdaki bilgileri içermesi gerekir:\n- Olayın tarihi, saati ve yeri\n
       - daha önce ne yaptığınız, örneğin o kişiyle doğrudan konuşup konuşmadığınız
       ve konuyu açıklığa kavuşturup açıklayamadığınız.\n- Sorularınız için size en
-      iyi nasıl ulaşacağım.\n\nBurada [wiki'deki davranış kurallarını](https://wiki.foodsharing.de/Verhaltensrules)
-      bulabilirsiniz.\n"
+      iyi nasıl ulaşacağım.\n"
     noshow: 'Kişi almak için gelmedi'
     late: 'Kişi geç kaldı'
     inthisblog: 'Bu blog yazısında'
