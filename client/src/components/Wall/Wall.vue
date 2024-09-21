@@ -123,7 +123,6 @@ export default {
         let images
         if (this.hasImages) {
           images = await this.$refs['md-input'].uploadImages()
-          images = images.map(image => image.url)
           this.$refs['md-input'].clearImages()
         }
         const newPost = await addPost(this.target, this.targetId, text, images)

@@ -2455,18 +2455,12 @@ basket:
   delete: "Essenskorb löschen"
   new: "Neuer Essenskorb"
   date: "Einstelldatum"
-  created: "Veröffentlicht <strong>{date}</strong>"
-  expires: "Gültig bis"
-  expires_at: "Gültig bis <strong>{date}</strong>"
-  updated: "Aktualisiert <strong>{date}</strong>"
+  created: "Veröffentlicht:"
+  until: "Gültig bis:"
+  updated: "Aktualisiert:"
   where: "Wo?"
   provider: "Anbieter:in"
   requests: "Anfragen ({count})"
-  howto: |
-    <b>Information zur Benutzung von Essenskörben</b>
-    <br>
-    Bitte nutze die grüne Schaltfläche <b>„Essenskorb anfragen“</b>, um Interesse an diesem Korb zu bekunden,
-    oder <b>„Essenskorb bearbeiten“</b>, um deinen eigenen Korb nachträglich zu bearbeiten.
   login: |
     Für detaillierte Infos musst du eingeloggt sein.
     Bist du noch nicht als Foodsharer:in registriert?
@@ -3548,6 +3542,10 @@ help:
         ---
         Angepinnte Threads haben eine Priorität von 1, normale Threads die Priorität 0. Um die angezeigten Threads genauer sortieren zu können, kannst du hier aber auch höhere Werte festlegen, sodass Themen unabhängig vom Änderungsdatum immer ganz oben stehen.
         Threads mit Priorität -1 werden unter allen anderen Threads angezeigt.
+    basket:
+      title: "Essenskörbe"
+      md: |
+        Essenskörbe werden von Nutzer:innen angeboten, die (oftmals gerettete) Lebensmittel **kostenlos** weitergeben möchten. Angemeldete Nutzer:innen können einen Essenskorb anfragen, um diesen abzuholen.
     masterRegion:
       title: "Masterbezirk"
       md: |

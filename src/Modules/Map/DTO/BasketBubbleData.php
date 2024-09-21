@@ -23,7 +23,7 @@ class BasketBubbleData
     /**
      * Path to the basket's photo or null if the basket does not have a photo.
      */
-    public ?string $photo = null;
+    public array $pictures = [];
 
     /**
      * Date at which the basket was created. This is null if the current user does not have permission to see the
@@ -41,7 +41,14 @@ class BasketBubbleData
         $result = new BasketBubbleData();
         $result->id = $data['id'];
         $result->description = $data['description'];
-        $result->photo = $data['picture'];
+        $picture = json_decode($data['picture'] ?? '', true);
+        if (is_null($picture)) {
+            $result->pictures = [];
+        } elseif (is_array($picture)) {
+            $result->pictures = $picture;
+        } else {
+            $result->pictures = [$data['picture']];
+        }
 
         return $result;
     }

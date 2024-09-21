@@ -142,7 +142,7 @@ class MapApiCest
         $I->seeResponseContainsJson([
             'id' => $this->basket['id'],
             'description' => $this->basket['description'],
-            'photo' => $this->basket['picture'],
+            'pictures' => [],
             'creator' => [
                 'id' => $this->user['id']
             ],

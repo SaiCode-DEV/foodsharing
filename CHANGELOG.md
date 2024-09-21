@@ -12,6 +12,7 @@
 - Added wait timer to leaving home district #2090 !3562 @SaiCode
 - Added a new frontend for managing store categories #1263 !3405 @alex.simm
 - Improved map marker selection for stores #1659 !3596 @AntonBallmaier 
+- Food baskets support multiple images now. Image quality issues are resolve. #1797 #1714 !3304 @AntonBallmaier
 
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9
