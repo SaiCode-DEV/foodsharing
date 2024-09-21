@@ -2110,9 +2110,6 @@ profile:
 
       - cuál es la mejor manera de ponerse en contacto con usted.
 
-
-      Aquí puedes encontrar las [normas de comportamiento en la wiki](https://wiki.foodsharing.de/Verhaltensregeln).
-
       '
     send: 'Enviar queja'
     noshow: 'Persona no vino'
