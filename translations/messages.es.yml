@@ -2100,15 +2100,18 @@ profile:
       delivered: 'Denuncia atendida'
       reportID: 'ID de queja'
       reporting: 'Queja sobre'
-    info: 'Para que su informe pueda tramitarse con la mayor eficacia posible, debe
-      contener la siguiente información:
+    info: 'Para garantizar que su informe pueda procesarse de la forma más eficaz
+      posible, debe contener la siguiente información:
 
-      - Fecha, hora y lugar del incidente
+      - Fecha, hora y lugar del incidente.
 
-      - lo que ya ha hecho, por ejemplo, si ha hablado directamente con la persona
+      - lo que ya ha hecho, por ejemplo, si ya ha hablado directamente con la persona
       y ha podido aclarar el asunto
 
-      - cuál es la mejor manera de ponerse en contacto con usted.
+      - la mejor manera de comunicarnos con usted si tiene preguntas.
+
+
+      Aquí encontrará las [reglas de conducta en la wiki](https://wiki.foodsharing.de/Verhaltensrules).
 
       '
     send: 'Enviar queja'
