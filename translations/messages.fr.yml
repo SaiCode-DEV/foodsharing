@@ -2466,6 +2466,8 @@ search:
       jumper_tooltip: Tu es sur la liste d’attente pour cette coopération
       member_tooltip: Tu es membre de l’équipe de cette coopération
     from: de
+    mail:
+      mail_name: '{name} <{mail}>'
   maxresults: Le nombre de résultats affichés est limité. Utilisez peut-être un terme
     de recherche plus spécifique.
   too_short: Veuillez saisir un terme de recherche plus long.
