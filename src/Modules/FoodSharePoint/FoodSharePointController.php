@@ -154,7 +154,7 @@ class FoodSharePointController extends FoodsharingController
                 $this->regions[] = $this->regionGateway->getRegion($this->foodSharePoint['bezirk_id']);
             }
 
-           $this->follower = $this->foodSharePointGateway->getFollower($foodSharePointId);
+            $this->follower = $this->foodSharePointGateway->getFollower($foodSharePointId);
             $mapper = fn ($user) => new Profile($user);
             $managers = array_map($mapper, $this->follower['fsp_manager']);
             $followers = array_map($mapper, $this->follower['follow']);
