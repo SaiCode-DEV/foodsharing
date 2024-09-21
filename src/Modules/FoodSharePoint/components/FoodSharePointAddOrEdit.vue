@@ -10,7 +10,7 @@
           <b-form-select
             id="district-select"
             v-model="foodSharePointStore.foodSharePoint.regionId"
-            :options="null"
+            :options="regionStore.regions"
             required
           />
         </b-form-group>
@@ -67,14 +67,17 @@ import FileUploadVForm from '@/components/upload/FileUploadVForm.vue'
 import LeafletLocationSearchVForm from '@/components/map/LeafletLocationSearchVForm'
 import MultiUserSearchInput from '@/components/MultiUserSearchInput.vue'
 import { useFoodSharePointStore } from '@/stores/foodSharePoint'
+import { useRegionStore } from '@/stores/regions'
 
 const foodSharePointStore = useFoodSharePointStore()
+const regionStore = useRegionStore()
 export default {
   name: 'FoodSharePointAddOrEdit',
   components: { MultiUserSearchInput, MarkdownInput, FileUploadVForm, LeafletLocationSearchVForm },
   setup () {
     return {
       foodSharePointStore,
+      regionStore,
     }
   },
   data () {
