@@ -1220,6 +1220,10 @@ storeview:
   want_to_fetch: I would like to help in this team.
   public_and_statistics: "Public activites and statistical information"
   no_permission_to_view: "Only visible to store managers."
+  publicity_and_sticker_options:
+    not_yet_clarified: "not yet clarified"
+    yes: "Yes"
+    no: "No"
   groceries:
     label: Which kinds of food are allowed to be collected?
     select_tag: Choose food category
