@@ -2616,6 +2616,8 @@ search:
       jumper_tooltip: ''
       member_tooltip: ''
     from: ''
+    mail:
+      mail_name: '{name} <{mail}>'
 photo: 'Fotka'
 ort: 'město/obec (automaticky z mapy výše)'
 daterange: 'období'
