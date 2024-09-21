@@ -46,6 +46,7 @@
 - Added a dev docs article on "Logic in the Database" !3437 @AntonBallmaier
 - Port the register controller to Symfony !3594 @alex.simm
 - New API for submitting food share points !3372 @alex.simm
+- Port the application controller to Symfony #1994 !3603 @alex.simm
 
 # Hotfix 2024-08-29
 
