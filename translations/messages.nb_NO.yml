@@ -517,7 +517,7 @@ basket:
   nearby-short: nærme deg
   publish: Publisere matkurv
   add: Legg til matkurven
-  created: Publisert <strong>{date}</strong>
+  created: 'Publisert:'
   requested_by: forespurt av {name}
   no_requests: Ingen henvendelser så langt
   request: Be om matkurv
@@ -541,7 +541,7 @@ basket:
   delete: Slette matkurv
   edit: Redigere matkurven
   requests: Forespørsler ({count})
-  updated: Oppdatert <strong>{date}</strong>
+  updated: 'Oppdatert:'
   howto: "<strong>Informasjon om bruk av matkurver</strong>\n<br>\nBruk den grønne
     knappen <strong>«Be om matkurv»</strong> for å vise din interesse for denne kurven,\n
     eller <strong>«Rediger matkurv»</strong> for å redigere din egen kurv etterpå.\n"
@@ -576,6 +576,7 @@ basket:
   delete_confirmation:
     text: Vil du virkelig slette denne matkurven?
     title: Tømmer du matkurven?
+  until: 'Gyldig til:'
 team:
   contacted: Meldingen din ble sendt.
   email: Epostadresse
@@ -710,6 +711,7 @@ search:
       sticky_tooltip: Tråden er festet
       ambassador_forum: Forum for ambassadører
       last_post: siste innlegg
+      bottom_tooltip: Tråden har redusert synlighet
     in: i
     chat:
       chat_with: Chat med {names}
@@ -717,12 +719,24 @@ search:
     user:
       no_home_region: Ingen hjemdistrikt
       copy_id: Kopier ID
-      copied_id: Foodsaver ID kopiert fra {name} ({id})
+      copied_id: Foodsaver ID kopiert fra {name} ({text})
     store:
       manager_tooltip: Du er ansvarlig for denne bedriften
       jumper_tooltip: Du er en reserve i teamet for dette bedriften
       member_tooltip: Du er en del av teamet i dette bedriften
     from: fra
+    mail:
+      attachment_tooltip: Denne e-posten inneholdt et vedlegg.
+      mail_name: '{name} <{mail}>'
+      sent_tooltip: Du sendte denne e-posten.
+      recieved_tooltip: Denne e-posten er sendt til deg.
+      from_to_many: Fra {from} til {to} og {other} til
+      from_to: Fra {from} til {to}
+    time_relation:
+      future: Begynner
+      past: Ferdig
+      present_since: Startet
+      present_until: Slutter
   maxresults: Antallet resultater som vises er begrenset. Bruk kanskje et mer spesifikt
     søkeord.
   too_short: Skriv inn et lengre søkeord.
@@ -838,7 +852,12 @@ profile:
     oldReportButtonTextPart3: Du finner mer informasjon om rapporteringssystemet
     reporterHasNoReportGroup: Du kan ikke bruke rapporteringssystemet da det ikke
       er noen lokal krenkelsesgruppe i ditt distrikt.
-    mail: 'Du har en lokal krenkelsesgruppe med følgende e-postadresse:'
+    mail:
+      reportGroup: 'Klagen sendes til den lokale klagegruppen. Du kan også nå denne
+        gruppen på følgende e-postadresse:'
+      arbitrationGroup: 'Klagen sendes til voldgiftsnemnda fordi en av de involverte
+        er medlem av den lokale klagegruppen. Du kan også nå voldgiftsstyret på følgende
+        e-postadresse:'
     reportedAdminNoArbitration: Du kan ikke sende inn en rapport om {name} fordi hen
       er administrator for den ansvarlige lokale krenkelsesgruppen og det ikke er
       noen voldgiftsnemnd der.
@@ -923,6 +942,9 @@ profile:
       en erstatning
     sells: Personen selger berget mat
     doesNotAffectStore: Påvirker ikke noe eller et annet selskap
+    notes: Notater og vedtak
+    report_other: annen
+    confirmDelete: Bør denne klagen virkelig slettes?
   notFound: Denne brukerprofilen eksisterer ikke eller eksisterer ikke lenger
   go: Gå til profilsiden
   workgroups_member: Du og {name} er i følgende arbeidsgrupper
@@ -990,6 +1012,8 @@ profile:
     commitment_statistics: Engasjementsstatistikk
     stores: Bedrifter ({count})
     notes: Merknader ({count})
+  choosereasonnostore: Påvirker ikke noen bedrift
+  chooseantherstore: Gjelder et unotert bedrift
 settings:
   photo:
     title: Bildet ditt
@@ -3558,6 +3582,7 @@ system_administration:
   quiz: Administrer quizer
   blog: Rediger blogginnlegg
   regions: Administrere distrikter
+  store_categories: Rediger bedriftskategorier
 navigation:
   search: Søk
   basket: Matkurver
@@ -3608,9 +3633,13 @@ error:
     title: Velg et hjemdistrikt.
     link: Velg ditt hjemdistrikt nå
   missing_geolocation:
-    title: Det oppsto en feil med adressen din.
+    title: Ingen gyldig adresse angitt
     description: Vennligst sjekk adressen din. Koordinatene kunne ikke bestemmes.
     link: for adresseoppføring
+  invalid_landline_phonenumber:
+    title: Det er et problem med fasttelefonnummeret ditt.
+    description: Dessverre har fasttelefonnummeret ditt et format som ikke kan ringes.
+    link: Korriger fasttelefonnummeret ditt nå
 addreaction: Legg til en reaksjon
 contentmanagement: Innholdshåndtering
 globals:
@@ -3640,6 +3669,9 @@ globals:
     workingGroups: Grupper
     groups_menu: Gruppemeny
     regions_menu: Distriktsmeny
+    mails: E-poster
+    events: Avtaler
+    polls: Avstemninger
   show_more: Vis mer
   reset: Tilbakestill
   show_less: Vis mindre
@@ -3927,3 +3959,11 @@ validation:
   phone_number_invalid: Telefonnummeret er ugyldig (f.eks. mangler landskode, det
     er for kort, for langt eller inneholder ugyldige tegn)
 copied_to_clipboard: «{text}» ble kopiert til utklippstavlen.
+theme_switcher:
+  theme:
+    system: System
+    light: Lys
+    dark: Mørk
+  title: Velg design
+  content: Velg et design
+  choose_button: OK
