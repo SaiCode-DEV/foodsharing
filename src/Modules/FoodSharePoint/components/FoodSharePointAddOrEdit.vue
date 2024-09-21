@@ -10,7 +10,7 @@
           <b-form-select
             id="district-select"
             v-model="foodSharePointStore.foodSharePoint.regionId"
-            :options="regionStore.regions"
+            :options="regionOptions"
             required
           />
         </b-form-group>
@@ -77,7 +77,6 @@ export default {
   setup () {
     return {
       foodSharePointStore,
-      regionStore,
     }
   },
   data () {
@@ -88,6 +87,14 @@ export default {
       choosenRegion: null,
       coordinates: null,
     }
+  },
+  computed: {
+    regionOptions () {
+      return regionStore.regions.map(region => ({
+        value: region.id,
+        text: region.name,
+      }))
+    },
   },
   created () {
     const url = new URL(window.location.href)
