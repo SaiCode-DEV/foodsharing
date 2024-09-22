@@ -669,7 +669,7 @@ profile:
     confirmDelete: Do you really want to delete this report?
     report_b1_1: Did not come to a pickup (B01-2)
     report_other: Other
-    report_b1_2: Took animals to the pick-up without permission (B01-4)
+    report_b1_2: Took animals to the pick-up without permission (B01-3)
     report_b4_1: The food was not distributed fairly (B04-2)
     report_b5: Unauthorized persons have entered the premises (B05)
     report_b6_1: The pick-up location was not left tidy (B06-2)
@@ -4186,4 +4186,4 @@ store_categories:
   title: Store categories
   empty: No category has been entered yet
   edit: Rename category
-  delete: Remove category
+  delete: Delete category
