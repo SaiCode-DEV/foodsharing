@@ -3003,7 +3003,7 @@ regionOptions:
   regionPickupRuleActiveStoreList: 'Relación de empresas del distrito que son empresas
     populares en el sentido de este reglamento. A los efectos del reglamento, se suman
     y tienen en cuenta todos los cobros de empresas populares.'
-  regionReportReasonOther: Permitir "Otros" como motivo de notificación
+  regionReportReasonOther: Permitir «Otros» como motivo de notificación
   regionReportReasonSimple: Motivos de notificación simplificados
   regionReportReasonCategoryB: 'Motivos de denuncia ampliados: Normas de conducta
     - B) Comportamiento durante los cobros'
