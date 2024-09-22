@@ -737,6 +737,17 @@ search:
       past: Ferdig
       present_since: Startet
       present_until: Slutter
+    poll:
+      not_eligible: Du har ikke stemmerett
+      has_voted: Du har allerede stemt
+      can_vote: Du kan fortsatt stemme
+    event:
+      invitation_tooltip:
+        3: Du kommer ikke til å bli med på dette arrangementet.
+        2: Du kan være med på dette arrangementet.
+        1: Du har bekreftet datoen.
+        0: Du har ikke oppgitt om du vil være på dette arrangementet.
+      location_online: Online
   maxresults: Antallet resultater som vises er begrenset. Bruk kanskje et mer spesifikt
     søkeord.
   too_short: Skriv inn et lengre søkeord.
@@ -945,6 +956,30 @@ profile:
     notes: Notater og vedtak
     report_other: annen
     confirmDelete: Bør denne klagen virkelig slettes?
+    report_b11: Ingen økologiske midler ble brukt for å gjennomføre innsamlingen (B11)
+    report_b1_0: Kom for sent til henting (B01-1)
+    report_b9: Det ble fremsatt upassende kommentarer om mengde, type og bruk av den
+      reddete maten (B09)
+    report_b8: Var uhøflig mot de ansatte i bedriften (B08)
+    report_b10: Selger reddet mat (B10)
+    report_b1_2: Tok med seg dyr til henting uten tillatelse (B01-3)
+    report_b6_1: Hentestedet ble ikke etterlatt ryddig (B06-2)
+    report_b7: Bedriftens ventetid ble ikke overholdt (B07)
+    report_b1_1: Dukket ikke opp for å hente (B01-2)
+    report_b3_1: Utførte ikke innsamlingen uten uenighet eller diskusjon (B03-2)
+    report_b1_3: Tok med seg barn til henting uten tillatelse (B01-4)
+    report_b1_4: Hadde ikke med seg medlemskortet for matdeling (B01-5)
+    report_b2: Gjennomført en innsamling utenom de angitte datoene uten å rådføre
+      seg med de ansvarlige for samarbeidet (B02)
+    report_b3_0: Kom ikke inn/forlot bedriften sammen med de andre (B03-1)
+    report_b4_1: Maten ble ikke fordelt rettferdig (B04-2)
+    report_b5: Uvedkommende har tatt seg inn i bedriften (B05)
+    report_b4_0: Ikke all spiselig mat ble tatt (B04-1)
+    report_b12: De andre innsamlerne fikk ikke bestemme selvstendig hvem maten skulle
+      gis videre til (B12)
+    report_b13: Det ble ikke gjort tilstrekkelige anstrengelser for å konsumere/distribuere
+      den reddete maten (B13)
+    report_b6_0: Det ble ikke tatt hensyn til kunder og ansatte (B06-1)
   notFound: Denne brukerprofilen eksisterer ikke eller eksisterer ikke lenger
   go: Gå til profilsiden
   workgroups_member: Du og {name} er i følgende arbeidsgrupper
@@ -1078,6 +1113,15 @@ settings:
       label: Hvordan skal avtalebeskrivelser formateres?
       html: HTML
       alt: Tekst med HTML som alternativ representasjon
+    info: "Her kan du koble dine matdelingsavtaler med et kalenderprogram du velger.
+      Dette lar alle dine hentinger og/eller avtaler automatisk legges inn i kalenderen
+      din.\n\n**Pass på å holde kalenderlenker hemmelige.** De inneholder et *token*
+      som kan brukes til å få tilgang til hentedataene dine uten passord. Du kan slette
+      ditt nåværende token når som helst, noe som vil ugyldiggjøre tidligere opprettede
+      kalenderkoblinger.\n\nKalenderprogrammet ditt må **synkronisere** denne kalenderen
+      regelmessig. Først da vises nye hentedatoer og kansellerte datoer vil ikke lenger
+      vises. Hvis du laster ned gjeldende kalender i stedet, vil den kun inneholde
+      dine nåværende hendelser og vil ikke bli oppdatert automatisk.\n"
   notifications: Varsler
   title: Innstillinger
   account: Kontoalternativer
@@ -2899,6 +2943,10 @@ storeview:
     error_message: Teksten er for lang (maks. {count} tegn)
     label: Offentlig informasjon om selskapet
     available_count: Tilgjengelig antall tegn
+  publicity_and_sticker_options:
+    not_yet_clarified: ennå ikke avklart
+    yes: Ja
+    no: Nei
 fsp:
   info:
     none: ikke mer
@@ -3930,6 +3978,31 @@ help:
       title: Mesterdistrikt
     achievements:
       md: "…\n"
+      title: Prestasjoner
+    basket:
+      md: "Matkurver tilbys av brukere som ønsker å gi videre (ofte reddet) mat **gratis**.
+        Registrerte brukere kan be om en matkurv å hente.\n"
+      title: Matkurver
+    report:
+      title: Klagebehandling
+      md: "Her vil du se klager skrevet på personer med dette hjemdistriktet. Imidlertid
+        vil ikke alle klager vises til deg:\n- Du vil i utgangspunktet ikke bli vist
+        noen klager der du eller dine medadministratorer er involvert.\n- Som admin
+        i den lokale voldgiftsnemnda har du kun tilgang til klager der administratorene
+        i den lokale klagegruppen er involvert.\n---\nDu finner informasjon om hvordan
+        du behandler en klage i Wiki.\n"
+    reportReasons:
+      md: "Matsparere kan rapportere regelbrudd direkte ved å bruke rapporteringsskjemaet.
+        Ved å aktivere den vil de klageansvarlige motta raske og enkle varsler for
+        klager som fremsettes på denne måten.\n---\nBydelens klageteam kan justere
+        hvilke årsaker som vises på klageskjemaet. Du kan velge mellom forenklet og
+        detaljert begrunnelse for klagen. Alle reglene som er oppført i Wiki er inkludert
+        i den detaljerte begrunnelsen for klagen. Du kan også velge om alternativet
+        «Annet» skal stå oppført som en ekstra grunn for rapportering.\n---\nAnbefalinger
+        om seponering kan rettes til klagegruppen. Avgjørelsen og ansvaret for disse
+        innstillingene ligger imidlertid utelukkende hos administratorene i den lokale
+        klagegruppen, som ikke trenger å følge disse anbefalingene.\n"
+      title: Klageskjema
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
 team_page:
@@ -3967,3 +4040,37 @@ theme_switcher:
   title: Velg design
   content: Velg et design
   choose_button: OK
+achievements:
+  validity:
+    days: Gyldig i {validityInDaysAfterAssignment} dager etter tildeling.
+    indefiniteShort: Permanent
+    indefinite: Gyldig for enhver tidsperiode etter tildeling.
+  inThis:
+    group: 'Følgende prestasjoner kan tildeles i denne arbeidsgruppen:'
+    region: 'Følgende prestasjoner kan tildeles i dette distriktet:'
+  edit: Juster prestasjon {achievement} for {user}
+  award: Prestasjon tildelt
+  validUntil: Gyldig til
+  awarded: Gi
+  notAwarded: Denne prestasjonen er for øyeblikket ikke tildelt noen.
+  revokeConfirmation: Vil du virkelig frata {name} denne prestasjonen?
+  notice: Bemerkning
+  reviewer: Fra
+  awardedTo: git til
+  awardedNoReviewer: Automatisk
+  editDetails: Rediger detaljer
+  findUser: Finn bruker
+  revoke: Tilbakekalle
+store_categories:
+  confirm_delete: Vil du virkelig slette kategorien {name}?
+  delete: Slett kategori
+  columns:
+    name: Navn
+    id: ID
+    number_of_stores: Bedrifter i kategorien
+  edit: Gi nytt navn til kategori
+  empty: Ingen kategori er lagt inn ennå
+  title: Driftskategorier
+  confirm_delete_hint: Det er fortsatt {count} bedrifter som er tilordnet denne kategorien.
+    Disse bedriftene vil ikke lenger ha en kategori.
+  new: Skriv inn ny kategori
