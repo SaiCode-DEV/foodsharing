@@ -51,9 +51,6 @@ export default {
   },
   methods: {
     async removeBanana () {
-      // the banana dialog has to be closed because the confirm dialog would appear behind it
-      this.$emit('close-dialog')
-
       if (!await this.confirmationDialogue('profile.banana.remove.confirm_message')) return
       showLoader()
       try {

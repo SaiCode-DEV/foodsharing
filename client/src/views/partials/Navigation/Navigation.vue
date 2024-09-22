@@ -9,6 +9,7 @@
       'nav-foodsharer': !isFoodsaver,
     }"
   >
+    <Loader />
     <DonationModal />
     <div class="metanav-container container">
       <MetaNavLoggedIn v-if="!viewIsMobile && isLoggedIn" />
@@ -53,6 +54,7 @@ import DonationModal from '@/components/Modals/Donation/DonationModal.vue'
 import ThemeSwitcherModal from '@/views/partials/Modals/ThemeSwitcherModal.vue'
 // Mixins
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
+import Loader from './Loader.vue'
 
 const userStore = useUserStore()
 const regionStore = useRegionStore()
@@ -60,6 +62,7 @@ const regionStore = useRegionStore()
 export default {
   name: 'Navigation',
   components: {
+    Loader,
     ModalLoader,
     DonationModal,
     ThemeSwitcherModal,

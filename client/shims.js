@@ -77,13 +77,6 @@ Object.assign(module.exports, convert({
     ],
   },
 
-  'jquery-fancybox': {
-    resolve: lib('fancybox/jquery.fancybox.pack.js'),
-    imports: {
-      jQuery: 'jquery',
-    },
-  },
-
   'jquery-tablesorter': {
     resolve: lib('tablesorter/jquery.tablesorter.js'),
     imports: {

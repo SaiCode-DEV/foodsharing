@@ -3,7 +3,6 @@
 import $ from 'jquery'
 
 import 'jquery-slimscroll'
-import 'jquery-fancybox'
 import 'jquery-ui-addons'
 
 import { GET, goTo, isMob } from '@/browser'
@@ -331,15 +330,11 @@ export function ifconfirm (url, question, title) {
   $('#dialog-confirm').dialog('open')
 }
 
-export function closeBox () {
-  $.fancybox.close()
-}
-
 export function showLoader () {
-  $.fancybox.showLoading()
+  window.showLoading()
 }
 export function hideLoader () {
-  $.fancybox.hideLoading()
+  window.hideLoading()
 }
 
 export async function wantToHelpStore (storeId, userId) {
