@@ -69,7 +69,7 @@ export default {
       const self = {
         id: userStore.getUserId,
         name: userStore.getUserFirstName,
-        avatar: userStore.getUserLastName,
+        avatar: userStore.getAvatar,
       }
       this.currentAttendees.maybe = this.currentAttendees.maybe.filter(user => user.id !== self.id)
       this.currentAttendees.accepted = this.currentAttendees.accepted.filter(user => user.id !== self.id)
