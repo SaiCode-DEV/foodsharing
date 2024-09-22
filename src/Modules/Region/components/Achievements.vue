@@ -161,8 +161,10 @@ import Avatar from '@/components/Avatar/Avatar.vue'
 import Time from '@/components/Time.vue'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import DatePicker from '@/components/DateTime/DatePicker.vue'
-import { getters } from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
+
+const userStore = useUserStore()
 
 export default {
   components: { Container, Achievement, Markdown, UserSearchInput, Avatar, Time, OverflowMenu, DatePicker },
@@ -200,7 +202,7 @@ export default {
       return fields
     },
     ownId () {
-      return getters.getUserId()
+      return userStore.getUserId
     },
   },
   async mounted () {

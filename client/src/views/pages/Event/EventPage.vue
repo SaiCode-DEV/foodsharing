@@ -39,9 +39,12 @@ import EventLocation from '@/components/Event/EventLocation.vue'
 import EventAttendees from '@/components/Event/EventAttendees.vue'
 import Markdown from '@/components/Markdown/Markdown.vue'
 
-import { getters as regionGetters } from '@/stores/regions'
-import { getters as userGetters } from '@/stores/user'
+import { useRegionStore } from '@/stores/regions'
+import { useUserStore } from '@/stores/user'
 import { EventInvitationResponse } from '@/stores/events'
+
+const regionStore = useRegionStore()
+const userStore = useUserStore()
 
 export default {
   components: { BasePage, Wall, EventPanel, Container, EventLocation, EventAttendees, Markdown },
@@ -58,15 +61,15 @@ export default {
   },
   computed: {
     regionName () {
-      return regionGetters.find(this.event.regionId)?.name
+      return regionStore.findRegion(this.event.regionId)?.name
     },
   },
   methods: {
     updateSelfInAttendees (newStatus) {
       const self = {
-        id: userGetters.getUser().id,
-        name: userGetters.getUser().firstname,
-        avatar: userGetters.getUser().avatar,
+        id: userStore.getUserId,
+        name: userStore.getUserFirstName,
+        avatar: userStore.getUserLastName,
       }
       this.currentAttendees.maybe = this.currentAttendees.maybe.filter(user => user.id !== self.id)
       this.currentAttendees.accepted = this.currentAttendees.accepted.filter(user => user.id !== self.id)
