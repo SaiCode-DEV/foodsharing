@@ -2077,12 +2077,12 @@ map:
     my_stores: My stores only
     stores:
       status:
-        label: status
+        label: Status
         all: all
         cooperating: cooperates
         not-cooperating: does not cooperate
       help:
-        label: helpers
+        label: Helpers
         all: no preference
         open: searching
         searching: searching urgently
@@ -3297,7 +3297,7 @@ regionOptions:
   regionPickupRuleActive: 'Activate the following district-wide rule for pick-ups
     in CHERRY (Consummate, High-level, Exceptional and Really, Really Yielding) stores:'
   regionReportReasonSimple: Simplified report regions
-  regionReportReasonOther: Allow "Other" as a report reason
+  regionReportReasonOther: Allow “Other” as a report reason
   regionReportReasonCategoryB: 'Extended reasons for reporting: Rules of conduct —
     B) Behavior during pickups'
   noPickupRuleActiveStores: Currently, the CHERRY rule is not activated for any company
@@ -4173,7 +4173,7 @@ achievements:
   findUser: Find user
   revokeConfirmation: Are you sure you want to revoke this achievement from {name}?
   notAwarded: This achievement is currently not awarded to anyone.
-copied_to_clipboard: '"{text}" was copied to the clipboard.'
+copied_to_clipboard: '“{text}” was copied to the clipboard.'
 store_categories:
   columns:
     id: ID
