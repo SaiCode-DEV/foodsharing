@@ -3,7 +3,6 @@
 import $ from 'jquery'
 
 import 'jquery-slimscroll'
-import 'jquery-ui-addons'
 
 import { GET, goTo, isMob } from '@/browser'
 import conversationStore from '@/stores/conversations'
@@ -39,7 +38,6 @@ export function initialize () {
   $(function () {
     initSleepmode()
 
-    $('textarea.comment').autosize()
     $('#main').css('display', 'block')
 
     $('.truncate-content').each(function () {

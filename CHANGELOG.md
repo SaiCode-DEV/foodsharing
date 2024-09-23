@@ -41,6 +41,7 @@
 - Moved region store to pinia !3619 !3629 @chriswalg
 - Moved userStore to pinia for future improvements !3531 !3617 !3632 @SaiCode
 - Reduced the number of database requests in some store API endpoints #1662 !3615 @alex.simm
+- Removed jQuery autosize !3635 @SaiCode
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm
