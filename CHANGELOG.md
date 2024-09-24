@@ -35,6 +35,7 @@
 - Split email in businesscard if is too long !3600 @chriswalg
 - foodsavers can't report a store (empty list) #2107 !3605 @McGoldi
 - Improved loader !3634 @SaiCode
+- Added Error Handling for bells read API !3644 @SaiCode
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
