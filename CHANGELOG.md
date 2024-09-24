@@ -55,6 +55,7 @@
 - Port the application controller to Symfony #1994 !3603 @alex.simm
 - Update dompurify to 3.1.6 !3641 @chriswalg
 - Update twig to 3.14.0 !3642 @chriswalg
+- Update socket.io to 4.6.2 !3643 @chriswalg
 
 # Hotfix 2024-08-29
 
