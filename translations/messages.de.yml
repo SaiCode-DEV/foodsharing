@@ -250,6 +250,7 @@ quiz:
   timed_out_last: "Die letzte Frage hast du nicht in der vorgegebenen Zeit beantwortet."
   timed_out_error: "Die Zeit diese Frage zu beantworten ist bereits abgelaufen."
   show_results: Ergebnisse des letzten Versuchs ansehen
+  test_results: Ergebnisse des Testversuchs
   wikilink: Weitere Infos dazu im Wiki
   key_facts:
     to_pass: "Zum Bestehen:"
@@ -324,6 +325,7 @@ quiz:
           label: "Erklärung:"
           placeholder: "Erklärung..."
         answerRating: "Wertung:"
+  test: "Quiz testen"
 
 image: "Bild"
 picture_upload_widget:

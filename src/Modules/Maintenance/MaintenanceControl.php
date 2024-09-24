@@ -95,6 +95,11 @@ class MaintenanceControl extends ConsoleControl
         $this->cleanOldQuizSessionData();
 
         /*
+         * Deleting test quiz sessions older than a day
+         */
+        $this->deleteTestQuizSessions();
+
+        /*
          * Remove failed and unprocessed E-Mais form IMAP folder
          */
         if (getenv('FS_ENV') !== 'dev') {
@@ -345,6 +350,13 @@ class MaintenanceControl extends ConsoleControl
         self::info('reducing data from finished quiz sessions...');
         $count = $this->maintenanceGateway->cleanOldQuizSessionData();
         self::success($count . ' sessions updated');
+    }
+
+    private function deleteTestQuizSessions()
+    {
+        self::info('deleting test quiz sessions...');
+        $count = $this->maintenanceGateway->deleteTestQuizSessions();
+        self::success($count . ' sessions deleted');
     }
 
     public function deleteImapFolderMails($deleteDelayDays = self::DELETE_DELAY_DAYS)

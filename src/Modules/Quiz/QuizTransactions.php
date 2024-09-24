@@ -41,8 +41,11 @@ class QuizTransactions
      * Initializes and starts a new quiz session.
      * Should only be used, if no such session is currently running for the user.
      */
-    public function startQuizSession(Quiz $quiz, bool $isTimed): void
+    public function startQuizSession(Quiz $quiz, bool $isTimed, bool $isTest): void
     {
+        if ($isTest) {
+            $this->quizSessionGateway->deleteTestSessions(QuizID::from($quiz->id), $this->session->id());
+        }
         $questionCount = $isTimed ? $quiz->questionCountTimed : $quiz->questionCountUntimed;
         $questions = $this->getFairQuestions($questionCount, $quiz->id);
 
@@ -51,7 +54,8 @@ class QuizTransactions
             quizId: $quiz->id,
             questions: $questions,
             maxFailurePointsToSucceed: $quiz->maxFailurePointsToSucceed,
-            isTimed: $isTimed
+            isTimed: $isTimed,
+            isTest: $isTest,
         );
         $this->quizSessionGateway->initQuizSession($quizSession);
     }
@@ -86,9 +90,9 @@ class QuizTransactions
     /**
      * Returns all information required to display the detailed current quiz status.
      */
-    public function getQuizStatus(int $quizId, int $fsId): FullQuizStatus
+    public function getQuizStatus(int $quizId, int $fsId, bool $isTest = false): FullQuizStatus
     {
-        [$lastSession, $tries] = $this->quizSessionGateway->collectQuizStatus($quizId, $fsId);
+        [$lastSession, $tries] = $this->quizSessionGateway->collectQuizStatus($quizId, $fsId, $isTest);
         $status = new FullQuizStatus();
         if (!$tries) {
             $status->status = QuizStatus::NEVER_TRIED;
@@ -178,7 +182,7 @@ class QuizTransactions
         $session->status = ($failurePointsTotal <= $quiz->maxFailurePointsToSucceed) ? SessionStatus::PASSED : SessionStatus::FAILED;
         $session->endTime = Carbon::now();
         $this->quizSessionGateway->updateQuizSession($session);
-        if ($session->status === SessionStatus::PASSED) {
+        if ($session->status === SessionStatus::PASSED && !$session->isTest) {
             switch ($quiz->id) {
                 case QuizID::FOODSAVER->value:
                     $this->foodsaverGateway->riseQuizRole($this->session->id(), Role::FOODSAVER);
@@ -193,8 +197,8 @@ class QuizTransactions
                     // TODO award achievement
                     break;
             }
+            $this->updateQuizRoleForCurrentUser();
         }
-        $this->updateQuizRoleForCurrentUser();
     }
 
     public function updateQuizRoleForCurrentUser()
