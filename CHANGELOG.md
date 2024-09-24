@@ -53,6 +53,7 @@
 - Port the register controller to Symfony !3594 @alex.simm
 - New API for submitting food share points !3372 @alex.simm
 - Port the application controller to Symfony #1994 !3603 @alex.simm
+- Update dompurify to 3.1.6 !3641 @chriswalg
 - Update twig to 3.14.0 !3642 @chriswalg
 
 # Hotfix 2024-08-29
