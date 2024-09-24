@@ -559,6 +559,8 @@ quiz:
     este cuestionario?
   confirmDashboardText: ¡Has superado un cuestionario que aún no has confirmado. [Haga
     clic aquí]({url}) para completar el proceso!
+  test_results: Resultados de la prueba
+  test: Cuestionarios de prueba
 terminology:
   foodsaver:
     m: rescatista
