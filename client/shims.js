@@ -77,24 +77,6 @@ Object.assign(module.exports, convert({
     ],
   },
 
-  'jquery-tablesorter': {
-    resolve: lib('tablesorter/jquery.tablesorter.js'),
-    imports: {
-      jQuery: 'jquery',
-    },
-  },
-
-  'tablesorter-pagercontrols': {
-    resolve: lib('tablesorter/jquery.tablesorter.pager.js'),
-    imports: {
-      jQuery: 'jquery',
-    },
-  },
-
-  tablesorter: {
-    resolve: lib('tablesorter/jquery.tablesorter.js'),
-  },
-
   'jquery-tagedit-auto-grow-input': {
     resolve: lib('tagedit/js/jquery.autoGrowInput.js'),
   },

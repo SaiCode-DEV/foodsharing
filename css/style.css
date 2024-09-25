@@ -489,17 +489,6 @@ iframe.text {
 }
 /* rte ende */
 
-table.tablesorter td span.photo {
-  display: block;
-  margin-left: 10px;
-}
-
-table.tablesorter td span.photo a {
-  display: block;
-  margin: 0;
-  padding: 0;
-}
-
 /*WELCOME BOX */
 div.welcome {
   min-height: 50px;

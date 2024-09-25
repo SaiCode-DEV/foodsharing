@@ -59,6 +59,7 @@
 - Update socket.io to 4.6.2 !3643 @chriswalg
 - Update babel/core to 7.23.2 !3645 @chriswalg
 - Devdocs: Huge update from Docusaurus to VitePress #2124 #1755 #1913 !3640 @SaiCode
+- Removed jquery tablesorter #2136 !3648 @chriswalg
 
 # Hotfix 2024-08-29
 
