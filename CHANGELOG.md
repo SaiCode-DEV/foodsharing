@@ -44,14 +44,15 @@
 - Moved userStore to pinia for future improvements !3531 !3617 !3632 @SaiCode
 - Reduced the number of database requests in some store API endpoints #1662 !3615 @alex.simm
 - Removed jQuery autosize !3635 @SaiCode
+- Port the register controller to Symfony !3594 @alex.simm
+- Port the application controller to Symfony #1994 !3603 @alex.simm
+- Port the message controller to Symfony #1994 !3633 @\_fridtjof_
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm
 - Removed redirect after submit in foodsharepoint edit form to fix test !3527 @chriswalg
 - Added a dev docs article on "Logic in the Database" !3437 @AntonBallmaier
-- Port the register controller to Symfony !3594 @alex.simm
 - New API for submitting food share points !3372 @alex.simm
-- Port the application controller to Symfony #1994 !3603 @alex.simm
 - Update dompurify to 3.1.6 !3641 @chriswalg
 - Update twig to 3.14.0 !3642 @chriswalg
 - Update socket.io to 4.6.2 !3643 @chriswalg

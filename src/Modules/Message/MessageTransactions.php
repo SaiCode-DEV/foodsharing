@@ -87,7 +87,7 @@ class MessageTransactions
         }
         $data['sender'] = $this->foodsaverGateway->getFoodsaverDetails($message->authorId)['name'];
         $data['message'] = $message->body;
-        $data['link'] = BASE_URL . '/?page=msg&cid=' . $conversationId;
+        $data['link'] = BASE_URL . '/msg?cid=' . $conversationId;
 
         return $data;
     }

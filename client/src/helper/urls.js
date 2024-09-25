@@ -20,7 +20,7 @@ const urls = {
   contentEdit: () => '/content',
   contentEditEntry: (id) => `/content?a=edit&id=${id}`,
   contentNew: () => '/content?a=neu',
-  conversations: (conversationId = null) => `/?page=msg${conversationId ? `&cid=${conversationId}` : ''}`,
+  conversations: (conversationId = null) => `/msg${conversationId ? `?cid=${conversationId}` : ''}`,
   createBusinessCard: (data) => `/?page=bcard&sub=makeCard&opt=${data.role}:${data.regionGroupId}`,
   dashboard: () => '/?page=dashboard',
   dataprivacy: () => '/legal',
