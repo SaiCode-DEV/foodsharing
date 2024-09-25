@@ -15,7 +15,6 @@
 - Improved map marker selection for stores #1659 !3596 @AntonBallmaier 
 - Food baskets support multiple images now. Image quality issues are resolve. #1797 #1714 !3304 @AntonBallmaier
 - Added the option to test a quiz from the quiz editor. #2112 !3612 @AntonBallmaier
-
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9
 - Improve listing of non-active region members !3568 @iron9
@@ -57,6 +56,7 @@
 - Update twig to 3.14.0 !3642 @chriswalg
 - Update socket.io to 4.6.2 !3643 @chriswalg
 - Update babel/core to 7.23.2 !3645 @chriswalg
+- Devdocs: Huge update from Docusaurus to VitePress #2124 #1755 #1913 !3640 @SaiCode
 
 # Hotfix 2024-08-29
 

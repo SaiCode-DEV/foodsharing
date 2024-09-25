@@ -49,17 +49,12 @@ var/**
 builds
 
 ## Documentation
-docs/?
-docs/src/mdbook-plantuml-img
-docs/book
 docs/build
 docs/data/build
-docs/docs-api/*
-docs/docs/backend/database/database-tables-columns.md
 docs/data/api_dump.json
-docs/.config
-.docusaurus
-.cache-loader
+docs/.vitepress/cache/
+docs/.vitepress/.temp/
+docs/en/backend/database/database-tables-columns.md
 
 *.swp
 *.swo

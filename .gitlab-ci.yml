@@ -286,6 +286,7 @@ build:docs:
     <<: *build-artifacts
     paths:
       - docs/build
+      - docs/data/api_dump.json
 
 .test-artifacts: &test-artifacts
   expire_in: 2 weeks

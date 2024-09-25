@@ -25,9 +25,13 @@ if ! sql-query mysql 'use foodsharing'; then
     "$dir"/db-init || "$dir"/db-init
 fi
 
+log-header "Create docs data ..."
+"$dir"/dev-docs-build
+
 log-header "Waiting for assets to be generated ..."
 wait-for-assets
 exec-in-container app "bin/console assets:install"
+
 
 log-header "All done"
 
