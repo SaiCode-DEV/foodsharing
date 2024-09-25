@@ -557,7 +557,7 @@ deploy:docs:
   needs:
     - build:docs
   script:
-    - rsync -avz --delete docs/.vitepress/dist "deploy@devdocs.foodsharing.network:/var/www/devdocs/htdocs/"
+    - rsync -avz --delete docs/.vitepress/dist/ "deploy@devdocs.foodsharing.network:/var/www/devdocs/htdocs/"
   environment:
     name: docs
     url: https://devdocs.foodsharing.network
