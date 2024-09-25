@@ -49,9 +49,9 @@ var/**
 builds
 
 ## Documentation
-docs/build
 docs/data/build
 docs/data/api_dump.json
+docs/.vitepress/dist/
 docs/.vitepress/cache/
 docs/.vitepress/.temp/
 docs/en/backend/database/database-tables-columns.md
