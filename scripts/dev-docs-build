@@ -20,6 +20,3 @@ exec-in-container docs "/app/scripts/generate-documentation/mysql_generate_docum
 
 log-header "Load API Dump"
 exec-in-container app 'bin/console nelmio:apidoc:dump --format=json > docs/data/api_dump.json'
-
-log-header "Build documentation"
-exec-in-container docs 'cd /app/docs/ && yarn && yarn docs:build'
