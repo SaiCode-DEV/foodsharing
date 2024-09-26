@@ -88,8 +88,8 @@ export default {
   data () {
     return {
       EventInvitationStatus: EventInvitationResponse,
-      startDate: new Date(Date.parse(this.event.startDate)),
-      endDate: new Date(Date.parse(this.event.endDate)),
+      startDate: new Date(this.event.startDate.replace(/-/g, '/')),
+      endDate: new Date(this.event.endDate.replace(/-/g, '/')),
       currentStatus: this.status,
     }
   },

@@ -36,6 +36,7 @@
 - Improved loader !3634 @SaiCode
 - Added Error Handling for bells read API !3644 @SaiCode
 - Correct spelling mistake !3651 @McGoldi
+- Fixed Invalid Time when time is undefined #1924 !3652 @SaiCode
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
