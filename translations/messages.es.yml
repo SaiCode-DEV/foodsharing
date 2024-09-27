@@ -3325,6 +3325,14 @@ settings:
       por otro motivo, comuníquese con sus embajador@s locales.'
     non_verified_text: 'Aún no estás verificado. Solo l@s rescatistas de alimentos
       verificad@s pueden descargar su pasaporte.'
+    add_to_wallet:
+      google: Añadir a Google Wallet
+      apple: Añadir a Apple Wallet
+    wallet:
+      valid_end: Válido hasta el
+      name: Nombre
+      role: Papel
+      valid_start: Válido a partir de
   header: 'Configuración de perfil'
   chatmail: 'Si recibe un mensaje interno de foodsharing pero no ha iniciado
 
