@@ -13,6 +13,7 @@
 - Added wait timer to leaving home district #2090 !3562 @SaiCode
 - Added a new frontend for managing store categories #1263 !3405 @alex.simm
 - Improved map marker selection for stores #1659 !3596 @AntonBallmaier 
+- Added new Digital Foodsharing Passports for Android and iOS !3591 @SaiCode
 - Food baskets support multiple images now. Image quality issues are resolve. #1797 #1714 !3304 @AntonBallmaier
 - Added the option to test a quiz from the quiz editor. #2112 !3612 @AntonBallmaier
 ## Changes

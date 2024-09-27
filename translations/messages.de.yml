@@ -2060,6 +2060,15 @@ settings:
     verified_text: "Dieser Ausweis ist für den Einsatz auf dem Smartphone gedacht. Dort kannst du ihn dir abspeichern und dann bei Verlangen vorzeigen. Solltest du kein Smartphone besitzen oder aus einem anderen Grund noch einen herkömmlichen Ausweis benötigen, wende dich an deine Botschafter:innen vor Ort."
     non_verified_text: "Du bist noch nicht verifiziert. Nur verifizierten Foodsaver:innen steht das Herunterladen des Ausweises zur Verfügung."
     button: "Ausweis herunterladen"
+    add_to_wallet:
+      google: "Zu Google Wallet hinzufügen"
+      apple: "Zu Apple Wallet hinzufügen"
+    wallet:
+      name: "Name"
+      role: "Rolle"
+      valid_start: "Gültig ab"
+      valid_end: "Gültig bis"
+
   calendar:
     menu: "Kalender"
     export: "Kalender exportieren"

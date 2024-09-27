@@ -399,6 +399,15 @@ settings:
     verified_text: This badge is intended for use on smartphones. You can save it
       there and then show it when requested. If you don’t have a smartphone or need
       a traditional badge for another reason, contact your local ambassadors.
+    add_to_wallet:
+      google: "Add to Google Wallet"
+      apple: "Add to Apple Wallet"
+    wallet:
+      name: "Name"
+      role: "Role"
+      valid_start: "Valid from"
+      valid_end: "Valid until"
+
   delete_profile: Delete profile
   quiz:
     2: Quiz for store managers

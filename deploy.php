@@ -15,7 +15,7 @@ set('repository', 'git@gitlab.com:foodsharing-dev/foodsharing.git');
 
 // Shared files/dirs between deploys
 set('shared_files', ['config.inc.prod.php']);
-set('shared_dirs', ['images', 'data', 'tmp', 'uploads']);
+set('shared_dirs', ['images', 'data', 'tmp', 'uploads', 'keys']);
 
 // Writable dirs by web server
 set('writable_dirs', ['tmp', 'cache', 'var']);
