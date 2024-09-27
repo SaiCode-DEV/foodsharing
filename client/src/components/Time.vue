@@ -37,7 +37,18 @@ const tooltipTime = computed(() => {
 function parseTime (time) {
   if (time === null || time === undefined) return {}
   if (typeof time === 'string') {
-    date.value = new Date(time.replace(/-/g, '/'))
+    try {
+      date.value = new Date(time)
+      if (isNaN(date.value)) {
+        date.value = new Date(time.replace(/-/g, '/'))
+      }
+      if (isNaN(date.value)) {
+        throw new Error('Invalid date', time)
+      }
+    } catch (e) {
+      console.error('Invalid date', time)
+      return { date: null }
+    }
     return { date: date.value }
   }
   date.value = new Date(time)
