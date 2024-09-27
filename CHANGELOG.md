@@ -26,6 +26,7 @@
 - Add more breadcrumbs where needed !3606 !3614 #1987 @McGoldi
 - Rework default options in store information #33 !3623 @chriswalg
 - Changed the Icon for resolving basket requests #2119 #1363 !3636 @SaiCode
+- Change limit to 535 / 520 for public_info -> store !3646 @chriswalg
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
