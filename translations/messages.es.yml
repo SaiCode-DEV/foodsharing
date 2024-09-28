@@ -4284,6 +4284,14 @@ help:
       md: "Las cestas de alimentos son ofrecidas por usuarios que desean entregar
         alimentos (a menudo rescatados) **gratis**. Los usuarios registrados pueden
         solicitar una cesta de alimentos para recogerla.\n"
+    achievementIcon:
+      md: "Cada logro tiene un ícono, un pequeño gráfico que debe mostrar a primera
+        vista de qué se trata. Puede encontrar una lista de íconos disponibles en
+        https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n\nEn el campo de entrada
+        debe ingresar el nombre del ícono que desea usar, por ejemplo \"*caminando*\"\
+        \ o \"*carrito de compras*\".\nPuede comprobar si su entrada funciona utilizando
+        la vista previa.\nSi no ingresa un ícono, se usará automáticamente el ícono
+        de logro predeterminado \"*etiqueta*\"\n"
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
