@@ -10,6 +10,7 @@ use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
+use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Permissions\ContentPermissions;
 use Foodsharing\Permissions\MailboxPermissions;
@@ -63,6 +64,7 @@ final class PageHelper
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly ProfilePermissions $profilePermissions,
         private readonly StoreCategoriesPermissions $storeCategoriesPermissions,
+        private readonly AchievementPermissions $achievementPermissions,
         private readonly RegionGateway $regionGateway,
         private readonly SettingsTransactions $settingsTransactions,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
@@ -215,6 +217,7 @@ final class PageHelper
             'administrateNewsletterEmail' => $this->newsletterEmailPermissions->mayAdministrateNewsletterEmail(),
             'administrateRegions' => $this->regionPermissions->mayAdministrateRegions(),
             'editStoreCategories' => $this->storeCategoriesPermissions->mayEditStoreCategories(),
+            'editAchievements' => $this->achievementPermissions->mayEditAchievements(),
         ];
     }
 

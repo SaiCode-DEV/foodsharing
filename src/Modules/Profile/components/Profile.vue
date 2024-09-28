@@ -93,10 +93,8 @@
                 />
               </b-tab>
               <b-tab v-if="awardedAchievements?.length" :title="$i18n('terminology.achievements') + `(${awardedAchievements.length})`">
-                <Achievement
-                  v-for="achievement in awardedAchievements"
-                  :key="achievement.id"
-                  :achievement="achievement"
+                <Achievements
+                  :achievements="awardedAchievements"
                 />
               </b-tab>
             </b-tabs>
@@ -124,15 +122,15 @@ import ProfileCommitmentsStat from './ProfileCommitmentsStat.vue'
 import EmailBounceList from './EmailBounceList.vue'
 import PickupsSection from '@/components/PickupTable/PickupsSection.vue'
 import ProfileStoreList from './ProfileStoreList.vue'
+import Achievements from '@/components/Achievement/Achievements.vue'
 import { useUserStore } from '@/stores/user'
-import Achievement from '@/components/Achievement/Achievement.vue'
 import { ROLE } from '@/consts'
 
 const userStore = useUserStore()
 
 export default {
   name: 'Profile',
-  components: { ProfileStoreList, ProfileMenu, ProfileInfos, ProfileRegionAndGroupInfos, Wall, ProfileCommitmentsStat, EmailBounceList, PickupsSection, Achievement },
+  components: { ProfileStoreList, ProfileMenu, ProfileInfos, ProfileRegionAndGroupInfos, Wall, ProfileCommitmentsStat, EmailBounceList, PickupsSection, Achievements },
   props: {
     menu: { type: Object, required: true },
     statistics: { type: Object, required: true },

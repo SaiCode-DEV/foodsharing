@@ -6,6 +6,7 @@ namespace Tests\Api;
 
 use Codeception\Util\HttpCode;
 use Foodsharing\Modules\Achievement\DTO\Achievement;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\Support\ApiTester;
 
@@ -26,9 +27,12 @@ class AchievementApiCest
         $this->admin = $this->tester->createAmbassador();
 
         $this->region = $this->tester->createRegion('region', ['parent_id' => 0], fillMailbox: false);
+        $createWGGroup = $this->tester->createRegion('region', ['id' => RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP], fillMailbox: false);
         $this->tester->addRegionMember($this->region['id'], $this->user['id']);
         $this->tester->addRegionMember($this->region['id'], $this->admin['id']);
         $this->tester->addRegionAdmin($this->region['id'], $this->admin['id']);
+        $this->tester->addRegionMember($createWGGroup['id'], $this->admin['id']);
+        $this->tester->addRegionAdmin($createWGGroup['id'], $this->admin['id']);
 
         $this->achievement = new Achievement();
         $this->achievement->id = 1;
@@ -37,7 +41,7 @@ class AchievementApiCest
         $this->achievement->description = 'Some description';
         $this->achievement->icon = 'icon';
         $this->achievement->validityInDaysAfterAssignment = 365;
-        $this->achievement->isRequestableByFoodsaver = true;
+        $this->achievement->isRequestableByFoodsaver = false;
 
         $this->otherAchievement = clone $this->achievement;
         $this->otherAchievement->id = 2;
@@ -57,6 +61,17 @@ class AchievementApiCest
             'icon' => $achievement->icon,
             'validity_in_days_after_assignment' => $achievement->validityInDaysAfterAssignment,
             'is_requestable_by_foodsaver' => $achievement->isRequestableByFoodsaver,
+        ];
+    }
+
+    private function achievementToArrayForApi(Achievement $achievement): array
+    {
+        return [
+            'name' => $achievement->name,
+            'regionId' => $achievement->regionId,
+            'description' => $achievement->description,
+            'icon' => $achievement->icon,
+            'validityInDaysAfterAssignment' => $achievement->validityInDaysAfterAssignment,
         ];
     }
 
@@ -137,5 +152,57 @@ class AchievementApiCest
         $I->seeResponseCodeIs(Response::HTTP_OK);
         $I->sendGET("api/achievements/{$this->achievement->id}/users");
         $I->dontSeeResponseJsonMatchesJsonPath('$[0]');
+    }
+
+    public function administratingAchievements(ApiTester $I): void
+    {
+        // Error types:
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/achievements', []);
+        $I->seeResponseCodeIs(Response::HTTP_UNAUTHORIZED);
+        $I->sendPatch('api/achievements/1', []);
+        $I->seeResponseCodeIs(Response::HTTP_UNAUTHORIZED);
+        $I->sendDelete('api/achievements/1');
+        $I->seeResponseCodeIs(Response::HTTP_UNAUTHORIZED);
+
+        $I->login($this->user['email']);
+
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/achievements', []);
+        $I->seeResponseCodeIs(Response::HTTP_FORBIDDEN);
+        $I->sendPatch('api/achievements/1', []);
+        $I->seeResponseCodeIs(Response::HTTP_FORBIDDEN);
+        $I->sendDelete('api/achievements/1');
+        $I->seeResponseCodeIs(Response::HTTP_FORBIDDEN);
+
+        $I->login($this->admin['email']);
+
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/achievements', []);
+        $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
+        $I->sendPatch('api/achievements/1', []);
+        $I->seeResponseCodeIs(Response::HTTP_BAD_REQUEST);
+
+        $I->sendPatch('api/achievements/10', $this->achievementToArrayForApi($this->achievement));
+        $I->seeResponseCodeIs(Response::HTTP_NOT_FOUND);
+        $I->sendDelete('api/achievements/10');
+        $I->seeResponseCodeIs(Response::HTTP_NOT_FOUND);
+
+        // Adding
+        $I->sendPost('api/achievements', $this->achievementToArrayForApi($this->achievement));
+        $I->seeResponseCodeIs(Response::HTTP_OK);
+        $this->achievement->id = (int)$I->grabResponse();
+        $I->seeInDatabase('fs_achievement', $this->achievementToArray($this->achievement));
+
+        // Editing
+        $this->achievement->name .= 'more text';
+        $I->sendPatch('api/achievements/' . $this->achievement->id, $this->achievementToArrayForApi($this->achievement));
+        $I->seeResponseCodeIs(Response::HTTP_OK);
+        $I->seeInDatabase('fs_achievement', $this->achievementToArray($this->achievement));
+
+        // Deleting
+        $I->sendDelete('api/achievements/' . $this->achievement->id);
+        $I->seeResponseCodeIs(Response::HTTP_OK);
+        $I->dontSeeInDatabase('fs_achievement', ['id' => $this->achievement->id]);
     }
 }

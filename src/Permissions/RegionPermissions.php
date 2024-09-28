@@ -17,9 +17,11 @@ final class RegionPermissions
     private readonly Session $session;
     private readonly GroupFunctionGateway $groupFunctionGateway;
 
-    public function __construct(RegionGateway $regionGateway, Session $session, GroupFunctionGateway $groupFunctionGateway,
-        private readonly CurrentUserUnitsInterface $currentUserUnits, )
-    {
+    public function __construct(
+        RegionGateway $regionGateway, Session $session, GroupFunctionGateway $groupFunctionGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
+        private readonly AchievementPermissions $achievementPermissions,
+    ) {
         $this->regionGateway = $regionGateway;
         $this->session = $session;
         $this->groupFunctionGateway = $groupFunctionGateway;
@@ -161,5 +163,21 @@ final class RegionPermissions
     public function isAmbassadorOfAtLeastOneRegion(): bool
     {
         return $this->regionGateway->isAmbassadorOfAtLeastOneRegion($this->session->id());
+    }
+
+    /**
+     * Whether the user is allowed to access the list of working groups in a given region.
+     */
+    public function mayAccessWorkingGroupList(int $regionId): bool
+    {
+        if (
+            $this->session->mayRole(Role::ORGA) ||
+            $this->isAmbassadorOfAtLeastOneRegion() ||
+            $this->achievementPermissions->mayEditAchievements()
+        ) {
+            return true;
+        }
+
+        return $this->currentUserUnits->mayBezirk($regionId);
     }
 }

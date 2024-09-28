@@ -18,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -61,10 +62,11 @@ class AchievementRestController extends AbstractFoodsharingRestController
         type: 'integer',
         description: 'the id of the newly created achievement',
     ))]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid data')]
     public function addAchievement(Achievement $achievement, ValidatorInterface $validator): Response
     {
         $this->assertLoggedIn();
-        if (!$this->achievementPermissions->mayCreateAchievement()) {
+        if (!$this->achievementPermissions->mayEditAchievements()) {
             throw new AccessDeniedHttpException();
         }
         $this->assertThereAreNoValidationErrors($validator, $achievement);
@@ -72,6 +74,50 @@ class AchievementRestController extends AbstractFoodsharingRestController
         $achievementId = $this->achievementGateway->addAchievement($achievement);
 
         return $this->respondOK($achievementId);
+    }
+
+    #[OA\Patch(summary: 'Edit an existing achievement')]
+    #[Rest\Patch('achievements/{achievementId}', requirements: ['achievementId' => Requirement::POSITIVE_INT])]
+    #[ParamConverter('achievement', class: Achievement::class, converter: 'fos_rest.request_body')]
+    #[OA\RequestBody(content: new Model(type: Achievement::class))]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid data')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Achievement does not exist')]
+    public function updateAchievement(int $achievementId, Achievement $achievement, ValidatorInterface $validator): Response
+    {
+        $this->assertLoggedIn();
+        if (!$this->achievementPermissions->mayEditAchievements()) {
+            throw new AccessDeniedHttpException();
+        }
+        $this->assertThereAreNoValidationErrors($validator, $achievement);
+
+        $achievement->id = $achievementId;
+        $updated = $this->achievementGateway->updateAchievement($achievement);
+        if (!$updated) {
+            throw new NotFoundHttpException();
+        }
+
+        return $this->respondOK();
+    }
+
+    #[OA\Delete(summary: 'Delete an existing achievement')]
+    #[Rest\Delete('achievements/{achievementId}', requirements: ['achievementId' => Requirement::POSITIVE_INT])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid data')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Achievement does not exist')]
+    public function deleteAchievement(int $achievementId): Response
+    {
+        $this->assertLoggedIn();
+        if (!$this->achievementPermissions->mayEditAchievements()) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $deleted = $this->achievementGateway->deleteAchievement($achievementId);
+        if (!$deleted) {
+            throw new NotFoundHttpException();
+        }
+
+        return $this->respondOK();
     }
 
     #[OA\Get(summary: 'Get details about all users that have a specific achievement')]
@@ -127,7 +173,7 @@ class AchievementRestController extends AbstractFoodsharingRestController
         }
 
         $awardedAchievement = $this->prepareAwardedAchievement($achievementId, $userId, $paramFetcher, true);
-        $this->achievementGateway->editAchievement($awardedAchievement);
+        $this->achievementGateway->editAwardedAchievement($awardedAchievement);
         $awardedAchievement = $this->achievementGateway->getAwardedAchievementForUser($achievementId, $userId);
 
         return $this->respondOK($awardedAchievement);

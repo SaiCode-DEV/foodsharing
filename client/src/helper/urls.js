@@ -144,6 +144,7 @@ const urls = {
   workingGroups: (regionId = null) => regionId ? `/?page=groups&p=${regionId}` : '/?page=groups',
   subGroups: (parentGroupId) => parentGroupId ? `/?page=groups&p=${parentGroupId}` : '/?page=groups',
   achievements: (regionId) => `/region?bid=${regionId}&sub=achievements`,
+  editAchievements: () => '/achievements',
 
   // whats new & changelog
   changelog: () => '/content?sub=changelog',
