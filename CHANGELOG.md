@@ -16,6 +16,7 @@
 - Added new Digital Foodsharing Passports for Android and iOS !3591 @SaiCode
 - Food baskets support multiple images now. Image quality issues are resolve. #1797 #1714 !3304 @AntonBallmaier
 - Added the option to test a quiz from the quiz editor. #2112 !3612 @AntonBallmaier
+
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9
 - Improve listing of non-active region members !3568 @iron9
@@ -40,6 +41,7 @@
 - Correct spelling mistake !3651 @McGoldi
 - Fixed Invalid Time when time is undefined #1924 !3652 !3656 @SaiCode
 - Fix typos and inconsistent spelling in email templates !3657 @iron9
+- Fix duplicate 'kg' in global statistics #2108 !3658 @iron9
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
