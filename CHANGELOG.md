@@ -39,6 +39,7 @@
 - Added Error Handling for bells read API !3644 @SaiCode
 - Correct spelling mistake !3651 @McGoldi
 - Fixed Invalid Time when time is undefined #1924 !3652 !3656 @SaiCode
+- Fix typos and inconsistent spelling in email templates !3657 @iron9
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
