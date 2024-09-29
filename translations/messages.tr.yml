@@ -733,6 +733,7 @@ group:
         do: '{name} ({id}) hesabını onaylayın'
         undo: '{name} ({id}) onaylamasını iptal edin'
       filter_selection: Seçilen üyelere göre filtrele
+    all_roles: Tüm Roller
   show-all: Hepsini göster
   delete_group_sure: '{groupName} çalışma grubunu/bölgesini silmek istediğinizden
     emin misiniz?'
@@ -1710,7 +1711,7 @@ events:
   span: '{from} den {until} kadar'
   location: Konum
   meeting:
-    present: Bu etkinlik çevrimiçi olarak gerçekleşir.Şimdi katılabilirsiniz.
+    present: Bu etkinlik çevrimiçi olarak gerçekleşir. Şimdi katılabilirsiniz.
     not_started: Bu Randevu henüz başlamadı
     past: Bu etkinlik çevrimiçi olarak gerçekleşti.
     future: Bu etkinlik çevrimiçi olarak gerçekleşir.Başladıktan sonra aşağıdaki düğmeyi
@@ -2006,7 +2007,7 @@ basket:
   provider: Sağlayıcı
   new: Yeni yemek sepeti
   date: Giriş tarihi
-  created: <strong>{date}</strong> tarihinde yayınlandı
+  created: 'Yayınlandı:'
   my_list_empty: Herhangi bir yiyecek sepeti girmediniz
   recent: En yeni yemek sepetleri
   no_nearby: '{radius} kilometre yakınında yiyecek sepeti yok'
@@ -2020,7 +2021,7 @@ basket:
   by: "{name}'nin yemek sepeti"
   go: Yemek sepetine
   delete: Yemek sepetini sil
-  updated: <strong>{date}</strong> tarihinde güncellendi
+  updated: 'Güncellendi:'
   description: 'Açıklama'
   howto: '<b>Yiyecek sepetlerinin kullanımına ilişkin bilgiler</b>
 
@@ -2050,6 +2051,7 @@ basket:
     text: Bu yemek sepetini gerçekten silmek istiyor musun?
     title: Yemek sepeti silinsin mi?
   expires_at: <strong>{date</strong> tarihine kadar geçerlidir
+  until: 'Şu tarihe kadar geçerlidir:'
 menu:
   entry:
     joinregion: Bir bölgeye katılın
@@ -2984,6 +2986,7 @@ map:
         all: Hepsi
         region: Sadece benim Bölgelerim
         member: Sadece benim İşletmelerim
+        label: Üyeliği
   foodsharepoint:
     go: Dağıtım Noktası
 buddy:
@@ -3299,6 +3302,10 @@ storeview:
     label: İşletme hakkında kamuya açık bilgiler
     available_count: Mevcut karakter sayısı
     error_message: Metin çok uzun (maks. {count} karakter)
+  publicity_and_sticker_options:
+    not_yet_clarified: Henüz açıklığa kavuşturulmadı
+    yes: Evet
+    no: Hayır
 fsp:
   suggest: Gıda dağıtım noktası önerin
   accept: Gıda dağıtım noktasının kilidini aç
@@ -4018,6 +4025,11 @@ help:
         ilgili öneriler LMG'ye yapılabilir. Ancak, bu ortamlara ilişkin karar ve sorumluluk
         yalnızca yerel şikayet grubunun bu tavsiyelere uymak *zorunda olmayan* yöneticilerine
         aittir.\n"
+    basket:
+      title: Yemek Sepetleri
+      md: "Yiyecek sepetleri, (çoğunlukla kurtarılan) yiyecekleri **ücretsiz** vermek
+        isteyen kullanıcılar tarafından sunulmaktadır. Kayıtlı kullanıcılar almak
+        üzere bir yiyecek sepeti talep edebilirler.\n"
   helpTitle: 'Yardım: {title}'
   tooltip: Yardımı göster
 team_page:

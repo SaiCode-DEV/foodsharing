@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Quiz;
 
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
 use Foodsharing\Modules\Quiz\DTO\QuizSession;
 
@@ -11,7 +12,7 @@ class QuizSessionGateway extends BaseGateway
     /**
      * Returns the current running session or null if no such session exists.
      */
-    public function getRunningSession(int $quizId, int $fsId): ?QuizSession
+    public function getRunningSession(int $quizId, int $fsId, bool $isTest = false): ?QuizSession
     {
         $session = $this->db->fetchByCriteria(
             'fs_quiz_session',
@@ -19,24 +20,27 @@ class QuizSessionGateway extends BaseGateway
             [
                 'quiz_id' => $quizId,
                 'foodsaver_id' => $fsId,
-                'status' => SessionStatus::RUNNING->value
+                'status' => SessionStatus::RUNNING->value,
+                'is_test' => $isTest,
             ]
         );
 
         return $session ? QuizSession::createFromArray($session) : null;
     }
 
-    public function getLatestFinishedSession(int $quizId, int $foodsaverId): ?QuizSession
+    public function getLatestFinishedSession(int $quizId, int $foodsaverId, bool $isTest = false): ?QuizSession
     {
         $session = $this->db->fetch('SELECT *
             FROM fs_quiz_session
             WHERE quiz_id = :quizId
             AND foodsaver_id = :foodsaverId
             AND status != :running
+            AND is_test = :isTest
             ORDER BY time_end DESC', [
                 ':quizId' => $quizId,
                 ':foodsaverId' => $foodsaverId,
                 ':running' => SessionStatus::RUNNING->value,
+                ':isTest' => $isTest,
             ]);
 
         return $session ? QuizSession::createFromArray($session) : null;
@@ -51,7 +55,7 @@ class QuizSessionGateway extends BaseGateway
 				s.id, s.fp, s.maxfp, s.status, s.time_end, s.quiz_id, q.name AS quiz_name
 			FROM fs_quiz_session s
 			LEFT JOIN fs_quiz q ON s.quiz_id = q.id
-			WHERE s.foodsaver_id = :foodsaverId
+			WHERE s.foodsaver_id = :foodsaverId AND s.is_test = 0
 			ORDER BY q.id ASC, s.time_end IS NULL DESC, s.time_end DESC
 		', [':foodsaverId' => $foodsaverId]);
 
@@ -73,14 +77,14 @@ class QuizSessionGateway extends BaseGateway
     /**
      * @return array(?QuizSession, int)
      */
-    public function collectQuizStatus(int $quizId, int $fsId): array
+    public function collectQuizStatus(int $quizId, int $fsId, bool $isTest = false): array
     {
         $sessionData = $this->db->fetchAll('SELECT
                 `foodsaver_id`, `status`, `time_end`, `quiz_index`, `easymode`, `quest_count`
 			FROM fs_quiz_session
-			WHERE foodsaver_id = :fsId AND quiz_id = :quizId
+			WHERE foodsaver_id = :fsId AND quiz_id = :quizId AND is_test = :isTest
             ORDER BY status ASC, time_start DESC;
-		', [':fsId' => $fsId, ':quizId' => $quizId]);
+		', [':fsId' => $fsId, ':quizId' => $quizId, ':isTest' => $isTest]);
 
         return [count($sessionData) ? QuizSession::createFromArray($sessionData[0]) : null, count($sessionData)];
     }
@@ -100,6 +104,7 @@ class QuizSessionGateway extends BaseGateway
                 'maxfp' => $quizSession->maxFailurePointsToSucceed,
                 'quest_count' => count($quizSession->questions),
                 'easymode' => !$quizSession->isTimed,
+                'is_test' => $quizSession->isTest,
             ]
         );
     }
@@ -124,6 +129,15 @@ class QuizSessionGateway extends BaseGateway
     public function deleteSession(int $sessionId): void
     {
         $this->db->delete('fs_quiz_session', ['id' => $sessionId]);
+    }
+
+    public function deleteTestSessions(QuizID $quizId, int $userId): void
+    {
+        $this->db->delete('fs_quiz_session', [
+            'quiz_id' => $quizId->value,
+            'foodsaver_id' => $userId,
+            'is_test' => 1,
+        ]);
     }
 
     /**

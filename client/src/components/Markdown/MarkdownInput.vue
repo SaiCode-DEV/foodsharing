@@ -129,6 +129,9 @@ export default {
     },
   },
   watch: {
+    value (modelValue) {
+      if (!modelValue) this.isPreview = false
+    },
     hasImages () {
       this.$emit('image-change', this.hasImages)
     },

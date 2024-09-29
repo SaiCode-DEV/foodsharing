@@ -1500,6 +1500,8 @@ search:
       jumper_tooltip: ''
       member_tooltip: ''
     from: ''
+    mail:
+      mail_name: '{name} <{mail}>'
   title: ''
   placeholder: ''
   user_search:

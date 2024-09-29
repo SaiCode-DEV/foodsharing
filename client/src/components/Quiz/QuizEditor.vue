@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO for follow up: allow testing quiz -->
   <section class="container my-3 my-sm-5">
     <div class="row">
       <div class="col-lg-3">

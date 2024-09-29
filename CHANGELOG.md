@@ -1,6 +1,7 @@
 # Release "N" (Unreleased)
 
 ## Features
+- Disable preview mode for Markdown component after message was sent #2039 @tq-bit
 - Add feedback on login form for invalid / missing email address #2061 @tq-bit
 - Add API endpoint for creating blog posts !3455 @alex.simm
 - Create option for multiple themes with dark mode as a start #2054 !3500 @SaiCode
@@ -13,16 +14,18 @@
 - Added a new frontend for managing store categories #1263 !3405 @alex.simm
 - Improved map marker selection for stores #1659 !3596 @AntonBallmaier 
 - Food baskets support multiple images now. Image quality issues are resolve. #1797 #1714 !3304 @AntonBallmaier
-
+- Added the option to test a quiz from the quiz editor. #2112 !3612 @AntonBallmaier
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9
 - Improve listing of non-active region members !3568 @iron9
-- Slightly adjusted the banana badge in the user profile @tripleb-fs 
+- Slightly adjusted the banana badge in the user profile @tripleb-fs
 - Bananas given by a user are kept when that user is deleted #1864 !3492 @AntonBallmaier
 - Changing the geo link to map in storelist for desktop #1993 !3550 @Nika-Mel @McGoldi
 - Added an attachment label to the mailbox #1988 !3583 @alex.simm
 - Added markdown for publicInfo in store and map bubble !3389 @chriswalg
 - Add more breadcrumbs where needed !3606 !3614 #1987 @McGoldi
+- Rework default options in store information #33 !3623 @chriswalg
+- Changed the Icon for resolving basket requests #2119 #1363 !3636 @SaiCode
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
@@ -30,14 +33,17 @@
 - Test push notifications are only sent to the new device #960 @alex.simm
 - Split email in businesscard if is too long !3600 @chriswalg
 - foodsavers can't report a store (empty list) #2107 !3605 @McGoldi
+- Improved loader !3634 @SaiCode
+- Added Error Handling for bells read API !3644 @SaiCode
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
 - Added an enum for wall types in the backend #1996 !3573 @alex.simm
 - Bananas now use the API !3581 @AntonBallmaier
-- Moved region store to pinia !3619 @chriswalg
-- Moved userStore to pinia for future improvements !3531 !3617 @SaiCode
+- Moved region store to pinia !3619 !3629 @chriswalg
+- Moved userStore to pinia for future improvements !3531 !3617 !3632 @SaiCode
 - Reduced the number of database requests in some store API endpoints #1662 !3615 @alex.simm
+- Removed jQuery autosize !3635 @SaiCode
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm
@@ -45,6 +51,12 @@
 - Added a dev docs article on "Logic in the Database" !3437 @AntonBallmaier
 - Port the register controller to Symfony !3594 @alex.simm
 - New API for submitting food share points !3372 @alex.simm
+- Port the application controller to Symfony #1994 !3603 @alex.simm
+- Update dompurify to 3.1.6 !3641 @chriswalg
+- Update twig to 3.14.0 !3642 @chriswalg
+- Update socket.io to 4.6.2 !3643 @chriswalg
+- Update babel/core to 7.23.2 !3645 @chriswalg
+- Devdocs: Huge update from Docusaurus to VitePress #2124 #1755 #1913 !3640 @SaiCode
 
 # Hotfix 2024-08-29
 
@@ -126,9 +138,9 @@
 - Some fixes for the quiz module !3418 @AntonBallmaier
 - Store chain information is visible on the store page again #1946 @alex.simm
 - Fixed the rendering of dates that is close to now #1948 !3430 @alex.simm
-- Fixed display error of deleted users in store log #1971 !3432 @AntonBallmaier 
+- Fixed display error of deleted users in store log #1971 !3432 @AntonBallmaier
 - Fixed activity setting on dashboard #1937 !3433 @AntonBallmaier
-- Fixed "use home address"-switch in edit basket modal #1897 !3452 @AntonBallmaier 
+- Fixed "use home address"-switch in edit basket modal #1897 !3452 @AntonBallmaier
 - Fixed tooltip display in member list #2009 !3453 @AntonBallmaier
 - Fixed store log null access error #2007 !3451 @AntonBallmaier
 - Fixed type error in profile menu #2002 !3468 @AntonBallmaier
@@ -138,7 +150,7 @@
 - Fixed loading more entries in store log #2023 !3472 @AntonBallmaier
 - Fixed link in food share point map bubble #1940 !3471 @AntonBallmaier
 - Fixed store distance display for users without valid geolocation !3476 !3503 @AntonBallmaier
-- Fixed query problem in `ActivityGateway::fetchAllForumUpdates` #1828 !3470 @AntonBallmaier 
+- Fixed query problem in `ActivityGateway::fetchAllForumUpdates` #1828 !3470 @AntonBallmaier
 - Fixed unexpected exception in BusinessCardGateway #2051 !3504 @alex.simm
 - Fixed food basket expired at not shown #2058 !3511 @McGoldi
 - Fixed encoding for publicInfo field in store #2043 !3516 @chriswalg
@@ -249,11 +261,11 @@
 - Fixed images breaking markdown layout !3144 @AntonBallmaier
 - Added .network as top level domain recognized in markdown link parsing !3179 @AntonBallmaier
 - Improve SQL performance for search of near baskets !3185 @KoeMai
-- Fixed creating and editing region mailboxes for orga users !3182 @AntonBallmaier 
+- Fixed creating and editing region mailboxes for orga users !3182 @AntonBallmaier
 - Improved permission checks for event creation #489 !3187 @alex.simm
 - Fix sign in date time in slot modal #1870 !3228 !3250 @chriswalg
 - Fixed mail address to field in mailbox module !3226 @chriswalg
-- Fixed datepicker in pickup modal #1751 !3231 @chriswalg 
+- Fixed datepicker in pickup modal #1751 !3231 @chriswalg
 - Fixed date tooltip for events on dashboard #1835 !3275 @alex.simm
 - Fixed the login link on the profile page !1901 !3289 @alex.simm
 - Added a retry for deadlocked database queries !3296 #1869 @AntonBallmaier
@@ -291,7 +303,7 @@
 - Move Workgroup is Admin Check method from session to module #1769 !3168 @KoeMai
 - Move location information in session to user #1769 !3148 !3185 @KoeMai
 - Remove unused variables from session #1769 !3161  @KoeMai
-- Replaced every usage of the Lat-lon-picker with the Vue leaflet component !3185 @alex.simm 
+- Replaced every usage of the Lat-lon-picker with the Vue leaflet component !3185 @alex.simm
 - Improved Avatar component !3155 !3189 !3257 @AntonBallmaier
 - Refactored group page to vue !3162 !3223 @chriswalg
 - Improved store team list #1833 !3207 !3270 @AntonBallmaier
@@ -388,7 +400,7 @@
 - Users have the ability to configure columns for the user in store list and store chain list !2733 @buntel
 - Users have the ability to keep the list filters and sort order on refresh (default: enabled) !2733 @buntel
 - b-table could now be displayed more mobile friendly. On small screens the table is displayed in a grid-layout !2733 @buntel
-- Allow forum moderators to write and everyone to delete their posts in closed threads !3019 @AntonBallmaier 
+- Allow forum moderators to write and everyone to delete their posts in closed threads !3019 @AntonBallmaier
 
 ## Changes
 - Changed team state translation from full to closed !2831 @chriswalg
@@ -429,7 +441,7 @@
 - Allow ambassdors and store coordinator to delete wall posts again !2978 @chriswalg
 - Prevent load store log for jumper !2978 @chriswalg
 - Fix operation on empty icon string #1709 !2970 @KoeMai
-- Fix sorting by member state !3020 @buntel 
+- Fix sorting by member state !3020 @buntel
 - Clear browser cache when logging out to prevent cached data leaking into next logged in session !3024 @AntonBallmaier
 - Center Team member images properly !3037 @AntonBallmaier
 - Only load user details when logged in !1798 @alex.simm

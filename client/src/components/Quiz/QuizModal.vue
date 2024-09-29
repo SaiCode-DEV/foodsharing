@@ -21,7 +21,7 @@
       >
         <p v-if="!isQuestionActive && !answeredInTime">
           <i class="fas fa-exclamation-triangle mr-1" />
-          <b>{{ $i18n(`quiz.timed_out`) }}</b>
+          <b>{{ $i18n('quiz.timed_out') }}</b>
         </p>
         <div
           v-for="answer in question?.answers"
@@ -93,7 +93,7 @@
         variant="outline-primary"
         @click="closeQuiz"
       >
-        {{ $i18n('quiz.button.pause') }}
+        {{ $i18n(isTest ? 'button.cancel' : 'quiz.button.pause') }}
       </b-button>
       <b-button
         v-if="!isQuizFinished"
@@ -129,6 +129,7 @@ export default {
     quiz: { type: Object, required: true },
     status: { type: Object, required: true },
     visible: { type: Boolean, required: true },
+    isTest: { type: Boolean, default: false },
   },
   data: () => ({
     isQuestionActive: true,
@@ -161,7 +162,7 @@ export default {
       } else { // Question was answered
         selected = selected.filter(a => a[0] !== 'none').map(a => +a[0])
       }
-      const response = await answerQuestion(this.quiz.id, selected)
+      const response = await answerQuestion(this.quiz.id, selected, this.isTest)
       this.solution = response.solution
       this.answeredInTime = !response.timedOut
       this.isQuestionActive = false
@@ -186,7 +187,7 @@ export default {
       if (this.isFetching) return
       this.isFetching = true
       try {
-        const response = await getQuestion(this.quiz.id)
+        const response = await getQuestion(this.quiz.id, this.isTest)
         this.question = response.question
         this.question.age = response.questionAge
         this.question.timedOut = response.timedOut

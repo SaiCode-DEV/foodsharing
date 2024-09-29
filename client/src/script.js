@@ -3,8 +3,6 @@
 import $ from 'jquery'
 
 import 'jquery-slimscroll'
-import 'jquery-fancybox'
-import 'jquery-ui-addons'
 
 import { GET, goTo, isMob } from '@/browser'
 import conversationStore from '@/stores/conversations'
@@ -40,7 +38,6 @@ export function initialize () {
   $(function () {
     initSleepmode()
 
-    $('textarea.comment').autosize()
     $('#main').css('display', 'block')
 
     $('.truncate-content').each(function () {
@@ -331,15 +328,11 @@ export function ifconfirm (url, question, title) {
   $('#dialog-confirm').dialog('open')
 }
 
-export function closeBox () {
-  $.fancybox.close()
-}
-
 export function showLoader () {
-  $.fancybox.showLoading()
+  window.showLoading()
 }
 export function hideLoader () {
-  $.fancybox.hideLoading()
+  window.hideLoading()
 }
 
 export async function wantToHelpStore (storeId, userId) {

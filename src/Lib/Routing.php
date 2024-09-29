@@ -2,7 +2,6 @@
 
 namespace Foodsharing\Lib;
 
-use Foodsharing\Modules\Application\ApplicationControl;
 use Foodsharing\Modules\Basket\BasketXhr;
 use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use Foodsharing\Modules\Dashboard\DashboardControl;
@@ -50,7 +49,6 @@ class Routing
     ];
 
     private const CLASSES = [
-        'application' => ApplicationControl::class,
         'bcard' => BusinessCardControl::class,
         'dashboard' => DashboardControl::class,
         'index' => IndexControl::class,
@@ -87,6 +85,7 @@ class Routing
         'legal',
         'report',
         'register',
+        'application',
     ];
 
     private const RENAMES = [

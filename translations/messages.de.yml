@@ -250,6 +250,7 @@ quiz:
   timed_out_last: "Die letzte Frage hast du nicht in der vorgegebenen Zeit beantwortet."
   timed_out_error: "Die Zeit diese Frage zu beantworten ist bereits abgelaufen."
   show_results: Ergebnisse des letzten Versuchs ansehen
+  test_results: Ergebnisse des Testversuchs
   wikilink: Weitere Infos dazu im Wiki
   key_facts:
     to_pass: "Zum Bestehen:"
@@ -324,6 +325,7 @@ quiz:
           label: "Erklärung:"
           placeholder: "Erklärung..."
         answerRating: "Wertung:"
+  test: "Quiz testen"
 
 image: "Bild"
 picture_upload_widget:
@@ -925,6 +927,10 @@ storeview:
   want_to_fetch: "In diesem Team würde ich gerne helfen."
   public_and_statistics: "Statistik & Öffentlichkeitsarbeit"
   no_permission_to_view: "Nur für Betriebsverantwortliche sichtbar."
+  publicity_and_sticker_options:
+    not_yet_clarified: "Noch nicht geklärt"
+    yes: "Ja"
+    no: "Nein"
   groceries:
     label: "Welche Lebensmittel dürfen abgeholt werden?"
     select_tag: "Wähle Lebensmittelkategorie"

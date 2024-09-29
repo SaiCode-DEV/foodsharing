@@ -165,7 +165,7 @@ export default {
       return this.userStore.getUserId
     },
     userLocation () {
-      return this.userStore.getUserDetails.coordinates
+      return this.userStore.getLocations
     },
     userAndStoreHaveLocation () {
       return this.userStore.hasLocations && this.store?.location?.lat && this.store?.location?.lon

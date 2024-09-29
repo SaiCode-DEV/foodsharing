@@ -192,7 +192,7 @@ search:
     poll:
       can_vote: Aún puedes votar
       has_voted: Ya has votado
-      not_eligible: No está autorizado para votar
+      not_eligible: No está acreditado para votar
   maxresults: El número de resultados mostrados es limitado. Quizás utilice un término
     de búsqueda más específico.
   too_short: Por favor ingrese un término de búsqueda más largo.
@@ -1149,7 +1149,7 @@ group:
         do: Verificar la cuenta de {name} ({id})
         undo: Sin verificar {name} ({id})
       clear_selection: Restablecer todos los seleccionados
-    all_roles: Todas las funciones
+    all_roles: Todos los roles
   edit:
     title: 'Editar {group}'
     name_required: 'Por favor ingrese un nombre.'
@@ -1429,6 +1429,10 @@ storeview:
     label: Información pública sobre la empresa
     error_message: El texto es demasiado largo (máx. {count} caracteres)
     available_count: Número de caracteres disponibles
+  publicity_and_sticker_options:
+    not_yet_clarified: Sin aclarar
+    no: No
+    yes: Sí
 store:
   tooltip_red: 'Recogidas vacantes hoy o mañana'
   tooltip_managing: 'Usted es responsable de esta cooperación'
@@ -2100,18 +2104,18 @@ profile:
       delivered: 'Denuncia atendida'
       reportID: 'ID de queja'
       reporting: 'Queja sobre'
-    info: 'Para que su informe pueda tramitarse con la mayor eficacia posible, debe
-      contener la siguiente información:
+    info: 'Para garantizar que su informe pueda procesarse de la forma más eficaz
+      posible, debe contener la siguiente información:
 
-      - Fecha, hora y lugar del incidente
+      - Fecha, hora y lugar del incidente.
 
-      - lo que ya ha hecho, por ejemplo, si ha hablado directamente con la persona
+      - lo que ya ha hecho, por ejemplo, si ya ha hablado directamente con la persona
       y ha podido aclarar el asunto
 
-      - cuál es la mejor manera de ponerse en contacto con usted.
+      - la mejor manera de comunicarnos con usted si tiene preguntas.
 
 
-      Aquí puedes encontrar las [normas de comportamiento en la wiki](https://wiki.foodsharing.de/Verhaltensregeln).
+      Aquí encontrará las [reglas de conducta en la wiki](https://wiki.foodsharing.de/Verhaltensrules).
 
       '
     send: 'Enviar queja'
@@ -2326,7 +2330,7 @@ basket:
     Inicie sesión y envíe su solicitud nuevamente.
 
     '
-  updated: 'Actualizado <strong>{date}</strong>'
+  updated: 'Actualizado:'
   no-desc: 'Por favor ingrese una descripción.'
   title: 'Cestas de comida'
   withdrawn_request: 'La solicitud fue cancelada'
@@ -2379,7 +2383,7 @@ basket:
   request: 'Solicita canasta de alimentos'
   no_requests: 'No hay consultas hasta el momento'
   change-state: 'Cerrar solicitud de {name}'
-  created: 'Publicado <strong>{date}</strong>'
+  created: 'Publicado:'
   all_map: 'Todas las cestas de comida en el mapa'
   recent: 'Nuevas cestas de comida'
   go: 'a la cesta de comida'
@@ -2443,6 +2447,7 @@ basket:
     text: ¿Realmente quieres eliminar esta canasta de alimentos?
     title: ¿Eliminar canasta de alimentos?
   expires_at: Válido hasta <strong>{date}</strong>
+  until: 'Válido hasta:'
 menu:
   entry:
     press: 'Prensa'
@@ -2998,10 +3003,12 @@ regionOptions:
   regionPickupRuleActiveStoreList: 'Relación de empresas del distrito que son empresas
     populares en el sentido de este reglamento. A los efectos del reglamento, se suman
     y tienen en cuenta todos los cobros de empresas populares.'
-  regionReportReasonOther: Permitir "Otros" como motivo de notificación
+  regionReportReasonOther: Permitir «Otros» como motivo de notificación
   regionReportReasonSimple: Motivos de notificación simplificados
   regionReportReasonCategoryB: 'Motivos de denuncia ampliados: Normas de conducta
     - B) Comportamiento durante los cobros'
+  noPickupRuleActiveStores: Actualmente, la regla de las pasas no está activada para
+    ningún negocio del distrito.
 mailbox:
   mark_as_unread: 'Marcar correo como no leído'
   date: 'Fecha'
@@ -3462,7 +3469,7 @@ globals:
     workingGroups: Grupos
     regions_menu: Menú del distrito
     groups_menu: Menú de grupo
-    polls: Votación
+    polls: Votos
     mails: Correos electrónicos
     events: Eventos
   you: 'Tú'
@@ -4262,6 +4269,11 @@ help:
         a la LMG. Sin embargo, la decisión y la responsabilidad de estas configuraciones
         recae únicamente en los administradores del grupo de informes local, quienes
         no *tienen* que seguir estas recomendaciones.\n"
+    basket:
+      title: Cestas de comida
+      md: "Las cestas de alimentos son ofrecidas por usuarios que desean entregar
+        alimentos (a menudo rescatados) **gratis**. Los usuarios registrados pueden
+        solicitar una cesta de alimentos para recogerla.\n"
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta

@@ -13,16 +13,6 @@
       class="list-group-item"
     >
       <b>{{ stateBasedInfo }}</b>
-
-      <!-- Alert can be removed after release "Laugenbrezel". Therefor not translated -->
-      <b-alert
-        v-if="isBeta || isDev"
-        variant="danger"
-        show
-      >
-        <i class="fas fa-exclamation-triangle" />
-        Das Quiz-Modul wurde komplett neu gebaut. Alte und neue Quiz-Sessions sind nicht miteinander kompatibel! Bitte setze Quiz Sessions, die du in der Produktionsversion der Website gestartet hast, nicht auf Beta fort und umgekehrt.
-      </b-alert>
     </div>
 
     <button

@@ -285,7 +285,8 @@ build:docs:
   artifacts:
     <<: *build-artifacts
     paths:
-      - docs/build
+      - docs/.vitepress/dist
+      - docs/data/api_dump.json
 
 .test-artifacts: &test-artifacts
   expire_in: 2 weeks
@@ -556,7 +557,7 @@ deploy:docs:
   needs:
     - build:docs
   script:
-    - rsync -avz --delete docs/build/ "deploy@devdocs.foodsharing.network:/var/www/devdocs/htdocs/"
+    - rsync -avz --delete docs/.vitepress/dist/ "deploy@devdocs.foodsharing.network:/var/www/devdocs/htdocs/"
   environment:
     name: docs
     url: https://devdocs.foodsharing.network
