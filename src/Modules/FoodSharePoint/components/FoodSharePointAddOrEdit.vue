@@ -9,7 +9,7 @@
         >
           <b-form-select
             id="district-select"
-            v-model="foodSharePointStore.foodSharePoint.regionId"
+            v-model="formData.regionId"
             :options="regionOptions"
             required
           />
@@ -18,7 +18,7 @@
         <b-form-group label="Name" label-for="name-input">
           <b-form-input
             id="name-input"
-            v-model="foodSharePointStore.foodSharePoint.name"
+            v-model="formData.name"
             type="text"
             required
             placeholder="Geben Sie den Namen ein"
@@ -26,7 +26,12 @@
         </b-form-group>
 
         <b-form-group label="Beschreibung" label-for="description-md">
-          <MarkdownInput />
+          <MarkdownInput
+            :value.sync="formData.description"
+            conceal-toolbar
+            variant="outline-primary"
+            :rows="2"
+          />
         </b-form-group>
 
         <b-form-group label="Bild" label-for="name-input">
@@ -34,21 +39,21 @@
             :is-image="true"
             :img-height="900"
             :img-width="400"
-            :initial-value="foodSharePointStore.foodSharePoint.picture"
+            :initial-value="formData.picture"
           />
         </b-form-group>
 
         <b-form-group label="Adress-/Standort-Suche" label-for="name-input">
           <LeafletLocationSearchVForm
-            :coordinates="{ lat: foodSharePointStore.foodSharePoint.lat, lon: foodSharePointStore.foodSharePoint.lon }"
+            :coordinates="formData.location"
             :zoom="zoom"
           />
         </b-form-group>
 
         <label for="tags-basic">Foodsaver:innen, die Ansprechpersonen für den Fairteiler sind</label>
         <multi-user-search-input
-          v-model="foodSharePointStore.foodSharePoint.followers.manager"
-          :region-id="foodSharePointStore.foodSharePoint.regionId"
+          v-model="formData.followers.manager"
+          :region-id="formData.regionId"
           button-icon="fa-user-plus"
           :is-value-object="true"
         />
@@ -61,7 +66,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { onMounted, computed, ref } from 'vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import FileUploadVForm from '@/components/upload/FileUploadVForm.vue'
 import LeafletLocationSearchVForm from '@/components/map/LeafletLocationSearchVForm'
@@ -71,41 +77,38 @@ import { useRegionStore } from '@/stores/regions'
 
 const foodSharePointStore = useFoodSharePointStore()
 const regionStore = useRegionStore()
-export default {
-  name: 'FoodSharePointAddOrEdit',
-  components: { MultiUserSearchInput, MarkdownInput, FileUploadVForm, LeafletLocationSearchVForm },
-  setup () {
-    return {
-      foodSharePointStore,
-    }
-  },
-  data () {
-    return {
-      foodSharePointId: null,
-      regionId: null,
-      zoom: 17,
-      choosenRegion: null,
-      coordinates: null,
-    }
-  },
-  computed: {
-    regionOptions () {
-      return regionStore.regions.map(region => ({
-        value: region.id,
-        text: region.name,
-      }))
-    },
-  },
-  created () {
-    const url = new URL(window.location.href)
-    const searchParams = new URLSearchParams(url.search)
-    this.regionId = parseInt(searchParams.get('bid'))
-    this.foodSharePointId = parseInt(searchParams.get('id'))
-    console.log('foodSharePointId', this.foodSharePointId)
-    foodSharePointStore.fetchFoodSharePoint(this.foodSharePointId)
-    console.log('foodSharePointStore', foodSharePointStore)
-  },
-}
+const zoom = 17
+
+const selectedRegionId = ref()
+const foodSharePointId = ref()
+
+const formData = ref({
+  regionId: selectedRegionId,
+  name: foodSharePointStore.foodSharePoint.name,
+  description: foodSharePointStore.foodSharePoint.description,
+  picture: foodSharePointStore.foodSharePoint.picture,
+  address: foodSharePointStore.foodSharePoint.address,
+  postalCode: foodSharePointStore.foodSharePoint.postcode,
+  city: foodSharePointStore.foodSharePoint.city,
+  location: { lat: foodSharePointStore.foodSharePoint.lat, lon: foodSharePointStore.foodSharePoint.lon },
+})
+
+const regionOptions = computed(() => {
+  return regionStore.regions.map(region => ({
+    value: region.id,
+    text: region.name,
+  }))
+})
+
+onMounted(() => {
+  const url = new URL(window.location.href)
+  const searchParams = new URLSearchParams(url.search)
+  selectedRegionId.value = parseInt(searchParams.get('bid'))
+  foodSharePointId.value = parseInt(searchParams.get('id'))
+  console.log('foodSharePointId', this.foodSharePointId)
+  foodSharePointStore.fetchFoodSharePoint(foodSharePointId.value)
+  console.log('foodSharePointStore', foodSharePointStore)
+})
 </script>
 
 <style scoped lang="scss">
