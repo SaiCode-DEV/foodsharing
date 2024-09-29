@@ -8,13 +8,16 @@
 - Achievements can be awarded, edited and revoked. They get displayed on the profile !3429 @AntonBallmaier
 - Allow users to change their own passwords #581 !3435 @alex.simm
 - Allow loading more wall posts #2056 !3580 @AntonBallmaier
-- Add a hygiene quiz that can be edited by the hygiene working group #2074 !3540 @AntonBallmaier
+- Add a hygiene quiz that can be edited by the hygiene working group #2074 #2146 !3540 !3668 @AntonBallmaier
 - Allow support group admins to change someone else's login email address #2031 !3482 @alex.simm
 - Added wait timer to leaving home district #2090 !3562 @SaiCode
 - Added a new frontend for managing store categories #1263 !3405 @alex.simm
-- Improved map marker selection for stores #1659 !3596 @AntonBallmaier 
+- Improved map marker selection for stores #1659 !3596 @AntonBallmaier
+- Added an achievement administration page #2073 !3604 @AntonBallmaier
+- Added new Digital Foodsharing Passports for Android and iOS !3591 @SaiCode
 - Food baskets support multiple images now. Image quality issues are resolve. #1797 #1714 !3304 @AntonBallmaier
 - Added the option to test a quiz from the quiz editor. #2112 !3612 @AntonBallmaier
+
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9
 - Improve listing of non-active region members !3568 @iron9
@@ -26,6 +29,7 @@
 - Add more breadcrumbs where needed !3606 !3614 #1987 @McGoldi
 - Rework default options in store information #33 !3623 @chriswalg
 - Changed the Icon for resolving basket requests #2119 #1363 !3636 @SaiCode
+- Change limit to 535 / 520 for public_info -> store !3646 @chriswalg
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
@@ -35,6 +39,10 @@
 - foodsavers can't report a store (empty list) #2107 !3605 @McGoldi
 - Improved loader !3634 @SaiCode
 - Added Error Handling for bells read API !3644 @SaiCode
+- Correct spelling mistake !3651 @McGoldi
+- Fixed Invalid Time when time is undefined #1924 !3652 !3656 @SaiCode
+- Fix typos and inconsistent spelling in email templates !3657 @iron9
+- Fix duplicate 'kg' in global statistics #2108 !3658 @iron9
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
@@ -44,19 +52,22 @@
 - Moved userStore to pinia for future improvements !3531 !3617 !3632 @SaiCode
 - Reduced the number of database requests in some store API endpoints #1662 !3615 @alex.simm
 - Removed jQuery autosize !3635 @SaiCode
+- Port the register controller to Symfony !3594 @alex.simm
+- Port the application controller to Symfony #1994 !3603 @alex.simm
+- Port the message controller to Symfony #1994 !3633 @\_fridtjof_
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm
 - Removed redirect after submit in foodsharepoint edit form to fix test !3527 @chriswalg
 - Added a dev docs article on "Logic in the Database" !3437 @AntonBallmaier
-- Port the register controller to Symfony !3594 @alex.simm
 - New API for submitting food share points !3372 @alex.simm
-- Port the application controller to Symfony #1994 !3603 @alex.simm
 - Update dompurify to 3.1.6 !3641 @chriswalg
 - Update twig to 3.14.0 !3642 @chriswalg
 - Update socket.io to 4.6.2 !3643 @chriswalg
 - Update babel/core to 7.23.2 !3645 @chriswalg
-- Devdocs: Huge update from Docusaurus to VitePress #2124 #1755 #1913 !3640 @SaiCode
+- Devdocs: Huge update from Docusaurus to VitePress #2124 #1755 #1913 !3640 !3655 @SaiCode
+- Removed jquery tablesorter #2136 !3648 @chriswalg
+- Deleted the lookup command and module @alex.simm
 
 # Hotfix 2024-08-29
 

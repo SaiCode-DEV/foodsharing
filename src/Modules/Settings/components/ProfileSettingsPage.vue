@@ -94,7 +94,7 @@
 <script>
 import Notifications from './Notifications.vue'
 import Calendar from './Calendar.vue'
-import Passport from './Passport.vue'
+import Passport from '@/components/Settings/Passport.vue'
 import SleepingMode from './SleepingMode.vue'
 import ChangeEmailForm from './ChangeEmailForm.vue'
 import ChangePasswordForm from './ChangePasswordForm.vue'

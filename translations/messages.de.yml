@@ -288,7 +288,7 @@ quiz:
     answer: "Willst du diese Antwort wirklich löschen?"
   confirm: "Quiz bestätigen und Prozess abschließen"
   confirmComment: "Soll den Administrator:innen dieses Quizzes dein Kommentar geschickt werden?"
-  confirmDashboardText: "Du hast ein Quiz bestanden, dass du noch nicht bestätigt hast. [Klicke hier]({url}) um den Prozess abzuschließen!"
+  confirmDashboardText: "Du hast ein Quiz bestanden, das du noch nicht bestätigt hast. [Klicke hier]({url}) um den Prozess abzuschließen!"
   editModal:
     quiz:
       title: Quiz bearbeiten
@@ -420,7 +420,6 @@ group:
     name_required: "Bitte gib einen Namen ein."
     description_required: "Bitte gib eine Beschreibung ein."
     description_placeholder: "Beschreibung der Arbeitsgruppe"
-  saved: "Änderungen wurden gespeichert"
   mail_link_title:
     workgroup: "Arbeitsgruppen-Postfach"
     region: "Bezirkspostfach"
@@ -1174,7 +1173,6 @@ storeedit:
     teamStatus1: "Es werden noch Helfer:innen gesucht"
     teamStatus2: "Es werden dringend noch Helfer:innen gesucht"
   add_success: "Kooperationsbetrieb wurde eingetragen"
-  edit_success: "Änderungen wurden gespeichert"
   unsuccess: "Änderungen konnten nicht übernommen werden. {error}"
   milestone:
     statuschanged: "Statusänderung am {date}"
@@ -1813,7 +1811,6 @@ foodsaver:
   actions: "Aktionen"
   edit: "Foodsaver:innen bearbeiten"
   editName: "{name} bearbeiten"
-  edit_success: "Änderungen wurden gespeichert"
   edit_failure: "Es wurde nichts verändert oder Änderungen wurden nicht gespeichert"
   profileBack: "Zurück zum Profil"
   delete_account: "Account löschen"
@@ -1932,7 +1929,6 @@ mailbox:
   new: "Neue Mailbox"
   hostinfo: "Nur den Namen der Mailbox eintragen, ohne @{host}"
   add_success: "Mailbox wurde erfolgreich angelegt."
-  saved: "Änderungen wurden gespeichert"
   already_exists: "Eine Mailbox mit diesem Namen gibt es schon"
   name: "Angezeigter Name"
   not-available: |
@@ -2054,12 +2050,20 @@ settings:
     new_password_confirmation_invalid: "Die Passwörter stimmen nicht überein"
     submit: "Passwort ändern"
     success: "Dein Passwort wurde erfolgreich geändert"
-  saved: "Änderungen wurden gespeichert."
   passport:
     menu: "Ausweis"
     verified_text: "Dieser Ausweis ist für den Einsatz auf dem Smartphone gedacht. Dort kannst du ihn dir abspeichern und dann bei Verlangen vorzeigen. Solltest du kein Smartphone besitzen oder aus einem anderen Grund noch einen herkömmlichen Ausweis benötigen, wende dich an deine Botschafter:innen vor Ort."
     non_verified_text: "Du bist noch nicht verifiziert. Nur verifizierten Foodsaver:innen steht das Herunterladen des Ausweises zur Verfügung."
     button: "Ausweis herunterladen"
+    add_to_wallet:
+      google: "Zu Google Wallet hinzufügen"
+      apple: "Zu Apple Wallet hinzufügen"
+    wallet:
+      name: "Name"
+      role: "Rolle"
+      valid_start: "Gültig ab"
+      valid_end: "Gültig bis"
+
   calendar:
     menu: "Kalender"
     export: "Kalender exportieren"
@@ -3302,6 +3306,7 @@ globals:
     signin: Anmelden
     signout: Abmelden
   save: Speichern
+  save_changes: Änderungen speichern
   close: Schließen
   reset: Zurücksetzen
   select: Bitte auswählen …
@@ -3331,6 +3336,7 @@ globals:
     regions_menu: "Bezirks-Menü"
   you: Du
   telephone_number: Telefonnummer
+  saved: "Änderungen wurden gespeichert"
 
 search:
   title: Suche
@@ -3521,9 +3527,24 @@ achievements:
   findUser: "Nutzer:in suchen"
   editDetails: "Details anpassen"
   revoke: "Entziehen"
-  edit: "Errungenschaft {achievement} für {user} anpassen"
+  editAwarded: "Errungenschaft {achievement} für {user} anpassen"
   revokeConfirmation: "Möchtest du wirklich {name} diese Errungenschaft entziehen?"
   notAwarded: "Diese Errungenschaft ist aktuell an niemanden verliehen."
+  inRegion: "Errungenschaften in {region} ({count})"
+  add: "Errungenschaft hinzufügen"
+  edit: "Errungenschaft bearbeiten: {name}"
+  new: "Neue Errungenschaft"
+  editor:
+    name: "Name"
+    description: "Beschreibung"
+    icon: "Icon"
+    validityInDaysAfterAssignment: "Gültigkeit nach der Vergabe in Tagen"
+    preview: "Vorschau"
+  noneInThisRegion: "In dieser Region sind keine Errungenschaften eingetragen."
+  deleteConfirmation: "Willst du wirklich diese Errungenschaft löschen?"
+  editTitle: "Errungenschaften bearbeiten"
+  
+
 help:
   helpTitle: "Hilfe: {title}"
   tooltip: "Hilfe anzeigen"
@@ -3585,6 +3606,14 @@ help:
       title: "Errungenschaften"
       md: |
         Hier muss noch eine Erklärung für Errungenschaften ergänzt werden. Das mache ich später. TODO
+    achievementIcon:
+      title: "Icons für Errungenschaften"
+      md: |
+        Jede Errungenschaft hat ein Icon, also ein eine kleine Grafik, die auf den esten Blick zeigen soll, worum es geht. Eine Liste der Verfügbaren Icons findest du unter https://fontawesome.com/v5/search?o=r&m=free&s=solid.
+
+        In das Eingabefeld musst du den Namen des Icons eingeben, das du nutzen möchtest, also bspw. "*walking*" oder "*shopping-cart*".
+        Ob deine Eingabe funktioniert, kannst du anhand der Vorschau übeprüfen.
+        Wenn du kein icon eingibst, wird automatisch das Standard-Icon für Errungenschaften "*tag*" genutzt
 
 team_page:
   board_member:

@@ -614,7 +614,7 @@ export default {
           await editRegularPickup(this.storeId, this.editPickups)
           await PickupsData.mutations.fetchRegularPickup(this.storeId)
         }
-        pulseSuccess(this.$i18n('storeedit.edit_success'))
+        pulseSuccess(this.$i18n('globals.saved'))
         this.$bvModal.hide('storeInformationModal')
       } catch (err) {
         const errorDescription = err.jsonContent ?? { message: '' }

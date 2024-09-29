@@ -50,9 +50,9 @@ class AchievementGateway extends BaseGateway
      * Updates a given achievement in the database.
      * The id of the given Achievement object defines the row to update, the other properties the new values for that achievement.
      */
-    public function updateAchievement(Achievement $achievement): void
+    public function updateAchievement(Achievement $achievement): bool
     {
-        $this->db->update('fs_achievement', [
+        return $this->db->update('fs_achievement', [
             'name' => $achievement->name,
             'region_id' => $achievement->regionId,
             'description' => $achievement->description,
@@ -61,7 +61,15 @@ class AchievementGateway extends BaseGateway
             'is_requestable_by_foodsaver' => $achievement->isRequestableByFoodsaver,
         ], [
             'id' => $achievement->id
-        ]);
+        ]) > 0;
+    }
+
+    /**
+     * Deletes a given achievement in the database.
+     */
+    public function deleteAchievement(int $achievementId): bool
+    {
+        return $this->db->delete('fs_achievement', ['id' => $achievementId]) > 0;
     }
 
     public function getAchievement(int $achievementId): Achievement
@@ -109,7 +117,7 @@ class AchievementGateway extends BaseGateway
     /**
      * Edits an achievement awarded to a user.
      */
-    public function editAchievement(AwardedAchievement $awardedAchievement): void
+    public function editAwardedAchievement(AwardedAchievement $awardedAchievement): void
     {
         $this->db->update('fs_foodsaver_has_achievement', [
             'reviewer_id' => $awardedAchievement->reviewerId,

@@ -559,6 +559,8 @@ quiz:
     este cuestionario?
   confirmDashboardText: ¡Has superado un cuestionario que aún no has confirmado. [Haga
     clic aquí]({url}) para completar el proceso!
+  test_results: Resultados de la prueba
+  test: Cuestionarios de prueba
 terminology:
   foodsaver:
     m: rescatista
@@ -3323,6 +3325,14 @@ settings:
       por otro motivo, comuníquese con sus embajador@s locales.'
     non_verified_text: 'Aún no estás verificado. Solo l@s rescatistas de alimentos
       verificad@s pueden descargar su pasaporte.'
+    add_to_wallet:
+      google: Añadir a Google Wallet
+      apple: Añadir a Apple Wallet
+    wallet:
+      valid_end: Válido hasta el
+      name: Nombre
+      role: Papel
+      valid_start: Válido a partir de
   header: 'Configuración de perfil'
   chatmail: 'Si recibe un mensaje interno de foodsharing pero no ha iniciado
 
@@ -3482,6 +3492,8 @@ globals:
   reset: 'Reiniciar'
   save: 'Ahorrar'
   telephone_number: Número de teléfono
+  save_changes: Guardar los cambios
+  saved: Se han guardado los cambios
 legal:
   acknowledge: '¿Aceptas el acuerdo?'
   dont_agree: 'No estoy de acuerdo con el procesamiento de mis datos y'
@@ -4274,6 +4286,15 @@ help:
       md: "Las cestas de alimentos son ofrecidas por usuarios que desean entregar
         alimentos (a menudo rescatados) **gratis**. Los usuarios registrados pueden
         solicitar una cesta de alimentos para recogerla.\n"
+    achievementIcon:
+      md: "Cada logro tiene un ícono, un pequeño gráfico que debe mostrar a primera
+        vista de qué se trata. Puede encontrar una lista de íconos disponibles en
+        https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n\nEn el campo de entrada
+        debe ingresar el nombre del ícono que desea usar, por ejemplo \"*caminando*\"\
+        \ o \"*carrito de compras*\".\nPuede comprobar si su entrada funciona utilizando
+        la vista previa.\nSi no ingresa un ícono, se usará automáticamente el ícono
+        de logro predeterminado \"*etiqueta*\"\n"
+      title: Iconos de los logros
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
@@ -4320,10 +4341,23 @@ achievements:
   findUser: Buscar usuario
   editDetails: Ajustar detalles
   revoke: Retirar
-  edit: Personalizar {achievement} para {user}
+  edit: 'Editar logro: {name}'
   notAwarded: Este logro no se ha concedido actualmente a nadie.
   revokeConfirmation: ¿De verdad quieres privar a {name} de este logro?
   awarded: Conceder
+  editAwarded: Personalizar {achievement} para {user}
+  inRegion: ({count}) logros en {region}
+  new: Nuevo logro
+  editor:
+    validityInDaysAfterAssignment: Validez tras la asignación en días
+    description: Descripción
+    name: Nombre
+    icon: Icono
+    preview: Vista previa
+  noneInThisRegion: No hay logros registrados en esta región.
+  editTitle: Editar los logros
+  add: Agregar logro
+  deleteConfirmation: ¿De verdad quieres borrar este logro?
 copied_to_clipboard: Se ha copiado «{text}» al portapapeles.
 theme_switcher:
   title: Elegir diseño

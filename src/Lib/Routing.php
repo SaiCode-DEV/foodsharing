@@ -8,7 +8,6 @@ use Foodsharing\Modules\Dashboard\DashboardControl;
 use Foodsharing\Modules\Index\IndexControl;
 use Foodsharing\Modules\Logout\LogoutControl;
 use Foodsharing\Modules\Mailbox\MailboxControl;
-use Foodsharing\Modules\Message\MessageControl;
 use Foodsharing\Modules\Relogin\ReloginControl;
 use Foodsharing\Modules\Store\StoreController;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
@@ -34,8 +33,6 @@ class Routing
         'index' => 'Index',
         'logout' => 'Logout',
         'mailbox' => 'Mailbox',
-        'msg' => 'Message',
-        'message' => 'Message',
         'poll' => 'Voting',
         'register' => 'Register',
         'relogin' => 'Relogin',
@@ -54,8 +51,6 @@ class Routing
         'index' => IndexControl::class,
         'logout' => LogoutControl::class,
         'mailbox' => MailboxControl::class,
-        'msg' => MessageControl::class,
-        'message' => MessageControl::class,
         'poll' => VotingControl::class,
         'relogin' => ReloginControl::class,
         'fsbetrieb' => StoreUserControl::class,
@@ -86,6 +81,7 @@ class Routing
         'report',
         'register',
         'application',
+        'msg',
     ];
 
     private const RENAMES = [

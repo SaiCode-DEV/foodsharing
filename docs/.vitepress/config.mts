@@ -82,7 +82,13 @@ export default withPwa(defineConfig({
   metaChunk: true,
   ignoreDeadLinks: true,
   head: [
-    ['link', { rel: 'icon', href: '/img/favicon.ico' }]
+    ['link', { rel: 'icon', href: '/img/favicon.ico' }],
+    ['meta', { name: 'keywords', content: 'Foodsharing, Devdocs, Docs, API, Contribute, Dev, Development' }],
+    ['meta', { property: 'og:image', content: 'https://devdocs.foodsharing.network/img/FS_Schriftzug_gw.svg' }],
+    ['meta', { property: 'og:title', content: 'Foodsharing Devdocs' }],
+    ['meta', { property: 'og:description', content: 'Write Code. Save Food. Empowering Foodsharing with Every Line' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:url', content: 'https://devdocs.foodsharing.de' }],
   ],
   rewrites: {
     'en/:rest*': ':rest*'
@@ -192,5 +198,22 @@ export default withPwa(defineConfig({
     }
   }),
   pwa: {
+    registerType: 'autoUpdate',
+    includeAssets: ['favicon.ico'],
+    manifest: {
+      name: "Foodsharing Devdocs",
+      short_name: "FS Devdocs",
+      theme_color: "#64AE24",
+      background_color: "#1B1B1F",
+    },
+    pwaAssets: {
+      config: true,
+    },
+    workbox: {
+      globPatterns: ['*/.{css,js,html,svg,png,ico,txt,woff2}'],
+    },
+    experimental: {
+      includeAllowlist: true,
+    },
   }
 }))

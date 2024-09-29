@@ -187,7 +187,7 @@ export default {
       try {
         await updateGroup(this.group.id, this.name, this.description, this.photo, this.apply_type, this.required_bananas,
           this.required_pickups, this.required_weeks)
-        pulseSuccess(i18n('group.saved'))
+        pulseSuccess(i18n('globals.saved'))
       } catch (e) {
         pulseError(i18n('error_unexpected'))
       }
