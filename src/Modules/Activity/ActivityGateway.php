@@ -161,11 +161,11 @@ class ActivityGateway extends BaseGateway
 					b.name AS bezirk_name,
 					bt.bot_theme
 
-			FROM            fs_theme t
-			LEFT OUTER JOIN fs_theme_post p ON p.id = t.last_post_id
-			LEFT OUTER JOIN	fs_bezirk_has_theme bt ON bt.theme_id = t.id
-			LEFT OUTER JOIN	fs_foodsaver fs ON fs.id = p.foodsaver_id
-			LEFT OUTER JOIN	fs_bezirk b ON b.id = bt.bezirk_id
+			FROM fs_theme t
+			JOIN fs_theme_post p ON p.id = t.last_post_id
+			JOIN fs_bezirk_has_theme bt ON bt.theme_id = t.id
+			JOIN fs_foodsaver fs ON fs.id = p.foodsaver_id
+			JOIN fs_bezirk b ON b.id = bt.bezirk_id
 
 			WHERE	t.active = 1
 			AND 	bt.bezirk_id IN ( ' . implode(',', $regionIds) . ' )
