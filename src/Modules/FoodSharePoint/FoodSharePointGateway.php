@@ -347,10 +347,10 @@ class FoodSharePointGateway extends BaseGateway
         $this->removeBellNotificationForNewFoodSharePoint($foodSharePointId);
     }
 
-    public function updateFoodSharePoint(int $foodSharePointId, array $data): bool
+    public function updateFoodSharePoint(int $foodSharePointId, FoodSharePointForCreation $foodSharePointData): bool
     {
         $this->db->requireExists('fs_fairteiler', ['id' => $foodSharePointId]);
-        $this->db->update('fs_fairteiler', $data, ['id' => $foodSharePointId]);
+        $this->db->update('fs_fairteiler', (array)$foodSharePointData, ['id' => $foodSharePointId]);
 
         return true;
     }

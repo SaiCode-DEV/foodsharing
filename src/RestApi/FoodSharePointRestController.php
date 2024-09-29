@@ -196,4 +196,20 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
 
         return $this->respondOK($response);
     }
+
+    #[OA2\Patch(summary: 'Edit an existing food share point.')]
+    #[OA2\RequestBody(content: new Model(type: FoodSharePointForCreation::class))]
+    #[ParamConverter('foodSharePoint', class: FoodSharePointForCreation::class, converter: 'fos_rest.request_body')]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to access this region')]
+    #[Rest\Patch('foodSharePoints/{foodSharePointId}', requirements: ['foodSharePointId' => '\d+'])]
+    public function editFoodSharePoint(int $foodSharePointId, FoodSharePointForCreation $foodSharePoint, ValidatorInterface $validator): Response
+    {
+        $this->assertLoggedIn();
+        $this->assertThereAreNoValidationErrors($validator, $foodSharePoint);
+
+        $this->foodSharePointTransactions->editFoodSharePoint($foodSharePointId, $foodSharePoint);
+
+        return $this->respondOK();
+    }
 }
