@@ -58,8 +58,8 @@
           :is-value-object="true"
         />
 
-        <b-button type="submit" variant="primary">
-          Absenden
+        <b-button variant="secondary" @click="saveFoodSharePoint">
+          {{ i18n('button.save') }}
         </b-button>
       </b-form>
     </b-container>
@@ -74,6 +74,9 @@ import LeafletLocationSearchVForm from '@/components/map/LeafletLocationSearchVF
 import MultiUserSearchInput from '@/components/MultiUserSearchInput.vue'
 import { useFoodSharePointStore } from '@/stores/foodSharePoint'
 import { useRegionStore } from '@/stores/regions'
+import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
+import i18n from '@/helper/i18n'
+import { addFoodSharePoint, updateFoodSharePoint } from '@/api/foodsharepoints'
 
 const foodSharePointStore = useFoodSharePointStore()
 const regionStore = useRegionStore()
@@ -92,6 +95,24 @@ const formData = ref({
   city: foodSharePointStore.foodSharePoint.city,
   location: { lat: foodSharePointStore.foodSharePoint.lat, lon: foodSharePointStore.foodSharePoint.lon },
 })
+
+async function saveFoodSharePoint () {
+  showLoader()
+  try {
+    if (foodSharePointId) {
+      await updateFoodSharePoint(foodSharePointId, formData.value)
+      pulseSuccess(i18n('blog.success.edit'))
+    } else {
+      await addFoodSharePoint(formData.value)
+      pulseSuccess(i18n('blog.success.new'))
+    }
+  } catch (error) {
+    console.error('saveBlogPost', error)
+    pulseError(i18n('blog.failure.edit'))
+  } finally {
+    hideLoader()
+  }
+}
 
 const regionOptions = computed(() => {
   return regionStore.regions.map(region => ({
