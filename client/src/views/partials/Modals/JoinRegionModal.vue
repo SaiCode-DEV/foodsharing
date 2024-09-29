@@ -74,7 +74,7 @@
 
 <script>
 // Stores
-import DataRegions, { REGION_UNIT_TYPE } from '@/stores/regions'
+import { REGION_UNIT_TYPE, useRegionStore } from '@/stores/regions'
 // Others
 import { pulseError, showLoader, hideLoader } from '@/script'
 import { REGION_IDS } from '@/consts'
@@ -82,6 +82,7 @@ import { useUserStore } from '@/stores/user'
 import Markdown from '@/components/Markdown/Markdown.vue'
 
 const userStore = useUserStore()
+const regionStore = useRegionStore()
 
 const EXCLUDED_REGIONS = [REGION_IDS.GLOBAL_WORKING_GROUPS]
 const EXCLUDED_REGIONS_WITHOUT_HOME = [REGION_IDS.FOODSHARING_ON_FESTIVALS]
@@ -92,6 +93,7 @@ export default {
   setup () {
     return {
       userStore,
+      regionStore,
     }
   },
   data () {
@@ -132,16 +134,19 @@ export default {
         .filter(region => this.selectedRegionList.includes(region.id) && region.list.length > 0)
     },
   },
+  mounted () {
+    regionStore.fetchSelectedRegionChildren(0)
+  },
   methods: {
-    async updateSelected (index) {
+    updateSelected (index) {
       this.selected.length = index + 1
 
       for (let i = 0; i < index + 1; i++) {
         const id = this.selected[i]
         const region = this.regions.find(r => r.id === id)
         if (id && !region) {
-          let list = await DataRegions.mutations.fetchChoosedRegionChildren(id)
-          list = this.filterRegions(list)
+          regionStore.fetchSelectedRegionChildren(id)
+          const list = this.filterRegions(regionStore.selectedRegionChildren)
 
           if (list.length > 0) {
             this.regions.push({ id, list })
@@ -154,7 +159,7 @@ export default {
     async joinRegion () {
       try {
         showLoader()
-        await DataRegions.mutations.joinRegion(this.selectedRegion.id)
+        await regionStore.joinRegion(this.selectedRegion.id)
       } catch (err) {
         console.log(err)
         pulseError('In diesen Bezirk kannst Du Dich nicht eintragen.')
@@ -162,9 +167,9 @@ export default {
         hideLoader()
       }
     },
-    async showModal () {
+    showModal () {
       this.selected = [0]
-      this.base = this.filterRegions(await DataRegions.mutations.fetchChoosedRegionChildren(0))
+      this.base = this.filterRegions(regionStore.selectedRegionChildren)
     },
     async resetModal () {
       this.selected = [0]

@@ -2356,6 +2356,8 @@ search:
       jumper_tooltip: 'Sei un Jolly per questa attività'
       member_tooltip: 'Sei un membro del team di questa attività'
     from: 'da'
+    mail:
+      mail_name: '{name} <{mail}>'
   too_short: Inserisci un termine di ricerca più lungo.
   maxresults: Il numero di risultati visualizzati è limitato. Forse usa un termine
     di ricerca più specifico.

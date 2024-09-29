@@ -64,14 +64,11 @@
       :text="b.message"
       :can-remove="canRemoveBanana"
       :recipient-id="recipient.id"
-      @close-dialog="closeDialog"
     />
   </div>
 </template>
 
 <script>
-import $ from 'jquery'
-
 import { sendBanana } from '@/api/banana'
 import i18n from '@/helper/i18n'
 import { pulseError, pulseInfo } from '@/script'
@@ -101,9 +98,6 @@ export default {
       return this.bananaText && (this.bananaText.trim().length > 99)
     },
   },
-  mounted () {
-    $.fancybox.update()
-  },
   methods: {
     async trySendBanana () {
       try {
@@ -114,7 +108,6 @@ export default {
         this.bananaText = ''
         this.showTextarea = false
         this.hasGivenBanana = true
-        $.fancybox.update()
       } catch (err) {
         if (err.code === HTTP_RESPONSE.BAD_REQUEST) {
           pulseError(i18n('profile.banana.messageTooShort'))
@@ -128,10 +121,6 @@ export default {
     },
     toggleTextarea () {
       this.showTextarea = !this.showTextarea
-      $.fancybox.update()
-    },
-    closeDialog () {
-      $.fancybox.close()
     },
   },
 }

@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Region;
 use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
@@ -393,6 +394,9 @@ class RegionGateway extends BaseGateway
 
     // TODO move all non-WG-secific methods in GroupGateway to regionGateway
 
+    /**
+     * @throws DatabaseNoValueFoundException if the region does not exist
+     */
     public function getRegionName(int $regionId): string
     {
         return $this->db->fetchValueByCriteria('fs_bezirk', 'name', ['id' => $regionId]);

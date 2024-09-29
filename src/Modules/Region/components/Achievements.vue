@@ -6,18 +6,11 @@
       wrap-content
     >
       <p v-text="$i18n('achievements.inThis.' + (isWorkGroup ? 'group' : 'region'))" />
-      <Achievement
-        v-for="achievement of (achievements ?? [])"
-        :key="achievement.id"
-        :achievement="achievement"
+      <Achievements
+        :achievements="achievements"
         :no-modal="mayAdministrateAchievements"
-        @click="select(achievement)"
+        @click="select"
       />
-      <div v-if="!achievements" class="achievements-loader">
-        <b-skeleton width="10em" height="1.75em" />
-        <b-skeleton width="7em" height="1.75em" />
-        <b-skeleton width="8em" height="1.75em" />
-      </div>
     </Container>
     <Container v-if="selected">
       <template #title>
@@ -128,7 +121,7 @@
       </div>
       <b-modal
         ref="editModal"
-        :title="$i18n('achievements.edit', { achievement: selected.name, user: editFormData.user?.name })"
+        :title="$i18n('achievements.editAwarded', { achievement: selected.name, user: editFormData.user?.name })"
         centered
         :ok-title="$i18n('button.save')"
         :cancel-title="$i18n('button.cancel')"
@@ -153,7 +146,7 @@
 
 <script>
 import Container from '@/components/Container/Container.vue'
-import Achievement from '@/components/Achievement/Achievement.vue'
+import Achievements from '@/components/Achievement/Achievements.vue'
 import * as api from '@/api/achievements.js'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import UserSearchInput from '@/components/UserSearchInput.vue'
@@ -161,11 +154,13 @@ import Avatar from '@/components/Avatar/Avatar.vue'
 import Time from '@/components/Time.vue'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import DatePicker from '@/components/DateTime/DatePicker.vue'
-import { getters } from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
+const userStore = useUserStore()
+
 export default {
-  components: { Container, Achievement, Markdown, UserSearchInput, Avatar, Time, OverflowMenu, DatePicker },
+  components: { Container, Achievements, Markdown, UserSearchInput, Avatar, Time, OverflowMenu, DatePicker },
   mixins: [ConfirmationDialogue],
   props: {
     groupName: { type: String, required: true },
@@ -200,7 +195,7 @@ export default {
       return fields
     },
     ownId () {
-      return getters.getUserId()
+      return userStore.getUserId
     },
   },
   async mounted () {

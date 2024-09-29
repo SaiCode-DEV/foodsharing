@@ -2598,6 +2598,8 @@ search:
       jumper_tooltip: ''
       member_tooltip: ''
     from: ''
+    mail:
+      mail_name: '{name} <{mail}>'
 deletefromregion: ''
 push_notifications:
   test_notification_title: ''
@@ -2778,8 +2780,8 @@ homepage: 'Твой сайт'
 filter_by: 'Фильтровать по следующим критериям'
 message_text_to_group_admin_workgroup: 'У региона / рабочей группы <b>{groupName}</b>
   больше нет посла / администратора.<br><br><br>У неё следующая ID-структура:<br>{idStructureList}<br><br>ID
-  следующий: {groupId}<br><br>URL: "<a href="/region?bid={groupId}&sub=forum"
-  target="_blank">Нажми здесь, чтобы перейти к региону / рабочей группе</a>'
+  следующий: {groupId}<br><br>URL: "<a href="/region?bid={groupId}&sub=forum" target="_blank">Нажми
+  здесь, чтобы перейти к региону / рабочей группе</a>'
 ort: 'город / село (автоматически из карты выше)'
 position: 'Позиция на фудшеринге (публичная)'
 fpcapital: 'МП'

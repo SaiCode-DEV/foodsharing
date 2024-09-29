@@ -81,16 +81,7 @@ class BasketApiCest
         $I->createFoodbasket($this->user[self::ID]);
 
         $I->login($this->user[self::EMAIL]);
-        $I->sendGET(self::API_BASKETS . '?type=mine');
-        $I->seeResponseCodeIs(Http::OK);
-        $I->seeResponseIsJson();
-    }
-
-    public function listBasketCoordinates(ApiTester $I)
-    {
-        $I->createFoodbasket($this->user[self::ID]);
-
-        $I->sendGET(self::API_BASKETS . '?type=coordinates');
+        $I->sendGET('api/user/current/baskets');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
     }
@@ -136,6 +127,7 @@ class BasketApiCest
             'contactTypes' => [1],
             'lifeTimeInDays' => 3,
             'weightInGrams' => 1000,
+            'pictures' => [],
         ]);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
@@ -145,7 +137,7 @@ class BasketApiCest
     {
         $basket = $I->createFoodbasket($this->user[self::ID]);
 
-        $I->sendGET(self::API_BASKETS . '?type=mine');
+        $I->sendGET('api/user/current/baskets');
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
         $I->sendGET(self::API_BASKETS . '/' . $basket[self::ID]);
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
@@ -178,13 +170,14 @@ class BasketApiCest
             'contactTypes' => [1],
             'lifeTimeInDays' => 3,
             'weightInGrams' => 1000,
+            'pictures' => [],
         ]);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
         $I->canSeeResponseContainsJson([
             'description' => $testDescription
         ]);
-        $I->assertEqualsWithDelta($lat, $I->grabDataFromResponseByJsonPath('basket.lat')[0], 0.1);
-        $I->assertEqualsWithDelta($lon, $I->grabDataFromResponseByJsonPath('basket.lon')[0], 0.1);
+        $I->assertEqualsWithDelta($lat, $I->grabDataFromResponseByJsonPath('location.lat')[0], 0.1);
+        $I->assertEqualsWithDelta($lon, $I->grabDataFromResponseByJsonPath('location.lon')[0], 0.1);
     }
 }

@@ -300,44 +300,32 @@
               {{ $i18n('storeview.no_permission_to_view') }}
             </small>
           </b-form-group>
+
           <b-form-group
             :label="$i18n('sticker')"
             label-for="showsSticker"
             class="bootstrap input-wrapper"
           >
-            <b-form-checkbox
-              v-if="store.showsSticker !== null"
+            <b-form-select
               id="showsSticker"
               v-model="store.showsSticker"
-              switch
-              :disabled-field="!editMode"
+              :options="publicityAndStickerOptions"
               :disabled="!editMode"
             />
-            <small
-              v-if="store.showsSticker === null"
-            >
-              {{ $i18n('storeview.no_permission_to_view') }}
-            </small>
           </b-form-group>
           <b-form-group
             :label="$i18n('presse')"
             label-for="publicity"
             class="bootstrap input-wrapper"
           >
-            <b-form-checkbox
-              v-if="store.publicity !== null"
+            <b-form-select
               id="publicity"
               v-model="store.publicity"
-              switch
-              :disabled-field="!editMode"
+              :options="publicityAndStickerOptions"
               :disabled="!editMode"
             />
-            <small
-              v-if="store.publicity === null"
-            >
-              {{ $i18n('storeview.no_permission_to_view') }}
-            </small>
           </b-form-group>
+
           <b-form-group
             :label="$i18n('storeview.groceries.label')"
             label-for="tags-with-dropdown"
@@ -496,6 +484,11 @@ export default {
         { value: 1, text: this.$i18n('menu.entry.helpwanted') },
         { value: 2, text: this.$i18n('menu.entry.helpneeded') },
       ],
+      publicityAndStickerOptions: [
+        { value: null, text: this.$i18n('storeview.publicity_and_sticker_options.not_yet_clarified') },
+        { value: true, text: this.$i18n('storeview.publicity_and_sticker_options.yes') },
+        { value: false, text: this.$i18n('storeview.publicity_and_sticker_options.no') },
+      ],
       store: {},
       chainSearchCriteriaField: '',
       publicInfoState: true,
@@ -621,7 +614,7 @@ export default {
           await editRegularPickup(this.storeId, this.editPickups)
           await PickupsData.mutations.fetchRegularPickup(this.storeId)
         }
-        pulseSuccess(this.$i18n('storeedit.edit_success'))
+        pulseSuccess(this.$i18n('globals.saved'))
         this.$bvModal.hide('storeInformationModal')
       } catch (err) {
         const errorDescription = err.jsonContent ?? { message: '' }

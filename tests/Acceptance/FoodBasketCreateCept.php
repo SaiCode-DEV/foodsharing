@@ -89,7 +89,7 @@ $nick->does(
 
 $I->amOnPage($I->foodBasketInfoUrl($id));
 $I->waitForActiveAPICalls();
-$I->waitForElementNotVisible('#fancybox-loading');
+$I->waitForElementNotVisible('.loader.active');
 $I->waitForText('Anfragen (1)');
 // Open the dropdown menu
 $I->see('Essenskörbe', ['css' => '.testing-basket-dropdown']);

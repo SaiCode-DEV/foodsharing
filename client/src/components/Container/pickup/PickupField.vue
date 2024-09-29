@@ -17,7 +17,7 @@
         class="field-headline field-headline--big text-danger"
       >
         <Time
-          :time="date"
+          :time="entry.date"
           plain
           :options="{ short: true }"
         />

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 999.99996 1000.0001"
+   xml:space="preserve"
+   id="svg3445"
+   width="1000"
+   height="1000"
+   sodipodi:docname="FS_Schriftzug_gb_klein_RGB.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"><sodipodi:namedview
+   id="namedview1"
+   pagecolor="#505050"
+   bordercolor="#ffffff"
+   borderopacity="1"
+   inkscape:showpageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="1"
+   inkscape:deskcolor="#505050"
+   inkscape:zoom="0.5407956"
+   inkscape:cx="604.66468"
+   inkscape:cy="598.19274"
+   inkscape:window-width="3440"
+   inkscape:window-height="1351"
+   inkscape:window-x="2151"
+   inkscape:window-y="1338"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="svg3445" /><metadata
+   id="metadata3514"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+   id="defs3512"><linearGradient
+     id="SVGID_1_"
+     gradientUnits="userSpaceOnUse"
+     x1="0"
+     y1="595.28027"
+     x2="0.70709997"
+     y2="594.57318"><stop
+       offset="0"
+       style="stop-color:#1DA238"
+       id="stop3454" /><stop
+       offset="0.9831"
+       style="stop-color:#24391D"
+       id="stop3456" /></linearGradient></defs><style
+   type="text/css"
+   id="style3447">
+	.Arched_x0020_Green{fill:url(#SVGID_1_);stroke:#FFFFFF;stroke-width:0.25;stroke-miterlimit:1;}
+	.st0{display:none;fill:#553C23;}
+	.st1{fill:#553C23;}
+	.st2{font-family:'AlfaSlabOne-Regular';}
+	.st3{font-size:68px;}
+	.st4{fill:#70B62C;}
+	.st5{fill:#5FB130;}
+</style>
+<g
+   transform="matrix(13.123359,0,0,13.123359,-3631.9841,-4330.9944)"
+   style="image-rendering:auto"
+   id="Schriftzug_gb_RGB_de"><title
+     id="title4275">Schriftzug_gb_RGB_de</title><g
+     id="g3482"><path
+       class="st1"
+       d="m 284.4244,357.0428 h 3 c 0,-10.9 5.6,-15.4 15.2,-15.4 7.2,0 10.5,1.7 10.5,1.7 v 10.2 c 0,0 -3.2,-0.3 -6.4,-0.3 -3.4,0 -4.5,1 -4.5,3.8 h 5.1 v 10.7 h -5.1 v 14.8 h 5.1 v 10.7 h -22.9 v -10.7 h 2.9 v -14.8 h -2.9 z"
+       id="path3484"
+       style="fill:#533a24;fill-opacity:1;stroke:none" /><path
+       class="st5"
+       d="m 313.19,383.40078 c 0,0 8.1,1.2 13,1.2 3.8,0 4.7,-0.7 4.7,-1.7 0,-1.2 -0.9,-1.6 -5,-2.1 -9,-1.2 -14.5,-5.1 -14.5,-12.4 0,-6.8 4.8,-11.9 16.6,-11.9 10,0 15.1,2 15.1,2 v 8.8 c 0,0 -7,-0.9 -12.4,-0.9 -3.5,0 -5,0.5 -5,1.6 0,1 0.9,1.5 4.9,1.9 10,1 14.7,4.7 14.7,12.2 0,7.7 -5.1,12.5 -16.4,12.5 -9.9,0 -15.7,-2 -15.7,-2 z"
+       id="path3492"
+       style="fill:#64ae24;fill-opacity:1;stroke:none" /></g></g></svg>

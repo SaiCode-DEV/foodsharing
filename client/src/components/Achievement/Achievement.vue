@@ -20,15 +20,15 @@
         <span v-text="achievement.name" />
       </template>
       <Markdown :source="achievement.description" /><br>
-      <p>
-        {{ $i18n('achievements.awarded') }}
-        <Time
-          :time="achievement.createdAt"
-          plain
-          :tooltip="null"
-        />
-      </p>
       <div v-if="isAwarded">
+        <p>
+          {{ $i18n('achievements.awarded') }}
+          <Time
+            :time="achievement.createdAt"
+            plain
+            :tooltip="null"
+          />
+        </p>
         <p v-if="achievement.validUntil">
           {{ $i18n('achievements.validUntil') }}:
           <Time
@@ -43,7 +43,7 @@
         </p>
       </div>
       <div v-else>
-        <i v-if="achievement.validityInDaysAfterAssignment" v-text="$i18n('achievements.validity.days', achievement)" />
+        <i v-if="achievement.validityInDaysAfterAssignment > 0" v-text="$i18n('achievements.validity.days', achievement)" />
         <i v-else v-text="$i18n('achievements.validity.indefinite')" />
       </div>
     </b-modal>
@@ -61,7 +61,7 @@ export default {
   },
   computed: {
     iconClass () {
-      return this.achievement.icon ?? 'fas fa-tag'
+      return this.achievement.icon || 'fas fa-tag'
     },
     isAwarded () {
       return 'validUntil' in this.achievement

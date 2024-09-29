@@ -2,7 +2,7 @@
  This should be used as a replacement for addContent from PageHelper.php
 -->
 <template>
-  <div>
+  <div class="mx-2 mx-sm-0">
     <slot name="top" />
     <div class="row">
       <div v-if="$slots.left" :class="colClasses.left">
@@ -10,9 +10,7 @@
         <slot v-if="!(viewIsXL || !viewIsMD)" name="right" />
       </div>
       <div class="col" style="min-height: 100px;">
-        <slot>
-          center
-        </slot>
+        <slot />
       </div>
       <div v-if="$slots.right" :class="colClasses.right">
         <slot v-if="!$slots.left || viewIsXL || !viewIsMD" name="right" />

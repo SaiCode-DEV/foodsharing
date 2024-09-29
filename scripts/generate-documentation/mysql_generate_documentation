@@ -8,7 +8,7 @@ root="$dir/../.."
 source "$dir/../__common.sh"
 
 BUILD_DIR="$root/docs/data/build"
-RESULT_FOLDER="$root/docs/docs/backend/database"
+RESULT_FOLDER="$root/docs/en/backend/database"
 META_DATA_FILE="$root/docs/data/database_metadata.json"
 
 # Set node module path to global modules

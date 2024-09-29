@@ -137,7 +137,7 @@ export default {
     },
     onFinishedQuiz () {
       this.results = null
-      this.displayResults(true)
+      this.displayResults()
     },
   },
 }

@@ -8,6 +8,7 @@ use Foodsharing\Modules\Bell\BellTransactions;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
+use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Event\EventGateway;
@@ -83,7 +84,7 @@ class WallPostTransactions
         switch ($target) {
             case WallType::QUIZ_QUESTION:
                 $quizId = $this->quizGateway->getQuizIdFromQuestionId($targetId);
-                $recipients = array_column($this->quizPermissions->getQuizAdmins($quizId), 'id');
+                $recipients = array_column($this->quizPermissions->getQuizAdmins(QuizID::from($quizId)), 'id');
                 $bell = Bell::create(
                     'new_quiz_comment_title',
                     'new_quiz_comment',

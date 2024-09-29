@@ -5,7 +5,7 @@ import phoneNumbers from './phone-numbers'
 const urls = {
   profile: (id) => `/user/${id}/profile`,
   academy: () => '/content?sub=academy',
-  application: (groupId, userId) => `/?page=application&bid=${groupId}&fid=${userId}`,
+  application: (groupId, userId) => `/regions/${groupId}/applications/${userId}`,
   applications: (groupId) => `/region?bid=${groupId}&sub=applications`,
   basket: (basketId) => `/essenskoerbe/${basketId}`,
   baskets: () => '/essenskoerbe',
@@ -20,7 +20,7 @@ const urls = {
   contentEdit: () => '/content',
   contentEditEntry: (id) => `/content?a=edit&id=${id}`,
   contentNew: () => '/content?a=neu',
-  conversations: (conversationId = null) => `/?page=msg${conversationId ? `&cid=${conversationId}` : ''}`,
+  conversations: (conversationId = null) => `/msg${conversationId ? `?cid=${conversationId}` : ''}`,
   createBusinessCard: (data) => `/?page=bcard&sub=makeCard&opt=${data.role}:${data.regionGroupId}`,
   dashboard: () => '/?page=dashboard',
   dataprivacy: () => '/legal',
@@ -144,6 +144,7 @@ const urls = {
   workingGroups: (regionId = null) => regionId ? `/?page=groups&p=${regionId}` : '/?page=groups',
   subGroups: (parentGroupId) => parentGroupId ? `/?page=groups&p=${parentGroupId}` : '/?page=groups',
   achievements: (regionId) => `/region?bid=${regionId}&sub=achievements`,
+  editAchievements: () => '/achievements',
 
   // whats new & changelog
   changelog: () => '/content?sub=changelog',

@@ -216,6 +216,7 @@ group:
       verify:
         do: Verify account of {name} ({id})
         undo: Cancel verification of {name} ({id})
+    all_roles: all roles
   application_from: by
   entermotivation: 'Motivation:'
   enterskills: 'Skills:'
@@ -353,6 +354,16 @@ settings:
       label: Should past appointments from the last 2 weeks be included?
       "true": Yes, include recent appointments
     protocol: Which protocol is your calendar software using?
+    info: "Here, you can connect your foodsharing appointments with the calendar software
+      of your choice. That way, your pickup times and events will be entered into
+      your calendar.\n\n**Always keep your calendar links secret.** They contain a
+      *token*, which allows to access the data of your appointments without a password.
+      You can always delete your current token, which renders all your previous calendar
+      links invalid.\n\nYour calendar software needs to **synchronise** the data regulary,
+      so that new appointments show up and canceled events disappear. If you download
+      the calendar file instead, you will only see your current appointments and will
+      not receive automatic updates.\n\nYou can find more information about this [in
+      the Wiki]({calendarUrl}).\n"
   saved: The changes were saved.
   changemail:
     done: Your e-mail address was changed.
@@ -379,6 +390,9 @@ settings:
     insufficient_permission: You do not have permission to change the e-mail address
       of this profile.
     sent_other_user: An e-mail with a confirmation link has been sent to the new address.
+    explanation_other_user: Here you can change the e-mail address with which this
+      profile was registered. After submitting, the user will receive an e-mail to
+      the new address with a confirmation link.
   chatmail: "If you receive an internal message on the foodsharing homepage,\nbut
     you are not logged in at the moment, we can inform you by mail.\nDo you want that?\n"
   follow:
@@ -395,6 +409,15 @@ settings:
     verified_text: This badge is intended for use on smartphones. You can save it
       there and then show it when requested. If you don’t have a smartphone or need
       a traditional badge for another reason, contact your local ambassadors.
+    add_to_wallet:
+      google: "Add to Google Wallet"
+      apple: "Add to Apple Wallet"
+    wallet:
+      name: "Name"
+      role: "Role"
+      valid_start: "Valid from"
+      valid_end: "Valid until"
+
   delete_profile: Delete profile
   quiz:
     2: Quiz for store managers
@@ -589,9 +612,7 @@ profile:
       information\n- Date, time and place of the incident.\n- What you have already
       done, for example whether you have tried the communication channels available
       to you in order to address the incident directly to the person and to clarify
-      the matter.\n- How you can be reached best in case we have further questions.\n
-      \nYou can find the [rules of conduct](https://wiki.foodsharing.de/Verhaltensregeln)
-      in the Wiki.\n"
+      the matter.\n- How you can be reached best in case we have further questions.\n"
     repAdminAgainstArbAdmin: You are an admin of the report processing team and want
       to report an admin of the arbitration board. This is not technically supported
       at the moment. You can always submit a report by email to the local responsible
@@ -667,7 +688,7 @@ profile:
     confirmDelete: Do you really want to delete this report?
     report_b1_1: Did not come to a pickup (B01-2)
     report_other: Other
-    report_b1_2: Took animals to the pick-up without permission (B01-4)
+    report_b1_2: Took animals to the pick-up without permission (B01-3)
     report_b4_1: The food was not distributed fairly (B04-2)
     report_b5: Unauthorized persons have entered the premises (B05)
     report_b6_1: The pick-up location was not left tidy (B06-2)
@@ -1217,6 +1238,10 @@ storeview:
   want_to_fetch: I would like to help in this team.
   public_and_statistics: "Public activites and statistical information"
   no_permission_to_view: "Only visible to store managers."
+  publicity_and_sticker_options:
+    not_yet_clarified: "not yet clarified"
+    yes: "Yes"
+    no: "No"
   groceries:
     label: Which kinds of food are allowed to be collected?
     select_tag: Choose food category
@@ -2040,9 +2065,9 @@ basket:
   no_requests: No inquiries so far
   requests: Requests ({count})
   provider: Provider
-  updated: Updated <strong>{date}</strong>
+  updated: 'Updated:'
   expires: Valid until
-  created: Published <strong>{date}</strong>
+  created: 'Published:'
   date: Creation date
   new: New food basket
   delete: Delete food basket
@@ -2063,11 +2088,28 @@ basket:
     text: Do you really want to delete this food basket?
     title: Delete the food basket?
   expires_at: Valid until <strong>{date}</strong>
+  until: 'Valid until:'
 map:
   title: Map
   donates: company donates
   filters:
     my_stores: My stores only
+    stores:
+      status:
+        label: Status
+        all: all
+        cooperating: cooperates
+        not-cooperating: does not cooperate
+      help:
+        label: Helpers
+        all: no preference
+        open: searching
+        searching: searching urgently
+      scope:
+        all: all
+        region: only my districts
+        member: only my stores
+        label: affiliation
   foodsharepoint:
     go: to the Food-Share Point
 content:
@@ -3274,8 +3316,8 @@ regionOptions:
   regionPickupRuleActive: 'Activate the following district-wide rule for pick-ups
     in CHERRY (Consummate, High-level, Exceptional and Really, Really Yielding) stores:'
   regionReportReasonSimple: Simplified report regions
-  regionReportReasonOther: Allow "Other" as a report reason
-  regionReportReasonCategoryB: 'Extended reasons for reporting: Rules of conduct -
+  regionReportReasonOther: Allow “Other” as a report reason
+  regionReportReasonCategoryB: 'Extended reasons for reporting: Rules of conduct —
     B) Behavior during pickups'
   noPickupRuleActiveStores: Currently, the CHERRY rule is not activated for any company
     in the district.
@@ -3682,6 +3724,8 @@ quiz:
   confirmComment: Should your comment be sent to the administrators of this quiz?
   confirmDashboardText: You have passed a quiz that you have not yet confirmed. [Click
     here]({url}) to complete the process!
+  test_results: Results of the test
+  test: Test quiz
 nofp: no error points (not a serious question)
 fpsingular: Error point
 request_time: 'Time of request:'
@@ -3900,6 +3944,8 @@ globals:
     signout: Sign out
     signup: Participate
   telephone_number: Telephone number
+  saved: Changes were saved
+  save_changes: Save changes
 bootstrap-datepicker:
   labelPrevDecade: Previous decade
   labelPrevYear: Previous year
@@ -3922,6 +3968,7 @@ system_administration:
   mailboxes: Manage mailboxes
   content: Edit content
   reports: Show reports
+  store_categories: Edit store categories
 join_region:
   error:
     is_country_1: This is a country.
@@ -4094,8 +4141,37 @@ help:
         later. TODO\n"
     reportReasons:
       title: Report form
+      md: "Using the report form, foodsavers can directly report rule violations.
+        If it is activated, people who are responsible for reports will recieve notifications
+        about reports.\n---\nThe local report group of the region can adjust which
+        reasons are selectable in the report form.\nThis can either be the simple
+        or extended versions of the reasons. In the extended version, all rules that
+        are listed [in the Wiki at point B](https://wiki.foodsharing.de/Verhaltensregeln#B.29_Verhalten_bei_Abholungen)
+        will be listed.\nAdditionally, the option \"Other reason\" can be enabled
+        to be listed in the form.\n---\nRecommendations about the settings can be
+        given to the local report group. The decision about this can, however, be
+        solely made by the administrators of that group, who do not *have to* follow
+        these recommendations.\n"
     report:
       title: Report processing
+      md: "Here, you see all reports that were made about people in this home region.
+        However, not all reports are shown to you:\n- You will not see any reports,
+        which involve you or any other admin of the local report group or the arbitration
+        group.\n- If you are admin of the arbitration group, you will only see reports
+        which involve an admin of the local report group.\n---\nYou can find information
+        about processing reports at: [Bearbeitung einer Meldung (German)](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)\n"
+    basket:
+      title: Food baskets
+      md: "Food baskets are offered by users who want to give away (often rescued)
+        food **for free**. Registered users can request a food basket to pick it up.\n"
+    achievementIcon:
+      title: Icons for achievements
+      md: "Each achievement has an icon that should indicate, what the achievement
+        is about. You can find a list of available icons at https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n
+        \nYou need to put the name of the desired icon into the field, for example
+        \"*walking*\" or \"*shopping-cart*\".\nIf the input is valid, you will see
+        the icon in the preview.\nThe icon \"*tag*\" will be used as default if you
+        do not enter an icon.\n"
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -4136,7 +4212,7 @@ achievements:
   notice: Remark
   editDetails: Edit details
   revoke: Revoke
-  edit: Edit {achievement} for {user}
+  edit: 'Edit achievement: {name}'
   awardedNoReviewer: Automatically
   awarded: Awarded
   awardedTo: To
@@ -4145,4 +4221,30 @@ achievements:
   findUser: Find user
   revokeConfirmation: Are you sure you want to revoke this achievement from {name}?
   notAwarded: This achievement is currently not awarded to anyone.
-copied_to_clipboard: '"{text}" was copied to the clipboard.'
+  editAwarded: Adjust achievement {achievement} for user {user}
+  inRegion: Achievements in {region} ({count})
+  add: Add achievement
+  new: New achievement
+  editor:
+    name: Name
+    preview: Preview
+    icon: Icon
+    validityInDaysAfterAssignment: Validity in days after awarding
+    description: Description
+  noneInThisRegion: There are no achievements listed for this region.
+  deleteConfirmation: Do you really want to delete this achievement?
+  editTitle: Edit achievement
+copied_to_clipboard: '“{text}” was copied to the clipboard.'
+store_categories:
+  columns:
+    id: ID
+    name: Name
+    number_of_stores: Stores in the category
+  confirm_delete_hint: There are still {count} companies assigned to this category.
+    These companies will no longer have a category after this.
+  confirm_delete: Really delete category {name}?
+  new: Enter new category
+  title: Store categories
+  empty: No category has been entered yet
+  edit: Rename category
+  delete: Delete category

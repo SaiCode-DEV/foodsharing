@@ -63,7 +63,7 @@ class WorkGroupTransactions
         if ($groupMail) {
             $userWithMail = $this->workGroupGateway->getFsWithMail($userId);
 
-            $link = BASE_URL . '/?page=application&bid=' . $groupId . '&fid=' . $userId;
+            $link = BASE_URL . '/regions/' . $groupId . '/applications/' . $userId;
 
             $this->emailHelper->libmail(
                 [
@@ -94,7 +94,7 @@ class WorkGroupTransactions
     {
         $adminIds = $this->workGroupGateway->getGroupAdminIds($group['id']);
         $bellData = Bell::create('workinggroup_new_request_title', 'workinggroup_new_request', 'fas fa-user-plus', [
-            'href' => '/?page=application&bid=' . $group['id'] . '&fid=' . $userId
+            'href' => '/regions/' . $group['id'] . '/applications/' . $userId
         ], [
             'name' => $group['name']
         ], BellType::createIdentifier(BellType::WORKING_GROUP_NEW_APPLICATION, $group['id'], $userId));

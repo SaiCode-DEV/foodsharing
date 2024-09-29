@@ -22,7 +22,8 @@ class QuizSession
         public ?DateTimeInterface $endTime = null,
         public ?float $failurePoints = null,
         public ?int $maxFailurePointsToSucceed = null,
-        public ?bool $isTimed = null
+        public ?bool $isTimed = null,
+        public bool $isTest = false,
     ) {
     }
 
@@ -41,6 +42,7 @@ class QuizSession
             failurePoints: isset($data['fp']) ? (float)$data['fp'] : null,
             maxFailurePointsToSucceed: $data['maxfp'] ?? null,
             isTimed: isset($data['easymode']) ? !(bool)$data['easymode'] : null,
+            isTest: isset($data['is_test']) ? (bool)$data['is_test'] : false,
         );
         if (!$quizSession->questions && isset($data['quest_count'])) {
             $quizSession->questions = array_fill(0, $data['quest_count'], null);

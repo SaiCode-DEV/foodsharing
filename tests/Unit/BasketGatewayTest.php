@@ -37,7 +37,8 @@ class BasketGatewayTest extends Unit
 
         foreach (range(1, 10) as $num) {
             $basketId = $this->tester->haveInDatabase('fs_basket', [
-                'foodsaver_id' => $this->foodsaver['id']
+                'foodsaver_id' => $this->foodsaver['id'],
+                'description' => 'description',
             ]);
             $this->tester->haveInDatabase('fs_basket_anfrage', [
                 'basket_id' => $basketId,
@@ -50,6 +51,7 @@ class BasketGatewayTest extends Unit
         foreach (range(1, 3) as $num) {
             $this->tester->haveInDatabase('fs_basket', [
                 'foodsaver_id' => $this->foodsaver['id'],
+                'description' => 'description',
                 'status' => 1,
                 'until' => date('Y-m-d', time() + 86400),
                 'lat' => 52.520007, 'lon' => 13.404954 // Berlin
@@ -59,6 +61,7 @@ class BasketGatewayTest extends Unit
         foreach (range(1, 3) as $num) {
             $this->tester->haveInDatabase('fs_basket', [
                 'foodsaver_id' => $this->foodsaver['id'],
+                'description' => 'description',
                 'status' => 1,
                 'until' => date('Y-m-d', time() + 86400),
                 'lat' => 24.453884, 'lon' => 54.377344 // miles away from Berlin
@@ -75,10 +78,10 @@ class BasketGatewayTest extends Unit
     {
         //existing basket
         $result = $this->gateway->getBasket($this->basketIds[0]);
-        $this->assertIsArray($result);
+        $this->assertNotNull($result);
 
         //non-existing basket
-        $this->assertEquals([], $this->gateway->getBasket(99999));
+        $this->assertNull($this->gateway->getBasket(99999));
     }
 
     public function testListNewestBaskets(): void

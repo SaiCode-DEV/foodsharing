@@ -2614,6 +2614,8 @@ search:
       jumper_tooltip: ''
       member_tooltip: ''
     from: ''
+    mail:
+      mail_name: '{name} <{mail}>'
 activitypost:
   response: ''
   write: ''

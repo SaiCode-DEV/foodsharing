@@ -1,6 +1,5 @@
 import '@/core'
 import '@/globals'
-import '@/tablesorter'
 import 'jquery.tinymce'
 import { GET, goTo, URL_PART } from '@/browser'
 import { hideLoader, ifconfirm, pulseError, showLoader } from '@/script'

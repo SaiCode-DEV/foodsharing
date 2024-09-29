@@ -209,6 +209,22 @@ class MaintenanceGateway extends BaseGateway
     }
 
     /**
+     * Removes all test quiz sessions that were started more than a day ago.
+     *
+     * @return int the number of removed entries
+     */
+    public function deleteTestQuizSessions(): int
+    {
+        return $this->db->delete(
+            'fs_quiz_session',
+            [
+                'is_test' => 1,
+                'time_start <' => Carbon::now()->subDay()->format('Y-m-d H:i:s'),
+            ]
+        );
+    }
+
+    /**
      * Returns the UUIDs of all entries in the uploads table that were created in a specific interval which do not have
      * a usage type and id yet.
      *

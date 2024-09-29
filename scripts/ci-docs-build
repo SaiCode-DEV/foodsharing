@@ -21,4 +21,4 @@ log-header "Load API Dump"
 bin/console nelmio:apidoc:dump --format=json > docs/data/api_dump.json
 
 log-header "Build documentation"
-cd docs/ && yarn && yarn build:all
+cd docs/ && yarn && yarn docs:build

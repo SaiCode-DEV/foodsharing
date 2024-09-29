@@ -60,10 +60,10 @@
       <button
         v-b-tooltip.left="$i18n('basket.request_close')"
         :title="$i18n('basket.request_close')"
-        class="testing-basket-requests-close btn btn-sm btn-outline-danger"
+        class="testing-basket-requests-close btn btn-sm btn-outline-secondary"
         @click.prevent.stop="openRemoveDialog(entry.user.id, $event)"
       >
-        <i class="fas fa-times" />
+        <i class="fas fa-check" />
       </button>
     </button>
   </a>

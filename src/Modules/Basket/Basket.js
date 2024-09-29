@@ -12,6 +12,7 @@ import EditForm from '@/components/Basket/EditForm'
 import AvatarList from '@/components/Avatar/AvatarList'
 import BasketLocationMap from '@/components/Basket/BasketLocationMap'
 import BasketsLocationMap from '@/components/Basket/BasketsLocationMap'
+import BasketContainer from '@/components/Basket/BasketContainer.vue'
 import NearbyBasketsList from '@/views/pages/Baskets/NearbyBasketsList'
 
 $(document).ready(() => {
@@ -43,5 +44,10 @@ $(document).ready(() => {
     if (document.getElementById('nearby-baskets-list')) {
       vueApply('#nearby-baskets-list')
     }
+  }
+
+  if (document.getElementById('vue-basket-container')) {
+    vueRegister({ BasketContainer })
+    vueApply('#vue-basket-container')
   }
 })

@@ -26,7 +26,7 @@ class Achievement
     #[OA\Property(example: 'Awarded for completing a food hygiene course')]
     public string $description;
 
-    #[Assert\NotBlank]
+    #[Assert\NotEqualTo('')]
     #[OA\Property(example: 'fas fa-hands-wash')]
     public ?string $icon;
 

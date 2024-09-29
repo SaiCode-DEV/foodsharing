@@ -67,10 +67,14 @@ export const mutations = {
       const ids = bellsToMarkAsRead.map(bell => bell.id)
       bellsToMarkAsRead.forEach(bell => { bell.isRead = true })
 
-      await Promise.all([
-        await setCache(cacheRequestName, store.bells),
-        await markBellsAsRead(ids),
-      ])
+      try {
+        await Promise.all([
+          await setCache(cacheRequestName, store.bells),
+          await markBellsAsRead(ids),
+        ])
+      } catch (err) {
+        console.error('Error marking bells as read:', err)
+      }
     }
   },
   async loadMore () {

@@ -22,7 +22,7 @@ class StatisticsView extends View
 					<h4>' . $r->name . '</h4>
 					<p class="fetchWeight">'
                 . $this->numberHelper->format_number($r->fetchWeight)
-                    . '<span style="white-space: nowrap;">&thinsp;</span>kg '
+                    . '<span style="white-space: nowrap;">&thinsp;</span>'
                     . $this->translator->trans('profile.stats.weight')
                     . '</p>
 					<p class="fetchcount">'
@@ -173,7 +173,7 @@ class StatisticsView extends View
 					<h4>' . $fs->name . '</h4>
 					<p class="fetchweight">'
                 . $this->numberHelper->format_number($fs->fetchWeight)
-                    . '<span style="white-space: nowrap;">&thinsp;</span>kg '
+                    . '<span style="white-space: nowrap;">&thinsp;</span>'
                     . $this->translator->trans('profile.stats.weight')
                     . '</p>
 					<p class="fetchcount">'

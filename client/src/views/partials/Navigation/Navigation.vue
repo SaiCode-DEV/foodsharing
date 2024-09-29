@@ -9,6 +9,7 @@
       'nav-foodsharer': !isFoodsaver,
     }"
   >
+    <Loader />
     <DonationModal />
     <div class="metanav-container container">
       <MetaNavLoggedIn v-if="!viewIsMobile && isLoggedIn" />
@@ -39,7 +40,7 @@ import DataStores from '@/stores/stores.js'
 import DataBaskets from '@/stores/baskets.js'
 import DataConversations from '@/stores/conversations.js'
 import DataGroups from '@/stores/groups.js'
-import DataRegions from '@/stores/regions.js'
+import { useRegionStore } from '@/stores/regions.js'
 // States
 import MetaNavLoggedIn from './States/MetaNav/LoggedIn.vue'
 import MetaNavLoggedOut from './States/MetaNav/LoggedOut.vue'
@@ -53,12 +54,15 @@ import DonationModal from '@/components/Modals/Donation/DonationModal.vue'
 import ThemeSwitcherModal from '@/views/partials/Modals/ThemeSwitcherModal.vue'
 // Mixins
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
+import Loader from './Loader.vue'
 
 const userStore = useUserStore()
+const regionStore = useRegionStore()
 
 export default {
   name: 'Navigation',
   components: {
+    Loader,
     ModalLoader,
     DonationModal,
     ThemeSwitcherModal,
@@ -120,7 +124,7 @@ export default {
     if (this.isLoggedIn) {
       // TODO: NO APIS :(
       DataGroups.mutations.set(this.groups)
-      DataRegions.mutations.set(this.regions)
+      regionStore.regions = this.regions
       await DataBaskets.mutations.fetchOwn()
       await DataBells.mutations.fetch()
       await DataConversations.initConversations()

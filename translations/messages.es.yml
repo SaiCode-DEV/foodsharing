@@ -192,7 +192,7 @@ search:
     poll:
       can_vote: Aún puedes votar
       has_voted: Ya has votado
-      not_eligible: No está autorizado para votar
+      not_eligible: No está acreditado para votar
   maxresults: El número de resultados mostrados es limitado. Quizás utilice un término
     de búsqueda más específico.
   too_short: Por favor ingrese un término de búsqueda más largo.
@@ -559,6 +559,8 @@ quiz:
     este cuestionario?
   confirmDashboardText: ¡Has superado un cuestionario que aún no has confirmado. [Haga
     clic aquí]({url}) para completar el proceso!
+  test_results: Resultados de la prueba
+  test: Cuestionarios de prueba
 terminology:
   foodsaver:
     m: rescatista
@@ -1149,6 +1151,7 @@ group:
         do: Verificar la cuenta de {name} ({id})
         undo: Sin verificar {name} ({id})
       clear_selection: Restablecer todos los seleccionados
+    all_roles: Todos los roles
   edit:
     title: 'Editar {group}'
     name_required: 'Por favor ingrese un nombre.'
@@ -1428,6 +1431,10 @@ storeview:
     label: Información pública sobre la empresa
     error_message: El texto es demasiado largo (máx. {count} caracteres)
     available_count: Número de caracteres disponibles
+  publicity_and_sticker_options:
+    not_yet_clarified: Sin aclarar
+    no: No
+    yes: Sí
 store:
   tooltip_red: 'Recogidas vacantes hoy o mañana'
   tooltip_managing: 'Usted es responsable de esta cooperación'
@@ -2099,18 +2106,18 @@ profile:
       delivered: 'Denuncia atendida'
       reportID: 'ID de queja'
       reporting: 'Queja sobre'
-    info: 'Para que su informe pueda tramitarse con la mayor eficacia posible, debe
-      contener la siguiente información:
+    info: 'Para garantizar que su informe pueda procesarse de la forma más eficaz
+      posible, debe contener la siguiente información:
 
-      - Fecha, hora y lugar del incidente
+      - Fecha, hora y lugar del incidente.
 
-      - lo que ya ha hecho, por ejemplo, si ha hablado directamente con la persona
+      - lo que ya ha hecho, por ejemplo, si ya ha hablado directamente con la persona
       y ha podido aclarar el asunto
 
-      - cuál es la mejor manera de ponerse en contacto con usted.
+      - la mejor manera de comunicarnos con usted si tiene preguntas.
 
 
-      Aquí puedes encontrar las [normas de comportamiento en la wiki](https://wiki.foodsharing.de/Verhaltensregeln).
+      Aquí encontrará las [reglas de conducta en la wiki](https://wiki.foodsharing.de/Verhaltensrules).
 
       '
     send: 'Enviar queja'
@@ -2325,7 +2332,7 @@ basket:
     Inicie sesión y envíe su solicitud nuevamente.
 
     '
-  updated: 'Actualizado <strong>{date}</strong>'
+  updated: 'Actualizado:'
   no-desc: 'Por favor ingrese una descripción.'
   title: 'Cestas de comida'
   withdrawn_request: 'La solicitud fue cancelada'
@@ -2378,7 +2385,7 @@ basket:
   request: 'Solicita canasta de alimentos'
   no_requests: 'No hay consultas hasta el momento'
   change-state: 'Cerrar solicitud de {name}'
-  created: 'Publicado <strong>{date}</strong>'
+  created: 'Publicado:'
   all_map: 'Todas las cestas de comida en el mapa'
   recent: 'Nuevas cestas de comida'
   go: 'a la cesta de comida'
@@ -2442,6 +2449,7 @@ basket:
     text: ¿Realmente quieres eliminar esta canasta de alimentos?
     title: ¿Eliminar canasta de alimentos?
   expires_at: Válido hasta <strong>{date}</strong>
+  until: 'Válido hasta:'
 menu:
   entry:
     press: 'Prensa'
@@ -2997,10 +3005,12 @@ regionOptions:
   regionPickupRuleActiveStoreList: 'Relación de empresas del distrito que son empresas
     populares en el sentido de este reglamento. A los efectos del reglamento, se suman
     y tienen en cuenta todos los cobros de empresas populares.'
-  regionReportReasonOther: Permitir "Otros" como motivo de notificación
+  regionReportReasonOther: Permitir «Otros» como motivo de notificación
   regionReportReasonSimple: Motivos de notificación simplificados
   regionReportReasonCategoryB: 'Motivos de denuncia ampliados: Normas de conducta
     - B) Comportamiento durante los cobros'
+  noPickupRuleActiveStores: Actualmente, la regla de las pasas no está activada para
+    ningún negocio del distrito.
 mailbox:
   mark_as_unread: 'Marcar correo como no leído'
   date: 'Fecha'
@@ -3315,6 +3325,14 @@ settings:
       por otro motivo, comuníquese con sus embajador@s locales.'
     non_verified_text: 'Aún no estás verificado. Solo l@s rescatistas de alimentos
       verificad@s pueden descargar su pasaporte.'
+    add_to_wallet:
+      google: Añadir a Google Wallet
+      apple: Añadir a Apple Wallet
+    wallet:
+      valid_end: Válido hasta el
+      name: Nombre
+      role: Papel
+      valid_start: Válido a partir de
   header: 'Configuración de perfil'
   chatmail: 'Si recibe un mensaje interno de foodsharing pero no ha iniciado
 
@@ -3461,7 +3479,7 @@ globals:
     workingGroups: Grupos
     regions_menu: Menú del distrito
     groups_menu: Menú de grupo
-    polls: Votación
+    polls: Votos
     mails: Correos electrónicos
     events: Eventos
   you: 'Tú'
@@ -3474,6 +3492,8 @@ globals:
   reset: 'Reiniciar'
   save: 'Ahorrar'
   telephone_number: Número de teléfono
+  save_changes: Guardar los cambios
+  saved: Se han guardado los cambios
 legal:
   acknowledge: '¿Aceptas el acuerdo?'
   dont_agree: 'No estoy de acuerdo con el procesamiento de mis datos y'
@@ -4261,6 +4281,20 @@ help:
         a la LMG. Sin embargo, la decisión y la responsabilidad de estas configuraciones
         recae únicamente en los administradores del grupo de informes local, quienes
         no *tienen* que seguir estas recomendaciones.\n"
+    basket:
+      title: Cestas de comida
+      md: "Las cestas de alimentos son ofrecidas por usuarios que desean entregar
+        alimentos (a menudo rescatados) **gratis**. Los usuarios registrados pueden
+        solicitar una cesta de alimentos para recogerla.\n"
+    achievementIcon:
+      md: "Cada logro tiene un ícono, un pequeño gráfico que debe mostrar a primera
+        vista de qué se trata. Puede encontrar una lista de íconos disponibles en
+        https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n\nEn el campo de entrada
+        debe ingresar el nombre del ícono que desea usar, por ejemplo \"*caminando*\"\
+        \ o \"*carrito de compras*\".\nPuede comprobar si su entrada funciona utilizando
+        la vista previa.\nSi no ingresa un ícono, se usará automáticamente el ícono
+        de logro predeterminado \"*etiqueta*\"\n"
+      title: Iconos de los logros
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
@@ -4307,10 +4341,23 @@ achievements:
   findUser: Buscar usuario
   editDetails: Ajustar detalles
   revoke: Retirar
-  edit: Personalizar {achievement} para {user}
+  edit: 'Editar logro: {name}'
   notAwarded: Este logro no se ha concedido actualmente a nadie.
   revokeConfirmation: ¿De verdad quieres privar a {name} de este logro?
   awarded: Conceder
+  editAwarded: Personalizar {achievement} para {user}
+  inRegion: ({count}) logros en {region}
+  new: Nuevo logro
+  editor:
+    validityInDaysAfterAssignment: Validez tras la asignación en días
+    description: Descripción
+    name: Nombre
+    icon: Icono
+    preview: Vista previa
+  noneInThisRegion: No hay logros registrados en esta región.
+  editTitle: Editar los logros
+  add: Agregar logro
+  deleteConfirmation: ¿De verdad quieres borrar este logro?
 copied_to_clipboard: Se ha copiado «{text}» al portapapeles.
 theme_switcher:
   title: Elegir diseño

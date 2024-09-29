@@ -333,7 +333,7 @@ class RegionRestController extends AbstractFoodsharingRestController
             throw new UnauthorizedHttpException('');
         }
         $includeWorkingGroups = !is_null($paramFetcher->get('includeWorkingGroups'));
-        if ($includeWorkingGroups && !$this->currentUserUnits->mayBezirk($regionId)) {
+        if ($includeWorkingGroups && !$this->regionPermissions->mayAccessWorkingGroupList($regionId)) {
             throw new UnauthorizedHttpException('');
         }
 

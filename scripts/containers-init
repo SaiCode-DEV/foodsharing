@@ -29,6 +29,7 @@ log-header "Waiting for assets to be generated ..."
 wait-for-assets
 exec-in-container app "bin/console assets:install"
 
+
 log-header "All done"
 
 "$dir"/__helping-print-intro.sh
