@@ -12,6 +12,6 @@ export async function getFoodSharePoint (foodSharePointId) {
   return await get(`/foodSharePoints/${foodSharePointId}`)
 }
 
-export async function updateFoodSharePoint (foodSharePointId) {
-  return await patch(`/foodSharePoints/${foodSharePointId}`)
+export async function updateFoodSharePoint (foodSharePointId, foodSharePointData) {
+  return patch(`/foodSharePoints/${foodSharePointId}`, { ...foodSharePointData })
 }

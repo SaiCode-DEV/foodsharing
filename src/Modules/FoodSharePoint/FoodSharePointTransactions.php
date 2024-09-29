@@ -121,11 +121,11 @@ class FoodSharePointTransactions
 
     public function editFoodSharePoint(int $foodSharePointId, FoodSharePointForCreation $foodSharePoint): void
     {
-        $this->foodSharePointGateway->updateFoodSharePoint($foodSharePointId, $foodSharePoint);
+        $this->foodSharePointGateway->updateFoodSharePoint($foodSharePointId, [$foodSharePoint]);
 
         // If a picture was uploaded for this food share point, its usage type needs to be set
-        if (!empty($data->picture)) {
-            $uuid = substr($data->picture, 13);
+        if (!empty($foodSharePoint->picture)) {
+            $uuid = substr($foodSharePoint->picture, 13);
             $this->uploadsGateway->setUsage([$uuid], UploadUsage::FOOD_SHARE_POINT_TITLE, $foodSharePointId);
         }
     }
