@@ -354,6 +354,16 @@ settings:
       label: Should past appointments from the last 2 weeks be included?
       "true": Yes, include recent appointments
     protocol: Which protocol is your calendar software using?
+    info: "Here, you can connect your foodsharing appointments with the calendar software
+      of your choice. That way, your pickup times and events will be entered into
+      your calendar.\n\n**Always keep your calendar links secret.** They contain a
+      *token*, which allows to access the data of your appointments without a password.
+      You can always delete your current token, which renders all your previous calendar
+      links invalid.\n\nYour calendar software needs to **synchronise** the data regulary,
+      so that new appointments show up and canceled events disappear. If you download
+      the calendar file instead, you will only see your current appointments and will
+      not receive automatic updates.\n\nYou can find more information about this [in
+      the Wiki]({calendarUrl}).\n"
   saved: The changes were saved.
   changemail:
     done: Your e-mail address was changed.
@@ -3714,6 +3724,8 @@ quiz:
   confirmComment: Should your comment be sent to the administrators of this quiz?
   confirmDashboardText: You have passed a quiz that you have not yet confirmed. [Click
     here]({url}) to complete the process!
+  test_results: Results of the test
+  test: Test quiz
 nofp: no error points (not a serious question)
 fpsingular: Error point
 request_time: 'Time of request:'
@@ -3932,6 +3944,8 @@ globals:
     signout: Sign out
     signup: Participate
   telephone_number: Telephone number
+  saved: Changes were saved
+  save_changes: Save changes
 bootstrap-datepicker:
   labelPrevDecade: Previous decade
   labelPrevYear: Previous year
@@ -4127,12 +4141,37 @@ help:
         later. TODO\n"
     reportReasons:
       title: Report form
+      md: "Using the report form, foodsavers can directly report rule violations.
+        If it is activated, people who are responsible for reports will recieve notifications
+        about reports.\n---\nThe local report group of the region can adjust which
+        reasons are selectable in the report form.\nThis can either be the simple
+        or extended versions of the reasons. In the extended version, all rules that
+        are listed [in the Wiki at point B](https://wiki.foodsharing.de/Verhaltensregeln#B.29_Verhalten_bei_Abholungen)
+        will be listed.\nAdditionally, the option \"Other reason\" can be enabled
+        to be listed in the form.\n---\nRecommendations about the settings can be
+        given to the local report group. The decision about this can, however, be
+        solely made by the administrators of that group, who do not *have to* follow
+        these recommendations.\n"
     report:
       title: Report processing
+      md: "Here, you see all reports that were made about people in this home region.
+        However, not all reports are shown to you:\n- You will not see any reports,
+        which involve you or any other admin of the local report group or the arbitration
+        group.\n- If you are admin of the arbitration group, you will only see reports
+        which involve an admin of the local report group.\n---\nYou can find information
+        about processing reports at: [Bearbeitung einer Meldung (German)](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)\n"
     basket:
       title: Food baskets
       md: "Food baskets are offered by users who want to give away (often rescued)
         food **for free**. Registered users can request a food basket to pick it up.\n"
+    achievementIcon:
+      title: Icons for achievements
+      md: "Each achievement has an icon that should indicate, what the achievement
+        is about. You can find a list of available icons at https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n
+        \nYou need to put the name of the desired icon into the field, for example
+        \"*walking*\" or \"*shopping-cart*\".\nIf the input is valid, you will see
+        the icon in the preview.\nThe icon \"*tag*\" will be used as default if you
+        do not enter an icon.\n"
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -4173,7 +4212,7 @@ achievements:
   notice: Remark
   editDetails: Edit details
   revoke: Revoke
-  edit: Edit {achievement} for {user}
+  edit: 'Edit achievement: {name}'
   awardedNoReviewer: Automatically
   awarded: Awarded
   awardedTo: To
@@ -4182,6 +4221,19 @@ achievements:
   findUser: Find user
   revokeConfirmation: Are you sure you want to revoke this achievement from {name}?
   notAwarded: This achievement is currently not awarded to anyone.
+  editAwarded: Adjust achievement {achievement} for user {user}
+  inRegion: Achievements in {region} ({count})
+  add: Add achievement
+  new: New achievement
+  editor:
+    name: Name
+    preview: Preview
+    icon: Icon
+    validityInDaysAfterAssignment: Validity in days after awarding
+    description: Description
+  noneInThisRegion: There are no achievements listed for this region.
+  deleteConfirmation: Do you really want to delete this achievement?
+  editTitle: Edit achievement
 copied_to_clipboard: '“{text}” was copied to the clipboard.'
 store_categories:
   columns:
