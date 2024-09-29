@@ -7,6 +7,7 @@ use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\BellTransactions;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
+use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Event\EventGateway;
@@ -66,7 +67,7 @@ class WallPostTransactions
     private function sendQuestionCommentBell(int $questionId, WallPost $post)
     {
         $quizId = $this->quizGateway->getQuizIdFromQuestionId($questionId);
-        $recipients = $this->quizPermissions->getQuizAdmins($quizId);
+        $recipients = $this->quizPermissions->getQuizAdmins(QuizID::from($quizId));
         $bell = Bell::create(
             'new_quiz_comment_title',
             'new_quiz_comment',

@@ -8,18 +8,24 @@ use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Quiz\QuizGateway;
-use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 final class QuizPermissions
 {
     public function __construct(
         private readonly Session $session,
-        private readonly RegionGateway $regionGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly QuizGateway $quizGateway,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
+    }
+
+    public function responsibleGroupId(QuizID $quizId): int
+    {
+        return match ($quizId) {
+            QuizID::FOODSAVER, QuizID::STORE_MANAGER, QuizID::AMBASSADOR => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP,
+            QuizID::HYGIENE => RegionIDs::HYGIENE_GROUP,
+        };
     }
 
     public function maySeeEditQuizPage(): bool
@@ -27,17 +33,20 @@ final class QuizPermissions
         return $this->session->mayRole(Role::ORGA) || $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP) || $this->currentUserUnits->isAdminFor(RegionIDs::HYGIENE_GROUP);
     }
 
+    /**
+     * Whether the quiz may be edited by the user.
+     * @see getQuizAdmins: make sure that every user for whom `mayEditQuiz` returns `true`, is in the list returned by that function
+     */
     public function mayEditQuiz(?QuizID $quizId): bool
     {
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
+        if (!$quizId) {
+            return false;
+        }
 
-        return match ($quizId) {
-            QuizID::FOODSAVER, QuizID::STORE_MANAGER, QuizID::AMBASSADOR => $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP),
-            QuizID::HYGIENE => $this->currentUserUnits->isAdminFor(RegionIDs::HYGIENE_GROUP),
-            default => false,
-        };
+        return $this->currentUserUnits->isAdminFor($this->responsibleGroupId($quizId));
     }
 
     /**
@@ -48,14 +57,14 @@ final class QuizPermissions
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
+        if (!$quizId) {
+            return false;
+        }
 
-        // TODO change to only if the quiz is passed
-        return match ($quizId) {
-            QuizID::FOODSAVER => $this->regionGateway->hasMember($this->session->id(), RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP),
-            QuizID::STORE_MANAGER, QuizID::AMBASSADOR => $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP),
-            QuizID::HYGIENE => $this->currentUserUnits->mayBezirk(RegionIDs::HYGIENE_GROUP),
-            default => false,
-        };
+        $canOnlyReadAsAdmin = in_array($quizId, [QuizID::FOODSAVER, QuizID::STORE_MANAGER, QuizID::AMBASSADOR]);
+        $method = $canOnlyReadAsAdmin ? 'isAdminFor' : 'mayBezirk';
+
+        return $this->currentUserUnits->$method($this->responsibleGroupId($quizId));
     }
 
     /**
@@ -97,23 +106,17 @@ final class QuizPermissions
 
     /**
      * Returns the people who are allowed to administrate a given quiz.
-     *
-     * With future quizzes this function is supposed to define who is responsible for what quiz.
-     * Therefor it is part of this permissions class.
      */
-    public function getQuizAdmins(int $quizId): array
+    public function getQuizAdmins(QuizID $quizId): array
     {
-        return $this->foodsaverGateway->getAdminsOrAmbassadors(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP);
+        return $this->foodsaverGateway->getAdminsOrAmbassadors($this->responsibleGroupId($quizId));
     }
 
-    public function requiresConfirmation(int $quizId): bool
+    public function requiresConfirmation(QuizID $quizId): bool
     {
-        switch ($quizId) {
-            case QuizID::FOODSAVER->value:
-            case QuizID::STORE_MANAGER->value:
-                return true;
-            default:
-                return false;
-        }
+        return match ($quizId) {
+            QuizID::FOODSAVER, QuizID::STORE_MANAGER => true,
+            default => false,
+        };
     }
 }
