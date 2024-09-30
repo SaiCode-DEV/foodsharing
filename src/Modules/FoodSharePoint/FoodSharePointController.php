@@ -233,7 +233,10 @@ class FoodSharePointController extends FoodsharingController
 
         $params['regions'] = $this->regions;
         $params['managers'] = $this->managers; */
-        $foodSharePoint = $this->prepareVueComponent('food-share-point-add-or-edit', 'FoodSharePointAddOrEdit');
+        $foodSharePoint = $this->prepareVueComponent('food-share-point-add-or-edit', 'FoodSharePointAddOrEdit', [
+            'foodSharePointId' => $this->foodSharePoint['id'],
+            'regionId' => $this->regionId
+        ]);
         $this->pageHelper->addContent($foodSharePoint);
 
         /* $this->pageHelper->addContent($this->view->foodSharePointForm($data)); */

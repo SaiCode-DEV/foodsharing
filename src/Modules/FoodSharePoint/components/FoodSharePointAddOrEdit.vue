@@ -70,26 +70,32 @@
 </template>
 
 <script setup>
-import { onMounted, computed, ref } from 'vue'
+import { onMounted, computed, ref, defineProps } from 'vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import FileUploadVForm from '@/components/upload/FileUploadVForm.vue'
 import LeafletLocationSearchVForm from '@/components/map/LeafletLocationSearchVForm'
 import MultiUserSearchInput from '@/components/MultiUserSearchInput.vue'
-import { useFoodSharePointStore } from '@/stores/foodSharePoint'
 import { useRegionStore } from '@/stores/regions'
 import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
-import { addFoodSharePoint, updateFoodSharePoint } from '@/api/foodsharepoints'
+import { addFoodSharePoint, getFoodSharePoint, updateFoodSharePoint } from '@/api/foodsharepoints'
 
-const foodSharePointStore = useFoodSharePointStore()
 const regionStore = useRegionStore()
 const zoom = 17
 
-const selectedRegionId = ref()
-const foodSharePointId = ref()
+const props = defineProps({
+  foodSharePointId: {
+    type: Number,
+    default: null,
+  },
+  regionId: {
+    type: Number,
+    default: null,
+  },
+})
 
 const formData = ref({
-  regionId: selectedRegionId.value,
+  regionId: props.regionId,
   name: '',
   description: '',
   picture: null,
@@ -103,8 +109,8 @@ const formData = ref({
 async function saveFoodSharePoint () {
   showLoader()
   try {
-    if (foodSharePointId) {
-      await updateFoodSharePoint(foodSharePointId, formData.value)
+    if (props.foodSharePointId) {
+      await updateFoodSharePoint(props.foodSharePointId, formData.value)
       pulseSuccess(i18n('blog.success.edit'))
     } else {
       await addFoodSharePoint(formData.value)
@@ -126,14 +132,12 @@ const regionOptions = computed(() => {
 })
 
 onMounted(() => {
-  const url = new URL(window.location.href)
-  const searchParams = new URLSearchParams(url.search)
-  selectedRegionId.value = parseInt(searchParams.get('bid'))
-  foodSharePointId.value = parseInt(searchParams.get('id'))
-  console.log('foodSharePointId', foodSharePointId.value)
+  if (!props.foodSharePointId) {
+    // Create new foodSharePoint
+    return
+  }
   showLoader()
-  foodSharePointStore.fetchFoodSharePoint(foodSharePointId.value).then((response) => {
-    console.log('response', response)
+  getFoodSharePoint(props.foodSharePointId).then((response) => {
     formData.value = response
     hideLoader()
   })
