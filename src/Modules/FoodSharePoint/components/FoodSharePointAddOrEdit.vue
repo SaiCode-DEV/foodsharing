@@ -45,6 +45,7 @@
 
         <b-form-group label="Adress-/Standort-Suche" label-for="name-input">
           <LeafletLocationSearchVForm
+            v-if="dataLoaded"
             :coordinates="formData.location"
             :street="formData.address"
             :postal-code="formData.postalCode"
@@ -94,6 +95,8 @@ const props = defineProps({
   },
 })
 
+const dataLoaded = ref(!props.foodSharePointId) // True if creating new
+
 const formData = ref({
   regionId: props.regionId,
   name: '',
@@ -140,6 +143,9 @@ onMounted(() => {
   getFoodSharePoint(props.foodSharePointId).then((response) => {
     formData.value = response
     hideLoader()
+    dataLoaded.value = true // Data is now loaded
+    console.log('response', response)
+    console.log('formData', formData.value)
   })
 })
 </script>

@@ -139,9 +139,8 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
             'description' => $data['desc'],
             'address' => $data['anschrift'],
             'city' => $data['ort'],
-            'postcode' => $data['plz'],
-            'lat' => (float)$data['lat'],
-            'lon' => (float)$data['lon'],
+            'postalCode' => $data['plz'],
+            'location' => ['lat' => (float)$data['lat'], 'lon' => (float)$data['lon']],
             'createdAt' => RestNormalization::normalizeDate($data['time_ts']),
             'picture' => $data['picture'] ?: null,
             'followers' => [
