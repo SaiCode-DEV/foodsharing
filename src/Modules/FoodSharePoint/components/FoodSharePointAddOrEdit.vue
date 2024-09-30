@@ -52,7 +52,7 @@
 
         <label for="tags-basic">Foodsaver:innen, die Ansprechpersonen für den Fairteiler sind</label>
         <multi-user-search-input
-          v-model="formData.followers.manager"
+          v-model="formData.manager"
           :region-id="formData.regionId"
           button-icon="fa-user-plus"
           :is-value-object="true"
@@ -67,7 +67,7 @@
 </template>
 
 <script setup>
-import { onMounted, computed, ref } from 'vue'
+import { onMounted, computed, ref, watch } from 'vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import FileUploadVForm from '@/components/upload/FileUploadVForm.vue'
 import LeafletLocationSearchVForm from '@/components/map/LeafletLocationSearchVForm'
@@ -86,15 +86,32 @@ const selectedRegionId = ref()
 const foodSharePointId = ref()
 
 const formData = ref({
-  regionId: selectedRegionId,
-  name: foodSharePointStore.foodSharePoint.name,
-  description: foodSharePointStore.foodSharePoint.description,
-  picture: foodSharePointStore.foodSharePoint.picture,
-  address: foodSharePointStore.foodSharePoint.address,
-  postalCode: foodSharePointStore.foodSharePoint.postcode,
-  city: foodSharePointStore.foodSharePoint.city,
-  location: { lat: foodSharePointStore.foodSharePoint.lat, lon: foodSharePointStore.foodSharePoint.lon },
+  regionId: selectedRegionId.value,
+  name: '',
+  description: '',
+  picture: null,
+  address: '',
+  postalCode: '',
+  city: '',
+  location: { lat: null, lon: null },
+  managers: [],
 })
+
+watch(() => foodSharePointStore.foodSharePoint, (newValue) => {
+  if (newValue) {
+    formData.value = {
+      regionId: selectedRegionId.value,
+      name: newValue.name,
+      description: newValue.description,
+      picture: newValue.picture,
+      address: newValue.address,
+      postalCode: newValue.postcode,
+      city: newValue.city,
+      location: { lat: newValue.lat, lon: newValue.lon },
+      managers: newValue.managers,
+    }
+  }
+}, { immediate: true })
 
 async function saveFoodSharePoint () {
   showLoader()
@@ -126,9 +143,9 @@ onMounted(() => {
   const searchParams = new URLSearchParams(url.search)
   selectedRegionId.value = parseInt(searchParams.get('bid'))
   foodSharePointId.value = parseInt(searchParams.get('id'))
-  console.log('foodSharePointId', this.foodSharePointId)
-  foodSharePointStore.fetchFoodSharePoint(foodSharePointId.value)
-  console.log('foodSharePointStore', foodSharePointStore)
+  if (foodSharePointId.value) {
+    foodSharePointStore.fetchFoodSharePoint(foodSharePointId.value)
+  }
 })
 </script>
 
