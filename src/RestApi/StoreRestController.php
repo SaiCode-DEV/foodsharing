@@ -927,21 +927,7 @@ class StoreRestController extends AbstractFoodsharingRestController
         $storeLogEntries = $this->storeGateway->getStoreLogsByActionType($storeId, $storeLogActions, $fromDate, $toDate, $pagination);
         $extendedLogEntries = $this->extendStoreLogWithFoodsaverProfilData($storeId, $storeLogEntries);
 
-        $timeZone = new DateTimeZone('Europe/Berlin');
-        $timeZoneOffset = $timeZone->getOffset(new DateTime('now', $timeZone));
-
-        $extendedLogEntries = array_map(function ($logEntry) use ($timeZoneOffset) {
-            $correctedSlotDate = new DateTime($logEntry['date_reference']);
-            $correctedSlotDate->add(new \DateInterval("PT{$timeZoneOffset}S"));
-            $logEntry['date_reference'] = $correctedSlotDate->format(DATE_ATOM);
-
-            $correctedPerformedAtDate = new DateTime($logEntry['performed_at']);
-            $logEntry['performed_at'] = $correctedPerformedAtDate->format(DATE_ATOM);
-
-            return $logEntry;
-        }, $extendedLogEntries);
-
-        return $this->handleView($this->view($extendedLogEntries, 200));
+        return $this->respondOK($extendedLogEntries);
     }
 
     private function extendStoreLogWithFoodsaverProfilData(int $storeId, array $storeLogEntries): array
