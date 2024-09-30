@@ -3,6 +3,8 @@
 namespace Foodsharing\Utility;
 
 use Carbon\Carbon;
+use Exception;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class TimeHelper
@@ -78,22 +80,14 @@ final class TimeHelper
         ][$day];
     }
 
-    public static function parsePickupDate(string $pickupDate): ?Carbon
+    public static function parsePickupDate(string $pickupDate): Carbon
     {
-        $date = null;
-
         try {
-            $date = @Carbon::createFromFormat(DATE_ATOM, $pickupDate);
-        } catch (\Exception) {
+            $date = new Carbon($pickupDate);
+            $date->setTimezone('Europe/Berlin');
+            return $date;
+        } catch (Exception $e) {
+            throw new BadRequestHttpException('Invalid date format');
         }
-
-        if (is_null($date)) {
-            try {
-                $date = Carbon::createFromFormat('Y-m-d\TH:i:s.uP', $pickupDate);
-            } catch (\Exception) {
-            }
-        }
-
-        return $date;
     }
 }

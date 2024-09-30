@@ -916,9 +916,6 @@ class StoreRestController extends AbstractFoodsharingRestController
 
         $fromDate = TimeHelper::parsePickupDate($fromDate);
         $toDate = TimeHelper::parsePickupDate($toDate);
-        if (is_null($fromDate) || is_null($toDate)) {
-            throw new BadRequestHttpException('Invalid date format');
-        }
 
         if (Carbon::now()->subMonths(6)->subDay() > $fromDate) { // 6 months + 1 day for rounding
             throw new BadRequestHttpException('Cannot access store log more than 6 months back.');
