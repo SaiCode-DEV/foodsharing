@@ -5,14 +5,11 @@ namespace Foodsharing\Modules\FoodSharePoint;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
-use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Region\RegionGateway;
-use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Utility\IdentificationHelper;
-use Foodsharing\Utility\Sanitizer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -35,8 +32,6 @@ class FoodSharePointController extends FoodsharingController
         private readonly FoodSharePointGateway $foodSharePointGateway,
         private readonly RegionGateway $regionGateway,
         private readonly MailboxGateway $mailboxGateway,
-        private readonly UploadsGateway $uploadsGateway,
-        private readonly Sanitizer $sanitizerService,
         private readonly IdentificationHelper $identificationHelper,
         private readonly FoodSharePointPermissions $foodSharePointPermissions,
     ) {

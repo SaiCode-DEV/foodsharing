@@ -11,6 +11,7 @@ use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Permissions\RegionPermissions;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -200,12 +201,14 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
     }
 
     #[OA2\Patch(summary: 'Edit an existing food share point.')]
-    #[OA2\RequestBody(content: new Model(type: FoodSharePointForCreation::class))]
-    #[ParamConverter('foodSharePoint', class: FoodSharePointForCreation::class, converter: 'fos_rest.request_body')]
+    #[OA2\RequestBody(content: new Model(type: FoodSharePointEditData::class))]
+    #[ParamConverter('foodSharePoint', class: FoodSharePointEditData::class, converter: 'fos_rest.request_body')]
     #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid date')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to access this region')]
     #[Rest\Patch('foodSharePoints/{foodSharePointId}', requirements: ['foodSharePointId' => '\d+'])]
-    public function editFoodSharePoint(int $foodSharePointId, FoodSharePointForCreation $foodSharePointData, ValidatorInterface $validator): Response
+    public function editFoodSharePoint(int $foodSharePointId, FoodSharePointEditData $foodSharePointData, ValidatorInterface $validator): Response
     {
         $this->assertLoggedIn();
         $this->assertThereAreNoValidationErrors($validator, $foodSharePointData);
