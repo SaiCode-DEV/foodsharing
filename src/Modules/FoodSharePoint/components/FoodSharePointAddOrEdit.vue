@@ -46,6 +46,9 @@
         <b-form-group label="Adress-/Standort-Suche" label-for="name-input">
           <LeafletLocationSearchVForm
             :coordinates="formData.location"
+            :street="formData.address"
+            :postal-code="formData.postalCode"
+            :city="formData.city"
             :zoom="zoom"
           />
         </b-form-group>
@@ -67,7 +70,7 @@
 </template>
 
 <script setup>
-import { onMounted, computed, ref, watch } from 'vue'
+import { onMounted, computed, ref } from 'vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import FileUploadVForm from '@/components/upload/FileUploadVForm.vue'
 import LeafletLocationSearchVForm from '@/components/map/LeafletLocationSearchVForm'
@@ -96,22 +99,6 @@ const formData = ref({
   location: { lat: null, lon: null },
   managers: [],
 })
-
-watch(() => foodSharePointStore.foodSharePoint, (newValue) => {
-  if (newValue) {
-    formData.value = {
-      regionId: selectedRegionId.value,
-      name: newValue.name,
-      description: newValue.description,
-      picture: newValue.picture,
-      address: newValue.address,
-      postalCode: newValue.postcode,
-      city: newValue.city,
-      location: { lat: newValue.lat, lon: newValue.lon },
-      managers: newValue.managers,
-    }
-  }
-}, { immediate: true })
 
 async function saveFoodSharePoint () {
   showLoader()
@@ -143,9 +130,13 @@ onMounted(() => {
   const searchParams = new URLSearchParams(url.search)
   selectedRegionId.value = parseInt(searchParams.get('bid'))
   foodSharePointId.value = parseInt(searchParams.get('id'))
-  if (foodSharePointId.value) {
-    foodSharePointStore.fetchFoodSharePoint(foodSharePointId.value)
-  }
+  console.log('foodSharePointId', foodSharePointId.value)
+  showLoader()
+  foodSharePointStore.fetchFoodSharePoint(foodSharePointId.value).then((response) => {
+    console.log('response', response)
+    formData.value = response
+    hideLoader()
+  })
 })
 </script>
 
