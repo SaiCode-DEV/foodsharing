@@ -43,6 +43,7 @@
 - Fixed Invalid Time when time is undefined #1924 !3652 !3656 @SaiCode
 - Fix typos and inconsistent spelling in email templates !3657 @iron9
 - Fix duplicate 'kg' in global statistics #2108 !3658 @iron9
+- Fix time zone problems in store log #977 !3673 @AntonBallmaier 
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
