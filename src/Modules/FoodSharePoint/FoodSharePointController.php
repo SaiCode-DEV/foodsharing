@@ -5,7 +5,6 @@ namespace Foodsharing\Modules\FoodSharePoint;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
-use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
@@ -203,13 +202,13 @@ class FoodSharePointController extends FoodsharingController
             '/fairteiler?sub=ft&bid=' . $this->regionId . '&id=' . $this->foodSharePoint['id']
         );
         $this->pageHelper->addBread($this->translator->trans('fsp.edit'));
-        if ($request->request->get('form_submit') === 'fairteiler') {
+        /* if ($request->request->get('form_submit') === 'fairteiler') {
             if ($this->handleEditFsp($request)) {
                 $this->flashMessageHelper->success($this->translator->trans('fsp.editSuccess'));
             } else {
                 $this->flashMessageHelper->error($this->translator->trans('error_unexpected'));
             }
-        }
+        } */
 
         $data = $this->foodSharePoint;
 
@@ -363,65 +362,6 @@ class FoodSharePointController extends FoodsharingController
         );
 
         return $this->renderGlobal();
-    }
-
-    private function handleEditFsp(Request $request): bool
-    {
-        if (!$this->foodSharePointPermissions->mayEdit($this->regionId, $this->follower)) {
-            return false;
-        }
-
-        $data = $this->prepareInput($request);
-        if (!$this->validateInput($data)) {
-            return false;
-        }
-
-        $fspManager = $this->sanitizerService->tagSelectIds((array)$request->request->all()['fspmanagers']);
-        $this->foodSharePointGateway->updateFSPManagers($this->foodSharePoint['id'], $fspManager);
-
-        if (!empty($data['picture'])) {
-            $uuid = substr($data['picture'], 13);
-            $this->uploadsGateway->setUsage([$uuid], UploadUsage::FOOD_SHARE_POINT_TITLE, $this->foodSharePoint['id']);
-        }
-
-        return $this->foodSharePointGateway->updateFoodSharePoint($this->foodSharePoint['id'], $data);
-    }
-
-    private function prepareInput(Request $request): array
-    {
-        // For old pictures the upload form needs an additional "/images/" in front of the path, which needs to be removed
-        // before storing the path in the database
-        $pic = strip_tags((string)$request->request->get('picture'));
-        if (str_starts_with($pic, '/images/')) {
-            $pic = substr($pic, 8);
-        }
-
-        return [
-            'name' => $request->request->get('name'),
-            'desc' => $request->request->get('desc'),
-            'anschrift' => strip_tags((string)$request->request->get('anschrift')),
-            'plz' => preg_replace('[^0-9]', '', (string)$request->request->get('plz')),
-            'ort' => strip_tags((string)$request->request->get('ort')),
-            'picture' => $pic,
-            'bezirk_id' => (int)$request->request->getDigits('fsp_bezirk_id'),
-            'lat' => $request->request->filter(
-                'lat',
-                null,
-                FILTER_SANITIZE_NUMBER_FLOAT,
-                ['flags' => FILTER_FLAG_ALLOW_FRACTION]
-            ),
-            'lon' => $request->request->filter(
-                'lon',
-                null,
-                FILTER_SANITIZE_NUMBER_FLOAT,
-                ['flags' => FILTER_FLAG_ALLOW_FRACTION]
-            ),
-        ];
-    }
-
-    private function validateInput(array $data): bool
-    {
-        return $data['lat'] && $data['lon'] && $data['bezirk_id'];
     }
 
     private function isFollower(): bool
