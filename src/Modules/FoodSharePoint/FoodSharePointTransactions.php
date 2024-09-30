@@ -9,8 +9,10 @@ use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Uploads\UploadsGateway;
+use Foodsharing\Modules\Uploads\UploadsTransactions;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\RestApi\Models\FoodSharePoint\AddFoodSharePointResponse;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 use Foodsharing\RestApi\Models\Notifications\FoodSharePoint;
 use Foodsharing\Utility\EmailHelper;
@@ -24,6 +26,7 @@ class FoodSharePointTransactions
         private readonly FoodSharePointPermissions $foodSharePointPermissions,
         private readonly BellGateway $bellGateway,
         private readonly UploadsGateway $uploadsGateway,
+        private readonly UploadsTransactions $uploadsTransactions,
         private readonly EmailHelper $emailHelper,
         private readonly Sanitizer $sanitizer,
         private readonly TranslatorInterface $translator,
@@ -124,9 +127,14 @@ class FoodSharePointTransactions
         $this->foodSharePointGateway->updateFoodSharePoint($foodSharePointId, $newData);
 
         // If a picture was uploaded for this food share point, its usage type needs to be set
-        if (!empty($newData->picture)) {
+        if (!empty($newData->picture) && $newData->picture !== $currentData['pic']) {
+            $oldUUID = substr($currentData['picture'], 13);
+            $this->uploadsTransactions->deleteUploadedFile($oldUUID);
+
             $uuid = substr($newData->picture, 13);
             $this->uploadsGateway->setUsage([$uuid], UploadUsage::FOOD_SHARE_POINT_TITLE, $foodSharePointId);
         }
+
+        $this->foodSharePointGateway->updateFSPManagers($currentData['id'], $newData->managerIds);
     }
 }
