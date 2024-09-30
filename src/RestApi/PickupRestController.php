@@ -4,6 +4,7 @@ namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -63,10 +64,7 @@ final class PickupRestController extends AbstractFOSRestController
             throw new AccessDeniedHttpException();
         }
 
-        $date = TimeHelper::parsePickupDate($pickupDate);
-        if (is_null($date)) {
-            throw new BadRequestHttpException('Invalid date format');
-        }
+        $date = $this->getLocaleCarbon($pickupDate);
 
         try {
             $isConfirmed = $this->storeTransactions->joinPickup($storeId, $date, $fsId, $this->session->id());
@@ -138,10 +136,7 @@ final class PickupRestController extends AbstractFOSRestController
     private function doLeavePickup(int $storeId, string $pickupDate, int $fsId, string $message = '', bool $sendKickMessage = true)
     {
         $message = trim($message);
-        $date = TimeHelper::parsePickupDate($pickupDate);
-        if (is_null($date)) {
-            throw new BadRequestHttpException('Invalid date format');
-        }
+        $date = $this->getLocaleCarbon($pickupDate);
 
         if ($date < Carbon::now()) {
             throw new BadRequestHttpException('Cannot modify pickup in the past.');
@@ -192,10 +187,7 @@ final class PickupRestController extends AbstractFOSRestController
             throw new AccessDeniedHttpException();
         }
 
-        $date = TimeHelper::parsePickupDate($pickupDate);
-        if (is_null($date)) {
-            throw new BadRequestHttpException('Invalid date format');
-        }
+        $date = $this->getLocaleCarbon($pickupDate);
 
         if ($paramFetcher->get('isConfirmed')) {
             if (!$this->pickupGateway->confirmFetcher($fsId, $storeId, $date)) {
@@ -327,10 +319,7 @@ final class PickupRestController extends AbstractFOSRestController
             }
         }
 
-        $date = TimeHelper::parsePickupDate($pickupDate);
-        if (is_null($date)) {
-            throw new BadRequestHttpException('Invalid date format');
-        }
+        $date = $this->getLocaleCarbon($pickupDate);
 
         $totalSlots = $paramFetcher->get('totalSlots');
         if (!is_numeric($totalSlots)) {
@@ -394,8 +383,8 @@ final class PickupRestController extends AbstractFOSRestController
             throw new AccessDeniedHttpException();
         }
         // convert date strings into datetime objects
-        $from = TimeHelper::parsePickupDate($fromDate);
-        $to = TimeHelper::parsePickupDate($toDate);
+        $from = new Carbon($fromDate);
+        $to = new Carbon($toDate);
         if (is_null($from) || is_null($to)) {
             throw new BadRequestHttpException('Invalid date format');
         }
@@ -665,14 +654,21 @@ final class PickupRestController extends AbstractFOSRestController
             throw new UnauthorizedHttpException('');
         }
 
-        // is it a valid pickupdate?
-        $pickupSlotDate = TimeHelper::parsePickupDate($pickupDate);
-        if (is_null($pickupSlotDate)) {
-            throw new BadRequestHttpException('Invalid date format');
-        }
+        $date = $this->getLocaleCarbon($pickupDate);
 
-        $response['result'] = $this->storeTransactions->checkPickupRule($storeId, $pickupSlotDate, $fsId);
+        $response['result'] = $this->storeTransactions->checkPickupRule($storeId, $date, $fsId);
 
         return $this->handleView($this->view($response));
+    }
+
+    private function getLocaleCarbon(string $pickupDate): Carbon
+    {
+        try {
+            $date = new Carbon($pickupDate);
+            $date->setTimezone('Europe/Berlin');
+            return $date;
+        } catch (Exception $e) {
+            throw new BadRequestHttpException('Invalid date format');
+        }
     }
 }
