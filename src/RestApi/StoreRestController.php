@@ -4,7 +4,6 @@ namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
 use DateTime;
-use DateTimeZone;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellTransactions;

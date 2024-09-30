@@ -229,7 +229,7 @@ final class PickupRestController extends AbstractFOSRestController
 
         try {
             $regularPickups = $this->pickupTransactions->getRegularPickup($storeId);
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             // catch invalid query
             throw new NotFoundHttpException('Store not found.', $ex);
         }
@@ -381,11 +381,8 @@ final class PickupRestController extends AbstractFOSRestController
             throw new AccessDeniedHttpException();
         }
         // convert date strings into datetime objects
-        $from = new Carbon($fromDate);
-        $to = new Carbon($toDate);
-        if (is_null($from) || is_null($to)) {
-            throw new BadRequestHttpException('Invalid date format');
-        }
+        $from = TimeHelper::parsePickupDate($fromDate);
+        $to = TimeHelper::parsePickupDate($toDate);
         $from = $from->min(Carbon::now());
         $to = $to->min(Carbon::now());
 

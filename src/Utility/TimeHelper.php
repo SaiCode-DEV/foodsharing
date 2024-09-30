@@ -85,6 +85,7 @@ final class TimeHelper
         try {
             $date = new Carbon($pickupDate);
             $date->setTimezone('Europe/Berlin');
+
             return $date;
         } catch (Exception $e) {
             throw new BadRequestHttpException('Invalid date format');
