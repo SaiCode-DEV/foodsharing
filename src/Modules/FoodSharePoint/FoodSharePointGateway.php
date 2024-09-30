@@ -12,6 +12,7 @@ use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 
 class FoodSharePointGateway extends BaseGateway
@@ -347,10 +348,20 @@ class FoodSharePointGateway extends BaseGateway
         $this->removeBellNotificationForNewFoodSharePoint($foodSharePointId);
     }
 
-    public function updateFoodSharePoint(int $foodSharePointId, array $foodSharePointData): bool
+    public function updateFoodSharePoint(int $foodSharePointId, FoodSharePointEditData $foodSharePointData): bool
     {
         $this->db->requireExists('fs_fairteiler', ['id' => $foodSharePointId]);
-        $this->db->update('fs_fairteiler', $foodSharePointData, ['id' => $foodSharePointId]);
+        $this->db->update('fs_fairteiler', [
+            'name' => $foodSharePointData->name,
+            'desc' => $foodSharePointData->description,
+            'anschrift' => strip_tags($foodSharePointData->address),
+            'plz' => preg_replace('[^0-9]', '', $foodSharePointData->postalCode),
+            'ort' => strip_tags($foodSharePointData->city),
+            'picture' => $foodSharePointData->picture,
+            'bezirk_id' => $foodSharePointData->regionId,
+            'lat' => $foodSharePointData->location->lat,
+            'lon' => $foodSharePointData->location->lon,
+        ], ['id' => $foodSharePointId]);
 
         return true;
     }

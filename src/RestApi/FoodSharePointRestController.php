@@ -9,6 +9,7 @@ use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointTransactions;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
+use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -36,6 +37,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
     public function __construct(
         private readonly FoodSharePointGateway $foodSharePointGateway,
         private readonly FoodSharePointTransactions $foodSharePointTransactions,
+        private readonly FoodSharePointPermissions $foodSharePointPermissions,
         private readonly RegionGateway $regionGateway,
         private readonly RegionPermissions $regionPermissions,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
@@ -203,12 +205,21 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
     #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to access this region')]
     #[Rest\Patch('foodSharePoints/{foodSharePointId}', requirements: ['foodSharePointId' => '\d+'])]
-    public function editFoodSharePoint(int $foodSharePointId, FoodSharePointForCreation $foodSharePoint, ValidatorInterface $validator): Response
+    public function editFoodSharePoint(int $foodSharePointId, FoodSharePointForCreation $foodSharePointData, ValidatorInterface $validator): Response
     {
         $this->assertLoggedIn();
-        $this->assertThereAreNoValidationErrors($validator, $foodSharePoint);
+        $this->assertThereAreNoValidationErrors($validator, $foodSharePointData);
 
-        $this->foodSharePointTransactions->editFoodSharePoint($foodSharePointId, $foodSharePoint);
+        $foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId);
+        if (empty($foodSharePoint)) {
+            throw new NotFoundHttpException('Food share point does not exist');
+        }
+        $follower = $this->foodSharePointGateway->getFollower($foodSharePointId);
+        if (!$this->foodSharePointPermissions->mayEdit($foodSharePoint['bezirk_id'], $follower)) {
+            throw new AccessDeniedHttpException('Not a member of the region');
+        }
+
+        $this->foodSharePointTransactions->editFoodSharePoint($foodSharePointId, $foodSharePoint, $foodSharePointData);
 
         return $this->respondOK();
     }

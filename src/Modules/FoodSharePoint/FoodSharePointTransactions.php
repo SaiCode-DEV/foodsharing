@@ -119,13 +119,13 @@ class FoodSharePointTransactions
         return new AddFoodSharePointResponse($id, !$isProposal);
     }
 
-    public function editFoodSharePoint(int $foodSharePointId, FoodSharePointForCreation $foodSharePoint): void
+    public function editFoodSharePoint(int $foodSharePointId, array $currentData, FoodSharePointEditData $newData): void
     {
-        $this->foodSharePointGateway->updateFoodSharePoint($foodSharePointId, [$foodSharePoint]);
+        $this->foodSharePointGateway->updateFoodSharePoint($foodSharePointId, $newData);
 
         // If a picture was uploaded for this food share point, its usage type needs to be set
-        if (!empty($foodSharePoint->picture)) {
-            $uuid = substr($foodSharePoint->picture, 13);
+        if (!empty($newData->picture)) {
+            $uuid = substr($newData->picture, 13);
             $this->uploadsGateway->setUsage([$uuid], UploadUsage::FOOD_SHARE_POINT_TITLE, $foodSharePointId);
         }
     }
