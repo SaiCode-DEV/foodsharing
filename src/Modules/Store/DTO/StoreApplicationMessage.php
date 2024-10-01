@@ -6,6 +6,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class StoreApplicationMessage
 {
-    #[Assert\Length(max: 300, min: 1)] // allow null but no empty string
+    #[Assert\Length(min:1)]
     public ?string $message;
 }
