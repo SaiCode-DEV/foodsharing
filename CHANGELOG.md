@@ -17,6 +17,7 @@
 - Added new Digital Foodsharing Passports for Android and iOS !3591 @SaiCode
 - Food baskets support multiple images now. Image quality issues are resolve. #1797 #1714 !3304 @AntonBallmaier
 - Added the option to test a quiz from the quiz editor. #2112 !3612 @AntonBallmaier
+- Added a tab in the banana modal for sent bananas. #2075 !3581 !3676 @AntonBallmaier @SaiCode
 
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9

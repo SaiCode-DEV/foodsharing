@@ -1,7 +1,7 @@
 <template>
   <div id="bananas">
     <div v-if="!bananaCount" class="my-1">
-      {{ $i18n('profile.banana.none', { name: recipient.name }) }}
+      {{ nonePlaceholder }}
     </div>
 
     <div v-if="canGiveBanana && !hasGivenBanana" class="mb-2">
@@ -83,6 +83,7 @@ export default {
     canGiveBanana: { type: Boolean, default: false },
     canRemoveBanana: { type: Boolean, default: false },
     bananas: { type: Array, default: () => { return [] } },
+    nonePlaceholder: { type: String, default: '' },
   },
   data () {
     return {
