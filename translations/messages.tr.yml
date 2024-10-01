@@ -455,6 +455,7 @@ button:
   start: Haydi başlayalım!
   confirm: Onayla
   countdown_clickable: '{geri sayım} saniye içinde tıklanabilir'
+  ok: OK
 upload:
   new_image: Yeni fotoğraf yükle
   file: Dosya yükle
@@ -2909,6 +2910,12 @@ profile:
       ve güvenilirliğine ve bağlılığına kefil olabilireceklerinize de.
 
       '
+    recieved_none:
+      you: Henüz bir güven fidanı almadınız.
+      other: '{name} henüz güven fidanı almadı.'
+    sent_none:
+      other: '{name} henüz güven fidanı vermedi.'
+      you: Henüz bir güven fidanı vermedin.
   stats:
     baskets: Yemek Sepetleri
     posts: Gönderiler
@@ -3141,6 +3148,8 @@ terminology:
   landline: Sabit hat numarası
   mobile_phone: Cep telefonu numarası
   hygiene_training: Hijyen eğitimi
+  sent: Gönderilmiş
+  received: Kalmış
 legal:
   if_delete:
     this_doesnt_get_deleted: 'Aşağıdaki bilgiler artık aktif sistemde mevcut değildir,
