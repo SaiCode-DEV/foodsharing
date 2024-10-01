@@ -1054,6 +1054,8 @@ store:
     confirm-far: "Laut deiner gespeicherten Adresse wohnst du sehr weit von diesem Betrieb entfernt ({distance}). Bist du dir sicher, dass du hier regelmäßig und zuverlässig das Team unterstützen kannst?"
     confirm-no-location: "Du hast keine gültige Adresse in deinen Profil hinterlegt. Bitte trag eine Heimatadresse ein, um es den Betriebsverantwortlichen leichter zu machen, über deine Bewerbung zu entscheiden."
     confirm-no-location-ok: "Trotzdem bewerben"
+    application-message: "Bewerbungsnachricht"
+    application-placeholder: "Ich möchte gerne in diesem Team helfen, weil..."
   info_container: "Informationen"
   no_chain_choosen: "keine Kette gewählt"
   chain_search_picker:
