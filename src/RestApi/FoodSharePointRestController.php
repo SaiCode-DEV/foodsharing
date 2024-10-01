@@ -11,6 +11,7 @@ use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Permissions\RegionPermissions;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -77,27 +78,22 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         return $this->handleView($this->view($fsps, 200));
     }
 
-    /**
-     * Returns details of the food share point with the given ID. Returns 200 and the
-     * food share point, 404 if the food share point does not exist, or 401 if not logged in.
-     *
-     * @OA\Tag(name="foodsharepoint")
-     */
-    #[Rest\Get('foodSharePoints/{foodSharePointId}', requirements: ['foodSharePointId' => '\d+'])]
-    public function getFoodSharePoint(int $foodSharePointId): Response
+    #[OA2\Get(summary: 'Returns details of the food share point with the given ID. Returns 200 and the
+    food share point, 404 if the food share point does not exist, or 401 if not logged in.')]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to access this region')]
+    #[Rest\Get('foodSharePoints/{foodSharePointId}', requirements: ['foodSharePointId' => Requirement::POSITIVE_INT])]
+    public function getFoodSharePoint(int $foodSharePointId, FoodSharePointData $foodSharePointData, ValidatorInterface $validator): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
-        }
+        $this->assertLoggedIn();
+        $this->assertThereAreNoValidationErrors($validator, $foodSharePointData);
 
         $foodSharePoint = $this->foodSharePointGateway->getFoodSharePointWithFollowers($foodSharePointId);
         if (!$foodSharePoint || $foodSharePoint['status'] !== 1) {
             throw new NotFoundHttpException('Food share point does not exist or was deleted.');
         }
 
-        $foodSharePoint = $this->normalizeFoodSharePoint($foodSharePoint);
-
-        return $this->handleView($this->view($foodSharePoint, 200));
+        return $this->respondOK($foodSharePoint);
     }
 
     private function fetchLocationOrUserHome(ParamFetcher $paramFetcher): array
