@@ -23,6 +23,7 @@ class RegionIDs
     final public const EDITORIAL_GROUP = 327;
     final public const BOT_WELCOME_TEAM = 328;
     final public const STORE_CHAIN_GROUP = 332;
+    final public const HYGIENE_GROUP = 1686;
 
     // region and ambassador groups
     final public const EUROPE_BOT_GROUP = 881;

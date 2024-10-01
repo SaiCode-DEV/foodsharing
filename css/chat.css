@@ -8,9 +8,9 @@
 }
 
 .chatboxhead {
-  background-color: var(--fs-color-primary-500);
+  background-color: var(--fs-color-primary-300);
   padding: 0;
-  color: var(--fs-color-light);
+  color: var(--fs-color-primary-900);
 
   outline: 0;
 }
@@ -97,7 +97,6 @@
 
 .chatboxoptions a {
   background-color: var(--fs-color-transparent);
-  color: var(--fs-color-light) !important;
   display: inline-block;
   font-weight: bold;
   margin: 0;
@@ -108,12 +107,11 @@
 }
 
 .chatboxoptions a:hover {
-  color: var(--fs-color-primary-300) !important;
+  color: var(--fs-color-secondary-900) !important;
 }
 
 .chatboxtitle {
   padding: 7px;
-  color: var(--fs-color-light) !important;
   display: block;
   float: left;
   width: 205px;

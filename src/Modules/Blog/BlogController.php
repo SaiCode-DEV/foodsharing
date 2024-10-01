@@ -108,8 +108,6 @@ class BlogController extends FoodsharingController
     private function add(): void
     {
         if ($this->blogPermissions->mayAdministrateBlog()) {
-            $this->handle_add();
-
             $this->pageHelper->addBread($this->translator->trans('blog.new'));
 
             $regions = $this->currentUserUnits->getRegions();
@@ -130,33 +128,6 @@ class BlogController extends FoodsharingController
         } else {
             $this->flashMessageHelper->info($this->translator->trans('blog.permissions.new'));
             $this->routeHelper->goPageAndExit();
-        }
-    }
-
-    private function handle_add(): void
-    {
-        global $g_data;
-
-        if ($this->blogPermissions->mayAdministrateBlog() && !empty($_POST)) {
-            $g_data['foodsaver_id'] = $this->session->id();
-            $g_data['time'] = date('Y-m-d H:i:s');
-
-            if (!$this->blogPermissions->mayAdd()) {
-                $this->flashMessageHelper->error($this->translator->trans('blog.failure.new'));
-            } else {
-                $postId = $this->blogGateway->add_blog_entry($g_data);
-                if ($postId) {
-                    if (!empty($g_data['picture'])) {
-                        $uuid = substr($g_data['picture'], 13);
-                        $this->uploadsGateway->setUsage([$uuid], UploadUsage::BLOG_POST, $postId);
-                    }
-
-                    $this->flashMessageHelper->success($this->translator->trans('blog.success.new'));
-                    $this->routeHelper->goPageAndExit();
-                } else {
-                    $this->flashMessageHelper->error($this->translator->trans('blog.failure.new'));
-                }
-            }
         }
     }
 

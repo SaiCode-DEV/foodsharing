@@ -14,7 +14,7 @@
     <Gallery
       ref="gallery"
       :images="previewImgs"
-      :height-in-px="75"
+      :height-in-px="galleryHeightInPx"
       allow-delete
       allow-reorder
       @delete-image="deleteImage"
@@ -40,11 +40,18 @@ export default {
   components: { Gallery },
   props: {
     uploadButton: { type: Boolean, default: true },
+    galleryHeightInPx: { type: Number, default: 75 },
+    previousImages: { type: Array, default: () => [] },
   },
   data () {
     return {
       isLoading: false,
-      images: [],
+      images: this.previousImages.map(url => ({
+        objectUrl: url,
+        file: {},
+        key: url,
+        uploaded: true,
+      })),
     }
   },
   computed: {
@@ -77,7 +84,7 @@ export default {
           })
           img.src = objectUrl
           if (await isImage) {
-            this.images.push({ key, file, objectUrl })
+            this.images.push({ key, file, objectUrl, uploaded: false })
           } else {
             URL.revokeObjectURL(objectUrl)
             invalidFiles.push(file)
@@ -104,10 +111,21 @@ export default {
       this.images = []
     },
     async uploadImages () {
+      if (!this.images.length) {
+        return []
+      }
       const order = this.$refs.gallery.getOrder()
       const orderedImages = order.map(i => this.images[i])
-      const uploads = await Promise.all(orderedImages.map(this.uploadImage))
+      const uploads = await Promise.all(orderedImages.map(this.uploadImageIfNew))
       return uploads
+    },
+    async uploadImageIfNew (image) {
+      if (image.uploaded) {
+        return image.objectUrl
+      } else {
+        const upload = await this.uploadImage(image)
+        return upload.url
+      }
     },
     async uploadImage (image) {
       try {

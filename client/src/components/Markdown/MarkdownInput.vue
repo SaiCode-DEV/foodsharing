@@ -29,7 +29,7 @@
     </b-button-toolbar>
     <div
       class="input-content"
-      :class="{ rounded: !hasImages}"
+      :class="{ rounded: !hasImages, invalid: state === false, valid: state === true}"
     >
       <b-form-textarea
         v-if="!isPreview"
@@ -129,12 +129,15 @@ export default {
     },
   },
   watch: {
+    value (modelValue) {
+      if (!modelValue) this.isPreview = false
+    },
     hasImages () {
       this.$emit('image-change', this.hasImages)
     },
   },
   async mounted () {
-    // v-bootstrap doesn't handel initial values with row and max-row correctly.
+    // v-bootstrap doesn't handle initial values with row and max-row correctly.
     // This code updates the input height.
     if (this.modelValue === '') return
     const modelValue = this.modelValue
@@ -293,6 +296,12 @@ export default {
   border: 1px solid var(--fs-border-default);
   &:focus-within {
     border-color: #af7a43;
+  }
+  &.valid {
+    border-color: #64ae24; // taken from bootstrap
+  }
+  &.invalid {
+    border-color: #cf3a00; // taken from bootstrap
   }
   .markdown {
     padding: .5rem;

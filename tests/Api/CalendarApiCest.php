@@ -19,7 +19,7 @@ class CalendarApiCest
 
     public function _before(ApiTester $I): void
     {
-        $this->region = $I->createRegion();
+        $this->region = $I->createRegion(fillMailbox: false);
 
         $this->user = $I->createFoodsharer();
         $I->addRegionMember($this->region['id'], $this->user['id']);
@@ -147,7 +147,7 @@ class CalendarApiCest
         $I->seeResponseContains(substr((string)$this->acceptedEvent['name'], 0, 10));
         $I->seeResponseContains(substr((string)$this->invitedEvent['name'], 0, 10));
 
-        $I->sendGet('api/calendar/' . self::TEST_TOKEN . '?events=answered');
+        $I->sendGet('api/calendar/' . self::TEST_TOKEN . '?events=maybe');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContains(substr((string)$this->acceptedEvent['name'], 0, 10));
         $I->cantSeeResponseContains(substr((string)$this->invitedEvent['name'], 0, 10));

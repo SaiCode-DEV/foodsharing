@@ -52,34 +52,23 @@ import StoreResultEntry from './ResultEntry/StoreResultEntry'
 import FoodSharePointResultEntry from './ResultEntry/FoodSharePointResultEntry'
 import ChatResultEntry from './ResultEntry/ChatResultEntry'
 import ThreadResultEntry from './ResultEntry/ThreadResultEntry'
+import MailResultEntry from './ResultEntry/MailResultEntry'
+import EventResultEntry from './ResultEntry/EventResultEntry'
+import PollResultEntry from './ResultEntry/PollResultEntry'
 import { objectMap } from '@/utils'
 
 const MAX_SEARCH_RESULT_COUNT = 30
 const MAX_DISPLAYED_RESULTS_REDUCED = 4
 
 export default {
-  components: { UserResultEntry, WorkingGroupResultEntry, RegionResultEntry, StoreResultEntry, FoodSharePointResultEntry, ChatResultEntry, ThreadResultEntry },
+  components: { UserResultEntry, WorkingGroupResultEntry, RegionResultEntry, StoreResultEntry, FoodSharePointResultEntry, ChatResultEntry, ThreadResultEntry, MailResultEntry, EventResultEntry, PollResultEntry },
   props: {
     results: {
       type: Object,
-      default: () => ({
-        regions: [],
-        workingGroups: [],
-        stores: [],
-        foodSharePoints: [],
-        chats: [],
-        threads: [],
-        users: [],
-      }),
+      default: () => ({}),
     },
-    query: {
-      type: String,
-      default: '',
-    },
-    isLoading: {
-      type: Boolean,
-      default: true,
-    },
+    query: { type: String, default: '' },
+    isLoading: { type: Boolean, default: true },
   },
   data () {
     return {
@@ -89,7 +78,10 @@ export default {
         { key: 'regions', icon: 'globe', component: RegionResultEntry, prop: 'region' },
         { key: 'workingGroups', icon: 'users', component: WorkingGroupResultEntry, prop: 'workingGroup' },
         { key: 'threads', icon: 'comments', component: ThreadResultEntry, prop: 'thread' },
+        { key: 'events', icon: 'calendar-alt', component: EventResultEntry, prop: 'event' },
+        { key: 'polls', icon: 'poll-h', component: PollResultEntry, prop: 'poll' },
         { key: 'chats', icon: 'comment', component: ChatResultEntry, prop: 'chat' },
+        { key: 'mails', icon: 'envelope', component: MailResultEntry, prop: 'mail' },
         { key: 'foodSharePoints', icon: 'recycle', component: FoodSharePointResultEntry, prop: 'foodSharePoint' },
       ],
       expanded: objectMap(this.results, key => false),
@@ -103,7 +95,7 @@ export default {
       return objectMap(this.results, list => list.length >= MAX_SEARCH_RESULT_COUNT)
     },
     resultSections () {
-      return this.possibleResultSections.filter(section => this.results[section.key].length)
+      return this.possibleResultSections.filter(section => this.results[section.key]?.length ?? 0)
     },
     shownResults () {
       return objectMap(this.results, (list, key) => this.expanded[key] ? list : list.slice(0, MAX_DISPLAYED_RESULTS_REDUCED))

@@ -19,7 +19,7 @@
 
 <script>
 // Store
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 //
 import Link from '@/components/Navigation/_NavItems/NavLink'
 import NavConversations from '@/components/Navigation/Conversations/NavConversations'
@@ -33,6 +33,8 @@ import MetaNavLoggedIn from '../MetaNav/LoggedIn.vue'
 // Mixins
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
+const userStore = useUserStore()
+
 export default {
   components: {
     Link,
@@ -44,9 +46,14 @@ export default {
     MetaNavLoggedIn,
   },
   mixins: [MediaQueryMixin],
+  setup () {
+    return {
+      userStore,
+    }
+  },
   computed: {
     isFoodsaver () {
-      return DataUser.getters.isFoodsaver()
+      return userStore.isFoodsaver
     },
   },
   mounted () {

@@ -18,7 +18,7 @@ class PickupTransactionsIntegrationTest extends Unit
     public function _before()
     {
         $this->transactions = $this->tester->get(PickupTransactions::class);
-        $region = $this->tester->createRegion();
+        $region = $this->tester->createRegion(fillMailbox: false);
         $this->store = $this->tester->createStore($region['id']);
     }
 

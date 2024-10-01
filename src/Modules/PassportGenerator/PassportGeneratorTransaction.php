@@ -2,6 +2,8 @@
 
 namespace Foodsharing\Modules\PassportGenerator;
 
+use Foodsharing\Lib\AppleWalletPass;
+use Foodsharing\Lib\GoogleWalletPass;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
@@ -17,6 +19,7 @@ use Foodsharing\Utility\TranslationHelper;
 use setasign\Fpdi\Tcpdf\Fpdi;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PassportGeneratorTransaction extends AbstractController
@@ -32,8 +35,11 @@ class PassportGeneratorTransaction extends AbstractController
         protected FlashMessageHelper $flashMessageHelper,
         protected TranslationHelper $translationHelper,
         protected TranslatorInterface $translator,
+        private UrlGeneratorInterface $router,
         #[Autowire(param: 'kernel.project_dir')]
         private readonly string $projectDir,
+        private GoogleWalletPass $googleWalletPass,
+        private AppleWalletPass $appleWalletPass
     ) {
     }
 
@@ -274,6 +280,13 @@ class PassportGeneratorTransaction extends AbstractController
 
         if ($ambassadorGeneration) {
             $this->passportGeneratorGateway->updateLastGen($is_generated);
+
+            // update the Google Wallet Pass if the user has one
+            foreach ($foodsavers as $fs_id) {
+                $foodsaver = $this->foodsaverGateway->getFoodsaverDetails($fs_id);
+                $role = $this->getRole($foodsaver['geschlecht'], $foodsaver['rolle']);
+                $this->googleWalletPass->renewObject($fs_id, $role);
+            }
         }
 
         return $pdf->Output('', 'S');
@@ -281,31 +294,24 @@ class PassportGeneratorTransaction extends AbstractController
 
     public function getRole(int $gender_id, int $role_id): string
     {
-        $roles = match ($gender_id) {
-            Gender::MALE => [
-                Role::FOODSHARER->value => $this->translator->trans('terminology.foodsharer.m'),
-                Role::FOODSAVER->value => $this->translator->trans('terminology.foodsaver.m'),
-                Role::STORE_MANAGER->value => $this->translator->trans('terminology.storemanager.m'),
-                Role::AMBASSADOR->value => $this->translator->trans('terminology.ambassador.m'),
-                Role::ORGA->value => $this->translator->trans('terminology.ambassador.m'),
-            ],
-            Gender::FEMALE => [
-                Role::FOODSHARER->value => $this->translator->trans('terminology.foodsharer.f'),
-                Role::FOODSAVER->value => $this->translator->trans('terminology.foodsaver.f'),
-                Role::STORE_MANAGER->value => $this->translator->trans('terminology.storemanager.f'),
-                Role::AMBASSADOR->value => $this->translator->trans('terminology.ambassador.f'),
-                Role::ORGA->value => $this->translator->trans('terminology.ambassador.f'),
-            ],
-            default => [
-                Role::FOODSHARER->value => $this->translator->trans('terminology.foodsharer.d'),
-                Role::FOODSAVER->value => $this->translator->trans('terminology.foodsaver.d'),
-                Role::STORE_MANAGER->value => $this->translator->trans('terminology.storemanager.d'),
-                Role::AMBASSADOR->value => $this->translator->trans('terminology.ambassador.d'),
-                Role::ORGA->value => $this->translator->trans('terminology.ambassador.d'),
-            ],
-        };
+        $genders = [
+            Gender::MALE => 'm',
+            Gender::FEMALE => 'f',
+            Gender::DIVERSE => 'd',
+            Gender::NOT_SELECTED => 'd'
+        ];
 
-        return $roles[$role_id];
+        $role_keys = [
+            Role::FOODSHARER->value => 'terminology.foodsharer.',
+            Role::FOODSAVER->value => 'terminology.foodsaver.',
+            Role::STORE_MANAGER->value => 'terminology.storemanager.',
+            Role::AMBASSADOR->value => 'terminology.ambassador.',
+            Role::ORGA->value => 'terminology.ambassador.'
+        ];
+
+        $gender_suffix = $genders[$gender_id] ?? 'd';
+
+        return $this->translator->trans($role_keys[$role_id] . $gender_suffix);
     }
 
     public function getPassDate(int $userId): \DateTime
@@ -339,5 +345,35 @@ class PassportGeneratorTransaction extends AbstractController
             'result' => $result,
             'message' => $result ? '' : 'The following user IDs are not included in the region: ' . implode(', ', $missingUserIds)
         ];
+    }
+
+    public function createWallet(int $userId, string $walletType): string
+    {
+        $name = $this->session->user('name') . ' ' . $this->session->user('nachname');
+        $role = $this->getRole($this->session->user('gender'), $this->session->user('role'));
+        $passDate = $this->getPassDate($userId);
+        $profileURL = $this->router->generate('user_profile', ['userId' => $userId], UrlGeneratorInterface::ABSOLUTE_URL);
+        $photo = $this->session->user('photo');
+        if (!$photo) {
+            throw new \InvalidArgumentException('No photo found for user');
+        }
+        switch ($walletType) {
+            case 'apple':
+                $photo_uuid = substr($photo, strlen('/api/uploads/'));
+                $photoFileName = $this->uploadsTransactions->generateFilePath($photo_uuid);
+                $result = $this->appleWalletPass->createNewPass($userId, $name, $profileURL, $photoFileName, $role, $passDate);
+                break;
+            case 'google':
+                $userPhoto = BASE_URL . $photo;
+                if (getenv('FS_ENV') === 'dev') {
+                    $userPhoto = 'https://foodsharing.de/img/50_q_avatar.png';
+                }
+                $result = $this->googleWalletPass->createNewPassJwt($userId, $name, $profileURL, $userPhoto, $role, $passDate);
+                break;
+            default:
+                throw new \InvalidArgumentException("Ungültiger Wallet-Typ: $walletType");
+        }
+
+        return $result;
     }
 }

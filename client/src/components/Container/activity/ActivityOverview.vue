@@ -70,13 +70,20 @@
 </template>
 
 <script>
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import Container from '../Container.vue'
 import ActivityThread from './ActivityThread'
 import ActivityOptionListings from './ActivityOptionListings'
 
+const userStore = useUserStore()
+
 export default {
   components: { Container, ActivityThread, ActivityOptionListings },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   data () {
     return {
       filters: [
@@ -122,7 +129,7 @@ export default {
   },
   computed: {
     isFoodsaver () {
-      return DataUser.getters.isFoodsaver()
+      return userStore.isFoodsaver
     },
     activeFilters () {
       if (!this.isFoodsaver) {

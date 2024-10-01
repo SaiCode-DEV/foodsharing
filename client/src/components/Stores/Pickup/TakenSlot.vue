@@ -47,7 +47,7 @@
             v-b-tooltip="$i18n('pickup.copyNumber')"
             variant="outline-primary"
             size="sm"
-            @click="copyIntoClipboard(phoneNumber)"
+            @click="copyToClipboard(phoneNumber)"
           >
             <i class="fas fa-fw fa-clone" :aria-label="$i18n('pickup.copyNumber')" />
           </b-button>
@@ -147,17 +147,18 @@
 
 <script>
 import Avatar from '@/components/Avatar/Avatar.vue'
-import { pulseSuccess } from '@/script'
 import PhoneNumbers from '@/helper/phone-numbers'
 import conversationStore from '@/stores/conversations'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import StoreData, { STORE_LOG_ACTION } from '@/stores/stores'
 
 import { v4 as uuidv4 } from 'uuid'
 import PickupsData from '@/stores/pickups'
+import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin'
 
 export default {
   components: { Avatar },
+  mixins: [CopyToClipboardMixin],
   props: {
     date: {
       type: Date,
@@ -187,6 +188,12 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  setup () {
+    const userStore = useUserStore()
+    return {
+      userStore,
+    }
   },
   data () {
     return {
@@ -252,7 +259,7 @@ export default {
       return StoreData.getters.getStoreMember()
     },
     userId () {
-      return DataUser.getters.getUserId()
+      return this.userStore.getUserId
     },
     isManager () {
       return StoreData.getters.isManager(this.userId)
@@ -269,7 +276,7 @@ export default {
       return !!navigator.clipboard
     },
     isMe () {
-      return DataUser.getters.getUserId() === this.profile.id
+      return this.userStore.getUserId === this.profile.id
     },
   },
   mounted () {
@@ -307,13 +314,6 @@ export default {
 
       if (lastFetchTimestamp !== null) {
         return new Date(lastFetchTimestamp * MILLISECONDS_PER_SECOND)
-      }
-    },
-    copyIntoClipboard (text) {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(text).then(() => {
-          pulseSuccess(this.$i18n('pickup.copiedNumber', { number: text }))
-        })
       }
     },
     openChat () {

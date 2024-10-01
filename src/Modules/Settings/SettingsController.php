@@ -82,20 +82,24 @@ class SettingsController extends FoodsharingController
         }
 
         if ($this->settingsPermissions->mayEditProfileSettings($userId)) {
-            $userDetails['lat'] = (float)$userDetails['lat'];
-            $userDetails['lon'] = (float)$userDetails['lon'];
+            $userDetails['lat'] = is_null($userDetails['lat']) ? null : (float)$userDetails['lat'];
+            $userDetails['lon'] = is_null($userDetails['lon']) ? null : (float)$userDetails['lon'];
             $params['userDetails'] = $userDetails;
             $params['userDetails']['homeRegionName'] = $params['userDetails']['bezirk_id'] !== null ? $this->regionGateway->getRegionName($params['userDetails']['bezirk_id']) : null;
             $params['permissions']['isOnTeamPage'] = $this->unitGateway->isUserOnTeamPage($userId);
             $params['permissions']['mayChangeName'] = $this->settingsPermissions->mayChangeName($userId);
+            $params['permissions']['mayChangeEmailImmediately'] = $this->settingsPermissions->mayChangeLoginEmail($userId);
         }
 
         $isMe = $userId === $sessionUserId;
         if ($isMe) {
             $params['sleepingData'] = $this->settingsGateway->getSleepData($userId);
             $params['businessCardData'] = $this->businessCardGateway->getMyData($userId, $this->session->mayRole(Role::STORE_MANAGER));
-            $params['baseUrlWebCal'] = WEBCAL_URL . '/api/calendar/';
-            $params['baseUrlHttp'] = BASE_URL . '/api/calendar/';
+        } else {
+            $params['userDetails']['token'] = null;
+            $params['userDetails']['privacy_policy_accepted_date'] = null;
+            $params['userDetails']['privacy_notice_accepted_date'] = null;
+            $params['userDetails']['last_activity'] = null;
         }
 
         $profileSettings = $this->prepareVueComponent('profile-settings-page', 'ProfileSettingsPage', $params);

@@ -489,17 +489,6 @@ iframe.text {
 }
 /* rte ende */
 
-table.tablesorter td span.photo {
-  display: block;
-  margin-left: 10px;
-}
-
-table.tablesorter td span.photo a {
-  display: block;
-  margin: 0;
-  padding: 0;
-}
-
 /*WELCOME BOX */
 div.welcome {
   min-height: 50px;
@@ -665,7 +654,7 @@ ul.linklist li > a.active {
 
 ul.linklist li > a:hover,
 ul.linklist li > a:hover span {
-  background-color: var(--fs-color-secondary-500);
+  background-color: var(--fs-color-secondary-400);
   color: var(--fs-color-light);
 }
 
@@ -693,8 +682,8 @@ ul.linklist li > a:hover span {
 }
 
 .ui-widget-header {
-  background: none repeat scroll 0 0 var(--fs-color-primary-500);
-  color: var(--fs-color-light);
+  background: none repeat scroll 0 0 var(--fs-color-primary-200);
+  color: var(--fs-color-black);
   font-weight: bold;
   border: 0;
   border-radius: 6px;

@@ -16,6 +16,7 @@ use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
+use Foodsharing\RestApi\Models\Blog\BlogPostData;
 use Foodsharing\Utility\Sanitizer;
 
 final class BlogGateway extends BaseGateway
@@ -219,28 +220,25 @@ final class BlogGateway extends BaseGateway
         return $blogEntry;
     }
 
-    public function add_blog_entry(array $data): int
+    public function addBlogPost(int $authorId, BlogPostData $data): int
     {
-        $regionId = intval($data['bezirk_id']);
-        $active = intval($this->session->mayRole(Role::ORGA) || $this->currentUserUnits->isAdminFor($regionId));
-
         $id = $this->db->insert(
             'fs_blog_entry',
             [
-                'bezirk_id' => $regionId,
-                'foodsaver_id' => (int)$data['foodsaver_id'],
-                'name' => strip_tags((string)$data['name']),
-                'teaser' => strip_tags((string)$data['teaser']),
-                'body' => $data['body'],
-                'time' => strip_tags((string)$data['time']),
-                'picture' => strip_tags((string)$data['picture']),
-                'active' => $active,
+                'bezirk_id' => $data->regionId,
+                'foodsaver_id' => $authorId,
+                'name' => strip_tags($data->title),
+                'teaser' => strip_tags($data->teaser),
+                'body' => $data->content,
+                'time' => Carbon::now()->format('Y-m-d H:i:s'),
+                'picture' => strip_tags($data->picture),
+                'active' => 1,
             ]
         );
 
         $foodsaver = [];
         $orgateam = $this->foodsaverGateway->getOrgaTeam();
-        $botschafter = $this->foodsaverGateway->getAdminsOrAmbassadors($regionId);
+        $botschafter = $this->foodsaverGateway->getAdminsOrAmbassadors($data->regionId);
 
         foreach ($orgateam as $o) {
             $foodsaver[$o['id']] = $o;
@@ -256,8 +254,8 @@ final class BlogGateway extends BaseGateway
             ['href' => '/blog?sub=edit&id=' . $id],
             [
                 'user' => $this->session->user('name'),
-                'teaser' => $this->sanitizerService->tt($data['teaser'], 100),
-                'title' => $data['name']
+                'teaser' => $this->sanitizerService->tt($data->teaser, 100),
+                'title' => $data->title
             ],
             BellType::createIdentifier(BellType::NEW_BLOG_POST, $id)
         );

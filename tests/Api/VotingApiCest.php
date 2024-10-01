@@ -28,7 +28,7 @@ class VotingApiCest
 
     public function _before(ApiTester $I): void
     {
-        $this->region = $I->createRegion();
+        $this->region = $I->createRegion(fillMailbox: false);
         $this->userFoodsaverUnverified = $I->createFoodsaver(null, ['bezirk_id' => $this->region['id'], 'verified' => 0]);
         $this->userFoodsaver = $I->createFoodsaver(null, ['bezirk_id' => $this->region['id']]);
 
@@ -109,7 +109,7 @@ class VotingApiCest
             'value' => 1
         ]);
 
-        $region = $I->createRegion();
+        $region = $I->createRegion(fillMailbox: false);
         $user = $I->createFoodsaver(null, ['bezirk_id' => $region['id']]);
 
         $I->login($user['email']);

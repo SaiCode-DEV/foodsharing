@@ -5,10 +5,10 @@ namespace Foodsharing\Modules\Basket;
 use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
 use Foodsharing\Lib\View\vPage;
+use Foodsharing\Modules\Basket\DTO\Basket;
 use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Core\View;
-use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\BasketPermissions;
 use Foodsharing\Utility\DataHelper;
@@ -81,57 +81,53 @@ class BasketView extends View
         $page->render();
     }
 
-    public function basket(array $basket, $requests): void
+    public function basket(Basket $basket, $requests): void
     {
-        $label = $this->translator->trans('terminology.basket') . ' #' . $basket['id'];
-        $page = new vPage($label,
-            '<div class="fbasket-wrap">
-				<div class="fbasket-pic">
-					' . $this->pageImg($basket['picture'] ?? '') . '
-				</div>
-				<div class="fbasket-desc">
-					<p>' . nl2br((string)$basket['description']) . '</p>
-				</div>
-			</div>');
-
-        $page->setSubTitle($this->getSubtitle($basket));
-
-        if ($this->session->mayRole()) {
-            $page->addSection($this->v_utils->v_info($this->translator->trans('basket.howto')));
-
-            $label = $this->translator->trans('basket.provider');
-            $page->addSectionRight($this->userBox($basket, $requests), $label);
-
-            if ($basket['fs_id'] == $this->session->id() && $requests) {
-                $label = $this->translator->trans('basket.requests', ['{count}' => count($requests)]);
-                $page->addSectionRight($this->requests($requests), $label);
-            }
-
-            if ($basket['lat'] != 0 || $basket['lon'] != 0) {
-                $map = $this->vueComponent('basket-location-map', 'BasketLocationMap', [
-                    'zoom' => MapConstants::ZOOM_CITY,
-                    'coordinates' => ['lat' => $basket['lat'], 'lon' => $basket['lon']],
-                ]);
-
-                $page->addSectionRight($map, $this->translator->trans('basket.where'));
-            }
-        } else {
-            $page->addSection(
-                $this->v_utils->v_info(
-                    $this->translator->trans('basket.login'),
-                    $this->translator->trans('notice')
-                ),
-                false,
-                ['wrapper' => false]
-            );
+        if (!$this->session->mayRole()) {
+            $this->pageHelper->addContent($this->v_utils->v_info(
+                $this->translator->trans('basket.login'),
+                $this->translator->trans('notice')
+            ), CNT_MAIN);
         }
 
-        $page->render();
+        $vue = $this->vueComponent('vue-basket-container', 'basket-container', [
+            'basket' => $basket,
+        ]);
+
+        $this->pageHelper->addContent($vue);
+
+        $label = $this->translator->trans('terminology.basket') . ' #' . $basket->id;
+
+        if ($this->session->mayRole()) {
+            $label = $this->translator->trans('basket.provider');
+            $this->pageHelper->addContent('<div class="page-container page render"><h3>' . $label . '</h3>
+                ' . $this->userBox($basket, $requests) . '
+            </div>', CNT_RIGHT);
+
+            if ($basket->creator->id == $this->session->id() && $requests) {
+                $label = $this->translator->trans('basket.requests', ['{count}' => count($requests)]);
+                $this->pageHelper->addContent('<div class="page-container page render"><h3>' . $label . '</h3>
+                    ' . $this->requests($requests) . '
+                </div>', CNT_RIGHT);
+            }
+
+            if ($basket->location->lat != 0 || $basket->location->lon != 0) {
+                $map = $this->vueComponent('basket-location-map', 'BasketLocationMap', [
+                    'zoom' => MapConstants::ZOOM_CITY,
+                    'coordinates' => $basket->location,
+                ]);
+
+                $label = $this->translator->trans('basket.where');
+                $this->pageHelper->addContent('<div class="page-container page render"><h3>' . $label . '</h3>
+                    ' . $map . '
+                </div>', CNT_RIGHT);
+            }
+        }
     }
 
-    public function basketTaken(array $basket): void
+    public function basketTaken(Basket $basket): void
     {
-        $label = $this->translator->trans('terminology.basket') . ' #' . $basket['id'];
+        $label = $this->translator->trans('terminology.basket') . ' #' . $basket->id;
         $page = new vPage($label,
             '<div>
 				<p>' . $this->translator->trans('basket.taken') . '</p>
@@ -157,44 +153,23 @@ class BasketView extends View
         return $out . '</ul>';
     }
 
-    private function getSubtitle(array $basket): string
-    {
-        $created = $this->timeHelper->niceDate($basket['time_ts']);
-        $expires = $this->timeHelper->niceDate($basket['until_ts']);
-
-        $subtitle = '<p>' . $this->translator->trans('basket.created', ['{date}' => $created]) . '</p>';
-        $subtitle .= '<p>' . $this->translator->trans('basket.expires', ['{date}' => $expires]) . '</p>';
-
-        if ($basket['update_ts']) {
-            $updated = $this->timeHelper->niceDate($basket['update_ts']);
-            $subtitle .= '<p>' . $this->translator->trans('basket.updated', ['{date}' => $updated]) . '</p>';
-        }
-
-        return $subtitle;
-    }
-
-    private function userBox(array $basket, array $requests): string
+    private function userBox(Basket $basket, array $requests): string
     {
         $request = '';
 
-        if ($this->basketPermissions->mayRequest($basket['fs_id'])) {
+        if ($this->basketPermissions->mayRequest($basket->creator->id)) {
             $hasRequested = $requests ? true : false;
 
-            if (!empty($basket['contact_type'])) {
-                $contact_type = explode(':', (string)$basket['contact_type']);
-            } else {
-                $contact_type = [];
-            }
-            $allowContactByMessage = in_array(1, $contact_type);
-            $allowContactByPhone = in_array(2, $contact_type);
+            $allowContactByMessage = in_array(1, $basket->contactTypes);
+            $allowContactByPhone = in_array(2, $basket->contactTypes);
 
             $request = $this->vueComponent('vue-BasketRequestForm', 'request-form', [
-                'basketId' => $basket['id'],
-                'basketCreatorId' => $basket['foodsaver_id'],
+                'basketId' => $basket->id,
+                'basketCreatorId' => $basket->creator->id,
                 'initialHasRequested' => $hasRequested,
-                'initialRequestCount' => $basket['request_count'],
-                'mobileNumber' => ($allowContactByPhone && !empty($basket['handy'])) ? $basket['handy'] : null,
-                'landlineNumber' => ($allowContactByPhone && !empty($basket['tel'])) ? $basket['tel'] : null,
+                'initialRequestCount' => $basket->requestCount,
+                'mobileNumber' => ($allowContactByPhone && !empty($basket->mobile)) ? $basket->mobile : null,
+                'landlineNumber' => ($allowContactByPhone && !empty($basket->telephone)) ? $basket->telephone : null,
                 'allowRequestByMessage' => $allowContactByMessage
             ]);
         }
@@ -202,30 +177,15 @@ class BasketView extends View
         if ($this->basketPermissions->mayDelete($basket)) {
             $request .= $this->vueComponent('vue-basket-edit-form', 'edit-form', [
                 'basket' => $basket,
-                'mayEdit' => $this->basketPermissions->mayEdit($basket['fs_id']),
+                'mayEdit' => $this->basketPermissions->mayEdit($basket->creator->id),
             ]);
         }
 
-        $basketUser = new Profile($basket['fs_id'], $basket['fs_name'], $basket['fs_photo'], $basket['sleep_status']);
         $creator = $this->vueComponent('basket-creator', 'AvatarList', [
-            'profiles' => [$basketUser],
+            'profiles' => [$basket->creator],
             'maxVisibleAvatars' => 1,
         ]);
 
         return $creator . $request;
-    }
-
-    private function pageImg(string $img): string
-    {
-        $imgUrl = '/img/foodloob.gif';
-        if (!empty($img)) {
-            if (str_starts_with($img, '/api')) {
-                $imgUrl = $img;
-            } else {
-                $imgUrl = '/images/basket/medium-' . $img;
-            }
-        }
-
-        return '<img class="basket-img" src="' . $imgUrl . '" />';
     }
 }

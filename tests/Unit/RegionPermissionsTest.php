@@ -10,6 +10,7 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
+use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Tests\Support\UnitTester;
 
@@ -29,7 +30,8 @@ final class RegionPermissionsTest extends Unit
             $this->tester->get(RegionGateway::class),
             $this->sessionFake,
             $this->tester->get(GroupFunctionGateway::class),
-            $this->userUnitMock);
+            $this->userUnitMock,
+            $this->tester->get(AchievementPermissions::class));
     }
 
     public function testMayNotJoinWorkGroup(): void

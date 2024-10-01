@@ -2,19 +2,13 @@
 
 namespace Foodsharing\Lib;
 
-use Foodsharing\Modules\Application\ApplicationControl;
 use Foodsharing\Modules\Basket\BasketXhr;
 use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use Foodsharing\Modules\Dashboard\DashboardControl;
 use Foodsharing\Modules\Index\IndexControl;
 use Foodsharing\Modules\Logout\LogoutControl;
 use Foodsharing\Modules\Mailbox\MailboxControl;
-use Foodsharing\Modules\Message\MessageControl;
-use Foodsharing\Modules\Register\RegisterControl;
 use Foodsharing\Modules\Relogin\ReloginControl;
-use Foodsharing\Modules\Report\ReportControl;
-use Foodsharing\Modules\Report\ReportXhr;
-use Foodsharing\Modules\Settings\SettingsXhr;
 use Foodsharing\Modules\Store\StoreController;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
 use Foodsharing\Modules\Voting\VotingControl;
@@ -39,8 +33,6 @@ class Routing
         'index' => 'Index',
         'logout' => 'Logout',
         'mailbox' => 'Mailbox',
-        'msg' => 'Message',
-        'message' => 'Message',
         'poll' => 'Voting',
         'register' => 'Register',
         'relogin' => 'Relogin',
@@ -54,26 +46,19 @@ class Routing
     ];
 
     private const CLASSES = [
-        'application' => ApplicationControl::class,
         'bcard' => BusinessCardControl::class,
         'dashboard' => DashboardControl::class,
         'index' => IndexControl::class,
         'logout' => LogoutControl::class,
         'mailbox' => MailboxControl::class,
-        'msg' => MessageControl::class,
-        'message' => MessageControl::class,
         'poll' => VotingControl::class,
-        'register' => RegisterControl::class,
         'relogin' => ReloginControl::class,
-        'report' => ReportControl::class,
         'fsbetrieb' => StoreUserControl::class,
         'groups' => WorkGroupControl::class,
         'store' => StoreController::class,
     ];
 
     private const XHR = [
-        'report' => ReportXhr::class,
-        'settings' => SettingsXhr::class,
         'basket' => BasketXhr::class,
     ];
 
@@ -92,7 +77,11 @@ class Routing
         'event',
         'quiz',
         'settings',
-        'legal'
+        'legal',
+        'report',
+        'register',
+        'application',
+        'msg',
     ];
 
     private const RENAMES = [

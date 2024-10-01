@@ -9,6 +9,7 @@ use Foodsharing\Modules\Core\DBConstants\Quiz\AnswerRating;
 use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Quiz\QuizStatus;
 use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
+use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Legal\LegalGateway;
 use Foodsharing\Modules\Quiz\DTO\ActiveQuestion;
@@ -40,8 +41,11 @@ class QuizTransactions
      * Initializes and starts a new quiz session.
      * Should only be used, if no such session is currently running for the user.
      */
-    public function startQuizSession(Quiz $quiz, bool $isTimed): void
+    public function startQuizSession(Quiz $quiz, bool $isTimed, bool $isTest): void
     {
+        if ($isTest) {
+            $this->quizSessionGateway->deleteTestSessions(QuizID::from($quiz->id), $this->session->id());
+        }
         $questionCount = $isTimed ? $quiz->questionCountTimed : $quiz->questionCountUntimed;
         $questions = $this->getFairQuestions($questionCount, $quiz->id);
 
@@ -50,7 +54,8 @@ class QuizTransactions
             quizId: $quiz->id,
             questions: $questions,
             maxFailurePointsToSucceed: $quiz->maxFailurePointsToSucceed,
-            isTimed: $isTimed
+            isTimed: $isTimed,
+            isTest: $isTest,
         );
         $this->quizSessionGateway->initQuizSession($quizSession);
     }
@@ -85,9 +90,9 @@ class QuizTransactions
     /**
      * Returns all information required to display the detailed current quiz status.
      */
-    public function getQuizStatus(int $quizId, int $fsId): FullQuizStatus
+    public function getQuizStatus(int $quizId, int $fsId, bool $isTest = false): FullQuizStatus
     {
-        [$lastSession, $tries] = $this->quizSessionGateway->collectQuizStatus($quizId, $fsId);
+        [$lastSession, $tries] = $this->quizSessionGateway->collectQuizStatus($quizId, $fsId, $isTest);
         $status = new FullQuizStatus();
         if (!$tries) {
             $status->status = QuizStatus::NEVER_TRIED;
@@ -177,7 +182,7 @@ class QuizTransactions
         $session->status = ($failurePointsTotal <= $quiz->maxFailurePointsToSucceed) ? SessionStatus::PASSED : SessionStatus::FAILED;
         $session->endTime = Carbon::now();
         $this->quizSessionGateway->updateQuizSession($session);
-        if ($session->status === SessionStatus::PASSED) {
+        if ($session->status === SessionStatus::PASSED && !$session->isTest) {
             switch ($quiz->id) {
                 case QuizID::FOODSAVER->value:
                     $this->foodsaverGateway->riseQuizRole($this->session->id(), Role::FOODSAVER);
@@ -188,9 +193,12 @@ class QuizTransactions
                 case QuizID::AMBASSADOR->value:
                     $this->foodsaverGateway->riseQuizRole($this->session->id(), Role::AMBASSADOR);
                     break;
+                case QuizID::HYGIENE->value:
+                    // TODO award achievement
+                    break;
             }
+            $this->updateQuizRoleForCurrentUser();
         }
-        $this->updateQuizRoleForCurrentUser();
     }
 
     public function updateQuizRoleForCurrentUser()
@@ -329,7 +337,7 @@ class QuizTransactions
         $questions = $this->quizGateway->getQuestions($quizId);
         foreach ($questions as &$question) {
             $question->answers = $this->quizGateway->getAnswers($question->id);
-            $question->commentCount = $this->wallPostGateway->countPosts('question', $question->id);
+            $question->commentCount = $this->wallPostGateway->countPosts(WallType::QUIZ_QUESTION, $question->id);
         }
 
         return $questions;

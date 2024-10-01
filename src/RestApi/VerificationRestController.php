@@ -298,4 +298,38 @@ class VerificationRestController extends AbstractFoodsharingRestController
 
         return $response;
     }
+
+    // Combined Wallet API
+    // http://localhost:18080/api/user/current/{walletType}/wallet
+    #[OA2\Get(summary: 'Returns the wallet URL for the current user')]
+    #[OA2\Parameter(
+        name: 'walletType',
+        description: 'Type of wallet to generate (google or apple)',
+        in: 'path',
+        required: true,
+        schema: new OA2\Schema(type: 'string', enum: ['google', 'apple'])
+    )]
+    #[OA2\Response(response: 401, description: 'Not logged in.')]
+    #[OA2\Response(response: 403, description: 'Insufficient permissions to create own passport.')]
+    #[OA2\Response(response: 404, description: 'Invalid wallet type.')]
+    #[Rest\Get('user/current/{walletType}/wallet')]
+    public function getWallet(string $walletType): Response
+    {
+        $userId = $this->session->id();
+        if (!$userId || !$this->session->user('role')) {
+            throw new UnauthorizedHttpException('Invalid Session, please login again');
+        }
+        if (!$this->passportPermissions->mayCreatePassportAsUser($userId)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $allowedWallets = ['google', 'apple'];
+        if (!in_array($walletType, $allowedWallets)) {
+            throw new NotFoundHttpException('Invalid wallet type');
+        }
+
+        $res = $this->passportGeneratorTransaction->createWallet($userId, $walletType);
+
+        return $this->redirect($res);
+    }
 }

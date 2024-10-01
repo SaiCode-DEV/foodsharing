@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Region;
 use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
@@ -230,6 +231,8 @@ class RegionGateway extends BaseGateway
      *
      * Warning: this function does not properly set the moderated flag for large regions. In most cases you might want
      * to use RegionTransactions::getRegionDetails instead.
+     *
+     * @return array an empty array if it does not exist
      */
     public function getRegionDetails(int $regionId): array
     {
@@ -282,6 +285,9 @@ class RegionGateway extends BaseGateway
 			WHERE 	b.`id` = :id
 			LIMIT 1
 		', ['id' => $regionId]);
+        if (empty($region)) {
+            return [];
+        }
 
         $region['botschafter'] = $this->foodsaverGateway->getAdminsOrAmbassadors($regionId);
         shuffle($region['botschafter']);
@@ -346,7 +352,7 @@ class RegionGateway extends BaseGateway
 			SELECT 	fs.`id`,
 					fs.`name`,
 					fs.`photo`,
-					fs.sleep_status,
+					fs.is_sleeping,
 					fb.active
 
 			FROM 	`fs_foodsaver_has_bezirk` fb,
@@ -357,7 +363,7 @@ class RegionGateway extends BaseGateway
 			AND 	fb.active = 0
 		', ['regionId' => $regionId]);
 
-        return array_map(fn ($applicant) => new Profile($applicant['id'], $applicant['name'], $applicant['photo'], $applicant['sleep_status']), $applicants);
+        return array_map(fn ($applicant) => new Profile($applicant), $applicants);
     }
 
     public function linkBezirk(int $foodsaverId, int $regionId, int $active = 1)
@@ -388,6 +394,9 @@ class RegionGateway extends BaseGateway
 
     // TODO move all non-WG-secific methods in GroupGateway to regionGateway
 
+    /**
+     * @throws DatabaseNoValueFoundException if the region does not exist
+     */
     public function getRegionName(int $regionId): string
     {
         return $this->db->fetchValueByCriteria('fs_bezirk', 'name', ['id' => $regionId]);
@@ -406,6 +415,11 @@ class RegionGateway extends BaseGateway
     public function getMasterId(int $regionId): int
     {
         return $this->db->fetchValueByCriteria('fs_bezirk', 'master', ['id' => $regionId]);
+    }
+
+    public function getParentId(int $regionId): int
+    {
+        return $this->db->fetchValueByCriteria('fs_bezirk', 'parent_id', ['id' => $regionId]);
     }
 
     public function listRegionsForBotschafter(int $foodsaverId): array

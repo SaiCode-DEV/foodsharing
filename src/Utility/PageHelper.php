@@ -10,6 +10,7 @@ use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
+use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Permissions\ContentPermissions;
 use Foodsharing\Permissions\MailboxPermissions;
@@ -18,6 +19,7 @@ use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\QuizPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\ReportPermissions;
+use Foodsharing\Permissions\StoreCategoriesPermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
 use Twig\Environment;
@@ -61,6 +63,8 @@ final class PageHelper
         private readonly NewsletterEmailPermissions $newsletterEmailPermissions,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly ProfilePermissions $profilePermissions,
+        private readonly StoreCategoriesPermissions $storeCategoriesPermissions,
+        private readonly AchievementPermissions $achievementPermissions,
         private readonly RegionGateway $regionGateway,
         private readonly SettingsTransactions $settingsTransactions,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
@@ -212,6 +216,8 @@ final class PageHelper
             'editContent' => $this->contentPermissions->mayEditContent(),
             'administrateNewsletterEmail' => $this->newsletterEmailPermissions->mayAdministrateNewsletterEmail(),
             'administrateRegions' => $this->regionPermissions->mayAdministrateRegions(),
+            'editStoreCategories' => $this->storeCategoriesPermissions->mayEditStoreCategories(),
+            'editAchievements' => $this->achievementPermissions->mayEditAchievements(),
         ];
     }
 
@@ -231,8 +237,9 @@ final class PageHelper
             ]);
             if (UnitType::isRegion($groupType)) {
                 $group['isAdmin'] = $this->currentUserUnits->isAdminFor($groupId);
-                $group['mayAccessReportGroupReports'] = $this->reportPermissions->mayAccessReportGroupReports($groupId);
-                $group['mayAccessArbitrationGroupReports'] = $this->reportPermissions->mayAccessArbitrationReports($groupId);
+                $group['mayAccessReports'] = $this->reportPermissions->mayAccessReportsForRegion($groupId);
+                $group['isReportAdmin'] = $this->reportPermissions->isReportAdmin($groupId);
+                $group['isArbitrationAdmin'] = $this->reportPermissions->isArbitrationAdmin($groupId);
                 $group['maySetRegionPin'] = $this->regionPermissions->maySetRegionPin($groupId);
                 $regions[] = $group;
             } else {

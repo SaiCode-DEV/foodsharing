@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import profileStore from '@/stores/profiles'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import { MARKED_AS_UNREAD } from '@/stores/conversations'
@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     loggedinUser () {
-      return DataUser.getters.getUser()
+      return useUserStore().getUser
     },
     users () {
       const lastId = this.conversation?.lastMessage?.authorId

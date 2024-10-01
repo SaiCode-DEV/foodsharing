@@ -13,11 +13,28 @@
     <b-modal
       ref="remove-region-modal"
       :title="$i18n('are_you_sure')"
-      :ok-title="$i18n('button.yes_i_am_sure')"
-      :cancel-title="$i18n('button.cancel')"
+      @show="startCountdown"
       @ok="removeMeFromRegion"
     >
-      {{ isWorkGroup ? $i18n('group.really_quit_workgroup', { name: name }) : $i18n('group.really_quit_district', { name: name }) }}
+      {{ $i18n(translationKey, { name: name }) }}
+      <template #modal-footer="{ ok, cancel }">
+        <b-button @click="cancel()">
+          {{ $i18n('button.cancel') }}
+        </b-button>
+        <div>
+          <b-button
+            :disabled="countdown > 0"
+            variant="danger"
+            @click="ok()"
+          >
+            {{ $i18n('button.yes_i_am_sure') }}
+          </b-button>
+
+          <div v-if="countdown > 0" class="delete-countdown">
+            {{ $i18n('button.countdown_clickable', { countdown }) }}
+          </div>
+        </div>
+      </template>
     </b-modal>
   </div>
 </template>
@@ -34,8 +51,43 @@ export default {
     regionId: { type: Number, required: true },
     name: { type: String, required: true },
     isWorkGroup: { type: Boolean, required: true },
+    isHomeDistrict: { type: Boolean, required: true },
+  },
+  data () {
+    return {
+      countdown: 5,
+      interval: null,
+    }
+  },
+  computed: {
+    translationKey () {
+      switch (true) {
+        case this.isWorkGroup:
+          return 'group.quit_name_workgroup'
+        case this.isHomeDistrict:
+          return 'group.quitting_home_district_warning'
+        default:
+          return 'group.really_quit_district'
+      }
+    },
   },
   methods: {
+    startCountdown () {
+      if (this.interval) {
+        clearInterval(this.interval)
+      }
+      if (this.isHomeDistrict) {
+        this.countdown = 30
+      } else {
+        this.countdown = 5
+      }
+      this.interval = setInterval(() => {
+        if (this.countdown <= 0) {
+          clearInterval(this.interval)
+        }
+        this.countdown--
+      }, 1000)
+    },
     async removeMeFromRegion () {
       try {
         await leaveRegion(this.regionId)
@@ -52,3 +104,13 @@ export default {
   },
 }
 </script>
+
+<style>
+.delete-countdown {
+  display: block;
+  font-size: 80%;
+  color: var(--fs-color-danger-500);
+  height: 0;
+  text-align: center;
+}
+</style>

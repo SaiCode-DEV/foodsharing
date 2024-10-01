@@ -6,14 +6,11 @@ use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\PageHelper;
 use Foodsharing\Utility\RouteHelper;
-use Symfony\Contracts\Service\Attribute\Required;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Environment;
 
 class Utils
 {
     private array $id = []; // TODO shouldn't this be a string?
-    private Environment $twig;
 
     public function __construct(
         private readonly PageHelper $pageHelper,
@@ -22,12 +19,6 @@ class Utils
         private readonly DataHelper $dataHelper,
         private readonly TranslatorInterface $translator
     ) {
-    }
-
-    #[Required]
-    public function setTwig(Environment $twig): void
-    {
-        $this->twig = $twig;
     }
 
     public function v_quickform(string $title, array $elements, array $option = []): string
@@ -257,18 +248,6 @@ class Utils
 					' . $out . '
 				</div>
 			</div>';
-    }
-
-    public function v_tablesorter($head, $data, array $option = []): string
-    {
-        $params = [
-            'nohead' => isset($option['noHead']) && $option['noHead'],
-            'pager' => isset($option['pager']) && $option['pager'],
-            'head' => $head,
-            'data' => $data
-        ];
-
-        return $this->twig->render('partials/tablesorter.twig', $params);
     }
 
     public function v_form_textarea(string $id, array $option = []): string

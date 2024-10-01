@@ -17,13 +17,15 @@
 
 <script>
 import DataGroups from '@/stores/groups'
-import DataRegions from '@/stores/regions'
+import { useRegionStore } from '@/stores/regions'
 import DataPolls from '@/stores/polls'
 
 import Container from '../Container.vue'
 import PollField from './PollField'
 
 import ListToggleMixin from '@/mixins/ContainerToggleMixin'
+
+const regionStore = useRegionStore()
 
 export default {
   name: 'PollList',
@@ -38,7 +40,7 @@ export default {
     }
   },
   computed: {
-    groupsAndRegions: () => DataGroups.getters.get().concat(DataRegions.getters.get()),
+    groupsAndRegions: () => DataGroups.getters.get().concat(regionStore.regions),
     data () {
       let data = DataPolls.getters.getPolls()
       if (data === null) {

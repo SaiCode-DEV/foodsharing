@@ -1,13 +1,13 @@
 <template>
   <div id="bananas">
     <div v-if="!bananaCount" class="my-1">
-      {{ $i18n('profile.banana.none', { name: recipientName }) }}
+      {{ $i18n('profile.banana.none', { name: recipient.name }) }}
     </div>
 
     <div v-if="canGiveBanana && !hasGivenBanana" class="mb-2">
       <div v-if="showTextarea">
         <b-alert variant="success" show>
-          {{ $i18n('profile.banana.details', { name: recipientName }) }}
+          {{ $i18n('profile.banana.details', { name: recipient.name }) }}
           <br>
           <strong>
             {{ $i18n('profile.banana.undo') }}
@@ -41,7 +41,7 @@
             :disabled="!canSendBanana"
             @click="trySendBanana"
           >
-            {{ $i18n('profile.banana.give', { name: recipientName }) }}
+            {{ $i18n('profile.banana.give', { name: recipient.name }) }}
           </b-button>
         </div>
       </div>
@@ -51,7 +51,7 @@
           size="sm"
           @click="toggleTextarea"
         >
-          {{ $i18n('profile.banana.give', { name: recipientName }) }}
+          {{ $i18n('profile.banana.give', { name: recipient.name }) }}
         </b-button>
       </div>
     </div>
@@ -59,23 +59,19 @@
     <BananaListEntry
       v-for="b in bananaList"
       :key="b.id"
-      :author="{...b, avatar: b.photo }"
-      :created-at="b.createdAt"
-      :text="b.msg"
+      :author="b.user"
+      :created-at="b.time"
+      :text="b.message"
       :can-remove="canRemoveBanana"
-      :recipient-id="recipientId"
-      @close-dialog="closeDialog"
+      :recipient-id="recipient.id"
     />
   </div>
 </template>
 
 <script>
-import $ from 'jquery'
-
-import { sendBanana } from '@/api/profile'
+import { sendBanana } from '@/api/banana'
 import i18n from '@/helper/i18n'
 import { pulseError, pulseInfo } from '@/script'
-import DataUser from '@/stores/user'
 
 import BananaListEntry from './BananaListEntry'
 import { HTTP_RESPONSE } from '@/consts'
@@ -83,8 +79,7 @@ import { HTTP_RESPONSE } from '@/consts'
 export default {
   components: { BananaListEntry },
   props: {
-    recipientId: { type: Number, required: true },
-    recipientName: { type: String, required: true },
+    recipient: { type: Object, required: true },
     canGiveBanana: { type: Boolean, default: false },
     canRemoveBanana: { type: Boolean, default: false },
     bananas: { type: Array, default: () => { return [] } },
@@ -103,30 +98,21 @@ export default {
       return this.bananaText && (this.bananaText.trim().length > 99)
     },
   },
-  mounted () {
-    $.fancybox.update()
-  },
   methods: {
     async trySendBanana () {
       try {
-        await sendBanana(this.recipientId, this.bananaText.trim())
-
-        // Fake reactive update by inserting submitted data into the UI
-        const fakeBanana = this.getFakeBanana()
-        this.bananaList.unshift(fakeBanana)
-        this.bananaCount += 1
+        this.bananaList.unshift(await sendBanana(this.recipient.id, this.bananaText.trim()))
 
         // Reset UI and component state
         pulseInfo(i18n('profile.banana.sent'))
         this.bananaText = ''
         this.showTextarea = false
         this.hasGivenBanana = true
-        $.fancybox.update()
       } catch (err) {
         if (err.code === HTTP_RESPONSE.BAD_REQUEST) {
           pulseError(i18n('profile.banana.messageTooShort'))
         } else if (err.code === HTTP_RESPONSE.FORBIDDEN) {
-          pulseError(i18n('profile.banana.alreadyGiven', { name: this.recipientName }))
+          pulseError(i18n('profile.banana.alreadyGiven', { name: this.recipient.name }))
         } else {
           console.error(err)
           pulseError(i18n('error_unexpected'))
@@ -135,18 +121,6 @@ export default {
     },
     toggleTextarea () {
       this.showTextarea = !this.showTextarea
-      $.fancybox.update()
-    },
-    getFakeBanana () {
-      return {
-        createdAt: new Date().toISOString(),
-        id: DataUser.getters.getUserId(),
-        photo: DataUser.getters.getAvatar(),
-        msg: this.bananaText.trim(),
-      }
-    },
-    closeDialog () {
-      $.fancybox.close()
     },
   },
 }

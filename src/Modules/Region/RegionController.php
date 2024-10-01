@@ -12,13 +12,13 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Store\StoreGateway;
+use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\ReportPermissions;
 use Foodsharing\Permissions\VotingPermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
-use Foodsharing\Utility\DataHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,14 +35,13 @@ final class RegionController extends FoodsharingController
         private readonly ForumPermissions $forumPermissions,
         private readonly RegionPermissions $regionPermissions,
         private readonly ForumTransactions $forumTransactions,
-        private readonly RegionGateway $gateway,
         private readonly VotingPermissions $votingPermissions,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly StoreGateway $storeGateway,
-        private readonly DataHelper $dataHelper,
         private readonly FoodSharePointPermissions $foodSharePointPermissions,
         private readonly ForumGateway $forumGateway,
         private readonly AchievementGateway $achievementGateway,
+        private readonly AchievementPermissions $achievementPermissions,
     ) {
         parent::__construct();
     }
@@ -77,8 +76,9 @@ final class RegionController extends FoodsharingController
 
         if (UnitType::isRegion($groupType)) {
             $menu['isAdmin'] = $this->currentUserUnits->isAdminFor($groupId);
-            $menu['mayAccessReportGroupReports'] = $this->reportPermissions->mayAccessReportGroupReports($groupId);
-            $menu['mayAccessArbitrationGroupReports'] = $this->reportPermissions->mayAccessArbitrationReports($groupId);
+            $menu['mayAccessReports'] = $this->reportPermissions->mayAccessReportsForRegion($groupId);
+            $menu['isReportAdmin'] = $this->reportPermissions->isReportAdmin($groupId);
+            $menu['isArbitrationAdmin'] = $this->reportPermissions->isArbitrationAdmin($groupId);
             $menu['maySetRegionPin'] = $this->regionPermissions->maySetRegionPin($groupId);
         } else {
             $menu['isAdmin'] = $this->workGroupPermissions->mayEdit($group);
@@ -129,12 +129,7 @@ final class RegionController extends FoodsharingController
     {
         $regionId = (int)$region['id'];
 
-        $avatarListEntry = fn ($fs) => new Profile(
-            $fs['id'],
-            $fs['name'],
-            $fs['photo'],
-            (int)$this->dataHelper->parseSleepingState($fs['sleep_status'], $fs['sleep_from'], $fs['sleep_until'])
-        );
+        $avatarListEntry = fn ($fs) => new Profile($fs);
 
         $isWorkGroup = UnitType::isGroup($region['type']);
 
@@ -173,7 +168,8 @@ final class RegionController extends FoodsharingController
 
         $region_id = $request->query->getInt('bid', $this->currentUserUnits->getCurrentRegionId() ?? 0);
 
-        if ($this->currentUserUnits->mayBezirk($region_id) && ($region = $this->gateway->getRegionDetails($region_id))) {
+        $region = $this->regionGateway->getRegionDetails($region_id);
+        if (!empty($region) && $this->currentUserUnits->mayBezirk($region_id)) {
             $big = [UnitType::BIG_CITY, UnitType::FEDERAL_STATE, UnitType::COUNTRY];
             $region['moderated'] = $region['moderated'] || in_array($region['type'], $big);
             $this->region = $region;
@@ -184,6 +180,11 @@ final class RegionController extends FoodsharingController
         }
 
         $this->pageHelper->addTitle($region['name']);
+
+        if ($region['parent_id'] !== RegionIDs::ROOT) {
+            $parent = $this->regionGateway->getRegionName($region['parent_id']);
+            $this->pageHelper->addBread($parent, '/region?bid=' . $region['parent_id']);
+        }
         $this->pageHelper->addBread($region['name'], '/region?bid=' . $region_id);
 
         switch ($request->query->get('sub')) {
@@ -368,10 +369,10 @@ final class RegionController extends FoodsharingController
         $pageData['pickupData']['yearly'] = 0;
 
         if ($region['type'] !== UnitType::COUNTRY || $this->regionPermissions->mayAccessStatisticCountry()) {
-            $pageData['pickupData']['daily'] = $this->gateway->listRegionPickupsByDate((int)$region['id'], '%Y-%m-%d');
-            $pageData['pickupData']['weekly'] = $this->gateway->listRegionPickupsByDate((int)$region['id'], '%Y/%v');
-            $pageData['pickupData']['monthly'] = $this->gateway->listRegionPickupsByDate((int)$region['id'], '%Y-%m');
-            $pageData['pickupData']['yearly'] = $this->gateway->listRegionPickupsByDate((int)$region['id'], '%Y');
+            $pageData['pickupData']['daily'] = $this->regionGateway->listRegionPickupsByDate((int)$region['id'], '%Y-%m-%d');
+            $pageData['pickupData']['weekly'] = $this->regionGateway->listRegionPickupsByDate((int)$region['id'], '%Y/%v');
+            $pageData['pickupData']['monthly'] = $this->regionGateway->listRegionPickupsByDate((int)$region['id'], '%Y-%m');
+            $pageData['pickupData']['yearly'] = $this->regionGateway->listRegionPickupsByDate((int)$region['id'], '%Y');
         }
         $params = $this->convertDataToObject($region, $sub, $pageData);
 
@@ -399,7 +400,7 @@ final class RegionController extends FoodsharingController
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.options'), '/region?bid=' . $region['id'] . '&sub=options');
         $this->pageHelper->addTitle($this->translator->trans('terminology.options'));
-        $regionOptions = $this->gateway->getAllRegionOptions($region['id']);
+        $regionOptions = $this->regionGateway->getAllRegionOptions($region['id']);
         $pageData['maySetRegionOptionsReportButtons'] = boolval($this->regionPermissions->maySetRegionOptionsReportButtons($region['id']));
         $pageData['maySetRegionOptionsRegionPickupRule'] = boolval($this->regionPermissions->maySetRegionOptionsRegionPickupRule($region['id']));
         $pageData['isReportButtonEnabled'] = boolval(array_key_exists(RegionOptionType::ENABLE_REPORT_BUTTON, $regionOptions) ? $regionOptions[RegionOptionType::ENABLE_REPORT_BUTTON] : 0);
@@ -410,6 +411,8 @@ final class RegionController extends FoodsharingController
         $pageData['regionPickupRuleLimitDayNumber'] = intval(array_key_exists(RegionOptionType::REGION_PICKUP_RULE_LIMIT_DAY_NUMBER, $regionOptions) ? $regionOptions[RegionOptionType::REGION_PICKUP_RULE_LIMIT_DAY_NUMBER] : 0);
         $pageData['regionPickupRuleInactiveHours'] = intval(array_key_exists(RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS, $regionOptions) ? $regionOptions[RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS] : 0);
         $pageData['regionPickupRuleActiveStoreList'] = $this->storeGateway->listRegionStoresActivePickupRule($region['id']);
+        $pageData['selectedReportReasonOptions'] = intval($regionOptions[RegionOptionType::REPORT_REASON_OPTIONS] ?? 1);
+        $pageData['reportReasonOtherEnabled'] = boolval($regionOptions[RegionOptionType::REPORT_REASON_OTHER] ?? 1);
 
         $params = $this->convertDataToObject($region, $request->query->get('sub'), $pageData);
 
@@ -422,7 +425,7 @@ final class RegionController extends FoodsharingController
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.pin'), '/region?bid=' . $region['id'] . '&sub=pin');
         $this->pageHelper->addTitle($this->translator->trans('terminology.pin'));
-        $result = $this->gateway->getRegionPin($region['id']);
+        $result = $this->regionGateway->getRegionPin($region['id']);
         $pageData['lat'] = $result['lat'] ?? MapConstants::CENTER_GERMANY_LAT;
         $pageData['lon'] = $result['lon'] ?? MapConstants::CENTER_GERMANY_LON;
         $pageData['desc'] = $result['desc'] ?? null;
@@ -441,6 +444,7 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addTitle($this->translator->trans('terminology.achievements'));
 
         $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
+        $params['mayAdministrateAchievements'] = $this->achievementPermissions->mayAdministrateAchievementsFromRegion($region['id']);
 
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 

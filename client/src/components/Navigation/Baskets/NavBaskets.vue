@@ -73,7 +73,7 @@ export default {
       })
     },
     basketsRequestCount () {
-      return getters.getRequestdCount()
+      return getters.getRequestedCount()
     },
   },
   methods: {

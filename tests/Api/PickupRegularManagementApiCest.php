@@ -9,7 +9,10 @@ use Tests\Support\ApiTester;
 
 class PickupRegularManagementApiCest
 {
-    private $user;
+    private $user1;
+    private $user2;
+    private $userNoMember;
+    private $coordinator;
     private $store;
     private $region;
 
@@ -19,7 +22,7 @@ class PickupRegularManagementApiCest
         $this->user2 = $I->createFoodsaver();
         $this->userNoMember = $I->createFoodsaver();
         $this->coordinator = $I->createStoreCoordinator();
-        $this->region = $I->createRegion();
+        $this->region = $I->createRegion(fillMailbox: false);
         $this->store = $I->createStore($this->region['id']);
         $I->addStoreTeam($this->store['id'], $this->coordinator['id'], true);
         $I->addStoreTeam($this->store['id'], $this->user1['id'], false);

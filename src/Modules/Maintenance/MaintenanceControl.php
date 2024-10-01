@@ -85,16 +85,6 @@ class MaintenanceControl extends ConsoleControl
         $this->updateSpecialGroupMemberships();
 
         /*
-         * sleeping users, where the time period of sleepiness ended
-         */
-        $this->wakeupSleepingUsers();
-
-        /*
-        * put users to sleep whose sleeping period begins
-        */
-        $this->putUsersToSleep();
-
-        /*
          * updates outdated bells with passed expiration date
          */
         $this->bellUpdateTrigger->triggerUpdate();
@@ -105,6 +95,11 @@ class MaintenanceControl extends ConsoleControl
         $this->cleanOldQuizSessionData();
 
         /*
+         * Deleting test quiz sessions older than a day
+         */
+        $this->deleteTestQuizSessions();
+
+        /*
          * Remove failed and unprocessed E-Mais form IMAP folder
          */
         if (getenv('FS_ENV') !== 'dev') {
@@ -112,8 +107,14 @@ class MaintenanceControl extends ConsoleControl
         }
     }
 
-    public function deleteInactiveUsers()
+    public function deleteInactiveUsers(bool $dryRun = false, int $maximum = MAX_DELETE_OLD_ACCOUNTS_PER_DAY)
     {
+        if ($maximum < 0) {
+            self::error('The maximal number of accounts must be positive');
+
+            return;
+        }
+
         $arrayAccountsNotDeleted = [];
         $accountsDeleted = 0;
         self::info('deleting users inactive > 5 years');
@@ -124,10 +125,12 @@ class MaintenanceControl extends ConsoleControl
                 if ($this->storeGateway->listStoreIds($fs)) {
                     $arrayAccountsNotDeleted[] = $fs;
                 } else {
-                    $this->foodsaverGateway->deleteFoodsaver($fs, null, 'Automatic inactivity deletion');
+                    if (!$dryRun) {
+                        $this->foodsaverGateway->deleteFoodsaver($fs, null, 'Automatic inactivity deletion');
+                    }
                     ++$accountsDeleted;
                 }
-                if ($accountsDeleted === MAX_DELETE_OLD_ACCOUNTS_PER_DAY) {
+                if ($accountsDeleted === $maximum) {
                     break;
                 }
             }
@@ -335,20 +338,6 @@ class MaintenanceControl extends ConsoleControl
         }
     }
 
-    private function wakeupSleepingUsers()
-    {
-        self::info('wake up sleeping users...');
-        $count = $this->maintenanceGateway->wakeupSleepingUsers();
-        self::success($count . ' users woken up');
-    }
-
-    private function putUsersToSleep()
-    {
-        self::info('put to sleep users...');
-        $count = $this->maintenanceGateway->putUsersToSleep();
-        self::success($count . ' users put to sleep');
-    }
-
     private function deleteOldIpBlocks()
     {
         self::info('deleting old blocked IPs...');
@@ -361,6 +350,13 @@ class MaintenanceControl extends ConsoleControl
         self::info('reducing data from finished quiz sessions...');
         $count = $this->maintenanceGateway->cleanOldQuizSessionData();
         self::success($count . ' sessions updated');
+    }
+
+    private function deleteTestQuizSessions()
+    {
+        self::info('deleting test quiz sessions...');
+        $count = $this->maintenanceGateway->deleteTestQuizSessions();
+        self::success($count . ' sessions deleted');
     }
 
     public function deleteImapFolderMails($deleteDelayDays = self::DELETE_DELAY_DAYS)

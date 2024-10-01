@@ -6,6 +6,7 @@ use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
+use Foodsharing\Modules\Group\GroupGateway;
 use Foodsharing\Modules\Region\ForumFollowerGateway;
 use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\RestApi\Models\Group\EditWorkGroupData;
@@ -19,6 +20,7 @@ class WorkGroupTransactions
         private readonly ForumFollowerGateway $forumFollowerGateway,
         private readonly UploadsGateway $uploadsGateway,
         private readonly BellGateway $bellGateway,
+        private readonly GroupGateway $groupGateway,
         private readonly EmailHelper $emailHelper,
         private readonly TranslatorInterface $translator
     ) {
@@ -55,27 +57,29 @@ class WorkGroupTransactions
         ];
 
         $this->workGroupGateway->groupApply($groupId, $userId, implode("\n\n", $content));
-        $groupMail = $this->workGroupGateway->getGroupMail($groupId);
+        $groupMail = $this->groupGateway->getGroupMailName($groupId);
         $group = $this->workGroupGateway->getGroup($groupId);
 
-        $userWithMail = $this->workGroupGateway->getFsWithMail($userId);
+        if ($groupMail) {
+            $userWithMail = $this->workGroupGateway->getFsWithMail($userId);
 
-        $link = BASE_URL . '/?page=application&bid=' . $groupId . '&fid=' . $userId;
+            $link = BASE_URL . '/regions/' . $groupId . '/applications/' . $userId;
 
-        $this->emailHelper->libmail(
-            [
-                'email' => $userWithMail['email'],
-                'email_name' => $userWithMail['name'],
-            ],
-            $groupMail,
-            $this->translator->trans('group.apply.title', ['{group}' => $group['name']]),
-            nl2br($this->translator->trans('group.apply.summary', [
-                    '{name}' => $userWithMail['name'],
-                    '{group}' => $group['name'],
-                ]) . "\n\n" . implode("\n\n", $content) . "\n\n"
-                . $this->translator->trans('group.apply.link_description')
-                . ' <a href="' . $link . '">' . $link . '</a>')
-        );
+            $this->emailHelper->libmail(
+                [
+                    'email' => $userWithMail['email'],
+                    'email_name' => $userWithMail['name'],
+                ],
+                $groupMail . '@' . PLATFORM_MAILBOX_HOST,
+                $this->translator->trans('group.apply.title', ['{group}' => $group['name']]),
+                nl2br($this->translator->trans('group.apply.summary', [
+                        '{name}' => $userWithMail['name'],
+                        '{group}' => $group['name'],
+                    ]) . "\n\n" . implode("\n\n", $content) . "\n\n"
+                    . $this->translator->trans('group.apply.link_description')
+                    . ' <a href="' . $link . '">' . $link . '</a>')
+            );
+        }
 
         $this->createBellNotificationForRequest($group, $userId);
     }
@@ -89,8 +93,8 @@ class WorkGroupTransactions
     private function createBellNotificationForRequest(array $group, int $userId): void
     {
         $adminIds = $this->workGroupGateway->getGroupAdminIds($group['id']);
-        $bellData = Bell::create('workinggroup_new_request_title', 'workinggroup_new_request', 'fas fa-user-clock', [
-            'href' => '/?page=application&bid=' . $group['id'] . '&fid=' . $userId
+        $bellData = Bell::create('workinggroup_new_request_title', 'workinggroup_new_request', 'fas fa-user-plus', [
+            'href' => '/regions/' . $group['id'] . '/applications/' . $userId
         ], [
             'name' => $group['name']
         ], BellType::createIdentifier(BellType::WORKING_GROUP_NEW_APPLICATION, $group['id'], $userId));

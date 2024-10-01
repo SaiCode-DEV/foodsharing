@@ -42,8 +42,8 @@ class AchievementGatewayTest extends Unit
 
     private function initRegions(): void
     {
-        $this->region = $this->tester->createRegion('Parent');
-        $this->childRegion = $this->tester->createRegion('Child', ['parent_id' => $this->region['id']]);
+        $this->region = $this->tester->createRegion('Parent', fillMailbox: false);
+        $this->childRegion = $this->tester->createRegion('Child', ['parent_id' => $this->region['id']], false);
         $this->tester->addRegionMember($this->region['id'], $this->user['id']);
         $this->tester->addRegionMember($this->childRegion['id'], $this->user['id']);
     }
@@ -95,8 +95,9 @@ class AchievementGatewayTest extends Unit
         $awardedAchievement->achievementId = $achievementId;
         $awardedAchievement->reviewerId = $this->otherUser['id'];
         $awardedAchievement->notice = 'Some notice';
+        $awardedAchievement->validUntil = null;
 
-        $this->transactions->awardAchievement($awardedAchievement);
+        $this->gateway->awardAchievement($awardedAchievement);
         $this->assertEquals(true, $this->gateway->hasAchievement($this->user['id'], $achievementId));
     }
 
@@ -110,7 +111,7 @@ class AchievementGatewayTest extends Unit
         $awardedAchievement->notice = 'Some notice';
         $awardedAchievement->validUntil = Carbon::now()->subDay();
 
-        $this->transactions->awardAchievement($awardedAchievement);
+        $this->gateway->awardAchievement($awardedAchievement);
         $this->assertEquals(false, $this->gateway->hasAchievement($this->user['id'], $achievementId));
     }
 

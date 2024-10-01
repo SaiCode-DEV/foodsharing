@@ -34,19 +34,27 @@
 <script>
 // Store
 // Store
-import DataUser from '@/stores/user'
-import { getters } from '@/stores/regions'
+import { useUserStore } from '@/stores/user'
+import { useRegionStore } from '@/stores/regions'
 // Components
 import Dropdown from '../_NavItems/NavDropdown'
 import RegionsEntry from './NavRegionsEntry'
 
+const userStore = useUserStore()
+const regionStore = useRegionStore()
+
 export default {
   name: 'MenuRegions',
   components: { Dropdown, RegionsEntry },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   computed: {
     regions () {
-      const homeRegion = DataUser.getters.getHomeRegion()
-      return getters.get().slice().sort((a, b) => {
+      const homeRegion = userStore.getHomeRegion
+      return regionStore.regions.slice().sort((a, b) => {
         if (a.id === homeRegion) return -1
         if (b.id === homeRegion) return 1
         else return a.name.localeCompare(b.name)

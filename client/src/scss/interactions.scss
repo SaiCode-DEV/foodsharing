@@ -5,6 +5,7 @@ html a[href]:not(:where(
     a.alert,
     .navbar-brand,
     .nav-link,
+    .nav-item a,
     .btn,
     .dropdown-action,
     .dropdown-item,
@@ -69,3 +70,41 @@ html input:disabled {
         @include button-variant(white,lighten($gray, 40%), #e6e6e6, lighten($gray, 40%), #e6e6e6, $gray);
     }
 }
+
+.nav-tabs .nav-link {
+    background-color: var(--fs-color-secondary-100);
+    color: var(--fs-color-primary-700);
+
+    &:hover {
+        background-color: var(--fs-color-secondary-200);
+        color: var(--fs-color-primary-800);
+    }
+
+    &.active {
+        background-color: var(--fs-color-secondary-400);
+        color: var(--fs-color-primary-900);
+    }
+}
+
+.btn {
+    color: var(--fs-color-text);
+    &.btn-info {
+        color: var(--fs-color-black);
+        background-color: var(--fs-color-info-400);
+    }
+}
+
+.btn-link {
+    color: var(--fs-color-primary-500);
+
+    &:hover {
+        color: var(--fs-color-primary-800);
+    }
+}
+
+
+// Dark mode overrides
+.dark-mode .btn.btn-light {
+        @include button-variant( black, darken($gray, 40%), #333, darken($gray, 40%), #333, $gray);
+}
+

@@ -51,6 +51,7 @@
       <SearchResults
         v-if="showResults"
         class="results"
+        :class="{'no-interaction': accidentalClickPrevention }"
         :results="results"
         :is-loading="isLoading"
         @close="$refs.searchBarModal.hide"
@@ -79,14 +80,28 @@
 import SearchResults from '@/components/SearchBar/SearchResults'
 import { search, getSearchIndex } from '@/api/search'
 import { getCache, getCacheInterval, setCache } from '@/helper/cache'
-import DataUser, { mutations as userStoreMutations } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user.js'
+
+const userStore = useUserStore()
 const cacheRequestName = 'searchIndex'
 const rateLimitInterval = 1000 * 60 * 5 // 5 minutes in milliseconds
 
+// While results from the index can be displayed quickly, the search results might only arive a bit later.
+// A user might just want to click on an index entry, when the other entries arrive. That way the user likely
+// clicks the wrong entry. To prevent this, clicking links is disabled for a short time after adding the loaded
+// results. This does not apply to tab naviagion and opening a link via Enter, since the right element will stay
+// selected.
+const accidentalClickPreventionThreshhold = 700 // milliseconds
+
 export default {
   components: { SearchResults },
+  setup () {
+    userStore.fetchDetails()
+    return {
+      userStore,
+    }
+  },
   data () {
-    userStoreMutations.fetchDetails()
     return {
       query: '',
       showResults: false,
@@ -95,6 +110,7 @@ export default {
       index: null,
       recentQueryChangesCount: 0,
       globalSearch: false,
+      accidentalClickPrevention: false,
     }
   },
   computed: {
@@ -119,10 +135,11 @@ export default {
           entry => queryWords.every(word => this.searchString(entry.search_string, detailedSearch).includes(this.collateString(word))),
         )
         if (this.directSearchResults) {
+          const directSearchResult = this.directSearchResults?.[key] ?? []
           // Replace local result entries by search results, since they may be more recent
-          results[key] = results[key].map(localEntry => this.directSearchResults[key].find(entry => entry.id === localEntry.id) ?? localEntry)
+          results[key] = results[key].map(localEntry => directSearchResult.find(entry => entry.id === localEntry.id) ?? localEntry)
           // Append additional search results that were not found locally
-          results[key].push(...this.directSearchResults[key].filter(
+          results[key].push(...directSearchResult.filter(
             entry => !results[key].some(indexedEntry => entry.id === indexedEntry.id),
           ))
         }
@@ -136,7 +153,7 @@ export default {
       return this.recentQueryChangesCount === 0
     },
     maySearchGlobal () {
-      return DataUser.getters.getUserDetails()?.permissions?.maySearchGlobal
+      return userStore.getUserDetails?.permissions?.maySearchGlobal
     },
   },
   watch: {
@@ -177,6 +194,10 @@ export default {
         return false
       }
       this.directSearchResults = results
+      if (this.accidentalClickPrevention) {
+        clearTimeout(this.accidentalClickPrevention)
+      }
+      this.accidentalClickPrevention = setTimeout(() => { this.accidentalClickPrevention = false }, accidentalClickPreventionThreshhold)
       this.isLoading = false
     },
     async fetchIndex () {
@@ -274,6 +295,10 @@ export default {
   position: relative;
   flex-grow: 1;
   align-items: center;
+}
+
+.no-interaction ::v-deep a {
+  pointer-events: none;
 }
 
 </style>

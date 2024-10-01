@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Profile;
 use Carbon\Carbon;
 use Exception;
 use Foodsharing\Lib\FoodsharingController;
+use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Basket\BasketGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
@@ -15,10 +16,10 @@ use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Mails\MailsGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
+use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\ReportPermissions;
 use Foodsharing\Permissions\StorePermissions;
-use Foodsharing\Utility\DataHelper;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
@@ -36,8 +37,9 @@ final class ProfileController extends FoodsharingController
         private readonly GroupFunctionGateway $groupFunctionGateway,
         private readonly StoreGateway $storeGateway,
         private readonly GroupGateway $groupGateway,
-        private readonly DataHelper $dataHelper,
-        private readonly StorePermissions $storePermissions
+        private readonly StorePermissions $storePermissions,
+        private readonly AchievementPermissions $achievementPermissions,
+        private readonly AchievementGateway $achievementGateway,
     ) {
         parent::__construct();
     }
@@ -71,7 +73,7 @@ final class ProfileController extends FoodsharingController
         }
 
         $maySeeStores = $this->profilePermissions->maySeeStores($userId);
-        $userStores = $maySeeStores ? $this->profileGateway->listStoresOfFoodsaver($userId) : [];
+        $userStores = $this->profileGateway->listStoresOfFoodsaver($userId);
         $userArray = $this->createUserArray($userId);
         $this->pageHelper->addTitle($userArray['name']);
         $params = $this->convertDataToObject($userStores, $userArray, $maySeeStores);
@@ -166,7 +168,6 @@ final class ProfileController extends FoodsharingController
         return [
             'menu' => $this->getProfileMenu($userStores, $userArray, $maySeeStores),
             'statistics' => $this->renderStatistics($userArray),
-            'bananaStatistics' => $this->renderBananaStatistics($userArray),
             'ambassadorRegions' => $userArray['botschafter'] ? $userArray['botschafter'] : [],
             'foodSaverRegions' => $userArray['foodsaver'] ? $userArray['foodsaver'] : [],
             'homeDistrictHistory' => (object)$this->getHomeDistrictHistory($userArray),
@@ -180,7 +181,8 @@ final class ProfileController extends FoodsharingController
             'pickupsSection' => $this->getPickupsSection($userArray['id']),
             'maySeeUserNotes' => $this->profilePermissions->maySeeUserNotes($userArray['id']),
             'noteCount' => $userArray['note_count'] ?? 0,
-            'stores' => $userStores,
+            'stores' => $maySeeStores ? $userStores : [],
+            'awardedAchievements' => $this->getAchievementsData($userArray['id']),
         ];
     }
 
@@ -195,7 +197,7 @@ final class ProfileController extends FoodsharingController
         $maySeeHistory = $this->profilePermissions->maySeeHistory($fsId);
 
         // what is the viewer allowed to do in this profile?
-        if ($userArray['rolle'] > Role::FOODSHARER->value) {
+        if (!empty($regionId) && $userArray['rolle'] > Role::FOODSHARER->value) {
             // MediationRequest
             if ($this->regionGateway->getRegionOption($regionId, RegionOptionType::ENABLE_MEDIATION_BUTTON)) {
                 $mediationGroupEmail = $this->renderMediationRequest($userArray);
@@ -206,7 +208,7 @@ final class ProfileController extends FoodsharingController
                 $this->regionGateway->getRegionOption($regionId, RegionOptionType::ENABLE_REPORT_BUTTON)
             ) === 1;
 
-            if ($this->regionGateway->getRegionOption($regionId, RegionOptionType::ENABLE_REPORT_BUTTON)) {
+            if ($isReportButtonEnabled) {
                 // if the current user is not allowed to see all stores of the profile, the report dialog will only show stores in which both users are
                 if ($maySeeStores) {
                     $reportStores = $userStores;
@@ -252,10 +254,7 @@ final class ProfileController extends FoodsharingController
                         $regionId,
                         WorkgroupFunction::REPORT
                     );
-                    $reportGroupDetails = $this->groupGateway->getGroupLegacy($reportGroupId);
-                    $MailboxNameReportRequest = $this->mailboxGateway->getMailboxname(
-                        $reportGroupDetails['mailbox_id']
-                    ) ?? '';
+                    $mailboxNameReportRequest = $this->groupGateway->getGroupMailName($reportGroupId);
                 }
 
                 $hasArbitrationGroup = $this->groupFunctionGateway->existRegionFunctionGroup(
@@ -263,7 +262,17 @@ final class ProfileController extends FoodsharingController
                     WorkgroupFunction::ARBITRATION
                 );
 
-                if ($regionId != $this->currentUserUnits->getCurrentRegionId()) {
+                if ($hasArbitrationGroup) {
+                    $arbitrationGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId(
+                        $regionId,
+                        WorkgroupFunction::ARBITRATION
+                    );
+                    $mailboxNameArbitrationRequest = $this->groupGateway->getGroupMailName($arbitrationGroupId);
+                }
+
+                if (!$this->currentUserUnits->getCurrentRegionId()) {
+                    $reporterHasReportGroup = false;
+                } elseif ($regionId != $this->currentUserUnits->getCurrentRegionId()) {
                     $reporterHasReportGroup = $this->groupFunctionGateway->existRegionFunctionGroup(
                         $this->currentUserUnits->getCurrentRegionId(),
                         WorkgroupFunction::REPORT
@@ -271,6 +280,9 @@ final class ProfileController extends FoodsharingController
                 }
 
                 $buttonNameReportRequest = $this->translator->trans('profile.reportRequest');
+
+                $reasonOptionOther = boolval($this->regionGateway->getRegionOption($regionId, RegionOptionType::REPORT_REASON_OTHER) ?? 1);
+                $reasonOptionSettings = intval($this->regionGateway->getRegionOption($regionId, RegionOptionType::REPORT_REASON_OPTIONS) ?? 1);
             }
         }
 
@@ -280,7 +292,7 @@ final class ProfileController extends FoodsharingController
             'photo' => $userArray['photo'],
             'fsId' => $userArray['id'],
             'fsIdSession' => $this->session->id(),
-            'isSleeping' => $this->dataHelper->parseSleepingState($userArray['sleep_status'], $userArray['sleep_from'], $userArray['sleep_until']),
+            'isSleeping' => $userArray['is_sleeping'],
             'initialBuddyType' => $userArray['buddy'],
             'mayAdmin' => $mayAdmin,
             'mayHistory' => $maySeeHistory,
@@ -297,8 +309,11 @@ final class ProfileController extends FoodsharingController
             'isReporterIdArbitrationAdmin' => $isReporterIdArbitrationAdmin ?? false,
             'isReportedIdArbitrationAdmin' => $isReportedIdArbitrationAdmin ?? false,
             'isReportButtonEnabled' => $isReportButtonEnabled ?? false,
+            'reasonOptionOther' => $reasonOptionOther ?? false,
+            'reasonOptionSettings' => $reasonOptionSettings ?? 1,
             'reporterHasReportGroup' => $reporterHasReportGroup ?? false,
-            'mailboxNameReportRequest' => $MailboxNameReportRequest ?? '',
+            'mailboxNameReportRequest' => $mailboxNameReportRequest ?? '',
+            'mailboxNameArbitrationRequest' => $mailboxNameArbitrationRequest ?? '',
             'buttonNameReportRequest' => $buttonNameReportRequest ?? $this->translator->trans('profile.report.oldReportButton'),
             'maySeeQuizSessions' => $this->profilePermissions->maySeeQuizSessions()
         ];
@@ -317,8 +332,7 @@ final class ProfileController extends FoodsharingController
         $mailboxName = '';
         if ($this->groupFunctionGateway->existRegionFunctionGroup($regionId, WorkgroupFunction::MEDIATION)) {
             $mediationGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::MEDIATION);
-            $mediationGroupDetails = $this->groupGateway->getGroupLegacy($mediationGroupId);
-            $mailboxName = $this->mailboxGateway->getMailboxname($mediationGroupDetails['mailbox_id']);
+            $mailboxName = $this->groupGateway->getGroupMailName($mediationGroupId) ?? '';
         }
 
         return $mailboxName;
@@ -351,26 +365,6 @@ final class ProfileController extends FoodsharingController
         }
 
         return $statistics;
-    }
-
-    private function renderBananaStatistics($userArray): array
-    {
-        if (!$this->session->mayRole(Role::FOODSAVER)) {
-            return [];
-        }
-
-        $recipientId = intval($userArray['id']);
-        $viewerId = $this->session->id();
-
-        $canGiveBanana = (!$userArray['bouched']) && ($userArray['id'] != $viewerId);
-
-        return [
-            'recipientId' => $recipientId,
-            'recipientName' => $userArray['name'],
-            'canGiveBanana' => $canGiveBanana,
-            'canRemoveBanana' => $this->profilePermissions->mayDeleteBanana($recipientId),
-            'bananas' => $userArray['bananen']
-        ];
     }
 
     private function getSleepingHatInformation(array $userArray): array
@@ -441,5 +435,15 @@ final class ProfileController extends FoodsharingController
             'allowSlotCancelation' => $this->profilePermissions->mayCancelSlotsFromProfile($fsId),
             'isOwnProfile' => ($fsId === $this->session->id()),
         ];
+    }
+
+    private function getAchievementsData(int $userId): ?array
+    {
+        $achievements = null;
+        if ($this->achievementPermissions->maySeeUserAchievements($userId)) {
+            $achievements = $this->achievementGateway->getAwardedAchievementsForUser($userId);
+        }
+
+        return $achievements;
     }
 }

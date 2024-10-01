@@ -16,7 +16,7 @@ class SettingsCest
     {
         $this->foodsaver = $I->createFoodsaver();
         $this->fspAdmin = $I->createFoodsaver();
-        $this->region = $I->createRegion();
+        $this->region = $I->createRegion(fillMailbox: false);
         $this->foodSharePoint = $I->createFoodSharePoint($this->fspAdmin['id'], $this->region['id']);
     }
 

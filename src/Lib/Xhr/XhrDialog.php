@@ -149,7 +149,6 @@ class XhrDialog
 				$("body").append(\'<div class="xhrDialog" style="display: none;" id="' . $this->id . '"></div>\');
 				$("#' . $this->id . '").html(\'' . $this->sanitizerService->jsSafe($this->content) . '\');
 				$(".xhrDialog .input.textarea").css("height", "50px");
-				$(".xhrDialog .input.textarea").autosize();
 				$("#' . $this->id . '").dialog({
 					' . implode(',', $options) . '
 				});'

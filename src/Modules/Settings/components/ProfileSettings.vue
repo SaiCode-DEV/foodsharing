@@ -96,7 +96,7 @@
         <b-form-group :label="$i18n('settings.general.current_address')">
           <b-input-group>
             <b-form-input
-              :value="`${location.street} ${location.postalCode} ${location.city}`"
+              :value="locationString"
               type="text"
               :disabled="true"
             />
@@ -158,15 +158,15 @@
             />
           </b-form-group>
         </div>
-        <div v-if="!isMe && userDetails.bezirk_id > 0">
+        <div>
           <b-form-group :label="$i18n('terminology.homeRegion')">
             <b-input-group>
               <b-form-input
-                :value="region.name"
+                :value="region.name || $i18n('search.results.user.no_home_region')"
                 type="text"
                 :disabled="true"
               />
-              <b-input-group-append>
+              <b-input-group-append v-if="!isMe">
                 <b-button
                   variant="outline-secondary"
                   @click="$refs.homeRegionTree.openModal()"
@@ -232,7 +232,7 @@
       @update-location="handleUpdateLocation"
     />
     <RegionTreeModal
-      v-if="userDetails.bezirk_id > 0"
+      v-if="!isMe"
       ref="homeRegionTree"
       :value="region"
       input-name="regionId"
@@ -251,11 +251,13 @@ import NameInputModal from './NameInputModal.vue'
 import ProfileAddressModal from './ProfileAddressModal.vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import Markdown from '@/components/Markdown/Markdown'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import RegionTreeModal from '@/components/regiontree/RegionTreeModal.vue'
-import { REGION_UNIT_TYPE } from '@/stores/regions'
+import { SELECTABLE_REGION_TYPES } from '@/stores/regions'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import { pulseError, pulseSuccess } from '@/script'
+
+const userStore = useUserStore()
 
 export default {
   name: 'ProfileSettings',
@@ -275,6 +277,11 @@ export default {
   validations: {
     firstName: { required, minLength: minLength(2), maxLength: maxLength(40) },
     lastName: { required, minLength: minLength(2), maxLength: maxLength(40) },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     const date = new Date()
@@ -334,21 +341,23 @@ export default {
           labelHelp: this.$i18n('bootstrap-datepicker.labelHelp'),
         },
       },
-      selectableRegionTypes: Object.values(REGION_UNIT_TYPE),
     }
   },
   computed: {
     isFoodSaver () {
-      return DataUser.getters.isFoodsaver()
+      return userStore.isFoodsaver
+    },
+    selectableRegionTypes () {
+      return SELECTABLE_REGION_TYPES
     },
     isOrgUser () {
-      return DataUser.getters.isOrga()
+      return userStore.isOrga
     },
     isMe () {
-      return DataUser.getters.getUserId() === this.userDetails.id
+      return userStore.getUserId === this.userDetails.id
     },
     isAmbassador () {
-      return DataUser.getters.isAmbassador()
+      return userStore.isAmbassador
     },
     isFieldsValid () {
       return this.phone.valid && this.mobile.valid && !this.$v.$invalid
@@ -359,6 +368,11 @@ export default {
     isValidBirthdate () {
       const age = this.$dateFormatter.getDifferenceToNowInYears(this.date)
       return age >= 18 && age <= 125 && !!this.birthday
+    },
+    locationString () {
+      return (!this.location.street && !this.location.postalCode && !this.location.city)
+        ? this.$i18n('settings.general.no_address')
+        : `${this.location.street} ${this.location.postalCode} ${this.location.city}`
     },
   },
   methods: {
@@ -374,6 +388,8 @@ export default {
       this[`${data.id}`] = { value: data.value, valid: data.valid }
     },
     handleSubmit () {
+      const nullableLocation = (!this.location?.street && !this.location?.postalCode && !this.location?.city) ? null : this.location
+      const nullableCoordinates = (!this.coordinate?.lat && !this.coordinate?.lon) ? null : this.coordinate
       const formData = {
         id: this.userId,
         firstName: this.firstName,
@@ -384,8 +400,8 @@ export default {
         birthday: this.birthday,
         mobile: this.mobile.value,
         phone: this.phone.value,
-        location: this.location,
-        coordinate: { lon: this.coordinate.lon, lat: this.coordinate.lat },
+        location: nullableLocation,
+        coordinate: nullableCoordinates,
         aboutMeInternal: this.aboutMeInternal,
         role: this.role,
         position: this.position,
@@ -398,7 +414,7 @@ export default {
       patchUserProfile(this.userId, formData).then(() => {
         pulseSuccess(this.$i18n('success'))
       }).catch((error) => {
-        pulseError(this.$i18n('error_unexpected: ', error))
+        pulseError(this.$i18n('error_unexpected') + ': ' + error)
         console.error(error)
       })
     },

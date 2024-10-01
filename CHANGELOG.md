@@ -1,4 +1,95 @@
-# Unreleased
+# Release "N" (Unreleased)
+
+## Features
+- Disable preview mode for Markdown component after message was sent #2039 @tq-bit
+- Add feedback on login form for invalid / missing email address #2061 @tq-bit
+- Add API endpoint for creating blog posts !3455 @alex.simm
+- Create option for multiple themes with dark mode as a start #2054 !3500 @SaiCode
+- Achievements can be awarded, edited and revoked. They get displayed on the profile !3429 @AntonBallmaier
+- Allow users to change their own passwords #581 !3435 @alex.simm
+- Allow loading more wall posts #2056 !3580 @AntonBallmaier
+- Add a hygiene quiz that can be edited by the hygiene working group #2074 #2146 !3540 !3668 @AntonBallmaier
+- Allow support group admins to change someone else's login email address #2031 !3482 @alex.simm
+- Added wait timer to leaving home district #2090 !3562 @SaiCode
+- Added a new frontend for managing store categories #1263 !3405 @alex.simm
+- Improved map marker selection for stores #1659 !3596 @AntonBallmaier
+- Added an achievement administration page #2073 !3604 @AntonBallmaier
+- Added new Digital Foodsharing Passports for Android and iOS !3591 @SaiCode
+- Food baskets support multiple images now. Image quality issues are resolve. #1797 #1714 !3304 @AntonBallmaier
+- Added the option to test a quiz from the quiz editor. #2112 !3612 @AntonBallmaier
+
+## Changes
+- Improve accessibility in create forum thread form !3488 @iron9
+- Improve listing of non-active region members !3568 @iron9
+- Slightly adjusted the banana badge in the user profile @tripleb-fs
+- Bananas given by a user are kept when that user is deleted #1864 !3492 @AntonBallmaier
+- Changing the geo link to map in storelist for desktop #1993 !3550 @Nika-Mel @McGoldi
+- Added an attachment label to the mailbox #1988 !3583 @alex.simm
+- Added markdown for publicInfo in store and map bubble !3389 @chriswalg
+- Add more breadcrumbs where needed !3606 !3614 #1987 @McGoldi
+- Rework default options in store information #33 !3623 @chriswalg
+- Changed the Icon for resolving basket requests #2119 #1363 !3636 @SaiCode
+- Change limit to 535 / 520 for public_info -> store !3646 @chriswalg
+
+## Bugfixes
+- Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
+- Fix sleeping hat display for future sleep times #1881 !3437 @AntonBallmaier
+- Test push notifications are only sent to the new device #960 @alex.simm
+- Split email in businesscard if is too long !3600 @chriswalg
+- foodsavers can't report a store (empty list) #2107 !3605 @McGoldi
+- Improved loader !3634 @SaiCode
+- Added Error Handling for bells read API !3644 @SaiCode
+- Correct spelling mistake !3651 @McGoldi
+- Fixed Invalid Time when time is undefined #1924 !3652 !3656 @SaiCode
+- Fix typos and inconsistent spelling in email templates !3657 @iron9
+- Fix duplicate 'kg' in global statistics #2108 !3658 @iron9
+
+## Refactoring
+- Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
+- Added an enum for wall types in the backend #1996 !3573 @alex.simm
+- Bananas now use the API !3581 @AntonBallmaier
+- Moved region store to pinia !3619 !3629 @chriswalg
+- Moved userStore to pinia for future improvements !3531 !3617 !3632 @SaiCode
+- Reduced the number of database requests in some store API endpoints #1662 !3615 @alex.simm
+- Removed jQuery autosize !3635 @SaiCode
+- Port the register controller to Symfony !3594 @alex.simm
+- Port the application controller to Symfony #1994 !3603 @alex.simm
+- Port the message controller to Symfony #1994 !3633 @\_fridtjof_
+
+## Dev/Test/CI stuff
+- Improved API tests runtime !3506 @alex.simm
+- Removed redirect after submit in foodsharepoint edit form to fix test !3527 @chriswalg
+- Added a dev docs article on "Logic in the Database" !3437 @AntonBallmaier
+- New API for submitting food share points !3372 @alex.simm
+- Update dompurify to 3.1.6 !3641 @chriswalg
+- Update twig to 3.14.0 !3642 @chriswalg
+- Update socket.io to 4.6.2 !3643 @chriswalg
+- Update babel/core to 7.23.2 !3645 @chriswalg
+- Devdocs: Huge update from Docusaurus to VitePress #2124 #1755 #1913 !3640 !3655 @SaiCode
+- Removed jquery tablesorter #2136 !3648 @chriswalg
+- Deleted the lookup command and module @alex.simm
+
+# Hotfix 2024-08-29
+
+## Bugfixes
+
+- Hide some private data in profile settings page if is not me !3575 @chriswalg
+
+# Hotfix 2024-08-22
+
+## Bugfixes
+- Fix loading only selected stores on inital map marker load #2085 !3557 @AntonBallmaier
+- Made private mail address of users accessible to Ambassadors again. #2081 !3555 @AntonBallmaier
+- Fixed banana icon to show checkmark instead of plus on user profiles where you anready gave a banana. #2082 !3554 @AntonBallmaier
+- Fix store wall loading issue #2091 !3558 @AntonBallmaier
+- Fixed phone number input on profile settings !3546 @chriswalg @SaiCode
+- Fixed breadcrumb dissapearing on phones #2077 !3548 @SaiCode
+- Fixed "Missing special warning message, if foodsaver leaves home district" !3551 @chriswalg
+- Fixed ambassadors being able to set the home region of users without home region that are in their region #2088 !3560 @AntonBallmaier
+- Fixed some browsers disallowing downloading files because of http #2086 !3561 @AntonBallmaier
+- Fixed an error in map marker drawing #2080 !3563 @AntonBallmaier
+
+# Release "Mandarine", 2024-08-18
 
 ## Features
 - Improved direct links to forum posts #1912 !3293 !3328 @AntonBallmaier
@@ -7,27 +98,42 @@
 - Added an achievements overview page !3348 @AntonBallmaier
 - Warning mails informing store managers about empty pickup slots can now be disabled #1941 !3341 @AntonBallmaier
 - Add page-redirect after login !3334 @AntonBallmaier
-- Delete users older then 5 Years activity. Have profile setting to protect account from deletion#19 !3134 @fs_k
+- Delete accounts that were more than 5 years inactive. Add profile setting to protect account from deletion #19 !3134 !3541 @fs_k @AntonBallmaier
 - Added a location button to the map main #638 !3357 @alex.simm
 - Added a popup for food share points on the map !3360 !3371 @alex.simm
 - You can now load more entries in the store log #1969 !3383 @AntonBallmaier
 - Storemanagers get an extra warning before removing users from a store team, if they currently occupy slots #1825 !3368 @AntonBallmaier
+- Added three new search result types: mail, event and poll #1728 !3398 !3498 @AntonBallmaier
+- Optional reason for reports added !2833 @fs_k @AntonBallmaier
 - Added API endpoints for managing store categories #1263 !3405 @alex.simm
 - Display senders picture in notifications !3373 @AntonBallmaier
+- Give access to reporter private mail address #1765 !3423 !3489 @AntonBallmaier
 - Users can be linked in markdown using @`<userId>` now #1850 !3177 @AntonBallmaier
-- Applications to working groups trigger a bell notification to the admins #933 !3274 @alex.simm
+- Applications to working groups trigger a bell notification to the admins #933 !3274 !3479 @alex.simm
+- The password in the login form can be made visible !3459 @alex.simm
+- Baskets can be placed at any location !3452 @AntonBallmaier
+- Added tooltips to map markers !3466 @AntonBallmaier
+- Display the distance to the store when applying #2016 !3460 #2070 !3530 @AntonBallmaier
 
 ## Changes
 - Text of checkbox "Mailversand aktivieren" didn't change anymore #1954 !3358 @ToLei
 - Restricted access to email attachments !3345 @alex.simm
 - Stores, where you are a jumper are now displayed at the bottom of the stores dropdown menu !3364 @AntonBallmaier
-- Improved the calendar export !3378 @AntonBallmaier
+- Improved the calendar export !3378 !3449 !3497 !3534 @AntonBallmaier
 - Pickups are displayed on dashboard for 30 minutes longer !3382
 - Removed address on businessCard !3362 @chriswalg
 - Give admins of quiz group permission to view and delete quiz sessions !3422 @AntonBallmaier
+- Refactored report module to Controller, vue and api !3423 !3518 !3539 @AntonBallmaier
 - Change region link generation from /?page=bezirk& to /region?
 - Removed application wall #321 !3436 @AntonBallmaier
 - Removed store state COOPERATION_STARTING #414 !3410 !3444 !3445 !3448 @chriswalg
+- Added the WhatsApp link to the social icons in the footer #2035 !3484 @alex.simm
+- The profile wall now shows up to 200 posts #2055 !3505 @AntonBallmaier
+- Temporarily deactivated the Android push handler !3512 @alex.simm
+- Show error for invalid landline number on dashboard !3514 @chriswalg
+- Change EMail Address Verification replaced by new implementation !3481 @KoeMai
+- Improved release notes !3522 @AntonBallmaier
+- Add permission explanation to report list link #2064 !3529 @AntonBallmaier
 
 ## Bugfixes
 - Changed the headline for group applications #1916 !3353 @ToLei
@@ -39,13 +145,28 @@
 - Fixed passport generation not working #1944 !3376 @AntonBallmaier
 - Resolved some UI inconsistancies !3370 @AntonBallmaier
 - double foodsharing.network in group links #1978 !3409 @McGoldi
+- Threads with reduced visibility get handled in the search properly now #1728 !3398 @AntonBallmaier
 - Some fixes for the quiz module !3418 @AntonBallmaier
 - Store chain information is visible on the store page again #1946 @alex.simm
 - Fixed the rendering of dates that is close to now #1948 !3430 @alex.simm
-- Fixed display error of deleted users in store log #1971 !3432 @AntonBallmaier 
+- Fixed display error of deleted users in store log #1971 !3432 @AntonBallmaier
 - Fixed activity setting on dashboard #1937 !3433 @AntonBallmaier
+- Fixed "use home address"-switch in edit basket modal #1897 !3452 @AntonBallmaier
 - Fixed tooltip display in member list #2009 !3453 @AntonBallmaier
 - Fixed store log null access error #2007 !3451 @AntonBallmaier
+- Fixed type error in profile menu #2002 !3468 @AntonBallmaier
+- Fixed map performance problems #1940 !3466 @AntonBallmaier
+- Handle service worker registration error #1914 !3469 @AntonBallmaier
+- Fixed `<Markdown>` rerender on source change #2020 !3467 @AntonBallmaier
+- Fixed loading more entries in store log #2023 !3472 @AntonBallmaier
+- Fixed link in food share point map bubble #1940 !3471 @AntonBallmaier
+- Fixed store distance display for users without valid geolocation !3476 !3503 @AntonBallmaier
+- Fixed query problem in `ActivityGateway::fetchAllForumUpdates` #1828 !3470 @AntonBallmaier
+- Fixed unexpected exception in BusinessCardGateway #2051 !3504 @alex.simm
+- Fixed food basket expired at not shown #2058 !3511 @McGoldi
+- Fixed encoding for publicInfo field in store #2043 !3516 @chriswalg
+- Removed search results for groups the user has only applied to #2062 !3523 @AntonBallmaier
+- Fixed Attribution showing html istead of the resulting rendered html #2067 !3532 @SaiCode
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
@@ -53,24 +174,25 @@
 - Reworked region admin page and removed XhrMethods #1412 #1414 #1416 #1417 #1181 #1939 !3193 !3346 @AntonBallmaier
 - Modernized EventControl to a Symfony controller !3260 @chriswalg
 - Rebuild quiz module #1666 !3119 !3329 !3403 @AntonBallmaier
-- Refactor the nearby baskets list to vue !3294 !3391 @alex.simm
-- Refactored profile to vue !3184 !3225 !3343 @chriswalg
+- Refactor the nearby baskets list to vue !3294 !3391 !3477 @alex.simm
+- Refactored profile to vue !3184 !3225 !3343 !3446 !3485 !3494 !3536 @chriswalg #2040 !3496 @AntonBallmaier
 - Moved passports to region memberlist #1799 #1326 !3251 !3388 !3439 @chriswalg
 - Modernized StoreChainControl to a Symfony controller !3292 @chriswalg
 - Rework team page in vue !3248 !3351 @chriswalg
 - Refactored event page and creation / editing to vue #952 #997 #1514 #1740 #1910 !3387 @AntonBallmaier
-- Refactored the main map to vue !3230 !3335 !3402 @alex.simm
+- Refactored the main map to vue !3230 !3335 !3402 !3486 @alex.simm
 - Remove unused session code !3361 @KoeMai
 - Remove E-Mail address from session !3394 @KoeMai
 - Extend Session with CurrentUserRegionInterface !3354 @koemai
 - Extract `updateLastActivity()` into new service `UserStatusTransactions` !3377 @KoeMai
 - Remove obsolete and unused run.php !3395 @\_fridtjof_
 - Provide CurrentUserRegionInterface for Session as independent implementation !3390 !3400 @KoeMai
-- Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 !3426 @chriswalg
+- Refactored settings page completely to vue and merged with foodsaver edit page for ambassador and orga user !3249 !3426 !3457 !3495 !3526 !3524 !3526 @chriswalg
 - Cleaned up the ApplicationGateway #1975 !3411 @alex.simm
 - make ActivityGateway:fetchAllStoreUpdates faster #1907 !3441 @fs_k @AntonBallmaier
 - Modernized LegalControl to a Symfony controller !3447 @chriswalg
 - unused columns in fs_foodsaver have been removed #1945 !3440 @fs_k
+- Removed a legacy gateway function for groups #2049 !3501 @alex.simm
 
 ## Dev/Test/CI stuff
 - Added backend support for getting, adding and updating achievements. #1724 !3317 !3318 @AntonBallmaier
@@ -84,6 +206,12 @@
 - Updated phinx to version 0.16 #1774 @alex.simm
 - Removed obsolete version field from docker compose files !3442 @\_fridtjof_
 - Added a rate limiting to the file upload #1896 !3450 @alex.simm
+- Updated the version of tecnickcom/tcpdf !3473 @alex.simm
+- Replaced goAndExit with Symfony's redirect !3474 @alex.simm
+- Bump minishlink/web-push to 9.0.1 !3507 @chriswalg
+- Added a git blame ignore file !3525 @\_fridtjof_
+- Add feature toggle for mail search #2066 !3528 @AntonBallmaier
+- Added a Symfony command for deleting old accounts !3538 @alex.simm
 
 ## Development documentation
 
@@ -144,11 +272,11 @@
 - Fixed images breaking markdown layout !3144 @AntonBallmaier
 - Added .network as top level domain recognized in markdown link parsing !3179 @AntonBallmaier
 - Improve SQL performance for search of near baskets !3185 @KoeMai
-- Fixed creating and editing region mailboxes for orga users !3182 @AntonBallmaier 
+- Fixed creating and editing region mailboxes for orga users !3182 @AntonBallmaier
 - Improved permission checks for event creation #489 !3187 @alex.simm
 - Fix sign in date time in slot modal #1870 !3228 !3250 @chriswalg
 - Fixed mail address to field in mailbox module !3226 @chriswalg
-- Fixed datepicker in pickup modal #1751 !3231 @chriswalg 
+- Fixed datepicker in pickup modal #1751 !3231 @chriswalg
 - Fixed date tooltip for events on dashboard #1835 !3275 @alex.simm
 - Fixed the login link on the profile page !1901 !3289 @alex.simm
 - Added a retry for deadlocked database queries !3296 #1869 @AntonBallmaier
@@ -186,7 +314,7 @@
 - Move Workgroup is Admin Check method from session to module #1769 !3168 @KoeMai
 - Move location information in session to user #1769 !3148 !3185 @KoeMai
 - Remove unused variables from session #1769 !3161  @KoeMai
-- Replaced every usage of the Lat-lon-picker with the Vue leaflet component !3185 @alex.simm 
+- Replaced every usage of the Lat-lon-picker with the Vue leaflet component !3185 @alex.simm
 - Improved Avatar component !3155 !3189 !3257 @AntonBallmaier
 - Refactored group page to vue !3162 !3223 @chriswalg
 - Improved store team list #1833 !3207 !3270 @AntonBallmaier
@@ -283,7 +411,7 @@
 - Users have the ability to configure columns for the user in store list and store chain list !2733 @buntel
 - Users have the ability to keep the list filters and sort order on refresh (default: enabled) !2733 @buntel
 - b-table could now be displayed more mobile friendly. On small screens the table is displayed in a grid-layout !2733 @buntel
-- Allow forum moderators to write and everyone to delete their posts in closed threads !3019 @AntonBallmaier 
+- Allow forum moderators to write and everyone to delete their posts in closed threads !3019 @AntonBallmaier
 
 ## Changes
 - Changed team state translation from full to closed !2831 @chriswalg
@@ -324,7 +452,7 @@
 - Allow ambassdors and store coordinator to delete wall posts again !2978 @chriswalg
 - Prevent load store log for jumper !2978 @chriswalg
 - Fix operation on empty icon string #1709 !2970 @KoeMai
-- Fix sorting by member state !3020 @buntel 
+- Fix sorting by member state !3020 @buntel
 - Clear browser cache when logging out to prevent cached data leaking into next logged in session !3024 @AntonBallmaier
 - Center Team member images properly !3037 @AntonBallmaier
 - Only load user details when logged in !1798 @alex.simm

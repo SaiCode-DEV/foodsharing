@@ -85,7 +85,7 @@ class RegisterCest
         $I->waitForElement('.testing-login-dropdown');
         $I->click('.testing-login-dropdown');
         $I->fillField('.testing-login-input-email', $this->email);
-        $I->fillField('.testing-login-input-password', $this->password);
+        $I->fillField('#testing-login-input-password > input', $this->password);
         $I->click('.testing-login-click-submit');
         $I->waitForActiveAPICalls();
         $I->waitForElementNotVisible('#pulse-success');
@@ -160,7 +160,7 @@ class RegisterCest
         $I->waitForElement('.testing-login-dropdown');
         $I->click('.testing-login-dropdown');
         $I->fillField('.testing-login-input-email', $this->email);
-        $I->fillField('.testing-login-input-password', $this->password);
+        $I->fillField('#testing-login-input-password > input', $this->password);
         $I->click('.testing-login-click-submit');
         $I->waitForActiveAPICalls();
         $I->waitForElementNotVisible('#pulse-success');

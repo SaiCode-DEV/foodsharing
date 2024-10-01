@@ -16,12 +16,14 @@
 
 <script>
 // Stores
-import { getters } from '@/stores/regions'
+import { useRegionStore } from '@/stores/regions'
 // Components
 import Container from '../Container.vue'
 import RegionField from './RegionField'
 // Mixin
 import ListToggleMixin from '@/mixins/ContainerToggleMixin'
+
+const regionStore = useRegionStore()
 
 export default {
   name: 'RegionList',
@@ -35,7 +37,7 @@ export default {
   },
   computed: {
     data () {
-      const data = getters.get()
+      const data = regionStore.regions
       this.setList(data)
       return data
     },

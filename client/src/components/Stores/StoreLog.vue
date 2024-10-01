@@ -135,6 +135,11 @@ export default {
     },
   },
   methods: {
+    getDateRange () {
+      const endOfToDate = new Date(this.toDate)
+      endOfToDate.setDate(this.toDate.getDate() + 1)
+      return [this.fromDate, endOfToDate]
+    },
     async loadStoreLog () {
       this.isLoading = true
       try {
@@ -143,7 +148,7 @@ export default {
         this.loggedActions = await getStoreLog(
           this.storeId,
           this.selectedActionTypes.map((selected) => selected.id),
-          [this.fromDate, endOfToDate],
+          this.getDateRange(),
         )
         this.pagesLoaded = 1
       } catch (e) {
@@ -157,7 +162,7 @@ export default {
         this.loggedActions.push(...await getStoreLog(
           this.storeId,
           this.selectedActionTypes.map((selected) => selected.id),
-          this.$refs.dateRange.getDateRange(),
+          this.getDateRange(),
           this.pagesLoaded++ * this.pageSize,
         ))
       } catch (e) {

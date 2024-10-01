@@ -110,17 +110,25 @@ import LeafletLocationSearch from '@/components/map/LeafletLocationSearch.vue'
 import Markdown from '@/components/Markdown/Markdown.vue'
 
 import DataGroups from '@/stores/groups'
-import DataRegions from '@/stores/regions'
-import DataUser from '@/stores/user'
+import { useRegionStore } from '@/stores/regions'
+import { useUserStore } from '@/stores/user'
 import { addEvent, editEvent } from '@/api/events'
 import { toISOStringWithTimezone } from '@/helper/date-formatter'
 import { EVENT_TYPE } from '@/consts'
+
+const userStore = useUserStore()
+const regionStore = useRegionStore()
 
 export default {
   components: { Container, DateRangePicker, DatePicker, TimeRangePicker, MarkdownInput, LeafletLocationSearch, Markdown },
   props: {
     regionId: { type: Number, default: 0 },
     edit: { type: Object, default: null },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     if (!this.edit) {
@@ -162,8 +170,8 @@ export default {
   computed: {
     EVENT_TYPE: () => EVENT_TYPE,
     groups: () => DataGroups.getters.get(),
-    regions: () => DataRegions.getters.get(),
-    location: () => DataUser.getters.getLocations(),
+    regions: () => regionStore.regions,
+    location: () => userStore.getLocations,
     regionSelectOptions () {
       return [
         {

@@ -102,7 +102,6 @@ export default {
 </script>
 <style scoped lang="scss">
 ::v-deep.unobtrusive-link { // Disable default link styling
-  color: white !important;
   text-decoration: none !important;
 }
 

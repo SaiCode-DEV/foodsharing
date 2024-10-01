@@ -68,7 +68,7 @@
           <b-form-checkbox
             v-model="isFoodSharePointGlobalEmailNotificationActive"
             size="sm"
-            @change="toggleGlobalNotification('currentFoodSharePoints', 'infotype', 1)"
+            @change="toggleGlobalNotification('currentFoodSharePoints', 'infotype', Number(isFoodSharePointGlobalEmailNotificationActive))"
           >
             {{ $i18n('notifications.checkbox_email') }}
           </b-form-checkbox>
@@ -81,7 +81,7 @@
           <b-form-checkbox
             v-model="isFoodSharePointGlobalBellNotificationActive"
             size="sm"
-            @change="toggleGlobalNotification('currentFoodSharePoints', 'infotype', 2)"
+            @change="toggleGlobalNotification('currentFoodSharePoints', 'infotype', toggleFoodSharePointBell(isFoodSharePointGlobalBellNotificationActive))"
           >
             {{ $i18n('notifications.checkbox_bell') }}
           </b-form-checkbox>
@@ -134,7 +134,7 @@
           <b-form-checkbox
             v-model="isThreadsPointGlobalEmailNotificationActive"
             size="sm"
-            @change="toggleGlobalNotification('currentThreads', 'infotype', 1)"
+            @change="toggleGlobalNotification('currentThreads', 'infotype', Number(isThreadsPointGlobalEmailNotificationActive))"
           >
             {{ $i18n('notifications.checkbox_email') }}
           </b-form-checkbox>
@@ -187,7 +187,7 @@
           <b-form-checkbox
             v-model="isRegionsPointGlobalEmailNotificationActive"
             size="sm"
-            @change="toggleGlobalNotification('currentRegions', 'notifyByEmailAboutNewThreads', 1)"
+            @change="toggleGlobalNotification('currentRegions', 'notifyByEmailAboutNewThreads', Number(isRegionsPointGlobalEmailNotificationActive))"
           >
             {{ $i18n('notifications.checkbox_email') }}
           </b-form-checkbox>
@@ -240,7 +240,7 @@
           <b-form-checkbox
             v-model="isGroupsGlobalEmailNotificationActive"
             size="sm"
-            @change="toggleGlobalNotification('currentGroups', 'notifyByEmailAboutNewThreads', 1)"
+            @change="toggleGlobalNotification('currentGroups', 'notifyByEmailAboutNewThreads', Number(isGroupsGlobalEmailNotificationActive))"
           >
             {{ $i18n('notifications.checkbox_email') }}
           </b-form-checkbox>
@@ -291,7 +291,7 @@
       </b-row>
     </div>
 
-    <div v-if="isStoreManager" class="pt-2 pb-2">
+    <div v-if="userStore.isStoreManager" class="pt-2 pb-2">
       <h4>{{ $i18n('notifications.pickupReminder.title') }}</h4>
       <b-row>
         <b-col
@@ -338,9 +338,16 @@ import {
 } from '@/api/notifications'
 import { pulseError, pulseSuccess } from '@/script'
 import { subscribeForPushNotifications, unsubscribeFromPushNotifications } from '@/pushNotifications'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 export default {
+  setup () {
+    return {
+      userStore,
+    }
+  },
   data () {
     return {
       foodSharePointNotificationOptions: [
@@ -377,12 +384,9 @@ export default {
     getPushNotificationState () {
       return this.pushNotificationState
     },
-    isStoreManager () {
-      return DataUser.getters.isStoreManager()
-    },
   },
   async mounted () {
-    await DataUser.mutations.fetchDetails()
+    await userStore.fetchDetails()
     this.subscription = await getUserNotification()
     this.newsletterState = this.convertNumberToBoolean(this.subscription.newsletter)
     this.infoMailState = this.convertNumberToBoolean(this.subscription.infomail_message)
@@ -390,7 +394,7 @@ export default {
     this.currentThreads = await getThreadsNotification()
     this.currentRegions = await listRegionsWithoutWorkingGroups()
     this.currentGroups = await listWorkingGroups()
-    if (this.isStoreManager) {
+    if (userStore.isStoreManager) {
       this.pickupReminderState = this.convertNumberToBoolean(await getPickupReminderNotification())
     }
     this.isFoodSharePointGlobalEmailNotificationActive = this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype === 1)
@@ -406,9 +410,12 @@ export default {
     }
   },
   methods: {
+    toggleFoodSharePointBell (value) {
+      return value ? 2 : 0
+    },
     toggleGlobalNotification (array, property, value) {
       this[array].forEach(item => {
-        item[property] = item[property] === 0 ? value : 0
+        item[property] = value
       })
     },
     toogleFoodSharePointDetails () {
@@ -468,7 +475,7 @@ export default {
           return { id: group.id, notifyByEmailAboutNewThreads: group.notifyByEmailAboutNewThreads === 1 }
         }))
         await setThreadsNotification(this.currentThreads)
-        if (this.isStoreManager) {
+        if (userStore.isStoreManager) {
           await setPickupReminderNotification(this.pickupReminderState)
         }
         pulseSuccess(this.$i18n('notifications.success'))

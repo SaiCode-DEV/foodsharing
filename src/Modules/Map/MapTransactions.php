@@ -7,6 +7,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Map\DTO\StoreMapBubbleData;
 use Foodsharing\Modules\Store\StoreGateway;
@@ -40,6 +41,7 @@ class MapTransactions
         $mapData->name = $store['name'];
         $mapData->teamMemberCount = count($store['foodsaver']);
         $mapData->standbyCount = count($store['springer']);
+        $mapData->location = GeoLocation::createFromArray($store);
 
         $pickupCount = intval($store['pickup_count']);
         if ($pickupCount > 0) {
@@ -49,7 +51,12 @@ class MapTransactions
 
         foreach ($store['foodsaver'] as $fs) {
             if ($fs['verantwortlich'] == 1) {
-                $mapData->managers[] = new Profile($fs['id'], $fs['firstName'], $fs['photo'], $fs['sleep_status']);
+                $mapData->managers[] = new Profile([
+                    'id' => $fs['id'],
+                    'name' => $fs['firstName'],
+                    'photo' => $fs['photo'],
+                    'is_sleeping' => $fs['is_sleeping']
+                ]);
             }
         }
 

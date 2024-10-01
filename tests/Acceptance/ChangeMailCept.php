@@ -8,9 +8,6 @@ use Tests\Support\AcceptanceTester;
 
 class ChangeMailCept
 {
-    /**
-     * @skip The test has been disabled until it is fixed
-     */
     final public function canChangeEmail(AcceptanceTester $I): void
     {
         $I->wantTo('Change mail in profile');
@@ -44,9 +41,6 @@ class ChangeMailCept
 
         // open link, fill in password and submit
         $I->amOnPage(html_entity_decode($link));
-        $I->waitForElementVisible('.xhrDialog', 5);
-        $I->executeJS("$('button:contains(Bestätigen)').trigger('click')");
-        $I->waitForElementVisible('#pulse-info', 5);
         $I->see('Deine E-Mail-Adresse wurde geändert');
 
         $I->seeInDatabase('fs_foodsaver', ['id' => $user['id'], 'email' => $newmail]);

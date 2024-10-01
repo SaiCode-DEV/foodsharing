@@ -107,7 +107,7 @@
         href="#"
         @click="$refs.report_request.show()"
       >
-        <i class="far fa-life-ring fa-fw" /> {{ profileMenu.buttonNameReportRequest }}
+        <i class="fas fa-people-arrows fa-fw" /> {{ profileMenu.buttonNameReportRequest }}
       </b-list-group-item>
       <b-list-group-item
         v-if="showModerationButton"
@@ -117,6 +117,17 @@
         @click="$refs.modal_mediation.show()"
       >
         <i class="far fa-handshake fa-fw" /> {{ $i18n('profile.mediationRequest') }}
+      </b-list-group-item>
+    </b-list-group>
+    <b-list-group>
+      <b-list-group-item
+        v-if="profileMenu.fsId === profileMenu.fsIdSession && isHygieneQuizEnabled"
+        type="button"
+        class="list-group-item list-group-item-action"
+        :href="$url('settingsHygiene')"
+      >
+        <i class="fas fa-hand-sparkles fa-fw" />
+        {{ $i18n('terminology.hygiene_training') }}
       </b-list-group-item>
     </b-list-group>
     <b-modal
@@ -147,7 +158,10 @@
       :is-reporter-id-arbitration-admin="profileMenu.isReporterIdArbitrationAdmin"
       :is-report-button-enabled="profileMenu.isReportButtonEnabled"
       :reporter-has-report-group="profileMenu.reporterHasReportGroup"
-      :mailbox-name="profileMenu.mailboxNameReportRequest"
+      :reason-option-settings="profileMenu.reasonOptionSettings"
+      :reason-option-other="profileMenu.reasonOptionOther"
+      :mailbox-name-report="profileMenu.mailboxNameReportRequest"
+      :mailbox-name-arbitration="profileMenu.mailboxNameArbitrationRequest"
     />
     <ProfileHistoryModal ref="profileHistoryModal" />
     <QuizSessionHistoryModal :foodsaver-id="profileMenu.fsId" />
@@ -175,12 +189,16 @@ const BUDDY_TYPES = Object.freeze({
 export default {
   components: { Avatar, ReportRequest, MediationRequest, ProfileHistoryModal, QuizSessionHistoryModal },
   mixins: [ConfirmationDialogue],
-  props: { profileMenu: { type: Object, required: true }, currentUserId: { type: Number, default: null } },
+  props: {
+    profileMenu: { type: Object, required: true },
+    currentUserId: { type: Number, default: null },
+  },
   data () {
     return {
       buddyType: this.profileMenu.initialBuddyType,
       buddyTypes: BUDDY_TYPES,
       loading: false,
+      isHygieneQuizEnabled: null,
     }
   },
   computed: {
@@ -190,6 +208,9 @@ export default {
     showModerationButton () {
       return this.fsId !== this.currentUserId
     },
+  },
+  async mounted () {
+    this.isHygieneQuizEnabled = await this.$isFeatureToggleActive('hygieneQuiz')
   },
   methods: {
     openChat (fsId) {

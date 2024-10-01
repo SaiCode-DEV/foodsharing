@@ -154,7 +154,6 @@ class ActivityGateway extends BaseGateway
 					fs.id AS foodsaver_id,
 					fs.name AS foodsaver_name,
 					fs.photo AS foodsaver_photo,
-					fs.sleep_status,
 					p.body AS post_body,
 					p.`time` AS update_time,
 					UNIX_TIMESTAMP(p.`time`) AS update_time_ts,
@@ -163,11 +162,11 @@ class ActivityGateway extends BaseGateway
 					b.name AS bezirk_name,
 					bt.bot_theme
 
-			FROM            fs_theme t
-			LEFT OUTER JOIN fs_theme_post p ON p.id = t.last_post_id
-			LEFT OUTER JOIN	fs_bezirk_has_theme bt ON bt.theme_id = t.id
-			LEFT OUTER JOIN	fs_foodsaver fs ON fs.id = p.foodsaver_id
-			LEFT OUTER JOIN	fs_bezirk b ON b.id = bt.bezirk_id
+			FROM fs_theme t
+			JOIN fs_theme_post p ON p.id = t.last_post_id
+			JOIN fs_bezirk_has_theme bt ON bt.theme_id = t.id
+			JOIN fs_foodsaver fs ON fs.id = p.foodsaver_id
+			JOIN fs_bezirk b ON b.id = bt.bezirk_id
 
 			WHERE	t.active = 1
 			AND 	bt.bezirk_id IN ( ' . implode(',', $regionIds) . ' )
@@ -197,7 +196,7 @@ class ActivityGateway extends BaseGateway
                 n.`zeit` AS update_time,
                 UNIX_TIMESTAMP( n.`zeit` ) AS update_time_ts,
                 fs.name AS foodsaver_name,
-                fs.sleep_status,
+                fs.is_sleeping AS foodsaver_is_sleeping,
                 fs.id AS foodsaver_id,
                 fs.photo AS foodsaver_photo,
                 b.id AS betrieb_id,

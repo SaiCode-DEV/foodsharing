@@ -146,6 +146,7 @@ export default {
   .tree-anchor { margin-left: -0.5em }
   .tree-content {
     padding-left: 0.5em !important;
+    width: fit-content;
   }
   .tree-children { margin-left: 1.5em }
   .tree-node.selected > .tree-content {

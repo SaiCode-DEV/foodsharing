@@ -6,7 +6,6 @@ namespace Tests\Api;
 
 use Codeception\Example;
 use Codeception\Util\HttpCode as Http;
-use Faker\Factory;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus as STATUS;
 use Tests\Support\ApiTester;
 
@@ -16,21 +15,18 @@ class StoreTeamApiCest
     private $user;
     private $manager;
     private $region;
-    private $faker;
 
     private const API_STORES = 'api/stores/';
 
     public function _before(ApiTester $I): void
     {
-        $this->region = $I->createRegion();
-        $this->region2 = $I->createRegion();
+        $this->region = $I->createRegion(fillMailbox: false);
+        $this->region2 = $I->createRegion(fillMailbox: false);
         $this->store = $I->createStore($this->region['id']);
         $this->user = $I->createFoodsaver(null, ['bezirk_id' => $this->region['id']]);
-        $this->user2 = $I->createFoodsaver(null, ['bezirk_id' => $this->region2['id']]);
         $this->manager = $I->createStoreCoordinator(null, ['bezirk_id' => $this->region['id']]);
         $this->manager2 = $I->createStoreCoordinator(null, ['bezirk_id' => $this->region['id']]);
         $I->addStoreTeam($this->store['id'], $this->manager['id'], true);
-        $this->faker = Factory::create('de_DE');
     }
 
     public function cannotManageStoreTeamUnlessResponsible(ApiTester $I): void
@@ -63,8 +59,10 @@ class StoreTeamApiCest
 
     public function canOnlyAddTeamMemberFromRegion(ApiTester $I): void
     {
+        $user2 = $I->createFoodsaver(null, ['bezirk_id' => $this->region2['id']]);
+
         $I->login($this->manager['email']);
-        $I->sendPOST(self::API_STORES . $this->store['id'] . '/members/' . $this->user2['id']);
+        $I->sendPOST(self::API_STORES . $this->store['id'] . '/members/' . $user2['id']);
         $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
     }
 

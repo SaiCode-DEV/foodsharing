@@ -259,9 +259,10 @@ class Session
         $this->setAuthLevel(Role::tryFrom($fs['rolle']));
 
         $this->set('user', [
-            'location' => GeoLocation::createFromArray($fs, false),
             'name' => $fs['name'],
             'nachname' => $fs['nachname'],
+            'role' => $fs['rolle'],
+            'location' => GeoLocation::createFromArray($fs, false),
             'photo' => $fs['photo'],
             'gender' => $fs['geschlecht'],
             'privacy_policy_accepted_date' => $fs['privacy_policy_accepted_date'],

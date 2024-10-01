@@ -194,6 +194,8 @@ class RegionRestController extends AbstractFoodsharingRestController
     #[Rest\RequestParam(name: 'regionPickupRuleLimit')]
     #[Rest\RequestParam(name: 'regionPickupRuleLimitDay')]
     #[Rest\RequestParam(name: 'regionPickupRuleInactive')]
+    #[Rest\RequestParam(name: 'selectedReportReasonOptions')]
+    #[Rest\RequestParam(name: 'enableReportReasonOther')]
     public function setRegionOptions(ParamFetcher $paramFetcher, int $regionId): Response
     {
         if (!$this->session->mayRole()) {
@@ -211,7 +213,14 @@ class RegionRestController extends AbstractFoodsharingRestController
             if (isset($params['enableMediationButton'])) {
                 $this->regionGateway->setRegionOption($regionId, RegionOptionType::ENABLE_MEDIATION_BUTTON, strval(intval($params['enableMediationButton'])));
             }
+            if (isset($params['selectedReportReasonOptions'])) {
+                $this->regionGateway->setRegionOption($regionId, RegionOptionType::REPORT_REASON_OPTIONS, strval(intval($params['selectedReportReasonOptions'])));
+            }
+            if (isset($params['enableReportReasonOther'])) {
+                $this->regionGateway->setRegionOption($regionId, RegionOptionType::REPORT_REASON_OTHER, strval(intval($params['enableReportReasonOther'])));
+            }
         }
+
         if ($this->regionPermissions->maySetRegionOptionsRegionPickupRule($regionId)) {
             if (isset($params['regionPickupRuleActive'])) {
                 $this->regionGateway->setRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_ACTIVE, strval(intval($params['regionPickupRuleActive'])));
@@ -324,7 +333,7 @@ class RegionRestController extends AbstractFoodsharingRestController
             throw new UnauthorizedHttpException('');
         }
         $includeWorkingGroups = !is_null($paramFetcher->get('includeWorkingGroups'));
-        if ($includeWorkingGroups && !$this->currentUserUnits->mayBezirk($regionId)) {
+        if ($includeWorkingGroups && !$this->regionPermissions->mayAccessWorkingGroupList($regionId)) {
             throw new UnauthorizedHttpException('');
         }
 

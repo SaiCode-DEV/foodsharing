@@ -149,4 +149,11 @@ class GroupFunctionGateway extends BaseGateway
             [$foodsaverId]
         ) > 0;
     }
+
+    public function getFunctionGroupAdminsForRegion(int $regionId, int $workgroupFunction): array
+    {
+        $groupId = $this->getRegionFunctionGroupId($regionId, $workgroupFunction);
+
+        return empty($groupId) ? [] : $this->getFsAdminIdsFromGroup($groupId);
+    }
 }

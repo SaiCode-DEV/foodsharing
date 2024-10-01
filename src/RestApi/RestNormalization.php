@@ -4,6 +4,7 @@ namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
+use Foodsharing\Modules\Foodsaver\Profile;
 
 /**
  * Utility class that can be user by all controllers to format objects for
@@ -166,9 +167,8 @@ class RestNormalization
     {
         return [
             'id' => (int)$data['id'],
-            'foodsaverId' => (int)$data['foodsaver_id'],
             'text' => $data['text'],
-            'author' => self::normalizeUser($data, '', 'foodsaver_'),
+            'author' => new Profile(array_merge($data, ['id' => $data['foodsaver_id']])),
             'createdAt' => self::normalizeDate(strtotime((string)$data['zeit'])),
         ];
     }

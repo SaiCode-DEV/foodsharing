@@ -152,6 +152,7 @@ search:
       closed_tooltip: Tema cerrado
       forum: Foro
       sticky_tooltip: Hilo fijado
+      bottom_tooltip: Tema con visibilidad limitada
     store:
       manager_tooltip: Eres responsable de esta colaboración
       member_tooltip: Eres miembro de este negocio
@@ -168,7 +169,30 @@ search:
     user:
       no_home_region: Ningún distrito de origen
       copy_id: Copiar ID
-      copied_id: ID de Foodsaver copiado de {name} ({id})
+      copied_id: ID de Foodsaver copiado de {name} ({text})
+    time_relation:
+      future: Empieza
+      past: Finaliza
+      present_since: Empezó
+      present_until: Finalizó
+    mail:
+      attachment_tooltip: Se ha enviado un archivo adjunto con este correo electrónico.
+      from_to: De {from} a {to}
+      from_to_many: De {from} a {to} y a {other}
+      recieved_tooltip: Este correo electrónico te ha sido enviado.
+      sent_tooltip: Enviaste este correo electrónico.
+      mail_name: '{name} <{mail}>'
+    event:
+      invitation_tooltip:
+        2: Podrás acudir a esta cita.
+        3: No acudirás a esta cita.
+        0: No has dicho si estarás en este evento.
+        1: Acudirás a esta cita.
+      location_online: Conectado
+    poll:
+      can_vote: Aún puedes votar
+      has_voted: Ya has votado
+      not_eligible: No está acreditado para votar
   maxresults: El número de resultados mostrados es limitado. Quizás utilice un término
     de búsqueda más específico.
   too_short: Por favor ingrese un término de búsqueda más largo.
@@ -198,6 +222,11 @@ reports:
   from_first_name: 'De nombre'
   city: 'Ciudad'
   reportmessage: 'Indique cómo podemos comunicarnos con usted si tenemos más preguntas.'
+  reports_region: Mensajes de {regionName}
+  reports_user: Todos los informes sobre {userName} ({userId})
+  id: ID
+  reporter: Informant@
+  reported: Denunciad@
 month:
   short:
     "12": dec.
@@ -530,6 +559,8 @@ quiz:
     este cuestionario?
   confirmDashboardText: ¡Has superado un cuestionario que aún no has confirmado. [Haga
     clic aquí]({url}) para completar el proceso!
+  test_results: Resultados de la prueba
+  test: Cuestionarios de prueba
 terminology:
   foodsaver:
     m: rescatista
@@ -591,9 +622,12 @@ terminology:
   threads: 'Hilos'
   fsps: 'Distribuidores'
   n_ambassadors: '{count} embajador@s'
-  profile_picture: 'Foto de perfil'
+  profile_picture: 'Foto del perfil'
   n_cooperating_stores: '{count} cooperaciones en marcha'
-  reports: 'Vista de quejas (GQL)'
+  reports:
+    report: Vista de mensajes (LMG)
+    arbitration: Vista de mensajes (LS)
+    orga: Vista de mensajes (Orga)
   community: 'Grupo local de {name}'
   pickup: 'Recogida'
   prAdmins: 'Equipo de relaciones publicas'
@@ -617,6 +651,7 @@ terminology:
   phone: Número de teléfono
   landline: Número de teléfono fijo
   mobile_phone: Número de teléfono móvil
+  hygiene_training: Formación en higiene
 groups:
   empty: Aún no estás en ningún grupo de trabajo
 position: Puesto en foodsharing (público)
@@ -919,13 +954,18 @@ error:
   missing_geolocation:
     description: 'Por favor verifique su dirección. No se pudieron determinar las
       coordenadas.'
-    title: 'Hubo un error con tu dirección.'
+    title: 'No se ha introducido ninguna dirección válida'
     link: 'Para entrada de dirección'
   invalid_mobile_phonenumber:
     title: 'Hay un problema con tu número de celular.'
     link: 'Corrige tu número de móvil ahora'
     description: 'Desafortunadamente, su número de teléfono celular está en un formato
       al que no se puede llamar.'
+  invalid_landline_phonenumber:
+    link: Corrige el número del fijo
+    title: Tu número de fijo no es correcto o tiene algún fallo.
+    description: Lamentablemente, el número del fijo está mal escrito o no se puede
+      llamar.
 system_administration:
   regions: 'Administrar distritos'
   blog: 'Editar publicaciones de blog'
@@ -934,6 +974,7 @@ system_administration:
   mailboxes: 'Administrar buzones'
   email: 'Enviar boletín'
   content: 'Contenido editado'
+  store_categories: Editar categorías de negocios
 bootstrap-datepicker:
   labelPrevMonth: 'mes pasado'
   labelNextYear: 'próximo año'
@@ -1110,6 +1151,7 @@ group:
         do: Verificar la cuenta de {name} ({id})
         undo: Sin verificar {name} ({id})
       clear_selection: Restablecer todos los seleccionados
+    all_roles: Todos los roles
   edit:
     title: 'Editar {group}'
     name_required: 'Por favor ingrese un nombre.'
@@ -1165,7 +1207,7 @@ group:
       electrónico.\n"
   applications_for: 'Aplicaciones para {name}'
   quitting_home_district_warning: '¿Realmente deseas abandonar tu distrito de origen
-    %name%? Perderás tu verificación y tendrás que comunicarte con los embajadores
+    {name}? Perderás tu verificación y tendrás que comunicarte con los embajadores
     de tu nuevo distrito de origen más tarde.'
   really_quit_district: '¿Quiere realmente abandonar el distrito de {name}?'
   really_quit_workgroup: '¿Estás seguro de que quieres abandonar el grupo de trabajo
@@ -1275,6 +1317,7 @@ button:
   close: Cerrar
   start: ¡Vamos!
   confirm: confirmar
+  countdown_clickable: Clicable en {countdown} segundos
 pass:
   nav:
     options: 'Opciones'
@@ -1383,6 +1426,15 @@ storeview:
   choose_chain: Elija una cadena
   team_info_active: 'Miembros activos del equipo:'
   team_info_jumper: 'Springer:'
+  team_info_distance: 'Distancia en línea recta a la granja:'
+  public_info:
+    label: Información pública sobre la empresa
+    error_message: El texto es demasiado largo (máx. {count} caracteres)
+    available_count: Número de caracteres disponibles
+  publicity_and_sticker_options:
+    not_yet_clarified: Sin aclarar
+    no: No
+    yes: Sí
 store:
   tooltip_red: 'Recogidas vacantes hoy o mañana'
   tooltip_managing: 'Usted es responsable de esta cooperación'
@@ -1446,6 +1498,13 @@ store:
     distance_unknown: no se especifica el lugar de residencia
     unverified: Usuario no está verificad@
     air_line: La distancia indicada es en línea recta.
+    confirm-far: Según la dirección guardada, vives muy lejos de este establecimiento
+      ({distance}). ¿Estás seguro de que puedes apoyar al equipo de forma regular
+      y confiable?
+    confirm-no-location-ok: Aplicar de todos modos
+    confirm-no-location: No has introducido una dirección válida en tu perfil. Por
+      favor, introduzca una dirección para facilitar a los responsables de la empresa
+      la decisión sobre tu candidatura.
   all_of_my_stores: 'Todas mis empresas'
   prefetchone: '1 semana'
   go: 'Al equipo'
@@ -2047,10 +2106,20 @@ profile:
       delivered: 'Denuncia atendida'
       reportID: 'ID de queja'
       reporting: 'Queja sobre'
-    info: 'Incluya la fecha, el lugar y la hora del incidente. Indique si ha intentado
-      abordar el incidente directamente con la persona y aclare el asunto. Indique
-      la mejor manera de comunicarnos con usted si tiene alguna pregunta sobre el
-      procesamiento.'
+    info: 'Para garantizar que su informe pueda procesarse de la forma más eficaz
+      posible, debe contener la siguiente información:
+
+      - Fecha, hora y lugar del incidente.
+
+      - lo que ya ha hecho, por ejemplo, si ya ha hablado directamente con la persona
+      y ha podido aclarar el asunto
+
+      - la mejor manera de comunicarnos con usted si tiene preguntas.
+
+
+      Aquí encontrará las [reglas de conducta en la wiki](https://wiki.foodsharing.de/Verhaltensrules).
+
+      '
     send: 'Enviar queja'
     noshow: 'Persona no vino'
     sells: 'Vende comida rescatada'
@@ -2079,10 +2148,43 @@ profile:
       un grupo de quejas local en su distrito.'
     oldReportButtonTextPart2: 'Si es necesario, comuníquese con el grupo de quejas
       local de su distrito.'
-    mail: 'También puede comunicarse con su grupo de quejas local en la siguiente
-      dirección de correo electrónico:'
+    mail:
+      reportGroup: 'Este mensaje se envía al grupo local de mensajes. También puedes
+        contactar con este grupo en la siguiente dirección de correo electrónico:'
+      arbitrationGroup: 'Esta notificación se transmitirá al órgano de arbitraje,
+        ya que una de las personas implicadas es miembro del grupo local de notificación.
+        También puedes ponerte en contacto con la oficina de arbitraje en la siguiente
+        dirección de correo electrónico:'
     title: 'Queja sobre {name}'
-    doesNotAffectStore: No afecta a ninguna o a otra empresa
+    doesNotAffectStore: No afecta a ninguna empresa
+    notes: Notas y decisiones
+    confirmDelete: ¿Seguro que deseas eliminar este mensaje?
+    report_b1_4: No tenía su identificación de compartir alimentos con él (B01-5)
+    report_b2: Realizó una recolección fuera de las fechas especificadas sin consultar
+      a los BV (B02)
+    report_b3_0: Saliste o entraste de la empresa solo(B03-1)
+    report_b3_1: La recogida no se llevó a cabo sin discusión o con discusión (B03-2)
+    report_b4_1: La comida no fue distribuida equitativamente (B04-2)
+    report_b5: Han entrado personas no autorizadas a la empresa (B05)
+    report_b6_0: No se ha tenido en cuenta a los clientes ni a los empleados de la
+      empresa (B06-1)
+    report_b6_1: El lugar de recogida no se ha dejado en buen estado (B06-2)
+    report_b8: Ha sido grosero con los empleados de la empresa (B08)
+    report_b9: Se han formulado observaciones sobre la cantidad, la naturaleza y el
+      uso de los alimentos rescatados (B09)
+    report_b10: Vende alimentos rescatados (B10)
+    report_b12: A quienes recogían los alimentos no se les permitía decidir de forma
+      independiente a quién se los pasaría (B12)
+    report_other: Mezcla
+    report_b1_1: No se presentó a la recogida (B01-2)
+    report_b1_2: Llevaste animales al negocio sin permiso (B01-3)
+    report_b1_0: Llegó demasiado tarde para la recogida (B01-1)
+    report_b1_3: Has llevado niños en la empresa sin permiso (B01-4)
+    report_b4_0: No se llevaron todos los alimentos comestibles (B04-1)
+    report_b7: Incumplimiento del período de espera de la explotación (B07)
+    report_b13: No se hicieron esfuerzos para consumir o distribuir los alimentos
+      rescatados (B13)
+    report_b11: No se han utilizado medios ecológicos en la recogida (B11)
   history:
     noData: 'Datos no disponibles.'
     noActor: 'desconocid@'
@@ -2174,9 +2276,9 @@ profile:
     plenos</a> en ella.
   editNameInfo: Tenga en cuenta que los campos de nombre y apellidos sólo deben utilizarse
     para el nombre de la persona. No utilice este campo para almacenar más información
-    sobre el usuario, como por ejemplo la realización de cursos de higiene o similares,
-    sino que se pueden utilizar grupos de trabajo para realizar dichas tareas. Encontrará
-    más información al respecto en [Foro de Embajador@s](/region?bid=881&sub=forum&tid=58225)
+    sobre el perfil, como la organización de un curso de formación sobre higiene.
+    En su lugar, se pueden utilizar los grupos de trabajo para almacenar más información
+    sobre los perfiles. Encontrará más información al respecto en el foro [Ambassador:inside]({url})
   sections:
     home_region_from: Región de origen
     foodSaver_in_region: Ahorrador de alimentos en
@@ -2202,6 +2304,8 @@ profile:
       filterJumper: Suplente
     store_table: Lista de empresas
   sleeping_info_from_until: hace una pausa del {from} al {until}
+  choosereasonnostore: No afecta ningún negocio
+  chooseantherstore: Se trata de una empresa que no cotiza en bolsa
 home:
   title: 'Pagina de inicio'
   home: 'Inicio'
@@ -2228,7 +2332,7 @@ basket:
     Inicie sesión y envíe su solicitud nuevamente.
 
     '
-  updated: 'Actualizado <strong>{date}</strong>'
+  updated: 'Actualizado:'
   no-desc: 'Por favor ingrese una descripción.'
   title: 'Cestas de comida'
   withdrawn_request: 'La solicitud fue cancelada'
@@ -2281,7 +2385,7 @@ basket:
   request: 'Solicita canasta de alimentos'
   no_requests: 'No hay consultas hasta el momento'
   change-state: 'Cerrar solicitud de {name}'
-  created: 'Publicado <strong>{date}</strong>'
+  created: 'Publicado:'
   all_map: 'Todas las cestas de comida en el mapa'
   recent: 'Nuevas cestas de comida'
   go: 'a la cesta de comida'
@@ -2344,6 +2448,8 @@ basket:
   delete_confirmation:
     text: ¿Realmente quieres eliminar esta canasta de alimentos?
     title: ¿Eliminar canasta de alimentos?
+  expires_at: Válido hasta <strong>{date}</strong>
+  until: 'Válido hasta:'
 menu:
   entry:
     press: 'Prensa'
@@ -2812,19 +2918,20 @@ events:
   meeting:
     past: Este acto se celebró en línea.
     not_started: El acto aún no ha comenzado
-    present: Este acto se celebra en línea. Puede inscribirse ahora.
-    future: Este acto se celebrará en línea. En cuanto empiece, puede unirse a través
-      del botón de abajo.
+    present: Este acto se celebra en línea. Puedes inscribirte ahora.
+    future: Este acto se celebrará en línea. En cuanto empiece, puede unirte a través
+      del botón inferior.
   attendees: Participantes
   noneAccepted: Hasta el momento, ninguna persona ha confirmado su participación en
     este acto.
-  online_info: "Las videoconferencias y de video de FoodSharing se ejecutan mejor
-    a través de nuestro propio servidor [BigBlueButton](https://bigbluebutton.org).
-    Después de 10 minutos antes del inicio de la reunión, los usuarios pueden participar
-    fácilmente en la conferencia con un clic en la página de la reunión. No se requieren
-    programas adicionales, solo un navegador bastante moderno. También es posible
-    registrarse por teléfono.\n\nSi aún deseas utilizar otra plataforma para teléfono
-    o videoconferencia, puedes seleccionar la opción *\"Otro\"*. \n"
+  online_info: "Las conferencias telefónicas y videoconferencias de foodsharing funcionan
+    mejor a través de nuestro propio servidor [BigBlueButton](https://bigbluebutton.org).
+    Desde 10 minutos antes del inicio de la cita, los usuarios pueden unirse fácilmente
+    a la conferencia con un solo clic desde la página de la cita. No se necesitan
+    programas adicionales, sólo un navegador de Internet razonablemente moderno. También
+    es posible participar por teléfono.\n\nSi aún así desea utilizar otra plataforma
+    para una conferencia telefónica o videoconferencia, seleccione la opción *\"Otros
+    \"*.\n"
 recipients:
   orga_team: 'Equipo organizacional global'
   newsletter: 'Todos los suscriptores del boletín (al menos rescatista)'
@@ -2878,8 +2985,8 @@ recipients:
   all: 'Todos l@s rescatistas del mundo'
   unknown: 'desconocido'
 regionOptions:
-  enableMediationButton: 'Habilitar enlace de solicitud de mediación en los perfiles
-    de rescatistas de este distrito de origen.'
+  enableMediationButton: 'Activar el formulario de mediación en las páginas de perfil
+    de los comensales habituales del distrito'
   regionPickupLimitDayNumber: 'Número máximo de recogidas permitidas de empresas populares
     en un día'
   regionPickupTimespan: 'Período de tiempo (días antes y después de la fecha de recogida
@@ -2892,12 +2999,18 @@ regionOptions:
   success: 'Opciones guardadas exitosamente'
   regionPickupInactiveHours: '¿Cuántas horas antes de la recogida debería dejar de
     aplicarse la regla?'
-  enableReportButton: 'Habilitar enlace de quejas en los perfiles de rescatistas de
-    este distrito de origen.'
+  enableReportButton: 'Activar el formulario de inscripción en las páginas de perfil
+    de los ahorradores habituales de alimentos del distrito'
   header_page: 'Configuración para {bezirk}'
   regionPickupRuleActiveStoreList: 'Relación de empresas del distrito que son empresas
     populares en el sentido de este reglamento. A los efectos del reglamento, se suman
     y tienen en cuenta todos los cobros de empresas populares.'
+  regionReportReasonOther: Permitir «Otros» como motivo de notificación
+  regionReportReasonSimple: Motivos de notificación simplificados
+  regionReportReasonCategoryB: 'Motivos de denuncia ampliados: Normas de conducta
+    - B) Comportamiento durante los cobros'
+  noPickupRuleActiveStores: Actualmente, la regla de las pasas no está activada para
+    ningún negocio del distrito.
 mailbox:
   mark_as_unread: 'Marcar correo como no leído'
   date: 'Fecha'
@@ -3026,7 +3139,7 @@ settings:
       ni responderá con un sonido o vibración.
 
       '
-  email: 'Cambiar dirección de correo electrónico'
+  email: 'Correo electrónico y contraseña'
   calendar:
     create_token:
       button: 'Crear nuevo token'
@@ -3034,8 +3147,8 @@ settings:
         enlace anterior y lo invalida. ¿Estás seguro de que quieres recrear el enlace?'
       title: 'Crear nuevo token'
     delete_token:
-      message: 'El enlace actual dejará de ser válido. ¿Realmente deseas eliminar
-        el token?'
+      message: 'Esto invalidará todos los enlaces de calendario creados anteriormente.
+        ¿Realmente deseas eliminar el token?'
       button: 'eliminar token'
       title: 'Eliminar token'
     token-warning: 'Importante: mantenga el enlace en secreto.
@@ -3066,6 +3179,48 @@ settings:
     export: Exportar calendario
     export_tooltip: Puede ver sus fechas de recogida utilizando un programa de calendario
       de su elección.
+    download: Descargar el calendario
+    generate_url:
+      button: Generar la URL del calendario
+    pickup:
+      label: ¿Deberían incluirse las fechas de recogida?
+      "true": Sí, mostrar mis recogidas en el calendario
+      "false": No, no mostrar recogidas en el calendario
+    event:
+      label: ¿Qué fechas de tus distritos y grupos de trabajo deberían incluirse?
+      all: Todas las citas
+      invitations: Citas no canceladas
+      maybe: Fechas en las que (quizás) he declarado que estaría allí
+      accepted: Fechas en las que he dicho que estaré allí
+      none: Ninguna
+    history:
+      label: ¿Deberían incluirse las citas anteriores a las últimas 2 semanas?
+      "false": No, no mostrar eventos pasados en el calendario
+      "true": Sí, mostrar mis últimas citas en el calendario
+    program:
+      google: El calendario de Google
+      outlook: Outlook
+      thunderbird: Thunderbird
+      other: Otra
+      label: ¿Qué programa de calendario utilizas?
+      apple_etar: Calendario de Apple / Etar
+    formatting:
+      label: ¿Qué formato deben tener las descripciones de los nombramientos?
+      html: HTML
+      alt: Texto con HTML como representación alternativa
+      text: Solo texto
+    info: "Aquí puede vincular sus citas para compartir comida con un programa de
+      calendario de su elección. Esto permite que todas sus recogidas y/o citas se
+      ingresen automáticamente en su calendario.\n\n**Asegúrate de mantener los enlaces
+      del calendario en secreto.** Contienen un *token* que puede usarse para acceder
+      a tus datos de recogida sin contraseña. Puede eliminar su token actual en cualquier
+      momento, lo que invalidará los enlaces de calendario creados anteriormente.\n
+      \nSu programa de calendario necesita **sincronizar** este calendario periódicamente.
+      Solo entonces aparecerán nuevas fechas de recogida y ya no aparecerán las fechas
+      canceladas. Si descarga su calendario actual, solo contendrá sus citas actuales
+      y no se actualizará automáticamente.\n\nPuedes encontrar más información [aquí
+      en la wiki]({calendarUrl})\n"
+    protocol: ¿Qué protocolo utiliza tu programa de calendario?
   changemail:
     sent: 'Ahora va a tu <strong>nuevo</strong> buzón para confirmar la nueva dirección
       de correo electrónico.'
@@ -3079,16 +3234,28 @@ settings:
     passcheck: ''
     occupied: 'La dirección de correo electrónico no se pudo cambiar porque ya está
       en uso.'
-    input_label_email_confirm: Por favor confirme su nueva dirección de correo electrónico
-      aquí
+    input_label_email_confirm: Por favor, confirma aquí tu nueva dirección de correo
+      electrónico
     explanation_password: Confirme el cambio con su contraseña actual
     wrong_password: La contraseña es incorrecta.
     confirm_email_required: Las direcciones de correo electrónico no coinciden
     input_label_password: Por favor ingrese su contraseña para confirmar
-    input_label_email: Introduzca aquí su nueva dirección de correo electrónico
+    input_label_email: Introduce aquí la nueva dirección de correo electrónico
     explanation: Aquí puede cambiar la dirección de correo electrónico con la que
       registró su cuenta. Después de enviar, recibirá un correo electrónico a la nueva
       dirección con un enlace de confirmación.
+    not_changed: Tu dirección de correo electrónico no ha sido modificada.
+    dashboard_link: Continuar en el cuadro de mando
+    explanation_other_user: Aquí puedes cambiar la dirección de correo electrónico
+      con la que te registraste en este perfil. Tras enviarlo, el usuario recibirá
+      un correo electrónico a la nueva dirección con un enlace que deberá utilizar
+      para confirmarlo.
+    sent_other_user: Se ha enviado un correo electrónico a la nueva dirección con
+      el que se puede confirmar la dirección.
+    question_other_user: '¿Debería cambiarse realmente la dirección de correo electrónico
+      por ésta?:'
+    insufficient_permission: No tienes permiso para cambiar la dirección de correo
+      electrónico de este perfil.
   saved: 'Los cambios han sido guardados.'
   sleep:
     none: 'Soy activo y totalmente involucrado'
@@ -3158,6 +3325,14 @@ settings:
       por otro motivo, comuníquese con sus embajador@s locales.'
     non_verified_text: 'Aún no estás verificado. Solo l@s rescatistas de alimentos
       verificad@s pueden descargar su pasaporte.'
+    add_to_wallet:
+      google: Añadir a Google Wallet
+      apple: Añadir a Apple Wallet
+    wallet:
+      valid_end: Válido hasta el
+      name: Nombre
+      role: Papel
+      valid_start: Válido a partir de
   header: 'Configuración de perfil'
   chatmail: 'Si recibe un mensaje interno de foodsharing pero no ha iniciado
 
@@ -3174,10 +3349,22 @@ settings:
   general:
     phone: Su número de teléfono fijo
     current_address: Direccion actual
+    no_address: Aún no se ha introducido ninguna dirección
   quiz:
     1: 'Ahorro de alimentos: en el cuestionario'
     2: Cuestionario para gerentes de tienda
     3: Prueba de embajador
+  change_password:
+    title: Puedes cambiar tu contraseña aquí
+    old_password_label: Contraseña anterior
+    new_password_label: Nueva contraseña
+    new_password_must_be_trimmed: La contraseña no puede empezar ni terminar con espacios
+    new_password_confirmation_label: Confirmar la nueva contraseña
+    new_password_confirmation_invalid: Las contraseñas no coinciden
+    submit: Cambiar la contraseña
+    success: Tu contraseña ha sido cambiada correctamente
+    old_password_required: Debes ingresar tu contraseña anterior.
+    new_password_required: La contraseña debe contener al menos 8 caracteres
 team:
   former: 'Antiguos alumnos'
   ratelimit: 'Espere {minutes} minutos antes de poder enviar el siguiente mensaje.'
@@ -3292,6 +3479,9 @@ globals:
     workingGroups: Grupos
     regions_menu: Menú del distrito
     groups_menu: Menú de grupo
+    polls: Votos
+    mails: Correos electrónicos
+    events: Eventos
   you: 'Tú'
   account:
     signin: 'Iniciar sesión'
@@ -3302,6 +3492,8 @@ globals:
   reset: 'Reiniciar'
   save: 'Ahorrar'
   telephone_number: Número de teléfono
+  save_changes: Guardar los cambios
+  saved: Se han guardado los cambios
 legal:
   acknowledge: '¿Aceptas el acuerdo?'
   dont_agree: 'No estoy de acuerdo con el procesamiento de mis datos y'
@@ -3317,8 +3509,7 @@ legal:
     this_doesnt_get_deleted_name: 'Su nombre'
     this_doesnt_get_deleted_address: 'Su dirección'
     this_gets_deleted_main: 'La siguiente información se eliminará y no se podrá restaurar:'
-    this_gets_deleted_trustbananas: 'Se eliminarán los plátanos que le hayas dado
-      a otras personas.'
+    this_gets_deleted_trustbananas: 'Se eliminarán los plátanos que hayas recibido.'
     this_gets_deleted_quiz: 'Se eliminarán todos los cuestionarios aprobados.'
     this_doesnt_get_deleted_history: 'Tu historial de verificación'
     this_gets_deleted_verify: 'Su verificación será eliminada.'
@@ -3678,6 +3869,7 @@ calendar:
       name: 'recogida {store}'
       freeSlots: '{count} espacios todavía están libres'
       otherFoodsavers: 'Ingresó junto contigo: '
+      foodsavers: 'Registrar como ahorrador de alimentos: '
     updated: '(Última actualización: {date})'
   labelPrevMonth: 'el mes pasado'
   labelCurrentMonth: 'mes actual'
@@ -3686,6 +3878,8 @@ calendar:
   labelNextMonth: 'próximo mes'
   labelNav: 'Navegación del calendario'
   placeholder: Elija una fecha
+  copiedUrl: ¡URL del calendario copiada!
+  labelResetButton: Eliminar selección
 addresspicker:
   infobox_profile: 'Los compateros necesitan la dirección para poder ofrecer cestas
     de alimentos a través del sitio web. Es necesario para poder participar en recogidas
@@ -3775,7 +3969,7 @@ releases:
   "2023-09": Versión “Yaca” 🍈 (septiembre 2023)
   "2024-01": Lanzamiento “Kiwi” 🥝 (Enero 2024)
   "2024-04": Lanzamiento de "Pretzel" 🥨 (abril de 2024)
-  "2024-07": Lanzamiento de "Mandarine" 🍊 (julio de 2024)
+  "2024-08": Lanzamiento de "Mandarine" 🍊 (agosto de 2024)
 salutation:
   "2": 'Querida'
   "3": 'Queride'
@@ -3804,6 +3998,22 @@ map:
   title: 'Mapa'
   filters:
     my_stores: Solo mis empresas
+    stores:
+      status:
+        label: Estado
+        all: Todos
+        not-cooperating: No coopera
+        cooperating: Cooperado
+      help:
+        label: Colaboradores
+        all: No importa
+        open: Buscado
+        searching: Se busca urgentemente
+      scope:
+        label: Afiliación
+        all: todos
+        region: Solo en mis distritos
+        member: Únicamente mis empresas
   foodsharepoint:
     go: Punto para compartir alimentos
 addreaction: 'Añadir una reacción'
@@ -4049,6 +4259,42 @@ help:
       title: Logros
       md: "Es necesario agregar aquí una explicación de los logros. Lo haré más tarde.
         HACER\n"
+    report:
+      title: Procesamiento de mensajes
+      md: "Aquí veras mensajes escritos sobre personas de este distrito de origen.
+        Sin embargo, no se mostrarán todos los mensajes:\n- En principio, no verás
+        ningún mensaje en el que tu o tus coadministradores de LMG o LS estén involucrados.\n
+        - Como administrador de LS, solo tienes acceso a los informes en los que participan
+        los administradores de LMG.\n---\nPuedes leer información sobre cómo procesar
+        un informe: [Procesar un informe](https://wiki.foodsharing.de/Rulestraumas_-_Konsequences_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)\n"
+    reportReasons:
+      title: Formulario del informe
+      md: "Foodsavers puede informar infracciones de las reglas directamente utilizando
+        el formulario de informe. Al activarlo, los responsables de los reportes recibirán
+        rápida y fácilmente notificaciones de los reportes realizados de esta manera.\n
+        ---\nLa LMG del distrito puede establecer qué motivos de notificación se muestran
+        en el formulario de notificación.\nPuede elegir entre motivos de informes
+        simplificados y detallados. Los motivos detallados para informar incluyen
+        todas las reglas enumeradas [aquí en la wiki en el punto B](https://wiki.foodsharing.de/Verhaltensregelen#B.29_Verhalten_bei_Abholungen).\n
+        También puede elegir si la opción \"Otro\" debe aparecer como motivo adicional
+        del mensaje.\n---\nSe pueden hacer recomendaciones sobre la configuración
+        a la LMG. Sin embargo, la decisión y la responsabilidad de estas configuraciones
+        recae únicamente en los administradores del grupo de informes local, quienes
+        no *tienen* que seguir estas recomendaciones.\n"
+    basket:
+      title: Cestas de comida
+      md: "Las cestas de alimentos son ofrecidas por usuarios que desean entregar
+        alimentos (a menudo rescatados) **gratis**. Los usuarios registrados pueden
+        solicitar una cesta de alimentos para recogerla.\n"
+    achievementIcon:
+      md: "Cada logro tiene un ícono, un pequeño gráfico que debe mostrar a primera
+        vista de qué se trata. Puede encontrar una lista de íconos disponibles en
+        https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n\nEn el campo de entrada
+        debe ingresar el nombre del ícono que desea usar, por ejemplo \"*caminando*\"\
+        \ o \"*carrito de compras*\".\nPuede comprobar si su entrada funciona utilizando
+        la vista previa.\nSi no ingresa un ícono, se usará automáticamente el ícono
+        de logro predeterminado \"*etiqueta*\"\n"
+      title: Iconos de los logros
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
@@ -4085,3 +4331,52 @@ achievements:
   validity:
     days: Válido por {validityInDaysAfterAssignment} días después de la asignación.
     indefinite: Válido para cualquier período de tiempo después de la adjudicación.
+    indefiniteShort: Cualquier período de tiempo
+  awardedNoReviewer: Automáticamente
+  awardedTo: A
+  reviewer: De
+  notice: Observación
+  validUntil: Válido hasta
+  award: Logro otorgado
+  findUser: Buscar usuario
+  editDetails: Ajustar detalles
+  revoke: Retirar
+  edit: 'Editar logro: {name}'
+  notAwarded: Este logro no se ha concedido actualmente a nadie.
+  revokeConfirmation: ¿De verdad quieres privar a {name} de este logro?
+  awarded: Conceder
+  editAwarded: Personalizar {achievement} para {user}
+  inRegion: ({count}) logros en {region}
+  new: Nuevo logro
+  editor:
+    validityInDaysAfterAssignment: Validez tras la asignación en días
+    description: Descripción
+    name: Nombre
+    icon: Icono
+    preview: Vista previa
+  noneInThisRegion: No hay logros registrados en esta región.
+  editTitle: Editar los logros
+  add: Agregar logro
+  deleteConfirmation: ¿De verdad quieres borrar este logro?
+copied_to_clipboard: Se ha copiado «{text}» al portapapeles.
+theme_switcher:
+  title: Elegir diseño
+  content: Seleccionar un diseño
+  choose_button: De acuerdo
+  theme:
+    system: Sistema
+    light: Claro
+    dark: Oscuro
+store_categories:
+  edit: Cambiar nombre de categoría
+  columns:
+    id: ID
+    name: Nombre
+    number_of_stores: Explotaciones de la categoría
+  empty: Aún no se ha ingresado ninguna categoría
+  delete: Eliminar categoría
+  confirm_delete: ¿Realmente eliminar la categoría {name}?
+  confirm_delete_hint: Todavía hay {count} empresas asignadas a esta categoría. Estas
+    empresas ya no tendrán categoría.
+  new: Ingresar nueva categoría
+  title: Categorías de la explotación

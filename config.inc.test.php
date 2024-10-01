@@ -26,7 +26,6 @@ define('DB_PASS', 'root');
 define('DB_DB', 'foodsharing');
 define('ERROR_REPORT', E_ALL);
 define('BASE_URL', $protocol . '://' . $host);
-define('WEBCAL_URL', 'webcal://' . $host);
 
 define('VERSION', '0.8.3');
 
@@ -72,3 +71,5 @@ define('WEBPUSH_PRIVATE_KEY', 'z5g0ssYryhDhQnwVAZ2Q2oOiqF3ZngJzkLXMrww8gDU='); /
 define('FCM_KEY', '');
 
 define('TWINGLE_URL', 'https://spenden.twingle.de/status/E4yxc5T7YJh7nZvL93Yu7PlUzwCMjD2p80u8YK0Vgyw');
+
+define('MAX_DELETE_OLD_ACCOUNTS_PER_DAY', 100);

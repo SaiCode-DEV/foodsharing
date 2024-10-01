@@ -131,7 +131,7 @@ group:
       nella visione d’insieme dei distretti.
   delete_group_sure: Vuoi davvero eliminare il gruppo di lavoro/distretto {groupName}?
   quitting_home_district_warning: Vuoi davvero lasciare il tuo distretto di provenienza
-    %name%? Perderai la tua verifica e dovrai presentarti in seguito al team di ambasciatori
+    {name}? Perderai la tua verifica e dovrai presentarti in seguito al team di ambasciatori
     del tuo nuovo distretto di provenienza.
   really_quit_district: Sei sicuro di voler lasciare il distretto di {name}?
   really_quit_workgroup: Sei sicuro di voler lasciare il gruppo di lavoro {name}?
@@ -527,6 +527,9 @@ terminology:
   electionAdmins: Elezioni
   no: No
   yes: Sì
+  landline: Numero di rete fissa
+  mobile_phone: Numero di cellulare
+  phone: Numero di telefono
 register:
   woman: femmina
   signup_newsletter: Vorrei ricevere la newsletter di foodsharing circa una volta
@@ -2353,6 +2356,8 @@ search:
       jumper_tooltip: 'Sei un Jolly per questa attività'
       member_tooltip: 'Sei un membro del team di questa attività'
     from: 'da'
+    mail:
+      mail_name: '{name} <{mail}>'
   too_short: Inserisci un termine di ricerca più lungo.
   maxresults: Il numero di risultati visualizzati è limitato. Forse usa un termine
     di ricerca più specifico.
@@ -2597,7 +2602,7 @@ profile:
     ulteriori informazioni sull’utente, come il completamento della formazione sull’igiene
     o simili. Al contrario, i gruppi di lavoro possono essere utilizzati per memorizzare
     informazioni aggiuntive sui profili. Ulteriori informazioni a riguardo sono disponibili
-    nel [Forum degli Ambasciatori](/region?bid=881&sub=forum&tid=58225)
+    nel [Forum degli Ambasciatori]({url})
   orga_rights: In qualità di persona organizzativa, {name} dispone di <a target="_blank"
     href="{wikiurl}">autorizzazioni estese</a> sulla piattaforma.
 mail:

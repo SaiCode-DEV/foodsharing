@@ -25,7 +25,7 @@
 <script>
 import conversationStore from '@/stores/conversations'
 import { pulseError } from '@/script'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import { removeStoreMember } from '@/api/stores'
 import Container from '@/components/Container/Container.vue'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
@@ -61,6 +61,12 @@ export default {
     mayDoPickup: { type: Boolean, default: false },
     isVerified: { type: Boolean, default: false },
   },
+  setup () {
+    const userStore = useUserStore()
+    return {
+      userStore,
+    }
+  },
   methods: {
     openChat (conversationId) {
       conversationStore.openChat(conversationId)
@@ -74,7 +80,7 @@ export default {
       }
       this.isBusy = true
       try {
-        await removeStoreMember(this.storeId, DataUser.getters.getUserId())
+        await removeStoreMember(this.storeId, this.userStore.getUserId)
         window.location.href = this.$url('dashboard')
       } catch (e) {
         pulseError(this.$i18n('error_unexpected'))

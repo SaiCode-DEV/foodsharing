@@ -56,8 +56,7 @@ class FoodSharePointController extends FoodsharingController
         } else {
             switch ($request->query->get('sub')) {
                 case 'edit':
-                    $this->edit($request);
-                    break;
+                    return $this->edit($request);
                 case 'check':
                     $this->check($request);
                     break;
@@ -65,8 +64,7 @@ class FoodSharePointController extends FoodsharingController
                     $this->ft();
                     break;
                 case 'add':
-                    $this->add($request);
-                    break;
+                    return $this->add($request);
             }
         }
 
@@ -149,7 +147,7 @@ class FoodSharePointController extends FoodsharingController
             }
 
             $this->follower = $this->foodSharePointGateway->getFollower($foodSharePointId);
-            $mapper = fn ($foodsaver) => new Profile($foodsaver['id'], $foodsaver['name'], $foodsaver['photo'], $foodsaver['sleep_status']);
+            $mapper = fn ($user) => new Profile($user);
             $managers = array_map($mapper, $this->follower['fsp_manager']);
             $followers = array_map($mapper, $this->follower['follow']);
 
@@ -191,7 +189,7 @@ class FoodSharePointController extends FoodsharingController
         return array_filter($this->currentUserUnits->getRegions(), fn ($region) => UnitType::isAccessibleRegion($region['type']));
     }
 
-    private function edit(Request $request): void
+    private function edit(Request $request): Response
     {
         if (!$this->foodSharePointPermissions->mayEdit($this->regionId, $this->follower)) {
             $this->routeHelper->goAndExit('/fairteiler/' . $this->foodSharePoint['id']);
@@ -204,7 +202,6 @@ class FoodSharePointController extends FoodsharingController
         if ($request->request->get('form_submit') === 'fairteiler') {
             if ($this->handleEditFsp($request)) {
                 $this->flashMessageHelper->success($this->translator->trans('fsp.editSuccess'));
-                $this->routeHelper->goAndExit($this->routeHelper->getSelf());
             } else {
                 $this->flashMessageHelper->error($this->translator->trans('error_unexpected'));
             }
@@ -239,6 +236,8 @@ class FoodSharePointController extends FoodsharingController
         $this->pageHelper->addContent($this->view->options($items), CNT_RIGHT);
 
         $this->pageHelper->addContent($this->view->foodSharePointForm($data));
+
+        return $this->renderGlobal();
     }
 
     private function check(Request $request): void
@@ -342,22 +341,9 @@ class FoodSharePointController extends FoodsharingController
         $this->pageHelper->addContent($this->view->address(), CNT_RIGHT);
     }
 
-    private function add(Request $request): void
+    private function add(Request $request): Response
     {
         $this->pageHelper->addBread($this->translator->trans('fsp.add'));
-
-        if ($request->request->get('form_submit') === 'fairteiler') {
-            if ($this->handleAdd($request)) {
-                if ($this->foodSharePointPermissions->mayAdd($this->regionId)) {
-                    $this->flashMessageHelper->success($this->translator->trans('fsp.addSuccess'));
-                } else {
-                    $this->flashMessageHelper->success($this->translator->trans('fsp.suggestSuccess'));
-                }
-                $this->routeHelper->goAndExit('/fairteiler?bid=' . (int)$this->regionId);
-            } else {
-                $this->flashMessageHelper->error($this->translator->trans('fsp.addError'));
-            }
-        }
         $this->pageHelper->addContent($this->view->foodSharePointForm());
 
         $goBack = [
@@ -368,6 +354,8 @@ class FoodSharePointController extends FoodsharingController
             $this->v_utils->v_menu([$goBack], $this->translator->trans('options')),
             CNT_RIGHT
         );
+
+        return $this->renderGlobal();
     }
 
     private function handleEditFsp(Request $request): bool
@@ -427,34 +415,6 @@ class FoodSharePointController extends FoodsharingController
     private function validateInput(array $data): bool
     {
         return $data['lat'] && $data['lon'] && $data['bezirk_id'];
-    }
-
-    private function handleAdd(Request $request): int
-    {
-        $data = $this->prepareInput($request);
-        if (!$this->validateInput($data)) {
-            return 0;
-        }
-
-        $userId = $this->session->id();
-
-        if ($userId === null) {
-            return 0;
-        }
-
-        if ($this->foodSharePointPermissions->mayAdd($this->regionId)) {
-            $data['status'] = 1;
-        } else {
-            $data['status'] = 0;
-        }
-
-        $id = $this->foodSharePointGateway->addFoodSharePoint($userId, $data);
-        if (!empty($data['picture'])) {
-            $uuid = substr($data['picture'], 13);
-            $this->uploadsGateway->setUsage([$uuid], UploadUsage::FOOD_SHARE_POINT_TITLE, $id);
-        }
-
-        return $id;
     }
 
     private function isFollower(): bool

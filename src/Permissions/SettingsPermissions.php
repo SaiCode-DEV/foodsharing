@@ -4,6 +4,7 @@ namespace Foodsharing\Permissions;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
@@ -102,5 +103,15 @@ class SettingsPermissions
         }
 
         return false;
+    }
+
+    /**
+     * Determines if the current user is allowed to change the private (login) email address of the profile with the
+     * given id.
+     */
+    public function mayChangeLoginEmail(int $userId): bool
+    {
+        return $this->session->mayRole(Role::ORGA)
+            && $this->currentUserUnitsInterface->isAmbassadorForRegion([RegionIDs::IT_SUPPORT_GROUP]);
     }
 }

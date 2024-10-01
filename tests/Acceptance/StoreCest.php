@@ -28,7 +28,7 @@ class StoreCest
 
     public function _before(AcceptanceTester $I): void
     {
-        $this->region = $I->createRegion();
+        $this->region = $I->createRegion(fillMailbox: false);
         $regionId = $this->region['id'];
         $extra_params = ['bezirk_id' => $regionId];
 
@@ -61,7 +61,7 @@ class StoreCest
         $I->addStoreTeam($this->store['id'], $this->foodsaverOnJumperList['id'], false, true, true);
 
         // add edge case when user from other regions want to join a store, which is not in their region
-        $differentRegion = $I->createRegion()['id'];
+        $differentRegion = $I->createRegion(fillMailbox: false)['id'];
         $this->foodsaverDifferentRegion = $I->createFoodsaver(null, ['bezirk_id' => $differentRegion]);
         $I->addRegionMember($differentRegion, $this->foodsaverDifferentRegion['id']);
     }

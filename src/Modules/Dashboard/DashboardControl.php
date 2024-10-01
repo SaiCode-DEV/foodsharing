@@ -7,6 +7,7 @@ use Foodsharing\Modules\Content\ContentGateway;
 use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\Content\ContentId;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Event\InvitationStatus;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -120,7 +121,7 @@ class DashboardControl extends Control
         if ($this->session->role()->value >= $quizRole) {
             return null;
         }
-        if (!$this->quizPermissions->requiresConfirmation($quizRole)) {
+        if (!$this->quizPermissions->requiresConfirmation(QuizID::from($quizRole))) {
             return null;
         }
 

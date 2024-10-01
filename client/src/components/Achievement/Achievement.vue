@@ -3,12 +3,13 @@
     <b-badge
       ref="badge"
       pill
-      @click="$refs.detailsModal.show()"
+      @click="onClick"
     >
       <i :class="iconClass" />
       <span v-text="achievement.name" />
     </b-badge>
     <b-modal
+      v-if="!noModal"
       ref="detailsModal"
       centered
       ok-only
@@ -19,27 +20,60 @@
         <span v-text="achievement.name" />
       </template>
       <Markdown :source="achievement.description" /><br>
-      <i v-if="achievement.validityInDaysAfterAssignment" v-text="$i18n('achievements.validity.days', achievement)" />
-      <i v-else v-text="$i18n('achievements.validity.indefinite')" />
+      <div v-if="isAwarded">
+        <p>
+          {{ $i18n('achievements.awarded') }}
+          <Time
+            :time="achievement.createdAt"
+            plain
+            :tooltip="null"
+          />
+        </p>
+        <p v-if="achievement.validUntil">
+          {{ $i18n('achievements.validUntil') }}:
+          <Time
+            :time="achievement.validUntil"
+            plain
+            :tooltip="null"
+          />
+        </p>
+        <p v-if="achievement.notice">
+          {{ $i18n('achievements.notice') }}:
+          {{ achievement.notice }}
+        </p>
+      </div>
+      <div v-else>
+        <i v-if="achievement.validityInDaysAfterAssignment > 0" v-text="$i18n('achievements.validity.days', achievement)" />
+        <i v-else v-text="$i18n('achievements.validity.indefinite')" />
+      </div>
     </b-modal>
   </span>
 </template>
 <script>
 import Markdown from '@/components/Markdown/Markdown.vue'
+import Time from '@/components/Time.vue'
 
 export default {
-  components: { Markdown },
+  components: { Markdown, Time },
   props: {
     achievement: { type: Object, required: true },
+    noModal: { type: Boolean, default: false },
   },
   computed: {
     iconClass () {
-      return (this.achievement.icon ?? 'fas fa-medal') + ' mr-0'
+      return this.achievement.icon || 'fas fa-tag'
+    },
+    isAwarded () {
+      return 'validUntil' in this.achievement
     },
   },
   methods: {
-    showDetails () {
-      console.log(this.achievement)
+    onClick () {
+      if (this.noModal) {
+        this.$emit('click')
+      } else {
+        this.$refs.detailsModal.show()
+      }
     },
   },
 }

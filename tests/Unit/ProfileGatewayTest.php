@@ -22,7 +22,7 @@ class ProfileGatewayTest extends Unit
     {
         $this->profileGateway = $this->tester->get(ProfileGateway::class);
         $this->foodsaver = $this->tester->createFoodsaver();
-        $this->region = $this->tester->createRegion();
+        $this->region = $this->tester->createRegion(fillMailbox: false);
         $this->store = $this->tester->createStore($this->region['id']);
         $pickupBaseDate = Carbon::now();
         $pickupBaseDate->hours(14)->minutes(45)->seconds(0);

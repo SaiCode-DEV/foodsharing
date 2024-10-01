@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="m-1">
-      {{ $i18n('settings.changemail.explanation') }}
+      {{ $i18n(isMe ? 'settings.changemail.explanation' : 'settings.changemail.explanation_other_user') }}
     </p>
 
     <div class="col-sm-auto">
@@ -41,12 +41,13 @@
       </div>
     </div>
 
-    <p class="m-1 mt-3">
+    <p v-if="isMe" class="m-1 mt-3">
       {{ $i18n('settings.changemail.explanation_password') }}
     </p>
 
     <div class="col-sm-auto">
       <input
+        v-if="isMe"
         id="password"
         v-model="$v.password.$model"
         class="form-control mt-3"
@@ -68,12 +69,31 @@
 
 <script>
 import { pulseError, pulseInfo } from '@/script'
-import { email, minLength, not, required, sameAs } from 'vuelidate/lib/validators'
+import { email, minLength, not, required, requiredIf, sameAs } from 'vuelidate/lib/validators'
 import { requestEmailChange } from '@/api/settings'
 import { isFoodsharingDomain } from '@/helper/urls'
 import { HTTP_RESPONSE } from '@/consts'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 export default {
+  props: {
+    /**
+     * The form is visible for users themselves and for orga users. Users can only change their own email address by
+     * providing their password.
+     */
+    isMe: { type: Boolean, required: true },
+    /**
+     * Id of the profile that is being edited.
+     */
+    userId: { type: Number, required: true },
+  },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   data () {
     return {
       isLoading: false,
@@ -85,19 +105,34 @@ export default {
   validations: {
     email: { required, minLength: minLength(1), email, notFoodsharingAddress: not(isFoodsharingDomain) },
     confirmEmail: { required, minLength: minLength(1), email, sameAsEmail: sameAs('email') },
-    password: { required, minLength: minLength(1) },
+    password: {
+      required: requiredIf(function () {
+        return this.isMe
+      }),
+      minLength: minLength(1),
+    },
   },
   methods: {
     async submitEmail () {
+      let confirmationMessage = this.isMe ? 'settings.changemail.question' : 'settings.changemail.question_other_user'
+      confirmationMessage = this.$i18n(confirmationMessage) + ' ' + this.email.trim()
+      if (!await this.$bvModal.msgBoxConfirm(confirmationMessage, {
+        title: this.$i18n('are_you_sure'),
+        okTitle: this.$i18n('button.apply'),
+        cancelTitle: this.$i18n('button.cancel'),
+        centered: true,
+      })) return
+
       this.isLoading = true
 
       try {
-        await requestEmailChange(this.email.trim(), this.password)
-        pulseInfo(this.$i18n('settings.changemail.sent'), { sticky: true })
+        const id = this.isMe ? this.userStore.getUserId : this.userId
+        await requestEmailChange(id, this.email.trim(), this.password)
+        pulseInfo(this.$i18n(this.isMe ? 'settings.changemail.sent' : 'settings.changemail.sent_other_user'), { sticky: true })
       } catch (e) {
         let message = e.message
         if (e.code === HTTP_RESPONSE.FORBIDDEN) {
-          message = this.$i18n('settings.changemail.wrong_password')
+          message = this.$i18n(this.isMe ? 'settings.changemail.wrong_password' : 'settings.changemail.insufficient_permission')
         } else if (e.code === HTTP_RESPONSE.BAD_REQUEST) {
           message = this.$i18n('settings.changemail.occupied')
         }

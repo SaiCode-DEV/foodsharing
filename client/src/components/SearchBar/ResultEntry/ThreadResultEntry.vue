@@ -7,14 +7,19 @@
     <div class="text-truncate flex-grow-1">
       <h6 class="m-0 text-truncate d-inline">
         <i
-          v-if="thread.is_sticky"
+          v-if="thread.stickiness > 0"
           v-b-tooltip.noninteractive="$i18n('search.results.thread.sticky_tooltip')"
           class="fas fa-thumbtack"
         />
         <i
+          v-else-if="thread.stickiness < 0"
+          v-b-tooltip.noninteractive="$i18n('search.results.thread.bottom_tooltip')"
+          class="fas fa-sign-in-alt fa-rotate-90"
+        />
+        <i
           v-if="thread.is_closed"
           v-b-tooltip.noninteractive="$i18n('search.results.thread.closed_tooltip')"
-          :class="{'ml-1': thread.is_sticky}"
+          :class="{'ml-1': thread.stickiness}"
           class="fas fa-lock"
         />
         {{ thread.name }}
@@ -37,7 +42,9 @@
   </a>
 </template>
 <script>
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 export default {
   props: {
@@ -50,10 +57,15 @@ export default {
       default: false,
     },
   },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   computed: {
     isAmbassador () {
       // eslint-disable-next-line eqeqeq
-      return this.region.ambassadors.includes(ambassador => ambassador.id == DataUser.getters.getUserId())
+      return this.region.ambassadors.includes(ambassador => ambassador.id == userStore.getUserId)
     },
   },
 }

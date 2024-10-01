@@ -4,6 +4,8 @@ namespace Foodsharing\Modules\Store\DTO;
 
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
+use Foodsharing\Validator\MarkdownOrPlainText;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateStoreData
 {
@@ -41,6 +43,8 @@ class CreateStoreData
      * Public information about the store which is visible
      * for users which are looking for a store.
      */
+    #[Assert\Length(max: 200)]
+    #[MarkdownOrPlainText]
     public string $publicInfo;
 
     public function __construct()

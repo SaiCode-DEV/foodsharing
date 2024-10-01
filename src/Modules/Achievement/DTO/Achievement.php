@@ -26,7 +26,7 @@ class Achievement
     #[OA\Property(example: 'Awarded for completing a food hygiene course')]
     public string $description;
 
-    #[Assert\NotBlank]
+    #[Assert\NotEqualTo('')]
     #[OA\Property(example: 'fas fa-hands-wash')]
     public ?string $icon;
 
@@ -42,20 +42,20 @@ class Achievement
     #[Assert\IsNull]
     public ?DateTime $updatedAt = null;
 
-    public static function createFromArray(array $data): Achievement
+    public function __construct(?array $data = null)
     {
-        $achievement = new self();
+        if (is_null($data)) {
+            return;
+        }
 
-        $achievement->id = $data['id'];
-        $achievement->regionId = $data['region_id'];
-        $achievement->name = $data['name'];
-        $achievement->description = $data['description'];
-        $achievement->icon = $data['icon'];
-        $achievement->validityInDaysAfterAssignment = $data['validity_in_days_after_assignment'];
-        $achievement->isRequestableByFoodsaver = (bool)$data['is_requestable_by_foodsaver'];
-        $achievement->createdAt = new DateTime($data['created_at']);
-        $achievement->updatedAt = isset($data['updated_at']) ? new DateTime($data['updated_at']) : null;
-
-        return $achievement;
+        $this->id = $data['id'];
+        $this->regionId = $data['region_id'];
+        $this->name = $data['name'];
+        $this->description = $data['description'];
+        $this->icon = $data['icon'];
+        $this->validityInDaysAfterAssignment = $data['validity_in_days_after_assignment'];
+        $this->isRequestableByFoodsaver = (bool)$data['is_requestable_by_foodsaver'];
+        $this->createdAt = new DateTime($data['created_at']);
+        $this->updatedAt = isset($data['updated_at']) ? new DateTime($data['updated_at']) : null;
     }
 }

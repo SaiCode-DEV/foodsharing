@@ -2,6 +2,7 @@
   <div class="navbar-navside">
     <MetaNavLoggedOut v-if="viewIsMobile" />
     <ul class="sidenav">
+      <ThemeSwitcher />
       <Link
         :href="$url('joininfo')"
         :title="$i18n('register.topbar')"
@@ -22,12 +23,14 @@ import NavLogin from '@/components/Navigation/Login/NavLogin.vue'
 import MetaNavLoggedOut from '../MetaNav/LoggedOut.vue'
 // Mixins
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
+import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
 
 export default {
   components: {
     Link,
     NavLogin,
     MetaNavLoggedOut,
+    ThemeSwitcher,
   },
   mixins: [MediaQueryMixin],
   data () {

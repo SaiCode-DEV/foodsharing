@@ -52,7 +52,7 @@ import Leaflet from 'leaflet'
 Leaflet.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 
 // defines, how much earlier or later people may join online events via the button.
-const enterEarlyBuffer = 10 * 60 * 1000 // 10 minutes
+const enterEarlyBuffer = 15 * 60 * 1000 // 15 minutes
 const enterLateBuffer = 60 * 60 * 1000 // 1 hour
 
 export default {

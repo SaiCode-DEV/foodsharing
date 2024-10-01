@@ -4,26 +4,32 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Blog\BlogGateway;
+use Foodsharing\Modules\Blog\BlogTransactions;
+use Foodsharing\Modules\Blog\DTO\BlogPost;
 use Foodsharing\Modules\Blog\DTO\BlogPostList;
 use Foodsharing\Permissions\BlogPermissions;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
+use Foodsharing\RestApi\Models\Blog\BlogPostData;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use OpenApi\Attributes as OA2;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class BlogpostController extends AbstractFOSRestController
+class BlogpostController extends AbstractFoodsharingRestController
 {
     public function __construct(
         private readonly BlogGateway $blogGateway,
+        private readonly BlogTransactions $blogTransactions,
         private readonly BlogPermissions $blogPermissions,
-        private readonly Session $session,
+        protected Session $session,
     ) {
+        parent::__construct($session);
     }
 
     #[OA2\Get(summary: 'Returns a page from the list of blog posts. The page can be empty if the page number is too large.')]
@@ -126,5 +132,31 @@ class BlogpostController extends AbstractFOSRestController
         $this->blogGateway->del_blog_entry($blogId);
 
         return $this->handleView($this->view([], 200));
+    }
+
+    #[OA2\Post(summary: 'Publishes a new blog post. The post will be publicly visible immediately.')]
+    #[OA2\Tag(name: 'blog')]
+    #[OA2\Response(
+        response: Response::HTTP_OK,
+        description: 'Success',
+        content: new OA2\JsonContent(ref: new Model(type: BlogPost::class))
+    )]
+    #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid data')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
+    #[Rest\Post('blog')]
+    #[OA2\RequestBody(content: new Model(type: BlogPostData::class))]
+    #[ParamConverter(data: 'post', class: 'Foodsharing\RestApi\Models\Blog\BlogPostData', converter: 'fos_rest.request_body')]
+    public function addBlogpost(BlogPostData $post, ValidatorInterface $validator): Response
+    {
+        $this->assertLoggedIn();
+        if (!$this->blogPermissions->mayAdd()) {
+            throw new AccessDeniedHttpException();
+        }
+        $this->assertThereAreNoValidationErrors($validator, $post);
+
+        $postId = $this->blogTransactions->addBlogPost($post);
+
+        return $this->handleView($this->view($this->blogGateway->getPost($postId), 200));
     }
 }

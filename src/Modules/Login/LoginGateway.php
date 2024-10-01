@@ -158,14 +158,9 @@ class LoginGateway extends BaseGateway
         }
 
         $this->db->delete('fs_pass_request', ['foodsaver_id' => (int)$fsid]);
+        $this->setPassword((int)$fsid, (string)$data['pass1']);
 
-        return $this->db->update(
-            'fs_foodsaver',
-            [
-                'password' => strip_tags((string)$this->password_hash($data['pass1']))
-            ],
-            ['id' => (int)$fsid]
-        );
+        return true;
     }
 
     public function getMailActivationData(int $fsId): array
@@ -214,5 +209,12 @@ class LoginGateway extends BaseGateway
         }
 
         return $key;
+    }
+
+    public function setPassword(int $userId, string $password): void
+    {
+        $this->db->update('fs_foodsaver', [
+            'password' => strip_tags($this->password_hash($password))
+        ], ['id' => $userId]);
     }
 }

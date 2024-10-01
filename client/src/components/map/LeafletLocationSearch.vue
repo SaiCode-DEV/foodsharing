@@ -165,6 +165,8 @@ export default {
       // if the marker was dragged, we need to do reverse geocoding to find the address
       if (this.doReverseGeocoding) {
         this.geolocationSearchEngine.reverseGeocode([coords.lat, coords.lon])
+      } else {
+        this.emitAddressChange()
       }
     },
     /**

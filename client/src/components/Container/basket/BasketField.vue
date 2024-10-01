@@ -29,14 +29,11 @@
           v-b-tooltip="$i18n('basket.by', { name: entry.creator.name })"
           class="field-subline field-subline--muted"
         >
-          {{ $i18n('basket.expires') }} <strong>{{ $dateFormatter.dateTime(new Date(entry.until * 1000)) }} </strong>
+          {{ $i18n('basket.until') }} {{ $dateFormatter.dateTime(new Date(entry.until * 1000)) }}
         </small>
-        <span
-          v-if="entry.lat && entry.lon"
-          class="ml-2 badge list-group-item-dark badge-pill"
-        >
-          <i v-if="distanceNumber > 0" class="fas fa-directions" />
-          {{ distanceString(distanceNumber) }}
+        <span class="ml-2 badge list-group-item-dark badge-pill">
+          <i v-if="entry.distance > 0" class="fas fa-directions" />
+          {{ distanceString(entry.distance) }}
         </span>
       </div>
     </div>
@@ -44,22 +41,11 @@
 </template>
 
 <script>
-// Stores
-import { getters } from '@/stores/user'
-
 export default {
   props: {
     entry: { type: Object, default: () => {} },
   },
-  computed: {
-    distanceNumber () {
-      return this.getDistanceNumber(this.entry.lat, this.entry.lon)
-    },
-  },
   methods: {
-    // distanceNumber (num) {
-    //   return Math.round(num * 1000) / 1000
-    // },
     distanceString (num) {
       // num = this.distanceNumber(num)
       if (num === 0) {
@@ -81,19 +67,6 @@ export default {
         return `/images/basket/thumb-${picture}`
       }
       return '/img/basket.png'
-    },
-    getDistanceNumber (lat, lon) {
-      const deg2rad = (degrees) => degrees * (Math.PI / 180)
-      const uC = getters.getLocations()
-      const R = 6371 // Radius of the earth in km
-      const dLat = deg2rad(uC.lat - lat) // deg2rad below
-      const dLon = deg2rad(uC.lon - lon)
-      const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(deg2rad(lat)) * Math.cos(deg2rad(uC.lat)) *
-                Math.sin(dLon / 2) * Math.sin(dLon / 2)
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-      const d = R * c // Distance in km
-      return Math.round(d * 1000) / 1000
     },
   },
 }

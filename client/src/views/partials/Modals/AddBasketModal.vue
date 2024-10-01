@@ -15,14 +15,11 @@
       <i class="fas fa-info-circle" />
       {{ $i18n('basket.public-info') }}
     </b-alert>
-    <FileUpload
-      class="mb-3"
-      :filename="imageUrl"
-      :is-image="true"
-      :img-width="300"
-      :img-height="200"
-      :enable-resize="true"
-      @change="(file) => imageUrl = file.url"
+    <ImageUpload
+      ref="image-upload"
+      class="mb-4"
+      :gallery-height-in-px="250"
+      :previous-images="previousImages"
     />
 
     <label for="basket-description-input">{{ $i18n('basket.description') }}:</label>
@@ -119,6 +116,7 @@
         icon-name="shopping-basket"
         icon-color="green"
         :show-address-fields="false"
+        :do-reverse-geocoding="false"
         @address-change="onAddressChanged"
       />
     </b-form-group>
@@ -126,15 +124,16 @@
 </template>
 
 <script>
-import FileUpload from '@/components/upload/FileUpload.vue'
 import LeafletLocationSearch from '@/components/map/LeafletLocationSearch.vue'
-import DataUser, { mutations as userStoreMutations } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user.js'
 import { addBasket, editBasket } from '@/api/baskets'
 import { mutations as basketStoreMutations } from '@/stores/baskets'
 import { pulseInfo } from '@/script'
+import ImageUpload from '@/components/upload/ImageUpload.vue'
+
+const userStore = useUserStore()
 
 const defaultBasketData = {
-  imageUrl: null,
   description: '',
   contact: {
     phone: false,
@@ -146,13 +145,19 @@ const defaultBasketData = {
   address: {},
   useHomeAddress: false,
   weightInput: 4,
+  previousImages: [],
 }
 
 export default {
-  components: { FileUpload, LeafletLocationSearch },
+  components: { LeafletLocationSearch, ImageUpload },
   props: {
     basket: { type: Object, default: null },
     edit: { type: Boolean, default: false },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     const durationOptions = [1, 2, 3, 5, 7, 14, 21].map(days => ({ value: days, text: this.$i18n(`basket.valid.${days}`) }))
@@ -168,23 +173,23 @@ export default {
     return {
       durationOptions,
       weights,
-      imageUrl: this.basket.picture,
       description: this.basket.description,
       contact: {
-        chat: this.basket.contact_type.includes(1),
-        phone: this.basket.contact_type.includes(2),
+        chat: this.basket.contactTypes.includes(1),
+        phone: this.basket.contactTypes.includes(2),
       },
-      phoneNumber: this.basket.handy || this.basket.tel,
+      phoneNumber: this.basket.mobile || this.basket.telephone,
       durationInDays: undefined,
-      location: { lat: this.basket.lat, lon: this.basket.lon },
+      location: this.basket.location,
       address: {},
-      useHomeAddress: false,
-      weightInput: Math.max(0, weights.findIndex(weight => weight.weightInGrams === this.basket.weightInKg * 1000)),
+      useHomeAddress: this.useHomeAddress,
+      weightInput: Math.max(0, weights.findIndex(weight => weight.weightInGrams === this.basket.weightInGrams)),
+      previousImages: this.basket.pictures,
     }
   },
   computed: {
     user () {
-      return DataUser.getters.getUserDetails()
+      return userStore.getUserDetails
     },
     isDataValid () {
       return this.description.trim() && (this.contact.chat || this.contact.phone) && (this.contact.phone ? this.phoneNumber : true)
@@ -201,7 +206,7 @@ export default {
       this.address.city = city
     },
     async initUsingUserDetails () {
-      await userStoreMutations.fetchDetails()
+      await userStore.fetchDetails()
       this.phoneNumber = this.user.mobile || this.user.landline || ''
       if (this.hasValidHomeAddress) {
         this.useHomeAddress = true
@@ -214,7 +219,7 @@ export default {
       }
     },
     async testHomeRegion () {
-      await userStoreMutations.fetchDetails()
+      await userStore.fetchDetails()
       this.phoneNumber ||= this.user.mobile
       this.useHomeAddress = this.hasValidHomeAddress &&
         Math.abs(this.basket.lat - this.user.coordinates.lat) < 1e-5 &&
@@ -227,26 +232,29 @@ export default {
         }
       }
     },
-    getBasketData () {
+    async getBasketData () {
+      const pictures = await this.$refs['image-upload'].uploadImages()
+      const location = Object.assign({}, this.useHomeAddress ? this.user.coordinates : this.location)
+
       return {
         description: this.description,
-        imageUrl: this.imageUrl,
+        pictures,
         contactTypes: [...(this.contact.chat ? [1] : []), ...(this.contact.phone ? [2] : [])],
         mobile: this.phoneNumber,
         lifeTimeInDays: this.durationInDays,
-        lat: this.location.lat,
-        lon: this.location.lon,
+        lat: location.lat,
+        lon: location.lon,
         weightInGrams: this.weights[this.weightInput].weightInGrams,
       }
     },
     async addBasket () {
-      await addBasket(this.getBasketData())
+      await addBasket(await this.getBasketData())
       pulseInfo(this.$i18n('basket.published'))
       this.resetModal()
       basketStoreMutations.fetchOwn()
     },
     async editBasket () {
-      await editBasket(this.basket.id, this.getBasketData())
+      await editBasket(this.basket.id, await this.getBasketData())
       location.reload() // as long as part of the basket page is written in php, the new basket data only is used in the page upon reload.
     },
     resetModal () {

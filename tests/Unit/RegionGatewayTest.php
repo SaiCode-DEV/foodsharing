@@ -21,9 +21,9 @@ class RegionGatewayTest extends Unit
     {
         $this->gateway = $this->tester->get(RegionGateway::class);
         $this->foodsaver = $this->tester->createFoodsaver();
-        $this->region = $this->tester->createRegion('God');
+        $this->region = $this->tester->createRegion('God', fillMailbox: false);
         $this->tester->addRegionMember($this->region['id'], $this->foodsaver['id']);
-        $this->childRegion = $this->tester->createRegion('Jesus', ['parent_id' => $this->region['id']]);
+        $this->childRegion = $this->tester->createRegion('Jesus', ['parent_id' => $this->region['id']], false);
         $this->childChildRegion = $this->tester->createRegion('Human', ['parent_id' => $this->childRegion['id']]);
     }
 

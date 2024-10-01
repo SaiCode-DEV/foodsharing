@@ -4,12 +4,17 @@ namespace Foodsharing\Modules\Search;
 
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Core\DBConstants\Mailbox\MailboxFolder;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Event\InvitationStatus;
 use Foodsharing\Modules\Search\DTO\ChatSearchResult;
+use Foodsharing\Modules\Search\DTO\EventSearchResult;
 use Foodsharing\Modules\Search\DTO\FoodSharePointSearchResult;
+use Foodsharing\Modules\Search\DTO\MailSearchResult;
+use Foodsharing\Modules\Search\DTO\PollSearchResult;
 use Foodsharing\Modules\Search\DTO\RegionSearchResult;
 use Foodsharing\Modules\Search\DTO\StoreSearchResult;
 use Foodsharing\Modules\Search\DTO\ThreadSearchResult;
@@ -21,6 +26,7 @@ class SearchGateway extends BaseGateway
     private const MAX_SEARCH_RESULT_COUNT = 30;
     private const MAX_CHATS_IN_SEARCH_INDEX_COUNT = 50;
     private const MAX_THREADS_IN_SEARCH_INDEX_COUNT = 200;
+    private const MAX_MAILS_IN_SEARCH_INDEX_COUNT = 50;
     private const SEARCH_CRITERIA = [
         'regions' => ['basic' => ['region.name', 'IFNULL(mailbox.name, "")']],
         'workingGroups' => ['basic' => ['region.name', 'IFNULL(mailbox.name, "")', 'parent.name']],
@@ -39,6 +45,24 @@ class SearchGateway extends BaseGateway
         ],
         'users' => [
             'basic' => ['foodsaver.name', 'IFNULL(foodsaver.last_name, "")'],
+            'detailed' => ['region.name'],
+        ],
+        'mails' => [
+            'basic' => [
+                'subject',
+                "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(sender, '$.personal')), '')", //senderName,
+                "CONCAT(JSON_UNQUOTE(JSON_EXTRACT(sender, '$.mailbox')), '@', JSON_UNQUOTE(JSON_EXTRACT(sender, '$.host')))", //senderMail
+                "IFNULL(JSON_UNQUOTE(JSON_EXTRACT(`to`, '$[0].personal')), '')", //recipientName,
+                "CONCAT(JSON_UNQUOTE(JSON_EXTRACT(`to`, '$[0].mailbox')), '@', JSON_UNQUOTE(JSON_EXTRACT(`to`, '$[0].host')))", //recipientMail
+            ],
+            'detailed' => [],
+        ],
+        'events' => [
+            'basic' => ['event.name'],
+            'detailed' => ['region.name'],
+        ],
+        'polls' => [
+            'basic' => ['poll.name'],
             'detailed' => ['region.name'],
         ],
     ];
@@ -474,6 +498,7 @@ class SearchGateway extends BaseGateway
             $hasRegionJoins = 'JOIN fs_foodsaver_has_bezirk AS has_region ON has_region.bezirk_id = region.id
                     LEFT OUTER JOIN fs_botschafter AS ambassador ON ambassador.foodsaver_id = has_region.foodsaver_id AND ambassador.bezirk_id = region.id';
             $hasRegionClause = 'AND has_region.foodsaver_id = ?
+                                AND has_region.active = 1
                                 AND(NOT ISNULL(ambassador.foodsaver_id) OR has_thread.bot_theme = 0) -- show Bot forums only to bots';
             array_push($parameters, $foodsaverId);
         }
@@ -482,7 +507,7 @@ class SearchGateway extends BaseGateway
                 thread.id,
                 thread.name,
                 post.time,
-                thread.sticky AS is_sticky,
+                thread.sticky AS stickiness,
                 thread.status AS is_closed,
                 region.id AS region_id,
                 region.name AS region_name,
@@ -496,7 +521,7 @@ class SearchGateway extends BaseGateway
             AND {$searchClauses}
             {$regionRestrictionClause}
             {$hasRegionClause}
-            ORDER BY time DESC
+            ORDER BY (sticky < 0), time DESC
             LIMIT " . self::MAX_SEARCH_RESULT_COUNT,
             [...$parameters]
         );
@@ -518,7 +543,7 @@ class SearchGateway extends BaseGateway
                 thread.id,
                 thread.name,
                 post.time,
-                thread.sticky AS is_sticky,
+                thread.sticky AS stickiness,
                 thread.status AS is_closed,
                 region.id AS region_id,
                 region.name AS region_name,
@@ -532,8 +557,9 @@ class SearchGateway extends BaseGateway
             JOIN fs_foodsaver_has_bezirk AS has_region ON has_region.bezirk_id = region.id AND has_region.foodsaver_id = ?
             LEFT OUTER JOIN fs_botschafter AS ambassador ON ambassador.foodsaver_id = has_region.foodsaver_id AND ambassador.bezirk_id = region.id
             WHERE thread.active = 1
+            AND has_region.active = 1
             AND (NOT ISNULL(ambassador.foodsaver_id) OR has_thread.bot_theme = 0) -- show Bot forums only to bots'
-            ORDER BY time DESC
+            ORDER BY (sticky < 0), time DESC
             LIMIT " . self::MAX_THREADS_IN_SEARCH_INDEX_COUNT,
             [$foodsaverId, $foodsaverId]
         );
@@ -607,6 +633,8 @@ class SearchGateway extends BaseGateway
                 JOIN fs_foodsaver_has_bezirk have_region ON have_region.bezirk_id = region.id
                 LEFT OUTER JOIN fs_botschafter ambassador ON ambassador.bezirk_id = region.id and ambassador.foodsaver_id = have_region.foodsaver_id
                 WHERE have_region.foodsaver_id = ?
+                AND have_region.active = 1
+                AND has_region.active = 1
                 AND region.type IN (' . UnitType::CITY . ',' . UnitType::PART_OF_TOWN . ',' . UnitType::WORKING_GROUP . ')
                 GROUP BY foodsaver.id
                 UNION ALL
@@ -794,6 +822,213 @@ class SearchGateway extends BaseGateway
         );
 
         return array_map(fn ($user) => UserSearchResult::createFromArray($user), $users);
+    }
+
+    /**
+     * Searches the given term in the list of own mails.
+     *
+     * @param string $query The search query
+     * @param int[] $mailboxIds The ids of the mailboxes to search
+     * @return MailSearchResult[]
+     */
+    public function searchMails(string $query, array $mailboxIds): array
+    {
+        if (!count($mailboxIds)) {
+            return [];
+        }
+        [$searchClauses, $parameters] = $this->generateSearchClauses(self::SEARCH_CRITERIA['mails'], $query);
+        $mails = $this->db->fetchAll("SELECT
+                id,
+                CONCAT(JSON_UNQUOTE(JSON_EXTRACT(sender, '$.mailbox')), '@', JSON_UNQUOTE(JSON_EXTRACT(sender, '$.host'))) as senderMail,
+                JSON_UNQUOTE(JSON_EXTRACT(sender, '$.personal')) as senderName,
+                CONCAT(JSON_UNQUOTE(JSON_EXTRACT(`to`, '$[0].mailbox')), '@', JSON_UNQUOTE(JSON_EXTRACT(`to`, '$[0].host'))) as recipientMail,
+                JSON_UNQUOTE(JSON_EXTRACT(`to`, '$[0].personal')) as recipientName,
+                JSON_LENGTH(`to`) as recipientCount,
+                folder,
+                `subject` as `name`,
+                `time`,
+                `attach`
+            FROM `fs_mailbox_message`
+            WHERE mailbox_id IN ({$this->db->generatePlaceholders(count($mailboxIds))}) -- Only include own mailboxes
+            AND folder != ?
+            AND {$searchClauses}
+            ORDER BY `time` DESC, subject DESC
+            LIMIT " . self::MAX_SEARCH_RESULT_COUNT,
+            [$mailboxIds, MailboxFolder::FOLDER_TRASH, ...$parameters]
+        );
+
+        return array_map(fn ($chat) => MailSearchResult::createFromArray($chat), $mails);
+    }
+
+    /**
+     * Searches the mails to be part of the local search index.
+     *
+     * @param int[] $mailboxIds The ids of the mailboxes to search
+     * @return array<MailSearchResult>
+     */
+    public function getMailsForSearchIndex(array $mailboxIds): array
+    {
+        if (!count($mailboxIds)) {
+            return [];
+        }
+        $searchCriteria = $this->generateSearchCriteria(self::SEARCH_CRITERIA['mails'], true, true);
+
+        $mails = $this->db->fetchAll("SELECT
+                id,
+                CONCAT(JSON_UNQUOTE(JSON_EXTRACT(sender, '$.mailbox')), '@', JSON_UNQUOTE(JSON_EXTRACT(sender, '$.host'))) as senderMail,
+                JSON_UNQUOTE(JSON_EXTRACT(sender, '$.personal')) as senderName,
+                CONCAT(JSON_UNQUOTE(JSON_EXTRACT(`to`, '$[0].mailbox')), '@', JSON_UNQUOTE(JSON_EXTRACT(`to`, '$[0].host'))) as recipientMail,
+                JSON_UNQUOTE(JSON_EXTRACT(`to`, '$[0].personal')) as recipientName,
+                JSON_LENGTH(`to`) as recipientCount,
+                folder,
+                `subject` as `name`,
+                `time`,
+                `attach`,
+                {$searchCriteria} AS search_string
+            FROM `fs_mailbox_message`
+            WHERE mailbox_id IN ({$this->db->generatePlaceholders(count($mailboxIds))}) -- Only include own mailboxes
+            AND folder != ?
+            ORDER BY `time` DESC, subject DESC
+            LIMIT " . self::MAX_MAILS_IN_SEARCH_INDEX_COUNT,
+            [$mailboxIds, MailboxFolder::FOLDER_TRASH]
+        );
+
+        return array_map(fn ($mail) => MailSearchResult::createFromArray($mail), $mails);
+    }
+
+    /**
+     * Searches the given term in the list of own events.
+     *
+     * @param string $query The search query
+     * @param int $foodsaverId The searching user
+     * @return EventSearchResult[]
+     */
+    public function searchEvents(string $query, int $foodsaverId, bool $searchGlobal = false): array
+    {
+        [$searchClauses, $parameters] = $this->generateSearchClauses(self::SEARCH_CRITERIA['events'], $query);
+        $regionRestrictionClause = '';
+        $hasRegionJoin = '';
+        if (!$searchGlobal) {
+            $regionRestrictionClause = 'AND has_region.foodsaver_id = ? AND has_region.active = 1';
+            $parameters[] = $foodsaverId;
+            $hasRegionJoin = 'JOIN fs_foodsaver_has_bezirk has_region ON has_region.bezirk_id = region.id';
+        }
+        $events = $this->db->fetchAll("SELECT
+                event.id, event.name, event.start, event.end, event.online,
+                region.id AS region_id, region.name AS region_name,
+                location.name AS location_name, location.zip, location.city, location.street,
+                has_event.status
+            FROM `fs_event` `event`
+            JOIN fs_bezirk region ON region.id = event.bezirk_id
+            LEFT OUTER JOIN fs_location `location` ON location.id = event.location_id
+            LEFT OUTER JOIN fs_foodsaver_has_event has_event ON has_event.event_id = event.id AND has_event.foodsaver_id = ?
+            {$hasRegionJoin}
+            WHERE {$searchClauses} {$regionRestrictionClause}
+            ORDER BY
+                IF(NOW() < start, start - NOW(), IF(NOW() > end, NOW() - end, 0)), # temporal distance from the event
+                event.name ASC
+            LIMIT " . self::MAX_SEARCH_RESULT_COUNT,
+            [$foodsaverId, ...$parameters]
+        );
+
+        return array_map(fn ($chat) => EventSearchResult::createFromArray($chat), $events);
+    }
+
+    /**
+     * Searches the events to be part of the local search index.
+     *
+     * @param int $foodsaverId The searching user
+     * @return array<EventSearchResult>
+     */
+    public function getEventsForSearchIndex(int $foodsaverId): array
+    {
+        $searchCriteria = $this->generateSearchCriteria(self::SEARCH_CRITERIA['events'], true, true);
+
+        $events = $this->db->fetchAll("SELECT
+                event.id, event.name, event.start, event.end, event.online,
+                region.id AS region_id, region.name AS region_name,
+                location.name AS location_name, location.zip, location.city, location.street,
+                has_event.status,
+                {$searchCriteria} AS search_string
+            FROM `fs_event` `event`
+            JOIN fs_bezirk region ON region.id = event.bezirk_id
+            JOIN fs_foodsaver_has_event has_event ON has_event.event_id = event.id AND has_event.foodsaver_id = ?
+            JOIN fs_foodsaver_has_bezirk has_region ON has_region.bezirk_id = region.id AND has_region.foodsaver_id = ?
+            LEFT OUTER JOIN fs_location `location` ON location.id = event.location_id
+            WHERE
+                has_event.status IN (?, ?) AND
+                NOW() - INTERVAL 14 DAY <= event.end AND
+                has_region.active = 1
+            ORDER BY
+                IF(NOW() < start, start - NOW(), IF(NOW() > end, NOW() - end, 0)), # temporal distance from the event
+                event.name ASC",
+            [$foodsaverId, $foodsaverId, InvitationStatus::ACCEPTED, InvitationStatus::MAYBE]
+        );
+
+        return array_map(fn ($event) => EventSearchResult::createFromArray($event), $events);
+    }
+
+    /**
+     * Searches the given term in the list of own polls.
+     *
+     * @param string $query The search query
+     * @param int $foodsaverId The searching user
+     * @return PollSearchResult[]
+     */
+    public function searchPolls(string $query, int $foodsaverId, bool $searchGlobal = false): array
+    {
+        [$searchClauses, $parameters] = $this->generateSearchClauses(self::SEARCH_CRITERIA['polls'], $query);
+        $regionRestrictionClause = '';
+        $hasRegionJoin = '';
+        if (!$searchGlobal) {
+            $regionRestrictionClause = 'AND has_region.foodsaver_id = ? AND has_region.active = 1';
+            $parameters[] = $foodsaverId;
+            $hasRegionJoin = 'JOIN fs_foodsaver_has_bezirk has_region ON has_region.bezirk_id = region.id';
+        }
+        $polls = $this->db->fetchAll("SELECT
+                poll.id, poll.name, poll.region_id, region.name as region_name, poll.start, poll.end,
+                IF(has_poll.poll_id IS NULL, NULL, NOT ISNULL(has_poll.time)) as has_voted
+            FROM fs_poll poll
+            JOIN fs_bezirk region ON region.id = poll.region_id
+            LEFT OUTER JOIN fs_foodsaver_has_poll has_poll ON has_poll.poll_id = poll.id AND has_poll.foodsaver_id = ?
+            {$hasRegionJoin}
+            WHERE {$searchClauses} {$regionRestrictionClause}
+            AND poll.cancelled_by IS NULL
+            ORDER BY
+                IF(NOW() < start, start - NOW(), IF(NOW() > end, NOW() - end, 0)), # temporal distance from the poll
+                poll.name ASC
+            LIMIT " . self::MAX_SEARCH_RESULT_COUNT,
+            [$foodsaverId, ...$parameters]
+        );
+
+        return array_map(fn ($poll) => PollSearchResult::createFromArray($poll), $polls);
+    }
+
+    /**
+     * Searches the polls to be part of the local search index.
+     *
+     * @param int $foodsaverId The searching user
+     * @return array<PollSearchResult>
+     */
+    public function getPollsForSearchIndex(int $foodsaverId): array
+    {
+        $searchCriteria = $this->generateSearchCriteria(self::SEARCH_CRITERIA['polls'], true, true);
+
+        $polls = $this->db->fetchAll("SELECT
+                poll.id, poll.name, poll.region_id, region.name as region_name, poll.start, poll.end,
+                IF(has_poll.poll_id IS NULL, NULL, NOT ISNULL(has_poll.time)) as has_voted,
+                {$searchCriteria} AS search_string
+            FROM fs_poll poll
+            JOIN fs_bezirk region ON region.id = poll.region_id
+            JOIN fs_foodsaver_has_poll has_poll ON has_poll.poll_id = poll.id AND has_poll.foodsaver_id = ?
+            WHERE NOW() - INTERVAL 14 DAY <= poll.end
+            ORDER BY
+                IF(NOW() < start, start - NOW(), IF(NOW() > end, NOW() - end, 0)), # temporal distance from the poll
+                poll.name ASC",
+            [$foodsaverId]
+        );
+
+        return array_map(fn ($poll) => PollSearchResult::createFromArray($poll), $polls);
     }
 
     /**

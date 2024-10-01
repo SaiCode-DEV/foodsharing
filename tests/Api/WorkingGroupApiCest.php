@@ -15,7 +15,6 @@ class WorkingGroupApiCest
 {
     private Generator $faker;
     private $workingGroup;
-    private $workingGroupOpen;
     private $user;
     private $userAdmin;
     private $userOrga;
@@ -25,7 +24,6 @@ class WorkingGroupApiCest
         $this->faker = Factory::create('de_DE');
 
         $this->workingGroup = $I->createWorkingGroup('test', ['apply_type' => ApplyType::EVERYBODY]);
-        $this->workingGroupOpen = $I->createWorkingGroup('test open', ['apply_type' => ApplyType::OPEN]);
         $this->user = $I->createFoodsaver();
         $this->userAdmin = $I->createFoodsaver();
         $I->addRegionMember($this->workingGroup['id'], $this->userAdmin['id']);
@@ -50,8 +48,10 @@ class WorkingGroupApiCest
 
     public function canJoinOpenWorkingGroup(ApiTester $I): void
     {
+        $workingGroupOpen = $I->createWorkingGroup('test open', ['apply_type' => ApplyType::OPEN]);
+
         $I->login($this->user['email']);
-        $I->sendPOST('api/groups/' . $this->workingGroupOpen['id'] . '/members/' . $this->user['id']);
+        $I->sendPOST('api/groups/' . $workingGroupOpen['id'] . '/members/' . $this->user['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
     }

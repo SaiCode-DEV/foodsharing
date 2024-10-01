@@ -16,7 +16,7 @@ class FoodsaverCest
 
     public function _before(AcceptanceTester $I): void
     {
-        $this->region = $I->createRegion();
+        $this->region = $I->createRegion(fillMailbox: false);
         $regionId = $this->region['id'];
         $this->foodsharer = $I->createFoodsharer();
         $I->addRegionMember($regionId, $this->foodsharer['id']);

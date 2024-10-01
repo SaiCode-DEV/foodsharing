@@ -70,7 +70,7 @@ import AddPickupModal from '@/components/Modals/Store/AddPickupModal.vue'
 import DeletePickupModal from '../Modals/Store/DeletePickupModal.vue'
 import { setPickupSlots, confirmPickup, joinPickup, leavePickup } from '@/api/pickups'
 import { sendMessage } from '@/api/conversations'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import { pulseError, pulseSuccess } from '@/script'
 import PickupsData from '@/stores/pickups'
 
@@ -103,11 +103,17 @@ export default {
       default: null,
     },
   },
+  setup () {
+    const userStore = useUserStore()
+    return {
+      userStore,
+    }
+  },
   data () {
     return {
       isLoading: false,
       isModalOpen: false,
-      user: DataUser.getters.getUser(),
+      user: this.userStore.getUser,
       interval: null,
     }
   },
@@ -147,7 +153,7 @@ export default {
     async join (date) {
       this.isLoading = true
       try {
-        await joinPickup(this.storeId, date, DataUser.getters.getUserId())
+        await joinPickup(this.storeId, date, this.userStore.getUserId)
       } catch (e) {
         console.error(e)
         pulseError(this.$i18n('pickuplist.tooslow') + '<br /><br />' + this.$i18n('pickuplist.tryagain'))
@@ -157,7 +163,7 @@ export default {
     async leave (date) {
       this.isLoading = true
       try {
-        await leavePickup(this.storeId, date, DataUser.getters.getUserId())
+        await leavePickup(this.storeId, date, this.userStore.getUserId)
       } catch (e) {
         pulseError(this.$i18n('pickuplist.error_leave') + e)
       }

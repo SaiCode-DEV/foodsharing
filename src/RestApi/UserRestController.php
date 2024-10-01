@@ -35,7 +35,6 @@ use Foodsharing\Permissions\SearchPermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\RestApi\Models\Group\UserGroupModel;
 use Foodsharing\RestApi\Models\Region\UserRegionModel;
-use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\EmailHelper;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -55,8 +54,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserRestController extends AbstractFoodsharingRestController
 {
-    private const MIN_RATING_MESSAGE_LENGTH = 100;
-    private const MIN_PASSWORD_LENGTH = 8;
     private const MIN_AGE_YEARS = 18;
     private const DELETE_USER_MAX_REASON_LEN = 200;
 
@@ -85,7 +82,6 @@ class UserRestController extends AbstractFoodsharingRestController
         private SearchPermissions $searchPermissions,
         private RegionTransactions $regionTransactions,
         private GroupTransactions $groupTransactions,
-        private DataHelper $dataHelper,
         private readonly SettingsTransactions $settingsTransactions
     ) {
     }
@@ -150,7 +146,7 @@ class UserRestController extends AbstractFoodsharingRestController
         $response['foodsaver'] = ($this->session->mayRole(Role::FOODSAVER)) ? true : false;
         $response['isVerified'] = ($data['verified'] === 1) ? true : false;
         $response['regionId'] = $data['bezirk_id'];
-        $response['isSleeping'] = $this->dataHelper->parseSleepingState($data['sleep_status'], $data['sleep_from'], $data['sleep_until']);
+        $response['isSleeping'] = $data['is_sleeping'];
         $response['regionName'] = ($data['bezirk_id'] === null) ? null : $this->regionGateway->getRegionName($data['bezirk_id']);
         $response['aboutMePublic'] = $data['about_me_public'];
 
@@ -357,7 +353,7 @@ class UserRestController extends AbstractFoodsharingRestController
         }
 
         $data->password = trim((string)$paramFetcher->get('password'));
-        if (strlen($data->password) < self::MIN_PASSWORD_LENGTH) {
+        if (strlen($data->password) < SettingsTransactions::MIN_PASSWORD_LENGTH) {
             throw new BadRequestHttpException('password is too short');
         }
 
@@ -425,77 +421,6 @@ class UserRestController extends AbstractFoodsharingRestController
         }
 
         return $this->handleView($this->view());
-    }
-
-    /**
-     * Gives a banana to a user.
-     *
-     * @OA\Parameter(name="userId", in="path", @OA\Schema(type="integer"), description="to which user to give the banana")
-     * @OA\RequestBody(description="message to the user")
-     * @OA\Response(response="200", description="Success.")
-     * @OA\Response(response="400", description="Accompanying message is too short.")
-     * @OA\Response(response="403", description="Insufficient permissions to rate that user.")
-     * @OA\Response(response="404", description="User to rate does not exist.")
-     * @OA\Tag(name="user")
-     */
-    #[Rest\Put('user/{userId}/banana', requirements: ['userId' => '\d+'])]
-    #[Rest\RequestParam(name: 'message', nullable: false)]
-    public function addBanana(int $userId, ParamFetcher $paramFetcher): Response
-    {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
-        // make sure that users may not give themselves bananas
-        if ($this->session->id() === $userId) {
-            throw new AccessDeniedHttpException();
-        }
-
-        // check if the user exists
-        if (!$this->foodsaverGateway->foodsaverExists($userId)) {
-            throw new NotFoundHttpException();
-        }
-
-        // do not allow giving bananas twice
-        if ($this->profileGateway->hasGivenBanana($this->session->id(), $userId)) {
-            throw new AccessDeniedHttpException();
-        }
-
-        // check length of message
-        $message = trim((string)$paramFetcher->get('message'));
-        if (strlen($message) < self::MIN_RATING_MESSAGE_LENGTH) {
-            throw new BadRequestHttpException('text too short: ' . strlen($message) . ' < ' . self::MIN_RATING_MESSAGE_LENGTH);
-        }
-
-        $this->profileTransactions->giveBanana($userId, $message, $this->session->id());
-
-        return $this->handleView($this->view([], 200));
-    }
-
-    /**
-     * Deletes a banana.
-     *
-     * @OA\Parameter(name="userId", in="path", @OA\Schema(type="integer"), description="the owner of the banana")
-     * @OA\Parameter(name="senderId", in="path", @OA\Schema(type="integer"), description="the sender of the banana")
-     * @OA\Response(response="200", description="Success.")
-     * @OA\Response(response="401", description="Not logged in.")
-     * @OA\Response(response="403", description="Insufficient permissions to delete that banana.")
-     * @OA\Response(response="404", description="Banana does not exist.")
-     * @OA\Tag(name="user")
-     */
-    #[Rest\Delete('user/{userId}/banana/{senderId}', requirements: ['userId' => '\d+'])]
-    public function deleteBanana(int $userId, int $senderId): Response
-    {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
-
-        if (!$this->profilePermissions->mayDeleteBanana($userId)) {
-            throw new AccessDeniedHttpException();
-        }
-
-        $isDeleted = $this->profileGateway->removeBanana($userId, $senderId);
-
-        return $this->handleView($this->view([], $isDeleted ? 200 : 404));
     }
 
     /**

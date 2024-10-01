@@ -54,6 +54,18 @@ class StoreCategoriesGatewayTest extends Unit
         }
     }
 
+    public function testGetCategoriesWithNumbers(): void
+    {
+        $categories = $this->gateway->getStoreCategoriesWithStoreNumbers();
+        $this->assertIsArray($categories);
+        $this->assertEquals(sizeof(self::EXISTING_CATEGORIES), sizeof($categories));
+        foreach (self::EXISTING_CATEGORIES as $id) {
+            $this->assertNotEmpty(array_filter($categories,
+                fn ($category) => $category->id == $id && $category->name == 'Category ' . $id)
+            );
+        }
+    }
+
     public function testAddCategories(): void
     {
         // adding a new category should create a new id

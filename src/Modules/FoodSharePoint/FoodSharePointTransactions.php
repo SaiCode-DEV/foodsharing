@@ -2,10 +2,16 @@
 
 namespace Foodsharing\Modules\FoodSharePoint;
 
+use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
+use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
+use Foodsharing\Modules\Uploads\UploadsGateway;
+use Foodsharing\Permissions\FoodSharePointPermissions;
+use Foodsharing\RestApi\Models\FoodSharePoint\AddFoodSharePointResponse;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 use Foodsharing\RestApi\Models\Notifications\FoodSharePoint;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\Sanitizer;
@@ -13,24 +19,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FoodSharePointTransactions
 {
-    private readonly FoodSharePointGateway $foodSharePointGateway;
-    private readonly BellGateway $bellGateway;
-    private readonly EmailHelper $emailHelper;
-    private readonly Sanitizer $sanitizer;
-    private readonly TranslatorInterface $translator;
-
     public function __construct(
-        FoodSharePointGateway $foodSharePointGateway,
-        BellGateway $bellGateway,
-        EmailHelper $emailHelper,
-        Sanitizer $sanitizer,
-        TranslatorInterface $translator
+        private readonly FoodSharePointGateway $foodSharePointGateway,
+        private readonly FoodSharePointPermissions $foodSharePointPermissions,
+        private readonly BellGateway $bellGateway,
+        private readonly UploadsGateway $uploadsGateway,
+        private readonly EmailHelper $emailHelper,
+        private readonly Sanitizer $sanitizer,
+        private readonly TranslatorInterface $translator,
+        private readonly Session $session
     ) {
-        $this->foodSharePointGateway = $foodSharePointGateway;
-        $this->bellGateway = $bellGateway;
-        $this->emailHelper = $emailHelper;
-        $this->sanitizer = $sanitizer;
-        $this->translator = $translator;
     }
 
     public function sendNewFoodSharePointPostNotifications(int $foodSharePointId): void
@@ -98,5 +96,26 @@ class FoodSharePointTransactions
         if (!empty($foodSharePointIdsToUnfollow)) {
             $this->foodSharePointGateway->unfollowFoodSharePoints($userId, $foodSharePointIdsToUnfollow);
         }
+    }
+
+    /**
+     * Adds a new food share point. If the user is not allowed to add a food share point to that region, it will be
+     * suggested and needs to be approved by someone responsible.
+     *
+     * @param FoodSharePointForCreation $data initial data for the FSP
+     * @return AddFoodSharePointResponse information about the created food share point
+     */
+    public function addFoodSharePoint(FoodSharePointForCreation $data): AddFoodSharePointResponse
+    {
+        $isProposal = !$this->foodSharePointPermissions->mayAdd($data->regionId);
+        $id = $this->foodSharePointGateway->addFoodSharePoint($this->session->id(), $data, $isProposal);
+
+        // If a picture was uploaded for this food share point, its usage type needs to be set
+        if (!empty($data->picture)) {
+            $uuid = substr($data->picture, 13);
+            $this->uploadsGateway->setUsage([$uuid], UploadUsage::FOOD_SHARE_POINT_TITLE, $id);
+        }
+
+        return new AddFoodSharePointResponse($id, !$isProposal);
     }
 }

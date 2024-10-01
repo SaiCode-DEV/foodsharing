@@ -1,98 +1,102 @@
 <template>
-  <div>
-    <VueTelInput
-      v-model="phoneNumber"
-      class="form-control"
-      :class="{ 'is-invalid': isInvalid }"
-      :valid-characters-only="validCharactersOnly"
-      :mode="mode"
-      :input-options="inputOptions"
-      :default-country="defaultCountry"
-      :preferred-countries="preferredCountries"
-      @input="emitValidPhoneNumber"
-      @validate="validate"
-    />
-    <div v-if="isInvalid" class="col-sm-auto invalid-feedback">
+  <div class="phone-number-input-wrapper">
+    <div class="input-container">
+      <VueTelInput
+        v-model="phoneNumber"
+        class="form-control has-append"
+        :class="{ 'is-invalid': !phoneNumberValid }"
+        mode="international"
+        :input-options="inputOptions"
+        default-country="DE"
+        :preferred-countries="preferredCountries"
+        :disabled="disabled"
+        :valid-characters-only="validCharactersOnly"
+        @input="emitValidPhoneNumber"
+        @validate="validate"
+      />
+      <b-button
+        class="delete-button is-append"
+        variant="outline-danger"
+        :disabled="phoneNumber.length === 0"
+        @click="deletePhoneNumber"
+      >
+        <i class="fas fa-trash" />
+      </b-button>
+    </div>
+    <div v-if="!phoneNumberValid || disabled" class="invalid-feedback">
       <span>{{ $i18n('validation.phone_number_invalid') }}</span>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+import { defineProps, defineEmits, ref, nextTick } from 'vue'
 import { VueTelInput } from 'vue-tel-input'
+import i18n from '@/helper/i18n'
 import 'vue-tel-input/dist-modern/vue-tel-input.css'
 
-export default {
-  name: 'PhoneNumberInput',
-  components: {
-    VueTelInput,
-  },
-  props: {
-    inputValue: { type: Object, required: true },
-    inputName: { type: String, required: true },
-  },
-  data () {
-    return {
-      phoneNumberValid: true,
-      mode: 'international',
-      preferredCountries: ['DE', 'AT', 'CH'],
-      validCharactersOnly: true,
-      defaultCountry: 'DE',
-      inputOptions: {
-        placeholder: this.$i18n('register.phone_example'),
-        maxlength: 18,
-        id: this.inputName,
-      },
-      phoneNumber: this.inputValue.value,
-    }
-  },
-  computed: {
-    isInvalid () {
-      return this.phoneNumberValid !== undefined && !this.phoneNumberValid
-    },
-  },
-  mounted () {
-    const inputElement = this.$refs.telInput.$el.querySelector('input')
-    inputElement.addEventListener('keypress', this.preventNonNumericInput)
-  },
-  beforeDestroy () {
-    const inputElement = this.$refs.telInput.$el.querySelector('input')
-    inputElement.removeEventListener('keypress', this.preventNonNumericInput)
-  },
-  methods: {
-    validate (phoneObject) {
-      if (phoneObject === null || phoneObject.valid === undefined || phoneObject === '') {
-        this.phoneNumberValid = true
-      } else {
-        this.phoneNumberValid = phoneObject.valid
-      }
-    },
-    emitValidPhoneNumber (phoneNumber) {
-      this.$emit('update-phone-number', { id: this.inputName, value: phoneNumber, valid: this.phoneNumberValid })
-    },
-    preventNonNumericInput (event) {
-      const allowedKeys = [
-        'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Enter',
-        '+', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-      ]
+const props = defineProps({
+  inputValue: { type: Object, required: true },
+  inputName: { type: String, required: true },
+})
 
-      if (!allowedKeys.includes(event.key)) {
-        event.preventDefault()
-        return false
-      }
+const emit = defineEmits(['update-phone-number'])
 
-      if (event.key === '+' && event.target.value.includes('+')) {
-        event.preventDefault()
-        return false
-      }
+const preferredCountries = ['DE', 'AT', 'CH']
+const inputOptions = {
+  placeholder: i18n('register.phone_example'),
+  maxlength: 18,
+  id: props.inputName,
+}
 
-      return true
-    },
-  },
+const phoneNumberValid = ref(true)
+const phoneNumber = ref('')
+const disabled = ref(false)
+const validCharactersOnly = ref(false)
+
+// replace all special (underscore, dash, dot) chars (just in case...)
+phoneNumber.value = props?.inputValue?.value?.replace(/[_\-.]/g, '')
+
+if (phoneNumber.value === null || phoneNumber.value === undefined) {
+  phoneNumber.value = ''
+} else if (!phoneNumber.value.match(/^[+]{1}(?:[0-9\-\\(\\)/.]\s?){6,15}[0-9]{1}$/) && phoneNumber.value !== '') {
+  disabled.value = true
+  phoneNumber.value = props.inputValue.value
+  phoneNumberValid.value = false
+}
+nextTick(() => {
+  validCharactersOnly.value = true
+})
+
+function deletePhoneNumber () {
+  phoneNumber.value = ''
+  disabled.value = false
+}
+
+function validate (phoneObject) {
+  if (phoneObject?.valid === undefined) {
+    phoneNumberValid.value = true
+  } else {
+    phoneNumberValid.value = phoneObject.valid
+  }
+}
+
+function emitValidPhoneNumber (phoneNumber) {
+  emit('update-phone-number', { id: props.inputName, value: phoneNumber, valid: phoneNumberValid.value })
 }
 </script>
 
 <style scoped lang="scss">
+.phone-number-input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+}
+
 ::v-deep.vue-tel-input {
   border-radius: 6px;
   border: 1px solid #ced4da;
@@ -106,6 +110,27 @@ export default {
 }
 
 .form-control {
-  display: inline-flex
+  display: inline-flex;
+}
+
+.form-control.disabled {
+  color: var(--fs-color-gray-700);
+  background-color: var(--fs-color-gray-100);
+}
+
+.has-append {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.is-append {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.invalid-feedback {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
 }
 </style>

@@ -1,5 +1,6 @@
 // export const MAP_TILES_URL = 'https://maps.geoapify.com/v1/styles/klokantech-basic/style.json?apiKey='
 export const MAP_RASTER_TILES_URL_GEOAPIFY = 'https://maps.geoapify.com/v1/tile/klokantech-basic/{z}/{x}/{y}.png?apiKey='
+export const MAP_RASTER_TILES_URL_GEOAPIFY_DARK = 'https://maps.geoapify.com/v1/tile/dark-matter/{z}/{x}/{y}.png?apiKey='
 export const MAP_RASTER_TILES_URL_OSM = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
 export const MAP_ATTRIBUTION = 'Powered by <a href="https://www.geoapify.com/">Geoapify</a> | <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>'
 export const MAP_GEOCODING_ATTRIBUTION = MAP_ATTRIBUTION + ' | Geocoding by <a href="https://photon.komoot.io">Komoot Photon</a>'
@@ -53,6 +54,11 @@ export const QUIZ_ID = Object.freeze({
   FOODSAVER: 1,
   STORE_MANAGER: 2,
   AMBASSADOR: 3,
+})
+
+export const REPORT_REASON_OPTIONS = Object.freeze({
+  SIMPLE: 1,
+  EXTENDED: 2,
 })
 
 export const EVENT_TYPE = Object.freeze({

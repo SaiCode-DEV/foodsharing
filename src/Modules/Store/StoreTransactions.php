@@ -19,6 +19,7 @@ use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Core\DTO\MinimalIdentifier;
 use Foodsharing\Modules\Core\DTO\PatchGeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -40,7 +41,6 @@ use Foodsharing\Modules\Store\DTO\StoreListInformation;
 use Foodsharing\Modules\Store\DTO\StoreStatusForMember;
 use Foodsharing\Modules\StoreCategories\StoreCategoriesGateway;
 use Foodsharing\Modules\StoreChain\StoreChainGateway;
-use Foodsharing\Utility\Sanitizer;
 use Foodsharing\Utility\WeightHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -72,7 +72,6 @@ class StoreTransactions
         private readonly RegionGateway $regionGateway,
         private readonly StoreCategoriesGateway $storeCategoriesGateway,
         private readonly StoreChainGateway $storeChainGateway,
-        private readonly Sanitizer $sanitizerService,
         private readonly Session $session
     ) {
     }
@@ -80,15 +79,15 @@ class StoreTransactions
     /**
      * Returns a store's data including the team members in a format suitable for the frontend.
      *
-     * @param int $userId the user who is requesting the data
      * @param int $storeId the store
      * @param bool $includeUserDetails whether to include phone numbers and last fetch dates for the team members
      */
-    public function getMyStoreTeam(int $userId, int $storeId, bool $includeUserDetails): array
+    public function getMyStoreTeam(int $storeId, bool $includeUserDetails): array
     {
-        $store = $this->storeGateway->getMyStore($userId, $storeId);
+        $storeTeam = $this->storeGateway->getStoreTeam($storeId);
+        $standbyTeam = $this->storeGateway->getBetriebSpringer($storeId);
 
-        return $this->getDisplayedStoreTeam($store, $includeUserDetails);
+        return $this->getDisplayedStoreTeam($storeTeam, $standbyTeam, $includeUserDetails);
     }
 
     /**
@@ -101,8 +100,11 @@ class StoreTransactions
     public function getStoreApplications(int $storeId): array
     {
         $store = $this->storeGateway->getStore($storeId);
-
-        return $this->storeGateway->getApplications($storeId, $store->location);
+        try {
+            return $this->storeGateway->getApplications($storeId, $store->location);
+        } catch (\Throwable $th) {
+            return [];
+        }
     }
 
     public function getCommonStoreMetadata($supressStoreChains = true): CommonStoreMetadata
@@ -364,7 +366,7 @@ class StoreTransactions
 
         if (!empty($storeChange->publicInfo)) {
             $changeInformation->informationChanged = true;
-            $store->publicInfo = $this->sanitizerService->purifyHtml($storeChange->publicInfo);
+            $store->publicInfo = $storeChange->publicInfo;
         }
 
         if (!is_null($storeChange->publicTime)) {
@@ -994,14 +996,15 @@ class StoreTransactions
      * Returns all team member of the store (active and waiting list) and makes sure that details like the phone
      * number are only included if allowed.
      *
-     * @param array $store store data from the database
+     * @param array $storeTeam the list of active team members from the database
+     * @param array $standbyTeam the list of standby team members from the database
      * @param bool $includeUserDetails whether to include or omit phone numbers and last fetch date
      */
-    private function getDisplayedStoreTeam(array $store, bool $includeUserDetails): array
+    private function getDisplayedStoreTeam(array $storeTeam, array $standbyTeam, bool $includeUserDetails): array
     {
         $allowedFields = [
             // personal info
-            'id', 'name', 'photo', 'rolle', 'sleep_status', 'verified',
+            'id', 'name', 'photo', 'rolle', 'is_sleeping', 'verified',
             // team-related info
             'verantwortlich', 'team_active', 'stat_fetchcount', 'add_date',
         ];
@@ -1011,7 +1014,7 @@ class StoreTransactions
 
         return array_map(
             fn ($teamMember) => array_filter($teamMember, fn ($key) => in_array($key, $allowedFields), ARRAY_FILTER_USE_KEY),
-            array_merge($store['foodsaver'], $store['springer']),
+            array_merge($storeTeam, $standbyTeam),
         );
     }
 }

@@ -5,7 +5,7 @@ import phoneNumbers from './phone-numbers'
 const urls = {
   profile: (id) => `/user/${id}/profile`,
   academy: () => '/content?sub=academy',
-  application: (groupId, userId) => `/?page=application&bid=${groupId}&fid=${userId}`,
+  application: (groupId, userId) => `/regions/${groupId}/applications/${userId}`,
   applications: (groupId) => `/region?bid=${groupId}&sub=applications`,
   basket: (basketId) => `/essenskoerbe/${basketId}`,
   baskets: () => '/essenskoerbe',
@@ -20,7 +20,7 @@ const urls = {
   contentEdit: () => '/content',
   contentEditEntry: (id) => `/content?a=edit&id=${id}`,
   contentNew: () => '/content?a=neu',
-  conversations: (conversationId = null) => `/?page=msg${conversationId ? `&cid=${conversationId}` : ''}`,
+  conversations: (conversationId = null) => `/msg${conversationId ? `?cid=${conversationId}` : ''}`,
   createBusinessCard: (data) => `/?page=bcard&sub=makeCard&opt=${data.role}:${data.regionGroupId}`,
   dashboard: () => '/?page=dashboard',
   dataprivacy: () => '/legal',
@@ -79,13 +79,15 @@ const urls = {
   regionAdmin: () => '/regions/edit',
   region: (regionId) => regionId ? `/region?bid=${regionId}` : '/?page=region',
   releaseNotes: () => '/content?sub=releaseNotes',
-  violations: (fsId) => `/?page=report&sub=foodsaver&id=${fsId}`,
+  violations: (fsId) => `/report/user/${fsId}`,
   security: () => '/content?sub=security',
   settings: (userId) => userId ? `/user/${userId}/settings` : '/user/current/settings',
   settingsNotifications: () => '/user/current/settings?sub=info',
   settingsCalendar: () => '/user/current/settings?sub=calendar',
+  settingsHygiene: () => '/user/current/settings?sub=hygiene',
   statistics: () => '/statistik',
   store: (storeId) => `/store/${storeId}`,
+  storeCategories: () => '/storecategories',
   storeList: () => '/?page=fsbetrieb',
   storeUserList: (userId) => `/user/${userId}/stores`,
   editNameInfoUrl: () => '/region?bid=881&sub=forum&tid=58225',
@@ -133,7 +135,7 @@ const urls = {
   pollNew: (regionId) => `/?page=poll&bid=${regionId}&sub=new`,
   polls: (regionId) => `/region?bid=${regionId}&sub=polls`,
   region_forum: (regionId) => `/region?bid=${regionId}&sub=forum`,
-  reports: (regionId = null) => regionId ? `/?page=report&bid=${regionId}` : '/?page=report',
+  reports: (regionId = null) => regionId ? `/report/region/${regionId}` : '/?page=report',
   statistic: (regionId) => `/region?bid=${regionId}&sub=statistic`,
   storeAdd: (regionId) => `/region/${regionId}/store/new`,
   storeEdit: (storeId) => `/?page=betrieb&a=edit&id=${storeId}`,
@@ -142,6 +144,7 @@ const urls = {
   workingGroups: (regionId = null) => regionId ? `/?page=groups&p=${regionId}` : '/?page=groups',
   subGroups: (parentGroupId) => parentGroupId ? `/?page=groups&p=${parentGroupId}` : '/?page=groups',
   achievements: (regionId) => `/region?bid=${regionId}&sub=achievements`,
+  editAchievements: () => '/achievements',
 
   // whats new & changelog
   changelog: () => '/content?sub=changelog',
@@ -205,6 +208,8 @@ const urls = {
   facebook_at: () => 'https://www.facebook.com/oesterreichfoodsharing',
   tiktok_de: () => 'https://www.tiktok.com/@foodsharing.de',
   tiktok_at: () => 'https://www.tiktok.com/@foodsharing.de', // GERMAN VERSION
+  whatsapp_de: () => 'https://whatsapp.com/channel/0029VaerhFPADTOAPGeJQ71R',
+  whatsapp_at: () => 'https://whatsapp.com/channel/0029VaerhFPADTOAPGeJQ71R',
 }
 
 const url = (key, ...params) => {

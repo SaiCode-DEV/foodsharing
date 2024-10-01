@@ -139,7 +139,11 @@ class BlogView extends View
                 'nowrapper' => true,
                 'public_content' => true,
                 'label' => $this->translator->trans('blog.content'),
-            ]), $this->translator->trans('blog.content'))
+            ]), $this->translator->trans('blog.content')),
+            '<a class="button btn btn-primary" onclick="_addBlogPost();return false;">' . $this->translator->trans('button.save') . '</a>'
+        ], [
+            'submit' => false,
+            'action' => '#'
         ]);
     }
 }

@@ -21,20 +21,7 @@
               :disabled="!editMode"
             />
           </b-form-group>
-          <b-form-group
-            :description="$i18n('storeview.visible_for_public')"
-            :label="$i18n('public_info')"
-            label-for="publicInfo"
-          >
-            <b-form-textarea
-              id="publicInfo"
-              v-model="store.publicInfo"
-              :state="publicInfoState"
-              rows="5"
-              max-rows="10"
-              :disabled="!editMode"
-            />
-          </b-form-group>
+          <PublicInfo :public-info="store.publicInfo" @update:public-info="updatePublicInfo" />
         </b-card-text>
       </b-tab>
       <b-tab
@@ -313,44 +300,32 @@
               {{ $i18n('storeview.no_permission_to_view') }}
             </small>
           </b-form-group>
+
           <b-form-group
             :label="$i18n('sticker')"
             label-for="showsSticker"
             class="bootstrap input-wrapper"
           >
-            <b-form-checkbox
-              v-if="store.showsSticker !== null"
+            <b-form-select
               id="showsSticker"
               v-model="store.showsSticker"
-              switch
-              :disabled-field="!editMode"
+              :options="publicityAndStickerOptions"
               :disabled="!editMode"
             />
-            <small
-              v-if="store.showsSticker === null"
-            >
-              {{ $i18n('storeview.no_permission_to_view') }}
-            </small>
           </b-form-group>
           <b-form-group
             :label="$i18n('presse')"
             label-for="publicity"
             class="bootstrap input-wrapper"
           >
-            <b-form-checkbox
-              v-if="store.publicity !== null"
+            <b-form-select
               id="publicity"
               v-model="store.publicity"
-              switch
-              :disabled-field="!editMode"
+              :options="publicityAndStickerOptions"
               :disabled="!editMode"
             />
-            <small
-              v-if="store.publicity === null"
-            >
-              {{ $i18n('storeview.no_permission_to_view') }}
-            </small>
           </b-form-group>
+
           <b-form-group
             :label="$i18n('storeview.groceries.label')"
             label-for="tags-with-dropdown"
@@ -439,6 +414,7 @@
     <b-button
       v-if="mayEditStore"
       variant="primary"
+      :disabled="!publicInfoState"
       @click="submit"
     >
       {{ $i18n('button.save') }}
@@ -458,7 +434,7 @@
 
 <script>
 // Stores
-import StoreData, { MAX_LEN_FOR_PUBLIC_INFO } from '@/stores/stores'
+import StoreData from '@/stores/stores'
 import PickupsData from '@/stores/pickups'
 
 // Others
@@ -475,6 +451,7 @@ import AutoResizeTextareaMixin from '@/mixins/AutoResizeTextareaMixin'
 import { REGION_UNIT_TYPE } from '@/stores/regions'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import ChainSearchPicker from '@/components/Stores/ChainSearchPicker.vue'
+import PublicInfo from '@/components/Stores/PublicInfo.vue'
 
 export default {
   name: 'StoreInformationEditModal',
@@ -484,6 +461,7 @@ export default {
     RegularPickup,
     MarkdownInput,
     ChainSearchPicker,
+    PublicInfo,
   },
   mixins: [MediaQueryMixin, AutoResizeTextareaMixin],
   props: {
@@ -506,8 +484,14 @@ export default {
         { value: 1, text: this.$i18n('menu.entry.helpwanted') },
         { value: 2, text: this.$i18n('menu.entry.helpneeded') },
       ],
+      publicityAndStickerOptions: [
+        { value: null, text: this.$i18n('storeview.publicity_and_sticker_options.not_yet_clarified') },
+        { value: true, text: this.$i18n('storeview.publicity_and_sticker_options.yes') },
+        { value: false, text: this.$i18n('storeview.publicity_and_sticker_options.no') },
+      ],
       store: {},
       chainSearchCriteriaField: '',
+      publicInfoState: true,
     }
   },
   computed: {
@@ -523,10 +507,6 @@ export default {
     },
     storeInformation () {
       return StoreData.getters.getStoreInformation()
-    },
-    publicInfoState () {
-      if (!this.editMode) return null
-      else return this.store.publicInfo.length <= MAX_LEN_FOR_PUBLIC_INFO
     },
     calendarInterval: {
       get () {
@@ -604,6 +584,10 @@ export default {
       this.store.region.id = region.states.id
       this.store.region.name = region.data.text
     },
+    updatePublicInfo ({ publicInfo, publicInfoState }) {
+      this.store.publicInfo = publicInfo
+      this.publicInfoState = publicInfoState
+    },
     simpleClone (value) {
       return JSON.parse(JSON.stringify(value))
     },
@@ -630,7 +614,7 @@ export default {
           await editRegularPickup(this.storeId, this.editPickups)
           await PickupsData.mutations.fetchRegularPickup(this.storeId)
         }
-        pulseSuccess(this.$i18n('storeedit.edit_success'))
+        pulseSuccess(this.$i18n('globals.saved'))
         this.$bvModal.hide('storeInformationModal')
       } catch (err) {
         const errorDescription = err.jsonContent ?? { message: '' }

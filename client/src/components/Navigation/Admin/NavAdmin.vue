@@ -56,28 +56,51 @@
       >
         <i class="icon-subnav fas fa-file-alt" /> {{ $i18n('system_administration.content') }}
       </a>
+      <a
+        v-if="permissions.editStoreCategories"
+        :href="$url('storeCategories')"
+        role="menuitem"
+        class="dropdown-item dropdown-action"
+      >
+        <i class="icon-subnav fas fa-store" /> {{ $i18n('system_administration.store_categories') }}
+      </a>
+      <a
+        v-if="permissions.editAchievements"
+        :href="$url('editAchievements')"
+        role="menuitem"
+        class="dropdown-item dropdown-action"
+      >
+        <i class="icon-subnav fas fa-tags" /> {{ $i18n('achievements.editTitle') }}
+      </a>
     </template>
   </Dropdown>
 </template>
 <script>
 // Stores
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 // Components
 import Dropdown from '../_NavItems/NavDropdown'
 // Mixins
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
+
+const userStore = useUserStore()
 
 export default {
   components: {
     Dropdown,
   },
   mixins: [RouteCheckMixin],
+  setup () {
+    return {
+      userStore,
+    }
+  },
   computed: {
     permissions () {
-      return DataUser.getters.getPermissions()
+      return userStore.getPermissions
     },
     hasAdminPermissions () {
-      return DataUser.getters.hasAdminPermissions()
+      return userStore.hasAdminPermissions
     },
   },
 }
