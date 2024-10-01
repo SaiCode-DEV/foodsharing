@@ -68,9 +68,10 @@
             <i class="fas fa-message" />
           </b-button>
         </div>
+        <br>
         <blockquote
           v-if="request.message"
-          class="my-1"
+          class="my-1 w-100"
           v-text="request.message"
         />
       </div>

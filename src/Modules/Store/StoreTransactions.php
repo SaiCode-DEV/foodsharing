@@ -19,7 +19,6 @@ use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
-use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Core\DTO\MinimalIdentifier;
 use Foodsharing\Modules\Core\DTO\PatchGeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -708,11 +707,11 @@ class StoreTransactions
         return $storeTeamMemberships;
     }
 
-    public function requestStoreTeamMembership(int $storeId, int $userId): void
+    public function requestStoreTeamMembership(int $storeId, int $userId, ?string $message): void
     {
         $this->storeGateway->addStoreRequest($storeId, $userId);
 
-        $this->storeGateway->addStoreLog($storeId, $userId, null, null, StoreLogAction::REQUEST_TO_JOIN);
+        $this->storeGateway->addStoreLog($storeId, $userId, null, null, StoreLogAction::REQUEST_TO_JOIN, $message);
 
         $this->notifyStoreManagersAboutRequest($storeId);
     }

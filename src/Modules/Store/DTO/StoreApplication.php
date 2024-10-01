@@ -17,12 +17,8 @@ class StoreApplication
     public static function createFromArray(array $data)
     {
         $application = new self();
-        $application->user = new Profile(
-            $data['id'],
-            $data['name'] . ' ' . $data['nachname'],
-            $data['photo'],
-            $data['sleep_status'],
-        );
+        $data['name'] = $data['name'] . ' ' . $data['nachname'];
+        $application->user = new Profile($data);
         $application->verified = (bool)$data['verified'];
         if (!is_null($data['distance'])) {
             $application->distanceInKm = $data['distance'] < 1 ? 0 : round($data['distance']);

@@ -223,7 +223,7 @@ export default {
           okVariant: 'outline-danger',
         }
         if (this.distanceInKm > minBadDistanceInKm && !await this.confirmationDialogue('store.request.confirm-far', dialogueOptions)) return
-        await requestStoreTeamMembership(this.store.id, this.userId)
+        await requestStoreTeamMembership(this.store.id)
         this.store.maySendRequest = false
         this.store.mayWithdrawRequest = true
         pulseSuccess(this.$i18n('store.request.got-it'))

@@ -484,7 +484,7 @@ class StoreGateway extends BaseGateway
                 foodsaver.photo,
                 foodsaver.name,
                 foodsaver.nachname,
-                foodsaver.sleep_status,
+                foodsaver.is_sleeping,
                 foodsaver.verified,
                 FLOOR(ST_DISTANCE_SPHERE(
                     Point(NULLIF(foodsaver.lon, ""), NULLIF(foodsaver.lat, "")),
