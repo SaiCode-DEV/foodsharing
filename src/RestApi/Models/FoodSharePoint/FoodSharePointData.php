@@ -20,4 +20,12 @@ class FoodSharePointData extends FoodSharePointForCreation
     #[Assert\All(new Assert\Positive())]
     #[Type('array<int>')]
     public array $managerIds;
+
+    #[Assert\All(new Assert\Positive())]
+    #[Type('array<int>')]
+    public array $followerIds;
+
+    #[Assert\All(new Assert\Positive())]
+    #[Type('array<int>')]
+    public array $allUserIds;
 }
