@@ -652,6 +652,8 @@ terminology:
   landline: Número de teléfono fijo
   mobile_phone: Número de teléfono móvil
   hygiene_training: Formación en higiene
+  sent: Enviado
+  received: Recibido
 groups:
   empty: Aún no estás en ningún grupo de trabajo
 position: Puesto en foodsharing (público)
@@ -1318,6 +1320,7 @@ button:
   start: ¡Vamos!
   confirm: confirmar
   countdown_clickable: Clicable en {countdown} segundos
+  ok: De acuerdo
 pass:
   nav:
     options: 'Opciones'
