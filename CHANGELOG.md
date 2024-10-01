@@ -31,6 +31,7 @@
 - Rework default options in store information #33 !3623 @chriswalg
 - Changed the Icon for resolving basket requests #2119 #1363 !3636 @SaiCode
 - Change limit to 535 / 520 for public_info -> store !3646 @chriswalg
+- On mobile, always show button to mark chat message as read #2110 !3659 @iron9
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
