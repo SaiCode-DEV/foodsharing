@@ -41,7 +41,7 @@
         <BananaList
           :recipient="recipient"
           :can-give-banana="false"
-          :can-remove-banana="metadata.mayDeleteBananas || isRecipient"
+          :can-remove-banana="false"
           :bananas="sentBananas"
           :none-placeholder="$i18n(`profile.banana.sent_none.${isYou}`, { name: recipient.name })"
         />
