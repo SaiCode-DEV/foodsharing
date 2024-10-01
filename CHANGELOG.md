@@ -17,6 +17,7 @@
 - Added new Digital Foodsharing Passports for Android and iOS !3591 @SaiCode
 - Food baskets support multiple images now. Image quality issues are resolve. #1797 #1714 !3304 @AntonBallmaier
 - Added the option to test a quiz from the quiz editor. #2112 !3612 @AntonBallmaier
+- Added the option to send a message with a store aplication #2017 !3461 @AntonBallmaier
 
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9
@@ -30,6 +31,7 @@
 - Rework default options in store information #33 !3623 @chriswalg
 - Changed the Icon for resolving basket requests #2119 #1363 !3636 @SaiCode
 - Change limit to 535 / 520 for public_info -> store !3646 @chriswalg
+- Reworked the list of store applicants. !3461 @AntonBallmaier
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
