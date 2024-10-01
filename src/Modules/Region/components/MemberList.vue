@@ -267,6 +267,7 @@ import Container from '@/components/Container/Container.vue'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
+import { REGION_IDS } from '@/consts'
 
 const regionStore = useRegionStore()
 
@@ -503,9 +504,19 @@ export default {
     adminName () {
       return this.isWorkGroup ? 'admin' : 'ambassador'
     },
+    /*
+     @TODO: This deactivates member lists for Europe and countries because it needs to much memory on the server.
+     Can be remove when there is pagination.
+     */
+    isDeactivatedRegion () {
+      return [REGION_IDS.EUROPE, REGION_IDS.GERMANY, REGION_IDS.AUSTRIA, REGION_IDS.SWITZERLAND]
+        .indexOf(this.regionId) >= 0
+    },
   },
   mounted () {
-    regionStore.fetchMemberList(this.groupId)
+    if (!this.isDeactivatedRegion) {
+      regionStore.fetchMemberList(this.groupId)
+    }
   },
   methods: {
     isNullOrEmptyOrWhitespace (str) {
