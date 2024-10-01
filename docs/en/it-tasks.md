@@ -57,7 +57,7 @@ Depending on the motivation you bring along, there will certainly be a task for 
 ### How can you get involved?
 
 As already said, you can do some good advertising for our IT and send the link to this information here. But of course it would be especially nice to have **you** here:
-1. Have a look around on our [blog](https://devblog.foodsharing.de "foodsharing developer's blog") or in our [Contribution Guide](https://devdocs.foodsharing.network/contributing.html "foodsharing contributer's guide").
+1. Have a look around on our [blog](https://devblog.foodsharing.de "foodsharing developer's blog") or in our [Contribution Guide](contributing/contributing.md "foodsharing contributer's guide").
 2. Have a look at the long list of our [To-dos](https://gitlab.com/foodsharing-dev/foodsharing/issues "foodsharing issues on GitLab"). Some of them are specially marked for beginners.
 3. We are especially happy if you drop by in our [Slack Chat](https://slackin.yunity.org "programmer's chat") and we find together with you possible tasks and fields of activity in IT for you in the channel *#foodsharing-dev*.
 4. If you are unsure or don't understand the English programmer pages, you are welcome to send us an email or approach [Jonathan](https://foodsharing.de/profile/132347 "Jonathan's profile"). We'll try to help you. 
@@ -115,7 +115,7 @@ Announcements for Hackweeks can be found in the [Slack Channel #foodsharing-hack
 Thank you for reading so long. With a fit IT we have so much more potential and of course it would be great to distribute the many tasks on many shoulders. With an even cooler IT team, we can do whatever we want in a good mood. And you learn a whole bunch of exciting stuff on the side. We are really looking forward to welcoming you and your friends to the team soon.
 
 📣📣 **Maybe it's really not for you, but please send someone the link to this page. So YOU CAN HELP us and thus the whole community A LOT! ❤️ ❤️**   
-https://devdocs.foodsharing.network/docs/current/contributing/it-tasks
+https://devdocs.foodsharing.network/it-tasks
 
 Best regards from your IT team!
 [it@foodsharing.network](mailto:it@foodsharing.network)
