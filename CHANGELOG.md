@@ -52,7 +52,7 @@
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
 - Added an enum for wall types in the backend #1996 !3573 @alex.simm
 - Bananas now use the API !3581 @AntonBallmaier
-- Moved region store to pinia !3619 !3629 @chriswalg
+- Moved region store to pinia !3619 !3629 !3679 @chriswalg
 - Moved userStore to pinia for future improvements !3531 !3617 !3632 @SaiCode
 - Reduced the number of database requests in some store API endpoints #1662 !3615 @alex.simm
 - Removed jQuery autosize !3635 @SaiCode
