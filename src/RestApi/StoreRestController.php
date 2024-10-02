@@ -159,6 +159,7 @@ class StoreRestController extends AbstractFoodsharingRestController
         /*
          * @TODO: This deactivates store lists for Europe and countries because it needs to much memory on the server.
          * Can be remove when there is pagination.
+         * See also RegionPermissions:maySeeRegionMembers for the same problem with region members.
          */
         if (in_array($regionId, [RegionIDs::EUROPE, RegionIDs::GERMANY, RegionIDs::AUSTRIA, RegionIDs::SWITZERLAND])) {
             throw new AccessDeniedHttpException();
