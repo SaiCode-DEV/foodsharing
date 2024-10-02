@@ -63,6 +63,7 @@ export const useRegionStore = defineStore('region', {
   actions: {
     async fetchSelectedRegionChildren (regionId) {
       this.selectedRegionChildren = await listRegionChildren(regionId)
+      return this.selectedRegionChildren
     },
     async joinRegion (regionId) {
       await joinRegion(regionId)

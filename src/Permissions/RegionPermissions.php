@@ -139,6 +139,15 @@ final class RegionPermissions
 
     public function maySeeRegionMembers(int $regionId): bool
     {
+        /*
+         * @TODO: This deactivates member lists for Europe and countries because it needs to much memory on the server.
+         * Can be removed when there is pagination for member lists.
+         * See also StoreRestController:getStoresOfRegion for the same problem with stores.
+         */
+        if (in_array($regionId, [RegionIDs::EUROPE, RegionIDs::GERMANY, RegionIDs::AUSTRIA, RegionIDs::SWITZERLAND])) {
+            return false;
+        }
+
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }

@@ -25,6 +25,7 @@ final class QuizPermissions
         return match ($quizId) {
             QuizID::FOODSAVER, QuizID::STORE_MANAGER, QuizID::AMBASSADOR => RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP,
             QuizID::HYGIENE => RegionIDs::HYGIENE_GROUP,
+            QuizID::FOODSAVER_FR => RegionIDs::QUIZ_GROUP_FR,
         };
     }
 
@@ -82,6 +83,7 @@ final class QuizPermissions
             // Allow if the user is verified and role is sufficiently high:
             QuizID::STORE_MANAGER, QuizID::AMBASSADOR => $this->session->isVerified() && $this->session->role()->value >= $quizId->value - 1,
             QuizID::HYGIENE => $this->session->mayRole(Role::FOODSAVER),
+            default => false,
         };
     }
 
