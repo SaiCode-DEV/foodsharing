@@ -12,6 +12,7 @@ use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 
@@ -377,7 +378,7 @@ class FoodSharePointGateway extends BaseGateway
         return $result;
     }
 
-    public function getFoodSharePointWithFollowers(int $foodSharePointId): array
+    public function getFoodSharePointWithFollowers(int $foodSharePointId): ?FoodSharePointData
     {
         $result = $this->db->fetchAll(
             '
@@ -393,7 +394,6 @@ class FoodSharePointGateway extends BaseGateway
                 ft.`lat`,
                 ft.`lon`,
                 ft.`add_date`,
-                UNIX_TIMESTAMP(ft.`add_date`) AS time_ts,
                 ft.`add_foodsaver`,
                 fs.name AS fs_name,
                 fs.nachname AS fs_nachname,
@@ -414,7 +414,7 @@ class FoodSharePointGateway extends BaseGateway
         );
 
         if (!$result) {
-            return [];
+            return null;
         }
 
         $foodSharePoint = [
@@ -430,7 +430,6 @@ class FoodSharePointGateway extends BaseGateway
             'lat' => $result[0]['lat'],
             'lon' => $result[0]['lon'],
             'add_date' => $result[0]['add_date'],
-            'time_ts' => $result[0]['time_ts'],
             'add_foodsaver' => $result[0]['add_foodsaver'],
             'fs_name' => $result[0]['fs_name'],
             'fs_nachname' => $result[0]['fs_nachname'],
@@ -463,7 +462,7 @@ class FoodSharePointGateway extends BaseGateway
             }
         }
 
-        return $foodSharePoint;
+        return FoodSharePointData::createFromArray($foodSharePoint);
     }
 
     public function getFoodSharePoint(int $foodSharePointId): array
