@@ -242,6 +242,9 @@ class Foodsharing extends Db
         } elseif ($quizId === QuizID::HYGIENE->value) {
             $params['name'] = 'Hygieneschulung';
             $params['desc'] = 'Mit diesem Quiz qualifizierst du dich für Abholungen in bestimmten Betrieben...';
+        } elseif ($quizId === QuizID::FOODSAVER_FR->value) {
+            $params['name'] = 'Quiz für Foodsaver (FR)';
+            $params['desc'] = 'Werde foodsaver in Frankreich mit diesem Quiz!';
         }
         $params['desc'] .= ' ' . $this->faker->realTextBetween(200, 500);
         $params['id'] = $this->haveInDatabase('fs_quiz', $params);
