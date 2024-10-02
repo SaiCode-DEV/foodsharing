@@ -15,6 +15,7 @@ use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Region\DTO\RegionPin;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
@@ -39,6 +40,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[OA2\Tag(name: 'region')]
@@ -273,6 +275,28 @@ class RegionRestController extends AbstractFoodsharingRestController
     {
         return !is_null($value) && !is_nan($value)
             && ($lowerBound <= $value) && ($upperBound >= $value);
+    }
+
+    #[OA2\Get(summary: 'Returns the coordinates and description for a region\'s pin')]
+    #[Rest\Get('region/{regionId}/pin', requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: RegionPin::class))]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permission')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Region not found or the region does not have a pin yet')]
+    public function getRegionPin(int $regionId): Response
+    {
+        $this->assertLoggedIn();
+
+        $pin = $this->regionGateway->getRegionPin($regionId);
+        if (empty($pin)) {
+            throw new NotFoundHttpException();
+        }
+
+        if (!$this->regionPermissions->maySetRegionPin($regionId)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        return $this->respondOK($pin);
     }
 
     /**

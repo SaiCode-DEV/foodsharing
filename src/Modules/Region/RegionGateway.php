@@ -14,6 +14,7 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\DTO\HierachicalRegion;
+use Foodsharing\Modules\Region\DTO\RegionPin;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
 
 class RegionGateway extends BaseGateway
@@ -584,10 +585,12 @@ class RegionGateway extends BaseGateway
         return $optionTypeMap;
     }
 
-    public function getRegionPin(int $regionId): ?array
+    public function getRegionPin(int $regionId): ?RegionPin
     {
         try {
-            return $this->db->fetchByCriteria('fs_region_pin', ['desc', 'lat', 'lon', 'status'], ['region_id' => $regionId]);
+            $data = $this->db->fetchByCriteria('fs_region_pin', ['desc', 'lat', 'lon', 'status'], ['region_id' => $regionId]);
+
+            return RegionPin::create($data);
         } catch (Exception) {
             return null;
         }

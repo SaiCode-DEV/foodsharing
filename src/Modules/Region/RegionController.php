@@ -6,7 +6,6 @@ use Exception;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Content\ContentView;
-use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -425,13 +424,8 @@ final class RegionController extends FoodsharingController
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.pin'), '/region?bid=' . $region['id'] . '&sub=pin');
         $this->pageHelper->addTitle($this->translator->trans('terminology.pin'));
-        $result = $this->regionGateway->getRegionPin($region['id']);
-        $pageData['lat'] = $result['lat'] ?? MapConstants::CENTER_GERMANY_LAT;
-        $pageData['lon'] = $result['lon'] ?? MapConstants::CENTER_GERMANY_LON;
-        $pageData['desc'] = $result['desc'] ?? null;
-        $pageData['status'] = $result['status'] ?? null;
 
-        $params = $this->convertDataToObject($region, $request->query->get('sub'), $pageData);
+        $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
 
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 
