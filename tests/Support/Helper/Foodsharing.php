@@ -27,6 +27,7 @@ use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingScope;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingType;
 use Foodsharing\Modules\Uploads\DTO\UploadedFile;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 use PDO;
 
 class Foodsharing extends Db
@@ -891,7 +892,7 @@ class Foodsharing extends Db
         return $params;
     }
 
-    public function createFoodSharePoint($user, $bezirk = null, $extra_params = []): array
+    public function createFoodSharePoint($user, $bezirk = null, $extra_params = []): FoodSharePointForCreation
     {
         if ($bezirk === null) {
             $bezirk = $this->createRegion()['id'];
@@ -917,7 +918,7 @@ class Foodsharing extends Db
 
         $params['id'] = $id;
 
-        return $params;
+        return new FoodSharePointForCreation($params);
     }
 
     public function addFoodSharePointFollower($user, $foodSharePoint, $extra_params = []): array

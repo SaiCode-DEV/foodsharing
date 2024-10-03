@@ -11,6 +11,7 @@ use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
+use Foodsharing\RestApi\Models\Notifications\FoodSharePoint;
 use Tests\Support\UnitTester;
 
 class FoodSharePointGatewayTest extends Unit
@@ -28,6 +29,7 @@ class FoodSharePointGatewayTest extends Unit
         $this->foodsaver = $this->tester->createFoodsaver();
         $this->otherFoodsaver = $this->tester->createFoodsaver();
         $this->region = $this->tester->createRegion('peter', fillMailbox: false);
+
         $this->foodSharePoint = $this->tester->createFoodSharePoint(
             $this->foodsaver['id'],
             $this->region['id'],
@@ -37,18 +39,7 @@ class FoodSharePointGatewayTest extends Unit
 
     final public function testUpdateFoodSharePoint(): void
     {
-        $data = [
-            'bezirk_id' => $this->region['id'],
-            'name' => 'asdf',
-            'desc' => $this->foodSharePoint['desc'],
-            'anschrift' => $this->foodSharePoint['anschrift'],
-            'plz' => $this->foodSharePoint['plz'],
-            'ort' => $this->foodSharePoint['ort'],
-            'lat' => $this->foodSharePoint['lat'],
-            'lon' => $this->foodSharePoint['lon'],
-            'picture' => null
-            ];
-        $response = $this->gateway->updateFoodSharePoint($this->foodSharePoint['id'], $data);
+        $response = $this->gateway->updateFoodSharePoint($this->foodSharePoint['id'], $this->foodSharePoint);
         $this->assertTrue($response);
         $this->tester->seeInDatabase('fs_fairteiler', ['name' => 'asdf']);
     }
