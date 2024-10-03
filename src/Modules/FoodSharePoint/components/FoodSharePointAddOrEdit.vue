@@ -195,7 +195,6 @@ onMounted(() => {
     }
     hideLoader()
     dataLoaded.value = true // Data is now loaded
-    console.log('regionId', props.regionId)
   })
 })
 </script>
