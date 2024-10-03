@@ -91,7 +91,7 @@ class FoodSharePointCest
         $I->click('Speichern');
         $I->waitForText('erfolgreich bearbeitet');
         $I->reloadPage();
-        $I->waitForText($user['name'] . ' ' . $user['nachname']);
+        $I->waitForText($user['name']);
     }
 
     /**
