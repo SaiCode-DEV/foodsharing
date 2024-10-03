@@ -127,9 +127,11 @@ class FoodSharePointTransactions
         $this->foodSharePointGateway->updateFoodSharePoint($foodSharePointId, $newData);
 
         // If a picture was uploaded for this food share point, its usage type needs to be set
-        if (!empty($newData->picture) && $newData->picture !== $currentData['pic']) {
-            $oldUUID = substr($currentData['picture'], 13);
-            $this->uploadsTransactions->deleteUploadedFile($oldUUID);
+        if (!empty($newData->picture) && $newData->picture !== $currentData['picture']) {
+            if (!empty($currentData['picture'])) {
+                $oldUUID = substr($currentData['picture'], 13);
+                $this->uploadsTransactions->deleteUploadedFile($oldUUID);
+            }
 
             $uuid = substr($newData->picture, 13);
             $this->uploadsGateway->setUsage([$uuid], UploadUsage::FOOD_SHARE_POINT_TITLE, $foodSharePointId);

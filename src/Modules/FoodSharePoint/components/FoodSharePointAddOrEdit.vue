@@ -35,22 +35,24 @@
         </b-form-group>
 
         <b-form-group label="Bild" label-for="name-input">
-          <FileUploadVForm
+          <file-upload
             :is-image="true"
-            :img-height="900"
-            :img-width="400"
-            :initial-value="formData.picture"
+            :img-height="400"
+            :img-width="900"
+            :filename="formData.picture"
+            @change="value => formData.picture = value.url"
           />
         </b-form-group>
 
         <b-form-group label="Adress-/Standort-Suche" label-for="name-input">
-          <LeafletLocationSearchVForm
+          <leaflet-location-search
             v-if="dataLoaded"
             :coordinates="formData.location"
-            :street="formData.address"
             :postal-code="formData.postalCode"
+            :street="formData.address"
             :city="formData.city"
             :zoom="zoom"
+            @address-change="onAddressChanged"
           />
         </b-form-group>
 
@@ -72,13 +74,13 @@
 <script setup>
 import { onMounted, computed, ref, defineProps } from 'vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
-import FileUploadVForm from '@/components/upload/FileUploadVForm.vue'
-import LeafletLocationSearchVForm from '@/components/map/LeafletLocationSearchVForm'
 import MultiUserSearchInput from '@/components/MultiUserSearchInput.vue'
 import { useRegionStore } from '@/stores/regions'
 import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
 import { addFoodSharePoint, getFoodSharePoint, updateFoodSharePoint } from '@/api/foodsharepoints'
+import FileUpload from '@/components/upload/FileUpload.vue'
+import LeafletLocationSearch from '@/components/map/LeafletLocationSearch.vue'
 
 const regionStore = useRegionStore()
 const zoom = 17
@@ -124,6 +126,13 @@ async function saveFoodSharePoint () {
   } finally {
     hideLoader()
   }
+}
+
+function onAddressChanged (coordinates, street, postalCode, city) {
+  formData.value.location = coordinates
+  formData.value.address = street
+  formData.value.postalCode = postalCode
+  formData.value.city = city
 }
 
 const regionOptions = computed(() => {
