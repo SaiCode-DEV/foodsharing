@@ -34,7 +34,7 @@ class FoodsharingUI extends Module
         $browser->waitForElementVisible($inputSelector);
         $browser->fillField($inputSelector, $value);
 
-        $suggestionSelector = $tagSelectSelector . ' .dropdown-menu .dropdown-item-button';
+        $suggestionSelector = $tagSelectSelector . ' .dropdown-item';
         $browser->waitForElementVisible($suggestionSelector);
 
         $suggestionXPath = $tagSelectSelector . sprintf(
