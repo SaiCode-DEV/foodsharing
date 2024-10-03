@@ -120,8 +120,9 @@ class FoodSharePointGatewayTest extends Unit
     final public function testUpdateFoodSharePointThrowsIfIDNotFound(): void
     {
         $this->expectException(Exception::class);
+        $data = new FoodSharePointEditData();
         $this->gateway->updateFoodSharePoint(
-            99_999_999, []
+            99_999_999, $data
         );
         $this->tester->dontSeeInDatabase('fs_fairteiler', ['name' => 'asdf']);
     }
