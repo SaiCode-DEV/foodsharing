@@ -136,7 +136,7 @@ function onAddressChanged (coordinates, street, postalCode, city) {
 }
 
 const regionOptions = computed(() => {
-  return regionStore.regions.map(region => ({
+  return regionStore.accessibleRegions.map(region => ({
     value: region.id,
     text: region.name,
   }))
