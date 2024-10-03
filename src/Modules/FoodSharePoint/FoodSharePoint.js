@@ -1,8 +1,6 @@
 /* eslint-disable camelcase */
 import '@/core'
 import '@/globals'
-import 'jquery-tagedit'
-import 'jquery-tagedit-auto-grow-input'
 import { vueApply, vueRegister } from '@/vue'
 import { GET } from '@/browser'
 import AvatarList from '@/components/Avatar/AvatarList'
