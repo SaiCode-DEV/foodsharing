@@ -140,7 +140,7 @@ async function saveFoodSharePoint () {
       pulseSuccess(i18n('fsp.addSuccess'))
     }
   } catch (error) {
-    console.error('saveBlogPost', error)
+    console.error('saveFoodSharePoint', error)
     pulseError(i18n(props.foodSharePointId ? 'error_unexpected' : 'fsp.addError'))
   } finally {
     hideLoader()
@@ -198,7 +198,3 @@ onMounted(() => {
   })
 })
 </script>
-
-<style scoped lang="scss">
-
-</style>
