@@ -107,8 +107,10 @@ import { url } from '@/helper/urls'
 import { addFoodSharePoint, deleteFoodSharePoint, getFoodSharePoint, updateFoodSharePoint } from '@/api/foodsharepoints'
 import FileUpload from '@/components/upload/FileUpload.vue'
 import LeafletLocationSearch from '@/components/map/LeafletLocationSearch.vue'
+import { useUserStore } from '@/stores/user'
 
 const regionStore = useRegionStore()
+const userStore = useUserStore()
 const zoom = 17
 
 const props = defineProps({
@@ -132,7 +134,7 @@ const formData = ref({
   address: '',
   postalCode: '',
   city: '',
-  location: { lat: null, lon: null },
+  location: { lat: userStore.getLocations.lat, lon: userStore.getLocations.lon },
   managerIds: [],
 })
 
