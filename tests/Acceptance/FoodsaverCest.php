@@ -66,8 +66,8 @@ class FoodsaverCest
         $I->click('#change-address-button');
         $I->waitForText('Adresse auswählen');
         $I->fillField('#search-address-input', $address);
-        $I->waitForElementVisible('#searchinput_listbox');
-        $I->click("//*[@id='searchinput_listbox']//*[contains(text(), 'Teststraße 1')]");
+        $I->waitForElementVisible('#search-address-input_listbox');
+        $I->click("//*[@id='search-address-input_listbox']//*[contains(text(), 'Teststraße 1')]");
         $I->click('Adresse übernehmen');
         $I->click('Speichern');
         $I->waitForActiveAPICalls();
