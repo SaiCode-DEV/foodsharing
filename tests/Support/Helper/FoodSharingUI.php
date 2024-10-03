@@ -21,8 +21,8 @@ class FoodsharingUI extends Module
     /**
      * Fügt einen Wert in der Bootstrap-Vue TagSelect-Komponente hinzu.
      *
-     * @param string $value Der Wert, der gesucht und ausgewählt werden soll.
-     * @param string $tagSelectSelector Der CSS-Selektor für die TagSelect-Komponente.
+     * @param string $value der Wert, der gesucht und ausgewählt werden soll
+     * @param string $tagSelectSelector der CSS-Selektor für die TagSelect-Komponente
      */
     public function addInTagSelect(string $value, string $tagSelectSelector = '#tags-with-dropdown'): void
     {
@@ -43,9 +43,9 @@ class FoodsharingUI extends Module
 
         // Wählt den passenden Vorschlag aus
         $suggestionXPath = $tagSelectSelector . sprintf(
-                '/descendant::button[contains(@class, "dropdown-item-button") and normalize-space(text())="%s"]',
-                $value
-            );
+            '/descendant::button[contains(@class, "dropdown-item-button") and normalize-space(text())="%s"]',
+            $value
+        );
         $browser->click($suggestionXPath);
 
         // Überprüft, ob das Tag hinzugefügt wurde
@@ -57,8 +57,8 @@ class FoodsharingUI extends Module
     /**
      * Entfernt einen Wert aus der Bootstrap-Vue TagSelect-Komponente.
      *
-     * @param string $value Der Wert, der entfernt werden soll.
-     * @param string $tagSelectSelector Der CSS-Selektor für die TagSelect-Komponente.
+     * @param string $value der Wert, der entfernt werden soll
+     * @param string $tagSelectSelector der CSS-Selektor für die TagSelect-Komponente
      */
     public function removeFromTagSelect(string $value, string $tagSelectSelector = '#tags-with-dropdown'): void
     {
@@ -66,9 +66,9 @@ class FoodsharingUI extends Module
 
         // Findet das Tag, das entfernt werden soll
         $tagXPath = $tagSelectSelector . sprintf(
-                '/descendant::li[contains(@class, "list-inline-item")]/*[contains(@title, "%s")]',
-                $value
-            );
+            '/descendant::li[contains(@class, "list-inline-item")]/*[contains(@title, "%s")]',
+            $value
+        );
 
         // Findet die Entfernen-Schaltfläche innerhalb des Tags
         $removeButtonXPath = $tagXPath . '/following-sibling::button[contains(@class, "b-form-tag-remove")]';

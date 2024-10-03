@@ -5,7 +5,6 @@ namespace Foodsharing\Modules\FoodSharePoint;
 use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
-use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\View;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\FoodSharePointPermissions;
@@ -136,76 +135,6 @@ class FoodSharePointView extends View
                 'lon' => $foodSharePoint['lon']
             ]
         ]);
-    }
-
-    public function foodSharePointForm(array $data = []): string
-    {
-        $title = $this->translator->trans('fsp.new');
-
-        $tagselect = '';
-        $latLonOptions = [];
-        if ($data) {
-            $fspName = $this->foodSharePoint['name'];
-            $title = $this->translator->trans('fsp.editName', ['{name}' => $fspName]);
-
-            $tagselect = $this->v_utils->v_form_tagselect('fspmanagers', null,
-                $data['bfoodsaver_values'], $data['bfoodsaver']
-            );
-            $this->pageHelper->addJs('
-			$("#fairteiler-form").on("submit", function (ev) {
-				if ($("#fspmanagers input[type=\'hidden\']").length == 0) {
-					ev.preventDefault();
-					pulseError("' . $this->translator->trans('fsp.noCoordinator') . '");
-				}
-			});');
-
-            foreach (['anschrift', 'plz', 'ort', 'lat', 'lon'] as $i) {
-                $latLonOptions[$i] = $data[$i];
-            }
-            $latLonOptions['location'] = ['lat' => $data['lat'], 'lon' => $data['lon']];
-        } else {
-            $latLonOptions['location'] = ['lat' => MapConstants::CENTER_GERMANY_LAT, 'lon' => MapConstants::CENTER_GERMANY_LON];
-            $data = [
-                'bezirk_id' => null,
-                'name' => '',
-                'desc' => '',
-                'picture' => '',
-            ];
-        }
-
-        // initial value for the image chooser can be empty (no image yet) or an old or new file path
-        $initialValue = '';
-        if (!empty($data['picture'])) {
-            $initialValue = (!str_starts_with((string)$data['picture'], '/api/uploads/') ? '/images/' : '') . $data['picture'];
-        }
-
-        return $this->v_utils->v_field($this->v_utils->v_form('fairteiler', [
-            $this->v_utils->v_form_select('fsp_bezirk_id', ['values' => $this->regions, 'selected' => $data['bezirk_id'], 'required' => true]),
-            $this->v_utils->v_form_text('name', ['value' => $data['name'], 'required' => true]),
-            $this->v_utils->v_form_textarea('desc', [
-                'value' => $data['desc'],
-                'desc' => $this->translator->trans('fsp.descLabel') . '<br>' . $this->translator->trans('formatting.md'),
-                'required' => true,
-            ]),
-            $this->vueComponent('image-upload', 'file-upload-v-form', [
-                'inputName' => 'picture',
-                'isImage' => true,
-                'initialValue' => $initialValue,
-                'imgHeight' => 525,
-                'imgWidth' => 169
-            ]),
-            $this->vueComponent('foodsharepoint-address-search', 'LeafletLocationSearchVForm', [
-                'zoom' => 4,
-                'coordinates' => $latLonOptions['location'],
-                'street' => $latLonOptions['anschrift'] ?? null,
-                'postalCode' => $latLonOptions['plz'] ?? null,
-                'city' => $latLonOptions['ort'] ?? null,
-            ]),
-            $tagselect,
-            '<a class="button btn btn-primary" onclick="_addFoodSharePoint();return false;">' . $this->translator->trans('button.save') . '</a>'
-        ], ['submit' => false,
-            'action' => '#'
-        ]), $title, ['class' => 'ui-padding']);
     }
 
     public function options(array $items): string
