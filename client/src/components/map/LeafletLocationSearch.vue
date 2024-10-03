@@ -18,71 +18,73 @@
         :disabled="disabled"
       />
     </b-form-group>
-    <LeafletLocationPicker
-      ref="locationPicker"
-      :icon="icon"
-      :coordinates="currentCoords"
-      :zoom="currentZoom"
-      :bounds="currentBounds"
-      :marker-draggable="!disabled"
-      @coordinates-changed="updateCoordinates"
-    />
+    <div v-if="isValidCoordinates">
+      <LeafletLocationPicker
+        ref="locationPicker"
+        :icon="icon"
+        :coordinates="currentCoords"
+        :zoom="currentZoom"
+        :bounds="currentBounds"
+        :marker-draggable="!disabled"
+        @coordinates-changed="updateCoordinates"
+      />
 
-    <div v-if="showAddressFields">
-      <b-form-group
-        :label="$i18n('addresspicker.different_location')"
-        label-for="different-location"
-        class="my-2"
-      >
-        <b-form-checkbox
-          id="different_location"
-          ref="differentLocation"
-          v-model="differentLocation"
-          :disabled="disabled"
-          switch
-        />
-      </b-form-group>
-      <b-form-group
-        :label="$i18n('anschrift')"
-        label-for="input-street"
-        class="my-2"
-      >
-        <b-form-input
-          id="input-street"
-          ref="inputStreet"
-          v-model="currentStreet"
-          :disabled="disabled || !differentLocation"
-          @change="emitAddressChange"
-        />
-      </b-form-group>
-      <b-form-group
-        :label="$i18n('plz')"
-        label-for="input-postal"
-        class="my-2"
-      >
-        <b-form-input
-          id="input-postal"
-          ref="inputPostal"
-          v-model="currentPostal"
+      <div v-if="showAddressFields">
+        <b-form-group
+          :label="$i18n('addresspicker.different_location')"
+          label-for="different-location"
           class="my-2"
-          :disabled="disabled || !differentLocation"
-          @change="emitAddressChange"
-        />
-      </b-form-group>
-      <b-form-group
-        :label="$i18n('ort')"
-        label-for="input-city"
-        class="my-2"
-      >
-        <b-form-input
-          id="input-city"
-          ref="inputCity"
-          v-model="currentCity"
+        >
+          <b-form-checkbox
+            id="different_location"
+            ref="differentLocation"
+            v-model="differentLocation"
+            :disabled="disabled"
+            switch
+          />
+        </b-form-group>
+        <b-form-group
+          :label="$i18n('anschrift')"
+          label-for="input-street"
           class="my-2"
-          :disabled="disabled || !differentLocation"
-          @change="emitAddressChange"
-        />
-      </b-form-group>
+        >
+          <b-form-input
+            id="input-street"
+            ref="inputStreet"
+            v-model="currentStreet"
+            :disabled="disabled || !differentLocation"
+            @change="emitAddressChange"
+          />
+        </b-form-group>
+        <b-form-group
+          :label="$i18n('plz')"
+          label-for="input-postal"
+          class="my-2"
+        >
+          <b-form-input
+            id="input-postal"
+            ref="inputPostal"
+            v-model="currentPostal"
+            class="my-2"
+            :disabled="disabled || !differentLocation"
+            @change="emitAddressChange"
+          />
+        </b-form-group>
+        <b-form-group
+          :label="$i18n('ort')"
+          label-for="input-city"
+          class="my-2"
+        >
+          <b-form-input
+            id="input-city"
+            ref="inputCity"
+            v-model="currentCity"
+            class="my-2"
+            :disabled="disabled || !differentLocation"
+            @change="emitAddressChange"
+          />
+        </b-form-group>
+      </div>
     </div>
   </div>
 </template>
@@ -132,6 +134,13 @@ export default {
       currentZoom: this.zoom,
       currentBounds: null,
     }
+  },
+  computed: {
+    isValidCoordinates () {
+      return this.coordinates &&
+        typeof this.coordinates.lat === 'number' &&
+        typeof this.coordinates.lon === 'number'
+    },
   },
   mounted () {
     // create the geocoding search engine
