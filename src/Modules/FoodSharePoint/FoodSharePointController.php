@@ -26,6 +26,7 @@ class FoodSharePointController extends FoodsharingController
      * @var Profile[]
      */
     private array $followers;
+    private array $managers;
 
     public function __construct(
         private readonly FoodSharePointView $view,
@@ -146,10 +147,8 @@ class FoodSharePointController extends FoodsharingController
 
             $this->follower = $this->foodSharePointGateway->getFollower($foodSharePointId);
             $mapper = fn ($user) => new Profile($user);
-            // $managers = array_map($mapper, $this->follower['fsp_manager']);
-            $followers = array_map($mapper, $this->follower['follow']);
-
-            $this->setFoodSharePoint($this->foodSharePoint, $followers);
+            $this->managers = array_map($mapper, $this->follower['fsp_manager']);
+            $this->followers = array_map($mapper, $this->follower['follow']);
 
             $this->foodSharePoint['urlname'] = str_replace(' ', '_', (string)$this->foodSharePoint['name']);
             $this->foodSharePoint['urlname'] = $this->identificationHelper->id($this->foodSharePoint['urlname']);
@@ -338,7 +337,7 @@ class FoodSharePointController extends FoodsharingController
             }
 
             $this->pageHelper->addContent($this->view->options($items), CNT_LEFT);
-            $this->pageHelper->addContent($this->view->follower(), CNT_LEFT);
+            $this->pageHelper->addContent($this->view->follower($this->followers, $this->managers), CNT_LEFT);
         }
 
         $this->pageHelper->addContent($this->view->desc($this->foodSharePoint), CNT_RIGHT);
@@ -365,15 +364,6 @@ class FoodSharePointController extends FoodsharingController
     private function isFollower(): bool
     {
         return isset($this->follower['all'][$this->session->id()]);
-    }
-
-    /**
-     * @param Profile[] $followers
-     */
-    public function setFoodSharePoint(array $foodSharePoint, array $followers): void
-    {
-        $this->foodSharePoint = $foodSharePoint;
-        $this->followers = $followers;
     }
 
     public function getFollowers(): array

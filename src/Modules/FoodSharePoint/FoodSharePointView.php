@@ -90,16 +90,6 @@ class FoodSharePointView extends View
         $this->foodSharePoint = $foodSharePoint;
     }
 
-    public function setManagers(array $managers): void
-    {
-        $this->managers = $managers;
-    }
-
-    public function setFollowers(array $followers): void
-    {
-        $this->followers = $followers;
-    }
-
     public function foodSharePointHead($foodSharePoint): string
     {
         return $this->twig->render('pages/FoodSharePoint/foodSharePointTop.html.twig', [
@@ -271,25 +261,25 @@ class FoodSharePointView extends View
         ) . '</div>';
     }
 
-    public function follower(): string
+    public function follower(array $followers, array $managers): string
     {
         $out = '';
 
-        if (!empty($this->managers)) {
-            shuffle($this->managers);
+        if (!empty($managers)) {
+            shuffle($managers);
             $out .= $this->v_utils->v_field(
                 $this->vueComponent('fsp-managers', 'AvatarList', [
-                    'profiles' => $this->managers,
+                    'profiles' => $managers,
                     'maxVisibleAvatars' => 5,
                 ]),
                 $this->translator->trans('fsp.managers')
             );
         }
-        if (!empty($this->followers)) {
-            shuffle($this->followers);
+        if (!empty($followers)) {
+            shuffle($followers);
             $out .= $this->v_utils->v_field(
                 $this->vueComponent('fsp-followers', 'AvatarList', [
-                    'profiles' => $this->followers,
+                    'profiles' => $followers,
                     'maxVisibleAvatars' => 8,
                 ]),
                 $this->translator->trans('fsp.followers')
