@@ -3,7 +3,7 @@
     <b-container class="bg-white p-4">
       <b-form>
         <b-form-group
-          label="In welchem Bezirk befindet sich der Fairteiler?"
+          :label="$i18n('fsp_bezirk_id')"
           label-for="district-select"
           required
         >
@@ -15,7 +15,7 @@
           />
         </b-form-group>
 
-        <b-form-group label="Name" label-for="name-input">
+        <b-form-group :label="$i18n('name')" label-for="name-input">
           <b-form-input
             id="name-input"
             v-model="formData.name"
@@ -25,7 +25,7 @@
           />
         </b-form-group>
 
-        <b-form-group label="Beschreibung" label-for="description-md">
+        <b-form-group :label="$i18n('desc')" label-for="description-md">
           <MarkdownInput
             :value.sync="formData.description"
             conceal-toolbar
@@ -34,7 +34,7 @@
           />
         </b-form-group>
 
-        <b-form-group label="Bild" label-for="name-input">
+        <b-form-group :label="$i18n('picture')" label-for="name-input">
           <file-upload
             :is-image="true"
             :img-height="400"
@@ -44,7 +44,7 @@
           />
         </b-form-group>
 
-        <b-form-group label="Adress-/Standort-Suche" label-for="name-input">
+        <b-form-group :label="$i18n('addresspicker.label')" label-for="name-input">
           <leaflet-location-search
             v-if="dataLoaded"
             :coordinates="formData.location"
@@ -56,7 +56,7 @@
           />
         </b-form-group>
 
-        <label for="tags-basic">Foodsaver:innen, die Ansprechpersonen für den Fairteiler sind</label>
+        <label for="tags-basic">{{ $i18n('fspmanagers') }}</label>
         <multi-user-search-input
           v-model="formData.managerIds"
           :region-id="formData.regionId"
@@ -77,7 +77,7 @@
     <b-modal
       id="deleteFoodSharePointModal"
       ref="deleteFoodSharePointModal"
-      :title="$i18n('forum.thread.delete')"
+      :title="$i18n('fsp.delete')"
       :cancel-title="$i18n('button.cancel')"
       :ok-title="$i18n('button.yes_i_am_sure')"
       cancel-variant="primary"
