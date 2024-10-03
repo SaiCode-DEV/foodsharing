@@ -25,7 +25,7 @@
           />
         </b-form-group>
 
-        <b-form-group :label="$i18n('descLabel')" label-for="description-md">
+        <b-form-group :label="$i18n('fsp.descLabel')" label-for="description-md">
           <MarkdownInput
             :value.sync="formData.description"
             conceal-toolbar
