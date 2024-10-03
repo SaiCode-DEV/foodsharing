@@ -42,10 +42,9 @@ class FoodSharePointCest
     }
 
     /*
-     * TODO: The pulse messages doesn't currently work. These two tests need to be updated and reactivated when the FSP
      * form was changed to vue.
      */
-    /* public function createFoodSharePoint(AcceptanceTester $I): void
+    public function createFoodSharePoint(AcceptanceTester $I): void
     {
         $address = 'Teststraße 1 37073 Teststadt Deutschland';
 
@@ -78,9 +77,9 @@ class FoodSharePointCest
         ]);
         $I->amOnPage($I->foodSharePointGetUrl($id));
         $I->waitForText('Kantstrasse 20', 10);
-    } */
+    }
 
-    /* public function editFoodSharePoint(AcceptanceTester $I): void
+    public function editFoodSharePoint(AcceptanceTester $I): void
     {
         $user = $I->createFoodsaver(null, ['bezirk_id' => $this->testBezirk['id']]);
         $I->login($this->responsible['email']);
@@ -93,7 +92,7 @@ class FoodSharePointCest
         // $I->waitForText('erfolgreich bearbeitet');
         $I->reloadPage();
         $I->waitForText($user['name'] . ' ' . $user['nachname']);
-    } */
+    }
 
     /**
      * @example["user", false]
