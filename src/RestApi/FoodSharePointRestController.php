@@ -195,7 +195,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
 
     #[OA2\Patch(summary: 'Edit an existing food share point.')]
     #[OA2\RequestBody(content: new Model(type: FoodSharePointEditData::class))]
-    #[ParamConverter('foodSharePoint', class: FoodSharePointEditData::class, converter: 'fos_rest.request_body')]
+    #[ParamConverter('foodSharePointData', class: FoodSharePointEditData::class, converter: 'fos_rest.request_body')]
     #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid date')]
     #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
