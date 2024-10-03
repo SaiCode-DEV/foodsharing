@@ -53,18 +53,12 @@ class FoodSharePointController extends FoodsharingController
         if (!$request->query->has('sub')) {
             $this->subIndex();
         } else {
-            switch ($request->query->get('sub')) {
-                case 'edit':
-                    return $this->edit($request);
-                case 'check':
-                    $this->check($request);
-                    break;
-                case 'ft':
-                    $this->ft();
-                    break;
-                case 'add':
-                    return $this->add($request);
-            }
+            match ($request->query->get('sub')) {
+                'ft' => $this->ft(),
+                'check' => $this->check($request),
+                'add', 'edit' => $this->addAndEdit($request),
+                default => throw $this->createNotFoundException()
+            };
         }
 
         return $this->renderGlobal();
@@ -186,21 +180,28 @@ class FoodSharePointController extends FoodsharingController
         return array_filter($this->currentUserUnits->getRegions(), fn ($region) => UnitType::isAccessibleRegion($region['type']));
     }
 
-    private function edit(Request $request): Response
+    private function addAndEdit(Request $request): Response
     {
         if (!$this->foodSharePointPermissions->mayEdit($this->regionId, $this->follower)) {
             $this->routeHelper->goAndExit('/fairteiler/' . $this->foodSharePoint['id']);
         }
-        $this->pageHelper->addBread(
-            $this->foodSharePoint['name'],
-            '/fairteiler?sub=ft&bid=' . $this->regionId . '&id=' . $this->foodSharePoint['id']
-        );
+
+        if ($request->query->get('sub') !== 'add') {
+            $componentParams = [
+                'foodSharePointId' => $this->foodSharePoint['id'],
+                'regionId' => $this->regionId,
+            ];
+
+            $this->pageHelper->addBread(
+                $this->foodSharePoint['name'],
+                '/fairteiler?sub=ft&bid=' . $this->regionId . '&id=' . $this->foodSharePoint['id']
+            );
+        }
+
+        $foodSharePoint = $this->prepareVueComponent('food-share-point-add-or-edit', 'FoodSharePointAddOrEdit', $componentParams ?? []);
+
         $this->pageHelper->addBread($this->translator->trans('fsp.edit'));
 
-        $foodSharePoint = $this->prepareVueComponent('food-share-point-add-or-edit', 'FoodSharePointAddOrEdit', [
-            'foodSharePointId' => $this->foodSharePoint['id'],
-            'regionId' => $this->regionId
-        ]);
         $this->pageHelper->addContent($foodSharePoint);
 
         return $this->renderGlobal();
@@ -244,14 +245,6 @@ class FoodSharePointController extends FoodsharingController
         $this->foodSharePointGateway->acceptFoodSharePoint($this->foodSharePoint['id']);
         $this->flashMessageHelper->success($this->translator->trans('fsp.acceptSuccess'));
         $this->routeHelper->goAndExit('/fairteiler?sub=ft&id=' . $this->foodSharePoint['id']);
-    }
-
-    private function delete(): void
-    {
-        if ($this->foodSharePointGateway->deleteFoodSharePoint($this->foodSharePoint['id'])) {
-            $this->flashMessageHelper->info($this->translator->trans('fsp.deleteSuccess'));
-            $this->routeHelper->goAndExit('/fairteiler?bid=' . $this->regionId);
-        }
     }
 
     private function ft(): void
@@ -305,23 +298,6 @@ class FoodSharePointController extends FoodsharingController
 
         $this->pageHelper->addContent($this->view->desc($this->foodSharePoint), CNT_RIGHT);
         $this->pageHelper->addContent($this->view->address($this->foodSharePoint), CNT_RIGHT);
-    }
-
-    private function add(Request $request): Response
-    {
-        $this->pageHelper->addBread($this->translator->trans('fsp.add'));
-        $this->pageHelper->addContent($this->view->foodSharePointForm());
-
-        $goBack = [
-            'name' => $this->translator->trans('back'),
-            'href' => '/fairteiler?bid=' . (int)$this->regionId,
-        ];
-        $this->pageHelper->addContent(
-            $this->v_utils->v_menu([$goBack], $this->translator->trans('options')),
-            CNT_RIGHT
-        );
-
-        return $this->renderGlobal();
     }
 
     private function isFollower(): bool
