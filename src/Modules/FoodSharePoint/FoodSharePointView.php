@@ -7,7 +7,6 @@ use Foodsharing\Lib\View\Utils;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\View;
-use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Utility\DataHelper;
