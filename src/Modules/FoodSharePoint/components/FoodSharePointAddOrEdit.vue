@@ -58,18 +58,21 @@
           />
         </b-form-group>
 
-        <label for="fspmanagers-label">{{ $i18n('fspmanagers') }}</label>
-        <multi-user-search-input
-          id="fspmanagers-input"
-          v-model="formData.managerIds"
-          :region-id="formData.regionId"
-          button-icon="fa-user-plus"
-        />
+        <div v-if="foodSharePointId !== null">
+          <label for="fspmanagers-label">{{ $i18n('fspmanagers') }}</label>
+          <multi-user-search-input
+            id="fspmanagers-input"
+            v-model="formData.managerIds"
+            :region-id="formData.regionId"
+            button-icon="fa-user-plus"
+          />
+        </div>
 
         <b-button variant="secondary" @click="saveFoodSharePoint">
           {{ i18n('button.save') }}
         </b-button>
         <b-button
+          v-if="foodSharePointId !== null"
           variant="outline-danger"
           @click="$bvModal.show('deleteFoodSharePointModal')"
         >
@@ -78,6 +81,7 @@
       </b-form>
     </b-container>
     <b-modal
+      v-if="foodSharePointId !== null"
       id="deleteFoodSharePointModal"
       ref="deleteFoodSharePointModal"
       :title="$i18n('fsp.delete')"
