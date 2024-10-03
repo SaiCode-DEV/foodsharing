@@ -185,7 +185,8 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         if (!$this->currentUserUnits->mayBezirk($regionId)) {
             throw new AccessDeniedHttpException('Not a member of the region');
         }
-        if (!UnitType::isRegion($this->regionGateway->getType($regionId))) {
+        $regionType = $this->regionGateway->getType($regionId);
+        if (!UnitType::isRegion($regionType) || !UnitType::isAccessibleRegion($regionType)) {
             throw new BadRequestHttpException('Food share points can only be added to regions');
         }
         $response = $this->foodSharePointTransactions->addFoodSharePoint($foodSharePoint);
@@ -213,6 +214,10 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         $follower = $this->foodSharePointGateway->getFollower($foodSharePointId);
         if (!$this->foodSharePointPermissions->mayEdit($foodSharePoint['bezirk_id'], $follower)) {
             throw new AccessDeniedHttpException('Not a member of the region');
+        }
+        $regionType = $this->regionGateway->getType($foodSharePointData->regionId);
+        if (!UnitType::isRegion($regionType) || !UnitType::isAccessibleRegion($regionType)) {
+            throw new BadRequestHttpException('Food share points can only be added to regions');
         }
 
         $this->foodSharePointTransactions->editFoodSharePoint($foodSharePointId, $foodSharePoint, $foodSharePointData);
