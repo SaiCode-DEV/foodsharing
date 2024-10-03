@@ -115,14 +115,14 @@ async function saveFoodSharePoint () {
   try {
     if (props.foodSharePointId) {
       await updateFoodSharePoint(props.foodSharePointId, formData.value)
-      pulseSuccess(i18n('blog.success.edit'))
+      pulseSuccess(i18n('fsp.editSuccess'))
     } else {
       await addFoodSharePoint(formData.value)
-      pulseSuccess(i18n('blog.success.new'))
+      pulseSuccess(i18n('fsp.addSuccess'))
     }
   } catch (error) {
     console.error('saveBlogPost', error)
-    pulseError(i18n('blog.failure.edit'))
+    pulseError(i18n(props.foodSharePointId ? 'error_unexpected' : 'fsp.addError'))
   } finally {
     hideLoader()
   }

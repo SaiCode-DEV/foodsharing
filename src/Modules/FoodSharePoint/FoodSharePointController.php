@@ -196,15 +196,6 @@ class FoodSharePointController extends FoodsharingController
             '/fairteiler?sub=ft&bid=' . $this->regionId . '&id=' . $this->foodSharePoint['id']
         );
         $this->pageHelper->addBread($this->translator->trans('fsp.edit'));
-        /* if ($request->request->get('form_submit') === 'fairteiler') {
-            if ($this->handleEditFsp($request)) {
-                $this->flashMessageHelper->success($this->translator->trans('fsp.editSuccess'));
-            } else {
-                $this->flashMessageHelper->error($this->translator->trans('error_unexpected'));
-            }
-        } */
-
-        $data = $this->foodSharePoint;
 
         /* $items = [
              [
@@ -222,23 +213,11 @@ class FoodSharePointController extends FoodsharingController
              ];
          } */
 
-        /*   $data['bfoodsaver'] = $this->follower['fsp_manager'];
-
-           foreach ($data['bfoodsaver'] as $key => $fs) {
-               $data['bfoodsaver'][$key]['name'] = $fs['name'] . ' ' . $fs['nachname'];
-           }
-
-        $data['bfoodsaver_values'] = $this->foodsaverGateway->getFsAutocomplete($this->currentUserUnits->getRegions());
-
-        $params['regions'] = $this->regions;
-        $params['managers'] = $this->managers; */
         $foodSharePoint = $this->prepareVueComponent('food-share-point-add-or-edit', 'FoodSharePointAddOrEdit', [
             'foodSharePointId' => $this->foodSharePoint['id'],
             'regionId' => $this->regionId
         ]);
         $this->pageHelper->addContent($foodSharePoint);
-
-        /* $this->pageHelper->addContent($this->view->foodSharePointForm($data)); */
 
         return $this->renderGlobal();
     }
