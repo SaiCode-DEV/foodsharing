@@ -23,9 +23,6 @@ use Twig\Environment;
 class FoodSharePointView extends View
 {
     private ?array $region = null;
-    private array $regions;
-
-    private array $foodSharePoint;
 
     private readonly FoodSharePointPermissions $fspPermissions;
 
@@ -65,19 +62,9 @@ class FoodSharePointView extends View
         );
     }
 
-    public function setRegions(array $regions): void
-    {
-        $this->regions = $regions;
-    }
-
     public function setRegion(?array $region): void
     {
         $this->region = $region;
-    }
-
-    public function setFoodSharePoint(array $foodSharePoint): void
-    {
-        $this->foodSharePoint = $foodSharePoint;
     }
 
     public function foodSharePointHead($foodSharePoint): string

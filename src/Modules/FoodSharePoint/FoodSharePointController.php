@@ -152,7 +152,6 @@ class FoodSharePointController extends FoodsharingController
                 $this->delete();
             }
         }
-        $this->view->setRegions($this->regions);
         $this->view->setRegion($region1);
 
         $this->pageHelper->addBread($this->translator->trans('fsp.yours'), '/fairteiler');
