@@ -297,7 +297,7 @@ class FoodSharePointController extends FoodsharingController
                     'name' => $this->translator->trans('fsp.follow'),
                     'click' => 'u_follow(); return false;'
                 ];
-                $this->pageHelper->addHidden($this->view->followHidden());
+                $this->pageHelper->addHidden($this->view->followHidden($this->foodSharePoint));
             }
 
             $this->pageHelper->addContent($this->view->options($items), CNT_LEFT);

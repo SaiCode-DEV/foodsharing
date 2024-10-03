@@ -213,7 +213,7 @@ class FoodSharePointView extends View
         return $this->v_utils->v_menu($items, $this->translator->trans('options'));
     }
 
-    public function followHidden(): string
+    public function followHidden(array $foodSharePoint): string
     {
         $this->pageHelper->addJsFunc('
 			function u_follow () {
@@ -224,7 +224,7 @@ class FoodSharePointView extends View
 			$("#follow-hidden").dialog({
 				modal: true,
 				title: "' . $this->translator->trans('fsp.followName', [
-                    '{name}' => $this->sanitizerService->jsSafe($this->foodSharePoint['name'], '"')
+                    '{name}' => $this->sanitizerService->jsSafe($foodSharePoint['name'], '"')
                 ]) . '",
 				autoOpen: false,
 				width: 500,
