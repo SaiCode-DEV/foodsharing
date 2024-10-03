@@ -2234,6 +2234,8 @@ profile:
     recieved_none:
       you: Todavía no has recibido una estrella de confianza.
       other: '{name} aún no ha recibido ningún fideo de fidelidad.'
+    sent_none:
+      other: '{name} no ha regalado ninguna estrella de confianza.'
   online: '{name} está en línea.'
   infos:
     title: 'Información'
