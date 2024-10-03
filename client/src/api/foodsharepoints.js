@@ -1,4 +1,4 @@
-import { get, patch, post } from './base'
+import { get, patch, post, remove } from './base'
 
 export async function listFoodSharePoints (regionId) {
   return await get(`/regions/${regionId}/foodSharePoints`)
@@ -14,4 +14,8 @@ export async function getFoodSharePoint (foodSharePointId) {
 
 export async function updateFoodSharePoint (foodSharePointId, foodSharePointData) {
   return patch(`/foodSharePoints/${foodSharePointId}`, { ...foodSharePointData })
+}
+
+export async function deleteFoodSharePoint (foodSharePointId) {
+  return remove(`/foodSharePoints/${foodSharePointId}`)
 }

@@ -224,4 +224,20 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
 
         return $this->respondOK();
     }
+
+    #[OA2\Parameter(name: 'foodSharePointId', description: 'which post to delete', in: 'path', schema: new OA2\Schema(type: 'integer'))]
+    #[OA2\Response(response: '200', description: 'Success.')]
+    #[OA2\Response(response: '401', description: 'Not logged in.')]
+    #[OA2\Response(response: '403', description: 'Insufficient permissions to remove this foodSharePoint.')]
+    #[OA2\Response(response: '404', description: 'FoodSharePoint not found.')]
+    #[OA2\Tag(name: 'foodSharePoints')]
+    #[Rest\Delete('/foodSharePoints/{foodSharePointId}', name: 'remove_foodsharepoint', requirements: ['foodSharePointId' => '\d+'])]
+    public function removeFoodSharePoint(int $foodSharePointId): Response
+    {
+        $this->assertLoggedIn();
+
+        $this->foodSharePointGateway->deleteFoodSharePoint($foodSharePointId);
+
+        return $this->respondOK();
+    }
 }

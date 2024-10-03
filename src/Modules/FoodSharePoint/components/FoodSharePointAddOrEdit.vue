@@ -66,8 +66,26 @@
         <b-button variant="secondary" @click="saveFoodSharePoint">
           {{ i18n('button.save') }}
         </b-button>
+        <b-button
+          variant="outline-danger"
+          @click="$bvModal.show('deleteFoodSharePointModal')"
+        >
+          {{ i18n('fsp.delete') }}
+        </b-button>
       </b-form>
     </b-container>
+    <b-modal
+      id="deleteFoodSharePointModal"
+      ref="deleteFoodSharePointModal"
+      :title="$i18n('forum.thread.delete')"
+      :cancel-title="$i18n('button.cancel')"
+      :ok-title="$i18n('button.yes_i_am_sure')"
+      cancel-variant="primary"
+      ok-variant="outline-danger"
+      @ok="removeFoodSharePoint"
+    >
+      {{ $i18n('fsp.deleteConfirm') }}
+    </b-modal>
   </div>
 </template>
 
@@ -78,7 +96,8 @@ import MultiUserSearchInput from '@/components/MultiUserSearchInput.vue'
 import { useRegionStore } from '@/stores/regions'
 import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
-import { addFoodSharePoint, getFoodSharePoint, updateFoodSharePoint } from '@/api/foodsharepoints'
+import { url } from '@/helper/urls'
+import { addFoodSharePoint, deleteFoodSharePoint, getFoodSharePoint, updateFoodSharePoint } from '@/api/foodsharepoints'
 import FileUpload from '@/components/upload/FileUpload.vue'
 import LeafletLocationSearch from '@/components/map/LeafletLocationSearch.vue'
 
@@ -128,6 +147,20 @@ async function saveFoodSharePoint () {
   }
 }
 
+async function removeFoodSharePoint () {
+  showLoader()
+  try {
+    await deleteFoodSharePoint(props.foodSharePointId)
+    pulseSuccess(i18n('fsp.deleteSuccess'))
+    window.location.href = url('foodsharepoints', props.regionId)
+  } catch (error) {
+    console.error('removeFoodSharePoint', error)
+    pulseError(i18n('error_unexpected'))
+  } finally {
+    hideLoader()
+  }
+}
+
 function onAddressChanged (coordinates, street, postalCode, city) {
   formData.value.location = coordinates
   formData.value.address = street
@@ -162,8 +195,7 @@ onMounted(() => {
     }
     hideLoader()
     dataLoaded.value = true // Data is now loaded
-    console.log('response', response)
-    console.log('formData', formData.value)
+    console.log('regionId', props.regionId)
   })
 })
 </script>

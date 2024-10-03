@@ -197,22 +197,6 @@ class FoodSharePointController extends FoodsharingController
         );
         $this->pageHelper->addBread($this->translator->trans('fsp.edit'));
 
-        /* $items = [
-             [
-                 'name' => $this->translator->trans('back'),
-                 'href' => '/fairteiler?sub=ft&bid=' . $this->regionId . '&id=' . $this->foodSharePoint['id'],
-             ],
-         ];
-
-         if ($this->foodSharePointPermissions->mayDeleteFoodSharePointOfRegion($this->regionId)) {
-             $items[] = [
-                 'name' => $this->translator->trans('fsp.delete'),
-                 'click' => 'if(confirm(\''
-                     . $this->translator->trans('fsp.deleteConfirm')
-                     . '\')){goTo(\'/fairteiler?sub=ft&bid=' . $this->regionId . '&id=' . $this->foodSharePoint['id'] . '&delete=1\');}return false;',
-             ];
-         } */
-
         $foodSharePoint = $this->prepareVueComponent('food-share-point-add-or-edit', 'FoodSharePointAddOrEdit', [
             'foodSharePointId' => $this->foodSharePoint['id'],
             'regionId' => $this->regionId
