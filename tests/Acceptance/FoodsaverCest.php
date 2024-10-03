@@ -65,7 +65,7 @@ class FoodsaverCest
         // Find an address in the search field
         $I->click('#change-address-button');
         $I->waitForText('Adresse auswählen');
-        $I->fillField('#searchinput', $address);
+        $I->fillField('#search-address-input', $address);
         $I->waitForElementVisible('#searchinput_listbox');
         $I->click("//*[@id='searchinput_listbox']//*[contains(text(), 'Teststraße 1')]");
         $I->click('Adresse übernehmen');
