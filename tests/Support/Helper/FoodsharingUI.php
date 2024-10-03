@@ -24,29 +24,27 @@ class FoodsharingUI extends Module
      * @param string $tagSelectSelector the CSS selector for the TagSelect component
      */
     public function addInTagSelect(string $value, string $tagSelectSelector = '#tags-with-dropdown'): void
-    {
-        $browser = $this->getBrowser();
+{
+    $browser = $this->getBrowser();
 
-        $dropdownToggleSelector = $tagSelectSelector . ' .dropdown-toggle';
-        $browser->click($dropdownToggleSelector);
+    $dropdownToggleSelector = $tagSelectSelector . ' .dropdown-toggle';
+    $browser->click($dropdownToggleSelector);
 
-        $inputSelector = $tagSelectSelector . ' #tag-search-input';
-        $browser->waitForElementVisible($inputSelector);
-        $browser->fillField($inputSelector, $value);
+    $inputSelector = $tagSelectSelector . ' #tag-search-input';
+    $browser->waitForElementVisible($inputSelector);
+    $browser->fillField($inputSelector, $value);
 
-        $suggestionSelector = $tagSelectSelector . ' .dropdown-item';
-        $browser->waitForElementVisible($suggestionSelector);
+    $suggestionSelector = $tagSelectSelector . ' .dropdown-item';
+    $browser->waitForElementVisible($suggestionSelector);
 
-        $suggestionXPath = $tagSelectSelector . sprintf(
-            '/descendant::button[contains(@class, "dropdown-item-button") and normalize-space(text())="%s"]',
-            $value
-        );
-        $browser->click($suggestionXPath);
+    // Find all dropdown items and click the one with matching text
+    $browser->click("//button[contains(@class, 'dropdown-item') and contains(text(), '$value')]");
+    $browser->wait(1); // Wait for 1 second
 
-        $tagSelector = $tagSelectSelector . ' .list-inline-item';
-        $browser->waitForElementVisible($tagSelector);
-        $browser->see($value, $tagSelector);
-    }
+    $tagSelector = $tagSelectSelector . ' .list-inline-item';
+    $browser->waitForElementVisible($tagSelector);
+    $browser->see($value, $tagSelector);
+}
 
     /**
      * Removes a value from the Bootstrap-Vue TagSelect component.
