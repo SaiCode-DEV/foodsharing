@@ -138,6 +138,15 @@ function wait-for-assets() {
   echo
 }
 
+function wait-for-api-dump() {
+  while [ $(wc -l < docs/data/api_dump.json) -lt 1000 ];
+  do
+    sleep 1;
+    echo -ne ".";
+  done
+  echo
+}
+
 function gitlab_start_section() {
   local section_id=$1; shift
   local message=$*

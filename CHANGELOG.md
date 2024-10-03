@@ -75,6 +75,7 @@
 - Removed jquery tablesorter #2136 !3648 @chriswalg
 - Deleted the lookup command and module @alex.simm
 - Data for the region subpages is now fetched from the API #1838 !3624 @alex.simm
+- Wait for Devdocs Assets to be loaded before generating the devdocs site !3662 @SaiCode
 
 # Hotfix 2024-08-29
 
