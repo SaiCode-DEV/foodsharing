@@ -28,14 +28,6 @@ class FoodSharePointView extends View
     private array $regions;
 
     private array $foodSharePoint;
-    /**
-     * @var Profile[]
-     */
-    private array $managers;
-    /**
-     * @var Profile[]
-     */
-    private array $followers;
 
     private readonly FoodSharePointPermissions $fspPermissions;
 
