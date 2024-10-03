@@ -82,7 +82,6 @@ export default {
     placeholder: { type: String, default: '' },
     buttonIcon: { type: String, required: true },
     buttonTooltip: { type: String, default: '' },
-    isValueObject: { type: Boolean, default: false },
     /**
      * If not null, the search is restricted to this region.
      */
@@ -158,7 +157,6 @@ export default {
     },
     async loadingInitialValues () {
       this.userObjects = await Promise.all(this.value.map(async (id) => {
-        id = this.isValueObject ? id.id : id
         const user = await getBasicUser(id)
         return JSON.stringify({
           id: user.id,

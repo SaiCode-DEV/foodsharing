@@ -56,10 +56,9 @@
 
         <label for="tags-basic">Foodsaver:innen, die Ansprechpersonen für den Fairteiler sind</label>
         <multi-user-search-input
-          v-model="formData.manager"
+          v-model="formData.managerIds"
           :region-id="formData.regionId"
           button-icon="fa-user-plus"
-          :is-value-object="true"
         />
 
         <b-button variant="secondary" @click="saveFoodSharePoint">
@@ -106,7 +105,7 @@ const formData = ref({
   postalCode: '',
   city: '',
   location: { lat: null, lon: null },
-  managers: [],
+  managerIds: [],
 })
 
 async function saveFoodSharePoint () {
@@ -141,7 +140,17 @@ onMounted(() => {
   }
   showLoader()
   getFoodSharePoint(props.foodSharePointId).then((response) => {
-    formData.value = response
+    formData.value = {
+      regionId: response.regionId,
+      name: response.name,
+      description: response.description,
+      picture: response.picture,
+      address: response.address,
+      postalCode: response.postalCode,
+      city: response.city,
+      location: response.location,
+      managerIds: response.manager.map(x => x.id),
+    }
     hideLoader()
     dataLoaded.value = true // Data is now loaded
     console.log('response', response)
