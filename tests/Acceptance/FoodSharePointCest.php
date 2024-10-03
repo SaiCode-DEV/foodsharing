@@ -53,12 +53,12 @@ class FoodSharePointCest
         $I->waitForText('Fairteiler eintragen', 10);
         $I->click('Fairteiler eintragen');
         $I->waitForText('In welchem Bezirk');
-        $I->selectOption('#fsp_bezirk_id', $this->testBezirk['id']);
-        $I->fillField('#name', 'The greatest fairsharepoint');
-        $I->fillField('#desc', 'Blablabla if you come here be hungry!');
+        $I->selectOption('#district-select', $this->testBezirk['id']);
+        $I->fillField('#name-input', 'The greatest fairsharepoint');
+        $I->fillField('#desc-input', 'Blablabla if you come here be hungry!');
 
         // Find an address in the search field
-        $I->fillField('#searchinput', $address);
+        $I->fillField('#search-address-input', $address);
         $I->waitForElementVisible('#searchinput_listbox');
         $I->click("//*[@id='searchinput_listbox']//*[contains(text(), 'Teststraße 1')]");
 
@@ -86,10 +86,10 @@ class FoodSharePointCest
         $I->amOnPage($I->foodSharePointEditUrl($this->foodSharePoint['id']));
         $I->waitForText('Schreibe hier ein paar grundsätzliche Infos über den Fairteiler');
         $I->waitForText('insbesondere wann er zugänglich/geöffnet ist');
-        $I->fillField('#name', 'The BEST fairshare point!');
-        $I->addInTagSelect($user['name'], '#fspmanagers');
+        $I->fillField('#name-input', 'The BEST fairshare point!');
+        $I->addInTagSelect($user['name'], '#fspmanagers-input');
         $I->click('Speichern');
-        // $I->waitForText('erfolgreich bearbeitet');
+        $I->waitForText('erfolgreich bearbeitet');
         $I->reloadPage();
         $I->waitForText($user['name'] . ' ' . $user['nachname']);
     }

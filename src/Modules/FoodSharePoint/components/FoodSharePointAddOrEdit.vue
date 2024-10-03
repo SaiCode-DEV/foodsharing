@@ -4,7 +4,7 @@
       <b-form>
         <b-form-group
           :label="$i18n('fsp_bezirk_id')"
-          label-for="district-select"
+          label-for="district-select-label"
           required
         >
           <b-form-select
@@ -15,7 +15,7 @@
           />
         </b-form-group>
 
-        <b-form-group :label="$i18n('name')" label-for="name-input">
+        <b-form-group :label="$i18n('name')">
           <b-form-input
             id="name-input"
             v-model="formData.name"
@@ -28,6 +28,7 @@
         <b-form-group :label="$i18n('desc')" label-for="description-md">
           {{ $i18n('fsp.descLabel') }}
           <MarkdownInput
+            id="desc-input"
             :value.sync="formData.description"
             conceal-toolbar
             variant="outline-primary"
@@ -57,8 +58,9 @@
           />
         </b-form-group>
 
-        <label for="tags-basic">{{ $i18n('fspmanagers') }}</label>
+        <label for="fspmanagers-label">{{ $i18n('fspmanagers') }}</label>
         <multi-user-search-input
+          id="fspmanagers-input"
           v-model="formData.managerIds"
           :region-id="formData.regionId"
           button-icon="fa-user-plus"

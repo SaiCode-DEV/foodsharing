@@ -12,7 +12,7 @@
     </div>
     <b-form-group>
       <b-form-input
-        id="searchinput"
+        id="search-address-input"
         v-model="searchInput"
         :placeholder="$i18n('addresspicker.placeholder')"
         :disabled="disabled"
