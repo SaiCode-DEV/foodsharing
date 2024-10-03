@@ -146,7 +146,7 @@ export default {
     })
 
     // bind the search engine to the text field
-    const searchpanel = $('#searchinput')
+    const searchpanel = $('#search-address-input')
     searchpanel.typeahead({
       highlight: true,
       minLength: 3,
