@@ -247,6 +247,14 @@ class FoodSharePointController extends FoodsharingController
         $this->routeHelper->goAndExit('/fairteiler?sub=ft&id=' . $this->foodSharePoint['id']);
     }
 
+    private function delete(): void
+    {
+        if ($this->foodSharePointGateway->deleteFoodSharePoint($this->foodSharePoint['id'])) {
+            $this->flashMessageHelper->info($this->translator->trans('fsp.deleteSuccess'));
+            $this->routeHelper->goAndExit('/fairteiler?bid=' . $this->regionId);
+        }
+    }
+
     private function ft(): void
     {
         $this->pageHelper->addBread($this->foodSharePoint['name']);
