@@ -6,6 +6,7 @@ use DateTime;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\Profile;
 use JMS\Serializer\Annotation\Type;
+use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -25,25 +26,21 @@ class FoodSharePointData extends FoodSharePointForCreation
     #[OA\Property(
         description: 'IDs of all users who are responsible for the food share point',
         type: 'array',
-        items: new OA\Items(type: 'int', example: 1))
+        items: new OA\Items(ref: new Model(type: Profile::class))),
     ]
     #[Assert\Count(min: 1)]
-    #[Assert\All(new Assert\Positive())]
-    #[Type('array<int>')]
-    public array $managerIds;
+    #[Type('array<Foodsharing\Modules\Foodsaver\Profile>')]
+    // TODO: rename into 'managers'
+    public array $manager;
 
-    #[Assert\All(new Assert\Positive())]
-    #[Type('array<int>')]
-    public array $followerIds;
-
-    #[Assert\All(new Assert\Positive())]
-    #[Type('array<int>')]
-    public array $allUserIds;
+    #[Type('array<Foodsharing\Modules\Foodsaver\Profile>')]
+    // TODO: rename into 'followers'
+    public array $follower;
 
     public static function createFromArray(array $data): self
     {
         $foodSharePoint = new self();
-        $foodSharePoint->id = 'id';
+        $foodSharePoint->id = $data['id'];
         $foodSharePoint->regionId = $data['bezirk_id'];
         $foodSharePoint->name = $data['name'];
         $foodSharePoint->picture = $data['picture'];
@@ -60,6 +57,8 @@ class FoodSharePointData extends FoodSharePointForCreation
         ]);
 
         // TODO: add followers
+        $foodSharePoint->follower = $data['followers'];
+        $foodSharePoint->manager = $data['managers'];
 
         return $foodSharePoint;
     }

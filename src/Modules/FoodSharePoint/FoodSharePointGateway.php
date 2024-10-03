@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Modules\FoodSharePoint;
 
+use Carbon\Carbon;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\BaseGateway;
@@ -10,6 +11,7 @@ use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
+use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointData;
@@ -378,6 +380,10 @@ class FoodSharePointGateway extends BaseGateway
         return $result;
     }
 
+    /**
+     * TODO: split up the data for FSPs and followers into two functions, two DTOs. Replace the REST endpoint with
+     * two endpoints. After that, mark getFoodSharePoint and getFollower as deprecated.
+     */
     public function getFoodSharePointWithFollowers(int $foodSharePointId): ?FoodSharePointData
     {
         $result = $this->db->fetchAll(
@@ -393,7 +399,7 @@ class FoodSharePointGateway extends BaseGateway
                 ft.`ort`,
                 ft.`lat`,
                 ft.`lon`,
-                ft.`add_date`,
+                UNIX_TIMESTAMP(ft.`add_date`) AS add_date,
                 ft.`add_foodsaver`,
                 fs.name AS fs_name,
                 fs.nachname AS fs_nachname,
@@ -429,17 +435,14 @@ class FoodSharePointGateway extends BaseGateway
             'ort' => $result[0]['ort'],
             'lat' => $result[0]['lat'],
             'lon' => $result[0]['lon'],
-            'add_date' => $result[0]['add_date'],
+            'add_date' => Carbon::createFromTimestamp($result[0]['add_date']),
             'add_foodsaver' => $result[0]['add_foodsaver'],
             'fs_name' => $result[0]['fs_name'],
             'fs_nachname' => $result[0]['fs_nachname'],
             'fs_id' => $result[0]['fs_id'],
             'pic' => !empty($result[0]['picture']) ? $this->getPicturePaths($result[0]['picture']) : false,
-            'followers' => [
-                'follow' => [],
-                'manager' => [],
-                'all' => [],
-            ],
+            'followers' => [],
+            'managers' => [],
         ];
 
         foreach ($result as $row) {
@@ -453,11 +456,9 @@ class FoodSharePointGateway extends BaseGateway
                 ];
 
                 if ($row['follower_type'] === FollowerType::FOLLOWER) {
-                    $foodSharePoint['followers']['follow'][] = $follower;
-                    $foodSharePoint['followers']['all'][$row['follower_id']] = 'follow';
+                    $foodSharePoint['followers'][] = new Profile($follower);
                 } elseif ($row['follower_type'] === FollowerType::FOOD_SHARE_POINT_MANAGER) {
-                    $foodSharePoint['followers']['manager'][] = $follower;
-                    $foodSharePoint['followers']['all'][$row['follower_id']] = 'manager';
+                    $foodSharePoint['managers'][] = new Profile($follower);
                 }
             }
         }

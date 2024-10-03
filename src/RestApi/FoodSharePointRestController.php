@@ -87,7 +87,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         $this->assertLoggedIn();
 
         $foodSharePoint = $this->foodSharePointGateway->getFoodSharePointWithFollowers($foodSharePointId);
-        if (!$foodSharePoint || $foodSharePoint['status'] !== 1) {
+        if (!$foodSharePoint || $foodSharePoint->status !== 1) {
             throw new NotFoundHttpException('Food share point does not exist or was deleted.');
         }
 
