@@ -652,6 +652,8 @@ terminology:
   landline: Número de teléfono fijo
   mobile_phone: Número de teléfono móvil
   hygiene_training: Formación en higiene
+  sent: Enviado
+  received: Recibido
 groups:
   empty: Aún no estás en ningún grupo de trabajo
 position: Puesto en foodsharing (público)
@@ -1318,6 +1320,7 @@ button:
   start: ¡Vamos!
   confirm: confirmar
   countdown_clickable: Clicable en {countdown} segundos
+  ok: De acuerdo
 pass:
   nav:
     options: 'Opciones'
@@ -1505,6 +1508,8 @@ store:
     confirm-no-location: No has introducido una dirección válida en tu perfil. Por
       favor, introduzca una dirección para facilitar a los responsables de la empresa
       la decisión sobre tu candidatura.
+    application-message: Mensaje de aplicación
+    application-placeholder: Me gustaría ayudar en este equipo porque...
   all_of_my_stores: 'Todas mis empresas'
   prefetchone: '1 semana'
   go: 'Al equipo'
@@ -2226,6 +2231,8 @@ profile:
 
       '
     alreadyGiven: '{name} ya recibió un plátano de tu parte.'
+    recieved_none:
+      you: Todavía no has recibido una estrella de confianza.
   online: '{name} está en línea.'
   infos:
     title: 'Información'

@@ -196,6 +196,9 @@ class QuizTransactions
                 case QuizID::HYGIENE->value:
                     // TODO award achievement
                     break;
+                case QuizID::FOODSAVER_FR->value:
+                    //TODO rise role
+                    break;
             }
             $this->updateQuizRoleForCurrentUser();
         }

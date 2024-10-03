@@ -19,7 +19,6 @@ use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
-use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Core\DTO\MinimalIdentifier;
 use Foodsharing\Modules\Core\DTO\PatchGeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -99,20 +98,12 @@ class StoreTransactions
      */
     public function getStoreApplications(int $storeId): array
     {
-        $requests = [];
+        $store = $this->storeGateway->getStore($storeId);
         try {
-            $store = $this->storeGateway->getStore($storeId, true);
-            $requests = $this->storeGateway->getApplications($storeId, GeoLocation::createFromArray([
-                'lat' => $store->location->lat,
-                'lon' => $store->location->lon,
-            ]));
-        } catch (DatabaseNoValueFoundException) {
-            // store does not exist
+            return $this->storeGateway->getApplications($storeId, $store->location);
+        } catch (\Throwable $th) {
+            return [];
         }
-
-        return [
-            'storeRequests' => $requests,
-        ];
     }
 
     public function getCommonStoreMetadata($supressStoreChains = true): CommonStoreMetadata
@@ -716,11 +707,11 @@ class StoreTransactions
         return $storeTeamMemberships;
     }
 
-    public function requestStoreTeamMembership(int $storeId, int $userId): void
+    public function requestStoreTeamMembership(int $storeId, int $userId, ?string $message): void
     {
         $this->storeGateway->addStoreRequest($storeId, $userId);
 
-        $this->storeGateway->addStoreLog($storeId, $userId, null, null, StoreLogAction::REQUEST_TO_JOIN);
+        $this->storeGateway->addStoreLog($storeId, $userId, null, null, StoreLogAction::REQUEST_TO_JOIN, $message);
 
         $this->notifyStoreManagersAboutRequest($storeId);
     }

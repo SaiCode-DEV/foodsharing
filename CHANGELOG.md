@@ -17,6 +17,9 @@
 - Added new Digital Foodsharing Passports for Android and iOS !3591 @SaiCode
 - Food baskets support multiple images now. Image quality issues are resolve. #1797 #1714 !3304 @AntonBallmaier
 - Added the option to test a quiz from the quiz editor. #2112 !3612 @AntonBallmaier
+- Added the option to send a message with a store aplication #2017 !3461 @AntonBallmaier
+- Added a french foodsaver quiz that can be edited but not yet accessed #2149 !3672 @AntonBallmaier
+- Added a tab in the banana modal for sent bananas. #2075 !3581 !3676 @AntonBallmaier @SaiCode
 
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9
@@ -30,6 +33,9 @@
 - Rework default options in store information #33 !3623 @chriswalg
 - Changed the Icon for resolving basket requests #2119 #1363 !3636 @SaiCode
 - Change limit to 535 / 520 for public_info -> store !3646 @chriswalg
+- Reworked the list of store applicants. !3461 @AntonBallmaier
+- On mobile, always show button to mark chat message as read #2110 !3659 @iron9
+- Temporarily disabled the member list for countries and Europe #2147 !3677 @alex.simm
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
@@ -48,7 +54,7 @@
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
 - Added an enum for wall types in the backend #1996 !3573 @alex.simm
 - Bananas now use the API !3581 @AntonBallmaier
-- Moved region store to pinia !3619 !3629 @chriswalg
+- Moved region store to pinia !3619 !3629 !3679 @chriswalg
 - Moved userStore to pinia for future improvements !3531 !3617 !3632 @SaiCode
 - Reduced the number of database requests in some store API endpoints #1662 !3615 @alex.simm
 - Removed jQuery autosize !3635 @SaiCode
@@ -68,6 +74,8 @@
 - Devdocs: Huge update from Docusaurus to VitePress #2124 #1755 #1913 !3640 !3655 @SaiCode
 - Removed jquery tablesorter #2136 !3648 @chriswalg
 - Deleted the lookup command and module @alex.simm
+- Data for the region subpages is now fetched from the API #1838 !3624 @alex.simm
+- Wait for Devdocs Assets to be loaded before generating the devdocs site !3662 @SaiCode
 
 # Hotfix 2024-08-29
 

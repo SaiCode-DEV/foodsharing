@@ -3,7 +3,7 @@
 The RestAPI is the major communication interface between backend and frontends like web client, or native apps. The RestAPI is described using [OpenAPI](https://swagger.io/docs/specification) and rendered by swagger-php. That way developers can see all available API endpoints documented nicely.
 
 The foodsharing documentation is provided on
-- [Devdocs](https://devdocs.foodsharing.network/docs-api/foodsharing-api)
+- [Devdocs](/api/)
 - [OpenAPI/Swagger for Beta ](https://beta.foodsharing.de/api/doc/)
 - [OpenAPI/Swagger for Production ](https://foodsharing.de/api/doc/)
 - [API Documentation (local development environment)](http://localhost:18080/api/doc/)

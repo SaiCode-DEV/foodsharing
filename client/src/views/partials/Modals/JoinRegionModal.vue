@@ -138,14 +138,14 @@ export default {
     regionStore.fetchSelectedRegionChildren(0)
   },
   methods: {
-    updateSelected (index) {
+    async updateSelected (index) {
       this.selected.length = index + 1
 
       for (let i = 0; i < index + 1; i++) {
         const id = this.selected[i]
         const region = this.regions.find(r => r.id === id)
         if (id && !region) {
-          regionStore.fetchSelectedRegionChildren(id)
+          await regionStore.fetchSelectedRegionChildren(id)
           const list = this.filterRegions(regionStore.selectedRegionChildren)
 
           if (list.length > 0) {

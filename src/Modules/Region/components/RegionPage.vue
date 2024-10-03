@@ -102,10 +102,6 @@
         <Pin
           v-if="activeSubpage === SUB_PAGE.PIN"
           :region-id="regionId"
-          :lat="pageData.lat"
-          :lon="pageData.lon"
-          :desc="pageData.desc"
-          :status="pageData.status"
         />
         <Wall
           v-if="activeSubpage === SUB_PAGE.WALL"

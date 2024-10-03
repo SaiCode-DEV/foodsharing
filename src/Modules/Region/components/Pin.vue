@@ -20,7 +20,7 @@
 
           <LeafletLocationPicker
             :zoom="6"
-            :coordinates="{lat: inlat, lon: inlon}"
+            :coordinates="{lat, lon}"
             :icon="locationPickerIcon"
             :marker-draggable="true"
             @coordinates-changed="updateCoordinates"
@@ -52,7 +52,7 @@
   </div>
 </template>
 <script>
-import { setRegionPin } from '@/api/regions'
+import { getRegionPin, setRegionPin } from '@/api/regions'
 import { pulseError, pulseInfo } from '@/script'
 import i18n from '@/helper/i18n'
 import L from 'leaflet'
@@ -67,19 +67,6 @@ const STATUS_ACTIVE = 1
 export default {
   components: { LeafletLocationPicker, MarkdownInput },
   props: {
-    lat: {
-      type: String,
-      default: '',
-    },
-    lon: {
-      type: String,
-      default: '',
-    },
-    desc: {
-      type: String,
-      default: '',
-    },
-    status: { type: Number, default: STATUS_INACTIVE },
     regionId: { type: Number, required: true },
     regionName: {
       type: String,
@@ -89,19 +76,35 @@ export default {
   data () {
     return {
       isLoading: false,
-      inlat: this.lat,
-      inlon: this.lon,
-      description: this.desc ?? '',
-      isActive: this.status === STATUS_ACTIVE,
+      lat: 0,
+      lon: 0,
+      description: '',
+      status: STATUS_INACTIVE,
+      isActive: false,
       locationPickerIcon: L.AwesomeMarkers.icon({ icon: 'users', markerColor: 'green' }),
     }
+  },
+  async mounted () {
+    this.isLoading = true
+    try {
+      const data = await getRegionPin(this.regionId)
+      Object.assign(this, data)
+      this.isActive = this.status === STATUS_ACTIVE
+    } catch (e) {
+      if (e.code === 404) {
+        // The region exists but does not have a pin yet
+      } else {
+        pulseError(i18n('error_unexpected'))
+      }
+    }
+    this.isLoading = false
   },
   methods: {
     async trySendPin () {
       this.isLoading = true
       const status = this.isActive ? STATUS_ACTIVE : STATUS_INACTIVE
       try {
-        await setRegionPin(this.regionId, this.inlat, this.inlon, this.description, status)
+        await setRegionPin(this.regionId, this.lat, this.lon, this.description, status)
         pulseInfo(i18n('regionPin.success'))
       } catch (err) {
         console.error(err)
@@ -110,8 +113,8 @@ export default {
       this.isLoading = false
     },
     updateCoordinates (coords) {
-      this.inlat = coords.lat
-      this.inlon = coords.lon
+      this.lat = coords.lat
+      this.lon = coords.lon
     },
   },
 }

@@ -159,8 +159,9 @@ services:
   docs:
     user: ${CURRENT_USER}
     container_name: foodsharing_docs
-    image: registry.gitlab.com/foodsharing-dev/images/docs:latest
+    image: registry.gitlab.com/foodsharing-dev/images/docs:55
     working_dir: /app/docs
+    restart: unless-stopped # when crash due to api_dump not ready
     volumes:
       - ../:/app:delegated
     expose:

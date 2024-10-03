@@ -22,6 +22,7 @@ use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\DTO\CommonStoreMetadata;
 use Foodsharing\Modules\Store\DTO\PatchStore;
 use Foodsharing\Modules\Store\DTO\Store;
+use Foodsharing\Modules\Store\DTO\StoreApplicationMessage;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreTransactionException;
 use Foodsharing\Modules\Store\StoreTransactions;
@@ -39,6 +40,7 @@ use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -46,6 +48,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class StoreRestController extends AbstractFoodsharingRestController
 {
@@ -156,6 +159,7 @@ class StoreRestController extends AbstractFoodsharingRestController
         /*
          * @TODO: This deactivates store lists for Europe and countries because it needs to much memory on the server.
          * Can be remove when there is pagination.
+         * See also RegionPermissions:maySeeRegionMembers for the same problem with region members.
          */
         if (in_array($regionId, [RegionIDs::EUROPE, RegionIDs::GERMANY, RegionIDs::AUSTRIA, RegionIDs::SWITZERLAND])) {
             throw new AccessDeniedHttpException();
@@ -605,7 +609,7 @@ class StoreRestController extends AbstractFoodsharingRestController
      * Request to join a store team.
      *
      * @OA\Parameter(name="storeId", in="path", @OA\Schema(type="integer"), description="for which store to apply")
-     * @OA\Parameter(name="userId", in="path", @OA\Schema(type="integer"), description="user that wants to be accepted")
+     * @OA\RequestBody(@Model(type=StoreApplicationMessage::class))
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permissions to be member of a store team")
@@ -613,25 +617,26 @@ class StoreRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="422", description="Already applied or already member of this store team")
      * @OA\Tag(name="stores")
      */
-    #[Rest\Post('stores/{storeId}/requests/{userId}')]
-    public function requestStoreTeamMembership(int $storeId, int $userId): Response
+    #[Rest\Post('stores/{storeId}/requests')]
+    #[ParamConverter(data: 'message', converter: 'fos_rest.request_body')]
+    public function requestStoreTeamMembership(int $storeId, StoreApplicationMessage $message, ValidatorInterface $validator): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
-        }
+        $this->assertLoggedIn();
+        $this->assertThereAreNoValidationErrors($validator, $message);
         if (!$this->storeGateway->storeExists($storeId)) {
             throw new NotFoundHttpException('Store does not exist.');
         }
-        if (!$this->storePermissions->mayJoinStoreRequest($storeId, $userId)) {
+        if (!$this->storePermissions->mayJoinStoreRequest($storeId, $this->session->id())) {
             throw new AccessDeniedHttpException();
         }
-        if ($this->storeGateway->getUserTeamStatus($userId, $storeId) !== TeamMembershipStatus::NoMember) {
+        if ($this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) !== TeamMembershipStatus::NoMember) {
             throw new UnprocessableEntityHttpException('User has already applied or is already member of this store.');
         }
 
-        $this->storeTransactions->requestStoreTeamMembership($storeId, $userId);
+        // $message = isset($message->message) ? $message->message : null;
+        $this->storeTransactions->requestStoreTeamMembership($storeId, $this->session->id(), $message->message);
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 
     /**

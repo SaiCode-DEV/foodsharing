@@ -26,6 +26,10 @@ export function getRegionOptions (regionId) {
   return get(`/region/${regionId}/options`)
 }
 
+export function getRegionPin (regionId) {
+  return get(`/region/${regionId}/pin`)
+}
+
 export function setRegionPin (regionId, lat, lon, desc, status) {
   return post(`/region/${regionId}/pin`, {
     lat: lat,

@@ -7,7 +7,7 @@ source "$dir"/__common.sh
 
 declare -r base_dir=$(cd "$dir/.." && pwd)
 
-if [[ "${1:-}" == "full" ]]; then
+if [[ "${1:-}" == "full" || "${1:-}" == "all" ]]; then
   log-header "Removing containers and images"
   FS_ENV="test"
   "$dir"/docker-compose down --volumes --remove-orphans
@@ -34,6 +34,12 @@ log-header "Removing directories"
         "$base_dir"/cache \
         "${base_dir:?}"/var \
         "$base_dir"/tmp \
-        "$base_dir"/tests/_output
+        "$base_dir"/tests/_output \
+        "$base_dir"/docs/data/api_dump.json\
+        "$base_dir"/docs/data/build \
+        "$base_dir"/docs/.vitepress/dist \
+        "$base_dir"/docs/.vitepress/cache \
+        "$base_dir"/docs/.vitepress/.temp \
+        "$base_dir"/docs/.npm
 
 log-header "All clean!"

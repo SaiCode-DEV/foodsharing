@@ -1,13 +1,13 @@
 <template>
   <button
-    class="dropdown-header dropdown-item d-flex justify-content-between align-items-center"
+    class="dropdown-header dropdown-item d-flex justify-content-between align-items-center gap"
     :class="{
       'list-group-item-warning': conversation.unreadMessages,
     }"
     @click="openChat"
   >
-    <ConversationAvatar class="mr-2" :conversation="conversation" />
-    <span class="d-flex w-100 flex-column text-truncate">
+    <ConversationAvatar :conversation="conversation" />
+    <span class="flex-grow-1 d-flex flex-column text-truncate">
       <span class="d-flex justify-content-between align-items-center text-truncate">
         <span
           class="mb-1 text-truncate"
@@ -23,13 +23,19 @@
           <strong>{{ lastAuthorName }}: </strong>
           {{ conversation.lastMessage.body }}
         </span>
-        <i
-          v-b-tooltip.noninteractive="$i18n(`chat.mark_as.${conversation.unreadMessages ? 'read' : 'unread'}`)"
-          :class="`fas fa-eye${conversation.unreadMessages ? '' : '-slash'} mark-read-icon`"
-          @click.stop="() => toggleReadStatus()"
-        />
       </small>
     </span>
+    <b-button
+      v-b-tooltip.noninteractive="$i18n(`chat.mark_as.${conversation.unreadMessages ? 'read' : 'unread'}`)"
+      size="sm"
+      variant="outline-secondary"
+      class="mark-read-button"
+      @click.stop="() => toggleReadStatus()"
+    >
+      <i
+        :class="`fas fa-eye${conversation.unreadMessages ? '' : '-slash'}`"
+      />
+    </b-button>
   </button>
 </template>
 <script>
@@ -91,24 +97,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.mark-read-icon {
+.gap {
+  gap: 0.5rem;
+}
+
+.mark-read-button {
   display: none;
 }
-.dropdown-item:hover {
-  .text-preview {
-    padding-right: 1.5rem;
-  }
-  .mark-read-icon {
-    display: inline;
-    position: absolute;
-    right: 0;
-    top: .35em;
-    &:hover {
-      color: var(--fs-color-info-500);
-    }
-  }
+
+.dropdown-item:hover .mark-read-button {
+  display: inline;
 }
-.nowrap {
-    white-space: nowrap;
+
+@media (max-width: 768px) {
+  .mark-read-button {
+    display: inline;
+  }
 }
 </style>
