@@ -32,7 +32,7 @@ if [[ ! $("$dir"/docker-compose ps | grep -c "Up" | awk '{print $1}') -eq 12 ]];
     exec-in-container app "bin/console assets:install"
 fi
 
-if sql-query mysql 'use foodsharing'; then
+if ! sql-query mysql 'use foodsharing'; then
     log-header "Initialize Database ..."
     sql-query mysql "drop database if exists foodsharing; create database foodsharing"
 
