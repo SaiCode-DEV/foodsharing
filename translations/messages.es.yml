@@ -3631,6 +3631,7 @@ footer:
     beta_testing_issues: 'Tareas de prueba beta'
     it_devdocs: 'por foodsharing TI'
     version: 'Versión: {version}'
+    made_with: Hecho con
   partner_names:
     denns: 'Denn’s Biomarkt'
     wiener_tafel: 'Banco de Alimentos de Viena'
@@ -3981,6 +3982,7 @@ releases:
   "2024-01": Lanzamiento “Kiwi” 🥝 (Enero 2024)
   "2024-04": Lanzamiento de "Pretzel" 🥨 (abril de 2024)
   "2024-08": Lanzamiento de "Mandarine" 🍊 (agosto de 2024)
+  "2024-12": Versión beta "Nectarina" 🍑 (diciembre de 2024)
 salutation:
   "2": 'Querida'
   "3": 'Queride'
