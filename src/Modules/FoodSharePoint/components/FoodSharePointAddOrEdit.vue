@@ -179,6 +179,7 @@ const errors = ref({
   managerIds: '',
 })
 
+// ToDo: Move custom validation to vuelidate, if vuelidate is latest or min. 2.0.4
 const validateForm = () => {
   let isValid = true
 
