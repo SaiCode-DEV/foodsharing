@@ -126,15 +126,19 @@ class FoodSharePointTransactions
     {
         $this->foodSharePointGateway->updateFoodSharePoint($foodSharePointId, $newData);
 
-        // If a picture was uploaded for this food share point, its usage type needs to be set
-        if (!empty($newData->picture) && $newData->picture !== $currentData['picture']) {
+        /* If the picture of this food share point was changed, the usage type of the new one (if any) needs to be set
+         and the old picture needs to be deleted. */
+        $newPicture = $newData->picture ?? '';
+        if ($newPicture !== $currentData['picture']) {
             if (!empty($currentData['picture'])) {
                 $oldUUID = substr($currentData['picture'], 13);
                 $this->uploadsTransactions->deleteUploadedFile($oldUUID);
             }
 
-            $uuid = substr($newData->picture, 13);
-            $this->uploadsGateway->setUsage([$uuid], UploadUsage::FOOD_SHARE_POINT_TITLE, $foodSharePointId);
+            if(!empty($newPicture)) {
+                $uuid = substr($newPicture, 13);
+                $this->uploadsGateway->setUsage([$uuid], UploadUsage::FOOD_SHARE_POINT_TITLE, $foodSharePointId);
+            }
         }
 
         $this->foodSharePointGateway->updateFSPManagers($currentData['id'], $newData->managerIds);

@@ -212,12 +212,6 @@ const validateForm = () => {
     isValid = false
   }
 
-  // Validate picture
-  if (formData.value.picture === null) {
-    errors.value.picture = i18n('fsp.form_validation.required', { name: 'picture' })
-    isValid = false
-  }
-
   // Validate address
   if (formData.value.address === null) {
     errors.value.address = i18n('fsp.form_validation.required', { name: 'address' })
