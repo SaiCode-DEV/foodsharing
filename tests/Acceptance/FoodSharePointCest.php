@@ -55,7 +55,7 @@ class FoodSharePointCest
         $I->waitForText('In welchem Bezirk');
         $I->selectOption('#district-select', $this->testBezirk['id']);
         $I->fillField('#name-input', 'The greatest fairsharepoint');
-        $I->executeJS('$("#esc-input").val("Blablabla if you come here be hungry!")');
+        $I->executeJS('$("#desc-input").val("Blablabla if you come here be hungry!")');
 
         // Find an address in the search field
         $I->fillField('#search-address-input', $address);
