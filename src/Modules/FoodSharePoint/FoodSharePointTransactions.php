@@ -135,7 +135,7 @@ class FoodSharePointTransactions
                 $this->uploadsTransactions->deleteUploadedFile($oldUUID);
             }
 
-            if(!empty($newPicture)) {
+            if (!empty($newPicture)) {
                 $uuid = substr($newPicture, 13);
                 $this->uploadsGateway->setUsage([$uuid], UploadUsage::FOOD_SHARE_POINT_TITLE, $foodSharePointId);
             }
