@@ -206,12 +206,12 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-
 .preview {
   background-color: var(--fs-color-gray-500);
   padding: 0;
 }
 </style>
+
 <style lang="scss">
 .full-resize {
   @media (min-width: 576px) {
@@ -220,4 +220,9 @@ export default {
   }
 }
 
+.dark-mode .croppie-container {
+  input[type=range].cr-slider{
+    filter: invert(1) brightness(200);
+  }
+}
 </style>

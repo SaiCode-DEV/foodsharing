@@ -17,6 +17,7 @@
     :single-room="popupMode"
     :text-messages="JSON.stringify(textMessages)"
     :theme="themeStore.isDark ? 'dark' : 'light'"
+    :styles="JSON.stringify(computedStyle)"
     emoji-data-source="/assets/emoji-picker-element-data/de/data.json"
     @fetch-messages="fetchMessages($event.detail[0])"
     @fetch-more-rooms="fetchMoreRooms"
@@ -80,6 +81,18 @@ register()
 
 const userStore = useUserStore()
 const themeStore = useThemeStore()
+
+// https://github.com/optidatacloud/vue-advanced-chat/blob/master/src/themes/index.js
+const customStyle = {
+  dark: {
+    message: {
+      backgroundMe: '#0f1d06',
+    },
+  },
+  light: {
+
+  },
+}
 
 const NEW_CONVERSATION_ID = Number.MAX_SAFE_INTEGER
 
@@ -161,6 +174,13 @@ export default {
       if (this.roomChanging) { return false }
       if (this.roomId === NEW_CONVERSATION_ID) { return true }
       return !conversationStore.conversations[this.roomId]?.hasMoreMessages
+    },
+    computedStyle () {
+      if (themeStore.isDark) {
+        return customStyle.dark
+      } else {
+        return customStyle.light
+      }
     },
   },
   watch: {
@@ -541,9 +561,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
-  ::v-deep #select-users {
+<style lang="scss">
+vue-advanced-chat {
+  #select-users {
 
     position: absolute; // Otherwise the message scroll area has flickering at the bottom of the area when opening and closing user selection.
     width: calc(100% - 10px); // vac-messages-container has 5px padding, so remove 2*padding of width.
@@ -552,5 +572,5 @@ export default {
       min-width: unset;
     }
   }
-
+}
 </style>

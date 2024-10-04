@@ -46,7 +46,7 @@
       class="testing-basket-requests w-100 img-thumbnail mt-1 d-flex align-items-center justify-content-between truncated"
       @click.prevent="openChat(entry.user.id, $event)"
     >
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center confirm-basket-dialog">
         <Avatar
           class="mr-2"
           :user="entry.user"
@@ -102,5 +102,8 @@ export default {
 .time-ago {
   color: var(--fs-color-grey-alpha-40);
   margin-left: 1rem;
+}
+.confirm-basket-dialog {
+  color: var(--fs-color-primary-900);
 }
 </style>

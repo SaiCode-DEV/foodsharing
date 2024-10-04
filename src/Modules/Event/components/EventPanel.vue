@@ -155,7 +155,7 @@ export default {
 }
 
 .event-link {
-  color: initial;
+  color: inherit;
 }
 
 .event-date {

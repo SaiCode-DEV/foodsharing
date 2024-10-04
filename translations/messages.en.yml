@@ -1384,7 +1384,8 @@ terminology:
   hygiene_training: Hygiene training
   recieved: Received
   sent: Sent
-  
+
+  received: received
 login:
   pwreset:
     bread: Reset password
@@ -2243,6 +2244,8 @@ store:
     confirm-no-location: You haven't entered a valid address in your profile. Please
       indicate your home address. This makes it easier for store maagers to decide
       on your application.
+    application-placeholder: I would like to help in this team because …
+    application-message: Application message
   sm:
     reallyRemove: Do you really want to remove {name} from the store team?
     removeFromTeam: Remove from the team
