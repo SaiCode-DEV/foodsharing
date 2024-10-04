@@ -2662,7 +2662,7 @@ footer:
   blog: "Blog"
   statistics: "Statistik"
   meta:
-    beta_testing_issues: Test-Aufgaben der Beta-Version
+    made_with: "Made with"
     it_devdocs: "by foodsharing IT"
     version: "Version: {version}"
   donate:
@@ -2677,6 +2677,7 @@ footer:
     denns: Denn’s Biomarkt
 
 releases:
+  "2024-12": "Beta Release „Nektarine“ 🍑 (Dezember 2024)"
   "2024-08": "Release „Mandarine“ 🍊 (August 2024)"
   "2024-04": "Release „Laugenbrezel“ 🥨 (April 2024)"
   "2024-01": "Release „Kiwi“ 🥝 (Januar 2024)"
@@ -3553,7 +3554,7 @@ achievements:
   noneInThisRegion: "In dieser Region sind keine Errungenschaften eingetragen."
   deleteConfirmation: "Willst du wirklich diese Errungenschaft löschen?"
   editTitle: "Errungenschaften bearbeiten"
-  
+
 
 help:
   helpTitle: "Hilfe: {title}"

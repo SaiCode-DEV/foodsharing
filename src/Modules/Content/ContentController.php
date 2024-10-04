@@ -145,6 +145,7 @@ class ContentController extends FoodsharingController
     public function releaseNotes(): Response
     {
         $releaseIds = [
+            '2024-12',
             '2024-08',
             '2024-04',
             '2024-01',
