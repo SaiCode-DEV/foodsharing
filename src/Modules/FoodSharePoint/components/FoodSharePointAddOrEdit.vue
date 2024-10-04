@@ -179,6 +179,7 @@ const errors = ref({
   managerIds: '',
 })
 
+// ToDo: Move custom validation to vuelidate, if vuelidate is latest or min. 2.0.4
 const validateForm = () => {
   let isValid = true
 
@@ -208,12 +209,6 @@ const validateForm = () => {
     isValid = false
   } else if (formData.value.description.length < 10) {
     errors.value.description = i18n('fsp.form_validation.min_length', { name: 'description', length: 10 })
-    isValid = false
-  }
-
-  // Validate picture
-  if (formData.value.picture === null) {
-    errors.value.picture = i18n('fsp.form_validation.required', { name: 'picture' })
     isValid = false
   }
 

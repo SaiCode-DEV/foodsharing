@@ -360,7 +360,7 @@ class FoodSharePointGateway extends BaseGateway
             'anschrift' => strip_tags($foodSharePointData->address),
             'plz' => preg_replace('[^0-9]', '', $foodSharePointData->postalCode),
             'ort' => strip_tags($foodSharePointData->city),
-            'picture' => $foodSharePointData->picture,
+            'picture' => $foodSharePointData->picture ?? '',
             'bezirk_id' => $foodSharePointData->regionId,
             'lat' => $foodSharePointData->location->lat,
             'lon' => $foodSharePointData->location->lon,
@@ -515,7 +515,7 @@ class FoodSharePointGateway extends BaseGateway
         $food_share_point_id = $this->db->insert('fs_fairteiler', [
             'bezirk_id' => $data->regionId,
             'name' => $data->name,
-            'picture' => $data->picture,
+            'picture' => $data->picture ?? '',
             'desc' => $data->description,
             'anschrift' => strip_tags($data->address),
             'plz' => preg_replace('[^0-9]', '', $data->postalCode),
