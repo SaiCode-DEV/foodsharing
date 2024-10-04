@@ -55,12 +55,20 @@ class FoodSharePointCest
         $I->waitForText('In welchem Bezirk');
         $I->selectOption('#district-select', $this->testBezirk['id']);
         $I->fillField('#name-input', 'The greatest fairsharepoint');
-        $I->executeJS('$("#esc-input").val("Blablabla if you come here be hungry!")');
+        $I->fillField('#desc-input .md-text-area', 'Blablabla if you come here be hungry!');
+        $I->makeScreenshot('createFoodSharePoint_1');
+
 
         // Find an address in the search field
         $I->fillField('#search-address-input', $address);
+        $I->makeScreenshot('createFoodSharePoint_2');
+
         $I->waitForElementVisible('#search-address-input_listbox');
+        $I->makeScreenshot('createFoodSharePoint_3');
+
         $I->click("//*[@id='search-address-input_listbox']//*[contains(text(), 'Teststraße 1')]");
+        $I->makeScreenshot('createFoodSharePoint_4');
+
 
         // Codeception's click function doesn't work with this switch checkbox. We have to click it with javascript.
         $I->executeJs('document.getElementById(\'different_location\').click()');
@@ -69,8 +77,10 @@ class FoodSharePointCest
         $I->fillField('#input-city', 'Wurzen');
         $I->fillFieldJs('#lat', '1.23');
         $I->fillFieldJs('#lon', '2.48');
+        $I->makeScreenshot('createFoodSharePoint_5');
         $I->click('Speichern');
         $I->waitForActiveAPICalls();
+        $I->makeScreenshot('createFoodSharePoint_6');
         $id = $I->grabFromDatabase('fs_fairteiler', 'id', [
             'name' => 'The greatest fairsharepoint',
             'bezirk_id' => $this->testBezirk['id'],
