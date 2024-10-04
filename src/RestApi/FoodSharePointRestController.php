@@ -126,23 +126,26 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
      */
     private function normalizeFoodSharePoint(array $data): array
     {
-        return [
+        // set main properties
+        $fsp = [
             'id' => (int)$data['id'],
             'regionId' => (int)$data['bezirk_id'],
             'name' => $data['name'],
             'description' => $data['desc'],
             'address' => $data['anschrift'],
             'city' => $data['ort'],
-            'postalCode' => $data['plz'],
-            'location' => ['lat' => (float)$data['lat'], 'lon' => (float)$data['lon']],
+            'postcode' => $data['plz'],
+            'lat' => (float)$data['lat'],
+            'lon' => (float)$data['lon'],
             'createdAt' => RestNormalization::normalizeDate($data['time_ts']),
-            'picture' => $data['picture'] ?: null,
-            'followers' => [
-                'follow' => $data['followers']['follow'],
-                'manager' => $data['followers']['manager'],
-                'all' => $data['followers']['all'],
-            ]
+            'picture' => $data['picture']
         ];
+
+        if ($fsp['picture'] == '' || !$fsp['picture']) {
+            $fsp['picture'] = null;
+        }
+
+        return $fsp;
     }
 
     /**
