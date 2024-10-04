@@ -880,6 +880,10 @@ fsp:
   deleteConfirm: "Möchtest du wirklich diesen Fairteiler löschen?"
   deleteSuccess: "Fairteiler wurde gelöscht"
   none: "Noch keine Fairteiler eingetragen"
+  form_validation:
+    invalid: "Eingabe ist ungültig. Prüfe die Felder."
+    required: "{name} ist nötig."
+    min_length: "{name} soll mindestens {length} Zeichen lang sein."
   info:
     from: "Updates zum Fairteiler „{name}“"
     bell: "nur interne Infomeldungen (Glocke)"
@@ -3553,7 +3557,7 @@ achievements:
   noneInThisRegion: "In dieser Region sind keine Errungenschaften eingetragen."
   deleteConfirmation: "Willst du wirklich diese Errungenschaft löschen?"
   editTitle: "Errungenschaften bearbeiten"
-  
+
 
 help:
   helpTitle: "Hilfe: {title}"

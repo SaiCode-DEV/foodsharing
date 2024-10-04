@@ -13,6 +13,7 @@
             :options="regionOptions"
             required
           />
+          <span v-if="errors.regionId" class="error-message">{{ errors.regionId }}</span>
         </b-form-group>
 
         <b-form-group :label="$i18n('name')">
@@ -23,6 +24,7 @@
             required
             placeholder="Geben Sie den Namen ein"
           />
+          <span v-if="errors.name" class="error-message">{{ errors.name }}</span>
         </b-form-group>
 
         <b-form-group :label="$i18n('desc')" label-for="description-md">
@@ -34,6 +36,7 @@
             variant="outline-primary"
             :rows="2"
           />
+          <span v-if="errors.description" class="error-message">{{ errors.description }}</span>
         </b-form-group>
 
         <b-form-group :label="$i18n('picture')" label-for="name-input">
@@ -44,6 +47,7 @@
             :filename="formData.picture"
             @change="value => formData.picture = value.url"
           />
+          <span v-if="errors.picture" class="error-message">{{ errors.picture }}</span>
         </b-form-group>
 
         <b-form-group :label="$i18n('addresspicker.label')" label-for="name-input">
@@ -56,6 +60,7 @@
             :zoom="zoom"
             @address-change="onAddressChanged"
           />
+          <span v-if="errors.address" class="error-message">{{ errors.address }}</span>
         </b-form-group>
 
         <div v-if="foodSharePointId !== null">
@@ -66,6 +71,7 @@
             :region-id="formData.regionId"
             button-icon="fa-user-plus"
           />
+          <span v-if="errors.managerIds" class="error-message">{{ errors.managerIds }}</span>
         </div>
 
         <b-button variant="secondary" @click="saveFoodSharePoint">
@@ -139,6 +145,11 @@ const formData = ref({
 })
 
 async function saveFoodSharePoint () {
+  if (!validateForm()) {
+    pulseError(i18n('fsp.form_validation.invalid'))
+    return
+  }
+
   showLoader()
   try {
     if (props.foodSharePointId) {
@@ -154,6 +165,71 @@ async function saveFoodSharePoint () {
   } finally {
     hideLoader()
   }
+}
+
+const errors = ref({
+  regionId: '',
+  name: '',
+  description: '',
+  picture: '',
+  address: '',
+  postalCode: '',
+  city: '',
+  location: '',
+  managerIds: '',
+})
+
+const validateForm = () => {
+  let isValid = true
+
+  // Reset all errors
+  Object.keys(errors.value).forEach(key => {
+    errors.value[key] = ''
+  })
+
+  // Validate regionId
+  if (formData.value.regionId === null) {
+    errors.value.regionId = i18n('fsp.form_validation.required', { name: 'regionId' })
+    isValid = false
+  }
+
+  // Validate name
+  if (formData.value.name === null) {
+    errors.value.name = i18n('fsp.form_validation.required', { name: 'name' })
+    isValid = false
+  } else if (formData.value.name.length < 3) {
+    errors.value.name = i18n('fsp.form_validation.min_length', { name: 'name', length: 3 })
+    isValid = false
+  }
+
+  // Validate description
+  if (formData.value.description === null) {
+    errors.value.description = i18n('fsp.form_validation.required', { name: 'description' })
+    isValid = false
+  } else if (formData.value.description.length < 10) {
+    errors.value.description = i18n('fsp.form_validation.min_length', { name: 'description', length: 10 })
+    isValid = false
+  }
+
+  // Validate picture
+  if (formData.value.picture === null) {
+    errors.value.picture = i18n('fsp.form_validation.required', { name: 'picture' })
+    isValid = false
+  }
+
+  // Validate address
+  if (formData.value.address === null) {
+    errors.value.address = i18n('fsp.form_validation.required', { name: 'address' })
+    isValid = false
+  }
+
+  // Validate managerIds
+  if (props.foodSharePointId !== null && formData.value.managerIds.length === 0) {
+    errors.value.managerIds = i18n('fsp.form_validation.required', { name: 'managerIds' })
+    isValid = false
+  }
+
+  return isValid
 }
 
 async function removeFoodSharePoint () {
