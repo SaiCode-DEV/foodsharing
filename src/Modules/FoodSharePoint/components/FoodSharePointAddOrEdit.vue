@@ -42,8 +42,8 @@
         <b-form-group :label="$i18n('picture')" label-for="name-input">
           <file-upload
             :is-image="true"
-            :img-height="400"
-            :img-width="900"
+            :img-height="169"
+            :img-width="525"
             :filename="formData.picture"
             @change="value => formData.picture = value.url"
           />
