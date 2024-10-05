@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-container class="bg-white p-4">
-      <b-form>
+    <Container :collapsible="false" :title="title">
+      <div class="list-group-item">
         <b-form-group
           :label="$i18n('fsp_bezirk_id')"
           label-for="district-select-label"
@@ -74,7 +74,7 @@
           <span v-if="errors.managerIds" class="error-message">{{ errors.managerIds }}</span>
         </div>
 
-        <div class="float-right m-2">
+        <div class="text-right m-2">
           <b-button variant="outline-secondary" @click="saveFoodSharePoint">
             {{ i18n('button.save') }}
           </b-button>
@@ -89,8 +89,9 @@
             {{ i18n('fsp.delete') }}
           </b-button>
         </div>
-      </b-form>
-    </b-container>
+      </div>
+    </Container>
+
     <b-modal
       v-if="foodSharePointId !== null"
       id="deleteFoodSharePointModal"
@@ -109,6 +110,7 @@
 
 <script setup>
 import { onMounted, computed, ref, defineProps } from 'vue'
+import Container from '@/components/Container/Container.vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import MultiUserSearchInput from '@/components/MultiUserSearchInput.vue'
 import { useRegionStore } from '@/stores/regions'
@@ -147,6 +149,10 @@ const formData = ref({
   city: '',
   location: { lat: userStore.getLocations.lat, lon: userStore.getLocations.lon },
   managerIds: [],
+})
+
+const title = computed(() => {
+  return props.foodSharePointId === null ? i18n('fsp.add') : i18n('fsp.edit')
 })
 
 async function saveFoodSharePoint () {
