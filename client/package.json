@@ -37,7 +37,6 @@
     "relative-time-format": "^1.1.6",
     "serviceworker-webpack-plugin": "^1.0.1",
     "socket.io-client": "^4.5.4",
-    "typeahead-address-photon": "^1.1.0",
     "typeahead-addresspicker": "^1.0.1",
     "vue": "~2.7.14",
     "vue-advanced-chat": "^2.0.10",

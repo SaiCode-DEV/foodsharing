@@ -2226,6 +2226,7 @@ footer:
     it_devdocs: av foodsharing IT
     version: 'Versjon: {version}'
     beta_testing_issues: Testoppgaver for betaversjonen
+    made_with: laget med
   infosDeveloper: for utviklere
   hosting:
     info: CO₂-nøytral hosted
@@ -3287,12 +3288,12 @@ infomail_message: Varsling om chat-meldinger på foodsharing
 quizusercomment: "Gi oss tilbakemelding på dette spørsmålet.\nVar det for lett, for
   vanskelig, uforståelig?\nEller er individuelle svar eller forklaringer feil?\n"
 releases:
-  "2020-12": Versjon «dragefrukt» (desember 2020)
-  "2021-03": Versjon «jordbær» 🍓 (mars 2021)
-  "2021-09": Versjon «fig» 🥧 (september 2021)
-  "2020-08": Versjon «pære» (august 2020)
-  "2020-05": Versjon «appelsin» (mai 2020)
-  "2020-10": Versjon «cranberry» (oktober 2020)
+  "2020-12": Versjon «Dragefrukt» (desember 2020)
+  "2021-03": Versjon «Jordbær» 🍓 (mars 2021)
+  "2021-09": Versjon «Fig» 🥧 (september 2021)
+  "2020-08": Versjon «Pære» (august 2020)
+  "2020-05": Versjon «Appelsin» (mai 2020)
+  "2020-10": Versjon «Cranberry» (oktober 2020)
   "2022-05": Versjon «Blåbær» 🍇 (Mai 2022)
   "2022-01": Versjon «Grapefrukt» 🍋 (januar 2022)
   "2022-12": Versjon «Iskrem» 🍨 (desember 2022)
@@ -3301,6 +3302,7 @@ releases:
   "2024-01": Versjon «Kiwi» 🥝 (januar 2024)
   "2024-04": Versjon «Kringle» 🥨 (april 2024)
   "2024-08": Versjon «Mandarin» 🍊 (august 2024)
+  "2024-12": Betaversjon «Nektarin» 🍑 (desember 2024)
 push_notifications:
   test_notification_title: Push-varsler er aktivert
   test_notification_body: Flott, det ser ut til å ha fungert :)

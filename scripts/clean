@@ -7,22 +7,24 @@ source "$dir"/__common.sh
 
 declare -r base_dir=$(cd "$dir/.." && pwd)
 
-if [[ "${1:-}" == "full" || "${1:-}" == "all" ]]; then
+if [[ -n "${1:-}" && "$1" =~ ^(full|all)$ ]]; then
   log-header "Removing containers and images"
   FS_ENV="test"
   "$dir"/docker-compose down --volumes --remove-orphans
   FS_ENV="dev"
   "$dir"/docker-compose down --rmi all --volumes --remove-orphans
-
-  log-header "Removing local node_modules"
-  find "$base_dir" -name "node_modules" -type d -prune | xargs du -chs # prints the folders
-  find "$base_dir" -name "node_modules" -type d -prune -exec rm -rf '{}' + # removes the folders
 else
   log-header "Removing containers"
   FS_ENV="dev"
   "$dir"/docker-compose down --volumes --remove-orphans
   FS_ENV="test"
   "$dir"/docker-compose down --volumes --remove-orphans
+fi
+
+if [[ -n "${1:-}" && "$1" =~ ^(full|all|modules)$ ]]; then
+  log-header "Removing local node_modules"
+  find "$base_dir" -name "node_modules" -type d -prune | xargs du -chs # prints the folders
+  find "$base_dir" -name "node_modules" -type d -prune -exec rm -rf '{}' + # removes the folders
 fi
 
 log-header "Removing directories"

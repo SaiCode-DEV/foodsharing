@@ -77,6 +77,7 @@
 - Deleted the lookup command and module @alex.simm
 - Data for the region subpages is now fetched from the API #1838 !3624 @alex.simm
 - Wait for Devdocs Assets to be loaded before generating the devdocs site !3662 @SaiCode
+- Updated Clean script with clean node_modules !3688 @SaiCode
 
 # Hotfix 2024-08-29
 
@@ -143,6 +144,7 @@
 - Change EMail Address Verification replaced by new implementation !3481 @KoeMai
 - Improved release notes !3522 @AntonBallmaier
 - Add permission explanation to report list link #2064 !3529 @AntonBallmaier
+- moved from photon.komoot.io to geoapify for search #1565 !3543 @SaiCode
 
 ## Bugfixes
 - Changed the headline for group applications #1916 !3353 @ToLei

@@ -46,7 +46,7 @@ class FoodSharePointCest
      */
     /* public function createFoodSharePoint(AcceptanceTester $I): void
     {
-        $address = 'Teststraße 1 37073 Teststadt Deutschland';
+        $address = 'Teststraße 1';
 
         $I->login($this->responsible['email']);
         $I->amOnPage($I->foodSharePointRegionListUrl($this->testBezirk['id']));
@@ -60,16 +60,9 @@ class FoodSharePointCest
 
 
         // Find an address in the search field
-        $I->fillField('#search-address-input', $address);
-        $I->makeScreenshot('createFoodSharePoint_2');
-
-        $I->waitForElementVisible('#search-address-input_listbox');
-        $I->makeScreenshot('createFoodSharePoint_3');
-
-       $I->click("//*[@id='search-address-input_listbox']//*[contains(text(), 'Teststraße 1')]");
-
-       $I->makeScreenshot('createFoodSharePoint_4');
-
+        $I->fillField('#searchinput', $address);
+        $I->waitForElementVisible('#suggestions option');
+        $I->click("//*[contains(text(), 'Teststraße 1')]");
 
         // Codeception's click function doesn't work with this switch checkbox. We have to click it with javascript.
         $I->executeJs('document.getElementById(\'different_location\').click()');

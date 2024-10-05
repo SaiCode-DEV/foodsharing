@@ -1550,8 +1550,8 @@ reports:
     Please indicate how you can best be reached for further questions.'
   about_email: via email
   reported: Reported person
-  reports_region: Reports from {regionName}
-  reports_user: All reports about {userName} ({userId})
+  reports_region: Complaints in {regionName}
+  reports_user: All complaints about {userName} ({userId})
   id: ID
   reporter: Reporting person
 recipients:
@@ -1949,6 +1949,7 @@ releases:
 
   "2024-04": Release “Laugenbrezel” 🥨 (April 2024)
   "2024-08": Release “Mandarin” 🍊 (August 2024)
+  "2024-12": Beta Release “Nectarine” 🍑 (December 2024)
 footer:
   it_devdocs: by foodsharing IT
   donate_now: Donate now
@@ -1983,6 +1984,7 @@ footer:
     it_devdocs: by foodsharing IT
     version: 'Version: {version}'
     beta_testing_issues: Test tasks of the Beta version
+    made_with: made with
   hosting:
     info: hosted in a CO₂ neutral manner
     tooltip: Carbon-neutrally hosted at manitu
@@ -2118,7 +2120,7 @@ map:
         all: all
         region: only my districts
         member: only my stores
-        label: affiliation
+        label: Belonging
   foodsharepoint:
     go: to the Food-Share Point
 content:
@@ -4219,13 +4221,13 @@ achievements:
     days: Valid for {validityInDaysAfterAssignment} days after award.
     indefinite: Valid indefinitely after allocation.
     indefiniteShort: Permanently
-  reviewer: From
+  reviewer: Reviewer
   notice: Remark
   editDetails: Edit details
   revoke: Revoke
   edit: 'Edit achievement: {name}'
-  awardedNoReviewer: Automatically
-  awarded: Awarded
+  awardedNoReviewer: automatically
+  awarded: awarded
   awardedTo: To
   validUntil: Valid until
   award: Award achievement

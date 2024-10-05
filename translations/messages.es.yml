@@ -2209,9 +2209,9 @@ profile:
   alldatesdeleted: 'Todas las fechas fueron eliminadas'
   banana:
     placeholder: 'al menos 100 caracteres …'
-    sent: '¡El plátano ha sido enviado!'
-    messageTooShort: 'Introduzca un texto de al menos 100 caracteres para este plátano
-      de confianza.'
+    sent: '¡Se ha enviado el fideo de fidelidad!'
+    messageTooShort: 'Introduzca un texto de al menos 100 caracteres para este fideo
+      de fidelidad.'
     undo: 'Los fideos de fidelidad no se pueden cambiar ni retirar.'
     remove:
       confirm_title: 'Quitar el fideo de fidelidad'
@@ -2225,18 +2225,18 @@ profile:
 
       '
     title: '{count} fideos de fidelidad'
-    give: 'Dale a {name} un plátano de confianza'
-    details: 'Aquí puede describir con al menos 100 caracteres por qué te gustaría
-      regalarle a {name} un plátano de confianza.
+    give: 'Dale a {name} un fideo de fidelidad'
+    details: 'Aquí puedes describir con al menos 100 caracteres por qué te gustaría
+      regalarle a {name} un fideo de fidelidad.
 
       '
-    alreadyGiven: '{name} ya recibió un plátano de tu parte.'
+    alreadyGiven: '{name} ya recibió un fideo de fidelidad de tu parte.'
     recieved_none:
-      you: Todavía no has recibido una estrella de confianza.
+      you: Aún no has recibido un fideo de fidelidad.
       other: '{name} aún no ha recibido ningún fideo de fidelidad.'
     sent_none:
       other: '{name} aún no ha regalado ningún fideo de fidelidad.'
-      you: Nunca has regalado una estrella de confianza.
+      you: Aún no has regalado ningún fideo de fidelidad.
   online: '{name} está en línea.'
   infos:
     title: 'Información'
@@ -3631,6 +3631,7 @@ footer:
     beta_testing_issues: 'Tareas de prueba beta'
     it_devdocs: 'por foodsharing TI'
     version: 'Versión: {version}'
+    made_with: Hecho con
   partner_names:
     denns: 'Denn’s Biomarkt'
     wiener_tafel: 'Banco de Alimentos de Viena'
@@ -3981,6 +3982,7 @@ releases:
   "2024-01": Lanzamiento “Kiwi” 🥝 (Enero 2024)
   "2024-04": Lanzamiento de "Pretzel" 🥨 (abril de 2024)
   "2024-08": Lanzamiento de "Mandarine" 🍊 (agosto de 2024)
+  "2024-12": Versión beta "Nectarina" 🍑 (diciembre de 2024)
 salutation:
   "2": 'Querida'
   "3": 'Queride'

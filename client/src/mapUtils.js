@@ -8,7 +8,7 @@ import {
 } from '@/consts'
 import { isWebGLSupported } from '@/utils'
 import { useThemeStore } from '@/stores/theme'
-import { mapTilesApiKey, isDev, isTest } from '@/helper/server-data'
+import { geoapifyApiKey, isDev, isTest } from '@/helper/server-data'
 
 /**
  * @deprecated use the Vue component @/components/map/LeafletMap instead
@@ -36,9 +36,9 @@ export function getMapRasterTilesUrl () {
     return MAP_RASTER_TILES_URL_OSM
   } else {
     if (useThemeStore().isDark) {
-      return MAP_RASTER_TILES_URL_GEOAPIFY_DARK + mapTilesApiKey
+      return MAP_RASTER_TILES_URL_GEOAPIFY_DARK + geoapifyApiKey
     } else {
-      return MAP_RASTER_TILES_URL_GEOAPIFY + mapTilesApiKey
+      return MAP_RASTER_TILES_URL_GEOAPIFY + geoapifyApiKey
     }
   }
 }
