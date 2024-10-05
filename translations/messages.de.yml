@@ -3507,6 +3507,7 @@ markdown_input:
     strikethrough: Durchgestrichen
     heading: Überschrift
     link: Link
+    mention: Nutzer erwähnen
     code: Code
     quote: Zitat
     unorderedList: Liste

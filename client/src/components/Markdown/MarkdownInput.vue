@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="input"
     class="md-input"
     :class="{'conceal-toolbar': actuallyConcealToolbar }"
   >
@@ -18,6 +19,24 @@
         >
           <i :class="`fas fa-${button.icon}`" />
         </b-button>
+        <b-dropdown
+          ref="atDropdown"
+          v-b-tooltip.hover="$i18n(`markdown_input.tooltip.mention`)"
+          :variant="variant"
+          no-caret
+          right
+          menu-class="user-search-dropdown"
+          @shown="$refs.userSearch.focus()"
+        >
+          <template #button-content>
+            <i class="fas fa-at" />
+          </template>
+          <UserSearchInput
+            ref="userSearch"
+            :region-id="regionId"
+            @user-selected="mentionUser"
+          />
+        </b-dropdown>
         <b-button
           v-b-tooltip.hover="$i18n(`markdown_input.tooltip.preview`)"
           :variant="variant"
@@ -63,6 +82,7 @@
 import ImageUpload from '@/components/upload/ImageUpload'
 import Markdown from './Markdown.vue'
 import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
+import UserSearchInput from '@/components/UserSearchInput.vue'
 
 function getMaxRowsForScreenSize () {
   const minimumMaxRows = 8
@@ -72,7 +92,7 @@ function getMaxRowsForScreenSize () {
 }
 
 export default {
-  components: { Markdown, ImageUpload },
+  components: { Markdown, ImageUpload, UserSearchInput },
   mixins: [RouteAndDeviceCheckMixin],
   props: {
     inputName: { type: String, default: null },
@@ -85,11 +105,13 @@ export default {
     concealToolbar: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     allowImageAttachments: { type: Boolean, default: false },
+    regionId: { type: Number, default: null },
   },
   data () {
     return {
       isPreview: false,
       hasImages: false,
+      previousFocus: [],
       buttons: [
         { tooltip: 'bold', icon: 'bold', action: this.bold },
         { tooltip: 'italic', icon: 'italic', action: this.italic },
@@ -147,7 +169,7 @@ export default {
   },
   methods: {
     getBaseTextArea () {
-      return this.$refs.input?.$refs?.input
+      return this.$refs.input?.$refs?.input ?? this.$refs.input?.querySelector('textarea')
     },
     bold () {
       this.wrapSelection('**')
@@ -231,7 +253,7 @@ export default {
       return [this.getBaseTextArea().selectionStart, this.getBaseTextArea().selectionEnd]
     },
     async setFocus (start = 0, end = 0) {
-      this.$refs.input.focus()
+      this.getBaseTextArea().focus()
       await new Promise(resolve => window.requestAnimationFrame(resolve))
       this.getBaseTextArea().selectionEnd = end
       this.getBaseTextArea().selectionStart = start
@@ -254,6 +276,12 @@ export default {
     },
     async uploadImages () {
       return await this.$refs['image-upload'].uploadImages()
+    },
+    mentionUser (id) {
+      this.$refs.atDropdown.hide()
+      // this.setFocus()
+      id = id.toString().padStart(3, '0')
+      this.wrapSelection(`@${id} `, '')
     },
   },
 }
@@ -312,6 +340,12 @@ export default {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   margin-top: 0;
+}
+
+::v-deep .user-search-dropdown {
+  width: 20em !important;
+  border: 0;
+  padding: 0;
 }
 
 </style>
