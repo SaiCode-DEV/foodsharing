@@ -74,20 +74,22 @@
           <span v-if="errors.managerIds" class="error-message">{{ errors.managerIds }}</span>
         </div>
 
-        <div class="text-right m-2">
-          <b-button variant="outline-secondary" @click="saveFoodSharePoint">
-            {{ i18n('button.save') }}
-          </b-button>
+        <div class="d-flex justify-content-between m-2">
           <b-button variant="outline-secondary" @click="backToFoodSharePointOverview">
             {{ i18n('button.prev') }}
           </b-button>
-          <b-button
-            v-if="foodSharePointId !== null"
-            variant="outline-danger"
-            @click="$bvModal.show('deleteFoodSharePointModal')"
-          >
-            {{ i18n('fsp.delete') }}
-          </b-button>
+          <div>
+            <b-button
+              v-if="foodSharePointId !== null"
+              variant="outline-danger"
+              @click="$bvModal.show('deleteFoodSharePointModal')"
+            >
+              {{ i18n('fsp.delete') }}
+            </b-button>
+            <b-button variant="primary" @click="saveFoodSharePoint">
+              {{ i18n('button.save') }}
+            </b-button>
+          </div>
         </div>
       </div>
     </Container>
