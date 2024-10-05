@@ -34,7 +34,7 @@ class ContentSecurityPolicy
                 'https://localhost',
                 'https://nginx',
                 'https://sentry.io',
-                'https://photon.komoot.io',
+                'https://api.geoapify.com',
                 'https://maps.geoapify.com',
                 'https://maps01.geoapify.com',
                 'https://maps02.geoapify.com',

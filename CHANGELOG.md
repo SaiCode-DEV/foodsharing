@@ -143,6 +143,7 @@
 - Change EMail Address Verification replaced by new implementation !3481 @KoeMai
 - Improved release notes !3522 @AntonBallmaier
 - Add permission explanation to report list link #2064 !3529 @AntonBallmaier
+- moved from photon.komoot.io to geoapify for search #1565 !3543 @SaiCode
 
 ## Bugfixes
 - Changed the headline for group applications #1916 !3353 @ToLei

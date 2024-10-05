@@ -58,14 +58,6 @@ Object.assign(module.exports, convert({
     ],
   },
 
-  'typeahead-address-photon': {
-    imports: {
-      jQuery: 'jquery',
-      Bloodhound: 'corejs-typeahead',
-    },
-    exports: 'this.PhotonAddressEngine',
-  },
-
   'jquery-ui-addons': {
     resolve: lib('jquery-ui-addons.js'),
     imports: {
