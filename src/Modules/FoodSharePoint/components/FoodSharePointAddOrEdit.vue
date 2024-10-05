@@ -77,6 +77,9 @@
         <b-button variant="secondary" @click="saveFoodSharePoint">
           {{ i18n('button.save') }}
         </b-button>
+        <b-button variant="secondary" @click="backToFoodSharePointOverview">
+          {{ i18n('button.prev') }}
+        </b-button>
         <b-button
           v-if="foodSharePointId !== null"
           variant="outline-danger"
@@ -238,6 +241,14 @@ async function removeFoodSharePoint () {
     pulseError(i18n('error_unexpected'))
   } finally {
     hideLoader()
+  }
+}
+
+function backToFoodSharePointOverview () {
+  if (props.foodSharePointId) {
+    window.location.href = url('foodsharepoint', props.foodSharePointId)
+  } else {
+    window.location.href = url('foodsharepoints', props.regionId)
   }
 }
 

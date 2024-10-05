@@ -195,6 +195,10 @@ class FoodSharePointController extends FoodsharingController
                 $this->foodSharePoint['name'],
                 '/fairteiler?sub=ft&bid=' . $this->regionId . '&id=' . $this->foodSharePoint['id']
             );
+        } else {
+            $componentParams = [
+                'regionId' => $this->regionId,
+            ];
         }
 
         $foodSharePoint = $this->prepareVueComponent('food-share-point-add-or-edit', 'FoodSharePointAddOrEdit', $componentParams ?? []);
