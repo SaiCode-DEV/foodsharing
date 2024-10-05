@@ -229,15 +229,24 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
     }
 
     #[OA2\Parameter(name: 'foodSharePointId', description: 'which post to delete', in: 'path', schema: new OA2\Schema(type: 'integer'))]
-    #[OA2\Response(response: '200', description: 'Success.')]
-    #[OA2\Response(response: '401', description: 'Not logged in.')]
-    #[OA2\Response(response: '403', description: 'Insufficient permissions to remove this foodSharePoint.')]
-    #[OA2\Response(response: '404', description: 'FoodSharePoint not found.')]
+    #[OA2\Response(response: Response::HTTP_ACCEPTED, description: 'Success.')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to remove this foodSharePoint.')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'FoodSharePoint not found.')]
     #[OA2\Tag(name: 'foodSharePoints')]
     #[Rest\Delete('/foodSharePoints/{foodSharePointId}', name: 'remove_foodsharepoint', requirements: ['foodSharePointId' => '\d+'])]
     public function removeFoodSharePoint(int $foodSharePointId): Response
     {
         $this->assertLoggedIn();
+
+        $foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId);
+        if (empty($foodSharePoint)) {
+            throw new NotFoundHttpException('Food share point does not exist');
+        }
+
+        if (!$this->foodSharePointPermissions->mayDeleteFoodSharePointOfRegion($foodSharePoint['bezirk_id'])) {
+            throw new AccessDeniedHttpException('Not a member of the region');
+        }
 
         $this->foodSharePointGateway->deleteFoodSharePoint($foodSharePointId);
 
