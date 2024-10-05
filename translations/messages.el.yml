@@ -2061,10 +2061,6 @@ storelist:
   managing: ''
   inprogress: ''
   memberState: ''
-tablesorter:
-  from: ''
-  page: ''
-  entriespp: ''
 email_template:
   from: ''
   newsletter:

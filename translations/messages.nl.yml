@@ -2542,10 +2542,6 @@ genderlist:
   gender_female: ''
   header_for_district: ''
   district_tab: ''
-tablesorter:
-  from: ''
-  entriespp: ''
-  page: ''
 search:
   noresults: ''
   thread-title-only: ''

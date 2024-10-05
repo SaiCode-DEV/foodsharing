@@ -3787,10 +3787,6 @@ chat:
   mark_as:
     unread: Marcar como no leído
     read: Marcar como leído
-tablesorter:
-  from: 'de'
-  entriespp: 'entradas por página'
-  page: 'Página'
 timepicker:
   labelIncrement: 'Aumentar'
   labelDecrement: 'Disminuir'

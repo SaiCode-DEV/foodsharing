@@ -271,10 +271,6 @@ base:
     bytte mat, levere in mat, distribusjon
   whatfor: På foodsharing.network kan du gi dagligvarene dine til sosiale institusjoner
     eller andre mennesker før de utløper
-tablesorter:
-  from: av
-  page: Side
-  entriespp: oppføringer per side
 stats:
   title: Total statistikk
   leader:

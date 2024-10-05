@@ -59,7 +59,7 @@
 - Moved region store to pinia !3619 !3629 !3679 @chriswalg
 - Moved userStore to pinia for future improvements !3531 !3617 !3632 @SaiCode
 - Reduced the number of database requests in some store API endpoints #1662 !3615 @alex.simm
-- Removed jQuery autosize !3635 @SaiCode
+- Removed jQuery autosize !3635 !3689 @SaiCode
 - Port the register controller to Symfony !3594 @alex.simm
 - Port the application controller to Symfony #1994 !3603 @alex.simm
 - Port the message controller to Symfony #1994 !3633 @\_fridtjof_
@@ -74,7 +74,7 @@
 - Update socket.io to 4.6.2 !3643 @chriswalg
 - Update babel/core to 7.23.2 !3645 @chriswalg
 - Devdocs: Huge update from Docusaurus to VitePress #2124 #1755 #1913 !3640 !3655 @SaiCode
-- Removed jquery tablesorter #2136 !3648 @chriswalg
+- Removed jquery tablesorter #2136 !3648 !3689 @chriswalg
 - Deleted the lookup command and module @alex.simm
 - Data for the region subpages is now fetched from the API #1838 !3624 @alex.simm
 - Wait for Devdocs Assets to be loaded before generating the devdocs site !3662 @SaiCode

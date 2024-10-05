@@ -3327,10 +3327,6 @@ password:
   insertmail: Entre l’adresse courriel avec laquelle tu t’es enregistré·e sur le site
     de foodsharing.
   reset: Mot de passe oublié ?
-tablesorter:
-  entriespp: Entrées par page
-  from: de
-  page: page
 conference:
   join: entrer dans la conférence
   join_title: entrer dans la conférence

@@ -2837,11 +2837,6 @@ conference:
   join_title: "Konferenz beitreten"
   join: "Konferenz beitreten"
 
-tablesorter:
-  page: "Seite"
-  from: "von"
-  entriespp: "Einträge pro Seite"
-
 password:
   reset: "Passwort vergessen?"
   insertmail: "Gib deine E-Mail-Adresse ein, um dein Passwort zurückzusetzen."
