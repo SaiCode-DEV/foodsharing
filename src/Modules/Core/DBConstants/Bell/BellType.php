@@ -119,6 +119,11 @@ class BellType
     final public const BANANA = 'banana-%d-%d';
 
     /**
+     * A new forum post in a thread the user is participating in. Argument: ID of the thread.
+     */
+    final public const FORUM_MENTION = 'forum-mention-%d';
+
+    /**
      * Creates a bell identifier from a template and an optional list of parameters.
      */
     public static function createIdentifier(string $typeString, ...$params)

@@ -3461,6 +3461,9 @@ notifications:
   pickupReminder:
     title: 'Erinnerungen für unbelegte Slots'
     description: 'Erhalte Mails, die dich warnen, wenn Slots in von dir verwalteten Betrieben am nächsten Tag noch nicht vergeben sind.'
+  mention:
+    title: 'Benachrichtigungen bei Erwähnungen'
+    description: 'Werde benachrichtigt, wenn dich jemand im Forum addressiert.'
   checkbox_email: 'E-Mail'
   checkbox_push: 'Push'
   checkbox_bell: 'Glocke'
