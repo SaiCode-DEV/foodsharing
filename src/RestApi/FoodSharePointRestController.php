@@ -228,7 +228,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         return $this->respondOK();
     }
 
-    #[OA2\Parameter(name: 'foodSharePointId', description: 'which post to delete', in: 'path', schema: new OA2\Schema(type: 'integer'))]
+    #[OA2\Parameter(name: 'foodSharePointId', description: 'which foodSharePoint to delete', in: 'path', schema: new OA2\Schema(type: 'integer'))]
     #[OA2\Response(response: Response::HTTP_ACCEPTED, description: 'Success.')]
     #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to remove this foodSharePoint.')]
