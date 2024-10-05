@@ -201,7 +201,7 @@ class FoodSharePointController extends FoodsharingController
             ];
         }
 
-        $foodSharePoint = $this->prepareVueComponent('food-share-point-add-or-edit', 'FoodSharePointAddOrEdit', $componentParams ?? []);
+        $foodSharePoint = $this->prepareVueComponent('food-share-point-add-or-edit', 'FoodSharePointAddOrEdit', $componentParams);
 
         $this->pageHelper->addBread($this->translator->trans('fsp.edit'));
 
