@@ -4164,6 +4164,9 @@ notifications:
     title: Recordatorios de espacio libre
     description: Recibe correos electrónicos que te avisan si las plazas en los establecimientos
       que gestionas aún no están ocupadas al día siguiente.
+  mention:
+    title: Notificaciones de las menciones
+    description: Recibe una notificación cuando alguien te mencione en el foro.
 markdown_input:
   tooltip:
     orderedList: lista numerada
@@ -4178,6 +4181,7 @@ markdown_input:
     link: enlace
     heading: titular
     image: Adjuntar imágenes
+    mention: Mencionar usuarios
   empty_preview_placeholder: "Esta es la vista previa del formato. El texto tiene
     el formato que se mostrará más adelante.\n---\n*Pero no has ingresado ningún texto
     que pueda mostrarse aquí.*"
