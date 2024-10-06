@@ -42,7 +42,7 @@
           <span v-if="errors.description" class="error-message">{{ errors.description }}</span>
         </b-form-group>
 
-        <b-form-group :label="$i18n('picture')" label-for="name-input">
+        <b-form-group :label="$i18n('picture')">
           <file-upload
             :is-image="true"
             :img-height="169"
