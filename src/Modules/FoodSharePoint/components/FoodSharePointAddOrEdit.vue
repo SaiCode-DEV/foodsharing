@@ -4,7 +4,7 @@
       <div class="list-group-item">
         <b-form-group
           :label="$i18n('fsp_bezirk_id')"
-          label-for="district-select-label"
+          label-for="district-select"
           required
         >
           <b-form-select
