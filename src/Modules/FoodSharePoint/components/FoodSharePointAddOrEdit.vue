@@ -33,7 +33,7 @@
         <b-form-group :label="$i18n('desc')" label-for="description-md">
           {{ $i18n('fsp.descLabel') }}
           <MarkdownInput
-            id="description-md"
+            input-name="description-md"
             :value.sync="formData.description"
             conceal-toolbar
             variant="outline-primary"
