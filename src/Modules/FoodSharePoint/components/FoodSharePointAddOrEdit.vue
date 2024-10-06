@@ -16,7 +16,10 @@
           <span v-if="errors.regionId" class="error-message">{{ errors.regionId }}</span>
         </b-form-group>
 
-        <b-form-group :label="$i18n('name')">
+        <b-form-group
+          :label="$i18n('name')"
+          label-for="name-input"
+        >
           <b-form-input
             id="name-input"
             v-model="formData.name"
@@ -30,7 +33,7 @@
         <b-form-group :label="$i18n('desc')" label-for="description-md">
           {{ $i18n('fsp.descLabel') }}
           <MarkdownInput
-            id="desc-input"
+            id="description-md"
             :value.sync="formData.description"
             conceal-toolbar
             variant="outline-primary"
