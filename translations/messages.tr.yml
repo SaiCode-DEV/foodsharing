@@ -1328,6 +1328,7 @@ store:
     confirm-far: Kayıtlı adresinize göre bu işletmeden çok uzakta oturuyorsunuz ({distance}).
       Buradaki ekibe düzenli ve güvenilir bir şekilde destek verebileceğinizden emin
       misiniz?
+    application-placeholder: Bu ekibe yardımcı olmak istiyorum çünkü...
   filter: …göre filtrele…
   enterdate: Alım tarihini girin
   important: 'Önemli:'
@@ -2140,6 +2141,7 @@ footer:
     beta_testing_issues: Beta versiyonun test görevleri
     it_devdocs: by foodsharing IT
     version: 'Versiyon: {version}'
+    made_with: İle yapıldı
   infosPrivatePersons: Özel kişiler için
   call_to_action: Sen de katıl
   team: Ekip
@@ -2179,6 +2181,7 @@ releases:
   "2024-01": “Kivi”yi yayınlayın 🥝 (Ocak 2024)
   "2024-04": '"Laugenbrezel"i yayınlayın 🥨 (Nisan 2024)'
   "2024-08": Release „Mandarine“🍊 (Ağustos 2024)
+  "2024-12": Beta sürümü “Nektarin” 🍑 (Aralık 2024)
 storestatus:
   "5": bizimle işbirliği halinde
   "2": Görüşmeler devam ediyor
@@ -2957,7 +2960,7 @@ profile:
       filterAll: Hepsi
       filterRequested: İstek yapıldı
       filterActive: Üye
-      filterManage: İşletme Sorumlusu
+      filterManage: İşletme sorumlusu
       filterJumper: Yedek
   sleeping_info_from_until: '{from} ile {until} arasında uyku beresi var'
   choosereasonnostore: Hiç bir işletmeye ilişkin değil
@@ -3924,6 +3927,9 @@ notifications:
     title: Boş slotlar için hatırlatmalar
     description: Yönettiğiniz işletmelerdeki slotlar ertesi gün henüz dolmamışsa sizi
       uyaran e-postalar alın.
+  mention:
+    title: Etiketleme bildirimleri
+    description: Birisi size forumda etiketlediğinde bildirim alın.
 markdown_input:
   tooltip:
     orderedList: numaralı liste
@@ -3938,6 +3944,7 @@ markdown_input:
     link: bağlantı
     heading: Ana Başlık
     image: Resim ekleyin
+    mention: Kullanıcıyı etiketle
   empty_preview_placeholder: "Bu bir formatlama önizlemesidir. Metin burada, daha
     sonra görüntüleneceği şekilde formatlanmıştır.\n---\n*Henüz burada görüntülenebilecek
     herhangi bir metin girmediniz.*"
