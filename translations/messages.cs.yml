@@ -125,10 +125,6 @@ settings:
   delete_profile: Smazání profilu
   general:
     phone: Vaše číslo pevné linky
-tablesorter:
-  page: ''
-  entriespp: ''
-  from: ''
 email_template:
   you_responsible:
     part1: ''

@@ -1747,10 +1747,6 @@ sidenav:
 password:
   reset: Forgot your password?
   insertmail: Enter your e-mail address here to reset your password.
-tablesorter:
-  page: Page
-  entriespp: entries per page
-  from: of
 page:
   presence:
     header: Festivals

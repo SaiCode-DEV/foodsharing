@@ -2413,10 +2413,6 @@ stats:
   leader:
     regions: ''
     users: ''
-tablesorter:
-  page: ''
-  from: ''
-  entriespp: ''
 base:
   keywords: ''
   whatfor: ''

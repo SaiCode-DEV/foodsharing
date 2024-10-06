@@ -2265,10 +2265,6 @@ sidenav:
   superregional: Bölgeler üstü
   countryspecific: Ülkeye Özgü Gruplar
   yourregions: Senin Bölgelerin
-tablesorter:
-  entriespp: Sayfa başına kayıt
-  page: Sayfa
-  from: -den
 email_template:
   request_from: -den İstek
   in: içinde

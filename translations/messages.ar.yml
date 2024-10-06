@@ -2574,10 +2574,6 @@ base:
   jsrequired: ''
 messages:
   bread: ''
-tablesorter:
-  from: ''
-  entriespp: ''
-  page: ''
 pickuplist:
   unclear: ''
   NumberOfFoodSavers_table_header: ''

@@ -312,6 +312,20 @@
       </b-row>
     </div>
 
+    <div class="pt-2 pb-2">
+      <h4>{{ $i18n('notifications.mention.title') }}</h4>
+      <b-row>
+        <b-col cols="8" lg="5">
+          {{ $i18n('notifications.mention.description') }}
+        </b-col>
+        <b-col cols="4" lg="6">
+          <b-form-checkbox v-model="mentionState" size="sm">
+            {{ $i18n('notifications.checkbox_bell') }}
+          </b-form-checkbox>
+        </b-col>
+      </b-row>
+    </div>
+
     <b-button
       size="sm"
       variant="primary"
@@ -335,6 +349,8 @@ import {
   setUserNotification,
   getPickupReminderNotification,
   setPickupReminderNotification,
+  setMentionNotification,
+  getMentionNotification,
 } from '@/api/notifications'
 import { pulseError, pulseSuccess } from '@/script'
 import { subscribeForPushNotifications, unsubscribeFromPushNotifications } from '@/pushNotifications'
@@ -364,6 +380,7 @@ export default {
       infoMailState: null,
       newsletterState: false,
       pickupReminderState: true,
+      mentionState: true,
       currentFoodSharePoints: [],
       currentThreads: [],
       currentRegions: [],
@@ -397,6 +414,7 @@ export default {
     if (userStore.isStoreManager) {
       this.pickupReminderState = this.convertNumberToBoolean(await getPickupReminderNotification())
     }
+    this.mentionState = this.convertNumberToBoolean(await getMentionNotification())
     this.isFoodSharePointGlobalEmailNotificationActive = this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype === 1)
     this.isRegionsPointGlobalEmailNotificationActive = this.currentRegions.some(region => region.notifyByEmailAboutNewThreads === 1)
     this.isGroupsGlobalEmailNotificationActive = this.currentGroups.some(group => group.notifyByEmailAboutNewThreads === 1)
@@ -478,6 +496,7 @@ export default {
         if (userStore.isStoreManager) {
           await setPickupReminderNotification(this.pickupReminderState)
         }
+        await setMentionNotification(this.mentionState)
         pulseSuccess(this.$i18n('notifications.success'))
       } catch {
         pulseError(this.$i18n('error_ajax'))
