@@ -23,7 +23,7 @@
         :size="50"
       />
       <div class="d-flex flex-grow-1 flex-wrap 1 ml-3">
-        <div class="d-flex flex-grow-1">
+        <div class="d-flex flex-grow-1 flex-wrap justify-content-end">
           <div class="flex-grow-1">
             <i
               v-b-tooltip.hover="request.verified ? $i18n('store.request.verified') : $i18n('store.request.unverified')"
@@ -34,7 +34,6 @@
             <Time :time="request.date" class="ml-2" />
             <p class="my-0" v-text="formatDistance(request.distanceInKm)" />
           </div>
-
           <b-button-group class="request-actions my-1" size="sm">
             <b-button
               variant="primary"

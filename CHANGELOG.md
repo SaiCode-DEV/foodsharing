@@ -38,6 +38,7 @@
 - Reworked the list of store applicants. !3461 @AntonBallmaier
 - On mobile, always show button to mark chat message as read #2110 !3659 @iron9
 - Temporarily disabled the member list for countries and Europe #2147 !3677 @alex.simm
+- Improved the look of the store applicants modal on small screens #2152 !3695 @AntonBallmaier
 - Added the author avatar in the blog list #2154 !3696 @AntonBallmaier
 - Unified the different icons used for store managers #2087 !3699 @AntonBallmaier
 
