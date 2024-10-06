@@ -202,7 +202,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
     #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid date')]
     #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to access this region')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to edit this foodSharePoint')]
     #[Rest\Patch('foodSharePoints/{foodSharePointId}', requirements: ['foodSharePointId' => Requirement::POSITIVE_INT])]
     public function editFoodSharePoint(int $foodSharePointId, FoodSharePointEditData $foodSharePointData, ValidatorInterface $validator): Response
     {
@@ -215,11 +215,11 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         }
         $follower = $this->foodSharePointGateway->getFollower($foodSharePointId);
         if (!$this->foodSharePointPermissions->mayEdit($foodSharePoint['bezirk_id'], $follower)) {
-            throw new AccessDeniedHttpException('Not a member of the region');
+            throw new AccessDeniedHttpException('Insufficient permissions to edit this foodSharePoint');
         }
         $regionType = $this->regionGateway->getType($foodSharePointData->regionId);
         if (!UnitType::isRegion($regionType) || !UnitType::isAccessibleRegion($regionType)) {
-            throw new BadRequestHttpException('Food share points can only be added to regions');
+            throw new BadRequestHttpException('Food share points can only be edit to regions');
         }
 
         $this->foodSharePointTransactions->editFoodSharePoint($foodSharePointId, $foodSharePoint, $foodSharePointData);
