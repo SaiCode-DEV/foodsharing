@@ -38,6 +38,7 @@
 - Reworked the list of store applicants. !3461 @AntonBallmaier
 - On mobile, always show button to mark chat message as read #2110 !3659 @iron9
 - Temporarily disabled the member list for countries and Europe #2147 !3677 @alex.simm
+- Unified the different icons used for store managers #2087 !3699 @AntonBallmaier
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi

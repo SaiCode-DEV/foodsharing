@@ -2235,7 +2235,7 @@ profile:
       filterAll: "Alle"
       filterRequested: "Anfrage gestellt"
       filterActive: "Mitglied"
-      filterManage: "BV"
+      filterManage: "Betriebsverantwortlich"
       filterJumper: "Springer"
 
   nav:
