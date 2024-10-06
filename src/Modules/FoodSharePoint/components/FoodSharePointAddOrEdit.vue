@@ -67,7 +67,7 @@
         </b-form-group>
 
         <div v-if="foodSharePointId !== null">
-          <label for="fspmanagers-label">{{ $i18n('fspmanagers') }}</label>
+          <label for="fspmanagers-input">{{ $i18n('fspmanagers') }}</label>
           <multi-user-search-input
             id="fspmanagers-input"
             v-model="formData.managerIds"
