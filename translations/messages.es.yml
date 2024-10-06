@@ -2311,7 +2311,7 @@ profile:
       filterAll: todos
       filterRequested: Solicitud realizada
       filterActive: miembro
-      filterManage: RE
+      filterManage: Responsable de distribución
       filterJumper: Suplente
     store_table: Lista de empresas
   sleeping_info_from_until: hace una pausa del {from} al {until}
