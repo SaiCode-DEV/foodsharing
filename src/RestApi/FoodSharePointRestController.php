@@ -53,7 +53,6 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
      * home location is used. The distance is measured in kilometers.
      *
      * Returns 200 and a list of food share points, 400 if the distance is out of range, or 401 if not logged in.
-     *
      */
     #[Rest\Get('foodSharePoints/nearby')]
     #[Rest\QueryParam(name: 'lat', nullable: true)]
