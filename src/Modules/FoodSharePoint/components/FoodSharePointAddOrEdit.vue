@@ -53,7 +53,7 @@
           <span v-if="errors.picture" class="error-message">{{ errors.picture }}</span>
         </b-form-group>
 
-        <b-form-group :label="$i18n('addresspicker.label')" label-for="name-input">
+        <b-form-group :label="$i18n('addresspicker.label')">
           <leaflet-location-search
             v-if="dataLoaded"
             :coordinates="formData.location"
