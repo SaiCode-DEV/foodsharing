@@ -100,7 +100,6 @@
     <b-modal
       v-if="foodSharePointId !== null"
       id="deleteFoodSharePointModal"
-      ref="deleteFoodSharePointModal"
       :title="$i18n('fsp.delete')"
       :cancel-title="$i18n('button.cancel')"
       :ok-title="$i18n('button.yes_i_am_sure')"
