@@ -55,7 +55,7 @@
 
         <b-form-group :label="$i18n('addresspicker.label')">
           <leaflet-location-search
-            v-if="dataLoaded"
+            v-if="!isLoading"
             :coordinates="formData.location"
             :postal-code="formData.postalCode"
             :street="formData.address"
@@ -141,7 +141,7 @@ const props = defineProps({
   },
 })
 
-const dataLoaded = ref(!props.foodSharePointId) // True if creating new
+const isLoading = ref(true)
 
 const formData = ref({
   regionId: props.regionId,
@@ -155,9 +155,7 @@ const formData = ref({
   managerIds: [],
 })
 
-const title = computed(() => {
-  return props.foodSharePointId === null ? i18n('fsp.add') : i18n('fsp.edit')
-})
+const title = props.foodSharePointId === null ? i18n('fsp.add') : i18n('fsp.edit')
 
 async function saveFoodSharePoint () {
   if (!validateForm()) {
@@ -278,13 +276,15 @@ const regionOptions = computed(() => {
   }))
 })
 
-onMounted(() => {
+onMounted(async () => {
   if (!props.foodSharePointId) {
     // Create new foodSharePoint
+    isLoading.value = false
     return
   }
   showLoader()
-  getFoodSharePoint(props.foodSharePointId).then((response) => {
+  isLoading.value = true
+  await getFoodSharePoint(props.foodSharePointId).then((response) => {
     formData.value = {
       regionId: response.regionId,
       name: response.name,
@@ -297,7 +297,7 @@ onMounted(() => {
       managerIds: response.manager.map(x => x.id),
     }
     hideLoader()
-    dataLoaded.value = true // Data is now loaded
+    isLoading.value = false
   })
 })
 </script>
