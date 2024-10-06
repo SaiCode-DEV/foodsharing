@@ -191,6 +191,8 @@ class FoodSharePointController extends FoodsharingController
                 'regionId' => $this->regionId,
             ];
 
+            $breadTransKey = 'edit';
+
             $this->pageHelper->addBread(
                 $this->foodSharePoint['name'],
                 '/fairteiler?sub=ft&bid=' . $this->regionId . '&id=' . $this->foodSharePoint['id']
@@ -199,11 +201,12 @@ class FoodSharePointController extends FoodsharingController
             $componentParams = [
                 'regionId' => $this->regionId,
             ];
+            $breadTransKey = 'add';
         }
 
         $foodSharePoint = $this->prepareVueComponent('food-share-point-add-or-edit', 'FoodSharePointAddOrEdit', $componentParams);
 
-        $this->pageHelper->addBread($this->translator->trans('fsp.edit'));
+        $this->pageHelper->addBread($this->translator->trans('fsp.' . $breadTransKey));
 
         $this->pageHelper->addContent($foodSharePoint);
 
