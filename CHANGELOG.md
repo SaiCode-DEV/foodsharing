@@ -52,6 +52,7 @@
 - Fixed Invalid Time when time is undefined #1924 !3652 !3656 @SaiCode
 - Fix typos and inconsistent spelling in email templates !3657 @iron9
 - Fix duplicate 'kg' in global statistics #2108 !3658 @iron9
+- Fix vue warn messages on create new thread page #2109 !3697 @AntonBallmaier
 - Fix more than 6 months back selectable in store log #2102 !3698 @AntonBallmaier
 - Notifications are again sent via e-mail and bell for posts in Food Share Points !3690 @martincodes-de
 
