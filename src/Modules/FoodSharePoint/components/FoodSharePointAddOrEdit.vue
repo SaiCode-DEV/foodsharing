@@ -212,7 +212,7 @@ const validateForm = () => {
   if (isEmpty(formData.value.name)) {
     errors.value.name = i18n('fsp.form_validation.required', { name: 'name' })
     isValid = false
-  } else if (formData.value.name.length.trim() < 3) {
+  } else if (formData.value.name.trim().length < 3) {
     errors.value.name = i18n('fsp.form_validation.min_length', { name: 'name', length: 3 })
     isValid = false
   }
@@ -221,7 +221,7 @@ const validateForm = () => {
   if (isEmpty(formData.value.description)) {
     errors.value.description = i18n('fsp.form_validation.required', { name: 'description' })
     isValid = false
-  } else if (formData.value.description.length.trim() < 10) {
+  } else if (formData.value.description.trim().length < 10) {
     errors.value.description = i18n('fsp.form_validation.min_length', { name: 'description', length: 10 })
     isValid = false
   }
