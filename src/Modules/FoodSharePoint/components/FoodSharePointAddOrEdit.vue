@@ -156,6 +156,7 @@ const formData = ref({
 })
 
 const title = props.foodSharePointId === null ? i18n('fsp.add') : i18n('fsp.edit')
+const isEditMode = props.foodSharePointId !== null
 
 async function saveFoodSharePoint () {
   if (!validateForm()) {
@@ -165,7 +166,7 @@ async function saveFoodSharePoint () {
 
   showLoader()
   try {
-    if (props.foodSharePointId) {
+    if (isEditMode) {
       await updateFoodSharePoint(props.foodSharePointId, formData.value)
       pulseSuccess(i18n('fsp.editSuccess'))
     } else {
@@ -259,7 +260,7 @@ async function removeFoodSharePoint () {
 }
 
 function backToFoodSharePointOverview () {
-  if (props.foodSharePointId) {
+  if (isEditMode) {
     window.location.href = url('foodsharepoint', props.foodSharePointId)
   } else {
     window.location.href = url('foodsharepoints', props.regionId)
@@ -281,7 +282,7 @@ const regionOptions = computed(() => {
 })
 
 onMounted(async () => {
-  if (!props.foodSharePointId) {
+  if (!isEditMode) {
     // Create new foodSharePoint
     isLoading.value = false
     return
