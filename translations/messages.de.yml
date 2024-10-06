@@ -881,7 +881,7 @@ fsp:
   deleteSuccess: "Fairteiler wurde gelöscht"
   none: "Noch keine Fairteiler eingetragen"
   form_validation:
-    invalid: "Eingabe ist ungültig. Prüfe die Felder."
+    invalid: "Eingabe ist ungültig. Bitte überprüfe deine Eingaben."
     required: "{name} ist nötig."
     min_length: "{name} muss mindestens {length} Zeichen lang sein."
   info:
