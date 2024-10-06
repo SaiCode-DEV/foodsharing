@@ -509,6 +509,7 @@ class StoreGateway extends BaseGateway
             WHERE betrieb_team.betrieb_id = :storeId2
                 AND betrieb_team.active = :membershipStatus
                 AND foodsaver.deleted_at IS NULL
+            ORDER BY log.date_activity DESC
 		', [
             ':storeLat' => $storePosition->lat,
             ':storeLon' => $storePosition->lon,
