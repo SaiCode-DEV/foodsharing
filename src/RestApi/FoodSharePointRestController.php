@@ -30,6 +30,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * Rest controller for food share points.
  */
+#[OA2\Tag(name: 'foodSharePoints')]
 final class FoodSharePointRestController extends AbstractFoodsharingRestController
 {
     private const NOT_LOGGED_IN = 'not logged in';
@@ -53,7 +54,6 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
      *
      * Returns 200 and a list of food share points, 400 if the distance is out of range, or 401 if not logged in.
      *
-     * @OA\Tag(name="foodsharepoint")
      */
     #[Rest\Get('foodSharePoints/nearby')]
     #[Rest\QueryParam(name: 'lat', nullable: true)]
@@ -77,10 +77,10 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         return $this->handleView($this->view($fsps, 200));
     }
 
-    #[OA2\Get(summary: 'Returns details of the food share point with the given ID. Returns 200 and the
-    food share point, 404 if the food share point does not exist, or 401 if not logged in.')]
+    #[OA2\Get(summary: 'Returns details of the food share point with the given ID.')]
     #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to access this region')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Food share point not found')]
     #[Rest\Get('foodSharePoints/{foodSharePointId}', requirements: ['foodSharePointId' => Requirement::POSITIVE_INT])]
     public function getFoodSharePoint(int $foodSharePointId): Response
     {
@@ -151,7 +151,6 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
     /**
      * Returns a list of all food share points in a region and all its subregions.
      *
-     * @OA\Tag(name="foodsharepoint")
      * @OA\Parameter(name="regionId", in="path", @OA\Schema(type="integer"), description="region for which to return food share points")
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="401", description="Not logged in")
@@ -204,7 +203,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
     #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid date')]
     #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to access this region')]
-    #[Rest\Patch('foodSharePoints/{foodSharePointId}', requirements: ['foodSharePointId' => '\d+'])]
+    #[Rest\Patch('foodSharePoints/{foodSharePointId}', requirements: ['foodSharePointId' => Requirement::POSITIVE_INT])]
     public function editFoodSharePoint(int $foodSharePointId, FoodSharePointEditData $foodSharePointData, ValidatorInterface $validator): Response
     {
         $this->assertLoggedIn();
@@ -233,8 +232,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
     #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to remove this foodSharePoint.')]
     #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'FoodSharePoint not found.')]
-    #[OA2\Tag(name: 'foodSharePoints')]
-    #[Rest\Delete('/foodSharePoints/{foodSharePointId}', name: 'remove_foodsharepoint', requirements: ['foodSharePointId' => '\d+'])]
+    #[Rest\Delete('/foodSharePoints/{foodSharePointId}', name: 'remove_foodsharepoint', requirements: ['foodSharePointId' => Requirement::POSITIVE_INT])]
     public function removeFoodSharePoint(int $foodSharePointId): Response
     {
         $this->assertLoggedIn();
@@ -245,7 +243,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         }
 
         if (!$this->foodSharePointPermissions->mayDeleteFoodSharePointOfRegion($foodSharePoint['bezirk_id'])) {
-            throw new AccessDeniedHttpException('Not a member of the region');
+            throw new AccessDeniedHttpException('Insufficient permissions to remove this foodSharePoint.');
         }
 
         $this->foodSharePointGateway->deleteFoodSharePoint($foodSharePointId);
