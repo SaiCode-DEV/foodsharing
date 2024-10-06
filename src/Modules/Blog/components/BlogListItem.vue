@@ -12,34 +12,13 @@
         />
       </b-link>
     </div>
-    <div class="text-muted mx-1">
-      {{ $dateFormatter.date(when) }}
-    </div>
-    <div class="mx-1 flex-shrink-0">
-      <b-link
-        v-b-tooltip.hover="$i18n('blog.author')"
-        class="blog-editor text-primary"
-        :href="$url('profile', authorId)"
-      >
-        <i class="fas fa-fw fa-user-edit" />
-      </b-link>
-      <b-link
-        v-if="lastEditorId"
-        v-b-tooltip.hover="$i18n('blog.last-editor')"
-        class="blog-editor text-muted"
-        :href="$url('profile', lastEditorId)"
-      >
-        <i class="fas fa-fw fa-pen-square" />
-      </b-link>
-    </div>
+    <Avatar :user="author" />
     <div class="mx-1 blog-text">
-      <span class="blog-title ml-1">
-        {{ blogTitle }}
-      </span>
-      <span class="blog-teaser d-inline-block mx-1 text-muted">
-        {{ blogTeaser }}
-      </span>
+      <span class="blog-title ml-1" v-text="blogTitle" />
+      <span class="blog-teaser d-inline-block mx-1 text-muted" v-text="blogTeaser" />
     </div>
+    <span class="flex-grow-1" />
+    <Time :time="when" class="mr-2" />
     <b-link
       v-if="mayEdit"
       v-b-tooltip="$i18n('blog.edit')"
@@ -64,18 +43,20 @@
 
 <script>
 import { publishBlogpost, deleteBlogpost } from '@/api/blog'
+import Avatar from '@/components/Avatar/Avatar.vue'
+import Time from '@/components/Time.vue'
 import i18n from '@/helper/i18n'
 import { showLoader, hideLoader, pulseSuccess, pulseError } from '@/script'
 
 export default {
+  components: { Avatar, Time },
   props: {
     blogId: { type: Number, required: true },
     blogTitle: { type: String, default: '' },
     blogTeaser: { type: String, default: '' },
     published: { type: Boolean, required: true },
-    regionId: { type: Number, required: true },
     createdAt: { type: String, required: true },
-    authorId: { type: Number, required: true },
+    author: { type: Object, required: true },
     lastEditorId: { type: Number, default: null },
     mayEdit: { type: Boolean, default: false },
   },

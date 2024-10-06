@@ -177,15 +177,18 @@ final class BlogGateway extends BaseGateway
         }
 
         return $this->db->fetchAll('
-			SELECT 	 	`id`,
-						`name`,
-						`foodsaver_id`,
-						`time`,
-						UNIX_TIMESTAMP(`time`) AS time_ts,
-						`active`,
-						`teaser`,
-						`bezirk_id`
-			FROM 		`fs_blog_entry`
+			SELECT 	 	b.`id`,
+						b.`name`,
+						b.`time`,
+						UNIX_TIMESTAMP(b.`time`) AS time_ts,
+						b.`active`,
+						b.`teaser`,
+						b.`bezirk_id`,
+						fs.`id` AS foodsaver_id,
+						fs.`name` AS foodsaver_name,
+						fs.`photo` AS foodsaver_photo
+			FROM 		`fs_blog_entry` b
+            LEFT OUTER JOIN fs_foodsaver fs ON fs.id = b.foodsaver_id
 			' . $filter . '
 			ORDER BY `time` DESC');
     }
