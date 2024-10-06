@@ -208,25 +208,25 @@ const validateForm = () => {
   }
 
   // Validate name
-  if (formData.value.name === null) {
+  if (isEmpty(formData.value.name)) {
     errors.value.name = i18n('fsp.form_validation.required', { name: 'name' })
     isValid = false
-  } else if (formData.value.name.length < 3) {
+  } else if (formData.value.name.length.trim() < 3) {
     errors.value.name = i18n('fsp.form_validation.min_length', { name: 'name', length: 3 })
     isValid = false
   }
 
   // Validate description
-  if (formData.value.description === null) {
+  if (isEmpty(formData.value.description)) {
     errors.value.description = i18n('fsp.form_validation.required', { name: 'description' })
     isValid = false
-  } else if (formData.value.description.length < 10) {
+  } else if (formData.value.description.length.trim() < 10) {
     errors.value.description = i18n('fsp.form_validation.min_length', { name: 'description', length: 10 })
     isValid = false
   }
 
   // Validate address
-  if (formData.value.address === null) {
+  if (isEmpty(formData.value.address)) {
     errors.value.address = i18n('fsp.form_validation.required', { name: 'address' })
     isValid = false
   }
@@ -238,6 +238,10 @@ const validateForm = () => {
   }
 
   return isValid
+}
+
+function isEmpty (str) {
+  return (!str || str.trim().length === 0)
 }
 
 async function removeFoodSharePoint () {
