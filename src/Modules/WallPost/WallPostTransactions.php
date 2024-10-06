@@ -11,6 +11,7 @@ use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Event\EventGateway;
+use Foodsharing\Modules\FoodSharePoint\FoodSharePointTransactions;
 use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Uploads\UploadsGateway;
@@ -28,6 +29,7 @@ class WallPostTransactions
         private readonly EventGateway $eventGateway,
         private readonly RegionGateway $regionGateway,
         private readonly BellTransactions $bellTransactions,
+        private readonly FoodSharePointTransactions $foodSharePointTransactions,
         private readonly Session $session,
     ) {
     }
@@ -58,6 +60,9 @@ class WallPostTransactions
                 break;
             case WallType::EVENT:
                 $this->sendEventCommentBell($targetId);
+                break;
+            case WallType::FOOD_SHARE_POINT:
+                $this->foodSharePointTransactions->sendNewFoodSharePointPostNotifications($targetId);
                 break;
         }
 
