@@ -883,7 +883,7 @@ fsp:
   form_validation:
     invalid: "Eingabe ist ungültig. Prüfe die Felder."
     required: "{name} ist nötig."
-    min_length: "{name} soll mindestens {length} Zeichen lang sein."
+    min_length: "{name} muss mindestens {length} Zeichen lang sein."
   info:
     from: "Updates zum Fairteiler „{name}“"
     bell: "nur interne Infomeldungen (Glocke)"
