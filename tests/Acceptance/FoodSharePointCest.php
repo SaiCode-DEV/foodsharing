@@ -91,7 +91,7 @@ class FoodSharePointCest
         $I->amOnPage($I->foodSharePointEditUrl($this->foodSharePoint['id']));
         $I->waitForText('Schreibe hier ein paar grundsätzliche Infos über den Fairteiler');
         $I->waitForText('insbesondere wann er zugänglich/geöffnet ist');
-        $I->fillField('#ndescription-md', 'The BEST fairshare point!');
+        $I->fillField('#description-md', 'The BEST fairshare point!');
         $I->addInTagSelect($user['name'], '#fspmanagers-input');
         $I->click('Speichern');
         $I->waitForText('erfolgreich bearbeitet');
