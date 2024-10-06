@@ -13,7 +13,7 @@ export async function getFoodSharePoint (foodSharePointId) {
 }
 
 export async function updateFoodSharePoint (foodSharePointId, foodSharePointData) {
-  return patch(`/foodSharePoints/${foodSharePointId}`, { ...foodSharePointData })
+  return patch(`/foodSharePoints/${foodSharePointId}`, foodSharePointData)
 }
 
 export async function deleteFoodSharePoint (foodSharePointId) {
