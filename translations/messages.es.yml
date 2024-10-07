@@ -1927,6 +1927,8 @@ bell:
   event_post_title: Fecha de {event} en {region}
   workinggroup_new_request_title: '{name}'
   internal_email_changed: Tu dirección de correo electrónico personal ha sido cambiada.
+  forum_not_activated_thread: '{forum}'
+  forum_not_activated_thread_title: Tema en foro moderado
 foodsaver:
   restricted: 'Lamentablemente, no tienes permiso para ver estos datos.'
   upgrade:
@@ -2778,6 +2780,10 @@ fsp:
   addedBy: 'Añadid@ por'
   addError: 'No se pudo ingresar el distribuidor. ¿Completaste todo correctamente?'
   show_on_large_map: Mostrar en el mapa
+  form_validation:
+    min_length: '{name} debe tener al menos {length} caracteres.'
+    invalid: La entrada es incorrecta, por favor revisa tus entradas.
+    required: '{name} es necesario.'
 storeedit:
   team:
     leave: 'Dejar esta empresa'
