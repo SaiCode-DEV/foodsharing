@@ -155,7 +155,7 @@ const formData = ref({
   managerIds: [],
 })
 
-const title = props.foodSharePointId === null ? i18n('fsp.add') : i18n('fsp.edit')
+const title = isEditMode ? i18n('fsp.edit') : i18n('fsp.add')
 const isEditMode = props.foodSharePointId !== null
 
 async function saveFoodSharePoint () {
