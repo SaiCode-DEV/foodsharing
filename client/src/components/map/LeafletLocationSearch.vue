@@ -9,9 +9,10 @@
         <Markdown :source="additionalInfoText" />
       </div>
     </div>
+
     <b-form-group>
       <b-form-input
-        id="searchinput"
+        id="search-address-input"
         v-model="searchInput"
         list="suggestions"
         debounce="300"

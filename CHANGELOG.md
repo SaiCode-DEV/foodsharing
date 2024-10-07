@@ -74,6 +74,7 @@
 - Port the register controller to Symfony !3594 @alex.simm
 - Port the application controller to Symfony #1994 !3603 @alex.simm
 - Port the message controller to Symfony #1994 !3633 @\_fridtjof_
+- Refactored add and edit form to vue and removed jquery tagedit #2137 !3520 @chriswalg @alex.simm
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm

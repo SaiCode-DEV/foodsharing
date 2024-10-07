@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Modules\FoodSharePoint;
 
+use Carbon\Carbon;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\BaseGateway;
@@ -10,8 +11,11 @@ use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
+use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointData;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 
 class FoodSharePointGateway extends BaseGateway
@@ -347,10 +351,20 @@ class FoodSharePointGateway extends BaseGateway
         $this->removeBellNotificationForNewFoodSharePoint($foodSharePointId);
     }
 
-    public function updateFoodSharePoint(int $foodSharePointId, array $data): bool
+    public function updateFoodSharePoint(int $foodSharePointId, FoodSharePointEditData $foodSharePointData): bool
     {
         $this->db->requireExists('fs_fairteiler', ['id' => $foodSharePointId]);
-        $this->db->update('fs_fairteiler', $data, ['id' => $foodSharePointId]);
+        $this->db->update('fs_fairteiler', [
+            'name' => $foodSharePointData->name,
+            'desc' => $foodSharePointData->description,
+            'anschrift' => strip_tags($foodSharePointData->address),
+            'plz' => preg_replace('[^0-9]', '', $foodSharePointData->postalCode),
+            'ort' => strip_tags($foodSharePointData->city),
+            'picture' => $foodSharePointData->picture ?? '',
+            'bezirk_id' => $foodSharePointData->regionId,
+            'lat' => $foodSharePointData->location->lat,
+            'lon' => $foodSharePointData->location->lon,
+        ], ['id' => $foodSharePointId]);
 
         return true;
     }
@@ -364,6 +378,92 @@ class FoodSharePointGateway extends BaseGateway
         $this->removeBellNotificationForNewFoodSharePoint($foodSharePointId);
 
         return $result;
+    }
+
+    /**
+     * TODO: split up the data for FSPs and followers into two functions, two DTOs. Replace the REST endpoint with
+     * two endpoints. After that, mark getFoodSharePoint and getFollower as deprecated.
+     */
+    public function getFoodSharePointWithFollowers(int $foodSharePointId): ?FoodSharePointData
+    {
+        $result = $this->db->fetchAll(
+            '
+        SELECT  ft.id AS food_share_point_id,
+                ft.bezirk_id,
+                ft.`name` AS food_share_point_name,
+                ft.`picture`,
+                ft.`status`,
+                ft.`desc`,
+                ft.`anschrift`,
+                ft.`plz`,
+                ft.`ort`,
+                ft.`lat`,
+                ft.`lon`,
+                UNIX_TIMESTAMP(ft.`add_date`) AS add_date,
+                ft.`add_foodsaver`,
+                fs.name AS fs_name,
+                fs.nachname AS fs_nachname,
+                fs.id AS fs_id,
+                folfs.name AS follower_name,
+                folfs.nachname AS follower_nachname,
+                folfs.id AS follower_id,
+                folfs.photo AS follower_photo,
+                folfs.is_sleeping AS follower_is_sleeping,
+                ff.type AS follower_type
+        FROM    fs_fairteiler ft
+        LEFT JOIN fs_foodsaver fs ON ft.add_foodsaver = fs.id
+        LEFT JOIN fs_fairteiler_follower ff ON ff.fairteiler_id = ft.id
+        LEFT JOIN fs_foodsaver folfs ON ff.foodsaver_id = folfs.id
+        WHERE   ft.id = :foodSharePointId
+        ',
+            [':foodSharePointId' => $foodSharePointId]
+        );
+
+        if (!$result) {
+            return null;
+        }
+
+        $foodSharePoint = [
+            'id' => $result[0]['food_share_point_id'],
+            'bezirk_id' => $result[0]['bezirk_id'],
+            'name' => $result[0]['food_share_point_name'],
+            'picture' => $result[0]['picture'],
+            'status' => $result[0]['status'],
+            'desc' => $result[0]['desc'],
+            'anschrift' => $result[0]['anschrift'],
+            'plz' => $result[0]['plz'],
+            'ort' => $result[0]['ort'],
+            'lat' => $result[0]['lat'],
+            'lon' => $result[0]['lon'],
+            'add_date' => Carbon::createFromTimestamp($result[0]['add_date']),
+            'add_foodsaver' => $result[0]['add_foodsaver'],
+            'fs_name' => $result[0]['fs_name'],
+            'fs_nachname' => $result[0]['fs_nachname'],
+            'fs_id' => $result[0]['fs_id'],
+            'pic' => !empty($result[0]['picture']) ? $this->getPicturePaths($result[0]['picture']) : false,
+            'followers' => [],
+            'managers' => [],
+        ];
+
+        foreach ($result as $row) {
+            if ($row['follower_id']) {
+                $follower = [
+                    'name' => $row['follower_name'],
+                    'nachname' => $row['follower_nachname'],
+                    'id' => $row['follower_id'],
+                    'photo' => $row['follower_photo'],
+                    'is_sleeping' => $row['follower_is_sleeping'],
+                ];
+
+                if ($row['follower_type'] === FollowerType::FOLLOWER) {
+                    $foodSharePoint['followers'][] = new Profile($follower);
+                } elseif ($row['follower_type'] === FollowerType::FOOD_SHARE_POINT_MANAGER) {
+                    $foodSharePoint['managers'][] = new Profile($follower);
+                }
+            }
+        }
+
+        return FoodSharePointData::createFromArray($foodSharePoint);
     }
 
     public function getFoodSharePoint(int $foodSharePointId): array
@@ -415,7 +515,7 @@ class FoodSharePointGateway extends BaseGateway
         $food_share_point_id = $this->db->insert('fs_fairteiler', [
             'bezirk_id' => $data->regionId,
             'name' => $data->name,
-            'picture' => $data->picture,
+            'picture' => $data->picture ?? '',
             'desc' => $data->description,
             'anschrift' => strip_tags($data->address),
             'plz' => preg_replace('[^0-9]', '', $data->postalCode),

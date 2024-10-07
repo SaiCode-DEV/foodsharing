@@ -18,31 +18,54 @@ class FoodsharingUI extends Module
     }
 
     /**
-     * Searches for a value in a tagselect and marks it.
+     * Adds a value to the Bootstrap-Vue TagSelect component.
      *
-     * @param string $value to search for and click on, first element will be used if multiple turn up
-     * @param string $tagEditId the ID of the tagselect itself
+     * @param string $value the value to be searched and selected
+     * @param string $tagSelectSelector the CSS selector for the TagSelect component
      */
-    public function addInTagSelect($value, $tagEditInSelector, $tagEditId = 'tagedit'): void
+    public function addInTagSelect(string $value, string $tagSelectSelector = '#tags-with-dropdown'): void
     {
-        $inputId = $tagEditInSelector . ' #' . $tagEditId . '-input';
-        $this->getBrowser()->clickWithLeftButton($tagEditInSelector, 3, 3);
-        $this->getBrowser()->fillField($inputId, $value);
-        $selector = '//a[contains(@id, \'ui-id\') and contains(text(), "' . $value . '")]';
-        $this->getBrowser()->waitForElement($selector);
-        $this->getBrowser()->click($selector);
+        $browser = $this->getBrowser();
+
+        $dropdownToggleSelector = $tagSelectSelector . ' .dropdown-toggle';
+        $browser->click($dropdownToggleSelector);
+
+        $inputSelector = $tagSelectSelector . ' #tag-search-input';
+        $browser->waitForElementVisible($inputSelector);
+        $browser->fillField($inputSelector, $value);
+
+        $suggestionSelector = $tagSelectSelector . ' .dropdown-item';
+        $browser->waitForElementVisible($suggestionSelector);
+
+        // Find all dropdown items and click the one with matching text
+        $browser->click("//button[contains(@class, 'dropdown-item') and contains(text(), '$value')]");
+        $browser->wait(1); // Wait for 1 second
+
+        $tagSelector = $tagSelectSelector . ' .list-inline-item';
+        $browser->waitForElementVisible($tagSelector);
+        $browser->see($value, $tagSelector);
     }
 
-    public function removeFromTagSelect($value, $tagEditInId = null): void
+    /**
+     * Removes a value from the Bootstrap-Vue TagSelect component.
+     *
+     * @param string $value the value to be removed
+     * @param string|null $tagSelectSelector the CSS selector for the TagSelect component
+     * @throws ModuleException
+     */
+    public function removeFromTagSelect(string $value, string $tagSelectSelector = null): void
     {
-        if ($tagEditInId) {
-            $selector = '//*[@id="' . $tagEditInId . '"]//*[@value="' . $value . '"]/following-sibling::*';
-        } else {
-            $selector = '//*[@value="' . $value . '"]/following-sibling::*';
-        }
+        $browser = $this->getBrowser();
 
-        $this->getBrowser()->click($selector);
-        /* wait until it is gone, it might change the layout */
-        $this->getBrowser()->dontSee($selector);
+        $tagXPath = $tagSelectSelector . sprintf(
+            '/descendant::li[contains(@class, "list-inline-item")]/*[contains(@title, "%s")]',
+            $value
+        );
+
+        $removeButtonXPath = $tagXPath . '/following-sibling::button[contains(@class, "b-form-tag-remove")]';
+
+        $browser->click($removeButtonXPath);
+
+        $browser->dontSee($value, $tagSelectSelector . ' .list-inline-item');
     }
 }

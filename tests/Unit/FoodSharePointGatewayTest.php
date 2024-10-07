@@ -10,6 +10,7 @@ use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 use Tests\Support\UnitTester;
 
@@ -28,6 +29,7 @@ class FoodSharePointGatewayTest extends Unit
         $this->foodsaver = $this->tester->createFoodsaver();
         $this->otherFoodsaver = $this->tester->createFoodsaver();
         $this->region = $this->tester->createRegion('peter', fillMailbox: false);
+
         $this->foodSharePoint = $this->tester->createFoodSharePoint(
             $this->foodsaver['id'],
             $this->region['id'],
@@ -37,17 +39,23 @@ class FoodSharePointGatewayTest extends Unit
 
     final public function testUpdateFoodSharePoint(): void
     {
-        $data = [
-            'bezirk_id' => $this->region['id'],
-            'name' => 'asdf',
-            'desc' => $this->foodSharePoint['desc'],
-            'anschrift' => $this->foodSharePoint['anschrift'],
-            'plz' => $this->foodSharePoint['plz'],
-            'ort' => $this->foodSharePoint['ort'],
-            'lat' => $this->foodSharePoint['lat'],
-            'lon' => $this->foodSharePoint['lon'],
-            'picture' => null
-            ];
+        $data = new FoodSharePointEditData();
+        $data->regionId = $this->region['id'];
+        $data->name = 'asdf';
+        $data->description = $this->foodSharePoint['desc'];
+        $data->address = $this->foodSharePoint['anschrift'];
+        $data->postalCode = $this->foodSharePoint['plz'];
+        $data->city = $this->foodSharePoint['ort'];
+        $data->location = new GeoLocation();
+        $data->location->lat = $this->foodSharePoint['lat'];
+        $data->location->lon = $this->foodSharePoint['lon'];
+        $data->picture = 'picture/cat.jpg';
+        $id = $this->gateway->addFoodSharePoint(
+            $this->foodsaver['id'],
+            $data,
+            true
+        );
+
         $response = $this->gateway->updateFoodSharePoint($this->foodSharePoint['id'], $data);
         $this->assertTrue($response);
         $this->tester->seeInDatabase('fs_fairteiler', ['name' => 'asdf']);
@@ -55,17 +63,22 @@ class FoodSharePointGatewayTest extends Unit
 
     final public function testUpdateFoodSharePointReturnsTrueIfNothingChanged(): void
     {
-        $data = [
-            'bezirk_id' => $this->region['id'],
-            'name' => $this->foodSharePoint['name'],
-            'desc' => $this->foodSharePoint['desc'],
-            'anschrift' => $this->foodSharePoint['anschrift'],
-            'plz' => $this->foodSharePoint['plz'],
-            'ort' => $this->foodSharePoint['ort'],
-            'lat' => $this->foodSharePoint['lat'],
-            'lon' => $this->foodSharePoint['lon'],
-            'picture' => null
-        ];
+        $data = new FoodSharePointEditData();
+        $data->regionId = $this->region['id'];
+        $data->name = $this->foodSharePoint['name'];
+        $data->description = $this->foodSharePoint['desc'];
+        $data->address = $this->foodSharePoint['anschrift'];
+        $data->postalCode = $this->foodSharePoint['plz'];
+        $data->city = $this->foodSharePoint['ort'];
+        $data->location = new GeoLocation();
+        $data->location->lat = $this->foodSharePoint['lat'];
+        $data->location->lon = $this->foodSharePoint['lon'];
+        $data->picture = '';
+        $id = $this->gateway->addFoodSharePoint(
+            $this->foodsaver['id'],
+            $data,
+            true
+        );
         $response = $this->gateway->updateFoodSharePoint(
             $this->foodSharePoint['id'], $data
         );
@@ -77,17 +90,23 @@ class FoodSharePointGatewayTest extends Unit
     {
         /* strip_tags happens in the controller in this case */
         $this->tester->dontSeeInDatabase('fs_fairteiler', ['name' => 'asdf']);
-        $data = [
-            'bezirk_id' => $this->region['id'],
-            'name' => 'asdf<script>',
-            'desc' => $this->foodSharePoint['desc'],
-            'anschrift' => $this->foodSharePoint['anschrift'],
-            'plz' => $this->foodSharePoint['plz'],
-            'ort' => $this->foodSharePoint['ort'],
-            'lat' => $this->foodSharePoint['lat'],
-            'lon' => $this->foodSharePoint['lon'],
-            'picture' => null
-        ];
+
+        $data = new FoodSharePointEditData();
+        $data->regionId = $this->region['id'];
+        $data->name = 'asdf<script>';
+        $data->description = $this->foodSharePoint['desc'];
+        $data->address = $this->foodSharePoint['anschrift'];
+        $data->postalCode = $this->foodSharePoint['plz'];
+        $data->city = $this->foodSharePoint['ort'];
+        $data->location = new GeoLocation();
+        $data->location->lat = $this->foodSharePoint['lat'];
+        $data->location->lon = $this->foodSharePoint['lon'];
+        $data->picture = '';
+        $id = $this->gateway->addFoodSharePoint(
+            $this->foodsaver['id'],
+            $data,
+            true
+        );
 
         $response = $this->gateway->updateFoodSharePoint(
             $this->foodSharePoint['id'],
@@ -101,8 +120,9 @@ class FoodSharePointGatewayTest extends Unit
     final public function testUpdateFoodSharePointThrowsIfIDNotFound(): void
     {
         $this->expectException(Exception::class);
+        $data = new FoodSharePointEditData();
         $this->gateway->updateFoodSharePoint(
-            99_999_999, []
+            99_999_999, $data
         );
         $this->tester->dontSeeInDatabase('fs_fairteiler', ['name' => 'asdf']);
     }

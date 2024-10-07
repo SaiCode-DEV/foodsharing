@@ -69,14 +69,6 @@ Object.assign(module.exports, convert({
     ],
   },
 
-  'jquery-tagedit-auto-grow-input': {
-    resolve: lib('tagedit/js/jquery.autoGrowInput.js'),
-  },
-
-  'jquery-tagedit': {
-    resolve: lib('tagedit/js/jquery.tagedit.js'),
-  },
-
   'jquery.tinymce': {
     resolve: lib('tinymce/jquery.tinymce.min'),
   },
