@@ -273,6 +273,7 @@
               :rows="5"
               :value="store.description"
               :disabled="!editMode"
+              :region-id="store.region.id"
               @update:value="newDescription => store.description = newDescription"
             />
           </b-form-group>

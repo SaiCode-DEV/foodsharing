@@ -15,6 +15,7 @@
         input-name="thread-content"
         :rows="6"
         :value="body"
+        :region-id="groupId"
         @update:value="newValue => body = newValue"
       />
 

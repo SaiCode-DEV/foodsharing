@@ -36,6 +36,7 @@
               :rows="12"
               :value="description"
               :placeholder="$i18n('regionPin.text_desc')"
+              :region-id="regionId"
               @update:value="newDescription => description = newDescription"
             />
           </b-form-group>

@@ -18,7 +18,7 @@
 - Food baskets support multiple images now. Image quality issues are resolve. #1797 #1714 !3304 @AntonBallmaier
 - Added the option to test a quiz from the quiz editor. #2112 !3612 @AntonBallmaier
 - Added bells for mentions in forum. #1850 !3671 @AntonBallmaier
-- Added a button to the markdown input for mentioning users #1850 !3670 @AntonBallmaier
+- Added a button to the markdown input for mentioning users #1850 !3670 #2153 !3692 @AntonBallmaier
 - Added the option to send a message with a store aplication #2017 !3461 @AntonBallmaier
 - Added a french foodsaver quiz that can be edited but not yet accessed #2149 !3672 @AntonBallmaier
 - Added a tab in the banana modal for sent bananas. #2075 !3581 !3676 @AntonBallmaier @SaiCode

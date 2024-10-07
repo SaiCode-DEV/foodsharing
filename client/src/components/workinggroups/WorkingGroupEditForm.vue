@@ -35,6 +35,7 @@
               :rows="2"
               :conceal-toolbar="true"
               :value="description"
+              :region-id="group.id"
               @update:value="newValue => description = newValue"
             />
             <div

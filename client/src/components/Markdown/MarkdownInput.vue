@@ -23,9 +23,11 @@
           ref="atDropdown"
           v-b-tooltip.hover="$i18n(`markdown_input.tooltip.mention`)"
           :variant="variant"
+          :disabled="isPreview"
           no-caret
           right
           menu-class="user-search-dropdown"
+          class="at-dropdown"
           @shown="$refs.userSearch.focus()"
         >
           <template #button-content>
@@ -346,6 +348,13 @@ export default {
   width: 20em !important;
   border: 0;
   padding: 0;
+}
+
+.at-dropdown {
+  flex: 1 1 auto;
+  ::v-deep > .btn {
+    padding: 0px;
+  }
 }
 
 </style>

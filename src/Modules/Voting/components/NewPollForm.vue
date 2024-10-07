@@ -144,6 +144,7 @@
             :value="$v.description.$model"
             :state="$v.description.$error ? false : null"
             :placeholder="$i18n('poll.new_poll.description_placeholder')"
+            :region-id="region.id"
             @update:value="newValue => $v.description.$model = newValue"
           />
           <div
