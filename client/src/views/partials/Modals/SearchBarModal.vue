@@ -213,6 +213,7 @@ export default {
       return string.toLowerCase().normalize('NFKD').replace(/[^\w\d\s"]/g, '')
     },
     searchString (string, detailedSearch) {
+      if (!string) return ''
       if (!detailedSearch) string = string.split('"!!!"')[0]
       return this.collateString(string)
     },
