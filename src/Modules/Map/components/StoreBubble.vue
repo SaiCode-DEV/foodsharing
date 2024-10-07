@@ -89,11 +89,13 @@
         </b-form-group>
       </b-collapse>
       <div v-if="store">
-        <a
+        <b-button
           v-if="store.mayAccessStorePage"
           :href="$url('store', store.id)"
-          class="btn btn-primary mt-3 text-wrap"
-        >{{ $i18n('store.go') }}</a>
+          variant="success"
+        >
+          {{ $i18n('store.go') }}
+        </b-button>
         <b-button
           v-if="store.mayWithdrawRequest"
           variant="success"

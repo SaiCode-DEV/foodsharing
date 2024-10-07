@@ -43,6 +43,7 @@
 - Improved the look of the store applicants modal on small screens #2152 !3695 @AntonBallmaier
 - Added the author avatar in the blog list #2154 !3696 @AntonBallmaier
 - Unified the different icons used for store managers #2087 !3699 @AntonBallmaier
+- Some visual improvements related to store aplications #2157 !3702 @AntonBallmaier
 - "Thumb voting" polls can be created with only one option #975 !3684 @alex.simm
 
 ## Bugfixes

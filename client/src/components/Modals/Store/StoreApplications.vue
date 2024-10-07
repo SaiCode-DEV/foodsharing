@@ -151,4 +151,7 @@ export default {
 .request a {
   color: var(--fs-color-secondary-500);
 }
+.request:not(:last-child){
+  border-bottom: 1px solid var(--fs-border-default);
+}
 </style>
