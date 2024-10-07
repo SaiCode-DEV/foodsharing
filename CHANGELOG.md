@@ -43,6 +43,7 @@
 - Improved the look of the store applicants modal on small screens #2152 !3695 @AntonBallmaier
 - Added the author avatar in the blog list #2154 !3696 @AntonBallmaier
 - Unified the different icons used for store managers #2087 !3699 @AntonBallmaier
+- "Thumb voting" polls can be created with only one option #975 !3684 @alex.simm
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
@@ -59,6 +60,7 @@
 - Fix vue warn messages on create new thread page #2109 !3697 @AntonBallmaier
 - Fix more than 6 months back selectable in store log #2102 !3698 @AntonBallmaier
 - Notifications are again sent via e-mail and bell for posts in Food Share Points !3690 @martincodes-de
+- Options are not discarded anymore when editing a poll #975 !3684 @alex.simm
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
