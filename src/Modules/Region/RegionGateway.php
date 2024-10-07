@@ -262,14 +262,15 @@ class RegionGateway extends BaseGateway
 					WHERE     fs.deleted_at IS NULL
 					AND 	c.bezirk_id = b.id
 					AND 	c.active = 1
-					AND 	fs.sleep_status = 0
 				) AS fs_count,
 				(
-					SELECT 	count(fs.`id`)
-					FROM 	`fs_foodsaver` fs
-					WHERE	fs.deleted_at IS NULL
-					AND 	fs.bezirk_id = b.id
-					AND 	fs.sleep_status = 0
+					SELECT 	count(c.`foodsaver_id`)
+					FROM 	`fs_foodsaver_has_bezirk` c
+					LEFT JOIN `fs_foodsaver` fs ON c.`foodsaver_id` = fs.id
+					WHERE   fs.deleted_at IS NULL
+                    AND     fs.bezirk_id = c.bezirk_id
+					AND 	c.bezirk_id = b.id
+					AND 	c.active = 1
 				) AS fs_home_count,
 				(
 					SELECT 	count(c.`foodsaver_id`)

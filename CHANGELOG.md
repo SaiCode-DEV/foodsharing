@@ -189,6 +189,7 @@
 - Fixed encoding for publicInfo field in store #2043 !3516 @chriswalg
 - Removed search results for groups the user has only applied to #2062 !3523 @AntonBallmaier
 - Fixed Attribution showing html istead of the resulting rendered html #2067 !3532 @SaiCode
+- Fixed Wrong data for home district used in region header and statistics #2059 !3517 @McGoldi
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai
