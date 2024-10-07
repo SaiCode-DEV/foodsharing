@@ -1,7 +1,7 @@
 <template>
   <Container
     :title="$i18n('store.info_container')"
-    tag="store_information"
+    :tag="`store-infos-${storeId}`"
     wrap-content="p-2"
   >
     <div

@@ -3,7 +3,7 @@
   <Container
     v-if="filteredPosts"
     :title="$i18n('wall.name')"
-    tag="store_wall"
+    :tag="`store-options-${storeId}`"
     :toggle-visiblity="filteredPosts.length > defaultAmount"
     wrap-content="p-0"
     @show-full-list="showFullList"

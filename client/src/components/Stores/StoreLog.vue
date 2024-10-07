@@ -3,7 +3,7 @@
     id="store-log"
     :title="$i18n('store.log.title')"
     :container-is-expanded="isContainerExpanded"
-    tag="store_log"
+    :tag="`store-log-${storeId}`"
     info-key="storeLog"
     wrap-content
   >

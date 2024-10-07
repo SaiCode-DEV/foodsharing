@@ -3,7 +3,7 @@
     <Container
       :title="title"
       :toggle-visiblity="list.length > defaultAmount"
-      tag="store_team"
+      :tag="`store-team-${storeId}`"
       class="store-team"
       @show-full-list="showFullList"
       @reduce-list="reduceList"
