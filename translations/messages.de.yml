@@ -1733,6 +1733,9 @@ bell:
   internal_email_changed_title: "{address}"
   internal_email_changed: "Deine persönliche E-Mail-Adresse wurde geändert."
 
+  forum_not_activated_thread: "{forum}"
+  forum_not_activated_thread_title: "Thema in moderiertem Forum"
+
 list:
   filter_for: "Filtern nach …"
 

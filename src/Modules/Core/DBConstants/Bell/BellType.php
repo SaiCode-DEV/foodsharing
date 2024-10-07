@@ -28,6 +28,10 @@ class BellType
      */
     final public const NEW_FORUM_POST = 'forum-%d';
     /**
+     * A new thread was opened in a moderated forum for which the user is a moderator. Argument: ID of the thread.
+     */
+    public const NOT_ACTIVATED_FORUM_THREAD = 'forum-thread-activation-%d';
+    /**
      * Notification for ambassadors about a new foodsaver. Argument: the foodsaver's ID.
      */
     final public const NEW_FOODSAVER_IN_REGION = 'new-fs-%d';
