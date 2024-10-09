@@ -13,9 +13,9 @@ use Foodsharing\Modules\Blog\DTO\BlogPostList;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
-use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
+use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\RestApi\Models\Blog\BlogPostData;
 use Foodsharing\Utility\Sanitizer;
 
@@ -33,6 +33,7 @@ final class BlogGateway extends BaseGateway
         Sanitizer $sanitizerService,
         Session $session,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
+        private readonly BlogPermissions $blogPermissions,
     ) {
         parent::__construct($db);
         $this->bellGateway = $bellGateway;
@@ -169,7 +170,7 @@ final class BlogGateway extends BaseGateway
 
     public function getBlogpostList(): array
     {
-        if ($this->session->mayRole(Role::ORGA)) {
+        if ($this->blogPermissions->mayAdministrateBlog()) {
             $filter = '';
         } else {
             $ownRegionIds = implode(',', array_map('intval', $this->currentUserUnits->listRegionIDs()));

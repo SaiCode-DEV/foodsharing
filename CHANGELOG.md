@@ -61,6 +61,7 @@
 - Fix vue warn messages on create new thread page #2109 !3697 @AntonBallmaier
 - Fix more than 6 months back selectable in store log #2102 !3698 @AntonBallmaier
 - Notifications are again sent via e-mail and bell for posts in Food Share Points !3690 @martincodes-de
+- Fixed blog permission for EDITORIAL_GROUP !3700 @chriswalg
 - Options are not discarded anymore when editing a poll #975 !3684 @alex.simm
 
 ## Refactoring
