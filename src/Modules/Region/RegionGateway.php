@@ -509,6 +509,8 @@ class RegionGateway extends BaseGateway
      * @return array associative array of options or empty array if not found
      *
      * @throws Exception
+     *
+     * @deprecated This does not actually return all options, but only five specific types. It should be replaced by getAllRegionOptions.
      */
     public function getRegionOptions(int $regionId): array
     {

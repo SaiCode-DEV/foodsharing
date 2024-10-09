@@ -967,20 +967,21 @@ class StoreTransactions
         if ($this->storeGateway->getUseRegionPickupRule($storeId)) {
             $regionId = $this->storeGateway->getStoreRegionId($storeId);
             // Does the region of the store have a pickuprule and it is active?
-            if ((bool)$this->regionGateway->getRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_ACTIVE)) {
+            $regionOptions = $this->regionGateway->getAllRegionOptions($regionId);
+            if ((bool)($regionOptions[RegionOptionType::REGION_PICKUP_RULE_ACTIVE] ?? false)) {
                 // how many hours before a pickup can this rule be ignored ?
-                $ignoreRuleHours = (int)$this->regionGateway->getRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS);
+                $ignoreRuleHours = (int)($regionOptions[RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS] ?? 0);
                 $res = Carbon::now()->diffInHours($pickupDate);
                 if ($res > $ignoreRuleHours) {
                     // the allowed numbers of pickups in a timespan. Timespan is +/- from pickupdate
-                    $numberAllowedPickups = (int)$this->regionGateway->getRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_LIMIT_NUMBER);
-                    $intervall = (int)$this->regionGateway->getRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_TIMESPAN_DAYS);
+                    $numberAllowedPickups = (int)($regionOptions[RegionOptionType::REGION_PICKUP_RULE_LIMIT_NUMBER] ?? 0);
+                    $intervall = (int)($regionOptions[RegionOptionType::REGION_PICKUP_RULE_TIMESPAN_DAYS] ?? 0);
                     // if we have more or same amount of used slots occupied then allowed we return false
                     if ($this->pickupGateway->getNumberOfPickupsForUserWithStoreRules($fsId, $pickupDate->copy()->subDays($intervall), $pickupDate->copy()->addDays($intervall)) >= $numberAllowedPickups) {
                         return false;
                     }
                     // if we have more then or same amount of allowed pickups per day we return false
-                    $numberAllowedPickupsPerDay = (int)$this->regionGateway->getRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_LIMIT_DAY_NUMBER);
+                    $numberAllowedPickupsPerDay = (int)($regionOptions[RegionOptionType::REGION_PICKUP_RULE_LIMIT_DAY_NUMBER] ?? 0);
                     if ($this->pickupGateway->getNumberOfPickupsForUserWithStoreRulesSameDay($fsId, $pickupDate) >= $numberAllowedPickupsPerDay) {
                         return false;
                     }

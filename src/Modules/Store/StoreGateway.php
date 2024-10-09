@@ -412,7 +412,6 @@ class StoreGateway extends BaseGateway
         ]);
 
         if ($result) {
-            $result['lebensmittel'] = $this->getGroceries($storeId);
             $result['foodsaver'] = $this->getStoreTeam($storeId);
             $result['springer'] = $this->getBetriebSpringer($storeId);
             $result['verantwortlich'] = false;
