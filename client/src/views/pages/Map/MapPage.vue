@@ -66,7 +66,7 @@ export default {
     maySeeStores: { type: Boolean, default: false },
     selectedStoreId: { type: Number, default: null },
     selectedFoodSharePointId: { type: Number, default: null },
-    ambassadorRegions: { type: Array, default: () => [{ id: 6058, name: 'Münster' }] },
+    ambassadorRegions: { type: Array, default: () => [] },
   },
   setup () {
     return {
@@ -108,6 +108,9 @@ export default {
     icons () {
       return objectMap(MARKER_TYPES, type => L.AwesomeMarkers.icon({ icon: type.icon, markerColor: type.color }))
     },
+    maySeeUsers () {
+      return Boolean(this.ambassadorRegions?.length)
+    },
   },
   created () {
     // Restore the selected marker types from the local storage
@@ -119,9 +122,12 @@ export default {
       this.selectedSpecifiers = saved
     }
 
-    // Remove the stores from the selected types if the user is not allowed to see them
+    // Remove unallowed selections from selected types
     if (!this.maySeeStores && this.selectedTypes.includes(MARKER_TYPES.stores.name)) {
       this.selectedTypes.splice(this.selectedTypes.indexOf(MARKER_TYPES.stores.name), 1)
+    }
+    if (!this.maySeeUsers && this.selectedTypes.includes(MARKER_TYPES.users.name)) {
+      this.selectedTypes.splice(this.selectedTypes.indexOf(MARKER_TYPES.users.name), 1)
     }
   },
   async mounted () {
