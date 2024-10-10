@@ -42,26 +42,27 @@ class FoodSharePointCest
     }
 
     /*
-     * TODO: The pulse messages doesn't currently work. These two tests need to be updated and reactivated when the FSP
-     * form was changed to vue.
+     * ToDo: Migrate to Playwrite test.
      */
     /* public function createFoodSharePoint(AcceptanceTester $I): void
     {
-        $address = 'Teststraße 1 37073 Teststadt Deutschland';
+        $address = 'Teststraße 1';
 
         $I->login($this->responsible['email']);
         $I->amOnPage($I->foodSharePointRegionListUrl($this->testBezirk['id']));
         $I->waitForText('Fairteiler eintragen', 10);
         $I->click('Fairteiler eintragen');
         $I->waitForText('In welchem Bezirk');
-        $I->selectOption('#fsp_bezirk_id', $this->testBezirk['id']);
-        $I->fillField('#name', 'The greatest fairsharepoint');
-        $I->fillField('#desc', 'Blablabla if you come here be hungry!');
+        $I->selectOption('#district-select', $this->testBezirk['id']);
+        $I->fillField('#name-input', 'The greatest fairsharepoint');
+        $I->fillField('#desc-input .md-text-area', 'Blablabla if you come here be hungry!');
+        $I->makeScreenshot('createFoodSharePoint_1');
+
 
         // Find an address in the search field
         $I->fillField('#searchinput', $address);
-        $I->waitForElementVisible('#searchinput_listbox');
-        $I->click("//*[@id='searchinput_listbox']//*[contains(text(), 'Teststraße 1')]");
+        $I->waitForElementVisible('#suggestions option');
+        $I->click("//*[contains(text(), 'Teststraße 1')]");
 
         // Codeception's click function doesn't work with this switch checkbox. We have to click it with javascript.
         $I->executeJs('document.getElementById(\'different_location\').click()');
@@ -70,30 +71,33 @@ class FoodSharePointCest
         $I->fillField('#input-city', 'Wurzen');
         $I->fillFieldJs('#lat', '1.23');
         $I->fillFieldJs('#lon', '2.48');
+        $I->makeScreenshot('createFoodSharePoint_5');
         $I->click('Speichern');
+        $I->makeScreenshot('createFoodSharePoint_6');
         $I->waitForActiveAPICalls();
+        $I->makeScreenshot('createFoodSharePoint_7');
         $id = $I->grabFromDatabase('fs_fairteiler', 'id', [
             'name' => 'The greatest fairsharepoint',
             'bezirk_id' => $this->testBezirk['id'],
         ]);
         $I->amOnPage($I->foodSharePointGetUrl($id));
-        $I->waitForText('Kantstrasse 20', 10);
+        $I->waitForText('Teststraße 1', 10);
     } */
 
-    /* public function editFoodSharePoint(AcceptanceTester $I): void
+    public function editFoodSharePoint(AcceptanceTester $I): void
     {
         $user = $I->createFoodsaver(null, ['bezirk_id' => $this->testBezirk['id']]);
         $I->login($this->responsible['email']);
         $I->amOnPage($I->foodSharePointEditUrl($this->foodSharePoint['id']));
         $I->waitForText('Schreibe hier ein paar grundsätzliche Infos über den Fairteiler');
         $I->waitForText('insbesondere wann er zugänglich/geöffnet ist');
-        $I->fillField('#name', 'The BEST fairshare point!');
-        $I->addInTagSelect($user['name'], '#fspmanagers');
+        $I->fillField('#description-md', 'The BEST fairshare point!');
+        $I->addInTagSelect($user['name'], '#fspmanagers-input');
         $I->click('Speichern');
-        // $I->waitForText('erfolgreich bearbeitet');
+        $I->waitForText('erfolgreich bearbeitet');
         $I->reloadPage();
-        $I->waitForText($user['name'] . ' ' . $user['nachname']);
-    } */
+        $I->waitForText($user['name']);
+    }
 
     /**
      * @example["user", false]

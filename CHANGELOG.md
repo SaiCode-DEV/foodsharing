@@ -4,7 +4,7 @@
 - Disable preview mode for Markdown component after message was sent #2039 @tq-bit
 - Add feedback on login form for invalid / missing email address #2061 @tq-bit
 - Add API endpoint for creating blog posts !3455 @alex.simm
-- Create option for multiple themes with dark mode as a start #2054 !3500 @SaiCode
+- Create option for multiple themes with dark mode as a start #2054 !3500 !3653 @SaiCode
 - Achievements can be awarded, edited and revoked. They get displayed on the profile !3429 @AntonBallmaier
 - Allow users to change their own passwords #581 !3435 @alex.simm
 - Allow loading more wall posts #2056 !3580 @AntonBallmaier
@@ -15,8 +15,14 @@
 - Improved map marker selection for stores #1659 !3596 @AntonBallmaier
 - Added an achievement administration page #2073 !3604 @AntonBallmaier
 - Added new Digital Foodsharing Passports for Android and iOS !3591 @SaiCode
-- Food baskets support multiple images now. Image quality issues are resolve. #1797 #1714 !3304 @AntonBallmaier
+- Food baskets support multiple images now. Image quality issues are resolved. #1797 #1714 #2120 !3304 !3711 @AntonBallmaier
 - Added the option to test a quiz from the quiz editor. #2112 !3612 @AntonBallmaier
+- Added bells for mentions in forum. #1850 !3671 @AntonBallmaier
+- Added a button to the markdown input for mentioning users #1850 !3670 #2153 !3692 @AntonBallmaier
+- Added the option to send a message with a store aplication #2017 !3461 @AntonBallmaier
+- Added a french foodsaver quiz that can be edited but not yet accessed #2149 !3672 @AntonBallmaier
+- Added a tab in the banana modal for sent bananas. #2075 !3581 !3676 @AntonBallmaier @SaiCode
+- Forum threads that need activation trigger a bell notification #289 !3703 @alex.simm
 
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9
@@ -30,6 +36,15 @@
 - Rework default options in store information #33 !3623 @chriswalg
 - Changed the Icon for resolving basket requests #2119 #1363 !3636 @SaiCode
 - Change limit to 535 / 520 for public_info -> store !3646 @chriswalg
+- Reworked the list of store applicants. !3461 @AntonBallmaier
+- On mobile, always show button to mark chat message as read #2110 !3659 @iron9
+- Temporarily disabled the member list for countries and Europe #2147 !3677 @alex.simm
+- Sort store applications by date #2151 !3694 @AntonBallmaier
+- Improved the look of the store applicants modal on small screens #2152 !3695 @AntonBallmaier
+- Added the author avatar in the blog list #2154 !3696 @AntonBallmaier
+- Unified the different icons used for store managers #2087 !3699 @AntonBallmaier
+- Some visual improvements related to store aplications #2157 !3702 @AntonBallmaier
+- "Thumb voting" polls can be created with only one option #975 !3684 @alex.simm
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
@@ -44,18 +59,24 @@
 - Fix typos and inconsistent spelling in email templates !3657 @iron9
 - Fix duplicate 'kg' in global statistics #2108 !3658 @iron9
 - Fix time zone problems in store log #977 !3673 @AntonBallmaier 
+- Fix vue warn messages on create new thread page #2109 !3697 @AntonBallmaier
+- Fix more than 6 months back selectable in store log #2102 !3698 @AntonBallmaier
+- Notifications are again sent via e-mail and bell for posts in Food Share Points !3690 @martincodes-de
+- Fixed blog permission for EDITORIAL_GROUP !3700 @chriswalg
+- Options are not discarded anymore when editing a poll #975 !3684 @alex.simm
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
 - Added an enum for wall types in the backend #1996 !3573 @alex.simm
 - Bananas now use the API !3581 @AntonBallmaier
-- Moved region store to pinia !3619 !3629 @chriswalg
+- Moved region store to pinia !3619 !3629 !3679 @chriswalg
 - Moved userStore to pinia for future improvements !3531 !3617 !3632 @SaiCode
 - Reduced the number of database requests in some store API endpoints #1662 !3615 @alex.simm
-- Removed jQuery autosize !3635 @SaiCode
+- Removed jQuery autosize !3635 !3689 @SaiCode
 - Port the register controller to Symfony !3594 @alex.simm
 - Port the application controller to Symfony #1994 !3603 @alex.simm
 - Port the message controller to Symfony #1994 !3633 @\_fridtjof_
+- Refactored add and edit form to vue and removed jquery tagedit #2137 !3520 @chriswalg @alex.simm
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm
@@ -67,8 +88,12 @@
 - Update socket.io to 4.6.2 !3643 @chriswalg
 - Update babel/core to 7.23.2 !3645 @chriswalg
 - Devdocs: Huge update from Docusaurus to VitePress #2124 #1755 #1913 !3640 !3655 @SaiCode
-- Removed jquery tablesorter #2136 !3648 @chriswalg
+- Removed jquery tablesorter #2136 !3648 !3689 @chriswalg
 - Deleted the lookup command and module @alex.simm
+- Data for the region subpages is now fetched from the API #1838 !3624 !3715 @alex.simm
+- Wait for Devdocs Assets to be loaded before generating the devdocs site !3662 @SaiCode
+- Updated Clean script with clean node_modules !3688 @SaiCode
+- Removed some unnecessary database queries #1995 !3709 @alex.simm
 
 # Hotfix 2024-08-29
 
@@ -135,6 +160,8 @@
 - Change EMail Address Verification replaced by new implementation !3481 @KoeMai
 - Improved release notes !3522 @AntonBallmaier
 - Add permission explanation to report list link #2064 !3529 @AntonBallmaier
+- moved from photon.komoot.io to geoapify for search #1565 !3543 @SaiCode
+- Store containers now remain open or closed per store. #2019 !3706 @AntonBallmaier
 
 ## Bugfixes
 - Changed the headline for group applications #1916 !3353 @ToLei
@@ -168,6 +195,8 @@
 - Fixed encoding for publicInfo field in store #2043 !3516 @chriswalg
 - Removed search results for groups the user has only applied to #2062 !3523 @AntonBallmaier
 - Fixed Attribution showing html istead of the resulting rendered html #2067 !3532 @SaiCode
+- Fixed Wrong data for home district used in region header and statistics #2059 !3517 @McGoldi
+- Fixed searchbar modal error #2140 !3705 @AntonBallmaier
 
 ## Refactoring
 - Reduce complexity of RegionTransaction.GetJoinMessage() by session information !3242 @KoeMai

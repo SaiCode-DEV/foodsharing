@@ -423,8 +423,10 @@ quiz:
           placeholder: Açıklama...
         answerRating: 'Değerlendirme:'
   confirmDashboardText: Bir testi başardınız, ancak daha onaylamadınız. İşlemi tamamlamak
-    için [ burayı tıklayın]({url})!
+    için [burayı tıklayın]({url})!
   confirmComment: Bu testin adminlerine notunuz gönderilsin mi?
+  test_results: Test deneyinin sonuçları
+  test: Testi test et
 answers: Hangi cevaplar doğru?
 maxfp: Geçilmesi gerekilen maksimum hata puanları
 questcount: Sınavda kaç soru sorulmalıdır?
@@ -453,6 +455,7 @@ button:
   start: Haydi başlayalım!
   confirm: Onayla
   countdown_clickable: '{geri sayım} saniye içinde tıklanabilir'
+  ok: OK
 upload:
   new_image: Yeni fotoğraf yükle
   file: Dosya yükle
@@ -1085,7 +1088,7 @@ bcard:
   actions: Opsiyonlar
   desc: Kartvizitinizi hangi bölge için veya hangi sıfat için oluşturmak istediğinizi
     buradan seçin.
-  role: Rol
+  role: Rolü
   region: Bölge_
 month:
   "4": Nisan
@@ -1325,6 +1328,7 @@ store:
     confirm-far: Kayıtlı adresinize göre bu işletmeden çok uzakta oturuyorsunuz ({distance}).
       Buradaki ekibe düzenli ve güvenilir bir şekilde destek verebileceğinizden emin
       misiniz?
+    application-placeholder: Bu ekibe yardımcı olmak istiyorum çünkü...
   filter: …göre filtrele…
   enterdate: Alım tarihini girin
   important: 'Önemli:'
@@ -1808,7 +1812,7 @@ foodsaver:
     last-activity: Son Aktivite
     remove: Bu Bölgeden sil
     name: İsim
-    role: Rölü
+    role: Rolü
   url_error: Ana sayfa URL'nizde bir sorun var
   editName: '{name} düzenle'
   edit_failure: Hiçbir şey değiştirilmedi veya değişiklikler kaydedilmedi
@@ -2137,6 +2141,7 @@ footer:
     beta_testing_issues: Beta versiyonun test görevleri
     it_devdocs: by foodsharing IT
     version: 'Versiyon: {version}'
+    made_with: İle yapıldı
   infosPrivatePersons: Özel kişiler için
   call_to_action: Sen de katıl
   team: Ekip
@@ -2176,6 +2181,7 @@ releases:
   "2024-01": “Kivi”yi yayınlayın 🥝 (Ocak 2024)
   "2024-04": '"Laugenbrezel"i yayınlayın 🥨 (Nisan 2024)'
   "2024-08": Release „Mandarine“🍊 (Ağustos 2024)
+  "2024-12": Beta sürümü “Nektarin” 🍑 (Aralık 2024)
 storestatus:
   "5": bizimle işbirliği halinde
   "2": Görüşmeler devam ediyor
@@ -2262,10 +2268,6 @@ sidenav:
   superregional: Bölgeler üstü
   countryspecific: Ülkeye Özgü Gruplar
   yourregions: Senin Bölgelerin
-tablesorter:
-  entriespp: Sayfa başına kayıt
-  page: Sayfa
-  from: -den
 email_template:
   request_from: -den İstek
   in: içinde
@@ -2473,6 +2475,14 @@ settings:
     non_verified_text: Henüz doğrulanmadınız. Kimliği yalnızca doğrulanmış Foodsaverlar
       indirilebilir.
     button: Kimliği indir
+    add_to_wallet:
+      google: Google Wallet'a ekle
+      apple: Apple Wallet'a ekle
+    wallet:
+      valid_start: Geçerlilik tarihi
+      name: İsim
+      role: Rolü
+      valid_end: Şu tarihe kadar geçerlidir
   account: Hesap seçenekleri
   header: Profil Ayarları
   businesscard: Kişisel kartvizit
@@ -2899,6 +2909,12 @@ profile:
       ve güvenilirliğine ve bağlılığına kefil olabilireceklerinize de.
 
       '
+    recieved_none:
+      you: Henüz bir güven fidanı almadınız.
+      other: '{name} henüz güven fidanı almadı.'
+    sent_none:
+      other: '{name} henüz güven fidanı vermedi.'
+      you: Henüz bir güven fidanı vermedin.
   stats:
     baskets: Yemek Sepetleri
     posts: Gönderiler
@@ -2944,7 +2960,7 @@ profile:
       filterAll: Hepsi
       filterRequested: İstek yapıldı
       filterActive: Üye
-      filterManage: İşletme Sorumlusu
+      filterManage: İşletme sorumlusu
       filterJumper: Yedek
   sleeping_info_from_until: '{from} ile {until} arasında uyku beresi var'
   choosereasonnostore: Hiç bir işletmeye ilişkin değil
@@ -3131,6 +3147,8 @@ terminology:
   landline: Sabit hat numarası
   mobile_phone: Cep telefonu numarası
   hygiene_training: Hijyen eğitimi
+  sent: Gönderilmiş
+  received: Kalmış
 legal:
   if_delete:
     this_doesnt_get_deleted: 'Aşağıdaki bilgiler artık aktif sistemde mevcut değildir,
@@ -3729,6 +3747,8 @@ globals:
   you: 'Sen'
   show_less: 'Daha az göster'
   telephone_number: Telefon numarası
+  save_changes: Değişiklikleri kaydet
+  saved: Değişiklikler kaydedildi
 search:
   placeholder: 'Şimdi aramaya başlayın …'
   informations: 'Kişileri, grupları, işletmeleri, semtleri, sohbetleri, forum gönderilerini
@@ -3907,10 +3927,13 @@ notifications:
     title: Boş slotlar için hatırlatmalar
     description: Yönettiğiniz işletmelerdeki slotlar ertesi gün henüz dolmamışsa sizi
       uyaran e-postalar alın.
+  mention:
+    title: Etiketleme bildirimleri
+    description: Birisi size forumda etiketlediğinde bildirim alın.
 markdown_input:
   tooltip:
     orderedList: numaralı liste
-    preview: önizleme
+    preview: Ön izleme
     quote: alıntı
     unorderedList: maddeli liste
     italic: italik
@@ -3921,6 +3944,7 @@ markdown_input:
     link: bağlantı
     heading: Ana Başlık
     image: Resim ekleyin
+    mention: Kullanıcıyı etiketle
   empty_preview_placeholder: "Bu bir formatlama önizlemesidir. Metin burada, daha
     sonra görüntüleneceği şekilde formatlanmıştır.\n---\n*Henüz burada görüntülenebilecek
     herhangi bir metin girmediniz.*"
@@ -4030,6 +4054,15 @@ help:
       md: "Yiyecek sepetleri, (çoğunlukla kurtarılan) yiyecekleri **ücretsiz** vermek
         isteyen kullanıcılar tarafından sunulmaktadır. Kayıtlı kullanıcılar almak
         üzere bir yiyecek sepeti talep edebilirler.\n"
+    achievementIcon:
+      title: Başarı simgeleri (İconlar)
+      md: "Her başarının, ilk bakışta neyle ilgili olduğunu göstermesi gereken bir
+        simgesi (İcon), küçük bir grafiği vardır. Kullanılabilir simgelerin bir listesini
+        https://fontawesome.com/v5/search?o=r&m=free&s=solid adresinde bulabilirsiniz.\n
+        \nGiriş alanına kullanmak istediğiniz simgenin (İcon) adını girmeniz gerekir;
+        örneğin \"*yürüyüş*\" veya \"*alışveriş sepeti*\".\nÖnizlemeyi kullanarak
+        girişinizin çalışıp çalışmadığını kontrol edebilirsiniz.\nBir simge (İcon)
+        girmezseniz, varsayılan başarı simgesi \"*etiket*\" otomatik olarak kullanılacaktır\n"
   helpTitle: 'Yardım: {title}'
   tooltip: Yardımı göster
 team_page:
@@ -4075,11 +4108,24 @@ achievements:
   findUser: Kullanıcıyı ara
   editDetails: Ayrıntıları ayarla
   revoke: Geri çekmek
-  edit: '{user} için {achievement} başarısını ayarlayın'
+  edit: 'Başarıyı düzenle: {name}'
   notAwarded: Bu başarı şu anda kimseye verilmemektedir.
   awarded: Alındı
   awardedNoReviewer: Otomatik
   awardedTo: İle
+  new: Yeni başarı
+  editor:
+    description: Açıklama_
+    preview: Ön izleme
+    name: İsim
+    icon: İcon
+    validityInDaysAfterAssignment: Verildikten sonra geçerlilik süresi
+  noneInThisRegion: Bu bölgede kayıtlı hiçbir başarı yok.
+  deleteConfirmation: Bu başarıyı gerçekten silmek istiyor musunuz?
+  editTitle: Başarıları düzenle
+  editAwarded: '{user} için {achievement} başarısını ayarlayın'
+  inRegion: '{region} ({count}) bölgesindeki başarılar'
+  add: Başarı ekle
 copied_to_clipboard: “{text}” panoya kopyalandı.
 theme_switcher:
   title: Tasarım seçin

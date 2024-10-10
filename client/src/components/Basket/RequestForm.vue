@@ -142,8 +142,8 @@ export default {
     async withdraw () {
       this.isLoading = true
       try {
-        const response = await withdrawBasketRequest(this.basketId)
-        this.requestCount = response.basket.requestCount
+        const basket = await withdrawBasketRequest(this.basketId)
+        this.requestCount = basket.requestCount
         this.hasRequested = false
         pulseSuccess(i18n('basket.withdrawn_request'))
       } catch (e) {

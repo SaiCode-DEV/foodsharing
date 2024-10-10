@@ -4,7 +4,7 @@
       @submit="showConfirmDialog"
     >
       <b-alert
-        v-if="poll.shuffleOptions"
+        v-if="poll.shuffleOptions && shuffledOptions.length > 1"
         show
         variant="info"
       >

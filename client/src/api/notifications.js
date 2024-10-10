@@ -24,6 +24,10 @@ export function getPickupReminderNotification () {
   return get('/notifications/pickupreminder')
 }
 
+export function getMentionNotification () {
+  return get('/notifications/mention')
+}
+
 export function updateRegionsAndWorkgroupsNotification (regions) {
   return patch('/notifications/regions', regions)
 }
@@ -40,9 +44,10 @@ export function setPickupReminderNotification (sendMail) {
   return patch('/notifications/pickupreminder', { sendMail })
 }
 
+export function setMentionNotification (mention) {
+  return patch('/notifications/mention', { mention })
+}
+
 export function setUserNotification (newsletter, chat) {
-  return patch('/notifications/user', {
-    newsletter: newsletter,
-    chat: chat,
-  })
+  return patch('/notifications/user', { newsletter, chat })
 }

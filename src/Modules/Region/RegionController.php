@@ -6,7 +6,6 @@ use Exception;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Content\ContentView;
-use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -363,18 +362,7 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addTitle($this->translator->trans('terminology.statistic'));
         $sub = $request->query->get('sub');
 
-        $pageData['pickupData']['daily'] = 0;
-        $pageData['pickupData']['weekly'] = 0;
-        $pageData['pickupData']['monthly'] = 0;
-        $pageData['pickupData']['yearly'] = 0;
-
-        if ($region['type'] !== UnitType::COUNTRY || $this->regionPermissions->mayAccessStatisticCountry()) {
-            $pageData['pickupData']['daily'] = $this->regionGateway->listRegionPickupsByDate((int)$region['id'], '%Y-%m-%d');
-            $pageData['pickupData']['weekly'] = $this->regionGateway->listRegionPickupsByDate((int)$region['id'], '%Y/%v');
-            $pageData['pickupData']['monthly'] = $this->regionGateway->listRegionPickupsByDate((int)$region['id'], '%Y-%m');
-            $pageData['pickupData']['yearly'] = $this->regionGateway->listRegionPickupsByDate((int)$region['id'], '%Y');
-        }
-        $params = $this->convertDataToObject($region, $sub, $pageData);
+        $params = $this->convertDataToObject($region, $sub, []);
 
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 
@@ -425,13 +413,8 @@ final class RegionController extends FoodsharingController
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.pin'), '/region?bid=' . $region['id'] . '&sub=pin');
         $this->pageHelper->addTitle($this->translator->trans('terminology.pin'));
-        $result = $this->regionGateway->getRegionPin($region['id']);
-        $pageData['lat'] = $result['lat'] ?? MapConstants::CENTER_GERMANY_LAT;
-        $pageData['lon'] = $result['lon'] ?? MapConstants::CENTER_GERMANY_LON;
-        $pageData['desc'] = $result['desc'] ?? null;
-        $pageData['status'] = $result['status'] ?? null;
 
-        $params = $this->convertDataToObject($region, $request->query->get('sub'), $pageData);
+        $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
 
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 

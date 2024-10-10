@@ -83,7 +83,7 @@ export default {
     return {
       filterButtons: [
         { tooltip: 'filterAll', state: null, icon: 'users' },
-        { tooltip: 'filterManage', state: PROFILE_STORE_TEAM_STATE.MANAGE_ROLE, icon: 'fas fa-hat-cowboy' },
+        { tooltip: 'filterManage', state: PROFILE_STORE_TEAM_STATE.MANAGE_ROLE, icon: 'fas fa-user-cog' },
         { tooltip: 'filterActive', state: PROFILE_STORE_TEAM_STATE.ACTIVE, icon: 'user' },
         { tooltip: 'filterJumper', state: PROFILE_STORE_TEAM_STATE.JUMPER, icon: 'running' },
         { tooltip: 'filterRequested', state: PROFILE_STORE_TEAM_STATE.REQUESTED, icon: 'fas fa-fw fa-question-circle' },
@@ -179,7 +179,7 @@ export default {
       let tooltipText = this.$i18n('store.appliedFor')
 
       if (store.active === PROFILE_STORE_TEAM_STATE.MANAGE_ROLE) {
-        iconClass = 'fas fa-hat-cowboy'
+        iconClass = 'fas fa-user-cog'
         tooltipText = this.$i18n('store.isManager')
       } else if (store.active === PROFILE_STORE_TEAM_STATE.JUMPER) {
         iconClass = 'fas fa-running'

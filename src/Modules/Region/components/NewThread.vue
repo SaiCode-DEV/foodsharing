@@ -12,9 +12,10 @@
       <b-form-input id="forum-create-thread-form-title" v-model="title" />
       <label class="font-weight-bold mt-3" for="thread-content">{{ $i18n('forum.post.body') }}*</label>
       <MarkdownInput
-        :input-name="thread-content"
+        input-name="thread-content"
         :rows="6"
         :value="body"
+        :region-id="groupId"
         @update:value="newValue => body = newValue"
       />
 

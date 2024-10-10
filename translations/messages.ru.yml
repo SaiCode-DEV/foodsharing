@@ -2609,10 +2609,6 @@ conference:
   privacy_notice: ''
   description_text: ''
   join: ''
-tablesorter:
-  from: ''
-  page: ''
-  entriespp: ''
 sidenav:
   superregional: ''
   countryspecific: ''

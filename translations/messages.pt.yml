@@ -2295,10 +2295,6 @@ content:
   changelog: ''
   edit_success: ''
   bread: ''
-tablesorter:
-  entriespp: ''
-  page: ''
-  from: ''
 conference:
   join_title: ''
   description_text: ''

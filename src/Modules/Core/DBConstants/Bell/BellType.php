@@ -28,6 +28,10 @@ class BellType
      */
     final public const NEW_FORUM_POST = 'forum-%d';
     /**
+     * A new thread was opened in a moderated forum for which the user is a moderator. Argument: ID of the thread.
+     */
+    public const NOT_ACTIVATED_FORUM_THREAD = 'forum-thread-activation-%d';
+    /**
      * Notification for ambassadors about a new foodsaver. Argument: the foodsaver's ID.
      */
     final public const NEW_FOODSAVER_IN_REGION = 'new-fs-%d';
@@ -117,6 +121,11 @@ class BellType
      * A new banana was given to the user. Argument: IDs of the recipient and sender.
      */
     final public const BANANA = 'banana-%d-%d';
+
+    /**
+     * A new forum post in a thread the user is participating in. Argument: ID of the thread.
+     */
+    final public const FORUM_MENTION = 'forum-mention-%d';
 
     /**
      * Creates a bell identifier from a template and an optional list of parameters.

@@ -14,6 +14,7 @@ class RegionIDs
     // workgroups with special permissions:
     final public const NEWSLETTER_WORK_GROUP = 331;
     final public const QUIZ_AND_REGISTRATION_WORK_GROUP = 341;
+    final public const QUIZ_GROUP_FR = 6045;
     final public const PR_PARTNER_AND_TEAM_WORK_GROUP = 1811;
     final public const PR_START_PAGE = 2287;
     final public const CREATING_WORK_GROUPS_WORK_GROUP = 1701;

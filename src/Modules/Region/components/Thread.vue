@@ -123,6 +123,7 @@
       v-if="isOpen || mayModerate"
       ref="form"
       :is-open="isOpen"
+      :region-id="regionId"
       @submit="createPost"
     />
 

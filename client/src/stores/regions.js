@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { joinRegion, listRegionChildren, listRegionMembers } from '@/api/regions'
 import { url } from '@/helper/urls'
+import { REGION_IDS } from '@/consts'
 
 export const REGION_UNIT_TYPE = Object.freeze({
   CITY: 1,
@@ -17,6 +18,7 @@ export const SELECTABLE_REGION_TYPES = Object.freeze([
   REGION_UNIT_TYPE.CITY,
   REGION_UNIT_TYPE.BIG_CITY,
   REGION_UNIT_TYPE.PART_OF_TOWN,
+  REGION_UNIT_TYPE.DISTRICT,
 ])
 
 export const WORKGROUP_FUNCTION = Object.freeze({
@@ -59,10 +61,18 @@ export const useRegionStore = defineStore('region', {
     findRegion: (state) => (regionId) => {
       return state.regions.find(region => region.id === regionId)
     },
+    accessibleRegions (state) {
+      // TODO: Global working groups and Festivals are filtered out because they have types "City" or "Big city". The
+      // filtering can be removed when their type is fixed.
+      return state.regions
+        .filter(region => ![REGION_IDS.GLOBAL_WORKING_GROUPS, REGION_IDS.FOODSHARING_ON_FESTIVALS].includes(region.id))
+        .filter(region => SELECTABLE_REGION_TYPES.includes(region.type))
+    },
   },
   actions: {
     async fetchSelectedRegionChildren (regionId) {
       this.selectedRegionChildren = await listRegionChildren(regionId)
+      return this.selectedRegionChildren
     },
     async joinRegion (regionId) {
       await joinRegion(regionId)

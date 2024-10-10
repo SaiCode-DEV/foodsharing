@@ -190,7 +190,6 @@ const urls = {
 
   // Beta Testing
   beta: () => 'https://beta.foodsharing.de',
-  beta_testing_forum: () => 'https://beta.foodsharing.de/region?bid=734&sub=forum',
 
   // Gitlab
   git_revision: (revision) => `https://gitlab.com/foodsharing-dev/foodsharing/tree/${revision}`,

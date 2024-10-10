@@ -79,26 +79,35 @@
       </h3>
     </template>
     <template #popup-footer>
+      <b-collapse
+        v-if="store?.maySendRequest"
+        :visible="isMessageInputVisible"
+        class="w-100"
+      >
+        <b-form-group :label="$i18n('store.request.application-message')">
+          <b-form-textarea v-model="applicationMessage" :placeholder="$i18n('store.request.application-placeholder')" />
+        </b-form-group>
+      </b-collapse>
       <div v-if="store">
-        <a
+        <b-button
           v-if="store.mayAccessStorePage"
           :href="$url('store', store.id)"
-          class="btn btn-primary mt-3 text-wrap"
-        >{{ $i18n('store.go') }}</a>
-        <button
-          v-if="store.maySendRequest"
-          class="btn btn-primary mt-3 text-wrap"
-          @click="sendRequest"
+          variant="success"
         >
-          {{ $i18n('store.request.request') }}
-        </button>
-        <button
-          v-else-if="store.mayWithdrawRequest"
-          class="btn btn-primary mt-3 text-wrap"
+          {{ $i18n('store.go') }}
+        </b-button>
+        <b-button
+          v-if="store.mayWithdrawRequest"
+          variant="success"
           @click="withdrawRequest"
-        >
-          {{ $i18n('store.request.withdraw') }}
-        </button>
+          v-text="$i18n('store.request.withdraw')"
+        />
+        <b-button
+          v-if="store.maySendRequest"
+          :variant="isMessageInputVisible ? 'success' : 'outline-secondary'"
+          @click="applyToStore"
+          v-text="$i18n('store.request.request')"
+        />
       </div>
     </template>
   </map-popup>
@@ -135,6 +144,8 @@ export default {
       description: '',
       store: null,
       storeId: null,
+      isMessageInputVisible: false,
+      applicationMessage: '',
     }
   },
   computed: {
@@ -200,6 +211,8 @@ export default {
   },
   methods: {
     async show (storeId) {
+      this.isMessageInputVisible = false
+      this.applicationMessage = ''
       this.storeId = storeId
       await this.timedFetchAction(
         getStoreBubbleContent(storeId),
@@ -223,7 +236,7 @@ export default {
           okVariant: 'outline-danger',
         }
         if (this.distanceInKm > minBadDistanceInKm && !await this.confirmationDialogue('store.request.confirm-far', dialogueOptions)) return
-        await requestStoreTeamMembership(this.store.id, this.userId)
+        await requestStoreTeamMembership(this.store.id, this.applicationMessage || null)
         this.store.maySendRequest = false
         this.store.mayWithdrawRequest = true
         pulseSuccess(this.$i18n('store.request.got-it'))
@@ -240,6 +253,12 @@ export default {
       } catch (e) {
         pulseError(this.$i18n('error_unexpected'))
       }
+    },
+    async applyToStore () {
+      if (this.isMessageInputVisible) {
+        await this.sendRequest()
+      }
+      this.isMessageInputVisible = !this.isMessageInputVisible
     },
   },
 }

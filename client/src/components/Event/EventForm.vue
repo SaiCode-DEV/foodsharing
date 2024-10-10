@@ -53,6 +53,7 @@
           :value.sync="event.description"
           :conceal-toolbar="true"
           variant="outline-primary"
+          :region-id="regionId"
         />
       </b-form-group>
 

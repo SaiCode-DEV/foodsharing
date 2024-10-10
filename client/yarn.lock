@@ -7770,11 +7770,6 @@ type-is@~1.6.18:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
-typeahead-address-photon@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/typeahead-address-photon/-/typeahead-address-photon-1.1.0.tgz#b6db50eded1956431ccb5974706531df3d62d3b4"
-  integrity sha512-VjVI+dcu2/ZKjSB8Gr3uhsy9XT3mI5OdOxKHClY17+n1vr7Rs7o72Tke2YtCCoykSuYys5sjDhTcqHfPwIV0TQ==
-
 typeahead-addresspicker@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/typeahead-addresspicker/-/typeahead-addresspicker-1.0.1.tgz#933b36ec2aad4cca4575d8d240bac15e3fd10ae2"

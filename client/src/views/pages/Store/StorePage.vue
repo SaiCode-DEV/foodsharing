@@ -228,7 +228,7 @@ export default {
     this.loadRightsInfo()
 
     const applications = StoreData.getters.getStoreApplications()
-    if (this.showTeamRequests && applications.storeRequests && applications.storeRequests.length > 0) {
+    if (this.showTeamRequests && applications && applications.length > 0) {
       this.$bvModal.show('requests')
     }
   },

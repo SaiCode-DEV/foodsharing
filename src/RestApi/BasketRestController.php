@@ -265,10 +265,8 @@ final class BasketRestController extends AbstractFOSRestController
         $basket = $this->gateway->getBasket($basketId);
         $this->verifyBasketIsAvailable($basket);
 
-        $basketCreatorId = $basket['foodsaver_id'];
-
         // Check that there is an existing active request. If not, there is nothing to withdraw and nothing to be done.
-        $requestStatus = $this->gateway->getRequestStatus($basketId, $this->session->id(), $basketCreatorId);
+        $requestStatus = $this->gateway->getRequestStatus($basketId, $this->session->id(), $basket->creator->id);
         if ($requestStatus && ($requestStatus[self::STATUS] === RequestStatus::REQUESTED_MESSAGE_UNREAD || $requestStatus[self::STATUS] === RequestStatus::REQUESTED_MESSAGE_READ)) {
             $this->gateway->setStatus($basketId, RequestStatus::DELETED_OTHER_REASON, $this->session->id());
         }

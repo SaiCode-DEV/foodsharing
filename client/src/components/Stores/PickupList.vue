@@ -2,7 +2,7 @@
   <div>
     <Container
       :title="$i18n('pickup.dates')"
-      tag="pickup_list"
+      :tag="`store-pickup-list-${storeId}`"
       wrap-content="p-0"
     >
       <div class="text-right mt-2 pr-2">

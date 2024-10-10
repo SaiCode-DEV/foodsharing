@@ -106,7 +106,7 @@ export default {
     getStores () {
       return [
         {
-          icon: 'fa-users-cog',
+          icon: 'fa-user-cog',
           tooltip: 'store.tooltip_managing',
           name: 'dashboard.my.managing_stores',
           list: DataStores.getters.getManaging(),

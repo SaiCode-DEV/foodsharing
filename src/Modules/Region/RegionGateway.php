@@ -14,6 +14,8 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\DTO\HierachicalRegion;
+use Foodsharing\Modules\Region\DTO\RegionPickupsPerDate;
+use Foodsharing\Modules\Region\DTO\RegionPin;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
 
 class RegionGateway extends BaseGateway
@@ -261,14 +263,15 @@ class RegionGateway extends BaseGateway
 					WHERE     fs.deleted_at IS NULL
 					AND 	c.bezirk_id = b.id
 					AND 	c.active = 1
-					AND 	fs.sleep_status = 0
 				) AS fs_count,
 				(
-					SELECT 	count(fs.`id`)
-					FROM 	`fs_foodsaver` fs
-					WHERE	fs.deleted_at IS NULL
-					AND 	fs.bezirk_id = b.id
-					AND 	fs.sleep_status = 0
+					SELECT 	count(c.`foodsaver_id`)
+					FROM 	`fs_foodsaver_has_bezirk` c
+					LEFT JOIN `fs_foodsaver` fs ON c.`foodsaver_id` = fs.id
+					WHERE   fs.deleted_at IS NULL
+                    AND     fs.bezirk_id = c.bezirk_id
+					AND 	c.bezirk_id = b.id
+					AND 	c.active = 1
 				) AS fs_home_count,
 				(
 					SELECT 	count(c.`foodsaver_id`)
@@ -452,6 +455,11 @@ class RegionGateway extends BaseGateway
         ]) > 0;
     }
 
+    /**
+     * Returns a region's pickup statistics for one specific date format. This includes all subregions.
+     *
+     * @return RegionPickupsPerDate[]
+     */
     public function listRegionPickupsByDate(int $regionId, string $dateFormat): array
     {
         $regionIDs = implode(',', array_map('intval', $this->listIdsForDescendantsAndSelf($regionId)));
@@ -460,7 +468,7 @@ class RegionGateway extends BaseGateway
             return [];
         }
 
-        return $this->db->fetchAll(
+        $data = $this->db->fetchAll(
             'select
 						date_Format(a.date,:format) as time,
 						count(distinct a.betrieb_id) as NumberOfStores,
@@ -474,6 +482,8 @@ class RegionGateway extends BaseGateway
 					order by date desc',
             [':format' => $dateFormat, ':groupFormat' => $dateFormat]
         );
+
+        return array_map([RegionPickupsPerDate::class, 'createFromArray'], $data);
     }
 
     /**
@@ -507,6 +517,8 @@ class RegionGateway extends BaseGateway
      * @return array associative array of options or empty array if not found
      *
      * @throws Exception
+     *
+     * @deprecated This does not actually return all options, but only five specific types. It should be replaced by getAllRegionOptions.
      */
     public function getRegionOptions(int $regionId): array
     {
@@ -584,10 +596,12 @@ class RegionGateway extends BaseGateway
         return $optionTypeMap;
     }
 
-    public function getRegionPin(int $regionId): ?array
+    public function getRegionPin(int $regionId): ?RegionPin
     {
         try {
-            return $this->db->fetchByCriteria('fs_region_pin', ['desc', 'lat', 'lon', 'status'], ['region_id' => $regionId]);
+            $data = $this->db->fetchByCriteria('fs_region_pin', ['desc', 'lat', 'lon', 'status'], ['region_id' => $regionId]);
+
+            return RegionPin::create($data);
         } catch (Exception) {
             return null;
         }

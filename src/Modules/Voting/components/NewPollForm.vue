@@ -53,6 +53,7 @@
             :key="index"
             v-model="type"
             :value="index - 1"
+            @input="forceUpdateNumberOfOptions"
           >
             {{ $i18n('poll.type_description_' + (index - 1)) }}
           </b-form-radio>
@@ -144,6 +145,7 @@
             :value="$v.description.$model"
             :state="$v.description.$error ? false : null"
             :placeholder="$i18n('poll.new_poll.description_placeholder')"
+            :region-id="region.id"
             @update:value="newValue => $v.description.$model = newValue"
           />
           <div
@@ -163,12 +165,11 @@
             <b-form-spinbutton
               id="input-num-options"
               v-model="numOptions"
-              min="2"
+              :min="minNumberOfOptions"
               max="200"
               class="m-1 mb-3 mr-5"
               style="width:120px"
               size="sm"
-              @input="updateNumOptions"
             />
             <b-form-checkbox
               id="shuffle-options-checkbox"
@@ -241,6 +242,7 @@ import dataFormatter from '@/helper/date-formatter'
 import i18n, { locale } from '@/helper/i18n'
 import { required, minLength } from 'vuelidate/lib/validators'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
+import { VOTING_TYPE } from '@/stores/polls'
 
 const EDIT_TIME_HOURS = 1
 const DEFAULT_START_TIME_HOURS = 2
@@ -345,6 +347,23 @@ export default {
       const editDate = new Date(new Date().getTime() + EDIT_TIME_HOURS * 60 * 60 * 1000)
       return dataFormatter.time(editDate)
     },
+    minNumberOfOptions () {
+      return (this.type === VOTING_TYPE.THUMB_VOTING || this.type === VOTING_TYPE.SCORE_VOTING) ? 1 : 2
+    },
+  },
+  watch: {
+    /**
+     * When the number of options changes, the options array must be assigned with a new object for the validation to
+     * work.
+     */
+    numOptions () {
+      const newOptions = Array(this.numOptions).fill('')
+      for (let i = 0; i < Math.min(this.options.length, this.numOptions); i++) {
+        newOptions[i] = this.options[i]
+      }
+      this.options = newOptions
+      this.$v.options.$touch()
+    },
   },
   mounted () {
     const defaultStart = new Date(new Date().getTime() + DEFAULT_START_TIME_HOURS * 60 * 60 * 1000)
@@ -358,14 +377,9 @@ export default {
     updateDateEndTimes () {
       this.$v.endDateTime.$touch()
     },
-    updateNumOptions () {
-      // the options array must be assigned with a new object for the validation to work
-      const newOptions = Array(this.numOptions).fill('')
-      for (let i = 0; i < Math.min(this.options.length, this.numOptions); i++) {
-        newOptions[i] = this.options[i]
-      }
-      this.options = newOptions
-      this.$v.options.$touch()
+    forceUpdateNumberOfOptions () {
+      // When the poll type changes, the minimal number of options might have changed
+      this.numOptions = Math.max(this.numOptions, this.minNumberOfOptions)
     },
     showConfirmDialog (e) {
       e.preventDefault()

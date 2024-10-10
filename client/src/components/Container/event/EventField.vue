@@ -236,7 +236,7 @@ export default {
 .maybe,
 .maybe:focus {
   z-index: 3;
-  color: var(--fs-color-dark);
+  color: var(--fs-color-light);
   background-color: var(--fs-color-warning-500);
 }
 

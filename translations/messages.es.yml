@@ -652,6 +652,8 @@ terminology:
   landline: Número de teléfono fijo
   mobile_phone: Número de teléfono móvil
   hygiene_training: Formación en higiene
+  sent: Enviado
+  received: Recibido
 groups:
   empty: Aún no estás en ningún grupo de trabajo
 position: Puesto en foodsharing (público)
@@ -1318,6 +1320,7 @@ button:
   start: ¡Vamos!
   confirm: confirmar
   countdown_clickable: Clicable en {countdown} segundos
+  ok: De acuerdo
 pass:
   nav:
     options: 'Opciones'
@@ -1505,6 +1508,8 @@ store:
     confirm-no-location: No has introducido una dirección válida en tu perfil. Por
       favor, introduzca una dirección para facilitar a los responsables de la empresa
       la decisión sobre tu candidatura.
+    application-message: Mensaje de aplicación
+    application-placeholder: Me gustaría ayudar en este equipo porque...
   all_of_my_stores: 'Todas mis empresas'
   prefetchone: '1 semana'
   go: 'Al equipo'
@@ -1922,6 +1927,8 @@ bell:
   event_post_title: Fecha de {event} en {region}
   workinggroup_new_request_title: '{name}'
   internal_email_changed: Tu dirección de correo electrónico personal ha sido cambiada.
+  forum_not_activated_thread: '{forum}'
+  forum_not_activated_thread_title: Tema en foro moderado
 foodsaver:
   restricted: 'Lamentablemente, no tienes permiso para ver estos datos.'
   upgrade:
@@ -2204,9 +2211,9 @@ profile:
   alldatesdeleted: 'Todas las fechas fueron eliminadas'
   banana:
     placeholder: 'al menos 100 caracteres …'
-    sent: '¡El plátano ha sido enviado!'
-    messageTooShort: 'Introduzca un texto de al menos 100 caracteres para este plátano
-      de confianza.'
+    sent: '¡Se ha enviado el fideo de fidelidad!'
+    messageTooShort: 'Introduzca un texto de al menos 100 caracteres para este fideo
+      de fidelidad.'
     undo: 'Los fideos de fidelidad no se pueden cambiar ni retirar.'
     remove:
       confirm_title: 'Quitar el fideo de fidelidad'
@@ -2220,12 +2227,18 @@ profile:
 
       '
     title: '{count} fideos de fidelidad'
-    give: 'Dale a {name} un plátano de confianza'
-    details: 'Aquí puede describir con al menos 100 caracteres por qué te gustaría
-      regalarle a {name} un plátano de confianza.
+    give: 'Dale a {name} un fideo de fidelidad'
+    details: 'Aquí puedes describir con al menos 100 caracteres por qué te gustaría
+      regalarle a {name} un fideo de fidelidad.
 
       '
-    alreadyGiven: '{name} ya recibió un plátano de tu parte.'
+    alreadyGiven: '{name} ya recibió un fideo de fidelidad de tu parte.'
+    recieved_none:
+      you: Aún no has recibido un fideo de fidelidad.
+      other: '{name} aún no ha recibido ningún fideo de fidelidad.'
+    sent_none:
+      other: '{name} aún no ha regalado ningún fideo de fidelidad.'
+      you: Aún no has regalado ningún fideo de fidelidad.
   online: '{name} está en línea.'
   infos:
     title: 'Información'
@@ -2300,7 +2313,7 @@ profile:
       filterAll: todos
       filterRequested: Solicitud realizada
       filterActive: miembro
-      filterManage: RE
+      filterManage: Responsable de distribución
       filterJumper: Suplente
     store_table: Lista de empresas
   sleeping_info_from_until: hace una pausa del {from} al {until}
@@ -2767,6 +2780,10 @@ fsp:
   addedBy: 'Añadid@ por'
   addError: 'No se pudo ingresar el distribuidor. ¿Completaste todo correctamente?'
   show_on_large_map: Mostrar en el mapa
+  form_validation:
+    min_length: '{name} debe tener al menos {length} caracteres.'
+    invalid: La entrada es incorrecta, por favor revisa tus entradas.
+    required: '{name} es necesario.'
 storeedit:
   team:
     leave: 'Dejar esta empresa'
@@ -3620,6 +3637,7 @@ footer:
     beta_testing_issues: 'Tareas de prueba beta'
     it_devdocs: 'por foodsharing TI'
     version: 'Versión: {version}'
+    made_with: Hecho con
   partner_names:
     denns: 'Denn’s Biomarkt'
     wiener_tafel: 'Banco de Alimentos de Viena'
@@ -3775,10 +3793,6 @@ chat:
   mark_as:
     unread: Marcar como no leído
     read: Marcar como leído
-tablesorter:
-  from: 'de'
-  entriespp: 'entradas por página'
-  page: 'Página'
 timepicker:
   labelIncrement: 'Aumentar'
   labelDecrement: 'Disminuir'
@@ -3970,6 +3984,7 @@ releases:
   "2024-01": Lanzamiento “Kiwi” 🥝 (Enero 2024)
   "2024-04": Lanzamiento de "Pretzel" 🥨 (abril de 2024)
   "2024-08": Lanzamiento de "Mandarine" 🍊 (agosto de 2024)
+  "2024-12": Versión beta "Nectarina" 🍑 (diciembre de 2024)
 salutation:
   "2": 'Querida'
   "3": 'Queride'
@@ -4155,6 +4170,9 @@ notifications:
     title: Recordatorios de espacio libre
     description: Recibe correos electrónicos que te avisan si las plazas en los establecimientos
       que gestionas aún no están ocupadas al día siguiente.
+  mention:
+    title: Notificaciones de las menciones
+    description: Recibe una notificación cuando alguien te mencione en el foro.
 markdown_input:
   tooltip:
     orderedList: lista numerada
@@ -4169,6 +4187,7 @@ markdown_input:
     link: enlace
     heading: titular
     image: Adjuntar imágenes
+    mention: Mencionar usuarios
   empty_preview_placeholder: "Esta es la vista previa del formato. El texto tiene
     el formato que se mostrará más adelante.\n---\n*Pero no has ingresado ningún texto
     que pueda mostrarse aquí.*"

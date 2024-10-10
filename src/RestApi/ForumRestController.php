@@ -291,7 +291,7 @@ class ForumRestController extends AbstractFOSRestController
             if (!$this->forumPermissions->mayModerate($threadId)) {
                 throw new AccessDeniedHttpException();
             }
-            $this->forumGateway->activateThread($threadId);
+            $this->forumTransactions->activateThread($threadId);
         }
         $status = $paramFetcher->get('status');
         if (!is_null($status)) {
@@ -457,7 +457,7 @@ class ForumRestController extends AbstractFOSRestController
             throw new AccessDeniedHttpException();
         }
 
-        $this->forumGateway->deleteThread($threadId);
+        $this->forumTransactions->deleteThread($threadId);
 
         return $this->handleView($this->view([], 200));
     }

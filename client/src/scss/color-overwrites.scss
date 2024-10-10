@@ -248,6 +248,16 @@ tbody tr:hover td {
   color: var(--fs-color-warning-900);
 }
 
+.alert-light {
+  background-color: var(--fs-color-secondary-100);
+  color: var(--fs-color-secondary-800);
+}
+
+.alert-dark {
+  background-color: var(--fs-color-secondary-200);
+  color: var(--fs-color-dark-900);
+}
+
 .multiselect__spinner {
   background: var(--fs-color-background);
 }
@@ -381,6 +391,14 @@ tbody tr:hover td {
   }
 }
 
+button.close {
+  color: var(--fs-color-primary-800) !important;
+  text-shadow: none;
+  &:hover {
+    color: var(--fs-color-danger-600) !important;
+  }
+}
+
 .multiselect--disabled {
   background: var(--fs-color-primary-200);
 }
@@ -390,4 +408,8 @@ body.light-mode {
   .text-success {
     color: var(--fs-color-success-600) !important;
   }
+}
+
+pre {
+  color: var(--fs-color-warning-800);
 }

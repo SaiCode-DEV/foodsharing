@@ -3,14 +3,17 @@
 namespace Foodsharing\Modules\Region;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\BellTransactions;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\RestApi\Models\Notifications\Thread;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\FlashMessageHelper;
@@ -30,7 +33,9 @@ class ForumTransactions
         private readonly FlashMessageHelper $flashMessageHelper,
         private readonly TranslatorInterface $translator,
         private readonly GroupFunctionGateway $groupFunctionGateway,
-        private BellTransactions $bellTransactions,
+        private readonly BellTransactions $bellTransactions,
+        private readonly BellGateway $bellGateway,
+        private readonly SettingsGateway $settingsGateway,
     ) {
     }
 
@@ -54,6 +59,7 @@ class ForumTransactions
 
         $this->notifyFollowersViaMail($threadId, $rawBody, $foodsaverId, $pid);
         $this->bellTransactions->addGroupedBellEvent(...$this->getGroupedBellEventData($threadId, $pid, $foodsaverId));
+        $this->sendNotificationsToMentionedUsers($threadId, $pid, $body);
 
         return $pid;
     }
@@ -100,6 +106,8 @@ class ForumTransactions
             }
         }
 
+        $this->sendNotificationsToMentionedUsers($threadId, null, $body);
+
         return $threadId;
     }
 
@@ -143,8 +151,10 @@ class ForumTransactions
             $moderators = $this->foodsaverGateway->getAdminsOrAmbassadors($moderationGroup);
         }
         if ($moderators) {
+            // send notification e-mail
+            $link = BASE_URL . $this->url($region['id'], false, $threadId);
             $data = [
-                'link' => BASE_URL . $this->url($region['id'], false, $threadId),
+                'link' => $link,
                 'thread' => $thread['title'],
                 'post' => $this->sanitizerService->markdownToHtml($rawPostBody),
                 'poster' => $posterName,
@@ -152,6 +162,22 @@ class ForumTransactions
             ];
 
             $this->sendNotificationMail($moderators, 'forum/activation', $data);
+
+            // create notification bell
+            $bellData = Bell::create(
+                'forum_not_activated_thread_title',
+                'forum_not_activated_thread',
+                'fas fa-comments',
+                ['href' => $link],
+                [
+                    'user' => $this->session->user('name'),
+                    'forum' => $region['name'],
+                    'title' => $thread['title'],
+                ],
+                BellType::createIdentifier(BellType::NOT_ACTIVATED_FORUM_THREAD, $threadId),
+                false,
+            );
+            $this->bellGateway->addBell(array_column($moderators, 'id'), $bellData);
         }
     }
 
@@ -224,6 +250,84 @@ class ForumTransactions
             foreach ($threadIdsToUnfollow as $threadId) {
                 $this->forumFollowerGateway->unfollowThreadByEmail($userId, $threadId);
             }
+        }
+    }
+
+    public function sendNotificationsToMentionedUsers(int $threadId, ?int $postId, string $postBody): void
+    {
+        // Get mentioned users using regex to find occurrences of @ followed by digits, but not preceded or followed by letters or digits
+        preg_match_all('/(?<![a-zA-Z0-9])@(\d+)(?![a-zA-Z0-9])/', $postBody, $matches);
+        $mentionedUsers = array_map('intval', $matches[1]);
+        $mentionedUsers = array_diff($mentionedUsers, [$this->session->id()]);
+
+        if (empty($mentionedUsers)) {
+            return;
+        }
+
+        $userOptions = $this->settingsGateway->getUsersOption($mentionedUsers, UserOptionType::DISABLE_MENTION_NOTIFICATION);
+        $usersWithNotificationsTurnedOn = array_map(function ($item) {
+            return $item['userId'];
+        }, array_filter($userOptions, function ($item) {
+            return !$item['option'];
+        }));
+
+        $info = $this->forumGateway->getThreadInfo($threadId);
+        $regionId = $info['region_id'];
+        $regionName = $this->regionGateway->getRegionName($regionId);
+
+        $notifiedUsers = array_filter($usersWithNotificationsTurnedOn, fn ($userId) => $this->regionGateway->hasMember($userId, $regionId)
+        );
+
+        if (empty($notifiedUsers)) {
+            return;
+        }
+
+        $bell = Bell::create(
+            'forum_mention_title',
+            'forum_mention',
+            'fas fa-at',
+            ['href' => $this->url($regionId, $info['ambassador_forum'], $threadId, $postId)],
+            [
+                'forum' => $regionName,
+                'title' => $info['title'],
+                'user' => $this->session->user('name'),
+            ],
+            BellType::createIdentifier(BellType::FORUM_MENTION, $threadId)
+        );
+
+        $this->bellGateway->addBell($notifiedUsers, $bell);
+    }
+
+    /**
+     * Activates a thread in a moderated forum. This function does nothing if the thread is already activated.
+     */
+    public function activateThread(int $threadId): void
+    {
+        $this->forumGateway->activateThread($threadId);
+        $this->removeInactiveThreadBell($threadId);
+    }
+
+    /**
+     * Deletes a thread. Removes the corresponding bell notifications, if the thread was not yet activated. This
+     * function does nothing if the thread does not exist.
+     */
+    public function deleteThread(int $threadId): void
+    {
+        $this->forumGateway->deleteThread($threadId);
+        $this->removeInactiveThreadBell($threadId);
+    }
+
+    /**
+     * Removes the bell that was created to notify moderators about a new thread. This function does nothing if
+     * the thread or the bell do not exist.
+     *
+     * @param int $threadId the thread for which the bell was created
+     */
+    private function removeInactiveThreadBell(int $threadId): void
+    {
+        $identifier = BellType::createIdentifier(BellType::NOT_ACTIVATED_FORUM_THREAD, $threadId);
+        if ($this->bellGateway->bellWithIdentifierExists($identifier)) {
+            $this->bellGateway->delBellsByIdentifier($identifier);
         }
     }
 }

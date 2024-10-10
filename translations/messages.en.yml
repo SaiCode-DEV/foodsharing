@@ -533,7 +533,6 @@ menu:
       title: Delete notifications?
 profile:
   banana:
-    by: ' by '
     sent: The banana was sent!
     messageTooShort: The text message accompanying your banana should be at least
       100 characters long.
@@ -548,7 +547,12 @@ profile:
     undo: Trust bananas cannot be changed or withdrawn.
     details: "Here you can describe in at least 100 characters why you would like
       to give {name} a trust banana.\n"
-    none: '{name} has not yet received a trust banana.'
+    recieved_none:
+      other: '{name} has not yet received a trust banana.'
+      you: You have not yet received a trust banana.
+    sent_none:
+      other: '{name} has not yet given a trust banana.'
+      you: You have not yet given a trust banana.
     remove:
       confirm_message: Do you really want to remove this trust banana?
       confirm_title: Remove trust banana
@@ -1378,6 +1382,10 @@ terminology:
   landline: landline
   mobile_phone: mobile
   hygiene_training: Hygiene training
+  recieved: Received
+  sent: Sent
+
+  received: received
 login:
   pwreset:
     bread: Reset password
@@ -1421,6 +1429,7 @@ button:
   new: 'New'
   edit: Edit
   upload: Upload
+  ok: OK
   rotate_right: rotate clockwise
   attach_image: Attach picture (png or jpg-format)
   change_picture: Change picture
@@ -1541,8 +1550,8 @@ reports:
     Please indicate how you can best be reached for further questions.'
   about_email: via email
   reported: Reported person
-  reports_region: Reports from {regionName}
-  reports_user: All reports about {userName} ({userId})
+  reports_region: Complaints in {regionName}
+  reports_user: All complaints about {userName} ({userId})
   id: ID
   reporter: Reporting person
 recipients:
@@ -1738,10 +1747,6 @@ sidenav:
 password:
   reset: Forgot your password?
   insertmail: Enter your e-mail address here to reset your password.
-tablesorter:
-  page: Page
-  entriespp: entries per page
-  from: of
 page:
   presence:
     header: Festivals
@@ -1940,6 +1945,7 @@ releases:
 
   "2024-04": Release “Laugenbrezel” 🥨 (April 2024)
   "2024-08": Release “Mandarin” 🍊 (August 2024)
+  "2024-12": Beta Release “Nectarine” 🍑 (December 2024)
 footer:
   it_devdocs: by foodsharing IT
   donate_now: Donate now
@@ -1974,6 +1980,7 @@ footer:
     it_devdocs: by foodsharing IT
     version: 'Version: {version}'
     beta_testing_issues: Test tasks of the Beta version
+    made_with: made with
   hosting:
     info: hosted in a CO₂ neutral manner
     tooltip: Carbon-neutrally hosted at manitu
@@ -2109,7 +2116,7 @@ map:
         all: all
         region: only my districts
         member: only my stores
-        label: affiliation
+        label: Belonging
   foodsharepoint:
     go: to the Food-Share Point
 content:
@@ -2235,6 +2242,8 @@ store:
     confirm-no-location: You haven't entered a valid address in your profile. Please
       indicate your home address. This makes it easier for store maagers to decide
       on your application.
+    application-placeholder: I would like to help in this team because …
+    application-message: Application message
   sm:
     reallyRemove: Do you really want to remove {name} from the store team?
     removeFromTeam: Remove from the team
@@ -4208,13 +4217,13 @@ achievements:
     days: Valid for {validityInDaysAfterAssignment} days after award.
     indefinite: Valid indefinitely after allocation.
     indefiniteShort: Permanently
-  reviewer: From
+  reviewer: Reviewer
   notice: Remark
   editDetails: Edit details
   revoke: Revoke
   edit: 'Edit achievement: {name}'
-  awardedNoReviewer: Automatically
-  awarded: Awarded
+  awardedNoReviewer: automatically
+  awarded: awarded
   awardedTo: To
   validUntil: Valid until
   award: Award achievement

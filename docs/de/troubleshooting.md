@@ -43,11 +43,21 @@ Make sure that you do not commit those temporary changes!
 
 Sometimes the docker container get into some weird state. It might help to restart them:
 ```bash
-./scripts/stop
-sudo ./scripts/clean # sudo necessary since the container run with root privileges and therefore create directories with root ownership
+./scripts/clean # sudo necessary since the container run with root privileges and therefore create directories with root ownership
 ./scripts/start
 ```
 But it takes quite a while.
+
+If normal clean doesnt help as well you can try
+```bash
+./scripts/clean modules
+```
+This will remove all node-modules.
+
+If images were change or all above doesn't help you can try
+```bash
+./scripts/clean full
+```
 
 ## Cache
 

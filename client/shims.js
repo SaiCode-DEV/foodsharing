@@ -58,14 +58,6 @@ Object.assign(module.exports, convert({
     ],
   },
 
-  'typeahead-address-photon': {
-    imports: {
-      jQuery: 'jquery',
-      Bloodhound: 'corejs-typeahead',
-    },
-    exports: 'this.PhotonAddressEngine',
-  },
-
   'jquery-ui-addons': {
     resolve: lib('jquery-ui-addons.js'),
     imports: {
@@ -75,14 +67,6 @@ Object.assign(module.exports, convert({
     dependencies: [
       'jquery-ui',
     ],
-  },
-
-  'jquery-tagedit-auto-grow-input': {
-    resolve: lib('tagedit/js/jquery.autoGrowInput.js'),
-  },
-
-  'jquery-tagedit': {
-    resolve: lib('tagedit/js/jquery.tagedit.js'),
   },
 
   'jquery.tinymce': {

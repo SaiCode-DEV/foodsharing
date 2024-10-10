@@ -59,8 +59,8 @@ export async function listStoreTeamMembershipRequests (storeId) {
   return get(`/stores/${storeId}/requests`)
 }
 
-export async function requestStoreTeamMembership (storeId, userId) {
-  return post(`/stores/${storeId}/requests/${userId}`)
+export async function requestStoreTeamMembership (storeId, message = null) {
+  return post(`/stores/${storeId}/requests`, { message })
 }
 
 export async function acceptStoreRequest (storeId, userId, moveToStandby) {

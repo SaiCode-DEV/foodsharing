@@ -339,55 +339,6 @@ class Utils
         return $this->v_input_wrapper($label, $out, $id, $option);
     }
 
-    public function v_form_tagselect(string $id, ?string $label = null, ?array $valueOptions = null, ?array $values = null): string
-    {
-        $label ??= $this->translator->trans($id);
-
-        if (is_null($valueOptions)) {
-            $source = 'autocompleteURL: async function (request, response) {
-			  let data = null
-			  try {
-				data = await searchUser(request.term)
-			  } catch (e) {
-			  }
-			  response(data)
-			}';
-        } else {
-            $source = 'autocompleteOptions: {
-				source: ' . json_encode($valueOptions) . ',
-				minLength: 3
-			}';
-        }
-
-        $this->pageHelper->addJs('
-			$("#' . $id . ' input.tag").tagedit({
-				' . $source . ',
-				allowEdit: false,
-				allowAdd: false,
-				animSpeed: 100
-			});
-
-			$("#' . $id . '").on("keydown", function (event) {
-				if (event.keyCode == 13) {
-					event.preventDefault();
-					return false;
-				}
-			});
-		');
-
-        $input = '<input type="text" name="' . $id . '[]" value="" class="tag input text value" />';
-        $values ??= $this->dataHelper->getValue($id);
-
-        if ($values) {
-            $input = '';
-            foreach ($values as $v) {
-                $input .= '<input type="text" name="' . $id . '[' . $v['id'] . '-a]" value="' . $v['name'] . '" class="tag input text value" />';
-            }
-        }
-
-        return $this->v_input_wrapper($label, '<div id="' . $id . '">' . $input . '</div>', $id, []);
-    }
-
     public function v_form_radio(string $id, array $option = []): string
     {
         $id = $this->identificationHelper->id($id);

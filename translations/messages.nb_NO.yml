@@ -271,10 +271,6 @@ base:
     bytte mat, levere in mat, distribusjon
   whatfor: På foodsharing.network kan du gi dagligvarene dine til sosiale institusjoner
     eller andre mennesker før de utløper
-tablesorter:
-  from: av
-  page: Side
-  entriespp: oppføringer per side
 stats:
   title: Total statistikk
   leader:
@@ -827,6 +823,12 @@ profile:
     undo: Tillitsbananer kan ikke endres eller trekkes tilbake.
     details: "Her kan du beskrive med minst 100 tegn hvorfor du ønsker å gi {name}
       en tillits banan.\n"
+    sent_none:
+      other: '{name} har ennå ikke gitt bort en trust banan.'
+      you: Du har ikke gitt bort en trust banan ennå.
+    recieved_none:
+      you: Du har ennå ikke mottatt en trust banan.
+      other: '{name} har ennå ikke mottatt en trust banan.'
   warning: Advarsel
   title: Profil
   regions: '{name} er en matredder i'
@@ -1222,6 +1224,14 @@ settings:
     non_verified_text: Du er ennå ikke bekreftet. Bare verifiserte matsparere har
       lov til å laste ned passet sitt.
     button: Last ned ID-kort
+    add_to_wallet:
+      google: Legg til i Google Wallet
+      apple: Legg til i Apple Wallet
+    wallet:
+      role: Rolle
+      name: Navn
+      valid_start: gyldig fra
+      valid_end: gyldig inntil
   no_rights: Du er ikke autorisert til å endre profilinnstillingene.
   general:
     current_address: Nåværende adresse
@@ -2078,6 +2088,7 @@ button:
   start: Kom igjen!
   confirm: bekrefte
   countdown_clickable: Klikkbar om {seconds} sekunder
+  ok: OK
 upload:
   preview_image: Forhåndsvisning
   crop_dialog_title: Beskjær bilde
@@ -2211,6 +2222,7 @@ footer:
     it_devdocs: av foodsharing IT
     version: 'Versjon: {version}'
     beta_testing_issues: Testoppgaver for betaversjonen
+    made_with: laget med
   infosDeveloper: for utviklere
   hosting:
     info: CO₂-nøytral hosted
@@ -2720,6 +2732,8 @@ store:
     confirm-no-location: Du har ikke oppgitt en gyldig adresse i profilen din. Vennligst
       skriv inn en hjemmeadresse for å gjøre det lettere for de driftsansvarlige å
       avgjøre søknaden din.
+    application-placeholder: Jeg vil gjerne hjelpe til i dette teamet fordi …
+    application-message: Applikasjonsmelding
   team_conversation_name: '{name}-laget'
   appliedFor: Forespørsel fremsatt
   bread: Alle virksomheter
@@ -3108,6 +3122,8 @@ terminology:
   achievements: Prestasjoner
   achievement: Prestasjon
   hygiene_training: Hygienetrening
+  received: mottatt
+  sent: Sendt
 gender:
   d: mangfoldig
   f: Fru
@@ -3268,12 +3284,12 @@ infomail_message: Varsling om chat-meldinger på foodsharing
 quizusercomment: "Gi oss tilbakemelding på dette spørsmålet.\nVar det for lett, for
   vanskelig, uforståelig?\nEller er individuelle svar eller forklaringer feil?\n"
 releases:
-  "2020-12": Versjon «dragefrukt» (desember 2020)
-  "2021-03": Versjon «jordbær» 🍓 (mars 2021)
-  "2021-09": Versjon «fig» 🥧 (september 2021)
-  "2020-08": Versjon «pære» (august 2020)
-  "2020-05": Versjon «appelsin» (mai 2020)
-  "2020-10": Versjon «cranberry» (oktober 2020)
+  "2020-12": Versjon «Dragefrukt» (desember 2020)
+  "2021-03": Versjon «Jordbær» 🍓 (mars 2021)
+  "2021-09": Versjon «Fig» 🥧 (september 2021)
+  "2020-08": Versjon «Pære» (august 2020)
+  "2020-05": Versjon «Appelsin» (mai 2020)
+  "2020-10": Versjon «Cranberry» (oktober 2020)
   "2022-05": Versjon «Blåbær» 🍇 (Mai 2022)
   "2022-01": Versjon «Grapefrukt» 🍋 (januar 2022)
   "2022-12": Versjon «Iskrem» 🍨 (desember 2022)
@@ -3282,6 +3298,7 @@ releases:
   "2024-01": Versjon «Kiwi» 🥝 (januar 2024)
   "2024-04": Versjon «Kringle» 🥨 (april 2024)
   "2024-08": Versjon «Mandarin» 🍊 (august 2024)
+  "2024-12": Betaversjon «Nektarin» 🍑 (desember 2024)
 push_notifications:
   test_notification_title: Push-varsler er aktivert
   test_notification_body: Flott, det ser ut til å ha fungert :)
@@ -3581,6 +3598,8 @@ quiz:
   confirmDashboardText: Du har bestått en prøve som du ennå ikke har bekreftet. [Klikk
     her]({url}) for å fullføre prosessen!
   confirmComment: Skal kommentaren din sendes til administratoren av denne quizen?
+  test_results: Resultater av testen
+  test: Prøv quizen
 fpsingular: feilpunktet
 filter_by: filtrer etter
 groups:
@@ -3728,6 +3747,8 @@ globals:
     signout: Logg ut
     signin: Logg inn
   telephone_number: Telefonnummer
+  save_changes: Lagre endringer
+  saved: Endringene er lagret
 savewithus: Spar hos oss!
 logincontrol:
   title: Avslutt abonnement på nyhetsbrev
@@ -4003,6 +4024,15 @@ help:
         innstillingene ligger imidlertid utelukkende hos administratorene i den lokale
         klagegruppen, som ikke trenger å følge disse anbefalingene.\n"
       title: Klageskjema
+    achievementIcon:
+      title: Prestasjonsikoner
+      md: "Hver prestasjon har et ikon, en liten grafikk som skal vise ved første
+        øyekast hva den handler om. Du kan finne en liste over tilgjengelige ikoner
+        på https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n\nI inntastingsfeltet
+        må du skrive inn navnet på ikonet du vil bruke, for eksempel \"*gå*\" eller
+        \"*handlevogn*\".\nDu kan sjekke om inndataene dine fungerer ved å bruke forhåndsvisningen.\n
+        Hvis du ikke skriver inn et ikon, vil standard prestasjonsikonet «*tag*» automatisk
+        bli brukt\n"
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
 team_page:
@@ -4048,7 +4078,7 @@ achievements:
   inThis:
     group: 'Følgende prestasjoner kan tildeles i denne arbeidsgruppen:'
     region: 'Følgende prestasjoner kan tildeles i dette distriktet:'
-  edit: Juster prestasjon {achievement} for {user}
+  edit: 'Rediger prestasjon: {name}'
   award: Prestasjon tildelt
   validUntil: Gyldig til
   awarded: Gi
@@ -4061,6 +4091,19 @@ achievements:
   editDetails: Rediger detaljer
   findUser: Finn bruker
   revoke: Tilbakekalle
+  inRegion: Prestasjoner i {region} ({count})
+  editAwarded: Juster prestasjon {achievement} for {user}
+  add: Legg til prestasjon
+  new: Ny prestasjon
+  editor:
+    name: Navn
+    description: Beskrivelse
+    icon: Ikon
+    validityInDaysAfterAssignment: Gyldig etter utstedelse i dager
+    preview: Forhåndsvisning
+  deleteConfirmation: Vil du virkelig slette denne prestasjonen?
+  editTitle: Rediger prestasjoner
+  noneInThisRegion: Det er ingen prestasjoner registrert i denne regionen ennå.
 store_categories:
   confirm_delete: Vil du virkelig slette kategorien {name}?
   delete: Slett kategori

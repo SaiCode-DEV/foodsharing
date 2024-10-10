@@ -96,6 +96,14 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss">
+.leaflet-container {
+  .leaflet-control-attribution {
+    .dark-mode & {
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+    }
+    font-size: 10px;
+  }
+}
 </style>

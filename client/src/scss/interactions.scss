@@ -27,6 +27,10 @@ html a[href]:not(:where(
     }
 }
 
+html .thread .body a[href] {
+    text-decoration: underline;
+}
+
 html a.icon:hover {
     text-decoration: unset;
 }

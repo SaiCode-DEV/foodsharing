@@ -373,6 +373,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $ag_testimonials = RegionIDs::TEAM_BOARD_MEMBER;
         $team_alumni = RegionIDs::TEAM_ALUMNI_MEMBER;
         $ag_quiz = RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP;
+        $ag_quiz_fr = RegionIDs::QUIZ_GROUP_FR;
         $ag_startpage = RegionIDs::PR_START_PAGE;
         $ag_partnerandteam = RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP;
 
@@ -393,6 +394,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->createWorkingGroup('Betriebskoordination-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::STORE_COORDINATION_TEAM_ADMIN_GROUP]);
         $I->createWorkingGroup('AG Betriebsketten', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::STORE_CHAIN_GROUP]);
         $I->createWorkingGroup('Hygiene', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::HYGIENE_GROUP]);
+        $I->createWorkingGroup('Quiz FR', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::QUIZ_GROUP_FR]); // actually in france, but for the seed data it's here...
         $I->createWorkingGroup('Meldungen-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::REPORT_TEAM_ADMIN_GROUP]);
         $I->createWorkingGroup('Mediation-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::MEDIATION_TEAM_ADMIN_GROUP]);
         $I->createWorkingGroup('Schiedsstelle-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::ARBITRATION_TEAM_ADMIN_GROUP]);
@@ -525,6 +527,8 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->addRegionAdmin($region1, $userbot2['id']);
         $I->addRegionMember($ag_quiz, $userbot['id']);
         $I->addRegionAdmin($ag_quiz, $userbot['id']);
+        $I->addRegionMember($ag_quiz_fr, $userbot['id']);
+        $I->addRegionAdmin($ag_quiz_fr, $userbot['id']);
         $I->addRegionMember($ag_startpage, $userStoreManager['id']);
         $I->addRegionAdmin($ag_startpage, $userStoreManager['id']);
         $I->addRegionMember($ag_startpage, $userbot['id']);

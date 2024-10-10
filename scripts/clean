@@ -7,22 +7,24 @@ source "$dir"/__common.sh
 
 declare -r base_dir=$(cd "$dir/.." && pwd)
 
-if [[ "${1:-}" == "full" ]]; then
+if [[ -n "${1:-}" && "$1" =~ ^(full|all)$ ]]; then
   log-header "Removing containers and images"
   FS_ENV="test"
   "$dir"/docker-compose down --volumes --remove-orphans
   FS_ENV="dev"
   "$dir"/docker-compose down --rmi all --volumes --remove-orphans
-
-  log-header "Removing local node_modules"
-  find "$base_dir" -name "node_modules" -type d -prune | xargs du -chs # prints the folders
-  find "$base_dir" -name "node_modules" -type d -prune -exec rm -rf '{}' + # removes the folders
 else
   log-header "Removing containers"
   FS_ENV="dev"
   "$dir"/docker-compose down --volumes --remove-orphans
   FS_ENV="test"
   "$dir"/docker-compose down --volumes --remove-orphans
+fi
+
+if [[ -n "${1:-}" && "$1" =~ ^(full|all|modules)$ ]]; then
+  log-header "Removing local node_modules"
+  find "$base_dir" -name "node_modules" -type d -prune | xargs du -chs # prints the folders
+  find "$base_dir" -name "node_modules" -type d -prune -exec rm -rf '{}' + # removes the folders
 fi
 
 log-header "Removing directories"
@@ -34,6 +36,12 @@ log-header "Removing directories"
         "$base_dir"/cache \
         "${base_dir:?}"/var \
         "$base_dir"/tmp \
-        "$base_dir"/tests/_output
+        "$base_dir"/tests/_output \
+        "$base_dir"/docs/data/api_dump.json\
+        "$base_dir"/docs/data/build \
+        "$base_dir"/docs/.vitepress/dist \
+        "$base_dir"/docs/.vitepress/cache \
+        "$base_dir"/docs/.vitepress/.temp \
+        "$base_dir"/docs/.npm
 
 log-header "All clean!"

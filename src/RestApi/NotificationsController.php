@@ -14,6 +14,7 @@ use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\RestApi\Models\Notifications\FoodSharePoint;
+use Foodsharing\RestApi\Models\Notifications\Mention;
 use Foodsharing\RestApi\Models\Notifications\NewsletterChat;
 use Foodsharing\RestApi\Models\Notifications\PickupReminder;
 use Foodsharing\RestApi\Models\Notifications\Region;
@@ -67,6 +68,7 @@ class NotificationsController extends AbstractFoodsharingRestController
             'user' => $this->foodsaverGateway->getSubscriptions($userId),
             'groups' => $this->regionGateway->listForFoodsaverExceptWorkingGroups($userId, false),
             'pickupreminder' => !$this->settingsTransactions->getOption(UserOptionType::DISABLE_PICKUP_REMINDER),
+            'mention' => !$this->settingsTransactions->getOption(UserOptionType::DISABLE_MENTION_NOTIFICATION),
             default => throw new BadRequestHttpException(),
         };
 
@@ -207,7 +209,7 @@ class NotificationsController extends AbstractFoodsharingRestController
 
     #[Tag('notifications')]
     #[Rest\Patch(path: 'notifications/pickupreminder')]
-    #[Patch(summary: 'Activate or disable the newsletter or mail notification for chat.')]
+    #[Patch(summary: 'Activate or pickup reminder mail.')]
     #[Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
     #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
     #[RequestBody(content: new Model(type: PickupReminder::class))]
@@ -220,5 +222,21 @@ class NotificationsController extends AbstractFoodsharingRestController
         $this->settingsTransactions->setOption(UserOptionType::DISABLE_PICKUP_REMINDER, !$pickupReminder->sendMail);
 
         return $this->respondOK($pickupReminder);
+    }
+
+    #[Tag('notifications')]
+    #[Rest\Patch(path: 'notifications/mention')]
+    #[Patch(summary: 'Activate or disable the mention notifications.')]
+    #[Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
+    #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
+    #[RequestBody(content: new Model(type: Mention::class))]
+    #[ParamConverter(data: 'mention', class: Mention::class, converter: 'fos_rest.request_body')]
+    public function setMentionNotification(Mention $mention, ValidatorInterface $validator): HttpResponse
+    {
+        $this->assertLoggedIn();
+        $this->assertThereAreNoValidationErrors($validator, $mention);
+        $this->settingsTransactions->setOption(UserOptionType::DISABLE_MENTION_NOTIFICATION, !$mention->mention);
+
+        return $this->respondOK($mention);
     }
 }

@@ -88,13 +88,13 @@ class MapRestController extends AbstractFoodsharingRestController
     {
         $region = $this->regionGateway->getRegion($regionId);
         $pin = $this->regionGateway->getRegionPin($regionId);
-        if (empty($pin) || $pin['status'] != RegionPinStatus::ACTIVE) {
+        if (empty($pin) || $pin->status != RegionPinStatus::ACTIVE) {
             throw new NotFoundHttpException('region does not exist or its pin is not active');
         }
 
         return $this->handleView($this->view([
             'name' => $region['name'],
-            'description' => $pin['desc'],
+            'description' => $pin->description,
         ], Response::HTTP_OK));
     }
 

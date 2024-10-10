@@ -358,6 +358,7 @@ button:
   new: "Neu"
   edit: "Bearbeiten"
   delete: "Löschen"
+  ok: "OK"
   permadelete: "Unwiderruflich löschen"
   yes_i_am_sure: "Ja, ich bin mir sicher"
   countdown_clickable: "In {countdown} Sekunden klickbar"
@@ -809,6 +810,8 @@ terminology:
   landline: "Festnetznummer"
   mobile_phone: "Handynummer"
   hygiene_training: "Hygieneschulung"
+  received: "Erhaltene"
+  sent: "Gesendete"
 
 statistics:
   kg_food_saved: "{count} kg Lebensmittel gerettet"
@@ -877,6 +880,10 @@ fsp:
   deleteConfirm: "Möchtest du wirklich diesen Fairteiler löschen?"
   deleteSuccess: "Fairteiler wurde gelöscht"
   none: "Noch keine Fairteiler eingetragen"
+  form_validation:
+    invalid: "Eingabe ist ungültig. Bitte überprüfe deine Eingaben."
+    required: "{name} ist nötig."
+    min_length: "{name} muss mindestens {length} Zeichen lang sein."
   info:
     from: "Updates zum Fairteiler „{name}“"
     bell: "nur interne Infomeldungen (Glocke)"
@@ -1054,6 +1061,8 @@ store:
     confirm-far: "Laut deiner gespeicherten Adresse wohnst du sehr weit von diesem Betrieb entfernt ({distance}). Bist du dir sicher, dass du hier regelmäßig und zuverlässig das Team unterstützen kannst?"
     confirm-no-location: "Du hast keine gültige Adresse in deinen Profil hinterlegt. Bitte trag eine Heimatadresse ein, um es den Betriebsverantwortlichen leichter zu machen, über deine Bewerbung zu entscheiden."
     confirm-no-location-ok: "Trotzdem bewerben"
+    application-message: "Bewerbungsnachricht"
+    application-placeholder: "Ich möchte gerne in diesem Team helfen, weil..."
   info_container: "Informationen"
   no_chain_choosen: "keine Kette gewählt"
   chain_search_picker:
@@ -1728,6 +1737,9 @@ bell:
   internal_email_changed_title: "{address}"
   internal_email_changed: "Deine persönliche E-Mail-Adresse wurde geändert."
 
+  forum_not_activated_thread: "{forum}"
+  forum_not_activated_thread_title: "Thema in moderiertem Forum"
+
 list:
   filter_for: "Filtern nach …"
 
@@ -2196,7 +2208,12 @@ profile:
     week_4: "Vorletzte Woche"
   banana:
     title: "{count} Vertrauensbananen"
-    none: "{name} hat bislang noch keine Vertrauensbanane erhalten."
+    recieved_none:
+      other: "{name} hat bislang noch keine Vertrauensbanane erhalten."
+      you: "Du hast bislang noch keine Vertrauensbanane erhalten."
+    sent_none:
+      other: "{name} hat bislang noch keine Vertrauensbanane verschenkt."
+      you: "Du hast bislang noch keine Vertrauensbanane verschenkt."
     give: "Schenke {name} eine Banane"
     details: |
       Hier kannst du in mindestens 100 Zeichen beschreiben, warum du {name} gerne eine Banane schenken möchtest.
@@ -2225,7 +2242,7 @@ profile:
       filterAll: "Alle"
       filterRequested: "Anfrage gestellt"
       filterActive: "Mitglied"
-      filterManage: "BV"
+      filterManage: "Betriebsverantwortlich"
       filterJumper: "Springer"
 
   nav:
@@ -2652,7 +2669,7 @@ footer:
   blog: "Blog"
   statistics: "Statistik"
   meta:
-    beta_testing_issues: Test-Aufgaben der Beta-Version
+    made_with: "Made with"
     it_devdocs: "by foodsharing IT"
     version: "Version: {version}"
   donate:
@@ -2667,6 +2684,7 @@ footer:
     denns: Denn’s Biomarkt
 
 releases:
+  "2024-12": "Beta Release „Nektarine“ 🍑 (Dezember 2024)"
   "2024-08": "Release „Mandarine“ 🍊 (August 2024)"
   "2024-04": "Release „Laugenbrezel“ 🥨 (April 2024)"
   "2024-01": "Release „Kiwi“ 🥝 (Januar 2024)"
@@ -2825,11 +2843,6 @@ conference:
   confirm_info: "Hier kannst du einer Videokonferenz für die gewählte Gruppe beitreten. Die Videokonferenz öffnet BigBlueButton in einem neuen Fenster. Hinweis: Videokonferenzen werden über den Konferenzserver des living utopia Kollektivs abgewickelt. Du wirst dort automatisch mit deinem bei foodsharing eingegebenen Vornamen, ID und Avatar eingeloggt."
   join_title: "Konferenz beitreten"
   join: "Konferenz beitreten"
-
-tablesorter:
-  page: "Seite"
-  from: "von"
-  entriespp: "Einträge pro Seite"
 
 password:
   reset: "Passwort vergessen?"
@@ -3450,6 +3463,9 @@ notifications:
   pickupReminder:
     title: 'Erinnerungen für unbelegte Slots'
     description: 'Erhalte Mails, die dich warnen, wenn Slots in von dir verwalteten Betrieben am nächsten Tag noch nicht vergeben sind.'
+  mention:
+    title: 'Benachrichtigungen bei Erwähnungen'
+    description: 'Werde benachrichtigt, wenn dich jemand im Forum addressiert.'
   checkbox_email: 'E-Mail'
   checkbox_push: 'Push'
   checkbox_bell: 'Glocke'
@@ -3496,6 +3512,7 @@ markdown_input:
     strikethrough: Durchgestrichen
     heading: Überschrift
     link: Link
+    mention: Nutzer erwähnen
     code: Code
     quote: Zitat
     unorderedList: Liste
@@ -3543,7 +3560,7 @@ achievements:
   noneInThisRegion: "In dieser Region sind keine Errungenschaften eingetragen."
   deleteConfirmation: "Willst du wirklich diese Errungenschaft löschen?"
   editTitle: "Errungenschaften bearbeiten"
-  
+
 
 help:
   helpTitle: "Hilfe: {title}"
