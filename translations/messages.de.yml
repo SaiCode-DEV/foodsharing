@@ -1906,6 +1906,25 @@ map:
         all: "Alle"
         region: "Nur meine Bezirke"
         member: "Nur meine Betriebe"
+    users:
+      role:
+        label: 'Rolle' 
+        all: 'Alle'
+        foodsaver: 'verifizierte Foodsaver:innen'
+        store-manager: 'Betriebsverantwortliche'
+      activity:
+        label: 'Letzter Login'
+        week: 'Letzte Woche'
+        month: 'Letzter Monat'
+        3months: 'Letzte 3 Monate'
+        6months: 'Letzte 6 Monate'
+      member:
+        label: 'Zugehörigkeit'
+        all: 'Alle'
+        homeregion: 'Stammbezirk'
+        other: 'Zweitbezirk'
+      region:
+        label: 'Bezirk'
   foodsharepoint:
     go: "Zum Fairteiler"
 
