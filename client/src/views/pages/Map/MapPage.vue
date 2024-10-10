@@ -66,7 +66,7 @@ export default {
     maySeeStores: { type: Boolean, default: false },
     selectedStoreId: { type: Number, default: null },
     selectedFoodSharePointId: { type: Number, default: null },
-    ambassadorRegions: { type: Array, default: () => [{ id: 5, name: 'Münster' }] },
+    ambassadorRegions: { type: Array, default: () => [{ id: 6058, name: 'Münster' }] },
   },
   setup () {
     return {

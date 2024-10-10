@@ -1918,6 +1918,7 @@ map:
         month: 'Letzter Monat'
         3months: 'Letzte 3 Monate'
         6months: 'Letzte 6 Monate'
+        all: 'Egal'
       member:
         label: 'Zugehörigkeit'
         all: 'Alle'
