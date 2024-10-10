@@ -64,6 +64,7 @@
 - Notifications are again sent via e-mail and bell for posts in Food Share Points !3690 @martincodes-de
 - Fixed blog permission for EDITORIAL_GROUP !3700 @chriswalg
 - Options are not discarded anymore when editing a poll #975 !3684 @alex.simm
+- fixed danger button text contrast !3707 @SaiCode
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
