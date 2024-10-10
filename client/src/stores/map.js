@@ -15,6 +15,7 @@ export const MARKER_TYPES = Object.freeze({
   stores: { name: 'stores', label: 'menu.entry.stores', icon: 'shopping-cart', color: 'darkred' },
   foodsharepoints: { name: 'foodsharepoints', label: 'terminology.fsp', icon: 'recycle', color: 'beige' },
   communities: { name: 'communities', label: 'menu.entry.regionalgroups', icon: 'users', color: 'blue' },
+  users: { name: 'users', label: 'terminology.users', icon: 'user', color: 'darkpurple' },
 })
 
 export const STORE_MARKER_SELECT_TYPES = Object.freeze({

@@ -730,6 +730,7 @@ terminology:
   pickup: "Abholung"
   previous_pickups: "Abholungen hier"
   no_pickups: "keine"
+  users: "Nutzer:innen"
   foodsharer:
     m: "Foodsharer"
     f: "Foodsharerin"

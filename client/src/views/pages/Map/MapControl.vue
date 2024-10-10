@@ -161,6 +161,7 @@ export default {
     &.stores { --type-color: var(--fs-color-type-stores); }
     &.foodsharepoints { --type-color: var(--fs-color-type-foodsharepoints); }
     &.communities { --type-color: var(--fs-color-type-communities); }
+    &.users { --type-color: var(--fs-color-type-users); }
 
     &:hover {
       background-color: var(--fs-color-primary-100);
