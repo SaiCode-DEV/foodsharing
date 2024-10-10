@@ -55,7 +55,7 @@ class MapRestController extends AbstractFoodsharingRestController
         } catch (ValueError $error) {
             throw new NotFoundHttpException();
         }
-        if ($markerType === MapMarkerType::BASKETS) {
+        if ($markerType === MapMarkerType::BASKETS || $markerType === MapMarkerType::USERS) { // TODE move users, only for testing
             return $this->respondOK($this->mapGateway->getBasketMarkers());
         } elseif ($markerType === MapMarkerType::FOOD_SHARE_POINTS) {
             return $this->respondOK($this->mapGateway->getFoodSharePointMarkers());

@@ -63,6 +63,7 @@ export default {
   props: {
     center: { type: Object, default: null },
     maySeeStores: { type: Boolean, default: false },
+    maySeeUsers: { type: Boolean, default: true }, // TODO default to false
     selectedStoreId: { type: Number, default: null },
     selectedFoodSharePointId: { type: Number, default: null },
   },
@@ -89,6 +90,9 @@ export default {
       const types = [MARKER_TYPES.baskets.name, MARKER_TYPES.foodsharepoints.name, MARKER_TYPES.communities.name]
       if (this.maySeeStores) {
         types.push(MARKER_TYPES.stores.name)
+      }
+      if (this.maySeeUsers) {
+        types.push(MARKER_TYPES.users.name)
       }
       return types
     },
