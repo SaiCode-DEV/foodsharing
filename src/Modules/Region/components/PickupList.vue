@@ -15,7 +15,7 @@
         >
           <b-pagination
             v-model="currentPageDaily"
-            :total-rows="pickupDataDailyTab.length"
+            :total-rows="pickupData.daily.length"
             :per-page="perPage"
             aria-controls="pickupDaily-table"
           />
@@ -24,7 +24,7 @@
             :current-page="currentPageDaily"
             :per-page="perPage"
             :fields="fields"
-            :items="pickupDataDailyTab"
+            :items="pickupData.daily"
             :sort-by="sortBy"
             :sort-desc="sortDesc"
             striped
@@ -39,14 +39,14 @@
         >
           <b-pagination
             v-model="currentPageWeekly"
-            :total-rows="pickupDataWeeklyTab.length"
+            :total-rows="pickupData.weekly.length"
             :per-page="perPage"
             aria-controls="pickupWeekly-table"
           />
           <b-table
             id="pickupWeekly-table"
             :fields="fields"
-            :items="pickupDataWeeklyTab"
+            :items="pickupData.weekly"
             :current-page="currentPageWeekly"
             :per-page="perPage"
             :sort-by="sortBy"
@@ -63,13 +63,13 @@
         >
           <b-pagination
             v-model="currentPageMonthly"
-            :total-rows="pickupDataMonthlyTab.length"
+            :total-rows="pickupData.monthly.length"
             :per-page="perPage"
             aria-controls="pickupMonthly-table"
           />
           <b-table
             :fields="fields"
-            :items="pickupDataMonthlyTab"
+            :items="pickupData.monthly"
             :current-page="currentPageMonthly"
             :per-page="perPage"
             :sort-by="sortBy"
@@ -86,13 +86,13 @@
         >
           <b-pagination
             v-model="currentPageYearly"
-            :total-rows="pickupDataYearlyTab.length"
+            :total-rows="pickupData.yearly.length"
             :per-page="perPage"
             aria-controls="pickupYearly-table"
           />
           <b-table
             :fields="fields"
-            :items="pickupDataYearlyTab"
+            :items="pickupData.yearly"
             :current-page="currentPageYearly"
             :per-page="perPage"
             :sort-by="sortBy"
@@ -112,34 +112,24 @@
 <script>
 
 import { BPagination, BTable, BTabs, BTab } from 'bootstrap-vue'
+import { getRegionPickupStatisticsData } from '@/api/statistics'
 
 export default {
   components: { BTable, BTabs, BTab, BPagination },
   props: {
-    regionName: {
-      type: String,
-      default: '',
-    },
-    pickupDataDailyTab: {
-      type: Array,
-      default: () => [],
-    },
-    pickupDataWeeklyTab: {
-      type: Array,
-      default: () => [],
-    },
-    pickupDataMonthlyTab: {
-      type: Array,
-      default: () => [],
-    },
-    pickupDataYearlyTab: {
-      type: Array,
-      default: () => [],
-    },
+    regionName: { type: String, default: '' },
+    regionId: { type: Number, required: true },
   },
   data () {
     return {
-      sortBy: 'time',
+      isLoading: false,
+      pickupData: {
+        daily: [],
+        weekly: [],
+        monthly: [],
+        yearly: [],
+      },
+      sortBy: 'date',
       sortDesc: true,
       currentPageDaily: 1,
       currentPageWeekly: 1,
@@ -148,32 +138,41 @@ export default {
       perPage: 14,
       fields: [
         {
-          key: 'time',
+          key: 'date',
           label: this.$i18n('pickuplist.time_table_header'),
           sortable: true,
         },
         {
-          key: 'NumberOfStores',
+          key: 'numberOfStores',
           label: this.$i18n('pickuplist.NumberOfStores_table_header'),
           sortable: true,
         },
         {
-          key: 'NumberOfAppointments',
+          key: 'numberOfPickups',
           label: this.$i18n('pickuplist.NumberOfAppointments_table_header'),
           sortable: true,
         },
         {
-          key: 'NumberOfSlots',
+          key: 'numberOfSlots',
           label: this.$i18n('pickuplist.NumberOfSlots_table_header'),
           sortable: true,
         },
         {
-          key: 'NumberOfFoodsavers',
+          key: 'numberOfFoodsavers',
           label: this.$i18n('pickuplist.NumberOfFoodSavers_table_header'),
           sortable: true,
         },
       ],
     }
+  },
+  async mounted () {
+    this.isLoading = true
+    try {
+      this.pickupData = await getRegionPickupStatisticsData(this.regionId)
+    } catch (error) {
+      console.error('Error fetching region statics data:', error)
+    }
+    this.isLoading = false
   },
 }
 </script>

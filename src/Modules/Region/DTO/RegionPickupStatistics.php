@@ -1,0 +1,28 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Foodsharing\Modules\Region\DTO;
+
+use JMS\Serializer\Annotation\Type;
+use OpenApi\Attributes as OA;
+
+#[OA\Schema(description: 'Include the pickup statistics list of a region for all possible date formats')]
+class RegionPickupStatistics
+{
+    #[OA\Property(description: 'Pickup statistics per day', type: 'string')]
+    #[Type('array<Foodsharing\Modules\Region\DTO\RegionPickupsPerDate>')]
+    public array $daily = [];
+
+    #[OA\Property(description: 'Pickup statistics per week', type: 'string')]
+    #[Type('array<Foodsharing\Modules\Region\DTO\RegionPickupsPerDate>')]
+    public array $weekly = [];
+
+    #[OA\Property(description: 'Pickup statistics per month', type: 'string')]
+    #[Type('array<Foodsharing\Modules\Region\DTO\RegionPickupsPerDate>')]
+    public array $monthly = [];
+
+    #[OA\Property(description: 'Pickup statistics per year', type: 'string')]
+    #[Type('array<Foodsharing\Modules\Region\DTO\RegionPickupsPerDate>')]
+    public array $yearly = [];
+}

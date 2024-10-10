@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Foodsharing\RestApi;
 
+use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Region\DTO\RegionPickupStatistics;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Statistics\DTO\StatisticsAgeBand;
 use Foodsharing\Modules\Statistics\DTO\StatisticsGender;
 use Foodsharing\Modules\Statistics\StatisticsGateway;
+use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\RestApi\Models\Statistic\GeneralStatistic;
 use Foodsharing\RestApi\Models\Statistic\PickupModel;
 use Foodsharing\RestApi\Models\Statistic\StatisticModel;
@@ -17,6 +21,7 @@ use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class StatisticRestController extends AbstractFOSRestController
@@ -27,6 +32,8 @@ class StatisticRestController extends AbstractFOSRestController
     public function __construct(
         private readonly StatisticsGateway $statisticsGateway,
         private readonly RegionGateway $regionGateway,
+        private readonly RegionPermissions $regionPermissions,
+        private readonly RegionTransactions $regionTransactions,
     ) {
     }
 
@@ -88,6 +95,30 @@ class StatisticRestController extends AbstractFOSRestController
         $result = $this->isHomeRegion($paramFetcher->get('homeRegion'))
             ? $this->statisticsGateway->ageBandHomeDistrict($regionId)
             : $this->statisticsGateway->ageBandDistrict($regionId);
+
+        return $this->handleView($this->view($result, Response::HTTP_OK));
+    }
+
+    #[OA\Get(summary: 'Returns the age band distribution from a region.')]
+    #[OA\Tag(name: 'statistics')]
+    #[Rest\Get('statistics/regions/{regionId<\d+>}/pickups')]
+    #[OA\Response(
+        response: Response::HTTP_OK,
+        description: 'Successful',
+        content: new OA\JsonContent(type: RegionPickupStatistics::class)
+    )]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: self::NOT_FOUND_MESSAGE)]
+    public function listRegionPickupsStatistics(int $regionId): Response
+    {
+        $region = $this->regionGateway->getRegion($regionId);
+        if (empty($region)) {
+            throw new NotFoundHttpException(sprintf(self::NOT_FOUND_MESSAGE, $regionId));
+        }
+        if ($region['type'] === UnitType::COUNTRY && !$this->regionPermissions->mayAccessStatisticCountry()) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $result = $this->regionTransactions->getRegionPickupStatistics($regionId);
 
         return $this->handleView($this->view($result, Response::HTTP_OK));
     }

@@ -89,7 +89,7 @@
 - Devdocs: Huge update from Docusaurus to VitePress #2124 #1755 #1913 !3640 !3655 @SaiCode
 - Removed jquery tablesorter #2136 !3648 !3689 @chriswalg
 - Deleted the lookup command and module @alex.simm
-- Data for the region subpages is now fetched from the API #1838 !3624 @alex.simm
+- Data for the region subpages is now fetched from the API #1838 !3624 !3715 @alex.simm
 - Wait for Devdocs Assets to be loaded before generating the devdocs site !3662 @SaiCode
 - Updated Clean script with clean node_modules !3688 @SaiCode
 - Removed some unnecessary database queries #1995 !3709 @alex.simm
