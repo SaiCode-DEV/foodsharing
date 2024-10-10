@@ -26,7 +26,7 @@ export const MARKER_SELECT_TYPES = Object.freeze({
   },
   users: {
     role: ['all', 'foodsaver', 'store-manager'],
-    activity: ['week', 'month', '3months', '6months'],
+    activity: ['week', 'month', '3months', '6months', 'all'],
     member: ['all', 'homeregion', 'other'],
   },
 })

@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Foodsaver;
 
 use Carbon\Carbon;
+use DateInterval;
 use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
@@ -11,6 +12,10 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\DTO\EditableProfileDTO;
+use Foodsharing\Modules\Map\DTO\MapMarker;
+use Foodsharing\Modules\Map\DTO\UserMarkerActivityType;
+use Foodsharing\Modules\Map\DTO\UserMarkerMemberType;
+use Foodsharing\Modules\Map\DTO\UserMarkerRoleType;
 use Foodsharing\Modules\Region\ForumFollowerGateway;
 use Foodsharing\Utility\DataHelper;
 
@@ -1027,5 +1032,53 @@ class FoodsaverGateway extends BaseGateway
     public function getUserNames(array $userIds): array
     {
         return $this->db->fetchAllByCriteria('fs_foodsaver', ['id', 'name'], ['id' => $userIds, 'deleted_at' => null]);
+    }
+
+    public function getUserMarkers(int $regionId, UserMarkerRoleType $role, UserMarkerActivityType $activity, UserMarkerMemberType $member): array
+    {
+        $query = 'SELECT
+            fs.id, fs.lat, fs.lon, fs.name
+        FROM fs_foodsaver fs
+        JOIN fs_foodsaver_has_bezirk r ON r.foodsaver_id = fs.id';
+        $conditions = [
+            'fs.lat != ""',
+            'fs.lon != ""',
+            'fs.deleted_at IS NULL',
+            'r.bezirk_id = :regionId',
+        ];
+        $params[':regionId'] = $regionId;
+
+        if ($role !== UserMarkerRoleType::ALL) {
+            $conditions[] = 'fs.rolle >= :role';
+            $conditions[] = 'fs.verified = 1';
+            $roleValue = match ($role) {
+                UserMarkerRoleType::FOODSAVER => Role::FOODSAVER->value,
+                UserMarkerRoleType::STORE_MANAGER => Role::STORE_MANAGER->value,
+            };
+            $params[':role'] = $roleValue;
+        }
+
+        if ($activity !== UserMarkerActivityType::ALL) {
+            $conditions[] = 'fs.last_login >= :activityDate';
+            $activityDate = Carbon::now();
+            $activityDate->sub(match ($activity) {
+                UserMarkerActivityType::WEEK => new DateInterval('P1W'),
+                UserMarkerActivityType::MONTH => new DateInterval('P1M'),
+                UserMarkerActivityType::THREE_MONTHS => new DateInterval('P3M'),
+                UserMarkerActivityType::SIX_MONTHS => new DateInterval('P6M'),
+            });
+            $params[':activityDate'] = $activityDate;
+        }
+
+        if ($member !== UserMarkerMemberType::ALL) {
+            $operator = $member === UserMarkerMemberType::HOMEREGION ? '=' : '!=';
+            $conditions[] = "fs.bezirk_id {$operator} :homeRegionId";
+            $params[':homeRegionId'] = $regionId;
+        }
+
+        $query .= ' WHERE ' . implode(' AND ', $conditions);
+        $markers = $this->db->fetchAll($query, $params);
+
+        return array_map([MapMarker::class, 'createFromArray'], $markers);
     }
 }
