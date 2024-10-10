@@ -297,6 +297,7 @@ class FoodsaverGateway extends BaseGateway
     public function getAmbassadorsRegions(int $fsId, bool $includeWorkingGroups = true): array
     {
         $groupFilter = $includeWorkingGroups ? '' : 'AND reg.type != ' . UnitType::WORKING_GROUP;
+
         return $this->db->fetchAll("SELECT
                 reg.`name`, reg.`id`
 			FROM fs_bezirk reg
