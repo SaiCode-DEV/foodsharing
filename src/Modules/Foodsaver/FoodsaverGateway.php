@@ -294,18 +294,15 @@ class FoodsaverGateway extends BaseGateway
         return $out;
     }
 
-    private function getAmbassadorsRegions(int $fsId): array
+    public function getAmbassadorsRegions(int $fsId, bool $includeWorkingGroups = true): array
     {
-        return $this->db->fetchAll('
-			SELECT   reg.`name`,
-                     reg.`id`
-
-			FROM     fs_bezirk reg
-				     INNER JOIN fs_botschafter amb
-                     ON amb.`bezirk_id` = reg.`id`
-
+        $groupFilter = $includeWorkingGroups ? '' : 'AND reg.type != ' . UnitType::WORKING_GROUP;
+        return $this->db->fetchAll("SELECT
+                reg.`name`, reg.`id`
+			FROM fs_bezirk reg
+		    INNER JOIN fs_botschafter amb ON amb.`bezirk_id` = reg.`id`
 			WHERE    amb.foodsaver_id = :fsId
-        ', [
+            {$groupFilter}", [
             ':fsId' => $fsId
         ]);
     }

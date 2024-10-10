@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Map;
 
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,6 +13,7 @@ class MapController extends FoodsharingController
 {
     public function __construct(
         private readonly MapGateway $mapGateway,
+        private readonly FoodsaverGateway $foodsaverGateway,
     ) {
         parent::__construct();
     }
@@ -22,7 +24,8 @@ class MapController extends FoodsharingController
         $this->pageHelper->addTitle($this->translator->trans('map.title'));
 
         $params = [
-            'maySeeStores' => $this->session->mayRole(Role::FOODSAVER)
+            'maySeeStores' => $this->session->mayRole(Role::FOODSAVER),
+            'ambassadorRegions' => $this->foodsaverGateway->getAmbassadorsRegions($this->session->id(), false),
         ];
 
         if ($this->session->mayRole(Role::FOODSAVER) && $request->query->has('bid')) {
