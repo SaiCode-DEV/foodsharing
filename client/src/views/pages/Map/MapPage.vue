@@ -200,6 +200,9 @@ export default {
         case MARKER_TYPES.communities.name:
           this.$refs.communityBubble.show(id)
           break
+        case MARKER_TYPES.users.name:
+          location.href = this.$url('profile', id)
+          break
       }
     },
     drawMarkerLayer (type) {
