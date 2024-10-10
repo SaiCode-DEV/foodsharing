@@ -18,10 +18,17 @@ export const MARKER_TYPES = Object.freeze({
   users: { name: 'users', label: 'terminology.users', icon: 'user', color: 'darkpurple' },
 })
 
-export const STORE_MARKER_SELECT_TYPES = Object.freeze({
-  status: ['all', 'cooperating', 'not-cooperating'],
-  help: ['all', 'open', 'searching'],
-  scope: ['all', 'region', 'member'],
+export const MARKER_SELECT_TYPES = Object.freeze({
+  stores: {
+    status: ['all', 'cooperating', 'not-cooperating'],
+    help: ['all', 'open', 'searching'],
+    scope: ['all', 'region', 'member'],
+  },
+  users: {
+    role: ['all', 'foodsaver', 'store-manager'],
+    activity: ['week', 'month', '3months', '6months'],
+    member: ['all', 'homeregion', 'other'],
+  },
 })
 
 // Markers are reloaded from the server if they are older than this

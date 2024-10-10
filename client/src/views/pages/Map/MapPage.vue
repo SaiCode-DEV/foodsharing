@@ -15,9 +15,10 @@
     <map-control
       :visible-types="visibleTypes"
       :selected-types="selectedTypes"
-      :selected-store-types="selectedStoreTypes"
+      :selected-specifiers="selectedSpecifiers"
+      :ambassador-regions="ambassadorRegions"
       @toggle-marker-type="toggleMarkerType"
-      @select-store-marker-type="selectStoreMarkerType"
+      @update-marker-specifier="updateMarkerSpecifier"
     />
 
     <basket-bubble ref="basketBubble" />
@@ -63,9 +64,9 @@ export default {
   props: {
     center: { type: Object, default: null },
     maySeeStores: { type: Boolean, default: false },
-    maySeeUsers: { type: Boolean, default: true }, // TODO default to false
     selectedStoreId: { type: Number, default: null },
     selectedFoodSharePointId: { type: Number, default: null },
+    ambassadorRegions: { type: Array, default: () => [{ id: 5, name: 'Münster' }] },
   },
   setup () {
     return {
@@ -77,10 +78,18 @@ export default {
       currentCenter: { lat: MAP_CONSTANTS.CENTER_GERMANY_LAT, lon: MAP_CONSTANTS.CENTER_GERMANY_LON },
       currentZoom: MAP_CONSTANTS.ZOOM_COUNTRY,
       selectedTypes: [MARKER_TYPES.baskets.name],
-      selectedStoreTypes: {
-        status: 'cooperating',
-        help: 'all',
-        scope: 'region',
+      selectedSpecifiers: {
+        stores: {
+          status: 'cooperating',
+          help: 'all',
+          scope: 'region',
+        },
+        users: {
+          region: this.ambassadorRegions?.[0]?.id,
+          activity: 'month',
+          role: 'foodsaver',
+          member: 'homeregion',
+        },
       },
       markers: store.state.markers,
     }
@@ -91,7 +100,7 @@ export default {
       if (this.maySeeStores) {
         types.push(MARKER_TYPES.stores.name)
       }
-      if (this.maySeeUsers) {
+      if (this.ambassadorRegions?.length) {
         types.push(MARKER_TYPES.users.name)
       }
       return types
@@ -105,9 +114,9 @@ export default {
     this.storage = new Storage('map')
     this.selectedTypes = this.storage.get('selectedTypes', this.selectedTypes)
 
-    const saved = this.storage.get('selectedStoreTypes', this.selectedStoreTypes)
+    const saved = this.storage.get('selectedSpecifiers', this.selectedSpecifiers)
     if (!(saved instanceof Array)) { // Don't load data saved in the old format
-      this.selectedStoreTypes = saved
+      this.selectedSpecifiers = saved
     }
 
     // Remove the stores from the selected types if the user is not allowed to see them
@@ -139,7 +148,7 @@ export default {
 
     // Load all markers that are initially selected
     showLoader()
-    await Promise.all(this.selectedTypes.map(name => store.getMarkers(name, name === MARKER_TYPES.stores.name ? this.selectedStoreTypes : {})))
+    await Promise.all(this.selectedTypes.map(name => store.getMarkers(name, this.selectedSpecifiers[name])))
     hideLoader()
     for (const type of this.selectedTypes) {
       this.drawMarkerLayer(type)
@@ -154,7 +163,7 @@ export default {
         this.selectedTypes.splice(this.selectedTypes.indexOf(name), 1)
       } else {
         this.selectedTypes.push(name)
-        await store.getMarkers(name, name === MARKER_TYPES.stores.name ? this.selectedStoreTypes : {})
+        await store.getMarkers(name, this.selectedSpecifiers[name])
         this.drawMarkerLayer(name)
       }
       this.storage.set('selectedTypes', this.selectedTypes)
@@ -162,11 +171,11 @@ export default {
     /**
      * (De-)activates a store marker type. Fetches the store marker data if the type is being activated.
      */
-    async selectStoreMarkerType (type, value) {
-      this.selectedStoreTypes[type] = value
-      this.storage.set('selectedStoreTypes', this.selectedStoreTypes)
-      await store.getMarkers(MARKER_TYPES.stores.name, this.selectedStoreTypes)
-      this.drawMarkerLayer(MARKER_TYPES.stores.name)
+    async updateMarkerSpecifier (markerType, specifier, newValue) {
+      this.selectedSpecifiers[markerType][specifier] = newValue
+      this.storage.set('selectedSpecifiers', this.selectedSpecifiers)
+      await store.getMarkers(markerType, this.selectedSpecifiers[markerType])
+      this.drawMarkerLayer(markerType)
     },
     /**
      * When a marker was clicked, this function toggles the corresponding action like opening a bubble.
