@@ -7,7 +7,6 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Map\DTO\BasketBubbleData;
-use Foodsharing\Modules\Map\DTO\MapMarker;
 use Foodsharing\Modules\Map\DTO\MapMarkerType;
 use Foodsharing\Modules\Map\DTO\StoreMapBubbleData;
 use Foodsharing\Modules\Map\DTO\StoreMarkerHelpType;
@@ -92,7 +91,7 @@ class MapRestController extends AbstractFoodsharingRestController
                     throw new BadRequestHttpException();
                 }
 
-                if(!$this->currentUserUnits->isAdminFor($regionId)) {
+                if (!$this->currentUserUnits->isAdminFor($regionId)) {
                     throw new AccessDeniedHttpException();
                 }
 
