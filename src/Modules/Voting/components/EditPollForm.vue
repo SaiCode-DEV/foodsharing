@@ -75,6 +75,7 @@
                 v-model="$v.options.$model[index-1]"
                 trim
                 :state="$v.options.$error ? false : null"
+                :maxlength="maxOptionLength"
                 class="mr-3 mb-1"
               />
             </b-col>
@@ -120,7 +121,7 @@ import { pulseError } from '@/script'
 import i18n from '@/helper/i18n'
 import { required, minLength } from 'vuelidate/lib/validators'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
-import { VOTING_TYPE } from '@/stores/polls'
+import { VOTING_TYPE, MAX_OPTION_LENGTH } from '@/stores/polls'
 
 // returns if the array does not contain duplicate entries
 function areEntriesUnique (array) {
@@ -143,6 +144,7 @@ export default {
       description: this.poll.description,
       numOptions: this.poll.options.length,
       options: this.poll.options.map(x => x.text),
+      maxOptionLength: MAX_OPTION_LENGTH,
     }
   },
   validations: {
