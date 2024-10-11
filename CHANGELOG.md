@@ -34,6 +34,7 @@
 - Added an attachment label to the mailbox #1988 !3583 @alex.simm
 - Added markdown for publicInfo in store and map bubble !3389 @chriswalg
 - Add more breadcrumbs where needed !3606 !3614 #1987 @McGoldi
+- Changed the way the quiz status is handled #2116 !3618 @AntonBallmaier
 - Rework default options in store information #33 !3623 @chriswalg
 - Changed the Icon for resolving basket requests #2119 #1363 !3636 @SaiCode
 - Change limit to 535 / 520 for public_info -> store !3646 @chriswalg
@@ -59,11 +60,13 @@
 - Fixed Invalid Time when time is undefined #1924 !3652 !3656 @SaiCode
 - Fix typos and inconsistent spelling in email templates !3657 @iron9
 - Fix duplicate 'kg' in global statistics #2108 !3658 @iron9
+- Fix time zone problems in store log #977 !3673 @AntonBallmaier 
 - Fix vue warn messages on create new thread page #2109 !3697 @AntonBallmaier
 - Fix more than 6 months back selectable in store log #2102 !3698 @AntonBallmaier
 - Notifications are again sent via e-mail and bell for posts in Food Share Points !3690 @martincodes-de
 - Fixed blog permission for EDITORIAL_GROUP !3700 @chriswalg
 - Options are not discarded anymore when editing a poll #975 !3684 @alex.simm
+- fixed danger button text contrast !3707 @SaiCode
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
@@ -77,6 +80,7 @@
 - Port the application controller to Symfony #1994 !3603 @alex.simm
 - Port the message controller to Symfony #1994 !3633 @\_fridtjof_
 - Refactored add and edit form to vue and removed jquery tagedit #2137 !3520 @chriswalg @alex.simm
+- Remove all usages of deprecated columns email_pass and email from fs_bezirk #1853 !3710 @AntonBallmaier
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm
@@ -90,7 +94,7 @@
 - Devdocs: Huge update from Docusaurus to VitePress #2124 #1755 #1913 !3640 !3655 @SaiCode
 - Removed jquery tablesorter #2136 !3648 !3689 @chriswalg
 - Deleted the lookup command and module @alex.simm
-- Data for the region subpages is now fetched from the API #1838 !3624 @alex.simm
+- Data for the region subpages is now fetched from the API #1838 !3624 !3715 @alex.simm
 - Wait for Devdocs Assets to be loaded before generating the devdocs site !3662 @SaiCode
 - Updated Clean script with clean node_modules !3688 @SaiCode
 - Removed some unnecessary database queries #1995 !3709 @alex.simm

@@ -14,6 +14,7 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\DTO\HierachicalRegion;
+use Foodsharing\Modules\Region\DTO\RegionPickupsPerDate;
 use Foodsharing\Modules\Region\DTO\RegionPin;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
 
@@ -39,7 +40,7 @@ class RegionGateway extends BaseGateway
         }
 
         return $this->db->fetchByCriteria('fs_bezirk',
-            ['name', 'id', 'email', 'email_name', 'has_children', 'parent_id', 'mailbox_id', 'type'],
+            ['name', 'id', 'email_name', 'has_children', 'parent_id', 'mailbox_id', 'type'],
             ['id' => $regionId]
         );
     }
@@ -242,7 +243,6 @@ class RegionGateway extends BaseGateway
 				b.`id`,
 			    b.parent_id,
 				b.`name`,
-				b.`email`,
 				b.`email_name`,
 				b.`mailbox_id`,
 				b.`type`,
@@ -454,6 +454,11 @@ class RegionGateway extends BaseGateway
         ]) > 0;
     }
 
+    /**
+     * Returns a region's pickup statistics for one specific date format. This includes all subregions.
+     *
+     * @return RegionPickupsPerDate[]
+     */
     public function listRegionPickupsByDate(int $regionId, string $dateFormat): array
     {
         $regionIDs = implode(',', array_map('intval', $this->listIdsForDescendantsAndSelf($regionId)));
@@ -462,7 +467,7 @@ class RegionGateway extends BaseGateway
             return [];
         }
 
-        return $this->db->fetchAll(
+        $data = $this->db->fetchAll(
             'select
 						date_Format(a.date,:format) as time,
 						count(distinct a.betrieb_id) as NumberOfStores,
@@ -476,6 +481,8 @@ class RegionGateway extends BaseGateway
 					order by date desc',
             [':format' => $dateFormat, ':groupFormat' => $dateFormat]
         );
+
+        return array_map([RegionPickupsPerDate::class, 'createFromArray'], $data);
     }
 
     /**

@@ -4,13 +4,13 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
-use Foodsharing\Modules\Core\DBConstants\Quiz\QuizStatus;
+use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
 use Foodsharing\Modules\Quiz\DTO\ActiveQuestion;
 use Foodsharing\Modules\Quiz\DTO\Answer;
-use Foodsharing\Modules\Quiz\DTO\FullQuizStatus;
 use Foodsharing\Modules\Quiz\DTO\Question;
 use Foodsharing\Modules\Quiz\DTO\Quiz;
 use Foodsharing\Modules\Quiz\DTO\QuizSession;
+use Foodsharing\Modules\Quiz\DTO\QuizStatus;
 use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Quiz\QuizSessionGateway;
 use Foodsharing\Modules\Quiz\QuizTransactions;
@@ -64,8 +64,8 @@ final class QuizRestController extends AbstractFoodsharingRestController
                 throw new UnauthorizedHttpException('', 'You are not permitted to try this quiz.');
             }
             $this->assertSessionRunning($quizId, false);
-            $status = $this->quizTransactions->getQuizStatus($quizId, $this->session->id());
-            if (in_array($status->status, [QuizStatus::PASSED, QuizStatus::PAUSE, QuizStatus::DISQUALIFIED])) {
+            $status = $this->quizTransactions->getQuizStatus(QuizID::from($quizId), $this->session->id());
+            if (!$this->quizPermissions->mayStartQuizNow($status)) {
                 throw new AccessDeniedHttpException('You are not allowed to start the quiz with your current quiz status.');
             }
 
@@ -80,11 +80,11 @@ final class QuizRestController extends AbstractFoodsharingRestController
     }
 
     #[Rest\Get('user/current/quizsessions/{quizId}/status', requirements: ['quizId' => '\d+'])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: FullQuizStatus::class))]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: QuizStatus::class))]
     public function getQuizStatus(int $quizId, #[MapQueryParameter] bool $isTest = false): Response
     {
         $this->getQuizSanityChecked($quizId);
-        $status = $this->quizTransactions->getQuizStatus($quizId, $this->session->id(), $isTest);
+        $status = $this->quizTransactions->getQuizStatus(QuizID::from($quizId), $this->session->id(), $isTest);
 
         return $this->respondOK($status);
     }
@@ -146,8 +146,8 @@ final class QuizRestController extends AbstractFoodsharingRestController
     public function confirmQuiz(int $quizId): Response
     {
         $this->getQuizSanityChecked($quizId);
-        $status = $this->quizTransactions->getQuizStatus($quizId, $this->session->id());
-        if ($status->status !== QuizStatus::PASSED) {
+        $status = $this->quizTransactions->getQuizStatus(QuizID::from($quizId), $this->session->id());
+        if ($status->lastSessionStatus !== SessionStatus::PASSED) {
             throw new AccessDeniedHttpException('You can only finalize quizzes you passed.');
         }
 

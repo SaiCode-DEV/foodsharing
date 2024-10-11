@@ -8,6 +8,7 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Region\DTO\HierachicalRegion;
+use Foodsharing\Modules\Region\DTO\RegionPickupStatistics;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Modules\Unit\UnitGateway;
 use Foodsharing\RestApi\Models\Notifications\Region;
@@ -151,6 +152,22 @@ class RegionTransactions
         $this->regionGateway->setRegionAdmins($region->id, $region->adminIds);
 
         return $regionId;
+    }
+
+    /**
+     * Returns the pickup statistics of a region for all possible date formats.
+     *
+     * @param int $regionId the region for which to list the statistics
+     */
+    public function getRegionPickupStatistics(int $regionId): RegionPickupStatistics
+    {
+        $statistics = new RegionPickupStatistics();
+        $statistics->daily = $this->regionGateway->listRegionPickupsByDate($regionId, '%Y-%m-%d');
+        $statistics->weekly = $this->regionGateway->listRegionPickupsByDate($regionId, '%Y/%v');
+        $statistics->monthly = $this->regionGateway->listRegionPickupsByDate($regionId, '%Y-%m');
+        $statistics->yearly = $this->regionGateway->listRegionPickupsByDate($regionId, '%Y');
+
+        return $statistics;
     }
 
     private function assertNoDuplicateFunctionGroup(RegionForAdministration $region): void

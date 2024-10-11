@@ -96,6 +96,9 @@ html input:disabled {
         color: var(--fs-color-black);
         background-color: var(--fs-color-info-400);
     }
+    &.btn-danger {
+        color: var(--fs-color-white);
+    }
 }
 
 .btn-link {

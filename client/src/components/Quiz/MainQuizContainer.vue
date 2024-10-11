@@ -36,7 +36,7 @@
   </Container>
 </template>
 <script>
-import { QUIZ_STATUS } from '@/consts'
+import { SESSION_STATUS } from '@/consts'
 import Container from '@/components/Container/Container.vue'
 import QuizDescription from './QuizDescription.vue'
 import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
@@ -51,20 +51,44 @@ export default {
   },
   computed: {
     canStart () {
-      return [QUIZ_STATUS.NEVER_TRIED, QUIZ_STATUS.FAILED, QUIZ_STATUS.PAUSE_ELAPSED].includes(this.status.status)
+      return !( // Not allowed when:
+        Boolean(this.status.currentWaitTime) || // pause or disqualified
+        this.status.lastSessionStatus === SESSION_STATUS.RUNNING || // running
+        (this.status.lastSessionStatus === SESSION_STATUS.PASSED && this.status.expirationTime === -1) // passed and not expiring
+      )
     },
     isRunning () {
-      return this.status.status === QUIZ_STATUS.RUNNING
+      return this.status.lastSessionStatus === SESSION_STATUS.RUNNING
     },
     statusName () {
-      return Object.keys(QUIZ_STATUS).find(key => QUIZ_STATUS[key] === this.status.status)
+      if (!this.status) return ''
+      if (this.status.currentWaitTime === -1) return 'disqualified'
+      if (this.status.currentWaitTime > 1) return 'pause'
+      if (this.status.lastSessionStatus === SESSION_STATUS.RUNNING) return 'continue'
+      return 'start'
     },
     stateBasedInfo () {
-      if (!this.statusName) return ''
-      if ([QUIZ_STATUS.FAILED, QUIZ_STATUS.PAUSE_ELAPSED].includes(this.status.status)) {
-        return this.$i18n(`quiz.state_based_info.${this.statusName}.${this.status.tries}`)
+      if (!this.status) return ''
+
+      // shorthands
+      const i18n = (key, props) => this.$i18n('quiz.stateBasedInfo.' + key, props)
+      const s = this.status
+
+      if (s.currentWaitTime === -1) return i18n('disqualified')
+      if (s.currentWaitTime > 1) return i18n('pause', s)
+      if (s.lastSessionStatus === null) return i18n('neverTried')
+      if (s.lastSessionStatus === SESSION_STATUS.RUNNING) return i18n('running', s)
+      if (s.waitTimeAfterFailure === -1) return i18n('disqualifiedAfter')
+
+      const after = s.waitTimeAfterFailure > 0 ? i18n('waitAfter', s) : i18n('noWaitAfter')
+      if (s.lastSessionStatus === SESSION_STATUS.PASSED) {
+        if (s.expirationTime === -1) return i18n('passed')
+        const expire = s.expirationTime > 0 ? i18n('willExpire', s) : i18n('expired')
+        return `${i18n('passedBefore')} ${expire} ${after}`
       }
-      return this.$i18n(`quiz.state_based_info.${this.statusName}`, this.status)
+      if (s.currentWaitTime !== null) return `${i18n('pauseElapsed')} ${after}`
+      if (s.expirationTime > 0) return `${i18n('passedBefore')} ${i18n('willExpire')} ${after}`
+      return `${i18n('failed')} ${after}`
     },
   },
 }

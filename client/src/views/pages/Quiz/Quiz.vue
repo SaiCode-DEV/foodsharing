@@ -74,7 +74,7 @@ import QuizResults from '@/components/Quiz/QuizResults.vue'
 import MainQuizContainer from '@/components/Quiz/MainQuizContainer.vue'
 import QuizConfirmationContainer from '@/components/Quiz/QuizConfirmationContainer.vue'
 import { getQuizStatus, startQuiz, getQuizResults, getQuiz } from '@/api/quiz'
-import { QUIZ_STATUS } from '@/consts'
+import { SESSION_STATUS } from '@/consts'
 
 export default {
   components: { MainQuizContainer, QuizConfirmationContainer, Container, QuizModal, QuizResults },
@@ -96,10 +96,10 @@ export default {
       return this.status && this.quiz
     },
     canViewResults () {
-      return ![QUIZ_STATUS.NEVER_TRIED, QUIZ_STATUS.RUNNING].includes(this.status.status)
+      return Boolean(this.status.lastSessionStatus)
     },
     canFinalize () {
-      return QUIZ_STATUS.PASSED === this.status.status && this.status.confirmed === false
+      return this.status.lastSessionStatus === SESSION_STATUS.PASSED && this.status.confirmed === false
     },
   },
   async mounted () {
@@ -118,7 +118,7 @@ export default {
       this.results = await getQuizResults(this.quiz.id)
     },
     async initQuiz () {
-      if (QUIZ_STATUS.RUNNING !== this.status.status) {
+      if (this.status.lastSessionStatus !== SESSION_STATUS.RUNNING) {
         await startQuiz(this.quiz.id, this.isTimed)
       }
       this.$refs.quizModal.showNextQuestion()

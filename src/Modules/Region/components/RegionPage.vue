@@ -97,7 +97,7 @@
         <Statistics
           v-if="activeSubpage === SUB_PAGE.STATISTIC"
           :region-id="regionId"
-          :pickup-data="pageData.pickupData"
+          :region-name="name"
         />
         <Pin
           v-if="activeSubpage === SUB_PAGE.PIN"

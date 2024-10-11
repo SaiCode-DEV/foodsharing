@@ -4,7 +4,6 @@ namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
 use DateTime;
-use DateTimeZone;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellTransactions;
@@ -921,9 +920,6 @@ class StoreRestController extends AbstractFoodsharingRestController
 
         $fromDate = TimeHelper::parsePickupDate($fromDate);
         $toDate = TimeHelper::parsePickupDate($toDate);
-        if (is_null($fromDate) || is_null($toDate)) {
-            throw new BadRequestHttpException('Invalid date format');
-        }
 
         if (Carbon::now()->subMonths(6)->subDay() > $fromDate) { // 6 months + 1 day for rounding
             throw new BadRequestHttpException('Cannot access store log more than 6 months back.');
@@ -935,21 +931,7 @@ class StoreRestController extends AbstractFoodsharingRestController
         $storeLogEntries = $this->storeGateway->getStoreLogsByActionType($storeId, $storeLogActions, $fromDate, $toDate, $pagination);
         $extendedLogEntries = $this->extendStoreLogWithFoodsaverProfilData($storeId, $storeLogEntries);
 
-        $timeZone = new DateTimeZone('Europe/Berlin');
-        $timeZoneOffset = $timeZone->getOffset(new DateTime('now', $timeZone));
-
-        $extendedLogEntries = array_map(function ($logEntry) use ($timeZoneOffset) {
-            $correctedSlotDate = new DateTime($logEntry['date_reference']);
-            $correctedSlotDate->add(new \DateInterval("PT{$timeZoneOffset}S"));
-            $logEntry['date_reference'] = $correctedSlotDate->format(DATE_ATOM);
-
-            $correctedPerformedAtDate = new DateTime($logEntry['performed_at']);
-            $logEntry['performed_at'] = $correctedPerformedAtDate->format(DATE_ATOM);
-
-            return $logEntry;
-        }, $extendedLogEntries);
-
-        return $this->handleView($this->view($extendedLogEntries, 200));
+        return $this->respondOK($extendedLogEntries);
     }
 
     private function extendStoreLogWithFoodsaverProfilData(int $storeId, array $storeLogEntries): array

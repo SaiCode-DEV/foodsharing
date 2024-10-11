@@ -1,13 +1,8 @@
 <template>
   <div>
-    <GenderList :region-id="regionId" />
-    <AgeBandList :region-id="regionId" />
-    <PickupList
-      :pickup-data-daily-tab="pickupData.daily"
-      :pickup-data-weekly-tab="pickupData.weekly"
-      :pickup-data-monthly-tab="pickupData.monthly"
-      :pickup-data-yearly-tab="pickupData.yearly"
-    />
+    <GenderList :region-name="regionName" :region-id="regionId" />
+    <AgeBandList :region-name="regionName" :region-id="regionId" />
+    <PickupList :region-name="regionName" :region-id="regionId" />
   </div>
 </template>
 
@@ -21,7 +16,7 @@ export default {
   components: { PickupList, AgeBandList, GenderList },
   props: {
     regionId: { type: Number, required: true },
-    pickupData: { type: Object, required: true },
+    regionName: { type: String, required: true },
   },
 }
 </script>
