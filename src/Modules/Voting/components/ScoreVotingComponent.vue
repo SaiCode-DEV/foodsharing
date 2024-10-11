@@ -7,7 +7,7 @@
         class="mb-5"
       >
         <b-col class="min-width-250 pb-2">
-          {{ options[i - 1].text }}
+          <Markdown :source="options[i - 1].text" />
         </b-col>
         <b-col class="min-width-250">
           <vue-slider
@@ -27,13 +27,12 @@
 </template>
 
 <script>
-
-import { BFormGroup, BFormRow, BCol } from 'bootstrap-vue'
+import Markdown from '@/components/Markdown/Markdown.vue'
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
 
 export default {
-  components: { BFormGroup, VueSlider, BFormRow, BCol },
+  components: { Markdown, VueSlider },
   props: {
     options: {
       type: Array,
