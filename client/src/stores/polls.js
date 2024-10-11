@@ -8,6 +8,8 @@ export const VOTING_TYPE = Object.freeze({
   SCORE_VOTING: 3,
 })
 
+export const MAX_OPTION_LENGTH = 1000
+
 export const store = Vue.observable({
   polls: null,
 })
