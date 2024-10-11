@@ -6,7 +6,7 @@
     >
       <b-row>
         <b-col>
-          <div>{{ option.text }}</div>
+          <Markdown :source="option.text" />
         </b-col>
         <b-col>
           <b-form-radio
@@ -49,11 +49,10 @@
 </template>
 
 <script>
-
-import { BFormGroup, BFormRadio, BRow, BCol } from 'bootstrap-vue'
+import Markdown from '@/components/Markdown/Markdown.vue'
 
 export default {
-  components: { BFormGroup, BFormRadio, BRow, BCol },
+  components: { Markdown },
   props: {
     options: {
       type: Array,
