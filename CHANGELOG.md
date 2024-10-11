@@ -33,6 +33,7 @@
 - Added an attachment label to the mailbox #1988 !3583 @alex.simm
 - Added markdown for publicInfo in store and map bubble !3389 @chriswalg
 - Add more breadcrumbs where needed !3606 !3614 #1987 @McGoldi
+- Changed the way the quiz status is handled #2116 !3618 @AntonBallmaier
 - Rework default options in store information #33 !3623 @chriswalg
 - Changed the Icon for resolving basket requests #2119 #1363 !3636 @SaiCode
 - Change limit to 535 / 520 for public_info -> store !3646 @chriswalg

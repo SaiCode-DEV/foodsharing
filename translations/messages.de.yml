@@ -178,13 +178,10 @@ quiz:
     pause: Später weitermachen
     finish: Quiz abschließen
   title:
-    NEVER_TRIED: "{name} - Jetzt das Quiz durchführen!"
-    RUNNING: "{name} - Quiz fortführen!"
-    PASSED: "{name} - Dieses Quiz hast du bestanden!"
-    FAILED: "{name} - Versuchs nochmal!"
-    PAUSE: "Lernpause ({name})"
-    PAUSE_ELAPSED: "{name} - Jetzt kannst du es nochmal versuchen!"
-    DISQUALIFIED: "{name} - Leider disqualifiziert."
+    start: "{name} - Jetzt das Quiz durchführen!"
+    continue: "{name} - Quiz fortführen!"
+    pause: "Lernpause ({name})"
+    disqualified: "{name} - Leider disqualifiziert."
   startmodal:
     title: "Hinweise zum Quiz"
     infos:
@@ -223,18 +220,20 @@ quiz:
       0: Falsch
       1: Richtig
       2: Neutral
-  state_based_info:
-    NEVER_TRIED: Dieses Quiz hast du noch nie bearbeitet. Nimm dir Zeit, alle aufgeführten Wiki-Artikel aufmerksam durchzulesen, damit du auf die Fragen vorbereitet bist.
-    RUNNING: Du hast das Quiz bereits gestartet und bislang {questionsAnswered} von {questionCount} Fragen beantwortet.
-    PASSED: Dieses Quiz hast du bestanden.
-    FAILED:
-      1: Beim ersten Versuch hast du dieses Quiz leider nicht bestanden. Das kann schon mal passieren. Schau dir nochmal in die entsprechenden Wiki-Artikel und probiers nochmal.
-      2: In den ersten beiden Versuchen hast du dieses Quiz leider nicht bestanden. Du hast noch einen dritten Versuch, bevor du einen Monat Lernpause einlegen musst. Schau dir unbedingt die entsprechenden Wiki-Artikel an, damit du das Quiz bestehen kannst.
-    PAUSE: Du hast dieses Quiz drei mal nicht bestanden. Zuverlässigkeit, sicheres Beherrschen der Regeln und professionelles Auftreten sind bei Foodsharing unverzichtbar. Mit deinen Antworten vermittelst du das zum jetzigen Zeitpunkt leider nicht. Daher bekommst du einen Monat Lernpause, bevor du zwei weitere Versuche erhälst, das Quiz zu bestehen. Deine Lernpause endet in {wait} Tagen.
-    PAUSE_ELAPSED:
-      3: Deine Lernpause ist um. Du darfst jetzt zwei weitere Male am Quiz teilnehmen. Hoffentlich hast du die Zeit genutzt, um dich besser mit den Inhalten vertraut zu machen.
-      4: Du hast nur noch einen letzten Versuch dieses Quiz zu bestehen! Wenn du jetzt durchfällst, wirst du dauerhaft für dieses Quiz disqualifiziert. Bitte nimm nur Teil, wenn du dich ausführlich mit den Inhalten aus dem Wiki beschäftigt hast.
-    DISQUALIFIED: Leider bist du für dieses Quiz disqualifiziert, da du fünf mal nicht bestanden hast.
+  stateBasedInfo:
+    neverTried: Dieses Quiz hast du noch nie bearbeitet. Nimm dir Zeit, alle aufgeführten Wiki-Artikel aufmerksam durchzulesen, damit du auf die Fragen vorbereitet bist.
+    running: Du hast das Quiz bereits gestartet und bislang {questionsAnswered} von {questionCount} Fragen beantwortet.
+    passed: Dieses Quiz hast du bestanden.
+    failed: Beim letzten Versuch hast du dieses Quiz leider nicht bestanden.
+    noWaitAfter: Schau dir nochmal in die entsprechenden Wiki-Artikel an und probiers nochmal.
+    waitAfter: Wenn du in deinem nächsten Versuch nicht bestehst, musst du für {waitTimeAfterFailure} Tage eine Lernpause einlegen. Schau dir unbedingt die entsprechenden Wiki-Artikel an, damit du das Quiz bestehen kannst.
+    pause: Du hast dieses Quiz mehrfach nicht bestanden. Zuverlässigkeit, sicheres Beherrschen der Regeln und professionelles Auftreten sind bei Foodsharing unverzichtbar. Mit deinen Antworten vermittelst du das zum jetzigen Zeitpunkt leider nicht. Daher bekommst du eine Lernpause, bevor du erneut versuchen darfst, das Quiz zu bestehen. Deine Lernpause endet in {currentWaitTime} Tagen.
+    pauseElapsed: Deine Lernpause ist um. Daher darfst du jetzt erneut am Quiz teilnehmen. Hoffentlich hast du die Zeit genutzt, um dich besser mit den Inhalten vertraut zu machen.
+    disqualifiedAfter: Du hast nur noch einen letzten Versuch dieses Quiz zu bestehen! Wenn du jetzt durchfällst, wirst du dauerhaft für dieses Quiz disqualifiziert. Bitte nimm nur Teil, wenn du dich ausführlich mit den Inhalten aus dem Wiki beschäftigt hast.
+    disqualified: Leider bist du für dieses Quiz disqualifiziert, da du zu oft nicht bestanden hast.
+    passedBefore: Dieses Quiz hast du schon mal bestanden.
+    willExpire: Allerdings endet die Gültigkeit deines bestandenen Quizversuchs in {expirationTime} Tagen. Du kannst daher schon jetzt dein Wissen in diesem Themenfeld auffrischen und erneut an diesem Quiz teinehmen.
+    expired: Allerdings ist dein letzter Quizversuch nicht mehr gültig.
   results:
     title:
       1: "Herzlichen Glückwunsch!"

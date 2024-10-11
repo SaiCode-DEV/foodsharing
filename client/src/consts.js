@@ -34,14 +34,10 @@ export const HTTP_RESPONSE = Object.freeze({
   UNPROCESSABLE_ENTITY: 422,
 })
 
-export const QUIZ_STATUS = Object.freeze({
-  NEVER_TRIED: 0,
-  RUNNING: 1,
-  PASSED: 2,
-  FAILED: 3,
-  PAUSE: 4,
-  PAUSE_ELAPSED: 5,
-  DISQUALIFIED: 6,
+export const SESSION_STATUS = Object.freeze({
+  RUNNING: 0,
+  PASSED: 1,
+  FAILED: 2,
 })
 
 export const ANSWER_RATING = Object.freeze({

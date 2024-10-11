@@ -75,18 +75,18 @@ class QuizSessionGateway extends BaseGateway
     }
 
     /**
-     * @return array(?QuizSession, int)
+     * @return QuizSession[]
      */
-    public function collectQuizStatus(int $quizId, int $fsId, bool $isTest = false): array
+    public function collectQuizSessions(QuizID $quizId, int $fsId, bool $isTest = false): array
     {
-        $sessionData = $this->db->fetchAll('SELECT
+        $sessions = $this->db->fetchAll('SELECT
                 `foodsaver_id`, `status`, `time_end`, `quiz_index`, `easymode`, `quest_count`
 			FROM fs_quiz_session
 			WHERE foodsaver_id = :fsId AND quiz_id = :quizId AND is_test = :isTest
-            ORDER BY status ASC, time_start DESC;
-		', [':fsId' => $fsId, ':quizId' => $quizId, ':isTest' => $isTest]);
+            ORDER BY id DESC;
+		', [':fsId' => $fsId, ':quizId' => $quizId->value, ':isTest' => $isTest]);
 
-        return [count($sessionData) ? QuizSession::createFromArray($sessionData[0]) : null, count($sessionData)];
+        return array_map([QuizSession::class, 'createFromArray'], $sessions);
     }
 
     public function initQuizSession(QuizSession $quizSession): int
