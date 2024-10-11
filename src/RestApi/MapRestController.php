@@ -20,6 +20,7 @@ use Foodsharing\Modules\Map\MapTransactions;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
+use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\RestApi\Models\Map\FoodSharePointBubbleData;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -43,6 +44,7 @@ class MapRestController extends AbstractFoodsharingRestController
         private readonly FoodSharePointGateway $foodSharePointGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly MapTransactions $mapTransactions,
+        private readonly RegionPermissions $regionPermissions,
     ) {
     }
 
@@ -91,7 +93,7 @@ class MapRestController extends AbstractFoodsharingRestController
                     throw new BadRequestHttpException();
                 }
 
-                if (!$this->currentUserUnits->isAdminFor($regionId)) {
+                if (!$this->regionPermissions->mayAccessUserMapMarkersForRegion($regionId)) {
                     throw new AccessDeniedHttpException();
                 }
 
