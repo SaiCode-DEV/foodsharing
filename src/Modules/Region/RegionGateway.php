@@ -40,7 +40,7 @@ class RegionGateway extends BaseGateway
         }
 
         return $this->db->fetchByCriteria('fs_bezirk',
-            ['name', 'id', 'email', 'email_name', 'has_children', 'parent_id', 'mailbox_id', 'type'],
+            ['name', 'id', 'email_name', 'has_children', 'parent_id', 'mailbox_id', 'type'],
             ['id' => $regionId]
         );
     }
@@ -243,7 +243,6 @@ class RegionGateway extends BaseGateway
 				b.`id`,
 			    b.parent_id,
 				b.`name`,
-				b.`email`,
 				b.`email_name`,
 				b.`mailbox_id`,
 				b.`type`,

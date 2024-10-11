@@ -731,11 +731,13 @@ class Foodsharing extends Db
             ],
             $extra_params
         );
+        $email = $v['email'] ?? null;
+        unset($v['email']);
         $v['id'] = $this->haveInDatabase('fs_bezirk', $v);
-        if (empty($v['email'])) {
+        if (!$email) {
             $mailbox = $this->createMailbox('region-' . $v['id'], $fillMailbox);
         } else {
-            $mailbox = $this->createMailbox($v['email'], $fillMailbox);
+            $mailbox = $this->createMailbox($email, $fillMailbox);
         }
 
         $this->updateInDatabase('fs_bezirk', ['mailbox_id' => $mailbox['id']], ['id' => $v['id']]);
