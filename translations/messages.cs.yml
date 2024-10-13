@@ -1241,6 +1241,7 @@ bell:
   forum_mention: ''
   workinggroup_new_request_title: '{name}'
   internal_email_changed_title: '{address}'
+  forum_not_activated_thread: '{forum}'
 genderlist:
   home_district_tab: ''
   gender_female: ''
