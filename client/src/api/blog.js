@@ -8,20 +8,18 @@ export async function getBlogpost (blogPostId) {
   return get(`/blog/${blogPostId}`)
 }
 
-export async function publishBlogpost (blogId, newPublishedState) {
-  return patch(`/blog/${blogId}`, { isPublished: +newPublishedState })
+export async function publishBlogpost (blogId, regionId, newPublishedState) {
+  return patch(`/blog/${blogId}/publish`, { regionId, isPublished: newPublishedState })
 }
 
 export async function deleteBlogpost (blogId) {
   return remove(`/blog/${blogId}`)
 }
 
-export async function addBlogpost (regionId, title, teaser, content, picture) {
-  return post('/blog', {
-    regionId: regionId,
-    title: title,
-    teaser: teaser,
-    content: content,
-    picture: picture,
-  })
+export async function addBlogpost (regionId, blogPostData) {
+  return post('/blog', { regionId, ...blogPostData })
+}
+
+export async function editBlogpost (blogId, regionId, blogPostData) {
+  return patch(`/blog/${blogId}`, { regionId, ...blogPostData })
 }

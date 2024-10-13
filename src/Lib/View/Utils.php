@@ -84,50 +84,6 @@ class Utils
         return $out;
     }
 
-    public function v_form_tinymce(string $id, array $option = []): string
-    {
-        $id = $this->identificationHelper->id($id);
-        $label = $option['label'] ?? $this->translator->trans($id);
-        $value = $this->dataHelper->getValue($id);
-
-        $this->pageHelper->addStyle('div#content {width: 580px;} div#right {width: 222px;}');
-
-        $css = 'css/content.css,css/jquery-ui.css';
-        $class = 'ui-widget ui-widget-content ui-padding';
-        if (isset($option['public_content'])) {
-            $class = 'post';
-        }
-
-        $plugins = ['autoresize', 'link', 'image', 'media', 'table', 'paste', 'code', 'advlist', 'autolink', 'lists', 'charmap', 'print', 'preview', 'hr', 'anchor', 'pagebreak', 'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'insertdatetime', 'nonbreaking', 'directionality', 'emoticons', 'textcolor'];
-        $toolbar = ['styleselect', 'bold italic', 'alignleft aligncenter alignright', 'bullist outdent indent', 'media image link', 'paste', 'code'];
-        $addOpt = '';
-
-        if (isset($option['type']) && $option['type'] == 'email') {
-            $css = 'css/email.css';
-            $class = '';
-        }
-
-        $js = '
-		$("#' . $id . '").tinymce({
-			script_url: "./assets/tinymce/tinymce.min.js",
-			theme: "modern",
-			language: "de",
-			content_css: "' . $css . '",
-			body_class: "' . $class . '",
-			menubar: false,
-			statusbar: false,
-			plugins: "' . implode(' ', $plugins) . '",
-			toolbar: "' . implode(' | ', $toolbar) . '",
-			relative_urls: false,
-			valid_elements: "a[href|name|target=_blank|class|style],span,strong,b,div[align|class],br,i,p[class],ul[class],li[class],ol,h1,h2,h3,h4,h5,h6,table,tr,td[valign=top|align|style],th,tbody,thead,tfoot,img[src|width|name|class]",
-			convert_urls: false' . $addOpt . '
-		});';
-
-        $this->pageHelper->addJs($js);
-
-        return $this->v_input_wrapper($label, '<textarea name="' . $id . '" id="' . $id . '">' . $value . '</textarea>', $id, $option);
-    }
-
     public function v_form_hidden(string $name, $value): string
     {
         $id = $this->identificationHelper->id($name);

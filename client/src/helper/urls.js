@@ -19,7 +19,7 @@ const urls = {
   contact: () => '/content?sub=contact',
   contentEdit: () => '/content',
   contentEditEntry: (id) => `/content?a=edit&id=${id}`,
-  contentNew: () => '/content?a=neu',
+  contentNew: () => '/content?a=new',
   conversations: (conversationId = null) => `/msg${conversationId ? `?cid=${conversationId}` : ''}`,
   createBusinessCard: (data) => `/?page=bcard&sub=makeCard&opt=${data.role}:${data.regionGroupId}`,
   dashboard: () => '/?page=dashboard',

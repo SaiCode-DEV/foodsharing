@@ -96,3 +96,23 @@ export default {
   }
 }
 </style>
+
+<style lang="scss">
+.blogpost {
+  p {
+    margin-bottom: 0 !important;
+  }
+  ol, ul {
+    padding-left: 1.5em;
+  }
+  .ql-align-center {
+    text-align: center;
+  }
+  .ql-align-right {
+    text-align: right;
+  }
+  .ql-align-justify {
+    text-align: justify;
+  }
+}
+</style>

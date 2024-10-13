@@ -62,3 +62,7 @@ export const EVENT_TYPE = Object.freeze({
   ONLINE: 1,
   OTHER: 2,
 })
+
+export const BLOG_POST_OPTIONS = Object.freeze({
+  IMAGE: { WIDHT: 500, HEIGHT: 161 },
+})

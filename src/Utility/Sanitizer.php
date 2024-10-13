@@ -4,6 +4,7 @@ namespace Foodsharing\Utility;
 
 use Html2Text\Html2Text;
 use HTMLPurifier;
+use HTMLPurifier_Config;
 use Parsedown;
 
 class Sanitizer
@@ -29,9 +30,9 @@ class Sanitizer
         return $this->htmlPurifier->purify($html);
     }
 
-    public function purifyHtml(string $html): string
+    public function purifyHtml(string $html, ?HTMLPurifier_Config $config = null): string
     {
-        return $this->htmlPurifier->purify($html);
+        return $this->htmlPurifier->purify($html, $config);
     }
 
     public function htmlToPlain(string $html): string

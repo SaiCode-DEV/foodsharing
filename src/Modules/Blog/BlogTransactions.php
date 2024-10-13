@@ -32,4 +32,15 @@ class BlogTransactions
 
         return $postId;
     }
+
+    public function editBlogPost(int $authorId, BlogPostData $post): void
+    {
+        $this->blogGateway->update_blog_entry($authorId, $post);
+
+        if (!empty($post->picture)) {
+            // cut the `/api/uploads/` in front of the UUID
+            $uuid = substr($post->picture, 13);
+            $this->uploadsGateway->setUsage([$uuid], UploadUsage::BLOG_POST, $post->id);
+        }
+    }
 }

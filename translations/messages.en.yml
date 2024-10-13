@@ -1844,6 +1844,7 @@ blog:
   confirmDelete: Do you really want to delete {name} irrevocably?
   publish-info: The publication status of the article can be adjusted on the overview
     page.
+  teaser: Teaser
   actions: Actions
   empty: There are no entries so far.
   header: News from the world of foodsharing
@@ -2128,6 +2129,7 @@ content:
   bread: All pages
   actions: Activities
   delete_success: The page was deleted
+  edit_raw: Edit raw content
   edit_success: The page was saved.
   new_success: The page was created
   changelog: Latest changelog
@@ -2955,6 +2957,7 @@ chat:
     unread: Mark as unread
 delete: Delete
 error_unexpected: An error has occurred
+error_base64_image: Inserting images via drag & drop is not permitted.
 register:
   confirmPassword_required: Please repeat the password.
   password_required: A password is required.
