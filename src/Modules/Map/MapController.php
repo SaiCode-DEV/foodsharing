@@ -24,8 +24,8 @@ class MapController extends FoodsharingController
         $this->pageHelper->addTitle($this->translator->trans('map.title'));
 
         $ambassadorRegions = [];
-        if ($this->session->mayRole(Role::AMBASSADOR)) {
-            $this->foodsaverGateway->getAmbassadorsRegions($this->session->id(), true);
+        if (!empty($this->currentUserUnits->isAdminFor(null))) {
+            $ambassadorRegions = $this->foodsaverGateway->getAmbassadorsRegions($this->session->id(), true);
         }
 
         $params = [
