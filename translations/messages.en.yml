@@ -835,7 +835,7 @@ profile:
     store_table: Store table
     memberState:
       filterActive: Member
-      filterManage: SM
+      filterManage: Responsible
       filterAll: all
       filterRequested: Inquiry submitted
       filterJumper: Jumper
@@ -1525,6 +1525,8 @@ bell:
   internal_email_changed_title: '{address}'
   workinggroup_new_request: New application for a working group
   internal_email_changed: Your personal e-mail address has been changed.
+  forum_not_activated_thread: '{forum}'
+  forum_not_activated_thread_title: Topic in moderated forum
 reports:
   time: Time
   region: Home district
@@ -2148,6 +2150,7 @@ content:
       city, state or district.
     noAmbassador: This region currently has no ambassadors and therefore cannot be
       contacted by email. Please contact a neighboring or the next higher region.
+  error: Page could not be saved
 foodsaver:
   kicked: Foodsaver removed
   list:
@@ -2875,6 +2878,10 @@ fsp:
   suggestSuccess: Food-Share Point has been proposed and now needs to be confirmed
     by an ambassador / responsible person.
   show_on_large_map: Show on map
+  form_validation:
+    invalid: Input is invalid. Please check your input.
+    required: '{name} is required.'
+    min_length: '{name} must be at least {length} characters long.'
 lifetime: How long is your food basket to be valid?
 contact_type: How would you like to be contacted?
 food_art: What kind of food is it?
@@ -3556,6 +3563,10 @@ quiz:
     DISQUALIFIED: '{name} — unfortunately disqualified.'
     NEVER_TRIED: '{name} — take the quiz!'
     RUNNING: '{name} — continue the quiz!'
+    start: '{name} — Take the quiz now!'
+    continue: '{name} — Continue the quiz!'
+    pause: Study break ({name})
+    disqualified: '{name} — Unfortunately disqualified.'
   startmodal:
     infos:
       real_life_examples: Most of the questions are based on real cases from foodsharing
@@ -3738,6 +3749,34 @@ quiz:
     here]({url}) to complete the process!
   test_results: Results of the test
   test: Test quiz
+  stateBasedInfo:
+    pause: You have failed this quiz several times. Reliability, a firm grasp of the
+      rules and a professional demeanor are essential at foodsharing. Unfortunately,
+      your answers do not convey this at the moment. You will therefore be given a
+      study break before you can try again to pass the quiz. Your study break will
+      end in {currentWaitTime} days.
+    willExpire: However, the validity of your passed quiz attempt ends in {expirationTime}
+      days. You can therefore refresh your knowledge in this subject area now and
+      take this quiz again.
+    expired: However, your last quiz attempt is no longer valid.
+    neverTried: You have never taken this quiz before. Take the time to read through
+      all of the Wiki articles listed so that you are prepared for the questions.
+    running: You have already started the quiz and answered {questionsAnswered} of
+      {questionCount} questions so far.
+    passed: You have passed this quiz.
+    failed: Unfortunately, you did not pass this quiz on your last attempt.
+    noWaitAfter: Take another look at the relevant Wiki articles and try again.
+    waitAfter: If you do not pass on your next attempt, you will have to take a {waitTimeAfterFailure}-day
+      break to study again. Be sure to check the relevant Wiki articles so that you
+      can pass the quiz.
+    pauseElapsed: Your study break is over. You can now take the quiz again. Hopefully
+      you have used the time to familiarize yourself better with the content.
+    disqualifiedAfter: You only have one last attempt to pass this quiz! If you fail
+      now, you will be permanently disqualified from this quiz. Please only take part
+      if you have studied the contents of the wiki in detail.
+    disqualified: Unfortunately, you are disqualified for this quiz because you have
+      failed too many times.
+    passedBefore: You’ve passed this quiz before.
 nofp: no error points (not a serious question)
 fpsingular: Error point
 request_time: 'Time of request:'
@@ -4057,6 +4096,9 @@ notifications:
     title: Reminders for unoccupied slots
     description: Receive emails warning you if slots in stores you manage are not
       yet taken the next day.
+  mention:
+    description: Get notified when someone addresses you in the forum.
+    title: Notifications when mentions are made
 markdown_input:
   tooltip:
     orderedList: numbered list
@@ -4071,6 +4113,7 @@ markdown_input:
     link: link
     heading: heading
     image: Attach images
+    mention: Mention user
   empty_preview_placeholder: "This is the formatting preview. The text is formatted
     here as it will be displayed later.\n---\n*But you haven’t entered any text that
     could be displayed here.*"
