@@ -205,7 +205,7 @@ final class ProfileController extends FoodsharingController
             }
 
             // ReportRequest
-            $isReportButtonEnabled = boolval($regionOptions[RegionOptionType::ENABLE_REPORT_BUTTON]);
+            $isReportButtonEnabled = boolval($regionOptions[RegionOptionType::ENABLE_REPORT_BUTTON] ?? false);
 
             if ($isReportButtonEnabled) {
                 // if the current user is not allowed to see all stores of the profile, the report dialog will only show stores in which both users are
