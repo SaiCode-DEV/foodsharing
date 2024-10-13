@@ -2800,6 +2800,7 @@ bell:
     many: '{count} nouveaux commentaires sur l’événement {event}'
   internal_email_changed: Ton adresse e-mail personnelle a été modifiée.
   workinggroup_new_request: Nouvelle demande pour un groupe de travail
+  forum_not_activated_thread: '{forum}'
 personal_data:
   landline: Numéro de fixe
   mobile: Numéro de portable
