@@ -373,6 +373,10 @@ quiz:
     PASSED: '{name} - ¡Has superado este cuestionario!'
     PAUSE_ELAPSED: '{name} - ¡Ya puedes intentarlo de nuevo!'
     DISQUALIFIED: '{name} - Lamentablemente descalificado.'
+    start: '{name} - ¡Haz el cuestionario ahora!'
+    continue: '{name} - ¡Continúa el concurso!'
+    pause: ({name}) tomate un descanso
+    disqualified: '{name} - descalificado.'
   startmodal:
     title: Notas sobre el cuestionario
     infos:
@@ -561,6 +565,36 @@ quiz:
     clic aquí]({url}) para completar el proceso!
   test_results: Resultados de la prueba
   test: Cuestionarios de prueba
+  stateBasedInfo:
+    neverTried: Nunca has completado este cuestionario antes. Tómate tu tiempo para
+      leer detenidamente todos los artículos de la wiki que aparecen en la lista para
+      estar preparado para las preguntas.
+    running: Ya ha comenzado el cuestionario y ha respondido a {questionsAnswered}
+      de {questionCount} preguntas hasta el momento.
+    passed: Has superado esta prueba.
+    failed: Lamentablemente, no ha superado este cuestionario en su último intento.
+    noWaitAfter: Echa otro vistazo a los artículos pertinentes de la Wiki e inténtalo
+      de nuevo.
+    waitAfter: Si no apruebas en tu siguiente intento, deberás tomarte un descanso
+      del estudio durante {waitTimeAfterFailure} días. Asegúrate de consultar los
+      artículos pertinentes de la Wiki para poder aprobar el examen.
+    pause: Has suspendido este examen varias veces. La fiabilidad, el conocimiento
+      de las normas y la profesionalidad son esenciales en el Foodsharing. Desgraciadamente,
+      tus respuestas no transmiten esto por el momento. Por lo tanto, se te concederá
+      una pausas antes de que puedas volver a intentar superar la prueba. Tu pausa
+      terminará en {currentWaitTime} días.
+    pauseElapsed: Su pausa ha terminado. Ahora puede volver a hacer el cuestionario.
+      Esperamos que hayas aprovechado el tiempo para familiarizarte mejor con el contenido.
+    disqualifiedAfter: ¡Solo tienes un último intento para aprobar este cuestionario!
+      Si falla ahora, quedará descalificado permanentemente de esta prueba. Por favor,
+      participe únicamente si ha estudiado el contenido de la wiki en detalle.
+    disqualified: Desafortunadamente, usted está descalificado para este examen porque
+      no ha pasado demasiado a menudo.
+    passedBefore: Ya has pasado esta prueba antes.
+    willExpire: Sin embargo, la validez de su intento de examen finaliza en {expirationTime}
+      días. Por lo tanto, puede refrescar sus conocimientos sobre este tema ahora
+      y volver a realizar este cuestionario.
+    expired: Sin embargo, su último intento ya no es válido.
 terminology:
   foodsaver:
     m: rescatista
@@ -694,6 +728,7 @@ blog:
   title: 'Artículo de blog'
   read: 'sigue leyendo'
   bread: 'Blog'
+  teaser: Vista previa del texto
 poll:
   submit_vote_warning: 'Atención: La votación es anónima, por lo que no puedes cambiar
     tu selección después de votar.'
@@ -3623,6 +3658,8 @@ content:
     noAmbassador: Actualmente no hay embajadores en esta región y, por lo tanto, no
       es posible contactarlos por correo electrónico en este momento. Póngase en contacto
       con la región vecina o la región superior.
+  edit_raw: Editar datos sin procesar
+  error: No se pudo guardar la página
 personal_data:
   mobile: 'Número de teléfono móvil'
   label: 'Contacto'
@@ -4399,3 +4436,4 @@ store_categories:
     empresas ya no tendrán categoría.
   new: Ingresar nueva categoría
   title: Categorías de la explotación
+error_base64_image: No está permitido insertar imágenes mediante arrastrar y soltar.
