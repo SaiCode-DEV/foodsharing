@@ -829,6 +829,7 @@ bell:
   event_post_title: '{region} bölgesindeki {etkinlik} tarihi'
   internal_email_changed: Kişisel e-posta adresiniz değiştirildi.
   workinggroup_new_request: Çalışma grubu için yeni bir başvuru
+  forum_not_activated_thread: '{forum}'
 sig:
   buddies: Tanıdığın insanlar
 error:
