@@ -1921,6 +1921,7 @@ bell:
     many: '{count} nuove voci in bacheca'
   workinggroup_new_request_title: '{name}'
   internal_email_changed_title: '{address}'
+  forum_not_activated_thread: '{forum}'
 content:
   edit: Modifica pagina
   new_success: La pagina è stata creata
