@@ -78,7 +78,7 @@
 - Removed jQuery autosize !3635 !3689 @SaiCode
 - Port the register controller to Symfony !3594 @alex.simm
 - Port the application controller to Symfony #1994 !3603 @alex.simm
-- Port the message controller to Symfony #1994 !3633 @\_fridtjof_
+- Port the message controller to Symfony #1994 !3633 !3719 @\_fridtjof_
 - Replace TinyMCE with Quill #2141 !3660 @SaiCode
 - Refactored add and edit form to vue and removed jquery tagedit #2137 !3520 @chriswalg @alex.simm
 - Remove all usages of deprecated columns email_pass and email from fs_bezirk #1853 !3710 @AntonBallmaier
