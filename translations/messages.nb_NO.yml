@@ -322,6 +322,7 @@ blog:
   header: Nyheter fra matdelingens verden
   confirmDelete: Vil du virkelig slette {name} ugjenkallelig?
   read: fortsett å lese
+  teaser: Forhåndsvisningstekst
 region:
   cancel: Nei egentlig ikke
   save: Ja, spar
@@ -1038,7 +1039,7 @@ profile:
       filterActive: Medlem
       filterAll: alle
       filterRequested: forespørsel gjort
-      filterManage: SO
+      filterManage: Ansvarlig
       filterJumper: Innbytter
     search_placeholder: Søk etter navn
     store_table: Driftsliste
@@ -1385,6 +1386,8 @@ content:
       til det aktuelle distriktet ved å klikke på det aktuelle navnet.
     noAmbassador: Denne regionen har for øyeblikket ingen ambassadører og kan derfor
       ikke kontaktes via e-post. Ta kontakt med en naboregion eller neste høyere region.
+  edit_raw: Rediger rådata
+  error: Siden kunne ikke lagres
 foodsaver:
   manage:
     actions: Alternativer
@@ -1576,6 +1579,8 @@ bell:
   internal_email_changed_title: '{address}'
   workinggroup_new_request_title: '{name}'
   internal_email_changed: Den personlige e-postadressen din er endret.
+  forum_not_activated_thread: '{forum}'
+  forum_not_activated_thread_title: Emne i moderert forum
 reports:
   when: Tid
   time: Tid
@@ -3016,6 +3021,10 @@ fsp:
   twig:
     n_in_region: '{count} distribusjonsstasjoner i {name}'
   show_on_large_map: Vis på kartet
+  form_validation:
+    min_length: '{name} må bestå av minst {length} tegn.'
+    invalid: Inndataene er ugyldige. Vennligst sjekk oppføringene dine.
+    required: '{name} er nødvendig.'
 day: Dag
 time: Tid
 select: Vennligst velg
@@ -3425,6 +3434,10 @@ quiz:
     PAUSE: Pause for å studere ({name})
     PAUSE_ELAPSED: '{name} – nå kan du prøve igjen!'
     DISQUALIFIED: '{name} – dessverre diskvalifisert.'
+    start: '{name} – Ta quizen nå!'
+    continue: '{name} – Fortsett quizen!'
+    pause: Studiepause ({name})
+    disqualified: '{name} – Dessverre diskvalifisert.'
   startmodal:
     title: Quiznotater
     infos:
@@ -3600,6 +3613,34 @@ quiz:
   confirmComment: Skal kommentaren din sendes til administratoren av denne quizen?
   test_results: Resultater av testen
   test: Prøv quizen
+  stateBasedInfo:
+    disqualifiedAfter: Du har bare ett siste forsøk på å bestå denne quizen! Hvis
+      du stryker nå, vil du bli permanent diskvalifisert fra denne quizen. Du må bare
+      delta hvis du har satt deg grundig inn i innholdet i wikien.
+    neverTried: Du har aldri tatt denne quizen før. Ta deg tid til å lese alle wiki-artiklene
+      nøye, slik at du er forberedt på spørsmålene som stilles.
+    running: Du har allerede startet quizen og besvart {questionsAnswered} av {questionCount}
+      spørsmål så langt.
+    failed: Dessverre klarte du ikke denne prøven på ditt siste forsøk.
+    passed: Du har bestått denne testen.
+    noWaitAfter: Ta en titt på de relevante wiki-artiklene og prøv igjen.
+    waitAfter: Hvis du mislykkes på neste forsøk, må du ta en {waitTimeAfterFailure}-dagers
+      pause for å studere på nytt. Sørg for å sjekke ut de relevante wiki-artiklene
+      slik at du kan bestå quizen.
+    pause: Du har strøket på denne testen flere ganger. Pålitelighet, god forståelse
+      av reglene og en profesjonell opptreden er avgjørende ved foodsharing. Dessverre
+      formidler ikke svarene dine dette for øyeblikket. Du vil derfor få en studiepause
+      før du kan prøve å bestå quizen på nytt. Studiepausen din vil ta slutt om {currentWaitTime}
+      dager.
+    pauseElapsed: Studiepausen din er over. Du kan nå ta prøven på nytt. Forhåpentligvis
+      har du brukt tiden til å bli mer kjent med innholdet.
+    disqualified: Dessverre er du diskvalifisert for denne quizen fordi du har strøket
+      for mange ganger.
+    passedBefore: Du har allerede bestått denne quizen.
+    willExpire: Gyldigheten av ditt beståtte quizforsøk utløper imidlertid om {expirationTime}
+      dager. Du kan derfor friske opp kunnskapen din på dette fagområdet og delta
+      i denne quizen igjen.
+    expired: Det siste quizforsøket ditt er imidlertid ikke lenger gyldig.
 fpsingular: feilpunktet
 filter_by: filtrer etter
 groups:
@@ -3906,6 +3947,9 @@ notifications:
     title: Påminnelser om ledige plasser
     description: Motta en e-postmelding hvis det ikke er noen ledige stillinger neste
       dag i bedriftene du administrerer.
+  mention:
+    description: Bli varslet når noen henvender seg til deg i forumet.
+    title: Varsel om omtale
 markdown_input:
   tooltip:
     orderedList: nummerert liste
@@ -3920,6 +3964,7 @@ markdown_input:
     link: link
     heading: overskrift
     image: Legg ved bilder
+    mention: Nevn bruker
   empty_preview_placeholder: "Dette er forhåndsvisningen av formateringen. Teksten
     vises her slik den vil vises senere.\n---\n*Men du har ikke skrevet inn noen tekst
     som kan vises her.*"
@@ -4117,3 +4162,4 @@ store_categories:
   confirm_delete_hint: Det er fortsatt {count} bedrifter som er tilordnet denne kategorien.
     Disse bedriftene vil ikke lenger ha en kategori.
   new: Skriv inn ny kategori
+error_base64_image: Det er ikke tillatt å sette inn bilder ved hjelp av dra og slipp.
