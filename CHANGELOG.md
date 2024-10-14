@@ -99,6 +99,7 @@
 - Wait for Devdocs Assets to be loaded before generating the devdocs site !3662 @SaiCode
 - Updated Clean script with clean node_modules !3688 @SaiCode
 - Removed some unnecessary database queries #1995 !3709 !3718 @alex.simm
+- Added a command to move old uploaded pictures to the API #1182 #1440 !3631 @alex.simm
 
 # Hotfix 2024-08-29
 
