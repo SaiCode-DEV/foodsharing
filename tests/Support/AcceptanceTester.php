@@ -56,7 +56,7 @@ class AcceptanceTester extends Actor
 
     public function logMeOut(): void
     {
-        $this->amOnPage('/?page=logout');
+        $this->amOnPage('/logout');
         $this->waitForPageBody();
     }
 

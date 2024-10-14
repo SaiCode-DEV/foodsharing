@@ -2,11 +2,12 @@
 
 namespace Foodsharing\Modules\Logout;
 
-use Foodsharing\Modules\Core\Control;
+use Foodsharing\Lib\FoodsharingController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-class LogoutControl extends Control
+class LogoutController extends FoodsharingController
 {
     private const PRIVATE_PAGES = [
             'betrieb',
@@ -28,7 +29,8 @@ class LogoutControl extends Control
         parent::__construct();
     }
 
-    public function index(Request $request, Response $response)
+    #[Route(path: '/logout', name: 'logout')]
+    public function index(Request $request): Response
     {
         $refURI = $request->query->get('ref') ?? '/';
         $page = [];
@@ -40,7 +42,7 @@ class LogoutControl extends Control
         }
 
         $this->session->logout();
-        header('Location: ' . $refURI);
-        exit;
+
+        return $this->redirect($refURI);
     }
 }

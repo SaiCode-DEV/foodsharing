@@ -55,7 +55,7 @@ class LoginCest
         $I->see('Hallo ' . $this->foodsaver['name'], '.testing-intro-field');
         $I->seeCookieHasNoSessionExpiry('PHPSESSID');
 
-        $I->amOnPage('/?page=logout');
+        $I->amOnPage('/logout');
 
         $I->amOnPage('/');
         $I->click('.testing-login-dropdown');

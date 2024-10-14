@@ -42,7 +42,7 @@ const urls = {
     ((ref !== null && ref.length > 0) ? '?ref=' + encodeURIComponent(`${ref}`) : ''),
   logout: () => {
     const url = new URL(window.location.href)
-    return '/?page=logout&ref=' + encodeURIComponent(url.pathname + url.search)
+    return '/logout?ref=' + encodeURIComponent(url.pathname + url.search)
   },
   mailbox: (mailboxId = null, emailId) => {
     let url = '/?page=mailbox'
@@ -110,7 +110,7 @@ const urls = {
   javascript: (js) => `javascript:${js}`,
 
   // Redirect
-  relogin_and_redirect_to_url: (url) => '/?page=relogin&url=' + encodeURIComponent(url),
+  relogin_and_redirect_to_url: (url) => '/relogin?url=' + encodeURIComponent(url),
 
   // region id
   forum: (regionId, subforumId = 0, threadId = null, postId = null, newThread = false) => {
