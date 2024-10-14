@@ -3487,6 +3487,10 @@ quiz:
     FAILED: '{name} – réessayer !'
     RUNNING: '{name} – continue le quiz !'
     NEVER_TRIED: '{name} – fais le quiz maintenant !'
+    continue: '{name}‐Continuer le quiz!'
+    pause: Pause d'apprentissage ({name})
+    disqualified: '{name}-malheureusement disqualifié(e).'
+    start: '{name} ‐ Répondre au quiz maintenant!'
   startmodal:
     title: Notes du quiz
     infos:
@@ -3677,6 +3681,19 @@ quiz:
     de ce quiz ?
   test_results: Résultats du test
   test: Essaie le quiz
+  stateBasedInfo:
+    waitAfter: Si tu échoues à ta prochaine tentative, tu devras faire une pause d'apprentissage
+      de {waitTimeAfterFailure} jours. Consulte impérativement les articles Wiki correspondants
+      pour réussir le quiz.
+    passed: Tu as réussi ce quiz.
+    noWaitAfter: Consulte à nouveau les articles Wiki correspondants et réessaie.
+    neverTried: Tu n'as jamais répondu à ce quiz auparavant. Prends le temps de lire
+      attentivement tous les articles Wiki répertoriés afin d'être prêt(e) à répondre
+      aux questions.
+    running: Tu as déjà commencé(e) le quiz et tu as répondu(e) jusqu'à présent à
+      {questionsAnswered} des {questionCount} questions.
+    failed: Lors de ta dernière tentative, tu n'as malheureusement pas réussi ce quiz.
+    passedBefore: Tu as déjà réussi ce quiz.
 fpsingular: Point d’erreur
 bootstrap-datepicker:
   labelCurrentMonth: Mois actuel
