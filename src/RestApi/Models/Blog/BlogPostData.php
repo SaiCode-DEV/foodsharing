@@ -31,6 +31,9 @@ class BlogPostData
     #[OA\Property(description: 'UUID of an uploaded picture. If null, the post will have no picture.', type: 'string')]
     public ?string $picture;
 
+    #[OA\Property(description: 'Whether the post is published and visible to the public', type: 'boolean')]
+    public ?bool $isPublished;
+
     public function __construct(
         ?int $id,
         int $regionId,
@@ -38,6 +41,7 @@ class BlogPostData
         string $teaser,
         string $content,
         ?string $picture,
+        ?bool $isPublished
     ) {
         $this->id = $id;
         $this->regionId = $regionId;
@@ -45,5 +49,6 @@ class BlogPostData
         $this->teaser = $teaser;
         $this->content = $content;
         $this->picture = $picture;
+        $this->isPublished = $isPublished;
     }
 }

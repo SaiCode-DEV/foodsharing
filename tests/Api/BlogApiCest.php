@@ -34,7 +34,7 @@ class BlogApiCest
             'blogPosts' => [[
                 'id' => $this->blogPost['id'],
                 'title' => $this->blogPost['name'],
-                'content' => $this->blogPost['teaser'],
+                'teaser' => $this->blogPost['teaser'],
                 'authorName' => $this->userOrga['name'] . ' ' . $this->userOrga['nachname'],
                 'picture' => $this->blogPost['picture'],
             ]]
@@ -125,6 +125,7 @@ class BlogApiCest
             'teaser' => $this->faker->realText(200),
             'content' => $this->faker->realText(1000),
             'picture' => null,
+            'isPublished' => true,
         ];
     }
 }

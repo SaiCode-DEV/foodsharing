@@ -9,10 +9,7 @@
       <span>{{ $dateFormatter.format(blogPost.publishedAt) }}</span>
     </p>
     <img v-if="pictureUrl" :src="pictureUrl">
-    <!-- eslint-disable vue/no-v-html -->
-    <!-- Sanitized in Modules/Blog/BlogGateway.php getPost() -->
-    <div v-html="blogPost.content" />
-    <!-- eslint-enable -->
+    <div v-text="blogPost.teaser" />
     <p>
       <a class="button" :href="$url('blogPost', blogPost.id)">{{ $i18n('blog.read') }}</a>
     </p>
@@ -21,6 +18,8 @@
 </template>
 
 <script>
+import { BLOG_POST_OPTIONS } from '@/consts'
+
 export default {
   props: {
     blogPost: { type: Object, required: true },
@@ -32,7 +31,8 @@ export default {
       }
 
       if (this.blogPost.picture.startsWith('/api/uploads/')) {
-        return `${this.blogPost.picture}?w=500&h=161` // path for pictures uploaded with the new API
+        // path for pictures uploaded with the new API
+        return `${this.blogPost.picture}?w=${BLOG_POST_OPTIONS.IMAGE.WIDTH}&h=${BLOG_POST_OPTIONS.IMAGE.HEIGHT}`
       } else {
         return '/images/' + this.blogPost.picture.replace('/', '/crop_1_528_') // backward compatible path for old pictures
       }

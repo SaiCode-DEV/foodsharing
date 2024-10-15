@@ -26,7 +26,7 @@ final class BlogPermissions
         return $this->mayAdd();
     }
 
-    public function mayEdit(int $blogId): bool
+    public function mayEdit(?int $blogId): bool
     {
         return $this->mayAdministrateBlog();
     }

@@ -65,6 +65,7 @@ final class ContentPermissions
     public function mayEditContent(): bool
     {
         return $this->session->mayRole(Role::ORGA)
+            || $this->currentUserUnits->isAdminFor(RegionIDs::EDITORIAL_GROUP)
             || $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP)
             || $this->currentUserUnits->isAdminFor(RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP)
             || $this->currentUserUnits->isAdminFor(RegionIDs::IT_SUPPORT_GROUP)
@@ -79,7 +80,8 @@ final class ContentPermissions
      */
     public function getEditableContentIds(): ?array
     {
-        if ($this->session->mayRole(Role::ORGA)) {
+        if ($this->session->mayRole(Role::ORGA)
+            || $this->currentUserUnits->isAdminFor(RegionIDs::EDITORIAL_GROUP)) {
             return null;
         }
 
@@ -103,7 +105,8 @@ final class ContentPermissions
 
     public function mayEditContentId(int $id): bool
     {
-        if ($this->session->mayRole(Role::ORGA)) {
+        if ($this->session->mayRole(Role::ORGA)
+            || $this->currentUserUnits->isAdminFor(RegionIDs::EDITORIAL_GROUP)) {
             return true;
         }
 
@@ -124,6 +127,7 @@ final class ContentPermissions
 
     public function mayCreateContent(): bool
     {
-        return $this->session->mayRole(Role::ORGA);
+        return $this->session->mayRole(Role::ORGA)
+            || $this->currentUserUnits->isAdminFor(RegionIDs::EDITORIAL_GROUP);
     }
 }

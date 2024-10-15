@@ -825,6 +825,7 @@ back: "Zurück"
 success: "Erfolgreich abgeschlossen"
 error_permissions: "Du hast leider nicht die notwendigen Berechtigungen für diesen Vorgang."
 error_unexpected: "Es ist ein Fehler aufgetreten"
+error_base64_image: "Bilder einfügen ist nicht per Drag & Drop erlaubt."
 error_ajax: |
   Das hat leider nicht geklappt.
   Vielleicht funktioniert deine Internetverbindung gerade nicht.
@@ -1866,9 +1867,11 @@ content:
   new: "Neue Seite anlegen"
   new_success: "Seite wurde angelegt"
   edit: "Seite bearbeiten"
+  edit_raw: "Rohdaten bearbeiten"
   edit_success: "Seite wurde gespeichert."
   delete: "Soll {name} wirklich gelöscht werden?"
   delete_success: "Seite wurde gelöscht"
+  error: "Seite konnte nicht gespeichert werden"
   name: "Eindeutiger Name"
   content: "Inhalt"
   empty: "Bisher wurde keine Seite eingetragen."
@@ -2822,6 +2825,7 @@ blog:
   newTitle: "Neuer Artikel für {region}"
   publish-info: "Der Veröffentlichungsstatus des Artikels kann auf der Übersichtsseite angepasst werden."
   content: "Inhalt"
+  teaser: "Vorschautext"
   author: "Geschrieben von"
   last-editor: "Zuletzt bearbeitet von"
   status:

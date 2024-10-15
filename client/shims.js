@@ -68,11 +68,6 @@ Object.assign(module.exports, convert({
       'jquery-ui',
     ],
   },
-
-  'jquery.tinymce': {
-    resolve: lib('tinymce/jquery.tinymce.min'),
-  },
-
 }))
 
 function convert (entries) {

@@ -316,18 +316,6 @@ export function reload () {
   window.location.reload()
 }
 
-export function ifconfirm (url, question, title) {
-  if (question != undefined) {
-    $('#dialog-confirm-msg').html(question)
-  }
-  if (title != undefined) {
-    $('#dialog-confirm').dialog('option', 'title', title)
-  }
-
-  $('#dialog-confirm-url').val(url)
-  $('#dialog-confirm').dialog('open')
-}
-
 export function showLoader () {
   window.showLoading()
 }

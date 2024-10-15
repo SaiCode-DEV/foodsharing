@@ -9,6 +9,7 @@ use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\RestApi\Models\Content\ContentEntry;
 use Foodsharing\Utility\Sanitizer;
+use HTMLPurifier_Config;
 
 class ContentGateway extends BaseGateway
 {
@@ -45,8 +46,8 @@ class ContentGateway extends BaseGateway
             ? Carbon::createFromFormat('Y-m-d H:i:s', $content['last_mod'], new DateTimeZone('Europe/Berlin'))
                 ->shiftTimezone(new DateTimeZone('UTC'))
             : null;
-
-        $content['body'] = $this->sanitizer->purifyHtml($content['body'] ?? '');
+        $config = HTMLPurifier_Config::createDefault();
+        $content['body'] = $this->sanitizer->purifyHtml($content['body'] ?? '', $config);
 
         return Content::create($id, $content['name'], $content['title'], $content['body'], $lastModified);
     }

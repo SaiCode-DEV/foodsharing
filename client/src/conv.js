@@ -3,7 +3,7 @@
 import $ from 'jquery'
 
 import Storage from '@/storage'
-import { GET, isMob, pulseError } from '@/script'
+import { isMob, pulseError } from '@/script'
 import { useUserStore } from '@/stores/user.js'
 import conversationStore from '@/stores/conversations'
 import profileStore from '@/stores/profiles'
@@ -38,7 +38,7 @@ const conv = {
    */
   init: function () {
     if (conv.initiated === false) {
-      if (GET('page') === 'msg') {
+      if (document.location.pathname === '/msg') {
         this.isBigPageMode = true
       }
       this.initiated = true

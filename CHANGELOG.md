@@ -47,6 +47,7 @@
 - Unified the different icons used for store managers #2087 !3699 @AntonBallmaier
 - Some visual improvements related to store aplications #2157 !3702 @AntonBallmaier
 - "Thumb voting" polls can be created with only one option #975 !3684 @alex.simm
+- Given EDITORIAL_GROUP the same rights as ORGA-User to edit or add content pages !3717 @chriswalg
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
@@ -78,9 +79,11 @@
 - Removed jQuery autosize !3635 !3689 @SaiCode
 - Port the register controller to Symfony !3594 @alex.simm
 - Port the application controller to Symfony #1994 !3603 @alex.simm
-- Port the message controller to Symfony #1994 !3633 @\_fridtjof_
+- Port the message controller to Symfony #1994 !3633 !3719 @\_fridtjof_
+- Replace TinyMCE with Quill #2141 !3660 @SaiCode
 - Refactored add and edit form to vue and removed jquery tagedit #2137 !3520 @chriswalg @alex.simm
 - Remove all usages of deprecated columns email_pass and email from fs_bezirk #1853 !3710 @AntonBallmaier
+- Port the logout and relogin controllers to Symfony !3682 @alex.simm
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm
@@ -97,7 +100,8 @@
 - Data for the region subpages is now fetched from the API #1838 !3624 !3715 @alex.simm
 - Wait for Devdocs Assets to be loaded before generating the devdocs site !3662 @SaiCode
 - Updated Clean script with clean node_modules !3688 @SaiCode
-- Removed some unnecessary database queries #1995 !3709 @alex.simm
+- Removed some unnecessary database queries #1995 !3709 !3718 @alex.simm
+- Added a command to move old uploaded pictures to the API #1182 #1440 !3631 @alex.simm
 
 # Hotfix 2024-08-29
 

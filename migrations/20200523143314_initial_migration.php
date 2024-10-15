@@ -4717,152 +4717,148 @@ class InitialMigration extends Phinx\Migration\AbstractMigration
             ['id' => '9', 'name' => 'mission', 'title' => 'Mission ', 'body' => '<p><strong>Herzlich Willkommen bei foodsharing!<br /></strong><br /> <span>foodsharing ist eine 2012 entstandene Initiative gegen die Lebensmittelverschwendung, welche Lebensmittel "rettet", die man ansonsten wegwerfen w&uuml;rde.</span> <span>&Uuml;ber 200.000 registrierte NutzerInnen in Deutschland/&Ouml;sterreich/Schweiz, und &uuml;ber 25.000 Freiwillige, sogenannte Foodsaver, machen diese Initiative mittlerweile zu einer internationalen Bewegung. Es kooperieren &uuml;ber 3.000 Betriebe, bei denen bisher schon 7,8 Millionen Kilogramm Lebensmittel vor der Verschwendung bewahrt worden sind. T&auml;glich finden etwa 1.000 weitere Abholungen statt.</span><br /><br /> <span>Die Plattform foodsharing.de basiert auf ehrenamtlichem Engagement. Das Retten und Teilen von Lebensmitteln findet geldfrei statt. Der gemeinn&uuml;tzige foodsharing e.V. sorgt als Betreiber der Webseite daf&uuml;r, dass diese unkommerziell und ohne Werbung bleibt.</span><br /> <br /><span>Allein in Deutschland ist die Lebensmittelverschwendung ein gro&szlig;es Problem: Etwa ein Drittel aller Lebensmittel werden verschwendet. Und dabei wird nicht nur das Lebensmittel an sich weggeworfen, sondern auch die Ressourcen die z.B. in Anbau, Ernte, Verpackung, Transport und Lagerung geflossen sind.</span> <span>Die Verschwendung findet &uuml;berall statt: bei Anbau, Ernte, Weiterverarbeitung, Verkauf sowie beim Endverbraucher.</span> <span>foodsharing sensibilisiert f&uuml;r das Thema soweit m&ouml;glich bei allen AkteurInnen mit denen die Initiative in Kontakt steht. Bei unterschiedlichen Aktionen machen die MitstreiterInnen auf die unglaubliche Verschwendung in der Gesellschaft aufmerksam und bieten L&ouml;sungsans&auml;tze an.</span> <span>Ziel ist, auf pers&ouml;nlicher Ebene Aufkl&auml;rung, Umdenken und verantwortliches Handeln anzusto&szlig;en.</span><br /><br /> <span>foodsharing bringt Menschen unterschiedlichster Hintergr&uuml;nde zusammen und begeistert zum Mitmachen, Mitdenken und verantwortungsvollem Umgang mit den Ressourcen unseres Planeten.</span> <span>Es gibt keine andere Initiative dieser Gr&ouml;&szlig;e, welche in diesem Umfang ehrenamtlich t&auml;tig ist, &ouml;ffentlich kommuniziert, wie viele Lebensmittel weggeworfen werden, und aus einer Nachhaltigkeitsperspektive L&ouml;sungsans&auml;tze bietet.</span><br /> <span>___</span><br /> <span>Hier erf&auml;hrst Du mehr &uuml;ber uns:</span><br /> <span><a href="/content?amp;sub=forderungen" target="_blank"><strong>Forderungen</strong></a> - unser Forderungspapier</span><br /> <span><strong><a href="/team" target="_blank">Team</a></strong>&nbsp;- unser Team und foodsharing Kontakte</span><br /> <span><a href="/partner" target="_blank"><strong>Partner</strong></a> - diese Partner unterst&uuml;tzen foodsharing</span><br /> <span><a href="/statistik" target="_blank"><strong>Statistik</strong></a> - foodsharing Zahlen &amp; Fakten</span><br /> <span><a href="/content?amp;sub=presse" target="_blank"><strong>Presse</strong></a> - Kontakte und Informationen f&uuml;r Presse</span></p>
 <p><br /><span>F&uuml;r aktuelle Berichte und Ank&uuml;ndigungen kannst Du uns auch&nbsp;<a href="https://de-de.facebook.com/foodsharing.de" target="_blank">auf facebook</a> besuchen.</span> <br /><span>Ausf&uuml;hrliche Informationen &uuml;ber unser Lebensmittelretten findest Du in <a href="https://youtu.be/dqsVjuK3rTc" target="_blank">diesem Erkl&auml;r-Video</a>.</span><br /><br /> <span>Wir w&uuml;nschen Dir viel Spass und freuen uns &uuml;ber Anregungen und Fragen!</span><br /> <span>Dein foodsharing-Team</span></p>', 'last_mod' => '2019-06-15 12:46:42'],
             ['id' => '10', 'name' => 'partner', 'title' => 'Partner', 'body' => '<!--
-Die Seite wird durch Julian Brinke (julian@foodsharing-krefeld.de) betreut.
+Die Seite wird durch Marco Heinrich (m.heinrich@foodsharing.network) betreut.
 Logogroesse (hxb) 100x390 px (max)
-Bitte alle Änderungen absprechen
+Bitte alle Änderungen absprechen.
 -->
+<div class="bootstrap">
+<div class="mb-4 page ui-padding ui-widget-content corner-all">
+<div class="row m-3">
+<div class="col msg-inside rounded mb-3 mr-3">
+<h2>Partner von foodsharing</h2>
+</div>
+</div>
+</div>
+</div>
 <p></p>
 <!-- -->
 <p></p>
 <!-- -->
 <p></p>
-<!-- Unterstützt durch -->
+<!-- foodsharing wird unterstützt durch -->
 <p></p>
 <!-- -->
 <p></p>
 <!-- -->
-<div class="head ui-widget-header ui-corner-top">Unterst&uuml;tzt durch:</div>
-<div class="ui-widget ui-widget-content corner-bottom margin-bottom ui-padding">
+<div class="head ui-widget-header ui-corner-top">foodsharing wird unterst&uuml;tzt durch:</div>
+<div class="ui-widget ui-widget-content corner-bottom margin-bottom ui-padding"><!-- /partner -->
+<div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://www.geoapify.com/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/geoapify.png" class="logo" /> <br /> Geoapify GmbH | geoapify.com </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/mailbox500x260.png" class="logo" /> <br /> mailbox.org</h3>
+<div class="clear"></div>
+<p>Seit Herbst 2022 vertrauen wir unsere E-Mails dem deutschen E-Mail-Anbieter mailbox.org an. Dieser zeigt, dass sich Digitale Souver&auml;nit&auml;t, Sicherheit und Datenschutz auch mit Komfort, umfangreichen Features und 100% &Ouml;kostrom vereinen lassen. Mit dem E-Mail-Postfach erhalten sicherheitsbewusste Kunden auf Basis einer Open Source-L&ouml;sung auch Kalender, Adressbuch, Online-Office, einen Cloud-Speicher und eine Videokonferenzl&ouml;sung. Mehrfach von der Stiftung Warentest mit SEHR GUT ausgezeichnet, setzt mailbox.org f&uuml;r seine Nutzer neue Ma&szlig;st&auml;be in sicherer Kommunikation.</p>
+</div>
+<!-- /partner -->
+<div class="shortcode-spacer-1">&nbsp;</div>
+<div class="partner">
+<h3><img src="https://foodsharing.de/uploads/partner/geoapify200x60.png" class="logo" /> <br /> Geoapify GmbH</h3>
 <div class="clear"></div>
 <p>Schnelle, moderne und kosteng&uuml;nstige APIs f&uuml;r Karten, Adressensuche, Routing und Navigation f&uuml;r Ihre App und Website. Gerne bieten wir zuverl&auml;ssige Geo- und Standortdienste f&uuml;r jedes Projekt, egal ob gro&szlig; oder klein.</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://kanzlei-broich.de/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/Broich.png" class="logo" /> <br /> Broich | kanzlei-broich.de </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/Broich347x80.png" class="logo" /> <br /> Broich</h3>
 <div class="clear"></div>
 <p>Rechtsanwalt Bernd Broich entwickelte 2017 gemeinsam mit foodsharing die Mustersatzungen f&uuml;r Ortsvereine. Dar&uuml;ber hinaus ber&auml;t er den foodsharing e.V. in allen Fragen rund um das Thema Vereinsrecht.</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://cms.law/de/deu/" target="_blank"><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/CMS.png" class="logo" /> <br /> CMS | cms.law </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/CMS.png" class="logo" /> <br /> CMS</h3>
 <div class="clear"></div>
 <p>Seit Juni 2018 unterst&uuml;tzt uns die Anwaltskanzlei CMS bei &uuml;berregionalen Angelegenheiten in vielf&auml;ltigen Themenbereichen wie Lebensmittelrecht, Haftungsfragen, Versicherungs-Recht, Vereinsrecht, Steuerrecht und Datenschutz. Die Anw&auml;lte die uns unterst&uuml;tzen sind in ganz Deutschland verteilt, mit einem Schwerpunkt in K&ouml;ln - wobei die Zusammenarbeit sowieso online erfolgt. Wir freuen uns sehr &uuml;ber diese wichtige Unterst&uuml;tzung, und hoffen auf eine gute und langfristige Zusammenarbeit.</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://pinkcarrots.de/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/pinkcarrots.jpg" class="logo" /> <br /> PINK CARROTS | pinkcarrots.de </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/pinkcarrots.jpg" class="logo" /> <br /> PINK CARROTS</h3>
 <div class="clear"></div>
 <p>Zum 5 j&auml;hrigen foodsharing Geburtstag (Dezember 2017) wurde die "don\'t let good food go bad" Kampagne gelauncht. Die Kommunikationsagentur PINK CARROTS aus Frankfurt hat das Kampagnen Konzept f&uuml;r foodsharing entwickelt und mit ihrem Know How auch bei dem Entwurf zur neuen Startseite unterst&uuml;tzt. Die Kampagne richtet sich insbesondere an Menschen, die bisher wenig &uuml;ber Lebensmittelverschwendung oder foodsharing wissen. Der humorvolle Auftritt der f&uuml;nf illustrierten Charakt&auml;re "walking bread", "dick milch", "saure gurke", "faules ei" und "food porn" wird von zahlreichen Bezirken in Deutschland, &Ouml;sterreich und Schweiz genutzt, um die Message "don\'t let good food go bad" weiter zu verbreiten und auf die foodsharing Aktivit&auml;ten aufmerksam zu machen.</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://www.manitu.de/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/manitu.jpg" class="logo" /> <br /> Manitu | manitu.de </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/manitu.jpg" class="logo" /> <br /> Manitu</h3>
 <div class="clear"></div>
 <p>Da wir mittlerweile schon &uuml;ber drei Millionen Seitenaufrufe hatten&nbsp;und tagt&auml;glich mehr Menschen die Plattform nutzen, haben wir uns nach einem neuen Partner umgeschaut und einen ganz vorbildlichen Betrieb gefunden der uns mit einem eigenem Server unterst&uuml;tzt. Manitu arbeitet seit Jahren ausschlie&szlig;lich mit Strom aus erneuerbaren Energien und setzt sich ganzheitlich mit einer ethischen Firmenphilosophie f&uuml;r Nachhaltigkeit und mehr Menschlichkeit ein.</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://greensta.de/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/greensta.jpg" class="logo" /> <br /> Greensta &Ouml;ko Webhosting | greensta.de </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/greensta.jpg" width="390" class="logo" /> <br /> Greensta &Ouml;ko Webhosting</h3>
 <div class="clear"></div>
 <p>Seit Beginn im Sommer 2013 unterst&uuml;tzte Greensta mit einem mit Greenpeace Energy&nbsp;laufenden Server die kostenlose Freiwilligenplattform von foodsharing. Damit geh&ouml;rt die Unterst&uuml;tzung von dem zu 100 % mit erneuerbaren Energien arbeitenden Firma Greensta zum elementaren Fundament der lebensmittelrettenden Bewegung, die ausschlie&szlig;lich auf unendgeltlichem Engagment fu&szlig;t.<br /> Derzeit unterst&uuml;tzt unser Parnter Greensta unsere&nbsp;Initiative gegen die Verschwendung von Lebensmitteln mit der &Uuml;bernahme der Kosten f&uuml;r das Mail-Konto @foodsharing.de.</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://bitkomplex.de/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/bitkomplex_logo.png" width="494" class="logo" /> <br /> Bitkomplex </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/bitkomplex_logo.png" width="390" class="logo" /> <br /> Bitkomplex</h3>
 <div class="clear"></div>
-<p>Im Januar ist bitkomplex kurzfristig eingesprungen und betreibt seitdem unseren E-Mail Verkehr f&uuml;r foodsharing.network. Die Server von Bitkomplex werden ausschlie&szlig;lich mit &Ouml;kostrom betrieben.</p>
+<p>Von Januar 2019 bis Herbst 2022 hat bitkomplex unseren E-Mail Verkehr f&uuml;r foodsharing.network &uuml;bernommen. Die Server von Bitkomplex werden ausschlie&szlig;lich mit &Ouml;kostrom betrieben.</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://abd-partner.de/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/ABundD.jpg" class="logo" /> <br /> ab&amp;d Rechtsanw&auml;lte | abd-partner.de </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/ABundD.jpg" class="logo" /> <br /> ab&amp;d Rechtsanw&auml;lte</h3>
 <div class="clear"></div>
 <p>Tobias Bystry und seine Kanzlei ab&amp;d Rechtsanw&auml;lte unterst&uuml;tzen foodsharing seit Fr&uuml;hling&nbsp;2013&nbsp;mit einer&nbsp;pro Bono Hilfe in allen&nbsp;Rechtsfragen rund&nbsp;um:&nbsp;Fair-Teiler, Lebensmittelspenderbetrieben und sonstigen Vereinbarungen und Rechtsangelegenheiten.</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://bosch-stiftung.de/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/Robert_Bosch_Verantwortlichen.jpg" class="logo" /> <br /> Robert Bosch Stiftung - Verantwortlichen Programm | bosch-stiftung.de </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/Robert_Bosch_Verantwortlichen.jpg" class="logo" /> <br /> Robert Bosch Stiftung - Verantwortlichen Programm</h3>
 <div class="clear"></div>
 <p>Seit Herbst 2017 unterst&uuml;tzt die Robert Bosch Stiftung foodsharing in ihrem Programm "Die Verantwortlichen" durch beratende T&auml;tigkeiten bei der aktuell laufenden Umstrukturierung.</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://bmbf.de/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/bmbf.jpg" class="logo" /> <br /> Bundesministerium f&uuml;r Bildung und Forschung | bmbf.de </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/bmbf.jpg" class="logo" /> <br /> Bundesministerium f&uuml;r Bildung und Forschung</h3>
 <div class="clear"></div>
 <p>Das Bundesministerium f&uuml;r Bildung und Forschung unterst&uuml;tzte foodsharing bei einzelnen lokalen Projekten.</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://prototypefund.de/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/Prototype_Fund.jpg" class="logo" /> <br /> Prototype Fund | prototypefund.de </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/Prototype_Fund.jpg" class="logo" /> <br /> Prototype Fund</h3>
 <div class="clear"></div>
 <p>Der Prototype Fund f&ouml;rderte den foodsharing-Programmierer Raphael Wintrich in 2017 f&uuml;r 6 Monate, um die OpenSource-Stellung des aktuellen Codes voran zu bringen.</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://dieUmweltDruckerei.de/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/dieUmweltDruckerei.jpg" class="logo" /> <br /> dieUmweltDruckerei | dieUmweltDruckerei.de </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/dieUmweltDruckerei.jpg" class="logo" /> <br /> dieUmweltDruckerei</h3>
 <div class="clear"></div>
 <p>Als nachhaltige Druckerei setzen wir auf ressourcenschonende Materialien und eine emissionsarme Produktion von Printmedien. Wir verwenden ausschlie&szlig;lich Recyclingpapiere. Bei den von uns eingesetzten veganen Druckfarben sind mineral&ouml;lhaltige Bestandteile weitestgehend durch Zutaten auf Basis nachwachsender Rohstoffe ersetzt. Wir arbeiten mit Strom aus erneuerbaren Energien. Alle unvermeidbaren CO2-Emissionen, die im gesamten Druckprozess und beim Versand entstehen, kompensieren wir und unsere Partner durch Investitionen in Klimaschutzprojekte.</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://print-pool.com/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/PrintPool.jpg" class="logo" /> <br /> Print Pool | print-pool.com </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/PrintPool.jpg" class="logo" /> <br /> Print Pool</h3>
 <div class="clear"></div>
 <p>Print Pool - Planet Friendly Printing ist eine der &ouml;koligischsten Druckereien in Deutschland und unser starker Partner f&uuml;r den Printbereich.<br />Verantwortung f&uuml;r Umwelt-Themen und Schonung von Ressourcen bilden das Fundament dieser nachhaltigen Druckerei beim umweltfreundlichen Drucken. Flyer aus Recyclingpapier oder Visitenkarten aus FSC-Mix geh&ouml;ren zum nachhaltigen Standard. Gedruckt wird&nbsp;mit mineral&ouml;lfreien Druckfarben auf Pflanzen&ouml;lbasis. Die verwendeten Bindeleime sind kasein- und gelatinefrei und entsprechen veganen Standards.</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://drucknatuer.ch/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/Drucknatuer.svg.png" class="logo" /> <br /> Drucknat&uuml;r | drucknatuer.ch </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/Drucknatuer.svg.png" class="logo" /> <br /> Drucknat&uuml;r</h3>
 <div class="clear"></div>
 <p>Dank der kostenlosen Flyerspenden von Drucknat&uuml;r, k&ouml;nnen wir seit 2016 auch in der Schweizer foodsharing-Community &ouml;kologisch bedacht und trotzdem geldfrei Flyer zur Verf&uuml;gung stellen. Wir freuen uns weiterhin auf eine gute und lange Zusammenarbeit - 1000 Dank ans Drucknat&uuml;r-Team!</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://sticker-ticker.de/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/StickerTicker.jpg" class="logo" /> <br /> Sticker-Ticker | sticker-ticker.de </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/StickerTicker.jpg" class="logo" /> <br /> Sticker-Ticker</h3>
 <div class="clear"></div>
-<p>Da wir selber in der Foodsharing Community aktiv sind, lag es f&uuml;r uns nahe, das Projekt auch mit Aufklebern tatkr&auml;ftig zu unterst&uuml;tzen. Generell ist bei uns ein verantwortungsbewusster Umgang mit allen Ressourcen selbstverst&auml;ndlich. Zudem verwenden wir fast ausschlie&szlig;lich Verpackungsmaterialen von befreundeten Unternehmen wieder, was nicht nur g&uuml;nstiger, sondern (ganz &auml;hnlich wie das Foodsharing) &auml;u&szlig;erst sinnvoll ist!</p>
+<p>Da wir selber in der foodsharing Community aktiv sind, lag es f&uuml;r uns nahe, das Projekt auch mit Aufklebern tatkr&auml;ftig zu unterst&uuml;tzen. Generell ist bei uns ein verantwortungsbewusster Umgang mit allen Ressourcen selbstverst&auml;ndlich. Zudem verwenden wir fast ausschlie&szlig;lich Verpackungsmaterialen von befreundeten Unternehmen wieder, was nicht nur g&uuml;nstiger, sondern (ganz &auml;hnlich wie das foodsharing) &auml;u&szlig;erst sinnvoll ist!</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://badgematic.de/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/badgematic.jpg" class="logo" /> <br /> Badgematic | badgematic.de </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/badgematic.jpg" class="logo" /> <br /> Badgematic</h3>
 <div class="clear"></div>
 <p>Die Badgematic Button GmbH vertreibt alle n&ouml;tigen Materialien rund um die (eigene) Buttonherstellung und spendete f&uuml;r das Internationale Treffen erstmals 500 Buttonrohlinge, damit sich Foodsaver unterwegs auch wiedererkennen k&ouml;nnen. So sind sie seit April 2015 Partner von foodsharing und wir danken herzlich f&uuml;r die Unterst&uuml;tzung!</p>
-</div>
-<!-- /partner -->
-<div class="shortcode-spacer-1">&nbsp;</div>
-<div class="partner">
-<h3><a href="https://tictex.com/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/tictex.jpg" class="logo" /> <br /> TicTex | tictex.com </a></h3>
-<div class="clear"></div>
-<p>foodsharing unterst&uuml;tzen wir mit Textilien f&uuml;r Veranstaltungen und Promotionzwecke, weil wir daran glauben, dass Nachhaltigkeit mehr als ein Schlagwort sein sollte. TicTex ist&nbsp;der Onlineshop&nbsp;f&uuml;r Basic-Fashion und Textilveredelung. Entgegen dem Trend der schnelllebigen Mode vertreiben wir Basics, die nicht nach 3 Monaten aussortiert werden, weil sie nicht mehr \'in\' sind. Ganz besonders freut es uns, verst&auml;rkt Hersteller im Sortiment zu haben, die auf faire Produktion, Recycling und Biobaumwolle Wert legen &ndash; wie zum Beispiel EarthPositive und Salvage.</p>
-</div>
-<!-- /partner -->
-<div class="shortcode-spacer-1">&nbsp;</div>
-<div class="partner">
-<h3><a href="https://klin-tec.de/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/klintec.jpg" class="logo" /> <br /> klin-Tec | klin-tec.de </a></h3>
-<div class="clear"></div>
-<p>Die Marke KLIN-TEC&reg; steht f&uuml;r einen vorausschauenden und verantwortungsbewussten Umgang mit unserem wichtigsten Rohstoff Wasser. Auch in Zukunft muss jeder Mensch freien Zugang zu sauberem, trinkf&auml;higem Wasser haben. Um hierf&uuml;r nicht noch mehr Tonnen von Plastikflaschen produzieren zu m&uuml;ssen und die Umwelt weiter zu belasten, haben wir den KLIN-TEC&reg; Wasserfilter entwickelt. Wir unterst&uuml;tzen die Veranstaltungen des &sbquo;foodsharing-Projekts&lsquo; sehr gerne mit unseren Produkten.</p>
-</div>
-<!-- /partner -->
-<div class="shortcode-spacer-1">&nbsp;</div>
-<div class="partner">
-<h3><a href="https://prime-inventions.de/" target="_blank"> Prime Inventions | prime-inventions.de </a></h3>
-<div class="clear"></div>
-<p>Prime Inventions entwickelt und vertreibt weltweit innovative Produkte rund um das Thema sauberes Wasser. Unter den eigenen eingetragenen Marken Aquawhirler, AquaKalko, AquaAvanti und YaraOvi sind die Produkte weltweit bekannt. Es ist Prime Inventions ein besonderes Anliegen Nutzer zu helfen ihr eigenes Wasser vor Ort zur filtern und damit kostbare Ressourcen zu sparen und unn&ouml;tigen Abfall zu vermeiden. Prime Inventions setzt sich ebenso f&uuml;r foodsharing ein und freut sich &uuml;ber jedes gerettete Lebensmittel und hat dies sogar ins Firmenleitbild mit aufgenommen.</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
@@ -4881,14 +4877,14 @@ Bitte alle Änderungen absprechen
 <div class="head ui-widget-header ui-corner-top">Akteure im Netzwerk:</div>
 <div class="ui-widget ui-widget-content corner-bottom margin-bottom ui-padding">
 <div class="partner">
-<h3><a href="https://tafel.de/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/Tafel_Deutschland.jpg" class="logo" /> <br /> Die Tafeln | tafel.de </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/Tafel_Deutschland.jpg" class="logo" /> <br /> Die Tafeln</h3>
 <div class="clear"></div>
 <p>Die Tafeln: Lebensmittel retten. Menschen helfen. Seit Anfang an arbeitet foodsharing eng mit den bundesweiten Tafeln zusammen. foodsharing l&auml;sst der Tafel bei Kooperationen und Abholungen aufgrund ihres Bed&uuml;ftigkeits-Anspruches immer den Vortritt. Mit dem starken Nachhaltigkeits-Anspruch und dem Wunsch, der Lebensmittelverschwendung in allen Bereichen entgegen zu wirken, rettet foodsharing dort und zu den Zeitpunkten, wo es der Tafel nicht m&ouml;glich ist. So bilden beide eine wunderbare Erg&auml;nzung, und zusammen ein starkes Team. Mit der offiziellen Kooperationsvereinbarung in 2015 hat dies auch einen formellen Rahmen bekommen, und foodsharing freut sich auf die weitere enge und gute Zusammenarbeit gegen die Lebensmittelverschwendung.</p>
 </div>
 <!-- /partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://duh.de/themen/recycling/abfallvermeidung/lebensmittelverschwendung/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/DUH.jpg" class="logo" /> <br /> Deutsche Umwelthilfe (DUH) | duh.de </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/DUH.jpg" class="logo" /> <br /> Deutsche Umwelthilfe (DUH)</h3>
 <div class="clear"></div>
 <p>Die Deutsche Umwelthilfe (DUH) ist ein anerkannter Umwelt- und Verbraucherschutzverband, der sich seit 1975 aktiv f&uuml;r den Erhalt unserer nat&uuml;rlichen Lebensgrundlagen und die Belange von Verbrauchern einsetzt. Sie ist politisch unabh&auml;ngig, gemeinn&uuml;tzig, klageberechtigt und engagiert sich vor allem auf nationaler und europ&auml;ischer Ebene. Kritische Verbraucher, Umweltorganisationen, Politiker, Entscheidungstr&auml;ger aus der Wirtschaft sowie Medien sind wichtige Partner. Im Bereich Kreislaufwirtschaft setzt sich die DUH f&uuml;r Abfallvermeidung, einen verantwortlichen Konsum und eine nachhaltige Wirtschaftsweise ein.</p>
 </div>
@@ -4901,7 +4897,7 @@ Bitte alle Änderungen absprechen
 <p></p>
 <!-- -->
 <p></p>
-<!-- Wir sind Mitglieb bei -->
+<!-- Wir sind Mitglied bei -->
 <p></p>
 <!-- -->
 <p></p>
@@ -4909,21 +4905,21 @@ Bitte alle Änderungen absprechen
 <div class="head ui-widget-header ui-corner-top">Wir sind Mitglied bei:</div>
 <div class="ui-widget ui-widget-content corner-bottom margin-bottom ui-padding">
 <div class="partner">
-<h3><a href="https://wir-haben-es-satt.de" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/wir_haben_es_satt.jpg" width="2197" class="logo" /> <br /> Wir haben es satt!-B&uuml;ndnis | wir-haben-es-satt.de </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/wir_haben_es_satt.jpg" width="782" class="logo" /> <br /> Wir haben es satt!-B&uuml;ndnis</h3>
 <div class="clear"></div>
 <p>F&uuml;r eine andere Landwirtschaftspolitik Das B&uuml;ndnis steht f&uuml;r die Agrar- und Ern&auml;hrungswende. Wir fordern den Stopp der industriellen Landwirtschaft &amp; Lebensmittelproduktion. Wir wollen artgerechte Tierhaltung und gut erzeugte Lebensmittel von B&auml;uerinnen und Bauern f&uuml;r alle! Daf&uuml;r gehen wir demonstrieren, bringen Menschen aus Stadt und Land im Dialog und f&uuml;r Aktionen zusammen. Wir sind bunt, vielf&auml;ltig und wir ziehen an einem Strang - von konventionell bis Bio, von Verbraucher*innen bis Lebensmittelhandwerk. Wir haben es satt! wird von rund 55 Organisationen getragen.</p>
 </div>
 <!-- partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://www.zivilgesellschaft-ist-gemeinnuetzig.de" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/allianz.jpg" class="logo" /> <br /> Allianz &bdquo;Rechtssicherheit f&uuml;r politische Willensbildung&ldquo; | zivilgesellschaft-ist-gemeinnuetzig.de </a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/allianz.jpg" class="logo" /> <br /> Allianz &bdquo;Rechtssicherheit f&uuml;r politische Willensbildung&ldquo;</h3>
 <div class="clear"></div>
 <p>Wir sind Mitglied der Allianz &bdquo;Rechtssicherheit f&uuml;r politische Willensbildung&ldquo;, um gemeinsam mit anderen Organisationen das Gemeinn&uuml;tzigkeitsrecht zu &auml;ndern. Zivilgesellschaft ist gemeinn&uuml;tzig &ndash; doch Organisationen der Zivilgesellschaft, die sich politisch &auml;u&szlig;ern, sind st&auml;ndig der Gefahr ausgesetzt, ihre Gemeinn&uuml;tzigkeit zu verlieren. Das wollen wir &auml;ndern und Rechtssicherheit schaffen durch gesetzliche Klarstellungen.</p>
 </div>
 <!-- partner -->
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://klima-allianz.de" target="_blank"> <img src="https://foodsharing-krefeld.de/_partner/klima-allianz.jpg" width="482" class="logo" /> <br /> Klima Allianz | klima-allianz.de.de </a></h3>
+<h3><img src="https://foodsharing-krefeld.de/_partner/klima-allianz.jpg" width="482" class="logo" /> <br /> Klima Allianz</h3>
 <div class="clear"></div>
 <p>Die Klima-Allianz Deutschland ist das breite gesellschaftliche B&uuml;ndnis f&uuml;r den Klimaschutz. Mit &uuml;ber 120 Mitgliedsorganisationen aus den Bereichen Umwelt, Kirche, Entwicklung, Bildung, Kultur, Gesundheit, Verbraucherschutz, Jugend und Gewerkschaften setzt sie sich f&uuml;r eine ambitionierte Klimapolitik und eine erfolgreiche Energiewende auf lokaler, nationaler, europ&auml;ischer und internationaler Ebene ein. Ihre Mitgliedsorganisationen repr&auml;sentieren zusammen rund 25 Millionen Menschen.</p>
 </div>
@@ -4944,7 +4940,7 @@ Bitte alle Änderungen absprechen
 <div class="head ui-widget-header ui-corner-top">Auszeichnungen:</div>
 <div class="ui-widget ui-widget-content corner-bottom margin-bottom ui-padding">
 <div class="partner">
-<h3><a href="https://www.worldsummitawards.org/" target="_blank"> <img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/wsa.jpg" class="logo" /> <br /> WorldSummit Award | worldsummitawards.org</a></h3>
+<h3><img src="https://foodsharing.de/uploads/partner/wsa.jpg" class="logo" /> <br /> WorldSummit Award</h3>
 <div class="clear"></div>
 <p>Gewinner des WSA-Germany 2018<br /> Nominiert f&uuml;r den UN-World Summit Award 2018</p>
 </div>
@@ -4965,167 +4961,221 @@ Bitte alle Änderungen absprechen
 <div class="head ui-widget-header ui-corner-top">Kooperationsbetriebe:</div>
 <div class="ui-widget ui-widget-content corner-bottom margin-bottom ui-padding">
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/10-Logo-Bio-Company.jpg" width="350" class="logo" /></h3>
-<p><strong>Bio Company</strong>:<br /> <a href="https://biocompany.eu" target="_blank">biocompany.eu</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/10-Logo-Bio-Company.jpg" width="350" class="logo" /></h3>
+<p><strong>Bio Company</strong>:</p>
 <div class="clear"></div>
 <p>Die Bio Company ist der erste&nbsp;Partner von foodsharing und hat schon&nbsp;im April&nbsp;2012 begonnen unverk&auml;ufliche Lebensmittel an die LebensmittelretterInnen in Berlin zu geben. Auch bei der Crowdfunding Kampagne f&uuml;r foodsharing unterst&uuml;tze die Bio Supermarkt Kette die Plattfrom mit&nbsp;2000&euro;. Mittlerweile kooperieren&nbsp;die meisten der 35 Filialen neben Tafeln, Vereinen und anderen Einrichtungen mit foodsharing, damit m&ouml;glichst keine Lebensmittel mehr in die Tonne m&uuml;ssen. Der Gesch&auml;ftsf&uuml;hrer Georg Kaiser ebnete mit seinem Vertrauen und seinem Engagement den Weg f&uuml;r das heutige foodsharing-Netzwerk.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/Kaufland_online_KL_standard_L_sRGB.png" width="130" class="logo" /></h3>
-<p><strong>Kaufland</strong>:<br /> <a href="https://kaufland.de" target="_blank">Kaufland.de</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/Kaufland_online_KL_standard_L_sRGB.png" width="130" class="logo" /></h3>
+<p><strong>Kaufland</strong>:</p>
 <div class="clear"></div>
 <p>Die &Uuml;bernahme von &ouml;kologischer und sozialer Verantwortung ist f&uuml;r Kaufland wichtiger Bestandteil der Unternehmenspolitik. Dies beginnt bei einer verantwortungsvollen Gestaltung des Sortiments und setzt sich mit dem Engagement f&uuml;r gesellschaftliche und &ouml;kologische Belange fort. Ein besonderes Anliegen ist Kaufland der verantwortungsvolle Umgang mit Lebensmitteln, wozu auch die Vermeidung von Lebensmittelabf&auml;llen geh&ouml;rt. Gemeinsam mit foodsharing engagiert sich Kaufland daher aktiv gegen Lebensmittelverschwendung.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/superbiomarkt.jpg" width="200" class="logo" /></h3>
-<p><strong>Super Bio Markt</strong>:<br /> <a href="https://superbiomarkt.de" target="_blank">superbiomarkt.de</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/rewe-penny.png" width="300" class="logo" /></h3>
+<p><strong>REWE &amp; PENNY</strong>:</p>
+<div class="clear"></div>
+<p>Die REWE Group engagiert sich seit vielen Jahren daf&uuml;r, Lebensmittelverschwendung zu minimieren &ndash; sowohl in den vorgelagerten Erzeugerstufen als auch in den M&auml;rkten. Hier tragen automatisierte Bestellsysteme und moderne Prognoseverfahren erg&auml;nzend zu den Erfahrungen der Mitarbeiter zu einer gut ausgesteuerten Warenversorgung bei. Au&szlig;erdem pflegen die beiden Vertriebslinien REWE und PENNY seit vielen Jahren bundesweit eine enge Partnerschaft mit den lokalen Tafeln. So werden Lebensmittel abgegeben, die nicht mehr verkauft, aber unbedenklich verzehrt werden k&ouml;nnen, sodass diese gezielt hilfsbed&uuml;rftigen Menschen zu Gute kommen. Erg&auml;nzend dazu kooperieren seit 2021 REWE- und PENNY-M&auml;rkte bei Bedarf mit dem Verein foodsharing e.V. und seiner lokalen foodsharing-community, um noch mehr gute Lebensmittel zu retten!</p>
+</div>
+<div class="shortcode-spacer-1">&nbsp;</div>
+<div class="partner">
+<h3><img src="https://foodsharing.de/uploads/partner/superbiomarkt.jpg" width="200" class="logo" /></h3>
+<p><strong>Super Bio Markt</strong>:</p>
 <div class="clear"></div>
 <p>Als Naturkostfachh&auml;ndler mit tief verwurzelten &ouml;kologischen Werten ist es Teil der Unternehmensphilosophie der&nbsp;SuperBioMarkt&nbsp;AG, sich gegen die Verschwendung von Lebensmitteln einzusetzen. Neben weiteren Ma&szlig;nahmen in diesem Bereich kooperiert das Unternehmen seit Anfang 2014 mit foodsharing. Nach einer erfolgreichen Pilotphase in verschiedenen St&auml;dten wird nun die Zusammenarbeit schrittweise auf s&auml;mtliche M&auml;rkte&nbsp;ausgeweitet. Au&szlig;erdem unterst&uuml;tzen wir verschiedene Fair-Teiler mit&nbsp;kostenlosen K&uuml;hlger&auml;ten.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/erdkorn.jpg" width="150" class="logo" /></h3>
-<p><strong>Erdkorn</strong>:<br /> <a href="https://erdkorn.de" target="_blank">erdkorn.de</a></p>
-<div class="clear"></div>
-<p>Die Biomarktkette Erdkorn stellt Lebensmittel, Fr&uuml;chte und Gem&uuml;se, die aufgrund des abgelaufenen Mindesthaltbarkeitsdatums bzw. mangelnder Frische in einer Filiale nicht mehr verkauft werden, Foodsavern zum Fairteilen und Verwerten zur Verf&uuml;gung. Die meisten der deutschlandweit 9 Filialen kooperieren bereits. Hier&nbsp;&auml;u&szlig;ert sich Erdkorn zur Zusammenarbeit und ihrem Engagement gegen die Verschwendung von Lebensmitteln.&nbsp;(<a href="https://erdkorn.de/cms/index.php/soziale-verantwortung/654-foodsharingde" target="_blank">Link</a>)</p>
-</div>
-<div class="shortcode-spacer-1">&nbsp;</div>
-<div class="partner">
 <h3></h3>
-<p><strong>Reformhaus Engelhardt</strong>:<br /> <a href="https://reformhaus-engelhardt.de" target="_blank">reformhaus-engelhardt.de</a></p>
+<p><strong>Reformhaus Engelhardt</strong>:</p>
 <div class="clear"></div>
 <p>Das Projekt foodsharing erf&auml;hrt unsere Unterst&uuml;tzung, weil es auf die Bedeutsamkeit von Lebensmitteln aufmerksam macht und ihnen besondere Wertsch&auml;tzung entgegenbringt. Das gro&szlig;artige soziale und nachhaltige Engagement, welches die Beteiligten aufbringen ist au&szlig;erordentlich und sollte eine weitaus gr&ouml;&szlig;ere gesellschaftliche Anerkennung erfahren als bisher. Wir freuen uns auch weiterhin den gemeinsamen Gedanken weiterzutragen und die Projektentwicklung durch unsere Beitr&auml;ge zu begleiten. In unseren Gesch&auml;ften werden foodsharing auch in Zukunft die T&uuml;ren offen sein. Ein verantwortungsbewusster Umgang mit Ressourcen ist in unserer Unternehmensphilosophie fest verankert. Wir integrieren diesen Gedanken in unserer t&auml;glichen Arbeit und richten unsere Entscheidungen fest danach aus.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/budni_300.jpg" width="170" class="logo" /></h3>
-<p><strong>Budnikowsky</strong>:<br /> <a href="https://budni.de" target="_blank">budni.de </a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/erdkorn.jpg" width="150" class="logo" /></h3>
+<p><strong>Erdkorn</strong>:</p>
+<div class="clear"></div>
+<p>Die Biomarktkette Erdkorn stellt Lebensmittel, Fr&uuml;chte und Gem&uuml;se, die aufgrund des abgelaufenen Mindesthaltbarkeitsdatums bzw. mangelnder Frische in einer Filiale nicht mehr verkauft werden, Foodsavern zum Fairteilen und Verwerten zur Verf&uuml;gung. Die meisten der deutschlandweit 9 Filialen kooperieren bereits. Hier&nbsp;&auml;u&szlig;ert sich Erdkorn zur Zusammenarbeit und ihrem Engagement gegen die Verschwendung von Lebensmitteln.&nbsp;(<a href="https://erdkorn.de/cms/index.php/soziale-verantwortung/654-foodsharingde" target="_blank">Link</a>)</p>
+</div>
+<div class="shortcode-spacer-1">&nbsp;</div>
+<div class="partner">
+<h3><img src="https://foodsharing.de/uploads/partner/Transgourmet.png" width="250" class="logo" /></h3>
+<p><strong>Transgourmet</strong>:</p>
+<div class="clear"></div>
+<p>Unter der Dachmarke Transgourmet Deutschland sind die Spezialisten Transgourmet (Belieferungsgro&szlig;handel) und Selgros (Abholgro&szlig;handel) vertreten. Kunden sind die Gastronomie, Hotellerie, Betriebsverpflegung sowie sozialen Einrichtungen. Seit Jahren setzt sich Transgourmet f&uuml;r die Reduzierung von Lebensmittelverschwendung ein, so zum Beispiel durch den Einsatz von intelligenten Warenwirtschaftssystemen oder den preisreduzierten Abverkauf von Waren mit kurzem MHD. Au&szlig;erdem bestehen sehr gute Kooperationen mit den Tafeln und anderen sozialen Organisationen. Erg&auml;nzend dazu kooperieren die Standorte bei Bedarf auch mit dem Verein foodsharing e.V.. Im Rahmen von Schulungen und Beratungsangeboten unterst&uuml;tzt Transgourmet zudem seine Kunden bei der Reduzierung von Food Waste und tr&auml;gt so dazu bei, dass auch im Au&szlig;er-Haus-Markt Lebensmittelabf&auml;lle vermieden werden.</p>
+</div>
+<div class="shortcode-spacer-1">&nbsp;</div>
+<div class="partner">
+<h3><img src="https://foodsharing.de/uploads/partner/Hornbach.png" width="300" class="logo" /></h3>
+<p><strong>HORNBACH</strong>:</p>
+<div class="clear"></div>
+<p>Bewusste Entscheidungen sind ein wichtiger Schl&uuml;ssel zur Nachhaltigkeit. Deshalb arbeitet die HORNBACH Baumarkt AG in Deutschland seit Ende 2023 &ndash; ganz bewusst &ndash; mit foodsharing zusammen, um vielen Produkten ein zweites Leben zu schenken. Gem&uuml;sepflanzen, Kr&auml;uter, Tierfutter sowie Garten- und Topfpflanzen werden von HORNBACH seither an foodsharing f&uuml;r den guten Zweck abgegeben. Gestartet ist das Pilotprojekt 2023 im Markt Berlin Marzahn. In der Pilotphase konnte das Markt-Team gemeinsam mit foodsharing bereits 13.000 Pflanzen retten. K&uuml;nftig soll foodsharing auch in weiteren HORNBACH M&auml;rkte stattfinden. Nicht nur f&uuml;r die beiden Unternehmen, sondern auch f&uuml;r viele Einrichtungen, denen die abgegebenen Artikel zugutekommen, ist die Zusammenarbeit eine echte Bereicherung.</p>
+</div>
+<div class="shortcode-spacer-1">&nbsp;</div>
+<div class="partner">
+<h3><img src="https://foodsharing.de/uploads/partner/budni_300.jpg" width="170" class="logo" /></h3>
+<p><strong>Budnikowsky</strong>:</p>
 <div class="clear"></div>
 <p>Das Hamburger Drogeriemarktunternehmen Budnikowsky unterst&uuml;tzt foodsharing seit 2014 gerne mit Lebensmittelspenden aus verschiedenen BUDNI-Filialen. Mehr zu BUDNIs Engagement: <a href="https://budni.de/gutes-tun" target="_blank">https://budni.de/gutes-tun</a></p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/govinda-logo-500px.png" width="140" class="logo" /></h3>
-<p><strong>Govinda Natur&nbsp;GmbH</strong>:<br /> <a href="https://govindanatur.de" target="_blank">govindanatur.de</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/govinda-logo-500px.png" width="140" class="logo" /></h3>
+<p><strong>Govinda Natur&nbsp;GmbH</strong>:</p>
 <div class="clear"></div>
-<p>Foodsharing f&ouml;rdert einen verantwortungsvollen Umgang mit Lebensmitteln und setzt sich aktiv gegen Lebensmittelverschwendung ein. Govinda Natur ist von der vorbildlichen Arbeit tief beeindruckt und unterst&uuml;tzt die Initiative sehr gerne mit Lebensmitteln. Die Unternehmensphilosophie von Govinda Natur basiert auf der Wertsch&auml;tzung von Mensch und Umwelt. Geleitet von der Idee einer Kreislaufwirtschaft bem&uuml;ht sich der Naturkosthersteller um eine nachhaltige und ressourcenschonende Erzeugung der Produkte. Das Unternehmen engagiert sich seit vielen Jahren in Fair Trade Initiativen und unterst&uuml;tzt soziale und &ouml;kologische Projekte im In- und Ausland.</p>
+<p>foodsharing f&ouml;rdert einen verantwortungsvollen Umgang mit Lebensmitteln und setzt sich aktiv gegen Lebensmittelverschwendung ein. Govinda Natur ist von der vorbildlichen Arbeit tief beeindruckt und unterst&uuml;tzt die Initiative sehr gerne mit Lebensmitteln. Die Unternehmensphilosophie von Govinda Natur basiert auf der Wertsch&auml;tzung von Mensch und Umwelt. Geleitet von der Idee einer Kreislaufwirtschaft bem&uuml;ht sich der Naturkosthersteller um eine nachhaltige und ressourcenschonende Erzeugung der Produkte. Das Unternehmen engagiert sich seit vielen Jahren in Fair Trade Initiativen und unterst&uuml;tzt soziale und &ouml;kologische Projekte im In- und Ausland.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos von Partnern/naturgut logo.png" width="150" class="logo" /></h3>
-<p><strong>Naturgut</strong>:<br /> <a href="https://naturgut.net" target="_blank">naturgut.net</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/naturgut.png" width="150" class="logo" /></h3>
+<p><strong>Naturgut</strong>:</p>
 <div class="clear"></div>
-<p>Der Bio-Supermarkt wei&szlig; die M&ouml;glichkeit sehr zu sch&auml;tzen, dass noch gute, aber nicht mehr verkaufbare Lebensmittel nicht in die Tonne wandern m&uuml;ssen, sondern seit 2015 &uuml;ber Foodsharing noch verteilt und gegessen werden k&ouml;nnen. So k&ouml;nnen hochwertige Bio-Produkte auf weiterem Wege interessierten Menschen nahe gebracht werden. NATURGUT ist der f&uuml;hrende Anbieter von Bio-Produkten in Stuttgart und Umgebung. Die 11 Filialen werden t&auml;glich mit frischer Ware beliefert - wann immer m&ouml;glich saisonal und regional. Es gibt 75 regionale Lieferanten, zu denen eine langj&auml;hrige Partnerschaft besteht.</p>
+<p>Der Bio-Supermarkt wei&szlig; die M&ouml;glichkeit sehr zu sch&auml;tzen, dass noch gute, aber nicht mehr verkaufbare Lebensmittel nicht in die Tonne wandern m&uuml;ssen, sondern seit 2015 &uuml;ber foodsharing noch verteilt und gegessen werden k&ouml;nnen. So k&ouml;nnen hochwertige Bio-Produkte auf weiterem Wege interessierten Menschen nahe gebracht werden. NATURGUT ist der f&uuml;hrende Anbieter von Bio-Produkten in Stuttgart und Umgebung. Die 11 Filialen werden t&auml;glich mit frischer Ware beliefert - wann immer m&ouml;glich saisonal und regional. Es gibt 75 regionale Lieferanten, zu denen eine langj&auml;hrige Partnerschaft besteht.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/basicbio.jpg" width="150" class="logo" /></h3>
-<p><strong>basic - Bio-Genuss f&uuml;r alle</strong>:<br /> <a href="https://basicbio.de/" target="_blank">basicbio.de/</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/basicbio.jpg" width="150" class="logo" /></h3>
+<p><strong>basic - Bio-Genuss f&uuml;r alle</strong>:</p>
 <div class="clear"></div>
-<p>Wir freuen uns, bereits seit Mai 2016 Kooperationspartner von Foodsharing zu sein. Das Konzept hat uns von Anfang an &uuml;berzeugt, denn wir sehen uns als Biounternehmen in der Pflicht, f&uuml;r die Umwelt zu arbeiten und einen enkeltauglichen Lebensstil zu erm&ouml;glichen. Dazu geh&ouml;rt f&uuml;r uns, dass alle Lebensmittel, die produziert wurden, auch in den Verkauf gehen. Wir arbeiten engagiert und wirksam daran, Ph&auml;nomene wie &bdquo;Containern&ldquo; &uuml;berfl&uuml;ssig zu machen, indem wir mit Foodsharing so eng kooperieren, dass fast nichts mehr im Abfall landet, was noch genie&szlig;bar ist. Das ist, aus unserer Sicht, der bessere Weg.</p>
+<p>Wir freuen uns, bereits seit Mai 2016 Kooperationspartner von foodsharing zu sein. Das Konzept hat uns von Anfang an &uuml;berzeugt, denn wir sehen uns als Biounternehmen in der Pflicht, f&uuml;r die Umwelt zu arbeiten und einen enkeltauglichen Lebensstil zu erm&ouml;glichen. Dazu geh&ouml;rt f&uuml;r uns, dass alle Lebensmittel, die produziert wurden, auch in den Verkauf gehen. Wir arbeiten engagiert und wirksam daran, Ph&auml;nomene wie &bdquo;Containern&ldquo; &uuml;berfl&uuml;ssig zu machen, indem wir mit foodsharing so eng kooperieren, dass fast nichts mehr im Abfall landet, was noch genie&szlig;bar ist. Das ist, aus unserer Sicht, der bessere Weg.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/naturata-logo.svg.png" width="150px" class="logo" /></h3>
-<p><strong>Naturata</strong>:<br /> <a href="https://naturata.de/" target="_blank">https://naturata.de/</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/naturata-logo.svg.png" width="150px" class="logo" /></h3>
+<p><strong>Naturata</strong>:</p>
 <div class="clear"></div>
-<p>Als f&uuml;hrender Anbieter von biologischen und bio-dynamischen Lebensmitteln zeichnet sich die NATURATA AG durch beste Qualit&auml;t, Nachhaltigkeit und einzigartigen Geschmack aus. Die Marke macht dabei den extra Schritt, um Verbrauchern mehr als Standard Bio zu garantieren. Die rund 300 Premium-Produkte enthalten daher ausschlie&szlig;lich nat&uuml;rliche, biologische Zutaten und werden besonders schonend weiterverarbeitet. &Uuml;ber 50 Prozent der produzierten Produkte haben zudem Demeter-Qualit&auml;t. NATURATA entwickelt Produkte, die nicht nur Bio-Genuss auf h&ouml;chstem Niveau garantieren, sondern auch einen wertvollen Beitrag f&uuml;r Mensch und Umwelt leisten. Faire und vertrauensvolle Partnerschaften, nachhaltiges Wirtschaften und die F&ouml;rderung sozialer und umweltorientierter Themen sind wesentlicher Bestandteil der Unternehmensphilosophie.</p>
+<p>Als f&uuml;hrender Anbieter von biologischen und bio-dynamischen Lebensmitteln zeichnet sich die NATURATA AG durch beste Qualit&auml;t, Nachhaltigkeit und einzigartigen Geschmack aus. Die Marke macht dabei den extra Schritt, um Verbrauchern mehr als Standard Bio zu garantieren. Die rund 300 Premium-Produkte enthalten daher ausschlie&szlig;lich nat&uuml;rliche, biologische Zutaten und werden besonders schonend weiterverarbeitet. &Uuml;ber 50 Prozent der produzierten Produkte haben zudem Demeter-Qualit&auml;t. Faire und vertrauensvolle Partnerschaften, nachhaltiges Wirtschaften und die F&ouml;rderung sozialer und umweltorientierter Themen sind wesentlicher Bestandteil der Unternehmensphilosophie von NATURATA.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/beiersdorf.png" class="logo" /></h3>
-<p><strong>Beiersdorf AG</strong>:<br /> <a href="https://beiersdorf.de" target="_blank">beiersdorf.de</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/beiersdorf_cut.png" class="logo" /></h3>
+<p><strong>Beiersdorf AG</strong>:</p>
 <div class="clear"></div>
-<p>Die Beiersdorf AG stieg unter dem Motto &bdquo;We care, you share&ldquo; als erstes Gro&szlig;unternehmen in die Zusammenarbeit mit Foodsharing e. V. ein. Die Initiative von Beiersdorf gr&uuml;ndet auf der Umsetzung der Nachhaltigkeitsstrategie &bdquo;We care.&ldquo; und unterst&uuml;tzt verantwortungsvolle Ressourcennutzung. Seit Juni 2013 spendet Beiersdorf regelm&auml;&szlig;ig nicht verbrauchte Speisen aus dem Hamburger Betriebsrestaurant &ndash; vom Auberginenmus bis zur Zitronencreme &ndash; an soziale Einrichtungen der Hansestadt und lebt vor, wie die Vermeidung von &Uuml;berproduktion im Catering und der Gemeinschaftsversorgung funktionieren kann.</p>
+<p>Die Beiersdorf AG stieg unter dem Motto &bdquo;We care, you share&ldquo; als erstes Gro&szlig;unternehmen in die Zusammenarbeit mit foodsharing e. V. ein. Die Initiative von Beiersdorf gr&uuml;ndet auf der Umsetzung der Nachhaltigkeitsstrategie &bdquo;We care.&ldquo; und unterst&uuml;tzt verantwortungsvolle Ressourcennutzung. Seit Juni 2013 spendet Beiersdorf regelm&auml;&szlig;ig nicht verbrauchte Speisen aus dem Hamburger Betriebsrestaurant &ndash; vom Auberginenmus bis zur Zitronencreme &ndash; an soziale Einrichtungen der Hansestadt und lebt vor, wie die Vermeidung von &Uuml;berproduktion im Catering und der Gemeinschaftsversorgung funktionieren kann.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/gekko.png" width="100" class="logo" /></h3>
-<p><strong>Gekko Getr&auml;nke- &amp; Handelskollektiv</strong>:<br /> <a href="https://gekko-berlin.de" target="_blank">gekko-berlin.de </a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/gekko.png" width="100" class="logo" /></h3>
+<p><strong>Gekko Getr&auml;nke- &amp; Handelskollektiv</strong>:</p>
 <div class="clear"></div>
 <p>Gekko setzt sich&nbsp;seit dem Start von foodsharing gegen die Verschwendung von noch genie&szlig;baren Getr&auml;nken ein. &Uuml;ber ein Duzend Paletten Getr&auml;nke konnten so schon seit Beginn der Kooperation vor der Vernichtung bewahrt werden.<br /> Gekko&nbsp;arbeitet mit verschiedenen Getr&auml;nkeherstellern zusammen, wobei die Gro&szlig;zahl der&nbsp;Partner kleine bzw. Kleinsthersteller oder Unternehmensgr&uuml;nder sind, die regional, biologisch oder per Handherstellung produzieren, kollektiv arbeiten, oder fair handeln.</p>
 </div>
+<br />
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/2-lemonaid-charitea-logo.jpg" width="120" class="logo" /></h3>
-<p><strong>LemonAid</strong>:<br /> <a href="https://lemonaid.de" target="_blank">lemonaid.de</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/2-lemonaid-charitea-logo.jpg" width="120" class="logo" /></h3>
+<p><strong>LemonAid</strong>:</p>
 <div class="clear"></div>
-<p>Lemonaid &amp; ChariTea helfen foodharing seit Beginn des Projektes im Jahre 2012 mit der kostenfreien Bereitstellung von K&uuml;hlschr&auml;nken f&uuml;r verschiedene&nbsp;Fair-Teiler in ganz Deutschland. Sie machen Fairtrade-Limonaden &amp; Eistees aus nat&uuml;rlichen Zutaten. Mit jeder verkauften Flaschen unterst&uuml;tzen sie Entwicklungsprojekte in den Anbauregionen.</p>
+<p>Lemonaid &amp; ChariTea helfen foodharing seit Beginn des Projektes im Jahre 2012 mit der kostenfreien Bereitstellung von K&uuml;hlschr&auml;nken f&uuml;r verschiedene&nbsp;Fairteiler in ganz Deutschland. Sie machen Fairtrade-Limonaden &amp; Eistees aus nat&uuml;rlichen Zutaten. Mit jeder verkauften Flasche unterst&uuml;tzen sie Entwicklungsprojekte in den Anbauregionen.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/Aronia.jpg.png" width="100" class="logo" /></h3>
-<p><strong>Aronia Original</strong>:<br /> <a href="https://aronia-original.de" target="_blank">aronia-original.de</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/Aronia.jpg.png" width="100" class="logo" /></h3>
+<p><strong>Aronia Original</strong>:</p>
 <div class="clear"></div>
 <p>Das junge&nbsp;Bio Unternehmen m&ouml;chte keine S&auml;fte, Nahrungserg&auml;nzungsmitteln usw. wegschmei&szlig;en und freut sich &uuml;ber die Zusammenarbeit mit den Lebensmittelrettenden, damit alle noch genie&szlig;baren Waren dort landen, wohin sie geh&ouml;ren.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3></h3>
-<p><strong>Ethiquable</strong>:<br /> <a href="https://ethiquable.de" target="_blank">ethiquable.de</a></p>
+<p><strong>Ethiquable</strong>:</p>
 <div class="clear"></div>
 <p>Ethiquable ist eine Genossenschaft die sich ganzheitlich um einen fairen, ethischen Umgang mit Menschen, Tieren und Ressourcen bem&uuml;ht. Dabei ist den Menschen von Ethiquable auch wichtig, keine Lebensmittel wegzuschmei&szlig;en und achten darauf, r&uuml;cksichtsvoll und nachhaltig mit den Erzeugnissen umzugehen. Bleibt mal was &uuml;brig, was sich nicht mehr verkaufen l&auml;sst, werden die Lebensmittel an die Mitarbeitenden bzw. an foodsharing verschenkt.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/myey.gif" width="422" class="logo" /></h3>
-<p><strong>MyEy</strong>:<br /> <a href="https://myey.info/" target="_blank">myey.de</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/myey.gif" width="422" class="logo" /></h3>
+<p><strong>MyEy</strong>:</p>
 <div class="clear"></div>
 <p>MyEy ist die wertvolle Alternative zu tierischem Ei beim Backen, Braten und Kochen. Im Jahr 2014 erhielt MyEy den peta progress award als "richtungsweisendes vorbildliches Unternehmen" mit seinen "fortschrittlichen Produkten f&uuml;r einen ethischen Lebensstil." Der Ei-Ersatz von MyEy ist nicht nur AUFschlagbar, sondern dar&uuml;ber hinaus auch noch VEGAN-zertifiziert und BIO-zertifiziert. Vegane Produkte sind die Grundlage f&uuml;r einen verantwortungsvollen Umgang mit Ressourcen auf unserem Planeten, daher unterst&uuml;tzen wir gerne das Projekt foodsharing.de.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/vetzi.jpg" width="100" class="logo" /></h3>
-<p><strong>VETZI</strong>:<br /> <a href="https://vegane-schnitzel-selber-machen.de/" target="_blank">vetzi.de</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/vetzi.jpg" width="100" class="logo" /></h3>
+<p><strong>VETZI</strong>:</p>
 <div class="clear"></div>
-<p>Nachhaltigkeit und ein bewusster und fairer Umgang mit Lebensmitteln sind ein wichtiger Teil der veganen Bewegung! Diese Ideen motivieren auch uns. Deswegen unterst&uuml;tzen wir von VETZI &ndash; "vegane Schnitzel selber machen" die Foodsharing Initiative. Ihr leistet einen unsch&auml;tzbaren Beitrag gegen Lebensmittelverschwendung und f&uuml;r eine soziale und &ouml;kologische Herangehensweise an das Thema Essen. Es ist inspirierend und ermutigend zu sehen wie viel schon in so kurzer Zeit erreicht wurde! Macht weiter so!</p>
+<p>Nachhaltigkeit und ein bewusster und fairer Umgang mit Lebensmitteln sind ein wichtiger Teil der veganen Bewegung! Diese Ideen motivieren auch uns. Deswegen unterst&uuml;tzen wir von VETZI &ndash; "vegane Schnitzel selber machen" die foodsharing Initiative. Ihr leistet einen unsch&auml;tzbaren Beitrag gegen Lebensmittelverschwendung und f&uuml;r eine soziale und &ouml;kologische Herangehensweise an das Thema Essen. Es ist inspirierend und ermutigend zu sehen wie viel schon in so kurzer Zeit erreicht wurde! Macht weiter so!</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/byodo.jpg" width="100" class="logo" /></h3>
-<p><strong>Byodo</strong>:<br /> <a href="https://byodo.de/" target="_blank">byodo.de</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/byodo.jpg" width="100" class="logo" /></h3>
+<p><strong>Byodo</strong>:</p>
 <div class="clear"></div>
-<p>Unsere Ressourcen sind kostbar und kein Lebensmittel sollte verschwendet werden. Daher unterst&uuml;tzen wir die wertvolle Arbeit von Foodsharing sehr gerne. Bio-Qualit&auml;t, die man schmeckt, riecht, auf dem Gaumen f&uuml;hlt und genie&szlig;t &ndash; daf&uuml;r steht die Byodo Naturkost GmbH. Seit mehr als 30 Jahren stellt das inhabergef&uuml;hrte Unternehmen mit Sitz in M&uuml;hldorf am Inn Bio-Feinkost in h&ouml;chster 100% Bio-Qualit&auml;t und mit bestem Geschmack her. Die Produkte werden nur &uuml;ber den Bio-Fachhandel und Online-Shop vertrieben.</p>
+<p>Unsere Ressourcen sind kostbar und kein Lebensmittel sollte verschwendet werden. Daher unterst&uuml;tzen wir die wertvolle Arbeit von foodsharing sehr gerne. Bio-Qualit&auml;t, die man schmeckt, riecht, auf dem Gaumen f&uuml;hlt und genie&szlig;t &ndash; daf&uuml;r steht die Byodo Naturkost GmbH. Seit mehr als 30 Jahren stellt das inhabergef&uuml;hrte Unternehmen mit Sitz in M&uuml;hldorf am Inn Bio-Feinkost in h&ouml;chster 100% Bio-Qualit&auml;t und mit bestem Geschmack her. Die Produkte werden nur &uuml;ber den Bio-Fachhandel und Online-Shop vertrieben.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
 <h3></h3>
-<p><strong>Landlinie</strong>:<br /> <a href="https://landlinie.de/" target="_blank">landlinie.de</a></p>
+<p><strong>Landlinie</strong>:</p>
 <div class="clear"></div>
 <p>Die LANDLINIE Lebensmittel&ndash;Vertrieb GmbH mit Sitz in H&uuml;rth bei K&ouml;ln ist ein Lebensmittel&ndash;Gro&szlig;handel f&uuml;r biologisch erzeugte Produkte und Spezialist im Bio Obst&ndash; und Gem&uuml;se-Bereich. Wir sind seit &uuml;ber 25 Jahren erfolgreich deutschlandweit t&auml;tig, seit 1991 Demeter Vertragsh&auml;ndler. Wir beliefern ca. 500 Kunden regelm&auml;&szlig;ig mit einer Auswahl von rund 3.000 Lebensmitteln durch unseren eigenen Fuhrpark und Logistik&ndash;Partner. Eine punktgenaue Lieferung, eine optimale Beratung durch unsere Mitarbeiter im Au&szlig;en&ndash; und Innendienst sowie die Qualit&auml;t unserer Bio-Produkte bilden die Basis unseres Erfolges.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/Barnhouse%20Logo%20neu%20color.jpg" width="100" class="logo" /></h3>
-<p><strong>Barnhouse</strong>:<br /> <a href="https://barnhouse.de/" target="_blank">barnhouse.de</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/Barnhouse%20Logo%20neu%20color.jpg" width="100" class="logo" /></h3>
+<p><strong>Barnhouse</strong>:</p>
 <div class="clear"></div>
-<p>Seit unserer Firmengr&uuml;ndung vor 36 Jahren sind wir zu 100% dem Bio-Gedanken bei der Herstellung unserer Krunchys verpflichtet. F&uuml;r uns ist ein biologisch erzeugtes Produkt immer noch das bestm&ouml;gliche aller Lebensmittel &ndash; nie nur Trend oder Mode oder eine M&ouml;glichkeit, schnell Geld zu verdienen. Diese Achtung vor Nahrungsmitteln findet sich auch bei Foodsharing.</p>
+<p>Seit unserer Firmengr&uuml;ndung vor 36 Jahren sind wir zu 100% dem Bio-Gedanken bei der Herstellung unserer Krunchys verpflichtet. F&uuml;r uns ist ein biologisch erzeugtes Produkt immer noch das bestm&ouml;gliche aller Lebensmittel &ndash; nie nur Trend oder Mode oder eine M&ouml;glichkeit, schnell Geld zu verdienen. Diese Achtung vor Nahrungsmitteln findet sich auch bei foodsharing.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/logo-galeries-lafayette-16092015.png" width="200" class="logo" /></h3>
-<p><strong>Galeries Lafayette</strong>:<br /> <a href="https://galerieslafayette.de/" target="_blank">galerieslafayette.de</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/logo-galeries-lafayette-16092015.png" width="200" class="logo" /></h3>
+<p><strong>Galeries Lafayette</strong>:</p>
 <div class="clear"></div>
-<p>Die Kooperation mit Foodsharing besteht seit Anfang 2016. Seitdem werden t&auml;glich Obst, Gem&uuml;se, Feinkost, Backwaren und viele weitere K&ouml;stlichkeiten vor der Tonne gerettet und vor allem an soziale Abgabestellen weitergegeben. So freuen sich beispielsweise die Diakonie Neuk&ouml;lln, die Bahnhofsmission, diverse Fl&uuml;chtlingsheime und die Obdachlosen am Alex immer wieder &uuml;ber die Delikatessen, die von Galeries Lafayette gespendet wurden. <br /> Seit 1996 kommt auch Berlin in den Genuss franz&ouml;sischer Delikatessen &ndash; bei Galeries Lafayette in der Friedrichstra&szlig;e im Herzen der Hauptstadt. Hier ist die erste und auch die einzige deutsche Dependance beheimatet &ndash; und l&auml;ngst zu einem beliebten Treffpunkt aller Gourmets geworden.</p>
+<p>Die Kooperation mit foodsharing besteht seit Anfang 2016. Seitdem werden t&auml;glich Obst, Gem&uuml;se, Feinkost, Backwaren und viele weitere K&ouml;stlichkeiten vor der Tonne gerettet und vor allem an soziale Abgabestellen weitergegeben. So freuen sich beispielsweise die Diakonie Neuk&ouml;lln, die Bahnhofsmission, diverse Fl&uuml;chtlingsheime und die Obdachlosen am Alex immer wieder &uuml;ber die Delikatessen, die von Galeries Lafayette gespendet wurden. <br /> Seit 1996 kommt auch Berlin in den Genuss franz&ouml;sischer Delikatessen &ndash; bei Galeries Lafayette in der Friedrichstra&szlig;e im Herzen der Hauptstadt. Hier ist die erste und auch die einzige deutsche Dependance beheimatet &ndash; und l&auml;ngst zu einem beliebten Treffpunkt aller Gourmets geworden.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://cap-markt.de//" target="_blank"><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/caplogo.png" width="170" class="logo" /></a></h3>
-<p><strong>CAP-Lebensmittelm&auml;rkte</strong>:<br /> <a href="https://cap-markt.de/" target="_blank">cap-markt.de</a> | <a href="https://nintegra.de/" target="_blank">NintegrA gGmbH</a> | <a href="https://neuearbeit.de/" target="_blank">Neue Arbeit gGmbH</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/caplogo.png" width="170" class="logo" /></h3>
+<p><strong>CAP-Lebensmittelm&auml;rkte</strong>:</p>
 <div class="clear"></div>
-<p>Seit September 2016 unterst&uuml;tzen die CAP-Lebensmittelm&auml;rkte (der NintegrA gGmbH und des Sozialunternehmens Neue Arbeit GmbH) die Initiative Foodsharing e.V. Bereits seit &uuml;ber zehn Jahren liefern die CAP-M&auml;rkte Lebensmittel mit sehr kurzem Mindesthaltbarkeitsdatum an die Tafeln der Region. Mit der Zusammenarbeit von CAP und Foodsharing e.V. gelingt es nun fast vollst&auml;ndig, auf das Wegwerfen von Lebensmitteln zu verzichten.<br /> Als diakonisches Unternehmen verpflichtet uns unser Satzungsauftrag zur Bewahrung der Sch&ouml;pfung und damit einhergehend, alles Erdenkliche gegen Lebensmittelverschwendung zu tun. In unseren M&auml;rkten arbeiten mit einem Anteil von mindestens 40 Prozent Menschen mit einer Schwerbehinderung.</p>
+<p>Seit September 2016 unterst&uuml;tzen die CAP-Lebensmittelm&auml;rkte (der NintegrA gGmbH und des Sozialunternehmens Neue Arbeit GmbH) die Initiative foodsharing e.V. Bereits seit &uuml;ber zehn Jahren liefern die CAP-M&auml;rkte Lebensmittel mit sehr kurzem Mindesthaltbarkeitsdatum an die Tafeln der Region. Mit der Zusammenarbeit von CAP und foodsharing e.V. gelingt es nun fast vollst&auml;ndig, auf das Wegwerfen von Lebensmitteln zu verzichten.<br /> Als diakonisches Unternehmen verpflichtet uns unser Satzungsauftrag zur Bewahrung der Sch&ouml;pfung und damit einhergehend, alles Erdenkliche gegen Lebensmittelverschwendung zu tun. In unseren M&auml;rkten arbeiten mit einem Anteil von mindestens 40 Prozent Menschen mit einer Schwerbehinderung.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
 <div class="partner">
-<h3><a href="https://hobbybrauerversand.de/" target="_blank"><img src="https://media.foodsharing.de/files/Logos%20von%20Partnern/hobbybrauerversand.png" class="logo" /></a></h3>
-<p><strong>Hopfen und mehr</strong>:<br /> <a href="https://hobbybrauerversand.de/" target="_blank">https://hobbybrauerversand.de/</a></p>
+<h3><img src="https://foodsharing.de/uploads/partner/B&auml;ckerei Sch&uuml;ler_klein.png" class="logo" /></h3>
+<p><strong>Feinb&auml;ckerei Sch&uuml;ler</strong>:</p>
+<div class="clear"></div>
+<p>Die Feinb&auml;ckerei Sch&uuml;ler UG&amp;Co.KG ist ein Familienbetrieb, der seit 1992 L&uuml;beck und Ostholstein mit feinster Backkunst versorgt. Hier wird das Handwerk gro&szlig; geschrieben, denn alles wird in der L&uuml;becker Backstube produziert und frisch in die Filialen geliefert. Die Feinb&auml;ckerei Sch&uuml;ler UG&amp;Co.KG legt gro&szlig;en Wert auf den verantwortungsvollen Umgang mit unseren wertvollen Ressourcen. Alles, was nicht erneut verarbeitet werden kann, geht aus allen Filialen an foodsharing, damit nichts verschwendet wird, was noch verzehrbar ist.</p>
+</div>
+<div class="shortcode-spacer-1">&nbsp;</div>
+<div class="partner">
+<h3><img src="https://foodsharing.de/uploads/partner/hobbybrauerversand.png" class="logo" /></h3>
+<p><strong>Hopfen und mehr</strong>:</p>
 <div class="clear"></div>
 <p>Bio-Zertifikat - Umweltschutz lebt vom mitmachen - Unser Partner - Hopfen und mehr - spendet uns regelm&auml;ssig Malzs&auml;cke zum hygienischen und umweltfreundlichen Verpacken von geretteten Lebensmitteln.</p>
 </div>
 <div class="shortcode-spacer-1">&nbsp;</div>
+<div class="partner">
+<h3><img src="https://foodsharing.de/uploads/partner/happea-logo-klein.png" class="logo" /></h3>
+<p><strong>Nature Foods / Happea</strong>:</p>
+<div class="clear"></div>
+<p>Unsere vegane Milchalternative &bdquo;Happea&ldquo; wurde aus der Leidenschaft heraus entwickelt Mensch, Tier, sowie Natur etwas Gutes zu tun. Unser Ziel: Eine Milchalternative auf das n&auml;chste Level bringen. Durch das erneute Optimieren unserer Rezeptur entstanden Restbest&auml;nde der vorherigen Version &ndash; diese zu entsorgen war nie eine Option f&uuml;r uns. Daher entschieden wir uns aus voller &Uuml;berzeugung f&uuml;r eine Kooperation mit foodsharing, um unseren nachhaltigen Erbsendrinks eine zweite Chance zu geben.</p>
 </div>
+<div class="shortcode-spacer-1">&nbsp;</div>
+<div class="partner">
+<h3><img src="https://foodsharing.de/uploads/partner/jouis nour 1.png" class="logo" /></h3>
+<p><strong>Jouis Nour</strong>:</p>
+<div class="clear"></div>
+<p>Die Entscheidung f&uuml;r eine Kooperation mit foodsharing geht mit unserer Unternehmenspolitik Hand in Hand. Nachhaltigkeit, Naturschutz und der Kampf gegen die Lebensmittelverschwendung sind wichtige Eckpunkte der Jouis Nour. Wir achten auch bei der Wahl unserer Verpackungen auf Nachhaltigkeit und Recyclingf&auml;higkeit. Durch die Nutzung einer Kr&auml;ft-W&auml;rme-Kopplungs Anlage, Photovoltaik auf den Hallend&auml;chern, LED Beleuchtung und weiteren Tools sparen wir j&auml;hrlich &uuml;ber 30 to. CO2 ein! Wir arbeiten seit Dezember 2021 mit foodsharing in Gro&szlig;beeren zusammen. Die Zusammenarbeit wird mit einer konkreten Vorcastzeit von 3-4 Tagen verabredet um einen reibungslosen und geringen Zeitaufwand zu gew&auml;hrleisten. Dieser Ablauf sichert K&uuml;hlketten, frische und Qualit&auml;t der BIO Produkte. Alle von der Jouis Nour gelieferten BIO Produkte liegen vor MHD Ablauf.</p>
+</div>
+<div class="shortcode-spacer-1">&nbsp;</div>
+<div class="partner">
+<p><strong>TARABAO</strong>:</p>
+<div class="clear"></div>
+<p>TARABAO liefert hochwertige, 100 % biologisch erzeugte Lebensmittel und handelt dabei so nachhaltig, transparent und sozial wie m&ouml;glich. Bei TARABAO gibt&lsquo;s leckere und nat&uuml;rliche Snacks sowie feine Zutaten zum Backen und f&uuml;r f&uuml;r&lsquo;s M&uuml;sli. Dazu H&uuml;lsenfr&uuml;chte, Saaten und griechische Feinkost. Die feinen N&uuml;sse und Nussmischungen gibt es bei TARABAO in vielen Variationen: naturbelassen, ger&ouml;stet und gesalzen. In ihrer eigenen kleinen Manufaktur werden die Produkte dabei selbst ger&ouml;stet und gemischt. Bei der Produktauswahl sind TARABAO vor allem Nachvollziehbarkeit und der transparente Umgang &uuml;ber die gesamte Wertsch&ouml;pfungskette wichtig. Das komplette Sortiment wird lose gro&szlig; verpackt oder im nachhaltigen Mehrweg Pfandglas geliefert.</p>
+</div>
+<div class="shortcode-spacer-1">&nbsp;</div>
+<div class="partner">
+<h3><img src="https://foodsharing.de/uploads/partner/midsommar festival.png" width="100" class="logo" /></h3>
+<p><strong>midsommar festival</strong>:</p>
+<div class="clear"></div>
+<p>Auf dem midsommar Festival bei M&uuml;nchen mit Workshops und Independent und elektronischer Musik wird nachhaltig und umweltbewusst gefeiert. Das Festival ist komplett vegan und es wird auf &uuml;berfl&uuml;ssigen M&uuml;ll verzichtet.</p>
+</div>
+<div class="shortcode-spacer-1">&nbsp;</div>
 <!-- ui-widget ui-widget-content corner-bottom margin-bottom ui-padding -->
 <p></p>', 'last_mod' => '2020-04-09 14:45:43'],
             ['id' => '11', 'name' => 'statistik', 'title' => 'Statistik', 'body' => '<div>{STAT_GESAMT}</div>', 'last_mod' => '2019-03-11 22:39:57'],

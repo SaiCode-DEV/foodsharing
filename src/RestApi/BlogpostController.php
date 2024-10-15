@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class BlogpostController extends AbstractFoodsharingRestController
@@ -58,7 +59,7 @@ class BlogpostController extends AbstractFoodsharingRestController
      * @OA\Response(response="404", description="Blog post not found.")
      * @OA\Tag(name="blog")
      */
-    #[Rest\Get('blog/{blogPostId}', requirements: ['blogPostId' => '\d+'])]
+    #[Rest\Get('blog/{blogPostId}', requirements: ['blogPostId' => Requirement::POSITIVE_INT])]
     public function getBlogpost(int $blogPostId): Response
     {
         $blogPost = $this->blogGateway->getPost($blogPostId);
@@ -70,18 +71,54 @@ class BlogpostController extends AbstractFoodsharingRestController
         return $this->handleView($this->view($blogPost, 200));
     }
 
-    /**
-     * Publishes (isPublished=1) or depublishes (isPublished=0) a blogpost.
-     *
-     * @OA\Parameter(name="blogId", in="path", @OA\Schema(type="integer"), description="which post to (de)publish")
-     * @OA\Response(response="200", description="Success.")
-     * @OA\Response(response="401", description="Not logged in.")
-     * @OA\Response(response="403", description="Insufficient permissions to manage this blogpost.")
-     * @OA\Response(response="404", description="Blogpost not found.")
-     * @OA\Tag(name="blog")
-     */
-    #[Rest\Patch('blog/{blogId}', requirements: ['blogId' => '\d+'])]
-    #[Rest\RequestParam(name: 'isPublished', requirements: '(0|1)')]
+    #[OA2\Tag('blog')]
+    #[Rest\Patch(path: 'blog/{blogId}', requirements: ['blogId' => Requirement::POSITIVE_INT])]
+    #[OA2\Parameter(name: 'blogId', in: 'path', required: true, schema: new OA2\Schema(type: 'integer'))]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Successful')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Forbidden')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Blog post not found')]
+    #[OA2\RequestBody(content: new Model(type: BlogPostData::class))]
+    #[ParamConverter(data: 'post', class: 'Foodsharing\RestApi\Models\Blog\BlogPostData', converter: 'fos_rest.request_body')]
+    public function editBlogPost(int $blogId, BlogPostData $post, ValidatorInterface $validator): Response
+    {
+        $this->assertLoggedIn();
+
+        $this->assertThereAreNoValidationErrors($validator, $post);
+
+        $post->id = $blogId;
+
+        $authorId = $this->blogGateway->getPostAuthor($blogId);
+        if ($authorId === false) {
+            throw new NotFoundHttpException('Blog post not found.');
+        }
+
+        if (!$this->blogPermissions->mayEdit($blogId)) {
+            throw new AccessDeniedHttpException('You do not have permission to edit this blog post.');
+        }
+
+        if (!$this->blogPermissions->mayPublish($blogId)) {
+            throw new AccessDeniedHttpException('You do not have permission to change the published state of this blog post.');
+        }
+
+        if (isset($post->isPublished) && !empty($post->isPublished)) {
+            $this->blogGateway->setPublished($blogId, $post->isPublished);
+        }
+
+        $this->blogTransactions->editBlogPost($authorId, $post);
+
+        return $this->respondOK();
+    }
+
+    #[OA2\Get(summary: 'Publishes or depublishes a blog post.')]
+    #[OA2\Tag('blog')]
+    #[Rest\Patch('blog/{blogId}/publish', requirements: ['blogId' => Requirement::POSITIVE_INT])]
+    #[OA2\Parameter(name: 'blogId', in: 'path', required: true, schema: new OA2\Schema(type: 'integer'))]
+    #[Rest\RequestParam(name: 'isPublished', description: 'New published state', strict: true)]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Successful')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Blog post not found')]
     public function setBlogpostPublished(int $blogId, ParamFetcher $paramFetcher): Response
     {
         $sessionId = $this->session->id();
@@ -89,39 +126,40 @@ class BlogpostController extends AbstractFoodsharingRestController
             throw new UnauthorizedHttpException('', 'Not logged in.');
         }
 
-        $author = $this->blogGateway->getAuthorOfPost($blogId);
+        $author = $this->blogGateway->getPostAuthor($blogId);
         if ($author === false) {
             throw new NotFoundHttpException('Blogpost not found.');
         }
+
         if (!$this->blogPermissions->mayPublish($blogId)) {
             throw new AccessDeniedHttpException();
         }
 
-        $newPublishedState = boolval($paramFetcher->get('isPublished'));
-        $this->blogGateway->setPublished($blogId, $newPublishedState);
+        if (!is_bool($paramFetcher->get('isPublished'))) {
+            throw new \InvalidArgumentException('isPublished must be a boolean');
+        }
 
-        return $this->handleView($this->view([], 200));
+        $this->blogGateway->setPublished($blogId, $paramFetcher->get('isPublished'));
+
+        return $this->respondOK();
     }
 
     /**
      * Removes one blogpost from the database.
      *
      * @OA\Parameter(name="blogId", in="path", @OA\Schema(type="integer"), description="which post to delete")
-     * @OA\Response(response="200", description="Success.")
-     * @OA\Response(response="401", description="Not logged in.")
-     * @OA\Response(response="403", description="Insufficient permissions to remove this blogpost.")
-     * @OA\Response(response="404", description="Blogpost not found.")
-     * @OA\Tag(name="blog")
      */
-    #[Rest\Delete('blog/{blogId}', requirements: ['blogId' => '\d+'])]
+    #[OA2\Tag('blog')]
+    #[Rest\Delete('blog/{blogId}', requirements: ['blogId' => Requirement::POSITIVE_INT])]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Successful')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Blog post not found')]
     public function removeBlogpost(int $blogId): Response
     {
-        $sessionId = $this->session->id();
-        if (!$sessionId) {
-            throw new UnauthorizedHttpException('', 'Not logged in.');
-        }
+        $this->assertLoggedIn();
 
-        $author = $this->blogGateway->getAuthorOfPost($blogId);
+        $author = $this->blogGateway->getPostAuthor($blogId);
         if ($author === false) {
             throw new NotFoundHttpException('Blogpost not found.');
         }
@@ -150,10 +188,15 @@ class BlogpostController extends AbstractFoodsharingRestController
     public function addBlogpost(BlogPostData $post, ValidatorInterface $validator): Response
     {
         $this->assertLoggedIn();
+
         if (!$this->blogPermissions->mayAdd()) {
             throw new AccessDeniedHttpException();
         }
         $this->assertThereAreNoValidationErrors($validator, $post);
+
+        if (!isset($post->isPublished) || empty($post->isPublished)) {
+            $post->isPublished = true;
+        }
 
         $postId = $this->blogTransactions->addBlogPost($post);
 
