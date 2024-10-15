@@ -396,14 +396,6 @@ final class PageHelper
         $this->js_func .= $nfunc;
     }
 
-    /**
-     * @deprecated
-     */
-    public function addJsServerData(string $key, array $data): void
-    {
-        $this->extraJsServerData[$key] = $data;
-    }
-
     public function addHead(string $str): void
     {
         $this->head .= "\n" . $str;
@@ -417,52 +409,6 @@ final class PageHelper
     public function addHidden(string $html): void
     {
         $this->hidden .= $html;
-    }
-
-    /**
-     * @deprecated - use modern frontend code instead
-     */
-    public function hiddenDialog(string $id, array $fields, string $title = '', bool $reload = false, string $width = ''): void
-    {
-        $form = implode('', $fields);
-
-        $get = '';
-        if (isset($_GET['id'])) {
-            $get = '<input type="hidden" name="id" value="' . (int)$_GET['id'] . '" />';
-        }
-
-        $this->addHidden('<div id="' . $id . '"><form>' . $form . $get . '</form></div>');
-
-        $width = $width ? "width: $width," : '';
-        $success = $reload ? 'reload();' : '';
-
-        $this->addJs('
-		$("#' . $id . '").dialog({
-		' . $width . '
-		autoOpen: false,
-		modal: true,
-		title: "' . $title . '",
-		buttons: {
-			"Speichern": function () {
-				showLoader();
-				$.ajax({
-					dataType: "json",
-					url: "/xhr?f=' . $id . '&" + $("#' . $id . ' form").serialize(),
-					success: function (data) {
-						$("#' . $id . '").dialog(\'close\');
-						' . $success . '
-						if (data.script != undefined) {
-							$.globalEval(data.script);
-						}
-					},
-					complete: function () {
-						hideLoader();
-					}
-				});
-			}
-		}
-	});
-	');
     }
 
     public function setContentWidth(int $left, int $right): void
