@@ -36,7 +36,7 @@ import Vue2LeafletMarkerCluster from 'vue2-leaflet-markercluster'
 import Vue2LeafletLocatecontrol from 'vue2-leaflet-locatecontrol'
 import LeafletMap from '@/components/map/LeafletMap.vue'
 import MapControl from '@/views/pages/Map/MapControl.vue'
-import { store, MAP_CONSTANTS, MARKER_TYPES } from '@/stores/map'
+import { getMarkers, MAP_CONSTANTS, MARKER_TYPES } from '@/stores/map'
 import { objectMap } from '@/utils'
 import { hideLoader, showLoader } from '@/script'
 import BasketBubble from '@php/Modules/Map/components/BasketBubble.vue'
@@ -91,7 +91,6 @@ export default {
           member: 'homeregion',
         },
       },
-      markers: store.state.markers,
     }
   },
   computed: {
@@ -154,11 +153,8 @@ export default {
 
     // Load all markers that are initially selected
     showLoader()
-    await Promise.all(this.selectedTypes.map(name => store.getMarkers(name, this.selectedSpecifiers[name])))
+    await Promise.all(this.selectedTypes.map(name => getMarkers(name, this.selectedSpecifiers[name])))
     hideLoader()
-    for (const type of this.selectedTypes) {
-      this.drawMarkerLayer(type)
-    }
   },
   methods: {
     /**
@@ -169,8 +165,8 @@ export default {
         this.selectedTypes.splice(this.selectedTypes.indexOf(name), 1)
       } else {
         this.selectedTypes.push(name)
-        await store.getMarkers(name, this.selectedSpecifiers[name])
-        this.drawMarkerLayer(name)
+        const markers = await getMarkers(name, this.selectedSpecifiers[name])
+        this.drawMarkerLayer(name, markers)
       }
       this.storage.set('selectedTypes', this.selectedTypes)
     },
@@ -180,8 +176,8 @@ export default {
     async updateMarkerSpecifier (markerType, specifier, newValue) {
       this.selectedSpecifiers[markerType][specifier] = newValue
       this.storage.set('selectedSpecifiers', this.selectedSpecifiers)
-      await store.getMarkers(markerType, this.selectedSpecifiers[markerType])
-      this.drawMarkerLayer(markerType)
+      const markers = await getMarkers(markerType, this.selectedSpecifiers[markerType])
+      this.drawMarkerLayer(markerType, markers)
     },
     /**
      * When a marker was clicked, this function toggles the corresponding action like opening a bubble.
@@ -205,13 +201,14 @@ export default {
           break
       }
     },
-    drawMarkerLayer (type) {
+    drawMarkerLayer (type, markersData) {
       const layer = this.$refs[`markerCluster-${type}`][0]
       if (!layer) return
+      console.debug(markersData)
 
       const markerList = []
 
-      for (const markerData of this.markers[type]) {
+      for (const markerData of markersData) {
         const marker = L.marker(L.latLng(markerData.lat, markerData.lon), { icon: this.icons[type] })
         let markerName = markerData.name
 

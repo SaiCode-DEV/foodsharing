@@ -23,6 +23,7 @@
 - Added a french foodsaver quiz that can be edited but not yet accessed #2149 !3672 @AntonBallmaier
 - Added a tab in the banana modal for sent bananas. #2075 !3581 !3676 @AntonBallmaier @SaiCode
 - Forum threads that need activation trigger a bell notification #289 !3703 @alex.simm
+- Improved map marker caching #2106 !3712 @AntonBallmaier
 - Added a map marker selection for ambassadors to display users #1759 !3714 @AntonBallmaier
 
 ## Changes

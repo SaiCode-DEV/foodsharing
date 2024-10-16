@@ -1,6 +1,9 @@
-import { reactive } from 'vue'
-import { objectMap } from '@/utils'
 import { getMapMarkers } from '@/api/map'
+import { getCache, getCacheInterval, setCache } from '@/helper/cache'
+
+// Markers are reloaded from the server if they are older than this
+const MAX_MARKER_CACHING_TIME = 10 * 60 * 1000 // 10 minutes in milliseconds
+const baseCacheName = 'mapMarkers'
 
 export const MAP_CONSTANTS = Object.freeze({
   CENTER_GERMANY_LAT: 50.89,
@@ -31,32 +34,20 @@ export const MARKER_SELECT_TYPES = Object.freeze({
   },
 })
 
-// Markers are reloaded from the server if they are older than this
-const MAX_MARKER_CACHING_TIME = 10 * 60 * 1000 // 10 minutes in milliseconds
+/**
+ * Loads markers of a specific type and saves them in the store's state.
+ */
+export async function getMarkers (name, specifiers = {}) {
+  // Get a canonical string representation from a set of specifiers for the cache name
+  const identifier = Object.entries(specifiers).sort((a, b) => a[0].localeCompare(b[0])).flat().join('_')
+  const cacheName = `${baseCacheName}-${name}-${identifier}`
 
-export const store = {
-  state: reactive({
-    markers: objectMap(MARKER_TYPES, key => { return null }),
-    lastMarkerFetchTime: objectMap(MARKER_TYPES, key => { return null }),
-    lastMarkerFetchSpecifiers: objectMap(MARKER_TYPES, key => { return null }),
-  }),
-  /**
-   * Loads markers of a specific type and saves them in the store's state.
-   */
-  async getMarkers (name, specifiers = {}) {
-    const now = new Date()
-    const specifiersJson = JSON.stringify(specifiers)
-    const isCached = this.state.markers[name] !== null &&
-      this.state.lastMarkerFetchTime[name] !== null &&
-      new Date(this.state.lastMarkerFetchTime[name].getTime() + MAX_MARKER_CACHING_TIME) >= now
-    const isCorrectSpecifier = this.state.lastMarkerFetchSpecifiers[name] === specifiersJson
-
-    if (!isCached || !isCorrectSpecifier) {
-      const result = await getMapMarkers(name, specifiers)
-      this.state.markers[name] = result
-      this.state.lastMarkerFetchTime[name] = now
-      this.state.lastMarkerFetchSpecifiers[name] = specifiersJson
-    }
-    return this.state.markers[name]
-  },
+  let markers
+  if (await getCacheInterval(cacheName, MAX_MARKER_CACHING_TIME)) {
+    markers = await getMapMarkers(name, specifiers)
+    setCache(cacheName, markers) // don't wait for completion of this async function
+  } else {
+    markers = await getCache(cacheName)
+  }
+  return markers
 }
