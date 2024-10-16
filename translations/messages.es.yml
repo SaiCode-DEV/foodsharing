@@ -688,6 +688,7 @@ terminology:
   hygiene_training: Formación en higiene
   sent: Enviado
   received: Recibido
+  users: Usuarios
 groups:
   empty: Aún no estás en ningún grupo de trabajo
 position: Puesto en foodsharing (público)
@@ -4066,6 +4067,26 @@ map:
         all: todos
         region: Solo en mis distritos
         member: Únicamente mis empresas
+    users:
+      role:
+        all: Todos
+        store-manager: Responsable de operaciones
+        label: Rol
+        foodsaver: ahorrador de alimentos comprobado
+      activity:
+        label: Última conexión
+        week: Última semana
+        6months: Seis últimos meses
+        all: No importa
+        month: Último mes
+        3months: Tres últimos meses
+      member:
+        label: Afiliación
+        all: Tod@s
+        homeregion: Distrito de origen
+        other: Segundo distrito
+      region:
+        label: Distrito
   foodsharepoint:
     go: Punto para compartir alimentos
 addreaction: 'Añadir una reacción'
