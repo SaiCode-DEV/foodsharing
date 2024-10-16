@@ -1357,6 +1357,26 @@ map:
         all: alle
         region: bare mine distrikter
         member: bare bedriftene mine
+    users:
+      role:
+        label: Rolle
+        foodsaver: godkjente matsparere
+        store-manager: Samarbeidsansvarlig
+        all: alle
+      activity:
+        label: Sist aktive
+        week: forrige uke
+        3months: siste 3 måneder
+        all: alle
+        month: forrige måned
+        6months: siste 6 måneder
+      member:
+        all: alle
+        homeregion: Hjemdistrikt
+        other: Sekundærdistrikt
+        label: Medlemskap
+      region:
+        label: Distrikt
   foodsharepoint:
     go: til distribusjonsstasjonen
 content:
@@ -3133,6 +3153,7 @@ terminology:
   hygiene_training: Hygienetrening
   received: mottatt
   sent: Sendt
+  users: Brukere
 gender:
   d: mangfoldig
   f: Fru
