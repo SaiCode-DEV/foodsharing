@@ -8,11 +8,8 @@ use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
-use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
-use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
-use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\DTO\HierachicalRegion;
 use Foodsharing\Modules\Region\DTO\RegionPickupsPerDate;
 use Foodsharing\Modules\Region\DTO\RegionPin;
@@ -20,17 +17,9 @@ use Foodsharing\RestApi\Models\Region\RegionForAdministration;
 
 class RegionGateway extends BaseGateway
 {
-    private readonly FoodsaverGateway $foodsaverGateway;
-    private readonly GroupFunctionGateway $groupFunctionGateway;
-
-    public function __construct(
-        Database $db,
-        FoodsaverGateway $foodsaverGateway,
-        GroupFunctionGateway $groupFunctionGateway
-    ) {
+    public function __construct(Database $db)
+    {
         parent::__construct($db);
-        $this->foodsaverGateway = $foodsaverGateway;
-        $this->groupFunctionGateway = $groupFunctionGateway;
     }
 
     public function getRegion(int $regionId): ?array
@@ -291,40 +280,7 @@ class RegionGateway extends BaseGateway
             return [];
         }
 
-        $region['botschafter'] = $this->foodsaverGateway->getAdminsOrAmbassadors($regionId);
-        shuffle($region['botschafter']);
-
-        $functionMappings = [
-            WorkgroupFunction::WELCOME => 'welcomeAdmins',
-            WorkgroupFunction::VOTING => 'votingAdmins',
-            WorkgroupFunction::FSP => 'fspAdmins',
-            WorkgroupFunction::STORES_COORDINATION => 'storesAdmins',
-            WorkgroupFunction::REPORT => 'reportAdmins',
-            WorkgroupFunction::MEDIATION => 'mediationAdmins',
-            WorkgroupFunction::ARBITRATION => 'arbitrationAdmins',
-            WorkgroupFunction::FSMANAGEMENT => 'fsManagementAdmins',
-            WorkgroupFunction::PR => 'prAdmins',
-            WorkgroupFunction::MODERATION => 'moderationAdmins',
-            WorkgroupFunction::BOARD => 'boardAdmins',
-            WorkgroupFunction::ELECTION => 'electionAdmins',
-        ];
-
-        foreach ($functionMappings as $function => $resultKey) {
-            $region[$resultKey] = $this->getAdminsOrAmbassadorsByFunction($regionId, $function);
-            shuffle($region[$resultKey]);
-        }
-
         return $region;
-    }
-
-    private function getAdminsOrAmbassadorsByFunction(int $parentId, int $function): array
-    {
-        $groupId = $this->groupFunctionGateway->getRegionFunctionGroupId($parentId, $function);
-        if ($groupId) {
-            return $this->foodsaverGateway->getAdminsOrAmbassadors($groupId);
-        } else {
-            return [];
-        }
     }
 
     /**
