@@ -1386,6 +1386,7 @@ terminology:
   sent: Sent
 
   received: received
+  users: Users
 login:
   pwreset:
     bread: Reset password
@@ -2120,6 +2121,26 @@ map:
         region: only my districts
         member: only my stores
         label: Belonging
+    users:
+      role:
+        label: Role
+        all: all
+        foodsaver: approved foodsavers
+        store-manager: store managers
+      activity:
+        label: Last login
+        week: last week
+        all: any
+        3months: last 3 months
+        6months: last 6 months
+        month: last month
+      member:
+        label: Membership
+        all: all
+        homeregion: Home district
+        other: Secondary district
+      region:
+        label: District
   foodsharepoint:
     go: to the Food-Share Point
 content:
