@@ -69,6 +69,7 @@
 - Fixed blog permission for EDITORIAL_GROUP !3700 @chriswalg
 - Options are not discarded anymore when editing a poll #975 !3684 @alex.simm
 - fixed danger button text contrast !3707 @SaiCode
+- Catch service worker registration problems. #1914 !3729 @AntonBallmaier
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
