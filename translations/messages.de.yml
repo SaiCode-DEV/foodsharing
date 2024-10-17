@@ -535,7 +535,7 @@ group:
     tooltip_function_6: "Die E-Mail-Adresse dieser Arbeitsgruppe wird beim „Mediation anfragen“-Knopf angezeigt. Die Administrator:innen haben keine besonderen Berechtigungen."
     tooltip_function_7: "Administrator:innen dieser Arbeitsgruppe bekommen Meldungen mit Beteiligung des Meldungsteams angezeigt. Es werden keine Meldungen angezeigt, an denen die Administrator:innen beteiligt sind! Diese erhält das Meldungsteam"
     tooltip_function_9: "Administrator:innen dieser Arbeitsgruppe können die Ortsgruppenbeschreibung für die Karte bearbeiten."
-    tooltip_function_10: "Administrator:innen dieser Arbeitsgruppe können in moderierten Foren Beiträge freischalten."
+    tooltip_function_10: "Administrator:innen dieser Arbeitsgruppe können in moderierten Foren Beiträge freischalten. Wenn die Option für den Bezirk aktiviert ist, können sie auch Beiträge im Forum ausblenden."
     tooltip_function_11: "Administrator:innen dieser Arbeitsgruppe werden in der Bezirksübersicht angezeigt."
     tooltip_function_12: "Administrator:innen dieser Arbeitsgruppe werden in der Bezirksübersicht angezeigt."
     none: "Keine GOALS-AG"
@@ -1366,6 +1366,12 @@ forum:
     email: "per E-Mail"
   post:
     delete: "Beitrag löschen" #also in ThreadPostActions
+    hide: "Beitrag ausblenden"
+    giveHideReason: "Bitte gib an, warum du diesen Beitrag ausblenden möchtest."
+    hideReasonPlaceholder: "Hier Begründung eingeben..."
+    hideInfo: "Ausgeblendete Beiträge werden nicht mehr angezeigt. Sie können innerhalb von 3 Monaten von Moderator:innen wiederhergestellt werden, bevor sie endgültig gelöscht werden. In dieser Zeit können Nutzer:innen des Forums einsehen, warum der Beitrag ausgeblendet wurde, Morderator:innen auch von wem."
+    sureHide: "Möchtest du diesen Beitrag wirklich ausblenden?"
+    hiddenPost: "Ausgeblendeter Beitrag ({reason})"
     body: "Nachricht"
     moderator_info: "Dieses Thema ist geschlossen. Als Moderator dieses Forums kannst du trotzdem eine Nachricht verfassen. Andere Nutzer*innen können nicht antworten!"
   thread:
@@ -1390,6 +1396,7 @@ forum:
     subscriptions:
       subscribe: Abonnieren
       subscribed: Abonniert
+    all_hidden: "Alle Beiträge in diesem Thread wurden ausgeblendet."
   hold_back_for_moderation: "Das Thema wurde gespeichert und wird veröffentlicht, sobald ein:e Moderator:in oder Botschafter:in es bestätigt."
   no_posts: "Bisher keine Beiträge vorhanden"
   no_threads: "Noch keine Themen gepostet"
@@ -1403,7 +1410,11 @@ forum:
     text: "Möchtest du wirklich, dass dieser neue Beitrag als E-Mail an alle Mitglieder dieser AG bzw. dieses Bezirks versendet wird? Das solltest du nur dann tun, wenn dein Anliegen alle betrifft und so wichtig ist, dass es auch alle mitbekommen sollten."
     title: "Wirklich E-Mail-Benachrichtigung versenden?"
   go: "Zum Forum"
-
+  restore:
+    really: "Willst du folgenden Beitrag wirklich wiederherstellen?" 
+    hidden_by: "Ausgeblendet von"
+    reason: "Begründung: \"{reason}\""
+    title: "Beitrag wiederherstellen"
 chat:
   open_chat: "Nachricht schreiben"
   new_message: "Neue Nachricht" #also Mailbox.js
@@ -2810,6 +2821,8 @@ region:
   parent: "Elternbezik"
   master: "Masterbezirk"
   mailbox: "Mailbox-Name"
+  allow_hiding_in_forum: "Moderator:innen die Löschung aller Forenbeiträge erlauben"
+
 blog:
   read: "weiterlesen"
   bread: "Blog"
@@ -3505,6 +3518,8 @@ thread:
     lock: "Thema schließen"
     unlock: "Thema öffnen"
     priority: "Anzeigepriorität anpassen"
+    showHidden: "Ausgeblendete Posts anzeigen"
+    hideHidden: "Ausgeblendete nicht anzeigen"
   rename:
     edit_description: "Titel bearbeiten"
     description_modal_text: "Gib einen neuen Titel für diesen Beitrag ein:"
@@ -3520,6 +3535,7 @@ thread:
     options:
       copy_source: "Quelltext kopieren"
       copy_direct_link: "Direktlink kopieren"
+      restore: "Wiederherstellen"
     copy_source_success: "Quelltext kopiert!"
     copy_direct_link_success: "Direktlink kopiert!"
     linked_post: "Verlinkter Post"
@@ -3625,6 +3641,18 @@ help:
     profileCommitmentsStat:
       title: "Engagementstatistik"
       md: ist sichtbar ab der Rolle des Betriebsverantwortlichen. Sie wird eingeschränkt auf gemeinsamen Stammbezirk oder gemeinsame Betriebe.
+    moderatorForumHide:
+      title:  Ausblenden in Foren durch Moderator:innen
+      md: |
+        ###### Wer ist Moderator:in?
+        Die Moderator:innen einer Gruppe bzw. eines Bezirks sind üblicherweise die Administrator:innen bzw. BOTs. Sollte es in einem Bezirk eine GOALS-AG *Moderation* geben, kommt den Administrator:innen dieser Gruppe die Rolle der Moderator:innen zu.
+        ---
+        ###### Ausblenden in Foren
+        Wenn diese Option aktiviert ist, können die Moderator:innen alle Posts im Forum ausblenden, nicht nur ihre eigenen. Dazu müssen sie eine Begründung angeben, warum sie einen Post bzw. ganzen Thread ausblenden möchten. Danach bleibt ein Post für 3 weitere Monate für die Moderator:innen zugänglich und kann in dieser Zeit auch wiederhergestellt werden. Andere Nutzer (ohne Orgarechte) haben keinen Zuriff mehr darauf. Nach diesen 3 Monaten kann ein ausgeblendeter Post nicht mehr wiederhergestellt werden und wird endgültig aus der Datenbank gelöscht.
+        ---
+        ###### Wo kann diese Option genutzt werden?
+        In lokalen Meldegruppen und Schiedsstellen (GOALS AGs) diese Funktion aus Datenschutzgründen notwendig.
+        Andere Arbeitsgruppen können sich mit einer internen Abstimmung für die Berechtigung der Admins ausspechen, Posts ausblenden zu können, und einen Link zur erfolgreichen Abstimmung an ags.bezirke@foodsharing.network senden. Für lokale Bezirke ist diese Option nicht vorgesehen.
     reportReasons:
       title: Meldungsformular
       md: |

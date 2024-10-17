@@ -4,10 +4,12 @@ namespace Foodsharing\Permissions;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\ThreadStatus;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\ForumGateway;
+use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 class ForumPermissions
@@ -20,6 +22,7 @@ class ForumPermissions
         ForumGateway $forumGateway,
         Session $session,
         GroupFunctionGateway $groupFunctionGateway,
+        private readonly RegionGateway $regionGateway,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
         $this->forumGateway = $forumGateway;
@@ -108,6 +111,30 @@ class ForumPermissions
         }
 
         return false;
+    }
+
+    public function mayHidePosts(int $threadId): bool
+    {
+        if (!$this->mayModerate($threadId)) {
+            return false;
+        }
+        $regionId = $this->forumGateway->getForumsForThread($threadId)[0]['forumId'];
+
+        return boolval($this->regionGateway->getRegionOption($regionId, RegionOptionType::ALLOW_HIDING_IN_FORUM));
+    }
+
+    public function mayHidePost(int $postId): bool
+    {
+        $threadId = $this->forumGateway->getThreadForPost($postId);
+
+        return $this->mayHidePosts($threadId);
+    }
+
+    public function mayRestorePost(int $postId): bool
+    {
+        $threadId = $this->forumGateway->getThreadForPost($postId);
+
+        return $this->mayModerate($threadId);
     }
 
     public function mayRename(int $threadId): bool

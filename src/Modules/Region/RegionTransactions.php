@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Region;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
@@ -115,6 +116,7 @@ class RegionTransactions
         if ($mailboxId = $data['mailbox_id']) {
             $region->mailbox = $this->mailboxGateway->getMailboxname($mailboxId);
         }
+        $region->allowHidingInForum = boolval($this->regionGateway->getRegionOption($region->id, RegionOptionType::ALLOW_HIDING_IN_FORUM));
 
         return $region;
     }
@@ -138,6 +140,7 @@ class RegionTransactions
         if ($region->workgroupFunction) {
             $this->groupFunctionGateway->addRegionFunction($region->id, $region->parentId, $region->workgroupFunction);
         }
+        $this->regionGateway->setRegionOption($region->id, RegionOptionType::ALLOW_HIDING_IN_FORUM, strval(intval($region->allowHidingInForum)));
     }
 
     public function addRegion(RegionForAdministration $region): int
@@ -150,6 +153,9 @@ class RegionTransactions
         $regionId = $this->regionGateway->addRegion($region);
         $this->mailboxGateway->setRegionMailbox($region);
         $this->regionGateway->setRegionAdmins($region->id, $region->adminIds);
+        if ($region->allowHidingInForum) {
+            $this->regionGateway->setRegionOption($region->id, RegionOptionType::ALLOW_HIDING_IN_FORUM, '1');
+        }
 
         return $regionId;
     }

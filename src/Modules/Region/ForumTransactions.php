@@ -13,6 +13,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Region\Exceptions\NoVisiblePostException;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\RestApi\Models\Notifications\Thread;
 use Foodsharing\Utility\EmailHelper;
@@ -68,8 +69,33 @@ class ForumTransactions
     {
         $threadId = $this->forumGateway->getThreadForPost($postId);
         $this->bellTransactions->removeGroupedBellEvent(...$this->getGroupedBellEventData($threadId, $postId, $authorId));
-
         $this->forumGateway->deletePost($postId);
+        try {
+            $this->forumGateway->updateLastPostId($threadId);
+        } catch (NoVisiblePostException $e) {
+            $posts = $this->forumGateway->listPosts($threadId);
+            if (count($posts)) {
+                $this->forumGateway->setLastPostId($threadId, end($posts)['id']);
+
+                // TODO for future MR:
+                // Mark whole thread as hidden
+                return;
+            }
+            $this->forumGateway->deleteThread($threadId);
+        }
+    }
+
+    public function hidePost(int $postId, int $moderatorId, string $reason): void
+    {
+        $threadId = $this->forumGateway->getThreadIdForPost($postId);
+        $this->bellTransactions->removeGroupedBellEvent(...$this->getGroupedBellEventData($threadId, $postId, $moderatorId));
+        $this->forumGateway->hidePost($postId, $moderatorId, $reason);
+        try {
+            $this->forumGateway->updateLastPostId($threadId);
+        } catch (NoVisiblePostException $e) {
+            // TODO for future MR:
+            // Mark whole thread as hidden.
+        }
     }
 
     private function getGroupedBellEventData(int $threadId, int $postId, int $authorId)
@@ -251,6 +277,17 @@ class ForumTransactions
                 $this->forumFollowerGateway->unfollowThreadByEmail($userId, $threadId);
             }
         }
+    }
+
+    public function restorePost(int $postId): bool
+    {
+        $deleted = $this->forumGateway->restorePost($postId);
+        if ($deleted) {
+            $threadId = $this->forumGateway->getThreadIdForPost($postId);
+            $this->forumGateway->updateLastPostId($threadId);
+        }
+
+        return $deleted;
     }
 
     public function sendNotificationsToMentionedUsers(int $threadId, ?int $postId, string $postBody): void

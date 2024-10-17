@@ -2,9 +2,11 @@
 
 namespace Foodsharing\Modules\Region;
 
+use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Region\ThreadStatus;
+use Foodsharing\Modules\Region\Exceptions\NoVisiblePostException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ForumGateway extends BaseGateway
@@ -219,26 +221,23 @@ class ForumGateway extends BaseGateway
 
     private function getPostSelect()
     {
-        return '
-			SELECT 		fs.id AS author_id,
-						IF(fs.deleted_at IS NOT NULL,"' . $this->translator->trans('forum.deleted_user') . '", fs.name) AS author_name,
-						fs.photo AS author_photo,
-						fs.sleep_status AS author_sleep_status,
-						fs.sleep_from AS author_sleep_from,
-						fs.sleep_until AS author_sleep_until,
-						p.body AS body,
-						p.`time`,
-						p.id,
-						UNIX_TIMESTAMP(p.`time`) AS time_ts,
-						b.`type` AS region_type
-
-			FROM 		fs_theme_post p
-			INNER JOIN   fs_foodsaver fs
-				ON 		p.foodsaver_id = fs.id
-			LEFT JOIN   fs_bezirk_has_theme ht
-				ON 		ht.theme_id = p.theme_id
-			LEFT JOIN	fs_bezirk b
-				ON		b.id = ht.bezirk_id';
+        return "SELECT
+                fs.id AS author_id,
+                IF(fs.deleted_at IS NOT NULL,\"{$this->translator->trans('forum.deleted_user')}\", fs.name) AS author_name,
+                fs.photo AS author_photo,
+                fs.sleep_status AS author_sleep_status,
+                fs.sleep_from AS author_sleep_from,
+                fs.sleep_until AS author_sleep_until,
+                p.body AS body,
+                p.`time`,
+                p.id,
+                UNIX_TIMESTAMP(p.`time`) AS time_ts,
+                p.hidden_reason,
+                b.`type` AS region_type
+			FROM fs_theme_post p
+			INNER JOIN fs_foodsaver fs ON p.foodsaver_id = fs.id
+			LEFT JOIN fs_bezirk_has_theme ht ON ht.theme_id = p.theme_id
+			LEFT JOIN fs_bezirk b ON b.id = ht.bezirk_id";
     }
 
     /**
@@ -316,9 +315,8 @@ class ForumGateway extends BaseGateway
     {
         $posts = $this->db->fetchAll(
             $this->getPostSelect() . '
-			WHERE 		p.theme_id = :threadId
-
-			ORDER BY 	p.`time`
+			WHERE p.theme_id = :threadId
+			ORDER BY p.`time`
 		', ['threadId' => $threadId]);
 
         if (empty($posts)) {
@@ -348,19 +346,64 @@ class ForumGateway extends BaseGateway
 
     public function deletePost($id)
     {
-        $thread_id = $this->db->fetchValue('SELECT `theme_id` FROM `fs_theme_post` WHERE `id` = :id', ['id' => $id]);
         $this->db->delete('fs_theme_post', ['id' => $id]);
+    }
 
-        if ($last_post_id = $this->db->fetchValue(
-            'SELECT MAX(`id`) FROM `fs_theme_post` WHERE `theme_id` = :theme_id',
-            ['theme_id' => $thread_id]
-        )) {
-            $this->db->update('fs_theme', ['last_post_id' => $last_post_id], ['id' => $thread_id]);
+    public function hidePost(int $postId, int $moderatorId, string $reason): void
+    {
+        $this->db->update('fs_theme_post', [
+            'hidden_time' => $this->db->now(),
+            'hidden_by' => $moderatorId,
+            'hidden_reason' => $reason,
+        ], ['id' => $postId]);
+    }
+
+    /**
+     * Udates the saved last post for given thread id.
+     * Use setLastPostId instead if the new last_post_id is known.
+     * @throws NoVisiblePostException
+     */
+    public function updateLastPostId(int $threadId): void
+    {
+        $lastPostId = $this->db->fetchValue('SELECT MAX(`id`)
+            FROM fs_theme_post p
+            WHERE theme_id = ?
+            AND p.hidden_time IS NULL',
+            [$threadId]);
+        if ($lastPostId) {
+            $this->setLastPostId($threadId, $lastPostId);
         } else {
-            $this->db->delete('fs_theme', ['id' => $thread_id]);
+            throw new NoVisiblePostException();
         }
+    }
 
-        return true;
+    public function setLastPostId(int $threadId, int $postId): void
+    {
+        $this->db->update('fs_theme', ['last_post_id' => $postId], ['id' => $threadId]);
+    }
+
+    public function getThreadIdForPost(int $postId): int
+    {
+        return $this->db->fetchValueById('fs_theme_post', 'theme_id', $postId);
+    }
+
+    public function restorePost(int $postId): bool
+    {
+        return $this->db->update('fs_theme_post', [
+            'hidden_time' => null,
+            'hidden_by' => null,
+            'hidden_reason' => null,
+        ], ['id' => $postId]) > 0;
+    }
+
+    public function getHiddenPostDetails(int $postId)
+    {
+        return $this->db->fetch('SELECT
+                p.hidden_by AS moderatorId, p.hidden_time AS time, foodsaver.name AS moderatorName
+            FROM fs_theme_post p
+            JOIN fs_foodsaver foodsaver ON foodsaver.id = p.hidden_by
+            WHERE p.id = ?
+            LIMIT 1', [$postId]);
     }
 
     public function getRegionForPost($post_id)
