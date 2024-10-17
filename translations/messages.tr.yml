@@ -275,6 +275,10 @@ quiz:
     PAUSE: Ders arası molası ({name})
     PAUSE_ELAPSED: '{name} - Şimdi tekrar deneyebilirsiniz!'
     DISQUALIFIED: '{name} - Maalesef diskalifiye edildiniz.'
+    start: '{name} - Testi hemen yapın!'
+    continue: '{name} - Teste devam edin!'
+    pause: Çalışma molası ({name})
+    disqualified: '{name} - Maalesef diskalifiye edildiniz.'
   infomodal:
     title: "{questions}'den {index}. soru"
   comment:
@@ -427,6 +431,30 @@ quiz:
   confirmComment: Bu testin adminlerine notunuz gönderilsin mi?
   test_results: Test deneyinin sonuçları
   test: Testi test et
+  stateBasedInfo:
+    neverTried: Bu Testi daha önce hiç yapmadın. Sorulara hazırlanmak için listelenen
+      tüm Wiki makalelerini dikkatle okumaya zaman ayırın.
+    noWaitAfter: İlgili wiki makalelerine göz atın ve tekrar deneyin.
+    waitAfter: Bir sonraki denemenizde başarısız olursanız, çalışmaya {waitTimeAfterFailure}
+      gün ara vermek zorunda kalacaksınız. Testi geçebilmeniz için ilgili wiki makalelerine
+      göz atmayı unutmayın.
+    pauseElapsed: Çalışma molanız bitti. Bu nedenle artık teste tekrar katılabilirsiniz.
+      Umarız bu zamanı içeriğe daha aşina olmak için kullanmışsınızdır.
+    disqualifiedAfter: Bu testi geçmek için yalnızca son bir deneme hakkınız var!
+      Şimdi başarısız olursanız, bu sınavdan kalıcı olarak diskalifiye edileceksiniz.
+      Lütfen yalnızca wiki içeriğini ayrıntılı olarak incelediyseniz katılın.
+    running: Testi zaten başlattınız ve şu ana kadar {questionCount} sorudan {questionsAnswered}
+      tanesini yanıtladınız.
+    passed: Bu Testi geçtiniz.
+    failed: Ne yazık ki, en son denediğinizde bu Testi geçemediniz.
+    pause: Bu testte birden çok kez başarısız oldunuz. Güvenilirlik, kuralların sıkı
+      bir şekilde kavranması ve profesyonel görünüm, foodsharing olmazsa olmazıdır.
+      Ne yazık ki, bu noktada cevaplarınızla bunu aktarmıyorsunuz. Bu nedenle, testi
+      tekrar geçmeyi denemeden önce çalışmanıza ara verilecektir. Çalışma molanız
+      {currentWaitTime} gün içinde bitiyor.
+    disqualified: Ne yazık ki, çok fazla başarısız olduğunuz için bu testten diskalifiye
+      edildiniz.
+    passedBefore: Bu Testi zaten geçtiniz.
 answers: Hangi cevaplar doğru?
 maxfp: Geçilmesi gerekilen maksimum hata puanları
 questcount: Sınavda kaç soru sorulmalıdır?
