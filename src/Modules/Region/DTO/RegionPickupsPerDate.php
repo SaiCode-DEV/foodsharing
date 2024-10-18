@@ -28,7 +28,7 @@ class RegionPickupsPerDate
 
     #[OA\Property(description: 'Number of users who were involved in the pickups', type: 'integer')]
     #[Type('integer')]
-    public int $numberOffoodsavers;
+    public int $numberOfFoodsavers;
 
     public static function createFromArray(array $data): RegionPickupsPerDate
     {
@@ -37,7 +37,7 @@ class RegionPickupsPerDate
         $pickups->numberOfStores = $data['NumberOfStores'];
         $pickups->numberOfPickups = $data['NumberOfAppointments'];
         $pickups->numberOfSlots = $data['NumberOfSlots'];
-        $pickups->numberOffoodsavers = $data['NumberOfFoodsavers'];
+        $pickups->numberOfFoodsavers = $data['NumberOfFoodsavers'];
 
         return $pickups;
     }
