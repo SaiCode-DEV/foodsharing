@@ -1100,8 +1100,9 @@ group:
       en la descripción general del distrito.'
     duplicate_welcome_team: '¡Bienvenido equipo ya creado! Sólo puede haber un equipo
       de saludo por distrito.'
-    tooltip_function_10: 'L@s administrador@s de este grupo de trabajo pueden activar
-      contribuciones en foros moderados.'
+    tooltip_function_10: 'L@s administrador@s de este grupo de trabajo pueden desbloquear
+      mensajes en foros moderados. Si la opción está activada para el distrito, también
+      pueden ocultar mensajes en el foro.'
     voting: 'Votación'
     duplicate_stores_team: '¡Equipo de coordinación de la cooperaciones ya creado!
       Sólo puede haber un equipo de este tipo por distrito.'
@@ -2715,6 +2716,7 @@ forum:
       subscribed: suscrito
       subscribe: Suscribir
     bottom: Visibilidad reducida
+    all_hidden: Se han ocultado todos los mensajes de este hilo.
   new_thread: 'Componer un nuevo hilo'
   follow:
     bell: 'por campana'
@@ -2733,6 +2735,15 @@ forum:
     body: 'Mensaje'
     moderator_info: Este tema está cerrado. Como moderador de este foro, aún puede
       escribir un mensaje. ¡Otros usuarios no pueden responder!
+    hide: Ocultar contribución
+    hideReasonPlaceholder: Escriba aquí su motivo...
+    sureHide: ¿De verdad quieres ocultar este tema?
+    hiddenPost: Contribución oculta ({reason})
+    giveHideReason: Indique por qué desea ocultar este mensaje.
+    hideInfo: Los mensajes ocultos ya no se muestran. Los moderadores pueden restablecerlos
+      en un plazo de 3 meses antes de eliminarlos definitivamente. Durante este tiempo,
+      los usuarios del foro pueden ver por qué se ocultó el mensaje, y los moderadores
+      también pueden ver por quién.
   hold_back_for_moderation: 'El tema ha sido guardado y se publicará tan pronto como
     un(a) embajador(a) o moderador(a) lo confirme.'
   no_threads: 'Aún no hay hilos'
@@ -2746,6 +2757,11 @@ forum:
       a todos los miembros de este grupo o distrito? Solo debes hacerlo si tu petición
       afecta a todos y es tan importante que todos deberían saberlo.
   go: al foro
+  restore:
+    hidden_by: Oculto por
+    reason: 'Motivo: "{reason}"'
+    title: Restaurar la contribución
+    really: ¿De verdad quieres restaurar la siguiente publicación?
 buddy:
   request_sent: 'Solicitud enviada.'
   request_accepted: 'Ahora son amig@s.'
@@ -3485,6 +3501,8 @@ region:
   select: Seleccione el distrito para editar
   name: Nombre
   parent: Referencia a los padres
+  allow_hiding_in_forum: Permitir a los moderadores eliminar todos los mensajes del
+    foro
 password:
   insertmail: 'Ingrese su correo electrónico para restablecer su contraseña.'
   reset: '¿Has olvidado tu contraseña?'
@@ -4261,6 +4279,8 @@ thread:
     lock: Cerrar hilo
     unpin: Desanclar el hilo
     priority: Establecer la prioridad de visualización
+    showHidden: Mostrar mensajes ocultos
+    hideHidden: No mostrar lo ocultado
   rename:
     description_modal_text: 'Ingrese un nuevo título para este hilo:'
     placeholder: Título
@@ -4270,6 +4290,7 @@ thread:
     options:
       copy_source: Copiar código fuente
       copy_direct_link: Copiar enlace directo
+      restore: Restaurar
     copy_source_success: ¡Código fuente copiado!
     copy_direct_link_success: ¡Enlace directo copiado!
     linked_post: Publicación vinculada
@@ -4372,6 +4393,23 @@ help:
         la vista previa.\nSi no ingresa un ícono, se usará automáticamente el ícono
         de logro predeterminado \"*etiqueta*\"\n"
       title: Iconos de los logros
+    moderatorForumHide:
+      title: Oculto en los foros por los moderadores
+      md: "###### ¿Quién es un moderador?\nLos moderadores de un grupo o distrito
+        son normalmente los administradores o BOTs. Si hay un GOALS-AG *Moderación*
+        en un distrito, los administradores de este grupo tienen el papel de moderadores.\n
+        ---\n###### Ocultar en los foros\nSi esta opción está activada, los moderadores
+        pueden ocultar todos los mensajes del foro. Deben dar una razón por la que
+        quieren ocultar un mensaje o un tema. Los moderadores podrán seguir accediendo
+        a los mensajes durante 3 meses más, durante el cual también podrán recuperarlos.
+        Los demás usuarios (sin derechos de organización) ya no tienen acceso a él.
+        Transcurridos estos 3 meses, los mensajes ocultos ya no podrán restaurarse
+        y se borrarán\n---\n###### ¿Dónde se puede usar esta opción?\nEn los grupos
+        de notificación locales y organismos de arbitraje (GOALS AGs) esta función
+        es necesaria por razones de privacidad.\nOtros grupos de trabajo pueden votar
+        por los permisos de los administradores para ocultar publicaciones y enviar
+        un enlace a ags.distrito@foodsharing.network. Esta opción no está prevista
+        para los distritos locales.\n"
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
