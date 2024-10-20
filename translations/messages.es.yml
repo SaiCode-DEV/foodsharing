@@ -894,8 +894,8 @@ startpage:
   beresponsible: 'Sé responsable'
   bedependable: 'Ser confiable'
   welcome_text: 'Bienvenido a foodsharing'
-  proposals: 'Queremos desarrollarnos y mejorar constantemente. Por eso te necesitamos
-    con tus grandes ideas y consejos. Envíelos a <a href="mailto:info@foodsharing.de">info@foodsharing.de</a>'
+  proposals: 'Queremos seguir desarrollándonos y mejorando. Para ello, te necesitamos
+    con un montón de buenas ideas y consejos. Envíelos a [info@foodsharing.de](mailto:info@foodsharing.de)'
   private:
     text: 'Declara la guerra al desperdicio de alimentos en tu hogar. Te informaremos
       sobre cómo en ferias y eventos.'
@@ -956,12 +956,21 @@ startpage:
     responsable y estamos felices de que se una a nosotros.'
   together: 'Junto con foodsharing, puedes trabajar para garantizar que los alimentos
     desechados e invendibles tengan un uso sensato en lugar de desecharse. Puedes
-    encontrar más información sobre esto <a href="/fuer-unternehmen">aquí</a>.'
+    encontrar más información [aquí] (/para empresas).'
   dependability: 'En muchos lugares existen estaciones de distribución donde se pueden
     compartir alimentos. Podéis reuniros allí o en otros lugares neutrales para compartir.
     Si deseas dar o recibir comida, por favor sé confiable y puntual y no decepciones
     a nadie.'
   this_is_how_it_works: 'Así es como funciona'
+  followrules_title: Sigue las normas y la guía para compartir alimentos
+  followrules: "Señalamos expresamente que, por motivos legales, sólo permitimos ofrecer
+    y compartir determinados alimentos y otros bienes\nsólo en determinadas condiciones
+    por motivos legales. Esto se aplica en particular a los alimentos perecederos
+    como el pescado crudo, la carne cruda, los platos de huevos crudos y los alimentos
+    preparados. En general, hacemos todo lo posible para garantizar que los alimentos
+    sigan siendo comestibles. Encontrará más información en las [normas de higiene
+    para compartir alimentos](https://wiki.foodsharing.de/Hygieneregeln). También
+    encontrará información en la [guía](https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel).\n"
 error:
   missing_user_avatar:
     link: 'Sube tu foto de perfil ahora'
