@@ -7,19 +7,15 @@ use Foodsharing\Modules\Mails\MailsGateway;
 
 class BounceProcessing
 {
-    private $bounceMailHandler;
+    private int $numBounces = 0;
 
-    private $mailsGateway;
-
-    private $numBounces = 0;
-
-    public function __construct(BounceMailHandler $bounceMailHandler, MailsGateway $mailsGateway)
-    {
-        $this->bounceMailHandler = $bounceMailHandler;
-        $this->mailsGateway = $mailsGateway;
+    public function __construct(
+        private readonly BounceMailHandler $bounceMailHandler,
+        private readonly MailsGateway $mailsGateway
+    ) {
     }
 
-    public function process()
+    public function process(): void
     {
         $this->bounceMailHandler->actionFunction = $this->handleBounce(...);
         $this->bounceMailHandler->openMailbox();
@@ -28,12 +24,10 @@ class BounceProcessing
         imap_errors();
     }
 
-    public function getNumberOfProcessedBounces()
-    {
-        return $this->numBounces;
-    }
-
-    public function handleBounce($msgnum, $bounceType, $email, $subject, $xheader, $remove, $ruleNo = false, $ruleCat = false, $totalFetched = 0, $body = '', $headerFull = '', $bodyFull = '')
+    /**
+     * @noinspection PhpUnusedParameterInspection this is a callback, see {@link BounceMailHandler::$actionFunction}
+     */
+    public function handleBounce($msgnum, $bounceType, $email, $subject, $xheader, $remove, $ruleNo = false, $ruleCat = false, $totalFetched = 0, $body = '', $headerFull = '', $bodyFull = ''): void
     {
         if ($bounceType !== false) {
             $this->mailsGateway->addBounceForMail($email, $ruleCat, new \DateTime());

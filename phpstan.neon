@@ -22,10 +22,6 @@ parameters:
       paths:
         - src/Lib/Db/Mem.php
     -
-      message: '#Comparison operation ">" between 1|2 and 0 is always true#'
-      paths:
-        - src/Modules/Mails/MailsControl.php
-    -
       message: '#Property [a-zA-Z0-9\\_]+::\$[a-zA-Z]+ is never read, only written.#'
       paths:
         - src/Modules/Dashboard/DashboardControl.php

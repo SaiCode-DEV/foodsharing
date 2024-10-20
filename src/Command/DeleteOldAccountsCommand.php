@@ -2,7 +2,7 @@
 
 namespace Foodsharing\Command;
 
-use Foodsharing\Modules\Maintenance\MaintenanceControl;
+use Foodsharing\Modules\Maintenance\MaintenanceService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class DeleteOldAccountsCommand extends Command
 {
     public function __construct(
-        private readonly MaintenanceControl $maintenanceControl,
+        private readonly MaintenanceService $maintenanceControl,
     ) {
         parent::__construct();
     }

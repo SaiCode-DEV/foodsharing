@@ -2,7 +2,7 @@
 
 namespace Foodsharing\Command;
 
-use Foodsharing\Modules\Maintenance\MaintenanceControl;
+use Foodsharing\Modules\Maintenance\MaintenanceService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -12,12 +12,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand('foodsharing:deleteOldIMAPMails', 'Deletes old mails from IMAP folders.')]
 class DeleteIMAPMailsCommand extends Command
 {
-    private readonly MaintenanceControl $maintenanceControl;
-
-    public function __construct(MaintenanceControl $maintenanceControl)
-    {
-        $this->maintenanceControl = $maintenanceControl;
-
+    public function __construct(
+        private readonly MaintenanceService $maintenanceControl
+    ) {
         parent::__construct();
     }
 

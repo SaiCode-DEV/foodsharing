@@ -12,13 +12,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand('migrations:2018-12-bells', 'Recreates bells that are handled differently since the 2018-12 release')]
 class MigrateBells201812Command extends Command
 {
-    private $database;
-    private $pickupGateway;
-
-    public function __construct(Database $database, PickupGateway $pickupGateway)
-    {
-        $this->database = $database;
-        $this->pickupGateway = $pickupGateway;
+    public function __construct(
+        private readonly Database $database,
+        private readonly PickupGateway $pickupGateway
+    ) {
         parent::__construct();
     }
 

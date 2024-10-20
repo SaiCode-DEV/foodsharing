@@ -88,6 +88,7 @@
 - Remove all usages of deprecated columns email_pass and email from fs_bezirk #1853 !3710 @AntonBallmaier
 - Port the logout and relogin controllers to Symfony !3682 @alex.simm
 - Refactored join info page to vue !3737 @chriswalg
+- Clean up code for maintenance and background tasks !3735 @\_fridtjof_
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm

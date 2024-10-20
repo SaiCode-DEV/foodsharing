@@ -12,21 +12,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand('foodsharing:fixStoreChatNames', 'Updates all store conversation names to the current store names.')]
 class FixStoreChatNamesCommand extends Command
 {
-    /**
-     * @var StoreGateway
-     */
-    private $storeGateway;
-
-    /**
-     * @var StoreTransactions
-     */
-    private $storeTransactions;
-
-    public function __construct(StoreGateway $storeGateway, StoreTransactions $storeTransactions)
-    {
-        $this->storeGateway = $storeGateway;
-        $this->storeTransactions = $storeTransactions;
-
+    public function __construct(
+        private readonly StoreGateway $storeGateway,
+        private readonly StoreTransactions $storeTransactions
+    ) {
         parent::__construct();
     }
 

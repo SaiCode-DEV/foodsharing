@@ -11,11 +11,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand('maintenance:recreateGroupStructure')]
 class RecreateGroupStructureCommand extends Command
 {
-    protected GroupGateway $groupGateway;
-
-    public function __construct(GroupGateway $groupGateway)
-    {
-        $this->groupGateway = $groupGateway;
+    public function __construct(
+        private readonly GroupGateway $groupGateway
+    ) {
         parent::__construct();
     }
 

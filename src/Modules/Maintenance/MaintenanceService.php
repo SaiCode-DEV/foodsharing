@@ -4,7 +4,6 @@ namespace Foodsharing\Modules\Maintenance;
 
 use Carbon\Carbon;
 use Foodsharing\Modules\Bell\BellUpdateTrigger;
-use Foodsharing\Modules\Console\ConsoleControl;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -12,9 +11,10 @@ use Foodsharing\Modules\Group\GroupGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreMaintenanceTransactions;
 use Foodsharing\Modules\Uploads\UploadsTransactions;
+use Foodsharing\Utility\ConsoleHelper;
 use Foodsharing\Utility\IMAPFolderCleanupHelper;
 
-class MaintenanceControl extends ConsoleControl
+class MaintenanceService
 {
     final public const DELETE_DELAY_DAYS = 30;
 
@@ -28,15 +28,9 @@ class MaintenanceControl extends ConsoleControl
         private readonly UploadsTransactions $uploadsTransactions,
         private readonly IMAPFolderCleanupHelper $imapFolderCleanupHelper,
     ) {
-        parent::__construct();
     }
 
-    public function warnings()
-    {
-        $this->storeTriggerPickupWarnings();
-    }
-
-    public function daily()
+    public function daily(): void
     {
         /*
          * delete users that have been inactive for > 5 years
@@ -107,20 +101,20 @@ class MaintenanceControl extends ConsoleControl
         }
     }
 
-    public function deleteInactiveUsers(bool $dryRun = false, int $maximum = MAX_DELETE_OLD_ACCOUNTS_PER_DAY)
+    public function deleteInactiveUsers(bool $dryRun = false, int $maximum = MAX_DELETE_OLD_ACCOUNTS_PER_DAY): void
     {
         if ($maximum < 0) {
-            self::error('The maximal number of accounts must be positive');
+            ConsoleHelper::error('The maximal number of accounts must be positive');
 
             return;
         }
 
         $arrayAccountsNotDeleted = [];
         $accountsDeleted = 0;
-        self::info('deleting users inactive > 5 years');
+        ConsoleHelper::info('deleting users inactive > 5 years');
         $inactiveUsers = $this->foodsaverGateway->listInactiveUsers();
         if ($inactiveUsers) {
-            self::info('...checking ' . count($inactiveUsers) . ' accounts');
+            ConsoleHelper::info('...checking ' . count($inactiveUsers) . ' accounts');
             foreach ($inactiveUsers as $fs) {
                 if ($this->storeGateway->listStoreIds($fs)) {
                     $arrayAccountsNotDeleted[] = $fs;
@@ -134,71 +128,81 @@ class MaintenanceControl extends ConsoleControl
                     break;
                 }
             }
-            self::info(count($arrayAccountsNotDeleted) . ' users where not deleted due to store memberships');
-            self::info('Number of Accounts deleted: ' . $accountsDeleted);
+            ConsoleHelper::info(count($arrayAccountsNotDeleted) . ' users where not deleted due to store memberships');
+            ConsoleHelper::info('Number of Accounts deleted: ' . $accountsDeleted);
         } else {
-            self::info('no inactive users found');
+            ConsoleHelper::info('no inactive users found');
         }
     }
 
-    public function rebuildRegionClosure()
+    public function deleteImapFolderMails($deleteDelayDays = self::DELETE_DELAY_DAYS): void
     {
-        self::info('rebuilding region closure...');
-        $this->groupGateway->recreateClosure();
-        self::success('OK');
+        ConsoleHelper::info('cleaning up IMAP folders...');
+        foreach (IMAP as $imap) {
+            $deleted = $this->imapFolderCleanupHelper->cleanupFolder($imap['host'], $imap['user'], $imap['password'], IMAP_FAILED_BOX, $deleteDelayDays);
+            ConsoleHelper::info($deleted . ' E-Mails deleted from ' . $imap['host'] . ' ' . IMAP_FAILED_BOX);
+        }
+        ConsoleHelper::success('All folders processed');
     }
 
-    private function updateSpecialGroupMemberships()
+    private function rebuildRegionClosure(): void
     {
-        self::info('updating HH bieb austausch');
+        ConsoleHelper::info('rebuilding region closure...');
+        $this->groupGateway->recreateClosure();
+        ConsoleHelper::success('OK');
+    }
+
+    private function updateSpecialGroupMemberships(): void
+    {
+        ConsoleHelper::info('updating HH bieb austausch');
         $hh_biebs = $this->storeGateway->getStoreManagersOf(31);
         $hh_biebs[] = 3166;   // Gerard Roscoe
         $counts = $this->foodsaverGateway->updateGroupMembers(826, $hh_biebs, true);
-        self::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
+        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
 
-        self::info('updating Europe Bot group');
+        ConsoleHelper::info('updating Europe Bot group');
         $bots = $this->foodsaverGateway->getRegionAmbassadorIds(RegionIDs::EUROPE);
         $counts = $this->foodsaverGateway->updateGroupMembers(RegionIDs::EUROPE_BOT_GROUP, $bots, true);
-        self::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
+        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
 
-        self::info('updating berlin bieb austausch');
+        ConsoleHelper::info('updating berlin bieb austausch');
         $berlin_biebs = $this->storeGateway->getStoreManagersOf(47);
         $counts = $this->foodsaverGateway->updateGroupMembers(1057, $berlin_biebs, true);
-        self::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
+        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
 
-        self::info('updating Switzerland BOT group');
+        ConsoleHelper::info('updating Switzerland BOT group');
         $chBots = $this->foodsaverGateway->getRegionAmbassadorIds(RegionIDs::SWITZERLAND);
         $counts = $this->foodsaverGateway->updateGroupMembers(RegionIDs::SWITZERLAND_BOT_GROUP, $chBots, true);
-        self::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
+        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
 
-        self::info('updating Austria BOT group');
+        ConsoleHelper::info('updating Austria BOT group');
         $aBots = $this->foodsaverGateway->getRegionAmbassadorIds(RegionIDs::AUSTRIA);
         $counts = $this->foodsaverGateway->updateGroupMembers(RegionIDs::AUSTRIA_BOT_GROUP, $aBots, true);
-        self::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
+        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
 
-        self::info('updating Zürich BIEB group');
+        ConsoleHelper::info('updating Zürich BIEB group');
         $zuerich_biebs = $this->storeGateway->getStoreManagersOf(108);
         $counts = $this->foodsaverGateway->updateGroupMembers(1313, $zuerich_biebs, true);
-        self::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
+        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
 
-        self::info('updating Wien BIEB group');
+        ConsoleHelper::info('updating Wien BIEB group');
         $wien_biebs = $this->storeGateway->getStoreManagersOf(13);
         $counts = $this->foodsaverGateway->updateGroupMembers(707, $wien_biebs, true);
-        self::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
+        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
 
-        self::info('updating Graz BIEB group');
+        ConsoleHelper::info('updating Graz BIEB group');
         $graz_biebs = $this->storeGateway->getStoreManagersOf(149);
         $counts = $this->foodsaverGateway->updateGroupMembers(1655, $graz_biebs, true);
-        self::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
+        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
 
         /*
                 self::info('updating Welcome Team Admin group');
                 $this->goalsAdminCommunicationGroups(WorkgroupFunction::WELCOME, RegionIDs::WELCOME_TEAM_ADMIN_GROUP);
         */
-        self::info('updating Voting Admin group');
+        ConsoleHelper::info('updating Voting Admin group');
         $this->goalsAdminCommunicationGroups(WorkgroupFunction::VOTING, RegionIDs::VOTING_ADMIN_GROUP);
 
-        self::info('updating Election Admin group');
+        ConsoleHelper::info('updating Election Admin group');
         $this->goalsAdminCommunicationGroups(WorkgroupFunction::ELECTION, RegionIDs::ELECTION_ADMIN_GROUP);
 
         /*		self::info('updating Foodsharepoint Team Admin group');
@@ -225,29 +229,29 @@ class MaintenanceControl extends ConsoleControl
                 self::info('updating Moderation Team Admin group');
                 $this->goalsAdminCommunicationGroups(WorkgroupFunction::MODERATION, RegionIDs::MODERATION_TEAM_ADMIN_GROUP);
         */
-        self::info('updating Board Admin group');
+        ConsoleHelper::info('updating Board Admin group');
         $this->goalsAdminCommunicationGroups(WorkgroupFunction::BOARD, RegionIDs::BOARD_ADMIN_GROUP);
 
-        self::info('updating orga Admin group');
+        ConsoleHelper::info('updating orga Admin group');
         $orga = $this->foodsaverGateway->getOrgaTeamId();
         $counts = $this->foodsaverGateway->updateGroupMembers(RegionIDs::ORGA_COORDINATION_GROUP, array_column($orga, 'id'), true);
-        self::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
+        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
     }
 
-    private function goalsAdminCommunicationGroups(int $workGroupFunction, int $regionIdAdminGroup)
+    private function goalsAdminCommunicationGroups(int $workGroupFunction, int $regionIdAdminGroup): void
     {
         $teamAdmins = $this->foodsaverGateway->getWorkgroupFunctionAdminIds($workGroupFunction);
         $counts = $this->foodsaverGateway->updateGroupMembers($regionIdAdminGroup, $teamAdmins, true);
-        self::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
+        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
     }
 
-    private function deactivateBaskets()
+    private function deactivateBaskets(): void
     {
         $count = $this->maintenanceGateway->deactivateOldBaskets();
-        self::info($count . ' old foodbaskets deactivated');
+        ConsoleHelper::info($count . ' old foodbaskets deactivated');
     }
 
-    private function deleteImages()
+    private function deleteImages(): void
     {
         @unlink('images/.jpg');
         @unlink('images/.png');
@@ -298,7 +302,7 @@ class MaintenanceControl extends ConsoleControl
         }
     }
 
-    private function deleteUnusedImages()
+    private function deleteUnusedImages(): void
     {
         /*
          * Delete all files that were uploaded after release "Laugenbrezel" (when usage types were introduced) and up
@@ -309,63 +313,53 @@ class MaintenanceControl extends ConsoleControl
         $fromDate = Carbon::parse('2024-05-08 00:00:00');
         $toDate = Carbon::now()->subDays(2);
 
-        self::info('deleting uploaded files without usage...');
+        ConsoleHelper::info('deleting uploaded files without usage...');
         $uuids = $this->maintenanceGateway->listUploadsWithoutUsage($fromDate, $toDate);
         foreach ($uuids as $uuid) {
             $this->uploadsTransactions->deleteUploadedFile($uuid);
         }
-        self::success(sizeof($uuids) . ' files deleted');
+        ConsoleHelper::success(sizeof($uuids) . ' files deleted');
     }
 
-    private function masterBezirkUpdate()
+    private function masterBezirkUpdate(): void
     {
-        self::info('master bezirk update');
+        ConsoleHelper::info('master bezirk update');
         $this->maintenanceGateway->masterRegionUpdate();
-        self::success('OK');
+        ConsoleHelper::success('OK');
     }
 
-    public function storeTriggerPickupWarnings()
+    private function storeTriggerPickupWarnings(): void
     {
         try {
             $statistics = $this->storeMaintenanceTransactions->triggerFetchWarningNotification();
-            self::info('send ' . $statistics['count_warned_foodsavers'] . ' warnings...');
+            ConsoleHelper::info('send ' . $statistics['count_warned_foodsavers'] . ' warnings...');
             foreach ($statistics as $key => $stat) {
-                self::info(' - ' . $key . ': ' . $stat);
+                ConsoleHelper::info(' - ' . $key . ': ' . $stat);
             }
-            self::success('OK');
+            ConsoleHelper::success('OK');
         } catch (\Exception $ex) {
-            self::error($ex);
+            ConsoleHelper::error($ex);
         }
     }
 
-    private function deleteOldIpBlocks()
+    private function deleteOldIpBlocks(): void
     {
-        self::info('deleting old blocked IPs...');
+        ConsoleHelper::info('deleting old blocked IPs...');
         $count = $this->maintenanceGateway->deleteOldIpBlocks();
-        self::success($count . ' entries deleted');
+        ConsoleHelper::success($count . ' entries deleted');
     }
 
-    private function cleanOldQuizSessionData()
+    private function cleanOldQuizSessionData(): void
     {
-        self::info('reducing data from finished quiz sessions...');
+        ConsoleHelper::info('reducing data from finished quiz sessions...');
         $count = $this->maintenanceGateway->cleanOldQuizSessionData();
-        self::success($count . ' sessions updated');
+        ConsoleHelper::success($count . ' sessions updated');
     }
 
-    private function deleteTestQuizSessions()
+    private function deleteTestQuizSessions(): void
     {
-        self::info('deleting test quiz sessions...');
+        ConsoleHelper::info('deleting test quiz sessions...');
         $count = $this->maintenanceGateway->deleteTestQuizSessions();
-        self::success($count . ' sessions deleted');
-    }
-
-    public function deleteImapFolderMails($deleteDelayDays = self::DELETE_DELAY_DAYS)
-    {
-        self::info('cleaning up IMAP folders...');
-        foreach (IMAP as $imap) {
-            $deleted = $this->imapFolderCleanupHelper->cleanupFolder($imap['host'], $imap['user'], $imap['password'], IMAP_FAILED_BOX, $deleteDelayDays);
-            self::info($deleted . ' E-Mails deleted from ' . $imap['host'] . ' ' . IMAP_FAILED_BOX);
-        }
-        self::success('All folders processed');
+        ConsoleHelper::success($count . ' sessions deleted');
     }
 }

@@ -3,8 +3,8 @@
 namespace Foodsharing\Modules\Mails;
 
 use Ddeboer\Imap\Server;
-use Foodsharing\Modules\Console\ConsoleControl;
-use Foodsharing\Modules\Core\Database;
+use Foodsharing\Lib\Db\Mem;
+use Foodsharing\Utility\ConsoleHelper;
 use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\RouteHelper;
 use Foodsharing\Utility\Sanitizer;
@@ -15,41 +15,21 @@ use Symfony\Component\Mime\Email;
 
 use function Sentry\captureException;
 
-class MailsControl extends ConsoleControl
+class MailsService
 {
-    private readonly MailsGateway $mailsGateway;
-    private readonly Database $database;
-    private readonly MailerInterface $mailer;
-    private readonly RouteHelper $routeHelper;
-    private readonly EmailHelper $emailHelper;
-    private readonly Sanitizer $sanitizer;
-
-    /*
-     * todo move this to config file as a constant if this becomes a permanent solution
-     * until then we need to be able to configure this rather flexible in here
-     * 45,11 mails/minute = 1330 milli seconds between mails
-     * */
-
     public function __construct(
-        MailsGateway $mailsGateway,
-        Database $database,
-        MailerInterface $mailer,
-        RouteHelper $routeHelper,
-        EmailHelper $emailHelper,
-        Sanitizer $sanitizer
+        private readonly MailsGateway $mailsGateway,
+        private readonly MailerInterface $mailer,
+        private readonly RouteHelper $routeHelper,
+        private readonly EmailHelper $emailHelper,
+        private readonly Sanitizer $sanitizer,
+        private readonly Mem $mem,
     ) {
         error_reporting(E_ALL);
         ini_set('display_errors', '1');
-        $this->mailsGateway = $mailsGateway;
-        $this->database = $database;
-        $this->mailer = $mailer;
-        $this->routeHelper = $routeHelper;
-        $this->emailHelper = $emailHelper;
-        $this->sanitizer = $sanitizer;
-        parent::__construct();
     }
 
-    public function queueWorker()
+    public function queueWorker(): void
     {
         $this->mem->ensureConnected();
         $running = true;
@@ -74,7 +54,7 @@ class MailsControl extends ConsoleControl
         }
     }
 
-    public function fetchMails()
+    public function fetchMails(): void
     {
         foreach (IMAP as $imap) {
             $stats = $this->mailboxupdate($imap['host'], $imap['user'], $imap['password']);
@@ -84,7 +64,7 @@ class MailsControl extends ConsoleControl
     /**
      * This Method will check for new E-Mails and sort it to the mailboxes.
      */
-    public function mailboxupdate($host, $user, $password)
+    private function mailboxupdate($host, $user, $password): array
     {
         $server = new Server($host);
         $connection = $server->authenticate($user, $password);
@@ -135,7 +115,7 @@ class MailsControl extends ConsoleControl
                         $html = $msg->getBodyHtml();
                     } catch (\Exception $e) {
                         $html = null;
-                        self::error('Could not get HTML body ' . $e->getMessage() . ', continuing with PLAIN TEXT\n');
+                        ConsoleHelper::error('Could not get HTML body ' . $e->getMessage() . ', continuing with PLAIN TEXT\n');
                     }
 
                     if ($html) {
@@ -147,7 +127,7 @@ class MailsControl extends ConsoleControl
                             $text = $msg->getBodyText();
                         } catch (\Exception $e) {
                             $text = null;
-                            self::error('Could not get PLAIN TEXT body ' . $e->getMessage() . ', skipping mail.\n');
+                            ConsoleHelper::error('Could not get PLAIN TEXT body ' . $e->getMessage() . ', skipping mail.\n');
                         }
                         if ($text != null) {
                             $body = $text;
@@ -163,7 +143,7 @@ class MailsControl extends ConsoleControl
                         $filename = $attachment->getFilename();
                         if ($filename === null) {
                             $filename = 'unknown_' . $i;
-                            self::info('Attachment without(?) a specified filename encountered. gave it a generic one (' . $filename . ')\n');
+                            ConsoleHelper::info('Attachment without(?) a specified filename encountered. gave it a generic one (' . $filename . ')\n');
                         }
                         if ($this->isAttachmentAllowed($filename)) {
                             $new_filename = bin2hex(random_bytes(16));
@@ -181,7 +161,7 @@ class MailsControl extends ConsoleControl
                                     'mime' => mime_content_type($path . $new_filename)
                                 ];
                             } catch (\Exception $e) {
-                                self::error('Could not parse/save an attachment (' . $e->getMessage() . "), skipping that one...\n");
+                                ConsoleHelper::error('Could not parse/save an attachment (' . $e->getMessage() . "), skipping that one...\n");
                             }
                         }
                     }
@@ -194,7 +174,7 @@ class MailsControl extends ConsoleControl
                     try {
                         $date = $msg->getDate();
                     } catch (\Exception $e) {
-                        self::error('Error parsing date: ' . $e->getMessage() . ", continuing with 'now'\n");
+                        ConsoleHelper::error('Error parsing date: ' . $e->getMessage() . ", continuing with 'now'\n");
                     }
                     if ($date === null) {
                         $date = new \DateTime();
@@ -242,7 +222,7 @@ class MailsControl extends ConsoleControl
 
                 $msg->delete(); // message has been processed at this point, mark it for deletion
             } catch (\Exception $e) {
-                self::error('Something went wrong, ' . $e->getMessage() . "\n");
+                ConsoleHelper::error('Something went wrong, ' . $e->getMessage() . "\n");
                 captureException($e);
                 $msg->move($failedMailbox);
             }
@@ -252,42 +232,6 @@ class MailsControl extends ConsoleControl
         $connection->expunge();
 
         return $stats;
-    }
-
-    private function getMailAddressParts($str)
-    {
-        $parts = explode('@', trim((string)$str));
-        if (count($parts) != 2) {
-            throw new \Exception($str . ' is not a valid email address');
-        }
-        $part['mailbox'] = $parts[0];
-        $part['host'] = $parts[1];
-
-        return $part;
-    }
-
-    public function fixWrongMailSenderFormat()
-    {
-        $res = $this->database->fetchAll('SELECT id, sender, `to` FROM fs_mailbox_message WHERE id < 185882 AND id > 175000');
-        foreach ($res as $r) {
-            $sender = json_decode((string)$r['sender']);
-            $to = json_decode((string)$r['to']);
-            if (is_string($sender)) {
-                $newSender = json_encode($this->getMailAddressParts($sender));
-                $newTo = [];
-                foreach ($to as $recip) {
-                    if (strpos((string)$recip, ';')) {
-                        foreach (explode(';', (string)$recip) as $rp) {
-                            $newTo[] = $this->getMailAddressParts($rp);
-                        }
-                    } else {
-                        $newTo[] = $this->getMailAddressParts($recip);
-                    }
-                }
-                $newTo = json_encode($newTo);
-                $this->database->update('fs_mailbox_message', ['sender' => $newSender, 'to' => $newTo], ['id' => $r['id']]);
-            }
-        }
     }
 
     private function isAttachmentAllowed(string $filename): bool
@@ -315,9 +259,9 @@ class MailsControl extends ConsoleControl
         return false;
     }
 
-    public function handleEmailRateLimited($data)
+    private function handleEmailRateLimited($data): bool
     {
-        self::info('Mail from: ' . $data['from'][0] . ' (' . $data['from'][1] . ')');
+        ConsoleHelper::info('Mail from: ' . $data['from'][0] . ' (' . $data['from'][1] . ')');
         $email = new Email();
 
         $mailParts = explode('@', (string)$data['from'][0]);
@@ -347,10 +291,10 @@ class MailsControl extends ConsoleControl
         $recipients = [];
         foreach ($data['recipients'] as $r) {
             $r[0] = strtolower((string)$r[0]);
-            self::info('To: ' . $r[0]);
+            ConsoleHelper::info('To: ' . $r[0]);
             $address = explode('@', $r[0]);
             if (count($address) != 2) {
-                self::error('invalid address');
+                ConsoleHelper::error('invalid address');
                 continue;
             }
             if (!$this->mailsGateway->emailIsBouncing($r[0])) {
@@ -361,7 +305,7 @@ class MailsControl extends ConsoleControl
                 }
                 ++$mailCount;
             } else {
-                self::error('bouncing address');
+                ConsoleHelper::error('bouncing address');
             }
         }
         $email->to(...$recipients);
@@ -369,40 +313,23 @@ class MailsControl extends ConsoleControl
             return true;
         }
 
-        for ($max_try = 2; $max_try > 0; --$max_try) {
+        for ($attemptsLeft = 2; $attemptsLeft > 0; --$attemptsLeft) {
+            ConsoleHelper::info('send email tries remaining ' . $attemptsLeft);
             try {
-                self::info('send email tries remaining ' . $max_try);
                 $this->mailer->send($email);
-                self::success('email send OK');
+                ConsoleHelper::success('email send OK');
 
-                break;
+                // rate limiting
+                usleep($mailCount * DELAY_MICRO_SECONDS_BETWEEN_MAILS);
+
+                return true;
             } catch (\Throwable $e) {
-                self::error('email send error: ' . $e->getMessage());
-                self::error(print_r($data, true));
-            }
-
-            if ($max_try == 1) {
-                return false;
+                ConsoleHelper::error('email send error: ' . $e->getMessage());
+                ConsoleHelper::error(print_r($data, true));
             }
         }
-        // rate limiting
-        usleep($mailCount * DELAY_MICRO_SECONDS_BETWEEN_MAILS);
 
-        return true;
-    }
-
-    public static function parseEmailAddress($email, $name = false)
-    {
-        $p = explode('@', (string)$email);
-
-        if ($name === false) {
-            $name = $email;
-        }
-
-        return [
-            'personal' => $name,
-            'mailbox' => $p[0],
-            'host' => $p[1]
-        ];
+        // no attempts left
+        return false;
     }
 }
