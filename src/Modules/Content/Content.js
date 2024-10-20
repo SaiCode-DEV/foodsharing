@@ -9,6 +9,7 @@ import ReleaseNotes from './components/ReleaseNotes.vue'
 import ContentList from './components/ContentList'
 import Communities from '@/views/pages/Content/Communities.vue'
 import ContentEdit from './components/ContentEdit.vue'
+import JoinInfo from './components/JoinInfo.vue'
 
 if (GET('sub') === 'releaseNotes') {
   vueRegister({
@@ -18,6 +19,9 @@ if (GET('sub') === 'releaseNotes') {
 } else if (GET('sub') === 'communities') {
   vueRegister({ Communities })
   vueApply('#vue-communities')
+} else if (GET('sub') === 'joininfo') {
+  vueRegister({ JoinInfo })
+  vueApply('#vue-join-info')
 } else if (GET('sub') === undefined && GET('a') === undefined) {
   vueRegister({
     ContentList,

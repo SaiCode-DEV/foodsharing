@@ -87,6 +87,7 @@
 - Refactored add and edit form to vue and removed jquery tagedit #2137 !3520 @chriswalg @alex.simm
 - Remove all usages of deprecated columns email_pass and email from fs_bezirk #1853 !3710 @AntonBallmaier
 - Port the logout and relogin controllers to Symfony !3682 @alex.simm
+- Refactored join info page to vue !3737 @chriswalg
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm

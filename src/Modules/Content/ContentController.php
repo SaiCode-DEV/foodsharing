@@ -131,7 +131,8 @@ class ContentController extends FoodsharingController
     {
         $this->pageHelper->addBread($this->translator->trans('startpage.join'));
         $this->pageHelper->addTitle($this->translator->trans('startpage.join_rules'));
-        $this->pageHelper->addContent($this->view->joininfo());
+
+        $this->pageHelper->addContent($this->prepareVueComponent('vue-join-info', 'JoinInfo'));
 
         return $this->renderGlobal();
     }

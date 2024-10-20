@@ -1411,7 +1411,7 @@ forum:
     title: "Wirklich E-Mail-Benachrichtigung versenden?"
   go: "Zum Forum"
   restore:
-    really: "Willst du folgenden Beitrag wirklich wiederherstellen?" 
+    really: "Willst du folgenden Beitrag wirklich wiederherstellen?"
     hidden_by: "Ausgeblendet von"
     reason: "Begründung: \"{reason}\""
     title: "Beitrag wiederherstellen"
@@ -1919,7 +1919,7 @@ map:
         member: "Nur meine Betriebe"
     users:
       role:
-        label: 'Rolle' 
+        label: 'Rolle'
         all: 'Alle'
         foodsaver: 'verifizierte Foodsaver:innen'
         store-manager: 'Betriebsverantwortliche'
@@ -3059,19 +3059,20 @@ startpage:
   respect: "Da Lebensmittel uns am Leben halten, wollen wir auch respektvoll mit ihnen umgehen. Damit bei uns alles optimal läuft, haben wir im Laufe der Jahre einige Verhaltensregeln definiert. Lebensmittel an andere weiterzugeben, ist eine sehr menschliche, aber auch verantwortungsvolle Sache. Grundsätzlich gilt immer: „Nichts an andere weitergeben, was man selbst nicht mehr essen würde“. Bitte lies nun die foodsharing-Etikette einmal durch!" #ContentView
   register: "Am Ende dieser Seite kannst du dich als Foodsharer:in registrieren." #ContentView
   forstores: "Für Unternehmen und Betriebe" #ContentView
-  together: "Gemeinsam mit foodsharing können Sie sich dafür einsetzen, dass aussortierte und unverkäufliche Lebensmittel eine sinnvolle Verwendung erfahren, statt weggeworfen zu werden. Mehr Information dazu finden Sie <a href=\"/fuer-unternehmen\">hier</a>."
+  together: "Gemeinsam mit foodsharing können Sie sich dafür einsetzen, dass aussortierte und unverkäufliche Lebensmittel eine sinnvolle Verwendung erfahren, statt weggeworfen zu werden. Mehr Information dazu finden Sie [hier](/fuer-unternehmen)."
   honest: "Sei ehrlich" #ContentView
   telltruth: "Wir alle, die foodsharing entwickelt haben und die Webseite betreiben, nehmen unsere Aufgabe sehr ernst. Wir befolgen eine Reihe von Gesetzen und Auflagen. Sei auch du bitte ehrlich beim Ausfüllen deiner Daten und bei allen anderen Beiträgen, die du auf der Plattform machst, z. B. bei Essenskörben und Forumsbeiträgen." #ContentView
-  followrules_a: "Beachte die Regeln und den <a href=\"https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">Ratgeber</a> für die Weitergabe von Lebensmitteln"
-  followrules_b: "Wir weisen ausdrücklich darauf hin, dass wir das Anbieten und Teilen bestimmter Lebensmittel und anderer Waren aus rechtlichen Gründen nur unter bestimmten Auflagen gestatten. Das betrifft insbesondere leicht verderbliche Lebensmittel wie rohen Fisch, rohes Fleisch, rohe Eierspeisen und zubereitete Lebensmittel. Generell achten wir mit allen Sinnen darauf, dass die Lebensmittel noch genießbar sind." #ContentView
-  followrules_c: "Alle Details dazu finden sich in den <a href=\"https://wiki.foodsharing.de/Hygieneregeln\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">foodsharing-Hygieneregeln</a>. Hinweise finden sich auch im <a href=\"https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel\" target=\"_blank\" rel=\"noopener noreferrer nofollow\">Ratgeber</a>."
+  followrules_title: "Beachte die Regeln und den Ratgeber für die Weitergabe von Lebensmitteln"
+  followrules: |
+    Wir weisen ausdrücklich darauf hin, dass wir das Anbieten und Teilen bestimmter Lebensmittel und anderer Waren aus
+    rechtlichen Gründen nur unter bestimmten Auflagen gestatten. Das betrifft insbesondere leicht verderbliche Lebensmittel wie rohen Fisch, rohes Fleisch, rohe Eierspeisen und zubereitete Lebensmittel. Generell achten wir mit allen Sinnen darauf, dass die Lebensmittel noch genießbar sind. Alle Details dazu finden sich in den [foodsharing-Hygieneregeln](https://wiki.foodsharing.de/Hygieneregeln). Hinweise finden sich auch im [Ratgeber](https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel).
   notallowed: "Die Weitergabe von Medikamenten (auch homöopathischen Mitteln) ist bei foodsharing ausgeschlossen. Auch Kleidung, Kosmetika, Haushaltschemie, Spielzeug und andere Non-Food-Produkte können über foodsharing nicht getauscht oder geteilt werden. Die Plattform foodsharing behält sich vor, derartige Angebote zu löschen." #ContentView
   beresponsible: "Sei verantwortungsvoll" #ContentView
   responsibility: "aller Lebensmittel landen im Müll. Damit soll nun endlich Schluss sein. Wir möchten nichts mehr wegwerfen! Wir wollen verantwortungsvoll mit Lebensmitteln umgehen und freuen uns, dass du mitmachst." #ContentView. Line starts with hardcoded: "30% " #ContentView
   bedependable: "Sei zuverlässig" #ContentView
   dependability: "Vielerorts gibt es Fairteiler, an denen Lebensmittel geteilt werden. Ihr könnt euch dort oder an anderen neutralen Orten zum Teilen treffen. Wenn ihr Lebensmittel abgeben oder erhalten wollt, seid bitte zuverlässig und pünktlich, lasst niemanden im „Regen“ stehen." #ContentView
   makeproposals: "Mach Vorschläge" #ContentView
-  proposals: "Wir wollen uns weiterentwickeln, immer besser werden. Dazu brauchen wir euch mit vielen guten Ideen und Tipps. Die schickt ihr an <a href=\"mailto:info@foodsharing.de\">info@foodsharing.de</a>"
+  proposals: "Wir wollen uns weiterentwickeln, immer besser werden. Dazu brauchen wir euch mit vielen guten Ideen und Tipps. Die schickt ihr an [info@foodsharing.de](mailto:info@foodsharing.de)"
   etiquette: "foodsharing-Etikette"
   call_to_action_button: "Jetzt mitmachen"
   registernow: "Jetzt registrieren"

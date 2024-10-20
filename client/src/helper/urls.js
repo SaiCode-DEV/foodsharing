@@ -91,6 +91,7 @@ const urls = {
   storeList: () => '/?page=fsbetrieb',
   storeUserList: (userId) => `/user/${userId}/stores`,
   editNameInfoUrl: () => '/region?bid=881&sub=forum&tid=58225',
+  register: () => '/register',
 
   team: () => '/team',
   transparency: () => '/content?sub=transparency',
