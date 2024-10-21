@@ -2,9 +2,8 @@
 
 namespace Foodsharing\Modules\Dashboard;
 
-use Exception;
+use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Content\ContentGateway;
-use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\Content\ContentId;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
@@ -12,67 +11,46 @@ use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Event\InvitationStatus;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Login\UserStatusTransactions;
-use Foodsharing\Modules\Quiz\QuizSessionGateway;
 use Foodsharing\Modules\Quiz\QuizTransactions;
-use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Permissions\QuizPermissions;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 
-class DashboardControl extends Control
+class DashboardController extends FoodsharingController
 {
-    private array $params;
-    private readonly ContentGateway $contentGateway;
-    private readonly SettingsGateway $settingsGateway;
-    private readonly FoodsaverGateway $foodsaverGateway;
-    private readonly EventGateway $eventGateway;
-    private readonly QuizSessionGateway $quizSessionGateway;
-    private readonly QuizPermissions $quizPermissions;
-
-    /**
-     * @throws Exception
-     */
     public function __construct(
-        DashboardView $view,
-        ContentGateway $contentGateway,
-        SettingsGateway $settingsGateway,
-        FoodsaverGateway $foodsaverGateway,
-        EventGateway $eventGateway,
-        QuizSessionGateway $quizSessionGateway,
-        QuizPermissions $quizPermissions,
+        private readonly DashboardView $view,
+        private readonly ContentGateway $contentGateway,
+        private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly EventGateway $eventGateway,
+        private readonly QuizPermissions $quizPermissions,
         private readonly UserStatusTransactions $userStatusTransactions,
         private readonly QuizTransactions $quizTransactions,
     ) {
-        $this->view = $view;
-        $this->contentGateway = $contentGateway;
-        $this->settingsGateway = $settingsGateway;
-        $this->foodsaverGateway = $foodsaverGateway;
-        $this->eventGateway = $eventGateway;
-        $this->quizSessionGateway = $quizSessionGateway;
-        $this->quizPermissions = $quizPermissions;
-
         parent::__construct();
-
-        if (!$this->session->mayRole()) {
-            $this->routeHelper->goAndExit('/');
-        }
-
-        $this->params = [];
     }
 
-    /**
-     * @throws Exception
-     */
-    public function index(): void
+    #[Route('/dashboard', name: 'dashboard')]
+    public function index(): Response
     {
-        $this->userStatusTransactions->updateLastUserStatus($this->session->id());
-
-        $this->params['quiz'] = $this->getQuiz();
-        $this->params['quizConfirmation'] = $this->getMissingQuizConfirmation();
-
-        if ($this->session->mayRole(Role::FOODSAVER)) {
-            $this->params['events'] = $this->getEvents();
+        if (!$this->session->mayRole()) {
+            return $this->redirect('/');
         }
 
-        $this->pageHelper->addContent($this->view->index($this->params), CNT_MAIN);
+        $this->userStatusTransactions->updateLastUserStatus($this->session->id());
+
+        $params = [
+            'quiz' => $this->getQuiz(),
+            'quizConfirmation' => $this->getMissingQuizConfirmation(),
+        ];
+
+        if ($this->session->mayRole(Role::FOODSAVER)) {
+            $params['events'] = $this->getEvents();
+        }
+
+        $this->pageHelper->addContent($this->view->index($params));
+
+        return $this->renderGlobal();
     }
 
     private function getEvents(): object

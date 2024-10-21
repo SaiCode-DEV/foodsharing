@@ -21,10 +21,6 @@ parameters:
       message: '#Unreachable statement - code above always terminates#'
       paths:
         - src/Lib/Db/Mem.php
-    -
-      message: '#Property [a-zA-Z0-9\\_]+::\$[a-zA-Z]+ is never read, only written.#'
-      paths:
-        - src/Modules/Dashboard/DashboardControl.php
     # LEVEL 5+ some legacy code calling legacy library code:
     -
       message: '#Parameter \#[0-9]+ \$[a-zA-Z_]+ of method Flourish\\fImage::[a-zA-Z]+\(\) expects int, string given#'

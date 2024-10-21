@@ -28,7 +28,7 @@ class LoginController extends FoodsharingController
         // activate is also used to validate a changed email address for existing foodsharers
         // unsubscribe
         if ($this->session->mayRole() && !in_array($sub, ['unsubscribe', 'activate'])) {
-            return $this->redirect('/?page=dashboard');
+            return $this->redirectToRoute('dashboard');
         }
 
         // not logged in here
@@ -45,7 +45,7 @@ class LoginController extends FoodsharingController
     public function recovery(Request $request): Response
     {
         if ($this->session->mayRole()) {
-            return $this->redirect('/?page=dashboard');
+            return $this->redirectToRoute('dashboard');
         }
 
         return $this->passwordReset($request);
@@ -90,7 +90,7 @@ class LoginController extends FoodsharingController
             $this->flashMessageHelper->error($this->translator->trans('dashboard.activation_mail_failure'));
         }
 
-        return $this->redirect('/?page=dashboard');
+        return $this->redirectToRoute('dashboard');
     }
 
     private function activate(Request $request): Response

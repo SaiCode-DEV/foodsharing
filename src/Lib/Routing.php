@@ -4,7 +4,6 @@ namespace Foodsharing\Lib;
 
 use Foodsharing\Modules\Basket\BasketXhr;
 use Foodsharing\Modules\BusinessCard\BusinessCardControl;
-use Foodsharing\Modules\Dashboard\DashboardControl;
 use Foodsharing\Modules\Index\IndexControl;
 use Foodsharing\Modules\Mailbox\MailboxControl;
 use Foodsharing\Modules\Store\StoreController;
@@ -27,7 +26,6 @@ class Routing
         'bell' => 'Bell',
         'buddy' => 'Buddy',
         'bcard' => 'BusinessCard',
-        'dashboard' => 'Dashboard',
         'index' => 'Index',
         'mailbox' => 'Mailbox',
         'poll' => 'Voting',
@@ -43,7 +41,6 @@ class Routing
 
     private const CLASSES = [
         'bcard' => BusinessCardControl::class,
-        'dashboard' => DashboardControl::class,
         'index' => IndexControl::class,
         'mailbox' => MailboxControl::class,
         'poll' => VotingControl::class,
@@ -78,6 +75,7 @@ class Routing
         'msg',
         'logout',
         'relogin',
+        'dashboard',
     ];
 
     private const RENAMES = [

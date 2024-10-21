@@ -69,11 +69,11 @@ class VotingControl extends Control
                 $this->pageHelper->addContent($this->view->newPollForm($region));
             } else {
                 $this->flashMessageHelper->info($this->translator->trans('poll.not_available'));
-                $this->routeHelper->goAndExit('/?page=dashboard');
+                $this->routeHelper->goAndExit('/dashboard');
             }
         } catch (Exception) {
             $this->flashMessageHelper->info($this->translator->trans('poll.not_available'));
-            $this->routeHelper->goAndExit('/?page=dashboard');
+            $this->routeHelper->goAndExit('/dashboard');
         }
     }
 }

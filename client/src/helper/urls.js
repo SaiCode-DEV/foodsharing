@@ -22,7 +22,7 @@ const urls = {
   contentNew: () => '/content?a=new',
   conversations: (conversationId = null) => `/msg${conversationId ? `?cid=${conversationId}` : ''}`,
   createBusinessCard: (data) => `/?page=bcard&sub=makeCard&opt=${data.role}:${data.regionGroupId}`,
-  dashboard: () => '/?page=dashboard',
+  dashboard: () => '/dashboard',
   dataprivacy: () => '/legal',
   donate: () => '/unterstuetzung',
   email: () => '/?page=email',

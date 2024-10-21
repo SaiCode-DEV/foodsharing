@@ -23,7 +23,7 @@ class StoreCategoriesController extends FoodsharingController
             $this->routeHelper->goLoginAndExit();
         }
         if (!$this->storeCategoriesPermissions->mayEditStoreCategories()) {
-            $this->routeHelper->goAndExit('/?page=dashboard');
+            return $this->redirectToRoute('dashboard');
         }
 
         $this->pageHelper->addTitle($this->translator->trans('store_categories.title'));

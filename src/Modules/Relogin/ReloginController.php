@@ -22,7 +22,7 @@ class ReloginController extends FoodsharingController
                 }
             }
 
-            return $this->redirect('/?page=dashboard');
+            return $this->redirectToRoute('dashboard');
         } catch (\Exception) {
             return $this->redirect('/logout');
         }

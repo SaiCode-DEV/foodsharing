@@ -175,7 +175,7 @@ class WorkGroupControl extends Control
         if (!$group) {
             $this->routeHelper->goAndExit('/?page=groups');
         } elseif ($group['type'] != UnitType::WORKING_GROUP || !$this->workGroupPermissions->mayEdit($group)) {
-            $this->routeHelper->goAndExit('/?page=dashboard');
+            $this->routeHelper->goAndExit('/dashboard');
         }
 
         $bread = $this->translator->trans('group.edit.title', ['{group}' => $group['name']]);

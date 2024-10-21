@@ -25,7 +25,7 @@ class StoreUserController extends FoodsharingController
         }
 
         if (!$storeGateway->storeExists($storeId)) {
-            return $this->redirect('/?page=dashboard');
+            return $this->redirectToRoute('dashboard');
         }
 
         if (!$storePermissions->mayAccessStore($storeId)) {

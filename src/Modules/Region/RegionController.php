@@ -187,7 +187,7 @@ final class RegionController extends FoodsharingController
         } else {
             $this->flashMessageHelper->error($this->translator->trans('region.not-member'));
 
-            return $this->redirect('/?page=dashboard');
+            return $this->redirectToRoute('dashboard');
         }
 
         $this->pageHelper->addTitle($region['name']);
