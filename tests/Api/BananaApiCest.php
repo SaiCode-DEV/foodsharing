@@ -15,6 +15,7 @@ class BananaApiCest
 {
     private $user;
     private $user2;
+    private $user3;
     private $faker;
 
     private const EMAIL = 'email';
@@ -25,6 +26,7 @@ class BananaApiCest
     {
         $this->user = $I->createFoodsaver();
         $this->user2 = $I->createFoodsaver();
+        $this->user3 = $I->createFoodsaver();
 
         $this->faker = Factory::create('de_DE');
     }
@@ -85,11 +87,19 @@ class BananaApiCest
         $I->seeResponseCodeIs(Http::OK);
     }
 
+    public function canDeleteGivenBanana(ApiTester $I): void
+    {
+        $I->giveBanana($this->user2['id'], $this->user['id'], 'message');
+        $I->login($this->user2[self::EMAIL]);
+        $I->sendDelete(self::API_USER . '/' . $this->user['id'] . '/banana/' . $this->user2['id']);
+        $I->seeResponseCodeIs(Http::OK);
+    }
+
     public function cantDeleteOtherBanana(ApiTester $I): void
     {
-        $I->giveBanana($this->user['id'], $this->user2['id'], 'message');
+        $I->giveBanana($this->user2['id'], $this->user3['id'], 'message');
         $I->login($this->user[self::EMAIL]);
-        $I->sendDelete(self::API_USER . '/' . $this->user2['id'] . '/banana/' . $this->user['id']);
+        $I->sendDelete(self::API_USER . '/' . $this->user3['id'] . '/banana/' . $this->user2['id']);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
     }
 

@@ -30,9 +30,11 @@ final class BananaPermissions
         return true;
     }
 
-    public function mayDeleteBanana(int $recipientId): bool
+    public function mayDeleteBanana(int $recipientId, int $senderId): bool
     {
-        return $this->session->id() === $recipientId || $this->mayDeleteBananas();
+        return $this->session->id() === $recipientId ||
+            $this->session->id() === $senderId ||
+            $this->mayDeleteBananas();
     }
 
     public function mayDeleteBananas(): bool

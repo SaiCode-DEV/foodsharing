@@ -2251,11 +2251,12 @@ profile:
     give: "Schenke {name} eine Banane"
     details: |
       Hier kannst du in mindestens 100 Zeichen beschreiben, warum du {name} gerne eine Banane schenken möchtest.
-    undo: "Vertrauensbananen können nicht verändert oder zurückgenommen werden."
+    undo: "Vertrauensbananen können nicht verändert werden."
     vouch: |
       Bitte vergib die Vertrauensbanane daher nur an dir persönlich bekannte Menschen,
       welche die Verhaltensregeln und die Rechtsvereinbarung einhalten
       und für deren Zuverlässigkeit und Engagement du einstehen kannst.
+      Vergib Vertrauensbananen niemals leichtfertig!
     placeholder: "mindestens 100 Zeichen …"
     sent: "Banane wurde gesendet!"
     messageTooShort: "Bitte gib einen mindestens 100 Zeichen langen Text zu dieser Banane ein."

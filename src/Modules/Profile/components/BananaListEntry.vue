@@ -1,14 +1,14 @@
 <template>
   <div class="d-flex my-1 py-2">
     <Avatar
-      :user="author"
+      :user="user"
       :size="50"
       class="mt-1 pr-2 pt-1"
     />
     <div>
       <div class="time p-1">
-        <a :href="$url('profile', author.id)">
-          {{ author.name }}
+        <a :href="$url('profile', user.id)">
+          {{ user.name }}
         </a>
         <i class="fas fa-fw fa-angle-right" />
         {{ $dateFormatter.date(when) }}
@@ -39,10 +39,11 @@ export default {
   mixins: [ConfirmationDialogue],
   props: {
     recipientId: { type: Number, required: true },
-    author: { type: Object, required: true },
+    user: { type: Object, required: true },
     createdAt: { type: String, required: true },
     text: { type: String, default: '' },
     canRemove: { type: Boolean, default: false },
+    isSent: { type: Boolean, default: false },
   },
   data () {
     return {
@@ -54,7 +55,11 @@ export default {
       if (!await this.confirmationDialogue('profile.banana.remove.confirm_message')) return
       showLoader()
       try {
-        await deleteBanana(this.recipientId, this.author.id)
+        if (this.isSent) {
+          await deleteBanana(this.user.id, this.recipientId)
+        } else {
+          await deleteBanana(this.recipientId, this.user.id)
+        }
         location.reload()
       } catch (e) {
         pulseError(i18n('error_unexpected'))
