@@ -91,6 +91,7 @@
 - Refactored join info page to vue !3737 @chriswalg
 - Clean up code for maintenance and background tasks !3735 @\_fridtjof_
 - Port the dashboard controller to Symfony !3736 @\_fridtjof_
+- Entries from the content API are rendered in Vue !3743 @alex.simm
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm

@@ -6,6 +6,9 @@ use Foodsharing\Modules\Core\View;
 
 class ContentView extends View
 {
+    /**
+     * @deprecated use ContentEntry.vue instead
+     */
     public function simple(array $cnt): string
     {
         return '

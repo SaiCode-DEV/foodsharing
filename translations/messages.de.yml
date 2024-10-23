@@ -1896,6 +1896,7 @@ content:
     text: foodsharing wächst täglich. Hier findet ihr immer eine aktuelle Liste aller foodsharing-Gemeinschaften und Bezirke. Du kannst eine Mail an den entsprechenden Bezirk schicken, indem du auf den verlinkten Namen klickst.
     searchInfo: Mit Strg+F kann die Liste in vielen Browsern nach Ländern, Städten, Bundesländern oder Stadtteilen durchsucht werden.
     noAmbassador: Diese Region hat aktuell keine Botschafter:innen und ist daher aktuell nicht per Mail erreichbar. Bitte kontaktiere eine benachbarte oder die nächsthöhere Region.
+  error_loading: 'Inhalt konnte nicht geladen werden'
 
 map:
   title: "Karte"

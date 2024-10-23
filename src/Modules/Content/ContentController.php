@@ -231,10 +231,12 @@ class ContentController extends FoodsharingController
 
     private function addContent(int $contentId): void
     {
-        if ($cnt = $this->contentGateway->get($contentId)) {
-            $this->pageHelper->addBread($cnt['title']);
-            $this->pageHelper->addTitle($cnt['title']);
-            $this->pageHelper->addContent($this->view->simple($cnt));
+        $content = $this->contentGateway->getContent($contentId);
+        if ($content) {
+            $this->pageHelper->addTitle($content->title);
+            $this->pageHelper->addContent($this->prepareVueComponent('vue-content', 'ContentEntry', [
+                'id' => $contentId
+            ]));
         }
     }
 
