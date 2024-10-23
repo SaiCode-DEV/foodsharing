@@ -21,8 +21,8 @@ class AchievementGateway extends BaseGateway
     }
 
     private const AWARDED_ACHIEVEMENT_QUERY = 'SELECT
-            user.id AS user_id, user.name as user_name, user.photo AS user_photo,
-            reviewer.id AS reviewer_id, reviewer.name AS reviewer_name, reviewer.photo AS reviewer_photo,
+            user.id AS user_id, user.name as user_name, user.photo AS user_photo, user.is_sleeping AS user_is_sleeping,
+            reviewer.id AS reviewer_id, reviewer.name AS reviewer_name, reviewer.photo AS reviewer_photo, reviewer.is_sleeping AS reviewer_is_sleeping,
             awarded.achievement_id, awarded.notice, awarded.valid_until, awarded.created_at
         FROM fs_foodsaver_has_achievement awarded
         JOIN fs_foodsaver user ON user.id = awarded.foodsaver_id

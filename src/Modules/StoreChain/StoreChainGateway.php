@@ -5,7 +5,7 @@ namespace Foodsharing\Modules\StoreChain;
 use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Pagination;
-use Foodsharing\Modules\Foodsaver\DTO\FoodsaverForAvatar;
+use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\StoreChain\DTO\StoreChain;
 use Foodsharing\Modules\StoreChain\DTO\StoreChainForChainList;
 
@@ -64,7 +64,7 @@ class StoreChainGateway extends BaseGateway
     /**
      * Delete and insert all key account managers (kams).
      *
-     * @param FoodsaverForAvatar[] $kams are account ids for key account managers
+     * @param Profile[] $kams are account ids for key account managers
      *
      * @throws Exception
      */
@@ -126,13 +126,13 @@ class StoreChainGateway extends BaseGateway
     }
 
     /**
-     * @return FoodsaverForAvatar[]
+     * @return Profile[]
      */
     public function getStoreChainKeyAccountManagers(int $chainId): array
     {
         $kams = $this->db->fetchAll(
             'SELECT
-				k.*, f.name, f.photo
+				k.*, f.name AS foodsaver_name, f.photo AS foodsaver_photo, f.is_sleeping AS foodsaver_is_sleeping
 			FROM
 				fs_key_account_manager k
 			JOIN fs_foodsaver f ON f.id = k.foodsaver_id
@@ -140,7 +140,7 @@ class StoreChainGateway extends BaseGateway
             ['chainId' => $chainId]
         );
 
-        return array_map(fn ($kam) => FoodsaverForAvatar::createFromArray($kam, ['id' => 'foodsaver_id', 'name' => 'name', 'avatar' => 'photo']), $kams);
+        return array_map(fn ($kam) => new Profile($kam, 'foodsaver_'), $kams);
     }
 
     /**

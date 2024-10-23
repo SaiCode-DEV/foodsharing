@@ -282,7 +282,8 @@ class FoodsaverGateway extends BaseGateway
             'about_me_public',
             'rolle',
             'position',
-            'no_automatic_delete'
+            'no_automatic_delete',
+            'is_sleeping'
         ], [
             'id' => $fsId
         ]);
@@ -321,9 +322,7 @@ class FoodsaverGateway extends BaseGateway
 					fs.`photo`,
 					fs.`email`,
 					fs.`geschlecht`,
-					fs.`is_sleeping`,
-					fs.`sleep_from`,
-					fs.`sleep_until`
+					fs.`is_sleeping`
 
 			FROM    `fs_foodsaver` fs
 			        INNER JOIN `fs_botschafter` amb

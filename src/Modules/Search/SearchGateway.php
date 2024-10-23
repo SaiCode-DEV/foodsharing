@@ -94,6 +94,7 @@ class SearchGateway extends BaseGateway
                 GROUP_CONCAT(foodsaver.id) AS ambassador_ids,
                 GROUP_CONCAT(foodsaver.name) AS ambassador_names,
                 GROUP_CONCAT(IFNULL(foodsaver.photo, '')) AS ambassador_photos,
+                GROUP_CONCAT(foodsaver.is_sleeping) AS ambassador_is_sleepings,
                 IF(ISNULL(has_region.foodsaver_id), NULL, 1) AS is_member
             FROM fs_bezirk region
             LEFT OUTER JOIN fs_bezirk parent ON parent.id = region.parent_id
@@ -133,6 +134,7 @@ class SearchGateway extends BaseGateway
                 GROUP_CONCAT(foodsaver.id) AS ambassador_ids,
                 GROUP_CONCAT(foodsaver.name) AS ambassador_names,
                 GROUP_CONCAT(IFNULL(foodsaver.photo, '')) AS ambassador_photos,
+                GROUP_CONCAT(foodsaver.is_sleeping) AS ambassador_is_sleepings,
                 1 AS is_member,
                 {$searchCriteria} AS search_string
             FROM fs_bezirk region
@@ -174,7 +176,8 @@ class SearchGateway extends BaseGateway
                 MAX(IF(ambassador.foodsaver_id = ?, 1, 0)) AS is_admin,
                 GROUP_CONCAT(foodsaver.id) AS admin_ids,
                 GROUP_CONCAT(foodsaver.name) AS admin_names,
-                GROUP_CONCAT(IFNULL(foodsaver.photo, '')) AS admin_photos
+                GROUP_CONCAT(IFNULL(foodsaver.photo, '')) AS admin_photos,
+                GROUP_CONCAT(foodsaver.is_sleeping) AS admin_is_sleepings
             FROM fs_bezirk region
             JOIN fs_bezirk parent ON parent.id = region.parent_id
             LEFT OUTER JOIN fs_foodsaver_has_bezirk has_region ON has_region.bezirk_id = region.id AND has_region.foodsaver_id = ?
@@ -215,6 +218,7 @@ class SearchGateway extends BaseGateway
                 GROUP_CONCAT(foodsaver.id) AS admin_ids,
                 GROUP_CONCAT(foodsaver.name) AS admin_names,
                 GROUP_CONCAT(IFNULL(foodsaver.photo, '')) AS admin_photos,
+                GROUP_CONCAT(foodsaver.is_sleeping) AS admin_is_sleepings
                 {$searchCriteria} AS search_string
             FROM fs_bezirk region
             JOIN fs_bezirk parent ON parent.id = region.parent_id
@@ -414,6 +418,7 @@ class SearchGateway extends BaseGateway
                 GROUP_CONCAT(foodsaver.id LIMIT 5) AS member_ids,
                 GROUP_CONCAT(foodsaver.name LIMIT 5) AS member_names,
                 GROUP_CONCAT(foodsaver.photo LIMIT 5) AS member_photos,
+                GROUP_CONCAT(foodsaver.is_sleeping LIMIT 5) AS member_is_sleepings,
                 COUNT(*) AS member_count
             FROM fs_foodsaver_has_conversation AS has_conversation
             JOIN fs_conversation AS conversation ON conversation.id = has_conversation.conversation_id
@@ -453,6 +458,7 @@ class SearchGateway extends BaseGateway
                 GROUP_CONCAT(foodsaver.id LIMIT 5) AS member_ids,
                 GROUP_CONCAT(foodsaver.name LIMIT 5) AS member_names,
                 GROUP_CONCAT(foodsaver.photo LIMIT 5) AS member_photos,
+                GROUP_CONCAT(foodsaver.is_sleeping LIMIT 5) AS member_is_sleepings,
                 COUNT(*) AS member_count,
                 {$searchCriteria} AS search_string
             FROM fs_foodsaver_has_conversation AS has_conversation

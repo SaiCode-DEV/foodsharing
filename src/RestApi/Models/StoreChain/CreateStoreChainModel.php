@@ -3,7 +3,7 @@
 namespace Foodsharing\RestApi\Models\StoreChain;
 
 use DateTime;
-use Foodsharing\Modules\Foodsaver\DTO\FoodsaverForAvatar;
+use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\StoreChain\DTO\StoreChain;
 use Foodsharing\Modules\StoreChain\StoreChainStatus;
 use Foodsharing\Validator\NoHtml;
@@ -167,12 +167,7 @@ class CreateStoreChainModel
         $obj->notes = $this->notes;
         $obj->commonStoreInformation = $this->commonStoreInformation;
         $obj->estimatedStoreCount = $this->estimatedStoreCount ?? 0;
-        $obj->kams = array_map(function ($kam) {
-            $obj = new FoodsaverForAvatar();
-            $obj->id = $kam;
-
-            return $obj;
-        }, $this->kams);
+        $obj->kams = array_map(fn ($kam) => new Profile(['id' => $kam]), $this->kams);
 
         return $obj;
     }

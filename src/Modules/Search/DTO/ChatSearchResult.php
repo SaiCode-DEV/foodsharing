@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Foodsharing\Modules\Search\DTO;
 
-use Foodsharing\Modules\Foodsaver\DTO\FoodsaverForAvatar;
+use Foodsharing\Modules\Foodsaver\Profile;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 
@@ -43,11 +43,11 @@ class ChatSearchResult extends SearchResult
      *
      * This includes at most 5 members to be displayed in the search result.
      *
-     * @var array<FoodsaverForAvatar> Array of chat members, excluding the searching user
+     * @var array<Profile> Array of chat members, excluding the searching user
      *
      * @OA\Property(
      *     type="array",
-     *     @OA\Items(ref=@Model(type=FoodsaverForAvatar::class))
+     *     @OA\Items(ref=@Model(type=Profile::class))
      * )
      */
     public array $members;

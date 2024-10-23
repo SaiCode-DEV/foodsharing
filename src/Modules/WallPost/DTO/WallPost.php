@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Foodsharing\Modules\WallPost\DTO;
 
-use Foodsharing\Modules\Foodsaver\DTO\FoodsaverForAvatar;
+use Foodsharing\Modules\Foodsaver\Profile;
 use JMS\Serializer\Annotation\Type;
 use OpenApi\Attributes as OA;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -32,7 +32,7 @@ class WallPost
     ])]
     public ?array $pictures = null;
 
-    public ?FoodsaverForAvatar $author;
+    public ?Profile $author;
 
     public static function createFromArray(array $data): WallPost
     {
@@ -49,7 +49,7 @@ class WallPost
                 $result->pictures = $attach['images'];
             }
         }
-        $result->author = FoodsaverForAvatar::createFromArray($data, ['id' => 'foodsaver_id']);
+        $result->author = new Profile($data, 'foodsaver_');
 
         return $result;
     }

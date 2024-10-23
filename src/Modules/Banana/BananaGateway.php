@@ -29,7 +29,7 @@ class BananaGateway extends BaseGateway
     public function getBanana(int $recipientId, int $senderId): ?Banana
     {
         $data = $this->db->fetch('SELECT
-                    fs.id, fs.name, fs.photo, r.`msg`, r.`time`
+                    fs.id, fs.name, fs.photo, fs.is_sleeping, r.`msg`, r.`time`
             FROM `fs_rating` r
             INNER JOIN `fs_foodsaver` fs ON fs.id = r.rater_id
             WHERE r.rater_id = :senderId AND r.foodsaver_id = :recipientId',
@@ -60,7 +60,7 @@ class BananaGateway extends BaseGateway
     public function getReceivedBananas(int $recipientId): array
     {
         $data = $this->db->fetchAll('SELECT
-                    fs.id, fs.name, fs.photo, r.`msg`, r.`time`
+                    fs.id, fs.name, fs.photo, fs.is_sleeping, r.`msg`, r.`time`
             FROM `fs_foodsaver` fs
             INNER JOIN `fs_rating` r
             WHERE 	r.rater_id = fs.id
@@ -78,7 +78,7 @@ class BananaGateway extends BaseGateway
     public function getSentBananas(int $senderId): array
     {
         $data = $this->db->fetchAll('SELECT
-                    fs.id, fs.name, fs.photo, r.`msg`, r.`time`
+                    fs.id, fs.name, fs.photo, fs.is_sleeping, r.`msg`, r.`time`
             FROM `fs_foodsaver` fs
             INNER JOIN `fs_rating` r
             WHERE 	r.foodsaver_id = fs.id
