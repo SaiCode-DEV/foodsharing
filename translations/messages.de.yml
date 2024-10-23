@@ -2962,6 +2962,14 @@ polls:
   ended: "Vergangene Abstimmungen"
   future: "Zukünftige Abstimmungen"
   until: "Möglich bis {until}"
+  badge:
+    vote_now: "Jetzt abstimmen"
+    already_voted: "Bereits abgestimmt"
+    not_eligible: "Nicht stimmberechtigt"
+  score:
+    approval: Zustimmung
+    neutral: Neutral
+    disapproval: Ablehnung
 
 poll:
   not_available: "Diese Abstimmung existiert nicht oder du kannst nicht darauf zugreifen."
@@ -2972,7 +2980,7 @@ poll:
   scope_description_0: "Alle verifizierten und nicht verifizierten Foodsaver:innen aus dem Bezirk / der Gruppe"
   scope_description_1: "Alle verifizierten Foodsaver:innen aus dem Bezirk / der Gruppe"
   scope_description_2: "Alle Betriebsverantwortlichen aus dem Bezirk, die momentan für einen Betrieb verantwortlich sind"
-  scope_description_3: "Alle Botschafter:innen aus dem Bezirk / der Gruppe"
+  scope_description_3: "Alle Botschafter:innen aus dem Bezirk"
   scope_description_4: "Alle verifizierten Foodsaver:innen mit dem Stammbezirk der Abstimmung"
   type: "Art der Abstimmung"
   type_description_0: "Auswählen (nur eine Option kann gewählt werden)"
@@ -3013,7 +3021,7 @@ poll:
   ended_at: "lief bis"
   begins_at: "Beginn"
   already_voted: "Du hast an dieser Abstimmung bereits teilgenommen"
-  may_not_vote: "Du kannst in dieser Abstimmung nicht abstimmen."
+  may_not_vote: "Du kannst in dieser Abstimmung nicht abstimmen. Zum dem Zeitpunkt, an dem diese Abstimmung erstellt wurde, warst du nicht Teil der stimmberechtigten Gruppe. Auch wenn du im Verlauf der Abstimmungszeit die Kriterien erfüllst, nach denen du wählen dürftest, ist es nicht möglich, nachträglich das Stimmrecht zu erhalten."
   may_not_yet_vote: "Diese Abstimmung hat noch nicht begonnen."
   results:
     number_of_votes: "Abgegebene Stimmen"
@@ -3022,6 +3030,8 @@ poll:
     percentage_of_votes: "Wahlbeteiligung"
     sum: "Summe"
     average: "Mittelwert"
+    standardDeviation: "Standardabweichung"
+    standardDeviationShort: "σ"
   submit_vote_question: "Wirklich jetzt abstimmen? Deine Auswahl kann danach nicht mehr geändert werden."
   eligible_votes_count: "Anzahl der Stimmberechtigten"
   edit:
@@ -3030,9 +3040,11 @@ poll:
     submit_question: "Möchtest du die Änderungen an der Abstimmung wirklich speichern?"
   may_not_edit: "Du hast nicht die Berechtigung, um diese Abstimmung zu bearbeiten, oder der Bearbeitungszeitraum ist abgelaufen."
   hint_random_order: "Die Reihenfolge der folgenden zur Auswahl stehenden Optionen ist zufällig gewählt."
+  hint_sorted_order: "Die Reihenfolge der folgenden zur Auswahl stehenden Optionen ist fest vorgegeben und für alle Abstimmenden gleich."
   cancel:
     title: "Abstimmung abbrechen"
     question: "Möchtest du diese Abstimmung wirklich abbrechen? Dies kann nicht rückgängig gemacht werden."
+  title: "Abstimmung: {name}"
 
 language_chooser:
   title: "Sprache wählen"
@@ -3686,6 +3698,18 @@ help:
         In das Eingabefeld musst du den Namen des Icons eingeben, das du nutzen möchtest, also bspw. "*walking*" oder "*shopping-cart*".
         Ob deine Eingabe funktioniert, kannst du anhand der Vorschau übeprüfen.
         Wenn du kein icon eingibst, wird automatisch das Standard-Icon für Errungenschaften "*tag*" genutzt
+    polls:
+      title: "Abstimmungen"
+      md: |
+        Mithilfe des Abstimmungs-Moduls können Wahlen, Umfragen und andere Abstimmugen anonym und einfach direkt auf der foodsharing Plattform durchgeführt werden. Eine detaillierte Anleitung findest du unter https://wiki.foodsharing.de/Abstimmungs-Modul
+    pollScopes:
+      title: Wahlberechtigung
+      md: |
+        Bei der Erstellung einer Abstimmung kannst du aus verschiedenen Personengruppen auswählen, die Stimmberechtigt sein sollen.
+        Bei allen Wahlmöglichkeiten gilt:
+        - Es dürfen nicht nur alle Foodsaver:innen des Bezirks / der Gruppe abstimmen, sondern auch der Unterbezirke.
+        - Die Anzahl der stimmberechtigten Foodsaver:innen steht in Klammern hinter der Auswahlmöglichkeit.
+        - Sobald die Abstimmung erstellt ist, stehen die Stimmberechtigten fest. Stimmberechtigt ist, wer zum Zeitpunkt, zu dem die Abstimmung erstellt wird, in den entsprechenden Personenkreis fällt. 
 
 team_page:
   board_member:

@@ -1,4 +1,3 @@
-import { toISOStringWithTimezone } from '@/helper/date-formatter'
 import { get, patch, post, put, remove } from './base'
 
 export async function getPoll (pollId) {
@@ -18,8 +17,8 @@ export function createPoll (regionId, name, description, startDate, endDate, sco
     regionId: regionId,
     name: name,
     description: description,
-    startDate: toISOStringWithTimezone(startDate),
-    endDate: toISOStringWithTimezone(endDate),
+    startDate: startDate.toISOString(),
+    endDate: endDate.toISOString(),
     scope: scope,
     type: type,
     options: options,

@@ -13,9 +13,7 @@
     </b-form-group>
   </div>
 </template>
-
 <script>
-
 import Markdown from '@/components/Markdown/Markdown.vue'
 
 export default {

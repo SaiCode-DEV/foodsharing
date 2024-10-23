@@ -10,6 +10,11 @@
           <Markdown :source="options[i - 1].text" />
         </b-col>
         <b-col class="min-width-250">
+          <div class="d-flex small range-explanation">
+            <span v-text="$i18n('polls.score.disapproval')" />
+            <span class="text-center" v-text="$i18n('polls.score.neutral')" />
+            <span class="text-right" v-text="$i18n('polls.score.approval')" />
+          </div>
           <vue-slider
             v-model="selected[i-1]"
             :min="-3"
@@ -32,7 +37,7 @@ import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
 
 export default {
-  components: { Markdown, VueSlider },
+  components: { VueSlider, Markdown },
   props: {
     options: {
       type: Array,
@@ -46,7 +51,7 @@ export default {
   data () {
     return {
       selected: Array(this.options.length).fill(null),
-      marks: [-3, -2, -1, 0, 1, 2, 3],
+      marks: ['-3', '-2', '-1', '0', '+1', '+2', '+3'],
     }
   },
   computed: {
@@ -84,6 +89,19 @@ export default {
 
 .min-width-250 {
   min-width: 250px;
+}
+
+.range-explanation {
+  justify-content: space-between;
+  margin: 0 -0.25em 0 0;
+  position: absolute;
+  width: 100%;
+  top: -1.2em;
+  left: 0;
+  span {
+    flex-basis: 0;
+    flex-grow: 1;
+  }
 }
 
 </style>

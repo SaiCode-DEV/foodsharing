@@ -30,17 +30,19 @@
           </div>
         </b-form-group>
 
-        <b-form-group
-          :label="$i18n('poll.new_poll.scope')"
-          class="mb-3"
-        >
+        <b-form-group class="mb-3">
+          <template #label>
+            {{ $i18n('poll.new_poll.scope') }}
+            <Info info-key="pollScopes" />
+          </template>
           <b-form-radio
             v-for="index in possibleScopes"
             :key="index"
             v-model="scope"
-            :value="index - 1"
+            :value="index"
           >
-            {{ $i18n('poll.scope_description_' + (index - 1)) }}
+            {{ $i18n(`poll.scope_description_${index}`) }}
+            ({{ usersPerScope[index] }})
           </b-form-radio>
         </b-form-group>
 
@@ -243,6 +245,7 @@ import i18n, { locale } from '@/helper/i18n'
 import { required, minLength } from 'vuelidate/lib/validators'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import { VOTING_TYPE } from '@/stores/polls'
+import Info from '@/components/Help/Info.vue'
 
 const EDIT_TIME_HOURS = 1
 const DEFAULT_START_TIME_HOURS = 2
@@ -262,7 +265,7 @@ function areEntriesUnique (array) {
 }
 
 export default {
-  components: { MarkdownInput },
+  components: { MarkdownInput, Info },
   props: {
     region: {
       type: Object,
@@ -271,6 +274,10 @@ export default {
     isWorkGroup: {
       type: Boolean,
       required: true,
+    },
+    usersPerScope: {
+      type: Array,
+      default: () => [],
     },
   },
   data () {
@@ -338,9 +345,9 @@ export default {
     possibleScopes () {
       if (this.isWorkGroup) {
         // 'store managers' and 'users with home region' does not make sense in work groups
-        return [1, 2]
+        return [0, 1]
       } else {
-        return [1, 2, 3, 4, 5]
+        return [0, 1, 2, 3, 4]
       }
     },
     formattedEditTime () {

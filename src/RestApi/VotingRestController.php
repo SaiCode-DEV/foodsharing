@@ -3,6 +3,7 @@
 namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
+use DateTimeZone;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingScope;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingType;
@@ -11,7 +12,6 @@ use Foodsharing\Modules\Voting\DTO\PollOption;
 use Foodsharing\Modules\Voting\VotingGateway;
 use Foodsharing\Modules\Voting\VotingTransactions;
 use Foodsharing\Permissions\VotingPermissions;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use OpenApi\Annotations as OA;
@@ -21,23 +21,14 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class VotingRestController extends AbstractFOSRestController
+class VotingRestController extends AbstractFoodsharingRestController
 {
-    private readonly Session $session;
-    private readonly VotingGateway $votingGateway;
-    private readonly VotingPermissions $votingPermissions;
-    private readonly VotingTransactions $votingTransactions;
-
     public function __construct(
-        Session $session,
-        VotingGateway $votingGateway,
-        VotingPermissions $votingPermissions,
-        VotingTransactions $votingTransactions)
+        protected Session $session,
+        private readonly VotingGateway $votingGateway,
+        private readonly VotingPermissions $votingPermissions,
+        private readonly VotingTransactions $votingTransactions)
     {
-        $this->session = $session;
-        $this->votingGateway = $votingGateway;
-        $this->votingPermissions = $votingPermissions;
-        $this->votingTransactions = $votingTransactions;
     }
 
     /**
@@ -83,9 +74,9 @@ class VotingRestController extends AbstractFOSRestController
             throw new AccessDeniedHttpException();
         }
 
-        $polls = $this->votingGateway->listPolls($groupId);
+        $polls = $this->votingGateway->listPolls($groupId, $this->session->id());
 
-        return $this->handleView($this->view($polls, 200));
+        return $this->respondOK($polls);
     }
 
     /**
@@ -181,9 +172,10 @@ class VotingRestController extends AbstractFOSRestController
         if (empty($poll->name) || empty($poll->description)) {
             throw new BadRequestHttpException('empty name or description: ' . $poll->name . ', ' . $poll->description);
         }
-
-        $poll->startDate = \DateTime::createFromFormat(\DateTime::ISO8601, $paramFetcher->get('startDate'));
-        $poll->endDate = \DateTime::createFromFormat(\DateTime::ISO8601, $paramFetcher->get('endDate'));
+        // Set time zone to make sure dates are saved to db in the server time zone
+        $serverTimeZone = new DateTimeZone('Europe/Berlin');
+        $poll->startDate = Carbon::parse($paramFetcher->get('startDate'))->setTimezone($serverTimeZone);
+        $poll->endDate = Carbon::parse($paramFetcher->get('endDate'))->setTimezone($serverTimeZone);
         if (!$poll->startDate || !$poll->endDate || $poll->startDate >= $poll->endDate
         || Carbon::now()->add($this->votingPermissions->MIN_POLL_EDIT_TIME) >= $poll->startDate) {
             throw new BadRequestHttpException('invalid start or end date');

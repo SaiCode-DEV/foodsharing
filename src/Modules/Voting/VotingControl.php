@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Voting;
 
 use Exception;
 use Foodsharing\Modules\Core\Control;
+use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Permissions\VotingPermissions;
 
@@ -66,7 +67,9 @@ class VotingControl extends Control
                 $this->pageHelper->addBread($this->translator->trans('polls.new_poll'));
                 $this->pageHelper->addTitle($this->translator->trans('polls.new_poll'));
 
-                $this->pageHelper->addContent($this->view->newPollForm($region));
+                $usersPerScope = $this->votingTransactions->getScopeCounts($region['id'], UnitType::isGroup($region['type']));
+
+                $this->pageHelper->addContent($this->view->newPollForm($region, $usersPerScope));
             } else {
                 $this->flashMessageHelper->info($this->translator->trans('poll.not_available'));
                 $this->routeHelper->goAndExit('/dashboard');

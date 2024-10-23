@@ -49,6 +49,7 @@
 - Unified the different icons used for store managers #2087 !3699 @AntonBallmaier
 - Some visual improvements related to store aplications #2157 !3702 @AntonBallmaier
 - "Thumb voting" polls can be created with only one option #975 !3684 @alex.simm
+- Multiple improvements to the quiz module #975 !3716 @AntonBallmaier
 - Given EDITORIAL_GROUP the same rights as ORGA-User to edit or add content pages !3717 @chriswalg
 - Allow deleting bananas that the user gave #2163 !3716 @AntonBallmaier
 
