@@ -762,7 +762,7 @@ poll:
     options: 'Opciones posibles.'
     description_required: 'Por favor ingrese una descripción.'
     description: 'Descripción'
-  scope_description_3: 'Tod@s l@s embajador@s del distrito/grupo'
+  scope_description_3: 'Todos los embajadores del distrito'
   type_description_2: 'Opciones: consentimiento / abstención / rechazo'
   ended_at: 'duró hasta'
   results:
@@ -772,12 +772,16 @@ poll:
     number_of_votes: 'Votos emitidos'
     option_text: 'Opción'
     average: 'Promedio'
+    standardDeviation: Desviación típica
+    standardDeviationShort: σ
   eligible_votes_count: 'Número de votantes elegibles'
   type_description_1: 'Marque (se pueden seleccionar varias opciones)'
   begins_at: 'Inicio'
   type: 'Tipo de voto'
   submit_vote: 'Votar'
-  may_not_vote: 'No puedes votar en esta encuesta.'
+  may_not_vote: 'No puedes votar en esta votación. En el momento de crear esta votación,
+    no formabas parte del grupo con derecho a voto. Aunque cumplas los criterios para
+    votar durante el periodo de votación, no es posible obtener el derecho a voto.'
   may_not_edit: 'No tiene permiso para editar esta votación o el período de edición
     ha expirado.'
   submit_vote_question: '¿De verdad votar ahora? Su selección ya no podrá cambiarse
@@ -810,6 +814,9 @@ poll:
   type_description_0: 'Seleccionar (solo se puede seleccionar una opción)'
   scope_description_2: 'Tod@s l@s responsables de cooperación del distrito que actualmente
     sean responsables de una empresa'
+  hint_sorted_order: El orden de las siguientes opciones es fijo y el mismo para todos
+    los votantes.
+  title: 'Votación: {name}'
 startpage:
   near_you:
     text3:
@@ -4431,6 +4438,20 @@ help:
         por los permisos de los administradores para ocultar publicaciones y enviar
         un enlace a ags.distrito@foodsharing.network. Esta opción no está prevista
         para los distritos locales.\n"
+    polls:
+      title: Votación
+      md: "Con el módulo de votación, las elecciones, encuestas y otros votos se pueden
+        realizar de forma anónima y sencilla directamente en la plataforma foodsharing.
+        Encontrarás instrucciones detalladas en https://wiki.foodsharing.de/Modul\n"
+    pollScopes:
+      md: "Al crear una votación, puedes elegir entre diferentes grupos de personas
+        para votar.\nPara todas las opciones:\n- No solo pueden votar todos los Foodsaver
+        dentro del distrito/grupo, sino también los subdistritos.\n- El número de
+        Foodsaver con derecho a voto se encuentra entre paréntesis detrás de la opción.\n
+        - Una vez que la votación se ha creado, los votantes están determinados. Tiene
+        derecho a votar quien, en el momento de la creación de la votación, pertenece
+        al grupo de personas correspondiente. \n"
+      title: Derecho a votar
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
