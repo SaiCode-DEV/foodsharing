@@ -41,10 +41,11 @@ class WorkGroupControl extends Control
             $this->routeHelper->goLoginAndExit();
         }
 
-        $region_id = $request->query->getInt('p', $this->currentUserUnits->getCurrentRegionId() ?? 0);
-        $parent = $this->regionGateway->getRegionName($region_id);
-
-        $this->pageHelper->addBread($parent, '/region?bid=' . $region_id);
+        $region_id = $request->query->getInt('p');
+        if ($region_id) {
+            $parent = $this->regionGateway->getRegionName($region_id);
+            $this->pageHelper->addBread($parent, '/region?bid=' . $region_id);
+        }
         $this->pageHelper->addBread($this->translator->trans('terminology.groups'), '/?page=groups');
 
         if (!$request->query->has('sub')) {

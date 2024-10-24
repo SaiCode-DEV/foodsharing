@@ -52,6 +52,7 @@
 - Multiple improvements to the quiz module #975 !3716 @AntonBallmaier
 - Given EDITORIAL_GROUP the same rights as ORGA-User to edit or add content pages !3717 @chriswalg
 - Allow deleting bananas that the user gave #2163 !3716 @AntonBallmaier
+- prevent admins of parent groups access to sub groups settings #2044 !3701 @McGoldi
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
@@ -73,6 +74,7 @@
 - Options are not discarded anymore when editing a poll #975 !3684 @alex.simm
 - fixed danger button text contrast !3707 @SaiCode
 - Catch service worker registration problems. #1914 !3729 @AntonBallmaier
+- Fix for not saving the working group type when adding a new working group #2044 !3701 @McGoldi
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier

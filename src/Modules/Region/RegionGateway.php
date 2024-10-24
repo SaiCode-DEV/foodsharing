@@ -6,6 +6,7 @@ use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
+use Foodsharing\Modules\Core\DBConstants\Region\ApplyType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -667,7 +668,8 @@ class RegionGateway extends BaseGateway
             'name' => $region->name,
             'email_name' => $region->emailName,
             'parent_id' => $region->parentId,
-            'type' => $region->type
+            'type' => $region->type,
+            'apply_type' => ApplyType::NOBODY,
         ], ['id' => $region->id]);
         $this->addRegionToClosure($region->id, $region->parentId);
         $this->db->update('fs_bezirk', ['has_children' => true], ['id' => $region->parentId]);

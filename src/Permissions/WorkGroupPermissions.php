@@ -41,14 +41,6 @@ final class WorkGroupPermissions
             return true;
         }
 
-        // Ambassadors of _direct parents_ (not all hierarchical parents)
-        if (array_key_exists('parent_id', $group)) {
-            $parentId = $group['parent_id'];
-            if ($this->currentUserUnits->isAdminFor($parentId)) {
-                return true;
-            }
-        }
-
         return false;
     }
 
@@ -62,12 +54,6 @@ final class WorkGroupPermissions
         $groupFunction = $this->groupFunctionGateway->getRegionGroupFunctionId($group['id'], $group['parent_id']);
         if (!is_null($groupFunction) && WorkgroupFunction::isRestrictedWorkgroupFunction($groupFunction)) {
             return false;
-        }
-
-        // Ambassadors of _direct parents_ (not all hierarchical parents)
-        $parentId = $group['parent_id'];
-        if ($this->currentUserUnits->isAdminFor($parentId)) {
-            return true;
         }
 
         return false;

@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Region;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
+use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
@@ -150,11 +151,15 @@ class RegionTransactions
         if ($this->mailboxGateway->isMailboxNameUsed($region->mailbox)) {
             throw new BadRequestHttpException('This mailbox name is already used.');
         }
+
         $regionId = $this->regionGateway->addRegion($region);
         $this->mailboxGateway->setRegionMailbox($region);
         $this->regionGateway->setRegionAdmins($region->id, $region->adminIds);
         if ($region->allowHidingInForum) {
             $this->regionGateway->setRegionOption($region->id, RegionOptionType::ALLOW_HIDING_IN_FORUM, '1');
+        }
+        if (WorkgroupFunction::isValidFunction($region->workgroupFunction)) {
+            $this->groupFunctionGateway->addRegionFunction($region->id, $region->parentId, $region->workgroupFunction);
         }
 
         return $regionId;
