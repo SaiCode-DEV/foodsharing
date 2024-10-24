@@ -4004,6 +4004,14 @@ polls:
   hint: 'El módulo de votación se puede probar en el grupo de trabajo transregional
     para probar las votaciones.'
   hint_2: 'Puedes encontrar información sobre cómo utilizar los votos en la Wiki'
+  badge:
+    vote_now: Vota ahora
+    already_voted: Ya votado
+    not_eligible: No podrán votar
+  score:
+    neutral: Abstenerse
+    approval: A favor
+    disapproval: En contra
 navigation:
   map: 'Mapa'
   styleguide: 'Guía de estilo'
