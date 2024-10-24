@@ -2603,6 +2603,7 @@ forum:
       subscribed: Abone olundu
       subscribe: Abone ol
     bottom: azaltılmış görünürlük
+    all_hidden: Bu başlıktaki tüm mesajlar gizlendi.
   hold_back_for_moderation: Konu kaydedildi ve bir elçi/moderatör onaylar onaylamaz
     yayınlanacak.
   sending_error: Gönderilirken bir hata oluştu
@@ -2633,6 +2634,8 @@ forum:
       ve herkesin bunun farkında olmasını gerektirecek kadar önemliyse yapmalısınız.
     title: Gerçekten e-posta bildirimleri göndermek istiyor musunuz?
   go: Foruma
+  restore:
+    really: Aşağıdaki gönderiyi gerçekten geri yüklemek istiyor musunuz?
 chat:
   open_chat: Bir mesaj yaz
   new_messages: Yeni Mesajlar
