@@ -4049,8 +4049,8 @@ activitypost:
 language_chooser:
   choose_button: 'Actualizar'
   title: 'Elige lengua'
-  translation_help: '¿Hablas otros lenguajes? Foodsharing siempre busca ayuda con
-    la traducción'
+  translation_help: '¿Hablas otros idiomas? Foodsharing siempre busca ayuda con la
+    traducción'
   translation_help_info_text: 'Este enlace lleva al portal de traducción, para comenzar
     haga clic en el lápiz'
   content: 'Elige una lengua'
