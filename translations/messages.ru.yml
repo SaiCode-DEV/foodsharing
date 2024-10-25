@@ -965,6 +965,8 @@ poll:
     option_text: ''
     average: ''
     number_of_votes: ''
+    standardDeviationShort: σ
+    standardDeviation: Среднеквадратическое отклонение
   time_period: ''
   in_future: ''
   scope_description_2: ''
