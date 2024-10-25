@@ -1087,7 +1087,7 @@ startpage:
   forstores: 'Şirketler ve işletmeler için'
   together: 'Foodsharing ile birlikte, ayıklanmış ve satılamayan yiyeceklerin çöpe
     atılması yerine, iyi bir şekilde değerlendirilmesini sağlamak için çalışabilirsiniz.
-    Daha fazla bilgiyi <a href="/fuer-unternehmen">burada</a> bulabilirsiniz.'
+    Daha fazla bilgiyi [burada](/fuer-unternehmen) bulabilirsiniz.'
   followrules_b: 'Yasal sebeplerden dolayı sadece belirli yiyeceklerin ve diğer ürünlerin
     sunulmasına ve paylaşılmasına belirli koşullar altında izin verdiğimizi açıkça
     belirtiriz. Bu özellikle çiğ balık, çiğ et, çiğ yumurtalı yemekler ve hazır yiyecekler
@@ -1590,6 +1590,8 @@ poll:
     number_of_votes: Kullanılan Oylar
     option_text: Opsiyon
     votes: Oylar
+    standardDeviationShort: σ
+    standardDeviation: Standart sapma
   in_future: henüz başlamadı
   begins_at: Başlangıç
   allowed_voters: Oy kullanma hakkına sahip
