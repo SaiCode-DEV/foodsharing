@@ -409,6 +409,8 @@ poll:
     sum: ''
     option_text: ''
     percentage_of_votes: ''
+    standardDeviationShort: σ
+    standardDeviation: Standaardafwijking
   cancel:
     title: ''
     question: ''
