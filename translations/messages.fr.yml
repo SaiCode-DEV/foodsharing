@@ -3494,7 +3494,7 @@ quiz:
     NEVER_TRIED: '{name} – fais le quiz maintenant !'
     continue: '{name}‐Continuer le quiz!'
     pause: Pause d’apprentissage ({name})
-    disqualified: '{name}-malheureusement disqualifié(e).'
+    disqualified: '{name} ‐ malheureusement disqualifié(e)'
     start: '{name} ‐ Répondre au quiz maintenant!'
   startmodal:
     title: Notes du quiz
