@@ -185,8 +185,8 @@ quiz:
   startmodal:
     title: "Hinweise zum Quiz"
     infos:
-      wiki: Bitte starte das Quiz nicht auf gut Glück. Lies vorab die aufgeführten Seiten im Foodsharing-Wiki aufmerksam durch. Ohne das Wissen aus dem Wiki, wirst du das Quiz nicht bestehen.
-      real_life_examples: Die meisten Fragen basieren auf echten Fällen aus dem Foodsharing-Leben.
+      wiki: Bitte starte das Quiz nicht auf gut Glück. Lies vorab die aufgeführten Seiten im foodsharing-Wiki aufmerksam durch. Ohne das Wissen aus dem Wiki, wirst du das Quiz nicht bestehen.
+      real_life_examples: Die meisten Fragen basieren auf echten Fällen aus dem foodsharing-Leben.
       limited_tries: Du kannst das Quiz nicht beliebig oft wiederholen. Nach drei Versuchen musst du eine 30-tägige Lernpause einlegen, danach hast du nur noch zwei weitere Versuche. Die Fragen, die dir in jedem Versuch gestellt werden, unterscheiden sich.
       alone: Während des Quizes darf dir nicht geholfen werden. Suche dir deswegen einen ruhigen Ort, an dem du ungestört das Quiz durchführen kannst.
       read_carefully: Lies dir alle Fragen und Antworten sorfältig durch. Dafür reicht die Zeit aus.
@@ -227,7 +227,7 @@ quiz:
     failed: Beim letzten Versuch hast du dieses Quiz leider nicht bestanden.
     noWaitAfter: Schau dir nochmal in die entsprechenden Wiki-Artikel an und probiers nochmal.
     waitAfter: Wenn du in deinem nächsten Versuch nicht bestehst, musst du für {waitTimeAfterFailure} Tage eine Lernpause einlegen. Schau dir unbedingt die entsprechenden Wiki-Artikel an, damit du das Quiz bestehen kannst.
-    pause: Du hast dieses Quiz mehrfach nicht bestanden. Zuverlässigkeit, sicheres Beherrschen der Regeln und professionelles Auftreten sind bei Foodsharing unverzichtbar. Mit deinen Antworten vermittelst du das zum jetzigen Zeitpunkt leider nicht. Daher bekommst du eine Lernpause, bevor du erneut versuchen darfst, das Quiz zu bestehen. Deine Lernpause endet in {currentWaitTime} Tagen.
+    pause: Du hast dieses Quiz mehrfach nicht bestanden. Zuverlässigkeit, sicheres Beherrschen der Regeln und professionelles Auftreten sind bei foodsharing unverzichtbar. Mit deinen Antworten vermittelst du das zum jetzigen Zeitpunkt leider nicht. Daher bekommst du eine Lernpause, bevor du erneut versuchen darfst, das Quiz zu bestehen. Deine Lernpause endet in {currentWaitTime} Tagen.
     pauseElapsed: Deine Lernpause ist um. Daher darfst du jetzt erneut am Quiz teilnehmen. Hoffentlich hast du die Zeit genutzt, um dich besser mit den Inhalten vertraut zu machen.
     disqualifiedAfter: Du hast nur noch einen letzten Versuch dieses Quiz zu bestehen! Wenn du jetzt durchfällst, wirst du dauerhaft für dieses Quiz disqualifiziert. Bitte nimm nur Teil, wenn du dich ausführlich mit den Inhalten aus dem Wiki beschäftigt hast.
     disqualified: Leider bist du für dieses Quiz disqualifiziert, da du zu oft nicht bestanden hast.
@@ -3050,7 +3050,7 @@ language_chooser:
   title: "Sprache wählen"
   content: "Bitte wähle eine Sprache aus"
   choose_button: "Aktualisieren"
-  translation_help: "Du sprichst noch andere Sprachen? Foodsharing sucht immer Helfer:innen beim Übersetzen"
+  translation_help: "Du sprichst noch andere Sprachen? Wir bei foodsharing suchen immer Helfer:innen beim Übersetzen"
   translation_help_info_text: "Dieser Link führt zum Übersetzungsportal, dort anmelden und auf den Stift klicken um loszulegen"
 
 theme_switcher:
@@ -3709,7 +3709,7 @@ help:
         Bei allen Wahlmöglichkeiten gilt:
         - Es dürfen nicht nur alle Foodsaver:innen des Bezirks / der Gruppe abstimmen, sondern auch der Unterbezirke.
         - Die Anzahl der stimmberechtigten Foodsaver:innen steht in Klammern hinter der Auswahlmöglichkeit.
-        - Sobald die Abstimmung erstellt ist, stehen die Stimmberechtigten fest. Stimmberechtigt ist, wer zum Zeitpunkt, zu dem die Abstimmung erstellt wird, in den entsprechenden Personenkreis fällt. 
+        - Sobald die Abstimmung erstellt ist, stehen die Stimmberechtigten fest. Stimmberechtigt ist, wer zum Zeitpunkt, zu dem die Abstimmung erstellt wird, in den entsprechenden Personenkreis fällt.
 
 team_page:
   board_member:

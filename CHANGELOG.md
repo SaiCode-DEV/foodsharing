@@ -75,6 +75,7 @@
 - fixed danger button text contrast !3707 @SaiCode
 - Catch service worker registration problems. #1914 !3729 @AntonBallmaier
 - Fix for not saving the working group type when adding a new working group #2044 !3701 @McGoldi
+- Fix 3 occureces for foodsharing always in lower case !3748 @McGoldi
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
