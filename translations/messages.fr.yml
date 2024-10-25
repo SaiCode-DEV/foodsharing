@@ -3068,7 +3068,7 @@ startpage:
     et ponctuels, ne laissez tomber personne.
   proposals: Nous souhaitons nous développer et devenir meilleur. Pour cela, nous
     avons besoin de vous avec beaucoup de bonnes idées et de conseils. Envoyez-les
-    à <a href="mailto:info@foodsharing.de">info@foodsharing.de</a>
+    à [info@foodsharing.de](mailto:info@foodsharing.de)
   register: Au bas de cette page, tu peux t’inscrire en tant que bénévole.
   beresponsible: Sois responsable
   notallowed: Le partage de médicaments (y compris les médicaments homéopathiques)
@@ -3081,7 +3081,7 @@ startpage:
   forstores: Pour les entreprises et établissements
   together: Avec foodsharing, vous pouvez vous engager pour que les aliments rejetés
     et invendables trouvent une utilisation pertinente au lieu d’être jetés. Vous
-    trouverez plus d’informations <a href="/fuer-unternehmen">ici</a>.
+    trouverez plus d’informations [ici](/fuer-unternehmen).
   join: Participer
   followrules_c: Tous les détails se trouvent dans les <a href="https://wiki.foodsharing.de/Hygieneregeln"
     target="_blank" rel="noopener noreferrer nofollow">règles d’hygiène foodsharing</a>.
@@ -3095,6 +3095,7 @@ startpage:
     base d’œufs crus et les aliments préparés. De manière générale, nous veillons
     avec tous nos sens à ce que les aliments soient encore consommables.
   registernow: S’inscrire maintenant
+  followrules_title: Respecter les règles et conseils de transmission alimentaire
 language_chooser:
   content: Choisis une langue
   title: Choisir la langue
@@ -3124,6 +3125,8 @@ poll:
     number_of_votes: Voix attribuées
     percentage_of_votes: Participation au vote
     average: Moyenne
+    standardDeviationShort: σ
+    standardDeviation: Écart type
   may_not_yet_vote: Ce vote n’a pas encore commencé.
   may_not_vote: Tu ne peux pas participer à ce vote.
   already_voted: tu as déjà participé à ce vote
@@ -3173,7 +3176,7 @@ poll:
   type: Type de vote
   scope_description_4: Tou(te) les collecteur·ice·s vérifiées dont le secteur géographique
     favori correspond à celui du vote
-  scope_description_3: Tous les Ambassadeur·ice·s de ce secteur géographique / groupe
+  scope_description_3: Tous les Ambassadeur·ice·s de ce secteur géographique
   scope_description_2: Tou· te·s les responsables coopération d’au min. 1 coopération
     dans ce secteur géographique
   scope_description_1: Tou(te)s les collecteur·ice·s vérifié(e)s de ce secteur géographique
@@ -3185,6 +3188,7 @@ poll:
   in_past: fini
   time_period: Période
   not_available: Ce vote n’existe pas / tu ne peux pas accéder à ce vote.
+  title: 'Voter : {name}'
 becomeregion:
   enterregion:
     text2: Nous ne sommes pas destinés à répondre à toutes les questions générales,
@@ -3489,7 +3493,7 @@ quiz:
     RUNNING: '{name} – continue le quiz !'
     NEVER_TRIED: '{name} – fais le quiz maintenant !'
     continue: '{name}‐Continuer le quiz!'
-    pause: Pause d'apprentissage ({name})
+    pause: Pause d’apprentissage ({name})
     disqualified: '{name}-malheureusement disqualifié(e).'
     start: '{name} ‐ Répondre au quiz maintenant!'
   startmodal:
