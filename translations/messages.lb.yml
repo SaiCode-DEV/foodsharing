@@ -914,6 +914,7 @@ poll:
     votes: ''
     option_text: ''
     sum: ''
+    standardDeviationShort: σ
   edit:
     submit: ''
     title: ''
