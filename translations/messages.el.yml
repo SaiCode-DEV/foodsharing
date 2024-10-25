@@ -398,6 +398,8 @@ poll:
     percentage_of_votes: ''
     number_of_votes: ''
     average: ''
+    standardDeviationShort: σ
+    standardDeviation: Τυπική απόκλιση
   in_future: ''
   edit:
     submit: ''
