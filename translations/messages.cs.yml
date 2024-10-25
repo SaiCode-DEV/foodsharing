@@ -1887,6 +1887,8 @@ poll:
     average: ''
     votes: ''
     percentage_of_votes: ''
+    standardDeviationShort: σ
+    standardDeviation: Směrodatná odchylka
   scope_description_2: ''
   may_not_vote: ''
   may_not_yet_vote: ''
