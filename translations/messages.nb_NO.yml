@@ -102,7 +102,7 @@ startpage:
   followrules_a: Følg reglene og <a href="https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel"
     target="_blank" rel="noopener noreferrer nofollow">Guide</a> for å gi mat videre
   together: Sammen med matdeling kan du jobbe for at utsortert og uselgbar mat kommer
-    til god nytte i stedet for å kastes. Mer informasjon finner du <a href="/fuer-unternehmen">her</a>.
+    til god nytte i stedet for å kastes. Mer informasjon finner du [her](/fuer-unternehmen).
   dependability: Mange steder er det lagt opp til at mat deles på visse steder. Du
     kan møtes der eller på andre nøytrale steder for å dele. Hvis du ønsker å overlevere
     eller overta dagligvarer, vær pålitelig og punktlig, ikke la noen bli stående
@@ -115,8 +115,9 @@ startpage:
     bekjempe matsvinnet totalt. Vi ønsker å håndtere mat på en ansvarlig måte og er
     glade for at du deltar.
   proposals: Vi ønsker å fortsette å utvikle oss, for å bli bedre og bedre. Til dette
-    trenger vi dine gode idéer og tips. Send dem til <a href="mailto:info@foodsharing.de">info@foodsharing.de</a>
+    trenger vi dine gode idéer og tips. Send dem til [info@foodsharing.de](mailto:info@foodsharing.de)
   etiquette: etikette for matdeling
+  followrules_title: Følg reglene og rådene for videresending av mat
 language_chooser:
   title: Velg språk
   content: Vennligst velg et språk
@@ -133,6 +134,8 @@ poll:
     number_of_votes: Avgitte stemmer
     percentage_of_votes: Valgdeltakelse
     average: Gjennomsnitt
+    standardDeviationShort: σ
+    standardDeviation: Standardavvik
   new_poll:
     option: Alternativ
     time: Tid
@@ -171,7 +174,7 @@ poll:
   scope_description_2: Alle samarbeidsoffisere fra distriktet som i dag har ansvar
     for en bedrift
   scope_description_0: Alle verifiserte og uverifiserte matreddere fra distriktet/gruppen
-  scope_description_3: Alle ambassadører fra distriktet/gruppen
+  scope_description_3: Alle ambassadører fra distriktet
   ended_at: pågikk til
   edit:
     submit_question: Vil du virkelig lagre endringene i denne avstemningen?
@@ -201,6 +204,7 @@ poll:
   type_description_3: Score avstemning med verdier mellom -3 (avvisning) og +3 (godkjenning)
   may_not_edit: Enten har du ikke rettighetene til å endre denne avstemningen eller
     tidsperioden for redigering er utløpt.
+  title: 'Stem: {name}'
 polls:
   end_date: Sluttdato
   start_date: Startdato
@@ -212,6 +216,14 @@ polls:
   ongoing: Pågående avstemninger
   future: Fremtidige avstemninger
   until: mulig frem til {until}
+  badge:
+    not_eligible: ikke stemmeberettiget
+    vote_now: Stem nå
+    already_voted: allerede avtalt
+  score:
+    approval: enig
+    disapproval: uenig
+    neutral: nøytral
 email_template:
   help_needed:
     support_mail: it@foodsharing.network
@@ -381,6 +393,7 @@ region:
   name: Navn
   parent: Foreldredistrikt
   master: Mesterdistrikt
+  allow_hiding_in_forum: Tillat moderatorer å slette foruminnlegg
 menu:
   entry:
     donations: Donasjoner
@@ -820,8 +833,8 @@ profile:
     title: '{count} tillitsbananer'
     vouch: "Så vennligst gi bare tillitsbananen til folk du kjenner personlig,\nsom
       følger oppførselsreglene og den juridiske avtalen\nog du kan gå god for deres
-      pålitelighet og engasjement.\n"
-    undo: Tillitsbananer kan ikke endres eller trekkes tilbake.
+      pålitelighet og engasjement.\nGi aldri bort tillitsbananer uforsiktig!\n"
+    undo: Tillitsbananer kan ikke endres.
     details: "Her kan du beskrive med minst 100 tegn hvorfor du ønsker å gi {name}
       en tillits banan.\n"
     sent_none:
@@ -1408,6 +1421,7 @@ content:
       ikke kontaktes via e-post. Ta kontakt med en naboregion eller neste høyere region.
   edit_raw: Rediger rådata
   error: Siden kunne ikke lagres
+  error_loading: Innhold kunne ikke lastes inn
 foodsaver:
   manage:
     actions: Alternativer
@@ -1842,7 +1856,8 @@ group:
     tooltip_function_4: Administratorer av denne arbeidsgruppen kan se og redigere
       selskaper i distriktet
     tooltip_function_10: Administratorer av denne arbeidsgruppen kan aktivere innlegg
-      i modererte fora.
+      i modererte fora. Hvis distriktsalternativet er aktivert, kan administratorer
+      også skjule foruminnlegg.
     tooltip_function_1: Administratorer i denne arbeidsgruppen vil bli varslet om
       nye medlemmer i distriktet
     tooltip_function_2: Administratorer for denne arbeidsgruppen kan opprette stemmer
@@ -2449,6 +2464,7 @@ forum:
     delete: Slett innlegget
     moderator_info: Dette emnet er stengt. Som moderator av dette forumet kan du fortsatt
       skrive en melding, men andre brukere kan ikke svare!
+    hideReasonPlaceholder: Skriv inn årsak her…
   threads: Tråder
   from: Fra {name}
   new_thread: Lag ny tråd
@@ -2480,6 +2496,8 @@ forum:
       det.
     title: Sender du virkelig e-postvarsling?
   go: til forumet
+  restore:
+    reason: 'Årsak: «{reason}»'
 timepicker:
   labelNowButton: nå
   labelCloseButton: Lukk
@@ -4099,6 +4117,10 @@ help:
         \"*handlevogn*\".\nDu kan sjekke om inndataene dine fungerer ved å bruke forhåndsvisningen.\n
         Hvis du ikke skriver inn et ikon, vil standard prestasjonsikonet «*tag*» automatisk
         bli brukt\n"
+    polls:
+      title: Avstemningene
+    pollScopes:
+      title: Stemmerett
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
 team_page:
