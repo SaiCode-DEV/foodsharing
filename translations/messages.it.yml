@@ -1288,7 +1288,7 @@ startpage:
   forstores: 'Per aziende e negozi'
   proposals: 'Vogliamo svilupparci ulteriormente e diventare sempre migliori. Per
     fare questo, abbiamo bisogno di te con tante buone idee e consigli. Inviali a
-    <a href="mailto:info@foodsharing.de">info@foodsharing.de</a>'
+    [info@foodsharing.de](mailto:info@foodsharing.de)'
   responsibility: 'di tutto il cibo finisce nella spazzatura. Tutto ciò dovrebbe finalmente
     finire. Non vogliamo più buttare via nulla! Vogliamo gestire il cibo in modo responsabile
     e siamo felici che partecipi anche tu.'
@@ -1313,7 +1313,7 @@ startpage:
   join_welcome: 'È fantastico che tu voglia unirti a foodsharing!'
   together: 'Insieme a foodsharing, puoi lavorare per garantire che il cibo scartato
     e invendibile venga utilizzato in modo sensato invece di essere gettato via. Puoi
-    trovare ulteriori informazioni a riguardo <a href="/for-companies">qui</a>.'
+    trovare ulteriori informazioni a riguardo [qui](/fuer-unternehmen).'
   notallowed: 'È esclusa la condivisione di medicinali (anche omeopatici). Abbigliamento,
     cosmetici, prodotti chimici domestici, giocattoli e altri prodotti non alimentari
     non possono essere scambiati o condivisi tramite foodsharing. La piattaforma foodsharing
@@ -1330,6 +1330,8 @@ poll:
     number_of_votes: Voti espressi
     average: 'Media'
     percentage_of_votes: 'Affluenza alle urne'
+    standardDeviationShort: σ
+    standardDeviation: Deviazione standard
   cancel:
     question: Vuole davvero annullare questa votazione? Questo non può essere annullato.
     title: Cancellare la riconciliazione
@@ -1393,7 +1395,7 @@ poll:
   type: Natura della votazione
   scope_description_4: Tutti i Foodsaver verificati con il distretto radicale del
     voto
-  scope_description_3: Tutti gli ambasciatori del distretto/gruppo
+  scope_description_3: Tutti gli ambasciatori del distretto
   scope_description_2: Tutti i responsabili di agiende del distretto che sono attualmente
     responsabili di un'operazione
   scope_description_1: Tutti i Foodsaver verificati del distretto/gruppo
