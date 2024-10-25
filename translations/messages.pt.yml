@@ -533,6 +533,8 @@ poll:
     number_of_votes: ''
     option_text: ''
     votes: ''
+    standardDeviation: Desvio padrão
+    standardDeviationShort: σ
   new_poll:
     type: ''
     name_required: ''
