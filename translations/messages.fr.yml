@@ -3102,8 +3102,8 @@ language_chooser:
   choose_button: Actualiser
   translation_help_info_text: Ce lien mène au portail de traduction, clique sur le
     crayon pour commencer
-  translation_help: Tu parles d’autres langues ? Foodsharing cherche toujours des
-    bénévoles pour traduire
+  translation_help: Tu parles d’autres langues ? Chez foodsharing, nous recherchons
+    toujours des bénévoles pour traduire
 poll:
   cancel:
     question: Souhaites-tu vraiment annuler ce vote ? Tu ne pourras pas revenir à
