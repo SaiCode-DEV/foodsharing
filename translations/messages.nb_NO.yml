@@ -122,8 +122,8 @@ language_chooser:
   title: Velg språk
   content: Vennligst velg et språk
   choose_button: Aktualisere
-  translation_help: Snakker du andre språk? Foodsharing leter alltid etter hjelpere
-    til å oversette
+  translation_help: Snakker du andre språk? Hos foodsharing ser vi alltid etter hjelpere
+    med oversettelse
   translation_help_info_text: Denne lenken fører til oversettelsesportalen, registrer
     deg der og klikk på blyanten der for å starte
 poll:
