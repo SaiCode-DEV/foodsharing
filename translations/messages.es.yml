@@ -579,7 +579,7 @@ quiz:
       del estudio durante {waitTimeAfterFailure} días. Asegúrate de consultar los
       artículos pertinentes de la Wiki para poder aprobar el examen.
     pause: Has suspendido este examen varias veces. La fiabilidad, el conocimiento
-      de las normas y la profesionalidad son esenciales en el Foodsharing. Desgraciadamente,
+      de las normas y la profesionalidad son esenciales en el foodsharing. Desgraciadamente,
       tus respuestas no transmiten esto por el momento. Por lo tanto, se te concederá
       una pausas antes de que puedas volver a intentar superar la prueba. Tu pausa
       terminará en {currentWaitTime} días.
