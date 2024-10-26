@@ -2862,8 +2862,8 @@ language_chooser:
   title: "Choose language"
   content: "Please choose a language"
   choose_button: "Continue"
-  translation_help: "Do you speak other languages? Foodsharing is always looking for
-    help with translations"
+  translation_help: "Do you speak other languages? We at foodsharing are always looking
+    for help with translations"
   translation_help_info_text: "The link takes you to the translation portal. Register
     and click on the pen to get started"
 
