@@ -3692,8 +3692,8 @@ quiz:
       pour réussir le quiz.
     passed: Tu as réussi ce quiz.
     noWaitAfter: Consulte à nouveau les articles Wiki correspondants et réessaie.
-    neverTried: Tu n'as jamais fait ce jeu de questions auparavant. Prends le temps
-      de lire attentivement tous les articles wiki mentionnés afin d'être prêt(e)
+    neverTried: Tu n’as jamais fait ce jeu de questions auparavant. Prends le temps
+      de lire attentivement tous les articles wiki mentionnés afin d’être prêt(e)
       à répondre aux questions.
     running: Tu as déjà commencé(e) le quiz et tu as répondu(e) jusqu'à présent à
       {questionsAnswered} des {questionCount} questions.
