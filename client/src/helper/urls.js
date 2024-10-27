@@ -54,7 +54,6 @@ const urls = {
     }
     return url
   },
-  mailboxManage: () => '/?page=mailbox&a=manage',
   mailboxMailto: (email) => `/?page=mailbox&mailto=${email}`,
   mailboxOldAttachment: (emailId, attachmentIndex) => `/?page=mailbox&a=dlattach&mid=${emailId}&i=${attachmentIndex}`,
   map: ({ storeId = null, foodSharePointId = null, markers = null } = {}) => {

@@ -41,14 +41,6 @@
       </a>
       -->
       <a
-        v-if="permissions.manageMailboxes"
-        :href="$url('mailboxManage')"
-        role="menuitem"
-        class="dropdown-item dropdown-action"
-      >
-        <i class="icon-subnav fas fa-envelope" /> {{ $i18n('system_administration.mailboxes') }}
-      </a>
-      <a
         v-if="permissions.editContent"
         :href="$url('contentEdit')"
         role="menuitem"

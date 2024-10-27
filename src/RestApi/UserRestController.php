@@ -25,7 +25,6 @@ use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Permissions\ContentPermissions;
-use Foodsharing\Permissions\MailboxPermissions;
 use Foodsharing\Permissions\NewsletterEmailPermissions;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\QuizPermissions;
@@ -71,7 +70,6 @@ class UserRestController extends AbstractFoodsharingRestController
         private SettingsGateway $settingsGateway,
 
         private ProfilePermissions $profilePermissions,
-        private MailboxPermissions $mailboxPermissions,
         private QuizPermissions $quizPermissions,
         private ReportPermissions $reportPermissions,
         private StorePermissions $storePermissions,
@@ -171,7 +169,6 @@ class UserRestController extends AbstractFoodsharingRestController
                 'editQuiz' => $this->quizPermissions->maySeeEditQuizPage(),
                 'handleReports' => $this->reportPermissions->mayHandleReports(),
                 'addStore' => $this->storePermissions->mayCreateStore(),
-                'manageMailboxes' => $this->mailboxPermissions->mayManageMailboxes(),
                 'editContent' => $this->contentPermissions->mayEditContent(),
                 'administrateNewsletterEmail' => $this->newsletterEmailPermissions->mayAdministrateNewsletterEmail(),
                 'administrateRegions' => $this->regionPermissions->mayAdministrateRegions(),

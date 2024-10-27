@@ -3328,7 +3328,6 @@ system_administration:
   quiz: "Quiz verwalten"
   reports: "Meldungen einsehen"
   email: "Newsletter versenden"
-  mailboxes: "Mailboxen verwalten"
   content: "Inhalte bearbeiten"
   store_categories: "Betriebskategorien bearbeiten"
 

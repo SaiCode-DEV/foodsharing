@@ -10,28 +10,11 @@ class DataHelper
         $g_data = $data;
     }
 
-    public function getPostData(): array
-    {
-        return $_POST;
-    }
-
     public function getValue($id)
     {
         global $g_data;
 
         return $g_data[$id] ?? '';
-    }
-
-    public function unsetAll($array, $fields): array
-    {
-        $out = [];
-        foreach ($fields as $f) {
-            if (isset($array[$f])) {
-                $out[$f] = $array[$f];
-            }
-        }
-
-        return $out;
     }
 
     /**

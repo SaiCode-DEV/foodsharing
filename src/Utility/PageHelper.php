@@ -212,7 +212,6 @@ final class PageHelper
             'editQuiz' => $this->quizPermissions->maySeeEditQuizPage(),
             'handleReports' => $this->reportPermissions->mayHandleReports(),
             'addStore' => $this->storePermissions->mayCreateStore(),
-            'manageMailboxes' => $this->mailboxPermissions->mayManageMailboxes(),
             'editContent' => $this->contentPermissions->mayEditContent(),
             'administrateNewsletterEmail' => $this->newsletterEmailPermissions->mayAdministrateNewsletterEmail(),
             'administrateRegions' => $this->regionPermissions->mayAdministrateRegions(),
@@ -381,11 +380,6 @@ final class PageHelper
         $this->webpackStylesheets[] = $src;
     }
 
-    public function addStyle(string $css): void
-    {
-        $this->add_css .= trim($css);
-    }
-
     public function addJs(string $njs): void
     {
         $this->js .= $njs;
@@ -394,11 +388,6 @@ final class PageHelper
     public function addJsFunc(string $nfunc): void
     {
         $this->js_func .= $nfunc;
-    }
-
-    public function addHead(string $str): void
-    {
-        $this->head .= "\n" . $str;
     }
 
     public function addTitle(string $name): void

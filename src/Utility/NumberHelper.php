@@ -63,14 +63,4 @@ final class NumberHelper
 
         return number_format($num, $decimals, $d_sep, $t_sep);
     }
-
-    public function format_distance(float $distance)
-    {
-        $distance = round($distance, 1);
-        if ($distance < 1) {
-            return $this->format_number($distance * 1000) . ' m';
-        }
-
-        return $this->format_number($distance, true, 2) . ' km';
-    }
 }

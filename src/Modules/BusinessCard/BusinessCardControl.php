@@ -23,58 +23,7 @@ class BusinessCardControl extends Control
 
     public function index(): void
     {
-        if (!$this->session->mayRole()) {
-            $this->routeHelper->goLoginAndExit();
-        }
-
-        $this->pageHelper->addBread($this->translator->trans('bcard.title'));
-
-        $this->pageHelper->addContent($this->view->top(), CNT_TOP);
-
-        if ($data = $this->gateway->getMyData($this->session->id(), $this->session->mayRole(Role::STORE_MANAGER))) {
-            $data = array_map(fn ($value) => $value ?? '', $data);
-
-            if (strlen($data['telefon'] . $data['handy']) <= 3) {
-                $this->flashMessageHelper->error($this->translator->trans('bcard.error.phone'));
-                $this->routeHelper->goAndExit('/user/current/settings');
-            }
-            if ($data['verified'] == 0) {
-                $this->flashMessageHelper->error($this->translator->trans('bcard.error.verified'));
-                $this->routeHelper->goAndExit('/user/current/settings');
-            }
-
-            $choices = [];
-
-            foreach ($data['bot'] as $b) {
-                $choices[] = [
-                    'id' => 'bot:' . $b['id'],
-                    'name' => $this->translator->trans('bcard.for', [
-                        '{role}' => $this->translator->trans('terminology.ambassador.d'),
-                        '{region}' => $b['name'],
-                    ]),
-                ];
-            }
-            foreach ($data['sm'] as $b) {
-                $choices[] = [
-                    'id' => 'sm:' . $b['id'],
-                    'name' => $this->translator->trans('bcard.for', [
-                        '{role}' => $this->translator->trans('terminology.storemanager.d'),
-                        '{region}' => $b['name'],
-                    ]),
-                ];
-            }
-            foreach ($data['fs'] as $b) {
-                $choices[] = [
-                    'id' => 'fs:' . $b['id'],
-                    'name' => $this->translator->trans('bcard.for', [
-                        '{role}' => $this->translator->trans('terminology.foodsaver.d'),
-                        '{region}' => $b['name'],
-                    ]),
-                ];
-            }
-
-            $this->pageHelper->addContent($this->view->optionForm($choices));
-        }
+        $this->routeHelper->goAndExit('/user/current/settings?sub=bcard');
     }
 
     public function makeCard(Request $request)

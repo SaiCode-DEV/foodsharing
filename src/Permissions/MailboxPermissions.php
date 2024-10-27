@@ -44,16 +44,6 @@ class MailboxPermissions
         return false;
     }
 
-    public function mayManageMailboxes(): bool
-    {
-        return $this->session->mayRole(Role::ORGA);
-    }
-
-    public function mayAddMailboxes(): bool
-    {
-        return $this->mayManageMailboxes();
-    }
-
     public function mayHaveMailbox(): bool
     {
         return $this->session->mayRole(Role::STORE_MANAGER);
