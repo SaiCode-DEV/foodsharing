@@ -13,7 +13,6 @@ class BusinessCardControl extends Control
     private const MAX_CHAR_PER_LINE = 45;
 
     public function __construct(
-        private readonly BusinessCardView $view,
         private readonly BusinessCardGateway $gateway,
         #[Autowire(param: 'kernel.project_dir')]
         private readonly string $projectDir,
