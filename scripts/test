@@ -27,6 +27,9 @@ if [[ ! $("$dir"/docker-compose ps | grep -c "Up" | awk '{print $1}') -eq 12 ]];
     log-header "Running migrations"
     migratedb
 
+    log-header "Create DB dump file for codeception"
+    sql_dump_to_file dump.sql
+
     log-header "Waiting for assets to be generated ..."
     wait-for-assets
     exec-in-container app "bin/console assets:install"

@@ -10,23 +10,13 @@ use Foodsharing\Permissions\VotingPermissions;
 
 class VotingControl extends Control
 {
-    private readonly VotingGateway $votingGateway;
-    private readonly VotingPermissions $votingPermissions;
-    private readonly VotingTransactions $votingTransactions;
-    private readonly RegionGateway $regionGateway;
-
     public function __construct(
-        VotingView $view,
-        VotingGateway $votingGateway,
-        VotingPermissions $votingPermissions,
-        VotingTransactions $votingTransactions,
-        RegionGateway $regionGateway
+        private readonly VotingView $view,
+        private readonly VotingGateway $votingGateway,
+        private readonly VotingPermissions $votingPermissions,
+        private readonly VotingTransactions $votingTransactions,
+        private readonly RegionGateway $regionGateway
     ) {
-        $this->view = $view;
-        $this->votingGateway = $votingGateway;
-        $this->votingPermissions = $votingPermissions;
-        $this->votingTransactions = $votingTransactions;
-        $this->regionGateway = $regionGateway;
         parent::__construct();
     }
 

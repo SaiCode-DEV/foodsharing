@@ -6,19 +6,18 @@ use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use setasign\Fpdi\Tcpdf\Fpdi;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\HttpFoundation\Request;
 
 class BusinessCardControl extends Control
 {
     private const MAX_CHAR_PER_LINE = 45;
 
     public function __construct(
-        BusinessCardView $view,
+        private readonly BusinessCardView $view,
         private readonly BusinessCardGateway $gateway,
         #[Autowire(param: 'kernel.project_dir')]
         private readonly string $projectDir,
     ) {
-        $this->view = $view;
-
         parent::__construct();
     }
 
@@ -78,10 +77,10 @@ class BusinessCardControl extends Control
         }
     }
 
-    public function makeCard()
+    public function makeCard(Request $request)
     {
         $data = $this->gateway->getMyData($this->session->id(), $this->session->mayRole(Role::STORE_MANAGER));
-        $opt = $this->request->query->get('opt');
+        $opt = $request->query->get('opt');
         if (!$data || !$opt) {
             return;
         } else {

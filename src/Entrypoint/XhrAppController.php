@@ -2,10 +2,8 @@
 
 namespace Foodsharing\Entrypoint;
 
-use Foodsharing\Lib\Routing;
 use Foodsharing\Lib\Session;
-use Foodsharing\Lib\Xhr\XhrResponses;
-use Foodsharing\Modules\Core\Control;
+use Foodsharing\Modules\Basket\BasketXhr;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +12,8 @@ use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 
 class XhrAppController extends AbstractController
 {
+    public const PERMISSION_DENIED = 'permission_denied';
+
     /**
      * @var ContainerInterface Kernel container needed to access any service,
      * instead of just the ones specified in AbstractController::getSubscribedServices
@@ -24,16 +24,6 @@ class XhrAppController extends AbstractController
     {
         $this->fullServiceContainer = $container;
     }
-
-    /*
-        methods wich are excluded from the CSRF Protection.
-        We start with every method and remove one by another
-        NEVER ADD SOMETING TO THIS LIST!
-    */
-    private const csrf_whitelist = [
-        'TeamXhr::contact',
-        'WallPostXhr::attachimage',
-    ];
 
     public function __invoke(
         Request $request,
@@ -50,24 +40,24 @@ class XhrAppController extends AbstractController
 
         $session->initIfCookieExists();
 
-        $class = Routing::getClassName($app, 'Xhr');
+        $class = match ($app) {
+            'basket' => BasketXhr::class,
+            default => null,
+        };
 
         global $container;
         $container = $this->fullServiceContainer;
-        /** @var Control $obj */
+        /** @var BasketXhr $obj */
         $obj = $this->fullServiceContainer->get(ltrim($class, '\\'));
 
         if (!method_exists($obj, $meth)) {
             return new Response(null, Response::HTTP_BAD_REQUEST);
         }
 
-        $obj->setRequest($request);
-
         $response = new Response();
 
         // check CSRF Header
-        $whitelist_key = explode('\\', $class)[3] . '::' . $meth;
-        if (!in_array($whitelist_key, XhrAppController::csrf_whitelist) && !$session->isValidCsrfHeader()) {
+        if (!$session->isValidCsrfHeader()) {
             $response->setProtocolVersion('1.1');
             $response->setStatusCode(Response::HTTP_FORBIDDEN);
             $response->setContent('CSRF Failed: CSRF token missing or incorrect.');
@@ -78,7 +68,7 @@ class XhrAppController extends AbstractController
         // execute method
         $out = $obj->$meth($request);
 
-        if ($out === XhrResponses::PERMISSION_DENIED) {
+        if ($out === self::PERMISSION_DENIED) {
             $response->setProtocolVersion('1.1');
             $response->setStatusCode(Response::HTTP_FORBIDDEN);
 

@@ -2,11 +2,9 @@
 
 namespace Foodsharing\Lib;
 
-use Foodsharing\Modules\Basket\BasketXhr;
 use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use Foodsharing\Modules\Index\IndexControl;
 use Foodsharing\Modules\Mailbox\MailboxControl;
-use Foodsharing\Modules\Store\StoreController;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
 use Foodsharing\Modules\Voting\VotingControl;
 use Foodsharing\Modules\WorkGroup\WorkGroupControl;
@@ -21,22 +19,12 @@ class Routing
     // for FoodsharingController, this is derived from the controller name
     // (which should match the module name)
     private const MODULES = [
-        'activity' => 'Activity',
-        'application' => 'Application',
-        'bell' => 'Bell',
-        'buddy' => 'Buddy',
         'bcard' => 'BusinessCard',
         'index' => 'Index',
         'mailbox' => 'Mailbox',
         'poll' => 'Voting',
-        'register' => 'Register',
-        'report' => 'Report',
-        'search' => 'Search',
-        'betrieb' => 'Store',
         'fsbetrieb' => 'StoreUser',
-        'wallpost' => 'WallPost',
         'groups' => 'WorkGroup',
-        'store' => 'Store',
     ];
 
     private const CLASSES = [
@@ -46,11 +34,6 @@ class Routing
         'poll' => VotingControl::class,
         'fsbetrieb' => StoreUserControl::class,
         'groups' => WorkGroupControl::class,
-        'store' => StoreController::class,
-    ];
-
-    private const XHR = [
-        'basket' => BasketXhr::class,
     ];
 
     private const PORTED = [
@@ -85,15 +68,9 @@ class Routing
         'basket' => 'essenskoerbe'
     ];
 
-    public static function getClassName(string $appName, $type = 'Xhr'): ?string
+    public static function getClassName(string $appName): ?string
     {
-        if ($type === 'Xhr') {
-            return self::XHR[$appName] ?? null;
-        } elseif ($type === 'Control') {
-            return self::CLASSES[$appName] ?? null;
-        } else {
-            return null;
-        }
+        return self::CLASSES[$appName] ?? null;
     }
 
     public static function getModuleName(string $appName): ?string
