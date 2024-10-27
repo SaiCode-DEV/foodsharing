@@ -1950,7 +1950,7 @@ profile:
     vouch: "Merci de n’attribuer la banane de confiance qu’à des personnes que tu
       connais personnellement,\nqui respectent les règles de conduite et l’accord
       juridique\net dont tu peux garantir la fiabilité et l’engagement.\n"
-    undo: Les bananes-confiance ne peuvent pas être modifiées ou retirées.
+    undo: Les bananes-confiance ne peuvent pas être modifiées.
     give: Offre une banane-confiance à {name}
     none: "{name} n’a pas de nouvelles bananes-confiance depuis un moment."
     title: '{count} Bananes-confiance'
@@ -3492,10 +3492,10 @@ quiz:
     FAILED: '{name} – réessayer !'
     RUNNING: '{name} – continue le quiz !'
     NEVER_TRIED: '{name} – fais le quiz maintenant !'
-    continue: '{name}‐Continuer le quiz!'
+    continue: '{name}‐Continuer le quiz !'
     pause: Pause d’apprentissage ({name})
     disqualified: '{name} – malheureusement disqualifié(e).'
-    start: '{name} ‐ Répondre au quiz maintenant!'
+    start: '{name} ‐ Répondre au quiz maintenant !'
   startmodal:
     title: Notes du quiz
     infos:
@@ -3692,8 +3692,8 @@ quiz:
       pour réussir le quiz.
     passed: Tu as réussi ce quiz.
     noWaitAfter: Consulte à nouveau les articles Wiki correspondants et réessaie.
-    neverTried: Tu n'as jamais fait ce jeu de questions auparavant. Prends le temps
-      de lire attentivement tous les articles wiki mentionnés afin d'être prêt(e)
+    neverTried: Tu n’as jamais fait ce jeu de questions auparavant. Prends le temps
+      de lire attentivement tous les articles wiki mentionnés afin d’être prêt(e)
       à répondre aux questions.
     running: Tu as déjà commencé(e) le quiz et tu as répondu(e) jusqu'à présent à
       {questionsAnswered} des {questionCount} questions.

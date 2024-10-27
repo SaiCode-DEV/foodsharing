@@ -670,8 +670,7 @@ legal:
   if_delete:
     this_gets_deleted_friendlist: La tua lista di amici viene eliminata.
     this_doesnt_get_deleted_address: Il tuo indirizzo
-    this_gets_deleted_trustbananas: Le banane che hai ricevuto o premiato verranno
-      rimosse.
+    this_gets_deleted_trustbananas: Le banane che hai ricevuto verranno rimosse.
     this_doesnt_get_deleted_name: Il tuo nome
     this_gets_deleted_main: 'Le seguenti informazioni saranno eliminate dal vostro
       account e non potranno essere ripristinate:'
@@ -2165,9 +2164,9 @@ basket:
   requests: Richieste ({count})
   provider: Fornitore
   where: Dove?
-  updated: Attualizzato <strong>{date}</strong>
+  updated: 'Attualizzato:'
   expires: Data di scadenza
-  created: Pubblicato <strong>{date}</strong>
+  created: 'Pubblicato:'
   date: Impostazione della data
   new: Nuovo cesto alimentare
   delete: Cancellare cestino di cibo
@@ -2353,7 +2352,7 @@ search:
     user:
       no_home_region: 'Nessun distretto di residenza'
       copy_id: Copia ID
-      copied_id: ID copiato da {name} ({id})
+      copied_id: ID copiato da {name} ({text})
     store:
       manager_tooltip: 'Sei responsabile di questa attività'
       jumper_tooltip: 'Sei un Jolly per questa attività'
@@ -2477,7 +2476,7 @@ profile:
     vouch: "Quindi, per favore, dai la banana della fiducia solo a persone che conosci
       personalmente,\nche rispettano le regole di condotta e l'accordo legale\ne di
       cui potete garantire l'affidabilità e l'impegno.\n"
-    undo: Le banane di fiducia non possono essere cambiate o ritirate.
+    undo: Le banane di fiducia non possono essere cambiate.
     details: "Qui puoi descrivere in almeno 100 caratteri perché vorresti dare a {name}
       una banana.\n"
   mail_bounce:
@@ -2520,7 +2519,7 @@ profile:
   pinboard: Aggiornamenti di stato da {name}
   about_me_intern: Riguardo a te stesso
   sleepinfo: '{name} é dormiglione da {from} a {until}'
-  sleeping: '{name} é dormiglione a tempo indeterminato'
+  sleeping: 'é dormiglione a tempo indeterminato'
   workgroups: '{nome} è impegnato come persona di contatto per i gruppi'
   homeRegion: Distretto origine di {name}
   ambRegions: '{name} é {role} per'
@@ -2529,7 +2528,7 @@ profile:
     posts: Contributi
     baskets: Cestini alimentare
     count: ritirato
-    weight: salvato
+    weight: kg salvato
   infos:
     foodsharerId: ID-Foodsaver
     foodsaverId: ID-Foodsaver
