@@ -35,7 +35,7 @@ class IndexController extends AbstractController
             return $this->doPortedRedirect($page, $request, $urlHelper);
         }
 
-        $controllerFqcn = Routing::getClassName($page, 'Control');
+        $controllerFqcn = Routing::getClassName($page);
 
         try {
             global $container;
@@ -48,7 +48,6 @@ class IndexController extends AbstractController
 
                 /** @var Control $controller */
                 $controller = $container->get(ltrim($controllerFqcn, '\\'));
-                $controller->setRequest($request);
             }
         } catch (ServiceNotFoundException) {
             throw $this->createNotFoundException();
@@ -64,10 +63,14 @@ class IndexController extends AbstractController
                 /* @phpstan-ignore-next-line */
                 $controller->index($request, $response);
             }
-            $sub = $controller->getSub();
-            if ($sub !== false && is_callable([$controller, $sub])) {
-                // this only happens if the submethod is public
-                $controller->$sub($request, $response);
+
+            if ($request->query->has('sub')) {
+                $sub = $request->query->get('sub');
+
+                if ($sub !== null && is_callable([$controller, $sub])) {
+                    // this only happens if the submethod is public
+                    $controller->$sub($request, $response);
+                }
             }
         } else {
             throw $this->createNotFoundException();

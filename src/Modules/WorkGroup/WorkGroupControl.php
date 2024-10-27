@@ -14,24 +14,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class WorkGroupControl extends Control
 {
-    private readonly WorkGroupGateway $workGroupGateway;
-    private readonly WorkGroupPermissions $workGroupPermissions;
-    private readonly ImageHelper $imageService;
-    private readonly RegionGateway $regionGateway;
-
     public function __construct(
-        WorkGroupView $view,
-        WorkGroupGateway $workGroupGateway,
-        WorkGroupPermissions $workGroupPermissions,
-        ImageHelper $imageService,
-        RegionGateway $regionGateway,
+        private readonly WorkGroupView $view,
+        private readonly WorkGroupGateway $workGroupGateway,
+        private readonly WorkGroupPermissions $workGroupPermissions,
+        private readonly ImageHelper $imageService,
+        private readonly RegionGateway $regionGateway,
     ) {
-        $this->view = $view;
-        $this->workGroupGateway = $workGroupGateway;
-        $this->workGroupPermissions = $workGroupPermissions;
-        $this->imageService = $imageService;
-        $this->regionGateway = $regionGateway;
-
         parent::__construct();
     }
 
@@ -184,7 +173,7 @@ class WorkGroupControl extends Control
 
         $group['photo'] = $this->fixPhotoPath($group['photo']);
 
-        $response->setContent($this->render('pages/WorkGroup/edit.twig',
+        $response->setContent($this->renderContent('pages/WorkGroup/edit.twig',
             ['nav' => $this->getSideMenuData(), 'group' => $group]
         ));
     }

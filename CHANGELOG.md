@@ -97,6 +97,7 @@
 - Port the dashboard controller to Symfony !3736 @\_fridtjof_
 - Entries from the content API are rendered in Vue !3743 @alex.simm
 - Remove `FoodsaverForAvatar` in favor of `Profile` #1998 !3713 @AntonBallmaier
+- Clean up entrypoint and legacy code !3744 @\_fridtjof_
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm
