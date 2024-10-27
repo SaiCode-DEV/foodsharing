@@ -3,9 +3,6 @@
 namespace Foodsharing\Modules\FoodSharePoint;
 
 use Foodsharing\Lib\Session;
-use Foodsharing\Modules\Bell\BellGateway;
-use Foodsharing\Modules\Bell\DTO\Bell;
-use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Uploads\UploadsGateway;
@@ -16,7 +13,6 @@ use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 use Foodsharing\RestApi\Models\Notifications\FoodSharePoint;
 use Foodsharing\Utility\EmailHelper;
-use Foodsharing\Utility\Sanitizer;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FoodSharePointTransactions
@@ -24,11 +20,9 @@ class FoodSharePointTransactions
     public function __construct(
         private readonly FoodSharePointGateway $foodSharePointGateway,
         private readonly FoodSharePointPermissions $foodSharePointPermissions,
-        private readonly BellGateway $bellGateway,
         private readonly UploadsGateway $uploadsGateway,
         private readonly UploadsTransactions $uploadsTransactions,
         private readonly EmailHelper $emailHelper,
-        private readonly Sanitizer $sanitizer,
         private readonly TranslatorInterface $translator,
         private readonly Session $session
     ) {

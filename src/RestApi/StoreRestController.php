@@ -3,7 +3,6 @@
 namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
-use DateTime;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
