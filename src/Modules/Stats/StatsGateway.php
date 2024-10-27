@@ -100,8 +100,6 @@ class StatsGateway extends BaseGateway
 					SELECT foodsaver_id, id FROM fs_theme_post
 					UNION
 					SELECT foodsaver_id, id FROM fs_wallpost
-					UNION
-					SELECT foodsaver_id, id FROM fs_betrieb_notiz WHERE milestone = 0
 				) AS posts
 				GROUP by foodsaver_id
 			) as posts ON posts.id = fs.id
@@ -215,7 +213,7 @@ class StatsGateway extends BaseGateway
 					COUNT(*) AS posts
 				FROM fs_bezirk_closure c
 				INNER JOIN fs_betrieb b ON b.bezirk_id = c.bezirk_id
-				INNER JOIN fs_betrieb_notiz n ON b.id = n.betrieb_id
+				INNER JOIN fs_store_has_wallpost hp ON b.id = hp.store_id
 				WHERE c.ancestor_id > 0
 				GROUP BY c.ancestor_id
 			) as store_posts ON store_posts.region_id = region.id

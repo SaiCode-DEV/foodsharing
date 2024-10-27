@@ -27,14 +27,10 @@
               :is-coordinator="permissions.isCoordinator"
               :is-verified="isVerified"
             />
-            <StoreWall
+            <Wall
               v-if="viewIsMobile"
-              :may-read-store-wall="permissions.mayReadStoreWall"
-              :store-id="storeId"
-              :managers="storeManagers"
-              :may-write-post="permissions.mayWritePost"
-              :may-delete-everything="permissions.mayDeleteEverything"
-              :is-coordinator="permissions.isCoordinator"
+              target="store"
+              :target-id="storeId"
             />
             <StoreTeam
               v-if="!viewIsMobile"
@@ -73,14 +69,10 @@
               :store-id="storeId"
               :cooperation-start="storeInformation.cooperationStart"
             />
-            <StoreWall
+            <Wall
               v-if="!viewIsMobile"
-              :may-read-store-wall="permissions.mayReadStoreWall"
-              :store-id="storeId"
-              :managers="storeManagers"
-              :may-write-post="permissions.mayWritePost"
-              :may-delete-everything="permissions.mayDeleteEverything"
-              :is-coordinator="permissions.isCoordinator"
+              target="store"
+              :target-id="storeId"
             />
           </div>
           <div class="col-lg-3">
@@ -144,7 +136,7 @@ import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import StoreTeam from '@/components/Stores/StoreTeam/StoreTeam.vue'
 import StoreInfos from '@/components/Stores/StoreInfos.vue'
 import PickupHistory from '@/components/Stores/PickupHistory.vue'
-import StoreWall from '@/components/Stores/StoreWall.vue'
+import Wall from '@/components/Wall/Wall.vue'
 import PickupList from '@/components/Stores/PickupList.vue'
 import { useUserStore } from '@/stores/user'
 import StoreData from '@/stores/stores'
@@ -161,9 +153,9 @@ export default {
     StoreTeam,
     StoreInfos,
     PickupHistory,
-    StoreWall,
     PickupList,
     StoreLog,
+    Wall,
   },
   mixins: [MediaQueryMixin],
   props: {

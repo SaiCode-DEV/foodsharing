@@ -4,6 +4,8 @@
 - Disable preview mode for Markdown component after message was sent #2039 @tq-bit
 - Add feedback on login form for invalid / missing email address #2061 @tq-bit
 - Add API endpoint for creating blog posts !3455 @alex.simm
+- Create option for multiple themes with dark mode as a start #2054 !3500 @SaiCode
+- Store walls now support image attachments !3577 @AntonBallmaier
 - Create option for multiple themes with dark mode as a start #2054 !3500 !3653 @SaiCode
 - Achievements can be awarded, edited and revoked. They get displayed on the profile !3429 @AntonBallmaier
 - Allow users to change their own passwords #581 !3435 @alex.simm
@@ -80,6 +82,7 @@
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
 - Added an enum for wall types in the backend #1996 !3573 @alex.simm
+- Handle store walls like all other walls #2010 !3577 @AntonBallmaier
 - Bananas now use the API !3581 @AntonBallmaier
 - Moved region store to pinia !3619 !3629 !3679 @chriswalg
 - Moved userStore to pinia for future improvements !3531 !3617 !3632 @SaiCode

@@ -4,7 +4,6 @@ namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
-use Foodsharing\Modules\Foodsaver\Profile;
 
 /**
  * Utility class that can be user by all controllers to format objects for
@@ -135,10 +134,6 @@ class RestNormalization
                 'updatedAt' => self::normalizeDate(strtotime((string)$data['status_date'])),
                 'notes' => [],
             ]);
-
-            if (isset($data['notizen']) && is_array($data['notizen'])) {
-                $store['notes'] = array_map(fn ($n) => self::normalizeStoreNote($n), $data['notizen']);
-            }
         }
 
         return $store;
@@ -155,21 +150,6 @@ class RestNormalization
             'street' => $data['str'],
             'city' => $data['stadt'],
             'postalCode' => $data['plz']
-        ];
-    }
-
-    /**
-     * Returns the response data for a note on a store's wall (milestone).
-     *
-     * @param array $data the note data from the database
-     */
-    public static function normalizeStoreNote(array $data): array
-    {
-        return [
-            'id' => (int)$data['id'],
-            'text' => $data['text'],
-            'author' => new Profile(array_merge($data, ['id' => $data['foodsaver_id']])),
-            'createdAt' => self::normalizeDate(strtotime((string)$data['zeit'])),
         ];
     }
 }

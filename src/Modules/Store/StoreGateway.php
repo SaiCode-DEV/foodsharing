@@ -10,7 +10,6 @@ use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
-use Foodsharing\Modules\Core\DBConstants\Store\Milestone;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
@@ -59,7 +58,7 @@ class StoreGateway extends BaseGateway
         return $this->db->exists('fs_betrieb', ['id' => $storeId]);
     }
 
-    public function getBetrieb($storeId, bool $includeWallposts = true): array
+    public function getBetrieb($storeId): array
     {
         $result = $this->db->fetch('
             SELECT  `id`,
@@ -95,10 +94,6 @@ class StoreGateway extends BaseGateway
         }
         if ($kette = $this->getOne_kette($result['kette_id'])) {
             $result['kette'] = $kette;
-        }
-
-        if ($includeWallposts) {
-            $result['notizen'] = $this->getStorePosts($storeId);
         }
 
         return $result;
@@ -750,23 +745,6 @@ class StoreGateway extends BaseGateway
         return $this->db->fetchValueByCriteria('fs_betrieb', $chatType, ['id' => $storeId]);
     }
 
-    // TODO clean up data handling (use a DTO)
-    // TODO eventually, switch to wallpost system
-    public function addStoreWallpost(array $data): int
-    {
-        return $this->db->insert('fs_betrieb_notiz', [
-            'foodsaver_id' => $data['foodsaver_id'],
-            'betrieb_id' => $data['betrieb_id'],
-            'text' => $data['text'],
-            'zeit' => $data['zeit'],
-        ]);
-    }
-
-    public function deleteStoreWallpost(int $storeId, int $postId): int
-    {
-        return $this->db->delete('fs_betrieb_notiz', ['id' => $postId, 'betrieb_id' => $storeId]);
-    }
-
     /**
      * retrieves all store managers for a given region (by being store manager in a store that is part of that region,
      * which is semantically not the same we use on platform).
@@ -861,49 +839,6 @@ class StoreGateway extends BaseGateway
 			WHERE    `id` = :id
         ', [
             ':id' => $id
-        ]);
-    }
-
-    /**
-     * Returns the store comment with the specified ID.
-     */
-    public function getStoreWallpost(int $storeId, int $postId): array
-    {
-        return $this->db->fetchByCriteria(
-            'fs_betrieb_notiz',
-            ['id', 'foodsaver_id', 'betrieb_id', 'text', 'zeit'],
-            ['id' => $postId, 'betrieb_id' => $storeId]
-        );
-    }
-
-    /**
-     * Returns all comments for a given store.
-     */
-    public function getStorePosts(int $storeId, int $offset = 0, int $limit = 50): array
-    {
-        return $this->db->fetchAll('
-			SELECT sn.`id`,
-			       sn.`foodsaver_id`,
-				   fs.`photo`,
-				   CONCAT(fs.`name`," ",fs.`nachname`) AS name,
-			       sn.`betrieb_id`,
-			       sn.`text`,
-			       sn.`zeit`
-
-			FROM `fs_betrieb_notiz` sn
-				INNER JOIN fs_foodsaver fs
-				ON         fs.id = sn.foodsaver_id
-
-			WHERE  sn.`betrieb_id` = :storeId
-			AND    sn.`milestone` = :noMilestone
-
-			ORDER BY sn.`zeit` DESC
-			LIMIT :offset, :limit
-		', [
-            ':storeId' => $storeId,
-            ':noMilestone' => Milestone::NONE,
-            ':offset' => $offset,
-            ':limit' => $limit,
         ]);
     }
 

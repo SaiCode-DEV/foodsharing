@@ -1675,8 +1675,8 @@ bell:
   forum_new_thread: "von {user} im Forum {forum}"
   blog_new_check_title: "Neuer Blogartikel"
   blog_new_check: "{title}"
-  ft_update_title: "{name}"
-  ft_update: "{teaser}"
+  ft_update_title: "{name}" # Message can be improved using {user} after release Nektarine
+  ft_update: "{teaser}" # Message can be improved using {user} after release Nektarine
   store_new_title: "Neuer Betrieb"
   store_new: "{name} wurde eingetragen"
   store_new_request_title: "Neue Teamanfrage"

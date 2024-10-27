@@ -19,6 +19,7 @@ use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Core\DTO\MinimalIdentifier;
 use Foodsharing\Modules\Core\DTO\PatchGeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -40,6 +41,8 @@ use Foodsharing\Modules\Store\DTO\StoreListInformation;
 use Foodsharing\Modules\Store\DTO\StoreStatusForMember;
 use Foodsharing\Modules\StoreCategories\StoreCategoriesGateway;
 use Foodsharing\Modules\StoreChain\StoreChainGateway;
+use Foodsharing\Modules\WallPost\DTO\WallPost;
+use Foodsharing\Modules\WallPost\WallPostGateway;
 use Foodsharing\Utility\WeightHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -71,6 +74,7 @@ class StoreTransactions
         private readonly RegionGateway $regionGateway,
         private readonly StoreCategoriesGateway $storeCategoriesGateway,
         private readonly StoreChainGateway $storeChainGateway,
+        private readonly WallPostGateway $wallPostGateway,
         private readonly Session $session
     ) {
     }
@@ -282,15 +286,6 @@ class StoreTransactions
 
         $this->setStoreNameInConversations($storeId, $createStore->name);
 
-        if (!empty($firstStorePost)) {
-            $this->storeGateway->addStoreWallpost([
-                'foodsaver_id' => $authorFsId,
-                'betrieb_id' => $storeId,
-                'text' => $firstStorePost,
-                'zeit' => date('Y-m-d H:i:s'),
-            ]);
-        }
-
         $authorName = $this->foodsaverGateway->getFoodsaverName($authorFsId);
         $foodsaver = $this->foodsaverGateway->getFoodsaversByRegion($createStore->regionId);
 
@@ -307,6 +302,11 @@ class StoreTransactions
             ),
             $bellData
         );
+        if ($firstStorePost) {
+            $wallpost = new WallPost();
+            $wallpost->body = $firstStorePost;
+            $this->wallPostGateway->addPost($wallpost, $authorFsId, WallType::STORE, $storeId);
+        }
 
         return $storeId;
     }

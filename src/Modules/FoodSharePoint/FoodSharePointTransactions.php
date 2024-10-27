@@ -3,9 +3,6 @@
 namespace Foodsharing\Modules\FoodSharePoint;
 
 use Foodsharing\Lib\Session;
-use Foodsharing\Modules\Bell\BellGateway;
-use Foodsharing\Modules\Bell\DTO\Bell;
-use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Uploads\UploadsGateway;
@@ -16,7 +13,6 @@ use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 use Foodsharing\RestApi\Models\Notifications\FoodSharePoint;
 use Foodsharing\Utility\EmailHelper;
-use Foodsharing\Utility\Sanitizer;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FoodSharePointTransactions
@@ -24,17 +20,15 @@ class FoodSharePointTransactions
     public function __construct(
         private readonly FoodSharePointGateway $foodSharePointGateway,
         private readonly FoodSharePointPermissions $foodSharePointPermissions,
-        private readonly BellGateway $bellGateway,
         private readonly UploadsGateway $uploadsGateway,
         private readonly UploadsTransactions $uploadsTransactions,
         private readonly EmailHelper $emailHelper,
-        private readonly Sanitizer $sanitizer,
         private readonly TranslatorInterface $translator,
         private readonly Session $session
     ) {
     }
 
-    public function sendNewFoodSharePointPostNotifications(int $foodSharePointId): void
+    public function sendNewFoodSharePointMailNotifications(int $foodSharePointId): void
     {
         if ($foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId)) {
             $post = $this->foodSharePointGateway->getLastFoodSharePointPost($foodSharePointId);
@@ -63,19 +57,6 @@ class FoodSharePointTransactions
                         'post' => $body
                     ]);
                 }
-            }
-
-            if ($followers = $this->foodSharePointGateway->getInfoFollowerIds($foodSharePointId)) {
-                $followersWithoutPostAuthor = array_diff($followers, [$post['fs_id']]);
-                $bellData = Bell::create(
-                    'ft_update_title',
-                    'ft_update',
-                    'fas fa-recycle',
-                    ['href' => '/?page=fairteiler&sub=ft&id=' . $foodSharePointId],
-                    ['name' => $foodSharePoint['name'], 'user' => $post['fs_name'], 'teaser' => $this->sanitizer->tt($post['body'], 100)],
-                    BellType::createIdentifier(BellType::FOOD_SHARE_POINT_POST, $foodSharePointId)
-                );
-                $this->bellGateway->addBell($followersWithoutPostAuthor, $bellData);
             }
         }
     }

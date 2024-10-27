@@ -20,6 +20,7 @@ class WallPostPermissions
         private readonly EventPermissions $eventPermissions,
         private readonly FoodSharePointPermissions $fspPermission,
         private readonly QuizPermissions $quizPermissions,
+        private readonly StorePermissions $storePermissions,
         private readonly FoodSharePointGateway $fspGateway,
         private readonly WallPostGateway $wallPostGateway,
         private readonly QuizGateway $quizGateway,
@@ -52,6 +53,8 @@ class WallPostPermissions
                 return $this->quizPermissions->mayReadQuiz(QuizID::tryFrom($quizId));
             case WallType::PROFILE_NOTES:
                 return $this->session->mayRole(Role::ORGA);
+            case WallType::STORE:
+                return $this->storePermissions->mayReadStoreWall($targetId);
             default:
                 return false;
         }
@@ -98,6 +101,8 @@ class WallPostPermissions
 
                 return $this->fspPermission->mayAdministrateFoodSharePoint($targetId)
                     || $this->fspPermission->mayDeleteFoodSharePointWallPostOfRegion($fsp['bezirk_id']);
+            case WallType::STORE:
+                return $this->storePermissions->mayEditStore($targetId);
             default:
                 return false;
         }
