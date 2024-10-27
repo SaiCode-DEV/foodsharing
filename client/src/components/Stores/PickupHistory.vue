@@ -2,7 +2,7 @@
   <Container
     :title="$i18n('pickup.history.title')"
     :container-is-expanded="isContainerExpanded"
-    tag="pickup_history"
+    :tag="`store-pickup-history-${storeId}`"
     wrap-content
   >
     <div class="corner-bottom margin-bottom bootstrap pickup-history">

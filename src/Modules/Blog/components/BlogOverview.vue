@@ -38,9 +38,8 @@
           :blog-title="blog.name"
           :blog-teaser="blog.teaser"
           :published="!!blog.active"
-          :region-id="blog.bezirk_id"
           :created-at="blog.time"
-          :author-id="blog.foodsaver_id"
+          :author="{ id: blog.foodsaver_id, name: blog.foodsaver_name, avatar: blog.foodsaver_photo }"
           :may-edit="mayAdministrateBlog"
           @remove-blogpost-from-list="removeListItem"
         />

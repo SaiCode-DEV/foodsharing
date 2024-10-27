@@ -199,14 +199,13 @@ final class ProfileController extends FoodsharingController
         // what is the viewer allowed to do in this profile?
         if (!empty($regionId) && $userArray['rolle'] > Role::FOODSHARER->value) {
             // MediationRequest
-            if ($this->regionGateway->getRegionOption($regionId, RegionOptionType::ENABLE_MEDIATION_BUTTON)) {
+            $regionOptions = $this->regionGateway->getAllRegionOptions($regionId);
+            if ($regionOptions[RegionOptionType::ENABLE_MEDIATION_BUTTON] ?? false) {
                 $mediationGroupEmail = $this->renderMediationRequest($userArray);
             }
 
             // ReportRequest
-            $isReportButtonEnabled = intval(
-                $this->regionGateway->getRegionOption($regionId, RegionOptionType::ENABLE_REPORT_BUTTON)
-            ) === 1;
+            $isReportButtonEnabled = boolval($regionOptions[RegionOptionType::ENABLE_REPORT_BUTTON] ?? false);
 
             if ($isReportButtonEnabled) {
                 // if the current user is not allowed to see all stores of the profile, the report dialog will only show stores in which both users are
@@ -243,30 +242,24 @@ final class ProfileController extends FoodsharingController
                     $this->session->id()
                 );
 
-                $hasReportGroup = $this->groupFunctionGateway->existRegionFunctionGroup(
+                $reportGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId(
                     $regionId,
                     WorkgroupFunction::REPORT
                 );
+                $hasReportGroup = $reportGroupId !== null;
                 $reporterHasReportGroup = $hasReportGroup;
 
                 if ($hasReportGroup) {
-                    $reportGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId(
-                        $regionId,
-                        WorkgroupFunction::REPORT
-                    );
                     $mailboxNameReportRequest = $this->groupGateway->getGroupMailName($reportGroupId);
                 }
 
-                $hasArbitrationGroup = $this->groupFunctionGateway->existRegionFunctionGroup(
+                $arbitrationGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId(
                     $regionId,
                     WorkgroupFunction::ARBITRATION
                 );
+                $hasArbitrationGroup = $arbitrationGroupId !== null;
 
-                if ($hasArbitrationGroup) {
-                    $arbitrationGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId(
-                        $regionId,
-                        WorkgroupFunction::ARBITRATION
-                    );
+                if ($arbitrationGroupId !== null) {
                     $mailboxNameArbitrationRequest = $this->groupGateway->getGroupMailName($arbitrationGroupId);
                 }
 
@@ -281,8 +274,8 @@ final class ProfileController extends FoodsharingController
 
                 $buttonNameReportRequest = $this->translator->trans('profile.reportRequest');
 
-                $reasonOptionOther = boolval($this->regionGateway->getRegionOption($regionId, RegionOptionType::REPORT_REASON_OTHER) ?? 1);
-                $reasonOptionSettings = intval($this->regionGateway->getRegionOption($regionId, RegionOptionType::REPORT_REASON_OPTIONS) ?? 1);
+                $reasonOptionOther = boolval($regionOptions[RegionOptionType::REPORT_REASON_OTHER] ?? 1);
+                $reasonOptionSettings = intval($regionOptions[RegionOptionType::REPORT_REASON_OPTIONS] ?? 1);
             }
         }
 
@@ -330,8 +323,8 @@ final class ProfileController extends FoodsharingController
         $regionId = $userArray['bezirk_id'];
 
         $mailboxName = '';
-        if ($this->groupFunctionGateway->existRegionFunctionGroup($regionId, WorkgroupFunction::MEDIATION)) {
-            $mediationGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::MEDIATION);
+        $mediationGroupId = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::MEDIATION);
+        if ($mediationGroupId !== null) {
             $mailboxName = $this->groupGateway->getGroupMailName($mediationGroupId) ?? '';
         }
 

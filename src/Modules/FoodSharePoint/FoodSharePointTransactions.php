@@ -9,8 +9,10 @@ use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Uploads\UploadsGateway;
+use Foodsharing\Modules\Uploads\UploadsTransactions;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\RestApi\Models\FoodSharePoint\AddFoodSharePointResponse;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
 use Foodsharing\RestApi\Models\Notifications\FoodSharePoint;
 use Foodsharing\Utility\EmailHelper;
@@ -24,6 +26,7 @@ class FoodSharePointTransactions
         private readonly FoodSharePointPermissions $foodSharePointPermissions,
         private readonly BellGateway $bellGateway,
         private readonly UploadsGateway $uploadsGateway,
+        private readonly UploadsTransactions $uploadsTransactions,
         private readonly EmailHelper $emailHelper,
         private readonly Sanitizer $sanitizer,
         private readonly TranslatorInterface $translator,
@@ -31,7 +34,7 @@ class FoodSharePointTransactions
     ) {
     }
 
-    public function sendNewFoodSharePointPostNotifications(int $foodSharePointId): void
+    public function sendNewFoodSharePointMailNotifications(int $foodSharePointId): void
     {
         if ($foodSharePoint = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId)) {
             $post = $this->foodSharePointGateway->getLastFoodSharePointPost($foodSharePointId);
@@ -60,19 +63,6 @@ class FoodSharePointTransactions
                         'post' => $body
                     ]);
                 }
-            }
-
-            if ($followers = $this->foodSharePointGateway->getInfoFollowerIds($foodSharePointId)) {
-                $followersWithoutPostAuthor = array_diff($followers, [$post['fs_id']]);
-                $bellData = Bell::create(
-                    'ft_update_title',
-                    'ft_update',
-                    'fas fa-recycle',
-                    ['href' => '/?page=fairteiler&sub=ft&id=' . $foodSharePointId],
-                    ['name' => $foodSharePoint['name'], 'user' => $post['fs_name'], 'teaser' => $this->sanitizer->tt($post['body'], 100)],
-                    BellType::createIdentifier(BellType::FOOD_SHARE_POINT_POST, $foodSharePointId)
-                );
-                $this->bellGateway->addBell($followersWithoutPostAuthor, $bellData);
             }
         }
     }
@@ -117,5 +107,27 @@ class FoodSharePointTransactions
         }
 
         return new AddFoodSharePointResponse($id, !$isProposal);
+    }
+
+    public function editFoodSharePoint(int $foodSharePointId, array $currentData, FoodSharePointEditData $newData): void
+    {
+        $this->foodSharePointGateway->updateFoodSharePoint($foodSharePointId, $newData);
+
+        /* If the picture of this food share point was changed, the usage type of the new one (if any) needs to be set
+         and the old picture needs to be deleted. */
+        $newPicture = $newData->picture ?? '';
+        if ($newPicture !== $currentData['picture']) {
+            if (!empty($currentData['picture'])) {
+                $oldUUID = substr($currentData['picture'], 13);
+                $this->uploadsTransactions->deleteUploadedFile($oldUUID);
+            }
+
+            if (!empty($newPicture)) {
+                $uuid = substr($newPicture, 13);
+                $this->uploadsGateway->setUsage([$uuid], UploadUsage::FOOD_SHARE_POINT_TITLE, $foodSharePointId);
+            }
+        }
+
+        $this->foodSharePointGateway->updateFSPManagers($currentData['id'], $newData->managerIds);
     }
 }

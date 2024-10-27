@@ -8,4 +8,5 @@ enum MapMarkerType: string
     case FOOD_SHARE_POINTS = 'foodsharepoints';
     case COMMUNITIES = 'communities';
     case STORES = 'stores';
+    case USERS = 'users';
 }

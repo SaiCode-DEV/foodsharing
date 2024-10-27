@@ -4,11 +4,8 @@ namespace Foodsharing\Lib;
 
 use Foodsharing\Modules\Basket\BasketXhr;
 use Foodsharing\Modules\BusinessCard\BusinessCardControl;
-use Foodsharing\Modules\Dashboard\DashboardControl;
 use Foodsharing\Modules\Index\IndexControl;
-use Foodsharing\Modules\Logout\LogoutControl;
 use Foodsharing\Modules\Mailbox\MailboxControl;
-use Foodsharing\Modules\Relogin\ReloginControl;
 use Foodsharing\Modules\Store\StoreController;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
 use Foodsharing\Modules\Voting\VotingControl;
@@ -29,13 +26,10 @@ class Routing
         'bell' => 'Bell',
         'buddy' => 'Buddy',
         'bcard' => 'BusinessCard',
-        'dashboard' => 'Dashboard',
         'index' => 'Index',
-        'logout' => 'Logout',
         'mailbox' => 'Mailbox',
         'poll' => 'Voting',
         'register' => 'Register',
-        'relogin' => 'Relogin',
         'report' => 'Report',
         'search' => 'Search',
         'betrieb' => 'Store',
@@ -47,12 +41,9 @@ class Routing
 
     private const CLASSES = [
         'bcard' => BusinessCardControl::class,
-        'dashboard' => DashboardControl::class,
         'index' => IndexControl::class,
-        'logout' => LogoutControl::class,
         'mailbox' => MailboxControl::class,
         'poll' => VotingControl::class,
-        'relogin' => ReloginControl::class,
         'fsbetrieb' => StoreUserControl::class,
         'groups' => WorkGroupControl::class,
         'store' => StoreController::class,
@@ -82,6 +73,9 @@ class Routing
         'register',
         'application',
         'msg',
+        'logout',
+        'relogin',
+        'dashboard',
     ];
 
     private const RENAMES = [

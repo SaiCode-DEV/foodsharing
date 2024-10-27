@@ -1,5 +1,5 @@
 <template>
-  <Container :title="storeName" tag="store_options">
+  <Container :title="storeName" :tag="`store-options-${storeId}`">
     <ContainerButton
       v-if="teamConversationId != null && isUserInStore"
       text-key="store.chat.team"

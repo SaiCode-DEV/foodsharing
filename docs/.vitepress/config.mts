@@ -6,6 +6,7 @@ import { generateI18nLocale, generateI18nSearch } from 'vitepress-i18n';
 import MarkdownItImplicitFigures from "markdown-it-implicit-figures";
 import MarkdownItPlantuml from "markdown-it-plantuml";
 import { useSidebar } from 'vitepress-theme-openapi'
+
 import spec from '../data/api_dump.json' assert { type: 'json' }
 
 import { join } from "node:path";

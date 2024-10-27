@@ -6,11 +6,13 @@ use Exception;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Content\ContentView;
-use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
+use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
+use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\FoodSharePointPermissions;
@@ -42,6 +44,8 @@ final class RegionController extends FoodsharingController
         private readonly ForumGateway $forumGateway,
         private readonly AchievementGateway $achievementGateway,
         private readonly AchievementPermissions $achievementPermissions,
+        private readonly GroupFunctionGateway $groupFunctionGateway,
+        private readonly FoodsaverGateway $foodsaverGateway,
     ) {
         parent::__construct();
     }
@@ -51,9 +55,9 @@ final class RegionController extends FoodsharingController
         return $this->workGroupPermissions->mayEdit($group);
     }
 
-    private function isHomeDistrict($region): bool
+    private function isHomeDistrict(int $regionId): bool
     {
-        return (int)$region['id'] === $this->currentUserUnits->getCurrentRegionId();
+        return $regionId === $this->currentUserUnits->getCurrentRegionId();
     }
 
     private function getMenu(array $group, bool $isWorkgroup): array
@@ -91,34 +95,43 @@ final class RegionController extends FoodsharingController
         return $menu;
     }
 
-    private function mergeAdmins(array $region, bool $isWorkgroup, callable $avatarListEntry): array
+    /**
+     * Fetches the admins of this group and, in case of a region, of all working groups with special functions.
+     *
+     * @return array an array with working group function strings as keys and a list of Profile objects as values
+     */
+    private function mergeAdmins(int $regionId, bool $isWorkgroup): array
     {
-        $allRegionAdmins = [
-            'botschafter',
-            'welcomeAdmins',
-            'votingAdmins',
-            'fspAdmins',
-            'storesAdmins',
-            'reportAdmins',
-            'mediationAdmins',
-            'arbitrationAdmins',
-            'fsManagementAdmins',
-            'prAdmins',
-            'moderationAdmins',
-            'boardAdmins',
-            'electionAdmins'
+        $admins = $this->foodsaverGateway->getAdminsOrAmbassadors($regionId);
+        shuffle($admins);
+        $mergedAdmins = [
+            'botschafter' => array_map(fn ($fs) => new Profile($fs), $admins)
         ];
 
-        $allGroupAdmins = [
-            'botschafter'
-        ];
+        if (!$isWorkgroup) {
+            $functionMappings = [
+                WorkgroupFunction::WELCOME => 'welcomeAdmins',
+                WorkgroupFunction::VOTING => 'votingAdmins',
+                WorkgroupFunction::FSP => 'fspAdmins',
+                WorkgroupFunction::STORES_COORDINATION => 'storesAdmins',
+                WorkgroupFunction::REPORT => 'reportAdmins',
+                WorkgroupFunction::MEDIATION => 'mediationAdmins',
+                WorkgroupFunction::ARBITRATION => 'arbitrationAdmins',
+                WorkgroupFunction::FSMANAGEMENT => 'fsManagementAdmins',
+                WorkgroupFunction::PR => 'prAdmins',
+                WorkgroupFunction::MODERATION => 'moderationAdmins',
+                WorkgroupFunction::BOARD => 'boardAdmins',
+                WorkgroupFunction::ELECTION => 'electionAdmins',
+            ];
 
-        $allAdmins = $isWorkgroup ? $allGroupAdmins : $allRegionAdmins;
-
-        $mergedAdmins = [];
-        foreach ($allAdmins as $adminKey) {
-            if (isset($region[$adminKey]) && is_array($region[$adminKey])) {
-                $mergedAdmins[$adminKey] = array_map($avatarListEntry, array_slice($region[$adminKey], 0, self::DisplayAvatarListEntries));
+            foreach ($functionMappings as $function => $adminKey) {
+                $groupId = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, $function);
+                if ($groupId) {
+                    $admins = $this->foodsaverGateway->getAdminsOrAmbassadors($groupId);
+                    shuffle($admins);
+                    $admins = array_slice($admins, 0, self::DisplayAvatarListEntries);
+                    $mergedAdmins[$adminKey] = array_map(fn ($fs) => new Profile($fs), $admins);
+                }
             }
         }
 
@@ -129,8 +142,6 @@ final class RegionController extends FoodsharingController
     {
         $regionId = (int)$region['id'];
 
-        $avatarListEntry = fn ($fs) => new Profile($fs);
-
         $isWorkGroup = UnitType::isGroup($region['type']);
 
         $menu = $this->getMenu($region, $isWorkGroup);
@@ -140,7 +151,7 @@ final class RegionController extends FoodsharingController
             'name' => $this->region['name'],
             'moderated' => $this->region['moderated'],
             'isWorkGroup' => $isWorkGroup,
-            'isHomeDistrict' => $this->isHomeDistrict($region),
+            'isHomeDistrict' => $this->isHomeDistrict($region['id']),
             'isRegion' => !UnitType::isGroup($region['type']),
             'foodSaverCount' => $this->region['fs_count'],
             'foodSaverHomeDistrictCount' => $this->region['fs_home_count'],
@@ -151,7 +162,7 @@ final class RegionController extends FoodsharingController
             'storesPickupsCount' => $this->region['stat_fetchcount'],
             'storesFetchedWeight' => round($this->region['stat_fetchweight']),
             'parent_id' => $this->region['parent_id'],
-            'allAdmins' => $this->mergeAdmins($region, UnitType::isGroup($region['type']), $avatarListEntry),
+            'allAdmins' => $this->mergeAdmins($region['id'], UnitType::isGroup($region['type'])),
             'activeSubpage' => $activeSubpage,
             'pageData' => $pageData,
             'menu' => $menu,
@@ -176,7 +187,7 @@ final class RegionController extends FoodsharingController
         } else {
             $this->flashMessageHelper->error($this->translator->trans('region.not-member'));
 
-            return $this->redirect('/?page=dashboard');
+            return $this->redirectToRoute('dashboard');
         }
 
         $this->pageHelper->addTitle($region['name']);
@@ -363,18 +374,7 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addTitle($this->translator->trans('terminology.statistic'));
         $sub = $request->query->get('sub');
 
-        $pageData['pickupData']['daily'] = 0;
-        $pageData['pickupData']['weekly'] = 0;
-        $pageData['pickupData']['monthly'] = 0;
-        $pageData['pickupData']['yearly'] = 0;
-
-        if ($region['type'] !== UnitType::COUNTRY || $this->regionPermissions->mayAccessStatisticCountry()) {
-            $pageData['pickupData']['daily'] = $this->regionGateway->listRegionPickupsByDate((int)$region['id'], '%Y-%m-%d');
-            $pageData['pickupData']['weekly'] = $this->regionGateway->listRegionPickupsByDate((int)$region['id'], '%Y/%v');
-            $pageData['pickupData']['monthly'] = $this->regionGateway->listRegionPickupsByDate((int)$region['id'], '%Y-%m');
-            $pageData['pickupData']['yearly'] = $this->regionGateway->listRegionPickupsByDate((int)$region['id'], '%Y');
-        }
-        $params = $this->convertDataToObject($region, $sub, $pageData);
+        $params = $this->convertDataToObject($region, $sub, []);
 
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 
@@ -425,13 +425,8 @@ final class RegionController extends FoodsharingController
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.pin'), '/region?bid=' . $region['id'] . '&sub=pin');
         $this->pageHelper->addTitle($this->translator->trans('terminology.pin'));
-        $result = $this->regionGateway->getRegionPin($region['id']);
-        $pageData['lat'] = $result['lat'] ?? MapConstants::CENTER_GERMANY_LAT;
-        $pageData['lon'] = $result['lon'] ?? MapConstants::CENTER_GERMANY_LON;
-        $pageData['desc'] = $result['desc'] ?? null;
-        $pageData['status'] = $result['status'] ?? null;
 
-        $params = $this->convertDataToObject($region, $request->query->get('sub'), $pageData);
+        $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
 
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 

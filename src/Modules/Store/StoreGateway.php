@@ -21,6 +21,7 @@ use Foodsharing\Modules\Map\DTO\StoreMarkerStatusType;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\DTO\MinimalStoreIdentifier;
 use Foodsharing\Modules\Store\DTO\Store;
+use Foodsharing\Modules\Store\DTO\StoreApplication;
 use Foodsharing\Modules\Store\DTO\StoreTeamMembership;
 
 class StoreGateway extends BaseGateway
@@ -406,14 +407,8 @@ class StoreGateway extends BaseGateway
         ]);
 
         if ($result) {
-            $result['lebensmittel'] = $this->getGroceries($storeId);
             $result['foodsaver'] = $this->getStoreTeam($storeId);
             $result['springer'] = $this->getBetriebSpringer($storeId);
-
-            $result['requests'] = $this->getApplications($storeId, GeoLocation::createFromArray([
-                'lat' => (float)$result['lat'],
-                'lon' => (float)$result['lon'],
-            ]));
             $result['verantwortlich'] = false;
             $result['team'] = [];
             $result['jumper'] = false;
@@ -474,41 +469,50 @@ class StoreGateway extends BaseGateway
     }
 
     /**
-     * @return list<array<mixed>> all foodsavers that currently apply to the store team
+     * @return StoreApplication[] all foodsavers that currently apply to the store team
      */
     public function getApplications(int $storeId, GeoLocation $storePosition): array
     {
         $applications = $this->db->fetchAll('SELECT
                 foodsaver.id,
                 foodsaver.photo,
-                CONCAT(foodsaver.name," ",foodsaver.nachname) AS name,
-                name as vorname,
-                foodsaver.sleep_status,
+                foodsaver.name,
+                foodsaver.nachname,
+                foodsaver.is_sleeping,
                 foodsaver.verified,
                 FLOOR(ST_DISTANCE_SPHERE(
                     Point(NULLIF(foodsaver.lon, ""), NULLIF(foodsaver.lat, "")),
                     Point(:storeLon, :storeLat)
-                ) / 1000) AS distance
-			FROM fs_betrieb_team betrieb_team
-			INNER JOIN fs_foodsaver foodsaver
-			    ON foodsaver.id = betrieb_team.foodsaver_id
-			WHERE `betrieb_id` = :storeId
-			    AND betrieb_team.active = :membershipStatus
-			    AND foodsaver.deleted_at IS NULL
+                ) / 1000) AS distance,
+                log.date_activity,
+                log.content
+            FROM fs_betrieb_team betrieb_team
+            INNER JOIN fs_foodsaver foodsaver
+                ON foodsaver.id = betrieb_team.foodsaver_id
+            LEFT OUTER JOIN (
+                SELECT log.fs_id_a, MAX(log.date_activity) AS max_date_activity
+                FROM fs_store_log log
+                WHERE log.store_id = :storeId1
+                GROUP BY log.fs_id_a
+            ) latest_applications_date
+                ON latest_applications_date.fs_id_a = betrieb_team.foodsaver_id
+            LEFT OUTER JOIN fs_store_log log
+                ON log.store_id = betrieb_team.betrieb_id
+                AND log.fs_id_a = latest_applications_date.fs_id_a
+                AND log.date_activity = latest_applications_date.max_date_activity
+            WHERE betrieb_team.betrieb_id = :storeId2
+                AND betrieb_team.active = :membershipStatus
+                AND foodsaver.deleted_at IS NULL
+            ORDER BY log.date_activity DESC
 		', [
             ':storeLat' => $storePosition->lat,
             ':storeLon' => $storePosition->lon,
-            ':storeId' => $storeId,
+            ':storeId1' => $storeId,
+            ':storeId2' => $storeId,
             ':membershipStatus' => MembershipStatus::APPLIED_FOR_TEAM,
         ]);
-        foreach ($applications as &$application) {
-            if (is_null($application['distance'])) {
-                continue;
-            }
-            $application['distance'] = $application['distance'] < 1 ? 0 : round($application['distance']);
-        }
 
-        return $applications;
+        return array_map([StoreApplication::class, 'createFromArray'], $applications);
     }
 
     public function getStoreName(int $storeId): string

@@ -3,7 +3,7 @@ export const MAP_RASTER_TILES_URL_GEOAPIFY = 'https://maps.geoapify.com/v1/tile/
 export const MAP_RASTER_TILES_URL_GEOAPIFY_DARK = 'https://maps.geoapify.com/v1/tile/dark-matter/{z}/{x}/{y}.png?apiKey='
 export const MAP_RASTER_TILES_URL_OSM = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
 export const MAP_ATTRIBUTION = 'Powered by <a href="https://www.geoapify.com/">Geoapify</a> | <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>'
-export const MAP_GEOCODING_ATTRIBUTION = MAP_ATTRIBUTION + ' | Geocoding by <a href="https://photon.komoot.io">Komoot Photon</a>'
+export const MAP_GEOCODING_ATTRIBUTION = MAP_ATTRIBUTION
 export const ROLE = Object.freeze({
   FOODSHARER: 0,
   FOODSAVER: 1,
@@ -34,14 +34,10 @@ export const HTTP_RESPONSE = Object.freeze({
   UNPROCESSABLE_ENTITY: 422,
 })
 
-export const QUIZ_STATUS = Object.freeze({
-  NEVER_TRIED: 0,
-  RUNNING: 1,
-  PASSED: 2,
-  FAILED: 3,
-  PAUSE: 4,
-  PAUSE_ELAPSED: 5,
-  DISQUALIFIED: 6,
+export const SESSION_STATUS = Object.freeze({
+  RUNNING: 0,
+  PASSED: 1,
+  FAILED: 2,
 })
 
 export const ANSWER_RATING = Object.freeze({
@@ -65,4 +61,8 @@ export const EVENT_TYPE = Object.freeze({
   OFFLINE: 0,
   ONLINE: 1,
   OTHER: 2,
+})
+
+export const BLOG_POST_OPTIONS = Object.freeze({
+  IMAGE: { WIDHT: 500, HEIGHT: 161 },
 })

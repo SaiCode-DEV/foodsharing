@@ -189,4 +189,11 @@ final class RegionPermissions
 
         return $this->currentUserUnits->mayBezirk($regionId);
     }
+
+    public function mayAccessUserMapMarkersForRegion(int $regionId): bool
+    {
+        $type = $this->regionGateway->getType($regionId);
+
+        return UnitType::isAccessibleRegion($type) && $this->currentUserUnits->isAdminFor($regionId);
+    }
 }

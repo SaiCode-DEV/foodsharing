@@ -89,7 +89,8 @@ group:
     restricted_workgroup_function: This working group function can only be edited
       by the transregional group ‘AG anlegen’
     tooltip_function_10: Administrators of this work group can approve posts in moderated
-      forums.
+      forums. If the option is enabled for the district, they can also hide posts
+      in the forum.
     tooltip_function_9: Administrators of this working group can edit the description
       of the local group in the map.
     tooltip_function_6: The e-mail address of this work group is shown at the ‘Request
@@ -541,10 +542,10 @@ profile:
     title: '{count} trust bananas'
     vouch: "So please only give trustbananas to people you know personally,\nwho adhere
       to the rules of conduct and the legal agreement\nand you can vouch for their
-      reliability and commitment.\n"
+      reliability and commitment.\nNever give away trust bananas lightly!\n"
     alreadyGiven: '{name} has already received a banana from you.'
     placeholder: at least 100 characters …
-    undo: Trust bananas cannot be changed or withdrawn.
+    undo: Trust bananas cannot be changed.
     details: "Here you can describe in at least 100 characters why you would like
       to give {name} a trust banana.\n"
     recieved_none:
@@ -835,7 +836,7 @@ profile:
     store_table: Store table
     memberState:
       filterActive: Member
-      filterManage: SM
+      filterManage: Responsible
       filterAll: all
       filterRequested: Inquiry submitted
       filterJumper: Jumper
@@ -1033,11 +1034,20 @@ forum:
       subscribed: subscribed
       subscribe: Subscribe
     bottom: reduced visibility
+    all_hidden: All posts in this thread have been hidden.
   post:
     delete: Delete post
     body: Message
     moderator_info: This topic is closed. As a moderator of this forum, you can still
       write a message, but other users cannot reply!
+    hide: Hide post
+    giveHideReason: Please state why you want to hide this post.
+    hideReasonPlaceholder: Enter reason here…
+    hideInfo: Hidden posts are no longer displayed. They can be restored by moderators
+      within 3 months before they are permanently deleted. During this time, forum
+      users can see why the post was hidden, and moderators can also see by whom.
+    sureHide: Are you sure you want to hide this post?
+    hiddenPost: Hidden post ({reason})
   from: From {name}
   sending_error: An error occured during sending
   no_threads: No threads yet
@@ -1059,6 +1069,11 @@ forum:
       and is so important that everyone should be aware of it.
     title: Really send e-mail notification?
   go: to the forum
+  restore:
+    really: Are you sure you want to restore the following post?
+    hidden_by: Hidden by
+    reason: 'Reason: “{reason}”'
+    title: Restore post
 timepicker:
   labelNowButton: Now
   labelCloseButton: Close
@@ -1384,7 +1399,9 @@ terminology:
   hygiene_training: Hygiene training
   recieved: Received
   sent: Sent
-  
+
+  received: received
+  users: Users
 login:
   pwreset:
     bread: Reset password
@@ -1524,6 +1541,8 @@ bell:
   internal_email_changed_title: '{address}'
   workinggroup_new_request: New application for a working group
   internal_email_changed: Your personal e-mail address has been changed.
+  forum_not_activated_thread: '{forum}'
+  forum_not_activated_thread_title: Topic in moderated forum
 reports:
   time: Time
   region: Home district
@@ -1549,8 +1568,8 @@ reports:
     Please indicate how you can best be reached for further questions.'
   about_email: via email
   reported: Reported person
-  reports_region: Reports from {regionName}
-  reports_user: All reports about {userName} ({userId})
+  reports_region: Complaints in {regionName}
+  reports_user: All complaints about {userName} ({userId})
   id: ID
   reporter: Reporting person
 recipients:
@@ -1602,6 +1621,8 @@ poll:
     option_text: Option
     percentage_of_votes: Voter turnout
     average: Average
+    standardDeviation: Standard deviation
+    standardDeviationShort: σ
   new_poll:
     submit_question: The survey can be changed until it starts. Do you really want
       to create it now?
@@ -1628,7 +1649,7 @@ poll:
     shuffle_options: Show the options in random order when voting
   submit_vote: Submit vote
   type: Poll type
-  scope_description_3: All ambassadors in the region / the group
+  scope_description_3: All ambassadors in the region
   scope_description_1: All verified foodsavers in the region / the group
   scope_description_0: All verified and not verified foodsavers in the region / the
     group
@@ -1653,7 +1674,9 @@ poll:
   eligible_votes_count: Number of people eligible to vote
   submit_vote_question: Submit your vote? Your choices can not be changed later.
   may_not_yet_vote: Voting in this poll has not started yet.
-  may_not_vote: You may not vote in this poll.
+  may_not_vote: You may not vote in this poll. At the time this poll was created,
+    you were not part of the voting group. Even if you meet the criteria to vote during
+    the voting period, it is not possible to obtain the right to vote retroactively.
   already_voted: You have already voted in this poll
   vote_success: You have successfully voted.
   submit_vote_warning: 'Caution: voting is anonymous. You can not change your choices
@@ -1671,6 +1694,9 @@ poll:
     of the vote
   begins_at: begins at
   ended_at: ended at
+  hint_sorted_order: The order of the following options is fixed and the same for
+    all voters.
+  title: 'Poll: {name}'
 buddy:
   request_accepted: Now you are buddies.
   request_sent: Request was sent.
@@ -1746,10 +1772,6 @@ sidenav:
 password:
   reset: Forgot your password?
   insertmail: Enter your e-mail address here to reset your password.
-tablesorter:
-  page: Page
-  entriespp: entries per page
-  from: of
 page:
   presence:
     header: Festivals
@@ -1847,6 +1869,7 @@ blog:
   confirmDelete: Do you really want to delete {name} irrevocably?
   publish-info: The publication status of the article can be adjusted on the overview
     page.
+  teaser: Teaser
   actions: Actions
   empty: There are no entries so far.
   header: News from the world of foodsharing
@@ -1909,6 +1932,7 @@ region:
   parent: Parent district
   master: Master district
   mailbox: Mailbox name
+  allow_hiding_in_forum: Allow moderators to delete forum posts
 storelist:
   others: More stores in {region}
   region: Region
@@ -1948,6 +1972,7 @@ releases:
 
   "2024-04": Release “Laugenbrezel” 🥨 (April 2024)
   "2024-08": Release “Mandarin” 🍊 (August 2024)
+  "2024-12": Beta Release “Nectarine” 🍑 (December 2024)
 footer:
   it_devdocs: by foodsharing IT
   donate_now: Donate now
@@ -1982,6 +2007,7 @@ footer:
     it_devdocs: by foodsharing IT
     version: 'Version: {version}'
     beta_testing_issues: Test tasks of the Beta version
+    made_with: made with
   hosting:
     info: hosted in a CO₂ neutral manner
     tooltip: Carbon-neutrally hosted at manitu
@@ -2117,7 +2143,27 @@ map:
         all: all
         region: only my districts
         member: only my stores
-        label: affiliation
+        label: Belonging
+    users:
+      role:
+        label: Role
+        all: all
+        foodsaver: approved foodsavers
+        store-manager: store managers
+      activity:
+        label: Last login
+        week: last week
+        all: any
+        3months: last 3 months
+        6months: last 6 months
+        month: last month
+      member:
+        label: Membership
+        all: all
+        homeregion: Home district
+        other: Secondary district
+      region:
+        label: District
   foodsharepoint:
     go: to the Food-Share Point
 content:
@@ -2129,6 +2175,7 @@ content:
   bread: All pages
   actions: Activities
   delete_success: The page was deleted
+  edit_raw: Edit raw content
   edit_success: The page was saved.
   new_success: The page was created
   changelog: Latest changelog
@@ -2147,6 +2194,8 @@ content:
       city, state or district.
     noAmbassador: This region currently has no ambassadors and therefore cannot be
       contacted by email. Please contact a neighboring or the next higher region.
+  error: Page could not be saved
+  error_loading: Content could not be loaded
 foodsaver:
   kicked: Foodsaver removed
   list:
@@ -2243,6 +2292,8 @@ store:
     confirm-no-location: You haven't entered a valid address in your profile. Please
       indicate your home address. This makes it easier for store maagers to decide
       on your application.
+    application-placeholder: I would like to help in this team because …
+    application-message: Application message
   sm:
     reallyRemove: Do you really want to remove {name} from the store team?
     removeFromTeam: Remove from the team
@@ -2676,6 +2727,14 @@ polls:
     – Test”.
   hint_2: You can find notes on using polls in the Wiki
   until: Possible until {until}
+  badge:
+    vote_now: Vote now
+    already_voted: Already voted
+    not_eligible: Not eligible
+  score:
+    disapproval: Rejection
+    neutral: Neutral
+    approval: Approval
 storeedit:
   bread: Edit store
   team:
@@ -2803,8 +2862,8 @@ language_chooser:
   title: "Choose language"
   content: "Please choose a language"
   choose_button: "Continue"
-  translation_help: "Do you speak other languages? Foodsharing is always looking for
-    help with translations"
+  translation_help: "Do you speak other languages? We at foodsharing are always looking
+    for help with translations"
   translation_help_info_text: "The link takes you to the translation portal. Register
     and click on the pen to get started"
 
@@ -2872,6 +2931,10 @@ fsp:
   suggestSuccess: Food-Share Point has been proposed and now needs to be confirmed
     by an ambassador / responsible person.
   show_on_large_map: Show on map
+  form_validation:
+    invalid: Input is invalid. Please check your input.
+    required: '{name} is required.'
+    min_length: '{name} must be at least {length} characters long.'
 lifetime: How long is your food basket to be valid?
 contact_type: How would you like to be contacted?
 food_art: What kind of food is it?
@@ -2954,6 +3017,7 @@ chat:
     unread: Mark as unread
 delete: Delete
 error_unexpected: An error has occurred
+error_base64_image: Inserting images via drag & drop is not permitted.
 register:
   confirmPassword_required: Please repeat the password.
   password_required: A password is required.
@@ -3417,7 +3481,7 @@ startpage:
   bedependable: Be dependable
   makeproposals: Make proposals
   proposals: We want to develop and consistently improve. Therefore we need you with
-    your many great ideas and tips. Please send them to <a href="mailto:info@foodsharing.de">info@foodsharing.de</a>
+    your many great ideas and tips. Please send them to [info@foodsharing.de](mailto:info@foodsharing.de)
   join_welcome: Nice that you want to join foodsharing!
   join_rules: Participate - Our Rules
   notallowed: The sharing of medicines (including homeopathic remedies) is excluded
@@ -3454,7 +3518,15 @@ startpage:
     etiquette!"
   together: Together with foodsharing, you can help ensure that discarded and unsaleable
     food is put to good use instead of being thrown away. You can find more information
-    <a href="/fuer-unternehmen">here</a>.
+    [here](/fuer-unternehmen).
+  followrules: "We expressly point out that, for legal reasons, we only allow the
+    offering and sharing of certain foods and other goods under certain conditions.
+    This particularly applies to perishable foods such as raw fish, raw meat, raw
+    egg dishes and prepared foods. In general, we use all of our senses to ensure
+    that the food is still edible. All details can be found in the [foodsharing hygiene
+    rules](https://wiki.foodsharing.de/Hygieneregeln). Information can also be found
+    in the [guide](https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel).\n"
+  followrules_title: Follow the rules and guidelines for sharing food
 date_short:
   Sunday: Sun
   Saturday: Sat
@@ -3552,6 +3624,10 @@ quiz:
     DISQUALIFIED: '{name} — unfortunately disqualified.'
     NEVER_TRIED: '{name} — take the quiz!'
     RUNNING: '{name} — continue the quiz!'
+    start: '{name} — Take the quiz now!'
+    continue: '{name} — Continue the quiz!'
+    pause: Study break ({name})
+    disqualified: '{name} — Unfortunately disqualified.'
   startmodal:
     infos:
       real_life_examples: Most of the questions are based on real cases from foodsharing
@@ -3734,6 +3810,34 @@ quiz:
     here]({url}) to complete the process!
   test_results: Results of the test
   test: Test quiz
+  stateBasedInfo:
+    pause: You have failed this quiz several times. Reliability, a firm grasp of the
+      rules and a professional demeanor are essential at foodsharing. Unfortunately,
+      your answers do not convey this at the moment. You will therefore be given a
+      study break before you can try again to pass the quiz. Your study break will
+      end in {currentWaitTime} days.
+    willExpire: However, the validity of your passed quiz attempt ends in {expirationTime}
+      days. You can therefore refresh your knowledge in this subject area now and
+      take this quiz again.
+    expired: However, your last quiz attempt is no longer valid.
+    neverTried: You have never taken this quiz before. Take the time to read through
+      all of the Wiki articles listed so that you are prepared for the questions.
+    running: You have already started the quiz and answered {questionsAnswered} of
+      {questionCount} questions so far.
+    passed: You have passed this quiz.
+    failed: Unfortunately, you did not pass this quiz on your last attempt.
+    noWaitAfter: Take another look at the relevant Wiki articles and try again.
+    waitAfter: If you do not pass on your next attempt, you will have to take a {waitTimeAfterFailure}-day
+      break to study again. Be sure to check the relevant Wiki articles so that you
+      can pass the quiz.
+    pauseElapsed: Your study break is over. You can now take the quiz again. Hopefully
+      you have used the time to familiarize yourself better with the content.
+    disqualifiedAfter: You only have one last attempt to pass this quiz! If you fail
+      now, you will be permanently disqualified from this quiz. Please only take part
+      if you have studied the contents of the wiki in detail.
+    disqualified: Unfortunately, you are disqualified for this quiz because you have
+      failed too many times.
+    passedBefore: You’ve passed this quiz before.
 nofp: no error points (not a serious question)
 fpsingular: Error point
 request_time: 'Time of request:'
@@ -4053,6 +4157,9 @@ notifications:
     title: Reminders for unoccupied slots
     description: Receive emails warning you if slots in stores you manage are not
       yet taken the next day.
+  mention:
+    description: Get notified when someone addresses you in the forum.
+    title: Notifications when mentions are made
 markdown_input:
   tooltip:
     orderedList: numbered list
@@ -4067,6 +4174,7 @@ markdown_input:
     link: link
     heading: heading
     image: Attach images
+    mention: Mention user
   empty_preview_placeholder: "This is the formatting preview. The text is formatted
     here as it will be displayed later.\n---\n*But you haven’t entered any text that
     could be displayed here.*"
@@ -4078,6 +4186,8 @@ thread:
     lock: Close thread
     unpin: Unpin thread
     priority: Adjust display priority
+    showHidden: Show hidden posts
+    hideHidden: Hide hidden posts
   rename:
     description_modal_text: 'Enter a new title for this thread:'
     placeholder: Title
@@ -4087,6 +4197,7 @@ thread:
     options:
       copy_source: Copy source code
       copy_direct_link: copy direct link
+      restore: Restore
     copy_source_success: Source code copied!
     copy_direct_link_success: Direct link copied!
     linked_post: linked post
@@ -4180,6 +4291,37 @@ help:
         \"*walking*\" or \"*shopping-cart*\".\nIf the input is valid, you will see
         the icon in the preview.\nThe icon \"*tag*\" will be used as default if you
         do not enter an icon.\n"
+    moderatorForumHide:
+      md: "###### Who is a moderator?\nThe moderators of a group or district are usually
+        the administrators or AMBs. If there is a GOALS working group *Moderation*
+        in a district, the administrators of this group take on the role of moderator.\n
+        ---\n###### Hiding in forums\nIf this option is activated, the moderators
+        can hide all posts in the forum, not just their own. To do this, they must
+        give a reason why they want to hide a post or entire thread. After that, a
+        post remains accessible to the moderators for a further three months and can
+        also be restored during this time. Other users (without organizational rights)
+        no longer have access to it. After these three months, a hidden post can no
+        longer be restored and is permanently deleted from the database.\n---\n######
+        Where can this option be used?\nIn local reporting groups and arbitration
+        boards (GOALS working groups), this function is necessary for data protection
+        reasons.\nOther working groups can hold an internal vote to give admins the
+        right to hide posts and send a link to the successful vote to ags.bezirke@foodsharing.network.
+        This option is not available for local districts.\n"
+      title: Hiding in forums by moderators
+    pollScopes:
+      md: "When creating a vote, you can select from different groups of people who
+        should be entitled to vote.\nThe following applies to all voting options:\n
+        - Not only all food savers in the district/group can vote, but also those
+        in the sub-districts.\n- The number of food savers entitled to vote is shown
+        in brackets after the selection option.\n- As soon as the vote is created,
+        the people entitled to vote are determined. Anyone who falls into the corresponding
+        group of people at the time the vote is created is entitled to vote. \n"
+      title: Right to vote
+    polls:
+      title: Polls
+      md: "Using the voting module, elections, surveys and other votes can be carried
+        out anonymously and easily directly on the foodsharing platform. You can find
+        detailed instructions at https://wiki.foodsharing.de/Abstimmungs-Modul\n"
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -4216,13 +4358,13 @@ achievements:
     days: Valid for {validityInDaysAfterAssignment} days after award.
     indefinite: Valid indefinitely after allocation.
     indefiniteShort: Permanently
-  reviewer: From
+  reviewer: Reviewer
   notice: Remark
   editDetails: Edit details
   revoke: Revoke
   edit: 'Edit achievement: {name}'
-  awardedNoReviewer: Automatically
-  awarded: Awarded
+  awardedNoReviewer: automatically
+  awarded: awarded
   awardedTo: To
   validUntil: Valid until
   award: Award achievement

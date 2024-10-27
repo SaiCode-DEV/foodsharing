@@ -5,7 +5,6 @@
     </div>
 
     <b-table
-      v-if="numValues===1"
       :fields="tableFields"
       :items="options"
       primary-key="optionIndex"
@@ -16,52 +15,38 @@
       sort-by="optionText"
       :sort-desc="false"
     >
-      <template #head(value1)>
-        {{ $i18n('poll.results.votes') }}
+      <template v-if="numValues !== 7" #head(value1)>
+        <span v-if="numValues === 1" v-text="$i18n('poll.results.votes')" />
+        <span v-else-if="numValues === 3">
+          <i class="fas fa-thumbs-up" /> (+1)
+        </span>
+      </template>
+      <template v-if="numValues === 3" #head(value0)>
+        <i class="fas fa-meh" /> (0)
+      </template>
+      <template v-if="numValues === 3" #head(value-1)>
+        <i class="fas fa-thumbs-down" /> (-1)
+      </template>
+
+      <template v-if="numValues > 1" #head(standardDeviation)>
+        <span v-b-tooltip="$i18n('poll.results.standardDeviation')" v-text="$i18n('poll.results.standardDeviationShort')" />
+      </template>
+
+      <template #cell(text)="row">
+        <Markdown :source="row.item.text" />
       </template>
     </b-table>
-
-    <b-table
-      v-else-if="numValues===3"
-      :fields="tableFields"
-      :items="options"
-      small
-      hover
-      responsive
-      striped
-    >
-      <template #head(value1)>
-        <i class="fas fa-thumbs-up" />
-      </template>
-      <template #head(value0)>
-        <i class="fas fa-meh" />
-      </template>
-      <template #head(value-1)>
-        <i class="fas fa-thumbs-down" />
-      </template>
-      <template #head(sum)="row">
-        {{ row.label }} (<i class="fas fa-thumbs-up" /> = +1, <i class="fas fa-thumbs-down" /> = -1)
-      </template>
-    </b-table>
-
-    <b-table
-      v-else-if="numValues===7"
-      :fields="tableFields"
-      :items="options"
-      small
-      hover
-      responsive
-      striped
-    />
   </div>
 </template>
 
 <script>
 
-import { BTable } from 'bootstrap-vue'
+import Markdown from '@/components/Markdown/Markdown.vue'
+import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
 export default {
-  components: { BTable },
+  components: { Markdown },
+  mixins: [MediaQueryMixin],
   props: {
     options: {
       type: Array,
@@ -93,30 +78,40 @@ export default {
       entries.forEach(v => {
         result.push({
           key: 'value' + v[0],
-          label: v[0],
+          label: this.withSign(v[0]),
           sortable: true,
           sortByFormatted: 'true',
-          formatter: (value, key, item) => {
-            return item.values[v[0]]
-          },
+          formatter: (value, key, item) => item.values[v[0]],
         })
       })
 
       if (this.numValues > 1) {
+        if (this.viewIsMD) {
+          result.push({
+            key: 'sum',
+            label: this.$i18n('poll.results.sum'),
+            sortable: true,
+            sortByFormatted: 'true',
+            class: 'text-center',
+            formatter: (value, key, item) => this.withSign(this.sumVotes(item)),
+          })
+        }
         result.push({
-          key: 'sum',
-          label: this.$i18n(this.numValues === 7 ? 'poll.results.average' : 'poll.results.sum'),
+          key: 'average',
+          label: this.$i18n('poll.results.average'),
           sortable: true,
           sortByFormatted: 'true',
           class: 'text-center',
-          formatter: (value, key, item) => {
-            let sum = this.sumVotes(item)
-            if (this.numValues === 7) {
-              sum = Math.round(sum / this.numVotes * 100) / 100
-            }
-            return sum
-          },
+          formatter: (value, key, item) => this.withSign(this.round(this.averageVotes(item))),
         })
+        if (this.viewIsMD) {
+          result.push({
+            key: 'standardDeviation',
+            label: this.$i18n('poll.results.standardDeviationShort'),
+            class: 'text-center',
+            formatter: (value, key, item) => this.round(this.standardDeviationVotes(item)),
+          })
+        }
       }
       return result
     },
@@ -128,6 +123,28 @@ export default {
         sum += v * option.values[v]
       }
       return sum
+    },
+    averageVotes (option) {
+      const sum = this.sumVotes(option)
+      return sum / this.numVotes
+    },
+    standardDeviationVotes (option) {
+      const average = this.averageVotes(option)
+      let varianceSum = 0
+      for (const v in option.values) {
+        const count = option.values[v]
+        varianceSum += count * (v - average) ** 2
+      }
+
+      const variance = varianceSum / this.numVotes
+      return Math.sqrt(variance)
+    },
+    round (value) {
+      if (isNaN(value)) return '---'
+      return Math.round(value * 100) / 100
+    },
+    withSign (value) {
+      return value > 0 ? `+${value}` : value
     },
   },
 }

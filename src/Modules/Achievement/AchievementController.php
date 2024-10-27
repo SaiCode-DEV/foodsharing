@@ -20,7 +20,7 @@ class AchievementController extends FoodsharingController
     public function index(Request $request): Response
     {
         if (!$this->achievementPermissions->mayEditAchievements()) {
-            return $this->redirect('/?page=dashboard');
+            return $this->redirectToRoute('dashboard');
         }
         $this->pageHelper->addTitle($this->translator->trans('achievements.editTitle'));
         $this->pageHelper->addContent($this->prepareVueComponent('achievementEditor', 'AchievementEditor'));

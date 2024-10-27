@@ -2652,10 +2652,6 @@ storestatus:
 push_notifications:
   test_notification_body: ''
   test_notification_title: ''
-tablesorter:
-  page: ''
-  entriespp: ''
-  from: ''
 sidenav:
   countryspecific: ''
   yourgroups: ''

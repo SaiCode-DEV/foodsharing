@@ -12,7 +12,7 @@
         v-if="receivedBananas"
         :recipient="recipient"
         :can-give-banana="metadata.mayGiveBanana"
-        :can-remove-banana="metadata.mayDeleteBananas || isRecipient"
+        :can-remove-banana="metadata.mayDeleteBananas"
         :bananas="receivedBananas"
         :none-placeholder="$i18n(`profile.banana.recieved_none.${isYou}`, { name: recipient.name })"
       />
@@ -29,7 +29,7 @@
         <BananaList
           :recipient="recipient"
           :can-give-banana="metadata.mayGiveBanana"
-          :can-remove-banana="metadata.mayDeleteBananas || isRecipient"
+          can-remove-banana
           :bananas="receivedBananas"
           :none-placeholder="$i18n(`profile.banana.recieved_none.${isYou}`, { name: recipient.name })"
         />
@@ -41,9 +41,10 @@
         <BananaList
           :recipient="recipient"
           :can-give-banana="false"
-          :can-remove-banana="false"
+          :can-remove-banana="isRecipient"
           :bananas="sentBananas"
           :none-placeholder="$i18n(`profile.banana.sent_none.${isYou}`, { name: recipient.name })"
+          is-sent
         />
       </b-tab>
     </b-tabs>

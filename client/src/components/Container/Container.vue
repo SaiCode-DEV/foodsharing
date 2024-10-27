@@ -47,6 +47,7 @@
         v-text="$i18n('globals.show_less')"
       />
     </template>
+    <slot v-if="isExpanded" name="buttons" />
   </div>
 </template>
 

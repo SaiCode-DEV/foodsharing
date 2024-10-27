@@ -74,7 +74,7 @@ class BananaRestController extends AbstractFoodsharingRestController
     {
         $this->assertLoggedIn();
 
-        if (!$this->bananaPermissions->mayDeleteBanana($recipientId)) {
+        if (!$this->bananaPermissions->mayDeleteBanana($recipientId, $senderId)) {
             throw new AccessDeniedHttpException();
         }
 

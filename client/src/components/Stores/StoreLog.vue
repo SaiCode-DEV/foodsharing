@@ -3,7 +3,7 @@
     id="store-log"
     :title="$i18n('store.log.title')"
     :container-is-expanded="isContainerExpanded"
-    tag="store_log"
+    :tag="`store-log-${storeId}`"
     info-key="storeLog"
     wrap-content
   >
@@ -113,7 +113,7 @@ export default {
     lastWeek.setDate(now.getDate() - 7)
     let minFromDate = new Date(now)
     minFromDate.setMonth(now.getMonth() - 6)
-    const cooperationStartDate = new Date(Date.parse(this.cooperationStart))
+    const cooperationStartDate = new Date(Date.parse(this.cooperationStart) || 0) // fallback to UTC 0 if no start date is provided
     minFromDate = new Date(Math.max(minFromDate, cooperationStartDate))
 
     return {

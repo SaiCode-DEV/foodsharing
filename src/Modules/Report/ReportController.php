@@ -31,7 +31,7 @@ final class ReportController extends FoodsharingController
         try {
             $regionName = $this->regionGateway->getRegionName($regionId);
         } catch (DatabaseNoValueFoundException $e) {
-            return $this->redirect('/?page=dashboard');
+            return $this->redirectToRoute('dashboard');
         }
 
         $this->pageHelper->addTitle($regionName);

@@ -3,7 +3,7 @@
     v-if="time || fallback"
     v-b-tooltip="tooltip ?? tooltipTime"
     class="time"
-    :class="{ 'text-muted': muted, small: !plain }"
+    :class="{ 'text-muted': muted, small: !normalSize }"
   >
     <i v-if="showIcon" class="far fa-fw fa-clock" />
     <span v-if="time" v-text="dateFormatter.relativeTime(date, options)" />
@@ -19,6 +19,7 @@ const props = defineProps({
   plain: { type: Boolean, default: false },
   time: { type: [Date, String, Number], default: null },
   showIcon: { type: Boolean, default: function () { return !this.plain } },
+  normalSize: { type: Boolean, default: function () { return this.plain } },
   muted: { type: Boolean, default: function () { return !this.plain } },
   dateOnly: { type: Boolean, default: false },
   tooltip: { type: [Object, String, Boolean], default: function () { return this.plain ? false : null } },

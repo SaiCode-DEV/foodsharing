@@ -135,19 +135,19 @@ class StatisticsGateway extends BaseGateway
     public function getFoodsaverStatsCurrentMonth(): array
     {
         $query = <<<SQL
-            SELECT 
+            SELECT
                 foodsaver.`name`,
                 COUNT(abholer.`id`) as fetchCount
             FROM
                 fs_foodsaver AS foodsaver
             RIGHT JOIN fs_abholer AS abholer ON (abholer.`foodsaver_id` = foodsaver.`id`)
-            WHERE 
-                foodsaver.`deleted_at` IS NULL 
+            WHERE
+                foodsaver.`deleted_at` IS NULL
             AND MONTH(abholer.`date`) = MONTH(CURDATE())
             AND YEAR(abholer.`date`) = YEAR(CURDATE())
 
             GROUP BY foodsaver.`id`
-            ORDER BY fetchCount DESC 
+            ORDER BY fetchCount DESC
             LIMIT 10
         SQL;
 
@@ -167,18 +167,18 @@ class StatisticsGateway extends BaseGateway
     public function getFoodsaverStatsNumberMonths(int $numberMonths): array
     {
         $query = <<<SQL
-            SELECT 
+            SELECT
                 foodsaver.`name`,
                 COUNT(abholer.`id`) as fetchCount
             FROM
                 fs_foodsaver AS foodsaver
             RIGHT JOIN fs_abholer AS abholer ON (abholer.`foodsaver_id` = foodsaver.`id`)
-            WHERE 
-                foodsaver.`deleted_at` IS NULL 
+            WHERE
+                foodsaver.`deleted_at` IS NULL
             AND abholer.`date` > DATE_ADD(CURDATE(), INTERVAL -$numberMonths MONTH)
 
             GROUP BY foodsaver.`id`
-            ORDER BY fetchCount DESC 
+            ORDER BY fetchCount DESC
             LIMIT 10
         SQL;
 
@@ -198,7 +198,7 @@ class StatisticsGateway extends BaseGateway
     public function getRegionStatsCurrentMonth(): array
     {
         $query = <<<SQL
-            SELECT 
+            SELECT
                 bezirk.`name`,
                 COUNT(abholer.`id`) as fetchCount
             FROM
@@ -206,11 +206,11 @@ class StatisticsGateway extends BaseGateway
             INNER JOIN fs_foodsaver AS foodsaver ON (bezirk.`id` = foodsaver.`bezirk_id`)
             RIGHT JOIN fs_abholer AS abholer ON (abholer.`foodsaver_id` = foodsaver.`id`)
             WHERE
-                    MONTH(abholer.`date`) = MONTH(CURDATE())              
-                AND 
+                    MONTH(abholer.`date`) = MONTH(CURDATE())
+                AND
                     YEAR(abholer.`date`) = YEAR(CURDATE())
             GROUP BY bezirk.`id`
-            ORDER BY fetchCount DESC 
+            ORDER BY fetchCount DESC
             LIMIT 10
         SQL;
 
@@ -230,7 +230,7 @@ class StatisticsGateway extends BaseGateway
     public function getRegionStatsNumberMonth(int $numberMonths): array
     {
         $query = <<<SQL
-            SELECT 
+            SELECT
                 bezirk.`name`,
                 COUNT(abholer.`id`) as fetchCount
             FROM
@@ -240,7 +240,7 @@ class StatisticsGateway extends BaseGateway
             WHERE
                 abholer.`date` > DATE_ADD(CURDATE(), INTERVAL -$numberMonths MONTH)
             GROUP BY bezirk.`id`
-            ORDER BY fetchCount DESC 
+            ORDER BY fetchCount DESC
             LIMIT 10
         SQL;
 
@@ -311,9 +311,11 @@ class StatisticsGateway extends BaseGateway
         $list = $this->db->fetchAll(
             'select  fs.geschlecht as gender,
 						   count(*) as numberOfGender
-					from fs_foodsaver fs
+                    from fs_foodsaver_has_bezirk fb
+		 			left outer join fs_foodsaver fs on fb.foodsaver_id=fs.id
 					where fs.bezirk_id = :regionId
 					and fs.deleted_at is null
+                    and fs.bezirk_id = fb.bezirk_id
 					group by geschlecht',
             [':regionId' => $regionId]
         );
@@ -344,7 +346,9 @@ class StatisticsGateway extends BaseGateway
 				FROM
 				(
 				 SELECT DATE_FORMAT(NOW(), \'%Y\') - DATE_FORMAT(geb_datum, \'%Y\') - (DATE_FORMAT(NOW(), \'00-%m-%d\') < DATE_FORMAT(geb_datum, \'00-%m-%d\')) AS age,
-				 id FROM fs_foodsaver WHERE rolle >= :rolle AND bezirk_id = :id and deleted_at is null
+				 id from fs_foodsaver_has_bezirk fb
+		 			left outer join fs_foodsaver fs on fb.foodsaver_id=fs.id
+                 WHERE fs.bezirk_id = fb.bezirk_id AND fs.rolle >= :rolle AND fs.bezirk_id = :id and deleted_at is null
 				) AS tbl
 				GROUP BY ageBand',
             ['rolle' => Role::FOODSAVER->value, ':id' => $districtId]

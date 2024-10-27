@@ -51,12 +51,11 @@
           <b-form-spinbutton
             id="input-num-options"
             v-model="numOptions"
-            min="2"
-            max="10"
+            :min="minNumberOfOptions"
+            max="200"
             class="m-1 mb-3 mr-3"
             style="width:120px"
             size="sm"
-            @input="updateNumOptions"
           />
 
           <b-form-row
@@ -76,6 +75,7 @@
                 v-model="$v.options.$model[index-1]"
                 trim
                 :state="$v.options.$error ? false : null"
+                :maxlength="maxOptionLength"
                 class="mr-3 mb-1"
               />
             </b-col>
@@ -121,6 +121,13 @@ import { pulseError } from '@/script'
 import i18n from '@/helper/i18n'
 import { required, minLength } from 'vuelidate/lib/validators'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
+import { VOTING_TYPE, MAX_OPTION_LENGTH } from '@/stores/polls'
+
+// returns if the array does not contain duplicate entries
+function areEntriesUnique (array) {
+  const unique = [...new Set(array)]
+  return unique.length === array.length
+}
 
 export default {
   components: { MarkdownInput },
@@ -137,6 +144,7 @@ export default {
       description: this.poll.description,
       numOptions: this.poll.options.length,
       options: this.poll.options.map(x => x.text),
+      maxOptionLength: MAX_OPTION_LENGTH,
     }
   },
   validations: {
@@ -148,18 +156,29 @@ export default {
         required,
         minLength: minLength(1),
       },
+      areEntriesUnique,
+    },
+  },
+  computed: {
+    minNumberOfOptions () {
+      return (this.type === VOTING_TYPE.THUMB_VOTING || this.type === VOTING_TYPE.SCORE_VOTING) ? 1 : 2
+    },
+  },
+  watch: {
+    /**
+     * When the number of options changes, the options array must be assigned with a new object for the validation to
+     * work.
+     */
+    numOptions () {
+      const newOptions = Array(this.numOptions).fill('')
+      for (let i = 0; i < Math.min(this.options.length, this.numOptions); i++) {
+        newOptions[i] = this.options[i]
+      }
+      this.options = newOptions
+      this.$v.options.$touch()
     },
   },
   methods: {
-    updateNumOptions () {
-      // keeps the length of options in sync for the validation
-      const oldLength = this.options.length
-      this.options.length = this.numOptions
-      if (this.numOptions > oldLength) {
-        this.options.fill('', oldLength, this.numOptions)
-      }
-      this.$v.options.$touch()
-    },
     showConfirmDialog (e) {
       e.preventDefault()
       this.$refs.editPollConfirmModal.show()

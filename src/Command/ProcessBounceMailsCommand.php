@@ -11,11 +11,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand('foodsharing:process-bounce-emails', 'fetches email bounces and stores them in the database')]
 class ProcessBounceMailsCommand extends Command
 {
-    private $bounceProcessing;
-
-    public function __construct(BounceProcessing $bounceProcessing)
-    {
-        $this->bounceProcessing = $bounceProcessing;
+    public function __construct(
+        private readonly BounceProcessing $bounceProcessing
+    ) {
         parent::__construct();
     }
 

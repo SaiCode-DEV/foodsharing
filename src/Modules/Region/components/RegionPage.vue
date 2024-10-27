@@ -97,15 +97,11 @@
         <Statistics
           v-if="activeSubpage === SUB_PAGE.STATISTIC"
           :region-id="regionId"
-          :pickup-data="pageData.pickupData"
+          :region-name="name"
         />
         <Pin
           v-if="activeSubpage === SUB_PAGE.PIN"
           :region-id="regionId"
-          :lat="pageData.lat"
-          :lon="pageData.lon"
-          :desc="pageData.desc"
-          :status="pageData.status"
         />
         <Wall
           v-if="activeSubpage === SUB_PAGE.WALL"
@@ -201,17 +197,17 @@ export default {
         ? [{ value: this.allAdmins.botschafter, label: 'terminology.admins' }]
         : [
             { value: this.allAdmins.botschafter, label: 'terminology.ambassadors' },
-            { value: this.allAdmins.welcomeAdmins, label: 'terminology.welcomeAdmins' },
-            { value: this.allAdmins.votingAdmins, label: 'terminology.votingAdmins' },
-            { value: this.allAdmins.fspAdmins, label: 'terminology.fspAdmins' },
-            { value: this.allAdmins.storesAdmins, label: 'terminology.storesAdmins' },
-            { value: this.allAdmins.reportAdmins, label: 'terminology.reportAdmins' },
-            { value: this.allAdmins.mediationAdmins, label: 'terminology.mediationAdmins' },
-            { value: this.allAdmins.prAdmins, label: 'terminology.prAdmins' },
-            { value: this.allAdmins.moderationAdmins, label: 'terminology.moderationAdmins' },
-            { value: this.allAdmins.boardAdmins, label: 'terminology.boardAdmins' },
-            { value: this.allAdmins.electionAdmins, label: 'terminology.electionAdmins' },
-            { value: this.allAdmins.arbitrationAdmins, label: 'terminology.arbitrationAdmins' },
+            { value: this.allAdmins.welcomeAdmins ?? [], label: 'terminology.welcomeAdmins' },
+            { value: this.allAdmins.votingAdmins ?? [], label: 'terminology.votingAdmins' },
+            { value: this.allAdmins.fspAdmins ?? [], label: 'terminology.fspAdmins' },
+            { value: this.allAdmins.storesAdmins ?? [], label: 'terminology.storesAdmins' },
+            { value: this.allAdmins.reportAdmins ?? [], label: 'terminology.reportAdmins' },
+            { value: this.allAdmins.mediationAdmins ?? [], label: 'terminology.mediationAdmins' },
+            { value: this.allAdmins.prAdmins ?? [], label: 'terminology.prAdmins' },
+            { value: this.allAdmins.moderationAdmins ?? [], label: 'terminology.moderationAdmins' },
+            { value: this.allAdmins.boardAdmins ?? [], label: 'terminology.boardAdmins' },
+            { value: this.allAdmins.electionAdmins ?? [], label: 'terminology.electionAdmins' },
+            { value: this.allAdmins.arbitrationAdmins ?? [], label: 'terminology.arbitrationAdmins' },
           ],
       loading: true,
       applications: [],

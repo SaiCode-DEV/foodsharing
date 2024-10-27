@@ -2,7 +2,7 @@
 
 namespace Foodsharing\Command;
 
-use Foodsharing\Modules\Maintenance\MaintenanceControl;
+use Foodsharing\Modules\Maintenance\MaintenanceService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,15 +11,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand('foodsharing:daily-cronjob', 'Executes daily maintenance tasks.')]
 class DailyMaintenanceCommand extends Command
 {
-    /**
-     * @var MaintenanceControl
-     */
-    private $maintenanceControl;
-
-    public function __construct(MaintenanceControl $maintenanceControl)
-    {
-        $this->maintenanceControl = $maintenanceControl;
-
+    public function __construct(
+        private readonly MaintenanceService $maintenanceControl
+    ) {
         parent::__construct();
     }
 

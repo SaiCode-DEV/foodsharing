@@ -31,11 +31,11 @@ class EventController extends FoodsharingController
         $event = $this->eventGateway->getEvent($eventId);
 
         if (!$event) {
-            return $this->routeHelper->goAndExit('/?page=dashboard');
+            return $this->redirectToRoute('dashboard');
         }
 
         if (!$this->eventPermissions->mayEditEvent($event)) {
-            return $this->routeHelper->goAndExit('/event/' . $eventId);
+            return $this->redirect('/event/' . $eventId);
         }
 
         $regionEventsLink = '/region?sub=events&bid=' . $event->regionId;
@@ -73,7 +73,7 @@ class EventController extends FoodsharingController
         }
 
         if (empty($eventId)) {
-            return $this->redirect('/?page=dashboard');
+            return $this->redirectToRoute('dashboard');
         }
 
         return $this->redirectToRoute('show_event', ['eventId' => $eventId]);
@@ -86,7 +86,7 @@ class EventController extends FoodsharingController
         if (!$event || !$this->eventPermissions->maySeeEvent($event)) {
             $this->flashMessageHelper->info($this->translator->trans('events.notFound'));
 
-            return $this->routeHelper->goAndExit('/?page=dashboard');
+            return $this->redirectToRoute('dashboard');
         }
 
         // Bread

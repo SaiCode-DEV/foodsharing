@@ -21,14 +21,10 @@ export async function deleteContent (contentId) {
   return await remove(`/content/${contentId}`)
 }
 
-export async function editContent (contentId, name, title, body) {
-  return await patch(`/content/${contentId}`, {
-    name: name,
-    title: title,
-    body: body,
-  })
+export async function editContent (contentId, contentData) {
+  return await patch(`/content/${contentId}`, contentData)
 }
 
-export async function addContent (name, title, body) {
-  return await post('/content', { name, title, body })
+export async function addContent (contentData) {
+  return await post('/content', contentData)
 }

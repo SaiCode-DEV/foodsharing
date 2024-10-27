@@ -27,6 +27,10 @@ $colorlist: (
   "info": $info,
 );
 
+:root {
+    color-scheme: light dark;
+}
+
 .dark-mode {
     @each $name, $color in $colorlist {
         $step: 110%;

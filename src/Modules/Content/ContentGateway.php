@@ -46,7 +46,8 @@ class ContentGateway extends BaseGateway
                 ->shiftTimezone(new DateTimeZone('UTC'))
             : null;
 
-        $content['body'] = $this->sanitizer->purifyHtml($content['body'] ?? '');
+        $config = Sanitizer::getPurifierConfig();
+        $content['body'] = $this->sanitizer->purifyHtml($content['body'] ?? '', $config);
 
         return Content::create($id, $content['name'], $content['title'], $content['body'], $lastModified);
     }

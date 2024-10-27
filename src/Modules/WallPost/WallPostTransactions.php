@@ -12,6 +12,8 @@ use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Event\EventGateway;
+use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
+use Foodsharing\Modules\FoodSharePoint\FoodSharePointTransactions;
 use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
@@ -30,6 +32,8 @@ class WallPostTransactions
         private readonly RegionGateway $regionGateway,
         private readonly BellTransactions $bellTransactions,
         private readonly StoreGateway $storeGateway,
+        private readonly FoodSharePointTransactions $foodSharePointTransactions,
+        private readonly FoodSharePointGateway $foodSharePointGateway,
         private readonly Session $session,
     ) {
     }
@@ -58,6 +62,8 @@ class WallPostTransactions
         if ($bellData) {
             $this->bellTransactions->addGroupedBellEvent($bellData['recipients'], $bellData['bell'], $postId);
         }
+
+        $this->additionalWallPostSideEffects($wallPost, $target, $targetId);
 
         return $post;
     }
@@ -126,6 +132,20 @@ class WallPostTransactions
                     BellType::createIdentifier(BellType::STORE_WALL_POST, $targetId)
                 );
                 break;
+            case WallType::FOOD_SHARE_POINT:
+                $recipients = $this->foodSharePointGateway->getInfoFollowerIds($targetId);
+                $bell = Bell::create(
+                    'ft_update_title',
+                    'ft_update',
+                    'fas fa-recycle',
+                    ['href' => '/fairteiler/' . $targetId],
+                    [
+                        'name' => $this->foodSharePointGateway->getFoodSharePoint($targetId)['name'],
+                        'teaser' => substr($wallPost->body, 0, 100)
+                    ],
+                    BellType::createIdentifier(BellType::FOOD_SHARE_POINT_POST, $targetId)
+                );
+                break;
             default:
                 return null;
         }
@@ -134,5 +154,16 @@ class WallPostTransactions
         $bell->vars['user'] = $this->session->user('name');
 
         return ['recipients' => $recipients, 'bell' => $bell];
+    }
+
+    private function additionalWallPostSideEffects(?WallPost $wallPost, WallType $target, int $targetId): void
+    {
+        switch ($target) {
+            case WallType::FOOD_SHARE_POINT:
+                $this->foodSharePointTransactions->sendNewFoodSharePointMailNotifications($targetId);
+                break;
+            default:
+                break;
+        }
     }
 }

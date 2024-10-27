@@ -171,6 +171,7 @@ class ActivityGateway extends BaseGateway
 			AND 	bt.bezirk_id IN ( ' . implode(',', $regionIds) . ' )
 			AND 	bt.bot_theme = :isAmbassadorThread
 			AND 	fs.deleted_at IS NULL
+			AND 	p.hidden_time IS NULL
 
 			ORDER BY t.last_post_id DESC
 			LIMIT :start_item_index, :items_per_page

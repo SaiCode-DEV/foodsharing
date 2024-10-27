@@ -243,9 +243,10 @@ quiz:
     infos:
       alone: Test sırasında yardım almanıza izin verilmez. Bu nedenle teste rahatsız
         edilmeden girebileceğiniz sessiz bir yer bulun.
-      wiki: Lütfen testi rastgele başlatmayın. Foodsharing Wiki'de listelenen sayfaları
+      wiki: Lütfen testi rastgele başlatmayın. foodsharing Wiki'de listelenen sayfaları
         önceden dikkatlice okuyun. Wiki'deki bilgiler olmadan teste geçemezsiniz.
-      real_life_examples: Soruların çoğu foodsharing hayatındaki gerçek vakalara dayanıyor.
+      real_life_examples: Soruların çoğu foodsharing hayatında ki gerçek vakalara
+        dayanıyor.
       limited_tries: Testi istediğiniz kadar tekrarlayamazsınız. Üç denemeden sonra
         30 günlük bir ara vermeniz gerekir; bunun ardından yalnızca iki deneme hakkınız
         daha vardır. Her denemede size sorulacak sorular farklıdır.
@@ -275,6 +276,10 @@ quiz:
     PAUSE: Ders arası molası ({name})
     PAUSE_ELAPSED: '{name} - Şimdi tekrar deneyebilirsiniz!'
     DISQUALIFIED: '{name} - Maalesef diskalifiye edildiniz.'
+    start: '{name} - Testi hemen yapın!'
+    continue: '{name} - Teste devam edin!'
+    pause: Çalışma molası ({name})
+    disqualified: '{name} - Maalesef diskalifiye edildiniz.'
   infomodal:
     title: "{questions}'den {index}. soru"
   comment:
@@ -427,6 +432,34 @@ quiz:
   confirmComment: Bu testin adminlerine notunuz gönderilsin mi?
   test_results: Test deneyinin sonuçları
   test: Testi test et
+  stateBasedInfo:
+    neverTried: Bu Testi daha önce hiç yapmadın. Sorulara hazırlanmak için listelenen
+      tüm Wiki makalelerini dikkatle okumaya zaman ayırın.
+    noWaitAfter: İlgili wiki makalelerine göz atın ve tekrar deneyin.
+    waitAfter: Bir sonraki denemenizde başarısız olursanız, çalışmaya {waitTimeAfterFailure}
+      gün ara vermek zorunda kalacaksınız. Testi geçebilmeniz için ilgili wiki makalelerine
+      göz atmayı unutmayın.
+    pauseElapsed: Çalışma molanız bitti. Bu nedenle artık teste tekrar katılabilirsiniz.
+      Umarız bu zamanı içeriğe daha aşina olmak için kullanmışsınızdır.
+    disqualifiedAfter: Bu testi geçmek için yalnızca son bir deneme hakkınız var!
+      Şimdi başarısız olursanız, bu sınavdan kalıcı olarak diskalifiye edileceksiniz.
+      Lütfen yalnızca wiki içeriğini ayrıntılı olarak incelediyseniz katılın.
+    running: Testi zaten başlattınız ve şu ana kadar {questionCount} sorudan {questionsAnswered}
+      tanesini yanıtladınız.
+    passed: Bu Testi geçtiniz.
+    failed: Ne yazık ki, en son denediğinizde bu Testi geçemediniz.
+    pause: Bu testte birden çok kez başarısız oldunuz. Güvenilirlik, kuralların sıkı
+      bir şekilde kavranması ve profesyonel görünüm, foodsharing olmazsa olmazıdır.
+      Ne yazık ki, bu noktada cevaplarınızla bunu aktarmıyorsunuz. Bu nedenle, testi
+      tekrar geçmeyi denemeden önce çalışmanıza ara verilecektir. Çalışma molanız
+      {currentWaitTime} gün içinde bitiyor..
+    disqualified: Ne yazık ki, çok fazla başarısız olduğunuz için bu testten diskalifiye
+      edildiniz.
+    passedBefore: Bu Testi zaten geçtiniz.
+    willExpire: Ancak başarılı olduğunuz test girişiminin geçerliliği {expirationTime}
+      gün içinde sona erer. Bu nedenle bu konu alanındaki bilgilerinizi tazeleyebilir
+      ve bu teste tekrar katılabilirsiniz.
+    expired: Ancak son test denemeniz artık geçerli değil.
 answers: Hangi cevaplar doğru?
 maxfp: Geçilmesi gerekilen maksimum hata puanları
 questcount: Sınavda kaç soru sorulmalıdır?
@@ -455,6 +488,7 @@ button:
   start: Haydi başlayalım!
   confirm: Onayla
   countdown_clickable: '{geri sayım} saniye içinde tıklanabilir'
+  ok: OK
 upload:
   new_image: Yeni fotoğraf yükle
   file: Dosya yükle
@@ -585,8 +619,9 @@ group:
       mesajları Raporlama ekibi alır
     tooltip_function_9: Bu çalışma grubunun yöneticileri, harita için yerel grup açıklamasını
       düzenleyebilir.
-    tooltip_function_10: Bu çalışma grubunun yöneticileri, denetlenen forumlarda ki
-      yazıları yayınlayabilir.
+    tooltip_function_10: Bu çalışma grubunun yöneticileri, denetlenen forumlardaki
+      katkıları etkinleştirebilir. Seçenek bölge için etkinleştirilirse forumdaki
+      gönderileri de gizleyebilirler.
     tooltip_function_3: Bu çalışma grubunun yöneticileri, bölgede ki dağıtım noktalarını
       açabilir, düzenleyebilir veya bununla ilgili paylaşımları kaldırabilirler
     tooltip_function_11: Bu çalışma grubunun yöneticileri, bölge genel görünümünde
@@ -828,6 +863,7 @@ bell:
   event_post_title: '{region} bölgesindeki {etkinlik} tarihi'
   internal_email_changed: Kişisel e-posta adresiniz değiştirildi.
   workinggroup_new_request: Çalışma grubu için yeni bir başvuru
+  forum_not_activated_thread: '{forum}'
 sig:
   buddies: Tanıdığın insanlar
 error:
@@ -1032,8 +1068,8 @@ startpage:
     vardır. Paylaşmak için orada veya diğer tarafsız yerlerde buluşabilirsiniz. Yiyecek
     teslim etmek veya teslim almak istiyorsanız, lütfen güvenilir ve dakik olun, kimseyi
     "yağmurda" bırakmayın.'
-  proposals: 'Kendimizi geliştirmek, daha iyiye doğru ilerlemek istiyoruz. Bunun için
-    birçok iyi fikir ve öneri ile size ihtiyacımız var. Bunları <a href="mailto:info@foodsharing.de">info@foodsharing.de</a>
+  proposals: 'Daha da gelişmek, daha iyi ve daha iyi olmak istiyoruz. Bunu yapmak
+    için birçok iyi fikir ve ipucuna ihtiyacımız var. Bunu [info@foodsharing.de](mailto:info@foodsharing.de)
     adresine gönderebilirsiniz'
   call_to_action:
     text: '2012 yılında kurulduk ve şu anda Almanya, Avusturya, İsviçre ve diğer Avrupa
@@ -1057,7 +1093,7 @@ startpage:
   forstores: 'Şirketler ve işletmeler için'
   together: 'Foodsharing ile birlikte, ayıklanmış ve satılamayan yiyeceklerin çöpe
     atılması yerine, iyi bir şekilde değerlendirilmesini sağlamak için çalışabilirsiniz.
-    Daha fazla bilgiyi <a href="/fuer-unternehmen">burada</a> bulabilirsiniz.'
+    Daha fazla bilgiyi [burada](/fuer-unternehmen) bulabilirsiniz.'
   followrules_b: 'Yasal sebeplerden dolayı sadece belirli yiyeceklerin ve diğer ürünlerin
     sunulmasına ve paylaşılmasına belirli koşullar altında izin verdiğimizi açıkça
     belirtiriz. Bu özellikle çiğ balık, çiğ et, çiğ yumurtalı yemekler ve hazır yiyecekler
@@ -1327,6 +1363,7 @@ store:
     confirm-far: Kayıtlı adresinize göre bu işletmeden çok uzakta oturuyorsunuz ({distance}).
       Buradaki ekibe düzenli ve güvenilir bir şekilde destek verebileceğinizden emin
       misiniz?
+    application-placeholder: Bu ekibe yardımcı olmak istiyorum çünkü...
   filter: …göre filtrele…
   enterdate: Alım tarihini girin
   important: 'Önemli:'
@@ -1544,7 +1581,7 @@ poll:
   type: Oylama türü
   may_not_edit: Bu anketi düzenleme hakkınız yok veya düzenleme süresi doldu.
   hint_random_order: Aşağıdaki mevcut seçeneklerin sırası rastgele seçilir.
-  scope_description_3: O Bölgede ki / grupta ki tüm elçiler
+  scope_description_3: O Bölgede ki tüm elçiler
   type_2:
     tooltip_negative: Ret
     tooltip_neutral: Çekimser
@@ -1559,6 +1596,8 @@ poll:
     number_of_votes: Kullanılan Oylar
     option_text: Opsiyon
     votes: Oylar
+    standardDeviationShort: σ
+    standardDeviation: Standart sapma
   in_future: henüz başlamadı
   begins_at: Başlangıç
   allowed_voters: Oy kullanma hakkına sahip
@@ -1570,7 +1609,10 @@ poll:
     title: Oylamayı düzenle
     submit_question: Oylama değişikliklerini kaydetmek istediğinizden emin misiniz?
   in_past: tamamlanmış
-  may_not_vote: Bu ankette oy kullanamazsınız.
+  may_not_vote: Bu ankette oy kullanamazsınız. Bu anket oluşturulduğunda oylama grubunun
+    bir parçası değildiniz. Oy verme süresi içerisinde oy kullanabileceğiniz kriterleri
+    karşılıyor olsanız dahi geriye dönük olarak oy kullanma hakkını almanız mümkün
+    değildir.
   may_not_yet_vote: Bu oylama henüz başlamadı.
   eligible_votes_count: Seçmen sayısı
   ended_at: kadar sürdü
@@ -2139,6 +2181,7 @@ footer:
     beta_testing_issues: Beta versiyonun test görevleri
     it_devdocs: by foodsharing IT
     version: 'Versiyon: {version}'
+    made_with: İle yapıldı
   infosPrivatePersons: Özel kişiler için
   call_to_action: Sen de katıl
   team: Ekip
@@ -2178,6 +2221,7 @@ releases:
   "2024-01": “Kivi”yi yayınlayın 🥝 (Ocak 2024)
   "2024-04": '"Laugenbrezel"i yayınlayın 🥨 (Nisan 2024)'
   "2024-08": Release „Mandarine“🍊 (Ağustos 2024)
+  "2024-12": Beta sürümü “Nektarin” 🍑 (Aralık 2024)
 storestatus:
   "5": bizimle işbirliği halinde
   "2": Görüşmeler devam ediyor
@@ -2264,10 +2308,6 @@ sidenav:
   superregional: Bölgeler üstü
   countryspecific: Ülkeye Özgü Gruplar
   yourregions: Senin Bölgelerin
-tablesorter:
-  entriespp: Sayfa başına kayıt
-  page: Sayfa
-  from: -den
 email_template:
   request_from: -den İstek
   in: içinde
@@ -2574,6 +2614,7 @@ forum:
       subscribed: Abone olundu
       subscribe: Abone ol
     bottom: azaltılmış görünürlük
+    all_hidden: Bu başlıktaki tüm mesajlar gizlendi.
   hold_back_for_moderation: Konu kaydedildi ve bir elçi/moderatör onaylar onaylamaz
     yayınlanacak.
   sending_error: Gönderilirken bir hata oluştu
@@ -2604,6 +2645,8 @@ forum:
       ve herkesin bunun farkında olmasını gerektirecek kadar önemliyse yapmalısınız.
     title: Gerçekten e-posta bildirimleri göndermek istiyor musunuz?
   go: Foruma
+  restore:
+    really: Aşağıdaki gönderiyi gerçekten geri yüklemek istiyor musunuz?
 chat:
   open_chat: Bir mesaj yaz
   new_messages: Yeni Mesajlar
@@ -2896,19 +2939,26 @@ profile:
 
       '
     messageTooShort: 'Lütfen fidanınla ilgili en az 100 karakterlik bir metin girin.'
-    undo: 'Güven Fidanları değiştirilemez veya geri alınamaz.'
+    undo: 'Güven Fidanları değiştirilemez.'
     none: '{name} henüz güven fidanı almadı.'
     sent: 'Güven fidani gönderilirdi!'
     give: '{name}''e bir güven fidanı hediye et'
     alreadyGiven: '{name} sizden zaten bir fidan aldı.'
-    vouch: 'Bu nedenle lütfen güven fidanını yalnızca kişisel olarak tanıdığınız kişilere
-      verin,
+    vouch: 'Lütfen güven fidanını yalnızca kişisel olarak tanıdığınız,
 
-      Davranış kurallarına ve yasal sözleşmeye uyanlara
+      davranış kurallarına ve yasal sözleşmelere uyan kişilere verin.
 
-      ve güvenilirliğine ve bağlılığına kefil olabilireceklerinize de.
+      Ve güvenilirliğine ve bağlılığına kefil olabileceklerinize.
+
+      Güven fidanını hafife almayın!
 
       '
+    recieved_none:
+      you: Henüz bir güven fidanı almadınız.
+      other: '{name} henüz güven fidanı almadı.'
+    sent_none:
+      other: '{name} henüz güven fidanı vermedi.'
+      you: Henüz bir güven fidanı vermedin.
   stats:
     baskets: Yemek Sepetleri
     posts: Gönderiler
@@ -2954,7 +3004,7 @@ profile:
       filterAll: Hepsi
       filterRequested: İstek yapıldı
       filterActive: Üye
-      filterManage: İşletme Sorumlusu
+      filterManage: İşletme sorumlusu
       filterJumper: Yedek
   sleeping_info_from_until: '{from} ile {until} arasında uyku beresi var'
   choosereasonnostore: Hiç bir işletmeye ilişkin değil
@@ -3141,6 +3191,9 @@ terminology:
   landline: Sabit hat numarası
   mobile_phone: Cep telefonu numarası
   hygiene_training: Hijyen eğitimi
+  sent: Gönderilmiş
+  received: Kalmış
+  users: Kullanıcılar
 legal:
   if_delete:
     this_doesnt_get_deleted: 'Aşağıdaki bilgiler artık aktif sistemde mevcut değildir,
@@ -3372,6 +3425,10 @@ fsp:
   summaryRegion: '{region} ve tüm nahiyelerde {count} gıda dağıtım noktaları var'
   edit: Gıda dağıtım noktasını düzenle
   show_on_large_map: Haritada göster
+  form_validation:
+    invalid: Giriş geçersiz. Lütfen girişlerinizi kontrol edin.
+    required: '{name} gerekli.'
+    min_length: '{name} en az {length} karakter uzunluğunda olmalıdır.'
 statistics:
   kg_food_saved: '{count} kg gıda kurtarıldı'
   num_fetches: '{count} kurtarma görevinde'
@@ -3814,7 +3871,7 @@ language_chooser:
     için kaleme tıklayabilirsiniz'
   title: 'Lisan seçiniz'
   content: 'Lütfen bir dil seçin'
-  translation_help: 'Başka lisanları konuşuyormusun? Foodsharing her zaman tercümanlık
+  translation_help: 'Başka lisanları konuşuyormusun? foodsharing her zaman tercümanlık
     konusunda yardımcı arıyor'
 numbers:
   billion_abbreviation: ' Milyar.'
@@ -3919,6 +3976,9 @@ notifications:
     title: Boş slotlar için hatırlatmalar
     description: Yönettiğiniz işletmelerdeki slotlar ertesi gün henüz dolmamışsa sizi
       uyaran e-postalar alın.
+  mention:
+    title: Etiketleme bildirimleri
+    description: Birisi size forumda etiketlediğinde bildirim alın.
 markdown_input:
   tooltip:
     orderedList: numaralı liste
@@ -3933,6 +3993,7 @@ markdown_input:
     link: bağlantı
     heading: Ana Başlık
     image: Resim ekleyin
+    mention: Kullanıcıyı etiketle
   empty_preview_placeholder: "Bu bir formatlama önizlemesidir. Metin burada, daha
     sonra görüntüleneceği şekilde formatlanmıştır.\n---\n*Henüz burada görüntülenebilecek
     herhangi bir metin girmediniz.*"
@@ -4136,3 +4197,4 @@ store_categories:
   confirm_delete_hint: Hala bu kategoriye atanmış {count} şirket var. Bu işletmenin
     artık bir kategorisi olmayacak.
   new: Yeni kategori girin
+error_base64_image: Drag & Drop yöntemiyle resim eklenmesine izin verilmez.

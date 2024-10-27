@@ -86,6 +86,9 @@ export default {
   border-width: 0.5rem;
   font-weight: bolder;
 
+  // Nektarine
+  &[data-id="2024-12"] { border-color: #ff7f50; }
+
   // Mandarine
   &[data-id="2024-08"] { border-color: #e68a00; }
 

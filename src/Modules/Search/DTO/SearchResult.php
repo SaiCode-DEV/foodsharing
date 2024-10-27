@@ -2,7 +2,7 @@
 
 namespace Foodsharing\Modules\Search\DTO;
 
-use Foodsharing\Modules\Foodsaver\DTO\FoodsaverForAvatar;
+use Foodsharing\Modules\Foodsaver\Profile;
 use OpenApi\Annotations as OA;
 
 class SearchResult
@@ -32,12 +32,12 @@ class SearchResult
 
     protected static function formatUserList(array $data, string $namespace): array
     {
-        $keys = ['id', 'name', 'photo'];
+        $keys = ['id', 'name', 'photo', 'is_sleeping'];
         if (empty($data[$namespace . '_ids'])) {
             return [];
         } else {
             return array_map(
-                fn (...$values) => FoodsaverForAvatar::createFromArray(array_combine($keys, $values)),
+                fn (...$values) => new Profile(array_combine($keys, $values)),
                 ...array_map(fn ($key) => explode(',', (string)$data[$namespace . '_' . $key . 's']), $keys)
             );
         }

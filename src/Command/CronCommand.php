@@ -2,7 +2,7 @@
 
 namespace Foodsharing\Command;
 
-use Foodsharing\Modules\Mails\MailsControl;
+use Foodsharing\Modules\Mails\MailsService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,15 +11,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand('foodsharing:cronjob', 'Executes regular maintenance tasks.')]
 class CronCommand extends Command
 {
-    /**
-     * @var MailsControl
-     */
-    private $mailsControl;
-
-    public function __construct(MailsControl $mailsControl)
-    {
-        $this->mailsControl = $mailsControl;
-
+    public function __construct(
+        private readonly MailsService $mailsControl
+    ) {
         parent::__construct();
     }
 

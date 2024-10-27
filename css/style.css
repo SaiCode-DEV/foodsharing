@@ -313,11 +313,6 @@ div.popbox div.middle {
   margin-bottom: 10px;
 }
 
-div.mce-tinymce.mce-container.mce-panel {
-  border-width: 0 !important;
-}
-
-
 textarea.xv {
   width: 430px;
   height: 75px;

@@ -17,37 +17,26 @@
     >
       <div class="ui-dialog-content ui-widget-content">
         <ul id="map-control" class="linklist">
-          <li v-for="markerType in Object.values(markerTypes)" :key="markerType.name">
+          <li v-for="markerType in visibleTypes" :key="markerType">
             <a
-              v-if="visibleTypes.includes(markerType.name)"
-              :ref="`button-${markerType.name}`"
+              :ref="`button-${markerType}`"
               class="map-legend-entry"
-              :class="`${markerType.name} ${activeButtonClass(markerType.name)}`"
-              @click="$emit('toggle-marker-type', markerType.name)"
+              :class="`${markerType} ${activeButtonClass(markerType)}`"
+              @click="$emit('toggle-marker-type', markerType)"
             >
-              <i :class="`fas fa-${markerType.icon}`" /> {{ $i18n(markerType.label) }}
+              <i :class="`fas fa-${markerTypes[markerType].icon}`" /> {{ $i18n(markerTypes[markerType].label) }}
             </a>
-            <div
-              v-if="markerType === markerTypes.stores && selectedTypes.includes(markerType.name)"
-              class="map-legend-selection"
-            >
-              <b-form-group
-                v-for="[selectType, options] in Object.entries(storeMarkerSelectTypes)"
-                :key="selectType"
-                label-cols="4"
-                :label="$i18n(`map.filters.stores.${selectType}.label`) + ':'"
-                :label-for="`${selectType}-select`"
-              >
-                <b-select
-                  :id="`${selectType}-select`"
-                  :value.sync="selectedStoreTypes[selectType]"
-                  class="w-100"
-                  size="sm"
-                  :options="options.map(x => ({ text: $i18n(`map.filters.stores.${selectType}.${x}`), value: x }))"
-                  @change="newValue => $emit('select-store-marker-type', selectType, newValue)"
-                />
-              </b-form-group>
-            </div>
+            <StoreSpecifierSelection
+              v-if="markerType === markerTypes.stores.name && selectedTypes.includes(markerType)"
+              :selected-specifiers="selectedSpecifiers[markerType]"
+              @update-specifier="(specifier, newValue) => $emit('update-marker-specifier', markerType, specifier, newValue)"
+            />
+            <UserSpecifierSelection
+              v-if="markerType === markerTypes.users.name && selectedTypes.includes(markerType)"
+              :selected-specifiers="selectedSpecifiers[markerType]"
+              :regions="ambassadorRegions"
+              @update-specifier="(specifier, newValue) => $emit('update-marker-specifier', markerType, specifier, newValue)"
+            />
           </li>
         </ul>
       </div>
@@ -56,19 +45,22 @@
 </template>
 
 <script>
-import { MARKER_TYPES, STORE_MARKER_SELECT_TYPES } from '@/stores/map'
+import { MARKER_TYPES } from '@/stores/map'
+import StoreSpecifierSelection from './SpecifierSelections/StoreSpecifierSelection.vue'
+import UserSpecifierSelection from './SpecifierSelections/UserSpecifierSelection.vue'
 
 export default {
+  components: { StoreSpecifierSelection, UserSpecifierSelection },
   props: {
     visibleTypes: { type: Array, required: true },
     selectedTypes: { type: Array, required: true },
-    selectedStoreTypes: { type: Object, required: true },
+    selectedSpecifiers: { type: Object, required: true },
+    ambassadorRegions: { type: Array, default: () => [] },
   },
   data () {
     return {
       isCollapsed: false,
       markerTypes: MARKER_TYPES,
-      storeMarkerSelectTypes: STORE_MARKER_SELECT_TYPES,
     }
   },
   computed: {
@@ -139,7 +131,7 @@ export default {
     padding: 0.5rem;
     ::v-deep {
       label, select {
-        font-size: 12px !important;
+        font-size: .85em !important;
       }
       .form-row {
         margin-bottom: 0.5rem;
@@ -161,6 +153,7 @@ export default {
     &.stores { --type-color: var(--fs-color-type-stores); }
     &.foodsharepoints { --type-color: var(--fs-color-type-foodsharepoints); }
     &.communities { --type-color: var(--fs-color-type-communities); }
+    &.users { --type-color: var(--fs-color-type-users); }
 
     &:hover {
       background-color: var(--fs-color-primary-100);

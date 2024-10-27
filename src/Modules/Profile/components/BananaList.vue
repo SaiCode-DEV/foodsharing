@@ -59,11 +59,12 @@
     <BananaListEntry
       v-for="b in bananaList"
       :key="b.id"
-      :author="b.user"
+      :user="b.user"
       :created-at="b.time"
       :text="b.message"
-      :can-remove="canRemoveBanana"
+      :can-remove="canRemoveBanana || (b.user.id === currentUserId)"
       :recipient-id="recipient.id"
+      :is-sent="isSent"
     />
   </div>
 </template>
@@ -75,6 +76,8 @@ import { pulseError, pulseInfo } from '@/script'
 
 import BananaListEntry from './BananaListEntry'
 import { HTTP_RESPONSE } from '@/consts'
+import { useUserStore } from '@/stores/user'
+const userStore = useUserStore()
 
 export default {
   components: { BananaListEntry },
@@ -84,6 +87,7 @@ export default {
     canRemoveBanana: { type: Boolean, default: false },
     bananas: { type: Array, default: () => { return [] } },
     nonePlaceholder: { type: String, default: '' },
+    isSent: { type: Boolean, default: false },
   },
   data () {
     return {
@@ -98,6 +102,7 @@ export default {
     canSendBanana () {
       return this.bananaText && (this.bananaText.trim().length > 99)
     },
+    currentUserId: () => userStore.getUserId,
   },
   methods: {
     async trySendBanana () {

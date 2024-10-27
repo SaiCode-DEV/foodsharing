@@ -26,7 +26,7 @@ $I->login($user['email']);
  * As the user does not have a home region, it gets to select one by default. Maybe this behaviour changes and we need
  * to open the choser?
  */
-$I->amOnPage('/?page=dashboard');
+$I->amOnPage('/dashboard');
 $I->waitForActiveAPICalls();
 $I->waitForElement('.testing-region-join');
 $I->see('Bitte auswählen', ['css' => '.testing-region-join-select']);

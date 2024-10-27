@@ -3,7 +3,7 @@
     :variant="variant"
     button
     class="text-center"
-    @click="$emit('click')"
+    @click="onClick"
   >
     <slot>
       <i v-if="icon" :class="icon + ' mr-2'" />
@@ -21,6 +21,15 @@ export default {
     variant: { type: String, default: '' },
     textKey: { type: String, default: '' },
     icon: { type: String, default: '' },
+    href: { type: String, default: null },
+  },
+  methods: {
+    onClick () {
+      this.$emit('click')
+      if (this.href) {
+        location.href = this.href
+      }
+    },
   },
 }
 </script>

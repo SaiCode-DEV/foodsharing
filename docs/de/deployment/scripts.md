@@ -12,7 +12,7 @@ All scripts can be run with `./scripts/[script]`.
 | `restart`                                   | dev           | Restarts the docker-containers and clears the assets-folder (shorthand `containers-restart`) |
 | `stop [env]`                                | dev/test      | Stops the docker-containers (shorthand `containers-stop`) |
 | `seed`                                      | dev           | Seeds the database with fake data and runs maintenance scripts (shorthand `db-seed`) |
-| `clean [full]`                                     |               | Removes anything added by `start`/`test` scripts (expect docker-images); add `full` to remove docker images too |
+| `clean [modules/full]`                      |               | Removes anything added by `start`/`test` scripts (expect docker-images); add `modules` to delete also node-modules, add `full` to remove docker images too |
 
 ## Codestyle `scripts`
 | Script                                      | ENV           | Description                                                                           |

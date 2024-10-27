@@ -61,13 +61,9 @@ export default {
     openBasketBubble (id) {
       this.$refs.basketBubble.show(id)
     },
-    updateMapCenter (coordinates, bounds, address) {
-      if (bounds) {
-        this.currentBounds = bounds
-      } else {
-        this.currentCenter = coordinates
-        this.currentZoom = 17
-      }
+    updateMapCenter (coordinates) {
+      this.currentCenter = coordinates
+      this.currentZoom = 17
     },
   },
 }

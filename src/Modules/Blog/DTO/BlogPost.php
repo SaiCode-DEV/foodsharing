@@ -9,6 +9,7 @@ class BlogPost
     public int $id;
     public string $title;
     public string $content;
+    public string $teaser;
     public DateTime $publishedAt;
     /**
      * Name of this post's author or null if the author's profile was deleted.
@@ -19,7 +20,8 @@ class BlogPost
     public static function create(
         int $id,
         string $title,
-        string $content,
+        ?string $content,
+        ?string $teaser,
         DateTime $publishedAt,
         ?string $authorName,
         string $picture
@@ -28,6 +30,7 @@ class BlogPost
         $b->id = $id;
         $b->title = $title;
         $b->content = $content;
+        $b->teaser = $teaser;
         $b->publishedAt = $publishedAt;
         $b->authorName = $authorName;
         $b->picture = $picture;

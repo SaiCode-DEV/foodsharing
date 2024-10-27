@@ -261,4 +261,19 @@ class VotingTransactions
         // save poll
         $this->votingGateway->updatePoll($poll);
     }
+
+    public function getScopeCounts(int $regionId, bool $isWorkingGroup): array
+    {
+        $usersPerScope = [
+            VotingScope::FOODSAVERS => count($this->listUserIds($regionId, VotingScope::FOODSAVERS)),
+            VotingScope::VERIFIED_FOODSAVERS => count($this->listUserIds($regionId, VotingScope::VERIFIED_FOODSAVERS)),
+        ];
+        if (!$isWorkingGroup) {
+            $usersPerScope[VotingScope::STORE_MANAGERS] = count($this->listUserIds($regionId, VotingScope::STORE_MANAGERS));
+            $usersPerScope[VotingScope::AMBASSADORS] = count($this->listUserIds($regionId, VotingScope::AMBASSADORS));
+            $usersPerScope[VotingScope::VERIFIED_FOODSAVERS_HOME_DISTRICT] = count($this->listUserIds($regionId, VotingScope::VERIFIED_FOODSAVERS_HOME_DISTRICT));
+        }
+
+        return $usersPerScope;
+    }
 }

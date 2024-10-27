@@ -2412,6 +2412,8 @@ poll:
     votes: ''
     option_text: ''
     average: ''
+    standardDeviation: انحراف معياري
+    standardDeviationShort: σ
   submit_vote_question: ''
   in_future: ''
   may_not_vote: ''
@@ -2574,10 +2576,6 @@ base:
   jsrequired: ''
 messages:
   bread: ''
-tablesorter:
-  from: ''
-  entriespp: ''
-  page: ''
 pickuplist:
   unclear: ''
   NumberOfFoodSavers_table_header: ''

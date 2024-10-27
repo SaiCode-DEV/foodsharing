@@ -7,6 +7,7 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingType;
 use Foodsharing\Modules\Voting\DTO\Poll;
+use Foodsharing\Modules\Voting\DTO\PollForListView;
 use Foodsharing\Modules\Voting\DTO\PollForPreview;
 use Foodsharing\Modules\Voting\DTO\PollOption;
 
@@ -85,27 +86,25 @@ class VotingGateway extends BaseGateway
      * is returned.
      *
      * @param int $regionId a valid ID of a group or region
+     * @param int $userId the id of the user for which the view is fetched
      *
-     * @return array multiple {@link Poll} objects
+     * @return PollForListView[]
      */
-    public function listPolls(int $regionId): array
+    public function listPolls(int $regionId, int $userId): array
     {
-        $data = $this->db->fetchAllByCriteria('fs_poll',
-            ['id', 'region_id', 'scope', 'name', 'description', 'type', 'start', 'end', 'author', 'eligible_votes_count', 'creation_timestamp', 'shuffle_options'],
-            ['region_id' => $regionId]
-        );
+        $polls = $this->db->fetchAll('SELECT
+                p.id, p.name, p.start, p.end,
+                (hp.time IS NOT NULL) AS hasVoted,
+                (hp.poll_id IS NOT NULL) AS isEligible
+            FROM fs_poll p
+            LEFT OUTER JOIN fs_foodsaver_has_poll hp ON hp.poll_id = p.id AND hp.foodsaver_id = :userId
+            WHERE p.region_id = :regionId
+            ORDER BY p.end', [
+            ':regionId' => $regionId,
+            ':userId' => $userId,
+        ]);
 
-        $polls = [];
-        foreach ($data as $d) {
-            $options = $this->getOptions($d['id'], false);
-            $polls[] = Poll::create($d['id'], $d['name'], $d['description'],
-                new \DateTime($d['start']), new \DateTime($d['end']),
-                $d['region_id'], $d['scope'], $d['type'], $d['author'], new \DateTime($d['creation_timestamp']),
-                VotingType::getNumberOfValues($d['type']), null, $d['eligible_votes_count'], $options,
-                $d['shuffle_options']);
-        }
-
-        return $polls;
+        return array_map([PollForListView::class, 'createFromArray'], $polls);
     }
 
     /**

@@ -48,7 +48,7 @@ export default {
       { tooltip: 'filterJumper', state: STORE_TEAM_STATE.JUMPER, icon: 'running' },
       { tooltip: 'filterSleeping', state: STORE_TEAM_STATE.SLEEPING, icon: 'bed' },
       { tooltip: 'filterUnverified', state: STORE_TEAM_STATE.UNVERIFIED, icon: 'user-alt-slash' },
-      { tooltip: 'filterManage', state: STORE_TEAM_STATE.MANAGE_ROLE, icon: 'gem' },
+      { tooltip: 'filterManage', state: STORE_TEAM_STATE.MANAGE_ROLE, icon: 'user-graduate' },
     ]
     return {
       userSearchString: '',

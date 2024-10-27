@@ -18,7 +18,8 @@ class RegisterController extends FoodsharingController
     {
         if ($this->session->mayRole()) {
             $this->flashMessageHelper->info($this->translator->trans('register.account-exists'));
-            $this->routeHelper->goAndExit('/?page=dashboard');
+
+            return $this->redirectToRoute('dashboard');
         } else {
             $this->pageHelper->addBread($this->translator->trans('register.title'));
             $this->pageHelper->addTitle($this->translator->trans('register.title'));

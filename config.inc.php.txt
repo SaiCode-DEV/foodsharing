@@ -52,7 +52,6 @@ $g_page_cache = array(
 		'/karte' => $user,
 		'/karte?load=baskets' => array('g' => 120, 'u' => 120),
 		'/karte?load=fairteiler' => $both,
-		//'/?page=dashboard' => $user,
 		'/api/map/markers?types%5B%5D=baskets' => array('u' => 120, 'g' => 120),
 		'/api/map/markers?types%5B%5D=' => $both,
 		'/api/map/markers?types%5B%5D=baskets&types%5B%5D=fairteiler' => array('u' => 120, 'g' => 120),

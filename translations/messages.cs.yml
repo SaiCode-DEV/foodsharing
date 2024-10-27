@@ -125,10 +125,6 @@ settings:
   delete_profile: Smazání profilu
   general:
     phone: Vaše číslo pevné linky
-tablesorter:
-  page: ''
-  entriespp: ''
-  from: ''
 email_template:
   you_responsible:
     part1: ''
@@ -1245,6 +1241,7 @@ bell:
   forum_mention: ''
   workinggroup_new_request_title: '{name}'
   internal_email_changed_title: '{address}'
+  forum_not_activated_thread: '{forum}'
 genderlist:
   home_district_tab: ''
   gender_female: ''
@@ -1890,6 +1887,8 @@ poll:
     average: ''
     votes: ''
     percentage_of_votes: ''
+    standardDeviationShort: σ
+    standardDeviation: Směrodatná odchylka
   scope_description_2: ''
   may_not_vote: ''
   may_not_yet_vote: ''

@@ -1,129 +1,70 @@
 <template>
-  <Container :title="$i18n('polls.ongoing')">
-    <b-container>
-      <div class="alert alert-info mb-3 mt-3">
-        <i class="fas fa-info-circle" />
-        {{ $i18n('polls.hint') }}<br>
-        {{ $i18n('polls.hint_2') }}: <a :href="$url('wiki_voting')">{{ $url('wiki_voting') }}</a>
-      </div>
-    </b-container>
-    <b-container>
-      <div v-if="mayCreatePoll" class="p-1">
-        <b-link
+  <div>
+    <b-alert show variant="info">
+      <i class="fas fa-info-circle" />
+      {{ $i18n('polls.hint') }}<br>
+      {{ $i18n('polls.hint_2') }}: <a :href="$url('wiki_voting')">{{ $url('wiki_voting') }}</a>
+    </b-alert>
+    <Container v-if="ongoingPolls.length || mayCreatePoll" :title="$i18n('polls.ongoing')">
+      <PollListEntry
+        v-for="poll in ongoingPolls"
+        :key="poll.id"
+        :poll="poll"
+      />
+      <template #buttons>
+        <ContainerButton
+          v-if="mayCreatePoll"
+          variant="success"
+          text-key="polls.new_poll"
           :href="$url('pollNew', regionId)"
-          class="btn btn-sm btn-primary btn-block"
-        >
-          {{ $i18n('polls.new_poll') }}
-        </b-link>
-      </div>
-    </b-container>
-    <b-container>
-      <b-list-group>
-        <div class="d-flex flex-wrap">
-          <b-list-group-item
-            v-for="poll in ongoingPolls"
-            :key="poll.id"
-            class="mr-3 mb-3"
-            style="flex-basis: 46%"
-          >
-            <b-link :href="$url('poll', poll.id)">
-              <span class="calendar m-1">
-                <span class="month">{{ formatDate(convertDate(poll.endDate), 'MMMM') }}</span>
-                <span class="day">{{ formatDate(convertDate(poll.endDate), 'd') }}</span>
-              </span>
-              <div class="title mt-2">
-                <b>{{ poll.name }}</b>
-              </div>
-              <div class="mt-2">
-                {{ $dateFormatter.dateTime(convertDate(poll.startDate)) }} - {{ $dateFormatter.dateTime(convertDate(poll.endDate)) }}
-              </div>
-            </b-link>
-          </b-list-group-item>
-        </div>
-      </b-list-group>
-    </b-container>
-    <b-container>
-      <div
-        v-if="futurePolls.length > 0"
-        class="card mb-3 rounded"
-      >
-        <div class="card-header text-white bg-primary">
-          {{ $i18n('polls.future') }}
-        </div>
-        <div class="card-body">
-          <ul>
-            <li
-              v-for="poll in futurePolls"
-              :key="poll.id"
-              class="mb-2"
-            >
-              <b-link
-                :href="$url('poll', poll.id)"
-              >
-                <b>{{ poll.name }}</b>
-                <div>{{ $i18n('poll.begins_at') }}: {{ $dateFormatter.date(convertDate(poll.startDate)) }}</div>
-              </b-link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </b-container>
-    <b-container>
-      <div class="card mb-3 rounded">
-        <div class="card-header text-white bg-primary">
-          {{ $i18n('polls.ended') }}
-        </div>
-        <div class="card-body">
-          <div class="form-row p-1 mb-2">
-            <label
-              for="filter-input"
-              class="col-form-label col-form-label-sm"
-            >
-              {{ $i18n('filter_by') }}
-            </label>
-            <b-form-input
-              id="filter-input"
-              v-model="filterText"
-              type="text"
-              class="form-control form-control-sm col-8"
-              :placeholder="$i18n('name')"
-            />
-          </div>
-          <ul id="endedPollsList">
-            <li
-              v-for="poll in endedPollsPaginated"
-              :key="poll.id"
-              class="mb-2"
-            >
-              <b-link
-                :href="$url('poll', poll.id)"
-              >
-                {{ poll.name }}
-                <div>{{ $i18n('poll.ended_at') }} {{ $dateFormatter.date(convertDate(poll.endDate)) }}</div>
-              </b-link>
-            </li>
-          </ul>
-          <b-pagination
-            v-model="currentPage"
-            :total-rows="endedPolls.length"
-            :per-page="perPage"
-            aria-controls="endedPollsList"
-            class="my-0"
+        />
+      </template>
+    </Container>
+    <Container v-if="futurePolls.length > 0" :title="$i18n('polls.future')">
+      <PollListEntry
+        v-for="poll in futurePolls"
+        :key="poll.id"
+        :poll="poll"
+      />
+    </Container>
+    <Container :title="$i18n('polls.ended')">
+      <b-list-group-item>
+        <b-form-group :label="$i18n('filter_by')">
+          <b-form-input
+            v-model="filterText"
+            type="text"
+            class="form-control form-control-sm col-8"
+            :placeholder="$i18n('name')"
           />
-        </div>
-      </div>
-    </b-container>
-  </Container>
+        </b-form-group>
+      </b-list-group-item>
+      <PollListEntry
+        v-for="poll in endedPollsPaginated"
+        :key="poll.id"
+        :poll="poll"
+      />
+      <b-list-group-item v-if="endedPolls.length > perPage" class="align-right">
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="endedPolls.length"
+          :per-page="perPage"
+          aria-controls="endedPollsList"
+          class="m-0"
+        />
+      </b-list-group-item>
+    </Container>
+  </div>
 </template>
 
 <script>
-import { BLink, BFormInput, BPagination } from 'bootstrap-vue'
 import { optimizedCompare } from '@/utils'
 import GroupsData from '@/stores/groups'
 import Container from '@/components/Container/Container.vue'
+import ContainerButton from '@/components/Container/ContainerButton.vue'
+import PollListEntry from './PollListEntry.vue'
 
 export default {
-  components: { BLink, BFormInput, BPagination, Container },
+  components: { Container, ContainerButton, PollListEntry },
   props: {
     regionId: {
       type: Number,

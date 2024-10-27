@@ -5,8 +5,8 @@ namespace Foodsharing\Modules\StoreChain;
 use Exception;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\Pagination;
-use Foodsharing\Modules\Foodsaver\DTO\FoodsaverForAvatar;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Region\ForumGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\StoreChain\DTO\PatchStoreChain;
@@ -133,12 +133,7 @@ class StoreChainTransactions
             $changed = true;
         }
         if (!is_null($storeModel->kams)) {
-            $params->kams = array_map(function ($kam) {
-                $obj = new FoodsaverForAvatar();
-                $obj->id = $kam;
-
-                return $obj;
-            }, $storeModel->kams);
+            $params->kams = array_map(fn ($kam) => new Profile(['id' => $kam]), $storeModel->kams);
             $this->throwExceptionIfKeyAccountManagerIsInvalid($params->kams);
             $changed = true;
         } else {

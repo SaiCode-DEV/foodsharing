@@ -5,8 +5,10 @@ namespace Foodsharing\Permissions;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
+use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Quiz\DTO\QuizStatus;
 use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
@@ -120,5 +122,14 @@ final class QuizPermissions
             QuizID::FOODSAVER, QuizID::STORE_MANAGER => true,
             default => false,
         };
+    }
+
+    public function mayStartQuizNow(QuizStatus $status): bool
+    {
+        return !( // Not allowed when:
+            $status->currentWaitTime // pause or disqualified
+            || $status->lastSessionStatus === SessionStatus::RUNNING // running
+            || ($status->lastSessionStatus === SessionStatus::PASSED && $status->expirationTime === -1) // passed and not expiring
+        );
     }
 }

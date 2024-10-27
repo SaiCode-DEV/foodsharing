@@ -5,7 +5,7 @@ namespace Foodsharing\Modules\StoreChain\DTO;
 use DateTime;
 use DateTimeZone;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
-use Foodsharing\Modules\Foodsaver\DTO\FoodsaverForAvatar;
+use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\StoreChain\StoreChainStatus;
 use Foodsharing\Validator\NoHtml;
 use Foodsharing\Validator\NoMarkdown;
@@ -128,11 +128,11 @@ class StoreChain
     /**
      * Identifiers of key account managers.
      *
-     * @var array<FoodsaverForAvatar> Array of store information
+     * @var array<Profile> Array of store information
      *
      * @OA\Property(
      *        type="array",
-     *        @OA\Items(ref=@Model(type=FoodsaverForAvatar::class))
+     *        @OA\Items(ref=@Model(type=Profile::class))
      *      )
      */
     public ?array $kams = [];

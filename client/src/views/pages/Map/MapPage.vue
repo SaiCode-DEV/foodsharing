@@ -15,9 +15,10 @@
     <map-control
       :visible-types="visibleTypes"
       :selected-types="selectedTypes"
-      :selected-store-types="selectedStoreTypes"
+      :selected-specifiers="selectedSpecifiers"
+      :ambassador-regions="ambassadorRegions"
       @toggle-marker-type="toggleMarkerType"
-      @select-store-marker-type="selectStoreMarkerType"
+      @update-marker-specifier="updateMarkerSpecifier"
     />
 
     <basket-bubble ref="basketBubble" />
@@ -35,7 +36,7 @@ import Vue2LeafletMarkerCluster from 'vue2-leaflet-markercluster'
 import Vue2LeafletLocatecontrol from 'vue2-leaflet-locatecontrol'
 import LeafletMap from '@/components/map/LeafletMap.vue'
 import MapControl from '@/views/pages/Map/MapControl.vue'
-import { store, MAP_CONSTANTS, MARKER_TYPES } from '@/stores/map'
+import { getMarkers, MAP_CONSTANTS, MARKER_TYPES } from '@/stores/map'
 import { objectMap } from '@/utils'
 import { hideLoader, showLoader } from '@/script'
 import BasketBubble from '@php/Modules/Map/components/BasketBubble.vue'
@@ -65,6 +66,7 @@ export default {
     maySeeStores: { type: Boolean, default: false },
     selectedStoreId: { type: Number, default: null },
     selectedFoodSharePointId: { type: Number, default: null },
+    ambassadorRegions: { type: Array, default: () => [] },
   },
   setup () {
     return {
@@ -76,12 +78,19 @@ export default {
       currentCenter: { lat: MAP_CONSTANTS.CENTER_GERMANY_LAT, lon: MAP_CONSTANTS.CENTER_GERMANY_LON },
       currentZoom: MAP_CONSTANTS.ZOOM_COUNTRY,
       selectedTypes: [MARKER_TYPES.baskets.name],
-      selectedStoreTypes: {
-        status: 'cooperating',
-        help: 'all',
-        scope: 'region',
+      selectedSpecifiers: {
+        stores: {
+          status: 'cooperating',
+          help: 'all',
+          scope: 'region',
+        },
+        users: {
+          region: this.ambassadorRegions?.[0]?.id,
+          activity: 'month',
+          role: 'foodsaver',
+          member: 'homeregion',
+        },
       },
-      markers: store.state.markers,
     }
   },
   computed: {
@@ -90,10 +99,16 @@ export default {
       if (this.maySeeStores) {
         types.push(MARKER_TYPES.stores.name)
       }
+      if (this.ambassadorRegions?.length) {
+        types.push(MARKER_TYPES.users.name)
+      }
       return types
     },
     icons () {
       return objectMap(MARKER_TYPES, type => L.AwesomeMarkers.icon({ icon: type.icon, markerColor: type.color }))
+    },
+    maySeeUsers () {
+      return Boolean(this.ambassadorRegions?.length)
     },
   },
   created () {
@@ -101,14 +116,17 @@ export default {
     this.storage = new Storage('map')
     this.selectedTypes = this.storage.get('selectedTypes', this.selectedTypes)
 
-    const saved = this.storage.get('selectedStoreTypes', this.selectedStoreTypes)
+    const saved = this.storage.get('selectedSpecifiers', this.selectedSpecifiers)
     if (!(saved instanceof Array)) { // Don't load data saved in the old format
-      this.selectedStoreTypes = saved
+      this.selectedSpecifiers = saved
     }
 
-    // Remove the stores from the selected types if the user is not allowed to see them
+    // Remove unallowed selections from selected types
     if (!this.maySeeStores && this.selectedTypes.includes(MARKER_TYPES.stores.name)) {
       this.selectedTypes.splice(this.selectedTypes.indexOf(MARKER_TYPES.stores.name), 1)
+    }
+    if (!this.maySeeUsers && this.selectedTypes.includes(MARKER_TYPES.users.name)) {
+      this.selectedTypes.splice(this.selectedTypes.indexOf(MARKER_TYPES.users.name), 1)
     }
   },
   async mounted () {
@@ -135,11 +153,8 @@ export default {
 
     // Load all markers that are initially selected
     showLoader()
-    await Promise.all(this.selectedTypes.map(name => store.getMarkers(name, name === MARKER_TYPES.stores.name ? this.selectedStoreTypes : {})))
+    await Promise.all(this.selectedTypes.map(name => getMarkers(name, this.selectedSpecifiers[name])))
     hideLoader()
-    for (const type of this.selectedTypes) {
-      this.drawMarkerLayer(type)
-    }
   },
   methods: {
     /**
@@ -150,19 +165,19 @@ export default {
         this.selectedTypes.splice(this.selectedTypes.indexOf(name), 1)
       } else {
         this.selectedTypes.push(name)
-        await store.getMarkers(name, name === MARKER_TYPES.stores.name ? this.selectedStoreTypes : {})
-        this.drawMarkerLayer(name)
+        const markers = await getMarkers(name, this.selectedSpecifiers[name])
+        this.drawMarkerLayer(name, markers)
       }
       this.storage.set('selectedTypes', this.selectedTypes)
     },
     /**
      * (De-)activates a store marker type. Fetches the store marker data if the type is being activated.
      */
-    async selectStoreMarkerType (type, value) {
-      this.selectedStoreTypes[type] = value
-      this.storage.set('selectedStoreTypes', this.selectedStoreTypes)
-      await store.getMarkers(MARKER_TYPES.stores.name, this.selectedStoreTypes)
-      this.drawMarkerLayer(MARKER_TYPES.stores.name)
+    async updateMarkerSpecifier (markerType, specifier, newValue) {
+      this.selectedSpecifiers[markerType][specifier] = newValue
+      this.storage.set('selectedSpecifiers', this.selectedSpecifiers)
+      const markers = await getMarkers(markerType, this.selectedSpecifiers[markerType])
+      this.drawMarkerLayer(markerType, markers)
     },
     /**
      * When a marker was clicked, this function toggles the corresponding action like opening a bubble.
@@ -181,15 +196,19 @@ export default {
         case MARKER_TYPES.communities.name:
           this.$refs.communityBubble.show(id)
           break
+        case MARKER_TYPES.users.name:
+          location.href = this.$url('profile', id)
+          break
       }
     },
-    drawMarkerLayer (type) {
+    drawMarkerLayer (type, markersData) {
       const layer = this.$refs[`markerCluster-${type}`][0]
       if (!layer) return
+      console.debug(markersData)
 
       const markerList = []
 
-      for (const markerData of this.markers[type]) {
+      for (const markerData of markersData) {
         const marker = L.marker(L.latLng(markerData.lat, markerData.lon), { icon: this.icons[type] })
         let markerName = markerData.name
 

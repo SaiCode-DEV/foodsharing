@@ -1,138 +1,110 @@
 <template>
-  <div class="bootstrap">
-    <div class="card rounded">
-      <div class="card-header text-white bg-primary">
-        {{ poll.name }}
-      </div>
-      <div class="card-body">
-        <b-alert
-          show
-          variant="dark"
+  <Container
+    :title="$i18n('poll.title', poll)"
+    :collapsible="false"
+    info-key="polls"
+  >
+    <div class="list-group-item">
+      <b-alert :show="userAlreadyVoted" variant="info">
+        <i class="fas fa-check-circle mr-2" />
+        {{ $i18n('poll.already_voted') }}: {{ $dateFormatter.date(displayedVoteDate) }}
+      </b-alert>
+      <b-alert :show="isPollInFuture" variant="info">
+        <i class="fas fa-clock mr-2" />
+        {{ $i18n('poll.may_not_yet_vote') }}
+      </b-alert>
+      <b-alert :show="!userAlreadyVoted && !userMayVote && !isPollInPast && !isPollInFuture" variant="danger">
+        <i class="fas fa-times-circle mr-2" />
+        {{ $i18n('poll.may_not_vote') }}
+      </b-alert>
+
+      <ul class="poll-properties">
+        <li class="poll-date">
+          <b>{{ $i18n('poll.time_period') }}:</b>
+          {{ $dateFormatter.dateTime(startDate) }} - {{ $dateFormatter.dateTime(endDate) }}
+          <b-badge
+            v-if="isPollInPast"
+            pill
+            variant="info"
+          >
+            {{ $i18n('poll.in_past') }}
+          </b-badge>
+          <b-badge
+            v-else-if="isPollInFuture"
+            pill
+            variant="secondary"
+          >
+            {{ $i18n('poll.in_future') }}
+          </b-badge>
+        </li>
+        <li class="poll-region">
+          <b>{{ $i18n(isWorkGroup ? 'terminology.group' : 'terminology.region') }}:</b> <a :href="$url('polls', regionId)">{{ regionName }}</a>
+        </li>
+        <li class="poll-scope">
+          <b>{{ $i18n('poll.allowed_voters') }}:</b> {{ $i18n('poll.scope_description_'+poll.scope) }}
+        </li>
+        <li class="poll-scope">
+          <b>{{ $i18n('poll.eligible_votes_count') }}:</b> {{ poll.eligibleVotesCount }}
+        </li>
+        <li class="poll-type">
+          <b>{{ $i18n('poll.type') }}:</b> {{ $i18n('poll.type_description_'+poll.type) }}
+        </li>
+        <li v-if="isPollInPast">
+          <b>{{ $i18n('poll.results.percentage_of_votes') }}:</b> {{ percentageTurnout }} %
+        </li>
+      </ul>
+      <div v-if="mayEdit">
+        <b-link
+          :href="$url('pollEdit', poll.id)"
+          class="btn btn-sm btn-primary mb-3"
         >
-          {{ $i18n('polls.hint_2') }}: <a :href="$url('wiki_voting')">{{ $url('wiki_voting') }}</a>
-        </b-alert>
-        <div v-if="mayEdit">
-          <b-link
-            :href="$url('pollEdit', poll.id)"
-            class="btn btn-sm btn-primary mb-3"
-          >
-            {{ $i18n('poll.edit.title') }}
-          </b-link>
-          <b-link
-            class="btn btn-sm btn-primary mb-3"
-            @click="showCancelConfirmDialog"
-          >
-            {{ $i18n('poll.cancel.title') }}
-          </b-link>
-        </div>
-        <ul class="poll-properties">
-          <li class="poll-date">
-            <b>{{ $i18n('poll.time_period') }}:</b>
-            {{ $dateFormatter.dateTime(startDate) }} - {{ $dateFormatter.dateTime(endDate) }}
-            <b-badge
-              v-if="isPollInPast"
-              pill
-              variant="info"
-            >
-              {{ $i18n('poll.in_past') }}
-            </b-badge>
-            <b-badge
-              v-else-if="isPollInFuture"
-              pill
-              variant="secondary"
-            >
-              {{ $i18n('poll.in_future') }}
-            </b-badge>
-          </li>
-          <li class="poll-region">
-            <b>{{ $i18n(isWorkGroup ? 'terminology.group' : 'terminology.region') }}:</b> <a :href="$url('polls', regionId)">{{ regionName }}</a>
-          </li>
-          <li class="poll-scope">
-            <b>{{ $i18n('poll.allowed_voters') }}:</b> {{ $i18n('poll.scope_description_'+poll.scope) }}
-          </li>
-          <li class="poll-scope">
-            <b>{{ $i18n('poll.eligible_votes_count') }}:</b> {{ poll.eligibleVotesCount }}
-          </li>
-          <li class="poll-type">
-            <b>{{ $i18n('poll.type') }}:</b> {{ $i18n('poll.type_description_'+poll.type) }}
-          </li>
-          <li v-if="isPollInPast">
-            <b>{{ $i18n('poll.results.percentage_of_votes') }}:</b> {{ percentageTurnout }} %
-          </li>
-        </ul>
-
-        <div v-if="userAlreadyVoted" class="my-1 mt-3">
-          <b-alert
-            show
-            variant="dark"
-          >
-            {{ $i18n('poll.already_voted') }}: {{ $dateFormatter.date(displayedVoteDate) }}
-          </b-alert>
-        </div>
-        <div
-          v-else-if="isPollInFuture"
-          class="my-1 mt-3"
+          {{ $i18n('poll.edit.title') }}
+        </b-link>
+        <b-link
+          class="btn btn-sm btn-primary mb-3"
+          @click="showCancelConfirmDialog"
         >
-          <b-alert
-            show
-            variant="warning"
-          >
-            {{ $i18n('poll.may_not_yet_vote') }}
-          </b-alert>
-        </div>
-        <div
-          v-else-if="!userMayVote && !isPollInPast"
-          class="mt-3"
-        >
-          <b-alert
-            show
-            variant="dark"
-          >
-            {{ $i18n('poll.may_not_vote') }}
-          </b-alert>
-        </div>
-
-        <hr>
-        <Markdown :source="poll.description" />
-        <hr>
-
-        <VoteForm
-          v-if="!isPollInPast"
-          :poll="poll"
-          :may-vote="userMayVote"
-          @vote-callback="userJustVoted"
-        />
-
-        <b-alert
-          v-if="userVoteDate"
-          show
-          variant="dark"
-        >
-          {{ $i18n('poll.untraceable') }}
-        </b-alert>
-
-        <ResultsTable
-          v-if="isPollInPast"
-          :options="poll.options"
-          :num-votes="poll.votes"
-        />
+          {{ $i18n('poll.cancel.title') }}
+        </b-link>
       </div>
     </div>
-  </div>
+    <div class="list-group-item">
+      <Markdown :source="poll.description" />
+    </div>
+    <div class="list-group-item">
+      <VoteForm
+        v-if="!isPollInPast"
+        :poll="poll"
+        :may-vote="userMayVote"
+        @vote-callback="userJustVoted"
+      />
+
+      <b-alert :show="Boolean(userVoteDate)" variant="info">
+        <i class="fas fa-eye-slash mr-2" />
+        {{ $i18n('poll.untraceable') }}
+      </b-alert>
+
+      <ResultsTable
+        v-if="isPollInPast"
+        :options="poll.options"
+        :num-votes="poll.votes"
+      />
+    </div>
+  </Container>
 </template>
 
 <script>
 import VoteForm from './VoteForm'
 import ResultsTable from './ResultsTable'
 import Markdown from '@/components/Markdown/Markdown'
-import { BAlert, BLink, BBadge } from 'bootstrap-vue'
 import { deletePoll } from '@/api/voting'
 import { hideLoader, pulseError, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
+import Container from '@/components/Container/Container.vue'
 
 export default {
-  components: { ResultsTable, VoteForm, Markdown, BAlert, BLink, BBadge },
+  components: { ResultsTable, VoteForm, Markdown, Container },
   mixins: [ConfirmationDialogue],
   props: {
     poll: {

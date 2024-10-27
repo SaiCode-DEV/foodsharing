@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Foodsharing\Modules\Search\DTO;
 
-use Foodsharing\Modules\Foodsaver\DTO\FoodsaverForAvatar;
+use Foodsharing\Modules\Foodsaver\Profile;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 
@@ -43,11 +43,11 @@ class RegionSearchResult extends SearchResult
     /**
      * Ambassadors of the region.
      *
-     * @var array<FoodsaverForAvatar> Array of Ambassadors
+     * @var array<Profile> Array of Ambassadors
      *
      * @OA\Property(
      *     type="array",
-     *     @OA\Items(ref=@Model(type=FoodsaverForAvatar::class))
+     *     @OA\Items(ref=@Model(type=Profile::class))
      * )
      */
     public array $ambassadors;

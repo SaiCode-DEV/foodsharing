@@ -19,10 +19,10 @@ const urls = {
   contact: () => '/content?sub=contact',
   contentEdit: () => '/content',
   contentEditEntry: (id) => `/content?a=edit&id=${id}`,
-  contentNew: () => '/content?a=neu',
+  contentNew: () => '/content?a=new',
   conversations: (conversationId = null) => `/msg${conversationId ? `?cid=${conversationId}` : ''}`,
   createBusinessCard: (data) => `/?page=bcard&sub=makeCard&opt=${data.role}:${data.regionGroupId}`,
-  dashboard: () => '/?page=dashboard',
+  dashboard: () => '/dashboard',
   dataprivacy: () => '/legal',
   donate: () => '/unterstuetzung',
   email: () => '/?page=email',
@@ -42,7 +42,7 @@ const urls = {
     ((ref !== null && ref.length > 0) ? '?ref=' + encodeURIComponent(`${ref}`) : ''),
   logout: () => {
     const url = new URL(window.location.href)
-    return '/?page=logout&ref=' + encodeURIComponent(url.pathname + url.search)
+    return '/logout?ref=' + encodeURIComponent(url.pathname + url.search)
   },
   mailbox: (mailboxId = null, emailId) => {
     let url = '/?page=mailbox'
@@ -91,6 +91,7 @@ const urls = {
   storeList: () => '/?page=fsbetrieb',
   storeUserList: (userId) => `/user/${userId}/stores`,
   editNameInfoUrl: () => '/region?bid=881&sub=forum&tid=58225',
+  register: () => '/register',
 
   team: () => '/team',
   transparency: () => '/content?sub=transparency',
@@ -110,7 +111,7 @@ const urls = {
   javascript: (js) => `javascript:${js}`,
 
   // Redirect
-  relogin_and_redirect_to_url: (url) => '/?page=relogin&url=' + encodeURIComponent(url),
+  relogin_and_redirect_to_url: (url) => '/relogin?url=' + encodeURIComponent(url),
 
   // region id
   forum: (regionId, subforumId = 0, threadId = null, postId = null, newThread = false) => {
@@ -190,7 +191,6 @@ const urls = {
 
   // Beta Testing
   beta: () => 'https://beta.foodsharing.de',
-  beta_testing_forum: () => 'https://beta.foodsharing.de/region?bid=734&sub=forum',
 
   // Gitlab
   git_revision: (revision) => `https://gitlab.com/foodsharing-dev/foodsharing/tree/${revision}`,
