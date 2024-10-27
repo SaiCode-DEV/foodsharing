@@ -100,6 +100,7 @@
 - Port the dashboard controller to Symfony !3736 @\_fridtjof_
 - Entries from the content API are rendered in Vue !3743 @alex.simm
 - Remove `FoodsaverForAvatar` in favor of `Profile` #1998 !3713 @AntonBallmaier
+- Clean up entrypoint and legacy code !3744 @\_fridtjof_
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm
@@ -118,6 +119,7 @@
 - Updated Clean script with clean node_modules !3688 @SaiCode
 - Removed some unnecessary database queries #1995 !3709 !3718 !3725 @alex.simm
 - Added a command to move old uploaded pictures to the API #1182 #1440 !3631 @alex.simm
+- Fix missing sql dump creation in test script !3739 @chriswalg
 
 # Hotfix 2024-08-29
 

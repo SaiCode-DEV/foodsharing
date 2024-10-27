@@ -6,7 +6,6 @@ namespace Tests\Unit;
 
 use Codeception\Test\Unit;
 use Foodsharing\Lib\Routing;
-use Foodsharing\Modules\Basket\BasketXhr;
 use Foodsharing\Modules\Index\IndexControl;
 use Tests\Support\UnitTester;
 
@@ -22,13 +21,7 @@ class RouterReturnsCorrectClassNameTest extends Unit
 
     final public function testReturnFqcnForControlClass(): void
     {
-        $actual = Routing::getClassName('index', 'Control');
+        $actual = Routing::getClassName('index');
         $this->assertEquals(IndexControl::class, $actual);
-    }
-
-    final public function testReturnFqcnForXhrClass(): void
-    {
-        $actual = Routing::getClassName('basket', 'Xhr');
-        $this->assertEquals(BasketXhr::class, $actual);
     }
 }

@@ -8,18 +8,11 @@ use Foodsharing\Permissions\MailboxPermissions;
 
 class MailboxControl extends Control
 {
-    private readonly MailboxGateway $mailboxGateway;
-    private readonly MailboxPermissions $mailboxPermissions;
-
     public function __construct(
-        MailboxView $view,
-        MailboxGateway $mailboxGateway,
-        MailboxPermissions $mailboxPermissions
+        private readonly MailboxView $view,
+        private readonly MailboxGateway $mailboxGateway,
+        private readonly MailboxPermissions $mailboxPermissions
     ) {
-        $this->view = $view;
-        $this->mailboxGateway = $mailboxGateway;
-        $this->mailboxPermissions = $mailboxPermissions;
-
         parent::__construct();
 
         if (!$this->session->mayRole()) {
