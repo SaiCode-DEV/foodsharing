@@ -314,9 +314,15 @@ function buildMarkdownDocument(database, metaData, moduleMap) {
 }
 
 function preprocessSqlDump(sqlDump) {
-    // Regular expression to remove GENERATED ALWAYS AS (...) VIRTUAL part that the parser doesn't understand
-    const regex = /GENERATED [A-Z ]+\(.*?\) VIRTUAL/g;
-    return sqlDump.replace(regex, '');
+    // Regular expressions to remove parts that the parser doesn't understand
+    const removals = [
+        /GENERATED [A-Z ]+\(.*?\) VIRTUAL/g,
+        /DELIMITER ;;[\s\S]*DELIMITER ;/g,
+    ]
+    for(let regex of removals) {
+        sqlDump = sqlDump.replace(regex, '');
+    }
+    return sqlDump
 }
 
 const buildDir = process.argv[2]
