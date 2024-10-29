@@ -78,6 +78,7 @@
 - Catch service worker registration problems. #1914 !3729 @AntonBallmaier
 - Fix for not saving the working group type when adding a new working group #2044 !3701 @McGoldi
 - Fix 3 occureces for foodsharing always in lower case !3748 @McGoldi
+- The mobile phone number was unintentionally a mandatory field in the registration form. This has been fixed !3726 @chriswalg
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
@@ -101,6 +102,7 @@
 - Entries from the content API are rendered in Vue !3743 @alex.simm
 - Remove `FoodsaverForAvatar` in favor of `Profile` #1998 !3713 @AntonBallmaier
 - Clean up entrypoint and legacy code !3744 @\_fridtjof_
+- Use `PhoneNumberInput.vue` in `RegisterMobilephone.vue` !3726 @chriswalg
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm

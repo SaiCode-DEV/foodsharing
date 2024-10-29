@@ -32,7 +32,7 @@
       <RegisterMobilephone
         v-else-if="page === 4"
         id="step4"
-        :mobile.sync="mobile"
+        @update-mobile-number="updateMobileNumber"
         @prev="prev()"
         @next="next()"
       />
@@ -84,13 +84,16 @@ export default {
       lastname: '',
       gender: null,
       birthdate: null,
-      mobile: '',
+      mobile: null,
       subscribeNewsletter: false,
       acceptGdpr: false,
       acceptedLegal: false,
     }
   },
   methods: {
+    updateMobileNumber (data) {
+      this.mobile = data.value
+    },
     prev () {
       this.page--
     },
