@@ -24,15 +24,15 @@
         <p>
           {{ $i18n('achievements.awarded') }}
           <Time
-            :time="achievement.createdAt"
+            :time="achievement.createdAt.date"
             plain
             :tooltip="null"
           />
         </p>
-        <p v-if="achievement.validUntil">
+        <p v-if="achievement.validUntil.date">
           {{ $i18n('achievements.validUntil') }}:
           <Time
-            :time="achievement.validUntil"
+            :time="achievement.validUntil.date"
             plain
             :tooltip="null"
           />

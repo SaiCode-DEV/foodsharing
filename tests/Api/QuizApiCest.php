@@ -383,7 +383,7 @@ class QuizApiCest
      * 0: never tried
      * 1: running
      * 2: passed
-     * 3: passed and waited 700 days (expires soon)
+     * 3: passed and waited 335 days (expires soon)
      * 4: passed and waited long (expired)
      * 5: failed after expiration (pause)
      * 6: pause elapsed
@@ -393,23 +393,24 @@ class QuizApiCest
      */
     private function createScenarioForHygieneQuizStatus(ApiTester $I, int $scenarioId, int $foodsaverId)
     {
+        $quizRepeatTimeInDays = 365;
         $quizId = QuizID::HYGIENE->value;
         if ($scenarioId === 1) {
             return $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId, 'status' => SessionStatus::RUNNING->value, 'quest_count' => 3, 'quiz_index' => 1]);
         } if ($scenarioId >= 2) {
             $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId, 'status' => SessionStatus::PASSED->value, 'time_end' => Carbon::now()]);
         } if ($scenarioId === 3) {
-            return $I->updateInDatabase('fs_quiz_session', ['time_end' => Carbon::now()->subDays(700)], ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId]);
+            return $I->updateInDatabase('fs_quiz_session', ['time_end' => Carbon::now()->subDays($quizRepeatTimeInDays - 30)], ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId]);
         } if ($scenarioId >= 4) {
-            $I->updateInDatabase('fs_quiz_session', ['time_end' => Carbon::now()->subDays(1600)], ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId]);
+            $I->updateInDatabase('fs_quiz_session', ['time_end' => Carbon::now()->subDays($quizRepeatTimeInDays * 2)], ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId]);
         } if ($scenarioId >= 5) {
             $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId, 'status' => SessionStatus::FAILED->value, 'time_end' => Carbon::now(), 'maxfp' => 2]);
         } if ($scenarioId >= 6) {
             $I->updateInDatabase('fs_quiz_session', ['time_end' => Carbon::now()->subDays(2)], ['maxfp' => 2]);
         } if ($scenarioId >= 7) {
-            $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId, 'status' => SessionStatus::PASSED->value, 'time_end' => Carbon::now(), 'maxfp' => 1]); // maxfp used to distinguis
+            $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId, 'status' => SessionStatus::PASSED->value, 'time_end' => Carbon::now(), 'maxfp' => 1]); // maxfp used to distinguish
         } if ($scenarioId >= 8) {
-            $waitTime = $scenarioId === 8 ? 700 : 800;
+            $waitTime = $scenarioId === 8 ? $quizRepeatTimeInDays - 30 : $quizRepeatTimeInDays + 10;
             $I->updateInDatabase('fs_quiz_session', ['time_end' => Carbon::now()->subDays($waitTime)], ['maxfp' => 1]);
             $I->updateInDatabase('fs_quiz_session', ['time_end' => Carbon::now()->subDays($waitTime + 2)], ['maxfp' => 2]);
         }

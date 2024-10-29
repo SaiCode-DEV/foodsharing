@@ -4,6 +4,8 @@ namespace Foodsharing\Modules\Quiz;
 
 use Carbon\Carbon;
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Achievement\AchievementTransactions;
+use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Quiz\AnswerRating;
 use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
@@ -30,6 +32,7 @@ class QuizTransactions
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly WallPostGateway $wallPostGateway,
         private readonly LegalGateway $legalGateway,
+        private readonly AchievementTransactions $achievementTransactions,
     ) {
     }
 
@@ -210,7 +213,7 @@ class QuizTransactions
                 $this->foodsaverGateway->riseQuizRole($this->session->id(), Role::from($quizId->value));
                 break;
             case QuizID::HYGIENE:
-                // TODO award achievement
+                $this->achievementTransactions->awardAchievementFromId(AchievementIDs::HYGIENE_CERTIFICATE, $this->session->id());
                 break;
         }
     }
@@ -256,7 +259,7 @@ class QuizTransactions
     private function getQuizExpirationTime(QuizID $quizId): ?int
     {
         return match ($quizId) {
-            QuizID::HYGIENE => 730, // two years
+            QuizID::HYGIENE => 365, // one year
             default => null,
         };
     }

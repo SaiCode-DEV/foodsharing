@@ -22,6 +22,8 @@ use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Core\DTO\MinimalIdentifier;
 use Foodsharing\Modules\Core\DTO\PatchGeoLocation;
+use Foodsharing\Modules\Development\FeatureToggles\DependencyInjection\FeatureToggleChecker;
+use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Message\MessageGateway;
@@ -74,6 +76,7 @@ class StoreTransactions
         private readonly RegionGateway $regionGateway,
         private readonly StoreCategoriesGateway $storeCategoriesGateway,
         private readonly StoreChainGateway $storeChainGateway,
+        private readonly FeatureToggleChecker $featureToggleChecker,
         private readonly WallPostGateway $wallPostGateway,
         private readonly Session $session
     ) {
@@ -87,10 +90,9 @@ class StoreTransactions
      */
     public function getMyStoreTeam(int $storeId, bool $includeUserDetails): array
     {
-        $storeTeam = $this->storeGateway->getStoreTeam($storeId);
-        $standbyTeam = $this->storeGateway->getBetriebSpringer($storeId);
+        $members = $this->storeGateway->getStoreTeam($storeId, [MembershipStatus::MEMBER, MembershipStatus::JUMPER]);
 
-        return $this->getDisplayedStoreTeam($storeTeam, $standbyTeam, $includeUserDetails);
+        return $this->getDisplayedStoreTeam($members, $includeUserDetails);
     }
 
     /**
@@ -996,11 +998,10 @@ class StoreTransactions
      * Returns all team member of the store (active and waiting list) and makes sure that details like the phone
      * number are only included if allowed.
      *
-     * @param array $storeTeam the list of active team members from the database
-     * @param array $standbyTeam the list of standby team members from the database
+     * @param array $members the list of team members from the database
      * @param bool $includeUserDetails whether to include or omit phone numbers and last fetch date
      */
-    private function getDisplayedStoreTeam(array $storeTeam, array $standbyTeam, bool $includeUserDetails): array
+    private function getDisplayedStoreTeam(array $members, bool $includeUserDetails): array
     {
         $allowedFields = [
             // personal info
@@ -1011,10 +1012,13 @@ class StoreTransactions
         if ($includeUserDetails) {
             array_push($allowedFields, 'handy', 'telefon', 'last_fetch');
         }
+        if ($this->featureToggleChecker->isFeatureToggleActive(FeatureToggleDefinitions::HYGIENE_QUIZ->value)) {
+            $allowedFields[] = 'hygiene_certificate_until';
+        }
 
         return array_map(
             fn ($teamMember) => array_filter($teamMember, fn ($key) => in_array($key, $allowedFields), ARRAY_FILTER_USE_KEY),
-            array_merge($storeTeam, $standbyTeam),
+            $members
         );
     }
 }

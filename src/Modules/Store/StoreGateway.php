@@ -9,6 +9,7 @@ use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
+use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
@@ -408,7 +409,7 @@ class StoreGateway extends BaseGateway
 
         if ($result) {
             $result['foodsaver'] = $this->getStoreTeam($storeId);
-            $result['springer'] = $this->getBetriebSpringer($storeId);
+            $result['springer'] = $this->getStoreTeam($storeId, [MembershipStatus::JUMPER]);
             $result['verantwortlich'] = false;
             $result['team'] = [];
             $result['jumper'] = false;
@@ -550,19 +551,18 @@ class StoreGateway extends BaseGateway
         return $this->db->exists('fs_chain', ['id' => $id]);
     }
 
-    public function getStoreTeam($storeId): array
+    public function getStoreTeam($storeId, array $membershipStatuses = [MembershipStatus::MEMBER]): array
     {
-        $members = $this->db->fetchAll('
-        SELECT  fs.`id`,
+        return $this->db->fetchAll("SELECT
+                fs.`id`,
                 fs.`verified`,
                 fs.`active`,
                 fs.`telefon`,
                 fs.`handy`,
-                fs.photo,
-                fs.rolle,
-                fs.name AS firstName,
-                CONCAT(fs.name," ",fs.nachname) AS name,
-                name as vorname,
+                fs.`photo`,
+                fs.`rolle`,
+                fs.`name` AS firstName,
+                CONCAT(fs.name,\" \",fs.nachname) AS name,
                 t.`active` AS team_active,
                 t.`verantwortlich`,
                 t.`stat_last_update`,
@@ -571,19 +571,24 @@ class StoreGateway extends BaseGateway
                 t.`stat_add_date`,
                 UNIX_TIMESTAMP(t.`stat_last_fetch`) AS last_fetch,
                 UNIX_TIMESTAMP(t.`stat_add_date`) AS add_date,
-                fs.is_sleeping
-        FROM    `fs_betrieb_team` t
-        INNER JOIN `fs_foodsaver` fs ON fs.id = t.foodsaver_id
-        WHERE   `betrieb_id` = :id
-        AND     t.active = :membershipStatus
-        AND     fs.deleted_at IS NULL
-        ORDER BY fs.id
-    ', [
-            ':id' => $storeId,
-            ':membershipStatus' => MembershipStatus::MEMBER
+                fs.`is_sleeping`,
+                a.`valid_until` AS hygiene_certificate_until
+            FROM `fs_betrieb_team` t
+            INNER JOIN `fs_foodsaver` fs
+                ON fs.id = t.foodsaver_id
+            LEFT OUTER JOIN `fs_foodsaver_has_achievement` a
+                ON a.foodsaver_id = fs.id
+                AND a.valid_until >= NOW()
+                AND a.achievement_id = ?
+            WHERE `betrieb_id` = ?
+                AND t.active IN ({$this->db->generatePlaceholders(count($membershipStatuses))})
+                AND fs.deleted_at IS NULL
+            ORDER BY fs.id
+        ", [
+            AchievementIDs::HYGIENE_CERTIFICATE,
+            $storeId,
+            ...$membershipStatuses,
         ]);
-
-        return $members;
     }
 
     public function isStoreTeamMemberOfStoreChainStore(int $fsId): bool
@@ -600,44 +605,6 @@ class StoreGateway extends BaseGateway
             ':fsId' => $fsId,
             ':membershipStatus' => MembershipStatus::MEMBER
         ])['count'] != 0;
-    }
-
-    public function getBetriebSpringer($storeId): array
-    {
-        return $this->db->fetchAll('
-				SELECT  fs.`id`,
-						fs.`verified`,
-						fs.`active`,
-						fs.`telefon`,
-						fs.`handy`,
-						fs.photo,
-						fs.rolle,
-						CONCAT(fs.name," ",fs.nachname) AS name,
-						name as vorname,
-						t.`active` AS team_active,
-						t.`verantwortlich`,
-						t.`stat_last_update`,
-						t.`stat_fetchcount`,
-						t.`stat_first_fetch`,
-						t.`stat_add_date`,
-						UNIX_TIMESTAMP(t.`stat_last_fetch`) AS last_fetch,
-						UNIX_TIMESTAMP(t.`stat_add_date`) AS add_date,
-						fs.sleep_status,
-                        fs.is_sleeping
-
-				FROM 	`fs_betrieb_team` t
-						INNER JOIN `fs_foodsaver` fs
-				        ON fs.id = t.foodsaver_id
-
-				WHERE 	`betrieb_id` = :id
-				AND 	t.active  = :membershipStatus
-				AND		fs.deleted_at IS NULL
-
-				ORDER BY fs.id
-		', [
-            ':id' => $storeId,
-            ':membershipStatus' => MembershipStatus::JUMPER
-        ]);
     }
 
     public function getBiebsForStore($storeId)

@@ -93,9 +93,7 @@
                 />
               </b-tab>
               <b-tab v-if="awardedAchievements?.length" :title="$i18n('terminology.achievements') + `(${awardedAchievements.length})`">
-                <Achievements
-                  :achievements="awardedAchievements"
-                />
+                <Achievements :achievements="awardedAchievements" />
               </b-tab>
             </b-tabs>
           </div>

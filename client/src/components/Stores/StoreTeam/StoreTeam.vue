@@ -248,6 +248,7 @@ export default {
         joinDate: fs.add_date ? new Date(fs.add_date * 1000) : null, // unix time
         lastPickup: fs.last_fetch ? new Date(fs.last_fetch * 1000) : null, // unix time
         fetchCount: fs.stat_fetchcount,
+        hasHygieneCertificateUntil: fs.hygiene_certificate_until ? new Date(fs.hygiene_certificate_until) : null,
       }
     },
     async removeFromTeam (user) {

@@ -16,6 +16,7 @@ export const STORE_TEAM_STATE = Object.freeze({
   JUMPER: 2,
   SLEEPING: 3,
   MANAGE_ROLE: 4,
+  HYGIENE: 5,
 })
 
 export const MAX_LEN_FOR_PUBLIC_INFO = 520

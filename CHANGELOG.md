@@ -10,7 +10,7 @@
 - Achievements can be awarded, edited and revoked. They get displayed on the profile !3429 @AntonBallmaier
 - Allow users to change their own passwords #581 !3435 @alex.simm
 - Allow loading more wall posts #2056 !3580 @AntonBallmaier
-- Add a hygiene quiz that can be edited by the hygiene working group #2074 #2146 !3540 !3668 @AntonBallmaier
+- Add a hygiene quiz that can be edited by the hygiene working group #2074 #2146 !3540 !3668 !3722 @AntonBallmaier
 - Allow support group admins to change someone else's login email address #2031 !3482 @alex.simm
 - Added wait timer to leaving home district #2090 !3562 @SaiCode
 - Added a new frontend for managing store categories #1263 !3405 @alex.simm
