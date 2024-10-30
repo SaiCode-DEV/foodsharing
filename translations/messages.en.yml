@@ -2844,7 +2844,7 @@ picture_upload_widget:
   picture_upload: Upload image
   choose_picture: Choose a picture from your computer.
 image: Image
-wikilink: Link to wiki site
+wikilink: Link with further information
 fax: Fax
 newsletter: Newsletter
 info: Information
@@ -3604,7 +3604,7 @@ quiz:
     bv: Finish the signup process for store coordinators now.
     bot: Finish the ambassador signup process now.
   donecorrectly: you answered absolutely correct. Congrats!
-  wikilink: More information on this in the wiki
+  wikilink: More information on this
   learnbreak: learning break
   safeandsound: No problem. Your session is saved. You can continue it at any time.
   continuetype: '-quiz: continue now'
@@ -3774,7 +3774,7 @@ quiz:
           label: 'Question:'
         fp: 'Failure points:'
         wikilink:
-          label: 'Link to the corresponding wiki article:'
+          label: 'Link to the corresponding article:'
           placeholder: https://wiki.foodsharing.de/…
         duration: 'Time to answer:'
       confirmDelete:
@@ -4399,3 +4399,21 @@ store_categories:
   empty: No category has been entered yet
   edit: Rename category
   delete: Delete category
+support_page:
+  firstName: First name
+  body: Message
+  success: Your support request has been successfully submitted.
+  title: Support form
+  email: Your e-mail address
+  notification_name: Since you are logged in, your first name and your foodsharing
+    ID will also be transmitted.
+  info_teaser: Our support form is available for questions about using the platform,
+    technical issues or error messages. After submitting the form, a ticket is automatically
+    created in our system. The volunteer support team will take care of your inquiries.
+  validation_firstName: First name is empty
+  subject: Subject
+  validation_subject: Subject is empty
+  validation_body: Message is empty
+  attachments: Attachments (max. 5 MB per file)
+  validation_email: Invalid e-mail address
+  new_request: New request
