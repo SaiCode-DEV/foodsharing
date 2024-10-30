@@ -125,6 +125,7 @@ store:
     makeJumper: ''
     reloadRequired: ''
     makeRegularTeamMember: ''
+    filterHygiene: Formação em higiene
   prefetchone: ''
   isNotVerified: ''
   jumping: ''
