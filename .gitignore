@@ -71,7 +71,9 @@ docs/en/backend/database/database-tables-columns.md
 config/gitpod
 
 am_cache
-.idea
+.idea/*
+!.idea/dataSources.xml
+!.idea/sqldialects.xml
 
 npm-debug.log*
 yarn-debug.log*
