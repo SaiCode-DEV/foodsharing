@@ -618,6 +618,7 @@ store:
     buttonManagementToggle: ''
     toogleIsReducedStateOpen: ''
     toogleIsReducedStateClosed: ''
+    filterHygiene: Hygiëne opgeleid
   prefetchtwo: ''
   prefetchthree: ''
   allStoresOfRegion: ''
