@@ -2744,6 +2744,7 @@ store:
     userHasPickupsWarning: '{name} er fortsatt registrert for {occupiedSlots} hentinger
       hos dette selskapet. Disse plassene vil da bli ledige. Ønsker du fortsatt å
       fortsette?'
+    filterHygiene: Hygiene trente
   address: Adresse
   attribution: Attribusjon
   unknownDate: ukjent
