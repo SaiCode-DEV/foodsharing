@@ -2,7 +2,6 @@
 
 namespace Foodsharing\Lib\View;
 
-use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\PageHelper;
 use Foodsharing\Utility\RouteHelper;
@@ -16,7 +15,6 @@ class Utils
         private readonly PageHelper $pageHelper,
         private readonly RouteHelper $routeHelper,
         private readonly IdentificationHelper $identificationHelper,
-        private readonly DataHelper $dataHelper,
         private readonly TranslatorInterface $translator
     ) {
     }
@@ -154,23 +152,15 @@ class Utils
 			</div>';
     }
 
-    public function v_form_radio(string $id, array $option = []): string
+    public function v_form_radio(string $id, array $option = [], $selectedDefault = ''): string
     {
         $id = $this->identificationHelper->id($id);
         $label = $this->translator->trans($id);
 
-        $check = $this->jsValidate($option, $id, $label);
+        $this->jsValidate($option, $id, $label);
 
-        if (isset($option['selected'])) {
-            $selected = $option['selected'];
-        } else {
-            $selected = $this->dataHelper->getValue($id);
-        }
-        if (isset($option['values'])) {
-            $values = $option['values'];
-        } else {
-            $values = [];
-        }
+        $selected = $option['selected'] ?? $selectedDefault;
+        $values = $option['values'] ?? [];
 
         $disabled = '';
         if (isset($option['disabled']) && $option['disabled'] === true) {

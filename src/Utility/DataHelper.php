@@ -4,19 +4,6 @@ namespace Foodsharing\Utility;
 
 class DataHelper
 {
-    public function setEditData($data): void
-    {
-        global $g_data;
-        $g_data = $data;
-    }
-
-    public function getValue($id)
-    {
-        global $g_data;
-
-        return $g_data[$id] ?? '';
-    }
-
     /**
      * Transforms an array into a associative array.
      *

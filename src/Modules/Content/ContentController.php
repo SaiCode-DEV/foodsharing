@@ -8,7 +8,6 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Permissions\ContentPermissions;
-use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Parsedown;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -47,7 +46,6 @@ class ContentController extends FoodsharingController
         private readonly ContentView $view,
         private readonly ContentGateway $contentGateway,
         private readonly IdentificationHelper $identificationHelper,
-        private readonly DataHelper $dataHelper,
         private readonly ContentPermissions $contentPermissions,
         private readonly RegionTransactions $regionTransactions,
         private readonly RegionGateway $regionGateway,
@@ -90,9 +88,6 @@ class ContentController extends FoodsharingController
             }
             $this->pageHelper->addBread($this->translator->trans('content.bread'), '/content');
             $this->pageHelper->addBread($this->translator->trans('content.edit'));
-
-            $data = $this->contentGateway->getDetail($id);
-            $this->dataHelper->setEditData($data);
 
             $this->pageHelper->addContent(
                 $this->prepareVueComponent('content-edit', 'ContentEdit', ['contentId' => $id])

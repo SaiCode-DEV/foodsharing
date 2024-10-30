@@ -153,9 +153,6 @@ class FoodSharePointView extends View
 			});
 		');
 
-        global $g_data;
-        $g_data['infotype'] = 1;
-
         return '<div id="follow-hidden">' . $this->v_utils->v_form_radio(
             'infotype',
             [
@@ -164,7 +161,8 @@ class FoodSharePointView extends View
                     ['id' => InfoType::BELL, 'name' => $this->translator->trans('fsp.info.bell')],
                     ['id' => InfoType::EMAIL, 'name' => $this->translator->trans('fsp.info.mail')],
                 ]
-            ]
+            ],
+            1
         ) . '</div>';
     }
 

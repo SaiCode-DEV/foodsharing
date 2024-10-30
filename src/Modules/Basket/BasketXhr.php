@@ -78,8 +78,9 @@ class BasketXhr
                         'name' => $this->translator->trans('basket.state.deny'),
                     ],
                 ],
-                'selected' => RequestStatus::DELETED_PICKED_UP,
-            ])
+            ],
+                RequestStatus::DELETED_PICKED_UP
+            )
         );
         $dia->addAbortButton();
         $dia->addButton($this->translator->trans('button.next'),

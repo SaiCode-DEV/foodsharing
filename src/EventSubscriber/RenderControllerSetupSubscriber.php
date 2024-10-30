@@ -137,9 +137,6 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
         $content_left_width = 6;
         global $content_right_width;
         $content_right_width = 6;
-
-        global $g_data;
-        $g_data = $request->request->all();
     }
 
     public function onKernelResponse(ResponseEvent $event)
