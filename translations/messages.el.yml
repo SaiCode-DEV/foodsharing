@@ -927,6 +927,7 @@ store:
     buttonManagementToggle: ''
     toogleIsReducedStateOpen: ''
     toogleIsReducedStateClosed: ''
+    filterHygiene: Εκπαιδευμένοι στην υγιεινή
   smneeded: ''
   tooltip_yellow: ''
   tooltip_orange: ''
