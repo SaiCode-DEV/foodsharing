@@ -1405,6 +1405,7 @@ store:
     buttonManagementToggle: ''
     toogleIsReducedStateOpen: ''
     toogleIsReducedStateClosed: ''
+    filterHygiene: обучен гигиене
   request:
     title: ''
     withdraw: ''
