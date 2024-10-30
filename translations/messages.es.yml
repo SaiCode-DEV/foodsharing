@@ -1536,7 +1536,7 @@ store:
       pickup: ordenada por última recogida
     userHasPickupsWarning: '{name} aún está registrado para recoger {occupiedSlots}
       en esta empresa. Estas franjas horarias quedarán libres. ¿Deseas continuar?'
-    filterHygiene: Formación en higiene
+    filterHygiene: Formados en higiene
   lastPickupShort: 'último el {date}'
   request:
     got-it: 'Los responsables han sido informados de su solicitud y se pondrán en
