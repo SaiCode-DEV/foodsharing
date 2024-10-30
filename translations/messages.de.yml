@@ -159,7 +159,7 @@ duration: "Zeit zum Antworten"
 answers: "Welche Antworten sind richtig?"
 maxfp: "Maximale Anzahl von Fehlerpunkten um zu bestehen"
 questcount: "Wie viele Fragen sollen in der Prüfung gestellt werden?"
-wikilink: "Link zur Wiki-Seite"
+wikilink: "Link mit weiteren Informationen"
 
 filter_by: "Filtern nach"
 save_state: "Filter und Sortierung beibehalten"
@@ -250,7 +250,7 @@ quiz:
   timed_out_error: "Die Zeit diese Frage zu beantworten ist bereits abgelaufen."
   show_results: Ergebnisse des letzten Versuchs ansehen
   test_results: Ergebnisse des Testversuchs
-  wikilink: Weitere Infos dazu im Wiki
+  wikilink: Weitere Infos dazu
   key_facts:
     to_pass: "Zum Bestehen:"
     untimed: "Maximal {maxFailurePointsToSucceed} Fehlerpunkte in {questionCountTimed} Fragen mit, oder {questionCountUntimed} Fragen ohne Zeitbegrenzung"
@@ -309,7 +309,7 @@ quiz:
         duration: "Zeit zum Antworten:"
         fp: "Fehlerpunkte:"
         wikilink:
-          label: "Link zum passenden Wikiartikel:"
+          label: "Link zum passenden Artikel:"
           placeholder: "https://wiki.foodsharing.de/..."
       confirmDelete:
         title: Willst du diese Frage wirklich löschen?

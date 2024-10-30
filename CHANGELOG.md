@@ -56,6 +56,7 @@
 - Given EDITORIAL_GROUP the same rights as ORGA-User to edit or add content pages !3717 @chriswalg
 - Allow deleting bananas that the user gave #2163 !3716 @AntonBallmaier
 - prevent admins of parent groups access to sub groups settings #2044 !3701 @McGoldi
+- Remove restriction to foodsharing wiki links in the quiz editor #2178 !3759 @AntonBallmaier 
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi

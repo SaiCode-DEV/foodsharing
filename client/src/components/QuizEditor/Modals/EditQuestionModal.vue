@@ -63,7 +63,7 @@ export default {
     validities () {
       return {
         text: Boolean(this.form.text),
-        wikilink: /^https:\/\/wiki\.foodsharing\.\w+\//.test(this.form.wikilink),
+        wikilink: /^https:\/\/[\d\w]+\.[\d\w]+/.test(this.form.wikilink),
       }
     },
     durationOptions () {
