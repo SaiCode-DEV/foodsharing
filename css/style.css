@@ -820,25 +820,6 @@ ul.linklist li > a:hover span.day {
   color: var(--fs-color-warning-800) !important;
 }
 
-a.expand-collapse-link {
-  display: block;
-  padding: 3px;
-  text-align: center;
-  color: var(--fs-color-light);
-  font-weight: bold;
-  background-color: var(--fs-color-secondary-500);
-  text-decoration: none;
-  border-bottom-right-radius: 6px;
-  border-bottom-left-radius: 6px;
-  position: relative;
-  top: -20px;
-}
-
-a.expand-collapse-link:hover {
-  background-color: var(--fs-color-secondary-500);
-  text-decoration: none;
-}
-
 a.preview-thumb {
   display: block;
   float: left;

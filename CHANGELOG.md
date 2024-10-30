@@ -125,6 +125,7 @@
 - Added a command to move old uploaded pictures to the API #1182 #1440 !3631 @alex.simm
 - Fix missing sql dump creation in test script !3739 @chriswalg
 - Added dataSource.xml and sqldialects.xml for JetBrains IDEs !3755 @chriswalg
+- Removed unused hidden dialog !3761 @alex.simm
 
 # Hotfix 2024-08-29
 

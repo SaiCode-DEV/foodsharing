@@ -50,23 +50,6 @@ export function initialize () {
       })
     }
 
-    $(function () {
-      $('#dialog-confirm').dialog({
-        resizable: false,
-        height: 140,
-        modal: true,
-        autoOpen: false,
-        buttons: {
-          [i18n('button.permadelete')]: function () {
-            goTo($('#dialog-confirm-url').val())
-            $(this).dialog('close')
-          },
-          [i18n('button.cancel')]: function () {
-            $(this).dialog('close')
-          },
-        },
-      })
-    })
     $('.dialog').dialog()
 
     $('ul.toolbar li').on('mouseenter', function () {
