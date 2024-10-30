@@ -186,7 +186,7 @@ quiz:
   questions: Sorular
   resultsbelow: Değerlendirmeyi aşağıda bulabilirsiniz.
   donecorrectly: Tamamen doğru cevapladınız. Tebrikler!
-  wikilink: Bununla ilgili daha fazla bilgi Wiki'de
+  wikilink: Bu konuda daha fazla bilgi
   finishnow:
     bv: Şimdi İşletmeden Sorumlu Yetkili kaydını tamamlayınız.
     fs: Foodsaver kaydını şimdi tamamlayın.
@@ -413,7 +413,7 @@ quiz:
         duration: 'Cevap verme süresi:'
         fp: 'Hata puanı:'
         wikilink:
-          label: 'Link ile bağlantılı Wiki makalesi:'
+          label: 'İlgili makalenin bağlantısı:'
           placeholder: https://wiki.foodsharing.de/...
       confirmDelete:
         title: Bu soruyu gerçekten silmek istiyor musun?
@@ -463,7 +463,7 @@ quiz:
 answers: Hangi cevaplar doğru?
 maxfp: Geçilmesi gerekilen maksimum hata puanları
 questcount: Sınavda kaç soru sorulmalıdır?
-wikilink: Wiki Sayfasına giden link
+wikilink: Daha fazla bilgi içeren bağlantı
 button:
   upload: Yükleme
   new: Yeni
@@ -864,6 +864,7 @@ bell:
   internal_email_changed: Kişisel e-posta adresiniz değiştirildi.
   workinggroup_new_request: Çalışma grubu için yeni bir başvuru
   forum_not_activated_thread: '{forum}'
+  forum_not_activated_thread_title: Denetlenen forumdaki konu
 sig:
   buddies: Tanıdığın insanlar
 error:
@@ -1900,6 +1901,9 @@ content:
       eyalete veya bölgeye göre aranabilir.
     noAmbassador: Bu bölgede şu anda elçi bulunmamaktadır ve bu nedenle şu anda e-postayla
       ulaşılamamaktadır. Lütfen komşu bölgeye veya bir üst bölgeyle iletişime geçin.
+  edit_raw: Ham verileri düzenle
+  error: Sayfa kaydedilemedi
+  error_loading: İçerik yüklenemedi
 mailbox:
   empty: Bu posta kutusunda henüz mesaj yok
   to: Kime
@@ -2637,6 +2641,15 @@ forum:
     body: Mesaj
     moderator_info: Bu konu kapalı. Bu forumun moderatörü olarak yine de mesaj yazabilirsiniz.
       Diğer kullanıcılar cevap veremez!
+    hide: Gönderiyi gizle
+    giveHideReason: Lütfen bu gönderiyi neden gizlemek istediğinizi belirtin.
+    hideReasonPlaceholder: Nedenini buraya yazın...
+    sureHide: Bu gönderiyi gerçekten gizlemek istiyor musunuz?
+    hiddenPost: Gizli gönderi ({reason})
+    hideInfo: Gizli gönderiler artık görüntülenmeyecek. Kalıcı olarak silinmeden önce
+      3 ay içinde moderatörler tarafından geri yüklenebilirler. Bu süre zarfında forum
+      kullanıcıları paylaşımın neden gizlendiğini, katillerin kimler tarafından gizlendiğini
+      görebilir.
   new_thread: Yeni bir konu oluştur
   deleted_user: Silinmiş üye
   not_found: Bu konu mevcut değil.
@@ -2648,6 +2661,9 @@ forum:
   go: Foruma
   restore:
     really: Aşağıdaki gönderiyi gerçekten geri yüklemek istiyor musunuz?
+    hidden_by: Şu şahıs tarafından gizlendi
+    reason: 'Sebep: "{reason}"'
+    title: Gönderiyi geri yükle
 chat:
   open_chat: Bir mesaj yaz
   new_messages: Yeni Mesajlar
