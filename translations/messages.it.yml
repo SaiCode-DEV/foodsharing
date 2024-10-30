@@ -960,6 +960,7 @@ store:
     sorting:
       default: Ordinamento standard
       pickup: Ordina per ultimo ritiro
+    filterHygiene: Addestrate all’igiene
   days_before: prima
   days: giorni
   my_last_pickup: Il mio ultimo ritiro
