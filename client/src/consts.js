@@ -13,6 +13,7 @@ export const ROLE = Object.freeze({
   SITE_ADMIN: 5, // this role is not used currently
 })
 export const MAX_UPLOAD_FILE_SIZE = 1572864 // 1.5 * 1024 * 1024
+export const MAX_SUPPORT_TICKET_ATTACHMENT_SIZE = 5242880 // 5 * 1024 * 1024, meaning 5 MB
 export const REGION_IDS = Object.freeze({
   // highest level below root
   EUROPE: 741,

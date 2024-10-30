@@ -79,3 +79,6 @@ define('APPLE_WALLET_CERTIFICATE_PATH', __DIR__ . '/keys/apple.p12');
 define('APPLE_WALLET_CERTIFICATE_PASS', '8Kz9YxgAVFWRmqj9ZT');
 define('APPLE_WALLET_TEAM_ID', 'H97D45LYHL');
 define('APPLE_WALLET_PASS_TYPE_ID', 'pass.de.foodsharing.passport');
+
+define('ZAMMAD_URL', 'https://support.foodsharing.network/');
+define('ZAMMAD_TICKET_TOKEN', '');

@@ -256,9 +256,11 @@ import i18n from '@/helper/i18n'
 import { store, MAILBOX_PAGE, MAIL_COMPOSITION_MODE } from '@/stores/mailbox'
 import { MAX_UPLOAD_FILE_SIZE } from '@/consts'
 import AddressBook from '@/components/Mailbox/AddressBook'
+import FileUpload from '@/mixins/FileUpload'
 
 export default {
   components: { Container, AddressBook },
+  mixins: [FileUpload],
   props: {
     email: { type: Object, default: () => { } },
     mailboxes: { type: Array, default: () => { return [] } },
@@ -463,35 +465,6 @@ export default {
       }
       this.isBusy = false
       hideLoader()
-    },
-    /**
-     * Returns a promise that loads a file into memory and encodes it as Base64.
-     */
-    loadFile (file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader()
-
-        reader.onload = (event) => {
-          const binaryStr = new Uint8Array(event.target.result)
-          let base64 = ''
-          binaryStr.forEach((byte) => {
-            base64 += String.fromCharCode(byte)
-          })
-          base64 = window.btoa(base64)
-          resolve({
-            name: file.name,
-            size: file.size,
-            type: file.type,
-            content: base64,
-          })
-        }
-
-        reader.onerror = (error) => {
-          reject(error)
-        }
-
-        reader.readAsArrayBuffer(file)
-      })
     },
     toggleReadState () {
       this.trySetEmailStatus(!this.email.isRead)

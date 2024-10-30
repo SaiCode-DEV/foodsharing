@@ -3740,3 +3740,19 @@ store_categories:
   confirm_delete: 'Kategorie {name} wirklich löschen?'
   confirm_delete_hint: 'Es sind noch {count} Betriebe dieser Kategorie zugeordnet. Diese Betriebe werden danach keine Kategorie mehr haben.'
   new: 'Neue Kategorie eintragen'
+
+support_page:
+  title: "Support-Formular"
+  info_teaser: "Unser Support-Formular steht dir für Fragen zur Bedienung der Plattform, technische Anliegen oder Fehlermeldungen zur Verfügung. Nach dem Absenden wird automatisch ein Ticket in unserem System erstellt. Das ehrenamtliche Support-Team kümmert sich um deine Anfragen."
+  notification_name: "Da du eingeloggt bist, werden dein Vorname und deine Foodsharer-ID mit übertragen."
+  firstName: "Vorname"
+  validation_firstName: "Vorname ist leer"
+  subject: "Betreff"
+  validation_subject: "Betreff ist leer"
+  email: "Deine E-Mail-Adresse"
+  validation_email: "Ungültige E-Mail-Adresse"
+  body: "Nachricht"
+  validation_body: "Nachricht ist leer"
+  attachments: "Anhänge (maximal 5 MB pro Datei)"
+  success: "Deine Nachricht wurde erfolgreich übermittelt."
+  new_request: "Neue Anfrage"

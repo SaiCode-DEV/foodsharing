@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "7073bfc749045761c3b88ee34e57b8ca",
+  "content-hash": "4195690fa6a89a1e1c2e996d30ac1ece",
   "packages": [
     {
       "name": "brick/math",
@@ -10205,6 +10205,56 @@
       "time": "2022-01-30T20:08:53+00:00"
     },
     {
+      "name": "zammad/zammad-api-client-php",
+      "version": "2.2.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/zammad/zammad-api-client-php.git",
+        "reference": "1117c160190359ad44197f1166c1a79be91057a4"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/zammad/zammad-api-client-php/zipball/1117c160190359ad44197f1166c1a79be91057a4",
+        "reference": "1117c160190359ad44197f1166c1a79be91057a4",
+        "shasum": ""
+      },
+      "require": {
+        "guzzlehttp/guzzle": "^7",
+        "php": ">=7.2"
+      },
+      "require-dev": {
+        "phpunit/phpunit": ">=5.7 <9"
+      },
+      "type": "library",
+      "autoload": {
+        "psr-4": {
+          "ZammadAPIClient\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "AGPL-3.0",
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Zammad GmbH",
+          "homepage": "https://zammad.com"
+        }
+      ],
+      "description": "Zammad API client for PHP",
+      "homepage": "https://github.com/zammad/zammad-api-client-php",
+      "keywords": [
+        "api",
+        "zammad"
+      ],
+      "support": {
+        "issues": "https://github.com/zammad/zammad-api-client-php/issues",
+        "source": "https://github.com/zammad/zammad-api-client-php/tree/2.2.0"
+      },
+      "time": "2023-05-11T11:05:06+00:00"
+    },
+    {
       "name": "zircote/swagger-php",
       "version": "4.8.4",
       "source": {
@@ -15456,7 +15506,7 @@
     "ext-simplexml": "*",
     "ext-zlib": "*"
   },
-  "platform-dev": [],
+  "platform-dev": {},
   "platform-overrides": {
     "php": "8.1"
   },

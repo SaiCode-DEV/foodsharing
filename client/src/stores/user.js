@@ -33,6 +33,7 @@ export const useUserStore = defineStore('user', {
     getAvatar: (state) => state.user?.avatar,
     getUserFirstName: (state) => state.user?.firstname,
     getUserLastName: (state) => state.user?.lastname || '',
+    getEmailAddress: (state) => state.details?.email,
     hasHomeRegion: (state) => state.user?.homeRegionId > 0,
     getHomeRegion: (state) => state.user?.homeRegionId,
     getHomeRegionName: (state) => state.details?.regionName,

@@ -59,6 +59,7 @@ class Routing
         'logout',
         'relogin',
         'dashboard',
+        'support',
     ];
 
     private const RENAMES = [
