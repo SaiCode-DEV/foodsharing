@@ -1332,6 +1332,7 @@ store:
     userHasPickupsWarning: '{name} est encore inscrite pour {occupiedSlots} collectes
       dans cette magasin. Ces créneaux seront ensuite libérés. Tu veux quand même
       continuer ?'
+    filterHygiene: Hygiène formée
   springer_conversation_name: Replaçant·e {name}
   team_conversation_name: Équipe {name}
   days_before: avant
