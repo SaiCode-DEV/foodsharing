@@ -1,3 +1,6 @@
+import { HTTP_RESPONSE } from '@/consts'
+import { url } from '@/helper/urls'
+
 const BASE_URL = '/api'
 const DEFAULT_OPTIONS = {
   method: 'GET',
@@ -32,6 +35,9 @@ export async function request (path, options = {}) {
     const request = new self.Request(BASE_URL + path, o)
     const res = await self.fetch(request)
     if (!res.ok) {
+      if (res.status === HTTP_RESPONSE.UNAUTHORIZED) {
+        window.location = url('login')
+      }
       const jsonContent = await res.json()
       throw new HTTPError(res.status, res.statusText, request.method, request.url, jsonContent)
     }

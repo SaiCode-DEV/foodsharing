@@ -1,16 +1,22 @@
 import Vue from 'vue'
 import { deleteBells, getBellList, markBellsAsRead } from '@/api/bells'
 import { getCache, getCacheInterval, setCache } from '@/helper/cache'
+import { BROADCAST_TYPE, storeSynchronizer } from '@/broadcastChannel'
 
 const bellsRateLimitInterval = 60000 // 1 minute in milliseconds
 const cacheRequestName = 'bells'
 const pageSize = 20
 
-export const store = Vue.observable({
-  bells: [],
-  limit: pageSize,
-  finishedFirstLoad: false,
+const reactiveStore = new Vue({
+  data: {
+    bells: [],
+    limit: pageSize,
+    finishedFirstLoad: false,
+  },
+  ...storeSynchronizer(BROADCAST_TYPE.UPDATE_BELLS, 'bells'),
 })
+
+export const store = reactiveStore.$data
 
 export const getters = {
   get: () => store.bells,

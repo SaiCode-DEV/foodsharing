@@ -79,6 +79,7 @@ import Dropdown from '../_NavItems/NavDropdown'
 // Mixins
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 import { clearCaches } from '@/helper/cache'
+import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
 
 const userStore = useUserStore()
 const themeStore = useThemeStore()
@@ -112,6 +113,7 @@ export default {
   methods: {
     async deleteCaches () {
       await clearCaches()
+      channel.postMessage({ type: BROADCAST_TYPE.LOGOUT })
       window.location.href = this.$url('logout')
     },
   },

@@ -77,6 +77,7 @@ import { required, email } from 'vuelidate/lib/validators'
 import { pulseError } from '@/script'
 import { HTTP_RESPONSE } from '@/consts'
 import PasswordField from '@/components/Login/PasswordField.vue'
+import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
 
 export default {
   name: 'MenuLogin',
@@ -126,6 +127,7 @@ export default {
       this.isLoading = true
       try {
         await login(this.email, this.password, this.rememberMe)
+        channel.postMessage({ type: BROADCAST_TYPE.LOGIN })
         let ref = new URL(location.href).searchParams.get('ref')
         if (!ref?.startsWith('/')) ref = null
         location.replace(ref ?? this.$url('dashboard'))

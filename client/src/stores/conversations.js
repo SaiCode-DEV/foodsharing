@@ -4,6 +4,7 @@ import ProfileStore from '@/stores/profiles'
 import { useUserStore } from '@/stores/user'
 import { goTo } from '@/script'
 import { urls } from '@/helper/urls'
+import { BROADCAST_TYPE, storeSynchronizer } from '@/broadcastChannel'
 
 const REQUEST_LIMIT_CONVERSATIONS = 20
 const REQUEST_LIMIT_MESSAGES = 25
@@ -23,6 +24,7 @@ export default new Vue({
       return Object.values(this.conversations).filter(b => b.unreadMessages).length
     },
   },
+  ...storeSynchronizer(BROADCAST_TYPE.UPDATE_CONVERSATIONS, 'conversations'),
   methods: {
 
     /**
