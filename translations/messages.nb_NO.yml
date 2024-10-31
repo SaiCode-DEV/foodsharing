@@ -1617,7 +1617,7 @@ bell:
   forum_not_activated_thread_title: Emne i moderert forum
 reports:
   when: Tid
-  time: Tid
+  time: Tidspunkt
   city: By
   message: Beskrivelse
   reason: Årsak
@@ -1692,7 +1692,7 @@ register:
   login_passwd1: Passord (minst 8 tegn)
   login_email: E-postadresse
   requiredFields: Obligatorisk felt
-  register_button_label: Registrering
+  register_button_label: Registrere
   title: Registrering
   topbar: Delta
   other: mangfoldig
@@ -2165,9 +2165,9 @@ rolle: Brukerrolle
 active: aktiviert
 stadt: Din by
 newsletter: Nyhetsbrev
-compose_body: Beskjed
+compose_body: Melding
 pass2: Passordrepetisjon
-infotype: Melding
+infotype: Varsling
 dateend: Sluttdato
 mailbox_id: Avsenderens e-postadresse
 testemail: E-postadresse for testing
@@ -2181,7 +2181,7 @@ daterange: Periode
 ort: By / kommune (automatisk hentet fra kartet)
 photo: Bilde
 info: Informasjon
-body: Beskjed
+body: Melding
 title: Overskrift
 bezirk: Distrikt
 lon: Lengdegrad
@@ -2201,7 +2201,7 @@ description: Beskrivelse
 desc: Beskrivelse
 edit: redigere
 address: Adresse
-message: Beskjed
+message: Melding
 nachname: Etternavn
 add: legge til
 name: Fornavn
@@ -2293,7 +2293,7 @@ recipients:
   unknown: ukjent
   confirm: Send e-post?
   send: Send e-post
-  body: Beskjed
+  body: Melding
   manual: Manuell inngang
   recipients: Mottakere
   bread: E-postliste for nyhetsbrev
@@ -2460,11 +2460,13 @@ forum:
       subscribe: Abonnere
     bottom: redusert sikt
   post:
-    body: Beskjed
+    body: Melding
     delete: Slett innlegget
     moderator_info: Dette emnet er stengt. Som moderator av dette forumet kan du fortsatt
       skrive en melding, men andre brukere kan ikke svare!
     hideReasonPlaceholder: Skriv inn årsak her…
+    hide: Skjul foruminnlegg
+    giveHideReason: Vennligst angi hvorfor du vil skjule dette innlegget.
   threads: Tråder
   from: Fra {name}
   new_thread: Lag ny tråd
@@ -2498,6 +2500,7 @@ forum:
   go: til forumet
   restore:
     reason: 'Årsak: «{reason}»'
+    really: Vil du virkelig gjenopprette følgende innlegg?
 timepicker:
   labelNowButton: nå
   labelCloseButton: Lukk
@@ -2626,7 +2629,7 @@ pickup:
     header: Innsamlingsdatoer
     cols:
       slots: Plasser
-      time: Tid
+      time: Tidspunkt
       store: Selskapet
     menu:
       signOff: Fjerne
@@ -3083,7 +3086,7 @@ terminology:
   options: Alternativer
   buddies: Venner
   polls: Avstemning
-  message: Beskjed
+  message: Melding
   homeRegion: Hjemregion
   threads: Tråder
   regions: Distrikter
@@ -3234,7 +3237,7 @@ becomeregion:
   chooseregion: Velg distriktet du ønsker å være aktiv i.
 pass1: Ditt nye forespurte passord
 answers: Hvilke svar er riktige?
-wikilink: Lenke til wiki-side
+wikilink: Lenke med mer informasjon
 first_post: Første oppslagstavleoppføring
 wall:
   name: Oppslagstavle
@@ -3441,7 +3444,7 @@ quiz:
   finished: Gratulerer, du klarte det!
   resultsbelow: Du finner resultatene nedenfor.
   donecorrectly: du svarte helt riktig. Flott!
-  wikilink: Mer informasjon i wikien
+  wikilink: Mer informasjon om dette
   threestrikes: Du mislyktes i quizen tre ganger.
   waitxdays: Du kan prøve igjen om
   days: dager
@@ -3634,7 +3637,7 @@ quiz:
         duration: 'På tide å svare:'
         fp: 'Feilpoeng:'
         wikilink:
-          label: 'Lenke til den tilsvarende wiki-artikkelen:'
+          label: 'Lenke til den tilsvarende artikkelen:'
           placeholder: https://wiki.foodsharing.de/…
       confirmDelete:
         title: Vil du virkelig slette dette spørsmålet?
@@ -3743,7 +3746,7 @@ navigation:
   contact: Kontakt og støtte
   help: Hjelp
   notifications: Varsler
-  conversations: Beskjed
+  conversations: Samtaler
   whats_new: Hva er nytt?
   styleguide: Stilguide
   help_needed: Trenger hjelp?
@@ -4207,3 +4210,22 @@ store_categories:
     Disse bedriftene vil ikke lenger ha en kategori.
   new: Skriv inn ny kategori
 error_base64_image: Det er ikke tillatt å sette inn bilder ved hjelp av dra og slipp.
+support_page:
+  validation_firstName: Fornavnet er tomt
+  subject: Emnet
+  validation_subject: Emnet er tomt
+  email: E-postadressen din
+  validation_email: Ugyldig e-postadresse
+  title: Støtteskjema
+  body: Melding
+  validation_body: Meldingen er tom
+  success: Meldingen din har blitt sendt.
+  new_request: Ny forespørsel
+  firstName: Fornavn
+  notification_name: Når du er logget inn, vil fornavnet ditt og foodsharing-ID-en
+    din også bli overført.
+  attachments: Vedlegg (maks. 5 MB per fil)
+  info_teaser: Vårt støtteskjema er tilgjengelig for spørsmål om bruk av plattformen,
+    tekniske bekymringer eller feilmeldinger. Etter innsending vil det automatisk
+    bli opprettet en billett i vårt system. Det frivillige støtteteamet vil ta seg
+    av henvendelsen din.
