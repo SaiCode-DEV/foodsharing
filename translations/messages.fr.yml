@@ -354,7 +354,7 @@ image: Image
 quizusercomment: "Donnez-nous votre avis sur cette question.\nÉtait-ce trop facile,
   trop difficile, incompréhensible ?\nOu certaines réponses ou explications sont-elles
   incorrectes ?\n"
-wikilink: Lien vers le wiki
+wikilink: Lien avec des informations complémentaires
 questcount: Combien de questions doivent être posées pendant l’examen ?
 maxfp: Nombre maximum de points d’erreur pour réussir
 answers: Quelles réponses sont correctes ?
@@ -1950,7 +1950,8 @@ profile:
     placeholder: min. 100 caractères …
     vouch: "Merci de n’attribuer la banane de confiance qu’à des personnes que tu
       connais personnellement,\nqui respectent les règles de conduite et l’accord
-      juridique\net dont tu peux garantir la fiabilité et l’engagement.\n"
+      juridique\net dont tu peux garantir la fiabilité et l’engagement.\nNe jamais
+      accorder des bananes de confiance à la légère !\n"
     undo: Les bananes-confiance ne peuvent pas être modifiées.
     give: Offre une banane-confiance à {name}
     none: "{name} n’a pas de nouvelles bananes-confiance depuis un moment."
@@ -3493,7 +3494,7 @@ quiz:
     FAILED: '{name} – réessayer !'
     RUNNING: '{name} – continue le quiz !'
     NEVER_TRIED: '{name} – fais le quiz maintenant !'
-    continue: '{name}‐Continuer le quiz !'
+    continue: '{name} – Continuer le quiz !'
     pause: Pause d’apprentissage ({name})
     disqualified: '{name} – malheureusement disqualifié(e).'
     start: '{name} ‐ Répondre au quiz maintenant !'
@@ -3696,7 +3697,7 @@ quiz:
     neverTried: Tu n’as jamais fait ce jeu de questions auparavant. Prends le temps
       de lire attentivement tous les articles wiki mentionnés afin d’être prêt(e)
       à répondre aux questions.
-    running: Tu as déjà commencé(e) le quiz et tu as répondu(e) jusqu'à présent à
+    running: Tu as déjà commencé(e) le quiz et tu as répondu(e) jusqu’à présent à
       {questionsAnswered} des {questionCount} questions.
     failed: Lors de ta dernière tentative, tu n'as malheureusement pas réussi ce quiz.
     passedBefore: Tu as déjà réussi ce quiz.
