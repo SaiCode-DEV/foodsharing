@@ -4515,7 +4515,7 @@ achievements:
   noneInThisRegion: No hay logros registrados en esta región.
   editTitle: Editar los logros
   add: Agregar logro
-  deleteConfirmation: ¿De verdad quieres borrar este logro?
+  deleteConfirmation: ¿Realmente quieres eliminar este logro?
 copied_to_clipboard: Se ha copiado «{text}» al portapapeles.
 theme_switcher:
   title: Elegir diseño
