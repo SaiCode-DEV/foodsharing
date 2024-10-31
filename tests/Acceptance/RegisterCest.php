@@ -14,6 +14,7 @@ class RegisterCest
     private $last_name;
     private $password;
     private $mobile_number;
+    private $birthdate;
 
     public function _before(): void
     {
@@ -22,7 +23,7 @@ class RegisterCest
         $this->first_name = sq('first_name');
         $this->last_name = sq('last_name');
         $this->password = sq('password');
-        $this->birthdateUSFormat = '1983-08-27';
+        $this->birthdate = '08-27-1983';
         $this->mobile_number = '177 3231323';
         $this->mobile_country_code = '+49 ';
     }
@@ -54,10 +55,7 @@ class RegisterCest
 
         // fill in birthdate
         $I->waitForElementVisible('#step3', 4);
-        $I->click('#register-datepicker');
-        $I->click('button[title="Vorheriges Jahr"]');
-        $I->click('button[title="Vorheriges Jahr"]');
-        $I->click('.b-calendar .b-calendar-grid-body .col[data-date] .btn');
+        $I->fillField('#register-birthdate-input', $this->birthdate);
         $I->click('weiter');
 
         $I->waitForElementVisible('#step4', 4);
@@ -130,10 +128,7 @@ class RegisterCest
 
         // fill in birthdate
         $I->waitForElementVisible('#step3', 4);
-        $I->click('#register-datepicker');
-        $I->click('button[title="Vorheriges Jahr"]');
-        $I->click('button[title="Vorheriges Jahr"]');
-        $I->click('.b-calendar .b-calendar-grid-body .col[data-date] .btn');
+        $I->fillField('#register-birthdate-input', $this->birthdate);
         $I->click('weiter');
 
         $I->waitForElementVisible('#step4', 4);

@@ -54,20 +54,15 @@
       </div>
       <div class="col-md-6">
         <b-form-group :label="$i18n('register.geb_datum')">
-          <b-form-datepicker
+          <b-form-input
+            id="settings-birthdate-input"
             v-model="birthday"
-            v-bind="birthdateInput.trans || {}"
-            :state="isValidBirthdate"
-            :show-decade-nav="birthdateInput.showDecadeNav"
-            :start-weekday="birthdateInput.weekday"
-            :date-format-options="{ year: 'numeric', month: '2-digit', day: '2-digit' }"
-            :min="birthdateInput.minDate"
-            :max="birthdateInput.maxDate"
-            :label-reset-button="$i18n('globals.reset')"
-            :label-close-button="$i18n('globals.close')"
-            reset-button
-            close-button
+            type="date"
+            autocomplete="off"
           />
+          <div v-if="!isValidBirthdate" class="invalid-feedback">
+            {{ $i18n('register.error_birthdate') }}
+          </div>
         </b-form-group>
       </div>
 
@@ -284,7 +279,6 @@ export default {
     }
   },
   data () {
-    const date = new Date()
     return {
       region: { id: this.userDetails.bezirk_id, name: this.userDetails.homeRegionName },
       position: this.userDetails.position,
@@ -319,28 +313,6 @@ export default {
         { value: 0, text: this.$i18n('automatic_delete') },
         { value: 1, text: this.$i18n('automatic_not_delete') },
       ],
-      birthdateInput: {
-        showDecadeNav: true,
-        local: 'de',
-        minDate: new Date(date.getFullYear() - 125, date.getMonth(), date.getDate()),
-        maxDate: new Date(date.getFullYear() - 18, date.getMonth(), date.getDate()),
-        weekday: 1,
-        trans: {
-          labelPrevDecade: this.$i18n('bootstrap-datepicker.labelPrevDecade'),
-          labelPrevYear: this.$i18n('bootstrap-datepicker.labelPrevYear'),
-          labelPrevMonth: this.$i18n('bootstrap-datepicker.labelPrevMonth'),
-          labelCurrentMonth: this.$i18n('bootstrap-datepicker.labelCurrentMonth'),
-          labelNextMonth: this.$i18n('bootstrap-datepicker.labelNextMonth'),
-          labelNextYear: this.$i18n('bootstrap-datepicker.labelNextYear'),
-          labelNextDecade: this.$i18n('bootstrap-datepicker.labelNextDecade'),
-          labelToday: this.$i18n('bootstrap-datepicker.labelToday'),
-          labelSelected: this.$i18n('bootstrap-datepicker.labelSelected'),
-          labelNoDateSelected: this.$i18n('bootstrap-datepicker.labelNoDateSelected'),
-          labelCalendar: this.$i18n('bootstrap-datepicker.labelCalendar'),
-          labelNav: this.$i18n('bootstrap-datepicker.labelNav'),
-          labelHelp: this.$i18n('bootstrap-datepicker.labelHelp'),
-        },
-      },
     }
   },
   computed: {
@@ -360,13 +332,11 @@ export default {
       return userStore.isAmbassador
     },
     isFieldsValid () {
-      return this.phone.valid && this.mobile.valid && !this.$v.$invalid
-    },
-    date () {
-      return new Date(this.birthday)
+      return this.phone.valid && this.mobile.valid && !this.$v.$invalid && this.isValidBirthdate
     },
     isValidBirthdate () {
-      const age = this.$dateFormatter.getDifferenceToNowInYears(this.date)
+      const date = new Date(this.birthday)
+      const age = this.$dateFormatter.getDifferenceToNowInYears(date)
       return age >= 18 && age <= 125 && !!this.birthday
     },
     locationString () {
@@ -421,3 +391,12 @@ export default {
   },
 }
 </script>
+
+<style>
+.invalid-feedback {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+</style>

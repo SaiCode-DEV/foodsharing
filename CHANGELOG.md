@@ -58,6 +58,7 @@
 - Allow deleting bananas that the user gave #2163 !3716 @AntonBallmaier
 - prevent admins of parent groups access to sub groups settings #2044 !3701 @McGoldi
 - Remove restriction to foodsharing wiki links in the quiz editor #2178 !3759 @AntonBallmaier 
+- Use input date browser support for birthdate input in RegisterBirthdate.vue and ProfileSettings.vue !3738 @chriswalg
 
 ## Bugfixes
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi

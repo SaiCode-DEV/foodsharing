@@ -4,20 +4,11 @@
       <label>{{ $i18n('register.geb_datum') }}<sup><i class="fas fa-asterisk" /></sup></label>
     </div>
     <div class="mt-2 col-sm-auto">
-      <b-form-datepicker
-        id="register-datepicker"
+      <b-form-input
+        id="register-birthdate-input"
         v-model="dateString"
-        v-bind="trans || {}"
-        :state="isValid"
-        :show-decade-nav="showDecadeNav"
-        :start-weekday="weekday"
-        :date-format-options="{ year: 'numeric', month: '2-digit', day: '2-digit' }"
-        :min="minDate"
-        :max="maxDate"
-        :label-reset-button="$i18n('globals.reset')"
-        :label-close-button="$i18n('globals.close')"
-        reset-button
-        close-button
+        type="date"
+        autocomplete="off"
       />
       <div
         v-if="!isValid"
@@ -62,29 +53,8 @@ export default {
     },
   },
   data () {
-    const date = new Date()
     return {
       dateString: this.birthdate,
-      showDecadeNav: true,
-      local: 'de',
-      minDate: new Date(date.getFullYear() - 125, date.getMonth(), date.getDate()),
-      maxDate: new Date(date.getFullYear() - 18, date.getMonth(), date.getDate()),
-      weekday: 1,
-      trans: {
-        labelPrevDecade: this.$i18n('bootstrap-datepicker.labelPrevDecade'),
-        labelPrevYear: this.$i18n('bootstrap-datepicker.labelPrevYear'),
-        labelPrevMonth: this.$i18n('bootstrap-datepicker.labelPrevMonth'),
-        labelCurrentMonth: this.$i18n('bootstrap-datepicker.labelCurrentMonth'),
-        labelNextMonth: this.$i18n('bootstrap-datepicker.labelNextMonth'),
-        labelNextYear: this.$i18n('bootstrap-datepicker.labelNextYear'),
-        labelNextDecade: this.$i18n('bootstrap-datepicker.labelNextDecade'),
-        labelToday: this.$i18n('bootstrap-datepicker.labelToday'),
-        labelSelected: this.$i18n('bootstrap-datepicker.labelSelected'),
-        labelNoDateSelected: this.$i18n('bootstrap-datepicker.labelNoDateSelected'),
-        labelCalendar: this.$i18n('bootstrap-datepicker.labelCalendar'),
-        labelNav: this.$i18n('bootstrap-datepicker.labelNav'),
-        labelHelp: this.$i18n('bootstrap-datepicker.labelHelp'),
-      },
     }
   },
   computed: {
