@@ -347,7 +347,7 @@ quiz:
   heavysigh: '¡Hecho!'
   not_passed_details: 'Lamentablemente has reprobado. ¡Tuviste {points} del máximo
     permitido de {max_points} errores puntuales!'
-  wikilink: 'Más información en la wiki'
+  wikilink: 'Más información'
   threestrikes: 'No has pasado el examen 3 veces.'
   failedbeforebut: ' veces no has pasado el examen hasta ahora. Aún tienes ese número
     de intentos:'
@@ -522,7 +522,7 @@ quiz:
         fp: 'Puntos de error:'
         duration: 'Hora de responder:'
         wikilink:
-          label: 'Enlace al artículo wiki correspondiente:'
+          label: 'Enlace al artículo correspondiente:'
           placeholder: https://wiki.foodsharing.de/…
       title: Editar pregunta
       confirmDelete:
@@ -4204,7 +4204,7 @@ ui:
 no: 'No'
 week_num: '¿Desde cuántas semanas un/una solicitante debe ser parte de foodsharing?'
 maxfp: 'máximo número de errores puntuales para aprobar'
-wikilink: 'Enlace a la página wiki'
+wikilink: 'Enlace con más información'
 formatting:
   md: 'Puede utilizar <a href="https://markdown.es/">Markdown</a> para formatear.'
 sig:
@@ -4539,3 +4539,22 @@ store_categories:
   new: Ingresar nueva categoría
   title: Categorías de la explotación
 error_base64_image: No está permitido insertar imágenes mediante arrastrar y soltar.
+support_page:
+  title: Formulario de soporte
+  notification_name: Una vez que haya iniciado sesión, se transferirán su nombre y
+    su ID de Foodsharer.
+  firstName: Nombre
+  validation_firstName: El nombre está vacío
+  subject: Asunto
+  validation_subject: Asunto vacío
+  email: Su dirección de correo electrónico
+  validation_email: Correo electrónico no válido
+  body: Mensaje
+  validation_body: Mensaje vacío
+  attachments: Archivos adjuntos (máximo 5 MB por archivo)
+  success: Su mensaje se ha enviado correctamente.
+  new_request: Nueva consulta
+  info_teaser: Nuestro formulario de asistencia está disponible para preguntas sobre
+    el uso de la plataforma, problemas técnicos o mensajes de error. Tras enviar el
+    formulario, se crea automáticamente un ticket en nuestro sistema. El equipo de
+    voluntarios se ocupará de su consulta.
