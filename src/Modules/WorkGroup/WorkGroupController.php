@@ -2,7 +2,7 @@
 
 namespace Foodsharing\Modules\WorkGroup;
 
-use Foodsharing\Modules\Core\Control;
+use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -11,8 +11,9 @@ use Foodsharing\Permissions\WorkGroupPermissions;
 use Foodsharing\Utility\ImageHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 
-class WorkGroupControl extends Control
+class WorkGroupController extends FoodsharingController
 {
     public function __construct(
         private readonly WorkGroupView $view,
@@ -24,7 +25,8 @@ class WorkGroupControl extends Control
         parent::__construct();
     }
 
-    public function index(Request $request, Response $response): void
+    #[Route('/groups', name: 'groups')]
+    public function index(Request $request): Response
     {
         if (!$this->session->mayRole()) {
             $this->routeHelper->goLoginAndExit();
@@ -37,11 +39,11 @@ class WorkGroupControl extends Control
         }
         $this->pageHelper->addBread($this->translator->trans('terminology.groups'), '/?page=groups');
 
-        if (!$request->query->has('sub')) {
-            $this->list($request, $response);
-        } elseif ($request->query->get('sub') == 'edit') {
-            $this->edit($request, $response);
-        }
+        return match ($request->query->get('sub')) {
+            'edit' => $this->edit($request),
+            null => $this->list($request),
+            default => $this->renderGlobal(),
+        };
     }
 
     private function getSideMenuData(?string $activeUrlPartial = null): array
@@ -58,10 +60,10 @@ class WorkGroupControl extends Control
 
         $regionToMenuItem = fn ($region) => [
             'name' => $region['name'],
-            'href' => '/?page=groups&p=' . $region['id']
+            'href' => '/groups?p=' . $region['id']
         ];
 
-        $menuGlobal = [['name' => $this->translator->trans('group.show-all'), 'href' => '/?page=groups']];
+        $menuGlobal = [['name' => $this->translator->trans('group.show-all'), 'href' => '/groups']];
         $menuLocalRegions = array_map($regionToMenuItem, $localRegions);
         $menuCountries = array_map($regionToMenuItem, $countries);
 
@@ -89,7 +91,7 @@ class WorkGroupControl extends Control
         ];
     }
 
-    private function list(Request $request, Response $response): void
+    private function list(Request $request): Response
     {
         $this->pageHelper->addTitle($this->translator->trans('terminology.groups'));
 
@@ -108,6 +110,8 @@ class WorkGroupControl extends Control
                 'nav' => $this->getSideMenuData('=' . $parent),
                 'isGlobalWorkingGroup' => $parent === RegionIDs::GLOBAL_WORKING_GROUPS
         ]));
+
+        return $this->renderGlobal();
     }
 
     /**
@@ -158,24 +162,24 @@ class WorkGroupControl extends Control
         return array_map($enrichGroupData, $this->workGroupGateway->listGroups($parent));
     }
 
-    private function edit(Request $request, Response $response): void
+    private function edit(Request $request): Response
     {
         $groupId = $request->query->getInt('id');
         $group = $this->workGroupGateway->getGroup($groupId);
         if (!$group) {
-            $this->routeHelper->goAndExit('/?page=groups');
+            return $this->redirectToRoute('groups');
         } elseif ($group['type'] != UnitType::WORKING_GROUP || !$this->workGroupPermissions->mayEdit($group)) {
-            $this->routeHelper->goAndExit('/dashboard');
+            return $this->redirectToRoute('dashboard');
         }
 
         $bread = $this->translator->trans('group.edit.title', ['{group}' => $group['name']]);
-        $this->pageHelper->addBread($bread, '/?page=groups&sub=edit&id=' . (int)$group['id']);
+        $this->pageHelper->addBread($bread, '/groups?sub=edit&id=' . (int)$group['id']);
 
         $group['photo'] = $this->fixPhotoPath($group['photo']);
 
-        $response->setContent($this->renderContent('pages/WorkGroup/edit.twig',
+        return $this->renderGlobal('pages/WorkGroup/edit.twig',
             ['nav' => $this->getSideMenuData(), 'group' => $group]
-        ));
+        );
     }
 
     /**

@@ -108,6 +108,7 @@
 - Clean up entrypoint and legacy code !3744 @\_fridtjof_
 - Use `PhoneNumberInput.vue` in `RegisterMobilephone.vue` !3726 @chriswalg
 - Got rid of a global variable !3764 @\_fridtjof_
+- Port the workgroup controller to Symfony !3766 @\_fridtjof_
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm

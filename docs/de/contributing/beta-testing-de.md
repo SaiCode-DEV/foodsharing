@@ -14,7 +14,7 @@ Praktischer Nebeneffekt: Auf der Beta-Seite kannst du nützliche Neuerungen teil
 ## So unterstützt du uns beim Testen
 
 - Die gesamte Kommunikation rund ums Testen findet in der Arbeitsgruppe Beta Testing statt.
-  Du kannst der Gruppe hier beitreten: <https://beta.foodsharing.de/?page=groups> (Direktlink zur AG, falls bereits beigetreten: <https://beta.foodsharing.de/region?bid=734>)
+  Du kannst der Gruppe hier beitreten: <https://beta.foodsharing.de/groups> (Direktlink zur AG, falls bereits beigetreten: <https://beta.foodsharing.de/region?bid=734>)
   In der Arbeitsgruppe Beta Testing kommunizieren wir auf Deutsch, an denen meisten anderen Orten auf Englisch.
 
 - Im besagten Forum melden sich Entwickler*innen mit Testaufträgen (im Normalfall immer dann, wenn gerade eine Änderung an der Seite fertig geworden ist).

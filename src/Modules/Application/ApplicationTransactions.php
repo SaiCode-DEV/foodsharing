@@ -39,6 +39,7 @@ class ApplicationTransactions
         $this->applicationGateway->denyApplication($group['id'], $userId);
 
         $bellData = Bell::create('workgroup_request_decline_title', 'workgroup_request_decline', 'fas fa-user-times', [
+            // TODO: fix link after Release N
             'href' => '/?page=groups&p=' . $group['parent_id']
         ], [
             'name' => $group['name']

@@ -7,7 +7,6 @@ use Foodsharing\Modules\Index\IndexControl;
 use Foodsharing\Modules\Mailbox\MailboxControl;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
 use Foodsharing\Modules\Voting\VotingControl;
-use Foodsharing\Modules\WorkGroup\WorkGroupControl;
 
 /**
  * @deprecated please don't add anything new to these mappings.
@@ -24,7 +23,6 @@ class Routing
         'mailbox' => 'Mailbox',
         'poll' => 'Voting',
         'fsbetrieb' => 'StoreUser',
-        'groups' => 'WorkGroup',
     ];
 
     private const CLASSES = [
@@ -33,7 +31,6 @@ class Routing
         'mailbox' => MailboxControl::class,
         'poll' => VotingControl::class,
         'fsbetrieb' => StoreUserControl::class,
-        'groups' => WorkGroupControl::class,
     ];
 
     private const PORTED = [
@@ -60,6 +57,7 @@ class Routing
         'relogin',
         'dashboard',
         'support',
+        'groups',
     ];
 
     private const RENAMES = [

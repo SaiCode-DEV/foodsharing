@@ -12,7 +12,7 @@ if (GET('sub') === 'edit') {
     WorkingGroupEditForm,
   })
   vueApply('#vue-group-edit-form')
-} else if (GET('page') === 'groups') {
+} else if (GET('sub') === undefined) {
   vueRegister({
     Groups,
   })

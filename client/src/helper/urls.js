@@ -96,7 +96,7 @@ const urls = {
   transparency: () => '/content?sub=transparency',
   upload: (uuid) => `/api/uploads/${uuid}`,
 
-  workingGroupEdit: (groupId) => `/?page=groups&sub=edit&id=${groupId}`,
+  workingGroupEdit: (groupId) => `/groups?sub=edit&id=${groupId}`,
   workingGroup: (groupId) => `/region?bid=${groupId}`,
   workshops: () => '/content?sub=workshops',
   urlencode: (url) => encodeURIComponent(`${url}`),
@@ -141,8 +141,7 @@ const urls = {
   storeEdit: (storeId) => `/?page=betrieb&a=edit&id=${storeId}`,
   stores: (regionId) => `/region/${regionId}/stores`,
   wall: (regionId) => `/region?bid=${regionId}&sub=wall`,
-  workingGroups: (regionId = null) => regionId ? `/?page=groups&p=${regionId}` : '/?page=groups',
-  subGroups: (parentGroupId) => parentGroupId ? `/?page=groups&p=${parentGroupId}` : '/?page=groups',
+  workingGroups: (regionId = null) => regionId ? `/groups?p=${regionId}` : '/groups',
   achievements: (regionId) => `/region?bid=${regionId}&sub=achievements`,
   editAchievements: () => '/achievements',
 

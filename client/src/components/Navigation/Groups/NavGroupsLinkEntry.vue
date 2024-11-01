@@ -49,7 +49,7 @@ export default {
 
       if (this.entry.hasSubgroups) {
         menu.push({
-          href: 'subGroups', icon: 'fa-user-friends', text: this.$i18n('terminology.subgroups'),
+          href: 'workingGroups', icon: 'fa-user-friends', text: this.$i18n('terminology.subgroups'),
         })
       }
 

@@ -28,7 +28,7 @@ class FoodsharingUrl extends Db
 
     public function groupEditUrl($groupId): string
     {
-        return '/?page=groups&sub=edit&id=' . (int)$groupId;
+        return '/groups?sub=edit&id=' . (int)$groupId;
     }
 
     public function groupMemberListUrl($groupId): string
@@ -38,7 +38,7 @@ class FoodsharingUrl extends Db
 
     public function groupListUrl(): string
     {
-        return '/?page=groups';
+        return '/groups';
     }
 
     public function forumThreadUrl($id, $regionId = null): string
