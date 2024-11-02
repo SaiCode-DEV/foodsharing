@@ -65,5 +65,5 @@ export const EVENT_TYPE = Object.freeze({
 })
 
 export const BLOG_POST_OPTIONS = Object.freeze({
-  IMAGE: { WIDHT: 500, HEIGHT: 161 },
+  IMAGE: { WIDTH: 500, HEIGHT: 161 },
 })
