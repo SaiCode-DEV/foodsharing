@@ -1,5 +1,5 @@
 <template>
-  <ChatComponent :chat-id="chatId" />
+  <ChatComponent :chat-id="chatId" :ask-for-push-notifications="true" />
 </template>
 
 <script>

@@ -57,7 +57,7 @@
     >
       <Avatar :user="getUser(msg.senderId)" />
     </div>
-    <PushNotificationModal ref="pushModal" />
+    <PushNotificationModal v-if="askForPushNotifications" ref="pushModal" />
   </vue-advanced-chat>
 </template>
 
@@ -117,6 +117,7 @@ export default {
       type: Boolean,
       default: false,
     },
+    askForPushNotifications: { type: Boolean, default: false },
   },
   setup () {
     return {
@@ -197,7 +198,9 @@ export default {
     await this.loadRooms()
   },
   async mounted () {
-    this.$refs.pushModal.maybeShow()
+    if (this.askForPushNotifications) {
+      this.$refs.pushModal.maybeShow()
+    }
     this.registerMessageTextEvents()
 
     // Using global css is not possible anymore in web components
