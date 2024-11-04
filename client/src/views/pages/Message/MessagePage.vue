@@ -1,8 +1,5 @@
 <template>
-  <div>
-    <ChatComponent :chat-id="chatId" />
-    <PushNotificationModal ref="pushModal" />
-  </div>
+  <ChatComponent :chat-id="chatId" />
 </template>
 
 <script>
@@ -11,12 +8,11 @@
 import conversationStore from '@/stores/conversations'
 // Components
 import ChatComponent from './ChatComponent'
-import PushNotificationModal from './PushNotificationModal.vue'
 
 import { GET } from '@/browser'
 
 export default {
-  components: { ChatComponent, PushNotificationModal },
+  components: { ChatComponent },
   data () {
     return {
       chatId: null,
@@ -27,7 +23,6 @@ export default {
     if (GET('cid')) {
       this.chatId = Number(GET('cid'))
     }
-    this.$refs.pushModal.maybeShow()
   },
   destroyed () {
     conversationStore.messagePageOpenChatListener = null // turn off opening chats in this component
