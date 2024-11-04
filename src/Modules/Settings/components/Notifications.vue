@@ -39,6 +39,48 @@
         </b-col>
       </b-row>
     </div>
+    <div class="ui-widget-content corner-bottom margin-bottom ui-padding">
+      <div>
+        <h4>{{ $i18n('notifications.chat.title') }}</h4>
+        <b-row>
+          <b-col
+            cols="12"
+            lg="5"
+          >
+            {{ $i18n('notifications.chat.description') }}
+          </b-col>
+          <b-col lg="1" />
+          <b-col
+            cols="4"
+            lg="2"
+            class="pt-1"
+          >
+            <b-form-checkbox
+              id="infomail_message"
+              v-model="infoMailState"
+              size="sm"
+            >
+              {{ $i18n('notifications.checkbox_email') }}
+            </b-form-checkbox>
+          </b-col>
+          <b-col
+            cols="4"
+            lg="3"
+            class="pt-1"
+          >
+            <b-form-checkbox
+              v-if="mayUsePushNotifications"
+              :checked="usePushNotifications"
+              :disabled="pushNotificationsLoading"
+              size="sm"
+              @change="updatePushNotifications"
+            >
+              {{ $i18n('notifications.checkbox_push') }}
+            </b-form-checkbox>
+          </b-col>
+        </b-row>
+      </div>
+    </div>
 
     <div class="pt-2">
       <h4>{{ $i18n('notifications.foodSharePoints.title') }}</h4>
@@ -353,12 +395,14 @@ import {
   getMentionNotification,
 } from '@/api/notifications'
 import { pulseError, pulseSuccess } from '@/script'
+import PushNotificationMixin from '@/mixins/PushNotificationMixin.js'
 import { subscribeForPushNotifications, unsubscribeFromPushNotifications } from '@/pushNotifications'
 import { useUserStore } from '@/stores/user'
 
 const userStore = useUserStore()
 
 export default {
+  mixins: [PushNotificationMixin],
   setup () {
     return {
       userStore,
@@ -376,7 +420,6 @@ export default {
         { value: 1, text: this.$i18n('notifications.checkbox_email') },
       ],
       subscription: {},
-      pushNotificationState: null,
       infoMailState: null,
       newsletterState: false,
       pickupReminderState: true,
@@ -396,11 +439,6 @@ export default {
       isThreadsPointGlobalEmailNotificationActive: false,
       isFoodSharePointGlobalBellNotificationActive: false,
     }
-  },
-  computed: {
-    getPushNotificationState () {
-      return this.pushNotificationState
-    },
   },
   async mounted () {
     await userStore.fetchDetails()

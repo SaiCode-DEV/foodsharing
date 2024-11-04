@@ -30,6 +30,7 @@
 - Improved map marker caching #2106 !3712 @AntonBallmaier
 - Added a map marker selection for ambassadors to display users #1759 !3714 @AntonBallmaier
 - Added support form for our new zammad ticket system !3210 @chriswalg @alex.simm
+- Add push notification toggle and prompt users to use push notifications for the chat #1967 !3375 @AntonBallmaier
 
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9

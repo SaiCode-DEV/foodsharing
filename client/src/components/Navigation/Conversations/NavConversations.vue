@@ -42,6 +42,18 @@
         <i class="icon-subnav fas fa-comments" />
         {{ $i18n('menu.entry.all_messages') }}
       </a>
+      <div class="dropdown-item">
+        <b-form-checkbox
+          v-if="mayUsePushNotifications"
+          :checked="usePushNotifications"
+          :disabled="pushNotificationsLoading"
+          size="sm"
+          switch
+          @change="updatePushNotifications"
+        >
+          <span class="small" v-text="$i18n('settings.push.title')" />
+        </b-form-checkbox>
+      </div>
     </template>
   </Dropdown>
 </template>
@@ -52,9 +64,11 @@ import conversationStore from '@/stores/conversations'
 import Dropdown from '../_NavItems/NavDropdown'
 import ConversationsEntry from './NavConversationsEntry'
 // Mixins
+import PushNotificationMixin from '@/mixins/PushNotificationMixin.js'
 
 export default {
   components: { ConversationsEntry, Dropdown },
+  mixins: [PushNotificationMixin],
   computed: {
     conversations () {
       /* let res = Array.from(conversationStore.conversations) // .filter(c => c.lastMessage || c.messages)

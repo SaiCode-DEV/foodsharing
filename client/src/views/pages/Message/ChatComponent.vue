@@ -57,6 +57,7 @@
     >
       <Avatar :user="getUser(msg.senderId)" />
     </div>
+    <PushNotificationModal ref="pushModal" />
   </vue-advanced-chat>
 </template>
 
@@ -76,6 +77,7 @@ import { useUserStore } from '@/stores/user'
 import { useThemeStore } from '@/stores/theme'
 import SelectUsersComponent from './SelectUsersComponent.vue'
 import ChatTitleComponent from './ChatTitleComponent.vue'
+import PushNotificationModal from './PushNotificationModal.vue'
 
 register()
 
@@ -102,6 +104,7 @@ export default {
     ConversationAvatar,
     SelectUsersComponent,
     ChatTitleComponent,
+    PushNotificationModal,
   },
   props: {
     chatId: {
@@ -194,6 +197,7 @@ export default {
     await this.loadRooms()
   },
   async mounted () {
+    this.$refs.pushModal.maybeShow()
     this.registerMessageTextEvents()
 
     // Using global css is not possible anymore in web components

@@ -12,11 +12,7 @@ import ChatComponent from './ChatComponent'
 import { GET } from '@/browser'
 
 export default {
-  components: {
-    ChatComponent,
-  },
-  props: {
-  },
+  components: { ChatComponent },
   data () {
     return {
       chatId: null,
