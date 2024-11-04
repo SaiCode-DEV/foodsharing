@@ -4278,6 +4278,15 @@ notifications:
   mention:
     title: Notificaciones de las menciones
     description: Recibe una notificación cuando alguien te mencione en el foro.
+  pushModal:
+    ok: Recibir notificaciones automáticas
+    title: ¿Recibir notificaciones push?
+    content: "Para que puedas escuchar más rápidamente cuando otros ahorradores de
+      alimentos te envían mensajes, ¡puedes activar las notificaciones automáticas
+      en este dispositivo!\n\nPuede desactivar estas notificaciones en cualquier momento
+      en su [configuración de notificaciones](/?page=settings&sub=info).\n"
+    cancel: no activar
+    dontAskAgain: no volver a preguntar
 markdown_input:
   tooltip:
     orderedList: lista numerada
