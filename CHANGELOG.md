@@ -32,7 +32,6 @@
 - Added support form for our new zammad ticket system !3210 @chriswalg @alex.simm
 - Prompt users to use push notifications for the chat #1967 !3375 @AntonBallmaier
 
-
 ## Changes
 - Improve accessibility in create forum thread form !3488 @iron9
 - Improve listing of non-active region members !3568 @iron9
