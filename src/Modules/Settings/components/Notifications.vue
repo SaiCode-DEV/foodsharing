@@ -395,7 +395,6 @@ import {
   getMentionNotification,
 } from '@/api/notifications'
 import { pulseError, pulseSuccess } from '@/script'
-import i18n from '@/helper/i18n'
 import PushNotificationMixin from '@/mixins/PushNotificationMixin.js'
 import { subscribeForPushNotifications, unsubscribeFromPushNotifications } from '@/pushNotifications'
 import { useUserStore } from '@/stores/user'
@@ -440,56 +439,6 @@ export default {
       isThreadsPointGlobalEmailNotificationActive: false,
       isFoodSharePointGlobalBellNotificationActive: false,
     }
-  },
-  computed: {
-    isFoodSharePointGlobalNotificationActive: {
-      get () {
-        return this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype !== 0)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
-    },
-    isFoodSharePointGlobalEmailNotificationActive: {
-      get () {
-        return this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype === 1)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
-    },
-    isGroupsGlobalEmailNotificationActive: {
-      get () {
-        return this.currentGroups.some(group => group.notifyByEmailAboutNewThreads === 1)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
-    },
-    isThreadsPointGlobalEmailNotificationActive: {
-      get () {
-        return this.currentThreads.some(threads => threads.infotype === 1)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
-    },
-    isRegionsPointGlobalEmailNotificationActive: {
-      get () {
-        return this.currentRegions.some(region => region.notifyByEmailAboutNewThreads === 1)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
-    },
-    isFoodSharePointGlobalBellNotificationActive: {
-      get () {
-        return this.currentFoodSharePoints.some(foodSharePoint => foodSharePoint.infotype === 2)
-      },
-      set (value) {
-        // No action needed since this is a read-only computed property
-      },
-    },
   },
   async mounted () {
     await userStore.fetchDetails()
