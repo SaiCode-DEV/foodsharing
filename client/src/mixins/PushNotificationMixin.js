@@ -7,6 +7,7 @@ export default {
     usePushNotifications: false, // true if using, false if unable, null if not using
     pushNotificationsLoading: true, // true while async methods are running. Other data has to be reliable only if this is false.
     mountedLoaded: null,
+    loadingFinishedCallback: null,
   }),
   mounted () {
     this.mountedLoaded = this.updateNotificationStatus()
@@ -29,6 +30,7 @@ export default {
         }
       } finally {
         this.pushNotificationsLoading = false
+        this.loadingFinishedCallback?.()
       }
     },
     async updatePushNotifications (usePushNotifications) {
@@ -49,6 +51,7 @@ export default {
       } finally {
         await this.updateNotificationStatus()
         this.pushNotificationsLoading = false
+        this.loadingFinishedCallback?.()
       }
     },
     isURL (variable) {

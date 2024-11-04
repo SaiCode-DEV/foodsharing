@@ -33,8 +33,8 @@ export default {
       if (askForPushNotifications === false) return
       if (askForPushNotifications + this.bufferTime > Date.now()) return
 
-      while (this.pushNotificationsLoading) {
-        await new Promise(resolve => window.setTimeout(resolve, 100))
+      if (this.pushNotificationsLoading) {
+        await new Promise((resolve) => { this.loadingFinishedCallback = resolve })
       }
       if (this.mayUsePushNotifications && this.usePushNotifications) return
       this.$refs.modal.show()
