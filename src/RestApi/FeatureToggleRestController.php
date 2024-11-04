@@ -7,6 +7,7 @@ use Foodsharing\Modules\Development\FeatureToggles\DependencyInjection\FeatureTo
 use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
 use Foodsharing\Modules\Development\FeatureToggles\Querys\HasPermissionToManageFeatureTogglesQuery;
 use Foodsharing\Modules\Development\FeatureToggles\Services\FeatureToggleService;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\RestApi\Models\FeatureToggle\FeatureToggle;
 use Foodsharing\RestApi\Models\FeatureToggle\FeatureTogglesResponse;
 use Foodsharing\RestApi\Models\FeatureToggle\IsFeatureToggleActiveResponse;
@@ -27,6 +28,7 @@ final class FeatureToggleRestController extends AbstractFOSRestController
         private readonly FeatureToggleService $featureToggleService,
         private readonly Session $session,
         private readonly HasPermissionToManageFeatureTogglesQuery $hasPermissionToManageFeatureTogglesQuery,
+        private readonly CurrentUserUnitsInterface $currentUserUnitsInterface,
     ) {
     }
 
@@ -82,7 +84,7 @@ final class FeatureToggleRestController extends AbstractFOSRestController
     #[Response(response: HttpResponse::HTTP_BAD_REQUEST, description: 'Feature toggle is not toggable')]
     public function toggleFeatureToggle(string $featureToggle): JsonResponse
     {
-        if (!$this->hasPermissionToManageFeatureTogglesQuery->execute($this->session)) {
+        if (!$this->hasPermissionToManageFeatureTogglesQuery->execute($this->session, $this->currentUserUnitsInterface)) {
             throw new AccessDeniedHttpException();
         }
 

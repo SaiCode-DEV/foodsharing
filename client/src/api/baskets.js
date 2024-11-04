@@ -1,7 +1,7 @@
 import { get, post, remove, put } from './base'
 
 export async function getBaskets () {
-  const baskets = (await get('/baskets?type=mine')).baskets
+  const baskets = await get('/user/current/baskets')
   return baskets.map(basket => {
     basket.createdAt = new Date(basket.createdAt * 1000)
     basket.updatedAt = new Date(basket.updatedAt * 1000)
@@ -27,13 +27,9 @@ export async function removeBasket (basketId) {
   return remove(`/baskets/${basketId}`)
 }
 
-export async function listBasketCoordinates () {
-  return (await get('/baskets?type=coordinates')).baskets
-}
-
 export async function getBasketsNearby (lat, lon, distance = 30) {
   if (lat && lon) {
-    return (await get(`/baskets/nearby?lat=${lat}&lon=${lon}&distance=${distance}`)).baskets
+    return await get(`/baskets/nearby?lat=${lat}&lon=${lon}&distance=${distance}`)
   }
   throw new Error('Missing lat or lon')
 }

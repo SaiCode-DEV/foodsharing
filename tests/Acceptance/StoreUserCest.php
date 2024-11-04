@@ -11,7 +11,7 @@ class StoreUserCest
 {
     public function _before(AcceptanceTester $I): void
     {
-        $this->bezirk_id = $I->createRegion('A region I test with');
+        $this->bezirk_id = $I->createRegion('A region I test with', fillMailbox: false);
         $this->storeCoordinator = $I->createStoreCoordinator(null, ['bezirk_id' => $this->bezirk_id['id']]);
         $I->login($this->storeCoordinator['email']);
     }

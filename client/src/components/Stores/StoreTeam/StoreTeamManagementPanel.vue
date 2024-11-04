@@ -13,14 +13,14 @@
     />
 
     <b-button
-      v-if="applications.storeRequests?.length"
+      v-if="applications?.length"
       size="sm"
       variant="danger"
       block
       @click="$bvModal.show('requests')"
     >
       <i class="fas fa-address-card" />
-      {{ $i18n('store.requests', { count: applications.storeRequests.length}) }}
+      {{ $i18n('store.requests', { count: applications.length}) }}
     </b-button>
 
     <b-button

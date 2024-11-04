@@ -313,6 +313,18 @@ function buildMarkdownDocument(database, metaData, moduleMap) {
     return doc
 }
 
+function preprocessSqlDump(sqlDump) {
+    // Regular expressions to remove parts that the parser doesn't understand
+    const removals = [
+        /GENERATED [A-Z ]+\(.*?\) VIRTUAL/g,
+        /DELIMITER ;;[\s\S]*DELIMITER ;/g,
+    ]
+    for(let regex of removals) {
+        sqlDump = sqlDump.replace(regex, '');
+    }
+    return sqlDump
+}
+
 const buildDir = process.argv[2]
 const resultDir = process.argv[3]
 const sqlDumpFile = process.argv[4]
@@ -328,11 +340,12 @@ console.log("SQL dump file " + sqlDumpFile)
 console.log("DB Meta data file " + dbMetaDataFile)
 console.log("DB PHP Usage file " + dbUsageFile)
 
-
 // Read schema sql dump file
 const raw_sql = fs.readFileSync(sqlDumpFile, { encoding: 'utf8', flag: 'r' });
+const preprocessed_sql = preprocessSqlDump(raw_sql)
+
 // Remove comments from SQL Commands
-var lines = raw_sql.split('\n');
+var lines = preprocessed_sql.split('\n');
 var sql = lines.filter(function (line) {
     return !(line.startsWith('--') || line.startsWith("/*"));
 }).join("\n");

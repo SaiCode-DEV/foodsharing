@@ -17,6 +17,7 @@
         :is-closeable="quiz.closeable"
         :links="quiz.links"
       />
+      <QuizConfirmationField v-if="quizConfirmation" :quiz-confirmation="quizConfirmation" />
       <div v-if="isFoodsaver" class="filter mt-3">
         <b-dropdown
           id="dropdown-header"
@@ -111,7 +112,7 @@
 import DataStores from '@/stores/stores.js'
 import DataPickups from '@/stores/pickups.js'
 import DataBaskets from '@/stores/baskets.js'
-import DataUser, { mutations } from '@/stores/user.js'
+import { useUserStore } from '@/stores/user'
 import DataEvents from '@/stores/events.js'
 import DataBroadcast from '@/stores/broadcast.js'
 // Components
@@ -119,6 +120,7 @@ import Broadcast from '@/components/Banners/Broadcast/BroadcastField.vue'
 import Intro from '@/components/Banners/Intro/IntroField.vue'
 import Release from '@/components/Banners/Release/ReleaseField.vue'
 import Quiz from '@/components/Banners/Quiz/QuizField.vue'
+import QuizConfirmationField from '@/components/Banners/Quiz/QuizConfirmationField.vue'
 import ErrorContainer from '@/components/Banners/Errors/ErrorContainer.vue'
 import InformationsContainer from '@/components/Banners/Informations/InformationContainer.vue'
 import ActivityContainer from '@/components/Container/activity/ActivityOverview.vue'
@@ -136,12 +138,15 @@ import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import StateTogglerMixin from '@/mixins/StateTogglerMixin'
 import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 
+const userStore = useUserStore()
+
 export default {
   components: {
     Broadcast,
     Intro,
     Release,
     Quiz,
+    QuizConfirmationField,
     ErrorContainer,
     InformationsContainer,
     ActivityContainer,
@@ -158,7 +163,13 @@ export default {
   mixins: [MediaQueryMixin, StateTogglerMixin, RouteAndDeviceCheckMixin],
   props: {
     quiz: { type: Object, default: () => null },
+    quizConfirmation: { type: Number, default: () => null },
     events: { type: Object, default: () => ({ accepted: null, invites: null }) },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     return {
@@ -176,9 +187,8 @@ export default {
     }
   },
   computed: {
-    user: () => DataUser.getters.getUser(),
-    isLoggedIn: () => DataUser.getters.isLoggedIn(),
-    isFoodsaver: () => DataUser.getters.isFoodsaver(),
+    user: () => useUserStore().getUser,
+    isFoodsaver: () => useUserStore().isFoodsaver,
     hasStores: () => DataStores.getters.hasStores(),
     hasPickups: () => DataPickups.getters.getRegistered(),
     isStoresVisible () {
@@ -187,7 +197,6 @@ export default {
     hasRightColumn () {
       return (this.hasPickups && this.visible.pickups) || (this.hasStores && this.isStoresVisible)
     },
-    getLocations: () => DataUser.getters.getLocations(),
     broadcast: () => DataBroadcast.getters.getBroadcastMessage(),
   },
   watch: {
@@ -197,22 +206,18 @@ export default {
       },
       deep: true,
     },
-    isFoodsaver: {
-      async handler (newVal) {
-        if (newVal) {
+    userStore: {
+      async handler (newVal, oldVal) {
+        if (newVal.isLoggedIn !== oldVal?.isLoggedIn) {
           await DataPickups.mutations.fetchRegistered()
           // TODO: NO APIS :(
           DataEvents.mutations.setAccepted(this.events.accepted)
           DataEvents.mutations.setInvited(this.events.invites)
         }
-      },
-      immediate: true,
-      deep: true,
-    },
-    getLocations: {
-      async handler (coords) {
-        if (coords.lat && coords.lon) {
-          await DataBaskets.mutations.fetchNearby(coords)
+        if (newVal.getLocations !== oldVal?.getLocations) {
+          if (newVal.getLocations.lat && newVal.getLocations.lon) {
+            await DataBaskets.mutations.fetchNearby(newVal.getLocations)
+          }
         }
       },
       immediate: true,
@@ -222,7 +227,7 @@ export default {
   async mounted () {
     this.visible = JSON.parse(localStorage.getItem('dashboard.visible')) || this.visible
     await DataBroadcast.mutations.fetch()
-    await mutations.fetchDetails()
+    await userStore.fetchDetails()
   },
   methods: {
     resetHiding () {

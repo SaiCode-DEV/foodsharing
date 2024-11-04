@@ -15,4 +15,7 @@ class RegionOptionType
     final public const REGION_PICKUP_RULE_LIMIT_NUMBER = 5; // What is the maximum number of pickups a foodsaver is allowed to have during that timespan for stores that follow the regionPickupRule
     final public const REGION_PICKUP_RULE_LIMIT_DAY_NUMBER = 6; // How many hours before a pickup is the rule being ignored ?
     final public const REGION_PICKUP_RULE_INACTIVE_HOURS = 7; // How many hours before a pickup is the rule being ignored ?
+    final public const ALLOW_HIDING_IN_FORUM = 10; // Whether moderators are allowed to delete forum posts
+    final public const REPORT_REASON_OPTIONS = 8; // What report Reasons should be shown ? 1 view reasons, 2, Reasons category B)
+    final public const REPORT_REASON_OTHER = 9; // Add reason "other" to report reasons
 }

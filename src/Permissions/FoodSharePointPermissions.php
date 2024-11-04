@@ -8,6 +8,7 @@ use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 class FoodSharePointPermissions
 {
@@ -15,6 +16,7 @@ class FoodSharePointPermissions
         private readonly Session $session,
         private readonly GroupFunctionGateway $groupFunctionGateway,
         private readonly FoodSharePointGateway $foodSharePointGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
 
@@ -37,10 +39,10 @@ class FoodSharePointPermissions
 
         $fspGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::FSP);
         if (!empty($fspGroup)) {
-            return $this->session->isAdminFor($fspGroup);
+            return $this->currentUserUnits->isAdminFor($fspGroup);
         }
 
-        return $this->session->isAdminFor($regionId);
+        return $this->currentUserUnits->isAdminFor($regionId);
     }
 
     public function mayEdit(int $regionId, array $follower): bool
@@ -73,7 +75,7 @@ class FoodSharePointPermissions
 
         $fspGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::FSP);
         if (!empty($fspGroup)) {
-            return $this->session->isAdminFor($fspGroup);
+            return $this->currentUserUnits->isAdminFor($fspGroup);
         }
 
         return false;

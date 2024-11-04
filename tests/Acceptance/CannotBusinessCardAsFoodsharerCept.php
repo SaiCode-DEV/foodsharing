@@ -16,8 +16,6 @@ $foodsaver = $I->createFoodsharer($pass);
 
 $I->login($foodsaver['email'], $pass);
 
-$I->amOnPage('/?page=bcard');
+$I->amOnPage('/user/current/settings?sub=bcard');
 
-$I->seeCurrentUrlEquals('/?page=settings&sub=general'); // it redirects
-
-$I->see('Persönliche Visitenkarte');
+$I->dontSee('Persönliche Visitenkarte');

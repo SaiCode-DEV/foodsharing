@@ -5,29 +5,22 @@ namespace Foodsharing\Modules\Region;
 use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
+use Foodsharing\Modules\Core\DBConstants\Region\ApplyType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
-use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
-use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
-use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\DTO\HierachicalRegion;
+use Foodsharing\Modules\Region\DTO\RegionPickupsPerDate;
+use Foodsharing\Modules\Region\DTO\RegionPin;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
 
 class RegionGateway extends BaseGateway
 {
-    private readonly FoodsaverGateway $foodsaverGateway;
-    private readonly GroupFunctionGateway $groupFunctionGateway;
-
-    public function __construct(
-        Database $db,
-        FoodsaverGateway $foodsaverGateway,
-        GroupFunctionGateway $groupFunctionGateway
-    ) {
+    public function __construct(Database $db)
+    {
         parent::__construct($db);
-        $this->foodsaverGateway = $foodsaverGateway;
-        $this->groupFunctionGateway = $groupFunctionGateway;
     }
 
     public function getRegion(int $regionId): ?array
@@ -37,7 +30,7 @@ class RegionGateway extends BaseGateway
         }
 
         return $this->db->fetchByCriteria('fs_bezirk',
-            ['name', 'id', 'email', 'email_name', 'has_children', 'parent_id', 'mailbox_id', 'type'],
+            ['name', 'id', 'email_name', 'has_children', 'parent_id', 'mailbox_id', 'type'],
             ['id' => $regionId]
         );
     }
@@ -230,6 +223,8 @@ class RegionGateway extends BaseGateway
      *
      * Warning: this function does not properly set the moderated flag for large regions. In most cases you might want
      * to use RegionTransactions::getRegionDetails instead.
+     *
+     * @return array an empty array if it does not exist
      */
     public function getRegionDetails(int $regionId): array
     {
@@ -238,7 +233,6 @@ class RegionGateway extends BaseGateway
 				b.`id`,
 			    b.parent_id,
 				b.`name`,
-				b.`email`,
 				b.`email_name`,
 				b.`mailbox_id`,
 				b.`type`,
@@ -258,14 +252,15 @@ class RegionGateway extends BaseGateway
 					WHERE     fs.deleted_at IS NULL
 					AND 	c.bezirk_id = b.id
 					AND 	c.active = 1
-					AND 	fs.sleep_status = 0
 				) AS fs_count,
 				(
-					SELECT 	count(fs.`id`)
-					FROM 	`fs_foodsaver` fs
-					WHERE	fs.deleted_at IS NULL
-					AND 	fs.bezirk_id = b.id
-					AND 	fs.sleep_status = 0
+					SELECT 	count(c.`foodsaver_id`)
+					FROM 	`fs_foodsaver_has_bezirk` c
+					LEFT JOIN `fs_foodsaver` fs ON c.`foodsaver_id` = fs.id
+					WHERE   fs.deleted_at IS NULL
+                    AND     fs.bezirk_id = c.bezirk_id
+					AND 	c.bezirk_id = b.id
+					AND 	c.active = 1
 				) AS fs_home_count,
 				(
 					SELECT 	count(c.`foodsaver_id`)
@@ -282,41 +277,11 @@ class RegionGateway extends BaseGateway
 			WHERE 	b.`id` = :id
 			LIMIT 1
 		', ['id' => $regionId]);
-
-        $region['botschafter'] = $this->foodsaverGateway->getAdminsOrAmbassadors($regionId);
-        shuffle($region['botschafter']);
-
-        $functionMappings = [
-            WorkgroupFunction::WELCOME => 'welcomeAdmins',
-            WorkgroupFunction::VOTING => 'votingAdmins',
-            WorkgroupFunction::FSP => 'fspAdmins',
-            WorkgroupFunction::STORES_COORDINATION => 'storesAdmins',
-            WorkgroupFunction::REPORT => 'reportAdmins',
-            WorkgroupFunction::MEDIATION => 'mediationAdmins',
-            WorkgroupFunction::ARBITRATION => 'arbitrationAdmins',
-            WorkgroupFunction::FSMANAGEMENT => 'fsManagementAdmins',
-            WorkgroupFunction::PR => 'prAdmins',
-            WorkgroupFunction::MODERATION => 'moderationAdmins',
-            WorkgroupFunction::BOARD => 'boardAdmins',
-            WorkgroupFunction::ELECTION => 'electionAdmins',
-        ];
-
-        foreach ($functionMappings as $function => $resultKey) {
-            $region[$resultKey] = $this->getAdminsOrAmbassadorsByFunction($regionId, $function);
-            shuffle($region[$resultKey]);
+        if (empty($region)) {
+            return [];
         }
 
         return $region;
-    }
-
-    private function getAdminsOrAmbassadorsByFunction(int $parentId, int $function): array
-    {
-        $groupId = $this->groupFunctionGateway->getRegionFunctionGroupId($parentId, $function);
-        if ($groupId) {
-            return $this->foodsaverGateway->getAdminsOrAmbassadors($groupId);
-        } else {
-            return [];
-        }
     }
 
     /**
@@ -346,7 +311,7 @@ class RegionGateway extends BaseGateway
 			SELECT 	fs.`id`,
 					fs.`name`,
 					fs.`photo`,
-					fs.sleep_status,
+					fs.is_sleeping,
 					fb.active
 
 			FROM 	`fs_foodsaver_has_bezirk` fb,
@@ -357,7 +322,7 @@ class RegionGateway extends BaseGateway
 			AND 	fb.active = 0
 		', ['regionId' => $regionId]);
 
-        return array_map(fn ($applicant) => new Profile($applicant['id'], $applicant['name'], $applicant['photo'], $applicant['sleep_status']), $applicants);
+        return array_map(fn ($applicant) => new Profile($applicant), $applicants);
     }
 
     public function linkBezirk(int $foodsaverId, int $regionId, int $active = 1)
@@ -388,6 +353,9 @@ class RegionGateway extends BaseGateway
 
     // TODO move all non-WG-secific methods in GroupGateway to regionGateway
 
+    /**
+     * @throws DatabaseNoValueFoundException if the region does not exist
+     */
     public function getRegionName(int $regionId): string
     {
         return $this->db->fetchValueByCriteria('fs_bezirk', 'name', ['id' => $regionId]);
@@ -406,6 +374,11 @@ class RegionGateway extends BaseGateway
     public function getMasterId(int $regionId): int
     {
         return $this->db->fetchValueByCriteria('fs_bezirk', 'master', ['id' => $regionId]);
+    }
+
+    public function getParentId(int $regionId): int
+    {
+        return $this->db->fetchValueByCriteria('fs_bezirk', 'parent_id', ['id' => $regionId]);
     }
 
     public function listRegionsForBotschafter(int $foodsaverId): array
@@ -438,6 +411,11 @@ class RegionGateway extends BaseGateway
         ]) > 0;
     }
 
+    /**
+     * Returns a region's pickup statistics for one specific date format. This includes all subregions.
+     *
+     * @return RegionPickupsPerDate[]
+     */
     public function listRegionPickupsByDate(int $regionId, string $dateFormat): array
     {
         $regionIDs = implode(',', array_map('intval', $this->listIdsForDescendantsAndSelf($regionId)));
@@ -446,7 +424,7 @@ class RegionGateway extends BaseGateway
             return [];
         }
 
-        return $this->db->fetchAll(
+        $data = $this->db->fetchAll(
             'select
 						date_Format(a.date,:format) as time,
 						count(distinct a.betrieb_id) as NumberOfStores,
@@ -460,6 +438,8 @@ class RegionGateway extends BaseGateway
 					order by date desc',
             [':format' => $dateFormat, ':groupFormat' => $dateFormat]
         );
+
+        return array_map([RegionPickupsPerDate::class, 'createFromArray'], $data);
     }
 
     /**
@@ -493,6 +473,8 @@ class RegionGateway extends BaseGateway
      * @return array associative array of options or empty array if not found
      *
      * @throws Exception
+     *
+     * @deprecated This does not actually return all options, but only five specific types. It should be replaced by getAllRegionOptions.
      */
     public function getRegionOptions(int $regionId): array
     {
@@ -570,10 +552,12 @@ class RegionGateway extends BaseGateway
         return $optionTypeMap;
     }
 
-    public function getRegionPin(int $regionId): ?array
+    public function getRegionPin(int $regionId): ?RegionPin
     {
         try {
-            return $this->db->fetchByCriteria('fs_region_pin', ['desc', 'lat', 'lon', 'status'], ['region_id' => $regionId]);
+            $data = $this->db->fetchByCriteria('fs_region_pin', ['desc', 'lat', 'lon', 'status'], ['region_id' => $regionId]);
+
+            return RegionPin::create($data);
         } catch (Exception) {
             return null;
         }
@@ -684,7 +668,8 @@ class RegionGateway extends BaseGateway
             'name' => $region->name,
             'email_name' => $region->emailName,
             'parent_id' => $region->parentId,
-            'type' => $region->type
+            'type' => $region->type,
+            'apply_type' => ApplyType::NOBODY,
         ], ['id' => $region->id]);
         $this->addRegionToClosure($region->id, $region->parentId);
         $this->db->update('fs_bezirk', ['has_children' => true], ['id' => $region->parentId]);

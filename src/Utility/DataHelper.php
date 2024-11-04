@@ -2,41 +2,8 @@
 
 namespace Foodsharing\Utility;
 
-use Carbon\Carbon;
-use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
-
 class DataHelper
 {
-    public function setEditData($data): void
-    {
-        global $g_data;
-        $g_data = $data;
-    }
-
-    public function getPostData(): array
-    {
-        return $_POST;
-    }
-
-    public function getValue($id)
-    {
-        global $g_data;
-
-        return $g_data[$id] ?? '';
-    }
-
-    public function unsetAll($array, $fields): array
-    {
-        $out = [];
-        foreach ($fields as $f) {
-            if (isset($array[$f])) {
-                $out[$f] = $array[$f];
-            }
-        }
-
-        return $out;
-    }
-
     /**
      * Transforms an array into a associative array.
      *
@@ -64,20 +31,5 @@ class DataHelper
     public function commaSeparatedIds(array $ids): string
     {
         return implode(',', array_map('intval', $ids));
-    }
-
-    public function parseSleepingState(int $sleepState, ?string $sleepFrom, ?string $sleepUntil): bool
-    {
-        if ($sleepState === SleepStatus::TEMP && $sleepFrom === null) {
-            return false;
-        }
-
-        return match ($sleepState) {
-            SleepStatus::TEMP => Carbon::now()->isSameDay(Carbon::parse($sleepFrom))
-                || Carbon::now()->isAfter(Carbon::parse($sleepFrom)->startOfDay())
-                || (Carbon::now()->isBefore(Carbon::parse($sleepUntil)->addDay()) && Carbon::now()->isAfter(Carbon::parse($sleepFrom)->endOfDay())),
-            SleepStatus::FULL => true,
-            default => false,
-        };
     }
 }

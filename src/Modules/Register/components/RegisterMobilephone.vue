@@ -1,19 +1,13 @@
 <template>
   <form class="my-1">
     <div class="col-sm-auto">
-      <label>{{ $i18n('register.login_mobile_phone') }}<sup><i class="fas fa-asterisk" /></sup></label>
+      <label>{{ $i18n('terminology.mobile_phone') }}</label>
     </div>
     <div class="col-sm-auto">
-      <VueTelInput
-        :value="mobile"
-        :class="{ 'is-invalid': !isValid }"
-        :valid-characters-only="validCharactersOnly"
-        :mode="mode"
-        :input-options="inputOptions"
-        :default-country="defaultCountry"
-        :preferred-countries="preferredCountries"
-        @input="update"
-        @validate="validate"
+      <PhoneNumberInput
+        input-name="mobile"
+        :input-value="mobile"
+        @update-phone-number="handleValidValue"
       />
     </div>
     <div
@@ -43,50 +37,34 @@
       >
         {{ $i18n('register.next') }}
       </button>
-      <span class="mr-3 d-flex flex-row-reverse">{{ $i18n('register.requiredFields') }}<sup><i class="fas fa-asterisk" /></sup></span>
     </div>
   </form>
 </template>
 <script>
-import { VueTelInput } from 'vue-tel-input'
-import 'vue-tel-input/dist/vue-tel-input.css'
-import i18n from '@/helper/i18n'
+import PhoneNumberInput from '@/components/PhoneNumberInput.vue'
 
-// https://vue-tel-input.iamstevendao.com/documentation/props.html
 export default {
   components: {
-    VueTelInput,
+    PhoneNumberInput,
   },
-  props: { mobile: { type: String, default: null } },
   data () {
     return {
-      phoneNumberValid: false,
-      mode: 'international',
-      preferredCountries: ['DE', 'AT', 'CH'],
-      validCharactersOnly: true,
-      defaultCountry: 'DE',
-      inputOptions: {
-        placeholder: i18n('register.phone_example'),
-        maxlength: 18,
-      },
+      mobile: { value: null, valid: true },
     }
   },
   computed: {
     isValid () {
-      return this.phoneNumberValid && this.mobile !== null && this.mobile !== ''
+      return this.mobile.valid
     },
   },
   methods: {
-    update (phoneNumber, phoneObject) {
-      this.phoneNumberValid = phoneObject.valid
-      this.$emit('update:mobile', phoneNumber)
-    },
-    validate (phoneObject) {
-      this.phoneNumberValid = phoneObject.valid
+    handleValidValue (data) {
+      this[`${data.id}`] = { value: data.value, valid: data.valid }
     },
     redirect () {
       if (this.isValid) {
         this.$emit('next')
+        this.$emit('update-mobile-number', this.mobile)
       }
     },
   },

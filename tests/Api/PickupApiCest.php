@@ -21,7 +21,7 @@ class PickupApiCest
     {
         $this->user = $I->createFoodsaver();
         $this->storeCoordinator = $I->createStoreCoordinator();
-        $this->region = $I->createRegion();
+        $this->region = $I->createRegion(fillMailbox: false);
         $this->store = $I->createStore($this->region['id']);
         $I->addStoreTeam($this->store['id'], $this->user['id']);
         $I->addStoreTeam($this->store['id'], $this->storeCoordinator['id'], true);

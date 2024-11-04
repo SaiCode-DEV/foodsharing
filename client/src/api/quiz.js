@@ -1,23 +1,25 @@
 import { get, patch, post, remove } from './base'
 
-export function getQuizStatus (quizId) {
-  return get(`/user/current/quizsessions/${quizId}/status`)
+const testParam = (isTest) => isTest ? '?isTest=1' : ''
+
+export function getQuizStatus (quizId, isTest = false) {
+  return get(`/user/current/quizsessions/${quizId}/status${testParam(isTest)}`)
 }
 
-export function getQuizResults (quizId) {
-  return get(`/user/current/quizsessions/${quizId}/results`)
+export function getQuizResults (quizId, isTest = false) {
+  return get(`/user/current/quizsessions/${quizId}/results${testParam(isTest)}`)
 }
 
-export function getQuestion (quizId) {
-  return get(`/user/current/quizsessions/${quizId}/question`)
+export function getQuestion (quizId, isTest = false) {
+  return get(`/user/current/quizsessions/${quizId}/question${testParam(isTest)}`)
 }
 
-export function startQuiz (quizId, isTimed = true) {
-  return post(`/user/current/quizsessions/${quizId}/start${isTimed ? '?isTimed' : ''}`)
+export function startQuiz (quizId, isTimed = true, isTest = false) {
+  return post(`/user/current/quizsessions/${quizId}/start?isTimed=${+isTimed}&isTest=${+isTest}`)
 }
 
-export function answerQuestion (quizId, selectedAnswers) {
-  return post(`/user/current/quizsessions/${quizId}/answer`, selectedAnswers)
+export function answerQuestion (quizId, selectedAnswers, isTest = false) {
+  return post(`/user/current/quizsessions/${quizId}/answer${testParam(isTest)}`, selectedAnswers)
 }
 
 export function confirmQuiz (quizId) {
@@ -49,7 +51,7 @@ export function editQuestion (quizId, questionId, data) {
 }
 
 export function editAnswer (quizId, questionId, answerId, data) {
-  return patch(`/quiz/${quizId}/questions/${questionId}/answer/${answerId}`, data)
+  return patch(`/quiz/${quizId}/questions/${questionId}/answers/${answerId}`, data)
 }
 
 export function deleteQuestion (quizId, questionId) {
@@ -57,11 +59,11 @@ export function deleteQuestion (quizId, questionId) {
 }
 
 export function deleteAnswer (quizId, questionId, answerId) {
-  return remove(`/quiz/${quizId}/questions/${questionId}/answer/${answerId}`)
+  return remove(`/quiz/${quizId}/questions/${questionId}/answers/${answerId}`)
 }
 
 export function addAnswer (quizId, questionId, data) {
-  return post(`/quiz/${quizId}/questions/${questionId}/answer`, data)
+  return post(`/quiz/${quizId}/questions/${questionId}/answers`, data)
 }
 
 export function addQuestion (quizId, data) {

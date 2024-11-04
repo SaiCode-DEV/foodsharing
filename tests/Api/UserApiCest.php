@@ -17,7 +17,7 @@ class UserApiCest
 {
     private $user;
     private $userOrga;
-    private $store;
+    private $region;
     private $faker;
 
     private const EMAIL = 'email';
@@ -33,12 +33,9 @@ class UserApiCest
         $I->addRegionMember($group['id'], $this->user['id']);
         $I->addRegionMember($group['id'], $this->userOrga['id']);
 
-        $region = $I->createRegion();
-        $I->addRegionMember($region['id'], $this->user['id']);
-        $I->addRegionMember($region['id'], $this->userOrga['id']);
-
-        $this->store = $I->createStore($region['id']);
-        $I->addStoreTeam($this->store['id'], $this->user['id']);
+        $this->region = $I->createRegion(fillMailbox: false);
+        $I->addRegionMember($this->region['id'], $this->user['id']);
+        $I->addRegionMember($this->region['id'], $this->userOrga['id']);
 
         $this->faker = Factory::create('de_DE');
     }
@@ -229,7 +226,6 @@ class UserApiCest
             'landline' => 'string|null',
             'mobile' => 'string|null',
             'birthday' => 'string|date',
-            'homepage' => 'string|null',
             'aboutMeIntern' => 'string|null',
             'aboutMePublic' => 'string|null',
             'gender' => 'integer',
@@ -298,7 +294,6 @@ class UserApiCest
             'landline' => 'string|null',
             'mobile' => 'string|null',
             'birthday' => 'string|date',
-            'homepage' => 'string|null',
             'aboutMeIntern' => 'string|null',
             'aboutMePublic' => 'string|null',
             'role' => 'integer',
@@ -410,64 +405,14 @@ class UserApiCest
         ]);
     }
 
-    public function canGiveBanana(ApiTester $I): void
-    {
-        $testUser = $I->createFoodsaver();
-        $I->login($this->user[self::EMAIL]);
-        $I->sendPUT(self::API_USER . '/' . $testUser['id'] . '/banana', ['message' => $this->createRandomText(100, 150)]);
-
-        // Check for Bell as well
-        $bellIdentifier = 'banana-' . $testUser[self::ID] . '-' . $this->user[self::ID];
-        $I->seeInDatabase('fs_bell', ['identifier' => $bellIdentifier]);
-        $bellId = $I->grabFromDatabase('fs_bell', 'id', ['identifier' => $bellIdentifier]);
-        $I->seeInDatabase('fs_foodsaver_has_bell', [
-            'foodsaver_id' => $testUser[self::ID],
-            'bell_id' => $bellId,
-        ]);
-
-        $I->seeResponseCodeIs(Http::OK);
-    }
-
-    public function canNotGiveBananaWithShortMessage(ApiTester $I): void
-    {
-        $testUser = $I->createFoodsaver();
-        $I->login($this->user[self::EMAIL]);
-        $I->sendPUT(self::API_USER . '/' . $testUser['id'] . '/banana', ['message' => $this->faker->text(50)]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
-    }
-
-    public function canNotGiveBananaTwice(ApiTester $I): void
-    {
-        $testUser = $I->createFoodsaver();
-        $I->login($this->user[self::EMAIL]);
-        $I->sendPUT(self::API_USER . '/' . $testUser['id'] . '/banana', ['message' => $this->createRandomText(100, 150)]);
-        $I->seeResponseCodeIs(Http::OK);
-        $I->sendPUT(self::API_USER . '/' . $testUser['id'] . '/banana', ['message' => $this->createRandomText(100, 150)]);
-        $I->seeResponseCodeIs(Http::FORBIDDEN);
-    }
-
-    public function canNotGiveBananaToMyself(ApiTester $I): void
-    {
-        $I->login($this->user[self::EMAIL]);
-        $I->sendPUT(self::API_USER . '/' . $this->user['id'] . '/banana', ['message' => $this->createRandomText(100, 150)]);
-        $I->seeResponseCodeIs(Http::FORBIDDEN);
-    }
-
-    private function createRandomText(int $minLength, int $maxLength): string
-    {
-        $text = $this->faker->text($maxLength);
-        while (strlen((string)$text) < $minLength) {
-            $text .= ' ' . $this->faker->text(($maxLength + $minLength) / 2 - strlen((string)$text));
-        }
-
-        return $text;
-    }
-
     public function canDeleteUser(ApiTester $I): void
     {
+        $store = $I->createStore($this->region['id']);
+        $I->addStoreTeam($store['id'], $this->user['id']);
+
         // add user to a pickup slots
-        $I->addPicker($this->store['id'], $this->user['id']);
-        $I->addPicker($this->store['id'], $this->user['id'], ['confirmed' => 0]);
+        $I->addPicker($store['id'], $this->user['id']);
+        $I->addPicker($store['id'], $this->user['id'], ['confirmed' => 0]);
 
         // delete user
         $I->login($this->user[self::EMAIL]);
@@ -476,13 +421,26 @@ class UserApiCest
 
         // check that the user is not in the team anymore and that no future slots are assigned to the user
         $I->dontSeeInDatabase('fs_betrieb_team', [
-            'betrieb_id' => $this->store['id'],
+            'betrieb_id' => $store['id'],
             'foodsaver_id' => $this->user['id']
         ]);
         $I->dontSeeInDatabase('fs_abholer', [
             'foodsaver_id' => $this->user['id'],
-            'betrieb_id' => $this->store['id'],
+            'betrieb_id' => $store['id'],
             'date >' => Carbon::now()->format('Y-m-d H:i:s')
+        ]);
+    }
+
+    public function canFetchUserNamesWhenLoggedIn(ApiTester $I): void
+    {
+        $I->sendGet(self::API_USER . '/names/' . $this->userOrga['id'] . '-' . $this->user['id']);
+        $I->seeResponseCodeIs(Http::UNAUTHORIZED);
+        $I->login($this->user[self::EMAIL]);
+        $I->sendGet(self::API_USER . '/names/' . $this->userOrga['id'] . '-' . $this->user['id']);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson([
+            ['id' => $this->userOrga['id'], 'name' => $this->userOrga['name']],
+            ['id' => $this->user['id'], 'name' => $this->user['name']]
         ]);
     }
 }

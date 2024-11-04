@@ -4,94 +4,9 @@ namespace Foodsharing\Utility;
 
 use Exception;
 use Flourish\fImage;
-use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
-use UnexpectedValueException;
 
 final class ImageHelper
 {
-    private array $extensions = ['image/gif' => 'gif', 'image/jpeg' => 'jpg', 'image/png' => 'png'];
-
-    /**
-     * Guesses a filename extension for a file.
-     *
-     * @param string $file the file
-     *
-     * @return string the guessed extension
-     *
-     * @throws UnexpectedValueException if the file does not exist or has an
-     *                                  unknown image type
-     */
-    public function guessImageFileExtension(string $file): string
-    {
-        if (empty($file) || !file_exists($file)) {
-            throw new UnexpectedValueException('File not found');
-        }
-
-        $fileInfo = finfo_open();
-        $mime = finfo_file($fileInfo, $file, FILEINFO_MIME_TYPE);
-        finfo_close($fileInfo);
-
-        if ($mime !== null && isset($this->extensions[$mime])) {
-            return $this->extensions[$mime];
-        }
-
-        throw new UnexpectedValueException('Unknown image type');
-    }
-
-    /**
-     * Creates a copy of the file in the destination directory with a unique
-     * name and creates rescaled versions of it.
-     *
-     * @param string $file the original file
-     * @param string $dstDir destination directory
-     * @param array $sizes key-value-pairs of size (int) and prefix (string)
-     *
-     * @return string the base name for the created files or null if the
-     *                     original file does not exist or rescaling failed
-     *
-     * @throws UnexpectedValueException if the file does not exist or has an
-     *                                  unknown image type
-     * @throws Exception if an error occurs while resizing the image
-     */
-    public function createResizedPictures(string $file, string $dstDir, array $sizes): string
-    {
-        $extension = $this->guessImageFileExtension($file);
-        $name = uniqid('', true) . '.' . strtolower($extension);
-
-        try {
-            foreach ($sizes as $s => $p) {
-                $dst = $dstDir . $p . $name;
-                copy($file, $dst);
-                $img = new fImage($dst);
-                $img->resize($s, $s);
-                $img->saveChanges();
-            }
-        } catch (Exception $e) {
-            // in case of an error remove all created files
-            $this->removeResizedPictures($dstDir, $name, $sizes);
-            throw $e;
-        }
-
-        return $name;
-    }
-
-    /**
-     * Removes all rescaled versions of the picture with the given name
-     * and prefixes in the directory.
-     *
-     * @param string $dir the directory
-     * @param string $name the base name
-     * @param array $sizes key-value-pairs of size (int) and prefix (string)
-     */
-    public function removeResizedPictures(string $dir, string $name, array $sizes): void
-    {
-        foreach (array_values($sizes) as $p) {
-            if (file_exists($dir . $p . $name)) {
-                unlink($dir . $p . $name);
-            }
-        }
-    }
-
     public function img(?string $file, $size = 'mini', $format = 'q', $altimg = false)
     {
         // prevent path traversal
@@ -158,30 +73,5 @@ final class ImageHelper
         }
 
         return false;
-    }
-
-    public function avatar($foodsaver, $size = 'mini', $altimg = false): string
-    {
-        /*
-         * temporary for quiz
-         */
-        $bg = '';
-        if (isset($foodsaver['quiz_rolle'])) {
-            switch ($foodsaver['quiz_rolle']) {
-                case Role::FOODSAVER->value:
-                    $bg = 'box-sizing:border-box;border:3px solid var(--fs-color-role-foodsaver);';
-                    break;
-                case Role::STORE_MANAGER->value:
-                    $bg = 'box-sizing:border-box;border:3px solid var(--fs-color-role-storemanager);';
-                    break;
-                case Role::AMBASSADOR->value:
-                    $bg = 'box-sizing:border-box;border:3px solid var(--fs-color-role-ambassador);';
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        return '<span style="' . $bg . 'background-image:url(' . $this->img($foodsaver['photo'], $size, 'q', $altimg) . ');" class="avatar size-' . $size . ' sleepmode-' . $foodsaver['sleep_status'] . '"><i>' . $foodsaver['name'] . '</i></span>';
     }
 }

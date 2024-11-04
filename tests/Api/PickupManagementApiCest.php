@@ -11,20 +11,19 @@ use Tests\Support\ApiTester;
 
 class PickupManagementApiCest
 {
-    private $user;
+    private $user1;
+    private $coordinator;
     private $store;
     private $region;
 
     public function _before(ApiTester $I): void
     {
         $this->user1 = $I->createFoodsaver();
-        $this->user2 = $I->createFoodsaver();
         $this->coordinator = $I->createStoreCoordinator();
-        $this->region = $I->createRegion();
+        $this->region = $I->createRegion(fillMailbox: false);
         $this->store = $I->createStore($this->region['id']);
         $I->addStoreTeam($this->store['id'], $this->coordinator['id'], true);
         $I->addStoreTeam($this->store['id'], $this->user1['id'], false);
-        $I->addStoreTeam($this->store['id'], $this->user2['id'], false);
     }
 
     public function createManualPickUp(ApiTester $I): void
@@ -140,12 +139,15 @@ class PickupManagementApiCest
 
     public function modifyRegularPickUpAlreadyOccupiedSlots(ApiTester $I): void
     {
+        $user2 = $I->createFoodsaver();
+        $I->addStoreTeam($this->store['id'], $user2['id'], false);
+
         $I->login($this->coordinator['email']);
         $pickupBaseDate = Carbon::now()->sub('2 days');
         $pickupBaseDate->hours(14)->minutes(45)->seconds(0);
         $I->addPickup($this->store['id'], ['time' => $pickupBaseDate, 'fetchercount' => 2]);
         $I->addPicker($this->store['id'], $this->user1['id'], ['date' => $pickupBaseDate->toIso8601String()]);
-        $I->addPicker($this->store['id'], $this->user2['id'], ['date' => $pickupBaseDate->toIso8601String()]);
+        $I->addPicker($this->store['id'], $user2['id'], ['date' => $pickupBaseDate->toIso8601String()]);
         $I->sendPatch('api/stores/' . $this->store['id'] . '/pickups/' . $pickupBaseDate->toIso8601String(), ['totalSlots' => 1]);
         $I->seeResponseIsJson();
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);

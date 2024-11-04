@@ -1,0 +1,89 @@
+$primary: #d1c0a8;
+$secondary: #4b8f1c;
+$gray: #aaaaaa;
+$warning: #f5c30d;
+$success: $secondary;
+$danger: #ff5533;
+$info: #00a1ff;
+
+@import "~bootstrap/scss/functions";
+// @import "~bootstrap/scss/variables";
+
+@function tint($color, $percentage) {
+    @return mix(#FFF, $color, $percentage);
+}
+
+@function shade($color, $percentage) {
+    @return mix(#000, $color, $percentage);
+}
+
+$colorlist: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "gray": $gray,
+  "success": $success,
+  "danger": $danger,
+  "warning": $warning,
+  "info": $info,
+);
+
+:root {
+    color-scheme: light dark;
+}
+
+.dark-mode {
+    @each $name, $color in $colorlist {
+        $step: 110%;
+        @for $i from 1 through 9 {
+            $index: $i * 100;
+            @if $i < 5 {
+                $step: $step - 15%;
+                --fs-color-#{$name}-#{$index}: #{shade($color, $step)};
+            }
+
+            @if $i == 5 {
+                $step: 0%;
+                --fs-color-#{$name}-#{$index}: #{$color};
+            }
+
+            @if $i > 5 {
+                $step: $step + 20%;
+                --fs-color-#{$name}-#{$index}: #{tint($color, $step)};
+            }
+        }
+    }
+
+    @each $name, $color in $colorlist {
+        $step: 100;
+        @for $i from 1 through 9 {
+            $index: $i * 10;
+            $alpha: -($step - $index) * 1%;
+            --fs-color-#{$name}-alpha-#{$index}: #{scale-color($color, $alpha: $alpha)};
+        }
+    }
+
+    --fs-color-background: #{scale-color(shade($secondary, 98%), $saturation: -50%)};
+    --fs-color-elevated: #{scale-color(shade($secondary, 85%), $saturation: -80%)};
+    --fs-color-white: #0e0e0e;
+    --fs-color-black: #fefefe;
+    --fs-color-light: var(--fs-color-gray-100);
+    --fs-color-dark: var(--fs-color-gray-600);
+    --fs-color-text: var(--fs-color-gray-500);
+
+    --fs-shadow: 0px 1.2px 5.3px rgba(0, 0, 0, 0.2),
+                 0px 4px 17.9px rgba(0, 0, 0, 0.3),
+                 0px 18px 80px rgba(0, 0, 0, 0.4);
+
+    //chat only darkmode overrites:
+    --chat-content-bg-color: var(--fs-color-primary-100) !important;
+
+    .call-to-action-image {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/img/startpage/mach-mit.png) !important;
+        background-size: cover !important;
+    }
+
+    .header-desktop {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(/img/startpage/header.png) !important;
+        background-size: cover !important;
+    }
+}

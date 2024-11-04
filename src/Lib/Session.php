@@ -6,11 +6,8 @@ use Exception;
 use Flourish\fSession;
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
-use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
-use Foodsharing\Modules\Login\LoginGateway;
-use Foodsharing\Modules\Region\RegionGateway;
 
 use function array_key_exists;
 
@@ -18,7 +15,7 @@ class Session
 {
     // update this whenever adding new fields to the session!!!
     // this should be a unix timestamp, together with a human readable date in a comment.
-    private const LAST_SESSION_SCHEMA_CHANGE = 1_706_911_008; // 2024-02-02 22:57 UTC
+    private const LAST_SESSION_SCHEMA_CHANGE = 1_716_804_439; // 2024-05-28 19:07 UTC
 
     private const SESSION_TIMESTAMP_FIELD_NAME = 'last_updated_ts';
 
@@ -29,8 +26,6 @@ class Session
     public function __construct(
         private readonly Mem $mem,
         private readonly FoodsaverGateway $foodsaverGateway,
-        private readonly RegionGateway $regionGateway,
-        private readonly LoginGateway $loginGateway,
         private bool $initialized = false
     ) {
     }
@@ -100,6 +95,14 @@ class Session
                 $user = $this->get('user');
                 $user['location'] = $loc;
                 $this->set('user', $user);
+            }
+        }
+
+        // Refresh content of session if it is older then 1 day
+        if ($this->id() !== null && $this->has(self::SESSION_TIMESTAMP_FIELD_NAME)) {
+            $last_update = $this->get(self::SESSION_TIMESTAMP_FIELD_NAME);
+            if (strtotime($last_update) > strtotime('+1 day', time())) {
+                $this->refreshFromDatabase();
             }
         }
     }
@@ -215,72 +218,6 @@ class Session
         return fSession::get($key, false);
     }
 
-    public function getRegions(): array
-    {
-        return $_SESSION['client']['bezirke'] ?? [];
-    }
-
-    /**
-     * @deprecated helper that makes ancient code easier to read (in theory, DashboardControl could use this)
-     */
-    private function getManagedRegions(): array
-    {
-        return $_SESSION['client']['botschafter'] ?? [];
-    }
-
-    public function listRegionIDs(): array
-    {
-        $regions = $this->getRegions();
-        $out = [];
-        foreach ($regions as $region) {
-            $out[] = $region['id'];
-        }
-
-        return $out;
-    }
-
-    public function getMyAmbassadorRegionIds(bool $includeWorkingGroups = true): array
-    {
-        $managedRegions = $this->getManagedRegions();
-
-        if (!$includeWorkingGroups) {
-            $managedRegions = array_filter($managedRegions, fn ($region) => !UnitType::isGroup($region['type']));
-        }
-
-        $out = [];
-        foreach ($managedRegions as $region) {
-            $out[] = $region['bezirk_id'];
-        }
-
-        return $out;
-    }
-
-    public function isAdminFor(?int $regionId): bool
-    {
-        if ($this->isAmbassador()) {
-            $managedRegions = $this->getManagedRegions();
-            foreach ($managedRegions as $region) {
-                if ($region['bezirk_id'] == $regionId) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public function getCurrentRegionId()
-    {
-        if (isset($_SESSION['client']['bezirk_id'])) {
-            return $_SESSION['client']['bezirk_id'];
-        }
-    }
-
-    public function isAmbassador(): bool
-    {
-        return isset($_SESSION['client']['botschafter']);
-    }
-
     public function login($fs_id = null, $rememberMe = false)
     {
         if (!$this->initialized) {
@@ -297,9 +234,6 @@ class Session
     {
         $this->checkInitialized();
 
-        // used by Session::initIfCookieExists to determine if it should call this method to update session data
-        $this->set(self::SESSION_TIMESTAMP_FIELD_NAME, time());
-
         if ($fs_id === null) {
             $fs_id = $this->id();
         }
@@ -309,26 +243,27 @@ class Session
             throw new Exception('Foodsaver details not found in database.');
         }
 
-        $this->setId($fs['id']);
-        $this->setAuthLevel(Role::tryFrom($fs['rolle']));
+        // Clean up session so that all content from other models are removed
+        $bType = $_SESSION['fSession::type'];
+        $bExpired = $_SESSION['fSession::expires'];
+        $bCsrf = $_SESSION['csrf'];
+        session_unset();
+        $_SESSION['fSession::type'] = $bType;
+        $_SESSION['fSession::expires'] = $bExpired;
+        $_SESSION['csrf'] = $bCsrf;
 
-        if ((int)$fs['bezirk_id'] > 0 && $this->role()->isAtLeast(Role::FOODSAVER)) {
-            $this->regionGateway->addMember($fs_id, $fs['bezirk_id']);
-        }
-
-        if ($master = $this->regionGateway->getMasterId($fs['bezirk_id'])) {
-            $this->regionGateway->addMember($fs_id, $master);
-        }
+        // used by Session::initIfCookieExists to determine if it should call this method to update session data
+        $this->set(self::SESSION_TIMESTAMP_FIELD_NAME, time());
 
         $this->setId($fs['id']);
         $this->setAuthLevel(Role::tryFrom($fs['rolle']));
 
         $this->set('user', [
-            'location' => GeoLocation::createFromArray($fs, false),
             'name' => $fs['name'],
             'nachname' => $fs['nachname'],
+            'role' => $fs['rolle'],
+            'location' => GeoLocation::createFromArray($fs, false),
             'photo' => $fs['photo'],
-            'email' => $fs['email'],
             'gender' => $fs['geschlecht'],
             'privacy_policy_accepted_date' => $fs['privacy_policy_accepted_date'],
             'privacy_notice_accepted_date' => $fs['privacy_notice_accepted_date'],
@@ -347,38 +282,6 @@ class Session
             'verified' => (int)$fs['verified'],
             'last_activity' => $fs['last_activity'],
         ];
-        if ($this->role()->isAtLeast(Role::FOODSAVER)) {
-            if ($r = $this->regionGateway->listRegionsForBotschafter($fs['id'])
-            ) {
-                $_SESSION['client']['botschafter'] = $r;
-                foreach ($r as $rr) {
-                    $this->regionGateway->addOrUpdateMember($fs['id'], $rr['id']);
-                }
-            }
-
-            $_SESSION['client']['bezirke'] = $this->regionGateway->listForFoodsaver($fs['id']);
-        }
-    }
-
-    public function mayBezirk(int $regionId): bool
-    {
-        // Users that are not logged in don't have a role we could compare to
-        if ($this->role() === null) {
-            return false;
-        }
-
-        if ($this->role()->isAtLeast(Role::ORGA)) {
-            return true;
-        }
-        // use database check if the session includes the region to unsure previleges are lost after removal from a region
-        $isMember = isset($_SESSION['client']['bezirke'][$regionId]);
-        if ($isMember && !$this->regionGateway->hasMember($this->id(), $regionId)) {
-            unset($_SESSION['client']['bezirke'][$regionId]);
-
-            return false;
-        }
-
-        return $isMember;
     }
 
     public function isVerified(): bool
@@ -389,33 +292,6 @@ class Session
 
         if (isset($_SESSION['client']['verified']) && $_SESSION['client']['verified'] == 1) {
             return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Checks if the current user is an ambassador for one of the regions in the list of region IDs.
-     *
-     * @param array $regionIds list of region IDs
-     * @param bool $include_groups if working group should be included in the check
-     * @param bool $include_parent_regions if the parent regions should be included in the check
-     */
-    public function isAmbassadorForRegion($regionIds, $include_groups = true, $include_parent_regions = false): bool
-    {
-        if (is_array($regionIds) && count($regionIds) && $this->isAmbassador()) {
-            if ($include_parent_regions) {
-                $regionIds = $this->regionGateway->listRegionsIncludingParents($regionIds);
-            }
-            $managedRegions = $this->getManagedRegions();
-            foreach ($managedRegions as $region) {
-                foreach ($regionIds as $regId) {
-                    $consider = $include_groups || UnitType::isRegion($region['type']);
-                    if ($consider && $region['bezirk_id'] == $regId) {
-                        return true;
-                    }
-                }
-            }
         }
 
         return false;
@@ -476,21 +352,5 @@ class Session
         }
 
         return $this->isValidCsrfToken($_SERVER['HTTP_X_CSRF_TOKEN']);
-    }
-
-    public function updateLastActivity()
-    {
-        $session_last_activity = $_SESSION['client']['last_activity'];
-        if ($session_last_activity === '0000-00-00 00:00:00') {
-            $session_last_activity = date('Y-m-d');
-        }
-
-        $last_activity = date('Y-m-d', strtotime((string)$session_last_activity));
-        $today = date('Y-m-d');
-
-        if ($this->isPersistent() && $today != $last_activity) {
-            $this->loginGateway->updateLastActivityInDatabase($this->id());
-            $this->refreshFromDatabase();
-        }
     }
 }

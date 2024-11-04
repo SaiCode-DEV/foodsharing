@@ -7,7 +7,7 @@ use Foodsharing\Modules\Bell\DTO\Bell;
 class BellTransactions
 {
     public function __construct(
-        private readonly BellGateway $bellGateway
+        private readonly BellGateway $bellGateway,
     ) {
     }
 

@@ -503,7 +503,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
      *
      * @throws \Exception
      */
-    public function getNextPickups(int $fsId, int $limit = null): array
+    public function getNextPickups(int $fsId, int $limit = null, int $runningPickupsBufferInMinutes = 0): array
     {
         $stm = 'SELECT
 				s.id AS store_id,
@@ -526,11 +526,14 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
 				a.betrieb_id = s.id
 			LEFT OUTER JOIN `fs_fetchdate` d ON
 				a.betrieb_id = d.betrieb_id AND a.`date` = d.time
-			WHERE a.foodsaver_id = :fs_id AND a.`date` > NOW()
+			WHERE a.foodsaver_id = :fs_id AND a.`date` > DATE_SUB(NOW(), INTERVAL :buffer MINUTE)
 			GROUP BY a.id
 			ORDER BY a.`date`';
 
-        $params = [':fs_id' => $fsId];
+        $params = [
+            ':fs_id' => $fsId,
+            ':buffer' => $runningPickupsBufferInMinutes
+        ];
 
         if (!is_null($limit)) {
             $stm .= ' LIMIT :limit';

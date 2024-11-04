@@ -2026,7 +2026,7 @@ bell:
   no_bells: ''
   workgroup_request_decline: ''
   fs_sleepmode_title: ''
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   store_cr_times_title: '{name}'
   passgen_failed: ''
   blog_new_check_title: ''
@@ -2041,6 +2041,7 @@ bell:
   forum_new_thread_title: ''
   forum_announcement_title: ''
   forum_mention: ''
+  workinggroup_new_request_title: '{name}'
 basket:
   howto: ''
   is:
@@ -2651,10 +2652,6 @@ storestatus:
 push_notifications:
   test_notification_body: ''
   test_notification_title: ''
-tablesorter:
-  page: ''
-  entriespp: ''
-  from: ''
 sidenav:
   countryspecific: ''
   yourgroups: ''

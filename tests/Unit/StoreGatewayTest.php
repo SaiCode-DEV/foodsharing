@@ -57,7 +57,7 @@ class StoreGatewayTest extends Unit
     final public function _before(): void
     {
         $this->gateway = $this->tester->get(StoreGateway::class);
-        $this->region = $this->tester->createRegion();
+        $this->region = $this->tester->createRegion(fillMailbox: false);
         $this->store = $this->tester->createStore($this->region['id']);
         $this->foodsaver = $this->tester->createFoodsaver();
     }
@@ -80,14 +80,6 @@ class StoreGatewayTest extends Unit
 
         $this->assertIsInt($storeId);
         $this->assertTrue($storeId !== 0);
-    }
-
-    public function testExistCategory(): void
-    {
-        $this->tester->haveInDatabase('fs_betrieb_kategorie', ['id' => 2, 'name' => 'Category']);
-
-        $this->assertTrue($this->gateway->existStoreCategory(2));
-        $this->assertFalse($this->gateway->existStoreCategory(3));
     }
 
     public function testExistChain(): void
@@ -456,7 +448,7 @@ class StoreGatewayTest extends Unit
         $result = $this->gateway->listAllStoreTeamMembershipsForFoodsaver(
             $this->foodsaver['id'], [
                 CooperationStatus::UNCLEAR, CooperationStatus::NO_CONTACT, CooperationStatus::IN_NEGOTIATION,
-                CooperationStatus::COOPERATION_STARTING, CooperationStatus::COOPERATION_ESTABLISHED,
+                CooperationStatus::COOPERATION_ESTABLISHED,
                 CooperationStatus::PERMANENTLY_CLOSED,
             ]
         );

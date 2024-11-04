@@ -72,25 +72,28 @@
         </button>
       </div>
     </div>
+    <b-alert :show="!shownPosts.length && !isLoading" variant="info">
+      <i class="fas fa-info-circle" />
+      {{ $i18n('forum.thread.all_hidden') }}
+    </b-alert>
     <div id="posts-wrapper">
-      <div v-for="post in posts" :key="post.id">
+      <div v-for="post in shownPosts" :key="post.id">
         <ThreadPost
-          :id="post.id"
+          :post="post"
           :user-id="userId"
-          :author="post.author"
-          :body="post.body"
           :deep-link="getPostLink(post.id)"
-          :reactions="post.reactions"
-          :may-delete="post.mayDelete"
-          :may-edit="false"
+          :may-hide="mayHidePosts"
+          :may-moderate="mayModerate"
           :is-loading="loadingPosts.indexOf(post.id) != -1"
           :created-at="new Date(post.createdAt)"
           :may-reply="isOpen"
           :is-linked="linkedPost == post.id"
           @delete="deletePost(post)"
+          @hide="hidePost(post.id, $event)"
           @reaction-add="reactionAdd(post, arguments[0])"
           @reaction-remove="reactionRemove(post, arguments[0])"
           @reply="reply(post)"
+          @restore="restorePost(post.id)"
         />
       </div>
     </div>
@@ -123,6 +126,7 @@
       v-if="isOpen || mayModerate"
       ref="form"
       :is-open="isOpen"
+      :region-id="regionId"
       @submit="createPost"
     />
 
@@ -196,7 +200,7 @@ import * as api from '@/api/forum'
 import { GET } from '@/browser'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import { pulseError } from '@/script'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import JumpScrollButton from './JumpScrollButton'
 import SubscribeButton from './SubscribeButton.vue'
 import ThreadForm from './ThreadForm'
@@ -206,6 +210,8 @@ import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
 import Info from '@/components/Help/Info.vue'
 
+const userStore = useUserStore()
+
 export default {
   components: { ThreadForm, ThreadPost, OverflowMenu, JumpScrollButton, SubscribeButton, VueSlider, Info },
   props: {
@@ -213,6 +219,11 @@ export default {
       type: Number,
       default: null,
     },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     return {
@@ -226,6 +237,7 @@ export default {
       isActive: true,
       mayModerate: false,
       mayDelete: false,
+      mayHidePosts: false,
       isFollowingEmail: false,
       isFollowingBell: false,
       isOnlyPostsVisible: false,
@@ -236,16 +248,17 @@ export default {
       newTitle: '',
       newPriority: 0,
       linkedPost: null,
+      showHiddenPosts: false,
 
       status: ThreadStatus.THREAD_OPEN,
     }
   },
   computed: {
     userId () {
-      return DataUser.getters.getUserId()
+      return userStore.getUserId
     },
     userFirstName () {
-      return DataUser.getters.getUserFirstName()
+      return userStore.getUserFirstName
     },
     isOpen () {
       return this.status === ThreadStatus.THREAD_OPEN
@@ -259,10 +272,17 @@ export default {
         { hide: !this.mayModerate, icon: `lock${this.isOpen ? '' : '-open'}`, textKey: `thread.options.${this.isOpen ? '' : 'un'}lock`, callback: this.updateClosed },
         { hide: !this.mayModerate || this.stickiness < 0, icon: 'thumbtack', textKey: `thread.options.${this.stickiness ? 'un' : ''}pin`, callback: () => this.updateStickiness(+(!this.stickiness)) },
         { hide: !this.mayModerate, icon: 'sort-amount-down', textKey: 'thread.options.priority', callback: this.updatePriority },
+        { hide: !this.hasHiddenPosts, icon: this.showHiddenPosts ? 'eye-slash' : 'eye', textKey: `thread.options.${this.showHiddenPosts ? 'hide' : 'show'}Hidden`, callback: () => { this.showHiddenPosts ^= true } },
       ]
+    },
+    hasHiddenPosts () {
+      return this.posts.some(post => post.hidden)
     },
     newPriorityText () {
       return this.$i18n('thread.priorityModal.' + ['lower', 'normal', 'higher'][Math.sign(this.newPriority) + 1])
+    },
+    shownPosts () {
+      return this.showHiddenPosts ? this.posts : this.posts.filter(post => !post.hidden)
     },
   },
   async created () {
@@ -314,10 +334,12 @@ export default {
           isActive: res.isActive,
           mayModerate: res.mayModerate,
           mayDelete: res.mayDelete,
+          mayHidePosts: res.mayHidePosts,
           isFollowingEmail: res.isFollowingEmail,
           isFollowingBell: res.isFollowingBell,
           status: res.status,
           creator: res.creator,
+          showHiddenPosts: res.mayModerate,
         })
         this.isLoading = false
       } catch (err) {
@@ -350,7 +372,15 @@ export default {
         this.loadingPosts.splice(this.loadingPosts.indexOf(post.id), 1)
       }
     },
-
+    async hidePost (postId, reason) {
+      try {
+        await api.hidePost(postId, reason)
+        const post = this.posts.find(post => post.id === postId)
+        if (post) post.hidden = reason
+      } catch (err) {
+        pulseError(this.$i18n('error_unexpected'))
+      }
+    },
     async reactionAdd (post, key, onlyLocally = false) {
       if (post.reactions[key]) {
         // reaction alrready in list, increase count by 1
@@ -396,8 +426,8 @@ export default {
         body: body,
         reactions: {},
         author: {
-          name: `${this.userFirstName} ${DataUser.getters.getUserLastName()}`,
-          avatar: DataUser.getters.getAvatar(),
+          name: `${this.userFirstName} ${userStore.getUserLastName}`,
+          avatar: userStore.getAvatar,
         },
       }
       this.loadingPosts.push(-1)
@@ -465,6 +495,15 @@ export default {
     updatePriority () {
       this.newPriority = this.stickiness
       this.$refs.priorityEditModal.show()
+    },
+    async restorePost (postId) {
+      try {
+        await api.restorePost(postId)
+        const post = this.posts.find(post => post.id === postId)
+        if (post) post.hidden = false
+      } catch (err) {
+        pulseError(this.$i18n('error_unexpected'))
+      }
     },
   },
 }

@@ -3,7 +3,7 @@
     <Container
       :title="title"
       :toggle-visiblity="list.length > defaultAmount"
-      tag="store_team"
+      :tag="`store-team-${storeId}`"
       class="store-team"
       @show-full-list="showFullList"
       @reduce-list="reduceList"
@@ -78,7 +78,7 @@
     <StoreApplications
       :store-id="storeId"
       :store-title="storeTitle"
-      :store-requests="applications.storeRequests"
+      :store-requests="applications"
     />
   </div>
 </template>
@@ -90,7 +90,7 @@ import {
   removeStoreMember,
 } from '@/api/stores'
 import phoneNumber from '@/helper/phone-numbers'
-import { chat, pulseSuccess, pulseError } from '@/script'
+import { chat, pulseError } from '@/script'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import StoreTeamAvatar from '@/components/Stores/StoreTeam/StoreTeamAvatar.vue'
 import StoreData from '@/stores/stores'
@@ -104,10 +104,12 @@ import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import StoreTeamManagementPanel from './StoreTeamManagementPanel.vue'
 import StoreTeamFilterPanel from './StoreTeamFilterPanel.vue'
 import StoreApplications from '@/components/Modals/Store/StoreApplications.vue'
+import PickupsData from '@/stores/pickups'
+import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin'
 
 export default {
   components: { StoreTeamAvatar, Container, PhoneButton, Time, OverflowMenu, StoreTeamManagementPanel, StoreTeamFilterPanel, StoreApplications },
-  mixins: [MediaQueryMixin, ListToggleMixin, ConfirmationDialogue],
+  mixins: [MediaQueryMixin, ListToggleMixin, ConfirmationDialogue, CopyToClipboardMixin],
   props: {
     fsId: { type: Number, required: true },
     mayEditStore: { type: Boolean, default: false },
@@ -166,12 +168,6 @@ export default {
       newList.sort(this.sortingFunction.func)
       this.setList(newList)
     },
-    async copyIntoClipboard (text) {
-      if (navigator.clipboard) {
-        await navigator.clipboard.writeText(text)
-        pulseSuccess(this.$i18n('pickup.copiedNumber', { number: text }))
-      }
-    },
     mayRemoveFromStore (user) {
       if (user.isManager) return false
       if (user.id === this.fsId) return true
@@ -229,7 +225,7 @@ export default {
       if (a.isManager !== b.isManager) return b.isManager - a.isManager
       if (a.isJumper !== b.isJumper) return a.isJumper - b.isJumper
       if (a.isVerified !== b.isVerified) return b.isVerified - a.isVerified
-      if (a.sleepStatus !== b.sleepStatus) return a.sleepStatus - b.sleepStatus
+      if (a.isSleeping !== b.isSleeping) return a.isSleeping - b.isSleeping
       if (a.fetchCount !== b.fetchCount) return b.fetchCount - a.fetchCount
       if (a.lastPickup && b.lastPickup) return b.lastPickup - a.lastPickup
       if (a.joinDate && b.joinDate) return b.joinDate - a.joinDate
@@ -243,15 +239,16 @@ export default {
         isJumper: fs.team_active === 2, // MembershipStatus::JUMPER
         isManager: !!fs.verantwortlich,
         isVerified: fs.verified === 1,
-        mayManage: fs.quiz_rolle >= 2, // Role::STORE_MANAGER
+        mayManage: fs.rolle >= 2, // Role::STORE_MANAGER
         avatar: fs.photo,
-        sleepStatus: fs.sleep_status,
+        isSleeping: fs.is_sleeping,
         name: fs.name,
         phoneNumber: validPhoneNumber,
         phoneNumberIsValid: !!validPhoneNumber,
         joinDate: fs.add_date ? new Date(fs.add_date * 1000) : null, // unix time
         lastPickup: fs.last_fetch ? new Date(fs.last_fetch * 1000) : null, // unix time
         fetchCount: fs.stat_fetchcount,
+        hasHygieneCertificateUntil: fs.hygiene_certificate_until ? new Date(fs.hygiene_certificate_until) : null,
       }
     },
     async removeFromTeam (user) {
@@ -260,6 +257,12 @@ export default {
         okTitle: this.$i18n('button.yes_i_am_sure'),
       }
       if (!await this.confirmationDialogue('store.sm.reallyRemove', dialogueOptions)) return
+
+      const pickups = PickupsData.getters.getPickups()
+      const occupiedSlots = pickups.filter(pickup => pickup.occupiedSlots.find(slot => slot.profile.id === user.id))
+      dialogueOptions.params.occupiedSlots = occupiedSlots.length
+      if (occupiedSlots.length && !await this.confirmationDialogue('store.sm.userHasPickupsWarning', dialogueOptions)) return
+
       try {
         await removeStoreMember(this.storeId, user.id)
         await StoreData.mutations.loadStoreMember(this.storeId)
@@ -271,7 +274,7 @@ export default {
       return [
         { icon: 'comment', textKey: 'chat.open_chat', callback: () => chat(user.id) },
         { icon: 'phone', textKey: 'pickup.call', href: this.$url('phone_number', user.phoneNumber, true) },
-        { icon: 'clone', textKey: 'pickup.copyNumber', callback: () => this.copyIntoClipboard(user.phoneNumber) },
+        { icon: 'clone', textKey: 'pickup.copyNumber', callback: () => this.copyToClipboard(user.phoneNumber) },
         { icon: 'user', textKey: 'profile.go', href: this.$url('profile', user.id) },
         { hide: !this.mayEditStore || user.isActive, icon: 'clipboard-check', textKey: 'store.sm.makeRegularTeamMember', callback: () => this.toggleStandbyState(user) },
         { hide: !this.mayEditStore || !user.isActive || user.isManager, icon: 'running', textKey: 'store.sm.makeJumper', callback: () => this.toggleStandbyState(user) },
@@ -297,7 +300,7 @@ export default {
 
 <style lang="scss" scoped>
 .manager {
-  background-color: var(--fs-color-warning-200);
+  background-color: var(--fs-color-warning-200) !important;
 }
 .manager + div, .manager.store-member {
   border-top-color: var(--fs-color-warning-500);

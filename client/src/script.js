@@ -3,8 +3,6 @@
 import $ from 'jquery'
 
 import 'jquery-slimscroll'
-import 'jquery-fancybox'
-import 'jquery-ui-addons'
 
 import { GET, goTo, isMob } from '@/browser'
 import conversationStore from '@/stores/conversations'
@@ -26,81 +24,9 @@ export function collapse_wrapper (id) {
   }
 }
 
-function initSleepmode () {
-  $('.sleepmode-1, .sleepmode-2').on('mouseover', function () {
-    const tooltip = i18n('settings.sleep.tooltip', { name: $(this).text() })
-    $(this).append(`<span class="corner-all bubble bubble-right ui-shadow">${tooltip}</span>`)
-  })
-  $('.sleepmode-1, .sleepmode-2').on('mouseout', function () {
-    $(this).children('.bubble').remove()
-  })
-}
-
 export function initialize () {
   $(function () {
-    initSleepmode()
-
-    $('textarea.comment').autosize()
     $('#main').css('display', 'block')
-
-    $('.truncate-content').each(function () {
-      const $this = $(this)
-      let max_height
-
-      if (!isMob() && $this.hasClass('collapse-mobile')) {
-        return // skip + continue
-      }
-
-      const cheight = $this.attr('class').split('truncate-height-')
-      if (cheight.length > 1) {
-        max_height = parseInt(cheight[1])
-      } else {
-        max_height = 100
-      }
-
-      // only modify the element if it exceeds the defined max height
-      // if it does, or if we're lazy-loading content expected to be large
-      // => automatically collapse, and show button for expanding content
-      if (($this.height() > max_height) || $this.hasClass('force-collapse')) {
-        $this.css({
-          height: `${max_height}px`,
-          overflow: 'hidden',
-        })
-        $this.after(`<a class="expand-collapse-link" href="#" data-show="0" data-maxheight="${max_height}">
-            <i class="fas fa-plus-square"></i>
-            <span>mehr anzeigen</span>
-        </a>`)
-      }
-    })
-
-    $('.expand-collapse-link').each(function () {
-      const $link = $(this)
-      const $wrapper = $link.prev()
-
-      $link.on('click', function (ev) {
-        ev.preventDefault()
-        if ($link.attr('data-show') == 0) {
-          // currently collapsed => expand, and convert button to "collapse on click"
-          $wrapper.css({
-            height: 'auto',
-            overflow: 'visible',
-          })
-          $link.children('i.fas').removeClass('fa-plus-square').addClass('fa-minus-square')
-          $link.children('span').text('einklappen')
-          $link.attr('data-show', 1)
-        } else {
-          // currently expanded => collapse, and convert button to "expand on click"
-          const max_height = $link.attr('data-maxheight')
-          $wrapper.css({
-            height: `${max_height}px`,
-            overflow: 'hidden',
-          })
-          $link.children('i.fas').removeClass('fa-minus-square').addClass('fa-plus-square')
-          $link.children('span').text('mehr anzeigen')
-          $link.attr('data-show', 0)
-        }
-      })
-    })
 
     if (!isMob()) {
       $('#main a').tooltip({
@@ -124,23 +50,6 @@ export function initialize () {
       })
     }
 
-    $(function () {
-      $('#dialog-confirm').dialog({
-        resizable: false,
-        height: 140,
-        modal: true,
-        autoOpen: false,
-        buttons: {
-          [i18n('button.permadelete')]: function () {
-            goTo($('#dialog-confirm-url').val())
-            $(this).dialog('close')
-          },
-          [i18n('button.cancel')]: function () {
-            $(this).dialog('close')
-          },
-        },
-      })
-    })
     $('.dialog').dialog()
 
     $('ul.toolbar li').on('mouseenter', function () {
@@ -319,27 +228,11 @@ export function reload () {
   window.location.reload()
 }
 
-export function ifconfirm (url, question, title) {
-  if (question != undefined) {
-    $('#dialog-confirm-msg').html(question)
-  }
-  if (title != undefined) {
-    $('#dialog-confirm').dialog('option', 'title', title)
-  }
-
-  $('#dialog-confirm-url').val(url)
-  $('#dialog-confirm').dialog('open')
-}
-
-export function closeBox () {
-  $.fancybox.close()
-}
-
 export function showLoader () {
-  $.fancybox.showLoading()
+  window.showLoading()
 }
 export function hideLoader () {
-  $.fancybox.hideLoading()
+  window.hideLoading()
 }
 
 export async function wantToHelpStore (storeId, userId) {

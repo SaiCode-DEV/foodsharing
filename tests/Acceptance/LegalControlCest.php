@@ -10,21 +10,25 @@ use Tests\Support\AcceptanceTester;
 class LegalControlCest
 {
     private $user;
+    private $isDeleted;
 
     public function _before(AcceptanceTester $I): void
     {
+        $this->isDeleted = false;
         $this->user = $I->createAmbassador();
         $I->login($this->user['email']);
-        $I->amOnPage('/?page=legal');
+        $I->amOnPage('/legal');
         $I->see('Datenschutzerklärung');
     }
 
     public function _after(AcceptanceTester $I): void
     {
-        $lastModified = $I->updateThePrivacyPolicyDate();
-        $I->resetThePrivacyPolicyDate($lastModified);
-        $I->logMeOut();
-        $I->seeCurrentUrlEquals('/');
+        if (!$this->isDeleted) {
+            $lastModified = $I->updateThePrivacyPolicyDate();
+            $I->resetThePrivacyPolicyDate($lastModified);
+            $I->logMeOut();
+            $I->seeCurrentUrlEquals('/');
+        }
     }
 
     public function testGivenIAmNotLoggedInThenTheLegalPageShowsThePrivacyPolicyWithoutAskingForConsent(AcceptanceTester $I): void
@@ -40,7 +44,7 @@ class LegalControlCest
         $I->checkOption('#legal_form_privacyPolicyAcknowledged');
         $I->click('Einstellungen übernehmen');
         $I->waitForActiveAPICalls();
-        $I->seeCurrentUrlEquals('/?page=legal');
+        $I->seeCurrentUrlEquals('/legal');
     }
 
     public function testGivenIAmLoggedInAndIDontAcceptThePrivacyPolicyThenIAmStillAskedForConsent(AcceptanceTester $I): void
@@ -52,8 +56,9 @@ class LegalControlCest
 
     public function testGivenIAmLoggedInAndWantToDeleteMyAccountThenIGetRedirectedToTheDeleteAccountPage(AcceptanceTester $I): void
     {
+        $this->isDeleted = true;
         $I->click('ich möchte meinen Account löschen.');
-        $I->seeCurrentUrlEquals('/?page=settings&sub=deleteaccount');
+        $I->seeCurrentUrlEquals('/user/' . $this->user['id'] . '/settings?sub=deleteaccount');
     }
 
     public function testGivenIAmLoggedInAndHaveARoleHigherThanOneThenICanAcceptThePrivacyPolicyAndNotice(AcceptanceTester $I): void
@@ -61,7 +66,7 @@ class LegalControlCest
         $I->checkOption('#legal_form_privacyPolicyAcknowledged');
         $I->selectOption('#legal_form_privacyNoticeAcknowledged', 'Ich habe die Belehrung zur Kenntnis genommen.');
         $I->click('Einstellungen übernehmen');
-        $I->seeCurrentUrlEquals('/?page=legal');
+        $I->seeCurrentUrlEquals('/legal');
         $I->seeInDatabase('fs_foodsaver', ['id' => $this->user['id'], 'rolle' => Role::AMBASSADOR->value]);
     }
 
@@ -76,7 +81,7 @@ class LegalControlCest
         $I->seeInPopup('Bist du dir sicher?');
         $I->seeInDatabase('fs_foodsaver', ['id' => $this->user['id'], 'rolle' => 3]);
         $I->acceptPopup();
-        $I->seeCurrentUrlEquals('/?page=legal');
+        $I->seeCurrentUrlEquals('/legal');
         $I->seeInDatabase('fs_foodsaver', ['id' => $this->user['id'], 'rolle' => 1]);
     }
 }

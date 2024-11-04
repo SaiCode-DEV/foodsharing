@@ -16,6 +16,7 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\RestApi\Models\Activities\ActivityFilterItem;
 use Foodsharing\Utility\ImageHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -29,7 +30,8 @@ class ActivityTransactions
         private readonly TranslatorInterface $translator,
         private readonly Session $session,
         private readonly SettingsTransactions $settingsTransaction,
-        private readonly BuddyTransactions $buddyTransactions
+        private readonly BuddyTransactions $buddyTransactions,
+        private readonly CurrentUserUnitsInterface $currentUserUnits
     ) {
     }
 
@@ -41,12 +43,12 @@ class ActivityTransactions
     public function getFilters(): array
     {
         // list of currently excluded activities
-        $excluded = $this->settingsTransaction->getOption(UserOptionType::ACTIVITY_LISTINGS) ?: [];
+        $excluded = json_decode($this->settingsTransaction->getOption(UserOptionType::ACTIVITY_LISTINGS), true) ?: [];
 
         // regions and groups
         $regionOptions = [];
         $groupOptions = [];
-        if ($bezirke = $this->session->getRegions()) {
+        if ($bezirke = $this->currentUserUnits->getRegions()) {
             foreach ($bezirke as $b) {
                 $option = ActivityFilter::create($b['id'], $b['name'],
                     !isset($excluded['bezirk-' . $b['id']])
@@ -62,7 +64,7 @@ class ActivityTransactions
         // mailboxes
         $mailboxOptions = [];
         if ($boxes = $this->mailboxGateway->getBoxes(
-            $this->session->isAmbassador(),
+            $this->currentUserUnits->isAmbassador(),
             $this->session->id(),
             $this->session->mayRole(Role::STORE_MANAGER))
         ) {
@@ -257,7 +259,7 @@ class ActivityTransactions
     private function loadMailboxUpdates(int $page, array $hidden_ids): array
     {
         $boxes = $this->mailboxGateway->getBoxes(
-            $this->session->isAmbassador(),
+            $this->currentUserUnits->isAmbassador(),
             $this->session->id(),
             $this->session->mayRole(Role::STORE_MANAGER)
         );
@@ -306,7 +308,7 @@ class ActivityTransactions
      */
     private function loadForumUpdates(int $page, array $hidden_ids): array
     {
-        $myRegionIds = $this->session->listRegionIDs();
+        $myRegionIds = $this->currentUserUnits->listRegionIDs();
 
         if (!$myRegionIds) {
             return [];
@@ -326,7 +328,7 @@ class ActivityTransactions
 
         $updates = $this->activityGateway->fetchAllForumUpdates($region_ids, $page, false);
 
-        if ($ambassadorIds = $this->session->getMyAmbassadorRegionIds()) {
+        if ($ambassadorIds = $this->currentUserUnits->getMyAmbassadorRegionIds()) {
             $botPosts = $this->activityGateway->fetchAllForumUpdates($ambassadorIds, $page, true);
             $updates = array_merge($updates, $botPosts);
         }

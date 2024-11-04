@@ -7,13 +7,12 @@
       @click="collapsible ? toggleExpanded() : null"
     >
       <slot name="title">
-        <h5>
-          {{ title }}
-        </h5>
+        <h5 v-text="title" />
         <Info
           v-if="infoKey"
           :info-key="infoKey"
         />
+        <span class="flex-grow-1" />
         <i
           v-if="tooltipKey"
           v-b-tooltip.hover
@@ -30,7 +29,7 @@
       />
     </div>
     <slot v-if="isExpanded && !wrapContent" />
-    <div v-if="isExpanded && wrapContent" class="list-group-item">
+    <div v-if="isExpanded && wrapContent" :class="wrapperClasses">
       <slot />
     </div>
 
@@ -48,6 +47,7 @@
         v-text="$i18n('globals.show_less')"
       />
     </template>
+    <slot v-if="isExpanded" name="buttons" />
   </div>
 </template>
 
@@ -62,7 +62,10 @@ export default {
     title: { type: String, default: 'title' },
     toggleVisiblity: { type: Boolean, default: false },
     containerIsExpanded: { type: Boolean, default: true },
-    wrapContent: { type: Boolean, default: false },
+
+    // Wraps the content placed in the conainers default slot in a `div.list-group-item` wrapper if given a truthy value.
+    // Further classes to wrap the content with can be given as a string.
+    wrapContent: { type: [Boolean, String], default: false },
     hideHeader: { type: Boolean, default: false },
     collapsible: { type: Boolean, default: true },
     infoKey: { type: String, default: '' },
@@ -77,6 +80,9 @@ export default {
   computed: {
     isToggleVisible () {
       return this.toggleVisiblity
+    },
+    wrapperClasses () {
+      return 'list-group-item ' + (typeof this.wrapContent === 'string' ? this.wrapContent : '')
     },
   },
   created () {
@@ -126,16 +132,12 @@ export default {
   min-width: 250px;
   margin-bottom: 1rem;
   height: fit-content;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
 }
 
 .list-group-header {
   align-items: center;
-  background-color: var(--fs-color-primary-500);
-  color: var(--fs-color-primary-100);
+  background-color: var(--fs-color-primary-300);
+  color: var(--fs-color-primary-900);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -143,7 +145,7 @@ export default {
   padding: 0 1rem;
 
   &:hover {
-    background-color: var(--fs-color-primary-600);
+    background-color: var(--fs-color-primary-200);
   }
 
   h5 {

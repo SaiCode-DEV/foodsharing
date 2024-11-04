@@ -1,6 +1,5 @@
 # expose, ports are additive, means each environment requires a own port mapping instead of a global one.
 
-version: '2'
 services:
   # nginx
   #------------------------------------
@@ -76,7 +75,7 @@ services:
   #------------------------------------
   docs:
     container_name: foodsharing_dev_docs
-    command: sh -c "yarn && yarn api:build && yarn start"
+    command: sh -c "yarn && yarn docs:dev"
     ports:
       - "13000:3000"
 

@@ -38,7 +38,7 @@ ports:
     visibility: private
     onOpen: ignore
   - port: 13000
-    name: docusaurus.io
+    name: Vitepress
     description: DevDocs
     visibility: public
     onOpen: ignore

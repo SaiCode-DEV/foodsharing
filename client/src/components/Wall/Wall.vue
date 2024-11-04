@@ -1,14 +1,10 @@
-<!-- eslint-disable vue/no-v-model-argument -->
 <template>
   <!-- TODO create a way to restrict access to image sending to certain group -->
   <Container
-    v-if="filteredPosts?.length || mayPost"
+    v-if="posts.length || mayPost"
     :title="title ?? $i18n('wall.name')"
-    tag="store_wall"
-    :toggle-visiblity="filteredPosts.length > defaultAmount"
+    :tag="`wall-${target}`"
     :hide-header="hideHeader"
-    @show-full-list="showFullList"
-    @reduce-list="reduceList"
   >
     <div v-if="mayPost" class="list-group-item">
       <MarkdownInput
@@ -38,7 +34,7 @@
     </div>
 
     <WallPost
-      v-for="p in filteredList"
+      v-for="p in posts"
       :key="p.id"
       :post="p"
       :may-delete-everything="mayDeleteEverything"
@@ -46,63 +42,78 @@
       class="wallpost"
       @delete="deletePost"
     />
+
+    <ContainerButton
+      v-if="showLoadMore && !loading"
+      variant="success"
+      text-key="globals.show_more"
+      @click="loadMorePosts"
+    />
+    <ContainerButton v-if="loading" variant="warning">
+      <i class="fas fa-spinner fa-spin" />
+    </ContainerButton>
   </Container>
 </template>
 
 <script>
 import WallPost from './WallPost'
 import { showLoader, hideLoader, pulseError } from '@/script'
-import ListToggleMixin from '@/mixins/ContainerToggleMixin'
 import Container from '@/components/Container/Container.vue'
 import MarkdownInput from '../Markdown/MarkdownInput.vue'
 import { getWallPosts, addPost, deletePost } from '@/api/wall'
 import { HTTP_RESPONSE } from '@/consts'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
+import ContainerButton from '@/components/Container/ContainerButton.vue'
 
 export default {
-  components: { WallPost, Container, MarkdownInput },
-  mixins: [ListToggleMixin, ConfirmationDialogue],
+  components: { WallPost, Container, MarkdownInput, ContainerButton },
+  mixins: [ConfirmationDialogue],
   props: {
     targetId: { type: Number, required: true },
     target: { type: String, required: true },
     title: { type: String, default: null },
     hideHeader: { type: Boolean, default: false },
-    // excerptLength: { type: Number, default: 10 }, // how many entries are shown initially? Also the number of entries shown if "show less" is clicked
-    // TODO for next followup: pagination for wall posts, similar to how the activity overview handles it.
     galleryHeightInPx: { type: Number, default: undefined },
+    pageSize: { type: Number, default: 10 },
+    firstPageSize: { type: Number, default: undefined },
   },
   data () {
     return {
-      posts: undefined,
+      posts: [],
       mayPost: false,
       mayDeleteEverything: false,
       newPostText: '',
-      isExcerptListExpanded: false,
       hasImages: false,
+      showLoadMore: true,
+      loading: true,
     }
   },
   computed: {
-    filteredPosts () {
-      this.setList(this.posts)
-      return this.posts
-    },
     newPostExists () {
       return this.newPostText.trim().length > 0 || this.hasImages
     },
-    displayedPosts () {
-      return (this.showOnlyExcerpt && !this.isExcerptListExpanded) ? (this.posts || []).slice(0, this.numberOfVisiblePostsPerExcerptIteration) : this.posts
-    },
-    hasMorePosts () {
-      return (this.showOnlyExcerpt && !this.isExcerptListExpanded) ? (this.posts && this.posts.length > this.numberOfVisiblePostsPerExcerptIteration) : false
-    },
   },
-  async created () {
-    const data = await getWallPosts(this.target, this.targetId)
-    this.posts = data.posts
-    this.mayPost = data.mayPost
-    this.mayDeleteEverything = data.mayDelete
+  created () {
+    this.loadMorePosts()
   },
   methods: {
+    async loadMorePosts () {
+      this.loading = true
+      this.page++
+      const limit = (!this.page && this.firstPageSize) ? this.firstPageSize : this.pageSize
+      const data = await getWallPosts(this.target, this.targetId, limit, this.posts.length)
+
+      // Filter out already loaded posts. This can happen if other users delete posts in the meantime.
+      const postIds = new Set(this.posts.map(post => post.id))
+      this.posts.push(...data.posts.filter(post => !postIds.has(post.id)))
+
+      if (data.posts.length < limit) {
+        this.showLoadMore = false
+      }
+      this.mayPost = data.mayPost
+      this.mayDeleteEverything = data.mayDelete
+      this.loading = false
+    },
     async writePost () {
       const text = this.newPostText.trim()
       if (!(text || this.hasImages)) return
@@ -112,7 +123,6 @@ export default {
         let images
         if (this.hasImages) {
           images = await this.$refs['md-input'].uploadImages()
-          images = images.map(image => image.url)
           this.$refs['md-input'].clearImages()
         }
         const newPost = await addPost(this.target, this.targetId, text, images)

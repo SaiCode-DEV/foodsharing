@@ -86,11 +86,6 @@ class MailboxGateway extends BaseGateway
             $region['email'], $region['email_name']), $regions);
     }
 
-    public function addMailbox(string $name, int $member = 0): int
-    {
-        return $this->db->insert('fs_mailbox', ['name' => strip_tags($name), 'member' => $member]);
-    }
-
     public function getMailboxesWithUnreadCount(array $mailboxIds): array
     {
         return $this->db->fetchAll('
@@ -148,41 +143,6 @@ class MailboxGateway extends BaseGateway
         return $this->db->update('fs_mailbox_message', ['folder' => $folder], ['id' => $mail_id]);
     }
 
-    /**
-     * @deprecated use getEmail instead
-     */
-    public function getMessage(int $message_id)
-    {
-        $data = $this->db->fetch(
-            '
-			SELECT 	m.`id`,
-					m.`folder`,
-					m.`sender`,
-					m.`to`,
-					m.`subject`,
-					m.`time`,
-					UNIX_TIMESTAMP(m.`time`) AS time_ts,
-					m.`attach`,
-					m.`read`,
-					m.`answer`,
-					m.`body`,
-					m.`mailbox_id`,
-					b.name AS mailbox
-			FROM 	fs_mailbox_message m
-			LEFT JOIN fs_mailbox b
-			ON m.mailbox_id = b.id
-			WHERE	m.id = :message_id
-		',
-            [':message_id' => $message_id]
-        );
-
-        $data['sender'] = $this->parseAddress($data['sender']) ?? new EmailAddress('');
-        $data['to'] = $this->parseAddresses($data['to']) ?? [];
-        $data['body'] = $this->sanitizer->purifyHtml($data['body'] ?? '');
-
-        return $data;
-    }
-
     public function getEmail(int $emailId): Email
     {
         $data = $this->db->fetch(
@@ -216,39 +176,6 @@ class MailboxGateway extends BaseGateway
     public function markEmailAsRead(int $emailId, bool $isRead): void
     {
         $this->db->update('fs_mailbox_message', ['read' => $isRead ? 1 : 0], ['id' => $emailId]);
-    }
-
-    /**
-     * @deprecated use listEmails instead
-     */
-    public function listMessages(int $mailbox_id, int $folder): array
-    {
-        $data = $this->db->fetchAll(
-            '
-			SELECT 	`id`,
-					`folder`,
-					`sender`,
-					`to`,
-					`subject`,
-					`time`,
-					UNIX_TIMESTAMP(`time`) AS time_ts,
-					`attach`,
-					`read`,
-					`answer`
-			FROM 	fs_mailbox_message
-			WHERE	mailbox_id = :mailbox_id
-			AND 	folder = :farray_folder
-			ORDER BY `time` DESC
-		',
-            [':mailbox_id' => $mailbox_id, ':farray_folder' => $folder]
-        );
-
-        foreach ($data as &$d) {
-            $d['sender'] = $this->parseAddress($d['sender']) ?? new EmailAddress('');
-            $d['to'] = $this->parseAddresses($d['to']) ?? [];
-        }
-
-        return $data;
     }
 
     /**

@@ -21,20 +21,7 @@
               :disabled="!editMode"
             />
           </b-form-group>
-          <b-form-group
-            :description="$i18n('storeview.visible_for_public')"
-            :label="$i18n('public_info')"
-            label-for="publicInfo"
-          >
-            <b-form-textarea
-              id="publicInfo"
-              v-model="store.publicInfo"
-              :state="publicInfoState"
-              rows="5"
-              max-rows="10"
-              :disabled="!editMode"
-            />
-          </b-form-group>
+          <PublicInfo :public-info="store.publicInfo" @update:public-info="updatePublicInfo" />
         </b-card-text>
       </b-tab>
       <b-tab
@@ -67,7 +54,7 @@
               />
             </b-form-group>
             <b-form-group
-              :label="$i18n('telefon')"
+              :label="$i18n('terminology.phone')"
               label-for="phone"
             >
               <b-form-input
@@ -142,14 +129,21 @@
             :label="$i18n('bezirk')"
             label-for="region"
           >
-            <region-tree-v-form
-              v-if="store.region"
-              v-model="store.region"
-              modal-title="storeview.select_related_region"
-              input-name="regionId"
-              :selectable-region-types="[REGION_UNIT_TYPE.CITY, REGION_UNIT_TYPE.BIG_CITY, REGION_UNIT_TYPE.PART_OF_TOWN]"
-              :disabled="!editMode"
-            />
+            <b-input-group>
+              <b-form-input
+                :value="store.region.name"
+                type="text"
+                :disabled="true"
+              />
+              <b-input-group-append>
+                <b-button
+                  variant="outline-secondary"
+                  @click="$refs.storeRegionTree.openModal()"
+                >
+                  <i class="far fa-edit" />
+                </b-button>
+              </b-input-group-append>
+            </b-input-group>
           </b-form-group>
           <b-form-group
             :label="$i18n('betrieb_kategorie_id')"
@@ -279,6 +273,7 @@
               :rows="5"
               :value="store.description"
               :disabled="!editMode"
+              :region-id="store.region.id"
               @update:value="newDescription => store.description = newDescription"
             />
           </b-form-group>
@@ -306,44 +301,32 @@
               {{ $i18n('storeview.no_permission_to_view') }}
             </small>
           </b-form-group>
+
           <b-form-group
             :label="$i18n('sticker')"
             label-for="showsSticker"
             class="bootstrap input-wrapper"
           >
-            <b-form-checkbox
-              v-if="store.showsSticker !== null"
+            <b-form-select
               id="showsSticker"
               v-model="store.showsSticker"
-              switch
-              :disabled-field="!editMode"
+              :options="publicityAndStickerOptions"
               :disabled="!editMode"
             />
-            <small
-              v-if="store.showsSticker === null"
-            >
-              {{ $i18n('storeview.no_permission_to_view') }}
-            </small>
           </b-form-group>
           <b-form-group
             :label="$i18n('presse')"
             label-for="publicity"
             class="bootstrap input-wrapper"
           >
-            <b-form-checkbox
-              v-if="store.publicity !== null"
+            <b-form-select
               id="publicity"
               v-model="store.publicity"
-              switch
-              :disabled-field="!editMode"
+              :options="publicityAndStickerOptions"
               :disabled="!editMode"
             />
-            <small
-              v-if="store.publicity === null"
-            >
-              {{ $i18n('storeview.no_permission_to_view') }}
-            </small>
           </b-form-group>
+
           <b-form-group
             :label="$i18n('storeview.groceries.label')"
             label-for="tags-with-dropdown"
@@ -432,16 +415,27 @@
     <b-button
       v-if="mayEditStore"
       variant="primary"
+      :disabled="!publicInfoState"
       @click="submit"
     >
       {{ $i18n('button.save') }}
     </b-button>
+    <region-tree-modal
+      v-if="store.region"
+      ref="storeRegionTree"
+      :value="store.region"
+      modal-title="storeview.select_related_region"
+      input-name="regionId"
+      :selectable-region-types="[REGION_UNIT_TYPE.CITY, REGION_UNIT_TYPE.BIG_CITY, REGION_UNIT_TYPE.PART_OF_TOWN]"
+      :disabled="!editMode"
+      @input="updateRegion"
+    />
   </b-card>
 </template>
 
 <script>
 // Stores
-import StoreData, { MAX_LEN_FOR_PUBLIC_INFO } from '@/stores/stores'
+import StoreData from '@/stores/stores'
 import PickupsData from '@/stores/pickups'
 
 // Others
@@ -450,7 +444,7 @@ import { updateStore } from '@/api/stores'
 import { editRegularPickup } from '@/api/pickups'
 
 import LeafletLocationSearch from '@/components/map/LeafletLocationSearch.vue'
-import RegionTreeVForm from '@/components/regiontree/RegionTreeVForm.vue'
+import RegionTreeModal from '@/components/regiontree/RegionTreeModal.vue'
 import RegularPickup from '@/components/Stores/RegularPickup.vue'
 
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
@@ -458,15 +452,17 @@ import AutoResizeTextareaMixin from '@/mixins/AutoResizeTextareaMixin'
 import { REGION_UNIT_TYPE } from '@/stores/regions'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import ChainSearchPicker from '@/components/Stores/ChainSearchPicker.vue'
+import PublicInfo from '@/components/Stores/PublicInfo.vue'
 
 export default {
   name: 'StoreInformationEditModal',
   components: {
     LeafletLocationSearch,
-    RegionTreeVForm,
+    RegionTreeModal,
     RegularPickup,
     MarkdownInput,
     ChainSearchPicker,
+    PublicInfo,
   },
   mixins: [MediaQueryMixin, AutoResizeTextareaMixin],
   props: {
@@ -489,8 +485,14 @@ export default {
         { value: 1, text: this.$i18n('menu.entry.helpwanted') },
         { value: 2, text: this.$i18n('menu.entry.helpneeded') },
       ],
+      publicityAndStickerOptions: [
+        { value: null, text: this.$i18n('storeview.publicity_and_sticker_options.not_yet_clarified') },
+        { value: true, text: this.$i18n('storeview.publicity_and_sticker_options.yes') },
+        { value: false, text: this.$i18n('storeview.publicity_and_sticker_options.no') },
+      ],
       store: {},
       chainSearchCriteriaField: '',
+      publicInfoState: true,
     }
   },
   computed: {
@@ -506,10 +508,6 @@ export default {
     },
     storeInformation () {
       return StoreData.getters.getStoreInformation()
-    },
-    publicInfoState () {
-      if (!this.editMode) return null
-      else return this.store.publicInfo.length <= MAX_LEN_FOR_PUBLIC_INFO
     },
     calendarInterval: {
       get () {
@@ -583,6 +581,14 @@ export default {
     }
   },
   methods: {
+    updateRegion (region) {
+      this.store.region.id = region.states.id
+      this.store.region.name = region.data.text
+    },
+    updatePublicInfo ({ publicInfo, publicInfoState }) {
+      this.store.publicInfo = publicInfo
+      this.publicInfoState = publicInfoState
+    },
     simpleClone (value) {
       return JSON.parse(JSON.stringify(value))
     },
@@ -609,7 +615,7 @@ export default {
           await editRegularPickup(this.storeId, this.editPickups)
           await PickupsData.mutations.fetchRegularPickup(this.storeId)
         }
-        pulseSuccess(this.$i18n('storeedit.edit_success'))
+        pulseSuccess(this.$i18n('globals.saved'))
         this.$bvModal.hide('storeInformationModal')
       } catch (err) {
         const errorDescription = err.jsonContent ?? { message: '' }

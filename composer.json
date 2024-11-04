@@ -30,7 +30,7 @@
     "phpunit/phpunit": "^10.0",
     "rector/rector": "^1.0",
     "roave/security-advisories": "dev-latest",
-    "robmorgan/phinx": "0.12.12",
+    "robmorgan/phinx": "0.16.1",
     "symfony/stopwatch": "6.4.*",
     "symfony/web-profiler-bundle": "6.4.*"
   },
@@ -58,7 +58,8 @@
     "html2text/html2text": "4.3.*",
     "jms/serializer-bundle": "5.4.*",
     "jsvrcek/ics": "0.8.5",
-    "minishlink/web-push": "8.0.*",
+    "league/commonmark": "^2.4",
+    "minishlink/web-push": "9.0.*",
     "mobiledetect/mobiledetectlib": "3.74.*",
     "nelmio/api-doc-bundle": "4.18.*",
     "nesbot/carbon": "2.66.*",
@@ -84,9 +85,15 @@
     "symfony/validator": "6.4.*",
     "symfony/yaml": "6.4.*",
     "tecnickcom/tcpdf": "6.7.*",
+    "google/auth": "^1.18",
+    "guzzlehttp/guzzle": "*",
+    "google/apiclient": "^2.15",
+    "google/apiclient-services": "~0.300",
+    "pkpass/pkpass": "^2.3.1",
+    "twig/twig": "3.14.*",
     "twig/intl-extra": "3.8.*",
-    "twig/twig": "3.8.*",
-    "voku/bounce-mail-handler": "6.0.*"
+    "voku/bounce-mail-handler": "6.0.*",
+    "zammad/zammad-api-client-php": "2.2.*"
   },
   "autoload": {
     "psr-4": {
@@ -103,7 +110,10 @@
     "public-dir": "assets",
     "symfony": {
       "require": "6.4.*"
-    }
+    },
+    "google/apiclient-services": [
+      "Walletobjects"
+    ]
   },
   "type": "project"
 }

@@ -45,7 +45,7 @@ class AcceptanceTester extends Actor
         $I->waitForElement('.testing-login-dropdown');
         $I->click('.testing-login-dropdown');
         $I->fillField('.testing-login-input-email', $email);
-        $I->fillField('.testing-login-input-password', $password);
+        $I->fillField('#testing-login-input-password > input', $password);
         $I->click('.testing-login-click-submit');
         $I->waitForActiveAPICalls();
         $I->waitForElementNotVisible('#pulse-success');
@@ -56,7 +56,7 @@ class AcceptanceTester extends Actor
 
     public function logMeOut(): void
     {
-        $this->amOnPage('/?page=logout');
+        $this->amOnPage('/logout');
         $this->waitForPageBody();
     }
 

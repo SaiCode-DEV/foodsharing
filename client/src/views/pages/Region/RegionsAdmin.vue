@@ -77,7 +77,18 @@
           <b-form-select
             v-model="region.workgroupFunction"
             :options="workgroupFunctionOptions"
+            @change="updateModetatorForumDeletion"
           />
+        </b-form-group>
+
+        <b-form-group v-if="region.allowHidingInForum !== null">
+          <b-form-checkbox
+            ref="allowHidingInForum"
+            v-model="region.allowHidingInForum"
+          >
+            {{ $i18n('region.allow_hiding_in_forum') }}
+            <Info info-key="moderatorForumHide" />
+          </b-form-checkbox>
         </b-form-group>
 
         <b-form-group :label="$i18n('terminology.' + (isWorkingGroup ? 'admins' : 'ambassadors'))">
@@ -176,8 +187,8 @@ export default {
         })),
       ]
     },
-    async fetchRegionData (regionId) {
-      this.region = await getRegionData(regionId)
+    async fetchRegionData (region) {
+      this.region = await getRegionData(region.states.id)
       await this.$nextTick()
       this.$refs.adminSearch.loadingInitialValues()
     },
@@ -216,6 +227,7 @@ export default {
         adminIds: [],
         workgroupFunction: 0,
         id: null,
+        allowHidingInForum: false,
       }
       this.$refs.tree.unselect()
     },
@@ -257,6 +269,10 @@ export default {
       } else if (this.region.masterId === 0 && this.region.type !== REGION_UNIT_TYPE.WORKING_GROUP) {
         this.region.masterId = this.region.parentId
       }
+    },
+    async updateModetatorForumDeletion () {
+      this.region.allowHidingInForum = [WORKGROUP_FUNCTION.REPORT, WORKGROUP_FUNCTION.ARBITRATION].includes(this.region.workgroupFunction)
+      this.region = Object.assign({}, this.region) // Needed to get a display update
     },
   },
 }

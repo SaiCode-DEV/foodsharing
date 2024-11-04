@@ -16,6 +16,6 @@ $foodsaver = $I->createFoodsaver($pass, ['handy' => '+4915100000']);
 
 $I->login($foodsaver['email'], $pass);
 
-$I->amOnPage('/?page=bcard');
+$I->amOnPage('/user/current/settings?sub=bcard');
 
-$I->waitForText('Deine foodsharing-Visitenkarte');
+$I->waitForText('Hier einfach generieren, ausdrucken und ausschneiden');

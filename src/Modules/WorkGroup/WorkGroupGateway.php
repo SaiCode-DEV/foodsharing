@@ -218,17 +218,6 @@ class WorkGroupGateway extends BaseGateway
 		', [':fs_id' => $fsId]);
     }
 
-    public function getGroupMail(int $regionId): string
-    {
-        return $this->db->fetchValue('
-			SELECT		CONCAT(mb.`name`,"@' . PLATFORM_MAILBOX_HOST . '")
-			FROM		`fs_bezirk` bz
-			INNER JOIN	`fs_mailbox` mb
-			ON			bz.`mailbox_id` = mb.`id`
-			WHERE		bz.`id` = :bezirk_id
-		', [':bezirk_id' => $regionId]);
-    }
-
     public function updateGroup(int $regionId, EditWorkGroupData $group): int
     {
         $description = $group->description == null ? null : strip_tags($group->description);

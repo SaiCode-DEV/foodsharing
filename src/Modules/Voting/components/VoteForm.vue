@@ -4,11 +4,12 @@
       @submit="showConfirmDialog"
     >
       <b-alert
-        v-if="poll.shuffleOptions"
-        show
+        :show="shuffledOptions.length > 1"
         variant="info"
       >
-        {{ $i18n("poll.hint_random_order") }}
+        <i v-if="poll.shuffleOptions" class="fas fa-random mr-2" />
+        <span v-if="poll.shuffleOptions" v-text="$i18n('poll.hint_random_order')" />
+        <span v-else v-text="$i18n('poll.hint_sorted_order')" />
       </b-alert>
       <SingleSelectionVotingComponent
         v-if="poll.type===0"

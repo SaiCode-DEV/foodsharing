@@ -8,24 +8,17 @@
       <vue2-leaflet-marker-cluster
         v-for="type in selectedTypes"
         :key="type"
-      >
-        <l-marker
-          v-for="marker in markers[type]"
-          :key="marker.id"
-          :lat-lng="{lat: marker.lat, lon: marker.lon}"
-          :icon="icons[type]"
-          :draggable="false"
-          @click="markerClicked(type, marker.id)"
-        />
-      </vue2-leaflet-marker-cluster>
+        :ref="`markerCluster-${type}`"
+      />
       <vue2-leaflet-locatecontrol />
     </leaflet-map>
     <map-control
       :visible-types="visibleTypes"
       :selected-types="selectedTypes"
-      :selected-store-types="selectedStoreTypes"
+      :selected-specifiers="selectedSpecifiers"
+      :ambassador-regions="ambassadorRegions"
       @toggle-marker-type="toggleMarkerType"
-      @toggle-store-marker-type="toggleStoreMarkerType"
+      @update-marker-specifier="updateMarkerSpecifier"
     />
 
     <basket-bubble ref="basketBubble" />
@@ -43,8 +36,7 @@ import Vue2LeafletMarkerCluster from 'vue2-leaflet-markercluster'
 import Vue2LeafletLocatecontrol from 'vue2-leaflet-locatecontrol'
 import LeafletMap from '@/components/map/LeafletMap.vue'
 import MapControl from '@/views/pages/Map/MapControl.vue'
-import { store, MAP_CONSTANTS, MARKER_TYPES, STORE_MARKER_TYPES } from '@/stores/map'
-import { LMarker } from 'vue2-leaflet'
+import { getMarkers, MAP_CONSTANTS, MARKER_TYPES } from '@/stores/map'
 import { objectMap } from '@/utils'
 import { hideLoader, showLoader } from '@/script'
 import BasketBubble from '@php/Modules/Map/components/BasketBubble.vue'
@@ -52,16 +44,17 @@ import CommunityBubble from '@php/Modules/Map/components/CommunityBubble.vue'
 import StoreBubble from '@php/Modules/Map/components/StoreBubble.vue'
 import FoodSharePointBubble from '@php/Modules/Map/components/FoodSharePointBubble.vue'
 import Storage from '@/storage'
-import DataUser from '@/stores/user.js'
+import { useUserStore } from '@/stores/user.js'
 
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
+const maxBasketNameLength = 30
+const userStore = useUserStore()
 
 export default {
   components: {
     MapControl,
     LeafletMap,
     Vue2LeafletMarkerCluster,
-    LMarker,
     BasketBubble,
     CommunityBubble,
     StoreBubble,
@@ -73,14 +66,31 @@ export default {
     maySeeStores: { type: Boolean, default: false },
     selectedStoreId: { type: Number, default: null },
     selectedFoodSharePointId: { type: Number, default: null },
+    ambassadorRegions: { type: Array, default: () => [] },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     return {
       currentCenter: { lat: MAP_CONSTANTS.CENTER_GERMANY_LAT, lon: MAP_CONSTANTS.CENTER_GERMANY_LON },
       currentZoom: MAP_CONSTANTS.ZOOM_COUNTRY,
       selectedTypes: [MARKER_TYPES.baskets.name],
-      selectedStoreTypes: [STORE_MARKER_TYPES.needHelp.name, STORE_MARKER_TYPES.needHelpUrgently.name],
-      markers: store.state.markers,
+      selectedSpecifiers: {
+        stores: {
+          status: 'cooperating',
+          help: 'all',
+          scope: 'region',
+        },
+        users: {
+          region: this.ambassadorRegions?.[0]?.id,
+          activity: 'month',
+          role: 'foodsaver',
+          member: 'homeregion',
+        },
+      },
     }
   },
   computed: {
@@ -89,21 +99,34 @@ export default {
       if (this.maySeeStores) {
         types.push(MARKER_TYPES.stores.name)
       }
+      if (this.ambassadorRegions?.length) {
+        types.push(MARKER_TYPES.users.name)
+      }
       return types
     },
     icons () {
       return objectMap(MARKER_TYPES, type => L.AwesomeMarkers.icon({ icon: type.icon, markerColor: type.color }))
+    },
+    maySeeUsers () {
+      return Boolean(this.ambassadorRegions?.length)
     },
   },
   created () {
     // Restore the selected marker types from the local storage
     this.storage = new Storage('map')
     this.selectedTypes = this.storage.get('selectedTypes', this.selectedTypes)
-    this.selectedStoreTypes = this.storage.get('selectedStoreTypes', this.selectedStoreTypes)
 
-    // Remove the stores from the selected types if the user is not allowed to see them
+    const saved = this.storage.get('selectedSpecifiers', this.selectedSpecifiers)
+    if (!(saved instanceof Array)) { // Don't load data saved in the old format
+      this.selectedSpecifiers = saved
+    }
+
+    // Remove unallowed selections from selected types
     if (!this.maySeeStores && this.selectedTypes.includes(MARKER_TYPES.stores.name)) {
       this.selectedTypes.splice(this.selectedTypes.indexOf(MARKER_TYPES.stores.name), 1)
+    }
+    if (!this.maySeeUsers && this.selectedTypes.includes(MARKER_TYPES.users.name)) {
+      this.selectedTypes.splice(this.selectedTypes.indexOf(MARKER_TYPES.users.name), 1)
     }
   },
   async mounted () {
@@ -118,9 +141,9 @@ export default {
       }
       this.currentCenter = this.center
       this.currentZoom = MAP_CONSTANTS.ZOOM_CITY
-    } else if (DataUser.getters.hasLocations()) {
+    } else if (userStore.hasLocations) {
       // 2. Use the user's home location
-      this.currentCenter = DataUser.getters.getLocations()
+      this.currentCenter = userStore.getLocations
       this.currentZoom = MAP_CONSTANTS.ZOOM_CITY
     } else {
       // 3. Fall back to the default location and zoom
@@ -130,7 +153,7 @@ export default {
 
     // Load all markers that are initially selected
     showLoader()
-    await Promise.all(this.selectedTypes.map(name => store.getMarkers(name)))
+    await Promise.all(this.selectedTypes.map(name => getMarkers(name, this.selectedSpecifiers[name])))
     hideLoader()
   },
   methods: {
@@ -142,36 +165,19 @@ export default {
         this.selectedTypes.splice(this.selectedTypes.indexOf(name), 1)
       } else {
         this.selectedTypes.push(name)
-        await store.getMarkers(name, name === MARKER_TYPES.stores.name ? this.selectedStoreTypes : [])
+        const markers = await getMarkers(name, this.selectedSpecifiers[name])
+        this.drawMarkerLayer(name, markers)
       }
       this.storage.set('selectedTypes', this.selectedTypes)
     },
     /**
      * (De-)activates a store marker type. Fetches the store marker data if the type is being activated.
      */
-    async toggleStoreMarkerType (name) {
-      if (this.selectedStoreTypes.includes(name)) {
-        // removed
-        if (this.selectedStoreTypes.length === 1) {
-          if (this.selectedStoreTypes[0] === STORE_MARKER_TYPES.allStores.name) {
-            this.selectedStoreTypes = [STORE_MARKER_TYPES.needHelp.name, STORE_MARKER_TYPES.needHelpUrgently.name]
-          } else {
-            this.selectedStoreTypes = [STORE_MARKER_TYPES.allStores.name]
-          }
-        } else {
-          this.selectedStoreTypes.splice(this.selectedStoreTypes.indexOf(name), 1)
-        }
-      } else {
-        // added
-        if ([STORE_MARKER_TYPES.allStores.name, STORE_MARKER_TYPES.myStores.name].includes(name)) {
-          this.selectedStoreTypes = [name]
-        } else {
-          this.selectedStoreTypes.push(name)
-        }
-      }
-
-      this.storage.set('selectedStoreTypes', this.selectedStoreTypes)
-      await store.getMarkers(MARKER_TYPES.stores.name, this.selectedStoreTypes)
+    async updateMarkerSpecifier (markerType, specifier, newValue) {
+      this.selectedSpecifiers[markerType][specifier] = newValue
+      this.storage.set('selectedSpecifiers', this.selectedSpecifiers)
+      const markers = await getMarkers(markerType, this.selectedSpecifiers[markerType])
+      this.drawMarkerLayer(markerType, markers)
     },
     /**
      * When a marker was clicked, this function toggles the corresponding action like opening a bubble.
@@ -190,7 +196,38 @@ export default {
         case MARKER_TYPES.communities.name:
           this.$refs.communityBubble.show(id)
           break
+        case MARKER_TYPES.users.name:
+          location.href = this.$url('profile', id)
+          break
       }
+    },
+    drawMarkerLayer (type, markersData) {
+      const layer = this.$refs[`markerCluster-${type}`][0]
+      if (!layer) return
+      console.debug(markersData)
+
+      const markerList = []
+
+      for (const markerData of markersData) {
+        const marker = L.marker(L.latLng(markerData.lat, markerData.lon), { icon: this.icons[type] })
+        let markerName = markerData.name
+
+        // Baskets use their description as name, but 30 chars at max.
+        // Add ellipsis in case the max length is hit
+        if (type === MARKER_TYPES.baskets.name && markerName.length === maxBasketNameLength) {
+          markerName += '…'
+        }
+        marker.bindTooltip(markerName, {
+          permanent: false, // The tooltip appears on hover
+          direction: 'bottom',
+        })
+        marker.on('click', () => this.markerClicked(type, markerData.id))
+
+        markerList.push(marker)
+      }
+
+      layer.mapObject.clearLayers()
+      layer.mapObject.addLayers(markerList)
     },
   },
 }

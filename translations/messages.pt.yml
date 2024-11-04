@@ -125,6 +125,7 @@ store:
     makeJumper: ''
     reloadRequired: ''
     makeRegularTeamMember: ''
+    filterHygiene: Formação em higiene
   prefetchone: ''
   isNotVerified: ''
   jumping: ''
@@ -241,7 +242,7 @@ bell:
   workgroup_request_accept_title: '{name}'
   blog_new_check: '{title}'
   ft_update_title: '{name}'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   betrieb_fetch_title: '{betrieb}'
   store_cr_times_title: '{name}'
   store_request_accept_title: '{name}'
@@ -300,6 +301,7 @@ bell:
   new_foodsaver_needs_verification: ''
   store_request_deny: ''
   new_quiz_comment_title: ''
+  workinggroup_new_request_title: '{name}'
 email_template:
   help_needed:
     link: https://devdocs.foodsharing.network/
@@ -532,6 +534,8 @@ poll:
     number_of_votes: ''
     option_text: ''
     votes: ''
+    standardDeviation: Desvio padrão
+    standardDeviationShort: σ
   new_poll:
     type: ''
     name_required: ''
@@ -1499,6 +1503,8 @@ search:
       jumper_tooltip: ''
       member_tooltip: ''
     from: ''
+    mail:
+      mail_name: '{name} <{mail}>'
   title: ''
   placeholder: ''
   user_search:
@@ -2292,10 +2298,6 @@ content:
   changelog: ''
   edit_success: ''
   bread: ''
-tablesorter:
-  entriespp: ''
-  page: ''
-  from: ''
 conference:
   join_title: ''
   description_text: ''
@@ -2858,3 +2860,6 @@ ansprechpartner: ''
 homepage: ''
 passcheck: ''
 apply_type: ''
+validation:
+  phone_number_invalid: O número de telefone é inválido (por exemplo, falta o indicativo
+    do país, é demasiado curto, demasiado longo ou contém caracteres inválidos)

@@ -17,6 +17,9 @@ createdb foodsharing
 log-header "Migrating DB ..."
 migratedb
 
+log-header "Create docs data ..."
+"$dir"/dev-docs-build
+
 log-header "Seed DB ..."
 exec-in-container app vendor/bin/codecept foodsharing:seed "$@"
 

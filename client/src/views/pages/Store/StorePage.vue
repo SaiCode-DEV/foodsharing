@@ -27,14 +27,10 @@
               :is-coordinator="permissions.isCoordinator"
               :is-verified="isVerified"
             />
-            <StoreWall
+            <Wall
               v-if="viewIsMobile"
-              :may-read-store-wall="permissions.mayReadStoreWall"
-              :store-id="storeId"
-              :managers="storeManagers"
-              :may-write-post="permissions.mayWritePost"
-              :may-delete-everything="permissions.mayDeleteEverything"
-              :is-coordinator="permissions.isCoordinator"
+              target="store"
+              :target-id="storeId"
             />
             <StoreTeam
               v-if="!viewIsMobile"
@@ -73,19 +69,16 @@
               :store-id="storeId"
               :cooperation-start="storeInformation.cooperationStart"
             />
-            <StoreWall
+            <Wall
               v-if="!viewIsMobile"
-              :may-read-store-wall="permissions.mayReadStoreWall"
-              :store-id="storeId"
-              :managers="storeManagers"
-              :may-write-post="permissions.mayWritePost"
-              :may-delete-everything="permissions.mayDeleteEverything"
-              :is-coordinator="permissions.isCoordinator"
+              target="store"
+              :target-id="storeId"
             />
           </div>
           <div class="col-lg-3">
             <StoreInfos
               :particularities-description="storeInformation.description"
+              :particularities-chain="storeInformation.chain?.information"
               :weight-type="storeInformation.weight"
               :store-title="storeInformation.name"
               :street="storeInformation.address.street"
@@ -143,9 +136,9 @@ import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import StoreTeam from '@/components/Stores/StoreTeam/StoreTeam.vue'
 import StoreInfos from '@/components/Stores/StoreInfos.vue'
 import PickupHistory from '@/components/Stores/PickupHistory.vue'
-import StoreWall from '@/components/Stores/StoreWall.vue'
+import Wall from '@/components/Wall/Wall.vue'
 import PickupList from '@/components/Stores/PickupList.vue'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import StoreData from '@/stores/stores'
 import { pulseInfo } from '@/script'
 import StoreLog from '@/components/Stores/StoreLog.vue'
@@ -160,9 +153,9 @@ export default {
     StoreTeam,
     StoreInfos,
     PickupHistory,
-    StoreWall,
     PickupList,
     StoreLog,
+    Wall,
   },
   mixins: [MediaQueryMixin],
   props: {
@@ -170,6 +163,12 @@ export default {
     collectionQuantity: { type: String, default: '' },
     storeManagers: { type: Array, default: () => [] },
     showTeamRequests: { type: Boolean, default: false },
+  },
+  setup () {
+    const userStore = useUserStore()
+    return {
+      userStore,
+    }
   },
   data () {
     return {
@@ -179,10 +178,10 @@ export default {
   },
   computed: {
     isVerified () {
-      return DataUser.getters.isVerified()
+      return this.userStore.isVerified
     },
     userId () {
-      return DataUser.getters.getUserId()
+      return this.userStore.getUserId
     },
     storeMember () {
       return StoreData.getters.getStoreMember()
@@ -205,7 +204,7 @@ export default {
   },
   async mounted () {
     await StoreData.mutations.loadPermissions(this.storeId)
-    await DataUser.mutations.fetchDetails()
+    await this.userStore.fetchDetails()
     await StoreData.mutations.loadStoreInformation(this.storeId)
     await StoreData.mutations.loadGetRegionOptions(this.storeInformation.region.id)
     await StoreData.mutations.loadStoreMember(this.storeId)
@@ -221,7 +220,7 @@ export default {
     this.loadRightsInfo()
 
     const applications = StoreData.getters.getStoreApplications()
-    if (this.showTeamRequests && applications.storeRequests && applications.storeRequests.length > 0) {
+    if (this.showTeamRequests && applications && applications.length > 0) {
       this.$bvModal.show('requests')
     }
   },

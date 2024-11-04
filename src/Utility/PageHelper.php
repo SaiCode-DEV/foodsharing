@@ -9,6 +9,8 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
+use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Permissions\ContentPermissions;
 use Foodsharing\Permissions\MailboxPermissions;
@@ -17,6 +19,7 @@ use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\QuizPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\ReportPermissions;
+use Foodsharing\Permissions\StoreCategoriesPermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
 use Twig\Environment;
@@ -60,8 +63,11 @@ final class PageHelper
         private readonly NewsletterEmailPermissions $newsletterEmailPermissions,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly ProfilePermissions $profilePermissions,
+        private readonly StoreCategoriesPermissions $storeCategoriesPermissions,
+        private readonly AchievementPermissions $achievementPermissions,
         private readonly RegionGateway $regionGateway,
-        private readonly SettingsTransactions $settingsTransactions
+        private readonly SettingsTransactions $settingsTransactions,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
 
@@ -161,7 +167,7 @@ final class PageHelper
             'firstname' => $this->session->user('name') ?? '',
             'lastname' => $this->session->user('nachname') ?? '',
             'may' => $this->session->mayRole(),
-            'homeRegionId' => $this->session->getCurrentRegionId() ?? null,
+            'homeRegionId' => $this->currentUserUnits->getCurrentRegionId() ?? null,
             'hasMailbox' => $this->mailboxPermissions->mayHaveMailbox(),
             'isFoodsaver' => $this->session->mayRole(Role::FOODSAVER),
             'verified' => $this->session->isVerified(),
@@ -181,7 +187,7 @@ final class PageHelper
             $sentryConfig = RAVEN_JAVASCRIPT_CONFIG;
         }
 
-        $mapTilesApiKey = defined('GEOAPIFY_API_KEY') ? GEOAPIFY_API_KEY : null;
+        $geoapifyApiKey = defined('GEOAPIFY_API_KEY') ? GEOAPIFY_API_KEY : null;
 
         return array_merge($this->extraJsServerData, [
             'user' => $userData,
@@ -193,7 +199,7 @@ final class PageHelper
             'isDev' => getenv('FS_ENV') === 'dev',
             'isTest' => getenv('FS_ENV') === 'test',
             'locale' => $this->settingsTransactions->getLocale(),
-            'mapTilesApiKey' => $mapTilesApiKey
+            'geoapifyApiKey' => $geoapifyApiKey
         ]);
     }
 
@@ -201,21 +207,22 @@ final class PageHelper
     {
         return [
             'mayEditUserProfile' => $this->profilePermissions->mayEditUserProfile($this->session->id()),
-            'mayAdministrateUserProfile' => $this->profilePermissions->mayAdministrateUserProfile($this->session->id(), $this->session->user('bezirk_id')),
+            'mayAdministrateUserProfile' => $this->profilePermissions->mayAdministrateUserProfile($this->session->id(), $this->currentUserUnits->getCurrentRegionId()),
             'administrateBlog' => $this->blogPermissions->mayAdministrateBlog(),
             'editQuiz' => $this->quizPermissions->maySeeEditQuizPage(),
             'handleReports' => $this->reportPermissions->mayHandleReports(),
             'addStore' => $this->storePermissions->mayCreateStore(),
-            'manageMailboxes' => $this->mailboxPermissions->mayManageMailboxes(),
             'editContent' => $this->contentPermissions->mayEditContent(),
             'administrateNewsletterEmail' => $this->newsletterEmailPermissions->mayAdministrateNewsletterEmail(),
             'administrateRegions' => $this->regionPermissions->mayAdministrateRegions(),
+            'editStoreCategories' => $this->storeCategoriesPermissions->mayEditStoreCategories(),
+            'editAchievements' => $this->achievementPermissions->mayEditAchievements(),
         ];
     }
 
     private function getMenu(): string
     {
-        $groups = $this->session->getRegions();
+        $groups = $this->currentUserUnits->getRegions();
 
         $regions = [];
         $workingGroups = [];
@@ -225,12 +232,13 @@ final class PageHelper
             $groupType = $group['type'];
             $group = array_merge($group, [
                 'mayHandleFoodsaverRegionMenu' => $this->regionPermissions->mayHandleFoodsaverRegionMenu($groupId),
-                'hasConference' => $this->regionPermissions->hasConference($groupType)
+                'hasConference' => $this->regionPermissions->hasConference($groupType),
             ]);
             if (UnitType::isRegion($groupType)) {
-                $group['isAdmin'] = $this->session->isAdminFor($groupId);
-                $group['mayAccessReportGroupReports'] = $this->reportPermissions->mayAccessReportGroupReports($groupId);
-                $group['mayAccessArbitrationGroupReports'] = $this->reportPermissions->mayAccessArbitrationReports($groupId);
+                $group['isAdmin'] = $this->currentUserUnits->isAdminFor($groupId);
+                $group['mayAccessReports'] = $this->reportPermissions->mayAccessReportsForRegion($groupId);
+                $group['isReportAdmin'] = $this->reportPermissions->isReportAdmin($groupId);
+                $group['isArbitrationAdmin'] = $this->reportPermissions->isArbitrationAdmin($groupId);
                 $group['maySetRegionPin'] = $this->regionPermissions->maySetRegionPin($groupId);
                 $regions[] = $group;
             } else {
@@ -372,11 +380,6 @@ final class PageHelper
         $this->webpackStylesheets[] = $src;
     }
 
-    public function addStyle(string $css): void
-    {
-        $this->add_css .= trim($css);
-    }
-
     public function addJs(string $njs): void
     {
         $this->js .= $njs;
@@ -387,19 +390,6 @@ final class PageHelper
         $this->js_func .= $nfunc;
     }
 
-    /**
-     * @deprecated
-     */
-    public function addJsServerData(string $key, array $data): void
-    {
-        $this->extraJsServerData[$key] = $data;
-    }
-
-    public function addHead(string $str): void
-    {
-        $this->head .= "\n" . $str;
-    }
-
     public function addTitle(string $name): void
     {
         $this->title[] = $name;
@@ -408,52 +398,6 @@ final class PageHelper
     public function addHidden(string $html): void
     {
         $this->hidden .= $html;
-    }
-
-    /**
-     * @deprecated - use modern frontend code instead
-     */
-    public function hiddenDialog(string $id, array $fields, string $title = '', bool $reload = false, string $width = ''): void
-    {
-        $form = implode('', $fields);
-
-        $get = '';
-        if (isset($_GET['id'])) {
-            $get = '<input type="hidden" name="id" value="' . (int)$_GET['id'] . '" />';
-        }
-
-        $this->addHidden('<div id="' . $id . '"><form>' . $form . $get . '</form></div>');
-
-        $width = $width ? "width: $width," : '';
-        $success = $reload ? 'reload();' : '';
-
-        $this->addJs('
-		$("#' . $id . '").dialog({
-		' . $width . '
-		autoOpen: false,
-		modal: true,
-		title: "' . $title . '",
-		buttons: {
-			"Speichern": function () {
-				showLoader();
-				$.ajax({
-					dataType: "json",
-					url: "/xhr?f=' . $id . '&" + $("#' . $id . ' form").serialize(),
-					success: function (data) {
-						$("#' . $id . '").dialog(\'close\');
-						' . $success . '
-						if (data.script != undefined) {
-							$.globalEval(data.script);
-						}
-					},
-					complete: function () {
-						hideLoader();
-					}
-				});
-			}
-		}
-	});
-	');
     }
 
     public function setContentWidth(int $left, int $right): void

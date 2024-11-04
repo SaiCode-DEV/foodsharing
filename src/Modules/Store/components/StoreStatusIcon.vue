@@ -29,7 +29,6 @@ export default {
           return i18n('storestatus.1')
         case COOPERATION_STATUS.IN_NEGOTIATION:
           return i18n('storestatus.2')
-        case COOPERATION_STATUS.COOPERATION_STARTING:
         case COOPERATION_STATUS.COOPERATION_ESTABLISHED:
           return i18n('storestatus.5')
         case COOPERATION_STATUS.DOES_NOT_WANT_TO_WORK_WITH_US:

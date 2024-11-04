@@ -16,25 +16,16 @@ class ForumApiCest
     private $region;
     private $thread;
     private $ambassador;
-    private $orga;
-    private $moderatedRegion;
-    private $inactiveThread;
     private $faker;
 
     final public function _before(ApiTester $I): void
     {
         $this->user = $I->createFoodsaver();
         $this->ambassador = $I->createAmbassador();
-        $this->orga = $I->createOrga();
 
-        $this->region = $I->createRegion();
+        $this->region = $I->createRegion(fillMailbox: false);
         $I->addRegionMember($this->region['id'], $this->user['id']);
         $this->thread = $I->addForumThread($this->region['id'], $this->user['id']);
-
-        $this->moderatedRegion = $I->createRegion(null, ['type' => UnitType::CITY, 'moderated' => true]);
-        $I->addRegionMember($this->moderatedRegion['id'], $this->user['id']);
-        $I->addRegionAdmin($this->moderatedRegion['id'], $this->ambassador['id']);
-        $this->inactiveThread = $I->addForumThread($this->moderatedRegion['id'], $this->user['id'], false, ['active' => false]);
 
         $this->faker = Factory::create('de_DE');
     }
@@ -90,8 +81,13 @@ class ForumApiCest
      */
     final public function canDeleteInactiveThreadAsAmbassador(ApiTester $I): void
     {
+        $moderatedRegion = $I->createRegion(null, ['type' => UnitType::CITY, 'moderated' => true], false);
+        $I->addRegionMember($moderatedRegion['id'], $this->user['id']);
+        $I->addRegionAdmin($moderatedRegion['id'], $this->ambassador['id']);
+
+        $inactiveThread = $I->addForumThread($moderatedRegion['id'], $this->user['id'], false, ['active' => false]);
         $I->login($this->ambassador['email']);
-        $I->sendDELETE('api/forum/thread/' . $this->inactiveThread['id']);
+        $I->sendDELETE('api/forum/thread/' . $inactiveThread['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
@@ -110,7 +106,8 @@ class ForumApiCest
 
     final public function canCloseThreads(ApiTester $I): void
     {
-        $I->login($this->orga['email']);
+        $orga = $I->createOrga();
+        $I->login($orga['email']);
         $I->sendPatch('api/forum/thread/' . $this->thread['id'], [
             'status' => 1
         ]);

@@ -7,6 +7,7 @@ use Foodsharing\Lib\WebSocketConnection;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\BasketRequests\Status as RequestStatus;
+use Foodsharing\Modules\Core\DBConstants\Report\ReportType;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -54,8 +55,6 @@ final class ProfileGateway extends BaseGateway
 					fs.`photo`,
 					fs.`about_me_intern`,
 					fs.`about_me_public`,
-					fs.`orgateam`,
-					fs.`data`,
 					fs.`last_login` as last_activity,
 					fs.stat_fetchweight,
 					fs.stat_fetchcount,
@@ -71,6 +70,7 @@ final class ProfileGateway extends BaseGateway
 					fs.sleep_msg,
 					fs.sleep_from,
 					fs.sleep_until,
+                    fs.is_sleeping,
 					fs.rolle,
 					UNIX_TIMESTAMP(fs.sleep_from) AS sleep_from_ts,
 					UNIX_TIMESTAMP(fs.sleep_until) AS sleep_until_ts,
@@ -100,7 +100,6 @@ final class ProfileGateway extends BaseGateway
                 // has to be caught until we can check whether a to be fetched value does really exist.
             }
         }
-        $this->loadBananas($data, $fsId);
 
         $data['botschafter'] = false;
         $data['foodsaver'] = false;
@@ -217,46 +216,9 @@ final class ProfileGateway extends BaseGateway
         return boolval($this->db->fetchValueByCriteria('fs_foodsaver', 'verified', ['id' => $userId]));
     }
 
-    /**
-     * @param array $data pass by reference with "&" --> otherwise the array will only be changed in scope of the method
-     * @param int $fsId the foodsaver id for which bananas should be loaded
-     */
-    private function loadBananas(array &$data, int $fsId): void
-    {
-        $stm = '
-					SELECT 	fs.id,
-							fs.name,
-							fs.photo,
-							r.`msg`,
-							r.`time`
-					FROM 	`fs_foodsaver` fs,
-							 `fs_rating` r
-					WHERE 	r.rater_id = fs.id
-					AND 	r.foodsaver_id = :fs_id
-					ORDER BY time DESC
-			';
-
-        $bananaList = $this->db->fetchAll($stm, [':fs_id' => $fsId]);
-        foreach ($bananaList as &$banana) {
-            $banana['createdAt'] = str_replace(' ', 'T', (string)$banana['time']);
-        }
-
-        $data['bananen'] = $bananaList;
-        $bananaCountNew = count($bananaList);
-
-        if ($data['stat_bananacount'] != $bananaCountNew) {
-            $this->db->update('fs_foodsaver', ['stat_bananacount' => $bananaCountNew], ['id' => $fsId]);
-            $data['stat_bananacount'] = $bananaCountNew;
-        }
-
-        if (!$data['bananen']) {
-            $data['bananen'] = [];
-        }
-    }
-
     private function getViolationCount(int $fsId): int
     {
-        return (int)$this->db->count('fs_report', ['foodsaver_id' => $fsId]);
+        return (int)$this->db->count('fs_report', ['foodsaver_id' => $fsId, 'reporttype' => ReportType::LOCAL->value]);
     }
 
     private function getNotesCount(int $fsId): int
@@ -271,42 +233,6 @@ final class ProfileGateway extends BaseGateway
 		';
 
         return (int)$this->db->fetchValue($stm, [':fs_id' => $fsId]);
-    }
-
-    public function giveBanana(int $fsId, ?int $sessionId, string $message = ''): int
-    {
-        if ($sessionId === null) {
-            throw new \UnexpectedValueException('Must be logged in to give banana.');
-        }
-
-        $bananaId = $this->db->insert('fs_rating', [
-            'foodsaver_id' => $fsId,
-            'rater_id' => $sessionId,
-            'msg' => $message,
-            'time' => $this->db->now(),
-        ]);
-
-        return $bananaId;
-    }
-
-    /**
-     * Returns whether the user with the raterId has already given a banana with the user with userId.
-     */
-    public function hasGivenBanana(?int $raterId, int $userId): bool
-    {
-        if ($raterId === null) {
-            return false;
-        }
-
-        return $this->db->exists('fs_rating', ['foodsaver_id' => $userId, 'rater_id' => $raterId]);
-    }
-
-    /**
-     * Deletes a banana. Returns whether it existed and was deleted.
-     */
-    public function removeBanana(int $userId, int $raterId): bool
-    {
-        return $this->db->delete('fs_rating', ['foodsaver_id' => $userId, 'rater_id' => $raterId]) > 0;
     }
 
     /**
@@ -386,14 +312,13 @@ final class ProfileGateway extends BaseGateway
 			LEFT OUTER JOIN  fs_betrieb s  ON  s.id = st.betrieb_id
 
 			WHERE  st.foodsaver_id = :fs_id
-			AND    s.betrieb_status_id in (:stat_start, :stat_est)
+			AND    s.betrieb_status_id = :coop_est
 			AND    st.verantwortlich = 1
 		';
 
         $res = $this->db->fetchAll($stm, [
             ':fs_id' => $fsId,
-            ':stat_start' => CooperationStatus::COOPERATION_STARTING->value,
-            ':stat_est' => CooperationStatus::COOPERATION_ESTABLISHED->value
+            ':coop_est' => CooperationStatus::COOPERATION_ESTABLISHED->value
         ]);
 
         return $res['0']['count'];
@@ -479,40 +404,28 @@ final class ProfileGateway extends BaseGateway
      */
     public function getPassHistory(int $fsId): array
     {
-        $stm = '
-			SELECT
-			  pg.foodsaver_id,
-			  UNIX_TIMESTAMP(pg.date) AS date_ts,
-			  pg.bot_id,
-			  fs.nachname,
-			  fs.name,
-			  fs.photo,
-			  fs.sleep_status
-			FROM
-			  fs_pass_gen pg
-			LEFT JOIN
-			  fs_foodsaver fs
-			ON
-			  pg.bot_id = fs.id
-			WHERE
-			  pg.foodsaver_id = :fs_id
-			ORDER BY
-			  pg.date
-			DESC
+        $stm = 'SELECT
+                pg.foodsaver_id,
+                UNIX_TIMESTAMP(pg.date) AS date_ts,
+                pg.bot_id,
+                CONCAT(bot.name, " ", bot.nachname) AS bot_name,
+                bot.photo AS bot_photo,
+                bot.is_sleeping AS bot_is_sleeping
+			FROM fs_pass_gen pg
+			LEFT JOIN fs_foodsaver bot ON pg.bot_id = bot.id
+			WHERE pg.foodsaver_id = :fs_id
+			ORDER BY pg.date
+			DESC 
 			LIMIT 15
 		';
 
         $passHistory = $this->db->fetchAll($stm, [':fs_id' => $fsId]);
 
-        return array_map(function ($entry) {
-            $actor = $entry['bot_id']
-                ? new Profile($entry['bot_id'], $entry['name'] . ' ' . $entry['nachname'], $entry['photo'],
-                    $entry['sleep_status'] ?? 0)
-                : null;
-
-            return PassHistoryEntry::create($entry['foodsaver_id'], Carbon::createFromTimestamp($entry['date_ts']), $actor
-            );
-        }, $passHistory);
+        return array_map(fn ($entry) => PassHistoryEntry::create(
+            $entry['foodsaver_id'],
+            Carbon::createFromTimestamp($entry['date_ts']),
+            new Profile($entry, 'bot_'),
+        ), $passHistory);
     }
 
     /**
@@ -529,7 +442,7 @@ final class ProfileGateway extends BaseGateway
 			  fs.nachname,
 			  fs.name,
 			  fs.photo,
-			  fs.sleep_status,
+			  fs.is_sleeping,
 			  fs.deleted_at
 			FROM
 			  fs_verify_history vh
@@ -546,8 +459,13 @@ final class ProfileGateway extends BaseGateway
         $verificationHistory = $this->db->fetchAll($stm, [':fs_id' => $fsId]);
 
         return array_map(function ($entry) {
-            $actor = $entry['bot_id'] && $entry['deleted_at'] == null
-                ? new Profile($entry['bot_id'], $entry['name'] . ' ' . $entry['nachname'], $entry['photo'], $entry['sleep_status'] ?? 0)
+            $actor = $entry['bot_id'] && $entry['deleted_at'] == null ?
+                new Profile([
+                    'id' => $entry['bot_id'],
+                    'name' => $entry['name'] . ' ' . $entry['nachname'],
+                    'photo' => $entry['photo'],
+                    'is_sleeping' => $entry['is_sleeping'] ?? 0,
+                ])
                 : null;
 
             return VerificationHistoryEntry::create($entry['fs_id'], Carbon::createFromTimestamp($entry['date_ts']),

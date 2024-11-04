@@ -6,8 +6,7 @@ namespace Tests\Unit;
 
 use Codeception\Test\Unit;
 use Foodsharing\Lib\Routing;
-use Foodsharing\Modules\Settings\SettingsControl;
-use Foodsharing\Modules\Settings\SettingsXhr;
+use Foodsharing\Modules\Index\IndexControl;
 use Tests\Support\UnitTester;
 
 class RouterReturnsCorrectClassNameTest extends Unit
@@ -22,13 +21,7 @@ class RouterReturnsCorrectClassNameTest extends Unit
 
     final public function testReturnFqcnForControlClass(): void
     {
-        $actual = Routing::getClassName('settings', 'Control');
-        $this->assertEquals(SettingsControl::class, $actual);
-    }
-
-    final public function testReturnFqcnForXhrClass(): void
-    {
-        $actual = Routing::getClassName('settings', 'Xhr');
-        $this->assertEquals(SettingsXhr::class, $actual);
+        $actual = Routing::getClassName('index');
+        $this->assertEquals(IndexControl::class, $actual);
     }
 }

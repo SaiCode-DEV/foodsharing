@@ -603,6 +603,8 @@ settings:
   notifications: ''
   businesscard: ''
   account: ''
+  general:
+    phone: Ваш номер стационарного телефона
 profile:
   mail_bounce:
     remove_button: ''
@@ -963,6 +965,8 @@ poll:
     option_text: ''
     average: ''
     number_of_votes: ''
+    standardDeviationShort: σ
+    standardDeviation: Среднеквадратическое отклонение
   time_period: ''
   in_future: ''
   scope_description_2: ''
@@ -1401,6 +1405,7 @@ store:
     buttonManagementToggle: ''
     toogleIsReducedStateOpen: ''
     toogleIsReducedStateClosed: ''
+    filterHygiene: обучен гигиене
   request:
     title: ''
     withdraw: ''
@@ -2104,7 +2109,7 @@ bell:
   store_request_deny: ''
   poll_new_title: ''
   store_cr_times_title: '{name}'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   betrieb_fetch_title: '{betrieb}'
   forum_reply_title: '{forum}: {title}'
   forum_answer_title: '{forum}'
@@ -2150,6 +2155,7 @@ bell:
   forum_mention: ''
   workinggroup_new_request_title: '{name}'
   internal_email_changed_title: '{address}'
+  forum_not_activated_thread: '{forum}'
 memberlist:
   header_for_district: ''
   header_for_workgroup: ''
@@ -2596,6 +2602,8 @@ search:
       jumper_tooltip: ''
       member_tooltip: ''
     from: ''
+    mail:
+      mail_name: '{name} <{mail}>'
 deletefromregion: ''
 push_notifications:
   test_notification_title: ''
@@ -2605,10 +2613,6 @@ conference:
   privacy_notice: ''
   description_text: ''
   join: ''
-tablesorter:
-  from: ''
-  page: ''
-  entriespp: ''
 sidenav:
   superregional: ''
   countryspecific: ''
@@ -2776,8 +2780,8 @@ homepage: 'Твой сайт'
 filter_by: 'Фильтровать по следующим критериям'
 message_text_to_group_admin_workgroup: 'У региона / рабочей группы <b>{groupName}</b>
   больше нет посла / администратора.<br><br><br>У неё следующая ID-структура:<br>{idStructureList}<br><br>ID
-  следующий: {groupId}<br><br>URL: "<a href="/?page=bezirk&bid={groupId}&sub=forum"
-  target="_blank">Нажми здесь, чтобы перейти к региону / рабочей группе</a>'
+  следующий: {groupId}<br><br>URL: "<a href="/region?bid={groupId}&sub=forum" target="_blank">Нажми
+  здесь, чтобы перейти к региону / рабочей группе</a>'
 ort: 'город / село (автоматически из карты выше)'
 position: 'Позиция на фудшеринге (публичная)'
 fpcapital: 'МП'
@@ -2900,3 +2904,6 @@ usersearch:
   search_tag: ''
   no_tag_preset: ''
   select_tag: ''
+validation:
+  phone_number_invalid: Телефонный номер недействителен (например, отсутствует код
+    страны, он слишком короткий, слишком длинный или содержит недопустимые символы)

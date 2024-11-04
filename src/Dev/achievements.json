@@ -1,0 +1,22 @@
+[
+  {
+    "name": "KAM Schulung",
+    "region_id": 332,
+    "description": "Wird für die Teilnahme an der Schulung zum *Key-Account-Manager* vergeben. Dies berechtigt dazu, Betriebsketten aufzubauen und zu administrieren.",
+    "icon": "fas fa-graduation-cap",
+    "validity_in_days_after_assignment": 365
+  },
+  {
+    "name": "Kettenaufbau",
+    "region_id": 332,
+    "description": "Wird für den Kooperationsaufbau mit einer Betriebskette vergeben."
+  },
+  {
+    "id": 4,
+    "name": "Hygieneschulung",
+    "region_id": 741,
+    "description": "Wird für die Teilnahme an der foodsharing Hygieneschulung vergeben.",
+    "icon": "fas fa-hands-wash",
+    "validity_in_days_after_assignment": 365
+  }
+]

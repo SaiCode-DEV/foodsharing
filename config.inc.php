@@ -81,8 +81,6 @@ if (!defined('BBB_DOMAIN')) {
 define('MAX_DEADLOCK_QUERY_ATTEMPTS', 3);
 define('DEADLOCK_QUERY_SLEEP_TIME_IN_MS', 200);
 
-define('MAX_DELETE_OLD_ACCOUNTS_PER_DAY', 1000);
-
 /*
  * How to put the webpush keys at the first deployment after webpush was introduced:
  *

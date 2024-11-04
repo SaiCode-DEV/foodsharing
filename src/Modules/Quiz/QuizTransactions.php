@@ -4,26 +4,26 @@ namespace Foodsharing\Modules\Quiz;
 
 use Carbon\Carbon;
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Achievement\AchievementTransactions;
+use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Quiz\AnswerRating;
 use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
-use Foodsharing\Modules\Core\DBConstants\Quiz\QuizStatus;
 use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
+use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Legal\LegalGateway;
 use Foodsharing\Modules\Quiz\DTO\ActiveQuestion;
-use Foodsharing\Modules\Quiz\DTO\FullQuizStatus;
 use Foodsharing\Modules\Quiz\DTO\Question;
 use Foodsharing\Modules\Quiz\DTO\Quiz;
 use Foodsharing\Modules\Quiz\DTO\QuizSession;
+use Foodsharing\Modules\Quiz\DTO\QuizStatus;
 use Foodsharing\Modules\WallPost\WallPostGateway;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class QuizTransactions
 {
     public const NETWORK_BUFFER_TIME_IN_SECONDS = 5;
-    public const TRIES_BEFORE_PAUSE = 3;
-    public const PAUSE_DURATION_IN_DAYS = 30;
-    public const TOTAL_MAX_TRIES = 5;
 
     public function __construct(
         private readonly Session $session,
@@ -31,6 +31,8 @@ class QuizTransactions
         private readonly QuizGateway $quizGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly WallPostGateway $wallPostGateway,
+        private readonly LegalGateway $legalGateway,
+        private readonly AchievementTransactions $achievementTransactions,
     ) {
     }
 
@@ -38,8 +40,11 @@ class QuizTransactions
      * Initializes and starts a new quiz session.
      * Should only be used, if no such session is currently running for the user.
      */
-    public function startQuizSession(Quiz $quiz, bool $isTimed): void
+    public function startQuizSession(Quiz $quiz, bool $isTimed, bool $isTest): void
     {
+        if ($isTest) {
+            $this->quizSessionGateway->deleteTestSessions(QuizID::from($quiz->id), $this->session->id());
+        }
         $questionCount = $isTimed ? $quiz->questionCountTimed : $quiz->questionCountUntimed;
         $questions = $this->getFairQuestions($questionCount, $quiz->id);
 
@@ -48,7 +53,8 @@ class QuizTransactions
             quizId: $quiz->id,
             questions: $questions,
             maxFailurePointsToSucceed: $quiz->maxFailurePointsToSucceed,
-            isTimed: $isTimed
+            isTimed: $isTimed,
+            isTest: $isTest,
         );
         $this->quizSessionGateway->initQuizSession($quizSession);
     }
@@ -83,53 +89,71 @@ class QuizTransactions
     /**
      * Returns all information required to display the detailed current quiz status.
      */
-    public function getQuizStatus(int $quizId, int $fsId): FullQuizStatus
+    public function getQuizStatus(QuizID $quizId, int $fsId, bool $isTest = false): QuizStatus
     {
-        [$lastSession, $tries] = $this->quizSessionGateway->collectQuizStatus($quizId, $fsId);
-        $status = new FullQuizStatus();
-        if (!$tries) {
-            $status->status = QuizStatus::NEVER_TRIED;
+        $status = new QuizStatus();
+
+        $sessions = $this->quizSessionGateway->collectQuizSessions($quizId, $fsId, $isTest);
+        $tries = count($sessions);
+
+        if ($tries) {
+            // lastSessionStatus
+            $lastSession = $sessions[0];
+            $status->lastSessionStatus = $lastSession->status;
+            if ($status->lastSessionStatus === SessionStatus::RUNNING) {
+                --$tries; // dont count the running session
+            }
+        } else {
+            $status->waitTimeAfterFailure = $this->getQuizWaitTime($quizId, $tries + 1);
 
             return $status;
-        } if ($lastSession->status === SessionStatus::RUNNING) {
-            $status->status = QuizStatus::RUNNING;
+        }
+
+        $status->waitTimeAfterFailure = $this->getQuizWaitTime($quizId, $tries + 1);
+
+        // Disqualified
+        $totalWaitTime = $this->getQuizWaitTime($quizId, $tries);
+        if ($totalWaitTime === -1) {
+            $status->currentWaitTime = -1;
+
+            return $status;
+        }
+
+        // expirationTime
+        $now = Carbon::now();
+        $expirationTime = $this->getQuizExpirationTime($quizId);
+        if ($expirationTime) {
+            foreach ($sessions as $session) {
+                if ($session->status === SessionStatus::PASSED) {
+                    $expirationDate = (new Carbon($session->endTime))->addDays($expirationTime);
+                    $daysUntilExpiration = max(0, intval(ceil($now->floatDiffInDays($expirationDate, false))));
+                    if ($daysUntilExpiration <= $this->getQuizExpirationWarningTime($quizId)) {
+                        $status->expirationTime = $daysUntilExpiration;
+                    }
+                    break;
+                }
+            }
+        }
+
+        // currently running
+        if ($status->lastSessionStatus == SessionStatus::RUNNING) {
             $status->questionCount = count($lastSession->questions);
             $status->questionsAnswered = $lastSession->questionsAnswered;
             $status->isTimed = $lastSession->isTimed;
 
             return $status;
-        } if ($lastSession->status === SessionStatus::PASSED) {
-            $status->status = QuizStatus::PASSED;
-            $confirmedRole = $this->foodsaverGateway->getRole($this->session->id());
-            switch ($quizId) {
-                case QuizID::FOODSAVER->value:
-                case QuizID::STORE_MANAGER->value:
-                    $status->confirmed = $confirmedRole->value >= $quizId;
-                    // no break
-                default:
-                    return $status;
-            }
-        } if ($tries < self::TRIES_BEFORE_PAUSE) {
-            $status->status = QuizStatus::FAILED;
-            $status->tries = $tries;
-
-            return $status;
-        }
-        $now = Carbon::now();
-        $pauseEnd = $lastSession->endTime->copy()->addDays(self::PAUSE_DURATION_IN_DAYS);
-        if ($tries === self::TRIES_BEFORE_PAUSE && $now->isBefore($pauseEnd)) {
-            $status->status = QuizStatus::PAUSE;
-            $status->wait = intval(round($now->floatDiffInDays($pauseEnd)));
-
-            return $status;
-        } if ($tries < self::TOTAL_MAX_TRIES) {
-            $status->status = QuizStatus::PAUSE_ELAPSED;
-            $status->tries = $tries;
-
-            return $status;
         }
 
-        $status->status = QuizStatus::DISQUALIFIED;
+        // currentWaitTime
+        if ($totalWaitTime && $lastSession->status === SessionStatus::FAILED) {
+            $waitEndDate = (new Carbon($lastSession->endTime))->addDays($totalWaitTime);
+            $status->currentWaitTime = max(0, intval(ceil($now->floatDiffInDays($waitEndDate, false))));
+        }
+
+        // confirmed
+        if ($status->lastSessionStatus == SessionStatus::PASSED) {
+            $status->confirmed = $this->isQuizConfirmed($quizId);
+        }
 
         return $status;
     }
@@ -175,19 +199,104 @@ class QuizTransactions
         $session->status = ($failurePointsTotal <= $quiz->maxFailurePointsToSucceed) ? SessionStatus::PASSED : SessionStatus::FAILED;
         $session->endTime = Carbon::now();
         $this->quizSessionGateway->updateQuizSession($session);
-        if ($session->status === SessionStatus::PASSED) {
-            switch ($quiz->id) {
-                case QuizID::FOODSAVER->value:
-                    $this->foodsaverGateway->riseQuizRole($this->session->id(), Role::FOODSAVER);
-                    break;
-                case QuizID::STORE_MANAGER->value:
-                    $this->foodsaverGateway->riseQuizRole($this->session->id(), Role::STORE_MANAGER);
-                    break;
-                case QuizID::AMBASSADOR->value:
-                    $this->foodsaverGateway->riseQuizRole($this->session->id(), Role::AMBASSADOR);
-                    break;
-            }
+        if ($session->status === SessionStatus::PASSED && !$session->isTest) {
+            $this->postQuizAction(QuizID::from($quiz->id));
         }
+    }
+
+    private function postQuizAction(QuizID $quizId): void
+    {
+        switch ($quizId) {
+            case QuizID::FOODSAVER:
+            case QuizID::STORE_MANAGER:
+            case QuizID::AMBASSADOR:
+                $this->foodsaverGateway->riseQuizRole($this->session->id(), Role::from($quizId->value));
+                break;
+            case QuizID::HYGIENE:
+                $this->achievementTransactions->awardAchievementFromId(AchievementIDs::HYGIENE_CERTIFICATE, $this->session->id());
+                break;
+        }
+    }
+
+    /**
+     * returns the number of days to wait after a certain number of tries.
+     * returns -1 if the user is disqualified after trying that many times.
+     */
+    private function getQuizWaitTime(QuizID $quizId, int $try): int
+    {
+        if ($try < 1) {
+            // no wait before the first try
+            return 0;
+        }
+
+        switch ($quizId) {
+            case QuizID::FOODSAVER:
+            case QuizID::STORE_MANAGER:
+            case QuizID::AMBASSADOR:
+                if ($try < 3) {
+                    return 0;
+                } if ($try == 3) {
+                    return 30;
+                } if ($try == 4) {
+                    return 0;
+                }
+
+                return -1;
+            case QuizID::HYGIENE:
+                if ($try == 1) {
+                    return 0;
+                }
+
+                return 1;
+            default:
+                return 0;
+        }
+    }
+
+    /**
+     * returns the time in days that a quiz stays passed before expiring, meaning that the user has to pass it again.
+     */
+    private function getQuizExpirationTime(QuizID $quizId): ?int
+    {
+        return match ($quizId) {
+            QuizID::HYGIENE => 365, // one year
+            default => null,
+        };
+    }
+
+    /**
+     * returns the time in days that a quiz will be open again before it expires.
+     */
+    private function getQuizExpirationWarningTime(QuizID $quizId): ?int
+    {
+        return match ($quizId) {
+            QuizID::HYGIENE => 90, // ~3 months
+            default => null,
+        };
+    }
+
+    private function isQuizConfirmed(QuizID $quizId): ?bool
+    {
+        $confirmedRole = $this->foodsaverGateway->getRole($this->session->id());
+
+        return match ($quizId) {
+            QuizID::FOODSAVER, QuizID::STORE_MANAGER => $confirmedRole->value >= $quizId->value,
+            default => null,
+        };
+    }
+
+    public function updateQuizRoleForCurrentUser()
+    {
+        $this->session->set('quiz_role', $this->foodsaverGateway->getQuizRole($this->session->id())->value);
+    }
+
+    public function getQuizRoleOfCurrentUser(): Role
+    {
+        if (!$this->session->has('quiz_role')) {
+            $this->updateQuizRoleForCurrentUser();
+        }
+
+        return Role::from($this->session->get('quiz_role'));
     }
 
     /**
@@ -288,8 +397,11 @@ class QuizTransactions
     public function confirmQuiz(int $quizId, int $foodsaverId): bool
     {
         switch ($quizId) {
-            case QuizID::FOODSAVER->value:
             case QuizID::STORE_MANAGER->value:
+                $currentPrivacyNoticeVersion = $this->legalGateway->getPnVersion();
+                $this->legalGateway->agreeToPn($this->session->id(), $currentPrivacyNoticeVersion);
+                // no break
+            case QuizID::FOODSAVER->value:
                 $this->foodsaverGateway->riseRole($foodsaverId, Role::from($quizId));
                 $this->session->refreshFromDatabase();
 
@@ -309,7 +421,7 @@ class QuizTransactions
         $questions = $this->quizGateway->getQuestions($quizId);
         foreach ($questions as &$question) {
             $question->answers = $this->quizGateway->getAnswers($question->id);
-            $question->commentCount = $this->wallPostGateway->countPosts('question', $question->id);
+            $question->commentCount = $this->wallPostGateway->countPosts(WallType::QUIZ_QUESTION, $question->id);
         }
 
         return $questions;

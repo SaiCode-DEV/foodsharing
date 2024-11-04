@@ -8,18 +8,16 @@
         :value="option.optionIndex"
         :disabled="!enabled"
       >
-        {{ option.text }}
+        <Markdown :source="option.text" />
       </b-form-radio>
     </b-form-group>
   </div>
 </template>
-
 <script>
-
-import { BFormGroup, BFormRadio } from 'bootstrap-vue'
+import Markdown from '@/components/Markdown/Markdown.vue'
 
 export default {
-  components: { BFormGroup, BFormRadio },
+  components: { Markdown },
   props: {
     options: {
       type: Array,

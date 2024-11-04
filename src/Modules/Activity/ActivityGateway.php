@@ -4,7 +4,6 @@ namespace Foodsharing\Modules\Activity;
 
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Mailbox\MailboxFolder;
-use Foodsharing\Modules\Core\DBConstants\Store\Milestone;
 
 class ActivityGateway extends BaseGateway
 {
@@ -154,7 +153,6 @@ class ActivityGateway extends BaseGateway
 					fs.id AS foodsaver_id,
 					fs.name AS foodsaver_name,
 					fs.photo AS foodsaver_photo,
-					fs.sleep_status,
 					p.body AS post_body,
 					p.`time` AS update_time,
 					UNIX_TIMESTAMP(p.`time`) AS update_time_ts,
@@ -163,16 +161,17 @@ class ActivityGateway extends BaseGateway
 					b.name AS bezirk_name,
 					bt.bot_theme
 
-			FROM            fs_theme t
-			LEFT OUTER JOIN fs_theme_post p ON p.id = t.last_post_id
-			LEFT OUTER JOIN	fs_bezirk_has_theme bt ON bt.theme_id = t.id
-			LEFT OUTER JOIN	fs_foodsaver fs ON fs.id = p.foodsaver_id
-			LEFT OUTER JOIN	fs_bezirk b ON b.id = bt.bezirk_id
+			FROM fs_theme t
+			JOIN fs_theme_post p ON p.id = t.last_post_id
+			JOIN fs_bezirk_has_theme bt ON bt.theme_id = t.id
+			JOIN fs_foodsaver fs ON fs.id = p.foodsaver_id
+			JOIN fs_bezirk b ON b.id = bt.bezirk_id
 
 			WHERE	t.active = 1
 			AND 	bt.bezirk_id IN ( ' . implode(',', $regionIds) . ' )
 			AND 	bt.bot_theme = :isAmbassadorThread
 			AND 	fs.deleted_at IS NULL
+			AND 	p.hidden_time IS NULL
 
 			ORDER BY t.last_post_id DESC
 			LIMIT :start_item_index, :items_per_page
@@ -190,47 +189,37 @@ class ActivityGateway extends BaseGateway
 
     public function fetchAllStoreUpdates(int $fsId, int $page): array
     {
-        $stm = '
-			SELECT 	n.id,
-					n.milestone,
-					n.`text`,
-					n.`zeit` AS update_time,
-					UNIX_TIMESTAMP( n.`zeit` ) AS update_time_ts,
-					fs.name AS foodsaver_name,
-					fs.sleep_status,
-					fs.id AS foodsaver_id,
-					fs.photo AS foodsaver_photo,
-					b.id AS betrieb_id,
-					b.name AS betrieb_name,
-					b.stadt AS region_name
-
-			FROM (
-				select max(n.id) as n_id
-
-				from fs_betrieb_notiz n
-
-				group by n.betrieb_id
-			) source
-
-			LEFT OUTER JOIN fs_betrieb_notiz n ON n.id = n_id
-			LEFT OUTER JOIN fs_foodsaver fs    ON fs.id = n.foodsaver_id
-			LEFT OUTER JOIN fs_betrieb_team bt ON bt.betrieb_id = n.betrieb_id
-			LEFT OUTER JOIN fs_betrieb b       ON b.id = n.betrieb_id
-
-			WHERE	n.id IS NOT NULL
-			AND 	bt.active = 1
-			AND 	bt.foodsaver_id = :foodsaver_id
-			AND 	n.milestone = :wall_message
-
-			ORDER BY n.id DESC
-			LIMIT :start_item_index, :items_per_page
+        $stm = 'SELECT
+                n.id,
+                n.`body` as `text`,
+                UNIX_TIMESTAMP( n.`time` ) AS update_time_ts,
+                fs.name AS foodsaver_name,
+                fs.is_sleeping AS foodsaver_is_sleeping,
+                fs.id AS foodsaver_id,
+                fs.photo AS foodsaver_photo,
+                b.id AS betrieb_id,
+                b.name AS betrieb_name,
+                b.stadt AS region_name
+            FROM (
+                SELECT max(n.id) AS last_post_id
+                FROM fs_wallpost n
+								INNER JOIN fs_store_has_wallpost hp ON hp.wallpost_id = n.id  
+                INNER JOIN fs_betrieb_team bt ON bt.betrieb_id = hp.store_id
+                WHERE bt.active = 1 AND bt.foodsaver_id = :foodsaver_id
+                GROUP BY hp.store_id
+                ) source
+            INNER JOIN fs_wallpost n ON n.id = last_post_id
+						INNER JOIN fs_store_has_wallpost hp ON hp.wallpost_id = n.id  
+            INNER JOIN fs_foodsaver fs ON fs.id = n.foodsaver_id
+            INNER JOIN fs_betrieb b ON b.id = hp.store_id
+            ORDER BY n.id DESC
+            LIMIT :start_item_index, :items_per_page
 		';
 
         return $this->db->fetchAll(
             $stm,
             [
                 ':foodsaver_id' => $fsId,
-                ':wall_message' => Milestone::NONE,
                 ':start_item_index' => $page * self::ITEMS_PER_PAGE,
                 ':items_per_page' => self::ITEMS_PER_PAGE,
             ]

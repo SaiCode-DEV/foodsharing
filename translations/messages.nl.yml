@@ -409,6 +409,8 @@ poll:
     sum: ''
     option_text: ''
     percentage_of_votes: ''
+    standardDeviationShort: σ
+    standardDeviation: Standaardafwijking
   cancel:
     title: ''
     question: ''
@@ -616,6 +618,7 @@ store:
     buttonManagementToggle: ''
     toogleIsReducedStateOpen: ''
     toogleIsReducedStateClosed: ''
+    filterHygiene: Hygiëne opgeleid
   prefetchtwo: ''
   prefetchthree: ''
   allStoresOfRegion: ''
@@ -2273,7 +2276,7 @@ bell:
   store_new_request_title: ''
   sharepoint_activate: ''
   betrieb_fetch_title: '{betrieb}'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   store_cr_times: ''
   buddy_request: ''
   passgen_failed: ''
@@ -2294,6 +2297,7 @@ bell:
   forum_new_thread_title: ''
   forum_announcement_title: ''
   forum_mention: ''
+  workinggroup_new_request_title: '{name}'
 regionOptions:
   regionPickupTimespan: ''
   success: ''
@@ -2541,10 +2545,6 @@ genderlist:
   gender_female: ''
   header_for_district: ''
   district_tab: ''
-tablesorter:
-  from: ''
-  entriespp: ''
-  page: ''
 search:
   noresults: ''
   thread-title-only: ''
@@ -2579,6 +2579,8 @@ search:
       jumper_tooltip: ''
       member_tooltip: ''
     from: ''
+    mail:
+      mail_name: '{name} <{mail}>'
 password:
   insertmail: ''
   reset: ''

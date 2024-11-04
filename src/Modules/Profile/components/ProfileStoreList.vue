@@ -9,7 +9,7 @@
         variant="outline-primary"
         :pressed="button.state === filterMemberState"
         class="flex-grow-1"
-        @click="filterMemberState = button.state"
+        @click="setMemberState(button)"
       >
         <i :class="`fas fa-${button.icon}`" /><br>
         {{ button.count }}
@@ -22,13 +22,13 @@
       />
       <b-button
         variant="outline-primary"
-        @click="resetFilterName"
+        @click="resetFilter"
       >
         <i class="fas fa-times" />
       </b-button>
     </div>
     <div
-      v-for="store in filteredStores"
+      v-for="store in filteredStoresAndPagination"
       :key="store.id"
     >
       <a
@@ -53,8 +53,9 @@
     </div>
     <div class="float-right p-1 pr-3">
       <b-pagination
+        v-if="filteredStoresAndPagination.length > 0"
         v-model="currentPage"
-        :total-rows="storeData.length"
+        :total-rows="filteredStores.length"
         :per-page="perPage"
         class="my-0"
       />
@@ -82,10 +83,10 @@ export default {
     return {
       filterButtons: [
         { tooltip: 'filterAll', state: null, icon: 'users' },
+        { tooltip: 'filterManage', state: PROFILE_STORE_TEAM_STATE.MANAGE_ROLE, icon: 'fas fa-user-cog' },
         { tooltip: 'filterActive', state: PROFILE_STORE_TEAM_STATE.ACTIVE, icon: 'user' },
-        { tooltip: 'filterRequested', state: PROFILE_STORE_TEAM_STATE.REQUESTED, icon: 'fas fa-fw fa-question-circle' },
         { tooltip: 'filterJumper', state: PROFILE_STORE_TEAM_STATE.JUMPER, icon: 'running' },
-        { tooltip: 'filterManage', state: PROFILE_STORE_TEAM_STATE.MANAGE_ROLE, icon: 'fas fa-hat-cowboy' },
+        { tooltip: 'filterRequested', state: PROFILE_STORE_TEAM_STATE.REQUESTED, icon: 'fas fa-fw fa-question-circle' },
       ],
       currentPage: 1,
       perPage: 10,
@@ -105,7 +106,6 @@ export default {
 
       const cooperationStatusOrder = [
         COOPERATION_STATUS.COOPERATION_ESTABLISHED,
-        COOPERATION_STATUS.COOPERATION_STARTING,
         COOPERATION_STATUS.IN_NEGOTIATION,
         COOPERATION_STATUS.NO_CONTACT,
         COOPERATION_STATUS.UNCLEAR,
@@ -135,19 +135,19 @@ export default {
         return 0
       }
 
-      const filteredData = this.storeData.filter(store => {
+      return this.storeData.filter(store => {
         const regionMatch = !regionFilter || store.regionId === regionFilter
-        const nameMatch = !nameFilter ||
-          store.name.toLowerCase().includes(nameFilter.toLowerCase())
+        const nameMatch = !nameFilter || store.name.toLowerCase().includes(nameFilter.toLowerCase())
         const stateMatch = !stateCooperationFilter || store.cooperationStatus === stateCooperationFilter
         const memberStateMatch = memberStateFilter === null || store.active === memberStateFilter
-
         return regionMatch && nameMatch && stateMatch && memberStateMatch
       }).sort((a, b) => compareFunction(a, b, false))
+    },
 
+    filteredStoresAndPagination () {
       const startIndex = (this.currentPage - 1) * this.perPage
       const endIndex = startIndex + this.perPage
-      return filteredData.slice(startIndex, endIndex)
+      return this.filteredStores.slice(startIndex, endIndex)
     },
   },
   mounted () {
@@ -158,10 +158,15 @@ export default {
     }))
   },
   methods: {
-    resetFilterName () {
+    setMemberState (button) {
+      this.filterMemberState = button.state
+      this.currentPage = 1
+    },
+    resetFilter () {
       this.filterName = null
       this.filterRegionId = null
       this.filterCooperationState = null
+      this.filterMemberState = null
     },
     filterToRegion (regionId) {
       this.filterRegionId = regionId
@@ -174,7 +179,7 @@ export default {
       let tooltipText = this.$i18n('store.appliedFor')
 
       if (store.active === PROFILE_STORE_TEAM_STATE.MANAGE_ROLE) {
-        iconClass = 'fas fa-hat-cowboy'
+        iconClass = 'fas fa-user-cog'
         tooltipText = this.$i18n('store.isManager')
       } else if (store.active === PROFILE_STORE_TEAM_STATE.JUMPER) {
         iconClass = 'fas fa-running'

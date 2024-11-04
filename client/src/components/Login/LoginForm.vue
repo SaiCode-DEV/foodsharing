@@ -14,25 +14,28 @@
           type="email"
           name="login-email"
           class="testing-login-input-email form-control"
+          :class="{ 'is-invalid': $v.email.$invalid }"
           autocomplete="email"
           autofocus
           @focus="focusLogin=true"
         >
+        <div
+          v-if="$v.email.$invalid"
+          class="invalid-feedback"
+        >
+          <span v-if="!$v.email.required">{{ $i18n('register.email_required') }}</span>
+          <span v-else-if="!$v.email.email">{{ $i18n('register.email_invalid') }}</span>
+        </div>
       </label>
       <label class="d-block">
         <div class="mb-1">
           <i class="fas fa-key mr-1" />
           {{ $i18n('login.password') }}
         </div>
-        <input
+        <password-field
+          id="testing-login-input-password"
           v-model="password"
-          :placeholder="$i18n('login.password')"
-          :aria-label="$i18n('login.password')"
-          type="password"
-          name="login-password"
-          class="testing-login-input-password form-control"
-          autocomplete="current-password"
-        >
+        />
       </label>
       <label class="d-flex align-items-center mt-3 mb-3">
         <input
@@ -73,9 +76,12 @@ import { required, email } from 'vuelidate/lib/validators'
 
 import { pulseError } from '@/script'
 import { HTTP_RESPONSE } from '@/consts'
+import PasswordField from '@/components/Login/PasswordField.vue'
+import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
 
 export default {
   name: 'MenuLogin',
+  components: { PasswordField },
   data () {
     return {
       email: isDev ? 'userbot@example.com' : '',
@@ -121,6 +127,7 @@ export default {
       this.isLoading = true
       try {
         await login(this.email, this.password, this.rememberMe)
+        channel.postMessage({ type: BROADCAST_TYPE.LOGIN })
         let ref = new URL(location.href).searchParams.get('ref')
         if (!ref?.startsWith('/')) ref = null
         location.replace(ref ?? this.$url('dashboard'))

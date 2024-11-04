@@ -15,9 +15,12 @@ use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Mailbox\MailboxFolder;
 use Foodsharing\Modules\Core\DBConstants\Quiz\AnswerRating;
+use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
+use Foodsharing\Modules\Core\DBConstants\Report\ReportType;
+use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus as STATUS;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
@@ -220,21 +223,30 @@ class Foodsharing extends Db
 
     public function createQuiz(int $quizId, ?int $questionCount = null): array
     {
-        $roles = [
-            Role::FOODSAVER->value => 'Foodsaver:in',
-            Role::STORE_MANAGER->value => 'Betriebsverantwortliche:r',
-            Role::AMBASSADOR->value => 'Botschafter:in'
-        ];
         $questionCount ??= random_int(3, 6);
         $questionCountUntimed = $quizId === 1 ? 2 + $questionCount : null;
         $params = [
             'id' => $quizId,
-            'name' => 'Quiz für ' . $roles[$quizId],
-            'desc' => 'Werde ' . $roles[$quizId] . ' mit diesem Quiz! ' . $this->faker->realTextBetween(200, 500),
             'maxfp' => 2,
             'questcount' => $questionCount,
             'questcount_untimed' => $questionCountUntimed,
         ];
+        if ($quizId <= QuizID::AMBASSADOR->value) {
+            $roles = [
+                Role::FOODSAVER->value => 'Foodsaver:in',
+                Role::STORE_MANAGER->value => 'Betriebsverantwortliche:r',
+                Role::AMBASSADOR->value => 'Botschafter:in'
+            ];
+            $params['name'] = 'Quiz für ' . $roles[$quizId];
+            $params['desc'] = 'Werde ' . $roles[$quizId] . ' mit diesem Quiz!';
+        } elseif ($quizId === QuizID::HYGIENE->value) {
+            $params['name'] = 'Hygieneschulung';
+            $params['desc'] = 'Mit diesem Quiz qualifizierst du dich für Abholungen in bestimmten Betrieben...';
+        } elseif ($quizId === QuizID::FOODSAVER_FR->value) {
+            $params['name'] = 'Quiz für Foodsaver (FR)';
+            $params['desc'] = 'Werde foodsaver in Frankreich mit diesem Quiz!';
+        }
+        $params['desc'] .= ' ' . $this->faker->realTextBetween(200, 500);
         $params['id'] = $this->haveInDatabase('fs_quiz', $params);
 
         $params['questions'] = [];
@@ -370,8 +382,6 @@ class Foodsharing extends Db
     {
         $params = array_merge([
             'rolle' => ($is_admin ? 5 : 4),
-            'orgateam' => 1,
-            'admin' => ($is_admin ? 1 : 0),
         ], $extra_params);
 
         $params = $this->createAmbassador($pass, $params);
@@ -381,11 +391,18 @@ class Foodsharing extends Db
 
     public function createStore($bezirk_id, $team_conversation = null, $springer_conversation = null, $extra_params = []): array
     {
+        // one third of the stores are assigned to an existing store category
+        $storeCategoryId = null;
+        if (rand(0, 2) > 1) {
+            $categories = $this->grabColumnFromDatabase('fs_betrieb_kategorie', 'id');
+            $storeCategoryId = $this->faker->randomElement($categories);
+        }
+
         $params = array_merge([
-            'betrieb_status_id' => $this->faker->numberBetween(0, 6),
+            'betrieb_status_id' => $this->faker->randomElement(array_slice(CooperationStatus::cases(), 0, -1))->value,
             'status' => 1,
             'added' => $this->toDate($this->faker->dateTime()),
-            'betrieb_kategorie_id' => $this->faker->numberBetween(1, 10),
+            'betrieb_kategorie_id' => $storeCategoryId,
             'plz' => $this->faker->postcode(),
             'stadt' => $this->faker->city(),
             'str' => $this->faker->streetAddress(),
@@ -619,7 +636,7 @@ class Foodsharing extends Db
         $this->haveInDatabase('fs_email_blacklist', ['email' => 'bad.com', 'since' => $since, 'reason' => 'Disposable email addresses should not be used for registration.']);
     }
 
-    public function createMailbox($name = null)
+    public function createMailbox($name = null, bool $fillMailbox = true)
     {
         if ($name == null) {
             $name = $this->faker->unique()->userName();
@@ -628,10 +645,12 @@ class Foodsharing extends Db
         $mb['id'] = $this->haveInDatabase('fs_mailbox', $mb);
 
         // add up to 10 emails to each folder
-        foreach ([MailboxFolder::FOLDER_INBOX, MailboxFolder::FOLDER_SENT, MailboxFolder::FOLDER_TRASH] as $folder) {
-            $numMails = $this->faker->numberBetween(10, 20);
-            for ($i = 0; $i < $numMails; ++$i) {
-                $this->createEmail($mb, $folder);
+        if ($fillMailbox) {
+            foreach ([MailboxFolder::FOLDER_INBOX, MailboxFolder::FOLDER_SENT, MailboxFolder::FOLDER_TRASH] as $folder) {
+                $numMails = $this->faker->numberBetween(10, 20);
+                for ($i = 0; $i < $numMails; ++$i) {
+                    $this->createEmail($mb, $folder);
+                }
             }
         }
 
@@ -698,7 +717,7 @@ class Foodsharing extends Db
         $this->haveInDatabase('fs_buddy', ['foodsaver_id' => $user1, 'buddy_id' => $user2, 'confirmed' => $confirmedInt]);
     }
 
-    public function createRegion($name = null, $extra_params = [])
+    public function createRegion($name = null, $extra_params = [], bool $fillMailbox = true)
     {
         if ($name == null) {
             $name = $this->faker->lastName() . '-region';
@@ -712,11 +731,13 @@ class Foodsharing extends Db
             ],
             $extra_params
         );
+        $email = $v['email'] ?? null;
+        unset($v['email']);
         $v['id'] = $this->haveInDatabase('fs_bezirk', $v);
-        if (empty($v['email'])) {
-            $mailbox = $this->createMailbox('region-' . $v['id']);
+        if (!$email) {
+            $mailbox = $this->createMailbox('region-' . $v['id'], $fillMailbox);
         } else {
-            $mailbox = $this->createMailbox($v['email']);
+            $mailbox = $this->createMailbox($email, $fillMailbox);
         }
 
         $this->updateInDatabase('fs_bezirk', ['mailbox_id' => $mailbox['id']], ['id' => $v['id']]);
@@ -739,6 +760,11 @@ class Foodsharing extends Db
         if ($result <= 0) {
             $this->haveInDatabase('fs_botschafter', $v);
         }
+    }
+
+    public function addAchievement($achievementData): void
+    {
+        $this->haveInDatabase('fs_achievement', $achievementData);
     }
 
     public function addRegionMember($region_id, $fs_id, $is_active = true): void
@@ -1087,7 +1113,8 @@ class Foodsharing extends Db
             'reporter_id' => $reporterId,
             'foodsaver_id' => $reporteeId,
             'betrieb_id' => $storeId,
-            'reporttype' => 1,
+            'reporttype' => ReportType::LOCAL->value,
+            'report_reason_id' => 2,
             'time' => $this->toDateTime($this->faker->dateTimeBetween('first day of january this year', $max = 'now')),
             'msg' => $msg ?? $this->faker->text(500),
             'tvalue' => $reason ?? $this->faker->text(50),
@@ -1207,6 +1234,21 @@ class Foodsharing extends Db
         $this->haveInDatabase('fs_region_options', ['region_id' => $region, 'option_type' => RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS, 'option_value' => $ignoreHours]);
     }
 
+    public function createContent(): array
+    {
+        $title = $this->faker->title;
+        $content = [
+            'name' => strtolower(str_replace(' ', '_', $title)),
+            'title' => $title,
+            'body' => $this->faker->text,
+            'last_mod' => $this->faker->dateTimeBetween('-5 years', '-5 days')->format('Y-m-d H:i:s'),
+        ];
+
+        $id = $this->haveInDatabase('fs_content', $content);
+        $content['id'] = $id;
+
+        return $content;
+    }
     // =================================================================================================================
     // private methods
     // =================================================================================================================

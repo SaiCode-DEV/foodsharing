@@ -7,6 +7,7 @@ use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Gender;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Foodsaver\DTO\EditableProfileDTO;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Modules\Foodsaver\Profile;
@@ -19,11 +20,11 @@ use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Register\DTO\RegisterData;
 use Foodsharing\Modules\Register\RegisterTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
+use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Permissions\ContentPermissions;
-use Foodsharing\Permissions\MailboxPermissions;
 use Foodsharing\Permissions\NewsletterEmailPermissions;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\QuizPermissions;
@@ -33,12 +34,13 @@ use Foodsharing\Permissions\SearchPermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\RestApi\Models\Group\UserGroupModel;
 use Foodsharing\RestApi\Models\Region\UserRegionModel;
-use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\EmailHelper;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA2;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -47,11 +49,10 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserRestController extends AbstractFoodsharingRestController
 {
-    private const MIN_RATING_MESSAGE_LENGTH = 100;
-    private const MIN_PASSWORD_LENGTH = 8;
     private const MIN_AGE_YEARS = 18;
     private const DELETE_USER_MAX_REASON_LEN = 200;
 
@@ -69,7 +70,6 @@ class UserRestController extends AbstractFoodsharingRestController
         private SettingsGateway $settingsGateway,
 
         private ProfilePermissions $profilePermissions,
-        private MailboxPermissions $mailboxPermissions,
         private QuizPermissions $quizPermissions,
         private ReportPermissions $reportPermissions,
         private StorePermissions $storePermissions,
@@ -80,31 +80,8 @@ class UserRestController extends AbstractFoodsharingRestController
         private SearchPermissions $searchPermissions,
         private RegionTransactions $regionTransactions,
         private GroupTransactions $groupTransactions,
-        private DataHelper $dataHelper
+        private readonly SettingsTransactions $settingsTransactions
     ) {
-        $this->loginGateway = $loginGateway;
-        $this->foodsaverGateway = $foodsaverGateway;
-        $this->profileGateway = $profileGateway;
-        $this->uploadsGateway = $uploadsGateway;
-        $this->regionGateway = $regionGateway;
-        $this->emailHelper = $emailHelper;
-        $this->registerTransactions = $registerTransactions;
-        $this->profileTransactions = $profileTransactions;
-        $this->foodsaverTransactions = $foodsaverTransactions;
-        $this->settingsGateway = $settingsGateway;
-        $this->regionTransactions = $regionTransactions;
-        $this->groupTransactions = $groupTransactions;
-
-        $this->profilePermissions = $profilePermissions;
-        $this->mailboxPermissions = $mailboxPermissions;
-        $this->quizPermissions = $quizPermissions;
-        $this->reportPermissions = $reportPermissions;
-        $this->storePermissions = $storePermissions;
-        $this->contentPermissions = $contentPermissions;
-        $this->blogPermissions = $blogPermissions;
-        $this->regionPermissions = $regionPermissions;
-        $this->newsletterEmailPermissions = $newsletterEmailPermissions;
-        $this->dataHelper = $dataHelper;
     }
 
     /**
@@ -167,7 +144,7 @@ class UserRestController extends AbstractFoodsharingRestController
         $response['foodsaver'] = ($this->session->mayRole(Role::FOODSAVER)) ? true : false;
         $response['isVerified'] = ($data['verified'] === 1) ? true : false;
         $response['regionId'] = $data['bezirk_id'];
-        $response['isSleeping'] = $this->dataHelper->parseSleepingState($data['sleep_status'], $data['sleep_from'], $data['sleep_until']);
+        $response['isSleeping'] = $data['is_sleeping'];
         $response['regionName'] = ($data['bezirk_id'] === null) ? null : $this->regionGateway->getRegionName($data['bezirk_id']);
         $response['aboutMePublic'] = $data['about_me_public'];
 
@@ -192,7 +169,6 @@ class UserRestController extends AbstractFoodsharingRestController
                 'editQuiz' => $this->quizPermissions->maySeeEditQuizPage(),
                 'handleReports' => $this->reportPermissions->mayHandleReports(),
                 'addStore' => $this->storePermissions->mayCreateStore(),
-                'manageMailboxes' => $this->mailboxPermissions->mayManageMailboxes(),
                 'editContent' => $this->contentPermissions->mayEditContent(),
                 'administrateNewsletterEmail' => $this->newsletterEmailPermissions->mayAdministrateNewsletterEmail(),
                 'administrateRegions' => $this->regionPermissions->mayAdministrateRegions(),
@@ -215,6 +191,7 @@ class UserRestController extends AbstractFoodsharingRestController
             $response['mobile'] = $data['handy'];
             $response['birthday'] = $data['geb_datum'];
             $response['aboutMeIntern'] = $data['about_me_intern'];
+            $response['role'] = $data['rolle'];
 
             // load region
             $regions = $this->regionTransactions->getUserRegions($data['id']);
@@ -226,7 +203,6 @@ class UserRestController extends AbstractFoodsharingRestController
         }
 
         if ($mayAdministrateUserProfile) {
-            $response['role'] = $data['rolle'];
             $response['position'] = $data['position'];
         }
 
@@ -374,7 +350,7 @@ class UserRestController extends AbstractFoodsharingRestController
         }
 
         $data->password = trim((string)$paramFetcher->get('password'));
-        if (strlen($data->password) < self::MIN_PASSWORD_LENGTH) {
+        if (strlen($data->password) < SettingsTransactions::MIN_PASSWORD_LENGTH) {
             throw new BadRequestHttpException('password is too short');
         }
 
@@ -445,77 +421,6 @@ class UserRestController extends AbstractFoodsharingRestController
     }
 
     /**
-     * Gives a banana to a user.
-     *
-     * @OA\Parameter(name="userId", in="path", @OA\Schema(type="integer"), description="to which user to give the banana")
-     * @OA\RequestBody(description="message to the user")
-     * @OA\Response(response="200", description="Success.")
-     * @OA\Response(response="400", description="Accompanying message is too short.")
-     * @OA\Response(response="403", description="Insufficient permissions to rate that user.")
-     * @OA\Response(response="404", description="User to rate does not exist.")
-     * @OA\Tag(name="user")
-     */
-    #[Rest\Put('user/{userId}/banana', requirements: ['userId' => '\d+'])]
-    #[Rest\RequestParam(name: 'message', nullable: false)]
-    public function addBanana(int $userId, ParamFetcher $paramFetcher): Response
-    {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
-        // make sure that users may not give themselves bananas
-        if ($this->session->id() === $userId) {
-            throw new AccessDeniedHttpException();
-        }
-
-        // check if the user exists
-        if (!$this->foodsaverGateway->foodsaverExists($userId)) {
-            throw new NotFoundHttpException();
-        }
-
-        // do not allow giving bananas twice
-        if ($this->profileGateway->hasGivenBanana($this->session->id(), $userId)) {
-            throw new AccessDeniedHttpException();
-        }
-
-        // check length of message
-        $message = trim((string)$paramFetcher->get('message'));
-        if (strlen($message) < self::MIN_RATING_MESSAGE_LENGTH) {
-            throw new BadRequestHttpException('text too short: ' . strlen($message) . ' < ' . self::MIN_RATING_MESSAGE_LENGTH);
-        }
-
-        $this->profileTransactions->giveBanana($userId, $message, $this->session->id());
-
-        return $this->handleView($this->view([], 200));
-    }
-
-    /**
-     * Deletes a banana.
-     *
-     * @OA\Parameter(name="userId", in="path", @OA\Schema(type="integer"), description="the owner of the banana")
-     * @OA\Parameter(name="senderId", in="path", @OA\Schema(type="integer"), description="the sender of the banana")
-     * @OA\Response(response="200", description="Success.")
-     * @OA\Response(response="401", description="Not logged in.")
-     * @OA\Response(response="403", description="Insufficient permissions to delete that banana.")
-     * @OA\Response(response="404", description="Banana does not exist.")
-     * @OA\Tag(name="user")
-     */
-    #[Rest\Delete('user/{userId}/banana/{senderId}', requirements: ['userId' => '\d+'])]
-    public function deleteBanana(int $userId, int $senderId): Response
-    {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
-
-        if (!$this->profilePermissions->mayDeleteBanana($userId)) {
-            throw new AccessDeniedHttpException();
-        }
-
-        $isDeleted = $this->profileGateway->removeBanana($userId, $senderId);
-
-        return $this->handleView($this->view([], $isDeleted ? 200 : 404));
-    }
-
-    /**
      * Sets a previously uploaded picture as the user's profile photo.
      *
      * @OA\RequestBody(description="UUID of the previously uploaded file")
@@ -572,5 +477,42 @@ class UserRestController extends AbstractFoodsharingRestController
         $this->profileTransactions->removeUserFromBounceList($userId);
 
         return $this->handleView($this->view([], 200));
+    }
+
+    #[Rest\Get('user/names/{userIds}', requirements: ['userIds' => '(\d+-)*\d+'])]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Success.')]
+    public function getUserNames(string $userIds)
+    {
+        $this->assertLoggedIn();
+        $userNames = $this->foodsaverGateway->getUserNames(explode('-', $userIds));
+
+        return $this->handleView($this->view($userNames, Response::HTTP_OK));
+    }
+
+    /**
+     * @throws Exception
+     */
+    #[OA2\Patch(summary: 'Updates the user profile information.')]
+    #[OA2\Tag(name: 'user')]
+    #[Rest\Patch('user/{userId}/profile')]
+    #[OA2\RequestBody(content: new Model(type: EditableProfileDTO::class))]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Success.', content: [new Model(type: EditableProfileDTO::class)])]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Unauthorized.')]
+    #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Bad Request.')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'User not found.')]
+    #[ParamConverter('editableProfileDTO', converter: 'fos_rest.request_body')]
+    public function patchUserProfile(int $userId, EditableProfileDTO $editableProfileDTO, ValidatorInterface $validator): Response
+    {
+        $this->assertLoggedIn();
+        $editableProfileDTO->id = $userId;
+        $this->assertThereAreNoValidationErrors($validator, $editableProfileDTO);
+
+        try {
+            $this->settingsTransactions->patchProfile($userId, $editableProfileDTO);
+        } catch (NotFoundHttpException $e) {
+            throw new NotFoundHttpException('User not found.');
+        }
+
+        return $this->respondOK();
     }
 }

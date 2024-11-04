@@ -24,9 +24,9 @@ class ReportApiCest
     public function _before(ApiTester $I): void
     {
         //Create regions
-        $this->parentRegion = $I->createRegion();
-        $this->region = $I->createRegion(null, ['parent_id' => $this->parentRegion['id']]);
-        $this->subRegion = $I->createRegion(null, ['parent_id' => $this->region['id']]);
+        $this->parentRegion = $I->createRegion(fillMailbox: false);
+        $this->region = $I->createRegion(null, ['parent_id' => $this->parentRegion['id']], false);
+        $this->subRegion = $I->createRegion(null, ['parent_id' => $this->region['id']], false);
 
         // Create Workgroup and Workgroup Function for report
         $this->reportGroup = $I->createWorkingGroup('Meldungsbearbeitung', ['parent_id' => $this->region['id']]);
@@ -56,7 +56,7 @@ class ReportApiCest
         $I->sendGET($I->apiReportListForRegion($this->region['id']));
         $I->seeResponseCodeIs(HttpCode::OK);
         codecept_debug($I->seeResponseCodeIs(HttpCode::OK));
-        codecept_debug($I->seeResponseContainsJson(['data' => ['fs_id' => $this->foodsaver['id'], 'rp_id' => $this->foodsaver['id']]]));
+        codecept_debug($I->seeResponseContainsJson(['fs_id' => $this->foodsaver['id'], 'rp_id' => $this->foodsaver['id']]));
     }
 
     public function cantSeeReportAboutFoodsaverInSubRegion(ApiTester $I): void
@@ -65,7 +65,7 @@ class ReportApiCest
         $I->addReport($this->foodsharer['id'], $this->subRegionFoodsaver['id']);
         $I->sendGET($I->apiReportListForRegion($this->region['id']));
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->cantSeeResponseContainsJson(['data' => ['fs_id' => $this->subRegionFoodsaver['id'], 'rp_id' => $this->foodsharer['id']]]);
+        $I->cantSeeResponseContainsJson(['fs_id' => $this->subRegionFoodsaver['id'], 'rp_id' => $this->foodsharer['id']]);
     }
 
     public function dontSeeReportAboutSelf(ApiTester $I): void
@@ -75,7 +75,7 @@ class ReportApiCest
         $I->addReport($this->subRegionFoodsaver['id'], $this->reportGroupAdmin['id']);
         $I->sendGET($I->apiReportListForRegion($this->region['id']));
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->dontSeeResponseContainsJson(['data' => ['fs_id' => $this->reportGroupAdmin['id']]]);
+        $I->dontSeeResponseContainsJson(['fs_id' => $this->reportGroupAdmin['id']]);
     }
 
     public function dontSeeReportAboutFoodsharerReporterNotInRegion(ApiTester $I): void
@@ -84,7 +84,7 @@ class ReportApiCest
         $I->addReport($this->reportGroupAdmin['id'], $this->foodsharer['id']);
         $I->sendGET($I->apiReportListForRegion($this->region['id']));
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->dontSeeResponseContainsJson(['data' => ['fs_id' => $this->foodsharer['id']]]);
+        $I->dontSeeResponseContainsJson(['fs_id' => $this->foodsharer['id']]);
     }
 
     public function ArbitrationAdminSeesReportAboutReportAdmin(ApiTester $I): void
@@ -93,7 +93,7 @@ class ReportApiCest
         $I->addReport($this->foodsharer['id'], $this->reportGroupAdmin['id']);
         $I->sendGET($I->apiReportListForRegion($this->region['id']));
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseContainsJson(['data' => ['fs_id' => $this->reportGroupAdmin['id'], 'rp_id' => $this->foodsharer['id']]]);
+        $I->seeResponseContainsJson(['fs_id' => $this->reportGroupAdmin['id'], 'rp_id' => $this->foodsharer['id']]);
     }
 
     public function foodsaverCannotAccessReports(ApiTester $I): void

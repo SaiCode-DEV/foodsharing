@@ -303,7 +303,7 @@
         </b-row>
       </div>
       <div class="map-copyright">
-        <span v-text="MapAttribution" />
+        <span v-html="MapAttribution" />
         <span class="ml-2">
           Image by
           <a href="https://de.freepik.com/freie-psd/laptop-mockup-design_11653801.htm">
@@ -508,7 +508,7 @@ svg {
 }
 
 .header-desktop {
-  background-image: url(/img/startpage/header.png);
+  background: url(/img/startpage/header.png);
   background-size: cover;
 }
 

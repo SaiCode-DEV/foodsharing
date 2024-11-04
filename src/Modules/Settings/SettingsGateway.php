@@ -129,18 +129,14 @@ class SettingsGateway extends BaseGateway
 
     public function getNewMail(int $fsId, string $token): ?string
     {
-        try {
-            return $this->db->fetchValueByCriteria(
-                'fs_mailchange',
-                'newmail',
-                [
-                    'token' => strip_tags($token),
-                    'foodsaver_id' => $fsId
-                ]
-            );
-        } catch (Exception) {
-            return null;
-        }
+        return $this->db->fetchValueByCriteria(
+            'fs_mailchange',
+            'newmail',
+            [
+                'token' => strip_tags($token),
+                'foodsaver_id' => $fsId
+            ]
+        );
     }
 
     public function saveApiToken(int $fsId, string $token): void
@@ -168,6 +164,37 @@ class SettingsGateway extends BaseGateway
         } catch (Exception) {
             return null;
         }
+    }
+
+    /**
+     * Returns an array of options for the users, or null if the option is not set for a user.
+     *
+     * @return array<array<string, mixed>>
+     */
+    public function getUsersOption(array $userIds, UserOptionType $optionType): array
+    {
+        try {
+            $results = $this->db->fetchAllByCriteria('fs_foodsaver_has_options', ['foodsaver_id', 'option_value'], [
+                'foodsaver_id' => $userIds,
+                'option_type' => $optionType->value
+            ]);
+        } catch (Exception) {
+            $results = [];
+        }
+
+        $optionMap = [];
+        $userOptions = [];
+        foreach ($results as $result) {
+            $optionMap[$result['foodsaver_id']] = $result['option_value'];
+        }
+        foreach ($userIds as $userId) {
+            $userOptions[] = [
+                'userId' => $userId,
+                'option' => $optionMap[$userId] ?? null
+            ];
+        }
+
+        return $userOptions;
     }
 
     /**

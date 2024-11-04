@@ -1,18 +1,21 @@
 <template>
-  <div
-    id="input-wrapper"
-    class="input-wrapper bootstrap"
+  <b-modal
+    ref="profile_picture_modal"
+    title="Profilfoto"
+    ok-only
+    modal-class="bootstrap"
+    header-class="d-flex"
+    content-class="pr-3 pt-3"
   >
-    <div class="element-wrapper mx-4">
-      <file-upload
-        :filename="value"
-        :is-image="true"
-        :img-width="imgHeight"
-        :img-height="imgWidth"
-        @change="onFileChange"
-      />
-    </div>
-  </div>
+    <file-upload
+      class="pt-2"
+      :filename="value"
+      :is-image="true"
+      :img-width="imgHeight"
+      :img-height="imgWidth"
+      @change="onFileChange"
+    />
+  </b-modal>
 </template>
 
 <script>
@@ -55,6 +58,9 @@ export default {
         pulseError(i18n('error_unexpected'))
       }
       hideLoader()
+    },
+    show () {
+      this.$refs.profile_picture_modal.show()
     },
   },
 }

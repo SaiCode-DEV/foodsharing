@@ -49,7 +49,7 @@ export default {
 
       if (this.entry.hasSubgroups) {
         menu.push({
-          href: 'subGroups', icon: 'fa-user-friends', text: this.$i18n('terminology.subgroups'),
+          href: 'workingGroups', icon: 'fa-user-friends', text: this.$i18n('terminology.subgroups'),
         })
       }
 
@@ -62,6 +62,12 @@ export default {
       if (this.entry.isAdmin) {
         menu.push({
           href: 'workingGroupEdit', icon: 'fa-cog', text: this.$i18n('menu.entry.workingGroupEdit'),
+        })
+      }
+
+      if (this.entry.hasAchievements) {
+        menu.push({
+          href: 'achievements', icon: 'fa-tags', text: this.$i18n('terminology.achievements'),
         })
       }
 

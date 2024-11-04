@@ -5,7 +5,7 @@ import phoneNumbers from './phone-numbers'
 const urls = {
   profile: (id) => `/user/${id}/profile`,
   academy: () => '/content?sub=academy',
-  application: (groupId, userId) => `/?page=application&bid=${groupId}&fid=${userId}`,
+  application: (groupId, userId) => `/regions/${groupId}/applications/${userId}`,
   applications: (groupId) => `/region?bid=${groupId}&sub=applications`,
   basket: (basketId) => `/essenskoerbe/${basketId}`,
   baskets: () => '/essenskoerbe',
@@ -19,18 +19,18 @@ const urls = {
   contact: () => '/content?sub=contact',
   contentEdit: () => '/content',
   contentEditEntry: (id) => `/content?a=edit&id=${id}`,
-  contentNew: () => '/content?a=neu',
-  conversations: (conversationId = null) => `/?page=msg${conversationId ? `&cid=${conversationId}` : ''}`,
-  dashboard: () => '/?page=dashboard',
-  dataprivacy: () => '/?page=legal',
+  contentNew: () => '/content?a=new',
+  conversations: (conversationId = null) => `/msg${conversationId ? `?cid=${conversationId}` : ''}`,
+  createBusinessCard: (data) => `/?page=bcard&sub=makeCard&opt=${data.role}:${data.regionGroupId}`,
+  dashboard: () => '/dashboard',
+  dataprivacy: () => '/legal',
   donate: () => '/unterstuetzung',
   email: () => '/?page=email',
   event: (eventId) => `/event/${eventId}`,
-  eventAdd: () => '/event/add',
+  eventAdd: (regionId) => '/event/add' + (regionId ? `?bid=${regionId}` : ''),
   eventEdit: (eventId) => `/event/${eventId}/edit`,
   festival: () => '/content?sub=festival',
   foodsharepoint: (fspId) => `/fairteiler/${fspId}`,
-  foodsaverEdit: (fsId) => `/?page=foodsaver&a=edit&id=${fsId}`,
   fsstaedte: () => '/content?sub=fsstaedte',
   home: () => '/',
   imprint: () => '/impressum',
@@ -42,7 +42,7 @@ const urls = {
     ((ref !== null && ref.length > 0) ? '?ref=' + encodeURIComponent(`${ref}`) : ''),
   logout: () => {
     const url = new URL(window.location.href)
-    return '/?page=logout&ref=' + encodeURIComponent(url.pathname + url.search)
+    return '/logout?ref=' + encodeURIComponent(url.pathname + url.search)
   },
   mailbox: (mailboxId = null, emailId) => {
     let url = '/?page=mailbox'
@@ -54,7 +54,6 @@ const urls = {
     }
     return url
   },
-  mailboxManage: () => '/?page=mailbox&a=manage',
   mailboxMailto: (email) => `/?page=mailbox&mailto=${email}`,
   mailboxOldAttachment: (emailId, attachmentIndex) => `/?page=mailbox&a=dlattach&mid=${emailId}&i=${attachmentIndex}`,
   map: ({ storeId = null, foodSharePointId = null, markers = null } = {}) => {
@@ -79,21 +78,25 @@ const urls = {
   regionAdmin: () => '/regions/edit',
   region: (regionId) => regionId ? `/region?bid=${regionId}` : '/?page=region',
   releaseNotes: () => '/content?sub=releaseNotes',
-  violations: (fsId) => `/?page=report&sub=foodsaver&id=${fsId}`,
+  violations: (fsId) => `/report/user/${fsId}`,
   security: () => '/content?sub=security',
-  settings: () => '/?page=settings',
-  settingsCalendar: () => '/?page=settings&sub=calendar',
-  settingsNotifications: () => '/?page=settings&sub=info',
+  settings: (userId) => userId ? `/user/${userId}/settings` : '/user/current/settings',
+  settingsNotifications: () => '/user/current/settings?sub=info',
+  settingsCalendar: () => '/user/current/settings?sub=calendar',
+  settingsHygiene: () => '/user/current/settings?sub=hygiene',
   statistics: () => '/statistik',
   store: (storeId) => `/store/${storeId}`,
+  storeCategories: () => '/storecategories',
   storeList: () => '/?page=fsbetrieb',
   storeUserList: (userId) => `/user/${userId}/stores`,
+  editNameInfoUrl: () => '/region?bid=881&sub=forum&tid=58225',
+  register: () => '/register',
 
   team: () => '/team',
   transparency: () => '/content?sub=transparency',
   upload: (uuid) => `/api/uploads/${uuid}`,
 
-  workingGroupEdit: (groupId) => `/?page=groups&sub=edit&id=${groupId}`,
+  workingGroupEdit: (groupId) => `/groups?sub=edit&id=${groupId}`,
   workingGroup: (groupId) => `/region?bid=${groupId}`,
   workshops: () => '/content?sub=workshops',
   urlencode: (url) => encodeURIComponent(`${url}`),
@@ -107,26 +110,15 @@ const urls = {
   javascript: (js) => `javascript:${js}`,
 
   // Redirect
-  relogin_and_redirect_to_url: (url) => '/?page=relogin&url=' + encodeURIComponent(url),
+  relogin_and_redirect_to_url: (url) => '/relogin?url=' + encodeURIComponent(url),
 
   // region id
   forum: (regionId, subforumId = 0, threadId = null, postId = null, newThread = false) => {
-    const str = [`/?page=bezirk${regionId ? `&bid=${regionId}` : ''}`]
-    if (subforumId === 1) {
-      str.push('&sub=botforum')
-    } else {
-      str.push('&sub=forum')
-    }
-    if (threadId) {
-      str.push(`&tid=${threadId}`)
-    }
-    if (postId) {
-      str.push(`&pid=${postId}`)
-    }
-    if (newThread) {
-      str.push('&newthread=1')
-    }
-    return str.join('')
+    const str = [`/region?${regionId ? `bid=${regionId}&` : ''}sub=${subforumId === 1 ? 'botforum' : 'forum'}`]
+    if (threadId) str.push(`tid=${threadId}`)
+    if (postId) str.push(`pid=${postId}`)
+    if (newThread) str.push('newthread=1')
+    return str.join('&')
   },
 
   // simplified url for forum threads
@@ -143,14 +135,15 @@ const urls = {
   pollNew: (regionId) => `/?page=poll&bid=${regionId}&sub=new`,
   polls: (regionId) => `/region?bid=${regionId}&sub=polls`,
   region_forum: (regionId) => `/region?bid=${regionId}&sub=forum`,
-  reports: (regionId = null) => regionId ? `/?page=report&bid=${regionId}` : '/?page=report',
+  reports: (regionId = null) => regionId ? `/report/region/${regionId}` : '/?page=report',
   statistic: (regionId) => `/region?bid=${regionId}&sub=statistic`,
   storeAdd: (regionId) => `/region/${regionId}/store/new`,
   storeEdit: (storeId) => `/?page=betrieb&a=edit&id=${storeId}`,
   stores: (regionId) => `/region/${regionId}/stores`,
   wall: (regionId) => `/region?bid=${regionId}&sub=wall`,
-  workingGroups: (regionId = null) => regionId ? `/?page=groups&p=${regionId}` : '/?page=groups',
-  subGroups: (parentGroupId) => parentGroupId ? `/?page=groups&p=${parentGroupId}` : '/?page=groups',
+  workingGroups: (regionId = null) => regionId ? `/groups?p=${regionId}` : '/groups',
+  achievements: (regionId) => `/region?bid=${regionId}&sub=achievements`,
+  editAchievements: () => '/achievements',
 
   // whats new & changelog
   changelog: () => '/content?sub=changelog',
@@ -161,6 +154,7 @@ const urls = {
   // mailto
   mail_foodsharing_network: (mail) => `${mail}@foodsharing.network`,
   mailto_mail_foodsharing_network: (mail) => `mailto:${mail}@foodsharing.network`,
+  mailto_mail: (mail) => `mailto:${mail}`,
 
   // freshdesk support
   freshdesk: () => 'https://foodsharing.freshdesk.com/support/home',
@@ -178,7 +172,7 @@ const urls = {
   // quiz
   quiz_admin_edit: (quizId) => '/quiz/edit' + (quizId ? `/${quizId}` : ''),
   quiz_learning_video: () => 'https://youtu.be/9Fk6MHC-M1o',
-  rise_role: (role) => '/?page=settings&sub=rise_role' + (role ? `&role=${role}` : ''),
+  rise_role: (role) => '/user/current/settings?sub=rise_role' + (role ? `&role=${role}` : ''),
   quiz_foodsaver: () => urls.rise_role(1),
   quiz_store_manager: () => urls.rise_role(2),
   quiz_ambassador: () => urls.rise_role(3),
@@ -195,7 +189,6 @@ const urls = {
 
   // Beta Testing
   beta: () => 'https://beta.foodsharing.de',
-  beta_testing_forum: () => 'https://beta.foodsharing.de/region?bid=734&sub=forum',
 
   // Gitlab
   git_revision: (revision) => `https://gitlab.com/foodsharing-dev/foodsharing/tree/${revision}`,
@@ -213,6 +206,8 @@ const urls = {
   facebook_at: () => 'https://www.facebook.com/oesterreichfoodsharing',
   tiktok_de: () => 'https://www.tiktok.com/@foodsharing.de',
   tiktok_at: () => 'https://www.tiktok.com/@foodsharing.de', // GERMAN VERSION
+  whatsapp_de: () => 'https://whatsapp.com/channel/0029VaerhFPADTOAPGeJQ71R',
+  whatsapp_at: () => 'https://whatsapp.com/channel/0029VaerhFPADTOAPGeJQ71R',
 }
 
 const url = (key, ...params) => {

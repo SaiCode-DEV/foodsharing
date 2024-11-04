@@ -7,6 +7,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Group\GroupGateway;
 use Foodsharing\Modules\Group\GroupTransactions;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\RestApi\Models\Group\UserGroupModel;
@@ -29,7 +30,8 @@ class GroupRestController extends AbstractFOSRestController
         private readonly Session $session,
         private readonly ImageHelper $imageService,
         private readonly RegionPermissions $regionPermissions,
-        private readonly GroupTransactions $groupTransactions
+        private readonly GroupTransactions $groupTransactions,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
 
@@ -73,7 +75,7 @@ class GroupRestController extends AbstractFOSRestController
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('');
         }
-        if (!$this->session->mayBezirk($groupId)) {
+        if (!$this->currentUserUnits->mayBezirk($groupId)) {
             throw new AccessDeniedHttpException();
         }
         $group = $regionGateway->getRegion($groupId);

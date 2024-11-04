@@ -133,20 +133,14 @@
           class="d-flex flex-column align-items-md-end"
         >
           <a
-            v-if="isBeta || isDev"
-            :href="$url('beta_testing_forum')"
-          >
-            {{ $i18n('footer.meta.beta_testing_issues') }}
-          </a>
-          <a
-            v-else
             :href="$url('release_notes')"
-            v-text="$i18n('releases.2024-07')"
+            v-text="$i18n('releases.2024-12')"
           />
-          <a
-            :href="$url('devdocs')"
-            v-text="$i18n('footer.meta.it_devdocs')"
-          />
+          <span> {{ $i18n('footer.meta.made_with') }}
+            <i class="made-with-love-icon fas fa-heart" />
+            <a :href="$url('devdocs')" v-text="$i18n('footer.meta.it_devdocs')" />
+          </span>
+
           <a
             v-if="version && isBeta"
             class="text-truncate"
@@ -250,6 +244,10 @@ footer {
     color: var(--fs-color-dark);
     text-decoration: none;
     font-weight: normal;
+  }
+
+  .made-with-love-icon {
+    color: var(--fs-color-danger-600);
   }
 
   .alert {

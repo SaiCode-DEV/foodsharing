@@ -36,8 +36,10 @@
 
 import { addPost } from '@/api/wall'
 import { pulseError, pulseSuccess } from '@/script'
+import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
+  mixins: [ConfirmationDialogue],
   props: {
     questionId: { type: Number, required: true },
   },
@@ -47,10 +49,15 @@ export default {
   }),
   methods: {
     async sendCommentHandler () {
+      if (!await this.confirmationDialogue('quiz.confirmComment', {
+        okTitle: this.$i18n('yes'),
+        okVariant: undefined,
+      })) return
       try {
         await addPost('question', this.questionId, this.comment)
         this.commentSectionVisible = false
         this.comment = ''
+
         pulseSuccess(this.$i18n('quiz.comment.sent'))
       } catch (error) {
         pulseError(this.$i18n('error_unexpected'))

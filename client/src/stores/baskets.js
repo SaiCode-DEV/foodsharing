@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import { getBaskets, getBasketsNearby, listBasketCoordinates } from '@/api/baskets'
+import { getBaskets, getBasketsNearby } from '@/api/baskets'
+import { getMapMarkers } from '@/api/map'
 import { getCache, getCacheInterval, setCache } from '@/helper/cache'
 
 const nearbyCacheRequestName = 'nearbyBaskets'
@@ -22,7 +23,7 @@ export const getters = {
   getRadius () {
     return store.radius
   },
-  getRequestdCount () {
+  getRequestedCount () {
     return store.own.map(basket => basket.requests.length).reduce((a, b) => a + b, 0)
   },
   getAllBasketCoordinates () {
@@ -48,11 +49,8 @@ export const mutations = {
       return null
     }
   },
-  async fetchGermany () {
-    return await this.fetchNearby({ lat: 50.89, lon: 10.13 }, 50)
-  },
   async fetchAllCoordinates () {
-    store.allCoordinates = await listBasketCoordinates()
+    store.allCoordinates = (await getMapMarkers(['baskets'], [''])).baskets
   },
 }
 

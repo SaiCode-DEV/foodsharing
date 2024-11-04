@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\StoreUser;
 use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
 use Foodsharing\Modules\Core\View;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\ImageHelper;
@@ -32,7 +33,8 @@ class StoreUserView extends View
         Sanitizer $sanitizerService,
         TimeHelper $timeHelper,
         TranslationHelper $translationHelper,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        CurrentUserUnitsInterface $currentUserUnitsInterface
     ) {
         parent::__construct(
             $twig,
@@ -47,7 +49,8 @@ class StoreUserView extends View
             $sanitizerService,
             $timeHelper,
             $translationHelper,
-            $translator
+            $translator,
+            $currentUserUnitsInterface
         );
     }
 }

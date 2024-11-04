@@ -9,6 +9,7 @@
       'nav-foodsharer': !isFoodsaver,
     }"
   >
+    <Loader />
     <DonationModal />
     <div class="metanav-container container">
       <MetaNavLoggedIn v-if="!viewIsMobile && isLoggedIn" />
@@ -27,18 +28,19 @@
       </b-collapse>
     </div>
     <ModalLoader v-if="isLoggedIn" />
+    <ThemeSwitcherModal />
   </b-navbar>
 </template>
 
 <script>
 // Store
-import DataUser from '@/stores/user.js'
+import { useUserStore } from '@/stores/user.js'
 import DataBells from '@/stores/bells.js'
 import DataStores from '@/stores/stores.js'
 import DataBaskets from '@/stores/baskets.js'
 import DataConversations from '@/stores/conversations.js'
 import DataGroups from '@/stores/groups.js'
-import DataRegions from '@/stores/regions.js'
+import { useRegionStore } from '@/stores/regions.js'
 // States
 import MetaNavLoggedIn from './States/MetaNav/LoggedIn.vue'
 import MetaNavLoggedOut from './States/MetaNav/LoggedOut.vue'
@@ -49,14 +51,21 @@ import SideNavLoggedOut from './States/SideNav/LoggedOut.vue'
 // ModalLoader
 import ModalLoader from '@/views/partials/Modals/ModalLoader.vue'
 import DonationModal from '@/components/Modals/Donation/DonationModal.vue'
+import ThemeSwitcherModal from '@/views/partials/Modals/ThemeSwitcherModal.vue'
 // Mixins
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
+import Loader from './Loader.vue'
+
+const userStore = useUserStore()
+const regionStore = useRegionStore()
 
 export default {
   name: 'Navigation',
   components: {
+    Loader,
     ModalLoader,
     DonationModal,
+    ThemeSwitcherModal,
     MetaNavLoggedIn,
     MetaNavLoggedOut,
     MainNavLoggedIn,
@@ -75,6 +84,11 @@ export default {
       default: () => [],
     },
   },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   data () {
     return {
       navIsSmall: false,
@@ -82,31 +96,19 @@ export default {
   },
   computed: {
     isLoggedIn () {
-      return DataUser.getters.isLoggedIn()
+      return userStore.isLoggedIn
     },
     isFoodsaver () {
-      return DataUser.getters.isFoodsaver()
-    },
-    hasMailbox () {
-      return DataUser.getters.hasMailBox()
+      return userStore.isFoodsaver
     },
     homeHref () {
       return (this.isLoggedIn) ? this.$url('dashboard') : this.$url('home')
     },
     userId () {
-      return DataUser.getters.getUserId()
+      return userStore.getUserId
     },
   },
   watch: {
-    hasMailbox: {
-      async handler (newValue) {
-        if (newValue) {
-          await DataUser.mutations.fetchMailUnreadCount()
-        }
-      },
-      immediate: true,
-      deep: true,
-    },
     isFoodsaver: {
       async handler (newValue) {
         if (newValue) {
@@ -122,7 +124,7 @@ export default {
     if (this.isLoggedIn) {
       // TODO: NO APIS :(
       DataGroups.mutations.set(this.groups)
-      DataRegions.mutations.set(this.regions)
+      regionStore.regions = this.regions
       await DataBaskets.mutations.fetchOwn()
       await DataBells.mutations.fetch()
       await DataConversations.initConversations()
@@ -131,6 +133,9 @@ export default {
   async mounted () {
     window.addEventListener('resize', this.resizeHandler)
     window.addEventListener('load', this.resizeHandler)
+    if (userStore.hasMailBox) {
+      userStore.fetchMailUnreadCount()
+    }
   },
   methods: {
     resizeHandler () {

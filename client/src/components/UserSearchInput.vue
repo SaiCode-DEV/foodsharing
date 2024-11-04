@@ -14,18 +14,22 @@
     display-attribute="value"
     :styles="autoCompleteStyle"
     :controls="controls"
+    @select="userChange"
   >
     <input
+      ref="input"
       type="text"
       class="form-control with-border"
       :placeholder="placeholder"
     >
     <b-button
+      v-if="buttonIcon"
       v-b-tooltip.hover="user ? buttonTooltip : ''"
       :disabled="!user"
       variant="secondary"
       type="submit"
       size="sm"
+      class="add-button"
       @click.prevent="buttonClicked"
     >
       <i class="fas fa-fw" :class="buttonIcon" />
@@ -41,8 +45,8 @@ import { pulseError } from '@/script'
 export default {
   components: { VueSimpleSuggest },
   props: {
-    placeholder: { type: String, default: '' },
-    buttonIcon: { type: String, required: true },
+    placeholder: { type: String, default: function () { return this.$i18n('search.user_search.placeholder') } },
+    buttonIcon: { type: String, default: '' },
     buttonTooltip: { type: String, default: '' },
     filter: { type: Function, default: null },
     /**
@@ -57,7 +61,7 @@ export default {
       autoCompleteStyle: {
         inputWrapper: 'input-group',
         suggestions: 'position-absolute list-group',
-        suggestItem: 'list-group-item',
+        suggestItem: 'list-group-item test',
       },
       controls: {
         selectionUp: [38, 33],
@@ -67,6 +71,11 @@ export default {
         hideList: [27, 35],
       },
     }
+  },
+  computed: {
+    confirmDirectly () {
+      return !this.buttonIcon
+    },
   },
   methods: {
     async searchUser (query) {
@@ -84,6 +93,7 @@ export default {
           }
         } catch (e) {
           pulseError(this.$i18n('error_unexpected'))
+          console.debug(e)
         }
       } else {
         this.user = null
@@ -99,6 +109,15 @@ export default {
         this.$refs.simpleSuggest.setText('')
       }
     },
+    userChange () {
+      if (this.confirmDirectly && this.user) {
+        this.$emit('user-selected', this.user.id)
+        this.user.value = ''
+      }
+    },
+    focus () {
+      this.$refs.input.focus()
+    },
   },
 }
 </script>
@@ -113,6 +132,7 @@ export default {
   .suggestions {
     z-index: 1000;
     margin: 0;
+    padding-top: .25em;
   }
 
   .suggest-item {
@@ -120,10 +140,15 @@ export default {
     line-height: 1;
     max-width: 100%;
     text-overflow: ellipsis;
+    margin: 0;
+    cursor: pointer;
+    &:not(:last-child) {
+      border-bottom: 0;
+    }
   }
 
   .suggest-item.hover {
-    border: 1px solid var(--fs-color-secondary-500);
+    border-color: var(--fs-color-secondary-500);
     background-color: var(--fs-color-secondary-500);
     color: white;
   }
@@ -143,4 +168,13 @@ export default {
 .vue-simple-suggest-leave-to.suggestions {
   opacity: 0 !important;
 }
+
+.add-button {
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+input:not(:last-child) {
+  border-right: 0px;
+}
+
 </style>

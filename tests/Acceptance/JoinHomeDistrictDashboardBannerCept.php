@@ -17,10 +17,9 @@ $foodsaver = $I->createFoodsaver();
 
 $I->login($foodsaver['email']);
 
-$I->amOnPage('/?page=dashboard');
+$I->amOnPage('/dashboard');
 $I->waitForActiveAPICalls();
 $I->waitForElement('.testing-region-join');
 $I->see('Bitte auswählen', ['css' => '.testing-region-join-select']);
 $I->click('.testing-region-join .btn.btn-secondary');
-$I->click('Jetzt Stammbezirk auswählen');
 $I->waitForElement('.testing-region-join');

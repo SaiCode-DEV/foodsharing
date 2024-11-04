@@ -914,6 +914,7 @@ poll:
     votes: ''
     option_text: ''
     sum: ''
+    standardDeviationShort: σ
   edit:
     submit: ''
     title: ''
@@ -1995,7 +1996,7 @@ bell:
   new_foodsaver: ''
   new_report_title: ''
   store_request_imposed: ''
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   no_bells: ''
   forum_post_title: '{title}'
   forum_new_thread: ''
@@ -2007,6 +2008,7 @@ bell:
   forum_new_thread_title: ''
   forum_announcement_title: ''
   forum_mention: ''
+  workinggroup_new_request_title: '{name}'
 list:
   filter_for: ''
 genderlist:
@@ -2412,10 +2414,6 @@ stats:
   leader:
     regions: ''
     users: ''
-tablesorter:
-  page: ''
-  from: ''
-  entriespp: ''
 base:
   keywords: ''
   whatfor: ''
@@ -2613,6 +2611,8 @@ search:
       jumper_tooltip: ''
       member_tooltip: ''
     from: ''
+    mail:
+      mail_name: '{name} <{mail}>'
 activitypost:
   response: ''
   write: ''

@@ -1,5 +1,5 @@
 <template>
-  <map-popup id="foodSharePointBubbleModal">
+  <map-popup id="foodSharePointBubbleModal" :is-loading="loading">
     <template #popup-header>
       <h3 v-if="!loading">
         {{ name }}
@@ -26,21 +26,18 @@
 
 <script>
 import Markdown from '@/components/Markdown/Markdown'
-import { pulseError } from '@/script'
 import { getFoodSharePointBubbleContent } from '@/api/map'
-import MapPopup from './MapPopup.vue'
+import MapBubbleMixin from './MapBubbleMixin'
 
 export default {
-  components: { Markdown, MapPopup },
-  data () {
-    return {
-      loading: true,
-      id: null,
-      name: '',
-      description: '',
-      picture: null,
-    }
-  },
+  components: { Markdown },
+  mixins: [MapBubbleMixin],
+  data: () => ({
+    id: null,
+    name: '',
+    description: '',
+    picture: null,
+  }),
   computed: {
     picturePath () {
       if (!this.picture) {
@@ -48,25 +45,17 @@ export default {
       } else if (this.picture.startsWith('/api/uploads')) {
         return this.picture
       } else {
-        return '/images/'.this.picture.replace('/', '/crop_0_528_')
+        return '/images/' + this.picture.replace('/', '/crop_0_528_')
       }
     },
   },
   methods: {
     async show (foodSharePointId) {
-      this.loading = true
-      this.$bvModal.show('foodSharePointBubbleModal')
-
-      try {
-        const bubbleData = await getFoodSharePointBubbleContent(foodSharePointId)
-        this.id = foodSharePointId
-        this.name = bubbleData.name
-        this.description = bubbleData.description
-        this.picture = bubbleData.picture
-      } catch (e) {
-        pulseError(this.$i18n('error_unexpected'))
-      }
-      this.loading = false
+      await this.timedFetchAction(
+        getFoodSharePointBubbleContent(foodSharePointId),
+        'foodSharePointBubbleModal',
+        (data) => { Object.assign(this, data, { id: foodSharePointId }) },
+      )
     },
   },
 }

@@ -1,8 +1,9 @@
 // export const MAP_TILES_URL = 'https://maps.geoapify.com/v1/styles/klokantech-basic/style.json?apiKey='
 export const MAP_RASTER_TILES_URL_GEOAPIFY = 'https://maps.geoapify.com/v1/tile/klokantech-basic/{z}/{x}/{y}.png?apiKey='
+export const MAP_RASTER_TILES_URL_GEOAPIFY_DARK = 'https://maps.geoapify.com/v1/tile/dark-matter/{z}/{x}/{y}.png?apiKey='
 export const MAP_RASTER_TILES_URL_OSM = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
 export const MAP_ATTRIBUTION = 'Powered by <a href="https://www.geoapify.com/">Geoapify</a> | <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>'
-export const MAP_GEOCODING_ATTRIBUTION = MAP_ATTRIBUTION + ' | Geocoding by <a href="https://photon.komoot.io">Komoot Photon</a>'
+export const MAP_GEOCODING_ATTRIBUTION = MAP_ATTRIBUTION
 export const ROLE = Object.freeze({
   FOODSHARER: 0,
   FOODSAVER: 1,
@@ -12,6 +13,7 @@ export const ROLE = Object.freeze({
   SITE_ADMIN: 5, // this role is not used currently
 })
 export const MAX_UPLOAD_FILE_SIZE = 1572864 // 1.5 * 1024 * 1024
+export const MAX_SUPPORT_TICKET_ATTACHMENT_SIZE = 5242880 // 5 * 1024 * 1024, meaning 5 MB
 export const REGION_IDS = Object.freeze({
   // highest level below root
   EUROPE: 741,
@@ -33,14 +35,10 @@ export const HTTP_RESPONSE = Object.freeze({
   UNPROCESSABLE_ENTITY: 422,
 })
 
-export const QUIZ_STATUS = Object.freeze({
-  NEVER_TRIED: 0,
-  RUNNING: 1,
-  PASSED: 2,
-  FAILED: 3,
-  PAUSE: 4,
-  PAUSE_ELAPSED: 5,
-  DISQUALIFIED: 6,
+export const SESSION_STATUS = Object.freeze({
+  RUNNING: 0,
+  PASSED: 1,
+  FAILED: 2,
 })
 
 export const ANSWER_RATING = Object.freeze({
@@ -53,4 +51,19 @@ export const QUIZ_ID = Object.freeze({
   FOODSAVER: 1,
   STORE_MANAGER: 2,
   AMBASSADOR: 3,
+})
+
+export const REPORT_REASON_OPTIONS = Object.freeze({
+  SIMPLE: 1,
+  EXTENDED: 2,
+})
+
+export const EVENT_TYPE = Object.freeze({
+  OFFLINE: 0,
+  ONLINE: 1,
+  OTHER: 2,
+})
+
+export const BLOG_POST_OPTIONS = Object.freeze({
+  IMAGE: { WIDTH: 500, HEIGHT: 161 },
 })

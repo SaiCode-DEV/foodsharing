@@ -4,28 +4,19 @@ namespace Foodsharing\Modules\Voting;
 
 use Exception;
 use Foodsharing\Modules\Core\Control;
+use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Permissions\VotingPermissions;
 
 class VotingControl extends Control
 {
-    private readonly VotingGateway $votingGateway;
-    private readonly VotingPermissions $votingPermissions;
-    private readonly VotingTransactions $votingTransactions;
-    private readonly RegionGateway $regionGateway;
-
     public function __construct(
-        VotingView $view,
-        VotingGateway $votingGateway,
-        VotingPermissions $votingPermissions,
-        VotingTransactions $votingTransactions,
-        RegionGateway $regionGateway
+        private readonly VotingView $view,
+        private readonly VotingGateway $votingGateway,
+        private readonly VotingPermissions $votingPermissions,
+        private readonly VotingTransactions $votingTransactions,
+        private readonly RegionGateway $regionGateway
     ) {
-        $this->view = $view;
-        $this->votingGateway = $votingGateway;
-        $this->votingPermissions = $votingPermissions;
-        $this->votingTransactions = $votingTransactions;
-        $this->regionGateway = $regionGateway;
         parent::__construct();
     }
 
@@ -66,14 +57,16 @@ class VotingControl extends Control
                 $this->pageHelper->addBread($this->translator->trans('polls.new_poll'));
                 $this->pageHelper->addTitle($this->translator->trans('polls.new_poll'));
 
-                $this->pageHelper->addContent($this->view->newPollForm($region));
+                $usersPerScope = $this->votingTransactions->getScopeCounts($region['id'], UnitType::isGroup($region['type']));
+
+                $this->pageHelper->addContent($this->view->newPollForm($region, $usersPerScope));
             } else {
                 $this->flashMessageHelper->info($this->translator->trans('poll.not_available'));
-                $this->routeHelper->goAndExit('/?page=dashboard');
+                $this->routeHelper->goAndExit('/dashboard');
             }
         } catch (Exception) {
             $this->flashMessageHelper->info($this->translator->trans('poll.not_available'));
-            $this->routeHelper->goAndExit('/?page=dashboard');
+            $this->routeHelper->goAndExit('/dashboard');
         }
     }
 }

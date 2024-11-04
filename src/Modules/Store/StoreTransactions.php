@@ -19,8 +19,11 @@ use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Core\DTO\MinimalIdentifier;
 use Foodsharing\Modules\Core\DTO\PatchGeoLocation;
+use Foodsharing\Modules\Development\FeatureToggles\DependencyInjection\FeatureToggleChecker;
+use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Message\MessageGateway;
@@ -35,9 +38,13 @@ use Foodsharing\Modules\Store\DTO\PatchContactData;
 use Foodsharing\Modules\Store\DTO\PatchStore;
 use Foodsharing\Modules\Store\DTO\PatchStoreOptionModel;
 use Foodsharing\Modules\Store\DTO\Store;
+use Foodsharing\Modules\Store\DTO\StoreChainInformation;
 use Foodsharing\Modules\Store\DTO\StoreListInformation;
 use Foodsharing\Modules\Store\DTO\StoreStatusForMember;
-use Foodsharing\Utility\Sanitizer;
+use Foodsharing\Modules\StoreCategories\StoreCategoriesGateway;
+use Foodsharing\Modules\StoreChain\StoreChainGateway;
+use Foodsharing\Modules\WallPost\DTO\WallPost;
+use Foodsharing\Modules\WallPost\WallPostGateway;
 use Foodsharing\Utility\WeightHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -47,7 +54,6 @@ class StoreTransactions
         CooperationStatus::UNCLEAR,
         CooperationStatus::NO_CONTACT,
         CooperationStatus::IN_NEGOTIATION,
-        CooperationStatus::COOPERATION_STARTING,
         CooperationStatus::COOPERATION_ESTABLISHED
     ];
 
@@ -68,7 +74,10 @@ class StoreTransactions
         private readonly BellTransactions $bellTransactions,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly RegionGateway $regionGateway,
-        private readonly Sanitizer $sanitizerService,
+        private readonly StoreCategoriesGateway $storeCategoriesGateway,
+        private readonly StoreChainGateway $storeChainGateway,
+        private readonly FeatureToggleChecker $featureToggleChecker,
+        private readonly WallPostGateway $wallPostGateway,
         private readonly Session $session
     ) {
     }
@@ -76,32 +85,31 @@ class StoreTransactions
     /**
      * Returns a store's data including the team members in a format suitable for the frontend.
      *
-     * @param int $userId the user who is requesting the data
      * @param int $storeId the store
      * @param bool $includeUserDetails whether to include phone numbers and last fetch dates for the team members
      */
-    public function getMyStoreTeam(int $userId, int $storeId, bool $includeUserDetails): array
+    public function getMyStoreTeam(int $storeId, bool $includeUserDetails): array
     {
-        $store = $this->storeGateway->getMyStore($userId, $storeId);
+        $members = $this->storeGateway->getStoreTeam($storeId, [MembershipStatus::MEMBER, MembershipStatus::JUMPER]);
 
-        return $this->getDisplayedStoreTeam($store, $includeUserDetails);
+        return $this->getDisplayedStoreTeam($members, $includeUserDetails);
     }
 
     /**
      * Get store applications for a specific user and store.
      *
-     * @param int $userId   the ID of the user
      * @param int $storeId  the ID of the store
      *
      * @return array an array containing store requests
      */
-    public function getStoreApplications(int $userId, int $storeId): array
+    public function getStoreApplications(int $storeId): array
     {
-        $store = $this->storeGateway->getMyStore($userId, $storeId);
-
-        return [
-            'storeRequests' => $store['requests'] ?? [],
-        ];
+        $store = $this->storeGateway->getStore($storeId);
+        try {
+            return $this->storeGateway->getApplications($storeId, $store->location);
+        } catch (\Throwable $th) {
+            return [];
+        }
     }
 
     public function getCommonStoreMetadata($supressStoreChains = true): CommonStoreMetadata
@@ -110,14 +118,13 @@ class StoreTransactions
 
         $store->groceries = array_map(fn ($row) => CommonLabel::createFromArray($row), $this->storeGateway->getBasics_groceries());
 
-        $store->categories = [new CommonLabel(0, $this->translator->trans('store.nodeclaration')),
-            ...array_map(fn ($row) => CommonLabel::createFromArray($row), $this->storeGateway->getStoreCategories())];
+        $store->categories = $this->storeCategoriesGateway->getStoreCategories();
+        $store->categories[] = new CommonLabel(0, $this->translator->trans('store.nodeclaration'));
 
         $store->status = array_map(fn ($row) => CommonLabel::createFromArray($row), [
             ['id' => CooperationStatus::UNCLEAR->value, 'name' => $this->translator->trans('store.nodeclaration')],
             ['id' => CooperationStatus::NO_CONTACT->value, 'name' => $this->translator->trans('storestatus.1')],
             ['id' => CooperationStatus::IN_NEGOTIATION->value, 'name' => $this->translator->trans('storestatus.2')],
-            ['id' => CooperationStatus::COOPERATION_STARTING->value, 'name' => $this->translator->trans('storestatus.3a')],
             ['id' => CooperationStatus::DOES_NOT_WANT_TO_WORK_WITH_US->value, 'name' => $this->translator->trans('storestatus.4')],
             ['id' => CooperationStatus::COOPERATION_ESTABLISHED->value, 'name' => $this->translator->trans('storestatus.5')],
             ['id' => CooperationStatus::GIVES_TO_OTHER_CHARITY->value, 'name' => $this->translator->trans('storestatus.6')],
@@ -219,6 +226,10 @@ class StoreTransactions
         $dbResult = $this->storeGateway->getStore($storeId, $suppressLoadingGroceries);
         $dbResult->region->name = $this->regionGateway->getRegionName($dbResult->region->id);
 
+        if ($dbResult->chain) {
+            $dbResult->chain->information = $this->storeChainGateway->getCommonStoreInformation($dbResult->chain->id);
+        }
+
         if (!$showDetails) {
             $dbResult->description = null;
             $dbResult->effort = null;
@@ -277,15 +288,6 @@ class StoreTransactions
 
         $this->setStoreNameInConversations($storeId, $createStore->name);
 
-        if (!empty($firstStorePost)) {
-            $this->storeGateway->addStoreWallpost([
-                'foodsaver_id' => $authorFsId,
-                'betrieb_id' => $storeId,
-                'text' => $firstStorePost,
-                'zeit' => date('Y-m-d H:i:s'),
-            ]);
-        }
-
         $authorName = $this->foodsaverGateway->getFoodsaverName($authorFsId);
         $foodsaver = $this->foodsaverGateway->getFoodsaversByRegion($createStore->regionId);
 
@@ -302,6 +304,11 @@ class StoreTransactions
             ),
             $bellData
         );
+        if ($firstStorePost) {
+            $wallpost = new WallPost();
+            $wallpost->body = $firstStorePost;
+            $this->wallPostGateway->addPost($wallpost, $authorFsId, WallType::STORE, $storeId);
+        }
 
         return $storeId;
     }
@@ -360,7 +367,7 @@ class StoreTransactions
 
         if (!empty($storeChange->publicInfo)) {
             $changeInformation->informationChanged = true;
-            $store->publicInfo = $this->sanitizerService->purifyHtml($storeChange->publicInfo);
+            $store->publicInfo = $storeChange->publicInfo;
         }
 
         if (!is_null($storeChange->publicTime)) {
@@ -375,7 +382,7 @@ class StoreTransactions
         if (!is_null($storeChange->categoryId)) {
             $changeInformation->informationChanged = true;
             if ($storeChange->categoryId !== 0) {
-                $storeCategoryExists = $this->storeGateway->existStoreCategory($storeChange->categoryId);
+                $storeCategoryExists = $this->storeCategoriesGateway->existStoreCategory($storeChange->categoryId);
                 if (!$storeCategoryExists) {
                     throw new StoreTransactionException(StoreTransactionException::STORE_CATEGORY_NOT_EXISTS);
                 }
@@ -392,7 +399,7 @@ class StoreTransactions
                 if (!$storeChainExists) {
                     throw new StoreTransactionException(StoreTransactionException::STORE_CHAIN_NOT_EXISTS);
                 }
-                $store->chain = MinimalIdentifier::createFromId($storeChange->chainId);
+                $store->chain = StoreChainInformation::createFromId($storeChange->chainId);
             } else {
                 $store->chain = null;
             }
@@ -702,11 +709,11 @@ class StoreTransactions
         return $storeTeamMemberships;
     }
 
-    public function requestStoreTeamMembership(int $storeId, int $userId): void
+    public function requestStoreTeamMembership(int $storeId, int $userId, ?string $message): void
     {
         $this->storeGateway->addStoreRequest($storeId, $userId);
 
-        $this->storeGateway->addStoreLog($storeId, $userId, null, null, StoreLogAction::REQUEST_TO_JOIN);
+        $this->storeGateway->addStoreLog($storeId, $userId, null, null, StoreLogAction::REQUEST_TO_JOIN, $message);
 
         $this->notifyStoreManagersAboutRequest($storeId);
     }
@@ -776,7 +783,8 @@ class StoreTransactions
         $this->pickupGateway->deleteAllDatesFromAFoodsaver($userId, $storeId);
         $this->storeGateway->removeUserFromTeam($storeId, $userId);
 
-        $this->storeGateway->addStoreLog($storeId, $this->session->id(), $userId, null, StoreLogAction::REMOVED_FROM_STORE);
+        $storeLogAction = $this->session->id() == $userId ? StoreLogAction::LEFT_STORE : StoreLogAction::REMOVED_FROM_STORE;
+        $this->storeGateway->addStoreLog($storeId, $this->session->id(), $userId, null, $storeLogAction);
 
         if ($teamChatConversationId = $this->storeGateway->getBetriebConversation($storeId)) {
             $this->messageGateway->deleteUserFromConversation($teamChatConversationId, $userId);
@@ -961,20 +969,21 @@ class StoreTransactions
         if ($this->storeGateway->getUseRegionPickupRule($storeId)) {
             $regionId = $this->storeGateway->getStoreRegionId($storeId);
             // Does the region of the store have a pickuprule and it is active?
-            if ((bool)$this->regionGateway->getRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_ACTIVE)) {
+            $regionOptions = $this->regionGateway->getAllRegionOptions($regionId);
+            if ((bool)($regionOptions[RegionOptionType::REGION_PICKUP_RULE_ACTIVE] ?? false)) {
                 // how many hours before a pickup can this rule be ignored ?
-                $ignoreRuleHours = (int)$this->regionGateway->getRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS);
+                $ignoreRuleHours = (int)($regionOptions[RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS] ?? 0);
                 $res = Carbon::now()->diffInHours($pickupDate);
                 if ($res > $ignoreRuleHours) {
                     // the allowed numbers of pickups in a timespan. Timespan is +/- from pickupdate
-                    $numberAllowedPickups = (int)$this->regionGateway->getRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_LIMIT_NUMBER);
-                    $intervall = (int)$this->regionGateway->getRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_TIMESPAN_DAYS);
+                    $numberAllowedPickups = (int)($regionOptions[RegionOptionType::REGION_PICKUP_RULE_LIMIT_NUMBER] ?? 0);
+                    $intervall = (int)($regionOptions[RegionOptionType::REGION_PICKUP_RULE_TIMESPAN_DAYS] ?? 0);
                     // if we have more or same amount of used slots occupied then allowed we return false
                     if ($this->pickupGateway->getNumberOfPickupsForUserWithStoreRules($fsId, $pickupDate->copy()->subDays($intervall), $pickupDate->copy()->addDays($intervall)) >= $numberAllowedPickups) {
                         return false;
                     }
                     // if we have more then or same amount of allowed pickups per day we return false
-                    $numberAllowedPickupsPerDay = (int)$this->regionGateway->getRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_LIMIT_DAY_NUMBER);
+                    $numberAllowedPickupsPerDay = (int)($regionOptions[RegionOptionType::REGION_PICKUP_RULE_LIMIT_DAY_NUMBER] ?? 0);
                     if ($this->pickupGateway->getNumberOfPickupsForUserWithStoreRulesSameDay($fsId, $pickupDate) >= $numberAllowedPickupsPerDay) {
                         return false;
                     }
@@ -989,24 +998,27 @@ class StoreTransactions
      * Returns all team member of the store (active and waiting list) and makes sure that details like the phone
      * number are only included if allowed.
      *
-     * @param array $store store data from the database
+     * @param array $members the list of team members from the database
      * @param bool $includeUserDetails whether to include or omit phone numbers and last fetch date
      */
-    private function getDisplayedStoreTeam(array $store, bool $includeUserDetails): array
+    private function getDisplayedStoreTeam(array $members, bool $includeUserDetails): array
     {
         $allowedFields = [
             // personal info
-            'id', 'name', 'photo', 'quiz_rolle', 'sleep_status', 'verified',
+            'id', 'name', 'photo', 'rolle', 'is_sleeping', 'verified',
             // team-related info
             'verantwortlich', 'team_active', 'stat_fetchcount', 'add_date',
         ];
         if ($includeUserDetails) {
             array_push($allowedFields, 'handy', 'telefon', 'last_fetch');
         }
+        if ($this->featureToggleChecker->isFeatureToggleActive(FeatureToggleDefinitions::HYGIENE_QUIZ->value)) {
+            $allowedFields[] = 'hygiene_certificate_until';
+        }
 
         return array_map(
             fn ($teamMember) => array_filter($teamMember, fn ($key) => in_array($key, $allowedFields), ARRAY_FILTER_USE_KEY),
-            array_merge($store['foodsaver'], $store['springer']),
+            $members
         );
     }
 }

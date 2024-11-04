@@ -1,5 +1,5 @@
 <template>
-  <div class="bootstrap ">
+  <div>
     <input
       ref="uploadElement"
       :accept="accept"
@@ -13,8 +13,12 @@
       class="column align-items-center"
     >
       <div v-if="filename" class="mr-auto">
-        <div class="preview">
-          <img :src="filename" :alt="previewAlt">
+        <div>
+          <b-img
+            :src="filename"
+            fluid
+            :alt="previewAlt"
+          />
         </div>
       </div>
       <div class="mr-auto">
@@ -22,7 +26,7 @@
           {{ $i18n('upload.no_image_yet') }}
         </div>
         <button
-          class="btn btn-sm btn-primary btn-block mt-2"
+          class="btn btn-sm btn-primary mt-2"
           :class="{'disabledLoading': isLoading}"
           @click.prevent="openUploadDialog"
         >
@@ -202,15 +206,12 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-
 .preview {
   background-color: var(--fs-color-gray-500);
   padding: 0;
-  img {
-    width: 100%;
-  }
 }
 </style>
+
 <style lang="scss">
 .full-resize {
   @media (min-width: 576px) {
@@ -219,4 +220,9 @@ export default {
   }
 }
 
+.dark-mode .croppie-container {
+  input[type=range].cr-slider{
+    filter: invert(1) brightness(200);
+  }
+}
 </style>

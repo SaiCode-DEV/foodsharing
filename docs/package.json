@@ -1,53 +1,25 @@
 {
-  "name": "docu",
-  "version": "1.0.0",
-  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@types/markdown-it-plantuml": "^1.4.5",
+    "@types/node": "^22.6.1",
+    "@vite-pwa/assets-generator": "^0.2.6",
+    "@vite-pwa/vitepress": "^0.5.3",
+    "markdown-it-implicit-figures": "^0.12.0",
+    "markdown-it-link-attributes": "^4.0.1",
+    "markdown-it-plantuml": "^1.4.1",
+    "vite-plugin-pwa": "^0.20.5",
+    "vitepress": "^1.3.4",
+    "vitepress-i18n": "^1.0.6",
+    "vitepress-sidebar": "^1.27.0",
+    "vue": "^3.5.8"
+  },
   "scripts": {
-    "docusaurus": "docusaurus",
-    "start": "docusaurus start --host 0.0.0.0",
-    "build": "docusaurus build",
-    "build:all": "yarn api:rebuild && yarn build",
-    "swizzle": "docusaurus swizzle",
-    "version": "docusaurus docs:version",
-    "deploy": "docusaurus deploy",
-    "api:dump": "FS_ENV=dev ../bin/console nelmio:apidoc:dump --format=json > data/api_dump.json",
-    "api:clean": "docusaurus clean-api-docs all",
-    "api:build": "yarn api:dump && docusaurus gen-api-docs all",
-    "api:rebuild": "yarn api:clean && yarn api:build",
-    "clear": "docusaurus clear",
-    "serve": "docusaurus serve",
-    "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids"
+    "docs:dev": "vitepress dev --host --port 3000",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
   },
   "dependencies": {
-    "@akebifiky/remark-simple-plantuml": "^1.0.2",
-    "@docusaurus/core": "2.2.0",
-    "@docusaurus/preset-classic": "2.2.0",
-    "@mdx-js/react": "^1.6.22",
-    "clsx": "^1.2.1",
-    "docusaurus-plugin-openapi-docs": "^1.4.7",
-    "docusaurus-theme-openapi-docs": "^1.4.7",
-    "prism-react-renderer": "^1.3.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
-  },
-  "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.2.0",
-    "remark-kroki": "^0.2.7"
-  },
-  "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "engines": {
-    "node": ">=16.14"
+    "vitepress-theme-openapi": "^0.0.3-alpha.30"
   }
 }

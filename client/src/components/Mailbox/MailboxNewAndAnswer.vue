@@ -135,84 +135,82 @@
         </b-col>
       </b-row>
 
-      <b-row>
-        <b-col>
-          <b-row class="p-2">
-            <b-col md="2" />
-            <b-col md="10">
-              <b-alert
-                v-if="showForwardAttachmentWarning"
-                variant="danger"
-                show
-              >
-                {{ $i18n('mailbox.forward_attachment_warning') }}
-              </b-alert>
-              <div class="flex-container">
-                <b-form-tags
-                  v-model="attachmentFilesName"
-                  no-outer-focus
-                  size="sm"
-                  class="mb-2"
-                >
-                  <template #default="{ tags, tagVariant, removeTag }">
-                    <b-input-group class="mb-2">
-                      <div
-                        class="d-inline-block"
-                        style="font-size: 1.5rem;"
+      <b-row class="p-2">
+        <b-col md="2">
+          {{ $i18n('mailbox.attachment.attach') }}
+        </b-col>
+        <b-col md="10">
+          <b-alert
+            v-if="showForwardAttachmentWarning"
+            variant="danger"
+            show
+          >
+            {{ $i18n('mailbox.forward_attachment_warning') }}
+          </b-alert>
+          <div class="flex-container">
+            <b-form-tags
+              v-model="attachmentFilesName"
+              no-outer-focus
+              size="sm"
+              class="mb-2"
+            >
+              <template #default="{ tags, tagVariant, removeTag }">
+                <b-input-group class="mb-2">
+                  <div
+                    class="d-inline-block"
+                    style="font-size: 1.5rem;"
+                  >
+                    <div v-if="!isMobile">
+                      <b-form-tag
+                        v-for="tag in tags"
+                        :key="tag"
+                        :title="tag"
+                        :variant="tagVariant"
+                        class="mr-1 badge-primary bFormTag"
+                        @remove="removeTag(tag)"
                       >
-                        <div v-if="!isMobile">
-                          <b-form-tag
-                            v-for="tag in tags"
-                            :key="tag"
-                            :title="tag"
-                            :variant="tagVariant"
-                            class="mr-1 badge-primary bFormTag"
-                            @remove="removeTag(tag)"
-                          >
-                            {{ tag }}
-                          </b-form-tag>
-                        </div>
-                        <b-form-tag
-                          v-for="tag in tags"
-                          v-else
-                          :key="tag"
-                          :title="tag"
-                          :variant="tagVariant"
-                          class="mr-1 badge-primary bFormTagMobile"
-                          @remove="removeTag(tag)"
-                        >
-                          {{ tag }}
-                        </b-form-tag>
-                      </div>
-                    </b-input-group>
-                  </template>
-                </b-form-tags>
-                <input
-                  id="files"
-                  type="file"
-                  multiple
-                  class="hidden"
-                  @change="storeFiles"
-                >
-                <label
-                  v-if="isMobile"
-                  for="files"
-                  :title="$i18n('mailbox.search')"
-                  class="btn btn-outline-primary btn-sm custom-label"
-                >
-                  <i class="fas fa-paperclip" />
-                </label>
-                <label
-                  v-else
-                  for="files"
-                  :title="$i18n('mailbox.search')"
-                  class="btn btn-outline-primary btn-sm custom-label"
-                >
-                  {{ $i18n('mailbox.search') }}
-                </label>
-              </div>
-            </b-col>
-          </b-row>
+                        {{ tag }}
+                      </b-form-tag>
+                    </div>
+                    <b-form-tag
+                      v-for="tag in tags"
+                      v-else
+                      :key="tag"
+                      :title="tag"
+                      :variant="tagVariant"
+                      class="mr-1 badge-primary bFormTagMobile"
+                      @remove="removeTag(tag)"
+                    >
+                      {{ tag }}
+                    </b-form-tag>
+                  </div>
+                </b-input-group>
+              </template>
+            </b-form-tags>
+            <input
+              id="files"
+              type="file"
+              multiple
+              class="hidden"
+              @change="storeFiles"
+            >
+            <label
+              v-if="isMobile"
+              for="files"
+              :title="$i18n('mailbox.search')"
+              class="btn btn-outline-primary btn-sm custom-label"
+            >
+              <i class="fas fa-paperclip" />
+            </label>
+            <label
+              v-else
+              for="files"
+              :title="$i18n('mailbox.search')"
+              class="btn btn-outline-primary btn-sm custom-label"
+            >
+              {{ $i18n('mailbox.search') }}
+            </label>
+          </div>
         </b-col>
       </b-row>
 
@@ -258,9 +256,11 @@ import i18n from '@/helper/i18n'
 import { store, MAILBOX_PAGE, MAIL_COMPOSITION_MODE } from '@/stores/mailbox'
 import { MAX_UPLOAD_FILE_SIZE } from '@/consts'
 import AddressBook from '@/components/Mailbox/AddressBook'
+import FileUpload from '@/mixins/FileUpload'
 
 export default {
   components: { Container, AddressBook },
+  mixins: [FileUpload],
   props: {
     email: { type: Object, default: () => { } },
     mailboxes: { type: Array, default: () => { return [] } },
@@ -465,35 +465,6 @@ export default {
       }
       this.isBusy = false
       hideLoader()
-    },
-    /**
-     * Returns a promise that loads a file into memory and encodes it as Base64.
-     */
-    loadFile (file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader()
-
-        reader.onload = (event) => {
-          const binaryStr = new Uint8Array(event.target.result)
-          let base64 = ''
-          binaryStr.forEach((byte) => {
-            base64 += String.fromCharCode(byte)
-          })
-          base64 = window.btoa(base64)
-          resolve({
-            name: file.name,
-            size: file.size,
-            type: file.type,
-            content: base64,
-          })
-        }
-
-        reader.onerror = (error) => {
-          reject(error)
-        }
-
-        reader.readAsArrayBuffer(file)
-      })
     },
     toggleReadState () {
       this.trySetEmailStatus(!this.email.isRead)

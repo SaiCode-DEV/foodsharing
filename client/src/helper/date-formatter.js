@@ -260,7 +260,8 @@ export default {
 
         return null
       })
-      .find(({ value = 0 }) => value >= 1) || {}
+      .filter(e => e !== null)
+      .find(e => e.value >= 1) || {}
 
     return rtf.format(isInFuture ? value : -value, unit)
   },
@@ -434,4 +435,25 @@ export default {
  */
 function toCapitalize (str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+/**
+ *
+ * Wrong Time sending?
+ *
+ * @param {*} date
+ * @returns
+ */
+export function toISOStringWithTimezone (date) {
+  const tzOffset = -date.getTimezoneOffset()
+  const diff = tzOffset >= 0 ? '+' : '-'
+  const pad = n => `${Math.floor(Math.abs(n))}`.padStart(2, '0')
+  return date.getFullYear() +
+    '-' + pad(date.getMonth() + 1) +
+    '-' + pad(date.getDate()) +
+    'T' + pad(date.getHours()) +
+    ':' + pad(date.getMinutes()) +
+    ':' + pad(date.getSeconds()) +
+    diff + pad(tzOffset / 60) +
+    ':' + pad(tzOffset % 60)
 }

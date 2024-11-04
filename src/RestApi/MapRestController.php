@@ -4,34 +4,47 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
-use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
-use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
+use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Map\DTO\BasketBubbleData;
+use Foodsharing\Modules\Map\DTO\MapMarkerType;
 use Foodsharing\Modules\Map\DTO\StoreMapBubbleData;
+use Foodsharing\Modules\Map\DTO\StoreMarkerHelpType;
+use Foodsharing\Modules\Map\DTO\StoreMarkerScopeType;
+use Foodsharing\Modules\Map\DTO\StoreMarkerStatusType;
+use Foodsharing\Modules\Map\DTO\UserMarkerActivityType;
+use Foodsharing\Modules\Map\DTO\UserMarkerMemberType;
+use Foodsharing\Modules\Map\DTO\UserMarkerRoleType;
 use Foodsharing\Modules\Map\MapGateway;
 use Foodsharing\Modules\Map\MapTransactions;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
+use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\RestApi\Models\Map\FoodSharePointBubbleData;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use ValueError;
 
-class MapRestController extends AbstractFOSRestController
+class MapRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
+        protected Session $session,
+        protected CurrentUserUnitsInterface $currentUserUnits,
         private readonly MapGateway $mapGateway,
         private readonly RegionGateway $regionGateway,
         private readonly StoreGateway $storeGateway,
         private readonly FoodSharePointGateway $foodSharePointGateway,
+        private readonly FoodsaverGateway $foodsaverGateway,
         private readonly MapTransactions $mapTransactions,
-        private readonly Session $session
+        private readonly RegionPermissions $regionPermissions,
     ) {
     }
 
@@ -39,68 +52,55 @@ class MapRestController extends AbstractFOSRestController
      * Returns the coordinates of all baskets.
      */
     #[OA\Tag('map')]
-    #[Rest\Get(path: 'map/markers')]
-    #[Rest\QueryParam(name: 'types')]
-    #[Rest\QueryParam(name: 'status')]
+    #[Rest\Get(path: 'map/markers/{markerType}', requirements: ['markerType' => '[a-z]+'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
-    public function getMapMarkers(ParamFetcher $paramFetcher): Response
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid request parameters')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Marker type not found')]
+    public function getMapMarkers(string $markerType, Request $request): Response
     {
-        $types = (array)$paramFetcher->get('types');
-        $markers = [];
-        if (in_array('baskets', $types)) {
-            $markers['baskets'] = $this->mapGateway->getBasketMarkers();
-        }
-        if (in_array('foodsharepoints', $types)) {
-            $markers['foodsharepoints'] = $this->mapGateway->getFoodSharePointMarkers();
-        }
-        if (in_array('communities', $types)) {
-            $markers['communities'] = $this->mapGateway->getCommunityMarkers();
-        }
-        if (in_array('stores', $types)) {
-            if (!$this->session->id()) {
-                throw new UnauthorizedHttpException('', 'Not logged in.');
-            }
+        $markerType = MapMarkerType::tryFrom($markerType);
+        $queryParams = $request->query->all();
+        switch ($markerType) {
+            case MapMarkerType::BASKETS:
+                return $this->respondOK($this->mapGateway->getBasketMarkers());
+            case MapMarkerType::FOOD_SHARE_POINTS:
+                return $this->respondOK($this->mapGateway->getFoodSharePointMarkers());
+            case MapMarkerType::COMMUNITIES:
+                return $this->respondOK($this->mapGateway->getCommunityMarkers());
+            case MapMarkerType::STORES:
+                $this->assertLoggedIn();
 
-            $excludedStoreTypes = [];
-            $teamSearchStatus = [];
-            $status = $paramFetcher->get('status');
-            $userId = null;
-
-            $excludedStoreTypes = array_merge($excludedStoreTypes, [
-                CooperationStatus::PERMANENTLY_CLOSED,
-            ]);
-
-            if (is_array($status) && !empty($status)) {
-                foreach ($status as $s) {
-                    switch ($s) {
-                        case 'needhelpinstant':
-                            $teamSearchStatus[] = TeamSearchStatus::OPEN_SEARCHING;
-                            break;
-                        case 'needhelp':
-                            $teamSearchStatus[] = TeamSearchStatus::OPEN;
-                            break;
-                        case 'nkoorp':
-                            $excludedStoreTypes = array_merge($excludedStoreTypes, [
-                                CooperationStatus::COOPERATION_STARTING,
-                                CooperationStatus::COOPERATION_ESTABLISHED,
-                            ]);
-                            break;
-                        case 'mine':
-                            $userId = $this->session->id();
-                            break;
-                    }
+                try {
+                    $status = StoreMarkerStatusType::from($queryParams['status'] ?? 'all');
+                    $help = StoreMarkerHelpType::from($queryParams['help'] ?? 'all');
+                    $scope = StoreMarkerScopeType::from($queryParams['scope'] ?? 'all');
+                } catch (ValueError $error) {
+                    throw new BadRequestHttpException();
                 }
-            }
 
-            $markers['stores'] = $this->storeGateway->getStoreMarkers(
-                $excludedStoreTypes,
-                $teamSearchStatus,
-                $userId
-            );
+                return $this->respondOK($this->storeGateway->getStoreMarkers($this->session->id(), $status, $help, $scope));
+            case MapMarkerType::USERS:
+                $this->assertLoggedIn();
+
+                try {
+                    $regionId = intval($queryParams['region']);
+                    $role = UserMarkerRoleType::from($queryParams['role'] ?? 'all');
+                    $activity = UserMarkerActivityType::from($queryParams['activity'] ?? 'all');
+                    $member = UserMarkerMemberType::from($queryParams['member'] ?? 'all');
+                } catch (ValueError $error) {
+                    throw new BadRequestHttpException();
+                }
+
+                if (!$this->regionPermissions->mayAccessUserMapMarkersForRegion($regionId)) {
+                    throw new AccessDeniedHttpException();
+                }
+
+                return $this->respondOK($this->foodsaverGateway->getUserMarkers($regionId, $role, $activity, $member));
+            default:
+                throw new NotFoundHttpException();
         }
-
-        return $this->handleView($this->view($markers, Response::HTTP_OK));
     }
 
     /**
@@ -115,13 +115,13 @@ class MapRestController extends AbstractFOSRestController
     {
         $region = $this->regionGateway->getRegion($regionId);
         $pin = $this->regionGateway->getRegionPin($regionId);
-        if (empty($pin) || $pin['status'] != RegionPinStatus::ACTIVE) {
+        if (empty($pin) || $pin->status != RegionPinStatus::ACTIVE) {
             throw new NotFoundHttpException('region does not exist or its pin is not active');
         }
 
         return $this->handleView($this->view([
             'name' => $region['name'],
-            'description' => $pin['desc'],
+            'description' => $pin->description,
         ], Response::HTTP_OK));
     }
 

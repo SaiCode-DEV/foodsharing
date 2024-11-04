@@ -16,6 +16,7 @@
           :rows="3"
           :value="text"
           :conceal-toolbar="true"
+          :region-id="regionId"
           @update:value="newValue => text = newValue"
           @submit="submit"
         />
@@ -44,6 +45,7 @@ export default {
   components: { MarkdownInput },
   props: {
     isOpen: { type: Boolean, default: false },
+    regionId: { type: Number, default: null },
   },
   data () {
     return {

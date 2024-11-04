@@ -4,6 +4,7 @@ namespace Foodsharing\Utility;
 
 use Html2Text\Html2Text;
 use HTMLPurifier;
+use HTMLPurifier_Config;
 use Parsedown;
 
 class Sanitizer
@@ -29,9 +30,9 @@ class Sanitizer
         return $this->htmlPurifier->purify($html);
     }
 
-    public function purifyHtml(string $html): string
+    public function purifyHtml(string $html, ?HTMLPurifier_Config $config = null): string
     {
-        return $this->htmlPurifier->purify($html);
+        return $this->htmlPurifier->purify($html, $config);
     }
 
     public function htmlToPlain(string $html): string
@@ -73,5 +74,25 @@ class Sanitizer
         }
 
         return $str;
+    }
+
+    /**
+     * Creates a configuration for the HTMLPurifier that uses a valid cache directory. Use this if you need a custom
+     * configuration for the purifier, for example for including pictures.
+     *
+     * This is a workaround for a bug in the library which tries to write to the vendor directory. It can be removed
+     * as soon as they fixed that. https://github.com/ezyang/htmlpurifier/issues/71
+     */
+    public static function getPurifierConfig(): HTMLPurifier_Config
+    {
+        $cacheDir = sys_get_temp_dir() . '/HTMLPurifier/DefinitionCache';
+        if (!is_dir($cacheDir)) {
+            mkdir($cacheDir, 0770, true);
+        }
+
+        $config = HTMLPurifier_Config::createDefault();
+        $config->set('Cache.SerializerPath', $cacheDir);
+
+        return $config;
     }
 }

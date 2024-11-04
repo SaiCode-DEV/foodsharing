@@ -3,14 +3,9 @@
 namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
-use DateTime;
-use DateTimeZone;
 use Exception;
 use Foodsharing\Lib\Session;
-use Foodsharing\Modules\Bell\BellTransactions;
-use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
-use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
@@ -22,10 +17,12 @@ use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\DTO\CommonStoreMetadata;
 use Foodsharing\Modules\Store\DTO\PatchStore;
 use Foodsharing\Modules\Store\DTO\Store;
+use Foodsharing\Modules\Store\DTO\StoreApplicationMessage;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreTransactionException;
 use Foodsharing\Modules\Store\StoreTransactions;
 use Foodsharing\Modules\Store\TeamStatus as TeamMembershipStatus;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\RestApi\Models\Store\CreateStoreModel;
@@ -33,12 +30,12 @@ use Foodsharing\RestApi\Models\Store\MinimalStoreModel;
 use Foodsharing\RestApi\Models\Store\StorePaginationResult;
 use Foodsharing\RestApi\Models\Store\StoreStatusForMemberModel;
 use Foodsharing\Utility\TimeHelper;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -46,23 +43,24 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class StoreRestController extends AbstractFOSRestController
+class StoreRestController extends AbstractFoodsharingRestController
 {
     // literal constants
     private const NOT_LOGGED_IN = 'not logged in';
     private const ID = 'id';
 
     public function __construct(
-        private readonly Session $session,
+        protected Session $session,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly StoreGateway $storeGateway,
         private readonly StoreTransactions $storeTransactions,
         private readonly StorePermissions $storePermissions,
         private readonly RegionGateway $regionGateway,
         private readonly GroupFunctionGateway $groupFunctionGateway,
-        private readonly BellTransactions $bellTransactions,
         private readonly ProfilePermissions $profilePermissions,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
 
@@ -155,6 +153,7 @@ class StoreRestController extends AbstractFOSRestController
         /*
          * @TODO: This deactivates store lists for Europe and countries because it needs to much memory on the server.
          * Can be remove when there is pagination.
+         * See also RegionPermissions:maySeeRegionMembers for the same problem with region members.
          */
         if (in_array($regionId, [RegionIDs::EUROPE, RegionIDs::GERMANY, RegionIDs::AUSTRIA, RegionIDs::SWITZERLAND])) {
             throw new AccessDeniedHttpException();
@@ -227,7 +226,7 @@ class StoreRestController extends AbstractFOSRestController
 
         try {
             $maySeeDetails = $this->storePermissions->maySeePhoneNumbers($storeId);
-            $result = $this->storeTransactions->getMyStoreTeam($userId, $storeId, $maySeeDetails);
+            $result = $this->storeTransactions->getMyStoreTeam($storeId, $maySeeDetails);
 
             return $this->handleView($this->view($result, 200));
         } catch (DatabaseNoValueFoundException) {
@@ -272,10 +271,10 @@ class StoreRestController extends AbstractFOSRestController
             if (!$isOrgUser) {
                 $storeGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($store['bezirk_id'], WorkgroupFunction::STORES_COORDINATION);
                 if (empty($storeGroup)) {
-                    if ($this->session->isAdminFor($store['bezirk_id'])) {
+                    if ($this->currentUserUnits->isAdminFor($store['bezirk_id'])) {
                         $isAmbassador = true;
                     }
-                } elseif ($this->session->isAdminFor($storeGroup)) {
+                } elseif ($this->currentUserUnits->isAdminFor($storeGroup)) {
                     $isCoordinator = true;
                 }
             }
@@ -294,10 +293,7 @@ class StoreRestController extends AbstractFOSRestController
                 'storeId' => $storeId,
                 'maySeePickupHistory' => $this->storePermissions->maySeePickupHistory($storeId),
                 'maySeeStoreLog' => $this->storePermissions->maySeeStoreLog($storeId),
-                'mayReadStoreWall' => $this->storePermissions->mayReadStoreWall($storeId),
-                'mayWritePost' => $this->storePermissions->mayWriteStoreWall($storeId),
-                'mayDeleteEverything' => $this->storePermissions->mayDeleteStoreWall($storeId),
-                'maySeePickups' => $this->storePermissions->maySeePickups($storeId) && $store['betrieb_status_id'] === CooperationStatus::COOPERATION_STARTING || $store['betrieb_status_id'] === CooperationStatus::COOPERATION_ESTABLISHED,
+                'maySeePickups' => $this->storePermissions->maySeePickups($storeId) || $store['betrieb_status_id'] === CooperationStatus::COOPERATION_ESTABLISHED,
             ];
 
             return $this->handleView($this->view($params, 200));
@@ -371,7 +367,7 @@ class StoreRestController extends AbstractFOSRestController
         }
         $maySeeDetails = $this->storePermissions->mayAccessStore($storeId);
 
-        $store = $this->storeGateway->getBetrieb($storeId, $maySeeDetails);
+        $store = $this->storeGateway->getBetrieb($storeId);
 
         if (!$store || !isset($store[self::ID])) {
             throw new NotFoundHttpException('Store does not exist.');
@@ -489,122 +485,10 @@ class StoreRestController extends AbstractFOSRestController
     }
 
     /**
-     * Get "wallposts" for store with given ID. Returns 200 and the comments,
-     * 401 if not logged in, or 403 if you may not view this store.
-     *
-     * @OA\Tag(name="stores")
-     */
-    #[Rest\Get('stores/{storeId}/posts', requirements: ['storeId' => '\d+'])]
-    public function getStorePosts(int $storeId): Response
-    {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
-        }
-        if (!$this->storePermissions->mayReadStoreWall($storeId)) {
-            throw new AccessDeniedHttpException();
-        }
-
-        $notes = $this->storeGateway->getStorePosts($storeId);
-        if (empty($notes)) {
-            $notes = [];
-        }
-        $notes = array_map(fn ($n) => RestNormalization::normalizeStoreNote($n), $notes);
-
-        return $this->handleView($this->view($notes, 200));
-    }
-
-    /**
-     * Write a new "wallpost" for the given store. Returns 200 and the created entry,
-     * 401 if not logged in, or 403 if you may not view this store.
-     *
-     * @OA\Tag(name="stores")
-     */
-    #[Rest\Post('stores/{storeId}/posts')]
-    #[Rest\RequestParam(name: 'text')]
-    public function addStorePost(int $storeId, ParamFetcher $paramFetcher): Response
-    {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
-        }
-        if (!$this->storePermissions->mayWriteStoreWall($storeId)) {
-            throw new AccessDeniedHttpException();
-        }
-
-        $author = $this->session->id();
-        $text = $paramFetcher->get('text');
-        $note = [
-            'foodsaver_id' => $author,
-            'betrieb_id' => $storeId,
-            'text' => $text,
-            'zeit' => date('Y-m-d H:i:s'),
-        ];
-        $postId = $this->storeGateway->addStoreWallpost($note);
-
-        $this->bellTransactions->addGroupedBellEvent(...$this->getGroupedBellEventData($storeId, $postId));
-
-        $note = $this->storeGateway->getStoreWallpost($storeId, $postId);
-        $note['name'] = $this->session->user('name');
-        $note['photo'] = $this->session->user('photo');
-        $post = RestNormalization::normalizeStoreNote($note);
-
-        return $this->handleView($this->view(['post' => $post], 200));
-    }
-
-    /**
-     * Deletes a post from the wall of a store. Returns 200 upon successful deletion,
-     * 401 if not logged in, or 403 if you may not remove this particular "wallpost".
-     *
-     * @OA\Tag(name="stores")
-     */
-    #[Rest\Delete('stores/{storeId}/posts/{postId}')]
-    public function deleteStorePost(int $storeId, int $postId): Response
-    {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
-        }
-        if (!$this->storePermissions->mayDeleteStoreWallPost($storeId, $postId)) {
-            throw new AccessDeniedHttpException();
-        }
-        $result = $this->storeGateway->getStoreWallpost($storeId, $postId);
-
-        $this->storeGateway->addStoreLog($result['betrieb_id'], $this->session->id(), $result['foodsaver_id'], new DateTime($result['zeit']), StoreLogAction::DELETED_FROM_WALL, $result['text']);
-
-        $this->storeGateway->deleteStoreWallpost($storeId, $postId);
-
-        $this->bellTransactions->removeGroupedBellEvent(...$this->getGroupedBellEventData($storeId, $postId));
-
-        return $this->handleView($this->view([], 200));
-    }
-
-    /**
-     * Prepares parameters needed to add and reduce grouped bells.
-     * @see BellTransactions
-     */
-    private function getGroupedBellEventData(int $storeId, int $postId): array
-    {
-        $teamIds = array_column($this->storeGateway->getStoreTeam($storeId), 'id');
-        $teamWithoutPostAuthor = array_diff($teamIds, [$this->session->id()]);
-
-        $baseBell = Bell::create(
-            'store_wall_post_title',
-            'store_wall_post',
-            'fas fa-thumbtack',
-            ['href' => '/?page=fsbetrieb&id=' . $storeId],
-            [
-                'user' => $this->session->user('name'),
-                'name' => $this->storeGateway->getStoreName($storeId),
-            ],
-            BellType::createIdentifier(BellType::STORE_WALL_POST, $storeId)
-        );
-
-        return [$teamWithoutPostAuthor, $baseBell, $postId];
-    }
-
-    /**
      * Request to join a store team.
      *
      * @OA\Parameter(name="storeId", in="path", @OA\Schema(type="integer"), description="for which store to apply")
-     * @OA\Parameter(name="userId", in="path", @OA\Schema(type="integer"), description="user that wants to be accepted")
+     * @OA\RequestBody(@Model(type=StoreApplicationMessage::class))
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permissions to be member of a store team")
@@ -612,25 +496,26 @@ class StoreRestController extends AbstractFOSRestController
      * @OA\Response(response="422", description="Already applied or already member of this store team")
      * @OA\Tag(name="stores")
      */
-    #[Rest\Post('stores/{storeId}/requests/{userId}')]
-    public function requestStoreTeamMembership(int $storeId, int $userId): Response
+    #[Rest\Post('stores/{storeId}/requests')]
+    #[ParamConverter(data: 'message', converter: 'fos_rest.request_body')]
+    public function requestStoreTeamMembership(int $storeId, StoreApplicationMessage $message, ValidatorInterface $validator): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
-        }
+        $this->assertLoggedIn();
+        $this->assertThereAreNoValidationErrors($validator, $message);
         if (!$this->storeGateway->storeExists($storeId)) {
             throw new NotFoundHttpException('Store does not exist.');
         }
-        if (!$this->storePermissions->mayJoinStoreRequest($storeId, $userId)) {
+        if (!$this->storePermissions->mayJoinStoreRequest($storeId, $this->session->id())) {
             throw new AccessDeniedHttpException();
         }
-        if ($this->storeGateway->getUserTeamStatus($userId, $storeId) !== TeamMembershipStatus::NoMember) {
+        if ($this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) !== TeamMembershipStatus::NoMember) {
             throw new UnprocessableEntityHttpException('User has already applied or is already member of this store.');
         }
 
-        $this->storeTransactions->requestStoreTeamMembership($storeId, $userId);
+        // $message = isset($message->message) ? $message->message : null;
+        $this->storeTransactions->requestStoreTeamMembership($storeId, $this->session->id(), $message->message);
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 
     /**
@@ -656,7 +541,7 @@ class StoreRestController extends AbstractFOSRestController
             throw new AccessDeniedHttpException();
         }
 
-        $response = $this->storeTransactions->getStoreApplications($userId, $storeId);
+        $response = $this->storeTransactions->getStoreApplications($storeId);
 
         return $this->handleView($this->view($response, 200));
     }
@@ -893,7 +778,9 @@ class StoreRestController extends AbstractFOSRestController
      * @OA\Tag(name="stores")
      */
     #[Rest\Get('stores/{storeId}/log/{fromDate}/{toDate}/{storeLogActionIds}', requirements: ['storeId' => '\d+', 'fromDate' => '[^/]+', 'toDate' => '[^/]+', 'storeLogActionIds' => '(\d+,)*\d+'])]
-    public function showStoreLogHistory(int $storeId, string $fromDate, string $toDate, string $storeLogActionIds): Response
+    #[Rest\QueryParam(name: 'limit', requirements: '\d+', default: '100', description: 'How many bells to return.')]
+    #[Rest\QueryParam(name: 'offset', requirements: '\d+', default: '0', description: 'Offset for returned bells.')]
+    public function showStoreLogHistory(int $storeId, string $fromDate, string $toDate, string $storeLogActionIds, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
@@ -913,33 +800,18 @@ class StoreRestController extends AbstractFOSRestController
 
         $fromDate = TimeHelper::parsePickupDate($fromDate);
         $toDate = TimeHelper::parsePickupDate($toDate);
-        if (is_null($fromDate) || is_null($toDate)) {
-            throw new BadRequestHttpException('Invalid date format');
-        }
 
         if (Carbon::now()->subMonths(6)->subDay() > $fromDate) { // 6 months + 1 day for rounding
             throw new BadRequestHttpException('Cannot access store log more than 6 months back.');
         }
 
         $storeLogActions = explode(',', $storeLogActionIds);
-        $storeLogEntries = $this->storeGateway->getStoreLogsByActionType($storeId, $storeLogActions, $fromDate, $toDate);
+        $pagination = $this->getPagination($paramFetcher);
+
+        $storeLogEntries = $this->storeGateway->getStoreLogsByActionType($storeId, $storeLogActions, $fromDate, $toDate, $pagination);
         $extendedLogEntries = $this->extendStoreLogWithFoodsaverProfilData($storeId, $storeLogEntries);
 
-        $timeZone = new DateTimeZone('Europe/Berlin');
-        $timeZoneOffset = $timeZone->getOffset(new DateTime('now', $timeZone));
-
-        $extendedLogEntries = array_map(function ($logEntry) use ($timeZoneOffset) {
-            $correctedSlotDate = new DateTime($logEntry['date_reference']);
-            $correctedSlotDate->add(new \DateInterval("PT{$timeZoneOffset}S"));
-            $logEntry['date_reference'] = $correctedSlotDate->format(DATE_ATOM);
-
-            $correctedPerformedAtDate = new DateTime($logEntry['performed_at']);
-            $logEntry['performed_at'] = $correctedPerformedAtDate->format(DATE_ATOM);
-
-            return $logEntry;
-        }, $extendedLogEntries);
-
-        return $this->handleView($this->view($extendedLogEntries, 200));
+        return $this->respondOK($extendedLogEntries);
     }
 
     private function extendStoreLogWithFoodsaverProfilData(int $storeId, array $storeLogEntries): array

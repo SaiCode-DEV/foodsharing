@@ -2,10 +2,18 @@
   <Container
     :title="$i18n('pickup.history.title')"
     :container-is-expanded="isContainerExpanded"
-    tag="pickup_history"
+    :tag="`store-pickup-history-${storeId}`"
+    wrap-content
   >
     <div class="corner-bottom margin-bottom bootstrap pickup-history">
-      <DateRangePicker ref="dateRange" :cooperation-start="cooperationStart" />
+      <DateRangePicker
+        :from-date.sync="fromDate"
+        :to-date.sync="toDate"
+        :min-from-date="new Date(Date.parse(cooperationStart))"
+        :max-to-date="new Date()"
+        class="py-2"
+        short
+      />
       <div class="p-1 pickup-search-button">
         <b-button
           variant="secondary"
@@ -40,7 +48,7 @@ import { listPickupHistory } from '@/api/pickups'
 import { pulseError } from '@/script'
 import Pickup from '@/components/Stores/Pickup/Pickup.vue'
 import Container from '@/components/Container/Container.vue'
-import DateRangePicker from './DateRangePicker.vue'
+import DateRangePicker from '@/components/DateTime/DateRangePicker.vue'
 
 export default {
   components: { Pickup, Container, DateRangePicker },
@@ -50,10 +58,16 @@ export default {
     cooperationStart: { type: String, default: null },
   },
   data () {
+    const now = new Date()
+    const lastWeek = new Date(now)
+    lastWeek.setDate(now.getDate() - 7)
+
     return {
       isContainerExpanded: false,
       isLoading: false,
       pickupList: [],
+      fromDate: lastWeek,
+      toDate: now,
     }
   },
   methods: {
@@ -64,8 +78,9 @@ export default {
       this.isLoading = true
 
       try {
-        const [startDate, toDate] = this.$refs.dateRange.getDateRange()
-        this.pickupList = await listPickupHistory(this.storeId, startDate, toDate)
+        const endOfToDate = new Date(this.toDate)
+        endOfToDate.setDate(this.toDate.getDate() + 1)
+        this.pickupList = await listPickupHistory(this.storeId, this.fromDate, endOfToDate)
       } catch (e) {
         pulseError(this.$i18n('error_unexpected') + e)
       }

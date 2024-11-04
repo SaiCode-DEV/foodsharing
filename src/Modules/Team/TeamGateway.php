@@ -16,14 +16,10 @@ class TeamGateway extends BaseGateway
         $stm = '
 				SELECT
 					fs.id,
-					CONCAT(mb.name,"@' . PLATFORM_MAILBOX_HOST . '") AS email,
 					fs.name,
 					fs.photo,
 					fs.about_me_public,
-					fs.rolle,
-					fs.geschlecht,
-					fs.position,
-					fs.contact_public
+					fs.position
 				FROM
 					fs_foodsaver_has_bezirk hb
 
@@ -38,6 +34,8 @@ class TeamGateway extends BaseGateway
 					fs.mailbox_id = mb.id
 				WHERE
 					hb.bezirk_id = :region_id
+				AND
+				    hb.active = 1
 				ORDER BY fs.name
 		';
         $orgas = $this->db->fetchAll($stm, [':region_id' => $region_id]);

@@ -21,7 +21,7 @@ class MapApiCest
 
     final public function _before(ApiTester $I): void
     {
-        $this->region = $I->createRegion();
+        $this->region = $I->createRegion(fillMailbox: false);
         $this->user = $I->createFoodsaver();
         $this->communityPin = $I->createCommunityPin($this->region['id']);
         $this->store = $I->createStore($this->region['id'], null, null, ['lat' => 49.1, 'lon' => 5.2, 'team_status' => TeamSearchStatus::OPEN_SEARCHING->value, 'betrieb_status_id' => CooperationStatus::COOPERATION_ESTABLISHED->value]);
@@ -37,29 +37,29 @@ class MapApiCest
 
     final public function canFetchMarkersWithoutLogin(ApiTester $I): void
     {
-        $I->sendGet('api/map/markers', ['types' => 'baskets']);
+        $I->sendGet('api/map/markers/baskets');
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        $I->sendGet('api/map/markers', ['types' => 'foodsharepoints']);
+        $I->sendGet('api/map/markers/foodsharepoints');
         $I->seeResponseCodeIs(HttpCode::OK);
 
-        $I->sendGet('api/map/markers', ['types' => 'communities']);
+        $I->sendGet('api/map/markers/communities');
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
     final public function canNotFetchStoreMarkersWithoutLogin(ApiTester $I): void
     {
-        $I->sendGet('api/map/markers', ['types' => 'stores']);
+        $I->sendGet('api/map/markers/stores');
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }
 
     final public function canFetchStoreMarkersNoSettings(ApiTester $I): void
     {
         $I->login($this->user['email']);
-        $I->sendGet('api/map/markers', ['types' => 'stores']);
+        $I->sendGet('api/map/markers/stores');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
-        $stores = $I->grabDataFromResponseByJsonPath('$.stores');
+        $stores = $I->grabDataFromResponseByJsonPath('$');
         $I->assertCount(1, $stores);
         $I->assertCount(6, $stores[0]);
     }
@@ -67,10 +67,10 @@ class MapApiCest
     final public function canFetchStoreMarkersSearchingForMembers(ApiTester $I): void
     {
         $I->login($this->user['email']);
-        $I->sendGet('api/map/markers', ['types' => 'stores', 'status' => ['needhelpinstant']]);
+        $I->sendGet('api/map/markers/stores', ['help' => 'searching']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
-        $stores = $I->grabDataFromResponseByJsonPath('$.stores');
+        $stores = $I->grabDataFromResponseByJsonPath('$');
         $I->assertCount(1, $stores);
         $I->assertCount(2, $stores[0]);
     }
@@ -78,21 +78,21 @@ class MapApiCest
     final public function canFetchStoreMarkersOpenForMembers(ApiTester $I): void
     {
         $I->login($this->user['email']);
-        $I->sendGet('api/map/markers', ['types' => 'stores', 'status' => ['needhelp']]);
+        $I->sendGet('api/map/markers/stores', ['help' => 'open']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
-        $stores = $I->grabDataFromResponseByJsonPath('$.stores');
+        $stores = $I->grabDataFromResponseByJsonPath('$');
         $I->assertCount(1, $stores);
-        $I->assertCount(2, $stores[0]);
+        $I->assertCount(4, $stores[0]);
     }
 
     final public function canFetchStoreMarkersShowNoCooperation(ApiTester $I): void
     {
         $I->login($this->user['email']);
-        $I->sendGet('api/map/markers', ['types' => 'stores', 'status' => ['nkoorp']]);
+        $I->sendGet('api/map/markers/stores', ['status' => 'not-cooperating']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
-        $stores = $I->grabDataFromResponseByJsonPath('$.stores');
+        $stores = $I->grabDataFromResponseByJsonPath('$');
         $I->assertCount(1, $stores);
         $I->assertCount(1, $stores[0]);
     }
@@ -142,7 +142,7 @@ class MapApiCest
         $I->seeResponseContainsJson([
             'id' => $this->basket['id'],
             'description' => $this->basket['description'],
-            'photo' => $this->basket['picture'],
+            'pictures' => [],
             'creator' => [
                 'id' => $this->user['id']
             ],

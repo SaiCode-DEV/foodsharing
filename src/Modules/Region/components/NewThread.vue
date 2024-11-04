@@ -8,12 +8,14 @@
     </div>
 
     <div class="card-header text-black bg-white">
-      <label class="font-weight-bold">{{ $i18n('forum.thread.title') }}*</label>
+      <label class="font-weight-bold" for="forum-create-thread-form-title">{{ $i18n('forum.thread.title') }}*</label>
       <b-form-input id="forum-create-thread-form-title" v-model="title" />
-      <label class="font-weight-bold mt-3">{{ $i18n('forum.post.body') }}*</label>
+      <label class="font-weight-bold mt-3" for="thread-content">{{ $i18n('forum.post.body') }}*</label>
       <MarkdownInput
+        input-name="thread-content"
         :rows="6"
         :value="body"
+        :region-id="groupId"
         @update:value="newValue => body = newValue"
       />
 
@@ -25,7 +27,7 @@
             class="mr-2"
             type="checkbox"
           >
-          {{ $i18n('forum.thread.delivery_mail') }}
+          <label for="send_mail_button">{{ $i18n('forum.thread.delivery_mail') }}</label>
         </div>
         <div class="col-auto">
           <button

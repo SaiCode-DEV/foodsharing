@@ -25,7 +25,7 @@ class Question
 
     #[OA\Property(example: 'https://wiki.foodsharing.de/some_page')]
     #[Assert\NotBlank]
-    #[Assert\Regex('/^https:\/\/wiki\.foodsharing/')]
+    #[Assert\Regex('/^https:\/\/[\d\w]+\.[\d\w]+/')]
     public string $wikilink;
 
     #[OA\Property(example: 2)]

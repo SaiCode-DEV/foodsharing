@@ -25,7 +25,9 @@ import Avatar from '@/components/Avatar/Avatar.vue'
 // Stores
 import conversationStore from '@/stores/conversations'
 import ProfileStore from '@/stores/profiles'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 const LIMIT_DISPLAYED_USERS = 35
 
@@ -41,7 +43,7 @@ export default {
   },
   data () {
     return {
-      currentUserId: DataUser.getters.getUserId(),
+      currentUserId: userStore.getUserId,
       title: '',
       storeId: null,
       members: [],

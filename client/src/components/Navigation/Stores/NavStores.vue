@@ -74,32 +74,39 @@
 </template>
 <script>
 // Store
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import DataStores from '@/stores/stores'
 // Components
 import Dropdown from '../_NavItems/NavDropdown'
 import StoresEntry from './NavStoresEntry'
 
+const userStore = useUserStore()
+
 export default {
   name: 'MenuStores',
   components: { Dropdown, StoresEntry },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   computed: {
     homeRegionId () {
-      return DataUser.getters.getHomeRegion()
+      return userStore.getHomeRegion
     },
     permissions () {
-      return DataUser.getters.getPermissions()
+      return userStore.getPermissions
     },
     hasStores () {
       return DataStores.getters.hasStores()
     },
     userId () {
-      return DataUser.getters.getUserId()
+      return userStore.getUserId
     },
     getStores () {
       return [
         {
-          icon: 'fa-users-cog',
+          icon: 'fa-user-cog',
           tooltip: 'store.tooltip_managing',
           name: 'dashboard.my.managing_stores',
           list: DataStores.getters.getManaging(),

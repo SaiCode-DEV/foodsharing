@@ -15,10 +15,12 @@ use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Region\DTO\RegionPin;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Store\StoreGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Modules\WorkGroup\WorkGroupTransactions;
 use Foodsharing\Permissions\RegionPermissions;
@@ -38,6 +40,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[OA2\Tag(name: 'region')]
@@ -63,6 +66,7 @@ class RegionRestController extends AbstractFoodsharingRestController
         private readonly WorkGroupTransactions $workGroupTransactions,
         private readonly EventGateway $eventGateway,
         protected Session $session,
+        protected readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
 
@@ -84,7 +88,7 @@ class RegionRestController extends AbstractFoodsharingRestController
 
         $this->regionGateway->linkBezirk($sessionId, $regionId);
 
-        if (!$this->session->getCurrentRegionId()) {
+        if (!$this->currentUserUnits->getCurrentRegionId()) {
             $this->settingsGateway->logChangedSetting($sessionId, ['bezirk_id' => 0], ['bezirk_id' => $regionId], ['bezirk_id']);
             $this->foodsaverGateway->updateProfile($sessionId, ['bezirk_id' => $regionId]);
         }
@@ -192,6 +196,8 @@ class RegionRestController extends AbstractFoodsharingRestController
     #[Rest\RequestParam(name: 'regionPickupRuleLimit')]
     #[Rest\RequestParam(name: 'regionPickupRuleLimitDay')]
     #[Rest\RequestParam(name: 'regionPickupRuleInactive')]
+    #[Rest\RequestParam(name: 'selectedReportReasonOptions')]
+    #[Rest\RequestParam(name: 'enableReportReasonOther')]
     public function setRegionOptions(ParamFetcher $paramFetcher, int $regionId): Response
     {
         if (!$this->session->mayRole()) {
@@ -209,7 +215,14 @@ class RegionRestController extends AbstractFoodsharingRestController
             if (isset($params['enableMediationButton'])) {
                 $this->regionGateway->setRegionOption($regionId, RegionOptionType::ENABLE_MEDIATION_BUTTON, strval(intval($params['enableMediationButton'])));
             }
+            if (isset($params['selectedReportReasonOptions'])) {
+                $this->regionGateway->setRegionOption($regionId, RegionOptionType::REPORT_REASON_OPTIONS, strval(intval($params['selectedReportReasonOptions'])));
+            }
+            if (isset($params['enableReportReasonOther'])) {
+                $this->regionGateway->setRegionOption($regionId, RegionOptionType::REPORT_REASON_OTHER, strval(intval($params['enableReportReasonOther'])));
+            }
         }
+
         if ($this->regionPermissions->maySetRegionOptionsRegionPickupRule($regionId)) {
             if (isset($params['regionPickupRuleActive'])) {
                 $this->regionGateway->setRegionOption($regionId, RegionOptionType::REGION_PICKUP_RULE_ACTIVE, strval(intval($params['regionPickupRuleActive'])));
@@ -262,6 +275,28 @@ class RegionRestController extends AbstractFoodsharingRestController
     {
         return !is_null($value) && !is_nan($value)
             && ($lowerBound <= $value) && ($upperBound >= $value);
+    }
+
+    #[OA2\Get(summary: 'Returns the coordinates and description for a region\'s pin')]
+    #[Rest\Get('region/{regionId}/pin', requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: RegionPin::class))]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permission')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Region not found or the region does not have a pin yet')]
+    public function getRegionPin(int $regionId): Response
+    {
+        $this->assertLoggedIn();
+
+        $pin = $this->regionGateway->getRegionPin($regionId);
+        if (empty($pin)) {
+            throw new NotFoundHttpException();
+        }
+
+        if (!$this->regionPermissions->maySetRegionPin($regionId)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        return $this->respondOK($pin);
     }
 
     /**
@@ -322,7 +357,7 @@ class RegionRestController extends AbstractFoodsharingRestController
             throw new UnauthorizedHttpException('');
         }
         $includeWorkingGroups = !is_null($paramFetcher->get('includeWorkingGroups'));
-        if ($includeWorkingGroups && !$this->session->mayBezirk($regionId)) {
+        if ($includeWorkingGroups && !$this->regionPermissions->mayAccessWorkingGroupList($regionId)) {
             throw new UnauthorizedHttpException('');
         }
 

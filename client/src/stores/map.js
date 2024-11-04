@@ -1,12 +1,16 @@
-import { reactive } from 'vue'
-import { objectMap } from '@/utils'
 import { getMapMarkers } from '@/api/map'
+import { getCache, getCacheInterval, setCache } from '@/helper/cache'
+
+// Markers are reloaded from the server if they are older than this
+const MAX_MARKER_CACHING_TIME = 10 * 60 * 1000 // 10 minutes in milliseconds
+const baseCacheName = 'mapMarkers'
 
 export const MAP_CONSTANTS = Object.freeze({
   CENTER_GERMANY_LAT: 50.89,
   CENTER_GERMANY_LON: 10.13,
   ZOOM_COUNTRY: 6,
-  ZOOM_CITY: 13,
+  ZOOM_CITY: 15,
+  MAX_ZOOM: 20,
 })
 
 export const MARKER_TYPES = Object.freeze({
@@ -14,40 +18,36 @@ export const MARKER_TYPES = Object.freeze({
   stores: { name: 'stores', label: 'menu.entry.stores', icon: 'shopping-cart', color: 'darkred' },
   foodsharepoints: { name: 'foodsharepoints', label: 'terminology.fsp', icon: 'recycle', color: 'beige' },
   communities: { name: 'communities', label: 'menu.entry.regionalgroups', icon: 'users', color: 'blue' },
+  users: { name: 'users', label: 'terminology.users', icon: 'user', color: 'darkpurple' },
 })
 
-export const STORE_MARKER_TYPES = Object.freeze({
-  allStores: { name: 'allebetriebe', label: 'store.bread' },
-  needHelp: { name: 'needhelp', label: 'menu.entry.helpwanted' },
-  needHelpUrgently: { name: 'needhelpinstant', label: 'menu.entry.helpneeded' },
-  cooperating: { name: 'nkoorp', label: 'menu.entry.other_stores' },
-  myStores: { name: 'mine', label: 'map.filters.my_stores' },
-})
-
-// Markers are reloaded from the server if they are older than this
-const MAX_MARKER_CACHING_TIME = 10 * 60 * 1000 // 10 minutes in milliseconds
-
-export const store = {
-  state: reactive({
-    markers: objectMap(MARKER_TYPES, key => { return null }),
-    lastMarkerFetchTime: objectMap(MARKER_TYPES, key => { return null }),
-  }),
-  /**
-   * Loads markers of a specific type and saves them in the store's state.
-   */
-  async getMarkers (name, statusNames = []) {
-    const now = new Date()
-
-    // The list of stores can not be cached because it can be different depending on the status names
-    if (name === MARKER_TYPES.stores.name || this.state.markers[name] === null ||
-      this.state.lastMarkerFetchTime[name] === null ||
-      new Date(this.state.lastMarkerFetchTime[name].getTime() + MAX_MARKER_CACHING_TIME) < now) {
-      const result = await getMapMarkers([name], statusNames)
-      for (const key in result) {
-        this.state.markers[key] = result[key]
-        this.state.lastMarkerFetchTime[key] = now
-      }
-    }
-    return this.state.markers[name]
+export const MARKER_SELECT_TYPES = Object.freeze({
+  stores: {
+    status: ['all', 'cooperating', 'not-cooperating'],
+    help: ['all', 'open', 'searching'],
+    scope: ['all', 'region', 'member'],
   },
+  users: {
+    role: ['all', 'foodsaver', 'store-manager'],
+    activity: ['week', 'month', '3months', '6months', 'all'],
+    member: ['all', 'homeregion', 'other'],
+  },
+})
+
+/**
+ * Loads markers of a specific type and saves them in the store's state.
+ */
+export async function getMarkers (name, specifiers = {}) {
+  // Get a canonical string representation from a set of specifiers for the cache name
+  const identifier = Object.entries(specifiers).sort((a, b) => a[0].localeCompare(b[0])).flat().join('_')
+  const cacheName = `${baseCacheName}-${name}-${identifier}`
+
+  let markers
+  if (await getCacheInterval(cacheName, MAX_MARKER_CACHING_TIME)) {
+    markers = await getMapMarkers(name, specifiers)
+    setCache(cacheName, markers) // don't wait for completion of this async function
+  } else {
+    markers = await getCache(cacheName)
+  }
+  return markers
 }

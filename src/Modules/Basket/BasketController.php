@@ -7,7 +7,6 @@ use Foodsharing\Modules\Core\DBConstants\Basket\Status;
 use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BasketController extends FoodsharingController
@@ -33,9 +32,12 @@ class BasketController extends FoodsharingController
         $loc = $this->session->user('location');
         if (!$loc || $loc->lat === 0 && $loc->lon === 0) {
             $loc = GeoLocation::createFromArray(['lat' => MapConstants::CENTER_GERMANY_LAT, 'lon' => MapConstants::CENTER_GERMANY_LON]);
+            $zoom = MapConstants::ZOOM_COUNTRY;
+        } else {
+            $zoom = MapConstants::ZOOM_CITY;
         }
         $baskets = $this->basketGateway->listNearbyBasketsByDistance($this->session->id(), $loc);
-        $this->view->find($baskets, $loc);
+        $this->view->find($baskets, $loc, $zoom);
 
         return $this->renderGlobal();
     }
@@ -46,7 +48,7 @@ class BasketController extends FoodsharingController
         $basket = $this->basketGateway->getBasket($id);
 
         if (!$basket) {
-            throw new NotFoundHttpException();
+            return $this->redirect('/essenskoerbe/find');
         }
 
         $this->pageHelper->addBread($this->translator->trans('terminology.baskets'));
@@ -54,15 +56,15 @@ class BasketController extends FoodsharingController
         $requests = false;
 
         if ($this->session->mayRole()) {
-            if ($basket['fs_id'] == $this->session->id()) {
-                $requests = $this->basketGateway->listRequests($basket['id'], $this->session->id());
+            if ($basket->creator->id == $this->session->id()) {
+                $requests = $this->basketGateway->listRequests($basket->id);
             } else {
-                $requests = $this->basketGateway->getRequest($basket['id'], $this->session->id(), $basket['foodsaver_id']);
+                $requests = $this->basketGateway->getRequest($basket->id, $this->session->id(), $basket->creator->id);
             }
         }
-        if ($basket['status'] === Status::REQUESTED_MESSAGE_READ && $basket['until_ts'] >= time()) {
+        if ($basket->status === Status::REQUESTED_MESSAGE_READ && $basket->until >= time()) {
             $this->view->basket($basket, $requests);
-        } elseif ($basket['status'] === Status::DELETED_OTHER_REASON || $basket['status'] === Status::DENIED || $basket['until_ts'] <= time()) {
+        } elseif ($basket->status === Status::DELETED_OTHER_REASON || $basket->status === Status::DENIED || $basket->until <= time()) {
             $this->view->basketTaken($basket);
         }
 

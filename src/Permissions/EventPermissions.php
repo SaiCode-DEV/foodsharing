@@ -4,45 +4,52 @@ namespace Foodsharing\Permissions;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Event\DTO\Event;
+use Foodsharing\Modules\Event\EventGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 final class EventPermissions
 {
     private readonly Session $session;
 
-    public function __construct(Session $session)
-    {
+    public function __construct(
+        Session $session,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
+        private readonly EventGateway $eventGateway,
+    ) {
         $this->session = $session;
     }
 
-    public function mayEditEvent(array $event): bool
+    public function mayEditEvent(Event $event): bool
     {
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
-        if ($this->session->isAdminFor($event['bezirk_id'])) {
+
+        if ($this->currentUserUnits->isAdminFor($event->regionId)) {
             return true;
         }
 
-        return $event['fs_id'] == $this->session->id();
+        return $this->eventGateway->getEventAuthor($event->id) == $this->session->id();
     }
 
-    public function maySeeEvent(array $event): bool
+    public function maySeeEvent(Event $event): bool
     {
-        return $this->session->mayBezirk($event['bezirk_id']);
+        return $this->currentUserUnits->mayBezirk($event->regionId);
     }
 
-    public function mayJoinEvent(array $event): bool
+    public function mayJoinEvent(Event $event): bool
     {
         return $this->maySeeEvent($event);
     }
 
-    public function mayCommentInEvent(array $event): bool
+    public function mayCommentInEvent(Event $event): bool
     {
         return $this->maySeeEvent($event);
     }
 
     public function mayCreateEvent(int $regionId): bool
     {
-        return $this->session->mayBezirk($regionId);
+        return $this->currentUserUnits->mayBezirk($regionId);
     }
 }

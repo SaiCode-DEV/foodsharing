@@ -9,6 +9,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 final class RegionPermissions
 {
@@ -16,8 +17,11 @@ final class RegionPermissions
     private readonly Session $session;
     private readonly GroupFunctionGateway $groupFunctionGateway;
 
-    public function __construct(RegionGateway $regionGateway, Session $session, GroupFunctionGateway $groupFunctionGateway)
-    {
+    public function __construct(
+        RegionGateway $regionGateway, Session $session, GroupFunctionGateway $groupFunctionGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
+        private readonly AchievementPermissions $achievementPermissions,
+    ) {
         $this->regionGateway = $regionGateway;
         $this->session = $session;
         $this->groupFunctionGateway = $groupFunctionGateway;
@@ -48,7 +52,7 @@ final class RegionPermissions
     public function mayAdministrateWorkgroupFunction(int $wgfunction): bool
     {
         if (WorkgroupFunction::isRestrictedWorkgroupFunction($wgfunction)) {
-            return $this->session->mayRole(Role::ORGA) && $this->session->isAdminFor(RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP);
+            return $this->session->mayRole(Role::ORGA) && $this->currentUserUnits->isAdminFor(RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP);
         }
 
         return true;
@@ -70,7 +74,7 @@ final class RegionPermissions
             return true;
         }
 
-        return $this->session->isAmbassadorForRegion([$regionId], false, false);
+        return $this->currentUserUnits->isAmbassadorForRegion([$regionId], false, false);
     }
 
     public function maySetRegionOptionsReportButtons(int $regionId): bool
@@ -78,8 +82,15 @@ final class RegionPermissions
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
+        if ($this->groupFunctionGateway->existRegionFunctionGroup($regionId, WorkgroupFunction::REPORT)) {
+            if ($this->groupFunctionGateway->isRegionFunctionGroupAdmin($regionId, WorkgroupFunction::REPORT, $this->session->id())) {
+                return true;
+            }
 
-        return $this->session->isAmbassadorForRegion([$regionId], false, false);
+            return false;
+        }
+
+        return $this->currentUserUnits->isAmbassadorForRegion([$regionId], false, false);
     }
 
     public function maySetRegionOptionsRegionPickupRule(int $regionId): bool
@@ -96,7 +107,7 @@ final class RegionPermissions
             return false;
         }
 
-        return $this->session->isAmbassadorForRegion([$regionId], false, false);
+        return $this->currentUserUnits->isAmbassadorForRegion([$regionId], false, false);
     }
 
     public function maySetRegionPin(int $regionId): bool
@@ -113,7 +124,7 @@ final class RegionPermissions
             return false;
         }
 
-        return $this->session->isAmbassadorForRegion([$regionId], false, false);
+        return $this->currentUserUnits->isAmbassadorForRegion([$regionId], false, false);
     }
 
     public function hasConference(int $regionType): bool
@@ -128,11 +139,20 @@ final class RegionPermissions
 
     public function maySeeRegionMembers(int $regionId): bool
     {
+        /*
+         * @TODO: This deactivates member lists for Europe and countries because it needs to much memory on the server.
+         * Can be removed when there is pagination for member lists.
+         * See also StoreRestController:getStoresOfRegion for the same problem with stores.
+         */
+        if (in_array($regionId, [RegionIDs::EUROPE, RegionIDs::GERMANY, RegionIDs::AUSTRIA, RegionIDs::SWITZERLAND])) {
+            return false;
+        }
+
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
 
-        return $this->session->mayBezirk($regionId);
+        return $this->currentUserUnits->mayBezirk($regionId);
     }
 
     public function mayListFoodSharePointsInRegion(int $regionId)
@@ -141,7 +161,7 @@ final class RegionPermissions
             return true;
         }
 
-        return $this->session->mayBezirk($regionId);
+        return $this->currentUserUnits->mayBezirk($regionId);
     }
 
     /**
@@ -152,5 +172,28 @@ final class RegionPermissions
     public function isAmbassadorOfAtLeastOneRegion(): bool
     {
         return $this->regionGateway->isAmbassadorOfAtLeastOneRegion($this->session->id());
+    }
+
+    /**
+     * Whether the user is allowed to access the list of working groups in a given region.
+     */
+    public function mayAccessWorkingGroupList(int $regionId): bool
+    {
+        if (
+            $this->session->mayRole(Role::ORGA) ||
+            $this->isAmbassadorOfAtLeastOneRegion() ||
+            $this->achievementPermissions->mayEditAchievements()
+        ) {
+            return true;
+        }
+
+        return $this->currentUserUnits->mayBezirk($regionId);
+    }
+
+    public function mayAccessUserMapMarkersForRegion(int $regionId): bool
+    {
+        $type = $this->regionGateway->getType($regionId);
+
+        return UnitType::isAccessibleRegion($type) && $this->currentUserUnits->isAdminFor($regionId);
     }
 }

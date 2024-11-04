@@ -398,6 +398,8 @@ poll:
     percentage_of_votes: ''
     number_of_votes: ''
     average: ''
+    standardDeviationShort: σ
+    standardDeviation: Τυπική απόκλιση
   in_future: ''
   edit:
     submit: ''
@@ -925,6 +927,7 @@ store:
     buttonManagementToggle: ''
     toogleIsReducedStateOpen: ''
     toogleIsReducedStateClosed: ''
+    filterHygiene: Εκπαιδευμένοι στην υγιεινή
   smneeded: ''
   tooltip_yellow: ''
   tooltip_orange: ''
@@ -1794,7 +1797,7 @@ bell:
   blog_new_check_title: ''
   ft_update_title: '{name}'
   ft_update: '{teaser}'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   store_new_title: ''
   store_new: ''
   store_new_request: ''
@@ -1844,6 +1847,7 @@ bell:
   forum_new_thread_title: ''
   forum_announcement_title: ''
   forum_mention: ''
+  workinggroup_new_request_title: '{name}'
 genderlist:
   gender_female: ''
   number_table_header: ''
@@ -2060,10 +2064,6 @@ storelist:
   managing: ''
   inprogress: ''
   memberState: ''
-tablesorter:
-  from: ''
-  page: ''
-  entriespp: ''
 email_template:
   from: ''
   newsletter:

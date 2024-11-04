@@ -2,31 +2,24 @@
 
 namespace Foodsharing\Modules\Basket;
 
+use Foodsharing\Lib\Session;
+use Foodsharing\Lib\View\Utils;
 use Foodsharing\Lib\Xhr\XhrDialog;
-use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\BasketRequests\Status as RequestStatus;
 use Foodsharing\Utility\ImageHelper;
 use Foodsharing\Utility\TimeHelper;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-class BasketXhr extends Control
+class BasketXhr
 {
-    private readonly BasketGateway $basketGateway;
-    private readonly TimeHelper $timeHelper;
-    private readonly ImageHelper $imageService;
-
     public function __construct(
-        BasketView $view,
-        BasketGateway $basketGateway,
-        TimeHelper $timeHelper,
-        ImageHelper $imageService
+        private readonly Session $session,
+        private readonly TranslatorInterface $translator,
+        private readonly Utils $v_utils,
+        private readonly BasketGateway $basketGateway,
+        private readonly TimeHelper $timeHelper,
+        private readonly ImageHelper $imageService
     ) {
-        $this->view = $view;
-        $this->basketGateway = $basketGateway;
-        $this->timeHelper = $timeHelper;
-        $this->imageService = $imageService;
-
-        parent::__construct();
-
         // allowed methods for users who are not logged in
         $allowed = [
             'login',
@@ -85,8 +78,9 @@ class BasketXhr extends Control
                         'name' => $this->translator->trans('basket.state.deny'),
                     ],
                 ],
-                'selected' => RequestStatus::DELETED_PICKED_UP,
-            ])
+            ],
+                RequestStatus::DELETED_PICKED_UP
+            )
         );
         $dia->addAbortButton();
         $dia->addButton($this->translator->trans('button.next'),

@@ -28,5 +28,10 @@
       "title":"TikTok",
       "url":"tiktok",
       "icon":"fab fa-tiktok"
+   },
+   {
+      "title": "WhatsApp",
+      "url": "whatsapp",
+      "icon": "fab fa-whatsapp"
    }
 ]

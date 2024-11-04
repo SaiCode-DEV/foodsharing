@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Foodsharing\Modules\Search\DTO;
 
-use Foodsharing\Modules\Foodsaver\DTO\FoodsaverForAvatar;
+use Foodsharing\Modules\Foodsaver\Profile;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 
@@ -50,11 +50,11 @@ class WorkingGroupSearchResult extends SearchResult
     /**
      * Admins of the working group.
      *
-     * @var array<FoodsaverForAvatar> Array of Admins
+     * @var array<Profile> Array of Admins
      *
      * @OA\Property(
      *     type="array",
-     *     @OA\Items(ref=@Model(type=FoodsaverForAvatar::class))
+     *     @OA\Items(ref=@Model(type=Profile::class))
      * )
      */
     public array $admins;

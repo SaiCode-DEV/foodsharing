@@ -24,6 +24,36 @@ const md = markdownIt('zero', {
     'escape',
   ])
 
+const storageKey = 'linkifyUserNames'
+md.linkify.data = {
+  storageKey,
+  userNames: JSON.parse(sessionStorage.getItem(storageKey)) ?? {},
+  missingUserNames: new Set(),
+  fetchResolves: new Set(),
+}
+
+md.linkify.add('@', {
+  validate: function (text, pos, self) {
+    self.re.profileId ??= /^\d{3,}/
+    const tail = text.slice(pos)
+    if (self.re.profileId.test(tail)) {
+      return tail.match(self.re.profileId)[0].length
+    }
+    return false
+  },
+  async normalize (match, self) {
+    const id = +match.url.slice(1)
+    match.url = '/profile/' + id
+    if (self.data.userNames[id]) {
+      match.text = '@' + self.data.userNames[id]
+    } else if (!(id in self.data.userNames)) {
+      self.data.missingUserNames.add(id)
+    } else {
+      match.url = '#invalid-user'
+    }
+  },
+})
+
 // Add missing top level domains
 md.linkify.tlds(['network'], true)
 

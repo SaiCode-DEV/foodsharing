@@ -4,25 +4,25 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
-use Foodsharing\Modules\Core\DBConstants\Quiz\QuizStatus;
+use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
 use Foodsharing\Modules\Quiz\DTO\ActiveQuestion;
 use Foodsharing\Modules\Quiz\DTO\Answer;
-use Foodsharing\Modules\Quiz\DTO\FullQuizStatus;
 use Foodsharing\Modules\Quiz\DTO\Question;
 use Foodsharing\Modules\Quiz\DTO\Quiz;
 use Foodsharing\Modules\Quiz\DTO\QuizSession;
+use Foodsharing\Modules\Quiz\DTO\QuizStatus;
 use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Quiz\QuizSessionGateway;
 use Foodsharing\Modules\Quiz\QuizTransactions;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\QuizPermissions;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -48,46 +48,53 @@ final class QuizRestController extends AbstractFoodsharingRestController
     // Answering quizzes:
 
     #[Rest\Post('user/current/quizsessions/{quizId}/start', requirements: ['quizId' => '\d+'])]
-    #[Rest\QueryParam(name: 'isTimed', nullable: true, description: 'Start quiz timed if this parameter is set.')]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
-    public function startQuizSession(int $quizId, ParamFetcher $paramFetcher): Response
-    {
+    public function startQuizSession(
+        int $quizId,
+        #[MapQueryParameter] bool $isTimed = false,
+        #[MapQueryParameter] bool $isTest = false,
+    ): Response {
         $quiz = $this->getQuizSanityChecked($quizId);
-        if (!$this->quizPermissions->mayTryQuiz(QuizID::tryFrom($quiz->id))) {
-            throw new UnauthorizedHttpException('', 'You are not permitted to try this quiz.');
-        }
-        $this->assertSessionRunning($quizId, false);
-        $status = $this->quizTransactions->getQuizStatus($quizId, $this->session->id());
-        if (in_array($status->status, [QuizStatus::PASSED, QuizStatus::PAUSE, QuizStatus::DISQUALIFIED])) {
-            throw new AccessDeniedHttpException('You are not allowed to start the quiz with your current quiz status.');
-        }
-        $isTimed = !is_null($paramFetcher->get('isTimed'));
+        if ($isTest) {
+            if (!$this->quizPermissions->mayReadQuiz(QuizID::from($quiz->id))) {
+                throw new UnauthorizedHttpException('', 'You are not permitted to test this quiz.');
+            }
+        } else {
+            if (!$this->quizPermissions->mayTryQuiz(QuizID::tryFrom($quiz->id))) {
+                throw new UnauthorizedHttpException('', 'You are not permitted to try this quiz.');
+            }
+            $this->assertSessionRunning($quizId, false);
+            $status = $this->quizTransactions->getQuizStatus(QuizID::from($quizId), $this->session->id());
+            if (!$this->quizPermissions->mayStartQuizNow($status)) {
+                throw new AccessDeniedHttpException('You are not allowed to start the quiz with your current quiz status.');
+            }
 
-        if (!$isTimed && !$quiz->questionCountUntimed) {
-            throw new BadRequestHttpException('This quiz is only allowed with a time limit.');
+            if (!$isTimed && !$quiz->questionCountUntimed) {
+                throw new BadRequestHttpException('This quiz is only allowed with a time limit.');
+            }
         }
 
-        $this->quizTransactions->startQuizSession($quiz, $isTimed);
+        $this->quizTransactions->startQuizSession($quiz, $isTimed, $isTest);
 
         return $this->respondOK();
     }
 
     #[Rest\Get('user/current/quizsessions/{quizId}/status', requirements: ['quizId' => '\d+'])]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: FullQuizStatus::class))]
-    public function getQuizStatus(int $quizId): Response
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: QuizStatus::class))]
+    public function getQuizStatus(int $quizId, #[MapQueryParameter] bool $isTest = false): Response
     {
         $this->getQuizSanityChecked($quizId);
-        $status = $this->quizTransactions->getQuizStatus($quizId, $this->session->id());
+        $status = $this->quizTransactions->getQuizStatus(QuizID::from($quizId), $this->session->id(), $isTest);
 
         return $this->respondOK($status);
     }
 
     #[Rest\Get('user/current/quizsessions/{quizId}/question', requirements: ['quizId' => '\d+'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: ActiveQuestion::class))]
-    public function getNextQuestion(int $quizId): Response
+    public function getNextQuestion(int $quizId, #[MapQueryParameter] bool $isTest = false): Response
     {
         $this->getQuizSanityChecked($quizId);
-        $session = $this->assertSessionRunning($quizId);
+        $session = $this->assertSessionRunning($quizId, isTest: $isTest);
 
         $nextQuestion = $this->quizTransactions->getNextQuestion($session);
 
@@ -101,10 +108,10 @@ final class QuizRestController extends AbstractFoodsharingRestController
         new OA\Property(property: 'solution', type: 'array', items: new OA\Items(ref: new Model(type: Answer::class))),
         new OA\Property(property: 'timedOut', type: 'boolean', description: 'Whether the answer was given in time.'),
     ]))]
-    public function answerNextQuestion(int $quizId, array $answerIds): Response
+    public function answerNextQuestion(int $quizId, array $answerIds, #[MapQueryParameter] bool $isTest = false): Response
     {
         $this->getQuizSanityChecked($quizId);
-        $session = $this->assertSessionRunning($quizId);
+        $session = $this->assertSessionRunning($quizId, isTest: $isTest);
 
         //Check that only answers to the question were given
         //Also allow ansering null (meaning question was not answered in time)
@@ -121,12 +128,12 @@ final class QuizRestController extends AbstractFoodsharingRestController
 
     #[Rest\Get('user/current/quizsessions/{quizId}/results', requirements: ['quizId' => '\d+'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.', content: new Model(type: QuizSession::class))]
-    public function getQuizResults(int $quizId): Response
+    public function getQuizResults(int $quizId, #[MapQueryParameter] bool $isTest = false): Response
     {
         $this->getQuizSanityChecked($quizId);
-        $this->assertSessionRunning($quizId, false);
+        $this->assertSessionRunning($quizId, false, $isTest);
 
-        $session = $this->quizSessionGateway->getLatestFinishedSession($quizId, $this->session->id());
+        $session = $this->quizSessionGateway->getLatestFinishedSession($quizId, $this->session->id(), $isTest);
         if (!$session) {
             throw new AccessDeniedHttpException('There must be at least one finished quiz session.');
         }
@@ -139,8 +146,8 @@ final class QuizRestController extends AbstractFoodsharingRestController
     public function confirmQuiz(int $quizId): Response
     {
         $this->getQuizSanityChecked($quizId);
-        $status = $this->quizTransactions->getQuizStatus($quizId, $this->session->id());
-        if ($status->status !== QuizStatus::PASSED) {
+        $status = $this->quizTransactions->getQuizStatus(QuizID::from($quizId), $this->session->id());
+        if ($status->lastSessionStatus !== SessionStatus::PASSED) {
             throw new AccessDeniedHttpException('You can only finalize quizzes you passed.');
         }
 
@@ -152,9 +159,9 @@ final class QuizRestController extends AbstractFoodsharingRestController
         return $this->respondOK();
     }
 
-    private function assertSessionRunning(int $quizId, bool $isRunning = true): ?QuizSession
+    private function assertSessionRunning(int $quizId, bool $isRunning = true, bool $isTest = false): ?QuizSession
     {
-        $session = $this->quizSessionGateway->getRunningSession($quizId, $this->session->id());
+        $session = $this->quizSessionGateway->getRunningSession($quizId, $this->session->id(), $isTest);
         if (!$session && $isRunning) {
             throw new AccessDeniedHttpException('There must be a running quiz session.');
         } if ($session && !$isRunning) {

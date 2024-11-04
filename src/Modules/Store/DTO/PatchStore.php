@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Store\DTO;
 
 use Foodsharing\Modules\Core\DTO\PatchGeoLocation;
+use Foodsharing\Validator\MarkdownOrPlainText;
 use JMS\Serializer\Annotation\Type;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -38,6 +39,7 @@ class PatchStore
      * for users which are looking for a store.
      */
     #[Assert\Length(max: 200)]
+    #[MarkdownOrPlainText]
     public ?string $publicInfo = null;
 
     /**
@@ -70,7 +72,6 @@ class PatchStore
      * - 0: UNCLEAR
      * - 1: NO_CONTACT
      * - 2: IN_NEGOTIATION
-     * - 3: COOPERATION_STARTING
      * - 4: DOES_NOT_WANT_TO_WORK_WITH_US
      * - 5:COOPERATION_ESTABLISHED
      * - 6: GIVES_TO_OTHER_CHARITY

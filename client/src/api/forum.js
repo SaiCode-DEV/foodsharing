@@ -59,6 +59,18 @@ export function deletePost (postId) {
   return remove(`/forum/post/${postId}`)
 }
 
+export function hidePost (postId, reason) {
+  return patch(`/forum/post/${postId}/hide`, { reason })
+}
+
+export function restorePost (postId) {
+  return remove(`/forum/post/${postId}/hide`)
+}
+
+export function getHiddenPostDetails (postId) {
+  return get(`/forum/post/${postId}/hide`)
+}
+
 export function addReaction (postId, key) {
   return post(`/forum/post/${postId}/reaction/${key}`)
 }

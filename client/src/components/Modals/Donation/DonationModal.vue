@@ -33,7 +33,7 @@
             </b-row>
           </b-container>
           <b-container class="mt-2 d-md-block">
-            <b-row>
+            <b-row class="w-100">
               <b-col md="9">
                 <!-- eslint-disable vue/no-v-html -->
                 <!-- Sanitized in Modules/Content/ContentGateway.php get() -->
@@ -203,6 +203,11 @@ export default {
 
 .donationInfoTextClass {
   font-size: 1.2em;
+  color: var(--fs-color-secondary-500);
+}
+
+.donationInfoTextClass:hover {
+  color: var(--fs-color-primary-900);
 }
 
 .donationButtonClass {

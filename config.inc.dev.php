@@ -18,7 +18,6 @@ define('DB_PASS', 'root');
 define('DB_DB', 'foodsharing');
 define('ERROR_REPORT', E_ALL);
 define('BASE_URL', $protocol . '://' . $host);
-define('WEBCAL_URL', 'webcal://' . $host);
 
 define('VERSION', '0.8.3');
 
@@ -67,3 +66,19 @@ define('GEOAPIFY_API_KEY', 'b4e6bf0dbc48447fb4ee29d77c08eb09');
 define('FCM_KEY', '');
 
 define('TWINGLE_URL', 'https://spenden.twingle.de/status/E4yxc5T7YJh7nZvL93Yu7PlUzwCMjD2p80u8YK0Vgyw');
+
+define('MAX_DELETE_OLD_ACCOUNTS_PER_DAY', 100);
+
+define('WALLET_LABEL', 'foodsharing');
+
+define('GOOGLE_WALLET_KEY_PATH', __DIR__ . '/keys/google.json');
+define('GOOGLE_WALLET_ISSUER_ID', 3388000000022365685);
+define('GOOGLE_WALLET_CLASS_ID', 'foodsharing-passport');
+
+define('APPLE_WALLET_CERTIFICATE_PATH', __DIR__ . '/keys/apple.p12');
+define('APPLE_WALLET_CERTIFICATE_PASS', '8Kz9YxgAVFWRmqj9ZT');
+define('APPLE_WALLET_TEAM_ID', 'H97D45LYHL');
+define('APPLE_WALLET_PASS_TYPE_ID', 'pass.de.foodsharing.passport');
+
+define('ZAMMAD_URL', 'https://support.foodsharing.network/');
+define('ZAMMAD_TICKET_TOKEN', '');

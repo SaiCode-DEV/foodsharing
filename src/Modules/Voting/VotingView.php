@@ -22,11 +22,12 @@ class VotingView extends View
         ]);
     }
 
-    public function newPollForm(array $region): string
+    public function newPollForm(array $region, array $usersPerScope): string
     {
         return $this->vueComponent('new-poll-form', 'newPollForm', [
             'region' => $region,
-            'isWorkGroup' => UnitType::isGroup($region['type'])
+            'isWorkGroup' => UnitType::isGroup($region['type']),
+            'usersPerScope' => $usersPerScope,
         ]);
     }
 

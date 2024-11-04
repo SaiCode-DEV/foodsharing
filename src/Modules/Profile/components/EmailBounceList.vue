@@ -37,7 +37,7 @@ import i18n from '@/helper/i18n'
 
 export default {
   components: { BAlert, BButton },
-  props: { bounceWarning: { type: Array, required: true } },
+  props: { bounceWarning: { type: Object, required: true } },
   methods: {
     convertDate (date) {
       return new Date(Date.parse(date))
@@ -45,7 +45,7 @@ export default {
     async removeBounces () {
       showLoader()
       try {
-        await removeUserFromBounceList(this.userId)
+        await removeUserFromBounceList(this.bounceWarning.userId)
         reload()
       } catch (e) {
         pulseError(i18n('error_unexpected'))

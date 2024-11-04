@@ -35,7 +35,7 @@
                   <p>{{ translateCounted('group.member_count', group.membersCount) }}</p>
                   <Markdown :source="group.teaser" />
                   <div class="mt-2">
-                    <a :href="$url('mailto_mail_foodsharing_network', group.email)">{{ group.email }}</a>
+                    <a :href="$url('mailto_mail', group.email)">{{ group.email }}</a>
                   </div>
                 </div>
               </b-col>
@@ -177,8 +177,10 @@ import Avatar from '@/components/Avatar/Avatar.vue'
 import { addMember, sendMail, sendRequest } from '@/api/groups'
 import { pulseError, pulseSuccess } from '@/script'
 import i18n from '@/helper/i18n'
-import UserData from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import Markdown from '@/components/Markdown/Markdown.vue'
+
+const userStore = useUserStore()
 
 export default {
   name: 'Groups',
@@ -187,6 +189,11 @@ export default {
     groups: { type: Array, required: true },
     nav: { type: Object, required: true },
     isGlobalWorkingGroup: { type: Boolean, required: true },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   data () {
     return {
@@ -211,7 +218,7 @@ export default {
       ]
     },
     userId () {
-      return UserData.getters.getUserId()
+      return userStore.getUserId
     },
   },
   watch: {

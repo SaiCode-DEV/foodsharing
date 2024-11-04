@@ -5,12 +5,12 @@ namespace Foodsharing\Permissions;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
+use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\WallPost\WallPostGateway;
-use Foodsharing\Modules\WorkGroup\WorkGroupTransactions;
 
 class WallPostPermissions
 {
@@ -20,52 +20,55 @@ class WallPostPermissions
         private readonly EventPermissions $eventPermissions,
         private readonly FoodSharePointPermissions $fspPermission,
         private readonly QuizPermissions $quizPermissions,
+        private readonly StorePermissions $storePermissions,
         private readonly FoodSharePointGateway $fspGateway,
         private readonly WallPostGateway $wallPostGateway,
         private readonly QuizGateway $quizGateway,
         private readonly Session $session,
-        private readonly WorkGroupTransactions $workGroupTransactions,
     ) {
     }
 
-    public function mayReadWall(string $target, int $targetId): bool
+    public function mayReadWall(WallType $target, int $targetId): bool
     {
+        if ($target == WallType::FOODSAVER_REPORTS && $this->session->id() === $targetId) {
+            return false;
+        }
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
         switch ($target) {
-            case 'foodsaver':
+            case WallType::PROFILE:
                 return $this->session->id() > 0;
-            case 'bezirk':
+            case WallType::WORKING_GROUP:
                 return $this->regionGateway->hasMember($this->session->id(), $targetId);
-            case 'event':
+            case WallType::EVENT:
                 $event = $this->eventGateway->getEvent($targetId);
 
                 return !is_null($event) && $this->eventPermissions->mayCommentInEvent($event);
-            case 'fairteiler':
+            case WallType::FOOD_SHARE_POINT:
                 return true;
-            case 'question':
+            case WallType::QUIZ_QUESTION:
                 $quizId = $this->quizGateway->getQuizIdFromQuestionId($targetId);
 
                 return $this->quizPermissions->mayReadQuiz(QuizID::tryFrom($quizId));
-            case 'usernotes':
+            case WallType::PROFILE_NOTES:
                 return $this->session->mayRole(Role::ORGA);
-            case 'application':
-                return $this->workGroupTransactions->isAdminForAWorkGroup($this->session->id());
+            case WallType::STORE:
+                return $this->storePermissions->mayReadStoreWall($targetId);
             default:
                 return false;
         }
     }
 
-    public function mayWriteWall(string $target, int $targetId): bool
+    public function mayWriteWall(WallType $target, int $targetId): bool
     {
         if (!$this->session->id()) {
             return false;
         }
 
         return match ($target) {
-            'foodsaver' => $this->session->id() === $targetId,
-            'question' => true,
+            WallType::PROFILE => $this->session->id() === $targetId,
+            WallType::QUIZ_QUESTION => true,
             default => $this->mayReadWall($target, $targetId),
         };
     }
@@ -73,7 +76,7 @@ class WallPostPermissions
     /**
      * Whether the user may delete any post from the given wall. For specific posts see mayDeleteWallPost.
      */
-    public function mayDeleteWall(string $target, int $targetId): bool
+    public function mayDeleteWall(WallType $target, int $targetId): bool
     {
         if (!$this->session->id()) {
             return false;
@@ -81,16 +84,16 @@ class WallPostPermissions
             return true;
         }
         switch ($target) {
-            case 'bezirk':
+            case WallType::WORKING_GROUP:
                 return $this->regionGateway->isAdmin($this->session->id(), $targetId);
-            case 'question':
+            case WallType::QUIZ_QUESTION:
                 $quizId = $this->quizGateway->getQuizIdFromQuestionId($targetId);
 
                 return $this->quizPermissions->mayEditQuiz(QuizID::tryFrom($quizId));
-            case 'usernotes':
-            case 'fsreports':
+            case WallType::PROFILE_NOTES:
+            case WallType::FOODSAVER_REPORTS:
                 return $this->mayReadWall($target, $targetId);
-            case 'fairteiler':
+            case WallType::FOOD_SHARE_POINT:
                 $fsp = $this->fspGateway->getFoodSharePoint($targetId);
                 if (empty($fsp) || empty($fsp['bezirk_id'])) {
                     return false;
@@ -98,12 +101,14 @@ class WallPostPermissions
 
                 return $this->fspPermission->mayAdministrateFoodSharePoint($targetId)
                     || $this->fspPermission->mayDeleteFoodSharePointWallPostOfRegion($fsp['bezirk_id']);
+            case WallType::STORE:
+                return $this->storePermissions->mayEditStore($targetId);
             default:
                 return false;
         }
     }
 
-    public function mayDeleteWallPost(string $target, int $targetId, int $postId): bool
+    public function mayDeleteWallPost(WallType $target, int $targetId, int $postId): bool
     {
         return $this->mayDeleteWall($target, $targetId) || $this->wallPostGateway->getAuthorId($postId) === $this->session->id();
     }

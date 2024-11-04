@@ -2,8 +2,7 @@
   <b-modal
     ref="modal_report_request"
     :title="$i18n('profile.report.title', { name: foodSaverName })"
-    header-class="d-flex"
-    content-class="pr-3 pt-3"
+    centered
   >
     <div id="report_request" class="popbox m-2">
       <div
@@ -78,13 +77,13 @@
       </b-alert>
       <template v-else>
         <b-alert variant="info" show>
-          <div>{{ $i18n('profile.report.info') }}</div>
+          <Markdown :source="$i18n('profile.report.info')" />
         </b-alert>
         <b-form-select
           v-model="reportReason"
           :options="reportReasonOptions"
+          name="reportReason"
           class="mb-2"
-          align-v="stretch"
         />
         <b-form-select
           v-if="!doesNotAffectStore && storeListOptions.length > 1"
@@ -95,6 +94,7 @@
         />
         <b-form-checkbox
           v-model="doesNotAffectStore"
+          :disabled="storeListOptions.length <= 1"
         >
           {{ $i18n('profile.report.doesNotAffectStore') }}
         </b-form-checkbox>
@@ -105,9 +105,9 @@
           size="sm"
         />
         <b-alert variant="info" show>
-          <div>{{ $i18n('profile.report.mail') }}</div>
-          <a :href="$url('mailto_mail_foodsharing_network', mailboxName)">
-            {{ $url('mail_foodsharing_network', mailboxName) }}
+          <div>{{ $i18n(`profile.report.mail.${isReportForArbitration ? 'arbitrationGroup' : 'reportGroup'}`) }}</div>
+          <a :href="$url('mailto_mail_foodsharing_network', responsibleGroupMail)">
+            {{ $url('mail_foodsharing_network', responsibleGroupMail) }}
           </a>
         </b-alert>
       </template>
@@ -133,8 +133,11 @@
 import { addReport } from '@/api/report'
 import { pulseError, pulseInfo } from '@/script'
 import i18n from '@/helper/i18n'
+import { REPORT_REASON_OPTIONS } from '@/consts'
+import Markdown from '@/components/Markdown/Markdown.vue'
 
 export default {
+  components: { Markdown },
   props: {
     foodSaverName: { type: String, required: true },
     reportedId: { type: Number, required: true },
@@ -148,21 +151,58 @@ export default {
     isReporterIdArbitrationAdmin: { type: Boolean, required: true },
     isReportButtonEnabled: { type: Boolean, required: true },
     reporterHasReportGroup: { type: Boolean, required: true },
-    mailboxName: { type: String, required: true },
+    reasonOptionSettings: { type: Number, required: true, default: REPORT_REASON_OPTIONS.SIMPLE },
+    reasonOptionOther: { type: Boolean, required: true },
+    mailboxNameReport: { type: String, required: true },
+    mailboxNameArbitration: { type: String, required: true },
   },
   data () {
+    const reportReasonOptionsValues = [
+      { value: null, text: this.$i18n('profile.report.kindofreport') },
+    ]
+
+    if (this.reasonOptionSettings === REPORT_REASON_OPTIONS.EXTENDED) {
+      reportReasonOptionsValues.push(
+        { value: 2010, text: this.$i18n('profile.report.report_b1_0') },
+        { value: 2011, text: this.$i18n('profile.report.report_b1_1') },
+        { value: 2012, text: this.$i18n('profile.report.report_b1_2') },
+        { value: 2013, text: this.$i18n('profile.report.report_b1_3') },
+        { value: 2014, text: this.$i18n('profile.report.report_b1_4') },
+        { value: 2020, text: this.$i18n('profile.report.report_b2') },
+        { value: 2030, text: this.$i18n('profile.report.report_b3_0') },
+        { value: 2031, text: this.$i18n('profile.report.report_b3_1') },
+        { value: 2040, text: this.$i18n('profile.report.report_b4_0') },
+        { value: 2041, text: this.$i18n('profile.report.report_b4_1') },
+        { value: 2050, text: this.$i18n('profile.report.report_b5') },
+        { value: 2060, text: this.$i18n('profile.report.report_b6_0') },
+        { value: 2061, text: this.$i18n('profile.report.report_b6_1') },
+        { value: 2070, text: this.$i18n('profile.report.report_b7') },
+        { value: 2080, text: this.$i18n('profile.report.report_b8') },
+        { value: 2090, text: this.$i18n('profile.report.report_b9') },
+        { value: 2110, text: this.$i18n('profile.report.report_b11') },
+        { value: 2100, text: this.$i18n('profile.report.report_b10') },
+        { value: 2120, text: this.$i18n('profile.report.report_b12') },
+        { value: 2130, text: this.$i18n('profile.report.report_b13') },
+      )
+    } else {
+      reportReasonOptionsValues.push(
+        { value: 1, text: this.$i18n('profile.report.late') },
+        { value: 2, text: this.$i18n('profile.report.noshow') },
+        { value: 10, text: this.$i18n('profile.report.cancellation') },
+        { value: 15, text: this.$i18n('profile.report.sells') },
+      )
+    }
+    if (this.reasonOptionOther) {
+      reportReasonOptionsValues.push(
+        { value: 9999, text: this.$i18n('profile.report.report_other') },
+      )
+    }
     return {
       doesNotAffectStore: false,
       reportText: '',
-      reportReason: null,
       storeList: null,
-      reportReasonOptions: [
-        { value: null, text: this.$i18n('profile.report.kindofreport') },
-        { value: '1', text: this.$i18n('profile.report.late') },
-        { value: '2', text: this.$i18n('profile.report.noshow') },
-        { value: '10', text: this.$i18n('profile.report.cancellation') },
-        { value: '15', text: this.$i18n('profile.report.sells') },
-      ],
+      reportReasonOptions: reportReasonOptionsValues,
+      reportReason: null,
     }
   },
   computed: {
@@ -172,6 +212,12 @@ export default {
       } else {
         return this.reportText.length <= 0 || this.reportReason === null || this.storeList === null
       }
+    },
+    isReportForArbitration () {
+      return this.isReportedIdReportAdmin || this.isReporterIdReportAdmin
+    },
+    responsibleGroupMail () {
+      return this.isReportForArbitration ? this.mailboxNameArbitration : this.mailboxNameReport
     },
   },
   mounted () {
@@ -184,6 +230,9 @@ export default {
       const reportReasonText = this.reportReasonOptions.find(reportReasonOptions => reportReasonOptions.value === this.reportReason)
       const message = this.reportText.trim()
       if (!message) return
+      if (this.doesNotAffectStore) {
+        this.storeList = null
+      }
       try {
         await addReport(this.reportedId, this.reporterId, this.reportReason, reportReasonText.text, message, this.storeList)
         pulseInfo(i18n('profile.report.sent'))

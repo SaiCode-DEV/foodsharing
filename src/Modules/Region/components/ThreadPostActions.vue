@@ -48,6 +48,14 @@
       {{ $i18n('button.answer') }}
     </a>
     <a
+      v-if="mayHide"
+      v-b-tooltip="$i18n('forum.post.hide')"
+      class="btn btn-sm btn-danger"
+      @click="$refs.hideModal.show()"
+    >
+      <i class="fas fa-eye-slash" />
+    </a>
+    <a
       v-if="mayDelete"
       v-b-tooltip.hover
       :title="$i18n('forum.post.delete')"
@@ -63,12 +71,37 @@
       :title="$i18n('forum.post.delete')"
       :cancel-title="$i18n('button.cancel')"
       :ok-title="$i18n('button.yes_i_am_sure')"
-      cancel-variant="primary"
       ok-variant="outline-danger"
-      modal-class="bootstrap"
+      centered
       @ok="$emit('delete')"
     >
       <p>{{ $i18n('really_delete') }}</p>
+    </b-modal>
+
+    <b-modal
+      v-if="mayHide"
+      ref="hideModal"
+      :title="$i18n('forum.post.sureHide')"
+      :cancel-title="$i18n('button.cancel')"
+      :ok-title="$i18n('button.yes_i_am_sure')"
+      ok-variant="outline-danger"
+      centered
+      :ok-disabled="!hideReason"
+      @ok="$emit('hide', hideReason)"
+    >
+      <b-form-group :label="$i18n('forum.post.giveHideReason')">
+        <b-form-textarea
+          v-model="hideReason"
+          :state="hideReason ? null : false"
+          :placeholder="$i18n('forum.post.hideReasonPlaceholder')"
+          :maxlength="255"
+        />
+      </b-form-group>
+
+      <b-alert show>
+        <i class="fas fa-info-circle" />
+        {{ $i18n('forum.post.hideInfo') }}
+      </b-alert>
     </b-modal>
   </div>
 </template>
@@ -78,7 +111,9 @@ import { BDropdown, BModal, VBTooltip, BLink } from 'bootstrap-vue'
 
 import Emoji from '@/components/Emoji'
 import emojiList from '@/emojiList.json'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 export default {
   components: { BDropdown, Emoji, BModal, BLink },
@@ -88,18 +123,22 @@ export default {
       type: Object,
       default: () => ({}),
     },
-    mayDelete: {
-      type: Boolean,
-      default: false,
-    },
+    mayDelete: { type: Boolean, default: false },
+    mayHide: { type: Boolean, default: false },
     /**
      * Whether the user can write a reply or send emoji reactions. This is disabled in closed threads.
      */
     mayReply: { type: Boolean, default: true },
   },
+  setup () {
+    return {
+      userStore,
+    }
+  },
   data () {
     return {
       emojis: emojiList,
+      hideReason: '',
     }
   },
   computed: {
@@ -137,10 +176,10 @@ export default {
       if (!this.reactions[key]) {
         return false
       }
-      return !!this.reactions[key].find(r => r.id === DataUser.getters.getUserId())
+      return !!this.reactions[key].find(r => r.id === userStore.getUserId)
     },
     concatUsers (users) {
-      const names = users.map(u => u.id === DataUser.getters.getUserId() ? this.$i18n('globals.you') : u.name ?? this.$i18n('forum.deleted_user'))
+      const names = users.map(u => u.id === userStore.getUserId ? this.$i18n('globals.you') : u.name ?? this.$i18n('forum.deleted_user'))
       return names.length > 1 ? `${names.slice(0, names.length - 1).join(', ')} & ${names[names.length - 1]}` : names[0]
     },
   },

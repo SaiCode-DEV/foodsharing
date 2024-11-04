@@ -6,7 +6,7 @@
   <i
     v-b-tooltip="$i18n('help.tooltip')"
     class="fas fa-question-circle p-2 cursor-help"
-    @click.stop="$refs.modal.show"
+    @click.stop.prevent="$refs.modal.show"
   >
     <b-modal
       ref="modal"

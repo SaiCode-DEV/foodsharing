@@ -43,6 +43,7 @@
           :region-id="regionId"
           :name="name"
           :is-work-group="isWorkGroup"
+          :is-home-district="isHomeDistrict"
         />
       </div>
       <div class="col-12 col-lg-8 col-xl-9">
@@ -96,15 +97,11 @@
         <Statistics
           v-if="activeSubpage === SUB_PAGE.STATISTIC"
           :region-id="regionId"
-          :pickup-data="pageData.pickupData"
+          :region-name="name"
         />
         <Pin
           v-if="activeSubpage === SUB_PAGE.PIN"
           :region-id="regionId"
-          :lat="pageData.lat"
-          :lon="pageData.lon"
-          :desc="pageData.desc"
-          :status="pageData.status"
         />
         <Wall
           v-if="activeSubpage === SUB_PAGE.WALL"
@@ -116,6 +113,13 @@
           :group-name="name"
           :applications="applications"
           :group-id="regionId"
+        />
+        <Achievements
+          v-if="activeSubpage === SUB_PAGE.ACHIEVEMENTS"
+          :group-name="name"
+          :group-id="regionId"
+          :is-work-group="isWorkGroup"
+          :may-administrate-achievements="mayAdministrateAchievements"
         />
       </div>
     </div>
@@ -141,10 +145,12 @@ import NewThread from './NewThread.vue'
 import RemoveFromRegion from './RemoveFromRegion.vue'
 import { getApplications } from '@/api/applications'
 import ApplicationsList from './ApplicationsList.vue'
+import Achievements from './Achievements.vue'
 import { SUB_PAGE } from '@/stores/regions'
 
 export default {
   components: {
+    Achievements,
     ApplicationsList,
     RemoveFromRegion,
     NewThread,
@@ -183,6 +189,7 @@ export default {
     pageData: { type: [Array, Object], default: () => {} },
     menu: { type: Object, required: true },
     mayAccessApplications: { type: Boolean, required: true },
+    mayAdministrateAchievements: { type: Boolean, default: false },
   },
   data () {
     return {
@@ -190,17 +197,17 @@ export default {
         ? [{ value: this.allAdmins.botschafter, label: 'terminology.admins' }]
         : [
             { value: this.allAdmins.botschafter, label: 'terminology.ambassadors' },
-            { value: this.allAdmins.welcomeAdmins, label: 'terminology.welcomeAdmins' },
-            { value: this.allAdmins.votingAdmins, label: 'terminology.votingAdmins' },
-            { value: this.allAdmins.fspAdmins, label: 'terminology.fspAdmins' },
-            { value: this.allAdmins.storesAdmins, label: 'terminology.storesAdmins' },
-            { value: this.allAdmins.reportAdmins, label: 'terminology.reportAdmins' },
-            { value: this.allAdmins.mediationAdmins, label: 'terminology.mediationAdmins' },
-            { value: this.allAdmins.prAdmins, label: 'terminology.prAdmins' },
-            { value: this.allAdmins.moderationAdmins, label: 'terminology.moderationAdmins' },
-            { value: this.allAdmins.boardAdmins, label: 'terminology.boardAdmins' },
-            { value: this.allAdmins.electionAdmins, label: 'terminology.electionAdmins' },
-            { value: this.allAdmins.arbitrationAdmins, label: 'terminology.arbitrationAdmins' },
+            { value: this.allAdmins.welcomeAdmins ?? [], label: 'terminology.welcomeAdmins' },
+            { value: this.allAdmins.votingAdmins ?? [], label: 'terminology.votingAdmins' },
+            { value: this.allAdmins.fspAdmins ?? [], label: 'terminology.fspAdmins' },
+            { value: this.allAdmins.storesAdmins ?? [], label: 'terminology.storesAdmins' },
+            { value: this.allAdmins.reportAdmins ?? [], label: 'terminology.reportAdmins' },
+            { value: this.allAdmins.mediationAdmins ?? [], label: 'terminology.mediationAdmins' },
+            { value: this.allAdmins.prAdmins ?? [], label: 'terminology.prAdmins' },
+            { value: this.allAdmins.moderationAdmins ?? [], label: 'terminology.moderationAdmins' },
+            { value: this.allAdmins.boardAdmins ?? [], label: 'terminology.boardAdmins' },
+            { value: this.allAdmins.electionAdmins ?? [], label: 'terminology.electionAdmins' },
+            { value: this.allAdmins.arbitrationAdmins ?? [], label: 'terminology.arbitrationAdmins' },
           ],
       loading: true,
       applications: [],

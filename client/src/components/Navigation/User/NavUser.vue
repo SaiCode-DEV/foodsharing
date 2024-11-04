@@ -3,7 +3,7 @@
     class="nav-user is-open-on-mobile"
     :title="$i18n('navigation.profil', {name: getUserFirstName})"
     direction="right"
-    :badge="getMailUnreadCount"
+    :badge="userStore.getMailUnreadCount"
   >
     <template #icon>
       <Avatar
@@ -22,7 +22,7 @@
       >
         <i class="icon-subnav fas fa-envelope" />
         {{ $i18n('menu.entry.mailbox') }}
-        <div class="badge badge-danger badge-inline">{{ getMailUnreadCount }}</div>
+        <div class="badge badge-danger badge-inline">{{ userStore.getMailUnreadCount }}</div>
       </a>
       <div v-if="hasMailBox" class="dropdown-divider" />
       <a
@@ -47,6 +47,16 @@
       >
         <i class="icon-subnav fas fa-language" /> {{ $i18n('menu.entry.language') }}
       </button>
+      <button
+        role="menuitem"
+        class="dropdown-item dropdown-action"
+        @click.prevent="$bvModal.show('themeSwitcherModal')"
+      >
+        <i
+          class="icon-subnav fas fa-language"
+          :class="themeStore.getCurrentIcon"
+        /> {{ $i18n('theme_switcher.title') }}
+      </button>
     </template>
     <template #actions>
       <button
@@ -61,13 +71,18 @@
 </template>
 <script>
 // Stores
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+import { useThemeStore } from '@/stores/theme'
 // Components
 import Avatar from '@/components/Avatar/Avatar.vue'
 import Dropdown from '../_NavItems/NavDropdown'
 // Mixins
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 import { clearCaches } from '@/helper/cache'
+import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
+
+const userStore = useUserStore()
+const themeStore = useThemeStore()
 
 export default {
   components: {
@@ -75,26 +90,30 @@ export default {
     Dropdown,
   },
   mixins: [RouteCheckMixin],
+  setup () {
+    return {
+      userStore,
+      themeStore,
+    }
+  },
   computed: {
     getAvatar () {
-      return DataUser.getters.getAvatar()
+      return userStore.getAvatar
     },
     getUserFirstName () {
-      return DataUser.getters.getUserFirstName()
+      return userStore.getUserFirstName
     },
     getUserId () {
-      return DataUser.getters.getUserId()
-    },
-    getMailUnreadCount () {
-      return DataUser.getters.getMailUnreadCount()
+      return userStore.getUserId
     },
     hasMailBox () {
-      return DataUser.getters.hasMailBox()
+      return userStore.hasMailBox
     },
   },
   methods: {
     async deleteCaches () {
       await clearCaches()
+      channel.postMessage({ type: BROADCAST_TYPE.LOGOUT })
       window.location.href = this.$url('logout')
     },
   },

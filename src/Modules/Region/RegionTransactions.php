@@ -3,11 +3,14 @@
 namespace Foodsharing\Modules\Region;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
+use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Region\DTO\HierachicalRegion;
+use Foodsharing\Modules\Region\DTO\RegionPickupStatistics;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Modules\Unit\UnitGateway;
 use Foodsharing\RestApi\Models\Notifications\Region;
@@ -114,6 +117,7 @@ class RegionTransactions
         if ($mailboxId = $data['mailbox_id']) {
             $region->mailbox = $this->mailboxGateway->getMailboxname($mailboxId);
         }
+        $region->allowHidingInForum = boolval($this->regionGateway->getRegionOption($region->id, RegionOptionType::ALLOW_HIDING_IN_FORUM));
 
         return $region;
     }
@@ -137,6 +141,7 @@ class RegionTransactions
         if ($region->workgroupFunction) {
             $this->groupFunctionGateway->addRegionFunction($region->id, $region->parentId, $region->workgroupFunction);
         }
+        $this->regionGateway->setRegionOption($region->id, RegionOptionType::ALLOW_HIDING_IN_FORUM, strval(intval($region->allowHidingInForum)));
     }
 
     public function addRegion(RegionForAdministration $region): int
@@ -146,11 +151,34 @@ class RegionTransactions
         if ($this->mailboxGateway->isMailboxNameUsed($region->mailbox)) {
             throw new BadRequestHttpException('This mailbox name is already used.');
         }
+
         $regionId = $this->regionGateway->addRegion($region);
         $this->mailboxGateway->setRegionMailbox($region);
         $this->regionGateway->setRegionAdmins($region->id, $region->adminIds);
+        if ($region->allowHidingInForum) {
+            $this->regionGateway->setRegionOption($region->id, RegionOptionType::ALLOW_HIDING_IN_FORUM, '1');
+        }
+        if (WorkgroupFunction::isValidFunction($region->workgroupFunction)) {
+            $this->groupFunctionGateway->addRegionFunction($region->id, $region->parentId, $region->workgroupFunction);
+        }
 
         return $regionId;
+    }
+
+    /**
+     * Returns the pickup statistics of a region for all possible date formats.
+     *
+     * @param int $regionId the region for which to list the statistics
+     */
+    public function getRegionPickupStatistics(int $regionId): RegionPickupStatistics
+    {
+        $statistics = new RegionPickupStatistics();
+        $statistics->daily = $this->regionGateway->listRegionPickupsByDate($regionId, '%Y-%m-%d');
+        $statistics->weekly = $this->regionGateway->listRegionPickupsByDate($regionId, '%Y/%v');
+        $statistics->monthly = $this->regionGateway->listRegionPickupsByDate($regionId, '%Y-%m');
+        $statistics->yearly = $this->regionGateway->listRegionPickupsByDate($regionId, '%Y');
+
+        return $statistics;
     }
 
     private function assertNoDuplicateFunctionGroup(RegionForAdministration $region): void

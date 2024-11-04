@@ -3,10 +3,11 @@
 namespace Foodsharing\Modules\Maintenance;
 
 use Carbon\Carbon;
+use DateTime;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Basket\Status;
-use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
+use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 
 class MaintenanceGateway extends BaseGateway
 {
@@ -21,34 +22,6 @@ class MaintenanceGateway extends BaseGateway
             'fs_basket',
             ['status' => Status::DELETED_OTHER_REASON],
             ['status' => Status::REQUESTED_MESSAGE_READ, 'until <' => $this->db->now()]
-        );
-    }
-
-    /**
-     * Removes sleep status from users if it was active since yesterday and the user is not endless inactive.
-     *
-     * @return int the number of users that were changed
-     */
-    public function wakeupSleepingUsers(): int
-    {
-        return $this->db->update(
-            'fs_foodsaver',
-            ['sleep_status' => SleepStatus::NONE, 'sleep_from' => null, 'sleep_until' => null],
-            ['sleep_until <' => $this->db->curdate(), 'sleep_status !=' => SleepStatus::FULL]
-        );
-    }
-
-    /**
-     * Sets sleep status if the sleep status is now and in the future active.
-     *
-     * @return int the number of users that were changed
-     */
-    public function putUsersToSleep(): int
-    {
-        return $this->db->update(
-            'fs_foodsaver',
-            ['sleep_status' => SleepStatus::TEMP],
-            ['sleep_until >=' => $this->db->curdate()]
         );
     }
 
@@ -71,7 +44,7 @@ class MaintenanceGateway extends BaseGateway
 			ON
 				z.betrieb_id = b.id
 			WHERE
-				b.betrieb_status_id IN(3,5)
+				b.betrieb_status_id = :established
 			AND
 			(
 				(
@@ -85,7 +58,8 @@ class MaintenanceGateway extends BaseGateway
 		', [
             ':dow' => $dow,
             ':time' => date('H:i:s'),
-            ':dowTomorrow' => $dowTomorrow
+            ':dowTomorrow' => $dowTomorrow,
+            ':established' => CooperationStatus::COOPERATION_ESTABLISHED->value,
         ]);
 
         if (!empty($storesInRange)) {
@@ -232,5 +206,37 @@ class MaintenanceGateway extends BaseGateway
                 'time_end <' => Carbon::now()->subWeeks(2)->format('Y-m-d H:i:s'),
             ]
         );
+    }
+
+    /**
+     * Removes all test quiz sessions that were started more than a day ago.
+     *
+     * @return int the number of removed entries
+     */
+    public function deleteTestQuizSessions(): int
+    {
+        return $this->db->delete(
+            'fs_quiz_session',
+            [
+                'is_test' => 1,
+                'time_start <' => Carbon::now()->subDay()->format('Y-m-d H:i:s'),
+            ]
+        );
+    }
+
+    /**
+     * Returns the UUIDs of all entries in the uploads table that were created in a specific interval which do not have
+     * a usage type and id yet.
+     *
+     * @return string[]
+     */
+    public function listUploadsWithoutUsage(DateTime $from, DateTime $to): array
+    {
+        return $this->db->fetchAllValuesByCriteria('uploads', 'uuid', [
+            'used_in' => null,
+            'usage_id' => null,
+            'uploaded_at >' => $from->format('Y-m-d H:i:s'),
+            'uploaded_at <' => $to->format('Y-m-d H:i:s')
+        ]);
     }
 }

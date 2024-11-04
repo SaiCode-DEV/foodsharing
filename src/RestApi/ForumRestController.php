@@ -7,43 +7,36 @@ use Foodsharing\Modules\Region\ForumFollowerGateway;
 use Foodsharing\Modules\Region\ForumGateway;
 use Foodsharing\Modules\Region\ForumTransactions;
 use Foodsharing\Modules\Region\RegionTransactions;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\Utility\Sanitizer;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA2;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Routing\Requirement\Requirement;
 
-class ForumRestController extends AbstractFOSRestController
+#[OA2\Tag(name: 'forum')]
+#[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+class ForumRestController extends AbstractFoodsharingRestController
 {
-    private readonly Session $session;
-    private readonly RegionTransactions $regionTransactions;
-    private readonly ForumGateway $forumGateway;
-    private readonly ForumFollowerGateway $forumFollowerGateway;
-    private readonly ForumPermissions $forumPermissions;
-    private readonly ForumTransactions $forumTransactions;
-    private readonly Sanitizer $sanitizerService;
-
     public function __construct(
-        Session $session,
-        RegionTransactions $regionTransactions,
-        ForumGateway $forumGateway,
-        ForumFollowerGateway $forumFollowerGateway,
-        ForumPermissions $forumPermissions,
-        ForumTransactions $forumTransactions,
-        Sanitizer $sanitizerService
+        protected Session $session,
+        private readonly RegionTransactions $regionTransactions,
+        private readonly ForumGateway $forumGateway,
+        private readonly ForumFollowerGateway $forumFollowerGateway,
+        private readonly ForumPermissions $forumPermissions,
+        private readonly ForumTransactions $forumTransactions,
+        private readonly Sanitizer $sanitizerService,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
-        $this->session = $session;
-        $this->regionTransactions = $regionTransactions;
-        $this->forumGateway = $forumGateway;
-        $this->forumFollowerGateway = $forumFollowerGateway;
-        $this->forumPermissions = $forumPermissions;
-        $this->forumTransactions = $forumTransactions;
-        $this->sanitizerService = $sanitizerService;
+        parent::__construct($this->session);
     }
 
     private function normalizeThread(array $thread): array
@@ -76,15 +69,19 @@ class ForumRestController extends AbstractFOSRestController
         return $normalizedThread;
     }
 
-    private function normalizePost(array $post): array
+    /**
+     * @deprecated use DTOs instead
+     */
+    private function normalizePost(array $post, bool $includeHiddenBody): array
     {
         return [
             'id' => $post['id'],
-            'body' => $post['body'],
+            'body' => ($includeHiddenBody || empty($post['hidden_reason'])) ? $post['body'] : null,
             'createdAt' => str_replace(' ', 'T', (string)$post['time']),
             'author' => RestNormalization::normalizeUser($post, 'author_'),
             'reactions' => $post['reactions'] ?: new \ArrayObject(),
             'mayDelete' => $this->forumPermissions->mayDeletePost($post),
+            'hidden' => $post['hidden_reason'] ?? false,
         ];
     }
 
@@ -111,9 +108,7 @@ class ForumRestController extends AbstractFOSRestController
      *     @OA\Property(property="creator", type="object", @OA\Items()),
      *
      * ))))
-     * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions to view that forum.")
-     * @OA\Tag(name="forum")
      */
     #[Rest\Get('forum/{forumId}/{forumSubId}', requirements: ['forumId' => '\d+', 'forumSubId' => '\d'])]
     #[Rest\QueryParam(name: 'limit', requirements: '\d+', default: '20', description: 'how many search results to return')]
@@ -157,10 +152,8 @@ class ForumRestController extends AbstractFOSRestController
      * @OA\Parameter(name="threadId", in="path", @OA\Schema(type="integer"),
      *   description="which ID to return threads for")
      * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions to view that forum/thread")
      * @OA\Response(response="404", description="Thread does not exist.")
-     * @OA\Tag(name="forum")
      */
     #[Rest\Get('forum/thread/{threadId}', requirements: ['threadId' => '\d+'])]
     public function getThread(int $threadId): SymfonyResponse
@@ -180,12 +173,15 @@ class ForumRestController extends AbstractFOSRestController
         }
 
         $thread = $this->normalizeThread($thread);
-        $posts = $this->forumGateway->listPosts($threadId);
 
         $thread['isFollowingEmail'] = $this->forumFollowerGateway->isFollowingEmail($this->session->id(), $threadId);
         $thread['isFollowingBell'] = $this->forumFollowerGateway->isFollowingBell($this->session->id(), $threadId);
         $thread['mayModerate'] = $this->forumPermissions->mayModerate($threadId);
-        $thread['posts'] = array_map(fn ($post) => $this->normalizePost($post), $posts);
+        $thread['mayHidePosts'] = $this->forumPermissions->mayHidePosts($threadId);
+
+        $posts = $this->forumGateway->listPosts($threadId);
+
+        $thread['posts'] = array_map(fn ($post) => $this->normalizePost($post, $thread['mayModerate']), $posts);
 
         $view = $this->view([
             'data' => $thread
@@ -197,9 +193,7 @@ class ForumRestController extends AbstractFOSRestController
     /**
      * Create a post inside a thread.
      *
-     * @OA\Tag(name="forum")
      * @OA\Response(response="200", description="success")
-     * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions")
      */
     #[Rest\Post('forum/thread/{threadId}/posts', requirements: ['threadId' => '\d+'])]
@@ -222,9 +216,7 @@ class ForumRestController extends AbstractFOSRestController
     /**
      * Create a thread inside a forum.
      *
-     * @OA\Tag(name="forum")
      * @OA\Response(response="200", description="success")
-     * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions")
      */
     #[Rest\Post('forum/{forumId}/{forumSubId}', requirements: ['forumId' => '\d+', 'forumSubId' => '\d'])]
@@ -244,7 +236,7 @@ class ForumRestController extends AbstractFOSRestController
         $title = $paramFetcher->get('title');
         $sendMail = $paramFetcher->get('sendMail') ?? false;
         $regionDetails = $this->regionTransactions->getRegionDetails($forumId);
-        $postActiveWithoutModeration = ($this->session->isVerified() && !$regionDetails['moderated']) || $this->session->isAmbassadorForRegion([$forumId]);
+        $postActiveWithoutModeration = ($this->session->isVerified() && !$regionDetails['moderated']) || $this->currentUserUnits->isAmbassadorForRegion([$forumId]);
 
         $threadId = $this->forumTransactions->createThread($this->session->id(), $title, $body, $regionDetails, $forumSubId, $postActiveWithoutModeration, $sendMail);
 
@@ -254,9 +246,7 @@ class ForumRestController extends AbstractFOSRestController
     /**
      * Change attributes for a thread: Stickiness, activate thread, status.
      *
-     * @OA\Tag(name="forum")
      * @OA\Response(response="200", description="success")
-     * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions")
      */
     #[Rest\Patch('forum/thread/{threadId}', requirements: ['threadId' => '\d+'])]
@@ -289,7 +279,7 @@ class ForumRestController extends AbstractFOSRestController
             if (!$this->forumPermissions->mayModerate($threadId)) {
                 throw new AccessDeniedHttpException();
             }
-            $this->forumGateway->activateThread($threadId);
+            $this->forumTransactions->activateThread($threadId);
         }
         $status = $paramFetcher->get('status');
         if (!is_null($status)) {
@@ -313,9 +303,7 @@ class ForumRestController extends AbstractFOSRestController
     /**
      * request email notifications for activities in at thread.
      *
-     * @OA\Tag(name="forum")
      * @OA\Response(response="200", description="success")
-     * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions")
      */
     #[Rest\Post('forum/thread/{threadId}/follow/email', requirements: ['threadId' => '\d+'])]
@@ -335,9 +323,7 @@ class ForumRestController extends AbstractFOSRestController
     /**
      * request bell notifications for activities in a thread.
      *
-     * @OA\Tag(name="forum")
      * @OA\Response(response="200", description="success")
-     * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions")
      */
     #[Rest\Post('forum/thread/{threadId}/follow/bell', requirements: ['threadId' => '\d+'])]
@@ -358,9 +344,7 @@ class ForumRestController extends AbstractFOSRestController
     /**
      * Remove email notifications for activities in a thread.
      *
-     * @OA\Tag(name="forum")
      * @OA\Response(response="200", description="success")
-     * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions")
      */
     #[Rest\Delete('forum/thread/{threadId}/follow/email', requirements: ['threadId' => '\d+'])]
@@ -381,9 +365,7 @@ class ForumRestController extends AbstractFOSRestController
     /**
      * Remove bell notifications for activities in a thread.
      *
-     * @OA\Tag(name="forum")
      * @OA\Response(response="200", description="success")
-     * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions")
      */
     #[Rest\Delete('forum/thread/{threadId}/follow/bell', requirements: ['threadId' => '\d+'])]
@@ -404,9 +386,7 @@ class ForumRestController extends AbstractFOSRestController
     /**
      * Delete a forum post.
      *
-     * @OA\Tag(name="forum")
      * @OA\Response(response="200", description="success")
-     * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="404", description="Post does not exist")
      */
@@ -430,13 +410,92 @@ class ForumRestController extends AbstractFOSRestController
         return $this->handleView($this->view([]));
     }
 
+    #[OA2\Patch(summary: 'Hide a forum post.')]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Post is already hidden.')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Post does not exist')]
+    #[Rest\Patch('forum/post/{postId}/hide', requirements: ['postId' => Requirement::POSITIVE_INT])]
+    #[Rest\RequestParam(name: 'reason', description: 'hiding reason', requirements: '..{0,255}')]
+    public function hidePost(int $postId, ParamFetcher $paramFetcher): SymfonyResponse
+    {
+        $this->assertLoggedIn();
+
+        $post = $this->forumGateway->getPost($postId);
+        if (!$post) {
+            throw new NotFoundHttpException();
+        }
+        if (!$this->forumPermissions->mayHidePost($postId)) {
+            throw new AccessDeniedHttpException();
+        }
+        $reason = $paramFetcher->get('reason');
+
+        $details = $this->forumGateway->getHiddenPostDetails($postId);
+        if (count($details) !== 0) {
+            throw new BadRequestHttpException();
+        }
+
+        $this->forumTransactions->hidePost($postId, $this->session->id(), $reason);
+
+        return $this->respondOK();
+    }
+
+    #[OA2\Delete(summary: 'Restore a hidden forum post')]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
+    #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Post is not hidden.')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Post does not exist')]
+    #[Rest\Delete('forum/post/{postId}/hide', requirements: ['postId' => Requirement::POSITIVE_INT])]
+    public function restorePost(int $postId): SymfonyResponse
+    {
+        $this->assertLoggedIn();
+
+        $post = $this->forumGateway->getPost($postId);
+        if (!$post) {
+            throw new NotFoundHttpException();
+        }
+        if (!$this->forumPermissions->mayRestorePost($postId)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        if (!$this->forumTransactions->restorePost($postId)) {
+            throw new BadRequestHttpException();
+        }
+
+        return $this->respondOK();
+    }
+
+    #[OA2\Get(summary: 'Get details on a hidden forum post')]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
+    #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Post is not hidden.')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Post does not exist')]
+    #[Rest\Get('forum/post/{postId}/hide', requirements: ['postId' => Requirement::POSITIVE_INT])]
+    public function getHiddenPostDetails(int $postId): SymfonyResponse
+    {
+        $this->assertLoggedIn();
+
+        $post = $this->forumGateway->getPost($postId);
+        if (!$post) {
+            throw new NotFoundHttpException();
+        }
+        if (!$this->forumPermissions->mayRestorePost($postId)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $details = $this->forumGateway->getHiddenPostDetails($postId);
+        if (count($details) === 0) {
+            throw new BadRequestHttpException();
+        }
+
+        return $this->respondOK($details);
+    }
+
     /**
      * Deletes a forum thread.
      *
-     * @OA\Tag(name="forum")
      * @OA\Parameter(name="threadId", in="path", @OA\Schema(type="integer"), description="ID of the thread that will be deleted")
      * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in.")
      * @OA\Response(response="403", description="Insufficient permissions to delete that thread or thread is already active")
      * @OA\Response(response="404", description="Thread does not exist.")
      */
@@ -455,7 +514,7 @@ class ForumRestController extends AbstractFOSRestController
             throw new AccessDeniedHttpException();
         }
 
-        $this->forumGateway->deleteThread($threadId);
+        $this->forumTransactions->deleteThread($threadId);
 
         return $this->handleView($this->view([], 200));
     }
@@ -463,9 +522,7 @@ class ForumRestController extends AbstractFOSRestController
     /**
      * Adds an emoji reaction to a post. An emoji is an arbitrary string but needs to be supported by the frontend.
      *
-     * @OA\Tag(name="forum")
      * @OA\Response(response="200", description="success")
-     * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="404", description="Post does not exist")
      */
@@ -493,9 +550,7 @@ class ForumRestController extends AbstractFOSRestController
     /**
      * Remove an emoji reaction the logged in user has given from a post.
      *
-     * @OA\Tag(name="forum")
      * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="404", description="Post does not exist")
      */

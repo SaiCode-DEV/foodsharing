@@ -22,9 +22,9 @@ class ForumPostCest
 
     public function _before(AcceptanceTester $I)
     {
-        $this->testBezirk = $I->createRegion();
-        $this->bigTestBezirk = $I->createRegion(null, ['type' => UnitType::BIG_CITY]);
-        $this->moderatedTestBezirk = $I->createRegion(null, ['type' => UnitType::CITY, 'moderated' => true]);
+        $this->testBezirk = $I->createRegion(fillMailbox: false);
+        $this->bigTestBezirk = $I->createRegion(null, ['type' => UnitType::BIG_CITY], false);
+        $this->moderatedTestBezirk = $I->createRegion(null, ['type' => UnitType::CITY, 'moderated' => true], false);
         $this->createUsers($I);
         $this->createPosts($I);
     }

@@ -3,6 +3,7 @@
 namespace Foodsharing\RestApi\Models\Content;
 
 use OpenApi\Attributes as OA;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class ContentEntry
 {
@@ -11,6 +12,7 @@ class ContentEntry
         type: 'string',
         example: 'news-from-it'
     )]
+    #[Assert\NotBlank]
     public readonly string $name;
 
     #[OA\Property(
@@ -18,6 +20,7 @@ class ContentEntry
         type: 'string',
         example: 'Aktuelle Fehler und Störungen'
     )]
+    #[Assert\NotBlank]
     public readonly string $title;
 
     #[OA\Property(

@@ -10,13 +10,13 @@
         </b-media-aside>
 
         <b-media-body class="ml-1 w-100">
-          <a :href="$url('event', eventId)" class="event-link">
+          <a :href="$url('event', event.id)" class="event-link">
             <h6 class="my-0 mr-1">
-              {{ title }}
+              {{ event.name }}
               <b-button
                 v-if="mayEdit"
                 v-b-tooltip="$i18n('events.edit')"
-                :href="$url('eventEdit', eventId)"
+                :href="$url('eventEdit', event.id)"
                 size="sm"
                 variant="outline-secondary ml-2"
               >
@@ -25,7 +25,7 @@
             </h6>
           </a>
           <div v-if="regionName" class="flex-md-shrink-0">
-            <a :href="$url('events', regionId)">{{ regionName }}</a>
+            <a :href="$url('events', event.regionId)">{{ regionName }}</a>
             ({{ $i18n('events.invitedCount', { count: inviteCount }) }})
           </div>
           <div
@@ -78,13 +78,9 @@ import { mutations, EventInvitationResponse } from '@/stores/events'
 export default {
   components: { CalendarDate },
   props: {
-    eventId: { type: Number, required: true },
+    event: { type: Object, required: true },
     regionName: { type: String, default: '' },
-    regionId: { type: Number, default: 0 },
     inviteCount: { type: Number, default: 0 },
-    start: { type: String, required: true },
-    end: { type: String, required: true },
-    title: { type: String, default: '' },
     mayEdit: { type: Boolean, default: false },
     status: { type: Number, default: 0 },
     border: { type: Boolean, default: false },
@@ -92,8 +88,8 @@ export default {
   data () {
     return {
       EventInvitationStatus: EventInvitationResponse,
-      startDate: new Date(Date.parse(this.start)),
-      endDate: new Date(Date.parse(this.end)),
+      startDate: new Date(this.event.startDate),
+      endDate: new Date(this.event.endDate),
       currentStatus: this.status,
     }
   },
@@ -138,10 +134,11 @@ export default {
     async sendInvitationUpdate (newStatus) {
       showLoader()
       try {
-        await mutations.setInvitationResponse(this.eventId, newStatus)
+        await mutations.setInvitationResponse(this.event.id, newStatus)
         const texts = ['events.rsvp.yes', 'events.rsvp.maybe', 'events.rsvp.no']
         pulseSuccess(this.$i18n(texts[newStatus - 1]))
         this.currentStatus = newStatus
+        this.$emit('update:status', newStatus)
       } catch (e) {
         pulseError(this.$i18n('error_unexpected'))
       }
@@ -158,7 +155,7 @@ export default {
 }
 
 .event-link {
-  color: initial;
+  color: inherit;
 }
 
 .event-date {

@@ -21,7 +21,7 @@ class RegionOptionApiCest
 
     public function _before(ApiTester $I): void
     {
-        $this->region = $I->createRegion();
+        $this->region = $I->createRegion(fillMailbox: false);
         $this->userBot = $I->createAmbassador();
         $I->addRegionAdmin($this->region['id'], $this->userBot['id']);
     }
@@ -29,12 +29,22 @@ class RegionOptionApiCest
     public function addRegionOption(ApiTester $I): void
     {
         $I->login($this->userBot[self::EMAIL]);
-        $I->sendPOST('api/region/' . $this->region['id'] . '/options', ['enableReportButton' => true, 'enableMediationButton' => true, 'regionPickupRuleActive' => true, 'regionPickupRuleTimespan' => 7, 'regionPickupRuleLimit' => 4, 'regionPickupRuleLimitDay' => 2, 'regionPickupRuleInactive' => 12]);
+        $I->sendPOST('api/region/' . $this->region['id'] . '/options', ['enableReportButton' => true, 'selectedReportReasonOptions' => 1, 'enableReportReasonOther' => true, 'enableMediationButton' => true, 'regionPickupRuleActive' => true, 'regionPickupRuleTimespan' => 7, 'regionPickupRuleLimit' => 4, 'regionPickupRuleLimitDay' => 2, 'regionPickupRuleInactive' => 12]);
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
         $I->seeInDatabase('fs_region_options', [
             'region_id' => $this->region['id'],
             'option_type' => RegionOptionType::ENABLE_REPORT_BUTTON,
+            'option_value' => '1'
+        ]);
+        $I->seeInDatabase('fs_region_options', [
+            'region_id' => $this->region['id'],
+            'option_type' => RegionOptionType::REPORT_REASON_OPTIONS,
+            'option_value' => '1'
+        ]);
+        $I->seeInDatabase('fs_region_options', [
+            'region_id' => $this->region['id'],
+            'option_type' => RegionOptionType::REPORT_REASON_OTHER,
             'option_value' => '1'
         ]);
         $I->seeInDatabase('fs_region_options', [

@@ -8,18 +8,11 @@ use Foodsharing\Permissions\MailboxPermissions;
 
 class MailboxControl extends Control
 {
-    private readonly MailboxGateway $mailboxGateway;
-    private readonly MailboxPermissions $mailboxPermissions;
-
     public function __construct(
-        MailboxView $view,
-        MailboxGateway $mailboxGateway,
-        MailboxPermissions $mailboxPermissions
+        private readonly MailboxView $view,
+        private readonly MailboxGateway $mailboxGateway,
+        private readonly MailboxPermissions $mailboxPermissions
     ) {
-        $this->view = $view;
-        $this->mailboxGateway = $mailboxGateway;
-        $this->mailboxPermissions = $mailboxPermissions;
-
         parent::__construct();
 
         if (!$this->session->mayRole()) {
@@ -29,7 +22,7 @@ class MailboxControl extends Control
         if (!$this->mailboxPermissions->mayHaveMailbox()) {
             $this->pageHelper->addContent($this->v_utils->v_info($this->translator->trans('mailbox.not-available', [
                 '{role}' => '<a href="https://wiki.foodsharing.de/Betriebsverantwortliche*r">' . $this->translator->trans('terminology.storemanager.d') . '</a>',
-                '{quiz}' => '<a href="/?page=settings&sub=rise_role&role=' . Role::STORE_MANAGER->value . '">' . $this->translator->trans('mailbox.sm-quiz') . '</a>',
+                '{quiz}' => '<a href="/user/current/settings?sub=rise_role&role=' . Role::STORE_MANAGER->value . '">' . $this->translator->trans('mailbox.sm-quiz') . '</a>',
             ])));
         }
     }
@@ -40,7 +33,7 @@ class MailboxControl extends Control
         $this->pageHelper->addBread($this->translator->trans('mailbox.title'));
 
         $boxes = $this->mailboxGateway->getBoxes(
-            $this->session->isAmbassador(),
+            $this->currentUserUnits->isAmbassador(),
             $this->session->id(),
             $this->session->mayRole(Role::STORE_MANAGER)
         );

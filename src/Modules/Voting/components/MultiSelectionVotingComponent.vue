@@ -9,18 +9,17 @@
         :disabled="!enabled"
         @change="votingRequestValues.update"
       >
-        {{ option.text }}
+        <Markdown :source="option.text" />
       </b-form-checkbox>
     </b-form-group>
   </div>
 </template>
 
 <script>
-
-import { BFormGroup, BFormCheckbox } from 'bootstrap-vue'
+import Markdown from '@/components/Markdown/Markdown.vue'
 
 export default {
-  components: { BFormGroup, BFormCheckbox },
+  components: { Markdown },
   props: {
     options: {
       type: Array,

@@ -15,27 +15,23 @@ use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
+use Foodsharing\Permissions\BlogPermissions;
+use Foodsharing\RestApi\Models\Blog\BlogPostData;
 use Foodsharing\Utility\Sanitizer;
 
 final class BlogGateway extends BaseGateway
 {
-    private readonly BellGateway $bellGateway;
-    private readonly FoodsaverGateway $foodsaverGateway;
-    private readonly Sanitizer $sanitizerService;
-    private readonly Session $session;
-
     public function __construct(
-        BellGateway $bellGateway,
+        private readonly BellGateway $bellGateway,
         Database $db,
-        FoodsaverGateway $foodsaverGateway,
-        Sanitizer $sanitizerService,
-        Session $session
+        private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly Sanitizer $sanitizer,
+        private readonly Session $session,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
+        private readonly BlogPermissions $blogPermissions,
     ) {
         parent::__construct($db);
-        $this->bellGateway = $bellGateway;
-        $this->foodsaverGateway = $foodsaverGateway;
-        $this->sanitizerService = $sanitizerService;
-        $this->session = $session;
     }
 
     public function setPublished(int $blogId, bool $isPublished): int
@@ -43,38 +39,37 @@ final class BlogGateway extends BaseGateway
         return $this->db->update('fs_blog_entry', ['active' => intval($isPublished)], ['id' => $blogId]);
     }
 
-    public function update_blog_entry(int $id, array $data): int
+    public function update_blog_entry(int $userId, BlogPostData $data): int
     {
         $data_stripped = [
-            'bezirk_id' => $data['bezirk_id'],
-            'foodsaver_id' => $data['foodsaver_id'],
-            'name' => strip_tags((string)$data['name']),
-            'teaser' => strip_tags((string)$data['teaser']),
-            'body' => $data['body'],
-            'time' => strip_tags((string)$data['time']),
+            'bezirk_id' => $data->regionId,
+            'foodsaver_id' => $userId,
+            'name' => strip_tags($data->title),
+            'teaser' => strip_tags($data->teaser),
+            'body' => $this->sanitizer->purifyHtml($data->content),
+            'time' => Carbon::now()->format('Y-m-d H:i:s'),
         ];
 
-        if (!empty($data['picture'])) {
-            $data_stripped['picture'] = strip_tags((string)$data['picture']);
+        if (!empty($data->picture)) {
+            $data_stripped['picture'] = strip_tags((string)$data->picture);
         }
 
         return $this->db->update(
             'fs_blog_entry',
             $data_stripped,
-            ['id' => $id]
+            ['id' => $data->id]
         );
     }
 
-    public function getAuthorOfPost(int $article_id)
+    public function getPostAuthor(int $article_id): bool|int
     {
-        $val = false;
         try {
-            $val = $this->db->fetchByCriteria('fs_blog_entry', ['bezirk_id', 'foodsaver_id'], ['id' => $article_id]);
+            $val = $this->db->fetchByCriteria('fs_blog_entry', ['foodsaver_id'], ['id' => $article_id]);
         } catch (Exception) {
             // has to be caught until we can check whether a to be fetched value does really exist.
         }
 
-        return $val;
+        return $val['foodsaver_id'] ?? false;
     }
 
     /**
@@ -82,12 +77,22 @@ final class BlogGateway extends BaseGateway
      */
     public function getPost(int $id): ?BlogPost
     {
+        if (!$this->session->id()) {
+            $filter = 'AND b.`active` = 1';
+        } elseif ($this->session->mayRole(Role::ORGA)) {
+            $filter = '';
+        } else {
+            $ownRegionIds = implode(',', array_map('intval', $this->currentUserUnits->listRegionIDs()));
+            $filter = 'AND b.`bezirk_id` IN (' . $ownRegionIds . ')';
+        }
+
         $blogPost = $this->db->fetch('
 			SELECT
 				b.`id`,
 				b.`name`,
 				b.`time`,
 				UNIX_TIMESTAMP(b.`time`) AS time_ts,
+                b.`teaser`,
 				b.`body`,
 				b.`picture`,
 				CONCAT(fs.name," ",fs.nachname) AS fs_name
@@ -96,8 +101,7 @@ final class BlogGateway extends BaseGateway
 				`fs_foodsaver` fs
 			WHERE
 				b.foodsaver_id = fs.id
-			AND
-				b.`active` = 1
+			' . $filter . '
 			AND
 				b.id = :fs_id',
             [':fs_id' => $id]);
@@ -106,12 +110,13 @@ final class BlogGateway extends BaseGateway
             return null;
         }
 
-        $blogPost['body'] = $this->sanitizerService->purifyHtml($blogPost['body'] ?? '');
+        $blogPost['body'] = $this->sanitizer->purifyHtml($blogPost['body'] ?? '');
 
         return BlogPost::create(
             $blogPost['id'],
             $blogPost['name'],
             $blogPost['body'],
+            $blogPost['teaser'],
             Carbon::createFromTimestamp($blogPost['time_ts'], new DateTimeZone('Europe/Berlin')),
             $blogPost['fs_name'],
             $blogPost['picture']
@@ -154,6 +159,7 @@ final class BlogGateway extends BaseGateway
             return BlogPost::create(
                 $post['id'],
                 $post['name'],
+                '', // skip body for overview, more performant
                 $post['teaser'],
                 Carbon::createFromTimestamp($post['time_ts'], new DateTimeZone('Europe/Berlin')),
                 $post['fs_name'],
@@ -166,23 +172,26 @@ final class BlogGateway extends BaseGateway
 
     public function getBlogpostList(): array
     {
-        if ($this->session->mayRole(Role::ORGA)) {
+        if ($this->blogPermissions->mayAdministrateBlog()) {
             $filter = '';
         } else {
-            $ownRegionIds = implode(',', array_map('intval', $this->session->listRegionIDs()));
+            $ownRegionIds = implode(',', array_map('intval', $this->currentUserUnits->listRegionIDs()));
             $filter = 'WHERE `bezirk_id` IN (' . $ownRegionIds . ')';
         }
 
         return $this->db->fetchAll('
-			SELECT 	 	`id`,
-						`name`,
-						`foodsaver_id`,
-						`time`,
-						UNIX_TIMESTAMP(`time`) AS time_ts,
-						`active`,
-						`teaser`,
-						`bezirk_id`
-			FROM 		`fs_blog_entry`
+			SELECT 	 	b.`id`,
+						b.`name`,
+						b.`time`,
+						UNIX_TIMESTAMP(b.`time`) AS time_ts,
+						b.`active`,
+						b.`teaser`,
+						b.`bezirk_id`,
+						fs.`id` AS foodsaver_id,
+						fs.`name` AS foodsaver_name,
+						fs.`photo` AS foodsaver_photo
+			FROM 		`fs_blog_entry` b
+            LEFT OUTER JOIN fs_foodsaver fs ON fs.id = b.foodsaver_id
 			' . $filter . '
 			ORDER BY `time` DESC');
     }
@@ -212,33 +221,30 @@ final class BlogGateway extends BaseGateway
             [':fs_id' => $id]
         );
 
-        $blogEntry['body'] = $this->sanitizerService->purifyHtml($blogEntry['body'] ?? '');
+        $blogEntry['body'] = $this->sanitizer->purifyHtml($blogEntry['body'] ?? '');
 
         return $blogEntry;
     }
 
-    public function add_blog_entry(array $data): int
+    public function addBlogPost(int $authorId, BlogPostData $data): int
     {
-        $regionId = intval($data['bezirk_id']);
-        $active = intval($this->session->mayRole(Role::ORGA) || $this->session->isAdminFor($regionId));
-
         $id = $this->db->insert(
             'fs_blog_entry',
             [
-                'bezirk_id' => $regionId,
-                'foodsaver_id' => (int)$data['foodsaver_id'],
-                'name' => strip_tags((string)$data['name']),
-                'teaser' => strip_tags((string)$data['teaser']),
-                'body' => $data['body'],
-                'time' => strip_tags((string)$data['time']),
-                'picture' => strip_tags((string)$data['picture']),
-                'active' => $active,
+                'bezirk_id' => $data->regionId,
+                'foodsaver_id' => $authorId,
+                'name' => strip_tags($data->title),
+                'teaser' => strip_tags($data->teaser),
+                'body' => $this->sanitizer->purifyHtml($data->content),
+                'time' => Carbon::now()->format('Y-m-d H:i:s'),
+                'picture' => strip_tags($data->picture),
+                'active' => $data->isPublished ? 1 : 0,
             ]
         );
 
         $foodsaver = [];
         $orgateam = $this->foodsaverGateway->getOrgaTeam();
-        $botschafter = $this->foodsaverGateway->getAdminsOrAmbassadors($regionId);
+        $botschafter = $this->foodsaverGateway->getAdminsOrAmbassadors($data->regionId);
 
         foreach ($orgateam as $o) {
             $foodsaver[$o['id']] = $o;
@@ -254,8 +260,8 @@ final class BlogGateway extends BaseGateway
             ['href' => '/blog?sub=edit&id=' . $id],
             [
                 'user' => $this->session->user('name'),
-                'teaser' => $this->sanitizerService->tt($data['teaser'], 100),
-                'title' => $data['name']
+                'teaser' => $this->sanitizer->tt($data->teaser, 100),
+                'title' => $data->title
             ],
             BellType::createIdentifier(BellType::NEW_BLOG_POST, $id)
         );

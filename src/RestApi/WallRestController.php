@@ -3,6 +3,7 @@
 namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
 use Foodsharing\Modules\WallPost\WallPostGateway;
 use Foodsharing\Modules\WallPost\WallPostTransactions;
@@ -12,6 +13,7 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -38,17 +40,22 @@ class WallRestController extends AbstractFoodsharingRestController
         new OA\Property(property: 'mayDelete', type: 'boolean', description: 'whether the user is permitted to delete all posts on this wall'),
     ]))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to read this wall')]
-    public function getPosts(string $target, int $targetId): Response
-    {
-        if (!$this->wallPostPermissions->mayReadWall($target, $targetId)) {
+    public function getPosts(
+        string $target,
+        int $targetId,
+        #[MapQueryParameter] int $limit = 50,
+        #[MapQueryParameter] int $offset = 0,
+    ): Response {
+        $wallType = $this->parseWallType($target);
+        if (!$this->wallPostPermissions->mayReadWall($wallType, $targetId)) {
             throw new AccessDeniedHttpException();
         }
 
-        $posts = $this->wallPostGateway->getPosts($target, $targetId);
+        $posts = $this->wallPostGateway->getPosts($wallType, $targetId, $limit, $offset);
         $response = [
             'posts' => $posts,
-            'mayPost' => $this->wallPostPermissions->mayWriteWall($target, $targetId),
-            'mayDelete' => $this->wallPostPermissions->mayDeleteWall($target, $targetId)
+            'mayPost' => $this->wallPostPermissions->mayWriteWall($wallType, $targetId),
+            'mayDelete' => $this->wallPostPermissions->mayDeleteWall($wallType, $targetId)
         ];
 
         return $this->handleView($this->view($response, Response::HTTP_OK));
@@ -68,7 +75,8 @@ class WallRestController extends AbstractFoodsharingRestController
     public function addPost(string $target, int $targetId, WallPost $wallPost, ValidatorInterface $validator): Response
     {
         $this->assertLoggedIn();
-        if (!$this->wallPostPermissions->mayWriteWall($target, $targetId)) {
+        $wallType = $this->parseWallType($target);
+        if (!$this->wallPostPermissions->mayWriteWall($wallType, $targetId)) {
             throw new AccessDeniedHttpException();
         }
         $errors = $validator->validate($wallPost);
@@ -80,7 +88,7 @@ class WallRestController extends AbstractFoodsharingRestController
             throw new BadRequestHttpException('Post cannot be empty');
         }
 
-        $post = $this->wallPostTransactions->addPost($wallPost, $target, $targetId);
+        $post = $this->wallPostTransactions->addPost($wallPost, $wallType, $targetId);
 
         return $this->handleView($this->view($post, Response::HTTP_OK));
     }
@@ -96,15 +104,26 @@ class WallRestController extends AbstractFoodsharingRestController
     public function deletePost(string $target, int $targetId, int $postId): Response
     {
         $this->assertLoggedIn();
-        if (!$this->wallPostPermissions->mayDeleteWallPost($target, $targetId, $postId)) {
+        $wallType = $this->parseWallType($target);
+        if (!$this->wallPostPermissions->mayDeleteWallPost($wallType, $targetId, $postId)) {
             throw new AccessDeniedHttpException();
         }
-        if (!$this->wallPostGateway->isLinkedToTarget($postId, $target, $targetId)) {
+        if (!$this->wallPostGateway->isLinkedToTarget($postId, $wallType, $targetId)) {
             throw new NotFoundHttpException();
         }
 
-        $this->wallPostTransactions->deletePost($postId, $target, $targetId);
+        $this->wallPostTransactions->deletePost($postId, $wallType, $targetId);
 
         return $this->handleView($this->view(null, Response::HTTP_OK));
+    }
+
+    private function parseWallType(string $target): WallType
+    {
+        $wallType = WallType::tryFrom($target);
+        if (!$wallType) {
+            throw new BadRequestHttpException('invalid wall type');
+        }
+
+        return $wallType;
     }
 }

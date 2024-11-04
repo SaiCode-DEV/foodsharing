@@ -1,23 +1,38 @@
 <template>
-  <container :title="$i18n('regionOptions.header_page', { bezirk: regionName })">
-    <b-container class="mt-3 mb-3">
+  <Container :title="$i18n('regionOptions.header_page', { bezirk: regionName })">
+    <div class="list-group-item">
       <b-form-checkbox
-        id="enableReportButton"
         v-model="reportButtonEnabled"
         :disabled="!maySetReport"
       >
         {{ $i18n('regionOptions.enableReportButton') }}
+        <Info info-key="reportReasons" />
       </b-form-checkbox>
+      <div class="mb-2 mx-4">
+        <b-form-group>
+          <b-form-radio-group
+            v-model="selectedReportReasonOptions"
+            :options="reportReasonOptionsRadio"
+            name="radio-options-slots"
+            stacked
+            :disabled="!reportButtonEnabled || !maySetReport"
+          />
+        </b-form-group>
+        <b-form-checkbox
+          v-model="reportReasonOtherEnabled"
+          :disabled="!reportButtonEnabled || !maySetReport"
+        >
+          {{ $i18n('regionOptions.regionReportReasonOther') }}
+        </b-form-checkbox>
+      </div>
       <b-form-checkbox
-        id="enableMediationButton"
         v-model="mediationButtonEnabled"
         :disabled="!maySetReport"
-        class="mt-1"
       >
         {{ $i18n('regionOptions.enableMediationButton') }}
       </b-form-checkbox>
-    </b-container>
-    <b-container>
+    </div>
+    <div class="list-group-item">
       <b-form-checkbox
         id="activeRegionPickupRule"
         v-model="regionPickupRuleActive"
@@ -26,8 +41,6 @@
       >
         {{ $i18n('regionOptions.regionPickupRuleActive') }}
       </b-form-checkbox>
-    </b-container>
-    <b-container fluid>
       <b-row class="my-1">
         <b-col>
           <label>{{ $i18n('regionOptions.regionPickupTimespan') }}: {{ pickupRuleTimespan }}</label>
@@ -78,6 +91,7 @@
         </b-col>
       </b-row>
       <b-table
+        v-if="pageData.regionPickupRuleActiveStoreList.length"
         :fields="fields"
         :items="pageData.regionPickupRuleActiveStoreList"
         :sort-by="sortBy"
@@ -95,33 +109,33 @@
           </a>
         </template>
       </b-table>
-    </b-container>
-    <div
-      v-if="maySetReport || maySetRule"
-    >
-      <b-button
-        class="text-right mt-2"
-        variant="secondary"
-        size="sm"
-        @click="trySendOptions"
-      >
-        {{ $i18n('regionOptions.save') }}
-      </b-button>
+      <span v-else v-text="$i18n('regionOptions.noPickupRuleActiveStores')" />
     </div>
-  </container>
+    <ContainerButton
+      v-if="maySetReport || maySetRule"
+      text-key="regionOptions.save"
+      variant="secondary"
+      @click="trySendOptions"
+    />
+  </Container>
 </template>
 <script>
 import { setRegionOptions } from '@/api/regions'
 import { hideLoader, pulseError, pulseInfo, showLoader } from '@/script'
-import i18n from '@/helper/i18n'
 import Container from '@/components/Container/Container.vue'
+import ContainerButton from '@/components/Container/ContainerButton.vue'
+import Info from '@/components/Help/Info.vue'
 
 export default {
-  components: { Container },
+  components: { Container, ContainerButton, Info },
   props: {
     regionId: { type: Number, required: true },
     regionName: { type: String, default: '' },
     pageData: { type: Object, default: () => {} },
+    regionPickupRuleActiveStoreList: {
+      type: Array,
+      default: () => [],
+    },
   },
   data () {
     return {
@@ -135,6 +149,8 @@ export default {
       pickupRuleLimitDay: this.pageData.regionPickupRuleLimitDayNumber,
       pickupRuleInactive: this.pageData.regionPickupRuleInactiveHours,
       rangeDayLimit: this.pageData.rangeDayLimitNum,
+      selectedReportReasonOptions: this.pageData.selectedReportReasonOptions,
+      reportReasonOtherEnabled: !!this.pageData.reportReasonOtherEnabled,
       sortBy: 'storeName',
       fields: [{
         key: 'storeName',
@@ -153,6 +169,10 @@ export default {
         { text: '60', value: 60 },
         { text: '72', value: 72 },
       ],
+      reportReasonOptionsRadio: [
+        { text: this.$i18n('regionOptions.regionReportReasonSimple'), value: 1 },
+        { text: this.$i18n('regionOptions.regionReportReasonCategoryB'), value: 2 },
+      ],
     }
   },
   methods: {
@@ -165,11 +185,11 @@ export default {
     async trySendOptions () {
       showLoader()
       try {
-        await setRegionOptions(this.regionId, this.reportButtonEnabled, this.mediationButtonEnabled, this.regionPickupRuleActive, this.pickupRuleTimespan, this.pickupRuleLimit, this.pickupRuleLimitDay, this.pickupRuleInactive)
-        pulseInfo(i18n('regionOptions.success'))
+        await setRegionOptions(this.regionId, this.reportButtonEnabled, this.mediationButtonEnabled, this.regionPickupRuleActive, this.pickupRuleTimespan, this.pickupRuleLimit, this.pickupRuleLimitDay, this.pickupRuleInactive, this.selectedReportReasonOptions, this.reportReasonOtherEnabled)
+        pulseInfo(this.$i18n('regionOptions.success'))
       } catch (err) {
         console.error(err)
-        pulseError(i18n('error_unexpected'))
+        pulseError(this.$i18n('error_unexpected'))
       }
       hideLoader()
     },

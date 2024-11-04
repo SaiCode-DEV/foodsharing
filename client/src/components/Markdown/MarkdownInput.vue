@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="input"
     class="md-input"
     :class="{'conceal-toolbar': actuallyConcealToolbar }"
   >
@@ -18,6 +19,26 @@
         >
           <i :class="`fas fa-${button.icon}`" />
         </b-button>
+        <b-dropdown
+          ref="atDropdown"
+          v-b-tooltip.hover="$i18n(`markdown_input.tooltip.mention`)"
+          :variant="variant"
+          :disabled="isPreview"
+          no-caret
+          right
+          menu-class="user-search-dropdown"
+          class="at-dropdown"
+          @shown="$refs.userSearch.focus()"
+        >
+          <template #button-content>
+            <i class="fas fa-at" />
+          </template>
+          <UserSearchInput
+            ref="userSearch"
+            :region-id="regionId"
+            @user-selected="mentionUser"
+          />
+        </b-dropdown>
         <b-button
           v-b-tooltip.hover="$i18n(`markdown_input.tooltip.preview`)"
           :variant="variant"
@@ -29,10 +50,11 @@
     </b-button-toolbar>
     <div
       class="input-content"
-      :class="{ rounded: !hasImages}"
+      :class="{ rounded: !hasImages, invalid: state === false, valid: state === true}"
     >
       <b-form-textarea
         v-if="!isPreview"
+        :id="inputName"
         ref="input"
         v-model="modelValue"
         class="md-text-area"
@@ -62,6 +84,7 @@
 import ImageUpload from '@/components/upload/ImageUpload'
 import Markdown from './Markdown.vue'
 import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
+import UserSearchInput from '@/components/UserSearchInput.vue'
 
 function getMaxRowsForScreenSize () {
   const minimumMaxRows = 8
@@ -71,9 +94,10 @@ function getMaxRowsForScreenSize () {
 }
 
 export default {
-  components: { Markdown, ImageUpload },
+  components: { Markdown, ImageUpload, UserSearchInput },
   mixins: [RouteAndDeviceCheckMixin],
   props: {
+    inputName: { type: String, default: null },
     rows: { type: Number, default: 4 },
     maxRows: { type: Number, default: getMaxRowsForScreenSize },
     value: { type: String, default: '' },
@@ -83,11 +107,13 @@ export default {
     concealToolbar: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     allowImageAttachments: { type: Boolean, default: false },
+    regionId: { type: Number, default: null },
   },
   data () {
     return {
       isPreview: false,
       hasImages: false,
+      previousFocus: [],
       buttons: [
         { tooltip: 'bold', icon: 'bold', action: this.bold },
         { tooltip: 'italic', icon: 'italic', action: this.italic },
@@ -127,13 +153,25 @@ export default {
     },
   },
   watch: {
+    value (modelValue) {
+      if (!modelValue) this.isPreview = false
+    },
     hasImages () {
       this.$emit('image-change', this.hasImages)
     },
   },
+  async mounted () {
+    // v-bootstrap doesn't handle initial values with row and max-row correctly.
+    // This code updates the input height.
+    if (this.modelValue === '') return
+    const modelValue = this.modelValue
+    this.modelValue += '\n'
+    await new Promise(resolve => window.setTimeout(resolve, 200))
+    this.modelValue = modelValue
+  },
   methods: {
     getBaseTextArea () {
-      return this.$refs.input?.$refs?.input
+      return this.$refs.input?.$refs?.input ?? this.$refs.input?.querySelector('textarea')
     },
     bold () {
       this.wrapSelection('**')
@@ -217,7 +255,7 @@ export default {
       return [this.getBaseTextArea().selectionStart, this.getBaseTextArea().selectionEnd]
     },
     async setFocus (start = 0, end = 0) {
-      this.$refs.input.focus()
+      this.getBaseTextArea().focus()
       await new Promise(resolve => window.requestAnimationFrame(resolve))
       this.getBaseTextArea().selectionEnd = end
       this.getBaseTextArea().selectionStart = start
@@ -240,6 +278,12 @@ export default {
     },
     async uploadImages () {
       return await this.$refs['image-upload'].uploadImages()
+    },
+    mentionUser (id) {
+      this.$refs.atDropdown.hide()
+      // this.setFocus()
+      id = id.toString().padStart(3, '0')
+      this.wrapSelection(`@${id} `, '')
     },
   },
 }
@@ -283,6 +327,12 @@ export default {
   &:focus-within {
     border-color: #af7a43;
   }
+  &.valid {
+    border-color: #64ae24; // taken from bootstrap
+  }
+  &.invalid {
+    border-color: #cf3a00; // taken from bootstrap
+  }
   .markdown {
     padding: .5rem;
   }
@@ -292,6 +342,19 @@ export default {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   margin-top: 0;
+}
+
+::v-deep .user-search-dropdown {
+  width: 20em !important;
+  border: 0;
+  padding: 0;
+}
+
+.at-dropdown {
+  flex: 1 1 auto;
+  ::v-deep > .btn {
+    padding: 0px;
+  }
 }
 
 </style>

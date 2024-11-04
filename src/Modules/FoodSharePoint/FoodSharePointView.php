@@ -5,9 +5,8 @@ namespace Foodsharing\Modules\FoodSharePoint;
 use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
-use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\View;
-use Foodsharing\Modules\Foodsaver\Profile;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
@@ -24,17 +23,6 @@ use Twig\Environment;
 class FoodSharePointView extends View
 {
     private ?array $region = null;
-    private array $regions;
-
-    private array $foodSharePoint;
-    /**
-     * @var Profile[]
-     */
-    private array $managers;
-    /**
-     * @var Profile[]
-     */
-    private array $followers;
 
     private readonly FoodSharePointPermissions $fspPermissions;
 
@@ -52,7 +40,8 @@ class FoodSharePointView extends View
         TimeHelper $timeHelper,
         TranslationHelper $translationHelper,
         TranslatorInterface $translator,
-        FoodSharePointPermissions $fspPermissions
+        FoodSharePointPermissions $fspPermissions,
+        CurrentUserUnitsInterface $currentUserUnitsInterface,
     ) {
         $this->fspPermissions = $fspPermissions;
         parent::__construct(
@@ -68,13 +57,9 @@ class FoodSharePointView extends View
             $sanitizerService,
             $timeHelper,
             $translationHelper,
-            $translator
+            $translator,
+            $currentUserUnitsInterface,
         );
-    }
-
-    public function setRegions(array $regions): void
-    {
-        $this->regions = $regions;
     }
 
     public function setRegion(?array $region): void
@@ -82,21 +67,10 @@ class FoodSharePointView extends View
         $this->region = $region;
     }
 
-    /**
-     * @param Profile[] $managers
-     * @param Profile[] $followers
-     */
-    public function setFoodSharePoint(array $foodSharePoint, array $managers, array $followers): void
-    {
-        $this->foodSharePoint = $foodSharePoint;
-        $this->managers = $managers;
-        $this->followers = $followers;
-    }
-
-    public function foodSharePointHead(): string
+    public function foodSharePointHead($foodSharePoint): string
     {
         return $this->twig->render('pages/FoodSharePoint/foodSharePointTop.html.twig', [
-            'food_share_point' => $this->foodSharePoint,
+            'food_share_point' => $foodSharePoint,
         ]);
     }
 
@@ -136,86 +110,18 @@ class FoodSharePointView extends View
         );
     }
 
-    public function address(): string
+    public function address($foodSharePoint): string
     {
         return $this->vueComponent('fsp-address-field', 'AddressField', [
-            'id' => $this->foodSharePoint['id'],
-            'address' => $this->foodSharePoint['anschrift'],
-            'zipCode' => $this->foodSharePoint['plz'],
-            'city' => $this->foodSharePoint['ort'],
+            'id' => $foodSharePoint['id'],
+            'address' => $foodSharePoint['anschrift'],
+            'zipCode' => $foodSharePoint['plz'],
+            'city' => $foodSharePoint['ort'],
             'coordinates' => [
-                'lat' => $this->foodSharePoint['lat'],
-                'lon' => $this->foodSharePoint['lon']
+                'lat' => $foodSharePoint['lat'],
+                'lon' => $foodSharePoint['lon']
             ]
         ]);
-    }
-
-    public function foodSharePointForm(array $data = []): string
-    {
-        $title = $this->translator->trans('fsp.new');
-
-        $tagselect = '';
-        $latLonOptions = [];
-        if ($data) {
-            $fspName = $this->foodSharePoint['name'];
-            $title = $this->translator->trans('fsp.editName', ['{name}' => $fspName]);
-
-            $tagselect = $this->v_utils->v_form_tagselect('fspmanagers', null,
-                $data['bfoodsaver_values'], $data['bfoodsaver']
-            );
-            $this->pageHelper->addJs('
-			$("#fairteiler-form").on("submit", function (ev) {
-				if ($("#fspmanagers input[type=\'hidden\']").length == 0) {
-					ev.preventDefault();
-					pulseError("' . $this->translator->trans('fsp.noCoordinator') . '");
-				}
-			});');
-
-            foreach (['anschrift', 'plz', 'ort', 'lat', 'lon'] as $i) {
-                $latLonOptions[$i] = $data[$i];
-            }
-            $latLonOptions['location'] = ['lat' => $data['lat'], 'lon' => $data['lon']];
-        } else {
-            $latLonOptions['location'] = ['lat' => MapConstants::CENTER_GERMANY_LAT, 'lon' => MapConstants::CENTER_GERMANY_LON];
-            $data = [
-                'bezirk_id' => null,
-                'name' => '',
-                'desc' => '',
-                'picture' => '',
-            ];
-        }
-
-        // initial value for the image chooser can be empty (no image yet) or an old or new file path
-        $initialValue = '';
-        if (!empty($data['picture'])) {
-            $initialValue = (!str_starts_with((string)$data['picture'], '/api/uploads/') ? '/images/' : '') . $data['picture'];
-        }
-
-        return $this->v_utils->v_field($this->v_utils->v_form('fairteiler', [
-            $this->v_utils->v_form_select('fsp_bezirk_id', ['values' => $this->regions, 'selected' => $data['bezirk_id'], 'required' => true]),
-            $this->v_utils->v_form_text('name', ['value' => $data['name'], 'required' => true]),
-            $this->v_utils->v_form_textarea('desc', [
-                'value' => $data['desc'],
-                'desc' => $this->translator->trans('fsp.descLabel') . '<br>' . $this->translator->trans('formatting.md'),
-                'required' => true,
-            ]),
-            $this->vueComponent('image-upload', 'file-upload-v-form', [
-                'inputName' => 'picture',
-                'isImage' => true,
-                'initialValue' => $initialValue,
-                'imgHeight' => 525,
-                'imgWidth' => 169
-            ]),
-            $this->vueComponent('foodsharepoint-address-search', 'LeafletLocationSearchVForm', [
-                'zoom' => 4,
-                'coordinates' => $latLonOptions['location'],
-                'street' => $latLonOptions['anschrift'] ?? null,
-                'postalCode' => $latLonOptions['plz'] ?? null,
-                'city' => $latLonOptions['ort'] ?? null,
-            ]),
-            $tagselect,
-        ], ['submit' => $this->translator->trans('button.save')]
-        ), $title, ['class' => 'ui-padding']);
     }
 
     public function options(array $items): string
@@ -223,7 +129,7 @@ class FoodSharePointView extends View
         return $this->v_utils->v_menu($items, $this->translator->trans('options'));
     }
 
-    public function followHidden(): string
+    public function followHidden(array $foodSharePoint): string
     {
         $this->pageHelper->addJsFunc('
 			function u_follow () {
@@ -234,7 +140,7 @@ class FoodSharePointView extends View
 			$("#follow-hidden").dialog({
 				modal: true,
 				title: "' . $this->translator->trans('fsp.followName', [
-                    '{name}' => $this->sanitizerService->jsSafe($this->foodSharePoint['name'], '"')
+                    '{name}' => $this->sanitizerService->jsSafe($foodSharePoint['name'], '"')
                 ]) . '",
 				autoOpen: false,
 				width: 500,
@@ -247,9 +153,6 @@ class FoodSharePointView extends View
 			});
 		');
 
-        global $g_data;
-        $g_data['infotype'] = 1;
-
         return '<div id="follow-hidden">' . $this->v_utils->v_form_radio(
             'infotype',
             [
@@ -258,29 +161,30 @@ class FoodSharePointView extends View
                     ['id' => InfoType::BELL, 'name' => $this->translator->trans('fsp.info.bell')],
                     ['id' => InfoType::EMAIL, 'name' => $this->translator->trans('fsp.info.mail')],
                 ]
-            ]
+            ],
+            1
         ) . '</div>';
     }
 
-    public function follower(): string
+    public function follower(array $followers, array $managers): string
     {
         $out = '';
 
-        if (!empty($this->managers)) {
-            shuffle($this->managers);
+        if (!empty($managers)) {
+            shuffle($managers);
             $out .= $this->v_utils->v_field(
                 $this->vueComponent('fsp-managers', 'AvatarList', [
-                    'profiles' => $this->managers,
+                    'profiles' => $managers,
                     'maxVisibleAvatars' => 5,
                 ]),
                 $this->translator->trans('fsp.managers')
             );
         }
-        if (!empty($this->followers)) {
-            shuffle($this->followers);
+        if (!empty($followers)) {
+            shuffle($followers);
             $out .= $this->v_utils->v_field(
                 $this->vueComponent('fsp-followers', 'AvatarList', [
-                    'profiles' => $this->followers,
+                    'profiles' => $followers,
                     'maxVisibleAvatars' => 8,
                 ]),
                 $this->translator->trans('fsp.followers')
@@ -290,10 +194,10 @@ class FoodSharePointView extends View
         return $out;
     }
 
-    public function desc(): string
+    public function desc($foodSharePoint): string
     {
         return $this->v_utils->v_field(
-            '<p>' . $this->sanitizerService->markdownToHtml($this->foodSharePoint['desc']) . '</p>',
+            '<p>' . $this->sanitizerService->markdownToHtml($foodSharePoint['desc']) . '</p>',
             $this->translator->trans('fsp.description'),
             ['class' => 'ui-padding fsp-desc']
         );

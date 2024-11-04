@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Map;
 
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,6 +13,7 @@ class MapController extends FoodsharingController
 {
     public function __construct(
         private readonly MapGateway $mapGateway,
+        private readonly FoodsaverGateway $foodsaverGateway,
     ) {
         parent::__construct();
     }
@@ -21,18 +23,30 @@ class MapController extends FoodsharingController
     {
         $this->pageHelper->addTitle($this->translator->trans('map.title'));
 
+        $ambassadorRegions = [];
+        if (!empty($this->currentUserUnits->isAdminFor(null))) {
+            $ambassadorRegions = $this->foodsaverGateway->getAmbassadorsRegions($this->session->id(), true);
+        }
+
         $params = [
-            'maySeeStores' => $this->session->mayRole(Role::FOODSAVER)
+            'maySeeStores' => $this->session->mayRole(Role::FOODSAVER),
+            'ambassadorRegions' => $ambassadorRegions,
         ];
 
         if ($this->session->mayRole(Role::FOODSAVER) && $request->query->has('bid')) {
             $storeId = intval($request->query->get('bid'));
-            $params['center'] = $this->mapGateway->getStoreLocation($storeId);
-            $params['selectedStoreId'] = $storeId;
+            $location = $this->mapGateway->getStoreLocation($storeId);
+            if (!empty($location)) {
+                $params['center'] = $location;
+                $params['selectedStoreId'] = $storeId;
+            }
         } elseif ($request->query->has('fspId')) {
             $foodSharePointId = intval($request->query->get('fspId'));
-            $params['center'] = $this->mapGateway->getFoodSharePointLocation($foodSharePointId);
-            $params['selectedFoodSharePointId'] = $foodSharePointId;
+            $location = $this->mapGateway->getFoodSharePointLocation($foodSharePointId);
+            if (!empty($location)) {
+                $params['center'] = $location;
+                $params['selectedFoodSharePointId'] = $foodSharePointId;
+            }
         }
 
         $this->pageHelper->addContent($this->prepareVueComponent('map-page', 'MapPage', $params));

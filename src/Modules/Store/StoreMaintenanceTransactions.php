@@ -4,8 +4,10 @@ namespace Foodsharing\Modules\Store;
 
 use DateInterval;
 use DateTime;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Store\DTO\PickupInformation;
 use Foodsharing\Utility\EmailHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -17,15 +19,15 @@ class StoreMaintenanceTransactions
         private readonly PickupTransactions $pickupTransactions,
         private readonly EmailHelper $emailHelper,
         private readonly TranslatorInterface $translator,
-        private readonly FoodsaverGateway $foodsaverGateway
+        private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly SettingsGateway $settingsGateway,
     ) {
     }
 
     public function triggerFetchWarningNotification(): array
     {
         $activeStores = $this->storeGateway->getAllStores(
-            [CooperationStatus::COOPERATION_STARTING,
-            CooperationStatus::COOPERATION_ESTABLISHED]
+            [CooperationStatus::COOPERATION_ESTABLISHED]
         );
 
         $start = new DateTime(); // Now
@@ -35,6 +37,7 @@ class StoreMaintenanceTransactions
         $storesWithNotification = 0;
         $totalCountPickups = 0;
         $totalCountEmptyPickups = 0;
+        $mailsDisabledViaSettings = 0;
 
         foreach ($activeStores as $store) {
             $allPickups = $this->pickupTransactions->getPickupsWithUsersForPickupsInRange($store['id'], $start, $end);
@@ -51,7 +54,13 @@ class StoreMaintenanceTransactions
                 ++$storesWithNotification;
 
                 $storeManagers = $this->storeGateway->getStoreManagers($store['id']);
-                foreach ($storeManagers as $foodsaverId) {
+                $managaerMailSettings = $this->settingsGateway->getUsersOption($storeManagers, UserOptionType::DISABLE_PICKUP_REMINDER);
+                foreach ($managaerMailSettings as $mailsSetting) {
+                    if ($mailsSetting['option']) {
+                        ++$mailsDisabledViaSettings;
+                        continue;
+                    }
+                    $foodsaverId = $mailsSetting['userId'];
                     $foodsavers[] = $foodsaverId;
 
                     $fs = $this->foodsaverGateway->getFoodsaver($foodsaverId);
@@ -73,7 +82,8 @@ class StoreMaintenanceTransactions
             'count_unique_foodsavers' => count(array_unique($foodsavers)),
             'count_warned_foodsavers' => count($foodsavers),
             'count_total_pickups' => $totalCountPickups,
-            'count_total_empty_pickups' => $totalCountEmptyPickups
+            'count_total_empty_pickups' => $totalCountEmptyPickups,
+            'mails_disabled_via_settings' => $mailsDisabledViaSettings,
         ];
     }
 }

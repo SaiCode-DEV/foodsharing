@@ -12,6 +12,7 @@ use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreManagerAmount;
 use Foodsharing\Modules\Store\TeamStatus as UserTeamStatus;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 class StorePermissions
 {
@@ -20,7 +21,8 @@ class StorePermissions
         private readonly Session $session,
         private readonly GroupFunctionGateway $groupFunctionGateway,
         private readonly ProfilePermissions $profilePermissions,
-        private readonly RegionGateway $regionGateway
+        private readonly RegionGateway $regionGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
 
@@ -129,43 +131,6 @@ class StorePermissions
         return $this->mayCoordianteRegionStores($storeId);
     }
 
-    public function mayWriteStoreWall(int $storeId): bool
-    {
-        return $this->mayReadStoreWall($storeId);
-    }
-
-    /**
-     * Can remove any store wallpost, regardless of author and creation time.
-     */
-    public function mayDeleteStoreWall(int $storeId): bool
-    {
-        return $this->session->mayRole(Role::ORGA);
-    }
-
-    /**
-     * Can remove this specific store wallpost right now.
-     */
-    public function mayDeleteStoreWallPost(int $storeId, int $postId): bool
-    {
-        if (!$this->session->mayRole()) {
-            return false;
-        }
-        if ($this->mayDeleteStoreWall($storeId)) {
-            return true;
-        }
-
-        $post = $this->storeGateway->getStoreWallpost($storeId, $postId);
-
-        if (!$post) {
-            return false;
-        }
-        if ($this->session->id() === $post['foodsaver_id']) {
-            return true;
-        }
-
-        return $this->mayEditStore($storeId);
-    }
-
     /**
      * Checks create store permission for current user in session.
      *
@@ -236,10 +201,10 @@ class StorePermissions
         $storeRegion = $this->storeGateway->getStoreRegionId($storeId);
         $storeGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($storeRegion, WorkgroupFunction::STORES_COORDINATION);
         if (empty($storeGroup)) {
-            if ($this->session->isAdminFor($storeRegion)) {
+            if ($this->currentUserUnits->isAdminFor($storeRegion)) {
                 return true;
             }
-        } elseif ($this->session->isAdminFor($storeGroup)) {
+        } elseif ($this->currentUserUnits->isAdminFor($storeGroup)) {
             return true;
         }
 

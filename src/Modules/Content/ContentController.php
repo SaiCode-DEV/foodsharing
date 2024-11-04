@@ -8,7 +8,6 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Permissions\ContentPermissions;
-use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Parsedown;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -47,7 +46,6 @@ class ContentController extends FoodsharingController
         private readonly ContentView $view,
         private readonly ContentGateway $contentGateway,
         private readonly IdentificationHelper $identificationHelper,
-        private readonly DataHelper $dataHelper,
         private readonly ContentPermissions $contentPermissions,
         private readonly RegionTransactions $regionTransactions,
         private readonly RegionGateway $regionGateway,
@@ -74,17 +72,11 @@ class ContentController extends FoodsharingController
             return $this->redirect('/');
         }
 
-        if ($this->identificationHelper->getAction('neu')) {
-            $this->handleAdd();
-
+        if ($this->identificationHelper->getAction('new')) {
             $this->pageHelper->addBread($this->translator->trans('content.bread'), '/content');
             $this->pageHelper->addBread($this->translator->trans('content.new'));
 
-            $this->pageHelper->addContent($this->contentForm(null));
-
-            $this->pageHelper->addContent($this->v_utils->v_field($this->v_utils->v_menu([
-                ['href' => '/content', 'name' => $this->translator->trans('bread.backToOverview')],
-            ]), $this->translator->trans('content.actions')), CNT_RIGHT);
+            $this->pageHelper->addContent($this->prepareVueComponent('content-edit', 'ContentEdit'));
         } elseif ($id = $this->identificationHelper->getActionId('delete')) {
             if ($this->contentGateway->delete($id)) {
                 $this->flashMessageHelper->success($this->translator->trans('content.delete_success'));
@@ -97,14 +89,9 @@ class ContentController extends FoodsharingController
             $this->pageHelper->addBread($this->translator->trans('content.bread'), '/content');
             $this->pageHelper->addBread($this->translator->trans('content.edit'));
 
-            $data = $this->contentGateway->getDetail($id);
-            $this->dataHelper->setEditData($data);
-
-            $this->pageHelper->addContent($this->contentForm($id));
-
-            $this->pageHelper->addContent($this->v_utils->v_field($this->v_utils->v_menu([
-                ['href' => '/content', 'name' => $this->translator->trans('bread.backToOverview')],
-            ]), $this->translator->trans('content.actions')), CNT_RIGHT);
+            $this->pageHelper->addContent(
+                $this->prepareVueComponent('content-edit', 'ContentEdit', ['contentId' => $id])
+            );
         } elseif ($id = $this->identificationHelper->getActionId('view')) {
             $this->addContent($id);
         } elseif (isset($_GET['id'])) {
@@ -112,7 +99,7 @@ class ContentController extends FoodsharingController
         } else {
             $this->pageHelper->addBread($this->translator->trans('content.public'), '/content');
 
-            $this->pageHelper->addContent($this->view->vueComponent('content-list', 'ContentList', [
+            $this->pageHelper->addContent($this->prepareVueComponent('content-list', 'ContentList', [
                 'mayEditContent' => $this->contentPermissions->mayEditContent(),
                 'mayCreateContent' => $this->contentPermissions->mayCreateContent(),
             ]));
@@ -139,7 +126,8 @@ class ContentController extends FoodsharingController
     {
         $this->pageHelper->addBread($this->translator->trans('startpage.join'));
         $this->pageHelper->addTitle($this->translator->trans('startpage.join_rules'));
-        $this->pageHelper->addContent($this->view->joininfo());
+
+        $this->pageHelper->addContent($this->prepareVueComponent('vue-join-info', 'JoinInfo'));
 
         return $this->renderGlobal();
     }
@@ -147,7 +135,8 @@ class ContentController extends FoodsharingController
     public function releaseNotes(): Response
     {
         $releaseIds = [
-            '2024-07',
+            '2024-12',
+            '2024-08',
             '2024-04',
             '2024-01',
             '2023-09',
@@ -169,7 +158,7 @@ class ContentController extends FoodsharingController
         ], $releaseIds);
         $releaseList[0]['visible'] = true;
 
-        $this->pageHelper->addContent($this->view->vueComponent('vue-release-notes', 'ReleaseNotes', [
+        $this->pageHelper->addContent($this->prepareVueComponent('vue-release-notes', 'ReleaseNotes', [
             'releaseList' => $releaseList,
         ]));
 
@@ -201,64 +190,6 @@ class ContentController extends FoodsharingController
         ]));
 
         return $this->renderGlobal();
-    }
-
-    private function contentForm(int $contentId = null, string $titleKey = 'contentmanagement'): string
-    {
-        $title = $this->translator->trans($titleKey);
-
-        return $this->v_utils->v_form('faq', [
-            $this->v_utils->v_field(
-                $this->v_utils->v_form_text('name', ['required' => true]) .
-                $this->v_utils->v_form_text('title', ['required' => true]),
-                $title,
-                ['class' => 'ui-padding']
-            ),
-            $this->v_utils->v_field(
-                $this->v_utils->v_form_tinymce('body', [
-                    'public_content' => true,
-                    'nowrapper' => true,
-                ]),
-                $this->translator->trans('content.content')
-            ),
-            '<a class="button btn btn-primary" onclick="_editContent(' . $contentId . ');return false;">' . $this->translator->trans('button.save') . '</a>'
-        ], [
-            'submit' => false,
-            'action' => '#'
-        ]);
-    }
-
-    private function handleEdit(): void
-    {
-        global $g_data;
-        if ($this->submitted()) {
-            $g_data['last_mod'] = date('Y-m-d H:i:s');
-            if ($this->contentGateway->update($_GET['id'], $g_data)) {
-                $this->flashMessageHelper->success($this->translator->trans('content.edit_success'));
-                $this->routeHelper->goAndExit('/content?a=edit&id=' . (int)$_GET['id']);
-            } else {
-                $this->flashMessageHelper->error($this->translator->trans('error_unexpected'));
-            }
-        }
-    }
-
-    private function handleAdd(): void
-    {
-        global $g_data;
-        if ($this->submitted()) {
-            $g_data['last_mod'] = date('Y-m-d H:i:s');
-            if ($this->contentGateway->create($g_data)) {
-                $this->flashMessageHelper->success($this->translator->trans('content.new_success'));
-                $this->routeHelper->goPageAndExit();
-            } else {
-                $this->flashMessageHelper->error($this->translator->trans('error_unexpected'));
-            }
-        }
-    }
-
-    private function submitted(): bool
-    {
-        return !empty($_POST);
     }
 
     private function getNotes(string $filename): string
@@ -295,10 +226,12 @@ class ContentController extends FoodsharingController
 
     private function addContent(int $contentId): void
     {
-        if ($cnt = $this->contentGateway->get($contentId)) {
-            $this->pageHelper->addBread($cnt['title']);
-            $this->pageHelper->addTitle($cnt['title']);
-            $this->pageHelper->addContent($this->view->simple($cnt));
+        $content = $this->contentGateway->getContent($contentId);
+        if ($content) {
+            $this->pageHelper->addTitle($content->title);
+            $this->pageHelper->addContent($this->prepareVueComponent('vue-content', 'ContentEntry', [
+                'id' => $contentId
+            ]));
         }
     }
 

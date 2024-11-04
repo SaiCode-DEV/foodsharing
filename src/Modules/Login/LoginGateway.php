@@ -58,6 +58,11 @@ class LoginGateway extends BaseGateway
         return $fsid;
     }
 
+    public function getLastLogin(int $fsId): string
+    {
+        return $this->db->fetchValueByCriteria('fs_foodsaver', 'last_login', ['id' => $fsId]);
+    }
+
     public function isActivated(int $fsId): bool
     {
         $isActivated = $this->db->fetchValueByCriteria('fs_foodsaver', 'active', ['id' => $fsId]);
@@ -78,7 +83,7 @@ class LoginGateway extends BaseGateway
 
         $user = $this->db->fetchByCriteria(
             'fs_foodsaver',
-            ['id', 'password', 'bezirk_id', 'admin', 'orgateam', 'photo'],
+            ['id', 'password'],
             ['email' => $email, 'deleted_at' => null]
         );
 
@@ -153,14 +158,9 @@ class LoginGateway extends BaseGateway
         }
 
         $this->db->delete('fs_pass_request', ['foodsaver_id' => (int)$fsid]);
+        $this->setPassword((int)$fsid, (string)$data['pass1']);
 
-        return $this->db->update(
-            'fs_foodsaver',
-            [
-                'password' => strip_tags((string)$this->password_hash($data['pass1']))
-            ],
-            ['id' => (int)$fsid]
-        );
+        return true;
     }
 
     public function getMailActivationData(int $fsId): array
@@ -209,5 +209,12 @@ class LoginGateway extends BaseGateway
         }
 
         return $key;
+    }
+
+    public function setPassword(int $userId, string $password): void
+    {
+        $this->db->update('fs_foodsaver', [
+            'password' => strip_tags($this->password_hash($password))
+        ], ['id' => $userId]);
     }
 }

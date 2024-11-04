@@ -41,6 +41,9 @@ class RegionForAdministration
     #[OA\Property(example: 4, description: 'Identifier of the GOALS working group function')]
     public int $workgroupFunction = 0;
 
+    #[OA\Property(example: false, description: 'Whether moderators of the region are allowed to delete forum posts')]
+    public bool $allowHidingInForum = false;
+
     public static function createFromArray(array $data)
     {
         $region = new RegionForAdministration();

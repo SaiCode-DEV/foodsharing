@@ -11,6 +11,7 @@ Vue.use(BootstrapVue)
 Vue.use(Vuelidate)
 Vue.use(PiniaVuePlugin)
 const pinia = createPinia()
+Vue.use(pinia)
 
 Vue.prototype.$i18n = (key, variables = {}) => {
   return i18n(key, variables)

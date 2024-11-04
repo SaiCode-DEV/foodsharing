@@ -145,21 +145,10 @@
             "todos": [
                 "bezirk_id ('home district') is 0 for a lot of users. Should be NULL. As we don't need this soon in new backend, care later.",
                 "Document: Add to database as column (deleted_at) comment: `deleted_at`: deletion day of account, if `NULL`, account is active",
-                "new_bezirk: Could be removed? Currently no usage found. (unset in SettingsControl and initial_migration)",
-                "want_new: Could be removed? Currently no usage found. (initial_migration)",
                 "Clarify: Is it possible that a community member is in the role ogra or site_admin and not part of the orga team?",
                 "Drop unused columns from database and remove rests from codebase"
             ],
             "columns": {
-                "new_bezirk": {
-                    "description": "**Unused**"
-                },
-                "want_new": {
-                    "description": "**Unused**"
-                },
-                "admin": {
-                    "description": "**Unused? I think replaced by SITE_ADMIN role. Found it only in SELECT but no write and Foodsharing Test helper createOrga sets two fields with simular values.**"
-                },
                 "active": {
                     "description": "E-Mail activation after registration is completed (True: E-Mail is verified, False: verification e-mail feedback is pending)"
                 },
@@ -189,9 +178,6 @@
                 },
                 "position": {
                     "description": "Free text description of position in foodsharing community (public visible)"
-                },
-                "type": {
-                    "description": "**Unused? I only found one SELECT but no write**"
                 },
                 "id": {
                     "description": "Unique id of user in foodsharing community"
@@ -270,14 +256,8 @@
                 "last_login": {
                     "description": "Timestamp of the last successful login."
                 },
-                "contact_public": {
-                    "description": "**Unused (Hidden feature) User can be contacted public via mail form.**"
-                },
                 "option": {
                     "description": "key value store (deactivated activity-listings)"
-                },
-                "beta": {
-                    "description": "**Unused? NO referene in code found.**"
                 },
                 "deleted_at": {
                     "description": "Date of accounts was deleted."
@@ -317,9 +297,6 @@
                 },
                 "stat_fetchrate": {
                     "description": "(1 - 'confirmed but missed fetchs' / 'confirmed fetches') * 100 in procent "
-                },
-                "data": {
-                    "description": "**Unused??**"
                 },
                 "quiz_rolle": {
                     "description": "@Foodsaver::Role of quiz that the user have already successful done. (Hard coded levels exist: Role::AMBASSADOR, Role::STORE_MANAGER, Role::FOODSAVER)"

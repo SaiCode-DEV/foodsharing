@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Core;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Lib\View\Utils;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\ImageHelper;
@@ -47,7 +48,8 @@ class View
         Sanitizer $sanitizerService,
         TimeHelper $timeHelper,
         TranslationHelper $translationHelper,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        protected readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
         $this->twig = $twig;
         $this->session = $session;
@@ -81,20 +83,6 @@ class View
 			' . $subtitle . '
 			<div class="clear"></div>
 		</div>';
-    }
-
-    public function location($location)
-    {
-        $out = $this->v_utils->v_field('
-		<p>' . $location['name'] . '</p>
-		<p>
-			' . $location['street'] . '<br />
-			' . $location['zip'] . ' ' . $location['city'] . '
-		</p>
-
-		', 'Ort', ['class' => 'ui-padding event-location']);
-
-        return $out;
     }
 
     public function menu(array $items, array $option = []): string

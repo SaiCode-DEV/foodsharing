@@ -2,109 +2,66 @@
 
 namespace Foodsharing\Modules\Application;
 
+use Foodsharing\Modules\Application\DTO\WorkingGroupApplication;
 use Foodsharing\Modules\Core\BaseGateway;
 
 class ApplicationGateway extends BaseGateway
 {
+    private const STATUS_NOT_ACTIVE = 0;
     private const STATUS_ACTIVE = 1;
 
-    public function getApplication($regionId, $fsId)
+    /**
+     * Returns the open application that a user sent to a working group, or null if the user did not apply to that group
+     * or if the application was already accepted.
+     */
+    public function getApplication(int $regionId, int $fsId): ?WorkingGroupApplication
     {
         $stm = '
 			SELECT 	fs.`id`,
 					fs.`name`,
-					fs.`nachname`,
+					fs.`is_sleeping`,
 					fs.`photo`,
-					fb.application,
-					fb.active
-
+					fb.application
 			FROM 	`fs_foodsaver_has_bezirk` fb,
 					`fs_foodsaver` fs
-				
 			WHERE 	fb.foodsaver_id = fs.id
 			AND 	fb.bezirk_id =  :region_id
-
+			AND     fb.active = :not_active
 			AND 	fb.foodsaver_id = :foodsaver_id
 		';
+        $data = $this->db->fetch($stm, [':region_id' => $regionId, ':foodsaver_id' => $fsId, ':not_active' => self::STATUS_NOT_ACTIVE]);
 
-        return $this->db->fetch($stm, [':region_id' => $regionId, ':foodsaver_id' => $fsId]);
+        return empty($data) ? null : WorkingGroupApplication::create($regionId, $data);
     }
 
-    public function acceptApplication($regionId, $foodsaverId): void
+    /**
+     * Makes the user an active group member. This has no effect if the user did not apply or if the user already is an
+     * active group member.
+     */
+    public function acceptApplication(int $regionId, int $foodsaverId): void
     {
         $this->updateActivityStatus($regionId, $foodsaverId, self::STATUS_ACTIVE);
     }
 
-    public function denyApplication($regionId, $foodsaverId): void
+    /**
+     * Deletes a user's application. This has no effect if the user did not apply or if the user already is an active
+     * group member.
+     */
+    public function denyApplication(int $regionId, int $foodsaverId): void
     {
-        $this->db->delete('fs_foodsaver_has_bezirk', ['bezirk_id' => (int)$regionId, 'foodsaver_id' => (int)$foodsaverId]);
+        $this->db->delete('fs_foodsaver_has_bezirk', [
+            'bezirk_id' => $regionId,
+            'foodsaver_id' => $foodsaverId,
+            'active' => self::STATUS_NOT_ACTIVE,
+        ]);
     }
 
-    private function updateActivityStatus($regionId, $foodsaverId, $value): int
+    private function updateActivityStatus(int $regionId, int $foodsaverId, int $value): void
     {
-        return $this->db->update(
+        $this->db->update(
             'fs_foodsaver_has_bezirk',
             ['active' => $value],
-            ['bezirk_id' => (int)$regionId, 'foodsaver_id' => (int)$foodsaverId]
+            ['bezirk_id' => $regionId, 'foodsaver_id' => $foodsaverId]
         );
-    }
-
-    public function getRegion($id = false)
-    {
-        $stm = '
-			SELECT
-				`id`,
-				`name`,
-				`email`,
-				`email_name`,
-				`type`,
-				`stat_fetchweight`,
-				`stat_fetchcount`,
-				`stat_fscount`,
-				`stat_botcount`,
-				`stat_postcount`,
-				`stat_betriebcount`,
-				`stat_korpcount`
-	
-			FROM 	`fs_bezirk`
-	
-			WHERE 	`id` = :id
-			LIMIT 1
-		';
-
-        $region = $this->db->fetch($stm, [':id' => $id]);
-
-        $stm = '
-			SELECT 	fs.`id`,
-					fs.`photo`,
-					fs.`name`,
-					fs.`nachname`
-	
-			FROM 	`fs_foodsaver` fs,
-					`fs_foodsaver_has_bezirk` c
-	
-			WHERE 	c.`foodsaver_id` = fs.id
-			AND 	c.bezirk_id = :id
-			AND 	c.active = 1
-		';
-        $region['foodsaver'] = $this->db->fetchAll($stm, [':id' => $id]);
-
-        $region['fs_count'] = \count($region['foodsaver']);
-
-        $stm = '
-			SELECT 	fs.`id`,
-					fs.`photo`,
-					fs.`name`,
-					fs.`nachname`
-	
-			FROM 	`fs_foodsaver` fs,
-					`fs_botschafter` c
-	
-			WHERE 	c.`foodsaver_id` = fs.id
-			AND 	c.bezirk_id = :id
-		';
-        $region['botschafter'] = $this->db->fetchAll($stm, [':id' => $id]);
-
-        return $region;
     }
 }

@@ -3,7 +3,9 @@
 namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\Pagination;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
+use FOS\RestBundle\Request\ParamFetcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -39,7 +41,7 @@ abstract class AbstractFoodsharingRestController extends AbstractFOSRestControll
     protected function assertLoggedIn(): void
     {
         if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('Not logged in');
+            throw new UnauthorizedHttpException('', 'Not logged in');
         }
     }
 
@@ -58,5 +60,29 @@ abstract class AbstractFoodsharingRestController extends AbstractFOSRestControll
     protected function respondOK(mixed $data = null): Response
     {
         return $this->handleView($this->view($data, Response::HTTP_OK));
+    }
+
+    protected function getPagination(ParamFetcher $paramFetcher, int $maxPageSize = 100): Pagination
+    {
+        $limit = $paramFetcher->get('limit');
+        $offset = $paramFetcher->get('offset');
+
+        foreach (['limit', 'offset'] as $param) {
+            if (!is_numeric($$param)) {
+                throw new \InvalidArgumentException("The {$param} parameter must be a numeric value.");
+            }
+            $$param = intval($$param);
+            if ($$param < 0) {
+                throw new \InvalidArgumentException("The {$param} parameter must non be negative.");
+            }
+        }
+        if ($limit > $maxPageSize) {
+            throw new \InvalidArgumentException("The limit parameter must non be larger than {$maxPageSize}.");
+        }
+        $pagination = new Pagination();
+        $pagination->pageSize = $limit;
+        $pagination->offset = $offset;
+
+        return $pagination;
     }
 }

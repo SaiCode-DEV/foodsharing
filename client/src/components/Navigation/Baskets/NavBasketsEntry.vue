@@ -46,7 +46,7 @@
       class="testing-basket-requests w-100 img-thumbnail mt-1 d-flex align-items-center justify-content-between truncated"
       @click.prevent="openChat(entry.user.id, $event)"
     >
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center confirm-basket-dialog">
         <Avatar
           class="mr-2"
           :user="entry.user"
@@ -60,10 +60,10 @@
       <button
         v-b-tooltip.left="$i18n('basket.request_close')"
         :title="$i18n('basket.request_close')"
-        class="testing-basket-requests-close btn btn-sm btn-outline-danger"
+        class="testing-basket-requests-close btn btn-sm btn-outline-secondary"
         @click.prevent.stop="openRemoveDialog(entry.user.id, $event)"
       >
-        <i class="fas fa-times" />
+        <i class="fas fa-check" />
       </button>
     </button>
   </a>
@@ -102,5 +102,8 @@ export default {
 .time-ago {
   color: var(--fs-color-grey-alpha-40);
   margin-left: 1rem;
+}
+.confirm-basket-dialog {
+  color: var(--fs-color-primary-900);
 }
 </style>

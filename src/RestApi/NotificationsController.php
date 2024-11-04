@@ -3,6 +3,7 @@
 namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointTransactions;
@@ -11,34 +12,37 @@ use Foodsharing\Modules\Region\ForumTransactions;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
+use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\RestApi\Models\Notifications\FoodSharePoint;
+use Foodsharing\RestApi\Models\Notifications\Mention;
 use Foodsharing\RestApi\Models\Notifications\NewsletterChat;
+use Foodsharing\RestApi\Models\Notifications\PickupReminder;
 use Foodsharing\RestApi\Models\Notifications\Region;
 use Foodsharing\RestApi\Models\Notifications\Thread;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes\Items;
 use OpenApi\Attributes\JsonContent;
+use OpenApi\Attributes\Patch;
 use OpenApi\Attributes\RequestBody;
 use OpenApi\Attributes\Response;
 use OpenApi\Attributes\Tag;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class NotificationsController extends AbstractFOSRestController
+class NotificationsController extends AbstractFoodsharingRestController
 {
     public function __construct(
-        private readonly Session $session,
+        protected Session $session,
         private readonly ForumFollowerGateway $forumFollowerGateway,
         private readonly FoodSharePointGateway $foodSharePointGateway,
         private readonly RegionGateway $regionGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly SettingsGateway $settingsGateway,
+        private readonly SettingsTransactions $settingsTransactions,
         private readonly FoodSharePointTransactions $foodSharePointTransactions,
         private readonly ForumTransactions $forumTransactions,
         private readonly RegionTransactions $regionTransactions
@@ -53,23 +57,22 @@ class NotificationsController extends AbstractFOSRestController
     #[Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
     #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
     #[Response(response: HttpResponse::HTTP_BAD_REQUEST, description: 'Target not found')]
-    public function getNotifications(string $target): JsonResponse
+    public function getNotifications(string $target)
     {
+        $this->assertLoggedIn();
         $userId = $this->session->id();
-        if (!$userId) {
-            throw new UnauthorizedHttpException('');
-        }
-
         $notifications = match ($target) {
             'forum' => $this->forumFollowerGateway->getEmailSubscribedThreadsForUser($userId),
             'foodsharepoints' => $this->foodSharePointGateway->listFoodsaversFoodSharePoints($userId),
             'regions' => $this->regionGateway->listForFoodsaverExceptWorkingGroups($userId),
             'user' => $this->foodsaverGateway->getSubscriptions($userId),
             'groups' => $this->regionGateway->listForFoodsaverExceptWorkingGroups($userId, false),
+            'pickupreminder' => !$this->settingsTransactions->getOption(UserOptionType::DISABLE_PICKUP_REMINDER),
+            'mention' => !$this->settingsTransactions->getOption(UserOptionType::DISABLE_MENTION_NOTIFICATION),
             default => throw new BadRequestHttpException(),
         };
 
-        return $this->json($notifications, 200);
+        return $this->respondOK($notifications);
     }
 
     /**
@@ -202,5 +205,38 @@ class NotificationsController extends AbstractFOSRestController
         $this->settingsGateway->saveInfoSettings($userId, $newsletterChat);
 
         return $this->handleView($this->view([], HttpResponse::HTTP_OK));
+    }
+
+    #[Tag('notifications')]
+    #[Rest\Patch(path: 'notifications/pickupreminder')]
+    #[Patch(summary: 'Activate or pickup reminder mail.')]
+    #[Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
+    #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
+    #[RequestBody(content: new Model(type: PickupReminder::class))]
+    #[ParamConverter(data: 'pickupReminder', class: PickupReminder::class, converter: 'fos_rest.request_body')]
+    public function setPickupReminderNotification(PickupReminder $pickupReminder, ValidatorInterface $validator): HttpResponse
+    {
+        $this->assertLoggedIn();
+        $this->assertThereAreNoValidationErrors($validator, $pickupReminder);
+
+        $this->settingsTransactions->setOption(UserOptionType::DISABLE_PICKUP_REMINDER, !$pickupReminder->sendMail);
+
+        return $this->respondOK($pickupReminder);
+    }
+
+    #[Tag('notifications')]
+    #[Rest\Patch(path: 'notifications/mention')]
+    #[Patch(summary: 'Activate or disable the mention notifications.')]
+    #[Response(response: HttpResponse::HTTP_OK, description: 'Successful')]
+    #[Response(response: HttpResponse::HTTP_FORBIDDEN, description: 'Forbidden')]
+    #[RequestBody(content: new Model(type: Mention::class))]
+    #[ParamConverter(data: 'mention', class: Mention::class, converter: 'fos_rest.request_body')]
+    public function setMentionNotification(Mention $mention, ValidatorInterface $validator): HttpResponse
+    {
+        $this->assertLoggedIn();
+        $this->assertThereAreNoValidationErrors($validator, $mention);
+        $this->settingsTransactions->setOption(UserOptionType::DISABLE_MENTION_NOTIFICATION, !$mention->mention);
+
+        return $this->respondOK($mention);
     }
 }

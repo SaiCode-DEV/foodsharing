@@ -28,18 +28,23 @@ class QuizCest
     }
 
     /**
-     * @example["foodsharer", "Werde Foodsaver:in",  "Quiz ohne Zeitlimit", "Quiz ohne Zeitlimit"]
-     * @example["foodsaver", "Werde Betriebsverantwortliche:r", "Quiz mit Zeitlimit", "Quiz jetzt starten"]
+     * @example["foodsharer", "Foodsaver:innen Quiz", "Quiz ohne Zeitlimit", "Quiz ohne Zeitlimit"]
+     * @example["foodsaver", "Betriebsverantwortlichen Quiz", "Quiz mit Zeitlimit", "Quiz jetzt starten"]
      */
     public function canStartQuiz(AcceptanceTester $I, Example $example): void
     {
         $I->login($this->{$example[0]}['email']);
         $I->amOnPage($I->settingsUrl());
+        $I->see($example[1]);
 
-        $I->click($example[1]);
         $quizRole = $this->{$example[0]}['rolle'] + 1;
 
-        $I->seeCurrentUrlEquals('/?page=settings&sub=rise_role&role=' . $quizRole);
+        $id = $this->{$example[0]}['id'];
+        $quizUrl = '/user/' . $id . '/settings?sub=rise_role&role=' . $quizRole;
+        $I->amOnPage($quizUrl);
+
+        $I->seeCurrentUrlEquals($quizUrl);
+        $I->click($example[1]);
         $I->waitForActiveAPICalls();
 
         $I->waitForText('Jetzt das Quiz durchführen!');

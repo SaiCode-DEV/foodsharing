@@ -1,6 +1,6 @@
 <template>
   <!-- TODO unify with wall post -->
-  <li
+  <div
     class="list-group-item activity-post"
   >
     <div
@@ -145,7 +145,7 @@
         v-text="$i18n(translationKey, [source])"
       />
     </div>
-  </li>
+  </div>
 </template>
 
 <script>

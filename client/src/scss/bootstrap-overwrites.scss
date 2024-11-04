@@ -62,3 +62,8 @@ code.key {
     position: sticky !important;
   }
 
+.input-group-prepend label {
+    background-color: var(--fs-color-primary-200);
+    color: var(--fs-color-primary-800) !important;
+    border: 1px solid var(--fs-color-primary-300);
+}

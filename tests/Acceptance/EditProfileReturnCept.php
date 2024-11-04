@@ -20,10 +20,10 @@ $I->addRegionMember($region['id'], $member['id']);
 
 $I->login($ambassador['email']);
 
-$I->amOnPage('/?page=foodsaver&a=edit&id=' . $member['id']);
+$I->amOnPage('/user/' . $member['id'] . '/settings');
 
-$I->see('Zurück zum Profil');
-$I->see($member['name']);
+$I->seeInField('#input-lastname', $member['nachname']);
+
+// ToDo: is this in frontend needed?
 $I->click('Zurück zum Profil');
-
 $I->seeCurrentUrlEquals('/user/' . $member['id'] . '/profile');

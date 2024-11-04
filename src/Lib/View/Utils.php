@@ -2,37 +2,21 @@
 
 namespace Foodsharing\Lib\View;
 
-use Foodsharing\Utility\DataHelper;
 use Foodsharing\Utility\IdentificationHelper;
 use Foodsharing\Utility\PageHelper;
 use Foodsharing\Utility\RouteHelper;
-use Symfony\Contracts\Service\Attribute\Required;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Environment;
 
 class Utils
 {
     private array $id = []; // TODO shouldn't this be a string?
-    private Environment $twig;
 
     public function __construct(
         private readonly PageHelper $pageHelper,
         private readonly RouteHelper $routeHelper,
         private readonly IdentificationHelper $identificationHelper,
-        private readonly DataHelper $dataHelper,
         private readonly TranslatorInterface $translator
     ) {
-    }
-
-    #[Required]
-    public function setTwig(Environment $twig): void
-    {
-        $this->twig = $twig;
-    }
-
-    public function v_quickform(string $title, array $elements, array $option = []): string
-    {
-        return $this->v_field('<div class="v-form">' . $this->v_form($title, $elements, $option) . '</div>', $title);
     }
 
     private function v_statusMessage(string $type, string $msg, string $title, string $icon): string
@@ -51,97 +35,6 @@ class Utils
         $icon = $icon ?: '<i class="fas fa-info-circle"></i>';
 
         return $this->v_statusMessage('info', $msg, $title, $icon);
-    }
-
-    // TODO clean up $value type handling
-    public function v_form_time(string $id, $value = false): string
-    {
-        if ($value == false) {
-            $value = [];
-            $value['hour'] = 20;
-            $value['min'] = 0;
-        } elseif (!is_array($value)) {
-            $v = explode(':', (string)$value);
-            $value = ['hour' => $v[0], 'min' => $v[1]];
-        }
-        $id = $this->identificationHelper->id($id);
-        $hours = range(0, 23);
-        $mins = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
-
-        $out = '<select name="' . $id . '[hour]">';
-
-        foreach ($hours as $h) {
-            $sel = '';
-            if ($h == $value['hour']) {
-                $sel = ' selected="selected"';
-            }
-            $out .= '<option' . $sel . ' value="' . $h . '">' . sprintf('%02d', $h) . '</option>';
-        }
-        $out .= '</select>';
-
-        $out .= '<select name="' . $id . '[min]">';
-
-        foreach ($mins as $m) {
-            $sel = '';
-            if ($m == $value['min']) {
-                $sel = ' selected="selected"';
-            }
-            $out .= '<option' . $sel . ' value="' . $m . '">' . sprintf('%02d', $m) . '</option>';
-        }
-        $out .= '</select>' . $this->translator->trans('date.time', ['{time}' => '']);
-
-        return $out;
-    }
-
-    public function v_form_tinymce(string $id, array $option = []): string
-    {
-        $id = $this->identificationHelper->id($id);
-        $label = $option['label'] ?? $this->translator->trans($id);
-        $value = $this->dataHelper->getValue($id);
-
-        $this->pageHelper->addStyle('div#content {width: 580px;} div#right {width: 222px;}');
-
-        $css = 'css/content.css,css/jquery-ui.css';
-        $class = 'ui-widget ui-widget-content ui-padding';
-        if (isset($option['public_content'])) {
-            $class = 'post';
-        }
-
-        $plugins = ['autoresize', 'link', 'image', 'media', 'table', 'paste', 'code', 'advlist', 'autolink', 'lists', 'charmap', 'print', 'preview', 'hr', 'anchor', 'pagebreak', 'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'insertdatetime', 'nonbreaking', 'directionality', 'emoticons', 'textcolor'];
-        $toolbar = ['styleselect', 'bold italic', 'alignleft aligncenter alignright', 'bullist outdent indent', 'media image link', 'paste', 'code'];
-        $addOpt = '';
-
-        if (isset($option['type']) && $option['type'] == 'email') {
-            $css = 'css/email.css';
-            $class = '';
-        }
-
-        $js = '
-		$("#' . $id . '").tinymce({
-			script_url: "./assets/tinymce/tinymce.min.js",
-			theme: "modern",
-			language: "de",
-			content_css: "' . $css . '",
-			body_class: "' . $class . '",
-			menubar: false,
-			statusbar: false,
-			plugins: "' . implode(' ', $plugins) . '",
-			toolbar: "' . implode(' | ', $toolbar) . '",
-			relative_urls: false,
-			valid_elements: "a[href|name|target=_blank|class|style],span,strong,b,div[align|class],br,i,p[class],ul[class],li[class],ol,h1,h2,h3,h4,h5,h6,table,tr,td[valign=top|align|style],th,tbody,thead,tfoot,img[src|width|name|class]",
-			convert_urls: false' . $addOpt . '
-		});';
-
-        $this->pageHelper->addJs($js);
-
-        return $this->v_input_wrapper($label, '<textarea name="' . $id . '" id="' . $id . '">' . $value . '</textarea>', $id, $option);
-    }
-
-    public function v_form_hidden(string $name, $value): string
-    {
-        $id = $this->identificationHelper->id($name);
-
-        return '<input type="hidden" id="' . $id . '" name="' . $name . '" value="' . $value . '" />';
     }
 
     public function v_form(string $name, array $elements, array $option = []): string
@@ -259,173 +152,15 @@ class Utils
 			</div>';
     }
 
-    public function v_tablesorter($head, $data, array $option = []): string
-    {
-        $params = [
-            'nohead' => isset($option['noHead']) && $option['noHead'],
-            'pager' => isset($option['pager']) && $option['pager'],
-            'head' => $head,
-            'data' => $data
-        ];
-
-        return $this->twig->render('partials/tablesorter.twig', $params);
-    }
-
-    public function v_form_textarea(string $id, array $option = []): string
-    {
-        $id = $this->identificationHelper->id($id);
-        if (isset($option['value'])) {
-            $value = $option['value'];
-        } else {
-            $value = $this->dataHelper->getValue($id);
-        }
-
-        $value = htmlspecialchars((string)$value);
-
-        $label = $this->translator->trans($id);
-
-        $style = '';
-        if (isset($option['style'])) {
-            $style = ' style="' . $option['style'] . '"';
-        }
-
-        $maxlength = '';
-        if (isset($option['maxlength'])) {
-            $maxlength = ' maxlength="' . (int)$option['maxlength'] . '"';
-        }
-
-        $ph = '';
-        if (isset($option['placeholder'])) {
-            $ph = ' placeholder="' . $option['placeholder'] . '"';
-        } elseif (isset($option['maxlength'])) {
-            $ph = ' placeholder="maximal ' . $option['maxlength'] . ' Zeichen..."';
-        }
-
-        return $this->v_input_wrapper(
-            $label,
-            '<textarea' . $style . $maxlength . $ph . ' class="input textarea value" name="' . $id . '" id="' . $id . '">' . $value . '</textarea>',
-            $id,
-            $option
-        );
-    }
-
-    /*
-     * This method outputs a checkbox input with different possibilities on how to define values and checked values.
-     *
-     * for example:
-     * $g_data[$id => ['list', 'of', 'checked', 'values']]
-     *
-     * $option = ['values' => ['list', 'of', 'possible', 'values']];
-     */
-    public function v_form_checkbox(string $id, array $option = []): string
-    {
-        $id = $this->identificationHelper->id($id);
-
-        if (isset($option['checked'])) {
-            $value = $option['checked'];
-        } else {
-            $value = $this->dataHelper->getValue($id);
-        }
-        $label = $this->translator->trans($id);
-
-        if (isset($option['values'])) {
-            $values = $option['values'];
-        } else {
-            $values = [];
-        }
-
-        $checked = [];
-        if (is_array($value)) {
-            foreach ($value as $key => $ch) {
-                $checked[$ch] = true;
-            }
-        } elseif ($value == 1) {
-            $checked[1] = true;
-        }
-        $out = '';
-        if (!empty($values)) {
-            foreach ($values as $v) {
-                $sel = '';
-                if (isset($checked[$v['id']]) || isset($option['checkall'])) {
-                    $sel = ' checked="checked"';
-                }
-                $v['name'] = trim((string)$v['name']);
-                if (!empty($v['name'])) {
-                    $out .= '
-					<label><input class="input cb-' . $id . '" type="checkbox" name="' . $id . '[]" value="' . $v['id'] . '"' . $sel . ' />&nbsp;' . $v['name'] . '</label><br />';
-                }
-            }
-        }
-
-        return $this->v_input_wrapper($label, $out, $id, $option);
-    }
-
-    public function v_form_tagselect(string $id, ?string $label = null, ?array $valueOptions = null, ?array $values = null): string
-    {
-        $label ??= $this->translator->trans($id);
-
-        if (is_null($valueOptions)) {
-            $source = 'autocompleteURL: async function (request, response) {
-			  let data = null
-			  try {
-				data = await searchUser(request.term)
-			  } catch (e) {
-			  }
-			  response(data)
-			}';
-        } else {
-            $source = 'autocompleteOptions: {
-				source: ' . json_encode($valueOptions) . ',
-				minLength: 3
-			}';
-        }
-
-        $this->pageHelper->addJs('
-			$("#' . $id . ' input.tag").tagedit({
-				' . $source . ',
-				allowEdit: false,
-				allowAdd: false,
-				animSpeed: 100
-			});
-
-			$("#' . $id . '").on("keydown", function (event) {
-				if (event.keyCode == 13) {
-					event.preventDefault();
-					return false;
-				}
-			});
-		');
-
-        $input = '<input type="text" name="' . $id . '[]" value="" class="tag input text value" />';
-        $values ??= $this->dataHelper->getValue($id);
-
-        if ($values) {
-            $input = '';
-            foreach ($values as $v) {
-                $input .= '<input type="text" name="' . $id . '[' . $v['id'] . '-a]" value="' . $v['name'] . '" class="tag input text value" />';
-            }
-        }
-
-        return $this->v_input_wrapper($label, '<div id="' . $id . '">' . $input . '</div>', $id, []);
-    }
-
-    public function v_form_radio(string $id, array $option = []): string
+    public function v_form_radio(string $id, array $option = [], $selectedDefault = ''): string
     {
         $id = $this->identificationHelper->id($id);
         $label = $this->translator->trans($id);
 
-        $check = $this->jsValidate($option, $id, $label);
+        $this->jsValidate($option, $id, $label);
 
-        if (isset($option['selected'])) {
-            $selected = $option['selected'];
-        } else {
-            $selected = $this->dataHelper->getValue($id);
-        }
-        if (isset($option['values'])) {
-            $values = $option['values'];
-        } else {
-            $values = [];
-        }
+        $selected = $option['selected'] ?? $selectedDefault;
+        $values = $option['values'] ?? [];
 
         $disabled = '';
         if (isset($option['disabled']) && $option['disabled'] === true) {
@@ -460,40 +195,6 @@ class Utils
         }
 
         return $out;
-    }
-
-    public function v_form_select(string $id, array $option = []): string
-    {
-        $id = $this->identificationHelper->id($id);
-        /* isset instead of array_key_exists does not matter here */
-        if (isset($option['selected'])) {
-            $selected = $option['selected'];
-        } else {
-            $selected = $this->dataHelper->getValue($id);
-        }
-        $label = $this->translator->trans($id);
-        $check = $this->jsValidate($option, $id, $label);
-
-        if (isset($option['values'])) {
-            $values = $option['values'];
-        } else {
-            $values = [];
-        }
-
-        $out = '<select class="input select value" name="' . $id . '" id="' . $id . '">'
-            . '<option value="">' . $this->translator->trans('select') . '</option>';
-        if (!empty($values)) {
-            foreach ($values as $v) {
-                $sel = '';
-                if ($selected == $v['id']) {
-                    $sel = ' selected="selected"';
-                }
-                $out .= '<option value="' . $v['id'] . '"' . $sel . '>' . $v['name'] . '</option>';
-            }
-        }
-        $out .= '</select>';
-
-        return $this->v_input_wrapper($label, $out, $id, $option);
     }
 
     public function v_input_wrapper(string $label, string $content, $id = false, array $option = []): string
@@ -559,63 +260,6 @@ class Utils
 		<input type="hidden" id="' . $id . '-error-msg" value="' . $error_msg . '" />
 		<div class="clear"></div>
 		</div>';
-    }
-
-    public function v_form_date(string $id, array $option = []): string
-    {
-        $id = $this->identificationHelper->id($id);
-        $label = $option['label'] ?? $this->translator->trans($id);
-
-        $yearRangeFrom = $option['yearRangeFrom'] ?? (int)date('Y') - 60;
-        $yearRangeTo = $option['yearRangeTo'] ?? (int)date('Y') + 60;
-
-        $value = $this->dataHelper->getValue($id);
-
-        // additional datepicker config in client/lib/jquery-ui-addons.js
-        $this->pageHelper->addJs('$("#' . $id . '").datepicker({
-			changeYear: true,
-			changeMonth: true,
-			dateFormat: "yy-mm-dd",
-			yearRange: "' . $yearRangeFrom . ':' . $yearRangeTo . '"
-		});');
-
-        return $this->v_input_wrapper(
-            $label,
-            '<input class="input text date value" type="text" name="' . $id . '" id="' . $id . '" value="' . $value . '" />',
-            $id,
-            $option
-        );
-    }
-
-    public function v_form_text(string $id, array $option = []): string
-    {
-        $id = $this->identificationHelper->id($id);
-        $label = $this->translator->trans($id);
-
-        if (isset($option['value'])) {
-            $value = $option['value'];
-        } else {
-            $value = $this->dataHelper->getValue($id);
-        }
-
-        $value = htmlspecialchars((string)$value);
-
-        $disabled = '';
-        if (isset($option['disabled']) && $option['disabled']) {
-            $disabled = 'readonly="readonly"';
-        }
-
-        $pl = '';
-        if (isset($option['placeholder'])) {
-            $pl = ' placeholder="' . $option['placeholder'] . '"';
-        }
-
-        return $this->v_input_wrapper(
-            $label,
-            '<input' . $pl . ' class="input text value" type="text" name="' . $id . '" id="' . $id . '" value="' . $value . '" ' . $disabled . '/>',
-            $id,
-            $option
-        );
     }
 
     public function v_field(string $content, $title = false, array $option = [], ?string $titleIcon = null, ?string $titleSpanId = null): string

@@ -1,42 +1,37 @@
 <template>
-  <Container :title="storeName" tag="store_options">
-    <b-button
+  <Container :title="storeName" :tag="`store-options-${storeId}`">
+    <ContainerButton
       v-if="teamConversationId != null && isUserInStore"
-      variant="primary"
-      class="mt-2"
-      block
+      text-key="store.chat.team"
+      icon="fas fa-comment"
       @click="openChat(teamConversationId)"
-    >
-      {{ $i18n('store.chat.team') }}
-    </b-button>
-    <b-button
+    />
+    <ContainerButton
       v-if="jumperConversationId != null && isUserInStore || isJumper"
-      variant="outline-primary"
-      block
+      text-key="store.chat.jumper"
+      icon="fas fa-running"
       @click="openChat(jumperConversationId)"
-    >
-      {{ $i18n('store.chat.jumper') }}
-    </b-button>
-    <b-button
+    />
+    <ContainerButton
       v-if="mayLeaveStoreTeam && isUserInStore || isJumper"
-      variant="outline-warning"
-      block
+      variant="danger"
+      text-key="storeedit.team.leave"
+      icon="fas fa-user-times"
       @click="removeFromTeam(fsId, $i18n('storeedit.team.leave_myself'))"
-    >
-      {{ $i18n('storeedit.team.leave') }}
-    </b-button>
+    />
   </Container>
 </template>
 
 <script>
 import conversationStore from '@/stores/conversations'
 import { pulseError } from '@/script'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
 import { removeStoreMember } from '@/api/stores'
 import Container from '@/components/Container/Container.vue'
+import ContainerButton from '@/components/Container/ContainerButton.vue'
 
 export default {
-  components: { Container },
+  components: { Container, ContainerButton },
   props: {
     storeName: { type: String, required: true },
     fsId: { type: Number, required: true },
@@ -66,6 +61,12 @@ export default {
     mayDoPickup: { type: Boolean, default: false },
     isVerified: { type: Boolean, default: false },
   },
+  setup () {
+    const userStore = useUserStore()
+    return {
+      userStore,
+    }
+  },
   methods: {
     openChat (conversationId) {
       conversationStore.openChat(conversationId)
@@ -79,7 +80,7 @@ export default {
       }
       this.isBusy = true
       try {
-        await removeStoreMember(this.storeId, DataUser.getters.getUserId())
+        await removeStoreMember(this.storeId, this.userStore.getUserId)
         window.location.href = this.$url('dashboard')
       } catch (e) {
         pulseError(this.$i18n('error_unexpected'))

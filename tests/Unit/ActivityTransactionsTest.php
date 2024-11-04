@@ -12,6 +12,7 @@ use Foodsharing\Modules\Buddy\BuddyTransactions;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Utility\ImageHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Tests\Support\UnitTester;
@@ -20,6 +21,7 @@ class ActivityTransactionsTest extends Unit
 {
     protected $settingsTransaction;
     protected $sessionTransaction;
+    protected $currentUserUnitsMock;
     protected ?ActivityTransactions $transaction;
     protected UnitTester $tester;
 
@@ -27,6 +29,7 @@ class ActivityTransactionsTest extends Unit
     {
         $this->settingsTransaction = $this->createMock(SettingsTransactions::class);
         $this->sessionTransaction = $this->createMock(Session::class);
+        $this->currentUserUnitsMock = $this->createMock(CurrentUserUnitsInterface::class);
         $this->transaction = new ActivityTransactions(
             $this->tester->get(ActivityGateway::class),
             $this->tester->get(MailboxGateway::class),
@@ -34,7 +37,8 @@ class ActivityTransactionsTest extends Unit
             $this->tester->get(TranslatorInterface::class),
             $this->sessionTransaction,
             $this->settingsTransaction,
-            $this->tester->get(BuddyTransactions::class)
+            $this->tester->get(BuddyTransactions::class),
+            $this->currentUserUnitsMock
         );
     }
 

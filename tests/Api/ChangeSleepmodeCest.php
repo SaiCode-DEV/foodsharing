@@ -9,14 +9,12 @@ use Tests\Support\ApiTester;
 
 class ChangeSleepmodeCest
 {
-    //https://foodsharing.de/?page=settings&sub=sleeping
+    //https://foodsharing.de/user/current/settings?sub=sleeping
     public function pageDisplaysWithNullValues(ApiTester $I): void
     {
         $user = $I->createFoodsaver(null, ['sleep_from' => null, 'sleep_status' => 1]);
         $I->login($user['email']);
-        $request = ['page' => 'settings',
-            'sub' => 'sleeping'];
-        $I->sendGET('/', $request);
+        $I->sendGET('/user/current/settings?sleeping');
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 }

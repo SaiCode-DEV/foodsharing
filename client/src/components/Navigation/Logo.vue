@@ -2,7 +2,7 @@
   <Link
     aria-label="foodsharing"
     class="foodsharing"
-    :href="isLoggedIn ? $url('dashboard') : $url('home')"
+    :href="userStore.isLoggedIn ? $url('dashboard') : $url('home')"
   >
     <template #text>
       <span v-if="viewIsMD && !small">
@@ -19,13 +19,15 @@
 </template>
 
 <script>
-// Store
-import DataUser from '@/stores/user'
 // Components
 import Link from '@/components/Navigation/_NavItems/NavLink'
 // Mixins
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
+// Store
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 export default {
   components: {
@@ -38,10 +40,10 @@ export default {
       default: false,
     },
   },
-  computed: {
-    isLoggedIn () {
-      return DataUser.getters.isLoggedIn()
-    },
+  setup () {
+    return {
+      userStore,
+    }
   },
 }
 </script>

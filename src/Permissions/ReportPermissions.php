@@ -6,6 +6,8 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Report\ReportGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 class ReportPermissions
 {
@@ -14,7 +16,9 @@ class ReportPermissions
 
     public function __construct(
         Session $session,
-        GroupFunctionGateway $groupFunctionGateway
+        GroupFunctionGateway $groupFunctionGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
+        private readonly ReportGateway $reportGateway,
     ) {
         $this->session = $session;
         $this->groupFunctionGateway = $groupFunctionGateway;
@@ -31,62 +35,57 @@ class ReportPermissions
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
-
-        $reportGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::REPORT);
-
-        if (!empty($reportGroup)) {
-            if ($this->session->isAdminFor($reportGroup)) {
-                return true;
-            }
+        if ($this->isReportAdmin($regionId)) {
+            return true;
         }
-
-        $arbitrationGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::ARBITRATION);
-
-        if (!empty($arbitrationGroup)) {
-            if ($this->session->isAdminFor($arbitrationGroup)) {
-                return true;
-            }
+        if ($this->isArbitrationAdmin($regionId)) {
+            return true;
         }
 
         return false;
     }
 
-    public function mayAccessArbitrationReports(int $regionId): bool
+    public function isReportAdmin(int $regionId)
     {
-        if ($this->session->mayRole(Role::ORGA)) {
-            return true;
-        }
-
-        $arbitrationGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::ARBITRATION);
-
-        if (!empty($arbitrationGroup)) {
-            if ($this->session->isAdminFor($arbitrationGroup)) {
-                return true;
-            }
+        $reportGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::REPORT);
+        if (!empty($reportGroup)) {
+            return $this->currentUserUnits->isAdminFor($reportGroup);
         }
 
         return false;
     }
 
-    public function mayAccessReportGroupReports(int $regionId): bool
+    public function isArbitrationAdmin(int $regionId)
     {
-        if ($this->session->mayRole(Role::ORGA)) {
-            return true;
-        }
-
-        $reportGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::REPORT);
-
+        $reportGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::ARBITRATION);
         if (!empty($reportGroup)) {
-            if ($this->session->isAdminFor($reportGroup)) {
-                return true;
-            }
+            return $this->currentUserUnits->isAdminFor($reportGroup);
         }
 
         return false;
+    }
+
+    public function mayAccessReportsForUser(int $userId): bool
+    {
+        if ($this->session->id() === $userId) {
+            return false;
+        }
+
+        return $this->session->mayRole(Role::ORGA);
     }
 
     public function mayHandleReports(): bool
     {
+        return $this->session->mayRole(Role::ORGA);
+    }
+
+    public function mayDeleteReport(int $reportId): bool
+    {
+        $report = $this->reportGateway->getReportAffiliation($reportId);
+        if ($this->session->id() === $report['userId']) {
+            return false;
+        }
+
         return $this->session->mayRole(Role::ORGA);
     }
 }

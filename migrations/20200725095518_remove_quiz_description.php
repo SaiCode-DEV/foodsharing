@@ -31,7 +31,7 @@ class RemoveQuizDescription extends AbstractMigration
      */
     public function up()
     {
-        $builder = $this->getQueryBuilder();
+        $builder = $this->getDeleteBuilder();
         $builder->delete('fs_content')->where(['id' => '12'])->execute();
     }
 }

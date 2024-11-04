@@ -29,12 +29,12 @@ final class AddStoreHasWallTable extends AbstractMigration
         ])
             ->addColumn('store_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
             ])
             ->addColumn('wallpost_id', 'integer', [
                 'null' => false,
-                'limit' => '10',
+                'limit' => 10,
                 'signed' => false,
                 'after' => 'application_id',
             ])

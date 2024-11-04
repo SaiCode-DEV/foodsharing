@@ -6,85 +6,29 @@ use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use setasign\Fpdi\Tcpdf\Fpdi;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\HttpFoundation\Request;
 
 class BusinessCardControl extends Control
 {
     private const MAX_CHAR_PER_LINE = 45;
 
     public function __construct(
-        BusinessCardView $view,
         private readonly BusinessCardGateway $gateway,
         #[Autowire(param: 'kernel.project_dir')]
         private readonly string $projectDir,
     ) {
-        $this->view = $view;
-
         parent::__construct();
     }
 
     public function index(): void
     {
-        if (!$this->session->mayRole()) {
-            $this->routeHelper->goLoginAndExit();
-        }
-
-        $this->pageHelper->addBread($this->translator->trans('bcard.title'));
-
-        $this->pageHelper->addContent($this->view->top(), CNT_TOP);
-
-        if ($data = $this->gateway->getMyData($this->session->id(), $this->session->mayRole(Role::STORE_MANAGER))) {
-            $data = array_map(fn ($value) => $value ?? '', $data);
-
-            if (mb_strlen((string)$data['anschrift']) >= self::MAX_CHAR_PER_LINE || mb_strlen($data['plz'] . ' ' . $data['stadt']) >= self::MAX_CHAR_PER_LINE) {
-                $this->flashMessageHelper->info($this->translator->trans('bcard.info.address_shortened'));
-            }
-            if (strlen($data['telefon'] . $data['handy']) <= 3) {
-                $this->flashMessageHelper->error($this->translator->trans('bcard.error.phone'));
-                $this->routeHelper->goAndExit('/?page=settings');
-            }
-            if ($data['verified'] == 0) {
-                $this->flashMessageHelper->error($this->translator->trans('bcard.error.verified'));
-                $this->routeHelper->goAndExit('/?page=settings');
-            }
-
-            $choices = [];
-
-            foreach ($data['bot'] as $b) {
-                $choices[] = [
-                    'id' => 'bot:' . $b['id'],
-                    'name' => $this->translator->trans('bcard.for', [
-                        '{role}' => $this->translator->trans('terminology.ambassador.d'),
-                        '{region}' => $b['name'],
-                    ]),
-                ];
-            }
-            foreach ($data['sm'] as $b) {
-                $choices[] = [
-                    'id' => 'sm:' . $b['id'],
-                    'name' => $this->translator->trans('bcard.for', [
-                        '{role}' => $this->translator->trans('terminology.storemanager.d'),
-                        '{region}' => $b['name'],
-                    ]),
-                ];
-            }
-            foreach ($data['fs'] as $b) {
-                $choices[] = [
-                    'id' => 'fs:' . $b['id'],
-                    'name' => $this->translator->trans('bcard.for', [
-                        '{role}' => $this->translator->trans('terminology.foodsaver.d'),
-                        '{region}' => $b['name'],
-                    ]),
-                ];
-            }
-
-            $this->pageHelper->addContent($this->view->optionForm($choices));
-        }
+        $this->routeHelper->goAndExit('/user/current/settings?sub=bcard');
     }
 
-    public function makeCard()
+    public function makeCard(Request $request)
     {
         $data = $this->gateway->getMyData($this->session->id(), $this->session->mayRole(Role::STORE_MANAGER));
-        $opt = $this->request->query->get('opt');
+        $opt = $request->query->get('opt');
         if (!$data || !$opt) {
             return;
         } else {
@@ -117,13 +61,6 @@ class BusinessCardControl extends Control
             $data['email'] = $mailbox['email'];
         }
         $data['subtitle'] = $this->displayedRole($role, $data['geschlecht'], $mailbox['name']);
-
-        if (mb_strlen((string)$data['anschrift']) > self::MAX_CHAR_PER_LINE) {
-            $street_number_pos = $this->index_of_first_number($data['anschrift']);
-            $length_street_number = mb_strlen((string)$data['anschrift']) - $street_number_pos;
-            $data['anschrift'] = mb_substr((string)$data['anschrift'], 0, self::MAX_CHAR_PER_LINE - $length_street_number - 4) . '... ' .
-                mb_substr((string)$data['anschrift'], $street_number_pos, $length_street_number);
-        }
 
         if (mb_strlen($data['plz'] . ' ' . $data['stadt']) >= self::MAX_CHAR_PER_LINE) {
             $data['stadt'] = mb_substr((string)$data['stadt'], 0, self::MAX_CHAR_PER_LINE - strlen((string)$data['plz']) - 4) . '...';
@@ -172,24 +109,20 @@ class BusinessCardControl extends Control
             }
 
             $pdf->SetFont('Ubuntu-L', '', 7);
-            if (strlen($data['anschrift'] . ', ' . $data['plz'] . ' ' . $data['stadt']) > 32) {
-                $pdf->SetFont('Ubuntu-L', '', 6);
-            }
 
             $pdf->SetXY(48.5 + $x, 35.2 + $y);
             $pdf->MultiCell(50, 12, $data['subtitle'], 0, 'L');
 
             $pdf->SetTextColor(0, 0, 0);
-            $pdf->Text(52.3 + $x, 44.8 + $y, $data['anschrift']);
-            $pdf->Text(52.3 + $x, 47.8 + $y, $data['plz'] . ' ' . $data['stadt']);
+
             $tel = $data['handy'];
             if (empty($tel)) {
                 $tel = $data['telefon'];
             }
 
-            $pdf->Text(52.3 + $x, 51.8 + $y, $tel);
-            $pdf->Text(52.3 + $x, 56.2 + $y, $data['email']);
-            $pdf->Text(52.3 + $x, 61.6 + $y, BASE_URL);
+            $pdf->Text(53.3 + $x, 45.8 + $y, $tel);
+            $this->formatEmail($pdf, $x, $y, $data['email']);
+            $pdf->Text(53.3 + $x, 61.2 + $y, BASE_URL);
             if ($x == 0) {
                 $x += 91;
             } else {
@@ -201,14 +134,22 @@ class BusinessCardControl extends Control
         $pdf->Output('bcard-' . $role . '.pdf', 'D');
     }
 
-    private function index_of_first_number($text)
+    private function formatEmail(Fpdi $pdf, float $x, float $y, string $email): void
     {
-        preg_match('/\d/u', (string)$text, $m, PREG_OFFSET_CAPTURE);
-        if (sizeof($m)) {
-            return mb_strlen(substr((string)$text, 0, $m[0][1]));
-        }
+        $emailWidth = $pdf->GetStringWidth($email);
 
-        // return position of the first number in the string
-        return strlen((string)$text);
+        if ($emailWidth > 51) {
+            $parts = explode('@', $email);
+
+            if (count($parts) == 2) {
+                $firstPart = $parts[0];
+                $secondPart = '@' . $parts[1];
+
+                $pdf->Text(53.3 + $x, 52.2 + $y, $firstPart);
+                $pdf->Text(53.3 + $x, 55.2 + $y, $secondPart);
+            }
+        } else {
+            $pdf->Text(53.3 + $x, 52.2 + $y, $email);
+        }
     }
 }

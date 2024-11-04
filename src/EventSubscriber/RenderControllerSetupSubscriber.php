@@ -9,14 +9,12 @@ use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Settings\SettingsTransactions;
-use Foodsharing\Utility\PageHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Definition: "render controller"
@@ -56,13 +54,9 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
     // needs to be persisted between onKernelController and onKernelResponse
     private Caching $cache;
 
-    // TODO: this can be removed once the 'dialog-confirm' in onKernelController is removed
-    private readonly TranslatorInterface $translator;
-
-    public function __construct(ContainerInterface $container, TranslatorInterface $translator)
+    public function __construct(ContainerInterface $container)
     {
         $this->fullServiceContainer = $container;
-        $this->translator = $translator;
     }
 
     public static function getSubscribedEvents(): array
@@ -143,18 +137,6 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
         $content_left_width = 6;
         global $content_right_width;
         $content_right_width = 6;
-
-        global $g_data;
-        $g_data = $request->request->all();
-
-        // TODO check if all of these are actually needed anymore
-        /** @var PageHelper $pageHelper */
-        $pageHelper = $this->get(PageHelper::class);
-        $pageHelper->addHidden('<ul id="hidden-info"></ul>');
-        $pageHelper->addHidden('<ul id="hidden-error"></ul>');
-        $pageHelper->addHidden('<div id="dialog-confirm" title='
-        . $this->translator->trans('really_delete')
-        . '><p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span><span id="dialog-confirm-msg"></span><input type="hidden" value="" id="dialog-confirm-url" /></p></div>');
     }
 
     public function onKernelResponse(ResponseEvent $event)

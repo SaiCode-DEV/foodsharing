@@ -16,7 +16,9 @@
 
 <script>
 import ConferenceOpener from '@/mixins/ConferenceOpenerMixin'
-import DataUser from '@/stores/user'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 export default {
   name: 'NavRegionsLinkEntry',
@@ -26,6 +28,11 @@ export default {
       type: Object,
       default: () => {},
     },
+  },
+  setup () {
+    return {
+      userStore,
+    }
   },
   computed: {
     showStatisticsAndMembers () {
@@ -82,14 +89,10 @@ export default {
           href: 'pin', icon: 'fa-users', text: 'menu.entry.pin',
         })
       }
-      if (this.entry.mayAccessReportGroupReports) {
+      if (this.entry.mayAccessReports) {
+        const viewer = this.entry.isReportAdmin ? 'report' : this.entry.isArbitrationAdmin ? 'arbitration' : 'orga'
         menu.push({
-          href: 'reports', icon: 'fa-poo', text: 'terminology.reports',
-        })
-      }
-      if (this.entry.mayAccessArbitrationGroupReports) {
-        menu.push({
-          href: 'reports', icon: 'fa-poo', text: 'terminology.arbitration',
+          href: 'reports', icon: 'fa-people-arrows', text: `terminology.reports.${viewer}`,
         })
       }
 
@@ -99,7 +102,7 @@ export default {
         })
       }
 
-      if (this.entry.isAdmin || DataUser.getters.isOrga()) {
+      if (this.entry.isAdmin || userStore.isOrga) {
         menu.push({
           href: 'forum', special: 1, icon: 'fa-comment-dots', text: 'menu.entry.BOTforum',
         })

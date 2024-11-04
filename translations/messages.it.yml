@@ -131,7 +131,7 @@ group:
       nella visione d’insieme dei distretti.
   delete_group_sure: Vuoi davvero eliminare il gruppo di lavoro/distretto {groupName}?
   quitting_home_district_warning: Vuoi davvero lasciare il tuo distretto di provenienza
-    %name%? Perderai la tua verifica e dovrai presentarti in seguito al team di ambasciatori
+    {name}? Perderai la tua verifica e dovrai presentarti in seguito al team di ambasciatori
     del tuo nuovo distretto di provenienza.
   really_quit_district: Sei sicuro di voler lasciare il distretto di {name}?
   really_quit_workgroup: Sei sicuro di voler lasciare il gruppo di lavoro {name}?
@@ -230,8 +230,9 @@ bcard:
   for: '{role} per {region}'
   card: Il tuo biglietto da visita foodsharing
   title: Generatore di biglietti da visita
-  role: Rotolo/Distretto
+  role: Rotolo
 
+  region: Regione
 pass:
   button:
     check: Controlla gli appuntamenti
@@ -526,6 +527,9 @@ terminology:
   electionAdmins: Elezioni
   no: No
   yes: Sì
+  landline: Numero di rete fissa
+  mobile_phone: Numero di cellulare
+  phone: Numero di telefono
 register:
   woman: femmina
   signup_newsletter: Vorrei ricevere la newsletter di foodsharing circa una volta
@@ -666,8 +670,7 @@ legal:
   if_delete:
     this_gets_deleted_friendlist: La tua lista di amici viene eliminata.
     this_doesnt_get_deleted_address: Il tuo indirizzo
-    this_gets_deleted_trustbananas: Le banane che hai ricevuto o premiato verranno
-      rimosse.
+    this_gets_deleted_trustbananas: Le banane che hai ricevuto verranno rimosse.
     this_doesnt_get_deleted_name: Il tuo nome
     this_gets_deleted_main: 'Le seguenti informazioni saranno eliminate dal vostro
       account e non potranno essere ripristinate:'
@@ -957,6 +960,7 @@ store:
     sorting:
       default: Ordinamento standard
       pickup: Ordina per ultimo ritiro
+    filterHygiene: Addestrate all’igiene
   days_before: prima
   days: giorni
   my_last_pickup: Il mio ultimo ritiro
@@ -1284,7 +1288,7 @@ startpage:
   forstores: 'Per aziende e negozi'
   proposals: 'Vogliamo svilupparci ulteriormente e diventare sempre migliori. Per
     fare questo, abbiamo bisogno di te con tante buone idee e consigli. Inviali a
-    <a href="mailto:info@foodsharing.de">info@foodsharing.de</a>'
+    [info@foodsharing.de](mailto:info@foodsharing.de)'
   responsibility: 'di tutto il cibo finisce nella spazzatura. Tutto ciò dovrebbe finalmente
     finire. Non vogliamo più buttare via nulla! Vogliamo gestire il cibo in modo responsabile
     e siamo felici che partecipi anche tu.'
@@ -1309,7 +1313,7 @@ startpage:
   join_welcome: 'È fantastico che tu voglia unirti a foodsharing!'
   together: 'Insieme a foodsharing, puoi lavorare per garantire che il cibo scartato
     e invendibile venga utilizzato in modo sensato invece di essere gettato via. Puoi
-    trovare ulteriori informazioni a riguardo <a href="/for-companies">qui</a>.'
+    trovare ulteriori informazioni a riguardo [qui](/fuer-unternehmen).'
   notallowed: 'È esclusa la condivisione di medicinali (anche omeopatici). Abbigliamento,
     cosmetici, prodotti chimici domestici, giocattoli e altri prodotti non alimentari
     non possono essere scambiati o condivisi tramite foodsharing. La piattaforma foodsharing
@@ -1326,6 +1330,8 @@ poll:
     number_of_votes: Voti espressi
     average: 'Media'
     percentage_of_votes: 'Affluenza alle urne'
+    standardDeviationShort: σ
+    standardDeviation: Deviazione standard
   cancel:
     question: Vuole davvero annullare questa votazione? Questo non può essere annullato.
     title: Cancellare la riconciliazione
@@ -1389,7 +1395,7 @@ poll:
   type: Natura della votazione
   scope_description_4: Tutti i Foodsaver verificati con il distretto radicale del
     voto
-  scope_description_3: Tutti gli ambasciatori del distretto/gruppo
+  scope_description_3: Tutti gli ambasciatori del distretto
   scope_description_2: Tutti i responsabili di agiende del distretto che sono attualmente
     responsabili di un'operazione
   scope_description_1: Tutti i Foodsaver verificati del distretto/gruppo
@@ -1419,8 +1425,6 @@ email_template:
   manual_slots_get_ignored: Questa notifica è attualmente inviata se nessuno si è
     registrato agli orari di ritiro regolari. Le date aggiuntive inserite individualmente
     e gli slot sovrascritti o cancellati non vengono attualmente presi in considerazione.
-    Per non ricevere più queste notifiche, rimuovi eventuali orari di ritiro regolari
-    che non sono più necessari nella configurazione di ritiro della tua struttura.
   information: Informazioni
   find_someone: Per favore, coinvolgi qualcuno del tuo team operativo il prima possibile
     in modo che il ritiro possa avvenire. Se non sei in grado di mobilitare nessuno,
@@ -1511,10 +1515,9 @@ foodsaver:
   title: Foodsaver
   bread: Tutti i Foodsaver
   restricted: Spiacente, non hai il permesso di visualizzare questi dati.
-  about_me_intern: "Questa breve descrizione sarà visualizzata sulla pagina del tuo
-    profilo\ne sarà visibile a tutti nella comunità del foodsharing.\n"
-  about_me_public: "Questa breve descrizione sarà disponibile a tutti sul <a href=\"\
-    /team\">Team-</a>\ne nella <a href=\"/team/ehemalige\">pagina degli alumni</a>\n
+  about_me_intern: "sarà visualizzata sulla pagina del tuo profilo e sarà visibile
+    a tutti nella comunità del foodsharing.\n"
+  about_me_public: "sarà disponibile a tutti sul [Team- e nella pagina degli alumni](/team)
     e può essere visto da tutti sul sito web.\n"
   mailchange_error: L'attivazione del tuo nuovo indirizzo email non è riuscita. Si
     prega di riprovare.
@@ -1864,7 +1867,7 @@ bell:
   buddy_request: '{name} ti conosce.'
   buddy_request_title: Conosci {name}?
   betrieb_fetch: '{count} orari di recupero non confermati'
-  new_quiz_comment: '{comment}'
+  new_quiz_comment: '{user}: {comment}'
   store_wallpost_title: '{name}'
   poll_new: '{title}'
   store_request_imposed_title: '{name}'
@@ -1920,6 +1923,7 @@ bell:
     many: '{count} nuove voci in bacheca'
   workinggroup_new_request_title: '{name}'
   internal_email_changed_title: '{address}'
+  forum_not_activated_thread: '{forum}'
 content:
   edit: Modifica pagina
   new_success: La pagina è stata creata
@@ -2161,9 +2165,9 @@ basket:
   requests: Richieste ({count})
   provider: Fornitore
   where: Dove?
-  updated: Attualizzato <strong>{date}</strong>
+  updated: 'Attualizzato:'
   expires: Data di scadenza
-  created: Pubblicato <strong>{date}</strong>
+  created: 'Pubblicato:'
   date: Impostazione della data
   new: Nuovo cesto alimentare
   delete: Cancellare cestino di cibo
@@ -2349,12 +2353,14 @@ search:
     user:
       no_home_region: 'Nessun distretto di residenza'
       copy_id: Copia ID
-      copied_id: ID copiato da {name} ({id})
+      copied_id: ID copiato da {name} ({text})
     store:
       manager_tooltip: 'Sei responsabile di questa attività'
       jumper_tooltip: 'Sei un Jolly per questa attività'
       member_tooltip: 'Sei un membro del team di questa attività'
     from: 'da'
+    mail:
+      mail_name: '{name} <{mail}>'
   too_short: Inserisci un termine di ricerca più lungo.
   maxresults: Il numero di risultati visualizzati è limitato. Forse usa un termine
     di ricerca più specifico.
@@ -2471,7 +2477,7 @@ profile:
     vouch: "Quindi, per favore, dai la banana della fiducia solo a persone che conosci
       personalmente,\nche rispettano le regole di condotta e l'accordo legale\ne di
       cui potete garantire l'affidabilità e l'impegno.\n"
-    undo: Le banane di fiducia non possono essere cambiate o ritirate.
+    undo: Le banane di fiducia non possono essere cambiate.
     details: "Qui puoi descrivere in almeno 100 caratteri perché vorresti dare a {name}
       una banana.\n"
   mail_bounce:
@@ -2514,7 +2520,7 @@ profile:
   pinboard: Aggiornamenti di stato da {name}
   about_me_intern: Riguardo a te stesso
   sleepinfo: '{name} é dormiglione da {from} a {until}'
-  sleeping: '{name} é dormiglione a tempo indeterminato'
+  sleeping: 'é dormiglione a tempo indeterminato'
   workgroups: '{nome} è impegnato come persona di contatto per i gruppi'
   homeRegion: Distretto origine di {name}
   ambRegions: '{name} é {role} per'
@@ -2523,7 +2529,7 @@ profile:
     posts: Contributi
     baskets: Cestini alimentare
     count: ritirato
-    weight: salvato
+    weight: kg salvato
   infos:
     foodsharerId: ID-Foodsaver
     foodsaverId: ID-Foodsaver
@@ -2599,7 +2605,7 @@ profile:
     ulteriori informazioni sull’utente, come il completamento della formazione sull’igiene
     o simili. Al contrario, i gruppi di lavoro possono essere utilizzati per memorizzare
     informazioni aggiuntive sui profili. Ulteriori informazioni a riguardo sono disponibili
-    nel <a href="/region?bid=881&sub=forum&tid=58225">Forum degli Ambasciatori</a>
+    nel [Forum degli Ambasciatori]({url})
   orga_rights: In qualità di persona organizzativa, {name} dispone di <a target="_blank"
     href="{wikiurl}">autorizzazioni estese</a> sulla piattaforma.
 mail:
@@ -2725,7 +2731,7 @@ settings:
     foodsaver_info: 'Per cambiare il tuo nome devi contattare un ambasciatore del
       tuo distretto di residenza. Questa persona potrà quindi effettuare il cambio
       di nome per te.<hr>Puoi vedere chi è l’ambasciatore nel tuo distretto di residenza
-      nel <a href="{link}">forum del tuo distretto</a> nella barra laterale sinistra.'
+      nel [forum del tuo distretto]({link}) nella barra laterale sinistra.'
     title: 'Nome (nome e cognome)'
   passport:
     menu: 'Carta d''identità'
@@ -2735,6 +2741,10 @@ settings:
     non_verified_text: 'Non sei ancora verificato. Il download del passaporto è disponibile
       solo per i foodsavers verificati.'
     button: 'Scarica il passaporto'
+  no_rights: L’utente non è autorizzato a modificare le impostazioni del profilo.
+  delete_profile: Cancellare questo profilo
+  general:
+    phone: Il vostro numero di telefono fisso
 mailbox:
   mark_as_unread: Contrassegna l'e-mail come non letta
   filesize: Scusa, il file è troppo grande.
@@ -2976,10 +2986,6 @@ buddy:
       del vostro profilo non verranno più visualizzati sulla pagina iniziale dell'altra
       persona.
   is_buddy: Siete conoscenti
-tablesorter:
-  entriespp: Voci per pagina
-  from: da
-  page: Pagina
 conference:
   join: Partecipa alla conferenza
   join_title: Partecipa alla conferenza
@@ -3550,3 +3556,6 @@ help:
 no_automatic_delete: 'Se l’ultimo accesso è avvenuto cinque anni fa:'
 automatic_delete: '- il profilo deve essere cancellato.'
 automatic_not_delete: '- il profilo deve essere mantenuto.'
+validation:
+  phone_number_invalid: Il numero di telefono non è valido (ad esempio, manca il prefisso
+    nazionale, è troppo corto, troppo lungo o contiene caratteri non validi)

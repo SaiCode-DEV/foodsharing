@@ -3,6 +3,7 @@
 namespace Foodsharing\Permissions;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Basket\DTO\Basket;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 
 class BasketPermissions
@@ -38,13 +39,13 @@ class BasketPermissions
         return false;
     }
 
-    public function mayDelete(array $basket): bool
+    public function mayDelete(Basket $basket): bool
     {
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
 
-        if ($basket['foodsaver_id'] === $this->session->id()) {
+        if ($basket->creator->id === $this->session->id()) {
             return true;
         }
 

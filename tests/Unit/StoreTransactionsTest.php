@@ -13,7 +13,6 @@ use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Store\ConvinceStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
-use Foodsharing\Modules\Core\DBConstants\Store\Milestone;
 use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
@@ -43,7 +42,7 @@ class StoreTransactionsTest extends Unit
         $this->gateway = $this->tester->get(PickupGateway::class);
         $this->faker = Factory::create('de_DE');
         $this->foodsaver = $this->tester->createFoodsaver();
-        $this->regionId = $this->tester->createRegion()['id'];
+        $this->regionId = $this->tester->createRegion(fillMailbox: false)['id'];
         $this->tester->addRegionMember($this->regionId, $this->foodsaver['id']);
     }
 
@@ -180,9 +179,12 @@ class StoreTransactionsTest extends Unit
         $this->tester->seeInDatabase('fs_conversation', ['locked' => 1, 'id' => $teamConversation, 'name' => 'Team ' . $store->name]);
         $this->tester->seeInDatabase('fs_conversation', ['locked' => 1, 'id' => $sprinterConversation, 'name' => 'Springer ' . $store->name]);
 
-        // Check creation of notes in store wall
-        $this->tester->seeInDatabase('fs_betrieb_notiz', [
-            'foodsaver_id' => $storeCreator['id'], 'betrieb_id' => $dbStoreId, 'text' => 'First post', 'milestone' => Milestone::NONE]);
+        $post = $this->tester->grabEntryFromDatabase('fs_store_has_wallpost', ['store_id' => $dbStoreId]);
+        $this->tester->seeInDatabase('fs_wallpost', [
+            'id' => $post['wallpost_id'],
+            'foodsaver_id' => $storeCreator['id'],
+            'body' => 'First post'
+        ]);
 
         // Test bell for foodsaver
         $this->tester->seeInDatabase('fs_bell', [
@@ -210,8 +212,7 @@ class StoreTransactionsTest extends Unit
         $dbStoreId = $this->transactions->createStore($store, $storeCreator['id']);
 
         // Check creation of notes in store wall
-        $this->tester->dontSeeInDatabase('fs_betrieb_notiz', [
-            'foodsaver_id' => $storeCreator['id'], 'betrieb_id' => $dbStoreId, 'milestone' => Milestone::NONE]);
+        $this->tester->dontSeeInDatabase('fs_store_has_wallpost', ['store_id' => $dbStoreId]);
     }
 
     public function testDefaultCommonStoreMetaData(): void
@@ -230,11 +231,10 @@ class StoreTransactionsTest extends Unit
         $this->assertEquals(CooperationStatus::UNCLEAR->value, $common->status[0]->id);
         $this->assertEquals(CooperationStatus::NO_CONTACT->value, $common->status[1]->id);
         $this->assertEquals(CooperationStatus::IN_NEGOTIATION->value, $common->status[2]->id);
-        $this->assertEquals(CooperationStatus::COOPERATION_STARTING->value, $common->status[3]->id);
-        $this->assertEquals(CooperationStatus::DOES_NOT_WANT_TO_WORK_WITH_US->value, $common->status[4]->id);
-        $this->assertEquals(CooperationStatus::COOPERATION_ESTABLISHED->value, $common->status[5]->id);
-        $this->assertEquals(CooperationStatus::GIVES_TO_OTHER_CHARITY->value, $common->status[6]->id);
-        $this->assertEquals(CooperationStatus::PERMANENTLY_CLOSED->value, $common->status[7]->id);
+        $this->assertEquals(CooperationStatus::DOES_NOT_WANT_TO_WORK_WITH_US->value, $common->status[3]->id);
+        $this->assertEquals(CooperationStatus::COOPERATION_ESTABLISHED->value, $common->status[4]->id);
+        $this->assertEquals(CooperationStatus::GIVES_TO_OTHER_CHARITY->value, $common->status[5]->id);
+        $this->assertEquals(CooperationStatus::PERMANENTLY_CLOSED->value, $common->status[6]->id);
 
         // Check food types
         foreach ($foods as $key => $food) {
@@ -246,7 +246,7 @@ class StoreTransactionsTest extends Unit
         $this->assertNull($common->storeChains);
 
         // Check categories
-        array_shift($common->categories); // Remove "Not selected"
+        $common->categories = array_filter($common->categories, fn ($cat) => $cat->id > 0); // Remove "Not selected"
         $this->assertEquals($this->tester->grabNumRecords('fs_betrieb_kategorie'), count($common->categories));
 
         foreach ($common->categories as $category) {
@@ -272,18 +272,18 @@ class StoreTransactionsTest extends Unit
         $this->assertEquals('mehr als 50 kg', $common->weight[7]->name);
 
         // Check possible pickup time range
-        $this->assertEquals(PublicTimes::NOT_SET->value, $common->status[0]->id);
-        $this->assertEquals(PublicTimes::IN_THE_MORNING->value, $common->status[1]->id);
-        $this->assertEquals(PublicTimes::AT_NOON_IN_THE_AFTERNOON->value, $common->status[2]->id);
-        $this->assertEquals(PublicTimes::IN_THE_EVENING->value, $common->status[3]->id);
-        $this->assertEquals(PublicTimes::AT_NIGHT->value, $common->status[4]->id);
+        $this->assertEquals(PublicTimes::NOT_SET->value, $common->publicTimes[0]->id);
+        $this->assertEquals(PublicTimes::IN_THE_MORNING->value, $common->publicTimes[1]->id);
+        $this->assertEquals(PublicTimes::AT_NOON_IN_THE_AFTERNOON->value, $common->publicTimes[2]->id);
+        $this->assertEquals(PublicTimes::IN_THE_EVENING->value, $common->publicTimes[3]->id);
+        $this->assertEquals(PublicTimes::AT_NIGHT->value, $common->publicTimes[4]->id);
 
         // Check convince status
-        $this->assertEquals(ConvinceStatus::NOT_SET->value, $common->status[0]->id);
-        $this->assertEquals(ConvinceStatus::NO_PROBLEM_AT_ALL->value, $common->status[1]->id);
-        $this->assertEquals(ConvinceStatus::AFTER_SOME_PERSUASION->value, $common->status[2]->id);
-        $this->assertEquals(ConvinceStatus::DIFFICULT_NEGOTIATION->value, $common->status[3]->id);
-        $this->assertEquals(ConvinceStatus::LOOKED_BAD_BUT_WORKED->value, $common->status[4]->id);
+        $this->assertEquals(ConvinceStatus::NOT_SET->value, $common->convinceStatus[0]->id);
+        $this->assertEquals(ConvinceStatus::NO_PROBLEM_AT_ALL->value, $common->convinceStatus[1]->id);
+        $this->assertEquals(ConvinceStatus::AFTER_SOME_PERSUASION->value, $common->convinceStatus[2]->id);
+        $this->assertEquals(ConvinceStatus::DIFFICULT_NEGOTIATION->value, $common->convinceStatus[3]->id);
+        $this->assertEquals(ConvinceStatus::LOOKED_BAD_BUT_WORKED->value, $common->convinceStatus[4]->id);
     }
 
     public function testAllCommonStoreMetaDataWithLoadOfStoreChains(): void
@@ -302,11 +302,10 @@ class StoreTransactionsTest extends Unit
         $this->assertEquals(CooperationStatus::UNCLEAR->value, $common->status[0]->id);
         $this->assertEquals(CooperationStatus::NO_CONTACT->value, $common->status[1]->id);
         $this->assertEquals(CooperationStatus::IN_NEGOTIATION->value, $common->status[2]->id);
-        $this->assertEquals(CooperationStatus::COOPERATION_STARTING->value, $common->status[3]->id);
-        $this->assertEquals(CooperationStatus::DOES_NOT_WANT_TO_WORK_WITH_US->value, $common->status[4]->id);
-        $this->assertEquals(CooperationStatus::COOPERATION_ESTABLISHED->value, $common->status[5]->id);
-        $this->assertEquals(CooperationStatus::GIVES_TO_OTHER_CHARITY->value, $common->status[6]->id);
-        $this->assertEquals(CooperationStatus::PERMANENTLY_CLOSED->value, $common->status[7]->id);
+        $this->assertEquals(CooperationStatus::DOES_NOT_WANT_TO_WORK_WITH_US->value, $common->status[3]->id);
+        $this->assertEquals(CooperationStatus::COOPERATION_ESTABLISHED->value, $common->status[4]->id);
+        $this->assertEquals(CooperationStatus::GIVES_TO_OTHER_CHARITY->value, $common->status[5]->id);
+        $this->assertEquals(CooperationStatus::PERMANENTLY_CLOSED->value, $common->status[6]->id);
 
         // Check food types
         foreach ($foods as $key => $food) {
@@ -322,7 +321,7 @@ class StoreTransactionsTest extends Unit
         }
 
         // Check categories
-        array_shift($common->categories); // Remove "Not selected"
+        $common->categories = array_filter($common->categories, fn ($cat) => $cat->id > 0); // Remove "Not selected"
         $this->assertEquals($this->tester->grabNumRecords('fs_betrieb_kategorie'), count($common->categories));
         foreach ($common->categories as $category) {
             $this->tester->seeInDatabase('fs_betrieb_kategorie', ['id' => $category->id, 'name' => $category->name]);

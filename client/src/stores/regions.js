@@ -1,6 +1,7 @@
-import Vue from 'vue'
+import { defineStore } from 'pinia'
 import { joinRegion, listRegionChildren, listRegionMembers } from '@/api/regions'
 import { url } from '@/helper/urls'
+import { REGION_IDS } from '@/consts'
 
 export const REGION_UNIT_TYPE = Object.freeze({
   CITY: 1,
@@ -12,6 +13,13 @@ export const REGION_UNIT_TYPE = Object.freeze({
   BIG_CITY: 8,
   PART_OF_TOWN: 9,
 })
+
+export const SELECTABLE_REGION_TYPES = Object.freeze([
+  REGION_UNIT_TYPE.CITY,
+  REGION_UNIT_TYPE.BIG_CITY,
+  REGION_UNIT_TYPE.PART_OF_TOWN,
+  REGION_UNIT_TYPE.DISTRICT,
+])
 
 export const WORKGROUP_FUNCTION = Object.freeze({
   WELCOME: 1,
@@ -28,13 +36,6 @@ export const WORKGROUP_FUNCTION = Object.freeze({
   ELECTION: 12,
 })
 
-export const store = Vue.observable({
-  regions: [],
-  choosedRegionChildren: [],
-  memberList: [],
-
-})
-
 export const SUB_PAGE = Object.freeze({
   FORUM: 'forum',
   AMBASSADOR_FORUM: 'botforum',
@@ -47,42 +48,38 @@ export const SUB_PAGE = Object.freeze({
   WALL: 'wall',
   APPLICATIONS: 'applications',
   OPTIONS: 'options',
+  ACHIEVEMENTS: 'achievements',
 })
 
-export const getters = {
-  get () {
-    return store.regions
+export const useRegionStore = defineStore('region', {
+  state: () => ({
+    regions: [],
+    selectedRegionChildren: [],
+    memberList: [],
+  }),
+  getters: {
+    findRegion: (state) => (regionId) => {
+      return state.regions.find(region => region.id === regionId)
+    },
+    accessibleRegions (state) {
+      // TODO: Global working groups and Festivals are filtered out because they have types "City" or "Big city". The
+      // filtering can be removed when their type is fixed.
+      return state.regions
+        .filter(region => ![REGION_IDS.GLOBAL_WORKING_GROUPS, REGION_IDS.FOODSHARING_ON_FESTIVALS].includes(region.id))
+        .filter(region => SELECTABLE_REGION_TYPES.includes(region.type))
+    },
   },
-
-  getChoosedRegionChildren () {
-    return store.choosedRegionChildren
+  actions: {
+    async fetchSelectedRegionChildren (regionId) {
+      this.selectedRegionChildren = await listRegionChildren(regionId)
+      return this.selectedRegionChildren
+    },
+    async joinRegion (regionId) {
+      await joinRegion(regionId)
+      document.location.href = url('relogin_and_redirect_to_url', url('region_forum', regionId))
+    },
+    async fetchMemberList (regionId) {
+      this.memberList = await listRegionMembers(regionId)
+    },
   },
-
-  find (regionId) {
-    return store.regions.find(region => region.id === regionId)
-  },
-  getMemberList () {
-    return store.memberList
-  },
-}
-
-export const mutations = {
-  set (regions) {
-    store.regions = regions
-  },
-
-  async fetchChoosedRegionChildren (regionId) {
-    store.choosedRegionChildren = await listRegionChildren(regionId)
-    return store.choosedRegionChildren
-  },
-
-  async joinRegion (regionId) {
-    await joinRegion(regionId)
-    document.location.href = url('relogin_and_redirect_to_url', url('region_forum', regionId))
-  },
-  async fetchMemberList (regionId) {
-    store.memberList = await listRegionMembers(regionId)
-  },
-}
-
-export default { store, getters, mutations }
+})

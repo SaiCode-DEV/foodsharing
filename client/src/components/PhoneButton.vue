@@ -16,7 +16,7 @@
       {{ $i18n('pickup.call') }}
     </b-dropdown-item>
     <b-dropdown-item
-      @click.prevent="copyIntoClipboard(phoneNumber)"
+      @click.prevent="copyToClipboard(phoneNumber)"
     >
       <i class="fas fa-clone" />
       {{ $i18n('pickup.copyNumber') }}
@@ -25,9 +25,10 @@
 </template>
 
 <script>
-import { pulseSuccess } from '@/script'
+import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin.js'
 
 export default {
+  mixins: [CopyToClipboardMixin],
   props: {
     phoneNumber: {
       type: String,
@@ -36,19 +37,6 @@ export default {
     variant: {
       type: String,
       default: 'primary',
-    },
-  },
-  computed: {
-    isClipboardAvailable () {
-      return navigator.clipboard
-    },
-  },
-  methods: {
-    async copyIntoClipboard (text) {
-      if (this.isClipboardAvailable) {
-        await navigator.clipboard.writeText(text)
-        pulseSuccess(this.$i18n('pickup.copiedNumber', { number: text }))
-      }
     },
   },
 }
