@@ -11,7 +11,7 @@ tmpfile=$(mktemp tmp_file_XXXXXX)
 sed "s#/app#$CI_PROJECT_DIR#g" /usr/local/etc/php-fpm.d/fpm.conf > $tmpfile; cat $tmpfile > /usr/local/etc/php-fpm.d/fpm.conf; rm $tmpfile
 
 log-header "Initializing database"
-mysql -u root -proot -hdb --execute="drop database if exists foodsharing; create database foodsharing"
+mariadb -u root -proot -hdb --execute="drop database if exists foodsharing; create database foodsharing"
 vendor/bin/phinx migrate
 
 log-header "Build database documentation"

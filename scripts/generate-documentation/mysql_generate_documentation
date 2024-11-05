@@ -22,7 +22,7 @@ mkdir -p "$BUILD_DIR"
 #https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html
 SQL_DUMP_FILE="$BUILD_DIR/schema_sql_dump.sql"
 
-mysqldump -h "db" -u "root" -p"root" --skip-comments --no-data --skip-add-drop-table foodsharing > "$SQL_DUMP_FILE"
+mariadb-dump -h "db" -u "root" -p"root" --skip-comments --no-data --skip-add-drop-table foodsharing > "$SQL_DUMP_FILE"
 
 # Extract modules and table usage from code base
 TABLE_USAGE_FILE="$BUILD_DIR/extract_tables_usage_from_php.grep_result"

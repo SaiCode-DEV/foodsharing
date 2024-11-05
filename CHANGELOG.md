@@ -131,6 +131,7 @@
 - Fix missing sql dump creation in test script !3739 @chriswalg
 - Added dataSource.xml and sqldialects.xml for JetBrains IDEs !3755 @chriswalg
 - Removed unused hidden dialog !3761 @alex.simm
+- Changed removed command mysql and mysqldump to mariadb and mariadb-dump !3770 @chriswalg
 
 # Hotfix 2024-08-29
 

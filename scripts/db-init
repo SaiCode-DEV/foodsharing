@@ -6,7 +6,7 @@ dir=$(dirname "$0")
 source "$dir"/__common.sh
 
 log-header "Waiting for database ..."
-wait-for-mysql
+wait-for-mariadb
 
 log-header "Drop DB ..."
 dropdb foodsharing

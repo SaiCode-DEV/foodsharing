@@ -37,22 +37,22 @@ function log-header() {
 
 function sql-query() {
   local database=$1 query=$2;
-  "$dir"/docker-compose exec -T db sh -c "mysql --password=$MYSQL_PASSWORD $database --execute=\"$query\""
+  "$dir"/docker-compose exec -T db sh -c "mariadb --password=$MYSQL_PASSWORD $database --execute=\"$query\""
 }
 
 function sql-file() {
   local database=$1 filename=$2;
   echo "Executing sql file $FS_ENV/$database $filename"
-  "$dir"/docker-compose exec -T db sh -c "mysql --password=$MYSQL_PASSWORD $database < /app/$filename"
+  "$dir"/docker-compose exec -T db sh -c "mariadb --password=$MYSQL_PASSWORD $database < /app/$filename"
 }
 
 function sql-dump() {
-  "$dir"/docker-compose exec -T db mysqldump --password="$MYSQL_PASSWORD" foodsharing "$@"
+  "$dir"/docker-compose exec -T db mariadb-dump --password="$MYSQL_PASSWORD" foodsharing "$@"
 }
 
 function sql_dump_to_file() {
   local filename=$1
-  "$dir"/docker-compose exec -T db sh -c "mysqldump --password=$MYSQL_PASSWORD foodsharing > /tmp/dump.sql"
+  "$dir"/docker-compose exec -T db sh -c "mariadb-dump --password=$MYSQL_PASSWORD foodsharing > /tmp/dump.sql"
   "$dir"/docker-compose cp db:/tmp/dump.sql $filename
 }
 
@@ -125,8 +125,8 @@ function migratedb() {
   exec-in-container "$container" bin/console maintenance:recreateGroupStructure
 }
 
-function wait-for-mysql() {
-  exec-in-container-asroot db "while ! mysql --password=$MYSQL_PASSWORD --silent --execute='select 1' >/dev/null 2>&1; do sleep 1; done"
+function wait-for-mariadb() {
+  exec-in-container-asroot db "while ! mariadb --password=$MYSQL_PASSWORD --silent --execute='select 1' >/dev/null 2>&1; do sleep 1; done"
 }
 
 function wait-for-assets() {

@@ -27,7 +27,7 @@ php-fpm -R 2> php_fpm_err.log &
 
 log-header "Initializing database"
 SECONDS=0
-mysql -u root -proot -hdb --execute="drop database if exists foodsharing; create database foodsharing"
+mariadb -u root -proot -hdb --execute="drop database if exists foodsharing; create database foodsharing"
 vendor/bin/phinx migrate
 echo $SECONDS seconds elapsed
 
@@ -43,7 +43,7 @@ done
 echo
 
 log-header "Create DB dump file for codeception"
-mysqldump --user root --password=root -hdb foodsharing > dump.sql
+mariadb-dump --user root --password=root -hdb foodsharing > dump.sql
 pwd
 
 log-header "Running tests"

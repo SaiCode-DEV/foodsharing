@@ -351,7 +351,7 @@ var sql = lines.filter(function (line) {
 }).join("\n");
 
 // Translate SQL commands to json tables
-const parser = new Parser('mysql');
+const parser = new Parser('mariadb');
 const database_schema = parser.feed(sql).toCompactJson(parser.results);
 
 // Backup json tables
