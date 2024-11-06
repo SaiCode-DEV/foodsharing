@@ -48,7 +48,8 @@ class TagUploadsCommand extends Command
         foreach ($postWithValidPictures as $post) {
             try {
                 if (!$isDryRun) {
-                    $this->uploadsGateway->setUsage([$post['uuid']], UploadUsage::BLOG_POST, $post['id']);
+                    $uuid = substr($post['picture'], 13);
+                    $this->uploadsGateway->setUsage([$uuid], UploadUsage::BLOG_POST, $post['id']);
                 }
                 ++$taggedFiles;
             } catch (Throwable $t) {
