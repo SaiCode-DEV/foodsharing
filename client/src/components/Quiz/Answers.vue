@@ -10,7 +10,6 @@
         <OverflowMenu
           :options="menuOptions"
           :callback-args="[answer.id]"
-          :variant="menuVariant(answer)"
         />
         <b>{{ $i18n(answerText(answer)) }}</b><br>
         {{ answer.text }}
@@ -22,7 +21,6 @@
 <script>
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import ExpandableExplanation from './ExpandableExplanation.vue'
-import { ANSWER_RATING } from '@/consts'
 
 export default {
   components: { ExpandableExplanation, OverflowMenu },
@@ -52,9 +50,6 @@ export default {
         return `${path}${!!answer.selected}_${!!answer.answerRating}`
       }
       return `quiz.answers.short.${answer.answerRating}`
-    },
-    menuVariant (answer) {
-      return answer.answerRating === ANSWER_RATING.NEUTRAL ? 'dark' : 'light'
     },
   },
 }

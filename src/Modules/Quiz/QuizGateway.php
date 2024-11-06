@@ -67,10 +67,12 @@ class QuizGateway extends BaseGateway
 				question.text,
 				question.duration,
 				question.wikilink,
+                question.is_mandatory,
 				question_has_quiz.fp
 			FROM fs_question question
             LEFT JOIN fs_question_has_quiz question_has_quiz ON question_has_quiz.question_id = question.id
 			WHERE question_has_quiz.quiz_id = :quizId
+            ORDER BY question.is_mandatory DESC, question.id ASC
 		', [':quizId' => $quizId]);
 
         return array_map([Question::class, 'createFromArray'], $questions);
@@ -96,6 +98,26 @@ class QuizGateway extends BaseGateway
     }
 
     /**
+     * @return Question[]
+     */
+    public function getMandatoryQuestions(int $quizId): array
+    {
+        $data = $this->db->fetchAll('SELECT
+                q.*,
+                hq.fp,
+                hq.quiz_id
+			FROM fs_question q
+			LEFT JOIN fs_question_has_quiz hq ON hq.question_id = q.id
+			WHERE hq.quiz_id = :quizId AND q.is_mandatory = 1
+            ORDER BY RAND()
+		', [':quizId' => $quizId]);
+
+        return array_map([Question::class, 'createFromArray'], $data);
+    }
+
+    /**
+     * Returns the number of questions for each number of failiure points, excluding mandatory questions.
+     *
      * @return array<array>
      */
     public function getQuestionCountByFailurePoints(int $quizId): array
@@ -108,6 +130,7 @@ class QuizGateway extends BaseGateway
             LEFT JOIN fs_question_has_quiz hq
                 ON hq.question_id = q.id
             WHERE hq.quiz_id = :quizId
+            AND q.is_mandatory = 0
             GROUP BY hq.fp
             ORDER BY hq.fp ASC
         ', [':quizId' => $quizId]);
@@ -119,6 +142,7 @@ class QuizGateway extends BaseGateway
             'text' => $question->text,
             'duration' => $question->durationInSeconds,
             'wikilink' => $question->wikilink,
+            'is_mandatory' => $question->isMandatory,
         ]);
         $this->db->insert('fs_question_has_quiz', [
             'question_id' => $questionId,
@@ -134,7 +158,8 @@ class QuizGateway extends BaseGateway
         $this->db->update('fs_question', [
             'text' => $question->text,
             'duration' => $question->durationInSeconds,
-            'wikilink' => $question->wikilink
+            'wikilink' => $question->wikilink,
+            'is_mandatory' => $question->isMandatory,
         ], ['id' => $question->id]);
         $this->db->update('fs_question_has_quiz',
             ['fp' => $question->failurePoints],

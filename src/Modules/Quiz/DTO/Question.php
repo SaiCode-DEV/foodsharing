@@ -32,6 +32,9 @@ class Question
     #[Assert\PositiveOrZero]
     public int $failurePoints;
 
+    #[OA\Property(example: false)]
+    public bool $isMandatory;
+
     #[OA\Property(type: 'array', items: new OA\Items(ref: new Model(type: Answer::class)))]
     #[Assert\IsNull]
     public ?array $answers;
@@ -47,6 +50,7 @@ class Question
         $result->durationInSeconds = $data['duration'] ?? $data['durationInSeconds'];
         $result->wikilink = $data['wikilink'];
         $result->failurePoints = $data['fp'] ?? $data['failurePoints'];
+        $result->isMandatory = boolval($data['is_mandatory'] ?? false);
 
         return $result;
     }

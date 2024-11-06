@@ -68,7 +68,11 @@ class QuizTransactions
      */
     private function getFairQuestions(int $count, int $quizId): array
     {
-        $questions = [];
+        $questions = $this->quizGateway->getMandatoryQuestions($quizId);
+        $count -= count($questions);
+        if ($count <= 0) {
+            return $questions;
+        }
         $fpCounts = $this->quizGateway->getQuestionCountByFailurePoints($quizId);
         $total = array_reduce($fpCounts, fn ($a, $b) => $b['count'] + $a, 0);
         $carryOver = 0;

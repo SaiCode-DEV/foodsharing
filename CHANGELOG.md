@@ -29,6 +29,7 @@
 - Forum threads that need activation trigger a bell notification #289 !3703 @alex.simm
 - Improved map marker caching #2106 !3712 @AntonBallmaier
 - Added a map marker selection for ambassadors to display users #1759 !3714 @AntonBallmaier
+- Added the option to mark quiz questions as mandatory. Mandatory questions get included every time. #2179 !3760 @AntonBallmaier
 - Added support form for our new zammad ticket system !3210 @chriswalg @alex.simm
 - Add push notification toggle and prompt users to use push notifications for the chat #1967 !3375 @AntonBallmaier
 

@@ -44,6 +44,15 @@
           trim.lazy
         />
       </b-form-group>
+
+      <b-form-group :label="$i18n('quiz.editModal.question.input.mandatory.label')">
+        <b-form-checkbox
+          v-model="form.isMandatory"
+          :state="validities.isMandatory"
+        >
+          {{ $i18n('quiz.editModal.question.input.mandatory.text') }}
+        </b-form-checkbox>
+      </b-form-group>
     </b-form>
   </b-modal>
 </template>

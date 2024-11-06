@@ -263,6 +263,7 @@ quiz:
   editable_tooltip: "Du kannst dieses Quiz bearbeiten."
   timelimit: "Zeitlimit"
   max_fp: Mögliche Fehlerpunkte
+  mandatory_question: "Diese Frage ist verpflichtend und in jedem Quizversuch enthalten."
   fp_description: "Insgesamt {failurePoints}, also {perMistake} pro falscher Antwort"
   question_options:
     add: "Frage hinzufügen"
@@ -311,6 +312,9 @@ quiz:
         wikilink:
           label: "Link zum passenden Artikel:"
           placeholder: "https://wiki.foodsharing.de/..."
+        mandatory:
+          label: "Pflichtfrage?"
+          text: "Diese Frage muss in jedem Quizversuch enthalten sein"
       confirmDelete:
         title: Willst du diese Frage wirklich löschen?
         text:

@@ -1,5 +1,8 @@
 <template>
   <div>
+    <p v-if="question.isMandatory">
+      <b v-text="$i18n('quiz.mandatory_question')" />
+    </p>
     <p>
       <b>{{ $i18n(`quiz.question`) }}:</b>
       {{ question.text }}

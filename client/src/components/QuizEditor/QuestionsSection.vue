@@ -17,7 +17,7 @@
             variant="outline-primary"
           >
             <span class="question-title">
-              {{ $i18n(`quiz.question`) }} #{{ question.id }}
+              <span :class="{'font-weight-bold': question.isMandatory}">{{ $i18n(`quiz.question`) }} #{{ question.id }}</span>
               -
               {{ question.text }}
             </span>
