@@ -50,33 +50,34 @@
           <b-form-tags
             v-model="emailTo"
             no-outer-focus
-            :tag-validator="isValidEmail"
             :limit="100"
-            separator=" ,;"
             size="sm"
             class="mb-2"
+            no-add-on-enter
+            seperator=""
           >
-            <template #default="{ tags, inputAttrs, inputHandlers, tagVariant, addTag, removeTag }">
+            <template #default="{ tags, inputAttrs, inputHandlers, tagVariant, removeTag }">
               <b-input-group class="mb-2">
                 <b-form-input
+                  v-model="currentEmailInput"
                   v-bind="inputAttrs"
                   :placeholder="$i18n('mailbox.tag_recipient_hint')"
                   class="form-control"
                   v-on="inputHandlers"
-                  @focusout="addTag()"
+                  @keydown.enter.prevent="addEmailTag(inputAttrs.value)"
                 />
                 <b-input-group-append>
                   <b-button
                     v-if="!isMobile"
                     variant="outline-primary"
-                    @click="addTag()"
+                    @click="addEmailTag(inputAttrs.value)"
                   >
                     {{ $i18n('mailbox.add') }}
                   </b-button>
                   <b-button
                     v-else
                     variant="outline-primary"
-                    @click="addTag()"
+                    @click="addEmailTag(inputAttrs.value)"
                   >
                     +
                   </b-button>
@@ -274,6 +275,7 @@ export default {
       attachmentFilesName: [],
       attachmentFilesObjects: [],
       isMobile: false,
+      currentEmailInput: '',
     }
   },
   computed: {
@@ -408,8 +410,32 @@ export default {
       this.isMobile = window.innerWidth <= 768
     },
     isValidEmail (email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+      return /^((("[^"\\]+")|([a-zA-Z0-9_.+-]+))@[a-zA-Z0-9-]+\.[a-zA-Z]{2,})$/.test(email)
     },
+    addEmailTag (tag) {
+      let tagString = tag.trim()
+
+      if (tagString.endsWith(';')) {
+        tagString = tagString.slice(0, -1)
+      }
+
+      const splitRegex = /;\s*(?=(?:(?:[^"]*"){2})*[^"]*$)/
+
+      const emailAddresses = tagString.split(splitRegex)
+      const invalidEmails = []
+
+      emailAddresses.forEach((email) => {
+        email = email.trim()
+        if (this.isValidEmail(email)) {
+          this.emailTo.push(email)
+        } else {
+          console.log('Ungültige E-Mail-Adresse:', email)
+          invalidEmails.push(email)
+        }
+      })
+      this.currentEmailInput = invalidEmails.join('; ')
+    },
+
     storeFiles (event) {
       // Stores files that were selected as attachments. Uploading is only done when the email is actually being sent.
       const files = Array.from(event.target.files)

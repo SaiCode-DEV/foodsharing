@@ -63,6 +63,7 @@
 - Use input date browser support for birthdate input in RegisterBirthdate.vue and ProfileSettings.vue !3738 @chriswalg
 
 ## Bugfixes
+- Resolve quoted string is not parsed correctly in mail address #2142 !3757 @anja0884
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
 - Fix sleeping hat display for future sleep times #1881 !3437 @AntonBallmaier
 - Test push notifications are only sent to the new device #960 @alex.simm
