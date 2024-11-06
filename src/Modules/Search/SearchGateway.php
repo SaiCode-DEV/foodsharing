@@ -218,7 +218,7 @@ class SearchGateway extends BaseGateway
                 GROUP_CONCAT(foodsaver.id) AS admin_ids,
                 GROUP_CONCAT(foodsaver.name) AS admin_names,
                 GROUP_CONCAT(IFNULL(foodsaver.photo, '')) AS admin_photos,
-                GROUP_CONCAT(foodsaver.is_sleeping) AS admin_is_sleepings
+                GROUP_CONCAT(foodsaver.is_sleeping) AS admin_is_sleepings,
                 {$searchCriteria} AS search_string
             FROM fs_bezirk region
             JOIN fs_bezirk parent ON parent.id = region.parent_id

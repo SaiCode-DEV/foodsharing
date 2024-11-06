@@ -87,6 +87,7 @@
 - Fix 3 occureces for foodsharing always in lower case !3748 @McGoldi
 - The mobile phone number was unintentionally a mandatory field in the registration form. This has been fixed !3726 @chriswalg
 - Fixed address requests to Geoapify for all languages #2184 !3772 @alex.simm
+- Fixed server error when fetching search index #2185 !3777 @AntonBallmaier
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
