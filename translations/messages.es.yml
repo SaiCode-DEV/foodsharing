@@ -524,6 +524,9 @@ quiz:
         wikilink:
           label: 'Enlace al artículo correspondiente:'
           placeholder: https://wiki.foodsharing.de/…
+        mandatory:
+          label: ¿Pregunta obligatoria?
+          text: Esta pregunta debe estar incluida en cada prueba
       title: Editar pregunta
       confirmDelete:
         title: ¿De verdad quieres borrar esta pregunta?
@@ -595,6 +598,8 @@ quiz:
       días. Por lo tanto, puede refrescar sus conocimientos sobre este tema ahora
       y volver a realizar este cuestionario.
     expired: Sin embargo, su último intento ya no es válido.
+  mandatory_question: Esta pregunta es obligatoria y se incluye en cada prueba de
+    la encuesta.
 terminology:
   foodsaver:
     m: rescatista
