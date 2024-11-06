@@ -65,19 +65,19 @@ export default {
       includeEvents: 'invitations',
       includeHistory: true,
       selectedProgram: null,
-      protocol: 'http',
+      protocol: 'https',
       formatting: 'alt',
       pickupOptions: this.optionsArray([true, false], 'pickup'),
       eventOptions: this.optionsArray(['all', 'invitations', 'maybe', 'accepted', 'none'], 'event'),
       historyOptions: this.optionsArray([true, false], 'history'),
       programOptions: [
-        { value: { protocol: 'http', formatting: 'html' }, text: this.$i18n('settings.calendar.program.google') },
+        { value: { protocol: 'https', formatting: 'html' }, text: this.$i18n('settings.calendar.program.google') },
         { value: { protocol: 'webcal', formatting: 'alt' }, text: this.$i18n('settings.calendar.program.outlook') },
-        { value: { protocol: 'http', formatting: 'alt' }, text: this.$i18n('settings.calendar.program.thunderbird') },
+        { value: { protocol: 'https', formatting: 'alt' }, text: this.$i18n('settings.calendar.program.thunderbird') },
         { value: { protocol: 'webcal', formatting: 'text' }, text: this.$i18n('settings.calendar.program.apple_etar') },
         { value: 'other', text: this.$i18n('settings.calendar.program.other') },
       ],
-      protocolOptions: ['http', 'webcal'].map(value => ({ value, text: `${value}://...` })),
+      protocolOptions: ['https', 'webcal'].map(value => ({ value, text: `${value}://...` })),
       formattingOptions: this.optionsArray(['html', 'alt', 'text'], 'formatting'),
     }
   },
@@ -126,7 +126,7 @@ export default {
     async download () {
       await this.haveToken()
       const link = document.createElement('a')
-      link.href = this.url.replace(/^(webcal)|(http)/, 'https') // always use https for download
+      link.href = this.url.replace(/^webcal/, 'https') // always use https for download
       link.click()
     },
     async removeToken () {

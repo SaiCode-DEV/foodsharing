@@ -61,6 +61,7 @@
 - prevent admins of parent groups access to sub groups settings #2044 !3701 @McGoldi
 - Remove restriction to foodsharing wiki links in the quiz editor #2178 !3759 @AntonBallmaier 
 - Use input date browser support for birthdate input in RegisterBirthdate.vue and ProfileSettings.vue !3738 @chriswalg
+- Use https for calendar api requests #2177 !3775 @AntonBallmaier
 
 ## Bugfixes
 - Resolve quoted string is not parsed correctly in mail address #2142 !3757 @anja0884
