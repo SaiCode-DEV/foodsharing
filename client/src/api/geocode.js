@@ -1,5 +1,5 @@
 import { geoapifyApiKey, isDev } from '@/helper/server-data'
-import { locale } from '@/helper/i18n'
+import { languageCodeISO } from '@/helper/i18n'
 
 const GEOAPIFY_API_URL = isDev ? '/mock/geocode' : 'https://api.geoapify.com/v1/geocode'
 
@@ -7,11 +7,12 @@ export async function fetchAutocomplete (input) {
   if (!input || input.length < 5) {
     return []
   }
+  const language = languageCodeISO()
   const params = new URLSearchParams({
     text: input,
     limit: 5,
-    lang: locale,
-    bias: `countrycode:${locale}`,
+    lang: language,
+    bias: `countrycode:${language}`,
     filter: 'countrycode:de,at,ch,nl,be,lu,fr,pl,cz,sk,hu',
     apiKey: geoapifyApiKey,
   })
@@ -37,7 +38,7 @@ export async function fetchReverseGeocode (coords) {
   const params = new URLSearchParams({
     lat: coords.lat,
     lon: coords.lon,
-    lang: locale,
+    lang: languageCodeISO(),
     apiKey: geoapifyApiKey,
   })
   const response = await fetch(

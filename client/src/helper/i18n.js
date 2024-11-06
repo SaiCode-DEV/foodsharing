@@ -35,3 +35,10 @@ export default function (path, variables = {}) {
     }
   })
 }
+
+/**
+ * Returns only the macro language code part of the user's locale. For example, returns 'nb' if the locale is 'nb_NO'.
+ */
+export function languageCodeISO () {
+  return locale.includes('_') ? locale.substring(0, locale.indexOf('_')) : locale
+}
