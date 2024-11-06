@@ -345,20 +345,7 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addTitle($this->translator->trans('group.members'));
         $sub = $request->query->get('sub');
 
-        if ($region['type'] === UnitType::WORKING_GROUP) {
-            $mayEditMembers = $this->workGroupPermissions->mayEdit($region);
-            $maySetAdminOrAmbassador = $mayEditMembers;
-            $mayRemoveAdminOrAmbassador = $mayEditMembers;
-        } else {
-            $mayEditMembers = $this->regionPermissions->mayDeleteFoodsaverFromRegion((int)$region['id']);
-            $maySetAdminOrAmbassador = $this->regionPermissions->maySetRegionAdmin();
-            $mayRemoveAdminOrAmbassador = $this->regionPermissions->mayRemoveRegionAdmin();
-        }
-        $pageData['mayEditMembers'] = $mayEditMembers;
-        $pageData['maySetAdminOrAmbassador'] = $maySetAdminOrAmbassador;
-        $pageData['mayRemoveAdminOrAmbassador'] = $mayRemoveAdminOrAmbassador;
-        $pageData['userId'] = $this->session->id();
-        $params = $this->convertDataToObject($region, $sub, $pageData);
+        $params = $this->convertDataToObject($region, $sub, []);
 
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 

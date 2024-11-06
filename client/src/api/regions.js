@@ -74,3 +74,7 @@ export function patchRegion (region) {
 export async function createRegion (region) {
   return (await post('/region', region)).regionId
 }
+
+export async function getRegionMemberPermissions (regionId) {
+  return await get(`/region/${regionId}/members/permissions`)
+}

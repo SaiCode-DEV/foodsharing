@@ -257,7 +257,7 @@
 
 <script>
 import { addMember } from '@/api/groups'
-import { removeMember, setAdminOrAmbassador, removeAdminOrAmbassador } from '@/api/regions'
+import { removeMember, setAdminOrAmbassador, removeAdminOrAmbassador, getRegionMemberPermissions } from '@/api/regions'
 import { useRegionStore } from '@/stores/regions'
 import { hideLoader, pulseError, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
@@ -268,14 +268,15 @@ import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import { REGION_IDS } from '@/consts'
+import { useUserStore } from '@/stores/user'
 
 const regionStore = useRegionStore()
+const userStore = useUserStore()
 
 export default {
   components: { UserSearchInput, Container, Avatar },
   mixins: [ConfirmationDialogue, MediaQueryMixin],
   props: {
-    userId: { type: Number, default: null },
     groupId: { type: Number, required: true },
     regionName: {
       type: String,
@@ -286,9 +287,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    mayEditMembers: { type: Boolean, default: false },
-    maySetAdminOrAmbassador: { type: Boolean, default: false },
-    mayRemoveAdminOrAmbassador: { type: Boolean, default: false },
   },
   setup () {
     return {
@@ -318,9 +316,15 @@ export default {
       filterPassportMember: false,
       activeTab: null,
       sortBy: '',
+      mayEditMembers: false,
+      maySetAdminOrAmbassador: false,
+      mayRemoveAdminOrAmbassador: false,
     }
   },
   computed: {
+    userId () {
+      return userStore.getUserId
+    },
     getAdminButton () {
       return (item) => {
         if (this.mayRemoveAdminOrAmbassador && this.rowItemIsAdminOrAmbassadorOfRegion(item)) {
@@ -513,9 +517,17 @@ export default {
         .indexOf(this.regionId) >= 0
     },
   },
-  mounted () {
+  async mounted () {
     if (!this.isDeactivatedRegion) {
       regionStore.fetchMemberList(this.groupId)
+    }
+    try {
+      const permissions = await getRegionMemberPermissions(this.groupId)
+      this.mayEditMembers = permissions.mayEditMembers
+      this.maySetAdminOrAmbassador = permissions.maySetAdminOrAmbassador
+      this.mayRemoveAdminOrAmbassador = permissions.mayRemoveAdminOrAmbassador
+    } catch (e) {
+      pulseError(i18n('error_unexpected'))
     }
   },
   methods: {

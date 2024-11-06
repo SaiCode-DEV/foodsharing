@@ -511,6 +511,40 @@ class RegionRestController extends AbstractFoodsharingRestController
         return $this->handleView($this->view([], 200));
     }
 
+    #[OA2\Get(summary: 'Returns the permissions that this user has concerning administration of the members in the region.')]
+    #[OA2\Parameter(name: 'regionId', description: 'ID of the region', in: 'path', schema: new OA2\Schema(type: 'integer'))]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Region not found')]
+    #[Rest\Get('region/{regionId}/members/permissions', requirements: ['regionId' => '\d+'])]
+    public function getRegionMemberPermissions(int $regionId): Response
+    {
+        $this->assertLoggedIn();
+
+        $region = $this->regionGateway->getRegionDetails($regionId);
+        if (empty($region)) {
+            throw new NotFoundHttpException('region does not exist');
+        }
+
+        if ($region['type'] === UnitType::WORKING_GROUP) {
+            $mayEditMembers = $this->workGroupPermissions->mayEdit($region);
+            $maySetAdminOrAmbassador = $mayEditMembers;
+            $mayRemoveAdminOrAmbassador = $mayEditMembers;
+        } else {
+            $mayEditMembers = $this->regionPermissions->mayDeleteFoodsaverFromRegion((int)$region['id']);
+            $maySetAdminOrAmbassador = $this->regionPermissions->maySetRegionAdmin();
+            $mayRemoveAdminOrAmbassador = $this->regionPermissions->mayRemoveRegionAdmin();
+        }
+
+        $permissions = [
+            'mayEditMembers' => $mayEditMembers,
+            'maySetAdminOrAmbassador' => $maySetAdminOrAmbassador,
+            'mayRemoveAdminOrAmbassador' => $mayRemoveAdminOrAmbassador,
+        ];
+
+        return $this->respondOK($permissions);
+    }
+
     #[OA2\Get(summary: 'Returns the properties of a specific region.')]
     #[OA2\Parameter(name: 'regionId', in: 'path', schema: new OA2\Schema(type: 'integer'), description: 'ID of the region or 0 for the root region')]
     #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
