@@ -415,6 +415,9 @@ quiz:
         wikilink:
           label: 'İlgili makalenin bağlantısı:'
           placeholder: https://wiki.foodsharing.de/...
+        mandatory:
+          label: Zorunlu soru mu?
+          text: Bu soru her sınav girişimine dahil edilmelidir
       confirmDelete:
         title: Bu soruyu gerçekten silmek istiyor musun?
     answer:
@@ -460,6 +463,7 @@ quiz:
       gün içinde sona erer. Bu nedenle bu konu alanındaki bilgilerinizi tazeleyebilir
       ve bu teste tekrar katılabilirsiniz.
     expired: Ancak son test denemeniz artık geçerli değil.
+  mandatory_question: Bu soru zorunludur ve her test denemesinde yer alır.
 answers: Hangi cevaplar doğru?
 maxfp: Geçilmesi gerekilen maksimum hata puanları
 questcount: Sınavda kaç soru sorulmalıdır?
@@ -1366,6 +1370,7 @@ store:
       Buradaki ekibe düzenli ve güvenilir bir şekilde destek verebileceğinizden emin
       misiniz?
     application-placeholder: Bu ekibe yardımcı olmak istiyorum çünkü...
+    application-message: Başvuru mesajı
   filter: …göre filtrele…
   enterdate: Alım tarihini girin
   important: 'Önemli:'
@@ -1691,6 +1696,7 @@ region:
   mailbox: Posta kutusu adı
   parent: Baş Bölge
   master: Yüksek Bölge
+  allow_hiding_in_forum: Moderatörlerin tüm forum gönderilerini silmesine izin ver
 events:
   duration: 'Süre: {duration}'
   create:
@@ -3064,6 +3070,26 @@ map:
         region: Sadece benim Bölgelerim
         member: Sadece benim İşletmelerim
         label: Üyeliği
+    users:
+      activity:
+        3months: Son 3 Ay
+        month: Geçen Ay
+        week: Geçen Hafta
+        6months: Son 6 Ay
+        all: Farketmez
+        label: Son giriş
+      role:
+        foodsaver: doğrulanmış foodsaverlar
+        store-manager: -İşletme Sorumlusu
+        all: Hepsi
+        label: Rolü
+      member:
+        label: Aitlik
+        all: Hepsi
+        homeregion: Ana-Bölge
+        other: İkinci Bölgeniz
+      region:
+        label: -Bölge
   foodsharepoint:
     go: Dağıtım Noktası
 buddy:
