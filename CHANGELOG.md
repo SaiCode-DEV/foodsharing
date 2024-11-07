@@ -89,6 +89,7 @@
 - The mobile phone number was unintentionally a mandatory field in the registration form. This has been fixed !3726 @chriswalg
 - Fixed address requests to Geoapify for all languages #2184 !3772 @alex.simm
 - Fixed server error when fetching search index #2185 !3777 @AntonBallmaier
+- Fixed bug that resulted in showing profile setting button on unverified profiles to unpermitted users. #2171 !3773 @AntonBallmaier 
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier

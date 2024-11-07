@@ -151,6 +151,10 @@ class ProfilePermissions
 
     public function mayAdministrateUserProfile(int $userId, ?int $regionId = null): bool
     {
+        if (!$regionId) {
+            return $this->session->mayRole(Role::ORGA);
+        }
+
         return $this->commonPermissions->mayAdministrateRegion($userId, $regionId);
     }
 }
