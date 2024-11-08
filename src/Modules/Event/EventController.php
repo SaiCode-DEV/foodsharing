@@ -51,12 +51,12 @@ class EventController extends FoodsharingController
     }
 
     #[Route('/event/add', name: 'add_event')]
-    public function addNewEvent(): Response
+    public function addNewEvent(Request $request): Response
     {
         $this->pageHelper->addBread($this->translator->trans('events.bread'), '/event/add');
         $this->pageHelper->addBread($this->translator->trans('events.create.title'));
 
-        $regionId = isset($_GET['bid']) ? (int)$_GET['bid'] : 0;
+        $regionId = (int)$request->query->get('bid', 0);
 
         $this->pageHelper->addContent($this->prepareVueComponent('event-form', 'EventForm', [
             'regionId' => $regionId,

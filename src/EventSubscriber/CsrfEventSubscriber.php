@@ -24,8 +24,8 @@ class CsrfEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $httpMethod = $event->getRequest()->getMethod();
-        if (in_array($httpMethod, ['GET', 'OPTIONS', 'HEAD'])) {
+        $request = $event->getRequest();
+        if (in_array($request->getMethod(), ['GET', 'OPTIONS', 'HEAD'])) {
             // since these methods should not cause any changes, we can savely execute cross site requests
             return;
         }
@@ -50,7 +50,7 @@ class CsrfEventSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if (!$this->session->isValidCsrfHeader()) {
+        if (!$this->session->isValidCsrfHeader($request)) {
             throw new SuspiciousOperationException('CSRF Failed: CSRF token missing or incorrect.');
         }
     }

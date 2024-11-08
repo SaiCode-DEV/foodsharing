@@ -126,7 +126,6 @@ final class PageHelper
             'hidden' => $this->hidden,
             'isMob' => $this->isMob(),
             'footer' => $this->getFooter(),
-            'HTTP_HOST' => $_SERVER['HTTP_HOST'] ?? BASE_URL,
             'content' => [
                 'main' => [
                     'html' => $this->getContent(CNT_MAIN),

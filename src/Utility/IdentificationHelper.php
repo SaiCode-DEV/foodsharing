@@ -2,28 +2,24 @@
 
 namespace Foodsharing\Utility;
 
+use Symfony\Component\HttpFoundation\Request;
+
 class IdentificationHelper
 {
     private array $ids = [];
 
-    public function getGetId($name)
+    public function getAction(Request $request, $a): bool
     {
-        if (isset($_GET[$name]) && (int)$_GET[$name] > 0) {
-            return (int)$_GET[$name];
-        }
-
-        return false;
+        return $request->query->has('a') && $request->query->get('a') == $a;
     }
 
-    public function getAction($a): bool
+    public function getActionId(Request $request, $a): bool|int
     {
-        return isset($_GET['a']) && $_GET['a'] == $a;
-    }
-
-    public function getActionId($a)
-    {
-        if (isset($_GET['a'], $_GET['id']) && $_GET['a'] == $a && (int)$_GET['id'] > 0) {
-            return (int)$_GET['id'];
+        if ($this->getAction($request, $a) && $request->query->has('id')) {
+            $id = (int)$request->query->get('id');
+            if ($id > 0) {
+                return $id;
+            }
         }
 
         return false;

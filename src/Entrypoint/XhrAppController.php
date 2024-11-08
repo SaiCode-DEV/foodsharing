@@ -57,7 +57,7 @@ class XhrAppController extends AbstractController
         $response = new Response();
 
         // check CSRF Header
-        if (!$session->isValidCsrfHeader()) {
+        if (!$session->isValidCsrfHeader($request)) {
             $response->setProtocolVersion('1.1');
             $response->setStatusCode(Response::HTTP_FORBIDDEN);
             $response->setContent('CSRF Failed: CSRF token missing or incorrect.');

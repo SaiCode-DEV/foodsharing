@@ -129,7 +129,7 @@ class FoodSharePointView extends View
         return $this->v_utils->v_menu($items, $this->translator->trans('options'));
     }
 
-    public function followHidden(array $foodSharePoint): string
+    public function followHidden(array $foodSharePoint, string $requestUri): string
     {
         $this->pageHelper->addJsFunc('
 			function u_follow () {
@@ -147,7 +147,7 @@ class FoodSharePointView extends View
 				resizable: false,
 				buttons: {
 					"' . $this->translator->trans('button.save') . '": function () {
-						goTo("' . $this->routeHelper->getSelf() . '&follow=1&infotype=" + $("input[name=\'infotype\']:checked").val());
+						goTo("' . $requestUri . '&follow=1&infotype=" + $("input[name=\'infotype\']:checked").val());
 					}
 				}
 			});

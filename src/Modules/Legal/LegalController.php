@@ -63,7 +63,8 @@ class LegalController extends FoodsharingController
 
             try {
                 $this->session->refreshFromDatabase();
-                $this->routeHelper->goSelfAndExit();
+
+                return $this->redirect($request->getRequestUri());
             } catch (\Exception) {
                 $this->routeHelper->goPageAndExit('logout');
             }

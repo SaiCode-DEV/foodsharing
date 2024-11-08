@@ -72,18 +72,18 @@ class ContentController extends FoodsharingController
             return $this->redirect('/');
         }
 
-        if ($this->identificationHelper->getAction('new')) {
+        if ($this->identificationHelper->getAction($request, 'new')) {
             $this->pageHelper->addBread($this->translator->trans('content.bread'), '/content');
             $this->pageHelper->addBread($this->translator->trans('content.new'));
 
             $this->pageHelper->addContent($this->prepareVueComponent('content-edit', 'ContentEdit'));
-        } elseif ($id = $this->identificationHelper->getActionId('delete')) {
+        } elseif ($id = $this->identificationHelper->getActionId($request, 'delete')) {
             if ($this->contentGateway->delete($id)) {
                 $this->flashMessageHelper->success($this->translator->trans('content.delete_success'));
                 $this->routeHelper->goPageAndExit();
             }
-        } elseif ($id = $this->identificationHelper->getActionId('edit')) {
-            if (!$this->contentPermissions->mayEditContentId((int)$_GET['id'])) {
+        } elseif ($id = $this->identificationHelper->getActionId($request, 'edit')) {
+            if (!$this->contentPermissions->mayEditContentId((int)$request->query->get('id'))) {
                 return $this->redirect('/content');
             }
             $this->pageHelper->addBread($this->translator->trans('content.bread'), '/content');
@@ -92,10 +92,10 @@ class ContentController extends FoodsharingController
             $this->pageHelper->addContent(
                 $this->prepareVueComponent('content-edit', 'ContentEdit', ['contentId' => $id])
             );
-        } elseif ($id = $this->identificationHelper->getActionId('view')) {
+        } elseif ($id = $this->identificationHelper->getActionId($request, 'view')) {
             $this->addContent($id);
-        } elseif (isset($_GET['id'])) {
-            return $this->redirect('/content?a=edit&id=' . (int)$_GET['id']);
+        } elseif ($request->query->has('id')) {
+            return $this->redirect('/content?a=edit&id=' . (int)$request->query->get('id'));
         } else {
             $this->pageHelper->addBread($this->translator->trans('content.public'), '/content');
 
@@ -108,12 +108,12 @@ class ContentController extends FoodsharingController
         return $this->renderGlobal();
     }
 
-    public function partner(): Response
+    public function partner(Request $request): Response
     {
         // select the partners page for the country and use german as fallback
-        $host = $_SERVER['HTTP_HOST'] ?? BASE_URL;
+        $host = (string)$request->server->get('HTTP_HOST', BASE_URL);
         $contentId = ContentId::PARTNER_PAGE_10;
-        if (str_contains((string)$host, 'foodsharing.at')) {
+        if (str_contains($host, 'foodsharing.at')) {
             $contentId = ContentId::PARTNER_PAGE_AU_79;
         }
 

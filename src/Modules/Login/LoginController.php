@@ -135,14 +135,14 @@ class LoginController extends FoodsharingController
         }
 
         if ($k === false) {
-            $this->pageHelper->addContent($this->view->passwordRequest());
+            $this->pageHelper->addContent($this->view->passwordRequest($request->getRequestUri()));
 
             return $this->renderGlobal();
         }
 
         if (!$this->loginGateway->checkResetKey($k)) {
             $this->flashMessageHelper->error($this->translator->trans('login.pwreset.expired'));
-            $this->pageHelper->addContent($this->view->passwordRequest(), CNT_LEFT);
+            $this->pageHelper->addContent($this->view->passwordRequest($request->getRequestUri()), CNT_LEFT);
 
             return $this->renderGlobal();
         }

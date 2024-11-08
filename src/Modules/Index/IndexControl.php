@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Index;
 use Foodsharing\Modules\Content\ContentGateway;
 use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\Content\ContentId;
+use Symfony\Component\HttpFoundation\Request;
 
 class IndexControl extends Control
 {
@@ -15,16 +16,16 @@ class IndexControl extends Control
         parent::__construct();
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $this->pageHelper->addTitle($this->translator->trans('savewithus'));
 
-        $host = $_SERVER['HTTP_HOST'] ?? BASE_URL;
-        if (str_contains((string)$host, 'foodsharing.at')) {
+        $host = (string)$request->server->get('HTTP_HOST', BASE_URL);
+        if (str_contains($host, 'foodsharing.at')) {
             $contentIds = [ContentId::STARTPAGE_BLOCK1_AT, ContentId::STARTPAGE_BLOCK2_AT, ContentId::STARTPAGE_BLOCK3_AT];
-        } elseif (str_contains((string)$host, 'foodsharingschweiz.ch')) {
+        } elseif (str_contains($host, 'foodsharingschweiz.ch')) {
             $contentIds = [ContentId::STARTPAGE_BLOCK1_CH, ContentId::STARTPAGE_BLOCK2_CH, ContentId::STARTPAGE_BLOCK3_CH];
-        } elseif (str_contains((string)$host, 'beta.foodsharing.de')) {
+        } elseif (str_contains($host, 'beta.foodsharing.de')) {
             $contentIds = [ContentId::STARTPAGE_BLOCK1_BETA, ContentId::STARTPAGE_BLOCK2_BETA, ContentId::STARTPAGE_BLOCK3_BETA];
         } else {
             $contentIds = [ContentId::STARTPAGE_BLOCK1_DE, ContentId::STARTPAGE_BLOCK2_DE, ContentId::STARTPAGE_BLOCK3_DE];

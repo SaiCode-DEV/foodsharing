@@ -27,14 +27,9 @@ final class RouteHelper
         exit;
     }
 
-    public function goSelfAndExit(): never
-    {
-        $this->goAndExit($this->getSelf());
-    }
-
     public function goLoginAndExit(): never
     {
-        $this->goPageAndExit('login', ['ref' => $this->getSelf()]);
+        $this->goPageAndExit('login', ['ref' => $_SERVER['REQUEST_URI']]);
     }
 
     public function goPageAndExit(string $page = '', array $params = [], bool $pageIsSymfonyRoute = false): never
@@ -56,11 +51,6 @@ final class RouteHelper
             }
         }
         $this->goAndExit($url);
-    }
-
-    public function getSelf()
-    {
-        return $_SERVER['REQUEST_URI'];
     }
 
     public function getSymfonyRoute(): string

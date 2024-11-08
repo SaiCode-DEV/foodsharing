@@ -7,6 +7,7 @@ use Foodsharing\Modules\Core\Control;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Permissions\VotingPermissions;
+use Symfony\Component\HttpFoundation\Request;
 
 class VotingControl extends Control
 {
@@ -20,10 +21,14 @@ class VotingControl extends Control
         parent::__construct();
     }
 
-    public function index()
+    public function index(Request $request)
     {
         try {
-            if (isset($_GET['id']) && ($poll = $this->votingTransactions->getPoll($_GET['id'], true))
+            $id = $request->query->get('id');
+            $sub = $request->query->get('sub');
+            $bid = $request->query->get('bid');
+
+            if (isset($id) && ($poll = $this->votingTransactions->getPoll($id, true))
                 && $this->votingPermissions->maySeePoll($poll)) {
                 $region = $this->regionGateway->getRegion($poll->regionId);
                 $this->pageHelper->addBread($region['name'], '/region?bid=' . $region['id']);
@@ -31,7 +36,7 @@ class VotingControl extends Control
                 $this->pageHelper->addBread($poll->name);
                 $this->pageHelper->addTitle($poll->name);
 
-                if (isset($_GET['sub']) && $_GET['sub'] === 'edit') {
+                if (isset($sub) && $sub === 'edit') {
                     if ($this->votingPermissions->mayEditPoll($poll)) {
                         $this->pageHelper->addContent($this->view->editPollForm($poll));
                     } else {
@@ -50,7 +55,7 @@ class VotingControl extends Control
                         $mayVote ? null : $voteDateTime, $mayEdit)
                     );
                 }
-            } elseif (isset($_GET['sub']) && $_GET['sub'] === 'new' && isset($_GET['bid']) && ($region = $this->regionGateway->getRegion($_GET['bid']))
+            } elseif (isset($sub) && $sub === 'new' && isset($bid) && ($region = $this->regionGateway->getRegion($bid))
                 && $this->votingPermissions->mayCreatePoll($region['id'])) {
                 $this->pageHelper->addBread($region['name'], '/region?bid=' . $region['id']);
                 $this->pageHelper->addBread($this->translator->trans('terminology.polls'), '/region?bid=' . $region['id'] . '&sub=polls');

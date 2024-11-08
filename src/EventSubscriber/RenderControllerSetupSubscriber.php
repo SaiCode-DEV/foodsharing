@@ -115,11 +115,11 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
 
         // is this actually used anywhere? (prod?)
         global $g_page_cache;
-        if (isset($g_page_cache) && strtolower((string)$_SERVER['REQUEST_METHOD']) === 'get') {
+        if (isset($g_page_cache) && strtolower($request->getRealMethod()) === 'get') {
             /* @var Mem $mem */
             $mem = $this->get(Mem::class);
             $this->cache = new Caching($g_page_cache, $session, $mem);
-            $this->cache->lookup();
+            $this->cache->lookup($request);
         }
 
         $translator = $this->get('translator');
@@ -129,7 +129,7 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
 
         error_reporting(E_ALL);
 
-        if (isset($_GET['logout'])) {
+        if ($request->query->has('logout')) {
             $session->logout();
         }
 
@@ -161,8 +161,8 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
         $cspParts = explode(': ', $cspString, 2);
         $response->headers->set($cspParts[0], $cspParts[1]);
 
-        if (isset($this->cache) && $this->cache->shouldCache()) {
-            $this->cache->cache($response->getContent());
+        if (isset($this->cache) && $this->cache->shouldCache($request)) {
+            $this->cache->cache($request, $response->getContent());
         }
     }
 

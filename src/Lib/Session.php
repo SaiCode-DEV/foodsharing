@@ -8,6 +8,7 @@ use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Symfony\Component\HttpFoundation\Request;
 
 use function array_key_exists;
 
@@ -340,17 +341,18 @@ class Session
         return false; // no csrf token map stored, should not normally happen, but we treat this as "invalid"
     }
 
-    public function isValidCsrfHeader(): bool
+    public function isValidCsrfHeader(Request $request): bool
     {
         // enable CSRF Protection only for loggedin users
         if (!$this->id()) {
             return true;
         }
 
-        if (!isset($_SERVER['HTTP_X_CSRF_TOKEN'])) {
+        $csrfToken = $request->server->get('HTTP_X_CSRF_TOKEN');
+        if (!isset($csrfToken)) {
             return false;
         }
 
-        return $this->isValidCsrfToken($_SERVER['HTTP_X_CSRF_TOKEN']);
+        return $this->isValidCsrfToken($csrfToken);
     }
 }

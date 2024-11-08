@@ -3,6 +3,7 @@
 namespace Foodsharing\Lib;
 
 use Foodsharing\Lib\Db\Mem;
+use Symfony\Component\HttpFoundation\Request;
 
 class Caching
 {
@@ -18,31 +19,30 @@ class Caching
         $this->cacheMode = $this->session->mayRole() ? 'u' : 'g';
     }
 
-    public function lookup(): void
+    public function lookup(Request $request): void
     {
-        if ($this->shouldCache() && ($page = $this->mem->getPageCache($this->session->id())) !== false && !isset($_GET['flush'])) {
+        if ($this->shouldCache($request) && ($page = $this->mem->getPageCache($this->session->id())) !== false && !$request->query->has('flush')) {
             if ($page[0] == '{' || $page[0] == '[') {
                 // just assume it's an JSON, to prevent the browser from interpreting it as
                 // HTML, which could result in XSS possibilities
-                /* this part goes together with /xhr and /xhrapp. It is not needed anymore when they are gone. */
+                /* this part goes together with /xhrapp. It is not needed anymore when it is gone. */
                 header('Content-Type: application/json');
             }
             echo $page;
             exit;
-        } else {
         }
     }
 
-    public function shouldCache(): bool
+    public function shouldCache(Request $request): bool
     {
-        return isset($this->cacheRules[$_SERVER['REQUEST_URI']][$this->cacheMode]);
+        return isset($this->cacheRules[$request->getRequestUri()][$this->cacheMode]);
     }
 
-    public function cache($content): void
+    public function cache(Request $request, $responseContent): void
     {
         $this->mem->setPageCache(
-            $content,
-            $this->cacheRules[$_SERVER['REQUEST_URI']][$this->cacheMode],
+            $responseContent,
+            $this->cacheRules[$request->getRequestUri()][$this->cacheMode],
             $this->session->id()
         );
     }

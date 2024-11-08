@@ -6,7 +6,7 @@ use Foodsharing\Modules\Core\View;
 
 class LoginView extends View
 {
-    public function passwordRequest(): string
+    public function passwordRequest(string $requestUri): string
     {
         if ($this->session->mayRole()) {
             return '';
@@ -14,7 +14,7 @@ class LoginView extends View
 
         $params = [
             'email' => $this->translator->trans('register.login_email'),
-            'action' => $_SERVER['REQUEST_URI'],
+            'action' => $requestUri,
         ];
 
         return $this->twig->render('pages/ForgotPassword/ForgotPasswordForm.twig', $params);

@@ -23,7 +23,7 @@ class BlogController extends FoodsharingController
     #[Route(path: '/news', name: 'news')]
     public function index(Request $request): Response
     {
-        $this->common();
+        $this->common($request);
 
         if (!$request->query->has('sub')) {
             $this->listNews($request);
@@ -43,7 +43,7 @@ class BlogController extends FoodsharingController
     #[Route(path: '/blog/{id}', name: 'blog_id', requirements: ['id' => '\d+'])]
     public function blogById(Request $request, int $id): Response
     {
-        $this->common();
+        $this->common($request);
         $this->read($id);
 
         return $this->renderGlobal();
@@ -126,9 +126,9 @@ class BlogController extends FoodsharingController
         return;
     }
 
-    private function common(): void
+    private function common(Request $request): void
     {
-        if ($id = $this->identificationHelper->getActionId('delete')) {
+        if ($id = $this->identificationHelper->getActionId($request, 'delete')) {
             if ($this->blogPermissions->mayEdit($id)) {
                 if ($this->blogGateway->del_blog_entry($id)) {
                     $this->flashMessageHelper->success($this->translator->trans('blog.success.delete'));

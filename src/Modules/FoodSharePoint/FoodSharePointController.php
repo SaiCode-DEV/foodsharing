@@ -54,7 +54,7 @@ class FoodSharePointController extends FoodsharingController
             $this->subIndex();
         } else {
             match ($request->query->get('sub')) {
-                'ft' => $this->ft(),
+                'ft' => $this->ft($request),
                 'check' => $this->check($request),
                 'add', 'edit' => $this->addAndEdit($request),
                 default => throw $this->createNotFoundException()
@@ -131,7 +131,7 @@ class FoodSharePointController extends FoodsharingController
             $infoType = intval($request->query->get('infotype', InfoType::BELL));
 
             if ($this->handleFollowUnfollow($foodSharePointId, $this->session->id() ?? 0, $follow, $infoType)) {
-                $url = explode('&follow=', (string)$this->routeHelper->getSelf());
+                $url = explode('&follow=', $request->getRequestUri());
                 $this->routeHelper->goAndExit($url[0]);
             }
 
@@ -261,7 +261,7 @@ class FoodSharePointController extends FoodsharingController
         }
     }
 
-    private function ft(): void
+    private function ft(Request $request): void
     {
         $this->pageHelper->addBread($this->foodSharePoint['name']);
         $this->pageHelper->addTitle($this->foodSharePoint['name']);
@@ -295,7 +295,7 @@ class FoodSharePointController extends FoodsharingController
                 if ($this->foodSharePointPermissions->mayUnfollow($this->foodSharePoint['id'])) {
                     $items[] = [
                         'name' => $this->translator->trans('fsp.unfollow'),
-                        'href' => $this->routeHelper->getSelf() . '&follow=0',
+                        'href' => $request->getRequestUri() . '&follow=0',
                     ];
                 }
             } else {
@@ -303,7 +303,7 @@ class FoodSharePointController extends FoodsharingController
                     'name' => $this->translator->trans('fsp.follow'),
                     'click' => 'u_follow(); return false;'
                 ];
-                $this->pageHelper->addHidden($this->view->followHidden($this->foodSharePoint));
+                $this->pageHelper->addHidden($this->view->followHidden($this->foodSharePoint, $request->getRequestUri()));
             }
 
             $this->pageHelper->addContent($this->view->options($items), CNT_LEFT);

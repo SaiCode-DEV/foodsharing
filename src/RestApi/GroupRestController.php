@@ -17,6 +17,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
@@ -70,7 +71,7 @@ class GroupRestController extends AbstractFOSRestController
      */
     #[Rest\Get('groups/{groupId}/conference', requirements: ['groupId' => '\d+'])]
     #[Rest\QueryParam(name: 'redirect', default: 'false', description: 'Should the response perform a 301 redirect to the actual conference?')]
-    public function joinConference(RegionGateway $regionGateway, RegionPermissions $regionPermissions, BigBlueButton $bbb, int $groupId, ParamFetcher $paramFetcher): Response
+    public function joinConference(Request $request, RegionGateway $regionGateway, RegionPermissions $regionPermissions, BigBlueButton $bbb, int $groupId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('');
@@ -83,7 +84,8 @@ class GroupRestController extends AbstractFOSRestController
             throw new AccessDeniedHttpException('This region does not support conferences');
         }
 
-        $host = str_replace('beta.', '', $_SERVER['HTTP_HOST'] ?? BASE_URL);
+        $httpHost = $request->server->get('HTTP_HOST', BASE_URL);
+        $host = str_replace('beta.', '', $httpHost);
         $key = 'region-' . $groupId;
         $conference = $bbb->createRoom($group['name'], $key, $host);
         if (!$conference) {
