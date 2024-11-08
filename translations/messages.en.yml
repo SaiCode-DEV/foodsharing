@@ -3777,6 +3777,9 @@ quiz:
           label: 'Link to the corresponding article:'
           placeholder: https://wiki.foodsharing.de/…
         duration: 'Time to answer:'
+        mandatory:
+          label: Obligatory question?
+          text: This question must be included in every quiz attempt
       confirmDelete:
         title: Do you really want to delete this question?
     answer:
@@ -3839,6 +3842,7 @@ quiz:
     disqualified: Unfortunately, you are disqualified for this quiz because you have
       failed too many times.
     passedBefore: You’ve passed this quiz before.
+  mandatory_question: This question is mandatory and included in every quiz attempt.
 nofp: no error points (not a serious question)
 fpsingular: Error point
 request_time: 'Time of request:'
@@ -4161,6 +4165,14 @@ notifications:
   mention:
     description: Get notified when someone addresses you in the forum.
     title: Notifications when mentions are made
+  pushModal:
+    cancel: do not activate
+    title: Receive push notifications?
+    ok: Receive push notifications
+    content: "You can activate push notifications on this device so that you know
+      more quickly when other food savers send you messages!\n\nYou can turn these
+      notifications off at any time in your [notification settings](/?page=settings&sub=info).\n"
+    dontAskAgain: Don’t ask again
 markdown_input:
   tooltip:
     orderedList: numbered list
