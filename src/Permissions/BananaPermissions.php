@@ -7,6 +7,7 @@ namespace Foodsharing\Permissions;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Banana\BananaGateway;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
+use Foodsharing\Modules\Profile\ProfileGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 final class BananaPermissions
@@ -15,12 +16,19 @@ final class BananaPermissions
         private readonly Session $session,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
         private readonly BananaGateway $bananaGateway,
+        private readonly ProfileGateway $profileGateway,
     ) {
     }
 
     public function mayGiveBanana($recipientId): bool
     {
         if ($this->session->id() === $recipientId) {
+            return false;
+        }
+        if (!$this->session->isVerified()) {
+            return false;
+        }
+        if (!$this->profileGateway->isUserVerified($recipientId)) {
             return false;
         }
         if ($this->bananaGateway->hasGivenBanana($recipientId, $this->session->id())) {
