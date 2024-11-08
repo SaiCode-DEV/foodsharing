@@ -181,7 +181,10 @@ poll:
     submit: Sikker avstemning
     title: Rediger avstemning
   in_future: har ikke startet ennå
-  may_not_vote: Du kan ikke stemme i denne avstemningen.
+  may_not_vote: Du kan ikke stemme i denne avstemningen. På det tidspunktet denne
+    avstemningen ble opprettet, var du ikke en del av stemmegruppen. Selv om du oppfyller
+    kriteriene for å stemme i løpet av stemmeperioden, er det ikke mulig å få stemmerett
+    med tilbakevirkende kraft.
   hint_random_order: Følgende alternativer vises i tilfeldig rekkefølge.
   type: Avstemningstype
   type_description_1: Kryss av (flere alternativer kan velges)
@@ -205,6 +208,8 @@ poll:
   may_not_edit: Enten har du ikke rettighetene til å endre denne avstemningen eller
     tidsperioden for redigering er utløpt.
   title: 'Stem: {name}'
+  hint_sorted_order: Rekkefølgen på følgende alternativer å velge mellom er fast og
+    lik for alle velgere.
 polls:
   end_date: Sluttdato
   start_date: Startdato
@@ -2459,6 +2464,7 @@ forum:
       subscribed: abonnerer
       subscribe: Abonnere
     bottom: redusert sikt
+    all_hidden: Alle innlegg i denne tråden er skjult.
   post:
     body: Melding
     delete: Slett innlegget
@@ -2467,6 +2473,12 @@ forum:
     hideReasonPlaceholder: Skriv inn årsak her…
     hide: Skjul foruminnlegg
     giveHideReason: Vennligst angi hvorfor du vil skjule dette innlegget.
+    hideInfo: Skjulte innlegg vises ikke lenger. De kan gjenopprettes av moderatorene
+      innen tre måneder før de slettes permanent. I løpet av denne perioden kan forumbrukerne
+      se hvorfor innlegget ble skjult, og moderatorene kan også se hvem som har gjort
+      det.
+    sureHide: Vil du virkelig skjule dette innlegget?
+    hiddenPost: Skjult innlegg ({reason})
   threads: Tråder
   from: Fra {name}
   new_thread: Lag ny tråd
@@ -2501,6 +2513,8 @@ forum:
   restore:
     reason: 'Årsak: «{reason}»'
     really: Vil du virkelig gjenopprette følgende innlegg?
+    title: Gjenopprett innlegg
+    hidden_by: Skjult av
 timepicker:
   labelNowButton: nå
   labelCloseButton: Lukk
@@ -3639,6 +3653,9 @@ quiz:
         wikilink:
           label: 'Lenke til den tilsvarende artikkelen:'
           placeholder: https://wiki.foodsharing.de/…
+        mandatory:
+          label: Obligatorisk spørsmål?
+          text: Dette spørsmålet må være med i hvert prøveforsøk
       confirmDelete:
         title: Vil du virkelig slette dette spørsmålet?
     answer:
@@ -3684,6 +3701,7 @@ quiz:
       dager. Du kan derfor friske opp kunnskapen din på dette fagområdet og delta
       i denne quizen igjen.
     expired: Det siste quizforsøket ditt er imidlertid ikke lenger gyldig.
+  mandatory_question: Dette spørsmålet er obligatorisk og er med i alle quizforsøk.
 fpsingular: feilpunktet
 filter_by: filtrer etter
 groups:
@@ -3993,6 +4011,11 @@ notifications:
   mention:
     description: Bli varslet når noen henvender seg til deg i forumet.
     title: Varsel om omtale
+  pushModal:
+    title: Motta push-varsler?
+    cancel: Ikke aktiver
+    ok: Motta push-varsler
+    dontAskAgain: Ikke spør igjen
 markdown_input:
   tooltip:
     orderedList: nummerert liste
@@ -4019,6 +4042,8 @@ thread:
     lock: Lukk tråden
     unpin: Løsne tråden
     priority: Justere skjermprioritet
+    hideHidden: Skjul skjulte innlegg
+    showHidden: Vis skjulte innlegg
   rename:
     description_modal_text: 'Skriv inn en ny tittel for denne tråden:'
     placeholder: Tittel
@@ -4028,6 +4053,7 @@ thread:
     options:
       copy_source: Kopier kildekoden
       copy_direct_link: Kopier direkte lenke
+      restore: Gjenopprett
     copy_source_success: Kildekoden er kopiert!
     linked_post: lenket innlegg
     copy_direct_link_success: Direkte lenke kopiert!
@@ -4123,8 +4149,13 @@ help:
         bli brukt\n"
     polls:
       title: Avstemningene
+      md: "Ved å bruke stemmemodulen kan valg, undersøkelser og andre stemmer gjennomføres
+        anonymt og enkelt direkte på matdelingsplattformen. Du finner detaljerte instruksjoner
+        på https://wiki.foodsharing.de/Abstimms-Modul\n"
     pollScopes:
       title: Stemmerett
+    moderatorForumHide:
+      title: Skjuler seg i forum av moderatorer
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
 team_page:
