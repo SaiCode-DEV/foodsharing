@@ -1569,6 +1569,10 @@ store:
       la decisión sobre tu candidatura.
     application-message: Mensaje de aplicación
     application-placeholder: Me gustaría ayudar en este equipo porque...
+    hygieneRequired: Se requiere un certificado de higiene válido para las recogidas
+      de esta empresa.
+    hygieneMissing: Eso es lo que te estás perdiendo actualmente. Responda el cuestionario
+      de higiene ahora para postularse para este equipo.
   all_of_my_stores: 'Todas mis empresas'
   prefetchone: '1 semana'
   go: 'Al equipo'
@@ -1885,6 +1889,13 @@ pickup:
   description: Descripción
   description_optional: Descripción (opcional)
   description_max_length_info: Longitud máxima de la descripción alcanzada (100 letras)
+  hygieneCertificateMissing:
+    none: Actualmente no dispones de un certificado de higiene válido. Complete el
+      cuestionario de higiene ahora para poder registrarse para la recolección .
+    timeout: Su certificado de higiene caducará en el momento en que lo recoja . Ahora
+      vuelva a realizar el cuestionario de higiene para poder registrarse para la
+      recogida .
+    link: Para formación en higiene
 date:
   wednesday: 'miércoles'
   to: 'al'
@@ -2898,6 +2909,8 @@ storeedit:
     teamStatus0: 'Este equipo está completo y actualmente no busca más ayudantes'
     teamStatus2: 'Se necesitan con urgencia ayudantes'
     teamStatus: 'Estado del equipo'
+    hygieneRequirement: Requisitos de higiene
+    hygieneRequired: Solo permitir la recogida con formación de higiene válida
   add_success: 'Se registró la empresa colaboradora'
   milestone:
     created: '{user} registró la empresa el {date}'
@@ -4467,6 +4480,21 @@ help:
         derecho a votar quien, en el momento de la creación de la votación, pertenece
         al grupo de personas correspondiente. \n"
       title: Derecho a votar
+    hygieneRequirement:
+      md: "Para poder recoger artículos de algunos establecimientos, los Foodsavers
+        deben estar capacitados en higiene alimentaria. Si esta función está activada
+        para una empresa, tiene los siguientes efectos:\n1. Los ahorradores de alimentos
+        sin una formación válida en higiene no pueden postularse para el equipo de
+        operaciones.\n2. Los ahorradores de alimentos que ya formen parte del equipo
+        sólo podrán inscribirse en las franjas horarias en las que aún esté vigente
+        su formación en higiene.\n\nEn ambos casos se mostrará una nota explicando
+        que falta formación en higiene para esta acción. Además, la formación en higiene
+        está directamente relacionada.\n\n---\n\nImportante tener en cuenta: esta
+        función solo se basa en la formación en higiene propia de foodsharing. No
+        se aceptarán certificados de higiene de proveedores externos (como Metro)
+        cargados en el perfil, ni cursos de formación en higiene anotados en otros
+        lugares. \n"
+      title: Requisitos de higiene para las empresas
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
