@@ -60,11 +60,12 @@ final class PickupRestController extends AbstractFOSRestController
             throw new UnauthorizedHttpException('');
         }
 
-        if (!$this->storePermissions->mayDoPickup($storeId)) {
+        $date = TimeHelper::parsePickupDate($pickupDate);
+
+        if (!$this->storePermissions->mayDoPickup($storeId, $date)) {
             throw new AccessDeniedHttpException();
         }
 
-        $date = TimeHelper::parsePickupDate($pickupDate);
         try {
             $isConfirmed = $this->storeTransactions->joinPickup($storeId, $date, $fsId, $this->session->id());
 

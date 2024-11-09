@@ -71,6 +71,15 @@
       <b-alert show variant="info">
         {{ $i18n(`storeedit.fetch.teamStatus${store.teamSearchStatus}`) }}
       </b-alert>
+
+      <b-alert :show="store.isHygieneRequired" :variant="isMissingHygieneCertificate ? 'danger' : 'success'">
+        <i class="fas fa-hands-wash mr-2" />
+        {{ $i18n('store.request.hygieneRequired') }}
+        <span v-if="isMissingHygieneCertificate">
+          {{ $i18n('store.request.hygieneMissing') }}
+          <a :href="$url('settingsHygiene')" v-text="$i18n('pickup.hygieneCertificateMissing.link')" />
+        </span>
+      </b-alert>
     </div>
 
     <template #popup-header>
@@ -207,6 +216,9 @@ export default {
       /* The default close button in the footer is only shown if no other button is visible, so that the footer does not
          become too crowded */
       return !this.store || (!this.store.mayAccessStorePage && !this.store.maySendRequest && !this.store.mayWithdrawRequest)
+    },
+    isMissingHygieneCertificate () {
+      return this.store.isHygieneRequired && !this.store.hasHygieneCertificate
     },
   },
   methods: {

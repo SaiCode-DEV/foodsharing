@@ -58,7 +58,6 @@ export default {
     },
     isUserInStore: { type: Boolean, default: false },
     isJumper: { type: Boolean, default: false },
-    mayDoPickup: { type: Boolean, default: false },
     isVerified: { type: Boolean, default: false },
   },
   setup () {

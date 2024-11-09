@@ -2,8 +2,11 @@
 
 namespace Foodsharing\Permissions;
 
+use DateTime;
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
+use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
@@ -23,6 +26,7 @@ class StorePermissions
         private readonly ProfilePermissions $profilePermissions,
         private readonly RegionGateway $regionGateway,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
+        private readonly AchievementGateway $achievementGateway,
     ) {
     }
 
@@ -51,6 +55,13 @@ class StorePermissions
 
         // already in team?
         if ($this->storeGateway->getUserTeamStatus($userId, $storeId) !== UserTeamStatus::NoMember) {
+            return false;
+        }
+
+        if (
+            $this->storeGateway->getStoreRequiresHygiene($storeId) &&
+            !$this->achievementGateway->hasAchievement($userId, AchievementIDs::HYGIENE_CERTIFICATE)
+        ) {
             return false;
         }
 
@@ -270,16 +281,19 @@ class StorePermissions
 
     public function maySeePickupSlotDateTime(int $storeId): bool
     {
-        return $this->mayDoPickup($storeId);
+        return $this->maySeePickups($storeId);
     }
 
-    public function mayDoPickup(int $storeId): bool
+    public function mayDoPickup(int $storeId, ?DateTime $time = null): bool
     {
-        if (!$this->session->isVerified()) {
+        if (!$this->maySeePickups($storeId)) {
             return false;
         }
 
-        if (!$this->mayReadStoreWall($storeId)) {
+        if (
+            $this->storeGateway->getStoreRequiresHygiene($storeId) &&
+            !$this->achievementGateway->hasAchievement($this->session->id(), AchievementIDs::HYGIENE_CERTIFICATE, $time)
+        ) {
             return false;
         }
 
@@ -288,12 +302,19 @@ class StorePermissions
 
     public function maySeePickups(int $storeId): bool
     {
-        return $this->mayDoPickup($storeId);
+        if (!$this->session->isVerified()) {
+            return false;
+        }
+        if (!$this->mayReadStoreWall($storeId)) {
+            return false;
+        }
+
+        return true;
     }
 
     public function maySeePhoneNumbers(int $storeId): bool
     {
-        return $this->mayDoPickup($storeId);
+        return $this->maySeePickups($storeId);
     }
 
     public function mayChatWithRegularTeam(array $store): bool

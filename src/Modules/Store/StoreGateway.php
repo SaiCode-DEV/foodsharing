@@ -155,6 +155,7 @@ class StoreGateway extends BaseGateway
 					`sticker`,
 					`team_status` as teamStatus,
 					`use_region_pickup_rule` as useRegionPickupRule,
+                    `hygiene_requirement`,
 					`status_date` as updatedAt,
 					`added` as createdAt
 			FROM 	`fs_betrieb`
@@ -209,6 +210,7 @@ class StoreGateway extends BaseGateway
             'ueberzeugungsarbeit' => $store->effort->value,
             'presse' => $store->publicity,
             'sticker' => $store->showsSticker,
+            'hygiene_requirement' => intval($store->isHygieneRequired),
             'status_date' => $this->db->date($store->updatedAt)
         ], [
             'id' => $store->id,
@@ -393,6 +395,7 @@ class StoreGateway extends BaseGateway
         			b.`use_region_pickup_rule`,
                     b.lat,
                     b.lon,
+                    b.hygiene_requirement,
         			count(DISTINCT(a.date)) AS pickup_count
 
 			FROM 	`fs_betrieb` b
@@ -699,6 +702,11 @@ class StoreGateway extends BaseGateway
         }
 
         return TeamStatus::NoMember;
+    }
+
+    public function getStoreRequiresHygiene(int $storeId): bool
+    {
+        return boolval($this->db->fetchValueById('fs_betrieb', 'hygiene_requirement', $storeId));
     }
 
     public function getBetriebConversation(int $storeId, bool $springerConversation = false): ?int
@@ -1125,6 +1133,7 @@ class StoreGateway extends BaseGateway
                     fs_betrieb.sticker,
                     fs_betrieb.team_status as teamStatus,
                     fs_betrieb.use_region_pickup_rule as useRegionPickupRule,
+                    fs_betrieb.hygiene_requirement,
                     fs_betrieb.status_date as updatedAt,
                     fs_betrieb.added as createdAt';
     }

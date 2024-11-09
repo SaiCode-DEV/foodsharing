@@ -4,6 +4,8 @@ namespace Foodsharing\Modules\Map;
 
 use Carbon\Carbon;
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Achievement\AchievementGateway;
+use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
@@ -22,7 +24,8 @@ class MapTransactions
         private readonly StoreGateway $storeGateway,
         private readonly StorePermissions $storePermissions,
         private readonly Session $session,
-        private readonly WeightHelper $weightHelper
+        private readonly WeightHelper $weightHelper,
+        private readonly AchievementGateway $achievementGateway,
     ) {
     }
 
@@ -42,6 +45,11 @@ class MapTransactions
         $mapData->teamMemberCount = count($store['foodsaver']);
         $mapData->standbyCount = count($store['springer']);
         $mapData->location = GeoLocation::createFromArray($store);
+        $mapData->isHygieneRequired = boolval($store['hygiene_requirement']);
+
+        if ($mapData->isHygieneRequired) {
+            $mapData->hasHygieneCertificate = $this->achievementGateway->hasAchievement($this->session->id(), AchievementIDs::HYGIENE_CERTIFICATE);
+        }
 
         $pickupCount = intval($store['pickup_count']);
         if ($pickupCount > 0) {
@@ -69,7 +77,7 @@ class MapTransactions
         // add permissions
         $teamStatus = $this->storeGateway->getUserTeamStatus($this->session->id(), $storeId);
         $mapData->mayAccessStorePage = $teamStatus > TeamStatus::Applied || $this->storePermissions->mayEditStore($storeId);
-        $mapData->maySendRequest = $mapData->teamSearchStatus != TeamSearchStatus::CLOSED && $teamStatus == TeamStatus::NoMember;
+        $mapData->maySendRequest = $this->storePermissions->mayJoinStoreRequest($storeId);
         $mapData->mayWithdrawRequest = $mapData->teamSearchStatus != TeamSearchStatus::CLOSED && $teamStatus == TeamStatus::Applied;
 
         return $mapData;

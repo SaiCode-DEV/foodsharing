@@ -285,7 +285,7 @@ class StoreRestController extends AbstractFoodsharingRestController
                 'isOrgUser' => $isOrgUser,
                 'isJumper' => $store['jumper'],
                 'isManager' => $store['verantwortlich'],
-                'mayDoPickup' => $this->storePermissions->mayDoPickup($storeId),
+                'maySeePickup' => $this->storePermissions->maySeePickups($storeId),
                 'teamConversationId' => $teamConversationId,
                 'jumperConversationId' => $jumperConversationId,
                 'mayEditStore' => $this->storePermissions->mayEditStore($storeId),

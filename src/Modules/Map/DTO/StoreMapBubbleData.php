@@ -92,4 +92,14 @@ class StoreMapBubbleData
      * Position of the store.
      */
     public ?GeoLocation $location = null;
+
+    /**
+     * Whether users are required to have a hygiene certificate to apply to the store.
+     */
+    public bool $isHygieneRequired = false;
+
+    /**
+     * Whether the user currently has a valid hygiene certificate. Only set if a hygiene certificate is required.
+     */
+    public ?bool $hasHygieneCertificate = null;
 }

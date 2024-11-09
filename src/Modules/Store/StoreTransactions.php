@@ -465,6 +465,11 @@ class StoreTransactions
             $store->publicity = $storeChange->publicity;
         }
 
+        if (!is_null($storeChange->isHygieneRequired)) {
+            $changeInformation->informationChanged = true;
+            $store->isHygieneRequired = $storeChange->isHygieneRequired;
+        }
+
         if (!is_null($storeChange->groceries)) {
             $changeInformation->informationChanged = true;
             $changeInformation->groceriesChanged = true;

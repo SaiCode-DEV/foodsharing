@@ -165,6 +165,11 @@ class Store
     public TeamSearchStatus $teamStatus = TeamSearchStatus::CLOSED;
 
     /**
+     * Whether a valid hygiene certificate is required for the store.
+     */
+    public bool $isHygieneRequired = false;
+
+    /**
      * Configuration option to influence behavior of store.
      *
      * Only visible to store team members
@@ -241,6 +246,8 @@ class Store
         $obj->teamStatus = TeamSearchStatus::tryFrom($queryResult['teamStatus']);
 
         $obj->options = StoreOptionModel::createFromArray($queryResult);
+
+        $obj->isHygieneRequired = boolval($queryResult['hygiene_requirement']);
 
         $createdAt = DateTime::createFromFormat('Y-m-d', $queryResult['createdAt']);
         if ($createdAt) {

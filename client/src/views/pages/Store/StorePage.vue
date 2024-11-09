@@ -53,7 +53,7 @@
               {{ $i18n('store.willgetcontacted') }}
             </div>
             <div
-              v-if="!permissions.mayDoPickup && !permissions.isJumper && !isVerified"
+              v-if="!permissions.maySeePickup && !permissions.isJumper && !isVerified"
               class="alert alert-info"
               role="alert"
             >
@@ -95,8 +95,8 @@
               :region-pickup-rule-inactive="regionPickupRule.regionPickupRuleInactive"
             />
             <PickupList
-              v-if="permissions.mayDoPickup"
-              :may-do-pickup="permissions.mayDoPickup"
+              v-if="permissions.maySeePickup"
+              :may-see-pickup="permissions.maySeePickup"
               :store-id="storeId"
               :store-title="storeInformation.name"
               :is-coordinator="permissions.isCoordinator"

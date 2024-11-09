@@ -8,6 +8,7 @@ namespace Tests\Unit;
 
 use Codeception\Test\Unit;
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
@@ -38,7 +39,8 @@ final class StorePermissionsTest extends Unit
             $this->tester->get(GroupFunctionGateway::class),
             $this->tester->get(ProfilePermissions::class),
             $this->regionGatewayMock,
-            $this->currentUserUnitsMock);
+            $this->currentUserUnitsMock,
+            $this->tester->get(AchievementGateway::class));
     }
 
     public function testListStoresLoadUserIdFromSession(): void

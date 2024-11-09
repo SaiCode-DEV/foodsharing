@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Foodsharing\Modules\Achievement;
 
+use DateTime;
 use Foodsharing\Modules\Achievement\DTO\Achievement;
 use Foodsharing\Modules\Achievement\DTO\AwardedAchievement;
 use Foodsharing\Modules\Achievement\DTO\AwardedAchievementWithAchievementDetails;
@@ -139,17 +140,20 @@ class AchievementGateway extends BaseGateway
 
     /**
      * Checks whether a user currently has a certain achievement.
+     * @param DateTime $time The time at which the achievement should be valid, defaults to now
      */
-    public function hasAchievement(int $foodsaverId, int $achievementId): bool
+    public function hasAchievement(int $foodsaverId, int $achievementId, DateTime $time = null): bool
     {
         // TODO needs to be adjsted to exclude requests as soon as they can be represented in the database
+        $time ??= new DateTime('now');
+
         try {
             $this->db->fetchValue('SELECT 1
                 FROM fs_foodsaver_has_achievement
                 WHERE foodsaver_id = ?
                 AND achievement_id = ?
-                AND (valid_until IS NULL OR valid_until > NOW())',
-                [$foodsaverId, $achievementId]);
+                AND (valid_until IS NULL OR valid_until > ?)',
+                [$foodsaverId, $achievementId, $time->format('Y-m-d H:i:s')]);
 
             return true;
         } catch (DatabaseNoValueFoundException $e) {

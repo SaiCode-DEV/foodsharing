@@ -172,4 +172,9 @@ class PatchStore
     #[Assert\All(new Assert\Positive())]
     #[Type('array<int>')]
     public ?array $groceries = null;
+
+    /**
+     * Whether a valid hygiene certificate is required for the store.
+     */
+    public ?bool $isHygieneRequired = null;
 }

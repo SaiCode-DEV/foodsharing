@@ -250,17 +250,23 @@
         :title="$i18n('storeview.team')"
       >
         <b-card-text>
-          <b-form-group
-            :label="$i18n('storeedit.fetch.teamStatus')"
-            label-for="teamStatus"
-            class="bootstrap input-wrapper"
-          >
+          <b-form-group :label="$i18n('storeedit.fetch.teamStatus')">
             <b-form-select
               id="teamStatus"
               v-model="store.teamStatus"
               :options="teamStatusOptions"
               :disabled="!editMode"
             />
+          </b-form-group>
+
+          <b-form-group v-if="showHygieneSetting">
+            <template #label>
+              {{ $i18n('storeedit.fetch.hygieneRequirement') }}
+              <Info info-key="hygieneRequirement" />
+            </template>
+            <b-form-checkbox v-model="store.isHygieneRequired" :disabled="!editMode">
+              {{ $i18n('storeedit.fetch.hygieneRequired') }}
+            </b-form-checkbox>
           </b-form-group>
           <b-form-group
             id="fieldset-2"
@@ -453,6 +459,7 @@ import { REGION_UNIT_TYPE } from '@/stores/regions'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import ChainSearchPicker from '@/components/Stores/ChainSearchPicker.vue'
 import PublicInfo from '@/components/Stores/PublicInfo.vue'
+import Info from '../Help/Info.vue'
 
 export default {
   name: 'StoreInformationEditModal',
@@ -463,6 +470,7 @@ export default {
     MarkdownInput,
     ChainSearchPicker,
     PublicInfo,
+    Info,
   },
   mixins: [MediaQueryMixin, AutoResizeTextareaMixin],
   props: {
@@ -493,6 +501,7 @@ export default {
       store: {},
       chainSearchCriteriaField: '',
       publicInfoState: true,
+      showHygieneSetting: false,
     }
   },
   computed: {
@@ -579,6 +588,9 @@ export default {
     } else {
       this.storeFoodNames = []
     }
+  },
+  async mounted () {
+    this.showHygieneSetting = await this.$isFeatureToggleActive('hygieneQuiz')
   },
   methods: {
     updateRegion (region) {

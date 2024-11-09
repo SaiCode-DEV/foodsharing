@@ -1069,6 +1069,9 @@ store:
     confirm-no-location-ok: "Trotzdem bewerben"
     application-message: "Bewerbungsnachricht"
     application-placeholder: "Ich möchte gerne in diesem Team helfen, weil..."
+    hygieneRequired: "Für die Abholungen in diesem Betrieb ist ein gültiges Hygienezertifikat nötig."
+    hygieneMissing: "Das fehlt dir aktuell. Führe jetzt das Hygienequiz durch, um dich für dieses Team bewerben zu können."
+
   info_container: "Informationen"
   no_chain_choosen: "keine Kette gewählt"
   chain_search_picker:
@@ -1187,6 +1190,8 @@ storeedit:
     teamStatus0: "Dieses Team ist geschlossen und sucht zurzeit keine weiteren Helfer:innen"
     teamStatus1: "Es werden noch Helfer:innen gesucht"
     teamStatus2: "Es werden dringend noch Helfer:innen gesucht"
+    hygieneRequirement: "Hygieneanforderungen"
+    hygieneRequired: "Abholung nur mit gültiger Hygieneschulung erlauben"
   add_success: "Kooperationsbetrieb wurde eingetragen"
   unsuccess: "Änderungen konnten nicht übernommen werden. {error}"
   milestone:
@@ -1225,6 +1230,10 @@ pickup:
   region_pickup_rule_failed: "Diese Eintragung erfüllt nicht die Bezirksregeln"
   same_day_entry: "[{when} Uhr] {name}"
   really_join_date: "Möchtest du dich verbindlich für die Abholung am {date} eintragen?"
+  hygieneCertificateMissing:
+    none: "Du hast aktuell kein gültiges Hygienezertifikat. Führe jetzt das Hygienequiz durch, um dich für die Abholung eintragen zu können."
+    timeout: "Bis zum Zeitpunkt der Abholung läuft dein Hygienezertifikat ab. Führe jetzt erneut das Hygienequiz durch, um dich für die Abholung eintragen zu können."
+    link: "Zur Hygieneschulung"
   join_cancel: "Doch nicht"
   join_agree: "Ja, verbindlich eintragen"
   take_empty_slot: "Hier eintragen"
@@ -3723,7 +3732,18 @@ help:
         - Es dürfen nicht nur alle Foodsaver:innen des Bezirks / der Gruppe abstimmen, sondern auch der Unterbezirke.
         - Die Anzahl der stimmberechtigten Foodsaver:innen steht in Klammern hinter der Auswahlmöglichkeit.
         - Sobald die Abstimmung erstellt ist, stehen die Stimmberechtigten fest. Stimmberechtigt ist, wer zum Zeitpunkt, zu dem die Abstimmung erstellt wird, in den entsprechenden Personenkreis fällt.
+    hygieneRequirement:
+      title: "Hygieneanforderung für Betriebe"
+      md: |
+        Für die Abholung in manchen Betrieben, müssen Foodsaver:innen in Lebensmittelygiene geschult sein. Wenn diese Funktion für einen Betrieb aktiviert ist, hat das folgende Auswirkungen:
+        1. Foodsaver:innen ohne gültige Hygieneschulung können sich nicht auf das betriebsteam bewerben.
+        2. Foodsaver:innen, die bereits Teil des Teams sind, können sich nur in Slots eintragen, zu deren Zeitpunkt ihre Hygieneschulung noch gültig ist.
 
+        In beiden Fällen wird ein Hinweis angezeigt, der erklärt, dass für diese Aktion die Hygieneschulung fehlt. Außerdem ist die Hygieneschulung jeweils direkt verlinkt.
+
+        ---
+
+        Wichtig zu beachten: Diese Funktion basiert nur auf der foodsharing-eigenen Hygieneschulung. Weder im Profil hochgeladene Hygienezertifikate externer Anbieter (wie bspw. Metro), noch anderweitig vermerkte Hygieneschulungen werden akzeptiert. 
 team_page:
   board_member:
     title: "Vorstand"

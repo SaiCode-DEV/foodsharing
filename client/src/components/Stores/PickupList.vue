@@ -94,7 +94,7 @@ export default {
       type: Number,
       default: null,
     },
-    mayDoPickup: {
+    maySeePickup: {
       type: Boolean,
       default: null,
     },
@@ -130,7 +130,7 @@ export default {
   },
   methods: {
     async loadPickups () {
-      if (this.mayDoPickup) {
+      if (this.maySeePickup) {
         await this.tryLoadPickups()
         // pull for updates every 30 seconds
         this.interval = setInterval(() => {
