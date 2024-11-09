@@ -7,6 +7,7 @@ use Foodsharing\RestApi\Models\SupportPage\TicketModel;
 use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use ZammadAPIClient\Client;
 use ZammadAPIClient\Resource\Ticket;
+use ZammadAPIClient\Resource\User;
 
 class SupportPageTransactions
 {
@@ -25,7 +26,12 @@ class SupportPageTransactions
     public function createTicket(TicketModel $ticketModel): void
     {
         $client = new Client(['url' => ZAMMAD_URL, 'http_token' => ZAMMAD_TICKET_TOKEN]);
+        $this->createUser($client, $ticketModel);
+        $this->sendTicket($client, $ticketModel);
+    }
 
+    private function sendTicket(Client $client, TicketModel $ticketModel): void
+    {
         $sessionId = $this->session->id() ? ", {$this->session->id()}" : '';
         $fullTitle = "{$ticketModel->subject} ({$ticketModel->firstName}{$sessionId})";
 
@@ -37,14 +43,19 @@ class SupportPageTransactions
         $ticketData = [
             'group_id' => self::GROUP_ID_DEFAULT,
             'title' => $fullTitle,
-            'customer_id' => 'guess:' . $ticketModel->emailAddress,
+            'customer_id' => $ticketModel->emailAddress,
             'article' => [
+                'content_type' => 'text/plain',
                 'subject' => $ticketModel->subject,
                 'body' => $ticketModel->body,
                 'attachments' => $attachmentData,
+                'type' => TicketArticleType::WEB->value,
+                'sender' => 'Customer',
+                'internal' => false,
             ],
         ];
 
+        $client->setOnBehalfOfUser($ticketModel->emailAddress);
         $ticket = new Ticket($client);
         $ticket->setValues($ticketData);
         $response = $ticket->save();
@@ -52,5 +63,23 @@ class SupportPageTransactions
         if (!empty($response->getError())) {
             throw new ServiceUnavailableHttpException(message: $response->getError());
         }
+    }
+
+    /**
+     * Makes sure that the user exists in Zammad. The user is identified by the email address from the TicketModel.
+     */
+    private function createUser(Client $client, TicketModel $ticketModel): void
+    {
+        $client->unsetOnBehalfOfUser();
+
+        $user = new User($client);
+        $user->setValues([
+            'firstname' => $ticketModel->firstName,
+            'email' => $ticketModel->emailAddress,
+            'roles' => ['Customer'],
+        ]);
+
+        // If the user already exists, Zammad sends a 503 reponse which we can ignore
+        $user->save();
     }
 }
