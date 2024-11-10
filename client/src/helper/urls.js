@@ -68,7 +68,7 @@ const urls = {
     }
     return '/karte' + (params.length > 0 ? '?' + params.join('&') : '')
   },
-  newsFromIT: () => 'https://foodsharing.freshdesk.com/support/solutions/folders/77000160479',
+  newsFromIT: () => 'https://support.foodsharing.network/kb/de-de/1-aktuelle-informationen-und-storungen',
   vision: () => '/ueber-uns',
   partner: () => '/partner',
   passwordReset: () => '/login?sub=passwordReset',

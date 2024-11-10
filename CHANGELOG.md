@@ -64,6 +64,7 @@
 - Use input date browser support for birthdate input in RegisterBirthdate.vue and ProfileSettings.vue !3738 @chriswalg
 - Use https for calendar api requests #2177 !3775 @AntonBallmaier
 - Bananas can only be recieved or given by verified users #2161 !3779 @AntonBallmaier 
+- Update support link !3778
 
 ## Bugfixes
 - Resolve quoted string is not parsed correctly in mail address #2142 !3757 @anja0884
