@@ -21,8 +21,8 @@ class SupportPageTransactions
     /**
      * Sends the ticket to the Zammad API and returns the ticket ID.
      *
-     * @throws BadRequestHttpException if the Zammad server cannot be reached
      * @return int the created ticket's id
+     * @throws BadRequestHttpException if the Zammad server cannot be reached
      */
     public function createTicket(TicketModel $ticketModel): int
     {
