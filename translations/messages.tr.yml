@@ -158,8 +158,8 @@ groups:
 weight: 'Tahmini Ağırlık:'
 position: Foodsharingde ki Pozisyonu (kamu)
 infotype: Bildiri
-fsp_bezirk_id: Dağıtım Noktası hangi semtte?
-fspmanagers: Dağıtım noktalarından sorumlu gıda kurtarıcıları (Foodsaver)
+fsp_bezirk_id: Gıda dağıtım Noktası hangi semtte?
+fspmanagers: Gıda dağıtım noktalarından sorumlu gıda kurtarıcıları (Foodsaver)
 fetchstate: Herşey yolunda mıydı ?
 contact_type: Sizinle nasıl iletişime geçilmesini istersiniz?
 lifetime: Yemek sepetiniz ne kadar süreyle geçerli olsun?
@@ -806,7 +806,9 @@ bell:
   store_wallpost: Pano da yeni yazı.
   fs_sleepmode_title: Yeni Uyku Kepi
   new_quiz_comment_title: 'Soruya bir yorum geldi #{questionId}'
-  ft_update: '{teaser}'
+  ft_update:
+    one: '{teaser}'
+    many: '{teaser}'
   forum_answer_title: '{forum}'
   forum_answer: '{user} size yanıt verdi'
   blog_new_check_title: Yeni Blog Yazısı
@@ -1104,6 +1106,15 @@ startpage:
     belirtiriz. Bu özellikle çiğ balık, çiğ et, çiğ yumurtalı yemekler ve hazır yiyecekler
     gibi çabuk bozulan yiyecekler için geçerlidir. Genel olarak, yiyeceğin hala yenilebilir
     olduğundan emin olmak için tüm dikkatimizi kullanırız.'
+  followrules: "Belirli gıdaların ve diğer ürünlerin sunulmasını ve paylaşılmasını
+    yasakladığımızı açıkça belirtiriz.\nYasal nedenlere yalnızca belirli koşullar
+    altında izin verilir. Bu özellikle çiğ balık, çiğ et, çiğ yumurtalı yemekler ve
+    hazır gıdalar gibi çabuk bozulan gıdalar için geçerlidir. Genel olarak yiyeceğin
+    hâlâ yenilebilir olduğundan emin olmak için tüm duyularımızı kullanırız. Tüm ayrıntıları
+    [yiyecek paylaşımı hijyen kurallarında](https://wiki.foodsharing.de/Hygiene Rules)
+    bulabilirsiniz. Bilgilere ayrıca [Kılavuzdan](https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel)
+    ulaşılabilir.\n"
+  followrules_title: Yiyecek dağıtma kurallarına ve tavsiyelerine uyun
 filter_by: ..göre filtrele
 right: Değerlendirme
 apply_type: Bu gruba kimler kayıt olabilir?
@@ -1190,6 +1201,8 @@ storeedit:
     teamStatus0: Bu ekip dolu ve şu anda başka bir yardımcı aramıyor
     teamStatus1: Yardımcı aranıyor
     teamStatus2: Acilen yardımcı aranıyor
+    hygieneRequirement: Hijyen gereksinimleri
+    hygieneRequired: Gıda alım işlemine yalnızca geçerli hijyen eğitimi ile izin verin
   add_success: İşbirliği yapan işletme kaydedildi
   unsuccess: Değişiklikler kaydedilemedi. {error}
   store:
@@ -1371,6 +1384,9 @@ store:
       misiniz?
     application-placeholder: Bu ekibe yardımcı olmak istiyorum çünkü...
     application-message: Başvuru mesajı
+    hygieneMissing: 'Şu anda eksik olan şudur: Bu ekipte yer almak istiyorsan hemen
+      hijyen testini yapın.'
+    hygieneRequired: Bu işletmeye katılmak için geçerli bir hijyen sertifikası gerekmektedir.
   filter: …göre filtrele…
   enterdate: Alım tarihini girin
   important: 'Önemli:'
@@ -1548,6 +1564,7 @@ store:
   to_map: Haritada göster
   storeFrom: "{name}'nin işletmeleri"
   no_chain_choosen: Herhangi bir işletme zinciri seçilmedi
+  may_referred_to_in_public_unclear: Henüz açıklığa kavuşturulmadı
 polls:
   title: Başlık
   new_poll: Yeni Anket oluştur
@@ -1559,6 +1576,13 @@ polls:
   future: Gelecekte ki Anketler
   ongoing: Devam eden anketler
   hint_2: Oylamayı kullanma talimatlarını Wiki'de bulabilirsiniz
+  score:
+    neutral: Nötr
+    disapproval: Ret
+  badge:
+    vote_now: Şimdi oy verin
+    already_voted: Zaten oy verildi
+    not_eligible: Oy kullanma hakkı yok
 poll:
   new_poll:
     time: Saat
@@ -1639,6 +1663,9 @@ poll:
   cancel:
     question: 'Oylamayı iptal etmek istediğinizden emin misiniz? Bu durum geri döndürülemez.'
     title: 'Oylamayı iptal et'
+  hint_sorted_order: Aralarından seçim yapılabilecek aşağıdaki seçeneklerin sırası
+    sabittir ve tüm seçmenler için aynıdır.
+  title: 'Oy: {name}'
 region:
   change: İlçe değiştir
   edit: Bölgeyi düzenle
@@ -2301,6 +2328,7 @@ blog:
   confirmDelete: "{name}'i gerçekten kalıcı olarak silmek istiyor musunuz?"
   title: Blog Yazısı
   all: Tüm Blog girişleri
+  teaser: Metni önizle
 conference:
   join_title: Konferansa katıl
   description_text: Burada seçtiğin grubun video konferansına katılabilirsiniz. BigBlueButton
@@ -3431,7 +3459,7 @@ fsp:
     bell: sadece dahili bilgi mesajları (zil)
   twig:
     n_in_region: '{count} {name} içinde gıda dağıtım noktası'
-  followers: Takipçi*ler
+  followers: İlgilenen Foodsharer'lar
   addSuccess: Gıda dağıtım noktası başarıyla girildi
   location: Posta kodu / Şehir
   pic: Fotoğraf
@@ -3472,6 +3500,10 @@ fsp:
     invalid: Giriş geçersiz. Lütfen girişlerinizi kontrol edin.
     required: '{name} gerekli.'
     min_length: '{name} en az {length} karakter uzunluğunda olmalıdır.'
+  createdAt: 'Açıldı:'
+  followerCount: İlgilenen kullanıcılar:{followerCount}
+  onlySuggested: Bu Gıda dağıtım Noktası önerildi ancak henüz yayınlanmadı. Bu durumda
+    diğer kullanıcılara gösterilmeyecektir.
 statistics:
   kg_food_saved: '{count} kg gıda kurtarıldı'
   num_fetches: '{count} kurtarma görevinde'
@@ -3623,6 +3655,10 @@ pickup:
   edit_description: Açıklamayı düzenle
   description_max_length_info: Maksimum açıklama uzunluğuna ulaşıldı (100 karakter)
   description_modal_text: 'Yeni bir teslim alma açıklaması girin:'
+  hygieneCertificateMissing:
+    link: Hijyen eğitimi için
+    none: Şu anda geçerli bir hijyen sertifikanız yok. Gıda kurtarmak için hijyen
+      testini şimdi tamamlayın.
 calendar:
   export:
     pickup:
@@ -4022,6 +4058,14 @@ notifications:
   mention:
     title: Etiketleme bildirimleri
     description: Birisi size forumda etiketlediğinde bildirim alın.
+  pushModal:
+    content: "Diğer foodsaver'lar size mesaj gönderdiğinde daha hızlı duyabilmeniz
+      için bu cihazda anlık bildirimleri etkinleştirebilirsiniz!\n\nBu bildirimleri
+      istediğiniz zaman [Bildirim Ayarlarınızdan](/?page=settings&sub=info) kapatabilirsiniz.\n"
+    title: Anlık bildirimler almak ister misiniz?
+    ok: Anlık bildirimler geldi
+    cancel: Etkinleştirme
+    dontAskAgain: Bir daha sorma
 markdown_input:
   tooltip:
     orderedList: numaralı liste
@@ -4048,6 +4092,7 @@ thread:
     lock: Konuyu kapat
     unpin: Artık sabitlemeyi kaldır
     priority: Görüntüleme önceliğini ayarlayın
+    showHidden: Gizli gönderileri göster
   rename:
     description_modal_text: 'Bu yazı için yeni bir başlık girin:'
     placeholder: Başlık
