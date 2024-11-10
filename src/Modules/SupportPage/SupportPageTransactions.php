@@ -9,18 +9,6 @@ use ZammadAPIClient\Client;
 use ZammadAPIClient\Resource\Ticket;
 use ZammadAPIClient\Resource\User;
 
-class MyTicket extends Ticket
-{
-    public function getData(): array
-    {
-        return [
-            'values' => $this->getValues(),
-            'remote' => $this->getRemoteData(),
-            'error' => $this->getError(),
-        ];
-    }
-}
-
 class SupportPageTransactions
 {
     private const GROUP_ID_DEFAULT = 1;
@@ -34,8 +22,9 @@ class SupportPageTransactions
      * Sends the ticket to the Zammad API and returns the ticket ID.
      *
      * @throws BadRequestHttpException if the Zammad server cannot be reached
+     * @return int the created ticket's id
      */
-    public function createTicket(TicketModel $ticketModel): array
+    public function createTicket(TicketModel $ticketModel): int
     {
         $client = new Client(['url' => ZAMMAD_URL, 'http_token' => ZAMMAD_TICKET_TOKEN]);
         $this->createUser($client, $ticketModel);
@@ -43,7 +32,10 @@ class SupportPageTransactions
         return $this->sendTicket($client, $ticketModel);
     }
 
-    private function sendTicket(Client $client, TicketModel $ticketModel): array
+    /**
+     * Creates a new ticket and return its id.
+     */
+    private function sendTicket(Client $client, TicketModel $ticketModel): int
     {
         $sessionId = $this->session->id() ? ", {$this->session->id()}" : '';
         $fullTitle = "{$ticketModel->subject} ({$ticketModel->firstName}{$sessionId})";
@@ -69,15 +61,15 @@ class SupportPageTransactions
         ];
 
         $client->setOnBehalfOfUser($ticketModel->emailAddress);
-        $ticket = new MyTicket($client);
+        $ticket = new Ticket($client);
         $ticket->setValues($ticketData);
         $response = $ticket->save();
 
         if (!empty($response->getError())) {
-            throw new BadRequestHttpException(message: json_encode($ticket->getData()));
+            throw new BadRequestHttpException(message: $ticket->getError());
         }
 
-        return $ticket->getData();
+        return $ticket->getValues()['id'];
     }
 
     /**

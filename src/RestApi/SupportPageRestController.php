@@ -37,8 +37,10 @@ final class SupportPageRestController extends AbstractFoodsharingRestController
         $this->checkRateLimit($request, $supportTicketLimiter);
         $this->assertThereAreNoValidationErrors($validator, $ticketModel);
 
-        $response = $this->supportPageTransactions->createTicket($ticketModel);
+        $ticketId = $this->supportPageTransactions->createTicket($ticketModel);
 
-        return $this->respondOK($response);
+        return $this->respondOK([
+            'ticketId' => $ticketId
+        ]);
     }
 }
