@@ -145,6 +145,7 @@
 - Removed unused hidden dialog !3761 @alex.simm
 - Changed removed command mysql and mysqldump to mariadb and mariadb-dump !3770 @chriswalg
 - Updated Symfony, FOS Rest bundle, and phinx !3787 @alex.simm
+- Update twig to 3.14.2 !3788 @chriswalg
 
 # Hotfix 2024-08-29
 
