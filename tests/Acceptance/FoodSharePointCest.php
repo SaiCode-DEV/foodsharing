@@ -28,6 +28,7 @@ class FoodSharePointCest
 
     public function canSeeFoodSharePointInList(AcceptanceTester $I): void
     {
+        $I->login($this->responsible['email']);
         $I->amOnPage($I->foodSharePointRegionListUrl($this->testBezirk['id']));
         $I->waitForText($this->foodSharePoint['name']);
         $I->click($this->foodSharePoint['name']);
@@ -108,12 +109,14 @@ class FoodSharePointCest
     {
         $user = $this->{$example[0]};
         $I->login($user['email']);
-        $I->amOnPage($I->foodSharePointEditUrl($this->foodSharePoint['id']));
+        $I->amOnPage($I->foodSharePointGetUrl($this->foodSharePoint['id']));
+        $I->waitForActiveAPICalls();
+        $I->canSee($this->foodSharePoint['name']);
         if ($example[1]) {
+            $I->click('Fairteiler bearbeiten');
             $I->waitForText('Schreibe hier ein paar');
         } else {
-            /* just see the fairteiler page if not enough permissions to edit */
-            $I->waitForText('Beachte, dass deine Beiträge');
+            $I->dontSee('Fairteiler bearbeiten');
         }
     }
 
@@ -123,8 +126,9 @@ class FoodSharePointCest
         $bot = $I->createAmbassador(null, ['bezirk_id' => $region['id']]);
         $I->addRegionAdmin($region['id'], $bot['id']);
         $I->login($bot['email']);
-        $I->amOnPage($I->foodSharePointEditUrl($this->foodSharePoint['id']) . '&bid=' . $region['id']);
+        $I->amOnPage($I->foodSharePointGetUrl($this->foodSharePoint['id']));
         /* does not get edit view although region admin of another region (regression) */
-        $I->waitForText('Beachte, dass deine Beiträge');
+        $I->waitForText($this->foodSharePoint['name']);
+        $I->dontSee('Fairteiler bearbeiten');
     }
 }

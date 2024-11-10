@@ -2,7 +2,7 @@
 
 namespace Foodsharing\Modules\FoodSharePoint;
 
-use Carbon\Carbon;
+use Exception;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\BaseGateway;
@@ -11,12 +11,12 @@ use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
-use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
+use Foodsharing\RestApi\Models\Notifications\FoodSharePoint;
 
 class FoodSharePointGateway extends BaseGateway
 {
@@ -351,6 +351,16 @@ class FoodSharePointGateway extends BaseGateway
         $this->removeBellNotificationForNewFoodSharePoint($foodSharePointId);
     }
 
+    public function foodSharePointExists(int $foodSharePointId, bool $includeUnconfirmed = true): bool
+    {
+        $criteria = ['id' => $foodSharePointId];
+        if (!$includeUnconfirmed) {
+            $criteria['status'] = 1;
+        }
+
+        return $this->db->exists('fs_fairteiler', $criteria);
+    }
+
     public function updateFoodSharePoint(int $foodSharePointId, FoodSharePointEditData $foodSharePointData): bool
     {
         $this->db->requireExists('fs_fairteiler', ['id' => $foodSharePointId]);
@@ -384,12 +394,12 @@ class FoodSharePointGateway extends BaseGateway
      * TODO: split up the data for FSPs and followers into two functions, two DTOs. Replace the REST endpoint with
      * two endpoints. After that, mark getFoodSharePoint and getFollower as deprecated.
      */
-    public function getFoodSharePointWithFollowers(int $foodSharePointId): ?FoodSharePointData
+    public function getFoodSharePointWithManagers(int $foodSharePointId): ?FoodSharePointData
     {
-        $result = $this->db->fetchAll(
-            '
-        SELECT  ft.id AS food_share_point_id,
-                ft.bezirk_id,
+        $data = $this->db->fetch('SELECT
+                ft.id AS food_share_point_id,
+                ft.bezirk_id AS region_id,
+                b.name AS region_name,
                 ft.`name` AS food_share_point_name,
                 ft.`picture`,
                 ft.`status`,
@@ -401,69 +411,37 @@ class FoodSharePointGateway extends BaseGateway
                 ft.`lon`,
                 UNIX_TIMESTAMP(ft.`add_date`) AS add_date,
                 ft.`add_foodsaver`,
-                fs.name AS fs_name,
-                fs.nachname AS fs_nachname,
-                fs.id AS fs_id,
-                folfs.name AS follower_name,
-                folfs.nachname AS follower_nachname,
-                folfs.id AS follower_id,
-                folfs.photo AS follower_photo,
-                folfs.is_sleeping AS follower_is_sleeping,
-                ff.type AS follower_type
+                fs.id AS creator_id,
+                fs.name AS creator_name,
+                fs.photo AS creator_photo,
+                COUNT(ff.foodsaver_id) AS follower_count
         FROM    fs_fairteiler ft
-        LEFT JOIN fs_foodsaver fs ON ft.add_foodsaver = fs.id
-        LEFT JOIN fs_fairteiler_follower ff ON ff.fairteiler_id = ft.id
-        LEFT JOIN fs_foodsaver folfs ON ff.foodsaver_id = folfs.id
-        WHERE   ft.id = :foodSharePointId
-        ',
-            [':foodSharePointId' => $foodSharePointId]
-        );
-
-        if (!$result) {
+        JOIN fs_foodsaver fs ON ft.add_foodsaver = fs.id
+        LEFT OUTER JOIN fs_fairteiler_follower ff ON ff.fairteiler_id = ft.id AND ff.type = :followerType
+        JOIN fs_bezirk b ON b.id = ft.bezirk_id
+        WHERE ft.id = :foodSharePointId
+        ', [
+            ':foodSharePointId' => $foodSharePointId,
+            ':followerType' => FollowerType::FOLLOWER,
+        ]);
+        if (empty($data)) {
             return null;
         }
+        $foodSharePoint = FoodSharePointData::createFromArray($data);
 
-        $foodSharePoint = [
-            'id' => $result[0]['food_share_point_id'],
-            'bezirk_id' => $result[0]['bezirk_id'],
-            'name' => $result[0]['food_share_point_name'],
-            'picture' => $result[0]['picture'],
-            'status' => $result[0]['status'],
-            'desc' => $result[0]['desc'],
-            'anschrift' => $result[0]['anschrift'],
-            'plz' => $result[0]['plz'],
-            'ort' => $result[0]['ort'],
-            'lat' => $result[0]['lat'],
-            'lon' => $result[0]['lon'],
-            'add_date' => Carbon::createFromTimestamp($result[0]['add_date']),
-            'add_foodsaver' => $result[0]['add_foodsaver'],
-            'fs_name' => $result[0]['fs_name'],
-            'fs_nachname' => $result[0]['fs_nachname'],
-            'fs_id' => $result[0]['fs_id'],
-            'pic' => !empty($result[0]['picture']) ? $this->getPicturePaths($result[0]['picture']) : false,
-            'followers' => [],
-            'managers' => [],
-        ];
+        $managers = $this->db->fetchAll('SELECT
+                fs.id, fs.name, fs.photo, fs.is_sleeping
+        FROM fs_fairteiler_follower ff
+        JOIN fs_foodsaver fs ON fs.id = ff.foodsaver_id
+        WHERE ff.fairteiler_id = :foodSharePointId
+        AND ff.type = :managerType
+        ', [
+            ':foodSharePointId' => $foodSharePointId,
+            ':managerType' => FollowerType::FOOD_SHARE_POINT_MANAGER,
+        ]);
+        $foodSharePoint->setManagers($managers);
 
-        foreach ($result as $row) {
-            if ($row['follower_id']) {
-                $follower = [
-                    'name' => $row['follower_name'],
-                    'nachname' => $row['follower_nachname'],
-                    'id' => $row['follower_id'],
-                    'photo' => $row['follower_photo'],
-                    'is_sleeping' => $row['follower_is_sleeping'],
-                ];
-
-                if ($row['follower_type'] === FollowerType::FOLLOWER) {
-                    $foodSharePoint['followers'][] = new Profile($follower);
-                } elseif ($row['follower_type'] === FollowerType::FOOD_SHARE_POINT_MANAGER) {
-                    $foodSharePoint['managers'][] = new Profile($follower);
-                }
-            }
-        }
-
-        return FoodSharePointData::createFromArray($foodSharePoint);
+        return $foodSharePoint;
     }
 
     public function getFoodSharePoint(int $foodSharePointId): array
@@ -609,7 +587,7 @@ class FoodSharePointGateway extends BaseGateway
                 'fairteiler_id' => $foodSharePointId,
                 'foodsaver_id' => $userId,
             ]);
-        } catch (\Exception $error) {
+        } catch (Exception $error) {
             return 0;
         }
     }

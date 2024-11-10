@@ -39,8 +39,7 @@ class FoodSharePointApiCest
 
     public function getFoodSharePoint(ApiTester $I): void
     {
-        $fsp = $I->createFoodSharePoint($this->user[self::ID]);
-
+        $fsp = $I->createFoodSharePoint($this->user[self::ID], $this->region['id']);
         $I->login($this->user[self::EMAIL]);
         $I->sendGET(self::API_FSPS . '/' . $fsp[self::ID]);
         $I->seeResponseCodeIs(Http::OK);

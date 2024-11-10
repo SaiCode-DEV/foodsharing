@@ -121,6 +121,7 @@
 - Port the workgroup controller to Symfony !3766 @\_fridtjof_
 - Remove most usages of superglobals !3768 @\_fridtjof_
 - Port the voting controller to Symfony !3782 @\_fridtjof_
+- Reworked food share point page to use API and vue. #1577 !3730 @AntonBallmaier
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm

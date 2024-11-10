@@ -2,6 +2,7 @@
 
 namespace Foodsharing\RestApi\Models\FoodSharePoint;
 
+use Carbon\Carbon;
 use DateTime;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\Profile;
@@ -23,6 +24,10 @@ class FoodSharePointData extends FoodSharePointForCreation
 
     public Profile $creator;
 
+    public string $regionName;
+
+    public int $followerCount;
+
     #[OA\Property(
         description: 'IDs of all users who are responsible for the food share point',
         type: 'array',
@@ -30,36 +35,34 @@ class FoodSharePointData extends FoodSharePointForCreation
     ]
     #[Assert\Count(min: 1)]
     #[Type('array<Foodsharing\Modules\Foodsaver\Profile>')]
-    // TODO: rename into 'managers'
-    public array $manager;
-
-    #[Type('array<Foodsharing\Modules\Foodsaver\Profile>')]
-    // TODO: rename into 'followers'
-    public array $follower;
+    public array $managers;
 
     public static function createFromArray(array $data): self
     {
         $foodSharePoint = new self();
-        $foodSharePoint->id = $data['id'];
-        $foodSharePoint->regionId = $data['bezirk_id'];
-        $foodSharePoint->name = $data['name'];
+        $foodSharePoint->id = $data['food_share_point_id'];
+        $foodSharePoint->regionId = $data['region_id'];
+        $foodSharePoint->regionName = $data['region_name'];
+        $foodSharePoint->name = $data['food_share_point_name'];
         $foodSharePoint->picture = $data['picture'];
         $foodSharePoint->status = $data['status'];
         $foodSharePoint->description = $data['desc'];
         $foodSharePoint->address = $data['anschrift'];
         $foodSharePoint->postalCode = $data['plz'];
         $foodSharePoint->city = $data['ort'];
-        $foodSharePoint->location = GeoLocation::createFromArray($data);
-        $foodSharePoint->createdAt = $data['add_date'];
-        $foodSharePoint->creator = new Profile([
-            'id' => $data['add_foodsaver'],
-            'name' => $data['fs_name'],
+        $foodSharePoint->location = GeoLocation::createFromArray([
+            'lat' => $data['lat'],
+            'lon' => $data['lon'],
         ]);
-
-        // TODO: add followers
-        $foodSharePoint->follower = $data['followers'];
-        $foodSharePoint->manager = $data['managers'];
+        $foodSharePoint->createdAt = Carbon::createFromTimestamp($data['add_date']);
+        $foodSharePoint->creator = new Profile($data, 'creator_');
+        $foodSharePoint->followerCount = $data['follower_count'];
 
         return $foodSharePoint;
+    }
+
+    public function setManagers(array $managers): void
+    {
+        $this->managers = array_map(fn ($manager) => new Profile($manager), $managers);
     }
 }

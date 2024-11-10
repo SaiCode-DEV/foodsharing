@@ -1,11 +1,3 @@
-.fsp-head {
-  height: 80px;
-  width: 100%;
-  background-image: url(/img/foodSharePointHead.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
 
 .fsp-desc {
   overflow-wrap: break-word;

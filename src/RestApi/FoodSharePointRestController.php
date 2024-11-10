@@ -3,6 +3,8 @@
 namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
+use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
@@ -13,27 +15,26 @@ use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointForCreation;
+use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointPermission;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use OpenApi\Annotations as OA;
-use OpenApi\Attributes as OA2;
+use OpenApi\Attributes as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-/**
- * Rest controller for food share points.
- */
-#[OA2\Tag(name: 'foodSharePoints')]
+#[OA\Tag(name: 'foodSharePoints')]
+#[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Must be logged in')]
+#[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
+#[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Food share point not found')]
 final class FoodSharePointRestController extends AbstractFoodsharingRestController
 {
-    private const NOT_LOGGED_IN = 'not logged in';
     private const MAX_FSP_DISTANCE = 50;
 
     public function __construct(
@@ -48,21 +49,16 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         parent::__construct($session);
     }
 
-    /**
-     * Returns a list of food share points close to a given location. If the location is not valid the user's
-     * home location is used. The distance is measured in kilometers.
-     *
-     * Returns 200 and a list of food share points, 400 if the distance is out of range, or 401 if not logged in.
-     */
+    #[OA\Get(summary: 'Returns a list of food share points close to a given location', description: 'If the location is not valid, the user\'s home location is used. The distance is measured in kilometers.')]
     #[Rest\Get('foodSharePoints/nearby')]
     #[Rest\QueryParam(name: 'lat', nullable: true)]
     #[Rest\QueryParam(name: 'lon', nullable: true)]
     #[Rest\QueryParam(name: 'distance', nullable: false, requirements: '\d+')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Distance out of range')]
     public function listNearbyFoodSharePoints(ParamFetcher $paramFetcher): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
-        }
+        $this->assertLoggedIn();
 
         $location = $this->fetchLocationOrUserHome($paramFetcher);
         $distance = $paramFetcher->get('distance');
@@ -73,22 +69,16 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         $fsps = $this->foodSharePointGateway->listNearbyFoodSharePoints($location, $distance);
         $fsps = array_map(fn ($fsp) => $this->normalizeFoodSharePoint($fsp), $fsps);
 
-        return $this->handleView($this->view($fsps, 200));
+        return $this->respondOK($fsps);
     }
 
-    #[OA2\Get(summary: 'Returns details of the food share point with the given ID.')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to access this region')]
-    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Food share point not found')]
+    #[OA\Get(summary: 'Returns details of the food share point with the given ID.')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[Rest\Get('foodSharePoints/{foodSharePointId}', requirements: ['foodSharePointId' => Requirement::POSITIVE_INT])]
     public function getFoodSharePoint(int $foodSharePointId): Response
     {
-        $this->assertLoggedIn();
-
-        $foodSharePoint = $this->foodSharePointGateway->getFoodSharePointWithFollowers($foodSharePointId);
-        if (!$foodSharePoint || $foodSharePoint->status !== 1) {
-            throw new NotFoundHttpException('Food share point does not exist or was deleted.');
-        }
+        $this->assertFoodSharePointExists($foodSharePointId);
+        $foodSharePoint = $this->foodSharePointGateway->getFoodSharePointWithManagers($foodSharePointId);
 
         return $this->respondOK($foodSharePoint);
     }
@@ -122,6 +112,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
      * Normalizes the details of a food share point for the Rest response.
      *
      * @param array $data the food share point data
+     * @deprecated should use a DTO instead
      */
     private function normalizeFoodSharePoint(array $data): array
     {
@@ -147,20 +138,13 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         return $fsp;
     }
 
-    /**
-     * Returns a list of all food share points in a region and all its subregions.
-     *
-     * @OA\Parameter(name="regionId", in="path", @OA\Schema(type="integer"), description="region for which to return food share points")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permission to access the region")
-     */
+    #[OA\Get(summary: 'Returns a list of all food share points in a region and all its subregions.')]
+    #[OA\Parameter(name: 'regionId', description: 'region for which to return food share points', in: 'path', schema: new OA\Schema(type: 'integer'))]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[Rest\Get('regions/{regionId}/foodSharePoints', requirements: ['regionId' => '\d+'])]
     public function listFoodSharePoints(int $regionId): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
-        }
+        $this->assertLoggedIn();
 
         if (!$this->regionPermissions->mayListFoodSharePointsInRegion($regionId)) {
             throw new AccessDeniedHttpException('');
@@ -169,14 +153,13 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         $regionIds = $this->regionGateway->listIdsForDescendantsAndSelf($regionId);
         $foodSharePoints = $this->foodSharePointGateway->listActiveFoodSharePoints($regionIds);
 
-        return $this->handleView($this->view($foodSharePoints, 200));
+        return $this->respondOK($foodSharePoints);
     }
 
-    #[OA2\Post(summary: 'Adds or suggests a new food share point.')]
-    #[OA2\RequestBody(content: new Model(type: FoodSharePointForCreation::class))]
+    #[OA\Post(summary: 'Adds or suggests a new food share point.')]
+    #[OA\RequestBody(content: new Model(type: FoodSharePointForCreation::class))]
     #[ParamConverter('foodSharePoint', class: FoodSharePointForCreation::class, converter: 'fos_rest.request_body')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to access this region')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[Rest\Post('regions/{regionId}/foodSharePoints', requirements: ['regionId' => Requirement::POSITIVE_INT])]
     public function addFoodSharePoint(int $regionId, FoodSharePointForCreation $foodSharePoint, ValidatorInterface $validator): Response
     {
@@ -195,13 +178,11 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         return $this->respondOK($response);
     }
 
-    #[OA2\Patch(summary: 'Edit an existing food share point.')]
-    #[OA2\RequestBody(content: new Model(type: FoodSharePointEditData::class))]
+    #[OA\Patch(summary: 'Edit an existing food share point.')]
+    #[OA\RequestBody(content: new Model(type: FoodSharePointEditData::class))]
     #[ParamConverter('foodSharePointData', class: FoodSharePointEditData::class, converter: 'fos_rest.request_body')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid date')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to edit this foodSharePoint')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid date')]
     #[Rest\Patch('foodSharePoints/{foodSharePointId}', requirements: ['foodSharePointId' => Requirement::POSITIVE_INT])]
     public function editFoodSharePoint(int $foodSharePointId, FoodSharePointEditData $foodSharePointData, ValidatorInterface $validator): Response
     {
@@ -226,11 +207,8 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         return $this->respondOK();
     }
 
-    #[OA2\Parameter(name: 'foodSharePointId', description: 'which foodSharePoint to delete', in: 'path', schema: new OA2\Schema(type: 'integer'))]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'Success.')]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to remove this foodSharePoint.')]
-    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'FoodSharePoint not found.')]
+    #[OA\Parameter(name: 'foodSharePointId', description: 'which foodSharePoint to delete', in: 'path', schema: new OA\Schema(type: 'integer'))]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
     #[Rest\Delete('/foodSharePoints/{foodSharePointId}', name: 'remove_foodsharepoint', requirements: ['foodSharePointId' => Requirement::POSITIVE_INT])]
     public function removeFoodSharePoint(int $foodSharePointId): Response
     {
@@ -248,5 +226,68 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         $this->foodSharePointGateway->deleteFoodSharePoint($foodSharePointId);
 
         return $this->respondOK();
+    }
+
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
+    #[Rest\Get('/foodSharePoints/{foodSharePointId}/permissions', requirements: ['foodSharePointId' => Requirement::POSITIVE_INT])]
+    public function foodSharePointPermissions(int $foodSharePointId): Response
+    {
+        $this->assertFoodSharePointExists($foodSharePointId);
+        $regionId = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId)['bezirk_id'];
+        $permission = new FoodSharePointPermission();
+        if ($this->session->id()) {
+            $followerType = $this->foodSharePointGateway->getFollowerStatus($foodSharePointId, $this->session->id());
+            $permission->isFollower = $followerType >= FollowerType::FOLLOWER;
+            $permission->mayEdit = $this->foodSharePointPermissions->mayEditFromManager($regionId, $followerType === FollowerType::FOOD_SHARE_POINT_MANAGER);
+            $permission->mayDelete = $this->foodSharePointPermissions->mayDeleteFoodSharePointOfRegion($regionId);
+        }
+
+        return $this->respondOK($permission);
+    }
+
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
+    #[Rest\Post('/foodSharePoints/{foodSharePointId}/follow', requirements: ['foodSharePointId' => Requirement::POSITIVE_INT])]
+    public function followFoodSharePoint(int $foodSharePointId, #[MapQueryParameter] bool $sendMails = false): Response
+    {
+        $this->assertLoggedIn();
+        $this->assertFoodSharePointExists($foodSharePointId);
+        $infoType = $sendMails ? InfoType::EMAIL : InfoType::BELL;
+        $this->foodSharePointGateway->follow($this->session->id(), $foodSharePointId, $infoType);
+
+        return $this->respondOK();
+    }
+
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
+    #[Rest\Delete('/foodSharePoints/{foodSharePointId}/follow', requirements: ['foodSharePointId' => Requirement::POSITIVE_INT])]
+    public function unfollowFoodSharePoint(int $foodSharePointId): Response
+    {
+        $this->assertLoggedIn();
+        $this->assertFoodSharePointExists($foodSharePointId);
+        $this->foodSharePointGateway->unfollow($this->session->id(), $foodSharePointId);
+
+        return $this->respondOK();
+    }
+
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
+    #[Rest\Post('/foodSharePoints/{foodSharePointId}/accept', requirements: ['foodSharePointId' => Requirement::POSITIVE_INT])]
+    public function acceptFoodSharePoint(int $foodSharePointId): Response
+    {
+        $this->assertLoggedIn();
+        $this->assertFoodSharePointExists($foodSharePointId);
+        $regionId = $this->foodSharePointGateway->getFoodSharePoint($foodSharePointId)['bezirk_id'];
+        if (!$this->foodSharePointPermissions->mayApproveFoodSharePointCreation($regionId)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $this->foodSharePointGateway->acceptFoodSharePoint($foodSharePointId);
+
+        return $this->respondOK();
+    }
+
+    private function assertFoodSharePointExists(int $foodSharePointId): void
+    {
+        if (!$this->foodSharePointGateway->foodSharePointExists($foodSharePointId)) {
+            throw new NotFoundHttpException('Food share point does not exist');
+        }
     }
 }

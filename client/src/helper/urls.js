@@ -31,6 +31,7 @@ const urls = {
   eventEdit: (eventId) => `/event/${eventId}/edit`,
   festival: () => '/content?sub=festival',
   foodsharepoint: (fspId) => `/fairteiler/${fspId}`,
+  foodsharepointEdit: (fspId) => `/fairteiler/${fspId}/edit`, // TODO move to /fairteiler/id/edit
   fsstaedte: () => '/content?sub=fsstaedte',
   home: () => '/',
   imprint: () => '/impressum',

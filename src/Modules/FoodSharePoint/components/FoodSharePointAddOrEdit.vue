@@ -299,7 +299,7 @@ onMounted(async () => {
       postalCode: response.postalCode,
       city: response.city,
       location: response.location,
-      managerIds: response.manager.map(x => x.id),
+      managerIds: response.managers.map(x => x.id),
     }
     hideLoader()
     isLoading.value = false

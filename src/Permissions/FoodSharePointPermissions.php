@@ -47,14 +47,24 @@ class FoodSharePointPermissions
 
     public function mayEdit(int $regionId, array $follower): bool
     {
+        $isManager = false;
+        if (isset($follower['all'][$this->session->id()])) {
+            $isManager = $follower['all'][$this->session->id()] === 'fsp_manager';
+        }
+
+        return $this->mayEditFromManager($regionId, $isManager);
+    }
+
+    /**
+     * Whether the user is allowed to edit a food share point, given if he is a manager of that fsp.
+     */
+    public function mayEditFromManager(int $regionId, bool $isManager): bool
+    {
         if ($this->mayAdd($regionId)) {
             return true;
         }
-        if (isset($follower['all'][$this->session->id()])) {
-            return $follower['all'][$this->session->id()] === 'fsp_manager';
-        }
 
-        return false;
+        return $isManager;
     }
 
     public function mayDeleteFoodSharePointOfRegion(int $regionId): bool

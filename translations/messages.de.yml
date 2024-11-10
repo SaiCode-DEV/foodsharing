@@ -855,7 +855,7 @@ fsp:
   followName: "Fairteiler {name} folgen"
   unfollow: "Fairteiler nicht mehr folgen"
   managers: "Ansprechpersonen"
-  followers: "Follower"
+  followers: "Interessierte Foodsharer:innen"
   description: "Beschreibung"
   new: "Neuer Fairteiler"
   add: "Fairteiler eintragen"
@@ -899,6 +899,9 @@ fsp:
     manager: "Du bist verantwortlich für diesen Fairteiler und somit verpflichtet, die Updates entgegenzunehmen."
   twig:
     n_in_region: "{count} Fairteiler in {name}"
+  createdAt: "Eröffnet:"
+  followerCount: "Interessierte Nuter:innen: {followerCount}"
+  onlySuggested: "Dieser Fairteiler wurde vorgeschlagen, ist aber noch nicht freigegeben. In diesem Zustand wird er anderen Nutzer:innen nicht angezeigt."
 
 storeview:
   show_settings: "Betriebseinstellungen"
@@ -1691,7 +1694,9 @@ bell:
   blog_new_check_title: "Neuer Blogartikel"
   blog_new_check: "{title}"
   ft_update_title: "{name}" # Message can be improved using {user} after release Nektarine
-  ft_update: "{teaser}" # Message can be improved using {user} after release Nektarine
+  ft_update:
+    one: "{teaser}" # Message can be improved using {user} after release Nektarine
+    many: "{teaser}" # Message can be improved using {user} after release Nektarine
   store_new_title: "Neuer Betrieb"
   store_new: "{name} wurde eingetragen"
   store_new_request_title: "Neue Teamanfrage"

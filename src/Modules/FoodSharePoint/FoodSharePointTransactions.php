@@ -50,7 +50,7 @@ class FoodSharePointTransactions
                 $followersWithoutPostAuthor = array_filter($followers, fn ($x) => $x['id'] !== $post['fs_id']);
                 foreach ($followersWithoutPostAuthor as $f) {
                     $this->emailHelper->tplMail('foodSharePoint/new_message', $f['email'], [
-                        'link' => BASE_URL . '/?page=fairteiler&sub=ft&id=' . (int)$foodSharePointId,
+                        'link' => BASE_URL . '/fairteiler/' . (int)$foodSharePointId,
                         'name' => $f['name'],
                         'anrede' => $this->translator->trans('salutation.' . $f['geschlecht']),
                         'fairteiler' => $foodSharePoint['name'],

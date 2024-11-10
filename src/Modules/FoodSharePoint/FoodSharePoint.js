@@ -9,13 +9,12 @@ import Wall from '@/components/Wall/Wall'
 import './FoodSharePoint.css'
 
 // Wallpost
-import AddressField from './components/AddressField'
 import FoodSharePointAddOrEdit from './components/FoodSharePointAddOrEdit.vue'
+import FoodSharePoint from '@/views/pages/FoodSharePoint/FoodSharePoint.vue'
 
 vueRegister({
   AvatarList,
   Wall,
-  AddressField,
 })
 
 const sub = GET('sub')
@@ -33,4 +32,15 @@ if (sub === 'add' || sub === 'edit') {
     vueApply('#fsp-managers')
   }
   vueApply('#fsp-address-field')
+}
+if (/^\/fairteiler\/\d+$/.test(location.pathname)) {
+  vueRegister({ FoodSharePoint })
+  vueApply('#food-share-point')
+}
+if (
+  /^\/fairteiler\/\d+\/edit$/.test(location.pathname) ||
+  /^\/fairteiler\/add$/.test(location.pathname)
+) {
+  vueRegister({ FoodSharePointAddOrEdit })
+  vueApply('#food-share-point-add-or-edit')
 }
