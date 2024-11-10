@@ -30,7 +30,7 @@
     "phpunit/phpunit": "^10.0",
     "rector/rector": "^1.0",
     "roave/security-advisories": "dev-latest",
-    "robmorgan/phinx": "0.16.1",
+    "robmorgan/phinx": "0.16.*",
     "symfony/stopwatch": "6.4.*",
     "symfony/web-profiler-bundle": "6.4.*"
   },
@@ -54,7 +54,7 @@
     "doctrine/doctrine-bundle": "^2.11",
     "erusev/parsedown": "1.7.*",
     "exercise/htmlpurifier-bundle": "5.0.*",
-    "friendsofsymfony/rest-bundle": "3.6.*",
+    "friendsofsymfony/rest-bundle": "3.7.*",
     "html2text/html2text": "4.3.*",
     "jms/serializer-bundle": "5.4.*",
     "jsvrcek/ics": "0.8.5",
