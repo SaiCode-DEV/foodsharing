@@ -441,7 +441,7 @@
 
 <script>
 // Stores
-import StoreData from '@/stores/stores'
+import StoreData, { STORE_PUBLICITY_AND_STICKER_OPTIONS } from '@/stores/stores'
 import PickupsData from '@/stores/pickups'
 
 // Others
@@ -494,9 +494,9 @@ export default {
         { value: 2, text: this.$i18n('menu.entry.helpneeded') },
       ],
       publicityAndStickerOptions: [
-        { value: null, text: this.$i18n('storeview.publicity_and_sticker_options.not_yet_clarified') },
-        { value: true, text: this.$i18n('storeview.publicity_and_sticker_options.yes') },
-        { value: false, text: this.$i18n('storeview.publicity_and_sticker_options.no') },
+        { value: STORE_PUBLICITY_AND_STICKER_OPTIONS.NO, text: this.$i18n('storeview.publicity_and_sticker_options.no') },
+        { value: STORE_PUBLICITY_AND_STICKER_OPTIONS.YES, text: this.$i18n('storeview.publicity_and_sticker_options.yes') },
+        { value: STORE_PUBLICITY_AND_STICKER_OPTIONS.NOT_CHOSEN, text: this.$i18n('storeview.publicity_and_sticker_options.not_yet_clarified') },
       ],
       store: {},
       chainSearchCriteriaField: '',

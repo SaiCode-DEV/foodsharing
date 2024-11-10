@@ -62,6 +62,12 @@ export const store = Vue.observable({
   log: [],
 })
 
+export const STORE_PUBLICITY_AND_STICKER_OPTIONS = Object.freeze({
+  NO: 0,
+  YES: 1,
+  NOT_CHOSEN: 2,
+})
+
 export const getters = {
   getAll () {
     return store.stores.length > 0 ? store.stores : []

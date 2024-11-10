@@ -1012,6 +1012,7 @@ store:
   particularities_chain_tooltip: "Dieser Betrieb ist Teil einer Kette. Deshalb werden diese zusätzlichen Informationen angezeigt, die für alle Betriebe der Kette gelten."
   average_collection_quantity: "Abholmenge im Schnitt"
   attribution: "Namensnennung"
+  may_referred_to_in_public_unclear: "Noch nicht geklärt"
   may_referred_to_in_public: "Dieser Betrieb darf öffentlich genannt werden."
   may_not_referred_to_in_public: "Bitte diesen Betrieb niemals öffentlich (beispielsweise bei Essenskörben, Facebook oder Presseanfragen) nennen."
   address: "Adresse"

@@ -5,7 +5,9 @@ namespace Foodsharing\Modules\Store\DTO;
 use DateTime;
 use Foodsharing\Modules\Core\DBConstants\Store\ConvinceStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
+use Foodsharing\Modules\Core\DBConstants\Store\PublicityStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
+use Foodsharing\Modules\Core\DBConstants\Store\StickerStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Core\DTO\MinimalIdentifier;
@@ -138,7 +140,7 @@ class Store
      * Only visible to store team members
      */
     #[OA\Property(nullable: true)]
-    public ?bool $publicity = false;
+    public ?PublicityStatus $publicity = PublicityStatus::NOT_CHOSEN;
 
     /**
      * Boolean which mark store that they shows foodsharing sticker on the store.
@@ -146,7 +148,7 @@ class Store
      * Only visible to store managers or organaisators
      */
     #[OA\Property(nullable: true)]
-    public ?bool $showsSticker = null;
+    public ?StickerStatus $showsSticker = StickerStatus::NOT_CHOSEN;
 
     /**
      * List of grocerie which are provided by the store.
@@ -240,8 +242,8 @@ class Store
         $obj->weight = $queryResult['weight'];
         $obj->effort = ConvinceStatus::tryFrom($queryResult['effort']);
 
-        $obj->publicity = $queryResult['publicity'] == 1;
-        $obj->showsSticker = $queryResult['sticker'] == 1;
+        $obj->publicity = PublicityStatus::tryFrom($queryResult['publicity']);
+        $obj->showsSticker = StickerStatus::tryFrom($queryResult['sticker']);
 
         $obj->teamStatus = TeamSearchStatus::tryFrom($queryResult['teamStatus']);
 

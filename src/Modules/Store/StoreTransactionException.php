@@ -16,6 +16,10 @@ class StoreTransactionException extends \Exception
     final public const INVALID_REGION_TYPE = 'Region type is wrong';
     final public const INVALID_STORE_COOPERATION_START = 'Store cooperation start is in wrong format';
 
+    final public const INVALID_STICKER_STATUS = 'Sticker status is invalid.';
+
+    final public const INVALID_PUBLICITY_STATUS = 'Publicity status is invalid.';
+
     public function __construct(string $message = '', int $code = 0)
     {
         parent::__construct($message, $code);

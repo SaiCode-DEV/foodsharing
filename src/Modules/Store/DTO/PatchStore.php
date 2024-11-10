@@ -2,6 +2,8 @@
 
 namespace Foodsharing\Modules\Store\DTO;
 
+use Foodsharing\Modules\Core\DBConstants\Store\PublicityStatus;
+use Foodsharing\Modules\Core\DBConstants\Store\StickerStatus;
 use Foodsharing\Modules\Core\DTO\PatchGeoLocation;
 use Foodsharing\Validator\MarkdownOrPlainText;
 use JMS\Serializer\Annotation\Type;
@@ -138,13 +140,19 @@ class PatchStore
 
     /**
      * Boolean which mark store that they shows foodsharing sticker on the store.
+     *
+     * {@see StickerStatus}
      */
-    public ?bool $showsSticker = null;
+    #[Assert\Range(min: 0, max: 2)]
+    public ?int $showsSticker = null;
 
     /**
      * Boolean which represents that store allows using for foodsharing publicity.
+     *
+     * {@see PublicityStatus}
      */
-    public ?bool $publicity = null;
+    #[Assert\Range(min: 0, max: 2)]
+    public ?int $publicity = null;
 
     /**
      * Enum which represent the state of searching members.

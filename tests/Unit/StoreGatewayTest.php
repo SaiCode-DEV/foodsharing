@@ -151,8 +151,8 @@ class StoreGatewayTest extends Unit
         $this->assertEquals($store['betrieb_kategorie_id'], $dbStore->category ? $dbStore->category->id : null);
         $this->assertEquals($store['betrieb_status_id'], $dbStore->cooperationStatus->value);
         $this->assertEquals($store['besonderheiten'], $dbStore->description);
-        $this->assertEquals($store['presse'], $dbStore->publicity);
-        $this->assertEquals($store['sticker'], $dbStore->showsSticker);
+        $this->assertEquals($store['presse'], $dbStore->publicity->value);
+        $this->assertEquals($store['sticker'], $dbStore->showsSticker->value);
         $this->assertEquals($storeAdded->format('Y-m-d'), $dbStore->createdAt->format('Y-m-d'));
         $this->assertEquals($storeStatusUpdate->format('Y-m-d'), $dbStore->updatedAt->format('Y-m-d'));
     }
@@ -185,8 +185,8 @@ class StoreGatewayTest extends Unit
         $this->assertEquals($store['betrieb_status_id'], $dbStore->cooperationStatus->value);
         $this->assertEquals($store['team_status'], $dbStore->teamStatus->value);
         $this->assertEquals($store['besonderheiten'], $dbStore->description);
-        $this->assertEquals($store['presse'], $dbStore->publicity);
-        $this->assertEquals($store['sticker'], $dbStore->showsSticker);
+        $this->assertEquals($store['presse'], $dbStore->publicity->value);
+        $this->assertEquals($store['sticker'], $dbStore->showsSticker->value);
         $this->assertEquals($storeAdded->format('Y-m-d'), $dbStore->createdAt->format('Y-m-d'));
         $this->assertEquals($storeStatusUpdate->format('Y-m-d'), $dbStore->updatedAt->format('Y-m-d'));
     }

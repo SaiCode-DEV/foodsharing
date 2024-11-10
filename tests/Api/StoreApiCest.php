@@ -143,7 +143,7 @@ class StoreApiCest
 
     private function createGetStoreAsTeamMemberJsonType($store = [], $notExpected = false)
     {
-        $store['publicity'] = $notExpected ? 'null' : 'boolean|null';
+        $store['publicity'] = $notExpected ? 'null' : 'integer';
         $store['description'] = $notExpected ? 'null' : 'string|null';
         $store['options'] = 'null';
         if (!$notExpected) {
@@ -158,7 +158,7 @@ class StoreApiCest
     private function createGetStoreAsTeamMemberJson($store = [])
     {
         $store['description'] = $this->store['besonderheiten'];
-        $store['publicity'] = $this->store['presse'] == 1;
+        $store['publicity'] = $this->store['presse'];
         $store['options'] = [
             'useRegionPickupRule' => $this->store['use_region_pickup_rule'] == 1
         ];
@@ -170,7 +170,7 @@ class StoreApiCest
     {
         $store['effort'] = $notExpected ? 'null' : 'integer|null';
         $store['updatedAt'] = $notExpected ? 'null' : 'string|null';
-        $store['showsSticker'] = $notExpected ? 'null' : 'boolean|null';
+        $store['showsSticker'] = $notExpected ? 'null' : 'integer';
         $store['groceries'] = $notExpected ? 'null' : 'array|null';
         $store['contact'] = 'null';
 
@@ -190,7 +190,7 @@ class StoreApiCest
     {
         $store['effort'] = $this->store['ueberzeugungsarbeit'];
         $store['updatedAt'] = $this->store['status_date'];
-        $store['showsSticker'] = $this->store['sticker'] == 1;
+        $store['showsSticker'] = $this->store['sticker'];
         $store['groceries'] = [];
         $store['contact'] = [
             'name' => $this->store['ansprechpartner'],
@@ -803,8 +803,8 @@ class StoreApiCest
      * @example {"field": "contact", "value": {"phone": "Invalid"}, "dbField":"telefon"}
      * @example {"field": "contact", "value": {"fax": "Invalid"}, "dbField":"fax"}
      * @example {"field": "contact", "value": {"email": "Invalid"}, "dbField":"email"}
-     * @example {"field": "showsSticker", "value": true, "dbField":"sticker"}
-     * @example {"field": "publicity", "value": true, "dbField":"presse"}
+     * @example {"field": "showsSticker", "value": 1, "dbField":"sticker"}
+     * @example {"field": "publicity", "value": 1, "dbField":"presse"}
      * @example {"field": "options", "value": { "useRegionPickupRule": true}, "dbField":"use_region_pickup_rule"}
      */
     public function patchStoreAsNormalUserReturnForbidden(ApiTester $I, Example $example): void
@@ -868,8 +868,8 @@ class StoreApiCest
      * @example {"field": "weight", "value": 2, "dbField":"abholmenge"}
      * @example {"field": "effort", "value": 2, "dbField":"ueberzeugungsarbeit"}
      * @example {"field": "teamStatus", "value": 2, "dbField":"team_status"}
-     * @example {"field": "showsSticker", "value": true, "dbField":"sticker"}
-     * @example {"field": "publicity", "value": true, "dbField":"presse"}
+     * @example {"field": "showsSticker", "value": 1, "dbField":"sticker"}
+     * @example {"field": "publicity", "value": 1, "dbField":"presse"}
      * @example {"field": "options", "value": { "useRegionPickupRule": true}, "dbField":"use_region_pickup_rule"}
      */
     public function patchStoreAsUnknownUserReturnUnauthorized(ApiTester $I, Example $example): void
@@ -1545,7 +1545,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['showsSticker' => true]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['showsSticker' => 1]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1553,7 +1553,7 @@ class StoreApiCest
             'sticker' => 1]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['showsSticker' => false]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['showsSticker' => 0]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1579,7 +1579,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicity' => false]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicity' => 0]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1587,7 +1587,7 @@ class StoreApiCest
             'presse' => 0]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicity' => true]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicity' => 1]);
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb', [
@@ -1600,7 +1600,11 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicity' => 1]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicity' => 3]);
+        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicity' => true]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');

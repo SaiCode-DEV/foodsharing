@@ -208,8 +208,8 @@ class StoreGateway extends BaseGateway
             'use_region_pickup_rule' => $store->options->useRegionPickupRule,
             'abholmenge' => $store->weight,
             'ueberzeugungsarbeit' => $store->effort->value,
-            'presse' => $store->publicity,
-            'sticker' => $store->showsSticker,
+            'presse' => $store->publicity->value,
+            'sticker' => $store->showsSticker->value,
             'hygiene_requirement' => intval($store->isHygieneRequired),
             'status_date' => $this->db->date($store->updatedAt)
         ], [

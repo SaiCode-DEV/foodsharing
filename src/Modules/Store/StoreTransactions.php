@@ -14,7 +14,9 @@ use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Store\ConvinceStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
+use Foodsharing\Modules\Core\DBConstants\Store\PublicityStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
+use Foodsharing\Modules\Core\DBConstants\Store\StickerStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
@@ -456,13 +458,21 @@ class StoreTransactions
         }
 
         if (!is_null($storeChange->showsSticker)) {
+            $sticker = StickerStatus::tryFrom($storeChange->showsSticker);
+            if (!$sticker) {
+                throw new StoreTransactionException(StoreTransactionException::INVALID_CONVINCE_STATUS);
+            }
             $changeInformation->informationChanged = true;
-            $store->showsSticker = $storeChange->showsSticker;
+            $store->showsSticker = $sticker;
         }
 
         if (!is_null($storeChange->publicity)) {
+            $publicity = PublicityStatus::tryFrom($storeChange->publicity);
+            if (!$publicity) {
+                throw new StoreTransactionException(StoreTransactionException::INVALID_PUBLICITY_STATUS);
+            }
             $changeInformation->informationChanged = true;
-            $store->publicity = $storeChange->publicity;
+            $store->publicity = $publicity;
         }
 
         if (!is_null($storeChange->isHygieneRequired)) {

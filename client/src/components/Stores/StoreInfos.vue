@@ -65,8 +65,7 @@
         <div class="desc-block-title mb-2 py-1">
           {{ $i18n('store.attribution') }}
         </div>
-        <span v-if="press">{{ $i18n('store.may_referred_to_in_public') }}</span>
-        <span v-else>{{ $i18n('store.may_not_referred_to_in_public') }}</span>
+        {{ pressInfo }}
       </div>
       <div
         v-if="useRegionPickupRules"
@@ -99,7 +98,7 @@
 <script>
 import Markdown from '@/components/Markdown/Markdown.vue'
 import Container from '@/components/Container/Container.vue'
-import { getters } from '@/stores/stores'
+import { getters, STORE_PUBLICITY_AND_STICKER_OPTIONS } from '@/stores/stores'
 
 export default {
   components: { Markdown, Container },
@@ -133,8 +132,8 @@ export default {
       default: null,
     },
     press: {
-      type: Boolean,
-      default: false,
+      type: Number,
+      default: 2,
     },
     regionPickupRules: {
       type: Boolean,
@@ -175,6 +174,16 @@ export default {
     }
   },
   computed: {
+    pressInfo () {
+      switch (this.press) {
+        case STORE_PUBLICITY_AND_STICKER_OPTIONS.YES:
+          return this.$i18n('store.may_referred_to_in_public')
+        case STORE_PUBLICITY_AND_STICKER_OPTIONS.NO:
+          return this.$i18n('store.may_not_referred_to_in_public')
+        default:
+          return this.$i18n('store.may_referred_to_in_public_unclear')
+      }
+    },
     collectionQuantity () {
       const matchedWeightType = this.weightTypes.find(type => type.value === this.weightType)
       return matchedWeightType ? matchedWeightType.text : ''
@@ -204,7 +213,6 @@ export default {
 
 <style lang="scss" scoped>
 .store-desc {
-  display: inline-block;
   font-size: 0.875rem;
 
   div, p, ul, ol, th, td, label {
