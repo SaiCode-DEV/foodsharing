@@ -1239,6 +1239,12 @@ pickup:
   edit_description: Edit description
   description: Description
   description_max_length_info: Maximal length of the description reached (100 letters)
+  hygieneCertificateMissing:
+    link: Take the hygiene exam here
+    none: You do not have a valid hygiene certificate at the moment. Take the hygiene
+      quiz now to be able to register for pick-ups here.
+    timeout: Your hygiene certificate will have expired by the time of collection.
+      Take the hygiene quiz again now to be able to register for the desired collection.
 storeview:
   show_information: Show store information
   cooperation: Cooperation since {startTime}.
@@ -1472,7 +1478,9 @@ bell:
   store_request_accept_wait_title: '{name}'
   store_request_accept_title: '{name}'
   store_new_title: New store
-  ft_update: '{teaser}'
+  ft_update:
+    one: '{teaser}'
+    many: '{teaser}'
   report_reason: '{reason}'
   new_report_title: New report about {name}
   banana_given: '{name} gave you a trust banana.'
@@ -2294,6 +2302,9 @@ store:
       on your application.
     application-placeholder: I would like to help in this team because …
     application-message: Application message
+    hygieneRequired: A valid hygiene certificate is required for pickup at this facility.
+    hygieneMissing: However, you do not meet this requirement at the moment. Take
+      the hygiene quiz now to apply for this team.
   sm:
     reallyRemove: Do you really want to remove {name} from the store team?
     removeFromTeam: Remove from the team
@@ -2513,6 +2524,7 @@ store:
   to_map: Show on map
   storeFrom: Store from {name}
   no_chain_choosen: no chain chosen
+  may_referred_to_in_public_unclear: not yet clarified
 search:
   mygroups: My groups
   mybuddies: My buddies
@@ -2769,6 +2781,8 @@ storeedit:
     teamStatus2: Helpers are strongly needed
     teamStatus1: Helpers are needed
     teamStatus0: This team is full and presently does not search for more helpers
+    hygieneRequirement: Hygiene requirements
+    hygieneRequired: Allow pick-ups only with valid hygiene training
   store:
     status: status
   actions: Options
@@ -2936,6 +2950,10 @@ fsp:
     invalid: Input is invalid. Please check your input.
     required: '{name} is required.'
     min_length: '{name} must be at least {length} characters long.'
+  createdAt: 'created at:'
+  followerCount: 'Followers: {followerCount}'
+  onlySuggested: This Food-Share Point has been suggested but has not yet been approved.
+    In this state, it will not be displayed to other users.
 lifetime: How long is your food basket to be valid?
 contact_type: How would you like to be contacted?
 food_art: What kind of food is it?
@@ -4335,6 +4353,20 @@ help:
       md: "Using the voting module, elections, surveys and other votes can be carried
         out anonymously and easily directly on the foodsharing platform. You can find
         detailed instructions at https://wiki.foodsharing.de/Abstimmungs-Modul\n"
+    hygieneRequirement:
+      title: Hygiene requirement for stores
+      md: "Some companies require food savers to be trained in food hygiene in order
+        to be able to pick up food there. If this function is activated for a particular
+        store, this has the following consequences:\n1. Food savers without valid
+        hygiene training cannot apply for the team.\n2. Food savers who are already
+        part of the team can only register for slots if their hygiene training is
+        still valid at the time of the desired pick-up.\n\nIn both cases, a message
+        will be displayed explaining that the hygiene training is required for this
+        action. The hygiene quiz is also linked directly in each case.\n\n---\n\n
+        Important to note: This function is only based on foodsharing's own hygiene
+        training. Neither hygiene certificates from external providers (e.g. Metro)
+        uploaded to the profile nor hygiene training courses noted elsewhere are currently
+        taken into account. \n"
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
