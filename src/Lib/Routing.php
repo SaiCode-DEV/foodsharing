@@ -6,7 +6,6 @@ use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use Foodsharing\Modules\Index\IndexControl;
 use Foodsharing\Modules\Mailbox\MailboxControl;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
-use Foodsharing\Modules\Voting\VotingControl;
 
 /**
  * @deprecated please don't add anything new to these mappings.
@@ -21,7 +20,6 @@ class Routing
         'bcard' => 'BusinessCard',
         'index' => 'Index',
         'mailbox' => 'Mailbox',
-        'poll' => 'Voting',
         'fsbetrieb' => 'StoreUser',
     ];
 
@@ -29,7 +27,6 @@ class Routing
         'bcard' => BusinessCardControl::class,
         'index' => IndexControl::class,
         'mailbox' => MailboxControl::class,
-        'poll' => VotingControl::class,
         'fsbetrieb' => StoreUserControl::class,
     ];
 
@@ -58,6 +55,7 @@ class Routing
         'dashboard',
         'support',
         'groups',
+        'poll',
     ];
 
     private const RENAMES = [

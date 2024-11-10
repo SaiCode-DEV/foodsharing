@@ -119,6 +119,7 @@
 - Got rid of a global variable !3764 @\_fridtjof_
 - Port the workgroup controller to Symfony !3766 @\_fridtjof_
 - Remove most usages of superglobals !3768 @\_fridtjof_
+- Port the voting controller to Symfony !3782 @\_fridtjof_
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm

@@ -3,13 +3,15 @@
 namespace Foodsharing\Modules\Voting;
 
 use Exception;
-use Foodsharing\Modules\Core\Control;
+use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Permissions\VotingPermissions;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 
-class VotingControl extends Control
+class VotingController extends FoodsharingController
 {
     public function __construct(
         private readonly VotingView $view,
@@ -21,7 +23,8 @@ class VotingControl extends Control
         parent::__construct();
     }
 
-    public function index(Request $request)
+    #[Route('/poll', name: 'poll')]
+    public function index(Request $request): Response
     {
         try {
             $id = $request->query->get('id');
@@ -41,7 +44,8 @@ class VotingControl extends Control
                         $this->pageHelper->addContent($this->view->editPollForm($poll));
                     } else {
                         $this->flashMessageHelper->error($this->translator->trans('poll.may_not_edit'));
-                        $this->routeHelper->goAndExit('/?page=poll&id=' . $poll->id);
+
+                        return $this->redirect('/poll?id=' . $poll->id);
                     }
                 } else {
                     $mayVote = $this->votingPermissions->mayVote($poll);
@@ -67,11 +71,15 @@ class VotingControl extends Control
                 $this->pageHelper->addContent($this->view->newPollForm($region, $usersPerScope));
             } else {
                 $this->flashMessageHelper->info($this->translator->trans('poll.not_available'));
-                $this->routeHelper->goAndExit('/dashboard');
+
+                return $this->redirectToRoute('dashboard');
             }
         } catch (Exception) {
             $this->flashMessageHelper->info($this->translator->trans('poll.not_available'));
-            $this->routeHelper->goAndExit('/dashboard');
+
+            return $this->redirectToRoute('dashboard');
         }
+
+        return $this->renderGlobal();
     }
 }

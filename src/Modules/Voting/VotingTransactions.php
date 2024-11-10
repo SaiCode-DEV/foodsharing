@@ -143,7 +143,7 @@ class VotingTransactions
             'poll_new_title',
             'poll_new',
             'fas fa-poll-h',
-            ['href' => '/?page=poll&id=' . $poll->id],
+            ['href' => '/poll?id=' . $poll->id],
             ['title' => $poll->name, 'region' => $region['name']],
             BellType::createIdentifier(BellType::NEW_POLL, $poll->id)
         );
