@@ -1751,6 +1751,7 @@ store:
   to_map: Mostrar en el mapa
   storeFrom: Operación de {name}
   no_chain_choosen: No se ha seleccionado ninguna cadena
+  may_referred_to_in_public_unclear: Aún sin aclarar
 pickup:
   overview:
     status:
@@ -1964,7 +1965,9 @@ bell:
   new_foodsaver_title: '{name} es nuev@ en {bezirk}'
   passgen_failed_title: 'No se pudo crear su tarjeta de membresía'
   report_reason: '{reason}'
-  ft_update: '{teaser}'
+  ft_update:
+    one: '{teaser}'
+    many: '{teaser}'
   betrieb_fetch_title: '{betrieb}'
   store_new_title: 'Nueva compañia'
   no_bells: 'No tienes notificaciones.'
@@ -2872,6 +2875,10 @@ fsp:
     min_length: '{name} debe tener al menos {length} caracteres.'
     invalid: La entrada es incorrecta, por favor revisa tus entradas.
     required: '{name} es necesario.'
+  followerCount: 'Usuarios interesados: {followerCount}'
+  onlySuggested: Este divisor justo ha sido propuesto pero aún no se ha publicado.
+    En este estado no se mostrará a otros usuarios.
+  createdAt: 'Inaugurado:'
 storeedit:
   team:
     leave: 'Dejar esta empresa'
