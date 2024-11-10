@@ -1887,7 +1887,9 @@ bell:
   store_new_request_title: Nuova richiesta nel team
   store_new: '{name} è stato aggiunto'
   store_new_title: Nuova Agenzia
-  ft_update: '{teaser}'
+  ft_update:
+    one: '{teaser}'
+    many: '{teaser}'
   new_report_title: Nuovo messaggio su {name}
   banana_given: '{name} ti ha dato una banana di fiducia.'
   banana_given_title: Nuova banana di fiducia
