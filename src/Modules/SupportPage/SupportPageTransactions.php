@@ -11,7 +11,8 @@ use ZammadAPIClient\Resource\User;
 
 class MyTicket extends Ticket
 {
-    public function getData (): array {
+    public function getData(): array
+    {
         return [
             'values' => $this->getValues(),
             'remote' => $this->getRemoteData(),
@@ -38,6 +39,7 @@ class SupportPageTransactions
     {
         $client = new Client(['url' => ZAMMAD_URL, 'http_token' => ZAMMAD_TICKET_TOKEN]);
         $this->createUser($client, $ticketModel);
+
         return $this->sendTicket($client, $ticketModel);
     }
 
