@@ -1552,7 +1552,9 @@ bell:
   store_request_deny_title: '{name}'
   store_request_accept_wait_title: '{name}'
   store_request_accept_title: '{name}'
-  ft_update: '{teaser}'
+  ft_update:
+    one: '{teaser}'
+    many: '{teaser}'
   ft_update_title: '{name}'
   blog_new_check: '{title}'
   forum_reply_title: '{forum}: {title}'
@@ -2679,12 +2681,20 @@ pickup:
   description: Beskrivelse
   description_modal_text: 'Oppgi en ny hentebeskrivelse:'
   description_max_length_info: Maksimal beskrivelseslengde nådd (100 tegn)
+  hygieneCertificateMissing:
+    none: Du har for øyeblikket ikke et gyldig hygienesertifikat. Fyll ut hygienetesten
+      nå for å kunne registrere deg for ønsket samling.
+    timeout: Hygienesertifikatet ditt vil ha utløpt ved hentingstidspunktet. Fyll
+      ut hygienetesten på nytt nå for å kunne registrere deg for ønsket henting.
+    link: Til hygienetreningen
 storeedit:
   fetch:
     teamStatus: lagstatus
     teamStatus1: Hjelpere er fortsatt etterlyst
     teamStatus2: Hjelpere er påtrengende nødvendig
     teamStatus0: Dette teamet er fullt og leter foreløpig ikke etter flere hjelpere
+    hygieneRequirement: Hygienekrav
+    hygieneRequired: Tillat kun henting med gyldig hygieneopplæring
   store:
     status: Status
   team:
@@ -2795,6 +2805,9 @@ store:
       avgjøre søknaden din.
     application-placeholder: Jeg vil gjerne hjelpe til i dette teamet fordi …
     application-message: Applikasjonsmelding
+    hygieneRequired: Gyldig hygienesertifikat kreves for avhenting fra dette selskapet.
+    hygieneMissing: Du mangler dette for øyeblikket. Fyll ut hygienequizen nå for
+      å søke om dette teamet.
   team_conversation_name: '{name}-laget'
   appliedFor: Forespørsel fremsatt
   bread: Alle virksomheter
@@ -2965,6 +2978,7 @@ store:
   to_map: Vis på kart
   storeFrom: Selskap fra {name}
   no_chain_choosen: ingen kjede valgt
+  may_referred_to_in_public_unclear: ennå ikke avklart
 storeview:
   status: Nåværende status
   public_time_at_night: om natten
@@ -3039,7 +3053,7 @@ fsp:
   address: Adresse
   acceptName: Lås opp {name}
   description: Beskrivelse
-  followers: Følgere
+  followers: Tilhengerne
   managers: Kontaktpersoner
   addedOn: Lagt til
   addedBy: Lagt til av
@@ -3081,6 +3095,10 @@ fsp:
     min_length: '{name} må bestå av minst {length} tegn.'
     invalid: Inndataene er ugyldige. Vennligst sjekk oppføringene dine.
     required: '{name} er nødvendig.'
+  followerCount: 'Interesserte brukere: {followerCount}'
+  createdAt: 'Åpnet den:'
+  onlySuggested: Dette distribusjonspunktet er foreslått, men er ennå ikke utgitt.
+    I denne tilstanden vises den ikke for andre brukere.
 day: Dag
 time: Tid
 select: Vennligst velg
@@ -4156,6 +4174,20 @@ help:
       title: Stemmerett
     moderatorForumHide:
       title: Skjuler seg i forum av moderatorer
+    hygieneRequirement:
+      title: Hygienekrav for bedrifter
+      md: "Noen bedrifter krever at matreddere må være opplært i mathygiene for å
+        kunne hente hos dem. Hvis denne funksjonen er aktivert for en bestemt butikk,
+        har dette følgende konsekvenser:\n1. matsparere uten gyldig hygieneopplæring
+        kan ikke søke om å bli med i teamet.\n2. matsparere som allerede er en del
+        av teamet, kan bare registrere seg for plasser hvis hygienetreningen deres
+        fortsatt er gyldig på tidspunktet for ønsket henting.\n\nI begge tilfeller
+        vises det en melding som forklarer at hygienetreningen er nødvendig for denne
+        handlingen. Hygienetesten er også koblet direkte i hvert enkelt tilfelle.\n
+        \n---\n\nViktig å merke seg: Denne funksjonen er kun basert på foodsharings
+        egen hygieneopplæring. Verken hygienesertifikater fra eksterne leverandører
+        (f.eks. Metro) som er lastet opp til profilen eller hygienekurs som er notert
+        andre steder, blir for øyeblikket tatt i betraktning. \n"
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
 team_page:
