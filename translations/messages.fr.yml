@@ -923,6 +923,7 @@ forum:
     moderator_info: Ce sujet est fermé. En tant que modérateur·rice de ce forum, tu
       peux quand même poster un message, mais les autres utilisateur·rice·s ne peuvent
       pas répondre !
+    hideReasonPlaceholder: Indique une raison ici …
   threads: Discussions
   new_thread: Ouvrir une nouvelle discussion
   from: de {name}
@@ -935,6 +936,8 @@ forum:
       que tout le monde en soit informé.
     title: Vraiment envoyer la notification par courriel ?
   go: vers le forum
+  restore:
+    reason: 'Justification : « {reason} »'
 fsp:
   info:
     mail: Cloche et notification par courriel
@@ -982,7 +985,7 @@ fsp:
     champs ?
   new: Nouveau frigo solidaire
   description: Description
-  followers: Follower
+  followers: Followers
   managers: Interlocuteur·rice·s
   unfollow: Ne plus suivre ce frigo solidaire
   followName: Suivre le frigo solidaire {name}
@@ -994,6 +997,12 @@ fsp:
   summaryRegion: Il y a {count} frigo·s solidaire·s à {region} et dans les secteurs
     géographiques associés
   show_on_large_map: Afficher sur la carte
+  form_validation:
+    invalid: La saisie n'est pas valide. Vérifie ta saisie, s’il te plaît.
+    required: '{name} est nécessaire.'
+    min_length: '{name} doit comporter au moins {length} caractères.'
+  createdAt: 'Ouvert le :'
+  followerCount: 'Followers : {followerCount}'
 terminology:
   mailboxes: Messageries
   settings: Paramètres
@@ -1084,6 +1093,7 @@ terminology:
   sent: envoyé
   achievement: Réalisation
   achievements: Réalisations
+  users: Utilisateurs
 register:
   activation_success: <strong>Activation réussie.</strong> Connecte-toi maintenant
     avec ton adresse courriel et le mot de passe que tu as choisi.
@@ -1291,6 +1301,10 @@ store:
       et fiable à l’équipe ?
     application-message: Avis de candidature
     application-placeholder: J’aimerais participer à cette équipe parce que …
+    hygieneRequired: Un certificat d’hygiène valable est nécessaire pour les collectes
+      dans cette entreprise.
+    hygieneMissing: Il te manque actuellement. Réponds maintenant au quiz sur l’hygiène
+      afin de pouvoir postuler pour cette équipe.
   sm:
     makeRegularTeamMember: Intégrer dans l’équipe
     makeJumper: Nommer remplaçant·e
@@ -1510,6 +1524,7 @@ store:
   to_map: Afficher sur la carte
   storeFrom: Magasin de {name}
   no_chain_choosen: aucune chaîne choisie
+  may_referred_to_in_public_unclear: pas encore clarifié
 storeview:
   want_to_fetch: J’aimerais m’engager dans cette équipe.
   specials: Particularités
@@ -2179,6 +2194,13 @@ pickup:
   description: Description
   description_modal_text: 'Donne une nouvelle description pour la collecte :'
   description_max_length_info: Longueur maximale de la description atteinte (100 caractères)
+  hygieneCertificateMissing:
+    link: Vers la formation à l’hygiène
+    none: Tu n’as actuellement pas de certificat d’hygiène valable. Réponds maintenant
+      au quiz sur l’hygiène afin de pouvoir t’inscrire pour le collecte souhaité.
+    timeout: Au moment de la collecte, ton certificat d’hygiène aura expiré. Réponds
+      maintenant au quiz sur l’hygiène afin de pouvoir t’inscrire pour le collecte
+      souhaité.
 events:
   bread: Évènements
   past: Évènements passés
@@ -2353,6 +2375,9 @@ storeedit:
     teamStatus0: Cette équipe est fermée et n’a pas besoin d’aide supplémentaire pour
       le moment
     teamStatus: Statut de l’équipe
+    hygieneRequired: Autoriser la collecte uniquement avec une formation à l'hygiène
+      valable
+    hygieneRequirement: Exigences d’hygiène
   store:
     status: Statut
   team:
@@ -2637,6 +2662,21 @@ map:
         member: seulement mes établissements
         all: tous
         label: Appartenance
+    users:
+      role:
+        all: tous
+        label: Rôles
+      activity:
+        label: Dernière connexion
+        week: dernière semaine
+        all: tout
+        6months: 6 derniers mois
+        month: dernier mois
+        3months: 3 derniers mois
+      member:
+        all: tous
+      region:
+        label: District
 content:
   changelog: Changelog actuel
   empty: Aucune page existante.
@@ -2665,6 +2705,7 @@ content:
     noAmbassador: Cette région n’a actuellement pas d’ambassadeur·trice et n’est donc
       pas joignable par e-mail. Veuillez contacter une région voisine ou la région
       immédiatement supérieure.
+  error: La page n’a pas pu être sauvegardée
 genderlist:
   gender_district_table_caption: Répartition par sexe de tous les collecteur·ice·s
     du district
@@ -2760,7 +2801,9 @@ bell:
   store_new_request_title: Nouvel requête
   store_new: '{name} a été ajouté'
   store_new_title: Nouvelle coopération
-  ft_update: '{teaser}'
+  ft_update:
+    many: '{teaser}'
+    one: '{teaser}'
   ft_update_title: '{name}'
   blog_new_check: '{title}'
   blog_new_check_title: Nouvel article de blog
@@ -3435,7 +3478,7 @@ quiz:
   type: -Questionnaire
   donecorrectly: tu as répondu entièrement correctement. C’est super !
   heavysigh: Tu as réussi !
-  wikilink: Plus d’infos dans le wiki
+  wikilink: Plus d’infos
   choice:
     koquestion: Malheureusement, cette question était particulièrement importante
       et tu n’y as pas répondu correctement.
@@ -3643,8 +3686,10 @@ quiz:
           placeholder: Question quiz…
         duration: 'Temps de répondre :'
         wikilink:
-          label: 'Lien vers l’article wiki correspondant :'
+          label: 'Lien vers l’article correspondant :'
           placeholder: https://wiki.foodsharing.de/…
+        mandatory:
+          label: Question obligatoire ?
       confirmDelete:
         title: Tu veux vraiment supprimer cette question ?
       title: Modifier la question
@@ -4095,6 +4140,8 @@ help:
       title: Réalisations
     masterRegion:
       title: District maître
+    hygieneRequirement:
+      title: Exigence d’hygiène pour les établissements
 automatic_delete: '- le profil doit être supprimé.'
 automatic_not_delete: '- le profil doit être conservé.'
 no_automatic_delete: 'Si la dernière connexion remonte à cinq ans :'
@@ -4160,3 +4207,19 @@ theme_switcher:
     light: Clair
     system: Système
   choose_button: OK
+support_page:
+  new_request: Nouvelle demande
+  success: Ton message a été transmis avec succès.
+  email: Ton adresse électronique
+  validation_subject: L’objet est vide
+  subject: Objet
+  validation_firstName: Prénom est vide
+  firstName: Prénom
+  notification_name: Comme tu es connecté, ton prénom et ton identifiant foodsharing
+    sont transmis.
+  title: Formulaire d’assistance
+  attachments: Pièces jointes (5 Mo maximum par fichier)
+  validation_body: Le message est vide
+  body: Message
+  validation_email: Adresse électronique non valide
+error_base64_image: L’insertion d’images n’est pas autorisée par glisser-déposer.
