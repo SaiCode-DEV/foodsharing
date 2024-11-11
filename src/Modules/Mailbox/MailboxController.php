@@ -2,12 +2,16 @@
 
 namespace Foodsharing\Modules\Mailbox;
 
-use Foodsharing\Modules\Core\Control;
+use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Permissions\MailboxPermissions;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\Routing\Attribute\Route;
 
-class MailboxControl extends Control
+class MailboxController extends FoodsharingController
 {
     public function __construct(
         private readonly MailboxView $view,
@@ -15,21 +19,17 @@ class MailboxControl extends Control
         private readonly MailboxPermissions $mailboxPermissions
     ) {
         parent::__construct();
-
-        if (!$this->session->mayRole()) {
-            $this->routeHelper->goLoginAndExit();
-        }
-
-        if (!$this->mailboxPermissions->mayHaveMailbox()) {
-            $this->pageHelper->addContent($this->v_utils->v_info($this->translator->trans('mailbox.not-available', [
-                '{role}' => '<a href="https://wiki.foodsharing.de/Betriebsverantwortliche*r">' . $this->translator->trans('terminology.storemanager.d') . '</a>',
-                '{quiz}' => '<a href="/user/current/settings?sub=rise_role&role=' . Role::STORE_MANAGER->value . '">' . $this->translator->trans('mailbox.sm-quiz') . '</a>',
-            ])));
-        }
     }
 
-    public function index(Request $request)
+    #[Route('/mailbox', name: 'mailbox')]
+    public function index(Request $request): Response
     {
+        $this->commonChecks();
+
+        if ($request->query->get('a') === 'dlattach') {
+            return $this->dlattach($request);
+        }
+
         $this->pageHelper->setContentWidth(8, 16);
         $this->pageHelper->addBread($this->translator->trans('mailbox.title'));
 
@@ -53,13 +53,15 @@ class MailboxControl extends Control
             'emailId' => $emailId,
             'mailboxId' => $mailboxId
         ]));
+
+        return $this->renderGlobal();
     }
 
     /**
      * @deprecated This function is used for downloading attachments of old emails. It can be removed when all files
      *             have been moved to the upload API.
      */
-    public function dlattach(Request $request)
+    public function dlattach(Request $request): Response
     {
         $mid = $request->query->get('mid');
         $id = $request->query->get('i');
@@ -71,21 +73,36 @@ class MailboxControl extends Control
                             $file = 'data/mailattach/' . $attach[(int)$id]['filename'];
 
                             $filename = $attach[(int)$id]['origname'];
-                            $size = filesize($file);
                             $mime = $attach[(int)$id]['mime'];
+                            $headers = [];
                             if ($mime) {
-                                header('Content-Type: ' . $mime);
+                                $headers['Content-Type'] = $mime;
                             }
-                            header('Content-Disposition: attachment; filename="' . $filename . '"');
-                            header('Content-Length: ' . $size);
-                            readfile($file);
-                            exit;
+
+                            $response = new BinaryFileResponse($file, Response::HTTP_OK, $headers, false);
+                            $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);
+
+                            return $response;
                         }
                     }
                 }
             }
         }
 
-        $this->routeHelper->goPageAndExit('mailbox');
+        return $this->redirectToRoute('mailbox');
+    }
+
+    private function commonChecks(): void
+    {
+        if (!$this->session->mayRole()) {
+            $this->routeHelper->goLoginAndExit();
+        }
+
+        if (!$this->mailboxPermissions->mayHaveMailbox()) {
+            $this->pageHelper->addContent($this->v_utils->v_info($this->translator->trans('mailbox.not-available', [
+                '{role}' => '<a href="https://wiki.foodsharing.de/Betriebsverantwortliche*r">' . $this->translator->trans('terminology.storemanager.d') . '</a>',
+                '{quiz}' => '<a href="/user/current/settings?sub=rise_role&role=' . Role::STORE_MANAGER->value . '">' . $this->translator->trans('mailbox.sm-quiz') . '</a>',
+            ])));
+        }
     }
 }

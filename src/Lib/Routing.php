@@ -4,7 +4,6 @@ namespace Foodsharing\Lib;
 
 use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use Foodsharing\Modules\Index\IndexControl;
-use Foodsharing\Modules\Mailbox\MailboxControl;
 use Foodsharing\Modules\StoreUser\StoreUserControl;
 
 /**
@@ -26,7 +25,6 @@ class Routing
     private const CLASSES = [
         'bcard' => BusinessCardControl::class,
         'index' => IndexControl::class,
-        'mailbox' => MailboxControl::class,
         'fsbetrieb' => StoreUserControl::class,
     ];
 
@@ -55,6 +53,7 @@ class Routing
         'dashboard',
         'support',
         'groups',
+        'mailbox',
         'poll',
     ];
 

@@ -46,17 +46,22 @@ const urls = {
     return '/logout?ref=' + encodeURIComponent(url.pathname + url.search)
   },
   mailbox: (mailboxId = null, emailId) => {
-    let url = '/?page=mailbox'
+    const params = []
     if (mailboxId) {
-      url += `&mailbox=${mailboxId}`
+      params.push(`mailbox=${mailboxId}`)
     }
     if (emailId) {
-      url += `&email=${emailId}`
+      params.push(`email=${emailId}`)
+    }
+
+    let url = '/mailbox'
+    if (params.length) {
+      url += '?' + params.join('&')
     }
     return url
   },
-  mailboxMailto: (email) => `/?page=mailbox&mailto=${email}`,
-  mailboxOldAttachment: (emailId, attachmentIndex) => `/?page=mailbox&a=dlattach&mid=${emailId}&i=${attachmentIndex}`,
+  mailboxMailto: (email) => `/mailbox?mailto=${email}`,
+  mailboxOldAttachment: (emailId, attachmentIndex) => `/mailbox?a=dlattach&mid=${emailId}&i=${attachmentIndex}`,
   map: ({ storeId = null, foodSharePointId = null, markers = null } = {}) => {
     const params = []
     if (storeId) {

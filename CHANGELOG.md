@@ -120,6 +120,7 @@
 - Got rid of a global variable !3764 @\_fridtjof_
 - Port the workgroup controller to Symfony !3766 @\_fridtjof_
 - Remove most usages of superglobals !3768 @\_fridtjof_
+- Port the mailbox controller to Symfony !3784 @\_fridtjof_
 - Port the voting controller to Symfony !3782 @\_fridtjof_
 - Reworked food share point page to use API and vue. #1577 !3730 @AntonBallmaier
 
