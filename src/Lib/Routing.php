@@ -4,7 +4,6 @@ namespace Foodsharing\Lib;
 
 use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use Foodsharing\Modules\Index\IndexControl;
-use Foodsharing\Modules\StoreUser\StoreUserControl;
 
 /**
  * @deprecated please don't add anything new to these mappings.
@@ -19,13 +18,11 @@ class Routing
         'bcard' => 'BusinessCard',
         'index' => 'Index',
         'mailbox' => 'Mailbox',
-        'fsbetrieb' => 'StoreUser',
     ];
 
     private const CLASSES = [
         'bcard' => BusinessCardControl::class,
         'index' => IndexControl::class,
-        'fsbetrieb' => StoreUserControl::class,
     ];
 
     private const PORTED = [
@@ -55,13 +52,15 @@ class Routing
         'groups',
         'mailbox',
         'poll',
+        'fsbetrieb',
     ];
 
     private const RENAMES = [
         'bezirk' => 'region',
         'statistics' => 'statistik',
         'map' => 'karte',
-        'basket' => 'essenskoerbe'
+        'basket' => 'essenskoerbe',
+        'fsbetrieb' => 'store',
     ];
 
     public static function getClassName(string $appName): ?string

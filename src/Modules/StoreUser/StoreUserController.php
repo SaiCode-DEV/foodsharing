@@ -8,10 +8,17 @@ use Foodsharing\Permissions\StorePermissions;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Annotation\Route;
 
 class StoreUserController extends FoodsharingController
 {
+    #[Route('/store', name: 'store.index')]
+    public function legacyRedirect(#[MapQueryParameter] int $id): Response
+    {
+        return $this->redirectToRoute('store.show', ['storeId' => $id]);
+    }
+
     #[Route(path: '/store/{storeId}', name: 'store.show', requirements: ['storeId' => '\d+'], methods: ['GET'])]
     #[QueryParam(name: 'showTeamRequests', description: 'The store page will open the modal with the pending team requests')]
     public function index(
