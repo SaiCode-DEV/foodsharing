@@ -406,6 +406,14 @@ quiz:
         a comprender qué respuesta es correcta o incorrecta y por qué. Si comete un
         error, lea atentamente las explicaciones. Si algo te parece ilógico, incomprensible
         o incluso erróneo, deja un comentario.
+      unlimited_tries: Puedes repetir este cuestionario tantas veces como quieras
+        y nunca serás descalificado si lo suspendes. Sin embargo, a veces es necesario
+        tomar un descanso entre intentos.
+    acceptPrivacyNotice: Estoy de acuerdo.
+    privacyNotice:
+      hygiene: Si supera este cuestionario, quedará constancia de que lo ha hecho
+        y se le concederá un certificado de higiene. Los responsables de higiene y
+        los miembros de tus equipos podrán comprobar si tienes un certificado válido.
   answers:
     timedOut:
       1: Esta respuesta habría sido correcta.
@@ -685,8 +693,8 @@ terminology:
   electionAdmins: Elecciones
   no: No
   yes: Sí
-  achievement: Logro
-  achievements: Logros
+  achievement: Nota
+  achievements: Notas
   phone: Número de teléfono
   landline: Número de teléfono fijo
   mobile_phone: Número de teléfono móvil
@@ -2816,7 +2824,7 @@ buddy:
     confirm_title: ¿Dejar de conocer {name}?
 time: 'tiempo'
 fsp:
-  followers: 'Seguidor@s'
+  followers: 'Compartidores de alimentos interesados'
   rejectConfirm: 'Tenga en cuenta que si elimina el distribuidor, ya no podrá deshacerlo.
     ¿Continuar?'
   managers: 'persona de contacto'
