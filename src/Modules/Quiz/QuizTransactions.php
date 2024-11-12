@@ -84,6 +84,7 @@ class QuizTransactions
         }
         foreach ($questions as &$question) {
             $question->answers = $this->quizGateway->getAnswers($question->id);
+            shuffle($question->answers);
         }
         shuffle($questions);
 

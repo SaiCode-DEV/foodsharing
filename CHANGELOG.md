@@ -66,6 +66,7 @@
 - Use https for calendar api requests #2177 !3775 @AntonBallmaier
 - Bananas can only be recieved or given by verified users #2161 !3779 @AntonBallmaier 
 - Update support link !3778
+- Shuffle question answers for quiz tries. #2199 !3796 @AntonBallmaier
 - Rename achievements in German from "Errungenschaften" to "Vermerke" #2202 !3795 @AntonBallmaier
 
 ## Bugfixes
