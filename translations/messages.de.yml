@@ -808,8 +808,8 @@ terminology:
   buddies: "Bekannte"
   options: "Optionen"
   pin: "Ortsgruppenbeschreibung"
-  achievement: "Errungenschaft"
-  achievements: "Errungenschaften"
+  achievement: "Vermerk"
+  achievements: "Vermerke"
   phone: "Telefonnummer"
   landline: "Festnetznummer"
   mobile_phone: "Handynummer"
@@ -3611,8 +3611,8 @@ markdown_input:
 
 achievements:
   inThis:
-    region: "Folgende Errungenschaften können in diesem Bezirk vergeben werden:"
-    group: "Folgende Errungenschaften können in dieser Arbeitsgruppe vergeben werden:"
+    region: "Folgende Vermerke können in diesem Bezirk vergeben werden:"
+    group: "Folgende Vermerke können in dieser Arbeitsgruppe vergeben werden:"
   validity:
     days: "Gültig für {validityInDaysAfterAssignment} Tage nach der Vergabe."
     indefinite: "Nach der Vergabe beliebig lange gültig."
@@ -3623,26 +3623,26 @@ achievements:
   reviewer: "Von"
   notice: "Bemerkung"
   validUntil: "Gültig bis"
-  award: "Errungenschaft vergeben"
+  award: "Vermerk vergeben"
   findUser: "Nutzer:in suchen"
   editDetails: "Details anpassen"
   revoke: "Entziehen"
-  editAwarded: "Errungenschaft {achievement} für {user} anpassen"
-  revokeConfirmation: "Möchtest du wirklich {name} diese Errungenschaft entziehen?"
-  notAwarded: "Diese Errungenschaft ist aktuell an niemanden verliehen."
-  inRegion: "Errungenschaften in {region} ({count})"
-  add: "Errungenschaft hinzufügen"
-  edit: "Errungenschaft bearbeiten: {name}"
-  new: "Neue Errungenschaft"
+  editAwarded: "Vermerk {achievement} für {user} anpassen"
+  revokeConfirmation: "Möchtest du wirklich {name} diesen Vermerk entziehen?"
+  notAwarded: "Dieser Vermerk ist aktuell an niemanden verliehen."
+  inRegion: "Vermerke in {region} ({count})"
+  add: "Vermerk hinzufügen"
+  edit: "Vermerk bearbeiten: {name}"
+  new: "Neuer Vermerk"
   editor:
     name: "Name"
     description: "Beschreibung"
     icon: "Icon"
     validityInDaysAfterAssignment: "Gültigkeit nach der Vergabe in Tagen"
     preview: "Vorschau"
-  noneInThisRegion: "In dieser Region sind keine Errungenschaften eingetragen."
-  deleteConfirmation: "Willst du wirklich diese Errungenschaft löschen?"
-  editTitle: "Errungenschaften bearbeiten"
+  noneInThisRegion: "In dieser Region sind keine Vermerke eingetragen."
+  deleteConfirmation: "Willst du wirklich diesen Vermerk löschen?"
+  editTitle: "Vermerke bearbeiten"
 
 
 help:
@@ -3715,17 +3715,17 @@ help:
         ---
         Hinweise zur Bearbeitung einer Meldung könnt ihr hier nachlesen: [Bearbeitung einer Meldung](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)
     achievements:
-      title: "Errungenschaften"
+      title: "Vermerke"
       md: |
-        Hier muss noch eine Erklärung für Errungenschaften ergänzt werden. Das mache ich später. TODO
+        Hier muss noch eine Erklärung für Vermerke ergänzt werden. Das mache ich später. TODO
     achievementIcon:
-      title: "Icons für Errungenschaften"
+      title: "Icons für Vermerke"
       md: |
-        Jede Errungenschaft hat ein Icon, also ein eine kleine Grafik, die auf den esten Blick zeigen soll, worum es geht. Eine Liste der Verfügbaren Icons findest du unter https://fontawesome.com/v5/search?o=r&m=free&s=solid.
+        Jeder Vermerk hat ein Icon, also ein eine kleine Grafik, die auf den esten Blick zeigen soll, worum es geht. Eine Liste der Verfügbaren Icons findest du unter https://fontawesome.com/v5/search?o=r&m=free&s=solid.
 
         In das Eingabefeld musst du den Namen des Icons eingeben, das du nutzen möchtest, also bspw. "*walking*" oder "*shopping-cart*".
         Ob deine Eingabe funktioniert, kannst du anhand der Vorschau übeprüfen.
-        Wenn du kein icon eingibst, wird automatisch das Standard-Icon für Errungenschaften "*tag*" genutzt
+        Wenn du kein icon eingibst, wird automatisch das Standard-Icon für Vermerke "*tag*" genutzt
     polls:
       title: "Abstimmungen"
       md: |
