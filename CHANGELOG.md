@@ -123,6 +123,7 @@
 - Port the mailbox controller to Symfony !3784 @\_fridtjof_
 - Port the voting controller to Symfony !3782 @\_fridtjof_
 - Reworked food share point page to use API and vue. #1577 !3730 @AntonBallmaier
+- Port the business card controller to Symfony !3782 @\_fridtjof_
 - Fully moved StoreUserControl which still handled redirects into its Symfony counterpart !3793 @\_fridtjof_
 
 ## Dev/Test/CI stuff

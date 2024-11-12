@@ -2,7 +2,6 @@
 
 namespace Foodsharing\Lib;
 
-use Foodsharing\Modules\BusinessCard\BusinessCardControl;
 use Foodsharing\Modules\Index\IndexControl;
 
 /**
@@ -15,13 +14,11 @@ class Routing
     // for FoodsharingController, this is derived from the controller name
     // (which should match the module name)
     private const MODULES = [
-        'bcard' => 'BusinessCard',
         'index' => 'Index',
         'mailbox' => 'Mailbox',
     ];
 
     private const CLASSES = [
-        'bcard' => BusinessCardControl::class,
         'index' => IndexControl::class,
     ];
 
@@ -52,6 +49,7 @@ class Routing
         'groups',
         'mailbox',
         'poll',
+        'bcard',
         'fsbetrieb',
     ];
 

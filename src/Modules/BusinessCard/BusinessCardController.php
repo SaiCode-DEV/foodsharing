@@ -2,13 +2,18 @@
 
 namespace Foodsharing\Modules\BusinessCard;
 
-use Foodsharing\Modules\Core\Control;
+use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use setasign\Fpdi\Tcpdf\Fpdi;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Routing\Attribute\Route;
 
-class BusinessCardControl extends Control
+class BusinessCardController extends FoodsharingController
 {
     private const MAX_CHAR_PER_LINE = 45;
 
@@ -20,23 +25,27 @@ class BusinessCardControl extends Control
         parent::__construct();
     }
 
-    public function index(): void
+    #[Route('/bcard', name: 'bcard')]
+    public function index(Request $request, #[MapQueryParameter] ?string $sub): Response
     {
-        $this->routeHelper->goAndExit('/user/current/settings?sub=bcard');
+        return match ($sub) {
+            'makeCard' => $this->makeCard($request),
+            default => $this->redirectToRoute('current_user_settings', ['sub' => 'bcard']),
+        };
     }
 
-    public function makeCard(Request $request)
+    private function makeCard(Request $request): Response
     {
         $data = $this->gateway->getMyData($this->session->id(), $this->session->mayRole(Role::STORE_MANAGER));
         $opt = $request->query->get('opt');
         if (!$data || !$opt) {
-            return;
+            throw new BadRequestHttpException();
         } else {
             $opt = explode(':', $opt); // role:region
         }
 
         if (count($opt) != 2 || (int)$opt[1] < 0) {
-            return;
+            throw new BadRequestHttpException();
         }
 
         $regionId = (int)$opt[1];
@@ -50,11 +59,11 @@ class BusinessCardControl extends Control
                 }
             }
         } else {
-            return;
+            throw new BadRequestHttpException();
         }
 
         if (!$mailbox) {
-            return;
+            throw new BadRequestHttpException();
         }
 
         if (isset($mailbox['email'])) {
@@ -66,7 +75,25 @@ class BusinessCardControl extends Control
             $data['stadt'] = mb_substr((string)$data['stadt'], 0, self::MAX_CHAR_PER_LINE - strlen((string)$data['plz']) - 4) . '...';
         }
 
-        $this->generatePdf($data, $role);
+        $pdf = $this->generatePdf($data);
+
+        $filename = 'bcard-' . $role . '.pdf';
+
+        // mimick TCPDF's output headers as close as possible
+        // (though some of it is long deprecated and/or just there for IE compatibility)
+        // BinaryFileResponse would do a lot of this automatically, but it only supports files (which we would need to clean up etc)
+        $resp = new Response($pdf);
+        $resp->headers->set('Content-Type', 'application/pdf');
+        $dispositionHeader = $resp->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename);
+        $resp->headers->set('Content-Disposition', $dispositionHeader);
+        $resp->setCache([
+            'private' => true,
+            'must_revalidate' => true,
+            'max_age' => 1,
+            'last_modified' => new \DateTimeImmutable(), // now
+        ]);
+
+        return $resp;
     }
 
     private function displayedRole(string $role, int $gender, string $regionName): string
@@ -81,7 +108,7 @@ class BusinessCardControl extends Control
         return $this->translator->trans('bcard.for', ['{role}' => $roleName, '{region}' => $regionName]);
     }
 
-    private function generatePdf(array $data, string $role = 'fs'): void
+    private function generatePdf(array $data): string
     {
         $pdf = new Fpdi();
         $pdf->AddPage();
@@ -131,7 +158,7 @@ class BusinessCardControl extends Control
             }
         }
 
-        $pdf->Output('bcard-' . $role . '.pdf', 'D');
+        return $pdf->Output('', 'S');
     }
 
     private function formatEmail(Fpdi $pdf, float $x, float $y, string $email): void

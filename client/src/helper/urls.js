@@ -21,7 +21,7 @@ const urls = {
   contentEditEntry: (id) => `/content?a=edit&id=${id}`,
   contentNew: () => '/content?a=new',
   conversations: (conversationId = null) => `/msg${conversationId ? `?cid=${conversationId}` : ''}`,
-  createBusinessCard: (data) => `/?page=bcard&sub=makeCard&opt=${data.role}:${data.regionGroupId}`,
+  createBusinessCard: (data) => `/bcard?sub=makeCard&opt=${data.role}:${data.regionGroupId}`,
   dashboard: () => '/dashboard',
   dataprivacy: () => '/legal',
   donate: () => '/unterstuetzung',
