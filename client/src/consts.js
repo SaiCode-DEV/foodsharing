@@ -51,6 +51,7 @@ export const QUIZ_ID = Object.freeze({
   FOODSAVER: 1,
   STORE_MANAGER: 2,
   AMBASSADOR: 3,
+  HYGIENE: 4,
 })
 
 export const REPORT_REASON_OPTIONS = Object.freeze({

@@ -41,6 +41,7 @@
       :title="$i18n('quiz.startmodal.title')"
       :cancel-title="$i18n('button.cancel')"
       :ok-title="$i18n('button.start')"
+      :ok-disabled="requiredDataPrivacyNotice && ! isDataPrivacyNoticeAccepted"
       centered
       size="lg"
       scrollable
@@ -54,6 +55,13 @@
           {{ $i18n(`quiz.startmodal.infos.${infoKey}`) }}
         </li>
       </ul>
+
+      <b-alert v-if="requiredDataPrivacyNotice" show>
+        {{ $i18n(`quiz.startmodal.privacyNotice.${requiredDataPrivacyNotice}`) }}
+        <b-form-checkbox v-model="isDataPrivacyNoticeAccepted" class="mt-2">
+          {{ $i18n('quiz.startmodal.acceptPrivacyNotice') }}
+        </b-form-checkbox>
+      </b-alert>
     </b-modal>
 
     <QuizModal
@@ -74,23 +82,28 @@ import QuizResults from '@/components/Quiz/QuizResults.vue'
 import MainQuizContainer from '@/components/Quiz/MainQuizContainer.vue'
 import QuizConfirmationContainer from '@/components/Quiz/QuizConfirmationContainer.vue'
 import { getQuizStatus, startQuiz, getQuizResults, getQuiz } from '@/api/quiz'
-import { SESSION_STATUS } from '@/consts'
+import { QUIZ_ID, SESSION_STATUS } from '@/consts'
 
 export default {
   components: { MainQuizContainer, QuizConfirmationContainer, Container, QuizModal, QuizResults },
   props: {
     quizId: { type: Number, required: true },
   },
-  data: () => ({
-    infoKeys: ['wiki', 'real_life_examples', 'limited_tries', 'alone', 'read_carefully', 'multiple_choice', 'comment', 'pause', 'feedback'],
-    isTimed: undefined,
-    isFetching: false,
-    status: null,
-    isQuizModalShown: false,
-    timeOutTimer: null,
-    results: null,
-    quiz: null,
-  }),
+  data () {
+    const hasUnlimitedTries = this.quizId === QUIZ_ID.HYGIENE
+    const triesKey = hasUnlimitedTries ? 'unlimited_tries' : 'limited_tries'
+    return {
+      infoKeys: ['wiki', 'real_life_examples', triesKey, 'alone', 'read_carefully', 'multiple_choice', 'comment', 'pause', 'feedback'],
+      isTimed: undefined,
+      isFetching: false,
+      status: null,
+      isQuizModalShown: false,
+      timeOutTimer: null,
+      results: null,
+      quiz: null,
+      isDataPrivacyNoticeAccepted: false,
+    }
+  },
   computed: {
     isReady () {
       return this.status && this.quiz
@@ -100,6 +113,9 @@ export default {
     },
     canFinalize () {
       return this.status.lastSessionStatus === SESSION_STATUS.PASSED && this.status.confirmed === false
+    },
+    requiredDataPrivacyNotice () {
+      return (this.quizId === QUIZ_ID.HYGIENE) ? 'hygiene' : null
     },
   },
   async mounted () {

@@ -189,11 +189,15 @@ quiz:
       real_life_examples: Die meisten Fragen basieren auf echten Fällen aus dem foodsharing-Leben.
       limited_tries: Du kannst das Quiz nicht beliebig oft wiederholen. Nach drei Versuchen musst du eine 30-tägige Lernpause einlegen, danach hast du nur noch zwei weitere Versuche. Die Fragen, die dir in jedem Versuch gestellt werden, unterscheiden sich.
       alone: Während des Quizes darf dir nicht geholfen werden. Suche dir deswegen einen ruhigen Ort, an dem du ungestört das Quiz durchführen kannst.
+      unlimited_tries: Du kannst dieses Quiz beliebig oft wiederholen, und wirst durch Fehlversuche nie disqualifiziert. Allerdings musst du zwischen Versuchen teilweise eine Lernpause einlegen.   
       read_carefully: Lies dir alle Fragen und Antworten sorfältig durch. Dafür reicht die Zeit aus.
       multiple_choice: Es können mehrere Antworten pro Frage richtig sein - oder auch keine. Entscheide daher für jede Antwort einzeln, ob sie richtig oder falsch ist.
       comment: Nach dem Beantworten jeder Frage, siehst du eine Zwischenauswertung mit Erklärungen zu jeder der Antwortmöglichkeiten. Das hilft zu verstehen, welche Antwort warum richtig oder falsch ist. Bei jedem Fehler solltest du dir die Erklärungen sorgfältig durchlesen. Wenn dir etwas unlogisch erscheint, nicht verständlich oder gar falsch ist, hinterlasse bitte einen Kommentar.
       pause: Du kannst das Quiz nach jeder Frage pausieren und zu einem späteren Zeitpunkt fortsetzen.
       feedback: Am Ende des Quizes bekommst du direkt eine Auswertung, ob du bestanden hast und welche Fehler du wo gemacht hast. Hier kannst du nocheinmal in Ruhe die Begründungen durchlesen.
+    privacyNotice:
+      hygiene: Wenn du dieses Quiz bestehst, wird gespeichert, wann dir das gelungen ist und dir wird ein Hygienevermerk vergeben. Hygiene-Verantwortliche und Mitglieder deiner Betriebsteams können sehen, ob du einen gültigen Hygienevermerk hast.
+    acceptPrivacyNotice: Ich bin einverstanden.
   infomodal:
     title: "Frage {index} von {questions}"
   comment:
@@ -1073,7 +1077,7 @@ store:
     confirm-no-location-ok: "Trotzdem bewerben"
     application-message: "Bewerbungsnachricht"
     application-placeholder: "Ich möchte gerne in diesem Team helfen, weil..."
-    hygieneRequired: "Für die Abholungen in diesem Betrieb ist ein gültiges Hygienezertifikat nötig."
+    hygieneRequired: "Für die Abholungen in diesem Betrieb ist ein gültiger Hygienevermerk nötig."
     hygieneMissing: "Das fehlt dir aktuell. Führe jetzt das Hygienequiz durch, um dich für dieses Team bewerben zu können."
 
   info_container: "Informationen"
@@ -1235,8 +1239,8 @@ pickup:
   same_day_entry: "[{when} Uhr] {name}"
   really_join_date: "Möchtest du dich verbindlich für die Abholung am {date} eintragen?"
   hygieneCertificateMissing:
-    none: "Du hast aktuell kein gültiges Hygienezertifikat. Führe jetzt das Hygienequiz durch, um dich für die Abholung eintragen zu können."
-    timeout: "Bis zum Zeitpunkt der Abholung läuft dein Hygienezertifikat ab. Führe jetzt erneut das Hygienequiz durch, um dich für die Abholung eintragen zu können."
+    none: "Du hast aktuell keinen gültigen Hygienevermerk. Führe jetzt das Hygienequiz durch, um dich für die Abholung eintragen zu können."
+    timeout: "Bis zum Zeitpunkt der Abholung läuft dein Hygienevermerk ab. Führe jetzt erneut das Hygienequiz durch, um dich für die Abholung eintragen zu können."
     link: "Zur Hygieneschulung"
   join_cancel: "Doch nicht"
   join_agree: "Ja, verbindlich eintragen"
@@ -3749,7 +3753,7 @@ help:
 
         ---
 
-        Wichtig zu beachten: Diese Funktion basiert nur auf der foodsharing-eigenen Hygieneschulung. Weder im Profil hochgeladene Hygienezertifikate externer Anbieter (wie bspw. Metro), noch anderweitig vermerkte Hygieneschulungen werden akzeptiert. 
+        Wichtig zu beachten: Diese Funktion basiert nur auf den foodsharing-eigenen Hygienevermerken. Weder im Profil hochgeladene Hygienezertifikate externer Anbieter (wie bspw. Metro), noch anderweitig vermerkte Hygieneschulungen werden akzeptiert. 
 team_page:
   board_member:
     title: "Vorstand"
