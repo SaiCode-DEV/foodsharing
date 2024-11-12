@@ -249,14 +249,13 @@ final class ProfileGateway extends BaseGateway
                 FROM
                     (SELECT
                         a.foodsaver_id, a.betrieb_id, a.date
-                     FROM
-                        `fs_abholer` a
-                        left outer join `fs_store_log` b on a.betrieb_id = b.store_id and a.date = b.date_reference + INTERVAL 1 HOUR
-                     WHERE a.foodsaver_id = :fs_id
+                    FROM `fs_abholer` a
+                    LEFT OUTER JOIN `fs_store_log` b on a.betrieb_id = b.store_id and a.date = b.date_reference
+                    WHERE a.foodsaver_id = :fs_id
                         AND b.action = :action
                         AND DATE_FORMAT(a.date,\'%Y-%v\') = DATE_FORMAT(CURRENT_DATE() + INTERVAL :week WEEK,\'%Y-%v\')
                         AND TIMESTAMPDIFF(HOUR, b.date_activity, b.date_reference) < 20
-                     GROUP BY
+                    GROUP BY
                         a.foodsaver_id, a.betrieb_id, a.date
                     ) z';
 
