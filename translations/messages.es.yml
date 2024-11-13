@@ -4425,9 +4425,9 @@ help:
       md: es visible desde el papel del responsable de la empresa. Se limita a un
         distrito de domicilio común o a operaciones conjuntas.
     achievements:
-      title: Logros
-      md: "Es necesario agregar aquí una explicación de los logros. Lo haré más tarde.
-        HACER\n"
+      title: Observaciones
+      md: "Hay que añadir aquí una explicación de las notas. Lo haré más tarde. TAREAS
+        PENDIENTES\n"
     report:
       title: Procesamiento de mensajes
       md: "Aquí veras mensajes escritos sobre personas de este distrito de origen.
@@ -4456,14 +4456,14 @@ help:
         alimentos (a menudo rescatados) **gratis**. Los usuarios registrados pueden
         solicitar una cesta de alimentos para recogerla.\n"
     achievementIcon:
-      md: "Cada logro tiene un ícono, un pequeño gráfico que debe mostrar a primera
-        vista de qué se trata. Puede encontrar una lista de íconos disponibles en
-        https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n\nEn el campo de entrada
-        debe ingresar el nombre del ícono que desea usar, por ejemplo \"*caminando*\"\
-        \ o \"*carrito de compras*\".\nPuede comprobar si su entrada funciona utilizando
-        la vista previa.\nSi no ingresa un ícono, se usará automáticamente el ícono
-        de logro predeterminado \"*etiqueta*\"\n"
-      title: Iconos de los logros
+      md: "Cada nota tiene un icono, es decir, un pequeño gráfico que debe mostrar
+        a primera vista de qué se trata. Puedes encontrar una lista de los iconos
+        disponibles en https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n\nEn
+        el campo de entrada tienes que introducir el nombre del icono que quieres
+        utilizar, por ejemplo «*caminar*» o «*carro de la compra*».\nPuedes comprobar
+        si tu entrada funciona mirando la vista previa.\nSi no introduce ningún icono,
+        se utilizará automáticamente el icono estándar para notas «*etiqueta*».\n"
+      title: Iconos para anotaciones
     moderatorForumHide:
       title: Oculto en los foros por los moderadores
       md: "###### ¿Quién es un moderador?\nLos moderadores de un grupo o distrito
@@ -4496,19 +4496,19 @@ help:
         al grupo de personas correspondiente. \n"
       title: Derecho a votar
     hygieneRequirement:
-      md: "Para poder recoger artículos de algunos establecimientos, los Foodsavers
-        deben estar capacitados en higiene alimentaria. Si esta función está activada
-        para una empresa, tiene los siguientes efectos:\n1. Los ahorradores de alimentos
-        sin una formación válida en higiene no pueden postularse para el equipo de
-        operaciones.\n2. Los ahorradores de alimentos que ya formen parte del equipo
-        sólo podrán inscribirse en las franjas horarias en las que aún esté vigente
-        su formación en higiene.\n\nEn ambos casos se mostrará una nota explicando
-        que falta formación en higiene para esta acción. Además, la formación en higiene
-        está directamente relacionada.\n\n---\n\nImportante tener en cuenta: esta
-        función solo se basa en la formación en higiene propia de foodsharing. No
-        se aceptarán certificados de higiene de proveedores externos (como Metro)
-        cargados en el perfil, ni cursos de formación en higiene anotados en otros
-        lugares. \n"
+      md: "Para la recogida en algunos establecimientos, los conservadores de alimentos
+        deben recibir formación en higiene alimentaria. Si esta función está activada
+        para una organización, esto tiene las siguientes consecuencias\n1. los ahorradores
+        de alimentos que no tengan una formación válida en higiene no podrán inscribirse
+        en el equipo de la granja.\n2. los ahorradores de alimentos que ya formen
+        parte del equipo sólo podrán inscribirse en las franjas horarias en las que
+        su formación en higiene siga siendo válida en ese momento.\n\nEn ambos casos,
+        se mostrará una nota explicando que falta la formación en higiene para esta
+        acción. La formación en higiene también se vincula directamente en cada caso.\n
+        \n---\n\nImportante: Esta función sólo se basa en las notas de higiene propias
+        de foodsharing. No se aceptan certificados de higiene de proveedores externos
+        (p. ej. Metro) cargados en el perfil ni cursos de formación en higiene anotados
+        en otro lugar. \n"
       title: Requisitos de higiene para las empresas
 team_page:
   board_member:
@@ -4541,8 +4541,8 @@ validation:
     válidos)
 achievements:
   inThis:
-    group: 'En este grupo de trabajo se pueden premiar los siguientes logros:'
-    region: 'En este distrito se pueden otorgar los siguientes logros:'
+    group: 'En este grupo de trabajo se podrán realizar las siguientes anotaciones:'
+    region: 'En este distrito se pueden publicar las siguientes entradas:'
   validity:
     days: Válido por {validityInDaysAfterAssignment} días después de la asignación.
     indefinite: Válido para cualquier período de tiempo después de la adjudicación.
@@ -4552,27 +4552,27 @@ achievements:
   reviewer: De
   notice: Observación
   validUntil: Válido hasta
-  award: Logro otorgado
+  award: Asignar una nota
   findUser: Buscar usuario
   editDetails: Ajustar detalles
   revoke: Retirar
-  edit: 'Editar logro: {name}'
-  notAwarded: Este logro no se ha concedido actualmente a nadie.
-  revokeConfirmation: ¿De verdad quieres privar a {name} de este logro?
+  edit: 'Editar nota: {name}'
+  notAwarded: Actualmente, esta nota no se otorga a nadie.
+  revokeConfirmation: ¿Realmente quieres eliminar {name} de esta nota?
   awarded: Conceder
-  editAwarded: Personalizar {achievement} para {user}
-  inRegion: ({count}) logros en {region}
-  new: Nuevo logro
+  editAwarded: Ajustar la nota de {achievement} para {user}
+  inRegion: Notas en {region} ({count})
+  new: Nuevo nota
   editor:
     validityInDaysAfterAssignment: Validez tras la asignación en días
     description: Descripción
     name: Nombre
     icon: Icono
     preview: Vista previa
-  noneInThisRegion: No hay logros registrados en esta región.
-  editTitle: Editar los logros
-  add: Agregar logro
-  deleteConfirmation: ¿Realmente quieres eliminar este logro?
+  noneInThisRegion: No hay registros en esta región.
+  editTitle: Editar notas
+  add: Agregar nota
+  deleteConfirmation: ¿De verdad quieres borrar esta nota?
 copied_to_clipboard: Se ha copiado «{text}» al portapapeles.
 theme_switcher:
   title: Elegir diseño
