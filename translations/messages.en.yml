@@ -1241,10 +1241,11 @@ pickup:
   description_max_length_info: Maximal length of the description reached (100 letters)
   hygieneCertificateMissing:
     link: Take the hygiene exam here
-    none: You do not have a valid hygiene certificate at the moment. Take the hygiene
+    none: You do not have a valid hygiene qualification at the moment. Take the hygiene
       quiz now to be able to register for pick-ups here.
-    timeout: Your hygiene certificate will have expired by the time of collection.
-      Take the hygiene quiz again now to be able to register for the desired collection.
+    timeout: Your current hygiene certificate will already have expired at the time
+      of the desired pick-up. Take the hygiene quiz again now to be able to register
+      for the desired pick-up.
 storeview:
   show_information: Show store information
   cooperation: Cooperation since {startTime}.
@@ -1397,8 +1398,8 @@ terminology:
   electionAdmins: Elections
   no: No
   yes: Yes
-  achievement: Achievement
-  achievements: Achievements
+  achievement: Sticker
+  achievements: Stickers
   phone: phone number
   landline: landline
   mobile_phone: mobile
@@ -2302,7 +2303,8 @@ store:
       on your application.
     application-placeholder: I would like to help in this team because …
     application-message: Application message
-    hygieneRequired: A valid hygiene certificate is required for pickup at this facility.
+    hygieneRequired: A valid hygiene qualification is required for pickup at this
+      facility.
     hygieneMissing: However, you do not meet this requirement at the moment. Take
       the hygiene quiz now to apply for this team.
   sm:
@@ -3673,7 +3675,15 @@ quiz:
         answer is right or wrong and why. For each error, you should read the explanations
         carefully. If something seems illogical, incomprehensible or even wrong, please
         leave a comment.
+      unlimited_tries: You can repeat this quiz as often as you like and will never
+        be disqualified if you fail. However, you may have to take a break between
+        attempts.
     title: Quiz notes
+    acceptPrivacyNotice: I agree.
+    privacyNotice:
+      hygiene: If you pass this quiz, the date you passed will be recorded and you
+        will be awarded a hygiene sticker. Hygiene officers and members of your teams
+        can see whether you have a valid hygiene sticker.
   comment:
     toggle: write a comment
     placeholder: Enter comment…
@@ -4286,8 +4296,8 @@ help:
       md: is visible from the role of the store manager. It is restricted to a common
         master district or common stores.
     achievements:
-      title: Achievements
-      md: "An explanation for achievements still needs to be added here. I’ll do that
+      title: Stickers
+      md: "An explanation for stickers still needs to be added here. I’ll do that
         later. TODO\n"
     reportReasons:
       title: Report form
@@ -4315,9 +4325,9 @@ help:
       md: "Food baskets are offered by users who want to give away (often rescued)
         food **for free**. Registered users can request a food basket to pick it up.\n"
     achievementIcon:
-      title: Icons for achievements
-      md: "Each achievement has an icon that should indicate, what the achievement
-        is about. You can find a list of available icons at https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n
+      title: Icons for stickers
+      md: "Each sticker has an icon that should indicate, what the sticker is about.
+        You can find a list of available icons at https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n
         \nYou need to put the name of the desired icon into the field, for example
         \"*walking*\" or \"*shopping-cart*\".\nIf the input is valid, you will see
         the icon in the preview.\nThe icon \"*tag*\" will be used as default if you
@@ -4397,8 +4407,8 @@ validation:
     it is too short, too long or contains invalid characters)
 achievements:
   inThis:
-    region: 'The following achievements can be awarded in this district:'
-    group: 'The following achievements can be awarded in this working group:'
+    region: 'The following stickers can be awarded in this district:'
+    group: 'The following stickers can be awarded in this working group:'
   validity:
     days: Valid for {validityInDaysAfterAssignment} days after award.
     indefinite: Valid indefinitely after allocation.
@@ -4407,28 +4417,28 @@ achievements:
   notice: Remark
   editDetails: Edit details
   revoke: Revoke
-  edit: 'Edit achievement: {name}'
+  edit: 'Edit sticker: {name}'
   awardedNoReviewer: automatically
   awarded: awarded
   awardedTo: To
   validUntil: Valid until
-  award: Award achievement
+  award: Award sticker
   findUser: Find user
-  revokeConfirmation: Are you sure you want to revoke this achievement from {name}?
-  notAwarded: This achievement is currently not awarded to anyone.
-  editAwarded: Adjust achievement {achievement} for user {user}
-  inRegion: Achievements in {region} ({count})
-  add: Add achievement
-  new: New achievement
+  revokeConfirmation: Are you sure you want to revoke this sticker from {name}?
+  notAwarded: This sticker is currently not awarded to anyone.
+  editAwarded: Adjust {user}’s {achievement} sticker
+  inRegion: Stickers in {region} ({count})
+  add: Add sticker
+  new: New sticker
   editor:
     name: Name
     preview: Preview
     icon: Icon
     validityInDaysAfterAssignment: Validity in days after awarding
     description: Description
-  noneInThisRegion: There are no achievements listed for this region.
-  deleteConfirmation: Do you really want to delete this achievement?
-  editTitle: Edit achievement
+  noneInThisRegion: There are no stickers listed for this region.
+  deleteConfirmation: Do you really want to delete this sticker?
+  editTitle: Edit sticker
 copied_to_clipboard: '“{text}” was copied to the clipboard.'
 store_categories:
   columns:
