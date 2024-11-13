@@ -3538,6 +3538,14 @@ quiz:
       feedback: Når du er ferdig med quizen, får du umiddelbart en evaluering av om
         du har bestått og hvilke feil du har gjort hvor. Deretter kan du lese gjennom
         begrunnelsene igjen i ro og mak.
+      unlimited_tries: Du kan gjenta denne testen så ofte du vil, og du blir aldri
+        diskvalifisert hvis du stryker. Det kan imidlertid hende du må ta en pause
+        mellom forsøkene.
+    acceptPrivacyNotice: Jeg er enig i det.
+    privacyNotice:
+      hygiene: Hvis du består denne testen, blir det registrert når du gjorde det,
+        og du vil bli tildelt et hygienesertifikat. Hygieneansvarlige og medlemmer
+        av driftsteamene dine kan se om du har et gyldig hygienesertifikat.
   infomodal:
     title: Spørsmål {index} av {questions}
   comment:
