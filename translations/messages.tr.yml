@@ -263,7 +263,15 @@ quiz:
         olduğunu ve nedenini anlamanıza yardımcı olur. Her hata için açıklamaları
         dikkatlice okumalısınız. Bir şey mantıksız, anlaşılmaz ve hatta yanlış görünüyorsa,
         lütfen yorum bırakın.
+      unlimited_tries: Bu Testi istediğiniz sıklıkta tekrarlayabilirsiniz ve başarısız
+        olmanız durumunda asla diskalifiye edilmeyeceksiniz. Ancak bazen denemeler
+        arasında öğrenmeye ara vermeniz gerekir.
     title: Test notları
+    privacyNotice:
+      hygiene: Bu testi geçerseniz başarılı olduğunuzda kaydedilecek ve size hijyen
+        notu verilecektir. Hijyen yöneticileri ve operasyon ekiplerinizin üyeleri
+        geçerli bir hijyen sertifikanızın olup olmadığını görebilir.
+    acceptPrivacyNotice: _Kabul ediyorum.
   plural: Testler
   button:
     pause: Daha sonra devam et
@@ -1386,7 +1394,8 @@ store:
     application-message: Başvuru mesajı
     hygieneMissing: 'Şu anda eksik olan şudur: Bu ekipte yer almak istiyorsan hemen
       hijyen testini yapın.'
-    hygieneRequired: Bu işletmeye katılmak için geçerli bir hijyen sertifikası gerekmektedir.
+    hygieneRequired: Bu işletmede alım yapmak için geçerli bir hijyen sertifikası
+      gerekmektedir.
   filter: …göre filtrele…
   enterdate: Alım tarihini girin
   important: 'Önemli:'
@@ -1579,6 +1588,7 @@ polls:
   score:
     neutral: Nötr
     disapproval: Ret
+    approval: Onay
   badge:
     vote_now: Şimdi oy verin
     already_voted: Zaten oy verildi
@@ -3256,8 +3266,8 @@ terminology:
   electionAdmins: Seçimler
   no: Hayır
   yes: Evet
-  achievements: Başarılar
-  achievement: Başarı
+  achievements: Notlar_
+  achievement: Not
   phone: Telefon numarası
   landline: Sabit hat numarası
   mobile_phone: Cep telefonu numarası
@@ -3657,8 +3667,10 @@ pickup:
   description_modal_text: 'Yeni bir teslim alma açıklaması girin:'
   hygieneCertificateMissing:
     link: Hijyen eğitimi için
-    none: Şu anda geçerli bir hijyen sertifikanız yok. Gıda kurtarmak için hijyen
-      testini şimdi tamamlayın.
+    none: Şu anda geçerli bir hijyen sertifikanız yok. Gıda kurtarmaayı gerçekleştirnek
+      için hijyen testini şimdi tamamlayın.
+    timeout: Hijyen notunuzun süresi, onu teslim aldığınız tarihte dolacaktır. Şimdi
+      gıda kurtarımına kaydolabilmek için hijyen testini tekrar yapın.
 calendar:
   export:
     pickup:
@@ -4093,6 +4105,7 @@ thread:
     unpin: Artık sabitlemeyi kaldır
     priority: Görüntüleme önceliğini ayarlayın
     showHidden: Gizli gönderileri göster
+    hideHidden: Gizli olanları gösterme
   rename:
     description_modal_text: 'Bu yazı için yeni bir başlık girin:'
     placeholder: Başlık
@@ -4102,6 +4115,7 @@ thread:
     options:
       copy_source: Kaynak kodunu kopyala
       copy_direct_link: Doğrudan bağlantıyı kopyala
+      restore: Restore etmek
     copy_source_success: Kaynak kodu kopyalandı!
     copy_direct_link_success: Doğrudan bağlantı kopyalandı!
     linked_post: Bağlantılı yayın
@@ -4231,22 +4245,22 @@ validation:
     uzun veya geçersiz karakterler içeriyor)
 achievements:
   inThis:
-    region: 'Bu bölgede aşağıdaki başarılar kazanılabilir:'
-    group: 'Bu çalışma grubunda aşağıdaki başarılar ödüllendirilebilir:'
+    region: 'Bu bölgede aşağıdaki notlar verilebilir:'
+    group: 'Bu çalışma grubunda aşağıdaki Notlar verilebilir:'
   validity:
     days: Görevlendirmeden sonraki {validityInDaysAfterAssignment} gün boyunca geçerlidir.
     indefinite: Veriltikten sonraki herhangi bir süre için geçerlidir.
     indefiniteShort: Herhangi bir süre
-  revokeConfirmation: '{name} için bu başarıyı iptal etmek istediğinizden emin misiniz?'
+  revokeConfirmation: '{name}''in desteğini iptal etmek istediğinizden emin misiniz?'
   reviewer: ..den
   notice: Dipnot
   validUntil: Şu tarihe kadar geçerlidir
-  award: Başarı ödüllendirildi
+  award: Notlar verildi
   findUser: Kullanıcıyı ara
   editDetails: Ayrıntıları ayarla
   revoke: Geri çekmek
   edit: 'Başarıyı düzenle: {name}'
-  notAwarded: Bu başarı şu anda kimseye verilmemektedir.
+  notAwarded: Bu not şu anda kimseye verilmemektedir.
   awarded: Alındı
   awardedNoReviewer: Otomatik
   awardedTo: İle
@@ -4260,7 +4274,7 @@ achievements:
   noneInThisRegion: Bu bölgede kayıtlı hiçbir başarı yok.
   deleteConfirmation: Bu başarıyı gerçekten silmek istiyor musunuz?
   editTitle: Başarıları düzenle
-  editAwarded: '{user} için {achievement} başarısını ayarlayın'
+  editAwarded: '{user} için {achievement} notunu ayarlayın'
   inRegion: '{region} ({count}) bölgesindeki başarılar'
   add: Başarı ekle
 copied_to_clipboard: “{text}” panoya kopyalandı.
