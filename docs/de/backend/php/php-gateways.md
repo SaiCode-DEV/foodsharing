@@ -91,7 +91,7 @@ MailboxGateway.php
 MailsGateway.php
 
 MaintenanceGateway.php
- - data needed for cleanup and bookkeeping executed each night (see `MaintenanceControl.php`)
+ - data needed for cleanup and bookkeeping executed each night (see `MaintenanceService.php`)
 
 MapGateway.php
 

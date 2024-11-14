@@ -32,7 +32,7 @@ if (!dev) {
 
 plugins.push(
   {
-    // Writes modules.json which is then loaded by the php app (see src/Modules/Core/Control.php).
+    // Writes modules.json which is then loaded by the php app (see src/Utility/WebpackHelper.php).
     // This is how the php app will know if it is a webpack-enabled module or not.
     apply (compiler) {
       compiler.hooks.emit.tapPromise('write-modules', compiler => {

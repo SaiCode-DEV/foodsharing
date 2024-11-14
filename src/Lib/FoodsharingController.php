@@ -17,7 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Compatibility layer to make porting old "Control" based controllers to new "Symfony" style controllers easier.
- * Any controller based on this also opts into the setup code that used to live in IndexController.
+ * Any controller based on this also opts into the setup code that used to live in Entrypoint/IndexController.
  *
  * @see RenderControllerSetupSubscriber
  */
@@ -84,7 +84,7 @@ abstract class FoodsharingController extends AbstractController
     }
 
     /**
-     * Previously, most controllers relied on IndexController actually rendering the website.
+     * Previously, most controllers relied on Entrypoint/IndexController actually rendering the website.
      * They mostly talk to pageHelper, which is then used like this to generate the view data for the desired twig template.
      * There are two things to be mentioned here:
      * - MapControl and MessageControl are the only controllers changing the template from 'default'.

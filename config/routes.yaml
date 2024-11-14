@@ -1,8 +1,4 @@
 ### Compatibility endpoints
-index:
-  path: /
-  controller: Foodsharing\Entrypoint\IndexController
-
 xhrapp:
   path: /xhrapp
   controller: Foodsharing\Entrypoint\XhrAppController

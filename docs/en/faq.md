@@ -11,10 +11,7 @@ A: The main architecture goals came from this book "[Modernizing Legacy Applicat
 
 A few current architecture goals would be:
 
-* use symfony approach for handling all requests (some controllers do this already, others use the old way), in IndexController the `$isUsingResponse` switches behaviour based on that
 * create [REST](backend/api/introduction) controllers for all API use, remove all other API stuff
-* use a symfony router or similar (might also involve changing page urls to nice paths instead of get parameters + adding redirects)
-* have simple/general/default kind of symfony `index.php` for templates/frontend stuff
 * remove all html/js in php strings
 * use [vue.js](frontend/javascript#vuejs) for all dynamic kind of templates
 * remove global eval stuff  ... goes with the only [REST API](backend/api/introduction) endpoints ...

@@ -107,11 +107,7 @@ final class PageHelper
             $bodyClasses[] = 'fs';
         }
 
-        if ($this->routeHelper->isUsingLegacyController()) {
-            $page = $this->routeHelper->getPage();
-        } else {
-            $page = $this->routeHelper->getSymfonyRoute();
-        }
+        $page = $this->routeHelper->getSymfonyRoute();
 
         $bodyClasses[] = 'page-' . $page;
 

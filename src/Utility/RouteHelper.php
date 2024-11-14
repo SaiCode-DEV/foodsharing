@@ -2,7 +2,6 @@
 
 namespace Foodsharing\Utility;
 
-use Foodsharing\Entrypoint\IndexController;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Legal\LegalGateway;
@@ -38,11 +37,7 @@ final class RouteHelper
             if ($this->request()->query->has('bid')) {
                 $params['bid'] = (int)$this->request()->query->get('bid');
             }
-            if ($this->isUsingLegacyController()) {
-                $url = $this->router->generate('index', ['page' => $this->getPage(), ...$params]);
-            } else {
-                $url = $this->router->generate($this->getSymfonyRoute(), $params);
-            }
+            $url = $this->router->generate($this->getSymfonyRoute(), $params);
         } else {
             if (!$pageIsSymfonyRoute) {
                 $url = $this->router->generate('index', ['page' => $page, ...$params]);
@@ -85,13 +80,6 @@ final class RouteHelper
 
         // adds http:// if not existing
         return preg_replace('`href=\"www`', 'href="http://www', $str) ?: '';
-    }
-
-    public function isUsingLegacyController(): bool
-    {
-        $controller = $this->request()->attributes->get('_controller');
-
-        return $controller === IndexController::class;
     }
 
     public function getLegalControlIfNecessary(): ?string

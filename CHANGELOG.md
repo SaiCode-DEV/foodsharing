@@ -129,6 +129,8 @@
 - Reworked food share point page to use API and vue. #1577 !3730 @AntonBallmaier
 - Port the business card controller to Symfony !3782 @\_fridtjof_
 - Fully moved StoreUserControl which still handled redirects into its Symfony counterpart !3793 @\_fridtjof_
+- Port the index controller to Symfony !3799 @\_fridtjof_
+- Remove the legacy entrypoint for routing and rendering pages !3799 @\_fridtjof_
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm

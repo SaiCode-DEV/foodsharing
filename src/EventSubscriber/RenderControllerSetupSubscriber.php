@@ -2,7 +2,6 @@
 
 namespace Foodsharing\EventSubscriber;
 
-use Foodsharing\Entrypoint\IndexController;
 use Foodsharing\Lib\Caching;
 use Foodsharing\Lib\ContentSecurityPolicy;
 use Foodsharing\Lib\Db\Mem;
@@ -19,17 +18,14 @@ use Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Definition: "render controller"
  * Any controllers that render parts of the website.
- * This definition includes:
- * - Classes with the suffix "Control" invoked by IndexController,
- * - Symfony Controllers inheriting from FoodsharingController.
- * It does not include anything to do with xhr, xhrapp, or the REST API.
+ * Meaning: Symfony Controllers inheriting from FoodsharingController, found under Modules/
+ * It does not include anything to do with xhrapp or the REST API.
  *
- * This holds all logic that used to be executed in index.php before calling the Control class.
- * It does this for the IndexController (to handle old Controllers)
- * and for any Controller that inherits from FoodsharingController (to handle Controllers that have been migrated)
+ * This holds all logic that used to be executed in index.php before calling a Control class.
+ * It does this for any Controller that inherits from FoodsharingController.
  *
- * The reason for this EventSubscriber is to extract the setup logic formerly located in IndexController,
- * so it can be shared with any Symfony controllers that were previously legacy controllers called through IndexController,
+ * The purpose of this EventSubscriber is to hold common logic executed before any such controller,
+ * so it can be shared with any Symfony controllers that were previously legacy controllers called through Entrypoint/IndexController,
  * without breaking any implicit expectations (for example: about the session, certain headers, static parts of the page)
  *
  * The end goal is to find better ways to do some of the things currently done here,
@@ -132,11 +128,6 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
         if ($request->query->has('logout')) {
             $session->logout();
         }
-
-        global $content_left_width;
-        $content_left_width = 6;
-        global $content_right_width;
-        $content_right_width = 6;
     }
 
     public function onKernelResponse(ResponseEvent $event)
@@ -168,7 +159,7 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
 
     private function isRenderController(object $controller): bool
     {
-        return $controller instanceof IndexController || $controller instanceof FoodsharingController;
+        return $controller instanceof FoodsharingController;
     }
 
     private function get($id)

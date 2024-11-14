@@ -132,10 +132,10 @@ public function index($params): string
 	return $this->vueComponent('dashboard', 'dashboard', $params);
 }
 ```
-And call it in [DashboardControl.php](https://gitlab.com/foodsharing-dev/foodsharing/-/blob/master/src/Modules/Dashboard/DashboardControl.php#L68) where the `$params` is filled with information.
+And call it in [DashboardController.php](https://gitlab.com/foodsharing-dev/foodsharing/-/blob/master/src/Modules/Dashboard/DashboardController.php#L51) where the `$params` is filled with information.
 ```php
 	...
-	$this->pageHelper->addContent($this->view->index($this->params), CNT_MAIN);
+	$this->pageHelper->addContent($this->view->index($this->params));
 }
 ```
 

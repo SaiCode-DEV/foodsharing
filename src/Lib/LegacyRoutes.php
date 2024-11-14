@@ -2,26 +2,11 @@
 
 namespace Foodsharing\Lib;
 
-use Foodsharing\Modules\Index\IndexControl;
-
 /**
- * @deprecated please don't add anything new to these mappings.
- *  This is being slowly moved to Symfony routing, and can then be removed, or inlined into what's left of the Xhr system at that point.
+ *  This translates old page= values to new URLs in order to keep old links working.
  */
-class Routing
+class LegacyRoutes
 {
-    // needed for webpack resource loading
-    // for FoodsharingController, this is derived from the controller name
-    // (which should match the module name)
-    private const MODULES = [
-        'index' => 'Index',
-        'mailbox' => 'Mailbox',
-    ];
-
-    private const CLASSES = [
-        'index' => IndexControl::class,
-    ];
-
     private const PORTED = [
         'content',
         'team',
@@ -61,17 +46,7 @@ class Routing
         'fsbetrieb' => 'store',
     ];
 
-    public static function getClassName(string $appName): ?string
-    {
-        return self::CLASSES[$appName] ?? null;
-    }
-
-    public static function getModuleName(string $appName): ?string
-    {
-        return self::MODULES[$appName] ?? null;
-    }
-
-    public static function isPorted(string $pageName): bool
+    public static function isValidLegacyPageName(string $pageName): bool
     {
         return in_array($pageName, self::PORTED);
     }
