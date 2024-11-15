@@ -382,13 +382,15 @@ quiz:
     infos:
       real_life_examples: La mayoría de las preguntas se basan en casos reales de
         la vida de compartir los alimentos.
-      alone: No debes recibir ayuda durante el cuestionario. Por lo tanto, busca un
-        lugar tranquilo donde puedas completar el cuestionario sin ser molestado.
-      read_carefully: Lea atentamente todas las preguntas y respuestas. Hay tiempo
-        suficiente para ello.
-      wiki: Por favor, no empieces el cuestionario al azar. Lee atentamente las páginas
-        de la wiki sobre el intercambio de alimentos. Sin los conocimientos de la
-        wiki, no aprobarás el cuestionario.
+      alone: El cuestionario debe ser completado por usted mismo y sin ayuda externa.
+        Si tiene dificultades lingüísticas o depende de un asistente, otra persona
+        puede ayudarle a entender las preguntas, pero usted debe ser capaz de responderlas
+        por sí mismo. Por lo tanto, busque un lugar tranquilo donde pueda completar
+        el cuestionario sin ser molestado.
+      read_carefully: Lea atentamente todas las preguntas y respuestas.
+      wiki: Por favor, no empiece el cuestionario al azar. Lee atentamente las páginas
+        de información listadas de antemano. Sin los conocimientos de la wiki, no
+        aprobarás el cuestionario.
       limited_tries: No puedes repetir el cuestionario tantas veces como quieras.
         Después de tres intentos, tienes que tomarse un descanso de 30 días para estudiar,
         tras el cual sólo dispones de dos intentos más. Las preguntas que se te plantean
@@ -398,17 +400,22 @@ quiz:
         incorrecta.
       pause: Puedes pausar el cuestionario después de cada pregunta y continuar más
         tarde.
-      feedback: Al final del cuestionario, recibirá inmediatamente una evaluación
-        en la que se le indicará si ha aprobado y qué errores ha cometido y dónde.
-        Aquí podrá volver a leer los motivos con tranquilidad.
-      comment: Después de responder a cada pregunta, verá una evaluación intermedia
-        con explicaciones para cada una de las posibles respuestas. Esto le ayudará
-        a comprender qué respuesta es correcta o incorrecta y por qué. Si comete un
-        error, lea atentamente las explicaciones. Si algo te parece ilógico, incomprensible
-        o incluso erróneo, deja un comentario.
-      unlimited_tries: Puedes repetir este cuestionario tantas veces como quieras
-        y nunca serás descalificado si lo suspendes. Sin embargo, a veces es necesario
-        tomar un descanso entre intentos.
+      feedback: Al final del cuestionario, recibirá una evaluación inmediata de si
+        aprobó, qué errores cometió y dónde. Aquí podrá volver a leer los motivos
+        cuando lo desee.
+      comment: Después de responder cada pregunta, verá una evaluación intermedia
+        con explicaciones para cada una de las opciones de respuesta. Esto ayuda a
+        comprender qué respuesta es correcta o incorrecta y por qué. Para cada error,
+        debes leer atentamente las explicaciones. Si algo te parece ilógico, incomprensible
+        o incluso incorrecto, deja un comentario. Se le pueden asignar sus comentarios
+        para brindarle comentarios individuales.
+      unlimited_tries: Puede repetir este cuestionario tantas veces como quiera y
+        nunca será descalificado si suspende. Sin embargo, es posible que tenga que
+        tomarse un descanso entre cada intento.
+      timed: El tiempo para responder a las preguntas es limitado. No deje que esto
+        le estrese. El tiempo se fija individualmente para cada pregunta, de modo
+        que tengas tiempo suficiente para responderla tranquilamente. Si te quedas
+        sin tiempo, házselo saber a los administradores del concurso con un comentario.
     acceptPrivacyNotice: Estoy de acuerdo.
     privacyNotice:
       hygiene: Si supera este cuestionario, quedará constancia de que lo ha hecho
@@ -419,7 +426,7 @@ quiz:
       1: Esta respuesta habría sido correcta.
       0: Esta respuesta habría sido errónea.
       2: Esta respuesta habría sido neutra.
-    name: Respuestas
+    name: Respuesta
     none_correct: Ninguna respuesta es correcta.
     neutral: 'Respuesta neutra: no se puntuará.'
     false_true: Esta respuesta habría sido correcta.
@@ -577,18 +584,18 @@ quiz:
   test_results: Resultados de la prueba
   test: Cuestionarios de prueba
   stateBasedInfo:
-    neverTried: Nunca has completado este cuestionario antes. Tómate tu tiempo para
-      leer detenidamente todos los artículos de la wiki que aparecen en la lista para
-      estar preparado para las preguntas.
+    neverTried: Nunca antes has realizado este cuestionario . Tómese el tiempo para
+      leer atentamente todos los artículos informativos enumerados para estar preparado
+      para las preguntas.
     running: Ya ha comenzado el cuestionario y ha respondido a {questionsAnswered}
       de {questionCount} preguntas hasta el momento.
     passed: Has superado esta prueba.
     failed: Lamentablemente, no ha superado este cuestionario en su último intento.
-    noWaitAfter: Echa otro vistazo a los artículos pertinentes de la Wiki e inténtalo
-      de nuevo.
+    noWaitAfter: Eche otro vistazo a los artículos de información relevantes y vuelva
+      a intentarlo.
     waitAfter: Si no apruebas en tu siguiente intento, deberás tomarte un descanso
-      del estudio durante {waitTimeAfterFailure} días. Asegúrate de consultar los
-      artículos pertinentes de la Wiki para poder aprobar el examen.
+      del estudio durante {waitTimeAfterFailure} días. Asegúrate de leer los artículos
+      informativos pertinentes para poder aprobar el examen.
     pause: Has suspendido este examen varias veces. La fiabilidad, el conocimiento
       de las normas y la profesionalidad son esenciales en el foodsharing. Desgraciadamente,
       tus respuestas no transmiten esto por el momento. Por lo tanto, se te concederá
