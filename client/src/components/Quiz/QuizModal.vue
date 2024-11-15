@@ -48,6 +48,7 @@
         </div>
         <div
           v-if="isQuestionActive"
+          ref="noneCorrect"
           class="answer-wrapper"
         >
           <b-form-checkbox
@@ -98,7 +99,7 @@
       <b-button
         v-if="!isQuizFinished"
         variant="primary"
-        :disabled="isQuestionActive && nothingSelected"
+        :disabled="isQuestionActive && (nothingSelected || !allOptionsSeen)"
         @click="continueQuizHandler"
       >
         {{ $i18n('button.next') }}
@@ -139,6 +140,7 @@ export default {
     solution: null,
     isFetching: false,
     answeredInTime: null,
+    allOptionsSeen: false,
   }),
   computed: {
     isQuizFinished () {
@@ -200,6 +202,26 @@ export default {
         }
       }
       this.isFetching = false
+      this.resetScrollRequirement()
+    },
+    async resetScrollRequirement () {
+      this.allOptionsSeen = false
+      await this.$nextTick()
+      const targetElement = this.$refs.noneCorrect
+
+      function onElementVisible ([element], observer) {
+        if (element.isIntersecting) {
+          this.allOptionsSeen = true
+          observer.unobserve(targetElement)
+        }
+      }
+
+      const observer = new IntersectionObserver(onElementVisible.bind(this), {
+        root: null, // relative to the viewport
+        threshold: 0.5, // trigger when at least half of the element is visible
+      })
+
+      observer.observe(targetElement)
     },
     async animateTimer () {
       await this.$nextTick()

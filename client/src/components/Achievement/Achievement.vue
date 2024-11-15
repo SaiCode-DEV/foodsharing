@@ -29,7 +29,7 @@
             :tooltip="null"
           />
         </p>
-        <p v-if="achievement.validUntil.date">
+        <p v-if="achievement.validUntil?.date">
           {{ $i18n('achievements.validUntil') }}:
           <Time
             :time="achievement.validUntil.date"

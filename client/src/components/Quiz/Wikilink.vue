@@ -1,6 +1,6 @@
 <template>
   <p>
-    <a :href="externalLink">{{ $i18n('quiz.wikilink') }}</a>
+    <a :href="externalLink" target="_blank">{{ $i18n('quiz.wikilink') }}</a>
   </p>
 </template>
 <script>

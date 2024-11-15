@@ -143,7 +143,13 @@ export default {
     return {
       questions: null,
       newAnswer: { text: '', explanation: '', answerRating: ANSWER_RATING.RIGHT },
-      newQuestion: { text: '', failurePoints: 1, durationInSeconds: 120, wikilink: this.$i18n('quiz.editModal.question.input.wikilink.placeholder') },
+      newQuestion: {
+        text: '',
+        failurePoints: 1,
+        durationInSeconds: 120,
+        wikilink: this.$i18n('quiz.editModal.question.input.wikilink.placeholder'),
+        isMandatory: false,
+      },
     }
   },
   mounted: function () {

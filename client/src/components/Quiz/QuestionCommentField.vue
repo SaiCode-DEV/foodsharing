@@ -35,7 +35,7 @@
 <script>
 
 import { addPost } from '@/api/wall'
-import { pulseError, pulseSuccess } from '@/script'
+import { pulseError, pulseInfo } from '@/script'
 import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
@@ -58,7 +58,7 @@ export default {
         this.commentSectionVisible = false
         this.comment = ''
 
-        pulseSuccess(this.$i18n('quiz.comment.sent'))
+        pulseInfo(this.$i18n('quiz.comment.sent'))
       } catch (error) {
         pulseError(this.$i18n('error_unexpected'))
       }

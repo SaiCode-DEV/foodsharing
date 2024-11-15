@@ -185,16 +185,17 @@ quiz:
   startmodal:
     title: "Hinweise zum Quiz"
     infos:
-      wiki: Bitte starte das Quiz nicht auf gut Glück. Lies vorab die aufgeführten Seiten im foodsharing-Wiki aufmerksam durch. Ohne das Wissen aus dem Wiki, wirst du das Quiz nicht bestehen.
+      wiki: Bitte starte das Quiz nicht auf gut Glück. Lies vorab die aufgeführten Info-Seiten aufmerksam durch. Ohne das Wissen aus dem Wiki wirst du das Quiz nicht bestehen.
       real_life_examples: Die meisten Fragen basieren auf echten Fällen aus dem foodsharing-Leben.
       limited_tries: Du kannst das Quiz nicht beliebig oft wiederholen. Nach drei Versuchen musst du eine 30-tägige Lernpause einlegen, danach hast du nur noch zwei weitere Versuche. Die Fragen, die dir in jedem Versuch gestellt werden, unterscheiden sich.
-      alone: Während des Quizes darf dir nicht geholfen werden. Suche dir deswegen einen ruhigen Ort, an dem du ungestört das Quiz durchführen kannst.
-      unlimited_tries: Du kannst dieses Quiz beliebig oft wiederholen, und wirst durch Fehlversuche nie disqualifiziert. Allerdings musst du zwischen Versuchen teilweise eine Lernpause einlegen.   
-      read_carefully: Lies dir alle Fragen und Antworten sorfältig durch. Dafür reicht die Zeit aus.
+      unlimited_tries: Du kannst dieses Quiz beliebig oft wiederholen und wirst durch Fehlversuche nie disqualifiziert. Allerdings musst du zwischen Versuchen teilweise eine Lernpause einlegen.
+      alone: Das Quiz ist von dir selbst und ohne fremde inhaltliche Hilfe zu bestehen. Bei sprachlichen Schwierigkeiten oder wenn du auf eine Assistenz angewiesen bist, kann dir eine andere Person natürlich helfen, die Fragen zu verstehen; beantworten können musst du sie allerdings alleine. Suche dir deswegen einen ruhigen Ort, an dem du ungestört das Quiz durchführen kannst.
+      read_carefully: Lies dir alle Fragen und Antworten sorfältig durch.
       multiple_choice: Es können mehrere Antworten pro Frage richtig sein - oder auch keine. Entscheide daher für jede Antwort einzeln, ob sie richtig oder falsch ist.
-      comment: Nach dem Beantworten jeder Frage, siehst du eine Zwischenauswertung mit Erklärungen zu jeder der Antwortmöglichkeiten. Das hilft zu verstehen, welche Antwort warum richtig oder falsch ist. Bei jedem Fehler solltest du dir die Erklärungen sorgfältig durchlesen. Wenn dir etwas unlogisch erscheint, nicht verständlich oder gar falsch ist, hinterlasse bitte einen Kommentar.
+      timed: Die Zeit zur Beantwortung der Fragen ist begrenzt. Lass dich davon nicht in stressen. Die Zeit ist für jede Frage einzeln so eingestellt, dass du genug Zeit hast, die Frage in Ruhe zu beantworten. Solltest du doch mal in Zeitnot kommen, lass die Quiz-Admins das mit einem Kommentar wissen.
+      comment: Nach dem Beantworten jeder Frage siehst du eine Zwischenauswertung mit Erklärungen zu jeder der Antwortmöglichkeiten. Das hilft zu verstehen, welche Antwort warum richtig oder falsch ist. Bei jedem Fehler solltest du dir die Erklärungen sorgfältig durchlesen. Wenn dir etwas unlogisch erscheint, nicht verständlich oder gar falsch ist, hinterlasse bitte einen Kommentar. Deine Kommentare können dir zugeordnet werden, um dir individuelle Rückmeldung zu geben.
       pause: Du kannst das Quiz nach jeder Frage pausieren und zu einem späteren Zeitpunkt fortsetzen.
-      feedback: Am Ende des Quizes bekommst du direkt eine Auswertung, ob du bestanden hast und welche Fehler du wo gemacht hast. Hier kannst du nocheinmal in Ruhe die Begründungen durchlesen.
+      feedback: Am Ende des Quizzes bekommst du direkt eine Auswertung, ob du bestanden hast und welche Fehler du wo gemacht hast. Hier kannst du nocheinmal in Ruhe die Begründungen durchlesen.
     privacyNotice:
       hygiene: Wenn du dieses Quiz bestehst, wird gespeichert, wann dir das gelungen ist und dir wird ein Hygienevermerk vergeben. Hygiene-Verantwortliche und Mitglieder deiner Betriebsteams können sehen, ob du einen gültigen Hygienevermerk hast.
     acceptPrivacyNotice: Ich bin einverstanden.
@@ -209,7 +210,7 @@ quiz:
     wallTitle: "Kommentare zu Frage #{id}"
     label: Frage Kommentieren
   answers:
-    name: Antorten
+    name: Antworten
     none_correct: Keine Antwort ist korrekt.
     neutral: Neutrale Antwort - wird nicht gewertet.
     false_false: Diese Antwort war natürlich falsch. Das hast Du richtig erkannt.
@@ -225,12 +226,12 @@ quiz:
       1: Richtig
       2: Neutral
   stateBasedInfo:
-    neverTried: Dieses Quiz hast du noch nie bearbeitet. Nimm dir Zeit, alle aufgeführten Wiki-Artikel aufmerksam durchzulesen, damit du auf die Fragen vorbereitet bist.
+    neverTried: Dieses Quiz hast du noch nie bearbeitet. Nimm dir Zeit, alle aufgeführten Info-Artikel aufmerksam durchzulesen, damit du auf die Fragen vorbereitet bist.
     running: Du hast das Quiz bereits gestartet und bislang {questionsAnswered} von {questionCount} Fragen beantwortet.
     passed: Dieses Quiz hast du bestanden.
     failed: Beim letzten Versuch hast du dieses Quiz leider nicht bestanden.
-    noWaitAfter: Schau dir nochmal in die entsprechenden Wiki-Artikel an und probiers nochmal.
-    waitAfter: Wenn du in deinem nächsten Versuch nicht bestehst, musst du für {waitTimeAfterFailure} Tage eine Lernpause einlegen. Schau dir unbedingt die entsprechenden Wiki-Artikel an, damit du das Quiz bestehen kannst.
+    noWaitAfter: Schau dir nochmal in die entsprechenden Info-Artikel an und probiers nochmal.
+    waitAfter: Wenn du in deinem nächsten Versuch nicht bestehst, musst du für {waitTimeAfterFailure} Tage eine Lernpause einlegen. Schau dir unbedingt die entsprechenden Info-Artikel an, damit du das Quiz bestehen kannst.
     pause: Du hast dieses Quiz mehrfach nicht bestanden. Zuverlässigkeit, sicheres Beherrschen der Regeln und professionelles Auftreten sind bei foodsharing unverzichtbar. Mit deinen Antworten vermittelst du das zum jetzigen Zeitpunkt leider nicht. Daher bekommst du eine Lernpause, bevor du erneut versuchen darfst, das Quiz zu bestehen. Deine Lernpause endet in {currentWaitTime} Tagen.
     pauseElapsed: Deine Lernpause ist um. Daher darfst du jetzt erneut am Quiz teilnehmen. Hoffentlich hast du die Zeit genutzt, um dich besser mit den Inhalten vertraut zu machen.
     disqualifiedAfter: Du hast nur noch einen letzten Versuch dieses Quiz zu bestehen! Wenn du jetzt durchfällst, wirst du dauerhaft für dieses Quiz disqualifiziert. Bitte nimm nur Teil, wenn du dich ausführlich mit den Inhalten aus dem Wiki beschäftigt hast.
@@ -3745,15 +3746,15 @@ help:
     hygieneRequirement:
       title: "Hygieneanforderung für Betriebe"
       md: |
-        Für die Abholung in manchen Betrieben, müssen Foodsaver:innen in Lebensmittelygiene geschult sein. Wenn diese Funktion für einen Betrieb aktiviert ist, hat das folgende Auswirkungen:
-        1. Foodsaver:innen ohne gültige Hygieneschulung können sich nicht auf das betriebsteam bewerben.
+        Für die Abholung in manchen Betrieben, müssen Foodsaver:innen in Lebensmittelhygiene geschult sein. Wenn diese Funktion für einen Betrieb aktiviert ist, hat das folgende Auswirkungen:
+        1. Foodsaver:innen ohne gültige Hygieneschulung können sich nicht auf das Betriebsteam bewerben.
         2. Foodsaver:innen, die bereits Teil des Teams sind, können sich nur in Slots eintragen, zu deren Zeitpunkt ihre Hygieneschulung noch gültig ist.
 
         In beiden Fällen wird ein Hinweis angezeigt, der erklärt, dass für diese Aktion die Hygieneschulung fehlt. Außerdem ist die Hygieneschulung jeweils direkt verlinkt.
 
         ---
 
-        Wichtig zu beachten: Diese Funktion basiert nur auf den foodsharing-eigenen Hygienevermerken. Weder im Profil hochgeladene Hygienezertifikate externer Anbieter (wie bspw. Metro), noch anderweitig vermerkte Hygieneschulungen werden akzeptiert. 
+        Wichtig zu beachten: Diese Funktion basiert nur auf den foodsharing-eigenen Hygienevermerken. Weder im Profil hochgeladene Hygienezertifikate externer Anbieter (wie bspw. Metro), noch anderweitig vermerkte Hygieneschulungen werden technisch berücksichtigt. 
 team_page:
   board_member:
     title: "Vorstand"

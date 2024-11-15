@@ -25,7 +25,7 @@
         size="sm"
         variant="outline-primary"
         :pressed="button.state === activeFilter.state"
-        class="flex-grow-1"
+        class="px-0 flex-basis-0"
         @click="activeFilter = button"
       >
         <i :class="`fas fa-${button.icon}`" /><br>
@@ -102,3 +102,8 @@ export default {
   },
 }
 </script>
+<style scoped>
+.flex-basis-0 {
+  flex-basis: 0 !important;
+}
+</style>

@@ -72,7 +72,7 @@
           <Quiz :quiz-id="targetRole" />
         </b-tab>
         <b-tab
-          v-if="isHygieneQuizEnabled"
+          v-if="isMe && isHygieneQuizEnabled"
           ref="hygieneTab"
           :title="$i18n('terminology.hygiene_training')"
           :active="subPage === SUB_PAGE.HYGIENE"
@@ -165,6 +165,7 @@ export default {
     },
   },
   async mounted () {
+    if (!this.isMe) return
     this.isHygieneQuizEnabled = await this.$isFeatureToggleActive('hygieneQuiz')
     if (this.subPage === SUB_PAGE.HYGIENE && this.isHygieneQuizEnabled) {
       await this.$nextTick()

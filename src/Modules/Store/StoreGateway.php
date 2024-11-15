@@ -575,13 +575,13 @@ class StoreGateway extends BaseGateway
                 UNIX_TIMESTAMP(t.`stat_last_fetch`) AS last_fetch,
                 UNIX_TIMESTAMP(t.`stat_add_date`) AS add_date,
                 fs.`is_sleeping`,
-                a.`valid_until` AS hygiene_certificate_until
+                IF(a.achievement_id IS NULL, NULL, IFNULL(a.`valid_until`, 'infinite')) AS hygiene_certificate_until
             FROM `fs_betrieb_team` t
             INNER JOIN `fs_foodsaver` fs
                 ON fs.id = t.foodsaver_id
             LEFT OUTER JOIN `fs_foodsaver_has_achievement` a
                 ON a.foodsaver_id = fs.id
-                AND a.valid_until >= NOW()
+                AND (a.valid_until IS NULL OR a.valid_until >= NOW())
                 AND a.achievement_id = ?
             WHERE `betrieb_id` = ?
                 AND t.active IN ({$this->db->generatePlaceholders(count($membershipStatuses))})

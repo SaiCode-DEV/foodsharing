@@ -183,7 +183,7 @@ export default {
       const fields = [
         { key: 'createdAt', sortable: true, label: this.$i18n('achievements.awarded') },
         { key: 'user', sortable: true, sortByFormatted: true, label: this.$i18n('achievements.awardedTo'), formatter: (x) => x.name },
-        { key: 'reviewer', sortable: true, sortByFormatted: true, label: this.$i18n('achievements.reviewer'), formatter: (x) => x.name },
+        { key: 'reviewer', sortable: true, sortByFormatted: true, label: this.$i18n('achievements.reviewer'), formatter: (x) => x?.name },
       ]
       if (this.selected.awardedUsers.find(awarded => awarded.notice)) {
         fields.push({ key: 'notice', label: this.$i18n('achievements.notice') })

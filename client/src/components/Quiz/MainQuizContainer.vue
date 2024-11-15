@@ -63,7 +63,7 @@ export default {
     statusName () {
       if (!this.status) return ''
       if (this.status.currentWaitTime === -1) return 'disqualified'
-      if (this.status.currentWaitTime > 1) return 'pause'
+      if (this.status.currentWaitTime > 0) return 'pause'
       if (this.status.lastSessionStatus === SESSION_STATUS.RUNNING) return 'continue'
       return 'start'
     },
@@ -75,7 +75,7 @@ export default {
       const s = this.status
 
       if (s.currentWaitTime === -1) return i18n('disqualified')
-      if (s.currentWaitTime > 1) return i18n('pause', s)
+      if (s.currentWaitTime > 0) return i18n('pause', s)
       if (s.lastSessionStatus === null) return i18n('neverTried')
       if (s.lastSessionStatus === SESSION_STATUS.RUNNING) return i18n('running', s)
       if (s.waitTimeAfterFailure === -1) return i18n('disqualifiedAfter')

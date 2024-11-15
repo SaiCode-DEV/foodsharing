@@ -47,12 +47,13 @@
       scrollable
       @ok="initQuiz"
     >
-      <ul>
+      <ul class="info-list ml-4">
         <li
-          v-for="infoKey in infoKeys"
-          :key="infoKey"
+          v-for="info in infos"
+          :key="info.key"
         >
-          {{ $i18n(`quiz.startmodal.infos.${infoKey}`) }}
+          <i :class="`fas fa-${info.icon}`" />
+          {{ $i18n(`quiz.startmodal.infos.${info.key}`) }}
         </li>
       </ul>
 
@@ -90,10 +91,7 @@ export default {
     quizId: { type: Number, required: true },
   },
   data () {
-    const hasUnlimitedTries = this.quizId === QUIZ_ID.HYGIENE
-    const triesKey = hasUnlimitedTries ? 'unlimited_tries' : 'limited_tries'
     return {
-      infoKeys: ['wiki', 'real_life_examples', triesKey, 'alone', 'read_carefully', 'multiple_choice', 'comment', 'pause', 'feedback'],
       isTimed: undefined,
       isFetching: false,
       status: null,
@@ -105,6 +103,23 @@ export default {
     }
   },
   computed: {
+    infos () {
+      const hasUnlimitedTries = this.quizId === QUIZ_ID.HYGIENE
+      const triesKey = { key: hasUnlimitedTries ? 'unlimited_tries' : 'limited_tries', icon: 'redo' }
+      const timed = this.isTimed ? [{ key: 'timed', icon: 'hourglass-half' }] : []
+      return [
+        { key: 'wiki', icon: 'lightbulb' },
+        { key: 'real_life_examples', icon: 'people-carry' },
+        triesKey,
+        { key: 'alone', icon: 'users-slash' },
+        { key: 'read_carefully', icon: 'book-open' },
+        { key: 'multiple_choice', icon: 'tasks' },
+        { key: 'comment', icon: 'comment-dots' },
+        ...timed,
+        { key: 'pause', icon: 'pause-circle' },
+        { key: 'feedback', icon: 'poll-h' },
+      ]
+    },
     isReady () {
       return this.status && this.quiz
     },
@@ -158,3 +173,16 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.info-list {
+  list-style-type: none;
+  > li {
+    position: relative;
+    > .fas {
+      position: absolute;
+      left: -1.5em;
+      top: 2px;
+    }
+  }
+}
+</style>
