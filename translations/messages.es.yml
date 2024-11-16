@@ -2410,6 +2410,10 @@ profile:
   sleeping_info_from_until: hace una pausa del {from} al {until}
   choosereasonnostore: No afecta ningún negocio
   chooseantherstore: Se trata de una empresa que no cotiza en bolsa
+  homeDistrictHistory:
+    changed: registrado
+    by: de
+    previous: antes de
 home:
   title: 'Pagina de inicio'
   home: 'Inicio'
