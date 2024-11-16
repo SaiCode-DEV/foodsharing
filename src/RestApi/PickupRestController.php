@@ -439,7 +439,7 @@ final class PickupRestController extends AbstractFOSRestController
 
     /**
      * Get past pickups of a user.
-     * Might be restricted to the last month depending on the permissions.
+     * Might be restricted (to the last month or one entry at least) depending on the permissions.
      *
      * @OA\Tag(name="pickup")
      */
@@ -464,6 +464,9 @@ final class PickupRestController extends AbstractFOSRestController
         $maySeeFullHistory = $this->profilePermissions->maySeeAllPickups($fsId);
 
         $pickups = $this->pickupGateway->getPastPickups($fsId, $page, $pageSize, $maySeeFullHistory);
+        if (!$maySeeFullHistory && empty($pickups) && $page === 0) {
+            $pickups = $this->pickupGateway->getPastPickups($fsId, 0, 1, true);
+        }
 
         $pickups = array_map(fn ($pickup) => [
             'date' => RestNormalization::normalizeDate($pickup['timestamp']),

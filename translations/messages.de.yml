@@ -2232,6 +2232,10 @@ profile:
   go: "Profil aufrufen"
   notFound: "Dieses Nutzerprofil gibt es nicht oder nicht mehr"
   warning: "Warnung"
+  homeDistrictHistory:
+    changed: "eingetragen"
+    by: "von"
+    previous: "vorher"
   sections:
     orga_rights: "##### hat als Orga-Mensch [weitreichende Berechtigungen]({wikiurl}) auf der Plattform."
     ambassador_for: "für"

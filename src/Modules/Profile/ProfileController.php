@@ -336,9 +336,11 @@ final class ProfileController extends FoodsharingController
         $history = [];
 
         if ($this->profilePermissions->maySeeHistory($userArray['id']) && !empty($userArray['home_district_history'])) {
-            $history['homeDistrictHistoryChangerId'] = $userArray['home_district_history']['changer_id'];
-            $history['homeDistrictHistoryChangerFullName'] = $userArray['home_district_history']['changer_full_name'];
-            $history['homeDistrictHistoryDate'] = $userArray['home_district_history']['date'];
+            $history['changerId'] = $userArray['home_district_history']['changer_id'];
+            $history['changerFullName'] = $userArray['home_district_history']['changer_full_name'];
+            $history['date'] = $userArray['home_district_history']['date'];
+            $history['previousRegionId'] = intval($userArray['home_district_history']['old_region']);
+            $history['previousRegionName'] = $userArray['home_district_history']['old_region_name'];
         }
 
         return $history;
