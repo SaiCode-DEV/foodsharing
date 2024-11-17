@@ -3525,7 +3525,7 @@ quiz:
         to forsøk til. Spørsmålene du blir stilt i hvert forsøk, er forskjellige.
       alone: Du har ikke lov til å bli hjulpet under quizen. Finn derfor et rolig
         sted hvor du kan ta quizen uforstyrret.
-      read_carefully: Les alle spørsmål og svar nøye. Det er nok tid til det.
+      read_carefully: Les alle spørsmål og svar nøye.
       multiple_choice: Flere svar per spørsmål kan være riktige – eller ingen i det
         hele tatt. Avgjør derfor for hvert enkelt svar om det er riktig eller feil.
       comment: Etter at du har svart på hvert spørsmål, vil du se en mellomevaluering
@@ -3558,7 +3558,7 @@ quiz:
     label: kommentere spørsmålet
     wallTitle: 'kommentarer til spørsmål #{id}'
   answers:
-    name: svar
+    name: Svarene
     neutral: Nøytralt svar – vil ikke bli vurdert.
     false_false: Dette svaret var selvsagt feil. Du innså det helt riktig.
     false_true: Dette svaret ville vært riktig.
@@ -3703,16 +3703,16 @@ quiz:
     disqualifiedAfter: Du har bare ett siste forsøk på å bestå denne quizen! Hvis
       du stryker nå, vil du bli permanent diskvalifisert fra denne quizen. Du må bare
       delta hvis du har satt deg grundig inn i innholdet i wikien.
-    neverTried: Du har aldri tatt denne quizen før. Ta deg tid til å lese alle wiki-artiklene
+    neverTried: Du har aldri tatt denne quizen før. Ta deg tid til å lese alle artiklene
       nøye, slik at du er forberedt på spørsmålene som stilles.
     running: Du har allerede startet quizen og besvart {questionsAnswered} av {questionCount}
       spørsmål så langt.
     failed: Dessverre klarte du ikke denne prøven på ditt siste forsøk.
     passed: Du har bestått denne testen.
-    noWaitAfter: Ta en titt på de relevante wiki-artiklene og prøv igjen.
+    noWaitAfter: Ta en titt på de relevante artiklene og prøv igjen.
     waitAfter: Hvis du mislykkes på neste forsøk, må du ta en {waitTimeAfterFailure}-dagers
-      pause for å studere på nytt. Sørg for å sjekke ut de relevante wiki-artiklene
-      slik at du kan bestå quizen.
+      pause for å studere på nytt. Sørg for å sjekke ut de relevante artiklene slik
+      at du kan bestå quizen.
     pause: Du har strøket på denne testen flere ganger. Pålitelighet, god forståelse
       av reglene og en profesjonell opptreden er avgjørende ved foodsharing. Dessverre
       formidler ikke svarene dine dette for øyeblikket. Du vil derfor få en studiepause
