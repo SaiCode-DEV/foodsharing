@@ -844,6 +844,10 @@ profile:
   sleeping_info_from_until: is inactive from {from} to {until}
   choosereasonnostore: Is not related to any store
   chooseantherstore: Related to a store that is not in the list
+  homeDistrictHistory:
+    changed: entered
+    by: by
+    previous: previous
 test:
   plain: This is a nice translation
   vars: 'My name is {NAME} and I am {AGE} years old'
@@ -3653,17 +3657,18 @@ quiz:
     infos:
       real_life_examples: Most of the questions are based on real cases from foodsharing
         life.
-      alone: You are not allowed to be helped during the quiz. Therefore, find a quiet
-        place where you can take the quiz undisturbed.
-      read_carefully: Read all questions and answers carefully. There is enough time
-        for that.
+      alone: You have to complete the quiz yourself and without any outside help.
+        If you have language difficulties or need assistance, another person can of
+        course help you understand the questions; however, you must be able to answer
+        them on your own. So find a quiet place where you can do the quiz without
+        being disturbed.
+      read_carefully: Read all questions and answers carefully.
       pause: You can pause the quiz after each question and resume it at a later time.
       feedback: At the end of the quiz you will receive an immediate evaluation of
         whether you passed and what mistakes you made and where. Here you can read
         through the reasons again at your leisure.
-      wiki: Please do not start the quiz at random. Read the pages listed on the foodsharing
-        wiki carefully beforehand. Without the knowledge from the wiki you will not
-        pass the quiz.
+      wiki: Please do not start the quiz on a whim. Read the information pages carefully
+        beforehand. Without the necessary prior knowledge, you may not pass the quiz.
       multiple_choice: There may be several correct answers per question — or none.
         Therefore, decide for each answer individually whether it is right or wrong.
       limited_tries: You cannot repeat the quiz as many times as you want. After three
@@ -3671,13 +3676,18 @@ quiz:
         have two more attempts. The questions you will be asked in each attempt are
         different.
       comment: After answering each question, you will see an interim evaluation with
-        explanations for each of the answer options. This helps to understand which
-        answer is right or wrong and why. For each error, you should read the explanations
-        carefully. If something seems illogical, incomprehensible or even wrong, please
-        leave a comment.
+        explanations for each possible answer. This helps you to understand which
+        answer is right or wrong and why. If you make a mistake, you should read the
+        explanations carefully. If something seems illogical, incomprehensible or
+        even wrong, please leave a comment. Your comments can be assigned to you in
+        order to give you individual feedback.
       unlimited_tries: You can repeat this quiz as often as you like and will never
         be disqualified if you fail. However, you may have to take a break between
         attempts.
+      timed: The time to answer the questions is limited. Don’t let that stress you
+        out. The time is set individually for each question so that you have enough
+        time to answer the question calmly. If you do run out of time, let the quiz
+        admins know with a comment.
     title: Quiz notes
     acceptPrivacyNotice: I agree.
     privacyNotice:
@@ -3853,15 +3863,15 @@ quiz:
       take this quiz again.
     expired: However, your last quiz attempt is no longer valid.
     neverTried: You have never taken this quiz before. Take the time to read through
-      all of the Wiki articles listed so that you are prepared for the questions.
+      all of the information listed so that you are prepared for the questions.
     running: You have already started the quiz and answered {questionsAnswered} of
       {questionCount} questions so far.
     passed: You have passed this quiz.
     failed: Unfortunately, you did not pass this quiz on your last attempt.
-    noWaitAfter: Take another look at the relevant Wiki articles and try again.
+    noWaitAfter: Take another look at the relevant curriculum and try again.
     waitAfter: If you do not pass on your next attempt, you will have to take a {waitTimeAfterFailure}-day
-      break to study again. Be sure to check the relevant Wiki articles so that you
-      can pass the quiz.
+      break to study again. Be sure to check the relevant knowledge so that you can
+      pass the quiz.
     pauseElapsed: Your study break is over. You can now take the quiz again. Hopefully
       you have used the time to familiarize yourself better with the content.
     disqualifiedAfter: You only have one last attempt to pass this quiz! If you fail
