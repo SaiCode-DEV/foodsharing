@@ -1417,7 +1417,7 @@ email_template:
   login: Accedi per rispondere
   foodbasket_request: Il tuo cesto di cibo è stato richiesto da %SENDER%
   help_needed:
-    support_mail: it@foodsharing.network
+    support_mail: support@foodsharing.network
     or: o
     link: https://devdocs.foodsharing.network/
     main: Per rivedere questa funzione, abbiamo bisogno del supporto di altri programmatori,

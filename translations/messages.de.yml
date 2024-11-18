@@ -2966,7 +2966,7 @@ email_template:
     main: "Um diese Funktion zu überarbeiten, benötigen wir die Unterstützung weiterer Programmierer:innen, Tester:innen und Helfer:innen aus deinem Bezirk."
     link: "https://devdocs.foodsharing.network/it-tasks.html"
     or: "oder"
-    support_mail: "it@foodsharing.network"
+    support_mail: "support@foodsharing.network"
   foodbasket_request: "Dein Essenskorb wurde von %SENDER% angefragt"
 
 buddy:
@@ -3558,7 +3558,7 @@ notifications:
     cancel: "Nicht aktivieren"
     content: |
       Damit du schneller mitbekommst, wenn andere Foodsaver:innen dir Nachrichten schicken, kannst du auf diesem Gerät Push-Benachrichtigungen aktivieren!
-      
+
       In deinen [Benachichtigungseinstellungen](/?page=settings&sub=info) kannst du diese Benachrichtigungen jeder Zeit wieder abschalten.
     dontAskAgain: "Nicht wieder fragen"
 
@@ -3758,7 +3758,7 @@ help:
 
         ---
 
-        Wichtig zu beachten: Diese Funktion basiert nur auf den foodsharing-eigenen Hygienevermerken. Weder im Profil hochgeladene Hygienezertifikate externer Anbieter (wie bspw. Metro), noch anderweitig vermerkte Hygieneschulungen werden technisch berücksichtigt. 
+        Wichtig zu beachten: Diese Funktion basiert nur auf den foodsharing-eigenen Hygienevermerken. Weder im Profil hochgeladene Hygienezertifikate externer Anbieter (wie bspw. Metro), noch anderweitig vermerkte Hygieneschulungen werden technisch berücksichtigt.
 team_page:
   board_member:
     title: "Vorstand"

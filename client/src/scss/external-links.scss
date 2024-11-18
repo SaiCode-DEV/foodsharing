@@ -4,7 +4,7 @@ a[href]:not(:where(
   /* exclude relative but not double slash only links */
   [href^="/"]:not([href^="//"]),
   /* domains to exclude */
-  [href*="//foodsharing."]:not([href*="//foodsharing.freshdesk"]),
+  [href*="//foodsharing."]:not([href*="//support.foodsharing."]),
   [href*="//www.foodsharing."],
   [href*="//beta.foodsharing."],
   /* exclude mailto and phone numbers*/

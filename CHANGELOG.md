@@ -66,7 +66,7 @@
 - Use input date browser support for birthdate input in RegisterBirthdate.vue and ProfileSettings.vue !3738 @chriswalg
 - Use https for calendar api requests #2177 !3775 @AntonBallmaier
 - Bananas can only be recieved or given by verified users #2161 !3779 @AntonBallmaier 
-- Update support link !3778
+- Update support link !3778 !3803 @McGoldi
 - Shuffle question answers for quiz tries. #2199 !3796 @AntonBallmaier
 - Rename achievements in German from "Errungenschaften" to "Vermerke" #2202 !3795 @AntonBallmaier
 
@@ -1050,7 +1050,7 @@
 - Improve wording in German texts, to make the language more consistent, clear, and inclusive in some places. !1959 @blinry @Claraaa @alex.simm @fs_k
 - Display same-day pickups when confirming to sign into a pickup slot !1827 !2040 @ChrisOelmueller
 - Show membership in profile for workgroups !1988 !1996 @chriswalg
-- IT-Support Admins can delete bananas upon request over it@foodsharing.network. !2002 @fs_k
+- IT-Support Admins can delete bananas upon request over support@foodsharing.network. !2002 @fs_k
 - Added a user search field to the store management panel !2007 !2033 @alex.simm
 - New calendar API including token management #80 !1719 !2029 !2045 @alex.simm
 - Set iCalendar status for exported pickup events !2030 @iron9

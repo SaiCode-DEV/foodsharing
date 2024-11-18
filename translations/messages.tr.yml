@@ -2366,7 +2366,7 @@ email_template:
       ve yardımcıların desteğine ihtiyacımız var.
     or: veya
     link: https://devdocs.foodsharing.network/
-    support_mail: it@foodsharing.network
+    support_mail: support@foodsharing.network
   reply: Cevaplayınız
   warning: Uyarı
   unknown_email: Bilinmeyen e-posta adresi

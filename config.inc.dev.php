@@ -22,7 +22,7 @@ define('BASE_URL', $protocol . '://' . $host);
 define('VERSION', '0.8.3');
 
 define('DEFAULT_EMAIL', 'no-reply@foodsharing.network');
-define('SUPPORT_EMAIL', 'it@foodsharing.network');
+define('SUPPORT_EMAIL', 'support@foodsharing.network');
 define('DEFAULT_EMAIL_NAME', 'Foodsharing');
 define('EMAIL_PUBLIC', 'info@foodsharing.de');
 define('EMAIL_PUBLIC_NAME', 'Foodsharing');

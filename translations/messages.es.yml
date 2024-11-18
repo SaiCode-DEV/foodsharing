@@ -3819,7 +3819,7 @@ storelist:
   actions: Acciones
 email_template:
   help_needed:
-    support_mail: 'it@foodsharing.network (en alemán/inglés)'
+    support_mail: 'support@foodsharing.network (en alemán/inglés)'
     main: 'Para revisar esta función, necesitamos el apoyo de más programador@s, evaluador@s
       y ayudantes adicionales de su distrito en TI.'
     link: 'https://devdocs.foodsharing.network/'

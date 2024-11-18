@@ -1725,7 +1725,7 @@ buddy:
     confirm_title: End your acquaintance with {name}?
 email_template:
   help_needed:
-    support_mail: it@foodsharing.network
+    support_mail: support@foodsharing.network
     or: or
     link: https://devdocs.foodsharing.network/
     main: To revise this function, we need the support of other programmers, testers

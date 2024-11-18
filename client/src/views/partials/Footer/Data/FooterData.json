@@ -32,7 +32,7 @@
     "title": "menu.entry.background",
     "items": [
       {
-        "url": "freshdesk",
+        "url": "helpdesk",
         "title": "menu.entry.support",
         "target": "_blank"
       },

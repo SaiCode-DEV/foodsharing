@@ -114,7 +114,7 @@ export default {
           },
           {
             text: 'error.mail_bounce.link_2',
-            urlShortHand: 'freshdesk_locked_email',
+            urlShortHand: 'helpdesk_locked_email',
           }],
         })
       }

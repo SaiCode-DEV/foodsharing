@@ -162,9 +162,9 @@ const urls = {
   mailto_mail_foodsharing_network: (mail) => `mailto:${mail}@foodsharing.network`,
   mailto_mail: (mail) => `mailto:${mail}`,
 
-  // freshdesk support
-  freshdesk: () => 'https://foodsharing.freshdesk.com/support/home',
-  freshdesk_locked_email: () => 'https://foodsharing.freshdesk.com/support/solutions/articles/77000299947-e-mail-sperre-im-profil',
+  // helpdesk support
+  helpdesk: () => 'https://support.foodsharing.network/kb',
+  helpdesk_locked_email: () => 'https://support.foodsharing.network/help/de-de/4-e-mail/16-e-mail-sperre-im-profil',
 
   // wiki
   wiki: () => 'https://wiki.foodsharing.de/',

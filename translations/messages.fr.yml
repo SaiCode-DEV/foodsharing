@@ -651,7 +651,7 @@ email_template:
     or: ou
     main: Pour modifier cette fonction, nous aurions besoin de plus de programmateur·ice·s,
       de testeur·euse·s et d’aide de ton secteur géographique.
-    support_mail: it@foodsharing.network (en allemand/anglais)
+    support_mail: support@foodsharing.network (en allemand/anglais)
     link: https://devdocs.foodsharing.network/
   dont_respond:
     you_can: Tu peux ci-dessous choisir
