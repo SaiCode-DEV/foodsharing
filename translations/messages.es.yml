@@ -893,7 +893,7 @@ startpage:
   call_to_action_button: 'Únete ahora'
   registernow: 'Regístrate ahora'
   how_we_work:
-    title: 'Así es como funciona'
+    title: '¿Cómo funciona?'
     text: 'Todo esto se hace de forma voluntaria y gratuita, de forma independiente
       y sin publicidad.
 
@@ -988,7 +988,7 @@ startpage:
     compartir alimentos. Podéis reuniros allí o en otros lugares neutrales para compartir.
     Si deseas dar o recibir comida, por favor sé confiable y puntual y no decepciones
     a nadie.'
-  this_is_how_it_works: 'Así es como funciona'
+  this_is_how_it_works: 'Funcionamiento'
   followrules_title: Sigue las normas y la guía para compartir alimentos
   followrules: "Señalamos expresamente que, por motivos legales, sólo permitimos ofrecer
     y compartir determinados alimentos y otros bienes\nsólo en determinadas condiciones
@@ -1584,8 +1584,8 @@ store:
       la decisión sobre tu candidatura.
     application-message: Mensaje de aplicación
     application-placeholder: Me gustaría ayudar en este equipo porque...
-    hygieneRequired: Se requiere una nota de higiene válida válida para las recogidas
-      de esta empresa.
+    hygieneRequired: Se requiere una nota de higiene válida para las recogidas de
+      esta empresa.
     hygieneMissing: Eso es lo que te estás perdiendo actualmente. Responda el cuestionario
       de higiene ahora para postularse para este equipo.
   all_of_my_stores: 'Todas mis empresas'
@@ -4508,18 +4508,18 @@ help:
       title: Derecho a votar
     hygieneRequirement:
       md: "Para la recogida en algunos establecimientos, los conservadores de alimentos
-        deben recibir formación en higiene alimentaria. Si esta función está activada
-        para una organización, esto tiene las siguientes consecuencias\n1. los ahorradores
-        de alimentos que no tengan una formación válida en higiene no podrán inscribirse
-        en el equipo de la granja.\n2. los ahorradores de alimentos que ya formen
-        parte del equipo sólo podrán inscribirse en las franjas horarias en las que
-        su formación en higiene siga siendo válida en ese momento.\n\nEn ambos casos,
-        se mostrará una nota explicando que falta la formación en higiene para esta
-        acción. La formación en higiene también se vincula directamente en cada caso.\n
-        \n---\n\nImportante: Esta función sólo se basa en las notas de higiene propias
-        de foodsharing. No se aceptan certificados de higiene de proveedores externos
-        (p. ej. Metro) cargados en el perfil ni cursos de formación en higiene anotados
-        en otro lugar. \n"
+        deben tener una formación en higiene alimentaria. Si esta función está activada
+        para un establecimiento, esto tiene los siguientes efectos:\n1. los ahorradores
+        de comida sin formación válida en higiene no pueden inscribirse en el equipo
+        del establecimiento.\n2. los restauradores que ya formen parte del equipo
+        sólo podrán inscribirse en las franjas horarias en las que su formación en
+        higiene siga siendo válida en ese momento.\n\nEn ambos casos, se mostrará
+        una nota explicando que falta la formación en higiene para esta acción. La
+        formación en higiene también se vincula directamente en cada caso.\n\n---\n
+        \nImportante: Esta función solo se basa en las notas de higiene propias de
+        foodsharing. Técnicamente, no se tienen en cuenta ni los certificados de higiene
+        de proveedores externos (por ejemplo, Metro) cargados en el perfil ni los
+        cursos de formación en higiene anotados en otro lugar.\n"
       title: Requisitos de higiene para las empresas
 team_page:
   board_member:
