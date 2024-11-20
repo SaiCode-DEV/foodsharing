@@ -89,7 +89,7 @@ class QuizGateway extends BaseGateway
                 hq.quiz_id
 			FROM fs_question q
 			LEFT JOIN fs_question_has_quiz hq ON hq.question_id = q.id
-			WHERE hq.quiz_id = :quizId AND hq.fp = :fp
+			WHERE hq.quiz_id = :quizId AND hq.fp = :fp AND q.is_mandatory = 0
             ORDER BY RAND()
 			LIMIT :count
 		', [':quizId' => $quizId, ':fp' => $failurePoints, ':count' => $count]);

@@ -70,17 +70,16 @@ class QuizTransactions
     {
         $questions = $this->quizGateway->getMandatoryQuestions($quizId);
         $count -= count($questions);
-        if ($count <= 0) {
-            return $questions;
-        }
-        $fpCounts = $this->quizGateway->getQuestionCountByFailurePoints($quizId);
-        $total = array_reduce($fpCounts, fn ($a, $b) => $b['count'] + $a, 0);
-        $carryOver = 0;
-        foreach ($fpCounts as &$fpCount) {
-            $numQuestions = $fpCount['count'] / $total * $count + $carryOver;
-            $rounded = (int)round($numQuestions);
-            $carryOver = $numQuestions - $rounded;
-            array_push($questions, ...$this->quizGateway->getRandomQuestions($rounded, $fpCount['fp'], $quizId));
+        if ($count > 0) {
+            $fpCounts = $this->quizGateway->getQuestionCountByFailurePoints($quizId);
+            $total = array_reduce($fpCounts, fn ($a, $b) => $b['count'] + $a, 0);
+            $carryOver = 0;
+            foreach ($fpCounts as &$fpCount) {
+                $numQuestions = $fpCount['count'] / $total * $count + $carryOver;
+                $rounded = (int)round($numQuestions);
+                $carryOver = $numQuestions - $rounded;
+                array_push($questions, ...$this->quizGateway->getRandomQuestions($rounded, $fpCount['fp'], $quizId));
+            }
         }
         foreach ($questions as &$question) {
             $question->answers = $this->quizGateway->getAnswers($question->id);

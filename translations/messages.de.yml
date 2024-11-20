@@ -197,7 +197,7 @@ quiz:
       pause: Du kannst das Quiz nach jeder Frage pausieren und zu einem späteren Zeitpunkt fortsetzen.
       feedback: Am Ende des Quizzes bekommst du direkt eine Auswertung, ob du bestanden hast und welche Fehler du wo gemacht hast. Hier kannst du nocheinmal in Ruhe die Begründungen durchlesen.
     privacyNotice:
-      hygiene: Wenn du dieses Quiz bestehst, wird gespeichert, wann dir das gelungen ist und dir wird ein Hygienevermerk vergeben. Hygiene-Verantwortliche und Mitglieder deiner Betriebsteams können sehen, ob du einen gültigen Hygienevermerk hast.
+      hygiene: Wenn du dieses Quiz bestehst, wird gespeichert, wann dir das gelungen ist und dir wird ein Hygienevermerk vergeben. Hygiene- und Betriebsverantwortliche können sehen, ob du einen gültigen Hygienevermerk hast.
     acceptPrivacyNotice: Ich bin einverstanden.
   infomodal:
     title: "Frage {index} von {questions}"
@@ -213,7 +213,7 @@ quiz:
     name: Antworten
     none_correct: Keine Antwort ist korrekt.
     neutral: Neutrale Antwort - wird nicht gewertet.
-    false_false: Diese Antwort war natürlich falsch. Das hast Du richtig erkannt.
+    false_false: Diese Antwort war falsch. Das hast Du richtig erkannt.
     false_true: Diese Antwort wäre richtig gewesen.
     true_false: Falsch! Diese Antwort stimmt nicht.
     true_true: Richtig! Diese Antwort stimmt.

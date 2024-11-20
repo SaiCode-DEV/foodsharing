@@ -52,6 +52,6 @@ final class AchievementPermissions
 
     public function maySeeUserAchievements($userId): bool
     {
-        return $userId === $this->session->id() || $this->session->mayRole(Role::ORGA);
+        return $userId === $this->session->id() || $this->session->mayRole(Role::STORE_MANAGER);
     }
 }
