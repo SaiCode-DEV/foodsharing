@@ -100,7 +100,7 @@
 - Fixed bug that resulted in showing profile setting button on unverified profiles to unpermitted users. #2171 !3773 @AntonBallmaier 
 
 ## Refactoring
-- Added computed column `is_sleeping` for `fs_foodsaver` !3437 @AntonBallmaier
+- Added computed column `is_sleeping` for `fs_foodsaver` #2198 !3437 !3809 @AntonBallmaier
 - Added an enum for wall types in the backend #1996 !3573 @alex.simm
 - Handle store walls like all other walls #2010 !3577 @AntonBallmaier
 - Bananas now use the API !3581 @AntonBallmaier

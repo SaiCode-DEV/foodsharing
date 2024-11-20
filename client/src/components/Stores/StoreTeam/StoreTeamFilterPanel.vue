@@ -60,7 +60,7 @@ export default {
         [STORE_TEAM_STATE.JUMPER]: member => member.isJumper,
         [STORE_TEAM_STATE.UNVERIFIED]: member => !member.isVerified,
         [STORE_TEAM_STATE.MANAGE_ROLE]: member => member.mayManage,
-        [STORE_TEAM_STATE.SLEEPING]: member => member.sleepStatus,
+        [STORE_TEAM_STATE.SLEEPING]: member => member.isSleeping,
         [STORE_TEAM_STATE.HYGIENE]: member => member.hasHygieneCertificateUntil,
       },
     }
