@@ -2921,6 +2921,7 @@ sidenav:
   localgroups: "Regionale Gruppen"
   yourregions: "Deine Bezirke"
   yourgroups: "Deine Gruppen"
+  countryspecific: "Landesweite Gruppen"
 
 base:
   whatfor: "Auf foodsharing.de kannst du deine Lebensmittel vor dem Verfall an soziale Einrichtungen oder andere Personen abgeben"
