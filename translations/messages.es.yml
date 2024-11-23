@@ -3209,6 +3209,8 @@ mailbox:
     attach: Archivos adjuntos (máximo 1,5 MB por archivo)
     too_large_to_send: Algunos de los archivos eran demasiado grandes y no se podían
       adjuntar al correo electrónico.
+    too_many: Se han seleccionado demasiados archivos. Se puede adjuntar un máximo
+      de 10 archivos al correo electrónico.
   move_to: Mover a
   close_edit_mode: Dejar de editar
   add: Agregar
