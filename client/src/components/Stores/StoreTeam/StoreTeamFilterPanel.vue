@@ -3,6 +3,7 @@
     <div class="mb-2 d-flex">
       <b-form-input
         v-model="userSearchString"
+        type="search"
         size="sm"
         class="mr-2"
         :placeholder="$i18n('store.team.search_input')"

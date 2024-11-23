@@ -18,7 +18,7 @@
   >
     <input
       ref="input"
-      type="text"
+      type="search"
       class="form-control with-border"
       :placeholder="placeholder"
     >

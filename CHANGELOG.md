@@ -70,6 +70,7 @@
 - Update support link !3778 !3803 @McGoldi
 - Shuffle question answers for quiz tries. #2199 !3796 @AntonBallmaier
 - Rename achievements in German from "Errungenschaften" to "Vermerke" #2202 !3795 @AntonBallmaier
+- Disable autocomplete on search inputs in store member list !3805 @iron9
 
 ## Bugfixes
 - Resolve quoted string is not parsed correctly in mail address #2142 !3757 @anja0884
