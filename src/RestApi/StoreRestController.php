@@ -11,6 +11,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
+use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
@@ -817,7 +818,7 @@ class StoreRestController extends AbstractFoodsharingRestController
     private function extendStoreLogWithFoodsaverProfilData(int $storeId, array $storeLogEntries): array
     {
         $storeTeam = [];
-        foreach ($this->storeGateway->getStoreTeam($storeId) as $teamMember) {
+        foreach ($this->storeGateway->getStoreTeam($storeId, [MembershipStatus::MEMBER, MembershipStatus::JUMPER]) as $teamMember) {
             $foodsaverId = $teamMember['id'];
             $storeTeam[$foodsaverId] = RestNormalization::normalizeUser($teamMember);
         }
