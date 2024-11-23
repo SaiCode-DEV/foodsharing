@@ -12,6 +12,7 @@
       :conceal-toolbar="true"
       :value="publicInfoData"
       :state="publicInfoState"
+      :disabled="disabled"
       @update:value="newValue => updatePublicInfo(newValue)"
     />
     <span>{{ $i18n('storeview.public_info.available_count') }}: {{ MAX_LEN_FOR_PUBLIC_INFO() - publicInfoData.length }}</span>
@@ -27,6 +28,7 @@ export default {
   components: { MarkdownInput },
   props: {
     publicInfo: { type: String, default: '' },
+    disabled: { type: Boolean, default: false },
   },
   data () {
     return {

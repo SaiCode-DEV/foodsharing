@@ -21,7 +21,11 @@
               :disabled="!editMode"
             />
           </b-form-group>
-          <PublicInfo :public-info="store.publicInfo" @update:public-info="updatePublicInfo" />
+          <PublicInfo
+            :public-info="store.publicInfo"
+            :disabled="!editMode"
+            @update:public-info="updatePublicInfo"
+          />
         </b-card-text>
       </b-tab>
       <b-tab
@@ -99,6 +103,7 @@
             <b-button
               variant="primary"
               class="ml-4"
+              :disabled="!editMode"
               @click="openChainSearchPicker"
             >
               {{ $i18n('storeview.choose_chain') }}
