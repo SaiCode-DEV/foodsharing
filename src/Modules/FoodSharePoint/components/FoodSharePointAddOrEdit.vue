@@ -125,6 +125,7 @@ import { addFoodSharePoint, deleteFoodSharePoint, getFoodSharePoint, updateFoodS
 import FileUpload from '@/components/upload/FileUpload.vue'
 import LeafletLocationSearch from '@/components/map/LeafletLocationSearch.vue'
 import { useUserStore } from '@/stores/user'
+import { getRegionData } from '@/api/regions'
 
 const regionStore = useRegionStore()
 const userStore = useUserStore()
@@ -274,11 +275,21 @@ function onAddressChanged (coordinates, street, postalCode, city) {
   formData.value.city = city
 }
 
+const additionalRegionOption = ref(null)
 const regionOptions = computed(() => {
-  return regionStore.accessibleRegions.map(region => ({
+  const options = regionStore.accessibleRegions.map(region => ({
     value: region.id,
     text: region.name,
   }))
+
+  // Make sure the current region is added as an option
+  if (additionalRegionOption.value && !options.some(option => option.value === additionalRegionOption.value.id)) {
+    options.unshift({
+      value: additionalRegionOption.value.id,
+      text: additionalRegionOption.value.name,
+    })
+  }
+  return options
 })
 
 onMounted(async () => {
@@ -304,5 +315,9 @@ onMounted(async () => {
     hideLoader()
     isLoading.value = false
   })
+  await userStore.fetchDetails()
+  if (formData.value.regionId && userStore.isOrga) {
+    additionalRegionOption.value = await getRegionData(formData.value.regionId)
+  }
 })
 </script>

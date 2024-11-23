@@ -98,7 +98,8 @@
 - Fixed address requests to Geoapify for all languages #2184 !3772 @alex.simm
 - Fix short term fill ins counting #1597 !3774 @AntonBallmaier
 - Fixed server error when fetching search index #2185 !3777 @AntonBallmaier
-- Fixed bug that resulted in showing profile setting button on unverified profiles to unpermitted users. #2171 !3773 @AntonBallmaier
+- Fixed bug that resulted in showing profile setting button on unverified profiles to unpermitted users. #2171 !3773 @AntonBallmaier 
+- Fixed problems for orgas editing food share points from outside their regions. #2216 !3816 @AntonBallmaier
 - Added missing translation key #2213 !3815 @AntonBallmaier
 
 ## Refactoring

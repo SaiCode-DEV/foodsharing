@@ -16,7 +16,7 @@ export const useUserStore = defineStore('user', {
     user: serverData.user,
     permissions: serverData.permissions,
     isLoggedIn: serverData.user?.id !== null,
-    fetching: new Set(),
+    fetching: {},
   }),
   getters: {
     isSleeping: (state) => state.details?.isSleeping,
@@ -58,8 +58,9 @@ export const useUserStore = defineStore('user', {
   },
   actions: {
     async fetchDetails () {
-      if (this.fetching.has('details')) return
-      this.fetching.add('details')
+      if ('details' in this.fetching) return this.fetching.details
+      let resolver
+      this.fetching.details = new Promise(resolve => { resolver = resolve })
       const cacheRequestName = 'userDetails'
       try {
         if (await getCacheInterval(cacheRequestName, userDetailsRateLimitInterval)) {
@@ -71,7 +72,8 @@ export const useUserStore = defineStore('user', {
       } catch (e) {
         console.error('Error fetching user details:', e)
       }
-      this.fetching.delete('details')
+      delete this.fetching.details
+      resolver()
     },
     async fetchMailUnreadCount () {
       const cacheRequestName = 'mailUnreadCount'
