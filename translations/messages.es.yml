@@ -3206,7 +3206,7 @@ mailbox:
   attachment:
     not_found_explanation: El archivo adjunto no se pudo encontrar en el servidor
     not_found: extraviado
-    attach: Archivos adjuntos (máximo 1,5 MB por archivo)
+    attach: Archivos adjuntos (máximo 10 archivos, 1,5 MB por archivo)
     too_large_to_send: Algunos de los archivos eran demasiado grandes y no se podían
       adjuntar al correo electrónico.
     too_many: Se han seleccionado demasiados archivos. Se puede adjuntar un máximo
