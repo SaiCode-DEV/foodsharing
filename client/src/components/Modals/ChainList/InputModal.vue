@@ -172,10 +172,11 @@
         label-align-sm="right"
         :description="$i18n('chain.inputmodal.inputs.details.description')"
       >
-        <b-form-textarea
+        <MarkdownInput
           id="details-input"
-          v-model="input.commonStoreInformation"
-          rows="1"
+          :value.sync="input.commonStoreInformation"
+          variant="outline-primary"
+          :conceal-toolbar="true"
         />
       </b-form-group>
     </form>
@@ -201,9 +202,10 @@
 import { hideLoader, showLoader } from '@/script'
 import ForumSearchInput from '@/components/ForumSearchInput.vue'
 import MultiUserSearchInput from '@/components/MultiUserSearchInput.vue'
+import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 
 export default {
-  components: { ForumSearchInput, MultiUserSearchInput },
+  components: { ForumSearchInput, MultiUserSearchInput, MarkdownInput },
   props: {
     statusFilterOptions: {
       type: Array,
