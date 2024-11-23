@@ -420,7 +420,7 @@ quiz:
     privacyNotice:
       hygiene: Si supera este cuestionario, quedará constancia de que lo ha hecho
         y se le concederá un certificado de higiene. Los responsables de higiene y
-        los miembros de tus equipos podrán comprobar si tienes un certificado válido.
+        operaciones podrán comprobar si tienes un certificado de higiene válido.
   answers:
     timedOut:
       1: Esta respuesta habría sido correcta.
@@ -436,7 +436,7 @@ quiz:
       0: incorrecto
       1: correcto
       2: neutral
-    false_false: Esta respuesta era, por supuesto, incorrecta. Lo ha reconocido correctamente.
+    false_false: Esa respuesta era incorrecta. La has reconocido correctamente.
   general:
     title: Información general
     edit: Editar cuestionario
@@ -4626,3 +4626,16 @@ support_page:
     el uso de la plataforma, problemas técnicos o mensajes de error. Tras enviar el
     formulario, se crea automáticamente un ticket en nuestro sistema. El equipo de
     voluntarios se ocupará de su consulta.
+petition:
+  progressText:
+    8000: ¡Hemos tenido un buen comienzo! ¡Ayúdanos a llegar aún más lejos!
+    15000: ¡La mitad del camino está a la vista! ¡Con tu apoyo, seguimos avanzando!
+    20000: ¡Ya tenemos la mitad de las firmas necesarias! ¡Juntos lo lograremos!
+    30000: Casi llegamos - ¡solo un poco más! ¡Únete a la petición!
+    2000: ¡La petición está en marcha! ¡Con tu apoyo ganaremos fuerza!
+    500: ¡Vamos! ¡Sé uno de los primeros en firmar esta petición!
+    25000: ¡Ya tenemos dos tercios de las firmas necesarias! ¡Juntos lo lograremos!
+    Infinity: ¡Objetivo alcanzado! Nuestra petición está siendo discutida en el Bundestag,
+      ¡y ahora se trata de fortalecer aún más nuestra causa!
+  daysLeft: '{daysLeft} días restantes'
+  link: Acerca de la petición
