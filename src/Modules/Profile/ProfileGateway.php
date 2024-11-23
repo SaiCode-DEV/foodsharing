@@ -3,7 +3,6 @@
 namespace Foodsharing\Modules\Profile;
 
 use Carbon\Carbon;
-use Foodsharing\Lib\WebSocketConnection;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\BasketRequests\Status as RequestStatus;
@@ -18,24 +17,20 @@ use Foodsharing\Utility\WeightHelper;
 
 final class ProfileGateway extends BaseGateway
 {
-    private readonly WebSocketConnection $webSocketConnection;
     private $weightHelper;
 
-    public function __construct(Database $db, WebSocketConnection $webSocketConnection, WeightHelper $weightHelper)
+    public function __construct(Database $db, WeightHelper $weightHelper)
     {
         parent::__construct($db);
-        $this->webSocketConnection = $webSocketConnection;
         $this->weightHelper = $weightHelper;
     }
 
     /**
      * @param int $fsId id of the foodsaver we want the info from
-     * @param int $viewerId id of foodsaver looking for info. Pass -1 to prevent loading profile information of the viewer.
-     * @param bool $mayHandleReports info such as nb. of violations is only retrieved if this is true
      */
-    public function getData(int $fsId, int $viewerId, bool $mayHandleReports): array
+    public function getProfileDetails(int $fsId): array
     {
-        $stm = '
+        return $this->db->fetch('
 			SELECT 	fs.`id`,
 					fs.`bezirk_id`,
 					fs.`position`,
@@ -80,50 +75,66 @@ final class ProfileGateway extends BaseGateway
 			FROM 	fs_foodsaver fs
 
 			WHERE 	fs.id = :fs_id
-			';
-        if (($data = $this->db->fetch($stm, [':fs_id' => $fsId])) === []
-        ) {
-            return [];
-        }
-        $data['online'] = $this->webSocketConnection->isUserOnline($fsId);
+			', [
+                'fs_id' => $fsId,
+        ]);
+    }
 
-        $data['bouched'] = false;
-        $data['bananen'] = false;
-        if ($viewerId != -1) {
-            $stm = 'SELECT 1 FROM `fs_rating` WHERE rater_id = :viewerId AND foodsaver_id = :fs_id';
+    /**
+     * Returns all groups in which the user is an admin / ambassador.
+     *
+     * @param int $userId the user
+     * @param bool $workingGroups whether to list only working groups or all region types except working groups
+     */
+    public function getUserAdminGroups(int $userId, bool $workingGroups): array
+    {
+        $restriction = $workingGroups ? 'bz.type = :type' : 'bz.type != :type';
 
-            try {
-                if ($this->db->fetchValue($stm, [':viewerId' => $viewerId, ':fs_id' => $fsId])) {
-                    $data['bouched'] = true;
-                }
-            } catch (\Exception) {
-                // has to be caught until we can check whether a to be fetched value does really exist.
-            }
-        }
-
-        $data['botschafter'] = false;
-        $data['foodsaver'] = false;
-        $data['orga'] = false;
-
-        if ($mayHandleReports) {
-            $data['violation_count'] = $this->getViolationCount($fsId);
-            $data['note_count'] = $this->getNotesCount($fsId);
-        }
-
-        $stm = '
+        return $this->db->fetchAll('
 			SELECT 	bz.`name`,
 					bz.`id`
 			FROM 	`fs_bezirk` bz,
 					fs_botschafter b
 			WHERE 	b.`bezirk_id` = bz.`id`
 			AND 	b.foodsaver_id = :fs_id
-			AND 	bz.type != 7
-		';
-        if ($bot = $this->db->fetchAll($stm, [':fs_id' => $fsId])) {
-            $data['botschafter'] = $bot;
-        }
+		    AND ' . $restriction, [
+            ':fs_id' => $userId,
+            ':type' => UnitType::WORKING_GROUP
+        ]);
+    }
 
-        $stm = '
+    /**
+     * Returns all working groups in which both the foodsaver and the viewer of the profile are active members.
+     */
+    public function getCommonWorkingGroups(int $userId, int $viewerId): array
+    {
+        return $this->db->fetchAll('
+			SELECT 	bz.name,
+					bz.id
+			FROM 	fs_bezirk bz
+			JOIN    fs_foodsaver_has_bezirk b1
+			ON      b1.bezirk_id = bz.id
+			LEFT JOIN fs_foodsaver_has_bezirk b2
+			ON    	b1.bezirk_id = b2.bezirk_id
+			WHERE 	b1.foodsaver_id = :fs_id
+			AND     b1.active = 1
+			AND 	b2.foodsaver_id = :viewerId
+			AND     b2.active = 1
+			AND     bz.type = :type
+			ORDER BY bz.name
+		', [
+            ':fs_id' => $userId,
+            ':viewerId' => $viewerId,
+            ':type' => UnitType::WORKING_GROUP
+        ]);
+    }
+
+    /**
+     * Returns all regions the user is in, excluding working groups, sorted by their type.
+     */
+    public function getOrderedRegionListForUser(int $userId): array
+    {
+        return $this->db->fetchAll('
 			SELECT 	bz.`name`,
 					bz.`id`,
 			        bz.type
@@ -138,59 +149,19 @@ final class ProfileGateway extends BaseGateway
                 ELSE 3
              END,
              bz.name
-		';
-        if ($fs = $this->db->fetchAll($stm, [':fs_id' => $fsId, ':type' => UnitType::WORKING_GROUP])) {
-            $data['foodsaver'] = $fs;
-        }
+		', [
+            ':fs_id' => $userId,
+            ':type' => UnitType::WORKING_GROUP,
+        ]);
+    }
 
-        // find all working groups in which both the foodsaver and the viewer of the profile are active members
-        $stm = '
-			SELECT 	bz.name,
-					bz.id
-			FROM 	fs_bezirk bz
-			JOIN    fs_foodsaver_has_bezirk b1
-			ON      b1.bezirk_id = bz.id
-			LEFT JOIN fs_foodsaver_has_bezirk b2
-			ON    	b1.bezirk_id = b2.bezirk_id
-			WHERE 	b1.foodsaver_id = :fs_id
-			AND     b1.active = 1
-			AND 	b2.foodsaver_id = :viewerId
-			AND     b2.active = 1
-			AND     bz.type = :type
-			ORDER BY bz.name
-		';
-        if ($fs = $this->db->fetchAll($stm, [
-            ':fs_id' => $fsId,
-            ':viewerId' => $viewerId,
-            ':type' => UnitType::WORKING_GROUP
-        ])) {
-            $data['working_groups'] = $fs;
-        }
-
-        $stm = '
-			SELECT 	bz.`name`,
-					bz.`id`
-			FROM 	`fs_bezirk` bz,
-					fs_botschafter b
-			WHERE 	b.`bezirk_id` = bz.`id`
-			AND 	b.foodsaver_id = :fs_id
-			AND 	bz.type = 7
-			ORDER BY bz.name
-		';
-        if ($orga = $this->db->fetchAll($stm, [':fs_id' => $fsId])) {
-            $data['orga'] = $orga;
-        }
-
-        $data['pic'] = false;
-        if (!empty($data['photo']) && file_exists('images/' . $data['photo'])) {
-            $data['pic'] = [
-                'original' => 'images/' . $data['photo'],
-                'medium' => 'images/130_q_' . $data['photo'],
-                'mini' => 'images/50_q_' . $data['photo'],
-            ];
-        }
-
-        $stm = '
+    /**
+     * Returns the last entry in the user's home region change history. The entry includes the previous region and the
+     * user who caused the change.
+     */
+    public function getHomeRegionHistory(int $userId): array
+    {
+        return $this->db->fetch('
 			SELECT his.date,
 			       his.changer_id,
 			       concat(ch.name," " ,ch.nachname) as changer_full_name,
@@ -203,12 +174,9 @@ final class ProfileGateway extends BaseGateway
 				fs_id = :fs_id and
 				object_name = \'bezirk_id\'
 			order by date desc
-			limit 1';
-        if ($home_district_history = $this->db->fetch($stm, [':fs_id' => $fsId])) {
-            $data['home_district_history'] = $home_district_history;
-        }
-
-        return $data;
+			limit 1', [
+            ':fs_id' => $userId,
+        ]);
     }
 
     public function isUserVerified(int $userId): bool
@@ -216,12 +184,12 @@ final class ProfileGateway extends BaseGateway
         return boolval($this->db->fetchValueByCriteria('fs_foodsaver', 'verified', ['id' => $userId]));
     }
 
-    private function getViolationCount(int $fsId): int
+    public function getViolationCount(int $fsId): int
     {
         return (int)$this->db->count('fs_report', ['foodsaver_id' => $fsId, 'reporttype' => ReportType::LOCAL->value]);
     }
 
-    private function getNotesCount(int $fsId): int
+    public function getNotesCount(int $fsId): int
     {
         $stm = '
 			SELECT
@@ -414,7 +382,7 @@ final class ProfileGateway extends BaseGateway
 			LEFT JOIN fs_foodsaver bot ON pg.bot_id = bot.id
 			WHERE pg.foodsaver_id = :fs_id
 			ORDER BY pg.date
-			DESC 
+			DESC
 			LIMIT 15
 		';
 

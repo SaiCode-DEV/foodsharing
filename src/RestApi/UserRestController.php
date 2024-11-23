@@ -245,7 +245,7 @@ class UserRestController extends AbstractFoodsharingRestController
             throw new UnauthorizedHttpException('');
         }
 
-        $data = $this->profileGateway->getData($this->session->id(), -1, $this->reportPermissions->mayHandleReports());
+        $data = $this->profileGateway->getProfileDetails($this->session->id());
         $normalisedData = $this->normalizeUserDetails($data);
 
         return $this->handleView($this->view($normalisedData, Response::HTTP_OK));

@@ -135,6 +135,7 @@
 - Fully moved StoreUserControl which still handled redirects into its Symfony counterpart !3793 @\_fridtjof_
 - Port the index controller to Symfony !3799 @\_fridtjof_
 - Remove the legacy entrypoint for routing and rendering pages !3799 @\_fridtjof_
+- Removed unnecessary database queries from the user details API endpoint !3807 @alex.simm
 
 ## Dev/Test/CI stuff
 - Improved API tests runtime !3506 @alex.simm

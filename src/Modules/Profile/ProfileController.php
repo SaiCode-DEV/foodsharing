@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Profile;
 use Carbon\Carbon;
 use Exception;
 use Foodsharing\Lib\FoodsharingController;
+use Foodsharing\Lib\WebSocketConnection;
 use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Basket\BasketGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
@@ -40,6 +41,7 @@ final class ProfileController extends FoodsharingController
         private readonly StorePermissions $storePermissions,
         private readonly AchievementPermissions $achievementPermissions,
         private readonly AchievementGateway $achievementGateway,
+        private readonly WebSocketConnection $webSocketConnection,
     ) {
         parent::__construct();
     }
@@ -107,8 +109,8 @@ final class ProfileController extends FoodsharingController
 
     private function createUserArray(int $userId): array
     {
-        $viewerId = $this->session->id() ?? -1;
-        $userArray = $this->profileGateway->getData($userId, $viewerId, $this->reportPermissions->mayHandleReports());
+        $viewerId = $this->session->id();
+        $userArray = $this->profileGateway->getProfileDetails($userId);
 
         $isRemoved = (!$userArray) || isset($userArray['deleted_at']);
         if ($isRemoved) {
@@ -116,7 +118,20 @@ final class ProfileController extends FoodsharingController
             $this->routeHelper->goPageAndExit('dashboard');
         }
 
-        $userArray['buddy'] = $this->profileGateway->buddyStatus($userId, $viewerId);
+        if ($this->reportPermissions->mayHandleReports()) {
+            $userArray['violation_count'] = $this->profileGateway->getViolationCount($userId);
+            $userArray['note_count'] = $this->profileGateway->getNotesCount($userId);
+        }
+        $userArray['botschafter'] = $this->profileGateway->getUserAdminGroups($userId, false);
+        $userArray['orga'] = $this->profileGateway->getUserAdminGroups($userId, true);
+        $userArray['foodsaver'] = $this->profileGateway->getOrderedRegionListForUser($userId);
+        if ($viewerId) {
+            $userArray['working_groups'] = $this->profileGateway->getCommonWorkingGroups($userId, $viewerId);
+        }
+
+        if ($viewerId) {
+            $userArray['buddy'] = $this->profileGateway->buddyStatus($userId, $viewerId);
+        }
         if ($this->profilePermissions->maySeeBounceWarning($userId)) {
             $emailIsBouncing = $this->mailsGateway->emailIsBouncing($userArray['email']);
             $userArray['emailIsBouncing'] = $emailIsBouncing;
@@ -168,11 +183,11 @@ final class ProfileController extends FoodsharingController
         return [
             'menu' => $this->getProfileMenu($userStores, $userArray, $maySeeStores),
             'statistics' => $this->renderStatistics($userArray),
-            'ambassadorRegions' => $userArray['botschafter'] ? $userArray['botschafter'] : [],
-            'foodSaverRegions' => $userArray['foodsaver'] ? $userArray['foodsaver'] : [],
-            'homeDistrictHistory' => (object)$this->getHomeDistrictHistory($userArray),
+            'ambassadorRegions' => $userArray['botschafter'] ?: [],
+            'foodSaverRegions' => $userArray['foodsaver'] ?: [],
+            'homeDistrictHistory' => (object)$this->getHomeDistrictHistory($userArray['id']),
             'aboutMeIntern' => $userArray['about_me_intern'] ?? '',
-            'workingGroupsAdmins' => $userArray['orga'] ? $userArray['orga'] : [],
+            'workingGroupsAdmins' => $userArray['orga'] ?: [],
             'workingGroups' => $userArray['working_groups'] ?? [],
             'sleepingInformation' => $this->getSleepingHatInformation($userArray),
             'profileInfos' => $this->getProfileInfos($userArray),
@@ -280,7 +295,7 @@ final class ProfileController extends FoodsharingController
         }
 
         return [
-            'isOnline' => $userArray['online'],
+            'isOnline' => $this->webSocketConnection->isUserOnline($fsId),
             'foodSaverName' => $userArray['name'],
             'photo' => $userArray['photo'],
             'fsId' => $userArray['id'],
@@ -331,16 +346,19 @@ final class ProfileController extends FoodsharingController
         return $mailboxName;
     }
 
-    private function getHomeDistrictHistory($userArray): array
+    private function getHomeDistrictHistory(int $userId): array
     {
         $history = [];
 
-        if ($this->profilePermissions->maySeeHistory($userArray['id']) && !empty($userArray['home_district_history'])) {
-            $history['changerId'] = $userArray['home_district_history']['changer_id'];
-            $history['changerFullName'] = $userArray['home_district_history']['changer_full_name'];
-            $history['date'] = $userArray['home_district_history']['date'];
-            $history['previousRegionId'] = intval($userArray['home_district_history']['old_region']);
-            $history['previousRegionName'] = $userArray['home_district_history']['old_region_name'];
+        if ($this->profilePermissions->maySeeHistory($userId)) {
+            $entry = $this->profileGateway->getHomeRegionHistory($userId);
+            if (!empty($entry)) {
+                $history['changerId'] = $entry['changer_id'];
+                $history['changerFullName'] = $entry['changer_full_name'];
+                $history['date'] = $entry['date'];
+                $history['previousRegionId'] = intval($entry['old_region']);
+                $history['previousRegionName'] = $entry['old_region_name'];
+            }
         }
 
         return $history;
