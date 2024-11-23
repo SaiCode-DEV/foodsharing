@@ -14,6 +14,7 @@ enum FeatureToggleDefinitions: string
     case ACHIEVEMENT_SYSTEM = 'achievementSystem';
     case MAIL_SEARCH = 'mailSearch';
     case HYGIENE_QUIZ = 'hygieneQuiz';
+    case PETITION_BANNER = 'petitionBanner';
 
     /**
      * Returns all feature toggle identifiers.

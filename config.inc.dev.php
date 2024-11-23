@@ -82,3 +82,5 @@ define('APPLE_WALLET_PASS_TYPE_ID', 'pass.de.foodsharing.passport');
 
 define('ZAMMAD_URL', 'https://support.foodsharing.network/');
 define('ZAMMAD_TICKET_TOKEN', '');
+
+define('BUNDESTAG_PETITION_PAGE_URL', 'http://nginx:8080/mock/petition');

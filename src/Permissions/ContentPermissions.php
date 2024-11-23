@@ -57,6 +57,10 @@ final class ContentPermissions
         ContentId::BROADCAST_MESSAGE,
     ];
 
+    private array $POLITICAL_CAMPAIGNS_CONTENT_IDS = [
+        ContentId::PETITION_BANNER,
+    ];
+
     public function __construct(Session $session, private readonly CurrentUserUnitsInterface $currentUserUnits)
     {
         $this->session = $session;
@@ -69,7 +73,8 @@ final class ContentPermissions
             || $this->currentUserUnits->isAdminFor(RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP)
             || $this->currentUserUnits->isAdminFor(RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP)
             || $this->currentUserUnits->isAdminFor(RegionIDs::IT_SUPPORT_GROUP)
-            || $this->currentUserUnits->isAdminFor(RegionIDs::PR_START_PAGE);
+            || $this->currentUserUnits->isAdminFor(RegionIDs::PR_START_PAGE)
+            || $this->currentUserUnits->isAdminFor(RegionIDs::POLITICAL_CAMPAIGNS);
     }
 
     /**
@@ -90,6 +95,7 @@ final class ContentPermissions
             RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP => $this->PR_PARTNER_CONTENT_IDS,
             RegionIDs::IT_SUPPORT_GROUP => $this->IT_CONTENT_IDS,
             RegionIDs::PR_START_PAGE => $this->START_CONTENT_IDS,
+            RegionIDs::POLITICAL_CAMPAIGNS => $this->POLITICAL_CAMPAIGNS_CONTENT_IDS,
         ];
 
         $ids = [];
@@ -114,6 +120,7 @@ final class ContentPermissions
             RegionIDs::QUIZ_AND_REGISTRATION_WORK_GROUP => $this->QUIZ_CONTENT_IDS,
             RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP => $this->PR_PARTNER_CONTENT_IDS,
             RegionIDs::PR_START_PAGE => $this->START_CONTENT_IDS,
+            RegionIDs::POLITICAL_CAMPAIGNS => $this->POLITICAL_CAMPAIGNS_CONTENT_IDS,
         ];
 
         foreach ($regionContentMap as $regionID => $contentIDs) {

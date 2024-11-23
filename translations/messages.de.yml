@@ -3805,3 +3805,16 @@ support_page:
   attachments: "Anhänge (maximal 5 MB pro Datei)"
   success: "Deine Nachricht wurde erfolgreich übermittelt."
   new_request: "Neue Anfrage"
+
+petition:
+  progressText:
+    500: Los geht’s! Gehöre zu den Ersten, die diese Petition unterschreiben!
+    2000: Die Petition kommt in Fahrt! Mit deiner Unterstützung gewinnen wir Schwung!
+    8000: Wir sind gut gestartet! Hilf mit, damit wir noch weiter kommen!
+    15000: Halbzeit in Sicht! Mit deiner Unterstützung kommen wir weiter voran!
+    20000: Wir haben bereits die Hälfte der benötigten Unterschriften! Gemeinsam schaffen wir das!
+    25000: Wir haben bereits zwei Drittel der benötigten Unterschriften! Gemeinsam schaffen wir das!
+    30000: Fast am Ziel – nur noch ein kleines Stück! Werde jetzt noch Teil der Petition!
+    Infinity: Ziel erreicht! Unsere Petition wird im Bundestag besprochen. Jetzt geht’s darum, unser Anliegen noch weiter zu stärken!
+  daysLeft: "{daysLeft} Tage verbleiben" #using non-bereaking spaces
+  link: "Zur Petition"

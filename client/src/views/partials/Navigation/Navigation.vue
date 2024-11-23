@@ -11,6 +11,7 @@
   >
     <Loader />
     <DonationModal />
+    <PetitionBanner />
     <div class="metanav-container container">
       <MetaNavLoggedIn v-if="!viewIsMobile && isLoggedIn" />
       <MetaNavLoggedOut v-else-if="!viewIsMobile" />
@@ -55,6 +56,7 @@ import ThemeSwitcherModal from '@/views/partials/Modals/ThemeSwitcherModal.vue'
 // Mixins
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import Loader from './Loader.vue'
+import PetitionBanner from '@/views/partials/TopBanner/Petition/PetitionBanner.vue'
 
 const userStore = useUserStore()
 const regionStore = useRegionStore()
@@ -65,6 +67,7 @@ export default {
     Loader,
     ModalLoader,
     DonationModal,
+    PetitionBanner,
     ThemeSwitcherModal,
     MetaNavLoggedIn,
     MetaNavLoggedOut,

@@ -75,4 +75,5 @@ class ContentId
     final public const WORKSHOPS = 71;
     final public const STATISTICS_PAGE = 11;
     final public const SECURITY_PAGE = 59;
+    final public const PETITION_BANNER = 92;
 }
