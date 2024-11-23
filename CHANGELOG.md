@@ -105,6 +105,7 @@
 - Fixed problems for orgas editing food share points from outside their regions. #2216 !3816 @AntonBallmaier
 - Added missing translation key #2213 !3815 @AntonBallmaier
 - Fixed some store settings being enabled to unpermitted users in the frontend #2210 !3808 @AntonBallmaier
+- Added fallback for unloaded chat member names #2218 !3819 @AntonBallmaier
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` #2198 !3437 !3809 @AntonBallmaier
