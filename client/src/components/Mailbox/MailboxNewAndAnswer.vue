@@ -193,23 +193,17 @@
               type="file"
               multiple
               class="hidden"
+              :disabled="!mayAttachMoreFiles"
               @change="storeFiles"
             >
             <label
-              v-if="isMobile"
+              v-if="mayAttachMoreFiles"
               for="files"
               :title="$i18n('mailbox.search')"
               class="btn btn-outline-primary btn-sm custom-label"
             >
-              <i class="fas fa-paperclip" />
-            </label>
-            <label
-              v-else
-              for="files"
-              :title="$i18n('mailbox.search')"
-              class="btn btn-outline-primary btn-sm custom-label"
-            >
-              {{ $i18n('mailbox.search') }}
+              <i v-if="isMobile" class="fas fa-paperclip" />
+              <span v-else>{{ $i18n('mailbox.search') }}</span>
             </label>
           </div>
         </b-col>
@@ -254,7 +248,7 @@ import { sendEmail, setEmailProperties } from '@/api/mailbox'
 import { uploadFile } from '@/api/uploads'
 import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
-import { store, MAILBOX_PAGE, MAIL_COMPOSITION_MODE } from '@/stores/mailbox'
+import { store, MAILBOX_PAGE, MAIL_COMPOSITION_MODE, MAX_NUMBER_OF_EMAIL_ATTACHMENTS } from '@/stores/mailbox'
 import { MAX_UPLOAD_FILE_SIZE } from '@/consts'
 import AddressBook from '@/components/Mailbox/AddressBook'
 import FileUpload from '@/mixins/FileUpload'
@@ -328,6 +322,9 @@ export default {
     // TODO: can be removed when forwarding of attachments is implemented
     showForwardAttachmentWarning () {
       return store.state.compositionMode === MAIL_COMPOSITION_MODE.FORWARD && this.email.attachments?.length > 0
+    },
+    mayAttachMoreFiles () {
+      return this.attachmentFilesObjects.length < MAX_NUMBER_OF_EMAIL_ATTACHMENTS
     },
   },
   watch: {
@@ -439,16 +436,24 @@ export default {
     storeFiles (event) {
       // Stores files that were selected as attachments. Uploading is only done when the email is actually being sent.
       const files = Array.from(event.target.files)
-      const filteredFiles = files.filter(file => file.size <= MAX_UPLOAD_FILE_SIZE)
-      filteredFiles.forEach(file => {
-        this.attachmentFilesName.push(file.name)
-        this.attachmentFilesObjects.push(file)
-      })
+      let filteredFiles = files.filter(file => file.size <= MAX_UPLOAD_FILE_SIZE)
 
       // Show an error message if any of the selected files were too large
       if (files.length > filteredFiles.length) {
         pulseError(this.$i18n('mailbox.attachment.too_large_to_send'))
       }
+
+      // Limit the number of attachments
+      const maxAttachable = MAX_NUMBER_OF_EMAIL_ATTACHMENTS - this.attachmentFilesName.length
+      if (filteredFiles.length > maxAttachable) {
+        filteredFiles = filteredFiles.slice(0, maxAttachable)
+        pulseError(this.$i18n('mailbox.attachment.too_many'))
+      }
+
+      filteredFiles.forEach(file => {
+        this.attachmentFilesName.push(file.name)
+        this.attachmentFilesObjects.push(file)
+      })
     },
     async trySetEmailStatus (state) {
       showLoader()

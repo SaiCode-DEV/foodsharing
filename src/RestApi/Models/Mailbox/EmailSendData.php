@@ -6,7 +6,8 @@ use Ddeboer\Imap\Message\EmailAddress;
 use Foodsharing\Modules\Mailbox\Email;
 use Foodsharing\Modules\Mailbox\EmailAttachment;
 use JMS\Serializer\Annotation\Type;
-use OpenApi\Annotations as OA;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -43,23 +44,23 @@ class EmailSendData
     public ?array $bcc = null;
     /**
      * Subject of the email. Can be empty but not null.
-     *
-     * @OA\Property(example="Testbetreff")
      */
+    #[OA\Property(example: 'Testbetreff')]
     #[Assert\Length(max: 65535)]
     public string $subject = '';
     /**
      * Body of this email.
-     *
-     * @OA\Property(example="Inhalt der Email")
      */
+    #[OA\Property(example: 'Inhalt der Email')]
     public ?string $body = null;
-    /**
-     * Optional list of previously uploaded files that will be used as attachments. Can be empty or null.
-     *
-     * @var EmailSendAttachment[]
-     */
+
+    #[OA\Property(
+        title: 'Optional list of previously uploaded files that will be used as attachments. Can be empty or null.',
+        type: 'array',
+        items: new OA\Items(ref: new Model(type: EmailSendAttachment::class))
+    )]
     #[Type('array<Foodsharing\RestApi\Models\Mailbox\EmailSendAttachment>')]
+    #[Assert\Count(max: 10)]
     public ?array $attachments = null;
     /**
      * Id of the email to which this email is an answer. The original email will be marked as answered.

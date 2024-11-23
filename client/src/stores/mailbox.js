@@ -33,6 +33,8 @@ export const MAILBOX_ADDRESSBOOK_FILTER_TYPES = Object.freeze({
   GROUPS: [REGION_UNIT_TYPE.WORKING_GROUP],
 })
 
+export const MAX_NUMBER_OF_EMAIL_ATTACHMENTS = 10
+
 export const store = {
   state: reactive({
     page: null,

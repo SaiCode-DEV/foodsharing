@@ -2028,7 +2028,8 @@ mailbox:
     not_found: "nicht gefunden"
     not_found_explanation: "Die angehängte Datei konnte auf dem Server nicht mehr gefunden werden"
     too_large_to_send: "Einige der Dateien waren zu groß und konnten nicht an die E-Mail angehängt werden."
-    attach: "Anhänge (maximal 1,5 MB pro Datei)"
+    too_many: "Es wurden zu viele Dateien ausgewählt. Es können maximal 10 Dateien an die E-Mail angehängt werden."
+    attach: "Anhänge (maximal 10 Dateien, 1,5 MB pro Datei)"
   conformation_modal:
     title: "Bestätigung"
     message: "Bist du sicher, dass du die E-Mail löschen möchtest?"
