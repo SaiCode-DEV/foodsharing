@@ -49,7 +49,7 @@ export default {
         .slice(0, 4)
       return members.map((userId, index) => ({
         size: this.getSize(index, members.length),
-        avatar: profileStore.profiles[userId].avatar ?? '',
+        avatar: profileStore.profiles[userId]?.avatar ?? '',
       }))
     },
     gridCols () {
