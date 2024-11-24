@@ -92,3 +92,14 @@ define('DEADLOCK_QUERY_SLEEP_TIME_IN_MS', 200);
  * 2. Uncomment ll. 65-66 of this script and replace TO CHANGE AT DEPLOYMENT with the contents of public_key.txt and
  * 	private_key.txt
  */
+
+define('WALLET_LABEL', 'foodsharing');
+define('GOOGLE_WALLET_KEY_PATH', __DIR__ . '/keys/google.json');
+// If GOOGLE_WALLET_ISSUER_ID is a string and not a numerical value, then the Google Wallet is deactivated in the backend.
+define('GOOGLE_WALLET_ISSUER_ID', '');
+define('GOOGLE_WALLET_CLASS_ID', 'foodsharing-passport');
+
+define('APPLE_WALLET_CERTIFICATE_PATH', __DIR__ . '/keys/apple.p12');
+define('APPLE_WALLET_CERTIFICATE_PASS', '8Kz9YxgAVFWRmqj9ZT');
+define('APPLE_WALLET_TEAM_ID', 'H97D45LYHL');
+define('APPLE_WALLET_PASS_TYPE_ID', 'pass.de.foodsharing.passport');

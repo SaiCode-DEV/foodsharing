@@ -2,21 +2,25 @@
 
 namespace Foodsharing\Modules\PassportGenerator;
 
+use Carbon\Carbon;
+use DateTime;
+use Exception;
 use Foodsharing\Lib\AppleWalletPass;
 use Foodsharing\Lib\GoogleWalletPass;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
-use Foodsharing\Modules\Core\DBConstants\Foodsaver\Gender;
-use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
-use Foodsharing\Modules\Profile\ProfileGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Uploads\UploadsTransactions;
+use Foodsharing\RestApi\Models\Passport\CreateRegionPassportModel;
+use Foodsharing\Utility\EmailHelper;
 use Foodsharing\Utility\FlashMessageHelper;
+use Foodsharing\Utility\TimeHelper;
 use Foodsharing\Utility\TranslationHelper;
 use setasign\Fpdi\Tcpdf\Fpdi;
+use stdClass;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -24,33 +28,134 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PassportGeneratorTransaction extends AbstractController
 {
+    private const PASSPORT_VALIDITY_INTERVAL = '+3 years';
+
     public function __construct(
         private readonly RegionGateway $regionGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly PassportGeneratorGateway $passportGeneratorGateway,
-        private readonly ProfileGateway $profileGateway,
         private readonly Session $session,
         private readonly UploadsTransactions $uploadsTransactions,
-        private readonly BellGateway $bellGateway,
         protected FlashMessageHelper $flashMessageHelper,
         protected TranslationHelper $translationHelper,
         protected TranslatorInterface $translator,
-        private UrlGeneratorInterface $router,
+        private readonly UrlGeneratorInterface $router,
         #[Autowire(param: 'kernel.project_dir')]
         private readonly string $projectDir,
         private GoogleWalletPass $googleWalletPass,
-        private AppleWalletPass $appleWalletPass
+        private AppleWalletPass $appleWalletPass,
+        private readonly TimeHelper $timeHelper,
+        private readonly BellGateway $bellGateway,
+        private readonly EmailHelper $emailHelper,
     ) {
     }
 
-    public function generate(array $foodsavers, ?\DateTime $passDate = null, bool $cutMarkers = true, bool $protectPDF = false, bool $ambassadorGeneration = false): string
+    private function setupPdfMargins(\TCPDF $pdf, array $userIds, bool $usePaperSizeDinA4): array
     {
-        $tmp = [];
-        foreach ($foodsavers as $foodsaver) {
-            $tmp[$foodsaver] = (int)$foodsaver;
+        $singleUser = $usePaperSizeDinA4 && count($userIds) === 1;
+
+        $pdf->AddPage(
+            $singleUser ? 'L' : 'P',
+            $singleUser ? [53.3, 83] : 'A4'
+        );
+
+        $pdf->SetAutoPageBreak(false, 0);
+        $pdf->SetMargins(0, 0, 0, true);
+
+        return [
+            'backgroundMarginX' => $singleUser ? 0 : 10,
+            'backgroundMarginY' => $singleUser ? 0 : 10,
+            'cellMarginX' => 40,
+            'cellMarginY' => $singleUser ? 3.2 : 13.2,
+            'idLabelMarginX' => $singleUser ? 40 : 50,
+            'idLabelMarginY' => 5,
+            'logoMarginX' => $singleUser ? 3.5 : 13.5,
+            'logoMarginY' => $singleUser ? 3.6 : 13.6,
+            'photoMarginX' => $singleUser ? 4 : 14,
+            'photoMarginY' => $singleUser ? 19.7 : 31,
+            'nameMaxWidthMarginX' => $singleUser ? 31 : 41,
+            'nameMaxWidthMarginY' => $singleUser ? 20 : 30,
+            'nameLabelMarginX' => $singleUser ? 31 : 41,
+            'nameLabelMarginY' => $singleUser ? 20 : 28,
+            'nameMarginX' => $singleUser ? 31 : 41,
+            'nameMarginY' => $singleUser ? 22 : 30.2,
+            'roleLabelMarginX' => $singleUser ? 31 : 41,
+            'roleLabelMarginY' => $singleUser ? 27 : 37,
+            'roleMarginX' => $singleUser ? 31 : 41,
+            'roleMarginY' => $singleUser ? 29 : 39,
+            'validTillLabelMarginX' => $singleUser ? 31 : 41,
+            'validTillLabelMarginY' => $singleUser ? 45 : 55,
+            'validTillMarginX' => $singleUser ? 31 : 41,
+            'validTillMarginY' => $singleUser ? 47 : 57,
+            'validDownLabelMarginX' => $singleUser ? 31 : 41,
+            'validDownLabelMarginY' => $singleUser ? 36 : 46,
+            'validDownMarginX' => $singleUser ? 31 : 41,
+            'validDownMarginY' => $singleUser ? 38 : 48,
+            'qrCodeMarginX' => $singleUser ? 60 : 70.5,
+            'qrCodeMarginY' => $singleUser ? 33 : 43,
+        ];
+    }
+
+    private function getProfileUrl(int $userId): string
+    {
+        return $this->router->generate('user_profile', ['userId' => $userId], UrlGeneratorInterface::ABSOLUTE_URL);
+    }
+
+    private function addUserPhotoToPdf(\TCPDF $pdf, int $userId, float $x, float $y, array $margins): void
+    {
+        $photo = $this->foodsaverGateway->getPhotoFileName($userId);
+        if (!$photo) {
+            return;
         }
-        $foodsavers = $tmp;
-        $is_generated = [];
+
+        $imagePath = null;
+        $imageWidth = null;
+
+        if (str_starts_with($photo, '/api/uploads')) {
+            $uuid = substr($photo, strlen('/api/uploads/'));
+            $filename = $this->uploadsTransactions->generateFilePath($uuid, 200, 257, 0);
+
+            if (!file_exists($filename)) {
+                $originalFilename = $this->uploadsTransactions->generateFilePath($uuid);
+                $this->uploadsTransactions->resizeImage($originalFilename, $filename, 200, 257, 0);
+            }
+
+            $imagePath = $filename;
+            $imageWidth = 24;
+        } else {
+            $croppedImagePath = 'images/crop_' . $photo;
+            $originalImagePath = 'images/' . $photo;
+
+            if (file_exists($croppedImagePath)) {
+                $imagePath = $croppedImagePath;
+                $imageWidth = 24;
+            } elseif (file_exists($originalImagePath)) {
+                $imagePath = $originalImagePath;
+                $imageWidth = 22;
+            }
+        }
+
+        if ($imagePath) {
+            $pdf->Image(
+                $imagePath,
+                $margins['photoMarginX'] + $x,
+                $margins['photoMarginY'] + $y,
+                $imageWidth
+            );
+        }
+    }
+
+    private function generatePdf(array $userIds, bool $ambassadorGeneration, bool $automatic_paper_size, $validDates): stdClass
+    {
+        $protectPDF = !$ambassadorGeneration;
+        $cutMarkers = $ambassadorGeneration;
+
+        $fontFamily = 'Ubuntu-L';
+        $fontStyle = '';
+        $initialFontSize = 10;
+        $minimumFontSize = 8;
+        $maxWidth = 49;
+        $card = 0;
 
         $pdf = new Fpdi();
 
@@ -58,168 +163,77 @@ class PassportGeneratorTransaction extends AbstractController
             $pdf->SetProtection(['print', 'copy', 'modify', 'assemble'], '', null, 0, null);
         }
 
-        $generationUntilDate = '+3 years';
-        if ($ambassadorGeneration) {
-            $untilFrom = (new \DateTime())->format('d. m. Y');
-            $validUntil = (new \DateTime())->modify($generationUntilDate)->format('d. m. Y');
-        } else {
-            $untilFrom = $passDate->format('d. m. Y');
-            $validUntil = $passDate->modify($generationUntilDate)->format('d. m. Y');
-        }
-
-        if (count($tmp) === 1) {
-            $pdf->AddPage('L', [53.3, 83]);
-            $pdf->SetAutoPageBreak(false, 0);
-            $pdf->SetMargins(0, 0, 0, true);
-            $backgroundMarginX = 0;
-            $backgroundMarginY = 0;
-            $cellMarginX = 40;
-            $cellMarginY = 3.2;
-            $idLabelMarginX = 40;
-            $idLabelMarginY = 5;
-            $logoMarginX = 3.5;
-            $logoMarginY = 3.6;
-            $photoMarginX = 4;
-            $photoMarginY = 19.7;
-            $nameMaxWidthMarginX = 31;
-            $nameMaxWidthMarginY = 20;
-            $nameLabelMarginX = 31;
-            $nameLabelMarginY = 20;
-            $nameMarginX = 31;
-            $nameMarginY = 22;
-            $roleLabelMarginX = 31;
-            $roleLabelMarginY = 27;
-            $roleMarginX = 31;
-            $roleMarginY = 29;
-            $validTillLabelMarginX = 31;
-            $validTillLabelMarginY = 45;
-            $validDownLabelMarginX = 31;
-            $validDownLabelMarginY = 36;
-            $validDownMarginX = 31;
-            $validDownMarginY = 38;
-            $validTillMarginX = 31;
-            $validTillMarginY = 47;
-            $qrCodeMarginX = 60;
-            $qrCodeMarginY = 33;
-        } else {
-            $pdf->AddPage();
-            $backgroundMarginX = 10;
-            $backgroundMarginY = 10;
-            $cellMarginX = 40;
-            $cellMarginY = 13.2;
-            $idLabelMarginX = 50;
-            $idLabelMarginY = 5;
-            $logoMarginX = 13.5;
-            $logoMarginY = 13.6;
-            $photoMarginX = 14;
-            $photoMarginY = 31;
-            $nameMaxWidthMarginX = 41;
-            $nameMaxWidthMarginY = 30;
-            $nameLabelMarginX = 41;
-            $nameLabelMarginY = 28;
-            $roleLabelMarginX = 41;
-            $roleLabelMarginY = 37;
-            $roleMarginX = 41;
-            $roleMarginY = 39;
-            $nameMarginX = 41;
-            $nameMarginY = 30.2;
-            $validTillLabelMarginX = 41;
-            $validTillLabelMarginY = 55;
-            $validTillMarginX = 41;
-            $validTillMarginY = 57;
-            $validDownLabelMarginX = 41;
-            $validDownLabelMarginY = 46;
-            $validDownMarginX = 41;
-            $validDownMarginY = 48;
-            $qrCodeMarginX = 70.5;
-            $qrCodeMarginY = 43;
-        }
+        $margins = $this->setupPdfMargins($pdf, $userIds, $automatic_paper_size);
 
         $pdf->SetTextColor(0, 0, 0);
         $pdf->AddFont('Ubuntu-L', '', $this->projectDir . '/lib/font/ubuntul.php', true);
-        $pdf->AddFont('AcmeFont Regular', '', $this->projectDir . '/lib/font/acmefont.php', true);
 
-        $x = 0.0;
-        $y = 0.0;
-        $card = 0;
-
-        $noPhoto = [];
-
-        end($foodsavers);
+        end($userIds);
 
         $pdf->setSourceFile($this->projectDir . '/img/foodsharing_logo.pdf');
         $fs_logo = $pdf->importPage(1);
+        $pdfGeneratedUser = [];
 
-        foreach ($foodsavers as $fs_id) {
-            if ($foodsaver = $this->foodsaverGateway->getFoodsaverDetails($fs_id)) {
-                if (empty($foodsaver['photo'])) {
-                    $noPhoto[] = $foodsaver['name'] . ' ' . $foodsaver['nachname'];
-
-                    $bellData = Bell::create(
-                        'passgen_failed_title',
-                        'passgen_failed',
-                        'fas fa-camera',
-                        ['href' => '/user/current/settings'],
-                        ['user' => $this->session->user('name')],
-                        BellType::createIdentifier(BellType::PASS_CREATION_FAILED, $foodsaver['id'])
-                    );
-                    $this->bellGateway->addBell($foodsaver['id'], $bellData);
-                    //continue;
-                }
-
+        foreach ($userIds as $userId) {
+            if ($user = $this->foodsaverGateway->getFoodsaverDetails($userId)) {
                 $pdf->SetTextColor(0, 0, 0);
 
                 ++$card;
+                $cardOnPage = ($card - 1) % 8;
+                $column = $cardOnPage % 2;
+                $row = floor($cardOnPage / 2);
 
-                $this->passportGeneratorGateway->passGen($this->session->id(), $foodsaver['id']);
+                $x = $column * 95;
+                $y = $row * 65;
 
-                if ($cutMarkers) {
-                    $backgroundFile = $this->projectDir . '/img/pass_bg.png';
+                $backgroundFile = $this->projectDir . '/img/pass_bg' . ($cutMarkers ? '' : '_cut') . '.png';
+
+                $pdf->Image($backgroundFile, $margins['backgroundMarginX'] + $x, $margins['backgroundMarginY'] + $y, 83, 55);
+
+                $name = $user['name'] . ' ' . $user['nachname'];
+                $nameX = $margins['nameMarginX'] + $x;
+                $nameY = $margins['nameMarginY'] + $y - 0.2;
+
+                $fullNameWidth = $pdf->GetStringWidth($name);
+                $maxFontSize = min($maxWidth / $fullNameWidth * $initialFontSize, $initialFontSize);
+
+                if ($maxFontSize >= $minimumFontSize) {
+                    $pdf->SetFont($fontFamily, $fontStyle, $maxFontSize);
+                    $pdf->Text($nameX, $nameY, $name);
                 } else {
-                    $backgroundFile = $this->projectDir . '/img/pass_bg_cut.png';
-                }
-                $pdf->Image($backgroundFile, $backgroundMarginX + $x, $backgroundMarginY + $y, 83, 55);
+                    $firstNameWidth = $pdf->GetStringWidth($user['name']);
+                    $lastNameWidth = $pdf->GetStringWidth($user['nachname']);
 
-                $name = $foodsaver['name'] . ' ' . $foodsaver['nachname'];
-                $fontSize = 10;
-                $maxWidth = 49;
-                $pdf->SetFont('Ubuntu-L', '', $fontSize);
-                $maxFontSize = min($maxWidth / $pdf->GetStringWidth($name) * $fontSize, $fontSize);
-                if ($maxFontSize >= 8) {
-                    $pdf->SetFont('Ubuntu-L', '', $maxFontSize);
-                    $pdf->Text($nameMarginX + $x, $nameMarginY + $y - 0.2, $name);
-                } else {
-                    // Require line break after first name
-                    $fontSize = min(
-                        $maxWidth / $pdf->GetStringWidth($foodsaver['name']) * $fontSize,
-                        $maxWidth / $pdf->GetStringWidth($foodsaver['nachname']) * $fontSize,
-                        8
-                    );
-                    $pdf->SetFont('Ubuntu-L', '', $fontSize);
-                    $lineHeight = $pdf->getStringHeight(0, $foodsaver['name']) * 0.7;
-                    $pdf->Text($nameMarginX + $x, $nameMarginY + $y - 0.2, $foodsaver['name']);
-                    $pdf->Text($nameMarginX + $x, $nameMarginY + $y + $lineHeight - 0.2, $foodsaver['nachname']);
+                    $firstNameFontSize = min($maxWidth / $firstNameWidth * $initialFontSize, $initialFontSize);
+                    $lastNameFontSize = min($maxWidth / $lastNameWidth * $initialFontSize, $initialFontSize);
+
+                    $fontSize = min($firstNameFontSize, $lastNameFontSize);
+                    $fontSize = max($fontSize, $minimumFontSize);
+
+                    $pdf->SetFont($fontFamily, $fontStyle, $fontSize);
+
+                    $lineHeight = $pdf->getStringHeight(0, $user['name']) * 0.7;
+
+                    $pdf->Text($nameX, $nameY, $user['name']);
+                    $pdf->Text($nameX, $nameY + $lineHeight, $user['nachname']);
                 }
 
-                $pdf->SetFont('Ubuntu-L', '', 10);
-                $pdf->Text($roleMarginX + $x, $roleMarginY + $y, $this->getRole($foodsaver['geschlecht'], $foodsaver['rolle']));
-                $pdf->Text($validDownMarginX + $x, $validDownMarginY + $y, $untilFrom);
-                $pdf->Text($validTillMarginX + $x, $validTillMarginY + $y, $validUntil);
-                $pdf->SetFont('Ubuntu-L', '', 6);
-                $pdf->Text($nameLabelMarginX + $x, $nameLabelMarginY + $y, 'Name');
-                $pdf->Text($roleLabelMarginX + $x, $roleLabelMarginY + $y, 'Rolle');
-                $pdf->Text($validDownLabelMarginX + $x, $validDownLabelMarginY + $y, 'Gültig ab');
-                $pdf->Text($validTillLabelMarginX + $x, $validTillLabelMarginY + $y, 'Gültig bis');
+                $pdf->SetFont($fontFamily, $fontStyle, 10);
+                $pdf->Text($margins['validDownMarginX'] + $x, $margins['validDownMarginY'] + $y, $validDates->untilFrom);
+                $pdf->Text($margins['validTillMarginX'] + $x, $margins['validTillMarginY'] + $y, $validDates->validUntil);
 
-                $pdf->SetFont('Ubuntu-L', '', 9);
+                $pdf->SetFont($fontFamily, $fontStyle, 6);
+                // ToDo: Add translation keys
+                $pdf->Text($margins['nameLabelMarginX'] + $x, $margins['nameLabelMarginY'] + $y, 'Name');
+                $pdf->Text($margins['validDownLabelMarginX'] + $x, $margins['validDownLabelMarginY'] + $y, 'Gültig ab');
+                $pdf->Text($margins['validTillLabelMarginX'] + $x, $margins['validTillLabelMarginY'] + $y, 'Gültig bis');
+
+                $pdf->SetFont($fontFamily, $fontStyle, 9);
                 $pdf->SetTextColor(255, 255, 255);
-                $pdf->SetXY($cellMarginX + $x, $cellMarginY + $y);
-                $pdf->Cell($idLabelMarginX, $idLabelMarginY, 'ID ' . $fs_id, 0, 0, 'R');
+                $pdf->SetXY($margins['cellMarginX'] + $x, $margins['cellMarginY'] + $y);
+                $pdf->Cell($margins['idLabelMarginX'], $margins['idLabelMarginY'], 'ID ' . $userId, 0, 0, 'R');
 
-                $pdf->SetFont('AcmeFont Regular', '', 5.3);
-                $pdf->Text(12.8 + $x, 18.6 + $y, $this->translator->trans('pass.claim'));
-
-                $pdf->useTemplate($fs_logo, $logoMarginX + $x, $logoMarginY + $y, 29.8);
+                $pdf->useTemplate($fs_logo, $margins['logoMarginX'] + $x, $margins['logoMarginY'] + $y, 29.8);
 
                 $style = [
                     'vpadding' => 'auto',
@@ -230,103 +244,122 @@ class PassportGeneratorTransaction extends AbstractController
                     'module_height' => 1 // height of a single module in points
                 ];
 
-                // FIXME Do we really always want fs.de here?!
-                // QRCODE,L : QR-CODE Low error correction
-                $pdf->write2DBarcode('https://foodsharing.de/profile/' . $fs_id, 'QRCODE,L', $qrCodeMarginX + $x, $qrCodeMarginY + $y, 20, 20, $style, 'N', true);
+                $pdf->write2DBarcode($this->getProfileUrl($userId), 'QRCODE,H', $margins['qrCodeMarginX'] + $x, $margins['qrCodeMarginY'] + $y, 20, 20, $style, 'N', true);
 
-                if ($photo = $this->foodsaverGateway->getPhotoFileName($fs_id)) {
-                    if (str_starts_with($photo, '/api/uploads')) {
-                        // get the UUID and create a resized file
-                        $uuid = substr($photo, strlen('/api/uploads/'));
-                        $filename = $this->uploadsTransactions->generateFilePath($uuid, 200, 257, 0);
-                        if (!file_exists($filename)) {
-                            $originalFilename = $this->uploadsTransactions->generateFilePath($uuid);
-                            $this->uploadsTransactions->resizeImage($originalFilename, $filename, 200, 257, 0);
-                        }
-                        $pdf->Image($filename, $photoMarginX + $x, $photoMarginY + $y, 24);
-                    } else {
-                        if (file_exists('images/crop_' . $photo)) {
-                            $pdf->Image('images/crop_' . $photo, $photoMarginX + $x, $photoMarginY + $y, 24);
-                        } elseif (file_exists('images/' . $photo)) {
-                            $pdf->Image('images/' . $photo, $photoMarginX + $x, $photoMarginY + $y, 22);
-                        }
-                    }
-                }
+                $this->addUserPhotoToPdf($pdf, $userId, $x, $y, $margins);
 
-                if ($x == 0) {
-                    $x += 95;
-                } else {
-                    $y += 65;
-                    $x = 0;
-                }
-
-                if ($card == 8) {
-                    $card = 0;
+                if ($cardOnPage == 7) {
                     $pdf->AddPage();
-                    $x = 0;
-                    $y = 0;
                 }
 
-                $is_generated[] = $foodsaver['id'];
+                $pdfGeneratedUser[] = $user['id'];
             }
         }
-        if (!empty($noPhoto)) {
-            $this->flashMessageHelper->info(
-                $this->translator->trans('pass.noPhoto')
-                . join(', ', $noPhoto)
-                . $this->translator->trans('pass.notGenerated')
+
+        $result = new stdClass();
+        $result->pdf = $pdf;
+        $result->pdfGeneratedUserIds = $pdfGeneratedUser;
+
+        return $result;
+    }
+
+    private function calculateValidDates(?DateTime $currentPassDate = null): stdClass
+    {
+        $generationUntilDate = 3;
+        $untilFrom = $currentPassDate ? Carbon::parse($currentPassDate) : new Carbon();
+        $validUntil = $untilFrom->addYears($generationUntilDate);
+
+        $result = new stdClass();
+        $result->untilFrom = $untilFrom->format('d.m.Y');
+        $result->validUntil = $validUntil->format('d.m.Y');
+
+        return $result;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function generatePassportAsUser(int $userId): string
+    {
+        $lastPassDate = $this->passportGeneratorGateway->getFoodsaverLastPassDate($userId);
+
+        if (empty($lastPassDate) || !$this->isPassportValid($lastPassDate)) {
+            throw new Exception('passport is not valid');
+        }
+        $validDates = $this->calculateValidDates($lastPassDate);
+
+        $result = $this->generatePdf([$userId], false, true, $validDates);
+
+        return $result->pdf->Output('', 'S');
+    }
+
+    private function isPassportValid(DateTime $lastPassDate): bool
+    {
+        $date = $this->getPassportValidityEnd($lastPassDate);
+
+        return $this->timeHelper->daysInFuture($date) >= 1;
+    }
+
+    /**
+     * Returns the end of the validity of the passport which was created at the given date.
+     */
+    public function getPassportValidityEnd(DateTime $creationDate): DateTime
+    {
+        return $creationDate->modify(self::PASSPORT_VALIDITY_INTERVAL);
+    }
+
+    public function generatePassportAsAmbassador(CreateRegionPassportModel $regionPassportModel): mixed
+    {
+        $result = new stdClass();
+        $generatedUserId = $this->session->id();
+
+        if ($regionPassportModel->createPdf) {
+            $validDates = $this->calculateValidDates();
+            $result = $this->generatePdf($regionPassportModel->userIds, true, $regionPassportModel->usePaperSizeDinA4, $validDates);
+        }
+
+        $userIds = $result->pdfGeneratedUserIds ?? $regionPassportModel->userIds;
+        if ($regionPassportModel->renew) {
+            $this->passportGeneratorGateway->logPassGeneration($generatedUserId, $userIds);
+            $this->passportGeneratorGateway->updateFoodsaverLastPassDate($userIds);
+            if (!empty(GOOGLE_WALLET_ISSUER_ID)) {
+                $this->updateGoogleWallet($userIds);
+            }
+            $this->addBellAndSendPassportMail($userIds);
+        }
+
+        return $regionPassportModel->createPdf ? $result->pdf->Output('', 'S') : json_encode(['userIds' => $regionPassportModel->userIds]);
+    }
+
+    private function addBellAndSendPassportMail(array $userIds): void
+    {
+        foreach ($userIds as $userId) {
+            $passportGenLink = '/user/current/settings?sub=passport';
+            $bellData = Bell::create(
+                'passport_created_or_renewed_title',
+                'passport_created_or_renewed',
+                'fas fa-id-card',
+                ['href' => $passportGenLink],
+                ['user' => $this->session->user('name')],
+                BellType::createIdentifier(BellType::PASS_CREATED_OR_RENEWED, $userId)
             );
+            $this->bellGateway->addBell($userId, $bellData);
+
+            $passportMailLink = 'https://foodsharing.de' . $passportGenLink;
+            $fs = $this->foodsaverGateway->getFoodsaver($userId);
+            $this->emailHelper->tplMail('user/passport', $fs['email'], [
+                'name' => $fs['name'],
+                'link' => $passportMailLink,
+                'anrede' => $this->translator->trans('salutation.' . $fs['geschlecht']),
+            ], false, true);
         }
-
-        if ($ambassadorGeneration) {
-            $this->passportGeneratorGateway->updateLastGen($is_generated);
-
-            // update the Google Wallet Pass if the user has one
-            foreach ($foodsavers as $fs_id) {
-                $foodsaver = $this->foodsaverGateway->getFoodsaverDetails($fs_id);
-                $role = $this->getRole($foodsaver['geschlecht'], $foodsaver['rolle']);
-                $this->googleWalletPass->renewObject($fs_id, $role);
-            }
-        }
-
-        return $pdf->Output('', 'S');
     }
 
-    public function getRole(int $gender_id, int $role_id): string
+    private function updateGoogleWallet(array $userIds): void
     {
-        $genders = [
-            Gender::MALE => 'm',
-            Gender::FEMALE => 'f',
-            Gender::DIVERSE => 'd',
-            Gender::NOT_SELECTED => 'd'
-        ];
-
-        $role_keys = [
-            Role::FOODSHARER->value => 'terminology.foodsharer.',
-            Role::FOODSAVER->value => 'terminology.foodsaver.',
-            Role::STORE_MANAGER->value => 'terminology.storemanager.',
-            Role::AMBASSADOR->value => 'terminology.ambassador.',
-            Role::ORGA->value => 'terminology.ambassador.'
-        ];
-
-        $gender_suffix = $genders[$gender_id] ?? 'd';
-
-        return $this->translator->trans($role_keys[$role_id] . $gender_suffix);
-    }
-
-    public function getPassDate(int $userId): \DateTime
-    {
-        $date = $this->passportGeneratorGateway->getLastGen($userId);
-
-        if (empty($date)) {
-            $verifyHistory = $this->profileGateway->getVerifyHistory($userId);
-            if (!empty($verifyHistory)) {
-                $latestEntry = end($verifyHistory);
-                $date = $latestEntry->date;
-            }
+        foreach ($userIds as $userId) {
+            $this->googleWalletPass->renewObject($userId);
         }
-
-        return $date;
     }
 
     public function areUsersInRegion(array $userIds, int $regionId): object
@@ -350,8 +383,7 @@ class PassportGeneratorTransaction extends AbstractController
     public function createWallet(int $userId, string $walletType): string
     {
         $name = $this->session->user('name') . ' ' . $this->session->user('nachname');
-        $role = $this->getRole($this->session->user('gender'), $this->session->user('role'));
-        $passDate = $this->getPassDate($userId);
+        $passDate = $this->passportGeneratorGateway->getFoodsaverLastPassDate($userId);
         $profileURL = $this->router->generate('user_profile', ['userId' => $userId], UrlGeneratorInterface::ABSOLUTE_URL);
         $photo = $this->session->user('photo');
         if (!$photo) {
@@ -361,14 +393,14 @@ class PassportGeneratorTransaction extends AbstractController
             case 'apple':
                 $photo_uuid = substr($photo, strlen('/api/uploads/'));
                 $photoFileName = $this->uploadsTransactions->generateFilePath($photo_uuid);
-                $result = $this->appleWalletPass->createNewPass($userId, $name, $profileURL, $photoFileName, $role, $passDate);
+                $result = $this->appleWalletPass->createNewPass($userId, $name, $profileURL, $photoFileName, $passDate);
                 break;
             case 'google':
                 $userPhoto = BASE_URL . $photo;
                 if (getenv('FS_ENV') === 'dev') {
                     $userPhoto = 'https://foodsharing.de/img/50_q_avatar.png';
                 }
-                $result = $this->googleWalletPass->createNewPassJwt($userId, $name, $profileURL, $userPhoto, $role, $passDate);
+                $result = $this->googleWalletPass->createNewPassJwt($userId, $name, $profileURL, $userPhoto, $passDate);
                 break;
             default:
                 throw new \InvalidArgumentException("Ungültiger Wallet-Typ: $walletType");

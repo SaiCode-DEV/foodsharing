@@ -98,22 +98,20 @@ class VerificationRestController extends AbstractFoodsharingRestController
         $this->foodsaverGateway->changeUserVerification($userId, $sessionId, true);
         $this->bellGateway->delBellsByIdentifier(BellType::createIdentifier(BellType::NEW_FOODSAVER_IN_REGION, $userId));
 
-        $passportGenLink = '/user/current/settings?sub=passport';
         $bellData = Bell::create(
             'foodsaver_verified_title',
             'foodsaver_verified',
             'fas fa-camera',
-            ['href' => $passportGenLink],
+            ['href' => null],
             ['user' => $this->session->user('name')],
             BellType::createIdentifier(BellType::FOODSAVER_VERIFIED, $userId)
         );
+
         $this->bellGateway->addBell($userId, $bellData);
 
-        $passportMailLink = 'https://foodsharing.de' . $passportGenLink;
         $fs = $this->foodsaverGateway->getFoodsaver($userId);
         $this->emailHelper->tplMail('user/verification', $fs['email'], [
             'name' => $fs['name'],
-            'link' => $passportMailLink,
             'anrede' => $this->translator->trans('salutation.' . $fs['geschlecht']),
         ], false, true);
 
@@ -240,9 +238,7 @@ class VerificationRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException();
         }
 
-        $passDate = $this->passportGeneratorTransaction->getPassDate($sessionId);
-
-        $pdf = $this->passportGeneratorTransaction->generate([$sessionId], $passDate, false, true);
+        $pdf = $this->passportGeneratorTransaction->generatePassportAsUser($sessionId);
 
         $response = new Response($pdf);
         $response->headers->set('Content-Type', 'application/pdf');
@@ -288,10 +284,12 @@ class VerificationRestController extends AbstractFoodsharingRestController
         }
 
         try {
-            $pdf = $this->passportGeneratorTransaction->generate($regionPassportModel->userIds, null, true, false, true);
+            $result = $this->passportGeneratorTransaction->generatePassportAsAmbassador($regionPassportModel);
 
-            $response = new Response($pdf);
-            $response->headers->set('Content-Type', 'application/pdf');
+            $response = new Response($result);
+            if ($regionPassportModel->createPdf) {
+                $response->headers->set('Content-Type', 'application/pdf');
+            }
         } catch (\Exception $ex) {
             throw new BadRequestException($ex->getMessage());
         }

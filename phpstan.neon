@@ -8,6 +8,8 @@ parameters:
   bootstrapFiles:
     - config.inc.php
   treatPhpDocTypesAsCertain: false
+  dynamicConstantNames:
+      - GOOGLE_WALLET_ISSUER_ID
   ignoreErrors:
     # Level 4+ see https://github.com/phpstan/phpstan/issues/3264
     # Level 4+ see https://github.com/phpstan/phpstan/issues/2889

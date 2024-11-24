@@ -40,7 +40,7 @@ export default {
           field: 'invalid_mobile_phonenumber',
           links: [{
             text: 'error.invalid_mobile_phonenumber.link',
-            urlShortHand: 'settings',
+            urlShorthand: 'settings',
           }],
         })
       }
@@ -51,7 +51,7 @@ export default {
           field: 'invalid_landline_phonenumber',
           links: [{
             text: 'error.invalid_landline_phonenumber.link',
-            urlShortHand: 'settings',
+            urlShorthand: 'settings',
           }],
         })
       }
@@ -61,7 +61,7 @@ export default {
           field: 'missing_user_avatar',
           links: [{
             text: 'error.missing_user_avatar.link',
-            urlShortHand: 'settings',
+            urlShorthand: 'settings',
           }],
         })
       }
@@ -72,7 +72,7 @@ export default {
           link: 'images/' + this.userStore.getAvatar,
           links: [{
             text: 'error.old_user_avatar.link',
-            urlShortHand: 'settings',
+            urlShorthand: 'settings',
           }],
         })
       }
@@ -86,7 +86,7 @@ export default {
           field: 'missing_geolocation',
           links: [{
             text: 'error.missing_geolocation.link',
-            urlShortHand: 'settings',
+            urlShorthand: 'settings',
           }],
         })
       }
@@ -96,11 +96,11 @@ export default {
           field: 'mail_activation',
           links: [{
             text: 'error.mail_activation.link_1',
-            urlShortHand: 'resendActivationMail',
+            urlShorthand: 'resendActivationMail',
           },
           {
             text: 'error.mail_activation.link_2',
-            urlShortHand: 'settings',
+            urlShorthand: 'settings',
           }],
         })
       }
@@ -110,12 +110,31 @@ export default {
           field: 'mail_bounce',
           links: [{
             text: 'error.mail_bounce.link_1',
-            urlShortHand: 'settings',
+            urlShorthand: 'settings',
           },
           {
             text: 'error.mail_bounce.link_2',
-            urlShortHand: 'helpdesk_locked_email',
+            urlShorthand: 'helpdesk_locked_email',
           }],
+        })
+      }
+      if (this.userStore.isPassportInvalid) {
+        list.push({
+          field: 'passport_is_invalid',
+          links: [{
+            text: 'error.passport_is_invalid.link',
+            urlShorthand: 'settings',
+          },
+          ],
+        })
+      } else if (this.userStore.isPassportInvalidSoon) {
+        list.push({
+          field: 'passport_is_invalid_soon',
+          links: [{
+            text: 'error.passport_is_invalid_soon.link',
+            urlShorthand: 'settings',
+          },
+          ],
         })
       }
 

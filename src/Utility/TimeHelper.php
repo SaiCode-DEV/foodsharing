@@ -3,6 +3,7 @@
 namespace Foodsharing\Utility;
 
 use Carbon\Carbon;
+use DateTime;
 use Exception;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -90,5 +91,44 @@ final class TimeHelper
         } catch (Exception $e) {
             throw new BadRequestHttpException('Invalid date format');
         }
+    }
+
+    /**
+     * Returns the number of days by which the date is in the future, or 0 if the date is in the past.
+     */
+    public function daysInFuture(DateTime $date): int
+    {
+        if (Carbon::instance($date)->isPast()) {
+            return 0;
+        }
+
+        return Carbon::today()->diffInDays($date);
+    }
+
+    /**
+     * Parses a date time string and adds the specified interval. Returns the end date of the interval.
+     *
+     * @param string $dateString a date time string of the form 'Y-m-d H:i:s'
+     * @param string $addInterval any parseable interval string
+     * @return Carbon the end date
+     * @throws BadRequestHttpException if either the date string or the interval could not be parsed
+     */
+    public function calculateEndDate(string $dateString, string $addInterval): Carbon
+    {
+        if (empty($dateString)) {
+            throw new BadRequestHttpException('missing date');
+        }
+        $parsedDate = Carbon::createFromFormat('Y-m-d H:i:s', $dateString);
+
+        if ($parsedDate === false) {
+            throw new BadRequestHttpException('Invalid date format. Expected Y-m-d');
+        }
+
+        $value = $parsedDate->modify($addInterval);
+        if (!$value) {
+            throw new BadRequestHttpException('Invalid interval string');
+        }
+
+        return $value;
     }
 }

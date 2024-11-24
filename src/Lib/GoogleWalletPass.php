@@ -35,6 +35,7 @@ use Google\Service\Walletobjects\LocalizedString;
 use Google\Service\Walletobjects\TextModuleData;
 use Google\Service\Walletobjects\TranslatedString;
 use Google\Service\Walletobjects\Uri;
+use RuntimeException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /** Demo class for creating and managing passes in Google Wallet. */
@@ -64,28 +65,52 @@ class GoogleWalletPass
     public function __construct(
         private readonly TranslatorInterface $translator,
     ) {
-        $this->keyFilePath = GOOGLE_WALLET_KEY_PATH;
-
-        $this->auth();
+        if (!empty(GOOGLE_WALLET_ISSUER_ID)) {
+            $this->keyFilePath = GOOGLE_WALLET_KEY_PATH;
+            $this->auth();
+        }
     }
 
     /**
      * Create authenticated HTTP client using a service account file.
      */
-    public function auth()
+    public function auth(): void
     {
-        $this->credentials = new ServiceAccountCredentials(
-            Walletobjects::WALLET_OBJECT_ISSUER,
-            $this->keyFilePath
-        );
+        try {
+            if (!file_exists($this->keyFilePath)) {
+                throw new RuntimeException("Key file not found: {$this->keyFilePath}");
+            }
 
-        // Initialize Google Wallet API service
-        $this->client = new GoogleClient();
-        $this->client->setApplicationName(WALLET_LABEL);
-        $this->client->setScopes(Walletobjects::WALLET_OBJECT_ISSUER);
-        $this->client->setAuthConfig($this->keyFilePath);
+            if (!is_readable($this->keyFilePath)) {
+                throw new RuntimeException("Key file is not readable. Please check file permissions: {$this->keyFilePath}");
+            }
 
-        $this->service = new Walletobjects($this->client);
+            $fileContent = file_get_contents($this->keyFilePath);
+            if (!$fileContent) {
+                throw new RuntimeException("Unable to read key file or file is empty: {$this->keyFilePath}");
+            }
+
+            // Check if file contains valid JSON
+            json_decode($fileContent);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new RuntimeException('Key file does not contain valid JSON format: ' . json_last_error_msg());
+            }
+
+            $this->credentials = new ServiceAccountCredentials(
+                Walletobjects::WALLET_OBJECT_ISSUER,
+                $this->keyFilePath
+            );
+
+            // Initialize Google Wallet API service
+            $this->client = new GoogleClient();
+            $this->client->setApplicationName(WALLET_LABEL);
+            $this->client->setScopes(Walletobjects::WALLET_OBJECT_ISSUER);
+            $this->client->setAuthConfig($this->keyFilePath);
+
+            $this->service = new Walletobjects($this->client);
+        } catch (\Exception $e) {
+            throw new RuntimeException('Error during Google Wallet authentication: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -119,21 +144,12 @@ class GoogleWalletPass
             'cardTemplateOverride' => [
               'cardRowTemplateInfos' => [
                 [
-                  'threeItems' => [
+                  'twoItems' => [
                     'startItem' => [
                       'firstValue' => [
                         'fields' => [
                           [
                             'fieldPath' => "object.textModulesData['valid_start']"
-                          ]
-                        ]
-                      ]
-                    ],
-                    'middleItem' => [
-                      'firstValue' => [
-                        'fields' => [
-                          [
-                            'fieldPath' => "object.textModulesData['role']"
                           ]
                         ]
                       ]
@@ -193,21 +209,12 @@ class GoogleWalletPass
             'cardTemplateOverride' => [
               'cardRowTemplateInfos' => [
                 [
-                  'threeItems' => [
+                  'twoItems' => [
                     'startItem' => [
                       'firstValue' => [
                         'fields' => [
                           [
                             'fieldPath' => "object.textModulesData['valid_start']"
-                          ]
-                        ]
-                      ]
-                    ],
-                    'middleItem' => [
-                      'firstValue' => [
-                        'fields' => [
-                          [
-                            'fieldPath' => "object.textModulesData['role']"
                           ]
                         ]
                       ]
@@ -242,7 +249,7 @@ class GoogleWalletPass
      *
      * @return string The pass object ID: "{$issuerId}.{$userId}"
      */
-    public function createObject(int $userId, string $name, string $profileURL, string $photo, string $role, ?DateTime $passDate)
+    public function createObject(int $userId, string $name, string $profileURL, string $photo, ?DateTime $passDate)
     {
         $issuerId = GOOGLE_WALLET_ISSUER_ID;
         $classSuffix = GOOGLE_WALLET_CLASS_ID;
@@ -290,11 +297,6 @@ class GoogleWalletPass
             ])
           ]),
           'textModulesData' => [
-            new TextModuleData([
-              'header' => $this->translator->trans('settings.passport.wallet.role'),
-              'body' => $role,
-              'id' => 'role'
-            ]),
             new TextModuleData([
               'header' => $this->translator->trans('settings.passport.wallet.valid_start'),
               'body' => $validStart,
@@ -447,7 +449,7 @@ class GoogleWalletPass
      * @param int $userId developer-defined unique ID for this pass object
      * @return string The pass object ID: "{$issuerId}.{$userId}"
      */
-    public function renewObject(int $userId, string $role, DateTime $passDate = new DateTime())
+    public function renewObject(int $userId, DateTime $passDate = new DateTime())
     {
         $issuerId = GOOGLE_WALLET_ISSUER_ID;
         $validStart = $passDate->format('d. m. Y');
@@ -457,8 +459,6 @@ class GoogleWalletPass
             $this->service->genericobject->get("{$issuerId}.{$userId}");
         } catch (Exception $ex) {
             if (!empty($ex->getErrors()) && $ex->getErrors()[0]['reason'] == 'resourceNotFound') {
-                echo "Object {$issuerId}.{$userId} not found!";
-
                 return "{$issuerId}.{$userId}";
             } else {
                 // Something else went wrong...
@@ -479,11 +479,6 @@ class GoogleWalletPass
             ],
           ],
           'textModulesData' => [
-            new TextModuleData([
-              'header' => $this->translator->trans('settings.passport.wallet.role'),
-              'body' => $role,
-              'id' => 'role'
-            ]),
             new TextModuleData([
               'header' => $this->translator->trans('settings.passport.wallet.valid_start'),
               'body' => $validStart,
@@ -514,7 +509,7 @@ class GoogleWalletPass
      *
      * @return string an "Add to Google Wallet" link
      */
-    public function createNewPassJwt(int $userId, string $name, string $profileURL, string $photo, string $role, ?DateTime $passDate): string
+    public function createNewPassJwt(int $userId, string $name, string $profileURL, string $photo, ?DateTime $passDate): string
     {
         $issuerId = GOOGLE_WALLET_ISSUER_ID;
         $classSuffix = GOOGLE_WALLET_CLASS_ID;
@@ -548,11 +543,6 @@ class GoogleWalletPass
             ])
           ]),
           'textModulesData' => [
-            new TextModuleData([
-              'header' => $this->translator->trans('settings.passport.wallet.role'),
-              'body' => $role,
-              'id' => 'role'
-            ]),
             new TextModuleData([
               'header' => $this->translator->trans('settings.passport.wallet.valid_start'),
               'body' => $validStart,

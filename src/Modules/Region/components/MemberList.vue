@@ -59,35 +59,49 @@
         </div>
       </b-tab>
       <b-tab v-if="!isWorkGroup && mayEditMembers" :title="$i18n('group.member_list.passports.title')">
-        <div class="row">
-          <div class="col-md-4 mb-2">
-            <b-button
-              :disabled="passportMember <= 0"
-              variant="outline-primary"
+        <div class="d-flex justify-content-between">
+          <b-button
+            :disabled="passportMember.length <= 0"
+            variant="outline-primary"
+            size="sm"
+            @click="verifySelectedMember"
+          >
+            {{ $i18n('group.member_list.passports.verify_selected') }} ({{ passportMember.length }})
+          </b-button>
+
+          <div class="d-flex align-items-sm-baseline align-items-stretch justify-content-end">
+            <b-form-checkbox
+              v-if="isCreatePdf && passportMember.length === 1"
+              v-model="usePaperSizeDinA4"
+              class="ml-2"
               size="sm"
-              @click="clearSelected"
             >
-              {{ $i18n('group.member_list.passports.clear_selection') }}
-            </b-button>
-          </div>
-          <div class="col-md-4 mb-2">
+              {{ $i18n('group.member_list.passports.automatic_paper_size') }}
+            </b-form-checkbox>
+            <b-form-checkbox
+              v-model="isCreatePdf"
+              class="ml-2"
+              size="sm"
+              @change="setPassportSettingsToLocalStorage"
+            >
+              {{ $i18n('group.member_list.passports.create_pdf') }}
+            </b-form-checkbox>
+            <b-form-checkbox
+              v-model="isRenewPassport"
+              class="ml-2 mr-2"
+              size="sm"
+              @change="setPassportSettingsToLocalStorage"
+            >
+              {{ $i18n('group.member_list.passports.active_or_renew_passport') }}
+            </b-form-checkbox>
             <b-button
+              :disabled="passportMember.length <= 0 || !(isCreatePdf || isRenewPassport)"
               variant="outline-primary"
               size="sm"
-              :disabled="!passportMember"
               @click="createPassports"
             >
-              {{ $i18n('group.member_list.passports.generate_button') }} ({{ passportMember.length }})
+              {{ $i18n('group.member_list.passports.execute') }} ({{ passportMember.length }})
             </b-button>
-          </div>
-          <div class="col-md-4">
-            <b-form-checkbox
-              v-model="filterPassportMember"
-              switch
-              size="sm"
-            >
-              {{ $i18n('group.member_list.passports.filter_selection') }}
-            </b-form-checkbox>
           </div>
         </div>
       </b-tab>
@@ -110,7 +124,45 @@
               :placeholder="$i18n('filterlist.filter_for_name_id')"
             >
           </div>
-          <div class="filter-for-delete">
+          <b-button-group class="filter-for-search">
+            <b-dropdown
+              v-if="activeTab === ACTIVE_TAB_PASSPORT"
+              id="dropdown-form"
+              ref="dropdown"
+              variant="link"
+              toggle-class="text-decoration-none"
+              no-caret
+            >
+              <template #button-content>
+                <button
+                  v-b-tooltip.hover
+                  :title="$i18n('button.filter_options')"
+                  type="button"
+                  class="btn btn-sm"
+                >
+                  <i class="fas fa-filter" />
+                </button>
+              </template>
+
+              <b-dropdown-form>
+                <b-form-checkbox
+                  v-model="filterPassportMember"
+                  switch
+                  size="sm"
+                  class="mb-2"
+                >
+                  {{ $i18n('group.member_list.passports.filter_selection') }}
+                </b-form-checkbox>
+
+                <label class="mb-1">{{ $i18n('group.member_list.passports.show_only_member_after') }}</label>
+                <b-form-select
+                  v-model="filterPassportUntilValid"
+                  :options="passportFilterOptions"
+                  size="sm"
+                  class="mb-2"
+                />
+              </b-dropdown-form>
+            </b-dropdown>
             <button
               v-b-tooltip.hover
               :title="$i18n('button.clear_filter')"
@@ -120,7 +172,7 @@
             >
               <i class="fas fa-times" />
             </button>
-          </div>
+          </b-button-group>
         </div>
       </div>
 
@@ -139,6 +191,13 @@
         class="foto-table"
         @sort-changed="sortBy = $event.sortBy ? $event.sortBy : ''"
       >
+        <template #head(passportToggle)>
+          <b-form-checkbox
+            v-if="mayEditMembers && activeTab === ACTIVE_TAB_PASSPORT"
+            :checked="selectAllTable"
+            @change="toggleSelectAllTable"
+          />
+        </template>
         <template v-if="mayEditMembers" #cell(passportToggle)="row">
           <b-form-checkbox
             v-if="activeTab === ACTIVE_TAB_PASSPORT && !isNullOrEmptyOrWhitespace(row.item.avatar)"
@@ -182,6 +241,15 @@
             month: 'numeric',
             year: 'numeric',
           }) }}
+        </template>
+        <template #cell(passUntilValid)="row">
+          {{
+            row.item.lastPassDate === null ? '' : $dateFormatter.format(passportValidUntilDate(row.item.lastPassDate), {
+              day: 'numeric',
+              month: 'numeric',
+              year: 'numeric',
+            })
+          }}
         </template>
         <template #cell(lastActivity)="row">
           {{ $dateFormatter.format(row.item.lastActivity, {
@@ -268,7 +336,7 @@ import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import { REGION_IDS } from '@/consts'
-import { useUserStore } from '@/stores/user'
+import { PASSPORT_FILTER_OPTIONS, useUserStore } from '@/stores/user'
 
 const regionStore = useRegionStore()
 const userStore = useUserStore()
@@ -314,11 +382,22 @@ export default {
       selectMode: 'multi',
       passportMember: [],
       filterPassportMember: false,
+      filterPassportUntilValid: null,
+      usePaperSizeDinA4: true,
       activeTab: null,
       sortBy: '',
       mayEditMembers: false,
       maySetAdminOrAmbassador: false,
       mayRemoveAdminOrAmbassador: false,
+      isCreatePdf: true,
+      isRenewPassport: true,
+      passportFilterOptions: [
+        { text: i18n('group.member_list.passports.filter_options.no_filter'), value: PASSPORT_FILTER_OPTIONS.NO_FILTER },
+        { text: i18n('group.member_list.passports.filter_options.no_passport'), value: PASSPORT_FILTER_OPTIONS.NO_PASSPORT },
+        { text: i18n('group.member_list.passports.filter_options.with_passport'), value: PASSPORT_FILTER_OPTIONS.WITH_PASSPORT },
+        { text: i18n('group.member_list.passports.filter_options.invalid_passport'), value: PASSPORT_FILTER_OPTIONS.INVALID_PASSPORT },
+      ],
+      selectAllTable: false,
     }
   },
   computed: {
@@ -389,6 +468,18 @@ export default {
           return false
         }
 
+        if (this.activeTab === this.ACTIVE_TAB_PASSPORT && this.filterPassportUntilValid === PASSPORT_FILTER_OPTIONS.INVALID_PASSPORT && this.isPassportValid(member.lastPassDate)) {
+          return false
+        }
+
+        if (this.activeTab === this.ACTIVE_TAB_PASSPORT && this.filterPassportUntilValid === PASSPORT_FILTER_OPTIONS.WITH_PASSPORT && member.lastPassDate === null) {
+          return false
+        }
+
+        if (this.activeTab === this.ACTIVE_TAB_PASSPORT && this.filterPassportUntilValid === PASSPORT_FILTER_OPTIONS.NO_PASSPORT && member.lastPassDate !== null) {
+          return false
+        }
+
         return true
       })
     },
@@ -439,6 +530,12 @@ export default {
         columns.push({
           key: 'lastPassDate',
           label: this.$i18n('group.member_list.passports.created_at'),
+          sortable: true,
+          class: 'align-middle',
+        },
+        {
+          key: 'passUntilValid',
+          label: this.$i18n('group.valid_until'),
           sortable: true,
           class: 'align-middle',
         })
@@ -529,8 +626,34 @@ export default {
     } catch (e) {
       pulseError(i18n('error_unexpected'))
     }
+    this.isCreatePdf = JSON.parse(localStorage.getItem('regionMemberList_createPdf'))
+    this.isRenewPassport = JSON.parse(localStorage.getItem('regionMemberList_renewPassport'))
   },
   methods: {
+    setPassportSettingsToLocalStorage () {
+      localStorage.setItem('regionMemberList_createPdf', this.isCreatePdf)
+      localStorage.setItem('regionMemberList_renewPassport', this.isRenewPassport)
+    },
+    toggleSelectAllTable () {
+      this.selectAllTable = !this.selectAllTable
+
+      if (this.selectAllTable) {
+        this.passportMember = this.membersFiltered.map(member => member.id)
+      } else {
+        this.passportMember = []
+      }
+    },
+    passportValidUntilDate (creationDate) {
+      const validUntil = new Date(creationDate)
+      validUntil.setFullYear(validUntil.getFullYear() + 3)
+      return validUntil
+    },
+    isPassportValid (creationDate) {
+      if (creationDate === null) { return true }
+      const today = new Date()
+      const validUntil = this.passportValidUntilDate(creationDate)
+      return today <= validUntil
+    },
     isNullOrEmptyOrWhitespace (str) {
       return (str ?? '').trim().length === 0
     },
@@ -682,12 +805,33 @@ export default {
     clearSelected () {
       this.passportMember = []
     },
+    async verifySelectedMember () {
+      const dialogueOptions = {
+        title: i18n('group.member_list.passports.button.verify'),
+        okTitle: i18n('button.yes_i_am_sure'),
+        okVariant: 'danger',
+      }
+      if (!await this.confirmationDialogue('group.member_list.passports.verify.do_selected', dialogueOptions)) return
+      try {
+        for (const memberId of this.passportMember) {
+          const existingMember = regionStore.memberList.find(entry => entry.id === memberId)
+
+          if (!existingMember?.isVerified) {
+            await verifyUser(memberId)
+          }
+        }
+      } catch (e) {
+        pulseError(i18n('error_unexpected'))
+      }
+    },
     async createPassports () {
       showLoader()
       try {
-        const blob = await createPassportAsAmbassador(this.regionId, this.passportMember)
-        const filename = `fs_passports_${this.regionId}_${this.regionName}.pdf`
-        this.downloadFile(blob, filename)
+        const response = await createPassportAsAmbassador(this.regionId, this.passportMember, this.isCreatePdf, this.isRenewPassport, this.usePaperSizeDinA4)
+        if (this.isCreatePdf) {
+          const filename = `fs_passports_${this.regionId}_${this.regionName}.pdf`
+          this.downloadFile(response, filename)
+        }
       } catch (e) {
         pulseError(i18n('error_unexpected'))
       }
@@ -741,17 +885,17 @@ export default {
   }
 }
 
-  .filter-for-delete {
+  .filter-for-search {
   @media (min-width: 375px) {
-    flex-basis: 2%;
+    flex-basis: 5%;
     order: 3;
-    margin:0.5rem;
+    margin: 0;
   }
 
   @media (min-width: 1200px) {
-    flex-basis: 5%;
+    flex-basis: 9%;
     order: 3;
-    margin:0.7rem;
+    margin: 0;
   }
 }
 

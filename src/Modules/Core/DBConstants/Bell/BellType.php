@@ -42,7 +42,7 @@ class BellType
     /**
      * The creation of the foodsaver's pass has failed.
      */
-    final public const PASS_CREATION_FAILED = 'pass-fail-%d';
+    final public const PASS_CREATED_OR_RENEWED = 'pass-created-or-renewed-%d';
     /**
      * Notification for a store manager that someone wants to join a store.
      */

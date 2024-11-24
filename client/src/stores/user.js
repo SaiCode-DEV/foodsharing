@@ -55,6 +55,12 @@ export const useUserStore = defineStore('user', {
     },
     hasBouncingEmail: () => false,
     hasActiveEmail: () => true,
+    isPassportInvalid: (state) => {
+      return state.details.lastPassUntilValid ? (state.details.lastPassUntilValidInDays <= PASSPORT_STATUS.INVALID) : false
+    },
+    isPassportInvalidSoon: (state) => {
+      return state.details.lastPassUntilValid ? (state.details.lastPassUntilValidInDays <= PASSPORT_STATUS.INVALID_SOON_WARNING_TIME) : false
+    },
   },
   actions: {
     async fetchDetails () {
@@ -95,4 +101,16 @@ export const SLEEP_STATUS = Object.freeze({
   NONE: 0,
   TEMP: 1,
   FULL: 2,
+})
+
+export const PASSPORT_FILTER_OPTIONS = Object.freeze({
+  NO_FILTER: null,
+  NO_PASSPORT: 1,
+  WITH_PASSPORT: 2,
+  INVALID_PASSPORT: 3,
+})
+
+export const PASSPORT_STATUS = Object.freeze({
+  INVALID: 0,
+  INVALID_SOON_WARNING_TIME: 30,
 })

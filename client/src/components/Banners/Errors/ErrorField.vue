@@ -22,7 +22,7 @@
           v-for="(link, key) in entry.links"
           :key="key"
           class="errorfield__link"
-          :href="link.urlShortHand ? $url(link.urlShortHand) : link.href"
+          :href="link.urlShorthand ? $url(link.urlShorthand) : link.href"
           @click="link.modal ? $bvModal.show(link.modal) : null"
           v-text="$i18n(link.text)"
         />

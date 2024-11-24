@@ -41,7 +41,7 @@ class AppleWalletPass
         $this->certFilePass = APPLE_WALLET_CERTIFICATE_PASS;
     }
 
-    public function createNewPass(int $userId, string $name, string $profileURL, string $photoFileName, string $role, \DateTime $passDate): string
+    public function createNewPass(int $userId, string $name, string $profileURL, string $photoFileName, \DateTime $passDate): string
     {
         $pass = new PKPass($this->certFilePath, $this->certFilePass);
 
@@ -72,13 +72,6 @@ class AppleWalletPass
                         'key' => 'name',
                         'label' => $this->translator->trans('settings.passport.wallet.name'),
                         'value' => $name,
-                    ],
-                ],
-                'secondaryFields' => [
-                    [
-                        'key' => 'role',
-                        'label' => $this->translator->trans('settings.passport.wallet.role'),
-                        'value' => $role,
                     ],
                 ],
                 'auxiliaryFields' => [

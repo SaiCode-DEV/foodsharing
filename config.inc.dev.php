@@ -69,17 +69,6 @@ define('TWINGLE_URL', 'https://spenden.twingle.de/status/E4yxc5T7YJh7nZvL93Yu7Pl
 
 define('MAX_DELETE_OLD_ACCOUNTS_PER_DAY', 100);
 
-define('WALLET_LABEL', 'foodsharing');
-
-define('GOOGLE_WALLET_KEY_PATH', __DIR__ . '/keys/google.json');
-define('GOOGLE_WALLET_ISSUER_ID', 3388000000022365685);
-define('GOOGLE_WALLET_CLASS_ID', 'foodsharing-passport');
-
-define('APPLE_WALLET_CERTIFICATE_PATH', __DIR__ . '/keys/apple.p12');
-define('APPLE_WALLET_CERTIFICATE_PASS', '8Kz9YxgAVFWRmqj9ZT');
-define('APPLE_WALLET_TEAM_ID', 'H97D45LYHL');
-define('APPLE_WALLET_PASS_TYPE_ID', 'pass.de.foodsharing.passport');
-
 define('ZAMMAD_URL', 'https://support.foodsharing.network/');
 define('ZAMMAD_TICKET_TOKEN', '');
 

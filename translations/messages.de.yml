@@ -376,6 +376,7 @@ button:
   answer: "Antworten"
   create: "Anlegen"
   clear_filter: "Filter leeren"
+  filter_options: "Filter-Optionen"
   reset_default: "Standard wiederherstellen"
   start: Los geht's!
   confirm: Bestätigen
@@ -413,6 +414,7 @@ group:
   description: "Beschreibung"
   photo: "Foto"
   last_activity: "Letzte Aktivität"
+  valid_until: "Gültis bis"
   filter_by_last_activity: "Nicht aktiv in Monaten"
   role_name: "Rolle"
   applications: "Bewerbungen"
@@ -582,18 +584,29 @@ group:
       title: "Standard"
       lastname: "Nachname"
     passports:
-      title: "Ausweise"
+      title: "Ausweise & Verifizierung"
       created_at: "Ausweis erstellt am"
       generate_button: "Ausweis/e für markierte erstellen"
-      clear_selection: "Alle markierte zurücksetzen"
-      filter_selection: "Filter nach ausgewählten Mitgliedern"
+      verify_selected: "markierte verifizieren"
+      automatic_paper_size: "A4-Papier nutzen"
+      create_pdf: "Erstelle PDF"
+      active_or_renew_passport: "Ausweis aktivieren / verlängern"
+      execute: "Ausführen"
+      show_only_member_after: "Zeige nur Mitgliedern nach"
+      filter_selection: "Zeige nur ausgewählte Mitglieder"
       never_before: "noch nie"
       button:
         verify: "Verifizieren"
         unverify: "Entverifizieren"
       verify:
-        do: "Account von {name} ({id}) verifizieren"
+        do: "Möchtest du {name} ({id}) wirklich verifizieren (Datenabgleich erfolgt / Ausweis kontrolliert etc.)?"
+        do_selected: "Möchtest du alle ausgewählten wirklich verifizieren (Datenabgleich erfolgt / Ausweis kontrolliert etc.)?"
         undo: "Verifizierung von {name} ({id}) aufheben"
+      filter_options:
+        no_filter: "kein Filter"
+        no_passport: "kein Ausweis"
+        with_passport: "mit Ausweis"
+        invalid_passport: "ungültiger Ausweis"
     all_roles: "Alle Rollen"
 
 legal:
@@ -1747,6 +1760,8 @@ bell:
   new_foodsaver_verified: "Schon verifiziert – kann loslegen"
   foodsaver_verified_title: "Du bist jetzt verifiziert!"
   foodsaver_verified: "Rufe deinen Ausweis unter …"
+  passport_created_or_renewed_title: "Dein Ausweis..."
+  passport_created_or_renewed: "ist aktiviert oder verlängert worden!"
   betrieb_fetch_title: "{betrieb}"
   betrieb_fetch: "{count} unbestätigte Abholzeiten"
 
@@ -2127,6 +2142,10 @@ settings:
     menu: "Ausweis"
     verified_text: "Dieser Ausweis ist für den Einsatz auf dem Smartphone gedacht. Dort kannst du ihn dir abspeichern und dann bei Verlangen vorzeigen. Solltest du kein Smartphone besitzen oder aus einem anderen Grund noch einen herkömmlichen Ausweis benötigen, wende dich an deine Botschafter:innen vor Ort."
     non_verified_text: "Du bist noch nicht verifiziert. Nur verifizierten Foodsaver:innen steht das Herunterladen des Ausweises zur Verfügung."
+    passport_not_activated: "Dein Ausweis wurde noch nicht aktiviert."
+    ask_your_ambassadors: "Wende Dich dazu an Deine Botschafter:innen."
+    passport_is_valid_until: "Dein Ausweis ist noch **{days}** Tage bzw. bis **{date}** gültig."
+    passport_is_invalid: "Dein Ausweis ist nicht mehr gültig."
     button: "Ausweis herunterladen"
     add_to_wallet:
       google: "Zu Google Wallet hinzufügen"
@@ -3342,6 +3361,14 @@ error:
     title: "Wähle einen Stammbezirk aus."
     description: "Damit du weitermachen kannst, wird ein Stammbezirk benötigt."
     link: "Jetzt Stammbezirk auswählen"
+  passport_is_invalid:
+    title: "Dein Ausweis ist nicht mehr gültig!"
+    description: "Wende Dich an Deine Botschafter:innen, um ihn erneuern zu lassen."
+    link: "Profil-Einstellungen"
+  passport_is_invalid_soon:
+    title: "Dein Ausweis ist bald nicht mehr gültig!"
+    description: "Wende Dich an Deine Botschafter:innen, um ihn erneuern zu lassen."
+    link: "Profil-Einstellungen"
 
 information:
   push:

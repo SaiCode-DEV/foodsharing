@@ -3,6 +3,7 @@
 namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
+use DateTime;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Gender;
@@ -13,6 +14,7 @@ use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupTransactions;
 use Foodsharing\Modules\Login\LoginGateway;
+use Foodsharing\Modules\PassportGenerator\PassportGeneratorTransaction;
 use Foodsharing\Modules\Profile\ProfileGateway;
 use Foodsharing\Modules\Profile\ProfileTransactions;
 use Foodsharing\Modules\Region\RegionGateway;
@@ -35,6 +37,7 @@ use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\RestApi\Models\Group\UserGroupModel;
 use Foodsharing\RestApi\Models\Region\UserRegionModel;
 use Foodsharing\Utility\EmailHelper;
+use Foodsharing\Utility\TimeHelper;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -68,6 +71,7 @@ class UserRestController extends AbstractFoodsharingRestController
         private ProfileTransactions $profileTransactions,
         private FoodsaverTransactions $foodsaverTransactions,
         private SettingsGateway $settingsGateway,
+        private PassportGeneratorTransaction $passportGeneratorTransaction,
 
         private ProfilePermissions $profilePermissions,
         private QuizPermissions $quizPermissions,
@@ -80,7 +84,8 @@ class UserRestController extends AbstractFoodsharingRestController
         private SearchPermissions $searchPermissions,
         private RegionTransactions $regionTransactions,
         private GroupTransactions $groupTransactions,
-        private readonly SettingsTransactions $settingsTransactions
+        private readonly SettingsTransactions $settingsTransactions,
+        private TimeHelper $timeHelper,
     ) {
     }
 
@@ -151,6 +156,10 @@ class UserRestController extends AbstractFoodsharingRestController
         if ($loggedIn) {
             $infos = $this->foodsaverGateway->getFoodsaverBasics($data['id']);
 
+            $passValidityDate = isset($data['last_pass'])
+                ? $this->passportGeneratorTransaction->getPassportValidityEnd(new DateTime($data['last_pass']))
+                : null;
+
             $response['mailboxId'] = $data['mailbox_id'];
             $response['hasCalendarToken'] = $this->settingsGateway->getApiToken($data['id']) !== null;
             $response['firstname'] = $data['name'];
@@ -158,7 +167,11 @@ class UserRestController extends AbstractFoodsharingRestController
             $response['gender'] = $data['geschlecht'];
             $response['photo'] = $data['photo'];
             $response['sleeping'] = boolval($data['sleep_status']);
-
+            $response['lastPassDate'] = $data['last_pass'];
+            $response['lastPassUntilValid'] = $passValidityDate;
+            $response['lastPassUntilValidInDays'] = !is_null($passValidityDate)
+                ? $this->timeHelper->daysInFuture($passValidityDate)
+                : null;
             $response['stats']['weight'] = floatval($infos['stat_fetchweight']);
             $response['stats']['count'] = $infos['stat_fetchcount'];
 

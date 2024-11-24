@@ -47,7 +47,7 @@ class IdCardsCest
             }
         ');
 
-        $I->click('Ausweis/e für markierte erstellen');
+        $I->click('Ausführen');
 
         // $I->waitForFileExists('/downloads/fs_passports_' . $region['id'] . '_' . convertRegionName($region['name']) . '.pdf', 10);
     }

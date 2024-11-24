@@ -70,7 +70,8 @@ final class ProfileGateway extends BaseGateway
 					UNIX_TIMESTAMP(fs.sleep_from) AS sleep_from_ts,
 					UNIX_TIMESTAMP(fs.sleep_until) AS sleep_until_ts,
 					fs.mailbox_id,
-					fs.deleted_at
+					fs.deleted_at,
+					fs.last_pass
 
 			FROM 	fs_foodsaver fs
 
