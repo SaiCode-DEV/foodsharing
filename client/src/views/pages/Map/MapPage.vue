@@ -151,9 +151,9 @@ export default {
       this.currentZoom = MAP_CONSTANTS.ZOOM_COUNTRY
     }
 
-    // Load all markers that are initially selected
+    // Load and draw all markers that are initially selected
     showLoader()
-    await Promise.all(this.selectedTypes.map(name => getMarkers(name, this.selectedSpecifiers[name])))
+    await Promise.all(this.selectedTypes.map(name => this.drawMarkerLayer(name)))
     hideLoader()
   },
   methods: {
@@ -165,8 +165,7 @@ export default {
         this.selectedTypes.splice(this.selectedTypes.indexOf(name), 1)
       } else {
         this.selectedTypes.push(name)
-        const markers = await getMarkers(name, this.selectedSpecifiers[name])
-        this.drawMarkerLayer(name, markers)
+        await this.drawMarkerLayer(name)
       }
       this.storage.set('selectedTypes', this.selectedTypes)
     },
@@ -176,8 +175,7 @@ export default {
     async updateMarkerSpecifier (markerType, specifier, newValue) {
       this.selectedSpecifiers[markerType][specifier] = newValue
       this.storage.set('selectedSpecifiers', this.selectedSpecifiers)
-      const markers = await getMarkers(markerType, this.selectedSpecifiers[markerType])
-      this.drawMarkerLayer(markerType, markers)
+      this.drawMarkerLayer(markerType)
     },
     /**
      * When a marker was clicked, this function toggles the corresponding action like opening a bubble.
@@ -201,10 +199,10 @@ export default {
           break
       }
     },
-    drawMarkerLayer (type, markersData) {
+    async drawMarkerLayer (type) {
+      const markersData = await getMarkers(type, this.selectedSpecifiers[type])
       const layer = this.$refs[`markerCluster-${type}`][0]
       if (!layer) return
-      console.debug(markersData)
 
       const markerList = []
 

@@ -28,7 +28,7 @@
 - When using foodsharing in mutliple tabs, their state is now synchronized #2148 !3693 @AntonBallmaier
 - Added a system to allow forum moderators to hide and restore posts #1351 #1646 !3419 @AntonBallmaier
 - Forum threads that need activation trigger a bell notification #289 !3703 @alex.simm
-- Improved map marker caching #2106 !3712 @AntonBallmaier
+- Improved map marker caching #2106 !3712 #2223 !3824 @AntonBallmaier
 - Added a map marker selection for ambassadors to display users #1759 !3714 @AntonBallmaier
 - Added top banner for future bundestag petition #2180 @AntonBallmaier 
 - Added the option to mark quiz questions as mandatory. Mandatory questions get included every time. #2179 !3760 @AntonBallmaier
