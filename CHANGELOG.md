@@ -17,7 +17,7 @@
 - Improved map marker selection for stores #1659 !3596 @AntonBallmaier
 - Added an achievement administration page #2073 !3604 @AntonBallmaier
 - Added new Digital Foodsharing Passports for Android and iOS !3591 @SaiCode
-- Food baskets support multiple images now. Image quality issues are resolved. #1797 #1714 #2120 !3304 !3711 @AntonBallmaier
+- Food baskets support multiple images now. Image quality issues are resolved. #1797 #1714 #2120 !3304 !3711 #2226 !3828 @AntonBallmaier
 - Added the option to test a quiz from the quiz editor. #2112 !3612 @AntonBallmaier
 - Ambassadors can now see the previous home district and last pickup of users in their region. #2004 !3675 @AntonBallmaier
 - Added bells for mentions in forum. #1850 !3671 @AntonBallmaier

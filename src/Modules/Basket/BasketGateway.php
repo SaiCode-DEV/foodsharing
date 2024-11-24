@@ -106,7 +106,7 @@ class BasketGateway extends BaseGateway
                 b.id
             FROM fs_basket_anfrage a
             INNER JOIN fs_basket b ON a.basket_id = b.id
-            INNER JOIN fs_foodsaver fs ON b.foodsaver_id = fs.id
+            INNER JOIN fs_foodsaver fs ON a.foodsaver_id = fs.id
             WHERE
                 a.`status` IN(:status_unread,:status_read)
                 AND b.id = :basket_id',
