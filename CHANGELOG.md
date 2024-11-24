@@ -70,6 +70,7 @@
 - Update support link !3778 !3803 @McGoldi
 - Shuffle question answers for quiz tries. #2199 !3796 @AntonBallmaier
 - Rename achievements in German from "Errungenschaften" to "Vermerke" #2202 !3795 @AntonBallmaier
+- Improved partner page layout #2203 !3818 @AntonBallmaier
 - The number of attached files in emails is limited to 10 #1896 !3791 @alex.simm
 - Disable autocomplete on search inputs in store member list !3805 @iron9
 - Store chain info can now be entered using the markdown editor #2220 !3817 @AntonBallmaier
