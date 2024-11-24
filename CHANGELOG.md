@@ -33,7 +33,7 @@
 - Added top banner for future bundestag petition #2180 @AntonBallmaier 
 - Added the option to mark quiz questions as mandatory. Mandatory questions get included every time. #2179 !3760 @AntonBallmaier
 - Added support form for our new zammad ticket system !3210 !3873 @chriswalg @alex.simm
-- Add push notification toggle and prompt users to use push notifications for the chat #1967 !3375 @AntonBallmaier
+- Add push notification toggle and prompt users to use push notifications for the chat #1967 !3375 #2214 !3814 @AntonBallmaier
 - Added store hygiene requirement #1508 !3756 @AntonBallmaier
 - Add data privacy notice to hygine quiz !3792 @AntonBallmaier
 

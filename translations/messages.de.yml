@@ -918,7 +918,7 @@ fsp:
   twig:
     n_in_region: "{count} Fairteiler in {name}"
   createdAt: "Eröffnet:"
-  followerCount: "Interessierte Nuter:innen: {followerCount}"
+  followerCount: "Interessierte Nutzer:innen: {followerCount}"
   onlySuggested: "Dieser Fairteiler wurde vorgeschlagen, ist aber noch nicht freigegeben. In diesem Zustand wird er anderen Nutzer:innen nicht angezeigt."
 
 storeview:

@@ -1,45 +1,6 @@
 <template>
   <div>
-    <div>
-      <h4>{{ $i18n('notifications.chat.title') }}</h4>
-      <b-row>
-        <b-col
-          cols="12"
-          lg="5"
-        >
-          {{ $i18n('notifications.chat.description') }}
-        </b-col>
-        <b-col lg="1" />
-        <b-col
-          cols="4"
-          lg="2"
-          class="pt-1"
-        >
-          <b-form-checkbox
-            id="infomail_message"
-            v-model="infoMailState"
-            size="sm"
-          >
-            {{ $i18n('notifications.checkbox_email') }}
-          </b-form-checkbox>
-        </b-col>
-        <b-col
-          cols="4"
-          lg="3"
-          class="pt-1"
-        >
-          <b-form-checkbox
-            v-if="getPushNotificationState === null || getPushNotificationState === true"
-            v-model="getPushNotificationState"
-            size="sm"
-            @change="trySetPushNotification"
-          >
-            {{ $i18n('notifications.checkbox_push') }}
-          </b-form-checkbox>
-        </b-col>
-      </b-row>
-    </div>
-    <div class="ui-widget-content corner-bottom margin-bottom ui-padding">
+    <div class="pt-2">
       <div>
         <h4>{{ $i18n('notifications.chat.title') }}</h4>
         <b-row>
@@ -49,7 +10,6 @@
           >
             {{ $i18n('notifications.chat.description') }}
           </b-col>
-          <b-col lg="1" />
           <b-col
             cols="4"
             lg="2"
