@@ -6,8 +6,6 @@ import '@/style'
 import $ from 'jquery'
 import 'jquery-migrate'
 
-import { initialize } from '@/script'
-
 import 'jquery-ui'
 import registerServiceWorker from '@/registerServiceWorker'
 
@@ -23,7 +21,6 @@ import serverData from '@/helper/server-data'
 import socket from '@/socket'
 import { getCsrfToken } from '@/api/base'
 
-initialize()
 registerServiceWorker()
 
 if (serverData.user.may) {

@@ -43,10 +43,6 @@ describe('script', () => {
       assert.strictEqual(script.isMob(), false)
     })
 
-    it('can initialize', () => {
-      script.initialize()
-    })
-
     describe('pulse', () => {
       let info
       let success

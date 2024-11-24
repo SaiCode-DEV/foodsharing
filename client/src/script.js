@@ -24,56 +24,6 @@ export function collapse_wrapper (id) {
   }
 }
 
-export function initialize () {
-  $(function () {
-    $('#main').css('display', 'block')
-
-    if (!isMob()) {
-      $('#main a').tooltip({
-        show: false,
-        hide: false,
-        content: function () {
-          return $(this).attr('title')
-        },
-        position: {
-          my: 'center bottom-20',
-          at: 'center top',
-          using: function (position, feedback) {
-            $(this).css(position)
-            $('<div>')
-              .addClass('arrow')
-              .addClass(feedback.vertical)
-              .addClass(feedback.horizontal)
-              .appendTo(this)
-          },
-        },
-      })
-    }
-
-    $('.dialog').dialog()
-
-    $('ul.toolbar li').on('mouseenter', function () {
-      $(this).addClass('ui-state-hover')
-    }).on('mouseleave', function () {
-      $(this).removeClass('ui-state-hover')
-    })
-
-    $('.text, .textarea, select').on('focus', function () {
-      $(this).addClass('focus')
-    })
-    $('.text, .textarea, select').on('blur', function () {
-      $(this).removeClass('focus')
-    })
-
-    $('.value').on('blur', function () {
-      const el = $(this)
-      if (el.val() != '') {
-        el.removeClass('input-error')
-      }
-    })
-  })
-}
-
 export function chat (fsid) {
   conversationStore.openChatWithUser(fsid)
 }
