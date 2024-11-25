@@ -4,9 +4,8 @@
 - Disable preview mode for Markdown component after message was sent #2039 @tq-bit
 - Add feedback on login form for invalid / missing email address #2061 @tq-bit
 - Add API endpoint for creating blog posts !3455 @alex.simm
-- Create option for multiple themes with dark mode as a start #2054 !3500 @SaiCode
 - Store walls now support image attachments !3577 @AntonBallmaier
-- Create option for multiple themes with dark mode as a start #2054 !3500 !3653 @SaiCode
+- Create option for multiple themes with dark mode as a start #2054 !3500 !3653 @SaiCode #2229 3831 @AntonBallmaier
 - Achievements can be awarded, edited and revoked. They get displayed on the profile !3429 @AntonBallmaier
 - Allow users to change their own passwords #581 !3435 @alex.simm
 - Allow loading more wall posts #2056 !3580 @AntonBallmaier

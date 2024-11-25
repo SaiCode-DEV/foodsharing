@@ -4,7 +4,7 @@ import i18n from '@/helper/i18n'
 const storageKey = 'theme'
 
 const defaultTheme = {
-  userTheme: 'system',
+  userTheme: 'light',
   isDark: false,
 }
 
