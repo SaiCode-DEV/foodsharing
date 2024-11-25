@@ -28,7 +28,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PassportGeneratorTransaction extends AbstractController
 {
-    private const PASSPORT_VALIDITY_INTERVAL = '+3 years';
+    private const PASSPORT_VALIDITY_YEARS = 3;
 
     public function __construct(
         private readonly RegionGateway $regionGateway,
@@ -145,7 +145,7 @@ class PassportGeneratorTransaction extends AbstractController
         }
     }
 
-    private function generatePdf(array $userIds, bool $ambassadorGeneration, bool $automatic_paper_size, $validDates): stdClass
+    private function generatePdf(array $userIds, bool $ambassadorGeneration, bool $automatic_paper_size, DateTime $validFrom, DateTime $validUntil): stdClass
     {
         $protectPDF = !$ambassadorGeneration;
         $cutMarkers = $ambassadorGeneration;
@@ -219,8 +219,8 @@ class PassportGeneratorTransaction extends AbstractController
                 }
 
                 $pdf->SetFont($fontFamily, $fontStyle, 10);
-                $pdf->Text($margins['validDownMarginX'] + $x, $margins['validDownMarginY'] + $y, $validDates->untilFrom);
-                $pdf->Text($margins['validTillMarginX'] + $x, $margins['validTillMarginY'] + $y, $validDates->validUntil);
+                $pdf->Text($margins['validDownMarginX'] + $x, $margins['validDownMarginY'] + $y, $validFrom->format('d.m.Y'));
+                $pdf->Text($margins['validTillMarginX'] + $x, $margins['validTillMarginY'] + $y, $validUntil->format('d.m.Y'));
 
                 $pdf->SetFont($fontFamily, $fontStyle, 6);
                 // ToDo: Add translation keys
@@ -263,19 +263,6 @@ class PassportGeneratorTransaction extends AbstractController
         return $result;
     }
 
-    private function calculateValidDates(?DateTime $currentPassDate = null): stdClass
-    {
-        $generationUntilDate = 3;
-        $untilFrom = $currentPassDate ? Carbon::parse($currentPassDate) : new Carbon();
-        $validUntil = $untilFrom->addYears($generationUntilDate);
-
-        $result = new stdClass();
-        $result->untilFrom = $untilFrom->format('d.m.Y');
-        $result->validUntil = $validUntil->format('d.m.Y');
-
-        return $result;
-    }
-
     /**
      * @throws Exception
      */
@@ -286,9 +273,10 @@ class PassportGeneratorTransaction extends AbstractController
         if (empty($lastPassDate) || !$this->isPassportValid($lastPassDate)) {
             throw new Exception('passport is not valid');
         }
-        $validDates = $this->calculateValidDates($lastPassDate);
+        $validFrom = Carbon::parse($lastPassDate);
+        $validUntil = $this->getPassportValidityEnd($validFrom);
 
-        $result = $this->generatePdf([$userId], false, true, $validDates);
+        $result = $this->generatePdf([$userId], false, true, $validFrom, $validUntil);
 
         return $result->pdf->Output('', 'S');
     }
@@ -305,7 +293,7 @@ class PassportGeneratorTransaction extends AbstractController
      */
     public function getPassportValidityEnd(DateTime $creationDate): DateTime
     {
-        return $creationDate->modify(self::PASSPORT_VALIDITY_INTERVAL);
+        return Carbon::instance($creationDate)->addYears(self::PASSPORT_VALIDITY_YEARS)->toDateTime();
     }
 
     public function generatePassportAsAmbassador(CreateRegionPassportModel $regionPassportModel): mixed
@@ -314,8 +302,9 @@ class PassportGeneratorTransaction extends AbstractController
         $generatedUserId = $this->session->id();
 
         if ($regionPassportModel->createPdf) {
-            $validDates = $this->calculateValidDates();
-            $result = $this->generatePdf($regionPassportModel->userIds, true, $regionPassportModel->usePaperSizeDinA4, $validDates);
+            $validFrom = Carbon::today();
+            $validUntil = $this->getPassportValidityEnd($validFrom);
+            $result = $this->generatePdf($regionPassportModel->userIds, true, $regionPassportModel->usePaperSizeDinA4, $validFrom, $validUntil);
         }
 
         $userIds = $result->pdfGeneratedUserIds ?? $regionPassportModel->userIds;
