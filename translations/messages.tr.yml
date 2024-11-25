@@ -253,8 +253,7 @@ quiz:
       limited_tries: Testi istediğiniz kadar tekrarlayamazsınız. Üç denemeden sonra
         30 günlük bir ara vermeniz gerekir; bunun ardından yalnızca iki deneme hakkınız
         daha vardır. Her denemede size sorulacak sorular farklıdır.
-      read_carefully: Tüm soru ve cevapları dikkatlice okuyunuz. Bunun için yeterli
-        zaman var.
+      read_carefully: Tüm soru ve cevapları dikkatlice okuyunuz.
       pause: Her sorudan sonra testi duraklatabilir ve daha sonra devam ettirebilirsiniz.
       feedback: Testin sonunda geçip geçmediğinize, hangi hataları ve nerede yaptığınıza
         ilişkin anında bir değerlendirme alacaksınız. Burada boş zamanınızda nedenlerini
@@ -271,9 +270,9 @@ quiz:
         arasında öğrenmeye ara vermeniz gerekir.
     title: Test notları
     privacyNotice:
-      hygiene: Bu testi geçerseniz başarılı olduğunuzda kaydedilecek ve size hijyen
-        notu verilecektir. Hijyen yöneticileri ve operasyon ekiplerinizin üyeleri
-        geçerli bir hijyen sertifikanızın olup olmadığını görebilir.
+      hygiene: Bu testi geçerseniz başarılı olduğunuzda kaydedilecek ve size Hijyen
+        Etiketi verilecektir. Hijyen yöneticileri ve operasyon ekiplerinizin üyeleri
+        geçerli bir Hijyen Etiketinizin olup olmadığını görebilir.
     acceptPrivacyNotice: _Kabul ediyorum.
   plural: Testler
   button:
@@ -305,7 +304,7 @@ quiz:
   answers:
     name: Cevaplar
     none_correct: Hiç bir cevap da doğru değil.
-    false_false: Bu cevap elbette yanlıştı. Bunu doğru farkettiniz.
+    false_false: Bu cevap yanlıştı. Bunu doğru farkettiniz.
     false_true: Bu cevap doğru olurdu.
     true_false: Yanlış! Bu cevap doğru değil.
     true_true: Doğru! Bu cevabı doğru bildiniz.
@@ -448,10 +447,10 @@ quiz:
   test: Testi test et
   stateBasedInfo:
     neverTried: Bu Testi daha önce hiç yapmadın. Sorulara hazırlanmak için listelenen
-      tüm Wiki makalelerini dikkatle okumaya zaman ayırın.
-    noWaitAfter: İlgili wiki makalelerine göz atın ve tekrar deneyin.
+      tüm Bilgi makalelerini dikkatle okumaya zaman ayırın.
+    noWaitAfter: İlgili Bilgi makalelerine göz atın ve tekrar deneyin.
     waitAfter: Bir sonraki denemenizde başarısız olursanız, çalışmaya {waitTimeAfterFailure}
-      gün ara vermek zorunda kalacaksınız. Testi geçebilmeniz için ilgili wiki makalelerine
+      gün ara vermek zorunda kalacaksınız. Testi geçebilmeniz için ilgili Bilgi makalelerine
       göz atmayı unutmayın.
     pauseElapsed: Çalışma molanız bitti. Bu nedenle artık teste tekrar katılabilirsiniz.
       Umarız bu zamanı içeriğe daha aşina olmak için kullanmışsınızdır.
@@ -504,6 +503,7 @@ button:
   confirm: Onayla
   countdown_clickable: '{geri sayım} saniye içinde tıklanabilir'
   ok: OK
+  filter_options: Filtreleme Opsiyonları
 upload:
   new_image: Yeni fotoğraf yükle
   file: Dosya yükle
@@ -773,7 +773,7 @@ group:
       title: Standart
       lastname: Soyad
     passports:
-      title: Kimlikler
+      title: Kimlik kartları ve doğrulama
       created_at: Kimlik kartı oluşturuldu
       generate_button: İşaretli kişiler için kimlik kartı/kartları oluşturun
       never_before: asla
@@ -790,6 +790,7 @@ group:
   delete_group_sure: '{groupName} çalışma grubunu/bölgesini silmek istediğinizden
     emin misiniz?'
   filter_placeholder: Grupları isimlerine göre filtrele
+  valid_until: Şu tarihe kadar geçerlidir
 ansprechpartner: İşletmeden sorumlu Yektili (Şube Müdürü vs.)
 text: Metin
 fp: Hata puanları
