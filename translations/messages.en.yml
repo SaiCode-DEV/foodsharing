@@ -205,18 +205,32 @@ group:
       title: Default
       lastname: Surname
     passports:
-      title: Passes
+      title: Membership cards & verification
       created_at: Pass created at
       generate_button: Create membership card(s) for selected person(s)
       never_before: never before
       clear_selection: Reset all selected
-      filter_selection: Filter by selected members
+      filter_selection: Show only selected members
       button:
         verify: verify
         unverify: unverify
       verify:
-        do: Verify account of {name} ({id})
+        do: Do you really want to activate {name} ({id}) (data comparison completed
+          / ID checked, etc.)?
         undo: Cancel verification of {name} ({id})
+        do_selected: Do you really want to activate all selected users (data comparison
+          completed / ID checked, etc.)?
+      verify_selected: verify selected
+      automatic_paper_size: use A4 paper
+      create_pdf: create PDF
+      active_or_renew_passport: Activate/renew membership card
+      filter_options:
+        no_filter: no filter
+        no_passport: no membership card
+        with_passport: with membership card
+        invalid_passport: invalid membership card
+      execute: Execute
+      show_only_member_after: Show only members after
     all_roles: all roles
   application_from: by
   entermotivation: 'Motivation:'
@@ -230,6 +244,7 @@ group:
   role_name: Role
   userId: ID
   filter_placeholder: Filter groups by name
+  valid_until: valid until
 settings:
   header: Profile settings
   name_change:
@@ -419,6 +434,11 @@ settings:
       valid_start: "Valid from"
       valid_end: "Valid until"
 
+    ask_your_ambassadors: Please contact your ambassadors.
+    passport_not_activated: Your membership card has not yet been activated.
+    passport_is_invalid: Your membership card is no longer valid.
+    passport_is_valid_until: Your membership card is valid for another **{days}**
+      days or until **{date}**.
   delete_profile: Delete profile
   quiz:
     2: Quiz for store managers
@@ -905,9 +925,11 @@ mailbox:
   attachment:
     not_found_explanation: The attachment could not be found on the server
     not_found: not found
-    attach: Attachments (max. 1.5 MB per file)
+    attach: Attachments (maximum 10 files and 1.5 MB per file)
     too_large_to_send: Some of the files were too large and could not be attached
       to the email.
+    too_many: Too many files have been selected. A maximum of 10 files can be attached
+      to the e-mail.
   move_to: Move to
   close_edit_mode: Stop editing
   add: Add
@@ -1469,6 +1491,7 @@ button:
   close: Close
   start: Let’s go!
   confirm: confirm
+  filter_options: Filter options
 bell:
   ft_update_title: '{name}'
   blog_new_check: '{title}'
@@ -1556,6 +1579,8 @@ bell:
   internal_email_changed: Your personal e-mail address has been changed.
   forum_not_activated_thread: '{forum}'
   forum_not_activated_thread_title: Topic in moderated forum
+  passport_created_or_renewed: has been activated or extended!
+  passport_created_or_renewed_title: Your membership card …
 reports:
   time: Time
   region: Home district
@@ -3707,7 +3732,7 @@ quiz:
     name: Answers
     none_correct: Neither answer is correct.
     neutral: Neutral answer — will not be evaluated.
-    false_false: This answer was of course wrong. You recognized that correctly.
+    false_false: This answer was wrong. You recognized that correctly.
     false_true: This answer would have been correct.
     true_false: Wrong! This answer is not correct.
     timedOut:
@@ -4046,6 +4071,14 @@ error:
     description: Your landline phone number is in an invalid format and can not be
       called.
     link: Correct your landline number now
+  passport_is_invalid:
+    title: Your membership card is no longer valid!
+    description: Contact your ambassadors to have it renewed.
+    link: Profile settings
+  passport_is_invalid_soon:
+    title: Your membership card will expire soon!
+    description: Contact your ambassadors to have it renewed.
+    link: Profile settings
 information:
   push:
     title: "You can now receive push notifications from foodsharing."
@@ -4386,7 +4419,7 @@ help:
         Important to note: This function is only based on foodsharing's own hygiene
         training. Neither hygiene certificates from external providers (e.g. Metro)
         uploaded to the profile nor hygiene training courses noted elsewhere are currently
-        taken into account. \n"
+        taken into account.\n"
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -4481,3 +4514,17 @@ support_page:
   attachments: Attachments (max. 5 MB per file)
   validation_email: Invalid e-mail address
   new_request: New request
+petition:
+  progressText:
+    2000: The petition is gaining momentum! With your support, we can rock it!
+    500: Let’s go! Be one of the first to sign this petition!
+    Infinity: Goal achieved! Our petition is being discussed in the German parliament.
+      Now it's time to strengthen our cause even further!
+    30000: Almost there — just a little bit more! Join the petition now!
+    8000: We have made a good start! Help us to get even further!
+    15000: Halftime in sight! With your support, we can keep moving forward!
+    20000: We already have half of the signatures needed! Together we can do it!
+    25000: We already have two thirds of the signatures needed! Together we can do
+      it!
+  link: To the petition
+  daysLeft: '{daysLeft} days remaining'
