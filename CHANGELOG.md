@@ -25,7 +25,7 @@
 - Added the option to send a message with a store aplication #2017 !3461 @AntonBallmaier
 - Added a french foodsaver quiz that can be edited but not yet accessed #2149 !3672 @AntonBallmaier
 - Added a tab in the banana modal for sent bananas. #2075 !3581 !3676 @AntonBallmaier @SaiCode
-- When using foodsharing in mutliple tabs, their state is now synchronized #2148 !3693 @AntonBallmaier
+- When using foodsharing in mutliple tabs, their state is now synchronized #2148 !3693 #2228 !3830 @AntonBallmaier
 - Added a system to allow forum moderators to hide and restore posts #1351 #1646 !3419 @AntonBallmaier
 - Forum threads that need activation trigger a bell notification #289 !3703 @alex.simm
 - Improved map marker caching #2106 !3712 #2223 !3824 @AntonBallmaier

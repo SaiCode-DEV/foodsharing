@@ -26,7 +26,10 @@ export function storeSynchronizer (broadcastType, propertyKey) {
   // `broadcastChanges` is tells if a change to the watched value should be broadcasted to other tabs.
   // This is usually true, but disabled when recieving a value update from another tab. This way
   // the same change isn't continually broadcasted between multiple tabs.
+  // Changes are only applied to the tab that is in focus. Unfocused tabs just save the new value and
+  // use it only as soon as the new tab comes into focus again to prevent unnecessary rerenders.
   let broadcastChanges = true
+  const deferredNewValues = {}
   return {
     watch: {
       [propertyKey]: {
@@ -44,7 +47,17 @@ export function storeSynchronizer (broadcastType, propertyKey) {
       channelListeners.push((event) => {
         if (event.data.type === broadcastType) {
           broadcastChanges = false // don't broadcast the recieved change
-          this[propertyKey] = event.data[propertyKey]
+          if (document.hasFocus()) {
+            this[propertyKey] = event.data[propertyKey]
+          } else {
+            deferredNewValues[propertyKey] = event.data[propertyKey]
+          }
+        }
+      })
+      window.addEventListener('focus', () => {
+        if (deferredNewValues[propertyKey]) {
+          this[propertyKey] = deferredNewValues[propertyKey]
+          delete deferredNewValues[propertyKey]
         }
       })
     },
