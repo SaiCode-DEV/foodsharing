@@ -197,7 +197,7 @@ quiz:
       pause: Du kannst das Quiz nach jeder Frage pausieren und zu einem späteren Zeitpunkt fortsetzen.
       feedback: Am Ende des Quizzes bekommst du direkt eine Auswertung, ob du bestanden hast und welche Fehler du wo gemacht hast. Hier kannst du nocheinmal in Ruhe die Begründungen durchlesen.
     privacyNotice:
-      hygiene: Wenn du dieses Quiz bestehst, wird gespeichert, wann dir das gelungen ist und dir wird ein Hygienevermerk vergeben. Hygiene- und Betriebsverantwortliche können sehen, ob du einen gültigen Hygienevermerk hast.
+      hygiene: Wenn du dieses Quiz bestehst, wird gespeichert, wann dir das gelungen ist und dir wird ein Hygiene-Sticker vergeben. Hygiene- und Betriebsverantwortliche können sehen, ob du einen gültigen Hygiene-Sticker hast.
     acceptPrivacyNotice: Ich bin einverstanden.
   infomodal:
     title: "Frage {index} von {questions}"
@@ -826,8 +826,8 @@ terminology:
   buddies: "Bekannte"
   options: "Optionen"
   pin: "Ortsgruppenbeschreibung"
-  achievement: "Vermerk"
-  achievements: "Vermerke"
+  achievement: "Sticker"
+  achievements: "Sticker"
   phone: "Telefonnummer"
   landline: "Festnetznummer"
   mobile_phone: "Handynummer"
@@ -1091,7 +1091,7 @@ store:
     confirm-no-location-ok: "Trotzdem bewerben"
     application-message: "Bewerbungsnachricht"
     application-placeholder: "Ich möchte gerne in diesem Team helfen, weil..."
-    hygieneRequired: "Für die Abholungen in diesem Betrieb ist ein gültiger Hygienevermerk nötig."
+    hygieneRequired: "Für die Abholungen in diesem Betrieb ist eine gültige Hygieneschulung nötig."
     hygieneMissing: "Das fehlt dir aktuell. Führe jetzt das Hygienequiz durch, um dich für dieses Team bewerben zu können."
 
   info_container: "Informationen"
@@ -1253,8 +1253,8 @@ pickup:
   same_day_entry: "[{when} Uhr] {name}"
   really_join_date: "Möchtest du dich verbindlich für die Abholung am {date} eintragen?"
   hygieneCertificateMissing:
-    none: "Du hast aktuell keinen gültigen Hygienevermerk. Führe jetzt das Hygienequiz durch, um dich für die Abholung eintragen zu können."
-    timeout: "Bis zum Zeitpunkt der Abholung läuft dein Hygienevermerk ab. Führe jetzt erneut das Hygienequiz durch, um dich für die Abholung eintragen zu können."
+    none: "Du hast aktuell keine gültigen Hygieneschulung. Führe jetzt das Hygienequiz durch, um dich für die Abholung eintragen zu können."
+    timeout: "Bis zum Zeitpunkt der Abholung läuft deine Hygieneschulung ab. Führe jetzt erneut das Hygienequiz durch, um dich für die Abholung eintragen zu können."
     link: "Zur Hygieneschulung"
   join_cancel: "Doch nicht"
   join_agree: "Ja, verbindlich eintragen"
@@ -3110,7 +3110,7 @@ theme_switcher:
   theme:
     system: "System"
     light: "Hell"
-    dark: "Dunkel (Beta)"
+    dark: "Dunkel"
 
 startpage:
   welcome_text: "Willkommen bei foodsharing"
@@ -3649,8 +3649,8 @@ markdown_input:
 
 achievements:
   inThis:
-    region: "Folgende Vermerke können in diesem Bezirk vergeben werden:"
-    group: "Folgende Vermerke können in dieser Arbeitsgruppe vergeben werden:"
+    region: "Folgende Sticker können in diesem Bezirk vergeben werden:"
+    group: "Folgende Sticker können in dieser Arbeitsgruppe vergeben werden:"
   validity:
     days: "Gültig für {validityInDaysAfterAssignment} Tage nach der Vergabe."
     indefinite: "Nach der Vergabe beliebig lange gültig."
@@ -3661,26 +3661,26 @@ achievements:
   reviewer: "Von"
   notice: "Bemerkung"
   validUntil: "Gültig bis"
-  award: "Vermerk vergeben"
+  award: "Sticker vergeben"
   findUser: "Nutzer:in suchen"
   editDetails: "Details anpassen"
   revoke: "Entziehen"
-  editAwarded: "Vermerk {achievement} für {user} anpassen"
-  revokeConfirmation: "Möchtest du wirklich {name} diesen Vermerk entziehen?"
-  notAwarded: "Dieser Vermerk ist aktuell an niemanden verliehen."
-  inRegion: "Vermerke in {region} ({count})"
-  add: "Vermerk hinzufügen"
-  edit: "Vermerk bearbeiten: {name}"
-  new: "Neuer Vermerk"
+  editAwarded: "Sticker {achievement} für {user} anpassen"
+  revokeConfirmation: "Möchtest du wirklich {name} diesen Sticker entziehen?"
+  notAwarded: "Dieser Sticker ist aktuell an niemanden verliehen."
+  inRegion: "Sticker in {region} ({count})"
+  add: "Sticker hinzufügen"
+  edit: "Sticker bearbeiten: {name}"
+  new: "Neuer Sticker"
   editor:
     name: "Name"
     description: "Beschreibung"
     icon: "Icon"
     validityInDaysAfterAssignment: "Gültigkeit nach der Vergabe in Tagen"
     preview: "Vorschau"
-  noneInThisRegion: "In dieser Region sind keine Vermerke eingetragen."
-  deleteConfirmation: "Willst du wirklich diesen Vermerk löschen?"
-  editTitle: "Vermerke bearbeiten"
+  noneInThisRegion: "In dieser Region sind keine Sticker eingetragen."
+  deleteConfirmation: "Willst du wirklich diesen Sticker löschen?"
+  editTitle: "Sticker bearbeiten"
 
 
 help:
@@ -3753,17 +3753,17 @@ help:
         ---
         Hinweise zur Bearbeitung einer Meldung könnt ihr hier nachlesen: [Bearbeitung einer Meldung](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)
     achievements:
-      title: "Vermerke"
+      title: "Sticker"
       md: |
-        Hier muss noch eine Erklärung für Vermerke ergänzt werden. Das mache ich später. TODO
+        Hier muss noch eine Erklärung für Sticker ergänzt werden. Das mache ich später. TODO
     achievementIcon:
-      title: "Icons für Vermerke"
+      title: "Icons für Sticker"
       md: |
-        Jeder Vermerk hat ein Icon, also ein eine kleine Grafik, die auf den esten Blick zeigen soll, worum es geht. Eine Liste der Verfügbaren Icons findest du unter https://fontawesome.com/v5/search?o=r&m=free&s=solid.
+        Jeder Sticker hat ein Icon, also ein eine kleine Grafik, die auf den esten Blick zeigen soll, worum es geht. Eine Liste der Verfügbaren Icons findest du unter https://fontawesome.com/v5/search?o=r&m=free&s=solid.
 
         In das Eingabefeld musst du den Namen des Icons eingeben, das du nutzen möchtest, also bspw. "*walking*" oder "*shopping-cart*".
         Ob deine Eingabe funktioniert, kannst du anhand der Vorschau übeprüfen.
-        Wenn du kein icon eingibst, wird automatisch das Standard-Icon für Vermerke "*tag*" genutzt
+        Wenn du kein icon eingibst, wird automatisch das Standard-Icon für Sticker "*tag*" genutzt
     polls:
       title: "Abstimmungen"
       md: |
@@ -3787,7 +3787,7 @@ help:
 
         ---
 
-        Wichtig zu beachten: Diese Funktion basiert nur auf den foodsharing-eigenen Hygienevermerken. Weder im Profil hochgeladene Hygienezertifikate externer Anbieter (wie bspw. Metro), noch anderweitig vermerkte Hygieneschulungen werden technisch berücksichtigt.
+        Wichtig zu beachten: Diese Funktion basiert nur auf den foodsharing-eigenen Hygiene-Stickern. Weder im Profil hochgeladene Hygienezertifikate externer Anbieter (wie bspw. Metro), noch anderweitig erworbene Hygieneschulungen werden technisch berücksichtigt.
 team_page:
   board_member:
     title: "Vorstand"
