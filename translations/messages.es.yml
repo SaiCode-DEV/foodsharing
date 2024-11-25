@@ -1226,6 +1226,7 @@ group:
         do: Verificar la cuenta de {name} ({id})
         undo: Sin verificar {name} ({id})
       clear_selection: Restablecer todos los seleccionados
+      create_pdf: crear PDF
     all_roles: Todos los roles
   edit:
     title: 'Editar {group}'
@@ -1907,10 +1908,10 @@ pickup:
   description_max_length_info: Longitud máxima de la descripción alcanzada (100 letras)
   hygieneCertificateMissing:
     none: Actualmente no dispones de un certificado de higiene válido. Complete el
-      cuestionario de higiene ahora para poder registrarse para la recolección .
-    timeout: Su certificado de higiene caducará en el momento en que lo recoja . Ahora
+      cuestionario de higiene ahora para poder registrarse para la recolección.
+    timeout: Su certificado de higiene caducará en el momento en que lo recoja. Ahora
       vuelva a realizar el cuestionario de higiene para poder registrarse para la
-      recogida .
+      recogida.
     link: Para formación en higiene
 date:
   wednesday: 'miércoles'
