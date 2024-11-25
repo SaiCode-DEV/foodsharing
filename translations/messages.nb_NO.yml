@@ -118,6 +118,12 @@ startpage:
     trenger vi dine gode idéer og tips. Send dem til [info@foodsharing.de](mailto:info@foodsharing.de)
   etiquette: etikette for matdeling
   followrules_title: Følg reglene og rådene for videresending av mat
+  followrules: "Vi påpeker uttrykkelig at vi av juridiske årsaker kun tillater tilbud
+    og deling av visse matvarer og andre varer under visse betingelser. Dette gjelder
+    spesielt lett bedervelige matvarer som rå fisk, rått kjøtt, rå eggeretter og ferdigmat.
+    Generelt bruker vi alle sansene våre for å sikre at maten fortsatt er spiselig.
+    Alle detaljer finner du i [hygieneregler for matdeling](https://wiki.foodsharing.de/Hygiene
+    Rules). Informasjon kan også finnes i [Guide](https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel).\n"
 language_chooser:
   title: Velg språk
   content: Vennligst velg et språk
@@ -1070,6 +1076,10 @@ profile:
     notes: Merknader ({count})
   choosereasonnostore: Påvirker ikke noen bedrift
   chooseantherstore: Gjelder et unotert bedrift
+  homeDistrictHistory:
+    changed: endret
+    previous: forrige
+    by: fra
 settings:
   photo:
     title: Bildet ditt
@@ -1251,6 +1261,11 @@ settings:
       name: Navn
       valid_start: gyldig fra
       valid_end: gyldig inntil
+    passport_not_activated: Medlemskortet ditt er ikke aktivert ennå.
+    passport_is_invalid: Medlemskortet ditt er ikke lenger gyldig.
+    passport_is_valid_until: Medlemskortet ditt er gyldig i ytterligere **{days}**
+      dager eller til **{date}**.
+    ask_your_ambassadors: Ta kontakt med ambassadørene dine.
   no_rights: Du er ikke autorisert til å endre profilinnstillingene.
   general:
     current_address: Nåværende adresse
@@ -1336,8 +1351,9 @@ mailbox:
   attachment:
     not_found_explanation: Den vedlagte filen ble ikke lenger funnet på serveren
     not_found: ikke funnet
-    attach: Vedlegg (maks. 1,5 MB per fil)
+    attach: Vedlegg (maks. 10 filer, 1,5 MB per fil)
     too_large_to_send: Noen av filene var for store og kunne ikke legges ved e-posten.
+    too_many: For mange filer ble valgt. Maksimalt 10 filer kan legges ved e-posten.
   add: Legg til
   mark_as_read: Merk som lest
   unknown_sender: Ukjent avsender
@@ -1622,6 +1638,8 @@ bell:
   internal_email_changed: Den personlige e-postadressen din er endret.
   forum_not_activated_thread: '{forum}'
   forum_not_activated_thread_title: Emne i moderert forum
+  passport_created_or_renewed_title: Medlemskortet ditt …
+  passport_created_or_renewed: er aktivert eller forlenget!
 reports:
   when: Tid
   time: Tidspunkt
@@ -2001,18 +2019,31 @@ group:
       title: Standard
       lastname: Etternavn
     passports:
-      title: Medlemskort
+      title: Medlemskort og aktivering
       created_at: Medlemskort opprettet på
       generate_button: Opprett medlemskort for utvalgte personer
       never_before: aldri før
       clear_selection: Tilbakestill alle valgte
-      filter_selection: Filtrer etter utvalgte medlemmer
+      filter_selection: Vis kun utvalgte medlemmer
       button:
         verify: bekrefte
         unverify: ubekrefte
       verify:
-        do: Bekreft konto for {name} ({id})
+        do: Vil du virkelig låse opp {navn} ({id}) (datasjekk utført/passsjekket osv.)?
         undo: Avbryt aktivering av {name} ({id})
+        do_selected: Vil du virkelig låse opp alle valgte brukere (datasjekk utført
+          / passsjekket osv.)?
+      active_or_renew_passport: Aktiver/utvid medlemskort
+      verify_selected: låse opp utvalgte
+      automatic_paper_size: Bruk A4-papir
+      create_pdf: lage PDF
+      execute: Utfør
+      show_only_member_after: Vis kun medlemmer etter
+      filter_options:
+        no_filter: ingen filter
+        no_passport: ingen medlemskort
+        with_passport: med medlemskort
+        invalid_passport: ugyldig medlemskort
     all_roles: alle roller
   saved: Endringene har blitt lagret
   subtitle: her kan du finne hjelp og mye å gjøre …
@@ -2059,6 +2090,7 @@ group:
   role_name: Rolle
   userId: ID
   filter_placeholder: Filtrer grupper etter navn
+  valid_until: gyldig til
 bcard:
   generate: Lag visittkort
   actions: Alternativer
@@ -2136,6 +2168,7 @@ button:
   confirm: bekrefte
   countdown_clickable: Klikkbar om {seconds} sekunder
   ok: OK
+  filter_options: Filteralternativer
 upload:
   preview_image: Forhåndsvisning
   crop_dialog_title: Beskjær bilde
@@ -3202,8 +3235,8 @@ terminology:
   phone: Telefonnummer
   landline: Fasttelefonnummer
   mobile_phone: Mobilnummer
-  achievements: Prestasjoner
-  achievement: Prestasjon
+  achievements: Klistremerker
+  achievement: Klistremerke
   hygiene_training: Hygienetrening
   received: mottatt
   sent: Sendt
@@ -3516,14 +3549,16 @@ quiz:
   startmodal:
     title: Quiznotater
     infos:
-      wiki: Ikke start quizen tilfeldig. Les sidene som er oppført i matdelingswikien
-        nøye på forhånd. Uten kunnskapen fra wikien vil du ikke bestå quizen.
+      wiki: Ikke start quizen tilfeldig. Les informasjonssidene som er oppført nøye
+        på forhånd. Uten kunnskapen vil du ikke bestå quizen.
       real_life_examples: De fleste av spørsmålene er basert på virkelige tilfeller
         fra foodsharing-livet.
       limited_tries: Du kan ikke gjenta prøven så mange ganger du vil. Etter tre forsøk
         må du ta en pause på 30 dager for å studere på nytt, og deretter har du bare
         to forsøk til. Spørsmålene du blir stilt i hvert forsøk, er forskjellige.
-      alone: Du har ikke lov til å bli hjulpet under quizen. Finn derfor et rolig
+      alone: Du må fullføre quizen selv og uten hjelp utenfra. Hvis du har språkvansker
+        eller trenger bistand, kan en annen person selvsagt hjelpe deg med å forstå
+        spørsmålene; Du må imidlertid kunne svare på dem selv. Finn derfor et rolig
         sted hvor du kan ta quizen uforstyrret.
       read_carefully: Les alle spørsmål og svar nøye.
       multiple_choice: Flere svar per spørsmål kan være riktige – eller ingen i det
@@ -3532,7 +3567,8 @@ quiz:
         med forklaringer for hvert av de mulige svarene. Dette hjelper deg med å forstå
         hvilket svar som er riktig eller galt, og hvorfor. Hvis du gjør en feil, bør
         du lese forklaringene nøye. Hvis noe virker ulogisk, uforståelig eller til
-        og med feil, kan du legge igjen en kommentar.
+        og med feil, kan du legge igjen en kommentar. Kommentarene dine kan knyttes
+        til deg, slik at du får personlig tilbakemelding.
       pause: Du kan sette quizen på pause etter hvert spørsmål og fortsette på et
         senere tidspunkt.
       feedback: Når du er ferdig med quizen, får du umiddelbart en evaluering av om
@@ -3541,6 +3577,10 @@ quiz:
       unlimited_tries: Du kan gjenta denne testen så ofte du vil, og du blir aldri
         diskvalifisert hvis du stryker. Det kan imidlertid hende du må ta en pause
         mellom forsøkene.
+      timed: Det er begrenset med tid til å svare på spørsmålene. Ikke la dette stresse
+        deg. Tiden er satt individuelt for hvert spørsmål, slik at du har nok tid
+        til å svare på spørsmålet i fred og ro. Hvis du går tom for tid, kan du gi
+        beskjed til quizadministratorene med en kommentar.
     acceptPrivacyNotice: Jeg er enig i det.
     privacyNotice:
       hygiene: Hvis du består denne testen, blir det registrert når du gjorde det,
@@ -3560,7 +3600,7 @@ quiz:
   answers:
     name: Svarene
     neutral: Nøytralt svar – vil ikke bli vurdert.
-    false_false: Dette svaret var selvsagt feil. Du innså det helt riktig.
+    false_false: Dette svaret var feil. Du innså det helt riktig.
     false_true: Dette svaret ville vært riktig.
     timedOut:
       0: Dette svaret ville vært feil.
@@ -3835,6 +3875,14 @@ error:
     title: Det er et problem med fasttelefonnummeret ditt.
     description: Dessverre har fasttelefonnummeret ditt et format som ikke kan ringes.
     link: Korriger fasttelefonnummeret ditt nå
+  passport_is_invalid:
+    link: Profilinnstillinger
+    title: Medlemskortet ditt er ikke lenger gyldig!
+    description: Kontakt ambassadørene dine for å få den fornyet.
+  passport_is_invalid_soon:
+    title: Medlemskortet ditt utløper snart!
+    description: Kontakt ambassadørene dine for å få den fornyet.
+    link: Profilinnstillinger
 addreaction: Legg til en reaksjon
 contentmanagement: Innholdshåndtering
 globals:
@@ -4042,6 +4090,9 @@ notifications:
     cancel: Ikke aktiver
     ok: Motta push-varsler
     dontAskAgain: Ikke spør igjen
+    content: "Slik at du kan høre raskere når andre matsparere sender deg meldinger,
+      kan du aktivere push-varslinger på denne enheten!\n\nDu kan slå av disse varslene
+      når som helst i [varslingsinnstillinger](/?page=settings&sub=info).\n"
 markdown_input:
   tooltip:
     orderedList: nummerert liste
@@ -4139,7 +4190,7 @@ help:
       title: Mesterdistrikt
     achievements:
       md: "…\n"
-      title: Prestasjoner
+      title: Klistremerker
     basket:
       md: "Matkurver tilbys av brukere som ønsker å gi videre (ofte reddet) mat **gratis**.
         Registrerte brukere kan be om en matkurv å hente.\n"
@@ -4165,14 +4216,14 @@ help:
         klagegruppen, som ikke trenger å følge disse anbefalingene.\n"
       title: Klageskjema
     achievementIcon:
-      title: Prestasjonsikoner
-      md: "Hver prestasjon har et ikon, en liten grafikk som skal vise ved første
+      title: Ikoner for klistremerker
+      md: "Hvert klistremerke har et ikon, en liten grafikk som skal vise ved første
         øyekast hva den handler om. Du kan finne en liste over tilgjengelige ikoner
         på https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n\nI inntastingsfeltet
         må du skrive inn navnet på ikonet du vil bruke, for eksempel \"*gå*\" eller
         \"*handlevogn*\".\nDu kan sjekke om inndataene dine fungerer ved å bruke forhåndsvisningen.\n
-        Hvis du ikke skriver inn et ikon, vil standard prestasjonsikonet «*tag*» automatisk
-        bli brukt\n"
+        Hvis du ikke skriver inn et ikon, vil standardikonet for klistremerker «*tag*»
+        automatisk bli brukt\n"
     polls:
       title: Avstemningene
       md: "Ved å bruke stemmemodulen kan valg, undersøkelser og andre stemmer gjennomføres
@@ -4195,7 +4246,7 @@ help:
         \n---\n\nViktig å merke seg: Denne funksjonen er kun basert på foodsharings
         egen hygieneopplæring. Verken hygienesertifikater fra eksterne leverandører
         (f.eks. Metro) som er lastet opp til profilen eller hygienekurs som er notert
-        andre steder, blir for øyeblikket tatt i betraktning. \n"
+        andre steder, blir for øyeblikket tatt i betraktning.\n"
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
 team_page:
@@ -4239,14 +4290,14 @@ achievements:
     indefiniteShort: Permanent
     indefinite: Gyldig for enhver tidsperiode etter tildeling.
   inThis:
-    group: 'Følgende prestasjoner kan tildeles i denne arbeidsgruppen:'
-    region: 'Følgende prestasjoner kan tildeles i dette distriktet:'
-  edit: 'Rediger prestasjon: {name}'
-  award: Prestasjon tildelt
+    group: 'Følgende klistremerker kan tildeles i denne arbeidsgruppen:'
+    region: 'Følgende klistremerker kan tildeles i dette distriktet:'
+  edit: 'Rediger klistremerke: {name}'
+  award: gi et klistremerke
   validUntil: Gyldig til
   awarded: Gi
-  notAwarded: Denne prestasjonen er for øyeblikket ikke tildelt noen.
-  revokeConfirmation: Vil du virkelig frata {name} denne prestasjonen?
+  notAwarded: Denne klistremerke er for øyeblikket ikke tildelt noen.
+  revokeConfirmation: Vil du virkelig frata {name} denne klistremerke?
   notice: Bemerkning
   reviewer: Fra
   awardedTo: git til
@@ -4254,19 +4305,19 @@ achievements:
   editDetails: Rediger detaljer
   findUser: Finn bruker
   revoke: Tilbakekalle
-  inRegion: Prestasjoner i {region} ({count})
-  editAwarded: Juster prestasjon {achievement} for {user}
-  add: Legg til prestasjon
-  new: Ny prestasjon
+  inRegion: Klistremerker i {region} ({count})
+  editAwarded: Juster klistremerke {achievement} for {user}
+  add: Legg til klistremerke
+  new: Ny klistremerke
   editor:
     name: Navn
     description: Beskrivelse
     icon: Ikon
     validityInDaysAfterAssignment: Gyldig etter utstedelse i dager
     preview: Forhåndsvisning
-  deleteConfirmation: Vil du virkelig slette denne prestasjonen?
-  editTitle: Rediger prestasjoner
-  noneInThisRegion: Det er ingen prestasjoner registrert i denne regionen ennå.
+  deleteConfirmation: Vil du virkelig slette denne klistremerke?
+  editTitle: Rediger klistremerke
+  noneInThisRegion: Det er ingen klistremerker registrert i denne regionen ennå.
 store_categories:
   confirm_delete: Vil du virkelig slette kategorien {name}?
   delete: Slett kategori
@@ -4300,3 +4351,18 @@ support_page:
     tekniske bekymringer eller feilmeldinger. Etter innsending vil det automatisk
     bli opprettet en billett i vårt system. Det frivillige støtteteamet vil ta seg
     av henvendelsen din.
+petition:
+  link: Til begjæringen
+  progressText:
+    20000: Vi har allerede halvparten av signaturene vi trenger! Sammen kan vi gjøre
+      det!
+    Infinity: Målet nådd! Vår opprop blir diskutert i det tyske parlamentet. Nå er
+      det på tide å styrke saken vår ytterligere!
+    15000: Halvtid i sikte! Med din støtte vil vi fortsette å gjøre fremskritt!
+    25000: Vi har allerede to tredjedeler av signaturene vi trenger! Sammen kan vi
+      gjøre det!
+    30000: Nesten der – bare litt lenger! Bli en del av oppropet nå!
+    500: La oss gå! Vær blant de første til å signere denne oppropet!
+    2000: Oppropet skyter fart! Med din støtte vil vi vinne dette!
+    8000: Vi er godt i gang! Hjelp oss å komme enda lenger!
+  daysLeft: '{daysLeft} dager igjen'
