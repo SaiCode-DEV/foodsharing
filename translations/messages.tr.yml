@@ -264,10 +264,15 @@ quiz:
         içeren bir ara değerlendirme göreceksiniz. Bu, hangi cevabın doğru veya yanlış
         olduğunu ve nedenini anlamanıza yardımcı olur. Her hata için açıklamaları
         dikkatlice okumalısınız. Bir şey mantıksız, anlaşılmaz ve hatta yanlış görünüyorsa,
-        lütfen yorum bırakın.
+        lütfen yorum bırakın. Size bireysel geri bildirim sağlamak için yorumlarınız
+        size atanabilir.
       unlimited_tries: Bu Testi istediğiniz sıklıkta tekrarlayabilirsiniz, ve başarısız
         olmanız durumunda asla diskalifiye edilmeyeceksiniz. Ancak bazen denemeler
         arasında öğrenmeye ara vermeniz gerekir.
+      timed: Soruların cevaplanma süresi sınırlıdır. Bunun sizi strese sokmasına izin
+        vermeyin. Soruyu huzur içinde cevaplamak için yeterli zamanınız olması için
+        süre her soru için ayrı, ayrı belirlenir. Kendinizi bir zaman sıkıntısı içinde
+        bulursanız, test yöneticilerine bir yorum yazarak bunu bildirin.
     title: Test notları
     privacyNotice:
       hygiene: Bu testi geçerseniz başarılı olduğunuzda kaydedilecek ve size Hijyen
@@ -782,15 +787,21 @@ group:
         unverify: Onaylamayı iptal et
         verify: Onayla_
       verify:
-        do: '{name} ({id}) hesabını onaylayın'
+        do: 'Gerçekten {name} ({id}) (veri senkronize edildi / kimlik kontrol edildi,
+          vb.) doğrulamak istiyor musunuz?'
         undo: '{name} ({id}) onaylamasını iptal edin'
-      filter_selection: Seçilen üyelere göre filtrele
+      filter_selection: Yalnızca seçili üyeleri göster
+      verify_selected: işaretli olanları doğrula
+      automatic_paper_size: A4 kağıt kullanın
+      active_or_renew_passport: Kimlik kartını etkinleştir/uzat
+      show_only_member_after: Yalnızca üyelere göster
+      create_pdf: PDF oluştur
     all_roles: Tüm Roller
   show-all: Hepsini göster
   delete_group_sure: '{groupName} çalışma grubunu/bölgesini silmek istediğinizden
     emin misiniz?'
   filter_placeholder: Grupları isimlerine göre filtrele
-  valid_until: Şu tarihe kadar geçerlidir
+  valid_until: Şu tarihe kadar geçerlidir_
 ansprechpartner: İşletmeden sorumlu Yektili (Şube Müdürü vs.)
 text: Metin
 fp: Hata puanları
