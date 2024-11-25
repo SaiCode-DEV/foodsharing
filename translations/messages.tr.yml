@@ -241,10 +241,13 @@ quiz:
   comments: Yorumlar
   startmodal:
     infos:
-      alone: Test sırasında yardım almanıza izin verilmez. Bu nedenle teste rahatsız
-        edilmeden girebileceğiniz sessiz bir yer bulun.
-      wiki: Lütfen testi rastgele başlatmayın. foodsharing Wiki'de listelenen sayfaları
-        önceden dikkatlice okuyun. Wiki'deki bilgiler olmadan teste geçemezsiniz.
+      alone: Testi kendiniz ve dışarıdan yardım almadan tamamlamanız gerekir. Eğer
+        dil sorunu yaşıyorsanız ya da yardıma ihtiyacınız varsa, başka bir kişi elbette
+        soruları anlamanıza yardımcı olabilir; Ancak bunlara kendi başınıza cevap
+        verebilmeniz gerekir. Bu nedenle sınavı rahatsız edilmeden çözebileceğiniz
+        sessiz bir yer bulun.
+      wiki: Lütfen testi rastgele başlatmayın. Listelenen bilgi sayfalarını önceden
+        dikkatlice okuyun. Wiki'deki bilgiler olmadan sınavı geçemezsiniz.
       real_life_examples: Soruların çoğu foodsharing hayatında ki gerçek vakalara
         dayanıyor.
       limited_tries: Testi istediğiniz kadar tekrarlayamazsınız. Üç denemeden sonra
@@ -263,7 +266,7 @@ quiz:
         olduğunu ve nedenini anlamanıza yardımcı olur. Her hata için açıklamaları
         dikkatlice okumalısınız. Bir şey mantıksız, anlaşılmaz ve hatta yanlış görünüyorsa,
         lütfen yorum bırakın.
-      unlimited_tries: Bu Testi istediğiniz sıklıkta tekrarlayabilirsiniz ve başarısız
+      unlimited_tries: Bu Testi istediğiniz sıklıkta tekrarlayabilirsiniz, ve başarısız
         olmanız durumunda asla diskalifiye edilmeyeceksiniz. Ancak bazen denemeler
         arasında öğrenmeye ara vermeniz gerekir.
     title: Test notları
