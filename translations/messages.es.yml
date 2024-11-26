@@ -700,8 +700,8 @@ terminology:
   electionAdmins: Elecciones
   no: No
   yes: Sí
-  achievement: Nota
-  achievements: Notas
+  achievement: Etiquetas
+  achievements: Etiquetas
   phone: Número de teléfono
   landline: Número de teléfono fijo
   mobile_phone: Número de teléfono móvil
@@ -1040,6 +1040,14 @@ error:
     title: Tu número de fijo no es correcto o tiene algún fallo.
     description: Lamentablemente, el número del fijo está mal escrito o no se puede
       llamar.
+  passport_is_invalid:
+    description: Póngase en contacto con sus embajadores para que lo renueven.
+    title: ¡Tu DNI ya no es válido!
+    link: Ajustes del perfil
+  passport_is_invalid_soon:
+    title: ¡Su dni pronto dejará de ser válido!
+    description: Póngase en contacto con sus embajadores para que lo renueven.
+    link: Ajustes del perfil
 system_administration:
   regions: 'Administrar distritos'
   blog: 'Editar publicaciones de blog'
@@ -1214,19 +1222,32 @@ group:
       lastname: Apellido
       title: por defecto
     passports:
-      title: Tarjetas
+      title: Tarjetas de identificación y verificación
       generate_button: Crear tarjeta(s) de membresía para la(s) persona(s) seleccionada(s)
       never_before: nunca
       created_at: Tarjeta creada el
-      filter_selection: Filtrar por miembros seleccionados
+      filter_selection: Mostrar solo miembros seleccionados
       button:
         verify: Para verificar
         unverify: Sin verificar
       verify:
-        do: Verificar la cuenta de {name} ({id})
+        do: ¿Realmente desea verificar {name} ({id}) (comparación de datos realizada
+          / ID comprobado, etc.)?
         undo: Sin verificar {name} ({id})
+        do_selected: ¿Realmente desea verificar todos los seleccionados (comparación
+          de datos realizada / identificación comprobada, etc.)?
       clear_selection: Restablecer todos los seleccionados
       create_pdf: crear PDF
+      verify_selected: verificar los marcados
+      automatic_paper_size: Utilice papel A4
+      active_or_renew_passport: Activar/ampliar tarjeta de identificación
+      execute: Realizar
+      show_only_member_after: Mostrar solo a miembros
+      filter_options:
+        no_filter: Sin filtros
+        no_passport: sin identificación
+        with_passport: con identificación
+        invalid_passport: identificación no válida
     all_roles: Todos los roles
   edit:
     title: 'Editar {group}'
@@ -1306,6 +1327,7 @@ group:
   quit_name_district: 'Abandonar el distrito {name}'
   role_name: 'Role'
   filter_placeholder: Filtrar grupos por nombre
+  valid_until: Válido hasta
 register:
   error_email_exist: 'Su dirección de correo electrónico ya existe.'
   login_email: 'Dirección de correo electrónico'
@@ -1395,6 +1417,7 @@ button:
   confirm: confirmar
   countdown_clickable: Clicable en {countdown} segundos
   ok: De acuerdo
+  filter_options: Opciones del filtro
 pass:
   nav:
     options: 'Opciones'
@@ -1585,8 +1608,8 @@ store:
       la decisión sobre tu candidatura.
     application-message: Mensaje de aplicación
     application-placeholder: Me gustaría ayudar en este equipo porque...
-    hygieneRequired: Se requiere una nota de higiene válida para las recogidas de
-      esta empresa.
+    hygieneRequired: Se requiere una formación válida en higiene para las recogidas
+      de esta empresa.
     hygieneMissing: Eso es lo que te estás perdiendo actualmente. Responda el cuestionario
       de higiene ahora para postularse para este equipo.
   all_of_my_stores: 'Todas mis empresas'
@@ -2018,6 +2041,8 @@ bell:
   internal_email_changed: Tu dirección de correo electrónico personal ha sido cambiada.
   forum_not_activated_thread: '{forum}'
   forum_not_activated_thread_title: Tema en foro moderado
+  passport_created_or_renewed_title: Tu DNI...
+  passport_created_or_renewed: ¡se ha activado o ampliado!
 foodsaver:
   restricted: 'Lamentablemente, no tienes permiso para ver estos datos.'
   upgrade:
@@ -3469,6 +3494,10 @@ settings:
       name: Nombre
       role: Papel
       valid_start: Válido a partir de
+    passport_not_activated: Su tarjeta de identificación aún no ha sido activada.
+    ask_your_ambassadors: Póngase en contacto con sus embajadores al respecto.
+    passport_is_valid_until: Su pase es válido durante **{days}** días o hasta **{date}**.
+    passport_is_invalid: Su identificación ya no es válida.
   header: 'Configuración de perfil'
   chatmail: 'Si recibe un mensaje interno de foodsharing pero no ha iniciado
 
@@ -4439,9 +4468,9 @@ help:
       md: es visible desde el papel del responsable de la empresa. Se limita a un
         distrito de domicilio común o a operaciones conjuntas.
     achievements:
-      title: Observaciones
-      md: "Hay que añadir aquí una explicación de las notas. Lo haré más tarde. TAREAS
-        PENDIENTES\n"
+      title: Etiquetas
+      md: "Hay que añadir aquí una explicación de las etiquetas. Lo haré más tarde.
+        TAREAS PENDIENTES\n"
     report:
       title: Procesamiento de mensajes
       md: "Aquí veras mensajes escritos sobre personas de este distrito de origen.
@@ -4470,14 +4499,14 @@ help:
         alimentos (a menudo rescatados) **gratis**. Los usuarios registrados pueden
         solicitar una cesta de alimentos para recogerla.\n"
     achievementIcon:
-      md: "Cada nota tiene un icono, es decir, un pequeño gráfico que debe mostrar
+      md: "Cada etiqueta tiene un icono, es decir, un pequeño gráfico que debe mostrar
         a primera vista de qué se trata. Puedes encontrar una lista de los iconos
         disponibles en https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n\nEn
         el campo de entrada tienes que introducir el nombre del icono que quieres
         utilizar, por ejemplo «*caminar*» o «*carro de la compra*».\nPuedes comprobar
         si tu entrada funciona mirando la vista previa.\nSi no introduce ningún icono,
         se utilizará automáticamente el icono estándar para notas «*etiqueta*».\n"
-      title: Iconos para anotaciones
+      title: Iconos para etiquetas
     moderatorForumHide:
       title: Oculto en los foros por los moderadores
       md: "###### ¿Quién es un moderador?\nLos moderadores de un grupo o distrito
@@ -4510,19 +4539,19 @@ help:
         al grupo de personas correspondiente. \n"
       title: Derecho a votar
     hygieneRequirement:
-      md: "Para la recogida en algunos establecimientos, los conservadores de alimentos
-        deben tener una formación en higiene alimentaria. Si esta función está activada
-        para un establecimiento, esto tiene los siguientes efectos:\n1. los ahorradores
-        de comida sin formación válida en higiene no pueden inscribirse en el equipo
+      md: "Para la recogida en algunos establecimientos, los food savers deben tener
+        una formación en higiene alimentaria. Si esta función está activada para un
+        establecimiento, esto tiene los siguientes efectos:\n1. los ahorradores de
+        comida sin formación válida en higiene no pueden inscribirse en el equipo
         del establecimiento.\n2. los restauradores que ya formen parte del equipo
         sólo podrán inscribirse en las franjas horarias en las que su formación en
         higiene siga siendo válida en ese momento.\n\nEn ambos casos, se mostrará
         una nota explicando que falta la formación en higiene para esta acción. La
-        formación en higiene también se vincula directamente en cada caso.\n\n---\n
-        \nImportante: Esta función solo se basa en las notas de higiene propias de
-        foodsharing. Técnicamente, no se tienen en cuenta ni los certificados de higiene
-        de proveedores externos (por ejemplo, Metro) cargados en el perfil ni los
-        cursos de formación en higiene anotados en otro lugar.\n"
+        formación en higiene también se vincula directamente en cada caso.\n\n---
+        \n\nImportante: Esta función sólo se basa en los propios adhesivos de higiene
+        de foodsharing. Técnicamente no se tienen en cuenta ni los certificados de
+        higiene de proveedores externos (como Metro) cargados en el perfil ni la formación
+        en higiene adquirida en otro lugar.\n"
       title: Requisitos de higiene para las empresas
 team_page:
   board_member:
@@ -4566,27 +4595,27 @@ achievements:
   reviewer: De
   notice: Observación
   validUntil: Válido hasta
-  award: Asignar una nota
+  award: Pegatinas de premios
   findUser: Buscar usuario
   editDetails: Ajustar detalles
   revoke: Retirar
-  edit: 'Editar nota: {name}'
-  notAwarded: Actualmente, esta nota no se otorga a nadie.
-  revokeConfirmation: ¿Realmente quieres eliminar {name} de esta nota?
+  edit: 'Editar etiqueta: {name}'
+  notAwarded: Esta pegatina actualmente no se da a nadie.
+  revokeConfirmation: ¿De verdad quieres quitar esta pegatina de {name}?
   awarded: Conceder
-  editAwarded: Ajustar la nota de {achievement} para {user}
-  inRegion: Notas en {region} ({count})
-  new: Nuevo nota
+  editAwarded: Personalizar pegatina {achievement} para {user}
+  inRegion: Pegatinas en {region} ({count})
+  new: Etiqueta nueva
   editor:
     validityInDaysAfterAssignment: Validez tras la asignación en días
     description: Descripción
     name: Nombre
     icon: Icono
     preview: Vista previa
-  noneInThisRegion: No hay registros en esta región.
-  editTitle: Editar notas
-  add: Agregar nota
-  deleteConfirmation: ¿De verdad quieres borrar esta nota?
+  noneInThisRegion: No hay pegatinas registradas en esta región.
+  editTitle: Editar pegatinas
+  add: Añadir etiqueta
+  deleteConfirmation: ¿De verdad quieres borrar esta pegatina?
 copied_to_clipboard: Se ha copiado «{text}» al portapapeles.
 theme_switcher:
   title: Elegir diseño
