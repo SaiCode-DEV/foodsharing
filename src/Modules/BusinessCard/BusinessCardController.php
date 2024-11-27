@@ -114,7 +114,6 @@ class BusinessCardController extends FoodsharingController
         $pdf->AddPage();
         $pdf->SetTextColor(0, 0, 0);
         $pdf->AddFont('Ubuntu-L', '', $this->projectDir . '/lib/font/ubuntul.php', true);
-        $pdf->AddFont('AcmeFont Regular', '', $this->projectDir . '/lib/font/acmefont.php', true);
 
         $x = 0.0;
         $y = 0.0;
