@@ -680,7 +680,7 @@ legal:
     this_doesnt_get_deleted_history: Storia della tua verifica
     legal_1: Il nostro attuale accordo sulla privacy
     this_gets_deleted_stores: Aziende a cui ti sei uniti.
-    this_gets_deleted_quiz: Il tuo quiz Foodsaver sarà rimosso.
+    this_gets_deleted_quiz: Tutti i tuoi quiz saranno rimossi.
     this_gets_deleted_verify: La tua verifica sarà rimossa.
     legal_2: Ulteriori informazioni sui periodi di conservazione (pagina in tedesco)
 fsp:
@@ -1477,7 +1477,7 @@ foodsaver:
     needs_publicinfo: La tua breve descrizione è vuota
     needs_fs: Devi prima diventare un Foodsaver
     to_fs: Diventa Foodsaver
-    ad_fs: Voglio fare il Foodsaver-Quiz ora e diventare Foodsaver!
+    ad_fs: Voglio fare subito il quiz e diventare foodsaver!
     amb_success: Grazie per la sua motivazione ad assumersi più responsabilità. La
       richiesta sarà elaborata il prima possibile dal team dell'organizzazione globale.
     sm_success: Grazie, ora sei responsabile delle operazioni!
@@ -1492,6 +1492,9 @@ foodsaver:
     needs_fs_quiz: Prima devi fare il quiz di Foodsaver
     needs_sm: Devi prima diventare un funzionario dell’agenzia
     learning: 'Guarda subito il video esplicativo'
+    AMBASSADOR: Diventa ambassador
+    STORE_MANAGER: Diventa store manager
+    FOODSAVER: Diventa foodsaver
   manage:
     remove: Elimina dal distretto
     actions: Opzioni
@@ -1932,7 +1935,7 @@ content:
   new: Crea una nuova pagina
   actions: Azioni
   bread: Tutte le pagine
-  changelog: Cambiamento attuale
+  changelog: Ultime modifiche
   empty: Nessuna pagina è stata ancora inserita.
   content: Contenuto
   name: Nome univoco
@@ -2256,7 +2259,7 @@ dashboard:
     baskets: 'Cesti alimentari'
     polls: 'Sondaggi'
     managing_stores: 'Negozi che coordini'
-  foodsharer: Buon divertimento salvando il cibo!
+  foodsharer: Divertiti a salvare il cibo!
   checkAddress: Per favore, controllate il vostro indirizzo. Non è stato possibile
     determinare le coordinate.
   source_event: Appuntamento {0}
@@ -2272,8 +2275,8 @@ dashboard:
   no_more_updates_event: Nessuna data ulteriore
   no_more_updates_all: È tutto qui!
   settings_tooltip: Impostazioni generali
-  updates_title_some: la panoramica degli aggiornamenti ({0})
-  updates_title_all: la panoramica degli aggiornamenti
+  updates_title_some: Panoramica degli aggiornamenti ({0})
+  updates_title_all: Panoramica degli aggiornamenti
   title: Dashboard
   foodsharer_amount: Hai già salvato {weight} chili!
   greeting: Ciao {name}! È bello averti qui.
@@ -3056,16 +3059,18 @@ blog:
 releases:
   "2020-05": Versione “Arancia” (maggio 2020)
   "2020-08": Versione “Pera” (agosto 2020)
-  "2020-10": Versione “Cranberry” (ottobre 2020)
-  "2020-12": Versione “frutto del drago” (dicembre 2020)
-  "2021-03": Versione “fragola” 🍓 (marzo 2021)
-  "2021-09": Versione “fico” 🥧 (settembre 2021)
+  "2020-10": Versione “Mirtillo rosso” (ottobre 2020)
+  "2020-12": Versione “Dragonfruit” (dicembre 2020)
+  "2021-03": Versione “Fragola” 🍓 (marzo 2021)
+  "2021-09": Versione “Fico” 🥧 (settembre 2021)
   "2022-05": 'Versione “Mirtillo” 🍇 (maggio 2022)'
   "2022-12": 'Versione “Gelato” 🍨 (dicembre 2022)'
   "2022-01": 'Versione “Pompelmo” 🍋 (gennaio 2022)'
   "2023-09": Versione “Jackfruit” 🍈 (settembre 2023)
   "2024-01": Versione “Kiwi” 🥝 (gennaio 2024)
   "2024-04": Versione “Pretzel” 🥨 (aprile 2024)
+  "2024-08": Versione “Mandarino” 🍊 (agosto 2024)
+  "2024-12": Versione beta “Nettarina” 🍑 (dicembre 2024)
 base:
   jsrequired: Sfortunatamente, qui non funziona nulla senza JavaScript.
   slogan: Condividere il cibo invece di buttarlo via – foodsharing
@@ -3172,9 +3177,186 @@ quiz:
       input:
         wikilink:
           placeholder: https://wiki.foodsharing.de/…
+    quiz:
+      input:
+        allowUntimed: Consenti la modifica senza limiti di tempo
+        maxFp: 'Numero massimo di punti di errore per il superamento:'
+        name:
+          placeholder: Nome del quiz
+          label: 'Nome:'
+        questionCountUntimed: 'Numero di domande a cui rispondere senza limiti di
+          tempo:'
+        questionCountTimed: 'Numero di domande a cui rispondere:'
+      title: Modifica quiz
   results:
     title:
       1: Congratulazioni!
+      2: Sfortunatamente non sei passato.
+    points:
+      1: Hai superato il test con {failurePoints} errori su un massimo di {maxFailurePointsToSucceed}
+        errori!
+      2: Hai commesso {failurePoints} errori e avresti superato il quiz con al massimo
+        {maxFailurePointsToSucceed} errori.
+    deleted: La valutazione esatta viene salvata solo fino a 2 settimane dopo il quiz
+      e non sarà più disponibile successivamente.
+  startmodal:
+    infos:
+      limited_tries: Non puoi ripetere il quiz quante volte vuoi. Dopo tre tentativi
+        devi prenderti una pausa dallo studio di 30 giorni, dopodiché hai solo altri
+        due tentativi. Le domande che ti verranno poste in ogni tentativo sono diverse.
+      alone: Devi completare il quiz da solo e senza alcun aiuto esterno. Se hai difficoltà
+        linguistiche o hai bisogno di aiuto, ovviamente un'altra persona può aiutarti
+        a comprendere le domande; tuttavia, dovrai rispondere da solo. Pertanto, trova
+        un posto tranquillo dove poter svolgere il quiz indisturbato.
+      multiple_choice: Per ogni domanda possono essere corrette più risposte, o nessuna.
+        Pertanto, decidi individualmente per ciascuna risposta se è giusta o sbagliata.
+      unlimited_tries: Puoi ripetere questo quiz tutte le volte che vuoi e non sarai
+        mai squalificato se non lo superi. Tuttavia, a volte devi fare una pausa dall'apprendimento
+        tra un tentativo e l'altro.
+      timed: Il tempo per rispondere alle domande è limitato. Non lasciare che questo
+        ti stressi. Il tempo è fissato individualmente per ogni domanda in modo da
+        avere abbastanza tempo per rispondere alla domanda in tutta tranquillità.
+        Se esaurisci il tempo a tua disposizione, informa gli amministratori del quiz
+        con un commento.
+      read_carefully: Leggi attentamente tutte le domande e le risposte.
+      wiki: Si prega di non iniziare il quiz a caso. Leggere attentamente le pagine
+        informative elencate in anticipo. Senza la conoscenza del wiki non supererai
+        il quiz.
+      real_life_examples: La maggior parte delle domande si basa su casi reali legati
+        al foodsharing.
+      feedback: Alla fine del quiz riceverai una valutazione immediata se hai superato
+        il test, quali errori hai commesso e dove. Qui potrai rileggere le ragioni.
+      comment: Dopo aver risposto a ciascuna domanda, vedrai una valutazione intermedia
+        con spiegazioni per ciascuna delle opzioni di risposta. Questo aiuta a capire
+        quale risposta è giusta o sbagliata e perché. Per ogni errore è necessario
+        leggere attentamente le spiegazioni. Se qualcosa ti sembra illogico, incomprensibile
+        o addirittura sbagliato, lascia un commento. I tuoi commenti possono essere
+        assegnati a te per darti un feedback individuale.
+      pause: Puoi mettere in pausa il quiz dopo ogni domanda e riprenderlo in un secondo
+        momento.
+    acceptPrivacyNotice: Sono d'accordo.
+    title: Appunti sul quiz
+    privacyNotice:
+      hygiene: Se superi questo quiz, verrà salvato quando avrai superato il test
+        e ti verrà assegnato un adesivo per l'igiene. I responsabili dell'igiene e
+        delle operazioni possono verificare se disponi di un adesivo valido per l'igiene.
+  answers:
+    short:
+      1: Giusto
+      2: Neutrale
+      0: Sbagliato
+    false_true: Questa risposta sarebbe stata corretta.
+    true_false: Sbagliato! Questa risposta non è corretta.
+    timedOut:
+      0: Questa risposta sarebbe stata sbagliata.
+      1: Questa risposta sarebbe stata corretta.
+      2: Questa risposta sarebbe stata neutrale.
+    true_true: Esatto! Questa risposta è corretta.
+    name: Risposte
+    none_correct: Nessuna delle risposte è corretta.
+    neutral: 'Risposta neutra: non verrà valutata.'
+    false_false: Questa risposta era sbagliata. L'hai riconosciuta correttamente.
+  key_facts:
+    timed: Numero massimo di {maxFailurePointsToSucceed} errori in {questionCountTimed}
+      domande a tempo
+    untimed: Numero massimo di {maxFailurePointsToSucceed} errori in {questionCountTimed}
+      domande a tempo, o {questionCountUntimed} domande senza limite di tempo
+    to_pass: 'Per passare:'
+  fp_options:
+    ko: '{failurePoints} punti di errore (knockout)'
+    joke: '{failurePoints} punti di errore ( nessuna valutazione)'
+    default: '{failurePoints} punti di errore'
+  confirmDelete:
+    answer: Vuoi davvero eliminare questa risposta?
+    session: Sei sicuro di voler eliminare questa sessione di quiz?
+    question: Vuoi davvero eliminare questa domanda?
+  confirmDashboardText: Hai superato un quiz che non hai ancora confermato. [Clicca
+    qui]({url}) per completare il processo!
+  mandatory_question: Questa domanda è obbligatoria e viene inclusa in ogni tentativo
+    di quiz.
+  confirm: Conferma il quiz e completa il processo
+  test_results: Risultati del quiz
+  sessionStatus:
+    0: Attualmente in esecuzione
+    1: Superato con {failurePoints} punti di errore su un massimo di {maxFailurePointsToSucceed}
+    2: Fallito con {failurePoints} punti di errore su un massimo di {maxFailurePointsToSucceed}
+  general:
+    edit: Modifica quiz
+    title: Informazioni generali
+  questions_section:
+    title: Domande del quiz ({count})
+  timelimit: Limite di tempo
+  question_options:
+    show_comments: Mostra commenti
+    delete: Elimina domanda
+    edit: Modifica domanda
+    add_answer: Aggiungi risposta
+    add: Aggiungi domanda
+  answer_options:
+    edit: Modifica risposta
+    delete: Elimina risposta
+  comment:
+    toggle: Scrivi un commento
+    send: Invia commento
+    placeholder: Inserisci un commento...
+    sent: Commento inviato.
+    info: Dacci un feedback su questa domanda. Era troppo facile, troppo difficile,
+      incomprensibile? Oppure le risposte o le spiegazioni individuali sono errate?
+    wallTitle: 'Commenti sulla domanda #{id}'
+    label: Commento alla domanda
+  timed_out_last: Non hai risposto in tempo all'ultima domanda.
+  timed_out: Non hai risposto in tempo a questa domanda.
+  stateBasedInfo:
+    noWaitAfter: Dai un'altra occhiata agli articoli informativi pertinenti e riprova.
+    neverTried: Non hai mai risposto a questo quiz prima d'ora. Prenditi il tempo
+      per leggere attentamente tutti gli articoli informativi elencati in modo da
+      essere preparato alle domande.
+    running: Hai già iniziato il quiz e risposto a {questionsAnswered} di {questionCount}
+      domande.
+    passed: Hai superato questo quiz.
+    failed: Sfortunatamente, non hai superato questo quiz all'ultimo tentativo.
+    waitAfter: Se fallisci nel tuo prossimo tentativo, dovrai prenderti una pausa
+      dallo studio per {waitTimeAfterFailure} giorni. Assicurati di controllare gli
+      articoli informativi pertinenti in modo da poter superare il quiz.
+    pause: Avete fallito questo quiz più volte. L'affidabilità, la padronanza delle
+      regole e il comportamento professionale sono essenziali nel foodsharing. Purtroppo,
+      al momento le tue risposte non trasmettono tutto questo. Ti verrà quindi concessa
+      una pausa di studio prima di poter riprovare a superare il quiz. La pausa di
+      studio terminerà tra {currentWaitTime} giorni.
+    pauseElapsed: La tua pausa di studio è finita. Ora puoi nuovamente ripetere il
+      quiz. Speriamo che tu abbia utilizzato questa pausa per familiarizzare meglio
+      con i contenuti.
+    disqualifiedAfter: Hai solo un ultimo tentativo per superare questo quiz! Se fallisci
+      ora, sarai squalificato permanentemente da questo quiz. Partecipa solo se hai
+      studiato in dettaglio i contenuti della wiki.
+    disqualified: Sfortunatamente, sei stato squalificato da questo quiz perché hai
+      fallito troppe volte.
+    passedBefore: Hai già superato questo quiz.
+    willExpire: Tuttavia, la validità del tentativo superato termina tra {expirationTime}
+      giorni. È quindi possibile rinfrescare le proprie conoscenze in quest'area tematica
+      e ripetere il quiz.
+    expired: Tuttavia, l'ultimo tentativo di quiz non è più valido.
+  fp_badge:
+    right: Risposto correttamente
+    wrong: '{userFailurePoints} errori'
+  timed_out_error: Il tempo per rispondere a questa domanda è già scaduto.
+  editable_tooltip: Puoi modificare questo quiz.
+  max_fp: Numero massimo di punti di errore ammesso
+  confirmComment: Vuoi che il tuo commento venga inviato agli amministratori di questo
+    quiz?
+  plural: Quiz
+  button:
+    pause: Continua più tardi
+    finish: Completa quiz
+  fp_description: Totale {failurePoints}, ovvero {perMistake} per risposta errata
+  infomodal:
+    title: Domanda {index} di {questions}
+  show_results: Visualizza i risultati dell'ultimo tentativo
+  title:
+    start: '{name} - Fai subito il quiz!'
+    continue: '{name} - Continua il quiz!'
+    pause: Pausa studio ({name})
+    disqualified: '{name} - Purtroppo squalificato.'
 deletelow: elimina
 filter_by: Filtrare per
 fpcapital: Punti di Errore
@@ -3561,3 +3743,4 @@ automatic_not_delete: '- il profilo deve essere mantenuto.'
 validation:
   phone_number_invalid: Il numero di telefono non è valido (ad esempio, manca il prefisso
     nazionale, è troppo corto, troppo lungo o contiene caratteri non validi)
+copied_to_clipboard: “{text}” è stato copiato negli appunti.
