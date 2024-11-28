@@ -4138,6 +4138,10 @@ help:
       title: Icônes pour les réalisations
     achievements:
       title: Réalisations
+      md: "Le système d’autocollants peut être utilisé pour marquer des caractéristiques
+        spécifiques à l’utilisateur, comme la participation à certaines formations.
+        Les autocollants peuvent être valables pour n’importe quelle durée ou avoir
+        une date de fin à partir de laquelle ils ne sont plus valides.\n"
     masterRegion:
       title: District maître
     hygieneRequirement:
