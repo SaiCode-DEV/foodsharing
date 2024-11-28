@@ -4189,7 +4189,9 @@ help:
         skjer én gang hver natt. Endringer skjer ikke umiddelbart.\n"
       title: Mesterdistrikt
     achievements:
-      md: "…\n"
+      md: "Klistremerkesystemet kan brukes til å markere brukerspesifikke egenskaper,
+        som for eksempel deltakelse på enkelte kurs. Klistremerker kan være gyldige
+        i en hvilken som helst tid eller ha en sluttdato som de er ugyldige fra.\n"
       title: Klistremerker
     basket:
       md: "Matkurver tilbys av brukere som ønsker å gi videre (ofte reddet) mat **gratis**.
@@ -4231,8 +4233,31 @@ help:
         på https://wiki.foodsharing.de/Abstimms-Modul\n"
     pollScopes:
       title: Stemmerett
+      md: "Når du oppretter en stemme, kan du velge blant ulike grupper av personer
+        som skal ha stemmerett.\nFølgende gjelder for alle alternativer:\n- Ikke bare
+        alle matsparere i bydelen/gruppa får stemme, men også i underdistriktene.\n
+        - Antall stemmeberettigede matsparere står i parentes bak valgmuligheten.\n
+        - Så snart avstemningen er opprettet, avgjøres de stemmeberettigede. Den som
+        faller inn i den aktuelle folkegruppen på det tidspunkt avstemningen foretas,
+        har stemmerett.\n"
     moderatorForumHide:
       title: Skjuler seg i forum av moderatorer
+      md: "###### Hvem er moderator?\nModeratorene for en gruppe eller et distrikt
+        er vanligvis administratorer eller ambassadører. Hvis det er en GOALS-AG *moderasjon*
+        i et distrikt, tar administratorene av denne gruppen på seg rollen som moderatorer.\n
+        ---\n###### Skjul i fora\nNår aktivert, kan moderatorer skjule alle innlegg
+        i forumet, ikke bare sine egne. For å gjøre dette må du oppgi en grunn til
+        hvorfor du vil skjule et innlegg eller hele tråden. Et innlegg forblir deretter
+        tilgjengelig for moderatorene i ytterligere tre måneder og kan også gjenopprettes
+        i løpet av denne tiden. Andre brukere (uten organisasjonsrettigheter) har
+        ikke lenger tilgang til den. Etter disse tre månedene kan et skjult innlegg
+        ikke lenger gjenopprettes og vil bli permanent slettet fra databasen.\n---\n
+        ###### Hvor kan dette alternativet brukes?\nI lokale rapporteringsgrupper
+        og voldgiftsråd (GOALS AGs) er denne funksjonen nødvendig av hensyn til databeskyttelse.\n
+        Andre arbeidsgrupper kan stemme internt for å gi administratorer tillatelse
+        til å skjule innlegg og sende en lenke til den vellykkede avstemningen til
+        ags.bezirke@foodsharing.network. Dette alternativet er ikke gitt for lokale
+        distrikter.\n"
     hygieneRequirement:
       title: Hygienekrav for bedrifter
       md: "Noen bedrifter krever at matreddere må være opplært i mathygiene for å
