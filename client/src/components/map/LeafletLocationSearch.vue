@@ -9,28 +9,8 @@
         <Markdown :source="additionalInfoText" />
       </div>
     </div>
-
-    <b-form-group>
-      <b-form-input
-        id="search-address-input"
-        v-model="searchInput"
-        list="suggestions"
-        debounce="300"
-        :placeholder="$i18n('addresspicker.placeholder')"
-        :disabled="disabled"
-      />
-      <!-- TODO: Datalist is Buggy! Use (Vuetify) Autocomplete! -->
-      <datalist id="suggestions">
-        <option
-          v-for="(suggestion, index) in suggestions"
-          :key="index"
-        >
-          {{ suggestion.formatted }}
-        </option>
-      </datalist>
-    </b-form-group>
+    <AddressSearchField ref="addressSearch" @change="useAddress" />
     <LeafletLocationPicker
-      ref="locationPicker"
       :icon="icon"
       :coordinates="currentCoords"
       :zoom="currentZoom"
@@ -98,13 +78,14 @@
 
 <script setup>
 import { BFormGroup, BFormInput } from 'bootstrap-vue'
-import { fetchAutocomplete, fetchReverseGeocode } from '@/api/geocode'
+import { fetchReverseGeocode } from '@/api/geocode'
 import L from 'leaflet'
 import LeafletLocationPicker from '@/components/map/LeafletLocationPicker'
 import 'leaflet.awesome-markers'
-import { defineProps, defineEmits, ref, watch } from 'vue'
+import { defineProps, defineEmits, ref } from 'vue'
 import 'corejs-typeahead'
 import Markdown from '@/components/Markdown/Markdown.vue'
+import AddressSearchField from './AddressSearchField.vue'
 
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 
@@ -126,77 +107,42 @@ const emit = defineEmits(['address-change'])
 
 const icon = L.AwesomeMarkers.icon({ icon: props.iconName, markerColor: props.iconColor })
 
-const autocompleteLoading = ref(false)
-const suggestions = ref([])
-const searchInput = ref('')
-
 const differentLocation = ref(false)
 const currentCoords = ref(props.coordinates)
 const currentPostal = ref(props.postalCode)
 const currentStreet = ref(props.street)
 const currentCity = ref(props.city)
 const currentZoom = ref(props.zoom)
-
-watch(() => searchInput.value, fetchSuggestions)
-
-async function fetchSuggestions (input) {
-  suggestions.value = []
-  if (!autocompleteLoading.value) {
-    autocompleteLoading.value = true
-    fetchAutocomplete(input)
-      .then((data) => {
-        if (data?.length === 0) {
-          autocompleteLoading.value = false
-          return
-        }
-        suggestions.value = data
-        updateMap(suggestions.value[0])
-      })
-      .finally(() => {
-        autocompleteLoading.value = false
-      })
-  }
-}
+const addressSearch = ref(null)
 
 async function updateCoordinates (coords) {
   // if the marker was dragged, we need to do reverse geocoding to find the address
   currentCoords.value = coords
   if (props.doReverseGeocoding) {
-    fetchReverseGeocode(coords)
-      .then((data) => {
-        if (!data) {
-          return
-        }
-        currentPostal.value = data.postcode
-        currentCity.value = data.city
-        currentStreet.value = data.street + ' ' + data.housenumber
-      })
+    const location = await fetchReverseGeocode(coords)
+    if (!location) return
+    currentPostal.value = location.postcode
+    currentCity.value = location.city
+    currentStreet.value = `${location.street} ${location.housenumber}`
+    addressSearch.value.setSearchString(location.formatted)
+    emitAddressChange()
   }
 }
-/**
- * This function is called when a suggestion was selected in the search field.
- */
-function updateMap (searchResult) {
-  // update the address data
-  if (!searchResult) {
-    return
-  }
-  currentCoords.value = { lat: searchResult.lat, lon: searchResult.lon }
-  currentPostal.value = searchResult.postcode
-  currentCity.value = searchResult.city
-  currentStreet.value = searchResult.address_line1
-  if (searchResult.housenumber) {
+
+function useAddress (location) {
+  currentCoords.value = { lat: location.lat, lon: location.lon }
+  currentPostal.value = location.postcode
+  currentCity.value = location.city
+  currentStreet.value = location.address_line1
+  if (location.housenumber) {
     currentZoom.value = 17
   } else {
     currentZoom.value = 15
   }
   emitAddressChange()
 }
+
 function emitAddressChange () {
-  emit('address-change', currentCoords, currentStreet, currentPostal, currentCity)
+  emit('address-change', ...[currentCoords, currentStreet, currentPostal, currentCity].map(x => x?.value))
 }
 </script>
-
-<style scoped>
-
-</style>

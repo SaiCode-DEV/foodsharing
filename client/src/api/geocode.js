@@ -4,7 +4,7 @@ import { languageCodeISO } from '@/helper/i18n'
 const GEOAPIFY_API_URL = isDev ? '/mock/geocode' : 'https://api.geoapify.com/v1/geocode'
 
 export async function fetchAutocomplete (input) {
-  if (!input || input.length < 5) {
+  if (!input || input.length < 3) {
     return []
   }
   const language = languageCodeISO()

@@ -1,24 +1,25 @@
 <!-- A text field combined with geocoding that allows searching for addresses. The selected suggestion is emitted as a 'change' event. -->
 <template>
-  <div>
+  <div class="my-2 position-relative location-search">
     <b-form-input
       id="searchinput"
       v-model="searchInput"
-      list="suggestions"
       debounce="100"
+      autocomplete="off"
       :placeholder="props.placeholder"
       :disabled="props.disabled"
       @input="fetchSuggestions"
     />
-    <!-- TODO: Datalist is Buggy! Use (Vuetify) Autocomplete! -->
-    <datalist id="suggestions">
-      <option
-        v-for="(suggestion, index) in suggestions"
-        :key="index"
+    <b-list-group class="location-options">
+      <b-list-group-item
+        v-for="(suggestion, i) in suggestions"
+        :key="i"
+        button
+        @click="selectSuggestion(suggestion)"
       >
         {{ suggestion.formatted }}
-      </option>
-    </datalist>
+      </b-list-group-item>
+    </b-list-group>
   </div>
 </template>
 
@@ -26,7 +27,7 @@
 import { BFormInput } from 'bootstrap-vue'
 import { fetchAutocomplete } from '@/api/geocode'
 
-import { defineProps, defineEmits, ref } from 'vue'
+import { defineProps, defineEmits, ref, defineExpose } from 'vue'
 
 const props = defineProps({
   disabled: { type: Boolean, default: false },
@@ -43,35 +44,41 @@ async function fetchSuggestions (input) {
   suggestions.value = []
   if (!autocompleteLoading.value) {
     autocompleteLoading.value = true
-    fetchAutocomplete(input)
-      .then((data) => {
-        if (data?.length === 0) {
-          autocompleteLoading.value = false
-          return
-        }
-        suggestions.value = data
-        updateMap(suggestions.value[0])
-      })
-      .finally(() => {
-        autocompleteLoading.value = false
-      })
+    const locations = await fetchAutocomplete(input)
+    if (!locations?.length) {
+      autocompleteLoading.value = false
+      return
+    }
+    if (locations.length === 1) {
+      emit('change', locations[0])
+    }
+    suggestions.value = locations
+    autocompleteLoading.value = false
   }
 }
 
-/**
- * This function is called when a suggestion was selected in the search field.
- */
-function updateMap (searchResult) {
-  // update the address data
-  if (!searchResult) {
-    return
-  }
-  const coords = { lat: searchResult.lat, lon: searchResult.lon }
-  emit('change', coords)
+function selectSuggestion (suggestion) {
+  searchInput.value = suggestion.formatted
+  document.activeElement.blur()
+  emit('change', suggestion)
 }
 
+defineExpose({
+  setSearchString: function (value) {
+    searchInput.value = value
+  },
+})
 </script>
 
 <style scoped>
+.location-search:focus-within .location-options {
+  display: block;
+}
+.location-options {
+  position:absolute;
+  z-index: 1020;
+  width: 100%;
+  display: none;
+}
 
 </style>

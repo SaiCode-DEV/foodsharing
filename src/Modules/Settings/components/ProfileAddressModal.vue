@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     updateLocation (coordinates, street, postalCode, city) {
-      this.locationData = { street: street, postalCode: postalCode, city: city }
+      this.locationData = { street, postalCode, city }
       this.coordinateData = coordinates
     },
     show () {

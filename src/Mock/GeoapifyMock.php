@@ -132,7 +132,7 @@ class GeoapifyMock extends AbstractController
                             'url' => 'https://www.openstreetmap.org/copyright'
                         ],
                         'street' => 'Teststraße 1',
-                        'state' => 'Bayern (nicht teil von DE)',
+                        'state' => 'Bayern',
                         'district' => 'Teststadt',
                         'city' => 'Teststadt',
                         'state_code' => 'BY',
@@ -142,7 +142,7 @@ class GeoapifyMock extends AbstractController
                         'postcode' => '37073',
                         'formatted' => 'Teststraße 1, 37073 Teststadt, Deutschland',
                         'address_line1' => 'Teststraße 1',
-                        'address_line2' => '63768 Hösbach, Deutschland',
+                        'address_line2' => '37073 Teststadt, Deutschland',
                         'timezone' => [
                             'name' => 'Europe/Berlin',
                             'offset_STD' => '+01:00',
@@ -153,7 +153,7 @@ class GeoapifyMock extends AbstractController
                             'abbreviation_DST' => 'CEST'
                         ],
                         'plus_code' => '9F2F2632+HJ',
-                        'plus_code_short' => '32+HJ Hösbach, Aschaffenburg, Deutschland',
+                        'plus_code_short' => '32+HJ Teststadt, Deutschland',
                         'rank' => [
                             'popularity' => 5.6154076634886,
                             'confidence' => 1,
@@ -172,13 +172,13 @@ class GeoapifyMock extends AbstractController
                 ]
             ],
             'query' => [
-                'text' => 'Behindi Toillette, Rathausplatz, 63768 Hösbach, Deutschland',
+                'text' => 'Teststadt Teststraße 1',
                 'parsed' => [
-                    'house' => 'behindi toillette',
-                    'street' => 'rathausplatz',
-                    'postcode' => '63768',
-                    'city' => 'hösbach',
-                    'country' => 'deutschland',
+                    'house' => 'Schwimmbad',
+                    'street' => 'Teststraße',
+                    'postcode' => '37073',
+                    'city' => 'Teststadt',
+                    'country' => 'Deutschland',
                     'expected_type' => 'amenity'
                 ]
             ]
