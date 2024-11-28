@@ -3660,7 +3660,7 @@ globals:
   save: 'Ahorrar'
   telephone_number: Número de teléfono
   save_changes: Guardar los cambios
-  saved: Se han guardado los cambios
+  saved: Los cambios se han guardado
 legal:
   acknowledge: '¿Aceptas el acuerdo?'
   dont_agree: 'No estoy de acuerdo con el procesamiento de mis datos y'
@@ -4469,8 +4469,10 @@ help:
         distrito de domicilio común o a operaciones conjuntas.
     achievements:
       title: Etiquetas
-      md: "Hay que añadir aquí una explicación de las etiquetas. Lo haré más tarde.
-        TAREAS PENDIENTES\n"
+      md: "El sistema de pegatinas puede utilizarse para marcar características específicas
+        de los usuarios, como la participación en determinados cursos de formación.
+        Las pegatinas pueden ser válidas durante cualquier periodo de tiempo o tener
+        una fecha de finalización tras la cual pierden su validez.\n"
     report:
       title: Procesamiento de mensajes
       md: "Aquí veras mensajes escritos sobre personas de este distrito de origen.
