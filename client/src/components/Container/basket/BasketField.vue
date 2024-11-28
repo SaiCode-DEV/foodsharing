@@ -32,8 +32,8 @@
           {{ $i18n('basket.until') }} {{ $dateFormatter.dateTime(new Date(entry.until * 1000)) }}
         </small>
         <span class="ml-2 badge list-group-item-dark badge-pill">
-          <i v-if="entry.distance > 0" class="fas fa-directions" />
-          {{ distanceString(entry.distance) }}
+          <i v-if="entry.distanceInKm > 0" class="fas fa-directions" />
+          {{ distanceString(entry.distanceInKm) }}
         </span>
       </div>
     </div>
@@ -46,14 +46,11 @@ export default {
     entry: { type: Object, default: () => {} },
   },
   methods: {
-    distanceString (num) {
-      // num = this.distanceNumber(num)
-      if (num === 0) {
-        return '💑'
-      } else if (num < 1) {
-        return `${(num * 1000).toLocaleString()} m`
+    distanceString (distanceInKm) {
+      if (distanceInKm < 1) {
+        return `${(Math.round(distanceInKm * 100) * 10).toLocaleString()} m`
       } else {
-        return `${(num).toFixed(1).toLocaleString()} km`
+        return `${(distanceInKm).toFixed(1).toLocaleString()} km`
       }
     },
     getImageUrl (picture) {

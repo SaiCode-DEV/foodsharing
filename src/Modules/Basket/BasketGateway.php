@@ -339,7 +339,7 @@ class BasketGateway extends BaseGateway
 			    UNIX_TIMESTAMP(b.`until`) AS until_ts,
 				b.picture,
 				b.description,
-                ST_Distance_Sphere(ST_GeomFromText(:centerPoint), Point(b.lon, b.lat)) / 1000 AS distance,
+                ST_Distance_Sphere(ST_GeomFromText(:centerPoint), Point(b.lon, b.lat)) / 1000 AS distance_in_km,
 				fs.id AS fs_id,
 				fs.name AS fs_name,
 				fs.photo AS fs_photo,
@@ -353,22 +353,22 @@ class BasketGateway extends BaseGateway
                     ST_Envelope(
                         ST_BUFFER(
                             ST_GeomFromText(:centerPoint),
-                            :distanceKm * 1000
+                            :max_distance_in_km * 1000
                         )
                     )
                 )
 			AND b.status = :status
 			AND foodsaver_id != :fs_id
 			AND b.until > NOW()
-			HAVING distance <= :distanceKm
-			ORDER BY distance
+			HAVING distance_in_km <= :max_distance_in_km
+			ORDER BY distance_in_km
 			LIMIT 10
 		',
             [
                 ':centerPoint' => $spatialPoint,
                 ':status' => BasketStatus::REQUESTED_MESSAGE_READ,
                 ':fs_id' => $userId ?? 0,
-                ':distanceKm' => $distanceKm,
+                ':max_distance_in_km' => $distanceKm,
             ]
         );
 

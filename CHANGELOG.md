@@ -109,6 +109,7 @@
 - Fixed some store settings being enabled to unpermitted users in the frontend #2210 !3808 @AntonBallmaier
 - Added fallback for unloaded chat member names #2218 !3819 @AntonBallmaier
 - Include jumper last names in store log #2200 !3820 @AntonBallmaier
+- Fixed basket distance formatting #2225 !3829 @AntonBallmaier
 - Fix error for pass history entries when the creating bot account is removed #2222 !3845 @AntonBallmaier 
 
 ## Refactoring

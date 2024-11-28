@@ -56,11 +56,10 @@ export default {
       this.$refs.basketBubble.show(id)
     },
     formattedDistance (basket) {
-      const distance = Math.round(basket.distance)
-      if (distance < 1) {
-        return `${(distance * 1000).toLocaleString()} m`
+      if (basket.distanceInKm < 1) {
+        return `${(Math.round(basket.distanceInKm * 100) * 10).toLocaleString()} m`
       } else {
-        return `${(distance).toLocaleString()} km`
+        return `${(basket.distanceInKm).toFixed(1).toLocaleString()} km`
       }
     },
   },
