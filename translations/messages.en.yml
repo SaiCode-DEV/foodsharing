@@ -4340,8 +4340,9 @@ help:
         master district or common stores.
     achievements:
       title: Stickers
-      md: "An explanation for stickers still needs to be added here. I’ll do that
-        later. TODO\n"
+      md: "The sticker system can be used to mark user-specific characteristics, such
+        as participation in certain training courses. Stickers can be valid for any
+        length of time or have an end date after which they become invalid.\n"
     reportReasons:
       title: Report form
       md: "Using the report form, foodsavers can directly report rule violations.
