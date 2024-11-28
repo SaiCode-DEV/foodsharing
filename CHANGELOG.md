@@ -109,6 +109,7 @@
 - Fixed some store settings being enabled to unpermitted users in the frontend #2210 !3808 @AntonBallmaier
 - Added fallback for unloaded chat member names #2218 !3819 @AntonBallmaier
 - Include jumper last names in store log #2200 !3820 @AntonBallmaier
+- Fix error for pass history entries when the creating bot account is removed #2222 !3845 @AntonBallmaier 
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` #2198 !3437 !3809 @AntonBallmaier

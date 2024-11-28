@@ -392,7 +392,7 @@ final class ProfileGateway extends BaseGateway
         return array_map(fn ($entry) => PassHistoryEntry::create(
             $entry['foodsaver_id'],
             Carbon::createFromTimestamp($entry['date_ts']),
-            new Profile($entry, 'bot_'),
+            Profile::tryFrom($entry, 'bot_'),
         ), $passHistory);
     }
 

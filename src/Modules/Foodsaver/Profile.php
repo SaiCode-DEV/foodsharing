@@ -22,4 +22,13 @@ class Profile
             $this->isSleeping = $data[$prefix . 'is_sleeping'];
         }
     }
+
+    public static function tryFrom(array $data, string $prefix = ''): ?Profile
+    {
+        try {
+            return new Profile($data, $prefix);
+        } catch (\Throwable $_) {
+            return null;
+        }
+    }
 }
