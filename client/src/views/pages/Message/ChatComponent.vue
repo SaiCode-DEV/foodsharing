@@ -306,6 +306,27 @@ export default {
       line-height: 19px;
       max-height: calc(2 * 19px);
     }
+
+    .markdown blockquote {
+      margin: 0;
+      padding: 0 0.5rem;
+      border-left: 2px solid var(--fs-color-info-500);
+      background-color: var(--fs-color-info-100);
+      line-height: 1;
+    }
+    .markdown code {
+      white-space: normal;
+    }
+    .markdown img {
+      max-width: 100%;
+    }
+    .markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6 {
+      margin: 0;
+    }
+    .markdown ul {
+      padding-left: 1em;
+      margin: 0;
+    }
     `
     this.$el.shadowRoot.appendChild(style)
   },

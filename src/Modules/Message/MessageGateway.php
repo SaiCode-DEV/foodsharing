@@ -148,11 +148,8 @@ final class MessageGateway extends BaseGateway
 		', $queryParams);
         $res = [];
         foreach ($messages as $m) {
-            $m['body'] = $this->sanitizer->purifyHtml($m['body']);
-            // ToDo: Workaround for $amp in urls - https://gitlab.com/foodsharing-dev/foodsharing/-/issues/1531
-            $m['body'] = str_replace('&amp;', '&', $m['body']);
             $message = new Message(
-                $m['is_htmlentity_encoded'] ? html_entity_decode($m['body']) : $m['body'],
+                $m['is_htmlentity_encoded'] ? html_entity_decode($this->sanitizer->purifyHtml($m['body'])) : $m['body'],
                 $m['foodsaver_id'],
                 $this->db->parseDate($m['time']),
                 $m['id']
