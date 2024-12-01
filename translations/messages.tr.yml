@@ -790,12 +790,19 @@ group:
         do: 'Gerçekten {name} ({id}) (veri senkronize edildi / kimlik kontrol edildi,
           vb.) doğrulamak istiyor musunuz?'
         undo: '{name} ({id}) onaylamasını iptal edin'
+        do_selected: Seçilenlerin tümünü gerçekten doğrulamak istiyor musunuz (veri
+          karşılaştırması yapıldı/kimlik kontrol edildi vb.)?
       filter_selection: Yalnızca seçili üyeleri göster
       verify_selected: işaretli olanları doğrula
       automatic_paper_size: A4 kağıt kullanın
       active_or_renew_passport: Kimlik kartını etkinleştir/uzat
       show_only_member_after: Yalnızca üyelere göster
       create_pdf: PDF oluştur
+      filter_options:
+        no_filter: Filtresiz
+        no_passport: Kimliksiz
+        with_passport: Kimlikli
+        invalid_passport: geçersiz kimlik
     all_roles: Tüm Roller
   show-all: Hepsini göster
   delete_group_sure: '{groupName} çalışma grubunu/bölgesini silmek istediğinizden
@@ -3526,7 +3533,7 @@ fsp:
     required: '{name} gerekli.'
     min_length: '{name} en az {length} karakter uzunluğunda olmalıdır.'
   createdAt: 'Açıldı:'
-  followerCount: İlgilenen kullanıcılar:{followerCount}
+  followerCount: İlgilenen Kullanıcılar:{followerCount}
   onlySuggested: Bu Gıda dağıtım Noktası önerildi ancak henüz yayınlanmadı. Bu durumda
     diğer kullanıcılara gösterilmeyecektir.
 statistics:
