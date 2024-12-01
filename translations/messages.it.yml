@@ -1757,12 +1757,7 @@ forum:
     too_big_to_mail: Non sono state inviate email per l'argomento perché si tratta
       di un paese o di una regione.
     no_mail: L'argomento è stato aperto senza inviare email
-    delivery_mail:
-      active: ''
-      non_active: ''
-      title: 'Consegna della posta'
-      disable: disattivato
-      activate: attivato
+    delivery_mail: Attiva l'invio dell'email
     navigate_to_oldest_post: 'Vai al primo post'
     navigate_to_newest_post: 'Vai all''ultimo post'
     sticky: filo appuntato
@@ -1770,6 +1765,7 @@ forum:
       subscribed: sottoscritto
       subscribe: Sottoscrivi
     bottom: visibilità ridotta
+    all_hidden: Tutti i post in questa discussione sono stati nascosti.
   follow:
     email: come email
     bell: come una campana
@@ -1796,6 +1792,7 @@ forum:
       questo periodo, gli utenti del forum possono vedere perché il messaggio è stato
       nascosto e i moderatori possono vedere anche da chi è stato nascosto.
     sureHide: Vuoi davvero nascondere questo post?
+    hiddenPost: Post nascosto ({motivo})
   new_thread: Scrivi su un nuovo tema
   threads: Temi
   from: Di {name}
@@ -1808,6 +1805,12 @@ forum:
       di questo gruppo o distretto? Dovresti farlo solo se la tua preoccupazione riguarda
       tutti ed è così importante che tutti dovrebbero esserne a conoscenza.'
     title: 'Sei sicuro di voler inviare una notifica email?'
+  restore:
+    reason: 'Motivo: "{reason}"'
+    really: Vuoi davvero ripristinare questo post?
+    hidden_by: Nascosto da
+    title: Ripristina post
+  go: Vai al Forum
 first_post: Primo post in bacheca
 events:
   rsvp:
@@ -1860,6 +1863,13 @@ events:
     public: L'evento è pubblico?
     title: Registra un nuovo evento
     date: Data
+    fillCompletely: Si prega di compilare il modulo in ogni sua parte.
+    name: Nome dell'evento
+    time: Orario
+    other: Varie
+    type: Come si svolge l'evento?
+    locationDetails: Dettagli dell'indirizzo (numero della camera, ecc.)
+    locationOther: Dove si svolge l'evento?
   edited: L'evento è stato modificato con successo.
   edit: Modifica l'evento
   created: L'evento è stato inserito con successo.
@@ -1867,6 +1877,16 @@ events:
   add_new_event: Inserisci un nuovo appuntamento adesso
   bread: Appuntamento
   past: Appuntamenti passati
+  attendees: Partecipanti
+  noneAccepted: Finora nessuna persona ha confermato la propria partecipazione a questo
+    evento.
+  meeting:
+    past: Questo evento si è svolto online.
+    present: Questo evento si svolge online. Puoi iscriverti ora.
+    not_started: Questo appuntamento non è ancora iniziato
+    future: Questo evento si svolgerà online. Non appena inizierà, potrai iscriverti
+      utilizzando il pulsante qui sotto.
+  location: Posizione
 wall:
   error-delete: Non è possibile rimuovere questo post.
   info-logging: Si nota pregho, che per evitare conflitti, il contenuto e la persona
