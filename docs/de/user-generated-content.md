@@ -13,10 +13,14 @@ All uploads are limited to 1.5 MB per file. While email attachments can be any f
 
 ### Uploading
 Adding or changing a picture is always done in two steps:
-1. The clients uploads the file to the `POST /api/uploads` endpoint. The server will assign a UUID to the file and store it in the `data/uploads/` directory. In addition, an entry in the [uploads database table](./backend/database#table-uploads) is created that links the UUID to the file and its meta data. The UUID is returned to the client and can be used to access the file using the `GET /api/uploads/{uuid}` endpoint. The database entry also contains a usage id and type. At this point, both values will be null which means that the uploaded file is not yet being used anywhere.
+1. The clients uploads the file to the `POST /api/uploads` endpoint. The server will assign a UUID to the file and store it in the `data/uploads/` directory. In addition, an entry in the [uploads database table](./backend/database#table-uploads) is created that links the UUID to the file and its meta data. The UUID is returned to the client and can be used to access the file using the `GET /api/uploads/{uuid}` endpoint. The database entry also contains the uploader's id, a usage id and a usage type. At this point, both usage values will be null which means that the uploaded file is not yet being used anywhere.
 2. The client asks the server to use the previously created UUID for one of the usage types above. The API endpoint for this depends on the usage type. For example, the `PATCH /user/photo` endpoint can be used with the UUID in the request body to set the user's profile picture. The server will link the entry in the uploads database table to the profile by setting the usage type and usage id. In this example, the usage type is set to "profile photo" and the usage id is set to the corresponding profile id.
 
-For security, using uploaded files is limited to the user who uploaded it. This means that the second step fails if the UUID was created by another user.
+Files uploaded by a user will always have a valid uploader's id in the database entry. For security, using uploaded files is limited to the user who uploaded it. This means that the second step fails if the UUID was created by another user.
+
+The uploader id can, however, be null in special cases:
+- Pictures that we moved from the old paths by a script. This includes title pictures of food share points and working groups, in which case we do not know the original owner of the file.
+- Attachments of incoming emails. These are sorted into mailboxes, which do not necessarily correspond to single users.
 
 ### Deleting
 A client can not delete an uploaded file. A file and its corresponding database entry is deleted automatically by the server if

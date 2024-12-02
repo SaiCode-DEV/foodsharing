@@ -34,65 +34,61 @@ class MoveUploadsCommand extends Command
     {
         $isDryRun = $input->getOption('dry');
 
-        // fetch all posts from the database
-        $postsWithPicture = $this->db->fetchAll('
+        // fetch all food share points from the database
+        $entriesWithPicture = $this->db->fetchAll('
 			SELECT
-				b.`id`,
-				b.`picture`,
-				fs.id as authorId
+				`id`,
+				`picture`
 			FROM
-				`fs_blog_entry` b,
-				`fs_foodsaver` fs
+				`fs_fairteiler`
 			WHERE
-				b.foodsaver_id = fs.id
-			AND
-			    b.picture <> ""',
+			    picture <> ""',
         );
 
         // sort by old or new picture path
-        $oldPosts = [];
-        $invalidPosts = [];
-        foreach ($postsWithPicture as $post) {
-            if (str_starts_with($post['picture'], 'picture/')) {
-                $oldPosts[] = $post;
-            } elseif (!str_starts_with($post['picture'], '/api/uploads')) {
-                $invalidPosts[] = $post;
+        $oldPictures = [];
+        $invalidPictures = [];
+        foreach ($entriesWithPicture as $entry) {
+            if (str_starts_with($entry['picture'], 'picture/')) {
+                $oldPictures[] = $entry;
+            } elseif (!str_starts_with($entry['picture'], '/api/uploads')) {
+                $invalidPictures[] = $entry;
             }
         }
 
-        // move all pictures from old posts and update the blog entries
+        // move all pictures from the old directory and update the database entries
         $movedFiles = 0;
-        foreach ($oldPosts as $post) {
+        foreach ($oldPictures as $entry) {
             $uuid = null;
-            $source = 'images/' . $post['picture'];
+            $source = 'images/' . str_replace('/', '/crop_0_528_', $entry['picture']);
 
             try {
-                $output->writeln('moving ' . $post['id'] . ', images/' . $post['picture']);
+                $output->writeln('moving ' . $entry['id'] . ', ' . $source);
                 if (!$isDryRun) {
-                    $uuid = $this->copyFileToNewAPI($source, $post['authorId']);
-                    $this->db->update('fs_blog_entry', ['picture' => '/api/uploads/' . $uuid], ['id' => $post['id']]);
+                    $uuid = $this->copyFileToNewAPI($source, null);
+                    $this->db->update('fs_fairteiler', ['picture' => '/api/uploads/' . $uuid], ['id' => $entry['id']]);
                     @unlink($source);
                 }
                 ++$movedFiles;
             } catch (Throwable $t) {
                 // If anything went wrong, reset everything: delete the database entry and the destination file, set
-                // the blog post's picture to the previous value
+                // the entry's picture to the previous value
                 if (!empty($uuid)) {
                     $this->uploadsGateway->deleteUpload($uuid);
                     @unlink($this->uploadsTransactions->generateFilePath($uuid));
-                    $this->db->update('fs_blog_entry', ['picture' => $source], ['id' => $post['id']]);
+                    $this->db->update('fs_fairteiler', ['picture' => $source], ['id' => $entry['id']]);
                 }
 
                 $output->writeln($t->getMessage());
-                $invalidPosts[] = $post;
+                $invalidPictures[] = $entry;
             }
         }
 
         // print statistics
         $output->writeln("    {$movedFiles} Dateien verschoben");
-        if (sizeof($invalidPosts) > 0) {
-            $output->writeln('    ' . sizeof($invalidPosts) . ' Einträge die nicht korrigiert werden konnten: '
-                . json_encode(array_column($invalidPosts, 'id')));
+        if (sizeof($invalidPictures) > 0) {
+            $output->writeln('    ' . sizeof($invalidPictures) . ' Einträge die nicht korrigiert werden konnten: '
+                . json_encode(array_column($invalidPictures, 'id')));
         }
 
         return 0;
@@ -103,11 +99,11 @@ class MoveUploadsCommand extends Command
      * delete the source file.
      *
      * @param string $filePath current path of the file
-     * @param int $userId id of the user who will be the owner of the uploaded file
+     * @param ?int $userId id of the user who will be the owner of the uploaded file
      * @return string the new UUID
      * @throws Exception if the file could not be copied or the database entry could not be created
      */
-    private function copyFileToNewAPI(string $filePath, int $userId): string
+    private function copyFileToNewAPI(string $filePath, ?int $userId): string
     {
         // add the entry to the database
         $bodyHash = hash_file('sha256', $filePath);

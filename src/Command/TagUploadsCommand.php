@@ -32,37 +32,37 @@ class TagUploadsCommand extends Command
     {
         $isDryRun = $input->getOption('dry');
 
-        // Fetch all posts from the database that have a valid picture in the upload API
-        $postWithValidPictures = $this->db->fetchAll('
+        // Fetch all entries from the database that have a valid picture in the upload API
+        $entriesWithValidPictures = $this->db->fetchAll('
 			SELECT
-				b.`id`,
-				b.`picture`
+				`id`,
+				`picture`
 			FROM
-				`fs_blog_entry` b
+				`fs_fairteiler`
 			WHERE
-			    b.picture LIKE "/api/uploads%"'
+			    picture LIKE "/api/uploads%"'
         );
 
-        $invalidPosts = [];
+        $invalidPictures = [];
         $taggedFiles = 0;
-        foreach ($postWithValidPictures as $post) {
+        foreach ($entriesWithValidPictures as $entry) {
             try {
                 if (!$isDryRun) {
-                    $uuid = substr($post['picture'], 13);
-                    $this->uploadsGateway->setUsage([$uuid], UploadUsage::BLOG_POST, $post['id']);
+                    $uuid = substr($entry['picture'], 13);
+                    $this->uploadsGateway->setUsage([$uuid], UploadUsage::BLOG_POST, $entry['id']);
                 }
                 ++$taggedFiles;
             } catch (Throwable $t) {
                 $output->writeln($t);
-                $invalidPosts[] = $post;
+                $invalidPictures[] = $entry;
             }
         }
 
         // print statistics
         $output->writeln("    {$taggedFiles} Dateien markiert");
-        if (sizeof($invalidPosts) > 0) {
-            $output->writeln('    ' . sizeof($invalidPosts) . ' Einträge die nicht korrigiert werden konnten: '
-                . json_encode(array_column($invalidPosts, 'id')));
+        if (sizeof($invalidPictures) > 0) {
+            $output->writeln('    ' . sizeof($invalidPictures) . ' Einträge die nicht korrigiert werden konnten: '
+                . json_encode(array_column($invalidPictures, 'id')));
         }
 
         return 0;
