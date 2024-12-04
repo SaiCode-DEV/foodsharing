@@ -4471,10 +4471,10 @@ help:
         distrito de domicilio común o a operaciones conjuntas.
     achievements:
       title: Etiquetas
-      md: "El sistema de pegatinas puede utilizarse para marcar características específicas
-        de los usuarios, como la participación en determinados cursos de formación.
-        Las pegatinas pueden ser válidas durante cualquier periodo de tiempo o tener
-        una fecha de finalización tras la cual pierden su validez.\n"
+      md: "El sistema de pegatinas se puede utilizar para marcar características específicas
+        del usuario, como la participación en determinados cursos de formación. Las
+        pegatinas pueden ser válidas por cualquier período de tiempo o tener una fecha
+        de finalización a partir de la cual dejan de ser válidas.\n"
     report:
       title: Procesamiento de mensajes
       md: "Aquí veras mensajes escritos sobre personas de este distrito de origen.
