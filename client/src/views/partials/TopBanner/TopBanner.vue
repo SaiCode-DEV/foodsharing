@@ -31,10 +31,17 @@ export default {
       isAnimationRunning: false,
     }
   },
-  mounted () {
+  async mounted () {
     window.addEventListener('resize', this.resizeHandler)
     window.addEventListener('load', this.resizeHandler)
+    document.querySelector('nav.navigation').classList.add('top-banner')
     this.resizeHandler()
+
+    // adjust navbar-height
+    await this.$nextTick()
+    const height = document.querySelector('nav.navigation').getBoundingClientRect().height + 'px'
+    document.documentElement.style.setProperty('--navbar-height', height)
+
     this.autoExpandAfterInterval()
   },
   methods: {
@@ -116,7 +123,7 @@ export default {
 :root {
   --top-banner-height: 150px;
 }
-.navigation {
+.navigation.top-banner {
   padding-top: 15px;
 }
 body {

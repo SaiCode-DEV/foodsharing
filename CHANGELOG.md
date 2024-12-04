@@ -69,13 +69,15 @@
 - Bananas can only be recieved or given by verified users #2161 !3779 @AntonBallmaier 
 - Update support link !3778 !3803 @McGoldi
 - Shuffle question answers for quiz tries. #2199 !3796 @AntonBallmaier
-- Rename achievements in German from "Errungenschaften" to "Vermerke" and than to "Sticker" #2202 !3795 !3832 @AntonBallmaier
+- Rename achievements in German from "Errungenschaften" to "Vermerke" and than to "Sticker" #2202 !3795 !3832 !3843 @AntonBallmaier
 - Improved partner page layout #2203 !3818 @AntonBallmaier
 - The number of attached files in emails is limited to 10 #1896 !3791 @alex.simm
 - Disable autocomplete on search inputs in store member list !3805 @iron9
 - Store chain info can now be entered using the markdown editor #2220 !3817 @AntonBallmaier
 - Improved chat markdown rendering #2231 !3834 @AntonBallmaier
 - Rework passport and verification for ambassadors and foodsaver !3627 !3833 !3837 @chriswalg
+- Order groups in profile by name !3843 @AntonBallmaier
+- Use abbreviated names in poll columns on small devices !3843 @AntonBallmaier
 
 ## Bugfixes
 - Resolve quoted string is not parsed correctly in mail address #2142 !3757 @anja0884
@@ -111,7 +113,9 @@
 - Added fallback for unloaded chat member names #2218 !3819 @AntonBallmaier
 - Include jumper last names in store log #2200 !3820 @AntonBallmaier
 - Fixed basket distance formatting #2225 !3829 @AntonBallmaier
-- Fix error for pass history entries when the creating bot account is removed #2222 !3845 @AntonBallmaier 
+- Fix error for pass history entries when the creating bot account is removed #2222 !3845 @AntonBallmaier
+- Fix logic for when badges are displayed on profile pages !3843 @AntonBallmaier
+- Fix max length for public info in stores !3843 @AntonBallmaier
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` #2198 !3437 !3809 @AntonBallmaier

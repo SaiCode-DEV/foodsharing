@@ -40,7 +40,7 @@ class PatchStore
      * String with public information about the store which is visible
      * for users which are looking for a store.
      */
-    #[Assert\Length(max: 200)]
+    #[Assert\Length(max: 520)]
     #[MarkdownOrPlainText]
     public ?string $publicInfo = null;
 

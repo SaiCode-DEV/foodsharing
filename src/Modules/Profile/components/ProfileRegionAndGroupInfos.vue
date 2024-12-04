@@ -132,6 +132,7 @@ export default {
     sleepingInformation: { type: Object, required: true },
     homeDistrictHistory: { type: Object, required: true },
     role: { type: Number, required: true },
+    isVerified: { type: Boolean, required: true },
     homeRegionId: { type: Number, required: true },
     homeRegionName: { type: String, default: '' },
   },
@@ -166,14 +167,11 @@ export default {
       ]
     },
     filteredBadges () {
-      if (!this.isCurrentUserFoodSaver || (this.isCurrentUserFoodSaver && !this.isSessionUserFoodsaver)) {
-        const itemsToFilter = ['bananas', 'posts']
-        if (!this.isCurrentUserFoodSaver || (!this.isCurrentUserFoodSaver && !this.isSessionUserFoodsaver)) {
-          itemsToFilter.push('fetched', 'saved')
-        }
-        return this.badges.filter(badge => !itemsToFilter.includes(badge.id))
+      const itemsToFilter = []
+      if (!this.isVerified) {
+        itemsToFilter.push('fetched', 'saved', 'bananas')
       }
-      return this.badges
+      return this.badges.filter(badge => !itemsToFilter.includes(badge.id))
     },
     isOrgUser () {
       return this.role === ROLE.ORGA

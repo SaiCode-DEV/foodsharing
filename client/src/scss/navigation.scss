@@ -301,6 +301,6 @@ body.nav-open{
     width: 100%;
     min-width: unset;
     max-width: unset;
-    top: 3rem;
+    top: calc(var(--navbar-height) - 10px);
   }
 }

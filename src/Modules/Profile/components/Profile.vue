@@ -51,6 +51,7 @@
                   :sleeping-information="sleepingInformation"
                   :home-district-history="homeDistrictHistory"
                   :role="profileInfos.role"
+                  :is-verified="profileInfos.isVerified"
                   :home-region-id="profileInfos.homeRegionId"
                   :home-region-name="profileInfos.homeRegionName"
                   class="mt-2"
@@ -92,7 +93,7 @@
                   :target-id="profileInfos.fsId"
                 />
               </b-tab>
-              <b-tab v-if="awardedAchievements?.length" :title="$i18n('terminology.achievements') + `(${awardedAchievements.length})`">
+              <b-tab v-if="awardedAchievements?.length" :title="$i18n('terminology.achievements') + ` (${awardedAchievements.length})`">
                 <Achievements :achievements="awardedAchievements" />
               </b-tab>
             </b-tabs>

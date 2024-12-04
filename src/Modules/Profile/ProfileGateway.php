@@ -98,7 +98,9 @@ final class ProfileGateway extends BaseGateway
 					fs_botschafter b
 			WHERE 	b.`bezirk_id` = bz.`id`
 			AND 	b.foodsaver_id = :fs_id
-		    AND ' . $restriction, [
+		    AND ' . $restriction . '
+            ORDER BY bz.`name` ASC
+            ', [
             ':fs_id' => $userId,
             ':type' => UnitType::WORKING_GROUP
         ]);

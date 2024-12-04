@@ -3079,7 +3079,9 @@ poll:
     option_text: "Option"
     percentage_of_votes: "Wahlbeteiligung"
     sum: "Summe"
+    sumShort: "∑"
     average: "Mittelwert"
+    averageShort: "Ø"
     standardDeviation: "Standardabweichung"
     standardDeviationShort: "σ"
   submit_vote_question: "Wirklich jetzt abstimmen? Deine Auswahl kann danach nicht mehr geändert werden."
@@ -3574,7 +3576,7 @@ notifications:
     description: 'Erhalte Mails, die dich warnen, wenn Slots in von dir verwalteten Betrieben am nächsten Tag noch nicht vergeben sind.'
   mention:
     title: 'Benachrichtigungen bei Erwähnungen'
-    description: 'Werde benachrichtigt, wenn dich jemand im Forum addressiert.'
+    description: 'Werde benachrichtigt, wenn dich jemand im Forum adressiert.'
   checkbox_email: 'E-Mail'
   checkbox_push: 'Push'
   checkbox_bell: 'Glocke'
@@ -3755,7 +3757,7 @@ help:
     achievements:
       title: "Sticker"
       md: |
-        Hier muss noch eine Erklärung für Sticker ergänzt werden. Das mache ich später. TODO
+        Das Stickersystem kann genutzt werden, um nutzerspezifische Eigenschaften zu markieren, wie beispielsweise die Teilnahme an bestimmten Schulungen. Sticker können beliebig lange gültig sein, oder ein Enddatum haben, ab dem sie ungültig sind.
     achievementIcon:
       title: "Icons für Sticker"
       md: |

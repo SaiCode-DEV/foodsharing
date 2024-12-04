@@ -28,8 +28,23 @@
         <i class="fas fa-thumbs-down" /> (-1)
       </template>
 
+      <template v-if="numValues > 1" #head(sum)>
+        <span
+          v-b-tooltip="viewIsLG ? '' : $i18n('poll.results.sum')"
+          v-text="$i18n(`poll.results.${viewIsLG ? 'sum' : 'sumShort'}`)"
+        />
+      </template>
+      <template v-if="numValues > 1" #head(average)>
+        <span
+          v-b-tooltip="viewIsLG ? '' : $i18n('poll.results.average')"
+          v-text="$i18n(`poll.results.${viewIsLG ? 'average' : 'averageShort'}`)"
+        />
+      </template>
       <template v-if="numValues > 1" #head(standardDeviation)>
-        <span v-b-tooltip="$i18n('poll.results.standardDeviation')" v-text="$i18n('poll.results.standardDeviationShort')" />
+        <span
+          v-b-tooltip="viewIsXL ? '' : $i18n('poll.results.standardDeviation')"
+          v-text="$i18n(`poll.results.${viewIsXL ? 'standardDeviation' : 'standardDeviationShort'}`)"
+        />
       </template>
 
       <template #cell(text)="row">
@@ -89,7 +104,6 @@ export default {
         if (this.viewIsMD) {
           result.push({
             key: 'sum',
-            label: this.$i18n('poll.results.sum'),
             sortable: true,
             sortByFormatted: 'true',
             class: 'text-center',
@@ -98,7 +112,6 @@ export default {
         }
         result.push({
           key: 'average',
-          label: this.$i18n('poll.results.average'),
           sortable: true,
           sortByFormatted: 'true',
           class: 'text-center',
@@ -107,7 +120,6 @@ export default {
         if (this.viewIsMD) {
           result.push({
             key: 'standardDeviation',
-            label: this.$i18n('poll.results.standardDeviationShort'),
             class: 'text-center',
             formatter: (value, key, item) => this.round(this.standardDeviationVotes(item)),
           })
