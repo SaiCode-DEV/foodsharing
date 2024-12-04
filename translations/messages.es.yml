@@ -794,6 +794,8 @@ poll:
     average: 'Promedio'
     standardDeviation: Desviación típica
     standardDeviationShort: σ
+    sumShort: ∑
+    averageShort: Ø
   eligible_votes_count: 'Número de votantes elegibles'
   type_description_1: 'Marque (se pueden seleccionar varias opciones)'
   begins_at: 'Inicio'
