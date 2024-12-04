@@ -1019,7 +1019,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicInfo' => implode('', array_fill(0, 201, '1'))]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicInfo' => implode('', array_fill(0, 521, '1'))]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [
