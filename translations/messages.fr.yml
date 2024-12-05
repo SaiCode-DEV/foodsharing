@@ -3172,6 +3172,8 @@ poll:
     average: Moyenne
     standardDeviationShort: σ
     standardDeviation: Écart type
+    averageShort: Ø
+    sumShort: ∑
   may_not_yet_vote: Ce vote n’a pas encore commencé.
   may_not_vote: Tu ne peux pas participer à ce vote.
   already_voted: tu as déjà participé à ce vote
