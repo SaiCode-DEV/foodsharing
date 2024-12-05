@@ -1421,6 +1421,8 @@ poll:
     percentage_of_votes: 'Affluenza alle urne'
     standardDeviationShort: σ
     standardDeviation: Deviazione standard
+    sumShort: ∑
+    averageShort: Ø
   cancel:
     question: Vuole davvero annullare questa votazione? Questo non può essere annullato.
     title: Cancellare la riconciliazione
