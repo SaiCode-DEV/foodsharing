@@ -17,6 +17,7 @@
 <script>
 import ConferenceOpener from '@/mixins/ConferenceOpenerMixin'
 import { useUserStore } from '@/stores/user'
+import { REGION_UNIT_TYPE } from '@/stores/regions'
 
 const userStore = useUserStore()
 
@@ -37,8 +38,8 @@ export default {
   computed: {
     showStatisticsAndMembers () {
       /* Statistics and members page are temporarily disabled because they are too inefficient for Europe and large
-       countries. Region type 6 is "Country" which is also used for Europe. */
-      return this.entry.type !== 6
+       countries. Region type "Country" is also used for Europe. */
+      return this.entry.type !== REGION_UNIT_TYPE.COUNTRY
     },
     menuEntries () {
       const menu = [

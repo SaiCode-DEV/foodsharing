@@ -116,6 +116,7 @@
 - Fix error for pass history entries when the creating bot account is removed #2222 !3845 @AntonBallmaier
 - Fix logic for when badges are displayed on profile pages !3843 @AntonBallmaier
 - Fix max length for public info in stores !3843 @AntonBallmaier
+- Fixed the region's type in the menu on the region page #2176 !3850 @alex.simm
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` #2198 !3437 !3809 @AntonBallmaier

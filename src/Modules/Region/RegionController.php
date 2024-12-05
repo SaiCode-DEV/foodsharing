@@ -60,25 +60,24 @@ final class RegionController extends FoodsharingController
         return $regionId === $this->currentUserUnits->getCurrentRegionId();
     }
 
-    private function getMenu(array $group, bool $isWorkgroup): array
+    private function getMenu(array $group): array
     {
-        $groupType = $isWorkgroup ? UnitType::WORKING_GROUP : UnitType::REGION;
         $groupId = $group['id'];
 
         $menu = [];
         $menu['id'] = $group['id'];
         $menu['name'] = $group['name'];
-        $menu['type'] = $groupType;
+        $menu['type'] = $group['type'];
         $menu['parent_id'] = $group['parent_id'];
         $menu['mayHandleFoodsaverRegionMenu'] = $this->regionPermissions->mayHandleFoodsaverRegionMenu($groupId);
-        $menu['hasConference'] = $this->regionPermissions->hasConference($groupType);
+        $menu['hasConference'] = $this->regionPermissions->hasConference($group['type']);
         $menu['hasAchievements'] = $this->achievementGateway->regionHasAchievements($group['id']);
 
         if ($this->currentUserUnits->isAdminFor($groupId)) {
             $menu['mailboxId'] = $group['mailbox_id'];
         }
 
-        if (UnitType::isRegion($groupType)) {
+        if (UnitType::isRegion($group['type'])) {
             $menu['isAdmin'] = $this->currentUserUnits->isAdminFor($groupId);
             $menu['mayAccessReports'] = $this->reportPermissions->mayAccessReportsForRegion($groupId);
             $menu['isReportAdmin'] = $this->reportPermissions->isReportAdmin($groupId);
@@ -144,7 +143,7 @@ final class RegionController extends FoodsharingController
 
         $isWorkGroup = UnitType::isGroup($region['type']);
 
-        $menu = $this->getMenu($region, $isWorkGroup);
+        $menu = $this->getMenu($region);
 
         return [
             'regionId' => $regionId,
