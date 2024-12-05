@@ -915,6 +915,7 @@ poll:
     option_text: ''
     sum: ''
     standardDeviationShort: σ
+    sumShort: ∑
   edit:
     submit: ''
     title: ''
