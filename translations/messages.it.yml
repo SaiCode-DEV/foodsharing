@@ -1640,6 +1640,7 @@ reports:
   region: Distritto origine
   store: Società assegnata
   about_email: 'Via email'
+  id: ID
 month:
   short:
     "12": dic.
@@ -2055,6 +2056,8 @@ bell:
   workinggroup_new_request_title: '{name}'
   internal_email_changed_title: '{address}'
   forum_not_activated_thread: '{forum}'
+  event_post:
+    one: 'Nuovo commento da {user} '
 content:
   edit: Modifica pagina
   new_success: La pagina è stata creata
