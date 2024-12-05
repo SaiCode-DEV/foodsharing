@@ -1661,6 +1661,8 @@ poll:
     average: Average
     standardDeviation: Standard deviation
     standardDeviationShort: σ
+    sumShort: ∑
+    averageShort: Ø
   new_poll:
     submit_question: The survey can be changed until it starts. Do you really want
       to create it now?
