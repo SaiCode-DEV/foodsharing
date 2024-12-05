@@ -536,6 +536,7 @@ poll:
     votes: ''
     standardDeviation: Desvio padrão
     standardDeviationShort: σ
+    sumShort: ∑
   new_poll:
     type: ''
     name_required: ''
