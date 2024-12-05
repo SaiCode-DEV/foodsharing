@@ -411,6 +411,7 @@ poll:
     percentage_of_votes: ''
     standardDeviationShort: σ
     standardDeviation: Standaardafwijking
+    sumShort: ∑
   cancel:
     title: ''
     question: ''
