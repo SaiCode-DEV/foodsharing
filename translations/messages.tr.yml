@@ -1661,6 +1661,7 @@ poll:
     votes: Oylar
     standardDeviationShort: σ
     standardDeviation: Standart sapma
+    sumShort: ∑
   in_future: henüz başlamadı
   begins_at: Başlangıç
   allowed_voters: Oy kullanma hakkına sahip
