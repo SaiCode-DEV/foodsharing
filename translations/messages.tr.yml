@@ -803,6 +803,7 @@ group:
         no_passport: Kimliksiz
         with_passport: Kimlikli
         invalid_passport: geçersiz kimlik
+      execute: Uygulamak
     all_roles: Tüm Roller
   show-all: Hepsini göster
   delete_group_sure: '{groupName} çalışma grubunu/bölgesini silmek istediğinizden
@@ -901,6 +902,8 @@ bell:
   workinggroup_new_request: Çalışma grubu için yeni bir başvuru
   forum_not_activated_thread: '{forum}'
   forum_not_activated_thread_title: Denetlenen forumdaki konu
+  passport_created_or_renewed_title: Kimliğiniz...
+  passport_created_or_renewed: etkinleştirildi veya uzatıldı!
 sig:
   buddies: Tanıdığın insanlar
 error:
@@ -941,6 +944,10 @@ error:
     description: Maalesef sabit hat numaranız aranamayacak bir formata sahip.
     link: Sabit hat numaranızı şimdi düzeltin
     title: Sabit hat numaranızda sorun var.
+  passport_is_invalid:
+    description: Yenilenmesi için yetkili elçilerinizle iletişime geçin.
+    link: Profil ayarları
+    title: Kimliğiniz artık geçerli değil!
 activitypost:
   quickreply_info: <code class="key">Shift + Enter</code> yeni bir satır eklemek için.
   quickreply_button: Şimdi gönder<br>veya <code class="key">Enter tuşuna</code>bas.
@@ -1416,7 +1423,7 @@ store:
     application-message: Başvuru mesajı
     hygieneMissing: 'Şu anda eksik olan şudur: Bu ekipte yer almak istiyorsan hemen
       hijyen testini yapın.'
-    hygieneRequired: Bu işletmede alım yapmak için geçerli bir hijyen sertifikası
+    hygieneRequired: Bu işletmede alım yapmak için geçerli bir Hijyen Sertifikası
       gerekmektedir.
   filter: …göre filtrele…
   enterdate: Alım tarihini girin
@@ -1662,6 +1669,7 @@ poll:
     standardDeviationShort: σ
     standardDeviation: Standart sapma
     sumShort: ∑
+    averageShort: Ø
   in_future: henüz başlamadı
   begins_at: Başlangıç
   allowed_voters: Oy kullanma hakkına sahip
@@ -2026,8 +2034,9 @@ mailbox:
   attachment:
     not_found_explanation: Ekli dosya artık sunucuda bulunamadı
     not_found: bulunamadı
-    attach: Ekler (dosya başına maksimum 1,5 MB)
+    attach: Ekler (Dosya başına Maksimum 1,5 MB)
     too_large_to_send: Dosyalardan bazıları çok büyüktü ve e-postaya eklenemedi.
+    too_many: Çok fazla dosya seçildi. E-postaya en fazla 10 dosya eklenebilir.
   move_to: Taşınmak
   close_edit_mode: Düzenlemeyi durdur
   add: Ekle
@@ -2595,6 +2604,10 @@ settings:
       name: İsim
       role: Rolü
       valid_end: Şu tarihe kadar geçerlidir
+    passport_not_activated: Kimliğiniz henüz etkinleştirilmedi.
+    passport_is_valid_until: Kimliğiniz **{days}** gün süreyle veya **{date}** tarihine
+      kadar geçerlidir.
+    passport_is_invalid: Kimliğiniz artık geçerli değil.
   account: Hesap seçenekleri
   header: Profil Ayarları
   businesscard: Kişisel kartvizit
@@ -3093,6 +3106,10 @@ profile:
   sleeping_info_from_until: '{from} ile {until} arasında uyku beresi var'
   choosereasonnostore: Hiç bir işletmeye ilişkin değil
   chooseantherstore: Listelenmeyen bir işletme ile ilgili endişeler
+  homeDistrictHistory:
+    changed: kayıtlı
+    by: _den
+    previous: öncesinde
 stats:
   total:
     foodsaver: Foodsaverlar gıda israfının olmadığı bir dünya için gönüllü oluyor.
@@ -3690,10 +3707,10 @@ pickup:
   description_modal_text: 'Yeni bir teslim alma açıklaması girin:'
   hygieneCertificateMissing:
     link: Hijyen eğitimi için
-    none: Şu anda geçerli bir hijyen sertifikanız yok. Gıda kurtarmaayı gerçekleştirnek
-      için hijyen testini şimdi tamamlayın.
+    none: Şu anda geçerli bir Hijyen Sertifikanız yok. Gıda kurtarmaayı gerçekleştirnek
+      için Hijyen testini şimdi tamamlayın.
     timeout: Hijyen notunuzun süresi, onu teslim aldığınız tarihte dolacaktır. Şimdi
-      gıda kurtarımına kaydolabilmek için hijyen testini tekrar yapın.
+      Gıda kurtarımına kaydolabilmek için Hijyen testini tekrar yapın.
 calendar:
   export:
     pickup:
