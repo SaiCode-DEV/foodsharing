@@ -356,7 +356,7 @@ image: Foto
 quizusercomment: "Dacci un feedback su questa domanda.\nEra troppo facile, troppo
   difficile, incomprensibile?\nOppure le risposte o le spiegazioni individuali sono
   errate?\n"
-wikilink: Link alla pagina wiki
+wikilink: Link con ulteriori informazioni
 questcount: Quante domande dovrebbero essere poste durante l'esame?
 maxfp: Numero massimo di punti di errore da superare
 answers: Quali risposte sono corrette?
@@ -1502,8 +1502,8 @@ language_chooser:
   choose_button: Aggiornamento
   translation_help_info_text: 'Questo link conduce al portale di traduzione, fai clic
     sulla matita per iniziare'
-  translation_help: 'Parli altre lingue? Foodsharing è sempre alla ricerca di aiuto
-    con le traduzioni'
+  translation_help: 'Parli altre lingue? A foodsharing siamo sempre alla ricerca di
+    aiutanti con la traduzione'
 email_template:
   login: Accedi per rispondere
   foodbasket_request: Il tuo cesto di cibo è stato richiesto da %SENDER%
@@ -1586,6 +1586,7 @@ foodsaver:
     AMBASSADOR: Diventa ambassador
     STORE_MANAGER: Diventa store manager
     FOODSAVER: Diventa foodsaver
+    pn: Sì, ho letto l’informativa sulla protezione dei dati e l’accetto.
   manage:
     remove: Elimina dal distretto
     actions: Opzioni
@@ -2003,7 +2004,7 @@ bell:
   store_wallpost_title: '{name}'
   poll_new: '{title}'
   store_request_imposed_title: '{name}'
-  new_quiz_comment_title: Nuovo commento al quiz
+  new_quiz_comment_title: Commento sulla domanda n. {questionId}
   fs_sleepmode: '{name} {nachname} è ora inattivo'
   store_cr_times: Gli slot di ritiro sono stati modificati
   store_cr_times_title: '{name}'
@@ -2497,6 +2498,8 @@ search:
     from: 'da'
     mail:
       mail_name: '{name} <{mail}>'
+    event:
+      location_online: In linea
   too_short: Inserisci un termine di ricerca più lungo.
   maxresults: Il numero di risultati visualizzati è limitato. Forse usa un termine
     di ricerca più specifico.
@@ -2666,6 +2669,7 @@ profile:
     baskets: Cestini alimentare
     count: ritirato
     weight: kg salvato
+    bananas: Banane
   infos:
     foodsharerId: ID-Foodsaver
     foodsaverId: ID-Foodsaver
@@ -2794,6 +2798,15 @@ settings:
       calendario a tua scelta.
     include_invitations: Il calendario dovrebbe contenere anche gli inviti ad appuntamenti
       a cui non ho ancora risposto.
+    program:
+      outlook: Outlook
+      apple_etar: Calendario Apple / Etar
+      google: Calendario di Google
+      other: Un altro
+      thunderbird: Thunderbird
+    formatting:
+      html: HTML
+      text: Solo testo
   photo:
     info: "Il tuo viso dovrebbe essere <a href=\"{link_photo}\">riconoscibile</a>
       nella tua foto del profilo,\nperché sarà usato per il foodsharing<a href=\"\
@@ -2813,12 +2826,12 @@ settings:
     passfail: La password è sbagliata, digitata male?
     passcheck: Confermate il cambiamento con la vostra password
     question: 'Dovremmo davvero cambiare il tuo indirizzo email in questo:'
-    input_label_email_confirm: Conferma il tuo nuovo indirizzo email qui
+    input_label_email_confirm: Conferma il nuovo indirizzo email qui
     explanation_password: Conferma la richiesta di modifica con la tua password attuale
     wrong_password: La password non è corretta.
     confirm_email_required: Gli indirizzi e-mail non corrispondono
     input_label_password: Inserisci la tua password per confermare
-    input_label_email: Inserisci qui il tuo nuovo indirizzo email
+    input_label_email: Inserisci qui il nuovo indirizzo email
     explanation: Qui puoi modificare l'indirizzo email con cui ti sei registrato.
       Dopo l'invio riceverai un'e-mail al nuovo indirizzo contenente un link di conferma.
   email: Cambia indirizzo email
@@ -2941,7 +2954,7 @@ mailbox:
     not_found: non trovato
     too_large_to_send: Alcuni file erano troppo grandi e non potevano essere allegati
       all’e-mail.
-    attach: Allegati (massimo 1,5 MB per file)
+    attach: Allegati (massimo 10 file, 1,5 MB per file)
   move_to: Sposta in
   close_edit_mode: Termina la modifica
   add: Aggiungi
@@ -2968,6 +2981,21 @@ map:
   donates: 'L''azienda dona'
   filters:
     my_stores: Solo i miei store
+    users:
+      member:
+        all: tutti
+      role:
+        all: tutti
+      activity:
+        all: tutti
+    stores:
+      help:
+        all: nessuna preferenza
+      status:
+        label: Stato
+        all: tutti
+      scope:
+        all: tutte
 push_notifications:
   test_notification_body: Ottimo, sembra che abbia funzionato :)
   test_notification_title: Notifiche push abilitate
@@ -3290,7 +3318,7 @@ quiz:
     la risposta alle domande in qualsiasi momento.
   nownownow: Inizia il quiz adesso
   timedstart: Iniziare il quiz con tempo limitato e {count} domande
-  wikilink: Articolo Wiki adatto a questo argomento
+  wikilink: Ulteriori informazioni
   session_deleted: I risultati di questo quiz sono stati cancellati perché il quiz
     è stato completato più di due settimane fa.
   congrats_details: Congratulazioni! Superato con {points} su un massimo di {max_points}!
@@ -3904,3 +3932,9 @@ validation:
     nazionale, è troppo corto, troppo lungo o contiene caratteri non validi)
 copied_to_clipboard: “{text}” è stato copiato negli appunti.
 error_base64_image: L'inserimento di immagini tramite drag & drop non è consentito.
+theme_switcher:
+  theme:
+    light: chiaro
+    dark: scuro
+    system: Sistema
+  choose_button: Va bene
