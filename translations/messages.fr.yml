@@ -228,6 +228,9 @@ group:
         unverify: Dévérifié
         verify: Vérifie
       clear_selection: Réinitialiser tous les marqués
+      create_pdf: Créer PDF
+      execute: Exécuter
+      automatic_paper_size: Papier A4
     default:
       lastname: Nom de famille
       title: Défaut
@@ -749,9 +752,11 @@ mailbox:
   attachment:
     not_found_explanation: Le fichier joint n’est plus trouvé sur le serveur
     not_found: pas trouvé
-    attach: Pièces jointes (1,5 Mo maximum par fichier)
+    attach: Pièces jointes (maximum 10 fichiers, 1,5 Mo par fichier)
     too_large_to_send: Certains fichiers étaient trop volumineux et ne pouvaient pas
       être joints au courrier électronique.
+    too_many: Trop de fichiers ont été sélectionnés. Un maximum de 10 fichiers peuvent
+      être joints à l’e-mail.
   move_to: déménager à
   close_edit_mode: Arrêter de modifier
   add: Ajouter
@@ -1091,8 +1096,8 @@ terminology:
   hygiene_training: Formation à l’hygiène
   received: reçu
   sent: envoyé
-  achievement: Réalisation
-  achievements: Réalisations
+  achievement: Vignette
+  achievements: Vignettes
   users: Utilisateurs
 register:
   activation_success: <strong>Activation réussie.</strong> Connecte-toi maintenant
@@ -2666,6 +2671,7 @@ map:
       role:
         all: tous
         label: Rôles
+        store-manager: Responsables coopération
       activity:
         label: Dernière connexion
         week: dernière semaine
@@ -3550,8 +3556,7 @@ quiz:
         foodsharing.
       alone: Tu ne dois pas être aidé pendant le quiz. C’est pourquoi tu dois trouver
         un endroit calme où tu pourras faire le quiz sans être dérangé.
-      read_carefully: Lis attentivement toutes les questions et réponses. Tu as suffisamment
-        de temps pour le faire.
+      read_carefully: Lis attentivement toutes les questions et réponses.
       wiki: Ne commence pas le quiz au hasard. Lis attentivement les pages répertoriées
         sur le Wiki foodsharing au préalable. Sans les connaissances du wiki, tu ne
         réussiras pas le quiz.
@@ -3571,6 +3576,7 @@ quiz:
         à comprendre quelle réponse est correcte ou incorrecte et pourquoi. Pour chaque
         erreur, tu dois lire attentivement les explications. Si quelque chose te semble
         illogique, incompréhensible ou même faux, n’hésite pas à laisser un commentaire.
+    acceptPrivacyNotice: Je suis d’accord.
   plural: Quiz
   button:
     pause: continuer plus tard
@@ -3590,7 +3596,7 @@ quiz:
     name: Réponses
     none_correct: Aucune réponse n’est correcte.
     neutral: Réponse neutre – ne sera pas évaluée.
-    false_false: Cette réponse était évidemment fausse. Tu as vu juste.
+    false_false: Cette réponse était fausse. Tu as vu juste.
     false_true: Cette réponse aurait été correcte.
     true_false: Faux ! Cette réponse n’est pas correcte.
     true_true: Correct ! Cette réponse est correcte.
@@ -3737,13 +3743,13 @@ quiz:
   test: Essaie le quiz
   stateBasedInfo:
     waitAfter: Si tu échoues à ta prochaine tentative, tu devras faire une pause d'apprentissage
-      de {waitTimeAfterFailure} jours. Consulte impérativement les articles Wiki correspondants
+      de {waitTimeAfterFailure} jours. Consulte impérativement les articles correspondants
       pour réussir le quiz.
     passed: Tu as réussi ce quiz.
-    noWaitAfter: Consulte à nouveau les articles Wiki correspondants et réessaie.
+    noWaitAfter: Consulte à nouveau les articles correspondants et réessaie.
     neverTried: Tu n’as jamais fait ce jeu de questions auparavant. Prends le temps
-      de lire attentivement tous les articles wiki mentionnés afin d’être prêt(e)
-      à répondre aux questions.
+      de lire attentivement tous les articles mentionnés afin d’être prêt(e) à répondre
+      aux questions.
     running: Tu as déjà commencé(e) le quiz et tu as répondu(e) jusqu’à présent à
       {questionsAnswered} des {questionCount} questions.
     failed: Lors de ta dernière tentative, tu n'as malheureusement pas réussi ce quiz.
@@ -4137,9 +4143,9 @@ help:
     reportReasons:
       title: Formulaire de plainte
     achievementIcon:
-      title: Icônes pour les réalisations
+      title: Icônes pour les vignettes
     achievements:
-      title: Réalisations
+      title: Vignettes
       md: "Le système d’autocollants peut être utilisé pour marquer des caractéristiques
         spécifiques à l’utilisateur, comme la participation à certaines formations.
         Les autocollants peuvent être valables pour n’importe quelle durée ou avoir
@@ -4174,23 +4180,23 @@ store_categories:
     id: ID
   title: Catégories d’entreprises
 achievements:
-  notAwarded: Cette réalisation n’est actuellement attribuée à personne.
-  revokeConfirmation: Veux-tu vraiment priver {name} de cette réalisation ?
-  award: Exposer une réalisation
+  notAwarded: Cette vignette n’est actuellement attribuée à personne.
+  revokeConfirmation: Veux-tu vraiment priver {name} de cette vignette ?
+  award: Attribuer une vignette
   validUntil: Valable jusqu’au
   notice: Remarque
   reviewer: Réviseur
-  add: Ajouter une réalisation
+  add: Ajouter une vignette
   validity:
     indefinite: Valable indéfiniment après l’attribution.
     indefiniteShort: illimité
     days: Valable pour {validityInDaysAfterAssignment} jours après l’attribution.
-  inRegion: Réalisations dans {region} ({count})
-  editAwarded: Personnaliser l’accomplissement {achievement} pour {user}
-  new: Nouvelle réalisation
-  editTitle: Modifier les réalisations
-  noneInThisRegion: Aucun acquis n’est enregistré dans cette région.
-  deleteConfirmation: Tu veux vraiment supprimer cette réalisation ?
+  inRegion: Vignettes dans {region} ({count})
+  editAwarded: Ajuster la vignette {achievement} de {user}
+  new: Nouvelle vignette
+  editTitle: Modifier les vignettes
+  noneInThisRegion: Aucune vignette n’est répertoriée pour cette région.
+  deleteConfirmation: Tu veux vraiment supprimer cette vignette ?
   editor:
     preview: Aperçu
     icon: Icône
@@ -4199,9 +4205,9 @@ achievements:
   awardedTo: Attribué à
   awardedNoReviewer: automatique
   inThis:
-    region: 'Les réalisations suivantes peuvent être attribuées dans cette région :'
-    group: 'Les réalisations suivantes peuvent être attribuées dans ce groupe de travail :'
-  edit: 'Modifier la réalisation : {name}'
+    region: 'Les vignettes suivantes peuvent être attribuées dans cette région :'
+    group: 'Les vignettes suivantes peuvent être attribuées dans ce groupe de travail :'
+  edit: 'Modifier la vignette : {name}'
   revoke: Révoquer
   editDetails: Éditer les détails
   awarded: attribuée
