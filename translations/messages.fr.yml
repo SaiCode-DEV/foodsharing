@@ -219,7 +219,7 @@ group:
     passports:
       created_at: Carte établie le
       never_before: jamais
-      title: Cartes de membre
+      title: Cartes de membre & verification
       generate_button: Créer une/des carte(s) de membre pour la/les personne(s) sélectionnée(s)
       verify:
         undo: Annuler la vérification de {name} ({id})
@@ -3557,9 +3557,9 @@ quiz:
       alone: Tu ne dois pas être aidé pendant le quiz. C’est pourquoi tu dois trouver
         un endroit calme où tu pourras faire le quiz sans être dérangé.
       read_carefully: Lis attentivement toutes les questions et réponses.
-      wiki: Ne commence pas le quiz au hasard. Lis attentivement les pages répertoriées
-        sur le Wiki foodsharing au préalable. Sans les connaissances du wiki, tu ne
-        réussiras pas le quiz.
+      wiki: Ne commence pas le quiz au hasard. Lis attentivement les pages d'information
+        répertoriées au préalable. Sans les connaissances du wiki, tu ne réussiras
+        pas le quiz.
       multiple_choice: Plusieurs réponses peuvent être correctes par question – ou
         aucune. Décide donc pour chaque réponse si elle est juste ou fausse.
       pause: Tu peux mettre le quiz en pause après chaque question et le reprendre
