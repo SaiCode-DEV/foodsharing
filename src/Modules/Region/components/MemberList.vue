@@ -383,7 +383,7 @@ export default {
       passportMember: [],
       filterPassportMember: false,
       filterPassportUntilValid: null,
-      usePaperSizeDinA4: true,
+      usePaperSizeDinA4: false,
       activeTab: null,
       sortBy: '',
       mayEditMembers: false,

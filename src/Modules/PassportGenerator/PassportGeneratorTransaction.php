@@ -52,7 +52,7 @@ class PassportGeneratorTransaction extends AbstractController
 
     private function setupPdfMargins(\TCPDF $pdf, array $userIds, bool $usePaperSizeDinA4): array
     {
-        $singleUser = $usePaperSizeDinA4 && count($userIds) === 1;
+        $singleUser = !$usePaperSizeDinA4 && count($userIds) === 1;
 
         $pdf->AddPage(
             $singleUser ? 'L' : 'P',
@@ -145,7 +145,7 @@ class PassportGeneratorTransaction extends AbstractController
         }
     }
 
-    private function generatePdf(array $userIds, bool $ambassadorGeneration, bool $automatic_paper_size, DateTime $validFrom, DateTime $validUntil): stdClass
+    private function generatePdf(array $userIds, bool $ambassadorGeneration, bool $usePaperSizeDinA4, DateTime $validFrom, DateTime $validUntil): stdClass
     {
         $protectPDF = !$ambassadorGeneration;
         $cutMarkers = $ambassadorGeneration;
@@ -163,7 +163,7 @@ class PassportGeneratorTransaction extends AbstractController
             $pdf->SetProtection(['print', 'copy', 'modify', 'assemble'], '', null, 0, null);
         }
 
-        $margins = $this->setupPdfMargins($pdf, $userIds, $automatic_paper_size);
+        $margins = $this->setupPdfMargins($pdf, $userIds, $usePaperSizeDinA4);
 
         $pdf->SetTextColor(0, 0, 0);
         $pdf->AddFont('Ubuntu-L', '', $this->projectDir . '/lib/font/ubuntul.php', true);

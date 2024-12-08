@@ -17,8 +17,6 @@
 
 namespace Foodsharing\Lib;
 
-// require __DIR__ . '/vendor/autoload.php';
-
 use DateTime;
 use Firebase\JWT\JWT;
 use Google\Auth\Credentials\ServiceAccountCredentials;
@@ -129,10 +127,7 @@ class GoogleWalletPass
             return "{$issuerId}.{$classSuffix}";
         } catch (Exception $ex) {
             if (empty($ex->getErrors()) || $ex->getErrors()[0]['reason'] != 'classNotFound') {
-                // Something else went wrong...
-                print_r($ex);
-
-                return "{$issuerId}.{$classSuffix}";
+                throw new RuntimeException($ex->getMessage());
             }
         }
 
@@ -196,10 +191,7 @@ class GoogleWalletPass
 
                 return "{$issuerId}.{$classSuffix}";
             } else {
-                // Something else went wrong...
-                print_r($ex);
-
-                return "{$issuerId}.{$classSuffix}";
+                throw new RuntimeException($ex->getMessage());
             }
         }
 
@@ -264,10 +256,7 @@ class GoogleWalletPass
             return "{$issuerId}.{$userId}";
         } catch (Exception $ex) {
             if (empty($ex->getErrors()) || $ex->getErrors()[0]['reason'] != 'resourceNotFound') {
-                // Something else went wrong...
-                print_r($ex);
-
-                return "{$issuerId}.{$userId}";
+                throw new RuntimeException($ex->getMessage());
             }
         }
 
@@ -386,10 +375,7 @@ class GoogleWalletPass
 
                     return "{$issuerId}.{$userId}";
                 } else {
-                    // Something else went wrong...
-                    print_r($ex);
-
-                    return "{$issuerId}.{$userId}";
+                    throw new RuntimeException($ex->getMessage());
                 }
             }
         }
@@ -399,9 +385,7 @@ class GoogleWalletPass
 
             return $response->id;
         } catch (Exception $ex) {
-            print_r($ex);
-
-            return "{$issuerId}.{$userId}";
+            throw new RuntimeException($ex->getMessage());
         }
     }
 
@@ -427,10 +411,7 @@ class GoogleWalletPass
 
                 return "{$issuerId}.{$userId}";
             } else {
-                // Something else went wrong...
-                print_r($ex);
-
-                return "{$issuerId}.{$userId}";
+                throw new RuntimeException($ex->getMessage());
             }
         }
 
@@ -461,10 +442,7 @@ class GoogleWalletPass
             if (!empty($ex->getErrors()) && $ex->getErrors()[0]['reason'] == 'resourceNotFound') {
                 return "{$issuerId}.{$userId}";
             } else {
-                // Something else went wrong...
-                print_r($ex);
-
-                return "{$issuerId}.{$userId}";
+                throw new RuntimeException($ex->getMessage());
             }
         }
         // Patch the object, setting the pass as active
@@ -612,10 +590,7 @@ class GoogleWalletPass
             return $this->createJwtExistingObjects($userId);
         } catch (Exception $ex) {
             if (empty($ex->getErrors()) || $ex->getErrors()[0]['reason'] != 'resourceNotFound') {
-                // Something else went wrong...
-                print_r($ex);
-
-                return "{$issuerId}.{$userId}";
+                throw new RuntimeException($ex->getMessage());
             }
         }
 

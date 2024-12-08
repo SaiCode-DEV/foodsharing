@@ -75,7 +75,7 @@
 - Disable autocomplete on search inputs in store member list !3805 @iron9
 - Store chain info can now be entered using the markdown editor #2220 !3817 @AntonBallmaier
 - Improved chat markdown rendering #2231 !3834 @AntonBallmaier
-- Rework passport and verification for ambassadors and foodsaver !3627 !3833 !3837 @chriswalg
+- Rework passport and verification for ambassadors and foodsaver !3627 !3833 !3837 !3849 @chriswalg
 - Order groups in profile by name !3843 @AntonBallmaier
 - Use abbreviated names in poll columns on small devices !3843 @AntonBallmaier
 
