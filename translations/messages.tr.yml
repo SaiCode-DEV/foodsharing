@@ -948,6 +948,10 @@ error:
     description: Yenilenmesi için yetkili elçilerinizle iletişime geçin.
     link: Profil ayarları
     title: Kimliğiniz artık geçerli değil!
+  passport_is_invalid_soon:
+    link: Profil ayarları
+    title: Kimliğiniz yakında artık geçerli olmayacak!
+    description: Yenilenmesi için yetkili elçilerinizle iletişime geçin.
 activitypost:
   quickreply_info: <code class="key">Shift + Enter</code> yeni bir satır eklemek için.
   quickreply_button: Şimdi gönder<br>veya <code class="key">Enter tuşuna</code>bas.
@@ -2608,6 +2612,7 @@ settings:
     passport_is_valid_until: Kimliğiniz **{days}** gün süreyle veya **{date}** tarihine
       kadar geçerlidir.
     passport_is_invalid: Kimliğiniz artık geçerli değil.
+    ask_your_ambassadors: Lütfen yetkili elçilerinizle iletişime geçin.
   account: Hesap seçenekleri
   header: Profil Ayarları
   businesscard: Kişisel kartvizit
@@ -4253,6 +4258,31 @@ help:
         örneğin \"*yürüyüş*\" veya \"*alışveriş sepeti*\".\nÖnizlemeyi kullanarak
         girişinizin çalışıp çalışmadığını kontrol edebilirsiniz.\nBir simge (İcon)
         girmezseniz, varsayılan başarı simgesi \"*etiket*\" otomatik olarak kullanılacaktır\n"
+    moderatorForumHide:
+      title: Moderatörler tarafından forumlarda gizlenme
+      md: "###### Moderatör kimdir?\nBir grubun veya bölgenin moderatörleri genellikle
+        yöneticiler veya Yetkili elçilerdir. Bir ilçede GOALS-AG *moderasyonu* varsa
+        bu grubun yöneticileri moderatörlük görevini üstlenirler.\n---\n###### Forumlarda
+        gizle\nEtkinleştirildiğinde moderatörler yalnızca kendi gönderilerini değil,
+        forumdaki tüm gönderileri gizleyebilir. Bunu yapmak için, bir gönderiyi veya
+        konunun tamamını neden gizlemek istediğinize dair bir neden belirtmelisiniz.
+        Daha sonra, bir gönderi 3 ay daha moderatörlerin erişimine açık kalır ve bu
+        süre zarfında geri yüklenebilir. Diğer kullanıcıların (kurumsal hakları olmayan)
+        artık buna erişimi yoktur. Bu 3 aydan sonra, gizli bir gönderi artık geri
+        yüklenemez ve veri tabanından kalıcı olarak silinir.\n---\n###### Bu seçenek
+        nerede kullanılabilir?\nYerel raporlama gruplarında ve hakem kurullarında
+        (GOALS AG'ler) bu işlev, veri koruma nedenleriyle gereklidir.\nDiğer çalışma
+        grupları, yöneticilere gönderileri gizleme izni vermek ve başarılı oylamanın
+        bağlantısını ags.bezirke@foodsharing.network adresine göndermek için dahili
+        olarak oy kullanabilir. Bu seçenek yerel ilçeler için sağlanmamaktadır.\n"
+    pollScopes:
+      title: Oy verme uygunluğu
+    polls:
+      md: "Oylama modülünü kullanarak seçimler, anketler ve diğer oylamalar doğrudan
+        gıda paylaşım platformu üzerinde isimsiz ve kolay bir şekilde gerçekleştirilebilir.
+        Ayrıntılı talimatları https://wiki.foodsharing.de/Abstimms-Modul adresinde
+        bulabilirsiniz.\n"
+      title: Oylar_
   helpTitle: 'Yardım: {title}'
   tooltip: Yardımı göster
 team_page:
