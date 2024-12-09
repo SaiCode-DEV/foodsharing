@@ -69,8 +69,8 @@ define('TWINGLE_URL', 'https://spenden.twingle.de/status/E4yxc5T7YJh7nZvL93Yu7Pl
 
 define('MAX_DELETE_OLD_ACCOUNTS_PER_DAY', 100);
 
-define('ZAMMAD_URL', 'https://support.foodsharing.network/');
-define('ZAMMAD_TICKET_TOKEN', '');
+define('ZAMMAD_URL', 'http://zammad-nginx:8080');
+define('ZAMMAD_TICKET_TOKEN', 'bDH0R-1hbTHL3c4Rd8JECX--YLMIFufIJ3BOEd8W7lW8zlPz_IMya2Te22pxbkvF');
 
 define('BUNDESTAG_PETITION_PAGE_URL', 'http://nginx:8080/mock/petition');
 

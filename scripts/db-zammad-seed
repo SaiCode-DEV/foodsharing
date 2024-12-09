@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+
+dir=$(dirname "$0")
+
+# shellcheck source=./__common.sh
+source "$dir"/__common.sh
+
+# Load environment variables from .env file
+source "$dir/../docker/zammad/.env"
+
+# Configuration
+TOKEN_NAME="token_for_support_form"
+PSQL_CMD="psql -U $POSTGRES_USER -d $POSTGRES_DB"
+
+if [ "$USER" == "gitpod" ]
+then
+    zammad_url=$(gp url $NGINX_EXPOSE_PORT)
+else
+    zammad_url="http://localhost:$NGINX_EXPOSE_PORT"
+fi
+
+# Get initial session and CSRF token
+echo "Getting session and CSRF token..."
+response=$(curl -i -s "${zammad_url}")
+csrf_token=$(echo "$response" | grep -o 'csrf-token".*' | cut -d'"' -f3)
+session_cookie=$(echo "$response" | grep -i "set-cookie" | grep "_zammad_session" | cut -d' ' -f2)
+
+base_url="${zammad_url}/api/v1"
+user="admin@example.com"
+password="PasswOrd1!"
+
+# Create user first
+echo "Creating user..."
+http_response=$(curl -i -s -X POST \
+  "${base_url}/users" \
+  -H "Cookie: ${session_cookie}" \
+  -H "X-CSRF-Token: ${csrf_token}" \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "firstname": "",
+    "lastname": "",
+    "email": "'"${user}"'",
+    "password": "'"${password}"'",
+    "role_ids": [],
+    "id": "c-0"
+}')
+
+status_code=$(echo "$http_response" | head -n 1 | cut -d' ' -f2)
+echo "Status code for users API: $status_code"
+
+if [ "$status_code" == "422" ]; then
+    echo "User already exists"
+fi
+
+# SQL queries
+CHECK_TOKEN_SQL="SELECT COUNT(*) FROM tokens WHERE name = '$TOKEN_NAME'"
+token_exists=$(exec-in-container "zammad-postgresql" "$PSQL_CMD -t -c \"$CHECK_TOKEN_SQL\"")
+
+if [ "$token_exists" -eq "0" ]; then
+    echo "Token entry doesn't exist, creating via API..."
+
+    # Generate fingerprint for login
+    fingerprint=$(dd if=/dev/urandom bs=32 count=1 2>/dev/null | base64 | tr -dc 'a-zA-Z0-9' | head -c 32)
+    echo "Generated fingerprint for login"
+
+    echo "Logging in as admin..."
+    login_response=$(curl -i -s -X POST \
+      "${base_url}/signin" \
+      -H "Cookie: ${session_cookie}" \
+      -H "X-CSRF-Token: ${csrf_token}" \
+      -H 'Content-Type: application/json' \
+      -d "{
+        \"username\": \"${user}\",
+        \"password\": \"${password}\",
+        \"fingerprint\": \"${fingerprint}\"
+      }")
+
+    echo "Creating access token entry ..."
+    token_response=$(curl -i -s -X POST \
+        "${base_url}/user_access_token" \
+        -H "Cookie: ${session_cookie}" \
+        -H "X-CSRF-Token: ${csrf_token}" \
+        -H 'Content-Type: application/json' \
+        -d '{
+            "name": "'"$TOKEN_NAME"'",
+            "permission": ["ticket.agent"],
+            "expires_at": null
+      }')
+fi
+
+# Function to get ZAMMAD_TICKET_TOKEN value from config.inc.dev.php
+get_zammad_ticket_token() {
+  local config_file="$1"
+  sed -n 's/^define.*ZAMMAD_TICKET_TOKEN.*'\''\([^'\'']*\)'\''.*$/\1/p' "${config_file}"
+}
+
+# Read current ZAMMAD_TICKET_TOKEN value
+config_file="config.inc.dev.php"
+current_token=$(get_zammad_ticket_token "${config_file}")
+
+if [ -z "${current_token}" ]; then
+  echo "No ZAMMAD_TICKET_TOKEN found in config file."
+  exit 1
+fi
+
+echo "Found token: ${current_token}"
+
+# Update token in PostgreSQL database
+UPDATE_TOKEN_SQL="UPDATE tokens SET token = '${current_token}' WHERE name = '$TOKEN_NAME'"
+exec-in-container "zammad-postgresql" "$PSQL_CMD -c \"$UPDATE_TOKEN_SQL\""
+
+if [ $? -eq 0 ]; then
+    echo "Token successfully updated in database"
+else
+    echo "Failed to update token in database"
+    exit 1
+fi

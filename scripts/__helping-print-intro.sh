@@ -10,6 +10,7 @@ then
   page_port=18080 #nginx
   phpmyadmin_port=18081
   devdocs_port=13000
+  zammad_port=18087
 elif [ "$FS_ENV" == "test" ]
 then
   page_port=28080 #nginx
@@ -28,6 +29,7 @@ then
     api_url="$page_url/api/doc/"
     devdocs_url=$(gp url $devdocs_port)
     phpmyadmin_url=$(gp url $phpmyadmin_port)
+    zammad_url=$(gp url $zammad_port)
     gitpod_config="$page_url:8080"
     echo "$gitpod_config" > config/gitpod
 else
@@ -35,6 +37,7 @@ else
     api_url="http://localhost:$page_port/api/doc/"
     devdocs_url="http://localhost:$devdocs_port"
     phpmyadmin_url="http://localhost:$phpmyadmin_port"
+    zammad_url="http://localhost:$zammad_port"
 fi
 
 echo
@@ -42,6 +45,9 @@ echo
 echo "Some important informations:"
 echo "  * Webpage:      $page_url"
 echo "  * PHPMyAdmin:   $phpmyadmin_url"
+if [ "${ZAMMAD:-false}" = "true" ]; then
+    echo "  * Zammad:       $zammad_url"
+fi
 echo
 echo "Documentations:"
 echo "  * API-DOCS:     $api_url"

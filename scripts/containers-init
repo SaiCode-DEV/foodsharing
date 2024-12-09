@@ -29,6 +29,10 @@ log-header "Waiting for assets to be generated ..."
 wait-for-assets
 exec-in-container app "bin/console assets:install"
 
+if [ "${ZAMMAD:-false}" = "true" ]; then
+log-header "Setup zammad ticket system ..."
+    "$dir"/db-zammad-seed
+fi
 
 log-header "All done"
 

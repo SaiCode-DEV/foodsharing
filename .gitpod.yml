@@ -37,6 +37,11 @@ ports:
     description: Usage unknow
     visibility: private
     onOpen: ignore
+  - port: 18087
+    name: Zammad
+    description: Ticket-System
+    visibility: public
+    onOpen: ignore
   - port: 13000
     name: Vitepress
     description: DevDocs
