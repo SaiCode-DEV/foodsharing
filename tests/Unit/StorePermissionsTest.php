@@ -11,6 +11,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Development\FeatureToggles\DependencyInjection\FeatureToggleChecker;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
@@ -40,7 +41,8 @@ final class StorePermissionsTest extends Unit
             $this->tester->get(ProfilePermissions::class),
             $this->regionGatewayMock,
             $this->currentUserUnitsMock,
-            $this->tester->get(AchievementGateway::class));
+            $this->tester->get(AchievementGateway::class),
+            $this->tester->get(FeatureToggleChecker::class));
     }
 
     public function testListStoresLoadUserIdFromSession(): void
