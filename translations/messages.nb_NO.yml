@@ -2515,7 +2515,6 @@ forum:
       se hvorfor innlegget ble skjult, og moderatorene kan også se hvem som har gjort
       det.
     sureHide: Vil du virkelig skjule dette innlegget?
-    hiddenPost: Skjult innlegg ({reason})
   threads: Tråder
   from: Fra {name}
   new_thread: Lag ny tråd

@@ -38,6 +38,7 @@
       @update:bell="newState => isFollowingBell = newState"
       @update:email="newState => isFollowingEmail = newState"
     />
+    <HiddenPostsAlert v-if="posts.length > 3 && hasHiddenPosts" :show-hidden-posts.sync="showHiddenPosts" />
 
     <b-card v-if="isLoading">
       <b-skeleton width="85%" />
@@ -113,6 +114,7 @@
       <strong>{{ $i18n('error_unexpected') }}:</strong> {{ errorMessage }}
     </div>
 
+    <HiddenPostsAlert v-if="hasHiddenPosts" :show-hidden-posts.sync="showHiddenPosts" />
     <SubscribeButton
       v-if="!isLoading"
       :is-following-bell="isFollowingBell"
@@ -206,6 +208,7 @@ import SubscribeButton from './SubscribeButton.vue'
 import ThreadForm from './ThreadForm'
 import ThreadPost from './ThreadPost'
 import ThreadStatus from './ThreadStatus'
+import HiddenPostsAlert from './HiddenPostsAlert'
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
 import Info from '@/components/Help/Info.vue'
@@ -213,7 +216,7 @@ import Info from '@/components/Help/Info.vue'
 const userStore = useUserStore()
 
 export default {
-  components: { ThreadForm, ThreadPost, OverflowMenu, JumpScrollButton, SubscribeButton, VueSlider, Info },
+  components: { ThreadForm, ThreadPost, OverflowMenu, JumpScrollButton, SubscribeButton, HiddenPostsAlert, VueSlider, Info },
   props: {
     id: {
       type: Number,
@@ -272,7 +275,6 @@ export default {
         { hide: !this.mayModerate, icon: `lock${this.isOpen ? '' : '-open'}`, textKey: `thread.options.${this.isOpen ? '' : 'un'}lock`, callback: this.updateClosed },
         { hide: !this.mayModerate || this.stickiness < 0, icon: 'thumbtack', textKey: `thread.options.${this.stickiness ? 'un' : ''}pin`, callback: () => this.updateStickiness(+(!this.stickiness)) },
         { hide: !this.mayModerate, icon: 'sort-amount-down', textKey: 'thread.options.priority', callback: this.updatePriority },
-        { hide: !this.hasHiddenPosts, icon: this.showHiddenPosts ? 'eye-slash' : 'eye', textKey: `thread.options.${this.showHiddenPosts ? 'hide' : 'show'}Hidden`, callback: () => { this.showHiddenPosts ^= true } },
       ]
     },
     hasHiddenPosts () {
@@ -290,14 +292,19 @@ export default {
     await this.reload()
     await new Promise(resolve => window.setTimeout(resolve, 200))
     this.linkedPost = GET('pid')
-    this.scrollToPost(this.posts.find(post => post.id >= this.linkedPost)?.id)
+    this.scrollToPost(this.posts.find(post => post.id >= this.linkedPost))
   },
   methods: {
     getPostLink (postId) {
       return this.$url('forum', this.regionId, this.regionSubId, this.id, postId)
     },
-    async scrollToPost (postId) {
-      const p = window.document.querySelector(`#post-${postId} .card-header`)
+    async scrollToPost (post) {
+      if (!post) return
+      if (post.hidden) {
+        this.showHiddenPosts = true
+        await this.$nextTick()
+      }
+      const p = window.document.querySelector(`#post-${post.id} .card-header`)
       if (p) {
         p.scrollIntoView({ behavior: 'smooth', block: 'center' })
         await new Promise(resolve => window.setTimeout(resolve, 500))
@@ -339,7 +346,6 @@ export default {
           isFollowingBell: res.isFollowingBell,
           status: res.status,
           creator: res.creator,
-          showHiddenPosts: res.mayModerate,
         })
         this.isLoading = false
       } catch (err) {
@@ -376,7 +382,16 @@ export default {
       try {
         await api.hidePost(postId, reason)
         const post = this.posts.find(post => post.id === postId)
-        if (post) post.hidden = reason
+        if (post) {
+          post.hidden = {
+            reason,
+            moderator: {
+              name: userStore.getUserFirstName,
+              id: userStore.getUserId,
+            },
+            time: new Date(),
+          }
+        }
       } catch (err) {
         pulseError(this.$i18n('error_unexpected'))
       }

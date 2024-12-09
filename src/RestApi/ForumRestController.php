@@ -3,6 +3,7 @@
 namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Region\ForumFollowerGateway;
 use Foodsharing\Modules\Region\ForumGateway;
 use Foodsharing\Modules\Region\ForumTransactions;
@@ -81,7 +82,11 @@ class ForumRestController extends AbstractFoodsharingRestController
             'author' => RestNormalization::normalizeUser($post, 'author_'),
             'reactions' => $post['reactions'] ?: new \ArrayObject(),
             'mayDelete' => $this->forumPermissions->mayDeletePost($post),
-            'hidden' => $post['hidden_reason'] ?? false,
+            'hidden' => $post['hidden_reason'] ? [
+                'reason' => $post['hidden_reason'],
+                'moderator' => new Profile($post, 'moderator_'),
+                'time' => $post['hidden_time'],
+            ] : null,
         ];
     }
 
@@ -430,8 +435,7 @@ class ForumRestController extends AbstractFoodsharingRestController
         }
         $reason = $paramFetcher->get('reason');
 
-        $details = $this->forumGateway->getHiddenPostDetails($postId);
-        if (count($details) !== 0) {
+        if ($this->forumGateway->isPostHidden($postId)) {
             throw new BadRequestHttpException();
         }
 
@@ -463,32 +467,6 @@ class ForumRestController extends AbstractFoodsharingRestController
         }
 
         return $this->respondOK();
-    }
-
-    #[OA2\Get(summary: 'Get details on a hidden forum post')]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
-    #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Post is not hidden.')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
-    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Post does not exist')]
-    #[Rest\Get('forum/post/{postId}/hide', requirements: ['postId' => Requirement::POSITIVE_INT])]
-    public function getHiddenPostDetails(int $postId): SymfonyResponse
-    {
-        $this->assertLoggedIn();
-
-        $post = $this->forumGateway->getPost($postId);
-        if (!$post) {
-            throw new NotFoundHttpException();
-        }
-        if (!$this->forumPermissions->mayRestorePost($postId)) {
-            throw new AccessDeniedHttpException();
-        }
-
-        $details = $this->forumGateway->getHiddenPostDetails($postId);
-        if (count($details) === 0) {
-            throw new BadRequestHttpException();
-        }
-
-        return $this->respondOK($details);
     }
 
     /**

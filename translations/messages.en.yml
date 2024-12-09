@@ -1073,7 +1073,6 @@ forum:
       within 3 months before they are permanently deleted. During this time, forum
       users can see why the post was hidden, and moderators can also see by whom.
     sureHide: Are you sure you want to hide this post?
-    hiddenPost: Hidden post ({reason})
   from: From {name}
   sending_error: An error occured during sending
   no_threads: No threads yet

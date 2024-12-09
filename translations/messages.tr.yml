@@ -2725,7 +2725,6 @@ forum:
     giveHideReason: Lütfen bu gönderiyi neden gizlemek istediğinizi belirtin.
     hideReasonPlaceholder: Nedenini buraya yazın...
     sureHide: Bu gönderiyi gerçekten gizlemek istiyor musunuz?
-    hiddenPost: Gizli gönderi ({reason})
     hideInfo: Gizli gönderiler artık görüntülenmeyecek. Kalıcı olarak silinmeden önce
       3 ay içinde moderatörler tarafından geri yüklenebilirler. Bu süre zarfında forum
       kullanıcıları paylaşımın neden gizlendiğini, katillerin kimler tarafından gizlendiğini

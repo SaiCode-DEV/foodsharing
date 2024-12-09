@@ -1797,7 +1797,6 @@ forum:
       questo periodo, gli utenti del forum possono vedere perché il messaggio è stato
       nascosto e i moderatori possono vedere anche da chi è stato nascosto.
     sureHide: Vuoi davvero nascondere questo post?
-    hiddenPost: Post nascosto ({motivo})
   new_thread: Scrivi su un nuovo tema
   threads: Temi
   from: Di {name}

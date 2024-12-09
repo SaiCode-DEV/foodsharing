@@ -2824,7 +2824,6 @@ forum:
     hide: Ocultar contribución
     hideReasonPlaceholder: Escriba aquí su motivo...
     sureHide: ¿De verdad quieres ocultar este tema?
-    hiddenPost: Contribución oculta ({reason})
     giveHideReason: Indique por qué desea ocultar este mensaje.
     hideInfo: Los mensajes ocultos ya no se muestran. Los moderadores pueden restablecerlos
       en un plazo de 3 meses antes de eliminarlos definitivamente. Durante este tiempo,

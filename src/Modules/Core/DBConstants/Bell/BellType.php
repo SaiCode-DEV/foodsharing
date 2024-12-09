@@ -128,6 +128,11 @@ class BellType
     final public const FORUM_MENTION = 'forum-mention-%d';
 
     /**
+     * A forum post of the user was hidden. Argument: ID of the post.
+     */
+    final public const FORUM_POST_HIDDEN = 'forum-post-hidden-%d';
+
+    /**
      * Creates a bell identifier from a template and an optional list of parameters.
      */
     public static function createIdentifier(string $typeString, ...$params)

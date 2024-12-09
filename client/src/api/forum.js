@@ -67,10 +67,6 @@ export function restorePost (postId) {
   return remove(`/forum/post/${postId}/hide`)
 }
 
-export function getHiddenPostDetails (postId) {
-  return get(`/forum/post/${postId}/hide`)
-}
-
 export function addReaction (postId, key) {
   return post(`/forum/post/${postId}/reaction/${key}`)
 }

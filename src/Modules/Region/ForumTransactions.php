@@ -87,7 +87,25 @@ class ForumTransactions
 
     public function hidePost(int $postId, int $moderatorId, string $reason): void
     {
+        // Bell for affected user:
         $threadId = $this->forumGateway->getThreadIdForPost($postId);
+        $authorId = $this->forumGateway->getPost($postId)['author_id'];
+        $info = $this->forumGateway->getThreadInfo($threadId);
+        $regionName = $this->regionGateway->getRegionName($info['region_id']);
+        $bell = Bell::create(
+            'post_hidden_title',
+            'post_hidden',
+            'fas fa-eye-slash',
+            ['href' => $this->url($info['region_id'], $info['ambassador_forum'], $threadId, $postId)],
+            [
+                'forum' => $regionName,
+                'title' => $info['title'],
+                'user' => $this->session->user('name'),
+            ],
+            BellType::createIdentifier(BellType::FORUM_POST_HIDDEN, $postId)
+        );
+        $this->bellGateway->addBell($authorId, $bell);
+
         $this->bellTransactions->removeGroupedBellEvent(...$this->getGroupedBellEventData($threadId, $postId, $moderatorId));
         $this->forumGateway->hidePost($postId, $moderatorId, $reason);
         try {

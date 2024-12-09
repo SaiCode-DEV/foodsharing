@@ -20,7 +20,17 @@
           <a :href="$url('profile', post.author.id)">
             <strong class="author">{{ post.author.name }}</strong>
           </a><!--
-          --><i v-if="post.hidden" v-text="': ' + $i18n('forum.post.hiddenPost', { reason: post.hidden })" />
+       --><template v-if="post.hidden">:
+            <Markdown
+              class="d-inline-block"
+              :source="$i18n('forum.post.hiddenPost', {
+                moderatorName: post.hidden.moderator.name,
+                moderatorUrl: $url('profile', post.hidden.moderator.id),
+              })"
+            />
+            ({{ $i18n('forum.post.hiddenReason', post.hidden) }}
+            <Time :time="post.hidden.time" />)
+          </template>
         </span>
         <Time
           :time="post.createdAt"
@@ -67,7 +77,7 @@
       </div>
     </div>
     <b-modal
-      v-if="mayModerate"
+      v-if="mayModerate && post.hidden"
       ref="restoreModal"
       :title="$i18n('forum.restore.title')"
       centered
@@ -79,15 +89,15 @@
       <blockquote>
         <Markdown :source="post.body" />
       </blockquote>
-      <ul v-if="hiddenDetails">
+      <ul>
         <li>
           {{ $i18n('forum.restore.hidden_by') }}
-          <a :href="$url('profile', hiddenDetails.moderatorId)" v-text="hiddenDetails.moderatorName" />
+          <a :href="$url('profile', post.hidden.moderator.id)" v-text="post.hidden.moderator.name" />
         </li>
-        <li v-text="$i18n('forum.restore.reason', { reason: post.hidden })" />
+        <li v-text="$i18n('forum.restore.reason', { reason: post.hidden.reason })" />
         <li>
           <Time
-            :time="hiddenDetails.time"
+            :time="post.hidden.time"
             normal-size
             :muted="false"
           />
@@ -107,7 +117,6 @@ import Markdown from '@/components/Markdown/Markdown.vue'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import Time from '@/components/Time.vue'
 import { pulseSuccess } from '@/script'
-import * as api from '@/api/forum'
 
 export default {
   components: { Avatar, ThreadPostActions, Markdown, OverflowMenu, Time },
@@ -153,9 +162,6 @@ export default {
       this.$emit('restore')
     },
     async showRestoreModal () {
-      if (!this.hiddenDetails) {
-        this.hiddenDetails = await api.getHiddenPostDetails(this.post.id)
-      }
       this.$refs.restoreModal.show()
     },
   },

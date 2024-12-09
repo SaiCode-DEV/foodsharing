@@ -1407,7 +1407,8 @@ forum:
     hideReasonPlaceholder: "Hier Begründung eingeben..."
     hideInfo: "Ausgeblendete Beiträge werden nicht mehr angezeigt. Sie können innerhalb von 3 Monaten von Moderator:innen wiederhergestellt werden, bevor sie endgültig gelöscht werden. In dieser Zeit können Nutzer:innen des Forums einsehen, warum der Beitrag ausgeblendet wurde, Morderator:innen auch von wem."
     sureHide: "Möchtest du diesen Beitrag wirklich ausblenden?"
-    hiddenPost: "Ausgeblendeter Beitrag ({reason})"
+    hiddenPost: "Beitrag ausgeblendet durch [{moderatorName}]({moderatorUrl})"
+    hiddenReason: "Begründung: {reason}"
     body: "Nachricht"
     moderator_info: "Dieses Thema ist geschlossen. Als Moderator dieses Forums kannst du trotzdem eine Nachricht verfassen. Andere Nutzer*innen können nicht antworten!"
   thread:
@@ -1791,6 +1792,9 @@ bell:
 
   forum_not_activated_thread: "{forum}"
   forum_not_activated_thread_title: "Thema in moderiertem Forum"
+
+  post_hidden_title: "Post ausgeblendet durch {user}"
+  post_hidden: "Dein Post zu {title} im Forum {forum} wurde ausgeblendet"
 
 list:
   filter_for: "Filtern nach …"
@@ -3618,10 +3622,14 @@ thread:
     options:
       copy_source: "Quelltext kopieren"
       copy_direct_link: "Direktlink kopieren"
-      restore: "Wiederherstellen"
+      restore: "Wiederherstellen..."
     copy_source_success: "Quelltext kopiert!"
     copy_direct_link_success: "Direktlink kopiert!"
     linked_post: "Verlinkter Post"
+  hiddenPostsInfo:
+    includesHidden: "In diesem Thema wurden Posts durch Moderator:innen ausgeblendet."
+    cannotSee: "Den Inhalt ausgeblendeter Posts kannst du zwar nicht einsehen, aber du kannst einsehen, warum und durch wen Posts ausgeblendet wurden."
+    toggle: "Ausgeblendete Beiträge anzeigen"
 
 donation_banner:
   info_button: "Wohin geht meine Spende?"

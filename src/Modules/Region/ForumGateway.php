@@ -233,11 +233,15 @@ class ForumGateway extends BaseGateway
                 p.id,
                 UNIX_TIMESTAMP(p.`time`) AS time_ts,
                 p.hidden_reason,
+                moderator.id AS moderator_id,
+                moderator.name AS moderator_name,
+                p.hidden_time,
                 b.`type` AS region_type
 			FROM fs_theme_post p
 			INNER JOIN fs_foodsaver fs ON p.foodsaver_id = fs.id
 			LEFT JOIN fs_bezirk_has_theme ht ON ht.theme_id = p.theme_id
-			LEFT JOIN fs_bezirk b ON b.id = ht.bezirk_id";
+			LEFT JOIN fs_bezirk b ON b.id = ht.bezirk_id
+            LEFt OUTER JOIN fs_foodsaver moderator ON moderator.id = p.hidden_by";
     }
 
     /**
@@ -396,14 +400,9 @@ class ForumGateway extends BaseGateway
         ], ['id' => $postId]) > 0;
     }
 
-    public function getHiddenPostDetails(int $postId)
+    public function isPostHidden(int $postId): bool
     {
-        return $this->db->fetch('SELECT
-                p.hidden_by AS moderatorId, p.hidden_time AS time, foodsaver.name AS moderatorName
-            FROM fs_theme_post p
-            JOIN fs_foodsaver foodsaver ON foodsaver.id = p.hidden_by
-            WHERE p.id = ?
-            LIMIT 1', [$postId]);
+        return !$this->db->exists('fs_theme_post', ['id' => $postId, 'hidden_by' => null]);
     }
 
     public function getRegionForPost($post_id)
