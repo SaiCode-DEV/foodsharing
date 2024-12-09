@@ -130,7 +130,7 @@ group:
       per circoscrizione.
     tooltip_function_12: Gli amministratorə di questo gruppo di lavoro sono visualizzati
       nella visione d’insieme dei distretti.
-    stores_coordination: Attività
+    stores_coordination: Negozi
     none: Nessun gruppo di lavoro GOALS
   delete_group_sure: Vuoi davvero eliminare il gruppo di lavoro/distretto {groupName}?
   quitting_home_district_warning: Vuoi davvero lasciare il tuo distretto di provenienza
@@ -1269,7 +1269,7 @@ storeview:
   show_settings: Impostazioni del negozio
   choose_chain: Scegliere una catena aziendale
   team_info_active: 'Membri attivi del team:'
-  team_info_jumper: 'Attivi tra i Jolly:'
+  team_info_jumper: 'Jolly:'
   publicity_and_sticker_options:
     no: No
     not_yet_clarified: Non ancora chiarito
@@ -2094,9 +2094,9 @@ regionOptions:
   success: Opzioni salvate correttamente
   header_page: Opzioni per {bezirk}
   enableMediationButton: Abilitare l’assistenza tecnica per le mediazioni attraverso
-    un link di mediazione sui profili del foodsaver tribale del distretto.
+    un link di mediazione sui profili del foodsaver tribale del distretto
   enableReportButton: Abilitare il supporto tecnico per le notifiche attraverso un
-    link di notifica sui profili del foodsaver tribale del distretto.
+    link di notifica sui profili del foodsaver tribale del distretto
   regionPickupLimitNumber: 'Numero massimo di ritiri PASTA consentiti per il periodo
     selezionato'
   regionPickupLimitDayNumber: 'Numero massimo di ritiri PASTA giornalieri'
@@ -2748,6 +2748,9 @@ profile:
     nel [Forum degli Ambasciatori]({url})
   orga_rights: In qualità di persona organizzativa, {name} dispone di <a target="_blank"
     href="{wikiurl}">autorizzazioni estese</a> sulla piattaforma.
+  tab_navigation:
+    commitment_statistics: Statistiche sul coinvolgimento
+    profile: Profilo
 mail:
   noreply_addresses_not_allowed: Le e-mail inviate agli indirizzi noreply@… non possono
     essere consegnate.<br>Si prega di verificare l'indirizzo di destinazione.
@@ -2807,6 +2810,7 @@ settings:
     formatting:
       html: HTML
       text: Solo testo
+    download: Scarica il calendario
   photo:
     info: "Il tuo viso dovrebbe essere <a href=\"{link_photo}\">riconoscibile</a>
       nella tua foto del profilo,\nperché sarà usato per il foodsharing<a href=\"\
@@ -2890,10 +2894,18 @@ settings:
     non_verified_text: 'Non sei ancora verificato. Il download del passaporto è disponibile
       solo per i foodsavers verificati.'
     button: 'Scarica il passaporto'
+    wallet:
+      name: Nome
+      role: Ruolo
+      valid_start: Valido dal
+      valid_end: Valido fino al
   no_rights: L’utente non è autorizzato a modificare le impostazioni del profilo.
   delete_profile: Cancellare questo profilo
   general:
     phone: Il vostro numero di telefono fisso
+  address:
+    title: Seleziona l’indirizzo
+    choose: Accetta indirizzo
 mailbox:
   mark_as_unread: Contrassegna l'e-mail come non letta
   filesize: Scusa, il file è troppo grande.
@@ -2955,6 +2967,8 @@ mailbox:
     too_large_to_send: Alcuni file erano troppo grandi e non potevano essere allegati
       all’e-mail.
     attach: Allegati (massimo 10 file, 1,5 MB per file)
+    too_many: Sono stati selezionati troppi file. All’e-mail è possibile allegare
+      un massimo di 10 file.
   move_to: Sposta in
   close_edit_mode: Termina la modifica
   add: Aggiungi
@@ -2988,6 +3002,8 @@ map:
         all: tutti
       activity:
         all: tutti
+      region:
+        label: Quartiere
     stores:
       help:
         all: nessuna preferenza
@@ -3124,6 +3140,7 @@ region:
     di almeno un'operazione lì.
   no-huge: Spiacente, non puoi selezionare un paese o uno stato come regione.
   change: Cambiare distretto
+  name: Nome
 polls:
   future: Votazioni futuri
   ended: Votazioni passati
@@ -3579,7 +3596,7 @@ error:
     description: 'Conferma il tuo indirizzo e-mail facendo clic sul collegamento nell''e-mail
       di attivazione.'
   missing_geolocation:
-    title: 'Si è verificato un errore con il tuo indirizzo.'
+    title: 'Nessun indirizzo valido inserito'
     description: 'Per favore controlla il tuo indirizzo. Non è stato possibile determinare
       le coordinate.'
     link: 'Per inserire indirizzi'
@@ -3924,6 +3941,10 @@ help:
         ###### Restrizioni\nVengono caricate al massimo 100 voci. Potrebbe essere
         necessario limitare il periodo di ricerca o i tipi di azione selezionati se
         non vengono visualizzati tutti i risultati.\n"
+    basket:
+      title: Cestini
+    profileCommitmentsStat:
+      title: Statistiche sul coinvolgimento
 no_automatic_delete: 'Se l’ultimo accesso è avvenuto cinque anni fa:'
 automatic_delete: '- il profilo deve essere cancellato.'
 automatic_not_delete: '- il profilo deve essere mantenuto.'
@@ -3938,3 +3959,13 @@ theme_switcher:
     dark: scuro
     system: Sistema
   choose_button: Va bene
+team_page:
+  it_member:
+    title: Squadra informatica
+support_page:
+  firstName: Nome di battesimo
+  attachments: Allegati (massimo 5 MB per file)
+store_categories:
+  columns:
+    name: Nome
+    id: ID
