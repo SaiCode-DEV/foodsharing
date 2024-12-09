@@ -2734,6 +2734,7 @@ forum:
       3 ay içinde moderatörler tarafından geri yüklenebilirler. Bu süre zarfında forum
       kullanıcıları paylaşımın neden gizlendiğini, katillerin kimler tarafından gizlendiğini
       görebilir.
+    hiddenPost: Gönderi [{moderatorName}]({moderatorUrl}) tarafından gizlendi
   new_thread: Yeni bir konu oluştur
   deleted_user: Silinmiş üye
   not_found: Bu konu mevcut değil.
@@ -4159,7 +4160,7 @@ thread:
     options:
       copy_source: Kaynak kodunu kopyala
       copy_direct_link: Doğrudan bağlantıyı kopyala
-      restore: Restore etmek
+      restore: Restore etmek...
     copy_source_success: Kaynak kodu kopyalandı!
     copy_direct_link_success: Doğrudan bağlantı kopyalandı!
     linked_post: Bağlantılı yayın
