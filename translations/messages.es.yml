@@ -4409,7 +4409,7 @@ thread:
     options:
       copy_source: Copiar código fuente
       copy_direct_link: Copiar enlace directo
-      restore: Restaurar
+      restore: Restaurando…
     copy_source_success: ¡Código fuente copiado!
     copy_direct_link_success: ¡Enlace directo copiado!
     linked_post: Publicación vinculada
@@ -4419,6 +4419,11 @@ thread:
     lower: Baja
     higher: Alta
     normal: Normal
+  hiddenPostsInfo:
+    cannotSee: Aunque no puede ver el contenido de las publicaciones ocultas, puede
+      ver por qué y quién las ocultó.
+    toggle: Mostrar publicaciones ocultas
+    includesHidden: Los moderadores ocultaron las publicaciones de este tema.
 configure_columns: Configurar columnas
 save_state: Mantener filtros y clasificación
 save_state_description: Guarde los filtros usados y clasifique para futuras llamadas
