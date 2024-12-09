@@ -2045,6 +2045,8 @@ bell:
   forum_not_activated_thread_title: Tema en foro moderado
   passport_created_or_renewed_title: Tu DNI...
   passport_created_or_renewed: ¡se ha activado o ampliado!
+  post_hidden_title: Publicación oculta por {user}
+  post_hidden: Tu publicación en {title} en el foro {forum} ha sido ocultada
 foodsaver:
   restricted: 'Lamentablemente, no tienes permiso para ver estos datos.'
   upgrade:
@@ -2829,6 +2831,8 @@ forum:
       en un plazo de 3 meses antes de eliminarlos definitivamente. Durante este tiempo,
       los usuarios del foro pueden ver por qué se ocultó el mensaje, y los moderadores
       también pueden ver por quién.
+    hiddenPost: Publicación oculta por [{moderatorName}]({moderatorUrl})
+    hiddenReason: 'Razón: {reason}'
   hold_back_for_moderation: 'El tema ha sido guardado y se publicará tan pronto como
     un(a) embajador(a) o moderador(a) lo confirme.'
   no_threads: 'Aún no hay hilos'
