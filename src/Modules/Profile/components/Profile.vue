@@ -24,6 +24,7 @@
               :sleeping-information="sleepingInformation"
               :home-district-history="homeDistrictHistory"
               :role="profileInfos.role"
+              :is-verified="profileInfos.isVerified"
               :home-region-id="profileInfos.homeRegionId"
               :home-region-name="profileInfos.homeRegionName"
               class="mt-2"

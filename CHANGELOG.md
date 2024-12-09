@@ -114,7 +114,7 @@
 - Include jumper last names in store log #2200 !3820 @AntonBallmaier
 - Fixed basket distance formatting #2225 !3829 @AntonBallmaier
 - Fix error for pass history entries when the creating bot account is removed #2222 !3845 @AntonBallmaier
-- Fix logic for when badges are displayed on profile pages !3843 @AntonBallmaier
+- Fix logic for when badges are displayed on profile pages !3843 !3852 @AntonBallmaier
 - Fix max length for public info in stores !3843 @AntonBallmaier
 - Fixed the region's type in the menu on the region page #2176 !3850 @alex.simm
 
