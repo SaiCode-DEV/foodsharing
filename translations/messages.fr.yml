@@ -223,7 +223,7 @@ group:
       generate_button: Créer une/des carte(s) de membre pour la/les personne(s) sélectionnée(s)
       verify:
         undo: Annuler la vérification de {name} ({id})
-        do: Vérifier le compte de {name} ({id})
+        do: Vérifier le compte de {name} ({id}) ?
       button:
         unverify: Dévérifié
         verify: Vérifie
