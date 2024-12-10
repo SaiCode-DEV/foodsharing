@@ -2309,7 +2309,8 @@ profile:
     report_b7: Incumplimiento del período de espera de la explotación (B07)
     report_b13: No se hicieron esfuerzos para consumir o distribuir los alimentos
       rescatados (B13)
-    report_b11: No se han utilizado medios ecológicos en la recogida (B11)
+    report_b11: Se utilizaron medios de transporte no ecológicos para la recogida
+      (B11)
   history:
     noData: 'Datos no disponibles.'
     noActor: 'desconocid@'
@@ -4515,9 +4516,9 @@ help:
         a primera vista de qué se trata. Puedes encontrar una lista de los iconos
         disponibles en https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n\nEn
         el campo de entrada tienes que introducir el nombre del icono que quieres
-        utilizar, por ejemplo «*caminar*» o «*carro de la compra*».\nPuedes comprobar
-        si tu entrada funciona mirando la vista previa.\nSi no introduce ningún icono,
-        se utilizará automáticamente el icono estándar para notas «*etiqueta*».\n"
+        utilizar, por ejemplo «*walking*» o «*shopping-cart*».\nPuedes comprobar si
+        tu entrada funciona mirando la vista previa.\nSi no introduce ningún icono,
+        se utilizará automáticamente el icono estándar para notas «*tag*».\n"
       title: Iconos para etiquetas
     moderatorForumHide:
       title: Oculto en los foros por los moderadores
@@ -4636,7 +4637,7 @@ theme_switcher:
   theme:
     system: Sistema
     light: Claro
-    dark: Oscuro
+    dark: Oscuro (Beta)
 store_categories:
   edit: Cambiar nombre de categoría
   columns:
