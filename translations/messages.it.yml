@@ -3956,7 +3956,7 @@ error_base64_image: L'inserimento di immagini tramite drag & drop non è consent
 theme_switcher:
   theme:
     light: chiaro
-    dark: scuro
+    dark: scuro (beta)
     system: Sistema
   choose_button: Va bene
 team_page:
@@ -3965,6 +3965,7 @@ team_page:
 support_page:
   firstName: Nome di battesimo
   attachments: Allegati (massimo 5 MB per file)
+  validation_email: Indirizzo e-mail non valido
 store_categories:
   columns:
     name: Nome
