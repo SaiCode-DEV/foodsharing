@@ -27,7 +27,7 @@ group:
       depuis %weeks% semaines sur foodsharing, avoir %bananas% de bananes-confiance
       et avoir réalisé %fetches% de collectes.
     banana_count_errors:
-      max: Ne t'attends pas à recevoir plus de {{ limit }} bananes-confiance.
+      max: Ne t’attends pas à recevoir plus de {{ limit }} bananes-confiance.
       min: Personne ne peut avoir moins de {{ limit }} bananes-confiance.
       not_in_range: '{{ limit }} Personne n’aurait dû recevoir moins de {{ min }}
         ou plus de {{ max }} bananes de confiance.'
@@ -534,6 +534,17 @@ settings:
       "true": Oui, afficher mes enlèvements dans le calendrier
       "false": Non, ne pas afficher les collectes dans le calendrier
       label: Faut-il inclure des dates de collecte ?
+    info: "Ici, tu peux lier tes dates foodsharing à un programme de calendrier de
+      ton choix. Ainsi, toutes tes collectes et/ou tes dates peuvent être automatiquement
+      inscrits dans ton calendrier.\n\n**Les liens vers les calendriers doivent absolument
+      rester secrets. Ils contiennent un *jeton* qui permet d’accéder aux données
+      de tes collectes sans mot de passe. Tu peux à tout moment supprimer ton jeton
+      actuel, ce qui rendra caducs les liens de calendrier créés précédemment.\n\n
+      Ton programme de calendrier doit régulièrement **synchroniser** ce calendrier.
+      Ce n’est qu’alors que les nouveaux dates apparaîtront et que les dates annulés
+      n’apparaîtront plus. Si tu télécharges ton calendrier actuel, celui-ci ne contiendra
+      que tes dates actuels et ne sera pas mis à jour automatiquement.\n\nTu trouveras
+      plus d’informations [ici dans le wiki]({calendarUrl})\n"
   push:
     disabled: Les notifications push on été désactivées
     disable: Désactiver les notifications push
@@ -590,6 +601,7 @@ settings:
       la nouvelle adresse.
     sent_other_user: Un e-mail a été envoyé à la nouvelle adresse, permettant de confirmer
       l’adresse.
+    dashboard_link: Continuer vers le tableau de bord
   email: Adresse électronique et mot de passe
   sleep:
     saved: Les préférences ont été enregistrés
@@ -678,6 +690,10 @@ settings:
   address:
     title: Choisir l’adresse
     choose: Reprends l’adresse
+  quiz:
+    2: Quiz pour les responsables de la coopération
+    3: Quiz pour les ambassadeur·rice·s
+    1: Quiz pour les collecteur·rice·s
 email_template:
   newsletter:
     unsubscribe: Tu ne veux plus recevoir de lettres d’information ?
@@ -1062,6 +1078,8 @@ fsp:
     min_length: '{name} doit comporter au moins {length} caractères.'
   createdAt: 'Ouvert le :'
   followerCount: 'Followers : {followerCount}'
+  onlySuggested: Ce frigo solidaire a été proposé mais n’est pas encore sorti. Dans
+    cet état, il ne sera pas affiché aux autres utilisateurs.
 terminology:
   mailboxes: Messageries
   settings: Paramètres
@@ -1071,7 +1089,10 @@ terminology:
   basket: Panier solidaire
   baskets: Paniers solidaires
   arbitration: Vue des plaintes
-  reports: Vue des plaintes
+  reports:
+    report: Vue des plaintes (groupe de plaintes)
+    orga: Vue des plaintes (orga)
+    arbitration: Vue des plaintes (arbitrage)
   statistic: Statistique
   wall: Tableau
   moderationAdmins: Équipe de modérateur·rices
@@ -1863,7 +1884,13 @@ profile:
       de ton secteur géographique.
     oldReportButtonTextPart1: Aucune plainte n’est actuellement signalée ici.
     oldReportButton: Signaler un manquement aux règles
-    mail: 'Tu peux joindre le groupe de plaintes local grâce à cette adresse courriel :'
+    mail:
+      reportGroup: 'Cette plainte sera transmise au groupe de plaintes local. Tu peux
+        également contacter ce groupe à l’adresse e-mail suivante :'
+      arbitrationGroup: 'Cette plainte est transmise au service d’arbitrage, car l’une
+        des personnes impliquées est membre du groupe local de plaintes. Tu peux également
+        contacter le groupe d’arbitrage à l’adresse e-mail suivante : Tu peux également
+        contacter le groupe d’arbitrage à l’adresse électronique suivante :'
     sent: La plainte a été envoyé
     send: Déposer la plainte
     info: "Pour que ton rapport puisse être traité au mieux, il doit contenir les
@@ -1943,6 +1970,27 @@ profile:
     report_b1_2: A introduit des animaux dans l’entreprise sans autorisation (B01-3)
     report_b1_4: N’avait pas sa carte foodsharing sur lui/elle (B01-5)
     report_b1_3: A emmené des enfants dans l’entreprise sans autorisation (B01-4)
+    report_b12: Les personnes chargées de la collecte n’ont pas été autorisées à décider
+      de manière autonome à qui les denrées alimentaires devaient être remises (B12)
+    report_b2: A effectué un collecte en dehors des dates fixées sans concertation
+      avec les RC (B02)
+    report_b9: Des commentaires inappropriés ont été faits sur la quantité, le type
+      et l’utilisation des aliments sauvés (B09)
+    report_b10: Vend des aliments sauvés (B10)
+    report_b4_0: Tous les aliments encore consommables n’ont pas été emportés (B04-1)
+    report_b4_1: Les aliments n’ont pas été répartis de manière équitable (B04-2)
+    report_b3_0: N’est pas entré/sorti de l’établissement avec les autres (B03-1)
+    report_b6_1: Le lieu de collecte n’a pas été laissé en ordre (B06-2)
+    report_b7: Le temps d’attente de l’établissement n’a pas été respecté (B07)
+    report_b8: A été impoli envers les employés de l’entreprise (B08)
+    report_b6_0: Aucun égard n’a été porté à la clientèle et aux employés de l’entreprise
+      (B06-1)
+    report_b3_1: N’a pas effectué le collecte sans dispute ou discussion (B03-2)
+    report_b13: Aucun effort n’a été fait pour consommer / distribuer les aliments
+      sauvés (B13)
+    report_b5: Des personnes non autorisées ont pénétré dans l’entreprise (B05)
+    report_b11: Des moyens de transport non écologiques ont été utilisés pour la collecte
+      (B11)
   mediation:
     no_group: Il n’existe malheureusement pas encore de groupe local de médiation
       pour le secteur géographique choisi. Tu peux aborder ce thème lors d’un prochain
@@ -2108,6 +2156,7 @@ profile:
       filterActive: Membre
       filterManage: Responsable
       filterAll: tous
+      filterJumper: Remplaçants
     search_placeholder: Chercher par nom
     store_table: Liste des entreprises
   sections:
@@ -2117,11 +2166,14 @@ profile:
     ambassador_for: pour
     workgroups_member: collaborent au sein des groupes de travail suivants
     no_common_workgroups: dans aucun groupe de travail commun
+    home_region_from: District principal
+    foodSaver_in_region: Collecteur·rice à
   tab_navigation:
     profile: Profil
     pickups: Ramassages
     commitment_statistics: Statistique d’engagement
     notes: Notes ({count})
+    stores: Coopérations ({count})
   chooseantherstore: Concerne un établissement non mentionné
   sleeping_info_from_until: est inactive du {from} au {until}
   choosereasonnostore: Ne concerne aucun établissement
@@ -2441,6 +2493,7 @@ calendar:
       unconfirmed: non confirmé
       description: Collecte Foodsharing chez <a href="{url}">{store}</a>
       freeSlots: '{count} places sont encore disponibles'
+      foodsavers: 'Collecteur·rice·s enregistrés : '
     updated: '(Dernière mise à jour : {date})'
   placeholder: Choisis une date
   copiedUrl: L’URL du calendrier a été copiée !
@@ -2481,7 +2534,7 @@ storeedit:
       pas le quitter.
     leave: Quitter l’équipe de la coopération
     bread: Modifier l’équipe
-    foodsaver: Foodsaver
+    foodsaver: Collecteurs
     leave_myself: Toi-même
   actions: Options
   not-in-region: Tu peux ajouter des coopérations uniquement dans la région dont tu
@@ -2751,6 +2804,7 @@ map:
         all: tous
         label: Rôles
         store-manager: Responsables coopération
+        foodsaver: Collecteur·rice·s approuvés
       activity:
         label: Dernière connexion
         week: dernière semaine
@@ -2761,8 +2815,12 @@ map:
       member:
         all: tous
         label: Appartenance
+        homeregion: District principal
+        other: District secondaire
       region:
         label: District
+  foodsharepoint:
+    go: Au frigo solidaire
 content:
   changelog: Changelog actuel
   empty: Aucune page existante.
@@ -2833,6 +2891,8 @@ regionOptions:
   regionReportReasonCategoryB: 'Motifs de plaintes étendus : Règles de comportement
     – B) Comportement lors des collectes'
   regionReportReasonOther: Autoriser « autre » comme motif de plainte
+  noPickupRuleActiveStores: Actuellement, la règle des coopérations particulièrement
+    populaires n’est activée pour aucune coopération dans le district.
 ageBandList:
   NumberOfAgeband: Nombre
   ageBand: Groupe d’âge
@@ -2983,6 +3043,8 @@ reports:
   id: ID
   reports_region: Plaintes à {regionName}
   reports_user: Toutes les plaintes concernant {userName} ({userId})
+  reported: Personne signalée
+  reporter: Personne déclarante
 month:
   short:
     "12": Déc.
@@ -3234,6 +3296,15 @@ startpage:
     avec tous nos sens à ce que les aliments soient encore consommables.
   registernow: S’inscrire maintenant
   followrules_title: Respecter les règles et conseils de transmission alimentaire
+  followrules: "Nous attirons expressément votre attention sur le fait que, pour des
+    raisons juridiques, nous n’autorisons la mise en vente et le partage de certains
+    aliments et autres marchandises que sous certaines conditions. Cela concerne notamment
+    les denrées alimentaires facilement périssables telles que le poisson cru, la
+    viande crue, les plats à base d’œufs crus et les aliments préparés. De manière
+    générale, nous veillons avec tous nos sens à ce que les aliments soient encore
+    consommables. Tous les détails à ce sujet se trouvent dans les [règles d’hygiène
+    du foodsharing](https://wiki.foodsharing.de/Hygieneregeln). Tu trouveras également
+    des conseils dans le [guide](https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel).\n"
 language_chooser:
   content: Choisis une langue
   title: Choisir la langue
@@ -3268,7 +3339,10 @@ poll:
     averageShort: Ø
     sumShort: ∑
   may_not_yet_vote: Ce vote n’a pas encore commencé.
-  may_not_vote: Tu ne peux pas participer à ce vote.
+  may_not_vote: Tu ne peux pas participer à ce vote. Au moment où ce vote a été créé,
+    tu ne faisais pas partie du groupe ayant le droit de vote. Même si, au cours de
+    la période de vote, tu remplis les critères selon lesquels tu es autorisé à voter,
+    il n’est pas possible d’obtenir le droit de vote après coup.
   already_voted: tu as déjà participé à ce vote
   begins_at: début
   ended_at: a duré jusqu’à
@@ -3329,6 +3403,8 @@ poll:
   time_period: Période
   not_available: Ce vote n’existe pas / tu ne peux pas accéder à ce vote.
   title: 'Voter : {name}'
+  hint_sorted_order: L’ordre des options suivantes est fixe et identique pour tous
+    les votants.
 becomeregion:
   enterregion:
     text2: Nous ne sommes pas destinés à répondre à toutes les questions générales,
@@ -3427,6 +3503,8 @@ region:
   parent: District parent
   select: Sélectionnez le district à modifier
   master: District maître
+  allow_hiding_in_forum: Autoriser les modérateurs à supprimer des messages dans les
+    forums
 polls:
   filter_by: Filtrer par
   future: Votes futurs
@@ -3441,6 +3519,14 @@ polls:
   hint: La fonction vote peut être testée dans le GT international « Abstimmungen
     – Test ».
   until: Possible jusqu’au {until}
+  badge:
+    already_voted: Déjà voté
+    not_eligible: Sans droit de vote
+    vote_now: Votez maintenant
+  score:
+    approval: Accord
+    neutral: Abstention
+    disapproval: Rejet
 buddy:
   request_accepted: Ça y est, vous vous connaissez.
   request_sent: Ta demande a été envoyée.
@@ -3519,6 +3605,7 @@ blog:
   go: aller au blog
   bread: Blog
   read: lire la suite
+  teaser: Texte d’aperçu
 push_notifications:
   test_notification_body: Super, ça a fonctionné :)
   test_notification_title: activer les notifications push
@@ -3647,7 +3734,7 @@ quiz:
         tu dois pouvoir y répondre seul. C’est pourquoi tu dois trouver un endroit
         calme où tu pourras faire le quiz sans être dérangé.
       read_carefully: Lis attentivement toutes les questions et réponses.
-      wiki: Ne commence pas le quiz au hasard. Lis attentivement les pages d'information
+      wiki: Ne commence pas le quiz au hasard. Lis attentivement les pages d’information
         répertoriées au préalable. Sans les connaissances du wiki, tu ne réussiras
         pas le quiz.
       multiple_choice: Plusieurs réponses peuvent être correctes par question – ou
@@ -3754,7 +3841,7 @@ quiz:
   show_results: Voir les résultats du dernier essai
   key_facts:
     to_pass: 'Pour réussir :'
-    timed: Maximum de {maxFailurePointsToSucceed} points d'erreur dans {questionCountTimed}
+    timed: Maximum de {maxFailurePointsToSucceed} points d’erreur dans {questionCountTimed}
       questions à temps limité
     untimed: Maximum {maxFailurePointsToSucceed} points d’erreur dans {questionCountTimed}
       questions avec limite de temps, ou dans {questionCountUntimed} questions sans
@@ -3846,7 +3933,7 @@ quiz:
   test_results: Résultats du test
   test: Essaie le quiz
   stateBasedInfo:
-    waitAfter: Si tu échoues à ta prochaine tentative, tu devras faire une pause d'apprentissage
+    waitAfter: Si tu échoues à ta prochaine tentative, tu devras faire une pause d’apprentissage
       de {waitTimeAfterFailure} jours. Consulte impérativement les articles correspondants
       pour réussir le quiz.
     passed: Tu as réussi ce quiz.
@@ -3856,7 +3943,7 @@ quiz:
       aux questions.
     running: Tu as déjà commencé(e) le quiz et tu as répondu(e) jusqu’à présent à
       {questionsAnswered} des {questionCount} questions.
-    failed: Lors de ta dernière tentative, tu n'as malheureusement pas réussi ce quiz.
+    failed: Lors de ta dernière tentative, tu n’as malheureusement pas réussi ce quiz.
     passedBefore: Tu as déjà réussi ce quiz.
     pause: Tu as échoué plusieurs fois à ce quiz. La fiabilité, la maîtrise des règles
       et une attitude professionnelle sont indispensables chez foodsharing. Malheureusement,
@@ -4018,6 +4105,14 @@ error:
     description: Ton numéro de téléphone fixe a malheureusement un format qui ne permet
       pas de l’appeler.
     title: Il y a un problème avec ton numéro de téléphone fixe.
+  passport_is_invalid:
+    title: Ta carte de membre n’est plus valable !
+    link: Paramètres du profil
+    description: Adresse-toi à tes ambassadeurs/ambassadrices pour la faire renouveler.
+  passport_is_invalid_soon:
+    title: Ta carte de membre ne sera bientôt plus valable !
+    description: Adresse-toi à tes ambassadeurs/ambassadrices pour la faire renouveler.
+    link: Paramètres du profil
 join_region:
   headline: Choisis le secteur géographique dans lequel tu veux être actif.
   description: Tu peux rejoindre ton premier secteur géographique en cliquant sur
@@ -4173,6 +4268,19 @@ notifications:
   pickupReminder:
     description: Reçois des e-mails qui t’avertissent lorsque des créneaux dans des
       établissements que tu gères ne sont pas encore attribués le lendemain.
+    title: Rappels pour les slots inoccupés
+  pushModal:
+    title: Recevoir des notifications push ?
+    ok: Recevoir des notifications push
+    cancel: ne pas activer
+    content: "Pour savoir plus rapidement quand les autres t’envoient des messages,
+      tu peux activer les notifications push sur cet appareil !\n\nDans tes [paramètres
+      de notification](/?page=settings&sub=info), tu peux à tout moment désactiver
+      ces notifications.\n"
+    dontAskAgain: Ne me demande plus
+  mention:
+    title: Notifications en cas de mentions
+    description: Recevez une notification lorsque quelqu’un te marque sur le forum.
 markdown_input:
   tooltip:
     orderedList: liste numérotée
@@ -4187,6 +4295,7 @@ markdown_input:
     link: lien
     heading: titre
     image: Joindre des photos
+    mention: Mentionner un utilisateur
   empty_preview_placeholder: "Il s’agit de l’aperçu du formatage. Le texte est formaté
     ici tel qu’il sera affiché ultérieurement.\n---\n*Mais vous n’avez saisi aucun
     texte susceptible d’être affiché ici.*"
@@ -4198,6 +4307,8 @@ thread:
     lock: Fermer la discussion
     unpin: détacher le fil
     priority: Adapter la priorité d’affichage
+    hideHidden: Ne pas afficher ceux qui sont masqués
+    showHidden: Afficher les messages masqués
   rename:
     description_modal_text: 'Entrez un nouveau titre pour ce fil :'
     placeholder: Titre
@@ -4207,6 +4318,7 @@ thread:
     options:
       copy_source: Copier le code source
       copy_direct_link: Copier le lien direct
+      restore: Restaurer …
     copy_source_success: Code source copié !
     copy_direct_link_success: Lien direct copié !
     linked_post: message lié au forum
@@ -4216,6 +4328,12 @@ thread:
     higher: tout en haut
     text: 'Priorité d’affichage de ce message :'
     title: Ajuster la priorité d’affichage
+  hiddenPostsInfo:
+    includesHidden: Certains messages de ce fil de discussion ont été masqués par
+      les modérateurs.
+    toggle: Afficher les messages masqués
+    cannotSee: Tu ne peux pas voir le contenu des messages masqués, mais tu peux voir
+      pourquoi et par qui les messages ont été masqués.
 configure_columns: Configurer les colonnes
 save_state: Maintenir les filtres et le tri
 save_state_description: Enregistrez les filtres utilisés et le tri pour les appels
@@ -4259,14 +4377,26 @@ help:
         fils.\n"
     profileCommitmentsStat:
       title: Statistique d’engagement
+      md: est visible depuis le rôle d’une personne responsable de la coopération.
+        Il est limité aux districts principaux communs ou aux coopérations communes.
     basket:
       title: Paniers alimentaires
+      md: "Des paniers alimentaires sont proposés par les utilisateurs qui souhaitent
+        transmettre de la nourriture (souvent sauvée) **gratuitement**. Les utilisateurs
+        enregistrés peuvent demander un panier alimentaire à récupérer.\n"
     report:
       title: Gestion des plaintes
     reportReasons:
       title: Formulaire de plainte
     achievementIcon:
       title: Icônes pour les vignettes
+      md: "Chaque autocollant a une icône, c’est-à-dire un petit graphique qui permet
+        de comprendre au premier coup d’œil de quoi il s’agit. Tu trouveras une liste
+        des icônes disponibles sur https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n
+        \nDans le champ de saisie, tu dois entrer le nom de l’icône que tu souhaites
+        utiliser, par exemple « *walking* » ou « *shopping-cart* ».\nTu peux vérifier
+        si ta saisie fonctionne en consultant l’aperçu.\nSi tu ne saisis pas d’icône,
+        l’icône standard pour les autocollants, « *tag* », est automatiquement utilisée.\n"
     achievements:
       title: Vignettes
       md: "Le système d’autocollants peut être utilisé pour marquer des caractéristiques
@@ -4277,16 +4407,61 @@ help:
       title: District maître
     hygieneRequirement:
       title: Exigence d’hygiène pour les établissements
+      md: "Pour la collecte dans certains établissements, les collecteur·ice·s doivent
+        être formés à l’hygiène alimentaire. Si cette fonction est activée pour un
+        établissement, cela a les conséquences suivantes :\n1. les collecteur·ice·s
+        qui n’ont pas reçu de formation valable en matière d’hygiène ne peuvent pas
+        postuler pour faire partie de l’équipe de l’établissement.\n2. les collecteur·ice·s
+        qui font déjà partie de l’équipe ne peuvent s’inscrire que dans les créneaux
+        où leur formation en hygiène est encore valable.\n\nDans les deux cas, une
+        remarque s’affiche, expliquant que la formation en hygiène manque pour cette
+        action. En outre, la formation à l’hygiène est à chaque fois directement reliée.\n
+        \n---\n\nIl est important de noter que : Cette fonction est uniquement basée
+        sur les autocollants d’hygiène propres à foodsharing. Ni les certificats d’hygiène
+        téléchargés dans le profil de fournisseurs externes, ni les formations en
+        hygiène acquises d’une autre manière ne sont techniquement pris en compte.\n"
+    moderatorForumHide:
+      title: Masquage par les modérateurs dans les forums
+    polls:
+      title: Votes
+      md: "Le module de vote permet d’organiser des élections, des sondages et autres
+        votes de manière anonyme et simple directement sur la plateforme foodsharing.
+        Tu trouveras des instructions détaillées sur https://wiki.foodsharing.de/Abstimmungs-Modul\n"
+    pollScopes:
+      title: Droit de vote
+      md: "Lors de la création d’un vote, tu peux choisir parmi différents groupes
+        de personnes qui doivent avoir le droit de vote.\nToutes les possibilités
+        de vote sont valables :\n- Non seulement tous les collecteur·ice·s du district/groupe
+        peuvent voter, mais aussi ceux des sous-districts.\n- Le nombre de collecteur·ice·s
+        ayant le droit de vote est indiqué entre parenthèses après le choix.\n- Dès
+        que le vote est créé, les personnes ayant le droit de vote sont connues. Les
+        personnes ayant le droit de vote sont celles qui font partie de ce groupe
+        au moment où le vote est créé.\n"
 automatic_delete: '- le profil doit être supprimé.'
 automatic_not_delete: '- le profil doit être conservé.'
 no_automatic_delete: 'Si la dernière connexion remonte à cinq ans :'
 team_page:
   alumni_member:
     title: Anciennes
+    text: "Ensemble, nous pouvons jeter un regard sur l’histoire de la création de
+      foodsharing. Nous souhaitons remercier ici toutes les personnes qui y ont contribué,
+      parfois en travaillant à plein temps comme bénévoles ou en étant très actives
+      au sein de l’équipe organisatrice ou du conseil d’administration !\n"
   it_member:
     title: Équipe informatique
+    text: "foodsharing n’est possible que grâce à l’engagement de milliers de bénévoles !
+      Voici quelques personnes qui coordonnent des groupes de travail interrégionaux,
+      développent le site web ou assument d’autres tâches importantes pour foodsharing :\n"
   board_member:
     title: Comité d’association
+    text: "Le conseil d’administration de foodsharing e. V. tient les rênes, met en
+      réseau l’Allemagne, l’Autriche et la Suisse en tant qu’utilisateurs de la plateforme
+      foodsharing.de et est responsable des questions interrégionales. Le conseil
+      d’administration travaille beaucoup en équipe, en étroite concertation les uns
+      avec les autres et principalement en ligne, pour répondre à toutes les demandes
+      de la grande communauté de foodsharing et de l’extérieur. En outre, le conseil
+      d’administration s’occupe beaucoup du développement de l’organisation et de
+      la dimension politique du gaspillage alimentaire.\n"
 validation:
   phone_number_invalid: Le numéro de téléphone n’est pas valide (par exemple, l’indicatif
     du pays est manquant, trop court, trop long ou contient des caractères non valides)
@@ -4302,6 +4477,8 @@ store_categories:
     name: Nom
     id: ID
   title: Catégories d’entreprises
+  confirm_delete_hint: Il reste encore {count} établissements dans cette catégorie.
+    Ces établissements n’auront plus de catégorie par la suite.
 achievements:
   notAwarded: Cette vignette n’est actuellement attribuée à personne.
   revokeConfirmation: Veux-tu vraiment priver {name} de cette vignette ?
@@ -4325,6 +4502,7 @@ achievements:
     icon: Icône
     description: Description
     name: Nom
+    validityInDaysAfterAssignment: Validité après l’attribution en jours
   awardedTo: Attribué à
   awardedNoReviewer: automatique
   inThis:
@@ -4334,11 +4512,12 @@ achievements:
   revoke: Révoquer
   editDetails: Éditer les détails
   awarded: attribuée
+  findUser: Trouver un(e) utilisat·rice
 theme_switcher:
   content: Choisis ton design
   title: Choisir le design
   theme:
-    dark: Sombre
+    dark: Sombre (Bêta)
     light: Clair
     system: Système
   choose_button: OK
@@ -4357,4 +4536,23 @@ support_page:
   validation_body: Le message est vide
   body: Message
   validation_email: Adresse électronique non valide
+  info_teaser: Notre formulaire de support est à ta disposition pour des questions
+    sur l’utilisation de la plate-forme, des demandes techniques ou des messages d’erreur.
+    Après l’envoi, un ticket est automatiquement créé dans notre système. L’équipe
+    de support bénévole s’occupe de tes demandes.
 error_base64_image: L’insertion d’images n’est pas autorisée par glisser-déposer.
+petition:
+  progressText:
+    2000: La pétition prend son envol ! Avec ton soutien, nous prenons de l’élan !
+    25000: Nous avons déjà obtenu les deux tiers des signatures nécessaires ! Ensemble,
+      nous y arriverons !
+    8000: Nous sommes bien partis ! Aidez-nous à aller encore plus loin !
+    20000: Nous avons déjà la moitié des signatures nécessaires ! Ensemble, nous y
+      arriverons !
+    15000: La mi-temps est en vue ! Avec ton soutien, nous continuerons à avancer !
+    Infinity: Objectif atteint ! Notre pétition est discutée au parlement allemand.
+      Il s’agit maintenant de renforcer encore notre cause !
+    30000: Presque au but – plus qu’un petit bout ! Rejoignez la pétition dès maintenant !
+    500: C’est parti ! Sois parmi les premiers à signer cette pétition !
+  link: Lire le texte de la pétition
+  daysLeft: '{daysLeft} jours restants'
