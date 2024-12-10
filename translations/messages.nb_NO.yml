@@ -1642,6 +1642,8 @@ bell:
   forum_not_activated_thread_title: Emne i moderert forum
   passport_created_or_renewed_title: Medlemskortet ditt …
   passport_created_or_renewed: er aktivert eller forlenget!
+  post_hidden_title: Innlegg skjult av {user}
+  post_hidden: Ditt innlegg på {title} i forumet {forum} har blitt skjult
 reports:
   when: Tid
   time: Tidspunkt
@@ -2515,6 +2517,8 @@ forum:
       se hvorfor innlegget ble skjult, og moderatorene kan også se hvem som har gjort
       det.
     sureHide: Vil du virkelig skjule dette innlegget?
+    hiddenPost: Innlegg skjult av [{moderatorName}]({moderatorUrl})
+    hiddenReason: 'Årsak: {reason}'
   threads: Tråder
   from: Fra {name}
   new_thread: Lag ny tråd
@@ -4131,7 +4135,7 @@ thread:
     options:
       copy_source: Kopier kildekoden
       copy_direct_link: Kopier direkte lenke
-      restore: Gjenopprett
+      restore: Gjenopprett …
     copy_source_success: Kildekoden er kopiert!
     linked_post: lenket innlegg
     copy_direct_link_success: Direkte lenke kopiert!
@@ -4141,6 +4145,11 @@ thread:
     normal: normal
     lower: nederst
     higher: øverst
+  hiddenPostsInfo:
+    cannotSee: Selv om du ikke kan se innholdet i skjulte innlegg, kan du se hvorfor
+      og av hvem innlegg ble skjult.
+    includesHidden: Innlegg i dette emnet ble skjult av moderatorer.
+    toggle: Vis skjulte innlegg
 configure_columns: Konfigurer kolonner
 save_state: Vedlikeholde filtre og sortering
 save_state_description: Lagre brukte filtre og sortering for fremtidige samtaler
