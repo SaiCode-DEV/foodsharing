@@ -3116,7 +3116,7 @@ theme_switcher:
   theme:
     system: "System"
     light: "Hell"
-    dark: "Dunkel"
+    dark: "Dunkel (Beta)"
 
 startpage:
   welcome_text: "Willkommen bei foodsharing"
