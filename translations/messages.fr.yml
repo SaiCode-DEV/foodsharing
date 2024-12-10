@@ -39,9 +39,9 @@ group:
     send: Envoyer la demande
     time:
       "5": 5 heures ou plus
-      "3": 3-4 heures
-      "2": 2-3 heures
-      "1": 1-2 heures
+      "3": 3–4 heures
+      "2": 2–3 heures
+      "1": 1–2 heures
     zeit: Combien d’heures as-tu le temps et l’envie d’y consacrer par semaine ?
     erfahrung: "Dans le groupe, peux-tu t'appuyer sur les expériences que tu as acquises
       ailleurs ?\nSi oui, où et quoi ?\n"
