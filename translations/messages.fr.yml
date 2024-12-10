@@ -97,7 +97,8 @@ group:
       chaînes
   function:
     tooltip_function_10: Les admins de ce groupe peuvent accepter des contributions
-      dans les forums déjà modérés.
+      dans les forums déjà modérés. Si l’option est activée pour le district, ils
+      peuvent également masquer des messages dans le forum.
     tooltip_function_9: Les administrateur·rice·s de ce groupe de travail peuvent
       modifier la description du groupe local pour la carte.
     tooltip_function_7: Les admins de ce groupe de travail reçoivent les plaintes
@@ -223,7 +224,10 @@ group:
       generate_button: Créer une/des carte(s) de membre pour la/les personne(s) sélectionnée(s)
       verify:
         undo: Annuler la vérification de {name} ({id})
-        do: Vérifier le compte de {name} ({id}) ?
+        do: Vérifier le compte de {name} ({id}) (Comparaison avec la carte d’identité
+          faite) ?
+        do_selected: Souhaites-tu vraiment vérifier tous ceux qui ont été sélectionnés
+          (comparaison avec la carte d’identité faite) ?
       button:
         unverify: Dévérifié
         verify: Vérifie
@@ -231,6 +235,15 @@ group:
       create_pdf: Créer PDF
       execute: Exécuter
       automatic_paper_size: Papier A4
+      verify_selected: vérifier marqué
+      active_or_renew_passport: Activer / renouveler la carte de membre
+      show_only_member_after: Afficher seulement les membres par
+      filter_selection: Afficher uniquement les membres sélectionnés
+      filter_options:
+        no_filter: pas de filtre
+        no_passport: pas de carte de membre
+        with_passport: avec carte de membre
+        invalid_passport: carte de membre non valable
     default:
       lastname: Nom de famille
       title: Défaut
@@ -247,6 +260,7 @@ group:
   enterskills: 'Compétences :'
   userId: ID
   filter_placeholder: filtrer les groupes par nom
+  valid_until: valable jusqu’au
 bcard:
   generate: Créer une carte de visite
   error:
@@ -334,6 +348,7 @@ button:
   confirm: confirmer
   countdown_clickable: Cliquable en {countdown} secondes
   ok: D’accord
+  filter_options: Options de filtre
 upload:
   crop_dialog_title: Rogner l’image
   new_file: Téléverser un nouveau fichier
@@ -497,6 +512,7 @@ settings:
       google: Calendrier Google
       outlook: Outlook
       thunderbird: Thunderbird
+      label: Quel programme de calendrier utilises-tu ?
     formatting:
       label: Comment formater les descriptions ?
       html: HTML
@@ -505,7 +521,19 @@ settings:
     event:
       all: Toutes les dates
       none: aucun
+      accepted: Dates auxquelles j’ai indiqué que je serais présent
+      maybe: Dates auxquelles j’ai indiqué que je serais (peut-être) présent(e)
+      label: Quelles dates de tes districts et groupes de travail doivent être incluses ?
+      invitations: Des dates que je n’ai pas annulées
     protocol: Quel protocole utilise ton programme de calendrier ?
+    history:
+      "true": Oui, afficher mes derniers événements dans le calendrier
+      label: Les dates passées des deux dernières semaines doivent-elles être incluses ?
+      "false": Non, ne pas afficher les événements passés dans le calendrier
+    pickup:
+      "true": Oui, afficher mes enlèvements dans le calendrier
+      "false": Non, ne pas afficher les collectes dans le calendrier
+      label: Faut-il inclure des dates de collecte ?
   push:
     disabled: Les notifications push on été désactivées
     disable: Désactiver les notifications push
@@ -555,6 +583,13 @@ settings:
     question_other_user: 'Tu veux vraiment changer d’adresse e-mail pour celle-ci :'
     insufficient_permission: Tu n’as pas l’autorisation de modifier l’adresse e-mail
       de ce profil.
+    not_changed: Ton adresse e-mail n’a pas été modifiée.
+    explanation_other_user: Ici, tu peux modifier l’adresse e-mail avec laquelle ce
+      profil a été enregistré. Après l’envoi, la personne reçoit un e-mail à la nouvelle
+      adresse, dans lequel se trouve un lien qui doit être utilisé pour confirmer
+      la nouvelle adresse.
+    sent_other_user: Un e-mail a été envoyé à la nouvelle adresse, permettant de confirmer
+      l’adresse.
   email: Adresse électronique et mot de passe
   sleep:
     saved: Les préférences ont été enregistrés
@@ -617,6 +652,11 @@ settings:
       role: Rôle
       valid_end: Valable jusqu’au
       name: Nom
+    passport_not_activated: Ta carte de membre n’a pas encore été activée.
+    ask_your_ambassadors: Adresse-toi à tes ambassadeurs/ambassadrices.
+    passport_is_valid_until: Ta carte de membre est encore valable **{days}** jours
+      ou jusqu’au **{date}**.
+    passport_is_invalid: Ta carte de membre n’est plus valable.
   no_rights: Tu n’as pas le droit de modifier les paramètres du profil.
   delete_profile: Supprimer ce profil
   general:
@@ -910,6 +950,7 @@ forum:
       subscribed: abonné
       subscribe: s’abonner
     bottom: visibilité réduite
+    all_hidden: Tous les messages de ce fil de discussion ont été masqués.
   follow:
     email: comme courriel
     bell: par la cloche
@@ -929,6 +970,16 @@ forum:
       peux quand même poster un message, mais les autres utilisateur·rice·s ne peuvent
       pas répondre !
     hideReasonPlaceholder: Indique une raison ici …
+    hide: Masquer la contribution
+    giveHideReason: Veuillez indiquer la raison pour laquelle tu souhaites masquer
+      ce message.
+    sureHide: Tu veux vraiment masquer ce post ?
+    hiddenPost: Message masqué par [{moderatorName}]({moderatorUrl})
+    hiddenReason: 'Motif : {reason}'
+    hideInfo: Les messages masqués ne seront plus affichés. Elles peuvent être rétablies
+      par les modérateurs dans un délai de trois mois avant d’être définitivement
+      supprimées. Pendant cette période, les utilisateurs du forum peuvent voir pourquoi
+      le message a été masqué, et les modérateurs peuvent voir qui l’a masqué.
   threads: Discussions
   new_thread: Ouvrir une nouvelle discussion
   from: de {name}
@@ -943,6 +994,9 @@ forum:
   go: vers le forum
   restore:
     reason: 'Justification : « {reason} »'
+    really: Veux-tu vraiment restaurer le post suivant ?
+    hidden_by: Masqué par
+    title: Rétablir la contribution
 fsp:
   info:
     mail: Cloche et notification par courriel
@@ -1884,6 +1938,11 @@ profile:
     notes: Remarques et décisions
     confirmDelete: Tu veux vraiment supprimer cette plainte ?
     report_other: Autres
+    report_b1_0: Est arrivé en retard à la collecte (B01-1)
+    report_b1_1: Ne s’est pas présenté à la collecte (B01-2)
+    report_b1_2: A introduit des animaux dans l’entreprise sans autorisation (B01-3)
+    report_b1_4: N’avait pas sa carte foodsharing sur lui/elle (B01-5)
+    report_b1_3: A emmené des enfants dans l’entreprise sans autorisation (B01-4)
   mediation:
     no_group: Il n’existe malheureusement pas encore de groupe local de médiation
       pour le secteur géographique choisi. Tu peux aborder ce thème lors d’un prochain
@@ -1976,6 +2035,12 @@ profile:
     give: Offre une banane-confiance à {name}
     none: "{name} n’a pas de nouvelles bananes-confiance depuis un moment."
     title: '{count} Bananes-confiance'
+    sent_none:
+      other: '{name} n’a pas encore donné de banane de confiance.'
+      you: Tu n’as pas encore donné de banane de confiance.
+    recieved_none:
+      other: '{name} n’a pas encore reçu de banane de confiance.'
+      you: Tu n’as pas encore reçu de banane de confiance.
   mailBounceWarning_3: Le blocage sera levé.
   mailBounceWarning_2: Modifier l'adresse mail
   mailBounceWarning_1: Ton adresse mail {email} est bloquée pour les mails et la communication
@@ -2041,7 +2106,7 @@ profile:
     memberState:
       filterRequested: Demande soumise
       filterActive: Membre
-      filterManage: RC
+      filterManage: Responsable
       filterAll: tous
     search_placeholder: Chercher par nom
     store_table: Liste des entreprises
@@ -2050,6 +2115,8 @@ profile:
       [droits étendus]({wikiurl}) sur la plate-forme."
     workgroups_admin: est la personne de contact pour les groupes
     ambassador_for: pour
+    workgroups_member: collaborent au sein des groupes de travail suivants
+    no_common_workgroups: dans aucun groupe de travail commun
   tab_navigation:
     profile: Profil
     pickups: Ramassages
@@ -2058,6 +2125,10 @@ profile:
   chooseantherstore: Concerne un établissement non mentionné
   sleeping_info_from_until: est inactive du {from} au {until}
   choosereasonnostore: Ne concerne aucun établissement
+  homeDistrictHistory:
+    previous: avant
+    changed: ajouté
+    by: par
 pickuplist:
   NumberOfAppointments_table_header: nº de ramassages
   unclear: Statut confus
@@ -2280,6 +2351,14 @@ events:
     événement.
   location: Emplacement
   attendees: Participant(e)s
+  online_info: "Les conférences téléphoniques et les vidéoconférences de foodsharing
+    se déroulent au mieux via notre propre serveur [BigBlueButton](https://bigbluebutton.org).
+    Dix minutes avant le début de la réunion, les utilisateurs peuvent facilement
+    rejoindre la conférence en un seul clic depuis la page de la réunion. Aucun autre
+    programme n’est nécessaire, il suffit d’avoir un navigateur Internet un peu moderne.
+    Il est également possible de se joindre à la conférence par téléphone.\n\nSi tu
+    souhaites quand même utiliser une autre plateforme pour une conférence téléphonique
+    ou vidéo, sélectionne l’option *« Autre »*.\n"
 wall:
   error-create: Ta contribution sur ce mur n’a pas pu être sauvegardée.
   created: Parfait ! Ta contribution sur ce mur a été enregistrée.
@@ -2681,6 +2760,7 @@ map:
         3months: 3 derniers mois
       member:
         all: tous
+        label: Appartenance
       region:
         label: District
 content:
@@ -2712,6 +2792,8 @@ content:
       pas joignable par e-mail. Veuillez contacter une région voisine ou la région
       immédiatement supérieure.
   error: La page n’a pas pu être sauvegardée
+  edit_raw: Traiter les données brutes
+  error_loading: Impossible de charger le contenu
 genderlist:
   gender_district_table_caption: Répartition par sexe de tous les collecteur·ice·s
     du district
@@ -2852,6 +2934,11 @@ bell:
   internal_email_changed: Ton adresse e-mail personnelle a été modifiée.
   workinggroup_new_request: Nouvelle demande pour un groupe de travail
   forum_not_activated_thread: '{forum}'
+  passport_created_or_renewed_title: Ta carte de membre …
+  passport_created_or_renewed: a été activée ou renouvelée !
+  forum_not_activated_thread_title: Sujet dans un forum modéré
+  post_hidden: Votre message sur {title} dans le forum {forum} a été masqué
+  post_hidden_title: Post masqué par {user}
 personal_data:
   landline: Numéro de fixe
   mobile: Numéro de portable
@@ -3554,8 +3641,11 @@ quiz:
     infos:
       real_life_examples: La plupart des questions sont basées sur des cas réels de
         foodsharing.
-      alone: Tu ne dois pas être aidé pendant le quiz. C’est pourquoi tu dois trouver
-        un endroit calme où tu pourras faire le quiz sans être dérangé.
+      alone: Le quiz doit être réussi par toi-même et sans aide extérieure pour le
+        contenu. En cas de difficultés linguistiques ou si tu as besoin d’une assistance,
+        une autre personne peut bien sûr t’aider à comprendre les questions, mais
+        tu dois pouvoir y répondre seul. C’est pourquoi tu dois trouver un endroit
+        calme où tu pourras faire le quiz sans être dérangé.
       read_carefully: Lis attentivement toutes les questions et réponses.
       wiki: Ne commence pas le quiz au hasard. Lis attentivement les pages d'information
         répertoriées au préalable. Sans les connaissances du wiki, tu ne réussiras
@@ -3576,7 +3666,20 @@ quiz:
         à comprendre quelle réponse est correcte ou incorrecte et pourquoi. Pour chaque
         erreur, tu dois lire attentivement les explications. Si quelque chose te semble
         illogique, incompréhensible ou même faux, n’hésite pas à laisser un commentaire.
+        Tes commentaires peuvent t’être attribués afin de te donner un feedback individuel.
+      unlimited_tries: Tu peux refaire ce quiz autant de fois que tu le souhaites
+        et tu ne seras jamais disqualifié en cas d’échec. Toutefois, tu dois parfois
+        faire une pause entre les essais.
+      timed: Le temps pour répondre aux questions est limité. Ne le laisse pas te
+        stresser. Le temps est réglé individuellement pour chaque question de manière
+        à ce que tu aies suffisamment de temps pour y répondre tranquillement. Si
+        tu es à court de temps, fais-le savoir aux administrateurs du quiz par un
+        commentaire.
     acceptPrivacyNotice: Je suis d’accord.
+    privacyNotice:
+      hygiene: Si tu réussis ce quiz, la date à laquelle tu as réussi sera enregistrée
+        et une vignette d’hygiène te sera attribué. Les responsables de l’hygiène
+        et de l’entreprise peuvent voir si tu as une vignette d’hygiène valable.
   plural: Quiz
   button:
     pause: continuer plus tard
@@ -3698,6 +3801,7 @@ quiz:
           placeholder: https://wiki.foodsharing.de/…
         mandatory:
           label: Question obligatoire ?
+          text: Cette question doit être incluse dans chaque essai de quiz
       confirmDelete:
         title: Tu veux vraiment supprimer cette question ?
       title: Modifier la question
@@ -3754,6 +3858,25 @@ quiz:
       {questionsAnswered} des {questionCount} questions.
     failed: Lors de ta dernière tentative, tu n'as malheureusement pas réussi ce quiz.
     passedBefore: Tu as déjà réussi ce quiz.
+    pause: Tu as échoué plusieurs fois à ce quiz. La fiabilité, la maîtrise des règles
+      et une attitude professionnelle sont indispensables chez foodsharing. Malheureusement,
+      tes réponses ne le montrent pas pour l’instant. C’est pourquoi tu auras une
+      pause d’apprentissage avant de pouvoir essayer à nouveau de réussir le quiz.
+      Ta pause d’apprentissage se termine dans {currentWaitTime} jours.
+    pauseElapsed: Ta pause d’apprentissage est terminée. Tu peux donc à nouveau participer
+      au quiz. J’espère que tu as mis ce temps à profit pour mieux te familiariser
+      avec le contenu.
+    disqualifiedAfter: Il ne te reste qu’une dernière chance de réussir ce quiz !
+      Si tu échoues maintenant, tu seras définitivement disqualifié pour ce quiz.
+      Merci de ne participer que si tu as étudié en détail le contenu du wiki.
+    disqualified: Malheureusement, tu es disqualifié pour ce quiz car tu as échoué
+      trop souvent.
+    willExpire: Cependant, la validité de ta tentative de quiz réussie expire dans
+      {expirationTime} jours. Tu peux donc déjà rafraîchir tes connaissances dans
+      ce domaine et participer à nouveau à ce quiz.
+    expired: Cependant, ta dernière tentative de quiz n’est plus valable.
+  mandatory_question: Cette question est obligatoire et figure dans chaque essai de
+    quiz.
 fpsingular: Point d’erreur
 bootstrap-datepicker:
   labelCurrentMonth: Mois actuel
