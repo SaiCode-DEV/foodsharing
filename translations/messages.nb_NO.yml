@@ -985,7 +985,7 @@ profile:
     notes: Notater og vedtak
     report_other: annen
     confirmDelete: Bør denne klagen virkelig slettes?
-    report_b11: Ingen økologiske midler ble brukt for å gjennomføre innsamlingen (B11)
+    report_b11: Ikke-økologiske transportmidler ble brukt til innsamling (B11)
     report_b1_0: Kom for sent til henting (B01-1)
     report_b9: Det ble fremsatt upassende kommentarer om mengde, type og bruk av den
       reddete maten (B09)
@@ -4232,10 +4232,10 @@ help:
       md: "Hvert klistremerke har et ikon, en liten grafikk som skal vise ved første
         øyekast hva den handler om. Du kan finne en liste over tilgjengelige ikoner
         på https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n\nI inntastingsfeltet
-        må du skrive inn navnet på ikonet du vil bruke, for eksempel \"*gå*\" eller
-        \"*handlevogn*\".\nDu kan sjekke om inndataene dine fungerer ved å bruke forhåndsvisningen.\n
-        Hvis du ikke skriver inn et ikon, vil standardikonet for klistremerker «*tag*»
-        automatisk bli brukt\n"
+        må du skrive inn navnet på ikonet du vil bruke, for eksempel «*walking*» eller
+        «*shopping-cart*».\nDu kan sjekke om inndataene dine fungerer ved å bruke
+        forhåndsvisningen.\n Hvis du ikke skriver inn et ikon, vil standardikonet
+        for klistremerker «*tag*» automatisk bli brukt\n"
     polls:
       title: Avstemningene
       md: "Ved å bruke stemmemodulen kan valg, undersøkelser og andre stemmer gjennomføres
@@ -4315,7 +4315,7 @@ theme_switcher:
   theme:
     system: System
     light: Lys
-    dark: Mørk
+    dark: Mørk (Beta)
   title: Velg design
   content: Velg et design
   choose_button: OK
