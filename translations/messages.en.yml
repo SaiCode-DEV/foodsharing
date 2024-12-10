@@ -123,9 +123,9 @@ group:
     send: Send application
     time:
       "5": 5 or more hours
-      "3": 3-4 hours
-      "2": 2-3 hours
-      "1": 1-2 hours
+      "3": 3–4 hours
+      "2": 2–3 hours
+      "1": 1–2 hours
     declined: Application rejected
     accepted: Application accepted
     title: Application for {group}
@@ -891,7 +891,7 @@ mailbox:
   actions: Options
   title: Mailboxes
   mail: Email
-  claim: foodsharing.network - sharing is caring
+  claim: foodsharing.network – sharing is caring
   sm-quiz: Quiz for Store Coordinators
   not-available: "You have to be {role} to access e-mail inboxes.\nSolve the {quiz}
     here when you are ready.\n"
@@ -3341,7 +3341,7 @@ lebensmittel: Which kinds of food are allowed to be collected?
 store_status_impact_explanation: 'Please update the status of the store (<a href="https://wiki.foodsharing.de/Betrieb"
   target="_blank">Wiki: Store</a>) every time there has been contact with the store
   (<a href="https://wiki.foodsharing.de/Kooperationsaufbau_-_Checkliste" target="_blank">Wiki:
-  Building up cooperations - Checkliste</a>). The status of the cooperation should
+  Building up cooperations – Checklist</a>). The status of the cooperation should
   always be transparent for everybody. Only stores which are willing to cooperate
   are shown in the corresponding tab in the navbar.'
 notice: Note!
@@ -3538,7 +3538,7 @@ startpage:
   proposals: We want to develop and consistently improve. Therefore we need you with
     your many great ideas and tips. Please send them to [info@foodsharing.de](mailto:info@foodsharing.de)
   join_welcome: Nice that you want to join foodsharing!
-  join_rules: Participate - Our Rules
+  join_rules: Participate – our rules
   notallowed: The sharing of medicines (including homeopathic remedies) is excluded
     on foodsharing. Clothing, cosmetics, household chemicals, toys and other non-food
     products can’t be exchanged or shared via foodsharing either. The foodsharing
@@ -4410,7 +4410,7 @@ help:
         in the sub-districts.\n- The number of food savers entitled to vote is shown
         in brackets after the selection option.\n- As soon as the vote is created,
         the people entitled to vote are determined. Anyone who falls into the corresponding
-        group of people at the time the vote is created is entitled to vote. \n"
+        group of people at the time the vote is created is entitled to vote.\n"
       title: Right to vote
     polls:
       title: Polls
