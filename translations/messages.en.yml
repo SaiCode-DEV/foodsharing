@@ -364,7 +364,7 @@ settings:
     pickup:
       label: Do you want to have pick-up dates included?
       "true": Yes, show my pick-up slots in the calender
-      "false": No, don't show my pick-up slots in the calendar
+      "false": No, don’t show my pick-up slots in the calendar
     history:
       "false": No, do not show past events in the calendar
       label: Should past appointments from the last 2 weeks be included?
@@ -1073,6 +1073,8 @@ forum:
       within 3 months before they are permanently deleted. During this time, forum
       users can see why the post was hidden, and moderators can also see by whom.
     sureHide: Are you sure you want to hide this post?
+    hiddenPost: Post hidden by [{moderatorName}]({moderatorUrl})
+    hiddenReason: 'Reason: {reason}'
   from: From {name}
   sending_error: An error occured during sending
   no_threads: No threads yet
@@ -1580,6 +1582,8 @@ bell:
   forum_not_activated_thread_title: Topic in moderated forum
   passport_created_or_renewed: has been activated or extended!
   passport_created_or_renewed_title: Your membership card …
+  post_hidden_title: Post hidden by {user}
+  post_hidden: Your post on {title} in forum {forum} was hidden
 reports:
   time: Time
   region: Home district
@@ -2324,12 +2328,12 @@ store:
     distance_unknown: no place of residence provided
     distance: Lives about {distance} km away
     air_line: The distance shown is as the crow flies.
-    confirm-far: According to the address in your profile settings you live far from
-      this store ({distance}). Are you sure that you will be able to support this
-      store's team regularly and reliably?
+    confirm-far: According to your saved address, you live very far away from this
+      store ({distance}). Are you sure that you will be able to support this store’s
+      team regularly and reliably?
     confirm-no-location-ok: Apply anyway
-    confirm-no-location: You haven't entered a valid address in your profile. Please
-      indicate your home address. This makes it easier for store maagers to decide
+    confirm-no-location: You haven’t entered a valid address in your profile. Please
+      indicate your home address. This makes it easier for store managers to decide
       on your application.
     application-placeholder: I would like to help in this team because …
     application-message: Application message
@@ -4282,7 +4286,7 @@ thread:
     options:
       copy_source: Copy source code
       copy_direct_link: copy direct link
-      restore: Restore
+      restore: Recover …
     copy_source_success: Source code copied!
     copy_direct_link_success: Direct link copied!
     linked_post: linked post
@@ -4292,6 +4296,11 @@ thread:
     lower: at the bottom
     higher: at the top
     normal: normal
+  hiddenPostsInfo:
+    includesHidden: Posts in this thread have been hidden by moderators.
+    toggle: Show hidden posts
+    cannotSee: Although you cannot see the content of hidden posts, you can see why
+      and by whom posts were hidden.
 configure_columns: Configure columns
 save_state: Maintain filters and sorting
 save_state_description: Save used filters and sorting for future calls
@@ -4331,9 +4340,9 @@ help:
         automatically be included into the master district. In many cases it makes
         sense to assign the parent district as master. If the master district is not
         the parent district, users of the district will **not** be included into the
-        parent district. \n\nIf you don't want users to be automatically included
-        in another district, set the Master to Root.\n---\nThe inclusion into the
-        master district happens over night. Changes do not occur immediately.\n"
+        parent district.\n\nIf you don’t want users to be automatically included in
+        another district, set the Master to Root.\n---\nThe inclusion into the master
+        district happens over night. Changes do not occur immediately.\n"
       title: Master district
     profileCommitmentsStat:
       title: Engagement statistics
@@ -4418,7 +4427,7 @@ help:
         still valid at the time of the desired pick-up.\n\nIn both cases, a message
         will be displayed explaining that the hygiene training is required for this
         action. The hygiene quiz is also linked directly in each case.\n\n---\n\n
-        Important to note: This function is only based on foodsharing's own hygiene
+        Important to note: This function is only based on foodsharing’s own hygiene
         training. Neither hygiene certificates from external providers (e.g. Metro)
         uploaded to the profile nor hygiene training courses noted elsewhere are currently
         taken into account.\n"
@@ -4521,7 +4530,7 @@ petition:
     2000: The petition is gaining momentum! With your support, we can rock it!
     500: Let’s go! Be one of the first to sign this petition!
     Infinity: Goal achieved! Our petition is being discussed in the German parliament.
-      Now it's time to strengthen our cause even further!
+      Now it’s time to strengthen our cause even further!
     30000: Almost there — just a little bit more! Join the petition now!
     8000: We have made a good start! Help us to get even further!
     15000: Halftime in sight! With your support, we can keep moving forward!
