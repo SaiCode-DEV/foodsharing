@@ -724,7 +724,7 @@ profile:
     report_b10: Sells rescued food (B10)
     report_b13: No adequate effort was made to consume / distribute the rescued food
       (B13)
-    report_b11: No ecological means were used to carry out the collection (B11)
+    report_b11: Non-ecological means were used to carry out the collection (B11)
     report_b3_1: Did not carry out the collection without dispute or discussion (B03-2)
     report_b8: Has been rude to the company’s employees (B08)
     report_b9: Inappropriate comments were made about the quantity, type and use of
@@ -2925,7 +2925,7 @@ theme_switcher:
   theme:
     system: "System"
     light: "Light"
-    dark: "Dark"
+    dark: "Dark (Beta)"
 
 plz: Post code (automatically filled by the map above)
 fsp:
@@ -4383,9 +4383,9 @@ help:
       md: "Each sticker has an icon that should indicate, what the sticker is about.
         You can find a list of available icons at https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n
         \nYou need to put the name of the desired icon into the field, for example
-        \"*walking*\" or \"*shopping-cart*\".\nIf the input is valid, you will see
-        the icon in the preview.\nThe icon \"*tag*\" will be used as default if you
-        do not enter an icon.\n"
+        “*walking*” or “*shopping-cart*”.\nIf the input is valid, you will see the
+        icon in the preview.\nThe icon “*tag*” will be used as default if you do not
+        enter an icon.\n"
     moderatorForumHide:
       md: "###### Who is a moderator?\nThe moderators of a group or district are usually
         the administrators or AMBs. If there is a GOALS working group *Moderation*
@@ -4447,7 +4447,7 @@ team_page:
       extent for the organizing team or the board!\n"
   board_member:
     title: Club board
-    text: "The board of foodsharing e.V. holds the strings together, networks Germany,
+    text: "The board of foodsharing e. V. holds the strings together, networks Germany,
       Austria and Switzerland as users of the foodsharing.de platform and is responsible
       for supra-regional matters. The Executive Board works closely together as a
       team and mainly online to deal with all the concerns of the large foodsharing
