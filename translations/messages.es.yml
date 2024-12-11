@@ -3360,7 +3360,7 @@ settings:
       accepted: Fechas en las que he dicho que estaré allí
       none: Ninguna
     history:
-      label: ¿Deberían incluirse las citas anteriores a las últimas 2 semanas?
+      label: ¿Deberían incluirse las citas anteriores a las últimas dos semanas?
       "false": No, no mostrar eventos pasados en el calendario
       "true": Sí, mostrar mis últimas citas en el calendario
     program:
@@ -3499,6 +3499,8 @@ settings:
       name: Nombre
       role: Papel
       valid_start: Válido a partir de
+      generate_error: Se produjo un error al generar la tarjeta de membresía. Inténtelo
+        de nuevo más tarde.
     passport_not_activated: Su tarjeta de identificación aún no ha sido activada.
     ask_your_ambassadors: Póngase en contacto con sus embajadores al respecto.
     passport_is_valid_until: Su pase es válido durante **{days}** días o hasta **{date}**.
@@ -3801,8 +3803,8 @@ footer:
     wiener_tafel: 'Banco de Alimentos de Viena'
     lebensministerium: 'Ministerio Federal de Agricultura, Regiones y Turismo'
   hosting:
-    info: 'Alojado de forma neutra en CO₂'
-    tooltip: 'Alojamiento con emisiones neutras de CO₂ en Manitu'
+    info: 'Alojado de forma neutra en CO<sub>2</sub>'
+    tooltip: 'Alojamiento con emisiones neutras de CO<sub>2</sub> en Manitu'
   infosDeveloper: 'para desarrollador@s de software'
   imprint: 'Aviso legal'
   partner: 'Soci@s'
