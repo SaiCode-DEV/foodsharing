@@ -373,10 +373,10 @@ quiz:
     PASSED: '{name} - ¡Has superado este cuestionario!'
     PAUSE_ELAPSED: '{name} - ¡Ya puedes intentarlo de nuevo!'
     DISQUALIFIED: '{name} - Lamentablemente descalificado.'
-    start: '{name} - ¡Haz el cuestionario ahora!'
-    continue: '{name} - ¡Continúa el concurso!'
+    start: '{name} – ¡Haz el cuestionario ahora!'
+    continue: '{name} – ¡Continúa el concurso!'
     pause: ({name}) tomate un descanso
-    disqualified: '{name} - descalificado.'
+    disqualified: '{name} – descalificado.'
   startmodal:
     title: Notas sobre el cuestionario
     infos:
@@ -444,7 +444,7 @@ quiz:
     title: Pregunta {index} de {questions}
   comment:
     toggle: escribir un comentario
-    placeholder: Escribir comentario…
+    placeholder: Escribir comentario …
     send: enviar comentario
     sent: Comentario enviado.
     info: Danos tu opinión sobre esta pregunta. ¿Era demasiado fácil, demasiado difícil,
@@ -584,7 +584,7 @@ quiz:
   test_results: Resultados de la prueba
   test: Cuestionarios de prueba
   stateBasedInfo:
-    neverTried: Nunca antes has realizado este cuestionario . Tómese el tiempo para
+    neverTried: Nunca antes has realizado este cuestionario. Tómese el tiempo para
       leer atentamente todos los artículos informativos enumerados para estar preparado
       para las preguntas.
     running: Ya ha comenzado el cuestionario y ha respondido a {questionsAnswered}
