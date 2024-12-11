@@ -992,7 +992,7 @@ store:
     hygieneRequired: Per i ritiri presso questa attività è richiesta una formazione
       valida in materia di igiene.
     application-message: Messaggio di candidatura
-    application-placeholder: Vorrei aiutare in questo team perché...
+    application-placeholder: Vorrei aiutare in questo team perché …
     hygieneMissing: Questo è quello che ti manca attualmente. Rispondi subito al quiz
       sull'igiene per candidarti a questo team.
     confirm-far: Secondo il tuo indirizzo salvato, vivi molto lontano da questa attività
@@ -1791,12 +1791,13 @@ forum:
       ancora inviare un messaggio. Gli altri utenti non potranno rispondere!
     giveHideReason: Per favore, indica il motivo per cui vuoi nascondere questo post.
     hide: Nascondi post
-    hideReasonPlaceholder: Inserisci il motivo qui...
+    hideReasonPlaceholder: Inserisci il motivo qui …
     hideInfo: I post nascosti non verranno più visualizzati. Possono essere ripristinati
       dai moderatori entro 3 mesi prima di essere eliminati definitivamente. Durante
       questo periodo, gli utenti del forum possono vedere perché il messaggio è stato
       nascosto e i moderatori possono vedere anche da chi è stato nascosto.
     sureHide: Vuoi davvero nascondere questo post?
+    hiddenReason: 'Motivo: {reason}'
   new_thread: Scrivi su un nuovo tema
   threads: Temi
   from: Di {name}
@@ -1810,7 +1811,7 @@ forum:
       tutti ed è così importante che tutti dovrebbero esserne a conoscenza.'
     title: 'Sei sicuro di voler inviare una notifica email?'
   restore:
-    reason: 'Motivo: "{reason}"'
+    reason: 'Motivo: «{reason}»'
     really: Vuoi davvero ripristinare questo post?
     hidden_by: Nascosto da
     title: Ripristina post
@@ -2103,7 +2104,7 @@ regionOptions:
   regionPickupRuleActive: 'Attiva la seguente regola distrettuale per le raccolte
     dai negozi PASTA (Particolarmente Apprezzati e Sempre Troppo Ambìti):'
   regionPickupInactiveHours: 'Si prega di indicare quante ore prima del ritiro questa
-    regola non è più applicabile'
+    regola non è più applicabile?'
   regionPickupTimespan: 'Periodo di tempo (giorni prima e dopo la data di ritiro desiderata)
     a cui si applica la regola PASTA'
   regionPickupRuleActiveStoreList: 'Elenco delle aziende del distretto che verranno
@@ -2534,9 +2535,9 @@ profile:
     mail: 'Puoi raggiungere il gruppo locale di raporto al seguente indirizzo e-mail:'
     sent: Raporto é stato inviato
     send: Invia segnalazione
-    info: Si prega di includere la data, il luogo e l'ora dell'incidente. Indica se
-      hai già parlato direttamente con la persona e hai potuto chiarire la questione.
-      Si prega di indicare il modo migliore per contattarvi in caso di domande.
+    info: "Si prega di includere la data, il luogo e l'ora dell'incidente. Indica
+      se hai già parlato direttamente con la persona e hai potuto chiarire la questione.
+      Si prega di indicare il modo migliore per contattarvi in caso di domande.\n"
     title: Rapporto su {name}
     cancellation: 'Frequenti cancellazioni di ritiri con breve preavviso senza trovare
       un sostituto'
@@ -3002,6 +3003,10 @@ map:
         all: tutti
       activity:
         all: tutti
+        6months: ultimi sei mesi
+        3months: ultimi tre mesi
+        week: la settimana scorsa
+        month: il mese scorso
       region:
         label: Quartiere
     stores:
@@ -3246,7 +3251,7 @@ releases:
   "2024-01": Versione “Kiwi” 🥝 (gennaio 2024)
   "2024-04": Versione “Pretzel” 🥨 (aprile 2024)
   "2024-08": Versione “Mandarino” 🍊 (agosto 2024)
-  "2024-12": Versione beta “Nettarina” 🍑 (dicembre 2024)
+  "2024-12": Versione “Nettarina” 🍑 (dicembre 2024)
 base:
   jsrequired: Sfortunatamente, qui non funziona nulla senza JavaScript.
   slogan: Condividere il cibo invece di buttarlo via – foodsharing
@@ -3356,7 +3361,7 @@ quiz:
           label: "Link all'articolo pertinente:"
         text:
           label: 'Domanda:'
-          placeholder: Domanda del quiz...
+          placeholder: Domanda del quiz …
         duration: 'Tempo per la risposta:'
         fp: 'Punti di errore:'
         mandatory:
@@ -3384,12 +3389,12 @@ quiz:
     answer:
       input:
         explanation:
-          placeholder: Spiegazione...
+          placeholder: Spiegazione …
           label: 'Spiegazione:'
         answerRating: 'Valutazione:'
         text:
           label: 'Risposta:'
-          placeholder: Risposta...
+          placeholder: Risposta …
       title: Modifica risposta
   results:
     title:
@@ -3501,7 +3506,7 @@ quiz:
   comment:
     toggle: Scrivi un commento
     send: Invia commento
-    placeholder: Inserisci un commento...
+    placeholder: Inserisci un commento…
     sent: Commento inviato.
     info: Dacci un feedback su questa domanda. Era troppo facile, troppo difficile,
       incomprensibile? Oppure le risposte o le spiegazioni individuali sono errate?
@@ -3956,7 +3961,7 @@ error_base64_image: L'inserimento di immagini tramite drag & drop non è consent
 theme_switcher:
   theme:
     light: chiaro
-    dark: scuro (beta)
+    dark: scuro
     system: Sistema
   choose_button: Va bene
 team_page:
