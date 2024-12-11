@@ -993,7 +993,7 @@ startpage:
   this_is_how_it_works: 'Funcionamiento'
   followrules_title: Sigue las normas y la guía para compartir alimentos
   followrules: "Señalamos expresamente que, por motivos legales, sólo permitimos ofrecer
-    y compartir determinados alimentos y otros bienes\nsólo en determinadas condiciones
+    y compartir determinados alimentos y otros bienes sólo en determinadas condiciones
     por motivos legales. Esto se aplica en particular a los alimentos perecederos
     como el pescado crudo, la carne cruda, los platos de huevos crudos y los alimentos
     preparados. En general, hacemos todo lo posible para garantizar que los alimentos
@@ -3877,11 +3877,11 @@ email_template:
     linktext: 'Click aqui para desafiliarse.'
   impress:
     general_information_requirements: 'Información según el artículo 5 de la Telemediengesetz'
-    address: "foodsharing e.V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n Representado
-      por:\n\n Frank Bowinkelmann \n Contacto:\n Correo electrónico: info@foodsharing.de\n
-      Entrada de registro:\n\n Inscripción en el registro de la asociación\n Tribunal
+    address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Representado
+      por:\n Frank Bowinkelmann \n Contacto:\n Correo electrónico: info@foodsharing.de\n
+      \n Entrada de registro:\n Inscripción en el registro de la asociación\n Tribunal
       de registro: Tribunal de Distrito de Colonia\n Número de registro: VR 17439\n
-      Responsable del contenido según § 18 MStV:\n  Frank Bowinkelmann"
+      \n Responsable del contenido según § 18 MStV:\n  Frank Bowinkelmann"
     title: 'Aviso legal'
   login: 'Inicia sesión para responder'
   foodsharepoint: '-- Distribuidor'
@@ -4411,7 +4411,7 @@ thread:
     options:
       copy_source: Copiar código fuente
       copy_direct_link: Copiar enlace directo
-      restore: Restaurando…
+      restore: Restaurando …
     copy_source_success: ¡Código fuente copiado!
     copy_direct_link_success: ¡Enlace directo copiado!
     linked_post: Publicación vinculada
@@ -4550,7 +4550,7 @@ help:
         Foodsaver con derecho a voto se encuentra entre paréntesis detrás de la opción.\n
         - Una vez que la votación se ha creado, los votantes están determinados. Tiene
         derecho a votar quien, en el momento de la creación de la votación, pertenece
-        al grupo de personas correspondiente. \n"
+        al grupo de personas correspondiente.\n"
       title: Derecho a votar
     hygieneRequirement:
       md: "Para la recogida en algunos establecimientos, los food savers deben tener
@@ -4561,8 +4561,8 @@ help:
         sólo podrán inscribirse en las franjas horarias en las que su formación en
         higiene siga siendo válida en ese momento.\n\nEn ambos casos, se mostrará
         una nota explicando que falta la formación en higiene para esta acción. La
-        formación en higiene también se vincula directamente en cada caso.\n\n---
-        \n\nImportante: Esta función sólo se basa en los propios adhesivos de higiene
+        formación en higiene también se vincula directamente en cada caso.\n\n---\n
+        \nImportante: Esta función sólo se basa en los propios adhesivos de higiene
         de foodsharing. Técnicamente no se tienen en cuenta ni los certificados de
         higiene de proveedores externos (como Metro) cargados en el perfil ni la formación
         en higiene adquirida en otro lugar.\n"
@@ -4603,7 +4603,7 @@ achievements:
   validity:
     days: Válido por {validityInDaysAfterAssignment} días después de la asignación.
     indefinite: Válido para cualquier período de tiempo después de la adjudicación.
-    indefiniteShort: Cualquier período de tiempo
+    indefiniteShort: ilimitado
   awardedNoReviewer: Automáticamente
   awardedTo: A
   reviewer: De
@@ -4665,7 +4665,7 @@ support_page:
   validation_email: Correo electrónico no válido
   body: Mensaje
   validation_body: Mensaje vacío
-  attachments: Archivos adjuntos (máximo 5 MB por archivo)
+  attachments: Archivos adjuntos (máximo 5 MB por archivo)
   success: Su mensaje se ha enviado correctamente.
   new_request: Nueva consulta
   info_teaser: Nuestro formulario de asistencia está disponible para preguntas sobre
