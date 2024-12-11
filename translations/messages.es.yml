@@ -550,10 +550,10 @@ quiz:
       input:
         text:
           label: 'Respuesta:'
-          placeholder: Respuesta…
+          placeholder: Respuesta …
         explanation:
           label: 'Explicación:'
-          placeholder: Explicación…
+          placeholder: Explicación …
         answerRating: 'Valoración:'
   confirmDelete:
     session: ¿De verdad quieres borrar esta sesión de preguntas?
@@ -1078,10 +1078,10 @@ group:
   apply:
     accept: 'aceptar solicitud'
     time:
-      "2": '2-3 horas'
+      "2": '2–3 horas'
       "5": '5 o más horas'
-      "1": '1-2 horas'
-      "3": '3-4 horas'
+      "1": '1–2 horas'
+      "3": '3–4 horas'
     declined: 'Solicitud rechazada'
     title: 'Solicitud para el grupo “{group}”'
     erfahrung: '¿Puede usted aprovechar la experiencia adquirida en otros lugares?
@@ -1609,7 +1609,7 @@ store:
       favor, introduzca una dirección para facilitar a los responsables de la empresa
       la decisión sobre tu candidatura.
     application-message: Mensaje de aplicación
-    application-placeholder: Me gustaría ayudar en este equipo porque...
+    application-placeholder: Me gustaría ayudar en este equipo porque …
     hygieneRequired: Se requiere una formación válida en higiene para las recogidas
       de esta empresa.
     hygieneMissing: Eso es lo que te estás perdiendo actualmente. Responda el cuestionario
@@ -2043,7 +2043,7 @@ bell:
   internal_email_changed: Tu dirección de correo electrónico personal ha sido cambiada.
   forum_not_activated_thread: '{forum}'
   forum_not_activated_thread_title: Tema en foro moderado
-  passport_created_or_renewed_title: Tu DNI...
+  passport_created_or_renewed_title: Tu DNI …
   passport_created_or_renewed: ¡se ha activado o ampliado!
   post_hidden_title: Publicación oculta por {user}
   post_hidden: Tu publicación en {title} en el foro {forum} ha sido ocultada
@@ -2825,13 +2825,13 @@ forum:
     moderator_info: Este tema está cerrado. Como moderador de este foro, aún puede
       escribir un mensaje. ¡Otros usuarios no pueden responder!
     hide: Ocultar contribución
-    hideReasonPlaceholder: Escriba aquí su motivo...
+    hideReasonPlaceholder: Escriba aquí su motivo …
     sureHide: ¿De verdad quieres ocultar este tema?
     giveHideReason: Indique por qué desea ocultar este mensaje.
     hideInfo: Los mensajes ocultos ya no se muestran. Los moderadores pueden restablecerlos
-      en un plazo de 3 meses antes de eliminarlos definitivamente. Durante este tiempo,
-      los usuarios del foro pueden ver por qué se ocultó el mensaje, y los moderadores
-      también pueden ver por quién.
+      en un plazo de tres meses antes de eliminarlos definitivamente. Durante este
+      tiempo, los usuarios del foro pueden ver por qué se ocultó el mensaje, y los
+      moderadores también pueden ver por quién.
     hiddenPost: Publicación oculta por [{moderatorName}]({moderatorUrl})
     hiddenReason: 'Razón: {reason}'
   hold_back_for_moderation: 'El tema ha sido guardado y se publicará tan pronto como
@@ -2849,7 +2849,7 @@ forum:
   go: al foro
   restore:
     hidden_by: Oculto por
-    reason: 'Motivo: "{reason}"'
+    reason: 'Motivo: «{reason}»'
     title: Restaurar la contribución
     really: ¿De verdad quieres restaurar la siguiente publicación?
 buddy:
@@ -3095,8 +3095,7 @@ events:
     a la conferencia con un solo clic desde la página de la cita. No se necesitan
     programas adicionales, sólo un navegador de Internet razonablemente moderno. También
     es posible participar por teléfono.\n\nSi aún así desea utilizar otra plataforma
-    para una conferencia telefónica o videoconferencia, seleccione la opción *\"Otros
-    \"*.\n"
+    para una conferencia telefónica o videoconferencia, seleccione la opción *«Otros»*.\n"
 recipients:
   orga_team: 'Equipo organizacional global'
   newsletter: 'Todos los suscriptores del boletín (al menos rescatista)'
