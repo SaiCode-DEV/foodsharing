@@ -262,9 +262,9 @@ email_template:
   impress:
     title: Impressum
     general_information_requirements: Informasjon etter § 5 Telemediengesetz
-    address: "foodsharing e.V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n Representert
-      av:\n\n Frank Bowinkelmann \n Kontakt:\n E-post: info@foodsharing.de\n Registerutdrag:\n
-      \n Innføring i foreningsregisteret\n Registerretten: Amtsgericht Köln\n Registernummer:
+    address: "foodsharing e.V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Representert
+      av:\n Frank Bowinkelmann \n Kontakt:\n E-post: info@foodsharing.de\n\n Registerutdrag:\n\
+      \  Innføring i foreningsregisteret\n Registerretten: Amtsgericht Köln\n Registernummer:
       VR 17439\n Ansvarlig for innholdet etter § 18 MStV:\n  Frank Bowinkelmann"
   from: -- fra
   newsletter:
@@ -1263,6 +1263,8 @@ settings:
       name: Navn
       valid_start: gyldig fra
       valid_end: gyldig inntil
+      generate_error: Det oppsto en feil under generering av medlemskortet. Vennligst
+        prøv igjen senere.
     passport_not_activated: Medlemskortet ditt er ikke aktivert ennå.
     passport_is_invalid: Medlemskortet ditt er ikke lenger gyldig.
     passport_is_valid_until: Medlemskortet ditt er gyldig i ytterligere **{days}**
@@ -2033,7 +2035,7 @@ group:
         verify: bekrefte
         unverify: ubekrefte
       verify:
-        do: Vil du virkelig låse opp {navn} ({id}) (datasjekk utført/passsjekket osv.)?
+        do: Vil du virkelig låse opp {name} ({id}) (datasjekk utført/passsjekket osv.)?
         undo: Avbryt aktivering av {name} ({id})
         do_selected: Vil du virkelig låse opp alle valgte brukere (datasjekk utført
           / passsjekket osv.)?
@@ -3343,7 +3345,7 @@ regionOptions:
   enableReportButton: Aktiver klageknappen på profilsidene til hjemmebrukerne i dette
     distriktet
   regionPickupInactiveHours: 'Vennligst angi hvor mange timer før henting denne regelen
-    skal slutte å være implementert'
+    skal slutte å være implementert?'
   regionPickupLimitNumber: 'Angi maksimalt antall mulige samlinger på populære virksomheter
     for disse periodene'
   regionPickupLimitDayNumber: Angi det totale mulige maksimale antallet henting fra
@@ -3420,7 +3422,7 @@ releases:
   "2024-01": Versjon «Kiwi» 🥝 (januar 2024)
   "2024-04": Versjon «Kringle» 🥨 (april 2024)
   "2024-08": Versjon «Mandarin» 🍊 (august 2024)
-  "2024-12": Betaversjon «Nektarin» 🍑 (desember 2024)
+  "2024-12": Versjon «Nektarin» 🍑 (desember 2024)
 push_notifications:
   test_notification_title: Push-varsler er aktivert
   test_notification_body: Flott, det ser ut til å ha fungert :)
@@ -4234,8 +4236,8 @@ help:
         på https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n\nI inntastingsfeltet
         må du skrive inn navnet på ikonet du vil bruke, for eksempel «*walking*» eller
         «*shopping-cart*».\nDu kan sjekke om inndataene dine fungerer ved å bruke
-        forhåndsvisningen.\n Hvis du ikke skriver inn et ikon, vil standardikonet
-        for klistremerker «*tag*» automatisk bli brukt\n"
+        forhåndsvisningen.\nHvis du ikke skriver inn et ikon, vil standardikonet for
+        klistremerker «*tag*» automatisk bli brukt\n"
     polls:
       title: Avstemningene
       md: "Ved å bruke stemmemodulen kan valg, undersøkelser og andre stemmer gjennomføres
@@ -4315,14 +4317,14 @@ theme_switcher:
   theme:
     system: System
     light: Lys
-    dark: Mørk (Beta)
+    dark: Mørk
   title: Velg design
   content: Velg et design
   choose_button: OK
 achievements:
   validity:
     days: Gyldig i {validityInDaysAfterAssignment} dager etter tildeling.
-    indefiniteShort: Permanent
+    indefiniteShort: permanent
     indefinite: Gyldig for enhver tidsperiode etter tildeling.
   inThis:
     group: 'Følgende klistremerker kan tildeles i denne arbeidsgruppen:'
@@ -4381,7 +4383,7 @@ support_page:
   firstName: Fornavn
   notification_name: Når du er logget inn, vil fornavnet ditt og foodsharing-ID-en
     din også bli overført.
-  attachments: Vedlegg (maks. 5 MB per fil)
+  attachments: Vedlegg (maks. 5 MB per fil)
   info_teaser: Vårt støtteskjema er tilgjengelig for spørsmål om bruk av plattformen,
     tekniske bekymringer eller feilmeldinger. Etter innsending vil det automatisk
     bli opprettet en billett i vårt system. Det frivillige støtteteamet vil ta seg
