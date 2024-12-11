@@ -1,4 +1,4 @@
-# Release "N" (Unreleased)
+# Release "Nektarine", 2024-12-13
 
 ## Features
 - Disable preview mode for Markdown component after message was sent #2039 @tq-bit

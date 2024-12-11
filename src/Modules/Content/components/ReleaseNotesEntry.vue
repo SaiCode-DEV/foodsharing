@@ -47,7 +47,6 @@ export default {
 
 <style lang="scss" scoped>
 ::v-deep img {
-  margin: 0.5rem 1rem;
   margin-top: 0;
 
   &[src$="left"] {
