@@ -433,6 +433,8 @@ settings:
       role: "Role"
       valid_start: "Valid from"
       valid_end: "Valid until"
+      generate_error: "An error occurred while generating the passport. Please try
+        again later."
 
     ask_your_ambassadors: Please contact your ambassadors.
     passport_not_activated: Your membership card has not yet been activated.

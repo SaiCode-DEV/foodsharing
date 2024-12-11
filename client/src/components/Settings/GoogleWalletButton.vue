@@ -18,10 +18,11 @@
     >
   </b-overlay>
 </template>
+
 <script setup>
 import { defineProps, ref } from 'vue'
-
-import { locale } from '@/helper/i18n'
+import i18n, { locale } from '@/helper/i18n'
+import { pulseError } from '@/script'
 
 const props = defineProps({
   disabled: {
@@ -37,16 +38,27 @@ const props = defineProps({
 
 const busy = ref(false)
 
-function onClick () {
+async function onClick () {
   if (props.disabled || busy.value) return
   busy.value = true
-  setTimeout(() => {
-    busy.value = false
-  }, 8000)
-  window.location.href = props.href
-}
 
+  try {
+    const response = await fetch(props.href)
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw new Error(data.error || i18n('settings.passport.wallet.generate_error'))
+    }
+
+    window.location.href = data.url
+  } catch (error) {
+    pulseError(error.message)
+  } finally {
+    busy.value = false
+  }
+}
 </script>
+
 <style scoped>
 .clickable {
   cursor: pointer;

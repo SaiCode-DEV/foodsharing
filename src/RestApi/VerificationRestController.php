@@ -326,8 +326,15 @@ class VerificationRestController extends AbstractFoodsharingRestController
             throw new NotFoundHttpException('Invalid wallet type');
         }
 
-        $res = $this->passportGeneratorTransaction->createWallet($userId, $walletType);
+        try {
+            $res = $this->passportGeneratorTransaction->createWallet($userId, $walletType);
+            if (empty($res)) {
+                return $this->json(['error' => 'Could not generate wallet URL'], Response::HTTP_BAD_REQUEST);
+            }
 
-        return $this->redirect($res);
+            return $this->json(['url' => $res]);
+        } catch (\Exception $e) {
+            return $this->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
+        }
     }
 }

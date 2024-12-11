@@ -18,10 +18,11 @@
     >
   </b-overlay>
 </template>
+
 <script setup>
 import { defineProps, ref } from 'vue'
-
-import { locale } from '@/helper/i18n'
+import i18n, { locale } from '@/helper/i18n'
+import { pulseError } from '@/script'
 
 const props = defineProps({
   disabled: {
@@ -37,16 +38,46 @@ const props = defineProps({
 
 const busy = ref(false)
 
-function onClick () {
+async function onClick () {
   if (props.disabled || busy.value) return
   busy.value = true
-  setTimeout(() => {
-    busy.value = false
-  }, 8000)
-  window.location.href = props.href
-}
 
+  try {
+    const response = await fetch(props.href)
+
+    // Check if we got a JSON response (error case)
+    const contentType = response.headers.get('content-type')
+    if (contentType && contentType.includes('application/json')) {
+      const data = await response.json()
+      if (!response.ok) {
+        throw new Error(data.error || i18n('settings.passport.wallet.generate_error'))
+      }
+    }
+
+    // Handle binary file download
+    if (response.ok) {
+      const blob = await response.blob()
+      // Create a temporary download link
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'pass.pkpass'
+      document.body.appendChild(a)
+      a.click()
+      window.URL.revokeObjectURL(url)
+      document.body.removeChild(a)
+      return
+    }
+
+    throw new Error('Failed to download pass')
+  } catch (error) {
+    pulseError(error.message)
+  } finally {
+    busy.value = false
+  }
+}
 </script>
+
 <style scoped>
 .clickable {
   cursor: pointer;

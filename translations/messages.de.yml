@@ -2159,6 +2159,7 @@ settings:
       role: "Rolle"
       valid_start: "Gültig ab"
       valid_end: "Gültig bis"
+      generate_error: "Es ist ein Fehler beim Generieren des Ausweises aufgetreten. Bitte versuche es später erneut."
 
   calendar:
     menu: "Kalender"
