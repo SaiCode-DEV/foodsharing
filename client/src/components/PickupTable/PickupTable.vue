@@ -72,13 +72,18 @@
           <small v-if="noMorePages">
             {{ $i18n('pickup.overview.allLoaded') }}
           </small>
-          <b-button
+          <LoadingOverlay
             v-else
-            size="sm"
-            @click="$emit('load-more')"
+            :active="loading"
           >
-            {{ $i18n('pickup.overview.menu.loadMore') }}
-          </b-button>
+            <b-button
+              size="sm"
+              :disabled="loading"
+              @click="$emit('load-more')"
+            >
+              {{ $i18n('pickup.overview.menu.loadMore') }}
+            </b-button>
+          </LoadingOverlay>
         </td>
       </tr>
     </template>
@@ -89,11 +94,12 @@
 import { BTable } from 'bootstrap-vue'
 import AvatarStack from '@/components/Avatar/AvatarStack.vue'
 import i18n from '@/helper/i18n'
+import LoadingOverlay from '@/components/LoadingOverlay.vue'
 
 const MIN_WIDTH_FOR_WIDE_LAYOUT = 600
 
 export default {
-  components: { BTable, AvatarStack },
+  components: { BTable, AvatarStack, LoadingOverlay },
   props: {
     data: {
       // the data to be displayed in the table
@@ -124,6 +130,11 @@ export default {
       // css class to apply to the table. Currently used to display registered tabs shadowed in the options tab
       type: String,
       default: () => '',
+    },
+    loading: {
+      // whether the data is currently being loaded
+      type: Boolean,
+      default: () => false,
     },
   },
   data () {

@@ -29,6 +29,7 @@
         :allow-slot-cancelation="allowSlotCancelation"
         :paginated="paginated"
         :no-more-pages="nextPage === -1"
+        :loading="isFetching"
         @load-more="fetchData"
         @cancel-slot="deleteSlot"
       />

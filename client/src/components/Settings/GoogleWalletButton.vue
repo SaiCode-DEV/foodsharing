@@ -1,14 +1,8 @@
 <template>
-  <b-overlay
-    id="overlay-background"
-    variant="dark"
-    :show="busy"
-    :opacity="0.6"
+  <loading-overlay
+    :active="busy"
     rounded="pill"
   >
-    <template #overlay>
-      <i class="fas fa-spinner fa-spin" />
-    </template>
     <img
       class="clickable"
       :src="`/img/wallet/google/${locale.toUpperCase()}.svg`"
@@ -16,11 +10,12 @@
       :alt="$i18n('settings.passport.add_to_wallet.google')"
       @click="onClick"
     >
-  </b-overlay>
+  </loading-overlay>
 </template>
 
 <script setup>
 import { defineProps, ref } from 'vue'
+import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import i18n, { locale } from '@/helper/i18n'
 import { pulseError } from '@/script'
 

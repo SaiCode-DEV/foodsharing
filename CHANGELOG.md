@@ -76,6 +76,7 @@
 - Rework passport and verification for ambassadors and foodsaver !3627 !3833 !3837 !3849 @chriswalg
 - Order groups in profile by name !3843 @AntonBallmaier
 - Use abbreviated names in poll columns on small devices !3843 @AntonBallmaier
+- Add Loading animation to Load more in pickup history #2227 !3859 @SaiCode
 
 ## Bugfixes
 - Resolve quoted string is not parsed correctly in mail address #2142 !3757 @anja0884
