@@ -2054,8 +2054,8 @@ footer:
     beta_testing_issues: Test tasks of the Beta version
     made_with: made with
   hosting:
-    info: hosted in a CO<sub>2</sub> neutral manner
-    tooltip: CO<sub>2</sub>-neutrally hosted at manitu
+    info: hosted in a CO₂ neutral manner
+    tooltip: CO₂-neutrally hosted at manitu
   partner_names:
     wiener_tafel: Food bank Vienna
     denns: Denn’s Biomarkt
@@ -2927,7 +2927,7 @@ theme_switcher:
   theme:
     system: "System"
     light: "Light"
-    dark: "Dark (Beta)"
+    dark: "Dark"
 
 plz: Post code (automatically filled by the map above)
 fsp:
