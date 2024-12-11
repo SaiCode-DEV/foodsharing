@@ -367,7 +367,7 @@ settings:
       "false": No, don’t show my pick-up slots in the calendar
     history:
       "false": No, do not show past events in the calendar
-      label: Should past appointments from the last 2 weeks be included?
+      label: Should past appointments from the last two weeks be included?
       "true": Yes, include recent appointments
     protocol: Which protocol is your calendar software using?
     info: "Here, you can connect your foodsharing appointments with the calendar software
@@ -636,7 +636,7 @@ profile:
       reportGroup: 'This report will be sent to the local report group. You can also
         reach that group via the following e-mail address:'
     info: "In order to make the report easier processable, it should contain the following
-      information\n- Date, time and place of the incident.\n- What you have already
+      information:\n- Date, time and place of the incident.\n- What you have already
       done, for example whether you have tried the communication channels available
       to you in order to address the incident directly to the person and to clarify
       the matter.\n- How you can be reached best in case we have further questions.\n"
@@ -1070,9 +1070,9 @@ forum:
       write a message, but other users cannot reply!
     hide: Hide post
     giveHideReason: Please state why you want to hide this post.
-    hideReasonPlaceholder: Enter reason here…
+    hideReasonPlaceholder: Enter reason here …
     hideInfo: Hidden posts are no longer displayed. They can be restored by moderators
-      within 3 months before they are permanently deleted. During this time, forum
+      within three months before they are permanently deleted. During this time, forum
       users can see why the post was hidden, and moderators can also see by whom.
     sureHide: Are you sure you want to hide this post?
     hiddenPost: Post hidden by [{moderatorName}]({moderatorUrl})
@@ -1797,12 +1797,12 @@ email_template:
     confirm it in order that it is published.
   confirm_link: would like to publish the topic
   impress:
-    general_information_requirements: Information according to § 5 Telemediengesetz
+    general_information_requirements: Information according to § 5 Telemediengesetz
     title: Legal notice
-    address: "foodsharing e.V.\nNeven-DuMont-Str. 14 \n50667 Cologne \nRepresented
-      by:\n\nFrank Bowinkelmann \nContact Details:\nE-Mail: info@foodsharing.de\n\n
+    address: "foodsharing e. V.\nNeven-DuMont-Str. 14 \n50667 Cologne \nGermany\n\n
+      Represented by:\nFrank Bowinkelmann \nContact Details:\nE-Mail: info@foodsharing.de\n
       \nRegister Entry:\nRegistration Court: District Court Cologne\nRegistration
-      Number: VR 17439\nResponsible for the content according to § 18 MStV:\n  Frank
+      Number: VR 17439\n\nResponsible for the content according to § 18 MStV:\n  Frank
       Bowinkelmann"
   newsletter:
     linktext: Click here to unsubscribe.
@@ -2054,8 +2054,8 @@ footer:
     beta_testing_issues: Test tasks of the Beta version
     made_with: made with
   hosting:
-    info: hosted in a CO₂ neutral manner
-    tooltip: Carbon-neutrally hosted at manitu
+    info: hosted in a CO<sub>2</sub> neutral manner
+    tooltip: CO<sub>2</sub>-neutrally hosted at manitu
   partner_names:
     wiener_tafel: Food bank Vienna
     denns: Denn’s Biomarkt
@@ -3431,8 +3431,9 @@ regionOptions:
   save: Save options
   success: Options saved successfully
   header_page: Settings for {bezirk}
-  regionPickupInactiveHours: 'Please indicate how many hours before the pick-up this
-    rule shall cease to be implemented'
+  regionPickupInactiveHours: 'How many hours in advance should an entry be possible
+    if the maximum number in the corresponding period has already been reached or
+    exceeded?'
   regionPickupLimitNumber: 'Indicate the maximum number of allowed CHERRY pick-ups
     for the chosen period of time'
   regionPickupLimitDayNumber: 'Indicate the maximum number of CHERRY pick-ups per
@@ -3728,10 +3729,10 @@ quiz:
         can see whether you have a valid hygiene sticker.
   comment:
     toggle: write a comment
-    placeholder: Enter comment…
+    placeholder: Enter comment …
     sent: Comment sent.
     wallTitle: 'Comments on question #{id}'
-    label: comment on the question
+    label: Comment on the question
     info: Give us feedback on this question. Was it too easy, too difficult, incomprehensible?
       Or are individual answers or explanations incorrect?
     send: submit comment
@@ -3840,7 +3841,7 @@ quiz:
       title: Edit question
       input:
         text:
-          placeholder: Quiz question…
+          placeholder: Quiz question …
           label: 'Question:'
         fp: 'Failure points:'
         wikilink:
@@ -3857,10 +3858,10 @@ quiz:
       input:
         text:
           label: 'Answer:'
-          placeholder: Answer…
+          placeholder: Answer …
         explanation:
           label: 'Explanation:'
-          placeholder: Explanation…
+          placeholder: Explanation …
         answerRating: 'Rating:'
   plural: Quizzes
   infomodal:
@@ -4363,11 +4364,11 @@ help:
         reasons are selectable in the report form.\nThis can either be the simple
         or extended versions of the reasons. In the extended version, all rules that
         are listed [in the Wiki at point B](https://wiki.foodsharing.de/Verhaltensregeln#B.29_Verhalten_bei_Abholungen)
-        will be listed.\nAdditionally, the option \"Other reason\" can be enabled
-        to be listed in the form.\n---\nRecommendations about the settings can be
-        given to the local report group. The decision about this can, however, be
-        solely made by the administrators of that group, who do not *have to* follow
-        these recommendations.\n"
+        will be listed.\nAdditionally, the option “Other reason” can be enabled to
+        be listed in the form.\n---\nRecommendations about the settings can be given
+        to the local report group. The decision about this can, however, be solely
+        made by the administrators of that group, who do not *have to* follow these
+        recommendations.\n"
     report:
       title: Report processing
       md: "Here, you see all reports that were made about people in this home region.
@@ -4456,10 +4457,10 @@ team_page:
       community and external parties. In addition, the Executive Board deals extensively
       with organizational development and the political dimension of food waste.\n"
 automatic_delete: '- the profile should be deleted.'
-no_automatic_delete: 'In case the last login was five years ago:'
+no_automatic_delete: 'In case the last login was more than five years ago:'
 automatic_not_delete: '- the profile should be kept.'
 validation:
-  phone_number_invalid: The telephone number is invalid (e.g. country code is missing,
+  phone_number_invalid: The telephone number is invalid (e. g. country code is missing,
     it is too short, too long or contains invalid characters)
 achievements:
   inThis:
@@ -4468,7 +4469,7 @@ achievements:
   validity:
     days: Valid for {validityInDaysAfterAssignment} days after award.
     indefinite: Valid indefinitely after allocation.
-    indefiniteShort: Permanently
+    indefiniteShort: permanently
   reviewer: Reviewer
   notice: Remark
   editDetails: Edit details
@@ -4524,7 +4525,7 @@ support_page:
   subject: Subject
   validation_subject: Subject is empty
   validation_body: Message is empty
-  attachments: Attachments (max. 5 MB per file)
+  attachments: Attachments (max. 5 MB per file)
   validation_email: Invalid e-mail address
   new_request: New request
 petition:
