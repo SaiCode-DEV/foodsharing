@@ -2735,6 +2735,7 @@ forum:
       kullanıcıları paylaşımın neden gizlendiğini, katillerin kimler tarafından gizlendiğini
       görebilir.
     hiddenPost: Gönderi [{moderatorName}]({moderatorUrl}) tarafından gizlendi
+    hiddenReason: 'Sebep: {reason}'
   new_thread: Yeni bir konu oluştur
   deleted_user: Silinmiş üye
   not_found: Bu konu mevcut değil.
@@ -4220,8 +4221,7 @@ help:
         yapılır. Yani değişiklikler hemen gerçekleşmez.\n"
       title: Yüksek Bölge
     achievements:
-      md: "Başarılara ilişkin bir açıklamanın buraya eklenmesi gerekmektedir. Bunu
-        daha sonra yapacağım. TODO\n"
+      md: ""
       title: Başarılar
     report:
       title: Şikayet İşleme
@@ -4256,9 +4256,9 @@ help:
         simgesi (İcon), küçük bir grafiği vardır. Kullanılabilir simgelerin bir listesini
         https://fontawesome.com/v5/search?o=r&m=free&s=solid adresinde bulabilirsiniz.\n
         \nGiriş alanına kullanmak istediğiniz simgenin (İcon) adını girmeniz gerekir;
-        örneğin \"*yürüyüş*\" veya \"*alışveriş sepeti*\".\nÖnizlemeyi kullanarak
-        girişinizin çalışıp çalışmadığını kontrol edebilirsiniz.\nBir simge (İcon)
-        girmezseniz, varsayılan başarı simgesi \"*etiket*\" otomatik olarak kullanılacaktır\n"
+        örneğin “*walking*” veya “*shopping-cart*”.\nÖnizlemeyi kullanarak girişinizin
+        çalışıp çalışmadığını kontrol edebilirsiniz.\nBir simge (İcon) girmezseniz,
+        varsayılan başarı simgesi “*tag*” otomatik olarak kullanılacaktır\n"
     moderatorForumHide:
       title: Moderatörler tarafından forumlarda gizlenme
       md: "###### Moderatör kimdir?\nBir grubun veya bölgenin moderatörleri genellikle
@@ -4353,7 +4353,7 @@ theme_switcher:
   theme:
     system: Sistem
     light: Aydınlık
-    dark: Karanlık
+    dark: Karanlık (beta)
   choose_button: Okey
   content: Lütfen bir tasarım seçin
 store_categories:
@@ -4370,3 +4370,5 @@ store_categories:
     artık bir kategorisi olmayacak.
   new: Yeni kategori girin
 error_base64_image: Drag & Drop yöntemiyle resim eklenmesine izin verilmez.
+support_page:
+  title: Destek formu
