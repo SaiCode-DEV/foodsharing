@@ -55,7 +55,7 @@ group:
     ability: Quelles sont tes compétences dans ce domaine ?
     experience: "Peux-tu te référer à des expériences acquises ailleurs dans le groupe ?\n
       Si oui, où et lesquels ?\n"
-    error_missing_time: 'Erreur : aucune heure n’a été choisie.'
+    error_missing_time: 'Erreur : aucune heure n’a été choisie.'
   contact:
     sent: Le message a bien été envoyé.
     send: Envoyer le message
@@ -664,6 +664,8 @@ settings:
       role: Rôle
       valid_end: Valable jusqu’au
       name: Nom
+      generate_error: Une erreur s’est produite lors de la génération de la carte
+        de membre. Veuillez réessayer plus tard.
     passport_not_activated: Ta carte de membre n’a pas encore été activée.
     ask_your_ambassadors: Adresse-toi à tes ambassadeurs/ambassadrices.
     passport_is_valid_until: Ta carte de membre est encore valable **{days}** jours
@@ -723,11 +725,11 @@ email_template:
   from: -- De
   impress:
     title: Mentions légales
-    address: "foodsharing e.V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n Représenté
-      par :\n\n Frank Bowinkelmann \n Contact :\n Courriel : info@foodsharing.de\n
-      Inscription au registre :\n\n Inscription au registre des associations\n Tribunal d’enregistrement :
-      tribunal de Cologne\n Numéro d’enregistrement : VR 17439\n Responsable du contenu
-      d’après § 18 MStV :\n  Frank Bowinkelmann"
+    address: "foodsharing e.V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n Allemagne\n
+      \n Représenté par :\n Frank Bowinkelmann \n Contact :\n Courriel : info@foodsharing.de\n
+      \n Inscription au registre :\n Inscription au registre des associations\n Tribunal d’enregistrement :
+      tribunal de Cologne\n Numéro d’enregistrement : VR 17439\n\n Responsable du
+      contenu d’après § 18 MStV :\n  Frank Bowinkelmann"
     general_information_requirements: Mentions suivant l’article 5 de la loi sur les
       télémédias (Telemediengesetz)
   manual_slots_get_ignored: Cette notification est actuellement envoyée si personne
@@ -899,7 +901,7 @@ foodsaver:
   delete_account_reason: Motif de la suppression du compte
 recipients:
   done: Tous les courriels ont été envoyés
-  status: 'Envoyer des courriels … (adresse électronique actuelle : {current})'
+  status: 'Envoyer des courriels … (adresse électronique actuelle : {current})'
   permission: Tu n’as pas le droit d’envoyer des courriels
   pending: Il reste encore {count} courriels à envoyer
   history: Courriels envoyés par toi
@@ -2883,7 +2885,7 @@ regionOptions:
   regionPickupLimitDayNumber: Nombre total maximum de collectes dans les entreprises
     populaires par jour
   regionPickupInactiveHours: Combien d’heures avant une collecte la règle ne s’applique-t-elle
-    plus
+    plus ?
   regionPickupRuleActiveStoreList: 'Liste des coopérations du district particulièrement
     prisés en ce sens. Tous les collectes des coopérations listées sont additionnées
     et prises en compte pour la règle.'
@@ -3157,7 +3159,7 @@ releases:
   "2024-01": Version « Kiwi » 🥝 (janvier 2024)
   "2024-04": Version « Breztel » 🥨 (avril 2024)
   "2024-08": Version « Mandarine » 🍊 (août 2024)
-  "2024-12": Version bêta « Nectarine » 🍑 (décembre 2024)
+  "2024-12": Version « Nectarine » 🍑 (décembre 2024)
 startpage:
   donate:
     text: "Nous nous efforçons de faire parrainer toutes nos dépenses. Cependant,
@@ -3722,7 +3724,7 @@ quiz:
     continue: '{name} – Continuer le quiz !'
     pause: Pause d’apprentissage ({name})
     disqualified: '{name} – malheureusement disqualifié(e).'
-    start: '{name} ‐ Répondre au quiz maintenant !'
+    start: '{name} – Répondre au quiz maintenant !'
   startmodal:
     title: Notes du quiz
     infos:
@@ -3775,7 +3777,7 @@ quiz:
     title: Question {index} sur {questions}
   comment:
     toggle: écrire un commentaire
-    placeholder: Saisis un commentaire…
+    placeholder: Saisis un commentaire …
     send: soumettre le commentaire
     sent: Commentaire envoyé.
     info: Donne-nous ton avis sur cette question. Était-elle trop facile, trop difficile,
@@ -3881,7 +3883,7 @@ quiz:
         fp: 'Points d’erreur :'
         text:
           label: 'Question :'
-          placeholder: Question quiz…
+          placeholder: Question quiz …
         duration: 'Temps de répondre :'
         wikilink:
           label: 'Lien vers l’article correspondant :'
@@ -4517,7 +4519,7 @@ theme_switcher:
   content: Choisis ton design
   title: Choisir le design
   theme:
-    dark: Sombre (Bêta)
+    dark: Sombre
     light: Clair
     system: Système
   choose_button: OK
@@ -4532,7 +4534,7 @@ support_page:
   notification_name: Comme tu es connecté, ton prénom et ton identifiant foodsharing
     sont transmis.
   title: Formulaire d’assistance
-  attachments: Pièces jointes (5 Mo maximum par fichier)
+  attachments: Pièces jointes (5 Mo maximum par fichier)
   validation_body: Le message est vide
   body: Message
   validation_email: Adresse électronique non valide
