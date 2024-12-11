@@ -108,7 +108,7 @@ class WorkGroupCest
         $I->fillField('#input-motivation', 'My Motivation');
         $I->fillField('#input-ability', 'My Skillz');
         $I->fillField('#input-experience', 'My Experience');
-        $I->selectOption('#input-time', '1-2 Stunden');
+        $I->selectOption('#input-time', '1–2 Stunden');
         $I->click('Senden');
         $I->waitForText('Erfolgreich abgeschlossen');
         $I->seeInDatabase('fs_foodsaver_has_bezirk', ['foodsaver_id' => $this->regionMember['id'], 'bezirk_id' => $this->testGroupApply['id']]);

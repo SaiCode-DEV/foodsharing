@@ -26,7 +26,7 @@ class PasswordResetCest
         $I->fillField('#email', $user['email']);
         $I->click('Senden');
 
-        $I->see('Alles klar, dir wurde ein Link zum Passwortändern per E-Mail zugeschickt');
+        $I->see('Alles klar, dir wurde ein Link zum Ändern des Passworts per E-Mail zugeschickt');
 
         // receive a mail
         $I->expectNumMails(1, 5);

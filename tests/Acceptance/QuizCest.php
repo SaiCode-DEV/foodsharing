@@ -28,8 +28,8 @@ class QuizCest
     }
 
     /**
-     * @example["foodsharer", "Foodsaver:innen Quiz", "Quiz ohne Zeitlimit", "Quiz ohne Zeitlimit"]
-     * @example["foodsaver", "Betriebsverantwortlichen Quiz", "Quiz mit Zeitlimit", "Quiz jetzt starten"]
+     * @example["foodsharer", "Foodsaver:innen-Quiz", "Quiz ohne Zeitlimit", "Quiz ohne Zeitlimit"]
+     * @example["foodsaver", "Betriebsverantwortlichen-Quiz", "Quiz mit Zeitlimit", "Quiz jetzt starten"]
      */
     public function canStartQuiz(AcceptanceTester $I, Example $example): void
     {
@@ -49,8 +49,8 @@ class QuizCest
 
         $I->waitForText('Jetzt das Quiz durchführen!');
         $I->click($example[2]);
-        $I->waitForText('Los geht\'s!');
-        $I->click('Los geht\'s!');
+        $I->waitForText('Los geht’s!');
+        $I->click('Los geht’s!');
 
         $I->waitForText('Frage 1 von ');
         $I->waitForActiveAPICalls();
@@ -67,8 +67,8 @@ class QuizCest
         $I->reloadPage();
         $I->waitForText('Quiz jetzt weiter beantworten!');
         $I->click('Quiz jetzt weiter beantworten!');
-        $I->waitForText('Los geht\'s!');
-        $I->click('Los geht\'s!');
+        $I->waitForText('Los geht’s!');
+        $I->click('Los geht’s!');
 
         $I->waitForText('Frage 2 von ');
     }
