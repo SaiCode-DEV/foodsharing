@@ -3803,8 +3803,8 @@ footer:
     wiener_tafel: 'Banco de Alimentos de Viena'
     lebensministerium: 'Ministerio Federal de Agricultura, Regiones y Turismo'
   hosting:
-    info: 'Alojado de forma neutra en CO<sub>2</sub>'
-    tooltip: 'Alojamiento con emisiones neutras de CO<sub>2</sub> en Manitu'
+    info: 'Alojado de forma neutra en CO₂'
+    tooltip: 'Alojamiento con emisiones neutras de CO₂ en Manitu'
   infosDeveloper: 'para desarrollador@s de software'
   imprint: 'Aviso legal'
   partner: 'Soci@s'
@@ -4152,7 +4152,7 @@ releases:
   "2024-01": Lanzamiento “Kiwi” 🥝 (Enero 2024)
   "2024-04": Lanzamiento de "Pretzel" 🥨 (abril de 2024)
   "2024-08": Lanzamiento de "Mandarine" 🍊 (agosto de 2024)
-  "2024-12": Versión beta "Nectarina" 🍑 (diciembre de 2024)
+  "2024-12": Versión «Nectarina» 🍑 (diciembre de 2024)
 salutation:
   "2": 'Querida'
   "3": 'Queride'
@@ -4638,7 +4638,7 @@ theme_switcher:
   theme:
     system: Sistema
     light: Claro
-    dark: Oscuro (Beta)
+    dark: Oscuro
 store_categories:
   edit: Cambiar nombre de categoría
   columns:
