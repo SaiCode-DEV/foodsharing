@@ -5,7 +5,7 @@
 - Add feedback on login form for invalid / missing email address #2061 @tq-bit
 - Add API endpoint for creating blog posts !3455 @alex.simm
 - Store walls now support image attachments !3577 @AntonBallmaier
-- Create option for multiple themes with dark mode as a start #2054 !3500 !3653 @SaiCode #2229 3831 @AntonBallmaier
+- Create option for multiple themes with dark mode as a start #2054 !3500 !3653 !3720 @SaiCode #2229 !3831 @AntonBallmaier
 - Allow users to change their own passwords #581 !3435 @alex.simm
 - Allow loading more wall posts #2056 !3580 @AntonBallmaier
 - Add a hygiene quiz that can be edited by the hygiene working group #2074 #2146 #2204 #2211 #2236 !3540 !3668 !3722 !3798 !3806 !3842 @AntonBallmaier

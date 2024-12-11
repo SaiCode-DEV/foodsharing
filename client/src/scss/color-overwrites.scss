@@ -204,10 +204,6 @@ tbody tr:hover td {
   border-color: var(--fs-color-gray-300);
 }
 
-.vti__input {
-  background-color: transparent;
-}
-
 .badge-danger {
   background-color: var(--fs-color-danger-500);
   color: var(--fs-color-white);
@@ -402,12 +398,20 @@ button.close {
 .multiselect--disabled {
   background: var(--fs-color-primary-200);
 }
+
+.vue2leaflet-map.leaflet-container {
+  background-color: var(--fs-color-background);
+}
 }
 
 body.light-mode {
   .text-success {
     color: var(--fs-color-success-600) !important;
   }
+}
+
+.vti__input {
+  background-color: transparent;
 }
 
 pre {
