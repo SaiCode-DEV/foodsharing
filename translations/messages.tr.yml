@@ -299,7 +299,7 @@ quiz:
     title: "{questions}'den {index}. soru"
   comment:
     toggle: Yorum yaz
-    placeholder: Yorum girin...
+    placeholder: Yorum girin…
     send: Yorum gönder
     sent: Yorum gönderildi.
     info: Bu soruyla ilgili bize geri bildirimde bulunun. Çok mu kolaydı, çok mu zordu,
@@ -424,7 +424,7 @@ quiz:
       input:
         text:
           label: 'Soru:'
-          placeholder: Test sorusu...
+          placeholder: Test sorusu…
         duration: 'Cevap verme süresi:'
         fp: 'Hata puanı:'
         wikilink:
@@ -440,10 +440,10 @@ quiz:
       input:
         text:
           label: 'Cevap:'
-          placeholder: Cevap...
+          placeholder: Cevap…
         explanation:
           label: 'Açıklama:'
-          placeholder: Açıklama...
+          placeholder: Açıklama…
         answerRating: 'Değerlendirme:'
   confirmDashboardText: Bir testi başardınız, ancak daha onaylamadınız. İşlemi tamamlamak
     için [burayı tıklayın]({url})!
@@ -902,7 +902,7 @@ bell:
   workinggroup_new_request: Çalışma grubu için yeni bir başvuru
   forum_not_activated_thread: '{forum}'
   forum_not_activated_thread_title: Denetlenen forumdaki konu
-  passport_created_or_renewed_title: Kimliğiniz...
+  passport_created_or_renewed_title: Kimliğiniz …
   passport_created_or_renewed: etkinleştirildi veya uzatıldı!
 sig:
   buddies: Tanıdığın insanlar
@@ -1148,10 +1148,10 @@ startpage:
     gibi çabuk bozulan yiyecekler için geçerlidir. Genel olarak, yiyeceğin hala yenilebilir
     olduğundan emin olmak için tüm dikkatimizi kullanırız.'
   followrules: "Belirli gıdaların ve diğer ürünlerin sunulmasını ve paylaşılmasını
-    yasakladığımızı açıkça belirtiriz.\nYasal nedenlere yalnızca belirli koşullar
-    altında izin verilir. Bu özellikle çiğ balık, çiğ et, çiğ yumurtalı yemekler ve
-    hazır gıdalar gibi çabuk bozulan gıdalar için geçerlidir. Genel olarak yiyeceğin
-    hâlâ yenilebilir olduğundan emin olmak için tüm duyularımızı kullanırız. Tüm ayrıntıları
+    yasakladığımızı açıkça belirtiriz. Yasal nedenlere yalnızca belirli koşullar altında
+    izin verilir. Bu özellikle çiğ balık, çiğ et, çiğ yumurtalı yemekler ve hazır
+    gıdalar gibi çabuk bozulan gıdalar için geçerlidir. Genel olarak yiyeceğin hâlâ
+    yenilebilir olduğundan emin olmak için tüm duyularımızı kullanırız. Tüm ayrıntıları
     [yiyecek paylaşımı hijyen kurallarında](https://wiki.foodsharing.de/Hygiene Rules)
     bulabilirsiniz. Bilgilere ayrıca [Kılavuzdan](https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel)
     ulaşılabilir.\n"
@@ -1255,7 +1255,7 @@ storeedit:
     dropped: '{user} artık ekipte değil'
   edit_success: Değişiklikler kaydedildi
   store_name_placeholder: İşletmenin adı
-  name_error: İsim en az 3 karakterden oluşmalıdır.
+  name_error: İsim en az üç karakterden oluşmalıdır.
 date:
   -- Tomorrow: Yarın
   yesterday: dün
@@ -1301,7 +1301,7 @@ regionOptions:
   regionPickupTimespan: Lütfen düzenlemenin geçerli olduğu süreyi gün olarak belirtiniz
   regionPickupLimitDayNumber: Lütfen BİR GÜN için toplam maksimum alım sayısını girin
   regionPickupInactiveHours: Lütfen düzenlemenin artık geçerli olmayacağı bir alımdan
-    önceki saat sayısını girin
+    önceki saat sayısını girin?
   regionPickupRuleActive: 'Bölge çapında adalet kuralına sahip (nadir, genellikle
     efsanevi, özellikle sıra dışı, son derece popüler, yararlı) işletmelerdeki alımlar
     için aşağıdaki bölge kuralını etkinleştirin:'
@@ -1313,7 +1313,7 @@ regionOptions:
     aktif değil.
   regionReportReasonCategoryB: 'Genişletilmiş raporlama nedenleri: Davranış kuralları
     - B) Gıda kurtarma sırasındaki davranışlar'
-  regionReportReasonOther: Raporlama nedeni olarak "Diğer"e izin ver
+  regionReportReasonOther: Raporlama nedeni olarak “Diğer”e izin ver
 validate:
   required: '{it} boş kalamaz'
 select: Lütfen seçiniz
@@ -1423,7 +1423,7 @@ store:
     confirm-far: Kayıtlı adresinize göre bu işletmeden çok uzakta oturuyorsunuz ({distance}).
       Buradaki ekibe düzenli ve güvenilir bir şekilde destek verebileceğinizden emin
       misiniz?
-    application-placeholder: Bu ekibe yardımcı olmak istiyorum çünkü...
+    application-placeholder: Bu ekibe yardımcı olmak istiyorum çünkü …
     application-message: Başvuru mesajı
     hygieneMissing: 'Şu anda eksik olan şudur: Bu ekipte yer almak istiyorsan hemen
       hijyen testini yapın.'
@@ -1848,7 +1848,7 @@ events:
     kolayca konferansa katılabilirler. Bunun için başka hiçbir programa gerek yoktur,
     yalnızca oldukça modern bir İnternet tarayıcısı yeterlidir. Telefonla da katılmak
     mümkündür.\n\nTelefon veya video konferans için yine de başka bir platform kullanmak
-    istiyorsanız lütfen *\"Diğer\"* seçeneğini seçin.\n"
+    istiyorsanız lütfen *“Diğer”* seçeneğini seçin.\n"
 recipients:
   orga_team: Ülke çapındaki organizasyon ekibi
   all_no_botschafter: Elçileri olmayan tüm Foodsaverlar
@@ -2277,7 +2277,7 @@ footer:
     cta: Şimdi Bağış yap
     call_to: foodsharing'i desteklemek ister misiniz?
   hosting:
-    tooltip: Manitu'da CO2 - nötr barındırılıyor
+    tooltip: Manitu'da CO₂ - nötr barındırılıyor
     info: CO₂ nötr olarak barındırılır
   partner: Partner,
   guide: Hijyen rehberi
@@ -2305,7 +2305,7 @@ releases:
   "2024-01": “Kivi”yi yayınlayın 🥝 (Ocak 2024)
   "2024-04": '"Laugenbrezel"i yayınlayın 🥨 (Nisan 2024)'
   "2024-08": Release „Mandarine“🍊 (Ağustos 2024)
-  "2024-12": Beta sürümü “Nektarin” 🍑 (Aralık 2024)
+  "2024-12": Sürümü “Nektarin” 🍑 (Aralık 2024)
 storestatus:
   "5": bizimle işbirliği halinde
   "2": Görüşmeler devam ediyor
@@ -2410,12 +2410,12 @@ email_template:
     unsubscribe: Artık bir haber bülteni almak istemiyor musunuz?
     linktext: Üyelikten çıkmak için buraya tıklayın.
   impress:
-    address: "foodsharing e.V.\n  Neven-DuMont-Str. 14\n  50667 Köln\n  İle temsil
-      edilen:\n\n  Frank Bowinkelmann\n  Temas etmek:\n  E-posta: info@foodsharing.de\n\
-      \  Kayıt girişi:\n\n  Derneklerin siciline giriş\n  Kayıt mahkemesi: Köln Bölge
-      Mahkemesi\n  Kayıt numarası: VR 17439\n  § 58 MStV'ye göre içerikten sorumlu:\n\
+    address: "foodsharing e.V.\n  Neven-DuMont-Str. 14\n  50667 Köln\n  Almanya\n\n\
+      \  İle temsil edilen:\n  Frank Bowinkelmann\n  Temas etmek:\n  E-posta: info@foodsharing.de\n\
+      \n  Kayıt girişi:\n  Derneklerin siciline giriş\n  Kayıt mahkemesi: Köln Bölge
+      Mahkemesi\n  Kayıt numarası: VR 17439\n\n  § 18 MStV'ye göre içerikten sorumlu:\n\
       \   Frank Bowinkelmann"
-    general_information_requirements: § 5 Telemedya Yasasına göre bilgiler
+    general_information_requirements: § 5 Telemedya Yasasına göre bilgiler
     title: Künye
   information: Bilgi
   find_someone: Lütfen en kısa sürede İşletme ekibinizden birini bulun, böylece tahsilat
@@ -2577,7 +2577,7 @@ settings:
       none: Hiçbiri
       all: Tüm tarihler
     history:
-      label: Son 2 haftaya ait geçmiş randevular dahil edilmeli mi?
+      label: Son iki haftanın geçmiş randevuları dahil edilmeli mi?
       "true": Evet, takvimde en son randevularımı göster
       "false": Hayır, takvimde geçmiş etkinlikleri gösterme
     info: "Burada foodsharing randevularınızı seçtiğiniz bir takvim programına bağlayabilirsiniz.
@@ -2728,12 +2728,12 @@ forum:
       Diğer kullanıcılar cevap veremez!
     hide: Gönderiyi gizle
     giveHideReason: Lütfen bu gönderiyi neden gizlemek istediğinizi belirtin.
-    hideReasonPlaceholder: Nedenini buraya yazın...
+    hideReasonPlaceholder: Nedenini buraya yazın …
     sureHide: Bu gönderiyi gerçekten gizlemek istiyor musunuz?
     hideInfo: Gizli gönderiler artık görüntülenmeyecek. Kalıcı olarak silinmeden önce
-      3 ay içinde moderatörler tarafından geri yüklenebilirler. Bu süre zarfında forum
-      kullanıcıları paylaşımın neden gizlendiğini, katillerin kimler tarafından gizlendiğini
-      görebilir.
+      üç ay içinde moderatörler tarafından geri yüklenebilirler. Bu süre zarfında
+      forum kullanıcıları paylaşımın neden gizlendiğini, katillerin kimler tarafından
+      gizlendiğini görebilir.
     hiddenPost: Gönderi [{moderatorName}]({moderatorUrl}) tarafından gizlendi
     hiddenReason: 'Sebep: {reason}'
   new_thread: Yeni bir konu oluştur
@@ -2748,7 +2748,7 @@ forum:
   restore:
     really: Aşağıdaki gönderiyi gerçekten geri yüklemek istiyor musunuz?
     hidden_by: Şu şahıs tarafından gizlendi
-    reason: 'Sebep: "{reason}"'
+    reason: 'Sebep: “{reason}”'
     title: Gönderiyi geri yükle
 chat:
   open_chat: Bir mesaj yaz
@@ -3271,7 +3271,7 @@ terminology:
   fsManagementAdmins: İdare
   statistic: İstatistik
   fsps: Gıda Dağıtım Noktası
-  profile_picture: Profil- Resmi
+  profile_picture: Profil resmi
   n_cooperating_stores: '{count} Devam eden bir işbirliği'
   basket: Yemek Sepeti
   fsp: Gıda Dağıtım Noktası
@@ -4161,7 +4161,7 @@ thread:
     options:
       copy_source: Kaynak kodunu kopyala
       copy_direct_link: Doğrudan bağlantıyı kopyala
-      restore: Restore etmek...
+      restore: Restore etmek …
     copy_source_success: Kaynak kodu kopyalandı!
     copy_direct_link_success: Doğrudan bağlantı kopyalandı!
     linked_post: Bağlantılı yayın
@@ -4320,7 +4320,7 @@ achievements:
   validity:
     days: Görevlendirmeden sonraki {validityInDaysAfterAssignment} gün boyunca geçerlidir.
     indefinite: Veriltikten sonraki herhangi bir süre için geçerlidir.
-    indefiniteShort: Herhangi bir süre
+    indefiniteShort: sınırsız
   revokeConfirmation: '{name}''in desteğini iptal etmek istediğinizden emin misiniz?'
   reviewer: ..den
   notice: Dipnot
@@ -4353,7 +4353,7 @@ theme_switcher:
   theme:
     system: Sistem
     light: Aydınlık
-    dark: Karanlık (beta)
+    dark: Karanlık
   choose_button: Okey
   content: Lütfen bir tasarım seçin
 store_categories:
