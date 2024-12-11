@@ -626,8 +626,8 @@ export default {
     } catch (e) {
       pulseError(i18n('error_unexpected'))
     }
-    this.isCreatePdf = JSON.parse(localStorage.getItem('regionMemberList_createPdf'))
-    this.isRenewPassport = JSON.parse(localStorage.getItem('regionMemberList_renewPassport'))
+    this.isCreatePdf = JSON.parse(localStorage.getItem('regionMemberList_createPdf')) ?? true
+    this.isRenewPassport = JSON.parse(localStorage.getItem('regionMemberList_renewPassport')) ?? true
   },
   methods: {
     setPassportSettingsToLocalStorage () {
