@@ -262,10 +262,10 @@ email_template:
   impress:
     title: Impressum
     general_information_requirements: Informasjon etter § 5 Telemediengesetz
-    address: "foodsharing e.V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Representert
-      av:\n Frank Bowinkelmann \n Kontakt:\n E-post: info@foodsharing.de\n\n Registerutdrag:\n\
-      \  Innføring i foreningsregisteret\n Registerretten: Amtsgericht Köln\n Registernummer:
-      VR 17439\n Ansvarlig for innholdet etter § 18 MStV:\n  Frank Bowinkelmann"
+    address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Representert
+      av:\n Anja Westermann \n Kontakt:\n E-post: info@foodsharing.de\n\n Registerutdrag:\n
+      Innføring i foreningsregisteret\n Registerretten: Amtsgericht Köln\n Registernummer:
+      VR 17439\n\n Ansvarlig for innholdet etter § 18 MStV:\n Anja Westermann"
   from: -- fra
   newsletter:
     linktext: Klikk her for å avslutte abonnementet.
