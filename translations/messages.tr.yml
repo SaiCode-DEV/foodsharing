@@ -2410,11 +2410,10 @@ email_template:
     unsubscribe: Artık bir haber bülteni almak istemiyor musunuz?
     linktext: Üyelikten çıkmak için buraya tıklayın.
   impress:
-    address: "foodsharing e.V.\n  Neven-DuMont-Str. 14\n  50667 Köln\n  Almanya\n\n\
-      \  İle temsil edilen:\n  Frank Bowinkelmann\n  Temas etmek:\n  E-posta: info@foodsharing.de\n\
-      \n  Kayıt girişi:\n  Derneklerin siciline giriş\n  Kayıt mahkemesi: Köln Bölge
-      Mahkemesi\n  Kayıt numarası: VR 17439\n\n  § 18 MStV'ye göre içerikten sorumlu:\n\
-      \   Frank Bowinkelmann"
+    address: "foodsharing e. V.\nNeven-DuMont-Str. 14\n50667 Köln\nAlmanya\n\nİle
+      temsil edilen:\nAnja Westermann\nTemas etmek:\nE-posta: info@foodsharing.de\n
+      \nKayıt girişi: Derneklerin siciline giriş\nKayıt mahkemesi: Köln Bölge Mahkemesi\n
+      Kayıt numarası: VR 17439\n\n§ 18 MStV'ye göre içerikten sorumlu:\nAnja Westermann"
     general_information_requirements: § 5 Telemedya Yasasına göre bilgiler
     title: Künye
   information: Bilgi
