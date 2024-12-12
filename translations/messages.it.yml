@@ -1538,11 +1538,11 @@ email_template:
     e-mail BCC non possono essere consegnate al dominio @foodsharing.network."
   unknown_email: Indirizzo e-mail sconosciuto
   impress:
-    address: "foodsharing e.V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n Rappresentato
-      da:\n\n Frank Bowinkelmann \n Contatto:\n E-Mail: info@foodsharing.de\n  Iscrizione
-      al registro:\n\n  Iscrizione nel registro delle associazioni\n Tribunale del
-      registro: Tribunale locale di Colonia\n Numero di registro: VR 17439\n Responsabile
-      del contenuto secondo il § 18 MStV:\n  Frank Bowinkelmann"
+    address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Rappresentato
+      da:\n Anja Westermann \n Contatto:\n E-Mail: info@foodsharing.de\n \n Iscrizione
+      al registro:\n Iscrizione nel registro delle associazioni\n Tribunale del registro:
+      Tribunale locale di Colonia\n Numero di registro: VR 17439\n\n Responsabile
+      del contenuto secondo il § 18 MStV:\n Anja Westermann"
     general_information_requirements: Informazioni secondo § 5 legge telemedia germania
     title: Impronta
   newsletter:
