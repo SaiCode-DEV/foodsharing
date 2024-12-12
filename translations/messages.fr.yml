@@ -726,10 +726,10 @@ email_template:
   impress:
     title: Mentions légales
     address: "foodsharing e.V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n Allemagne\n
-      \n Représenté par :\n Frank Bowinkelmann \n Contact :\n Courriel : info@foodsharing.de\n
-      \n Inscription au registre :\n Inscription au registre des associations\n Tribunal d’enregistrement :
-      tribunal de Cologne\n Numéro d’enregistrement : VR 17439\n\n Responsable du
-      contenu d’après § 18 MStV :\n  Frank Bowinkelmann"
+      \n Représenté par :\n Anja Westermann \n Contact :\n Courriel : info@foodsharing.de\n
+      \n Inscription au registre :\n Tribunal d’enregistrement : tribunal de Cologne\n
+      Numéro d’enregistrement : VR 17439\n\n Responsable du contenu d’après § 18 MStV :\n
+      Anja Westermann"
     general_information_requirements: Mentions suivant l’article 5 de la loi sur les
       télémédias (Telemediengesetz)
   manual_slots_get_ignored: Cette notification est actuellement envoyée si personne
