@@ -407,7 +407,7 @@ export default {
       this.isMobile = window.innerWidth <= 768
     },
     isValidEmail (email) {
-      return /^((("[^"\\]+")|([a-zA-Z0-9_.+-]+))@[a-zA-Z0-9-]+\.[a-zA-Z]{2,})$/.test(email)
+      return /^((("[^"\\]+")|([a-zA-Z0-9_.+-]+))@([a-zA-Z0-9-]+\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,})$/.test(email)
     },
     addEmailTag (tag) {
       let tagString = tag.trim()
