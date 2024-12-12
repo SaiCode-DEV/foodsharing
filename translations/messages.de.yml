@@ -1092,7 +1092,7 @@ store:
     application-message: "Bewerbungsnachricht"
     application-placeholder: "Ich möchte gerne in diesem Team helfen, weil …"
     hygieneRequired: "Für die Abholungen in diesem Betrieb ist eine gültige Hygieneschulung nötig."
-    hygieneMissing: "Das fehlt dir aktuell. Führe jetzt das Hygienequiz durch, um dich für dieses Team bewerben zu können."
+    hygieneMissing: "Die fehlt dir aktuell. Führe jetzt das Hygienequiz durch, um dich für dieses Team bewerben zu können."
 
   info_container: "Informationen"
   no_chain_choosen: "keine Kette gewählt"
@@ -2766,8 +2766,8 @@ footer:
     call_to: Du möchtest foodsharing unterstützen?
     cta: Jetzt spenden
   hosting:
-    info: "CO<sub>2</sub>-neutral gehostet"
-    tooltip: "CO<sub>2</sub>-neutral gehostet auf manitu"
+    info: "CO₂-neutral gehostet"
+    tooltip: "CO₂-neutral gehostet auf manitu"
   partner_names:
     wiener_tafel: Wiener Tafel
     lebensministerium: Bundesministerium für Landwirtschaft, Regionen und Tourismus
@@ -2970,7 +2970,7 @@ email_template:
   impress:
     title: "Impressum"
     general_information_requirements: "Angaben gemäß § 5 Telemediengesetz"
-    address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n Vertreten durch:\n\n Frank Bowinkelmann \n Kontakt:\n E-Mail: info@foodsharing.de\n Registereintrag:\n\n Eintragung im Vereinsregister\n Registergericht: Amtsgericht Köln\n Registernummer: VR 17439\n Verantwortlich für den Inhalt nach § 18 MStV:\n  Frank Bowinkelmann"
+    address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Vertreten durch:\n Anja Westermann \n Kontakt:\n E-Mail: info@foodsharing.de \n\n Registereintrag:\n Eintragung im Vereinsregister\n Registergericht: Amtsgericht Köln\n Registernummer: VR 17439\n\n Verantwortlich für den Inhalt nach § 18 MStV:\n Anja Westermann"
   unknown_email: "Unbekannte E-Mail-Adresse"
   unknown_email2: "Die E-Mail-Adresse %ADDRESS% ist nicht bekannt. \nBitte beachte, dass Bcc-E-Mails an die Domain @foodsharing.network nicht zugestellt werden können."
   in: "in"
