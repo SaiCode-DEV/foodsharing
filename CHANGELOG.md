@@ -76,6 +76,7 @@
 - Rework passport and verification for ambassadors and foodsaver !3627 !3833 !3837 !3849 !3856 @chriswalg
 - Order groups in profile by name !3843 @AntonBallmaier
 - Use abbreviated names in poll columns on small devices !3843 @AntonBallmaier
+- Increased maximum Pickup Slots from 10 to 50 (configureable via config) !3628 @SaiCode
 - Add Loading animation to Load more in pickup history #2227 !3859 @SaiCode
 
 ## Bugfixes

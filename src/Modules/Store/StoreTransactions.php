@@ -59,7 +59,7 @@ class StoreTransactions
         CooperationStatus::COOPERATION_ESTABLISHED
     ];
 
-    final public const MAX_SLOTS_PER_PICKUP = 10;
+    final public const MAX_SLOTS_PER_PICKUP = 50;
     // status constants for getAvailablePickupStatus
     private const STATUS_RED_TODAY_TOMORROW = 3;
     private const STATUS_ORANGE_3_DAYS = 2;

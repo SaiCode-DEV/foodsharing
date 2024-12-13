@@ -70,7 +70,7 @@
           />
           <div class="add-pickup-slot">
             <button
-              v-if="(isCoordinator || mayEditStore) && totalSlots < 10 && !isInPast"
+              v-if="(isCoordinator || mayEditStore) && totalSlots < maxCountPickupSlot && !isInPast"
               v-b-tooltip.hover="$i18n('pickup.slot_add')"
               class="btn secondary"
               @click="$emit('add-slot', date)"
@@ -251,11 +251,10 @@
 import { BFormTextarea, BModal, VBTooltip } from 'bootstrap-vue'
 
 import { listSameDayPickupsForUser, checkPickupRuleStore } from '@/api/pickups'
+import StoreData, { getters } from '@/stores/stores'
 
 import TakenSlot from '@/components/Stores/Pickup/TakenSlot.vue'
 import EmptySlot from '@/components/Stores/Pickup/EmptySlot.vue'
-
-import StoreData from '@/stores/stores'
 
 export default {
   components: { EmptySlot, TakenSlot, BFormTextarea, BModal },
@@ -305,6 +304,9 @@ export default {
         storeName: this.storeTitle,
         name: this.activeSlot.profile.name,
       }
+    },
+    maxCountPickupSlot () {
+      return getters.getMaxCountPickupSlot()
     },
     isUserParticipant () {
       return this.occupiedSlots.findIndex((e) => {

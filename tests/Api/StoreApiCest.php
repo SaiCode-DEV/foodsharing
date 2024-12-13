@@ -287,7 +287,7 @@ class StoreApiCest
         $I->sendGET(self::API_STORES . '/meta-data');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['maxCountPickupSlot' => 10]);
+        $I->seeResponseContainsJson(['maxCountPickupSlot' => 50]);
         $storeChains = $I->grabDataFromResponseByJsonPath('$.storeChains');
         $I->assertNotCount(0, $storeChains);
         $groceries = $I->grabDataFromResponseByJsonPath('$.groceries');
@@ -310,7 +310,7 @@ class StoreApiCest
         $I->sendGET(self::API_STORES . '/meta-data');
         $I->seeResponseCodeIs(Http::OK);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['maxCountPickupSlot' => 10]);
+        $I->seeResponseContainsJson(['maxCountPickupSlot' => 50]);
         $storeChains = $I->grabDataFromResponseByJsonPath('$.storeChains');
         $I->assertNotCount(0, $storeChains);
     }
