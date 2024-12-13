@@ -10,6 +10,7 @@
         />
       </div>
       <div class="releasefield__links">
+        {{ ReleaseData.teaser }}
         {{ $i18n('dashboard.release.for_release_notes') }}
         <a
           class="releasefield__link"

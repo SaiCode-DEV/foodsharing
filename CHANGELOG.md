@@ -179,6 +179,7 @@
 - Updated Symfony, FOS Rest bundle, and phinx !3787 @alex.simm
 - Update twig to 3.14.2 !3788 @chriswalg
 - Added zammad docker container to dev system !3771 @chriswalg
+- Finalize Release Nektarine !3867 @AntonBallmaier
 
 # Hotfix 2024-08-29
 
