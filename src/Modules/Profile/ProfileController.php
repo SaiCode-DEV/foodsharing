@@ -414,7 +414,7 @@ final class ProfileController extends FoodsharingController
             'fsIdSession' => $this->session->id(),
             'homeRegionId' => $userArray['bezirk_id'],
             'homeRegionName' => $homeRegionName,
-            'isVerified' => $userArray['verified'],
+            'isVerified' => (bool)$userArray['verified'],
         ];
     }
 
