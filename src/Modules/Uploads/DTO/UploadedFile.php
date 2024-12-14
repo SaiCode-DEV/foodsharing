@@ -11,7 +11,7 @@ final class UploadedFile
         readonly public int $fileSize,
         readonly public string $hashedBody,
         readonly public string $mimeType,
-        readonly public int $uploaderId,
+        readonly public ?int $uploaderId,
         readonly public ?UploadUsage $usedIn,
         readonly public ?int $usageId,
     ) {
