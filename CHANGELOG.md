@@ -117,6 +117,7 @@
 - Fix logic for when badges are displayed on profile pages !3843 !3852 @AntonBallmaier
 - Fix max length for public info in stores !3843 @AntonBallmaier
 - Fixed the region's type in the menu on the region page #2176 !3850 @alex.simm
+- Fixed type error in StoreRestController::getListOfStoreStatusForUser #1921 !3870 @chriswalg
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` #2198 !3437 !3809 @AntonBallmaier

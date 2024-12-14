@@ -35,6 +35,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA2;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -434,47 +435,44 @@ class StoreRestController extends AbstractFoodsharingRestController
         return $this->getStore($storeId);
     }
 
-    /**
-     * Provides a list of all foodsaver related stores and the next picks status.
-     *
-     * @OA\Tag(name="stores")
-     * @OA\Tag(name="user")
-     * @OA\Parameter(
-     *      name="activeStores",
-     *      in="query",
-     *      description="filter unactive stores (e.g. store that do not cooperate)?",
-     *      required=false,
-     *      @OA\Schema(type="integer", enum={0,1})
-     * ),
-     * @OA\Response(
-     * 		response="200",
-     * 		description="Success.",
-     *      @OA\JsonContent(
-     *        type="array",
-     *        @OA\Items(ref=@Model(type=StoreStatusForMemberModel::class))
-     *      )
-     * )
-     * @OA\Response(response="204", description="No foodsaver related stores found.")
-     * @OA\Response(response="401", description="Not logged in")
-     */
-    #[Rest\Get('user/{userId}/stores')]
+    #[OA2\Tag(name: 'stores')]
+    #[OA2\Tag(name: 'user')]
+    #[OA2\Parameter(
+        name: 'activeStores',
+        description: 'filter unactive stores (e.g. store that do not cooperate)?',
+        in: 'query',
+        required: false,
+        schema: new OA2\Schema(type: 'integer', enum: [0, 1])
+    )]
+    #[OA2\Response(
+        response: '200',
+        description: 'Success.',
+        content: new OA2\JsonContent(
+            type: 'array',
+            items: new OA2\Items(ref: '#/components/schemas/StoreStatusForMemberModel')
+        )
+    )]
+    #[OA2\Response(response: Response::HTTP_NO_CONTENT, description: 'No foodsaver related stores found.')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[Rest\Get('user/{userId}/stores', requirements: ['userId' => '\d+'])]
+    #[Rest\Get('user/current/stores')]
     #[Rest\QueryParam(name: 'activeStores')]
-    public function getListOfStoreStatusForUser(int $userId, ParamFetcher $paramFetcher): Response
+    public function getListOfStoreStatusForUser(ParamFetcher $paramFetcher, ?string $userId = null): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
-        }
+        $this->assertLoggedIn();
 
-        if (!$this->profilePermissions->maySeeStores($userId)) {
+        $targetUserId = $userId === null ? $this->session->id() : (int)$userId;
+
+        if (!$this->profilePermissions->maySeeStores($targetUserId)) {
             throw new AccessDeniedHttpException('No permission see store list');
         }
 
         $activeStores = (bool)$paramFetcher->get('activeStores');
 
-        $listOfStoreStatus = $this->storeTransactions->listAllStoreStatusForFoodsaver($userId, $activeStores);
+        $listOfStoreStatus = $this->storeTransactions->listAllStoreStatusForFoodsaver($targetUserId, $activeStores);
 
         if ($listOfStoreStatus === []) {
-            return $this->handleView($this->view([], 204));
+            return $this->handleView($this->view([], Response::HTTP_NO_CONTENT));
         }
 
         $store_team_memberships = [];
@@ -482,7 +480,7 @@ class StoreRestController extends AbstractFoodsharingRestController
             $store_team_memberships[] = new StoreStatusForMemberModel($storeStatus);
         }
 
-        return $this->handleView($this->view($store_team_memberships, 200));
+        return $this->respondOK($store_team_memberships);
     }
 
     /**
