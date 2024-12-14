@@ -449,7 +449,7 @@ class StoreRestController extends AbstractFoodsharingRestController
         description: 'Success.',
         content: new OA2\JsonContent(
             type: 'array',
-            items: new OA2\Items(ref: '#/components/schemas/StoreStatusForMemberModel')
+            items: new OA2\Items(ref: new Model(type: StoreStatusForMemberModel::class))
         )
     )]
     #[OA2\Response(response: Response::HTTP_NO_CONTENT, description: 'No foodsaver related stores found.')]
