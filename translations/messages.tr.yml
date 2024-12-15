@@ -904,6 +904,8 @@ bell:
   forum_not_activated_thread_title: Denetlenen forumdaki konu
   passport_created_or_renewed_title: Kimliğiniz …
   passport_created_or_renewed: etkinleştirildi veya uzatıldı!
+  post_hidden_title: Gönderi {user} tarafından gizlendi
+  post_hidden: '{forum} forumunda {title} hakkındaki yayınınız gizlendi'
 sig:
   buddies: Tanıdığın insanlar
 error:
@@ -2607,6 +2609,8 @@ settings:
       name: İsim
       role: Rolü
       valid_end: Şu tarihe kadar geçerlidir
+      generate_error: Kimlik kartı oluşturulurken bir hata oluştu. Lütfen daha sonra
+        tekrar deneyin.
     passport_not_activated: Kimliğiniz henüz etkinleştirilmedi.
     passport_is_valid_until: Kimliğiniz **{days}** gün süreyle veya **{date}** tarihine
       kadar geçerlidir.
@@ -2946,7 +2950,7 @@ profile:
     report_other: Vesaire
     report_b6_1: Gıda kurtarılan yeri düzgün bırakılmamış (B06-2)
     report_b10: Kurtarılan yiyecekleri satıyor (B10)
-    report_b11: Gıda kurtarımı sırasında hiçbir ekolojik yöntem kullanılmadı (B11)
+    report_b11: Gıda kurtarımı sırasında ekolojik olmayan yöntemler kullanıldı (B11)
     report_b3_1: Gıda kurtarma işlemini tartışma veya tartışma olmadan gerçekleştirmedi
       (B03-2)
     report_b4_0: Yenilebilir yiyeceklerin tümü götürülmedi (B04-1)
@@ -4170,6 +4174,11 @@ thread:
     normal: normal
     higher: en yukarda
     text: 'Bu gönderinin görüntülenme önceliği:'
+  hiddenPostsInfo:
+    includesHidden: Bu konudaki gönderiler moderatörler tarafından gizlendi.
+    cannotSee: Gizli gönderilerin içeriğini göremeseniz de gönderilerin neden ve kim
+      tarafından gizlendiğini görebilirsiniz.
+    toggle: Gizli gönderileri göster_
 save_state: Filtre ve sıralama olduğu gibi kalsın
 save_state_description: Uygulanan filtreleri ve sıralamayı kaydedin ve gelecekteki
   aramalar için kayıtlı bırakın
