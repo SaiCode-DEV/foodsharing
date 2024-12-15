@@ -208,7 +208,7 @@ export default {
     },
     userStore: {
       async handler (newVal, oldVal) {
-        if (newVal.isLoggedIn !== oldVal?.isLoggedIn) {
+        if (userStore.isFoodsaver && newVal.isLoggedIn !== oldVal?.isLoggedIn) {
           await DataPickups.mutations.fetchRegistered()
           // TODO: NO APIS :(
           DataEvents.mutations.setAccepted(this.events.accepted)

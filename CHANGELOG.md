@@ -125,7 +125,7 @@
 - Handle store walls like all other walls #2010 !3577 @AntonBallmaier
 - Bananas now use the API !3581 @AntonBallmaier
 - Moved region store to pinia !3619 !3629 !3679 @chriswalg
-- Moved userStore to pinia for future improvements !3531 !3617 !3632 @SaiCode
+- Moved userStore to pinia for future improvements !3531 !3617 !3632 !3877 @SaiCode
 - Reduced the number of database requests in some store API endpoints #1662 !3615 @alex.simm
 - Removed jQuery autosize !3635 !3689 @SaiCode
 - Port the register controller to Symfony !3594 @alex.simm
