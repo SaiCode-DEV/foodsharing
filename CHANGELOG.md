@@ -73,7 +73,7 @@
 - Disable autocomplete on search inputs in store member list !3805 @iron9
 - Store chain info can now be entered using the markdown editor #2220 !3817 @AntonBallmaier
 - Improved chat markdown rendering #2231 !3834 @AntonBallmaier
-- Rework passport and verification for ambassadors and foodsaver !3627 !3833 !3837 !3849 !3856 @chriswalg
+- Rework passport and verification for ambassadors and foodsaver !3627 !3833 !3837 !3849 !3856 !3878 @chriswalg
 - Order groups in profile by name !3843 @AntonBallmaier
 - Use abbreviated names in poll columns on small devices !3843 @AntonBallmaier
 - Increased maximum Pickup Slots from 10 to 50 (configureable via config) !3628 @SaiCode

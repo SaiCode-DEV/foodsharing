@@ -37,7 +37,7 @@
           <Calendar />
         </b-tab>
         <b-tab
-          v-if="isMe"
+          v-if="isFoodsaver && isMe"
           :title="$i18n('settings.passport.menu')"
           :active="subPage === SUB_PAGE.PASSPORT"
         >
