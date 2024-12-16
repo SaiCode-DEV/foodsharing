@@ -3315,8 +3315,8 @@ terminology:
   electionAdmins: Seçimler
   no: Hayır
   yes: Evet
-  achievements: Notlar_
-  achievement: Not
+  achievements: Rozet
+  achievement: Rozet
   phone: Telefon numarası
   landline: Sabit hat numarası
   mobile_phone: Cep telefonu numarası
@@ -4229,8 +4229,10 @@ help:
         yapılır. Yani değişiklikler hemen gerçekleşmez.\n"
       title: Yüksek Bölge
     achievements:
-      md: ""
-      title: Başarılar
+      md: "Rozet sistemi, belirli eğitim kurslarına katılım gibi kullanıcıya özgü
+        özellikleri işaretlemek için kullanılabilir. Rozetler herhangi bir süre boyunca
+        geçerli olabilir veya geçersiz oldukları bir bitiş tarihine sahip olabilir.\n"
+      title: Rozet
     report:
       title: Şikayet İşleme
       md: "Burada bu bölgeden olan insanlar hakkında yazılan mesajları göreceksiniz.
@@ -4259,7 +4261,7 @@ help:
         isteyen kullanıcılar tarafından sunulmaktadır. Kayıtlı kullanıcılar almak
         üzere bir yiyecek sepeti talep edebilirler.\n"
     achievementIcon:
-      title: Başarı simgeleri (İconlar)
+      title: Rozetler için Iconlar
       md: "Her başarının, ilk bakışta neyle ilgili olduğunu göstermesi gereken bir
         simgesi (İcon), küçük bir grafiği vardır. Kullanılabilir simgelerin bir listesini
         https://fontawesome.com/v5/search?o=r&m=free&s=solid adresinde bulabilirsiniz.\n
@@ -4286,12 +4288,32 @@ help:
         olarak oy kullanabilir. Bu seçenek yerel ilçeler için sağlanmamaktadır.\n"
     pollScopes:
       title: Oy verme uygunluğu
+      md: "Oy oluştururken oy kullanma hakkına sahip olması gereken farklı insan grupları
+        arasından seçim yapabilirsiniz.\nAşağıdakiler tüm seçenekler için geçerlidir:\n
+        - Sadece ilçe/gruptaki tüm gıda koruyucularının değil, aynı zamanda nahiyelerdekilerin
+        de oy kullanmasına izin veriliyor.\n- Oy verme hakkına sahip foodsaver sayısı,
+        seçim seçeneğinin arkasında parantez içinde verilmiştir.\n- Oylama oluşturulduktan
+        sonra seçme hakkına sahip seçmenler belirlenir. Oylamanın düzenlendiği sırada
+        ilgili insan grubuna dahil olan herkes oy kullanma hakkına sahiptir.\n"
     polls:
       md: "Oylama modülünü kullanarak seçimler, anketler ve diğer oylamalar doğrudan
         gıda paylaşım platformu üzerinde isimsiz ve kolay bir şekilde gerçekleştirilebilir.
         Ayrıntılı talimatları https://wiki.foodsharing.de/Abstimms-Modul adresinde
         bulabilirsiniz.\n"
       title: Oylar_
+    hygieneRequirement:
+      title: İşletmeler için hijyen gereksinimleri
+      md: "Bazı işletmelerden ürün toplamak için foodsaverlar gıda hijyeni konusunda
+        eğitim alması gerekir. Bu işlev bir işletme için etkinleştirilirse aşağıdaki
+        etkilere sahip olur:\n1. Geçerli hijyen eğitimi olmayan foodsaverlar İşletme
+        ekibine başvuramaz.\n2. Halihazırda ekibe dahil olan foodsaverlar, yalnızca
+        hijyen eğitimlerinin geçerli olduğu kontenjanlara kayıt yaptırabilirler.\n
+        \nHer iki durumda da bu eylem için hijyen eğitiminin eksik olduğunu açıklayan
+        bir not görüntülenecektir. Ayrıca hijyen eğitimi de doğrudan bağlantılıdır.\n
+        \n---\n\nDikkat edilmesi gereken önemli nokta: Bu işlev yalnızca foodsharing
+        kendi hijyen çıkartmalarına dayanmaktadır. Ne profile yüklenen harici sağlayıcılardan
+        alınan hijyen sertifikaları (Metro gibi) ne de başka bir yerde alınan hijyen
+        eğitimleri teknik olarak dikkate alınmaz.\n"
   helpTitle: 'Yardım: {title}'
   tooltip: Yardımı göster
 team_page:
@@ -4323,38 +4345,38 @@ validation:
     uzun veya geçersiz karakterler içeriyor)
 achievements:
   inThis:
-    region: 'Bu bölgede aşağıdaki notlar verilebilir:'
-    group: 'Bu çalışma grubunda aşağıdaki Notlar verilebilir:'
+    region: 'Bu bölgede aşağıdaki Rozetler verilebilir:'
+    group: 'Bu çalışma grubunda aşağıdaki Rozetler verilebilir:'
   validity:
     days: Görevlendirmeden sonraki {validityInDaysAfterAssignment} gün boyunca geçerlidir.
-    indefinite: Veriltikten sonraki herhangi bir süre için geçerlidir.
+    indefinite: Verildikten sonra süresiz olarak geçerlidir.
     indefiniteShort: sınırsız
-  revokeConfirmation: '{name}''in desteğini iptal etmek istediğinizden emin misiniz?'
+  revokeConfirmation: '{name}''in Rozetini iptal etmek istediğinizden emin misiniz?'
   reviewer: ..den
   notice: Dipnot
   validUntil: Şu tarihe kadar geçerlidir
-  award: Notlar verildi
+  award: Rozet verildi
   findUser: Kullanıcıyı ara
   editDetails: Ayrıntıları ayarla
   revoke: Geri çekmek
-  edit: 'Başarıyı düzenle: {name}'
-  notAwarded: Bu not şu anda kimseye verilmemektedir.
+  edit: 'Rozeti düzenle: {name}'
+  notAwarded: Bu Rozet şu anda kimseye verilmemektedir.
   awarded: Alındı
   awardedNoReviewer: Otomatik
   awardedTo: İle
-  new: Yeni başarı
+  new: Yeni Rozet
   editor:
     description: Açıklama_
     preview: Ön izleme
     name: İsim
     icon: İcon
     validityInDaysAfterAssignment: Verildikten sonra geçerlilik süresi
-  noneInThisRegion: Bu bölgede kayıtlı hiçbir başarı yok.
-  deleteConfirmation: Bu başarıyı gerçekten silmek istiyor musunuz?
-  editTitle: Başarıları düzenle
-  editAwarded: '{user} için {achievement} notunu ayarlayın'
-  inRegion: '{region} ({count}) bölgesindeki başarılar'
-  add: Başarı ekle
+  noneInThisRegion: Bu bölgede kayıtlı hiçbir Rozet yok.
+  deleteConfirmation: Bu Rozeti gerçekten silmek istiyor musunuz?
+  editTitle: Rozeti düzenle
+  editAwarded: '{user} için {achievement} Rozeti ayarlayın'
+  inRegion: '{region} ({count}) bölgesindeki Rozetler'
+  add: Rozet ekle
 copied_to_clipboard: “{text}” panoya kopyalandı.
 theme_switcher:
   title: Tasarım seçin
@@ -4380,3 +4402,33 @@ store_categories:
 error_base64_image: Drag & Drop yöntemiyle resim eklenmesine izin verilmez.
 support_page:
   title: Destek formu
+  notification_name: Giriş yaptığınız için adınız ve Foodsharer ID'niz aktarılacaktır.
+  firstName: Ön İsim
+  validation_firstName: Ön İsim boş
+  validation_email: Geçersiz e-posta adresi
+  subject: Konu
+  validation_subject: Konu bölümü boş
+  new_request: Yeni istek
+  body: Mesaj
+  success: Mesajınız başarıyla iletildi.
+  email: E-posta adresiniz
+  validation_body: Mesaj boş
+  info_teaser: Platformun kullanımıyla ilgili sorularınız, teknik sorunlar veya hata
+    mesajları için destek formumuza ulaşabilirsiniz. Biletinizi gönderdikten sonra
+    sistemimizde otomatik olarak bir bilet oluşturulacaktır. Gönüllü destek ekibi
+    sorularınızla ilgilenecektir.
+  attachments: Ekler (dosya başına maksimum 5MB)
+petition:
+  progressText:
+    8000: İyi bir başlangıç yapıyoruz! Bunu daha da ileriye taşımamıza yardım edin!
+    15000: Yarıya yaklaştık! Desteğinle ilerleme kaydetmeye devam edeceğiz!
+    20000: İhtiyacımız olan imzaların yarısına zaten sahibiz! Birlikte bunu başarabiliriz!
+    30000: Hedefe yaklaştık - çok az kaldı! Haydi sende bu kampanyanın bir parçası
+      ol!
+    Infinity: Hedefe ulaşıldı! Dilekçemiz Federal Meclis'te görüşülecek. Artık davamızı
+      daha da güçlendirmenin zamanı geldi!
+    25000: İhtiyacımız olan imzaların üçte ikisini zaten aldık! Birlikte bunu yapabiliriz!
+    2000: Dilekçe hız kazanıyor! Desteğin sayesinde hızla kazanacağız!
+    500: Hadi gel! Bu kampanyayı imzalayan ilk kişilerden biri ol!
+  link: Kampanyaya git
+  daysLeft: '{daysLeft} gün kalan'
