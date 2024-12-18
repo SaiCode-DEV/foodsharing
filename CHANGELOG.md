@@ -80,7 +80,7 @@
 - Add Loading animation to Load more in pickup history #2227 !3859 @SaiCode
 
 ## Bugfixes
-- Resolve quoted string is not parsed correctly in mail address #2142 !3757 @anja0884
+- Resolve quoted string is not parsed correctly in mail address #2142 !3757 !3895 @anja0884
 - Resolve "Spelling mistake in dates: "Verantstaltung" @Nika-Mel @McGoldi
 - Fix sleeping hat display for future sleep times #1881 !3437 @AntonBallmaier
 - Test push notifications are only sent to the new device #960 @alex.simm

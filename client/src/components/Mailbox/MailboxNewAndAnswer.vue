@@ -65,6 +65,7 @@
                   class="form-control"
                   v-on="inputHandlers"
                   @keydown.enter.prevent="addEmailTag(inputAttrs.value)"
+                  @blur="addEmailTag(inputAttrs.value)"
                 />
                 <b-input-group-append>
                   <b-button
