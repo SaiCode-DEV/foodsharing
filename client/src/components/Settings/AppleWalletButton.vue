@@ -18,6 +18,7 @@ import { defineProps, ref } from 'vue'
 import LoadingOverlay from '@/components/LoadingOverlay.vue'
 import i18n, { locale } from '@/helper/i18n'
 import { pulseError } from '@/script'
+import { captureError } from '@/sentry'
 
 const props = defineProps({
   disabled: {
@@ -45,7 +46,7 @@ async function onClick () {
     if (contentType && contentType.includes('application/json')) {
       const data = await response.json()
       if (!response.ok) {
-        throw new Error(data.error || i18n('settings.passport.wallet.generate_error'))
+        throw captureError(data.error || i18n('settings.passport.wallet.generate_error'))
       }
     }
 

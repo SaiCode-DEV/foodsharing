@@ -14,6 +14,7 @@
 <script setup>
 import { ref, defineProps, onMounted, computed, watch } from 'vue'
 import dateFormatter from '@/helper/date-formatter'
+import { captureError } from '@/sentry'
 
 const props = defineProps({
   plain: { type: Boolean, default: false },
@@ -44,7 +45,7 @@ function parseTime (time) {
         date.value = new Date(time.replace(/-/g, '/'))
       }
       if (isNaN(date.value)) {
-        throw new Error('Invalid date', time)
+        throw captureError('Invalid date', time)
       }
     } catch (e) {
       console.error('Invalid date', time)

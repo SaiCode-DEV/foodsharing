@@ -11,3 +11,12 @@ if (serverData.ravenConfig) {
     dsn: serverData.ravenConfig,
   })
 }
+
+export function captureError (error) {
+  if (typeof error === 'string') {
+    error = new Error(error)
+  }
+  console.error(error)
+  Sentry.captureException(error)
+  return error
+}

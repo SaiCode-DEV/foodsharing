@@ -6,6 +6,7 @@ import fr from '@translations/messages.fr.yml'
 import it from '@translations/messages.it.yml'
 import nbNo from '@translations/messages.nb_NO.yml'
 import tr from '@translations/messages.tr.yml'
+import { captureError } from '@/sentry'
 
 export const { locale } = serverData
 
@@ -24,14 +25,18 @@ export default function (path, variables = {}) {
     result = pathArray.reduce((prevObj, key) => prevObj && prevObj[key], de)
   }
   if (!result) {
-    console.error(new Error(`Missing translation for [${path}]`))
+    captureError(`Missing translation for [${path}]`)
+    return path
+  }
+  if (typeof result !== 'string') {
+    captureError(`Translation for [${path}] is not a string: ${typeof result} [${result}]`)
     return path
   }
   return result.replace(/{([^}]+)}/g, (_, name) => {
     if (Object.prototype.hasOwnProperty.call(variables, name)) {
       return variables[name]
     } else {
-      throw new Error(`Variable [${name}] was not provided for [${path}]`)
+      throw captureError(`Variable [${name}] was not provided for [${path}]`)
     }
   })
 }

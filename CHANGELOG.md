@@ -118,6 +118,7 @@
 - Fix max length for public info in stores !3843 @AntonBallmaier
 - Fixed the region's type in the menu on the region page #2176 !3850 @alex.simm
 - Fixed type error in StoreRestController::getListOfStoreStatusForUser #1921 !3870 @chriswalg
+- Added better error handling for bad translations and Google/Apple wallet creation #2250 !3873 @SaiCode
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` #2198 !3437 !3809 @AntonBallmaier
