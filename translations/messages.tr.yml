@@ -973,7 +973,7 @@ bootstrap-datepicker:
   labelPrevDecade: Önceki on yıl
   labelCalendar: Takvim
   labelPrevYear: Geçen sene
-  labelToday: Bugün_
+  labelToday: Bugün
 pickuplist:
   error_leave: 'Çıkış başarısız oldu: '
   tryagain: Yeniden yükledikten sonra tekrar deneyiniz.
@@ -1262,7 +1262,7 @@ date:
   -- Tomorrow: Yarın
   yesterday: dün
   sunday: Pazar
-  Today: Bugün_
+  Today: Bugün
   today: bugün
   saturday: Cumartesi
   tomorrow: yarın
@@ -1523,7 +1523,7 @@ store:
   jumping: Yedek
   member: Üye
   isAppliedForTeam: İstek
-  team_container: Takım
+  team_container: Ekip
   active: aktif
   one_active: aktif
   of_that: bundan
@@ -3742,7 +3742,7 @@ calendar:
   labelPrevYear: Geçen yıl
   labelNextYear: Gelecek yıl
   labelNextMonth: Gelecek ay
-  labelToday: Bugün_
+  labelToday: Bugün
   labelNoDateSelected: Tarih seç
   labelCalendar: Takvim
   labelNav: Takvim Navigasyonu
