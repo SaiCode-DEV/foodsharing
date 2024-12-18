@@ -56,10 +56,10 @@ export const useUserStore = defineStore('user', {
     hasBouncingEmail: () => false,
     hasActiveEmail: () => true,
     isPassportInvalid: (state) => {
-      return state.details.lastPassUntilValid ? (state.details.lastPassUntilValidInDays <= PASSPORT_STATUS.INVALID) : false
+      return state.details?.lastPassUntilValid ? (state.details.lastPassUntilValidInDays <= PASSPORT_STATUS.INVALID) : false
     },
     isPassportInvalidSoon: (state) => {
-      return state.details.lastPassUntilValid ? (state.details.lastPassUntilValidInDays <= PASSPORT_STATUS.INVALID_SOON_WARNING_TIME) : false
+      return state.details?.lastPassUntilValid ? (state.details.lastPassUntilValidInDays <= PASSPORT_STATUS.INVALID_SOON_WARNING_TIME) : false
     },
   },
   actions: {
