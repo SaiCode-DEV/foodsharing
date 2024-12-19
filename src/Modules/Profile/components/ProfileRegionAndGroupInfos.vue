@@ -171,6 +171,9 @@ export default {
       if (!this.isVerified) {
         itemsToFilter.push('fetched', 'saved', 'bananas')
       }
+      if (!this.isSessionUserFoodsaver) {
+        itemsToFilter.push('posts')
+      }
       return this.badges.filter(badge => !itemsToFilter.includes(badge.id))
     },
     isOrgUser () {
