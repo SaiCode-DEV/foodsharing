@@ -130,7 +130,7 @@ export default defineComponent({
     }
 
     tr {
-      background: var(--white);
+      background: var(--fs-color-light);
       > td {
         display: flex;
       }
