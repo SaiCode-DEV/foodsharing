@@ -28,6 +28,10 @@ export default function (path, variables = {}) {
     captureError(`Missing translation for [${path}]`)
     return path
   }
+  if (typeof result === 'object') {
+    captureError(`Translation for [${path}] has sub Translations: [${JSON.stringify(result)}]`)
+    return path
+  }
   if (typeof result !== 'string') {
     captureError(`Translation for [${path}] is not a string: ${typeof result} [${result}]`)
     return path

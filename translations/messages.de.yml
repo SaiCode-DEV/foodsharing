@@ -1751,8 +1751,9 @@ bell:
   fs_sleepmode_title: "Neue Schlafmütze"
   fs_sleepmode: "{name} {nachname} ist jetzt inaktiv"
   new_quiz_comment_title: "Kommentar zu Frage #{questionId}"
-  new_quiz_comment: "{user}: {comment}"
-
+  new_quiz_comment: 
+    one: "{user}: {comment}"
+    many: "{count} neue Kommentare"
   new_foodsaver_title: "{name} neu in {bezirk}"
   new_foodsaver: "Braucht Einführungsabholungen"
   new_foodsaver_needs_introduction: "Braucht Einführungsabholungen"

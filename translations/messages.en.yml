@@ -1500,7 +1500,9 @@ bell:
   blog_new_check: '{title}'
   forum_reply_title: '{forum}: {title}'
   forum_answer_title: '{forum}'
-  new_quiz_comment: '{user}: {comment}'
+  new_quiz_comment:
+    one: '{user}: {comment}'
+    many: '{count} new comments'
   store_cr_times_title: '{name}'
   store_wallpost_title: '{name}'
   poll_new: '{title}'

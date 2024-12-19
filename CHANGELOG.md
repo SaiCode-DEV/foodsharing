@@ -87,7 +87,7 @@
 - Split email in businesscard if is too long !3600 @chriswalg
 - foodsavers can't report a store (empty list) #2107 !3605 @McGoldi
 - Improved loader !3634 @SaiCode
-- Added Error Handling for bells read API !3644 @SaiCode
+- Added Error Handling for bells read API !3644 !3899 #2270 @SaiCode
 - Correct spelling mistake !3651 @McGoldi
 - Fixed Invalid Time when time is undefined #1924 !3652 !3656 @SaiCode
 - Fix typos and inconsistent spelling in email templates !3657 @iron9
