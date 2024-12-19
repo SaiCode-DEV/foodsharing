@@ -821,7 +821,9 @@ bell:
   buddy_request_title: '{name} tanıyor musunuz?'
   store_request_accept: Ekibe kabul edildiniz.
   fs_sleepmode: '{name} {nachname} artık etkin değil'
-  new_quiz_comment: '{user}: {comment}'
+  new_quiz_comment:
+    one: '{user}: {comment}'
+    many: '{count} yeni yorum'
   store_request_accept_wait: Artık yedek listesindesiniz.
   store_request_imposed_title: '{name}'
   store_cr_times: Alım slotları uyarlandı
@@ -973,7 +975,7 @@ bootstrap-datepicker:
   labelPrevDecade: Önceki on yıl
   labelCalendar: Takvim
   labelPrevYear: Geçen sene
-  labelToday: Bugün
+  labelToday: Bugün-
 pickuplist:
   error_leave: 'Çıkış başarısız oldu: '
   tryagain: Yeniden yükledikten sonra tekrar deneyiniz.
@@ -1262,7 +1264,7 @@ date:
   -- Tomorrow: Yarın
   yesterday: dün
   sunday: Pazar
-  Today: Bugün
+  Today: Bugün-
   today: bugün
   saturday: Cumartesi
   tomorrow: yarın
@@ -3742,7 +3744,7 @@ calendar:
   labelPrevYear: Geçen yıl
   labelNextYear: Gelecek yıl
   labelNextMonth: Gelecek ay
-  labelToday: Bugün
+  labelToday: Bugün-
   labelNoDateSelected: Tarih seç
   labelCalendar: Takvim
   labelNav: Takvim Navigasyonu
