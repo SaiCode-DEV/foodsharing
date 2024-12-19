@@ -1029,11 +1029,11 @@ class StoreGateway extends BaseGateway
     public function getStoreLogsByActionType(int $storeId, array $storeActions, Carbon $fromDate, Carbon $toDate, Pagination $pagination): array
     {
         $logEntries = $this->db->fetchAll('SELECT
-				date_activity as performed_at,
+				DATE_FORMAT(date_activity, "%Y-%m-%dT%TZ") as performed_at,
 				action as action_id,
 				fs_id_a as acting_foodsaver_id,
 				fs_id_p as affected_foodsaver_id,
-				date_reference,
+				DATE_FORMAT(date_reference, "%Y-%m-%dT%TZ") as date_reference,
 				content,
 				reason
 			FROM

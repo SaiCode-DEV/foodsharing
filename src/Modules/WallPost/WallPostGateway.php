@@ -8,7 +8,7 @@ use Foodsharing\Modules\WallPost\DTO\WallPost;
 
 class WallPostGateway extends BaseGateway
 {
-    private string $selectColumns = 'post.id, post.time, post.body, post.attach, foodsaver.id AS foodsaver_id, foodsaver.name AS foodsaver_name, foodsaver.photo AS foodsaver_photo, foodsaver.is_sleeping AS foodsaver_is_sleeping';
+    private string $selectColumns = 'post.id, DATE_FORMAT(post.time, "%Y-%m-%dT%TZ") as time, post.body, post.attach, foodsaver.id AS foodsaver_id, foodsaver.name AS foodsaver_name, foodsaver.photo AS foodsaver_photo, foodsaver.is_sleeping AS foodsaver_is_sleeping';
 
     public function addPost(WallPost $wallPost, int $foodsaverId, WallType $target, int $targetId): int
     {

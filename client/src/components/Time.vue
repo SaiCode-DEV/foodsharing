@@ -42,9 +42,6 @@ function parseTime (time) {
     try {
       date.value = new Date(time)
       if (isNaN(date.value)) {
-        date.value = new Date(time.replace(/-/g, '/'))
-      }
-      if (isNaN(date.value)) {
         throw captureError('Invalid date', time)
       }
     } catch (e) {

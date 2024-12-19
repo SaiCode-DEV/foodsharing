@@ -219,7 +219,7 @@ final class ProfileGateway extends BaseGateway
                     COUNT(*) as Anzahl
                 FROM
                     (SELECT
-                        a.foodsaver_id, a.betrieb_id, a.date
+                        a.foodsaver_id, a.betrieb_id, DATE_FORMAT(a.date, "%Y-%m-%dT%TZ") as date
                     FROM `fs_abholer` a
                     LEFT OUTER JOIN `fs_store_log` b on a.betrieb_id = b.store_id and a.date = b.date_reference
                     WHERE a.foodsaver_id = :fs_id
