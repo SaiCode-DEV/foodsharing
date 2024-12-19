@@ -177,7 +177,7 @@ export default {
       return this.profileInfos.role > ROLE.FOODSHARER
     },
     showProfileTab () {
-      return this.showPickupsTab || this.showProfileCommitmentsStat || this.menu.maySeeStores || this.maySeeUserNotes
+      return this.showPickupsTab || this.showProfileCommitmentsStat || this.menu.maySeeStores || this.maySeeUserNotes || this.awardedAchievements?.length
     },
   },
 }

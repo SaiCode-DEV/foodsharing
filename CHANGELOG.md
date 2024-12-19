@@ -120,6 +120,7 @@
 - Fixed type error in StoreRestController::getListOfStoreStatusForUser #1921 !3870 @chriswalg
 - Fixed badly formatted date for Safari #2249 !3872 @SaiCode
 - Added better error handling for bad translations and Google/Apple wallet creation #2249 #2271 #2272 !3873 @SaiCode
+- foodsharers can't start the hygiene quiz !3898 @McGoldi
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` #2198 !3437 !3809 @AntonBallmaier

@@ -84,7 +84,7 @@ final class QuizPermissions
 
             // Allow if the user is verified and role is sufficiently high:
             QuizID::STORE_MANAGER, QuizID::AMBASSADOR => $this->session->isVerified() && $this->session->role()->value >= $quizId->value - 1,
-            QuizID::HYGIENE => $this->session->mayRole(Role::FOODSAVER),
+            QuizID::HYGIENE => $this->session->mayRole(Role::FOODSHARER),
             default => false,
         };
     }
