@@ -25,15 +25,15 @@ export default function (path, variables = {}) {
     result = pathArray.reduce((prevObj, key) => prevObj && prevObj[key], de)
   }
   if (!result) {
-    captureError(`Missing translation for [${path}]`)
+    captureError(`Missing translation for ${locale}: [${path}]`)
     return path
   }
   if (typeof result === 'object') {
-    captureError(`Translation for [${path}] has sub Translations: [${JSON.stringify(result)}]`)
+    captureError(`Translation for ${locale}: [${path}] has sub Translations: [${JSON.stringify(result)}]`)
     return path
   }
   if (typeof result !== 'string') {
-    captureError(`Translation for [${path}] is not a string: ${typeof result} [${result}]`)
+    captureError(`Translation for ${locale}: [${path}] is not a string: ${typeof result} [${result}]`)
     return path
   }
   return result.replace(/{([^}]+)}/g, (_, name) => {
