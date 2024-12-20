@@ -122,6 +122,7 @@
 - Added better error handling for bad translations and Google/Apple wallet creation #2249 #2271 #2272 !3873 !3903 @SaiCode
 - foodsharers can't start the hygiene quiz !3898 @McGoldi
 - Hide Posts for non foodsaver users in Profile #2273 !3905 @SaiCode
+- Added strip_tags for renameConversation in MessageGateway #1111 !3907 @chriswalg
 
 ## Refactoring
 - Added computed column `is_sleeping` for `fs_foodsaver` #2198 !3437 !3809 @AntonBallmaier

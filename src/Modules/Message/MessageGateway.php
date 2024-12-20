@@ -165,7 +165,7 @@ final class MessageGateway extends BaseGateway
      */
     public function renameConversation(int $cid, string $name): int
     {
-        return $this->db->update('fs_conversation', ['name' => $name], ['id' => $cid]);
+        return $this->db->update('fs_conversation', ['name' => strip_tags($name)], ['id' => $cid]);
     }
 
     public function isConversationLocked(int $cid): bool
