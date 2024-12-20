@@ -373,6 +373,9 @@ class PassportGeneratorTransaction extends AbstractController
     {
         $name = $this->session->user('name') . ' ' . $this->session->user('nachname');
         $passDate = $this->passportGeneratorGateway->getFoodsaverLastPassDate($userId);
+        if (is_null($passDate)) {
+            throw new \InvalidArgumentException('No pass was created for the user');
+        }
         $profileURL = $this->router->generate('user_profile', ['userId' => $userId], UrlGeneratorInterface::ABSOLUTE_URL);
         $photo = $this->session->user('photo');
         if (!$photo) {

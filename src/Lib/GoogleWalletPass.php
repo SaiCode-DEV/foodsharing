@@ -487,7 +487,7 @@ class GoogleWalletPass
      *
      * @return string an "Add to Google Wallet" link
      */
-    public function createNewPassJwt(int $userId, string $name, string $profileURL, string $photo, ?DateTime $passDate): string
+    public function createNewPassJwt(int $userId, string $name, string $profileURL, string $photo, DateTime $passDate): string
     {
         $issuerId = GOOGLE_WALLET_ISSUER_ID;
         $classSuffix = GOOGLE_WALLET_CLASS_ID;
