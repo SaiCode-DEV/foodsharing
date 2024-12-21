@@ -2001,7 +2001,9 @@ bell:
   buddy_request: '{name} ti conosce.'
   buddy_request_title: Conosci {name}?
   betrieb_fetch: '{count} orari di recupero non confermati'
-  new_quiz_comment: '{user}: {comment}'
+  new_quiz_comment:
+    one: '{user}: {comment}'
+    many: '{count} nuovi commenti'
   store_wallpost_title: '{name}'
   poll_new: '{title}'
   store_request_imposed_title: '{name}'
