@@ -6,7 +6,7 @@
       :key="idx"
       :entry="entry"
     />
-    <NavAdmin />
+    <NavAdmin v-if="!useRestrictedNavigation" />
   </ul>
 </template>
 
@@ -20,6 +20,9 @@ import NavAdmin from '@/components/Navigation/Admin/NavAdmin'
 //
 import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 export default {
   components: {
@@ -28,10 +31,22 @@ export default {
     NavAdmin,
   },
   mixins: [MediaQueryMixin, RouteAndDeviceCheckMixin],
-  data () {
+  setup () {
     return {
-      metaNav: MetaNavData,
+      userStore,
     }
+  },
+  computed: {
+    useRestrictedNavigation () {
+      return userStore.isApiRestrictedForLegalReasons
+    },
+    metaNav () {
+      let nav = MetaNavData
+      if (this.useRestrictedNavigation) {
+        nav = nav.filter(entry => !entry.isRestricted)
+      }
+      return nav
+    },
   },
 }
 </script>

@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Utility;
 
+use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Legal\LegalGateway;
@@ -16,6 +17,7 @@ final class RouteHelper
         private readonly LegalGateway $legalGateway,
         private readonly RequestStack $requestStack,
         private readonly UrlGeneratorInterface $router,
+        private readonly Mem $mem,
     ) {
     }
 
@@ -82,23 +84,30 @@ final class RouteHelper
         return preg_replace('`href=\"www`', 'href="http://www', $str) ?: '';
     }
 
-    public function getLegalControlIfNecessary(): ?string
+    public function isRedirectToLegalControlNecessary(Request $request): bool
     {
-        if ($this->session->mayRole() && !$this->onSettingsOrLogoutPage() && !$this->legalRequirementsMetByUser()) {
-            return 'legal';
-        }
-
-        return null;
+        return $this->session->mayRole() && !$this->isRouteWithoutLegalRequirement($request)
+            && !($this->usersPrivacyPolicyUpToDate() && $this->usersPrivacyNoticeUpToDate());
     }
 
-    private function legalRequirementsMetByUser(): bool
+    /**
+     * This is the same as isRedirectToLegalControlNecessary but without checking the route, because the API should
+     * be restricted even on pages like the legal page and the profile settings page.
+     */
+    public function isApiRestrictedForLegalReasons(): bool
     {
-        return $this->usersPrivacyPolicyUpToDate() && $this->usersPrivacyNoticeUpToDate();
+        return $this->session->mayRole() && !($this->usersPrivacyPolicyUpToDate() && $this->usersPrivacyNoticeUpToDate());
     }
 
     private function usersPrivacyPolicyUpToDate(): bool
     {
-        $privacyPolicyVersion = $this->legalGateway->getPpVersion();
+        $privacyPolicyVersion = $this->mem->get(Mem::PRIVATE_POLICY_REDIS_KEY);
+
+        // If for some reason the date is not in Redis, fetch it from the database and store it in Redis
+        if (empty($privacyPolicyVersion)) {
+            $privacyPolicyVersion = $this->legalGateway->getPpVersion();
+            $this->mem->set(Mem::PRIVATE_POLICY_REDIS_KEY, $privacyPolicyVersion);
+        }
 
         return $privacyPolicyVersion && $privacyPolicyVersion == $this->session->user('privacy_policy_accepted_date');
     }
@@ -108,14 +117,25 @@ final class RouteHelper
         if (!$this->session->mayRole(Role::STORE_MANAGER)) {
             return true;
         }
-        $privacyNoticeVersion = $this->legalGateway->getPnVersion();
+        $privacyNoticeVersion = $this->mem->get(Mem::PRIVATE_NOTICE_REDIS_KEY);
+
+        // If for some reason the date is not in Redis, fetch it from the database and store it in Redis
+        if (empty($privacyNoticeVersion)) {
+            $privacyNoticeVersion = $this->legalGateway->getPnVersion();
+            $this->mem->set(Mem::PRIVATE_NOTICE_REDIS_KEY, $privacyNoticeVersion);
+        }
 
         return $privacyNoticeVersion && $privacyNoticeVersion == $this->session->user('privacy_notice_accepted_date');
     }
 
-    private function onSettingsOrLogoutPage(): bool
+    private function isRouteWithoutLegalRequirement(Request $request): bool
     {
-        return in_array($this->getPage(), ['settings', 'logout']);
+        $path = $request->getPathInfo();
+
+        return $path === '/legal'
+            || $path === '/logout'
+            || ($path === '/user/current/settings' || $path === '/user/' . $this->session->id() . '/settings')
+            && $request->query->get('sub') === 'deleteaccountlegal';
     }
 
     private function request(): Request

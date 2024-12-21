@@ -2,7 +2,8 @@
     {
         "title": "navigation.map",
         "icon": "fas fa-map-marker-alt",
-        "url": "map"
+        "url": "map",
+        "isRestricted": true
     },
     {
         "title": "navigation.promotion",

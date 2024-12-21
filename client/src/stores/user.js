@@ -16,6 +16,7 @@ export const useUserStore = defineStore('user', {
     user: serverData.user,
     permissions: serverData.permissions,
     isLoggedIn: serverData.user?.id !== null,
+    isApiRestrictedForLegalReasons: serverData.isApiRestrictedForLegalReasons ?? true,
     fetching: {},
   }),
   getters: {

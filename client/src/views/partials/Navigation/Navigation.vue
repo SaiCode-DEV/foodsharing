@@ -11,12 +11,12 @@
   >
     <Loader />
     <DonationModal />
-    <PetitionBanner />
+    <PetitionBanner v-if="!useRestrictedNavigation" />
     <div class="metanav-container container">
       <MetaNavLoggedIn v-if="!viewIsMobile && isLoggedIn" />
       <MetaNavLoggedOut v-else-if="!viewIsMobile" />
     </div>
-    <div class="container nav-container">
+    <div v-if="!useRestrictedNavigation" class="container nav-container">
       <MainNavLoggedIn v-if="isLoggedIn" />
       <MainNavLoggedOut v-else />
 
@@ -28,7 +28,24 @@
         <SideNavLoggedOut v-else />
       </b-collapse>
     </div>
-    <ModalLoader v-if="isLoggedIn" />
+    <div v-else class="container nav-container">
+      <ul class="metanav">
+        <ThemeSwitcher />
+        <b-nav-item
+          icon="fas fa-power-off"
+          @click="deleteCaches()"
+        >
+          <slot name="icon">
+            <i class="icon-nav fas fa-power-off" />
+          </slot>
+          <slot name="text">
+            <span class="nav-text" v-text="$i18n('login.logout')" />
+            <span class="sr-only" v-text="$i18n('login.logout')" />
+          </slot>
+        </b-nav-item>
+      </ul>
+    </div>
+    <ModalLoader v-if="isLoggedIn && !useRestrictedNavigation" />
     <ThemeSwitcherModal />
   </b-navbar>
 </template>
@@ -57,6 +74,9 @@ import ThemeSwitcherModal from '@/views/partials/Modals/ThemeSwitcherModal.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import Loader from './Loader.vue'
 import PetitionBanner from '@/views/partials/TopBanner/Petition/PetitionBanner.vue'
+import { clearCaches } from '@/helper/cache'
+import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
+import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
 
 const userStore = useUserStore()
 const regionStore = useRegionStore()
@@ -64,6 +84,7 @@ const regionStore = useRegionStore()
 export default {
   name: 'Navigation',
   components: {
+    ThemeSwitcher,
     Loader,
     ModalLoader,
     DonationModal,
@@ -101,6 +122,9 @@ export default {
     isLoggedIn () {
       return userStore.isLoggedIn
     },
+    useRestrictedNavigation () {
+      return userStore.isApiRestrictedForLegalReasons
+    },
     isFoodsaver () {
       return userStore.isFoodsaver
     },
@@ -114,7 +138,7 @@ export default {
   watch: {
     isFoodsaver: {
       async handler (newValue) {
-        if (newValue) {
+        if (newValue && !this.useRestrictedNavigation) {
           await DataStores.mutations.fetch(false, this.userId)
         }
       },
@@ -124,7 +148,7 @@ export default {
   },
   async created () {
     // Load data
-    if (this.isLoggedIn) {
+    if (this.isLoggedIn && !this.useRestrictedNavigation) {
       // TODO: NO APIS :(
       DataGroups.mutations.set(this.groups)
       regionStore.regions = this.regions
@@ -136,7 +160,7 @@ export default {
   async mounted () {
     window.addEventListener('resize', this.resizeHandler)
     window.addEventListener('load', this.resizeHandler)
-    if (userStore.hasMailBox) {
+    if (userStore.hasMailBox && !this.useRestrictedNavigation) {
       userStore.fetchMailUnreadCount()
     }
   },
@@ -144,6 +168,11 @@ export default {
     resizeHandler () {
       const height = this.$refs.navbar.$el.getBoundingClientRect().height + 'px'
       document.documentElement.style.setProperty('--navbar-height', height)
+    },
+    async deleteCaches () {
+      await clearCaches()
+      channel.postMessage({ type: BROADCAST_TYPE.LOGOUT })
+      window.location.href = this.$url('logout')
     },
   },
 }

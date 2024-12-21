@@ -26,8 +26,6 @@ class IndexController extends FoodsharingController
     #[Route('/', name: 'index')]
     public function index(Request $request, #[MapQueryParameter] ?string $page): Response
     {
-        $page = $this->routeHelper->getLegalControlIfNecessary() ?? $page;
-
         if ($page === null) {
             return $this->indexPage($request);
         }

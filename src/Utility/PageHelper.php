@@ -189,6 +189,7 @@ final class PageHelper
             'permissions' => $permissions,
             'page' => $this->routeHelper->getPage(),
             'subPage' => $this->routeHelper->getSubPage(),
+            'isApiRestrictedForLegalReasons' => $this->routeHelper->isApiRestrictedForLegalReasons(),
             'locations' => $location,
             'ravenConfig' => $sentryConfig,
             'isDev' => getenv('FS_ENV') === 'dev',

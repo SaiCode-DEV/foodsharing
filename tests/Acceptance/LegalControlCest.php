@@ -58,7 +58,7 @@ class LegalControlCest
     {
         $this->isDeleted = true;
         $I->click('ich möchte meinen Account löschen.');
-        $I->seeCurrentUrlEquals('/user/' . $this->user['id'] . '/settings?sub=deleteaccount');
+        $I->seeCurrentUrlEquals('/user/current/deleteaccount');
     }
 
     public function testGivenIAmLoggedInAndHaveARoleHigherThanOneThenICanAcceptThePrivacyPolicyAndNotice(AcceptanceTester $I): void

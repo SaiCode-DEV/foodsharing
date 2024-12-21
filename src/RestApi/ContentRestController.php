@@ -4,6 +4,7 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Content\ContentGateway;
+use Foodsharing\Modules\Content\ContentTransactions;
 use Foodsharing\Modules\Content\DTO\Content;
 use Foodsharing\Permissions\ContentPermissions;
 use Foodsharing\RestApi\Models\Content\ContentEntry;
@@ -23,6 +24,7 @@ class ContentRestController extends AbstractFoodsharingRestController
     public function __construct(
         private readonly ContentGateway $contentGateway,
         private readonly ContentPermissions $contentPermissions,
+        private readonly ContentTransactions $contentTransactions,
         protected Session $session
     ) {
         parent::__construct($this->session);
@@ -120,7 +122,7 @@ class ContentRestController extends AbstractFoodsharingRestController
         }
         $this->assertThereAreNoValidationErrors($validator, $content);
 
-        $this->contentGateway->update($contentId, $content);
+        $this->contentTransactions->update($contentId, $content);
 
         return $this->respondOK();
     }

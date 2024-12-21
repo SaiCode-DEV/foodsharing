@@ -43,6 +43,20 @@ class SettingsController extends FoodsharingController
     }
 
     /**
+     * This route is called from the legal page if the user does not want to accept the privacy policy. Only the
+     * sub-page for account deletion is shown.
+     */
+    #[Route('/user/current/deleteaccount', name: 'delete_account')]
+    public function deleteAccount(): Response
+    {
+        $this->pageHelper->addContent($this->prepareVueComponent('delete-account-page', 'DeleteAccountPage', [
+            'userId' => $this->session->id()
+        ]));
+
+        return $this->renderGlobal();
+    }
+
+    /**
      * Handles the user settings page.
      *
      * This method retrieves and displays the user settings for the specified user ID.

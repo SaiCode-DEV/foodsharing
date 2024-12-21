@@ -8,8 +8,12 @@ use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Settings\SettingsTransactions;
+use Foodsharing\Utility\RouteHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
@@ -69,12 +73,24 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
      * and therefore before the controller is created.
      * We use this opportunity to prepare the global $container variable
      * currently used to easily prepare common controller dependencies
-     * in the `Control` and `FoodsharingController` classes.
+     * in the `FoodsharingController` classes.
      */
     public function onKernelRequest(RequestEvent $event)
     {
         global $container;
         $container = $this->fullServiceContainer;
+
+        // Redirect to the legal page if the user still needs to accept it
+        /* @var RouteHelper $routeHelper */
+        $routeHelper = $this->get(RouteHelper::class);
+        $uri = $event->getRequest()->getRequestUri();
+        if ($routeHelper->isRedirectToLegalControlNecessary($event->getRequest())) {
+            if (str_starts_with($uri, '/api')) {
+                $event->setResponse(new Response('', Response::HTTP_UNAVAILABLE_FOR_LEGAL_REASONS));
+            } else {
+                $event->setResponse(new RedirectResponse('/legal'));
+            }
+        }
     }
 
     /**
