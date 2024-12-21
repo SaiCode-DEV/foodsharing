@@ -1957,7 +1957,9 @@ date:
   -- Tomorrow: 'Mañana'
   tomorrow: 'mañana'
 bell:
-  new_quiz_comment: '{user}: {comment}'
+  new_quiz_comment:
+    one: '{user}: {comment}'
+    many: '{count} nuevos comentarios'
   store_cr_times_title: '{name}'
   new_foodsaver_verified: 'Ya verificad@: list@ para ir'
   store_request_deny_title: '{name}'
