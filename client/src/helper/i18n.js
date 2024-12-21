@@ -15,12 +15,14 @@ export default function (path, variables = {}) {
   const language = { en: en, es: es, fr: fr, it: it, nb_NO: nbNo, tr: tr }
   const selected = Object.keys(language).find(l => l.localeCompare(locale || l) === 0)
   const src = selected ? language[selected] : de
+  if (!path) {
+    captureError(`Invalid path using ${locale}: ${path}`)
+    return path
+  }
 
-  // https://youmightnotneed.com/lodash#get
   const pathArray = Array.isArray(path) ? path : path.match(/([^[.\]])+/g)
   let result = pathArray.reduce((prevObj, key) => prevObj && prevObj[key], src)
 
-  // https://youmightnotneed.com/lodash#get
   if (!result) {
     result = pathArray.reduce((prevObj, key) => prevObj && prevObj[key], de)
   }

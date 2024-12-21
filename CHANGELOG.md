@@ -119,7 +119,7 @@
 - Fixed the region's type in the menu on the region page #2176 !3850 @alex.simm
 - Fixed type error in StoreRestController::getListOfStoreStatusForUser #1921 !3870 @chriswalg
 - Fixed badly formatted date for Safari #2249 !3872 @SaiCode
-- Added better error handling for bad translations and Google/Apple wallet creation #2249 #2271 #2272 !3873 !3903 @SaiCode
+- Added better error handling for bad translations and Google/Apple wallet creation #2249 #2271 #2272 !3873 !3903 !3908 @SaiCode
 - foodsharers can't start the hygiene quiz !3898 @McGoldi
 - Hide Posts for non foodsaver users in Profile #2273 !3905 @SaiCode
 - Added strip_tags for renameConversation in MessageGateway #1111 !3907 @chriswalg
