@@ -1564,7 +1564,9 @@ bell:
   betrieb_fetch_title: '{betrieb}'
   new_foodsaver_verified_title: '{name} er ny i {bezirk}'
   new_foodsaver_title: '{name} er ny i {bezirk}'
-  new_quiz_comment: '{user}: {comment}'
+  new_quiz_comment:
+    many: '{count} nye kommentarer'
+    one: '{user}: {comment}'
   store_cr_times_title: '{name}'
   store_wallpost_title: '{name}'
   poll_new: '{title}'
