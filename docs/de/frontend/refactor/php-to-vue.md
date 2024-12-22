@@ -119,24 +119,20 @@ public function joininfo(): string
 </details>
 
 ## Showing the Vue-Component
-When you found the correct `PHP`-view file, you can register the `Vue`-component in it.
+When you found the correct `PHP`-view file, you can register the `Vue`-component using `prepareVueComponent`. With `prepareVueComponent`, *View.php is no longer needed.
 
 ```php
-$this->vueComponent('component-id', 'component-name', $params)
+$featureTogglePage = $this->prepareVueComponent('component-id', 'component-name', $params);
+$this->pageHelper->addContent($featureTogglePage);
 ```
 
-##### Example, [DashboardView.php](https://gitlab.com/foodsharing-dev/foodsharing/-/blob/master/src/Modules/Dashboard/DashboardView.php#L9-12)
-```php 
-public function index($params): string
-{
-	return $this->vueComponent('dashboard', 'dashboard', $params);
-}
-```
-And call it in [DashboardController.php](https://gitlab.com/foodsharing-dev/foodsharing/-/blob/master/src/Modules/Dashboard/DashboardController.php#L51) where the `$params` is filled with information.
+
+And call it in [DashboardController.php](https://gitlab.com/foodsharing-dev/foodsharing/-/blob/master/src/Modules/Dashboard/DashboardController.php#L51) where the `$params` is filled with information:
 ```php
-	...
-	$this->pageHelper->addContent($this->view->index($this->params));
-}
+    ...
+	 $dashboard = $this->prepareVueComponent('dashboard', 'Dashboard', $params);
+    $this->pageHelper->addContent($dashboard);
+    return $this->renderGlobal();
 ```
 
 ## VUE
@@ -151,4 +147,3 @@ In the `Vue`-components, add some `props` where you need and define in `PHP`.
     events: { type: Object, default: () => ({ accepted: null, invites: null }) },
   },
 ```
-

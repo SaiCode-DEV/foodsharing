@@ -10,6 +10,7 @@
 - Rework working group rest controller !3879 @chriswalg
 
 ## Dev/Test/CI stuff
+- Update dev docs Vue component integration to use prepareVueComponent !3910 @chriswalg
 
 # Release "Nektarine", 2024-12-13
 
