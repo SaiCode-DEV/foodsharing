@@ -62,8 +62,6 @@ Q: What are the security parameters? (i.e. how the website will ensure secure ac
 A: There were a lot of SQL injections. Now we use prepared statements, which is clearer.
 [Vue](frontend/javascript#vuejs) helps against XSS attacks. (there might be legacy stuff lurking)
 
-Moving (from [XHR](deployment/requests) to [REST APIs](backend/api/introduction) made it safer as well.
-
 We're aiming for a point, where you get only the data you're requesting (Currently a lot of code is structured "if you're this or that, you get to see xy")
 
 ## Structure

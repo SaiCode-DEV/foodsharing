@@ -16,8 +16,8 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA2;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -28,6 +28,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * Rest controller for food baskets.
  */
+#[OA2\Tag(name: 'basket')]
 final class BasketRestController extends AbstractFOSRestController
 {
     // literal constants
@@ -38,11 +39,11 @@ final class BasketRestController extends AbstractFOSRestController
     private const MAX_BASKET_DISTANCE = 50;
 
     public function __construct(
-        private readonly BasketGateway $gateway,
         private readonly BasketTransactions $basketTransactions,
         private readonly MessageTransactions $messageTransactions,
         private readonly Session $session,
-        private readonly BasketPermissions $basketPermissions
+        private readonly BasketPermissions $basketPermissions,
+        private readonly BasketGateway $basketGateway
     ) {
     }
 
@@ -91,7 +92,7 @@ final class BasketRestController extends AbstractFOSRestController
             throw new BadRequestHttpException('distance must be positive and <= ' . self::MAX_BASKET_DISTANCE);
         }
 
-        $baskets = $this->gateway->listNearbyBasketsByDistance($this->session->id(), $location, $distance);
+        $baskets = $this->basketGateway->listNearbyBasketsByDistance($this->session->id(), $location, $distance);
 
         return $this->handleView($this->view($baskets, 200));
     }
@@ -109,7 +110,7 @@ final class BasketRestController extends AbstractFOSRestController
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
         }
 
-        $basket = $this->gateway->getBasket($basketId);
+        $basket = $this->basketGateway->getBasket($basketId);
 
         $this->verifyBasketIsAvailable($basket);
 
@@ -158,7 +159,7 @@ final class BasketRestController extends AbstractFOSRestController
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
         }
-        $basket = $this->gateway->getBasket($basketId);
+        $basket = $this->basketGateway->getBasket($basketId);
         if (empty($basket)) {
             throw new NotFoundHttpException('Basket was not found or cannot be deleted.');
         }
@@ -167,7 +168,7 @@ final class BasketRestController extends AbstractFOSRestController
             throw new AccessDeniedHttpException('you are not allowed to delete this basket.');
         }
 
-        $status = $this->gateway->removeBasket($basketId);
+        $status = $this->basketGateway->removeBasket($basketId);
 
         if ($status === 0) {
             throw new NotFoundHttpException('Basket was not found or cannot be deleted.');
@@ -191,7 +192,7 @@ final class BasketRestController extends AbstractFOSRestController
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
         }
-        $existingBasket = $this->gateway->getBasket($basketId);
+        $existingBasket = $this->basketGateway->getBasket($basketId);
 
         $this->verifyBasketIsAvailable($existingBasket);
         if ($existingBasket->creator->id !== $this->session->id()) {
@@ -230,20 +231,20 @@ final class BasketRestController extends AbstractFOSRestController
             throw new BadRequestHttpException('The request message should not be empty.');
         }
 
-        $basket = $this->gateway->getBasket($basketId);
+        $basket = $this->basketGateway->getBasket($basketId);
         $this->verifyBasketIsAvailable($basket);
 
         $basketCreatorId = $basket->creator->id;
 
         // check for existing request
-        $requestStatus = $this->gateway->getRequestStatus($basketId, $this->session->id(), $basketCreatorId);
+        $requestStatus = $this->basketGateway->getRequestStatus($basketId, $this->session->id(), $basketCreatorId);
         if ($requestStatus && $requestStatus[self::STATUS] === RequestStatus::DENIED) {
             throw new AccessDeniedHttpException('Your request was denied by the basket creator.');
         }
 
         // Send the message to the creator
         $this->messageTransactions->sendMessageToUser($basketCreatorId, $this->session->id(), $message, 'basket/request');
-        $this->gateway->setStatus($basketId, RequestStatus::REQUESTED_MESSAGE_UNREAD, $this->session->id());
+        $this->basketGateway->setStatus($basketId, RequestStatus::REQUESTED_MESSAGE_UNREAD, $this->session->id());
 
         return $this->getBasket($basketId);
     }
@@ -262,13 +263,13 @@ final class BasketRestController extends AbstractFOSRestController
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
         }
 
-        $basket = $this->gateway->getBasket($basketId);
+        $basket = $this->basketGateway->getBasket($basketId);
         $this->verifyBasketIsAvailable($basket);
 
         // Check that there is an existing active request. If not, there is nothing to withdraw and nothing to be done.
-        $requestStatus = $this->gateway->getRequestStatus($basketId, $this->session->id(), $basket->creator->id);
+        $requestStatus = $this->basketGateway->getRequestStatus($basketId, $this->session->id(), $basket->creator->id);
         if ($requestStatus && ($requestStatus[self::STATUS] === RequestStatus::REQUESTED_MESSAGE_UNREAD || $requestStatus[self::STATUS] === RequestStatus::REQUESTED_MESSAGE_READ)) {
-            $this->gateway->setStatus($basketId, RequestStatus::DELETED_OTHER_REASON, $this->session->id());
+            $this->basketGateway->setStatus($basketId, RequestStatus::DELETED_OTHER_REASON, $this->session->id());
         }
 
         return $this->getBasket($basketId);
@@ -325,6 +326,58 @@ final class BasketRestController extends AbstractFOSRestController
         }
 
         return GeoLocation::createFromArray(['lat' => $lat, 'lon' => $lon]);
+    }
+
+    #[OA2\Patch(summary: 'Updates the status of a basket request. The creator of a basket can set the
+      status of requests for their basket (e.g. mark as picked up, not picked up, denied etc.).')]
+    #[OA2\Tag(name: 'basket')]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA2\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid new status')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Not allowed to request this basket')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Basket does not exist')]
+    #[Rest\Patch('baskets/{basketId}/requests/{requesterId}/status',
+        requirements: [
+            'basketId' => '\d+',
+            'requesterId' => '\d+'
+        ],
+    )]
+    #[Rest\RequestParam(name: 'status', requirements: '(2|3|4|5)', nullable: false)]
+    public function updateRequestStatus(
+        int $basketId,
+        int $requesterId,
+        ParamFetcher $paramFetcher
+    ): Response {
+        if (!$this->session->mayRole()) {
+            throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
+        }
+
+        $basket = $this->basketGateway->getBasket($basketId);
+        if (!$basket || $basket->creator->id !== $this->session->id()) {
+            throw new AccessDeniedHttpException('You can only update request status for your own baskets.');
+        }
+
+        $request = $this->basketGateway->getRequest($basketId, $requesterId, $this->session->id());
+        if (!$request) {
+            throw new NotFoundHttpException('Request not found.');
+        }
+
+        $status = (int)$paramFetcher->get('status');
+
+        $allowedStatuses = [
+            RequestStatus::DELETED_PICKED_UP,
+            RequestStatus::NOT_PICKED_UP,
+            RequestStatus::DELETED_OTHER_REASON,
+            RequestStatus::DENIED
+        ];
+
+        if (!in_array($status, $allowedStatuses)) {
+            throw new BadRequestHttpException('Invalid status value.');
+        }
+
+        $this->basketGateway->setStatus($basketId, $status, $requesterId);
+
+        return $this->handleView($this->view(['status' => $status], 200));
     }
 
     /**

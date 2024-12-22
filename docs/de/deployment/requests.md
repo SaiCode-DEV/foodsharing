@@ -6,30 +6,8 @@ which uses other `php` files to answer the request.
 The `php` builds `html`, `css` and `javascript` and sends them to the client.
 
 Other ways to interact with the foodsharing platform are:
-- [(Legacy) XHR](#xhr) - do not use in new code!
 - [the REST API endpoints](#rest-api) - the preferred option
 - [our chatserver](#nodejs-for-messages)
-
-
-## XHR
-
-XHR ([XMLHttpRequest](https://en.wikipedia.org/wiki/XMLHttpRequest)) is used throughout the project for historic reasons, but should be replaced with modern API endpoints where possible.
-So do not implement new features with XHR! The following is just documentation to understand what exists :)
-
-We used XHR for information transferred from the server to the client which is not a complete new page but javascript-initiated.
-For example, the Update-Übersicht on the Dashboard was loaded by an XHR that gets a json file with the information of the updates.
-The javascript was found in `/client/src/activity.js`, and
-it called XHR endpoints like `http://foodsharing.de/xhrapp?app=basket&m=infobar`.
-
-This requests an answer by `/src/Entrypoint/XhrAppController.php` which in turn calls the correct `php` file based on the options that are given after the `?` in the url.
-For example, the `activity.js` requests were answered by
-`/src/Modules/Activity/ActivityXhr.php`.
-In this example, the database was queried for information via `ActivityModel.php` which in turn used the `/src/Modules/Activity/ActivityGateway.php`.
-
-There were two mostly identical XHR endpoints - `/xhr` and `/xhrapp`. Nowadays, `/xhrapp` is handled by `XhrAppController.php`, `/xhr` is already removed.
-
-XHR-request answers contain a status and data and <!-- todo --> ? and always sends the HTTP status 200.
-So errors are not recognizable by the HTTP status, but by a custom status in the returned json response.
 
 
 ## REST API

@@ -16,7 +16,7 @@
           v-for="basket in basketsSorted"
           :key="basket.id"
           :basket="basket"
-          @basket-remove="openRemoveBasketForm"
+          @basket-remove="openRemoveBasketModal(basket)"
         />
       </template>
       <template v-else #content>
@@ -46,6 +46,7 @@
       </template>
     </Dropdown>
     <AddBasketModal />
+    <RemoveBasketRequestModal v-if="selectedBasket !== null" :basket="selectedBasket" />
   </div>
 </template>
 <script>
@@ -55,11 +56,16 @@ import { getters } from '@/stores/baskets'
 import Dropdown from '../_NavItems/NavDropdown'
 import BasketsEntry from './NavBasketsEntry'
 // Others
-import { ajreq } from '@/script'
 import AddBasketModal from '@/views/partials/Modals/AddBasketModal.vue'
+import RemoveBasketRequestModal from '@/views/partials/Modals/RemoveBasketRequestModal.vue'
 
 export default {
-  components: { BasketsEntry, Dropdown, AddBasketModal },
+  components: { BasketsEntry, Dropdown, AddBasketModal, RemoveBasketRequestModal },
+  data () {
+    return {
+      selectedBasket: null,
+    }
+  },
   computed: {
     baskets () {
       return getters.getOwn()
@@ -77,11 +83,10 @@ export default {
     },
   },
   methods: {
-    openRemoveBasketForm (basketId, userId) {
-      ajreq('removeRequest', {
-        app: 'basket',
-        id: basketId,
-        fid: userId,
+    openRemoveBasketModal (basket) {
+      this.selectedBasket = basket
+      this.$nextTick(() => {
+        this.$bvModal.show('RemoveBasketRequestModal')
       })
     },
   },

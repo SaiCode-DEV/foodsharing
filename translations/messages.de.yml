@@ -2602,8 +2602,8 @@ basket:
   withdrawn_request: "Anfrage wurde zurückgezogen"
   change-state: "Essenskorbanfrage von {name} abschließen"
   state:
-    okay: "Ja, {pronoun} hat den Essenskorb abgeholt."
-    nope: "Nein, {pronoun} ist leider nicht wie verabredet erschienen."
+    okay: "Ja, der Essenskorb wurde abgeholt."
+    nope: "Nein, der Essenskorb wurde nicht wie verabredet abgeholt."
     gone: "Die Lebensmittel wurden von jemand anderem abgeholt."
     deny: "Ich möchte diese Anfrage ablehnen."
     finished: "Danke dir, der Vorgang ist abgeschlossen."

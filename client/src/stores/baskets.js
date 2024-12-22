@@ -53,5 +53,16 @@ export const mutations = {
     store.allCoordinates = (await getMapMarkers(['baskets'], [''])).baskets
   },
 }
+// DBConstants\BasketRequests\Status
+export const BASKET_REQUEST_STATUS = Object.freeze({
+  REQUESTED_MESSAGE_UNREAD: 0,
+  REQUESTED_MESSAGE_READ: 1,
+  DELETED_PICKED_UP: 2,
+  DENIED: 3,
+  NOT_PICKED_UP: 4,
+  DELETED_OTHER_REASON: 5,
+  FOLLOWED: 9,
+  REQUESTED: 10,
+})
 
 export default { store, getters, mutations }

@@ -1,6 +1,5 @@
 import { get, patch, remove } from './base'
 
-// wrapper around the legacy SearchXHR method
 export async function getBellList (limit = 20, offset) {
   let path = `/bells?limit=${limit}`
   if (offset) path += '&offset=' + offset

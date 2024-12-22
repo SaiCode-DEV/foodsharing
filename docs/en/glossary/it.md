@@ -26,7 +26,7 @@ Friends of symfony. We use the [FOSRestBundle](https://symfony.com/doc/master/bu
 
 ## json
 
-Javascript object notation. Format for XHR and REST data transfer.
+Javascript object notation. Format for REST data transfer.
 
 ## MR
 

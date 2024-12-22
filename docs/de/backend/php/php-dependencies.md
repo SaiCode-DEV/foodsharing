@@ -52,11 +52,11 @@ Injection component.
 
 If we want Symfony to inject a dependency into our service, all we need to do is mentioning
  the class in our constructor (`__construct`), e.g.
-```
-class ActivityXhr extends FoodsharingController {
+```php
+class ApplicationController extends FoodsharingController {
   public function __construct(private readonly ActivityModel $model, private readonly MailboxGateway $mailboxGateway)
     { parent::__construct(); }
-... }
+}
 ```
 Dependency injection (Symfony) then makes sure that every service we request is created and
 injected when our service is instanciated.

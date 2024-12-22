@@ -859,13 +859,6 @@ td.load {
   background-position: center;
 }
 
-.xhrDialog .text,
-.xhrDialog input[type=text],
-.xhrDialog textarea,
-.xhrDialog select {
-  width: 95%;
-}
-
 .corner-all,
 .linklist li > a {
   border-radius: 6px;

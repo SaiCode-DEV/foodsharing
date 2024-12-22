@@ -23,7 +23,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  * Definition: "render controller"
  * Any controllers that render parts of the website.
  * Meaning: Symfony Controllers inheriting from FoodsharingController, found under Modules/
- * It does not include anything to do with xhrapp or the REST API.
+ * It does not include anything to do with the REST API.
  *
  * This holds all logic that used to be executed in index.php before calling a Control class.
  * It does this for any Controller that inherits from FoodsharingController.
@@ -97,7 +97,7 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
      * This event is fired before the controller determined by routing is called.
      * Here, we first filter based on the controller, because
      * this should only do anything for render controllers.
-     * Basically, this is for all non-REST/XHR code.
+     * Basically, this is for all non-REST code.
      */
     public function onKernelController(ControllerEvent $event)
     {

@@ -3,7 +3,7 @@
 A lot of code is sorted into modules in the `/src/Modules` directory.
 This is a sorting by topic: each module contains files for one topic.
 That can be a [gateway](./php-gateways),
-a controller, an (old) view, javascript, css, (old) [XHR](../../../deployment/requests#xhr),
+a controller, an (old) view, javascript, css,
 (old) [models](#deprecated-module-structure).
 
 The [Rest api controllers](../../api/introduction) do not go into

@@ -7,6 +7,7 @@
 ## Bugfixes
 
 ## Refactoring
+- Get rid of xhr completely !3826 @chriswalg
 - Rework working group rest controller !3879 @chriswalg
 
 ## Dev/Test/CI stuff

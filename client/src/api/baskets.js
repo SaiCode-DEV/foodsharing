@@ -1,4 +1,4 @@
-import { get, post, remove, put } from './base'
+import { get, post, remove, put, patch } from './base'
 
 export async function getBaskets () {
   const baskets = await get('/user/current/baskets')
@@ -16,6 +16,12 @@ export async function getBaskets () {
 export async function requestBasket (basketId, message) {
   return (post(`/baskets/${basketId}/request`, {
     message: message,
+  }))
+}
+
+export async function updateRequestStatus (basketId, requesterId, status) {
+  return (patch(`/baskets/${basketId}/requests/${requesterId}/status`, {
+    status,
   }))
 }
 
