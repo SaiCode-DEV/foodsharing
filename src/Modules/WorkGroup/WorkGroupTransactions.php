@@ -9,6 +9,8 @@ use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Group\GroupGateway;
 use Foodsharing\Modules\Region\ForumFollowerGateway;
 use Foodsharing\Modules\Uploads\UploadsGateway;
+use Foodsharing\RestApi\DTO\SendGroupRequestData;
+use Foodsharing\RestApi\DTO\SendMailData;
 use Foodsharing\RestApi\Models\Group\EditWorkGroupData;
 use Foodsharing\Utility\EmailHelper;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -37,23 +39,23 @@ class WorkGroupTransactions
         $this->workGroupGateway->removeFromGroup($groupId, $memberId);
     }
 
-    public function sendMailToGroup(string $groupName, string $message, string $username, int $userId, array $recipients, string $userMail): void
+    public function sendMailToGroup(string $groupName, SendMailData $data, string $username, int $userId, array $recipients, string $userMail): void
     {
         $this->emailHelper->tplMail('general/workgroup_contact', $recipients, [
             'gruppenname' => $groupName,
-            'message' => $message,
+            'message' => $data->message,
             'username' => $username,
             'userprofile' => BASE_URL . '/profile/' . $userId,
         ], $userMail);
     }
 
-    public function requestToGroup(int $groupId, int $userId, string $motivation, string $ability, string $experience, int $selectedTime): void
+    public function requestToGroup(int $groupId, int $userId, SendGroupRequestData $data): void
     {
         $content = [
-            $this->translator->trans('group.entermotivation') . "\n===========\n" . trim($motivation),
-            $this->translator->trans('group.enterskills') . "\n============\n" . trim($ability),
-            $this->translator->trans('group.enterxp') . "\n==========\n" . trim($experience),
-            $this->translator->trans('group.entertime') . "\n=====\n" . $selectedTime,
+            $this->translator->trans('group.entermotivation') . "\n===========\n" . trim($data->motivation),
+            $this->translator->trans('group.enterskills') . "\n============\n" . trim($data->ability),
+            $this->translator->trans('group.enterxp') . "\n==========\n" . trim($data->experience),
+            $this->translator->trans('group.entertime') . "\n=====\n" . $data->selectedTime,
         ];
 
         $this->workGroupGateway->groupApply($groupId, $userId, implode("\n\n", $content));
@@ -101,7 +103,7 @@ class WorkGroupTransactions
         $this->bellGateway->addBell($adminIds, $bellData);
     }
 
-    public function updateGroup(int $groupId, EditWorkGroupData $groupData)
+    public function updateGroup(int $groupId, EditWorkGroupData $groupData): void
     {
         $this->workGroupGateway->updateGroup($groupId, $groupData);
 

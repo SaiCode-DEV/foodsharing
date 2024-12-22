@@ -15,6 +15,7 @@ class WorkingGroupApiCest
 {
     private Generator $faker;
     private $workingGroup;
+    private $foodsharer;
     private $user;
     private $userAdmin;
     private $userOrga;
@@ -24,11 +25,25 @@ class WorkingGroupApiCest
         $this->faker = Factory::create('de_DE');
 
         $this->workingGroup = $I->createWorkingGroup('test', ['apply_type' => ApplyType::EVERYBODY]);
+        $this->foodsharer = $I->createFoodsharer();
         $this->user = $I->createFoodsaver();
         $this->userAdmin = $I->createFoodsaver();
         $I->addRegionMember($this->workingGroup['id'], $this->userAdmin['id']);
         $I->addRegionAdmin($this->workingGroup['id'], $this->userAdmin['id']);
         $this->userOrga = $I->createOrga();
+    }
+
+    public function canNotAddMembersToWorkingGroupsWithoutLogin(ApiTester $I): void
+    {
+        $I->sendPOST('api/groups/' . $this->workingGroup['id'] . '/members/' . $this->foodsharer['id']);
+        $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
+    }
+
+    public function canNooAddMembersToInvalidWorkingGroups(ApiTester $I): void
+    {
+        $I->login($this->userAdmin['email']);
+        $I->sendPOST('api/groups/' . $this->workingGroup['id'] + 11 . '/members/' . $this->user['id']);
+        $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
     }
 
     public function canAddMembersToWorkingGroups(ApiTester $I): void
@@ -76,6 +91,22 @@ class WorkingGroupApiCest
         $I->sendPatch('api/groups/' . $this->workingGroup['id'], $this->createFakeGroupData());
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
         $I->seeInDatabase('fs_bezirk', ['id' => $this->workingGroup['id'], 'teaser' => $this->workingGroup['teaser']]);
+
+        // Can not edit not existing group
+        $newData = $this->createFakeGroupData();
+        $I->login($this->userOrga['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/groups/' . $this->workingGroup['id'] + 11, $newData);
+        $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
+
+        // Can not edit group with invalid data
+        $newData = $this->createFakeGroupData();
+        $newData['name'] = null;
+
+        $I->login($this->userOrga['email']);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPatch('api/groups/' . $this->workingGroup['id'], $newData);
+        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
     }
 
     /**
@@ -93,6 +124,84 @@ class WorkingGroupApiCest
             ['id' => $this->workingGroup['id']],
             $this->mapApiFormatToDatabase($newData)
         ));
+    }
+
+    /**
+     * @example["user"]
+     * @example["userAdmin"]
+     * @example["userOrga"]
+     */
+    public function sendMailToGroup(ApiTester $I, Example $example): void
+    {
+        $I->deleteAllMails();
+
+        $validMessage = '{ "message": "ThisIsATestMessage"}';
+        $invalidMessage = '';
+        // Test unauthorized
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/mail', $invalidMessage);
+        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
+
+        // Test unauthorized
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/groups/null/mail', $invalidMessage);
+        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
+
+        // Test unauthorized
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/mail', $validMessage);
+        $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
+
+        $I->login($this->{$example[0]}['email']);
+
+        // Test Invalid Group
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/groups/' . $this->workingGroup['id'] + 100 . '/mail', $validMessage);
+        $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
+
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/mail', $validMessage);
+        $I->seeResponseCodeIs(HttpCode::ACCEPTED);
+
+        $I->expectNumMails(1, 5);
+        $mail = $I->getMails()[0];
+        $I->assertStringContainsString('ThisIsATestMessage', $mail->html);
+        $I->assertStringContainsString($this->{$example[0]}['name'], $mail->subject); // Vorname
+        $I->assertContainsEquals($this->{$example[0]}['email'], array_map(fn ($value): string => $value->address, $mail->to));
+        $I->assertContainsEquals('region-' . $this->workingGroup['id'] . '@foodsharing.network', array_map(fn ($value): string => $value->address, $mail->to));
+        $I->assertContainsEquals($this->{$example[0]}['email'], array_map(fn ($value): string => $value->address, $mail->replyTo));
+    }
+
+    public function sendGroupRequest(ApiTester $I): void
+    {
+        $validRequest = '{ "motivation": "ThisIsATestMessage", "ability": "", "experience": "", "selectedTime": 1}';
+        $invalidMessage = '{ "motivation": "ThisIsATestMessage", "ability": "", "experience": "", "selectedTime": "a"}';
+        // Test unauthorized
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/request', $validRequest);
+        $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
+
+        $I->login($this->user['email']);
+
+        // Test wrong content
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/request', $invalidMessage);
+        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
+
+        // Test wrong content
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/groups/null/request', $invalidMessage);
+        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
+
+        // Test Invalid Group
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/groups/' . $this->workingGroup['id'] + 100 . '/request', $validRequest);
+        $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
+
+        // Test send request
+        $I->haveHttpHeader('Content-Type', 'application/json');
+        $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/request', $validRequest);
+        $I->seeResponseCodeIs(HttpCode::OK);
     }
 
     /**

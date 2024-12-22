@@ -45,6 +45,9 @@ abstract class AbstractFoodsharingRestController extends AbstractFOSRestControll
         }
     }
 
+    /**
+     * @deprecated This method is deprecated. Use DTOs and #[MapRequestPayload] instead.
+     */
     protected function assertThereAreNoValidationErrors(ValidatorInterface $validator, mixed $object): void
     {
         $errors = $validator->validate($object);

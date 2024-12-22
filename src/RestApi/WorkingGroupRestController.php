@@ -9,64 +9,47 @@ use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\WorkGroup\WorkGroupGateway;
 use Foodsharing\Modules\WorkGroup\WorkGroupTransactions;
 use Foodsharing\Permissions\WorkGroupPermissions;
+use Foodsharing\RestApi\DTO\SendGroupRequestData;
+use Foodsharing\RestApi\DTO\SendMailData;
 use Foodsharing\RestApi\Models\Group\EditWorkGroupData;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use OpenApi\Annotations as OA;
-use OpenApi\Attributes as OA2;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class WorkingGroupRestController extends AbstractFOSRestController
+#[OA\Tag(name: 'groups')]
+class WorkingGroupRestController extends AbstractFoodsharingRestController
 {
-    private readonly WorkGroupGateway $workGroupGateway;
-    private readonly FoodsaverGateway $foodsaverGateway;
-    private readonly Session $session;
-    private readonly WorkGroupPermissions $workGroupPermissions;
-    private readonly WorkGroupTransactions $groupTransactions;
-
     public function __construct(
-        WorkGroupGateway $workGroupGateway,
-        FoodsaverGateway $foodsaverGateway,
-        Session $session,
-        WorkGroupPermissions $workGroupPermissions,
-        WorkGroupTransactions $groupTransactions
+        private readonly WorkGroupGateway $workGroupGateway,
+        private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly WorkGroupPermissions $workGroupPermissions,
+        private readonly WorkGroupTransactions $groupTransactions,
+        protected Session $session
     ) {
-        $this->workGroupGateway = $workGroupGateway;
-        $this->foodsaverGateway = $foodsaverGateway;
-        $this->session = $session;
-        $this->workGroupPermissions = $workGroupPermissions;
-        $this->groupTransactions = $groupTransactions;
+        parent::__construct($session);
     }
 
-    /**
-     * Adds a member to a working group. If the user is already a member of the group, nothing happens. This
-     * endpoint can be used for adding someone else to a working group if you are allowed to edit that group or
-     * for joining a group if you allowed to do so.
-     *
-     * @OA\Response(
-     * 		response="200",
-     * 		description="Success",
-     *      @Model(type=Profile::class)
-     * )
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     * @OA\Response(response="404", description="Group not found")
-     * @OA\Tag(name="groups")
-     */
+    #[OA\Post(
+        description: 'If the user is already a member of the group, nothing happens.
+        This endpoint can be used for adding someone else to a working group if you
+        are allowed to edit that group or for joining a group if you are allowed to do so.',
+        summary: 'Adds a member to a working group.')]
+    #[OA\Response(
+        response: Response::HTTP_OK,
+        description: 'Success',
+        content: new Model(type: Profile::class)
+    )]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Group not found')]
     #[Rest\Post('groups/{groupId}/members/{memberId}', requirements: ['groupId' => '\d+', 'memberId' => '\d+'])]
     public function addMember(int $groupId, int $memberId): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         $group = $this->workGroupGateway->getGroup($groupId);
         if (empty($group) || !UnitType::isGroup($group['type'])) {
@@ -81,27 +64,19 @@ class WorkingGroupRestController extends AbstractFOSRestController
         $this->workGroupGateway->addToGroup($groupId, $memberId);
         $user = $this->foodsaverGateway->getProfile($memberId);
 
-        return $this->handleView($this->view($user, 200));
+        return $this->respondOK($user);
     }
 
-    /**
-     * Updates the properties of a group.
-     *
-     * @OA\Response(response="204", description="Success")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions")
-     * @OA\Response(response="404", description="Group not found")
-     * @OA\Tag(name="groups")
-     * @OA\RequestBody(@Model(type=EditWorkGroupData::class))
-     */
+    #[OA\Post(summary: 'Updates the properties of a group.')]
+    #[OA\Response(response: Response::HTTP_NO_CONTENT, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Group not found')]
     #[Rest\Patch('groups/{groupId}', requirements: ['groupId' => '\d+'])]
-    #[ParamConverter('groupData', class: EditWorkGroupData::class, converter: 'fos_rest.request_body')]
-    public function editWorkingGroup(int $groupId, EditWorkGroupData $groupData, ValidatorInterface $validator): Response
+    public function editWorkingGroup(int $groupId, #[MapRequestPayload] EditWorkGroupData $groupData): Response
     {
-        // check permissions
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
+
         $group = $this->workGroupGateway->getGroup($groupId);
         if (empty($group)) {
             throw new NotFoundHttpException();
@@ -110,30 +85,22 @@ class WorkingGroupRestController extends AbstractFOSRestController
             throw new AccessDeniedHttpException();
         }
 
-        // validate the form data
-        $errors = $validator->validate($groupData);
-        if ($errors->count() > 0) {
-            $firstError = $errors->get(0);
-            throw new BadRequestHttpException(json_encode(['field' => $firstError->getPropertyPath(), 'message' => $firstError->getMessage()]));
-        }
-
         $this->groupTransactions->updateGroup($groupId, $groupData);
 
-        return $this->handleView($this->view($groupData, 200));
+        return $this->respondOK($groupData);
     }
 
-    #[OA2\Post(summary: 'Sends a message to a group via email, including a custom message from the contact form.')]
+    #[OA\Post(summary: 'Sends a message to a group via email, including a custom message from the contact form.')]
     #[Rest\Post('groups/{groupId}/mail')]
-    #[OA2\Tag(name: 'groups')]
-    #[Rest\RequestParam(name: 'message', requirements: '.*', description: 'message for mail to group')]
-    public function sendMailFromContactForm(int $groupId, ParamFetcher $paramFetcher): Response
+    #[OA\Response(response: Response::HTTP_ACCEPTED, description: 'Success, send will happen asynchron')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not permitted to access these achievements')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Not permitted to access these achievements')]
+    #[OA\Response(response: Response::HTTP_UNPROCESSABLE_ENTITY, description: 'Validation errors')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Malformed data')]
+    #[OA\Response(response: Response::HTTP_UNSUPPORTED_MEDIA_TYPE, description: 'Unsupported deserialization formats')]
+    public function sendMailFromContactForm(int $groupId, #[MapRequestPayload] SendMailData $sendMailData): Response
     {
-        $userId = $this->session->id();
-        if (!$userId) {
-            throw new UnauthorizedHttpException('');
-        }
-
-        $message = $paramFetcher->get('message');
+        $this->assertLoggedIn();
 
         $group = $this->workGroupGateway->getGroup($groupId);
         if (!$group || empty($group['email'])) {
@@ -144,37 +111,34 @@ class WorkingGroupRestController extends AbstractFOSRestController
         $userName = $this->session->user('name');
         $recipients = [$group['email'], $userMail];
 
-        $this->groupTransactions->sendMailToGroup($group['name'], $message, $userName, $userId, $recipients, $userMail);
+        $this->groupTransactions->sendMailToGroup($group['name'], $sendMailData, $userName, $this->session->id(), $recipients, $userMail);
 
-        return $this->handleView($this->view([], 200));
+        return $this->handleView($this->view([], Response::HTTP_ACCEPTED));
     }
 
-    #[OA2\Post(summary: 'Requests to join a group and provides motivation, ability, experience, and selected time message for mail to group.')]
+    #[OA\Post(summary: 'Requests to join a group and provides motivation, ability, experience, and selected time message for mail to group.')]
     #[Rest\Post('groups/{groupId}/request')]
-    #[OA2\Tag(name: 'groups')]
-    #[Rest\RequestParam(name: 'motivation', requirements: '.*', description: 'Motivation message for mail to group')]
-    #[Rest\RequestParam(name: 'ability', requirements: '.*', description: 'Ability message for mail to group')]
-    #[Rest\RequestParam(name: 'experience', requirements: '.*', description: 'Experience message for mail to group')]
-    #[Rest\RequestParam(name: 'selectedTime', requirements: '^(1|2|3|5)$', description: 'Selected time message for mail to group')]
-    public function sendGroupRequest(int $groupId, ParamFetcher $paramFetcher): Response
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not permitted to access these achievements')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Not permitted to access these achievements')]
+    #[OA\Response(response: Response::HTTP_UNPROCESSABLE_ENTITY, description: 'Validation errors')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Malformed data')]
+    #[OA\Response(response: Response::HTTP_UNSUPPORTED_MEDIA_TYPE, description: 'Unsupported deserialization formats')]
+    public function sendGroupRequest(int $groupId, #[MapRequestPayload] SendGroupRequestData $sendGroupRequestData): Response
     {
-        $userId = $this->session->id();
-        if (!$userId) {
-            throw new UnauthorizedHttpException('');
-        }
-
-        $motivation = $paramFetcher->get('motivation');
-        $ability = $paramFetcher->get('ability');
-        $experience = $paramFetcher->get('experience');
-        $selectedTime = $paramFetcher->get('selectedTime');
+        $this->assertLoggedIn();
 
         $group = $this->workGroupGateway->getGroup($groupId);
         if (!$group) {
             throw new NotFoundHttpException();
         }
 
-        $this->groupTransactions->requestToGroup($groupId, $userId, $motivation, $ability, $experience, $selectedTime);
+        $this->groupTransactions->requestToGroup(
+            $groupId,
+            $this->session->id(),
+            $sendGroupRequestData
+        );
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 }

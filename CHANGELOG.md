@@ -7,6 +7,7 @@
 ## Bugfixes
 
 ## Refactoring
+- Rework working group rest controller !3879 @chriswalg
 
 ## Dev/Test/CI stuff
 
