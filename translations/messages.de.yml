@@ -1751,7 +1751,7 @@ bell:
   fs_sleepmode_title: "Neue Schlafmütze"
   fs_sleepmode: "{name} {nachname} ist jetzt inaktiv"
   new_quiz_comment_title: "Kommentar zu Frage #{questionId}"
-  new_quiz_comment: 
+  new_quiz_comment:
     one: "{user}: {comment}"
     many: "{count} neue Kommentare"
   new_foodsaver_title: "{name} neu in {bezirk}"
@@ -3139,7 +3139,7 @@ startpage:
     Wir weisen ausdrücklich darauf hin, dass wir das Anbieten und Teilen bestimmter Lebensmittel und anderer Waren aus rechtlichen Gründen nur unter bestimmten Auflagen gestatten. Das betrifft insbesondere leicht verderbliche Lebensmittel wie rohen Fisch, rohes Fleisch, rohe Eierspeisen und zubereitete Lebensmittel. Generell achten wir mit allen Sinnen darauf, dass die Lebensmittel noch genießbar sind. Alle Details dazu finden sich in den [foodsharing-Hygieneregeln](https://wiki.foodsharing.de/Hygieneregeln). Hinweise finden sich auch im [Ratgeber](https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel).
   notallowed: "Die Weitergabe von Medikamenten (auch homöopathischen Mitteln) ist bei foodsharing ausgeschlossen. Auch Kleidung, Kosmetika, Haushaltschemie, Spielzeug und andere Non-Food-Produkte können über foodsharing nicht getauscht oder geteilt werden. Die Plattform foodsharing behält sich vor, derartige Angebote zu löschen." #ContentView
   beresponsible: "Sei verantwortungsvoll" #ContentView
-  responsibility: "aller Lebensmittel landen im Müll. Damit soll nun endlich Schluss sein. Wir möchten nichts mehr wegwerfen! Wir wollen verantwortungsvoll mit Lebensmitteln umgehen und freuen uns, dass du mitmachst." #ContentView. Line starts with hardcoded: "30% " #ContentView
+  responsibility: "Ein Drittel aller Lebensmittel landen im Müll. Damit soll nun endlich Schluss sein. Wir möchten nichts mehr wegwerfen! Wir wollen verantwortungsvoll mit Lebensmitteln umgehen und freuen uns, dass du mitmachst." #ContentView. Line starts with hardcoded: "30% " #ContentView
   bedependable: "Sei zuverlässig" #ContentView
   dependability: "Vielerorts gibt es Fairteiler, an denen Lebensmittel geteilt werden. Ihr könnt euch dort oder an anderen neutralen Orten zum Teilen treffen. Wenn ihr Lebensmittel abgeben oder erhalten wollt, seid bitte zuverlässig und pünktlich, lasst niemanden im „Regen“ stehen." #ContentView
   makeproposals: "Mach Vorschläge" #ContentView
