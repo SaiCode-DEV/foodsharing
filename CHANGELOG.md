@@ -1,3 +1,15 @@
+# Unreleased
+
+## Features
+
+## Changes
+
+## Bugfixes
+
+## Refactoring
+
+## Dev/Test/CI stuff
+
 # Release "Nektarine", 2024-12-13
 
 ## Features
