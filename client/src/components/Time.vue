@@ -42,13 +42,16 @@ function parseTime (time) {
     try {
       date.value = new Date(time)
       if (isNaN(date.value)) {
-        throw captureError('Invalid date', time)
+        captureError(`Invalid date : ${time}`)
+        date.value = null
+        return
       }
     } catch (e) {
       console.error('Invalid date', time)
-      return { date: null }
+      date.value = null
+      return
     }
-    return { date: date.value }
+    return
   }
   date.value = new Date(time)
 }
