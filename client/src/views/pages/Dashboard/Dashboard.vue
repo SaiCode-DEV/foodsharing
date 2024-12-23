@@ -111,7 +111,7 @@
 // Stores
 import DataStores from '@/stores/stores.js'
 import DataPickups from '@/stores/pickups.js'
-import DataBaskets from '@/stores/baskets.js'
+import { useBasketStore } from '@/stores/baskets'
 import { useUserStore } from '@/stores/user'
 import DataEvents from '@/stores/events.js'
 import DataBroadcast from '@/stores/broadcast.js'
@@ -167,8 +167,10 @@ export default {
     events: { type: Object, default: () => ({ accepted: null, invites: null }) },
   },
   setup () {
+    const basketStore = useBasketStore()
     return {
       userStore,
+      basketStore,
     }
   },
   data () {
@@ -216,7 +218,7 @@ export default {
         }
         if (newVal.getLocations !== oldVal?.getLocations) {
           if (newVal.getLocations.lat && newVal.getLocations.lon) {
-            await DataBaskets.mutations.fetchNearby(newVal.getLocations)
+            await this.basketStore.fetchNearby(newVal.getLocations)
           }
         }
       },

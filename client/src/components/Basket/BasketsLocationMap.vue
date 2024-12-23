@@ -32,7 +32,7 @@ import L from 'leaflet'
 import { LMarker } from 'vue2-leaflet'
 import 'leaflet.awesome-markers'
 import LeafletMap from '@/components/map/LeafletMap'
-import BasketsData from '@/stores/baskets'
+import { useBasketStore } from '@/stores/baskets'
 import AddressSearchField from '@/components/map/AddressSearchField'
 import Vue2LeafletMarkerCluster from 'vue2-leaflet-markercluster'
 import BasketBubble from '@php/Modules/Map/components/BasketBubble.vue'
@@ -44,6 +44,12 @@ export default {
     zoom: { type: Number, required: true },
     center: { type: Object, required: true },
   },
+  setup () {
+    const basketStore = useBasketStore()
+    return {
+      basketStore,
+    }
+  },
   data () {
     return {
       currentZoom: this.zoom,
@@ -54,8 +60,8 @@ export default {
     }
   },
   async mounted () {
-    await BasketsData.mutations.fetchAllCoordinates()
-    this.baskets = BasketsData.getters.getAllBasketCoordinates()
+    await this.basketStore.fetchAllCoordinates()
+    this.baskets = this.basketStore.getAllBasketCoordinates
   },
   methods: {
     openBasketBubble (id) {

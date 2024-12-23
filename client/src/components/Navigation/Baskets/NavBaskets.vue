@@ -51,7 +51,7 @@
 </template>
 <script>
 // Stores
-import { getters } from '@/stores/baskets'
+import { useBasketStore } from '@/stores/baskets'
 // Components
 import Dropdown from '../_NavItems/NavDropdown'
 import BasketsEntry from './NavBasketsEntry'
@@ -61,6 +61,12 @@ import RemoveBasketRequestModal from '@/views/partials/Modals/RemoveBasketReques
 
 export default {
   components: { BasketsEntry, Dropdown, AddBasketModal, RemoveBasketRequestModal },
+  setup () {
+    const basketStore = useBasketStore()
+    return {
+      basketStore,
+    }
+  },
   data () {
     return {
       selectedBasket: null,
@@ -68,7 +74,7 @@ export default {
   },
   computed: {
     baskets () {
-      return getters.getOwn()
+      return this.basketStore.getOwn
     },
     basketsSorted () {
       return this.baskets.slice().sort((a, b) => {
@@ -79,7 +85,7 @@ export default {
       })
     },
     basketsRequestCount () {
-      return getters.getRequestedCount()
+      return this.basketStore.getRequestedCount
     },
   },
   methods: {

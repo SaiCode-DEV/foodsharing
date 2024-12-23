@@ -127,7 +127,7 @@
 import LeafletLocationSearch from '@/components/map/LeafletLocationSearch.vue'
 import { useUserStore } from '@/stores/user.js'
 import { addBasket, editBasket } from '@/api/baskets'
-import { mutations as basketStoreMutations } from '@/stores/baskets'
+import { useBasketStore } from '@/stores/baskets'
 import { pulseInfo } from '@/script'
 import ImageUpload from '@/components/upload/ImageUpload.vue'
 
@@ -155,8 +155,10 @@ export default {
     edit: { type: Boolean, default: false },
   },
   setup () {
+    const basketStore = useBasketStore()
     return {
       userStore,
+      basketStore,
     }
   },
   data () {
@@ -251,7 +253,7 @@ export default {
       await addBasket(await this.getBasketData())
       pulseInfo(this.$i18n('basket.published'))
       this.resetModal()
-      basketStoreMutations.fetchOwn()
+      await this.basketStore.fetchOwn()
     },
     async editBasket () {
       await editBasket(this.basket.id, await this.getBasketData())

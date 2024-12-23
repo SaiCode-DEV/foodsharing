@@ -55,7 +55,7 @@
 import { useUserStore } from '@/stores/user.js'
 import DataBells from '@/stores/bells.js'
 import DataStores from '@/stores/stores.js'
-import DataBaskets from '@/stores/baskets.js'
+import { useBasketStore } from '@/stores/baskets'
 import DataConversations from '@/stores/conversations.js'
 import DataGroups from '@/stores/groups.js'
 import { useRegionStore } from '@/stores/regions.js'
@@ -109,8 +109,10 @@ export default {
     },
   },
   setup () {
+    const basketStore = useBasketStore()
     return {
       userStore,
+      basketStore,
     }
   },
   data () {
@@ -127,9 +129,6 @@ export default {
     },
     isFoodsaver () {
       return userStore.isFoodsaver
-    },
-    homeHref () {
-      return (this.isLoggedIn) ? this.$url('dashboard') : this.$url('home')
     },
     userId () {
       return userStore.getUserId
@@ -152,7 +151,7 @@ export default {
       // TODO: NO APIS :(
       DataGroups.mutations.set(this.groups)
       regionStore.regions = this.regions
-      await DataBaskets.mutations.fetchOwn()
+      await this.basketStore.fetchOwn()
       await DataBells.mutations.fetch()
       await DataConversations.initConversations()
     }
