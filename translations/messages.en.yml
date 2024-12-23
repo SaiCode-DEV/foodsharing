@@ -4524,6 +4524,8 @@ support_page:
   info_teaser: Our support form is available for questions about using the platform,
     technical issues or error messages. After submitting the form, a ticket is automatically
     created in our system. The volunteer support team will take care of your inquiries.
+    In order to better respond to technical problems, your request also includes which
+    browser and operating system you are using.
   validation_firstName: First name is empty
   subject: Subject
   validation_subject: Subject is empty
