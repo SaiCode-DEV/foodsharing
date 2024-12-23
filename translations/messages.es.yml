@@ -980,9 +980,9 @@ startpage:
     regulaciones. Sea honesto al completar sus datos y en todas las demás actividades
     en la plataforma, p. B. con cestas de comida y publicaciones en foros.'
   register: 'Al final de esta página puedes registrarte como repartidor de alimentos.'
-  responsibility: 'de toda la comida acaba en la basura. Esto finalmente debería llegar
-    a su fin. ¡Ya no queremos tirar nada! Queremos manejar los alimentos de manera
-    responsable y estamos felices de que se una a nosotros.'
+  responsibility: 'Un tercio de toda la comida acaba en la basura. Esto finalmente
+    debería llegar a su fin. ¡Ya no queremos tirar nada! Queremos manejar los alimentos
+    de manera responsable y estamos felices de que se una a nosotros.'
   together: 'Junto con foodsharing, puedes trabajar para garantizar que los alimentos
     desechados e invendibles tengan un uso sensato en lugar de desecharse. Puedes
     encontrar más información [aquí](/fuer-unternehmen).'
