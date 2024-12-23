@@ -7,15 +7,15 @@
     <div class="col-sm-auto">
       <input
         id="new-email"
-        v-model="$v.email.$model"
+        v-model="v$.email.$model"
         class="form-control mt-3"
-        :class="{ 'is-invalid': $v.email.$error }"
+        :class="{ 'is-invalid': v$.email.$error }"
         type="email"
         :placeholder="$i18n('settings.changemail.input_label_email')"
         :disabled="isLoading"
       >
-      <div v-if="$v.email.$error" class="invalid-feedback">
-        <span v-if="!$v.email.notFoodsharingAddress">
+      <div v-if="v$.email.$error" class="invalid-feedback">
+        <span v-if="!v$.email.notFoodsharingAddress">
           {{ $i18n('settings.changemail.domain') }}
         </span>
       </div>
@@ -24,18 +24,18 @@
     <div class="col-sm-auto">
       <input
         id="new-email-confirm"
-        v-model="$v.confirmEmail.$model"
+        v-model="v$.confirmEmail.$model"
         class="form-control mt-3"
-        :class="{ 'is-invalid': $v.confirmEmail.$error }"
+        :class="{ 'is-invalid': v$.confirmEmail.$error }"
         type="email"
         :placeholder="$i18n('settings.changemail.input_label_email_confirm')"
         :disabled="isLoading"
       >
       <div
-        v-if="$v.confirmEmail.$error"
+        v-if="v$.confirmEmail.$error"
         class="invalid-feedback"
       >
-        <span v-if="!$v.confirmEmail.required || !$v.confirmEmail.sameAsEmail">
+        <span v-if="!v$.confirmEmail.required || !v$.confirmEmail.sameAsEmail">
           {{ $i18n('settings.changemail.confirm_email_required') }}
         </span>
       </div>
@@ -49,9 +49,9 @@
       <input
         v-if="isMe"
         id="password"
-        v-model="$v.password.$model"
+        v-model="v$.password.$model"
         class="form-control mt-3"
-        :class="{ 'is-invalid': $v.password.$error }"
+        :class="{ 'is-invalid': v$.password.$error }"
         type="password"
         :placeholder="$i18n('settings.changemail.input_label_password')"
         :disabled="isLoading"
@@ -60,7 +60,7 @@
 
     <button
       class="btn btn-primary btn-sm m-2 mt-3"
-      :disabled="$v.$invalid"
+      :disabled="v$.$invalid"
       @click="submitEmail"
       v-text="$i18n('settings.email')"
     />
@@ -69,7 +69,8 @@
 
 <script>
 import { pulseError, pulseInfo } from '@/script'
-import { email, minLength, not, required, requiredIf, sameAs } from 'vuelidate/lib/validators'
+import { useVuelidate } from '@vuelidate/core'
+import { email, minLength, not, required, requiredIf, sameAs } from '@vuelidate/validators'
 import { requestEmailChange } from '@/api/settings'
 import { isFoodsharingDomain } from '@/helper/urls'
 import { HTTP_RESPONSE } from '@/consts'
@@ -91,6 +92,7 @@ export default {
   },
   setup () {
     return {
+      v$: useVuelidate(),
       userStore,
     }
   },

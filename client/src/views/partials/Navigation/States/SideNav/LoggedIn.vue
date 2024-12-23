@@ -33,8 +33,6 @@ import MetaNavLoggedIn from '../MetaNav/LoggedIn.vue'
 // Mixins
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
-const userStore = useUserStore()
-
 export default {
   components: {
     Link,
@@ -47,13 +45,14 @@ export default {
   },
   mixins: [MediaQueryMixin],
   setup () {
+    const userStore = useUserStore()
     return {
       userStore,
     }
   },
   computed: {
     isFoodsaver () {
-      return userStore.isFoodsaver
+      return this.userStore.isFoodsaver
     },
   },
   mounted () {

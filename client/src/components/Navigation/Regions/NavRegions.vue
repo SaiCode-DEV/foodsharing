@@ -40,21 +40,21 @@ import { useRegionStore } from '@/stores/regions'
 import Dropdown from '../_NavItems/NavDropdown'
 import RegionsEntry from './NavRegionsEntry'
 
-const userStore = useUserStore()
-const regionStore = useRegionStore()
-
 export default {
   name: 'MenuRegions',
   components: { Dropdown, RegionsEntry },
   setup () {
+    const userStore = useUserStore()
+    const regionStore = useRegionStore()
     return {
       userStore,
+      regionStore,
     }
   },
   computed: {
     regions () {
-      const homeRegion = userStore.getHomeRegion
-      return regionStore.regions.slice().sort((a, b) => {
+      const homeRegion = this.userStore.getHomeRegion
+      return this.regionStore.regions.slice().sort((a, b) => {
         if (a.id === homeRegion) return -1
         if (b.id === homeRegion) return 1
         else return a.name.localeCompare(b.name)

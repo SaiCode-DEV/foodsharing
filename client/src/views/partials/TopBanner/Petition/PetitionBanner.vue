@@ -46,12 +46,15 @@ import { getPetitionData } from '@/api/petition'
 import TopBanner from '../TopBanner.vue'
 import { useRegionStore } from '@/stores/regions'
 import { getContent } from '@/api/content'
-const regionStore = useRegionStore()
 
 const progressSteps = [500, 2000, 8000, 15000, 20000, 25000, 30000, Infinity]
 
 export default {
   components: { TopBanner },
+  setup () {
+    const regionStore = useRegionStore()
+    return { regionStore }
+  },
   data () {
     return {
       value: null,
@@ -71,7 +74,7 @@ export default {
     },
     isGerman () {
       const germanyId = 1
-      return regionStore.findRegion(germanyId) !== null
+      return this.regionStore.findRegion(germanyId) !== null
     },
     showBanner () {
       return Number.isInteger(this.value) && Number.isInteger(this.daysLeft) && this.isGerman

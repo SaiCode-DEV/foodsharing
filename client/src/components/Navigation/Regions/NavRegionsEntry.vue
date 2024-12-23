@@ -36,8 +36,6 @@
 import { useUserStore } from '@/stores/user'
 import NavRegionsLinkEntry from '@/components/Navigation/Regions/NavRegionsLinkEntry.vue'
 
-const userStore = useUserStore()
-
 export default {
   name: 'MenuGroupsEntry',
   components: { NavRegionsLinkEntry },
@@ -52,13 +50,14 @@ export default {
     },
   },
   setup () {
+    const userStore = useUserStore()
     return {
       userStore,
     }
   },
   computed: {
     isHomeRegion () {
-      return this.entry.id === userStore.getHomeRegion
+      return this.entry.id === this.userStore.getHomeRegion
     },
   },
   methods: {

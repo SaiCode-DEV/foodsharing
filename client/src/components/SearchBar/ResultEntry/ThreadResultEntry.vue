@@ -44,8 +44,6 @@
 <script>
 import { useUserStore } from '@/stores/user'
 
-const userStore = useUserStore()
-
 export default {
   props: {
     thread: {
@@ -58,6 +56,7 @@ export default {
     },
   },
   setup () {
+    const userStore = useUserStore()
     return {
       userStore,
     }
@@ -65,7 +64,7 @@ export default {
   computed: {
     isAmbassador () {
       // eslint-disable-next-line eqeqeq
-      return this.region.ambassadors.includes(ambassador => ambassador.id == userStore.getUserId)
+      return this.region.ambassadors.includes(ambassador => ambassador.id == this.userStore.getUserId)
     },
   },
 }

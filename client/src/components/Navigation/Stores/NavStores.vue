@@ -80,28 +80,27 @@ import DataStores from '@/stores/stores'
 import Dropdown from '../_NavItems/NavDropdown'
 import StoresEntry from './NavStoresEntry'
 
-const userStore = useUserStore()
-
 export default {
   name: 'MenuStores',
   components: { Dropdown, StoresEntry },
   setup () {
+    const userStore = useUserStore()
     return {
       userStore,
     }
   },
   computed: {
     homeRegionId () {
-      return userStore.getHomeRegion
+      return this.userStore.getHomeRegion
     },
     permissions () {
-      return userStore.getPermissions
+      return this.userStore.getPermissions
     },
     hasStores () {
       return DataStores.getters.hasStores()
     },
     userId () {
-      return userStore.getUserId
+      return this.userStore.getUserId
     },
     getStores () {
       return [

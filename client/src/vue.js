@@ -4,11 +4,9 @@ import dateFormatter from '@/helper/date-formatter'
 import { url } from '@/helper/urls'
 import { isFeatureToggleActive } from '@/helper/featuretoggles'
 import BootstrapVue from 'bootstrap-vue'
-import Vuelidate from 'vuelidate'
 import { createPinia, PiniaVuePlugin } from 'pinia'
 
 Vue.use(BootstrapVue)
-Vue.use(Vuelidate)
 Vue.use(PiniaVuePlugin)
 const pinia = createPinia()
 Vue.use(pinia)

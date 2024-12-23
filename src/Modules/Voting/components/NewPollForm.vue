@@ -21,11 +21,11 @@
         >
           <b-form-input
             id="input-name"
-            v-model="$v.name.$model"
+            v-model="v$.name.$model"
             trim
-            :state="$v.name.$error ? false : null"
+            :state="v$.name.$error ? false : null"
           />
-          <div v-if="$v.name.$error" class="invalid-feedback">
+          <div v-if="v$.name.$error" class="invalid-feedback">
             {{ $i18n('poll.new_poll.name_required') }}
           </div>
         </b-form-group>
@@ -80,7 +80,7 @@
                 v-bind="labelsCalendar || {}"
                 :locale="locale"
                 :min="new Date()"
-                :state="$v.startDateTime.$error ? false : null"
+                :state="v$.startDateTime.$error ? false : null"
                 @input="updateDateStartTimes"
               />
             </b-col>
@@ -90,13 +90,13 @@
                 v-model="startTime"
                 :locale="locale"
                 v-bind="labelsTimepicker || {}"
-                :state="$v.startDateTime.$error ? false : null"
+                :state="v$.startDateTime.$error ? false : null"
                 @input="updateDateStartTimes"
               />
             </b-col>
           </b-form-row>
           <div
-            v-if="$v.startDateTime.$error"
+            v-if="v$.startDateTime.$error"
             class="invalid-feedback"
           >
             {{ $i18n('poll.new_poll.start_date_required') }}
@@ -115,7 +115,7 @@
                 v-bind="labelsCalendar || {}"
                 :locale="locale"
                 :min="startDate"
-                :state="$v.endDateTime.$error ? false : null"
+                :state="v$.endDateTime.$error ? false : null"
                 @input="updateDateEndTimes"
               />
             </b-col>
@@ -125,13 +125,13 @@
                 v-model="endTime"
                 :locale="locale"
                 v-bind="labelsTimepicker || {}"
-                :state="$v.endDateTime.$error ? false : null"
+                :state="v$.endDateTime.$error ? false : null"
                 @input="updateDateEndTimes"
               />
             </b-col>
           </b-form-row>
           <div
-            v-if="$v.endDateTime.$error"
+            v-if="v$.endDateTime.$error"
             class="invalid-feedback"
           >
             {{ $i18n('poll.new_poll.end_date_required') }}
@@ -144,14 +144,14 @@
         >
           <MarkdownInput
             :rows="5"
-            :value="$v.description.$model"
-            :state="$v.description.$error ? false : null"
+            :value="v$.description.$model"
+            :state="v$.description.$error ? false : null"
             :placeholder="$i18n('poll.new_poll.description_placeholder')"
             :region-id="region.id"
-            @update:value="newValue => $v.description.$model = newValue"
+            @update:value="newValue => v$.description.$model = newValue"
           />
           <div
-            v-if="$v.description.$error"
+            v-if="v$.description.$error"
             class="invalid-feedback"
           >
             {{ $i18n('poll.new_poll.description_required') }}
@@ -196,14 +196,14 @@
             <b-col>
               <b-form-input
                 id="input-option-0"
-                v-model="$v.options.$model[index-1]"
+                v-model="v$.options.$model[index-1]"
                 trim
-                :state="$v.options.$error ? false : null"
+                :state="v$.options.$error ? false : null"
                 class="mr-3 mb-1"
               />
             </b-col>
           </b-form-row>
-          <div v-if="$v.options.$error" class="invalid-feedback">
+          <div v-if="v$.options.$error" class="invalid-feedback">
             {{ $i18n('poll.new_poll.option_texts_required') }}
           </div>
         </b-form-group>
@@ -211,11 +211,11 @@
         <b-button
           type="submit"
           variant="primary"
-          :disabled="$v.$invalid"
+          :disabled="v$.$invalid"
         >
           {{ $i18n('poll.new_poll.submit') }}
         </b-button>
-        <div v-if="$v.$invalid" class="invalid-feedback">
+        <div v-if="v$.$invalid" class="invalid-feedback">
           {{ $i18n('poll.new_poll.missing_fields') }}
         </div>
       </b-form>
@@ -242,7 +242,8 @@ import { createPoll } from '@/api/voting'
 import { pulseError } from '@/script'
 import dataFormatter from '@/helper/date-formatter'
 import i18n, { locale } from '@/helper/i18n'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { useVuelidate } from '@vuelidate/core'
+import { required, minLength } from '@vuelidate/validators'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import { VOTING_TYPE } from '@/stores/polls'
 import Info from '@/components/Help/Info.vue'
@@ -279,6 +280,11 @@ export default {
       type: Array,
       default: () => [],
     },
+  },
+  setup () {
+    return {
+      v$: useVuelidate(),
+    }
   },
   data () {
     return {
@@ -369,7 +375,7 @@ export default {
         newOptions[i] = this.options[i]
       }
       this.options = newOptions
-      this.$v.options.$touch()
+      this.v$.options.$touch()
     },
   },
   mounted () {
@@ -379,10 +385,10 @@ export default {
   },
   methods: {
     updateDateStartTimes () {
-      this.$v.startDateTime.$touch()
+      this.v$.startDateTime.$touch()
     },
     updateDateEndTimes () {
-      this.$v.endDateTime.$touch()
+      this.v$.endDateTime.$touch()
     },
     forceUpdateNumberOfOptions () {
       // When the poll type changes, the minimal number of options might have changed

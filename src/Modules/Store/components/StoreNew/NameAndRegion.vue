@@ -1,12 +1,12 @@
 <template>
   <div class="list-group-item">
     <b-form-input
-      v-model.lazy="$v.name.$model"
-      :class="{ 'is-invalid': $v.name.$error}"
+      v-model.lazy="v$.name.$model"
+      :class="{ 'is-invalid': v$.name.$error}"
       :placeholder="$i18n('storeedit.store_name_placeholder')"
       @input="$emit('update:name', $event)"
     />
-    <span v-if="$v.name.$error">{{ $i18n('storeedit.name_error') }}</span>
+    <span v-if="v$.name.$error">{{ $i18n('storeedit.name_error') }}</span>
     <b-input-group class="pt-2 pb-2">
       <b-form-input
         :value="region.name"
@@ -26,7 +26,7 @@
     <b-button
       class="float-right"
       variant="primary"
-      :disabled="$v.$invalid"
+      :disabled="v$.$invalid"
       @click="redirect()"
     >
       {{ $i18n('button.next') }}
@@ -47,7 +47,8 @@
 <script>
 import RegionTreeModal from '@/components/regiontree/RegionTreeModal.vue'
 import { SELECTABLE_REGION_TYPES } from '@/stores/regions'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { useVuelidate } from '@vuelidate/core'
+import { required, minLength } from '@vuelidate/validators'
 
 export default {
   components: { RegionTreeModal },
@@ -56,6 +57,11 @@ export default {
   },
   validations: {
     name: { required, minLength: minLength(3) },
+  },
+  setup () {
+    return {
+      v$: useVuelidate(),
+    }
   },
   data () {
     return {
@@ -75,8 +81,8 @@ export default {
       this.region.name = region.data.text
     },
     redirect () {
-      this.$v.$touch()
-      if (!this.$v.$invalid) {
+      this.v$.$touch()
+      if (!this.v$.$invalid) {
         this.$emit('update:region', this.region)
         this.$emit('next')
       }

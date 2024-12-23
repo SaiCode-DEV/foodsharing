@@ -8,7 +8,7 @@
         <b-form-radio-group
           id="genderRadioGroup"
           :checked="gender"
-          :state="$v.gender.$error ? false : null"
+          :state="v$.gender.$error ? false : null"
           :value="gender"
           name="gender"
           @input="$emit('update:gender', $event)"
@@ -40,19 +40,19 @@
       </div> <div class="col-sm-auto">
         <input
           id="firstname"
-          v-model.lazy="$v.firstname.$model"
-          :class="{ 'is-invalid': $v.firstname.$error }"
+          v-model.lazy="v$.firstname.$model"
+          :class="{ 'is-invalid': v$.firstname.$error }"
           type="text"
           name="firstname"
           class="form-control"
           @input="$emit('update:firstname', $event.target.value)"
         >
         <div
-          v-if="$v.firstname.$error"
+          v-if="v$.firstname.$error"
           class="invalid-feedback"
         >
-          <span v-if="!$v.firstname.required">{{ $i18n('register.firstname_required') }}</span>
-          <span v-if="!$v.firstname.minLength">{{ $i18n('register.firstname_minLength') }}</span>
+          <span v-if="!v$.firstname.required">{{ $i18n('register.firstname_required') }}</span>
+          <span v-if="!v$.firstname.minLength">{{ $i18n('register.firstname_minLength') }}</span>
         </div>
       </div>
       <div class="my-1">
@@ -61,16 +61,16 @@
         </div> <div class="col-sm-auto">
           <input
             id="lastname"
-            v-model.lazy="$v.lastname.$model"
-            :class="{ 'is-invalid': $v.lastname.$error }"
+            v-model.lazy="v$.lastname.$model"
+            :class="{ 'is-invalid': v$.lastname.$error }"
             type="text"
             name="lastname"
             class="form-control"
             @input="$emit('update:lastname', $event.target.value)"
           >
-          <div v-if="$v.lastname.$error" class="invalid-feedback">
-            <span v-if="!$v.lastname.required">{{ $i18n('register.lastname_required') }}</span>
-            <span v-if="!$v.lastname.minLength">{{ $i18n('register.lastname_minLength') }}</span>
+          <div v-if="v$.lastname.$error" class="invalid-feedback">
+            <span v-if="!v$.lastname.required">{{ $i18n('register.lastname_required') }}</span>
+            <span v-if="!v$.lastname.minLength">{{ $i18n('register.lastname_minLength') }}</span>
           </div>
         </div>
       </div>
@@ -93,11 +93,16 @@
   </form>
 </template>
 <script>
-import { required, minLength } from 'vuelidate/lib/validators'
+import { useVuelidate } from '@vuelidate/core'
+import { required, minLength } from '@vuelidate/validators'
 
 export default {
   props: { firstname: { type: String, default: '' }, lastname: { type: String, default: '' }, gender: { type: Number, default: 1 } },
-
+  setup () {
+    return {
+      v$: useVuelidate(),
+    }
+  },
   validations: {
     firstname: { required, minLength: minLength(2) },
     lastname: { required, minLength: minLength(2) },
@@ -106,8 +111,8 @@ export default {
 
   methods: {
     redirect () {
-      this.$v.$touch()
-      if (!this.$v.$invalid) {
+      this.v$.$touch()
+      if (!this.v$.$invalid) {
         this.$emit('next')
       }
     },

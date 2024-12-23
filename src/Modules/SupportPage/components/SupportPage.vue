@@ -17,13 +17,13 @@
     <b-form @submit.prevent="submitTicket">
       <b-form-group v-if="!isLoggedIn" :label="$i18n('support_page.firstName')">
         <b-form-input
-          v-model="$v.firstNameData.$model"
+          v-model="v$.firstNameData.$model"
           required
-          :class="{ 'is-invalid': $v.firstNameData.$error }"
+          :class="{ 'is-invalid': v$.firstNameData.$error }"
           :disabled="isLoading || isSuccessfullySubmitted"
         />
         <div
-          v-if="$v.firstNameData.$error"
+          v-if="v$.firstNameData.$error"
           class="invalid-feedback"
         >
           <span>{{ $i18n('support_page.validation_firstName') }}</span>
@@ -31,13 +31,13 @@
       </b-form-group>
       <b-form-group :label="$i18n('support_page.subject')">
         <b-form-input
-          v-model="$v.subject.$model"
+          v-model="v$.subject.$model"
           required
-          :class="{ 'is-invalid': $v.subject.$error }"
+          :class="{ 'is-invalid': v$.subject.$error }"
           :disabled="isLoading || isSuccessfullySubmitted"
         />
         <div
-          v-if="$v.subject.$error"
+          v-if="v$.subject.$error"
           class="invalid-feedback"
         >
           <span>{{ $i18n('support_page.validation_subject') }}</span>
@@ -46,13 +46,13 @@
 
       <b-form-group :label="$i18n('support_page.email')">
         <b-form-input
-          v-model="$v.email.$model"
+          v-model="v$.email.$model"
           required
           :disabled="isLoading || isSuccessfullySubmitted"
-          :class="{ 'is-invalid': $v.email.$error }"
+          :class="{ 'is-invalid': v$.email.$error }"
         />
         <div
-          v-if="$v.email.$error"
+          v-if="v$.email.$error"
           class="invalid-feedback"
         >
           <span>{{ $i18n('support_page.validation_email') }}</span>
@@ -61,14 +61,14 @@
 
       <b-form-group :label="$i18n('support_page.body')">
         <b-form-textarea
-          v-model="$v.body.$model"
+          v-model="v$.body.$model"
           rows="5"
           required
-          :class="{ 'is-invalid': $v.body.$error }"
+          :class="{ 'is-invalid': v$.body.$error }"
           :disabled="isLoading || isSuccessfullySubmitted"
         />
         <div
-          v-if="$v.body.$error"
+          v-if="v$.body.$error"
           class="invalid-feedback"
         >
           <span>{{ $i18n('support_page.validation_body') }}</span>
@@ -136,7 +136,7 @@
       <b-button
         type="submit"
         variant="primary"
-        :disabled="isLoading || $v.$invalid || isSuccessfullySubmitted"
+        :disabled="isLoading || v$.$invalid || isSuccessfullySubmitted"
       >
         {{ $i18n('button.send') }}
       </b-button>
@@ -155,7 +155,8 @@
 import Container from '@/components/Container/Container.vue'
 import { createTicket } from '@/api/support'
 import { useUserStore } from '@/stores/user'
-import { required, email } from 'vuelidate/lib/validators'
+import { useVuelidate } from '@vuelidate/core'
+import { required, email } from '@vuelidate/validators'
 import { pulseError, pulseSuccess } from '@/script'
 import i18n from '@/helper/i18n'
 import { MAX_SUPPORT_TICKET_ATTACHMENT_SIZE } from '@/consts'
@@ -167,6 +168,11 @@ const userStore = useUserStore()
 export default {
   components: { Container },
   mixins: [MediaQueryMixin, FileUpload],
+  setup () {
+    return {
+      v$: useVuelidate(),
+    }
+  },
   data () {
     return {
       isLoading: true,

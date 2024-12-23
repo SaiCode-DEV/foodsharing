@@ -52,8 +52,6 @@ import NavRegions from '@/components/Navigation/Regions/NavRegions'
 // Mixins
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
-const userStore = useUserStore()
-
 export default {
   components: {
     Logo,
@@ -67,19 +65,20 @@ export default {
   },
   mixins: [MediaQueryMixin],
   setup () {
+    const userStore = useUserStore()
     return {
       userStore,
     }
   },
   computed: {
     isFoodsaver () {
-      return userStore.isFoodsaver
+      return this.userStore.isFoodsaver
     },
     hasMailBox () {
-      return userStore.hasMailBox
+      return this.userStore.hasMailBox
     },
     getMailUnreadCount () {
-      return userStore.getMailUnreadCount
+      return this.userStore.getMailUnreadCount
     },
   },
 }

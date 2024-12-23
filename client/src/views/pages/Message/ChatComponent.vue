@@ -81,9 +81,6 @@ import PushNotificationModal from './PushNotificationModal.vue'
 
 register()
 
-const userStore = useUserStore()
-const themeStore = useThemeStore()
-
 // https://github.com/optidatacloud/vue-advanced-chat/blob/master/src/themes/index.js
 const customStyle = {
   dark: {
@@ -120,13 +117,15 @@ export default {
     askForPushNotifications: { type: Boolean, default: false },
   },
   setup () {
+    const userStore = useUserStore()
+    const themeStore = useThemeStore()
     return {
+      userStore,
       themeStore,
     }
   },
   data () {
     return {
-      userStore,
       defaultAvatar: '/img/mini_q_avatar.png',
       loadingRooms: true, // can be used to show/hide a spinner icon while rooms are loading the first time. Fetch more rooms don't need this boolean afterwards.
 
@@ -180,7 +179,7 @@ export default {
       return !conversationStore.conversations[this.roomId]?.hasMoreMessages
     },
     computedStyle () {
-      if (themeStore.isDark) {
+      if (this.themeStore.isDark) {
         return customStyle.dark
       } else {
         return customStyle.light
@@ -396,7 +395,7 @@ export default {
     getRoomName (conversation) {
       if (conversation.title) { return conversation.title }
       return conversation.members
-        .filter(m => m !== userStore.getUserId)
+        .filter(m => m !== this.userStore.getUserId)
         .map(m => {
           if (ProfileStore.profiles[m]) {
             return ProfileStore.profiles[m].name
@@ -429,7 +428,7 @@ export default {
           system: false,
           // saved: !message.failure, // can be activated when 'distributed' is also implemented in backend. Will otherwise confuse users when only 1 check is displayed.
           distributed: false,
-          seen: userStore.getUserId !== message.authorId, // Setting the other users seen, will hide "New Messages" indicator in chat. TODO: https://gitlab.com/foodsharing-dev/foodsharing/-/issues/1484
+          seen: this.userStore.getUserId !== message.authorId, // Setting the other users seen, will hide "New Messages" indicator in chat. TODO: https://gitlab.com/foodsharing-dev/foodsharing/-/issues/1484
           deleted: false,
           failure: message.failure,
           disableActions: true,
@@ -450,9 +449,9 @@ export default {
 
       room.users = []
       const user = {
-        _id: userStore.getUserId,
-        username: ProfileStore.profiles[userStore.getUserId].name,
-        avatar: ProfileStore.profiles[userStore.getUserId].avatar,
+        _id: this.userStore.getUserId,
+        username: ProfileStore.profiles[this.userStore.getUserId].name,
+        avatar: ProfileStore.profiles[this.userStore.getUserId].avatar,
         status: {
         },
       }

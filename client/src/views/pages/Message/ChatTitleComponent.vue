@@ -27,8 +27,6 @@ import conversationStore from '@/stores/conversations'
 import ProfileStore from '@/stores/profiles'
 import { useUserStore } from '@/stores/user'
 
-const userStore = useUserStore()
-
 const LIMIT_DISPLAYED_USERS = 35
 
 export default {
@@ -42,6 +40,7 @@ export default {
     },
   },
   data () {
+    const userStore = useUserStore()
     return {
       currentUserId: userStore.getUserId,
       title: '',

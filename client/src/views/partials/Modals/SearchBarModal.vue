@@ -82,7 +82,6 @@ import { search, getSearchIndex } from '@/api/search'
 import { getCache, getCacheInterval, setCache } from '@/helper/cache'
 import { useUserStore } from '@/stores/user.js'
 
-const userStore = useUserStore()
 const cacheRequestName = 'searchIndex'
 const rateLimitInterval = 1000 * 60 * 5 // 5 minutes in milliseconds
 
@@ -96,6 +95,7 @@ const accidentalClickPreventionThreshhold = 700 // milliseconds
 export default {
   components: { SearchResults },
   setup () {
+    const userStore = useUserStore()
     userStore.fetchDetails()
     return {
       userStore,
@@ -153,7 +153,7 @@ export default {
       return this.recentQueryChangesCount === 0
     },
     maySearchGlobal () {
-      return userStore.getUserDetails?.permissions?.maySearchGlobal
+      return this.userStore.getUserDetails?.permissions?.maySearchGlobal
     },
   },
   watch: {

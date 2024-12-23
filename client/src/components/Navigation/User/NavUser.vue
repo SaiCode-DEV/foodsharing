@@ -81,9 +81,6 @@ import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 import { clearCaches } from '@/helper/cache'
 import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
 
-const userStore = useUserStore()
-const themeStore = useThemeStore()
-
 export default {
   components: {
     Avatar,
@@ -91,6 +88,8 @@ export default {
   },
   mixins: [RouteCheckMixin],
   setup () {
+    const userStore = useUserStore()
+    const themeStore = useThemeStore()
     return {
       userStore,
       themeStore,
@@ -98,16 +97,16 @@ export default {
   },
   computed: {
     getAvatar () {
-      return userStore.getAvatar
+      return this.userStore.getAvatar
     },
     getUserFirstName () {
-      return userStore.getUserFirstName
+      return this.userStore.getUserFirstName
     },
     getUserId () {
-      return userStore.getUserId
+      return this.userStore.getUserId
     },
     hasMailBox () {
-      return userStore.hasMailBox
+      return this.userStore.hasMailBox
     },
   },
   methods: {

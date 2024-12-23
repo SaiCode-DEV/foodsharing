@@ -50,15 +50,15 @@
   </b-navbar>
 </template>
 
-<script>
-// Store
+<script setup>
+import { ref, computed, watch, defineProps, onMounted, onBeforeMount } from 'vue'
 import { useUserStore } from '@/stores/user.js'
+import { useRegionStore } from '@/stores/regions.js'
 import DataBells from '@/stores/bells.js'
 import DataStores from '@/stores/stores.js'
 import { useBasketStore } from '@/stores/baskets'
 import DataConversations from '@/stores/conversations.js'
 import DataGroups from '@/stores/groups.js'
-import { useRegionStore } from '@/stores/regions.js'
 // States
 import MetaNavLoggedIn from './States/MetaNav/LoggedIn.vue'
 import MetaNavLoggedOut from './States/MetaNav/LoggedOut.vue'
@@ -71,108 +71,67 @@ import ModalLoader from '@/views/partials/Modals/ModalLoader.vue'
 import DonationModal from '@/components/Modals/Donation/DonationModal.vue'
 import ThemeSwitcherModal from '@/views/partials/Modals/ThemeSwitcherModal.vue'
 // Mixins
-import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import Loader from './Loader.vue'
 import PetitionBanner from '@/views/partials/TopBanner/Petition/PetitionBanner.vue'
 import { clearCaches } from '@/helper/cache'
 import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
 import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
 
+const props = defineProps({
+  regions: {
+    type: Array,
+    default: () => [],
+  },
+  groups: {
+    type: Array,
+    default: () => [],
+  },
+})
+
 const userStore = useUserStore()
 const regionStore = useRegionStore()
+const basketStore = useBasketStore()
 
-export default {
-  name: 'Navigation',
-  components: {
-    ThemeSwitcher,
-    Loader,
-    ModalLoader,
-    DonationModal,
-    PetitionBanner,
-    ThemeSwitcherModal,
-    MetaNavLoggedIn,
-    MetaNavLoggedOut,
-    MainNavLoggedIn,
-    MainNavLoggedOut,
-    SideNavLoggedIn,
-    SideNavLoggedOut,
-  },
-  mixins: [MediaQueryMixin],
-  props: {
-    regions: {
-      type: Array,
-      default: () => [],
-    },
-    groups: {
-      type: Array,
-      default: () => [],
-    },
-  },
-  setup () {
-    const basketStore = useBasketStore()
-    return {
-      userStore,
-      basketStore,
-    }
-  },
-  data () {
-    return {
-      navIsSmall: false,
-    }
-  },
-  computed: {
-    isLoggedIn () {
-      return userStore.isLoggedIn
-    },
-    useRestrictedNavigation () {
-      return userStore.isApiRestrictedForLegalReasons
-    },
-    isFoodsaver () {
-      return userStore.isFoodsaver
-    },
-    userId () {
-      return userStore.getUserId
-    },
-  },
-  watch: {
-    isFoodsaver: {
-      async handler (newValue) {
-        if (newValue && !this.useRestrictedNavigation) {
-          await DataStores.mutations.fetch(false, this.userId)
-        }
-      },
-      immediate: true,
-      deep: true,
-    },
-  },
-  async created () {
-    // Load data
-    if (this.isLoggedIn && !this.useRestrictedNavigation) {
-      // TODO: NO APIS :(
-      DataGroups.mutations.set(this.groups)
-      regionStore.regions = this.regions
-      await this.basketStore.fetchOwn()
-      await DataBells.mutations.fetch()
-      await DataConversations.initConversations()
-    }
-  },
-  async mounted () {
-    window.addEventListener('resize', this.resizeHandler)
-    window.addEventListener('load', this.resizeHandler)
-    if (userStore.hasMailBox && !this.useRestrictedNavigation) {
-      userStore.fetchMailUnreadCount()
-    }
-  },
-  methods: {
-    resizeHandler () {
-      const height = this.$refs.navbar.$el.getBoundingClientRect().height + 'px'
-      document.documentElement.style.setProperty('--navbar-height', height)
-    },
-    async deleteCaches () {
-      await clearCaches()
-      channel.postMessage({ type: BROADCAST_TYPE.LOGOUT })
-      window.location.href = this.$url('logout')
-    },
-  },
+const navbar = ref(null)
+const viewIsMobile = ref(false)
+
+const isLoggedIn = computed(() => userStore.isLoggedIn)
+const isFoodsaver = computed(() => userStore.isFoodsaver)
+const userId = computed(() => userStore.getUserId)
+const useRestrictedNavigation = computed(() => userStore.isApiRestrictedForLegalReasons)
+
+watch(isFoodsaver, async (newValue) => {
+  if (newValue && !useRestrictedNavigation.value) {
+    await DataStores.mutations.fetch(false, userId.value)
+  }
+}, { immediate: true, deep: true })
+
+onBeforeMount(async () => {
+  if (isLoggedIn.value && !useRestrictedNavigation.value) {
+    DataGroups.mutations.set(props.groups)
+    regionStore.regions = props.regions
+    await basketStore.fetchOwn()
+    await DataBells.mutations.fetch()
+    await DataConversations.initConversations()
+  }
+})
+
+onMounted(() => {
+  window.addEventListener('resize', resizeHandler)
+  window.addEventListener('load', resizeHandler)
+  if (userStore.hasMailBox && !useRestrictedNavigation.value) {
+    userStore.fetchMailUnreadCount()
+  }
+})
+
+function resizeHandler () {
+  const height = navbar.value.$el.getBoundingClientRect().height + 'px'
+  document.documentElement.style.setProperty('--navbar-height', height)
+}
+
+async function deleteCaches () {
+  await clearCaches()
+  channel.postMessage({ type: BROADCAST_TYPE.LOGOUT })
+  window.location.href = '/logout'
 }
 </script>

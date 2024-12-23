@@ -1,4 +1,4 @@
-# Unreleased
+# Release "O???", 2025-??-??
 
 ## Features
 
@@ -9,6 +9,7 @@
 
 ## Refactoring
 - Get rid of xhr completely !3826 @chriswalg
+- Update Vuelidate !3889 @SaiCode
 - Rework working group rest controller !3879 @chriswalg
 - Moved basket store to pinia !3687 @chriswalg
 - Remove jquery-ui and some other jquery extentions !3883 @chriswalg

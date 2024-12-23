@@ -15,18 +15,18 @@
         <b-form-group :label="$i18n('register.login_name')">
           <b-form-input
             id="input-firstname"
-            v-model.lazy="$v.firstName.$model"
-            :class="{ 'is-invalid': $v.firstName.$error }"
+            v-model.lazy="v$.firstName.$model"
+            :class="{ 'is-invalid': v$.firstName.$error }"
             type="text"
             :disabled="!permissions.mayChangeName"
           />
           <div
-            v-if="$v.firstName.$error"
+            v-if="v$.firstName.$error"
             class="invalid-feedback"
           >
-            <span v-if="!$v.firstName.required">{{ $i18n('register.firstname_required') }}</span>
-            <span v-if="!$v.firstName.minLength">{{ $i18n('register.firstname_minLength') }}</span>
-            <span v-if="!$v.firstName.maxLength">{{ $i18n('register.firstname_maxLength') }}</span>
+            <span v-if="!v$.firstName.required">{{ $i18n('register.firstname_required') }}</span>
+            <span v-if="!v$.firstName.minLength">{{ $i18n('register.firstname_minLength') }}</span>
+            <span v-if="!v$.firstName.maxLength">{{ $i18n('register.firstname_maxLength') }}</span>
           </div>
         </b-form-group>
       </div>
@@ -34,15 +34,15 @@
         <b-form-group :label="$i18n('register.login_surname')">
           <b-form-input
             id="input-lastname"
-            v-model.lazy="$v.lastName.$model"
-            :class="{ 'is-invalid': $v.lastName.$error }"
+            v-model.lazy="v$.lastName.$model"
+            :class="{ 'is-invalid': v$.lastName.$error }"
             type="text"
             :disabled="!permissions.mayChangeName"
           />
-          <div v-if="$v.lastName.$error" class="invalid-feedback">
-            <span v-if="!$v.lastName.required">{{ $i18n('register.lastname_required') }}</span>
-            <span v-if="!$v.lastName.minLength">{{ $i18n('register.lastname_minLength') }}</span>
-            <span v-if="!$v.lastName.maxLength">{{ $i18n('register.lastname_maxLength') }}</span>
+          <div v-if="v$.lastName.$error" class="invalid-feedback">
+            <span v-if="!v$.lastName.required">{{ $i18n('register.lastname_required') }}</span>
+            <span v-if="!v$.lastName.minLength">{{ $i18n('register.lastname_minLength') }}</span>
+            <span v-if="!v$.lastName.maxLength">{{ $i18n('register.lastname_maxLength') }}</span>
           </div>
         </b-form-group>
       </div>
@@ -249,7 +249,8 @@ import Markdown from '@/components/Markdown/Markdown'
 import { useUserStore } from '@/stores/user'
 import RegionTreeModal from '@/components/regiontree/RegionTreeModal.vue'
 import { SELECTABLE_REGION_TYPES } from '@/stores/regions'
-import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+import { useVuelidate } from '@vuelidate/core'
+import { required, minLength, maxLength } from '@vuelidate/validators'
 import { pulseError, pulseSuccess } from '@/script'
 
 const userStore = useUserStore()
@@ -276,6 +277,7 @@ export default {
   setup () {
     return {
       userStore,
+      v$: useVuelidate(),
     }
   },
   data () {
@@ -332,7 +334,7 @@ export default {
       return userStore.isAmbassador
     },
     isFieldsValid () {
-      return this.phone.valid && this.mobile.valid && !this.$v.$invalid && this.isValidBirthdate
+      return this.phone.valid && this.mobile.valid && !this.v$.$invalid && this.isValidBirthdate
     },
     isValidBirthdate () {
       const date = new Date(this.birthday)

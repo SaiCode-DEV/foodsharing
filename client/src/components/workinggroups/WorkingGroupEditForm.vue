@@ -15,11 +15,11 @@
           >
             <b-form-input
               id="input-name"
-              v-model="$v.name.$model"
+              v-model="v$.name.$model"
               trim
-              :state="$v.name.$error ? false : null"
+              :state="v$.name.$error ? false : null"
             />
-            <div v-if="$v.name.$error" class="invalid-feedback">
+            <div v-if="v$.name.$error" class="invalid-feedback">
               {{ $i18n('group.edit.name_required') }}
             </div>
           </b-form-group>
@@ -39,7 +39,7 @@
               @update:value="newValue => description = newValue"
             />
             <div
-              v-if="$v.description.$error"
+              v-if="v$.description.$error"
               class="invalid-feedback"
             >
               {{ $i18n('group.edit.description_required') }}
@@ -138,7 +138,8 @@
 
 <script>
 import FileUpload from '@/components/upload/FileUpload'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { useVuelidate } from '@vuelidate/core'
+import { required, minLength } from '@vuelidate/validators'
 import i18n from '@/helper/i18n'
 import { BFormSpinbutton } from 'bootstrap-vue'
 import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
@@ -149,6 +150,11 @@ export default {
   components: { MarkdownInput, FileUpload, BFormSpinbutton },
   props: {
     group: { type: Object, required: true },
+  },
+  setup () {
+    return {
+      v$: useVuelidate(),
+    }
   },
   data () {
     return {

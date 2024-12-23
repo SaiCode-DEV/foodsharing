@@ -45,8 +45,6 @@
 import AvatarStack from '@/components/Avatar/AvatarStack.vue'
 import { useUserStore } from '@/stores/user'
 
-const userStore = useUserStore()
-
 export default {
   components: { AvatarStack },
   props: {
@@ -56,6 +54,7 @@ export default {
     },
   },
   setup () {
+    const userStore = useUserStore()
     return {
       userStore,
     }
@@ -63,10 +62,10 @@ export default {
   computed: {
     isAmbassador () {
       // eslint-disable-next-line eqeqeq
-      return this.region.ambassadors.includes(ambassador => ambassador.id == userStore.getUserId)
+      return this.region.ambassadors.includes(ambassador => ambassador.id == this.userStore.getUserId)
     },
     isHome () {
-      return this.region.id === userStore.getHomeRegion
+      return this.region.id === this.userStore.getHomeRegion
     },
   },
 }

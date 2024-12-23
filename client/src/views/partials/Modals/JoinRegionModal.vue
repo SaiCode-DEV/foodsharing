@@ -81,9 +81,6 @@ import { REGION_IDS } from '@/consts'
 import { useUserStore } from '@/stores/user'
 import Markdown from '@/components/Markdown/Markdown.vue'
 
-const userStore = useUserStore()
-const regionStore = useRegionStore()
-
 const EXCLUDED_REGIONS = [REGION_IDS.GLOBAL_WORKING_GROUPS]
 const EXCLUDED_REGIONS_WITHOUT_HOME = [REGION_IDS.FOODSHARING_ON_FESTIVALS]
 
@@ -91,6 +88,8 @@ export default {
   name: 'JoinRegionModal',
   components: { Markdown },
   setup () {
+    const userStore = useUserStore()
+    const regionStore = useRegionStore()
     return {
       userStore,
       regionStore,
@@ -135,7 +134,7 @@ export default {
     },
   },
   mounted () {
-    regionStore.fetchSelectedRegionChildren(0)
+    this.regionStore.fetchSelectedRegionChildren(0)
   },
   methods: {
     async updateSelected (index) {
@@ -145,8 +144,8 @@ export default {
         const id = this.selected[i]
         const region = this.regions.find(r => r.id === id)
         if (id && !region) {
-          await regionStore.fetchSelectedRegionChildren(id)
-          const list = this.filterRegions(regionStore.selectedRegionChildren)
+          await this.regionStore.fetchSelectedRegionChildren(id)
+          const list = this.filterRegions(this.regionStore.selectedRegionChildren)
 
           if (list.length > 0) {
             this.regions.push({ id, list })
@@ -159,7 +158,7 @@ export default {
     async joinRegion () {
       try {
         showLoader()
-        await regionStore.joinRegion(this.selectedRegion.id)
+        await this.regionStore.joinRegion(this.selectedRegion.id)
       } catch (err) {
         console.log(err)
         pulseError('In diesen Bezirk kannst Du Dich nicht eintragen.')
@@ -169,7 +168,7 @@ export default {
     },
     showModal () {
       this.selected = [0]
-      this.base = this.filterRegions(regionStore.selectedRegionChildren)
+      this.base = this.filterRegions(this.regionStore.selectedRegionChildren)
     },
     async resetModal () {
       this.selected = [0]
@@ -181,7 +180,7 @@ export default {
         .filter(r => EXCLUDED_REGIONS.indexOf(r.id) < 0)
 
       // Remove all regions that are only shown if the user has a home region
-      if (!userStore.hasHomeRegion) {
+      if (!this.userStore.hasHomeRegion) {
         filtered = filtered.filter(r => EXCLUDED_REGIONS_WITHOUT_HOME.indexOf(r.id) < 0)
       }
       return filtered

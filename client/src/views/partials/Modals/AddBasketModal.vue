@@ -131,8 +131,6 @@ import { useBasketStore } from '@/stores/baskets'
 import { pulseInfo } from '@/script'
 import ImageUpload from '@/components/upload/ImageUpload.vue'
 
-const userStore = useUserStore()
-
 const defaultBasketData = {
   description: '',
   contact: {
@@ -155,6 +153,7 @@ export default {
     edit: { type: Boolean, default: false },
   },
   setup () {
+    const userStore = useUserStore()
     const basketStore = useBasketStore()
     return {
       userStore,
@@ -191,7 +190,7 @@ export default {
   },
   computed: {
     user () {
-      return userStore.getUserDetails
+      return this.userStore.getUserDetails
     },
     isDataValid () {
       return this.description.trim() && (this.contact.chat || this.contact.phone) && (this.contact.phone ? this.phoneNumber : true)
@@ -208,7 +207,7 @@ export default {
       this.address.city = city
     },
     async initUsingUserDetails () {
-      await userStore.fetchDetails()
+      await this.userStore.fetchDetails()
       this.phoneNumber = this.user.mobile || this.user.landline || ''
       if (this.hasValidHomeAddress) {
         this.useHomeAddress = true
@@ -221,7 +220,7 @@ export default {
       }
     },
     async testHomeRegion () {
-      await userStore.fetchDetails()
+      await this.userStore.fetchDetails()
       this.phoneNumber ||= this.user.mobile
       this.useHomeAddress = this.hasValidHomeAddress &&
         Math.abs(this.basket.lat - this.user.coordinates.lat) < 1e-5 &&

@@ -14,17 +14,17 @@
           type="email"
           name="login-email"
           class="testing-login-input-email form-control"
-          :class="{ 'is-invalid': $v.email.$invalid }"
+          :class="{ 'is-invalid': v$.email.$invalid }"
           autocomplete="email"
           autofocus
           @focus="focusLogin=true"
         >
         <div
-          v-if="$v.email.$invalid"
+          v-if="v$.email.$invalid"
           class="invalid-feedback"
         >
-          <span v-if="!$v.email.required">{{ $i18n('register.email_required') }}</span>
-          <span v-else-if="!$v.email.email">{{ $i18n('register.email_invalid') }}</span>
+          <span v-if="!v$.email.required">{{ $i18n('register.email_required') }}</span>
+          <span v-else-if="!v$.email.email">{{ $i18n('register.email_invalid') }}</span>
         </div>
       </label>
       <label class="d-block">
@@ -55,7 +55,7 @@
           type="submit"
           variant="primary"
           class="testing-login-click-submit btn btn-block"
-          :disabled="$v.$invalid"
+          :disabled="v$.$invalid"
           @click="submit"
           @keydown.enter="submit"
         >
@@ -72,7 +72,8 @@
 <script>
 import { isDev } from '@/helper/server-data'
 import { login } from '@/api/user'
-import { required, email } from 'vuelidate/lib/validators'
+import { useVuelidate } from '@vuelidate/core'
+import { required, email } from '@vuelidate/validators'
 
 import { pulseError } from '@/script'
 import { HTTP_RESPONSE } from '@/consts'
@@ -82,6 +83,11 @@ import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
 export default {
   name: 'MenuLogin',
   components: { PasswordField },
+  setup () {
+    return {
+      v$: useVuelidate(),
+    }
+  },
   data () {
     return {
       email: isDev ? 'userbot@example.com' : '',

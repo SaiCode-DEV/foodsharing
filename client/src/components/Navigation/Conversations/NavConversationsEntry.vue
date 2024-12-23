@@ -46,14 +46,13 @@ import conversationStore from '@/stores/conversations'
 import ConversationAvatar from '@/components/Avatar/ConversationAvatar'
 import Time from '@/components/Time.vue'
 
-const userStore = useUserStore()
-
 export default {
   components: { ConversationAvatar, Time },
   props: {
     conversation: { type: Object, default: () => ({}) },
   },
   setup () {
+    const userStore = useUserStore()
     return {
       userStore,
     }
@@ -72,10 +71,10 @@ export default {
         .join(', ')
     },
     loggedinUser () {
-      return userStore.getUser
+      return this.userStore.getUser
     },
     lastAuthorName () {
-      if (this.conversation.lastMessage.authorId === userStore.getUserId) return this.$i18n('globals.you')
+      if (this.conversation.lastMessage.authorId === this.userStore.getUserId) return this.$i18n('globals.you')
       return profileStore.profiles[this.conversation.lastMessage.authorId]?.name || this.$i18n('chat.unknown_username')
     },
   },

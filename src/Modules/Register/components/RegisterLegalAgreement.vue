@@ -4,7 +4,7 @@
       id="acceptGdpr"
       :checked="acceptGdpr"
       name="acceptGdpr"
-      @change="$emit('update:acceptGdpr', $event)"
+      @change="emit('update:acceptGdpr', $event)"
     >
       {{ $i18n('register.have_read_the_legal_stuff1') }}
       <a
@@ -17,7 +17,7 @@
       id="acceptLegal"
       :checked="acceptLegal"
       name="acceptLegal"
-      @input="$emit('update:acceptLegal', $event)"
+      @input="emit('update:acceptLegal', $event)"
     >
       {{ $i18n('register.have_read_the_legal_stuff1') }}
       <a
@@ -30,36 +30,37 @@
       id="subscribeNewsletter"
       :unchecked="subscribeNewsletter"
       name="subscribeNewsletter"
-      @input="$emit('update:subscribeNewsletter', $event)"
+      @input="emit('update:subscribeNewsletter', $event)"
     >
       {{ $i18n('register.signup_newsletter') }}
     </b-form-checkbox>
     <button
       class="btn btn-primary ml-3 mt-3"
       type="button"
-      @click="$emit('prev')"
+      @click="emit('prev')"
     >
       {{ $i18n('register.prev') }}
     </button>
     <button
-      :disabled="$v.$invalid"
+      :disabled="!accepted"
       type="submit"
       class="btn btn-primary mt-3"
-      @click.prevent="$emit('submit')"
+      @click.prevent="emit('submit')"
     >
       {{ $i18n('register.finish') }}
     </button>
   </form>
 </template>
-<script>
-import { sameAs } from 'vuelidate/lib/validators'
+<script setup>
+import { defineEmits, defineProps, computed } from 'vue'
 
-export default {
-  props: { subscribeNewsletter: { type: Boolean, default: false }, acceptGdpr: { type: Boolean, default: false }, acceptLegal: { type: Boolean, default: false } },
+const emit = defineEmits(['update:acceptGdpr', 'update:acceptLegal', 'update:subscribeNewsletter', 'prev', 'submit'])
 
-  validations: {
-    acceptGdpr: { sameAs: sameAs(() => true) },
-    acceptLegal: { sameAs: sameAs(() => true) },
-  },
-}
+const props = defineProps({
+  subscribeNewsletter: { type: Boolean, default: false },
+  acceptGdpr: { type: Boolean, default: false },
+  acceptLegal: { type: Boolean, default: false },
+})
+
+const accepted = computed(() => props.acceptGdpr && props.acceptLegal)
 </script>

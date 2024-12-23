@@ -15,11 +15,11 @@
         >
           <b-form-input
             id="input-name"
-            v-model="$v.name.$model"
+            v-model="v$.name.$model"
             trim
-            :state="$v.name.$error ? false : null"
+            :state="v$.name.$error ? false : null"
           />
-          <div v-if="$v.name.$error" class="invalid-feedback">
+          <div v-if="v$.name.$error" class="invalid-feedback">
             {{ $i18n('poll.new_poll.name_required') }}
           </div>
         </b-form-group>
@@ -30,13 +30,13 @@
         >
           <MarkdownInput
             :rows="5"
-            :value="$v.description.$model"
-            :state="$v.description.$error ? false : null"
+            :value="v$.description.$model"
+            :state="v$.description.$error ? false : null"
             :placeholder="$i18n('poll.new_poll.description_placeholder')"
-            @update:value="newValue => $v.description.$model = newValue"
+            @update:value="newValue => v$.description.$model = newValue"
           />
           <div
-            v-if="$v.description.$error"
+            v-if="v$.description.$error"
             class="invalid-feedback"
           >
             {{ $i18n('poll.new_poll.description_required') }}
@@ -72,15 +72,15 @@
             <b-col>
               <b-form-input
                 id="input-option-0"
-                v-model="$v.options.$model[index-1]"
+                v-model="v$.options.$model[index-1]"
                 trim
-                :state="$v.options.$error ? false : null"
+                :state="v$.options.$error ? false : null"
                 :maxlength="maxOptionLength"
                 class="mr-3 mb-1"
               />
             </b-col>
           </b-form-row>
-          <div v-if="$v.options.$error" class="invalid-feedback">
+          <div v-if="v$.options.$error" class="invalid-feedback">
             {{ $i18n('poll.new_poll.option_texts_required') }}
           </div>
         </b-form-group>
@@ -88,11 +88,11 @@
         <b-button
           type="submit"
           variant="primary"
-          :disabled="$v.$invalid"
+          :disabled="v$.$invalid"
         >
           {{ $i18n('poll.new_poll.submit') }}
         </b-button>
-        <div v-if="$v.$invalid" class="invalid-feedback">
+        <div v-if="v$.$invalid" class="invalid-feedback">
           {{ $i18n('poll.new_poll.missing_fields') }}
         </div>
       </b-form>
@@ -115,11 +115,11 @@
 </template>
 
 <script>
-
 import { editPoll } from '@/api/voting'
 import { pulseError } from '@/script'
 import i18n from '@/helper/i18n'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { useVuelidate } from '@vuelidate/core'
+import { required, minLength } from '@vuelidate/validators'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import { VOTING_TYPE, MAX_OPTION_LENGTH } from '@/stores/polls'
 
@@ -136,6 +136,11 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  setup () {
+    return {
+      v$: useVuelidate(),
+    }
   },
   data () {
     return {
@@ -175,7 +180,7 @@ export default {
         newOptions[i] = this.options[i]
       }
       this.options = newOptions
-      this.$v.options.$touch()
+      this.v$.options.$touch()
     },
   },
   methods: {

@@ -13,20 +13,20 @@
     <div class="col-sm-auto">
       <input
         id="email"
+        v-model="state.email"
         autocomplete="username"
-        :value="email"
-        :class="{ 'is-invalid': $v.email.$error }"
+        :class="{ 'is-invalid': v$.email.$error }"
         type="email"
         name="email"
         class="form-control"
         @blur="update"
       >
       <div
-        v-if="$v.email.$error || !isMailValidForRegistration || isMailInvalid"
+        v-if="v$.email.$error || !isMailValidForRegistration || isMailInvalid"
         class="invalid-feedback"
       >
-        <span v-if="!$v.email.required">{{ $i18n('register.email_required') }}</span>
-        <span v-else-if="!$v.email.email || !$v.email.foodsharing || isMailInvalid">{{ $i18n('register.email_invalid') }}</span>
+        <span v-if="v$.email.required.$invalid">{{ $i18n('register.email_required') }}</span>
+        <span v-else-if="v$.email.emailValidator.$invalid || !v$.email.foodsharing.$invalid || isMailInvalid">{{ $i18n('register.email_invalid') }}</span>
         <span v-else-if="!isMailValidForRegistration">{{ $i18n('register.error_email_exist') }}</span>
       </div>
     </div>
@@ -42,17 +42,17 @@
       <div class="col-sm-auto">
         <input
           id="password"
-          v-model.lazy="$v.password.$model"
+          v-model="state.password"
           autocomplete="new-password"
-          :class="{ 'is-invalid': $v.password.$error }"
+          :class="{ 'is-invalid': v$.password.$error }"
           type="password"
           name="password"
           class="form-control"
-          @input="$emit('update:password', $event.target.value)"
+          @input="emit('update:password', $event.target.value)"
         >
-        <div v-if="$v.password.$error" class="invalid-feedback">
-          <span v-if="!$v.password.required">{{ $i18n('register.password_required') }}</span>
-          <span v-if="!$v.password.minLength">{{ $i18n('register.password_minLength') }}</span>
+        <div v-if="v$.password.$error" class="invalid-feedback">
+          <span v-if="!v$.password.required">{{ $i18n('register.password_required') }}</span>
+          <span v-if="!v$.password.minLength">{{ $i18n('register.password_minLength') }}</span>
         </div>
       </div>
       <div class="my-1">
@@ -67,22 +67,22 @@
         <div class="col-sm-auto">
           <input
             id="confirmPassword"
-            v-model.lazy="$v.confirmPassword.$model"
+            v-model="state.confirmPassword"
             autocomplete="new-password"
-            :class="{ 'is-invalid': $v.confirmPassword.$error }"
+            :class="{ 'is-invalid': v$.confirmPassword.$error }"
             type="password"
             name="confirmPassword"
             class="form-control"
           >
           <div
-            v-if="$v.confirmPassword.$error"
+            v-if="v$.confirmPassword.$error"
             class="invalid-feedback"
           >
             <span
-              v-if="!$v.confirmPassword.required"
+              v-if="!v$.confirmPassword.required"
             >{{ $i18n('register.confirmPassword_required') }}</span>
             <span
-              v-else-if="!$v.confirmPassword.sameAsPassword"
+              v-else-if="!v$.confirmPassword.sameAsPassword"
             >{{ $i18n('register.confirmPassword_sameAsPassword') }}</span>
           </div>
         </div>
@@ -104,67 +104,66 @@
   </form>
 </template>
 
-<script>
-import { required, email, minLength, sameAs, not } from 'vuelidate/lib/validators'
+<script setup>
+import { ref, reactive, computed, defineEmits, defineProps } from 'vue'
+import { useVuelidate } from '@vuelidate/core'
+import { required, email as emailValidator, minLength, sameAs, not } from '@vuelidate/validators'
 import { testRegisterEmail } from '@/api/user'
 import { isFoodsharingDomain } from '@/helper/urls'
 import { HTTP_RESPONSE } from '@/consts'
 
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+const props = defineProps({
+  email: { type: String, default: '' },
+  password: { type: String, default: '' },
+})
 
-export default {
-  props: { email: { type: String, default: '' }, password: { type: String, default: '' } },
-  data () {
-    return {
-      confirmPassword: '',
-      isMailValidForRegistration: false,
-      isMailInvalid: false,
+const emit = defineEmits(['update:email', 'update:password', 'next'])
+
+const state = reactive({
+  email: props.email,
+  password: props.password,
+  confirmPassword: props.password,
+})
+
+const validations = computed(() => ({
+  email: { required, emailValidator, foodsharing: not(sameAs(isFoodsharingDomain)) },
+  password: { required, minLength: minLength(8) },
+  confirmPassword: { required, sameAsPassword: sameAs(state.password) },
+}))
+
+const v$ = useVuelidate(validations, state)
+
+const isMailValidForRegistration = ref(true)
+const isMailInvalid = ref(false)
+
+async function redirect () {
+  await v$.value.$validate()
+  if (!v$.value.$invalid && !isMailInvalid.value && isMailValidForRegistration.value) {
+    emit('next')
+  }
+}
+
+async function update ($event) {
+  emit('update:email', $event.target.value)
+  await v$.value.$validate()
+  isMailValidForRegistration.value = false
+  isMailInvalid.value = false
+  if (v$.value.email.$error) {
+    isMailValidForRegistration.value = false
+    return
+  }
+  try {
+    const MailExist = await testRegisterEmail($event.target.value)
+    isMailValidForRegistration.value = MailExist.valid
+  } catch (err) {
+    if (err.code && err.code === HTTP_RESPONSE.BAD_REQUEST) {
+      isMailInvalid.value = true
+      return isMailInvalid.value
+    } else {
+      throw err
     }
-  },
-  validations: {
-    email: { required, email, foodsharing: not(isFoodsharingDomain) },
-    password: { required, minLength: minLength(8) },
-    confirmPassword: { required, sameAsPassword: sameAs('password') },
-  },
-  computed: {
-    isValid () {
-      return this.isMailValidForRegistration && !this.$v.$invalid && !this.isMailInvalid
-    },
-  },
-  mounted () {
-    this.confirmPassword = this.password
-    this.isMailValidForRegistration = true
-  },
-  methods: {
-    redirect () {
-      this.$v.$touch()
-      if (this.isValid) {
-        this.$emit('next')
-      }
-    },
-    async update ($event) {
-      this.$emit('update:email', $event.target.value)
-      this.$v.email.$touch()
-      // Needs some delay, because touch cannot be awaited: https://github.com/vuelidate/vuelidate/issues/625
-      await delay(20)
-      this.isMailValidForRegistration = false
-      this.isMailInvalid = false
-      if (!this.$v.email.$error) {
-        try {
-          const MailExist = await testRegisterEmail($event.target.value)
-          this.isMailValidForRegistration = MailExist.valid
-        } catch (err) {
-          if (err.code && err.code === HTTP_RESPONSE.BAD_REQUEST) {
-            this.isMailInvalid = true
-            return this.isMailInvalid
-          } else {
-            throw err
-          }
-        }
-        return this.isMailValidForRegistration
-      }
-    },
-  },
+  }
+  return isMailValidForRegistration.value
 }
 </script>
 <style lang="scss" scoped>

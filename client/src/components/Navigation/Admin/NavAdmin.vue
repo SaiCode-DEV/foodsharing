@@ -75,24 +75,23 @@ import Dropdown from '../_NavItems/NavDropdown'
 // Mixins
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 
-const userStore = useUserStore()
-
 export default {
   components: {
     Dropdown,
   },
   mixins: [RouteCheckMixin],
   setup () {
+    const userStore = useUserStore()
     return {
       userStore,
     }
   },
   computed: {
     permissions () {
-      return userStore.getPermissions
+      return this.userStore.getPermissions
     },
     hasAdminPermissions () {
-      return userStore.hasAdminPermissions
+      return this.userStore.hasAdminPermissions
     },
   },
 }

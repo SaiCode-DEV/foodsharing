@@ -19,8 +19,6 @@ import ConferenceOpener from '@/mixins/ConferenceOpenerMixin'
 import { useUserStore } from '@/stores/user'
 import { REGION_UNIT_TYPE } from '@/stores/regions'
 
-const userStore = useUserStore()
-
 export default {
   name: 'NavRegionsLinkEntry',
   mixins: [ConferenceOpener],
@@ -31,6 +29,7 @@ export default {
     },
   },
   setup () {
+    const userStore = useUserStore()
     return {
       userStore,
     }
@@ -103,7 +102,7 @@ export default {
         })
       }
 
-      if (this.entry.isAdmin || userStore.isOrga) {
+      if (this.entry.isAdmin || this.userStore.isOrga) {
         menu.push({
           href: 'forum', special: 1, icon: 'fa-comment-dots', text: 'menu.entry.BOTforum',
         })

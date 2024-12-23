@@ -27,8 +27,6 @@ import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 // Store
 import { useUserStore } from '@/stores/user'
 
-const userStore = useUserStore()
-
 export default {
   components: {
     Link,
@@ -41,6 +39,7 @@ export default {
     },
   },
   setup () {
+    const userStore = useUserStore()
     return {
       userStore,
     }
