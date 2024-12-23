@@ -4389,7 +4389,8 @@ support_page:
   info_teaser: Vårt støtteskjema er tilgjengelig for spørsmål om bruk av plattformen,
     tekniske bekymringer eller feilmeldinger. Etter innsending vil det automatisk
     bli opprettet en billett i vårt system. Det frivillige støtteteamet vil ta seg
-    av henvendelsen din.
+    av henvendelsen din. For bedre å løse tekniske problemer, vil forespørselen din
+    også inkludere hvilken nettleser og hvilket operativsystem du bruker.
 petition:
   link: Til begjæringen
   progressText:
