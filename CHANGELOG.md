@@ -9,6 +9,7 @@
 ## Refactoring
 - Get rid of xhr completely !3826 @chriswalg
 - Rework working group rest controller !3879 @chriswalg
+- Rework foodsaver rest controller !3892 @chriswalg
 
 ## Dev/Test/CI stuff
 - Update dev docs Vue component integration to use prepareVueComponent !3910 @chriswalg
