@@ -3,6 +3,7 @@
 ## Features
 
 ## Changes
+- Include user agent in support ticket creation #2212 !3838 @AntonBallmaier
 
 ## Bugfixes
 

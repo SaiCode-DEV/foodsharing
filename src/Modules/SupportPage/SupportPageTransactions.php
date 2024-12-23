@@ -57,7 +57,9 @@ class SupportPageTransactions
                 'type' => TicketArticleType::WEB->value,
                 'sender' => 'Customer',
                 'internal' => false,
+                'userAgent' => $ticketModel->userAgent,
             ],
+            'userAgent' => $ticketModel->userAgent,
         ];
 
         $client->setOnBehalfOfUser($ticketModel->emailAddress);

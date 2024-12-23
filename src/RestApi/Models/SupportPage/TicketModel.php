@@ -29,4 +29,7 @@ class TicketModel
     #[OA\Property(description: 'Optional list of attached files')]
     #[Type('array<Foodsharing\RestApi\Models\SupportPage\TicketAttachment>')]
     public array $attachments;
+
+    #[OA\Property(description: 'The user agent (browser version and OS) of the user')]
+    public ?string $userAgent;
 }

@@ -7,5 +7,6 @@ export function createTicket (emailAddress, subject, body, firstName, attachment
     body,
     firstName,
     attachments,
+    userAgent: navigator?.userAgent,
   })
 }

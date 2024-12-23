@@ -3831,7 +3831,7 @@ store_categories:
 
 support_page:
   title: "Support-Formular"
-  info_teaser: "Unser Support-Formular steht dir für Fragen zur Bedienung der Plattform, technische Anliegen oder Fehlermeldungen zur Verfügung. Nach dem Absenden wird automatisch ein Ticket in unserem System erstellt. Das ehrenamtliche Support-Team kümmert sich um deine Anfragen."
+  info_teaser: "Unser Support-Formular steht dir für Fragen zur Bedienung der Plattform, technische Anliegen oder Fehlermeldungen zur Verfügung. Nach dem Absenden wird automatisch ein Ticket in unserem System erstellt. Das ehrenamtliche Support-Team kümmert sich um deine Anfragen. Um besser auf technische Probleme eingehen zu können, ist in deiner Anfrage auch enthalten, welchen deine Browser und welches Betriebssystem du nutzt."
   notification_name: "Da du eingeloggt bist, werden dein Vorname und deine Foodsharer-ID mit übertragen."
   firstName: "Vorname"
   validation_firstName: "Vorname ist leer"
