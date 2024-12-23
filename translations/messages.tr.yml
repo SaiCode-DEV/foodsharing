@@ -2070,9 +2070,9 @@ basket:
   sent_request: Başvuru gönderildi
   n_requests: 'Şimdiye kadar ki başvurular:'
   state:
-    nope: Hayır, {pronoun} maalesef kararlaştırıldığı gibi gelmedi.
+    nope: Hayır, yemek sepeti kararlaştırıldığı gibi alınmadı.
     gone: Yiyecekler başkası tarafından alındı.
-    okay: Evet, {pronoun} yemek sepetini aldı.
+    okay: Evet, yemek sepeti alındı.
     finished: Teşekkürler, işlem tamamlandı.
     deny: Bu talebi reddetmek istiyorum.
   valid:
