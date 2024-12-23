@@ -2,8 +2,6 @@
 
 import $ from 'jquery'
 
-import 'jquery-slimscroll'
-
 import { GET, goTo, isMob } from '@/browser'
 import conversationStore from '@/stores/conversations'
 import { requestStoreTeamMembership, declineStoreRequest } from '@/api/stores'
@@ -11,18 +9,6 @@ import i18n from '@/helper/i18n'
 import { HTTP_RESPONSE } from './consts'
 
 export { goTo, isMob, GET }
-
-export function collapse_wrapper (id) {
-  const $content = $(`#${id}-wrapper .element-wrapper`)
-  const $label = $(`#${id}-wrapper .wrapper-label i`)
-  if ($content.is(':visible')) {
-    $content.hide()
-    $label.removeClass('fa-caret-down').addClass('fa-caret-right')
-  } else {
-    $content.show()
-    $label.removeClass('fa-caret-right').addClass('fa-caret-down')
-  }
-}
 
 export function chat (fsid) {
   conversationStore.openChatWithUser(fsid)

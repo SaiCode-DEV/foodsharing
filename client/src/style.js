@@ -1,7 +1,6 @@
 import 'css/pure/pure.min.css'
 import 'css/pure/grids-responsive-min.css'
 import '@fortawesome/fontawesome-free/css/all.css'
-import 'css/jquery-ui.css'
 import 'css/style.css'
 import 'css/content.css'
 import 'css/chat.css'

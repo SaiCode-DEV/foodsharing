@@ -3,9 +3,6 @@ import '@/sentry'
 
 import '@/style'
 
-import 'jquery-migrate'
-
-import 'jquery-ui'
 import registerServiceWorker from '@/registerServiceWorker'
 
 /*

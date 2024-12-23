@@ -1,12 +1,3 @@
-const path = require('path')
-const clientRoot = path.resolve(__dirname)
-
-function lib (filename) {
-  return path.join(clientRoot, 'lib', filename)
-}
-
-const production = process.env.NODE_ENV === 'production'
-
 Object.assign(module.exports, convert({
 
   leaflet: {
@@ -35,37 +26,9 @@ Object.assign(module.exports, convert({
     ],
   },
 
-  'jquery-migrate': {
-    // production version does not show all the JQMIGRATE warnings/traces
-    resolve: require.resolve(production ? 'jquery-migrate/dist/jquery-migrate.min.js' : 'jquery-migrate'),
-    // disableAMD resolves https://github.com/jquery/jquery-migrate/issues/273
-    // maybe can remove if newer versions of jquery-migrate fix the issue
-    disableAMD: true,
-    imports: {
-      jQuery: 'jquery',
-    },
-  },
-
-  'jquery-slimscroll': {
-    imports: {
-      jQuery: 'jquery',
-    },
-  },
-
   'corejs-typeahead': {
     dependencies: [
       'css/typeahead.css',
-    ],
-  },
-
-  'jquery-ui-addons': {
-    resolve: lib('jquery-ui-addons.js'),
-    imports: {
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
-    },
-    dependencies: [
-      'jquery-ui',
     ],
   },
 }))

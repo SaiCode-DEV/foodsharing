@@ -9,6 +9,7 @@
 ## Refactoring
 - Get rid of xhr completely !3826 @chriswalg
 - Rework working group rest controller !3879 @chriswalg
+- Remove jquery-ui and some other jquery extentions !3883 @chriswalg
 - Rework foodsaver rest controller !3892 @chriswalg
 
 ## Dev/Test/CI stuff
