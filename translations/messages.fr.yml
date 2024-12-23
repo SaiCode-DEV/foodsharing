@@ -2560,11 +2560,11 @@ basket:
   error: Le panier solidaire n’a pas pu être chargé.
   image: Ajoute une photo à ton panier solidaire.
   state:
-    okay: Oui, {pronoun} a récupéré son panier solidaire.
+    okay: Oui, le panier alimentaire a été récupéré.
     finished: Merci ! Le processus est terminé.
     deny: Je refuse cette demande.
     gone: Les denrées ont été récupérées par quelqu’un d’autre.
-    nope: Non, {pronoun} n’est pas venu·e chercher son panier alimentaire.
+    nope: Non, le panier alimentaire n’a pas été récupéré comme convenu.
   change-state: Envoyer la demande de {name} pour ce panier solidaire
   request-fs: Obtenir ce panier solidaire sur la page d’accueil de foodsharing
   request: Obtenir ce panier solidaire
@@ -3251,7 +3251,7 @@ startpage:
     target="_blank" rel="noopener noreferrer nofollow">guide</a> pour le partage de
     nourriture
   honest: Sois honnête
-  responsibility: de tous les aliments finissent à la poubelle. Cela doit enfin cesser.
+  responsibility: Un tiers de la nourriture finit à la poubelle. Cela doit enfin cesser.
     Nous ne voulons plus rien jeter ! Nous voulons traiter les aliments de manière
     responsable et nous sommes heureux que tu participes à ce projet.
   join_rules: Participer – nos règles
