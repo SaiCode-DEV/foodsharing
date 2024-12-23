@@ -2132,8 +2132,8 @@ basket:
     finished: Thank you! The process is finished.
     deny: I want to decline this request.
     gone: The groceries were picked up by someone else.
-    nope: No, unfortunately {pronoun} did not appear as agreed.
-    okay: Yes, {pronoun} picked up the food basket.
+    nope: No, the food basket was not picked up as agreed.
+    okay: Yes, the food basket was picked up.
   withdrawn_request: Request was withdrawn
   sent_request: Request has been sent
   send_request: Send request
@@ -3548,9 +3548,9 @@ startpage:
     on foodsharing. Clothing, cosmetics, household chemicals, toys and other non-food
     products can’t be exchanged or shared via foodsharing either. The foodsharing
     platform reserves the right to delete such offers.
-  responsibility: of all food ends up in the trash. This should finally come to an
-    end. We don’t want to throw anything away anymore! We want to handle food responsibly
-    and are happy that you join us.
+  responsibility: A third of all food ends up in the trash. This should finally come
+    to an end. We don’t want to throw anything away anymore! We want to handle food
+    responsibly and are happy that you join us.
   followrules_a: Follow the rules and the <a href="https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel"
     target="_blank" rel="noopener noreferrer nofollow">guide</a> for food sharing
   dependability: In many cities there are Food-Share Points where food is shared.
