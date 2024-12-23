@@ -111,9 +111,9 @@ startpage:
     med foodsharing. Klær, kosmetikk, husholdningskjemikalier, leker og andre ikke-matvarer
     kan ikke byttes eller deles via matdeling. Plattformen forbeholder seg retten
     til å slette slike tilbud.
-  responsibility: av all mat havner i søpla. Dette bør det bli en slutt på. Vi vil
-    bekjempe matsvinnet totalt. Vi ønsker å håndtere mat på en ansvarlig måte og er
-    glade for at du deltar.
+  responsibility: En tredjedel av all mat havner i søpla. Dette bør det bli en slutt
+    på. Vi vil bekjempe matsvinnet totalt. Vi ønsker å håndtere mat på en ansvarlig
+    måte og er glade for at du deltar.
   proposals: Vi ønsker å fortsette å utvikle oss, for å bli bedre og bedre. Til dette
     trenger vi dine gode idéer og tips. Send dem til [info@foodsharing.de](mailto:info@foodsharing.de)
   etiquette: etikette for matdeling
@@ -547,9 +547,9 @@ basket:
   request-fs: Be om matkurv på vår hjemmeside for foodsharing
   n_requests: 'Tidligere henvendelser:'
   state:
-    okay: Ja, {pronoun} hentet matkurven.
+    okay: Ja, matkurven ble hentet.
     gone: Dagligvarene ble hentet av noen andre.
-    nope: Nei, {pronoun} dukket dessverre ikke opp som avtalt.
+    nope: Nei, matkurven ble ikke hentet som avtalt.
     deny: Jeg ønsker å avslå denne forespørselen.
     finished: Takk, prosessen er fullført.
   request_empty: Forespørselsteksten kan ikke være tom.
