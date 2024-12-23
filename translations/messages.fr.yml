@@ -4543,7 +4543,9 @@ support_page:
   info_teaser: Notre formulaire de support est à ta disposition pour des questions
     sur l’utilisation de la plate-forme, des demandes techniques ou des messages d’erreur.
     Après l’envoi, un ticket est automatiquement créé dans notre système. L’équipe
-    de support bénévole s’occupe de tes demandes.
+    de support bénévole s’occupe de tes demandes. Afin de pouvoir mieux répondre aux
+    problèmes techniques, ta demande contient également le navigateur et le système
+    d’exploitation que tu utilises.
 error_base64_image: L’insertion d’images n’est pas autorisée par glisser-déposer.
 petition:
   progressText:
