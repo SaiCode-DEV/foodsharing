@@ -4673,7 +4673,9 @@ support_page:
   info_teaser: Nuestro formulario de asistencia está disponible para preguntas sobre
     el uso de la plataforma, problemas técnicos o mensajes de error. Tras enviar el
     formulario, se crea automáticamente un ticket en nuestro sistema. El equipo de
-    voluntarios se ocupará de su consulta.
+    voluntarios se ocupará de su consulta. Para poder responder mejor a los problemas
+    técnicos, su consulta incluye también el navegador y el sistema operativo que
+    utiliza.
 petition:
   progressText:
     8000: ¡Hemos tenido un buen comienzo! ¡Ayúdanos a llegar aún más lejos!
