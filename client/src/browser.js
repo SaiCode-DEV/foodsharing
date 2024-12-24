@@ -1,5 +1,3 @@
-import $ from 'jquery'
-
 export function goTo (url) {
   if (url !== '#') {
     document.location.href = url
@@ -7,7 +5,7 @@ export function goTo (url) {
 }
 
 export function isMob () {
-  return $(window).width() < 900
+  return window.innerWidth < 900
 }
 
 const HTTP_GET_VARS = []

@@ -15,6 +15,7 @@ class RegisterCest
     private $password;
     private $mobile_number;
     private $birthdate;
+    private $mobile_country_code;
 
     public function _before(): void
     {
@@ -65,9 +66,9 @@ class RegisterCest
         // tick all the check boxes
 
         $I->waitForElementVisible('#step5', 4);
-        $I->executeJS("$('#acceptGdpr').click()");
-        $I->executeJS("$('#acceptLegal').click()");
-        $I->executeJS("$('#subscribeNewsletter').click()");
+        $I->executeJS('document.querySelector("#acceptGdpr").click()');
+        $I->executeJS('document.querySelector("#acceptLegal").click()');
+        $I->executeJS('document.querySelector("#subscribeNewsletter").click()');
         $I->click('Anmeldung absenden');
 
         // we are signed up!
@@ -138,8 +139,8 @@ class RegisterCest
         // tick all the check boxes
 
         $I->waitForElementVisible('#step5', 4);
-        $I->executeJS("$('#acceptGdpr').click()");
-        $I->executeJS("$('#acceptLegal').click()");
+        $I->executeJS('document.querySelector("#acceptGdpr").click()');
+        $I->executeJS('document.querySelector("#acceptLegal").click()');
         $I->click('Anmeldung absenden');
 
         // we are signed up!

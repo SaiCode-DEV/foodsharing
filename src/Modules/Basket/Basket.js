@@ -2,8 +2,6 @@
 import '@/core'
 import '@/globals'
 
-import $ from 'jquery'
-
 import './Basket.css'
 
 import { vueApply, vueRegister } from '@/vue'
@@ -15,7 +13,7 @@ import BasketsLocationMap from '@/components/Basket/BasketsLocationMap'
 import BasketContainer from '@/components/Basket/BasketContainer.vue'
 import NearbyBasketsList from '@/views/pages/Baskets/NearbyBasketsList'
 
-$(document).ready(() => {
+document.addEventListener('DOMContentLoaded', () => {
   // Container only exists if the current user is not the basket offerer
   const requestFormContainerId = 'vue-BasketRequestForm'
   if (document.getElementById(requestFormContainerId)) {

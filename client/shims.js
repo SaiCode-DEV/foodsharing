@@ -25,12 +25,6 @@ Object.assign(module.exports, convert({
       require.resolve('leaflet.markercluster/dist/MarkerCluster.Default.css'),
     ],
   },
-
-  'corejs-typeahead': {
-    dependencies: [
-      'css/typeahead.css',
-    ],
-  },
 }))
 
 function convert (entries) {

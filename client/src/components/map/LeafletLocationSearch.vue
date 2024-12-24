@@ -83,7 +83,6 @@ import L from 'leaflet'
 import LeafletLocationPicker from '@/components/map/LeafletLocationPicker'
 import 'leaflet.awesome-markers'
 import { defineProps, defineEmits, ref } from 'vue'
-import 'corejs-typeahead'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import AddressSearchField from './AddressSearchField.vue'
 

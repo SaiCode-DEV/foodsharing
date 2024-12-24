@@ -10,8 +10,6 @@
 
 */
 
-import $ from 'jquery'
-
 import conv from '@/conv'
 import socket from '@/socket'
 
@@ -33,8 +31,6 @@ import {
 } from '@/script'
 
 expose({
-  $,
-  jQuery: $,
   chat,
   pulseInfo,
   pulseError,

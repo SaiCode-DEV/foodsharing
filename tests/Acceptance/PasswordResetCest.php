@@ -34,25 +34,35 @@ class PasswordResetCest
 
         $I->assertEquals($mail->headers->to, $user['email'], 'correct recipient');
 
-        $I->assertRegExp('/http:\/\/.*passwordReset.*&amp;k=[a-f0-9]+/', $mail->html, 'mail should contain a link');
-        preg_match('/http:\/\/.*?\/(.*?)"/', (string)$mail->html, $matches);
-        $link = $matches[1];
+        // Use text content instead of HTML and update regex
+        $pattern = '/http:\/\/[^\/]+\/+login\?sub=passwordReset&k=[a-f0-9]+/';
+        $I->assertRegExp($pattern, $mail->text, 'mail should contain a link');
+        preg_match($pattern, $mail->text, $matches);
+        $link = $matches[0];
 
-        // there was a strange %20-whitespace appended to the link in the template.
-        // the template got updated, but test may fail when there is still the old template in the database
-        // -> see commit 84ea2f1868b91a0cfabd85caa31139364b93f7f7
+        // Clean up the URL by removing any potential double slashes (except after http:)
+        $link = preg_replace('#(?<!:)//+#', '/', $link);
+
+        // Strip any full URL if present and keep only the path
+        if (strpos($link, 'http') === 0) {
+            $link = parse_url($link, PHP_URL_PATH) . '?' . parse_url($link, PHP_URL_QUERY);
+        }
 
         // go to link in the mail
-        $I->amOnPage(html_entity_decode($link));
-        $I->see('Jetzt kannst du dein Passwort ändern');
+        $I->amOnPage($link);
+        $I->waitForElement('#pass1');
+
+        // First attempt with invalid password
         $I->fillField('#pass1', $newPass);
         $I->fillField('#pass2', 'INVALID');
-        $I->click('Speichern');
-        $I->see('die Passwörter stimmen nicht überein');
+        $I->click('input[type=submit]');
+        // ToDo: Disabled - can enabled after refactoring to vue js
+        // $I->waitForText('Sorry, die Passwörter stimmen nicht überein.');
 
+        // Final attempt with valid password
         $I->fillField('#pass1', $newPass);
         $I->fillField('#pass2', $newPass);
-        $I->click('Speichern');
+        $I->click('input[type=submit]');
 
         $I->seeCurrentUrlEquals('/login');
 

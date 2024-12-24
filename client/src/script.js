@@ -1,7 +1,4 @@
 /* eslint-disable eqeqeq,camelcase */
-
-import $ from 'jquery'
-
 import { GET, goTo, isMob } from '@/browser'
 import conversationStore from '@/stores/conversations'
 import { requestStoreTeamMembership, declineStoreRequest } from '@/api/stores'
@@ -23,17 +20,17 @@ function definePulse (type, defaultTimeout = 5000) {
   return (html, options = {}) => {
     let { timeout, sticky } = options || {}
     if (typeof timeout === 'undefined') timeout = sticky ? 900000 : defaultTimeout
-    const animationDuration = Math.min(timeout, 400)
-    const el = $(`#pulse-${type}`)
-    el.html(html).stop().fadeIn(animationDuration)
+    const el = document.querySelector(`#pulse-${type}`)
+    el.innerHTML = html
+    el.style.display = 'block'
     const hide = () => {
-      el.stop().fadeOut(animationDuration)
-      $(document).off('click', hide)
+      el.style.display = 'none'
+      document.removeEventListener('click', hide)
       clearTimeout(timer)
     }
     const timer = setTimeout(hide, timeout)
     setTimeout(() => {
-      $(document).on('click', hide)
+      document.addEventListener('click', hide)
     }, 500)
   }
 }
@@ -117,7 +114,9 @@ export async function withdrawStoreRequest (storeId, userId) {
 }
 
 export function checkAllCb (sel) {
-  $("input[type='checkbox']").prop('checked', sel)
+  document.querySelectorAll("input[type='checkbox']").forEach(cb => {
+    cb.checked = sel
+  })
 }
 
 export function shuffle (o) {
@@ -129,12 +128,9 @@ export function session_id () {
   return /SESS\w*ID=([^;]+)/i.test(document.cookie) ? RegExp.$1 : false
 }
 
-$.fn.extend({
-  disableSelection: function () {
-    return this.each(function () {
-      this.onselectstart = function () { return false }
-      this.unselectable = 'on'
-      $(this).css('user-select', 'none')
-    })
-  },
-})
+Element.prototype.disableSelection = function () {
+  this.onselectstart = function () { return false }
+  this.unselectable = 'on'
+  this.style.userSelect = 'none'
+  return this
+}

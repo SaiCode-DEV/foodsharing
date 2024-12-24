@@ -981,10 +981,6 @@ ul.linklist li > a:hover .avatar span.bubble {
   color: var(--fs-color-primary-500) !important;
 }
 
-.slimScrollDiv .avatar .bubble {
-  display: none !important;
-}
-
 .vidlink {
   margin: 0;
   padding: 0;

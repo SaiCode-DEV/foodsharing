@@ -1,7 +1,5 @@
 /* eslint-disable eqeqeq */
 
-import $ from 'jquery'
-
 import Storage from '@/storage'
 import { isMob, pulseError } from '@/script'
 import { useUserStore } from '@/stores/user.js'
@@ -88,14 +86,14 @@ const conv = {
   // maximoze mini box
   maxbox: function (cid) {
     const key = conv.getKey(cid)
-    conv.chatboxes[key].el.children('.chatboxcontent').show()
+    conv.chatboxes[key].el.querySelector('.chatboxcontent').style.display = 'block'
     conv.chatboxes[key].minimized = false
   },
 
   // minimize a box
   minbox: function (cid) {
     const key = conv.getKey(cid)
-    conv.chatboxes[key].el.children('.chatboxcontent').hide()
+    conv.chatboxes[key].el.querySelector('.chatboxcontent').style.display = 'none'
     conv.chatboxes[key].minimized = true
   },
 
@@ -109,7 +107,7 @@ const conv = {
       if (conv.chatboxes[i].id == cid) {
         conv.chatboxes[i].el.remove()
       } else {
-        conv.chatboxes[i].el.css('right', `${20 + (x * CHAT_BOX_WIDTH)}px`)
+        conv.chatboxes[i].el.style.right = `${20 + (x * CHAT_BOX_WIDTH)}px`
         tmp.push(conv.chatboxes[i])
         x++
       }
@@ -179,7 +177,7 @@ const conv = {
    */
   settings: function (cid) {
     const key = this.getKey(cid)
-    this.chatboxes[key].el.children('.chatboxhead').children('.settings').toggle()
+    this.chatboxes[key].el.querySelector('.chatboxhead .settings').style.display = 'block'
   },
 
   /**
@@ -195,7 +193,7 @@ const conv = {
         conv.addChatOption(cid, `<a href="#" onclick="if(confirm('Bist Du Dir sicher, dass Du den Chat verlassen möchtest? Dadurch verlierst du unwiderruflich Zugriff auf alle Nachrichten in dieser Unterhaltung.')){conv.leaveConversation(${cid});}return false;">Chat verlassen</a>`)
       */
       if (conversation.storeId === null) { // stores can't be renamed
-        conv.addChatOption(cid, `<span class="optinput"><input placeholder="Chat umbenennen..." type="text" name="chatname" value="" maxlength="30" /><i onclick="conv.rename(${cid}, $(this).prev().val())" class="fas fa-arrow-circle-right"></i></span>`)
+        conv.addChatOption(cid, `<span class="optinput"><input placeholder="Chat umbenennen..." type="text" name="chatname" value="" maxlength="30" /><i onclick="conv.rename(${cid}, this.previousElementSibling.value)" class="fas fa-arrow-circle-right"></i></span>`)
       }
       // first build a title from all the usernames
       let title = conversation.title
@@ -223,10 +221,10 @@ const conv = {
       }
 
       if (key >= 0 && conv.chatboxes[key] !== undefined) {
-        conv.chatboxes[key].el.children('.chatboxhead').children('.chatboxtitle').html(`
+        conv.chatboxes[key].el.querySelector('.chatboxhead .chatboxtitle').innerHTML = `
         <i class="fas fa-fw fa-comment fa-flip-horizontal"></i>
         ${title}
-      `)
+      `
       }
     } catch (e) {
       pulseError('Fehler beim Laden der Unterhaltung')
@@ -240,10 +238,10 @@ const conv = {
     try {
       await api.renameConversation(cid, newName)
       const key = this.getKey(cid)
-      conv.chatboxes[key].el.children('.chatboxhead').children('.chatboxtitle').html(`
+      conv.chatboxes[key].el.querySelector('.chatboxhead .chatboxtitle').innerHTML = `
         <i class="fas fa-fw fa-comment fa-flip-horizontal"></i>
         ${plainToHtml(newName)}
-      `)
+      `
     } catch (e) {
       pulseError('Fehler beim Umbenennen der Unterhaltung')
       console.error(e)
@@ -267,10 +265,13 @@ const conv = {
     if (conv.getKey(cid) === -1) {
       const right = 20 + (this.chatboxes.length * CHAT_BOX_WIDTH)
 
-      const $el = $(`
-        <div id="chat-${cid}" class="chatbox ui-corner-top" style="bottom: 0px; right: ${right}px; display: block;"></div>
-      `).appendTo('body')
-      $el.html(`
+      const el = document.createElement('div')
+      el.id = `chat-${cid}`
+      el.className = 'chatbox ui-corner-top'
+      el.style.bottom = '0px'
+      el.style.right = `${right}px`
+      el.style.display = 'block'
+      el.innerHTML = `
         <div class="chatboxhead ui-corner-top">
           <div class="chatboxtitle" onclick="conv.togglebox(${cid});">
             <i class="fas fa-fw fa-spinner fa-spin"></i>
@@ -294,17 +295,18 @@ const conv = {
           <br clear="all"/>
         </div>
         <div class="chatboxcontent"></div>
-      `)
+      `
+      document.body.appendChild(el)
 
       const ComponentClass = Vue.extend(ChatComponent)
       const instance = new ComponentClass({
         propsData: { popupMode: true, chatId: cid },
       })
       instance.$mount() // pass nothing
-      $el.children('.chatboxcontent').append(instance.$el)
+      el.querySelector('.chatboxcontent').appendChild(instance.$el)
 
       this.chatboxes.push({
-        el: $el,
+        el: el,
         id: cid,
         minimized: false,
       })
@@ -325,11 +327,11 @@ const conv = {
     }
   },
   addChatOption: function (cid, el) {
-    $(`#chat-${cid} .settings`).append(`<li>${el}</li>`)
+    document.querySelector(`#chat-${cid} .settings`).innerHTML += `<li>${el}</li>`
   },
 }
-$(function () {
-  if ($('body.loggedin').length > 0) {
+document.addEventListener('DOMContentLoaded', function () {
+  if (document.querySelector('body.loggedin')) {
     conv.init()
   }
 })

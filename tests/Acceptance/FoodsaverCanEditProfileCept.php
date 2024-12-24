@@ -21,9 +21,10 @@ $I->waitForElement('#phone', 10);
 
 // ToDo: Birthdate and location
 
-$I->executeJS('$("#phone").val("' . $phonenumber . '")');
-$I->executeJS('$("#mobile").val("' . $mobilenumber . '")');
-$I->executeJS('$("#about_me_intern").val("' . $aboutMeIntern . '")');
+// Use vanilla JavaScript to set the values
+$I->executeJS('document.querySelector("#phone").value = "' . $phonenumber . '";');
+$I->executeJS('document.querySelector("#mobile").value = "' . $mobilenumber . '";');
+$I->executeJS('document.querySelector("#about_me_intern").value = "' . $aboutMeIntern . '";');
 
 $I->click('Speichern');
 $I->waitForText('Erfolgreich abgeschlossen');
