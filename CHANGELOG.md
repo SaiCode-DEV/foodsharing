@@ -23,6 +23,7 @@
 
 ## Dev/Test/CI stuff
 - Update dev docs Vue component integration to use prepareVueComponent !3910 @chriswalg
+- Fix the service worker build !3925 @\_fridtjof_
 
 # Release "Nektarine", 2024-12-13
 
