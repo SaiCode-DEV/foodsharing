@@ -12,6 +12,7 @@
 - Get rid of xhr completely !3826 @chriswalg
 - Update Vuelidate !3889 @SaiCode
 - Rework working group rest controller !3879 @chriswalg
+- Rework LocaleRestController !3893 @chriswalg
 - Rework WallRestController !3880 @chriswalg
 - Removed jquery !3884 @chriswalg
 - Moved basket store to pinia !3687 @chriswalg

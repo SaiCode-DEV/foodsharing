@@ -5,50 +5,42 @@ namespace Foodsharing\RestApi;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Settings\SettingsTransactions;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class LocaleRestController extends AbstractFOSRestController
+#[OA\Tag(name: 'locale')]
+class LocaleRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
         private readonly SettingsTransactions $settingsTransactions,
-        private readonly Session $session
+        protected Session $session
     ) {
+        parent::__construct($session);
     }
 
-    /**
-     * Returns the locale setting for the current session.
-     *
-     * @OA\Tag(name="locale")
-     */
     #[Rest\Get('locale')]
+    #[OA\Get(summary: 'Returns the locale setting for the current session.')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     public function getLocale(): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         $locale = $this->settingsTransactions->getLocale();
 
-        return $this->handleView($this->view(['locale' => $locale], 200));
+        return $this->respondOK(['locale' => $locale]);
     }
 
-    /**
-     * Sets the locale for the current session.
-     *
-     * @OA\Tag(name="locale")
-     */
     #[Rest\Post('locale')]
     #[Rest\RequestParam(name: 'locale')]
+    #[OA\Post(summary: 'Sets the locale for the current session.')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     public function setLocale(ParamFetcher $paramFetcher): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         $locale = $paramFetcher->get('locale');
         if (empty($locale)) {
