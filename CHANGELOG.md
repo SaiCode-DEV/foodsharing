@@ -1,9 +1,10 @@
-# Release "O???", 2025-??-??
+# Release "Olive", 2025-??-??
 
 ## Features
 
 ## Changes
 - Include user agent in support ticket creation #2212 !3838 @AntonBallmaier
+- Increased the size of the chat box title !3592 @robinkernel
 
 ## Bugfixes
 
