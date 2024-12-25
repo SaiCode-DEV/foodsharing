@@ -26,7 +26,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class StatisticRestController extends AbstractFOSRestController
 {
-    private const STATISTIC_NUMBER_MONTHS = 3;
     private const NOT_FOUND_MESSAGE = 'Region with that id %d not found';
 
     public function __construct(
@@ -136,7 +135,6 @@ class StatisticRestController extends AbstractFOSRestController
         $generalStatistic = new StatisticModel(
             $this->getGeneralStatistic(),
             $this->getRegionsStatistic(),
-            $this->getFoodsaverStatistic()
         );
 
         return $this->handleView($this->view($generalStatistic, Response::HTTP_OK));
@@ -158,17 +156,6 @@ class StatisticRestController extends AbstractFOSRestController
     {
         return new PickupModel(
             $this->statisticsGateway->listStatRegions(),
-            $this->statisticsGateway->getRegionStatsNumberMonth(self::STATISTIC_NUMBER_MONTHS),
-            $this->statisticsGateway->getRegionStatsCurrentMonth()
-        );
-    }
-
-    private function getFoodsaverStatistic(): PickupModel
-    {
-        return new PickupModel(
-            $this->statisticsGateway->listStatFoodsaver(),
-            $this->statisticsGateway->getFoodsaverStatsNumberMonths(self::STATISTIC_NUMBER_MONTHS),
-            $this->statisticsGateway->getFoodsaverStatsCurrentMonth()
         );
     }
 

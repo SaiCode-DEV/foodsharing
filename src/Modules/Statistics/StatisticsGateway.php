@@ -58,7 +58,7 @@ class StatisticsGateway extends BaseGateway
 			WHERE
 				`type` IN(:city, :bigCity)
 			ORDER BY fetchCount DESC
-			LIMIT 10
+			LIMIT 30
 		';
 
         $result = $this->db->fetchAll($stm, [':city' => UnitType::CITY, ':bigCity' => UnitType::BIG_CITY]);

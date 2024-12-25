@@ -116,22 +116,6 @@ class StatisticApiCest
                 'pickupInDefinedPeriod' => [],
                 'pickupCurrentMonth' => [],
             ],
-            'foodsaverActivity' => [
-                'pickupOverAllTime' => [
-                    [
-                        'name' => $response['foodsaverActivity']['pickupOverAllTime'][0]['name'],
-                        'fetchWeight' => 0.0,
-                        'fetchCount' => 0
-                    ],
-                    [
-                        'name' => $response['foodsaverActivity']['pickupOverAllTime'][1]['name'],
-                        'fetchWeight' => 0.0,
-                        'fetchCount' => 0
-                    ],
-                ],
-                'pickupInDefinedPeriod' => [],
-                'pickupCurrentMonth' => []
-            ],
         ]);
     }
 }

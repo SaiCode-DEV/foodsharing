@@ -24,7 +24,8 @@ class PickupModel
     #[OA\Property(
         description: 'pick-ups in the defined period',
         type: 'array',
-        items: new OA\Items(ref: new Model(type: PickupItem::class))
+        items: new OA\Items(ref: new Model(type: PickupItem::class)),
+        nullable: true
     )]
     #[Type('array')]
     public readonly array $pickupInDefinedPeriod;
@@ -32,20 +33,24 @@ class PickupModel
     #[OA\Property(
         description: 'pick-ups in current month',
         type: 'array',
-        items: new OA\Items(ref: new Model(type: PickupItem::class))
+        items: new OA\Items(ref: new Model(type: PickupItem::class)),
+        nullable: true
     )]
     #[Type('array')]
     public readonly array $pickupCurrentMonth;
 
     /**
      * @param array<ActivityStatisticItem> $pickupOverAllTime
-     * @param array<PickupItem>            $pickupInDefinedPeriod
-     * @param array<PickupItem>            $pickupCurrentMonth
+     * @param array<PickupItem>|null       $pickupInDefinedPeriod
+     * @param array<PickupItem>|null       $pickupCurrentMonth
      */
-    public function __construct(array $pickupOverAllTime, array $pickupInDefinedPeriod, array $pickupCurrentMonth)
-    {
+    public function __construct(
+        array $pickupOverAllTime,
+        ?array $pickupInDefinedPeriod = null,
+        ?array $pickupCurrentMonth = null
+    ) {
         $this->pickupOverAllTime = $pickupOverAllTime;
-        $this->pickupInDefinedPeriod = $pickupInDefinedPeriod;
-        $this->pickupCurrentMonth = $pickupCurrentMonth;
+        $this->pickupInDefinedPeriod = $pickupInDefinedPeriod ?? [];
+        $this->pickupCurrentMonth = $pickupCurrentMonth ?? [];
     }
 }

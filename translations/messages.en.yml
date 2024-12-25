@@ -3381,6 +3381,7 @@ success: Completed successfully
 statistics:
   kg_food_saved: '{count} kg food saved'
   num_fetches: In {count} pick-ups
+  food_saved: 'food saved'
 storestatus:
   "0": Status unclear
   "7": Store no longer exists

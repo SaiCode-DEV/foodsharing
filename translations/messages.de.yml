@@ -839,6 +839,8 @@ terminology:
 statistics:
   kg_food_saved: "{count} kg Lebensmittel gerettet"
   num_fetches: "Bei {count} Rettungseinsätzen"
+  food_saved: Lebensmittel gerettet
+
 
 are_you_sure: "Bist du sicher?"
 really_delete: "Wirklich löschen?"

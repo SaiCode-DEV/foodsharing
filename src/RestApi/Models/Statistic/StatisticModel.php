@@ -25,20 +25,11 @@ class StatisticModel
     #[Type('Foodsharing\RestApi\Models\Statistic\PickupModel')]
     public readonly PickupModel $regionsActivity;
 
-    #[OA\Property(
-        ref: new Model(type: PickupModel::class),
-        description: 'Ranking of the most active foodsaver'
-    )]
-    #[Type('Foodsharing\RestApi\Models\Statistic\PickupModel')]
-    public readonly PickupModel $foodsaverActivity;
-
     public function __construct(
         GeneralStatistic $generalStatistic,
         PickupModel $regionsActivity,
-        PickupModel $foodsaverActivity
     ) {
         $this->generalStatistic = $generalStatistic;
         $this->regionsActivity = $regionsActivity;
-        $this->foodsaverActivity = $foodsaverActivity;
     }
 }

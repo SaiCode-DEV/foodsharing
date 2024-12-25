@@ -1,5 +1,9 @@
 <template>
   <div>
+    <WeightFancyCounter
+      v-if="stats.length"
+      :number="stats[0].value"
+    />
     <Container
       :title="$i18n('stats.title')"
       :collapsible="false"
@@ -18,7 +22,7 @@
             </span>
             <div>
               <h4 class="mb-0">
-                {{ formatNumber(stat.value) }}<span class="text-nowrap">&thinsp;</span>{{ stat.unit }}
+                {{ formatNumber(stat.value, stat.unit) }}
               </h4>
               <p class="mb-0">
                 {{ stat.label }}
@@ -29,26 +33,75 @@
       </div>
     </Container>
 
-    <div class="row mt-4">
-      <div
-        v-for="board in leaderboards"
-        :key="board.title"
-        class="col-md-6 mb-4"
+    <div class="mt-4">
+      <Container
+        :title="$i18n('stats.leader.regions')"
+        :collapsible="false"
+        :wrap-contents="true"
       >
-        <Container
-          :title="$i18n(board.title)"
-          :collapsible="false"
-          :wrap-contents="true"
-        >
+        <div class="regions-podium">
+          <template v-if="regionsActivity.pickupOverAllTime.length >= 3">
+            <div class="podium-item silver">
+              <div class="podium-content">
+                <h3 class="mb-0">
+                  2
+                </h3>
+                <h4 class="mb-0">
+                  {{ regionsActivity.pickupOverAllTime[1].name }}
+                </h4>
+                <p class="mb-0">
+                  {{ formatNumber(regionsActivity.pickupOverAllTime[1].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>{{ $i18n('profile.stats.weight') }}
+                </p>
+                <p class="mb-0">
+                  {{ formatNumber(regionsActivity.pickupOverAllTime[1].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
+                </p>
+              </div>
+            </div>
+            <div class="podium-item gold">
+              <div class="podium-content">
+                <h3 class="mb-0">
+                  1
+                </h3>
+                <h4 class="mb-0">
+                  {{ regionsActivity.pickupOverAllTime[0].name }}
+                </h4>
+                <p class="mb-0">
+                  {{ formatNumber(regionsActivity.pickupOverAllTime[0].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>{{ $i18n('profile.stats.weight') }}
+                </p>
+                <p class="mb-0">
+                  {{ formatNumber(regionsActivity.pickupOverAllTime[0].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
+                </p>
+              </div>
+            </div>
+            <div class="podium-item bronze">
+              <div class="podium-content">
+                <h3 class="mb-0">
+                  3
+                </h3>
+                <h4 class="mb-0">
+                  {{ regionsActivity.pickupOverAllTime[2].name }}
+                </h4>
+                <p class="mb-0">
+                  {{ formatNumber(regionsActivity.pickupOverAllTime[2].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>{{ $i18n('profile.stats.weight') }}
+                </p>
+                <p class="mb-0">
+                  {{ formatNumber(regionsActivity.pickupOverAllTime[2].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
+                </p>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <div class="regions-grid">
           <b-card
-            v-for="(item, index) in board.items"
+            v-for="(item, index) in regionsActivity.pickupOverAllTime.slice(3)"
             :key="item.name"
             no-body
-            class="mb-2 stats-list"
+            class="mb-2"
           >
             <b-card-body class="d-flex align-items-center py-2">
-              <h4 class="mb-0 mr-4 stat-place">
-                {{ index + 1 }}.
+              <h4 class="mb-0 mr-4">
+                {{ index + 4 }}.
               </h4>
               <div>
                 <h4 class="mb-0">
@@ -63,139 +116,133 @@
               </div>
             </b-card-body>
           </b-card>
-        </Container>
-      </div>
+        </div>
+      </Container>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue'
 import { getOverallStatistics } from '@/api/statistics'
-import i18n from '@/helper/i18n'
+import i18n, { locale } from '@/helper/i18n'
 import Container from '@/components/Container/Container.vue'
+import WeightFancyCounter from './WeightFancyCounter.vue'
 
-export default {
-  components: {
-    Container,
-  },
-  data () {
-    return {
-      stats: [],
-      regionsActivity: {
-        pickupOverAllTime: [],
-      },
-      foodsaverActivity: {
-        pickupOverAllTime: [],
-      },
-    }
-  },
-  computed: {
-    leaderboards () {
-      return [
-        {
-          title: 'stats.leader.regions',
-          items: this.regionsActivity.pickupOverAllTime,
-        },
-        {
-          title: 'stats.leader.users',
-          items: this.foodsaverActivity.pickupOverAllTime,
-        },
-      ]
-    },
-  },
-  async created () {
-    const data = await getOverallStatistics()
-    this.stats = this.mapStatistics(data)
-    this.regionsActivity = data.regionsActivity
-    this.foodsaverActivity = data.foodsaverActivity
-  },
-  methods: {
-    formatNumber (number) {
-      // Check for invalid values and return 0 if invalid
-      if (number === undefined || number === null || isNaN(number)) {
-        return '0'
-      }
-      return new Intl.NumberFormat().format(number)
-    },
-    mapStatistics (data) {
-      const stats = data?.generalStatistic || {}
-      return [
-        {
-          id: 1,
-          iconClass: 'stat_icon fetchweight',
-          icon: 'fa-apple-alt',
-          value: stats.fetchWeight,
-          unit: 'kg',
-          label: i18n('stats.total.weight'),
-        },
-        {
-          id: 2,
-          iconClass: 'stat_icon coorpcount',
-          icon: 'fa-store-alt',
-          value: stats.cooperationsCount,
-          unit: '',
-          label: i18n('stats.total.cooperations'),
-        },
-        {
-          id: 3,
-          iconClass: 'stat_icon fscount',
-          icon: 'fa-user-check',
-          value: stats.countAllFoodsaver,
-          unit: '',
-          label: i18n('stats.total.foodsaver'),
-        },
-        {
-          id: 4,
-          iconClass: 'stat_icon fscount2',
-          icon: 'fa-users',
-          value: stats.foodsaverCount,
-          unit: '',
-          label: i18n('stats.total.foodsharer'),
-        },
-        {
-          id: 5,
-          iconClass: 'stat_icon fetchcount',
-          icon: 'fa-walking',
-          value: stats.fetchCount,
-          unit: '',
-          label: i18n('stats.total.pickups'),
-        },
-        {
-          id: 6,
-          iconClass: 'stat_icon dailyfetchcount',
-          icon: 'fa-people-carry',
-          value: stats.avgDailyFetchCount,
-          unit: '',
-          label: i18n('stats.avg.pickups'),
-        },
-        {
-          id: 7,
-          iconClass: 'stat_icon totalbaskets',
-          icon: 'fa-shopping-basket',
-          value: stats.totalBaskets,
-          unit: '',
-          label: i18n('stats.total.baskets'),
-        },
-        {
-          id: 8,
-          iconClass: 'stat_icon avgWeeklyBaskets',
-          icon: 'fa-shopping-basket',
-          value: stats.avgWeeklyBaskets,
-          unit: '',
-          label: i18n('stats.avg.baskets'),
-        },
-        {
-          id: 9,
-          iconClass: 'stat_icon fetchweight',
-          icon: 'fa-recycle',
-          value: stats.countActiveFoodSharePoints,
-          unit: '',
-          label: i18n('stats.total.fsp'),
-        },
-      ]
-    },
-  },
+const stats = ref([])
+const regionsActivity = ref({
+  pickupOverAllTime: [],
+})
+const foodsaverActivity = ref({
+  pickupOverAllTime: [],
+})
+
+const formatNumber = (number, unit) => {
+  if (number === undefined || number === null || isNaN(number)) {
+    return '0'
+  }
+
+  const options = {
+    notation: 'compact',
+    maximumFractionDigits: 2,
+  }
+
+  if (unit === 'kg') {
+    options.style = 'unit'
+    options.unit = 'kilogram'
+    options.unitDisplay = 'narrow'
+  }
+
+  return new Intl.NumberFormat(locale, options).format(number)
 }
+
+const mapStatistics = (data) => {
+  const generalStats = data?.generalStatistic || {}
+  return [
+    {
+      id: 1,
+      iconClass: 'stat_icon fetchweight',
+      icon: 'fa-apple-alt',
+      value: generalStats.fetchWeight,
+      unit: 'kg',
+      label: i18n('stats.total.weight'),
+    },
+    {
+      id: 2,
+      iconClass: 'stat_icon coorpcount',
+      icon: 'fa-store-alt',
+      value: generalStats.cooperationsCount,
+      unit: '',
+      label: i18n('stats.total.cooperations'),
+    },
+    {
+      id: 3,
+      iconClass: 'stat_icon fscount',
+      icon: 'fa-user-check',
+      value: generalStats.foodsaverCount,
+      unit: '',
+      label: i18n('stats.total.foodsaver'),
+    },
+    {
+      id: 4,
+      iconClass: 'stat_icon fscount2',
+      icon: 'fa-users',
+      value: generalStats.countAllFoodsaver,
+      unit: '',
+      label: i18n('stats.total.foodsharer'),
+    },
+    {
+      id: 5,
+      iconClass: 'stat_icon fetchcount',
+      icon: 'fa-walking',
+      value: generalStats.fetchCount,
+      unit: '',
+      label: i18n('stats.total.pickups'),
+    },
+    {
+      id: 6,
+      iconClass: 'stat_icon dailyfetchcount',
+      icon: 'fa-people-carry',
+      value: generalStats.avgDailyFetchCount,
+      unit: '',
+      label: i18n('stats.avg.pickups'),
+    },
+    {
+      id: 7,
+      iconClass: 'stat_icon totalbaskets',
+      icon: 'fa-shopping-basket',
+      value: generalStats.totalBaskets,
+      unit: '',
+      label: i18n('stats.total.baskets'),
+    },
+    {
+      id: 8,
+      iconClass: 'stat_icon avgWeeklyBaskets',
+      icon: 'fa-shopping-basket',
+      value: generalStats.avgWeeklyBaskets,
+      unit: '',
+      label: i18n('stats.avg.baskets'),
+    },
+    {
+      id: 9,
+      iconClass: 'stat_icon fetchweight',
+      icon: 'fa-recycle',
+      value: generalStats.countActiveFoodSharePoints,
+      unit: '',
+      label: i18n('stats.total.fsp'),
+    },
+  ]
+}
+
+// Initialize data (replaces created hook)
+const initializeData = async () => {
+  const data = await getOverallStatistics()
+  stats.value = mapStatistics(data)
+  regionsActivity.value = data.regionsActivity
+  foodsaverActivity.value = data.foodsaverActivity
+}
+
+initializeData()
 </script>
 
 <style lang="scss" scoped>
@@ -227,5 +274,52 @@ export default {
   &:nth-of-type(4) .stat-place{
     color: #cd7f32;
   }
+}
+
+.regions-podium {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+  align-items: flex-end;
+
+  .podium-item {
+    text-align: center;
+    color: #000;
+    padding: 1rem;
+    border-radius: 8px;
+
+    &.gold {
+      order: 2;
+      min-height: 200px;
+      background: linear-gradient( to bottom right, #c39738, #deb761, #c39738);
+    }
+
+    &.silver {
+      order: 1;
+      min-height: 170px;
+      background: linear-gradient( to bottom right, #bcc6cc, #eee, #bcc6cc);
+    }
+
+    &.bronze {
+      order: 3;
+      min-height: 140px;
+      background: linear-gradient( to bottom right, #cd7f32, #f0a500, #cd7f32);
+    }
+
+    .podium-content {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+}
+
+.regions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
 }
 </style>
