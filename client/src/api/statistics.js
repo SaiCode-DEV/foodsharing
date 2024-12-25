@@ -11,3 +11,7 @@ export async function getRegionAgeBandData (regionId, homeRegion) {
 export async function getRegionPickupStatisticsData (regionId) {
   return get(`/statistics/regions/${regionId}/pickups`)
 }
+
+export async function getOverallStatistics () {
+  return get('/statistics')
+}
