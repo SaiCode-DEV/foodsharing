@@ -13,8 +13,8 @@ final class ContentPermissions
     private readonly Session $session;
 
     private array $PR_PARTNER_CONTENT_IDS = [
-        ContentId::PARTNER_PAGE_10,
-        ContentId::PARTNER_PAGE_AU_79,
+        ContentId::PARTNER_PAGE_93,
+        ContentId::PARTNER_PAGE_AT_94,
     ];
 
     private array $QUIZ_CONTENT_IDS = [

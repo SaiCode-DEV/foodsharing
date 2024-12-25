@@ -1,9 +1,3 @@
-partner:
-  path: /partner
-  controller: Foodsharing\Modules\Content\ContentController::show
-  defaults:
-    name: partner
-
 ueber-uns:
   path: /ueber-uns
   controller: Foodsharing\Modules\Content\ContentController::show

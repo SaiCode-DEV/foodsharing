@@ -16,6 +16,7 @@
 - Moved basket store to pinia !3687 @chriswalg
 - Remove jquery-ui and some other jquery extentions !3883 @chriswalg
 - Rework foodsaver rest controller !3892 @chriswalg
+- Rework partner page !3886 #2262 @SaiCode
 
 ## Dev/Test/CI stuff
 - Update dev docs Vue component integration to use prepareVueComponent !3910 @chriswalg

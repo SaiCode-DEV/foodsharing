@@ -12,8 +12,8 @@ namespace Foodsharing\Modules\Core\DBConstants\Content;
 
 class ContentId
 {
-    final public const PARTNER_PAGE_10 = 10;
-    final public const PARTNER_PAGE_AU_79 = 79;
+    final public const PARTNER_PAGE_93 = 93;
+    final public const PARTNER_PAGE_AT_94 = 94;
     final public const QUIZ_DESCRIPTION_PAGE_12 = 12;
     final public const QUIZ_FAILED_PAGE_13 = 13;
     final public const QUIZ_CONFIRM_FS_PAGE_14 = 14;

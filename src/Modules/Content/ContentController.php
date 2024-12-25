@@ -108,16 +108,18 @@ class ContentController extends FoodsharingController
         return $this->renderGlobal();
     }
 
-    public function partner(Request $request): Response
+    #[Route(path: '/partner', name: 'partner')]
+    public function partnerPage(Request $request): Response
     {
-        // select the partners page for the country and use german as fallback
         $host = (string)$request->server->get('HTTP_HOST', BASE_URL);
-        $contentId = ContentId::PARTNER_PAGE_10;
+        $contentId = ContentId::PARTNER_PAGE_93;
         if (str_contains($host, 'foodsharing.at')) {
-            $contentId = ContentId::PARTNER_PAGE_AU_79;
+            $contentId = ContentId::PARTNER_PAGE_AT_94;
         }
-
-        $this->addContent($contentId);
+        $this->pageHelper->addTitle($this->translator->trans('footer.our_partner'));
+        $this->pageHelper->addContent($this->prepareVueComponent('content-partner', 'Partner',
+            ['contentId' => $contentId]
+        ));
 
         return $this->renderGlobal();
     }

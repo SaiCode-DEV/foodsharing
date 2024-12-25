@@ -11,6 +11,7 @@ import Communities from '@/views/pages/Content/Communities.vue'
 import ContentEdit from './components/ContentEdit.vue'
 import JoinInfo from './components/JoinInfo.vue'
 import ContentEntry from '@/components/Content/ContentEntry.vue'
+import Partner from './components/Partner.vue'
 
 if (GET('sub') === 'releaseNotes') {
   vueRegister({
@@ -28,6 +29,9 @@ if (GET('sub') === 'releaseNotes') {
     ContentEntry,
   })
   vueApply('#vue-content')
+} else if (document.getElementById('content-partner')) {
+  vueRegister({ Partner })
+  vueApply('#content-partner')
 } else if (GET('sub') === undefined && GET('a') === undefined) {
   vueRegister({
     ContentList,

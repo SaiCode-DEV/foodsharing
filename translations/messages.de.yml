@@ -167,6 +167,7 @@ save_state_description: "Angewendete Filter und Sortierung für zukünftige Aufr
 configure_columns: "Spalten konfigurieren"
 expand_all: "Alle ausklappen"
 collapse_all: "Alle einklappen"
+partner_foodsharing: "Partner von foodsharing"
 
 quiz:
   question: "Frage"

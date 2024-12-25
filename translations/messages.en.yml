@@ -4311,6 +4311,7 @@ save_state: Maintain filters and sorting
 save_state_description: Save used filters and sorting for future calls
 expand_all: Expand all
 collapse_all: Collapse all
+partner_foodsharing: Partner of foodsharing
 donation_banner:
   info_button: Where does my donation go?
   action_button: Donate here!

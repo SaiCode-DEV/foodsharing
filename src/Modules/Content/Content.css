@@ -4,39 +4,6 @@
   padding-top: 0;
 }
 
-div.partner {
-  break-inside: avoid;
-  padding-top: 1rem;
-  border-top: 1px solid var(--fs-border-default);
-  margin-bottom: 2rem;
-  position: relative;
-  top: -1px;
-}
-
-div.partner img {
-  max-width: 70%;
-}
-
-div.partner h4 {
-  color: var(--fs-color-warning-200);
-  font-size: 15px;
-  font-weight: normal;
-  line-height: 16px;
-  margin-bottom: 8px;
-}
-
-.partner .logo {
-  margin-right: 15px;
-  margin-bottom: 10px;
-}
-
-.partner h3 {
-  margin: 0 0 10px 0;
-  padding: 0;
-  font-size: 14px;
-  line-height: normal;
-}
-
 .shortcode-spacer-1 {
   display: none;
 }
