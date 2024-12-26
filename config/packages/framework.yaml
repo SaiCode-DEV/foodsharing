@@ -22,6 +22,7 @@ framework:
 
     assets:
         base_path: '/assets'
+    error_controller: Foodsharing\Modules\Error\ErrorController
 
 when@test:
     framework:

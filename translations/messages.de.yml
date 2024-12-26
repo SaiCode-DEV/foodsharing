@@ -3337,6 +3337,11 @@ chain:
     list: Übersicht
   pagetitle: Betriebsketten
 error:
+  page:
+    not_found: "Die Seite konnte nicht gefunden werden."
+    internal_server_error: "Ein interner Serverfehler ist aufgetreten."
+    other: "Ein unbekannter Fehler ist aufgetreten."
+    back_home: "Zurück zur Startseite"
   mail_bounce:
     title: "Gesperrte E-Mail-Adresse!"
     description: "Deine E-Mail-Adresse ist für foodsharing-Mails und -Kommunikation gesperrt."

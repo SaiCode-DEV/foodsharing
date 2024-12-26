@@ -4034,6 +4034,11 @@ chain:
     list: Overview
   pagetitle: Store chains
 error:
+  page:
+    not_found: "The page you are looking for could not be found."
+    internal_server_error: "An internal server error occurred."
+    other: "An unknown error occurred."
+    back_home: "Back to the start page"
   mail_bounce:
     title: "Blocked email address!"
     description: "Your email address is blocked for foodsharing emails and communication."
