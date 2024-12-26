@@ -1050,6 +1050,11 @@ error:
     title: ¡Su dni pronto dejará de ser válido!
     description: Póngase en contacto con sus embajadores para que lo renueven.
     link: Ajustes del perfil
+  page:
+    other: Se ha producido un error desconocido.
+    back_home: Volver a la página de inicio
+    not_found: No se ha podido encontrar la página.
+    internal_server_error: Se ha producido un error interno en el servidor.
 system_administration:
   regions: 'Administrar distritos'
   blog: 'Editar publicaciones de blog'
@@ -3922,6 +3927,7 @@ teamjs:
 statistics:
   kg_food_saved: '{count} kg de comida ahorrados'
   num_fetches: 'En {count} operaciones de rescate'
+  food_saved: Comida ahorrada
 back: 'Atrás'
 chat:
   search: 'Buscar'
@@ -4689,3 +4695,4 @@ petition:
       ¡y ahora se trata de fortalecer aún más nuestra causa!
   daysLeft: '{daysLeft} días restantes'
   link: Acerca de la petición
+partner_foodsharing: Colaborador de foodsharing
