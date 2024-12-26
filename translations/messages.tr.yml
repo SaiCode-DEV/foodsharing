@@ -956,6 +956,11 @@ error:
     link: Profil ayarları
     title: Kimliğiniz yakında artık geçerli olmayacak!
     description: Yenilenmesi için yetkili elçilerinizle iletişime geçin.
+  page:
+    internal_server_error: Dahili bir Server hatası oluştu.
+    other: Bilinmeyen bir hata oluştu.
+    not_found: Sayfa bulunamadı.
+    back_home: Ana sayfaya dön
 activitypost:
   quickreply_info: <code class="key">Shift + Enter</code> yeni bir satır eklemek için.
   quickreply_button: Şimdi gönder<br>veya <code class="key">Enter tuşuna</code>bas.
@@ -3568,6 +3573,7 @@ fsp:
 statistics:
   kg_food_saved: '{count} kg gıda kurtarıldı'
   num_fetches: '{count} kurtarma görevinde'
+  food_saved: Gıda kurtarıldı
 are_you_sure: Emin misin?
 day: Gün
 formatting:
@@ -4418,7 +4424,8 @@ support_page:
   info_teaser: Platformun kullanımıyla ilgili sorularınız, teknik sorunlar veya hata
     mesajları için destek formumuza ulaşabilirsiniz. Biletinizi gönderdikten sonra
     sistemimizde otomatik olarak bir bilet oluşturulacaktır. Gönüllü destek ekibi
-    sorularınızla ilgilenecektir.
+    sorularınızla ilgilenecektir. Teknik sorunların daha iyi ele alınabilmesi için
+    talebinizde hangi tarayıcıyı ve işletim sistemini kullandığınız da yer alacaktır.
   attachments: Ekler (dosya başına maksimum 5MB)
 petition:
   progressText:
@@ -4434,3 +4441,4 @@ petition:
     500: Hadi gel! Bu kampanyayı imzalayan ilk kişilerden biri ol!
   link: Kampanyaya git
   daysLeft: '{daysLeft} gün kalan'
+partner_foodsharing: foodsharing Ortakları
