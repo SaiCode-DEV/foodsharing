@@ -1683,6 +1683,7 @@ are_you_sure: Es-tu sûr·e ?
 statistics:
   num_fetches: Après {count} interventions
   kg_food_saved: '{count} kg de denrées alimentaires sauvées'
+  food_saved: de nourriture sauvés
 menu:
   entry:
     events: Évènements
@@ -4117,6 +4118,11 @@ error:
     title: Ta carte de membre ne sera bientôt plus valable !
     description: Adresse-toi à tes ambassadeurs/ambassadrices pour la faire renouveler.
     link: Paramètres du profil
+  page:
+    not_found: La page est introuvable.
+    internal_server_error: Une erreur de serveur interne s’est produite.
+    back_home: Retour à la page d’accueil
+    other: Une erreur inconnue s’est produite.
 join_region:
   headline: Choisis le secteur géographique dans lequel tu veux être actif.
   description: Tu peux rejoindre ton premier secteur géographique en cliquant sur
@@ -4562,3 +4568,4 @@ petition:
     500: C’est parti ! Sois parmi les premiers à signer cette pétition !
   link: Lire le texte de la pétition
   daysLeft: '{daysLeft} jours restants'
+partner_foodsharing: Partenaires de foodsharing
