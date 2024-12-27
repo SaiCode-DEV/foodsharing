@@ -3156,6 +3156,7 @@ are_you_sure: Er du sikker?
 statistics:
   kg_food_saved: '{count} kg mat lagret'
   num_fetches: Med {count} pickuper
+  food_saved: mat spart
 terminology:
   options: Alternativer
   buddies: Venner
@@ -3892,6 +3893,11 @@ error:
     title: Medlemskortet ditt utløper snart!
     description: Kontakt ambassadørene dine for å få den fornyet.
     link: Profilinnstillinger
+  page:
+    other: Det har oppstått en ukjent feil.
+    back_home: Tilbake til hjemmesiden
+    not_found: Siden ble ikke funnet.
+    internal_server_error: Det har oppstått en intern serverfeil.
 addreaction: Legg til en reaksjon
 contentmanagement: Innholdshåndtering
 globals:
@@ -4406,3 +4412,4 @@ petition:
     2000: Oppropet skyter fart! Med din støtte vil vi vinne dette!
     8000: Vi er godt i gang! Hjelp oss å komme enda lenger!
   daysLeft: '{daysLeft} dager igjen'
+partner_foodsharing: Partnere av foodsharing
