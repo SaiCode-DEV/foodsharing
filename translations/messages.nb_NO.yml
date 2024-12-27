@@ -1824,15 +1824,15 @@ legal:
   privacy_policy: Personvernerklæring
   are_you_sure_to_downgrade: 'Advarsel: Du har valgt å bli nedgradert til matredder.
     Er du sikker?'
-  not_acknowledge_privacy_notice_description: Hvis du er uenig i undervisningen, vil du bli degradert
-    til en matsparer. Det betyr at du ikke lenger er distriktsambassadør og mister
-    ansvaret for å samarbeide med bedrifter.
+  not_acknowledge_privacy_notice_description: Hvis du er uenig i undervisningen, vil
+    du bli degradert til en matsparer. Det betyr at du ikke lenger er distriktsambassadør
+    og mister ansvaret for å samarbeide med bedrifter.
   acknowledge: Tar du avtalen til etterretning?
   dont_agree: Jeg godtar ikke behandlingen av dataene mine og
   delete_account: ønsker å slette kontoen min.
   agree_privacy_policy: Jeg har lest databeskyttelsesavtalen.
-  not_acknowledge_privacy_policy_description: For å kunne bruke foodsharingplattformen må du godta
-    databeskyttelseserklæringen som er beskrevet.
+  not_acknowledge_privacy_policy_description: For å kunne bruke foodsharingplattformen
+    må du godta databeskyttelseserklæringen som er beskrevet.
   must_accept_privacy_policy: For å delta i foodsharing må du godta databeskyttelsesvilkårene.
   agree_privacy_notice: Jeg ble informert om taushetsplikten for personopplysninger
     og den resulterende oppførselen. Jeg vil motta en bekreftelse på dette på e-post
