@@ -4,6 +4,7 @@ namespace Foodsharing\Utility;
 
 use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DBConstants\Content\ContentId;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Legal\LegalGateway;
 use Symfony\Component\HttpFoundation\Request;
@@ -131,9 +132,26 @@ final class RouteHelper
     private function isRouteWithoutLegalRequirement(Request $request): bool
     {
         $path = $request->getPathInfo();
+        $method = $request->getMethod();
 
-        return $path === '/legal'
-            || $path === '/logout'
+        $excludeUris = [
+            'GET' => [
+                '/legal',
+                '/logout',
+                '/user/current/deleteaccount',
+                '/api/legal/page-data',
+                '/api/content/' . ContentId::PRIVACY_NOTICE_CONTENT,
+                '/api/content/' . ContentId::PRIVACY_POLICY_CONTENT,
+            ],
+            'DELETE' => [
+                '/api/user/' . $this->session->id(),
+            ],
+            'PATCH' => [
+                '/api/legal/acknowledge',
+            ],
+        ];
+
+        return in_array($path, $excludeUris[$method] ?? [])
             || ($path === '/user/current/settings' || $path === '/user/' . $this->session->id() . '/settings')
             && $request->query->get('sub') === 'deleteaccountlegal';
     }

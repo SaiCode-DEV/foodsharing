@@ -611,12 +611,22 @@ group:
     all_roles: "Alle Rollen"
 
 legal:
-  pp: "Datenschutzerklärung"
-  acknowledge: "Akzeptierst du unsere Datenschutzerklärung?"
-  not_acknowledge_pp_description: "Um die foodsharing-Plattform benutzen zu können, musst du unsere Datenschutzerklärung akzeptieren."
-  dont_agree: "Ich bin nicht einverstanden mit der Verarbeitung meiner Daten und"
+  privacy_policy: "Datenschutzerklärung"
+  privacy_notice: "Datenschutzbelehrung für Betriebsverantwortliche und Botschafter:innen"
+  acknowledge: 
+    qustion_policy: "Akzeptierst du unsere Datenschutzerklärung?"
+    qustion_notice: "Akzeptierst du unsere Datenschutzerklärung und die Datenschutzbelehrung?"
+    select: "Bitte auswählen"
+    agree: "Ja, ich akzeptiere die Datenschutzerklärung."
+    agree_only_policy: "Ich akzeptiere nur die Datenschutzerklärung und möchte zur:zum Foodsaver:in zurückgestuft werden."
+    agree_policy_and_notice: "Ja, ich akzeptiere die Datenschutzerklärung und die Datenschutzbelehrung."
+    not_agree: "Nein, ich akzeptiere die Datenschutzerklärung nicht. Ich möchte meinen Account löschen."
+  button:
+    agree: "Akzeptieren"
+    partially_agree: "Zur:Zum Foodsaver:in zurückgestufen"
+    disagree: "Meinen Account löschen"
+  not_acknowledge_privacy_policy_description: "Um die foodsharing-Plattform benutzen zu können, musst du unsere Datenschutzerklärung akzeptieren."
   agree_privacy_policy: "Ich akzeptiere die Datenschutzerklärung."
-  delete_account: "ich möchte meinen Account löschen."
   if_delete:
     legal_1: "Unsere derzeitige Datenschutzvereinbarung"
     legal_2: "Weitere Informationen zu den Aufbewahrungsfristen (Seite auf Deutsch)"
@@ -630,19 +640,16 @@ legal:
     this_doesnt_get_deleted_name: "Dein Name"
     this_doesnt_get_deleted_address: "Deine Adresse"
     this_doesnt_get_deleted_history: "Historie deiner Verifizierung"
-
-  actions:
-    safe: "Einstellungen übernehmen"
-  must_accept_pp: "Um bei foodsharing mitzumachen, musst du den Datenschutzbedingungen zustimmen."
-  privacy_notice: "Datenschutzbelehrung"
+  must_accept_privacy_policy: "Um bei foodsharing mitzumachen, musst du den Datenschutzbedingungen zustimmen."
   agree_privacy_notice: "Über die Verpflichtung zur Vertraulichkeit personenbezogener Daten und die sich daraus ergebenden Verhaltensweisen wurde ich unterrichtet. Eine Bestätigung hierüber erhalte ich per E-Mail für meine Unterlagen an die von mir angegebene Adresse."
   privacy_notice_agree:
     select: "Bitte auswählen"
     acknowledge: "Ich habe die Belehrung zur Kenntnis genommen."
     not_acknowledge: "Ich akzeptiere die vorgenannten Grundsätze zum Umgang mit personenbezogenen Daten NICHT und möchte zur:zum Foodsaver:in zurückgestuft werden."
-  not_acknowledge_pn_description: "Wenn du mit der Belehrung nicht oder fortan nicht mehr einverstanden bist, kannst du keine erweiterten Aufgaben übernehmen, also bspw. nicht Betriebsverantwortliche:r oder Botschafter:in werden bzw. verlierst diese Berechtigungen, falls du sie bisher hattest."
+  not_acknowledge_privacy_notice_description: "Wenn du mit der Belehrung nicht oder fortan nicht mehr einverstanden bist, kannst du keine erweiterten Aufgaben übernehmen, also bspw. nicht Betriebsverantwortliche:r oder Botschafter:in werden bzw. verlierst diese Berechtigungen, falls du sie bisher hattest."
   legal_agreement: "Rechtsvereinbarung"
   are_you_sure_to_downgrade: "Achtung: Du hast ausgewählt, dass du zur:zum Foodsaver:in herabgestuft werden möchtest. Bist du dir sicher?"
+  success: "Deine Einstellungen wurden erfolgreich gespeichert."
 
 pronoun:
   "0": "er:sie"

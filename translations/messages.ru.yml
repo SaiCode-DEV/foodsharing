@@ -2355,7 +2355,7 @@ month:
   "11": 'ноябрь'
 legal:
   are_you_sure_to_downgrade: ''
-  pp: ''
+  privacy_policy: ''
   delete_account: ''
   if_delete:
     legal_2: ''
@@ -2370,7 +2370,7 @@ legal:
     this_doesnt_get_deleted: ''
     this_doesnt_get_deleted_name: ''
     this_gets_deleted_quiz: ''
-  must_accept_pp: ''
+  must_accept_privacy_policy: ''
   agree_privacy_notice: ''
   privacy_notice_agree:
     select: ''
@@ -2379,9 +2379,9 @@ legal:
   actions:
     safe: ''
   legal_agreement: ''
-  not_acknowledge_pn_description: ''
+  not_acknowledge_privacy_notice_description: ''
   acknowledge: ''
-  not_acknowledge_pp_description: ''
+  not_acknowledge_privacy_policy_description: ''
   dont_agree: ''
   agree_privacy_policy: ''
   privacy_notice: ''

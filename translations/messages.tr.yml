@@ -3350,7 +3350,7 @@ legal:
   agree_privacy_notice: Kişisel verilerin gizliliğini koruma yükümlülüğü ve bunun
     sonucunda ortaya çıkan davranışlar konusunda bilgilendirildim. Kayıtlarım için
     verdiğim adrese e-posta ile bunun teyidini alacağım.
-  not_acknowledge_pn_description: Talimatı kabul etmezseniz, bir Foodsaver seviyesine
+  not_acknowledge_privacy_notice_description: Talimatı kabul etmezseniz, bir Foodsaver seviyesine
     düşürüleceksiniz. Bu, artık bir Bölge Elçisi olmayacağınız, operasyonel sorumluluklarınızı
     kaybedeceğiniz ve Operasyon Müdürü/Elçi testini tekrar yapmanız gerekeceği anlamına
     gelir.
@@ -3365,13 +3365,13 @@ legal:
   delete_account: hesabımı silmek istiyorum.
   privacy_notice: Gizlilik Politikası
   acknowledge: Anlaşmayı dikkate alıyor musunuz?
-  not_acknowledge_pp_description: Foodsharing platformunu kullanabilmek için açıklanan
+  not_acknowledge_privacy_policy_description: Foodsharing platformunu kullanabilmek için açıklanan
     veri koruma beyanını dikkate almanız gerekmektedir.
   actions:
     safe: Ayarları kaydet
-  pp: Veri Koruma Beyannamesi
+  privacy_policy: Veri Koruma Beyannamesi
   agree_privacy_policy: Veri koruma beyannamesini okudum.
-  must_accept_pp: Foodsharing'e katılmak için veri koruma koşullarını kabul etmelisiniz.
+  must_accept_privacy_policy: Foodsharing'e katılmak için veri koruma koşullarını kabul etmelisiniz.
 pronoun:
   "3": o
   "0": o

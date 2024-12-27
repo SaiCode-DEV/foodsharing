@@ -1277,7 +1277,7 @@ legal:
   are_you_sure_to_downgrade: "Attention : tu as choisis d’être rétrogradé au rang
     de collecteur·rice. Es-tu sûr·e de ton choix ?"
   legal_agreement: Mentions légales
-  not_acknowledge_pn_description: En cas de désaccord avec l’avertissement, tu seras
+  not_acknowledge_privacy_notice_description: En cas de désaccord avec l’avertissement, tu seras
     rétrogradé·e au rang de collecteur·rice. Tu perdras ton statut d’ambassadeur·rice
     ainsi que ta/tes responsabilités envers les magasins et que tu devras à nouveau
     réussir le quiz de responsable coopération/ambassadeur·rice afin de posséder à
@@ -1288,17 +1288,17 @@ legal:
     acknowledge: J’accepte.
     select: Veuillez choisir
   privacy_notice: Charte relative à l’utilisation des données personnelles
-  must_accept_pp: Afin de faire partie de foodsharing, tu dois accepter les conditions
+  must_accept_privacy_policy: Afin de faire partie de foodsharing, tu dois accepter les conditions
     d’utilisation de tes données.
   actions:
     safe: Accepter les paramètres
   delete_account: je souhaite supprimer mon compte.
   agree_privacy_policy: J’ai lu et accepte la déclaration de confidentialité.
   dont_agree: Je ne suis pas d’accord avec le traitement de mes données et
-  not_acknowledge_pp_description: Afin d’utiliser la plateforme foodsharing, tu dois
+  not_acknowledge_privacy_policy_description: Afin d’utiliser la plateforme foodsharing, tu dois
     lire et accepter la déclaration de confidentialité de celle-ci.
   acknowledge: Acceptes-tu notre déclaration de confidentialité ?
-  pp: Politique de confidentialité
+  privacy_policy: Politique de confidentialité
   if_delete:
     legal_1: Notre politique de confidentialité actuelle
     legal_2: Lois sur les délais de conservation (page en allemand)

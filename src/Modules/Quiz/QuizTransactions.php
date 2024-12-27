@@ -403,7 +403,7 @@ class QuizTransactions
         switch ($quizId) {
             case QuizID::STORE_MANAGER->value:
                 $currentPrivacyNoticeVersion = $this->legalGateway->getPnVersion();
-                $this->legalGateway->agreeToPn($this->session->id(), $currentPrivacyNoticeVersion);
+                $this->legalGateway->agreeToPrivacyNotice($this->session->id(), $currentPrivacyNoticeVersion);
                 // no break
             case QuizID::FOODSAVER->value:
                 $this->foodsaverGateway->riseRole($foodsaverId, Role::from($quizId));

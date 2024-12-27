@@ -36,52 +36,56 @@ class LegalControlCest
         $I->logMeOut();
         $I->amOnPage('/?page=legal');
         $I->see('Datenschutzerklärung');
-        $I->dontSee('Nimmst du die Vereinbarung zur Kenntnis?');
+        $I->dontSee('Akzeptierst du unsere Datenschutzerklärung?');
     }
 
     public function testGivenIAmLoggedInThenICanAcceptThePrivacyPolicy(AcceptanceTester $I): void
     {
-        $I->checkOption('#legal_form_privacyPolicyAcknowledged');
-        $I->click('Einstellungen übernehmen');
+        $I->selectOption('select', 'Ja, ich akzeptiere die Datenschutzerklärung');
+        $I->click('Akzeptieren');
         $I->waitForActiveAPICalls();
-        $I->seeCurrentUrlEquals('/legal');
+        $I->seeCurrentUrlEquals('/dashboard');
     }
 
     public function testGivenIAmLoggedInAndIDontAcceptThePrivacyPolicyThenIAmStillAskedForConsent(AcceptanceTester $I): void
     {
-        $I->uncheckOption('#legal_form_privacyPolicyAcknowledged');
-        $I->click('Einstellungen übernehmen');
+        $I->selectOption('select', 'Bitte auswählen');
+        $I->dontSee('button', 'Akzeptieren');
         $I->see('Akzeptierst du unsere Datenschutzerklärung?');
     }
 
     public function testGivenIAmLoggedInAndWantToDeleteMyAccountThenIGetRedirectedToTheDeleteAccountPage(AcceptanceTester $I): void
     {
         $this->isDeleted = true;
-        $I->click('ich möchte meinen Account löschen.');
+        $I->selectOption('select', 'Nein, ich akzeptiere die Datenschutzerklärung nicht. Ich möchte meinen Account löschen.');
+        $I->click('Meinen Account löschen');
         $I->seeCurrentUrlEquals('/user/current/deleteaccount');
     }
 
     public function testGivenIAmLoggedInAndHaveARoleHigherThanOneThenICanAcceptThePrivacyPolicyAndNotice(AcceptanceTester $I): void
     {
-        $I->checkOption('#legal_form_privacyPolicyAcknowledged');
-        $I->selectOption('#legal_form_privacyNoticeAcknowledged', 'Ich habe die Belehrung zur Kenntnis genommen.');
-        $I->click('Einstellungen übernehmen');
-        $I->seeCurrentUrlEquals('/legal');
+        $I->selectOption('select', 'Ja, ich akzeptiere die Datenschutzerklärung und die Datenschutzbelehrung.');
+        $I->click('Akzeptieren');
+        $I->waitForActiveAPICalls();
+        $I->seeCurrentUrlEquals('/dashboard');
         $I->seeInDatabase('fs_foodsaver', ['id' => $this->user['id'], 'rolle' => Role::AMBASSADOR->value]);
     }
 
     public function testGivenIAmLoggedInAndAHaveRoleHigherThanOneThenICanDegradeToFoodsaver(AcceptanceTester $I): void
     {
-        $I->checkOption('#legal_form_privacyPolicyAcknowledged');
-        $I->selectOption('#legal_form_privacyNoticeAcknowledged', 'Ich akzeptiere die vorgenannten Grundsätze');
-        $I->click('Einstellungen übernehmen');
-        $I->seeInPopup('Bist du dir sicher?');
-        $I->cancelPopup();
-        $I->click('Einstellungen übernehmen');
-        $I->seeInPopup('Bist du dir sicher?');
+        $I->selectOption('select', 'Ich akzeptiere nur die Datenschutzerklärung und möchte zur:zum Foodsaver:in zurückgestuft werden.');
+        $I->click('Zur:Zum Foodsaver:in zurückgestufen');
+        $I->waitForElementVisible('#modalFoodsaverAccount', 10);
+        $I->waitForElementVisible('#modalFoodsaverAccount .modal-content', 10);
         $I->seeInDatabase('fs_foodsaver', ['id' => $this->user['id'], 'rolle' => 3]);
-        $I->acceptPopup();
-        $I->seeCurrentUrlEquals('/legal');
+        $I->see('Achtung: Du hast ausgewählt, dass du zur:zum Foodsaver:in herabgestuft werden möchtest. Bist du dir sicher?', '#modalFoodsaverAccount .alert');
+        $I->click('.modal-footer .btn-success');
+        $I->waitForElementNotVisible('#modalFoodsaverAccount', 10);
+        $I->click('Zur:Zum Foodsaver:in zurückgestufen');
+        $I->waitForElementVisible('#modalFoodsaverAccount', 10);
+        $I->click('.modal-footer .btn-danger');
+        $I->waitForActiveAPICalls();
+        $I->seeCurrentUrlEquals('/dashboard');
         $I->seeInDatabase('fs_foodsaver', ['id' => $this->user['id'], 'rolle' => 1]);
     }
 }

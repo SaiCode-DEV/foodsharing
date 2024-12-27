@@ -29,7 +29,11 @@
       />
     </div>
     <slot v-if="isExpanded && !wrapContent" />
-    <div v-if="isExpanded && wrapContent" :class="wrapperClasses">
+    <div
+      v-if="isExpanded && wrapContent"
+      :class="[wrapperClasses, {'scrollable': enableScroll}]"
+      :style="maxHeight ? { maxHeight: `${maxHeight}px` } : null"
+    >
       <slot />
     </div>
 
@@ -62,7 +66,6 @@ export default {
     title: { type: String, default: 'title' },
     toggleVisiblity: { type: Boolean, default: false },
     containerIsExpanded: { type: Boolean, default: true },
-
     // Wraps the content placed in the conainers default slot in a `div.list-group-item` wrapper if given a truthy value.
     // Further classes to wrap the content with can be given as a string.
     wrapContent: { type: [Boolean, String], default: false },
@@ -70,6 +73,8 @@ export default {
     collapsible: { type: Boolean, default: true },
     infoKey: { type: String, default: '' },
     tooltipKey: { type: String, default: '' },
+    maxHeight: { type: [String, Number], default: null },
+    enableScroll: { type: Boolean, default: false },
   },
   data () {
     return {
@@ -156,6 +161,28 @@ export default {
 
 .list-group-item:not(:last-child):not(.list-group-header):not(.list-row-item) {
   border-bottom: 0;
+}
+
+.scrollable {
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--fs-color-primary-300);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--fs-color-primary-400);
+  }
 }
 
 ::v-deep .field {

@@ -27,14 +27,14 @@ class LegalGateway extends BaseGateway
         return $this->db->fetchValue('SELECT `body` FROM fs_content WHERE id = :content_id', ['content_id' => ContentId::PRIVACY_NOTICE_CONTENT]);
     }
 
-    public function agreeToPp($fsId, $ppVersion)
+    public function agreeToPrivacyPolicy($fsId, $ppVersion)
     {
         if ($ppVersion == $this->getPpVersion()) {
             $this->db->update('fs_foodsaver', ['privacy_policy_accepted_date' => $ppVersion], ['id' => $fsId]);
         }
     }
 
-    public function agreeToPn($fsId, $pnVersion)
+    public function agreeToPrivacyNotice($fsId, $pnVersion)
     {
         if ($pnVersion == $this->getPnVersion()) {
             $this->db->update('fs_foodsaver', ['privacy_notice_accepted_date' => $pnVersion], ['id' => $fsId]);

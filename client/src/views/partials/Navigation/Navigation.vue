@@ -10,7 +10,7 @@
     }"
   >
     <Loader />
-    <DonationModal />
+    <DonationModal v-if="!useRestrictedNavigation" />
     <PetitionBanner v-if="!useRestrictedNavigation" />
     <div class="metanav-container container">
       <MetaNavLoggedIn v-if="!viewIsMobile && isLoggedIn" />

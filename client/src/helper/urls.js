@@ -90,6 +90,7 @@ const urls = {
   settingsNotifications: () => '/user/current/settings?sub=info',
   settingsCalendar: () => '/user/current/settings?sub=calendar',
   settingsHygiene: () => '/user/current/settings?sub=hygiene',
+  settingsDeleteAccount: () => '/user/current/deleteaccount',
   statistics: () => '/statistik',
   store: (storeId) => `/store/${storeId}`,
   storeCategories: () => '/storecategories',

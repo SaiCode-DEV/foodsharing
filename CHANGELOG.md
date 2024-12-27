@@ -6,6 +6,7 @@
 ## Changes
 - Include user agent in support ticket creation #2212 !3838 @AntonBallmaier
 - Increased the size of the chat box title !3592 @robinkernel
+- Rewrite Legal style to Vue & UI style fixed !3911 @chriswalg @SaiCode
 
 ## Bugfixes
 

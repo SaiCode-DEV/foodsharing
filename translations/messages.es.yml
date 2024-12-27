@@ -3679,7 +3679,7 @@ legal:
   acknowledge: '¿Aceptas el acuerdo?'
   dont_agree: 'No estoy de acuerdo con el procesamiento de mis datos y'
   delete_account: 'quisiera eliminar mi cuenta.'
-  pp: 'Política de privacidad'
+  privacy_policy: 'Política de privacidad'
   if_delete:
     this_doesnt_get_deleted: 'La siguiente información ya no está disponible en el
       sistema activo, pero se archiva por separado según el artículo 17, apartado
@@ -3697,7 +3697,7 @@ legal:
     this_gets_deleted_friendlist: 'Tu lista de amigos será eliminada.'
   actions:
     safe: 'aplicar configuraciones'
-  must_accept_pp: 'Para participar en foodsharing es necesario aceptar las condiciones
+  must_accept_privacy_policy: 'Para participar en foodsharing es necesario aceptar las condiciones
     de protección de datos.'
   are_you_sure_to_downgrade: 'Atención: ha elegido ser degradado a rescatista. ¿Está
     seguro?'
@@ -3706,13 +3706,13 @@ legal:
     not_acknowledge: 'No estoy de acuerdo y quiero ser degradado a rescatista.'
     acknowledge: 'Estoy de acuerdo.'
     select: 'Por favor seleccione'
-  not_acknowledge_pp_description: 'Para utilizar foodsharing, debe leer la declaración
+  not_acknowledge_privacy_policy_description: 'Para utilizar foodsharing, debe leer la declaración
     de protección de datos descrita.'
   agree_privacy_notice: 'He sido informado sobre la obligación de guardar confidencialidad
     de los datos personales y la conducta resultante. Recibiré confirmación de esto
     por correo electrónico a la dirección que proporcioné para mis registros.'
   agree_privacy_policy: 'He leído el acuerdo de protección de datos.'
-  not_acknowledge_pn_description: 'Si no está de acuerdo con las instrucciones, será
+  not_acknowledge_privacy_notice_description: 'Si no está de acuerdo con las instrucciones, será
     degradado a rescatista. Esto significa que ya no será embajador(a) de distrito,
     perderá todas las responsabilidades de empresas y es posible que deba volver a
     realizar el examen de embajador(a) o para responsables de empresas.'
