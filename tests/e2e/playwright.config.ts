@@ -6,7 +6,9 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   testDir: "./specs/",
 
-  /* Run tests in files in parallel */
+  /* Change output directory to be relative to project root */
+  outputDir: "../_output",
+
   fullyParallel: true,
 
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -14,15 +16,18 @@ export default defineConfig({
 
   /* Limit the number of failures on CI to save resources */
   maxFailures: process.env.CI ? 10 : undefined,
+  
+  retries: 1,
 
-  /* Retry on CI only */
-  retries: process.env.CI ? 1 : 0,
-
-  /* Limit the number of workers on CI, use default locally. */
+  /* Limit the number of workers on CI, use default locally. (use --workers 4)*/
   workers: process.env.CI ? "80%" : undefined,
 
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: "html",
+  reporter: [
+    ['list'],
+    ['html', { outputDir: '../_output/html-report' }],
+    ['junit', { outputFile: '../_output/report.xml' }]
+  ],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -40,7 +45,13 @@ export default defineConfig({
 
     /* Record video only when retrying a test for the first time. */
     video: "on-first-retry",
+
+    /* Add database helper to test context */
+    extraGlobals: ['expect_database'],
   },
+
+  /* Path to global teardown module */
+  globalTeardown: './global-teardown.ts',
 
   /* Configure projects for major browsers */
   projects: [

@@ -28,6 +28,7 @@
 - Added renovate as dependencies automation tool !3882 @chriswalg
 - Fix the service worker build !3925 @\_fridtjof_
 - Fix Pipeline Issues between 23:00 and 00:00 !3928 @SaiCode
+- Improve Playwright tests (with DB acces) & update playwright to 1.49.1 !3920 @SaiCode
 
 # Release "Nektarine", 2024-12-13
 

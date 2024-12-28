@@ -148,10 +148,6 @@ async function update ($event) {
   await v$.value.$validate()
   isMailValidForRegistration.value = false
   isMailInvalid.value = false
-  if (v$.value.email.$error) {
-    isMailValidForRegistration.value = false
-    return
-  }
   try {
     const MailExist = await testRegisterEmail($event.target.value)
     isMailValidForRegistration.value = MailExist.valid
