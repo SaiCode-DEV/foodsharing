@@ -133,9 +133,6 @@ export default {
         .filter(region => this.selectedRegionList.includes(region.id) && region.list.length > 0)
     },
   },
-  mounted () {
-    this.regionStore.fetchSelectedRegionChildren(0)
-  },
   methods: {
     async updateSelected (index) {
       this.selected.length = index + 1
@@ -166,7 +163,8 @@ export default {
         hideLoader()
       }
     },
-    showModal () {
+    async showModal () {
+      await this.regionStore.fetchSelectedRegionChildren(0)
       this.selected = [0]
       this.base = this.filterRegions(this.regionStore.selectedRegionChildren)
     },

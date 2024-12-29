@@ -22,6 +22,7 @@
 - Rework foodsaver rest controller !3892 @chriswalg
 - Refactor global statistik page to vue #1771 !3909 @chriswalg !3926 @SaiCode
 - Rework partner page !3886 #2262 @SaiCode
+- Remove an unnecessary API request from the region chooser !3930 @alex.simm
 
 ## Dev/Test/CI stuff
 - Update dev docs Vue component integration to use prepareVueComponent !3910 @chriswalg
