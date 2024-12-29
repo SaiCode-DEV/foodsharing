@@ -145,11 +145,11 @@ class StoreMaintenanceTransactionsTest extends Unit
         $this->tester->addStoreTeam($storeWithRegularPickup['id'], $foodsaver1['id'], false);
         $this->tester->addStoreTeam($storeWithRegularPickup['id'], $storeCoordinator['id'], true);
 
-        $dayOfPickup = (new Carbon())->setTime(12, 0); // Fix time to 12:00, to prevent 23:00 - 0:00 issue
-        $timeOfPickup = $dayOfPickup->clone()->addHour()->format('H:i:s');
+        $dayOfPickup = new Carbon();
+        $timeOfPickup = $dayOfPickup->format('H:i:s');
 
         $dayOfWeek = intval($dayOfPickup->format('w'));
-        $dayOfWeek2 = intval($dayOfPickup->clone()->addDays(3)->format('w'));
+        $dayOfWeek2 = intval($dayOfPickup->clone()->addDay()->format('w'));
 
         // Regular pickups
         $this->tester->addRecurringPickup($storeWithRegularPickup['id'], ['time' => $timeOfPickup, 'dow' => $dayOfWeek, 'fetcher' => 1]);

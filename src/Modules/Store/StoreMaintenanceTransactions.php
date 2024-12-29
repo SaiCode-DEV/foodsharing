@@ -50,7 +50,8 @@ class StoreMaintenanceTransactions
 
             $countEmptyPickups = count($emptyPickups);
             $totalCountEmptyPickups += $countEmptyPickups;
-            if ($countEmptyPickups != 0) {
+
+            if ($countEmptyPickups > 0) {
                 ++$storesWithNotification;
 
                 $storeManagers = $this->storeGateway->getStoreManagers($store['id']);
