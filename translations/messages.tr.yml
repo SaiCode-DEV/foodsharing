@@ -3363,8 +3363,11 @@ legal:
   are_you_sure_to_downgrade: 'Dikkat: Foodsaver seviyesine indirilmeyi seçtiniz. Emin
     misiniz?'
   delete_account: hesabımı silmek istiyorum.
-  privacy_notice: Gizlilik Politikası
-  acknowledge: Anlaşmayı dikkate alıyor musunuz?
+  privacy_notice: İşletme Sorumluları ve Elçiler için Gizlilik Politikası
+  acknowledge:
+    qustion_policy: Gizlilik politikamızı kabul ediyor musunuz?
+    qustion_notice: Veri koruma beyanımızı ve veri koruma talimatlarımızı kabul ediyor
+      musunuz?
   not_acknowledge_privacy_policy_description: Foodsharing platformunu kullanabilmek
     için açıklanan veri koruma beyanını dikkate almanız gerekmektedir.
   actions:
