@@ -12,13 +12,13 @@ use Foodsharing\Permissions\WorkGroupPermissions;
 use Foodsharing\RestApi\DTO\SendGroupRequestData;
 use Foodsharing\RestApi\DTO\SendMailData;
 use Foodsharing\RestApi\Models\Group\EditWorkGroupData;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
+use OpenApi\Attributes\JsonContent;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[OA\Tag(name: 'groups')]
 class WorkingGroupRestController extends AbstractFoodsharingRestController
@@ -41,12 +41,14 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
     #[OA\Response(
         response: Response::HTTP_OK,
         description: 'Success',
-        content: new Model(type: Profile::class)
+        content: new JsonContent(
+            ref: Profile::class
+        )
     )]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Group not found')]
-    #[Rest\Post('groups/{groupId}/members/{memberId}', requirements: ['groupId' => '\d+', 'memberId' => '\d+'])]
+    #[Route('/groups/{groupId}/members/{memberId}', methods: ['POST'], requirements: ['groupId' => '\d+', 'memberId' => '\d+'])]
     public function addMember(int $groupId, int $memberId): Response
     {
         $this->assertLoggedIn();
@@ -72,7 +74,7 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Group not found')]
-    #[Rest\Patch('groups/{groupId}', requirements: ['groupId' => '\d+'])]
+    #[Route('/groups/{groupId}', methods: ['PATCH'], requirements: ['groupId' => '\d+'])]
     public function editWorkingGroup(int $groupId, #[MapRequestPayload] EditWorkGroupData $groupData): Response
     {
         $this->assertLoggedIn();
@@ -91,7 +93,7 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Post(summary: 'Sends a message to a group via email, including a custom message from the contact form.')]
-    #[Rest\Post('groups/{groupId}/mail')]
+    #[Route('/groups/{groupId}/mail', methods: ['POST'])]
     #[OA\Response(response: Response::HTTP_ACCEPTED, description: 'Success, send will happen asynchron')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not permitted to access these achievements')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Not permitted to access these achievements')]
@@ -117,7 +119,7 @@ class WorkingGroupRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Post(summary: 'Requests to join a group and provides motivation, ability, experience, and selected time message for mail to group.')]
-    #[Rest\Post('groups/{groupId}/request')]
+    #[Route('/groups/{groupId}/request', methods: ['POST'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not permitted to access these achievements')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Not permitted to access these achievements')]

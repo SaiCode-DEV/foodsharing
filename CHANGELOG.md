@@ -13,7 +13,7 @@
 ## Refactoring
 - Get rid of xhr completely !3826 @chriswalg
 - Update Vuelidate !3889 @SaiCode
-- Rework working group rest controller !3879 @chriswalg
+- Rework working group rest controller !3879 !3935 @chriswalg
 - Rework LocaleRestController !3893 @chriswalg
 - Rework WallRestController !3880 @chriswalg
 - Removed jquery !3884 @chriswalg
