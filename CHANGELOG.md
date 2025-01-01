@@ -12,7 +12,7 @@
 ## Bugfixes
 
 ## Refactoring
-- Get rid of xhr completely !3826 @chriswalg
+- Get rid of xhr completely !3826 !3933 @chriswalg
 - Update Vuelidate !3889 @SaiCode
 - Rework working group rest controller !3879 !3935 @chriswalg
 - Rework LocaleRestController !3893 @chriswalg

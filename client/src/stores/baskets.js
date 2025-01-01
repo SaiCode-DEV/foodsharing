@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { getBaskets, getBasketsNearby } from '@/api/baskets'
+import { getBaskets, getBasketsNearby, updateRequestStatus } from '@/api/baskets'
 import { getMapMarkers } from '@/api/map'
 import { getCache, getCacheInterval, setCache } from '@/helper/cache'
 
@@ -56,6 +56,18 @@ export const useBasketStore = defineStore('basket', {
     },
     getNearby (amount = 10) {
       return this.nearby.slice(0, amount)
+    },
+    async updateBasketRequestStatus (basketId, userId, status) {
+      try {
+        await updateRequestStatus(basketId, userId, status)
+        const index = this.own.findIndex(b => b.id === basketId)
+        if (index >= 0) {
+          this.own.splice(index, 1)
+        }
+      } catch (error) {
+        console.error('Error updating basket request status:', error)
+        throw error
+      }
     },
   },
 })

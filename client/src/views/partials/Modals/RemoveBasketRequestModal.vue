@@ -37,10 +37,11 @@
 </template>
 
 <script>
-import { BASKET_REQUEST_STATUS } from '@/stores/baskets'
+import { BASKET_REQUEST_STATUS, useBasketStore } from '@/stores/baskets'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import { pulseError, pulseSuccess } from '@/script'
-import { updateRequestStatus } from '@/api/baskets'
+
+const basketStore = useBasketStore()
 
 export default {
   components: { Avatar },
@@ -71,7 +72,11 @@ export default {
   methods: {
     async save () {
       try {
-        await updateRequestStatus(this.basket.id, this.basket.requests[0].user.id, this.selectedStatus)
+        await basketStore.updateBasketRequestStatus(
+          this.basket.id,
+          this.basket.requests[0].user.id,
+          this.selectedStatus,
+        )
         pulseSuccess(this.$i18n('success'))
       } catch (e) {
         pulseError(this.$i18n('error_unexpected'))
