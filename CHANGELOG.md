@@ -14,17 +14,13 @@
 ## Refactoring
 - Get rid of xhr completely !3826 !3933 @chriswalg
 - Update Vuelidate !3889 @SaiCode
-- Rework working group rest controller !3879 !3935 @chriswalg
-- Rework LocaleRestController !3893 @chriswalg
-- Rework WallRestController !3880 @chriswalg
 - Removed jquery !3884 @chriswalg
 - Moved basket store to pinia !3687 @chriswalg
 - Remove jquery-ui and some other jquery extentions !3883 @chriswalg
-- Rework foodsaver rest controller !3892 @chriswalg
 - Refactor global statistik page to vue #1771 !3909 @chriswalg !3926 @SaiCode
 - Rework partner page !3886 #2262 @SaiCode
 - Remove an unnecessary API request from the region chooser !3930 @alex.simm
-- Rework verification rest controller !3936 @chriswalg
+- Rework rest controller !3879 !3935 !3893 !3880 !3936 !3892 !3942 @chriswalg
 - Moved WebSocket-Server communication to one class #1769 !3421 @KoeMai @alex.simm
 
 ## Dev/Test/CI stuff
