@@ -94,6 +94,7 @@
               :value="locationString"
               type="text"
               :disabled="true"
+              :name="'address_' + randomSuffix"
             />
             <b-input-group-append>
               <b-button
@@ -282,6 +283,7 @@ export default {
   },
   data () {
     return {
+      randomSuffix: Date.now(), // to prevent autofill 
       region: { id: this.userDetails.bezirk_id, name: this.userDetails.homeRegionName },
       position: this.userDetails.position,
       zoom: 17,
