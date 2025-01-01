@@ -7,17 +7,17 @@ namespace Foodsharing\RestApi;
 use Carbon\Carbon;
 use Foodsharing\Modules\Donation\Query\TwingleDonationDataQuery;
 use Foodsharing\RestApi\Models\Donation\DonationGoalInformation;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as OA;
+use OpenApi\Attributes\JsonContent;
 use OpenApi\Attributes\Response;
 use OpenApi\Attributes\Tag;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
-final class DonationGoalRestController extends AbstractFOSRestController
+final class DonationGoalRestController extends AbstractFoodsharingRestController
 {
     private const TEN_MINUTES_IN_SECONDS = 600;
 
@@ -27,12 +27,14 @@ final class DonationGoalRestController extends AbstractFOSRestController
     ) {
     }
 
-    /**
-     * Returns cached information of foodsharing donation-goal via third service provider twingle.
-     */
+    #[OA\Get(summary: 'Returns cached information of foodsharing donation-goal via third service provider twingle.')]
     #[Tag('donation')]
-    #[Rest\Get(path: 'donation-goal')]
-    #[Response(response: HttpResponse::HTTP_OK, description: 'Successful', content: new Model(type: DonationGoalInformation::class))]
+    #[Route('/donation-goal', methods: ['GET'])]
+    #[Response(
+        response: HttpResponse::HTTP_OK,
+        description: 'Successful',
+        content: new JsonContent(ref: DonationGoalInformation::class)
+    )]
     public function getInformationAction(): JsonResponse
     {
         $donationGoalInformation = $this->cache->get('foodsharingDonationGoalInformation', function (ItemInterface $cacheItem) {
