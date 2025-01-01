@@ -24,7 +24,7 @@ class LogoutController extends FoodsharingController
             'store',
         ];
 
-    public function __construct()
+    public function __construct(private readonly LogoutTransactions $logoutTransactions)
     {
         parent::__construct();
     }
@@ -41,7 +41,7 @@ class LogoutController extends FoodsharingController
             $refURI = '/';
         }
 
-        $this->session->logout();
+        $this->logoutTransactions->logout();
 
         return $this->redirect($refURI);
     }

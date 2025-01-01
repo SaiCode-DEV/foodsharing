@@ -4,7 +4,6 @@ namespace Foodsharing\Lib;
 
 use Exception;
 use Flourish\fSession;
-use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -25,7 +24,6 @@ class Session
     private const DEFAULT_PERSISTENT_SESSION_TIMESPAN = '14 days';
 
     public function __construct(
-        private readonly Mem $mem,
         private readonly FoodsaverGateway $foodsaverGateway,
         private bool $initialized = false
     ) {
@@ -119,7 +117,6 @@ class Session
         unset($_SESSION['client']);
 
         if ($this->initialized) {
-            $this->mem->logout($this->id());
             $this->set('user', false);
             $this->destroy();
         }
@@ -269,11 +266,6 @@ class Session
             'privacy_policy_accepted_date' => $fs['privacy_policy_accepted_date'],
             'privacy_notice_accepted_date' => $fs['privacy_notice_accepted_date'],
         ]);
-
-        /*
-         * Add entry into user -> session set
-         */
-        $this->mem->userAddSession($fs_id, session_id());
 
         $_SESSION['login'] = true;
         $_SESSION['client'] = [

@@ -25,6 +25,7 @@
 - Rework partner page !3886 #2262 @SaiCode
 - Remove an unnecessary API request from the region chooser !3930 @alex.simm
 - Rework verification rest controller !3936 @chriswalg
+- Moved WebSocket-Server communication to one class #1769 !3421 @KoeMai @alex.simm
 
 ## Dev/Test/CI stuff
 - Update dev docs Vue component integration to use prepareVueComponent !3910 @chriswalg

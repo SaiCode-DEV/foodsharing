@@ -14,6 +14,7 @@ use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupTransactions;
 use Foodsharing\Modules\Login\LoginGateway;
+use Foodsharing\Modules\Logout\LogoutTransactions;
 use Foodsharing\Modules\PassportGenerator\PassportGeneratorTransaction;
 use Foodsharing\Modules\Profile\ProfileGateway;
 use Foodsharing\Modules\Profile\ProfileTransactions;
@@ -72,7 +73,6 @@ class UserRestController extends AbstractFoodsharingRestController
         private FoodsaverTransactions $foodsaverTransactions,
         private SettingsGateway $settingsGateway,
         private PassportGeneratorTransaction $passportGeneratorTransaction,
-
         private ProfilePermissions $profilePermissions,
         private QuizPermissions $quizPermissions,
         private ReportPermissions $reportPermissions,
@@ -85,6 +85,7 @@ class UserRestController extends AbstractFoodsharingRestController
         private RegionTransactions $regionTransactions,
         private GroupTransactions $groupTransactions,
         private readonly SettingsTransactions $settingsTransactions,
+        private readonly LogoutTransactions $logoutTransactions,
         private TimeHelper $timeHelper,
     ) {
     }
@@ -300,7 +301,7 @@ class UserRestController extends AbstractFoodsharingRestController
     #[Rest\Post('user/logout')]
     public function logout(): Response
     {
-        $this->session->logout();
+        $this->logoutTransactions->logout();
 
         return $this->handleView($this->view([], 200));
     }
@@ -427,7 +428,7 @@ class UserRestController extends AbstractFoodsharingRestController
         $this->foodsaverTransactions->deleteFoodsaver($userId, $reason);
 
         if ($userId === $this->session->id()) {
-            $this->session->logout();
+            $this->logoutTransactions->logout();
         }
 
         return $this->handleView($this->view());

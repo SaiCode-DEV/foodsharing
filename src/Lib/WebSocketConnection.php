@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Lib;
 
+use Foodsharing\Lib\Db\Mem;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 
@@ -16,12 +17,25 @@ use function Sentry\captureException;
  */
 class WebSocketConnection
 {
-    private $guzzle;
     private const DEFAULT_TIMEOUT = 30; // sending timeout in seconds
 
-    public function __construct(Client $guzzle)
+    public function __construct(private readonly Client $guzzle, private readonly Mem $mem)
     {
-        $this->guzzle = $guzzle;
+    }
+
+    /*
+     * Registrates the session id for the websocket server.
+     *
+     * Add entry into user -> session set
+     */
+    public function registerSession(int $foodsaverId, string $sessionId)
+    {
+        $this->mem->userAddSession($foodsaverId, $sessionId);
+    }
+
+    public function unregisterSession(int $foodsaverId, string $sessionId)
+    {
+        $this->mem->userRemoveSession($foodsaverId, $sessionId);
     }
 
     private function post($url, $options): void

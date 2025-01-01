@@ -146,12 +146,6 @@ class Mem
         return $this->del('pc-' . $page . ':' . $fsId);
     }
 
-    public function logout($fs_id)
-    {
-        $this->userDel($fs_id, 'lastMailMessage');
-        $this->userRemoveSession($fs_id, session_id());
-    }
-
     public function ensureConnected()
     {
         if (!$this->connected) {

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use Codeception\Test\Unit;
-use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
@@ -14,11 +13,10 @@ use Tests\Support\UnitTester;
 class SessionTestAdapter extends Session
 {
     public function __construct(
-        private Mem $mem,
-        private FoodsaverGateway $foodsaverGateway,
+        private readonly FoodsaverGateway $foodsaverGateway,
         protected bool $initialized = false
     ) {
-        parent::__construct($mem, $foodsaverGateway, $initialized);
+        parent::__construct($foodsaverGateway, $initialized);
     }
 
     public function setTestUser(Role $role)
@@ -36,7 +34,6 @@ class SessionMayRoleTest extends Unit
     public function _before()
     {
         $this->session = new SessionTestAdapter(
-            $this->tester->get(Mem::class),
             $this->tester->get(FoodsaverGateway::class),
             true
         );
