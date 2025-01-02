@@ -37,7 +37,7 @@ class NewsletterApiCest
             'subject' => 'Subject',
             'message' => 'Message'
         ]);
-        $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
+        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
     }
 
     public function validEmailAddressIsAccepted(ApiTester $I): void

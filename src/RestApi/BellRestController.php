@@ -4,110 +4,75 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
+use Foodsharing\RestApi\Models\IDList;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcher;
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class BellRestController extends AbstractFOSRestController
+#[OA\Tag(name: 'bells')]
+class BellRestController extends AbstractFoodsharingRestController
 {
-    private readonly BellGateway $bellGateway;
-    private readonly Session $session;
-
     public function __construct(
-        BellGateway $bellGateway,
-        Session $session
+        private readonly BellGateway $bellGateway,
+        protected Session $session
     ) {
-        $this->bellGateway = $bellGateway;
-        $this->session = $session;
+        parent::__construct($this->session);
     }
 
-    /**
-     * Returns all bells for the current user.
-     *
-     * @OA\Response(response="200", description="Success.")
-     * @OA\Response(response="403", description="Insufficient permissions to list bells.")
-     * @OA\Tag(name="bells")
-     */
+    #[OA\Get(summary: 'Returns all bells for the current user.')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to list bells')]
     #[Rest\Get('bells')]
     #[Rest\QueryParam(name: 'limit', requirements: '\d+', default: '20', description: 'How many bells to return.')]
     #[Rest\QueryParam(name: 'offset', requirements: '\d+', default: '0', description: 'Offset for returned bells.')]
-    public function listBells(ParamFetcher $paramFetcher): Response
+    public function listBells(#[MapQueryParameter] int $limit = 20, #[MapQueryParameter] int $offset = 0): Response
     {
-        $id = $this->session->id();
-        if (!$id) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
-        $limit = $paramFetcher->get('limit');
-        $offset = $paramFetcher->get('offset');
-        $bells = $this->bellGateway->listBells($id, $limit, $offset);
+        $bells = $this->bellGateway->listBells($this->session->id(), $limit, $offset);
 
-        return $this->handleView($this->view($bells, 200));
+        return $this->respondOK($bells);
     }
 
-    /**
-     * Marks one or more bells as read.
-     *
-     * @OA\Parameter(name="bellId", in="path", @OA\Schema(type="integer"), description="which bell to mark as read")
-     * @OA\Response(response="200", description="At least one of the bells was successfully marked.")
-     * @OA\Response(response="400", description="If the list of IDs is empty or none of the bells could be marked.")
-     * @OA\Response(response="403", description="Insufficient permissions to change the bells.")
-     * @OA\Tag(name="bells")
-     */
+    #[OA\Patch(summary: 'Marks one or more bells as read.')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'At least one of the bells was successfully marked.')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'The list of IDs is empty or none of the bells could be marked.')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to change the bells')]
     #[Rest\Patch('bells')]
-    #[Rest\RequestParam(name: 'ids')]
-    public function markBellsAsRead(ParamFetcher $paramFetcher): Response
+    public function markBellsAsRead(#[MapRequestPayload] IDList $bellIds): Response
     {
-        $id = $this->session->id();
-        if (!$id) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
-        $bellIds = $paramFetcher->get('ids');
-        if (!is_array($bellIds) || empty($bellIds)) {
+        $changed = $this->bellGateway->setBellsAsSeen($bellIds->ids, $this->session->id());
+        if (!$changed) {
             throw new BadRequestHttpException();
         }
 
-        $changed = $this->bellGateway->setBellsAsSeen($bellIds, $id);
-
-        if ($changed === 0) {
-            return $this->handleView($this->view([], 400));
-        } else {
-            return $this->handleView($this->view([
-                'marked' => $changed
-            ], 200));
-        }
+        return $this->respondOK(['marked' => $changed]);
     }
 
-    /**
-     * Deletes a bell.
-     *
-     * @OA\Parameter(name="bellId", in="path", @OA\Schema(type="integer"), description="which bell to delete")
-     * @OA\Response(response="200", description="Success.")
-     * @OA\Response(response="403", description="Insufficient permissions to delete the bell.")
-     * @OA\Response(response="404", description="The user does not have a bell with that ID.")
-     * @OA\Tag(name="bells")
-     */
+    #[OA\Delete(summary: 'Deletes a bell.')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'At least one of the bells was successfully deleted')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'The list of IDs is empty or none of the bells could be deleted')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The user does not have a bell with that ID')]
     #[Rest\Delete('bells')]
-    #[Rest\RequestParam(name: 'ids')]
-    public function deleteBells(ParamFetcher $paramFetcher): Response
+    #[Rest\RequestParam(name: 'ids', description: 'which bell to delete')]
+    public function deleteBells(#[MapRequestPayload] IDList $bellIds): Response
     {
-        $id = $this->session->id();
-        if (!$id) {
-            throw new UnauthorizedHttpException('');
+        $this->assertLoggedIn();
+
+        $deleted = $this->bellGateway->delBellsForFoodsaver($bellIds->ids, $this->session->id());
+        if (!$deleted) {
+            throw new NotFoundHttpException();
         }
 
-        $bellIds = $paramFetcher->get('ids');
-        if (!is_array($bellIds) || empty($bellIds)) {
-            throw new BadRequestHttpException();
-        }
-
-        $deleted = $this->bellGateway->delBellsForFoodsaver($bellIds, $id);
-
-        return $this->handleView($this->view(['deleted' => $deleted], $deleted ? 200 : 404));
+        return $this->respondOK(['deleted' => $deleted]);
     }
 }

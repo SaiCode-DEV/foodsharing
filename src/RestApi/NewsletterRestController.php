@@ -4,64 +4,52 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Permissions\NewsletterEmailPermissions;
+use Foodsharing\RestApi\Models\Newsletter\NewsletterTestEmail;
 use Foodsharing\Utility\EmailHelper;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcher;
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 /**
  * Rest controller for newsletter functions.
  */
-final class NewsletterRestController extends AbstractFOSRestController
+#[OA\Tag('newsletter')]
+final class NewsletterRestController extends AbstractFoodsharingRestController
 {
-    private readonly NewsletterEmailPermissions $newsletterEmailPermissions;
-    private readonly Session $session;
-    private readonly EmailHelper $emailHelper;
-
     private const NOT_ALLOWED = 'not allowed';
     private const INVALID_ADDRESS = 'invalid address';
 
     public function __construct(
-        NewsletterEmailPermissions $newsletterEmailPermissions,
-        Session $session,
-        EmailHelper $emailHelper
+        private readonly NewsletterEmailPermissions $newsletterEmailPermissions,
+        private readonly EmailHelper $emailHelper,
+        protected Session $session
     ) {
-        $this->newsletterEmailPermissions = $newsletterEmailPermissions;
-        $this->session = $session;
-        $this->emailHelper = $emailHelper;
+        parent::__construct($this->session);
     }
 
-    /**
-     * Sends a test newsletter email to the given address. Returns 200 on success, 401 if the current user may not
-     * send newsletters, or 400 if the email address is invalid.
-     *
-     * @OA\Tag(name="newsletter")
-     */
+    #[OA\Post(summary: 'Sends a test newsletter email to the given address. Returns 200 on success, 401 if the current
+     user may not send newsletters, or 400 if the email address is invalid.')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid recipient email address')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
     #[Rest\Post('newsletter/test')]
-    #[Rest\RequestParam(name: 'address')]
-    #[Rest\RequestParam(name: 'subject')]
-    #[Rest\RequestParam(name: 'message')]
-    public function sendTestEmail(ParamFetcher $paramFetcher): Response
+    public function sendTestEmail(#[MapRequestPayload] NewsletterTestEmail $testEmail): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('', self::NOT_ALLOWED);
-        }
+        $this->assertLoggedIn();
         if (!$this->newsletterEmailPermissions->mayAdministrateNewsletterEmail()) {
             throw new AccessDeniedHttpException(self::NOT_ALLOWED);
         }
 
-        $address = $paramFetcher->get('address');
-        if (!$this->emailHelper->validEmail($address)) {
+        if (!$this->emailHelper->validEmail($testEmail->address)) {
             throw new BadRequestHttpException(self::INVALID_ADDRESS);
         }
 
-        $this->emailHelper->libmail(false, $address, $paramFetcher->get('subject'), $paramFetcher->get('message'));
+        $this->emailHelper->libmail(false, $testEmail->address, $testEmail->subject, $testEmail->message);
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 }
