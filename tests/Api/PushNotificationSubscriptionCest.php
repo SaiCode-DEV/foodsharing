@@ -35,11 +35,42 @@ class PushNotificationSubscriptionCest
         $I->sendPOST('api/pushnotification/webpush/subscription', $this->testSubscription);
 
         $I->seeResponseCodeIs(HttpCode::OK);
+        $subscriptionId = $I->grabDataFromResponseByJsonPath('id')[0];
+        $I->canSeeInDatabase('fs_push_notification_subscription', [
+            'id' => $subscriptionId,
+            'foodsaver_id' => $this->user['id'],
+            'data' => $this->testSubscription,
+            'type' => 'webpush'
+        ]);
+    }
+
+    public function unsubscriptionSucceedsIfLoggedIn(ApiTester $I): void
+    {
+        $subscriptionId = 123;
+        $I->haveInDatabase('fs_push_notification_subscription', [
+            'id' => $subscriptionId,
+            'foodsaver_id' => $this->user['id'],
+            'data' => $this->testSubscription,
+            'type' => 'webpush'
+        ]);
+
+        $I->login($this->user['email']);
+        $I->sendDELETE('api/pushnotification/webpush/subscription/' . $subscriptionId);
+
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->dontSeeInDatabase('fs_push_notification_subscription', ['id' => $subscriptionId]);
     }
 
     public function subscriptionFailsIfNotLoggedIn(ApiTester $I): void
     {
         $I->sendPOST('api/pushnotification/webpush/subscription', $this->testSubscription);
+
+        $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
+    }
+
+    public function unsubscriptionFailsIfNotLoggedIn(ApiTester $I): void
+    {
+        $I->sendDELETE('api/pushnotification/webpush/subscription/123');
 
         $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
     }

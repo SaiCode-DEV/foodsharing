@@ -5,60 +5,52 @@ namespace Foodsharing\RestApi;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\PushNotification\Notification\TestPushNotification;
 use Foodsharing\Modules\PushNotification\PushNotificationGateway;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use OpenApi\Annotations as OA;
+use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
-class PushNotificationSubscriptionRestController extends AbstractFOSRestController
+#[OA\Tag(name: 'pushnotification')]
+class PushNotificationSubscriptionRestController extends AbstractFoodsharingRestController
 {
-    /**
-     * @var PushNotificationGateway
-     */
-    private $gateway;
-
-    /**
-     * @var Session
-     */
-    private $session;
-
-    public function __construct(PushNotificationGateway $gateway, Session $session)
-    {
-        $this->gateway = $gateway;
-        $this->session = $session;
+    public function __construct(
+        private readonly PushNotificationGateway $gateway,
+        protected Session $session
+    ) {
+        parent::__construct($this->session);
     }
 
-    /**
-     * @OA\Tag(name="pushnotification")
-     */
-    #[Rest\Get('pushnotification/{type}/server-information')]
+    #[OA\Get(summary: 'Returns information necessary for registering subscribing to push notifications with this handler')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Handler type does not exist')]
+    #[OA\Parameter(name: 'type', description: 'the handler type', in: 'path', required: true, schema: new OA\Schema(type: 'string'))]
+    #[Route(path: '/pushnotification/{type}/server-information', methods: ['GET'])]
     public function getServerInformation(string $type): Response
     {
         if (!$this->gateway->hasHandlerFor($type)) {
             throw new NotFoundHttpException();
         }
 
-        $view = $this->view($this->gateway->getServerInformation($type), 200);
+        $information = $this->gateway->getServerInformation($type);
 
-        return $this->handleView($view);
+        return $this->respondOK($information);
     }
 
-    /**
-     * @OA\Tag(name="pushnotification")
-     */
-    #[Rest\Post('pushnotification/{type}/subscription')]
+    #[OA\Post(summary: 'Subscribes to push notifications with the specified handler')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Handler type does not exist')]
+    #[OA\Parameter(name: 'type', description: 'the handler type', in: 'path', required: true, schema: new OA\Schema(type: 'string'))]
+    #[Route(path: '/pushnotification/{type}/subscription', methods: ['POST'])]
     public function subscribe(Request $request, string $type): Response
     {
         if (!$this->gateway->hasHandlerFor($type)) {
             throw new NotFoundHttpException();
         }
 
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         $pushSubscription = $request->getContent();
         $foodsaverId = $this->session->id();
@@ -67,27 +59,26 @@ class PushNotificationSubscriptionRestController extends AbstractFOSRestControll
 
         $this->gateway->sendPushNotificationsToFoodsaver($foodsaverId, new TestPushNotification(), $subscriptionId);
 
-        return $this->handleView($this->view(['id' => $subscriptionId], 200));
+        return $this->respondOK(['id' => $subscriptionId]);
     }
 
-    /**
-     * @OA\Tag(name="pushnotification")
-     */
-    #[Rest\Delete('pushnotification/{type}/subscription/{subscriptionId}', requirements: ['subscriptionId' => '\d+'])]
+    #[OA\Delete(summary: 'Subscribes to push notifications with the specified handler')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Successful')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Handler type does not exist')]
+    #[OA\Parameter(name: 'type', description: 'the handler type', in: 'path', required: true, schema: new OA\Schema(type: 'string'))]
+    #[OA\Parameter(name: 'subscriptionId', description: 'unique identifier of the subscription', in: 'path', required: true)]
+    #[Route(path: '/pushnotification/{type}/subscription/{subscriptionId}', requirements: ['subscriptionId' => '\d+'], methods: ['DELETE'])]
     public function unsubscribe(string $type, int $subscriptionId): Response
     {
         if (!$this->gateway->hasHandlerFor($type)) {
             throw new NotFoundHttpException();
         }
 
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
-        $foodsaverId = $this->session->id();
+        $this->gateway->deleteSubscription($this->session->id(), $subscriptionId, $type);
 
-        $this->gateway->deleteSubscription($foodsaverId, $subscriptionId, $type);
-
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 }
