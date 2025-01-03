@@ -34,6 +34,7 @@ class ContentSecurityPolicy
                 'https://localhost',
                 'https://nginx',
                 'https://sentry.io',
+                'https://sentry.foodsharing.network',
                 'https://api.geoapify.com',
                 'https://maps.geoapify.com',
                 'https://maps01.geoapify.com',
