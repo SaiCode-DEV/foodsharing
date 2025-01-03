@@ -3368,6 +3368,13 @@ legal:
     qustion_policy: Gizlilik politikamızı kabul ediyor musunuz?
     qustion_notice: Veri koruma beyanımızı ve veri koruma talimatlarımızı kabul ediyor
       musunuz?
+    select: Lütfen seçin
+    agree: Evet, gizlilik politikasını kabul ediyorum.
+    agree_only_policy: Yalnızca veri koruma beyanını kabul ediyorum ve Foodsaver statüsüne
+      indirilmek istiyorum.
+    not_agree: Hayır, gizlilik politikasını kabul etmiyorum. Hesabımı silmek istiyorum.
+    agree_policy_and_notice: Evet, veri koruma beyanını ve veri koruma talimatlarını
+      kabul ediyorum.
   not_acknowledge_privacy_policy_description: Foodsharing platformunu kullanabilmek
     için açıklanan veri koruma beyanını dikkate almanız gerekmektedir.
   actions:
@@ -3376,6 +3383,11 @@ legal:
   agree_privacy_policy: Veri koruma beyannamesini okudum.
   must_accept_privacy_policy: Foodsharing'e katılmak için veri koruma koşullarını
     kabul etmelisiniz.
+  button:
+    agree: Kabul ediyorum
+    partially_agree: Foodsaver'a düşürüldü
+    disagree: Hesabım silinsin
+  success: Ayarlarınız başarıyla kaydedildi.
 pronoun:
   "3": o
   "0": o
