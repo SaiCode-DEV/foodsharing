@@ -134,7 +134,7 @@ class SettingsApiCest
             'from' => 'abcdefg',
             'to' => Carbon::today()->addWeek()->format('d.m.Y')
         ]);
-        $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
+        $I->seeResponseCodeIs(HttpCode::UNPROCESSABLE_ENTITY);
         $I->seeInDatabase('fs_foodsaver', [
             'id' => $this->user['id'],
             'sleep_status' => SleepStatus::NONE
@@ -142,20 +142,22 @@ class SettingsApiCest
     }
 
     /**
-     * @example [-1]
-     * @example [5]
-     * @example [100]
-     * @example [null]
-     * @example ["abc"]
-     * @example [""]
+     * Test invalid status values with their expected HTTP response codes.
+     *
+     * @example{"mode": null, "expectedCode": "UNPROCESSABLE_ENTITY"}
+     * @example{"mode": "abc", "expectedCode": "UNPROCESSABLE_ENTITY"}
+     * @example{"mode": "", "expectedCode": "UNPROCESSABLE_ENTITY"}
+     * @example{"mode": -1, "expectedCode": "BAD_REQUEST"}
+     * @example{"mode": 5, "expectedCode": "BAD_REQUEST"}
+     * @example{"mode": 100, "expectedCode": "BAD_REQUEST"}
      */
     public function cannotUseInvalidStatus(ApiTester $I, Example $example): void
     {
         $I->updateInDatabase('fs_foodsaver', ['sleep_status' => SleepStatus::NONE], ['id' => $this->user['id']]);
 
         $I->login($this->user['email']);
-        $I->sendPATCH('api/user/sleepmode', ['mode' => $example[0]]);
-        $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
+        $I->sendPATCH('api/user/sleepmode', ['mode' => $example['mode']]);
+        $I->seeResponseCodeIs(constant('Codeception\Util\HttpCode::' . $example['expectedCode']));
         $I->seeInDatabase('fs_foodsaver', [
             'id' => $this->user['id'],
             'sleep_status' => SleepStatus::NONE
@@ -163,16 +165,16 @@ class SettingsApiCest
     }
 
     /**
-     * @example {"loginUser": 0, "testUser": 0, "isOnTeamPage": false, "allowChange": false}
-     * @example {"loginUser": 0, "testUser": 0, "isOnTeamPage": true, "allowChange": true}
-     * @example {"loginUser": 1, "testUser": 0, "isOnTeamPage": false, "allowChange": false}
-     * @example {"loginUser": 1, "testUser": 0, "isOnTeamPage": true, "allowChange": false}
-     * @example {"loginUser": 1, "testUser": 1, "isOnTeamPage": false, "allowChange": false}
-     * @example {"loginUser": 1, "testUser": 1, "isOnTeamPage": true, "allowChange": true}
-     * @example {"loginUser": 2, "testUser": 0, "isOnTeamPage": false, "allowChange": false}
-     * @example {"loginUser": 2, "testUser": 0, "isOnTeamPage": true, "allowChange": true}
-     * @example {"loginUser": 2, "testUser": 2, "isOnTeamPage": false, "allowChange": false}
-     * @example {"loginUser": 2, "testUser": 2, "isOnTeamPage": true, "allowChange": true}
+     * @example{ "loginUser": 0, "testUser": 0, "isOnTeamPage": false, "allowChange": false }
+     * @example{ "loginUser": 0, "testUser": 0, "isOnTeamPage": true, "allowChange": true }
+     * @example{ "loginUser": 1, "testUser": 0, "isOnTeamPage": false, "allowChange": false }
+     * @example{ "loginUser": 1, "testUser": 0, "isOnTeamPage": true, "allowChange": false }
+     * @example{ "loginUser": 1, "testUser": 1, "isOnTeamPage": false, "allowChange": false }
+     * @example{ "loginUser": 1, "testUser": 1, "isOnTeamPage": true, "allowChange": true }
+     * @example{ "loginUser": 2, "testUser": 0, "isOnTeamPage": false, "allowChange": false }
+     * @example{ "loginUser": 2, "testUser": 0, "isOnTeamPage": true, "allowChange": true }
+     * @example{ "loginUser": 2, "testUser": 2, "isOnTeamPage": false, "allowChange": false }
+     * @example{ "loginUser": 2, "testUser": 2, "isOnTeamPage": true, "allowChange": true }
      */
     public function changePositionAndAboutMePublic(ApiTester $I, Example $example): void
     {
@@ -218,22 +220,22 @@ class SettingsApiCest
     }
 
     /**
-     * @example {"loginUser": 0, "testUser": 0, "allowChange": true}
-     * @example {"loginUser": 0, "testUser": 1, "allowChange": false}
-     * @example {"loginUser": 0, "testUser": 2, "allowChange": false}
-     * @example {"loginUser": 0, "testUser": 3, "allowChange": false}
-     * @example {"loginUser": 1, "testUser": 0, "allowChange": true}
-     * @example {"loginUser": 1, "testUser": 1, "allowChange": true}
-     * @example {"loginUser": 1, "testUser": 2, "allowChange": false}
-     * @example {"loginUser": 1, "testUser": 3, "allowChange": false}
-     * @example {"loginUser": 2, "testUser": 0, "allowChange": false}
-     * @example {"loginUser": 2, "testUser": 1, "allowChange": false}
-     * @example {"loginUser": 2, "testUser": 2, "allowChange": true}
-     * @example {"loginUser": 2, "testUser": 3, "allowChange": false}
-     * @example {"loginUser": 3, "testUser": 0, "allowChange": true}
-     * @example {"loginUser": 3, "testUser": 1, "allowChange": true}
-     * @example {"loginUser": 3, "testUser": 2, "allowChange": true}
-     * @example {"loginUser": 3, "testUser": 3, "allowChange": true}
+     * @example{ "loginUser": 0, "testUser": 0, "allowChange": true }
+     * @example{ "loginUser": 0, "testUser": 1, "allowChange": false }
+     * @example{ "loginUser": 0, "testUser": 2, "allowChange": false }
+     * @example{ "loginUser": 0, "testUser": 3, "allowChange": false }
+     * @example{ "loginUser": 1, "testUser": 0, "allowChange": true }
+     * @example{ "loginUser": 1, "testUser": 1, "allowChange": true }
+     * @example{ "loginUser": 1, "testUser": 2, "allowChange": false }
+     * @example{ "loginUser": 1, "testUser": 3, "allowChange": false }
+     * @example{ "loginUser": 2, "testUser": 0, "allowChange": false }
+     * @example{ "loginUser": 2, "testUser": 1, "allowChange": false }
+     * @example{ "loginUser": 2, "testUser": 2, "allowChange": true }
+     * @example{ "loginUser": 2, "testUser": 3, "allowChange": false }
+     * @example{ "loginUser": 3, "testUser": 0, "allowChange": true }
+     * @example{ "loginUser": 3, "testUser": 1, "allowChange": true }
+     * @example{ "loginUser": 3, "testUser": 2, "allowChange": true }
+     * @example{ "loginUser": 3, "testUser": 3, "allowChange": true }
      */
     public function changeProfileData(ApiTester $I, Example $example): void
     {
@@ -268,15 +270,15 @@ class SettingsApiCest
     }
 
     /**
-     * @example {"loginUser": 0, "testUser": 0, "allowChange": true}
-     * @example {"loginUser": 0, "testUser": 1, "allowChange": false}
-     * @example {"loginUser": 0, "testUser": 2, "allowChange": false}
-     * @example {"loginUser": 1, "testUser": 0, "allowChange": false}
-     * @example {"loginUser": 1, "testUser": 1, "allowChange": true}
-     * @example {"loginUser": 1, "testUser": 2, "allowChange": false}
-     * @example {"loginUser": 2, "testUser": 0, "allowChange": true}
-     * @example {"loginUser": 2, "testUser": 1, "allowChange": true}
-     * @example {"loginUser": 2, "testUser": 2, "allowChange": true}
+     * @example{ "loginUser": 0, "testUser": 0, "allowChange": true }
+     * @example{ "loginUser": 0, "testUser": 1, "allowChange": false }
+     * @example{ "loginUser": 0, "testUser": 2, "allowChange": false }
+     * @example{ "loginUser": 1, "testUser": 0, "allowChange": false }
+     * @example{ "loginUser": 1, "testUser": 1, "allowChange": true }
+     * @example{ "loginUser": 1, "testUser": 2, "allowChange": false }
+     * @example{ "loginUser": 2, "testUser": 0, "allowChange": true }
+     * @example{ "loginUser": 2, "testUser": 1, "allowChange": true }
+     * @example{ "loginUser": 2, "testUser": 2, "allowChange": true }
      */
     public function changeAboutMeInternal(ApiTester $I, Example $example): void
     {
@@ -308,10 +310,10 @@ class SettingsApiCest
      * Region IDs that don't exist or that have a type which is not allowed for home regions should return 400. A null
      * value for the region id should return a 200 response but not change the database entry.
      *
-     * @example {"regionId": null, "result": true, "changed": false}
-     * @example {"regionId": 99999, "result": false, "changed": false}
-     * @example {"regionId": "region2", "result": true, "changed": true}
-     * @example {"regionId": "regionState", "result": false, "changed": false}
+     * @example{ "regionId": null, "result": true, "changed": false }
+     * @example{ "regionId": 99999, "result": false, "changed": false }
+     * @example{ "regionId": "region2", "result": true, "changed": true }
+     * @example{ "regionId": "regionState", "result": false, "changed": false }
      */
     public function canOnlySetValidHomeRegion(ApiTester $I, Example $example): void
     {
@@ -394,10 +396,10 @@ class SettingsApiCest
      *
      * Users: 0=foodsaver, 1=ambassador, 2=orga, 3=orga and support group admin
      *
-     * @example {"loginUser": 0, "allowChange": true, "changeImmediately": false}
-     * @example {"loginUser": 1, "allowChange": false, "changeImmediately": false}
-     * @example {"loginUser": 2, "allowChange": false, "changeImmediately": false}
-     * @example {"loginUser": 3, "allowChange": true, "changeImmediately": true}
+     * @example{ "loginUser": 0, "allowChange": true, "changeImmediately": false }
+     * @example{ "loginUser": 1, "allowChange": false, "changeImmediately": false }
+     * @example{ "loginUser": 2, "allowChange": false, "changeImmediately": false }
+     * @example{ "loginUser": 3, "allowChange": true, "changeImmediately": true }
      */
     public function canRequestEmailChange(ApiTester $I, Example $example): void
     {

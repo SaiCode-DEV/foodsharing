@@ -7,6 +7,7 @@ use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\RestApi\Models\Notifications\NewsletterChat;
+use Foodsharing\RestApi\Models\Settings\SleepStatusRequest;
 
 class SettingsGateway extends BaseGateway
 {
@@ -64,18 +65,18 @@ class SettingsGateway extends BaseGateway
         );
     }
 
-    public function updateSleepMode(int $fsId, int $status, ?DateTime $from, ?DateTime $to, ?string $msg): int
+    public function updateSleepMode(int $fsId, SleepStatusRequest $request): int
     {
-        $from = $from ?: null;
-        $to = $to ?: null;
+        $from = $request->from ?: null;
+        $to = $request->to ?: null;
 
         return $this->db->update(
             'fs_foodsaver',
             [
-                'sleep_status' => $status,
+                'sleep_status' => $request->mode,
                 'sleep_from' => $from ? $from->format('Y-m-d H:i:s') : null,
                 'sleep_until' => $to ? $to->format('Y-m-d H:i:s') : null,
-                'sleep_msg' => $msg ? strip_tags($msg) : null
+                'sleep_msg' => $request->message ? strip_tags($request->message) : null
             ],
             ['id' => $fsId]
         );
