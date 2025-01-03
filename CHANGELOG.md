@@ -10,6 +10,7 @@
 - Prevent autofil save form for adress !3740 @chriswalg
 
 ## Bugfixes
+- Resolve "region filter bug on profile page: Blank screen when navigating store list" #2295 !3940 @chriswalg
 
 ## Refactoring
 - Get rid of xhr completely !3826 !3933 @chriswalg

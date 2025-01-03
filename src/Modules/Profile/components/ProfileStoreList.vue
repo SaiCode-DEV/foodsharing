@@ -53,7 +53,7 @@
     </div>
     <div class="float-right p-1 pr-3">
       <b-pagination
-        v-if="filteredStoresAndPagination.length > 0"
+        v-if="filteredStores.length > 0"
         v-model="currentPage"
         :total-rows="filteredStores.length"
         :per-page="perPage"
@@ -167,12 +167,15 @@ export default {
       this.filterRegionId = null
       this.filterCooperationState = null
       this.filterMemberState = null
+      this.currentPage = 1
     },
     filterToRegion (regionId) {
       this.filterRegionId = regionId
+      this.currentPage = 1
     },
     filterToState (state) {
       this.filterCooperationState = state
+      this.currentPage = 1
     },
     getIconAndTooltip (store) {
       let iconClass = 'fas fa-fw fa-question-circle'
