@@ -3676,7 +3676,15 @@ globals:
   save_changes: Guardar los cambios
   saved: Los cambios se han guardado
 legal:
-  acknowledge: '¿Aceptas el acuerdo?'
+  acknowledge:
+    select: Por favor seleccione
+    agree_policy_and_notice: Sí, acepto la declaración de protección de datos y sigo
+      las instrucciones sobre confidencialidad/secreto de datos.
+    not_agree: No, no acepto la política de privacidad. Me gustaría eliminar mi cuenta.
+    qustion_policy: ¿Aceptas nuestra política de privacidad?
+    qustion_notice: ¿Acepta nuestra declaración de protección de datos y las instrucciones
+      sobre confidencialidad/secreto de datos?
+    agree: Sí, acepto la política de privacidad.
   dont_agree: 'No estoy de acuerdo con el procesamiento de mis datos y'
   delete_account: 'quisiera eliminar mi cuenta.'
   privacy_policy: 'Política de privacidad'
@@ -3717,6 +3725,10 @@ legal:
     perderá todas las responsabilidades de empresas y es posible que deba volver a
     realizar el examen de embajador(a) o para responsables de empresas.'
   legal_agreement: 'Acuerdo legal'
+  button:
+    disagree: Eliminar mi cuenta
+    agree: Aceptar
+  success: Tus ajustes se han guardado correctamente.
 error_ajax: 'Eso no funcionó.
 
   Quizás tu conexión a Internet no esté funcionando en este momento.
