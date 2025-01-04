@@ -2832,7 +2832,7 @@ storeedit:
   store_name_placeholder: Store name
 legal:
   privacy_policy: Privacy policy
-  privacy_notice: Privacy notice
+  privacy_notice: Privacy notice for store managers and ambassadors
   not_acknowledge:
     qustion_policy: Do you not agree with the privacy policy?
     qustion_notice: Do you not agree with the privacy policy and the privacy notice?
@@ -2866,7 +2866,17 @@ legal:
     for my records to the address I have given.
   must_accept_privacy_policy: In order to participate in foodsharing, you have to
     agree to the data protection conditions.
-  acknowledge: Do you take note of the agreement?
+  acknowledge:
+    qustion_policy: Do you accept our privacy policy?
+    qustion_notice: Do you accept our privacy policy and the instructions on data
+      confidentiality?
+    select: Please select
+    agree: Yes, I accept the privacy policy.
+    agree_only_policy: I only accept the privacy policy and would like to be downgraded
+      to an ordinary Foodsaver.
+    agree_policy_and_notice: Yes, I accept the privacy policy and the instructions
+      on data confidentiality.
+    not_agree: No, I do not accept the privacy policy. I would like to delete my account.
   if_delete:
     legal_1: our current privacy policy
     this_gets_deleted_main: 'The following information will be deleted from you and
@@ -2883,6 +2893,7 @@ legal:
       the active system, but is archived separately based on Article 17 paragraph
       3 sentence 1 letter b GDPR:'
     legal_2: Laws on retention periods (page in German)
+  success: Your settings have been saved successfully.
 answers: Which answers are correct?
 name: Name
 bcard:
