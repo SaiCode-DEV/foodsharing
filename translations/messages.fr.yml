@@ -1287,7 +1287,8 @@ legal:
       et voudrais être rétrogradé·e au rang de collecteur·rice.
     acknowledge: J’accepte.
     select: Veuillez choisir
-  privacy_notice: Charte relative à l’utilisation des données personnelles
+  privacy_notice: Charte relative à l’utilisation des données personnelles à destination
+    des responsables coopérations et des ambassadeur·ices
   must_accept_privacy_policy: Afin de faire partie de foodsharing, tu dois accepter
     les conditions d’utilisation de tes données.
   actions:
@@ -1297,7 +1298,17 @@ legal:
   dont_agree: Je ne suis pas d’accord avec le traitement de mes données et
   not_acknowledge_privacy_policy_description: Afin d’utiliser la plateforme foodsharing,
     tu dois lire et accepter la déclaration de confidentialité de celle-ci.
-  acknowledge: Acceptes-tu notre déclaration de confidentialité ?
+  acknowledge:
+    qustion_policy: Acceptes-tu notre déclaration de confidentialité ?
+    qustion_notice: Acceptes-tu notre déclaration de protection des données et l’instruction
+      sur la confidentialité ?
+    select: Choisis s’il te plaît
+    agree: Oui, j'accepte la politique de confidentialité.
+    agree_policy_and_notice: Oui, j’accepte les deux.
+    agree_only_policy: J’accepte uniquement la déclaration de confidentialité et je
+      souhaite être rétrogradé(e) en tant que collecteur·rice ordinaire.
+    not_agree: Non, je n’accepte pas la politique de confidentialité. Je souhaite
+      supprimer mon compte.
   privacy_policy: Politique de confidentialité
   if_delete:
     legal_1: Notre politique de confidentialité actuelle
@@ -1315,6 +1326,11 @@ legal:
     this_gets_deleted_friendlist: Ta liste d’amis sera supprimée.
     this_gets_deleted_quiz: Tous tes quiz seront supprimés.
     this_gets_deleted_trustbananas: Les bananes-confiance que tu as reçues sont supprimées.
+  success: Tes paramètres ont été enregistrés avec succès.
+  button:
+    agree: Accepter
+    disagree: Supprimer mon compte
+    partially_agree: Rétrograder au rang de collecteur·rice
 message_text_to_group_admin_workgroup: "La région/le groupe de travail<b>{groupName}</b>
   n’a<b>plus</b> d’ambassadeur·rice/d’admin.<br><br><br>Elle possède la structure
   ID ci-contre :<br>{idStructureList}<br><br>l’ID est : {groupId}<br><br>URL : \"
