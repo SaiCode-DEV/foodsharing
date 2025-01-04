@@ -1818,7 +1818,8 @@ legal:
     acknowledge: Jeg har tatt instruksjonene til etterretning.
     select: Vennligst velg
     not_acknowledge: Jeg er ikke enig og vil gjerne bli nedgradert til en matredder.
-  privacy_notice: Databeskyttelsesinstruksjoner
+  privacy_notice: Instruks om konfidensialitet/datahemmelighold for samarbeidsansvarlige
+    og ambassadører
   actions:
     safe: Bruk innstillinger
   privacy_policy: Personvernerklæring
@@ -1827,7 +1828,17 @@ legal:
   not_acknowledge_privacy_notice_description: Hvis du er uenig i undervisningen, vil
     du bli degradert til en matsparer. Det betyr at du ikke lenger er distriktsambassadør
     og mister ansvaret for å samarbeide med bedrifter.
-  acknowledge: Tar du avtalen til etterretning?
+  acknowledge:
+    select: Vennligst velg
+    qustion_policy: Godtar du vår personvernerklæring?
+    qustion_notice: Godtar du vår databeskyttelseserklæring og instruksjonene om konfidensialitet/datahemmelighold?
+    agree: Ja, jeg godtar personvernreglene.
+    agree_only_policy: Jeg godtar rett og slett personvernreglene og vil gjerne bli
+      nedgradert til matsparer.
+    not_agree: Nei, jeg godtar ikke personvernreglene. Jeg ønsker å slette kontoen
+      min.
+    agree_policy_and_notice: Ja, jeg godtar databeskyttelseserklæringen og merker
+      instruksjonene om konfidensialitet/datahemmelighold.
   dont_agree: Jeg godtar ikke behandlingen av dataene mine og
   delete_account: ønsker å slette kontoen min.
   agree_privacy_policy: Jeg har lest databeskyttelsesavtalen.
@@ -1853,6 +1864,11 @@ legal:
       aktive systemet, men arkiveres separat på grunn av artikkel 17 paragraf 3 setning
       1 bokstav b GDPR:'
     legal_2: Lover om oppbevaringsperioder (side på tysk)
+  button:
+    disagree: Slett kontoen min
+    agree: Akseptere
+    partially_agree: Nedgrader til matsparer
+  success: Innstillingene dine er lagret.
 group:
   show-all: Vis alt
   function:
