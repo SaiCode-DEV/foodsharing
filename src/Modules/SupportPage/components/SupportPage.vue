@@ -157,7 +157,7 @@ import { createTicket } from '@/api/support'
 import { useUserStore } from '@/stores/user'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
-import { pulseError, pulseSuccess } from '@/script'
+import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
 import { MAX_SUPPORT_TICKET_ATTACHMENT_SIZE } from '@/consts'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
@@ -251,6 +251,9 @@ export default {
       }
     },
     async submitTicket () {
+      if (this.isLoading || this.isSuccessfullySubmitted || this.v$.$invalid) return
+      showLoader()
+      this.isLoading = true
       try {
         // Load the attachment files into memory
         const loadFilePromises = this.attachmentFileObjects.map(this.loadFile)
@@ -270,6 +273,9 @@ export default {
         pulseSuccess(this.$i18n('support_page.success'))
       } catch (e) {
         pulseError(i18n('error_unexpected') + ': ' + e.message)
+      } finally {
+        hideLoader()
+        this.isLoading = false
       }
     },
     clearForm () {
