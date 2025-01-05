@@ -2565,6 +2565,15 @@ store:
   storeFrom: Store from {name}
   no_chain_choosen: no chain chosen
   may_referred_to_in_public_unclear: not yet clarified
+
+navi:
+  google_maps: "Google Maps"
+  waze: "Waze"
+  apple_maps: "Apple Maps"
+  osmand: "OsmAnd"
+  komoot: "Komoot"
+  here: "HERE WeGo"
+
 search:
   mygroups: My groups
   mybuddies: My buddies

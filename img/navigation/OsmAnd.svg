@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="1000"
+   width="1000"
+   version="1.1"
+   id="svg2"
+   sodipodi:docname="Osmand.svg"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="namedview2"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:zoom="0.56651345"
+     inkscape:cx="439.53061"
+     inkscape:cy="717.54695"
+     inkscape:window-width="3440"
+     inkscape:window-height="1351"
+     inkscape:window-x="2151"
+     inkscape:window-y="1338"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <linearGradient
+     id="a"
+     gradientUnits="userSpaceOnUse"
+     x1="502.0607"
+     x2="499.52142"
+     y1="4.9999999e-06"
+     y2="1000.235"
+     gradientTransform="matrix(0.97707611,0,0,0.97707611,11.473543,11.47354)">
+    <stop
+       offset="0"
+       stop-color="#ffa033"
+       id="stop1" />
+    <stop
+       offset="1"
+       stop-color="#f80"
+       id="stop2" />
+  </linearGradient>
+  <path
+     d="m 596.08713,904.23385 -83.00261,79.12265 a 19.143852,19.143852 0 0 1 -26.17001,0 L 403.91482,904.23483 C 200.7807,860.16869 48.579599,679.42329 48.579599,463.03318 c 0,-249.38598 202.107221,-451.559635 451.419911,-451.559635 249.3127,0 451.42089,202.173655 451.42089,451.559635 0,216.38913 -152.20012,397.13356 -355.33327,441.20067 z M 500.02296,204.99031 c -142.44402,0 -257.91976,115.49821 -257.91976,257.98326 0,142.48506 115.47574,257.9862 257.91976,257.9862 142.44402,0 257.92465,-115.507 257.92465,-257.9862 0,-142.47919 -115.48063,-257.98326 -257.92465,-257.98326 z"
+     fill="url(#a)"
+     fill-rule="evenodd"
+     id="path2"
+     style="fill:url(#a);stroke-width:0.977076" />
+</svg>

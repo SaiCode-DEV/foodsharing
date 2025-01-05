@@ -2,6 +2,7 @@
 
 ## Features
 - Added a custom error page #1559 #526 !3117 !3952 @\_fridtjof_ @SaiCode
+- Add navigation buttons for Maps, Waze & more navigaion providers #2301 !3953 @SaiCode
 
 ## Changes
 - Include user agent in support ticket creation #2212 !3838 @AntonBallmaier

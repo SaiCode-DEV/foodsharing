@@ -61,14 +61,22 @@
         <AvatarList :profiles="fsp.managers" :max-visible-avatars="10" />
       </Container>
       <Container :title="$i18n('fsp.address')">
-        <div class="list-group-item">
-          {{ fsp.address }} <br>
-          {{ fsp.postalCode }} {{ fsp.city }} <br>
-          <a :href="$url('map', { foodSharePointId: id })">
-            <i class="fas fa-map-marker-alt" />
-            {{ $i18n('fsp.show_on_large_map') }}
-          </a>
+        <div class="list-group-item d-flex justify-content-between">
+          <div>
+            {{ fsp.address }} <br>
+            {{ fsp.postalCode }} {{ fsp.city }} <br>
+            <a :href="$url('map', { foodSharePointId: id })">
+              <i class="fas fa-map-marker-alt" />
+              {{ $i18n('fsp.show_on_large_map') }}
+            </a>
+          </div>
+          <NavSelector
+            :latitude="fsp.location.lat"
+            :longitude="fsp.location.lon"
+            vertical
+          />
         </div>
+
         <LeafletLocationPicker
           class="list-group-item p-0 fsp-minimap"
           :icon="icon"
@@ -131,10 +139,21 @@ import ContainerButton from '@/components/Container/ContainerButton.vue'
 import Time from '@/components/Time.vue'
 import { useUserStore } from '@/stores/user'
 import L from 'leaflet'
+import NavSelector from '@/components/UI/Nav/NavSelector.vue'
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 
 export default {
-  components: { BasePage, Container, AvatarList, Markdown, LeafletLocationPicker, Wall, ContainerButton, Time },
+  components: {
+    BasePage,
+    Container,
+    AvatarList,
+    Markdown,
+    LeafletLocationPicker,
+    Wall,
+    ContainerButton,
+    Time,
+    NavSelector,
+  },
   props: {
     id: { type: Number, required: true },
   },

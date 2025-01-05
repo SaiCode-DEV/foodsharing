@@ -92,29 +92,19 @@
               {{ row.value.name }}
             </template>
             <template #cell(actions)="row">
-              <b-button
-                size="sm"
-                @click.stop="row.toggleDetails"
-              >
-                {{ row.detailsShowing ? 'x' : 'Details' }}
-              </b-button>
-            </template>
-            <template #row-details="row">
-              <b-card>
-                <div class="details">
-                  <p>
-                    <strong>{{ $i18n('storelist.addressdata') }}</strong><br>
-                    {{ row.item.street }} <a
-                      :href="mapLink(row.item)"
-                      class="nav-link details-nav"
-                      :title="$i18n('storelist.map')"
-                    >
-                      <i class="fas fa-map-marker-alt" />
-                    </a><br> {{ row.item.zipCode }} {{ row.item.city }}
-                  </p>
-                  <p><strong>{{ $i18n('storelist.entered') }}</strong> {{ row.item.createdAt }}</p>
-                </div>
-              </b-card>
+              <div class="d-flex">
+                <b-btn
+                  :href="mapLink(row.item)"
+                  class="nav-link mr-2"
+                  :title="$i18n('storelist.map')"
+                >
+                  <i class="fas fa-map-marker-alt" />
+                </b-btn>
+                <NavSelector
+                  :latitude="row.item.location.lat"
+                  :longitude="row.item.location.lon"
+                />
+              </div>
             </template>
           </b-table-mobile-friendly>
         </template>
@@ -141,23 +131,21 @@
 
 <script>
 import {
-  BPagination,
   BFormSelect,
   VBTooltip,
-  BButton,
-  BCard,
 } from 'bootstrap-vue'
 import StoreStatusIcon from './StoreStatusIcon.vue'
 import ConfigureableList from '@/components/ConfigureableList.vue'
 import BTableMobileFriendly from '@/components/BTableMobileFriendly.vue'
 import { useStoreStore } from '@/stores/store'
 import { useUserStore } from '@/stores/user'
+import NavSelector from '@/components/UI/Nav/NavSelector.vue'
 
 const storeStore = useStoreStore()
 const userStore = useUserStore()
 
 export default {
-  components: { BCard, BTableMobileFriendly, BButton, BPagination, BFormSelect, StoreStatusIcon, ConfigureableList },
+  components: { BTableMobileFriendly, BFormSelect, StoreStatusIcon, ConfigureableList, NavSelector },
   directives: { VBTooltip },
   props: {
     stores: { type: Array, required: true },
@@ -319,26 +307,12 @@ export default {
       this.state.filterText = ''
     },
     mapLink (store) {
-      const regex = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
-      if (regex.test(navigator.userAgent)) {
-        if (['iPad', 'iPhone', 'iPod'].includes(
-          navigator?.userAgentData?.platform ||
-          navigator?.platform ||
-          'unknown')) {
-          return `maps://?q=${store.location.lat},${store.location.lon}`
-        }
-        return `geo:0,0?q=${store.location.lat},${store.location.lon}`
-      }
       return this.$url('map', { storeId: store.id })
     },
   },
 }
 </script>
 <style>
-  .details-nav {
-    float:right;
-    font-size: 2em;
-  }
   .one-line-button {
     min-width: fit-content;
   }

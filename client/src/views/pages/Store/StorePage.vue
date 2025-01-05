@@ -81,6 +81,8 @@
               :particularities-chain="storeInformation.chain?.information"
               :weight-type="storeInformation.weight"
               :store-title="storeInformation.name"
+              :latitude="storeInformation.location.lat"
+              :longitude="storeInformation.location.lon"
               :street="storeInformation.address.street"
               :postcode="storeInformation.address.zipCode"
               :city="storeInformation.address.city"

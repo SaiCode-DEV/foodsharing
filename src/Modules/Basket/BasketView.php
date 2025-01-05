@@ -116,11 +116,7 @@ class BasketView extends View
                     'zoom' => MapConstants::ZOOM_CITY,
                     'coordinates' => $basket->location,
                 ]);
-
-                $label = $this->translator->trans('basket.where');
-                $this->pageHelper->addContent('<div class="page-container page render"><h3>' . $label . '</h3>
-                    ' . $map . '
-                </div>', CNT_RIGHT);
+                $this->pageHelper->addContent($map, CNT_RIGHT);
             }
         }
     }

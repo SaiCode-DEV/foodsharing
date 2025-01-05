@@ -1186,6 +1186,14 @@ store:
       16: "{actor} hat die Beitrittsanfrage zurückgezogen"
   to_map: "Auf der Karte anzeigen"
 
+navi:
+  google_maps: "Google Maps"
+  waze: "Waze"
+  apple_maps: "Apple Maps"
+  osmand: "OsmAnd"
+  komoot: "Komoot"
+  here: "HERE WeGo"
+
 storeedit:
   bread: "Betrieb bearbeiten"
   add-new: "Neuen Betrieb anlegen"

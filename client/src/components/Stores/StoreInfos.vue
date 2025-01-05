@@ -15,13 +15,20 @@
         <div class="desc-block-title mb-2 py-1">
           {{ $i18n('store.address') }}
         </div>
-        <div>
-          {{ street }} <br>
-          {{ postcode }} {{ city }} <br>
-          <a :href="$url('map', { storeId: storeId })">
-            <i class="fas fa-map-marker-alt" />
-            {{ $i18n('store.to_map') }}
-          </a>
+        <div class="d-flex justify-content-between">
+          <div>
+            {{ street }} <br>
+            {{ postcode }} {{ city }} <br>
+            <a :href="$url('map', { storeId: storeId })">
+              <i class="fas fa-map-marker-alt" />
+              {{ $i18n('store.to_map') }}
+            </a>
+          </div>
+          <NavSelector
+            :latitude="latitude"
+            :longitude="longitude"
+            vertical
+          />
         </div>
       </div>
       <div
@@ -99,9 +106,10 @@
 import Markdown from '@/components/Markdown/Markdown.vue'
 import Container from '@/components/Container/Container.vue'
 import { getters, STORE_PUBLICITY_AND_STICKER_OPTIONS } from '@/stores/stores'
+import NavSelector from '@/components/UI/Nav/NavSelector.vue'
 
 export default {
-  components: { Markdown, Container },
+  components: { Markdown, Container, NavSelector },
   props: {
     particularitiesDescription: {
       type: String,
@@ -114,6 +122,14 @@ export default {
     storeTitle: {
       type: String,
       default: null,
+    },
+    latitude: {
+      type: Number,
+      default: 0,
+    },
+    longitude: {
+      type: Number,
+      default: 0,
     },
     street: {
       type: String,
