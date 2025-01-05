@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Foodsharing\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -26,11 +28,12 @@ class ExceptionEventSubscriber implements EventSubscriberInterface
     {
         $uri = $event->getRequest()->getRequestUri();
         $exception = $event->getThrowable();
-        if (str_starts_with($uri, '/api') && $exception instanceof HttpException) {
+        if (str_starts_with($uri, '/api')) {
+            $statusCode = $exception instanceof HttpException ? $exception->getStatusCode() : 500;
             $event->setResponse(new JsonResponse([
                 'message' => $exception->getMessage(),
-                'code' => $exception->getStatusCode(),
-            ], $exception->getStatusCode()));
+                'code' => $statusCode,
+            ], $statusCode));
         }
     }
 }

@@ -1,7 +1,7 @@
 # Release "Olive", 2025-??-??
 
 ## Features
-- Added a custom error page #1559 #526 !3117 @\_fridtjof_ @SaiCode
+- Added a custom error page #1559 #526 !3117 !3952 @\_fridtjof_ @SaiCode
 
 ## Changes
 - Include user agent in support ticket creation #2212 !3838 @AntonBallmaier
