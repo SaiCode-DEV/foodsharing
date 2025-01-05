@@ -15,10 +15,6 @@
         <b>{{ $i18n('profile.infos.fsMail') }}:</b>
         <p><a :href="getMailboxUrl(profileInfos.fsMail)">{{ splitMail(profileInfos.fsMail)[0] }}@<wbr>{{ splitMail(profileInfos.fsMail)[1] }}</a></p>
       </li>
-      <li class="mb-2">
-        <b>{{ $i18n('profile.infos.buddies') }}:</b>
-        <p>{{ buddycountTranslation }}</p>
-      </li>
       <li>
         <b>{{ getFsIdTranslation }}:</b> {{ profileInfos.fsId }}
       </li>
@@ -40,7 +36,7 @@ export default {
       return this.profileInfos.lastActivity ? this.profileInfos.lastActivity : this.$i18n('profile.infos.never')
     },
     getFsIdTranslation () {
-      return !this.isFoodSaver ? this.$i18n('profile.infos.foodsharerId') : this.$i18n('profile.infos.foodsaverId')
+      return this.$i18n('profile.infos.foodsaverId')
     },
     buddycountTranslation () {
       const knownBuddycount = this.$i18n('profile.infos.buddycount_known', { name: this.profileInfos.name, count: this.profileInfos.buddyCount })

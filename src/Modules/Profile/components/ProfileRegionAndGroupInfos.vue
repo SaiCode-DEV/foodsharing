@@ -86,7 +86,6 @@
         <span v-if="sleepingInformation.sleepStatus === SLEEP_STATUS.FULL">
           {{ $i18n('profile.sleeping') }}
         </span>
-        :
       </h5>
       <div v-if="sleepingInformation.sleepMessage" class="d-inline d-flex flex-wrap flex-row">
         <div class="sectionClass">
@@ -115,8 +114,28 @@ import BananaModal from '@/components/Modals/Profile/BananaModal.vue'
 import { ROLE } from '@/consts'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import { getBananaMetadata } from '@/api/banana'
+import { locale } from '@/helper/i18n'
 
 const userStore = useUserStore()
+
+const formatNumber = (number, unit) => {
+  if (number === undefined || number === null || isNaN(number)) {
+    return '0'
+  }
+
+  const options = {
+    notation: 'compact',
+    maximumFractionDigits: 2,
+  }
+
+  if (unit === 'kg') {
+    options.style = 'unit'
+    options.unit = 'kilogram'
+    options.unitDisplay = 'narrow'
+  }
+
+  return new Intl.NumberFormat(locale, options).format(number)
+}
 
 export default {
   components: { Markdown, BananaModal },
@@ -158,21 +177,18 @@ export default {
     },
     badges () {
       return [
-        { id: 'posts', text: this.$i18n('profile.stats.posts'), value: this.statistics.postCount >= 0 ? this.statistics.postCount.toString() : null },
-        { id: 'fetched', text: this.$i18n('profile.stats.fetch_count'), value: this.statistics.fetchCount >= 0 ? this.statistics.fetchCount.toString() + ' x' : null },
-        { id: 'baskets', text: this.$i18n('profile.stats.baskets'), value: this.statistics.basketCount >= 0 ? this.statistics.basketCount.toString() : null },
         { id: 'bananas', text: this.$i18n('profile.stats.bananas'), value: this.bananaData?.receivedCount, link: this.openBananaModal },
-        { id: 'saved', text: this.$i18n('profile.stats.weight'), value: this.formatFetchWeight >= 0.00 ? this.formatFetchWeight.toString() : null },
-        { id: 'buddies', text: this.$i18n('profile.infos.buddies'), value: this.statistics.buddyCount >= 0 ? this.statistics.buddyCount.toString() : null },
+        { id: 'posts', text: this.$i18n('profile.stats.posts'), value: this.statistics.postCount >= 0 ? formatNumber(this.statistics.postCount) : null },
+        { id: 'baskets', text: this.$i18n('profile.stats.baskets'), value: this.statistics.basketCount >= 0 ? formatNumber(this.statistics.basketCount) : null },
+        { id: 'fetched', text: this.$i18n('profile.stats.fetch_count'), value: this.statistics.fetchCount >= 0 ? formatNumber(this.statistics.fetchCount) + ' x' : null },
+        { id: 'saved', text: this.$i18n('profile.stats.weight'), value: this.formatFetchWeight >= 0.00 ? formatNumber(this.formatFetchWeight) + ' ' + this.$i18n('profile.stats.weight_unit') : null },
+        { id: 'buddies', text: this.$i18n('profile.infos.buddies'), value: this.statistics.buddyCount >= 0 ? formatNumber(this.statistics.buddyCount) : null },
       ]
     },
     filteredBadges () {
       const itemsToFilter = []
-      if (!this.isVerified) {
-        itemsToFilter.push('fetched', 'saved', 'bananas')
-      }
       if (!this.isSessionUserFoodsaver) {
-        itemsToFilter.push('posts')
+        itemsToFilter.push('bananas', 'posts', 'fetched', 'saved')
       }
       return this.badges.filter(badge => !itemsToFilter.includes(badge.id))
     },
@@ -187,9 +203,6 @@ export default {
     },
     isSessionUserFoodsaver () {
       return userStore.isFoodsaver
-    },
-    isCurrentUserFoodSaver () {
-      return this.role > ROLE.FOODSHARER
     },
     formatFetchWeight () {
       const value = parseFloat(this.statistics.fetchWeight)

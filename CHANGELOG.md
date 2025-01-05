@@ -8,6 +8,7 @@
 - Increased the size of the chat box title !3592 @robinkernel
 - Rewrite Legal style to Vue & UI style fixed !3911 @chriswalg @SaiCode
 - Prevent autofil save form for adress !3740 @chriswalg
+- Frontend design changes in profile #1936 !3937 @McGoldi
 
 ## Bugfixes
 - Resolve "region filter bug on profile page: Blank screen when navigating store list" #2295 !3940 @chriswalg

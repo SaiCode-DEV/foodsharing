@@ -613,7 +613,7 @@ group:
 legal:
   privacy_policy: "Datenschutzerklärung"
   privacy_notice: "Datenschutzbelehrung für Betriebsverantwortliche und Botschafter:innen"
-  acknowledge: 
+  acknowledge:
     qustion_policy: "Akzeptierst du unsere Datenschutzerklärung?"
     qustion_notice: "Akzeptierst du unsere Datenschutzerklärung und die Datenschutzbelehrung?"
     select: "Bitte auswählen"
@@ -2275,7 +2275,7 @@ profile:
   sections:
     orga_rights: "##### hat als Orga-Mensch [weitreichende Berechtigungen]({wikiurl}) auf der Plattform."
     ambassador_for: "für"
-    foodSaver_in_region: "Foodsaver in"
+    foodSaver_in_region: "eingetragen in den Bezirken"
     workgroups_admin: "engagiert sich als Ansprechperson für die Gruppen"
     workgroups_member: "gemeinsam in folgenden Arbeitsgruppen"
     no_common_workgroups: "in keiner gemeinsamen Arbeitsgruppe"
@@ -2377,10 +2377,10 @@ profile:
     buddycount_followed: "{name} kennen {count} Foodsaver:innen"
     buddycount_known: "{name} kennt {count} Foodsaver:innen"
     fetchrate: "Abholquote"
-    foodsaverId: "Foodsaver-ID"
-    foodsharerId: "Foodsharer-ID"
+    foodsaverId: "ID"
   stats:
-    weight: "kg gerettet"
+    weight_unit: "kg"
+    weight: "gerettet"
     fetch_count: "abgeholt"
     baskets: "Essenskörbe"
     posts: "Beiträge"
