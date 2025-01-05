@@ -3709,7 +3709,8 @@ legal:
     las condiciones de protección de datos.'
   are_you_sure_to_downgrade: 'Atención: ha elegido ser degradado a rescatista. ¿Está
     seguro?'
-  privacy_notice: 'Instrucciones de protección de datos'
+  privacy_notice: 'Instrucciones de protección de datos para responsables de empresas
+    y embajadores/as'
   privacy_notice_agree:
     not_acknowledge: 'No estoy de acuerdo y quiero ser degradado a rescatista.'
     acknowledge: 'Estoy de acuerdo.'
