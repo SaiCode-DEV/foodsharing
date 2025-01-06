@@ -938,6 +938,7 @@ profile:
     weight: ''
     count: ''
     posts: ''
+    weight_unit: kg
   commitments_stat:
     eventsParticipatedWeek: ''
     pickupCount: ''
@@ -2864,3 +2865,6 @@ apply_type: ''
 validation:
   phone_number_invalid: O número de telefone é inválido (por exemplo, falta o indicativo
     do país, é demasiado curto, demasiado longo ou contém caracteres inválidos)
+navi:
+  google_maps: Google Maps
+  apple_maps: Apple Maps
