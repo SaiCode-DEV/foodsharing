@@ -2866,3 +2866,6 @@ usersearch:
   search_tag: ''
   no_tag_preset: ''
   select_tag: ''
+navi:
+  apple_maps: خرائط أبل
+  google_maps: خرائط جوجل
