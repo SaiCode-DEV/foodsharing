@@ -2868,3 +2868,6 @@ usersearch:
   search_tag: ''
   no_tag_preset: ''
   select_tag: ''
+navi:
+  google_maps: Χάρτες Google
+  apple_maps: Apple Maps
