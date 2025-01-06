@@ -591,11 +591,12 @@ profile:
   regions: '{name} is a foodsaver in'
   stats:
     baskets: food baskets
-    weight: kg saved
+    weight: saved
     posts: posts
     count: pick-ups
     fetch_count: picked up
     bananas: Bananas
+    weight_unit: kg
   infos:
     buddies: Buddies
     never: Never
@@ -604,7 +605,7 @@ profile:
     registrationDate: Registration date
     title: Information
     foodsharerId: Foodsharer ID
-    foodsaverId: Foodsaver ID
+    foodsaverId: ID
     fsMail: Internal mailbox
     privateMail: Private email address
     buddycount1: '{name} is buddy with {count} foodsavers'
@@ -841,7 +842,7 @@ profile:
     can be found in the [Ambassador Forum]({url})
   sections:
     ambassador_for: for
-    foodSaver_in_region: Foodsaver in
+    foodSaver_in_region: registered in the districts
     workgroups_admin: is the contact person for groups
     workgroups_member: together in the following working groups
     home_region_from: Home region
