@@ -1508,6 +1508,7 @@ profile:
     count: ''
     posts: ''
     baskets: ''
+    weight_unit: kg
   workgroups_admin: ''
   online: ''
   go: ''
@@ -2895,3 +2896,6 @@ copied_to_clipboard: „{text}“ byl zkopírován do schránky.
 no_automatic_delete: 'V případě, že poslední žádost byla podána před pěti lety:'
 automatic_delete: '- profil by měl být odstraněn.'
 automatic_not_delete: '- profil by měl být zachován.'
+navi:
+  google_maps: Mapy Google
+  apple_maps: Apple Mapy
