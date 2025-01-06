@@ -1030,6 +1030,7 @@ profile:
     weight: ''
     count: ''
     baskets: ''
+    weight_unit: kg
   title: ''
   notFound: ''
   notes:
@@ -2875,3 +2876,6 @@ usersearch:
   search_tag: ''
   no_tag_preset: ''
   select_tag: ''
+navi:
+  apple_maps: Apple Kaarten
+  google_maps: Google Maps
