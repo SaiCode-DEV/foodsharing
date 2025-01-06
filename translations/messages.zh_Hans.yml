@@ -2863,3 +2863,6 @@ usersearch:
   search_tag: ''
   no_tag_preset: ''
   select_tag: ''
+navi:
+  apple_maps: 蘋果地圖
+  google_maps: Google地图
