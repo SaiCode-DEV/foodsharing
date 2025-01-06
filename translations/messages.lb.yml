@@ -537,6 +537,7 @@ profile:
     weight: ''
     count: ''
     baskets: ''
+    weight_unit: kg
   regions: ''
   workgroups_admin: ''
   no_common_workgroups: ''
