@@ -292,7 +292,7 @@ class ActivityGateway extends BaseGateway
     private function formatImages(array &$post): void
     {
         if (!empty($post['attach'])) {
-            $data = json_decode($post['attach'], true);
+            $data = json_decode((string)$post['attach'], true);
             if (isset($data['image'])) { // Legacy images
                 $post['gallery'] = array_column($data['image'], 'file');
             } elseif (isset($data['images'])) {

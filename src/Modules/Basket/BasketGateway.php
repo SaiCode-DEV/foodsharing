@@ -31,8 +31,8 @@ class BasketGateway extends BaseGateway
                 'time' => date('Y-m-d H:i:s'),
                 'description' => $basket->description,
                 'picture' => json_encode($basket->pictures),
-                'tel' => strip_tags($basket->telephone ?? null),
-                'handy' => strip_tags($basket->mobile ?? null),
+                'tel' => strip_tags((string)($basket->telephone ?? null)),
+                'handy' => strip_tags((string)($basket->mobile ?? null)),
                 'contact_type' => implode(':', $basket->contactTypes),
                 'location_type' => 0,
                 'weight' => (float)$basket->weightInGrams / 1000,
@@ -245,8 +245,8 @@ class BasketGateway extends BaseGateway
                 'picture' => json_encode($basket->pictures),
                 'lat' => $basket->lat,
                 'lon' => $basket->lon,
-                'tel' => strip_tags($basket->telephone ?? null),
-                'handy' => strip_tags($basket->mobile ?? null),
+                'tel' => strip_tags((string)($basket->telephone ?? null)),
+                'handy' => strip_tags((string)($basket->mobile ?? null)),
                 'contact_type' => implode(':', $basket->contactTypes),
                 'weight' => (float)$basket->weightInGrams / 1000,
             ],
@@ -272,7 +272,7 @@ class BasketGateway extends BaseGateway
             ':status' => BasketStatus::REQUESTED_MESSAGE_READ
         ]);
 
-        return array_map([BasketForOwnerMenu::class, 'createFromArray'], $baskets);
+        return array_map(BasketForOwnerMenu::createFromArray(...), $baskets);
     }
 
     /**
@@ -372,7 +372,7 @@ class BasketGateway extends BaseGateway
             ]
         );
 
-        return array_map([BasketForListView::class, 'createFromArray'], $baskets);
+        return array_map(BasketForListView::createFromArray(...), $baskets);
     }
 
     public function listNewestBaskets(): array

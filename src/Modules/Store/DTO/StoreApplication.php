@@ -11,8 +11,8 @@ class StoreApplication
     public Profile $user;
     public bool $verified;
     public ?int $distanceInKm = null;
-    public ?DateTime $date;
-    public ?string $message;
+    public ?DateTime $date = null;
+    public ?string $message = null;
 
     public static function createFromArray(array $data)
     {
@@ -24,7 +24,7 @@ class StoreApplication
             $application->distanceInKm = $data['distance'] < 1 ? 0 : round($data['distance']);
         }
         $application->date = is_null($data['date_activity']) ? null : new Carbon($data['date_activity']);
-        $application->message = $data['content'] ? $data['content'] : null;
+        $application->message = $data['content'] ?: null;
 
         return $application;
     }

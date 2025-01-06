@@ -49,7 +49,7 @@ class BasketTransactions
     private function tagUploadedImages(Basket $basket)
     {
         if ($basket->id && !empty($basket->pictures)) {
-            $uuids = array_map(fn ($picture) => substr($picture, 13), $basket->pictures);
+            $uuids = array_map(fn ($picture) => substr((string)$picture, 13), $basket->pictures);
             $this->uploadsGateway->setUsage($uuids, UploadUsage::BASKET, $basket->id);
         }
     }
@@ -63,10 +63,8 @@ class BasketTransactions
         $baskets = $this->basketGateway->listMyBaskets($this->session->id());
 
         foreach ($baskets as $basket) {
-            $fittingRequests = array_values(array_filter($requests, function ($request) use ($basket) {
-                return $request['id'] === $basket->id;
-            }));
-            $basket->requests = array_map([BasketRequest::class, 'createFromArray'], $fittingRequests);
+            $fittingRequests = array_values(array_filter($requests, fn ($request) => $request['id'] === $basket->id));
+            $basket->requests = array_map(BasketRequest::createFromArray(...), $fittingRequests);
         }
 
         return $baskets;

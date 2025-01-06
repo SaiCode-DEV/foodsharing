@@ -14,10 +14,10 @@ use Foodsharing\Modules\Foodsaver\Profile;
 class AwardedAchievementWithUserDetails
 {
     public Profile $user;
-    public ?Profile $reviewer;
+    public ?Profile $reviewer = null;
     public int $achievementId;
-    public ?string $notice;
-    public ?DateTime $validUntil;
+    public ?string $notice = null;
+    public ?DateTime $validUntil = null;
     public DateTime $createdAt;
 
     public static function createFromArray(array $data): AwardedAchievementWithUserDetails

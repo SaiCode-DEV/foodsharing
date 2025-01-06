@@ -42,7 +42,7 @@ class BlogpostController extends AbstractFoodsharingRestController
     )]
     #[Rest\Get('blog')]
     #[Rest\QueryParam(name: 'page', requirements: '\d+', default: 0, description: 'Which page of updates to return')]
-    public function getBlogpostsAction(ParamFetcher $paramFetcher): Response
+    public function getBlogposts(ParamFetcher $paramFetcher): Response
     {
         $page = intval($paramFetcher->get('page'));
 
@@ -79,7 +79,7 @@ class BlogpostController extends AbstractFoodsharingRestController
     #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Blog post not found')]
     #[OA2\RequestBody(content: new Model(type: BlogPostData::class))]
-    #[ParamConverter(data: 'post', class: 'Foodsharing\RestApi\Models\Blog\BlogPostData', converter: 'fos_rest.request_body')]
+    #[ParamConverter(data: 'post', class: BlogPostData::class, converter: 'fos_rest.request_body')]
     public function editBlogPost(int $blogId, BlogPostData $post, ValidatorInterface $validator): Response
     {
         $this->assertLoggedIn();
@@ -184,7 +184,7 @@ class BlogpostController extends AbstractFoodsharingRestController
     #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
     #[Rest\Post('blog')]
     #[OA2\RequestBody(content: new Model(type: BlogPostData::class))]
-    #[ParamConverter(data: 'post', class: 'Foodsharing\RestApi\Models\Blog\BlogPostData', converter: 'fos_rest.request_body')]
+    #[ParamConverter(data: 'post', class: BlogPostData::class, converter: 'fos_rest.request_body')]
     public function addBlogpost(BlogPostData $post, ValidatorInterface $validator): Response
     {
         $this->assertLoggedIn();

@@ -42,8 +42,8 @@ class PassportGeneratorTransaction extends AbstractController
         private readonly UrlGeneratorInterface $router,
         #[Autowire(param: 'kernel.project_dir')]
         private readonly string $projectDir,
-        private GoogleWalletPass $googleWalletPass,
-        private AppleWalletPass $appleWalletPass,
+        private readonly GoogleWalletPass $googleWalletPass,
+        private readonly AppleWalletPass $appleWalletPass,
         private readonly TimeHelper $timeHelper,
         private readonly BellGateway $bellGateway,
         private readonly EmailHelper $emailHelper,
@@ -383,7 +383,7 @@ class PassportGeneratorTransaction extends AbstractController
         }
         switch ($walletType) {
             case 'apple':
-                $photo_uuid = substr($photo, strlen('/api/uploads/'));
+                $photo_uuid = substr((string)$photo, strlen('/api/uploads/'));
                 $photoFileName = $this->uploadsTransactions->generateFilePath($photo_uuid);
                 $result = $this->appleWalletPass->createNewPass($userId, $name, $profileURL, $photoFileName, $passDate);
                 break;

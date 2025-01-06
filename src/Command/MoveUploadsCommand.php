@@ -6,16 +6,16 @@ use Exception;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Modules\Uploads\UploadsTransactions;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
+#[AsCommand('foodsharing:move-uploads')]
 class MoveUploadsCommand extends Command
 {
-    protected static $defaultName = 'foodsharing:move-uploads';
-
     public function __construct(
         private readonly Database $db,
         private readonly UploadsGateway $uploadsGateway,
@@ -49,9 +49,9 @@ class MoveUploadsCommand extends Command
         $oldPictures = [];
         $invalidPictures = [];
         foreach ($entriesWithPicture as $entry) {
-            if (str_starts_with($entry['picture'], 'picture/')) {
+            if (str_starts_with((string)$entry['picture'], 'picture/')) {
                 $oldPictures[] = $entry;
-            } elseif (!str_starts_with($entry['picture'], '/api/uploads')) {
+            } elseif (!str_starts_with((string)$entry['picture'], '/api/uploads')) {
                 $invalidPictures[] = $entry;
             }
         }

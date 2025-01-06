@@ -25,7 +25,7 @@ class PassHistoryEntry
      * The person who created the pass. This can be null if, for example, the ambassador's profile does not exist
      * anymore.
      */
-    public ?Profile $actor;
+    public ?Profile $actor = null;
 
     public static function create(int $foodsaverId, DateTime $date, ?Profile $actor)
     {

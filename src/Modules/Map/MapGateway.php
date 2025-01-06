@@ -35,7 +35,7 @@ class MapGateway extends BaseGateway
             FROM fs_basket
             WHERE `status` = 1');
 
-        return array_map([MapMarker::class, 'createFromArray'], $markers);
+        return array_map(MapMarker::createFromArray(...), $markers);
     }
 
     public function getFoodSharePointMarkers(): array
@@ -45,7 +45,7 @@ class MapGateway extends BaseGateway
             'lat !=' => ''
         ]);
 
-        return array_map([MapMarker::class, 'createFromArray'], $markers);
+        return array_map(MapMarker::createFromArray(...), $markers);
     }
 
     public function getCommunityMarkers(): array
@@ -57,7 +57,7 @@ class MapGateway extends BaseGateway
             WHERE p.lat != '' AND p.status = ?",
             [RegionPinStatus::ACTIVE]);
 
-        return array_map([MapMarker::class, 'createFromArray'], $markers);
+        return array_map(MapMarker::createFromArray(...), $markers);
     }
 
     /**

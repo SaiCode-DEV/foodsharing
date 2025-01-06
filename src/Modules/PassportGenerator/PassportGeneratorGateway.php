@@ -17,13 +17,11 @@ final class PassportGeneratorGateway extends BaseGateway
     {
         $now = $this->db->now();
 
-        $data = array_map(function ($userId) use ($generatedUserId, $now) {
-            return [
-                'foodsaver_id' => $userId,
-                'date' => $now,
-                'bot_id' => $generatedUserId,
-            ];
-        }, $userIds);
+        $data = array_map(fn ($userId) => [
+            'foodsaver_id' => $userId,
+            'date' => $now,
+            'bot_id' => $generatedUserId,
+        ], $userIds);
 
         return $this->db->insertMultiple('fs_pass_gen', $data);
     }

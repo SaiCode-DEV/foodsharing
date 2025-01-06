@@ -33,8 +33,8 @@ class MarkdownOrPlainTextValidator extends ConstraintValidator
             $converter->convert($value);
 
             return;
-        } catch (CommonMarkException $e) {
-            if ($value === strip_tags($value)) {
+        } catch (CommonMarkException) {
+            if ($value === strip_tags((string)$value)) {
                 return;
             }
         }

@@ -7,12 +7,12 @@ use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Uploads\DTO\UploadedFile;
 use Foodsharing\Modules\Uploads\UploadsGateway;
 
-final class UploadsPermissions
+final readonly class UploadsPermissions
 {
     public function __construct(
-        private readonly Session $session,
-        private readonly UploadsGateway $uploadsGateway,
-        private readonly MailboxPermissions $mailboxPermissions,
+        private Session $session,
+        private UploadsGateway $uploadsGateway,
+        private MailboxPermissions $mailboxPermissions,
     ) {
     }
 

@@ -63,7 +63,7 @@ class ReportGateway extends BaseGateway
     public function getReportsByUser(int $userId): array
     {
         $query = $this->reportSelectDbal();
-        $query->andWhere($query->expr()->eq('r.foodsaver_id', $userId));
+        $query->andWhere($query->expr()->eq('r.foodsaver_id', (string)$userId));
 
         return $query->fetchAllAssociative();
     }
@@ -71,7 +71,7 @@ class ReportGateway extends BaseGateway
     public function getReportsByReporteeRegions(int $regionId, ?array $excludeReportsWithUsers, ?array $onlyReportsWithUsers = null)
     {
         $query = $this->reportSelectDbal();
-        $query->andWhere($query->expr()->eq('fs.bezirk_id', $regionId));
+        $query->andWhere($query->expr()->eq('fs.bezirk_id', (string)$regionId));
         $query->andWhere('r.reporttype = ' . ReportType::LOCAL->value);
 
         if (!empty($excludeReportsWithUsers)) {

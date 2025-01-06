@@ -12,7 +12,7 @@ class Answer
 {
     #[OA\Property(example: 1)]
     #[Assert\IsNull]
-    public ?int $id;
+    public ?int $id = null;
 
     #[OA\Property(example: 'Take every thing I see with me.')]
     #[Assert\NotBlank]
@@ -20,11 +20,11 @@ class Answer
 
     #[OA\Property(example: 'You should not do that. Obviously.')]
     #[Assert\NotBlank]
-    public ?string $explanation;
+    public ?string $explanation = null;
 
     #[OA\Property(example: 0)]
     #[Assert\NotNull]
-    public ?AnswerRating $answerRating;
+    public ?AnswerRating $answerRating = null;
 
     public static function createFromArray(array $data): Answer
     {

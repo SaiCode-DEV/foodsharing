@@ -7,7 +7,7 @@ use Foodsharing\Modules\Core\DBConstants\Basket\Status;
 use Foodsharing\Modules\Core\DBConstants\Map\MapConstants;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class BasketController extends FoodsharingController
 {

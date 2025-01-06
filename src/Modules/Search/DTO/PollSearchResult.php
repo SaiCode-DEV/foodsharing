@@ -21,7 +21,7 @@ class PollSearchResult extends SearchResult
     public string $region_name;
 
     #[OA\Property(description: 'Whether the user has already voted', example: true)]
-    public ?bool $has_voted;
+    public ?bool $has_voted = null;
 
     public static function createFromArray(array $data): PollSearchResult
     {

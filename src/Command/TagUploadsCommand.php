@@ -5,16 +5,16 @@ namespace Foodsharing\Command;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Uploads\UploadsGateway;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
+#[AsCommand('foodsharing:tag-uploads')]
 class TagUploadsCommand extends Command
 {
-    protected static $defaultName = 'foodsharing:tag-uploads';
-
     public function __construct(
         private readonly Database $db,
         private readonly UploadsGateway $uploadsGateway,
@@ -48,7 +48,7 @@ class TagUploadsCommand extends Command
         foreach ($entriesWithValidPictures as $entry) {
             try {
                 if (!$isDryRun) {
-                    $uuid = substr($entry['picture'], 13);
+                    $uuid = substr((string)$entry['picture'], 13);
                     $this->uploadsGateway->setUsage([$uuid], UploadUsage::BLOG_POST, $entry['id']);
                 }
                 ++$taggedFiles;

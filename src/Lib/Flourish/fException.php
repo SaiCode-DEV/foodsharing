@@ -84,7 +84,7 @@ return '{null}';
             $output = preg_replace('#(?:&)?array\(\d+\) \{\n((?:  )*)((?:  )(?=\[)|(?=\}))#', "Array\n\\1(\n\\1\\2", $output);
             $output = preg_replace('/object\((\w+)\)#\d+ \(\d+\) {\n((?:  )*)((?:  )(?=\[)|(?=\}))/', "\\1 Object\n\\2(\n\\2\\3", $output);
             $output = preg_replace('#^((?: {2})+)}(?=\n|$)#m', "\\1)\n", $output);
-            $output = substr($output, 0, -2) . ')';
+            $output = substr((string) $output, 0, -2) . ')';
 
             // Fix indenting issues with the var dump output
             $output_lines = explode("\n", $output);

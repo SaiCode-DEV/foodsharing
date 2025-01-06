@@ -72,7 +72,7 @@ class ForumTransactions
         $this->forumGateway->deletePost($postId);
         try {
             $this->forumGateway->updateLastPostId($threadId);
-        } catch (NoVisiblePostException $e) {
+        } catch (NoVisiblePostException) {
             $posts = $this->forumGateway->listPosts($threadId);
             if (count($posts)) {
                 $this->forumGateway->setLastPostId($threadId, end($posts)['id']);
@@ -110,7 +110,7 @@ class ForumTransactions
         $this->forumGateway->hidePost($postId, $moderatorId, $reason);
         try {
             $this->forumGateway->updateLastPostId($threadId);
-        } catch (NoVisiblePostException $e) {
+        } catch (NoVisiblePostException) {
             // TODO for future MR:
             // Mark whole thread as hidden.
         }
@@ -320,11 +320,7 @@ class ForumTransactions
         }
 
         $userOptions = $this->settingsGateway->getUsersOption($mentionedUsers, UserOptionType::DISABLE_MENTION_NOTIFICATION);
-        $usersWithNotificationsTurnedOn = array_map(function ($item) {
-            return $item['userId'];
-        }, array_filter($userOptions, function ($item) {
-            return !$item['option'];
-        }));
+        $usersWithNotificationsTurnedOn = array_map(fn ($item) => $item['userId'], array_filter($userOptions, fn ($item) => !$item['option']));
 
         $info = $this->forumGateway->getThreadInfo($threadId);
         $regionId = $info['region_id'];

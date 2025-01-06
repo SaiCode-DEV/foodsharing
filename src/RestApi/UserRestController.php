@@ -62,31 +62,31 @@ class UserRestController extends AbstractFoodsharingRestController
 
     public function __construct(
         protected Session $session,
-        private LoginGateway $loginGateway,
-        private FoodsaverGateway $foodsaverGateway,
-        private ProfileGateway $profileGateway,
-        private UploadsGateway $uploadsGateway,
-        private RegionGateway $regionGateway,
-        private EmailHelper $emailHelper,
-        private RegisterTransactions $registerTransactions,
-        private ProfileTransactions $profileTransactions,
-        private FoodsaverTransactions $foodsaverTransactions,
-        private SettingsGateway $settingsGateway,
-        private PassportGeneratorTransaction $passportGeneratorTransaction,
-        private ProfilePermissions $profilePermissions,
-        private QuizPermissions $quizPermissions,
-        private ReportPermissions $reportPermissions,
-        private StorePermissions $storePermissions,
-        private ContentPermissions $contentPermissions,
-        private BlogPermissions $blogPermissions,
-        private RegionPermissions $regionPermissions,
-        private NewsletterEmailPermissions $newsletterEmailPermissions,
-        private SearchPermissions $searchPermissions,
-        private RegionTransactions $regionTransactions,
-        private GroupTransactions $groupTransactions,
+        private readonly LoginGateway $loginGateway,
+        private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly ProfileGateway $profileGateway,
+        private readonly UploadsGateway $uploadsGateway,
+        private readonly RegionGateway $regionGateway,
+        private readonly EmailHelper $emailHelper,
+        private readonly RegisterTransactions $registerTransactions,
+        private readonly ProfileTransactions $profileTransactions,
+        private readonly FoodsaverTransactions $foodsaverTransactions,
+        private readonly SettingsGateway $settingsGateway,
+        private readonly PassportGeneratorTransaction $passportGeneratorTransaction,
+        private readonly ProfilePermissions $profilePermissions,
+        private readonly QuizPermissions $quizPermissions,
+        private readonly ReportPermissions $reportPermissions,
+        private readonly StorePermissions $storePermissions,
+        private readonly ContentPermissions $contentPermissions,
+        private readonly BlogPermissions $blogPermissions,
+        private readonly RegionPermissions $regionPermissions,
+        private readonly NewsletterEmailPermissions $newsletterEmailPermissions,
+        private readonly SearchPermissions $searchPermissions,
+        private readonly RegionTransactions $regionTransactions,
+        private readonly GroupTransactions $groupTransactions,
         private readonly SettingsTransactions $settingsTransactions,
         private readonly LogoutTransactions $logoutTransactions,
-        private TimeHelper $timeHelper,
+        private readonly TimeHelper $timeHelper,
     ) {
     }
 
@@ -523,7 +523,7 @@ class UserRestController extends AbstractFoodsharingRestController
 
         try {
             $this->settingsTransactions->patchProfile($userId, $editableProfileDTO);
-        } catch (NotFoundHttpException $e) {
+        } catch (NotFoundHttpException) {
             throw new NotFoundHttpException('User not found.');
         }
 

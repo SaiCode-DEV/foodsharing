@@ -12,7 +12,7 @@ class StoreChainInformation
     /**
      * Public information about the chain.
      */
-    public ?string $information;
+    public ?string $information = null;
 
     public static function createFromId(?int $id): ?StoreChainInformation
     {

@@ -15,14 +15,14 @@ class StatisticModel
         ref: new Model(type: GeneralStatistic::class),
         description: 'A list of overall statistical data'
     )]
-    #[Type('Foodsharing\RestApi\Models\Statistic\GeneralStatistic')]
+    #[Type(GeneralStatistic::class)]
     public readonly GeneralStatistic $generalStatistic;
 
     #[OA\Property(
         ref: new Model(type: PickupModel::class),
         description: 'Ranking of the most active regions'
     )]
-    #[Type('Foodsharing\RestApi\Models\Statistic\PickupModel')]
+    #[Type(PickupModel::class)]
     public readonly PickupModel $regionsActivity;
 
     public function __construct(

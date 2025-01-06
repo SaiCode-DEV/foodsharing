@@ -8,7 +8,7 @@ class BasketForOwnerMenu
 {
     public int $id;
     public string $description;
-    public ?string $picture;
+    public ?string $picture = null;
     public int $createdAt;
     public array $requests = [];
 

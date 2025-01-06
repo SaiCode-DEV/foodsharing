@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class WallPost
 {
     #[OA\Property(example: 1, title: 'Unique identifier of the wall post')]
-    public ?int $id;
+    public ?int $id = null;
 
     #[OA\Property(example: 'Hello world!', title: 'Text of the wall post')]
     #[Assert\Type('string')]
@@ -20,7 +20,7 @@ class WallPost
     public string $body;
 
     #[OA\Property(example: '2024-01-14 09:57:24', title: 'The posts time of creation')]
-    public ?string $time;
+    public ?string $time = null;
 
     #[OA\Property(type: 'array', title: 'Pictures associated with the post',
         items: new OA\Items(type: 'string', example: '/api/uploads/bcb57ea1-ed73-4fde-849b-c88b11393690'),
@@ -32,7 +32,7 @@ class WallPost
     ])]
     public ?array $pictures = null;
 
-    public ?Profile $author;
+    public ?Profile $author = null;
 
     public static function createFromArray(array $data): WallPost
     {
@@ -42,7 +42,7 @@ class WallPost
         $result->time = $data['time'];
 
         if (!empty($data['attach'])) {
-            $attach = json_decode($data['attach'], true);
+            $attach = json_decode((string)$data['attach'], true);
             if (isset($attach['image'])) { // Legacy images
                 $result->pictures = array_column($attach['image'], 'file');
             } elseif (isset($attach['images'])) {

@@ -518,7 +518,7 @@ class StoreGateway extends BaseGateway
             ':membershipStatus' => MembershipStatus::APPLIED_FOR_TEAM,
         ]);
 
-        return array_map([StoreApplication::class, 'createFromArray'], $applications);
+        return array_map(StoreApplication::createFromArray(...), $applications);
     }
 
     public function getStoreName(int $storeId): string
@@ -1103,7 +1103,7 @@ class StoreGateway extends BaseGateway
         $query .= ' WHERE ' . implode(' AND ', $conditions);
         $markers = $this->db->fetchAll($query, $params);
 
-        return array_map([MapMarker::class, 'createFromArray'], $markers);
+        return array_map(MapMarker::createFromArray(...), $markers);
     }
 
     private function sqlSelectStoreColumns()

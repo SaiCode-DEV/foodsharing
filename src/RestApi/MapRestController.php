@@ -76,7 +76,7 @@ class MapRestController extends AbstractFoodsharingRestController
                     $status = StoreMarkerStatusType::from($queryParams['status'] ?? 'all');
                     $help = StoreMarkerHelpType::from($queryParams['help'] ?? 'all');
                     $scope = StoreMarkerScopeType::from($queryParams['scope'] ?? 'all');
-                } catch (ValueError $error) {
+                } catch (ValueError) {
                     throw new BadRequestHttpException();
                 }
 
@@ -89,7 +89,7 @@ class MapRestController extends AbstractFoodsharingRestController
                     $role = UserMarkerRoleType::from($queryParams['role'] ?? 'all');
                     $activity = UserMarkerActivityType::from($queryParams['activity'] ?? 'all');
                     $member = UserMarkerMemberType::from($queryParams['member'] ?? 'all');
-                } catch (ValueError $error) {
+                } catch (ValueError) {
                     throw new BadRequestHttpException();
                 }
 
@@ -180,7 +180,7 @@ class MapRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The store does not exist')]
     #[Rest\QueryParam(name: 'storeId', requirements: '\d+', description: 'Store for which to return data', nullable: false)]
-    public function getStoreBubbleAction(int $storeId): Response
+    public function getStoreBubble(int $storeId): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('');

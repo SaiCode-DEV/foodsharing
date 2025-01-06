@@ -7,7 +7,7 @@ use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Permissions\ApplicationPermissions;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
 class ApplicationController extends FoodsharingController
@@ -29,7 +29,7 @@ class ApplicationController extends FoodsharingController
     {
         try {
             $groupName = $this->regionGateway->getRegionName($groupId);
-        } catch (DatabaseNoValueFoundException $e) {
+        } catch (DatabaseNoValueFoundException) {
             // region does not exist
             $this->routeHelper->goAndExit('/');
         }

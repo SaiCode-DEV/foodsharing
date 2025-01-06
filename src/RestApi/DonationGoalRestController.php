@@ -13,7 +13,7 @@ use OpenApi\Attributes\Response;
 use OpenApi\Attributes\Tag;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
@@ -35,7 +35,7 @@ final class DonationGoalRestController extends AbstractFoodsharingRestController
         description: 'Successful',
         content: new JsonContent(ref: DonationGoalInformation::class)
     )]
-    public function getInformationAction(): JsonResponse
+    public function getInformation(): JsonResponse
     {
         $donationGoalInformation = $this->cache->get('foodsharingDonationGoalInformation', function (ItemInterface $cacheItem) {
             $cacheItem->expiresAfter(self::TEN_MINUTES_IN_SECONDS);

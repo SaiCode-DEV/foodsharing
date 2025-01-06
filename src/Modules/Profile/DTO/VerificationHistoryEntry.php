@@ -30,7 +30,7 @@ class VerificationHistoryEntry
      * The ambassador who did the (de-)verification. This can be null if, for example, the ambassador's profile does
      * not exist anymore.
      */
-    public ?Profile $actor;
+    public ?Profile $actor = null;
 
     public static function create(int $foodsaverId, DateTime $date, bool $wasVerified, ?Profile $actor): VerificationHistoryEntry
     {

@@ -155,17 +155,15 @@ final class BlogGateway extends BaseGateway
             [':page' => $page * 10]
         );
 
-        $posts = array_map(function ($post) {
-            return BlogPost::create(
-                $post['id'],
-                $post['name'],
-                '', // skip body for overview, more performant
-                $post['teaser'],
-                Carbon::createFromTimestamp($post['time_ts'], new DateTimeZone('Europe/Berlin')),
-                $post['fs_name'],
-                $post['picture']
-            );
-        }, $postData);
+        $posts = array_map(fn ($post) => BlogPost::create(
+            $post['id'],
+            $post['name'],
+            '', // skip body for overview, more performant
+            $post['teaser'],
+            Carbon::createFromTimestamp($post['time_ts'], new DateTimeZone('Europe/Berlin')),
+            $post['fs_name'],
+            $post['picture']
+        ), $postData);
 
         return BlogPostList::create($posts, $postData[0]['totalPosts'] ?? 0);
     }
@@ -237,7 +235,7 @@ final class BlogGateway extends BaseGateway
                 'teaser' => strip_tags($data->teaser),
                 'body' => $this->sanitizer->purifyHtml($data->content),
                 'time' => Carbon::now()->format('Y-m-d H:i:s'),
-                'picture' => strip_tags($data->picture),
+                'picture' => strip_tags((string)$data->picture),
                 'active' => $data->isPublished ? 1 : 0,
             ]
         );

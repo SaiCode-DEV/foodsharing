@@ -5,7 +5,7 @@ namespace Foodsharing\Modules\Relogin;
 use Foodsharing\Lib\FoodsharingController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class ReloginController extends FoodsharingController
 {

@@ -135,14 +135,14 @@ class Foodsharing extends Db
             $pass = 'password';
         }
         $pictureUrl = null;
-        if (rand(0, 10) === 0) {
-            $gender = rand(2, 3);
+        if (random_int(0, 10) === 0) {
+            $gender = random_int(2, 3);
         } else {
-            $gender = rand(0, 1);
+            $gender = random_int(0, 1);
         }
 
         if (isset($extra_params['image']) && ($gender == 0 || $gender == 1)) {
-            $path = './img/seed-data/profile/' . ['men', 'women'][$gender] . '/' . rand(0, 99) . '.jpg';
+            $path = './img/seed-data/profile/' . ['men', 'women'][$gender] . '/' . random_int(0, 99) . '.jpg';
             $profilePicture = new UploadedFile($path, filesize($path), hash_file('sha256', $path), 'image/jpg', 1, null, null);
             $uuid = $this->uploadFile($profilePicture);
             $pictureUrl = '/api/uploads/' . $uuid;
@@ -393,7 +393,7 @@ class Foodsharing extends Db
     {
         // one third of the stores are assigned to an existing store category
         $storeCategoryId = null;
-        if (rand(0, 2) > 1) {
+        if (random_int(0, 2) > 1) {
             $categories = $this->grabColumnFromDatabase('fs_betrieb_kategorie', 'id');
             $storeCategoryId = $this->faker->randomElement($categories);
         }

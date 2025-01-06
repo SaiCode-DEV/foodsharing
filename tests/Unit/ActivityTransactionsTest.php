@@ -22,7 +22,7 @@ class ActivityTransactionsTest extends Unit
     protected $settingsTransaction;
     protected $sessionTransaction;
     protected $currentUserUnitsMock;
-    protected ?ActivityTransactions $transaction;
+    protected ?ActivityTransactions $transaction = null;
     protected UnitTester $tester;
 
     public function _before()

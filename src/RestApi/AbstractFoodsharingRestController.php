@@ -71,11 +71,11 @@ abstract class AbstractFoodsharingRestController extends AbstractFOSRestControll
         $offset = $paramFetcher->get('offset');
 
         foreach (['limit', 'offset'] as $param) {
-            if (!is_numeric($$param)) {
+            if (!is_numeric(${$param})) {
                 throw new \InvalidArgumentException("The {$param} parameter must be a numeric value.");
             }
-            $$param = intval($$param);
-            if ($$param < 0) {
+            ${$param} = intval(${$param});
+            if (${$param} < 0) {
                 throw new \InvalidArgumentException("The {$param} parameter must non be negative.");
             }
         }

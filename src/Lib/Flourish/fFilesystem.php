@@ -272,7 +272,7 @@ class fFilesystem
 		}
 
 		if (!isset($path_info['filename'])) {
-			$path_info['filename'] = preg_replace('#\.' . preg_quote($path_info['extension'], '#') . '$#D', '', $path_info['basename']);
+			$path_info['filename'] = preg_replace('#\.' . preg_quote((string) $path_info['extension'], '#') . '$#D', '', $path_info['basename']);
 		}
 		$path_info['dirname'] .= DIRECTORY_SEPARATOR;
 
@@ -376,7 +376,7 @@ class fFilesystem
 		// Look for a unique name by adding _copy# to the end of the file
 		while (file_exists($file)) {
 			$info = self::getPathInfo($file);
-			if (preg_match('#_copy(\d+)' . preg_quote($extension, '#') . '$#D', $file, $match)) {
+			if (preg_match('#_copy(\d+)' . preg_quote($extension, '#') . '$#D', (string) $file, $match)) {
 				$file = preg_replace('#_copy(\d+)' . preg_quote($extension, '#') . '$#D', '_copy' . ($match[1] + 1) . $extension, $file);
 			} else {
 				$file = $info['dirname'] . $info['filename'] . '_copy1' . $extension;

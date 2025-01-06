@@ -6,7 +6,7 @@ use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Team\DTO\TeamMember;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class TeamController extends FoodsharingController
 {

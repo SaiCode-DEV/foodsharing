@@ -32,7 +32,7 @@ class StoreCategoriesGateway extends BaseGateway
             $name = $this->db->fetchValueByCriteria('fs_betrieb_kategorie', 'name', ['id' => $id]);
 
             return empty($name) ? null : new CommonLabel($id, $name);
-        } catch (DatabaseNoValueFoundException $e) {
+        } catch (DatabaseNoValueFoundException) {
             return null;
         }
     }

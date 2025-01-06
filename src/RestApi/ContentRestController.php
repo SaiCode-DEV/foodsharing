@@ -106,8 +106,8 @@ class ContentRestController extends AbstractFoodsharingRestController
     #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
     #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Content id not found')]
     #[OA2\RequestBody(content: new Model(type: ContentEntry::class))]
-    #[ParamConverter(data: 'content', class: 'Foodsharing\RestApi\Models\Content\ContentEntry', converter: 'fos_rest.request_body')]
-    public function editContentAction(int $contentId, ContentEntry $content, ValidatorInterface $validator): Response
+    #[ParamConverter(data: 'content', class: ContentEntry::class, converter: 'fos_rest.request_body')]
+    public function editContent(int $contentId, ContentEntry $content, ValidatorInterface $validator): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -134,7 +134,7 @@ class ContentRestController extends AbstractFoodsharingRestController
     #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
     #[OA2\RequestBody(content: new Model(type: ContentEntry::class))]
-    #[ParamConverter(data: 'content', class: 'Foodsharing\RestApi\Models\Content\ContentEntry', converter: 'fos_rest.request_body')]
+    #[ParamConverter(data: 'content', class: ContentEntry::class, converter: 'fos_rest.request_body')]
     public function addContent(ContentEntry $content, ValidatorInterface $validator): Response
     {
         $this->assertLoggedIn();

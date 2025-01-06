@@ -112,7 +112,7 @@ class FoodSharePointTransactions
         $newPicture = $newData->picture ?? '';
         if ($newPicture !== $currentData['picture']) {
             if (!empty($currentData['picture'])) {
-                $oldUUID = substr($currentData['picture'], 13);
+                $oldUUID = substr((string)$currentData['picture'], 13);
                 $this->uploadsTransactions->deleteUploadedFile($oldUUID);
             }
 

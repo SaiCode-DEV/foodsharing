@@ -54,9 +54,7 @@ class WorkGroupController extends FoodsharingController
         $localRegions = array_filter($regions, fn ($region) => !in_array($region['type'], [UnitType::COUNTRY, UnitType::WORKING_GROUP]));
 
         // Sort local regions by name in ascending order
-        usort($localRegions, function ($a, $b) {
-            return strcmp($a['name'], $b['name']);
-        });
+        usort($localRegions, fn ($a, $b) => strcmp((string)$a['name'], (string)$b['name']));
 
         $regionToMenuItem = fn ($region) => [
             'name' => $region['name'],
@@ -71,9 +69,7 @@ class WorkGroupController extends FoodsharingController
         $myGroups = array_filter($myRegions, fn ($group) => UnitType::isGroup($group['type']));
 
         // Sort the myGroups array by the 'name' key in ascending order
-        usort($myGroups, function ($a, $b) {
-            return strcmp($a['name'], $b['name']);
-        });
+        usort($myGroups, fn ($a, $b) => strcmp((string)$a['name'], (string)$b['name']));
 
         $menuMyGroups = array_map(
             fn ($group) => [

@@ -4,9 +4,8 @@ namespace Foodsharing\Modules\Achievement;
 
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Permissions\AchievementPermissions;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class AchievementController extends FoodsharingController
 {
@@ -17,7 +16,7 @@ class AchievementController extends FoodsharingController
     }
 
     #[Route(path: '/achievements', name: 'achievements')]
-    public function index(Request $request): Response
+    public function index(): Response
     {
         if (!$this->achievementPermissions->mayEditAchievements()) {
             return $this->redirectToRoute('dashboard');

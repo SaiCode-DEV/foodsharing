@@ -334,7 +334,7 @@ class SettingsTransactions
     private function logProfileSettings(int $userId, array $oldData, EditableProfileDTO $editableProfileDTO): void
     {
         // Map the DTO fields to the database column names
-        $trimIfNotNull = fn ($value) => is_null($value) ? null : strip_tags(trim($value));
+        $trimIfNotNull = fn ($value) => is_null($value) ? null : strip_tags(trim((string)$value));
         $newDataAsArray = array_filter([
             'name' => $trimIfNotNull($editableProfileDTO->firstName),
             'nachname' => $trimIfNotNull($editableProfileDTO->lastName),

@@ -4,7 +4,7 @@ namespace Foodsharing\Modules\Register;
 
 use Foodsharing\Lib\FoodsharingController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class RegisterController extends FoodsharingController
 {

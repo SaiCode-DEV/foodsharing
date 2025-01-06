@@ -214,7 +214,7 @@ class LoginGateway extends BaseGateway
     public function setPassword(int $userId, string $password): void
     {
         $this->db->update('fs_foodsaver', [
-            'password' => strip_tags($this->password_hash($password))
+            'password' => strip_tags((string)$this->password_hash($password))
         ], ['id' => $userId]);
     }
 }

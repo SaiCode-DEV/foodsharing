@@ -51,7 +51,7 @@ class StoreMapBubbleData
     /**
      * The date at which the cooperation with the store started. Can be null if the store is not cooperating yet.
      */
-    public ?DateTime $cooperationStart;
+    public ?DateTime $cooperationStart = null;
 
     /**
      * Any public information text that will be visible in the store's bubble on the map as well as on the store page.

@@ -601,7 +601,7 @@ class fFile implements Iterator, Countable, \Stringable
 	 *
 	 * @return fFile  The file object, to allow for method chaining
 	 */
-	public function append($data)
+	public function append(mixed $data)
 	{
 		$this->tossIfDeleted();
 

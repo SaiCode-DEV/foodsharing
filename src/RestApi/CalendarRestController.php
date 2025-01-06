@@ -224,8 +224,8 @@ class CalendarRestController extends AbstractFOSRestController
             '{url}' => $store_url,
             '{store}' => $pickup['store_name'],
         ]);
-        $foodsaverIds = str_getcsv($pickup['fs_ids']);
-        $foodsaverNames = str_getcsv($pickup['fs_names'], ',', "'");
+        $foodsaverIds = str_getcsv((string)$pickup['fs_ids']);
+        $foodsaverNames = str_getcsv((string)$pickup['fs_names'], ',', "'");
 
         if (count($foodsaverIds)) {
             $description .= '<br>' . $this->translator->trans('calendar.export.pickup.foodsavers');

@@ -44,8 +44,8 @@ class PasswordResetCest
         $link = preg_replace('#(?<!:)//+#', '/', $link);
 
         // Strip any full URL if present and keep only the path
-        if (strpos($link, 'http') === 0) {
-            $link = parse_url($link, PHP_URL_PATH) . '?' . parse_url($link, PHP_URL_QUERY);
+        if (str_starts_with((string)$link, 'http')) {
+            $link = parse_url((string)$link, PHP_URL_PATH) . '?' . parse_url((string)$link, PHP_URL_QUERY);
         }
 
         // go to link in the mail

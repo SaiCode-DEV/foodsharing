@@ -8,12 +8,12 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
-final class AchievementPermissions
+final readonly class AchievementPermissions
 {
     public function __construct(
-        private readonly Session $session,
-        private readonly CurrentUserUnitsInterface $currentUserUnits,
-        private readonly AchievementGateway $achievementGateway,
+        private Session $session,
+        private CurrentUserUnitsInterface $currentUserUnits,
+        private AchievementGateway $achievementGateway,
     ) {
     }
 

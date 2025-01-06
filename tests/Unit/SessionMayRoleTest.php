@@ -28,7 +28,7 @@ class SessionTestAdapter extends Session
 
 class SessionMayRoleTest extends Unit
 {
-    private ?SessionTestAdapter $session;
+    private ?SessionTestAdapter $session = null;
     protected UnitTester $tester;
 
     public function _before()

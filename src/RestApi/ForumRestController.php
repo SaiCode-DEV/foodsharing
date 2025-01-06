@@ -16,7 +16,6 @@ use FOS\RestBundle\Request\ParamFetcher;
 use OpenApi\Annotations as OA;
 use OpenApi\Attributes as OA2;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -118,7 +117,7 @@ class ForumRestController extends AbstractFoodsharingRestController
     #[Rest\Get('forum/{forumId}/{forumSubId}', requirements: ['forumId' => '\d+', 'forumSubId' => '\d'])]
     #[Rest\QueryParam(name: 'limit', requirements: '\d+', default: '20', description: 'how many search results to return')]
     #[Rest\QueryParam(name: 'offset', requirements: '\d+', default: '0', description: 'starting with which result')]
-    public function listThreads(int $forumId, int $forumSubId, ParamFetcher $paramFetcher): SymfonyResponse
+    public function listThreads(int $forumId, int $forumSubId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -161,7 +160,7 @@ class ForumRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="404", description="Thread does not exist.")
      */
     #[Rest\Get('forum/thread/{threadId}', requirements: ['threadId' => '\d+'])]
-    public function getThread(int $threadId): SymfonyResponse
+    public function getThread(int $threadId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -203,7 +202,7 @@ class ForumRestController extends AbstractFoodsharingRestController
      */
     #[Rest\Post('forum/thread/{threadId}/posts', requirements: ['threadId' => '\d+'])]
     #[Rest\RequestParam(name: 'body', description: 'post message')]
-    public function createPost(int $threadId, ParamFetcher $paramFetcher): SymfonyResponse
+    public function createPost(int $threadId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -215,7 +214,7 @@ class ForumRestController extends AbstractFoodsharingRestController
         $body = $paramFetcher->get('body');
         $this->forumTransactions->addPostToThread($this->session->id(), $threadId, $body);
 
-        return $this->handleView($this->view([], SymfonyResponse::HTTP_OK));
+        return $this->handleView($this->view([], Response::HTTP_OK));
     }
 
     /**
@@ -228,7 +227,7 @@ class ForumRestController extends AbstractFoodsharingRestController
     #[Rest\RequestParam(name: 'title', description: 'title of thread')]
     #[Rest\RequestParam(name: 'body', description: 'post message')]
     #[Rest\RequestParam(name: 'sendMail', description: 'false or true value - send a notification mail for all forum user')]
-    public function createThread(int $forumId, int $forumSubId, ParamFetcher $paramFetcher): SymfonyResponse
+    public function createThread(int $forumId, int $forumSubId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -259,7 +258,7 @@ class ForumRestController extends AbstractFoodsharingRestController
     #[Rest\RequestParam(name: 'isActive', nullable: true, default: null, description: 'should a thread in a moderated forum be activated?')]
     #[Rest\RequestParam(name: 'status', nullable: true, default: null, description: 'if the thread is open or closed')]
     #[Rest\RequestParam(name: 'title', nullable: true, default: null, description: 'the title of the thread')]
-    public function patchThread(int $threadId, ParamFetcher $paramFetcher): SymfonyResponse
+    public function patchThread(int $threadId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -312,7 +311,7 @@ class ForumRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="403", description="Insufficient permissions")
      */
     #[Rest\Post('forum/thread/{threadId}/follow/email', requirements: ['threadId' => '\d+'])]
-    public function followThreadByEmail(int $threadId): SymfonyResponse
+    public function followThreadByEmail(int $threadId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -332,7 +331,7 @@ class ForumRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="403", description="Insufficient permissions")
      */
     #[Rest\Post('forum/thread/{threadId}/follow/bell', requirements: ['threadId' => '\d+'])]
-    public function followThreadByBell(int $threadId): SymfonyResponse
+    public function followThreadByBell(int $threadId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -353,7 +352,7 @@ class ForumRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="403", description="Insufficient permissions")
      */
     #[Rest\Delete('forum/thread/{threadId}/follow/email', requirements: ['threadId' => '\d+'])]
-    public function unfollowThreadByEmail(int $threadId): SymfonyResponse
+    public function unfollowThreadByEmail(int $threadId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -374,7 +373,7 @@ class ForumRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="403", description="Insufficient permissions")
      */
     #[Rest\Delete('forum/thread/{threadId}/follow/bell', requirements: ['threadId' => '\d+'])]
-    public function unfollowThreadByBell(int $threadId): SymfonyResponse
+    public function unfollowThreadByBell(int $threadId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -396,7 +395,7 @@ class ForumRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="404", description="Post does not exist")
      */
     #[Rest\Delete('forum/post/{postId}', requirements: ['postId' => '\d+'])]
-    public function deletePost(int $postId): SymfonyResponse
+    public function deletePost(int $postId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -422,7 +421,7 @@ class ForumRestController extends AbstractFoodsharingRestController
     #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Post does not exist')]
     #[Rest\Patch('forum/post/{postId}/hide', requirements: ['postId' => Requirement::POSITIVE_INT])]
     #[Rest\RequestParam(name: 'reason', description: 'hiding reason', requirements: '..{0,255}')]
-    public function hidePost(int $postId, ParamFetcher $paramFetcher): SymfonyResponse
+    public function hidePost(int $postId, ParamFetcher $paramFetcher): Response
     {
         $this->assertLoggedIn();
 
@@ -450,7 +449,7 @@ class ForumRestController extends AbstractFoodsharingRestController
     #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
     #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Post does not exist')]
     #[Rest\Delete('forum/post/{postId}/hide', requirements: ['postId' => Requirement::POSITIVE_INT])]
-    public function restorePost(int $postId): SymfonyResponse
+    public function restorePost(int $postId): Response
     {
         $this->assertLoggedIn();
 
@@ -478,7 +477,7 @@ class ForumRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="404", description="Thread does not exist.")
      */
     #[Rest\Delete('forum/thread/{threadId}', requirements: ['postId' => '\d+'])]
-    public function deleteThread(int $threadId): SymfonyResponse
+    public function deleteThread(int $threadId): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -505,7 +504,7 @@ class ForumRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="404", description="Post does not exist")
      */
     #[Rest\Post('forum/post/{postId}/reaction/{emoji}', requirements: ['postId' => '\d+', 'emoji' => '\w+'])]
-    public function addReaction(int $postId, string $emoji): SymfonyResponse
+    public function addReaction(int $postId, string $emoji): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
@@ -533,7 +532,7 @@ class ForumRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="404", description="Post does not exist")
      */
     #[Rest\Delete('forum/post/{postId}/reaction/{emoji}', requirements: ['postId' => '\d+', 'emoji' => '\w+'])]
-    public function deleteReaction(int $postId, string $emoji): SymfonyResponse
+    public function deleteReaction(int $postId, string $emoji): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');

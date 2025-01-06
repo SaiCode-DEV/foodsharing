@@ -9,16 +9,16 @@ use OpenApi\Attributes as OA;
 class MailSearchResult extends SearchResult
 {
     #[OA\Property(description: 'The senders mail address', example: 'sender@example.com')]
-    public ?string $sender_mail;
+    public ?string $sender_mail = null;
 
     #[OA\Property(description: 'The senders name', example: 'Sender')]
-    public ?string $sender_name;
+    public ?string $sender_name = null;
 
     #[OA\Property(description: 'The first recipients mail address', example: 'developer@foodsharing.network')]
-    public ?string $recipient_mail;
+    public ?string $recipient_mail = null;
 
     #[OA\Property(description: 'The first recipients name.', example: 'foodsharing Developer')]
-    public ?string $recipient_name;
+    public ?string $recipient_name = null;
 
     #[OA\Property(description: 'The number of recipients', example: '3')]
     public int $recipient_count;

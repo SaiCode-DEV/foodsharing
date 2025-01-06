@@ -11,7 +11,7 @@ class Quiz
 {
     #[OA\Property(example: 1)]
     #[Assert\IsNull]
-    public ?int $id;
+    public ?int $id = null;
 
     #[OA\Property(example: 'Foodsaver Quiz')]
     #[Assert\NotBlank]

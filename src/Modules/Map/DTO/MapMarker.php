@@ -12,7 +12,7 @@ class MapMarker
     /**
      * Name of the object. Can be displayed as tooltip.
      */
-    public ?string $name;
+    public ?string $name = null;
 
     /**
      * Coordinates of the marker.

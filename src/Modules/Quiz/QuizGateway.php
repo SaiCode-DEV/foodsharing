@@ -75,7 +75,7 @@ class QuizGateway extends BaseGateway
             ORDER BY question.is_mandatory DESC, question.id ASC
 		', [':quizId' => $quizId]);
 
-        return array_map([Question::class, 'createFromArray'], $questions);
+        return array_map(Question::createFromArray(...), $questions);
     }
 
     /**
@@ -94,7 +94,7 @@ class QuizGateway extends BaseGateway
 			LIMIT :count
 		', [':quizId' => $quizId, ':fp' => $failurePoints, ':count' => $count]);
 
-        return array_map([Question::class, 'createFromArray'], $data);
+        return array_map(Question::createFromArray(...), $data);
     }
 
     /**
@@ -112,7 +112,7 @@ class QuizGateway extends BaseGateway
             ORDER BY RAND()
 		', [':quizId' => $quizId]);
 
-        return array_map([Question::class, 'createFromArray'], $data);
+        return array_map(Question::createFromArray(...), $data);
     }
 
     /**
@@ -206,7 +206,7 @@ class QuizGateway extends BaseGateway
             'fs_answer', $columns, ['question_id' => $questionId]
         );
 
-        return array_map([Answer::class, 'createFromArray'], $answers);
+        return array_map(Answer::createFromArray(...), $answers);
     }
 
     public function addAnswer(int $questionId, Answer $answer): int

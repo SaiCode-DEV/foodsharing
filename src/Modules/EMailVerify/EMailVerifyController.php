@@ -7,7 +7,7 @@ use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Settings\SettingsTransactions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class EMailVerifyController extends FoodsharingController
 {
@@ -30,7 +30,7 @@ class EMailVerifyController extends FoodsharingController
         try {
             $this->settingsTransactions->verifyAndCompleteEMailChange($token);
             $this->pageHelper->addContent($this->prepareEMailVerificationPage(true, false));
-        } catch (DatabaseNoValueFoundException $ex) {
+        } catch (DatabaseNoValueFoundException) {
             $this->pageHelper->addContent($this->prepareEMailVerificationPage(false, false));
         }
 
@@ -45,7 +45,7 @@ class EMailVerifyController extends FoodsharingController
         try {
             $this->settingsTransactions->abortEMailChange($token);
             $this->pageHelper->addContent($this->prepareEMailVerificationPage(false, true));
-        } catch (DatabaseNoValueFoundException $ex) {
+        } catch (DatabaseNoValueFoundException) {
             $this->pageHelper->addContent($this->prepareEMailVerificationPage(false, false));
         }
 

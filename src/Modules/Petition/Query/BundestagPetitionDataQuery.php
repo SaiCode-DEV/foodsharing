@@ -37,7 +37,7 @@ class BundestagPetitionDataQuery
             $result['daysLeft'] = intval($matches[1]);
 
             return $result;
-        } catch (\Throwable $_) {
+        } catch (\Throwable) {
         }
 
         return null;

@@ -25,19 +25,18 @@ class AppleWalletPass
     /**
      * Path to p12 certificate file.
      */
-    public string $certFilePath;
+    public string $certFilePath = APPLE_WALLET_CERTIFICATE_PATH;
 
     /**
      * Password for p12 certificate file.
      */
-    private string $certFilePass;
+    private readonly string $certFilePass;
 
     public function __construct(
         private readonly TranslatorInterface $translator,
         #[Autowire(param: 'kernel.project_dir')]
         private readonly string $projectDir,
     ) {
-        $this->certFilePath = APPLE_WALLET_CERTIFICATE_PATH;
         $this->certFilePass = APPLE_WALLET_CERTIFICATE_PASS;
     }
 

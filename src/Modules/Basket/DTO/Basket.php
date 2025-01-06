@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class Basket
 {
-    public ?int $id;
+    public ?int $id = null;
 
     #[Assert\NotBlank]
     #[Assert\Type('string')]
@@ -23,7 +23,7 @@ class Basket
         new Assert\Regex('/^\/api\/uploads\/[0-9a-f\-]+$/'),
     ])]
     #[Assert\NotNull]
-    public ?array $pictures;
+    public ?array $pictures = null;
 
     #[Assert\Count(min: 1)]
     #[Type('array<int>')]
@@ -31,10 +31,10 @@ class Basket
 
     #[Assert\Expression('(2 not in this.contactTypes) || value')]
     #[Assert\Regex('/\+?[0-9\-\/ ]+/')]
-    public ?string $mobile;
+    public ?string $mobile = null;
 
     #[Assert\Regex('/\+?[0-9\-\/ ]+/')]
-    public ?string $telephone;
+    public ?string $telephone = null;
 
     #[Assert\NotNull]
     #[Assert\Type('float')]
@@ -45,33 +45,33 @@ class Basket
     public float $lon;
 
     #[Assert\Range(min: 1, max: 21, notInRangeMessage: 'Lifetime must be between {{ min }} and {{ max }} days.')]
-    public ?int $lifeTimeInDays;
+    public ?int $lifeTimeInDays = null;
 
     #[Assert\NotNull]
     #[Assert\Range(min: 0, max: 100000, notInRangeMessage: 'Weight must be between {{ min }} and {{ max }} g.')]
-    public ?int $weightInGrams;
+    public ?int $weightInGrams = null;
 
     #[Assert\Blank]
-    public ?int $status;
+    public ?int $status = null;
 
     // TODO merge with lat and lon
     #[Assert\Blank]
-    public ?GeoLocation $location;
+    public ?GeoLocation $location = null;
 
     #[Assert\Blank]
-    public ?Profile $creator;
+    public ?Profile $creator = null;
 
     #[Assert\Blank]
-    public ?int $created;
+    public ?int $created = null;
 
     #[Assert\Blank]
-    public ?int $updated;
+    public ?int $updated = null;
 
     #[Assert\Blank]
-    public ?int $until;
+    public ?int $until = null;
 
     #[Assert\Blank]
-    public ?int $requestCount;
+    public ?int $requestCount = null;
 
     public static function createFromArray(array $data): Basket
     {
@@ -87,7 +87,7 @@ class Basket
         } else {
             $basket->pictures = [$data['picture']];
         }
-        $basket->contactTypes = array_map('intval', explode(':', $data['contact_type']));
+        $basket->contactTypes = array_map('intval', explode(':', (string)$data['contact_type']));
         $basket->location = GeoLocation::createFromArray($data);
         $basket->creator = new Profile($data, 'fs_');
         if (in_array(2, $basket->contactTypes, true)) {

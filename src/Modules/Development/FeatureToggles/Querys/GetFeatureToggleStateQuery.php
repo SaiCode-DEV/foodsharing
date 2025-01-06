@@ -7,11 +7,11 @@ namespace Foodsharing\Modules\Development\FeatureToggles\Querys;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 
-final class GetFeatureToggleStateQuery
+final readonly class GetFeatureToggleStateQuery
 {
     public function __construct(
-        private readonly Database $database,
-        private readonly string $siteEnvironment,
+        private Database $database,
+        private string $siteEnvironment,
     ) {
     }
 

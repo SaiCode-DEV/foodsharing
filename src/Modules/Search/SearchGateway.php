@@ -1068,7 +1068,7 @@ class SearchGateway extends BaseGateway
     private function generateSearchClauses(array $searchCriteria, string $query, ?string $privateSearchCriterium = null): array
     {
         $query = preg_replace('/[,;\s]+/', ' ', $query);
-        $queryTerms = explode(' ', trim($query));
+        $queryTerms = explode(' ', trim((string)$query));
         $searchCriteria = $this->generateSearchCriteria($searchCriteria, count($queryTerms) > 1);
         $placeholders = $queryTerms;
         $searchClauseFromTerm = fn ($term) => $searchCriteria . ' LIKE CONCAT("%", ?, "%")';

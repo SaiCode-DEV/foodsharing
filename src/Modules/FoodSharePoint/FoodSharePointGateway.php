@@ -587,7 +587,7 @@ class FoodSharePointGateway extends BaseGateway
                 'fairteiler_id' => $foodSharePointId,
                 'foodsaver_id' => $userId,
             ]);
-        } catch (Exception $error) {
+        } catch (Exception) {
             return 0;
         }
     }

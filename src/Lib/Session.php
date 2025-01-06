@@ -100,7 +100,7 @@ class Session
         // Refresh content of session if it is older then 1 day
         if ($this->id() !== null && $this->has(self::SESSION_TIMESTAMP_FIELD_NAME)) {
             $last_update = $this->get(self::SESSION_TIMESTAMP_FIELD_NAME);
-            if (strtotime($last_update) > strtotime('+1 day', time())) {
+            if (strtotime((string)$last_update) > strtotime('+1 day', time())) {
                 $this->refreshFromDatabase();
             }
         }

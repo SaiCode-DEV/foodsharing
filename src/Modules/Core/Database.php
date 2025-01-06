@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Core;
 
 use Carbon\Carbon;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception\DeadlockException;
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -232,7 +233,7 @@ class Database
      * @param array $data names of the columns and the row's entries as key-value pairs
      * @param array $options {@see Database::insertMultiple()}
      *
-     * @return int the primary key of the inserted row
+     * @return int the primary key of the inserted row, or 0 if no ID was generated
      *
      * @throws \Exception
      */
@@ -563,14 +564,20 @@ class Database
         return Carbon::createFromFormat('Y-m-d H:i:s', $date, 'Europe/Berlin');
     }
 
-    public function beginTransaction(): bool
+    /**
+     * Begins a new database transaction.
+     */
+    public function beginTransaction(): void
     {
-        return $this->dbalConnection->beginTransaction();
+        $this->dbalConnection->beginTransaction();
     }
 
-    public function commit(): bool
+    /**
+     * Commits the current database transaction.
+     */
+    public function commit(): void
     {
-        return $this->dbalConnection->commit();
+        $this->dbalConnection->commit();
     }
 
     // === private methods ===
@@ -657,7 +664,7 @@ class Database
         for ($i = 1; $i <= MAX_DEADLOCK_QUERY_ATTEMPTS; ++$i) {
             try {
                 return $statement->executeQuery();
-            } catch (\Doctrine\DBAL\Exception\DeadlockException $e) {
+            } catch (DeadlockException $e) {
                 $exception = $e;
                 if ($i < MAX_DEADLOCK_QUERY_ATTEMPTS) {
                     usleep(DEADLOCK_QUERY_SLEEP_TIME_IN_MS * 1000);

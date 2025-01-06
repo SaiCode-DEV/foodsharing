@@ -11,7 +11,7 @@ class TeamMember
 
     public string $name;
 
-    public ?string $photo;
+    public ?string $photo = null;
 
     public string $aboutMePublic;
 

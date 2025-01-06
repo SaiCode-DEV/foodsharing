@@ -131,7 +131,7 @@ class RegionTransactions
         }
         try {
             $this->mailboxGateway->setRegionMailbox($region);
-        } catch (UniqueConstraintViolationException $e) {
+        } catch (UniqueConstraintViolationException) {
             throw new BadRequestHttpException('This mailbox name is already used.');
         }
         $this->regionGateway->setRegionAdmins($region->id, $region->adminIds);

@@ -5,7 +5,7 @@ namespace Foodsharing\Modules\Quiz;
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Permissions\QuizPermissions;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class QuizController extends FoodsharingController
 {
@@ -15,7 +15,7 @@ class QuizController extends FoodsharingController
         parent::__construct();
     }
 
-    #[Route(['/quiz/edit/{quizId}'], name: 'quiz.edit', requirements: ['quizId' => '\d+'])]
+    #[Route('/quiz/edit/{quizId}', name: 'quiz.edit', requirements: ['quizId' => '\d+'])]
     public function edit(?int $quizId): Response
     {
         $readableQuizzes = $this->permissions->getReadableQuizzes();
@@ -31,7 +31,8 @@ class QuizController extends FoodsharingController
         return $this->renderGlobal();
     }
 
-    #[Route(['/quiz', '/quiz/edit'], name: 'quiz.redirect')]
+    #[Route('/quiz', name: 'quiz.redirect')]
+    #[Route('/quiz/edit', name: 'quiz.edit.redirect')]
     public function redirectToSecific(): Response
     {
         if (!$this->permissions->maySeeEditQuizPage()) {

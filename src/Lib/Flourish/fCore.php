@@ -249,7 +249,7 @@ class fCore
 						$bt_string .= 'Object(' . $arg::class . ')';
 					} elseif (is_string($arg)) {
 						// Shorten the UTF-8 string if it is too long
-						if (strlen(utf8_decode($arg)) > 18) {
+						if (strlen(mb_convert_encoding($arg, 'ISO-8859-1')) > 18) {
 							// If we can't match as unicode, try single byte
 							if (!preg_match('#^(.{0,15})#us', $arg, $short_arg)) {
 								preg_match('#^(.{0,15})#s', $arg, $short_arg);
@@ -435,7 +435,7 @@ class fCore
 			$output = preg_replace('#(?:&)?array\(\d+\) \{\n((?:  )*)((?:  )(?=\[)|(?=\}))#', "Array\n\\1(\n\\1\\2", $output);
 			$output = preg_replace('/object\((\w+)\)#\d+ \(\d+\) {\n((?:  )*)((?:  )(?=\[)|(?=\}))/', "\\1 Object\n\\2(\n\\2\\3", $output);
 			$output = preg_replace('#^((?:  )+)}(?=\n|$)#m', "\\1)\n", $output);
-			$output = substr($output, 0, -2) . ')';
+			$output = substr((string) $output, 0, -2) . ')';
 
 			// Fix indenting issues with the var dump output
 			$output_lines = explode("\n", $output);
@@ -594,7 +594,7 @@ class fCore
 
 		if ($capturing) {
 			$type_to_capture = (bool)(self::$captured_error_types[self::$captured_error_level] & $error_number);
-			$string_to_capture = !self::$captured_error_regex[self::$captured_error_level] || (self::$captured_error_regex[self::$captured_error_level] && preg_match(self::$captured_error_regex[self::$captured_error_level], $error_string));
+			$string_to_capture = !self::$captured_error_regex[self::$captured_error_level] || (self::$captured_error_regex[self::$captured_error_level] && preg_match(self::$captured_error_regex[self::$captured_error_level], (string) $error_string));
 			if ($type_to_capture && $string_to_capture) {
 				self::$captured_errors[self::$captured_error_level][] = ['number' => $error_number, 'type' => $type, 'string' => $error_string, 'file' => str_replace($doc_root, '{doc_root}/', $error_file), 'line' => $error_line, 'backtrace' => $backtrace, 'context' => $error_context];
 
@@ -618,7 +618,7 @@ class fCore
 
 		$error = $type . "\n" . str_pad('', strlen($type), '-') . "\n" . $backtrace . "\n" . $error_string;
 
-		$backtrace_lines = explode("\n", $backtrace);
+		$backtrace_lines = explode("\n", (string) $backtrace);
 
 		self::sendMessageToDestination('error', $error, end($backtrace_lines));
 	}

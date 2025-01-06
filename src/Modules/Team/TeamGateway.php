@@ -40,8 +40,6 @@ class TeamGateway extends BaseGateway
 		';
         $orgas = $this->db->fetchAll($stm, [':region_id' => $region_id]);
 
-        return array_map(function ($entry) {
-            return TeamMember::createFromArray($entry);
-        }, $orgas);
+        return array_map(fn ($entry) => TeamMember::createFromArray($entry), $orgas);
     }
 }

@@ -49,20 +49,20 @@ class Event
         'expression' => 'this.type == enum("Foodsharing\\\\Modules\\\\Core\\\\DBConstants\\\\Event\\\\EventType::OFFLINE")',
         'constraints' => [new Assert\NotNull()],
     ])]
-    public ?Address $address;
+    public ?Address $address = null;
 
     #[Assert\Valid]
     #[Assert\When([
         'expression' => 'this.type.value == enum("Foodsharing\\\\Modules\\\\Core\\\\DBConstants\\\\Event\\\\EventType::OFFLINE")',
         'constraints' => [new Assert\NotNull()],
     ])]
-    public ?GeoLocation $location;
+    public ?GeoLocation $location = null;
 
     #[Assert\When([
         'expression' => 'this.type == enum("Foodsharing\\\\Modules\\\\Core\\\\DBConstants\\\\Event\\\\EventType::OTHER")',
         'constraints' => [new Assert\NotBlank()],
     ])]
-    public ?string $locationDetails;
+    public ?string $locationDetails = null;
 
     public static function createFromArray(array $data): Event
     {

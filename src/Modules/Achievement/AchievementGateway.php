@@ -156,7 +156,7 @@ class AchievementGateway extends BaseGateway
                 [$foodsaverId, $achievementId, $time->format('Y-m-d H:i:s')]);
 
             return true;
-        } catch (DatabaseNoValueFoundException $e) {
+        } catch (DatabaseNoValueFoundException) {
             return false;
         }
     }
@@ -169,7 +169,7 @@ class AchievementGateway extends BaseGateway
     {
         $awardedAchievements = $this->db->fetchAll($this::AWARDED_ACHIEVEMENT_QUERY, [$achievementId]);
 
-        return array_map([AwardedAchievementWithUserDetails::class, 'createFromArray'], $awardedAchievements);
+        return array_map(AwardedAchievementWithUserDetails::createFromArray(...), $awardedAchievements);
     }
 
     /**

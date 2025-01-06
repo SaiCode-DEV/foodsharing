@@ -23,7 +23,7 @@ use Foodsharing\Permissions\VotingPermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 final class RegionController extends FoodsharingController
 {
@@ -249,12 +249,11 @@ final class RegionController extends FoodsharingController
     }
 
     #[Route('/regions/edit')]
-    public function edit(Request $request): Response
+    public function edit(): Response
     {
         if (!$this->regionPermissions->mayAdministrateRegions()) {
             return $this->redirect('/');
         }
-
         $this->pageHelper->addContent($this->prepareVueComponent('regions-admin-page', 'RegionsAdmin'));
 
         return $this->renderGlobal();

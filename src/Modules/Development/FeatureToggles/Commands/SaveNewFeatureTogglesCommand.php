@@ -6,11 +6,11 @@ namespace Foodsharing\Modules\Development\FeatureToggles\Commands;
 
 use Foodsharing\Modules\Core\Database;
 
-final class SaveNewFeatureTogglesCommand
+final readonly class SaveNewFeatureTogglesCommand
 {
     public function __construct(
-        private readonly Database $database,
-        private readonly string $siteEnvironment,
+        private Database $database,
+        private string $siteEnvironment,
     ) {
     }
 

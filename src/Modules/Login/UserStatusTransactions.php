@@ -36,7 +36,7 @@ class UserStatusTransactions
         }
 
         // sanitize data
-        $lastActivityDataTime = strtotime($last_activity);
+        $lastActivityDataTime = strtotime((string)$last_activity);
         $isInvalidDateInformation = $lastActivityDataTime === false || $last_activity == '0000-00-00 00:00:00';
         $lastActivityDate = date('Y-m-d', $lastActivityDataTime);
 

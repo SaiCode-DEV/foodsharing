@@ -54,7 +54,7 @@ class WallPostGateway extends BaseGateway
 			LIMIT :offset, :limit 
 		", ['targetId' => $targetId, 'limit' => $limit, 'offset' => $offset]);
 
-        return array_map([WallPost::class, 'createFromArray'], $posts);
+        return array_map(WallPost::createFromArray(...), $posts);
     }
 
     public function getAuthorId(int $postId): ?int

@@ -11,14 +11,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-final class RouteHelper
+final readonly class RouteHelper
 {
     public function __construct(
-        private readonly Session $session,
-        private readonly LegalGateway $legalGateway,
-        private readonly RequestStack $requestStack,
-        private readonly UrlGeneratorInterface $router,
-        private readonly Mem $mem,
+        private Session $session,
+        private LegalGateway $legalGateway,
+        private RequestStack $requestStack,
+        private UrlGeneratorInterface $router,
+        private Mem $mem,
     ) {
     }
 

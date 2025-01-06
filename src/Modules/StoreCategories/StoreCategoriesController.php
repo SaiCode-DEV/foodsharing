@@ -4,9 +4,8 @@ namespace Foodsharing\Modules\StoreCategories;
 
 use Foodsharing\Lib\FoodsharingController;
 use Foodsharing\Permissions\StoreCategoriesPermissions;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class StoreCategoriesController extends FoodsharingController
 {
@@ -17,7 +16,7 @@ class StoreCategoriesController extends FoodsharingController
     }
 
     #[Route(path: '/storecategories', name: 'store_categories')]
-    public function index(Request $request): Response
+    public function index(): Response
     {
         if (!$this->session->mayRole()) {
             $this->routeHelper->goLoginAndExit();
@@ -25,7 +24,6 @@ class StoreCategoriesController extends FoodsharingController
         if (!$this->storeCategoriesPermissions->mayEditStoreCategories()) {
             return $this->redirectToRoute('dashboard');
         }
-
         $this->pageHelper->addTitle($this->translator->trans('store_categories.title'));
         $this->pageHelper->addContent($this->prepareVueComponent('store-categories-list', 'StoreCategoriesList'));
 

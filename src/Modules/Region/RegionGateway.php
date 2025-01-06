@@ -439,7 +439,7 @@ class RegionGateway extends BaseGateway
             [':format' => $dateFormat, ':groupFormat' => $dateFormat]
         );
 
-        return array_map([RegionPickupsPerDate::class, 'createFromArray'], $data);
+        return array_map(RegionPickupsPerDate::createFromArray(...), $data);
     }
 
     /**
@@ -625,7 +625,7 @@ class RegionGateway extends BaseGateway
             ':country' => UnitType::COUNTRY,
         ]);
 
-        return array_map([HierachicalRegion::class, 'createFromArray'], $data);
+        return array_map(HierachicalRegion::createFromArray(...), $data);
     }
 
     public function getRegionForEditing(int $regionId): array

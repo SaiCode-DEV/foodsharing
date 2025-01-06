@@ -14,6 +14,7 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 use Tests\Support\UnitTester;
 
 class DonationTwingleDataQueryTest extends Unit
@@ -49,7 +50,7 @@ class DonationTwingleDataQueryTest extends Unit
             'allow_more' => false,
         ];
 
-        $responseMock = $this->createMock(\Symfony\Contracts\HttpClient\ResponseInterface::class);
+        $responseMock = $this->createMock(ResponseInterface::class);
         $responseMock->expects($this->once())
             ->method('toArray')
             ->willReturn($responseData);

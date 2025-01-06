@@ -31,5 +31,5 @@ class TicketModel
     public array $attachments;
 
     #[OA\Property(description: 'The user agent (browser version and OS) of the user')]
-    public ?string $userAgent;
+    public ?string $userAgent = null;
 }

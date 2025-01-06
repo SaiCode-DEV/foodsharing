@@ -109,7 +109,7 @@ class StoreTransactions
         $store = $this->storeGateway->getStore($storeId);
         try {
             return $this->storeGateway->getApplications($storeId, $store->location);
-        } catch (\Throwable $th) {
+        } catch (\Throwable) {
             return [];
         }
     }

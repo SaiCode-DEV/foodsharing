@@ -11,7 +11,7 @@ use Foodsharing\Permissions\StorePermissions;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class StoreController extends FoodsharingController
 {
@@ -45,7 +45,7 @@ class StoreController extends FoodsharingController
     }
 
     #[Route(path: '/region/{regionId}/stores', name: 'region_stores', requirements: ['name' => '[0-9]+'])]
-    public function regionStores(Request $request, int $regionId): Response
+    public function regionStores(int $regionId): Response
     {
         if (!$this->session->mayRole() || !$this->storePermissions->mayListStores()) {
             $this->routeHelper->goAndExit('/');

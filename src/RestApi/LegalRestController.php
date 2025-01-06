@@ -26,7 +26,7 @@ class LegalRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'The new password is too short')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'The old password is wrong')]
-    public function updateLegalAcknowlegeAction(#[MapRequestPayload] LegalAcknowledge $legalAcknowledge): Response
+    public function updateLegalAcknowlege(#[MapRequestPayload] LegalAcknowledge $legalAcknowledge): Response
     {
         $this->assertLoggedIn();
 

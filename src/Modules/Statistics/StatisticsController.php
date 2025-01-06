@@ -4,7 +4,7 @@ namespace Foodsharing\Modules\Statistics;
 
 use Foodsharing\Lib\FoodsharingController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class StatisticsController extends FoodsharingController
 {

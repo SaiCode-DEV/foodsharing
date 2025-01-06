@@ -88,7 +88,7 @@ final class TimeHelper
             $date->setTimezone('Europe/Berlin');
 
             return $date;
-        } catch (Exception $e) {
+        } catch (Exception) {
             throw new BadRequestHttpException('Invalid date format');
         }
     }

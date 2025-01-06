@@ -63,13 +63,11 @@ class StatisticsGateway extends BaseGateway
 
         $result = $this->db->fetchAll($stm, [':city' => UnitType::CITY, ':bigCity' => UnitType::BIG_CITY]);
 
-        return array_map(function ($regionsStats) {
-            return ActivityStatisticItem::create(
-                $regionsStats['name'],
-                floatval($regionsStats['fetchWeight']),
-                intval($regionsStats['fetchCount'])
-            );
-        },
+        return array_map(fn ($regionsStats) => ActivityStatisticItem::create(
+            $regionsStats['name'],
+            floatval($regionsStats['fetchWeight']),
+            intval($regionsStats['fetchCount'])
+        ),
             $result);
     }
 
@@ -94,13 +92,11 @@ class StatisticsGateway extends BaseGateway
 
         $result = $this->db->fetchAll($stm);
 
-        return array_map(function ($foodsaverStats) {
-            return ActivityStatisticItem::create(
-                $foodsaverStats['name'],
-                $foodsaverStats['fetchWeight'],
-                $foodsaverStats['fetchCount']
-            );
-        },
+        return array_map(fn ($foodsaverStats) => ActivityStatisticItem::create(
+            $foodsaverStats['name'],
+            $foodsaverStats['fetchWeight'],
+            $foodsaverStats['fetchCount']
+        ),
             $result);
     }
 
@@ -153,12 +149,10 @@ class StatisticsGateway extends BaseGateway
 
         $result = $this->db->fetchAll($query);
 
-        return array_map(function ($foodsaverStats) {
-            return PickupItem::create(
-                $foodsaverStats['name'],
-                intval($foodsaverStats['fetchCount'])
-            );
-        }, $result);
+        return array_map(fn ($foodsaverStats) => PickupItem::create(
+            $foodsaverStats['name'],
+            intval($foodsaverStats['fetchCount'])
+        ), $result);
     }
 
     /**
@@ -184,12 +178,10 @@ class StatisticsGateway extends BaseGateway
 
         $result = $this->db->fetchAll($query);
 
-        return array_map(function ($foodsaverStats) {
-            return PickupItem::create(
-                $foodsaverStats['name'],
-                intval($foodsaverStats['fetchCount'])
-            );
-        }, $result);
+        return array_map(fn ($foodsaverStats) => PickupItem::create(
+            $foodsaverStats['name'],
+            intval($foodsaverStats['fetchCount'])
+        ), $result);
     }
 
     /**
@@ -216,12 +208,10 @@ class StatisticsGateway extends BaseGateway
 
         $result = $this->db->fetchAll($query);
 
-        return array_map(function ($regionStats) {
-            return PickupItem::create(
-                $regionStats['name'],
-                intval($regionStats['fetchCount'])
-            );
-        }, $result);
+        return array_map(fn ($regionStats) => PickupItem::create(
+            $regionStats['name'],
+            intval($regionStats['fetchCount'])
+        ), $result);
     }
 
     /**
@@ -246,12 +236,10 @@ class StatisticsGateway extends BaseGateway
 
         $result = $this->db->fetchAll($query);
 
-        return array_map(function ($regionStats) {
-            return PickupItem::create(
-                $regionStats['name'],
-                intval($regionStats['fetchCount'])
-            );
-        }, $result);
+        return array_map(fn ($regionStats) => PickupItem::create(
+            $regionStats['name'],
+            intval($regionStats['fetchCount'])
+        ), $result);
     }
 
     public function countAllBaskets(): int

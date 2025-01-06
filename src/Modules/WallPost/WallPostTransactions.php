@@ -53,7 +53,7 @@ class WallPostTransactions
 
         if (!empty($post->pictures)) {
             foreach ($post->pictures as $picture) {
-                $uuid = substr($picture, 13);
+                $uuid = substr((string)$picture, 13);
                 $this->uploadsGateway->setUsage([$uuid], UploadUsage::WALL_POST, $postId);
             }
         }

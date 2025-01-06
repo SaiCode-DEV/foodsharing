@@ -86,7 +86,7 @@ class QuizSessionGateway extends BaseGateway
             ORDER BY id DESC;
 		', [':fsId' => $fsId, ':quizId' => $quizId->value, ':isTest' => $isTest]);
 
-        return array_map([QuizSession::class, 'createFromArray'], $sessions);
+        return array_map(QuizSession::createFromArray(...), $sessions);
     }
 
     public function initQuizSession(QuizSession $quizSession): int

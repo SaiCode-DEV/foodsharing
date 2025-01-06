@@ -12,8 +12,8 @@ use Foodsharing\Utility\RouteHelper;
 
 class LegalTransactions
 {
-    private string $privacyPolicyDate;
-    private string $privacyNoticeDate;
+    private readonly string $privacyPolicyDate;
+    private readonly string $privacyNoticeDate;
 
     public function __construct(
         private readonly LegalGateway $legalGateway,

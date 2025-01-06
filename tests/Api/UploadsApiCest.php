@@ -76,7 +76,7 @@ class UploadsApiCest
 
         $I->sendPost('api/uploads', [
             'filename' => 'text.txt',
-            'body' => base64_encode($file)
+            'body' => base64_encode((string)$file)
         ]);
     }
 

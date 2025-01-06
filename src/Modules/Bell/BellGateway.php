@@ -358,7 +358,7 @@ class BellGateway extends BaseGateway
         foreach ($groupedLists as &$groupedList) {
             foreach ($groupedList as &$group) {
                 $bell = &$bells[$group['bellId']];
-                $foundFoodsaverIds = array_map('intval', explode(',', $group['foodsaverIds']));
+                $foundFoodsaverIds = array_map('intval', explode(',', (string)$group['foodsaverIds']));
 
                 // Make sure foodsavers end up in only one group:
                 $group['foodsaverIds'] = array_values(array_intersect($foundFoodsaverIds, $foodsaverIds));

@@ -43,7 +43,7 @@ class ActivityTransactions
     public function getFilters(): array
     {
         // list of currently excluded activities
-        $excluded = json_decode($this->settingsTransaction->getOption(UserOptionType::ACTIVITY_LISTINGS), true) ?: [];
+        $excluded = json_decode((string)$this->settingsTransaction->getOption(UserOptionType::ACTIVITY_LISTINGS), true) ?: [];
 
         // regions and groups
         $regionOptions = [];
@@ -133,7 +133,7 @@ class ActivityTransactions
         // Store which update sources to skip, keyed by update type and entity ID
         $sesOptions = $this->settingsTransaction->getOption(UserOptionType::ACTIVITY_LISTINGS);
         if ($sesOptions) {
-            $activities = json_decode($sesOptions, true);
+            $activities = json_decode((string)$sesOptions, true);
             if ($activities) {
                 foreach ($activities as $o) {
                     if (isset($hidden_ids[$o['index']])) {

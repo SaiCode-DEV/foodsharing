@@ -6,11 +6,11 @@ namespace Foodsharing\Modules\Development\FeatureToggles\Querys;
 
 use Foodsharing\Modules\Core\Database;
 
-final class GetExistingFeatureToggles
+final readonly class GetExistingFeatureToggles
 {
     public function __construct(
-        private readonly Database $database,
-        private readonly string $siteEnvironment,
+        private Database $database,
+        private string $siteEnvironment,
     ) {
     }
 

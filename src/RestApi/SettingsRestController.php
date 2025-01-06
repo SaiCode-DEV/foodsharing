@@ -13,7 +13,7 @@ use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
 #[OA\Tag(name: 'user')]
@@ -85,7 +85,7 @@ class SettingsRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'The new password is too short')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'The old password is wrong')]
-    public function requestPasswordChangeAction(
+    public function requestPasswordChange(
         #[MapRequestPayload] PasswordChangeRequest $request
     ): Response {
         $this->assertLoggedIn();

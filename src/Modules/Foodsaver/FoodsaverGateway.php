@@ -822,7 +822,7 @@ class FoodsaverGateway extends BaseGateway
     public function updateFoodsaver(int $fsId, EditableProfileDTO $editableProfileDTO): int
     {
         // This is necessary because trimming null returns an empty string
-        $trimIfNotNull = fn ($value) => is_null($value) ? null : strip_tags(trim($value));
+        $trimIfNotNull = fn ($value) => is_null($value) ? null : strip_tags(trim((string)$value));
 
         $updateData = [
             'bezirk_id' => $editableProfileDTO->regionId,
@@ -1079,6 +1079,6 @@ class FoodsaverGateway extends BaseGateway
         $query .= ' WHERE ' . implode(' AND ', $conditions);
         $markers = $this->db->fetchAll($query, $params);
 
-        return array_map([MapMarker::class, 'createFromArray'], $markers);
+        return array_map(MapMarker::createFromArray(...), $markers);
     }
 }

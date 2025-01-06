@@ -9,13 +9,13 @@ use OpenApi\Attributes as OA;
 class EventSearchResult extends SearchResult
 {
     #[OA\Property(description: 'The name of the events location.', example: 'foodsharing Developer')]
-    public ?string $location_name;
+    public ?string $location_name = null;
 
     #[OA\Property(description: 'The address details of the location.')]
     public array $location;
 
     #[OA\Property(description: 'The users invitation status', example: '1')]
-    public ?int $status;
+    public ?int $status = null;
 
     #[OA\Property(description: 'When the event starts', example: '2023-10-04 15:21:52')]
     public string $start;

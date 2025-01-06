@@ -24,15 +24,15 @@ class QuizStatus
     // Used for running only:
     // TODO move to subclass?
     #[OA\Property(description: 'Total questions in the running quiz session. Only set if a quiz session is running.', example: 10)]
-    public ?int $questionCount;
+    public ?int $questionCount = null;
 
     #[OA\Property(description: 'Number of questions already answered in the running quiz session. Only set if a quiz session is running.', example: 4)]
-    public ?int $questionsAnswered;
+    public ?int $questionsAnswered = null;
 
     #[OA\Property(description: 'Whether the running quiz session is timed. Only set if a quiz session is running.', example: false)]
-    public ?bool $isTimed;
+    public ?bool $isTimed = null;
 
     // Used for passed and confirmation needed only
     #[OA\Property(description: 'Whether the quiz has been confirmed. Only set if last session was passed and the quiz needs to be confirmed.', example: null)]
-    public ?bool $confirmed;
+    public ?bool $confirmed = null;
 }

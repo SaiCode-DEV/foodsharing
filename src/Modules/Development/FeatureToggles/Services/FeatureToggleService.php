@@ -13,14 +13,14 @@ use Foodsharing\Modules\Development\FeatureToggles\Exceptions\FeatureToggleNotDe
 use Foodsharing\Modules\Development\FeatureToggles\Querys\GetExistingFeatureToggles;
 use Foodsharing\Modules\Development\FeatureToggles\Querys\IsFeatureToggleActiveQuery;
 
-final class FeatureToggleService implements FeatureToggleChecker
+final readonly class FeatureToggleService implements FeatureToggleChecker
 {
     public function __construct(
-        private readonly IsFeatureToggleActiveQuery $isFeatureToggleActiveQuery,
-        private readonly GetExistingFeatureToggles $existingFeatureTogglesFromDatabaseQuery,
-        private readonly SaveNewFeatureTogglesCommand $saveNewFeatureTogglesCommand,
-        private readonly DeleteUndefinedFeatureTogglesCommand $deleteUndefinedFeatureTogglesCommand,
-        private readonly UpdateFeatureToggleStateCommand $updateFeatureToggleStateCommand,
+        private IsFeatureToggleActiveQuery $isFeatureToggleActiveQuery,
+        private GetExistingFeatureToggles $existingFeatureTogglesFromDatabaseQuery,
+        private SaveNewFeatureTogglesCommand $saveNewFeatureTogglesCommand,
+        private DeleteUndefinedFeatureTogglesCommand $deleteUndefinedFeatureTogglesCommand,
+        private UpdateFeatureToggleStateCommand $updateFeatureToggleStateCommand,
     ) {
     }
 

@@ -69,7 +69,7 @@ class EventRestController extends AbstractFoodsharingRestController
     #[Rest\Get('region/{regionId}/events', requirements: ['regionId' => Requirement::POSITIVE_INT])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions for this region')]
-    public function listEventsAction(int $regionId): Response
+    public function listEvents(int $regionId): Response
     {
         $this->assertLoggedIn();
 
@@ -88,7 +88,7 @@ class EventRestController extends AbstractFoodsharingRestController
     #[ParamConverter('event', class: Event::class, converter: 'fos_rest.request_body')]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions for this region')]
-    public function addEventsAction(Event $event, ValidatorInterface $validator): Response
+    public function addEvents(Event $event, ValidatorInterface $validator): Response
     {
         $this->assertLoggedIn();
         $this->assertThereAreNoValidationErrors($validator, $event);
@@ -106,7 +106,7 @@ class EventRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to edit this event')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid request parameters')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Event doesn\'t exist')]
-    public function editEventsAction(int $eventId, Event $event, ValidatorInterface $validator): Response
+    public function editEvents(int $eventId, Event $event, ValidatorInterface $validator): Response
     {
         $this->assertLoggedIn();
         $this->assertThereAreNoValidationErrors($validator, $event);

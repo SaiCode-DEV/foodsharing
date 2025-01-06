@@ -104,7 +104,7 @@ class VotingGateway extends BaseGateway
             ':userId' => $userId,
         ]);
 
-        return array_map([PollForListView::class, 'createFromArray'], $polls);
+        return array_map(PollForListView::createFromArray(...), $polls);
     }
 
     /**

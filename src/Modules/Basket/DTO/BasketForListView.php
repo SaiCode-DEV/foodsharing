@@ -10,7 +10,7 @@ class BasketForListView
 {
     public int $id;
     public string $description;
-    public ?string $picture;
+    public ?string $picture = null;
     public int $until;
     public float $distanceInKm;
     public Profile $creator;

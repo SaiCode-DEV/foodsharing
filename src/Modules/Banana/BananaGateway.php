@@ -69,7 +69,7 @@ class BananaGateway extends BaseGateway
             [':recipientId' => $recipientId]
         );
 
-        return array_map([Banana::class, 'createFromArray'], $data);
+        return array_map(Banana::createFromArray(...), $data);
     }
 
     /**
@@ -87,6 +87,6 @@ class BananaGateway extends BaseGateway
             [':senderId' => $senderId]
         );
 
-        return array_map([Banana::class, 'createFromArray'], $data);
+        return array_map(Banana::createFromArray(...), $data);
     }
 }

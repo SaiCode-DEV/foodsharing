@@ -134,16 +134,12 @@ class SettingsTransactionsTest extends Unit
         $mails = $this->tester->getMails();
 
         // Check Notification on old Mail address
-        $oldAddressMail = current(array_filter($mails, static function ($item) use ($foodsaver) {
-            return $item->headers->to == $foodsaver['email'];
-        }));
+        $oldAddressMail = current(array_filter($mails, static fn ($item) => $item->headers->to == $foodsaver['email']));
         $this->tester->assertNotFalse($oldAddressMail, 'Mail not found');
         $this->tester->assertRegExp("/\/user\/current\/settings\/email\/verifyAbort\?token\=[0-9a-f]+/m", $oldAddressMail->html, 'Link is missing');
 
         // Check Notification with verification token in new E-Mail address
-        $newAddressMail = current(array_filter($mails, static function ($item) use ($changeRequest) {
-            return $item->headers->to == strtolower($changeRequest->email);
-        }));
+        $newAddressMail = current(array_filter($mails, static fn ($item) => $item->headers->to == strtolower($changeRequest->email)));
         $this->tester->assertNotFalse($newAddressMail, 'Mail not found');
         $this->tester->assertRegExp("/\/user\/current\/settings\/email\/verify\?token\=[0-9a-f]+/m", $newAddressMail->html, 'Link is missing');
     }
@@ -165,9 +161,7 @@ class SettingsTransactionsTest extends Unit
         $mails = $this->tester->getMails();
 
         // Find token for cancel in old e-mail
-        $oldAddressMail = current(array_filter($mails, static function ($item) use ($foodsaver) {
-            return $item->headers->to == $foodsaver['email'];
-        }));
+        $oldAddressMail = current(array_filter($mails, static fn ($item) => $item->headers->to == $foodsaver['email']));
         $this->tester->assertNotFalse($oldAddressMail, 'Mail not found');
         preg_match_all("/\/user\/current\/settings\/email\/verifyAbort\?token\=([0-9a-f]+)/m", $oldAddressMail->html, $tokens, PREG_SET_ORDER, 0);
 
@@ -198,9 +192,7 @@ class SettingsTransactionsTest extends Unit
         $mails = $this->tester->getMails();
 
         // Find token for verify link in new e-mail
-        $newAddressMail = current(array_filter($mails, static function ($item) use ($changeRequest) {
-            return $item->headers->to == strtolower($changeRequest->email);
-        }));
+        $newAddressMail = current(array_filter($mails, static fn ($item) => $item->headers->to == strtolower($changeRequest->email)));
         $this->tester->assertNotFalse($newAddressMail, 'Mail not found');
         preg_match_all("/\/user\/current\/settings\/email\/verify\?token\=([0-9a-f]+)/m", $newAddressMail->html, $tokens, PREG_SET_ORDER, 0);
 
@@ -232,9 +224,7 @@ class SettingsTransactionsTest extends Unit
         $mails = $this->tester->getMails();
 
         // Find token for verify link in new e-mail
-        $newAddressMail = current(array_filter($mails, static function ($item) use ($changeRequest) {
-            return $item->headers->to == strtolower($changeRequest->email);
-        }));
+        $newAddressMail = current(array_filter($mails, static fn ($item) => $item->headers->to == strtolower($changeRequest->email)));
         $this->tester->assertNotFalse($newAddressMail, 'Mail not found');
         preg_match_all("/\/user\/current\/settings\/email\/verify\?token\=([0-9a-f]+)/m", $newAddressMail->html, $tokens, PREG_SET_ORDER, 0);
 
@@ -246,7 +236,7 @@ class SettingsTransactionsTest extends Unit
         try {
             $this->transaction->verifyAndCompleteEMailChange($token);
             $this->tester->assertFalse(true, 'Unexpected code executed');
-        } catch (ValueError $e) {
+        } catch (ValueError) {
         }
         $this->tester->dontSeeInDatabase('fs_mailchange', ['foodsaver_id' => $foodsaver['id']]);
         $this->tester->dontSeeInDatabase('fs_foodsaver', ['id' => $foodsaver['id'], 'email' => strtolower($changeRequest->email)]);
@@ -293,13 +283,13 @@ class SettingsTransactionsTest extends Unit
         $this->session->expects($this->any())->method('id')->willReturn($foodsaver['id']);
         $this->tester->assertTrue(password_verify(
             $request->oldPassword,
-            $this->tester->grabFromDatabase('fs_foodsaver', 'password', ['id' => $foodsaver['id']])
+            (string)$this->tester->grabFromDatabase('fs_foodsaver', 'password', ['id' => $foodsaver['id']])
         ));
 
         $this->transaction->requestPasswordChange($request);
         $this->tester->assertTrue(password_verify(
             $request->newPassword,
-            $this->tester->grabFromDatabase('fs_foodsaver', 'password', ['id' => $foodsaver['id']])
+            (string)$this->tester->grabFromDatabase('fs_foodsaver', 'password', ['id' => $foodsaver['id']])
         ));
     }
 }

@@ -12,7 +12,7 @@ class Question
 {
     #[OA\Property(example: 1)]
     #[Assert\IsNull]
-    public ?int $id;
+    public ?int $id = null;
 
     #[OA\Property(example: 'You are at a store for a pickup. What should you do?')]
     #[Assert\NotBlank]
@@ -21,7 +21,7 @@ class Question
     #[OA\Property(example: 60)]
     #[Assert\NotNull]
     #[Assert\Positive]
-    public ?int $durationInSeconds;
+    public ?int $durationInSeconds = null;
 
     #[OA\Property(example: 'https://wiki.foodsharing.de/some_page')]
     #[Assert\NotBlank]
@@ -37,10 +37,10 @@ class Question
 
     #[OA\Property(type: 'array', items: new OA\Items(ref: new Model(type: Answer::class)))]
     #[Assert\IsNull]
-    public ?array $answers;
+    public ?array $answers = null;
 
     #[Assert\IsNull]
-    public ?int $commentCount;
+    public ?int $commentCount = null;
 
     public static function createFromArray(array $data): Question
     {

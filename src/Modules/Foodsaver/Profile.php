@@ -7,7 +7,7 @@ class Profile
     public int $id;
     public ?string $name = null;
     public ?string $avatar = null;
-    public ?bool $isSleeping;
+    public ?bool $isSleeping = null;
 
     public function __construct(array $data, string $prefix = '')
     {
@@ -27,7 +27,7 @@ class Profile
     {
         try {
             return new Profile($data, $prefix);
-        } catch (\Throwable $_) {
+        } catch (\Throwable) {
             return null;
         }
     }

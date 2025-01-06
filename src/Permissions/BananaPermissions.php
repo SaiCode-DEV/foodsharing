@@ -10,13 +10,13 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Profile\ProfileGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
-final class BananaPermissions
+final readonly class BananaPermissions
 {
     public function __construct(
-        private readonly Session $session,
-        private readonly CurrentUserUnitsInterface $currentUserUnits,
-        private readonly BananaGateway $bananaGateway,
-        private readonly ProfileGateway $profileGateway,
+        private Session $session,
+        private CurrentUserUnitsInterface $currentUserUnits,
+        private BananaGateway $bananaGateway,
+        private ProfileGateway $profileGateway,
     ) {
     }
 

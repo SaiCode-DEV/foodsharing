@@ -12,13 +12,13 @@ use Foodsharing\Modules\Quiz\DTO\QuizStatus;
 use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
-final class QuizPermissions
+final readonly class QuizPermissions
 {
     public function __construct(
-        private readonly Session $session,
-        private readonly FoodsaverGateway $foodsaverGateway,
-        private readonly QuizGateway $quizGateway,
-        private readonly CurrentUserUnitsInterface $currentUserUnits,
+        private Session $session,
+        private FoodsaverGateway $foodsaverGateway,
+        private QuizGateway $quizGateway,
+        private CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
 

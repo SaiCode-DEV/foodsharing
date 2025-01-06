@@ -234,7 +234,7 @@ class MailboxGateway extends BaseGateway
                 'sender' => $from,
                 'to' => $to,
                 'subject' => strip_tags($email->subject),
-                'body' => strip_tags($email->body),
+                'body' => strip_tags((string)$email->body),
                 'body_html' => '',
                 'time' => $email->time->format('Y-m-d H:i:s'),
                 'attach' => json_encode($attachments),
@@ -320,7 +320,7 @@ class MailboxGateway extends BaseGateway
                         );
                         $mb_name = preg_replace('/[^0-9a-z\.]/', '', $mb_name);
 
-                        if ($mb_name[0] !== '.' && strlen($mb_name) <= 3) {
+                        if ($mb_name[0] !== '.' && strlen((string)$mb_name) <= 3) {
                             continue;
                         }
 

@@ -15,9 +15,9 @@ class StoreCategoriesGatewayTest extends Unit
     protected UnitTester $tester;
     private StoreCategoriesGateway $gateway;
 
-    private array $store;
-    private array $foodsaver;
-    private array $region;
+    private readonly array $store;
+    private readonly array $foodsaver;
+    private readonly array $region;
 
     final public function _before(): void
     {
