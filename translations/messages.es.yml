@@ -2375,7 +2375,7 @@ profile:
     privateMail: 'Dirección de correo electrónico privada'
     buddycount_followed: '{count} rescatistas conocen a {name}'
     fetchrate: 'Cuota de recogida'
-    foodsaverId: 'Rescatista-ID'
+    foodsaverId: 'ID'
     foodsharerId: 'Foodsharing-ID'
     registrationDate: 'Fecha de registro'
     lastActivity: 'Última actividad'
@@ -2385,10 +2385,11 @@ profile:
   stats:
     baskets: 'Cestas de alimentos'
     posts: 'Publicaciones'
-    weight: 'kg salvado'
+    weight: 'salvado'
     count: 'recogido'
     fetch_count: recogido
     bananas: Plátanos
+    weight_unit: kg
   regions: '{name} guarda comida en'
   workgroups_admin: '{name} participa como persona de contacto para los grupos'
   about_me_intern: 'Acerca de mí'
@@ -2423,7 +2424,7 @@ profile:
     sobre los perfiles. Encontrará más información al respecto en el foro [Ambassador:inside]({url})
   sections:
     home_region_from: Región de origen
-    foodSaver_in_region: Ahorrador de alimentos en
+    foodSaver_in_region: registrados en los distritos
     ambassador_for: de
     workgroups_admin: es la persona de contacto de los grupos
     workgroups_member: en los siguientes grupos de trabajo
@@ -4709,3 +4710,10 @@ petition:
   daysLeft: '{daysLeft} días restantes'
   link: Acerca de la petición
 partner_foodsharing: Colaborador de foodsharing
+navi:
+  waze: Waze
+  google_maps: Google Maps
+  apple_maps: Apple Maps
+  osmand: OsmAnd
+  komoot: Komoot
+  here: HERE WeGo
