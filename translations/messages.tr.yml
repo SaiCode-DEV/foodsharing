@@ -3076,9 +3076,10 @@ profile:
     baskets: Yemek Sepetleri
     posts: Gönderiler
     count: alındı
-    weight: kg kurtarıldı
+    weight: kurtarıldı
     fetch_count: alındı
     bananas: Muzlar
+    weight_unit: kg
   workgroups_admin: '{name}, grupların irtibat kişisidir'
   ambRegions: '{name} {role} için'
   workgroups_member: '{name} ile aşağıdaki çalışma gruplarındasınız'
@@ -4458,3 +4459,7 @@ petition:
   link: Kampanyaya git
   daysLeft: '{daysLeft} gün kalan'
 partner_foodsharing: foodsharing Ortakları
+navi:
+  google_maps: Google Haritalar
+  apple_maps: Apple Haritalar
+  komoot: Komoot
