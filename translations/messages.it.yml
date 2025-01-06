@@ -964,7 +964,7 @@ storeedit:
     bread: modificare il team
     leave_myself: 'Te stesso'
   actions: Opzioni
-  bread: Modifica l'agenzia
+  bread: Modifica l’agenzia
   add_success: L´agenzia di cooperazione è stata registrata
   not-in-region: Puoi creare agenzie solo nelle regioni di cui sei membro.
   add-new: Crea una nuova agenzia
@@ -2671,11 +2671,12 @@ profile:
     posts: Contributi
     baskets: Cestini alimentare
     count: ritirato
-    weight: kg salvato
+    weight: salvato
     bananas: Banane
+    weight_unit: kg
   infos:
     foodsharerId: ID-Foodsaver
-    foodsaverId: ID-Foodsaver
+    foodsaverId: ID
     fetchrate: Quoto di ritiri
     buddycount1: '{name} conosce {count} Foodsaver'
     buddycount: '{nome} conoscono {count} Foodsaver'
@@ -3977,3 +3978,7 @@ store_categories:
   columns:
     name: Nome
     id: ID
+navi:
+  komoot: Komoot
+  google_maps: Google Maps
+  apple_maps: Mappe
