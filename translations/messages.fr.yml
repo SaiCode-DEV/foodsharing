@@ -2042,12 +2042,13 @@ profile:
     posts: Contributions
     baskets: Paniers solidaires
     count: collecté(s)
-    weight: kg collecté(s)
+    weight: collecté(s)
     fetch_count: collecté
     bananas: Bananes
+    weight_unit: kg
   infos:
     foodsharerId: ID de partageur
-    foodsaverId: ID de collecteur·ice
+    foodsaverId: ID
     fetchrate: Quotat de collectes
     buddycount: '{name} est connu.e par {count} collecteur.ice.s'
     buddycount1: '{name} est connu.e par {count} collecteur.ice'
@@ -4585,3 +4586,10 @@ petition:
   link: Lire le texte de la pétition
   daysLeft: '{daysLeft} jours restants'
 partner_foodsharing: Partenaires de foodsharing
+navi:
+  komoot: Komoot
+  osmand: OsmAnd
+  here: HERE WeGo
+  waze: Waze
+  apple_maps: Apple Plans
+  google_maps: Google Maps
