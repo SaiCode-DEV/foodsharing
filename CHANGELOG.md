@@ -35,6 +35,7 @@
 - Fixed pipeline testTriggerFetchWarningNotificationWithMixedPickups !3928 !3934 @SaiCode
 - Improve Playwright tests (with DB acces) & update playwright to 1.49.1 !3920 @SaiCode
 - Migrate Sentry to self-hosted instance !3946 @stcz
+- Upgrade backend Sentry SDK to 5.1 !3958 @\_fridtjof_
 
 # Release "Nektarine", 2024-12-13
 

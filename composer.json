@@ -64,7 +64,7 @@
     "nelmio/api-doc-bundle": "4.33.*",
     "nesbot/carbon": "2.66.*",
     "sensio/framework-extra-bundle": "6.2.*",
-    "sentry/sentry-symfony": "4.14.*",
+    "sentry/sentry-symfony": "5.1.*",
     "setasign/fpdi": "2.6.*",
     "symfony/asset": "6.4.*",
     "symfony/config": "6.4.*",
