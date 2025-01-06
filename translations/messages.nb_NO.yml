@@ -791,10 +791,11 @@ profile:
   stats:
     posts: Foruminnlegg
     baskets: Matkurver
-    weight: kg lagret
+    weight: lagret
     count: plukket opp
     bananas: Bananer
     fetch_count: plukket opp
+    weight_unit: kg
   infos:
     buddycount1: '{name} kjenner {count} Foodsaver'
     buddycount: '{name} kjenner {count} Foodsaver'
@@ -806,7 +807,7 @@ profile:
     registrationDate: Registreringsdato
     title: Informasjon
     foodsharerId: Matdeler-ID
-    foodsaverId: Matredder-ID
+    foodsaverId: ID
     fetchrate: Hentetakst
     buddycount_followed: '{name} kjenner {count} matreddere'
     buddycount_known: '{name} kjenner til {count} matreddere'
@@ -1057,7 +1058,7 @@ profile:
     home_region_from: Hjemdistrikt
     orga_rights: 'Som organisasjonsperson har ##### [omfattende tillatelser]({wikiurl})
       på plattformen.'
-    foodSaver_in_region: Matsparer for
+    foodSaver_in_region: registrert i distriktene
     workgroups_admin: er kontaktperson for grupper
     workgroups_member: sammen i følgende arbeidsgrupper
   stores:
@@ -4429,3 +4430,10 @@ petition:
     8000: Vi er godt i gang! Hjelp oss å komme enda lenger!
   daysLeft: '{daysLeft} dager igjen'
 partner_foodsharing: Partnere av foodsharing
+navi:
+  waze: Waze
+  apple_maps: Apple Maps
+  komoot: Komoot
+  here: HERE WeGo
+  google_maps: Google Maps
+  osmand: OsmAnd
