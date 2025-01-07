@@ -1,5 +1,24 @@
 import { urls } from '@/helper/urls'
 import { subscribeForPushNotifications } from '@/pushNotifications'
+import { precacheAndRoute } from 'workbox-precaching'
+import { registerRoute } from 'workbox-routing'
+import { CacheFirst } from 'workbox-strategies'
+
+precacheAndRoute(self.__WB_MANIFEST)
+
+registerRoute(
+  /\.(?:png|jpg|jpeg|svg|gif)$/,
+  new CacheFirst({
+    cacheName: 'images',
+  }),
+)
+
+registerRoute(
+  /\.(?:woff|woff2|ttf|otf|eot)$/,
+  new CacheFirst({
+    cacheName: 'fonts',
+  }),
+)
 
 self.addEventListener('push', async function (event) {
   const roundCorners = (() => {

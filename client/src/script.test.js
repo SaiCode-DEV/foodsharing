@@ -1,33 +1,44 @@
 import sinon from 'sinon'
 import assert from 'assert'
 import { sleep, resetModules } from '>/utils'
+import * as browserModule from '@/browser'
 
 describe('script', () => {
   const sandbox = sinon.createSandbox()
 
   let browser
   let script
-  let mockBrowser
   let server
 
   beforeEach(() => {
     server = sinon.createFakeServer()
 
-    browser = require('@/browser')
-    script = require('@/script')
+    browser = Object.create(browserModule)
+    Object.defineProperty(browser, 'isMob', {
+      configurable: true,
+      writable: true,
+      value: browserModule.isMob,
+    })
 
-    mockBrowser = sandbox.mock(browser)
+    const browserPath = require.resolve('@/browser')
+    require.cache[browserPath] = {
+      exports: browser,
+    }
+
+    script = require('@/script')
   })
 
   afterEach(() => {
-    mockBrowser.verify()
+    sandbox.verifyAndRestore()
     server.restore()
     sandbox.restore()
     resetModules()
   })
 
   describe('on mobile', () => {
-    beforeEach(() => sandbox.stub(browser, 'isMob').returns(true))
+    beforeEach(() => {
+      browser.isMob = () => true
+    })
 
     describe('isMob', () => {
       it('works', () => {
@@ -37,7 +48,9 @@ describe('script', () => {
   })
 
   describe('on desktop', () => {
-    beforeEach(() => sandbox.stub(browser, 'isMob').returns(false))
+    beforeEach(() => {
+      browser.isMob = () => false
+    })
 
     it('is not mobile!', () => {
       assert.strictEqual(script.isMob(), false)

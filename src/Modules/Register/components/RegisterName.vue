@@ -7,11 +7,10 @@
       <b-form-group id="genderFormGroup">
         <b-form-radio-group
           id="genderRadioGroup"
-          :checked="gender"
-          :state="v$.gender.$error ? false : null"
-          :value="gender"
+          v-model="state.gender"
+          :checked="state.gender"
           name="gender"
-          @input="$emit('update:gender', $event)"
+          @input="emit('update:gender', $event)"
         >
           <b-form-radio
             id="genderWoman"
@@ -40,12 +39,12 @@
       </div> <div class="col-sm-auto">
         <input
           id="firstname"
-          v-model.lazy="v$.firstname.$model"
+          v-model="v$.firstname.$model"
           :class="{ 'is-invalid': v$.firstname.$error }"
           type="text"
           name="firstname"
           class="form-control"
-          @input="$emit('update:firstname', $event.target.value)"
+          @input="emit('update:firstname', $event.target.value)"
         >
         <div
           v-if="v$.firstname.$error"
@@ -61,12 +60,12 @@
         </div> <div class="col-sm-auto">
           <input
             id="lastname"
-            v-model.lazy="v$.lastname.$model"
+            v-model="v$.lastname.$model"
             :class="{ 'is-invalid': v$.lastname.$error }"
             type="text"
             name="lastname"
             class="form-control"
-            @input="$emit('update:lastname', $event.target.value)"
+            @input="emit('update:lastname', $event.target.value)"
           >
           <div v-if="v$.lastname.$error" class="invalid-feedback">
             <span v-if="!v$.lastname.required">{{ $i18n('register.lastname_required') }}</span>
@@ -77,7 +76,7 @@
       <button
         class="btn btn-primary ml-3 mt-3"
         type="button"
-        @click.prevent="$emit('prev')"
+        @click.prevent="emit('prev')"
       >
         {{ $i18n('register.prev') }}
       </button>
@@ -92,31 +91,37 @@
     </div>
   </form>
 </template>
-<script>
+<script setup>
+import { reactive, defineProps, defineEmits } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, minLength } from '@vuelidate/validators'
 
-export default {
-  props: { firstname: { type: String, default: '' }, lastname: { type: String, default: '' }, gender: { type: Number, default: 1 } },
-  setup () {
-    return {
-      v$: useVuelidate(),
-    }
-  },
-  validations: {
-    firstname: { required, minLength: minLength(2) },
-    lastname: { required, minLength: minLength(2) },
-    gender: { required },
-  },
+const props = defineProps({
+  firstname: { type: String, default: '' },
+  lastname: { type: String, default: '' },
+  gender: { type: Number, default: 1 },
+})
 
-  methods: {
-    redirect () {
-      this.v$.$touch()
-      if (!this.v$.$invalid) {
-        this.$emit('next')
-      }
-    },
-  },
+const emit = defineEmits(['update:firstname', 'update:lastname', 'update:gender', 'prev', 'next'])
+
+const state = reactive({
+  firstname: props.firstname,
+  lastname: props.lastname,
+  gender: props.gender,
+})
+
+const rules = {
+  firstname: { required, minLength: minLength(2) },
+  lastname: { required, minLength: minLength(2) },
+  gender: { required },
+}
+
+const v$ = useVuelidate(rules, state)
+
+async function redirect () {
+  if (await v$.value.$validate()) {
+    emit('next')
+  }
 }
 </script>
 <style lang="scss" scoped>

@@ -15,7 +15,6 @@ export const useUserStore = defineStore('user', {
     locations: serverData.locations, // null if the user is not logged in or does not have a home address
     user: serverData.user,
     permissions: serverData.permissions,
-    isLoggedIn: serverData.user?.id !== null,
     isApiRestrictedForLegalReasons: serverData.isApiRestrictedForLegalReasons ?? true,
     fetching: {},
   }),
@@ -23,6 +22,7 @@ export const useUserStore = defineStore('user', {
     isSleeping: (state) => state.details?.isSleeping,
     isVerified: (state) => state.details?.isVerified,
     isFoodsaver: (state) => state.user?.isFoodsaver,
+    isLoggedIn: (state) => state.user?.id !== null,
     isOrga: (state) => state.details?.role >= ROLE.ORGA,
     isStoreManager: (state) => state.details?.role >= ROLE.STORE_MANAGER,
     isAmbassador: (state) => state.details?.role >= ROLE.AMBASSADOR,
@@ -95,6 +95,9 @@ export const useUserStore = defineStore('user', {
         console.error('Error fetching mail unread count:', e)
       }
     },
+  },
+  persist: {
+    pick: ['mailUnreadCount', 'details'],
   },
 })
 

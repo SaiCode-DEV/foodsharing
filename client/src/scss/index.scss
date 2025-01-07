@@ -37,6 +37,13 @@ which allows us to use the bootstrap theme without using the bootstrap-vue compo
 @import "nojs";
 
 /*
+    Imports for Modules
+    TODO: Remove / Move with Map update (MapLibre)
+*/
+@import "~leaflet.markercluster/dist/MarkerCluster.css";
+@import "~leaflet.markercluster/dist/MarkerCluster.Default.css";
+@import "~leaflet.awesome-markers/dist/leaflet.awesome-markers.css";
+/*
     All interactions like a, buttons, etc.
     or the Navigation
 */

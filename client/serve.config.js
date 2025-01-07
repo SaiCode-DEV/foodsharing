@@ -10,7 +10,7 @@ module.exports = {
     port: 8082,
     hot: true,
     devMiddleware: {
-      index: '',
+      index: 'index.html',
       publicPath: '/assets/',
       writeToDisk: true,
     },
@@ -26,13 +26,14 @@ module.exports = {
         port: 18090, // see docker/docker-compose.dev.yml
       },
     },
-    proxy: {
-      '!/ws/**': {
+    proxy: [
+      {
+        context: (pathname, req) => !pathname.startsWith('/ws'),
         target,
         changeOrigin: false,
         xfwd: true,
         ws: true,
       },
-    },
+    ],
   },
 }

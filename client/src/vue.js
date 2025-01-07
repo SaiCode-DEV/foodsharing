@@ -5,10 +5,12 @@ import { url } from '@/helper/urls'
 import { isFeatureToggleActive } from '@/helper/featuretoggles'
 import BootstrapVue from 'bootstrap-vue'
 import { createPinia, PiniaVuePlugin } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 Vue.use(BootstrapVue)
 Vue.use(PiniaVuePlugin)
 const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
 Vue.use(pinia)
 
 Vue.prototype.$i18n = (key, variables = {}) => {

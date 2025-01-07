@@ -1,5 +1,6 @@
 const glob = require('glob')
 const { merge } = require('webpack-merge')
+const webpack = require('webpack')
 
 const path = require('path')
 const clientRoot = path.resolve(__dirname)
@@ -22,6 +23,13 @@ module.exports = merge(webpackBase, {
       sinon: path.resolve(__dirname, 'node_modules/sinon/pkg/sinon-esm.js'),
     },
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      // In webpack 5 automatic node.js polyfills are removed
+      // -> see https://stackoverflow.com/a/65018686/14239942
+      process: 'process/browser.js',
+    }),
+  ],
   module: {
     rules: [
       {

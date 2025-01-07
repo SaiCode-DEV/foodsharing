@@ -6,7 +6,7 @@
 
     <div class="col-sm-auto">
       <password-field
-        v-model="v$.oldPassword.$model"
+        v-model="oldPassword"
         class="mt-3"
         :class="{ 'is-invalid': v$.oldPassword.$error }"
         type="password"
@@ -23,7 +23,7 @@
 
     <div class="col-sm-auto">
       <password-field
-        v-model="v$.newPassword.$model"
+        v-model="newPassword"
         class="mt-3"
         :class="{ 'is-invalid': v$.newPassword.$error }"
         type="password"
@@ -45,7 +45,7 @@
 
     <div class="col-sm-auto">
       <password-field
-        v-model="v$.confirmNewPassword.$model"
+        v-model="confirmNewPassword"
         class="mt-3"
         :class="{ 'is-invalid': v$.confirmNewPassword.$error }"
         type="password"

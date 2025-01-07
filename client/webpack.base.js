@@ -1,6 +1,5 @@
 const path = require('path')
 const clientRoot = path.resolve(__dirname)
-const shims = require('./shims')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
@@ -13,8 +12,8 @@ const production = process.env.NODE_ENV === 'production'
 if (production) {
   plugins.push(
     new MiniCssExtractPlugin({
-      filename: 'css/[id].[hash].css',
-      chunkFilename: 'css/[id].[hash].css',
+      filename: 'css/[id].[contenthash].css',
+      chunkFilename: 'css/[id].[contenthash].css',
     }),
   )
 }
@@ -26,7 +25,6 @@ module.exports = {
       resolve('node_modules'),
     ],
     alias: {
-      ...shims.alias,
       fonts: resolve('../fonts'),
       img: resolve('../img'),
       css: resolve('../css'),
@@ -51,18 +49,6 @@ module.exports = {
             presets: [
               [
                 '@babel/preset-env',
-                {
-                  targets: {
-                    // ie_mob is load bearing here with webpack 4.
-                    // removing it makes babel pass through a lot of modern JS,
-                    // which webpack 4 can't handle.
-                    // can be removed after upgrading to webpack 5
-                    browsers: ['> 0.5%', 'ie_mob >=11'],
-                  },
-                  useBuiltIns: 'usage',
-                  modules: 'commonjs',
-                  corejs: '3',
-                },
               ],
             ],
           },
@@ -105,7 +91,6 @@ module.exports = {
         include: /node_modules/,
         type: 'javascript/auto',
       },
-      ...shims.rules,
     ],
   },
   plugins,

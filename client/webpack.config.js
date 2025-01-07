@@ -9,7 +9,7 @@ const path = require('path')
 const clientRoot = path.resolve(__dirname)
 const { join, dirname } = require('path')
 const glob = require('glob')
-const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin')
+const { InjectManifest } = require('workbox-webpack-plugin')
 
 const dev = process.env.NODE_ENV !== 'production'
 
@@ -39,7 +39,7 @@ plugins.push(
         const stats = compiler.getStats().toJson()
         const data = {}
         for (const [entryName, { assets }] of Object.entries(stats.entrypoints)) {
-          data[entryName] = assets.map(asset => join(stats.publicPath, asset))
+          data[entryName] = assets.map(asset => join(stats.publicPath, asset.name))
         }
         // We do not emit the data like a proper plugin as we want to create the file when running the dev server too
         const json = `${JSON.stringify(data, null, 2)}`
@@ -62,17 +62,20 @@ plugins.push(
   }),
 )
 
-plugins.push(
-  new ServiceWorkerWebpackPlugin({
-    entry: path.join(__dirname, 'src/serviceWorker.js'),
-    filename: 'sw.js',
-  }),
-)
+if (!dev) {
+  plugins.push(
+    new InjectManifest({
+      swSrc: './src/serviceWorker.js',
+      swDest: path.join(assetsPath, 'sw.js'),
+      maximumFileSizeToCacheInBytes: 25 * 1024 * 1024, // 25 MB
+    }),
+  )
+}
 
 module.exports = merge(webpackBase, {
   entry: moduleEntries(),
   mode: dev ? 'development' : 'production',
-  devtool: dev ? 'cheap-module-eval-source-map' : 'source-map',
+  devtool: dev ? 'eval-cheap-module-source-map' : 'source-map',
   stats: 'minimal',
   output: {
     path: assetsPath,
@@ -82,7 +85,7 @@ module.exports = merge(webpackBase, {
           chunkFilename: 'js/[chunkhash].js',
         }
       : {
-          filename: 'js/[name].[hash].js',
+          filename: 'js/[name].[fullhash].js',
           chunkFilename: 'js/[id].[chunkhash].js',
         }),
     publicPath: '/assets/',
@@ -106,7 +109,7 @@ module.exports = merge(webpackBase, {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: dev ? 'img/[name].[ext]' : 'img/[name].[hash:7].[ext]',
+          name: dev ? 'img/[name].[ext]' : 'img/[name].[contenthash:7].[ext]',
         },
       },
       {
@@ -114,7 +117,7 @@ module.exports = merge(webpackBase, {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: dev ? 'fonts/[name].[ext]' : 'fonts/[name].[hash:7].[ext]',
+          name: dev ? 'fonts/[name].[ext]' : 'fonts/[name].[contenthash:7].[ext]',
         },
       },
     ],
@@ -123,13 +126,19 @@ module.exports = merge(webpackBase, {
   optimization: {
     minimizer: [
       new TerserPlugin({
-        sourceMap: true,
+        terserOptions: {
+          sourceMap: true,
+        },
       }),
     ],
-    runtimeChunk: true,
+    runtimeChunk: 'multiple',
     splitChunks: {
-      chunks: 'all',
-      name: dev,
+      chunks: 'async',
+      name: dev
+        ? (module, chunks, cacheGroupKey) => {
+            return chunks.map(chunk => chunk.name).join('~')
+          }
+        : false,
       maxInitialRequests: 6,
     },
   },

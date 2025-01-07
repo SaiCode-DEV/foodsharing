@@ -1,16 +1,26 @@
-import runtime from 'serviceworker-webpack-plugin/lib/runtime'
+import { Workbox } from 'workbox-window'
 
 function registerServiceWorker () {
-  document.addEventListener('DOMContentLoaded', async () => {
+  document.addEventListener('DOMContentLoaded', () => {
     if (!('serviceWorker' in navigator)) {
       console.warn('Service workers are not supported by this browser')
       return
     }
-    try {
-      await runtime.register()
-    } catch (error) {
+    const workbox = new Workbox('/assets/sw.js')
+
+    workbox.addEventListener('installed', event => {
+      if (event.isUpdate) {
+        console.log('New content is available; please refresh.')
+      }
+    })
+
+    workbox.addEventListener('ready', () => {
+      console.log('Service Worker is ready.')
+    })
+
+    workbox.register().catch(error => {
       console.warn('Service worker registration failed:', error)
-    }
+    })
   })
 }
 

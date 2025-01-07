@@ -10,6 +10,7 @@
 - Rewrite Legal style to Vue & UI style fixed !3911 @chriswalg @SaiCode
 - Prevent autofil save form for adress !3740 @chriswalg
 - Frontend design changes in profile #1936 !3937 @McGoldi
+- Userstorage saved to Localstoage !3621 @SaiCode
 
 ## Bugfixes
 - Resolve "region filter bug on profile page: Blank screen when navigating store list" #2295 !3940 @chriswalg
@@ -27,6 +28,8 @@
 - Rework rest controller !3879 !3935 !3893 !3880 !3936 !3892 !3942 !3943 !3939 !3923 @chriswalg @alex.simm
 - Moved WebSocket-Server communication to one class #1769 !3421 @KoeMai @alex.simm
 - Update to php 8.2 !3947 @chriswalg
+- Update webpack to 5 !3621 @SaiCode
+- Service worker moved to Google Workbox !3621 @SaiCode
 
 ## Dev/Test/CI stuff
 - Update dev docs Vue component integration to use prepareVueComponent !3910 @chriswalg

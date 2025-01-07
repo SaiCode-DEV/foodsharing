@@ -39,10 +39,13 @@ export function setGETParams (params) {
 
 const sandbox = sinon.createSandbox()
 
+if (!window.showLoading) {
+  window.showLoading = () => {}
+}
+
 beforeEach(() => {
   GETParams = {}
-  const browser = require('@/browser')
-  sandbox.stub(browser, 'GET').callsFake(param => GETParams[param])
+  sandbox.stub(window, 'showLoading').returns(true)
 })
 
 afterEach(() => {

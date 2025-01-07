@@ -27,7 +27,6 @@ import {
   hideLoader,
   wantToHelpStore,
   withdrawStoreRequest,
-  error,
 } from '@/script'
 
 expose({
@@ -43,6 +42,5 @@ expose({
   wantToHelpStore,
   withdrawStoreRequest,
   conv,
-  error,
   sock: socket,
 })

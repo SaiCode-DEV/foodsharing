@@ -7,7 +7,7 @@
     <div class="col-sm-auto">
       <input
         id="new-email"
-        v-model="v$.email.$model"
+        v-model="email"
         class="form-control mt-3"
         :class="{ 'is-invalid': v$.email.$error }"
         type="email"
@@ -24,7 +24,7 @@
     <div class="col-sm-auto">
       <input
         id="new-email-confirm"
-        v-model="v$.confirmEmail.$model"
+        v-model="confirmEmail"
         class="form-control mt-3"
         :class="{ 'is-invalid': v$.confirmEmail.$error }"
         type="email"
@@ -49,7 +49,7 @@
       <input
         v-if="isMe"
         id="password"
-        v-model="v$.password.$model"
+        v-model="password"
         class="form-control mt-3"
         :class="{ 'is-invalid': v$.password.$error }"
         type="password"
