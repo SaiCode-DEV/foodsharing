@@ -34,6 +34,8 @@ module.exports = {
       '>': resolve('test'),
       '@translations': resolve('../translations'),
     },
+    cache: true,
+    symlinks: false,
   },
   module: {
     rules: [
@@ -43,21 +45,37 @@ module.exports = {
           /(node_modules)/,
           resolve('lib'), // ignore the old lib/**.js files
         ],
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              [
-                '@babel/preset-env',
-              ],
-            ],
+        use: [
+          'cache-loader',
+          {
+            loader: 'thread-loader',
+            options: {
+              workers: 2,
+              workerParallelJobs: 25,
+              poolTimeout: 2000,
+            },
           },
-        },
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                [
+                  '@babel/preset-env',
+                ],
+              ],
+              cacheDirectory: true,
+            },
+          },
+        ],
       },
       {
         test: /\.vue$/,
         exclude: /(node_modules)/,
-        use: 'vue-loader',
+        use: [
+          'cache-loader',
+          'thread-loader',
+          'vue-loader',
+        ],
       },
       {
         test: /\.css$/,
@@ -72,7 +90,9 @@ module.exports = {
         test: /\.scss$/,
         use: [
           production ? MiniCssExtractPlugin.loader : 'style-loader',
+          'cache-loader',
           'css-loader',
+          'thread-loader',
           'sass-loader',
         ],
       },

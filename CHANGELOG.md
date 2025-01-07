@@ -28,7 +28,7 @@
 - Rework rest controller !3879 !3935 !3893 !3880 !3936 !3892 !3942 !3943 !3939 !3923 @chriswalg @alex.simm
 - Moved WebSocket-Server communication to one class #1769 !3421 @KoeMai @alex.simm
 - Update to php 8.2 !3947 @chriswalg
-- Update webpack to 5 !3621 @SaiCode
+- Update webpack to 5 !3621 !3964 @SaiCode
 - Service worker moved to Google Workbox !3621 @SaiCode
 
 ## Dev/Test/CI stuff

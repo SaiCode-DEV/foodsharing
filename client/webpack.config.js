@@ -77,6 +77,10 @@ module.exports = merge(webpackBase, {
   mode: dev ? 'development' : 'production',
   devtool: dev ? 'eval-cheap-module-source-map' : 'source-map',
   stats: 'minimal',
+  watch: dev,
+  watchOptions: {
+    ignored: '**/node_modules',
+  },
   output: {
     path: assetsPath,
     ...(dev
@@ -89,6 +93,27 @@ module.exports = merge(webpackBase, {
           chunkFilename: 'js/[id].[chunkhash].js',
         }),
     publicPath: '/assets/',
+  },
+  performance: dev
+    ? {
+        // Disable performance hints in development
+        hints: false,
+      }
+    : {
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000,
+        hints: 'warning',
+        assetFilter: function (assetFilename) {
+          return !assetFilename.endsWith('.map') && !assetFilename.match(/\.(png|jpg|gif|svg)$/)
+        },
+      },
+  cache: {
+    type: 'filesystem',
+    buildDependencies: {
+      config: [__filename],
+    },
+    compression: 'gzip',
+    maxAge: 172800000, // 2 days
   },
   module: {
     rules: [
@@ -126,20 +151,41 @@ module.exports = merge(webpackBase, {
   optimization: {
     minimizer: [
       new TerserPlugin({
+        parallel: true,
         terserOptions: {
           sourceMap: true,
+          compress: {
+            drop_console: !dev,
+            drop_debugger: !dev,
+          },
         },
       }),
     ],
-    runtimeChunk: 'multiple',
+    moduleIds: 'deterministic',
+    runtimeChunk: 'single',
     splitChunks: {
-      chunks: 'async',
-      name: dev
-        ? (module, chunks, cacheGroupKey) => {
-            return chunks.map(chunk => chunk.name).join('~')
-          }
-        : false,
-      maxInitialRequests: 6,
+      chunks: 'all',
+      maxInitialRequests: 10,
+      minSize: 20000,
+      maxSize: 250000,
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name (module) {
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
+            return `vendor.${packageName.replace('@', '')}`
+          },
+          priority: -10,
+          chunks: 'all',
+        },
+        common: {
+          name: 'common',
+          minChunks: 2,
+          priority: -20,
+          chunks: 'all',
+          reuseExistingChunk: true,
+        },
+      },
     },
   },
 })
