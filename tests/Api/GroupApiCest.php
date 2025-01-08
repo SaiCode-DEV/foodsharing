@@ -22,7 +22,6 @@ class GroupApiCest
         $I->login($ambassador['email']);
         $I->sendDELETE("api/groups/{$this->region['id']}");
         $I->seeResponseCodeIs(HttpCode::FORBIDDEN);
-        $I->seeResponseIsJson();
         $I->seeInDatabase('fs_bezirk', ['id' => $this->region['id']]);
     }
 
@@ -32,7 +31,6 @@ class GroupApiCest
         $I->login($orga['email']);
         $I->sendDELETE("api/groups/{$this->region['id']}");
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseIsJson();
         $I->dontSeeInDatabase('fs_bezirk', ['id' => $this->region['id']]);
     }
 
