@@ -2047,8 +2047,8 @@ mailbox:
   attachment:
     not_found_explanation: Ekli dosya artık sunucuda bulunamadı
     not_found: bulunamadı
-    attach: Ekler (Dosya başına Maksimum 1,5 MB)
-    too_large_to_send: Dosyalardan bazıları çok büyüktü ve e-postaya eklenemedi.
+    attach: Ekler (Dosya başına maksimum 1,5 MB)
+    too_large_to_send: Dosyalardan bazıları çok büyüktü ve eklenemedi.
     too_many: Çok fazla dosya seçildi. E-postaya en fazla 10 dosya eklenebilir.
   move_to: Taşınmak
   close_edit_mode: Düzenlemeyi durdur
@@ -3013,7 +3013,7 @@ profile:
     never: Hiç
     privateMail: Özel e-posta adresi
     buddycount_known: '{name}, {count} Foodsaverı (er./kd.) tanır'
-    foodsaverId: Foodsaver-ID´si
+    foodsaverId: ID
     lastActivity: Son Aktivite
     fetchrate: Alma oranı
     fsMail: Dahili E-Posta Kutusu
@@ -3046,6 +3046,7 @@ profile:
     remove:
       confirm_title: 'Güven fidanını kaldır'
       confirm_message: 'Gerçekten o güven fidanını ortadan kaldırmak istiyor musun?'
+      successful: Güven fidanı silindi!
     title: '{count} Güven fidanı'
     details: 'Burada neden {name}''e muz güven fidanı vermek istediğinizi en az 100
       karakterle açıklayabilirsiniz.
@@ -3100,7 +3101,7 @@ profile:
     orga_rights: 'Bir Orga insanı olarak #####, platformda [kapsamlı izinlere]({wikiurl})
       sahiptir.'
     ambassador_for: 'için'
-    foodSaver_in_region: Foodsaver
+    foodSaver_in_region: Bölgelerde kayıtlı
     workgroups_admin: Gruplar için irtibat kişisi olarak yer alır
     workgroups_member: aşağıdaki çalışma gruplarında birlikte
     no_common_workgroups: herhangi ortak çalışma grubunda değil
@@ -4444,6 +4445,11 @@ support_page:
     sorularınızla ilgilenecektir. Teknik sorunların daha iyi ele alınabilmesi için
     talebinizde hangi tarayıcıyı ve işletim sistemini kullandığınız da yer alacaktır.
   attachments: Ekler (dosya başına maksimum 5MB)
+  attachment:
+    max_size: Ekler (dosya başına maksimum 10,5 MB)
+    placeholder: Dosya seç
+    drop_placeholder: Dosyayı buraya bırakın
+    browse: Ara
 petition:
   progressText:
     8000: İyi bir başlangıç yapıyoruz! Bunu daha da ileriye taşımamıza yardım edin!
@@ -4463,3 +4469,6 @@ navi:
   google_maps: Google Haritalar
   apple_maps: Apple Haritalar
   komoot: Komoot
+  waze: Waze
+  osmand: OsmAnd
+  here: HERE WeGo
