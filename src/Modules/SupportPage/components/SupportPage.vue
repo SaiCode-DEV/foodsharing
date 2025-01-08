@@ -75,54 +75,15 @@
         </div>
       </b-form-group>
 
-      <b-form-group :label="$i18n('support_page.attachments')">
+      <b-form-group :label="$i18n('support_page.attachment.max_size')">
         <div class="d-flex align-items-start">
-          <b-form-tags
-            v-model="attachmentFileNames"
-            no-outer-focus
-            size="sm"
-            class="flex-grow-1 mr-3 attachment-tags"
-          >
-            <template #default="{ tags, tagVariant, removeTag }">
-              <b-input-group>
-                <div class="d-inline-block tag-container">
-                  <b-form-tag
-                    v-for="tag in tags"
-                    :key="tag"
-                    :title="tag"
-                    :variant="tagVariant"
-                    class="mr-1 badge-primary"
-                    :class="{
-                      'bFormTag': !viewIsMobile,
-                      'btn-bFormTagMobile': viewIsMobile,
-                    }"
-                    @remove="removeTag(tag)"
-                  >
-                    {{ truncateFilename(tag, viewIsMobile ? 24 : 50) }}
-                  </b-form-tag>
-                </div>
-              </b-input-group>
-            </template>
-          </b-form-tags>
-
-          <div>
-            <input
-              id="files"
-              type="file"
-              multiple
-              class="hidden"
-              @change="storeFiles"
-            >
-            <label
-              for="files"
-              :title="$i18n('mailbox.search')"
-              class="btn btn-outline-secondary custom-label"
-              :disabled="isLoading || isSuccessfullySubmitted"
-            >
-              <i v-if="viewIsMobile" class="fas fa-paperclip" />
-              <span v-else>{{ $i18n('mailbox.search') }}</span>
-            </label>
-          </div>
+          <FileInput
+            :value="attachmentFileObjects"
+            :disabled="isLoading || isSuccessfullySubmitted"
+            :max-files="MAX_SUPPORT_TICKET_ATTACHMENT_FILES"
+            :max-file-size="MAX_SUPPORT_TICKET_ATTACHMENT_SIZE"
+            @update:value="attachmentFileObjects = $event"
+          />
         </div>
       </b-form-group>
 
@@ -133,44 +94,52 @@
       >
         {{ $i18n('support_page.success') }}
       </b-alert>
-      <b-button
-        type="submit"
-        variant="primary"
-        :disabled="isLoading || v$.$invalid || isSuccessfullySubmitted"
-      >
-        {{ $i18n('button.send') }}
-      </b-button>
-      <b-button
-        variant="primary"
-        :disabled="isLoading || !isSuccessfullySubmitted"
-        @click="clearForm"
-      >
-        {{ $i18n('support_page.new_request') }}
-      </b-button>
+      <div class="d-flex justify-content-end">
+        <b-button
+          v-if="isSuccessfullySubmitted"
+          variant="danger"
+          class="mr-2"
+          :disabled="isLoading || !isSuccessfullySubmitted"
+          @click="clearForm"
+        >
+          <i class="fas fa-redo" />
+          {{ $i18n('support_page.new_request') }}
+        </b-button>
+        <b-button
+          type="submit"
+          variant="primary"
+          :disabled="isLoading || v$.$invalid || isSuccessfullySubmitted"
+        >
+          {{ $i18n('button.send') }}
+        </b-button>
+      </div>
     </b-form>
   </Container>
 </template>
 
 <script>
 import Container from '@/components/Container/Container.vue'
+import FileInput from '@/components/UI/FileInput.vue'
 import { createTicket } from '@/api/support'
 import { useUserStore } from '@/stores/user'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
 import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
-import { MAX_SUPPORT_TICKET_ATTACHMENT_SIZE } from '@/consts'
+import { MAX_SUPPORT_TICKET_ATTACHMENT_SIZE, MAX_SUPPORT_TICKET_ATTACHMENT_FILES } from '@/consts'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import FileUpload from '@/mixins/FileUpload'
 
 const userStore = useUserStore()
 
 export default {
-  components: { Container },
+  components: { Container, FileInput },
   mixins: [MediaQueryMixin, FileUpload],
   setup () {
     return {
       v$: useVuelidate(),
+      MAX_SUPPORT_TICKET_ATTACHMENT_SIZE,
+      MAX_SUPPORT_TICKET_ATTACHMENT_FILES,
     }
   },
   data () {
@@ -180,7 +149,6 @@ export default {
       subject: '',
       body: '',
       firstNameData: '',
-      attachmentFileNames: [],
       attachmentFileObjects: [],
       isSuccessfullySubmitted: false,
     }
@@ -204,18 +172,6 @@ export default {
         this.email = newEmail
       }
     },
-    /**
-     * Removes the attached file if the tag in the b-form-tags was removed.
-     */
-    attachmentFileNames (newFiles, oldFiles) {
-      const removedFiles = oldFiles.filter(file => !newFiles.includes(file))
-      removedFiles.forEach(file => {
-        const index = this.attachmentFileObjects.findIndex(obj => obj.name === file)
-        if (index !== -1) {
-          this.attachmentFileObjects.splice(index, 1)
-        }
-      })
-    },
   },
   async mounted () {
     if (this.isLoggedIn) {
@@ -224,31 +180,11 @@ export default {
     this.isLoading = false
   },
   methods: {
-    truncateFilename (filename, length) {
-      const lastDot = filename.lastIndexOf('.')
-      if (lastDot === -1) return filename
-
-      const ext = filename.substring(lastDot)
-      const name = filename.substring(0, lastDot)
-
-      if (filename.length <= length) return filename
-
-      const truncatedLength = length - ext.length - 3
-      return name.slice(0, truncatedLength) + '...' + ext
+    formatFilenames (files, length = 10) {
+      return files.length === 1 ? files[0].name : `${files.length} files selected`
     },
-    storeFiles (event) {
-      // Stores files that were selected as attachments. The files will laterbe attached to the request.
-      const files = Array.from(event.target.files)
-      const filteredFiles = files.filter(file => file.size <= MAX_SUPPORT_TICKET_ATTACHMENT_SIZE)
-      filteredFiles.forEach(file => {
-        this.attachmentFileNames.push(file.name)
-        this.attachmentFileObjects.push(file)
-      })
-
-      // Show an error message if any of the selected files were too large
-      if (files.length > filteredFiles.length) {
-        pulseError(this.$i18n('mailbox.attachment.too_large_to_send'))
-      }
+    storeFiles (files) {
+      this.attachmentFileObjects = files
     },
     async submitTicket () {
       if (this.isLoading || this.isSuccessfullySubmitted || this.v$.$invalid) return
@@ -281,7 +217,6 @@ export default {
     clearForm () {
       this.body = ''
       this.subject = ''
-      this.attachmentFileNames = []
       this.attachmentFileObjects = []
       this.isSuccessfullySubmitted = false
     },
@@ -301,5 +236,11 @@ export default {
 
 .tag-container {
   font-size: 1.5rem;
+}
+
+.remove-attachment {
+  z-index: 10;
+  position: relative;
+  pointer-events: all;
 }
 </style>

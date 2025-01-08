@@ -150,62 +150,12 @@
             {{ $i18n('mailbox.forward_attachment_warning') }}
           </b-alert>
           <div class="flex-container">
-            <b-form-tags
-              v-model="attachmentFilesName"
-              no-outer-focus
-              size="sm"
-              class="mb-2"
-            >
-              <template #default="{ tags, tagVariant, removeTag }">
-                <b-input-group class="mb-2">
-                  <div
-                    class="d-inline-block"
-                    style="font-size: 1.5rem;"
-                  >
-                    <div v-if="!isMobile">
-                      <b-form-tag
-                        v-for="tag in tags"
-                        :key="tag"
-                        :title="tag"
-                        :variant="tagVariant"
-                        class="mr-1 badge-primary bFormTag"
-                        @remove="removeTag(tag)"
-                      >
-                        {{ tag }}
-                      </b-form-tag>
-                    </div>
-                    <b-form-tag
-                      v-for="tag in tags"
-                      v-else
-                      :key="tag"
-                      :title="tag"
-                      :variant="tagVariant"
-                      class="mr-1 badge-primary bFormTagMobile"
-                      @remove="removeTag(tag)"
-                    >
-                      {{ tag }}
-                    </b-form-tag>
-                  </div>
-                </b-input-group>
-              </template>
-            </b-form-tags>
-            <input
-              id="files"
-              type="file"
-              multiple
-              class="hidden"
-              :disabled="!mayAttachMoreFiles"
-              @change="storeFiles"
-            >
-            <label
-              v-if="mayAttachMoreFiles"
-              for="files"
-              :title="$i18n('mailbox.search')"
-              class="btn btn-outline-primary btn-sm custom-label"
-            >
-              <i v-if="isMobile" class="fas fa-paperclip" />
-              <span v-else>{{ $i18n('mailbox.search') }}</span>
-            </label>
+            <FileInput
+              :value="attachmentFilesObjects"
+              :disabled="isBusy || !mayAttachMoreFiles"
+              :max-files="MAX_NUMBER_OF_EMAIL_ATTACHMENTS"
+              @update:value="storeFiles"
+            />
           </div>
         </b-col>
       </b-row>
@@ -240,22 +190,22 @@
         </b-col>
       </b-row>
     </div>
-  </container>
+  </Container>
 </template>
 
 <script>
 import Container from '@/components/Container/Container.vue'
+import FileInput from '@/components/UI/FileInput.vue'
 import { sendEmail, setEmailProperties } from '@/api/mailbox'
 import { uploadFile } from '@/api/uploads'
 import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
 import { store, MAILBOX_PAGE, MAIL_COMPOSITION_MODE, MAX_NUMBER_OF_EMAIL_ATTACHMENTS } from '@/stores/mailbox'
-import { MAX_UPLOAD_FILE_SIZE } from '@/consts'
 import AddressBook from '@/components/Mailbox/AddressBook'
 import FileUpload from '@/mixins/FileUpload'
 
 export default {
-  components: { Container, AddressBook },
+  components: { Container, AddressBook, FileInput },
   mixins: [FileUpload],
   props: {
     email: { type: Object, default: () => { } },
@@ -267,10 +217,10 @@ export default {
       emailTo: [''],
       subject: '',
       mailBody: null,
-      attachmentFilesName: [],
       attachmentFilesObjects: [],
       isMobile: false,
       currentEmailInput: '',
+      MAX_NUMBER_OF_EMAIL_ATTACHMENTS,
     }
   },
   computed: {
@@ -329,15 +279,6 @@ export default {
     },
   },
   watch: {
-    attachmentFilesName (newFiles, oldFiles) {
-      const removedFiles = oldFiles.filter(file => !newFiles.includes(file))
-      removedFiles.forEach(file => {
-        const index = this.attachmentFilesObjects.findIndex(obj => obj.name === file)
-        if (index !== -1) {
-          this.attachmentFilesObjects.splice(index, 1)
-        }
-      })
-    },
     compositionMode (newVal, oldVal) {
       if (newVal) {
         this.updateRecipientsForAnswerMode()
@@ -434,27 +375,8 @@ export default {
       this.currentEmailInput = invalidEmails.join('; ')
     },
 
-    storeFiles (event) {
-      // Stores files that were selected as attachments. Uploading is only done when the email is actually being sent.
-      const files = Array.from(event.target.files)
-      let filteredFiles = files.filter(file => file.size <= MAX_UPLOAD_FILE_SIZE)
-
-      // Show an error message if any of the selected files were too large
-      if (files.length > filteredFiles.length) {
-        pulseError(this.$i18n('mailbox.attachment.too_large_to_send'))
-      }
-
-      // Limit the number of attachments
-      const maxAttachable = MAX_NUMBER_OF_EMAIL_ATTACHMENTS - this.attachmentFilesName.length
-      if (filteredFiles.length > maxAttachable) {
-        filteredFiles = filteredFiles.slice(0, maxAttachable)
-        pulseError(this.$i18n('mailbox.attachment.too_many'))
-      }
-
-      filteredFiles.forEach(file => {
-        this.attachmentFilesName.push(file.name)
-        this.attachmentFilesObjects.push(file)
-      })
+    storeFiles (files) {
+      this.attachmentFilesObjects = files
     },
     async trySetEmailStatus (state) {
       showLoader()

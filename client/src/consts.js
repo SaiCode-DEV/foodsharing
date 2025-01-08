@@ -14,6 +14,7 @@ export const ROLE = Object.freeze({
 })
 export const MAX_UPLOAD_FILE_SIZE = 1572864 // 1.5 * 1024 * 1024
 export const MAX_SUPPORT_TICKET_ATTACHMENT_SIZE = 5242880 // 5 * 1024 * 1024, meaning 5 MB
+export const MAX_SUPPORT_TICKET_ATTACHMENT_FILES = 10
 export const REGION_IDS = Object.freeze({
   // highest level below root
   EUROPE: 741,
@@ -68,3 +69,41 @@ export const EVENT_TYPE = Object.freeze({
 export const BLOG_POST_OPTIONS = Object.freeze({
   IMAGE: { WIDTH: 500, HEIGHT: 161 },
 })
+
+export const ACCEPTED_FILE_TYPES =
+    // Image files
+    'image/*,' +
+
+    // Documents
+    'application/pdf,' +
+    'text/plain,' +
+    'application/rtf,' +
+
+    // Audio and Video files
+    'audio/*,' +
+    'video/*,' +
+
+    // Compressed archives
+    'application/zip,' +
+    'application/gzip,' +
+    'application/x-7z-compressed,' +
+
+    // Data formats
+    'text/csv,' +
+    'application/json,' +
+    'application/xml,' +
+    'text/xml,' +
+    'application/x-yaml,' +
+
+    // Microsoft Office files
+    'application/msword,' +
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document,' +
+    'application/vnd.ms-excel,' +
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,' +
+    'application/vnd.ms-powerpoint,' +
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation,' +
+
+    // OpenDocument files
+    'application/vnd.oasis.opendocument.text,' +
+    'application/vnd.oasis.opendocument.spreadsheet,' +
+    'application/vnd.oasis.opendocument.presentation'
