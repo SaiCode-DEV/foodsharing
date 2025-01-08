@@ -2,7 +2,7 @@
   <b-modal
     id="BananaModal"
     size="xl"
-    :cancel-title="$i18n('button.cancel')"
+    :ok-only="true"
     :ok-title="$i18n('button.ok')"
     :title="$i18n('profile.banana.title', { count: titleCount })"
     @show="loadBananas"
@@ -15,6 +15,7 @@
         :can-remove-banana="metadata.mayDeleteBananas"
         :bananas="receivedBananas"
         :none-placeholder="$i18n(`profile.banana.recieved_none.${isYou}`, { name: recipient.name })"
+        @bananas-updated="bananasUpdated"
       />
     </div>
     <b-tabs
@@ -45,6 +46,7 @@
           :bananas="sentBananas"
           :none-placeholder="$i18n(`profile.banana.sent_none.${isYou}`, { name: recipient.name })"
           is-sent
+          @bananas-updated="bananasUpdated"
         />
       </b-tab>
     </b-tabs>
@@ -55,7 +57,7 @@
 import BananaList from '@php/Modules/Profile/components/BananaList.vue'
 import { getReceivedBananas, getSentBananas } from '@/api/banana'
 import { useUserStore } from '@/stores/user'
-import { ref, computed, defineProps } from 'vue'
+import { ref, computed, defineProps, defineEmits } from 'vue'
 
 const userStore = useUserStore()
 
@@ -63,9 +65,15 @@ const props = defineProps({
   recipient: { type: Object, required: true },
   metadata: { type: Object, default: null },
 })
+const emit = defineEmits(['bananas-updated'])
 
+const updateNeeded = ref(true)
 const receivedBananas = ref(null)
 const sentBananas = ref(null)
+const bananasUpdated = (bananaCount, mayGiveBanana) => {
+  updateNeeded.value = true
+  emit('bananas-updated', bananaCount, mayGiveBanana)
+}
 
 const isRecipient = computed(() => userStore.getUserId === props.recipient.id)
 const isYou = computed(() => isRecipient.value ? 'you' : 'other')
@@ -75,17 +83,18 @@ const titleCount = computed(() => {
 })
 
 const loadBananas = async () => {
-  if (!receivedBananas.value || !sentBananas.value) {
+  if (updateNeeded.value && !receivedBananas.value) {
     getReceivedBananas(props.recipient.id).then((bananas) => {
       receivedBananas.value = bananas
     })
   }
 
-  if (isRecipient.value && !sentBananas.value) {
+  if (updateNeeded.value && isRecipient.value) {
     getSentBananas(props.recipient.id).then((bananas) => {
       sentBananas.value = bananas
     })
   }
+  updateNeeded.value = false
 }
 
 </script>

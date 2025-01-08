@@ -29,42 +29,24 @@
 
 <script>
 import Avatar from '@/components/Avatar/Avatar.vue'
-import { deleteBanana } from '@/api/banana'
-import { hideLoader, pulseError, showLoader } from '@/script'
-import i18n from '@/helper/i18n'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
   components: { Avatar },
-  mixins: [ConfirmationDialogue],
   props: {
     recipientId: { type: Number, required: true },
     user: { type: Object, required: true },
     createdAt: { type: String, required: true },
     text: { type: String, default: '' },
     canRemove: { type: Boolean, default: false },
-    isSent: { type: Boolean, default: false },
   },
-  data () {
-    return {
-      when: new Date(Date.parse(this.createdAt)),
-    }
+  computed: {
+    when () {
+      return new Date(Date.parse(this.createdAt))
+    },
   },
   methods: {
-    async removeBanana () {
-      if (!await this.confirmationDialogue('profile.banana.remove.confirm_message')) return
-      showLoader()
-      try {
-        if (this.isSent) {
-          await deleteBanana(this.user.id, this.recipientId)
-        } else {
-          await deleteBanana(this.recipientId, this.user.id)
-        }
-        location.reload()
-      } catch (e) {
-        pulseError(i18n('error_unexpected'))
-      }
-      hideLoader()
+    removeBanana () {
+      this.$emit('remove-banana', this.key, this.user.id, this.recipientId)
     },
   },
 }

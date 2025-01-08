@@ -2338,6 +2338,7 @@ profile:
     remove:
       confirm_title: "Vertrauensbanane entfernen"
       confirm_message: "Möchtest du diese Vertrauensbanane wirklich entfernen?"
+      successful: "Banane wurde entfernt!"
   tab_navigation:
     profile: "Profil"
     pickups: "Abholungen"

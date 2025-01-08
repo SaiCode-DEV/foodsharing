@@ -104,7 +104,11 @@
       </h4>
       <Markdown :source="aboutMeIntern" />
     </div>
-    <BananaModal :recipient="{ id: userId, name }" :metadata="bananaData" />
+    <BananaModal
+      :recipient="{ id: userId, name }"
+      :metadata="bananaData"
+      @bananas-updated="updateBananas"
+    />
   </div>
 </template>
 
@@ -215,6 +219,15 @@ export default {
   methods: {
     openBananaModal () {
       this.$bvModal.show('BananaModal')
+    },
+    updateBananas (bananaCount, mayGiveBanana) {
+      if (this.bananaData) {
+        this.bananaData = {
+          ...this.bananaData,
+          receivedCount: bananaCount,
+          mayGiveBanana: mayGiveBanana,
+        }
+      }
     },
   },
 }

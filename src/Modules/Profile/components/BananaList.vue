@@ -57,30 +57,33 @@
     </div>
 
     <BananaListEntry
-      v-for="b in bananaList"
+      v-for="b in mutableBananas"
       :key="b.id"
       :user="b.user"
       :created-at="b.time"
       :text="b.message"
-      :can-remove="canRemoveBanana || (b.user.id === currentUserId)"
+      :can-remove="canRemoveBanana || (b.user.id === currentUserId())"
       :recipient-id="recipient.id"
-      :is-sent="isSent"
+      @remove-banana="tryRemoveBanana"
     />
   </div>
 </template>
 
 <script>
-import { sendBanana } from '@/api/banana'
+
+import { deleteBanana, sendBanana } from '@/api/banana'
 import i18n from '@/helper/i18n'
-import { pulseError, pulseInfo } from '@/script'
+import { hideLoader, pulseError, pulseInfo, showLoader } from '@/script'
 
 import BananaListEntry from './BananaListEntry'
 import { HTTP_RESPONSE } from '@/consts'
 import { useUserStore } from '@/stores/user'
+import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 const userStore = useUserStore()
 
 export default {
   components: { BananaListEntry },
+  mixins: [ConfirmationDialogue],
   props: {
     recipient: { type: Object, required: true },
     canGiveBanana: { type: Boolean, default: false },
@@ -91,29 +94,60 @@ export default {
   },
   data () {
     return {
-      bananaCount: this.bananas.length,
-      hasGivenBanana: false,
-      bananaList: this.bananas,
+      mutableBananas: this.bananas,
       showTextarea: false,
       bananaText: '',
     }
   },
   computed: {
+    hasGivenBanana () {
+      return this.mutableBananas.findIndex(banana => banana.user.id === this.currentUserId()) !== -1
+    },
+    bananaCount () {
+      return this.mutableBananas.length
+    },
     canSendBanana () {
       return this.bananaText && (this.bananaText.trim().length > 99)
     },
-    currentUserId: () => userStore.getUserId,
   },
   methods: {
+    currentUserId () {
+      return userStore.getUserId
+    },
+    async tryRemoveBanana (id, userId, recipientId) {
+      const bananaToBeDeleted = this.mutableBananas.findIndex(b => b.id === id)
+      if (bananaToBeDeleted === -1) {
+        pulseError('error_unexpected')
+        return
+      }
+      if (!await this.confirmationDialogue('profile.banana.remove.confirm_message')) return
+      showLoader()
+      try {
+        if (this.isSent) {
+          await deleteBanana(userId, recipientId)
+        } else {
+          await deleteBanana(recipientId, userId)
+        }
+        // Remove banana from internal array
+        this.mutableBananas.splice(this.mutableBananas, 1)
+        pulseInfo(i18n('profile.banana.remove.successful'))
+
+        this.emitBananasUpdated()
+      } catch (err) {
+        console.error('Couldn\'t delete banana', err)
+        pulseError(i18n('error_unexpected'))
+      }
+      hideLoader()
+    },
     async trySendBanana () {
       try {
-        this.bananaList.unshift(await sendBanana(this.recipient.id, this.bananaText.trim()))
+        this.mutableBananas.unshift(await sendBanana(this.recipient.id, this.bananaText.trim()))
 
         // Reset UI and component state
         pulseInfo(i18n('profile.banana.sent'))
         this.bananaText = ''
         this.showTextarea = false
-        this.hasGivenBanana = true
+        this.emitBananasUpdated()
       } catch (err) {
         if (err.code === HTTP_RESPONSE.BAD_REQUEST) {
           pulseError(i18n('profile.banana.messageTooShort'))
@@ -127,6 +161,10 @@ export default {
     },
     toggleTextarea () {
       this.showTextarea = !this.showTextarea
+    },
+    emitBananasUpdated () {
+      const hasSentBanana = this.mutableBananas.findIndex(banana => banana.user.id === this.currentUserId()) !== -1
+      this.$emit('bananas-updated', this.mutableBananas.length, !hasSentBanana)
     },
   },
 }
