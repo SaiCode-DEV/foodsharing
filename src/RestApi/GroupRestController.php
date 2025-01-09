@@ -113,7 +113,7 @@ class GroupRestController extends AbstractFoodsharingRestController
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
         description: 'The groups of the user',
         type: 'array',
-        items: new OA\Items(ref: new OA\JsonContent(type: UserGroupModel::class))
+        items: new OA\Items(ref: UserGroupModel::class, type: 'object')
     ))]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
     #[Route('/user/current/groups', methods: ['GET'])]
