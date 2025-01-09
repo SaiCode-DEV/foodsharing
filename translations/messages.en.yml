@@ -4573,7 +4573,7 @@ support_page:
   attachment:
     placeholder: Select file
     browse: Browse
-    max_size: Attachments (maximum 10 and 5 MB each)
+    max_size: Attachments (maximum 10 with 5 MB each)
     drop_placeholder: Drop file here
 petition:
   progressText:
