@@ -3247,7 +3247,7 @@ mailbox:
     not_found: extraviado
     attach: Archivos adjuntos (máximo 10 archivos, 1,5 MB por archivo)
     too_large_to_send: Algunos de los archivos eran demasiado grandes y no se podían
-      adjuntar al correo electrónico.
+      adjuntar.
     too_many: Se han seleccionado demasiados archivos. Se puede adjuntar un máximo
       de 10 archivos al correo electrónico.
   move_to: Mover a
@@ -4696,6 +4696,10 @@ support_page:
     voluntarios se ocupará de su consulta. Para poder responder mejor a los problemas
     técnicos, su consulta incluye también el navegador y el sistema operativo que
     utiliza.
+  attachment:
+    drop_placeholder: Archivo aquí
+    placeholder: Seleccionar archivo
+    browse: Buscar
 petition:
   progressText:
     8000: ¡Hemos tenido un buen comienzo! ¡Ayúdanos a llegar aún más lejos!
