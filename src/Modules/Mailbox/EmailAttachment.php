@@ -4,7 +4,7 @@ namespace Foodsharing\Modules\Mailbox;
 
 class EmailAttachment
 {
-    final public const SIZE_UNKNOWN = 0;
+    final public const int SIZE_UNKNOWN = 0;
 
     /**
      * Original file name used for displaying.

@@ -32,7 +32,7 @@ class StatisticsGatewayTest extends Unit
     private string $dateInterval1M;
     private string $dateInterval4M;
 
-    private const INTERVAL_MONTH = 3;
+    private const int INTERVAL_MONTH = 3;
 
     public function _before()
     {

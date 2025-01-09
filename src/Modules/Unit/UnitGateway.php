@@ -14,7 +14,7 @@ use Foodsharing\Modules\Unit\DTO\UserUnit;
  */
 class UnitGateway extends BaseGateway
 {
-    final public const REGION_IDs_FOR_TEAM_PAGE = [RegionIDs::TEAM_BOARD_MEMBER, RegionIDs::TEAM_ADMINISTRATION_MEMBER, RegionIDs::TEAM_ALUMNI_MEMBER];
+    final public const array REGION_IDs_FOR_TEAM_PAGE = [RegionIDs::TEAM_BOARD_MEMBER, RegionIDs::TEAM_ADMINISTRATION_MEMBER, RegionIDs::TEAM_ALUMNI_MEMBER];
 
     public function __construct(
         Database $db

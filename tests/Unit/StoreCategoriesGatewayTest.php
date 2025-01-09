@@ -11,7 +11,7 @@ use Tests\Support\UnitTester;
 
 class StoreCategoriesGatewayTest extends Unit
 {
-    private const EXISTING_CATEGORIES = [1, 2, 3];
+    private const array EXISTING_CATEGORIES = [1, 2, 3];
     protected UnitTester $tester;
     private StoreCategoriesGateway $gateway;
 

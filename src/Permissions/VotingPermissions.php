@@ -14,20 +14,20 @@ use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\Voting\DTO\Poll;
 use Foodsharing\Modules\Voting\VotingGateway;
 
-final class VotingPermissions
+final readonly class VotingPermissions
 {
-    private readonly Session $session;
-    private readonly VotingGateway $votingGateway;
-    private readonly RegionGateway $regionGateway;
-    private readonly GroupFunctionGateway $groupFunctionGateway;
-    public readonly CarbonInterval $MIN_POLL_EDIT_TIME;
+    private Session $session;
+    private VotingGateway $votingGateway;
+    private RegionGateway $regionGateway;
+    private GroupFunctionGateway $groupFunctionGateway;
+    public CarbonInterval $MIN_POLL_EDIT_TIME;
 
     public function __construct(
         Session $session,
         VotingGateway $votingGateway,
         RegionGateway $regionGateway,
         GroupFunctionGateway $groupFunctionGateway,
-        private readonly CurrentUserUnitsInterface $currentUserUnits,
+        private CurrentUserUnitsInterface $currentUserUnits,
     ) {
         $this->session = $session;
         $this->votingGateway = $votingGateway;

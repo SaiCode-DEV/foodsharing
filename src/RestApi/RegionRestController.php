@@ -47,10 +47,10 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class RegionRestController extends AbstractFoodsharingRestController
 {
     // literal constants
-    private const LAT = 'lat';
-    private const LON = 'lon';
-    private const DESC = 'desc';
-    private const STATUS = 'status';
+    private const string LAT = 'lat';
+    private const string LON = 'lon';
+    private const string DESC = 'desc';
+    private const string STATUS = 'status';
 
     public function __construct(
         private readonly SettingsGateway $settingsGateway,

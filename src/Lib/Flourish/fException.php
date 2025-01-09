@@ -76,14 +76,14 @@ return '{null}';
             $output = preg_replace('#=>\n( {2})+(?=[a-zA-Z]|&)#m', ' => ', $output);
             $output = str_replace('string(0) ""', '{empty_string}', $output);
             $output = preg_replace('#=> (&)?NULL#', '=> \1{null}', $output);
-            $output = preg_replace('#=> (&)?bool\((false|true)\)#', '=> \1{\2}', $output);
-            $output = preg_replace('#string\(\d+\) "#', '', $output);
-            $output = preg_replace('#"(\n( {2})*)(?=[\[}])#', '\1', $output);
-            $output = preg_replace('#(?:float|int)\((-?\d+(?:.\d+)?)\)#', '\1', $output);
-            $output = preg_replace('#((?: {2})+)\["(.*?)"]#', '\1[\2]', $output);
-            $output = preg_replace('#(?:&)?array\(\d+\) \{\n((?:  )*)((?:  )(?=\[)|(?=\}))#', "Array\n\\1(\n\\1\\2", $output);
-            $output = preg_replace('/object\((\w+)\)#\d+ \(\d+\) {\n((?:  )*)((?:  )(?=\[)|(?=\}))/', "\\1 Object\n\\2(\n\\2\\3", $output);
-            $output = preg_replace('#^((?: {2})+)}(?=\n|$)#m', "\\1)\n", $output);
+            $output = preg_replace('#=> (&)?bool\((false|true)\)#', '=> \1{\2}', (string) $output);
+            $output = preg_replace('#string\(\d+\) "#', '', (string) $output);
+            $output = preg_replace('#"(\n( {2})*)(?=[\[}])#', '\1', (string) $output);
+            $output = preg_replace('#(?:float|int)\((-?\d+(?:.\d+)?)\)#', '\1', (string) $output);
+            $output = preg_replace('#((?: {2})+)\["(.*?)"]#', '\1[\2]', (string) $output);
+            $output = preg_replace('#(?:&)?array\(\d+\) \{\n((?:  )*)((?:  )(?=\[)|(?=\}))#', "Array\n\\1(\n\\1\\2", (string) $output);
+            $output = preg_replace('/object\((\w+)\)#\d+ \(\d+\) {\n((?:  )*)((?:  )(?=\[)|(?=\}))/', "\\1 Object\n\\2(\n\\2\\3", (string) $output);
+            $output = preg_replace('#^((?: {2})+)}(?=\n|$)#m', "\\1)\n", (string) $output);
             $output = substr((string) $output, 0, -2) . ')';
 
             // Fix indenting issues with the var dump output

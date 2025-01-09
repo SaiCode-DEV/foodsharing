@@ -13,7 +13,7 @@ use Tests\Support\ApiTester;
 
 class MailboxApiCest
 {
-    private const MAILBOX_FOLDERS = [
+    private const array MAILBOX_FOLDERS = [
         MailboxFolder::FOLDER_INBOX, MailboxFolder::FOLDER_SENT, MailboxFolder::FOLDER_TRASH
     ];
 

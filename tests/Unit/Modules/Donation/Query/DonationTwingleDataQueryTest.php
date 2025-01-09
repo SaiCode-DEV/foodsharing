@@ -26,6 +26,7 @@ class DonationTwingleDataQueryTest extends Unit
     /**
      * @throws Exception
      */
+    #[\Override]
     public function setUp(): void
     {
         $this->httpClient = $this->createMock(HttpClientInterface::class);

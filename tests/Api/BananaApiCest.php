@@ -18,9 +18,9 @@ class BananaApiCest
     private $user3;
     private $faker;
 
-    private const EMAIL = 'email';
-    private const API_USER = 'api/user';
-    private const ID = 'id';
+    private const string EMAIL = 'email';
+    private const string API_USER = 'api/user';
+    private const string ID = 'id';
 
     public function _before(ApiTester $I): void
     {

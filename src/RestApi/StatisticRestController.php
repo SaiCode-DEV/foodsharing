@@ -26,7 +26,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class StatisticRestController extends AbstractFOSRestController
 {
-    private const NOT_FOUND_MESSAGE = 'Region with that id %d not found';
+    private const string NOT_FOUND_MESSAGE = 'Region with that id %d not found';
 
     public function __construct(
         private readonly StatisticsGateway $statisticsGateway,

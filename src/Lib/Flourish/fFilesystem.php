@@ -34,29 +34,29 @@ namespace Flourish;
 class fFilesystem
 {
 	// The following constants allow for nice looking callbacks to static methods
-	final public const addWebPathTranslation = 'fFilesystem::addWebPathTranslation';
-	final public const begin = 'fFilesystem::begin';
-	final public const commit = 'fFilesystem::commit';
-	final public const convertToBytes = 'fFilesystem::convertToBytes';
-	final public const createObject = 'fFilesystem::createObject';
-	final public const formatFilesize = 'fFilesystem::formatFilesize';
-	final public const getPathInfo = 'fFilesystem::getPathInfo';
-	final public const hookDeletedMap = 'fFilesystem::hookDeletedMap';
-	final public const hookFilenameMap = 'fFilesystem::hookFilenameMap';
-	final public const isInsideTransaction = 'fFilesystem::isInsideTransaction';
-	final public const makeUniqueName = 'fFilesystem::makeUniqueName';
-	final public const recordAppend = 'fFilesystem::recordAppend';
-	final public const recordCreate = 'fFilesystem::recordCreate';
-	final public const recordDelete = 'fFilesystem::recordDelete';
-	final public const recordDuplicate = 'fFilesystem::recordDuplicate';
-	final public const recordRename = 'fFilesystem::recordRename';
-	final public const recordWrite = 'fFilesystem::recordWrite';
-	final public const reset = 'fFilesystem::reset';
-	final public const rollback = 'fFilesystem::rollback';
-	final public const translateToWebPath = 'fFilesystem::translateToWebPath';
-	final public const updateDeletedMap = 'fFilesystem::updateDeletedMap';
-	final public const updateFilenameMap = 'fFilesystem::updateFilenameMap';
-	final public const updateFilenameMapForDirectory = 'fFilesystem::updateFilenameMapForDirectory';
+	final public const string addWebPathTranslation = 'fFilesystem::addWebPathTranslation';
+	final public const string begin = 'fFilesystem::begin';
+	final public const string commit = 'fFilesystem::commit';
+	final public const string convertToBytes = 'fFilesystem::convertToBytes';
+	final public const string createObject = 'fFilesystem::createObject';
+	final public const string formatFilesize = 'fFilesystem::formatFilesize';
+	final public const string getPathInfo = 'fFilesystem::getPathInfo';
+	final public const string hookDeletedMap = 'fFilesystem::hookDeletedMap';
+	final public const string hookFilenameMap = 'fFilesystem::hookFilenameMap';
+	final public const string isInsideTransaction = 'fFilesystem::isInsideTransaction';
+	final public const string makeUniqueName = 'fFilesystem::makeUniqueName';
+	final public const string recordAppend = 'fFilesystem::recordAppend';
+	final public const string recordCreate = 'fFilesystem::recordCreate';
+	final public const string recordDelete = 'fFilesystem::recordDelete';
+	final public const string recordDuplicate = 'fFilesystem::recordDuplicate';
+	final public const string recordRename = 'fFilesystem::recordRename';
+	final public const string recordWrite = 'fFilesystem::recordWrite';
+	final public const string reset = 'fFilesystem::reset';
+	final public const string rollback = 'fFilesystem::rollback';
+	final public const string translateToWebPath = 'fFilesystem::translateToWebPath';
+	final public const string updateDeletedMap = 'fFilesystem::updateDeletedMap';
+	final public const string updateFilenameMap = 'fFilesystem::updateFilenameMap';
+	final public const string updateFilenameMapForDirectory = 'fFilesystem::updateFilenameMapForDirectory';
 
 	/**
 	 * Stores the operations to perform when a commit occurs.
@@ -377,7 +377,7 @@ class fFilesystem
 		while (file_exists($file)) {
 			$info = self::getPathInfo($file);
 			if (preg_match('#_copy(\d+)' . preg_quote($extension, '#') . '$#D', (string) $file, $match)) {
-				$file = preg_replace('#_copy(\d+)' . preg_quote($extension, '#') . '$#D', '_copy' . ($match[1] + 1) . $extension, $file);
+				$file = preg_replace('#_copy(\d+)' . preg_quote($extension, '#') . '$#D', '_copy' . ($match[1] + 1) . $extension, (string) $file);
 			} else {
 				$file = $info['dirname'] . $info['filename'] . '_copy1' . $extension;
 			}
@@ -635,7 +635,7 @@ class fFilesystem
 			$path = preg_replace(
 				'#^' . preg_quote($search, '#') . '#',
 				strtr($replace, ['\\' => '\\\\', '$' => '\\$']),
-				$path
+				(string) $path
 			);
 		}
 

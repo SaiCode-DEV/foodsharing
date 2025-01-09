@@ -15,8 +15,8 @@ use Tests\Support\ApiTester;
 class RegionOptionApiCest
 {
     private $userBot;
-    private const EMAIL = 'email';
-    private const ID = 'id';
+    private const string EMAIL = 'email';
+    private const string ID = 'id';
     private $region;
 
     public function _before(ApiTester $I): void

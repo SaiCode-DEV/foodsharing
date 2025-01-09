@@ -8,14 +8,14 @@ use Foodsharing\Modules\Event\DTO\Event;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
-final class EventPermissions
+final readonly class EventPermissions
 {
-    private readonly Session $session;
+    private Session $session;
 
     public function __construct(
         Session $session,
-        private readonly CurrentUserUnitsInterface $currentUserUnits,
-        private readonly EventGateway $eventGateway,
+        private CurrentUserUnitsInterface $currentUserUnits,
+        private EventGateway $eventGateway,
     ) {
         $this->session = $session;
     }

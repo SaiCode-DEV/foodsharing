@@ -7,8 +7,8 @@ namespace Foodsharing\Modules\Core\DBConstants\Region;
  */
 class RegionPinStatus
 {
-    final public const INACTIVE = 0;
-    final public const ACTIVE = 1;
+    final public const int INACTIVE = 0;
+    final public const int ACTIVE = 1;
 
     public static function isValid(int $status): bool
     {

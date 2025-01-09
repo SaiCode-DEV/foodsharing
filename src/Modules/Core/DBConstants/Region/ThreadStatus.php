@@ -7,6 +7,6 @@ namespace Foodsharing\Modules\Core\DBConstants\Region;
  */
 class ThreadStatus
 {
-    final public const OPEN = 0;
-    final public const CLOSED = 1;
+    final public const int OPEN = 0;
+    final public const int CLOSED = 1;
 }

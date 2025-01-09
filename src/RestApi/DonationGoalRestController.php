@@ -19,7 +19,7 @@ use Symfony\Contracts\Cache\ItemInterface;
 
 final class DonationGoalRestController extends AbstractFoodsharingRestController
 {
-    private const TEN_MINUTES_IN_SECONDS = 600;
+    private const int TEN_MINUTES_IN_SECONDS = 600;
 
     public function __construct(
         private readonly CacheInterface $cache,

@@ -16,7 +16,7 @@ use Foodsharing\Utility\IMAPFolderCleanupHelper;
 
 class MaintenanceService
 {
-    final public const DELETE_DELAY_DAYS = 30;
+    final public const int DELETE_DELAY_DAYS = 30;
 
     public function __construct(
         private readonly StoreGateway $storeGateway,

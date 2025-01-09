@@ -8,9 +8,9 @@ use Exception;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class TimeHelper
+final readonly class TimeHelper
 {
-    private readonly TranslatorInterface $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {

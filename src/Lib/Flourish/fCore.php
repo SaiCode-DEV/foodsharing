@@ -48,23 +48,23 @@ use Exception;
 class fCore
 {
 	// The following constants allow for nice looking callbacks to static methods
-	final public const backtrace = 'Flourish\\fCore::backtrace';
-	final public const call = 'Flourish\\fCore::call';
-	final public const callback = 'Flourish\\fCore::callback';
-	final public const configureSMTP = 'Flourish\\fCore::configureSMTP';
-	final public const disableContext = 'Flourish\\fCore::disableContext';
-	final public const dump = 'Flourish\\fCore::dump';
-	final public const enableDynamicConstants = 'Flourish\\fCore::enableDynamicConstants';
-	final public const enableErrorHandling = 'Flourish\\fCore::enableErrorHandling';
-	final public const enableExceptionHandling = 'Flourish\\fCore::enableExceptionHandling';
-	final public const expose = 'Flourish\\fCore::expose';
-	final public const handleError = 'Flourish\\fCore::handleError';
-	final public const handleFatalError = 'Flourish\\fCore::handleFatalError';
-	final public const handleException = 'Flourish\\fCore::handleException';
-	final public const reset = 'Flourish\\fCore::reset';
-	final public const sendMessagesOnShutdown = 'Flourish\\fCore::sendMessagesOnShutdown';
-	final public const startErrorCapture = 'Flourish\\fCore::startErrorCapture';
-	final public const stopErrorCapture = 'Flourish\\fCore::stopErrorCapture';
+	final public const string backtrace = 'Flourish\\fCore::backtrace';
+	final public const string call = 'Flourish\\fCore::call';
+	final public const string callback = 'Flourish\\fCore::callback';
+	final public const string configureSMTP = 'Flourish\\fCore::configureSMTP';
+	final public const string disableContext = 'Flourish\\fCore::disableContext';
+	final public const string dump = 'Flourish\\fCore::dump';
+	final public const string enableDynamicConstants = 'Flourish\\fCore::enableDynamicConstants';
+	final public const string enableErrorHandling = 'Flourish\\fCore::enableErrorHandling';
+	final public const string enableExceptionHandling = 'Flourish\\fCore::enableExceptionHandling';
+	final public const string expose = 'Flourish\\fCore::expose';
+	final public const string handleError = 'Flourish\\fCore::handleError';
+	final public const string handleFatalError = 'Flourish\\fCore::handleFatalError';
+	final public const string handleException = 'Flourish\\fCore::handleException';
+	final public const string reset = 'Flourish\\fCore::reset';
+	final public const string sendMessagesOnShutdown = 'Flourish\\fCore::sendMessagesOnShutdown';
+	final public const string startErrorCapture = 'Flourish\\fCore::startErrorCapture';
+	final public const string stopErrorCapture = 'Flourish\\fCore::stopErrorCapture';
 
 	/**
 	 * The nesting level of error capturing.
@@ -427,14 +427,14 @@ class fCore
 			$output = preg_replace('#=>\n(  )+(?=[a-zA-Z]|&)#m', ' => ', $output);
 			$output = str_replace('string(0) ""', '{empty_string}', $output);
 			$output = preg_replace('#=> (&)?NULL#', '=> \1{null}', $output);
-			$output = preg_replace('#=> (&)?bool\((false|true)\)#', '=> \1{\2}', $output);
-			$output = preg_replace('#(?<=^|\] => )(?:float|int)\((-?\d+(?:.\d+)?)\)#', '\1', $output);
-			$output = preg_replace('#string\(\d+\) "#', '', $output);
-			$output = preg_replace('#"(\n(  )*)(?=\[|\})#', '\1', $output);
-			$output = preg_replace('#((?:  )+)\["(.*?)"\]#', '\1[\2]', $output);
-			$output = preg_replace('#(?:&)?array\(\d+\) \{\n((?:  )*)((?:  )(?=\[)|(?=\}))#', "Array\n\\1(\n\\1\\2", $output);
-			$output = preg_replace('/object\((\w+)\)#\d+ \(\d+\) {\n((?:  )*)((?:  )(?=\[)|(?=\}))/', "\\1 Object\n\\2(\n\\2\\3", $output);
-			$output = preg_replace('#^((?:  )+)}(?=\n|$)#m', "\\1)\n", $output);
+			$output = preg_replace('#=> (&)?bool\((false|true)\)#', '=> \1{\2}', (string) $output);
+			$output = preg_replace('#(?<=^|\] => )(?:float|int)\((-?\d+(?:.\d+)?)\)#', '\1', (string) $output);
+			$output = preg_replace('#string\(\d+\) "#', '', (string) $output);
+			$output = preg_replace('#"(\n(  )*)(?=\[|\})#', '\1', (string) $output);
+			$output = preg_replace('#((?:  )+)\["(.*?)"\]#', '\1[\2]', (string) $output);
+			$output = preg_replace('#(?:&)?array\(\d+\) \{\n((?:  )*)((?:  )(?=\[)|(?=\}))#', "Array\n\\1(\n\\1\\2", (string) $output);
+			$output = preg_replace('/object\((\w+)\)#\d+ \(\d+\) {\n((?:  )*)((?:  )(?=\[)|(?=\}))/', "\\1 Object\n\\2(\n\\2\\3", (string) $output);
+			$output = preg_replace('#^((?:  )+)}(?=\n|$)#m', "\\1)\n", (string) $output);
 			$output = substr((string) $output, 0, -2) . ')';
 
 			// Fix indenting issues with the var dump output

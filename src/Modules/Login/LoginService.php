@@ -7,8 +7,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LoginService
 {
-    final public const ACTIVATION_MAIL_LIMIT_PER_DAY = 3;
-    private const MAIL_TOKEN_LENGTH_COMPATIBILIY = 24;
+    final public const int ACTIVATION_MAIL_LIMIT_PER_DAY = 3;
+    private const int MAIL_TOKEN_LENGTH_COMPATIBILIY = 24;
 
     private readonly LoginGateway $loginGateway;
     private readonly EmailHelper $emailHelper;

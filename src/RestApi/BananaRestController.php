@@ -24,7 +24,7 @@ use Symfony\Component\Routing\Requirement\Requirement;
 #[OA\Tag(name: 'banana')]
 class BananaRestController extends AbstractFoodsharingRestController
 {
-    private const MIN_RATING_MESSAGE_LENGTH = 100;
+    private const int MIN_RATING_MESSAGE_LENGTH = 100;
 
     public function __construct(
         protected Session $session,

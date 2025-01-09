@@ -2,10 +2,10 @@
 
 namespace Foodsharing\RestApi\Models\FeatureToggle;
 
-final class FeatureToggle
+final readonly class FeatureToggle
 {
-    public readonly string $identifier;
-    public readonly bool $isActive;
+    public string $identifier;
+    public bool $isActive;
 
     public function __construct(string $identifier, bool $isActive)
     {

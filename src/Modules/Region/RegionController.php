@@ -28,7 +28,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class RegionController extends FoodsharingController
 {
     private array $region;
-    private const DisplayAvatarListEntries = 30;
+    private const int DisplayAvatarListEntries = 30;
 
     public function __construct(
         private readonly ContentView $view,

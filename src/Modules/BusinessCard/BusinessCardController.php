@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class BusinessCardController extends FoodsharingController
 {
-    private const MAX_CHAR_PER_LINE = 45;
+    private const int MAX_CHAR_PER_LINE = 45;
 
     public function __construct(
         private readonly BusinessCardGateway $gateway,

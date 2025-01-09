@@ -23,11 +23,11 @@ use Foodsharing\Modules\Search\DTO\WorkingGroupSearchResult;
 
 class SearchGateway extends BaseGateway
 {
-    private const MAX_SEARCH_RESULT_COUNT = 30;
-    private const MAX_CHATS_IN_SEARCH_INDEX_COUNT = 50;
-    private const MAX_THREADS_IN_SEARCH_INDEX_COUNT = 200;
-    private const MAX_MAILS_IN_SEARCH_INDEX_COUNT = 50;
-    private const SEARCH_CRITERIA = [
+    private const int MAX_SEARCH_RESULT_COUNT = 30;
+    private const int MAX_CHATS_IN_SEARCH_INDEX_COUNT = 50;
+    private const int MAX_THREADS_IN_SEARCH_INDEX_COUNT = 200;
+    private const int MAX_MAILS_IN_SEARCH_INDEX_COUNT = 50;
+    private const array SEARCH_CRITERIA = [
         'regions' => ['basic' => ['region.name', 'IFNULL(mailbox.name, "")']],
         'workingGroups' => ['basic' => ['region.name', 'IFNULL(mailbox.name, "")', 'parent.name']],
         'stores' => [

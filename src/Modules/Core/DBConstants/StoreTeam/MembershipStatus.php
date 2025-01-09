@@ -11,7 +11,7 @@ namespace Foodsharing\Modules\Core\DBConstants\StoreTeam;
  */
 class MembershipStatus
 {
-    final public const APPLIED_FOR_TEAM = 0;
-    final public const MEMBER = 1;
-    final public const JUMPER = 2;
+    final public const int APPLIED_FOR_TEAM = 0;
+    final public const int MEMBER = 1;
+    final public const int JUMPER = 2;
 }

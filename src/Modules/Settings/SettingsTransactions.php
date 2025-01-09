@@ -29,9 +29,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SettingsTransactions
 {
-    final public const DEFAULT_LOCALE = 'de';
+    final public const string DEFAULT_LOCALE = 'de';
     public const MIN_PASSWORD_LENGTH = 8;
-    private const SUPPORT_URL = 'https://support.foodsharing.network/kb';
+    private const string SUPPORT_URL = 'https://support.foodsharing.network/kb';
 
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,

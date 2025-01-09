@@ -7,8 +7,8 @@ use Foodsharing\Modules\Core\BaseGateway;
 
 class ApplicationGateway extends BaseGateway
 {
-    private const STATUS_NOT_ACTIVE = 0;
-    private const STATUS_ACTIVE = 1;
+    private const int STATUS_NOT_ACTIVE = 0;
+    private const int STATUS_ACTIVE = 1;
 
     /**
      * Returns the open application that a user sent to a working group, or null if the user did not apply to that group

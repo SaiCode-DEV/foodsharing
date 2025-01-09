@@ -62,7 +62,7 @@ class CalendarRestController extends AbstractFOSRestController
     private readonly EventGateway $eventGateway;
     private readonly TranslatorInterface $translator;
 
-    private const TOKEN_LENGTH_IN_BYTES = 10;
+    private const int TOKEN_LENGTH_IN_BYTES = 10;
 
     public function __construct(
         Session $session,

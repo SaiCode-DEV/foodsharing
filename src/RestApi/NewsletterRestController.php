@@ -19,8 +19,8 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 #[OA\Tag('newsletter')]
 final class NewsletterRestController extends AbstractFoodsharingRestController
 {
-    private const NOT_ALLOWED = 'not allowed';
-    private const INVALID_ADDRESS = 'invalid address';
+    private const string NOT_ALLOWED = 'not allowed';
+    private const string INVALID_ADDRESS = 'invalid address';
 
     public function __construct(
         private readonly NewsletterEmailPermissions $newsletterEmailPermissions,

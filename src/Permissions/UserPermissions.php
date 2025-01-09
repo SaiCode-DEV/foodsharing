@@ -5,9 +5,9 @@ namespace Foodsharing\Permissions;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 
-final class UserPermissions
+final readonly class UserPermissions
 {
-    private readonly Session $session;
+    private Session $session;
 
     public function __construct(Session $session)
     {

@@ -31,7 +31,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 class StoreChainRestController extends AbstractFOSRestController
 {
     // literal constants
-    private const NOT_LOGGED_IN = 'not logged in';
+    private const string NOT_LOGGED_IN = 'not logged in';
 
     public function __construct(
         private readonly Session $session,

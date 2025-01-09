@@ -26,6 +26,7 @@ class UnitMemberForAdmin extends UnitMember
         $this->isHomeRegion = (bool)$data['is_home_region'];
     }
 
+    #[\Override]
     public static function createFromArray(array $data): UnitMemberForAdmin
     {
         return new self($data);

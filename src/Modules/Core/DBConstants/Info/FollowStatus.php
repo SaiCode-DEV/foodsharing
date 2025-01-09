@@ -9,6 +9,6 @@ namespace Foodsharing\Modules\Core\DBConstants\Info;
  */
 class FollowStatus
 {
-    final public const DISABLED = 0;
-    final public const ENABLED = 1;
+    final public const int DISABLED = 0;
+    final public const int ENABLED = 1;
 }

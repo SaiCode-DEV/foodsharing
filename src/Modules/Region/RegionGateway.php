@@ -302,8 +302,6 @@ class RegionGateway extends BaseGateway
      * @param int $regionId the region for which to list the applicants
      *
      * @return Profile[]
-     *
-     * @throws Exception
      */
     public function listApplicants(int $regionId): array
     {
@@ -450,8 +448,6 @@ class RegionGateway extends BaseGateway
      * @param int $optionType type of option
      *
      * @return string|null value of option or null if not found
-     *
-     * @throws Exception
      */
     public function getRegionOption(int $regionId, int $optionType): ?string
     {
@@ -471,8 +467,6 @@ class RegionGateway extends BaseGateway
      * @param int $regionId ID of region
      *
      * @return array associative array of options or empty array if not found
-     *
-     * @throws Exception
      *
      * @deprecated This does not actually return all options, but only five specific types. It should be replaced by getAllRegionOptions.
      */
@@ -526,8 +520,6 @@ class RegionGateway extends BaseGateway
      * @param int $regionId ID of region
      *
      * @return array|null value of option or null if not found
-     *
-     * @throws Exception
      */
     public function getAllRegionOptions(int $regionId): ?array
     {

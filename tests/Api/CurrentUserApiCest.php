@@ -22,8 +22,8 @@ class CurrentUserApiCest
     private $storeAsJumper;
     private $storeWithJoinRequest;
 
-    private const EMAIL = 'email';
-    private const API_USER = 'api/user';
+    private const string EMAIL = 'email';
+    private const string API_USER = 'api/user';
 
     public function _before(ApiTester $I): void
     {

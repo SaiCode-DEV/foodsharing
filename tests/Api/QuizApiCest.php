@@ -179,7 +179,7 @@ class QuizApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
         $questionId = $I->grabDataFromResponseByJsonPath('question.id')[0];
 
-        $I->updateInDatabase('fs_quiz_session', ['time_start' => Carbon::now()->subSecond(10)], ['foodsaver_id' => $this->foodsharer['id'], 'quiz_id' => 1]);
+        $I->updateInDatabase('fs_quiz_session', ['time_start' => Carbon::now()->subSeconds(10)], ['foodsaver_id' => $this->foodsharer['id'], 'quiz_id' => 1]);
         $I->sendGet('/api/user/current/quizsessions/1/question');
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson(['question' => ['id' => $questionId], 'timedOut' => false]);
@@ -201,7 +201,7 @@ class QuizApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
         $questionId = $I->grabDataFromResponseByJsonPath('question.id')[0];
 
-        $I->updateInDatabase('fs_quiz_session', ['time_start' => Carbon::now()->subSecond(500)], ['foodsaver_id' => $this->foodsharer['id'], 'quiz_id' => 1]);
+        $I->updateInDatabase('fs_quiz_session', ['time_start' => Carbon::now()->subSeconds(500)], ['foodsaver_id' => $this->foodsharer['id'], 'quiz_id' => 1]);
         $I->sendGet('/api/user/current/quizsessions/1/question');
         $I->seeResponseCodeIs(HttpCode::OK);
         if ($example['isTimed']) {
@@ -224,7 +224,7 @@ class QuizApiCest
         $I->login($this->foodsharer['email']);
         $I->sendPost('/api/user/current/quizsessions/1/start?isTimed=1');
         $I->updateInDatabase('fs_quiz_session',
-            ['time_start' => Carbon::now()->subSecond(500), 'quiz_index' => 2, 'quiz_result' => '[]'],
+            ['time_start' => Carbon::now()->subSeconds(500), 'quiz_index' => 2, 'quiz_result' => '[]'],
             ['foodsaver_id' => $this->foodsharer['id'], 'quiz_id' => 1],
         );
         $I->sendGet('/api/user/current/quizsessions/1/question');
@@ -252,7 +252,7 @@ class QuizApiCest
                 $I->grabDataFromResponseByJsonPath('question.answers[1].id')[0],
             ];
         } else {
-            $answers = json_decode($example['answers'], true);
+            $answers = json_decode((string)$example['answers'], true);
         }
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPost('/api/user/current/quizsessions/1/answer', $answers);
@@ -294,7 +294,7 @@ class QuizApiCest
         $I->login($this->foodsharer['email']);
         $I->sendPost('/api/user/current/quizsessions/1/start?isTimed=1');
         $I->updateInDatabase('fs_quiz_session',
-            ['time_start' => Carbon::now()->subSecond(500)],
+            ['time_start' => Carbon::now()->subSeconds(500)],
             ['foodsaver_id' => $this->foodsharer['id'], 'quiz_id' => 1],
         );
         $I->haveHttpHeader('Content-Type', 'application/json');
@@ -371,7 +371,7 @@ class QuizApiCest
             $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId, 'status' => SessionStatus::FAILED->value, 'time_end' => Carbon::now()]);
             $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId, 'status' => SessionStatus::FAILED->value, 'time_end' => Carbon::now()]);
         } if ($scenarioId >= 5) {
-            $I->updateInDatabase('fs_quiz_session', ['time_end' => Carbon::now()->subMonth(2)], ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId]);
+            $I->updateInDatabase('fs_quiz_session', ['time_end' => Carbon::now()->subMonths(2)], ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId]);
         } if ($scenarioId === 6) {
             $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId, 'status' => SessionStatus::FAILED->value]);
             $I->haveInDatabase('fs_quiz_session', ['foodsaver_id' => $foodsaverId, 'quiz_id' => $quizId, 'status' => SessionStatus::FAILED->value]);

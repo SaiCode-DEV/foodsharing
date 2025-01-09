@@ -10,7 +10,7 @@ use Foodsharing\Utility\Sanitizer;
 final class MessageGateway extends BaseGateway
 {
     // value -1 is reserved for chats that are marked as unread manually.
-    final public const MARKED_AS_UNREAD = -1;
+    final public const int MARKED_AS_UNREAD = -1;
 
     private readonly Sanitizer $sanitizer;
 

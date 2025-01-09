@@ -9,15 +9,15 @@ use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
-final class WorkGroupPermissions
+final readonly class WorkGroupPermissions
 {
-    private readonly Session $session;
-    private readonly GroupFunctionGateway $groupFunctionGateway;
+    private Session $session;
+    private GroupFunctionGateway $groupFunctionGateway;
 
     public function __construct(
         Session $session,
         GroupFunctionGateway $groupFunctionGateway,
-        private readonly CurrentUserUnitsInterface $currentUserUnits,
+        private CurrentUserUnitsInterface $currentUserUnits,
     ) {
         $this->session = $session;
         $this->groupFunctionGateway = $groupFunctionGateway;

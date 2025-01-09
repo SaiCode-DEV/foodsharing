@@ -13,5 +13,5 @@ class ChangeHistoryKey
     /**
      * Denotes that a request was made to change the user's login email address by orga.
      */
-    final public const CHANGE_EMAIL_REQUEST = 'mailchange_request';
+    final public const string CHANGE_EMAIL_REQUEST = 'mailchange_request';
 }

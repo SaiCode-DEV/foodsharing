@@ -112,6 +112,7 @@ abstract class FoodsharingController extends AbstractController
         return parent::renderView($template, $viewData);
     }
 
+    #[\Override]
     protected function render(string $view, array $parameters = [], Response $response = null): Response
     {
         if (!key_exists('content', $parameters)) {

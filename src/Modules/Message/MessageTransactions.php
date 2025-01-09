@@ -15,7 +15,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MessageTransactions
 {
-    private const SESSION_LAST_MAIL_MESSAGE = 'lastMailMessage';
+    private const string SESSION_LAST_MAIL_MESSAGE = 'lastMailMessage';
 
     public function __construct(
         private readonly EmailHelper $emailHelper,

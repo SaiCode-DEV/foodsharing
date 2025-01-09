@@ -10,7 +10,7 @@ use Tests\Support\ApiTester;
 
 class CalendarApiCest
 {
-    private const TEST_TOKEN = '1234567890';
+    private const string TEST_TOKEN = '1234567890';
     private $user;
     private $user2;
     private $region;

@@ -37,7 +37,7 @@ class SearchResult
             return [];
         } else {
             return array_map(
-                fn (...$values) => new Profile(array_combine($keys, $values)),
+                fn (...$values) => new Profile(array_combine($keys, (array)$values)),
                 ...array_map(fn ($key) => explode(',', (string)$data[$namespace . '_' . $key . 's']), $keys)
             );
         }

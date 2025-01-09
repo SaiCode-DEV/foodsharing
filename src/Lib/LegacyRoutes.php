@@ -7,7 +7,7 @@ namespace Foodsharing\Lib;
  */
 class LegacyRoutes
 {
-    private const PORTED = [
+    private const array PORTED = [
         'content',
         'team',
         'bezirk',
@@ -38,7 +38,7 @@ class LegacyRoutes
         'fsbetrieb',
     ];
 
-    private const RENAMES = [
+    private const array RENAMES = [
         'bezirk' => 'region',
         'statistics' => 'statistik',
         'map' => 'karte',

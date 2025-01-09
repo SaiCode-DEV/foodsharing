@@ -9,7 +9,7 @@ namespace Foodsharing\Modules\Core\DBConstants\Info;
  */
 class InfoType
 {
-    final public const NONE = 0;
-    final public const EMAIL = 1;
-    final public const BELL = 2;
+    final public const int NONE = 0;
+    final public const int EMAIL = 1;
+    final public const int BELL = 2;
 }

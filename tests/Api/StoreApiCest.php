@@ -26,10 +26,10 @@ class StoreApiCest
     private $nextRegion;
     private $faker;
 
-    private const API_STORES = 'api/stores';
-    private const API_REGIONS = 'api/region';
-    private const EMAIL = 'email';
-    private const ID = 'id';
+    private const string API_STORES = 'api/stores';
+    private const string API_REGIONS = 'api/region';
+    private const string EMAIL = 'email';
+    private const string ID = 'id';
 
     private function createDefaultNewStoreJson(): array
     {

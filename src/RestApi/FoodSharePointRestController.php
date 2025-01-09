@@ -35,7 +35,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Food share point not found')]
 final class FoodSharePointRestController extends AbstractFoodsharingRestController
 {
-    private const MAX_FSP_DISTANCE = 50;
+    private const int MAX_FSP_DISTANCE = 50;
 
     public function __construct(
         private readonly FoodSharePointGateway $foodSharePointGateway,

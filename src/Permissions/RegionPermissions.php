@@ -11,16 +11,16 @@ use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
-final class RegionPermissions
+final readonly class RegionPermissions
 {
-    private readonly RegionGateway $regionGateway;
-    private readonly Session $session;
-    private readonly GroupFunctionGateway $groupFunctionGateway;
+    private RegionGateway $regionGateway;
+    private Session $session;
+    private GroupFunctionGateway $groupFunctionGateway;
 
     public function __construct(
         RegionGateway $regionGateway, Session $session, GroupFunctionGateway $groupFunctionGateway,
-        private readonly CurrentUserUnitsInterface $currentUserUnits,
-        private readonly AchievementPermissions $achievementPermissions,
+        private CurrentUserUnitsInterface $currentUserUnits,
+        private AchievementPermissions $achievementPermissions,
     ) {
         $this->regionGateway = $regionGateway;
         $this->session = $session;

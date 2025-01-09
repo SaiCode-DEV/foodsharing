@@ -46,7 +46,7 @@ class Bell
     public array $link_attributes;
 
     /**
-     * @var array<string,string>
+     * @var array<string,string|int>
      *
      * Associative array that maps translation key placeholders to their values. Placeholders will be applied to any
      * translation key supporting field of the bell.

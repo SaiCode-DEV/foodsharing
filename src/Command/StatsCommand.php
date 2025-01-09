@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand('foodsharing:stats', 'Executes foodsaver, stores and regions statistics tasks.')]
 class StatsCommand extends Command
 {
-    private const VALID_JOBS = [
+    private const array VALID_JOBS = [
         'foodsaver', 'betriebe', 'bezirke'
     ];
 

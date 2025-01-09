@@ -57,8 +57,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserRestController extends AbstractFoodsharingRestController
 {
-    private const MIN_AGE_YEARS = 18;
-    private const DELETE_USER_MAX_REASON_LEN = 200;
+    private const int MIN_AGE_YEARS = 18;
+    private const int DELETE_USER_MAX_REASON_LEN = 200;
 
     public function __construct(
         protected Session $session,

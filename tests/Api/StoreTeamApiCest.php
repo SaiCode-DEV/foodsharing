@@ -16,7 +16,7 @@ class StoreTeamApiCest
     private $manager;
     private $region;
 
-    private const API_STORES = 'api/stores/';
+    private const string API_STORES = 'api/stores/';
 
     public function _before(ApiTester $I): void
     {

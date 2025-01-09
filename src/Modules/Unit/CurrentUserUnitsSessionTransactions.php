@@ -37,7 +37,7 @@ class UserUnitsInformation
  */
 class CurrentUserUnitsSessionTransactions implements CurrentUserUnitsInterface
 {
-    private const SESSION_FIELD_NAME = 'units_information';
+    private const string SESSION_FIELD_NAME = 'units_information';
 
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,

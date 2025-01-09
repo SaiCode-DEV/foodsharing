@@ -56,11 +56,11 @@ class fImage extends fFile
 {
 	// The following constants allow for nice looking callbacks to static methods
 	final public const create = 'fImage::create';
-	final public const getCompatibleMimetypes = 'fImage::getCompatibleMimetypes';
-	final public const isImageCompatible = 'fImage::isImageCompatible';
-	final public const reset = 'fImage::reset';
-	final public const setImageMagickDirectory = 'fImage::setImageMagickDirectory';
-	final public const setImageMagickTempDir = 'fImage::setImageMagickTempDir';
+	final public const string getCompatibleMimetypes = 'fImage::getCompatibleMimetypes';
+	final public const string isImageCompatible = 'fImage::isImageCompatible';
+	final public const string reset = 'fImage::reset';
+	final public const string setImageMagickDirectory = 'fImage::setImageMagickDirectory';
+	final public const string setImageMagickTempDir = 'fImage::setImageMagickTempDir';
 
 	/**
 	 * If we are using the ImageMagick processor, this stores the path to the binaries.
@@ -140,7 +140,8 @@ class fImage extends fFile
 	 *
 	 * @return fImage
 	 */
-	public static function create($file_path, $contents)
+	#[\Override]
+    public static function create($file_path, $contents)
 	{
 		if (empty($file_path)) {
 			throw new fValidationException('No filename was specified');
@@ -575,7 +576,8 @@ class fImage extends fFile
 	 *
 	 * @param  mixed $data  The data to append to the image
 	 */
-	public function append($data): never
+	#[\Override]
+    public function append($data): never
 	{
 		throw new fException('It is not possible to append an image');
 	}

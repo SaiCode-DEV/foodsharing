@@ -15,13 +15,13 @@ class Session
 {
     // update this whenever adding new fields to the session!!!
     // this should be a unix timestamp, together with a human readable date in a comment.
-    private const LAST_SESSION_SCHEMA_CHANGE = 1_716_804_439; // 2024-05-28 19:07 UTC
+    private const int LAST_SESSION_SCHEMA_CHANGE = 1_716_804_439; // 2024-05-28 19:07 UTC
 
-    private const SESSION_TIMESTAMP_FIELD_NAME = 'last_updated_ts';
+    private const string SESSION_TIMESTAMP_FIELD_NAME = 'last_updated_ts';
 
-    private const DEFAULT_NORMAL_SESSION_TIMESPAN = '24 hours';
+    private const string DEFAULT_NORMAL_SESSION_TIMESPAN = '24 hours';
 
-    private const DEFAULT_PERSISTENT_SESSION_TIMESPAN = '14 days';
+    private const string DEFAULT_PERSISTENT_SESSION_TIMESPAN = '14 days';
 
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,

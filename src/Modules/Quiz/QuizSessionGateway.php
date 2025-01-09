@@ -71,7 +71,7 @@ class QuizSessionGateway extends BaseGateway
             $group['sessions'][] = QuizSession::createFromArray($session);
         }
 
-        return array_values($groups);
+        return count($groups) > 0 ? array_values($groups) : [];
     }
 
     /**

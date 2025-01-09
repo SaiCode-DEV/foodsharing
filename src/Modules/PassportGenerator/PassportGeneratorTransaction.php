@@ -28,7 +28,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PassportGeneratorTransaction extends AbstractController
 {
-    private const PASSPORT_VALIDITY_YEARS = 3;
+    private const int PASSPORT_VALIDITY_YEARS = 3;
 
     public function __construct(
         private readonly RegionGateway $regionGateway,

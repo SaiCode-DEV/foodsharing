@@ -52,20 +52,20 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class StoreTransactions
 {
-    final public const DEFAULT_USER_SHOWN_STORE_COOPERATION_STATE = [
+    final public const array DEFAULT_USER_SHOWN_STORE_COOPERATION_STATE = [
         CooperationStatus::UNCLEAR,
         CooperationStatus::NO_CONTACT,
         CooperationStatus::IN_NEGOTIATION,
         CooperationStatus::COOPERATION_ESTABLISHED
     ];
 
-    final public const MAX_SLOTS_PER_PICKUP = 50;
+    final public const int MAX_SLOTS_PER_PICKUP = 50;
     // status constants for getAvailablePickupStatus
-    private const STATUS_RED_TODAY_TOMORROW = 3;
-    private const STATUS_ORANGE_3_DAYS = 2;
-    private const STATUS_YELLOW_5_DAYS = 1;
-    private const STATUS_GREEN = 0;
-    private const MAX_PICKUP_DESCRIPTION_LENGTH = 100;
+    private const int STATUS_RED_TODAY_TOMORROW = 3;
+    private const int STATUS_ORANGE_3_DAYS = 2;
+    private const int STATUS_YELLOW_5_DAYS = 1;
+    private const int STATUS_GREEN = 0;
+    private const int MAX_PICKUP_DESCRIPTION_LENGTH = 100;
 
     public function __construct(
         private readonly MessageGateway $messageGateway,

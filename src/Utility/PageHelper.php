@@ -26,7 +26,7 @@ use Twig\Environment;
 
 final class PageHelper
 {
-    private const SESSION_MOBIL_REPRESENTATION_FIELD_NAME = 'mob';
+    private const string SESSION_MOBIL_REPRESENTATION_FIELD_NAME = 'mob';
     private string $add_css = '';
     private string $content_main = '';
     private string $content_right = '';
@@ -118,7 +118,7 @@ final class PageHelper
             'serverDataJSON' => json_encode($this->getServerData()),
             'menu' => $this->getMenu(),
             'route' => $page,
-            'dev' => FS_ENV == 'dev',
+            'dev' => getenv('FS_ENV') === 'dev',
             'hidden' => $this->hidden,
             'isMob' => $this->isMob(),
             'footer' => $this->getFooter(),

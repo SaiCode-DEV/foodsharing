@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ContentController extends FoodsharingController
 {
-    private const SUB_TO_ID = [
+    private const array SUB_TO_ID = [
         'presse' => ContentId::PRESS,
         'forderungen' => ContentId::DEMANDS,
         'contact' => ContentId::CONTACT,
@@ -35,7 +35,7 @@ class ContentController extends FoodsharingController
         'security' => ContentId::SECURITY_PAGE,
     ];
 
-    private const REDIRECT = [
+    private const array REDIRECT = [
         'communitiesGermany' => 'communities',
         'communitiesAustria' => 'communities',
         'communitiesSwitzerland' => 'communities',

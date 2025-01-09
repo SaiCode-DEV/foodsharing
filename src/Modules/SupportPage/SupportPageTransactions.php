@@ -11,7 +11,7 @@ use ZammadAPIClient\Resource\User;
 
 class SupportPageTransactions
 {
-    private const GROUP_ID_DEFAULT = 1;
+    private const int GROUP_ID_DEFAULT = 1;
 
     public function __construct(
         private readonly Session $session,

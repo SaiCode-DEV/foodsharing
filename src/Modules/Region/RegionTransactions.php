@@ -19,9 +19,9 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class RegionTransactions
 {
-    final public const NEW_FOODSAVER_VERIFIED = 'new_foodsaver_verified';
-    final public const NEW_FOODSAVER_NEEDS_VERIFICATION = 'new_foodsaver_needs_verification';
-    final public const NEW_FOODSAVER_NEEDS_INTRODUCTION = 'new_foodsaver_needs_introduction';
+    final public const string NEW_FOODSAVER_VERIFIED = 'new_foodsaver_verified';
+    final public const string NEW_FOODSAVER_NEEDS_VERIFICATION = 'new_foodsaver_needs_verification';
+    final public const string NEW_FOODSAVER_NEEDS_INTRODUCTION = 'new_foodsaver_needs_introduction';
 
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,

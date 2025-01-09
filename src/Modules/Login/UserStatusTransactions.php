@@ -11,7 +11,7 @@ use Foodsharing\Lib\Session;
  */
 class UserStatusTransactions
 {
-    final public const SESSION_FIELD_NAME = 'LAST_USER_ACTIVITY';
+    final public const string SESSION_FIELD_NAME = 'LAST_USER_ACTIVITY';
 
     public function __construct(
         private readonly LoginGateway $loginGateway,

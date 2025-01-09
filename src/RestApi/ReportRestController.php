@@ -24,7 +24,7 @@ use Symfony\Component\Routing\Requirement\Requirement;
 class ReportRestController extends AbstractFoodsharingRestController
 {
     // literal constants
-    private const NOT_LOGGED_IN = 'not logged in';
+    private const string NOT_LOGGED_IN = 'not logged in';
 
     public function __construct(
         protected Session $session,

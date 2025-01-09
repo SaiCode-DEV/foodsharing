@@ -19,10 +19,10 @@ class FoodSharePointApiCest
     private $userAmbassador;
     private $region;
 
-    private const EMAIL = 'email';
-    private const API_FSPS = 'api/foodSharePoints';
-    private const ID = 'id';
-    private const TEST_PICTURE = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVR4nGNiAAAABgADNjd8qAAAAABJRU5ErkJggg==';
+    private const string EMAIL = 'email';
+    private const string API_FSPS = 'api/foodSharePoints';
+    private const string ID = 'id';
+    private const string TEST_PICTURE = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQVR4nGNiAAAABgADNjd8qAAAAABJRU5ErkJggg==';
 
     public function _before(ApiTester $I): void
     {

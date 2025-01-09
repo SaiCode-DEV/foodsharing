@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class LogoutController extends FoodsharingController
 {
-    private const PRIVATE_PAGES = [
+    private const array PRIVATE_PAGES = [
             'betrieb',
             'bezirk',
             'event',

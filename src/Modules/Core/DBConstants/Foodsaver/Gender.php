@@ -6,10 +6,10 @@ namespace Foodsharing\Modules\Core\DBConstants\Foodsaver;
 
 class Gender
 {
-    final public const NOT_SELECTED = 0;
-    final public const MALE = 1;
-    final public const FEMALE = 2;
-    final public const DIVERSE = 3;
+    final public const int NOT_SELECTED = 0;
+    final public const int MALE = 1;
+    final public const int FEMALE = 2;
+    final public const int DIVERSE = 3;
 
     /**
      * Returns whether the value is a valid gender constant.

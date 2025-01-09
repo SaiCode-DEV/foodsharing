@@ -31,8 +31,8 @@ namespace Flourish;
 class fDirectory implements \Stringable
 {
 	// The following constants allow for nice looking callbacks to static methods
-	final public const create = 'fDirectory::create';
-	final public const makeCanonical = 'fDirectory::makeCanonical';
+	final public const string create = 'fDirectory::create';
+	final public const string makeCanonical = 'fDirectory::makeCanonical';
 
 	/**
 	 * Creates a directory on the filesystem and returns an object representing it.

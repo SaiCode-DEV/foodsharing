@@ -15,6 +15,7 @@ final class FeatureToggleTwigFunctionExtension extends AbstractExtension
     ) {
     }
 
+    #[\Override]
     public function getFunctions(): array
     {
         return [

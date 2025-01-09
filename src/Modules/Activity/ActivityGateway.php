@@ -7,7 +7,7 @@ use Foodsharing\Modules\Core\DBConstants\Mailbox\MailboxFolder;
 
 class ActivityGateway extends BaseGateway
 {
-    private const ITEMS_PER_PAGE = 10;
+    private const int ITEMS_PER_PAGE = 10;
 
     public function fetchAllFoodSharePointWallUpdates(int $fsId, int $page): array
     {

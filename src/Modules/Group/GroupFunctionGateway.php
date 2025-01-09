@@ -96,8 +96,6 @@ class GroupFunctionGateway extends BaseGateway
      * @return bool If the function with $region_id = null is called it checks if in generall this district has a workgroup with this function
      * 				If all parameter are set it checks if this specific workgroup towards this specific district with this specific function exists.
      * 				(used in permission class)
-     *
-     * @throws \Exception
      */
     public function existRegionFunctionGroup(int $target_id, int $function_id, int $group_id = null): bool
     {

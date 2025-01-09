@@ -12,19 +12,19 @@ class VotingType
     /**
      * Users can select only one of multiple options by radio buttons.
      */
-    final public const SELECT_ONE_CHOICE = 0;
+    final public const int SELECT_ONE_CHOICE = 0;
     /**
      * Users can select a variable number of options by checkboxes.
      */
-    final public const SELECT_MULTIPLE = 1;
+    final public const int SELECT_MULTIPLE = 1;
     /**
      * Users can rate each option with a thumbs up, thumbs down, or neutral (+1, -1, 0).
      */
-    final public const THUMB_VOTING = 2;
+    final public const int THUMB_VOTING = 2;
     /**
      * Users can rate each option with a value from -3 to +3.
      */
-    final public const SCORE_VOTING = 3;
+    final public const int SCORE_VOTING = 3;
 
     public static function isValidType(int $scope): bool
     {

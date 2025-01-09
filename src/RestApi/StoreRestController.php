@@ -50,8 +50,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class StoreRestController extends AbstractFoodsharingRestController
 {
     // literal constants
-    private const NOT_LOGGED_IN = 'not logged in';
-    private const ID = 'id';
+    private const string NOT_LOGGED_IN = 'not logged in';
+    private const string ID = 'id';
 
     public function __construct(
         protected Session $session,

@@ -7,9 +7,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * Helper class providing functions for formating numbers.
  */
-final class NumberHelper
+final readonly class NumberHelper
 {
-    private readonly TranslatorInterface $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {

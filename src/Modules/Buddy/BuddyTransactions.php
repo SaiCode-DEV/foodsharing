@@ -9,7 +9,7 @@ use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 
 class BuddyTransactions
 {
-    private const SESSION_BUDDY_IDS_IDENTIFIER = 'buddy-ids';
+    private const string SESSION_BUDDY_IDS_IDENTIFIER = 'buddy-ids';
 
     public function __construct(
         private readonly BuddyGateway $buddyGateway,

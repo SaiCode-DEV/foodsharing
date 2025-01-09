@@ -23,8 +23,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MailboxTransactions
 {
-    private const MAX_VALID_RECIPIENTS = 100;
-    private const OLD_EMAIL_ATTACHMENT_DIRECTORY = 'data/mailattach/';
+    private const int MAX_VALID_RECIPIENTS = 100;
+    private const string OLD_EMAIL_ATTACHMENT_DIRECTORY = 'data/mailattach/';
 
     public function __construct(
         private readonly MailboxGateway $mailboxGateway,

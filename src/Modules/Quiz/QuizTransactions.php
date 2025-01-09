@@ -87,7 +87,7 @@ class QuizTransactions
         }
         shuffle($questions);
 
-        return array_values($questions);
+        return $questions;
     }
 
     /**

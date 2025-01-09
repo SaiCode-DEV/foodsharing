@@ -23,8 +23,8 @@ class VotingApiCest
     private $userAmbassador;
     private $poll;
 
-    private const POLLS_API = 'api/polls';
-    private const GROUPS_API = 'api/groups';
+    private const string POLLS_API = 'api/polls';
+    private const string GROUPS_API = 'api/groups';
 
     public function _before(ApiTester $I): void
     {

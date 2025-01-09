@@ -17,7 +17,7 @@ use function Sentry\captureException;
  */
 class WebSocketConnection
 {
-    private const DEFAULT_TIMEOUT = 30; // sending timeout in seconds
+    private const int DEFAULT_TIMEOUT = 30; // sending timeout in seconds
 
     public function __construct(private readonly Client $guzzle, private readonly Mem $mem)
     {

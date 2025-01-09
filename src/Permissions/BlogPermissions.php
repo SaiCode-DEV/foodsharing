@@ -7,11 +7,11 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
-final class BlogPermissions
+final readonly class BlogPermissions
 {
-    private readonly Session $session;
+    private Session $session;
 
-    public function __construct(Session $session, private readonly CurrentUserUnitsInterface $currentUserUnits)
+    public function __construct(Session $session, private CurrentUserUnitsInterface $currentUserUnits)
     {
         $this->session = $session;
     }

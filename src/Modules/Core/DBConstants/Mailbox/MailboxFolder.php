@@ -7,7 +7,7 @@ namespace Foodsharing\Modules\Core\DBConstants\Mailbox;
  */
 class MailboxFolder
 {
-    final public const FOLDER_INBOX = 1;
-    final public const FOLDER_SENT = 2;
-    final public const FOLDER_TRASH = 3;
+    final public const int FOLDER_INBOX = 1;
+    final public const int FOLDER_SENT = 2;
+    final public const int FOLDER_TRASH = 3;
 }

@@ -7,6 +7,7 @@ use Rector\Config\RectorConfig;
 use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Symfony\Set\SymfonySetList;
+use Rector\Symfony\Symfony61\Rector\Class_\CommandConfigureToAttributeRector;
 
 return RectorConfig::configure()
     ->withPaths([
@@ -15,6 +16,10 @@ return RectorConfig::configure()
     ])
     ->withSkip([
         __DIR__ . '/tests/_support/_generated',
+        // Skip AsCommand attribute for Codeception commands as they use a different command implementation
+        CommandConfigureToAttributeRector::class => [
+            __DIR__ . '/src/Dev/SeedCommand.php'
+        ],
     ])
     ->withImportNames(true, true, false)
     ->withRules([InlineConstructorDefaultToPropertyRector::class])

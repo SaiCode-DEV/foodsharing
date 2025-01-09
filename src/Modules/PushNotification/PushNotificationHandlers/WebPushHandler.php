@@ -13,7 +13,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class WebPushHandler implements PushNotificationHandlerInterface
 {
-    private const typeIdentifier = 'webpush';
+    private const string typeIdentifier = 'webpush';
     private readonly WebPush $webpush;
     private readonly TranslatorInterface $translator;
 

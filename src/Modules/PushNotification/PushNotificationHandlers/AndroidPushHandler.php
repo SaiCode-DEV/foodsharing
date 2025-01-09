@@ -13,8 +13,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AndroidPushHandler implements PushNotificationHandlerInterface
 {
-    private const typeIdentifier = 'android';
-    private const FCM_URL = 'https://fcm.googleapis.com/fcm/send';
+    private const string typeIdentifier = 'android';
+    private const string FCM_URL = 'https://fcm.googleapis.com/fcm/send';
 
     private string $fcmKey = FCM_KEY;
 
@@ -155,10 +155,20 @@ class AndroidPushHandler implements PushNotificationHandlerInterface
     /**
      * Own ErrorHandler that converts errors into exceptions so that the pipeline does not notice them.
      *
-     * @throws Exception
+     * @throws Exception when required subscription data is missing or invalid
      */
     private function readData(mixed $subscriptionArray): array
     {
+        if (!isset($subscriptionArray['public_key']['public_key'])) {
+            throw new Exception('Missing public key in subscription data');
+        }
+        if (!isset($subscriptionArray['public_key']['auth_secret'])) {
+            throw new Exception('Missing auth secret in subscription data');
+        }
+        if (!isset($subscriptionArray['fcm_token'])) {
+            throw new Exception('Missing FCM token in subscription data');
+        }
+
         $userPublicKey = $subscriptionArray['public_key']['public_key'];
         $userAuthToken = $subscriptionArray['public_key']['auth_secret'];
         $userFcmToken = $subscriptionArray['fcm_token'];

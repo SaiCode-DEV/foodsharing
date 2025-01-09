@@ -32,11 +32,11 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class BasketRestController extends AbstractFOSRestController
 {
     // literal constants
-    private const STATUS = 'status';
-    private const NOT_LOGGED_IN = 'not logged in';
-    private const LAT = 'lat';
-    private const LON = 'lon';
-    private const MAX_BASKET_DISTANCE = 50;
+    private const string STATUS = 'status';
+    private const string NOT_LOGGED_IN = 'not logged in';
+    private const string LAT = 'lat';
+    private const string LON = 'lon';
+    private const int MAX_BASKET_DISTANCE = 50;
 
     public function __construct(
         private readonly BasketTransactions $basketTransactions,
@@ -154,7 +154,7 @@ final class BasketRestController extends AbstractFOSRestController
      * @OA\Tag(name="basket")
      */
     #[Rest\Delete('baskets/{basketId}', requirements: ['basketId' => '\d+'])]
-    public function removeBasket(int $basketId): ?Response
+    public function removeBasket(int $basketId): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);

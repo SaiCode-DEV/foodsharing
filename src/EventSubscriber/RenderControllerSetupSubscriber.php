@@ -42,13 +42,13 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
      * this attribute key is set by onKernelController if the request is handled by a render controller
      * (and therefore needs legacy postprocessing).
      */
-    private const NEEDS_POSTPROCESSING = 'fs_needs_postprocessing';
+    private const string NEEDS_POSTPROCESSING = 'fs_needs_postprocessing';
 
     /**
      * @var ContainerInterface Kernel container needed to access any service,
      * instead of just the ones specified in AbstractController::getSubscribedServices
      */
-    private ContainerInterface $fullServiceContainer;
+    private readonly ContainerInterface $fullServiceContainer;
 
     // needs to be persisted between onKernelController and onKernelResponse
     private Caching $cache;
