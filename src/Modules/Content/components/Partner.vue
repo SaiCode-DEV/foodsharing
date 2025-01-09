@@ -19,7 +19,17 @@
             class="logo"
           >
           <h3 class="my-2 partner-name">
-            {{ partner.name }}
+            <a
+              v-if="partner.link"
+              :href="partner.link"
+              target="_blank"
+              rel="noopener"
+            >
+              {{ partner.name }}
+            </a>
+            <template v-else>
+              {{ partner.name }}
+            </template>
           </h3>
           <p v-text="partner.description" />
         </div>
@@ -93,5 +103,14 @@ const getLogoSrc = (partner) => {
   .partner-name {
     font-size: 1.3rem;
   }
+
+  a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
 }
 </style>
