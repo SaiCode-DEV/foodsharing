@@ -930,8 +930,7 @@ mailbox:
     not_found_explanation: The attachment could not be found on the server
     not_found: not found
     attach: Attachments (maximum 10 files and 1.5 MB per file)
-    too_large_to_send: Some of the files were too large and could not be attached
-      to the email.
+    too_large_to_send: Some of the files were too large and could not be attached.
     too_many: Too many files have been selected. A maximum of 10 files can be attached
       to the e-mail.
   move_to: Move to
@@ -4571,6 +4570,11 @@ support_page:
   attachments: Attachments (max. 5 MB per file)
   validation_email: Invalid e-mail address
   new_request: New request
+  attachment:
+    placeholder: Select file
+    browse: Browse
+    max_size: Attachments (maximum 10 and 5 MB each)
+    drop_placeholder: Drop file here
 petition:
   progressText:
     2000: The petition is gaining momentum! With your support, we can rock it!
