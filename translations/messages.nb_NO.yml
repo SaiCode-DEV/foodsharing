@@ -838,6 +838,7 @@ profile:
     remove:
       confirm_title: Fjern banan
       confirm_message: Er du sikker på at du vil fjerne den tillitsbananen?
+      successful: Banan ble fjernet!
     sent: Bananen er sendt!
     placeholder: minst 100 tegn …
     give: Gi {name} en banan
@@ -4414,6 +4415,11 @@ support_page:
     bli opprettet en billett i vårt system. Det frivillige støtteteamet vil ta seg
     av henvendelsen din. For bedre å løse tekniske problemer, vil forespørselen din
     også inkludere hvilken nettleser og hvilket operativsystem du bruker.
+  attachment:
+    max_size: Vedlegg (maks. 10 og 5 MB hver)
+    drop_placeholder: Fil her
+    placeholder: Velg fil
+    browse: Søk
 petition:
   link: Til begjæringen
   progressText:
