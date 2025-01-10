@@ -2,9 +2,10 @@
   <div class="page-container page render">
     <div class="d-flex justify-content-between mb-2">
       <h3>{{ $i18n('basket.where') }}</h3>
-      <NavSelector
+      <NavigateWithSelector
         :latitude="coordinates.lat"
         :longitude="coordinates.lon"
+        small
       />
     </div>
     <leaflet-location-picker
@@ -20,11 +21,11 @@
 import L from 'leaflet'
 import 'leaflet.awesome-markers'
 import LeafletLocationPicker from '@/components/map/LeafletLocationPicker'
-import NavSelector from '@/components/UI/Nav/NavSelector.vue'
+import NavigateWithSelector from '@/components/UI/NavigateWithSelector.vue'
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 
 export default {
-  components: { LeafletLocationPicker, NavSelector },
+  components: { LeafletLocationPicker, NavigateWithSelector },
   props: {
     zoom: { type: Number, required: true },
     coordinates: { type: Object, required: true },

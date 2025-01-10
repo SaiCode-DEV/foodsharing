@@ -3,15 +3,17 @@
     <b-button-group :vertical="vertical">
       <b-button
         variant="outline-primary"
+        :size="small ? 'sm' : 'md'"
         :disabled="invalidCoords"
         @click="handleMainButtonClick"
+        @mouseup="handleMouseUp"
       >
         <template v-if="selectedApp === null">
           <i class="fas fa-directions" />
         </template>
         <template v-else>
           <img
-            height="30em"
+            :height="small ? '20em' : '30em'"
             :src="`/img/navigation/${APPS.find(app => app.name === selectedApp).icon}`"
             :alt="selectedApp"
           >
@@ -39,12 +41,21 @@
         </b-dropdown-item>
       </b-dropdown>
     </b-button-group>
+    <confirmation-dialog
+      ref="confirmDialog"
+      :message="confirmMessage"
+      :title="i18n('legal.privacy_policy')"
+      :ok-title="i18n('legal.button.agree')"
+      @confirm="handleConfirm"
+    />
   </div>
 </template>
 
 <script setup>
 import i18n from '@/helper/i18n'
 import { ref, onMounted, defineProps } from 'vue'
+import ConfirmationDialog from './ConfirmationDialogue.vue'
+import { pulseError } from '@/script'
 
 const props = defineProps({
   latitude: {
@@ -59,9 +70,15 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  small: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const invalidCoords = !props.latitude || !props.longitude || (props.latitude === 0 && props.longitude === 0)
+
+const isMobile = /Android|webOS|iPhone/i.test(navigator.userAgent)
 
 const APPS = [
   {
@@ -96,23 +113,52 @@ const APPS = [
   },
 ]
 
+if (isMobile) {
+  APPS.unshift({
+    name: 'native',
+    icon: 'Compass.svg',
+    displayName: i18n('navi.native'),
+  })
+}
+
 const STORAGE_KEY = 'preferred_nav_app'
 const selectedApp = ref(null)
 const dropdownRef = ref(null)
+const confirmDialog = ref(null)
+const confirmMessage = ref('')
+const pendingApp = ref(null)
+
+const selectApp = (app) => {
+  pendingApp.value = app
+  confirmMessage.value = i18n('navi.gdpr_warning', {
+    provider: APPS.find(a => a.name === app).displayName,
+  })
+  confirmDialog.value?.show()
+}
+
+const handleConfirm = () => {
+  if (!pendingApp.value) return
+
+  selectedApp.value = pendingApp.value
+  localStorage.setItem(STORAGE_KEY, pendingApp.value)
+  openNavigation(pendingApp.value)
+  pendingApp.value = null
+}
 
 const handleMainButtonClick = () => {
   const savedApp = localStorage.getItem(STORAGE_KEY)
   if (!savedApp) {
     dropdownRef.value?.show()
   } else {
-    openNavigation(selectedApp.value)
+    openNavigation(savedApp)
   }
 }
 
-const selectApp = (app) => {
-  selectedApp.value = app
-  localStorage.setItem(STORAGE_KEY, app)
-  openNavigation(app)
+const handleMouseUp = (event) => {
+  if (event.button === 1) { // Middle click
+    event.preventDefault()
+    handleMainButtonClick()
+  }
 }
 
 const openNavigation = (app) => {
@@ -123,6 +169,9 @@ const openNavigation = (app) => {
   }
 
   switch (app) {
+    case 'native':
+      url = `geo:${latitude},${longitude}`
+      break
     case 'google':
       url = `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`
       break
@@ -143,6 +192,19 @@ const openNavigation = (app) => {
       break
   }
 
+  // Try native navigation first on mobile, fall back to google maps if it fails
+  if (app === 'native' && isMobile) {
+    const element = document.createElement('a')
+    element.href = url
+    element.click()
+
+    // Fallback after a short delay if the geo: link wasn't handled
+    setTimeout(() => {
+      pulseError(i18n('navi.no_native_app'))
+    }, 1000)
+    return
+  }
+
   if (url) window.open(url, '_blank')
 }
 
@@ -150,6 +212,14 @@ onMounted(() => {
   const savedApp = localStorage.getItem(STORAGE_KEY)
   if (savedApp) {
     selectedApp.value = savedApp
+  }
+
+  if (isMobile) {
+    const nativeApp = APPS.find(app => app.name === 'native')
+    if (nativeApp) {
+      APPS.splice(APPS.indexOf(nativeApp), 1)
+      APPS.unshift(nativeApp)
+    }
   }
 })
 </script>
@@ -159,6 +229,10 @@ onMounted(() => {
   display: inline-block;
 }
 .extra-small {
-  height: 15px;
+  height: 18px;
+}
+.extra-small ::v-deep .btn {
+  padding: 0 0.5rem;
+  border-top-style: none;
 }
 </style>

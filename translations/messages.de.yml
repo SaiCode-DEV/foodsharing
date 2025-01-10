@@ -1193,6 +1193,9 @@ navi:
   osmand: "OsmAnd"
   komoot: "Komoot"
   here: "HERE WeGo"
+  native: "Native App"
+  gdpr_warning: "Wenn du mit {provider} navigierst, wird die Adresse an deren Dienst übermittelt und du wirst auf deren Website weitergeleitet. Bist du damit einverstanden?"
+  no_native_app: "Geo Links werden nicht vom Gerät unterstützt."
 
 storeedit:
   bread: "Betrieb bearbeiten"

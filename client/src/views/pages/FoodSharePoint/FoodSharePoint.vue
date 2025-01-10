@@ -70,7 +70,7 @@
               {{ $i18n('fsp.show_on_large_map') }}
             </a>
           </div>
-          <NavSelector
+          <NavigateWithSelector
             :latitude="fsp.location.lat"
             :longitude="fsp.location.lon"
             vertical
@@ -139,7 +139,7 @@ import ContainerButton from '@/components/Container/ContainerButton.vue'
 import Time from '@/components/Time.vue'
 import { useUserStore } from '@/stores/user'
 import L from 'leaflet'
-import NavSelector from '@/components/UI/Nav/NavSelector.vue'
+import NavigateWithSelector from '@/components/UI/NavigateWithSelector.vue'
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 
 export default {
@@ -152,7 +152,7 @@ export default {
     Wall,
     ContainerButton,
     Time,
-    NavSelector,
+    NavigateWithSelector,
   },
   props: {
     id: { type: Number, required: true },

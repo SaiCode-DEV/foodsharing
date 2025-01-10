@@ -95,14 +95,16 @@
               <div class="d-flex">
                 <b-btn
                   :href="mapLink(row.item)"
-                  class="nav-link mr-2"
+                  class="mr-2"
                   :title="$i18n('storelist.map')"
+                  size="sm"
                 >
                   <i class="fas fa-map-marker-alt" />
                 </b-btn>
-                <NavSelector
+                <NavigateWithSelector
                   :latitude="row.item.location.lat"
                   :longitude="row.item.location.lon"
+                  small
                 />
               </div>
             </template>
@@ -139,13 +141,13 @@ import ConfigureableList from '@/components/ConfigureableList.vue'
 import BTableMobileFriendly from '@/components/BTableMobileFriendly.vue'
 import { useStoreStore } from '@/stores/store'
 import { useUserStore } from '@/stores/user'
-import NavSelector from '@/components/UI/Nav/NavSelector.vue'
+import NavigateWithSelector from '@/components/UI/NavigateWithSelector.vue'
 
 const storeStore = useStoreStore()
 const userStore = useUserStore()
 
 export default {
-  components: { BTableMobileFriendly, BFormSelect, StoreStatusIcon, ConfigureableList, NavSelector },
+  components: { BTableMobileFriendly, BFormSelect, StoreStatusIcon, ConfigureableList, NavigateWithSelector },
   directives: { VBTooltip },
   props: {
     stores: { type: Array, required: true },

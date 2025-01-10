@@ -15,7 +15,7 @@
         <div class="desc-block-title mb-2 py-1">
           {{ $i18n('store.address') }}
         </div>
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between align-items-center">
           <div>
             {{ street }} <br>
             {{ postcode }} {{ city }} <br>
@@ -24,10 +24,11 @@
               {{ $i18n('store.to_map') }}
             </a>
           </div>
-          <NavSelector
+          <NavigateWithSelector
             :latitude="latitude"
             :longitude="longitude"
             vertical
+            small
           />
         </div>
       </div>
@@ -106,10 +107,10 @@
 import Markdown from '@/components/Markdown/Markdown.vue'
 import Container from '@/components/Container/Container.vue'
 import { getters, STORE_PUBLICITY_AND_STICKER_OPTIONS } from '@/stores/stores'
-import NavSelector from '@/components/UI/Nav/NavSelector.vue'
+import NavigateWithSelector from '@/components/UI/NavigateWithSelector.vue'
 
 export default {
-  components: { Markdown, Container, NavSelector },
+  components: { Markdown, Container, NavigateWithSelector },
   props: {
     particularitiesDescription: {
       type: String,

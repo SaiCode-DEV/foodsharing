@@ -4,12 +4,18 @@
   >
     <div class="list-group-item">
       <p v-if="event.locationDetails" v-text="event.locationDetails" />
-      <p v-if="event.address">
-        <span v-text="event.address.street" /><br>
-        <span v-text="event.address.zip" />
-        <span v-text="event.address.city" />
-      </p>
-
+      <div v-if="event.address || event.location" class="d-flex justify-content-between">
+        <p v-if="event.address">
+          <span v-text="event.address.street" /><br>
+          <span v-text="event.address.zip" />
+          <span v-text="event.address.city" />
+        </p>
+        <NavigateWithSelector
+          v-if="event.location"
+          :latitude="event.location.lat"
+          :longitude="event.location.lon"
+        />
+      </div>
       <p v-if="event.type === EVENT_TYPE.ONLINE" v-text="enterOnlineText" />
     </div>
 
@@ -49,6 +55,7 @@ import ConferenceOpenerMixin from '@/mixins/ConferenceOpenerMixin'
 import { EVENT_TYPE } from '@/consts'
 
 import Leaflet from 'leaflet'
+import NavigateWithSelector from '../UI/NavigateWithSelector.vue'
 Leaflet.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 
 // defines, how much earlier or later people may join online events via the button.
@@ -56,7 +63,7 @@ const enterEarlyBuffer = 15 * 60 * 1000 // 15 minutes
 const enterLateBuffer = 60 * 60 * 1000 // 1 hour
 
 export default {
-  components: { Container, LeafletMap, LMarker },
+  components: { Container, LeafletMap, LMarker, NavigateWithSelector },
   mixins: [ConferenceOpenerMixin],
   props: {
     event: { type: Object, required: true },

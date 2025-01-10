@@ -2574,6 +2574,9 @@ navi:
   osmand: "OsmAnd"
   komoot: "Komoot"
   here: "HERE WeGo"
+  native: "Native app"
+  gdpr_warning: By navigating with {provider}, the address will be shared with their service and you will be redirected to their website. Do you agree?
+  no_native_app: Geo Links are not supported by your device.
 
 search:
   mygroups: My groups
