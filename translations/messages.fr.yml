@@ -812,7 +812,7 @@ mailbox:
     not_found: pas trouvé
     attach: Pièces jointes (maximum 10 fichiers, 1,5 Mo par fichier)
     too_large_to_send: Certains fichiers étaient trop volumineux et ne pouvaient pas
-      être joints au courrier électronique.
+      être joints.
     too_many: Trop de fichiers ont été sélectionnés. Un maximum de 10 fichiers peuvent
       être joints à l’e-mail.
   move_to: déménager à
@@ -2088,6 +2088,7 @@ profile:
     remove:
       confirm_message: Souhaites-tu vraiment retirer la banane-confiance ?
       confirm_title: Retirer la banane-confiance
+      successful: La banane a été supprimée !
     alreadyGiven: '{name} a déjà reçu une banane-confiance de ta part.'
     messageTooShort: Écris un texte de minimum 100 caractères pour accompagner ta
       banane.
@@ -2187,7 +2188,7 @@ profile:
     workgroups_member: collaborent au sein des groupes de travail suivants
     no_common_workgroups: dans aucun groupe de travail commun
     home_region_from: District principal
-    foodSaver_in_region: Collecteur·rice à
+    foodSaver_in_region: inscrite dans les districts
   tab_navigation:
     profile: Profil
     pickups: Ramassages
@@ -4569,6 +4570,11 @@ support_page:
     de support bénévole s’occupe de tes demandes. Afin de pouvoir mieux répondre aux
     problèmes techniques, ta demande contient également le navigateur et le système
     d’exploitation que tu utilises.
+  attachment:
+    max_size: Pièces jointes (max. 10 avec max. 5 Mo chacune)
+    placeholder: Sélectionner le fichier
+    drop_placeholder: Dépose le fichier ici
+    browse: Parcourir
 error_base64_image: L’insertion d’images n’est pas autorisée par glisser-déposer.
 petition:
   progressText:
