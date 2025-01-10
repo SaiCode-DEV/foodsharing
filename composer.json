@@ -58,7 +58,7 @@
     "html2text/html2text": "4.3.*",
     "jms/serializer-bundle": "5.4.*",
     "jsvrcek/ics": "0.8.5",
-    "league/commonmark": "^2.4",
+    "league/commonmark": "^2.6.1",
     "minishlink/web-push": "9.0.*",
     "mobiledetect/mobiledetectlib": "3.74.*",
     "nelmio/api-doc-bundle": "4.33.*",
