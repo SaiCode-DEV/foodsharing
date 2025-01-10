@@ -4446,7 +4446,7 @@ support_page:
     talebinizde hangi tarayıcıyı ve işletim sistemini kullandığınız da yer alacaktır.
   attachments: Ekler (dosya başına maksimum 5MB)
   attachment:
-    max_size: Ekler (dosya başına maksimum 10,5 MB)
+    max_size: Ekler (her biri 5 MB olmak üzere en fazla 10 adet)
     placeholder: Dosya seç
     drop_placeholder: Dosyayı buraya bırakın
     browse: Ara
