@@ -48,19 +48,19 @@
       </div>
       <div class="col-12 col-lg-8 col-xl-9">
         <NewThread
-          v-if="(activeSubpage === SUB_PAGE.FORUM || activeSubpage === SUB_PAGE.AMBASSADOR_FORUM) && pageData.newThreadForm"
+          v-if="(activeSubpage === SUB_PAGE.FORUM || activeSubpage === SUB_PAGE.AMBASSADOR_FORUM) && showNewThreadForm"
           :subforum-id="subForumId"
           :group-id="regionId"
           :is-moderated="moderated"
         />
         <ThreadList
-          v-if="(activeSubpage === SUB_PAGE.FORUM || activeSubpage === SUB_PAGE.AMBASSADOR_FORUM) && !pageData.threadId && !pageData.newThreadForm"
+          v-if="(activeSubpage === SUB_PAGE.FORUM || activeSubpage === SUB_PAGE.AMBASSADOR_FORUM) && !forumThreadId && !showNewThreadForm"
           :subforum-id="subForumId"
           :group-id="regionId"
         />
         <Thread
-          v-if="(activeSubpage === SUB_PAGE.FORUM || activeSubpage === SUB_PAGE.AMBASSADOR_FORUM) && pageData.threadId"
-          :id="pageData.threadId"
+          v-if="(activeSubpage === SUB_PAGE.FORUM || activeSubpage === SUB_PAGE.AMBASSADOR_FORUM) && forumThreadId"
+          :id="forumThreadId"
         />
         <EventList
           v-if="activeSubpage === SUB_PAGE.EVENTS"
@@ -147,6 +147,7 @@ import { getApplications } from '@/api/applications'
 import ApplicationsList from './ApplicationsList.vue'
 import Achievements from './Achievements.vue'
 import { SUB_PAGE } from '@/stores/regions'
+import { GET } from '@/browser'
 
 export default {
   components: {
@@ -219,6 +220,12 @@ export default {
     },
     subForumId () {
       return this.activeSubpage === SUB_PAGE.AMBASSADOR_FORUM ? 1 : 0
+    },
+    forumThreadId () {
+      return Number(GET('tid')) ?? null
+    },
+    showNewThreadForm () {
+      return Number(GET('newthread')) === 1
     },
   },
   async mounted () {
