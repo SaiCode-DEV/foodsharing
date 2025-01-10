@@ -46,7 +46,6 @@ module.exports = {
           resolve('lib'), // ignore the old lib/**.js files
         ],
         use: [
-          'cache-loader',
           {
             loader: 'thread-loader',
             options: {
@@ -72,7 +71,6 @@ module.exports = {
         test: /\.vue$/,
         exclude: /(node_modules)/,
         use: [
-          'cache-loader',
           'thread-loader',
           'vue-loader',
         ],
@@ -90,7 +88,6 @@ module.exports = {
         test: /\.scss$/,
         use: [
           production ? MiniCssExtractPlugin.loader : 'style-loader',
-          'cache-loader',
           'css-loader',
           'thread-loader',
           'sass-loader',
