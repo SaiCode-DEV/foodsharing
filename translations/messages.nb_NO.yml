@@ -4416,7 +4416,7 @@ support_page:
     av henvendelsen din. For bedre å løse tekniske problemer, vil forespørselen din
     også inkludere hvilken nettleser og hvilket operativsystem du bruker.
   attachment:
-    max_size: Vedlegg (maks. 10 og 5 MB hver)
+    max_size: Vedlegg (maks. 10 med 5 MB hver)
     drop_placeholder: Fil her
     placeholder: Velg fil
     browse: Søk
