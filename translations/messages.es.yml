@@ -4700,6 +4700,7 @@ support_page:
     drop_placeholder: Archivo aquí
     placeholder: Seleccionar archivo
     browse: Buscar
+    max_size: Archivos adjuntos (máximo 10 con 5 MB por archivo)
 petition:
   progressText:
     8000: ¡Hemos tenido un buen comienzo! ¡Ayúdanos a llegar aún más lejos!
