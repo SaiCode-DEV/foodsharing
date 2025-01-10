@@ -332,14 +332,16 @@ class BasketGateway extends BaseGateway
      */
     public function listNearbyBasketsByDistance(?int $userId, GeoLocation $gpsCoordinate, int $distanceKm = 30): array
     {
-        $spatialPoint = sprintf('POINT(%f %f)', $gpsCoordinate->lon, $gpsCoordinate->lat);
+        /* ST_BUFFER expects the distance to be in the same unit as the points. The factor of 1.5 makes sure that the
+         bounding box is not too small due to Earth's curvature. */
+        $maxDistanceInDegrees = 1.5 * $distanceKm / (pi() * 6371) * 180;
 
         $baskets = $this->db->fetchAll('SELECT
 				b.id,
 			    UNIX_TIMESTAMP(b.`until`) AS until_ts,
 				b.picture,
 				b.description,
-                ST_Distance_Sphere(ST_GeomFromText(:centerPoint), Point(b.lon, b.lat)) / 1000 AS distance_in_km,
+                ST_Distance_Sphere(Point(:lon, :lat), Point(b.lon, b.lat)) / 1000 AS distance_in_km,
 				fs.id AS fs_id,
 				fs.name AS fs_name,
 				fs.photo AS fs_photo,
@@ -352,8 +354,8 @@ class BasketGateway extends BaseGateway
                 ST_INTERSECTS(Point(b.lon, b.lat),
                     ST_Envelope(
                         ST_BUFFER(
-                            ST_GeomFromText(:centerPoint),
-                            :max_distance_in_km * 1000
+                            Point(:lon, :lat),
+                            :max_distance_in_degrees
                         )
                     )
                 )
@@ -365,10 +367,12 @@ class BasketGateway extends BaseGateway
 			LIMIT 10
 		',
             [
-                ':centerPoint' => $spatialPoint,
+                ':lon' => $gpsCoordinate->lon,
+                ':lat' => $gpsCoordinate->lat,
                 ':status' => BasketStatus::REQUESTED_MESSAGE_READ,
                 ':fs_id' => $userId ?? 0,
                 ':max_distance_in_km' => $distanceKm,
+                ':max_distance_in_degrees' => $maxDistanceInDegrees
             ]
         );
 

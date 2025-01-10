@@ -34,6 +34,7 @@
 - Update webpack to 5 !3621 !3964 @SaiCode
 - Service worker moved to Google Workbox !3621 @SaiCode
 - Removed props from the Vue components of region subpages #1838 !3948 @alex.simm
+- Fixed the bounding box of queries for nearby baskets and food share points #1857 !3916 @alex.simm
 
 ## Dev/Test/CI stuff
 - Update dev docs Vue component integration to use prepareVueComponent !3910 @chriswalg

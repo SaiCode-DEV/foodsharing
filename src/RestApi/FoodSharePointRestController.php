@@ -83,19 +83,23 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         return $this->respondOK($foodSharePoint);
     }
 
-    private function fetchLocationOrUserHome(ParamFetcher $paramFetcher): array
+    private function fetchLocationOrUserHome(ParamFetcher $paramFetcher): GeoLocation
     {
         $lat = $paramFetcher->get('lat');
         $lon = $paramFetcher->get('lon');
         if (!$this->isValidNumber($lat, -90.0, 90.0) || !$this->isValidNumber($lon, -180.0, 180.0)) {
             // find user's location
             $loc = $this->session->user('location') ?? new GeoLocation();
-            if (!$loc || (($lat = $loc->lat) === 0 && ($lon = $loc->lon) === 0)) {
+            if (!$loc || ($loc->lat === 0 && $loc->lon === 0)) {
                 throw new BadRequestHttpException('The user profile has no address.');
             }
+        } else {
+            $loc = new GeoLocation();
+            $loc->lat = $lat;
+            $loc->lon = $lon;
         }
 
-        return ['lat' => $lat, 'lon' => $lon];
+        return $loc;
     }
 
     /**

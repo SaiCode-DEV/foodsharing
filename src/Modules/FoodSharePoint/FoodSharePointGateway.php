@@ -11,6 +11,7 @@ use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
+use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointData;
@@ -219,8 +220,12 @@ class FoodSharePointGateway extends BaseGateway
         return [];
     }
 
-    public function listNearbyFoodSharePoints(array $location, int $distance = 30): array
+    public function listNearbyFoodSharePoints(GeoLocation $location, int $distanceInKm = 30): array
     {
+        /* ST_BUFFER expects the distance to be in the same unit as the points. The factor of 1.5 makes sure that the
+         bounding box is not too small due to Earth's curvature. */
+        $maxDistanceInDegrees = 1.5 * $distanceInKm / (pi() * 6371) * 180;
+
         return $this->db->fetchAll(
             '
 			SELECT
@@ -238,12 +243,22 @@ class FoodSharePointGateway extends BaseGateway
 				ft.`add_date`,
 				UNIX_TIMESTAMP(ft.`add_date`) AS time_ts,
 				ft.`add_foodsaver`,
-				(6371 * acos( cos( radians( :lat ) ) * cos( radians( ft.lat ) ) * cos( radians( ft.lon ) - radians( :lon ) ) + sin( radians( :lat1 ) ) * sin( radians( ft.lat ) ) ))
-				AS distance
+				ST_Distance_Sphere(Point(:lon, :lat), Point(ft.lon, ft.lat)) / 1000 AS distance
 			FROM
 				`fs_fairteiler` ft
 			WHERE
 				ft.`status` = 1
+			AND
+                -- Reduce load for distance calculation by using a bounding box
+                -- Only for all points inside the bounding box is the calculation running
+                ST_INTERSECTS(Point(ft.lon, ft.lat),
+                    ST_Envelope(
+                        ST_BUFFER(
+                            Point(:lon, :lat),
+                            :max_distance_in_degrees
+                        )
+                    )
+                )
 			HAVING
 				distance <= :distance
 			ORDER BY
@@ -251,10 +266,10 @@ class FoodSharePointGateway extends BaseGateway
 			LIMIT 6
 		',
             [
-                ':lat' => (float)$location['lat'],
-                ':lat1' => (float)$location['lat'],
-                ':lon' => (float)$location['lon'],
-                ':distance' => $distance,
+                ':lat' => $location->lat,
+                ':lon' => $location->lon,
+                ':distance' => $distanceInKm,
+                ':max_distance_in_degrees' => $maxDistanceInDegrees,
             ]
         );
     }
