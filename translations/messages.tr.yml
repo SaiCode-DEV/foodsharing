@@ -4468,7 +4468,11 @@ partner_foodsharing: foodsharing Ortakları
 navi:
   google_maps: Google Haritalar
   apple_maps: Apple Haritalar
-  komoot: Komoot
-  waze: Waze
+  komoot: Komoot_
+  waze: Waze_
   osmand: OsmAnd
-  here: HERE WeGo
+  here: HERE WeGo_
+  gdpr_warning: '{provider} ile gezindiğinizde, adres onların servisine iletilir ve
+    onların web sitesine yönlendirilirsiniz. Bunu kabul ediyor musunuz?'
+  native: Native App_
+  no_native_app: Cihazınız coğrafi bağlantıları desteklemiyor.
