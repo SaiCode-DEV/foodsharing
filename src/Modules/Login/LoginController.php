@@ -67,9 +67,10 @@ class LoginController extends FoodsharingController
             return $this->renderGlobal();
         }
 
-        $e = $request->query->get('e');
-        if ($this->emailHelper->validEmail($e)) {
-            $this->settingsGateway->unsubscribeNewsletter($e);
+        $email = $request->query->get('e');
+        $token = $request->query->get('t');
+        if ($this->emailHelper->validEmail($email)) {
+            $this->settingsGateway->unsubscribeNewsletter($email, $token);
             $this->pageHelper->addContent($this->v_utils->v_info($this->translator->trans('logincontrol.nomorenewsletter'), $this->translator->trans('logincontrol.success')));
         }
 
