@@ -44,6 +44,7 @@
 - Migrate Sentry to self-hosted instance !3946 @stcz
 - Bump sentry vue to 7.120.2 !3959 @chriswalg
 - Upgrade backend Sentry SDK to 5.1 !3958 @\_fridtjof_
+- Update jsdom to 25.0.1 !3966 @chriswalg
 - Update league/commonmark to 2.6.1 !3967 @chriswalg
 - Removed unused ts-node-dev #2122 !3970 @chriswalg
 - Remove multible unused dependencies !3974 @SaiCode
