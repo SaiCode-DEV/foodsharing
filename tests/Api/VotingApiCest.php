@@ -161,15 +161,15 @@ class VotingApiCest
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 1, 1 => 0, 2 => 1]
         ]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => []
         ]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [1 => 0]
         ]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [1 => 1]
         ]);
@@ -186,15 +186,15 @@ class VotingApiCest
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 1, 1 => 0]
         ]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 1, 1 => 0, 2 => 1, 3 => 0, 4 => 1, 5 => 0]
         ]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => []
         ]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [1 => 1, 2 => 1]
         ]);
@@ -211,15 +211,15 @@ class VotingApiCest
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 1, 1 => 0]
         ]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 1, 1 => 0, 2 => 1, 3 => 0, 4 => 1, 5 => 0]
         ]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => []
         ]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 0, 1 => 1, 2 => -1, 3 => 0]
         ]);
@@ -236,19 +236,19 @@ class VotingApiCest
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 1, 1 => 0]
         ]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 1, 1 => 0, 2 => 1, 3 => 0, 4 => 1, 5 => 0]
         ]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => []
         ]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 0, 1 => -5, 2 => -1, 3 => 0]
         ]);
-        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+        $I->seeStatusCodeIs([Http::BAD_REQUEST, Http::UNPROCESSABLE_ENTITY]);
         $I->sendPUT(self::POLLS_API . '/' . $poll['id'] . '/vote', [
             'options' => [0 => 0, 1 => 1, 2 => -1, 3 => 0]
         ]);

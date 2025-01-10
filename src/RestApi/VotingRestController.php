@@ -12,15 +12,19 @@ use Foodsharing\Modules\Voting\DTO\PollOption;
 use Foodsharing\Modules\Voting\VotingGateway;
 use Foodsharing\Modules\Voting\VotingTransactions;
 use Foodsharing\Permissions\VotingPermissions;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcher;
-use OpenApi\Annotations as OA;
+use Foodsharing\RestApi\Models\Voting\CreatePollRequest;
+use Foodsharing\RestApi\Models\Voting\EditPollRequest;
+use Foodsharing\RestApi\Models\Voting\VoteRequest;
+use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
 
+#[OA\Tag(name: 'polls')]
 class VotingRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
@@ -29,22 +33,19 @@ class VotingRestController extends AbstractFoodsharingRestController
         private readonly VotingPermissions $votingPermissions,
         private readonly VotingTransactions $votingTransactions)
     {
+        parent::__construct($this->session);
     }
 
-    /**
-     * Returns the details of a poll.
-     *
-     * @OA\Parameter(name="pollId", in="path", @OA\Schema(type="integer"), description="which poll to return")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="404", description="Poll does not exist.")
-     * @OA\Tag(name="polls")
-     */
-    #[Rest\Get('polls/{pollId}', requirements: ['pollId' => '\d+'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permission to see the poll')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Poll does not exist.')]
+    #[Route('/polls/{pollId}', requirements: ['pollId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[OA\Get(summary: 'Returns the details of a poll.')]
     public function getPoll(int $pollId): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
+
         $poll = $this->votingTransactions->getPoll($pollId, true);
         if (is_null($poll)) {
             throw new NotFoundHttpException();
@@ -54,22 +55,18 @@ class VotingRestController extends AbstractFoodsharingRestController
             throw new AccessDeniedHttpException();
         }
 
-        return $this->handleView($this->view($poll, 200));
+        return $this->respondOK($poll);
     }
 
-    /**
-     * Lists all polls in a region or working group.
-     *
-     * @OA\Parameter(name="regionId", in="path", @OA\Schema(type="integer"), description="which region to list polls for")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Tag(name="polls")
-     */
-    #[Rest\Get('groups/{groupId}/polls', requirements: ['groupId' => '\d+'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permission to list polls in the group')]
+    #[Route('/groups/{groupId}/polls', requirements: ['groupId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    #[OA\Get(summary: 'Lists all polls in a region or working group.')]
     public function listPolls(int $groupId): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
+
         if (!$this->votingPermissions->mayListPolls($groupId)) {
             throw new AccessDeniedHttpException();
         }
@@ -79,42 +76,30 @@ class VotingRestController extends AbstractFoodsharingRestController
         return $this->respondOK($polls);
     }
 
-    /**
-     * Lists all polls the user is invited to.
-     *
-     * @OA\Response(response="200", description="Success")
-     * @OA\Tag(name="polls")
-     */
-    #[Rest\Get('user/current/polls')]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[Route('/user/current/polls', methods: ['GET'])]
+    #[OA\Get(summary: 'Lists all polls the user is invited to.')]
     public function listCurrentPolls(): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         $polls = $this->votingGateway->listCurrentPolls($this->session->id());
 
-        return $this->handleView($this->view($polls, 200));
+        return $this->respondOK($polls);
     }
 
-    /**
-     * Vote in a poll. The options need to be a list mapping option indices to the vote values (+1, 0, -1). Depending
-     * on the voting type not all options need to be included.
-     *
-     * @OA\Parameter(name="pollId", in="path", @OA\Schema(type="integer"), description="in which poll to vote")
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="400", description="Invalid options.")
-     * @OA\Response(response="403", description="Insufficient permissions to vote in that polls.")
-     * @OA\Response(response="404", description="Poll does not exist.")
-     * @OA\Tag(name="polls")
-     */
-    #[Rest\Put('polls/{pollId}/vote', requirements: ['pollId' => '\d+'])]
-    #[Rest\RequestParam(name: 'options', nullable: false)]
-    public function vote(int $pollId, ParamFetcher $paramFetcher): Response
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid options.')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to vote in that polls.')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Poll does not exist.')]
+    #[Route('/polls/{pollId}/vote', requirements: ['pollId' => Requirement::POSITIVE_INT], methods: ['PUT'])]
+    #[OA\Put(summary: 'Vote in a poll. The options need to be a list mapping option indices to the vote values (+1, 0, -1). Depending on the voting type not all options need to be included.')]
+    public function vote(int $pollId, #[MapRequestPayload] VoteRequest $request): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
+
         // check if poll exists and user may vote
         $poll = $this->votingGateway->getPoll($pollId, false);
         if (is_null($poll)) {
@@ -126,71 +111,50 @@ class VotingRestController extends AbstractFoodsharingRestController
         }
 
         // convert option indices to integers to avoid type problems
-        $options = $paramFetcher->get('options');
-        $options = array_combine(array_map('intval', array_keys($options)),
-            array_map('intval', array_values($options)));
+        $options = array_combine(array_map('intval', array_keys($request->options)),
+            array_map('intval', array_values($request->options)));
 
         // check if voting options are valid
         if (!$this->votingTransactions->vote($poll, $options)) {
             throw new BadRequestHttpException();
         }
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 
-    /**
-     * Creates a new poll. The poll and all its options will be assigned valid IDs and option indices by the
-     * server. Options must be passed as an array of strings for the options' texts. The order of the options will
-     * be kept.
-     *
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="400", description="Invalid parameters.")
-     * @OA\Response(response="403", description="Insufficient permissions to create a poll in that region.")
-     * @OA\Tag(name="polls")
-     */
-    #[Rest\Post('polls')]
-    #[Rest\RequestParam(name: 'name', nullable: false)]
-    #[Rest\RequestParam(name: 'description', nullable: false)]
-    #[Rest\RequestParam(name: 'startDate', nullable: false)]
-    #[Rest\RequestParam(name: 'endDate', nullable: false)]
-    #[Rest\RequestParam(name: 'regionId', nullable: false, requirements: '\d+')]
-    #[Rest\RequestParam(name: 'scope', nullable: false, requirements: '\d+')]
-    #[Rest\RequestParam(name: 'type', nullable: false, requirements: '\d+')]
-    #[Rest\RequestParam(name: 'options', nullable: false)]
-    #[Rest\RequestParam(name: 'notifyVoters', nullable: false)]
-    #[Rest\RequestParam(name: 'shuffleOptions', default: true)]
-    public function createPoll(ParamFetcher $paramFetcher): Response
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid parameters.')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to create a poll in that region.')]
+    #[Route('/polls', methods: ['POST'])]
+    #[OA\Post(summary: 'Creates a new poll. The poll and all its options will be assigned valid IDs and option indices by the server. Options must be passed as an array of strings for the options\' texts. The order of the options will be kept.')]
+    public function createPoll(#[MapRequestPayload] CreatePollRequest $request): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         // parse and check parameters
         $poll = new Poll();
-        $poll->name = trim((string)$paramFetcher->get('name'));
-        $poll->description = trim((string)$paramFetcher->get('description'));
-        if (empty($poll->name) || empty($poll->description)) {
-            throw new BadRequestHttpException('empty name or description: ' . $poll->name . ', ' . $poll->description);
-        }
+        $poll->name = trim($request->name);
+        $poll->description = trim($request->description);
         // Set time zone to make sure dates are saved to db in the server time zone
         $serverTimeZone = new DateTimeZone('Europe/Berlin');
-        $poll->startDate = Carbon::parse($paramFetcher->get('startDate'))->setTimezone($serverTimeZone);
-        $poll->endDate = Carbon::parse($paramFetcher->get('endDate'))->setTimezone($serverTimeZone);
-        if (!$poll->startDate || !$poll->endDate || $poll->startDate >= $poll->endDate
-        || Carbon::now()->add($this->votingPermissions->MIN_POLL_EDIT_TIME) >= $poll->startDate) {
+        $poll->startDate = $request->startDate->setTimezone($serverTimeZone);
+        $poll->endDate = $request->endDate->setTimezone($serverTimeZone);
+        if ($poll->startDate >= $poll->endDate
+            || Carbon::now()->add($this->votingPermissions->MIN_POLL_EDIT_TIME) >= $poll->startDate) {
             throw new BadRequestHttpException('invalid start or end date');
         }
 
-        $poll->scope = (int)$paramFetcher->get('scope');
+        $poll->scope = $request->scope;
         if (!VotingScope::isValidScope($poll->scope)) {
             throw new BadRequestHttpException('invalid scope');
         }
-        $poll->type = (int)$paramFetcher->get('type');
+        $poll->type = $request->type;
         if (!VotingType::isValidType($poll->type)) {
             throw new BadRequestHttpException('invalid poll type');
         }
 
-        $poll->regionId = (int)$paramFetcher->get('regionId');
+        $poll->regionId = $request->regionId;
         if (!$this->votingPermissions->mayCreatePoll($poll->regionId)) {
             throw new AccessDeniedHttpException();
         }
@@ -198,37 +162,25 @@ class VotingRestController extends AbstractFoodsharingRestController
         $poll->authorId = $this->session->id();
 
         // parse options and check that they are not empty
-        $poll->options = $this->parseOptions($paramFetcher->get('options'));
-        $poll->shuffleOptions = boolval($paramFetcher->get('shuffleOptions'));
+        $poll->options = $this->parseOptions($request->options);
+        $poll->shuffleOptions = $request->shuffleOptions;
 
         // create poll
-        $this->votingTransactions->createPoll($poll, $paramFetcher->get('notifyVoters'));
+        $this->votingTransactions->createPoll($poll, $request->notifyVoters);
 
-        return $this->handleView($this->view($poll, 200));
+        return $this->respondOK($poll);
     }
 
-    /**
-     * Updates an existing poll. This can change a poll's title, description, and options. Updating
-     * is only possible within one hour after creation.
-     *
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="400", description="Invalid parameters")
-     * @OA\Response(response="401", description="Not logged in")
-     * @OA\Response(response="403", description="Insufficient permissions to edit that poll")
-     * @OA\Response(response="404", description="Poll does not exist")
-     * @OA\Tag(name="polls")
-     */
-    #[Rest\Patch('polls/{pollId}', requirements: ['pollId' => '\d+'])]
-    #[Rest\RequestParam(name: 'name', nullable: true, default: null)]
-    #[Rest\RequestParam(name: 'description', nullable: true, default: null)]
-    #[Rest\RequestParam(name: 'options', nullable: true, default: null)]
-    public function editPoll(int $pollId, ParamFetcher $paramFetcher): Response
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid parameters')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to edit that poll')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Poll does not exist')]
+    #[Route('/polls/{pollId}', requirements: ['pollId' => Requirement::POSITIVE_INT], methods: ['PATCH'])]
+    #[OA\Patch(summary: 'Updates an existing poll. This can change a poll\'s title, description, and options. Updating is only possible within one hour after creation.')]
+    public function editPoll(int $pollId, #[MapRequestPayload] EditPollRequest $request): Response
     {
-        // check permissions and get poll
-        $userId = $this->session->id();
-        if (!$userId) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         $poll = $this->votingGateway->getPoll($pollId, false);
         if (is_null($poll)) {
@@ -240,30 +192,55 @@ class VotingRestController extends AbstractFoodsharingRestController
         }
 
         // check name and description
-        $name = $paramFetcher->get('name');
-        if (!empty($name)) {
-            $poll->name = trim((string)$name);
+        if (!empty($request->name)) {
+            $poll->name = trim($request->name);
         }
-        $description = trim((string)$paramFetcher->get('description'));
-        if (!empty($description)) {
-            $poll->description = $description;
+        if (!empty($request->description)) {
+            $poll->description = trim($request->description);
         }
 
         // parse options and check that they are not empty
-        $options = $paramFetcher->get('options');
-        if (!empty($options)) {
-            $poll->options = $this->parseOptions($options);
+        if (!empty($request->options)) {
+            $poll->options = $this->parseOptions($request->options);
         }
 
         // update poll
         $this->votingTransactions->updatePoll($poll);
 
-        return $this->handleView($this->view($poll, 200));
+        return $this->respondOK($poll);
+    }
+
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to delete that poll.')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Poll does not exist.')]
+    #[Route('/polls/{pollId}', requirements: ['pollId' => Requirement::POSITIVE_INT], methods: ['DELETE'])]
+    #[OA\Delete(summary: 'Deletes a poll.')]
+    public function deletePoll(int $pollId): Response
+    {
+        $this->assertLoggedIn();
+
+        $poll = $this->votingGateway->getPoll($pollId, false);
+        if (is_null($poll)) {
+            throw new NotFoundHttpException();
+        }
+
+        if (!$this->votingPermissions->mayEditPoll($poll)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $this->votingTransactions->deletePoll($pollId);
+
+        return $this->respondOK();
     }
 
     /**
      * Parses poll options from a request and returns them as {@see PollOption} objects. Throws exceptions if
      * the list is empty or if any option does not have a valid text.
+     *
+     * @param string[] $data
+     * @return PollOption[]
+     * @throws BadRequestHttpException if at least one of the options is empty or if not all options are unique
      */
     private function parseOptions(array $data): array
     {
@@ -291,33 +268,5 @@ class VotingRestController extends AbstractFoodsharingRestController
         }
 
         return $options;
-    }
-
-    /**
-     * Deletes a poll.
-     *
-     * @OA\Response(response="200", description="Success")
-     * @OA\Response(response="403", description="Insufficient permissions to delete that poll.")
-     * @OA\Response(response="404", description="Poll does not exist.")
-     * @OA\Tag(name="polls")
-     */
-    #[Rest\Delete('polls/{pollId}', requirements: ['pollId' => '\d+'])]
-    public function deletePoll(int $pollId): Response
-    {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
-        $poll = $this->votingGateway->getPoll($pollId, false);
-        if (is_null($poll)) {
-            throw new NotFoundHttpException();
-        }
-
-        if (!$this->votingPermissions->mayEditPoll($poll)) {
-            throw new AccessDeniedHttpException();
-        }
-
-        $this->votingTransactions->deletePoll($pollId);
-
-        return $this->handleView($this->view([], 200));
     }
 }

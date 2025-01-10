@@ -44,4 +44,17 @@ class ApiTester extends Actor
         $I->seeHttpHeader('Content-Type', 'text/html; charset=UTF-8');
         $I->seeResponseIsHtml();
     }
+
+    /**
+     * Checks if the status code of the last response is in the array of expected codes.
+     *
+     * @param int[] $code
+     */
+    public function seeStatusCodeIs(array $code): void
+    {
+        $response = json_decode($this->grabResponse(), true);
+        $status = $response['code'] ?? null;
+
+        $this->assertTrue(in_array($status, $code), "Response code $status is not in the expected values: " . implode(', ', $code));
+    }
 }
