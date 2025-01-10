@@ -74,7 +74,7 @@ To make a desired change, please work on your own branch named after the issue n
 
 To submit your change:
 
-1. Check if the code style is fixed before commiting, by running `./scripts/fix-codestyle-local` (or if that does not work by running the slower `./scripts/fix`).
+1. Check if the code style is fixed before commiting, by running `./scripts/fix`.
 
 2. Check if the tests pass locally, by running `./scripts/test`.
 

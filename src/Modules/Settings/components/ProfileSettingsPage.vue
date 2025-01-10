@@ -174,3 +174,11 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+@media screen and (max-width: 576px) {
+  ::v-deep(.nav-tabs .nav-link) {
+    border-radius: var(--border-radius);
+  }
+}
+</style>
