@@ -47,6 +47,7 @@
 - Upgrade backend Sentry SDK to 5.1 !3958 @\_fridtjof_
 - Update jsdom to 25.0.1 !3966 @chriswalg
 - Update league/commonmark to 2.6.1 !3967 @chriswalg
+- Update vitepress and dependencies !3965 @chriswalg
 - Removed unused ts-node-dev #2122 !3970 @chriswalg
 - Remove multible unused dependencies !3974 @SaiCode
 - Update mocha to 10.8.2 !3979 @chriswalg

@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
 import { withPwa } from '@vite-pwa/vitepress'
-import { generateSidebar, VitePressSidebarOptions } from 'vitepress-sidebar';
+import { generateSidebar } from 'vitepress-sidebar';
+import type { VitePressSidebarOptions } from 'vitepress-sidebar/types';
 import { generateI18nLocale, generateI18nSearch } from 'vitepress-i18n';
 
 import MarkdownItImplicitFigures from "markdown-it-implicit-figures";
