@@ -30,7 +30,7 @@
     "pinia": "^2.3.0",
     "pinia-plugin-persistedstate": "^4.0.1",
     "relative-time-format": "^1.1.6",
-    "socket.io-client": "^4.5.4",
+    "socket.io-client": "^4.8.1",
     "terser-webpack-plugin": "^5.3.11",
     "vue": "~2.7.14",
     "vue-advanced-chat": "^2.0.10",

@@ -84,7 +84,7 @@ services:
     container_name: foodsharing_websocket
     image: registry.gitlab.com/foodsharing-dev/images/node:latest
     working_dir: /app/websocket
-    command: sh -c "yarn && yarn ts-node-dev src/index.ts 0.0.0.0"
+    command: sh -c "yarn && yarn nodemon src/index.ts"
     depends_on:
       - redis
     environment:

@@ -10,19 +10,18 @@
   "scripts": {
     "lint": "eslint . --ext .ts",
     "fix": "eslint --fix . --ext .ts",
-    "test": "tsc test.ts && tape test.js | tap-arc"
+    "test": "tsc test.ts && tape test.js | tap-arc",
+    "dev": "nodemon src/index.ts"
   },
   "dependencies": {
-    "@types/cookie": "0.4.1",
     "@types/node": "~20.10.5",
     "@types/redis": "~2.8.32",
     "@types/restify": "~8.5.11",
-    "cookie": "0.4.1",
     "eslint-config-standard-with-typescript": "~20.0.0",
     "randomstring": "~1.2.3",
     "reflect-metadata": "^0.1.13",
     "restify": "~11.1.0",
-    "socket.io": "~4.6.2",
+    "socket.io": "~4.8.1",
     "tedis": "0.1.12",
     "ts-node": "~10.9.2",
     "typescript": "~4.5.5",
@@ -40,10 +39,11 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "<6.0.0",
     "node-dev": "^8.0.0",
-    "socket.io-client": "^4.5.4",
+    "socket.io-client": "^4.8.1",
     "superagent": "^8.0.9",
     "supertest": "^6.3.3",
     "tap-arc": "0.3.5",
-    "tape": "^5.6.3"
+    "tape": "^5.6.3",
+    "nodemon": "^2.0.22"
   }
 }
