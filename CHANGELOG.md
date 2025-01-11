@@ -49,6 +49,7 @@
 - Update league/commonmark to 2.6.1 !3967 @chriswalg
 - Removed unused ts-node-dev #2122 !3970 @chriswalg
 - Remove multible unused dependencies !3974 @SaiCode
+- Update mocha to 10.8.2 !3979 @chriswalg
 - Update webpack-dev-server to 5.2.0 !3978 @chriswalg
 - Update nesbot/carbon to 2.72.6 !3980 @chriswalg
 
