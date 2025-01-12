@@ -78,3 +78,13 @@ export async function createRegion (region) {
 export async function getRegionMemberPermissions (regionId) {
   return await get(`/region/${regionId}/members/permissions`)
 }
+
+export async function getPublicRegionData (regionId) {
+  return await get(`/region/${regionId}/public`)
+}
+export async function getRegionMenu (regionId) {
+  return await get(`/region/${regionId}/menu`, { disableLoginRedirect: true })
+}
+export async function getInaccessibleRegionRedirects (regionId) {
+  return await get(`/region/${regionId}/redirects`, { disableLoginRedirect: true })
+}

@@ -120,6 +120,7 @@ class MapRestController extends AbstractFoodsharingRestController
         }
 
         return $this->handleView($this->view([
+            'id' => $region['id'],
             'name' => $region['name'],
             'description' => $pin->description,
         ], Response::HTTP_OK));

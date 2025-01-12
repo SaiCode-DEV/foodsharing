@@ -844,10 +844,17 @@ terminology:
   sent: "Gesendete"
 
 statistics:
+  title: "Statistiken"
   kg_food_saved: "{count} kg Lebensmittel gerettet"
   num_fetches: "Bei {count} Rettungseinsätzen"
+  region_public:
+    pickupsLastMonth: Lebensmittelrettungen im letzten Monat
+    savedFoodKgLastMonth: Lebensmittel gerettet im letzten Monat
+    activeHomeRegionFoodsavers: Aktive Foodsaver:innen
+    activeCoorporations: Aktive Betriebskooperationen
+    activeFoodSharePoints: Aktive Fairteiler
+    foodBasketsLastMonth: Verteilte Essenskörbe im letzten Monat
   food_saved: Lebensmittel gerettet
-
 
 are_you_sure: "Bist du sicher?"
 really_delete: "Wirklich löschen?"
@@ -1959,7 +1966,7 @@ content:
   delete_tooltip: "Seite löschen"
   communities:
     title: Ortsgruppen
-    text: foodsharing wächst täglich. Hier findet ihr immer eine aktuelle Liste aller foodsharing-Gemeinschaften und Bezirke. Du kannst eine Mail an den entsprechenden Bezirk schicken, indem du auf den verlinkten Namen klickst.
+    text: foodsharing wächst täglich. Hier findet ihr immer eine aktuelle Liste aller foodsharing-Gemeinschaften und Bezirke. Du kannst zu jedem Bezirk mehr Informationen auf der verlinkten öffentlichen Bezirksseite bekommen, oder direkt von hier eine Mail an den entsprechenden Bezirk schicken, indem du auf das Icon klickst.
     searchInfo: Mit Strg+F kann die Liste in vielen Browsern nach Ländern, Städten, Bundesländern oder Stadtteilen durchsucht werden.
     noAmbassador: Diese Region hat aktuell keine Botschafter:innen und ist daher aktuell nicht per Mail erreichbar. Bitte kontaktiere eine benachbarte oder die nächsthöhere Region.
   error_loading: 'Inhalt konnte nicht geladen werden'
@@ -2006,6 +2013,8 @@ map:
         label: 'Bezirk'
   foodsharepoint:
     go: "Zum Fairteiler"
+  community:
+    go: "Zur Bezirksseite"
 
 messages:
   bread: "Nachrichten"
@@ -2758,6 +2767,7 @@ menu:
     options: "Optionen"
     pin: "Ortsgruppenbeschreibung"
     applications: "Bewerbungen ({count})"
+    public: "Öffentliche Bezirksseite"
   bell:
     delete_read_confirmation:
       text: "Willst du wirklich {count} gelesene Glocken löschen?"
@@ -2855,7 +2865,7 @@ region:
   change: "Bezirk ändern"
   no-huge: "Sorry, du kannst ein Land oder ein Bundesland nicht als Region auswählen."
   store_managers_cannot_leave: "Du kannst den Bezirk nicht verlassen, da du dort noch für mindestens einen Betrieb verantwortlich bist."
-  not-member: "Du bist nicht Teil dieser Region beziehungsweise Arbeitsgruppe."
+  not-existant: "Dieser Bezirk oder diese Arbeitsgruppe existiert nicht mehr."
   restricted: "Du hast leider keine Berechtigung, diese Daten einzusehen."
   forum-redirect: "Für Regionen gibt es keine Pinnwand. Du wurdest zum Forum weitergeleitet."
   bread: "Bezirke verwalten"
@@ -2901,6 +2911,22 @@ region:
   master: "Masterbezirk"
   mailbox: "Mailbox-Name"
   allow_hiding_in_forum: "Moderator:innen die Löschung von Forenbeiträgen erlauben"
+  public:
+    children: "Bezirke in {name} ({count})"
+    join: "Beitreten"
+    join_name: "{name} beitreten"
+    description: "Über den Bezirk"
+    no_more_info: "Über diesen Bezirk stehen keine weiteren Infos öffentlich zur Verfügung."
+    wall: "Updates aus dem Bezirk"
+    confirm_entering: "Möchtest du dem Bezirk {name} beitreten? Die Botschafter:innen erhalten damit Zugriff auf dein Profil."
+
+  denied:
+    this_region: "Du hast versucht auf Inhalte dieses Bezirks zuzugreifen. Allerdings haben nur Mitglieder des Bezirks Zugriff darauf."
+    some_group: "Du hast versucht auf Inhalte der Arbeitsgruppe \"{name}\" zuzugreifen. Allerdings haben nur Mitglieder der Gruppe Zugriff darauf."
+    subgroup_in: "\"{name}\" ist eine Untergruppe der Gruppe \"{parent}\"." # any other
+    group_in_this_region: "\"{name}\" ist eine Gruppe dieses Bezirks." # last and region
+    group_in_this_group: "\"{name}\" ist eine Untergruppe dieser Gruppe." # last and group
+
 
 blog:
   read: "weiterlesen"

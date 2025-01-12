@@ -5,6 +5,7 @@ namespace Foodsharing\Permissions;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
+use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
@@ -24,6 +25,7 @@ class WallPostPermissions
         private readonly FoodSharePointGateway $fspGateway,
         private readonly WallPostGateway $wallPostGateway,
         private readonly QuizGateway $quizGateway,
+        private readonly RegionPermissions $regionPermissions,
         private readonly Session $session,
     ) {
     }
@@ -40,7 +42,9 @@ class WallPostPermissions
             case WallType::PROFILE:
                 return $this->session->id() > 0;
             case WallType::WORKING_GROUP:
-                return $this->regionGateway->hasMember($this->session->id(), $targetId);
+                return $this->regionGateway->hasMember($this->session->id() ?? 0, $targetId);
+            case WallType::REGION:
+                return true;
             case WallType::EVENT:
                 $event = $this->eventGateway->getEvent($targetId);
 
@@ -69,6 +73,7 @@ class WallPostPermissions
         return match ($target) {
             WallType::PROFILE => $this->session->id() === $targetId,
             WallType::QUIZ_QUESTION => true,
+            WallType::REGION => $this->regionPermissions->hasFunctionGroupPermissionForRegion(WorkgroupFunction::PR, $targetId),
             default => $this->mayReadWall($target, $targetId),
         };
     }
@@ -86,6 +91,8 @@ class WallPostPermissions
         switch ($target) {
             case WallType::WORKING_GROUP:
                 return $this->regionGateway->isAdmin($this->session->id(), $targetId);
+            case WallType::REGION:
+                return $this->mayWriteWall($target, $targetId);
             case WallType::QUIZ_QUESTION:
                 $quizId = $this->quizGateway->getQuizIdFromQuestionId($targetId);
 

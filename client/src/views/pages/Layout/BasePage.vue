@@ -7,13 +7,13 @@
     <div class="row">
       <div v-if="$slots.left" :class="colClasses.left">
         <slot name="left" />
-        <slot v-if="!(viewIsXL || !viewIsMD)" name="right" />
+        <slot v-if="!(thirdColumnBreakpoint || !secondColumnBreakpoint)" name="right" />
       </div>
       <div class="col" style="min-height: 100px;">
         <slot />
       </div>
-      <div v-if="$slots.right" :class="colClasses.right">
-        <slot v-if="!$slots.left || viewIsXL || !viewIsMD" name="right" />
+      <div v-if="$slots.right && (!$slots.left || thirdColumnBreakpoint || !secondColumnBreakpoint)" :class="colClasses.right">
+        <slot name="right" />
       </div>
     </div>
   </div>
@@ -23,12 +23,27 @@ import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 
 export default {
   mixins: [MediaQueryMixin],
+  props: {
+    wideCols: { type: Boolean, default: false },
+  },
   computed: {
     colClasses () {
+      if (this.wideCols) {
+        if (this.$slots.left && this.$slots.right && this.thirdColumnBreakpoint) {
+          return { left: 'col-xl-3 col-lg-5', right: 'col-xl-3' }
+        }
+        return { left: 'col-xl-4 col-lg-5', right: 'col-xl-4 col-lg-5' }
+      }
       if (this.$slots.left && this.$slots.right) {
         return { left: 'col-xl-3 col-lg-4 col-md-5', right: 'col-xl-3' }
       }
-      return { left: 'col-xxl-3 col-lg-4 col-md-5', right: 'col-xxl-3 col-lg-4 col-md-5' }
+      return { left: 'col-lg-4 col-md-5', right: 'col-lg-4 col-md-5' }
+    },
+    thirdColumnBreakpoint () {
+      return this.wideCols ? this.viewIsXXL : this.viewIsXL
+    },
+    secondColumnBreakpoint () {
+      return this.wideCols ? this.viewIsLG : this.viewIsMD
     },
   },
 }

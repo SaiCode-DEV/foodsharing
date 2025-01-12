@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="rounded-bottom border pb-2">
     <a
       v-for="(menu,key) in menuEntries"
       :key="key"
@@ -42,6 +42,9 @@ export default {
     },
     menuEntries () {
       const menu = [
+        {
+          href: 'publicRegion', icon: 'fa-door-open', text: 'menu.entry.public',
+        },
         {
           href: 'forum', icon: 'fa-comments', text: 'menu.entry.forum',
         },

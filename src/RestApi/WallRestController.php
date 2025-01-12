@@ -3,7 +3,9 @@
 namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
+use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\WallType;
+use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
 use Foodsharing\Modules\WallPost\WallPostGateway;
 use Foodsharing\Modules\WallPost\WallPostTransactions;
@@ -26,6 +28,7 @@ class WallRestController extends AbstractFoodsharingRestController
         private readonly WallPostGateway $wallPostGateway,
         private readonly WallPostPermissions $wallPostPermissions,
         private readonly WallPostTransactions $wallPostTransactions,
+        private readonly RegionGateway $regionGateway,
     ) {
         parent::__construct($session);
     }
@@ -52,7 +55,7 @@ class WallRestController extends AbstractFoodsharingRestController
         #[MapQueryParameter] int $limit = 50,
         #[MapQueryParameter] int $offset = 0,
     ): Response {
-        $wallType = $this->parseWallType($target);
+        $wallType = $this->parseWallType($target, $targetId);
         if (!$this->wallPostPermissions->mayReadWall($wallType, $targetId)) {
             throw new AccessDeniedHttpException();
         }
@@ -76,7 +79,7 @@ class WallRestController extends AbstractFoodsharingRestController
     public function addPost(string $target, int $targetId, #[MapRequestPayload] WallPost $wallPost): Response
     {
         $this->assertLoggedIn();
-        $wallType = $this->parseWallType($target);
+        $wallType = $this->parseWallType($target, $targetId);
         if (!$this->wallPostPermissions->mayWriteWall($wallType, $targetId)) {
             throw new AccessDeniedHttpException();
         }
@@ -98,7 +101,7 @@ class WallRestController extends AbstractFoodsharingRestController
     public function deletePost(string $target, int $targetId, int $postId): Response
     {
         $this->assertLoggedIn();
-        $wallType = $this->parseWallType($target);
+        $wallType = $this->parseWallType($target, $targetId);
         if (!$this->wallPostPermissions->mayDeleteWallPost($wallType, $targetId, $postId)) {
             throw new AccessDeniedHttpException();
         }
@@ -111,11 +114,20 @@ class WallRestController extends AbstractFoodsharingRestController
         return $this->respondOK();
     }
 
-    private function parseWallType(string $target): WallType
+    private function parseWallType(string $target, int $targetId): WallType
     {
         $wallType = WallType::tryFrom($target);
         if (!$wallType) {
             throw new BadRequestHttpException('invalid wall type');
+        }
+
+        // WallType::REGION and WallType::WORKING_GROUP use the same table and are only distinguished in the backend.
+        // The frontend should always use "bezirk", meaning WallType::WORKING_GROUP.
+        if ($wallType === WallType::REGION) {
+            throw new BadRequestHttpException('invalid wall type');
+        }
+        if ($wallType === WallType::WORKING_GROUP && $this->regionGateway->getType($targetId) !== UnitType::WORKING_GROUP) {
+            $wallType = WallType::REGION;
         }
 
         return $wallType;

@@ -35,7 +35,7 @@ export async function request (path, options = {}) {
     const request = new self.Request(BASE_URL + path, o)
     const res = await self.fetch(request)
     if (!res.ok) {
-      if (res.status === HTTP_RESPONSE.UNAUTHORIZED) {
+      if (res.status === HTTP_RESPONSE.UNAUTHORIZED && !options.disableLoginRedirect) {
         window.location = url('login')
       }
       const jsonContent = await res.json()

@@ -4,7 +4,6 @@ namespace Foodsharing\Modules\Region;
 
 use Exception;
 use Foodsharing\Lib\FoodsharingController;
-use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Content\ContentView;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
@@ -18,12 +17,12 @@ use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\Permissions\RegionPermissions;
-use Foodsharing\Permissions\ReportPermissions;
 use Foodsharing\Permissions\VotingPermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
 
 final class RegionController extends FoodsharingController
 {
@@ -32,7 +31,6 @@ final class RegionController extends FoodsharingController
 
     public function __construct(
         private readonly ContentView $view,
-        private readonly ReportPermissions $reportPermissions,
         private readonly RegionGateway $regionGateway,
         private readonly ForumPermissions $forumPermissions,
         private readonly RegionPermissions $regionPermissions,
@@ -42,10 +40,10 @@ final class RegionController extends FoodsharingController
         private readonly StoreGateway $storeGateway,
         private readonly FoodSharePointPermissions $foodSharePointPermissions,
         private readonly ForumGateway $forumGateway,
-        private readonly AchievementGateway $achievementGateway,
         private readonly AchievementPermissions $achievementPermissions,
         private readonly GroupFunctionGateway $groupFunctionGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly RegionTransactions $regionTransactions,
     ) {
         parent::__construct();
     }
@@ -58,40 +56,6 @@ final class RegionController extends FoodsharingController
     private function isHomeDistrict(int $regionId): bool
     {
         return $regionId === $this->currentUserUnits->getCurrentRegionId();
-    }
-
-    private function getMenu(array $group): array
-    {
-        $groupId = $group['id'];
-
-        $menu = [];
-        $menu['id'] = $group['id'];
-        $menu['name'] = $group['name'];
-        $menu['type'] = $group['type'];
-        $menu['parent_id'] = $group['parent_id'];
-        $menu['mayHandleFoodsaverRegionMenu'] = $this->regionPermissions->mayHandleFoodsaverRegionMenu($groupId);
-        $menu['hasConference'] = $this->regionPermissions->hasConference($group['type']);
-        $menu['hasAchievements'] = $this->achievementGateway->regionHasAchievements($group['id']);
-
-        if ($this->currentUserUnits->isAdminFor($groupId)) {
-            $menu['mailboxId'] = $group['mailbox_id'];
-        }
-
-        if (UnitType::isRegion($group['type'])) {
-            $menu['isAdmin'] = $this->currentUserUnits->isAdminFor($groupId);
-            $menu['mayAccessReports'] = $this->reportPermissions->mayAccessReportsForRegion($groupId);
-            $menu['isReportAdmin'] = $this->reportPermissions->isReportAdmin($groupId);
-            $menu['isArbitrationAdmin'] = $this->reportPermissions->isArbitrationAdmin($groupId);
-            $menu['maySetRegionPin'] = $this->regionPermissions->maySetRegionPin($groupId);
-        } else {
-            $menu['isAdmin'] = $this->workGroupPermissions->mayEdit($group);
-            $menu['hasSubgroups'] = $this->regionGateway->hasSubgroups($groupId);
-            if ($groupId == RegionIDs::STORE_CHAIN_GROUP) {
-                $menu['isChainGroup'] = true;
-            }
-        }
-
-        return $menu;
     }
 
     /**
@@ -143,7 +107,7 @@ final class RegionController extends FoodsharingController
 
         $isWorkGroup = UnitType::isGroup($region['type']);
 
-        $menu = $this->getMenu($region);
+        $menu = $this->regionTransactions->getMenu($region['id'], $region);
 
         return [
             'regionId' => $regionId,
@@ -179,15 +143,19 @@ final class RegionController extends FoodsharingController
         $region_id = $request->query->getInt('bid', $this->currentUserUnits->getCurrentRegionId() ?? 0);
 
         $region = $this->regionGateway->getRegionDetails($region_id);
-        if (!empty($region) && $this->currentUserUnits->mayBezirk($region_id)) {
-            $big = [UnitType::BIG_CITY, UnitType::FEDERAL_STATE, UnitType::COUNTRY];
-            $region['moderated'] = $region['moderated'] || in_array($region['type'], $big);
-            $this->region = $region;
-        } else {
-            $this->flashMessageHelper->error($this->translator->trans('region.not-member'));
+
+        if (empty($region)) {
+            $this->flashMessageHelper->error($this->translator->trans('region.not-existant'));
 
             return $this->redirectToRoute('dashboard');
         }
+        if (!$this->currentUserUnits->mayBezirk($region_id)) {
+            return $this->missingMembershipRedirect($region_id);
+        }
+
+        $big = [UnitType::BIG_CITY, UnitType::FEDERAL_STATE, UnitType::COUNTRY];
+        $region['moderated'] = $region['moderated'] || in_array($region['type'], $big);
+        $this->region = $region;
 
         $this->pageHelper->addTitle($region['name']);
 
@@ -248,6 +216,23 @@ final class RegionController extends FoodsharingController
         }
     }
 
+    #[Route(path: '/region/{id}', name: 'regionPublic', requirements: ['id' => Requirement::POSITIVE_INT])]
+    public function regionPublic(int $id): Response
+    {
+        try {
+            $type = $this->regionGateway->getType($id);
+            if ($type === UnitType::WORKING_GROUP) {
+                return $this->missingMembershipRedirect($id);
+            }
+        } catch (\Throwable $th) {
+            return $this->redirect('/');
+        }
+
+        $this->pageHelper->addContent($this->prepareVueComponent('public-region-page', 'PublicRegionPage', ['id' => $id]));
+
+        return $this->renderGlobal();
+    }
+
     #[Route('/regions/edit')]
     public function edit(): Response
     {
@@ -257,6 +242,26 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addContent($this->prepareVueComponent('regions-admin-page', 'RegionsAdmin'));
 
         return $this->renderGlobal();
+    }
+
+    /**
+     * Redirects to a different page when the user tried to access a region or group related page that they have to permission to access.
+     * This redirects to the next regions public page or the next groups subgroup page up the region hierarchie of the denied region / group.
+     * @param int $deniedRegionId id of the region the user was denied to access
+     */
+    public function missingMembershipRedirect(int $deniedRegionId): Response
+    {
+        $redirects = $this->regionTransactions->getInaccessibleRegionRedirects($deniedRegionId, $this->session->id());
+        if (empty($redirects)) {
+            // in case there is no ancestor the user has access to, redirect to start page
+            // (can only happen for groups that don't have a region parent until root)
+            $this->redirectToRoute('dashboard');
+        }
+        if (end($redirects)['type'] === UnitType::WORKING_GROUP) {
+            return $this->redirect('/groups?p=' . end($redirects)['id'] . '&denied=' . $deniedRegionId);
+        }
+
+        return $this->redirect('/region/' . end($redirects)['id'] . '?denied=' . $deniedRegionId);
     }
 
     private function wall(Request $request, array $region): Response

@@ -1,6 +1,7 @@
 <template>
   <container
     :title="$i18n('globals.type.regions_menu')"
+    tag="regionSideNav"
     class="bg-white"
   >
     <NavRegionsLinkEntry :entry="regionMenu" />

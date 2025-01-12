@@ -15,6 +15,7 @@ use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Region\DTO\PublicRegionData;
 use Foodsharing\Modules\Region\DTO\RegionPin;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Region\RegionTransactions;
@@ -40,6 +41,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -597,7 +599,7 @@ class RegionRestController extends AbstractFoodsharingRestController
         return $this->handleView($this->view($region, 200));
     }
 
-    #[OA2\Get(summary: 'Adds a region using the given data.')]
+    #[OA2\Post(summary: 'Adds a region using the given data.')]
     #[OA2\Response(response: Response::HTTP_OK, description: 'success', content: new OA2\JsonContent(type: 'object', properties: [
         new OA2\Property(property: 'regionId', type: 'integer', description: 'The id of the newly created region')
     ]))]
@@ -626,5 +628,54 @@ class RegionRestController extends AbstractFoodsharingRestController
         $regionId = $this->regionTransactions->addRegion($region);
 
         return $this->respondOK(['regionId' => $regionId]);
+    }
+
+    #[OA2\Get(summary: 'Returns the public region data.')]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'success', content: new Model(type: PublicRegionData::class))]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Region does not exist')]
+    #[Route('/region/{regionId}/public', requirements: ['regionId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    public function getPublicRegionData(int $regionId)
+    {
+        $publicRegionData = $this->regionTransactions->getPublicRegionData($regionId);
+        if (empty($publicRegionData)) {
+            throw new NotFoundHttpException('Region does not exist');
+        }
+        if ($publicRegionData->type === UnitType::WORKING_GROUP) {
+            throw new BadRequestHttpException('Unavailable for working groups');
+        }
+
+        return $this->respondOK($publicRegionData);
+    }
+
+    #[OA2\Get(summary: 'Returns the region menu data.')]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Region does not exist')]
+    #[Route('/region/{regionId}/menu', requirements: ['regionId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    public function getRegionMenu(int $regionId)
+    {
+        $this->assertLoggedIn();
+
+        $menu = $this->regionTransactions->getMenu($regionId);
+        if (empty($menu)) {
+            throw new NotFoundHttpException('Region does not exist');
+        }
+
+        return $this->respondOK($menu);
+    }
+
+    #[OA2\Get(summary: 'Returns all ancestors of a region until the first accessible one (region or group with membership)')]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'success')]
+    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Region does not exist')]
+    #[Route('/region/{regionId}/redirects', requirements: ['regionId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    public function getInaccessibleRegionRedirects(int $regionId)
+    {
+        $this->assertLoggedIn();
+
+        $redirects = $this->regionTransactions->getInaccessibleRegionRedirects($regionId, $this->session->id());
+        if (empty($redirects)) {
+            throw new NotFoundHttpException('Region does not exist');
+        }
+
+        return $this->respondOK($redirects);
     }
 }

@@ -85,11 +85,19 @@ class WallPostGateway extends BaseGateway
 
     private function getLinkTableName(WallType $target): string
     {
+        if ($target === WallType::REGION) {
+            $target = WallType::WORKING_GROUP;
+        }
+
         return "fs_{$target->value}_has_wallpost";
     }
 
     private function getLinkTableForeignIdColumnName(WallType $target): string
     {
+        if ($target === WallType::REGION) {
+            $target = WallType::WORKING_GROUP;
+        }
+
         return $target->value . '_id';
     }
 

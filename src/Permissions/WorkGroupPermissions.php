@@ -9,7 +9,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
-final readonly class WorkGroupPermissions
+class WorkGroupPermissions
 {
     private Session $session;
     private GroupFunctionGateway $groupFunctionGateway;

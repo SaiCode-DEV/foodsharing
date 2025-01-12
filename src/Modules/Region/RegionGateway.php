@@ -9,9 +9,13 @@ use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Region\ApplyType;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
+use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\Profile;
+use Foodsharing\Modules\Region\DTO\BasicRegionStatistics;
 use Foodsharing\Modules\Region\DTO\HierachicalRegion;
+use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
+use Foodsharing\Modules\Region\DTO\PublicRegionData;
 use Foodsharing\Modules\Region\DTO\RegionPickupsPerDate;
 use Foodsharing\Modules\Region\DTO\RegionPin;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
@@ -708,5 +712,120 @@ class RegionGateway extends BaseGateway
                 ':regionId' => $regionId,
                 ':parentId' => $parentId,
         ]);
+    }
+
+    public function getPublicRegionBasics(int $regionId): ?PublicRegionData
+    {
+        $data = $this->db->fetch('SELECT
+                region.`id`, region.`name`, region.`type`,
+                pin.`lat`, pin.`lon`, pin.`desc`, pin.`status`,
+                mail.`name` AS email,
+                NOT ISNULL(ambassador.foodsaver_id) AS hasAmbassador
+            FROM fs_bezirk region
+            LEFT OUTER JOIN fs_region_pin pin ON pin.region_id = region.id
+            LEFT OUTER JOIN fs_mailbox mail ON mail.id = region.mailbox_id
+            LEFT OUTER JOIN fs_botschafter ambassador ON ambassador.bezirk_id = region.id
+            WHERE region.`id` = :id
+        ', ['id' => $regionId]);
+
+        return PublicRegionData::tryCreateFrom($data);
+    }
+
+    public function getRegionAncestors(int $regionId): array
+    {
+        $ancestors = $this->db->fetchAll('SELECT
+                r.id, r.name
+            FROM fs_bezirk_closure c
+            JOIN fs_bezirk r ON r.id = c.ancestor_id
+            WHERE c.bezirk_id = :id AND depth > 0 AND c.ancestor_id != 0
+            ORDER BY depth DESC
+        ', ['id' => $regionId]);
+
+        return array_map(fn ($region) => MinimalRegionIdentifier::create($region['id'], $region['name']), $ancestors);
+    }
+
+    /**
+     * Returns all ancestors of a region, inlcuding information about whether the given user is member of that region.
+     */
+    public function getRegionAncestorMemberships(int $regionId, int $foodsaverId): array
+    {
+        return $this->db->fetchAll('SELECT
+                r.id, r.name, r.type, m.active IS NOT NULL AS is_member
+            FROM fs_bezirk_closure c
+            JOIN fs_bezirk r ON r.id = c.ancestor_id
+            LEFT OUTER JOIN fs_foodsaver_has_bezirk m ON m.foodsaver_id = :foodsaverId AND m.active = 1 AND m.bezirk_id = r.id
+            WHERE c.bezirk_id = :regionId AND c.ancestor_id != 0
+            ORDER BY depth ASC
+        ', ['regionId' => $regionId, 'foodsaverId' => $foodsaverId]);
+    }
+
+    public function getRegionChildren(int $regionId): array
+    {
+        $children = $this->db->fetchAll('SELECT
+                r.id, r.name
+            FROM fs_bezirk_closure c
+            JOIN fs_bezirk r ON r.id = c.bezirk_id
+            WHERE c.ancestor_id = :id AND depth = 1 AND r.type != :workingGroupType
+            ORDER BY r.name DESC
+        ', ['id' => $regionId, 'workingGroupType' => UnitType::WORKING_GROUP]);
+
+        return array_map(fn ($region) => MinimalRegionIdentifier::create($region['id'], $region['name']), $children);
+    }
+
+    public function getBasicRegionStatistics(int $regionId): BasicRegionStatistics
+    {
+        $stats = new BasicRegionStatistics();
+
+        $pickupData = $this->db->fetch('SELECT
+                COUNT(*) as count, SUM(w.weight) AS weight
+            FROM fs_bezirk_closure c
+            JOIN fs_bezirk r ON r.id = c.bezirk_id
+            JOIN fs_betrieb s ON s.bezirk_id = r.id
+            JOIN fs_abholer a ON a.betrieb_id = s.id
+            JOIN fs_fetchweight w ON w.id = s.abholmenge
+            WHERE c.ancestor_id = :id
+            AND a.date >= (NOW() - INTERVAL 1 MONTH) AND a.date < NOW()
+        ', ['id' => $regionId]);
+        $stats->pickupsLastMonth = $pickupData['count'];
+        $stats->savedFoodKgLastMonth = intval(round($pickupData['weight']));
+
+        $stats->activeHomeRegionFoodsavers = $this->db->fetchValue('SELECT
+                COUNT(*)
+            FROM fs_bezirk_closure c
+            JOIN fs_foodsaver fs ON fs.bezirk_id = c.bezirk_id
+            WHERE c.ancestor_id = :id
+            AND fs.deleted_at IS NULL
+            AND fs.last_login > NOW() - INTERVAL 2 MONTH
+            AND fs.verified = 1
+        ', ['id' => $regionId]);
+
+        $stats->activeCoorporations = $this->db->fetchValue('SELECT
+                COUNT(*)
+            FROM fs_bezirk_closure c
+            JOIN fs_betrieb s ON s.bezirk_id = c.bezirk_id
+            WHERE c.ancestor_id = :id
+            AND s.betrieb_status_id = :cooperating_status
+        ', [
+            'id' => $regionId,
+            'cooperating_status' => CooperationStatus::COOPERATION_ESTABLISHED->value
+        ]);
+
+        $stats->activeFoodSharePoints = $this->db->fetchValue('SELECT
+                COUNT(*)
+            FROM fs_bezirk_closure c
+            JOIN fs_fairteiler fsp ON fsp.bezirk_id = c.bezirk_id
+            WHERE c.ancestor_id = :id
+            AND fsp.status = 1
+        ', ['id' => $regionId]);
+
+        $stats->foodBasketsLastMonth = $this->db->fetchValue('SELECT
+				COUNT(*)
+            FROM fs_bezirk_closure c
+            JOIN fs_basket b ON b.bezirk_id = c.bezirk_id
+            WHERE c.ancestor_id = :id
+            AND b.time >= (NOW() - INTERVAL 1 MONTH) AND b.time < NOW()
+        ', ['id' => $regionId]);
+
+        return $stats;
     }
 }

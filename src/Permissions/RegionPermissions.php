@@ -11,7 +11,7 @@ use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
-final readonly class RegionPermissions
+class RegionPermissions
 {
     private RegionGateway $regionGateway;
     private Session $session;
@@ -77,54 +77,40 @@ final readonly class RegionPermissions
         return $this->currentUserUnits->isAmbassadorForRegion([$regionId], false, false);
     }
 
-    public function maySetRegionOptionsReportButtons(int $regionId): bool
+    /**
+     * Whether the current user is allowed to do a function group related action.
+     *
+     * Returns true in any of the following cases:
+     * 1. The user is Orga
+     * 2. The user is Admin of the function group of the region
+     * 3. No such function group for that region exists and the user is ambassador of that region.
+     */
+    public function hasFunctionGroupPermissionForRegion(int $workgroupFunction, int $regionId)
     {
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
-        if ($this->groupFunctionGateway->existRegionFunctionGroup($regionId, WorkgroupFunction::REPORT)) {
-            if ($this->groupFunctionGateway->isRegionFunctionGroupAdmin($regionId, WorkgroupFunction::REPORT, $this->session->id())) {
-                return true;
-            }
 
-            return false;
+        if ($this->groupFunctionGateway->existRegionFunctionGroup($regionId, $workgroupFunction)) {
+            return $this->groupFunctionGateway->isRegionFunctionGroupAdmin($regionId, $workgroupFunction, $this->session->id());
         }
 
         return $this->currentUserUnits->isAmbassadorForRegion([$regionId], false, false);
+    }
+
+    public function maySetRegionOptionsReportButtons(int $regionId): bool
+    {
+        return $this->hasFunctionGroupPermissionForRegion(WorkgroupFunction::REPORT, $regionId);
     }
 
     public function maySetRegionOptionsRegionPickupRule(int $regionId): bool
     {
-        if ($this->session->mayRole(Role::ORGA)) {
-            return true;
-        }
-
-        if ($this->groupFunctionGateway->existRegionFunctionGroup($regionId, WorkgroupFunction::STORES_COORDINATION)) {
-            if ($this->groupFunctionGateway->isRegionFunctionGroupAdmin($regionId, WorkgroupFunction::STORES_COORDINATION, $this->session->id())) {
-                return true;
-            }
-
-            return false;
-        }
-
-        return $this->currentUserUnits->isAmbassadorForRegion([$regionId], false, false);
+        return $this->hasFunctionGroupPermissionForRegion(WorkgroupFunction::STORES_COORDINATION, $regionId);
     }
 
     public function maySetRegionPin(int $regionId): bool
     {
-        if ($this->session->mayRole(Role::ORGA)) {
-            return true;
-        }
-
-        if ($this->groupFunctionGateway->existRegionFunctionGroup($regionId, WorkgroupFunction::PR)) {
-            if ($this->groupFunctionGateway->isRegionFunctionGroupAdmin($regionId, WorkgroupFunction::PR, $this->session->id())) {
-                return true;
-            }
-
-            return false;
-        }
-
-        return $this->currentUserUnits->isAmbassadorForRegion([$regionId], false, false);
+        return $this->hasFunctionGroupPermissionForRegion(WorkgroupFunction::PR, $regionId);
     }
 
     public function hasConference(int $regionType): bool

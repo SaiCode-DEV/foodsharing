@@ -11,6 +11,12 @@ enum WallType: string
      * Visible on the start page of a working group.
      */
     case WORKING_GROUP = 'bezirk';
+
+    /**
+     * Visible on the public page of a region.
+     */
+    case REGION = 'region';
+
     /**
      * Visible on an event's page.
      */

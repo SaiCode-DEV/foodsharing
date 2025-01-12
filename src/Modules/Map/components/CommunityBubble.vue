@@ -7,6 +7,16 @@
     <div class="card mb-3 rounded">
       <Markdown :source="description" />
     </div>
+
+    <template #popup-footer>
+      <a
+        v-if="!loading"
+        class="btn btn-primary"
+        type="button"
+        :href="$url('publicRegion', id)"
+        v-text="$i18n('map.community.go')"
+      />
+    </template>
   </map-popup>
 </template>
 
@@ -19,6 +29,7 @@ export default {
   components: { Markdown },
   mixins: [MapBubbleMixin],
   data: () => ({
+    id: null,
     name: '',
     description: '',
   }),

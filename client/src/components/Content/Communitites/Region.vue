@@ -1,10 +1,10 @@
 <template>
-  <component
-    :is="region.hasAmbassador ? 'a' : 'span'"
-    v-b-tooltip.right="region.hasAmbassador ? $url('mail_foodsharing_network', region.emailAddress) : $i18n('content.communities.noAmbassador')"
-    :href="$url('mailto_mail_foodsharing_network', region.emailAddress)"
-    v-text="region.name"
-  />
+  <span>
+    <a :href="$url('publicRegion', region.id)" v-text="region.name" />
+    <a v-if="region.hasAmbassador" :href="$url('mailto_mail_foodsharing_network', region.emailAddress)">
+      <i class="fas fa-envelope" />
+    </a>
+  </span>
 </template>
 <script>
 export default {

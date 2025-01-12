@@ -66,7 +66,7 @@ class StoreGatewayTest extends Unit
     {
         $storeDTO = new Store();
         $storeDTO->name = 'StoreGatewayTestbetrieb';
-        $storeDTO->region = MinimalRegionIdentifier::createFromId(1567);
+        $storeDTO->region = MinimalRegionIdentifier::create(1567);
         $storeDTO->location->lat = 51.5367827;
         $storeDTO->location->lon = 9.9258967;
         $storeDTO->address->street = 'Bahnhofsplatz 1';

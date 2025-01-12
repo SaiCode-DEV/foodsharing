@@ -14,7 +14,7 @@
         :rows="2"
         :conceal-toolbar="true"
         :value="newPostText"
-        allow-image-attachments
+        :allow-image-attachments="allowImageAttachments"
         @update:value="newValue => newPostText = newValue"
         @submit="writePost"
         @image-change="newValue => hasImages = newValue"
@@ -33,6 +33,13 @@
       </div>
     </div>
 
+    <div v-if="loading.sendPost" class="list-group-item d-flex">
+      <b-skeleton size="50px" class="mr-3" />
+      <div class="flex-grow-1">
+        <b-skeleton width="85%" />
+        <b-skeleton width="55%" />
+      </div>
+    </div>
     <WallPost
       v-for="p in posts"
       :key="p.id"
@@ -44,12 +51,12 @@
     />
 
     <ContainerButton
-      v-if="showLoadMore && !loading"
+      v-if="showLoadMore && !loading.morePosts"
       variant="success"
       text-key="globals.show_more"
       @click="loadMorePosts"
     />
-    <ContainerButton v-if="loading" variant="warning">
+    <ContainerButton v-if="loading.morePosts" variant="warning">
       <i class="fas fa-spinner fa-spin" />
     </ContainerButton>
   </Container>
@@ -76,6 +83,7 @@ export default {
     galleryHeightInPx: { type: Number, default: undefined },
     pageSize: { type: Number, default: 10 },
     firstPageSize: { type: Number, default: undefined },
+    allowImageAttachments: { type: Boolean, default: true },
   },
   data () {
     return {
@@ -85,7 +93,10 @@ export default {
       newPostText: '',
       hasImages: false,
       showLoadMore: true,
-      loading: true,
+      loading: {
+        morePosts: true,
+        sendPost: false,
+      },
     }
   },
   computed: {
@@ -98,10 +109,15 @@ export default {
   },
   methods: {
     async loadMorePosts () {
-      this.loading = true
+      this.loading.morePosts = true
       this.page++
       const limit = (!this.page && this.firstPageSize) ? this.firstPageSize : this.pageSize
-      const data = await getWallPosts(this.target, this.targetId, limit, this.posts.length)
+      let data
+      try {
+        data = await getWallPosts(this.target, this.targetId, limit, this.posts.length)
+      } catch {
+        return
+      }
 
       // Filter out already loaded posts. This can happen if other users delete posts in the meantime.
       const postIds = new Set(this.posts.map(post => post.id))
@@ -112,13 +128,13 @@ export default {
       }
       this.mayPost = data.mayPost
       this.mayDeleteEverything = data.mayDelete
-      this.loading = false
+      this.loading.morePosts = false
     },
     async writePost () {
       const text = this.newPostText.trim()
       if (!(text || this.hasImages)) return
       try {
-        showLoader()
+        this.loading.sendPost = true
         this.newPostText = ''
         let images
         if (this.hasImages) {
@@ -132,7 +148,7 @@ export default {
         pulseError(this.$i18n('wall.error-create'))
         this.newPostText = text
       } finally {
-        hideLoader()
+        this.loading.sendPost = false
       }
     },
     async deletePost (postId) {

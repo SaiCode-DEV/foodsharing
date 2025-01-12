@@ -3,25 +3,36 @@
 namespace Foodsharing\Modules\Region;
 
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Foodsharing\Modules\Achievement\AchievementGateway;
+use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Region\DTO\HierachicalRegion;
+use Foodsharing\Modules\Region\DTO\PublicRegionData;
 use Foodsharing\Modules\Region\DTO\RegionPickupStatistics;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Modules\Unit\UnitGateway;
+use Foodsharing\Permissions\RegionPermissions;
+use Foodsharing\Permissions\ReportPermissions;
+use Foodsharing\Permissions\WorkGroupPermissions;
 use Foodsharing\RestApi\Models\Notifications\Region;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class RegionTransactions
 {
     final public const string NEW_FOODSAVER_VERIFIED = 'new_foodsaver_verified';
     final public const string NEW_FOODSAVER_NEEDS_VERIFICATION = 'new_foodsaver_needs_verification';
     final public const string NEW_FOODSAVER_NEEDS_INTRODUCTION = 'new_foodsaver_needs_introduction';
+    private const int PUBLIC_REGION_STATS_CACHE_DURATION_IN_SECONDS = 21600; // 6 hours
 
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,
@@ -29,6 +40,13 @@ class RegionTransactions
         private readonly RegionGateway $regionGateway,
         private readonly GroupFunctionGateway $groupFunctionGateway,
         private readonly MailboxGateway $mailboxGateway,
+        private readonly RegionPermissions $regionPermissions,
+        private readonly AchievementGateway $achievementGateway,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
+        private readonly ReportPermissions $reportPermissions,
+        private readonly WorkGroupPermissions $workGroupPermissions,
+        private readonly FoodSharePointGateway $foodSharePointGateway,
+        private readonly CacheInterface $cache,
     ) {
     }
 
@@ -206,5 +224,80 @@ class RegionTransactions
         } else {
             $region->emailName = 'foodsharing ' . strip_tags($region->name);
         }
+    }
+
+    public function getPublicRegionData(int $regionId): ?PublicRegionData
+    {
+        $data = $this->regionGateway->getPublicRegionBasics($regionId);
+        if (empty($data)) {
+            return null;
+        }
+        $data->ancestors = $this->regionGateway->getRegionAncestors($regionId);
+        $data->children = $this->regionGateway->getRegionChildren($regionId);
+        $data->foodSharePoints = $this->foodSharePointGateway->getFoodSharePointsForRegion($regionId);
+
+        // Region statistics can be expensive to calculate but don't need to be recalculated often.
+        $data->statistics = $this->cache->get('publicRegionStats-' . $regionId, function (ItemInterface $cacheItem) use ($regionId) {
+            $cacheItem->expiresAfter(self::PUBLIC_REGION_STATS_CACHE_DURATION_IN_SECONDS);
+
+            return $this->regionGateway->getBasicRegionStatistics($regionId);
+        });
+
+        return $data;
+    }
+
+    public function getMenu(int $regionId, ?array $region = null): ?array
+    {
+        if (empty($region)) {
+            $region = $this->regionGateway->getRegionDetails($regionId);
+        }
+        if (empty($region)) {
+            return null;
+        }
+
+        $menu = [];
+        $menu['id'] = $region['id'];
+        $menu['name'] = $region['name'];
+        $menu['type'] = $region['type'];
+        $menu['parent_id'] = $region['parent_id'];
+        $menu['mayHandleFoodsaverRegionMenu'] = $this->regionPermissions->mayHandleFoodsaverRegionMenu($regionId);
+        $menu['hasConference'] = $this->regionPermissions->hasConference($region['type']);
+        $menu['hasAchievements'] = $this->achievementGateway->regionHasAchievements($region['id']);
+
+        if ($this->currentUserUnits->isAdminFor($regionId)) {
+            $menu['mailboxId'] = $region['mailbox_id'];
+        }
+
+        if (UnitType::isRegion($region['type'])) {
+            $menu['isAdmin'] = $this->currentUserUnits->isAdminFor($regionId);
+            $menu['mayAccessReports'] = $this->reportPermissions->mayAccessReportsForRegion($regionId);
+            $menu['isReportAdmin'] = $this->reportPermissions->isReportAdmin($regionId);
+            $menu['isArbitrationAdmin'] = $this->reportPermissions->isArbitrationAdmin($regionId);
+            $menu['maySetRegionPin'] = $this->regionPermissions->maySetRegionPin($regionId);
+        } else {
+            $menu['isAdmin'] = $this->workGroupPermissions->mayEdit($region);
+            $menu['hasSubgroups'] = $this->regionGateway->hasSubgroups($regionId);
+            if ($regionId == RegionIDs::STORE_CHAIN_GROUP) {
+                $menu['isChainGroup'] = true;
+            }
+        }
+
+        return $menu;
+    }
+
+    /**
+     * Returns all ancestors of a region, inlcuding information about whether the given user is member of that region.
+     * The last element of the list is the first region that isn't a group or that the user is a member in.
+     */
+    public function getInaccessibleRegionRedirects(int $deniedRegionId, int $foodsaverId): array
+    {
+        $ancestors = $this->regionGateway->getRegionAncestorMemberships($deniedRegionId, $foodsaverId);
+        for ($i = 0; $i < count($ancestors); ++$i) {
+            if ($ancestors[$i]['type'] !== UnitType::WORKING_GROUP || $ancestors[$i]['is_member']) {
+                return array_slice($ancestors, 0, $i + 1);
+            }
+        }
+
+        return [];
     }
 }

@@ -13,6 +13,7 @@ use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Map\DTO\MapMarker;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointData;
 use Foodsharing\RestApi\Models\FoodSharePoint\FoodSharePointEditData;
@@ -151,6 +152,19 @@ class FoodSharePointGateway extends BaseGateway
         }
 
         return [];
+    }
+
+    /**
+     * @return MapMarker[]
+     */
+    public function getFoodSharePointsForRegion(int $regionId): array
+    {
+        $foodSharePoints = $this->db->fetchAllByCriteria('fs_fairteiler', ['id', 'name', 'lat', 'lon'], [
+            'bezirk_id' => $regionId,
+            'status' => 1
+        ]);
+
+        return array_map([MapMarker::class, 'createFromArray'], $foodSharePoints);
     }
 
     public function listFoodsaversFoodSharePoints(int $fsId): array

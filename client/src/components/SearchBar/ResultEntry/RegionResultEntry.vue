@@ -1,6 +1,6 @@
 <template>
   <a
-    :href="$url('forum', region.id)"
+    :href="$url('publicRegion', region.id)"
     class="d-flex dropdown-item search-result"
     tabindex="1"
   >
@@ -27,7 +27,7 @@
       <small class="separate">
         <span v-if="region.parent_id">
           {{ $i18n('search.results.in') }}
-          <a :href="$url('forum', region.parent_id)">
+          <a :href="$url('publicRegion', region.parent_id)">
             {{ region.parent_name }}
           </a>
         </span>

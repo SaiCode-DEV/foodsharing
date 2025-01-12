@@ -4,15 +4,22 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
+use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Region\RegionTransactions;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Modules\Unit\UnitGateway;
+use Foodsharing\Permissions\RegionPermissions;
+use Foodsharing\Permissions\ReportPermissions;
+use Foodsharing\Permissions\WorkGroupPermissions;
 use PHPUnit\Framework\TestCase;
+use Symfony\Contracts\Cache\CacheInterface;
 
 class RegionTransactionsTest extends TestCase
 {
@@ -23,6 +30,13 @@ class RegionTransactionsTest extends TestCase
     private RegionGateway $regionGateway;
     private GroupFunctionGateway $groupFunctionGateway;
     private MailboxGateway $mailboxGateway;
+    private RegionPermissions $regionPermissions;
+    private AchievementGateway $achievementGateway;
+    protected $userUnitMock;
+    private ReportPermissions $reportPermissions;
+    private WorkGroupPermissions $workGroupPermissions;
+    private FoodSharePointGateway $foodSharePointGateway;
+    private CacheInterface $cache;
 
     protected function setUp(): void
     {
@@ -31,7 +45,28 @@ class RegionTransactionsTest extends TestCase
         $this->regionGateway = $this->createMock(RegionGateway::class);
         $this->groupFunctionGateway = $this->createMock(GroupFunctionGateway::class);
         $this->mailboxGateway = $this->createMock(MailboxGateway::class);
-        $this->regionTransactions = new RegionTransactions($this->foodsaverGateway, $this->unitGateway, $this->regionGateway, $this->groupFunctionGateway, $this->mailboxGateway);
+        $this->regionPermissions = $this->createMock(RegionPermissions::class);
+        $this->achievementGateway = $this->createMock(AchievementGateway::class);
+        $this->userUnitMock = $this->createMock(CurrentUserUnitsInterface::class);
+        $this->reportPermissions = $this->createMock(ReportPermissions::class);
+        $this->workGroupPermissions = $this->createMock(WorkGroupPermissions::class);
+        $this->foodSharePointGateway = $this->createMock(FoodSharePointGateway::class);
+        $this->cache = $this->createMock(CacheInterface::class);
+
+        $this->regionTransactions = new RegionTransactions(
+            $this->foodsaverGateway,
+            $this->unitGateway,
+            $this->regionGateway,
+            $this->groupFunctionGateway,
+            $this->mailboxGateway,
+            $this->regionPermissions,
+            $this->achievementGateway,
+            $this->userUnitMock,
+            $this->reportPermissions,
+            $this->workGroupPermissions,
+            $this->foodSharePointGateway,
+            $this->cache
+        );
     }
 
     public function testListFoodsaversRegionsEmpty(): void

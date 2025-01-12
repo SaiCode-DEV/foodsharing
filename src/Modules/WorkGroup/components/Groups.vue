@@ -1,5 +1,6 @@
 <template>
   <div>
+    <InaccessibleRegionRedirectWarning />
     <b-tabs content-class="mt-3">
       <b-tab
         :title="isGlobalWorkingGroup ? $i18n('sidenav.superregional') : $i18n('sidenav.localgroups')"
@@ -179,12 +180,13 @@ import { pulseError, pulseSuccess } from '@/script'
 import i18n from '@/helper/i18n'
 import { useUserStore } from '@/stores/user'
 import Markdown from '@/components/Markdown/Markdown.vue'
+import InaccessibleRegionRedirectWarning from '@/components/InaccessibleRegionRedirectWarning.vue'
 
 const userStore = useUserStore()
 
 export default {
   name: 'Groups',
-  components: { Markdown, Avatar, Container },
+  components: { Markdown, Avatar, Container, InaccessibleRegionRedirectWarning },
   props: {
     groups: { type: Array, required: true },
     nav: { type: Object, required: true },

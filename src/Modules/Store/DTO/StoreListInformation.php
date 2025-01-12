@@ -69,7 +69,7 @@ class StoreListInformation
             $obj->name = $store->name;
             $obj->cooperationStatus = $store->cooperationStatus;
             $obj->location = $store->location;
-            $obj->region = MinimalRegionIdentifier::createFromId($store->region->id);
+            $obj->region = MinimalRegionIdentifier::create($store->region->id);
             $obj->street = $store->address->street;
             $obj->city = $store->address->city;
             $obj->zipCode = $store->address->zipCode;

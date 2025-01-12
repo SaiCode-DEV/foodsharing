@@ -83,6 +83,7 @@ const urls = {
   press: () => '/content?sub=presse',
   regionAdmin: () => '/regions/edit',
   region: (regionId) => regionId ? `/region?bid=${regionId}` : '/?page=region',
+  publicRegion: (regionId) => `/region/${regionId}`,
   releaseNotes: () => '/content?sub=releaseNotes',
   violations: (fsId) => `/report/user/${fsId}`,
   security: () => '/content?sub=security',

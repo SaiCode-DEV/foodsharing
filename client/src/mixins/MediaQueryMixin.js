@@ -64,7 +64,7 @@ export default {
       return this.windowWidth >= 1200
     },
     viewIsXXL () {
-      return this.windowWidth >= 1400
+      return this.windowWidth >= 1440
     },
   },
   methods: {

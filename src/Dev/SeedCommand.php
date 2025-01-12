@@ -363,7 +363,12 @@ class SeedCommand extends Command implements CustomCommandInterface
         $regionEurope = $I->createRegion('Europa', ['id' => RegionIDs::EUROPE, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::COUNTRY, 'has_children' => 1]);
         $regionGermany = $I->createRegion('Deutschland', ['id' => RegionIDs::GERMANY, 'parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1]);
         $regionLowerSaxony = $I->createRegion('Niedersachsen', ['parent_id' => $regionGermany['id'], 'type' => UnitType::FEDERAL_STATE, 'has_children' => 1]);
-        $regionOne = $I->createRegion('Göttingen', ['parent_id' => $regionLowerSaxony['id'], 'type' => UnitType::CITY, 'has_children' => 1]);
+        $regionOne = $I->createRegion('Göttingen', [
+            'parent_id' => $regionLowerSaxony['id'],
+            'type' => UnitType::CITY,
+            'has_children' => 1,
+            'email' => 'goettingen',
+        ]);
         $region1 = $regionOne['id'];
         $regionTwo = $I->createRegion('Entenhausen', ['parent_id' => $regionLowerSaxony['id'], 'type' => UnitType::CITY, 'has_children' => 1]);
         $region2 = $regionTwo['id'];
@@ -582,7 +587,21 @@ class SeedCommand extends Command implements CustomCommandInterface
 
         // create Community Pin
         $this->output->writeln('- create community pin');
-        $I->createCommunityPin($region1);
+        $I->createCommunityPin($region1, [
+            'lat' => 51.5333,
+            'lon' => 9.9354,
+            'desc' => 'Willkommen auf der öffentlichen Bezirksseite von **foodsharing Göttingen**! Hier findest du alles, was du über unsere Initiative, Aktivitäten und Möglichkeiten zum Mitmachen wissen musst. Gemeinsam setzen wir uns für mehr Nachhaltigkeit und weniger Lebensmittelverschwendung ein.
+---
+### 🌟 Unsere Mission: Gemeinsam Lebensmittel retten!
+Wir engagieren uns dafür, überschüssige Lebensmittel zu retten und sie vor der Tonne zu bewahren. In Göttingen arbeiten wir mit verschiedenen Betrieben, Initiativen und Ehrenamtlichen zusammen, um ein Umdenken in der Gesellschaft anzustoßen.
+---
+### 📆 Öffentliche Veranstaltungen
+**Komm vorbei und mach mit!**  
+- **Lebensmittelretter-Treff**: Jeden 1. Mittwoch im Monat um 18:00 Uhr im Umweltzentrum Göttingen  
+- **Koch-Workshop**: "Rest(e)los genießen" am 15. Januar 2025  
+- **Infostand auf dem Wochenmarkt**: Jeden Samstag
+Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwelt!',
+        ]);
 
         // Create store team conversation
         $this->output->writeln('- create store team conversations');
