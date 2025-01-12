@@ -11,7 +11,7 @@
         :href="$url('dataprivacy')"
         target="_blank"
         rel="noopener noreferrer nofollow"
-      >{{ $i18n('legal.pp') }}</a> {{ $i18n('register.have_read_the_legal_stuff2') }}
+      >{{ $i18n('legal.privacy_policy') }}</a> {{ $i18n('register.have_read_the_legal_stuff2') }}
     </b-form-checkbox>
     <b-form-checkbox
       id="acceptLegal"
