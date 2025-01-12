@@ -54,6 +54,7 @@
 - Update mocha to 10.8.2 !3979 @chriswalg
 - Update webpack-dev-server to 5.2.0 !3978 @chriswalg
 - Update nesbot/carbon to 2.72.6 !3980 @chriswalg
+- Update websocket dependencies !3982 @chriswalg
 
 # Release "Nektarine", 2024-12-13
 
