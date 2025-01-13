@@ -407,6 +407,25 @@ region:
   parent: Foreldredistrikt
   master: Mesterdistrikt
   allow_hiding_in_forum: Tillat moderatorer å slette foruminnlegg
+  public:
+    join: Bli med
+    wall: Oppdateringer fra distriktet
+    confirm_entering: Vil du bli med i distriktet {name}? Ambassadørene der vil da
+      ha tilgang til profilen din.
+    children: Distrikter i {name} ({count})
+    join_name: '{name} blir med'
+    description: Om distriktet
+    no_more_info: Ingen ytterligere informasjon er offentlig tilgjengelig om dette
+      distriktet.
+  denied:
+    group_in_this_region: «{name}» er en gruppe i dette distriktet.
+    group_in_this_group: «{name}» er en undergruppe av denne gruppen.
+    subgroup_in: «{navn}» er en undergruppe av gruppen «{parent}».
+    this_region: Du forsøkte å få tilgang til innhold fra dette distriktet. Det er
+      imidlertid kun medlemmer av distriktet som har tilgang til det.
+    some_group: Du forsøkte å få tilgang til innhold fra arbeidsgruppen «{name}».
+      Det er imidlertid bare medlemmer av gruppen som har tilgang til den.
+  not-existant: Dette distriktet eller arbeidsgruppen eksisterer ikke lenger.
 menu:
   entry:
     donations: Donasjoner
@@ -481,6 +500,7 @@ menu:
     refresh: Oppdatere
     delete_read: Slett alle lesninger
     applications: Søknader ({count})
+    public: Offentlig distriktsside
   content: Rediger innhold
   email: Send nyhetsbrev
   reports: Overtredelsesrapporter
@@ -1419,6 +1439,8 @@ map:
         label: Distrikt
   foodsharepoint:
     go: til distribusjonsstasjonen
+  community:
+    go: til distriktssiden
 content:
   content: innhold
   bread: alle sider
@@ -1442,8 +1464,9 @@ content:
     searchInfo: Med Ctrl+F kan du søke i listen i mange nettlesere etter land, delstat,
       by eller nabolag.
     text: foodsharing vokser for hver dag som går. Her finner du alltid en oppdatert
-      liste over alle foodsharing-fellesskap og -distrikter. Du kan sende en e-post
-      til det aktuelle distriktet ved å klikke på det aktuelle navnet.
+      liste over alle foodsharing-fellesskap og -distrikter. Du kan få mer informasjon
+      om hvert distrikt på den tilknyttede offentlige distriktssiden, eller sende
+      en e-post til det tilsvarende distriktet direkte herfra ved å klikke på ikonet.
     noAmbassador: Denne regionen har for øyeblikket ingen ambassadører og kan derfor
       ikke kontaktes via e-post. Ta kontakt med en naboregion eller neste høyere region.
   edit_raw: Rediger rådata
@@ -3175,6 +3198,14 @@ statistics:
   kg_food_saved: '{count} kg mat lagret'
   num_fetches: Med {count} pickuper
   food_saved: mat spart
+  region_public:
+    activeHomeRegionFoodsavers: aktive matsparere
+    pickupsLastMonth: matredninger den siste måneden
+    activeFoodSharePoints: aktive distribusjonsstasjoner
+    savedFoodKgLastMonth: mat spart forrige måned
+    foodBasketsLastMonth: matkurver delt ut siste måned
+    activeCoorporations: aktive bedriftssamarbeid
+  title: Statistikk
 terminology:
   options: Alternativer
   buddies: Venner
@@ -4443,3 +4474,7 @@ navi:
   here: HERE WeGo
   google_maps: Google Maps
   osmand: OsmAnd
+  native: innfødt app
+  no_native_app: Geokoblinger støttes ikke av denne enheten.
+  gdpr_warning: Når du navigerer med {provider}, blir adressen overført til tjenesten
+    deres, og du blir omdirigert til nettstedet deres. Er du enig i dette?
