@@ -2618,7 +2618,8 @@ profile:
     placeholder: almeno 100 caratteri …
     vouch: "Quindi, per favore, dai la banana della fiducia solo a persone che conosci
       personalmente,\nche rispettano le regole di condotta e l’accordo legale\ne di
-      cui potete garantire l’affidabilità e l’impegno.\n"
+      cui potete garantire l’affidabilità e l’impegno.\nNon assegnate mai le banane
+      della fiducia con leggerezza!\n"
     undo: Le banane di fiducia non possono essere cambiate.
     details: "Qui puoi descrivere in almeno 100 caratteri perché vorresti dare a {name}
       una banana.\n"
