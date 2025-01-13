@@ -1700,6 +1700,14 @@ statistics:
   num_fetches: Après {count} interventions
   kg_food_saved: '{count} kg de denrées alimentaires sauvées'
   food_saved: de nourriture sauvés
+  region_public:
+    pickupsLastMonth: sauvetages alimentaires au cours du dernier mois
+    activeCoorporations: coopérations actives avec des entreprises
+    activeFoodSharePoints: stations de distribution actives
+    foodBasketsLastMonth: paniers alimentaires distribués le mois dernier
+    activeHomeRegionFoodsavers: sauveteurs alimentaires actifs
+    savedFoodKgLastMonth: de nourriture sauvés le mois dernier
+  title: Statistiques
 menu:
   entry:
     events: Évènements
@@ -1774,6 +1782,7 @@ menu:
     refresh: Actualiser
     delete_read: Effacer tout ce qui a été lu
     applications: Applications ({count})
+    public: Page publique du district
   content: modifier les contenus
   manage_mailboxes: gérer les boîtes de réception
   email: envoyer la lettre d'information
@@ -2842,6 +2851,8 @@ map:
         label: District
   foodsharepoint:
     go: Au frigo solidaire
+  community:
+    go: vers la page du district
 content:
   changelog: Changelog actuel
   empty: Aucune page existante.
@@ -2864,9 +2875,11 @@ content:
     title: Sections locales
     searchInfo: Dans de nombreux navigateurs, Ctrl+F permet d’effectuer une recherche
       dans la liste par pays, état, ville ou quartier.
-    text: Le foodsharing se développe chaque jour. Vous trouverez ici une liste actualisée
-      de toutes les communautés et districts de partage alimentaire. Vous pouvez envoyer
-      un courriel au district concerné en cliquant sur le nom de celui-ci.
+    text: Le foodsharing se développe chaque jour. Ici, tu trouveras toujours une
+      liste actualisée de toutes les communautés et districts foodsharing. Tu peux
+      obtenir plus d’informations sur chaque district en cliquant sur le lien de la
+      page du district public ou en envoyant directement un mail au district en question
+      en cliquant sur l’icône.
     noAmbassador: Cette région n’a actuellement pas d’ambassadeur·trice et n’est donc
       pas joignable par e-mail. Veuillez contacter une région voisine ou la région
       immédiatement supérieure.
@@ -3528,6 +3541,25 @@ region:
   master: District maître
   allow_hiding_in_forum: Autoriser les modérateurs à supprimer des messages dans les
     forums
+  not-existant: Ce district ou groupe de travail n’existe plus.
+  public:
+    join: Rejoindre
+    join_name: Rejoindre {name}
+    description: À propos du district
+    no_more_info: Aucune information supplémentaire n’est disponible publiquement
+      sur ce district.
+    wall: Mises à jour du district
+    confirm_entering: Tu souhaites rejoindre la district {name} ? Les ambassadeur·rice·s
+      de ce district auront ainsi accès à ton profil.
+    children: Districts de {name} ({count})
+  denied:
+    group_in_this_region: « {name} » est un groupe de cette district.
+    this_region: Tu as essayé d’accéder au contenu de ce district. Cependant, seuls
+      les membres du district peuvent y accéder.
+    subgroup_in: « {name} » est un sous-groupe du groupe « {parent} ».
+    group_in_this_group: « {name} » est un sous-groupe de ce groupe.
+    some_group: Tu as essayé d’accéder au contenu du groupe de travail « {name} ».
+      Cependant, seuls les membres du groupe y ont accès.
 polls:
   filter_by: Filtrer par
   future: Votes futurs
@@ -4433,6 +4465,15 @@ help:
         une date de fin à partir de laquelle ils ne sont plus valides.\n"
     masterRegion:
       title: District maître
+      md: "Lorsque les districts ont un district maître, tous les membres du district
+        sont aussi automatiquement inclus dans le district maître. Dans de nombreux
+        cas, il est judicieux de choisir le district parental comme district maître,
+        mais d’autres applications sont également possibles. Si le district maître
+        n’est pas le district parental, les utilisateurs du district **non** seront
+        automatiquement inclus dans le district parental.\n\nSi tu ne veux pas que
+        les utilisateurs soient automatiquement inclus dans un autre district, définis
+        le maître comme racine.\n---\nL’admission dans le district maître se fait
+        une fois par nuit. Les changements ne sont donc pas immédiats.\n"
     hygieneRequirement:
       title: Exigence d’hygiène pour les établissements
       md: "Pour la collecte dans certains établissements, les collecteur·ice·s doivent
@@ -4599,3 +4640,7 @@ navi:
   waze: Waze
   apple_maps: Apple Plans
   google_maps: Google Maps
+  no_native_app: Les liens géographiques ne sont pas pris en charge par cet appareil.
+  native: Application native
+  gdpr_warning: Si tu navigues avec {provider}, l’adresse sera transmise à leur service
+    et tu seras redirigé vers leur site web. Es-tu d’accord ?
