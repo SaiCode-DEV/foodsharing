@@ -34,10 +34,8 @@ class SearchTransactions
         // TODO: Search by Email for IT-Support Group and ORGA
         // $this->searchPermissions->maySearchByEmailAddress()
 
-        // TODO: remove timing measurement before release
         $result = new MixedSearchResult();
         $result->timings = [];
-        sleep(1);
 
         $start = microtime(true);
         $foodsaverId = $this->session->id();
