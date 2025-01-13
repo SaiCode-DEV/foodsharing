@@ -550,6 +550,7 @@ menu:
     refresh: Refresh
     delete_read: Delete all read
     applications: Applications ({count})
+    public: Public district page
   bell:
     delete_read_confirmation:
       text: Do you really want to delete {count} read bells?
@@ -1981,6 +1982,24 @@ region:
   master: Master district
   mailbox: Mailbox name
   allow_hiding_in_forum: Allow moderators to delete forum posts
+  public:
+    children: Districts in {name} ({count})
+    description: About this district
+    join_name: Join {name}
+    join: Join
+    no_more_info: No further information is publicly available about this district.
+    wall: Updates from the district
+    confirm_entering: Would you like to join the district {name}? This will give the
+      ambassadors there access to your profile.
+  denied:
+    this_region: You tried to access content from this district, but only members
+      of the district have access to it.
+    some_group: You tried to access content from workgroup “{name}”. However, only
+      members of the group have access to it.
+    subgroup_in: “{name}” is a subgroup of the group “{parent}”.
+    group_in_this_region: “{name}” is a group of this district.
+    group_in_this_group: “{name}” is a subgroup of this group.
+  not-existant: This district or working group no longer exists.
 storelist:
   others: More stores in {region}
   region: Region
@@ -2214,6 +2233,8 @@ map:
         label: District
   foodsharepoint:
     go: to the Food-Share Point
+  community:
+    go: to the district’s page
 content:
   content: Content
   name: Unique name
@@ -2236,8 +2257,9 @@ content:
   communities:
     title: Local groups
     text: foodsharing is growing every day. Here you will always find an up-to-date
-      list of all foodsharing communities and districts. You can send an email to
-      the relevant district by clicking on the linked name.
+      list of all foodsharing communities and districts. You can get more information
+      about each district on the linked public district page, or send an email to
+      the relevant district directly from here by clicking on the icon.
     searchInfo: With Ctrl+F, the list can be searched in many browsers by country,
       city, state or district.
     noAmbassador: This region currently has no ambassadors and therefore cannot be
@@ -2577,7 +2599,7 @@ navi:
   native: "Native app"
   gdpr_warning: By navigating with {provider}, the address will be shared with their
     service and you will be redirected to their website. Do you agree?
-  no_native_app: Geo Links are not supported by your device.
+  no_native_app: Geo links are not supported by your device.
 
 search:
   mygroups: My groups
@@ -3417,6 +3439,14 @@ statistics:
   kg_food_saved: '{count} kg food saved'
   num_fetches: In {count} pick-ups
   food_saved: 'food saved'
+  title: Statistics
+  region_public:
+    savedFoodKgLastMonth: food saved last month
+    pickupsLastMonth: pick-ups last month
+    activeCoorporations: active cooporations
+    activeFoodSharePoints: active Food-Share Points
+    foodBasketsLastMonth: food baskets distributed in the last month
+    activeHomeRegionFoodsavers: active Foodsavers
 storestatus:
   "0": Status unclear
   "7": Store no longer exists
