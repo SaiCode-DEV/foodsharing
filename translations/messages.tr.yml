@@ -3592,6 +3592,14 @@ statistics:
   kg_food_saved: '{count} kg gıda kurtarıldı'
   num_fetches: '{count} kurtarma görevinde'
   food_saved: Gıda kurtarıldı
+  region_public:
+    savedFoodKgLastMonth: Geçen ay kurtarılan gıda
+    activeFoodSharePoints: Aktif Gıda dağıtım Noktası
+    foodBasketsLastMonth: Son bir ayda dağıtılan gıda sepetleri
+    pickupsLastMonth: Son bir ayda yapılan gıda kurtarmaları
+    activeCoorporations: Aktif işletme işbirlikleri
+    activeHomeRegionFoodsavers: Aktif foodsaverlar
+  title: İstatistiksel olarak
 are_you_sure: Emin misin?
 day: Gün
 formatting:
