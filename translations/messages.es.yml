@@ -2340,19 +2340,20 @@ profile:
     sent: '¡Se ha enviado el fideo de fidelidad!'
     messageTooShort: 'Introduzca un texto de al menos 100 caracteres para este fideo
       de fidelidad.'
-    undo: 'Los plátanos de confianza no se pueden cambiar.'
+    undo: 'Los fideos de fidelidad no se pueden cambiar.'
     remove:
       confirm_title: 'Quitar el fideo de fidelidad'
       confirm_message: '¿Realmente quieres eliminar este fideo de fidelidad?'
+      successful: ¡Se ha eliminado el fideo de la fidelidad!
     none: '{name} aún no ha recibido un fideo de fidelidad.'
-    vouch: 'Por lo tanto, le rogamos que solo conceda el plátano de confianza a personas
+    vouch: 'Por lo tanto, le rogamos que solo conceda el fideo de fidelidad a personas
       que conozca personalmente
 
       que cumplan las normas de conducta y el acuerdo legal
 
       y de cuya fiabilidad y compromiso pueda dar fe.
 
-      ¡Nunca concedas plátanos de confianza a la ligera!
+      ¡Nunca concedas fideos de fidelidad a la ligera!
 
       '
     title: '{count} fideos de fidelidad'
@@ -2671,6 +2672,7 @@ menu:
     refresh: Actualizar
     delete_read: Borrar todo lo leído
     applications: Aplicaciones ({count})
+    public: Pagina del distrito publico
   bell:
     delete_read_confirmation:
       text: ¿Realmente quieres borrar {count} campanas leídas?
@@ -3614,6 +3616,24 @@ region:
   parent: Referencia a los padres
   allow_hiding_in_forum: Permitir a los moderadores eliminar todos los mensajes del
     foro
+  public:
+    join_name: '{name} se une'
+    description: Acerca de este distrito
+    no_more_info: No hay más información disponible públicamente sobre este distrito.
+    wall: Actualizaciones del distrito
+    children: Distritos de {name} ({count})
+    join: Unirse
+    confirm_entering: ¿Te gustaría unirte al distrito {name}? Los embajador@s allí
+      tendrán entonces acceso a tu perfil.
+  denied:
+    this_region: Intentaste acceder al contenido de este distrito. Sin embargo, sólo
+      los miembros del distrito tienen acceso a ella.
+    subgroup_in: «{name}» es un subgrupo del grupo «{parent}».
+    group_in_this_region: «{name}» es un grupo de este distrito.
+    group_in_this_group: «{name}» es un subgrupo de este grupo.
+    some_group: Intentó acceder al contenido del grupo de trabajo «{name}». Sin embargo,
+      sólo los miembros del grupo tienen acceso a él.
+  not-existant: Este distrito o grupo de trabajo ya no existe.
 password:
   insertmail: 'Ingrese su correo electrónico para restablecer su contraseña.'
   reset: '¿Has olvidado tu contraseña?'
@@ -3794,8 +3814,10 @@ content:
   communities:
     title: Grupos locales
     text: El foodsharing crece día a día. Aquí encontrará siempre una lista actualizada
-      de todas las comunidades y regiones de foodsharing. Puede enviar un correo electrónico
-      a cualquiera de estas regiones haciendo clic en los nombres enlazados.
+      de todas las comunidades y regiones de foodsharing. Puede obtener más información
+      sobre cada distrito en la página pública del distrito vinculada, o enviar un
+      correo electrónico al distrito correspondiente directamente desde aquí haciendo
+      clic en el icono.
     searchInfo: Con Ctrl+F, la lista puede buscarse en muchos navegadores por país,
       ciudad, estado o barrio.
     noAmbassador: Actualmente no hay embajadores en esta región y, por lo tanto, no
@@ -3942,6 +3964,14 @@ statistics:
   kg_food_saved: '{count} kg de comida ahorrados'
   num_fetches: 'En {count} operaciones de rescate'
   food_saved: Comida ahorrada
+  region_public:
+    activeHomeRegionFoodsavers: rescatador@s de alimentos activ@s
+    activeCoorporations: cooperaciones empresariales activas
+    activeFoodSharePoints: estaciones de distribución activas
+    foodBasketsLastMonth: cestas de alimentos distribuidas el mes pasado
+    savedFoodKgLastMonth: de comida ahorrados el mes pasado
+    pickupsLastMonth: rescates alimentarios en el último mes
+  title: Estadística
 back: 'Atrás'
 chat:
   search: 'Buscar'
@@ -4241,6 +4271,8 @@ map:
         label: Distrito
   foodsharepoint:
     go: Punto para compartir alimentos
+  community:
+    go: A la página del distrito
 addreaction: 'Añadir una reacción'
 mail:
   noreply_addresses_not_allowed: 'Los correos electrónicos a direcciones noreply@…
@@ -4643,11 +4675,11 @@ achievements:
   inRegion: Pegatinas en {region} ({count})
   new: Etiqueta nueva
   editor:
-    validityInDaysAfterAssignment: Validez tras la asignación en días
+    validityInDaysAfterAssignment: Validez después de la adjudicación en días
     description: Descripción
     name: Nombre
     icon: Icono
-    preview: Vista previa
+    preview: Avance
   noneInThisRegion: No hay pegatinas registradas en esta región.
   editTitle: Editar pegatinas
   add: Añadir etiqueta
@@ -4722,3 +4754,7 @@ navi:
   osmand: OsmAnd
   komoot: Komoot
   here: HERE WeGo
+  native: Aplicación nativa
+  gdpr_warning: Cuando navegas con {provider}, la dirección se transmite a su servicio
+    y eres redirigido a su sitio web. ¿Estás de acuerdo con esto?
+  no_native_app: Este dispositivo no admite enlaces geográficos.
