@@ -395,8 +395,6 @@ test:backend-acceptance:
     - !reference [.dirs-backend-rule, rules]
     - !reference [.dirs-frontend-rule, rules]
     - !reference [.dirs-websocket-rule, rules]
-  tags:
-    - foodsharing-test
   image: registry.gitlab.com/foodsharing-dev/images/php:latest
   variables:
     MYSQL_ROOT_PASSWORD: root

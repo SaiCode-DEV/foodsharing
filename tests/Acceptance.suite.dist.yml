@@ -26,3 +26,7 @@ modules:
             connection_timeout: 20
             request_timeout: 20
             wait: 5
+            capabilities:
+                chromeOptions:
+                    args:
+                        - "--disable-dev-shm-usage"

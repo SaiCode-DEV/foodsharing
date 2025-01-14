@@ -57,6 +57,7 @@
 - Update webpack-dev-server to 5.2.0 !3978 @chriswalg
 - Update nesbot/carbon to 2.72.6 !3980 @chriswalg
 - Update websocket dependencies !3982 @chriswalg
+- Moved backend-acceptance to public gitlab runner !3992 @chriswalg
 - Added progress bars to the seed script !3663 @SaiCode @alex.simm
 
 # Release "Nektarine", 2024-12-13
