@@ -844,10 +844,10 @@ profile:
     can be found in the [Ambassador Forum]({url})
   sections:
     ambassador_for: for
-    foodSaver_in_region: registered in the districts
-    workgroups_admin: is the contact person for groups
-    workgroups_member: together in the following working groups
-    home_region_from: Home region
+    foodSaver_in_region: Joined the following districts
+    workgroups_admin: is contact person for the following groups
+    workgroups_member: both of you are in the following working groups
+    home_region_from: Home district
     orga_rights: '##### has [extensive authorizations]({wikiurl}) on the platform
       as an Orga person.'
     no_common_workgroups: no working groups in common
