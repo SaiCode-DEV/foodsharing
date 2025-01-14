@@ -130,10 +130,12 @@ function wait-for-mariadb() {
 }
 
 function wait-for-assets() {
-  while ! [ "$(ls -A assets)" ];
-  do
-    sleep 1;
-    echo -ne ".";
+  start_time=$(date +%s)
+  while ! [ "$(ls -A assets)" ]; do
+    sleep 1
+    current_time=$(date +%s)
+    elapsed_time=$((current_time - start_time))
+    echo -ne "\rElapsed time: ${elapsed_time}s"
   done
   echo
 }

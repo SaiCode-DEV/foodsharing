@@ -320,8 +320,8 @@ class SeedCommand extends Command implements CustomCommandInterface
                     $this->helper->addCollector($foodSaver_id, $store_id, ['date' => $pickupDate->toDateTimeString()]);
                     $this->helper->addStoreTeam($store_id, $foodSaver_id);
                 }
+                $this->progressBar(11 * $m + $i + 1, 121);
             }
-            $this->output->write('.');
         }
     }
 
@@ -653,19 +653,19 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
 
         $this->output->writeln('- create store chains');
         $this->chain_ids = [];
-        foreach (range(0, 50) as $_) {
+        foreach (range(1, 50) as $_) {
             $chain = $I->addStoreChain();
             $this->chain_ids[] = $chain['id'];
-            $this->output->write('.');
+            $this->progressBar($_, 50);
         }
-        $this->output->writeln(' done');
+        $this->output->writeln('');
 
         $this->output->writeln('- create food types');
-        foreach (range(0, 10) as $_) {
+        foreach (range(1, 10) as $_) {
             $I->addStoreFoodType();
-            $this->output->write('.');
+            $this->progressBar($_, 10);
         }
-        $this->output->writeln(' done');
+        $this->output->writeln('');
 
         // Forum theads and posts
         $this->output->writeln('- create forum threads and posts');
@@ -689,7 +689,7 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             $this->addVerificationAndPassHistory($I, $user, $userbotDeleted['id'], 13);
             $this->addVerificationAndPassHistory($I, $user, $userbot['id']);
         }
-        foreach (range(0, 100) as $_) {
+        foreach (range(1, 100) as $_) {
             $user = $I->createFoodsaver($password, ['bezirk_id' => $region1, 'image' => true]);
             $this->foodsavers[] = $user['id'];
             $I->addStoreTeam($store['id'], $user['id']);
@@ -699,35 +699,35 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             $this->addVerificationAndPassHistory($I, $user['id'], $userbotDeleted['id'], 13);
             $this->addVerificationAndPassHistory($I, $user['id'], $userbot['id']);
             $I->addEventInvitation($event['id'], $user['id']);
-            $this->output->write('.');
+            $this->progressBar($_, 100);
         }
-        $this->output->writeln(' done');
+        $this->output->writeln('');
         $this->output->writeln(' Create old users');
-        foreach (range(0, 20) as $_) {
+        foreach (range(1, 20) as $_) {
             $I->createFoodsaver($password, ['bezirk_id' => $region1, 'last_login' => Carbon::now()->subyears(6)]);
-            $this->output->write('.');
+            $this->progressBar($_, 20);
         }
-        $this->output->writeln(' done');
+        $this->output->writeln('');
         $this->output->writeln('Create old users with no_automatic_delete flag');
-        foreach (range(0, 20) as $_) {
+        foreach (range(1, 20) as $_) {
             $I->createFoodsaver($password, ['bezirk_id' => $region1, 'last_login' => Carbon::now()->subyears(6), 'no_automatic_delete' => 1]);
-            $this->output->write('.');
+            $this->progressBar($_, 20);
         }
-        $this->output->writeln(' done');
+        $this->output->writeln('');
 
         // give some trust bananas
         $this->output->writeln('Give some trust bananas');
-        foreach ($this->foodsavers as $recipient) {
+        foreach ($this->foodsavers as $i => $recipient) {
             foreach ($this->getRandomIDOfArray($this->foodsavers, 2) as $sender) {
                 $I->giveBanana($sender, $recipient);
             }
-            $this->output->write('.');
+            $this->progressBar($i + 1, count($this->foodsavers));
         }
-        $this->output->writeln(' done');
+        $this->output->writeln('');
 
         // create conversations between users
         $this->output->writeln('Create conversations between users');
-        foreach ($this->foodsavers as $user) {
+        foreach ($this->foodsavers as $j => $user) {
             foreach ($this->getRandomIDOfArray($this->foodsavers, 10) as $chatpartner) {
                 if ($user !== $chatpartner) {
                     $conv = $I->createConversation([$user, $chatpartner]);
@@ -740,37 +740,37 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
                     }
                 }
             }
-            $this->output->write('.');
+            $this->progressBar($j + 1, count($this->foodsavers));
         }
-        $this->output->writeln(' done');
+        $this->output->writeln('');
 
         // Create more Forum Threads
         $this->output->writeln('- Create more forum Threads');
         $randomFsList = array_slice($this->foodsavers, -100, 100, true);
-        foreach ($this->getRandomIDOfArray($randomFsList, 100) as $random_user) {
-            foreach (range(0, 5) as $_) {
+        foreach ($this->getRandomIDOfArray($randomFsList, 100) as $i => $random_user) {
+            foreach (range(1, 5) as $_) {
                 $I->addForumThread($region1, $random_user);
             }
-            $this->output->write('.');
+            $this->progressBar($i + 1, 100);
         }
-        $this->output->writeln(' done');
+        $this->output->writeln('');
 
         // add some users to a workgroup
         $this->output->writeln('Add users to workgroup');
         // but only the ones we generated above
         $randomFsList = array_slice($this->foodsavers, -100, 100, true);
-        foreach ($this->getRandomIDOfArray($randomFsList, 10) as $random_user) {
+        foreach ($this->getRandomIDOfArray($randomFsList, 10) as $i => $random_user) {
             $I->addRegionMember($region1WorkGroup, $random_user);
-            $this->output->write('.');
+            $this->progressBar($i + 1, 10);
         }
-        $this->output->writeln(' done');
+        $this->output->writeln('');
 
         $this->createFunctionWorkgroups($region1);
 
         // create more stores and collect their ids in a list
         $this->output->writeln('Create some stores');
         $this->stores = [$store['id']];
-        foreach (range(0, 40) as $_) {
+        foreach (range(1, 40) as $_) {
             // TODO conversations are missing the other store members
             $conv1 = $I->createConversation([$userbot['id']], ['name' => 'team', 'locked' => 1]);
             $conv2 = $I->createConversation([$userbot['id']], ['name' => 'springer', 'locked' => 1]);
@@ -781,30 +781,30 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             }
 
             $store = $I->createStore($region1, $conv1['id'], $conv2['id'], $extra_params);
-            foreach (range(0, 5) as $_) {
+            foreach (range(0, 5) as $__) {
                 $I->addRecurringPickup($store['id']);
             }
             $this->stores[] = $store['id'];
-            $this->output->write('.');
+            $this->progressBar($_, 40);
         }
-        $this->output->writeln(' done');
+        $this->output->writeln('');
 
         $this->output->writeln('Create more pickups');
         $this->CreateMorePickups();
-        $this->output->writeln(' done');
+        $this->output->writeln('');
 
         // create foodbaskets
         $this->output->writeln('Create foodbaskets');
-        foreach (range(0, 500) as $_) {
+        foreach (range(1, 500) as $_) {
             $user = $this->getRandomIDOfArray($this->foodsavers);
             $I->createFoodbasket($user);
-            $this->output->write('.');
+            $this->progressBar($_, 500);
         }
-        $this->output->writeln(' done');
+        $this->output->writeln('');
 
         // create food share point
         $this->output->writeln('Create food share points');
-        foreach ($this->getRandomIDOfArray($this->foodsavers, 50) as $user) {
+        foreach ($this->getRandomIDOfArray($this->foodsavers, 50) as $i => $user) {
             $foodSharePoint = $I->createFoodSharePoint($user, $region1);
             foreach ($this->getRandomIDOfArray($this->foodsavers, 10) as $follower) {
                 if ($user !== $follower) {
@@ -812,16 +812,16 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
                 }
                 $I->addFoodSharePointPost($follower, $foodSharePoint['id']);
             }
-            $this->output->write('.');
+            $this->progressBar($i + 1, 50);
         }
-        $this->output->writeln(' done');
+        $this->output->writeln('');
 
         $this->output->writeln('Create blog posts');
-        foreach (range(0, 20) as $_) {
+        foreach (range(1, 20) as $_) {
             $I->addBlogPost($userbot['id'], $region1);
-            $this->output->write('.');
+            $this->progressBar($_, 20);
         }
-        $this->output->writeln(' done');
+        $this->output->writeln('');
 
         $this->output->writeln('Create reports');
 
@@ -836,37 +836,37 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         $this->output->writeln(' done');
 
         $this->output->writeln('Create quizzes');
-        foreach (QuizID::cases() as $quizId) {
+        foreach (QuizID::cases() as $i => $quizId) {
             $I->createQuiz($quizId->value);
-            $this->output->write('.');
+            $this->progressBar($i + 1, count(QuizID::cases()));
         }
-        $this->output->writeln(' done');
+        $this->output->writeln('');
 
         $this->output->writeln('Create polls');
-        foreach ([
+        $pollTypes = [
             VotingType::SELECT_ONE_CHOICE, VotingType::SELECT_MULTIPLE, VotingType::THUMB_VOTING,
             VotingType::SCORE_VOTING
-        ] as $type) {
+        ];
+        foreach ($pollTypes as $i => $type) {
             $this->createPoll(
                 $region1,
                 $userbot['id'],
                 $type,
                 [$user2['id'], $userStoreManager['id'], $userStoreManager2['id'], $userbot['id'], $userorga['id']]
             );
-            $this->output->write('.');
+            $this->progressBar($i + 1, count($pollTypes));
         }
-        foreach (range(0, 30) as $_) {
+        $this->output->writeln('');
+        foreach (range(1, 30) as $_) {
             $startDate = Carbon::now()->subDays(random_int(7, 3 * 365));
             $type = random_int(VotingType::SELECT_ONE_CHOICE, VotingType::SCORE_VOTING);
             $this->createPoll($region1, $userbot['id'], $type,
                 [$user2['id'], $userStoreManager['id'], $userStoreManager2['id'], $userbot['id'], $userorga['id']],
                 $startDate, $startDate->addDays(6)
             );
-            $this->output->write('.');
+            $this->progressBar($_, 30);
         }
-        $this->output->write('.');
-
-        $this->output->writeln(' done');
+        $this->output->writeln('');
 
         $this->output->writeln('Create blacklisted emails');
         $I->createBlacklistedEmailAddress();
@@ -945,5 +945,16 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         foreach (range(0, 3) as $_) {
             $I->addPassHistory($userId, $verifierId);
         }
+    }
+
+    /**
+     * Writes a progress bar with a percentage text to the output.
+     */
+    private function progressBar(int $steps, int $total): void
+    {
+        $percentage = floor(($steps / $total) * 100);
+        $left = 100 - $percentage;
+        $write = sprintf("\033[0G\033[2K[%'={$percentage}s>%-{$left}s] {$steps} / {$total} ($percentage%%)", '', '');
+        $this->output->write($write);
     }
 }

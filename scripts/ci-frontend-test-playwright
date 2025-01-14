@@ -30,12 +30,7 @@ vendor/bin/phinx migrate
 echo $SECONDS seconds elapsed
 
 log-header "Waiting for assets to be generated ..."
-while ! [ "$(ls -A assets)" ];
-do
-sleep 1;
-echo -ne ".";
-done
-echo
+wait-for-assets
 
 log-header "Create DB dump file for codeception"
 mariadb-dump --user root --password=root -hdb foodsharing > dump.sql
