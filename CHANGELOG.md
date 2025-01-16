@@ -33,7 +33,7 @@
 - Update to php 8.2 !3947 @chriswalg
 - Update to php 8.3 !3944 @chriswalg
 - Better File input !3881 @SaiCode
-- Update webpack to 5 !3621 !3964 @SaiCode
+- Update webpack to 5 !3621 !3964 !4000 @SaiCode
 - Service worker moved to Google Workbox !3621 @SaiCode
 - Removed props from the Vue components of region subpages #1838 !3948 @alex.simm
 - Fixed the bounding box of queries for nearby baskets and food share points #1857 !3916 @alex.simm

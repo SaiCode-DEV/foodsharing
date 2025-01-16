@@ -10,6 +10,7 @@ const clientRoot = path.resolve(__dirname)
 const { join, dirname } = require('path')
 const glob = require('glob')
 const { InjectManifest } = require('workbox-webpack-plugin')
+const webpack = require('webpack')
 
 const dev = process.env.NODE_ENV !== 'production'
 
@@ -28,6 +29,10 @@ if (!dev) {
       logLevel: 'info',
     }),
   )
+}
+
+if (dev) {
+  plugins.push(new webpack.HotModuleReplacementPlugin())
 }
 
 plugins.push(
@@ -87,12 +92,15 @@ module.exports = merge(webpackBase, {
       ? {
           filename: 'js/[name].js',
           chunkFilename: 'js/[chunkhash].js',
+          hotUpdateChunkFilename: '[id].[hash].hot-update.js',
+          hotUpdateMainFilename: '[hash].hot-update.json',
         }
       : {
           filename: 'js/[name].[fullhash].js',
           chunkFilename: 'js/[id].[chunkhash].js',
         }),
     publicPath: '/assets/',
+    globalObject: 'self',
   },
   performance: dev
     ? {
