@@ -1,31 +1,36 @@
-<!-- The component that allows you to select the types of map markers. -->
 <template>
   <div id="map-control-wrapper">
-    <div
+    <b-button
       id="map-control-collapse"
-      class="ui-dialog ui-widget ui-widget-content"
-      tabindex="-1"
+      variant="secondary"
+      class="rounded-circle"
       @click="collapseControl"
     >
       <i class="fas fa-layer-group" />
-    </div>
-    <div
+    </b-button>
+
+    <b-card
       id="map-legend"
-      class="ui-dialog ui-widget ui-widget-content ui-corner-all"
+      no-body
       :class="collapsedClass"
-      tabindex="-1"
     >
-      <div class="ui-dialog-content ui-widget-content">
-        <ul id="map-control" class="linklist">
-          <li v-for="markerType in visibleTypes" :key="markerType">
-            <a
+      <b-card-body id="map-control" class="p-2">
+        <b-list-group>
+          <b-list-group-item
+            v-for="markerType in visibleTypes"
+            :key="markerType"
+            class="p-0 border-0"
+          >
+            <b-button
               :ref="`button-${markerType}`"
-              class="map-legend-entry"
+              class="map-legend-entry w-100 text-left"
               :class="`${markerType} ${activeButtonClass(markerType)}`"
               @click="$emit('toggle-marker-type', markerType)"
             >
-              <i :class="`fas fa-${markerTypes[markerType].icon}`" /> {{ $i18n(markerTypes[markerType].label) }}
-            </a>
+              <i :class="`fas fa-${markerTypes[markerType].icon}`" />
+              {{ $i18n(markerTypes[markerType].label) }}
+            </b-button>
+
             <StoreSpecifierSelection
               v-if="markerType === markerTypes.stores.name && selectedTypes.includes(markerType)"
               :selected-specifiers="selectedSpecifiers[markerType]"
@@ -37,10 +42,10 @@
               :regions="ambassadorRegions"
               @update-specifier="(specifier, newValue) => $emit('update-marker-specifier', markerType, specifier, newValue)"
             />
-          </li>
-        </ul>
-      </div>
-    </div>
+          </b-list-group-item>
+        </b-list-group>
+      </b-card-body>
+    </b-card>
   </div>
 </template>
 
@@ -94,49 +99,27 @@ export default {
 }
 
 #map-control-collapse {
-  cursor: pointer;
-  background-color: var(--fs-color-secondary-500);
-  color: var(--fs-color-light);
-  position: absolute;
   height: 30px;
   width: 30px;
-  border-radius: 100px;
   margin: 0 0 5px auto;
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-#map-control a {
-  cursor: pointer;
+  background-color: var(--fs-color-secondary-500);
+  border-color: transparent;
 }
 
 #map-legend {
   --size: 2rem;
   transition: opacity 0.2s ease-in-out;
+  background: var(--fs-color-white);
+  min-width: 280px;
 
   &.collapsed {
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s 0.2s, opacity 0.2s ease-in-out;
-  }
-
-  .ui-dialog-content {
-    padding: .5rem;
-    min-width: 280px;
-  }
-
-  .map-legend-selection {
-    margin: 0;
-    padding: 0.5rem;
-    ::v-deep {
-      label, select {
-        font-size: .85em !important;
-      }
-      .form-row {
-        margin-bottom: 0.5rem;
-      }
-    }
   }
 
   .map-legend-entry {
@@ -148,6 +131,13 @@ export default {
     border: 0;
     font-weight: 600;
     font-size: 1rem;
+    background: transparent;
+
+    color: var(--fs-color-primary-500);
+
+    &:hover, &.active {
+      color: var(--type-color);
+    }
 
     &.baskets { --type-color: var(--fs-color-type-baskets); }
     &.stores { --type-color: var(--fs-color-type-stores); }
@@ -157,7 +147,6 @@ export default {
 
     &:hover {
       background-color: var(--fs-color-primary-100);
-      color: var(--type-color);
     }
 
     i {
@@ -195,5 +184,15 @@ export default {
       }
     }
   }
+}
+</style>
+
+<style lang="scss">
+.map-legend-font-size {
+  font-size: 0.7rem;
+}
+
+.map-legend-selection {
+  margin-left: .5rem;
 }
 </style>
