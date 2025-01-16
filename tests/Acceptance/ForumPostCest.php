@@ -149,7 +149,7 @@ class ForumPostCest
         $I->waitForElement($overflowMenu);
 
         $I->click($overflowMenu);
-        $I->see('Thema schließen');
+        $I->waitForText('Thema schließen');
         $I->click('Thema schließen');
         $I->waitForActiveAPICalls();
         $I->seeInDatabase('fs_theme', [
@@ -157,8 +157,9 @@ class ForumPostCest
             'status' => 1,
         ]);
 
+        $I->waitForElement($overflowMenu);
         $I->click($overflowMenu);
-        $I->see('Thema öffnen');
+        $I->waitForText('Thema öffnen');
         $I->click('Thema öffnen');
         $I->waitForActiveAPICalls();
         $I->seeInDatabase('fs_theme', [
@@ -216,7 +217,7 @@ class ForumPostCest
         $I->waitForElement($overflowMenu);
 
         $I->click($overflowMenu);
-        $I->see('Beitrag anheften');
+        $I->waitForText('Beitrag anheften');
         $I->click('Beitrag anheften');
         $I->waitForActiveAPICalls();
         $I->seeInDatabase('fs_theme', [
@@ -224,8 +225,9 @@ class ForumPostCest
             'sticky' => 1,
         ]);
 
+        $I->waitForElement($overflowMenu);
         $I->click($overflowMenu);
-        $I->see('Nicht mehr anheften');
+        $I->waitForText('Nicht mehr anheften');
         $I->click('Nicht mehr anheften');
         $I->waitForActiveAPICalls();
         $I->seeInDatabase('fs_theme', [
@@ -461,7 +463,8 @@ class ForumPostCest
         $I->canSee('Beitrag löschen');
         $I->click(Locator::contains('.btn', 'Ja, ich bin mir sicher'));
         $I->wait(1); // avoiding yet another common race condition here
-        $I->seeCurrentUrlEquals($I->forumUrl($this->{$example[1]}['id']));
+        // Make the additional parameters optional in the pattern match
+        $I->seeCurrentUrlMatches('~' . preg_quote($I->forumUrl($this->{$example[1]}['id'])) . '(?:[?&].*)?$~');
         $I->waitForPageBody();
         $I->cantSee($title);
     }

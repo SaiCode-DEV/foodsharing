@@ -59,6 +59,7 @@
 - Update websocket dependencies !3982 @chriswalg
 - Moved backend-acceptance to public gitlab runner !3992 @chriswalg
 - Added progress bars to the seed script !3663 @SaiCode @alex.simm
+- Fix tests in ForumPostCest !3998 @chriswalg
 
 # Release "Nektarine", 2024-12-13
 
