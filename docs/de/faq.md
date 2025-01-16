@@ -108,6 +108,6 @@ Q: Who can I ask for help with what? Who is part of the team with which focus an
 
 A: The common and most efficient way is to ask the dev channel a detailed question - so everyone who might have the knowledge and time can help.
 
-Also we have team members with special responsibilities, see here: https://gitlab.com/foodsharing-dev/foodsharing/-/wikis/responsibilities
+Also we have team members with special responsibilities, see here: https://gitlab.com/foodsharing-dev/foodsharing/-/wikis/Information/responsibilities
 
 This means that there currently is no one head of the foodsharing IT. We decide with votes & vetos. Therefore currently there is no roadmap. The responsibles have lately said, that cleaning up old code and finishing open Merge Requests has priority over new features. But basically if you like an idea and are willing to work on your code - you're welcome to join. :-)
