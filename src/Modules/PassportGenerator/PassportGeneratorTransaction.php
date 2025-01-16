@@ -21,12 +21,11 @@ use Foodsharing\Utility\TimeHelper;
 use Foodsharing\Utility\TranslationHelper;
 use setasign\Fpdi\Tcpdf\Fpdi;
 use stdClass;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class PassportGeneratorTransaction extends AbstractController
+class PassportGeneratorTransaction
 {
     private const int PASSPORT_VALIDITY_YEARS = 3;
 

@@ -189,4 +189,20 @@ class MessageTransactions
             'profiles' => $profiles
         ];
     }
+
+    public function sendRequiredMessageToUser(int $userId, int $senderId, string $translationKey, ?string $message = null, array $params = [])
+    {
+        if ($userId === $senderId) {
+            return;
+        }
+        $foodsaver = $this->foodsaverGateway->getFoodsaver($userId);
+        $salutation = $this->translator->trans('salutation.' . $foodsaver['geschlecht']) . ' ' . $foodsaver['name'];
+        $main = $this->translator->trans("required_messages.{$translationKey}.main", $params);
+        $optionalMessage = empty($message) ? '' : ("\n\n" . $message . "\n");
+        $footer = $this->translator->trans("required_messages.{$translationKey}.footer");
+
+        $formattedMessage = "{$salutation},\n{$main}{$optionalMessage}\n{$footer}";
+
+        $this->sendMessageToUser($userId, $senderId, $formattedMessage);
+    }
 }

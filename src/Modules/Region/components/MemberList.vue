@@ -64,7 +64,7 @@
             :disabled="passportMember.length <= 0"
             variant="outline-primary"
             size="sm"
-            @click="verifySelectedMember"
+            @click="verifySelectedMembers"
           >
             {{ $i18n('group.member_list.passports.verify_selected') }} ({{ passportMember.length }})
           </b-button>
@@ -320,6 +320,12 @@
         />
       </div>
     </b-container>
+
+    <RequiredMessageModal
+      v-if="!isWorkGroup && mayEditMembers"
+      ref="verifyModal"
+      message-key="verify"
+    />
   </Container>
 </template>
 
@@ -327,7 +333,7 @@
 import { addMember } from '@/api/groups'
 import { removeMember, setAdminOrAmbassador, removeAdminOrAmbassador, getRegionMemberPermissions } from '@/api/regions'
 import { useRegionStore } from '@/stores/regions'
-import { hideLoader, pulseError, showLoader } from '@/script'
+import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
 import UserSearchInput from '@/components/UserSearchInput'
 import { verifyUser, deverifyUser, createPassportAsAmbassador } from '@/api/verification'
@@ -336,13 +342,14 @@ import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import { REGION_IDS } from '@/consts'
+import RequiredMessageModal from '@/components/Modals/RequiredMessageModal.vue'
 import { PASSPORT_FILTER_OPTIONS, useUserStore } from '@/stores/user'
 
 const regionStore = useRegionStore()
 const userStore = useUserStore()
 
 export default {
-  components: { UserSearchInput, Container, Avatar },
+  components: { UserSearchInput, Container, Avatar, RequiredMessageModal },
   mixins: [ConfirmationDialogue, MediaQueryMixin],
   props: {
     groupId: { type: Number, required: true },
@@ -678,14 +685,23 @@ export default {
       }
     },
     async changeVerification (isVerified, memberId, memberName) {
-      const dialogueOptions = {
-        title: i18n(isVerified ? 'group.member_list.passports.button.verify' : 'group.member_list.passports.button.unverify'),
-        okTitle: i18n('button.yes_i_am_sure'),
-        okVariant: isVerified ? 'success' : 'danger',
-        params: { name: memberName, id: memberId },
+      let messageDetails
+      if (isVerified) {
+        const modal = this.$refs.verifyModal
+        modal.show({ name: memberName })
+        try {
+          messageDetails = await modal.getConfirmationPromise()
+        } catch { return }
+      } else {
+        const dialogueOptions = {
+          title: i18n('group.member_list.passports.button.unverify'),
+          okTitle: i18n('button.yes_i_am_sure'),
+          okVariant: isVerified ? 'success' : 'danger',
+          params: { name: memberName, id: memberId },
+        }
+        if (!await this.confirmationDialogue('group.member_list.passports.verify.undo', dialogueOptions)) return
       }
-      if (!await this.confirmationDialogue('group.member_list.passports.verify.' + (isVerified ? 'do' : 'undo'), dialogueOptions)) return
-      await this.updateVerificationStatusFromUser(isVerified, memberId)
+      await this.updateVerificationStatusFromUser(isVerified, memberId, messageDetails)
       const index = regionStore.memberList.findIndex(member => member.id === memberId)
       if (index >= 0) {
         regionStore.memberList[index].isVerified = isVerified
@@ -787,12 +803,12 @@ export default {
       this.isBusy = false
       hideLoader()
     },
-    async updateVerificationStatusFromUser (isVerified, userId) {
+    async updateVerificationStatusFromUser (isVerified, userId, message) {
       showLoader()
       this.isBusy = true
       try {
         if (isVerified) {
-          await verifyUser(userId)
+          await verifyUser(userId, message)
         } else {
           await deverifyUser(userId)
         }
@@ -805,20 +821,34 @@ export default {
     clearSelected () {
       this.passportMember = []
     },
-    async verifySelectedMember () {
-      const dialogueOptions = {
-        title: i18n('group.member_list.passports.button.verify'),
-        okTitle: i18n('button.yes_i_am_sure'),
-        okVariant: 'danger',
+    async verifySelectedMembers () {
+      // get members to verifiy
+      const unverifiedSelectedMembers = this.passportMember
+        .map(id => regionStore.memberList.find(entry => entry.id === id))
+        .filter(member => !member?.isVerified)
+      console.debug(unverifiedSelectedMembers)
+      if (!unverifiedSelectedMembers.length) {
+        pulseSuccess(i18n('group.member_list.passports.already_verified'))
+        return
       }
-      if (!await this.confirmationDialogue('group.member_list.passports.verify.do_selected', dialogueOptions)) return
-      try {
-        for (const memberId of this.passportMember) {
-          const existingMember = regionStore.memberList.find(entry => entry.id === memberId)
+      if (unverifiedSelectedMembers.length === 1) {
+        const member = unverifiedSelectedMembers[0]
+        return this.changeVerification(true, member.id, member.name)
+      }
 
-          if (!existingMember?.isVerified) {
-            await verifyUser(memberId)
-          }
+      // get confirmation and message details once
+      let messageDetails
+      const modal = this.$refs.verifyModal
+      modal.showMultiple(unverifiedSelectedMembers.length)
+      try {
+        messageDetails = await modal.getConfirmationPromise()
+      } catch { return }
+
+      // verify all affected members
+      try {
+        for (const member of unverifiedSelectedMembers) {
+          await this.updateVerificationStatusFromUser(true, member.id, messageDetails)
+          member.isVerified = true
         }
       } catch (e) {
         pulseError(i18n('error_unexpected'))

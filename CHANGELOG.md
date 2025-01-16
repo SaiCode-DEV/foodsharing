@@ -5,6 +5,7 @@
 - More detailed redirect information when trying to access pages of a region you are not a member of. #1006 !3835 @AntonBallmaier
 - Add navigation buttons for Maps, Waze & more navigaion providers #2301 !3953 !3960 @SaiCode
 - Added a public region page that is accessible without being logged in or member of the region. #1006 !3835 @AntonBallmaier
+- Add components for required messages on special actions. Used them when verifying users #1715 !3776 @AntonBallmaier
 
 ## Changes
 - Include user agent in support ticket creation #2212 !3838 @AntonBallmaier

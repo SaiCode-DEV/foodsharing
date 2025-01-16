@@ -589,6 +589,7 @@ group:
       created_at: "Ausweis erstellt am"
       generate_button: "Ausweis(e) für Markierte erstellen"
       verify_selected: "Markierte verifizieren"
+      already_verified: "Alle ausgewählten Nutzer:innen waren bereits verifiziert"
       automatic_paper_size: "A4-Papier nutzen"
       create_pdf: "Erstelle PDF"
       active_or_renew_passport: "Ausweis aktivieren / verlängern"
@@ -3901,6 +3902,19 @@ support_page:
     browse: "Durchsuchen"
   success: "Deine Nachricht wurde erfolgreich übermittelt."
   new_request: "Neue Anfrage"
+
+required_messages:
+  sure_title: "Bist du dir sicher?"
+  message_info: "{name} würde die folgende Nachricht dazu erhalten:"
+  message_info_multiple: "Jede Person würde die folgende Nachricht dazu erhalten:"
+  placeholder: "Optional hier Informationen ergänzen…"
+  save_message: "Meine Nachricht für's nächste Mal speichern"
+  name_placeholder: "<Name>"
+  verify:
+    really: "Möchtest du {name} wirklich verifizieren? Bitte stelle sicher, dass {name} alle [Voraussetzungen für verifizierte Foodsaver](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver) erfüllt."
+    really_multiple: "Möchtest du wirklich {count} Nutzer:innen verifizieren? Bitte stelle sicher, dass alle {count} Personen alle [Voraussetzungen für verifizierte Foodsaver](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver) erfüllen."
+    main: "wir haben dich als Foodsaver:in verifiziert!"
+    footer: "Viele Grüße, deine Botschafter:innen"
 
 petition:
   progressText:

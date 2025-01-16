@@ -7,6 +7,7 @@ use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Message\MessageTransactions;
 use Foodsharing\Modules\PassportGenerator\PassportGeneratorTransaction;
 use Foodsharing\Modules\Profile\DTO\PassHistoryEntry;
 use Foodsharing\Modules\Profile\DTO\VerificationHistoryEntry;
@@ -16,6 +17,8 @@ use Foodsharing\Permissions\PassportPermissions;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\RestApi\Models\Passport\CreateRegionPassportModel;
 use Foodsharing\Utility\EmailHelper;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Request\ParamFetcher;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +32,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[OA\Tag(name: 'verification')]
+#[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
 class VerificationRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
@@ -41,7 +45,8 @@ class VerificationRestController extends AbstractFoodsharingRestController
         protected TranslatorInterface $translator,
         private readonly PassportPermissions $passportPermissions,
         private readonly PassportGeneratorTransaction $passportGeneratorTransaction,
-        protected Session $session,
+        private readonly MessageTransactions $messageTransactions,
+        protected Session $session
     ) {
         parent::__construct($session);
     }
@@ -63,7 +68,8 @@ class VerificationRestController extends AbstractFoodsharingRestController
         methods: ['PATCH'],
         requirements: ['userId' => '\d+']
     )]
-    public function verifyUser(int $userId): Response
+    #[Rest\RequestParam(name: 'message', nullable: true)]
+    public function verifyUser(int $userId, ParamFetcher $paramFetcher): Response
     {
         $this->assertLoggedIn();
 
@@ -94,6 +100,9 @@ class VerificationRestController extends AbstractFoodsharingRestController
             'name' => $fs['name'],
             'anrede' => $this->translator->trans('salutation.' . $fs['geschlecht']),
         ], false, true);
+
+        $message = $paramFetcher->get('message');
+        $this->messageTransactions->sendRequiredMessageToUser($userId, $this->session->id(), 'verify', $message);
 
         return $this->respondOK();
     }

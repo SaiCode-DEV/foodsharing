@@ -1,7 +1,7 @@
 import { post, get, patch, remove } from './base'
 
-export async function verifyUser (userId) {
-  return patch(`/user/${userId}/verification`)
+export async function verifyUser (userId, message) {
+  return patch(`/user/${userId}/verification`, { message })
 }
 
 export async function deverifyUser (userId) {
