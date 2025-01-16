@@ -59,7 +59,6 @@ class VerificationRestController extends AbstractFoodsharingRestController
         description: 'which user to verify'
     )]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to verify this user.')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'User not found.')]
     #[OA\Response(response: Response::HTTP_UNPROCESSABLE_ENTITY, description: 'Already verified.')]
@@ -119,7 +118,6 @@ class VerificationRestController extends AbstractFoodsharingRestController
     )]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success.')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Has future pickups.')]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to deverify this user.')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'User not found.')]
     #[OA\Response(response: Response::HTTP_UNPROCESSABLE_ENTITY, description: 'Already deverified.')]
@@ -168,7 +166,6 @@ class VerificationRestController extends AbstractFoodsharingRestController
             items: new OA\Items(type: 'object', ref: VerificationHistoryEntry::class)
         )
     )]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to view this users history.')]
     #[Route(
         path: '/user/{userId}/verificationhistory',
@@ -206,7 +203,6 @@ class VerificationRestController extends AbstractFoodsharingRestController
             items: new OA\Items(type: 'object', ref: PassHistoryEntry::class)
         )
     )]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to view this users history.')]
     #[Route(
         path: '/user/{userId}/passhistory',
@@ -239,7 +235,6 @@ class VerificationRestController extends AbstractFoodsharingRestController
             )
         )
     )]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to create own passport.')]
     #[Route(
         path: '/user/current/passport',
@@ -274,7 +269,6 @@ class VerificationRestController extends AbstractFoodsharingRestController
             )
         )
     )]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to create passport as ambassador in region.')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'User not found.')]
     #[Route(
@@ -320,7 +314,6 @@ class VerificationRestController extends AbstractFoodsharingRestController
         required: true,
         schema: new OA\Schema(type: 'string', enum: ['google', 'apple'])
     )]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to create own passport.')]
     #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'Invalid wallet type.')]
     #[Route(
