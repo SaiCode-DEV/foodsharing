@@ -59,41 +59,20 @@
         </div>
       </b-tab>
       <b-tab v-if="!isWorkGroup && mayEditMembers" :title="$i18n('group.member_list.passports.title')">
-        <div class="d-flex justify-content-between">
-          <b-button
-            :disabled="passportMember.length <= 0"
-            variant="outline-primary"
-            size="sm"
-            @click="verifySelectedMembers"
-          >
-            {{ $i18n('group.member_list.passports.verify_selected') }} ({{ passportMember.length }})
-          </b-button>
-
-          <div class="d-flex align-items-sm-baseline align-items-stretch justify-content-end">
-            <b-form-checkbox
-              v-if="isCreatePdf && passportMember.length === 1"
-              v-model="usePaperSizeDinA4"
-              class="ml-2"
+        <b-row class="row p-2">
+          <b-col>
+            <b-button
+              :disabled="passportMember.length <= 0"
+              variant="outline-primary"
               size="sm"
+              @click="verifySelectedMembers"
             >
-              {{ $i18n('group.member_list.passports.automatic_paper_size') }}
-            </b-form-checkbox>
-            <b-form-checkbox
-              v-model="isCreatePdf"
-              class="ml-2"
-              size="sm"
-              @change="setPassportSettingsToLocalStorage"
-            >
-              {{ $i18n('group.member_list.passports.create_pdf') }}
-            </b-form-checkbox>
-            <b-form-checkbox
-              v-model="isRenewPassport"
-              class="ml-2 mr-2"
-              size="sm"
-              @change="setPassportSettingsToLocalStorage"
-            >
-              {{ $i18n('group.member_list.passports.active_or_renew_passport') }}
-            </b-form-checkbox>
+              {{ $i18n('group.member_list.passports.verify_selected') }} ({{ passportMember.length }})
+            </b-button>
+          </b-col>
+        </b-row>
+        <b-row class="row p-2">
+          <b-col>
             <b-button
               :disabled="passportMember.length <= 0 || !(isCreatePdf || isRenewPassport)"
               variant="outline-primary"
@@ -102,8 +81,55 @@
             >
               {{ $i18n('group.member_list.passports.execute') }} ({{ passportMember.length }})
             </b-button>
-          </div>
-        </div>
+          </b-col>
+          <b-col cols="8">
+            <b-row>
+              <b-col>
+                <b-form-checkbox
+                  v-model="isCreatePdf"
+                  class="ml-2"
+                  size="sm"
+                  @change="setPassportSettingsToLocalStorage"
+                >
+                  {{ $i18n('group.member_list.passports.create_pdf') }}
+                </b-form-checkbox>
+              </b-col>
+              <b-col>
+                <b-form-checkbox
+                  v-if="isCreatePdf && passportMember.length === 1"
+                  v-model="usePaperSizeDinA4"
+                  class="ml-2"
+                  size="sm"
+                >
+                  {{ $i18n('group.member_list.passports.automatic_paper_size') }}
+                </b-form-checkbox>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col>
+                <b-form-checkbox
+                  v-model="isRenewPassport"
+                  class="ml-2"
+                  size="sm"
+                  @change="setPassportSettingsToLocalStorage"
+                >
+                  {{ $i18n('group.member_list.passports.active_or_renew_passport') }}
+                </b-form-checkbox>
+              </b-col>
+              <b-col>
+                <b-form-checkbox
+                  v-if="isRenewPassport"
+                  v-model="isInformUser"
+                  class="ml-2"
+                  size="sm"
+                  @change="setPassportSettingsToLocalStorage"
+                >
+                  {{ $i18n('group.member_list.passports.inform_user') }}
+                </b-form-checkbox>
+              </b-col>
+            </b-row>
+          </b-col>
+        </b-row>
       </b-tab>
     </b-tabs>
 
@@ -398,6 +424,7 @@ export default {
       mayRemoveAdminOrAmbassador: false,
       isCreatePdf: true,
       isRenewPassport: true,
+      isInformUser: true,
       passportFilterOptions: [
         { text: i18n('group.member_list.passports.filter_options.no_filter'), value: PASSPORT_FILTER_OPTIONS.NO_FILTER },
         { text: i18n('group.member_list.passports.filter_options.no_passport'), value: PASSPORT_FILTER_OPTIONS.NO_PASSPORT },
@@ -635,11 +662,13 @@ export default {
     }
     this.isCreatePdf = JSON.parse(localStorage.getItem('regionMemberList_createPdf')) ?? true
     this.isRenewPassport = JSON.parse(localStorage.getItem('regionMemberList_renewPassport')) ?? true
+    this.isInformUser = JSON.parse(localStorage.getItem('regionMemberList_informUser')) ?? true
   },
   methods: {
     setPassportSettingsToLocalStorage () {
       localStorage.setItem('regionMemberList_createPdf', this.isCreatePdf)
       localStorage.setItem('regionMemberList_renewPassport', this.isRenewPassport)
+      localStorage.setItem('regionMemberList_informUser', this.isInformUser)
     },
     toggleSelectAllTable () {
       this.selectAllTable = !this.selectAllTable
@@ -857,7 +886,7 @@ export default {
     async createPassports () {
       showLoader()
       try {
-        const response = await createPassportAsAmbassador(this.regionId, this.passportMember, this.isCreatePdf, this.isRenewPassport, this.usePaperSizeDinA4)
+        const response = await createPassportAsAmbassador(this.regionId, this.passportMember, this.isCreatePdf, this.isRenewPassport, this.isInformUser, this.usePaperSizeDinA4)
         if (this.isCreatePdf) {
           const filename = `fs_passports_${this.regionId}_${this.regionName}.pdf`
           this.downloadFile(response, filename)

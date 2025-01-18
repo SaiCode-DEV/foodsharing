@@ -20,7 +20,7 @@ export async function createPassportAsUser () {
   return await post('/user/current/passport', {}, { responseType: 'blob' })
 }
 
-export async function createPassportAsAmbassador (regionId, userIds, createPdf, renew, usePaperSizeDinA4) {
+export async function createPassportAsAmbassador (regionId, userIds, createPdf, renew, informUser, usePaperSizeDinA4) {
   const options = createPdf ? { responseType: 'blob' } : {}
-  return await post(`/region/${regionId}/passport`, { userIds, createPdf, renew, usePaperSizeDinA4 }, options)
+  return await post(`/region/${regionId}/passport`, { userIds, createPdf, renew, informUser, usePaperSizeDinA4 }, options)
 }

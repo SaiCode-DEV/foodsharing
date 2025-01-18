@@ -30,7 +30,11 @@ class CreateRegionPassportModel
     #[OA\Property(description: 'Flag to renew the passport', type: 'boolean')]
     #[Assert\NotNull]
     #[Assert\Type('boolean')]
-    public bool $renew;
+    public ?bool $renew = null;
+
+    #[OA\Property(description: 'Flag to create bell and mail', type: 'boolean')]
+    #[Assert\Type('boolean')]
+    public bool $informUser = true;
 
     #[OA\Property(description: 'Flag for automatic paper selection. If true, passport size is used for a single passport,
     DIN A4 for multiple. If false, DIN A4 is always used.', type: 'boolean')]

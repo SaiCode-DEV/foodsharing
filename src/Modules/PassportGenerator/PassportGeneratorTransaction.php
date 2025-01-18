@@ -313,7 +313,9 @@ class PassportGeneratorTransaction
             if (!empty(GOOGLE_WALLET_ISSUER_ID)) {
                 $this->updateGoogleWallet($userIds);
             }
-            $this->addBellAndSendPassportMail($userIds);
+            if ($regionPassportModel->informUser) {
+                $this->addBellAndSendPassportMail($userIds);
+            }
         }
 
         return $regionPassportModel->createPdf ? $result->pdf->Output('', 'S') : json_encode(['userIds' => $regionPassportModel->userIds]);

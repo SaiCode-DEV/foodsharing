@@ -14,6 +14,7 @@
 - Prevent autofil save form for adress !3740 @chriswalg
 - Frontend design changes in profile #1936 !3937 @McGoldi
 - Userstorage saved to Localstoage !3621 @SaiCode
+- Ambassadors can choose if user will be informed with bell and mail when creating ID cards #2313 !3995 @McGoldi
 - Update team Page (linking / design) !3999 @SaiCode
 
 ## Bugfixes
