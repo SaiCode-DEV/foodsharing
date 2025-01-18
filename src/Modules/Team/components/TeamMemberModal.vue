@@ -1,32 +1,36 @@
 <template>
   <b-modal
-    v-if="member"
     ref="teamMemberModal"
-    :title="member.name"
+    :title="member?.name"
     ok-only
     size="lg"
     modal-class="bootstrap"
     content-class="pr-3 pt-3"
     header-class="d-flex"
   >
-    <TeamMember :member="member" :show-name="false" />
+    <TeamMember
+      v-if="member"
+      :member="member"
+      :show-name="false"
+    />
   </b-modal>
-</template>`
+</template>
 
-<script>
-
+<script setup>
+import { ref, defineProps, defineExpose } from 'vue'
 import TeamMember from './TeamMember.vue'
 
-export default {
-  name: 'TeamMemberModal',
-  components: { TeamMember },
-  props: {
-    member: { type: Object, default: null },
-  },
-  methods: {
-    showModal () {
-      this.$refs.teamMemberModal.show()
-    },
-  },
+defineProps({
+  member: { type: Object, default: null },
+})
+
+const teamMemberModal = ref(null)
+
+const showModal = () => {
+  teamMemberModal.value?.show()
 }
+
+defineExpose({
+  showModal,
+})
 </script>

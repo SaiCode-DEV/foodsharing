@@ -14,6 +14,7 @@
 - Prevent autofil save form for adress !3740 @chriswalg
 - Frontend design changes in profile #1936 !3937 @McGoldi
 - Userstorage saved to Localstoage !3621 @SaiCode
+- Update team Page (linking / design) !3999 @SaiCode
 
 ## Bugfixes
 - Resolve "region filter bug on profile page: Blank screen when navigating store list" #2295 !3940 @chriswalg
