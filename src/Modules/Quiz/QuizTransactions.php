@@ -13,6 +13,7 @@ use Foodsharing\Modules\Core\DBConstants\Quiz\SessionStatus;
 use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Legal\LegalGateway;
+use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Quiz\DTO\ActiveQuestion;
 use Foodsharing\Modules\Quiz\DTO\Question;
 use Foodsharing\Modules\Quiz\DTO\Quiz;
@@ -20,6 +21,7 @@ use Foodsharing\Modules\Quiz\DTO\QuizSession;
 use Foodsharing\Modules\Quiz\DTO\QuizStatus;
 use Foodsharing\Modules\WallPost\WallPostGateway;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class QuizTransactions
 {
@@ -33,6 +35,7 @@ class QuizTransactions
         private readonly WallPostGateway $wallPostGateway,
         private readonly LegalGateway $legalGateway,
         private readonly AchievementTransactions $achievementTransactions,
+        private readonly MailboxGateway $mailboxGateway,
     ) {
     }
 
@@ -404,6 +407,7 @@ class QuizTransactions
             case QuizID::STORE_MANAGER->value:
                 $currentPrivacyNoticeVersion = $this->legalGateway->getPnVersion();
                 $this->legalGateway->agreeToPrivacyNotice($this->session->id(), $currentPrivacyNoticeVersion);
+                $this->createUserMailbox($this->session->id());
                 // no break
             case QuizID::FOODSAVER->value:
                 $this->foodsaverGateway->riseRole($foodsaverId, Role::from($quizId));
@@ -412,6 +416,32 @@ class QuizTransactions
                 return true;
             default:
                 return false;
+        }
+    }
+
+    /**
+     * Creates a new personal mailbox for a user who has passed the store manager quiz, if the user doesn't already have
+     * one.
+     */
+    private function createUserMailbox(int $userId): void
+    {
+        $user = $this->foodsaverGateway->getFoodsaverDetails($userId);
+        if ($user['mailbox_id'] === null) {
+            $firstName = explode(' ', $user['name'])[0];
+            $lastName = explode(' ', $user['nachname'])[0];
+
+            $mailboxName = mb_strtolower(substr($firstName, 0, 1) . '.' . $lastName);
+            $mailboxName = trim($mailboxName);
+            $mailboxName = str_replace(['ä', 'ö', 'ü', 'è', 'ß', ' '], ['ae', 'oe', 'ue', 'e', 'ss', '.'], $mailboxName);
+            $mailboxName = preg_replace('/[^0-9a-z\.]/', '', $mailboxName) ?? '';
+            $mailboxName = substr($mailboxName, 0, 25);
+
+            if ($mailboxName[0] === '.' || strlen($mailboxName) <= 3) {
+                throw new BadRequestHttpException('Could not create a personal mailbox with name "' . $mailboxName . '"');
+            }
+
+            $mailboxId = $this->mailboxGateway->createMailbox($mailboxName);
+            $this->foodsaverGateway->setPersonalMailboxId($userId, $mailboxId);
         }
     }
 

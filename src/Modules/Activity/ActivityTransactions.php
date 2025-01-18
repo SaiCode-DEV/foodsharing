@@ -11,7 +11,6 @@ use Foodsharing\Modules\Activity\DTO\ActivityUpdate;
 use Foodsharing\Modules\Activity\DTO\ActivityUpdateMailbox as MailboxUpdate;
 use Foodsharing\Modules\Activity\DTO\ImageActivityFilter;
 use Foodsharing\Modules\Buddy\BuddyTransactions;
-use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Mailbox\MailboxGateway;
@@ -66,8 +65,7 @@ class ActivityTransactions
         if ($boxes = $this->mailboxGateway->getBoxes(
             $this->currentUserUnits->isAmbassador(),
             $this->session->id(),
-            $this->session->mayRole(Role::STORE_MANAGER))
-        ) {
+        )) {
             $mailboxOptions = array_map(fn ($b) => ActivityFilter::create(
                 $b['id'], $b['name'] . '@' . PLATFORM_MAILBOX_HOST,
                 !isset($excluded['mailbox-' . $b['id']])
@@ -261,7 +259,6 @@ class ActivityTransactions
         $boxes = $this->mailboxGateway->getBoxes(
             $this->currentUserUnits->isAmbassador(),
             $this->session->id(),
-            $this->session->mayRole(Role::STORE_MANAGER)
         );
 
         if (empty($boxes)) {

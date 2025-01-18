@@ -1081,4 +1081,9 @@ class FoodsaverGateway extends BaseGateway
 
         return array_map(MapMarker::createFromArray(...), $markers);
     }
+
+    public function setPersonalMailboxId(int $userId, int $mailboxId): void
+    {
+        $this->db->update('fs_foodsaver', ['mailbox_id' => $mailboxId], ['id' => $userId]);
+    }
 }

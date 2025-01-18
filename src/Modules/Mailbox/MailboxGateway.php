@@ -290,7 +290,7 @@ class MailboxGateway extends BaseGateway
         return $this->db->fetchAllValuesByCriteria('fs_botschafter', 'bezirk_id', ['foodsaver_id' => $fsId]);
     }
 
-    public function getBoxes(bool $isAmbassador, ?int $fsId, bool $mayStoreManager): array
+    public function getBoxes(bool $isAmbassador, ?int $fsId): array
     {
         if ($fsId === null) {
             return [];
@@ -362,37 +362,6 @@ class MailboxGateway extends BaseGateway
             }
         }
 
-        $me = [];
-        try {
-            $me = $this->db->fetchByCriteria(
-                'fs_foodsaver',
-                ['mailbox_id', 'name', 'nachname'],
-                ['id' => $fsId]
-            );
-        } catch (Exception) {
-            // until now it does nothing, if no value is found
-        }
-        if ($mayStoreManager && $me && $me['mailbox_id'] == 0) {
-            $me['name'] = explode(' ', (string)$me['name']);
-            $me['name'] = $me['name'][0];
-
-            $me['nachname'] = explode(' ', (string)$me['nachname']);
-            $me['nachname'] = $me['nachname'][0];
-
-            $mb_name = mb_strtolower(substr($me['name'], 0, 1) . '.' . $me['nachname']);
-            $mb_name = trim($mb_name);
-            $mb_name = str_replace(['ä', 'ö', 'ü', 'è', 'ß', ' '], ['ae', 'oe', 'ue', 'e', 'ss', '.'], $mb_name);
-            $mb_name = preg_replace('/[^0-9a-z\.]/', '', $mb_name) ?? '';
-
-            $mb_name = substr($mb_name, 0, 25);
-
-            if ($mb_name[0] !== '.' && strlen($mb_name) > 3) {
-                $mb_id = $this->createMailbox($mb_name);
-                if ($this->db->update('fs_foodsaver', ['mailbox_id' => (int)$mb_id], ['id' => $fsId])) {
-                    $me['mailbox_id'] = $mb_id;
-                }
-            }
-        }
         if ($memberb = $this->db->fetchAll(
             '
 			SELECT 	mb.`name`,
@@ -473,9 +442,10 @@ class MailboxGateway extends BaseGateway
     }
 
     /**
-     * Creates a Mailbox for the user and returns its ID.
+     * Creates a Mailbox for the user and returns its ID. This function makes sure that the name does not exist yet
+     * or changes it to be unique.
      */
-    private function createMailbox(string $name): int
+    public function createMailbox(string $name): int
     {
         $amountOfMailboxesStartingWithName = $this->db->fetchValue(
             'SELECT COUNT(name) FROM fs_mailbox WHERE name LIKE :name',

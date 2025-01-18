@@ -36,7 +36,6 @@ class MailboxController extends FoodsharingController
         $boxes = $this->mailboxGateway->getBoxes(
             $this->currentUserUnits->isAmbassador(),
             $this->session->id(),
-            $this->session->mayRole(Role::STORE_MANAGER)
         );
 
         $mailboxIds = array_column($boxes, 'id');
