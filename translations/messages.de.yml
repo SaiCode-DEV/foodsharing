@@ -3883,6 +3883,26 @@ store_categories:
   confirm_delete_hint: 'Es sind noch {count} Betriebe dieser Kategorie zugeordnet. Diese Betriebe werden danach keine Kategorie mehr haben.'
   new: 'Neue Kategorie eintragen'
 
+contact_page:
+  bread: "Kontakt & Support"
+  title: "Kontakt & Support"
+  description: "Kontaktiere uns bitte über eine der folgenden Kontaktmöglichkeiten:"
+  common:
+    title: "Für organisatorische Anfragen"
+    link: "E-Mail schreiben"
+    text: "Wir leiten Dich gerne an die passende Ansprechpersonen – auch in foodsharing-Bezirken – weiter."
+    modal:
+      title: "E-Mail schreiben"
+      text: "Schreibe uns eine E-Mail an [{common_mail}](mailto:{common_mail}) (oder [{common_mail_ch}](mailto:{common_mail_ch}) für die Schweiz)."
+  support:
+    title: "Hilfe zur Webseite oder zu Deinem Account"
+    link: "Support-Portal"
+    text: "Hier findest du unsere Wissensdatenbank zu häufig gefragten oder aktuellen Themen. Wenn du dort nicht fündig wirst, kannst du gerne eine Anfrage als Ticket erstellen (Link oben rechts)."
+  regions:
+    title: "Ortsgruppen"
+    link: "zur Übersicht"
+    text: "Wenn du Fragen zu einem Bezirk hast, wende dich bitte direkt an die Ansprechpersonen des Bezirks."
+
 support_page:
   title: "Support-Formular"
   info_teaser: "Unser Support-Formular steht dir für Fragen zur Bedienung der Plattform, technische Anliegen oder Fehlermeldungen zur Verfügung. Nach dem Absenden wird automatisch ein Ticket in unserem System erstellt. Das ehrenamtliche Support-Team kümmert sich um deine Anfragen. Um besser auf technische Probleme eingehen zu können, ist in deiner Anfrage auch enthalten, welchen deine Browser und welches Betriebssystem du nutzt."

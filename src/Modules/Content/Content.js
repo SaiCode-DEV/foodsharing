@@ -11,6 +11,7 @@ import Communities from '@/views/pages/Content/Communities.vue'
 import ContentEdit from './components/ContentEdit.vue'
 import JoinInfo from './components/JoinInfo.vue'
 import ContentEntry from '@/components/Content/ContentEntry.vue'
+import ContactPage from './components/ContactPage.vue'
 import Partner from './components/Partner.vue'
 
 if (GET('sub') === 'releaseNotes') {
@@ -24,6 +25,9 @@ if (GET('sub') === 'releaseNotes') {
 } else if (GET('sub') === 'joininfo') {
   vueRegister({ JoinInfo })
   vueApply('#vue-join-info')
+} else if (GET('sub') === 'contact') {
+  vueRegister({ ContactPage })
+  vueApply('#vue-contact-page')
 } else if (document.getElementById('vue-content')) {
   vueRegister({
     ContentEntry,

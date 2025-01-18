@@ -164,6 +164,10 @@ const urls = {
   mailto_mail_foodsharing_network: (mail) => `mailto:${mail}@foodsharing.network`,
   mailto_mail: (mail) => `mailto:${mail}`,
 
+  // contact
+  contact_email_common: () => 'info@foodsharing.de',
+  contact_email_common_ch: () => 'info@foodsharingschweiz.ch',
+
   // helpdesk support
   helpdesk: () => 'https://support.foodsharing.network/kb',
   helpdesk_locked_email: () => 'https://support.foodsharing.network/help/de-de/4-e-mail/16-e-mail-sperre-im-profil',

@@ -21,7 +21,6 @@ class ContentController extends FoodsharingController
     private const array SUB_TO_ID = [
         'presse' => ContentId::PRESS,
         'forderungen' => ContentId::DEMANDS,
-        'contact' => ContentId::CONTACT,
         'academy' => ContentId::ACADEMY,
         'festival' => ContentId::FESTIVAL,
         'transparency' => ContentId::TRANSPARENCY,
@@ -130,6 +129,16 @@ class ContentController extends FoodsharingController
         $this->pageHelper->addTitle($this->translator->trans('startpage.join_rules'));
 
         $this->pageHelper->addContent($this->prepareVueComponent('vue-join-info', 'JoinInfo'));
+
+        return $this->renderGlobal();
+    }
+
+    public function contact(): Response
+    {
+        $this->pageHelper->addBread($this->translator->trans('contact_page.bread'));
+        $this->pageHelper->addTitle($this->translator->trans('contact_page.title'));
+
+        $this->pageHelper->addContent($this->prepareVueComponent('vue-contact-page', 'ContactPage'));
 
         return $this->renderGlobal();
     }

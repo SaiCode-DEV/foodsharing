@@ -61,7 +61,6 @@ class ContentId
     final public const int COMMUNITIES_AUSTRIA = 61;
     final public const int COMMUNITIES_SWITZERLAND = 62;
     final public const int DEMANDS = 60;
-    final public const int CONTACT = 73;
     final public const int ACADEMY = 69;
     final public const int FESTIVAL = 72;
     final public const int INTERNATIONAL = 74;

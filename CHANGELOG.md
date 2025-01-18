@@ -39,6 +39,7 @@
 - Removed props from the Vue components of region subpages #1838 !3948 @alex.simm
 - Fixed the bounding box of queries for nearby baskets and food share points #1857 !3916 @alex.simm
 - Refactored MapControl to bootstrap-vue !3987 @chriswalg
+- Refactored contact page to static vue page !3751 @chriswalg
 
 ## Dev/Test/CI stuff
 - Update dev docs Vue component integration to use prepareVueComponent !3910 @chriswalg
