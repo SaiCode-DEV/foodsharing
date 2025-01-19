@@ -100,7 +100,7 @@ export default {
           },
           {
             text: 'error.mail_activation.link_2',
-            urlShorthand: 'settings',
+            urlShorthand: 'settingsChangeEmail',
           }],
         })
       }

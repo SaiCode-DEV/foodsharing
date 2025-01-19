@@ -2518,12 +2518,6 @@ dashboard:
   source_store: "Betriebe {0}"
   activation_mail_sent: "Aktivierungslink verschickt – bitte prüfe deine E-Mails"
   activation_mail_failure: "Es konnte kein neuer Aktivierungslink verschickt werden"
-  mail_activation_error_body:
-    part_1: "Bitte bestätige deine E-Mail-Adresse, indem du auf den Link in der Aktivierungsmail klickst. Alternativ kannst du"
-    part_2: "hier eine neue Aktivierungsmail anfordern"
-    part_3: "oder"
-    part_4: "deine E-Mail-Adresse ändern"
-  mail_activation_error_title: "E-Mail-Adresse nicht bestätigt"
   homeRegion: "Dein Stammbezirk ist {region}."
   chooseHomeRegion: "Bitte wähle einen Stammbezirk aus."
   greeting_short: "Hallo {name}!"
@@ -3396,7 +3390,7 @@ error:
     link_2: "Ich benötige Hilfe"
   mail_activation:
     title: "E-Mail-Adresse nicht bestätigt!"
-    description: "Bitte bestätige deine E-Mail-Adresse, indem du auf den Link in der Aktivierungsmail klickst."
+    description: "Ab dem nächsten Release wird die Benutzung der Webseite nur noch mit bestätigter E-Mail-Adresse möglich sein. Bitte bestätige deine E-Mail-Adresse, indem du auf den Link in der Aktivierungsmail klickst."
     link_1: "Eine neue Aktivierungsmail anfordern"
     link_2: "E-Mail-Adresse ändern"
   missing_geolocation:
