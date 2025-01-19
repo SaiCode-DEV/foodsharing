@@ -2,8 +2,9 @@
   <Dropdown
     v-if="hasAdminPermissions"
     :title="$i18n('navigation.system_administration')"
-    class="is-open-on-mobile"
-    direction="right"
+    icon="fa-gear"
+    is-fixed-size
+    is-scrollable
   >
     <template #content>
       <a

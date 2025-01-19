@@ -1,14 +1,14 @@
 [
     {
+        "title": "navigation.promotion",
+        "url": "devdocs",
+        "isHighlighted": true
+    },
+    {
         "title": "navigation.map",
         "icon": "fas fa-map-marker-alt",
         "url": "map",
         "isRestricted": true
-    },
-    {
-        "title": "navigation.promotion",
-        "url": "devdocs",
-        "isHighlighted": true
     },
     {
         "title": "navigation.help_needed",

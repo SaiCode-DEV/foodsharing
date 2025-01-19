@@ -1,6 +1,7 @@
 <template>
   <div class="navbar-navside">
     <ul class="sidenav">
+      <MetaNavLoggedIn v-if="viewIsMobile" />
       <NavRegions v-if="isFoodsaver && viewIsMobile" />
       <NavGroups v-if="isFoodsaver && viewIsMobile" />
       <Link
@@ -13,7 +14,6 @@
       <NavNotifications v-if="!viewIsMobile" />
       <NavUser />
     </ul>
-    <MetaNavLoggedIn v-if="viewIsMobile" />
   </div>
 </template>
 

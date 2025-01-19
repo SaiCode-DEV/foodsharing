@@ -17,6 +17,7 @@
 - Ambassadors can choose if user will be informed with bell and mail when creating ID cards #2313 !3995 @McGoldi
 - Update team Page (linking / design) !3999 @SaiCode
 - Create a personal immediately after finishing the store manager quiz !3983 @alex.simm
+- Improved burger menu for mobile !3989 @chriswalg
 
 ## Bugfixes
 - Resolve "region filter bug on profile page: Blank screen when navigating store list" #2295 !3940 @chriswalg
