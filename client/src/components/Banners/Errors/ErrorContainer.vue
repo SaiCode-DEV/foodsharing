@@ -91,6 +91,7 @@ export default {
         })
       }
 
+      // TODO: this can be removed as soon as login without activation is not possible anymore
       if (!this.userStore.hasActiveEmail) {
         list.push({
           field: 'mail_activation',
