@@ -61,7 +61,7 @@ export default {
     margin-bottom: 0;
   }
   a {
-    word-break: break-word;
+    word-break: break-all;
   }
   code {
     word-break: break-all;
