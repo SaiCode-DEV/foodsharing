@@ -1,6 +1,6 @@
 <template>
   <ul class="mainnav">
-    <Logo v-if="viewIsMobile" />
+    <Logo v-if="mobile" />
     <Dropdown
       v-for="(category, idx) in mainNav"
       :key="idx"
@@ -33,25 +33,12 @@
   </ul>
 </template>
 
-<script>
-//
+<script setup>
 import MainNavData from '../../Data/MainNavData.json'
-//
 import Dropdown from '@/components/Navigation/_NavItems/NavDropdown'
 import Logo from '@/components/Navigation/Logo'
-// Mixins
-import MediaQueryMixin from '@/mixins/MediaQueryMixin'
+import { useMediaQuery } from '@/composables/useMediaQuery'
 
-export default {
-  components: {
-    Logo,
-    Dropdown,
-  },
-  mixins: [MediaQueryMixin],
-  data () {
-    return {
-      mainNav: MainNavData,
-    }
-  },
-}
+const { mobile } = useMediaQuery()
+const mainNav = MainNavData
 </script>

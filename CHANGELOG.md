@@ -42,6 +42,7 @@
 - Service worker moved to Google Workbox !3621 @SaiCode
 - Removed props from the Vue components of region subpages #1838 !3948 @alex.simm
 - Fixed the bounding box of queries for nearby baskets and food share points #1857 !3916 @alex.simm
+- Use composition api for mobile in Navigation !3988 @chriswalg
 - Refactored MapControl to bootstrap-vue !3987 @chriswalg
 - Refactored contact page to static vue page !3751 @chriswalg
 

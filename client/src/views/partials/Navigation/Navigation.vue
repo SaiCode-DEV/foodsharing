@@ -13,8 +13,8 @@
     <DonationModal v-if="!useRestrictedNavigation" />
     <PetitionBanner v-if="!useRestrictedNavigation" />
     <div class="metanav-container container">
-      <MetaNavLoggedIn v-if="!viewIsMobile && isLoggedIn" />
-      <MetaNavLoggedOut v-else-if="!viewIsMobile" />
+      <MetaNavLoggedIn v-if="!mobile && isLoggedIn" />
+      <MetaNavLoggedOut v-else-if="!mobile" />
     </div>
     <div v-if="!useRestrictedNavigation" class="container nav-container">
       <MainNavLoggedIn v-if="isLoggedIn" />
@@ -76,6 +76,7 @@ import PetitionBanner from '@/views/partials/TopBanner/Petition/PetitionBanner.v
 import { clearCaches } from '@/helper/cache'
 import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
 import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
+import { useMediaQuery } from '@/composables/useMediaQuery'
 
 const props = defineProps({
   regions: {
@@ -92,8 +93,8 @@ const userStore = useUserStore()
 const regionStore = useRegionStore()
 const basketStore = useBasketStore()
 
+const { mobile } = useMediaQuery()
 const navbar = ref(null)
-const viewIsMobile = ref(false)
 
 const isLoggedIn = computed(() => userStore.isLoggedIn)
 const isFoodsaver = computed(() => userStore.isFoodsaver)
