@@ -50,13 +50,12 @@ class UploadsRestController extends AbstractFoodsharingRestController
 
         $this->validateParameters($height, $width, $quality, $doResize);
 
-        try {
-            $mimetype = $this->uploadsGateway->getMimeType($uuid);
-        } catch (Exception) {
+        $file = $this->uploadsGateway->getUploadedFile($uuid);
+        if (is_null($file)) {
             throw new NotFoundHttpException('file not found');
         }
 
-        if (!$this->uploadsPermissions->mayAccessUpload($uuid)) {
+        if (!$this->uploadsPermissions->mayAccessUpload($file)) {
             throw new AccessDeniedHttpException('not allowed to download this file');
         }
 
@@ -67,7 +66,7 @@ class UploadsRestController extends AbstractFoodsharingRestController
 
         // resizing of images
         if ($doResize) {
-            if (!str_starts_with($mimetype, 'image/')) {
+            if (!str_starts_with($file->mimeType, 'image/')) {
                 throw new BadRequestHttpException('resizing only possible with images');
             }
 
@@ -89,9 +88,9 @@ class UploadsRestController extends AbstractFoodsharingRestController
         header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + self::EXPIRATION_TIME_SECONDS));
         header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 
-        $mime = explode('/', $mimetype);
+        $mime = explode('/', $file->mimeType);
         match ($mime[0]) {
-            'video', 'audio', 'image' => header('Content-Type: ' . $mimetype),
+            'video', 'audio', 'image' => header('Content-Type: ' . $file->mimeType),
             'text' => header('Content-Type: text/plain'),
             default => header('Content-Type: application/octet-stream'),
         };

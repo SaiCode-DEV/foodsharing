@@ -95,14 +95,6 @@ class RegionGateway extends BaseGateway
     /**
      * @return bool true when the given user is an admin/ambassador for the given group/region
      */
-    public function isAdmin(int $foodsaverId, int $regionId): bool
-    {
-        return $this->db->exists('fs_botschafter', ['bezirk_id' => $regionId, 'foodsaver_id' => $foodsaverId]);
-    }
-
-    /**
-     * @return bool true when the given user is an admin/ambassador for the given group/region
-     */
     public function isAmbassadorOfAtLeastOneRegion(int $foodsaverId): bool
     {
         return $this->db->fetchValue('SELECT COUNT(*)

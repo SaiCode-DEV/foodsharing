@@ -11,6 +11,7 @@ use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Region\RegionGateway;
+use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\WallPost\WallPostGateway;
 
 class WallPostPermissions
@@ -27,6 +28,7 @@ class WallPostPermissions
         private readonly QuizGateway $quizGateway,
         private readonly RegionPermissions $regionPermissions,
         private readonly Session $session,
+        private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
     }
 
@@ -90,7 +92,7 @@ class WallPostPermissions
         }
         switch ($target) {
             case WallType::WORKING_GROUP:
-                return $this->regionGateway->isAdmin($this->session->id(), $targetId);
+                return $this->currentUserUnits->isAdminFor($targetId);
             case WallType::REGION:
                 return $this->mayWriteWall($target, $targetId);
             case WallType::QUIZ_QUESTION:

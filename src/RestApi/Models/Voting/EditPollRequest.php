@@ -27,7 +27,7 @@ class EditPollRequest
         description: 'A new list of options for the poll, or null if the options should not be changed',
         type: 'array<string>'
     )]
-    #[Assert\Length(min: 1)]
+    #[Assert\Count(min: 1)]
     #[Assert\All(new Assert\NotBlank())]
     public ?array $options = null;
 }

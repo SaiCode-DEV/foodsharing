@@ -64,7 +64,7 @@ class VotingController extends FoodsharingController
                     );
                 }
             } elseif (isset($sub) && $sub === 'new' && isset($bid) && ($region = $this->regionGateway->getRegion($bid))
-                && $this->votingPermissions->mayCreatePoll($region['id'])) {
+                && $this->votingPermissions->mayCreatePoll($region['id'], $region['type'])) {
                 $this->pageHelper->addBread($region['name'], '/region?bid=' . $region['id']);
                 $this->pageHelper->addBread($this->translator->trans('terminology.polls'), '/region?bid=' . $region['id'] . '&sub=polls');
                 $this->pageHelper->addBread($this->translator->trans('polls.new_poll'));

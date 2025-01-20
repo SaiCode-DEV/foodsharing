@@ -219,18 +219,8 @@ class FoodsaverGateway extends BaseGateway
         ], [
             'id' => $fsId
         ]);
-        if ($fs) {
-            $fs['bezirk_name'] = '';
-            if ($fs['bezirk_id'] > 0) {
-                $fs['bezirk_name'] = $this->db->fetchValueByCriteria('fs_bezirk', 'name', [
-                    'id' => $fs['bezirk_id']
-                ]);
-            }
 
-            return $fs;
-        }
-
-        return [];
+        return $fs ?: [];
     }
 
     public function getFoodsaversWithoutAmbassadors(): array

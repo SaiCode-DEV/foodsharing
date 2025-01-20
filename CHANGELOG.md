@@ -47,6 +47,7 @@
 - Use composition api for mobile in Navigation !3988 @chriswalg
 - Refactored MapControl to bootstrap-vue !3987 @chriswalg
 - Refactored contact page to static vue page !3751 @chriswalg
+- Removed unnecessary database queries !4006 @alex.simm
 
 ## Dev/Test/CI stuff
 - Update dev docs Vue component integration to use prepareVueComponent !3910 @chriswalg

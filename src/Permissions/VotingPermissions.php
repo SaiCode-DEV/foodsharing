@@ -72,14 +72,16 @@ final readonly class VotingPermissions
         }
     }
 
-    public function mayCreatePoll(int $regionId): bool
+    public function mayCreatePoll(int $regionId, ?int $regionType = null): bool
     {
         if (!$this->currentUserUnits->mayBezirk($regionId) || !$this->session->isVerified()) {
             return false;
         }
 
-        $type = $this->regionGateway->getType($regionId);
-        if (UnitType::isGroup($type)) {
+        if (is_null($regionType)) {
+            $regionType = $this->regionGateway->getType($regionId);
+        }
+        if (UnitType::isGroup($regionType)) {
             return $this->currentUserUnits->isAdminFor($regionId);
         } else {
             $votingGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($regionId, WorkgroupFunction::VOTING);

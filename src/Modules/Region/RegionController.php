@@ -369,7 +369,7 @@ final class RegionController extends FoodsharingController
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.polls'), '/region?bid=' . $region['id'] . '&sub=polls');
         $this->pageHelper->addTitle($this->translator->trans('terminology.polls'));
-        $pageData['mayCreatePoll'] = $this->votingPermissions->mayCreatePoll($region['id']);
+        $pageData['mayCreatePoll'] = $this->votingPermissions->mayCreatePoll($region['id'], $region['type']);
 
         $params = $this->convertDataToObject($region, $request->query->get('sub'), $pageData);
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
