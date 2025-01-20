@@ -2086,13 +2086,15 @@ group:
       verify_selected: låse opp utvalgte
       automatic_paper_size: Bruk A4-papir
       create_pdf: lage PDF
-      execute: Utfør
+      execute: Utfør handling
       show_only_member_after: Vis kun medlemmer etter
       filter_options:
         no_filter: ingen filter
         no_passport: ingen medlemskort
         with_passport: med medlemskort
         invalid_passport: ugyldig medlemskort
+      already_verified: Alle valgte brukere er allerede verifisert
+      inform_user: med varsel
     all_roles: alle roller
   saved: Endringene har blitt lagret
   subtitle: her kan du finne hjelp og mye å gjøre …
@@ -3907,7 +3909,9 @@ error:
   mail_activation:
     link_2: Endre e-postadresse
     title: E-postadresse er ikke bekreftet!
-    description: Vennligst bekreft e-postadressen din ved å klikke på lenken i aktiverings-e-posten.
+    description: Fra neste utgivelse og utover kan nettsiden kun brukes med en bekreftet
+      e-postadresse. Vennligst bekreft e-postadressen din ved å klikke på lenken i
+      aktiverings-e-posten.
     link_1: Be om en ny aktiverings-e-post
   invalid_mobile_phonenumber:
     description: Dessverre er mobilnummeret i et format som ikke kan ringes.
@@ -4478,3 +4482,42 @@ navi:
   no_native_app: Geokoblinger støttes ikke av denne enheten.
   gdpr_warning: Når du navigerer med {provider}, blir adressen overført til tjenesten
     deres, og du blir omdirigert til nettstedet deres. Er du enig i dette?
+contact_page:
+  bread: Kontakt og støtte
+  common:
+    link: Skriv en e-post
+    modal:
+      title: Skriv en e-post
+      text: Send oss en e-post til [{common_mail}](mailto:{common_mail}) (eller [{common_mail_ch}](mailto:{common_mail_ch})
+        for Sveits).
+    text: Vi henviser deg gjerne til den rette kontaktpersonen – også i distriktene.
+    title: For organisatoriske henvendelser
+  support:
+    title: Hjelp med nettstedet eller kontoen din
+    link: Støtteportal
+    text: Her finner du vår kunnskapsdatabase om ofte stilte eller aktuelle emner.
+      Hvis du ikke finner det du leter etter der, kan du gjerne opprette en forespørsel
+      som en støttebillett (lenke øverst til høyre).
+  regions:
+    title: Lokale grupper
+    link: til oversikt
+    text: Hvis du har spørsmål om et distrikt, ta kontakt med distriktets kontaktperson
+      direkte.
+  description: 'Ta kontakt med oss ved hjelp av ett av følgende kontaktalternativer:'
+  title: Kontakt og støtte
+required_messages:
+  verify:
+    really_multiple: Vil du virkelig bekrefte {count} brukere? Sørg for at alle {count}
+      personene oppfyller alle [kravene å være en verifisert 
+      matsparer](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).
+    main: vi har bekreftet deg som matsparer!
+    footer: Med vennlig hilsen, deres ambassadører
+    really: Vil du virkelig bekrefte {name}? Sørg for at {name} oppfyller alle [kravene
+      for å være en verifisert 
+      matsparer](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).
+  sure_title: Er du sikker?
+  message_info: '{name} vil motta følgende melding:'
+  message_info_multiple: 'Hver person vil motta følgende melding:'
+  name_placeholder: <Navn>
+  placeholder: Legg eventuelt til informasjon her …
+  save_message: Lagre meldingen min for fremtidig bruk
