@@ -11,7 +11,7 @@ class PublicRegionData
     public int $id;
     public string $name;
     public int $type;
-    public ?string $description;
+    public string $description;
     public ?string $email;
     public bool $hasAmbassador;
     public ?GeoLocation $location;
@@ -38,7 +38,7 @@ class PublicRegionData
         $region->id = $data['id'];
         $region->name = $data['name'];
         $region->type = $data['type'];
-        $region->description = $data['desc'];
+        $region->description = $data['desc'] ?? '';
         if ($data['status'] === RegionPinStatus::ACTIVE) {
             $region->location = GeoLocation::createFromArray($data, false);
         }

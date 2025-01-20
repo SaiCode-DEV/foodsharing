@@ -53,11 +53,6 @@ final class RegionController extends FoodsharingController
         return $this->workGroupPermissions->mayEdit($group);
     }
 
-    private function isHomeDistrict(int $regionId): bool
-    {
-        return $regionId === $this->currentUserUnits->getCurrentRegionId();
-    }
-
     /**
      * Fetches the admins of this group and, in case of a region, of all working groups with special functions.
      *
@@ -114,7 +109,6 @@ final class RegionController extends FoodsharingController
             'name' => $this->region['name'],
             'moderated' => $this->region['moderated'],
             'isWorkGroup' => $isWorkGroup,
-            'isHomeDistrict' => $this->isHomeDistrict($region['id']),
             'isRegion' => !UnitType::isGroup($region['type']),
             'foodSaverCount' => $this->region['fs_count'],
             'foodSaverHomeDistrictCount' => $this->region['fs_home_count'],
@@ -198,13 +192,7 @@ final class RegionController extends FoodsharingController
             case 'options':
                 return $this->options($request, $region);
             case 'pin':
-                if (!$this->regionPermissions->maySetRegionPin($region_id) || UnitType::isGroup($region['type'])) {
-                    $this->flashMessageHelper->info($this->translator->trans('region.restricted'));
-
-                    return $this->redirect($this->forumTransactions->url($region_id, false));
-                }
-
-                return $this->pin($request, $region);
+                return $this->redirect('/region/' . $region_id);
             case 'achievements':
                 return $this->achievements($request, $region);
             default:
@@ -231,6 +219,18 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addContent($this->prepareVueComponent('public-region-page', 'PublicRegionPage', ['id' => $id]));
 
         return $this->renderGlobal();
+    }
+
+    #[Route(path: '/region/{regionMail}', name: 'regionPublicByName', requirements: ['regionMail' => '[a-zA-Z][a-zA-Z0-9.\-_]+[a-zA-Z0-9]'])]
+    public function regionPublicByMail(string $regionMail): Response
+    {
+        try {
+            $id = $this->regionGateway->getRegionIdByMail($regionMail);
+
+            return $this->regionPublic($id);
+        } catch (\Throwable $th) {
+            return $this->redirect('/');
+        }
     }
 
     #[Route('/regions/edit')]
@@ -399,18 +399,6 @@ final class RegionController extends FoodsharingController
         $pageData['reportReasonOtherEnabled'] = boolval($regionOptions[RegionOptionType::REPORT_REASON_OTHER] ?? 1);
 
         $params = $this->convertDataToObject($region, $request->query->get('sub'), $pageData);
-
-        $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
-
-        return $this->renderGlobal();
-    }
-
-    private function pin(Request $request, array $region): Response
-    {
-        $this->pageHelper->addBread($this->translator->trans('terminology.pin'), '/region?bid=' . $region['id'] . '&sub=pin');
-        $this->pageHelper->addTitle($this->translator->trans('terminology.pin'));
-
-        $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
 
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 

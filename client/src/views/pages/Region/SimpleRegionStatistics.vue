@@ -1,19 +1,21 @@
 <template>
-  <Container :title="$i18n('statistics.title')" tag="publicRegionStatistics">
+  <Container
+    :title="$i18n('statistics.lastMonth')"
+    tag="publicRegionStatistics"
+  >
     <div
       v-for="(value, key) of statistics"
       :key="key"
       class="list-group-item py-2 px-2 d-flex"
     >
-      <b-badge
-        variant="success"
-        pill
-        class="stat-badge mr-2"
-      >
-        <i :class="`fas fa-${statIcons[key]}`" />
-        <span class="stat-value" v-text="value + (key === 'savedFoodKgLastMonth' ? ' kg' : '')" />
-      </b-badge>
-      <span class="stat-desc" v-text="$i18n(`statistics.region_public.${key}`)" />
+      <span class="fa-stack text-secondary mr-2" style="font-size: 1.75em;">
+        <i class="fas fa-circle fa-stack-2x" />
+        <i :class="`fa-${statIcons[key]}`" class="fas fa-stack-1x fa-inverse" />
+      </span>
+      <span class="stat-desc">
+        <h4 class="my-0" v-text="formatNumber(value, key === 'savedFoodKgLastMonth' ? 'kg' : '')" />
+        <span v-text="$i18n(`statistics.region_public.${key}`)" />
+      </span>
     </div>
   </Container>
 </template>
@@ -35,6 +37,25 @@ export default {
       foodBasketsLastMonth: 'shopping-basket',
     },
   }),
+  methods: {
+    formatNumber (number, unit = '') {
+      if (unit === 'kg' && number >= 1000) {
+        return this.formatNumber(number / 1000, 't')
+      }
+      if (!number) {
+        return '0'
+      }
+      const separator = '\u202F'
+      unit = separator + unit
+      if (number >= 1_000_000) {
+        return this.formatNumber(number / 1_000_000) + separator + 'Mio.' + unit
+      } else if (number < 100) {
+        return number.toFixed(2 - Math.floor(Math.log10(number))).replace('.', ',').replace(/,0+$/, '') + unit
+      } else {
+        return number.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, separator) + unit
+      }
+    },
+  },
 }
 </script>
 <style scoped>

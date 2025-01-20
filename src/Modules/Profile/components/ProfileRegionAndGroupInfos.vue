@@ -40,7 +40,7 @@
       </h5>
       <div class="d-inline d-flex flex-wrap flex-row">
         <div class="sectionClass">
-          <a :href="$url('region', homeRegionId)" v-text="homeRegionName" />
+          <a :href="$url('publicRegion', homeRegionId)" v-text="homeRegionName" />
           <span v-if="homeDistrictHistory.changerFullName">
             ({{ $i18n('profile.homeDistrictHistory.changed') }}
             {{ $dateFormatter.date(homeDistrictHistory.date, {type: 'full'}) }}
@@ -48,7 +48,7 @@
             <a :href="$url('profile', homeDistrictHistory.changerId)" v-text="homeDistrictHistory.changerFullName" /><!--
          --><span v-if="homeDistrictHistory.previousRegionId">,
               {{ $i18n('profile.homeDistrictHistory.previous') }}
-              <a :href="$url('region', homeDistrictHistory.previousRegionId)" v-text="homeDistrictHistory.previousRegionName" />
+              <a :href="$url('publicRegion', homeDistrictHistory.previousRegionId)" v-text="homeDistrictHistory.previousRegionName" />
             </span>)
           </span>
         </div>
@@ -64,7 +64,7 @@
           <a
             v-for="(item, index) in section.value"
             :key="item.id"
-            :href="$url('region', item.id)"
+            :href="$url('publicRegion', item.id)"
             class="sectionClass"
           >
             {{ item.name }}<span v-if="index !== section.value.length - 1">,</span>

@@ -835,7 +835,6 @@ terminology:
   polls: "Abstimmungen"
   buddies: "Bekannte"
   options: "Optionen"
-  pin: "Ortsgruppenbeschreibung"
   achievement: "Sticker"
   achievements: "Sticker"
   phone: "Telefonnummer"
@@ -846,16 +845,16 @@ terminology:
   sent: "Gesendete"
 
 statistics:
-  title: "Statistiken"
+  lastMonth: "Statistiken der letzten 30 Tage"
   kg_food_saved: "{count} kg Lebensmittel gerettet"
   num_fetches: "Bei {count} Rettungseinsätzen"
   region_public:
-    pickupsLastMonth: Lebensmittelrettungen im letzten Monat
-    savedFoodKgLastMonth: Lebensmittel gerettet im letzten Monat
+    pickupsLastMonth: Lebensmittelrettungen
+    savedFoodKgLastMonth: Lebensmittel gerettet
     activeHomeRegionFoodsavers: Aktive Foodsaver:innen
     activeCoorporations: Aktive Betriebskooperationen
     activeFoodSharePoints: Aktive Fairteiler
-    foodBasketsLastMonth: Verteilte Essenskörbe im letzten Monat
+    foodBasketsLastMonth: Verteilte Essenskörbe
   food_saved: Lebensmittel gerettet
 
 are_you_sure: "Bist du sicher?"
@@ -1896,14 +1895,6 @@ regionOptions:
   regionPickupRuleActiveStoreList: "Liste der Betriebe im Bezirk, die für die Rosinen-Regel berücksichtigt werden. Alle Abholungen der aufgelisteten Betriebe werden zusammengezählt und für die Regel berücksichtigt."
   noPickupRuleActiveStores: "Aktuell ist die Rosinen-Regel für keinen Betrieb im Bezirk aktiviert."
 
-regionPin:
-  header_page: "Öffentliche Ortsgruppenbeschreibung für {bezirk}"
-  desc: "Beschreibung"
-  success: "Erfolgreich gespeichert"
-  save: "speichern"
-  text_desc: "Hier bitte eine kurze Beschreibung der Ortsgruppe und eine Kontaktmöglichkeit angeben. Diese wird im Popup des Pins auf der Karte angezeigt …"
-  pin_visible: "Pin auf Karte sichtbar"
-
 foodsaver:
   bread: "Alle Foodsaver"
   title: "Foodsaver"
@@ -1970,7 +1961,7 @@ content:
     title: Ortsgruppen
     text: foodsharing wächst täglich. Hier findet ihr immer eine aktuelle Liste aller foodsharing-Gemeinschaften und Bezirke. Du kannst zu jedem Bezirk mehr Informationen auf der verlinkten öffentlichen Bezirksseite bekommen, oder direkt von hier eine Mail an den entsprechenden Bezirk schicken, indem du auf das Icon klickst.
     searchInfo: Mit Strg+F kann die Liste in vielen Browsern nach Ländern, Städten, Bundesländern oder Stadtteilen durchsucht werden.
-    noAmbassador: Diese Region hat aktuell keine Botschafter:innen und ist daher aktuell nicht per Mail erreichbar. Bitte kontaktiere eine benachbarte oder die nächsthöhere Region.
+    noAmbassador: Dieser Bezirk hat aktuell keine Botschafter:innen und ist daher aktuell nicht per Mail erreichbar. Bitte kontaktiere einen benachbarten oder den nächsthöheren Bezirk.
   error_loading: 'Inhalt konnte nicht geladen werden'
 
 map:
@@ -2761,7 +2752,6 @@ menu:
     friendcircle: "Freundeskreis"
     language: "Sprache wählen"
     options: "Optionen"
-    pin: "Ortsgruppenbeschreibung"
     applications: "Bewerbungen ({count})"
     public: "Öffentliche Bezirksseite"
   bell:
@@ -2909,13 +2899,35 @@ region:
   allow_hiding_in_forum: "Moderator:innen die Löschung von Forenbeiträgen erlauben"
   public:
     children: "Bezirke in {name} ({count})"
-    join: "Beitreten"
+    join: "Bezirk beitreten"
     join_name: "{name} beitreten"
+    join_text: "Möchtest du in {name} aktiv werden? Dann kannst du diesem Bezirk beitreten!"
+    leave: "Bezirk verlassen"
+    leave_name: "{name} verlassen"
+    leave_text: "Bist du nicht mehr in {name} aktiv? Dann solltest du diesen Bezirk verlassen."
     description: "Über den Bezirk"
     no_more_info: "Über diesen Bezirk stehen keine weiteren Infos öffentlich zur Verfügung."
     wall: "Updates aus dem Bezirk"
     confirm_entering: "Möchtest du dem Bezirk {name} beitreten? Die Botschafter:innen erhalten damit Zugriff auf dein Profil."
+    confirm_leaving: "Möchtest du dem Bezirk {name} beitreten? Die Botschafter:innen erhalten damit Zugriff auf dein Profil."
+    show_on_large_map: "Auf der großen Karte ansehen"
 
+    continue_editing: "Weiter bearbeiten"
+    discard_changes: "Änderungen verwerfen"
+    desc:
+      edit: "Bezirksbeschreibung bearbeiten"
+      confirm_discard_changes: "Möchtest du deine Änderungen an der Bezirksbeschreibung wirklich verwerfen?"
+      confirm_save_changes: "Sollen deine Änderungen an der Bezirksbeschreibung  gespeichert werden? Die neue Beschreibung ist dann öffentlich auf der Bezirksseite sichtbar."
+      missing: "Dieser Bezirk hat aktuell keinen Beschreibungstext. Du hast die Berechtigung, jetzt einen Beschreibungstext zu schreiben."
+    map:
+      missing: "Dieser Bezirk wird aktuell nicht auf der Karte angezeigt, und hat auch keine Fairteiler, die hier angezeigt werden könnten. Du hast die Berechtigung, jetzt einen Bezirkspin zu setzen."
+      set_pin: "Bezirkspin auf der Karte eintragen"
+      hide_pin: "Bezirkspin entfernen"
+      edit_pin: "Bezirkspin bearbeiten"
+
+      confirm_discard_changes: "Möchtest du deine Änderungen am Bezirks-Pin wirklich verwerfen?"
+      confirm_save_changes: "Sollen deine Änderungen am Bezirks-Pin  gespeichert werden? Der neue Pin ist dann öffentlich auf der Bezirksseite und der Karte sichtbar."
+      confirm_remove: "Möchtest du den Bezirks-Pin wirklich entfernen? Dieser Bezirk wird dann nicht mehr auf der Karte angezeigt."
   denied:
     this_region: "Du hast versucht auf Inhalte dieses Bezirks zuzugreifen. Allerdings haben nur Mitglieder des Bezirks Zugriff darauf."
     some_group: "Du hast versucht auf Inhalte der Arbeitsgruppe \"{name}\" zuzugreifen. Allerdings haben nur Mitglieder der Gruppe Zugriff darauf."

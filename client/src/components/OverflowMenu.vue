@@ -8,7 +8,7 @@
     :class="[floatRight ? 'float-right' : '', `${variant}-variant`]"
   >
     <template #button-content>
-      <i class="fas fa-ellipsis-v" />
+      <i :class="`fas fa-${icon}`" />
     </template>
     <b-dropdown-item
       v-for="(option, i) in activeOptions"
@@ -16,7 +16,7 @@
       :href="option.href"
       @click.stop="() => option.callback?.(...callbackArgs) ?? null"
     >
-      <i :class="`fas fa-${option.icon} dropdown-icon`" />
+      <i :class="`fas fa-${option.icon} dropdown-icon mr-1`" />
       {{ $i18n(option.textKey) }}
     </b-dropdown-item>
   </b-dropdown>
@@ -29,6 +29,7 @@ export default {
     callbackArgs: { type: Array, default: () => [] },
     floatRight: { type: Boolean, default: true },
     variant: { type: String, default: 'dark' },
+    icon: { type: String, default: 'ellipsis-v' },
   },
   computed: {
     activeOptions () {

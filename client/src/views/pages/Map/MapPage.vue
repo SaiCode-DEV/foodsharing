@@ -63,10 +63,12 @@ export default {
   },
   props: {
     center: { type: Object, default: null },
+    initialZoom: { type: Number, default: null },
     maySeeStores: { type: Boolean, default: false },
     selectedStoreId: { type: Number, default: null },
     selectedFoodSharePointId: { type: Number, default: null },
     ambassadorRegions: { type: Array, default: () => [] },
+    loadMarkers: { type: String, default: null }, // Comma-separated list of additionally loaded marker types
   },
   setup () {
     return {
@@ -116,6 +118,12 @@ export default {
     this.storage = new Storage('map')
     this.selectedTypes = this.storage.get('selectedTypes', this.selectedTypes)
 
+    // Additionally load marker types given in loadMarkers prop
+    const missingTypes = this.loadMarkers.split(',').filter(type =>
+      Object.keys(MARKER_TYPES).includes(type) && !this.selectedTypes.includes(type),
+    )
+    this.selectedTypes.push(...missingTypes)
+
     const saved = this.storage.get('selectedSpecifiers', this.selectedSpecifiers)
     if (!(saved instanceof Array)) { // Don't load data saved in the old format
       this.selectedSpecifiers = saved
@@ -149,6 +157,10 @@ export default {
       // 3. Fall back to the default location and zoom
       this.currentCenter = { lat: MAP_CONSTANTS.CENTER_GERMANY_LAT, lon: MAP_CONSTANTS.CENTER_GERMANY_LON }
       this.currentZoom = MAP_CONSTANTS.ZOOM_COUNTRY
+    }
+    if (this.initialZoom && this.initialZoom >= 1) {
+      // 4. allow zoom override
+      this.currentZoom = this.initialZoom
     }
 
     // Load and draw all markers that are initially selected

@@ -4,7 +4,7 @@
 - Added a custom error page #1559 #526 !3117 !3952 @\_fridtjof_ @SaiCode
 - More detailed redirect information when trying to access pages of a region you are not a member of. #1006 !3835 @AntonBallmaier
 - Add navigation buttons for Maps, Waze & more navigaion providers #2301 !3953 !3960 @SaiCode
-- Added a public region page that is accessible without being logged in or member of the region. #1006 !3835 @AntonBallmaier
+- Added a public region page that is accessible without being logged in or member of the region. #1006 #2308 !3835 !3991 @AntonBallmaier
 - Add components for required messages on special actions. Used them when verifying users #1715 !3776 @AntonBallmaier
 
 ## Changes

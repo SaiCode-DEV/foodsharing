@@ -20,6 +20,7 @@
           :title="tooltipKey"
         />
       </slot>
+      <slot name="options" />
       <i
         v-if="collapsible"
         :id="`expand-${title}`"

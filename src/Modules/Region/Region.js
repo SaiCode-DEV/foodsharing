@@ -7,7 +7,7 @@ import RegionPage from './components/RegionPage'
 import RegionsAdmin from '@/views/pages/Region/RegionsAdmin.vue'
 import PublicRegionPage from '@/views/pages/Region/PublicRegionPage.vue'
 
-if (/^\/region\/\d+/.test(location.pathname)) {
+if (/^\/region\/[^/?]+/.test(location.pathname)) {
   vueRegister({ PublicRegionPage })
   vueApply('#public-region-page')
 } else if (/^\/region(?!\w)/.test(location.pathname)) {

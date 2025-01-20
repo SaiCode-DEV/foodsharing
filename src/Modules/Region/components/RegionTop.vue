@@ -1,6 +1,6 @@
 <template>
   <b-alert show>
-    <a :href="$url('forum', regionId)"><h4>{{ name }}</h4></a>
+    <a :href="$url('publicRegion', regionId)"><h4>{{ name }}</h4></a>
     <div class="regionTopClass">
       {{ $i18n('terminology.n_foodsaver', {count: foodSaverCount}) }},
       <span v-if="!isWorkGroup">{{ $i18n('terminology.n_home_regions', {count: foodSaverHomeDistrictCount}) }},</span>

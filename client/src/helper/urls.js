@@ -62,15 +62,20 @@ const urls = {
   },
   mailboxMailto: (email) => `/mailbox?mailto=${email}`,
   mailboxOldAttachment: (emailId, attachmentIndex) => `/mailbox?a=dlattach&mid=${emailId}&i=${attachmentIndex}`,
-  map: ({ storeId = null, foodSharePointId = null, markers = null } = {}) => {
+  map: ({ storeId = null, foodSharePointId = null, markers = null, center = null, zoom = null } = {}) => {
     const params = []
     if (storeId) {
       params.push(`bid=${storeId}`)
     } else if (foodSharePointId) {
       params.push(`fspId=${foodSharePointId}`)
+    } else if (center) {
+      params.push(`lat=${center.lat}&lon=${center.lon}`)
     }
     if (markers?.length > 0) {
       params.push(`loadMarkers=${markers}`)
+    }
+    if (zoom !== null) {
+      params.push(`zoom=${zoom}`)
     }
     return '/karte' + (params.length > 0 ? '?' + params.join('&') : '')
   },
@@ -82,7 +87,6 @@ const urls = {
   pollEdit: (pollId) => `/poll?id=${pollId}&sub=edit`,
   press: () => '/content?sub=presse',
   regionAdmin: () => '/regions/edit',
-  region: (regionId) => regionId ? `/region?bid=${regionId}` : '/?page=region',
   publicRegion: (regionId) => `/region/${regionId}`,
   releaseNotes: () => '/content?sub=releaseNotes',
   violations: (fsId) => `/report/user/${fsId}`,

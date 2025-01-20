@@ -50,7 +50,6 @@
             </b-badge>
           </h6>
           <span
-            :href="$url('forum', entry.region_id)"
             class="d-block small text-muted text-truncate"
             v-text="entry.regionName"
           />

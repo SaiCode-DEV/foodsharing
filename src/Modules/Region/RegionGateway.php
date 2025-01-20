@@ -560,19 +560,31 @@ class RegionGateway extends BaseGateway
     }
 
     /**
-     * Updates the values of a region's map marker.
+     * Updates the given values of a region's map marker.
      *
      * @param int $status see {@link RegionPinStatus}
      */
-    public function setRegionPin(int $regionId, string $lat, string $lon, string $desc, int $status): void
+    public function setRegionPin(?int $regionId, ?string $lat, ?string $lon, ?string $desc, ?int $status): void
     {
-        $this->db->insertOrUpdate('fs_region_pin', [
-            'region_id' => $regionId,
-            'lat' => $lat,
-            'lon' => $lon,
-            'desc' => $desc,
-            'status' => $status
-        ]);
+        if (!is_null($lat)) {
+            $this->db->insertOrUpdate('fs_region_pin', [
+                'region_id' => $regionId,
+                'lat' => $lat,
+                'lon' => $lon,
+            ]);
+        }
+        if (!is_null($desc)) {
+            $this->db->insertOrUpdate('fs_region_pin', [
+                'region_id' => $regionId,
+                'desc' => $desc,
+            ]);
+        }
+        if (!is_null($status)) {
+            $this->db->insertOrUpdate('fs_region_pin', [
+                'region_id' => $regionId,
+                'status' => $status,
+            ]);
+        }
     }
 
     public function hasSubgroups(int $regionId): bool
@@ -766,7 +778,7 @@ class RegionGateway extends BaseGateway
             FROM fs_bezirk_closure c
             JOIN fs_bezirk r ON r.id = c.bezirk_id
             WHERE c.ancestor_id = :id AND depth = 1 AND r.type != :workingGroupType
-            ORDER BY r.name DESC
+            ORDER BY r.name ASC
         ', ['id' => $regionId, 'workingGroupType' => UnitType::WORKING_GROUP]);
 
         return array_map(fn ($region) => MinimalRegionIdentifier::create($region['id'], $region['name']), $children);
@@ -784,7 +796,7 @@ class RegionGateway extends BaseGateway
             JOIN fs_abholer a ON a.betrieb_id = s.id
             JOIN fs_fetchweight w ON w.id = s.abholmenge
             WHERE c.ancestor_id = :id
-            AND a.date >= (NOW() - INTERVAL 1 MONTH) AND a.date < NOW()
+            AND a.date >= (NOW() - INTERVAL 30 DAY) AND a.date < NOW()
         ', ['id' => $regionId]);
         $stats->pickupsLastMonth = $pickupData['count'];
         $stats->savedFoodKgLastMonth = intval(round($pickupData['weight']));
@@ -795,7 +807,7 @@ class RegionGateway extends BaseGateway
             JOIN fs_foodsaver fs ON fs.bezirk_id = c.bezirk_id
             WHERE c.ancestor_id = :id
             AND fs.deleted_at IS NULL
-            AND fs.last_login > NOW() - INTERVAL 2 MONTH
+            AND fs.last_login > NOW() - INTERVAL 30 DAY
             AND fs.verified = 1
         ', ['id' => $regionId]);
 
@@ -823,9 +835,17 @@ class RegionGateway extends BaseGateway
             FROM fs_bezirk_closure c
             JOIN fs_basket b ON b.bezirk_id = c.bezirk_id
             WHERE c.ancestor_id = :id
-            AND b.time >= (NOW() - INTERVAL 1 MONTH) AND b.time < NOW()
+            AND b.time >= (NOW() - INTERVAL 30 DAY) AND b.time < NOW()
         ', ['id' => $regionId]);
 
         return $stats;
+    }
+
+    public function getRegionIdByMail(string $mailboxName): int
+    {
+        return (int)$this->db->fetchValue('SELECT region.id
+            FROM fs_bezirk region
+            JOIN fs_mailbox mailbox ON mailbox.id = region.mailbox_id
+            WHERE mailbox.name = ?', [$mailboxName]);
     }
 }

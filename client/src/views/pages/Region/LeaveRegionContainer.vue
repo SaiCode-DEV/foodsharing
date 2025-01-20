@@ -1,14 +1,18 @@
 <template>
   <div>
     <Container
-      :title="$i18n('group.quit')"
-      class="bg-white"
+      :title="$i18n('region.public.leave_name', { name })"
+      tag="publicRegionLeave"
+      :container-is-expanded="false"
     >
-      <p class="p-2">
-        <b-link @click="$refs['remove-region-modal'].show()">
-          {{ isWorkGroup ? $i18n('group.quit_name_workgroup', { name: name }) : $i18n('group.quit_name_district', { name: name }) }}
-        </b-link>
-      </p>
+      <div class="list-group-item" v-text="$i18n('region.public.leave_text', { name })" />
+      <ContainerButton
+        variant="danger"
+        text-key="region.public.leave"
+        icon="fas fa-user-slash"
+        :disabled="loading"
+        @click="$refs['remove-region-modal'].show()"
+      />
     </Container>
     <b-modal
       ref="remove-region-modal"
@@ -44,19 +48,22 @@ import Container from '@/components/Container/Container.vue'
 import { leaveRegion } from '@/api/regions'
 import { HTTP_RESPONSE } from '@/consts'
 import { pulseError } from '@/script'
+import ContainerButton from '@/components/Container/ContainerButton.vue'
+import { useUserStore } from '@/stores/user'
 
+const userStore = useUserStore()
 export default {
-  components: { Container },
+  components: { Container, ContainerButton },
   props: {
     regionId: { type: Number, required: true },
     name: { type: String, required: true },
-    isWorkGroup: { type: Boolean, required: true },
-    isHomeDistrict: { type: Boolean, required: true },
+    isWorkGroup: { type: Boolean, default: false },
   },
   data () {
     return {
       countdown: 5,
       interval: null,
+      loading: false,
     }
   },
   computed: {
@@ -64,11 +71,14 @@ export default {
       switch (true) {
         case this.isWorkGroup:
           return 'group.quit_name_workgroup'
-        case this.isHomeDistrict:
+        case this.isHomeRegion:
           return 'group.quitting_home_district_warning'
         default:
           return 'group.really_quit_district'
       }
+    },
+    isHomeRegion () {
+      return userStore.getHomeRegion === this.regionId
     },
   },
   methods: {
@@ -76,7 +86,7 @@ export default {
       if (this.interval) {
         clearInterval(this.interval)
       }
-      if (this.isHomeDistrict) {
+      if (this.isHomeRegion) {
         this.countdown = 30
       } else {
         this.countdown = 5
@@ -90,8 +100,10 @@ export default {
     },
     async removeMeFromRegion () {
       try {
+        this.loading = true
         await leaveRegion(this.regionId)
-        window.location.href = this.$url('dashboard')
+        const redirectLocation = location.href.substring(location.origin.length)
+        location.href = this.$url('relogin_and_redirect_to_url', redirectLocation)
       } catch (err) {
         if (err.code && err.code === HTTP_RESPONSE.CONFLICT) {
           pulseError(this.$i18n('region.store_managers_cannot_leave'))

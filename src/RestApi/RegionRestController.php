@@ -16,7 +16,6 @@ use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\DTO\PublicRegionData;
-use Foodsharing\Modules\Region\DTO\RegionPin;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
@@ -279,28 +278,6 @@ class RegionRestController extends AbstractFoodsharingRestController
             && ($lowerBound <= $value) && ($upperBound >= $value);
     }
 
-    #[OA2\Get(summary: 'Returns the coordinates and description for a region\'s pin')]
-    #[Rest\Get('region/{regionId}/pin', requirements: ['regionId' => Requirement::POSITIVE_INT])]
-    #[OA2\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: RegionPin::class))]
-    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permission')]
-    #[OA2\Response(response: Response::HTTP_NOT_FOUND, description: 'Region not found or the region does not have a pin yet')]
-    public function getRegionPin(int $regionId): Response
-    {
-        $this->assertLoggedIn();
-
-        $pin = $this->regionGateway->getRegionPin($regionId);
-        if (empty($pin)) {
-            throw new NotFoundHttpException();
-        }
-
-        if (!$this->regionPermissions->maySetRegionPin($regionId)) {
-            throw new AccessDeniedHttpException();
-        }
-
-        return $this->respondOK($pin);
-    }
-
     /**
      * Sets the pin for region.
      *
@@ -309,39 +286,33 @@ class RegionRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permissions")
      */
-    #[Rest\Post('region/{regionId}/pin', requirements: ['regionId' => '\d+'])]
-    #[Rest\RequestParam(name: 'lat')]
-    #[Rest\RequestParam(name: 'lon')]
-    #[Rest\RequestParam(name: 'desc')]
-    #[Rest\RequestParam(name: 'status', requirements: '\d+')]
+    #[Rest\Post('region/{regionId}/pin', requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    #[Rest\RequestParam(name: 'lat', nullable: true)]
+    #[Rest\RequestParam(name: 'lon', nullable: true)]
+    #[Rest\RequestParam(name: 'desc', nullable: true)]
+    #[Rest\RequestParam(name: 'status', requirements: Requirement::DIGITS, nullable: true)]
     public function setRegionPin(ParamFetcher $paramFetcher, int $regionId): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
-        if ($regionId < 0) {
+        if ($regionId < 0 || !$this->regionPermissions->maySetRegionPin($regionId)) {
             throw new AccessDeniedHttpException();
         }
 
-        if (!$this->regionPermissions->maySetRegionPin($regionId)) {
-            throw new AccessDeniedHttpException();
-        }
-
-        $lat = $paramFetcher->get(self::LAT);
-        $lon = $paramFetcher->get(self::LON);
-        $desc = $paramFetcher->get(self::DESC);
-        $status = $paramFetcher->get(self::STATUS);
-        if (!$this->isValidNumber($lat, -90.0, 90.0) || !$this->isValidNumber($lon, -180.0, 180.0)) {
+        $lat = $paramFetcher->get(self::LAT) ?? null;
+        $lon = $paramFetcher->get(self::LON) ?? null;
+        $desc = $paramFetcher->get(self::DESC) ?? null;
+        $status = $paramFetcher->get(self::STATUS) ?? null;
+        if ((!is_null($lat) || !is_null($lon)) && (!$this->isValidNumber($lat, -90.0, 90.0) || !$this->isValidNumber($lon, -180.0, 180.0))) {
             throw new BadRequestHttpException('Invalid Latitude or Longitude');
         }
-        if (!RegionPinStatus::isValid($status)) {
+        if (!is_null($status) && !RegionPinStatus::isValid($status)) {
             throw new BadRequestHttpException('Invalid status');
         }
 
         $this->regionGateway->setRegionPin($regionId, $lat, $lon, $desc, $status);
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 
     #[OA2\Get(

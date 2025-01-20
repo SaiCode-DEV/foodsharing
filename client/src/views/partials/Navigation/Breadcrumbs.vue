@@ -13,3 +13,12 @@ export default {
   },
 }
 </script>
+<style scoped lang="scss">
+.bread {
+  flex-wrap: wrap;
+  padding-left: 2em;
+  li:first-child {
+    margin-left: -2em;
+  }
+}
+</style>

@@ -1,7 +1,12 @@
 import { defineStore } from 'pinia'
-import { joinRegion, listRegionChildren, listRegionMembers } from '@/api/regions'
+import { getPublicRegionData, getRegionMenu, joinRegion, listRegionChildren, listRegionMembers } from '@/api/regions'
 import { url } from '@/helper/urls'
 import { REGION_IDS } from '@/consts'
+import { getCache, getCacheInterval, setCache } from '@/helper/cache'
+const publicRegionRequestName = 'publicRegionData'
+const publicRegionCacheInterval = 600_000 // 10 minutes in milliseconds
+const regionMenuRequestName = 'regionMenu'
+const regionMenuCacheInterval = 600_000 // 10 minutes in milliseconds
 
 export const REGION_UNIT_TYPE = Object.freeze({
   CITY: 1,
@@ -51,7 +56,6 @@ export const SUB_PAGE = Object.freeze({
   POLLS: 'polls',
   MEMBERS: 'members',
   STATISTIC: 'statistic',
-  PIN: 'pin',
   WALL: 'wall',
   APPLICATIONS: 'applications',
   OPTIONS: 'options',
@@ -63,6 +67,8 @@ export const useRegionStore = defineStore('region', {
     regions: [],
     selectedRegionChildren: [],
     memberList: [],
+    publicRegions: {},
+    regionMenus: {},
   }),
   getters: {
     findRegion: (state) => (regionId) => {
@@ -87,6 +93,34 @@ export const useRegionStore = defineStore('region', {
     },
     async fetchMemberList (regionId) {
       this.memberList = await listRegionMembers(regionId)
+    },
+    async fetchPublicRegionData (id, alwaysUpdate = false) {
+      try {
+        if (alwaysUpdate || await getCacheInterval(publicRegionRequestName + id, publicRegionCacheInterval)) {
+          this.publicRegions[id] = await getPublicRegionData(id)
+          await setCache(publicRegionRequestName + id, this.publicRegions[id])
+        } else {
+          this.publicRegions[id] = await getCache(publicRegionRequestName + id)
+        }
+        return this.publicRegions[id]
+      } catch (e) {
+        console.error(`Error fetching public region data for region ${id}:`, e)
+        return null
+      }
+    },
+    async fetchRegionMenu (id, alwaysUpdate = false) {
+      try {
+        if (alwaysUpdate || await getCacheInterval(regionMenuRequestName + id, regionMenuCacheInterval)) {
+          this.regionMenus[id] = await getRegionMenu(id)
+          await setCache(regionMenuRequestName + id, this.publicRegions[id])
+        } else {
+          this.regionMenus[id] = await getCache(regionMenuRequestName + id)
+        }
+        return this.regionMenus[id]
+      } catch (e) {
+        console.error(`Error fetching region menu data for region ${id}:`, e)
+        return null
+      }
     },
   },
 })

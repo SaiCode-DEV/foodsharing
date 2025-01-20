@@ -8,6 +8,7 @@
       <b-button-group
         size="sm"
         class="md-button-toolbar"
+        :class="{ sharp: sharpEdged }"
       >
         <b-button
           v-for="(button, i) in buttons"
@@ -50,7 +51,7 @@
     </b-button-toolbar>
     <div
       class="input-content"
-      :class="{ rounded: !hasImages, invalid: state === false, valid: state === true}"
+      :class="{ rounded: !hasImages && !sharpEdged, invalid: state === false, valid: state === true}"
     >
       <b-form-textarea
         v-if="!isPreview"
@@ -108,6 +109,7 @@ export default {
     disabled: { type: Boolean, default: false },
     allowImageAttachments: { type: Boolean, default: false },
     regionId: { type: Number, default: null },
+    sharpEdged: { type: Boolean, default: false },
   },
   data () {
     return {
@@ -313,6 +315,10 @@ export default {
       border-bottom-right-radius: 0;
       padding-right: 0;
       padding-left: 0;
+    }
+    &.sharp .btn {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
     }
   }
 

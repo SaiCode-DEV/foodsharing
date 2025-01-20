@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Event;
 
 use Foodsharing\Lib\FoodsharingController;
+use Foodsharing\Modules\Region\RegionController;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Permissions\EventPermissions;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,6 +18,7 @@ class EventController extends FoodsharingController
         private readonly EventGateway $eventGateway,
         private readonly RegionGateway $regionGateway,
         private readonly EventPermissions $eventPermissions,
+        private readonly RegionController $regionController,
     ) {
         parent::__construct();
 
@@ -84,9 +86,7 @@ class EventController extends FoodsharingController
     {
         $event = $this->eventGateway->getEvent($eventId);
         if (!$event || !$this->eventPermissions->maySeeEvent($event)) {
-            $this->flashMessageHelper->info($this->translator->trans('events.notFound'));
-
-            return $this->redirectToRoute('dashboard');
+            return $this->regionController->missingMembershipRedirect($event->regionId);
         }
 
         // Bread

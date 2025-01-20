@@ -47,6 +47,17 @@ class MapController extends FoodsharingController
                 $params['center'] = $location;
                 $params['selectedFoodSharePointId'] = $foodSharePointId;
             }
+        } elseif ($request->query->has('lat') && $request->query->has('lon')) {
+            $params['center'] = [
+                'lat' => floatval($request->query->get('lat')),
+                'lon' => floatval($request->query->get('lon')),
+            ];
+        }
+        if ($request->query->has('zoom')) {
+            $params['initialZoom'] = intval($request->query->get('zoom'));
+        }
+        if ($request->query->has('loadMarkers')) {
+            $params['loadMarkers'] = $request->query->get('loadMarkers');
         }
 
         $this->pageHelper->addContent($this->prepareVueComponent('map-page', 'MapPage', $params));

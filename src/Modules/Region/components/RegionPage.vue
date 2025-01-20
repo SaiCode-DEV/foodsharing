@@ -39,11 +39,10 @@
             :title="$i18n(allAdminData.label)"
           />
         </div>
-        <RemoveFromRegion
+        <LeaveRegionContainer
           :region-id="regionId"
           :name="name"
           :is-work-group="isWorkGroup"
-          :is-home-district="isHomeDistrict"
         />
       </div>
       <div class="col-12 col-lg-8 col-xl-9">
@@ -99,10 +98,6 @@
           :region-id="regionId"
           :region-name="name"
         />
-        <Pin
-          v-if="activeSubpage === SUB_PAGE.PIN"
-          :region-id="regionId"
-        />
         <Wall
           v-if="activeSubpage === SUB_PAGE.WALL"
           target="bezirk"
@@ -137,23 +132,22 @@ import PollList from './PollList.vue'
 import MemberList from './MemberList.vue'
 import Options from './Options.vue'
 import Statistics from './Statistics.vue'
-import Pin from './Pin.vue'
 import ResponsibleUsers from './ResponsibleUsers.vue'
 import Wall from '@/components/Wall/Wall'
 import Thread from './Thread.vue'
 import NewThread from './NewThread.vue'
-import RemoveFromRegion from './RemoveFromRegion.vue'
 import { getApplications } from '@/api/applications'
 import ApplicationsList from './ApplicationsList.vue'
 import Achievements from './Achievements.vue'
 import { SUB_PAGE } from '@/stores/regions'
 import { GET } from '@/browser'
+import LeaveRegionContainer from '@/views/pages/Region/LeaveRegionContainer.vue'
 
 export default {
   components: {
     Achievements,
     ApplicationsList,
-    RemoveFromRegion,
+    LeaveRegionContainer,
     NewThread,
     Thread,
     ResponsibleUsers,
@@ -167,14 +161,12 @@ export default {
     GroupSideNav,
     ThreadList,
     EventList,
-    Pin,
     Wall,
   },
   props: {
     regionId: { type: Number, required: true },
     name: { type: String, required: true },
     isWorkGroup: { type: Boolean, required: true },
-    isHomeDistrict: { type: Boolean, required: true },
     isRegion: { type: Boolean, required: true },
     moderated: { type: Boolean, required: true },
     foodSaverCount: { type: Number, required: true },

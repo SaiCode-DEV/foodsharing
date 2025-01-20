@@ -87,11 +87,6 @@ export default {
         })
       }
 
-      if (this.entry.maySetRegionPin) {
-        menu.push({
-          href: 'pin', icon: 'fa-users', text: 'menu.entry.pin',
-        })
-      }
       if (this.entry.mayAccessReports) {
         const viewer = this.entry.isReportAdmin ? 'report' : this.entry.isArbitrationAdmin ? 'arbitration' : 'orga'
         menu.push({
