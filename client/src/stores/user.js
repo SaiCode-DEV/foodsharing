@@ -55,7 +55,8 @@ export const useUserStore = defineStore('user', {
       return permissions.some(([key, value]) => !['mayAdministrateUserProfile', 'mayEditUserProfile', 'addStore'].includes(key) && value)
     },
     hasBouncingEmail: () => false,
-    hasActiveEmail: () => true,
+    // TODO: this can be removed as soon as login without activation is not possible anymore
+    hasActiveEmail: (state) => state.details?.hasActiveEmail ?? true,
     isPassportInvalid: (state) => {
       return state.details?.lastPassUntilValid ? (state.details.lastPassUntilValidInDays <= PASSPORT_STATUS.INVALID) : false
     },

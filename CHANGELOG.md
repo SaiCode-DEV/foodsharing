@@ -1,3 +1,12 @@
+# Hotfix 2024-01-20
+
+## Changes
+
+- Show an error message on the dashboard about email activation #1985 !4008 @alex.simm
+
+## Bugfixes
+- Foodbasket address changed fixed #2284 !3945 @McGoldi @AntonBallmaier
+
 # Release "Nektarine", 2024-12-13
 
 ## Features

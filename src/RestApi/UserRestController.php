@@ -187,6 +187,9 @@ class UserRestController extends AbstractFoodsharingRestController
                 'administrateRegions' => $this->regionPermissions->mayAdministrateRegions(),
                 'maySearchGlobal' => $this->searchPermissions->maySearchGlobal(),
             ];
+
+            //TODO: this can be removed as soon as the login is not possible without email activation
+            $response['hasActiveEmail'] = $this->loginGateway->isActivated($data['id']);
         } else {
             $response['firstname'] = ($data['name'] === null) ? null : $data['name'][0]; // Only return first character
         }

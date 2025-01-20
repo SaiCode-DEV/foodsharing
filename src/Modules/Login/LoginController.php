@@ -27,7 +27,7 @@ class LoginController extends FoodsharingController
         // unsubscribe and activate are the only methods here that make sense when logged in
         // activate is also used to validate a changed email address for existing foodsharers
         // unsubscribe
-        if ($this->session->mayRole() && !in_array($sub, ['unsubscribe', 'activate'])) {
+        if ($this->session->mayRole() && !in_array($sub, ['unsubscribe', 'activate', 'resendActivationMail'])) {
             return $this->redirectToRoute('dashboard');
         }
 

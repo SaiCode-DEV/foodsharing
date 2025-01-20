@@ -116,7 +116,7 @@
         icon-name="shopping-basket"
         icon-color="green"
         :show-address-fields="false"
-        :do-reverse-geocoding="false"
+        :do-reverse-geocoding="true"
         @address-change="onAddressChanged"
       />
     </b-form-group>
@@ -195,7 +195,7 @@ export default {
       return this.description.trim() && (this.contact.chat || this.contact.phone) && (this.contact.phone ? this.phoneNumber : true)
     },
     hasValidHomeAddress () {
-      return this.user?.coordinates?.lat && this.user.address && this.user.city
+      return Boolean(this.user?.coordinates?.lat && this.user.address && this.user.city)
     },
   },
   methods: {
@@ -222,8 +222,8 @@ export default {
       await userStore.fetchDetails()
       this.phoneNumber ||= this.user.mobile
       this.useHomeAddress = this.hasValidHomeAddress &&
-        Math.abs(this.basket.lat - this.user.coordinates.lat) < 1e-5 &&
-        Math.abs(this.basket.lon - this.user.coordinates.lon) < 1e-5
+        Math.abs(this.basket.location.lat - this.user.coordinates.lat) < 1e-5 &&
+        Math.abs(this.basket.location.lon - this.user.coordinates.lon) < 1e-5
       if (this.useHomeAddress) {
         this.address = {
           street: this.user.address,
