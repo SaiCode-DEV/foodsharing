@@ -233,7 +233,7 @@ group:
         verify: Vérifie
       clear_selection: Réinitialiser tous les marqués
       create_pdf: Créer PDF
-      execute: Exécuter
+      execute: Exécuter l’action
       automatic_paper_size: Papier A4
       verify_selected: vérifier marqué
       active_or_renew_passport: Activer / renouveler la carte de membre
@@ -244,6 +244,8 @@ group:
         no_passport: pas de carte de membre
         with_passport: avec carte de membre
         invalid_passport: carte de membre non valable
+      already_verified: Tous les utilisateurs sélectionnés ont déjà été vérifiés
+      inform_user: avec notification
     default:
       lastname: Nom de famille
       title: Défaut
@@ -4132,8 +4134,9 @@ error:
   mail_activation:
     title: Adresse électronique non confirmée !
     link_1: Demander un nouveau courriel d’activation
-    description: Confirme ton adresse électronique en cliquant sur le lien contenu
-      dans le mail d’activation.
+    description: A partir de la prochaine version, l’utilisation du site web ne sera
+      possible qu’avec une adresse e-mail confirmée. Merci de confirmer ton adresse
+      électronique en cliquant sur le lien contenu dans le mail d’activation.
     link_2: Modifier le courriel
   missing_geolocation:
     title: Aucune adresse valide n’a été saisie
@@ -4644,3 +4647,37 @@ navi:
   native: Application native
   gdpr_warning: Si tu navigues avec {provider}, l’adresse sera transmise à leur service
     et tu seras redirigé vers leur site web. Es-tu d’accord ?
+required_messages:
+  placeholder: Ajoutez éventuellement des informations ici …
+  save_message: Sauvegarder mon message pour référence ultérieure
+  name_placeholder: <Nom>
+  message_info: '{name} recevrait le message suivant à ce sujet :'
+  message_info_multiple: 'Chaque personne recevrait le message suivant :'
+  verify:
+    main: tu as été vérifié comme collecteur·rice !
+    footer: Salutations, tes ambassadeur·rices
+  sure_title: Tu es sûr ?
+contact_page:
+  bread: Contact & support
+  title: Contact & support
+  description: 'Tu peux nous contacter en utilisant l’un des moyens suivants :'
+  common:
+    modal:
+      title: Ecrire un e-mail
+      text: Envoie-nous un e-mail à [{common_mail}](mailto:{common_mail}) (ou [{common_mail_ch}](mailto:{common_mail_ch})
+        pour la Suisse).
+    text: Nous nous ferons un plaisir de t’orienter vers la personne de contact appropriée – également
+      dans les districts de foodsharing.
+    link: Écrire un email
+    title: Pour les demandes organisationnelles
+  support:
+    title: Aide pour le site web ou ton compte
+    link: Portail d’assistance
+    text: Tu trouveras ici notre base de connaissances sur des sujets fréquemment
+      demandés ou d’actualité. Si tu n’y trouves pas ce que tu cherches, tu peux volontiers
+      créer une demande sous forme de ticket (lien en haut à droite).
+  regions:
+    title: Groupes locaux
+    link: vers l’aperçu
+    text: Si tu as des questions sur un district, n’hésite pas à t’adresser directement
+      aux personnes de contact de ce district.
