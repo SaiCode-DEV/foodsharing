@@ -4113,8 +4113,9 @@ error:
     link_2: "I need help"
   mail_activation:
     title: "Email address not confirmed!"
-    description: "Please confirm your email address by clicking on the link in the
-      activation email."
+    description: "From the next release, the website will only be available with a
+      confirmed email address. Please confirm your email address by clicking on the
+      link in the activation email."
     link_1: "Request a new activation email"
     link_2: "Change email address"
   adress:
@@ -4625,3 +4626,43 @@ petition:
       it!
   link: To the petition
   daysLeft: '{daysLeft} days remaining'
+required_messages:
+  message_info_multiple: 'Each person would receive the following message:'
+  name_placeholder: <Name>
+  sure_title: Are you sure?
+  message_info: '{name} would receive the following message:'
+  verify:
+    main: we have verified you as a foodsaver!
+    footer: Best regards, your ambassadors
+    really_multiple: Do you really want to verify {count} users? Please make sure
+      that all {count} people meet all [requirements for verified 
+      foodsavers](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).
+    really: Are you sure you want to verify {name}? Please make sure that {name} meets
+      all [requirements for verified 
+      foodsavers](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).
+  placeholder: Optionally add information here …
+  save_message: Save my message for future reference
+contact_page:
+  support:
+    title: Help with the website or your account
+    link: Support portal
+    text: Here you will find our knowledge base on frequently asked or current topics.
+      If you cannot find what you are looking for there, you are welcome to create
+      a request as a ticket (link top right).
+  bread: Contact & Support
+  title: Contact & Support
+  common:
+    title: For organizational inquiries
+    modal:
+      text: Send us an email to [{common_mail}](mailto:{common_mail}) (or [{common_mail_ch}](mailto:{common_mail_ch})
+        for Switzerland).
+      title: Write an email
+    link: Write an email
+    text: We will be happy to direct you to the appropriate contact person — also
+      in foodsharing districts.
+  regions:
+    title: Local groups
+    link: to overview
+    text: If you have any questions about a district, please contact the district
+      contact person directly.
+  description: 'Please contact us using one of the following contact options:'
