@@ -20,7 +20,6 @@
 - Improved burger menu for mobile !3989 @chriswalg
 
 ## Bugfixes
-- Foodbasket address changed fixed #2284 !3945 @McGoldi @AntonBallmaier
 - Resolve "region filter bug on profile page: Blank screen when navigating store list" #2295 !3940 @chriswalg
 - Prevent multiple support ticket submissions !3951 @SaiCode
 - Fix rounded corners in profile settings #2118 !3904 !3975 @JoMarianek
@@ -71,6 +70,15 @@
 - Moved backend-acceptance to public gitlab runner !3992 @chriswalg
 - Added progress bars to the seed script !3663 @SaiCode @alex.simm
 - Fix tests in ForumPostCest !3998 @chriswalg
+
+# Hotfix 2024-01-20
+
+## Changes
+
+- Show an error message on the dashboard about email activation #1985 !4008 @alex.simm
+
+## Bugfixes
+- Foodbasket address changed fixed #2284 !3945 @McGoldi @AntonBallmaier
 
 # Release "Nektarine", 2024-12-13
 
