@@ -229,8 +229,10 @@ group:
         no_passport: no membership card
         with_passport: with membership card
         invalid_passport: invalid membership card
-      execute: Execute
+      execute: Perform action
       show_only_member_after: Show only members after
+      already_verified: All selected users were already verified
+      inform_user: with notification
     all_roles: all roles
   application_from: by
   entermotivation: 'Motivation:'
