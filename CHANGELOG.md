@@ -20,6 +20,7 @@
 - Improved burger menu for mobile !3989 @chriswalg
 
 ## Bugfixes
+- Foodbasket address changed fixed #2284 !3945 @McGoldi @AntonBallmaier
 - Resolve "region filter bug on profile page: Blank screen when navigating store list" #2295 !3940 @chriswalg
 - Prevent multiple support ticket submissions !3951 @SaiCode
 - Fix rounded corners in profile settings #2118 !3904 !3975 @JoMarianek
