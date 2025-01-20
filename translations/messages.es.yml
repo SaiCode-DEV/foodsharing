@@ -1018,8 +1018,9 @@ error:
   mail_activation:
     link_1: 'Solicite un nuevo correo electrónico de activación'
     title: '¡Dirección de correo electrónico no confirmada!'
-    description: 'Confirme su dirección de correo electrónico haciendo clic en el
-      enlace del correo electrónico de activación.'
+    description: 'A partir de la próxima versión, sólo será posible utilizar el sitio
+      web con una dirección de correo electrónico confirmada. Confirme su dirección
+      de correo electrónico haciendo clic en el enlace del mensaje de activación.'
     link_2: 'Cambiar dirección de correo electrónico'
   old_user_avatar:
     link: 'Actualizar foto de perfil ahora'
@@ -1248,13 +1249,15 @@ group:
       verify_selected: verificar los marcados
       automatic_paper_size: Utilice papel A4
       active_or_renew_passport: Activar/ampliar tarjeta de identificación
-      execute: Realizar
+      execute: Realizar acción
       show_only_member_after: Mostrar solo a miembros
       filter_options:
         no_filter: Sin filtros
         no_passport: sin identificación
         with_passport: con identificación
         invalid_passport: identificación no válida
+      inform_user: con notificación
+      already_verified: Tod@s l@s usuari@s seleccionad@s ya fueron verificad@s
     all_roles: Todos los roles
   edit:
     title: 'Editar {group}'
@@ -4758,3 +4761,37 @@ navi:
   gdpr_warning: Cuando navegas con {provider}, la dirección se transmite a su servicio
     y eres redirigido a su sitio web. ¿Estás de acuerdo con esto?
   no_native_app: Este dispositivo no admite enlaces geográficos.
+required_messages:
+  verify:
+    footer: Saludos cordiales, sus embajador@s
+  sure_title: ¿Segur@?
+  message_info_multiple: 'Cada persona recibiría el siguiente mensaje:'
+  placeholder: Opcionalmente añada información aquí …
+  name_placeholder: <Nombre>
+  save_message: Guardar mi mensaje para uso futuro
+  message_info: '{name} recibiría el siguiente mensaje:'
+contact_page:
+  common:
+    modal:
+      text: Envíenos un correo electrónico a [{common_mail}](mailto:{common_mail})
+        (o [{common_mail_ch}](mailto:{common_mail_ch}) para Suiza).
+      title: Escribe un correo electrónico
+    title: Para cuestiones organizativas
+    link: Escribe un correo electrónico
+    text: Estaremos encantados de dirigirle a la persona de contacto adecuada, también
+      en los distritos.
+  support:
+    title: Ayuda con el sitio web o su cuenta
+    link: Portal de soporte
+    text: Aquí encontrará nuestra base de datos de conocimientos sobre temas frecuentes
+      o actuales. Si no encuentras lo que buscas allí, no dudes en crear una solicitud
+      como ticket (enlace arriba a la derecha).
+  regions:
+    title: Grupos locales
+    link: a la vista general
+    text: Si tiene alguna pregunta sobre un distrito, comuníquese directamente con
+      la persona de contacto del distrito.
+  bread: Contacto y soporte
+  description: 'Póngase en contacto con nosotros utilizando una de las siguientes
+    opciones de contacto:'
+  title: Contacto y soporte
