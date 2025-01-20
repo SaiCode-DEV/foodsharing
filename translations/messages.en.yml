@@ -1741,7 +1741,7 @@ poll:
     question: Do you really want to cancel this vote? This cannot be reversed.
   untraceable: The information about which option you voted for cannot be traced back
     after you have cast your vote and can therefore no longer be displayed here.
-  scope_description_4: All verified foodsavers whose home district is within the district
+  scope_description_4: All verified foodsavers whose home district is in the district
     of the vote
   begins_at: begins at
   ended_at: ended at
@@ -1988,11 +1988,41 @@ region:
     children: Districts in {name} ({count})
     description: About this district
     join_name: Join {name}
-    join: Join
+    join: Join the disctrict
     no_more_info: No further information is publicly available about this district.
     wall: Updates from the district
     confirm_entering: Would you like to join the district {name}? This will give the
       ambassadors there access to your profile.
+    map:
+      confirm_save_changes: Should your changes to the district pin be saved ? The
+        new pin is then publicly visible on both the district page and the map.
+      missing: This district is not currently displayed on the map and does not have
+        any food-share points to be displayed. You have the permission to set the
+        district pin now.
+      set_pin: Set district pin on the map
+      hide_pin: Remove district pin
+      edit_pin: Edit district pin
+      confirm_discard_changes: Do you really want to discard your changes to the district
+        pin?
+      confirm_remove: Do you really want to remove the district pin? This district
+        will then no longer be displayed on the map.
+    desc:
+      confirm_discard_changes: Do you really want to discard your changes to the district
+        description?
+      confirm_save_changes: Should your changes to the district description be saved?
+        The new description is then publicly visible on the district page.
+      edit: Edit district description
+      missing: This district currently has no description text. You have the permission
+        to write a description now.
+    join_text: Do you want to engage in {name}? Then join the district!
+    leave: Leave district
+    leave_name: Leave {name}
+    leave_text: You are no longer active in {name}? Then you should leave this district.
+    confirm_leaving: Do you want to join the district {name}? This will give its ambassadors
+      access to your profile.
+    show_on_large_map: View on the large map
+    continue_editing: Continue editing
+    discard_changes: Discard changes
   denied:
     this_region: You tried to access content from this district, but only members
       of the district have access to it.
@@ -2264,8 +2294,8 @@ content:
       the relevant district directly from here by clicking on the icon.
     searchInfo: With Ctrl+F, the list can be searched in many browsers by country,
       city, state or district.
-    noAmbassador: This region currently has no ambassadors and therefore cannot be
-      contacted by email. Please contact a neighboring or the next higher region.
+    noAmbassador: This district currently has no ambassadors and therefore cannot
+      be contacted by email. Please contact a neighboring or the next higher region.
   error: Page could not be saved
   error_loading: Content could not be loaded
 foodsaver:
@@ -2437,11 +2467,11 @@ store:
   jumperSince: 'Standby since {date}'
   tooltip_managing: You are responsible for this store
   not-in-team: You are not a member of this store’s team yet.
-  tooltip_yellow: Open slots during the next five days
-  tooltip_orange: Open slots during the next three days
+  tooltip_yellow: Open slots in the next five days
+  tooltip_orange: Open slots in the next three days
   tooltip_red: Open slots today or tomorrow
-  short_tooltip_yellow: Open slots during the next 5 days
-  short_tooltip_orange: Open slots during the next 3 days
+  short_tooltip_yellow: Open slots in the next 5 days
+  short_tooltip_orange: Open slots in the next 3 days
   short_tooltip_red: Open slots today or tomorrow
   springer_conversation_name: Standby {name}
   my_last_pickup: My last pick-up
@@ -3439,16 +3469,17 @@ error_permissions: Unfortunately, you do not have the necessary permissions for 
 success: Completed successfully
 statistics:
   kg_food_saved: '{count} kg food saved'
-  num_fetches: In {count} pick-ups
+  num_fetches: in {count} pick-ups
   food_saved: 'food saved'
   title: Statistics
   region_public:
-    savedFoodKgLastMonth: food saved last month
-    pickupsLastMonth: pick-ups last month
+    savedFoodKgLastMonth: food saved
+    pickupsLastMonth: pick-ups
     activeCoorporations: active cooporations
     activeFoodSharePoints: active Food-Share Points
-    foodBasketsLastMonth: food baskets distributed in the last month
+    foodBasketsLastMonth: food baskets distributed
     activeHomeRegionFoodsavers: active Foodsavers
+  lastMonth: Statistics of the past 30 days
 storestatus:
   "0": Status unclear
   "7": Store no longer exists
@@ -3510,7 +3541,7 @@ regionOptions:
     day'
   regionPickupTimespan: Please enter the time span (in days before and after the desired
     pick-up date) in which the rule applies
-  regionPickupRuleActiveStoreList: 'List of stores within the dictrict that shall
+  regionPickupRuleActiveStoreList: 'List of stores within the district that shall
     be considered for the CHERRY rule. Note: pick-ups in all listed stores will be
     added up and considered.'
   regionPickupRuleActive: 'Activate the following district-wide rule for pick-ups
