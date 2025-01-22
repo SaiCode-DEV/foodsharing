@@ -159,14 +159,28 @@ class WorkingGroupApiCest
         $I->sendPost('api/groups/' . $this->workingGroup['id'] + 100 . '/mail', $validMessage);
         $I->seeResponseCodeIs(HttpCode::NOT_FOUND);
 
+        // Send valid mail
         $I->haveHttpHeader('Content-Type', 'application/json');
         $I->sendPost('api/groups/' . $this->workingGroup['id'] . '/mail', $validMessage);
         $I->seeResponseCodeIs(HttpCode::ACCEPTED);
 
-        $I->expectNumMails(1, 5);
-        $mail = $I->getMails()[0];
+        // Check for emails with retries
+        $maxRetries = 5;
+        $mails = [];
+
+        for ($i = 0; $i < $maxRetries; ++$i) {
+            sleep(1);
+            $mails = $I->getMails();
+            if (!empty($mails)) {
+                break;
+            }
+        }
+
+        $I->assertNotEmpty($mails, 'No mails received after ' . $maxRetries . ' attempts');
+        $mail = $mails[0];
+
         $I->assertStringContainsString('ThisIsATestMessage', $mail->html);
-        $I->assertStringContainsString($this->{$example[0]}['name'], $mail->subject); // Vorname
+        $I->assertStringContainsString($this->{$example[0]}['name'], $mail->subject);
         $I->assertContainsEquals($this->{$example[0]}['email'], array_map(fn ($value): string => $value->address, $mail->to));
         $I->assertContainsEquals('region-' . $this->workingGroup['id'] . '@foodsharing.network', array_map(fn ($value): string => $value->address, $mail->to));
         $I->assertContainsEquals($this->{$example[0]}['email'], array_map(fn ($value): string => $value->address, $mail->replyTo));

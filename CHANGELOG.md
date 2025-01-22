@@ -71,6 +71,7 @@
 - Moved backend-acceptance to public gitlab runner !3992 @chriswalg
 - Added progress bars to the seed script !3663 @SaiCode @alex.simm
 - Fix tests in ForumPostCest !3998 @chriswalg
+- Added retry and more timeout in WorkingGroupApiCest->sendMailToGroup !4007 @chriswalg
 
 # Hotfix 2024-01-20
 
