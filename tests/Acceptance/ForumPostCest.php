@@ -459,14 +459,13 @@ class ForumPostCest
         $regex = /* @lang PhpRegExp */ '~' . $regexForumUrl . '&tid=(\d+)~';
         $I->seeCurrentUrlMatches($regex);
         $I->click('a[title="Beitrag löschen"]');
-        $I->wait(1);
-        $I->canSee('Beitrag löschen');
+        $I->waitForText('Beitrag löschen');
         $I->click(Locator::contains('.btn', 'Ja, ich bin mir sicher'));
-        $I->wait(1); // avoiding yet another common race condition here
+
         // Make the additional parameters optional in the pattern match
         $I->seeCurrentUrlMatches('~' . preg_quote($I->forumUrl($this->{$example[1]}['id'])) . '(?:[?&].*)?$~');
-        $I->waitForPageBody();
-        $I->cantSee($title);
+
+        $I->waitForText($title);
     }
 
     /**

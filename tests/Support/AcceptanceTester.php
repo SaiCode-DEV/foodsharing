@@ -74,6 +74,6 @@ class AcceptanceTester extends Actor
 
     public function waitForActiveAPICalls($timeout = 60): void
     {
-        $this->waitForJS('return window.fetch.activeFetchCalls == 0;', $timeout);
+        $this->waitForJS('return !window.hasActiveRequests();', $timeout);
     }
 }

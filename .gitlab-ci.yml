@@ -368,6 +368,8 @@ build:docs:
 test:backend-api:
   extends:
     - .test-backend
+  rules:
+    - !reference [.dirs-frontend-rule, rules ]
   script:
     - touch $CI_PROJECT_DIR/code_updated # Create file to notify websocket container that code is up to date
     - ./scripts/ci-backend-test Api

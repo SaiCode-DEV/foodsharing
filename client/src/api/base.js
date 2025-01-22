@@ -1,113 +1,108 @@
+import axios from 'axios'
 import { HTTP_RESPONSE } from '@/consts'
 import { url } from '@/helper/urls'
+import { captureRequestError } from '@/sentry'
 
-const BASE_URL = '/api'
-const DEFAULT_OPTIONS = {
-  method: 'GET',
-  credentials: 'same-origin',
-  mode: 'cors',
-  headers: {},
-}
-if (self.fetch) self.fetch.activeFetchCalls = 0
+const api = axios.create({
+  baseURL: '/api',
+  timeout: 30000,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    Pragma: 'no-cache',
+    Expires: '0',
+  },
+})
 
-export function getCsrfToken () {
-  if (!document.cookie) return null
-  const match = document.cookie.match(/CSRF_TOKEN=([0-9a-f]+)/)
-  if (!match) return null
-  return match[1]
-}
+let activeRequests = 0
+
+// Request counter interceptors
+api.interceptors.request.use(config => {
+  activeRequests++
+  return config
+})
+
+api.interceptors.response.use(
+  response => {
+    activeRequests--
+    return response
+  },
+  error => {
+    activeRequests--
+    return Promise.reject(error)
+  },
+)
+
+// Response interceptor for retries
+api.interceptors.response.use(null, async error => {
+  const config = error.config
+
+  if (error.response?.status === HTTP_RESPONSE.UNAUTHORIZED && !config.disableLoginRedirect) {
+    window.location = url('login')
+    return Promise.reject(error)
+  }
+
+  if (!config || config.__retryCount >= 2) {
+    return Promise.reject(error)
+  }
+
+  config.__retryCount = (config.__retryCount || 0) + 1
+  captureRequestError(error, { path: config.url, attempt: config.__retryCount })
+
+  await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, config.__retryCount - 1)))
+  return api(config)
+})
+
+// Request interceptor for CSRF token
+api.interceptors.request.use(config => {
+  const match = document.cookie?.match(/CSRF_TOKEN=([0-9a-f]+)/)
+  if (match) {
+    config.headers['X-CSRF-Token'] = match[1]
+  }
+  return config
+})
+
+// Error transformer
+api.defaults.transformResponse = [...(axios.defaults.transformResponse || []), data => {
+  return data
+}]
 
 export class HTTPError extends Error {
-  constructor (code, text, method, url, jsonContent) {
-    super(`HTTP Error ${code}: ${text} during ${method} ${url}`)
-    this.code = code
-    this.statusText = text
-    this.jsonContent = jsonContent
+  constructor (error) {
+    super(error.message)
+    this.code = error.response?.status
+    this.statusText = error.response?.statusText
+    this.jsonContent = error.response?.data
   }
 }
 
-export async function request (path, options = {}) {
+const handleError = error => {
+  if (error.code === 'ECONNABORTED') {
+    throw new Error('Request timeout')
+  }
+  throw new HTTPError(error)
+}
+
+export const request = async (path, options = {}) => {
   try {
-    self.fetch.activeFetchCalls++
-    const o = Object.assign({}, DEFAULT_OPTIONS, options)
-    const csrfToken = getCsrfToken()
-    if (csrfToken) o.headers['X-CSRF-Token'] = csrfToken
-    const request = new self.Request(BASE_URL + path, o)
-    const res = await self.fetch(request)
-    if (!res.ok) {
-      if (res.status === HTTP_RESPONSE.UNAUTHORIZED && !options.disableLoginRedirect) {
-        window.location = url('login')
-      }
-      const jsonContent = await res.json()
-      throw new HTTPError(res.status, res.statusText, request.method, request.url, jsonContent)
-    }
-    if (options.responseType === 'blob') {
-      return await res.blob()
-    } else if (res.status === 204) {
-      return {}
-    } else {
-      try {
-        return await res.json()
-      } catch {
-        return {}
-      }
-    }
-  } finally {
-    self.fetch.activeFetchCalls--
+    const { data } = await api(path, options)
+    return data
+  } catch (error) {
+    handleError(error)
   }
 }
 
-export function get (path, options) {
-  return request(path, options)
-}
+export const get = (path, params) => request(path, { method: 'GET', params })
+export const post = (path, data, config = {}) => request(path, { method: 'POST', data, ...config })
+export const put = (path, data) => request(path, { method: 'PUT', data })
+export const patch = (path, data) => request(path, { method: 'PATCH', data })
+export const remove = (path, data) => request(path, { method: 'DELETE', data })
 
-export function post (path, body, options = {}) {
-  return request(path, Object.assign({
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-    },
-    body: JSON.stringify(body),
-  }, options))
-}
+// Export method to check for active requests
+export const hasActiveRequests = () => activeRequests > 0
 
-export function put (path, body) {
-  return request(path, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-    },
-    body: JSON.stringify(body),
-  })
+// Make it accessible for Codeception tests
+if (typeof window !== 'undefined') {
+  window.hasActiveRequests = hasActiveRequests
 }
-
-export function patch (path, body) {
-  return request(path, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-    },
-    body: JSON.stringify(body),
-  })
-}
-
-// delete is a reserved word, therefore we use remove
-export function remove (path, body = {}) {
-  return request(path, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-    },
-    body: JSON.stringify(body),
-  })
-}
-
-// const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
-// export async function dummyRequest (response = []) {
-//   await sleep(1000)
-//   if (Math.random() > 0.5) {
-//     return response
-//   } else {
-//     throw new HTTPError(500, 'Dummy request failed')
-//   }
-// }
