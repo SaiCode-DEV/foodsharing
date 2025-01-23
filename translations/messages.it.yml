@@ -482,7 +482,7 @@ yes: Sì
 really_delete: Eliminare?
 are_you_sure: Sei sicuro?
 statistics:
-  num_fetches: Durante {count} missioni di salvataggio
+  num_fetches: durante {count} missioni di salvataggio
   kg_food_saved: '{count} kg di cibo risparmiato'
 terminology:
   options: Opzioni
