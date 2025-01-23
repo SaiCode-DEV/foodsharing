@@ -1699,16 +1699,16 @@ back: Retour
 really_delete: Supprimer définitivement ?
 are_you_sure: Es-tu sûr·e ?
 statistics:
-  num_fetches: Après {count} interventions
+  num_fetches: après {count} interventions
   kg_food_saved: '{count} kg de denrées alimentaires sauvées'
   food_saved: de nourriture sauvés
   region_public:
-    pickupsLastMonth: sauvetages alimentaires au cours du dernier mois
+    pickupsLastMonth: sauvetages alimentaires
     activeCoorporations: coopérations actives avec des entreprises
     activeFoodSharePoints: stations de distribution actives
     foodBasketsLastMonth: paniers alimentaires distribués
     activeHomeRegionFoodsavers: sauveteurs alimentaires actifs
-    savedFoodKgLastMonth: de nourriture sauvés le mois dernier
+    savedFoodKgLastMonth: de nourriture sauvés
   title: Statistiques
   lastMonth: statistiques des 30 derniers jours
 menu:
