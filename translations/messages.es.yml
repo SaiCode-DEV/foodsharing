@@ -3965,15 +3965,15 @@ teamjs:
   wrongmail: 'Algo anda mal con tu dirección de correo electrónico.'
 statistics:
   kg_food_saved: '{count} kg de comida ahorrados'
-  num_fetches: 'En {count} operaciones de rescate'
+  num_fetches: 'en {count} operaciones de rescate'
   food_saved: Comida ahorrada
   region_public:
     activeHomeRegionFoodsavers: rescatador@s de alimentos activ@s
     activeCoorporations: cooperaciones empresariales activas
     activeFoodSharePoints: estaciones de distribución activas
     foodBasketsLastMonth: cestas de alimentos distribuidas el mes pasado
-    savedFoodKgLastMonth: de comida ahorrados el mes pasado
-    pickupsLastMonth: rescates alimentarios en el último mes
+    savedFoodKgLastMonth: de comida ahorrados
+    pickupsLastMonth: rescates alimentarios
   title: Estadística
 back: 'Atrás'
 chat:
