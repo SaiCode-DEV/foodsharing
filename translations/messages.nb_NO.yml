@@ -408,7 +408,7 @@ region:
   master: Mesterdistrikt
   allow_hiding_in_forum: Tillat moderatorer å slette foruminnlegg
   public:
-    join: Bli med
+    join: Bli med i distriktet
     wall: Oppdateringer fra distriktet
     confirm_entering: Vil du bli med i distriktet {name}? Ambassadørene der vil da
       ha tilgang til profilen din.
@@ -417,6 +417,34 @@ region:
     description: Om distriktet
     no_more_info: Ingen ytterligere informasjon er offentlig tilgjengelig om dette
       distriktet.
+    discard_changes: Forkast endringer
+    map:
+      set_pin: Skriv inn distriktsnål på kartet
+      confirm_remove: Er du sikker på at du vil fjerne distriktsnålen? Dette distriktet
+        vil da ikke lenger vises på kartet.
+      missing: Dette distriktet vises foreløpig ikke på kartet og har ingen rettferdige
+        delere som kan vises her. Du er nå autorisert til å sette en distriktsnål.
+      hide_pin: Fjern distriktsnål
+      edit_pin: Rediger distriktsnål
+      confirm_discard_changes: Er du sikker på at du vil forkaste endringene dine
+        i distriktsnålen?
+      confirm_save_changes: Vil du at endringene i distriktsnålen skal lagres? Den
+        nye nålen vil da være offentlig synlig på distriktssiden og på kartet.
+    join_text: Vil du bli aktiv i {name}? Da kan du bli med i dette distriktet!
+    confirm_leaving: Vil du bli med i {name}-distriktet? Ambassadørene der vil da
+      ha tilgang til profilen din.
+    desc:
+      edit: Rediger distriktsbeskrivelse
+      confirm_save_changes: Vil du lagre endringene dine i distriktsbeskrivelsen?
+        Den nye beskrivelsen vil da være offentlig synlig på distriktssiden.
+      confirm_discard_changes: Er du sikker på at du vil forkaste endringene i distriktsbeskrivelsen?
+      missing: Dette distriktet har for øyeblikket ingen beskrivelsestekst. Du har
+        nå tillatelse til å skrive en beskrivelsestekst.
+    leave: Forlate distriktet
+    leave_name: Forlater {name}
+    leave_text: Er du ikke lenger aktiv i {name}? Da bør du forlate dette distriktet.
+    show_on_large_map: Se på stort kart
+    continue_editing: Fortsett å redigere
   denied:
     group_in_this_region: «{name}» er en gruppe i dette distriktet.
     group_in_this_group: «{name}» er en undergruppe av denne gruppen.
@@ -1467,8 +1495,9 @@ content:
       liste over alle foodsharing-fellesskap og -distrikter. Du kan få mer informasjon
       om hvert distrikt på den tilknyttede offentlige distriktssiden, eller sende
       en e-post til det tilsvarende distriktet direkte herfra ved å klikke på ikonet.
-    noAmbassador: Denne regionen har for øyeblikket ingen ambassadører og kan derfor
-      ikke kontaktes via e-post. Ta kontakt med en naboregion eller neste høyere region.
+    noAmbassador: Dette distriktet har foreløpig ingen ambassadører og er derfor foreløpig
+      ikke tilgjengelig på e-post. Ta kontakt med et nærliggende eller neste høyere
+      distrikt.
   edit_raw: Rediger rådata
   error: Siden kunne ikke lagres
   error_loading: Innhold kunne ikke lastes inn
@@ -3198,16 +3227,17 @@ really_delete: Vil du virkelig slette?
 are_you_sure: Er du sikker?
 statistics:
   kg_food_saved: '{count} kg mat lagret'
-  num_fetches: Med {count} pickuper
+  num_fetches: med {count} pickuper
   food_saved: mat spart
   region_public:
     activeHomeRegionFoodsavers: aktive matsparere
-    pickupsLastMonth: matredninger den siste måneden
+    pickupsLastMonth: matredninger
     activeFoodSharePoints: aktive distribusjonsstasjoner
-    savedFoodKgLastMonth: mat spart forrige måned
-    foodBasketsLastMonth: matkurver delt ut siste måned
+    savedFoodKgLastMonth: mat spart
+    foodBasketsLastMonth: matkurver delt
     activeCoorporations: aktive bedriftssamarbeid
   title: Statistikk
+  lastMonth: Statistikk for de 30 dagene
 terminology:
   options: Alternativer
   buddies: Venner
