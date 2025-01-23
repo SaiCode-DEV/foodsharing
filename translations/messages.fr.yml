@@ -1706,10 +1706,11 @@ statistics:
     pickupsLastMonth: sauvetages alimentaires au cours du dernier mois
     activeCoorporations: coopérations actives avec des entreprises
     activeFoodSharePoints: stations de distribution actives
-    foodBasketsLastMonth: paniers alimentaires distribués le mois dernier
+    foodBasketsLastMonth: paniers alimentaires distribués
     activeHomeRegionFoodsavers: sauveteurs alimentaires actifs
     savedFoodKgLastMonth: de nourriture sauvés le mois dernier
   title: Statistiques
+  lastMonth: statistiques des 30 derniers jours
 menu:
   entry:
     events: Évènements
@@ -2882,9 +2883,9 @@ content:
       obtenir plus d’informations sur chaque district en cliquant sur le lien de la
       page du district public ou en envoyant directement un mail au district en question
       en cliquant sur l’icône.
-    noAmbassador: Cette région n’a actuellement pas d’ambassadeur·trice et n’est donc
-      pas joignable par e-mail. Veuillez contacter une région voisine ou la région
-      immédiatement supérieure.
+    noAmbassador: Ce district n’a actuellement pas d’ambassadeur·trice et n’est donc
+      pas joignable par e-mail. Veuillez contacter un district voisin ou le district
+      immédiatement supérieur.
   error: La page n’a pas pu être sauvegardée
   edit_raw: Traiter les données brutes
   error_loading: Impossible de charger le contenu
@@ -3545,7 +3546,7 @@ region:
     forums
   not-existant: Ce district ou groupe de travail n’existe plus.
   public:
-    join: Rejoindre
+    join: Rejoindre district
     join_name: Rejoindre {name}
     description: À propos du district
     no_more_info: Aucune information supplémentaire n’est disponible publiquement
@@ -3554,6 +3555,16 @@ region:
     confirm_entering: Tu souhaites rejoindre la district {name} ? Les ambassadeur·rice·s
       de ce district auront ainsi accès à ton profil.
     children: Districts de {name} ({count})
+    join_text: Veux-tu devenir actif/ve à {name} ? Alors tu peux rejoindre le district
+      ici !
+    leave: quitter le district
+    leave_name: quitter {name}
+    leave_text: Tu n'est plus actif/ve à {name}? Alors tu devrais quitter le district.
+    confirm_leaving: Tu souhaites rejoindre le district {name}? Les ambassadeurs:rices
+      auront ainsi accès à ton profil.
+    show_on_large_map: Voir sur la grande carte
+    continue_editing: continuer à editer
+    discard_changes: rejeter les changements
   denied:
     group_in_this_region: « {name} » est un groupe de cette district.
     this_region: Tu as essayé d’accéder au contenu de ce district. Cependant, seuls
