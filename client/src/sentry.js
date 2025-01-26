@@ -57,3 +57,40 @@ export function captureRequestError (error, { path, options, attempt }) {
     Sentry.captureException(error)
   })
 }
+
+export function isNetworkError (error) {
+  return error.message === 'Network Error'
+}
+
+export function isTimeoutError (error) {
+  return error.code === 'ECONNABORTED'
+}
+
+export function isUserAbortError (error) {
+  return error.code === 'ERR_CANCELED' || error.message === 'Request aborted'
+}
+
+export function handleNetworkError (error, { path, options, attempt }) {
+  if (isNetworkError(error)) {
+    console.warn('Client network error - not reporting to Sentry')
+    throw new Error('Network connection error')
+  }
+
+  if (isTimeoutError(error)) {
+    const timeoutDuration = options.timeout / 1000
+    console.warn(`Request timeout after ${timeoutDuration}s - not reporting to Sentry`)
+    throw new Error(`Request timed out after ${timeoutDuration} seconds`)
+  }
+
+  if (isUserAbortError(error)) {
+    console.warn('Request aborted by user - not reporting to Sentry')
+    throw new Error('Request cancelled')
+  }
+
+  // Only capture server errors
+  if (error.response) {
+    captureRequestError(error, { path, options, attempt })
+  }
+
+  return error
+}

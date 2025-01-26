@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { HTTP_RESPONSE } from '@/consts'
 import { url } from '@/helper/urls'
-import { captureRequestError } from '@/sentry'
+import { captureRequestError, handleNetworkError } from '@/sentry'
 
 const api = axios.create({
   baseURL: '/api',
@@ -78,9 +78,11 @@ export class HTTPError extends Error {
 }
 
 const handleError = error => {
-  if (error.code === 'ECONNABORTED') {
-    throw new Error('Request timeout')
-  }
+  handleNetworkError(error, {
+    path: error.config?.url,
+    options: error.config,
+    attempt: error.config?.__retryCount,
+  })
   throw new HTTPError(error)
 }
 
