@@ -119,10 +119,12 @@ export default {
     this.selectedTypes = this.storage.get('selectedTypes', this.selectedTypes)
 
     // Additionally load marker types given in loadMarkers prop
-    const missingTypes = this.loadMarkers.split(',').filter(type =>
-      Object.keys(MARKER_TYPES).includes(type) && !this.selectedTypes.includes(type),
-    )
-    this.selectedTypes.push(...missingTypes)
+    if (this.loadMarkers) {
+      const missingTypes = this.loadMarkers.split(',').filter(type =>
+        Object.keys(MARKER_TYPES).includes(type) && !this.selectedTypes.includes(type),
+      )
+      this.selectedTypes.push(...missingTypes)
+    }
 
     const saved = this.storage.get('selectedSpecifiers', this.selectedSpecifiers)
     if (!(saved instanceof Array)) { // Don't load data saved in the old format
