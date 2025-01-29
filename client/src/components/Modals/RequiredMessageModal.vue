@@ -10,32 +10,35 @@
     @cancel="rejectCallback?.()"
     @show="initialize"
   >
-    <p>
-      <Markdown :source="$i18n(`required_messages.${messageKey}.really${multipleAppendix}`, params)" />
-      <span v-text="$i18n(`required_messages.message_info${multipleAppendix}`, params)" />
-    </p>
-    <blockquote>
-      <div>{{ $i18n('salutation.3') }} {{ params.name }},</div>
-      <div>{{ $i18n(`required_messages.${messageKey}.main`, params) }}</div>
-      <br>
-      <b-form-textarea
-        v-model="optionalMessage"
-        :placeholder="$i18n('required_messages.placeholder')"
-        max-rows="4"
-        maxlength="3000"
-        @blur="saveMessageToStorage"
-      />
-      <br>
-      <div>{{ $i18n(`required_messages.${messageKey}.footer`) }}</div>
-    </blockquote>
-    <b-form-checkbox
-      v-if="maySave && optionalMessage"
-      v-model="saveMessage"
-      class="mt-4"
-      @change="saveMessageToStorage"
-    >
-      {{ $i18n('required_messages.save_message') }}
-    </b-form-checkbox>
+    <template v-if="messageKey">
+      <p>
+        <Markdown :source="$i18n(`required_messages.${messageKey}.really${multipleAppendix}`, params)" />
+        <span v-text="$i18n(`required_messages.message_info${multipleAppendix}`, params)" />
+      </p>
+      <blockquote>
+        <div>{{ $i18n('salutation.3') }} {{ params.name }},</div>
+        <Markdown :source="$i18n(`required_messages.${messageKey}.main`, params)" />
+        <br>
+        <b-form-textarea
+          v-model="optionalMessage"
+          :placeholder="$i18n('required_messages.placeholder')"
+          max-rows="4"
+          maxlength="3000"
+          @blur="saveMessageToStorage"
+        />
+        <br>
+        <div>{{ $i18n(`required_messages.${messageKey}.footer`) }}</div>
+      </blockquote>
+      <b-form-checkbox
+        v-if="maySave && optionalMessage"
+        v-model="saveMessage"
+        class="mt-4"
+        @change="saveMessageToStorage"
+      >
+        {{ $i18n('required_messages.save_message') }}
+      </b-form-checkbox>
+      <slot />
+    </template>
   </b-modal>
 </template>
 
@@ -47,7 +50,6 @@ export default {
   props: {
     messageKey: { type: String, required: true },
     initialParams: { type: Object, default: () => ({}) },
-    identifier: { type: String, default: '' },
     maySave: { type: Boolean, default: true },
   },
   data () {
@@ -62,7 +64,7 @@ export default {
   },
   computed: {
     id () {
-      return `requiredMessageModal-${this.messageKey}-${this.identifier}`
+      return `requiredMessageModal-${this.messageKey}`
     },
     storageKey () {
       return `requiredMessages-${this.messageKey}`
@@ -73,6 +75,7 @@ export default {
   },
   methods: {
     initialize () {
+      this.saveMessage = true
       if (!this.maySave) return
       const savedMessage = localStorage.getItem(this.storageKey)
       if (savedMessage === null) return // never used before
@@ -81,15 +84,16 @@ export default {
         this.saveMessage = false
       }
     },
-    show (params = {}) {
-      this.multiple = false
-      this.params = Object.assign(this.params, params)
+    async tryGetMessage (params = {}, count = 1) {
+      this.multiple = count > 1
+      const optionalParams = this.multiple ? { count, name: this.$i18n('required_messages.name_placeholder') } : {}
+      this.params = Object.assign({}, this.initialParams, optionalParams, params)
       this.$bvModal.show(this.id)
-    },
-    showMultiple (count, params = {}) {
-      this.multiple = true
-      this.params = Object.assign(this.params, { count, name: this.$i18n('required_messages.name_placeholder') }, params)
-      this.$bvModal.show(this.id)
+      try {
+        return await this.getConfirmationPromise()
+      } catch {
+        return false
+      }
     },
     getConfirmationPromise () {
       this.rejectCallback?.()

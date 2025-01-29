@@ -51,7 +51,7 @@
             <b-button
               v-b-tooltip.hover="$i18n('store.request.to-nowhere')"
               variant="outline-danger"
-              @click="denyRequest(storeId, request.user.id, index)"
+              @click="denyRequest(storeId, request.user.id, request.firstName, index)"
             >
               <i class="fas fa-user-times" />
             </b-button>
@@ -75,6 +75,16 @@
         />
       </div>
     </div>
+    <RequiredMessageModal
+      ref="denyRequestModal"
+      message-key="decline_store_application"
+      :initial-params="{ storeId, store: storeTitle }"
+    >
+      <b-alert show class="my-3">
+        <i class="fas fa-save mr-2" />
+        {{ $i18n('store.log.message_saved_info') }}
+      </b-alert>
+    </RequiredMessageModal>
   </b-modal>
 </template>
 
@@ -85,9 +95,10 @@ import Time from '@/components/Time.vue'
 import { hideLoader, showLoader, pulseError } from '@/script'
 import StoreData from '@/stores/stores'
 import conversationStore from '@/stores/conversations'
+import RequiredMessageModal from '../RequiredMessageModal.vue'
 
 export default {
-  components: { Avatar, Time },
+  components: { Avatar, Time, RequiredMessageModal },
   props: {
     storeId: { type: Number, required: true },
     storeTitle: { type: String, default: '' },
@@ -121,10 +132,12 @@ export default {
         hideLoader()
       }
     },
-    async denyRequest (storeId, userId, index) {
+    async denyRequest (storeId, userId, fistName, index) {
       showLoader()
+      const message = await this.$refs.denyRequestModal.tryGetMessage({ name: fistName })
+      if (message === false) return
       try {
-        await declineStoreRequest(storeId, userId)
+        await declineStoreRequest(storeId, userId, message)
         this.$delete(this.requests, index)
       } catch (e) {
         pulseError(this.$i18n('error_unexpected'))

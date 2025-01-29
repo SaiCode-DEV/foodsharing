@@ -246,7 +246,7 @@ class StoreCest
         if ($example[0] === 'StoreManager') {
             // remove a member from the team entirely
             $I->click('Aus dem Team entfernen', '.dropdown-menu.show');
-            $I->waitForText('Bist du sicher?');
+            $I->waitForText('Bist du dir sicher?');
             $I->click('Ja, ich bin mir sicher');
             $I->waitForActiveAPICalls();
             $I->dontSee("{$this->foodsaverOnJumperList['name']} {$this->foodsaverOnJumperList['nachname']}", '.store-team');
@@ -292,7 +292,7 @@ class StoreCest
         $I->click("#user-{$this->foodsaverWithStoreManagerQuiz['id']} .overflow-menu");
         $I->waitForElement('.dropdown-menu.show');
         $I->click('Verantwortung entziehen', '.dropdown-menu.show');
-        $I->waitForText('Bist du sicher?');
+        $I->waitForText('Bist du dir sicher?');
         $I->click('Ja, ich bin mir sicher');
         $I->waitForActiveAPICalls();
         $I->seeInDatabase('fs_betrieb_team', [
@@ -312,6 +312,8 @@ class StoreCest
         $I->click("#user-{$this->foodsaver['id']} .overflow-menu");
         $I->waitForElement('.dropdown-menu.show');
         $I->click('Auf die Springerliste', '.dropdown-menu.show');
+        $I->waitForText('Bist du dir sicher?');
+        $I->click('Ja, ich bin mir sicher');
         $I->waitForActiveAPICalls();
         $I->seeElement("#user-{$this->foodsaver['id']} .jumper");
     }
@@ -334,6 +336,8 @@ class StoreCest
         $I->click("#user-{$this->foodsaver['id']} .overflow-menu");
         $I->waitForElement('.dropdown-menu.show');
         $I->click('Auf die Springerliste', '.dropdown-menu.show');
+        $I->waitForText('Bist du dir sicher?');
+        $I->click('Ja, ich bin mir sicher');
         $I->waitForActiveAPICalls();
 
         //See storelog now contains something

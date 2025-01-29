@@ -9,6 +9,7 @@ use Foodsharing\Modules\Foodsaver\Profile;
 class StoreApplication
 {
     public Profile $user;
+    public string $firstName;
     public bool $verified;
     public ?int $distanceInKm = null;
     public ?DateTime $date = null;
@@ -17,6 +18,7 @@ class StoreApplication
     public static function createFromArray(array $data)
     {
         $application = new self();
+        $application->firstName = $data['name'];
         $data['name'] = $data['name'] . ' ' . $data['nachname'];
         $application->user = new Profile($data);
         $application->verified = (bool)$data['verified'];

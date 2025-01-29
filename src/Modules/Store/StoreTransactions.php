@@ -29,6 +29,7 @@ use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinition
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Message\MessageGateway;
+use Foodsharing\Modules\Message\MessageTransactions;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\DTO\CommonLabel;
@@ -80,6 +81,7 @@ class StoreTransactions
         private readonly StoreChainGateway $storeChainGateway,
         private readonly FeatureToggleChecker $featureToggleChecker,
         private readonly WallPostGateway $wallPostGateway,
+        private readonly MessageTransactions $messageTransactions,
         private readonly Session $session
     ) {
     }
@@ -757,7 +759,7 @@ class StoreTransactions
     /**
      * Rejects (denies) a user's request for a store and creates a bell notification for that user.
      */
-    public function declineStoreRequest(int $storeId, int $userId): void
+    public function declineStoreRequest(int $storeId, int $userId, ?string $message): void
     {
         $this->storeGateway->removeUserFromTeam($storeId, $userId);
 
@@ -766,6 +768,11 @@ class StoreTransactions
         if ($userId !== $this->session->id()) {
             $this->triggerBellForJoining($storeId, $userId, StoreLogAction::REQUEST_DECLINED);
         }
+
+        $this->messageTransactions->sendRequiredMessageToUser($userId, $this->session->id(), 'decline_store_application', $message, [
+            '{storeId}' => $storeId,
+            '{store}' => $this->storeGateway->getStoreName($storeId),
+        ]);
     }
 
     public function createKickMessage(int $foodsaverId, int $storeId, DateTime $pickupDate, ?string $message = null): string
@@ -793,13 +800,13 @@ class StoreTransactions
         $this->triggerBellForJoining($storeId, $userId, StoreLogAction::ADDED_WITHOUT_REQUEST);
     }
 
-    public function removeStoreMember(int $storeId, int $userId): void
+    public function removeStoreMember(int $storeId, int $userId, ?string $message, bool $sentRequiredMessage = true): void
     {
         $this->pickupGateway->deleteAllDatesFromAFoodsaver($userId, $storeId);
         $this->storeGateway->removeUserFromTeam($storeId, $userId);
 
         $storeLogAction = $this->session->id() == $userId ? StoreLogAction::LEFT_STORE : StoreLogAction::REMOVED_FROM_STORE;
-        $this->storeGateway->addStoreLog($storeId, $this->session->id(), $userId, null, $storeLogAction);
+        $this->storeGateway->addStoreLog($storeId, $this->session->id(), $userId, null, $storeLogAction, $message);
 
         if ($teamChatConversationId = $this->storeGateway->getBetriebConversation($storeId)) {
             $this->messageGateway->deleteUserFromConversation($teamChatConversationId, $userId);
@@ -808,6 +815,13 @@ class StoreTransactions
         if ($jumperChatConversationId = $this->storeGateway->getBetriebConversation($storeId, true)) {
             $this->messageGateway->deleteUserFromConversation($jumperChatConversationId, $userId);
         }
+
+        if ($sentRequiredMessage) {
+            $this->messageTransactions->sendRequiredMessageToUser($userId, $this->session->id(), 'kick_from_store_team', $message, [
+                '{storeId}' => $storeId,
+                '{store}' => $this->storeGateway->getStoreName($storeId),
+            ]);
+        }
     }
 
     public function leaveAllStoreTeams(int $userId): void
@@ -815,11 +829,11 @@ class StoreTransactions
         $ownStoreIds = $this->storeGateway->listStoreIds($userId);
 
         foreach ($ownStoreIds as $storeId) {
-            $this->removeStoreMember($storeId, $userId);
+            $this->removeStoreMember($storeId, $userId, null, false);
         }
     }
 
-    public function moveMemberToStandbyTeam(int $storeId, int $userId): void
+    public function moveMemberToStandbyTeam(int $storeId, int $userId, ?string $message, bool $sentRequiredMessage = true): void
     {
         $this->storeGateway->setUserMembershipStatus($storeId, $userId, MembershipStatus::JUMPER);
 
@@ -833,7 +847,14 @@ class StoreTransactions
             $this->messageGateway->deleteUserFromConversation($teamChatId, $userId);
         }
 
-        $this->storeGateway->addStoreLog($storeId, $this->session->id(), $userId, null, StoreLogAction::MOVED_TO_JUMPER);
+        $this->storeGateway->addStoreLog($storeId, $this->session->id(), $userId, null, StoreLogAction::MOVED_TO_JUMPER, $message);
+
+        if ($sentRequiredMessage) {
+            $this->messageTransactions->sendRequiredMessageToUser($userId, $this->session->id(), 'move_to_standby_team', $message, [
+                '{storeId}' => $storeId,
+                '{store}' => $this->storeGateway->getStoreName($storeId),
+            ]);
+        }
     }
 
     public function moveMemberToRegularTeam(int $storeId, int $userId): void
@@ -881,7 +902,7 @@ class StoreTransactions
         $this->storeGateway->addUserToTeam($storeId, $userId);
 
         if ($moveToStandby) {
-            $this->moveMemberToStandbyTeam($storeId, $userId);
+            $this->moveMemberToStandbyTeam($storeId, $userId, null, false);
         } else {
             $this->moveMemberToRegularTeam($storeId, $userId);
         }
@@ -1020,7 +1041,7 @@ class StoreTransactions
     {
         $allowedFields = [
             // personal info
-            'id', 'name', 'photo', 'rolle', 'is_sleeping', 'verified',
+            'id', 'name', 'firstName', 'photo', 'rolle', 'is_sleeping', 'verified',
             // team-related info
             'verantwortlich', 'team_active', 'stat_fetchcount', 'add_date',
         ];

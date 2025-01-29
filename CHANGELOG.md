@@ -6,6 +6,7 @@
 - Add navigation buttons for Maps, Waze & more navigaion providers #2301 !3953 !3960 @SaiCode
 - Added a public region page that is accessible without being logged in or member of the region. #1006 #2308 !3835 !3991 !4023 @AntonBallmaier
 - Add components for required messages on special actions. Used them when verifying users #1715 !3776 @AntonBallmaier
+- Add required messages when kicking store team members, moving members to standby list, denying store membership requests and taking store manager rights away #1715 !4003 @AntonBallmaier
 
 ## Changes
 - Include user agent in support ticket creation #2212 !3838 @AntonBallmaier

@@ -80,6 +80,17 @@
       :store-title="storeTitle"
       :store-requests="applications"
     />
+    <RequiredMessageModal
+      v-if="mayEditStore"
+      ref="requiredMessageModal"
+      :message-key="messageModalKey"
+      :initial-params="{ storeId, store: storeTitle }"
+    >
+      <b-alert show class="my-3">
+        <i class="fas fa-save mr-2" />
+        {{ $i18n('store.log.message_saved_info') }}
+      </b-alert>
+    </RequiredMessageModal>
   </div>
 </template>
 
@@ -106,9 +117,10 @@ import StoreTeamFilterPanel from './StoreTeamFilterPanel.vue'
 import StoreApplications from '@/components/Modals/Store/StoreApplications.vue'
 import PickupsData from '@/stores/pickups'
 import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin'
+import RequiredMessageModal from '@/components/Modals/RequiredMessageModal.vue'
 
 export default {
-  components: { StoreTeamAvatar, Container, PhoneButton, Time, OverflowMenu, StoreTeamManagementPanel, StoreTeamFilterPanel, StoreApplications },
+  components: { StoreTeamAvatar, Container, PhoneButton, Time, OverflowMenu, StoreTeamManagementPanel, StoreTeamFilterPanel, StoreApplications, RequiredMessageModal },
   mixins: [MediaQueryMixin, ListToggleMixin, ConfirmationDialogue, CopyToClipboardMixin],
   props: {
     fsId: { type: Number, required: true },
@@ -132,6 +144,7 @@ export default {
       filterFunction: { func: () => true },
       defaultAmountForDesktop: 20,
       defaultAmountForMobile: 10,
+      messageModalKey: '',
     }
   },
   computed: {
@@ -170,7 +183,7 @@ export default {
     },
     mayRemoveFromStore (user) {
       if (user.isManager) return false
-      if (user.id === this.fsId) return true
+      if (user.id === this.fsId) return false
       return this.mayEditStore
     },
     mayBecomeManager (user) {
@@ -183,11 +196,16 @@ export default {
         if (user.isJumper) {
           await moveMemberToRegularTeam(this.storeId, user.id)
         } else {
-          await moveMemberToStandbyTeam(this.storeId, user.id)
+          this.messageModalKey = 'move_to_standby_team'
+          await this.$nextTick()
+          const message = await this.$refs.requiredMessageModal.tryGetMessage({ name: user.firstName })
+          if (message === false) return
+          await moveMemberToStandbyTeam(this.storeId, user.id, message)
         }
         await StoreData.mutations.loadStoreMember(this.storeId)
       } catch (e) {
         pulseError(this.$i18n('error_unexpected'))
+        console.error(e)
       }
     },
     async promoteToManager (user) {
@@ -203,13 +221,13 @@ export default {
       }
     },
     async demoteAsManager (user) {
-      const dialogueOptions = {
-        params: user,
-        okTitle: this.$i18n('button.yes_i_am_sure'),
-      }
-      if (!await this.confirmationDialogue('store.sm.reallyDemote', dialogueOptions)) return
+      this.messageModalKey = 'demote_store_manager'
+      await this.$nextTick()
+      const message = await this.$refs.requiredMessageModal.tryGetMessage({ name: user.firstName })
+      if (message === false) return
+
       try {
-        await demoteAsStoreManager(this.storeId, user.id)
+        await demoteAsStoreManager(this.storeId, user.id, message)
         await StoreData.mutations.loadStoreMember(this.storeId)
       } catch (e) {
         pulseError(this.$i18n('error_unexpected'))
@@ -243,6 +261,7 @@ export default {
         avatar: fs.photo,
         isSleeping: fs.is_sleeping,
         name: fs.name,
+        firstName: fs.firstName,
         phoneNumber: validPhoneNumber,
         phoneNumberIsValid: !!validPhoneNumber,
         joinDate: fs.add_date ? new Date(fs.add_date * 1000) : null, // unix time
@@ -252,19 +271,20 @@ export default {
       }
     },
     async removeFromTeam (user) {
-      const dialogueOptions = {
-        params: user,
-        okTitle: this.$i18n('button.yes_i_am_sure'),
-      }
-      if (!await this.confirmationDialogue('store.sm.reallyRemove', dialogueOptions)) return
-
       const pickups = PickupsData.getters.getPickups()
       const occupiedSlots = pickups.filter(pickup => pickup.occupiedSlots.find(slot => slot.profile.id === user.id))
-      dialogueOptions.params.occupiedSlots = occupiedSlots.length
+      const dialogueOptions = {
+        params: Object.assign({ occupiedSlots: occupiedSlots.length }, user),
+        okTitle: this.$i18n('button.yes_i_am_sure'),
+      }
       if (occupiedSlots.length && !await this.confirmationDialogue('store.sm.userHasPickupsWarning', dialogueOptions)) return
+      this.messageModalKey = 'kick_from_store_team'
+      await this.$nextTick()
+      const message = await this.$refs.requiredMessageModal.tryGetMessage({ name: user.firstName })
+      if (message === false) return
 
       try {
-        await removeStoreMember(this.storeId, user.id)
+        await removeStoreMember(this.storeId, user.id, message)
         await StoreData.mutations.loadStoreMember(this.storeId)
       } catch (e) {
         pulseError(this.$i18n('error_unexpected'))

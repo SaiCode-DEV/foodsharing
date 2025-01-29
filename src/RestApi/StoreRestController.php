@@ -582,15 +582,17 @@ class StoreRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="404", description="Store or request does not exist")
      * @OA\Tag(name="stores")
      */
+    #[Rest\RequestParam(name: 'message', nullable: true)]
     #[Rest\Delete('stores/{storeId}/requests/{userId}')]
-    public function declineStoreRequest(int $storeId, int $userId): Response
+    public function declineStoreRequest(int $storeId, int $userId, ParamFetcher $paramFetcher): Response
     {
         $this->handleEditTeamExceptions($storeId, $userId, false, true);
         if ($this->storeGateway->getUserTeamStatus($userId, $storeId) !== TeamMembershipStatus::Applied) {
             throw new NotFoundHttpException('Request does not exist.');
         }
 
-        $this->storeTransactions->declineStoreRequest($storeId, $userId);
+        $message = $paramFetcher->get('message');
+        $this->storeTransactions->declineStoreRequest($storeId, $userId, $message);
 
         if ($this->session->id() == $userId) {
             $LogAction = StoreLogAction::REQUEST_CANCELLED;
@@ -641,15 +643,17 @@ class StoreRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="422", description="User cannot currently leave this team")
      * @OA\Tag(name="stores")
      */
+    #[Rest\RequestParam(name: 'message', nullable: true)]
     #[Rest\Delete('stores/{storeId}/members/{userId}')]
-    public function removeStoreMember(int $storeId, int $userId): Response
+    public function removeStoreMember(int $storeId, int $userId, ParamFetcher $paramFetcher): Response
     {
         $this->handleEditTeamExceptions($storeId, $userId, false, true);
         if (!$this->storePermissions->mayLeaveStoreTeam($storeId, $userId)) {
             throw new UnprocessableEntityHttpException();
         }
 
-        $this->storeTransactions->removeStoreMember($storeId, $userId);
+        $message = $paramFetcher->get('message');
+        $this->storeTransactions->removeStoreMember($storeId, $userId, $message);
 
         return $this->handleView($this->view([], 200));
     }
@@ -717,8 +721,9 @@ class StoreRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="404", description="User is not a member of this store")
      * @OA\Tag(name="stores")
      */
+    #[Rest\RequestParam(name: 'message', nullable: true)]
     #[Rest\Patch('stores/{storeId}/members/{userId}/standby')]
-    public function moveMemberToStandbyTeam(int $storeId, int $userId): Response
+    public function moveMemberToStandbyTeam(int $storeId, int $userId, ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
@@ -730,7 +735,8 @@ class StoreRestController extends AbstractFoodsharingRestController
             throw new NotFoundHttpException('User is not a member of this store.');
         }
 
-        $this->storeTransactions->moveMemberToStandbyTeam($storeId, $userId);
+        $message = $paramFetcher->get('message');
+        $this->storeTransactions->moveMemberToStandbyTeam($storeId, $userId, $message);
 
         return $this->handleView($this->view([], 200));
     }

@@ -714,13 +714,10 @@ export default {
       }
     },
     async changeVerification (isVerified, memberId, memberName) {
-      let messageDetails
+      let message
       if (isVerified) {
-        const modal = this.$refs.verifyModal
-        modal.show({ name: memberName })
-        try {
-          messageDetails = await modal.getConfirmationPromise()
-        } catch { return }
+        message = await this.$refs.verifyModal.tryGetMessage({ name: memberName })
+        if (message === false) return
       } else {
         const dialogueOptions = {
           title: i18n('group.member_list.passports.button.unverify'),
@@ -730,7 +727,7 @@ export default {
         }
         if (!await this.confirmationDialogue('group.member_list.passports.verify.undo', dialogueOptions)) return
       }
-      await this.updateVerificationStatusFromUser(isVerified, memberId, messageDetails)
+      await this.updateVerificationStatusFromUser(isVerified, memberId, message)
       const index = regionStore.memberList.findIndex(member => member.id === memberId)
       if (index >= 0) {
         regionStore.memberList[index].isVerified = isVerified
@@ -865,18 +862,14 @@ export default {
         return this.changeVerification(true, member.id, member.name)
       }
 
-      // get confirmation and message details once
-      let messageDetails
-      const modal = this.$refs.verifyModal
-      modal.showMultiple(unverifiedSelectedMembers.length)
-      try {
-        messageDetails = await modal.getConfirmationPromise()
-      } catch { return }
+      // get confirmation and message once
+      const message = await this.$refs.verifyModal.tryGetMessage({}, unverifiedSelectedMembers.length)
+      if (message === false) return
 
       // verify all affected members
       try {
         for (const member of unverifiedSelectedMembers) {
-          await this.updateVerificationStatusFromUser(true, member.id, messageDetails)
+          await this.updateVerificationStatusFromUser(true, member.id, message)
           member.isVerified = true
         }
       } catch (e) {

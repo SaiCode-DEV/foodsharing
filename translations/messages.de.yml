@@ -1084,7 +1084,6 @@ store:
     promoteToManager: "Verantwortlich machen"
     promoteToManagerNotPossible: "Die Person kann nicht verantwortlich gemacht werden, da es schon drei Betriebsverantwortliche gibt oder die Person noch nicht das Quiz bestanden hat."
     demoteAsManager: "Verantwortung entziehen"
-    reallyDemote: "Möchtest du wirklich {name} die Verantwortung für diesen Betrieb entziehen?"
     reloadRequired: "Zum Aktualisieren der Team-Infos:"
     reloadPage: "Neu laden"
     searchPlaceholder: "Name oder ID"
@@ -1192,6 +1191,7 @@ store:
       14: "{actor} hat den Abholslot von {target} am {date} bestätigt."
       15: "{actor} hat {target}s Pinnwandeintrag vom {date} gelöscht"
       16: "{actor} hat die Beitrittsanfrage zurückgezogen"
+    message_saved_info: "Deine Nachricht wird im Betriebsprotokoll gespeichert."
   to_map: "Auf der Karte anzeigen"
 
 navi:
@@ -3942,6 +3942,24 @@ required_messages:
     really_multiple: "Möchtest du wirklich {count} Nutzer:innen verifizieren? Bitte stelle sicher, dass alle {count} Personen alle [Voraussetzungen für verifizierte Foodsaver](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver) erfüllen."
     main: "wir haben dich als Foodsaver:in verifiziert!"
     footer: "Viele Grüße, deine Botschafter:innen"
+  kick_from_store_team:
+    really: "Möchtest du {name} wirklich aus dem Team dieses Betriebs austragen?"
+    main: "du wurdest aus dem Team des Betriebs [{store}](/store/{storeId}) ausgetragen. Du kannst dich somit nicht mehr für Abholungen in diesem Betrieb eintragen."
+    footer: "Viele Grüße"
+  move_to_standby_team:
+    really: "Möchtest du {name} wirklich aus dem aktiven Team auf die Springerlist setzen?"
+    main: "du wurdest im Betrieb [{store}](/store/{storeId}) auf die Springerliste gesetzt. Du kannst dich damit aktuell nicht mehr für Abholungen in diesem Betrieb eintragen oder den allgemeinen Gruppenchat lesen." 
+    footer: "Viele Grüße"
+  decline_store_application:
+    really: "Möchtest du die Teambewerbung von {name} wirklich ablehnen?"
+    main: "Deine Beitrittsanfrage zum Betrieb [{store}](/store/{storeId}) wurde abgelehnt."
+    footer: "Viele Grüße"
+  demote_store_manager:
+    really: "Möchtest du {name} wirklich die Verantwortung als Betriebsverantwortliche:r entziehen?"
+    main: "Ich habe dich als Betriebsverantwortliche:r des Betriebs [{store}](/store/{storeId}) ausgetragen."
+    footer: "Viele Grüße"
+
+
 
 petition:
   progressText:
