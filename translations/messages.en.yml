@@ -2607,6 +2607,7 @@ store:
     selected_log_types: '{amount} action types selected'
     title: Store log
     no_description: none
+    message_saved_info: Your message will be stored in the operation log.
   signInDateTime: Sign-in time
   slot_state: Slot status
   lastPickupTitle: Last pick-up here
@@ -4673,6 +4674,25 @@ required_messages:
       foodsavers](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).
   placeholder: Optionally add information here …
   save_message: Save my message for future reference
+  kick_from_store_team:
+    really: Are you sure you want to remove {name} from this team?
+    footer: Best regards
+    main: you have been removed from the [{store}](/store/{storeId}) team. You can
+      no longer sign in for pickups there.
+  decline_store_application:
+    footer: Best regards
+    really: Are you sure you want to reject {name}’s team application?
+    main: Your request to join the [{store}](/store/{storeId}) team was rejected.
+  move_to_standby_team:
+    footer: Best regards
+    really: Are you sure you want to move {name} from the active team to the list
+      of standby foodsavers?
+    main: you have been put on the standby list at [{store}](/store/{storeId}). You
+      can neither sign in for pickups here nor read the group chat.
+  demote_store_manager:
+    really: Are you sure you want to remove {name} as team manager?
+    footer: Best regards
+    main: I have removed you as team manager of [{store}](/store/{storeId}).
 contact_page:
   support:
     title: Help with the website or your account
