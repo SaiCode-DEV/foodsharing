@@ -28,6 +28,7 @@ module.exports = merge(webpackBase, {
       // In webpack 5 automatic node.js polyfills are removed
       // -> see https://stackoverflow.com/a/65018686/14239942
       process: 'process/browser.js',
+      L: 'leaflet',
     }),
   ],
   module: {

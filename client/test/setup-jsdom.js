@@ -11,5 +11,10 @@ const html = `
 JSDOMGlobal(html, { url: 'https://foodsharing.de' })
 
 window.localStorage = new LocalStorage('/tmp')
+window.showLoading = () => null
 // fix for vue-loader 15.6.2 - See  https://github.com/vuejs/vue-test-utils/issues/936
 window.Date = Date
+
+global.sessionStorage = {
+  getItem: () => '{ "test": "test-user" }',
+}

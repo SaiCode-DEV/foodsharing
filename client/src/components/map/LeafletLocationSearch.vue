@@ -119,10 +119,17 @@ async function updateCoordinates (coords) {
   currentCoords.value = coords
   if (props.doReverseGeocoding) {
     const location = await fetchReverseGeocode(coords)
-    if (!location) return
+    // coords that point to locations like the Mediterranean Sea do not provide the required location data
+    const hasAllRequiredData =
+      location.postcode && location.city && location.street
+    if (!location || !hasAllRequiredData) return
     currentPostal.value = location.postcode
     currentCity.value = location.city
-    currentStreet.value = `${location.street} ${location.housenumber}`
+    if (location.housenumber) {
+      currentStreet.value = `${location.street} ${location.housenumber}`
+    } else {
+      currentStreet.value = location.street
+    }
     addressSearch.value.setSearchString(location.formatted)
     emitAddressChange()
   }
@@ -130,6 +137,9 @@ async function updateCoordinates (coords) {
 
 function useAddress (location) {
   currentCoords.value = { lat: location.lat, lon: location.lon }
+  // coords that point to locations like the Mediterranean Sea do not provide the required location data
+  const hasAllRequiredData = location.postcode && location.city && location.street
+  if (!hasAllRequiredData) return
   currentPostal.value = location.postcode
   currentCity.value = location.city
   currentStreet.value = location.address_line1
