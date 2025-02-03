@@ -25,6 +25,10 @@ export const REGION_IDS = Object.freeze({
   GERMANY: 1,
   AUSTRIA: 63,
   SWITZERLAND: 106,
+
+  STORE_CHAIN_GROUP: 332,
+  STORE_CHAIN_GROUP_SWITZERLAND: 1004,
+  STORE_CHAIN_GROUP_AUSTRIA: 858,
 })
 
 export const HTTP_RESPONSE = Object.freeze({

@@ -24,6 +24,8 @@ class RegionIDs
     final public const int EDITORIAL_GROUP = 327;
     final public const int BOT_WELCOME_TEAM = 328;
     final public const int STORE_CHAIN_GROUP = 332;
+    final public const int STORE_CHAIN_GROUP_SWITZERLAND = 1004;
+    final public const int STORE_CHAIN_GROUP_AUSTRIA = 858;
     final public const int HYGIENE_GROUP = 1686;
     final public const int POLITICAL_CAMPAIGNS = 1880;
 
@@ -77,5 +79,14 @@ class RegionIDs
             self::TESTREGION_1,
             self::TESTREGION_2
         ];
+    }
+
+    public static function isChainsGroup(int $regionId): bool
+    {
+        return in_array($regionId, [
+            self::STORE_CHAIN_GROUP,
+            self::STORE_CHAIN_GROUP_AUSTRIA,
+            self::STORE_CHAIN_GROUP_SWITZERLAND,
+        ]);
     }
 }

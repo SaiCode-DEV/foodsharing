@@ -2785,8 +2785,6 @@ chain:
     EMPTY_NAME: El campo Nombre está vacío
     INVALID_STORECHAIN_ID: El ID de la cadena no es válido
     WRONG_FORUM: El hilo del foro no pertenece al grupo de trabajo de cadenas operativas
-    KEY_ACCOUNT_MANAGER_ID_NOT_IN_GROUP: Este key account manager no forma parte del
-      grupo de trabajo para cadenas comerciales/empresas
     KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: Key Account Manager no existe
     INVALID_STATUS: El campo de estado no es válido
     EMPTY_ZIP: El campo de código postal está vacío

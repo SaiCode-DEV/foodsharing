@@ -20,6 +20,7 @@
 - Update team Page (linking / design) !3999 @SaiCode
 - Create a personal immediately after finishing the store manager quiz !3983 @alex.simm
 - Improved burger menu for mobile !3989 @chriswalg
+- Austrian und Swiss store chain groups can now access the store chain list properly #2325 !4024 @AntonBallmaier
 - Improved address input #2317 !4018 @AntonBallmaier
 
 ## Bugfixes

@@ -4044,8 +4044,6 @@ chain:
   errorCodes:
     INVALID_STORECHAIN_ID: Store chain ID is not valid
     KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: Store chain key account manager does not exist
-    KEY_ACCOUNT_MANAGER_ID_NOT_IN_GROUP: This key account manager is not part of the
-      Working Group for business chains/companies
     THREAD_ID_NOT_EXISTS: Forum thread does not exist
     WRONG_FORUM: Thread is from wrong forum
     EMPTY_NAME: Name can not be empty

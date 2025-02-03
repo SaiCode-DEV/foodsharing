@@ -3304,7 +3304,7 @@ chain:
   errorCodes:
     INVALID_STORECHAIN_ID: Betriebsketten-ID ist ungültig
     KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: Key-Account-Manager:in existiert nicht
-    KEY_ACCOUNT_MANAGER_ID_NOT_IN_GROUP: Key-Account-Manager:in gehört nicht zur AG Betriebsketten
+    KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: Key-Account-Manager:in hat nicht die Schulung für KAMs gemacht.
     THREAD_ID_NOT_EXISTS: Forenthread existiert nicht
     WRONG_FORUM: Forenthread gehört nicht zur AG Betriebsketten
     EMPTY_NAME: Namensfeld ist leer

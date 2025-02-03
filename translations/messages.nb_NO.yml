@@ -4139,7 +4139,6 @@ chain:
   pagetitle: Driftskjeder
   errorCodes:
     KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: Key Account Manager eksisterer ikke
-    KEY_ACCOUNT_MANAGER_ID_NOT_IN_GROUP: Key Account Manager tilhører ikke AG Bedriftskjeder
     INVALID_STORECHAIN_ID: Bedriftskjede-ID er ugyldig
     THREAD_ID_NOT_EXISTS: Forumtråden finnes ikke
     WRONG_FORUM: Forumtråden tilhører ikke AG Bedriftskjeder

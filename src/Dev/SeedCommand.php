@@ -362,6 +362,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->createRegion('Foodsharing auf Festivals', ['id' => RegionIDs::FOODSHARING_ON_FESTIVALS, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::CITY, 'has_children' => 0]);
         $regionEurope = $I->createRegion('Europa', ['id' => RegionIDs::EUROPE, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::COUNTRY, 'has_children' => 1]);
         $regionGermany = $I->createRegion('Deutschland', ['id' => RegionIDs::GERMANY, 'parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1]);
+        $I->createRegion('Schweiz', ['id' => RegionIDs::SWITZERLAND, 'parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1]);
         $regionLowerSaxony = $I->createRegion('Niedersachsen', ['parent_id' => $regionGermany['id'], 'type' => UnitType::FEDERAL_STATE, 'has_children' => 1]);
         $regionOne = $I->createRegion('Göttingen', [
             'parent_id' => $regionLowerSaxony['id'],
@@ -398,6 +399,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->createWorkingGroup('Fairteiler-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::FSP_TEAM_ADMIN_GROUP]);
         $I->createWorkingGroup('Betriebskoordination-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::STORE_COORDINATION_TEAM_ADMIN_GROUP]);
         $I->createWorkingGroup('AG Betriebsketten', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::STORE_CHAIN_GROUP]);
+        $I->createWorkingGroup('Betriebsketten Schweiz', ['parent_id' => RegionIDs::SWITZERLAND, 'id' => RegionIDs::STORE_CHAIN_GROUP_SWITZERLAND]);
         $I->createWorkingGroup('Hygiene', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::HYGIENE_GROUP]);
         $I->createWorkingGroup('PolKa', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::POLITICAL_CAMPAIGNS]);
         $I->createWorkingGroup('Quiz FR', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::QUIZ_GROUP_FR]); // actually in france, but for the seed data it's here...

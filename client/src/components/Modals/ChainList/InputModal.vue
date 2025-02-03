@@ -107,7 +107,7 @@
           v-model="input.forumThread"
           class="m-1"
           :placeholder="$i18n('chain.inputmodal.inputs.thread.placeholder')"
-          :region-id="332"
+          :region-ids="storeChainGroups"
         />
       </b-form-group>
 
@@ -203,6 +203,7 @@ import { hideLoader, showLoader } from '@/script'
 import ForumSearchInput from '@/components/ForumSearchInput.vue'
 import MultiUserSearchInput from '@/components/MultiUserSearchInput.vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
+import { REGION_IDS } from '@/consts'
 
 export default {
   components: { ForumSearchInput, MultiUserSearchInput, MarkdownInput },
@@ -225,6 +226,7 @@ export default {
     }
   },
   computed: {
+    storeChainGroups: () => [REGION_IDS.STORE_CHAIN_GROUP, REGION_IDS.STORE_CHAIN_GROUP_SWITZERLAND, REGION_IDS.STORE_CHAIN_GROUP_AUSTRIA],
     mode () {
       return (this.chainEditing >= 0 ? 'edit' : 'new')
     },

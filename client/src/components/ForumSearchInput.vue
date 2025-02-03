@@ -40,10 +40,9 @@ export default {
     placeholder: { type: String, default: '' },
     filter: { type: Function, default: null },
     /**
-     * If not null, the search is restricted to this region.
+     * If not null, the search is restricted to these regions.
      */
-    regionId: { type: Number, default: null },
-    subforumId: { type: Number, default: 0 },
+    regionIds: { type: Array, default: null },
     value: { type: Number, default: 0 },
   },
   data () {
@@ -80,12 +79,12 @@ export default {
       const isNumber = /^\d+\.?\d*$/.test(query)
       if (isNumber) {
         const thread = (await getThread(Number(query))).data
-        if (this.regionId === thread.regionId) {
+        if (this.regionIds.includes(thread.regionId)) {
           matchingForums.push({ id: thread.id, name: thread.title })
         }
       } else if (query.length >= 3 || isNumber) {
         try {
-          matchingForums = await searchForum(this.regionId, this.subforumId, query)
+          matchingForums = (await Promise.all(this.regionIds.map(regionId => searchForum(regionId, 0, query)))).flat()
           if (this.filter) {
             // let the external function filter by forum id
             const filteredIds = matchingForums.map(x => x.id).filter(this.filter)

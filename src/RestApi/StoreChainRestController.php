@@ -14,7 +14,6 @@ use Foodsharing\Modules\StoreChain\StoreChainTransactionException;
 use Foodsharing\Modules\StoreChain\StoreChainTransactions;
 use Foodsharing\Permissions\StoreChainPermissions;
 use Foodsharing\RestApi\Models\StoreChain\CreateStoreChainModel;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -25,21 +24,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-class StoreChainRestController extends AbstractFOSRestController
+class StoreChainRestController extends AbstractFoodsharingRestController
 {
-    // literal constants
-    private const string NOT_LOGGED_IN = 'not logged in';
-
     public function __construct(
-        private readonly Session $session,
+        protected Session $session,
         private readonly StoreGateway $storeGateway,
         private readonly StoreChainGateway $gateway,
         private readonly StoreChainTransactions $transactions,
         private readonly StoreChainPermissions $permissions
     ) {
+        parent::__construct($this->session);
     }
 
     /**
@@ -62,9 +58,7 @@ class StoreChainRestController extends AbstractFOSRestController
     #[Rest\QueryParam(name: 'offset', description: 'Offset of items', requirements: '\d+', default: 0, strict: true)]
     public function getStoreChains(ParamFetcher $paramFetcher): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException(self::NOT_LOGGED_IN);
-        }
+        $this->assertLoggedIn();
         if (!$this->permissions->maySeeChainList()) {
             throw new AccessDeniedHttpException();
         }
@@ -73,7 +67,7 @@ class StoreChainRestController extends AbstractFOSRestController
         $pagination->pageSize = $paramFetcher->get('pageSize');
         $pagination->offset = $paramFetcher->get('offset');
 
-        return $this->handleView($this->view($this->transactions->getStoreChains(null, $this->permissions->maySeeChainDetails(), $pagination), 200));
+        return $this->respondOk($this->transactions->getStoreChains(null, $pagination));
     }
 
     /**
@@ -91,19 +85,17 @@ class StoreChainRestController extends AbstractFOSRestController
     #[Rest\Get('chains/{chainId}', requirements: ['chainId' => '\d+'])]
     public function getStoreChain(int $chainId): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException(self::NOT_LOGGED_IN);
-        }
+        $this->assertLoggedIn();
         if (!$this->permissions->maySeeChainList()) {
             throw new AccessDeniedHttpException();
         }
 
-        $chain = $this->transactions->getStoreChains($chainId, $this->permissions->maySeeChainDetails($chainId));
+        $chain = $this->transactions->getStoreChains($chainId);
         if (empty($chain)) {
             throw new NotFoundHttpException('Requested store chain not found.');
         }
 
-        return $this->handleView($this->view($chain[0], 200));
+        return $this->respondOK($chain[0]);
     }
 
     /**
@@ -121,9 +113,7 @@ class StoreChainRestController extends AbstractFOSRestController
     #[ParamConverter('storeModel', converter: 'fos_rest.request_body')]
     public function createChain(CreateStoreChainModel $storeModel, ConstraintViolationListInterface $validationErrors): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException(self::NOT_LOGGED_IN);
-        }
+        $this->assertLoggedIn();
         if (!$this->permissions->mayCreateChain()) {
             throw new AccessDeniedHttpException();
         }
@@ -135,7 +125,7 @@ class StoreChainRestController extends AbstractFOSRestController
             throw new BadRequestException($ex->getMessage());
         }
 
-        return $this->handleView($this->view($this->gateway->getStoreChains($id)[0], 201));
+        return $this->respondOK($this->gateway->getStoreChains($id)[0]);
     }
 
     /**
@@ -152,9 +142,7 @@ class StoreChainRestController extends AbstractFOSRestController
     #[ParamConverter('storeModel', converter: 'fos_rest.request_body')]
     public function updateChain($chainId, PatchStoreChain $storeModel, ConstraintViolationListInterface $validationErrors): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException(self::NOT_LOGGED_IN);
-        }
+        $this->assertLoggedIn();
         if (!$this->gateway->chainExists($chainId)) {
             throw new NotFoundHttpException('chain does not exist');
         }
@@ -172,7 +160,7 @@ class StoreChainRestController extends AbstractFOSRestController
             $updateKams = $this->permissions->mayEditKams($chainId);
             $changed = $this->transactions->updateStoreChain($chainId, $storeModel, $updateKams);
             if ($changed) {
-                return $this->handleView($this->view($this->gateway->getStoreChains($chainId)[0]));
+                return $this->respondOK($this->gateway->getStoreChains($chainId)[0]);
             } else {
                 throw new BadRequestException('No information changed.');
             }
@@ -201,9 +189,7 @@ class StoreChainRestController extends AbstractFOSRestController
     #[Rest\Get('chains/{chainId}/stores', requirements: ['chainId' => '\d+'])]
     public function getChainStores(int $chainId, ParamFetcher $paramFetcher): Response
     {
-        if (!$this->session->mayRole()) {
-            throw new UnauthorizedHttpException(self::NOT_LOGGED_IN);
-        }
+        $this->assertLoggedIn();
         if (!$this->permissions->maySeeChainStores($chainId)) {
             throw new AccessDeniedHttpException();
         }
@@ -216,7 +202,7 @@ class StoreChainRestController extends AbstractFOSRestController
         $pagination->pageSize = $paramFetcher->get('pageSize');
         $pagination->offset = $paramFetcher->get('offset');
 
-        return $this->handleView($this->view($this->storeGateway->findAllStoresOfStoreChain($chainId, $pagination), 200));
+        return $this->respondOK($this->storeGateway->findAllStoresOfStoreChain($chainId, $pagination));
     }
 
     /**

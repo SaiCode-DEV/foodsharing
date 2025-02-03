@@ -3828,8 +3828,6 @@ chain:
     EMPTY_NAME: Il campo Nome è vuoto
     INVALID_STORECHAIN_ID: L'ID della catena non è valido
     WRONG_FORUM: La discussione non appartiene a questo forum
-    KEY_ACCOUNT_MANAGER_ID_NOT_IN_GROUP: Il Key Account Manager non fa parte del gruppo
-      di lavoro “Catene”
     KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: Il Key Account Manager non esiste
     INVALID_STATUS: Il campo Stato non è valido
     EMPTY_ZIP: Il campo del codice postale (CAP) è vuoto

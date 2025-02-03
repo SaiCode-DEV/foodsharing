@@ -4308,8 +4308,6 @@ chain:
     EMPTY_NAME: Le champ Nom est vide
     THREAD_ID_NOT_EXISTS: Le fil de discussion du forum n’existe pas
     INVALID_STORECHAIN_ID: L’id de la chaîne n’est pas valide
-    KEY_ACCOUNT_MANAGER_ID_NOT_IN_GROUP: Ce responsable grands comptes ne fait pas
-      partie du groupe de travail pour les chaînes d’affaires/entreprises
 usersearch:
   no_tag_preset: Utilisateur non trouvé
   select_tag: Rechercher des utilisateurs par nom

@@ -4,7 +4,6 @@ namespace Foodsharing\Modules\StoreChain\DTO;
 
 use DateTime;
 use DateTimeZone;
-use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\StoreChain\StoreChainStatus;
 use Foodsharing\Validator\NoHtml;
@@ -159,7 +158,7 @@ class StoreChain
      *
      * @OA\Property(readOnly=true)
      */
-    public ?int $regionId = RegionIDs::STORE_CHAIN_GROUP;
+    public ?int $regionId = null;
 
     public static function createFromArray(array $data): StoreChain
     {
@@ -173,6 +172,7 @@ class StoreChain
         $obj->headquartersCountry = $data['headquarters_country'] ?? '';
         $obj->modificationDate = new DateTime($data['modification_date'], new DateTimeZone('Europe/Berlin'));
         $obj->forumThread = $data['forum_thread'] ?? 0;
+        $obj->regionId = $data['forum_region_id'] ?? 0;
         $obj->notes = $data['notes'];
         $obj->commonStoreInformation = $data['common_store_information'];
         $obj->kams = $data['kams'];

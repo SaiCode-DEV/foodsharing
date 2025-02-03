@@ -6,7 +6,7 @@ class StoreChainTransactionException extends \Exception
 {
     final public const string INVALID_STORECHAIN_ID = 'INVALID_STORECHAIN_ID';
     final public const string KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS = 'KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS';
-    final public const string KEY_ACCOUNT_MANAGER_ID_NOT_IN_GROUP = 'KEY_ACCOUNT_MANAGER_ID_NOT_IN_GROUP';
+    final public const string KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT = 'KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT';
     final public const string THREAD_ID_NOT_EXISTS = 'THREAD_ID_NOT_EXISTS';
     final public const string WRONG_FORUM = 'WRONG_FORUM';
     final public const string EMPTY_NAME = 'EMPTY_NAME';

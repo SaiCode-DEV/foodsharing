@@ -3,12 +3,13 @@
 namespace Foodsharing\Modules\StoreChain;
 
 use Exception;
+use Foodsharing\Modules\Achievement\AchievementGateway;
+use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Region\ForumGateway;
-use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\StoreChain\DTO\PatchStoreChain;
 use Foodsharing\Modules\StoreChain\DTO\StoreChain;
 use Foodsharing\Modules\StoreChain\DTO\StoreChainForChainList;
@@ -19,7 +20,7 @@ class StoreChainTransactions
         private readonly StoreChainGateway $storeChainGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly ForumGateway $forumGateway,
-        private readonly RegionGateway $regionGateway
+        private readonly AchievementGateway $achievementGateway,
     ) {
     }
 
@@ -28,18 +29,9 @@ class StoreChainTransactions
      *
      * @throws Exception
      */
-    public function getStoreChains(?int $id = null, bool $details = true, Pagination $pagination = new Pagination()): array
+    public function getStoreChains(?int $id = null, Pagination $pagination = new Pagination()): array
     {
         $results = $this->storeChainGateway->getStoreChains($id, $pagination);
-        if (!$details) {
-            foreach ($results as &$item) {
-                $item->storeCount = null;
-                $item->chain->estimatedStoreCount = null;
-                $item->chain->forumThread = null;
-                $item->chain->notes = null;
-                $item->chain->regionId = null;
-            }
-        }
 
         return $results;
     }
@@ -162,8 +154,8 @@ class StoreChainTransactions
         }
 
         foreach ($ids as $id) {
-            if (!$this->regionGateway->hasMember($id, RegionIDs::STORE_CHAIN_GROUP)) {
-                throw new StoreChainTransactionException(StoreChainTransactionException::KEY_ACCOUNT_MANAGER_ID_NOT_IN_GROUP);
+            if (!$this->achievementGateway->hasAchievement($id, AchievementIDs::KAM_CERTIFICATE)) {
+                throw new StoreChainTransactionException(StoreChainTransactionException::KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT);
             }
         }
     }
@@ -175,7 +167,7 @@ class StoreChainTransactions
             throw new StoreChainTransactionException(StoreChainTransactionException::THREAD_ID_NOT_EXISTS);
         }
 
-        if ($forumResult[0]['forumId'] != RegionIDs::STORE_CHAIN_GROUP) {
+        if (!RegionIDs::isChainsGroup($forumResult[0]['forumId'])) {
             throw new StoreChainTransactionException(StoreChainTransactionException::WRONG_FORUM);
         }
     }

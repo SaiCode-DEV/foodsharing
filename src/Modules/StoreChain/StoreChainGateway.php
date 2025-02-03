@@ -106,10 +106,11 @@ class StoreChainGateway extends BaseGateway
 
         $data = $this->db->fetchAll('SELECT
 				c.*,
-				COUNT(s.`id`) AS stores
+				COUNT(s.`id`) AS stores,
+                ht.`bezirk_id` AS forum_region_id
 			FROM `fs_chain` c
-			LEFT OUTER JOIN `fs_betrieb` s ON
-				s.`kette_id` = c.`id`
+			LEFT OUTER JOIN `fs_betrieb` s ON s.`kette_id` = c.`id`
+            LEFT OUTER JOIN `fs_bezirk_has_theme` ht ON ht.`theme_id` = c.`forum_thread`
 			' . $where . '
 			GROUP BY c.`id`
             ORDER BY c.id

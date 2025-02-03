@@ -277,7 +277,7 @@ class RegionTransactions
         } else {
             $menu['isAdmin'] = $this->workGroupPermissions->mayEdit($region);
             $menu['hasSubgroups'] = $this->regionGateway->hasSubgroups($regionId);
-            if ($regionId == RegionIDs::STORE_CHAIN_GROUP) {
+            if (RegionIDs::isChainsGroup($regionId)) {
                 $menu['isChainGroup'] = true;
             }
         }

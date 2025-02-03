@@ -2324,8 +2324,6 @@ chain:
   errorCodes:
     INVALID_STORECHAIN_ID: இயக்க சங்கிலிகள் ஐடி தவறானது
     KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: 'முக்கிய கணக்கு மேலாளர்: இல்லை'
-    KEY_ACCOUNT_MANAGER_ID_NOT_IN_GROUP: 'முக்கிய கணக்கு மேலாளர்: இயக்கச் சங்கிலிகளில்
-      AG இல் இல்லை'
     THREAD_ID_NOT_EXISTS: முன்னோடிகளில் இல்லை
     WRONG_FORUM: ஃபோர்டில் வாசிப்பு ஏசி இயக்கச் சங்கிலிகளுக்கு சொந்தமானது அல்ல
     EMPTY_NAME: பெயர் புலம் காலியாக உள்ளது
