@@ -1,0 +1,70 @@
+<template>
+  <div class="search-bar-wrapper">
+    <label
+      class="sr-only"
+      for="searchField"
+      v-text="$i18n(props.placeholder)"
+    />
+    <i class="icon fas" :class="props.isLoading ? 'fa-spinner fa-spin' : 'fa-search'" />
+    <b-form-input
+      id="searchField"
+      ref="searchField"
+      :value="props.query"
+      type="text"
+      class="form-control"
+      :placeholder="$i18n(props.placeholder)"
+      tabindex="1"
+      debounce="150"
+      @update="newValue => $emit('update:query', newValue.trim())"
+    />
+    <i
+      v-if="props.query.length > 0"
+      class="icon icon-right fas fa-times cursor-pointer"
+      @click="$emit('update:query', '')"
+    />
+  </div>
+</template>
+<script setup>
+import { defineProps, ref, defineExpose } from 'vue'
+
+const props = defineProps({
+  query: { type: String, default: '' },
+  isLoading: { type: Boolean, default: false },
+  placeholder: { type: String, default: 'search.placeholder' },
+})
+
+const searchField = ref(null)
+
+defineExpose({
+  focus () {
+    searchField.value.select()
+  },
+})
+</script>
+<style lang="scss" scoped>
+.cursor-pointer {
+  cursor: pointer;
+}
+.search-bar-wrapper {
+  display: flex;
+  position: relative;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.icon {
+  position: absolute;
+  left: .25rem;
+  font-size: 1.15rem;
+  color: var(--fs-color-dark);
+}
+
+.icon-right {
+  left: unset;
+  right: 0;
+}
+::v-deep.form-control {
+  padding-left: 2.75rem;
+  padding-right: 2rem;
+}
+</style>

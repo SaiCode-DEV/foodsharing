@@ -113,7 +113,7 @@
             :label="$i18n('address')"
             label-for="location"
           >
-            <leaflet-location-search
+            <LeafletLocationSearch
               id="location"
               :zoom="17"
               :coordinates="store.location"
@@ -121,6 +121,8 @@
               :postal-code="store.address.zipCode"
               :city="store.address.city"
               :disabled="!editMode"
+              :marker-type="MARKER_TYPES.stores"
+              allow-address-correction
               @address-change="onAddressChanged"
             />
           </b-form-group>
@@ -465,6 +467,7 @@ import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import ChainSearchPicker from '@/components/Stores/ChainSearchPicker.vue'
 import PublicInfo from '@/components/Stores/PublicInfo.vue'
 import Info from '../Help/Info.vue'
+import { MARKER_TYPES } from '@/stores/map'
 
 export default {
   name: 'StoreInformationEditModal',
@@ -510,6 +513,7 @@ export default {
     }
   },
   computed: {
+    MARKER_TYPES: () => MARKER_TYPES,
     getChainTextById () {
       if (this.storeChains?.length > 0 && this.store.chainId != null) {
         const chain = this.storeChains.find(chain => chain.value === this.store.chainId)

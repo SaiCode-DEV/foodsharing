@@ -2,19 +2,25 @@
 
 namespace Foodsharing\Mock;
 
+use Faker\Factory;
+use Faker\Generator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 
 class GeoapifyMock extends AbstractController
 {
+    private readonly Generator $faker;
+
     public function __construct(
         #[Autowire(param: 'kernel.project_dir')]
         private readonly string $projectDir,
     ) {
+        $this->faker = Factory::create('de_DE');
     }
 
     /**
@@ -36,8 +42,20 @@ class GeoapifyMock extends AbstractController
      * @see client/src/api/geocode.js
      */
     #[Route(path: '/geocode/reverse')]
-    public function geocode_reverse(): JsonResponse
+    public function geocode_reverse(#[MapQueryParameter] ?float $lat, #[MapQueryParameter] ?float $lon): JsonResponse
     {
+        // Generate geo-stable random test data
+        $fakedData = [];
+        $seedPrimeFactor = 23411;
+        $this->faker->seed(round($lat, 4) * round($lon, 4) * $seedPrimeFactor);
+        $fakedData['housenumber'] = $this->faker->numberBetween(1, 200);
+        $this->faker->seed(round($lat * 2, 2) * round($lon * 2, 2) * $seedPrimeFactor);
+        $fakedData['street'] = $this->faker->streetName();
+        $this->faker->seed(round($lat * 3, 1) * round($lon * 3, 1) * $seedPrimeFactor);
+        $fakedData['postcode'] = $this->faker->postcode();
+        $this->faker->seed(round($lat, 1) * round($lon, 1) * $seedPrimeFactor);
+        $fakedData['city'] = $this->faker->city();
+
         $data = [
             'type' => 'FeatureCollection',
             'features' => [
@@ -46,15 +64,15 @@ class GeoapifyMock extends AbstractController
                     'geometry' => [
                         'type' => 'Point',
                         'coordinates' => [
-                            10.164615,
-                            51.232742
+                            round($lon, 4),
+                            round($lat, 4)
                         ]
                     ],
                     'properties' => [
                         'country_code' => 'de',
-                        'housenumber' => '69',
-                        'street' => 'Reverse Geocode',
-                        'country' => 'Codeland',
+                        'housenumber' => $fakedData['housenumber'],
+                        'street' => $fakedData['street'],
+                        'country' => 'Deutschland',
                         'county' => 'Eichsfeld',
                         'datasource' => [
                             'sourcename' => 'openaddresses',
@@ -63,16 +81,16 @@ class GeoapifyMock extends AbstractController
                         ],
                         'state' => 'Thüringen',
                         'district' => 'Ershausen/Geismar',
-                        'city' => 'Codedorf',
+                        'city' => $fakedData['city'],
                         'state_code' => 'TH',
-                        'lon' => 10.164615,
-                        'lat' => 51.232742,
-                        'distance' => 8.303305961163,
+                        'lon' => round($lon, 4),
+                        'lat' => round($lat, 4),
+                        'distance' => 0,
                         'result_type' => 'building',
-                        'postcode' => '69420',
-                        'formatted' => 'Reverse Geocode 5, 37308 Geismar, Deutschland',
-                        'address_line1' => 'Hintergasse 5',
-                        'address_line2' => '37308 Geismar, Deutschland',
+                        'postcode' => $fakedData['postcode'],
+                        'formatted' => $fakedData['street'] . ' ' . $fakedData['housenumber'] . ', ' . $fakedData['postcode'] . ' ' . $fakedData['city'] . ', Deutschland',
+                        'address_line1' => $fakedData['street'] . ' ' . $fakedData['housenumber'],
+                        'address_line2' => $fakedData['postcode'] . ' ' . $fakedData['city'] . ', Deutschland',
                         'timezone' => [
                             'name' => 'Europe/Berlin',
                             'offset_STD' => '+01:00',
@@ -92,8 +110,8 @@ class GeoapifyMock extends AbstractController
                 ]
             ],
             'query' => [
-                'lat' => 51.232788355726,
-                'lon' => 10.16470849514,
+                'lat' => $lat,
+                'lon' => $lon,
                 'plus_code' => '9F3G65M7+4V'
             ]
         ];
@@ -107,72 +125,14 @@ class GeoapifyMock extends AbstractController
      * @see client/src/api/geocode.js
      */
     #[Route(path: '/geocode/search')]
-    public function geocode_search(): JsonResponse
+    public function geocode_search(#[MapQueryParameter] ?string $text): JsonResponse
     {
+        $this->faker->seed(crc32($text));
         $data = [
             'type' => 'FeatureCollection',
-            'features' => [
-                [
-                    'type' => 'Feature',
-                    'geometry' => [
-                        'type' => 'Point',
-                        'coordinates' => [
-                            10.184615,
-                            51.239742,
-                        ]
-                    ],
-                    'properties' => [
-                        'country_code' => 'de',
-                        'country' => 'Deutschland',
-                        'county' => 'Aschaffenburg',
-                        'datasource' => [
-                            'sourcename' => 'openstreetmap',
-                            'attribution' => '© OpenStreetMap contributors',
-                            'license' => 'Open Database License',
-                            'url' => 'https://www.openstreetmap.org/copyright'
-                        ],
-                        'street' => 'Teststraße 1',
-                        'state' => 'Bayern',
-                        'district' => 'Teststadt',
-                        'city' => 'Teststadt',
-                        'state_code' => 'BY',
-                        'lon' => 10.184615,
-                        'lat' => 51.239742,
-                        'result_type' => 'amenity',
-                        'postcode' => '37073',
-                        'formatted' => 'Teststraße 1, 37073 Teststadt, Deutschland',
-                        'address_line1' => 'Teststraße 1',
-                        'address_line2' => '37073 Teststadt, Deutschland',
-                        'timezone' => [
-                            'name' => 'Europe/Berlin',
-                            'offset_STD' => '+01:00',
-                            'offset_STD_seconds' => 3600,
-                            'offset_DST' => '+02:00',
-                            'offset_DST_seconds' => 7200,
-                            'abbreviation_STD' => 'CET',
-                            'abbreviation_DST' => 'CEST'
-                        ],
-                        'plus_code' => '9F2F2632+HJ',
-                        'plus_code_short' => '32+HJ Teststadt, Deutschland',
-                        'rank' => [
-                            'popularity' => 5.6154076634886,
-                            'confidence' => 1,
-                            'confidence_city_level' => 1,
-                            'confidence_street_level' => 1,
-                            'match_type' => 'full_match'
-                        ],
-                        'place_id' => '51293e3e213b67224059b309302c7f004940f00102f901baa5200200000000c00201e203206f70656e7374726565746d61703a76656e75653a7761792f3335363934303130'
-                    ],
-                    'bbox' => [
-                        9.2015582,
-                        50.0037556,
-                        9.2018814,
-                        50.0038824
-                    ]
-                ]
-            ],
+            'features' => [],
             'query' => [
-                'text' => 'Teststadt Teststraße 1',
+                'text' => $text,
                 'parsed' => [
                     'house' => 'Schwimmbad',
                     'street' => 'Teststraße',
@@ -183,7 +143,83 @@ class GeoapifyMock extends AbstractController
                 ]
             ]
         ];
+        for ($i = $this->faker->numberBetween(1, 4); $i > 0; --$i) {
+            $data['features'][] = $this->getFeature($text);
+        }
 
         return new JsonResponse($data);
+    }
+
+    private function getFeature(?string $name): array
+    {
+        $fakedData = [
+            'lat' => $this->faker->latitude(46, 55),
+            'lon' => $this->faker->longitude(4, 16),
+            'housenumber' => $this->faker->numberBetween(1, 200),
+            'street' => $this->faker->streetName(),
+            'postcode' => $this->faker->postcode(),
+            'city' => $this->faker->city(),
+        ];
+        $feature = [
+            'type' => 'Feature',
+            'geometry' => [
+                'type' => 'Point',
+                'coordinates' => [
+                    $fakedData['lon'],
+                    $fakedData['lat'],
+                ]
+            ],
+            'properties' => [
+                'country_code' => 'de',
+                'country' => 'Deutschland',
+                'county' => $fakedData['city'],
+                'datasource' => [
+                    'sourcename' => 'openstreetmap',
+                    'attribution' => '© OpenStreetMap contributors',
+                    'license' => 'Open Database License',
+                    'url' => 'https://www.openstreetmap.org/copyright'
+                ],
+                'street' => $fakedData['street'],
+                'housenumber' => $fakedData['housenumber'],
+                'state' => 'Bayern',
+                'district' => 'Teststadt',
+                'city' => $fakedData['city'],
+                'state_code' => 'BY',
+                'lon' => $fakedData['lon'],
+                'lat' => $fakedData['lat'],
+                'result_type' => 'amenity',
+                'postcode' => $fakedData['postcode'],
+                'formatted' => $name . ', ' . $fakedData['street'] . ' ' . $fakedData['housenumber'] . ', ' . $fakedData['postcode'] . ' ' . $fakedData['city'] . ', Deutschland',
+                'address_line1' => $name . ', ' . $fakedData['street'] . ' ' . $fakedData['housenumber'],
+                'address_line2' => $fakedData['postcode'] . ' ' . $fakedData['city'] . ', Deutschland',
+                'timezone' => [
+                    'name' => 'Europe/Berlin',
+                    'offset_STD' => '+01:00',
+                    'offset_STD_seconds' => 3600,
+                    'offset_DST' => '+02:00',
+                    'offset_DST_seconds' => 7200,
+                    'abbreviation_STD' => 'CET',
+                    'abbreviation_DST' => 'CEST'
+                ],
+                'plus_code' => '9F2F2632+HJ',
+                'plus_code_short' => '32+HJ Teststadt, Deutschland',
+                'rank' => [
+                    'popularity' => 5.6154076634886,
+                    'confidence' => 1,
+                    'confidence_city_level' => 1,
+                    'confidence_street_level' => 1,
+                    'match_type' => 'full_match'
+                ],
+                'place_id' => '51293e3e213b67224059b309302c7f004940f00102f901baa5200200000000c00201e203206f70656e7374726565746d61703a76656e75653a7761792f3335363934303130'
+            ],
+            'bbox' => [
+                9.2015582,
+                50.0037556,
+                9.2018814,
+                50.0038824
+            ]
+        ];
+
+        return $feature;
     }
 }

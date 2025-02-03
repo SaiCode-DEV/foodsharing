@@ -4,7 +4,6 @@ import i18n from '@/helper/i18n'
 import assert from 'assert'
 import AddressSearchField from './AddressSearchField.vue'
 import LeafletLocationPicker from './LeafletLocationPicker.vue'
-import Markdown from '@/components/Markdown/Markdown.vue'
 import { BFormGroup } from 'bootstrap-vue'
 
 const localVue = createLocalVue()
@@ -23,19 +22,6 @@ describe('LeafletLocationSearch', () => {
       },
     })
     assert(wrapper.vm.$el)
-  })
-
-  it('should render Markdown', () => {
-    const wrapper = mount(LeafletLocationSearch, {
-      localVue,
-      propsData: {
-        zoom: 17,
-        coordinates: { lat: 50, lon: 10 },
-        additionalInfoText: 'test',
-      },
-    })
-    const markdown = wrapper.findComponent(Markdown)
-    assert(markdown.exists())
   })
 
   it('should render AddressSearchField', () => {
@@ -71,7 +57,7 @@ describe('LeafletLocationSearch', () => {
       },
     })
     const bFormGroup = wrapper.findAllComponents(BFormGroup)
-    assert(bFormGroup.length === 4)
+    assert(bFormGroup.length === 3)
   })
 
   it('should not render address fields', () => {
@@ -96,7 +82,7 @@ describe('LeafletLocationSearch', () => {
       },
     })
     const bFormGroup = wrapper.findAllComponents(BFormGroup)
-    assert(bFormGroup.length === 4)
+    assert(bFormGroup.length === 3)
   })
 
   it('should set address if coords yield valid location data', () => {
@@ -107,7 +93,7 @@ describe('LeafletLocationSearch', () => {
         coordinates: { lat: 50, lon: 10 },
       },
     })
-    const streetInput = wrapper.findComponent({ ref: 'inputStreet' })
+    const streetInput = wrapper.findComponent('#input-street')
     assert(streetInput.exists())
     // TODO: get valid location data response via mock call - check that the address is updated
   })
@@ -120,7 +106,7 @@ describe('LeafletLocationSearch', () => {
         coordinates: { lat: 50, lon: 10 },
       },
     })
-    const streetInput = wrapper.findComponent({ ref: 'inputStreet' })
+    const streetInput = wrapper.findComponent('#input-street')
     assert(streetInput.exists())
     // TODO: get invalid location data response via mock call - check that the address is not updated
   })

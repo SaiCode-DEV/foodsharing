@@ -10,23 +10,25 @@
     header-class="d-flex"
     @ok="$emit('update-location', { location: locationData, coordinate: coordinateData})"
   >
-    <LeafletLocationSearchVForm
+    <LeafletLocationSearch
       :coordinates="coordinateData"
       :zoom="zoom"
       :street="locationData.street"
       :postal-code="locationData.postalCode"
       :city="locationData.city"
+      :marker-type="MARKER_TYPES.users"
       @address-change="updateLocation"
     />
   </b-modal>
 </template>
 
 <script>
-import LeafletLocationSearchVForm from '@/components/map/LeafletLocationSearchVForm.vue'
+import LeafletLocationSearch from '@/components/map/LeafletLocationSearch.vue'
+import { MARKER_TYPES } from '@/stores/map'
 
 export default {
   name: 'ProfileAddressModal',
-  components: { LeafletLocationSearchVForm },
+  components: { LeafletLocationSearch },
   props: {
     zoom: { type: Number, required: true },
     location: { type: Object, required: true },
@@ -38,6 +40,9 @@ export default {
       locationData: this.location,
       coordinateData: this.coordinate,
     }
+  },
+  computed: {
+    MARKER_TYPES: () => MARKER_TYPES,
   },
   methods: {
     updateLocation (coordinates, street, postalCode, city) {

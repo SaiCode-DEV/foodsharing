@@ -7,6 +7,7 @@
 - Added a public region page that is accessible without being logged in or member of the region. #1006 #2308 !3835 !3991 !4023 @AntonBallmaier
 - Add components for required messages on special actions. Used them when verifying users #1715 !3776 @AntonBallmaier
 - Add required messages when kicking store team members, moving members to standby list, denying store membership requests and taking store manager rights away #1715 !4003 @AntonBallmaier
+- Added location seach bar to map !4018 @AntonBallmaier
 
 ## Changes
 - Include user agent in support ticket creation #2212 !3838 @AntonBallmaier
@@ -19,6 +20,7 @@
 - Update team Page (linking / design) !3999 @SaiCode
 - Create a personal immediately after finishing the store manager quiz !3983 @alex.simm
 - Improved burger menu for mobile !3989 @chriswalg
+- Improved address input #2317 !4018 @AntonBallmaier
 
 ## Bugfixes
 - Resolve "region filter bug on profile page: Blank screen when navigating store list" #2295 !3940 @chriswalg

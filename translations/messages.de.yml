@@ -13,11 +13,11 @@ edit: "bearbeiten" # StoreControl, Quizview
 edit_websites: "Öffentliche Webseiten bearbeiten" #ContentControl
 desc: "Beschreibung"
 description: "Beschreibung"
-plz: "Postleitzahl (automatisch aus Karte oben)"
+plz: "Postleitzahl"
 email: "E-Mail-Adresse"
 attachement: "Anhang" # EmailControl
 handy: "Handynummer (inkl. Ländervorwahl, beginnt mit +)"
-anschrift: "Straße und Hausnummer (automatisch aus Karte oben, gegebenenfalls anschließend korrigieren)"
+anschrift: "Straße und Hausnummer"
 geschlecht: "Geschlecht"
 botschafter: "Botschafter:in"
 options: "Optionen" # FoodSharePointControl FoodSharePointView foodSharePoint.twig
@@ -40,7 +40,7 @@ photo: "Foto"
 no_automatic_delete: "In dem Fall, dass die letzte Anmeldung 5 Jahre zurückliegt:"
 automatic_delete : "- soll das Profil gelöscht werden."
 automatic_not_delete : "- soll das Profil erhalten bleiben."
-ort: "Stadt/Gemeinde (automatisch aus Karte oben)"
+ort: "Stadt/Gemeinde"
 daterange: "Zeitraum"
 regions: "Bezirke" # TODO check if used anywhere else
 groups:
@@ -1635,10 +1635,11 @@ recipients:
 
 addresspicker:
   label: "Adress-/Standort-Suche"
-  placeholder: "Bitte hier nach der Adresse suchen. Falls nötig kannst du sie dann unten noch weiter anpassen."
-  infobox: "Bitte gib die Adresse im Textfeld zwischen dieser Nachricht und der Karte ein und korrigiere diese dann ggf. durch Verschieben in der Karte."
+  placeholder: "Adresse suchen..."
+  infobox: "Gib die Adresse in der Suchleiste  ein oder schiebe den Pin in der Karte and die richtige Position."
   infobox_profile: "[Foodsharer](https://wiki.foodsharing.de/Foodsharer) benötigen die Adresse, um Essenskörbe über die Webseite anbieten zu können. Um als [Foodsaver](https://wiki.foodsharing.de/Foodsaver) an Lebensmittelrettungen teilnehmen zu können, ist sie notwendig."
-  different_location: Adresse ist unabhängig von Geo-Position
+  different_location: Adressbeschreibung korrigieren
+  different_location_warning: "Bitte stelle sicher, dass der Pin in der Karte oben an der richtigen Stelle liegt. Bitte ändere die automatisch ausgefüllen Felder (Straße und Hausnummer, Postleitzahl und Stadt/Gemeinde) nur, wenn der automatisch eingetragene Wert nicht korrekt ist. Das kann beispielsweise nach der Namensänderung einer Straße vorkommen."
 date:
   time: "{time} Uhr"
   clock: "Uhr"

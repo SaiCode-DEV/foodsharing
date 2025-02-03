@@ -20,6 +20,7 @@
       @toggle-marker-type="toggleMarkerType"
       @update-marker-specifier="updateMarkerSpecifier"
     />
+    <AddressSearchField @change="useAddress" />
 
     <basket-bubble ref="basketBubble" />
     <community-bubble ref="communityBubble" />
@@ -45,6 +46,7 @@ import StoreBubble from '@php/Modules/Map/components/StoreBubble.vue'
 import FoodSharePointBubble from '@php/Modules/Map/components/FoodSharePointBubble.vue'
 import Storage from '@/storage'
 import { useUserStore } from '@/stores/user.js'
+import AddressSearchField from '@/components/map/AddressSearchField.vue'
 
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 const maxBasketNameLength = 30
@@ -60,6 +62,7 @@ export default {
     StoreBubble,
     FoodSharePointBubble,
     Vue2LeafletLocatecontrol,
+    AddressSearchField,
   },
   props: {
     center: { type: Object, default: null },
@@ -241,6 +244,21 @@ export default {
       layer.mapObject.clearLayers()
       layer.mapObject.addLayers(markerList)
     },
+    useAddress (searchLocation) {
+      this.currentCenter.lat = searchLocation.lat
+      this.currentCenter.lon = searchLocation.lon
+    },
   },
 }
 </script>
+<style lang="scss">
+.location-search {
+  position: absolute !important;
+  top: calc(var(--navbar-height) + 3px);
+  left: 4em;
+  right: 4em;
+  max-width: 35em;
+  margin: auto;
+  z-index: 500;
+}
+</style>

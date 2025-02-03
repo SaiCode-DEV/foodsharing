@@ -1,20 +1,20 @@
 <!-- Extension of the LeafletMap that contains a single marker for marking or choosing a location. The marker can new made draggable.
   In this case, the chosen coordinates are emitted in a "coordinates-changed" event when dropping the marker. -->
 <template>
-  <leaflet-map
+  <LeafletMap
     ref="leafletMap"
     :zoom="zoom"
     :center="coordinates"
     :bounds="bounds"
   >
-    <l-marker
+    <LMarker
       ref="marker"
       :lat-lng="coordinates"
       :icon="icon"
       :draggable="markerDraggable"
       @dragend="onMarkerDragEnd"
     />
-  </leaflet-map>
+  </LeafletMap>
 </template>
 
 <script>
@@ -42,7 +42,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-
-</style>

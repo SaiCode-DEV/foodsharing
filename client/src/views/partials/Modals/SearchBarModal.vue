@@ -7,36 +7,12 @@
     @shown="shownHandler"
   >
     <template #modal-header>
-      <label
-        class="sr-only"
-        for="searchField"
-        v-text="$i18n('search.placeholder')"
+      <SearchBar
+        ref="searchBar"
+        class="search-bar-header"
+        :query.sync="query"
+        :is-loading="isLoading"
       />
-      <div class="search-bar-wrapper">
-        <i
-          class="icon fas"
-          :class="{
-            'fa-search': !isLoading,
-            'fa-spinner fa-spin': isLoading,
-          }"
-        />
-        <input
-          id="searchField"
-          ref="searchField"
-          v-model="query"
-          type="text"
-          class="form-control"
-          :placeholder="$i18n('search.placeholder')"
-          tabindex="1"
-        >
-        <i
-          class="icon icon-right fas"
-          :class="{
-            'fa-times is-clickable': query.length > 0,
-          }"
-          @click="query=''"
-        />
-      </div>
       <b-button
         v-if="maySearchGlobal"
         v-b-tooltip.bottom.ds1000.hover="$i18n(`search.scope.${globalSearch ? 'global' : 'local'}`)"
@@ -81,6 +57,7 @@ import SearchResults from '@/components/SearchBar/SearchResults'
 import { search, getSearchIndex } from '@/api/search'
 import { getCache, getCacheInterval, setCache } from '@/helper/cache'
 import { useUserStore } from '@/stores/user.js'
+import SearchBar from '@/components/SearchBar/ResultEntry/SearchBar.vue'
 
 const cacheRequestName = 'searchIndex'
 const rateLimitInterval = 1000 * 60 * 5 // 5 minutes in milliseconds
@@ -93,7 +70,7 @@ const rateLimitInterval = 1000 * 60 * 5 // 5 minutes in milliseconds
 const accidentalClickPreventionThreshhold = 700 // milliseconds
 
 export default {
-  components: { SearchResults },
+  components: { SearchResults, SearchBar },
   setup () {
     const userStore = useUserStore()
     userStore.fetchDetails()
@@ -175,19 +152,11 @@ export default {
       this.fetchIndex()
     },
     focusSearchbar () {
-      this.$refs.searchField.select()
-    },
-    delayedFetch (strippedQuery) {
-      this.isLoading = true
-      this.directSearchResults = undefined
-      if (this.timeout) {
-        clearTimeout(this.timeout)
-      }
-      this.timeout = setTimeout(() => {
-        this.fetch(strippedQuery)
-      }, 200)
+      this.$refs.searchBar.focus()
     },
     async fetch (strippedQuery) {
+      this.isLoading = true
+      this.directSearchResults = undefined
       const results = await search(strippedQuery, this.globalSearch)
       if (strippedQuery !== this.strippedQuery) {
         // query has changed, throw away this response
@@ -222,7 +191,7 @@ export default {
       const queryLengthScore = this.strippedQuery.split(' ').map(word => word.length - 1).reduce((a, b) => a + b)
       if (queryLengthScore > 1) {
         this.showResults = true
-        this.delayedFetch(this.strippedQuery)
+        this.fetch(this.strippedQuery)
         return
       }
       clearTimeout(this.timeout)
@@ -235,43 +204,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.is-clickable {
-  cursor: pointer;
-}
-
-.icon {
-  position: absolute;
-  left: .25rem;
-  font-size: 1.15rem;
-  color: var(--fs-color-dark);
-}
-
-.icon-right {
-  left: unset;
-  right: .25rem;
-}
-
 ::v-deep .modal-header {
   align-items: center;
   background-color: var(--fs-color-light);
   position: relative;
 }
 
-::v-deep.input-group-text {
-  border: 0;
-  background-color: var(--fs-color-transparent);
-
-  i {
-    min-width: 1rem;
-  }
-}
-
-::v-deep.form-control {
+.search-bar-header ::v-deep .form-control {
   font-size: 1.5rem;
-  border: 0;
-  padding-inline: 2.75rem;
-
-  @media (max-width: 575.98px) {
+  @media (max-width: 575px) {
     font-size: 1rem;
   }
 }
@@ -289,13 +230,6 @@ export default {
 .global-search-btn {
   width: 2.5em;
   height: 2.5em;
-}
-
-.search-bar-wrapper {
-  display: flex;
-  position: relative;
-  flex-grow: 1;
-  align-items: center;
 }
 
 .no-interaction ::v-deep a {

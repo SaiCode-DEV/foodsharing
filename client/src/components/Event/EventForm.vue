@@ -68,10 +68,11 @@
         <LeafletLocationSearch
           :zoom="16"
           :coordinates="location"
-          icon-name="calendar-alt"
           :postal-code="event.address.zipCode"
           :city="event.address.city"
           :street="event.address.street"
+          :marker-type="MARKER_TYPES.events"
+          allow-address-correction
           @address-change="onAddressChanged"
         />
       </b-form-group>
@@ -116,6 +117,7 @@ import { useUserStore } from '@/stores/user'
 import { addEvent, editEvent } from '@/api/events'
 import { toISOStringWithTimezone } from '@/helper/date-formatter'
 import { EVENT_TYPE } from '@/consts'
+import { MARKER_TYPES } from '@/stores/map'
 
 const userStore = useUserStore()
 const regionStore = useRegionStore()
@@ -170,6 +172,7 @@ export default {
   },
   computed: {
     EVENT_TYPE: () => EVENT_TYPE,
+    MARKER_TYPES: () => MARKER_TYPES,
     groups: () => DataGroups.getters.get(),
     regions: () => regionStore.regions,
     location: () => userStore.getLocations,

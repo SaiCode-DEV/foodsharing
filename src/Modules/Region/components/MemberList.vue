@@ -852,7 +852,6 @@ export default {
       const unverifiedSelectedMembers = this.passportMember
         .map(id => regionStore.memberList.find(entry => entry.id === id))
         .filter(member => !member?.isVerified)
-      console.debug(unverifiedSelectedMembers)
       if (!unverifiedSelectedMembers.length) {
         pulseSuccess(i18n('group.member_list.passports.already_verified'))
         return

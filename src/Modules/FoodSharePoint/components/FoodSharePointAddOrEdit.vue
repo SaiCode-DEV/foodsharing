@@ -54,13 +54,15 @@
         </b-form-group>
 
         <b-form-group :label="$i18n('addresspicker.label')">
-          <leaflet-location-search
+          <LeafletLocationSearch
             v-if="!isLoading"
             :coordinates="formData.location"
             :postal-code="formData.postalCode"
             :street="formData.address"
             :city="formData.city"
             :zoom="zoom"
+            :marker-type="MARKER_TYPES.foodsharepoints"
+            allow-address-correction
             @address-change="onAddressChanged"
           />
           <span v-if="errors.address" class="error-message">{{ errors.address }}</span>
@@ -126,6 +128,7 @@ import FileUpload from '@/components/upload/FileUpload.vue'
 import LeafletLocationSearch from '@/components/map/LeafletLocationSearch.vue'
 import { useUserStore } from '@/stores/user'
 import { getRegionData } from '@/api/regions'
+import { MARKER_TYPES } from '@/stores/map'
 
 const regionStore = useRegionStore()
 const userStore = useUserStore()

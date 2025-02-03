@@ -115,6 +115,7 @@ export default {
   transition: opacity 0.2s ease-in-out;
   background: var(--fs-color-white);
   min-width: 280px;
+  top: 0.5em;
 
   &.collapsed {
     visibility: hidden;

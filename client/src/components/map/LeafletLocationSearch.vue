@@ -1,15 +1,15 @@
 <!-- Combines the LeafletLocationPicker with a text field that supports searching for addresses via geocoding. -->
 <template>
-  <div class="bootstrap">
+  <div>
     <div class="alert alert-info">
       <i class="fas fa-info-circle" />
       {{ $i18n('addresspicker.infobox') }}
-      <div v-if="additionalInfoText">
-        <hr>
-        <Markdown :source="additionalInfoText" />
-      </div>
     </div>
-    <AddressSearchField ref="addressSearch" @change="useAddress" />
+    <AddressSearchField
+      ref="addressSearch"
+      :initial-query="initialQuery"
+      @change="useAddress"
+    />
     <LeafletLocationPicker
       :icon="icon"
       :coordinates="currentCoords"
@@ -19,18 +19,14 @@
     />
 
     <div v-if="showAddressFields">
-      <b-form-group
-        :label="$i18n('addresspicker.different_location')"
-        label-for="different-location"
-        class="my-2"
+      <b-alert
+        class="mt-3"
+        variant="warning"
+        :show="differentLocation"
       >
-        <b-form-checkbox
-          id="different_location"
-          v-model="differentLocation"
-          :disabled="disabled"
-          switch
-        />
-      </b-form-group>
+        <i class="fas fa-exclamation-triangle mr-2" />
+        {{ $i18n('addresspicker.different_location_warning') }}
+      </b-alert>
       <b-form-group
         :label="$i18n('anschrift')"
         label-for="input-street"
@@ -38,39 +34,55 @@
       >
         <b-form-input
           id="input-street"
-          ref="inputStreet"
           v-model="currentStreet"
           :disabled="disabled || !differentLocation"
           @change="emitAddressChange"
         />
       </b-form-group>
+      <b-row>
+        <b-col class="col-3 pr-0">
+          <b-form-group
+            :label="$i18n('plz')"
+            label-for="input-postal"
+            class="my-2"
+          >
+            <b-form-input
+              id="input-postal"
+              v-model="currentPostal"
+              class="my-2"
+              :disabled="disabled || !differentLocation"
+              @change="emitAddressChange"
+            />
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <b-form-group
+            :label="$i18n('ort')"
+            label-for="input-city"
+            class="my-2"
+          >
+            <b-form-input
+              id="input-city"
+              v-model="currentCity"
+              class="my-2"
+              :disabled="disabled || !differentLocation"
+              @change="emitAddressChange"
+            />
+          </b-form-group>
+        </b-col>
+      </b-row>
       <b-form-group
-        :label="$i18n('plz')"
-        label-for="input-postal"
+        v-if="allowAddressCorrection"
         class="my-2"
+        cols="4"
       >
-        <b-form-input
-          id="input-postal"
-          ref="inputPostal"
-          v-model="currentPostal"
-          class="my-2"
-          :disabled="disabled || !differentLocation"
-          @change="emitAddressChange"
-        />
-      </b-form-group>
-      <b-form-group
-        :label="$i18n('ort')"
-        label-for="input-city"
-        class="my-2"
-      >
-        <b-form-input
-          id="input-city"
-          ref="inputCity"
-          v-model="currentCity"
-          class="my-2"
-          :disabled="disabled || !differentLocation"
-          @change="emitAddressChange"
-        />
+        <b-form-checkbox
+          v-model="differentLocation"
+          :disabled="disabled"
+          switch
+        >
+          {{ $i18n('addresspicker.different_location') }}
+        </b-form-checkbox>
       </b-form-group>
     </div>
   </div>
@@ -83,7 +95,6 @@ import L from 'leaflet'
 import LeafletLocationPicker from '@/components/map/LeafletLocationPicker'
 import 'leaflet.awesome-markers'
 import { defineProps, defineEmits, ref } from 'vue'
-import Markdown from '@/components/Markdown/Markdown.vue'
 import AddressSearchField from './AddressSearchField.vue'
 
 L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
@@ -94,18 +105,16 @@ const props = defineProps({
   postalCode: { type: String, default: '' },
   street: { type: String, default: '' },
   city: { type: String, default: '' },
-  iconName: { type: String, default: 'smile' },
-  iconColor: { type: String, default: 'orange' },
+  markerType: { type: Object, default: () => ({ icon: 'smile', color: 'orange' }) },
   showAddressFields: { type: Boolean, default: true },
-  additionalInfoText: { type: String, default: null },
-  doReverseGeocoding: { type: Boolean, default: true },
   disabled: { type: Boolean, default: false },
+  disableSnapping: { type: Boolean, default: false },
+  allowAddressCorrection: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['address-change'])
 
-const icon = L.AwesomeMarkers.icon({ icon: props.iconName, markerColor: props.iconColor })
-
+const icon = L.AwesomeMarkers.icon({ icon: props.markerType.icon, markerColor: props.markerType.color })
 const differentLocation = ref(false)
 const currentCoords = ref(props.coordinates)
 const currentPostal = ref(props.postalCode)
@@ -113,36 +122,40 @@ const currentStreet = ref(props.street)
 const currentCity = ref(props.city)
 const currentZoom = ref(props.zoom)
 const addressSearch = ref(null)
+const initialQuery = ref(getSearchPlaceholder())
+
+function getSearchPlaceholder () {
+  const search = []
+  if (currentStreet.value) search.push(currentStreet.value)
+  if (currentCity.value) search.push(`${currentPostal.value ?? ''} ${currentCity.value}`.trim())
+  return search.join(', ')
+}
+
+function updateInputs (location) {
+  const isValidAddress = location.postcode && location.city && location.street
+  if (!isValidAddress) {
+    currentStreet.value = location.address_line1 ?? ''
+    return
+  }
+  currentPostal.value = location.postcode
+  currentCity.value = location.city
+  currentStreet.value = `${location.street} ${location.housenumber ?? ''}`.trim()
+}
 
 async function updateCoordinates (coords) {
   // if the marker was dragged, we need to do reverse geocoding to find the address
-  currentCoords.value = coords
-  if (props.doReverseGeocoding) {
-    const location = await fetchReverseGeocode(coords)
-    // coords that point to locations like the Mediterranean Sea do not provide the required location data
-    const hasAllRequiredData =
-      location.postcode && location.city && location.street
-    if (!location || !hasAllRequiredData) return
-    currentPostal.value = location.postcode
-    currentCity.value = location.city
-    if (location.housenumber) {
-      currentStreet.value = `${location.street} ${location.housenumber}`
-    } else {
-      currentStreet.value = location.street
-    }
-    addressSearch.value.setSearchString(location.formatted)
-    emitAddressChange()
-  }
+  const location = await fetchReverseGeocode(coords)
+  if (!location) return
+  updateInputs(location)
+  addressSearch.value.setSearchString(location)
+  const position = props.disableSnapping ? coords : location
+  currentCoords.value = { lat: position.lat, lon: position.lon }
+  emitAddressChange()
 }
 
 function useAddress (location) {
   currentCoords.value = { lat: location.lat, lon: location.lon }
-  // coords that point to locations like the Mediterranean Sea do not provide the required location data
-  const hasAllRequiredData = location.postcode && location.city && location.street
-  if (!hasAllRequiredData) return
-  currentPostal.value = location.postcode
-  currentCity.value = location.city
-  currentStreet.value = location.address_line1
+  updateInputs(location)
   if (location.housenumber) {
     currentZoom.value = 17
   } else {

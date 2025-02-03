@@ -1,6 +1,6 @@
 <template>
   <div class="list-group-item">
-    <leaflet-location-search
+    <LeafletLocationSearch
       id="location"
       :zoom="17"
       :coordinates="location"
@@ -8,6 +8,7 @@
       :postal-code="address.zipCode"
       :city="address.city"
       :disabled="!editMode"
+      :marker-type="MARKER_TYPES.users"
       @address-change="onAddressChanged"
     />
     <div class="float-right">
@@ -30,7 +31,7 @@
 
 <script>
 import LeafletLocationSearch from '@/components/map/LeafletLocationSearch.vue'
-import { MAP_CONSTANTS } from '@/stores/map'
+import { MAP_CONSTANTS, MARKER_TYPES } from '@/stores/map'
 
 export default {
   components: { LeafletLocationSearch },
@@ -42,6 +43,7 @@ export default {
     }
   },
   computed: {
+    MARKER_TYPES: () => MARKER_TYPES,
     addressValid () {
       return this.address.street !== '' && this.address.zipCode !== '' && this.address.city !== ''
     },

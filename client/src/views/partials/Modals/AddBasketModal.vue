@@ -113,10 +113,9 @@
         :street="address.street"
         :postal-code="address.zipCode"
         :city="address.city"
-        icon-name="shopping-basket"
-        icon-color="green"
+        :marker-type="MARKER_TYPES.baskets"
         :show-address-fields="false"
-        :do-reverse-geocoding="true"
+        disable-snapping
         @address-change="onAddressChanged"
       />
     </b-form-group>
@@ -130,6 +129,7 @@ import { addBasket, editBasket } from '@/api/baskets'
 import { useBasketStore } from '@/stores/baskets'
 import { pulseInfo } from '@/script'
 import ImageUpload from '@/components/upload/ImageUpload.vue'
+import { MARKER_TYPES } from '@/stores/map'
 
 const defaultBasketData = {
   description: '',
@@ -189,6 +189,7 @@ export default {
     }
   },
   computed: {
+    MARKER_TYPES: () => MARKER_TYPES,
     user () {
       return this.userStore.getUserDetails
     },
