@@ -9,12 +9,11 @@ edit: Editar
 edit_websites: Editar sites públicos
 desc: Descrição
 description: Descrição
-plz: Código postal (Automaticamente a partir do mapa acima)
+plz: Código postal
 email: E-mail
 attachement: Anexo
 handy: Número de celular (com código do país, começa com +)
-anschrift: Rua e número da casa (automático a partir do mapa acima, se necessário,
-  corrigir posteriormente)
+anschrift: Rua e número da casa
 geschlecht: Sexo
 botschafter: Embaixador/a
 options: Opções
