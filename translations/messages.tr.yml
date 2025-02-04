@@ -99,8 +99,7 @@ email: E-Posta Adresi
 attachement: Ek
 name: İsim
 nachname: Soyad
-anschrift: Sokak ve ev numarası (yukarıdaki haritadan otomatik olarak, gerekirse daha
-  sonra düzeltin)
+anschrift: Sokak ve ev numarası
 address: Adres
 options: Opsiyonlar
 picture: Resim
@@ -130,7 +129,7 @@ body: Mesaj
 active: Aktif Durumda
 photo: Fotoğraf
 info: Bilgi
-ort: Şehir/Belde (yukarıdaki haritadan otomatik olarak)
+ort: Şehir/Belde
 about_me_public: Herkese Açık Kısa Tanımlama
 about_me_intern: Özet
 daterange: Süre
@@ -144,7 +143,7 @@ pass1: İstediğiniz yeni şifreniz
 telefon: Sabit Telefon numarası (ülke kodu dahil, + ile başlar)
 handy: Cep Telefonu numarası (ülke kodu dahil, + ile başlar)
 description: Açıklama
-plz: Posta Kodu (otomatik olarak yukarıdaki haritadan)
+plz: Posta Kodu
 passcheck: Lütfen değişikliği şifrenizle onaylayın
 sleep_status: Güncel durumunuz
 edit: düzenle
@@ -2802,7 +2801,7 @@ base:
     sosyal kuruluşlara veya diğer kişilere verebilirsiniz
   jsrequired: Ne yazık ki, JavaScript olmadan burada hiçbir şey çalışmıyor.
 addresspicker:
-  placeholder: Lütfen adresi burada arayın. Gerekirse, aşağıda düzeltin.
+  placeholder: Arama adresi …
   infobox: Lütfen adresi bu mesaj ile kart arasındaki metin alanına girin ve gerekirse
     kartın içine taşıyarak düzeltin.
   label: Adres/Yer arama
