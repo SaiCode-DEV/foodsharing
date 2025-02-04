@@ -232,8 +232,7 @@ rolle: Gebruikersrol
 status: huidige status
 info: Informatie
 picture: Afbeelding
-anschrift: Straat en huisnummer (automatisch uit kaart boven, corrigeer eventueel
-  achteraf)
+anschrift: Straat en huisnummer
 fs_id: foodsharing-ID
 stadt: Uw stad of gemeente
 regions: Districten
@@ -1769,7 +1768,7 @@ mailbox:
   add: ''
   mails: ''
   unknown_sender: ''
-ort: 'City/City (automatisch van de kaart boven)'
+ort: 'Stad/Gemeente'
 about_me_public: 'Openbare korte beschrijving'
 about_me_intern: 'Korte beschrijving'
 weight: 'Geschatte gewicht:'
@@ -2669,7 +2668,7 @@ calendar:
 addresspicker:
   infobox_profile: ''
   label: ''
-  placeholder: ''
+  placeholder: 'Zoek adres …'
   infobox: ''
   different_location: ''
 upload:
@@ -2816,9 +2815,9 @@ ueberzeugungsarbeit: 'Was het makkelijk om de verantwoordelijken te overtuigen o
 subject: 'Vertaling'
 message_text_to_group_admin_workgroup: ''
 sticker: ''
-handy: 'Mobile telefoonnummer (incl. landcode, begint met +'
+handy: 'Mobile telefoonnummer (incl. landcode, begint met +)'
 lebensmittel: 'Welk eten wordt opgehaald?'
-plz: 'Postcode (automatisch uit bovenstaande kaart)'
+plz: 'Postcode'
 addreaction: ''
 timefrom: ''
 thread:
