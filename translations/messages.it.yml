@@ -429,7 +429,7 @@ about_me_intern: Descrizione breve
 about_me_public: Breve descrizione pubblica
 regions: Zone
 daterange: Periodo
-ort: Città / comune (in automatico dalla mappa sopra)
+ort: Città / comune
 photo: Foto
 info: Informazioni
 status: Stato attuale
@@ -449,13 +449,12 @@ picture: Immagine
 options: Opzioni
 botschafter: Ambasciatore
 geschlecht: Genere
-anschrift: Via e numero civico (in automatico dalla mappa sopra, correggibile successivamente
-  se necessario)
+anschrift: Via e numero civico
 handy: Numero di cellulare (incluso il prefisso internazionale, inizia con +)
 telefon: Numero di rete fissa (incluso il prefisso internazionale, inizia con +)
 attachement: Allegato
 email: Indirizzo e-mail
-plz: Codice postale (in automatico dalla mappa sopra)
+plz: Codice postale
 description: Descrizione
 desc: Descrizione
 edit: modifica
@@ -1702,9 +1701,9 @@ addresspicker:
   infobox_profile: "I [Foodsharer](https://wiki.foodsharing.de/Foodsharer) necessitano
     dell'indirizzo per poter offrire cesti alimentari tramite il sito web. È necessario
     per poter partecipare ai salvataggi alimentari come [Foodsaver](https://wiki.foodsharing.de/Foodsaver)."
-  infobox: Inserisci l'indirizzo nel campo di testo sopra la mappa e, se necessario,
-    correggilo spostandolo all'interno della mappa.
-  placeholder: Cerca l’indirizzo qui. Se necessario, potrai modificarlo in seguito.
+  infobox: Inserite l’indirizzo nella barra di ricerca o spostate il pin nella posizione
+    corretta sulla mappa.
+  placeholder: Cerca l’indirizzo …
   different_location: 'L''indirizzo è indipendente dalla posizione geografica'
 recipients:
   done: Tutte le e-mail sono state inviate
