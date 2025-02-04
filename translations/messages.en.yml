@@ -3021,7 +3021,7 @@ theme_switcher:
     light: "Light"
     dark: "Dark"
 
-plz: Post code (automatically filled by the map above)
+plz: Post code
 fsp:
   twig:
     n_in_region: '{count} Food-Share Points in {name}'
@@ -3264,13 +3264,12 @@ regions: Regions
 groups:
   empty: You’re not in any working groups yet
 daterange: Time period
-ort: City/municipality (automatically from the map above)
+ort: City/municipality
 stadt: Your city or town
 fs_id: foodsharing-ID
 options: Options
 geschlecht: gender
-anschrift: Street and house number (automatically from the map above, correct afterwards
-  if necessary)
+anschrift: Street and house number
 handy: Mobile number (incl. country code, starting with +)
 telefon: Landline number (incl. country code, starting with +)
 body: message
@@ -3280,15 +3279,19 @@ passcheck: Please confirm the change with your password
 online_type: Will this event be offline or online?
 addresspicker:
   label: Search for address/location
-  placeholder: Please search for the address here and select it. If necessary, correct
-    the details below afterwards.
+  placeholder: Search address …
   infobox_profile: "[Foodsharers](https://wiki.foodsharing.de/Foodsharer) need the
     address in order to be able to offer food baskets on the website. In order to
     be able to participate in food rescues as a [Foodsaver](https://wiki.foodsharing.de/Foodsaver),
     it is even mandatory."
-  infobox: Enter the address in the field provided and/or move the pin on the map
-    if necessary.
-  different_location: Addresse independent of location
+  infobox: Enter the address in the search bar or move the pin to the correct position
+    on the map.
+  different_location: Correct address description
+  different_location_warning: Please make sure that the pin is in the correct position
+    on the map. Please only change the automatically filled in fields (street and
+    house number, zip code and city/municipality) if the automatically entered values
+    are not correct. This may be necessary, for example, if a street has recently
+    been renamed.
 dashboard:
   my:
     groups: Your groups
@@ -4051,6 +4054,8 @@ chain:
     EMPTY_COUNTRY: Country can not be empty
     EMPTY_ZIP: Zip code can not be empty
     INVALID_STATUS: status must be a valid status id
+    KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: Key Account Manager has not done the
+      training for KAMs.
   listheader: Store chains
   filterplaceholder: Name / address / KAM ID
   columns:
