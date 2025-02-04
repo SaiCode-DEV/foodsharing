@@ -2298,7 +2298,7 @@ about_me_intern: Kort beskrivelse
 about_me_public: Offentlig kort beskrivelse
 regions: Distrikter
 daterange: Periode
-ort: By / kommune (automatisk hentet fra kartet)
+ort: By / kommune
 photo: Bilde
 info: Informasjon
 body: Melding
@@ -2311,12 +2311,12 @@ picture: Bilde
 options: Alternativer
 botschafter: Ambassadør
 geschlecht: Kjønn
-anschrift: Gatenummer og husnummer (automatisk tatt fra kortet)
+anschrift: Gate og husnummer
 handy: Mobilnummer (inkludert landskode, starter med +)
 telefon: Fasttelefonnummer (inkludert landskode, starter med +)
 attachement: Vedlegg
 email: E-postadresse
-plz: Postnummer (automatisk tatt fra kortet)
+plz: Postnummer
 description: Beskrivelse
 desc: Beskrivelse
 edit: redigere
@@ -3371,12 +3371,17 @@ regionPin:
     vises i popupen for nålen på kartet …
 addresspicker:
   label: Søk på adresse/sted
-  placeholder: Vennligst se etter adressen her. Korriger eventuelt under etterpå.
-  infobox: Skriv inn adressen i feltet og flytt knappenålen på kartet om nødvendig.
+  placeholder: Finn adressen …
+  infobox: Skriv inn adressen i søkefeltet eller flytt knappenålen til riktig posisjon
+    på kartet.
   infobox_profile: "[Matdelere](https://wiki.foodsharing.de/Foodsharer) trenger adressen
     for å kunne tilby matkurver på nettsiden. For å kunne delta i matredninger som
     [matredder](https://wiki.foodsharing.de/Foodsaver) er det til og med obligatorisk."
-  different_location: Adressen er uavhengig av geografisk posisjon
+  different_location: Korrekt adressebeskrivelse
+  different_location_warning: Kontroller at knappenålen er i riktig posisjon øverst
+    på kartet. Endre de automatisk utfylte feltene (gate- og husnummer, postnummer
+    og by/kommune) kun hvis den automatisk inntastede verdien ikke er korrekt. Dette
+    kan for eksempel skje etter at du har endret navnet på en gate.
 becomeregion:
   save: Lagre
   enterregion:
@@ -4147,6 +4152,8 @@ chain:
     EMPTY_COUNTRY: Land-feltet er tomt
     EMPTY_ZIP: Postnummerfeltet er tomt
     INVALID_STATUS: Statusfeltet er ugyldig
+    KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: Key Account Manager har ikke gjennomført
+      opplæring for KAM-er.
 usersearch:
   search_tag: Søk etter brukere
   select_tag: Søk brukere etter navn
@@ -4550,3 +4557,12 @@ required_messages:
   name_placeholder: <Navn>
   placeholder: Legg eventuelt til informasjon her …
   save_message: Lagre meldingen min for fremtidig bruk
+  kick_from_store_team:
+    really: Ønsker du virkelig å fjerne {name} fra selskapets team?
+    footer: Hilsener
+  move_to_standby_team:
+    footer: Hilsener
+  decline_store_application:
+    footer: Hilsener
+  demote_store_manager:
+    footer: Hilsener
