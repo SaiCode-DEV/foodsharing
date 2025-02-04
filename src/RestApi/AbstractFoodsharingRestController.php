@@ -30,11 +30,12 @@ abstract class AbstractFoodsharingRestController extends AbstractFOSRestControll
      *
      * @throws TooManyRequestsHttpException if the limit is reached
      */
-    protected function checkRateLimit(Request $request, RateLimiterFactory $rateLimiter): void
+    protected function checkRateLimit(Request $request, RateLimiterFactory $rateLimiter, mixed $specifier = ''): void
     {
-        $limiter = $rateLimiter->create($request->getClientIp());
+        $key = $request->getClientIp() . $specifier;
+        $limiter = $rateLimiter->create($key);
         if (!$limiter->consume()->isAccepted()) {
-            throw new TooManyRequestsHttpException();
+            throw new TooManyRequestsHttpException(null, 'Too many requests');
         }
     }
 

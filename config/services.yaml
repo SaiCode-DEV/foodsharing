@@ -78,3 +78,7 @@ services:
     Foodsharing\Modules\Donation\Query\TwingleDonationDataQuery:
       bind:
         string $twingleDonationJsonStatusUrl: !php/const TWINGLE_URL
+
+    Foodsharing\RestApi\StoreRestController:
+        arguments:
+            $locationChangeLimiterFactory: '@limiter.storeLocationChange'

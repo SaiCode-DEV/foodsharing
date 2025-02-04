@@ -44,6 +44,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
+use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -63,6 +64,7 @@ class StoreRestController extends AbstractFoodsharingRestController
         private readonly GroupFunctionGateway $groupFunctionGateway,
         private readonly ProfilePermissions $profilePermissions,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
+        private readonly RateLimiterFactory $locationChangeLimiterFactory,
     ) {
     }
 
@@ -393,7 +395,7 @@ class StoreRestController extends AbstractFoodsharingRestController
      */
     #[Rest\Patch('stores/{storeId}/information', requirements: ['storeId' => '\d+'])]
     #[ParamConverter('storeModel', converter: 'fos_rest.request_body')]
-    public function editStore(int $storeId, PatchStore $storeModel, ConstraintViolationListInterface $validationErrors)
+    public function editStore(int $storeId, PatchStore $storeModel, ConstraintViolationListInterface $validationErrors, Request $request)
     {
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
@@ -405,6 +407,11 @@ class StoreRestController extends AbstractFoodsharingRestController
             } else {
                 throw new NotFoundHttpException('Store not found');
             }
+        }
+
+        $oldStore = $this->storeGateway->getStore($storeId);
+        if (!is_null($storeModel->location) && ($oldStore->location->lat !== $storeModel->location->lat || $oldStore->location->lon !== $storeModel->location->lon)) {
+            $this->checkRateLimit($request, $this->locationChangeLimiterFactory, $storeId);
         }
 
         $this->throwBadRequestExceptionOnError($validationErrors);

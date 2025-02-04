@@ -38,6 +38,7 @@ export const HTTP_RESPONSE = Object.freeze({
   NOT_FOUND: 404,
   CONFLICT: 409,
   UNPROCESSABLE_ENTITY: 422,
+  TOO_MANY_REQUESTS: 429,
 })
 
 export const SESSION_STATUS = Object.freeze({
