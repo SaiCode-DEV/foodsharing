@@ -10,11 +10,10 @@ edit_websites: Úprava veřejných webových stránek
 desc: popis
 telefon: Číslo pevné linky (včetně kódu země, začíná znakem +)
 description: popis
-plz: PSČ (automaticky z mapy výše)
+plz: PSČ
 email: Emailová adresa
 attachement: E-mailové poznámky
-anschrift: Ulice a číslo domu (automaticky z výše uvedené mapy, v případě potřeby
-  opravte)
+anschrift: Ulice a číslo domu
 handy: Číslo mobilního telefonu (včetně předvolby země, začíná na +)
 geschlecht: Pohlaví
 botschafter: Ambasador/ka
@@ -2623,7 +2622,7 @@ search:
     mail:
       mail_name: '{name} <{mail}>'
 photo: 'Fotka'
-ort: 'město/obec (automaticky z mapy výše)'
+ort: 'město/obec'
 daterange: 'období'
 upload:
   new_image: ''
