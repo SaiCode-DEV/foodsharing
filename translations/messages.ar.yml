@@ -274,7 +274,7 @@ bootstrap-datepicker:
   labelNextMonth: ''
   labelCalendar: ''
 mailbox_name: 'اسم الصندوق البريدي'
-ort: 'المدينة/البلدية (تلقائياً من الخريطة بالأعلى)'
+ort: 'المدينة/البلدية'
 daterange: 'المجال الزمني'
 bezirk_id: 'معرّف_المنطقة'
 opt: 'الخيارات'
