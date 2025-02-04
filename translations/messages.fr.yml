@@ -435,7 +435,7 @@ weight: 'Poids estimé :'
 about_me_intern: Brève description
 about_me_public: Brève description publique
 daterange: Période
-ort: Ville/Municipalité (automatiquement complété par la carte ci-dessus)
+ort: Ville/Municipalité
 status: Statut actuel
 rolle: Rôle de l’utilisateur·rice
 mailbox_name: Nom de la messagerie
@@ -454,13 +454,12 @@ active: Activé
 bezirk: District
 options: Options
 botschafter: Ambassadeur·rice
-anschrift: Rue et numéro de rue (automatiquement complété par la carte ci-dessus,
-  corriger par la suite si nécessaire)
+anschrift: Rue et numéro de rue
 handy: Numéro de téléphone mobile (y compris l’indicatif du pays, commençant par +)
 telefon: Numéro de ligne fixe (y compris l’indicatif du pays, commençant par +)
 attachement: Pièce jointe
 email: Adresse courriel
-plz: Code postal (automatiquement complété par la carte ci-dessus)
+plz: Code postal
 edit: modifier
 message: Message
 nachname: Nom de famille
@@ -3141,11 +3140,11 @@ addresspicker:
     d’entrer une adresse pour pouvoir proposer des paniers solidaires sur le site.
     L’adresse est nécessaire aux [Foodsaver](https://wiki.foodsharing.de/Foodsaver)
     pour pouvoir participer aux collectes.'
-  infobox: Entre l’adresse dans la case prévue à cet effet et déplace l’épingle sur
-    la carte si nécessaire.
-  placeholder: Cherche l’adresse ici et si besoin, corrige-la plus bas.
+  infobox: Saisis l’adresse dans la barre de recherche ou fais glisser le pins sur
+    la carte jusqu’à la bonne position.
+  placeholder: Cherche l’adresse …
   label: Recherche de l’adresse
-  different_location: L’adresse est indépendante de la position géographique
+  different_location: Corriger l’adresse
 storelist:
   inprogress: Négociations en cours
   nocontact: Aucun contact pour le moment
@@ -3560,11 +3559,15 @@ region:
     leave: quitter le district
     leave_name: quitter {name}
     leave_text: Tu n'est plus actif/ve à {name}? Alors tu devrais quitter le district.
-    confirm_leaving: Tu souhaites rejoindre le district {name}? Les ambassadeurs:rices
+    confirm_leaving: Tu souhaites rejoindre le district {name} ? Les ambassadeurs·rices
       auront ainsi accès à ton profil.
     show_on_large_map: Voir sur la grande carte
     continue_editing: continuer à editer
     discard_changes: rejeter les changements
+    desc:
+      edit: Modifier la description du district
+      confirm_discard_changes: Veux-tu vraiment abandonner ta modification de la description
+        de l’arondissement ?
   denied:
     group_in_this_region: « {name} » est un groupe de cette district.
     this_region: Tu as essayé d’accéder au contenu de ce district. Cependant, seuls
