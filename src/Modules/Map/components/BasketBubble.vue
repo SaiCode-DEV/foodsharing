@@ -1,13 +1,18 @@
 <template>
   <map-popup id="basketBubbleModal" :is-loading="loading">
-    <div v-if="bubbleData.pictures?.length" class="mb-2 mt-2">
-      <b-carousel indicators controls>
-        <b-carousel-slide
-          v-for="(photoPath, i) in photoPaths"
-          :key="i"
-          :img-src="photoPath"
-        />
-      </b-carousel>
+    <div v-if="bubbleData.pictures?.length" class="mb-3">
+      <ResponsiveImage
+        v-if="bubbleData.pictures.length === 1"
+        :image="bubbleData.pictures[0]"
+        :height-in-px="300"
+        :min-width-in-px="465"
+        :max-width-in-px="465"
+      />
+      <Gallery
+        v-else
+        :height-in-px="300"
+        :images="bubbleData.pictures"
+      />
     </div>
 
     <div
@@ -54,10 +59,13 @@
 import { getBasketBubbleContent } from '@/api/map'
 import { useUserStore } from '@/stores/user'
 import MapBubbleMixin from './MapBubbleMixin'
+import Gallery from '@/components/Images/Gallery.vue'
+import ResponsiveImage from '@/components/Images/ResponsiveImage.vue'
 
 const userStore = useUserStore()
 
 export default {
+  components: { Gallery, ResponsiveImage },
   mixins: [MapBubbleMixin],
   setup () {
     return {
@@ -71,14 +79,6 @@ export default {
     }
   },
   computed: {
-    photoPaths () {
-      const photos = this.bubbleData?.pictures ?? []
-      return photos.map(photo => photo.startsWith('/api')
-        ? photo + '?w=465&h=300'
-        : `/images/basket/medium-${photo}`,
-        // TOOD This destinction can be removed three weeks after Update "N", since all active baskets will be replaced by that time.
-      )
-    },
     displayDate () {
       return this.bubbleData.createdAt
         ? this.$dateFormatter.format(this.bubbleData.createdAt, {

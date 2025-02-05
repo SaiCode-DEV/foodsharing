@@ -23,6 +23,7 @@
 - Add a rate limiter for store location changes #2326 !4026 @AntonBallmaier
 - Austrian und Swiss store chain groups can now access the store chain list properly #2325 !4024 @AntonBallmaier
 - Improved address input #2317 !4018 @AntonBallmaier
+- Replace b-caroussel with custom Gallery component #2188 @AntonBallmaier
 
 ## Bugfixes
 - Resolve "region filter bug on profile page: Blank screen when navigating store list" #2295 !3940 @chriswalg
