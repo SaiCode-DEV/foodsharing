@@ -143,7 +143,7 @@ pass1: İstediğiniz yeni şifreniz
 telefon: Sabit Telefon numarası (ülke kodu dahil, + ile başlar)
 handy: Cep Telefonu numarası (ülke kodu dahil, + ile başlar)
 description: Açıklama
-plz: Posta Kodu
+plz: Posta Kodu_
 passcheck: Lütfen değişikliği şifrenizle onaylayın
 sleep_status: Güncel durumunuz
 edit: düzenle
