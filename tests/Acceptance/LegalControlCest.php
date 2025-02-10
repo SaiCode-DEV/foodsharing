@@ -73,15 +73,15 @@ class LegalControlCest
 
     public function testGivenIAmLoggedInAndAHaveRoleHigherThanOneThenICanDegradeToFoodsaver(AcceptanceTester $I): void
     {
-        $I->selectOption('select', 'Ich akzeptiere nur die Datenschutzerklärung und möchte zur:zum Foodsaver:in zurückgestuft werden.');
-        $I->click('Zur:Zum Foodsaver:in zurückgestufen');
+        $I->selectOption('select', 'Ich akzeptiere lediglich die Datenschutzerklärung und möchte zur:zum Foodsaver:in zurückgestuft werden.');
+        $I->click('Zur:zum Foodsaver:in zurückstufen');
         $I->waitForElementVisible('#modalFoodsaverAccount', 10);
         $I->waitForElementVisible('#modalFoodsaverAccount .modal-content', 10);
         $I->seeInDatabase('fs_foodsaver', ['id' => $this->user['id'], 'rolle' => 3]);
         $I->see('Achtung: Du hast ausgewählt, dass du zur:zum Foodsaver:in herabgestuft werden möchtest. Bist du dir sicher?', '#modalFoodsaverAccount .alert');
         $I->click('.modal-footer .btn-success');
         $I->waitForElementNotVisible('#modalFoodsaverAccount', 10);
-        $I->click('Zur:Zum Foodsaver:in zurückgestufen');
+        $I->click('Zur:zum Foodsaver:in zurückstufen');
         $I->waitForElementVisible('#modalFoodsaverAccount', 10);
         $I->click('.modal-footer .btn-danger');
         $I->waitForActiveAPICalls();

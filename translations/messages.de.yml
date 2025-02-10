@@ -196,9 +196,9 @@ quiz:
       timed: Die Zeit zur Beantwortung der Fragen ist begrenzt. Lass dich davon nicht stressen. Die Zeit ist für jede Frage einzeln so eingestellt, dass du genug Zeit hast, die Frage in Ruhe zu beantworten. Solltest du doch mal in Zeitnot kommen, lass die Quiz-Admins das mit einem Kommentar wissen.
       comment: Nach dem Beantworten jeder Frage siehst du eine Zwischenauswertung mit Erklärungen zu jeder der Antwortmöglichkeiten. Das hilft zu verstehen, welche Antwort warum richtig oder falsch ist. Bei jedem Fehler solltest du dir die Erklärungen sorgfältig durchlesen. Wenn dir etwas unlogisch erscheint, nicht verständlich oder gar falsch ist, hinterlasse bitte einen Kommentar. Deine Kommentare können dir zugeordnet werden, um dir individuelle Rückmeldung zu geben.
       pause: Du kannst das Quiz nach jeder Frage pausieren und zu einem späteren Zeitpunkt fortsetzen.
-      feedback: Am Ende des Quizzes bekommst du direkt eine Auswertung, ob du bestanden hast und welche Fehler du wo gemacht hast. Hier kannst du nocheinmal in Ruhe die Begründungen durchlesen.
+      feedback: Am Ende des Quizzes bekommst du direkt eine Auswertung, ob du bestanden hast und welche Fehler du wo gemacht hast. Hier kannst du noch einmal in Ruhe die Begründungen durchlesen.
     privacyNotice:
-      hygiene: Wenn du dieses Quiz bestehst, wird gespeichert, wann dir das gelungen ist und dir wird ein Hygiene-Sticker vergeben. Hygiene- und Betriebsverantwortliche können sehen, ob du einen gültigen Hygiene-Sticker hast.
+      hygiene: Wenn du dieses Quiz bestehst, wird gespeichert, wann dir das gelungen ist, und dir wird ein Hygiene-Sticker vergeben. Hygiene- und Betriebsverantwortliche können sehen, ob du einen gültigen Hygiene-Sticker hast.
     acceptPrivacyNotice: Ich bin einverstanden.
   infomodal:
     title: "Frage {index} von {questions}"
@@ -214,7 +214,7 @@ quiz:
     name: Antworten
     none_correct: Keine Antwort ist korrekt.
     neutral: Neutrale Antwort – wird nicht gewertet.
-    false_false: Diese Antwort war falsch. Das hast Du richtig erkannt.
+    false_false: Diese Antwort war falsch. Das hast du richtig erkannt.
     false_true: Diese Antwort wäre richtig gewesen.
     true_false: Falsch! Diese Antwort stimmt nicht.
     true_true: Richtig! Diese Antwort stimmt.
@@ -487,8 +487,8 @@ group:
   subtitle: "hier findest du Hilfe und viel zu tun …"
   member_count:
     zero: "Keine Mitwirkenden"
-    one:  "Ein:e Mitwirkende:r"
-    other: "{count} Mitwirkende"
+    one:  "Eine mitwirkende Person"
+    other: "{count} weitere Mitwirkende"
   admin_count:
     zero: "Keine Admins"
     one: "Ein:e Administrator:in"
@@ -594,7 +594,7 @@ group:
       inform_user: "mit Benachrichtigung"
       create_pdf: "Erstelle PDF"
       active_or_renew_passport: "Ausweis aktivieren / verlängern"
-      execute: "Aktion Ausführen"
+      execute: "Aktion ausführen"
       show_only_member_after: "Zeige nur Mitglieder nach"
       filter_selection: "Zeige nur ausgewählte Mitglieder"
       never_before: "noch nie"
@@ -620,12 +620,12 @@ legal:
     qustion_notice: "Akzeptierst du unsere Datenschutzerklärung und die Datenschutzbelehrung?"
     select: "Bitte auswählen"
     agree: "Ja, ich akzeptiere die Datenschutzerklärung."
-    agree_only_policy: "Ich akzeptiere nur die Datenschutzerklärung und möchte zur:zum Foodsaver:in zurückgestuft werden."
+    agree_only_policy: "Ich akzeptiere lediglich die Datenschutzerklärung und möchte zur:zum Foodsaver:in zurückgestuft werden."
     agree_policy_and_notice: "Ja, ich akzeptiere die Datenschutzerklärung und die Datenschutzbelehrung."
     not_agree: "Nein, ich akzeptiere die Datenschutzerklärung nicht. Ich möchte meinen Account löschen."
   button:
     agree: "Akzeptieren"
-    partially_agree: "Zur:Zum Foodsaver:in zurückgestufen"
+    partially_agree: "Zur:zum Foodsaver:in zurückstufen"
     disagree: "Meinen Account löschen"
   not_acknowledge_privacy_policy_description: "Um die foodsharing-Plattform benutzen zu können, musst du unsere Datenschutzerklärung akzeptieren."
   agree_privacy_policy: "Ich akzeptiere die Datenschutzerklärung."
@@ -847,14 +847,14 @@ terminology:
 statistics:
   lastMonth: "Statistiken der letzten 30 Tage"
   kg_food_saved: "{count} kg Lebensmittel gerettet"
-  num_fetches: "Bei {count} Rettungseinsätzen"
+  num_fetches: "bei {count} Rettungseinsätzen"
   region_public:
     pickupsLastMonth: Lebensmittelrettungen
     savedFoodKgLastMonth: Lebensmittel gerettet
-    activeHomeRegionFoodsavers: Aktive Foodsaver:innen
-    activeCoorporations: Aktive Betriebskooperationen
-    activeFoodSharePoints: Aktive Fairteiler
-    foodBasketsLastMonth: Verteilte Essenskörbe
+    activeHomeRegionFoodsavers: aktive Foodsaver:innen
+    activeCoorporations: aktive Betriebskooperationen
+    activeFoodSharePoints: aktive Fairteiler
+    foodBasketsLastMonth: verteilte Essenskörbe
   food_saved: Lebensmittel gerettet
 
 are_you_sure: "Bist du sicher?"
@@ -865,7 +865,7 @@ back: "Zurück"
 success: "Erfolgreich abgeschlossen"
 error_permissions: "Du hast leider nicht die notwendigen Berechtigungen für diesen Vorgang."
 error_unexpected: "Es ist ein Fehler aufgetreten"
-error_base64_image: "Bilder einfügen ist nicht per Drag & Drop erlaubt."
+error_base64_image: "Bilder einfügen ist nicht per Drag & Drop erlaubt."
 error_ajax: |
   Das hat leider nicht geklappt.
   Vielleicht funktioniert deine Internetverbindung gerade nicht.
@@ -1197,13 +1197,13 @@ store:
 navi:
   google_maps: "Google Maps"
   waze: "Waze"
-  apple_maps: "Apple Maps"
+  apple_maps: "Apple Karten"
   osmand: "OsmAnd"
   komoot: "Komoot"
   here: "HERE WeGo"
   native: "Native App"
   gdpr_warning: "Wenn du mit {provider} navigierst, wird die Adresse an deren Dienst übermittelt und du wirst auf deren Website weitergeleitet. Bist du damit einverstanden?"
-  no_native_app: "Geo Links werden nicht vom Gerät unterstützt."
+  no_native_app: "Geo-Links werden nicht von diesem Gerät unterstützt."
 
 storeedit:
   bread: "Betrieb bearbeiten"
@@ -1636,7 +1636,7 @@ recipients:
 addresspicker:
   label: "Adress-/Standort-Suche"
   placeholder: "Adresse suchen..."
-  infobox: "Gib die Adresse in der Suchleiste  ein oder schiebe den Pin in der Karte and die richtige Position."
+  infobox: "Gib die Adresse in der Suchleiste ein oder schiebe den Pin in der Karte an die richtige Position."
   infobox_profile: "[Foodsharer](https://wiki.foodsharing.de/Foodsharer) benötigen die Adresse, um Essenskörbe über die Webseite anbieten zu können. Um als [Foodsaver](https://wiki.foodsharing.de/Foodsaver) an Lebensmittelrettungen teilnehmen zu können, ist sie notwendig."
   different_location: Adressbeschreibung korrigieren
   different_location_warning: "Bitte stelle sicher, dass der Pin in der Karte oben an der richtigen Stelle liegt. Bitte ändere die automatisch ausgefüllen Felder (Straße und Hausnummer, Postleitzahl und Stadt/Gemeinde) nur, wenn der automatisch eingetragene Wert nicht korrekt ist. Das kann beispielsweise nach der Namensänderung einer Straße vorkommen."
@@ -2268,7 +2268,7 @@ settings:
     title: Name (Vor- & Nachname)
     desc: Der eigene Name kann nicht selbstständig geändert werden. Du kannst aber eine [Namensänderung beantragen]({link}).
     request: Namensänderung beantragen
-    foodsaver_info: "Um deinen Namen ändern zu lassen, musst du eine:n Botschafter:in aus deinem Stammbezirk kontaktieren. Diese:r kann dann die Namensänderung für dich durchführen.<hr>Wer Botschafter:in in deinem Stammbezirk ist, siehst du im [Forum deines Bezirks]({link}) in der linken Seitenleiste."
+    foodsaver_info: "Um deinen Namen ändern zu lassen, musst du eine:n Botschafter:in aus deinem Stammbezirk kontaktieren. Diese:r kann dann die Namensänderung für dich durchführen. Wer Botschafter:in in deinem Stammbezirk ist, siehst du im [Forum deines Bezirks]({link}) in der linken Seitenleiste."
   general:
     phone: "Deine Festnetznummer"
     current_address: "Aktuelle Adresse"
@@ -2918,23 +2918,23 @@ region:
     desc:
       edit: "Bezirksbeschreibung bearbeiten"
       confirm_discard_changes: "Möchtest du deine Änderungen an der Bezirksbeschreibung wirklich verwerfen?"
-      confirm_save_changes: "Sollen deine Änderungen an der Bezirksbeschreibung  gespeichert werden? Die neue Beschreibung ist dann öffentlich auf der Bezirksseite sichtbar."
+      confirm_save_changes: "Sollen deine Änderungen an der Bezirksbeschreibung gespeichert werden? Die neue Beschreibung ist dann öffentlich auf der Bezirksseite sichtbar."
       missing: "Dieser Bezirk hat aktuell keinen Beschreibungstext. Du hast die Berechtigung, jetzt einen Beschreibungstext zu schreiben."
     map:
-      missing: "Dieser Bezirk wird aktuell nicht auf der Karte angezeigt, und hat auch keine Fairteiler, die hier angezeigt werden könnten. Du hast die Berechtigung, jetzt einen Bezirkspin zu setzen."
+      missing: "Dieser Bezirk wird aktuell nicht auf der Karte angezeigt und hat auch keine Fairteiler, die hier angezeigt werden könnten. Du hast die Berechtigung, jetzt einen Bezirkspin zu setzen."
       set_pin: "Bezirkspin auf der Karte eintragen"
       hide_pin: "Bezirkspin entfernen"
       edit_pin: "Bezirkspin bearbeiten"
 
       confirm_discard_changes: "Möchtest du deine Änderungen am Bezirks-Pin wirklich verwerfen?"
-      confirm_save_changes: "Sollen deine Änderungen am Bezirks-Pin  gespeichert werden? Der neue Pin ist dann öffentlich auf der Bezirksseite und der Karte sichtbar."
+      confirm_save_changes: "Sollen deine Änderungen am Bezirks-Pin gespeichert werden? Der neue Pin ist dann öffentlich auf der Bezirksseite und der Karte sichtbar."
       confirm_remove: "Möchtest du den Bezirks-Pin wirklich entfernen? Dieser Bezirk wird dann nicht mehr auf der Karte angezeigt."
   denied:
-    this_region: "Du hast versucht auf Inhalte dieses Bezirks zuzugreifen. Allerdings haben nur Mitglieder des Bezirks Zugriff darauf."
-    some_group: "Du hast versucht auf Inhalte der Arbeitsgruppe \"{name}\" zuzugreifen. Allerdings haben nur Mitglieder der Gruppe Zugriff darauf."
-    subgroup_in: "\"{name}\" ist eine Untergruppe der Gruppe \"{parent}\"." # any other
-    group_in_this_region: "\"{name}\" ist eine Gruppe dieses Bezirks." # last and region
-    group_in_this_group: "\"{name}\" ist eine Untergruppe dieser Gruppe." # last and group
+    this_region: "Du hast versucht, auf Inhalte dieses Bezirks zuzugreifen. Allerdings haben nur Mitglieder des Bezirks Zugriff darauf."
+    some_group: "Du hast versucht, auf Inhalte der Arbeitsgruppe „{name}“ zuzugreifen. Allerdings haben nur Mitglieder der Gruppe Zugriff darauf."
+    subgroup_in: "„{name}“ ist eine Untergruppe der Gruppe „{parent}“." # any other
+    group_in_this_region: "„{name}“ ist eine Gruppe dieses Bezirks." # last and region
+    group_in_this_group: "„{name}“ ist eine Untergruppe dieser Gruppe." # last and group
 
 
 blog:
@@ -3014,7 +3014,7 @@ base:
 
 email_template:
   request_from: "Anfrage von"
-  from: "-- Von"
+  from: "-- Von "
   to: "an"
   dont_respond:
     noreply: "Bitte antworte nicht auf diese E-Mail. Diese Nachricht wurde von einer Adresse gesendet, hinter der kein Postfach existiert."
@@ -3898,12 +3898,12 @@ contact_page:
   common:
     title: "Für organisatorische Anfragen"
     link: "E-Mail schreiben"
-    text: "Wir leiten Dich gerne an die passende Ansprechpersonen – auch in foodsharing-Bezirken – weiter."
+    text: "Wir leiten dich gerne an die passenden Ansprechpersonen – auch in foodsharing-Bezirken – weiter."
     modal:
       title: "E-Mail schreiben"
       text: "Schreibe uns eine E-Mail an [{common_mail}](mailto:{common_mail}) (oder [{common_mail_ch}](mailto:{common_mail_ch}) für die Schweiz)."
   support:
-    title: "Hilfe zur Webseite oder zu Deinem Account"
+    title: "Hilfe zur Webseite oder zu deinem Account"
     link: "Support-Portal"
     text: "Hier findest du unsere Wissensdatenbank zu häufig gefragten oder aktuellen Themen. Wenn du dort nicht fündig wirst, kannst du gerne eine Anfrage als Ticket erstellen (Link oben rechts)."
   regions:
@@ -3913,8 +3913,8 @@ contact_page:
 
 support_page:
   title: "Support-Formular"
-  info_teaser: "Unser Support-Formular steht dir für Fragen zur Bedienung der Plattform, technische Anliegen oder Fehlermeldungen zur Verfügung. Nach dem Absenden wird automatisch ein Ticket in unserem System erstellt. Das ehrenamtliche Support-Team kümmert sich um deine Anfragen. Um besser auf technische Probleme eingehen zu können, ist in deiner Anfrage auch enthalten, welchen deine Browser und welches Betriebssystem du nutzt."
-  notification_name: "Da du eingeloggt bist, werden dein Vorname und deine Foodsharer-ID mit übertragen."
+  info_teaser: "Unser Support-Formular steht dir für Fragen zur Bedienung der Plattform, technische Anliegen oder Fehlermeldungen zur Verfügung. Nach dem Absenden wird automatisch ein Ticket in unserem System erstellt. Das ehrenamtliche Support-Team kümmert sich um deine Anfragen. Um besser auf technische Probleme eingehen zu können, ist in deiner Anfrage auch enthalten, welchen Browser und welches Betriebssystem du nutzt."
+  notification_name: "Da du eingeloggt bist, werden dein Vorname und deine foodsharing-ID mit übertragen."
   firstName: "Vorname"
   validation_firstName: "Vorname ist leer"
   subject: "Betreff"
@@ -3936,7 +3936,7 @@ required_messages:
   message_info: "{name} würde die folgende Nachricht dazu erhalten:"
   message_info_multiple: "Jede Person würde die folgende Nachricht dazu erhalten:"
   placeholder: "Optional hier Informationen ergänzen…"
-  save_message: "Meine Nachricht für's nächste Mal speichern"
+  save_message: "Meine Nachricht für das nächste Mal speichern"
   name_placeholder: "<Name>"
   verify:
     really: "Möchtest du {name} wirklich verifizieren? Bitte stelle sicher, dass {name} alle [Voraussetzungen für verifizierte Foodsaver](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver) erfüllt."
@@ -3948,8 +3948,8 @@ required_messages:
     main: "du wurdest aus dem Team des Betriebs [{store}](/store/{storeId}) ausgetragen. Du kannst dich somit nicht mehr für Abholungen in diesem Betrieb eintragen."
     footer: "Viele Grüße"
   move_to_standby_team:
-    really: "Möchtest du {name} wirklich aus dem aktiven Team auf die Springerlist setzen?"
-    main: "du wurdest im Betrieb [{store}](/store/{storeId}) auf die Springerliste gesetzt. Du kannst dich damit aktuell nicht mehr für Abholungen in diesem Betrieb eintragen oder den allgemeinen Gruppenchat lesen." 
+    really: "Möchtest du {name} wirklich aus dem aktiven Team auf die Springerliste setzen?"
+    main: "du wurdest im Betrieb [{store}](/store/{storeId}) auf die Springerliste gesetzt. Du kannst dich damit aktuell nicht für Abholungen in diesem Betrieb eintragen und nicht den allgemeinen Gruppenchat lesen." 
     footer: "Viele Grüße"
   decline_store_application:
     really: "Möchtest du die Teambewerbung von {name} wirklich ablehnen?"

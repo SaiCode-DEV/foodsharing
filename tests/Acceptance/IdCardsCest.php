@@ -47,7 +47,7 @@ class IdCardsCest
             }
         ');
 
-        $I->click('Ausführen');
+        $I->click('ausführen');
 
         // $I->waitForFileExists('/downloads/fs_passports_' . $region['id'] . '_' . convertRegionName($region['name']) . '.pdf', 10);
     }
