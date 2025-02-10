@@ -57,6 +57,15 @@ export default {
 
 <style lang="scss">
 .markdown {
+  h1, h2, h3, h4, h5, h6 {
+    word-break: break-all;
+  }
+  li {
+    word-break: break-all;
+  }
+  p {
+    word-break: break-all;
+  }
   p:last-child {
     margin-bottom: 0;
   }

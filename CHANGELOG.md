@@ -31,6 +31,7 @@
 - Fix rounded corners in profile settings #2118 !3904 !3975 @JoMarianek
 - Words in Markdown are wrapped correctly #1356 !4005 @Mel
 - UI: Fix undefined location on invalid targets !2247 @anedomansky
+- Markdown text is wrapped in mobile view #2257 !4015 @alex.simm 
 
 ## Refactoring
 - Get rid of xhr completely !3826 !3933 @chriswalg
