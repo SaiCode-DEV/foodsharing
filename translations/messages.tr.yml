@@ -2429,7 +2429,7 @@ email_template:
     gerçekleşebilir. Kimseyi seferber edemiyorsanız, kurtarımı sizin yapmanız iyi
     olur. Bu sizin için mümkün değilse, lütfen işletmede ki randevuyu zamanında iptal
     edin.
-  from: --den
+  from: '-- den '
   you_responsible:
     part1: -için sen sorumlusun
     part2: Maalesef kimse bir sonraki kurtarma için kaydolmadı.
@@ -2653,8 +2653,8 @@ settings:
       bulunabilirsiniz]({link}).
     request: İsim değişikliği talep edin
     foodsaver_info: Adınızı değiştirmek için kendi bölgenizdeki yetkili bir elçiyle
-      iletişime geçmelisiniz. Bu kişi daha sonra sizin için isim değişikliğini gerçekleştirebilir.<hr>Sol
-      kenar çubuğundaki [bölgenizin forumunda]({link}) kendi bölgenizdeki elçinin
+      iletişime geçmelisiniz. Bu kişi daha sonra sizin için isim değişikliğini gerçekleştirebilir.
+      Sol kenar çubuğundaki [bölgenizin forumunda]({link}) kendi bölgenizdeki elçinin
       kim olduğunu görebilirsiniz.
   chatmail: "Foodsharing ana sayfasında dahili bir mesaj alırsanız,\nve o anda giriş
     yapmadıysanız, e-posta ile bilgilendirilebilirsiniz.\nBunu istiyor musunuz?\n"
@@ -3592,12 +3592,12 @@ statistics:
   num_fetches: '{count} kurtarma görevinde'
   food_saved: Gıda kurtarıldı
   region_public:
-    savedFoodKgLastMonth: Geçen ay kurtarılan gıda
-    activeFoodSharePoints: Aktif Gıda dağıtım Noktası
-    foodBasketsLastMonth: Son bir ayda dağıtılan gıda sepetleri
-    pickupsLastMonth: Son bir ayda yapılan gıda kurtarmaları
-    activeCoorporations: Aktif işletme işbirlikleri
-    activeHomeRegionFoodsavers: Aktif foodsaverlar
+    savedFoodKgLastMonth: kurtarılan gıda
+    activeFoodSharePoints: aktif Gıda dağıtım Noktası
+    foodBasketsLastMonth: son bir ayda dağıtılan gıda sepetleri
+    pickupsLastMonth: gıda kurtarmaları
+    activeCoorporations: aktif işletme işbirlikleri
+    activeHomeRegionFoodsavers: aktif foodsaverlar
   title: İstatistiksel olarak
 are_you_sure: Emin misin?
 day: Gün
@@ -4432,10 +4432,10 @@ store_categories:
   confirm_delete_hint: Hala bu kategoriye atanmış {count} şirket var. Bu işletmenin
     artık bir kategorisi olmayacak.
   new: Yeni kategori girin
-error_base64_image: Drag & Drop yöntemiyle resim eklenmesine izin verilmez.
+error_base64_image: Drag & Drop yöntemiyle resim eklenmesine izin verilmez.
 support_page:
   title: Destek formu
-  notification_name: Giriş yaptığınız için adınız ve Foodsharer ID'niz aktarılacaktır.
+  notification_name: Giriş yaptığınız için adınız ve foodsharing ID'niz aktarılacaktır.
   firstName: Ön İsim
   validation_firstName: Ön İsim boş
   validation_email: Geçersiz e-posta adresi
