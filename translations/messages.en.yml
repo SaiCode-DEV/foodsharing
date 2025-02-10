@@ -259,8 +259,8 @@ settings:
     foodsharer_info: To get your name changed, please create a request in our <a href="{link}">support
       form</a>.
     foodsaver_info: To change your name, you must contact an ambassador from your
-      home district. This person can then change the name for you.<hr>You can see
-      who is the ambassador in your home district in the [forum of your district]({link})
+      home district. This person can then change the name for you. You can see who
+      is the ambassador in your home district in the [forum of your district]({link})
       in the left sidebar.
   push:
     not-supported: Your browser does not support push notifications.
@@ -1813,7 +1813,7 @@ email_template:
   newsletter:
     linktext: Click here to unsubscribe.
     unsubscribe: Do you want to unsubscribe from our newsletter?
-  from: -- from
+  from: '-- from '
 sidenav:
   yourgroups: Your groups
   localgroups: Regional groups
@@ -1994,7 +1994,7 @@ region:
     confirm_entering: Would you like to join the district {name}? This will give the
       ambassadors there access to your profile.
     map:
-      confirm_save_changes: Should your changes to the district pin be saved ? The
+      confirm_save_changes: Should your changes to the district pin be saved? The
         new pin is then publicly visible on both the district page and the map.
       missing: This district is not currently displayed on the map and does not have
         any food-share points to be displayed. You have the permission to set the
@@ -2009,8 +2009,9 @@ region:
     desc:
       confirm_discard_changes: Do you really want to discard your changes to the district
         description?
-      confirm_save_changes: Should your changes to the district description be saved?
-        The new description is then publicly visible on the district page.
+      confirm_save_changes: Do you want your changes to the district description to
+        be saved? The new description will then be publicly visible on the district
+        page.
       edit: Edit district description
       missing: This district currently has no description text. You have the permission
         to write a description now.
@@ -2942,7 +2943,7 @@ legal:
     select: Please select
     agree: Yes, I accept the privacy policy.
     agree_only_policy: I only accept the privacy policy and would like to be downgraded
-      to an ordinary Foodsaver.
+      to an ordinary foodsaver.
     agree_policy_and_notice: Yes, I accept the privacy policy and the instructions
       on data confidentiality.
     not_agree: No, I do not accept the privacy policy. I would like to delete my account.
@@ -3166,7 +3167,7 @@ chat:
     unread: Mark as unread
 delete: Delete
 error_unexpected: An error has occurred
-error_base64_image: Inserting images via drag & drop is not permitted.
+error_base64_image: Inserting images via drag & drop is not permitted.
 register:
   confirmPassword_required: Please repeat the password.
   password_required: A password is required.
@@ -3482,7 +3483,7 @@ statistics:
     activeCoorporations: active cooporations
     activeFoodSharePoints: active Food-Share Points
     foodBasketsLastMonth: food baskets distributed
-    activeHomeRegionFoodsavers: active Foodsavers
+    activeHomeRegionFoodsavers: active foodsavers
   lastMonth: Statistics of the past 30 days
 storestatus:
   "0": Status unclear
