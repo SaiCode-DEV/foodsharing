@@ -266,7 +266,7 @@ email_template:
       av:\n Anja Westermann \n Kontakt:\n E-post: info@foodsharing.de\n\n Registerutdrag:\n
       Innføring i foreningsregisteret\n Registerretten: Amtsgericht Köln\n Registernummer:
       VR 17439\n\n Ansvarlig for innholdet etter § 18 MStV:\n Anja Westermann"
-  from: -- fra
+  from: '-- fra '
   newsletter:
     linktext: Klikk her for å avslutte abonnementet.
     unsubscribe: Ønsker du ikke lenger å motta vårt nyhetsbrev?
@@ -448,7 +448,7 @@ region:
   denied:
     group_in_this_region: «{name}» er en gruppe i dette distriktet.
     group_in_this_group: «{name}» er en undergruppe av denne gruppen.
-    subgroup_in: «{navn}» er en undergruppe av gruppen «{parent}».
+    subgroup_in: «{name}» er en undergruppe av gruppen «{parent}».
     this_region: Du forsøkte å få tilgang til innhold fra dette distriktet. Det er
       imidlertid kun medlemmer av distriktet som har tilgang til det.
     some_group: Du forsøkte å få tilgang til innhold fra arbeidsgruppen «{name}».
@@ -1292,7 +1292,7 @@ settings:
     foodsharer_info: For å endre navnet ditt, vennligst opprett en forespørsel i vårt
       <a href="{link}">støtteskjema</a>.
     foodsaver_info: For å endre navn må du kontakte en ambassadør fra ditt hjemdistrikt.
-      Denne personen kan deretter endre navnet for deg.<hr>Du kan se hvem som er ambassadør
+      Denne personen kan deretter endre navnet for deg. Du kan se hvem som er ambassadør
       i ditt hjemdistrikt i [forumet til distriktet ditt]({link}) i venstre sidefelt.
     desc: Du kan ikke endre ditt eget navn selv. Du kan imidlertid be om en [navneendring]({link}).
     title: Navn (for- og etternavn)
@@ -3080,6 +3080,7 @@ store:
       17: '{actor} opprettet eller endret hentedatoen [ {date} med {totalSlots} plasser
         med beskrivelse: {description} ]'
     no_description: ingen
+    message_saved_info: Meldingen din vil bli lagret i operasjonsloggen.
   signInDateTime: Tidspunkt for innskrivning
   slot_state: Status for plass
   lastPickupTitle: Siste henting her
