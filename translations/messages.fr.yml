@@ -645,7 +645,7 @@ settings:
     foodsharer_info: Pour changer ton nom, tu dois nous faire une demande sous <a
       href="{link}">formulaire de support</a>.
     foodsaver_info: Pour changer ton nom, tu dois contacter un·e ambassadeur·ice de
-      ton secteur géographique de rattachement.<hr>Pour savoir qui est l’ambassadeur·ice
+      ton secteur géographique de rattachement. Pour savoir qui est l’ambassadeur·ice
       de ton secteur géographique, consulte le [forum de ton secteur géographique]({link})
       dans la barre latérale gauche.
   passport:
@@ -723,7 +723,7 @@ email_template:
     nomail: quels courriels tu recevras.
     notification: Notifications
   to: à
-  from: -- De
+  from: '-- De '
   impress:
     title: Mentions légales
     address: "foodsharing e.V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n Allemagne\n
@@ -1611,6 +1611,7 @@ store:
       9: '{actor} a désigné {target} comme responsable de la coopération.'
       15: '{actor} a supprimé l’entrée de {target} sur le tableau d’affichage du {date}'
     no_description: aucun
+    message_saved_info: Ton message sera enregistré dans le journal des opérations.
   signInDateTime: Date d’inscription
   slot_state: Statut du créneau
   lastPickupTitle: Dernière collecte ici
@@ -3568,6 +3569,20 @@ region:
       edit: Modifier la description du district
       confirm_discard_changes: Veux-tu vraiment abandonner ta modification de la description
         de l’arondissement ?
+      confirm_save_changes: Souhaites-tu que tes modifications de la description de
+        l’arrondissement soient enregistrées ? La nouvelle description sera ensuite
+        visible publiquement sur la page de l’arrondissement.
+      missing: Cet arrondissement n’a actuellement pas de texte descriptif. Tu as
+        la possibilité d’écrire maintenant un texte descriptif.
+    map:
+      missing: Cet arrondissement n’est acutellement pas affiché sur la carte, et
+        n’a pas non plus de centres de partage, qui puissent être affichés ici. Tu
+        as la possibilité de mettre une épingle sur cet arrondissement.
+      set_pin: Mettre une épingle d’arrondissement sur la carte
+      hide_pin: Supprimer une épingle d’arrondissement
+      edit_pin: Modifier l’épingle d’arrondissement
+      confirm_discard_changes: Souhaites-tu vraiment abandonner tes modifications
+        sur l’épingle d’arrondissement ?
   denied:
     group_in_this_region: « {name} » est un groupe de cette district.
     this_region: Tu as essayé d’accéder au contenu de ce district. Cependant, seuls
@@ -4669,6 +4684,14 @@ required_messages:
     main: tu as été vérifié comme collecteur·rice !
     footer: Salutations, tes ambassadeur·rices
   sure_title: Tu es sûr ?
+  kick_from_store_team:
+    footer: Salutations
+  move_to_standby_team:
+    footer: Salutations
+  decline_store_application:
+    footer: Salutations
+  demote_store_manager:
+    footer: Salutations
 contact_page:
   bread: Contact & support
   title: Contact & support
