@@ -1555,7 +1555,7 @@ email_template:
     noreply: Si prega di non rispondere a questa e-mail. Questo messaggio è stato
       inviato da un indirizzo utilizzato solo per invii automatici e non è monitorato.
   to: a
-  from: -- Da
+  from: '-- Da '
   request_from: Richiesta di
 foodsaver:
   list:
@@ -2887,7 +2887,7 @@ settings:
       il <a href="{link}">modulo di supporto</a>.'
     foodsaver_info: 'Per cambiare il tuo nome devi contattare un ambasciatore del
       tuo distretto di residenza. Questa persona potrà quindi effettuare il cambio
-      di nome per te.<hr>Puoi vedere chi è l’ambasciatore nel tuo distretto di residenza
+      di nome per te. Puoi vedere chi è l’ambasciatore nel tuo distretto di residenza
       nel [forum del tuo distretto]({link}) nella barra laterale sinistra.'
     title: 'Nome (nome e cognome)'
   passport:
@@ -3466,7 +3466,7 @@ quiz:
     name: Risposte
     none_correct: Nessuna delle risposte è corretta.
     neutral: 'Risposta neutra: non verrà valutata.'
-    false_false: Questa risposta era sbagliata. L'hai riconosciuta correttamente.
+    false_false: Questa risposta era sbagliata. L’hai riconosciuta correttamente.
   key_facts:
     timed: Numero massimo di {maxFailurePointsToSucceed} errori in {questionCountTimed}
       domande a tempo
@@ -3958,7 +3958,7 @@ validation:
   phone_number_invalid: Il numero di telefono non è valido (ad esempio, manca il prefisso
     nazionale, è troppo corto, troppo lungo o contiene caratteri non validi)
 copied_to_clipboard: “{text}” è stato copiato negli appunti.
-error_base64_image: L'inserimento di immagini tramite drag & drop non è consentito.
+error_base64_image: L’inserimento di immagini tramite drag & drop non è consentito.
 theme_switcher:
   theme:
     light: chiaro
@@ -3980,3 +3980,4 @@ navi:
   komoot: Komoot
   google_maps: Google Maps
   apple_maps: Mappe
+partner_foodsharing: Partner di foodsharing
