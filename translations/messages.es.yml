@@ -2789,6 +2789,8 @@ chain:
     INVALID_STATUS: El campo de estado no es válido
     EMPTY_ZIP: El campo de código postal está vacío
     THREAD_ID_NOT_EXISTS: El hilo del foro no existe
+    KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: La persona no ha completado la formación
+      para KAM.
 delete: 'Borrar'
 forum:
   thread:
@@ -3641,7 +3643,19 @@ region:
     discard_changes: Descartar cambios
     map:
       set_pin: Establecer el pin del distrito en el mapa
+      hide_pin: Quitar el pin del distrito
+      confirm_discard_changes: ¿Está seguro de que desea descartar los cambios de
+        pin de su distrito?
+      confirm_remove: ¿Estás seguro de que deseas eliminar el pin del distrito? Este
+        distrito ya no aparecerá en el mapa.
+      edit_pin: Editar pin del distrito
+      confirm_save_changes: ¿Quieres guardar los cambios de tu pin de distrito? El
+        nuevo pin será visible públicamente en la página del distrito y en el mapa.
     show_on_large_map: Ver en mapa grande
+    join_text: ¿Te gustaría activarte en {name}? ¡Entonces puedes unirte a este distrito!
+    confirm_leaving: ¿Quieres sumarte al distrito de {name}? Esto da a los embajadores
+      acceso a su perfil.
+    leave_text: ¿Ya no estás activo en {name}? Entonces deberías abandonar este distrito.
   denied:
     this_region: Intentaste acceder al contenido de este distrito. Sin embargo, sólo
       los miembros del distrito tienen acceso a ella.
@@ -3723,6 +3737,8 @@ legal:
     qustion_notice: ¿Acepta nuestra declaración de protección de datos y las instrucciones
       sobre confidencialidad/secreto de datos?
     agree: Sí, acepto la política de privacidad.
+    agree_only_policy: Solo acepto la política de privacidad y me gustaría degradarme
+      a un simple ahorrador de alimentos.
   dont_agree: 'No estoy de acuerdo con el procesamiento de mis datos y'
   delete_account: 'quisiera eliminar mi cuenta.'
   privacy_policy: 'Política de privacidad'
@@ -3767,6 +3783,7 @@ legal:
   button:
     disagree: Eliminar mi cuenta
     agree: Aceptar
+    partially_agree: Degradar a recogida de comestibles
   success: Tus ajustes se han guardado correctamente.
 error_ajax: 'Eso no funcionó.
 
@@ -4133,6 +4150,11 @@ addresspicker:
   infobox: 'Introduzca la dirección en la barra de búsqueda o mueva la chincheta a
     la posición correcta en el mapa.'
   different_location: 'Corregir la descripción de la dirección'
+  different_location_warning: Asegúrese de que el pin esté en el lugar correcto en
+    el mapa de arriba. Por favor, cambie los campos completados automáticamente (calle
+    y número de casa, código postal y ciudad/municipio) sólo si el valor ingresado
+    automáticamente no es correcto. Esto puede suceder, por ejemplo, después de cambiar
+    el nombre de una calle.
 conference:
   description_text: 'Aquí puede unirse a una conferencia en línea para el grupo seleccionado.
     La conferencia en línea abre BigBlueButton en una nueva pestaña.'
@@ -4779,6 +4801,14 @@ navi:
 required_messages:
   verify:
     footer: Saludos cordiales, sus embajador@s
+    main: ¡Te hemos verificado como ahorrador de alimentos!
+    really: ¿Está seguro de que desea verificar {name}? Asegúrese de que {name} cumpla
+      con todos los [requisitos para Foodsavers 
+      verificados](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).
+    really_multiple: ¿Está seguro de que desea verificar {count} usuarios? Asegúrese
+      de que todas las {count} personas cumplan con todos los [requisitos para los
+      Foodsavers 
+      verificados](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).
   sure_title: ¿Segur@?
   message_info_multiple: 'Cada persona recibiría el siguiente mensaje:'
   placeholder: Opcionalmente añada información aquí …
@@ -4787,12 +4817,24 @@ required_messages:
   message_info: '{name} recibiría el siguiente mensaje:'
   demote_store_manager:
     footer: Atentamente
+    really: ¿De verdad quieres quitarle a {name} su responsabilidad como líder del
+      equipo?
+    main: Te he destituido como jefe de equipo de la empresa [{store}](/store/{storeId}).
   decline_store_application:
     footer: Atentamente
+    really: ¿Estás seguro de que deseas rechazar la solicitud del equipo de {name}?
+    main: Tu solicitud para unirte al equipo [{store}](/store/{storeId}) ha sido rechazada.
   kick_from_store_team:
     footer: Atentamente
+    really: ¿Realmente quieres eliminar a {name} del equipo de esta empresa?
+    main: te han eliminado del equipo de [{store}](/store/{storeId}). Ya no puedes
+      registrarte para recolecciones en esta empresa.
   move_to_standby_team:
     footer: Atentamente
+    really: ¿Realmente quieres mover a {name} del equipo activo a la lista de suplentes?
+    main: te han incluido en la lista de reserva en la empresa [{store}](/store/{storeId}).
+      Actualmente no puedes registrarte para recogidas en esta empresa ni leer el
+      chat general del grupo.
 contact_page:
   common:
     modal:
