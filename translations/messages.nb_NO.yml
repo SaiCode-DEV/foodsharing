@@ -4561,9 +4561,20 @@ required_messages:
   kick_from_store_team:
     really: Ønsker du virkelig å fjerne {name} fra selskapets team?
     footer: Hilsener
+    main: du har blitt fjernet fra teamet til selskapet [{store}](/store/{storeId}).
+      Du kan ikke lenger registrere deg for henting hos dette selskapet.
   move_to_standby_team:
     footer: Hilsener
+    really: Er du sikker på at du vil flytte {name} fra det aktive laget til innbytterlisten?
+    main: du har blitt plassert på reservelisten hos selskapet [{store}](/store/{storeId}).
+      Du kan for øyeblikket ikke registrere deg for henting hos dette selskapet eller
+      lese den generelle gruppechatten.
   decline_store_application:
     footer: Hilsener
+    really: Er du sikker på at du vil avslå teamsøknaden til {name}?
+    main: Forespørselen din om å bli med i selskapet [{store}](/store/{storeId}) ble
+      avvist.
   demote_store_manager:
     footer: Hilsener
+    main: Jeg har fjernet deg som teamleder for selskapet [{store}](/store/{storeId}).
+    really: Vil du virkelig fjerne {name} fra hans eller hennes ansvar som teamleder?
