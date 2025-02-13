@@ -29,9 +29,8 @@
 - Resolve "region filter bug on profile page: Blank screen when navigating store list" #2295 !3940 @chriswalg
 - Prevent multiple support ticket submissions !3951 @SaiCode
 - Fix rounded corners in profile settings #2118 !3904 !3975 @JoMarianek
-- Words in Markdown are wrapped correctly #1356 !4005 @Mel
 - UI: Fix undefined location on invalid targets !2247 @anedomansky
-- Markdown text is wrapped in mobile view #2257 !4015 @alex.simm 
+- Some improvements to Markdown CSS formatting #1356 #2257 #2336 !4005 !4015 !4042 @Mel @alex.simm @irgendwer
 
 ## Refactoring
 - Get rid of xhr completely !3826 !3933 @chriswalg

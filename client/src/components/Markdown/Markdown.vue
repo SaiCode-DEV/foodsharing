@@ -57,23 +57,27 @@ export default {
 
 <style lang="scss">
 .markdown {
-  h1, h2, h3, h4, h5, h6 {
-    word-break: break-all;
+  h1, h2, h3, h4, h5, h6, li, p, a {
+    word-break: normal;
+    overflow-wrap: break-word;
   }
-  li {
-    word-break: break-all;
-  }
-  p {
-    word-break: break-all;
+  code {
+    word-break: normal;
+    hyphens: none;
+    white-space: pre;
+    font-size: inherit;
   }
   p:last-child {
     margin-bottom: 0;
   }
-  a {
-    word-break: break-all;
+  ul {
+    padding-left: 1em;
   }
-  code {
-    word-break: break-all;
+  b, strong {
+    font-weight: 600;
+  }
+  a {
+    font-weight: 500;
   }
   img {
     width: 100%;
