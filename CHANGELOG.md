@@ -30,7 +30,7 @@
 - Prevent multiple support ticket submissions !3951 @SaiCode
 - Fix rounded corners in profile settings #2118 !3904 !3975 @JoMarianek
 - UI: Fix undefined location on invalid targets !2247 @anedomansky
-- Some improvements to Markdown CSS formatting #1356 #2257 #2336 !4005 !4015 !4042 @Mel @alex.simm @irgendwer
+- Some improvements to Markdown CSS formatting #1356 #2257 #2336 !4005 !4015 !4042 !4044 @Mel @alex.simm @irgendwer
 
 ## Refactoring
 - Get rid of xhr completely !3826 !3933 @chriswalg
