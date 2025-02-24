@@ -803,6 +803,7 @@ group:
         with_passport: Kimlikli
         invalid_passport: geçersiz kimlik
       execute: Uygulamak
+      already_verified: Seçilen tüm kullanıcılar zaten doğrulandı
     all_roles: Tüm Roller
   show-all: Hepsini göster
   delete_group_sure: '{groupName} çalışma grubunu/bölgesini silmek istediğinizden
