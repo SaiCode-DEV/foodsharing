@@ -183,6 +183,7 @@ quiz:
     continue: "{name} – Quiz fortführen!"
     pause: "Lernpause ({name})"
     disqualified: "{name} – Leider disqualifiziert."
+    finished: "{name} – Du hast Bestanden!"
   startmodal:
     title: "Hinweise zum Quiz"
     infos:

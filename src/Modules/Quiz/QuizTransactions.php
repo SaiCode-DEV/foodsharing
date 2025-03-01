@@ -120,7 +120,7 @@ class QuizTransactions
 
         // Disqualified
         $totalWaitTime = $this->getQuizWaitTime($quizId, $tries);
-        if ($totalWaitTime === -1) {
+        if ($totalWaitTime === -1 && $status->lastSessionStatus == SessionStatus::FAILED) {
             $status->currentWaitTime = -1;
 
             return $status;

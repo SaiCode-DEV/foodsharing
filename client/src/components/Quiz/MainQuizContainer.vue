@@ -65,6 +65,7 @@ export default {
       if (this.status.currentWaitTime === -1) return 'disqualified'
       if (this.status.currentWaitTime > 0) return 'pause'
       if (this.status.lastSessionStatus === SESSION_STATUS.RUNNING) return 'continue'
+      if (this.status.lastSessionStatus === SESSION_STATUS.PASSED) return 'finished'
       return 'start'
     },
     stateBasedInfo () {
@@ -78,7 +79,7 @@ export default {
       if (s.currentWaitTime > 0) return i18n('pause', s)
       if (s.lastSessionStatus === null) return i18n('neverTried')
       if (s.lastSessionStatus === SESSION_STATUS.RUNNING) return i18n('running', s)
-      if (s.waitTimeAfterFailure === -1) return i18n('disqualifiedAfter')
+      if (s.waitTimeAfterFailure === -1 && s.lastSessionStatus === SESSION_STATUS.FAILED) return i18n('disqualifiedAfter')
 
       const after = s.waitTimeAfterFailure > 0 ? i18n('waitAfter', s) : i18n('noWaitAfter')
       if (s.lastSessionStatus === SESSION_STATUS.PASSED) {
