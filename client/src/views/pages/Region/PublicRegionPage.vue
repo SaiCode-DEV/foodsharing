@@ -8,7 +8,7 @@
 
     <template #left>
       <RegionSideNav
-        v-if="isRegionMember && regionMenu"
+        v-if="mayAccessRegion && regionMenu"
         :region-menu="regionMenu"
         :is-work-group="false"
       />
@@ -129,12 +129,15 @@ export default {
     mayEditData () {
       return userStore.isOrga || (this.isRegionMember && this.regionMenu?.maySetRegionPin)
     },
+    mayAccessRegion () {
+      return this.isRegionMember || userStore.isOrga
+    },
   },
   async created () {
     this.regionData = await regionStore.fetchPublicRegionData(this.id)
     document.title += ' | ' + this.regionData.name
     history.replaceState(null, '', `/region/${this.regionData.email}`) // move to the text-based url without reload
-    if (this.isRegionMember) {
+    if (this.mayAccessRegion) {
       this.regionMenu = await regionStore.fetchRegionMenu(this.id)
     }
   },
