@@ -542,13 +542,9 @@ class RegionGateway extends BaseGateway
 
     public function getRegionPin(int $regionId): ?RegionPin
     {
-        try {
-            $data = $this->db->fetchByCriteria('fs_region_pin', ['desc', 'lat', 'lon', 'status'], ['region_id' => $regionId]);
+        $data = $this->db->fetchByCriteria('fs_region_pin', ['desc', 'lat', 'lon', 'status'], ['region_id' => $regionId]);
 
-            return RegionPin::create($data);
-        } catch (Exception) {
-            return null;
-        }
+        return RegionPin::tryCreate($data);
     }
 
     /**

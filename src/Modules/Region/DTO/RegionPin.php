@@ -12,8 +12,11 @@ class RegionPin extends GeoLocation
     public string $description;
     public int $status;
 
-    public static function create(array $data): RegionPin
+    public static function tryCreate(array $data): ?RegionPin
     {
+        if (!isset($data['desc'], $data['lat'], $data['lon'], $data['status'])) {
+            return null;
+        }
         $pin = new RegionPin();
         $pin->description = $data['desc'];
         $pin->status = $data['status'];

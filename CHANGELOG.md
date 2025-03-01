@@ -32,6 +32,7 @@
 - UI: Fix undefined location on invalid targets !2247 @anedomansky
 - Some improvements to Markdown CSS formatting #1356 #2257 #2336 !4005 !4015 !4042 !4044 @Mel @alex.simm @irgendwer
 - Show region menu to orga users on public region page #2330 !4052 @AntonBallmaier
+- Fix region pin assignment error #2324 !4054 @AntonBallmaier
 
 ## Refactoring
 - Get rid of xhr completely !3826 !3933 @chriswalg
