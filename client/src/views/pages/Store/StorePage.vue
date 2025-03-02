@@ -84,7 +84,7 @@
               :latitude="storeInformation.location.lat"
               :longitude="storeInformation.location.lon"
               :street="storeInformation.address.street"
-              :postcode="storeInformation.address.zipCode"
+              :postcode="storeInformation.address.postalCode"
               :city="storeInformation.address.city"
               :last-fetch-date="lastFetchDate"
               :press="storeInformation.publicity"

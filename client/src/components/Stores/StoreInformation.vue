@@ -118,7 +118,7 @@
               :zoom="17"
               :coordinates="store.location"
               :street="store.address.street"
-              :postal-code="store.address.zipCode"
+              :postal-code="store.address.postalCode"
               :city="store.address.city"
               :disabled="!editMode"
               :marker-type="MARKER_TYPES.stores"
@@ -671,7 +671,7 @@ export default {
     onAddressChanged (coordinates, street, postalCode, city) {
       this.store.location = coordinates
       this.store.address.street = street
-      this.store.address.zipCode = postalCode
+      this.store.address.postalCode = postalCode
       this.store.address.city = city
     },
     openChainSearchPicker () {

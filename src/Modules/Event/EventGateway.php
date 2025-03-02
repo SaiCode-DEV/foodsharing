@@ -34,7 +34,7 @@ class EventGateway extends BaseGateway
         $event = $this->db->fetch('
 			SELECT
 				e.id, e.foodsaver_id, e.bezirk_id, e.name, e.description, e.online, e.`start`, e.`end`,
-                l.name as location_details, l.lat, l.lon, l.zip, l.city, l.street
+                l.name as location_details, l.lat, l.lon, l.zip as postalCode, l.city, l.street
 			FROM fs_event e
             LEFT OUTER JOIN fs_location l ON e.location_id = l.id
 			WHERE e.id = :eventId
@@ -129,7 +129,7 @@ class EventGateway extends BaseGateway
             'name' => $event->locationDetails,
             'lat' => isset($event->location) ? round($event->location->lat, 8) : null,
             'lon' => isset($event->location) ? round($event->location->lon, 8) : null,
-            'zip' => isset($event->address) ? $event->address->zipCode : null,
+            'zip' => isset($event->address) ? $event->address->postalCode : null,
             'city' => isset($event->address) ? $event->address->city : null,
             'street' => isset($event->address) ? $event->address->street : null,
         ]);

@@ -7,7 +7,7 @@
       <div v-if="event.address || event.location" class="d-flex justify-content-between">
         <p v-if="event.address">
           <span v-text="event.address.street" /><br>
-          <span v-text="event.address.zip" />
+          <span v-text="event.address.postalCode" />
           <span v-text="event.address.city" />
         </p>
         <NavigateWithSelector

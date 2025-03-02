@@ -9,6 +9,7 @@ use Foodsharing\Modules\Core\DBConstants\Store\PublicityStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
 use Foodsharing\Modules\Core\DBConstants\Store\StickerStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
+use Foodsharing\Modules\Core\DTO\Address;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Core\DTO\MinimalIdentifier;
 use Foodsharing\Modules\Region\DTO\MinimalRegionIdentifier;
@@ -217,7 +218,7 @@ class Store
             $obj->location = new GeoLocation();
         }
         $obj->address->street = $queryResult['street'];
-        $obj->address->zipCode = $queryResult['zipCode'];
+        $obj->address->postalCode = $queryResult['zipCode'];
         $obj->address->city = $queryResult['city'];
 
         $obj->publicInfo = $queryResult['public_info'] ?? '';

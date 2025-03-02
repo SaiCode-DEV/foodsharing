@@ -45,7 +45,7 @@ class StoreGateway extends BaseGateway
             'lat' => $store->location->lat,
             'lon' => $store->location->lon,
             'str' => $store->address->street,
-            'plz' => $store->address->zipCode,
+            'plz' => $store->address->postalCode,
             'stadt' => $store->address->city,
             'public_info' => $store->publicInfo,
             'added' => $this->db->date($store->createdAt, false),
@@ -187,7 +187,7 @@ class StoreGateway extends BaseGateway
             'lat' => $store->location->lat,
             'lon' => $store->location->lon,
             'str' => $store->address->street,
-            'plz' => $store->address->zipCode,
+            'plz' => $store->address->postalCode,
             'stadt' => $store->address->city,
 
             'public_info' => $store->publicInfo,

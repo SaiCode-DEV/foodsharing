@@ -73,7 +73,7 @@ class CreateStoreData
         $store->region = MinimalRegionIdentifier::create($this->regionId);
         $store->location = $this->location;
         $store->address->street = $this->street;
-        $store->address->zipCode = $this->zipCode;
+        $store->address->postalCode = $this->zipCode;
         $store->address->city = $this->city;
         $store->publicInfo = $this->publicInfo;
 

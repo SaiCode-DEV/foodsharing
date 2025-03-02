@@ -68,7 +68,7 @@
         <LeafletLocationSearch
           :zoom="16"
           :coordinates="location"
-          :postal-code="event.address.zipCode"
+          :postal-code="event.address.postalCode"
           :city="event.address.city"
           :street="event.address.street"
           :marker-type="MARKER_TYPES.events"
@@ -240,7 +240,7 @@ export default {
     onAddressChanged (coordinates, street, postalCode, city) {
       this.event.location = coordinates
       this.event.address.street = street
-      this.event.address.zipCode = postalCode
+      this.event.address.postalCode = postalCode
       this.event.address.city = city
     },
     mergeTimeAndDay (day, time) {

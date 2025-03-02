@@ -2,6 +2,7 @@
 
 namespace Foodsharing\Modules\Store\DTO;
 
+use Foodsharing\Modules\Core\DTO\Address;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class PatchAddress
@@ -37,7 +38,7 @@ class PatchAddress
         }
         if (!empty($addressChange->zipCode)) {
             $patchNeeded = true;
-            $storeAddress->zipCode = $addressChange->zipCode;
+            $storeAddress->postalCode = $addressChange->zipCode;
         }
 
         return $patchNeeded;

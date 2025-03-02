@@ -9,11 +9,11 @@ use DateTime;
 use Faker\Factory;
 use Faker\Generator;
 use Foodsharing\Modules\Core\DBConstants\Event\EventType;
+use Foodsharing\Modules\Core\DTO\Address;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Event\DTO\Event;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Region\RegionGateway;
-use Foodsharing\Modules\Store\DTO\Address;
 use Tests\Support\UnitTester;
 
 class EventGatewayTest extends Unit
@@ -49,7 +49,7 @@ class EventGatewayTest extends Unit
         $event->address = Address::createFromArray([
             'street' => $this->faker->streetAddress(),
             'city' => $this->faker->city(),
-            'zip' => $this->faker->postcode(),
+            'postalCode' => $this->faker->postcode(),
         ]);
         $event->locationDetails = $this->faker->company();
         $id = $this->gateway->addLocation($event);
@@ -60,7 +60,7 @@ class EventGatewayTest extends Unit
             'lat' => $event->location->lat,
             'lon' => $event->location->lon,
             'street' => $event->address->street,
-            'zip' => $event->address->zipCode,
+            'zip' => $event->address->postalCode,
             'city' => $event->address->city,
         ]);
     }

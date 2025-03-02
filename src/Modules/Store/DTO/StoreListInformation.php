@@ -72,7 +72,7 @@ class StoreListInformation
             $obj->region = MinimalRegionIdentifier::create($store->region->id);
             $obj->street = $store->address->street;
             $obj->city = $store->address->city;
-            $obj->zipCode = $store->address->zipCode;
+            $obj->zipCode = $store->address->postalCode;
 
             $obj->createdAt = $store->createdAt->format('Y-m-d');
         }

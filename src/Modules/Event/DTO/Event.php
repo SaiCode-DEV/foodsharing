@@ -7,8 +7,8 @@ namespace Foodsharing\Modules\Event\DTO;
 use Carbon\Carbon;
 use DateTime;
 use Foodsharing\Modules\Core\DBConstants\Event\EventType;
+use Foodsharing\Modules\Core\DTO\Address;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
-use Foodsharing\Modules\Store\DTO\Address;
 use OpenApi\Attributes as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 

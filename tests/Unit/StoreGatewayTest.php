@@ -70,7 +70,7 @@ class StoreGatewayTest extends Unit
         $storeDTO->location->lat = 51.5367827;
         $storeDTO->location->lon = 9.9258967;
         $storeDTO->address->street = 'Bahnhofsplatz 1';
-        $storeDTO->address->zipCode = '37073';
+        $storeDTO->address->postalCode = '37073';
         $storeDTO->address->city = 'Göttingen';
         $storeDTO->publicInfo = 'Testeintrag im Feld öffentliche Information';
         $storeDTO->createdAt = Carbon::now();
@@ -143,7 +143,7 @@ class StoreGatewayTest extends Unit
         $this->assertEquals($store['lat'], $dbStore->location->lat);
         $this->assertEquals($store['lon'], $dbStore->location->lon);
         $this->assertEquals($store['str'], $dbStore->address->street);
-        $this->assertEquals($store['plz'], $dbStore->address->zipCode);
+        $this->assertEquals($store['plz'], $dbStore->address->postalCode);
         $this->assertEquals($store['stadt'], $dbStore->address->city);
         $this->assertEquals($store['public_info'], $dbStore->publicInfo);
         $this->assertEquals($store['public_time'], $dbStore->publicTime->value);
@@ -175,7 +175,7 @@ class StoreGatewayTest extends Unit
         $this->assertEquals($store['lat'], $dbStore->location->lat);
         $this->assertEquals($store['lon'], $dbStore->location->lon);
         $this->assertEquals($store['str'], $dbStore->address->street);
-        $this->assertEquals($store['plz'], $dbStore->address->zipCode);
+        $this->assertEquals($store['plz'], $dbStore->address->postalCode);
         $this->assertEquals($store['stadt'], $dbStore->address->city);
         $this->assertEquals($store['public_info'], $dbStore->publicInfo);
         $this->assertEquals($store['public_time'], $dbStore->publicTime->value);

@@ -6,7 +6,6 @@ namespace Tests\Api;
 
 use Codeception\Example;
 use Codeception\Util\HttpCode as Http;
-use Faker\Factory;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Tests\Support\ApiTester;
 
@@ -24,7 +23,8 @@ class StoreApiCest
     private $region;
     private $otherRegion;
     private $nextRegion;
-    private $faker;
+    private array $teamConversation;
+    private array $springerConversation;
 
     private const string API_STORES = 'api/stores';
     private const string API_REGIONS = 'api/region';
@@ -64,7 +64,6 @@ class StoreApiCest
 
         $I->addRegionMember($this->nextRegion['id'], $this->manager['id']);
         $I->addStoreTeam($this->store[self::ID], $this->manager[self::ID], true);
-        $this->faker = Factory::create('de_DE');
     }
 
     public function canNotGetAccessToGetStoreAsUnknownUser(ApiTester $I)
@@ -102,7 +101,7 @@ class StoreApiCest
             'address' => [
                 'street' => $this->store['str'],
                 'city' => $this->store['stadt'],
-                'zipCode' => $this->store['plz']
+                'postalCode' => $this->store['plz']
             ]
         ];
     }
@@ -136,7 +135,7 @@ class StoreApiCest
             'address' => [
                 'street' => 'string',
                 'city' => 'string',
-                'zipCode' => 'string'
+                'postalCode' => 'string'
             ]
         ];
     }

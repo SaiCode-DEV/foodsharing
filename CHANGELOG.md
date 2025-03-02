@@ -59,6 +59,7 @@
 - Refactored MapControl to bootstrap-vue !3987 @chriswalg
 - Refactored contact page to static vue page !3751 @chriswalg
 - Removed unnecessary database queries !4006 @alex.simm
+- Removed the duplicate address DTO #1999 !4016 @alex.simm
 
 ## Dev/Test/CI stuff
 - Update dev docs Vue component integration to use prepareVueComponent !3910 @chriswalg
