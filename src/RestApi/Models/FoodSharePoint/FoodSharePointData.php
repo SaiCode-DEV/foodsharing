@@ -4,6 +4,7 @@ namespace Foodsharing\RestApi\Models\FoodSharePoint;
 
 use Carbon\Carbon;
 use DateTime;
+use DateTimeZone;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Foodsaver\Profile;
 use JMS\Serializer\Annotation\Type;
@@ -54,7 +55,7 @@ class FoodSharePointData extends FoodSharePointForCreation
             'lat' => $data['lat'],
             'lon' => $data['lon'],
         ]);
-        $foodSharePoint->createdAt = Carbon::createFromTimestamp($data['add_date']);
+        $foodSharePoint->createdAt = Carbon::createFromTimestamp($data['add_date'], new DateTimeZone('Europe/Berlin'));
         $foodSharePoint->creator = new Profile($data, 'creator_');
         $foodSharePoint->followerCount = $data['follower_count'];
 

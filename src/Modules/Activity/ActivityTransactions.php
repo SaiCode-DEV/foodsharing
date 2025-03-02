@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Activity;
 
 use Carbon\Carbon;
 use DateTime;
+use DateTimeZone;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Activity\DTO\ActivityFilter;
 use Foodsharing\Modules\Activity\DTO\ActivityFilterCategory;
@@ -287,7 +288,7 @@ class ActivityTransactions
             $sender = json_decode((string)$u['sender'], true, 512, JSON_THROW_ON_ERROR + JSON_INVALID_UTF8_IGNORE);
 
             $out[] = MailboxUpdate::create(
-                Carbon::createFromTimestamp($u['time_ts']),
+                Carbon::createFromTimestamp($u['time_ts'], new DateTimeZone('Europe/Berlin')),
                 $u['body'] ?? '',
                 $u['mb_name'] . '@' . PLATFORM_MAILBOX_HOST,
                 $u['mailbox_id'],

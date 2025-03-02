@@ -1009,7 +1009,7 @@ class StoreTransactions
             if ((bool)($regionOptions[RegionOptionType::REGION_PICKUP_RULE_ACTIVE] ?? false)) {
                 // how many hours before a pickup can this rule be ignored ?
                 $ignoreRuleHours = (int)($regionOptions[RegionOptionType::REGION_PICKUP_RULE_INACTIVE_HOURS] ?? 0);
-                $res = Carbon::now()->diffInHours($pickupDate);
+                $res = (int)Carbon::now()->diffInHours($pickupDate, true);
                 if ($res > $ignoreRuleHours) {
                     // the allowed numbers of pickups in a timespan. Timespan is +/- from pickupdate
                     $numberAllowedPickups = (int)($regionOptions[RegionOptionType::REGION_PICKUP_RULE_LIMIT_NUMBER] ?? 0);

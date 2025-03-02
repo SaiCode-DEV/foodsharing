@@ -81,7 +81,7 @@ class RegularPickup
                     ->setMinutes($startTimeOfPickup->minute)
                     ->setSeconds($startTimeOfPickup->second);
 
-        $countOfPickupsPerWeek = $end->floatDiffInWeeks($startGenerated);
+        $countOfPickupsPerWeek = $end->diffInWeeks($startGenerated, true);
         if ($end < $startGenerated) {
             $countOfPickupsPerWeek = 0;
         }

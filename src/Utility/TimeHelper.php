@@ -4,6 +4,7 @@ namespace Foodsharing\Utility;
 
 use Carbon\Carbon;
 use DateTime;
+use DateTimeZone;
 use Exception;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -17,15 +18,18 @@ final readonly class TimeHelper
         $this->translator = $translator;
     }
 
-    // given a unix time it provides a human readable full date format.
-    // parameter $extendWithAbsoluteDate == true adds the date between "today/tomorrow" and the time while false leaves it empty.
+    /**
+     * Given a unix time it provides a human readable full date format.
+     * @param bool $extendWithAbsoluteDate true adds the date between "today/tomorrow" and the time while false leaves it empty
+     * @deprecated this should be replaced with a function that can handle DateTime object instead of integer time stamps
+     */
     public function niceDate(?int $unixTimeStamp, bool $extendWithAbsoluteDate = false): string
     {
         if ($unixTimeStamp === null) {
             return '- -';
         }
 
-        $date = Carbon::createFromTimestamp($unixTimeStamp);
+        $date = Carbon::createFromTimestamp($unixTimeStamp, new DateTimeZone('Europe/Berlin'));
 
         if ($date->isToday()) {
             $dateString = $this->translator->trans('date.today');
@@ -102,7 +106,7 @@ final readonly class TimeHelper
             return 0;
         }
 
-        return Carbon::today()->diffInDays($date);
+        return (int)Carbon::today()->diffInDays($date, true);
     }
 
     /**
@@ -120,7 +124,7 @@ final readonly class TimeHelper
         }
         $parsedDate = Carbon::createFromFormat('Y-m-d H:i:s', $dateString);
 
-        if ($parsedDate === false) {
+        if ($parsedDate === null) {
             throw new BadRequestHttpException('Invalid date format. Expected Y-m-d');
         }
 

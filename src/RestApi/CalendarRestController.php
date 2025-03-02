@@ -3,6 +3,7 @@
 namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
+use DateTimeZone;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Event\InvitationStatus;
@@ -203,7 +204,7 @@ class CalendarRestController extends AbstractFOSRestController
 
     private function createPickupEvent(array $pickup, int $userId, FormattingType $formatting): CalendarEvent
     {
-        $start = Carbon::createFromTimestamp($pickup['timestamp']);
+        $start = Carbon::createFromTimestamp($pickup['timestamp'], new DateTimeZone('Europe/Berlin'));
 
         $summary = $this->translator->trans('calendar.export.pickup.name', ['{store}' => $pickup['store_name']]);
         $status = 'CONFIRMED';
@@ -271,9 +272,9 @@ class CalendarRestController extends AbstractFOSRestController
             . $descriptionContent;
 
         $event = new CalendarEvent();
-        $event->setStart(Carbon::createFromTimestamp($meeting['start_ts']));
+        $event->setStart(Carbon::createFromTimestamp($meeting['start_ts'], new DateTimeZone('Europe/Berlin')));
         try {
-            $event->setEnd(Carbon::createFromTimestamp($meeting['end_ts']));
+            $event->setEnd(Carbon::createFromTimestamp($meeting['end_ts'], new DateTimeZone('Europe/Berlin')));
         } catch (CalendarEventException) {
             /* In some events the end date is before the start date because the event form accidentally allows this.
             This workaround prevents errors and can be removed after the event form was updated. */
@@ -325,7 +326,7 @@ class CalendarRestController extends AbstractFOSRestController
     private function formatCalendarResponse(array $events): string
     {
         $calendar = new Calendar();
-        $calendar->setTimezone(new \DateTimeZone('Europe/Berlin'));
+        $calendar->setTimezone(new DateTimeZone('Europe/Berlin'));
         $calendar->setProdId('-//Foodsharing//Calendar//DE');
 
         foreach ($events as $e) {

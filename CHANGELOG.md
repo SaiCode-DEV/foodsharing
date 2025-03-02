@@ -78,7 +78,7 @@
 - Update socket-io to 4.8.1 !3981 @chriswalg
 - Update mocha to 10.8.2 !3979 @chriswalg
 - Update webpack-dev-server to 5.2.0 !3978 @chriswalg
-- Update nesbot/carbon to 2.72.6 !3980 @chriswalg
+- Update nesbot/carbon to 3.8 !3980 !3996 @chriswalg @alex.simm
 - Update websocket dependencies !3982 @chriswalg
 - Moved backend-acceptance to public gitlab runner !3992 @chriswalg
 - Added progress bars to the seed script !3663 @SaiCode @alex.simm

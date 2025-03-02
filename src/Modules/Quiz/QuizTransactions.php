@@ -133,7 +133,7 @@ class QuizTransactions
             foreach ($sessions as $session) {
                 if ($session->status === SessionStatus::PASSED) {
                     $expirationDate = (new Carbon($session->endTime))->addDays($expirationTime);
-                    $daysUntilExpiration = max(0, intval(ceil($now->floatDiffInDays($expirationDate, false))));
+                    $daysUntilExpiration = max(0, intval(ceil($now->diffInDays($expirationDate))));
                     if ($daysUntilExpiration <= $this->getQuizExpirationWarningTime($quizId)) {
                         $status->expirationTime = $daysUntilExpiration;
                     }
@@ -154,7 +154,7 @@ class QuizTransactions
         // currentWaitTime
         if ($totalWaitTime && $lastSession->status === SessionStatus::FAILED) {
             $waitEndDate = (new Carbon($lastSession->endTime))->addDays($totalWaitTime);
-            $status->currentWaitTime = max(0, intval(ceil($now->floatDiffInDays($waitEndDate, false))));
+            $status->currentWaitTime = max(0, intval(ceil($now->diffInDays($waitEndDate))));
         }
 
         // confirmed

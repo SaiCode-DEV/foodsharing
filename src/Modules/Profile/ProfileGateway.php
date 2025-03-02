@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Profile;
 
 use Carbon\Carbon;
+use DateTimeZone;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\BasketRequests\Status as RequestStatus;
@@ -393,7 +394,7 @@ final class ProfileGateway extends BaseGateway
 
         return array_map(fn ($entry) => PassHistoryEntry::create(
             $entry['foodsaver_id'],
-            Carbon::createFromTimestamp($entry['date_ts']),
+            Carbon::createFromTimestamp($entry['date_ts'], new DateTimeZone('Europe/Berlin')),
             Profile::tryFrom($entry, 'bot_'),
         ), $passHistory);
     }
@@ -438,7 +439,7 @@ final class ProfileGateway extends BaseGateway
                 ])
                 : null;
 
-            return VerificationHistoryEntry::create($entry['fs_id'], Carbon::createFromTimestamp($entry['date_ts']),
+            return VerificationHistoryEntry::create($entry['fs_id'], Carbon::createFromTimestamp($entry['date_ts'], new DateTimeZone('Europe/Berlin')),
                 $entry['change_status'] > 0, $actor
             );
         }, $verificationHistory);

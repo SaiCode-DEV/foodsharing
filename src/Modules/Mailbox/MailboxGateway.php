@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Mailbox;
 
 use Carbon\Carbon;
+use DateTimeZone;
 use Ddeboer\Imap\Message\EmailAddress;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Exception;
@@ -541,7 +542,7 @@ class MailboxGateway extends BaseGateway
         $email = Email::create(
             intval($data['id']), intval($data['mailbox_id']), intval($data['folder']),
             $from, $to,
-            Carbon::createFromTimestamp($data['time_ts']), $data['subject'],
+            Carbon::createFromTimestamp($data['time_ts'], new DateTimeZone('Europe/Berlin')), $data['subject'],
             $data['body'] ?? null, $data['body_html'] ?? null,
             $data['read'] > 0, $data['answer'] > 0
         );

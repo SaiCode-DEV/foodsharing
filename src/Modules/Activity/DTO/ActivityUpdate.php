@@ -6,6 +6,7 @@ namespace Foodsharing\Modules\Activity\DTO;
 
 use Carbon\Carbon;
 use DateTime;
+use DateTimeZone;
 use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\Type;
 use OpenApi\Attributes as OA;
@@ -95,7 +96,7 @@ class ActivityUpdate
         $item = new self();
 
         $item->type = $type;
-        $item->time = Carbon::createFromTimestamp($time);
+        $item->time = Carbon::createFromTimestamp($time, new DateTimeZone('Europe/Berlin'));
         $item->title = $title;
         $item->desc = $desc;
         $item->source = $source;

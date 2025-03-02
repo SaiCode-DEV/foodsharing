@@ -3,7 +3,7 @@
 namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
-use Carbon\CarbonInterval;
+use DateTimeZone;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
@@ -356,7 +356,7 @@ final class PickupRestController extends AbstractFOSRestController
         if (!$this->storePermissions->maySeePickups($storeId)) {
             throw new AccessDeniedHttpException();
         }
-        if (CarbonInterval::hours(Carbon::today()->diffInHours(Carbon::now()))->greaterThanOrEqualTo(CarbonInterval::hours(6))) {
+        if (Carbon::today()->diffInHours(Carbon::now(), true) >= 6) {
             $fromTime = Carbon::today();
         } else {
             $fromTime = Carbon::today()->subHours(6);
@@ -427,7 +427,8 @@ final class PickupRestController extends AbstractFOSRestController
                 // Check required for list of last and future pickups
                 if (!empty($slot['date'])) {
                     // Time convertation needed for history
-                    $slot['date'] = Carbon::createFromTimestamp($slot['date_ts'])->toIso8601String();
+                    $slot['date'] = Carbon::createFromTimestamp($slot['date_ts'], new DateTimeZone('Europe/Berlin'))
+                        ->toIso8601String();
                 }
             }
 

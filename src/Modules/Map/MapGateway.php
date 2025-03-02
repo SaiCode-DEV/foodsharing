@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Map;
 
 use Carbon\Carbon;
+use DateTimeZone;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
@@ -96,7 +97,7 @@ class MapGateway extends BaseGateway
 
         $bubbleData = BasketBubbleData::createFromArray($basket);
         if ($includeDetails) {
-            $bubbleData->createdAt = Carbon::createFromTimestamp($basket['created_at']);
+            $bubbleData->createdAt = Carbon::createFromTimestamp($basket['created_at'], new DateTimeZone('Europe/Berlin'));
             $bubbleData->creator = new Profile($basket, 'fs_');
         }
 
