@@ -22,6 +22,7 @@ class ApplicationTransactions
     public function acceptApplication(array $group, int $userId): void
     {
         $this->applicationGateway->acceptApplication($group['id'], $userId);
+        $this->deleteGroupApplicationBell($group['id'], $userId);
 
         $bellData = Bell::create('workgroup_request_accept_title', 'workgroup_request_accept', 'fas fa-user-check', [
             'href' => '/region?bid=' . $group['id']
@@ -37,6 +38,7 @@ class ApplicationTransactions
     public function declineApplication(array $group, int $userId): void
     {
         $this->applicationGateway->denyApplication($group['id'], $userId);
+        $this->deleteGroupApplicationBell($group['id'], $userId);
 
         $bellData = Bell::create('workgroup_request_decline_title', 'workgroup_request_decline', 'fas fa-user-times', [
             // TODO: fix link after Release N
@@ -45,5 +47,11 @@ class ApplicationTransactions
             'name' => $group['name']
         ], BellType::createIdentifier(BellType::WORK_GROUP_REQUEST_DENIED, $userId));
         $this->bellGateway->addBell($userId, $bellData);
+    }
+
+    private function deleteGroupApplicationBell(int $groupId, int $userId): void
+    {
+        $oldBellId = BellType::createIdentifier(BellType::WORKING_GROUP_NEW_APPLICATION, $groupId, $userId);
+        $this->bellGateway->delBellsByIdentifier($oldBellId);
     }
 }
