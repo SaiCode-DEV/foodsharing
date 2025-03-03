@@ -57,23 +57,22 @@ export default {
 
 <style lang="scss">
 .markdown {
-  h1, h2, h3, h4, h5, h6, p, li {
+  h1, h2, h3, h4, h5, h6, p, li, a {
     word-break: normal;
     overflow-wrap: break-word;
     hyphens: auto;
-    hyphenate-limit-chars: 7 3 3;
+    hyphenate-limit-chars: 12 5 5;
     hyphenate-limit-lines: 2;
     hyphenate-limit-last: always;
     hyphenate-limit-zone: 10%;
   }
   a {
-    word-break: break-all;
-    font-weight: 500;
+    font-weight: 500 !important;
   }
   code {
     word-break: normal;
     hyphens: none;
-    white-space: pre;
+    white-space: pre-wrap;
     font-size: inherit;
   }
   p:last-child {

@@ -31,7 +31,7 @@
 - Prevent multiple support ticket submissions !3951 @SaiCode
 - Fix rounded corners in profile settings #2118 !3904 !3975 @JoMarianek
 - UI: Fix undefined location on invalid targets !2247 @anedomansky
-- Some improvements to Markdown CSS formatting #1356 #2257 #2336 !4005 !4015 !4042 !4044 @Mel @alex.simm @irgendwer
+- Some improvements to Markdown CSS formatting #1356 #2257 #2336 !4005 !4015 !4042 !4044 !4060 @Mel @alex.simm @irgendwer
 - Show region menu to orga users on public region page #2330 !4052 @AntonBallmaier
 - Fix region pin assignment error #2324 !4054 @AntonBallmaier
 - Fix bug related to finishing a quiz in the 5th try #2263 !4048 @AntonBallmaier
