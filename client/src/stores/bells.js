@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { deleteBells, getBellList, markBellsAsRead } from '@/api/bells'
+import { deleteBells, getBellList, setReadStatus } from '@/api/bells'
 import { getCache, getCacheInterval, setCache } from '@/helper/cache'
 import { BROADCAST_TYPE, storeSynchronizer } from '@/broadcastChannel'
 
@@ -57,30 +57,39 @@ export const mutations = {
       throw err
     }
   },
-  markAsRead (bell) {
+  async markAsRead (bell) {
     const bellsToMarkAsRead = this.allBellsWithSameHref(bell)
-    this.markBells(bellsToMarkAsRead)
+    await this.markBells(bellsToMarkAsRead)
   },
-  markNewBellsAsRead () {
+  async setReadStatus (bell, isRead) {
+    const bellsToMark = this.allBellsWithSameHref(bell)
+    await this.markBells(bellsToMark, isRead)
+  },
+  async markNewBellsAsRead () {
     const bellsToMarkAsRead = store.bells.filter(bell => !bell.isRead)
-    this.markBells(bellsToMarkAsRead)
+    await this.markBells(bellsToMarkAsRead)
   },
   allBellsWithSameHref (bell) {
     return store.bells.filter(b => b.href === bell.href)
   },
-  async markBells (bellsToMarkAsRead) {
-    if (bellsToMarkAsRead.length > 0) {
-      const ids = bellsToMarkAsRead.map(bell => bell.id)
-      bellsToMarkAsRead.forEach(bell => { bell.isRead = true })
+  async markBells (bellsToMark, isRead = true) {
+    if (bellsToMark.length === 0) {
+      return
+    }
 
-      try {
-        await Promise.all([
-          await setCache(cacheRequestName, store.bells),
-          await markBellsAsRead(ids),
-        ])
-      } catch (err) {
-        console.error('Error marking bells as read:', err)
-      }
+    const ids = bellsToMark.map(bell => bell.id)
+
+    try {
+      const [bellIsRead] = await Promise.all([
+        await setReadStatus(ids, isRead),
+        await setCache(cacheRequestName, store.bells),
+      ])
+
+      bellsToMark.forEach(bellToMark => {
+        bellToMark.isRead = bellIsRead
+      })
+    } catch (err) {
+      console.error('Error marking bells:', err)
     }
   },
   async loadMore () {

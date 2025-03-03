@@ -892,6 +892,9 @@ bell:
   internal_email_changed: உங்கள் தனிப்பட்ட மின்னஞ்சல் முகவரி மாற்றப்பட்டுள்ளது.
   forum_not_activated_thread: '{forum}'
   forum_not_activated_thread_title: மிதமான மன்றத்தில் தலைப்பு
+  mark_as:
+    read: படித்தபடி குறி
+    unread: படிக்காத எனக் குறிக்கவும்
 list:
   filter_for: பின்னர் வடிகட்டி …
 memberlist:

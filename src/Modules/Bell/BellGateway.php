@@ -229,13 +229,13 @@ class BellGateway extends BaseGateway
     }
 
     /**
-     * Marks the bells specified by a list of IDs and the owner's ID as read. Returns the number of
+     * Marks the bells specified by a list of IDs and the owner's ID as read/unread. Returns the number of
      * bells that were successfully changed.
      */
-    public function setBellsAsSeen(array $bellIds, int $foodsaverId): int
+    public function setReadStatus(array $bellIds, int $foodsaverId, int $isRead): int
     {
         return $this->db->update('fs_foodsaver_has_bell',
-            ['seen' => 1],
+            ['seen' => $isRead],
             [
                 'bell_id' => array_map('intval', $bellIds),
                 'foodsaver_id' => $foodsaverId

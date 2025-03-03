@@ -1828,6 +1828,10 @@ bell:
   post_hidden_title: "Post ausgeblendet durch {user}"
   post_hidden: "Dein Post zu {title} im Forum {forum} wurde ausgeblendet"
 
+  mark_as:
+    read: "Als gelesen markieren"
+    unread: "Als ungelesen markieren"
+
 list:
   filter_for: "Filtern nach …"
 

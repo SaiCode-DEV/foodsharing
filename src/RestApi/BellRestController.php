@@ -6,6 +6,7 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\RestApi\Models\IDList;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Request\ParamFetcher;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
@@ -39,22 +40,25 @@ class BellRestController extends AbstractFoodsharingRestController
         return $this->respondOK($bells);
     }
 
-    #[OA\Patch(summary: 'Marks one or more bells as read.')]
+    #[OA\Patch(summary: 'Marks one or more bells as unread/read.')]
     #[OA\Response(response: Response::HTTP_OK, description: 'At least one of the bells was successfully marked.')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'The list of IDs is empty or none of the bells could be marked.')]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in.')]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions to change the bells')]
-    #[Rest\Patch('bells')]
-    public function markBellsAsRead(#[MapRequestPayload] IDList $bellIds): Response
+    #[Rest\Patch('bells/readStatus')]
+    #[Rest\QueryParam(name: 'read', requirements: '0|1', description: 'Whether the bell is read')]
+    public function setBellReadStatus(#[MapRequestPayload] IDList $bellIds, ParamFetcher $paramFetcher): Response
     {
         $this->assertLoggedIn();
 
-        $changed = $this->bellGateway->setBellsAsSeen($bellIds->ids, $this->session->id());
+        $isRead = (bool)$paramFetcher->get('read');
+        $value = $isRead ? 1 : 0;
+        $changed = $this->bellGateway->setReadStatus($bellIds->ids, $this->session->id(), $value);
         if (!$changed) {
             throw new BadRequestHttpException();
         }
 
-        return $this->respondOK(['marked' => $changed]);
+        return $this->respondOK(['seen' => $value]);
     }
 
     #[OA\Delete(summary: 'Deletes a bell.')]

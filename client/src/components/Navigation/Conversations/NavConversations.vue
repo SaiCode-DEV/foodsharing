@@ -5,7 +5,7 @@
     :badge="unread"
     direction="right"
     is-fixed-size
-    is-scrollable
+    :is-scrollable="conversations.length > 1"
   >
     <template
       v-if="conversations.length > 0"

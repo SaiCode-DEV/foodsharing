@@ -1702,6 +1702,9 @@ bell:
   passport_created_or_renewed: er aktivert eller forlenget!
   post_hidden_title: Innlegg skjult av {user}
   post_hidden: Ditt innlegg på {title} i forumet {forum} har blitt skjult
+  mark_as:
+    read: Merk som lest
+    unread: Merk som ulest
 reports:
   when: Tid
   time: Tidspunkt

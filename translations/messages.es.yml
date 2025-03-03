@@ -2057,6 +2057,9 @@ bell:
   passport_created_or_renewed: ¡se ha activado o ampliado!
   post_hidden_title: Publicación oculta por {user}
   post_hidden: Tu publicación en {title} en el foro {forum} ha sido ocultada
+  mark_as:
+    unread: Marcar como no leído
+    read: Marcar como leído
 foodsaver:
   restricted: 'Lamentablemente, no tienes permiso para ver estos datos.'
   upgrade:

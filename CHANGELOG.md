@@ -8,6 +8,7 @@
 - Add components for required messages on special actions. Used them when verifying users #1715 !3776 @AntonBallmaier
 - Add required messages when kicking store team members, moving members to standby list, denying store membership requests and taking store manager rights away #1715 !4003 @AntonBallmaier
 - Added location seach bar to map !4018 @AntonBallmaier
+- Added the possibility to mark bell notifications as read/unread via the newly added icon button that appears on hover !2111 @anedomansky
 
 ## Changes
 - Include user agent in support ticket creation #2212 !3838 @AntonBallmaier

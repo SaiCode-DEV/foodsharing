@@ -177,4 +177,31 @@ class BellGatewayTest extends Unit
 
         $this->tester->seeInDatabase('fs_bell', $updatedData);
     }
+
+    public function testSetReadStatusOnBell(): void
+    {
+        $this->tester->clearTable('fs_bell');
+
+        $user1 = $this->tester->createFoodsaver();
+        $user2 = $this->tester->createFoodsaver();
+
+        $bellData = Bell::create(
+            'title',
+            $this->faker->text(50),
+            'some-icon',
+            [],
+            [],
+            'some-identifier',
+            $closable = false,
+        );
+
+        $this->gateway->addBell([$user1, $user2], $bellData);
+        $bellId = $this->tester->grabFromDatabase('fs_bell', 'id', ['name' => $bellData->title, 'body' => $bellData->body]);
+
+        $this->gateway->setReadStatus([$bellId], $user1['id'], 1);
+        $this->gateway->setReadStatus([$bellId], $user2['id'], 0);
+
+        $this->tester->seeInDatabase('fs_foodsaver_has_bell', ['foodsaver_id' => $user1['id'], 'bell_id' => $bellId, 'seen' => 1]);
+        $this->tester->seeInDatabase('fs_foodsaver_has_bell', ['foodsaver_id' => $user2['id'], 'bell_id' => $bellId, 'seen' => 0]);
+    }
 }

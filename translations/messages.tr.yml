@@ -908,6 +908,9 @@ bell:
   passport_created_or_renewed: etkinleştirildi veya uzatıldı!
   post_hidden_title: Gönderi {user} tarafından gizlendi
   post_hidden: '{forum} forumunda {title} hakkındaki yayınınız gizlendi'
+  mark_as:
+    read: Okundu olarak işaretle
+    unread: Okunmadı olarak işaretle
 sig:
   buddies: Tanıdığın insanlar
 error:

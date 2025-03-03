@@ -32,33 +32,6 @@ class BellsApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
     }
 
-    public function canMarkBellsAsRead(ApiTester $I): void
-    {
-        $bellIds = array_slice($this->bells, 0, 3);
-
-        $I->sendPATCH('api/bells', ['ids' => $bellIds]);
-        $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
-
-        $I->login($this->user['email']);
-        $I->sendPATCH('api/bells', ['ids' => $bellIds]);
-        $I->seeResponseCodeIs(HttpCode::OK);
-        foreach ($bellIds as $id) {
-            $I->seeInDatabase('fs_foodsaver_has_bell', [
-                'foodsaver_id' => $this->user['id'],
-                'bell_id' => $id,
-                'seen' => 1
-            ]);
-        }
-
-        foreach (array_diff($this->bells, $bellIds) as $id) {
-            $I->seeInDatabase('fs_foodsaver_has_bell', [
-                'foodsaver_id' => $this->user['id'],
-                'bell_id' => $id,
-                'seen' => 0
-            ]);
-        }
-    }
-
     public function canDeleteBell(ApiTester $I): void
     {
         $I->sendDELETE('api/bells', ['ids' => [$this->bells[0]]]);
@@ -77,5 +50,45 @@ class BellsApiCest
             'foodsaver_id' => $this->user['id'],
             'bell_id' => $this->bells[0]
         ]);
+    }
+
+    public function canSetReadStatusOfBell(ApiTester $I): void
+    {
+        $bellIds = array_slice($this->bells, 0, 3);
+
+        $I->sendPATCH('api/bells/readStatus?read=1', ['ids' => $bellIds]);
+        $I->seeResponseCodeIs(HttpCode::UNAUTHORIZED);
+
+        $I->login($this->user['email']);
+        $I->sendPATCH('api/bells/readStatus?read=1', ['ids' => $bellIds]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        foreach ($bellIds as $id) {
+            $I->seeInDatabase('fs_foodsaver_has_bell', [
+                'foodsaver_id' => $this->user['id'],
+                'bell_id' => $id,
+                'seen' => 1
+            ]);
+        }
+
+        foreach (array_diff($this->bells, $bellIds) as $id) {
+            $I->seeInDatabase('fs_foodsaver_has_bell', [
+                'foodsaver_id' => $this->user['id'],
+                'bell_id' => $id,
+                'seen' => 0
+            ]);
+        }
+
+        $I->login($this->user['email']);
+        $I->sendPATCH('api/bells/readStatus?read=0', ['ids' => $bellIds]);
+        $I->seeResponseCodeIs(HttpCode::OK);
+
+        foreach ($bellIds as $id) {
+            $I->seeInDatabase('fs_foodsaver_has_bell', [
+                'foodsaver_id' => $this->user['id'],
+                'bell_id' => $id,
+                'seen' => 0
+            ]);
+        }
     }
 }

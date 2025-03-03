@@ -2063,6 +2063,9 @@ bell:
   forum_not_activated_thread: '{forum}'
   event_post:
     one: 'Nuovo commento da {user} '
+  mark_as:
+    read: Segna come letto
+    unread: Segna come da leggere
 content:
   edit: Modifica pagina
   new_success: La pagina è stata creata

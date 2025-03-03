@@ -6,6 +6,7 @@
     :class="{
       'dropdown-menu-fixed-size': isFixedSize,
     }"
+    menu-class="overflow-auto"
   >
     <template #button-content>
       <slot name="badge">

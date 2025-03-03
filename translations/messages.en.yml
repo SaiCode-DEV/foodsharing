@@ -1592,6 +1592,9 @@ bell:
   passport_created_or_renewed_title: Your membership card …
   post_hidden_title: Post hidden by {user}
   post_hidden: Your post on {title} in forum {forum} was hidden
+  mark_as:
+    read: Mark as read
+    unread: Mark as unread
 reports:
   time: Time
   region: Home district

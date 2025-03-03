@@ -3038,6 +3038,9 @@ bell:
   forum_not_activated_thread_title: Sujet dans un forum modéré
   post_hidden: Votre message sur {title} dans le forum {forum} a été masqué
   post_hidden_title: Post masqué par {user}
+  mark_as:
+    read: Marquer comme lu
+    unread: Marquer comme non lu
 personal_data:
   landline: Numéro de fixe
   mobile: Numéro de portable

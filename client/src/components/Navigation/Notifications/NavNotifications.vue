@@ -5,7 +5,7 @@
     :badge="unread"
     direction="right"
     is-fixed-size
-    is-scrollable
+    :is-scrollable="bells.length > 1"
   >
     <template v-if="bells.length > 0" #content>
       <NotificationsEntry
@@ -117,23 +117,23 @@ export default {
         }
       }
     },
-    markNewBellsAsRead () {
+    async markNewBellsAsRead () {
       try {
-        DataBell.mutations.markNewBellsAsRead()
+        await DataBell.mutations.markNewBellsAsRead()
       } catch {
         pulseError(this.$i18n('error_unexpected'))
       }
     },
-    loadMoreBells () {
+    async loadMoreBells () {
       try {
-        DataBell.mutations.loadMore()
+        await DataBell.mutations.loadMore()
       } catch {
         pulseError(this.$i18n('error_unexpected'))
       }
     },
-    reloadUncached () {
+    async reloadUncached () {
       try {
-        DataBell.mutations.fetch(true)
+        await DataBell.mutations.fetch(true)
       } catch {
         pulseError(this.$i18n('error_unexpected'))
       }
@@ -143,7 +143,7 @@ export default {
       const params = { count: ids.length }
       if (!await this.confirmationDialogue('menu.bell.delete_read_confirmation.text', { params })) return
       try {
-        DataBell.mutations.delete(ids)
+        await DataBell.mutations.delete(ids)
       } catch {
         pulseError(this.$i18n('error_unexpected'))
       }

@@ -6,15 +6,19 @@ export async function getBellList (limit = 20, offset) {
   return await get(path)
 }
 
-export function deleteBells (ids) {
-  return remove('/bells', { ids })
+export async function deleteBells (ids) {
+  return await remove('/bells', { ids })
 }
 
 /**
- * Returns the number of bells that were successfully marked as read.
+ * Marks one or more bells as unread/read.
+ *
+ * @param {number[]} ids
+ * @param {boolean} isRead
+ * @returns {Promise<number>} 1 (read) or 0 (unread)
  */
-export async function markBellsAsRead (ids) {
-  return (await patch('/bells', {
+export async function setReadStatus (ids, isRead) {
+  return (await patch(`/bells/readStatus?read=${isRead ? 1 : 0}`, {
     ids: ids,
-  })).marked
+  })).seen
 }
