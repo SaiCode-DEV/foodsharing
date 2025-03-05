@@ -26,6 +26,7 @@
 - Improved address input #2317 !4018 @AntonBallmaier
 - Group application bells are deleted when the application is accepted or denied !4025 @alex.simm
 - Replace b-caroussel with custom Gallery component #2188 @AntonBallmaier
+- Improved mail for thread activation #2298 !4056 @AntonBallmaier
 
 ## Bugfixes
 - Resolve "region filter bug on profile page: Blank screen when navigating store list" #2295 !3940 @chriswalg

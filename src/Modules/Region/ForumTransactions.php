@@ -203,6 +203,7 @@ class ForumTransactions
                 'post' => $this->sanitizerService->markdownToHtml($rawPostBody),
                 'poster' => $posterName,
                 'bezirk' => $region['name'],
+                'confirmation_translation_key' => 'email_template.confirm_for_' . ($region['moderated'] ? 'moderated_forum' : 'unverified'),
             ];
 
             $this->sendNotificationMail($moderators, 'forum/activation', $data);

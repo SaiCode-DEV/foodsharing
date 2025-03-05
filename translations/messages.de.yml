@@ -3041,6 +3041,8 @@ email_template:
   confirm_topic: "Thema muss bestätigt werden:"
   confirm_link: "möchte das Thema"
   confirm_BOT: "absenden. Da du Botschafter:in / Moderator:in für %BEZIRK% bist, musst du es bestätigen, bevor es veröffentlicht wird."
+  confirm_for_unverified: "Das Thema muss bestätigt werden, weil es von einer unverifizierten Person erstellt wurde."
+  confirm_for_moderated_forum: "Das Thema muss bestätigt werden, weil es sich um ein moderiertes Forum handelt."
   foodsharepoint: "-- Fairteiler"
   reply: "Antworten"
   warning: "Warnung"
