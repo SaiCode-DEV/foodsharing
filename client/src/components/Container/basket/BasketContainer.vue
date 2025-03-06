@@ -2,7 +2,7 @@
   <Container
     :tag="userStore.hasLocations ? 'basket.nearby' : 'basket.recent'"
     :title="$i18n(userStore.hasLocations ? 'basket.nearby' : 'basket.recent')"
-    :toggle-visiblity="data.length > defaultAmount"
+    :toggle-visiblity="baskets?.length > defaultAmount"
     @show-full-list="showFullList"
     @reduce-list="reduceList"
   >
@@ -11,24 +11,26 @@
       :key="key"
       :entry="entry"
     />
+    <div v-if="baskets === null" class="list-group-item d-flex">
+      <b-skeleton width="40px" height="40px" />
+      <div class="flex-grow-1 ml-2">
+        <b-skeleton width="50%" />
+        <b-skeleton width="80%" />
+      </div>
+    </div>
     <small
-      v-if="filteredList.length === 0"
+      v-else-if="filteredList.length === 0"
       class="list-group-item text-muted"
       v-text="$i18n('basket.no_nearby', {radius})"
     />
   </Container>
 </template>
 <script>
-// Stores
 import { useBasketStore } from '@/stores/baskets'
 import { useUserStore } from '@/stores/user'
-// Components
 import Container from '../Container.vue'
 import BasketField from './BasketField'
-// Mixin
 import ListToggleMixin from '@/mixins/ContainerToggleMixin'
-
-const userStore = useUserStore()
 
 export default {
   components: {
@@ -40,21 +42,25 @@ export default {
     title: { type: String, default: 'dashboard.pickupdates' },
   },
   setup () {
+    const userStore = useUserStore()
     const basketStore = useBasketStore()
     return {
       userStore,
       basketStore,
     }
   },
+  data () {
+    return { baskets: null }
+  },
   computed: {
     radius () {
       return this.basketStore.getRadius
     },
-    data () {
-      const data = this.basketStore.getNearby()
-      this.setList(data)
-      return data
-    },
+  },
+  async mounted () {
+    await this.basketStore.fetchNearby(this.userStore.getLocations)
+    this.baskets = this.basketStore.getNearby()
+    this.setList(this.baskets ?? [])
   },
 }
 </script>

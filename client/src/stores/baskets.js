@@ -21,7 +21,7 @@ export const BASKET_REQUEST_STATUS = Object.freeze({
 export const useBasketStore = defineStore('basket', {
   state: () => ({
     own: [],
-    nearby: [],
+    nearby: null, // null before data is available, [] if there is no basket nearby
     radius: 30,
     allCoordinates: [],
   }),
@@ -38,6 +38,9 @@ export const useBasketStore = defineStore('basket', {
       this.own = await getBaskets()
     },
     async fetchNearby ({ lat, lon } = {}, distance = this.radius) {
+      if (lat === undefined || lon === undefined) {
+        return console.error('Error fetching nearby baskets: Invalid location')
+      }
       try {
         if (await getCacheInterval(nearbyCacheRequestName, nearbyCacheInterval)) {
           this.nearby = await getBasketsNearby(parseFloat(lat), parseFloat(lon), distance)
@@ -45,17 +48,15 @@ export const useBasketStore = defineStore('basket', {
         } else {
           this.nearby = await getCache(nearbyCacheRequestName)
         }
-        return this.nearby
       } catch (e) {
         console.error('Error fetching nearby baskets:', e)
-        return null
       }
     },
     async fetchAllCoordinates () {
       this.allCoordinates = (await getMapMarkers(['baskets'], [''])).baskets
     },
     getNearby (amount = 10) {
-      return this.nearby.slice(0, amount)
+      return this.nearby?.slice?.(0, amount) ?? null
     },
     async updateBasketRequestStatus (basketId, userId, status) {
       try {

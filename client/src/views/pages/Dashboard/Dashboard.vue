@@ -74,7 +74,7 @@
     >
       <div class="grid-item grid-item--left">
         <PickupContainer v-if="isFoodsaver && (visible.stores && (state || !viewIsXL) || !visible.stores && hasPickups)" />
-        <BasketContainer />
+        <BasketContainer v-if="visible.baskets" />
         <StoreContainer v-if="isFoodsaver && (state && visible.stores || !viewIsXL && visible.stores)" />
         <ManagingStoreContainer v-if="isFoodsaver && (state && visible.managing_stores || !viewIsXL && visible.managing_stores)" />
         <JumpingStoreContainer v-if="isFoodsaver && (state && visible.jumping_stores || !viewIsXL && visible.jumping_stores)" />
@@ -139,6 +139,16 @@ import StateTogglerMixin from '@/mixins/StateTogglerMixin'
 import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 
 const userStore = useUserStore()
+const defaultVisibility = {
+  groups: true,
+  regions: true,
+  events: true,
+  managing_stores: true,
+  jumping_stores: true,
+  stores: true,
+  polls: true,
+  baskets: true,
+}
 
 export default {
   components: {
@@ -178,13 +188,8 @@ export default {
       stateHasAutoSave: true,
       stateTag: 'dashboard.grid',
       visible: {
-        groups: true,
-        regions: true,
-        events: true,
-        managing_stores: true,
-        jumping_stores: true,
-        stores: true,
-        polls: true,
+        ...defaultVisibility,
+        ...(JSON.parse(localStorage.getItem('dashboard.visible')) || {}),
       },
     }
   },
@@ -216,32 +221,18 @@ export default {
           DataEvents.mutations.setAccepted(this.events.accepted)
           DataEvents.mutations.setInvited(this.events.invites)
         }
-        if (newVal.getLocations !== oldVal?.getLocations) {
-          if (newVal.getLocations.lat && newVal.getLocations.lon) {
-            await this.basketStore.fetchNearby(newVal.getLocations)
-          }
-        }
       },
       immediate: true,
       deep: true,
     },
   },
   async mounted () {
-    this.visible = JSON.parse(localStorage.getItem('dashboard.visible')) || this.visible
     await DataBroadcast.mutations.fetch()
     await userStore.fetchDetails()
   },
   methods: {
     resetHiding () {
-      this.visible = {
-        groups: true,
-        regions: true,
-        events: true,
-        managing_stores: true,
-        jumping_stores: true,
-        stores: true,
-        polls: true,
-      }
+      this.visible = { ...defaultVisibility }
     },
   },
 }
