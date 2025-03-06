@@ -376,6 +376,7 @@ quiz:
     continue: '{name} – ¡Continúa el concurso!'
     pause: ({name}) tomate un descanso
     disqualified: '{name} – descalificado.'
+    finished: '{name} – ¡has aprobado!'
   startmodal:
     title: Notas sobre el cuestionario
     infos:
@@ -3992,6 +3993,10 @@ email_template:
     eliminados.'
   confirm_BOT: '. Como eres embajador/moderador de %BEZIRK%, tienes que confirmarlo
     para que se publique.'
+  confirm_for_unverified: Este tema necesita ser confirmado porque fue creado por
+    una persona no verificada.
+  confirm_for_moderated_forum: Este tema necesita ser confirmado porque es un foro
+    moderado.
 contentmanagement: 'Gestión de contenido'
 teamjs:
   entermail: '¡Ingrese una dirección de correo electrónico válida para que podamos
