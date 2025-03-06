@@ -294,6 +294,7 @@ quiz:
     continue: '{name} - Teste devam edin!'
     pause: Çalışma molası ({name})
     disqualified: '{name} - Maalesef diskalifiye edildiniz.'
+    finished: '{name} – Başardın!'
   infomodal:
     title: "{questions}'den {index}. soru"
   comment:
@@ -916,8 +917,9 @@ sig:
 error:
   mail_activation:
     link_2: E-Posta adresini değiştirin
-    description: 'Lütfen etkinleştirme e-postasındaki bağlantıya tıklayarak e-posta
-      adresinizi onaylayın.'
+    description: 'Bir sonraki Release''den itibaren web sitesi yalnızca doğrulanmış
+      bir e-posta adresiyle kullanılabilecek. Lütfen aktivasyon e-postasındaki bağlantıya
+      tıklayarak e-posta adresinizi doğrulayın.'
     link_1: 'Yeni bir etkinleştirme e-postası isteyin'
     title: 'E-posta adresi doğrulanmadı!'
   missing_home_region:
@@ -1607,6 +1609,7 @@ store:
     selected_log_types: '{amount} işlem türü seçildi'
     title: İşletme Tutanağı
     no_description: hiç biri
+    message_saved_info: Mesajınız İşletme kayıtlarına kaydedilecektir.
   signInDateTime: Giriş Tarihi
   slot_state: Slot durumu
   lastPickupTitle: Son alım tarihi
@@ -1984,9 +1987,10 @@ content:
   delete_tooltip: Sayfayı sil
   communities:
     title: Yerel gruplar
-    text: foodsharing her geçen gün büyüyor. Burada her zaman tüm foodsharing topluluklarını
-      ve bölgelerinin güncel bir listesini bulacaksınız. Bağlantılı isimlere tıklayarak
-      bu bölgelerden herhangi birine e-posta gönderebilirsiniz.
+    text: foodsharing her geçen gün büyüyor. Burada her zaman tüm foodsharing toplulukları
+      ve bölgelerinin güncel listesini bulacaksınız. Her ilçe hakkında daha detaylı
+      bilgiyi bağlantılı genel ilçe sayfasından edinebilir veya iconsları tıklayarak
+      doğrudan ilgili ilçeye e-posta gönderebilirsiniz.
     searchInfo: Liste, Strgl+F kullanılarak birçok tarayıcıda ülkeye, şehre, federal
       eyalete veya bölgeye göre aranabilir.
     noAmbassador: Bu bölgede şu anda elçi bulunmamaktadır ve bu nedenle şu anda e-postayla
@@ -2813,7 +2817,11 @@ addresspicker:
     sitesi aracılığıyla yiyecek sepetleri sunabilmeleri için adrese ihtiyaçları vardır.
     [Foodsaver](https://wiki.foodsharing.de/Foodsaver) olarak yiyecek kurtarma çalışmalarına
     katılabilmek için gereklidir."
-  different_location: Adres, coğrafi konumdan bağımsızdır
+  different_location: Adres tarifini düzelt
+  different_location_warning: Lütfen pinin yukarıdaki haritada doğru yerde olduğundan
+    emin olun. Lütfen otomatik olarak doldurulan alanları (sokak ve ev numarası, posta
+    kodu ve şehir/belediye) yalnızca otomatik olarak girilen değer doğru değilse değiştirin.
+    Örneğin bir sokak ismi değiştiğinde bu durum yaşanabilir.
 profile:
   commitments_stat:
     week_2: Bu hafta
@@ -3593,7 +3601,7 @@ fsp:
     diğer kullanıcılara gösterilmeyecektir.
 statistics:
   kg_food_saved: '{count} kg gıda kurtarıldı'
-  num_fetches: '{count} kurtarma görevinde'
+  num_fetches: '{count} Kurtarma görevinde'
   food_saved: Gıda kurtarıldı
   region_public:
     savedFoodKgLastMonth: kurtarılan gıda
@@ -3603,6 +3611,7 @@ statistics:
     activeCoorporations: aktif işletme işbirlikleri
     activeHomeRegionFoodsavers: aktif foodsaverlar
   title: İstatistiksel olarak
+  lastMonth: Son 30 günün İstatistikleri
 are_you_sure: Emin misin?
 day: Gün
 formatting:
