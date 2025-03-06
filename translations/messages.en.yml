@@ -1817,6 +1817,10 @@ email_template:
     linktext: Click here to unsubscribe.
     unsubscribe: Do you want to unsubscribe from our newsletter?
   from: '-- from '
+  confirm_for_moderated_forum: This topic needs to be confirmed because it is a moderated
+    forum.
+  confirm_for_unverified: This topic needs to be confirmed because it was created
+    by an unverified person.
 sidenav:
   yourgroups: Your groups
   localgroups: Regional groups
@@ -3795,6 +3799,7 @@ quiz:
     continue: '{name} — Continue the quiz!'
     pause: Study break ({name})
     disqualified: '{name} — Unfortunately disqualified.'
+    finished: '{name} — you passed!'
   startmodal:
     infos:
       real_life_examples: Most of the questions are based on real cases from foodsharing
