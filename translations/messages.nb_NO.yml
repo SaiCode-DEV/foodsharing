@@ -289,6 +289,9 @@ email_template:
     kan finne sted. Hvis du ikke kan mobilisere noen, ville det vært fint om du kunne
     hente dem. Dersom dette ikke er mulig for deg, vennligst avbestill avtalen med
     selskapet i god tid.
+  confirm_for_unverified: Dette emnet må bekreftes fordi det ble opprettet av en ubekreftet
+    person.
+  confirm_for_moderated_forum: Dette emnet må bekreftes fordi det er et moderert forum.
 base:
   jsrequired: Denne siden vil ikke fungere skikkelig uten JavaScript.
   slogan: Del mat i stedet for å kaste den – foodsharing
@@ -3646,6 +3649,7 @@ quiz:
     continue: '{name} – Fortsett quizen!'
     pause: Studiepause ({name})
     disqualified: '{name} – Dessverre diskvalifisert.'
+    finished: '{name} – du har bestått!'
   startmodal:
     title: Quiznotater
     infos:
