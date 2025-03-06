@@ -752,6 +752,10 @@ email_template:
   confirm_link: voudrait poster
   in: à
   request_from: Demande de
+  confirm_for_unverified: Ce sujet doit être confirmé car il a été créé par une personne
+    non vérifiée.
+  confirm_for_moderated_forum: Ce sujet doit être confirmé car il s’agit d'un forum
+    modéré.
 mailbox:
   mark_as_unread: Marquer comme non lu
   filesize: Désolé. Le fichier est trop gros.
@@ -3812,6 +3816,7 @@ quiz:
     pause: Pause d’apprentissage ({name})
     disqualified: '{name} – malheureusement disqualifié(e).'
     start: '{name} – Répondre au quiz maintenant !'
+    finished: '{name} – tu as réussi !'
   startmodal:
     title: Notes du quiz
     infos:
