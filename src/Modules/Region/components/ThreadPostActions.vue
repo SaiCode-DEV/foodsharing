@@ -25,14 +25,26 @@
         v-for="(users, key) in reactionsWithUsers"
         :key="key"
       >
-        <b-link
-          v-b-tooltip="concatUsers(users)"
-          class="btn btn-sm"
-          :class="[gaveIThisReaction(key) ? 'btn-secondary' : 'btn-primary']"
+        <b-button
+          :id="`reactionButton-${key}-${uuid}`"
+          class="btn-sm"
+          :variant="gaveIThisReaction(key) ? 'secondary' : 'primary'"
           @click="toggleReaction(key)"
         >
           {{ users.length }}x <Emoji :name="key" />
-        </b-link>
+        </b-button>
+        <b-tooltip
+          :target="`reactionButton-${key}-${uuid}`"
+          triggers="hover"
+        >
+          <span
+            v-for="user in users"
+            :key="user.id"
+            class="reacting-user"
+          >
+            <a :href="$url('profile', user.id)" v-text="tooltipName(user)" />
+          </span>
+        </b-tooltip>
       </span>
     </div>
 
@@ -107,8 +119,6 @@
 </template>
 
 <script>
-import { BDropdown, BModal, VBTooltip, BLink } from 'bootstrap-vue'
-
 import Emoji from '@/components/Emoji'
 import emojiList from '@/emojiList.json'
 import { useUserStore } from '@/stores/user'
@@ -116,8 +126,7 @@ import { useUserStore } from '@/stores/user'
 const userStore = useUserStore()
 
 export default {
-  components: { BDropdown, Emoji, BModal, BLink },
-  directives: { VBTooltip },
+  components: { Emoji },
   props: {
     reactions: {
       type: Object,
@@ -139,6 +148,7 @@ export default {
     return {
       emojis: emojiList,
       hideReason: '',
+      uuid: (Math.random().toString(36).slice(2, 10)),
     }
   },
   computed: {
@@ -178,9 +188,9 @@ export default {
       }
       return !!this.reactions[key].find(r => r.id === userStore.getUserId)
     },
-    concatUsers (users) {
-      const names = users.map(u => u.id === userStore.getUserId ? this.$i18n('globals.you') : u.name ?? this.$i18n('forum.deleted_user'))
-      return names.length > 1 ? `${names.slice(0, names.length - 1).join(', ')} & ${names[names.length - 1]}` : names[0]
+    tooltipName (user) {
+      if (user.id === userStore.getUserId) return this.$i18n('globals.you')
+      return user.name ?? this.$i18n('forum.deleted_user')
     },
   },
 }
@@ -214,6 +224,19 @@ export default {
 .divider {
   &::before {
     content: '|';
+  }
+}
+
+.tooltip .reacting-user{
+  a {
+    color: white !important;
+    font-weight: normal;
+  }
+  &:not(:last-child)::after {
+    content: ', ';
+  }
+  &:nth-last-child(2)::after {
+    content: ' & ';
   }
 }
 </style>
