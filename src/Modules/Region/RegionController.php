@@ -243,9 +243,10 @@ final class RegionController extends FoodsharingController
      * This redirects to the next regions public page or the next groups subgroup page up the region hierarchie of the denied region / group.
      * @param int $deniedRegionId id of the region the user was denied to access
      */
+    #[Route(path: '/region/denied/{deniedRegionId}', name: 'regionDenied', requirements: ['deniedRegionId' => Requirement::POSITIVE_INT])]
     public function missingMembershipRedirect(int $deniedRegionId): Response
     {
-        $redirects = $this->regionTransactions->getInaccessibleRegionRedirects($deniedRegionId, $this->session->id());
+        $redirects = $this->regionTransactions->getInaccessibleRegionRedirects($deniedRegionId, $this->session->id() ?? 0);
         if (empty($redirects)) {
             // in case there is no ancestor the user has access to, redirect to start page
             // (can only happen for groups that don't have a region parent until root)

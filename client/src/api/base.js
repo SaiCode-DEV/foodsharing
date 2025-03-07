@@ -38,8 +38,10 @@ api.interceptors.response.use(
 api.interceptors.response.use(null, async error => {
   const config = error.config
 
-  if (error.response?.status === HTTP_RESPONSE.UNAUTHORIZED && !config.disableLoginRedirect) {
-    window.location = url('login')
+  if (error.response?.status === HTTP_RESPONSE.UNAUTHORIZED) {
+    if (!config.disableLoginRedirect) {
+      window.location = url('login')
+    }
     return Promise.reject(error)
   } else if (error.response?.status === HTTP_RESPONSE.TOO_MANY_REQUESTS) {
     return Promise.reject(error)
@@ -97,7 +99,7 @@ export const request = async (path, options = {}) => {
   }
 }
 
-export const get = (path, params) => request(path, { method: 'GET', params })
+export const get = (path, config) => request(path, { method: 'GET', ...config })
 export const post = (path, data, config = {}) => request(path, { method: 'POST', data, ...config })
 export const put = (path, data) => request(path, { method: 'PUT', data })
 export const patch = (path, data) => request(path, { method: 'PATCH', data })

@@ -39,6 +39,7 @@
 - Show region menu to orga users on public region page #2330 !4052 @AntonBallmaier
 - Fix region pin assignment error #2324 !4054 @AntonBallmaier
 - Fix bug related to finishing a quiz in the 5th try #2263 !4048 @AntonBallmaier
+- Fixed the #vue-topbar error on event pages #2319 !4033 @AntonBallmaier
 
 ## Refactoring
 - Get rid of xhr completely !3826 !3933 @chriswalg
