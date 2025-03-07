@@ -195,6 +195,11 @@ class MaintenanceService
         $counts = $this->foodsaverGateway->updateGroupMembers(1655, $graz_biebs, true);
         ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
 
+        ConsoleHelper::info('updating Dresden BIEB group');
+        $dresden_biebs = $this->storeGateway->getStoreManagersOf(91);
+        $counts = $this->foodsaverGateway->updateGroupMembers(1348, $dresden_biebs, true);
+        ConsoleHelper::info('+' . $counts['inserts'] . ', -' . $counts['deletions']);
+
         /*
                 self::info('updating Welcome Team Admin group');
                 $this->goalsAdminCommunicationGroups(WorkgroupFunction::WELCOME, RegionIDs::WELCOME_TEAM_ADMIN_GROUP);
