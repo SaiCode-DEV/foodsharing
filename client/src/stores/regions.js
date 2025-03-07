@@ -112,7 +112,7 @@ export const useRegionStore = defineStore('region', {
       try {
         if (alwaysUpdate || await getCacheInterval(regionMenuRequestName + id, regionMenuCacheInterval)) {
           this.regionMenus[id] = await getRegionMenu(id)
-          await setCache(regionMenuRequestName + id, this.publicRegions[id])
+          await setCache(regionMenuRequestName + id, this.regionMenus[id])
         } else {
           this.regionMenus[id] = await getCache(regionMenuRequestName + id)
         }

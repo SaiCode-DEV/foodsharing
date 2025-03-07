@@ -56,7 +56,7 @@
 - Better File input !3881 @SaiCode
 - Update webpack to 5 !3621 !3964 !4000 @SaiCode
 - Service worker moved to Google Workbox !3621 @SaiCode
-- Removed props from the Vue components of region subpages #1838 !3948 @alex.simm
+- Removed props from the Vue components of region subpages #1838 !3948 !4031 @alex.simm
 - Fixed the bounding box of queries for nearby baskets and food share points #1857 !3916 @alex.simm
 - Changed api/base.js to axios for better error handling and added sentry's CaptureConsole integration to better monitor #1805 !3990 !4020 @chriswalg
 - Use composition api for mobile in Navigation !3988 @chriswalg

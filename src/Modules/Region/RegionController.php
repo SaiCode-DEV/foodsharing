@@ -13,11 +13,8 @@ use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
-use Foodsharing\Permissions\AchievementPermissions;
-use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\Permissions\RegionPermissions;
-use Foodsharing\Permissions\VotingPermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,12 +32,9 @@ final class RegionController extends FoodsharingController
         private readonly ForumPermissions $forumPermissions,
         private readonly RegionPermissions $regionPermissions,
         private readonly ForumTransactions $forumTransactions,
-        private readonly VotingPermissions $votingPermissions,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly StoreGateway $storeGateway,
-        private readonly FoodSharePointPermissions $foodSharePointPermissions,
         private readonly ForumGateway $forumGateway,
-        private readonly AchievementPermissions $achievementPermissions,
         private readonly GroupFunctionGateway $groupFunctionGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly RegionTransactions $regionTransactions,
@@ -279,8 +273,7 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addBread($this->translator->trans('terminology.fsp'), '/region?bid=' . $region['id'] . '&sub=fairteiler');
         $this->pageHelper->addTitle($this->translator->trans('terminology.fsp'));
         $sub = $request->query->get('sub');
-        $pageData['foodSharePointPermission'] = $this->foodSharePointPermissions->mayAdd($region['id']);
-        $params = $this->convertDataToObject($region, $sub, $pageData);
+        $params = $this->convertDataToObject($region, $sub, []);
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
@@ -369,9 +362,8 @@ final class RegionController extends FoodsharingController
     {
         $this->pageHelper->addBread($this->translator->trans('terminology.polls'), '/region?bid=' . $region['id'] . '&sub=polls');
         $this->pageHelper->addTitle($this->translator->trans('terminology.polls'));
-        $pageData['mayCreatePoll'] = $this->votingPermissions->mayCreatePoll($region['id'], $region['type']);
 
-        $params = $this->convertDataToObject($region, $request->query->get('sub'), $pageData);
+        $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 
         return $this->renderGlobal();
@@ -411,7 +403,6 @@ final class RegionController extends FoodsharingController
         $this->pageHelper->addTitle($this->translator->trans('terminology.achievements'));
 
         $params = $this->convertDataToObject($region, $request->query->get('sub'), []);
-        $params['mayAdministrateAchievements'] = $this->achievementPermissions->mayAdministrateAchievementsFromRegion($region['id']);
 
         $this->pageHelper->addContent($this->view->vueComponent('region-page', 'RegionPage', $params));
 

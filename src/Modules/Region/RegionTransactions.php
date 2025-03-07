@@ -18,8 +18,11 @@ use Foodsharing\Modules\Region\DTO\RegionPickupStatistics;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Modules\Unit\UnitGateway;
+use Foodsharing\Permissions\AchievementPermissions;
+use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\ReportPermissions;
+use Foodsharing\Permissions\VotingPermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
 use Foodsharing\RestApi\Models\Notifications\Region;
 use Foodsharing\RestApi\Models\Region\RegionForAdministration;
@@ -46,6 +49,9 @@ class RegionTransactions
         private readonly ReportPermissions $reportPermissions,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly FoodSharePointGateway $foodSharePointGateway,
+        private readonly FoodSharePointPermissions $foodSharePointPermissions,
+        private readonly VotingPermissions $votingPermissions,
+        private readonly AchievementPermissions $achievementPermissions,
         private readonly CacheInterface $cache,
     ) {
     }
@@ -263,6 +269,7 @@ class RegionTransactions
         $menu['mayHandleFoodsaverRegionMenu'] = $this->regionPermissions->mayHandleFoodsaverRegionMenu($regionId);
         $menu['hasConference'] = $this->regionPermissions->hasConference($region['type']);
         $menu['hasAchievements'] = $this->achievementGateway->regionHasAchievements($region['id']);
+        $menu['mayAdministrateAchievements'] = $this->achievementPermissions->mayAdministrateAchievementsFromRegion($region['id']);
 
         if ($this->currentUserUnits->isAdminFor($regionId)) {
             $menu['mailboxId'] = $region['mailbox_id'];
@@ -274,6 +281,8 @@ class RegionTransactions
             $menu['isReportAdmin'] = $this->reportPermissions->isReportAdmin($regionId);
             $menu['isArbitrationAdmin'] = $this->reportPermissions->isArbitrationAdmin($regionId);
             $menu['maySetRegionPin'] = $this->regionPermissions->maySetRegionPin($regionId);
+            $menu['mayAddFoodSharePoints'] = $this->foodSharePointPermissions->mayAdd($region['id']);
+            $menu['mayCreatePoll'] = $this->votingPermissions->mayCreatePoll($region['id'], $region['type']);
         } else {
             $menu['isAdmin'] = $this->workGroupPermissions->mayEdit($region);
             $menu['hasSubgroups'] = $this->regionGateway->hasSubgroups($regionId);

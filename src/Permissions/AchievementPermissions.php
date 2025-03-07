@@ -8,7 +8,7 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
-final readonly class AchievementPermissions
+class AchievementPermissions
 {
     public function __construct(
         private Session $session,

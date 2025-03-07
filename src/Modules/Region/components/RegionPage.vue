@@ -69,12 +69,12 @@
           v-if="activeSubpage === SUB_PAGE.FOODSHARINGPOINT"
           :region-name="name"
           :region-id="regionId"
-          :food-share-point-permission="pageData.foodSharePointPermission"
+          :food-share-point-permission="regionMenu?.mayAddFoodSharePoints ?? false"
         />
         <PollList
           v-if="activeSubpage === SUB_PAGE.POLLS"
           :region-id="regionId"
-          :may-create-poll="pageData.mayCreatePoll"
+          :may-create-poll="regionMenu?.mayCreatePoll ?? false"
         />
         <MemberList
           v-if="activeSubpage === SUB_PAGE.MEMBERS"
@@ -114,7 +114,7 @@
           :group-name="name"
           :group-id="regionId"
           :is-work-group="isWorkGroup"
-          :may-administrate-achievements="mayAdministrateAchievements"
+          :may-administrate-achievements="regionMenu?.mayAdministrateAchievements ?? false"
         />
       </div>
     </div>
@@ -139,9 +139,11 @@ import NewThread from './NewThread.vue'
 import { getApplications } from '@/api/applications'
 import ApplicationsList from './ApplicationsList.vue'
 import Achievements from './Achievements.vue'
-import { SUB_PAGE } from '@/stores/regions'
+import { SUB_PAGE, useRegionStore } from '@/stores/regions'
 import { GET } from '@/browser'
 import LeaveRegionContainer from '@/views/pages/Region/LeaveRegionContainer.vue'
+
+const regionStore = useRegionStore()
 
 export default {
   components: {
@@ -182,7 +184,6 @@ export default {
     pageData: { type: [Array, Object], default: () => {} },
     menu: { type: Object, required: true },
     mayAccessApplications: { type: Boolean, required: true },
-    mayAdministrateAchievements: { type: Boolean, default: false },
   },
   data () {
     return {
@@ -204,6 +205,7 @@ export default {
           ],
       loading: true,
       applications: [],
+      regionMenu: null,
     }
   },
   computed: {
@@ -224,6 +226,7 @@ export default {
     if (this.isWorkGroup && this.mayAccessApplications) {
       this.applications = await getApplications(this.regionId)
     }
+    this.regionMenu = await regionStore.fetchRegionMenu(this.regionId)
   },
 }
 </script>

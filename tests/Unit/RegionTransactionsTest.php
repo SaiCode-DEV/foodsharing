@@ -15,8 +15,11 @@ use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Modules\Unit\UnitGateway;
+use Foodsharing\Permissions\AchievementPermissions;
+use Foodsharing\Permissions\FoodSharePointPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\ReportPermissions;
+use Foodsharing\Permissions\VotingPermissions;
 use Foodsharing\Permissions\WorkGroupPermissions;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -36,6 +39,9 @@ class RegionTransactionsTest extends TestCase
     private ReportPermissions $reportPermissions;
     private WorkGroupPermissions $workGroupPermissions;
     private FoodSharePointGateway $foodSharePointGateway;
+    private FoodSharePointPermissions $foodSharePointPermissions;
+    private VotingPermissions $votingPermissions;
+    private AchievementPermissions $achievementPermissions;
     private CacheInterface $cache;
 
     protected function setUp(): void
@@ -51,6 +57,9 @@ class RegionTransactionsTest extends TestCase
         $this->reportPermissions = $this->createMock(ReportPermissions::class);
         $this->workGroupPermissions = $this->createMock(WorkGroupPermissions::class);
         $this->foodSharePointGateway = $this->createMock(FoodSharePointGateway::class);
+        $this->foodSharePointPermissions = $this->createMock(FoodSharePointPermissions::class);
+        $this->votingPermissions = $this->createMock(VotingPermissions::class);
+        $this->achievementPermissions = $this->createMock(AchievementPermissions::class);
         $this->cache = $this->createMock(CacheInterface::class);
 
         $this->regionTransactions = new RegionTransactions(
@@ -65,6 +74,9 @@ class RegionTransactionsTest extends TestCase
             $this->reportPermissions,
             $this->workGroupPermissions,
             $this->foodSharePointGateway,
+            $this->foodSharePointPermissions,
+            $this->votingPermissions,
+            $this->achievementPermissions,
             $this->cache
         );
     }

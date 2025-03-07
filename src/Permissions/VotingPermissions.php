@@ -14,7 +14,7 @@ use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\Voting\DTO\Poll;
 use Foodsharing\Modules\Voting\VotingGateway;
 
-final readonly class VotingPermissions
+class VotingPermissions
 {
     private Session $session;
     private VotingGateway $votingGateway;
