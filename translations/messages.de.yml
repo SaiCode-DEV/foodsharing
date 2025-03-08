@@ -2,35 +2,26 @@
 #
 # FORM DATA KEYS: Global
 # --
-geb_datum: "Geburtsdatum (JJJJ-MM-DD)"
 name: "Name"
 add: "hinzufügen" # StoreUserView
 nachname: "Nachname"
-subject: "Betreff" # at least EmailControl
 message: "Nachricht"
 address: "Adresse"
 edit: "bearbeiten" # StoreControl, Quizview
-edit_websites: "Öffentliche Webseiten bearbeiten" #ContentControl
 desc: "Beschreibung"
 description: "Beschreibung"
 plz: "Postleitzahl"
 email: "E-Mail-Adresse"
-attachement: "Anhang" # EmailControl
-handy: "Handynummer (inkl. Ländervorwahl, beginnt mit +)"
 anschrift: "Straße und Hausnummer"
 geschlecht: "Geschlecht"
-botschafter: "Botschafter:in"
 options: "Optionen" # FoodSharePointControl FoodSharePointView foodSharePoint.twig
 picture: "Bild" # BlogView and maybe more
 parent_id: "Elternbezirk" # at least RegionAdminControl
 fs_id: "foodsharing-ID"
 lat: "Breitengrad"
 lon: "Längengrad"
-stadt: "Deine Stadt oder Gemeinde" # DashboardControl
 bezirk: "Bezirk"
-betrieb: "Kooperationsbetrieb(e)"
 active: "Aktiviert" # TODO check this
-mailbox_name: "Mailbox-Name" # XhrMethods
 rolle: "Benutzer:innenrolle" # FoodsaverView
 title: "Überschrift"
 body: "Nachricht"
@@ -41,11 +32,9 @@ no_automatic_delete: "In dem Fall, dass die letzte Anmeldung 5 Jahre zurücklieg
 automatic_delete : "- soll das Profil gelöscht werden."
 automatic_not_delete : "- soll das Profil erhalten bleiben."
 ort: "Stadt/Gemeinde"
-daterange: "Zeitraum"
 regions: "Bezirke" # TODO check if used anywhere else
 groups:
   empty: "Du bist noch in keinen Arbeitsgruppen"
-message_text_to_group_admin_workgroup: "Die Region/Arbeitsgruppe <b>{groupName}</b> hat <b>keine</b> Botschafter:innen bzw. Administrator:innen mehr.<br><br><br>Sie besitzt folgende ID-Struktur:<br>{idStructureList}<br><br>Die ID lautet: {groupId}<br><br>URL: \"<a href=\"https://foodsharing.de/region?bid={groupId}&sub=forum\" target=\"_blank\">Klicke hier um zur Region/Arbeitsgruppe zu gehen</a>"
 copied_to_clipboard: "„{text}“ wurde in die Zwischenablage kopiert."
 #
 # FORM DATA KEYS: SettingsView
@@ -56,10 +45,7 @@ about_me_intern: "Kurzbeschreibung"
 # FORM DATA KEYS: BasketView + BasketXhr
 # --
 weight: "Geschätztes Gewicht:"
-food_type: "Welche Arten von Lebensmitteln sind dabei?"
-food_art: "Was trifft auf die Lebensmittel zu?"
 fetchstate: "Hat alles gut geklappt?"
-contact_type: "Wie möchtest du kontaktiert werden?"
 lifetime: "Wie lange soll dein Essenskorb gültig sein?"
 request_time: "Anfragezeitpunkt:"
 #
@@ -74,23 +60,16 @@ opt: "Optionen"
 #
 # FORM DATA KEYS: EmailControl
 # --
-testemail: "Test-E-Mail-Adresse"
-mailbox_id: "Absender-E-Mail-Adresse"
 #
 # FORM DATA KEYS: EventView
 # --
-location_name: "Veranstaltungsort / Konferenzraum"
-online_type: "Findet das Event offline oder online statt?"
-dateend: "Enddatum"
 #
 # FORM DATA KEYS: FoodsaverView
 # --
-orgateam: "Bundesweite Orga"
 position: "Position bei foodsharing (öffentlich)"
 #
 # FORM DATA KEYS: FoodSharePoint
 # --
-infotype: "Benachrichtigung"
 fsp_bezirk_id: "In welchem Bezirk befindet sich der Fairteiler?"
 fspmanagers: "Foodsaver:innen, die Ansprechpersonen für den Fairteiler sind"
 #
@@ -98,30 +77,12 @@ fspmanagers: "Foodsaver:innen, die Ansprechpersonen für den Fairteiler sind"
 # --
 pass1: "Dein gewünschtes neues Passwort"
 pass2: "Passwortwiederholung"
-#login_location: "Deine Adresse" # TODO check if used anywhere
-#
-# FORM DATA KEYS: MessageView
-# --
-compose_body: "Nachricht"
-#
-# FORM DATA KEYS: SettingsView
-# --
-# comment: "Anregungen, Kritik und Kommentare" # this looks very unused
-passcheck: "Bestätige die Änderung bitte mit deinem Passwort"
-#
-# FORM DATA KEYS: StoreView (team + pickup time management)
-# --
-verantwortlicher: "Verantwortliche Mitglieder"
-storemanagers: "Betriebsverantwortliche"
-team_status: "Teamstatus"
-fetchercount: "Anzahl der Abholenden"
 #
 # FORM DATA KEYS: StoreView (betrieb_form)
 # --
 kette_id: "Betriebskette"
 betrieb_kategorie_id: "Kategorie"
 betrieb_status_id: "Status"
-store_status_impact_explanation: "Bitte aktualisiere nach jedem Betriebskontakt (<a href=\"https://wiki.foodsharing.de/Kooperationsaufbau_-_Checkliste\" target=\"_blank\">Wiki: Kooperationsaufbau – Checkliste</a>) den Status (<a href=\"https://wiki.foodsharing.de/Betrieb\" target=\"_blank\">Wiki: Betrieb</a>) des Betriebs, so dass der Stand der Ansprache für alle sichtbar ist.<br><br>Nur kooperationswillige Betriebe werden später oben im Betriebsmenü der Navigationsleiste angezeigt."
 ansprechpartner: "Ansprechpersonen im Betrieb (Filialleiter:innen etc.)"
 fax: "Fax"
 lebensmittel: "Welche Lebensmittel werden abgeholt?"
@@ -136,23 +97,11 @@ prefetchtime: "Wie viele Wochen im Voraus können sich Foodsaver:innen mittels a
 abholmenge: "Wie viel kg werden pro Abholung ungefähr von jeder Person mitgenommen?"
 use_region_pickup_rule: "Soll für diesen Betrieb die Bezirks-ROSINEN-Regel für Abholungen gelten?"
 #
-# FORM DATA KEYS: WorkGroup
-# --
-member: "Mitglieder"
-leader: "Gruppen-Administrator:innen"
-apply_type: "Wer kann sich für diese Gruppe eintragen?"
-banana_count: "Wie viele Vertrauensbananen braucht ein Mitglied?"
-fetch_count: "Wie viele Abholungen sollte man bereits gemacht haben?"
-week_num: "Seit wie vielen Wochen sollte man schon bei foodsharing dabei sein?"
-#
 # FORM DATA KEYS: QuizView QuizXhr and Quizview
 # --
 right: "Wertung"
 text: "Text"
 fp: "Fehlerpunkte"
-fpsingular: "Fehlerpunkt"
-fpcapital: "FP"
-fpko: "Fehlerpunkte (k. o.)"
 nofp: "keine Fehlerpunkte (Scherzfrage)"
 explanation: "Erklärung"
 duration: "Zeit zum Antworten"
@@ -384,15 +333,6 @@ button:
   confirm: Bestätigen
   close: "Schließen"
 
-bread:
-  backToOverview: "zurück zur Übersicht"
-  backToStore: "zurück zum Betrieb"
-
-ui:
-  switch:
-    on: "veröffentlicht"
-    off: "inaktiv"
-
 bcard:
   title: "Visitenkarten-Generator"
   card: "Deine foodsharing-Visitenkarte"
@@ -404,8 +344,6 @@ bcard:
     phone: "Du musst eine gültige Telefonnummer angegeben haben, um deine Visitenkarte zu generieren."
     verified: "Du musst verifiziert sein, um deine Visitenkarte generieren zu können."
   generate: "Visitenkarten erstellen"
-  info:
-    address_shortened: "Deine Anschrift und/oder PLZ + Ort werden auf der Visitenkarte gekürzt ausgegeben."
   role: "Rolle"
   region: "Region"
 
@@ -654,12 +592,6 @@ legal:
   are_you_sure_to_downgrade: "Achtung: Du hast ausgewählt, dass du zur:zum Foodsaver:in herabgestuft werden möchtest. Bist du dir sicher?"
   success: "Deine Einstellungen wurden erfolgreich gespeichert."
 
-pronoun:
-  "0": "er:sie"
-  "1": "er"
-  "2": "sie"
-  "3": "er:sie"
-
 salutation:
   "0": "Liebe:r"
   "1": "Lieber"
@@ -679,7 +611,6 @@ login:
   error_no_email: "Bitte gib deine E-Mail-Adresse an."
   error_no_password: "Bitte gib dein Passwort an."
   error_no_auth: "Leider finden wir diese E-Mail-Adresse oder Passwort nicht, bitte versuche es noch einmal."
-  success: "<b>Wunderschönen Tag dir, {user_name}!</b>"
   logout: "Abmelden"
   pwreset:
     bread: "Passwort zurücksetzen"
@@ -872,7 +803,6 @@ error_ajax: |
   Vielleicht funktioniert deine Internetverbindung gerade nicht.
   Lade die Seite neu und probiere es noch mal.
 delete: "Löschen"
-deletelow: "löschen" #in QuizView
 notice: "Hinweis!"
 validate:
   required: "{it} darf nicht leer sein"
@@ -1660,15 +1590,6 @@ date:
   saturday: "Samstag"
   sunday: "Sonntag"
 
-date_short:
-  Monday: "Mo"
-  Tuesday: "Di"
-  Wednesday: "Mi"
-  Thursday: "Do"
-  Friday: "Fr"
-  Saturday: "Sa"
-  Sunday: "So"
-
 month:
   "1": "Januar"
   "2": "Februar"
@@ -2015,8 +1936,6 @@ map:
   community:
     go: "Zur Bezirksseite"
 
-messages:
-  bread: "Nachrichten"
 
 mailbox:
   mails: "E-Mails"
@@ -2278,8 +2197,6 @@ settings:
     phone: "Deine Festnetznummer"
     current_address: "Aktuelle Adresse"
     no_address: "Noch keine Adresse eingegeben"
-mail:
-  noreply_addresses_not_allowed: "E-Mails an noreply@…-Adressen sind nicht zustellbar.<br>Bitte überprüfe die Empfangsadresse."
 
 
 profile:
@@ -2563,18 +2480,10 @@ dashboard:
   deleted_user: "abgemeldete:r Benutzer:in"
 
 home:
-  title: "Startseite"
   home: "Home"
 
 team:
   current: "Team"
-  former: "Ehemalige"
-  name: "Name"
-  email: "E-Mail-Adresse"
-  contact: "{name} via Kontaktformular"
-  contacted: "Deine Nachricht wurde erfolgreich gesendet."
-  ratelimit: "Bitte warte {minutes} Minuten, bis du die nächste Nachricht senden kannst."
-  not-found: "Seite nicht gefunden"
 
 basket:
   title: "Essenskörbe"
@@ -2662,15 +2571,6 @@ basket:
   not_found: "Der Essenskorb existiert nicht mehr."
   request_denied: "Deine Anfrage wurde vom Essenskorbanbieter abgelehnt."
   not_active: "Essenskorb ist jetzt nicht mehr aktiv."
-  no-login: |
-    Du bist nicht eingeloggt, vielleicht ist deine Sitzung abgelaufen.
-    Bitte logge dich ein und sende deine Anfrage erneut ab.
-  no-address: |
-    Bitte gib deine Adresse in den {settings} an, um einen Essenskorb über die Webseite anbieten zu können.
-    <br><br>
-    Diese wird benötigt, um deinen Essenskorb mittels Stecknadel auf der Karte darzustellen.
-    <br><br>
-    Die Postanschrift deiner Adresse ist dabei für Essenskorbnutzer:innen nicht sichtbar.
   go-to-settings: "Zu den Einstellungen"
   public-info: "Beschreibung, Bild, Übergabeort und Zeitraum sind öffentlich sichtbar."
   no-desc: "Bitte gib eine Beschreibung ein."
@@ -3278,7 +3178,6 @@ startpage:
 
 contentmanagement: "Inhaltsverwaltung" #contentControl
 
-deletefromregion: "Wirklich aus dem Bezirk entfernen?"
 savewithus: "Rette mit!"
 logincontrol:
   title: "Newsletter-Abmeldung"
@@ -3287,14 +3186,6 @@ logincontrol:
   success: "Erfolg!"
 
 addreaction: "Eine Reaktion hinzufügen" # Threadpostaction
-sig: # Searchindexgenerator
-  buddies: "Menschen, die du kennst"
-
-teamjs:
-  wrongmail: "Mit deiner E-Mail-Adresse stimmt etwas nicht."
-  entermail: "Bitte gib eine gültige E-Mail-Adresse ein, damit wir dir antworten können!"
-
-timefrom: "Uhr von"
 
 numbers:
   decimal_separator: ","
@@ -3433,10 +3324,6 @@ error:
     title: "Du hast noch kein Profilbild hochgeladen."
     description: "Zeig den Mitgliedern von foodsharing, wer du bist!"
     link: "Jetzt Profilbild hochladen"
-  missing_home_region:
-    title: "Wähle einen Stammbezirk aus."
-    description: "Damit du weitermachen kannst, wird ein Stammbezirk benötigt."
-    link: "Jetzt Stammbezirk auswählen"
   passport_is_invalid:
     title: "Dein Ausweis ist nicht mehr gültig!"
     description: "Wende dich an deine Botschafter:innen, um ihn erneuern zu lassen."
@@ -3499,14 +3386,9 @@ join_region:
     is_big_city_2: Wähle bitte eine Stadt, eine Region oder einen Bezirk aus!
 
 globals:
-  account:
-    signup: Mitmachen
-    signin: Anmelden
-    signout: Abmelden
   save: Speichern
   save_changes: Änderungen speichern
   close: Schließen
-  reset: Zurücksetzen
   select: Bitte auswählen …
   show_more: Mehr anzeigen
   show_less: Weniger anzeigen
@@ -3956,7 +3838,7 @@ required_messages:
     footer: "Viele Grüße"
   move_to_standby_team:
     really: "Möchtest du {name} wirklich aus dem aktiven Team auf die Springerliste setzen?"
-    main: "du wurdest im Betrieb [{store}](/store/{storeId}) auf die Springerliste gesetzt. Du kannst dich damit aktuell nicht für Abholungen in diesem Betrieb eintragen und nicht den allgemeinen Gruppenchat lesen." 
+    main: "du wurdest im Betrieb [{store}](/store/{storeId}) auf die Springerliste gesetzt. Du kannst dich damit aktuell nicht für Abholungen in diesem Betrieb eintragen und nicht den allgemeinen Gruppenchat lesen."
     footer: "Viele Grüße"
   decline_store_application:
     really: "Möchtest du die Teambewerbung von {name} wirklich ablehnen?"
