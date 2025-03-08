@@ -16,6 +16,7 @@ use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\DTO\PublicRegionData;
+use Foodsharing\Modules\Region\ForumFollowerGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
@@ -68,6 +69,7 @@ class RegionRestController extends AbstractFoodsharingRestController
         private readonly EventGateway $eventGateway,
         protected Session $session,
         protected readonly CurrentUserUnitsInterface $currentUserUnits,
+        private readonly ForumFollowerGateway $forumFollowerGateway,
     ) {
     }
 
@@ -477,6 +479,7 @@ class RegionRestController extends AbstractFoodsharingRestController
             if ($member_role && $member_role->isLower(Role::AMBASSADOR)) {
                 throw new AccessDeniedHttpException();
             }
+            $this->forumFollowerGateway->deleteForumSubscription($regionId, $memberId, 1);
         }
 
         $this->regionGateway->removeRegionAdmin($regionId, $memberId);

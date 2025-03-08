@@ -52,6 +52,7 @@ class RegionTransactions
         private readonly FoodSharePointPermissions $foodSharePointPermissions,
         private readonly VotingPermissions $votingPermissions,
         private readonly AchievementPermissions $achievementPermissions,
+        private readonly ForumFollowerGateway $forumFollowerGateway,
         private readonly CacheInterface $cache,
     ) {
     }
@@ -158,7 +159,7 @@ class RegionTransactions
         } catch (UniqueConstraintViolationException) {
             throw new BadRequestHttpException('This mailbox name is already used.');
         }
-        $this->regionGateway->setRegionAdmins($region->id, $region->adminIds);
+        $this->updateRegionAdmins($region->id, $region->adminIds);
         $this->regionGateway->editRegion($region);
 
         $this->groupFunctionGateway->deleteRegionFunction($region->id);
@@ -308,5 +309,15 @@ class RegionTransactions
         }
 
         return [];
+    }
+
+    private function updateRegionAdmins(int $regionId, array $adminIds): void
+    {
+        $oldAdminIds = $this->foodsaverGateway->getRegionAmbassadorIds($regionId);
+        $removedAdminIds = array_diff($oldAdminIds, $adminIds);
+        foreach ($removedAdminIds as $removedAdminId) {
+            $this->forumFollowerGateway->deleteForumSubscription($regionId, $removedAdminId, 1);
+        }
+        $this->regionGateway->setRegionAdmins($regionId, $adminIds);
     }
 }

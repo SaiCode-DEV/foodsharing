@@ -122,9 +122,13 @@ class ForumFollowerGateway extends BaseGateway
      *
      * @throws \Exception
      */
-    public function deleteForumSubscription(int $regionId, int $foodsaverId): void
+    public function deleteForumSubscription(int $regionId, int $foodsaverId, ?int $subforum = null): void
     {
-        $themeIds = $this->db->fetchAllValuesByCriteria('fs_bezirk_has_theme', 'theme_id', ['bezirk_id' => $regionId]);
+        $criteria = ['bezirk_id' => $regionId];
+        if (!is_null($subforum)) {
+            $criteria['bot_theme'] = $subforum;
+        }
+        $themeIds = $this->db->fetchAllValuesByCriteria('fs_bezirk_has_theme', 'theme_id', $criteria);
         $this->db->delete('fs_theme_follower', ['theme_id' => $themeIds, 'foodsaver_id' => $foodsaverId]);
     }
 
