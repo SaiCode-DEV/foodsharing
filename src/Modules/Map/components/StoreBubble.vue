@@ -129,7 +129,7 @@ import StoreStatusIcon from '../../Store/components/StoreStatusIcon'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import { declineStoreRequest, requestStoreTeamMembership } from '@/api/stores'
 import { useUserStore } from '@/stores/user'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import MapBubbleMixin from './MapBubbleMixin'
 import MapPopup from './MapPopup.vue'
 import Markdown from '@/components/Markdown/Markdown.vue'
@@ -141,10 +141,12 @@ const userStore = useUserStore()
 
 export default {
   components: { MapPopup, Markdown, StoreStatusIcon, Avatar },
-  mixins: [ConfirmationDialogue, MapBubbleMixin],
+  mixins: [MapBubbleMixin],
   setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
     return {
       userStore,
+      confirmationDialogue,
     }
   },
   data () {

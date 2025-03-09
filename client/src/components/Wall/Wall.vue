@@ -69,12 +69,11 @@ import Container from '@/components/Container/Container.vue'
 import MarkdownInput from '../Markdown/MarkdownInput.vue'
 import { getWallPosts, addPost, deletePost } from '@/api/wall'
 import { HTTP_RESPONSE } from '@/consts'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 
 export default {
   components: { WallPost, Container, MarkdownInput, ContainerButton },
-  mixins: [ConfirmationDialogue],
   props: {
     targetId: { type: Number, required: true },
     target: { type: String, required: true },
@@ -84,6 +83,10 @@ export default {
     pageSize: { type: Number, default: 10 },
     firstPageSize: { type: Number, default: undefined },
     allowImageAttachments: { type: Boolean, default: true },
+  },
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
   },
   data () {
     return {

@@ -72,7 +72,7 @@
 </template>
 <script>
 import Wall from '@/components/Wall/Wall.vue'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import { ACCESSIBLE_REGION_TYPES, useRegionStore } from '@/stores/regions'
 import { useUserStore } from '@/stores/user'
 import BasePage from '@/views/pages/Layout/BasePage.vue'
@@ -93,9 +93,12 @@ const regionStore = useRegionStore()
 
 export default {
   components: { BasePage, Breadcrumbs, RegionMap, SimpleRegionStatistics, RegionSideNav, RegionChildrenContainer, Wall, InaccessibleRegionRedirectWarning, PublicRegionTopBanner, PublicRegionContactContainer, JoinRegionContainer, LeaveRegionContainer, PublicRegionDescriptionContainer },
-  mixins: [ConfirmationDialogue],
   props: {
     id: { type: Number, required: true },
+  },
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
   },
   data: () => ({
     regionData: null,

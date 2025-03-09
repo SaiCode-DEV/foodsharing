@@ -29,34 +29,25 @@
         <li>{{ $i18n('legal.if_delete.this_doesnt_get_deleted_history') }}</li>
       </ul>
     </div>
+    <b-form-group
+      v-if="!isMe"
+      label-for="reason"
+      :label="$i18n('foodsaver.delete_account_reason')"
+    >
+      <b-form-textarea
+        id="reason"
+        v-model="reason"
+        :rows="3"
+      />
+    </b-form-group>
     <b-button
       id="delete-account"
       variant="danger"
-      @click="$refs.modal_account_deletion.show()"
+      :disabled="(!isMe && reason === null) || reason?.length < 5"
+      @click="tryDeleteAccount"
     >
       {{ $i18n('foodsaver.delete_account_now') }}
     </b-button>
-    <b-modal
-      id="modal-delete-account"
-      ref="modal_account_deletion"
-      :title="$i18n('foodsaver.delete_account')"
-      :cancel-title="$i18n('button.cancel')"
-      :ok-title="$i18n('foodsaver.delete_account')"
-      header-class="d-flex"
-      content-class="pr-3 pt-3"
-      :ok-disabled="okDisabled"
-      @ok="tryDeleteAccount"
-    >
-      <div v-if="!isMe">
-        <b-form-group :label="$i18n('foodsaver.delete_account_reason')">
-          <b-form-input v-model="reason" />
-        </b-form-group>
-      </div>
-
-      <div v-else>
-        {{ $i18n('foodsaver.delete_account_sure') }}
-      </div>
-    </b-modal>
   </div>
 </template>
 
@@ -65,6 +56,7 @@ import { deleteUser } from '@/api/user'
 import { goTo, pulseError, pulseSuccess } from '@/script'
 import i18n from '@/helper/i18n'
 import { useUserStore } from '@/stores/user'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 
 const userStore = useUserStore()
 
@@ -73,8 +65,10 @@ export default {
     userId: { type: Number, required: true },
   },
   setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
     return {
       userStore,
+      confirmationDialogue,
     }
   },
   data () {
@@ -92,6 +86,29 @@ export default {
   },
   methods: {
     async tryDeleteAccount () {
+      if (!this.isMe && this.reason === null) return
+      const options = {
+        params: {},
+      }
+
+      if (!this.isMe) {
+        options.params.name = this.userId
+        options.params.reason = this.reason
+      }
+      // Final confirmation with countdown
+      const confirmed = await this.confirmationDialogue(
+        this.isMe ? 'foodsaver.delete_account_sure' : 'foodsaver.delete_account_sure_reason',
+        {
+          title: this.$i18n('foodsaver.delete_account'),
+          okTitle: this.$i18n('foodsaver.delete_account'),
+          okVariant: 'danger',
+          countdown: this.isMe ? 30 : 5,
+          ...options,
+        },
+      )
+
+      if (!confirmed) return
+
       try {
         await deleteUser(this.userId, this.reason)
         pulseSuccess(i18n('success'))

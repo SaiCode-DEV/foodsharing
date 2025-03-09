@@ -44,19 +44,22 @@
 </template>
 
 <script>
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import { createThread } from '@/api/forum'
 import { pulseError } from '@/script'
 import i18n from '@/helper/i18n'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
   components: { MarkdownInput },
-  mixins: [ConfirmationDialogue],
   props: {
     groupId: { type: Number, required: true },
     subforumId: { type: Number, required: true },
     isModerated: { type: Boolean, required: true },
+  },
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
   },
   data () {
     return {

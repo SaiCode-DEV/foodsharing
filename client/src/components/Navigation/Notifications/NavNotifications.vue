@@ -70,14 +70,17 @@ import Dropdown from '../_NavItems/NavDropdown'
 import NotificationsEntry from './NavNotificationsEntry'
 // Mixins
 import { pulseError } from '@/script'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 
 export default {
   components: {
     NotificationsEntry,
     Dropdown,
   },
-  mixins: [ConfirmationDialogue],
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
+  },
   computed: {
     bells () {
       const bells = DataBell.getters.get() // returns vue mutation object, you can not sort on this, without driving vue crazy// !

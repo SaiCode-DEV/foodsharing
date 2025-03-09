@@ -92,7 +92,7 @@ import LeafletLocationPicker from '@/components/map/LeafletLocationPicker.vue'
 import { setRegionPin } from '@/api/regions'
 import { useRegionStore } from '@/stores/regions'
 import { pulseError } from '@/script'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 Leaflet.AwesomeMarkers.Icon.prototype.options.prefix = 'fa'
 
 const regionStore = useRegionStore()
@@ -112,12 +112,15 @@ function medianLatLon (coords) {
 
 export default {
   components: { Container, LeafletMap, LMarker, LTooltip, FoodSharePointBubble, ContainerButton, OverflowMenu, LeafletLocationPicker },
-  mixins: [ConfirmationDialogue],
   props: {
     regionId: { type: Number, required: true },
     location: { type: Object, default: null },
     foodSharePoints: { type: Array, default: () => [] },
     mayEdit: { type: Boolean, default: false },
+  },
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
   },
   data () {
     return {

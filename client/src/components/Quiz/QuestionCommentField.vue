@@ -33,15 +33,17 @@
 </template>
 
 <script>
-
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import { addPost } from '@/api/wall'
 import { pulseError, pulseInfo } from '@/script'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
-  mixins: [ConfirmationDialogue],
   props: {
     questionId: { type: Number, required: true },
+  },
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
   },
   data: () => ({
     comment: '',

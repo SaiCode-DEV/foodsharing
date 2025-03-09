@@ -20,10 +20,12 @@ $I->login($foodsaver['email'], $pass);
 $I->amOnPage('/user/current/settings?sub=deleteaccount');
 
 $I->click('#delete-account');
-$I->performOn('#modal-delete-account', ActionSequence::build()
+$I->performOn('#confirmation-dialogue', ActionSequence::build()
     ->wait(1) // Required screen fading hides text
     ->see('wirklich')
-    ->click('//button[text()="Account löschen"]')
+    ->wait(28)
+    ->waitForElementNotVisible('.confirm-countdown')
+    ->click('button.btn-danger.confirm-button')
 );
 $I->waitForActiveAPICalls();
 

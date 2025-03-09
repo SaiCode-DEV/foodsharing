@@ -178,7 +178,7 @@ import ProfileHistoryModal from './ProfileHistoryModal'
 import { sendBuddyRequest, removeBuddy } from '@/api/buddy'
 import i18n from '@/helper/i18n'
 import QuizSessionHistoryModal from './QuizSessionHistoryModal.vue'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 
 const BUDDY_TYPES = Object.freeze({
   NO_BUDDY: -1,
@@ -188,10 +188,13 @@ const BUDDY_TYPES = Object.freeze({
 
 export default {
   components: { Avatar, ReportRequest, MediationRequest, ProfileHistoryModal, QuizSessionHistoryModal },
-  mixins: [ConfirmationDialogue],
   props: {
     profileMenu: { type: Object, required: true },
     currentUserId: { type: Number, default: null },
+  },
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
   },
   data () {
     return {

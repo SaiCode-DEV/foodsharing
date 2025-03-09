@@ -41,20 +41,13 @@
         </b-dropdown-item>
       </b-dropdown>
     </b-button-group>
-    <confirmation-dialog
-      ref="confirmDialog"
-      :message="confirmMessage"
-      :title="i18n('legal.privacy_policy')"
-      :ok-title="i18n('legal.button.agree')"
-      @confirm="handleConfirm"
-    />
   </div>
 </template>
 
 <script setup>
 import i18n from '@/helper/i18n'
 import { ref, onMounted, defineProps } from 'vue'
-import ConfirmationDialog from './ConfirmationDialogue.vue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import { pulseError } from '@/script'
 
 const props = defineProps({
@@ -124,25 +117,21 @@ if (isMobile) {
 const STORAGE_KEY = 'preferred_nav_app'
 const selectedApp = ref(null)
 const dropdownRef = ref(null)
-const confirmDialog = ref(null)
-const confirmMessage = ref('')
-const pendingApp = ref(null)
+const { confirmationDialogue } = useConfirmationDialogue()
 
-const selectApp = (app) => {
-  pendingApp.value = app
-  confirmMessage.value = i18n('navi.gdpr_warning', {
-    provider: APPS.find(a => a.name === app).displayName,
-  })
-  confirmDialog.value?.show()
-}
+const selectApp = async (app) => {
+  const confirmed = await confirmationDialogue(
+    i18n('navi.gdpr_warning', {
+      provider: APPS.find(a => a.name === app).displayName,
+    }),
+    { title: i18n('legal.privacy_policy'), okTitle: i18n('legal.button.agree') },
+  )
 
-const handleConfirm = () => {
-  if (!pendingApp.value) return
-
-  selectedApp.value = pendingApp.value
-  localStorage.setItem(STORAGE_KEY, pendingApp.value)
-  openNavigation(pendingApp.value)
-  pendingApp.value = null
+  if (confirmed) {
+    selectedApp.value = app
+    localStorage.setItem(STORAGE_KEY, app)
+    openNavigation(app)
+  }
 }
 
 const handleMainButtonClick = () => {

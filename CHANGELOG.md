@@ -28,6 +28,7 @@
 - Improved address input #2317 !4018 @AntonBallmaier
 - Group application bells are deleted when the application is accepted or denied !4025 @alex.simm
 - Replace b-caroussel with custom Gallery component #2188 @AntonBallmaier
+- Deleting account and leaving home district now require a few seconds of waiting !3638 @SaiCode
 - Improved mail for thread activation #2298 !4056 @AntonBallmaier
 
 ## Bugfixes

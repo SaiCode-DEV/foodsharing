@@ -2366,9 +2366,7 @@ foodsaver:
   delete_account_sure: Are you sure you want to delete your account?
   edit_failure: Nothing was changed or changes were not saved
   edit_success: Changes have been saved
-  delete_account_sure_reason: "Do you really want to delete {name}’s account? You
-    can optionally enter a reason here that can later be used to understand why the
-    account was deleted:"
+  delete_account_sure_reason: "Do you really want to delete the account? Reason: {reason}"
   delete_account_reason: Reason for account deletion
 store:
   addNewStoresButton: Add new store

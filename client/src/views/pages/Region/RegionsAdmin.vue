@@ -132,15 +132,18 @@ import MultiUserSearchInput from '@/components/MultiUserSearchInput.vue'
 import { REGION_UNIT_TYPE, WORKGROUP_FUNCTION } from '@/stores/regions'
 import { getRegionData, patchRegion, createRegion } from '@/api/regions'
 import { deleteGroup } from '@/api/groups'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import { pulseError } from '@/script'
 import Info from '@/components/Help/Info.vue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 
 // TODO preselect no WG function
 
 export default {
   components: { Container, RegionTree, MultiUserSearchInput, Info },
-  mixins: [ConfirmationDialogue],
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
+  },
   data () {
     return {
       regionOptions: [],

@@ -95,6 +95,7 @@
 </template>
 
 <script>
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import {
   demoteAsStoreManager, promoteToStoreManager,
   moveMemberToStandbyTeam, moveMemberToRegularTeam,
@@ -111,7 +112,6 @@ import { HTTP_RESPONSE } from '@/consts'
 import PhoneButton from '@/components/PhoneButton.vue'
 import Time from '@/components/Time.vue'
 import OverflowMenu from '@/components/OverflowMenu.vue'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import StoreTeamManagementPanel from './StoreTeamManagementPanel.vue'
 import StoreTeamFilterPanel from './StoreTeamFilterPanel.vue'
 import StoreApplications from '@/components/Modals/Store/StoreApplications.vue'
@@ -121,7 +121,7 @@ import RequiredMessageModal from '@/components/Modals/RequiredMessageModal.vue'
 
 export default {
   components: { StoreTeamAvatar, Container, PhoneButton, Time, OverflowMenu, StoreTeamManagementPanel, StoreTeamFilterPanel, StoreApplications, RequiredMessageModal },
-  mixins: [MediaQueryMixin, ListToggleMixin, ConfirmationDialogue, CopyToClipboardMixin],
+  mixins: [MediaQueryMixin, ListToggleMixin, CopyToClipboardMixin],
   props: {
     fsId: { type: Number, required: true },
     mayEditStore: { type: Boolean, default: false },
@@ -131,6 +131,10 @@ export default {
     storeId: { type: Number, required: true },
     storeTitle: { type: String, default: '' },
     regionId: { type: Number, required: true },
+  },
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
   },
   data () {
     const sortingFunctions = [

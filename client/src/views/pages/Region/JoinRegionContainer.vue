@@ -17,13 +17,16 @@
 import Container from '@/components/Container/Container.vue'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
 import { joinRegion } from '@/api/regions'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 
 export default {
   components: { Container, ContainerButton },
-  mixins: [ConfirmationDialogue],
   props: {
     regionData: { type: Object, required: true },
+  },
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
   },
   data: () => ({
     loading: false,

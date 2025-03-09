@@ -9,18 +9,20 @@
   </Container>
 </template>
 <script>
-
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import Container from '@/components/Container/Container.vue'
 import ReportList from '@/components/Report/ReportList.vue'
 import { deleteReport } from '@/api/report'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
   components: { Container, ReportList },
-  mixins: [ConfirmationDialogue],
   props: {
     reportFetcher: { type: Function, required: true },
     title: { type: String, required: true },
+  },
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
   },
   data: () => ({ reports: null }),
   async mounted () {

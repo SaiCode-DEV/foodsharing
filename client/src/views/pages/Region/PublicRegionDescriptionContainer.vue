@@ -49,7 +49,7 @@ import Container from '@/components/Container/Container.vue'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import { setRegionPin } from '@/api/regions'
 import { pulseError } from '@/script'
 import { useRegionStore } from '@/stores/regions'
@@ -58,11 +58,14 @@ import OverflowMenu from '@/components/OverflowMenu.vue'
 const regionStore = useRegionStore()
 export default {
   components: { Container, Markdown, MarkdownInput, ContainerButton, OverflowMenu },
-  mixins: [ConfirmationDialogue],
   props: {
     regionId: { type: Number, required: true },
     description: { type: String, required: true },
     mayEdit: { type: Boolean, default: false },
+  },
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
   },
   data: () => ({
     editDescription: '',

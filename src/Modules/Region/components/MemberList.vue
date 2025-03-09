@@ -364,19 +364,19 @@ import i18n from '@/helper/i18n'
 import UserSearchInput from '@/components/UserSearchInput'
 import { verifyUser, deverifyUser, createPassportAsAmbassador } from '@/api/verification'
 import Container from '@/components/Container/Container.vue'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import Avatar from '@/components/Avatar/Avatar.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import { REGION_IDS } from '@/consts'
 import RequiredMessageModal from '@/components/Modals/RequiredMessageModal.vue'
 import { PASSPORT_FILTER_OPTIONS, useUserStore } from '@/stores/user'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 
 const regionStore = useRegionStore()
 const userStore = useUserStore()
 
 export default {
   components: { UserSearchInput, Container, Avatar, RequiredMessageModal },
-  mixins: [ConfirmationDialogue, MediaQueryMixin],
+  mixins: [MediaQueryMixin],
   props: {
     groupId: { type: Number, required: true },
     regionName: {
@@ -390,9 +390,10 @@ export default {
     },
   },
   setup () {
-    return {
-      regionStore,
-    }
+    const { confirmationDialogue } = useConfirmationDialogue()
+    const regionStore = useRegionStore()
+    const userStore = useUserStore()
+    return { confirmationDialogue, regionStore, userStore }
   },
   data () {
     return {

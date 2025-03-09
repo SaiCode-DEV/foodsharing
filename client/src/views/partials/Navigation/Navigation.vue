@@ -47,6 +47,7 @@
     </div>
     <ModalLoader v-if="isLoggedIn && !useRestrictedNavigation" />
     <ThemeSwitcherModal />
+    <ConfirmationDialogue ref="confirmDialog" />
   </b-navbar>
 </template>
 
@@ -76,6 +77,8 @@ import PetitionBanner from '@/views/partials/TopBanner/Petition/PetitionBanner.v
 import { clearCaches } from '@/helper/cache'
 import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
 import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
+import ConfirmationDialogue from '@/components/UI/ConfirmationDialogue.vue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
 
 const props = defineProps({
@@ -95,11 +98,14 @@ const basketStore = useBasketStore()
 
 const { mobile } = useMediaQuery()
 const navbar = ref(null)
+const confirmDialog = ref(null)
 
 const isLoggedIn = computed(() => userStore.isLoggedIn)
 const isFoodsaver = computed(() => userStore.isFoodsaver)
 const userId = computed(() => userStore.getUserId)
 const useRestrictedNavigation = computed(() => userStore.isApiRestrictedForLegalReasons)
+
+const { emitter } = useConfirmationDialogue()
 
 watch(isFoodsaver, async (newValue) => {
   if (newValue && !useRestrictedNavigation.value) {
@@ -123,6 +129,10 @@ onMounted(() => {
   if (userStore.hasMailBox && !useRestrictedNavigation.value) {
     userStore.fetchMailUnreadCount()
   }
+
+  emitter.addListener('show-confirmation', (options) => {
+    confirmDialog.value?.show(options)
+  })
 })
 
 function resizeHandler () {

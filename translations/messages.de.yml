@@ -1833,7 +1833,7 @@ foodsaver:
   delete_account: "Account löschen"
   delete_account_reason: "Grund der Account-Löschung"
   delete_account_sure: "Soll dein Account wirklich gelöscht werden?"
-  delete_account_sure_reason: "Soll der Account von {name} wirklich gelöscht werden? Du kannst hier optional eine Begründung angeben, mit der sich später nachvollziehen lässt, warum der Account gelöscht wurde:"
+  delete_account_sure_reason: "Soll der Account wirklich gelöscht werden? Grund: {reason}"
   delete_account_now: "Account jetzt löschen"
   delete_own_account: "Du bist dabei, deinen Account zu löschen. Bist du dir ganz sicher?"
   url_error: "Mit deiner Homepage-URL stimmt etwas nicht"

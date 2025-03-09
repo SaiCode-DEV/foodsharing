@@ -78,14 +78,17 @@ import { pulseError } from '@/script'
 import i18n from '@/helper/i18n'
 import { deleteContent, listContent } from '@/api/content'
 import { BButton, BTable } from 'bootstrap-vue'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 
 export default {
   components: { BButton, BTable },
-  mixins: [ConfirmationDialogue],
   props: {
     mayCreateContent: { type: Boolean, default: false },
     mayEditContent: { type: Boolean, default: false },
+  },
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
   },
   data () {
     return {

@@ -1,7 +1,8 @@
-import ConfirmationDialogue from './ConfirmationDialogue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
+
+const { confirmationDialogue } = useConfirmationDialogue()
 
 export default {
-  mixins: [ConfirmationDialogue],
   data: function () {
     return {
       conferenceId: null,
@@ -14,7 +15,7 @@ export default {
         okTitle: this.$i18n('conference.join'),
         okVariant: undefined,
       }
-      if (!await this.confirmationDialogue('conference.confirm_info', dialogueOptions)) return
+      if (!await confirmationDialogue('conference.confirm_info', dialogueOptions)) return
       this.conferenceId = id
       this.join()
     },

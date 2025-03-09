@@ -155,18 +155,21 @@ import Time from '@/components/Time.vue'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import DatePicker from '@/components/DateTime/DatePicker.vue'
 import { useUserStore } from '@/stores/user'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 
 const userStore = useUserStore()
 
 export default {
   components: { Container, Achievements, Markdown, UserSearchInput, Avatar, Time, OverflowMenu, DatePicker },
-  mixins: [ConfirmationDialogue],
   props: {
     groupName: { type: String, required: true },
     groupId: { type: Number, required: true },
     isWorkGroup: { type: Boolean, default: false },
     mayAdministrateAchievements: { type: Boolean, default: false },
+  },
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
   },
   data: () => ({
     achievements: null,

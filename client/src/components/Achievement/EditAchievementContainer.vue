@@ -76,14 +76,16 @@ import Achievement from '@/components/Achievement/Achievement.vue'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import Info from '@/components/Help/Info.vue'
-
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 
 export default {
   components: { Container, Achievement, ContainerButton, MarkdownInput, Info },
-  mixins: [ConfirmationDialogue],
   props: {
     achievement: { type: Object, default: null },
+  },
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
   },
   data () {
     return {

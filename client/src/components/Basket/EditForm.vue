@@ -22,16 +22,19 @@
 </template>
 
 <script>
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import { removeBasket } from '@/api/baskets'
 import AddBasketModal from '@/views/partials/Modals/AddBasketModal.vue'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 
 export default {
   components: { AddBasketModal },
-  mixins: [ConfirmationDialogue],
   props: {
     basket: { type: Object, required: true },
     mayEdit: { type: Boolean, default: false },
+  },
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
   },
   methods: {
     async deleteBasket () {

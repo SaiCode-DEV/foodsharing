@@ -94,18 +94,17 @@
 </template>
 
 <script>
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import VoteForm from './VoteForm'
 import ResultsTable from './ResultsTable'
 import Markdown from '@/components/Markdown/Markdown'
 import { deletePoll } from '@/api/voting'
 import { hideLoader, pulseError, showLoader } from '@/script'
 import i18n from '@/helper/i18n'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import Container from '@/components/Container/Container.vue'
 
 export default {
   components: { ResultsTable, VoteForm, Markdown, Container },
-  mixins: [ConfirmationDialogue],
   props: {
     poll: {
       type: Object,
@@ -135,6 +134,10 @@ export default {
       type: Boolean,
       default: false,
     },
+  },
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
   },
   data () {
     return {

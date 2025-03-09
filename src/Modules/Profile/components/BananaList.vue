@@ -78,12 +78,11 @@ import { hideLoader, pulseError, pulseInfo, showLoader } from '@/script'
 import BananaListEntry from './BananaListEntry'
 import { HTTP_RESPONSE } from '@/consts'
 import { useUserStore } from '@/stores/user'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 const userStore = useUserStore()
 
 export default {
   components: { BananaListEntry },
-  mixins: [ConfirmationDialogue],
   props: {
     recipient: { type: Object, required: true },
     canGiveBanana: { type: Boolean, default: false },
@@ -91,6 +90,10 @@ export default {
     bananas: { type: Array, default: () => { return [] } },
     nonePlaceholder: { type: String, default: '' },
     isSent: { type: Boolean, default: false },
+  },
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
   },
   data () {
     return {

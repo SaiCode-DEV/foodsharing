@@ -49,14 +49,17 @@
   </div>
 </template>
 <script>
+import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import { hideLoader, pulseError, pulseSuccess, showLoader } from '@/script'
 import { createApiToken, getApiToken, removeApiToken } from '@/api/calendar'
-import ConfirmationDialogue from '@/mixins/ConfirmationDialogue'
 import Markdown from '@/components/Markdown/Markdown.vue'
 
 export default {
   components: { Markdown },
-  mixins: [ConfirmationDialogue],
+  setup () {
+    const { confirmationDialogue } = useConfirmationDialogue()
+    return { confirmationDialogue }
+  },
   data () {
     return {
       token: null,
