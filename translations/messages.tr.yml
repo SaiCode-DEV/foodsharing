@@ -805,6 +805,7 @@ group:
         invalid_passport: geçersiz kimlik
       execute: Uygulamak
       already_verified: Seçilen tüm kullanıcılar zaten doğrulandı
+      inform_user: Bildirimle
     all_roles: Tüm Roller
   show-all: Hepsini göster
   delete_group_sure: '{groupName} çalışma grubunu/bölgesini silmek istediğinizden
@@ -1958,8 +1959,8 @@ foodsaver:
   restricted: Ne yazık ki, bu verileri görüntüleme yetkiniz yok.
   actions: Faaliyetler
   title: Foodsaver
-  delete_account_sure_reason: '{name} hesabını gerçekten silmek istiyor musunuz? Opsiyonel,
-    buraya daha sonra hesabın neden silindiğini anlamak için bir neden girebilirsiniz:'
+  delete_account_sure_reason: 'Hesabınızı gerçekten silmek istiyor musunuz? Sebep:
+    {name}'
   mailchange_error: Yeni e-posta adresinizin etkinleştirilmesi başarısız oldu. Lütfen
     tekrar deneyin.
   about_me_public: "[Ekip ve eski Ekip Sayfası](/team)'nda listelenen herkese gösterilecek
