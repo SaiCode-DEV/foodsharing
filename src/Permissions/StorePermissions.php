@@ -10,6 +10,7 @@ use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
+use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Development\FeatureToggles\DependencyInjection\FeatureToggleChecker;
 use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
@@ -21,6 +22,18 @@ use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 class StorePermissions
 {
+    /**
+     * Maps store ids to the current user's team status in that store. This only contain data about the logged in user.
+     *
+     * @see MembershipStatus
+     * @var array<int, int> Key: store id, Value: user team membership status
+     */
+    private array $userTeamStatusCache = [];
+    /**
+     * @var array<int, int> Key: store id, Value: the store's region id
+     */
+    private array $storeRegionIdCache = [];
+
     public function __construct(
         private readonly StoreGateway $storeGateway,
         private readonly Session $session,
@@ -33,22 +46,42 @@ class StorePermissions
     ) {
     }
 
+    /**
+     * Returns the current user's team status in the specified store. This uses cached values from $userTeamStatusCache
+     * if possible.
+     */
+    private function getCachedUserTeamStatus(int $storeId): int
+    {
+        if (!array_key_exists($storeId, $this->userTeamStatusCache)) {
+            $this->userTeamStatusCache[$storeId] = $this->storeGateway->getUserTeamStatus($this->session->id(), $storeId);
+        }
+
+        return $this->userTeamStatusCache[$storeId];
+    }
+
+    /**
+     * Returns the store's region id. This uses cached values from $storeRegionIdCache if possible.
+     */
+    private function getCachedStoreRegionId(int $storeId): int
+    {
+        if (!array_key_exists($storeId, $this->storeRegionIdCache)) {
+            $this->storeRegionIdCache[$storeId] = $this->storeGateway->getStoreRegionId($storeId);
+        }
+
+        return $this->storeRegionIdCache[$storeId];
+    }
+
     private function mayIsStoreResponsible($storeId)
     {
-        return $this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) === UserTeamStatus::Coordinator;
+        return $this->getCachedUserTeamStatus($storeId) === UserTeamStatus::Coordinator;
     }
 
     /**
      * Assumes that the given user is a foodsaver (i.e. can join store teams).
      * Just the additional permissions for the given, specific store are checked.
      */
-    public function mayJoinStoreRequest(int $storeId, ?int $userId = null): bool
+    public function mayJoinStoreRequest(int $storeId): bool
     {
-        $userId ??= $this->session->id();
-        if (is_null($userId)) {
-            return false;
-        }
-
         $teamSearchStatus = $this->storeGateway->getStoreTeamStatus($storeId);
 
         // store open?
@@ -57,14 +90,14 @@ class StorePermissions
         }
 
         // already in team?
-        if ($this->storeGateway->getUserTeamStatus($userId, $storeId) !== UserTeamStatus::NoMember) {
+        if ($this->getCachedUserTeamStatus($storeId) !== UserTeamStatus::NoMember) {
             return false;
         }
 
         if (
             $this->featureToggleChecker->isFeatureToggleActive(FeatureToggleDefinitions::HYGIENE_QUIZ->value) &&
             $this->storeGateway->getStoreRequiresHygiene($storeId) &&
-            !$this->achievementGateway->hasAchievement($userId, AchievementIDs::HYGIENE_CERTIFICATE)
+            !$this->achievementGateway->hasAchievement($this->session->id(), AchievementIDs::HYGIENE_CERTIFICATE)
         ) {
             return false;
         }
@@ -94,7 +127,7 @@ class StorePermissions
         }
 
         // Users can only be added if they are a member of the store's region
-        $storeRegionId = $this->storeGateway->getStoreRegionId($storeId);
+        $storeRegionId = $this->getCachedStoreRegionId($storeId);
         $userRegions = array_keys($this->regionGateway->listForFoodsaver($userId));
 
         return in_array($storeRegionId, $userRegions);
@@ -122,7 +155,7 @@ class StorePermissions
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
-        if ($this->storeGateway->getUserTeamStatus($fsId, $storeId) >= UserTeamStatus::WaitingList) {
+        if ($this->getCachedUserTeamStatus($storeId) >= UserTeamStatus::WaitingList) {
             return true;
         }
 
@@ -139,7 +172,7 @@ class StorePermissions
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
-        if ($this->storeGateway->getUserTeamStatus($fsId, $storeId) >= UserTeamStatus::Member) {
+        if ($this->getCachedUserTeamStatus($storeId) >= UserTeamStatus::Member) {
             return true;
         }
 
@@ -213,7 +246,7 @@ class StorePermissions
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
-        $storeRegion = $this->storeGateway->getStoreRegionId($storeId);
+        $storeRegion = $this->getCachedStoreRegionId($storeId);
         $storeGroup = $this->groupFunctionGateway->getRegionFunctionGroupId($storeRegion, WorkgroupFunction::STORES_COORDINATION);
         if (empty($storeGroup)) {
             if ($this->currentUserUnits->isAdminFor($storeRegion)) {

@@ -511,7 +511,7 @@ class StoreRestController extends AbstractFoodsharingRestController
         if (!$this->storeGateway->storeExists($storeId)) {
             throw new NotFoundHttpException('Store does not exist.');
         }
-        if (!$this->storePermissions->mayJoinStoreRequest($storeId, $this->session->id())) {
+        if (!$this->storePermissions->mayJoinStoreRequest($storeId)) {
             throw new AccessDeniedHttpException();
         }
         if ($this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) !== TeamMembershipStatus::NoMember) {
