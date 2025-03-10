@@ -24,7 +24,7 @@
 - Create a personal immediately after finishing the store manager quiz !3983 @alex.simm
 - Improved burger menu for mobile !3989 @chriswalg
 - Add a rate limiter for store location changes #2326 !4026 @AntonBallmaier
-- Austrian und Swiss store chain groups can now access the store chain list properly #2325 !4024 @AntonBallmaier
+- Austrian und Swiss store chain groups can now access the store chain list properly #2325 !4024 #2352 !4073 @AntonBallmaier
 - Improved address input #2317 !4018 @AntonBallmaier
 - Group application bells are deleted when the application is accepted or denied !4025 @alex.simm
 - Replace b-caroussel with custom Gallery component #2188 @AntonBallmaier

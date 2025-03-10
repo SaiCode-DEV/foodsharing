@@ -19,7 +19,10 @@ class StoreChainPermissions
 
     public function mayAdministrateStoreChains(): bool
     {
-        return $this->session->mayRole(Role::ORGA) || $this->currentUserUnits->isAdminFor(RegionIDs::STORE_CHAIN_GROUP);
+        return $this->session->mayRole(Role::ORGA)
+            || $this->currentUserUnits->isAdminFor(RegionIDs::STORE_CHAIN_GROUP)
+            || $this->currentUserUnits->isAdminFor(RegionIDs::STORE_CHAIN_GROUP_SWITZERLAND)
+            || $this->currentUserUnits->isAdminFor(RegionIDs::STORE_CHAIN_GROUP_AUSTRIA);
     }
 
     public function mayAdministrateStoreChain($chainId): bool

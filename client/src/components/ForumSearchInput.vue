@@ -33,6 +33,11 @@ import VueSimpleSuggest from 'vue-simple-suggest'
 import { getThread } from '@/api/forum'
 import { searchForum } from '@/api/search'
 import { pulseError } from '@/script'
+import { useRegionStore } from '@/stores/regions'
+import { getters } from '@/stores/groups'
+
+const regionStore = useRegionStore()
+const groups = getters.get()
 
 export default {
   components: { VueSimpleSuggest },
@@ -65,6 +70,13 @@ export default {
       },
     }
   },
+  computed: {
+    searchRegions () {
+      const myRegions = regionStore.regions.map(region => region.id)
+      const myGroups = groups.map(group => group.id)
+      return [...new Set(this.regionIds).intersection(new Set([...myRegions, ...myGroups]))]
+    },
+  },
   mounted () {
     this.loadInitialForumInformation()
   },
@@ -79,12 +91,12 @@ export default {
       const isNumber = /^\d+\.?\d*$/.test(query)
       if (isNumber) {
         const thread = (await getThread(Number(query))).data
-        if (this.regionIds.includes(thread.regionId)) {
+        if (this.searchRegions.includes(thread.regionId)) {
           matchingForums.push({ id: thread.id, name: thread.title })
         }
-      } else if (query.length >= 3 || isNumber) {
+      } else if (query.length >= 3) {
         try {
-          matchingForums = (await Promise.all(this.regionIds.map(regionId => searchForum(regionId, 0, query)))).flat()
+          matchingForums = (await Promise.all(this.searchRegions.map(regionId => searchForum(regionId, 0, query)))).flat()
           if (this.filter) {
             // let the external function filter by forum id
             const filteredIds = matchingForums.map(x => x.id).filter(this.filter)
