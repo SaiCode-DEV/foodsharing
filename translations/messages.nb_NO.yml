@@ -1412,7 +1412,7 @@ mailbox:
     too_large_to_send: Noen av filene var for store og kunne ikke legges ved.
     too_many: For mange filer ble valgt. Maksimalt 10 filer kan legges ved e-posten.
   add: Legg til
-  mark_as_read: Merk som lest
+  mark_as_read: Merk e-post som lest
   unknown_sender: Ukjent avsender
   less: mindre
   more: mer
@@ -1562,9 +1562,7 @@ foodsaver:
   about_me_public: "vil bli vist på [teamsiden eller på siden til de tidligere teammedlemmene](/team),
     hvis du tilhører en av disse gruppene. Personer som er oppført der kan sees av
     alle på internett.\n"
-  delete_account_sure_reason: 'Er du sikker på at du vil slette kontoen til {name}?
-    Hvis du vil, kan du gi en grunn her slik at du senere kan forstå hvorfor kontoen
-    ble slettet:'
+  delete_account_sure_reason: 'Vil du virkelig slette kontoen? Årsak: {reason}'
   delete_account_reason: Årsak til sletting av kontoen
 ageBandList:
   NumberOfAgeband: nummer
