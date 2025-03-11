@@ -900,9 +900,8 @@ foodsaver:
   actions: Actions
   title: Collecteur
   bread: Tous les foodsaver
-  delete_account_sure_reason: 'Le compte de {name} doit-il vraiment être supprimé ?
-    Tu peux éventuellement indiquer ici une raison qui permettra de comprendre plus
-    tard pourquoi le compte a été supprimé :'
+  delete_account_sure_reason: 'Le compte doit-il vraiment être supprimé ? Raison :
+    {reason}'
   delete_account_reason: Motif de la suppression du compte
 recipients:
   done: Tous les courriels ont été envoyés
@@ -3566,7 +3565,7 @@ region:
       ici !
     leave: quitter le district
     leave_name: quitter {name}
-    leave_text: Tu n'est plus actif/ve à {name}? Alors tu devrais quitter le district.
+    leave_text: Tu n’est plus actif/ve à {name} ? Alors tu devrais quitter le district.
     confirm_leaving: Tu souhaites rejoindre le district {name} ? Les ambassadeurs·rices
       auront ainsi accès à ton profil.
     show_on_large_map: Voir sur la grande carte
