@@ -132,7 +132,7 @@ quiz:
     continue: "{name} – Quiz fortführen!"
     pause: "Lernpause ({name})"
     disqualified: "{name} – Leider disqualifiziert."
-    finished: "{name} – Du hast Bestanden!"
+    finished: "{name} – Du hast bestanden!"
   startmodal:
     title: "Hinweise zum Quiz"
     infos:
@@ -425,9 +425,9 @@ group:
   title: "foodsharing-Arbeitsgruppen"
   subtitle: "hier findest du Hilfe und viel zu tun …"
   member_count:
-    zero: "Keine Mitwirkenden"
-    one:  "Eine mitwirkende Person"
-    other: "{count} weitere Mitwirkende"
+    zero: "Keine Mitglieder"
+    one:  "Ein Mitglied insgesamt"
+    other: "{count} Mitglieder insgesamt"
   admin_count:
     zero: "Keine Admins"
     one: "Ein:e Administrator:in"
