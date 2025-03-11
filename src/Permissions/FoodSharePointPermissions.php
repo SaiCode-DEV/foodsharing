@@ -45,12 +45,9 @@ class FoodSharePointPermissions
         return $this->currentUserUnits->isAdminFor($regionId);
     }
 
-    public function mayEdit(int $regionId, array $follower): bool
+    public function mayEdit(int $regionId, int $foodSharePointId): bool
     {
-        $isManager = false;
-        if (isset($follower['all'][$this->session->id()])) {
-            $isManager = $follower['all'][$this->session->id()] === 'fsp_manager';
-        }
+        $isManager = $this->foodSharePointGateway->isManagerForFoodSharePoint($this->session->id(), $foodSharePointId);
 
         return $this->mayEditFromManager($regionId, $isManager);
     }

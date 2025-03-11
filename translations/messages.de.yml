@@ -14,7 +14,7 @@ plz: "Postleitzahl"
 email: "E-Mail-Adresse"
 anschrift: "Straße und Hausnummer"
 geschlecht: "Geschlecht"
-options: "Optionen" # FoodSharePointControl FoodSharePointView foodSharePoint.twig
+options: "Optionen" # FoodSharePointControl foodSharePoint.twig
 picture: "Bild" # BlogView and maybe more
 parent_id: "Elternbezirk" # at least RegionAdminControl
 fs_id: "foodsharing-ID"

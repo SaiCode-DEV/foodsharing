@@ -335,45 +335,6 @@ class FoodSharePointGateway extends BaseGateway
         );
     }
 
-    public function getFollower(int $foodSharePointId): array
-    {
-        $follower = $this->db->fetchAll(
-            '
-			SELECT 	fs.`name`,
-					fs.`nachname`,
-					fs.`id`,
-					fs.`photo`,
-					ff.type,
-					fs.is_sleeping
-
-			FROM 	fs_foodsaver fs,
-					fs_fairteiler_follower ff
-			WHERE 	ff.foodsaver_id = fs.id
-			AND 	ff.fairteiler_id = :foodSharePointId
-
-		',
-            [':foodSharePointId' => $foodSharePointId]
-        );
-        $normal = [];
-        $fspManagers = [];
-        $all = [];
-        foreach ($follower as $f) {
-            if ($f['type'] === FollowerType::FOLLOWER) {
-                $normal[] = $f;
-                $all[$f['id']] = 'follow';
-            } elseif ($f['type'] === FollowerType::FOOD_SHARE_POINT_MANAGER) {
-                $fspManagers[] = $f;
-                $all[$f['id']] = 'fsp_manager';
-            }
-        }
-
-        return [
-            'follow' => $normal,
-            'fsp_manager' => $fspManagers,
-            'all' => $all,
-        ];
-    }
-
     public function acceptFoodSharePoint(int $foodSharePointId): void
     {
         $this->db->update('fs_fairteiler', ['status' => 1], ['id' => $foodSharePointId]);
@@ -619,5 +580,14 @@ class FoodSharePointGateway extends BaseGateway
         } catch (Exception) {
             return 0;
         }
+    }
+
+    public function isManagerForFoodSharePoint(int $userId, int $foodSharePointId): bool
+    {
+        return $this->db->exists('fs_fairteiler_follower', [
+            'fairteiler_id' => $foodSharePointId,
+            'foodsaver_id' => $userId,
+            'type' => FollowerType::FOOD_SHARE_POINT_MANAGER,
+        ]);
     }
 }

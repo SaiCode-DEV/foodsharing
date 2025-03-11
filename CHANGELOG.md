@@ -70,6 +70,7 @@
 - Removed the duplicate address DTO #1999 !4016 @alex.simm
 - Removed unused translation keys #1909 !4061 @alex.simm
 - Cache some data in permission classes #2166 !4071 @alex.simm
+- Permission refactoring for foodsharepoints #2156 !4074 @AntonBallmaier
 
 ## Dev/Test/CI stuff
 - Update dev docs Vue component integration to use prepareVueComponent !3910 @chriswalg

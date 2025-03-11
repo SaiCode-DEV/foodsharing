@@ -197,8 +197,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
         if (empty($foodSharePoint)) {
             throw new NotFoundHttpException('Food share point does not exist');
         }
-        $follower = $this->foodSharePointGateway->getFollower($foodSharePointId);
-        if (!$this->foodSharePointPermissions->mayEdit($foodSharePoint['bezirk_id'], $follower)) {
+        if (!$this->foodSharePointPermissions->mayEdit($foodSharePoint['bezirk_id'], $foodSharePointId)) {
             throw new AccessDeniedHttpException('Insufficient permissions to edit this foodSharePoint');
         }
         $regionType = $this->regionGateway->getType($foodSharePointData->regionId);
