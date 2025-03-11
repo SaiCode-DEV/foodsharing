@@ -6,14 +6,14 @@ The server is a root server running at and sponsored by our hosting sponsor [man
 
 Our Servers are:
 
-| Server | Usage                | Stats                                                                                                 |
-|--------|----------------------|-------------------------------------------------------------------------------------------------------|
-| onion  | websites             | [munin](https://onion.foodsharing.network/foodsharing.network/onion.foodsharing.network/index.html)   |
-| garlic | cloud, gitlab-runner | [munin](https://garlic.foodsharing.network/foodsharing.network/garlic.foodsharing.network/index.html) |
+| Server | Usage                                    | Stats                                                                                                 |
+|--------|------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| onion  | websites, wiki                           | [munin](https://onion.foodsharing.network/foodsharing.network/onion.foodsharing.network/index.html)   |
+| garlic | nextcloud, gitlab-runner, sentry, zammad | [munin](https://garlic.foodsharing.network/foodsharing.network/garlic.foodsharing.network/index.html) |
 
 ## Base System
 We are running Debian on our Servers.
-As filesystem we are using ZFS with different subvolumes, that are configured for the needs of the subvolume.
+As filesystem, we are using ZFS with different subvolumes, that are configured for the needs of the subvolume.
 The System ist managed by ansible documented in the [foodsharing-ansible repository](https://gitlab.com/foodsharing-dev/foodsharing-ansible).
 
 ## Components
@@ -117,7 +117,7 @@ Talk to an admin for that.
 If this is not possible create a [MR in the ansible repository](https://gitlab.com/foodsharing-dev/foodsharing-ansible/-/merge_requests) and let an admin merge both MRs with a short Maintenance time.   
 
 ### PHP
-Both sites (beta and production) have a own pool running with php-fpm PHP Version and other Settings are defined in [ansible variables](https://gitlab.com/foodsharing-dev/foodsharing-ansible/-/blob/master/group_vars/all.yml).
+Both sites (beta and production) have a own pool running with php-fpm PHP Version and other Settings are defined in [ansible variables](https://gitlab.com/foodsharing-dev/foodsharing-ansible/-/blob/master/group_vars/foodsharing.yml).
 
 For the application there are also two different configuration files for [beta](https://gitlab.com/foodsharing-dev/foodsharing-ansible/-/blob/master/roles/foodsharing/templates/config.inc.beta.php) and [production](https://gitlab.com/foodsharing-dev/foodsharing-ansible/-/blob/master/roles/foodsharing/templates/config.inc.production.php).
 If changes are needed here you need to check if they can be applied before a deployment.
@@ -142,7 +142,7 @@ The nodeJS version is defined in [ansible variables](https://gitlab.com/foodshar
 If changes are needed here you need to check if they can be applied before a deployment.
 
 ### fs-mailqueuerunner
-This service helps us delivering our Mails.
+This service helps us to deliver our Mails.
 The Service is running as a [systemd Service](https://gitlab.com/foodsharing-dev/foodsharing-ansible/-/blob/master/roles/foodsharing/templates/fs-mailqueuerunner.service).
 
 ### cronjob
@@ -154,10 +154,11 @@ The command `bin/console foodsharing:process-bounce-emails` is running all 30 Mi
 Bounce mails are fetched and used to mark the addresses in the database.
 
 ### daily tasks
-The command `bin/console foodsharing:daily-cronjob` and `bin/console foodsharing:stats` are running every night.
-At the cronjob the sleeping hats are renewed and notification mails for empty pickup slots are send.
+The command `bin/console foodsharing:daily-cronjob`, `bin/console foodsharing:stats` and `bin/console foodsharing:deleteOldAccounts` are running every night.
+At the cronjob the sleeping hats are renewed, notification mails for empty pickup slots are send, some special groups are renewed.
 At the stats command the pickup stats are renewed.
-Further files older than 2 days are deleted from the tmp folder
+Then foodsharing accounts not used for 5 years are deleted. 
+Further files older than 2 days are deleted from the tmp folder.
 
 ## Deployment
 The Application is deployed with [deployer](https://deployer.org/) from the GitLab CI.

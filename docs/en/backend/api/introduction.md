@@ -73,7 +73,9 @@ Please use the following status codes consistently in REST responses. More detai
 **HTTP client request error:**
 - 400: Invalid request. This means that required parameters are missing, not correctly formatted, or invalid values like out of a range.
 - 404: All parameters are valid but the resource does not exist.
-- 409: There is a conflict between the request parameter related state and the server stored state.  
+- 409: There is a conflict between the request parameter related state and the server stored state.
+- 429: The user is sending too many requests.
+- 451: Legal requirements not fulfilled: The user has not accepted the latest version of the privacy policy or privacy notice. The frontend should redirect to https://foodsharing.network/legal, where the privacy policy can be accepted.
 
 For example, requesting `/api/user/{id}` should return a 
 `400` if the `id` is not a number. It should return `404` if `id` is a number but the user with that `id` does not exist.

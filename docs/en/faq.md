@@ -35,10 +35,9 @@ In foodsharing some of the longer content comes from the database, so you won't 
 ## Technical constraints
 Q: What are our technical constraints? (such as server, storage. memory and communication interfaces)
 
-A: The server has 32G of memory, currently. Server stats:
+A: The server has 64G of memory, and 20 Cores currently. Server stats:
 
-* [munin](https://dragonfruit-admin.foodsharing.network/munin/system-week.html)
-* [grafana](https://grafana.yunity.org/?orgId=1) (only avaiable for a few people)
+* [munin](https://onion.foodsharing.network/foodsharing.network/onion.foodsharing.network/index.html)
 
 The current email load is high, we get spam-flagged a lot, so in the future we need to introduce (more) granular email settings to users. 
 (E-mail handling: we have currently more than one server for mails.)
@@ -51,16 +50,6 @@ A: There are guidelines. Basically, we use common sense.
 
 The frontend needs rewriting as well and currently we're mostly working on & refactoring the backend.
 
-... it could look like [Karrot](https://storybook.karrot.world/?path=/story/pickupitem--join)
-
-## Security parameters
-Q: What are the security parameters? (i.e. how the website will ensure secure access control and transactions)
-
-A: There were a lot of SQL injections. Now we use prepared statements, which is clearer.
-[Vue](frontend/javascript#vuejs) helps against XSS attacks. (there might be legacy stuff lurking)
-
-We're aiming for a point, where you get only the data you're requesting (Currently a lot of code is structured "if you're this or that, you get to see xy")
-
 ## Structure
 Q: So if we break the homepage down into its parts - how is it structured?
 
@@ -71,17 +60,6 @@ Most of our functions can be found in `/src/Helpers/`.
 Book: https://leanpub.com/mlaphp
 
 We still have some of the functions that bit by bit get replaced during refactoring.
-
-## Karrot
-Q: What is the relationship between [karrot](http://karrot.world) and foodsharing currently?
-
-A: karrot enables communities to do foodsaving - foodsharing is basically in german and has a lot of structures that some countries didn't want (thus e.g. minimizing the use of admins in the groups) ... the german-speaking organizational structures are kinda rooted in the code of foodsharing.
-
-foodsharing is ALSO an organization.
-
-karrot is a software project, the people who use it are their own organization, in a way.
-
-Chandi showed how karrot and foodsharing might work together on the code base. (https://yunity.slack.com/archives/C1T1ZM9A4/p1577146381053600) For now, we're focusing on modernizing the codebase.
 
 ## Our tech
 Q: [it-tasks](./contributing) lists a number of tech stuff we use on the page. How is their relationship to each other / what do we use them for? What do we want to remove from our codebase?
@@ -105,6 +83,6 @@ Q: Who can I ask for help with what? Who is part of the team with which focus an
 
 A: The common and most efficient way is to ask the dev channel a detailed question - so everyone who might have the knowledge and time can help.
 
-Also we have team members with special responsibilities, see here: https://gitlab.com/foodsharing-dev/foodsharing/-/wikis/responsibilities
+Also we have team members with special responsibilities, see here: https://gitlab.com/foodsharing-dev/foodsharing/-/wikis/Information/responsibilities
 
 This means that there currently is no one head of the foodsharing IT. We decide with votes & vetos. Therefore currently there is no roadmap. The responsibles have lately said, that cleaning up old code and finishing open Merge Requests has priority over new features. But basically if you like an idea and are willing to work on your code - you're welcome to join. :-)
