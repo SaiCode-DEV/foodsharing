@@ -2119,9 +2119,7 @@ foodsaver:
     en la [página de personal y en la página de anteriormente activ@s](/team). Puede
     ser visto por todos en el sitio web.\n"
   delete_account_sure: '¿Realmente quieres eliminar tu cuenta?'
-  delete_account_sure_reason: '¿Realmente debería eliminarse la cuenta de {name}?
-    Opcionalmente, puedes proporcionar un motivo aquí para que otros puedan entender
-    más adelante por qué se eliminó la cuenta:'
+  delete_account_sure_reason: '¿Debería realmente eliminarse la cuenta? Razón: {reason}'
   profileBack: 'Volver al perfil'
   about_me_intern: 'se mostrará en su página de perfil y será visible para todos los
     miembros de la comunidad de foodsharing.
