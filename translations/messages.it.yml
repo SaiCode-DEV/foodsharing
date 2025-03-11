@@ -1616,9 +1616,8 @@ foodsaver:
     e può essere visto da tutti sul sito web.\n"
   mailchange_error: L'attivazione del tuo nuovo indirizzo email non è riuscita. Si
     prega di riprovare.
-  delete_account_sure_reason: 'Vuoi davvero eliminare l''account di {name}? Qui puoi
-    indicare una motivazione che può essere utilizzata in seguito per capire perché
-    l''account è stato eliminato:'
+  delete_account_sure_reason: 'L''account dovrebbe davvero essere cancellato? Motivo:
+    {reason}'
 reports:
   reason: Motivo
   message: Descrizione
