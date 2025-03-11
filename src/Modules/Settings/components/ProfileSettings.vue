@@ -1,12 +1,13 @@
 <template>
   <b-form @submit.prevent="handleSubmit">
-    <div
-      v-if="!permissions.mayChangeName"
-      class="alert alert-light border mb-2"
-      @click="$refs.nameInputModal.show()"
-    >
-      <Markdown :source="$i18n('settings.name_change.desc', {link:'#'})" />
-    </div>
+    <b-alert :show="!permissions.mayChangeVerifiedData">
+      <p>
+        <i class="fas fa-user-pen mr-1" />
+        <span v-text="$i18n('settings.change_data_info.general')" />
+      </p>
+      <span v-text="$i18n('settings.change_data_info.verified')" />
+      <Info info-key="change_verified_data" :props="{ link: $url('region_forum', region.id )}" />
+    </b-alert>
     <b-alert :show="isAmbassador || isOrgUser">
       <Markdown :source="$i18n('profile.editNameInfo', {url: $url('editNameInfoUrl')})" />
     </b-alert>
@@ -18,7 +19,7 @@
             v-model.lazy="v$.firstName.$model"
             :class="{ 'is-invalid': v$.firstName.$error }"
             type="text"
-            :disabled="!permissions.mayChangeName"
+            :disabled="!permissions.mayChangeVerifiedData"
           />
           <div
             v-if="v$.firstName.$error"
@@ -37,7 +38,7 @@
             v-model.lazy="v$.lastName.$model"
             :class="{ 'is-invalid': v$.lastName.$error }"
             type="text"
-            :disabled="!permissions.mayChangeName"
+            :disabled="!permissions.mayChangeVerifiedData"
           />
           <div v-if="v$.lastName.$error" class="invalid-feedback">
             <span v-if="!v$.lastName.required">{{ $i18n('register.lastname_required') }}</span>
@@ -59,6 +60,7 @@
             v-model="birthday"
             type="date"
             autocomplete="off"
+            :disabled="!permissions.mayChangeVerifiedData"
           />
           <div v-if="!isValidBirthdate" class="invalid-feedback">
             {{ $i18n('register.error_birthdate') }}
@@ -219,7 +221,6 @@
       />
     </div>
 
-    <NameInputModal ref="nameInputModal" :region-id="region.id" />
     <ProfileAddressModal
       ref="AddressModal"
       :coordinate="coordinate"
@@ -243,7 +244,6 @@
 import ProfilePicture from './ProfilePicture.vue'
 import { patchUserProfile } from '@/api/user'
 import PhoneNumberInput from '@/components/PhoneNumberInput.vue'
-import NameInputModal from './NameInputModal.vue'
 import ProfileAddressModal from './ProfileAddressModal.vue'
 import MarkdownInput from '@/components/Markdown/MarkdownInput.vue'
 import Markdown from '@/components/Markdown/Markdown'
@@ -253,6 +253,7 @@ import { SELECTABLE_REGION_TYPES } from '@/stores/regions'
 import { useVuelidate } from '@vuelidate/core'
 import { required, minLength, maxLength } from '@vuelidate/validators'
 import { pulseError, pulseSuccess } from '@/script'
+import Info from '@/components/Help/Info.vue'
 
 const userStore = useUserStore()
 
@@ -263,9 +264,9 @@ export default {
     ProfileAddressModal,
     ProfilePicture,
     PhoneNumberInput,
-    NameInputModal,
     Markdown,
     RegionTreeModal,
+    Info,
   },
   props: {
     userDetails: { type: Object, default: () => {} },

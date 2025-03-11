@@ -280,7 +280,7 @@ class SettingsTransactions
      */
     private function filterProfile(int $userId, array $currentUserProfile, EditableProfileDTO $editableProfileDTO): EditableProfileDTO
     {
-        $mayChangeName = $this->settingsPermissions->mayChangeName($userId);
+        $mayChangeVerifiedData = $this->settingsPermissions->mayChangeVerifiedData($userId);
         $mayEditProfileSettings = $this->settingsPermissions->mayEditProfileSettings($userId);
         $mayEditTeamSettings = $this->settingsPermissions->mayChangeTeamPageData($userId);
         $isOnTeamPage = $this->unitGateway->isUserOnTeamPage($userId);
@@ -293,9 +293,10 @@ class SettingsTransactions
             $editableProfileDTO->role = $currentUserProfile['rolle'];
         }
 
-        if (!$mayChangeName) {
+        if (!$mayChangeVerifiedData) {
             $editableProfileDTO->firstName = $currentUserProfile['name'];
             $editableProfileDTO->lastName = $currentUserProfile['nachname'];
+            $editableProfileDTO->birthday = $currentUserProfile['geb_datum'];
         }
 
         if (!$mayChangeHomeRegion) {

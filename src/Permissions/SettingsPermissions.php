@@ -46,7 +46,7 @@ class SettingsPermissions
         return false;
     }
 
-    public function mayChangeName(int $userId): bool
+    public function mayChangeVerifiedData(int $userId): bool
     {
         if ($this->session->mayRole(Role::ORGA)) {
             return true;

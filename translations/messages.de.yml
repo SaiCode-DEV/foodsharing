@@ -2188,11 +2188,10 @@ settings:
       und reagiert auch nicht mehr mit einem Ton oder einer Vibration.
     disable: "Push-Benachrichtigungen deaktivieren"
     disabled: "Push-Benachrichtigungen erfolgreich deaktiviert"
-  name_change:
-    title: Name (Vor- & Nachname)
-    desc: Der eigene Name kann nicht selbstständig geändert werden. Du kannst aber eine [Namensänderung beantragen]({link}).
-    request: Namensänderung beantragen
-    foodsaver_info: "Um deinen Namen ändern zu lassen, musst du eine:n Botschafter:in aus deinem Stammbezirk kontaktieren. Diese:r kann dann die Namensänderung für dich durchführen. Wer Botschafter:in in deinem Stammbezirk ist, siehst du im [Forum deines Bezirks]({link}) in der linken Seitenleiste."
+  change_data_info:
+    general: Hier kannst du deine Profildaten anpassen.
+    verified: Deinen Namen und Geburtsdatum kannst du nicht bearbeiten. Du kannst aber eine:n Botschafter:in bitten, diese Daten für dich zu ändern.
+    desc: 
   general:
     phone: "Deine Festnetznummer"
     current_address: "Aktuelle Adresse"
@@ -3750,6 +3749,12 @@ help:
         ---
 
         Wichtig zu beachten: Diese Funktion basiert nur auf den foodsharing-eigenen Hygiene-Stickern. Weder im Profil hochgeladene Hygienezertifikate externer Anbieter (wie bspw. Metro), noch anderweitig erworbene Hygieneschulungen werden technisch berücksichtigt.
+    change_verified_data:
+      title: Änderung verifizierter Daten beantragen
+      md: |
+        Um als Foodsaver tätig zu sein, ist es wichtig, dass die Daten in deinem Profil korrekt sind. Bevor du Lebensmittel retten darfst, werden sie dazu von den Botschafter:innen mit deinem Ausweis abgeglichen. Daher kannst du deinen Namen und dein Geburtsdatum nicht einfach ändern.
+        ---
+        Sollte es doch mal vorkommen, dass eines dieser Felder geändert werden muss, kannst du dich hierzu an eine:n Botschafter:in aus deinem Stammbezirk wenden. Sie können die entsprechende Änderung für dich durchführen. Wer Botschafter:in in deinem Stammbezirk ist, siehst du im [Forum des Bezirks]({link}) in der linken Seitenleiste.
 team_page:
   board_member:
     title: "Vorstand"

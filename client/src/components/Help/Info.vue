@@ -10,12 +10,12 @@
   >
     <b-modal
       ref="modal"
-      :title="$i18n('help.helpTitle', { title: $i18n(`help.key.${infoKey}.title`) })"
+      :title="$i18n('help.helpTitle', { title: $i18n(`help.key.${infoKey}.title`, props) })"
       centered
       :ok-title="$i18n('button.close')"
       ok-only
     >
-      <Markdown :source="$i18n(`help.key.${infoKey}.md`)" />
+      <Markdown :source="$i18n(`help.key.${infoKey}.md`, props)" />
     </b-modal>
   </i>
 </template>
@@ -26,6 +26,7 @@ export default {
   components: { Markdown },
   props: {
     infoKey: { type: String, required: true },
+    props: { type: Object, default: null },
   },
 }
 </script>
