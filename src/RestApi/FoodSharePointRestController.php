@@ -226,7 +226,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
             throw new AccessDeniedHttpException('Insufficient permissions to remove this foodSharePoint.');
         }
 
-        $this->foodSharePointGateway->deleteFoodSharePoint($foodSharePointId);
+        $this->foodSharePointTransactions->deleteFoodSharePoint($foodSharePointId);
 
         return $this->respondOK();
     }

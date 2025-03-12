@@ -159,15 +159,15 @@ class BlogpostController extends AbstractFoodsharingRestController
     {
         $this->assertLoggedIn();
 
-        $author = $this->blogGateway->getPostAuthor($blogId);
-        if ($author === false) {
+        $post = $this->blogGateway->getPost($blogId);
+        if (is_null($post)) {
             throw new NotFoundHttpException('Blogpost not found.');
         }
         if (!$this->blogPermissions->mayDelete($blogId)) {
             throw new AccessDeniedHttpException();
         }
 
-        $this->blogGateway->del_blog_entry($blogId);
+        $this->blogTransactions->deleteBlogPost($post);
 
         return $this->handleView($this->view([], 200));
     }

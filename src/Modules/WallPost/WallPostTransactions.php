@@ -18,6 +18,7 @@ use Foodsharing\Modules\Quiz\QuizGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Uploads\UploadsGateway;
+use Foodsharing\Modules\Uploads\UploadsTransactions;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
 use Foodsharing\Permissions\QuizPermissions;
 
@@ -26,6 +27,7 @@ class WallPostTransactions
     public function __construct(
         private readonly WallPostGateway $wallPostGateway,
         private readonly UploadsGateway $uploadsGateway,
+        private readonly UploadsTransactions $uploadsTransactions,
         private readonly QuizGateway $quizGateway,
         private readonly QuizPermissions $quizPermissions,
         private readonly EventGateway $eventGateway,
@@ -70,6 +72,23 @@ class WallPostTransactions
 
     public function deletePost(int $postId, WallType $target, int $targetId): void
     {
+        $post = $this->wallPostGateway->getPost($postId);
+        if (!empty($post->pictures)) {
+            foreach ($post->pictures as $picture) {
+                if (str_starts_with($picture, '/api/uploads/')) {
+                    $oldUUID = substr($picture, 13);
+                    $this->uploadsTransactions->deleteUploadedFile($oldUUID);
+                } elseif (!empty($picture)) {
+                    /* Delete all resized files of the old picture. The DTO contains the file as '{id}.jpg'. The real
+                    path is './images/wallpost/{format}_{id}.jpg'. Use a placeholder because there might be several
+                    resized formats of the original file. */
+                    foreach (glob('./images/wallpost/*' . $picture) as $file) {
+                        unlink($file);
+                    }
+                }
+            }
+        }
+
         $bellData = $this->getWallPostBellData(null, $target, $targetId);
         if ($bellData) {
             $this->bellTransactions->removeGroupedBellEvent($bellData['recipients'], $bellData['bell'], $postId);
@@ -77,7 +96,6 @@ class WallPostTransactions
 
         switch ($target) {
             case WallType::STORE:
-                $post = $this->wallPostGateway->getPost($postId);
                 $this->storeGateway->addStoreLog($targetId, $this->session->id(), $post->author->id, new DateTime($post->time), StoreLogAction::DELETED_FROM_WALL, $post->body);
                 break;
         }
