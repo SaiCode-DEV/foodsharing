@@ -83,6 +83,7 @@ export default {
   span {
     font-size: 1em;
     cursor: pointer;
+    margin-bottom: 0.6em;
 
     &:hover {
       background-color: var(--fs-color-success-600);

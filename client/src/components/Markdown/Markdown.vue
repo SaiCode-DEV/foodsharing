@@ -58,7 +58,7 @@ export default {
 <style lang="scss">
 .markdown {
   h1, h2, h3, h4, h5, h6, p, li, a {
-    word-break: normal;
+    word-break: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
     hyphenate-limit-chars: 12 5 5;
@@ -68,12 +68,41 @@ export default {
   }
   a {
     font-weight: 500 !important;
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    overflow: hidden;
   }
   code {
     word-break: normal;
     hyphens: none;
     white-space: pre-wrap;
     font-size: inherit;
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+  pre {
+    background-color: rgba(0,0,0,.03);
+    border: 1px solid var(--fs-border-default);
+    border-radius: 6px;
+    padding: 1em;
+    overflow-x: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+    white-space: pre;
+  }
+  pre code {
+    display: block;
+    overflow-wrap: normal;
+    word-break: normal;
+    white-space: pre;
+  }
+  blockquote {
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
   p:last-child {
     margin-bottom: 0;
