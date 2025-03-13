@@ -29,9 +29,9 @@ group:
   title: foodsharing working groups
   subtitle: Here you will find help and lots to do …
   member_count:
-    zero: no contributors
-    one: one contributor
-    other: '{count} contributors'
+    zero: no members
+    one: one member in total
+    other: '{count} members in total'
   admin_count:
     zero: no admins
     one: one admin
@@ -467,6 +467,10 @@ settings:
     new_password_must_be_trimmed: The password must not begin or end with spaces
     new_password_confirmation_label: Confirm new password
     success: Your password has been successfully changed
+  change_data_info:
+    general: Here you can adjust your profile data.
+    verified: You can’t edit your name and date of birth. However, you can ask an
+      ambassador to change these details for you.
 menu:
   manage_regions: Manage regions
   blog: Manage blog content
@@ -4554,6 +4558,15 @@ help:
         training. Neither hygiene certificates from external providers (e.g. Metro)
         uploaded to the profile nor hygiene training courses noted elsewhere are currently
         taken into account.\n"
+    change_verified_data:
+      title: Request a change to verified data
+      md: "To get involved as a foodsaver, it’s important that the information in
+        your profile is correct. Before you can save food, the ambassadors will check
+        it against your ID. Therefore, you can’t simply change your name and date
+        of birth.\n---\nShould it happen that one of these fields needs to be changed,
+        you can contact an ambassador from your home district. They can make the necessary
+        changes for you. You can find out who the ambassadors are in your home district
+        in the [district forum]({link}) in the left sidebar.\n"
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
