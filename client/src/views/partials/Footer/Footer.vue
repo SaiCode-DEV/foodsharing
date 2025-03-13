@@ -160,19 +160,15 @@ import FooterData from './Data/FooterData.json'
 import PartnerData from './Data/PartnerData.json'
 // Mixins
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
+import serverData from '@/helper/server-data'
 export default {
   mixins: [RouteCheckMixin],
-  props: {
-    version: {
-      type: String,
-      default: 'cf107753e219b5af997f1f22ff92839fcf754091',
-    },
-  },
   data () {
     return {
       externalLink: 'nofollow noreferrer noopener',
       socialData: SocialData,
       footerData: FooterData,
+      version: serverData.version,
     }
   },
   computed: {

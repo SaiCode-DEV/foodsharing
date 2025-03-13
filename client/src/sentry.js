@@ -1,20 +1,34 @@
 import Vue from 'vue'
 import * as Sentry from '@sentry/vue'
 import serverData from '@/helper/server-data'
+const isBeta = window.location.hostname.includes('beta.foodsharing')
 
 if (serverData.ravenConfig) {
-  console.log('using sentry config from server', serverData.ravenConfig)
+  // Initialize Sentry
   Sentry.init({
     Vue: Vue,
     attachProps: true,
     logErrors: true,
+    release: serverData.version || 'unknown',
     dsn: serverData.ravenConfig,
     integrations: [
+      Sentry.browserTracingIntegration(),
       Sentry.captureConsoleIntegration({
         levels: ['error'],
       }),
     ],
+    tracesSampleRate: isBeta ? 1.0 : 0.01,
+    replaysSessionSampleRate: 0,
+    replaysOnErrorSampleRate: 1.0,
   })
+
+  // Set user context
+  if (serverData?.user) {
+    Sentry.setUser({
+      id: serverData.user.id,
+      username: serverData.user.firstname,
+    })
+  }
 }
 
 export function captureError (error) {
@@ -24,6 +38,14 @@ export function captureError (error) {
   console.error(error)
   Sentry.captureException(error)
   return error
+}
+
+export function captureFeedback (feedback, attachments) {
+  const response = Sentry.captureFeedback(feedback, {
+    includeReplay: true,
+    attachments,
+  })
+  console.log('Feedback ', response)
 }
 
 export function captureRequestError (error, { path, options, attempt }) {

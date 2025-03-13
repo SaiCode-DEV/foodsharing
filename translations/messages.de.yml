@@ -332,6 +332,7 @@ button:
   start: Los geht’s!
   confirm: Bestätigen
   close: "Schließen"
+  browse: "Durchsuchen"
 
 bcard:
   title: "Visitenkarten-Generator"
@@ -3813,6 +3814,7 @@ support_page:
   validation_firstName: "Vorname ist leer"
   subject: "Betreff"
   validation_subject: "Betreff ist leer"
+  your_name: Dein Name
   email: "Deine E-Mail-Adresse"
   validation_email: "Ungültige E-Mail-Adresse"
   body: "Nachricht"
@@ -3824,6 +3826,20 @@ support_page:
     browse: "Durchsuchen"
   success: "Deine Nachricht wurde erfolgreich übermittelt."
   new_request: "Neue Anfrage"
+
+feedback:
+  title: "Feedback-Formular"
+  button: "Feedback senden"
+  capture_screenshot: "Screenshot aufnehmen"
+  name_sent: "Dein Name und deine ID werden mitgesendet."
+  success: "Dein Feedback wurde erfolgreich übermittelt."
+  no_support: "Dieses Formular ist nur für **Feedback** gedacht. Wenn du Hilfe benötigst oder Fragen hast, nutze bitte das [Support-Formular](/support)."
+  privacy: "Deine Nachricht wird an die ehrenamtlichen Entwickler der foodsharing Plattform übermittelt. Alle Eingaben aus dem Formular, sowie angehängte Bilder, sind dann für sie sichtbar. Bitte stelle sicher, dass in Screenshots keine persönlichen Daten anderer Nutzer:innen enthalten sind, die du nicht weitergeben darfst."
+  error:
+    no_sentry: "Es ist ein Fehler mit Sentry aufgetreten. Bitte versuche es später erneut."
+    screenshot: "Automatischer Screenshot fehlgeschlagen. Du kannst deinem Feedback allerdings manuell ein Bild hinzufügen."
+    invalid_file: "Ungültige Datei. Bitte lade nur Bilder hoch."
+    message_short: "Deine Nachricht ist zu kurz. Bitte gib mehr Informationen an."
 
 required_messages:
   sure_title: "Bist du dir sicher?"
@@ -3853,8 +3869,6 @@ required_messages:
     really: "Möchtest du {name} wirklich die Verantwortung als Betriebsverantwortliche:r entziehen?"
     main: "Ich habe dich als Betriebsverantwortliche:r des Betriebs [{store}](/store/{storeId}) ausgetragen."
     footer: "Viele Grüße"
-
-
 
 petition:
   progressText:

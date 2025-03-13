@@ -1499,6 +1499,7 @@ button:
   start: Let’s go!
   confirm: confirm
   filter_options: Filter options
+  browse: Browse
 bell:
   ft_update_title: '{name}'
   blog_new_check: '{title}'
@@ -4634,6 +4635,7 @@ support_page:
   body: Message
   success: Your support request has been successfully submitted.
   title: Support form
+  your_name: Your name
   email: Your e-mail address
   notification_name: Since you are logged in, your first name and your foodsharing
     ID will also be transmitted.
@@ -4649,6 +4651,22 @@ support_page:
   attachments: Attachments (max. 5 MB per file)
   validation_email: Invalid e-mail address
   new_request: New request
+
+feedback:
+  title: "Feedback"
+  button: "Send feedback"
+  capture_screenshot: "Capture screenshot"
+  name_sent: "Your Name and ID will be sent with the feedback."
+  success: "Your feedback has been successfully submitted."
+  no_support: "This form is for **feedback** only. If you need help or have questions, please use the [support form](/support)."
+  privacy: "Your message will be sent to the volunteer developers of the foodsharing platform. All entries from the form, as well as attached images, will then be visible to them. Please make sure that screenshots do not contain any personal data of other users that you are not allowed to pass on."
+  error:
+    no_sentry: "An error occurred while sending the feedback. Please try again later."
+    screenshot: Automatic Screenshot Capture failes. You can manually upload a screenshot.
+    invalid_file: "The file is not a valid image file."
+    message_short: "The message is too short. Please enter more information."
+
+
   attachment:
     placeholder: Select file
     browse: Browse

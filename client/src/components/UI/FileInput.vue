@@ -1,8 +1,7 @@
 <template>
   <b-form-file
-    id="files"
     ref="fileInput"
-    :value="props.value"
+    :value="displayValue"
     :multiple="props.maxFiles > 1"
     :disabled="props.disabled"
     :placeholder="$i18n('support_page.attachment.placeholder')"
@@ -38,15 +37,14 @@
   </b-form-file>
 </template>
 <script setup>
-
-import { ref, defineProps, defineEmits, watch } from 'vue'
+import { ref, computed, defineProps, defineEmits, watch, onUnmounted } from 'vue'
 import { MAX_UPLOAD_FILE_SIZE, ACCEPTED_FILE_TYPES } from '@/consts'
 import { pulseError } from '@/script'
 import i18n from '@/helper/i18n'
 
 const props = defineProps({
   value: {
-    type: Array,
+    type: [Array, File],
     default: () => [],
   },
   disabled: {
@@ -68,34 +66,81 @@ const props = defineProps({
 })
 const emit = defineEmits(['update:value'])
 
-// b-form-file ignores changes to the value unless 0 files. This is a workaround to update the value
 const fileInput = ref(null)
-watch(() => props.value, (value) => {
-  fileInput.value.files = value
+const internalFiles = ref([])
+
+// Computed property for display value
+const displayValue = computed(() => {
+  if (internalFiles.value.length === 0) return null
+  return props.maxFiles === 1 ? internalFiles.value[0] : internalFiles.value
 })
 
-function updateAttachmentFiles (event) {
-  const newFiles = Array.from(event).filter((file) => file.size <= props.maxFileSize)
+// Helper function to normalize file value
+const normalizeFileValue = (value) => {
+  if (!value) return []
+  if (value instanceof File) return [value]
+  return Array.isArray(value) ? value : []
+}
 
-  if (Array.from(event).length > newFiles.length) {
+// Watch prop changes and update internal state
+watch(() => props.value, (newValue) => {
+  internalFiles.value = normalizeFileValue(newValue)
+  if (fileInput?.value) {
+    fileInput.value.files = internalFiles.value
+  }
+}, { immediate: true })
+
+// Clear files on unmount to prevent memory leaks
+onUnmounted(() => {
+  internalFiles.value = []
+  if (fileInput.value) {
+    fileInput.value.files = null
+  }
+})
+
+function updateAttachmentFiles (input) {
+  const inputFiles = input?.target?.files
+    ? Array.from(input.target.files)
+    : Array.isArray(input)
+      ? input
+      : input instanceof File ? [input] : []
+
+  const newFiles = inputFiles.filter((file) => file.size <= props.maxFileSize)
+
+  if (inputFiles.length > newFiles.length) {
     pulseError(i18n('mailbox.attachment.too_large_to_send'))
   }
 
-  // Create a Set of existing file names
-  const existingNames = new Set(props.value.map(file => file.name))
-  // Filter out new files that have duplicate names
-  const uniqueNewFiles = newFiles.filter(file => !existingNames.has(file.name))
+  // For single file mode
+  if (props.maxFiles === 1) {
+    internalFiles.value = newFiles.slice(0, 1)
+    emit('update:value', internalFiles.value[0] || null)
+    return
+  }
 
-  let combinedFiles = [...props.value, ...uniqueNewFiles]
+  // For multiple files mode
+  let combinedFiles = [...internalFiles.value]
+  newFiles.forEach(file => {
+    if (!combinedFiles.some(existing => existing.name === file.name)) {
+      combinedFiles.push(file)
+    }
+  })
+
   if (combinedFiles.length > props.maxFiles) {
-    combinedFiles = combinedFiles.slice(combinedFiles.length - props.maxFiles)
+    combinedFiles = combinedFiles.slice(-props.maxFiles)
     pulseError(i18n('mailbox.attachment.too_many'))
   }
+
+  internalFiles.value = combinedFiles
   emit('update:value', combinedFiles)
 }
 
 function removeFile (index) {
-  emit('update:value', props.value.filter((_, i) => i !== index))
+  internalFiles.value = internalFiles.value.filter((_, i) => i !== index)
+  if (fileInput.value) {
+    fileInput.value.files = null // Reset the native file input
+  }
+  emit('update:value', props.maxFiles === 1 ? internalFiles.value[0] || null : internalFiles.value)
 }
 </script>
 <style lang="scss">

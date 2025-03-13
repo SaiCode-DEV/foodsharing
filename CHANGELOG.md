@@ -11,6 +11,7 @@
 - Make basket container on the dashboard optional #2345 !4063 @AntonBallmaier
 - Link user profiles in forum reactions #2341 !4059 @AntonBallmaier
 - Added the possibility to mark bell notifications as read/unread via the newly added icon button that appears on hover !2111 @anedomansky
+- Add Feedback form for Beta-Testers #3968 @SaiCode
 
 ## Changes
 - Include user agent in support ticket creation #2212 !3838 @AntonBallmaier

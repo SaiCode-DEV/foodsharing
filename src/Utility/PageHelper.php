@@ -192,6 +192,7 @@ final class PageHelper
             'isApiRestrictedForLegalReasons' => $this->routeHelper->isApiRestrictedForLegalReasons(),
             'locations' => $location,
             'ravenConfig' => $sentryConfig,
+            'version' => defined('SRC_REVISION') ? SRC_REVISION : 'DEV',
             'isDev' => getenv('FS_ENV') === 'dev',
             'isTest' => getenv('FS_ENV') === 'test',
             'locale' => $this->settingsTransactions->getLocale(),
@@ -264,16 +265,12 @@ final class PageHelper
 
     private function getFooter(): string
     {
-        $params = [
-            'version' => defined('SRC_REVISION') ? SRC_REVISION : null,
-        ];
-
         return $this->twig->render(
             'partials/vue-wrapper.twig',
             [
                 'id' => 'vue-footer',
                 'component' => 'Footer',
-                'props' => $params,
+                'props' => [],
             ]
         );
     }
