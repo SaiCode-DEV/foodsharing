@@ -1320,9 +1320,9 @@ group:
   really_quit_workgroup: '¿Estás seguro de que quieres abandonar el grupo de trabajo
     {name}?'
   member_count:
-    zero: Sin colaboradores
-    one: Un colaborador
-    other: '{count} colaboradores'
+    zero: sin miembros
+    one: un miembro en total
+    other: '{count} miembros en total'
   enterskills: 'Habilidades:'
   saved: 'Se guardaron los cambios'
   quit_name_workgroup: 'Dejar el equipo {name}'
@@ -3552,6 +3552,10 @@ settings:
     success: Tu contraseña ha sido cambiada correctamente
     old_password_required: Debes ingresar tu contraseña anterior.
     new_password_required: La contraseña debe contener al menos 8 caracteres
+  change_data_info:
+    general: Aquí puedes ajustar los datos de tu perfil.
+    verified: No puedes editar tu nombre ni fecha de nacimiento. Sin embargo, puedes
+      pedirle a un embajador que cambie esta información por ti.
 team:
   former: 'Antiguos alumnos'
   ratelimit: 'Espere {minutes} minutos antes de poder enviar el siguiente mensaje.'
