@@ -190,9 +190,9 @@ group:
     one: un:e administrateur:trice
     other: administrateur:trice
   member_count:
-    zero: pas de contributeur
-    one: un·e contributeur·ant
-    other: '{count} contributeurs'
+    zero: aucun membre
+    one: un membre au total
+    other: '{count} membres au total'
   mail_link_title:
     region: Messagerie du district
     workgroup: Messagerie du groupe de travail
@@ -697,6 +697,10 @@ settings:
     2: Quiz pour les responsables de la coopération
     3: Quiz pour les ambassadeur·rice·s
     1: Quiz pour les collecteur·rice·s
+  change_data_info:
+    verified: Tu ne peux pas modifier ton nom et ta date de naissance. Tu peux toutefois
+      demander à un·e ambassadeur·trice de modifier ces données pour toi.
+    general: Ici, tu peux adapter les données de ton profil.
 email_template:
   newsletter:
     unsubscribe: Tu ne veux plus recevoir de lettres d’information ?
@@ -4543,6 +4547,8 @@ help:
         que le vote est créé, les personnes ayant le droit de vote sont connues. Les
         personnes ayant le droit de vote sont celles qui font partie de ce groupe
         au moment où le vote est créé.\n"
+    change_verified_data:
+      title: Demander la modification des données vérifiées
 automatic_delete: '- le profil doit être supprimé.'
 automatic_not_delete: '- le profil doit être conservé.'
 no_automatic_delete: 'Si la dernière connexion remonte à cinq ans :'
