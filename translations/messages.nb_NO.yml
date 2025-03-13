@@ -1347,6 +1347,10 @@ settings:
     new_password_confirmation_label: Bekreft nytt passord
     submit: Endre passord
     success: Passordet ditt er endret
+  change_data_info:
+    general: Her kan du justere profildataene dine.
+    verified: Du kan ikke redigere navn og fødselsdato. Du kan imidlertid be en ambassadør
+      om å endre denne informasjonen for deg.
 mailbox:
   date: Dato
   recipient: Mottaker
@@ -2132,9 +2136,9 @@ group:
   saved: Endringene har blitt lagret
   subtitle: her kan du finne hjelp og mye å gjøre …
   member_count:
-    zero: ingen bidragsytere
-    one: en bidragsyter
-    other: '{count} bidragsytere'
+    zero: ingen medlemmer
+    one: ett medlem totalt
+    other: '{count} medlemmer totalt'
   admin_count:
     zero: ingen administratorer
     other: '{count} administratorer'
@@ -4387,6 +4391,14 @@ help:
         egen hygieneopplæring. Verken hygienesertifikater fra eksterne leverandører
         (f.eks. Metro) som er lastet opp til profilen eller hygienekurs som er notert
         andre steder, blir for øyeblikket tatt i betraktning.\n"
+    change_verified_data:
+      title: Be om endring av verifiserte data
+      md: "For å bli involvert som matsparer er det viktig at informasjonen i profilen
+        din er korrekt. Før du kan lagre mat, vil ambassadørene sjekke det mot ID-en
+        din. Derfor kan du ikke bare endre navn og fødselsdato.\n---\nSkulle det skje
+        at et av disse feltene må endres, kan du kontakte en ambassadør fra ditt hjemdistrikt.
+        De kan gjøre de nødvendige endringene for deg. Du kan finne ut hvem ambassadørene
+        er i ditt hjemdistrikt i [distriktsforumet]({link}) i venstre sidefelt.\n"
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
 team_page:
