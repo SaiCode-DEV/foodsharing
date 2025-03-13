@@ -2,6 +2,8 @@
 
 namespace Foodsharing\RestApi;
 
+use Carbon\Carbon;
+use DateTimeZone;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\FoodSharePoint\FollowerType;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
@@ -131,7 +133,7 @@ final class FoodSharePointRestController extends AbstractFoodsharingRestControll
             'postcode' => $data['plz'],
             'lat' => (float)$data['lat'],
             'lon' => (float)$data['lon'],
-            'createdAt' => RestNormalization::normalizeDate($data['time_ts']),
+            'createdAt' => Carbon::createFromTimestamp($data['time_ts'], new DateTimeZone('Europe/Berlin'))->toDateTime(),
             'picture' => $data['picture']
         ];
 

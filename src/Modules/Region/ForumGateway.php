@@ -36,7 +36,7 @@ class ForumGateway extends BaseGateway
 						fs.id AS foodsaver_id,
 						IFNULL(fs.name,"abgemeldeter Benutzer") AS foodsaver_name,
 						fs.photo AS foodsaver_photo,
-						fs.sleep_status,
+						fs.is_sleeping as foodsaver_is_sleeping,
 						p.body AS post_body,
 						p.`time` AS post_time,
 						UNIX_TIMESTAMP(p.`time`) AS post_time_ts,
@@ -47,7 +47,7 @@ class ForumGateway extends BaseGateway
 						creator.id as creator_id,
 						creator.name as creator_name,
 						creator.photo as creator_photo,
-						creator.sleep_status as creator_sleep_status,
+						creator.is_sleeping as creator_is_sleeping,
 						t.status,
 				        COUNT(*) OVER() AS total_rows
 
@@ -225,9 +225,7 @@ class ForumGateway extends BaseGateway
                 fs.id AS author_id,
                 IF(fs.deleted_at IS NOT NULL,\"{$this->translator->trans('forum.deleted_user')}\", fs.name) AS author_name,
                 fs.photo AS author_photo,
-                fs.sleep_status AS author_sleep_status,
-                fs.sleep_from AS author_sleep_from,
-                fs.sleep_until AS author_sleep_until,
+                fs.is_sleeping AS author_is_sleeping,
                 p.body AS body,
                 p.`time`,
                 p.id,

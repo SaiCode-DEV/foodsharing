@@ -3,7 +3,9 @@
 namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
+use DateTime;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
+use Foodsharing\Modules\Core\DTO\Address;
 
 /**
  * Utility class that can be user by all controllers to format objects for
@@ -11,36 +13,6 @@ use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
  */
 class RestNormalization
 {
-    /**
-     * Formats a timestamp to the DATE_ATOM format.
-     *
-     * @param int $timestamp a timestamp
-     */
-    public static function normalizeDate(int $timestamp): string
-    {
-        return date(DATE_ATOM, $timestamp);
-    }
-
-    /**
-     * Returns the response data for a foodsaver including id, name, photo url,
-     * and sleep-status.
-     *
-     * @param array $data the foodsaver data from the database
-     * @param string $prefix a prefix for the entries in the data array
-     */
-    public static function normalizeUser(array $data, string $prefix = '', string $idPrefix = ''): array
-    {
-        //sleep_status is used with and without prefix
-        $sleepStatus = self::isSleeping($data, $prefix);
-
-        return [
-            'id' => (int)$data[$prefix . $idPrefix . 'id'],
-            'name' => $data[$prefix . 'name'],
-            'avatar' => $data[$prefix . 'photo'] ?? null,
-            'sleepStatus' => $sleepStatus,
-        ];
-    }
-
     /**
      * Returns the response data for a foodsaver in store context: the above, plus
      * phone numbers, verification state, passed quiz level and if they're manager.
@@ -126,30 +98,20 @@ class RestNormalization
 
         if ($includeDetails) {
             $store = array_merge($store, [
-                'address' => self::normalizeAddress($data),
+                'address' => Address::createFromArray([
+                    'street' => $data['str'],
+                    'city' => $data['stadt'],
+                    'postalCode' => $data['plz']
+                ]),
                 'phone' => $data['telefon'],
                 'fax' => $data['fax'],
                 'email' => $data['email'],
                 'contactPerson' => $data['ansprechpartner'],
-                'updatedAt' => self::normalizeDate(strtotime((string)$data['status_date'])),
+                'updatedAt' => DateTime::createFromFormat('Y-m-d', (string)$data['status_date'])->setTime(0, 0),
                 'notes' => [],
             ]);
         }
 
         return $store;
-    }
-
-    /**
-     * Returns the response data for an address.
-     *
-     * @param array $data the address data from the database
-     */
-    public static function normalizeAddress(array $data): array
-    {
-        return [
-            'street' => $data['str'],
-            'city' => $data['stadt'],
-            'postalCode' => $data['plz']
-        ];
     }
 }

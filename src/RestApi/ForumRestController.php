@@ -60,10 +60,10 @@ class ForumRestController extends AbstractFoodsharingRestController
         if (isset($thread['post_time'])) {
             $normalizedThread['lastPost']['createdAt'] = str_replace(' ', 'T', (string)$thread['post_time']);
             $normalizedThread['lastPost']['body'] = $this->sanitizerService->markdownToHtml($thread['post_body']);
-            $normalizedThread['lastPost']['author'] = RestNormalization::normalizeUser($thread, 'foodsaver_');
+            $normalizedThread['lastPost']['author'] = new Profile($thread, 'foodsaver_');
         }
         if (isset($thread['creator_name'])) {
-            $normalizedThread['creator'] = RestNormalization::normalizeUser($thread, 'creator_');
+            $normalizedThread['creator'] = new Profile($thread, 'creator_');
         }
 
         return $normalizedThread;
@@ -78,7 +78,7 @@ class ForumRestController extends AbstractFoodsharingRestController
             'id' => $post['id'],
             'body' => ($includeHiddenBody || empty($post['hidden_reason'])) ? $post['body'] : null,
             'createdAt' => str_replace(' ', 'T', (string)$post['time']),
-            'author' => RestNormalization::normalizeUser($post, 'author_'),
+            'author' => new Profile($post, 'author_'),
             'reactions' => $post['reactions'] ?: new \ArrayObject(),
             'mayDelete' => $this->forumPermissions->mayDeletePost($post),
             'hidden' => $post['hidden_reason'] ? [

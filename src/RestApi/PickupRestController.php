@@ -470,7 +470,7 @@ final class PickupRestController extends AbstractFOSRestController
         }
 
         $pickups = array_map(fn ($pickup) => [
-            'date' => RestNormalization::normalizeDate($pickup['timestamp']),
+            'date' => Carbon::createFromTimestamp($pickup['timestamp'])->toDateTime(),
             'store' => [
                 'id' => $pickup['store_id'],
                 'name' => $pickup['store_name'],
@@ -518,7 +518,7 @@ final class PickupRestController extends AbstractFOSRestController
         $pickups = $this->pickupGateway->getNextPickups($fsId, null, 30);
 
         $pickups = array_map(fn ($pickup) => [
-            'date' => RestNormalization::normalizeDate($pickup['timestamp']),
+            'date' => Carbon::createFromTimestamp($pickup['timestamp'], new DateTimeZone('Europe/Berlin'))->toDateTime(),
             'store' => [
                 'id' => $pickup['store_id'],
                 'name' => $pickup['store_name'],
@@ -590,7 +590,7 @@ final class PickupRestController extends AbstractFOSRestController
 
             $pickupOptions = array_merge($pickupOptions, array_map(
                 fn ($slot) => [
-                    'date' => RestNormalization::normalizeDate(strtotime((string)$slot['date'])),
+                    'date' => $slot['date'],
                     'store' => $store,
                     'confirmed' => $isConfirmed($id, $slot['occupiedSlots']),
                     'slots' => [

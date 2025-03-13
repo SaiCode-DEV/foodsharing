@@ -13,6 +13,7 @@ use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\DTO\CommonStoreMetadata;
@@ -831,7 +832,7 @@ class StoreRestController extends AbstractFoodsharingRestController
         $storeTeam = [];
         foreach ($this->storeGateway->getStoreTeam($storeId, [MembershipStatus::MEMBER, MembershipStatus::JUMPER]) as $teamMember) {
             $foodsaverId = $teamMember['id'];
-            $storeTeam[$foodsaverId] = RestNormalization::normalizeUser($teamMember);
+            $storeTeam[$foodsaverId] = new Profile($teamMember);
         }
 
         $mergedStoreLogEntries = [];
@@ -839,12 +840,12 @@ class StoreRestController extends AbstractFoodsharingRestController
         foreach ($storeLogEntries as $entry) {
             $actingFoodsaverId = $entry['acting_foodsaver_id'];
             unset($entry['acting_foodsaver_id']);
-            $entry['acting_foodsaver'] = $storeTeam[$actingFoodsaverId] ?? RestNormalization::normalizeUser($this->foodsaverGateway->getFoodsaver($actingFoodsaverId));
+            $entry['acting_foodsaver'] = $storeTeam[$actingFoodsaverId] ?? $this->foodsaverGateway->getProfile($actingFoodsaverId);
 
             $affectedFoodsaverId = $entry['affected_foodsaver_id'];
             unset($entry['affected_foodsaver_id']);
             if (!is_null($affectedFoodsaverId)) {
-                $entry['affected_foodsaver'] = $storeTeam[$affectedFoodsaverId] ?? RestNormalization::normalizeUser($this->foodsaverGateway->getFoodsaver($affectedFoodsaverId));
+                $entry['affected_foodsaver'] = $storeTeam[$affectedFoodsaverId] ?? $this->foodsaverGateway->getProfile($affectedFoodsaverId);
             } else {
                 $entry['affected_foodsaver'] = null;
             }
