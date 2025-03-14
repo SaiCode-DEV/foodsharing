@@ -4665,14 +4665,23 @@ support_page:
   validation_email: Invalid e-mail address
   new_request: New request
 
+  attachment:
+    placeholder: Select file
+    max_size: Attachments (maximum 10 with 5 MB each)
+    browse: Browse
+    drop_placeholder: Drop file here
 feedback:
   title: "Feedback"
   button: "Send feedback"
   capture_screenshot: "Capture screenshot"
   name_sent: "Your Name and ID will be sent with the feedback."
   success: "Your feedback has been successfully submitted."
-  no_support: "This form is for **feedback** only. If you need help or have questions, please use the [support form](/support)."
-  privacy: "Your message will be sent to the volunteer developers of the foodsharing platform. All entries from the form, as well as attached images, will then be visible to them. Please make sure that screenshots do not contain any personal data of other users that you are not allowed to pass on."
+  no_support: "This form is for **feedback** only. If you need help or have questions,
+    please use the [support form](/support)."
+  privacy: "Your message will be sent to the volunteer developers of the foodsharing
+    platform. All entries from the form, as well as attached images, will then be
+    visible to them. Please make sure that screenshots do not contain any personal
+    data of other users that you are not allowed to pass on."
   error:
     no_sentry: "An error occurred while sending the feedback. Please try again later."
     screenshot: Automatic Screenshot Capture failes. You can manually upload a screenshot.
