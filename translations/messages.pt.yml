@@ -2454,7 +2454,7 @@ forum:
   deleted_user: ''
   no_threads: ''
   inform_per_email: ''
-title: ''
+title: 'Titulo'
 genderlist:
   gender_female: ''
   district_tab: ''
@@ -2632,7 +2632,7 @@ regionOptions:
   regionPickupRuleActive: ''
   save: ''
   regionPickupLimitDayNumber: ''
-ort: ''
+ort: 'Cidade/Comunidade'
 releases:
   "2023-09": ''
   "2022-12": ''
@@ -2679,7 +2679,7 @@ fpko: ''
 no: ''
 mail:
   noreply_addresses_not_allowed: ''
-info: ''
+info: 'Informações'
 addresspicker:
   infobox: ''
   label: ''
@@ -2782,12 +2782,12 @@ statistics:
   num_fetches: ''
   kg_food_saved: ''
 mailbox_id: ''
-body: ''
+body: 'Mensagem'
 public_info: ''
 banana_count: ''
 messages:
   bread: ''
-photo: ''
+photo: 'Fotografia'
 really_delete: ''
 map:
   filters:
@@ -2812,7 +2812,7 @@ sidenav:
   superregional: ''
 food_type: ''
 explanation: ''
-status: ''
+status: 'Estado atual'
 nofp: ''
 dateend: ''
 fetch_count: ''
@@ -2836,13 +2836,13 @@ fpsingular: ''
 contact_type: ''
 abholmenge: ''
 groups:
-  empty: ''
+  empty: 'Ainda não faz parte dos grupos de trabalho'
 online_type: ''
 besonderheiten: ''
-rolle: ''
+rolle: 'Função do utilizador'
 member: ''
 deletelow: ''
-regions: ''
+regions: 'Distritos'
 text: ''
 use_region_pickup_rule: ''
 teaser: ''
@@ -2867,3 +2867,6 @@ validation:
 navi:
   google_maps: Google Maps
   apple_maps: Apple Maps
+no_automatic_delete: 'Por caso de o último aviso ter sido apresentado há 5 anos:'
+automatic_delete: '- o perfil quer ser eliminado.'
+automatic_not_delete: '- o perfil quer ser mantido.'
