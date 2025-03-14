@@ -1,7 +1,9 @@
 import { get, patch, post, remove } from './base'
 
 export function login (email, password, rememberMe) {
-  return post('/user/login', { email, password, remember_me: rememberMe })
+  return post('/user/login', { email, password, remember_me: rememberMe }, {
+    disableLoginRedirect: true,
+  })
 }
 
 export function getUser () {
