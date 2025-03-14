@@ -73,6 +73,18 @@
       </div>
     </div>
 
+    <div v-if="kamPositions?.length > 0">
+      <h5 class="mb-2 mt-4">
+        {{ $i18n('profile.sections.kam_for') }}
+      </h5>
+      <div class="d-inline d-flex flex-wrap flex-row" style="gap: 5px">
+        <span v-for="(item, index) in kamPositions" :key="item.id">
+          {{ item.name }}
+          <span v-if="index !== kamPositions.length - 1">,</span>
+        </span>
+      </div>
+    </div>
+
     <div v-if="sleepingInformation.sleepStatus > SLEEP_STATUS.NONE">
       <h5 class="mb-2 mt-4">
         <span v-if="sleepingInformation.sleepStatus === SLEEP_STATUS.TEMP">
@@ -152,6 +164,7 @@ export default {
     aboutMeIntern: { type: String, required: true },
     workingGroups: { type: Array, required: true },
     workingGroupsAdmins: { type: Array, required: true },
+    kamPositions: { type: Array, required: true },
     sleepingInformation: { type: Object, required: true },
     homeDistrictHistory: { type: Object, required: true },
     role: { type: Number, required: true },

@@ -163,4 +163,15 @@ class StoreChainGateway extends BaseGateway
             return null;
         }
     }
+
+    public function getStoreChainsManagedByFoodsaver(int $foodsaverId): array
+    {
+        return $this->db->fetchAll('SELECT
+                c.id, c.name
+            FROM fs_chain c
+            JOIN fs_key_account_manager kam ON kam.chain_id = c.id
+            WHERE kam.foodsaver_id = ?',
+            [$foodsaverId]
+        );
+    }
 }

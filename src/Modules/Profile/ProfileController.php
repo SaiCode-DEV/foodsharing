@@ -17,9 +17,11 @@ use Foodsharing\Modules\Mailbox\MailboxGateway;
 use Foodsharing\Modules\Mails\MailsGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
+use Foodsharing\Modules\StoreChain\StoreChainGateway;
 use Foodsharing\Permissions\AchievementPermissions;
 use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\ReportPermissions;
+use Foodsharing\Permissions\StoreChainPermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -42,6 +44,8 @@ final class ProfileController extends FoodsharingController
         private readonly AchievementPermissions $achievementPermissions,
         private readonly AchievementGateway $achievementGateway,
         private readonly WebSocketConnection $webSocketConnection,
+        private readonly StoreChainGateway $storeChainGateway,
+        private readonly StoreChainPermissions $storeChainPermissions,
     ) {
         parent::__construct();
     }
@@ -188,6 +192,7 @@ final class ProfileController extends FoodsharingController
             'homeDistrictHistory' => (object)$this->getHomeDistrictHistory($userArray['id']),
             'aboutMeIntern' => $userArray['about_me_intern'] ?? '',
             'workingGroupsAdmins' => $userArray['orga'] ?: [],
+            'kamPositions' => $this->getKamData($userArray['id']),
             'workingGroups' => $userArray['working_groups'] ?? [],
             'sleepingInformation' => $this->getSleepingHatInformation($userArray),
             'profileInfos' => $this->getProfileInfos($userArray),
@@ -459,5 +464,15 @@ final class ProfileController extends FoodsharingController
         }
 
         return $achievements;
+    }
+
+    private function getKamData(int $userId): ?array
+    {
+        $kamPositions = null;
+        if ($this->storeChainPermissions->maySeeKamPositions()) {
+            $kamPositions = $this->storeChainGateway->getStoreChainsManagedByFoodsaver($userId);
+        }
+
+        return $kamPositions;
     }
 }

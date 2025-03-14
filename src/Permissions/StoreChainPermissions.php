@@ -54,4 +54,9 @@ class StoreChainPermissions
     {
         return $this->mayAdministrateStoreChain($chainId);
     }
+
+    public function maySeeKamPositions(): bool
+    {
+        return $this->maySeeChainList();
+    }
 }

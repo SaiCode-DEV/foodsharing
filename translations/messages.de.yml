@@ -2216,6 +2216,7 @@ profile:
     workgroups_member: "gemeinsam in folgenden Arbeitsgruppen"
     no_common_workgroups: "in keiner gemeinsamen Arbeitsgruppe"
     home_region_from: "Stammbezirk"
+    kam_for: "Verantwortlich für die Koordination folgender Betriebsketten:"
   mail_bounce:
     warning_1: "Deine persönliche E-Mail-Adresse {email} ist für foodsharing-Mails und -Kommunikation gesperrt. Durch das"
     warning_2: "Ändern der E-Mail-Adresse"

@@ -21,6 +21,7 @@
               :about-me-intern="aboutMeIntern"
               :working-groups="workingGroups"
               :working-groups-admins="workingGroupsAdmins"
+              :kam-positions="kamPositions"
               :sleeping-information="sleepingInformation"
               :home-district-history="homeDistrictHistory"
               :role="profileInfos.role"
@@ -49,6 +50,7 @@
                   :about-me-intern="aboutMeIntern"
                   :working-groups="workingGroups"
                   :working-groups-admins="workingGroupsAdmins"
+                  :kam-positions="kamPositions"
                   :sleeping-information="sleepingInformation"
                   :home-district-history="homeDistrictHistory"
                   :role="profileInfos.role"
@@ -139,6 +141,7 @@ export default {
     aboutMeIntern: { type: String, required: true },
     workingGroups: { type: Array, required: true },
     workingGroupsAdmins: { type: Array, required: true },
+    kamPositions: { type: [Array, Object], required: true },
     sleepingInformation: { type: Object, required: true },
     profileInfos: { type: Object, required: true },
     profileCommitmentsStat: { type: Object, required: true },
