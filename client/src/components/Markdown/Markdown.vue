@@ -68,7 +68,7 @@ export default {
   }
   a {
     font-weight: 500 !important;
-    display: inline-block;
+    display: inline;
     max-width: 100%;
     overflow-wrap: anywhere;
     word-break: break-word;
@@ -77,9 +77,9 @@ export default {
   code {
     word-break: normal;
     hyphens: none;
-    white-space: pre-wrap;
+    white-space: normal;
     font-size: inherit;
-    display: inline-block;
+    display: inline;
     max-width: 100%;
     overflow-wrap: anywhere;
     word-break: break-word;
