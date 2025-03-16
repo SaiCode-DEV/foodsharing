@@ -509,6 +509,7 @@ button:
   countdown_clickable: '{geri sayım} saniye içinde tıklanabilir'
   ok: OK
   filter_options: Filtreleme Opsiyonları
+  browse: Arama_
 upload:
   new_image: Yeni fotoğraf yükle
   file: Dosya yükle
@@ -710,9 +711,9 @@ group:
   title: Foodsharing Çalışma Grupları
   subtitle: Burada yardım ve yapacak çok şey bulacaksınız …
   member_count:
-    zero: Katkıda bulunan yok
-    one: Bir katkıda bulunan
-    other: '{count} katkıda bulunanlar'
+    zero: Üye olmayan
+    one: Toplamda bir üye
+    other: '{count} toplam Üye'
   really_quit_workgroup: '{name} çalışma grubundan ayrılmak istediğinize emin misiniz?'
   already_applied: Bu grup için zaten başvuruda bulundunuz.
   quit_name_district: '{name} bölgesinden ayrıl'
@@ -1785,6 +1786,7 @@ region:
   parent: Baş Bölge
   master: Yüksek Bölge
   allow_hiding_in_forum: Moderatörlerin tüm forum gönderilerini silmesine izin ver
+  not-existant: Bu bölge veya çalışma grubu artık mevcut değil.
 events:
   duration: 'Süre: {duration}'
   create:
@@ -2271,6 +2273,7 @@ menu:
     refresh: Güncelle
     delete_read: Tüm okunmuş olanları sil
     applications: Başvurular ({count})
+    public: Kamusal Bölge sayfası
   bell:
     delete_read_confirmation:
       text: '{count} okuma çanlarını silmek istediğinizden emin misiniz?'
@@ -2699,6 +2702,10 @@ settings:
     new_password_confirmation_invalid: Şifreler eşleşmiyor
     submit: Şifre değiştir
     success: Şifreniz başarıyla değiştirildi
+  change_data_info:
+    general: Burada profil verilerinizi ayarlayabilirsiniz.
+    verified: Adınızı ve doğum tarihinizi düzenleyemezsiniz. Ancak bir Elçiden bu
+      bilgileri sizin adınıza değiştirmesini isteyebilirsiniz.
 forum:
   thread:
     navigate_to_oldest_post: ilk gönderiye git
@@ -3118,6 +3125,7 @@ profile:
     workgroups_member: aşağıdaki çalışma gruplarında birlikte
     no_common_workgroups: herhangi ortak çalışma grubunda değil
     home_region_from: Ana Bölge
+    kam_for: 'Aşağıdaki işletme zincirlerinin koordinasyonundan sorumludur:'
   tab_navigation:
     profile: Profil_
     pickups: Alımlar
@@ -3200,6 +3208,8 @@ map:
         label: -Bölge
   foodsharepoint:
     go: Dağıtım Noktası
+  community:
+    go: Bölge sayfasına
 buddy:
   request_sent: İstek gönderildi.
   request_accepted: Artık birbirinizi tanıyorsunuz.
