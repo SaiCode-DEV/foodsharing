@@ -46,6 +46,7 @@
 - Fixed the #vue-topbar error on event pages #2319 !4033 @AntonBallmaier
 - Remove ambassador forum subscriptions when removing ambassadors #2305 !4055 @AntonBallmaier
 - Fix immediate reloading of the login page on failed login #2357 !4082 @DL6ER
+- Fix sorting by *pass valid until* in region passport table #2288 !4053 @AntonBallmaier
 
 ## Refactoring
 - Get rid of xhr completely !3826 !3933 @chriswalg

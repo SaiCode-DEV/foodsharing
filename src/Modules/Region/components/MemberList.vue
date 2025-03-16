@@ -572,6 +572,10 @@ export default {
           key: 'passUntilValid',
           label: this.$i18n('group.valid_until'),
           sortable: true,
+          formatter: (value, key, item) => {
+            return item.lastPassDate
+          },
+          sortByFormatted: true,
           class: 'align-middle',
         })
       }
