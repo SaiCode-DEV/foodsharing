@@ -1787,6 +1787,20 @@ region:
   master: Yüksek Bölge
   allow_hiding_in_forum: Moderatörlerin tüm forum gönderilerini silmesine izin ver
   not-existant: Bu bölge veya çalışma grubu artık mevcut değil.
+  public:
+    confirm_leaving: '{name} bölgesine katılmak ister misiniz? Bu durum, elçilerin
+      profilinize erişimini sağlar.'
+    discard_changes: Değişiklikleri at
+    desc:
+      edit: İlçe açıklamasını düzenle
+      confirm_discard_changes: İlçe tanımındaki değişikliklerinizi gerçekten silmek
+        istiyor musunuz?
+      confirm_save_changes: İlçe açıklamasında yaptığınız değişiklikleri kaydetmek
+        ister misiniz? Yeni açıklama daha sonra ilçe web sitesinde kamuoyuyla paylaşılacak.
+    confirm_entering: '{name} bölgesine katılmak ister misiniz? Bu durum, elçilerin
+      profilinize erişimini sağlar.'
+    continue_editing: Düzenlemeye devam et
+    show_on_large_map: Büyük haritada görüntüle
 events:
   duration: 'Süre: {duration}'
   create:
@@ -2063,7 +2077,7 @@ mailbox:
   move_to: Taşınmak
   close_edit_mode: Düzenlemeyi durdur
   add: Ekle
-  search: Arama
+  search: Arama_
   conformation_modal:
     title: Onaylama
     message: E-postayı silmek istediğinizden emin misiniz?
