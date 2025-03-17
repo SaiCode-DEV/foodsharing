@@ -2844,7 +2844,7 @@ markdown_input:
     bold: tučné
     hrule: vodorovná čára
     link: odkaz
-    heading: titulek
+    heading: nadpis
   empty_preview_placeholder: ''
 notifications:
   checkbox_push: Push notifikace
