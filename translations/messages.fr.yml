@@ -2208,6 +2208,7 @@ profile:
     no_common_workgroups: dans aucun groupe de travail commun
     home_region_from: District principal
     foodSaver_in_region: inscrite dans les districts
+    kam_for: 'Responsable de la coordination des chaînes d’entreprise suivantes :'
   tab_navigation:
     profile: Profil
     pickups: Ramassages
@@ -4394,7 +4395,7 @@ markdown_input:
     bold: gras
     hrule: ligne horizontale
     link: lien
-    heading: titre
+    heading: en-tête
     image: Joindre des photos
     mention: Mentionner un utilisateur
   empty_preview_placeholder: "Il s’agit de l’aperçu du formatage. Le texte est formaté
