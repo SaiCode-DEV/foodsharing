@@ -1428,6 +1428,7 @@ button:
   countdown_clickable: Clicable en {countdown} segundos
   ok: De acuerdo
   filter_options: Opciones del filtro
+  browse: Navegar
 pass:
   nav:
     options: 'Opciones'
@@ -2437,6 +2438,7 @@ profile:
     no_common_workgroups: en ningún grupo de trabajo conjunto
     orga_rights: 'Como persona de la organización, ##### tiene [amplias autorizaciones]({wikiurl})
       en la plataforma.'
+    kam_for: 'Responsable de la coordinación de las siguientes cadenas empresariales:'
   tab_navigation:
     pickups: Recogidas
     commitment_statistics: Estadísticas de participación
@@ -4486,7 +4488,7 @@ markdown_input:
     bold: negrita
     hrule: línea divisoria horizontal
     link: enlace
-    heading: titular
+    heading: encabezado
     image: Adjuntar imágenes
     mention: Mencionar usuarios
   empty_preview_placeholder: "Esta es la vista previa del formato. El texto tiene
@@ -4671,6 +4673,8 @@ help:
         higiene de proveedores externos (como Metro) cargados en el perfil ni la formación
         en higiene adquirida en otro lugar.\n"
       title: Requisitos de higiene para las empresas
+    change_verified_data:
+      title: Solicitar un cambio en los datos verificados
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
@@ -4783,6 +4787,7 @@ support_page:
     placeholder: Seleccionar archivo
     browse: Buscar
     max_size: Archivos adjuntos (máximo 10 con 5 MB por archivo)
+  your_name: Tu nombre
 petition:
   progressText:
     8000: ¡Hemos tenido un buen comienzo! ¡Ayúdanos a llegar aún más lejos!
@@ -4870,3 +4875,22 @@ contact_page:
   description: 'Póngase en contacto con nosotros utilizando una de las siguientes
     opciones de contacto:'
   title: Contacto y soporte
+feedback:
+  button: Enviar comentarios
+  capture_screenshot: Tomar una captura de pantalla
+  error:
+    invalid_file: Archivo inválido. Por favor, sube solo imágenes.
+    message_short: Tu mensaje es demasiado corto. Proporcione más información, por
+      favor.
+    screenshot: La captura de pantalla automática ha fallado. Sin embargo, puedes
+      añadir una imagen a tu comentario manualmente.
+    no_sentry: Se produjo un error con Sentry. Por favor, inténtelo de nuevo más tarde.
+  title: Comentario
+  privacy: Tu mensaje se enviará a los desarrolladores voluntarios de la plataforma
+    foodsharing. Todas las entradas del formulario, así como las imágenes adjuntas,
+    serán entonces visibles para ellos. Asegúrate de que las capturas de pantalla
+    no contengan datos personales de otros usuarios que no estés autorizado a transmitir.
+  name_sent: También se enviarán tu nombre y tu ID de usuario.
+  success: Tu comentario se ha enviado correctamente.
+  no_support: Este formulario es sólo para **comentarios**. Si necesita ayuda o tiene
+    alguna pregunta, utilice el [formulario de soporte](/support).
