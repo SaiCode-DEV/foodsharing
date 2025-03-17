@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Store;
 use DateTime;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
+use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Store\DTO\RegularPickup;
 
 class RegularPickupGateway extends BaseGateway
@@ -100,5 +101,19 @@ class RegularPickupGateway extends BaseGateway
     public function deleteAllRegularPickups($storeId)
     {
         return $this->db->delete('fs_abholzeiten', ['betrieb_id' => $storeId]);
+    }
+
+    public function getRegularPickupTimesForStoresOfUser(int $userId): array
+    {
+        return $this->db->fetchAll('SELECT
+                pickups.`betrieb_id`, pickups.`dow`, pickups.`time`, pickups.`fetcher`, pickups.`description`
+            FROM fs_betrieb_team team
+            JOIN fs_abholzeiten pickups ON pickups.`betrieb_id` = team.`betrieb_id`
+            WHERE team.`foodsaver_id` = :userId
+            AND team.`active` = :activeStatus',
+            [
+                ':userId' => $userId,
+                ':activeStatus' => MembershipStatus::MEMBER,
+            ]);
     }
 }

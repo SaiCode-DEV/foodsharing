@@ -12,6 +12,7 @@ use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
+use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Store\DTO\OneTimePickup;
 use Foodsharing\Modules\Store\DTO\PickupSignUp;
 
@@ -541,6 +542,37 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
         }
 
         return $this->db->fetchAll($stm, $params);
+    }
+
+    public function getFuturePickupTimesForStoresOfUser(int $userId): array
+    {
+        return $this->db->fetchAll('SELECT
+                pickup.`betrieb_id`, pickup.`time`, pickup.`fetchercount`, pickup.`description`
+            FROM fs_betrieb_team team
+            JOIN fs_fetchdate pickup ON pickup.`betrieb_id` = team.`betrieb_id`
+            WHERE team.`foodsaver_id` = :userId
+            AND team.`active` = :activeStatus
+            AND pickup.`time` > NOW()',
+            [
+                ':userId' => $userId,
+                ':activeStatus' => MembershipStatus::MEMBER,
+            ]);
+    }
+
+    public function getFutureFetchersForStoresOfUser(int $userId): array
+    {
+        return $this->db->fetchAll('SELECT
+                fetcher.`betrieb_id`, fetcher.`date`, fetcher.`confirmed`, foodsaver.`id`, foodsaver.`name`, foodsaver.`photo`
+            FROM fs_betrieb_team team
+            JOIN fs_abholer fetcher ON fetcher.`betrieb_id` = team.`betrieb_id`
+            JOIN fs_foodsaver foodsaver ON fetcher.`foodsaver_id` = foodsaver.`id` 
+            WHERE team.`foodsaver_id` =  :userId
+            AND team.`active` = :activeStatus
+            AND fetcher.`date` > NOW()',
+            [
+                ':userId' => $userId,
+                ':activeStatus' => MembershipStatus::MEMBER,
+            ]);
     }
 
     private function realMod(int $a, int $b)

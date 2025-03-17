@@ -71,6 +71,7 @@
 - Refactored MapControl to bootstrap-vue !3987 @chriswalg
 - Refactored contact page to static vue page !3751 @chriswalg
 - Removed unnecessary database queries !4006 @alex.simm
+- Improved the runtime of the pickup options query. #1279 !4051 @AntonBallmaier
 - Refactored store chain creating and editing backend and made name in Profile non-null #2175 !4057 @AntonBallmaier
 - Removed the duplicate address DTO #1999 !4016 @alex.simm
 - Removed unused translation keys #1909 !4061 @alex.simm

@@ -30,15 +30,15 @@
     </template>
 
     <template #cell(store)="entry">
-      <a :href="'/?page=fsbetrieb&id='+entry.item.store.id" class="store-name">
+      <a :href="$url('store', entry.item.store.id)" class="store-name">
         {{ entry.item.store.name }}
       </a>
     </template>
 
     <template #cell(slots)="entry">
       <AvatarStack
-        :users="entry.item.slots.occupied"
-        :total-slots="entry.item.slots.max"
+        :users="entry.item.occupiedSlots"
+        :total-slots="entry.item.slots"
         :max-width-in-px="offsetWidth / 5"
       />
     </template>
@@ -213,10 +213,10 @@ export default {
      * Returns the correct icon tooltip text based on the slot status.
      */
     iconTooltip (item) {
-      const confirmed = item.item.confirmed
+      const isConfirmed = item.item.isConfirmed
       let type
-      if (confirmed === null) type = 'option'
-      else if (confirmed) type = 'confirmed'
+      if (isConfirmed === null) type = 'option'
+      else if (isConfirmed) type = 'confirmed'
       else type = 'pending'
       return i18n('pickup.overview.status.' + type)
     },
@@ -224,10 +224,10 @@ export default {
      * Returns the css classes for the slot icon.
      */
     iconClass (item) {
-      const confirmed = item.item.confirmed
+      const isConfirmed = item.item.isConfirmed
       const classes = { 'slotstatus-icon fas': true }
-      if (confirmed === null) classes['fa-question option'] = true
-      else if (confirmed) classes['fa-check-circle confirmed'] = true
+      if (isConfirmed === null) classes['fa-question option'] = true
+      else if (isConfirmed) classes['fa-check-circle confirmed'] = true
       else classes['fa-clock pending'] = true
       return classes
     },
@@ -241,7 +241,7 @@ export default {
      * Returns the css class each row is assigned
      */
     rowClass (item) {
-      if (item.confirmed === null) return 'option'
+      if (item.isConfirmed === null) return 'option'
       return 'registered'
     },
     /**

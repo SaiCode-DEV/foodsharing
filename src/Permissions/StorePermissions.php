@@ -410,9 +410,9 @@ class StorePermissions
         return $this->mayCoordianteRegionStores($storeId);
     }
 
-    public function maySeePickupOptions(int $userId): bool
+    public function maySeePickupOptions(): bool
     {
-        return $this->session->mayRole(Role::FOODSAVER) && $this->session->id() == $userId;
+        return $this->session->mayRole(Role::FOODSAVER);
     }
 
     /**

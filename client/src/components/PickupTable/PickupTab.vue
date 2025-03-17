@@ -88,6 +88,7 @@ import { BTab, BFormCheckbox, BDropdown, BDropdownForm, BDropdownItemButton } fr
 import PickupTable from './PickupTable.vue'
 import { pulseError } from '@/script'
 import { leavePickup, leaveAllPickups } from '@/api/pickups'
+const PAGE_SIZE = 50
 
 export default {
   components: { BTab, PickupTable, BFormCheckbox, BDropdown, BDropdownForm, BDropdownItemButton },
@@ -149,7 +150,7 @@ export default {
     displayedTableData () {
       let data = this.tableData
       if (!this.showRegistered) {
-        data = data.filter(slot => slot.confirmed === null, data)
+        data = data.filter(slot => slot.isConfirmed === null, data)
       }
       return data
     },
@@ -181,11 +182,13 @@ export default {
       const page = this.paginated ? this.nextPage++ : undefined
       let data = await this.dataEndpoint(this.fsId, page)
 
-      if (this.tableData && this.paginated) {
-        if (data.length === 0) {
+      if (this.paginated) {
+        if (data.length < PAGE_SIZE) {
           this.nextPage = -1
         }
-        data = this.tableData.concat(data)
+        if (this.tableData) {
+          data = this.tableData.concat(data)
+        }
       }
 
       this.tableData = data

@@ -21,7 +21,6 @@ use Foodsharing\Permissions\ProfilePermissions;
 use Foodsharing\Permissions\StorePermissions;
 use Foodsharing\RestApi\Models\Store\PickupLeaveMessageOptions;
 use Foodsharing\Utility\TimeHelper;
-use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -35,11 +34,11 @@ use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final class PickupRestController extends AbstractFOSRestController
+final class PickupRestController extends AbstractFoodsharingRestController
 {
     public function __construct(
+        protected Session $session,
         private readonly FoodsaverGateway $foodsaverGateway,
-        private readonly Session $session,
         private readonly PickupGateway $pickupGateway,
         private readonly StoreGateway $storeGateway,
         private readonly StorePermissions $storePermissions,
@@ -56,9 +55,7 @@ final class PickupRestController extends AbstractFOSRestController
     #[Rest\Post('stores/{storeId}/pickups/{pickupDate}/{fsId}', requirements: ['storeId' => '\d+', 'pickupDate' => '[^/]+', 'fsId' => '\d+'])]
     public function joinPickup(int $storeId, string $pickupDate, int $fsId): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         $date = TimeHelper::parsePickupDate($pickupDate);
 
@@ -69,9 +66,7 @@ final class PickupRestController extends AbstractFOSRestController
         try {
             $isConfirmed = $this->storeTransactions->joinPickup($storeId, $date, $fsId, $this->session->id());
 
-            return $this->handleView($this->view([
-                    'isConfirmed' => $isConfirmed
-                ], 200));
+            return $this->respondOk(['isConfirmed' => $isConfirmed]);
         } catch (StoreTransactionException $ex) {
             throw new AccessDeniedHttpException($ex->getMessage(), $ex);
         }
@@ -87,9 +82,7 @@ final class PickupRestController extends AbstractFOSRestController
     #[ParamConverter('leaveInformation', class: PickupLeaveMessageOptions::class, converter: 'fos_rest.request_body')]
     public function leavePickup(int $storeId, string $pickupDate, int $fsId, PickupLeaveMessageOptions $leaveInformation, ValidatorInterface $validator): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         if (!$this->storePermissions->mayRemovePickupUser($storeId, $fsId)) {
             throw new AccessDeniedHttpException();
         }
@@ -100,7 +93,7 @@ final class PickupRestController extends AbstractFOSRestController
         $sendKickMessage = $leaveInformation->sendKickMessage || !$this->profilePermissions->mayCancelSlotsFromProfile($fsId);
         $this->doLeavePickup($storeId, $pickupDate, $fsId, $leaveInformation->message, $sendKickMessage);
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOk();
     }
 
     /**
@@ -113,9 +106,7 @@ final class PickupRestController extends AbstractFOSRestController
     #[ParamConverter('leaveInformation', class: PickupLeaveMessageOptions::class, converter: 'fos_rest.request_body')]
     public function leaveAllPickups(int $fsId, PickupLeaveMessageOptions $leaveInformation, ValidatorInterface $validator)
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         if (!$this->profilePermissions->mayCancelSlotsFromProfile($fsId)) {
             throw new AccessDeniedHttpException();
         }
@@ -130,7 +121,7 @@ final class PickupRestController extends AbstractFOSRestController
             $this->doLeavePickup($pickup['store_id'], date(DATE_ATOM, $pickup['timestamp']), $fsId, $leaveInformation->message, $sendKickMessage);
         }
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK();
     }
 
     private function doLeavePickup(int $storeId, string $pickupDate, int $fsId, string $message = '', bool $sendKickMessage = true)
@@ -180,9 +171,7 @@ final class PickupRestController extends AbstractFOSRestController
     #[Rest\RequestParam(name: 'isConfirmed', default: null, nullable: true)]
     public function editPickupSlot(int $storeId, string $pickupDate, int $fsId, ParamFetcherInterface $paramFetcher): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         if (!$this->storePermissions->mayConfirmPickup($storeId)) {
             throw new AccessDeniedHttpException();
         }
@@ -202,7 +191,7 @@ final class PickupRestController extends AbstractFOSRestController
             );
         }
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOk();
     }
 
     /**
@@ -220,9 +209,7 @@ final class PickupRestController extends AbstractFOSRestController
     #[Rest\Get('stores/{storeId}/regularPickup', requirements: ['storeId' => '\d+'])]
     public function getRegularPickup(int $storeId): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         if (!$this->storePermissions->maySeePickups($storeId)) {
             throw new AccessDeniedHttpException("No permission to access storeid '$storeId'");
@@ -235,7 +222,7 @@ final class PickupRestController extends AbstractFOSRestController
             throw new NotFoundHttpException('Store not found.', $ex);
         }
 
-        return $this->handleView($this->view($regularPickups, 200));
+        return $this->respondOk($regularPickups);
     }
 
     /**
@@ -251,9 +238,7 @@ final class PickupRestController extends AbstractFOSRestController
     #[ParamConverter('regularPickups', class: 'array<Foodsharing\Modules\Store\DTO\RegularPickup>', converter: 'fos_rest.request_body')]
     public function editRegularPickup(int $storeId, array $regularPickups, ValidatorInterface $validator): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         if (!$this->storePermissions->mayEditPickups($storeId)) {
             throw new AccessDeniedHttpException();
         }
@@ -267,7 +252,7 @@ final class PickupRestController extends AbstractFOSRestController
             throw new BadRequestHttpException($ex->getMessage(), $ex);
         }
 
-        return $this->handleView($this->view($regularPickups, 200));
+        return $this->respondOk($regularPickups);
     }
 
     /**
@@ -306,9 +291,7 @@ final class PickupRestController extends AbstractFOSRestController
     #[Rest\RequestParam(name: 'description', requirements: '.{0,100}', description: 'Description of this pickup.', nullable: true)]
     public function editPickup(int $storeId, string $pickupDate, ParamFetcherInterface $paramFetcher): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         if (!$this->storePermissions->mayEditPickups($storeId)) {
             $existingStore = $this->storeGateway->storeExists($storeId);
@@ -338,7 +321,7 @@ final class PickupRestController extends AbstractFOSRestController
 
             $created = $this->storeTransactions->createOrUpdatePickup($storeId, $pickup);
 
-            return $this->handleView($this->view(['created' => $created], 200));
+            return $this->respondOk(['created' => $created]);
         } catch (PickupValidationException $ex) {
             throw new BadRequestHttpException($ex->getMessage());
         }
@@ -350,9 +333,7 @@ final class PickupRestController extends AbstractFOSRestController
     #[Rest\Get('stores/{storeId}/pickups', requirements: ['storeId' => '\d+'])]
     public function listPickups(int $storeId): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         if (!$this->storePermissions->maySeePickups($storeId)) {
             throw new AccessDeniedHttpException();
         }
@@ -364,9 +345,7 @@ final class PickupRestController extends AbstractFOSRestController
 
         $pickups = $this->pickupGateway->getPickupSlots($storeId, $fromTime);
 
-        return $this->handleView($this->view([
-            'pickups' => $this->enrichPickupSlots($pickups, $storeId)
-        ]));
+        return $this->respondOk(['pickups' => $this->enrichPickupSlots($pickups, $storeId)]);
     }
 
     /**
@@ -375,9 +354,7 @@ final class PickupRestController extends AbstractFOSRestController
     #[Rest\Get('stores/{storeId}/history/{fromDate}/{toDate}', requirements: ['storeId' => '\d+', 'fromDate' => '[^/]+', 'toDate' => '[^/]+'])]
     public function listPickupHistory(int $storeId, string $fromDate, string $toDate): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
         if (!$this->storePermissions->maySeePickupHistory($storeId)) {
             throw new AccessDeniedHttpException();
         }
@@ -391,9 +368,7 @@ final class PickupRestController extends AbstractFOSRestController
             'occupiedSlots' => $this->pickupGateway->getPickupHistory($storeId, $from, $to)
         ]];
 
-        return $this->handleView($this->view([
-            'pickups' => $this->enrichPickupSlots($pickups, $storeId)
-        ]));
+        return $this->respondOk(['pickups' => $this->enrichPickupSlots($pickups, $storeId)]);
     }
 
     private function enrichPickupSlots(array $pickups, int $storeId): array
@@ -450,9 +425,7 @@ final class PickupRestController extends AbstractFOSRestController
     #[Rest\QueryParam(name: 'pageSize', default: 50, nullable: false)]
     public function listPastPickups(ParamFetcherInterface $paramFetcher): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         $fsId = (int)($paramFetcher->get('fsId') ?? $this->session->id());
         $page = (int)$paramFetcher->get('page');
@@ -475,25 +448,21 @@ final class PickupRestController extends AbstractFOSRestController
                 'id' => $pickup['store_id'],
                 'name' => $pickup['store_name'],
             ],
-            'confirmed' => $pickup['confirmed'],
-            'slots' => [
-                'occupied' => array_map(
-                    fn ($id, $name, $avatar, $confirmed) => [
-                        'id' => (int)$id,
-                        'name' => $name,
-                        'avatar' => $avatar == '' ? null : $avatar,
-                        'confirmed' => (int)$confirmed,
-                    ],
-                    str_getcsv((string)$pickup['fs_ids']),
-                    str_getcsv((string)$pickup['fs_names'], ',', '\''),
-                    str_getcsv((string)$pickup['fs_avatars']),
-                    str_getcsv((string)$pickup['slot_confimations'])
-                )
-            ],
+            'isConfirmed' => boolval($pickup['confirmed']),
+            'occupiedSlots' => array_map(
+                fn ($id, $name, $avatar) => [
+                    'id' => (int)$id,
+                    'name' => $name,
+                    'avatar' => $avatar == '' ? null : $avatar,
+                ],
+                str_getcsv((string)$pickup['fs_ids']),
+                str_getcsv((string)$pickup['fs_names'], ',', '\''),
+                str_getcsv((string)$pickup['fs_avatars'])
+            ),
             'description' => $pickup['description']
         ], $pickups);
 
-        return $this->handleView($this->view($pickups));
+        return $this->respondOk($pickups);
     }
 
     /**
@@ -505,9 +474,7 @@ final class PickupRestController extends AbstractFOSRestController
     #[Rest\QueryParam(name: 'fsId', default: null, nullable: true)]
     public function listRegisteredPickups(ParamFetcherInterface $paramFetcher): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         $fsId = (int)($paramFetcher->get('fsId') ?? $this->session->id());
 
@@ -523,26 +490,22 @@ final class PickupRestController extends AbstractFOSRestController
                 'id' => $pickup['store_id'],
                 'name' => $pickup['store_name'],
             ],
-            'confirmed' => $pickup['confirmed'],
-            'slots' => [
-                'occupied' => array_map(
-                    fn ($id, $name, $avatar, $confirmed) => [
-                        'id' => (int)$id,
-                        'name' => $name,
-                        'avatar' => $avatar == '' ? null : $avatar,
-                        'confirmed' => (int)$confirmed,
-                    ],
-                    str_getcsv((string)$pickup['fs_ids']),
-                    str_getcsv((string)$pickup['fs_names'], ',', '\''),
-                    str_getcsv((string)$pickup['fs_avatars']),
-                    str_getcsv((string)$pickup['slot_confimations'])
-                ),
-                'max' => $pickup['max_fetchers'],
-            ],
+            'isConfirmed' => boolval($pickup['confirmed']),
+            'slots' => $pickup['max_fetchers'],
+            'occupiedSlots' => array_map(
+                fn ($id, $name, $avatar) => [
+                    'id' => (int)$id,
+                    'name' => $name,
+                    'avatar' => $avatar == '' ? null : $avatar,
+                ],
+                str_getcsv((string)$pickup['fs_ids']),
+                str_getcsv((string)$pickup['fs_names'], ',', '\''),
+                str_getcsv((string)$pickup['fs_avatars'])
+            ),
             'description' => $pickup['description']
         ], $pickups);
 
-        return $this->handleView($this->view($pickups));
+        return $this->respondOk($pickups);
     }
 
     /**
@@ -557,73 +520,18 @@ final class PickupRestController extends AbstractFOSRestController
     #[Rest\QueryParam(name: 'pageSize', default: 50, nullable: false)]
     public function listPickupOptions(ParamFetcherInterface $paramFetcher): Response
     {
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
+        $this->assertLoggedIn();
 
         $page = (int)$paramFetcher->get('page');
         $pageSize = (int)$paramFetcher->get('pageSize');
-        $id = $this->session->id();
-        if (!$this->session->mayRole() || !$this->storePermissions->maySeePickupOptions($id)) {
+        if (!$this->storePermissions->maySeePickupOptions()) {
             throw new AccessDeniedHttpException();
         }
 
-        //fetch stores and pickup slots:
-        $pickupOptions = [];
-        $pickupSlots = null;
+        $pickupOptions = $this->pickupTransactions->getPickupOptions($this->session->id());
+        $pickupOptions = array_slice($pickupOptions, $page * $pageSize, $pageSize);
 
-        $isConfirmed = function ($id, $users) {
-            foreach ($users as $u) {
-                if ($u['profile']['id'] === $id) {
-                    return $u['isConfirmed'];
-                }
-            }
-
-            return null;
-        };
-
-        foreach ($this->storeGateway->getStores($id) as $store) {
-            $pickupSlots = $this->enrichPickupSlots(
-                $this->pickupGateway->getPickupSlots($store['id']),
-                $store['id']
-            );
-
-            $pickupOptions = array_merge($pickupOptions, array_map(
-                fn ($slot) => [
-                    'date' => $slot['date'],
-                    'store' => $store,
-                    'confirmed' => $isConfirmed($id, $slot['occupiedSlots']),
-                    'slots' => [
-                        'occupied' => array_map(
-                            fn ($user) => [
-                                'id' => $user['profile']['id'],
-                                'name' => $user['profile']['name'],
-                                'avatar' => $user['profile']['avatar'],
-                                'confirmed' => $user['isConfirmed'],
-                            ],
-                            $slot['occupiedSlots']
-                        ),
-                        'max' => $slot['totalSlots'],
-                    ],
-                    'description' => $slot['description']
-                ],
-                $pickupSlots
-            ));
-        }
-
-        // Filtering (exclude completely filled slots without the user in them)
-        $pickupOptions = array_values(array_filter(
-            $pickupOptions,
-            fn ($obj) => count($obj['slots']['occupied']) < $obj['slots']['max'] || !is_null($obj['confirmed'])
-        ));
-
-        usort($pickupOptions, fn ($a, $b) => strtotime((string)$a['date']) <=> strtotime((string)$b['date']));
-
-        if ($page != -1 && $pageSize != -1) {
-            $pickupOptions = array_slice($pickupOptions, $page * $pageSize, $pageSize);
-        }
-
-        return $this->handleView($this->view($pickupOptions));
+        return $this->respondOk($pickupOptions);
     }
 
     /**
@@ -657,6 +565,6 @@ final class PickupRestController extends AbstractFOSRestController
         $date = TimeHelper::parsePickupDate($pickupDate);
         $response['result'] = $this->storeTransactions->checkPickupRule($storeId, $date, $fsId);
 
-        return $this->handleView($this->view($response));
+        return $this->respondOk($response);
     }
 }

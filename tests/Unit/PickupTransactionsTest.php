@@ -9,6 +9,7 @@ use Foodsharing\Modules\Store\PickupGateway;
 use Foodsharing\Modules\Store\PickupTransactions;
 use Foodsharing\Modules\Store\PickupValidationException;
 use Foodsharing\Modules\Store\RegularPickupGateway;
+use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreTransactions;
 use PHPUnit\Framework\TestCase;
 
@@ -18,13 +19,16 @@ class PickupTransactionsTest extends TestCase
     private StoreTransactions $storeTransactions;
 
     private RegularPickupGateway $regularPickupGateway;
+    private PickupGateway $oneTimePickupGateway;
+    private StoreGateway $storeGateway;
 
     protected function setUp(): void
     {
         $this->oneTimePickupGateway = $this->createMock(PickupGateway::class);
         $this->regularPickupGateway = $this->createMock(RegularPickupGateway::class);
+        $this->storeGateway = $this->createMock(StoreGateway::class);
         $this->storeTransactions = $this->createMock(StoreTransactions::class);
-        $this->pickupTransactions = new PickupTransactions($this->storeTransactions, $this->regularPickupGateway, $this->oneTimePickupGateway);
+        $this->pickupTransactions = new PickupTransactions($this->storeTransactions, $this->regularPickupGateway, $this->oneTimePickupGateway, $this->storeGateway);
     }
 
     public function testListRegularPickups(): void

@@ -12,7 +12,7 @@
     >
       <span v-text="`+${hiddenUsers.length}`" />
       <b-tooltip
-        v-if="hiddenUsers.length && showOverflowTooltip"
+        v-if="hiddenUsers.length && showOverflowTooltip && $refs.hidden"
         :target="$refs.hidden"
         triggers="hover"
       >
@@ -51,7 +51,7 @@ export default {
     shownUsersNum () {
       // The free slots add-on needs 43px
       const width = this.maxWidthInPx - (this.freeSlots ? 43 : 0)
-      const maxCircles = Math.max(1, Math.floor((width - this.overlap) / (this.size - this.overlap)))
+      const maxCircles = Math.max(2, Math.floor((width - this.overlap) / (this.size - this.overlap)))
       if (this.users.length <= maxCircles) {
         return this.users.length
       } else {

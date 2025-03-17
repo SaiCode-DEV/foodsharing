@@ -1106,6 +1106,22 @@ class StoreGateway extends BaseGateway
         return array_map(MapMarker::createFromArray(...), $markers);
     }
 
+    public function getStoresForUser(int $userId, array $columns): array
+    {
+        $select = implode(', ', array_map(fn ($column) => "store.`$column`", $columns));
+
+        return $this->db->fetchAll('SELECT
+            ' . $select . '
+            FROM fs_betrieb store
+            JOIN fs_betrieb_team team ON team.betrieb_id = store.id 
+            WHERE team.foodsaver_id = :userId
+            AND team.active = :activeStatus',
+            [
+                ':userId' => $userId,
+                ':activeStatus' => MembershipStatus::MEMBER,
+            ]);
+    }
+
     private function sqlSelectStoreColumns()
     {
         return 'SELECT

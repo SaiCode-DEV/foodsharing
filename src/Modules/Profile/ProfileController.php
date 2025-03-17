@@ -448,7 +448,7 @@ final class ProfileController extends FoodsharingController
 
         return [
             'showRegisteredTab' => $maySeePickups,
-            'showOptionsTab' => $this->storePermissions->maySeePickupOptions($fsId),
+            'showOptionsTab' => $this->storePermissions->maySeePickupOptions(),
             'showHistoryTab' => $maySeePickups,
             'fsId' => $fsId,
             'allowSlotCancelation' => $this->profilePermissions->mayCancelSlotsFromProfile($fsId),
