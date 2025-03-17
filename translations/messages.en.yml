@@ -857,6 +857,7 @@ profile:
     orga_rights: '##### has [extensive authorizations]({wikiurl}) on the platform
       as an Orga person.'
     no_common_workgroups: no working groups in common
+    kam_for: 'Responsible for the coordination of the following corporate chains:'
   tab_navigation:
     profile: Profile
     pickups: Pick-ups
@@ -4684,7 +4685,8 @@ feedback:
     data of other users that you are not allowed to pass on."
   error:
     no_sentry: "An error occurred while sending the feedback. Please try again later."
-    screenshot: Automatic Screenshot Capture failes. You can manually upload a screenshot.
+    screenshot: Automatic screenshot failed. However, you can manually add an image
+      to your feedback.
     invalid_file: "The file is not a valid image file."
     message_short: "The message is too short. Please enter more information."
 
