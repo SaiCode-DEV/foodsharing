@@ -1113,6 +1113,7 @@ profile:
     foodSaver_in_region: registrert i distriktene
     workgroups_admin: er kontaktperson for grupper
     workgroups_member: sammen i følgende arbeidsgrupper
+    kam_for: 'Ansvarlig for koordinering av følgende bedriftskjeder:'
   stores:
     memberState:
       filterActive: Medlem
@@ -2257,6 +2258,7 @@ button:
   countdown_clickable: Klikkbar om {seconds} sekunder
   ok: OK
   filter_options: Filteralternativer
+  browse: Bla gjennom
 upload:
   preview_image: Forhåndsvisning
   crop_dialog_title: Beskjær bilde
@@ -4509,6 +4511,7 @@ support_page:
     drop_placeholder: Fil her
     placeholder: Velg fil
     browse: Søk
+  your_name: Navnet ditt
 petition:
   link: Til begjæringen
   progressText:
@@ -4595,3 +4598,21 @@ required_messages:
     footer: Hilsener
     main: Jeg har fjernet deg som teamleder for selskapet [{store}](/store/{storeId}).
     really: Vil du virkelig fjerne {name} fra hans eller hennes ansvar som teamleder?
+feedback:
+  button: Send tilbakemelding
+  name_sent: Ditt navn og ID vil bli sendt med.
+  error:
+    no_sentry: Det oppsto en feil med Sentry. Vennligst prøv igjen senere.
+    screenshot: Automatisk skjermdump mislyktes. Du kan imidlertid legge til et bilde
+      manuelt i tilbakemeldingen din.
+    invalid_file: Ugyldig fil. Last opp kun bilder.
+    message_short: Meldingen din er for kort. Vennligst oppgi mer informasjon.
+  no_support: Dette skjemaet er kun for **tilbakemelding**. Hvis du trenger hjelp
+    eller har spørsmål, vennligst bruk [støtteskjemaet](/support).
+  capture_screenshot: Ta skjermbilde
+  success: Tilbakemeldingen din er sendt inn.
+  title: Tilbakemeldingsskjema
+  privacy: Meldingen din vil bli sendt til de frivillige utviklerne av foodsharing-plattformen.
+    Alle påmeldinger fra skjemaet, samt vedlagte bilder, vil da være synlige for deg.
+    Sørg for at skjermbilder ikke inneholder personlig informasjon om andre brukere
+    som du ikke har tillatelse til å dele.
