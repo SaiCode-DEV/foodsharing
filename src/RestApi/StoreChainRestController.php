@@ -6,14 +6,13 @@ use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Store\DTO\MinimalStoreIdentifier;
 use Foodsharing\Modules\Store\StoreGateway;
-use Foodsharing\Modules\StoreChain\DTO\PatchStoreChain;
 use Foodsharing\Modules\StoreChain\DTO\StoreChain;
+use Foodsharing\Modules\StoreChain\DTO\StoreChainData;
 use Foodsharing\Modules\StoreChain\DTO\StoreChainForChainList;
 use Foodsharing\Modules\StoreChain\StoreChainGateway;
 use Foodsharing\Modules\StoreChain\StoreChainTransactionException;
 use Foodsharing\Modules\StoreChain\StoreChainTransactions;
 use Foodsharing\Permissions\StoreChainPermissions;
-use Foodsharing\RestApi\Models\StoreChain\CreateStoreChainModel;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -110,8 +109,8 @@ class StoreChainRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="403", description="Insufficient permissions")
      */
     #[Rest\Post('chains')]
-    #[ParamConverter('storeModel', converter: 'fos_rest.request_body')]
-    public function createChain(CreateStoreChainModel $storeModel, ConstraintViolationListInterface $validationErrors): Response
+    #[ParamConverter('storeChainData', converter: 'fos_rest.request_body')]
+    public function createChain(StoreChainData $storeChainData, ConstraintViolationListInterface $validationErrors): Response
     {
         $this->assertLoggedIn();
         if (!$this->permissions->mayCreateChain()) {
@@ -120,7 +119,7 @@ class StoreChainRestController extends AbstractFoodsharingRestController
 
         $this->throwBadRequestExceptionOnError($validationErrors);
         try {
-            $id = $this->transactions->addStoreChain($storeModel->toCreateStore());
+            $id = $this->transactions->addStoreChain($storeChainData);
         } catch (StoreChainTransactionException $ex) {
             throw new BadRequestException($ex->getMessage());
         }
@@ -129,18 +128,18 @@ class StoreChainRestController extends AbstractFoodsharingRestController
     }
 
     /**
-     * Updates a store.
+     * Updates a store chain.
      *
      * @OA\Tag(name="chain")
-     * @OA\RequestBody(@Model(type=PatchStoreChain::class))
+     * @OA\RequestBody(@Model(type=StoreChainData::class))
      * @OA\Response(response="200", description="Success")
      * @OA\Response(response="401", description="Not logged in")
      * @OA\Response(response="403", description="Insufficient permissions")
      * @OA\Response(response="404", description="Chain does not exist")
      */
     #[Rest\Patch('chains/{chainId}', requirements: ['chainId' => '\d+'])]
-    #[ParamConverter('storeModel', converter: 'fos_rest.request_body')]
-    public function updateChain($chainId, PatchStoreChain $storeModel, ConstraintViolationListInterface $validationErrors): Response
+    #[ParamConverter('storeChainData', converter: 'fos_rest.request_body')]
+    public function updateChain($chainId, StoreChainData $storeChainData, ConstraintViolationListInterface $validationErrors): Response
     {
         $this->assertLoggedIn();
         if (!$this->gateway->chainExists($chainId)) {
@@ -158,12 +157,9 @@ class StoreChainRestController extends AbstractFoodsharingRestController
 
         try {
             $updateKams = $this->permissions->mayEditKams($chainId);
-            $changed = $this->transactions->updateStoreChain($chainId, $storeModel, $updateKams);
-            if ($changed) {
-                return $this->respondOK($this->gateway->getStoreChains($chainId)[0]);
-            } else {
-                throw new BadRequestException('No information changed.');
-            }
+            $this->transactions->updateStoreChain($chainId, $storeChainData, $updateKams);
+
+            return $this->respondOK($this->gateway->getStoreChains($chainId)[0]);
         } catch (StoreChainTransactionException $ex) {
             throw new BadRequestException($ex->getMessage());
         }

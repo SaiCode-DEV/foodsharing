@@ -6,7 +6,7 @@ use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Foodsaver\Profile;
-use Foodsharing\Modules\StoreChain\DTO\StoreChain;
+use Foodsharing\Modules\StoreChain\DTO\StoreChainData;
 use Foodsharing\Modules\StoreChain\DTO\StoreChainForChainList;
 
 class StoreChainGateway extends BaseGateway
@@ -14,22 +14,22 @@ class StoreChainGateway extends BaseGateway
     /**
      * @throws Exception
      */
-    public function addStoreChain(StoreChain $storeData): int
+    public function addStoreChain(StoreChainData $storeChainData): int
     {
         $id = $this->db->insert('fs_chain', [
-            'name' => $storeData->name,
-            'headquarters_zip' => $storeData->headquartersZip,
-            'headquarters_city' => $storeData->headquartersCity,
-            'headquarters_country' => $storeData->headquartersCountry,
-            'status' => $storeData->status->value,
+            'name' => $storeChainData->name,
+            'headquarters_zip' => $storeChainData->headquartersZip,
+            'headquarters_city' => $storeChainData->headquartersCity,
+            'headquarters_country' => $storeChainData->headquartersCountry,
+            'status' => StoreChainStatus::from($storeChainData->status)->value,
             'modification_date' => $this->db->now(),
-            'allow_press' => $storeData->allowPress,
-            'forum_thread' => $storeData->forumThread,
-            'notes' => $storeData->notes,
-            'common_store_information' => $storeData->commonStoreInformation,
-            'estimated_store_count' => $storeData->estimatedStoreCount
+            'allow_press' => $storeChainData->allowPress,
+            'forum_thread' => $storeChainData->forumThread,
+            'notes' => $storeChainData->notes,
+            'common_store_information' => $storeChainData->commonStoreInformation,
+            'estimated_store_count' => $storeChainData->estimatedStoreCount
         ]);
-        $this->updateAllKeyAccountManagers($id, $storeData->kams);
+        $this->updateAllKeyAccountManagers($id, $storeChainData->kams);
 
         return $id;
     }
@@ -37,7 +37,7 @@ class StoreChainGateway extends BaseGateway
     /**
      * @throws Exception
      */
-    public function updateStoreChain(StoreChain $storeData, bool $updateKams)
+    public function updateStoreChain(int $chainId, StoreChainData $storeData)
     {
         $this->db->update(
             'fs_chain',
@@ -46,7 +46,7 @@ class StoreChainGateway extends BaseGateway
                 'headquarters_zip' => $storeData->headquartersZip,
                 'headquarters_city' => $storeData->headquartersCity,
                 'headquarters_country' => $storeData->headquartersCountry,
-                'status' => $storeData->status->value,
+                'status' => $storeData->status,
                 'modification_date' => $this->db->now(),
                 'allow_press' => $storeData->allowPress,
                 'forum_thread' => $storeData->forumThread,
@@ -54,32 +54,26 @@ class StoreChainGateway extends BaseGateway
                 'common_store_information' => $storeData->commonStoreInformation,
                 'estimated_store_count' => $storeData->estimatedStoreCount
             ],
-            ['id' => $storeData->id]
+            ['id' => $chainId]
         );
-        if ($updateKams) {
-            $this->updateAllKeyAccountManagers($storeData->id, $storeData->kams);
-        }
     }
 
     /**
      * Delete and insert all key account managers (kams).
      *
-     * @param Profile[] $kams are account ids for key account managers
-     *
      * @throws Exception
      */
-    public function updateAllKeyAccountManagers(int $chainId, array $kams)
+    public function updateAllKeyAccountManagers(int $chainId, array $kamIds)
     {
         //delete previous kams
         $this->db->delete('fs_key_account_manager', ['chain_id' => $chainId]);
 
         //add new kams
-        foreach ($kams as $fs) {
-            $this->db->insert('fs_key_account_manager', [
+        $this->db->insertMultiple('fs_key_account_manager',
+            array_map(fn ($kamId) => [
                 'chain_id' => $chainId,
-                'foodsaver_id' => $fs->id,
-            ]);
-        }
+                'foodsaver_id' => $kamId,
+            ], $kamIds));
     }
 
     /**

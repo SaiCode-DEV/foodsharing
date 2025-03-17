@@ -1,11 +1,7 @@
 <?php
 
-namespace Foodsharing\RestApi\Models\StoreChain;
+namespace Foodsharing\Modules\StoreChain\DTO;
 
-use DateTime;
-use Foodsharing\Modules\Foodsaver\Profile;
-use Foodsharing\Modules\StoreChain\DTO\StoreChain;
-use Foodsharing\Modules\StoreChain\StoreChainStatus;
 use Foodsharing\Validator\NoHtml;
 use Foodsharing\Validator\NoMarkdown;
 use Foodsharing\Validator\NoMultiLineText;
@@ -14,11 +10,9 @@ use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class that represents the data of a store chain, in a format in which it is sent to the client.
- *
- * @OA\Schema(required={"id", "name", "headquartersZip", "headquartersCity", "forumThread", "status", "allowPress" })
+ * Class that contains all data required to create or update a store chain.
  */
-class CreateStoreChainModel
+class StoreChainData
 {
     /**
      * Name of the chain.
@@ -26,15 +20,12 @@ class CreateStoreChainModel
      * Field does not support HTML, Markdown or multiline strings.
      *
      * @OA\Property(example="MyChain GmbH")
-     *
      * @NoHtml
-     *
      * @NoMultiLineText
-     *
      * @NoMarkdown
      */
-    #[Assert\NotNull]
     #[Assert\Length(min: 1, max: 120)]
+    #[Assert\NotNull]
     public ?string $name = null;
 
     /**
@@ -45,19 +36,16 @@ class CreateStoreChainModel
      *
      * @OA\Property(enum={0, 1, 2}, example=2)
      */
-    #[Assert\NotNull]
     #[Assert\Range(min: 0, max: 2)]
+    #[Assert\NotNull]
     public ?int $status = null;
 
     /**
      * ZIP code of the chains headquater.
      *
-     * @OA\Property(example="48149")
-     *
+     * @OA\Property(example="48149", nullable=true)
      * @NoHtml
-     *
      * @NoMultiLineText
-     *
      * @NoMarkdown
      */
     #[Assert\Length(min: 1, max: 5)]
@@ -69,16 +57,13 @@ class CreateStoreChainModel
      *
      * Field does not support HTML, Markdown or multiline strings.
      *
-     * @OA\Property(example="Münster")
-     *
+     * @OA\Property(example="Münster", nullable=true)
      * @NoHtml
-     *
      * @NoMultiLineText
-     *
      * @NoMarkdown
      */
-    #[Assert\NotNull]
     #[Assert\Length(min: 1, max: 50)]
+    #[Assert\NotNull]
     public ?string $headquartersCity = null;
 
     /**
@@ -87,13 +72,12 @@ class CreateStoreChainModel
      * Field does not support HTML, Markdown or multiline strings.
      *
      * @OA\Property(example="Germany")
-     *
+     * @NoHtml
      * @NoMultiLineText
-     *
      * @NoMarkdown
      */
-    #[Assert\NotNull]
     #[Assert\Length(max: 50)]
+    #[Assert\NotNull]
     public ?string $headquartersCountry = null;
 
     /**
@@ -117,9 +101,7 @@ class CreateStoreChainModel
      * Field does not support HTML, Markdown or multiline strings.
      *
      * @OA\Property(example="Cooperating since 2021", nullable=true)
-     *
      * @NoHtml
-     *
      * @NoMultiLineText
      * @NoMarkdown
      */
@@ -130,6 +112,7 @@ class CreateStoreChainModel
      * Information about the chain to be displayed on every related stores page.
      *
      * @OA\Property(example="Pickup times between 10:00 and 12:15", nullable=true)
+     * @NoHtml
      */
     #[Assert\Length(max: 16_777_215)]
     public ?string $commonStoreInformation = null;
@@ -138,10 +121,11 @@ class CreateStoreChainModel
      * Identifiers of key account managers.
      *
      * @OA\Property(type="array", description="Managers of this chain",	items={"type"="integer"})
+     * @var int[] list of key account manager ids
      */
     #[Assert\All(new Assert\Positive())]
     #[Type('array<int>')]
-    public array $kams = [];
+    public ?array $kams = null;
 
     /**
      * Count of estimated stores.
@@ -152,23 +136,4 @@ class CreateStoreChainModel
      */
     #[Assert\Range(min: 0)]
     public ?int $estimatedStoreCount = null;
-
-    public function toCreateStore(): StoreChain
-    {
-        $obj = new StoreChain();
-        $obj->name = $this->name;
-        $obj->status = StoreChainStatus::from($this->status);
-        $obj->allowPress = $this->allowPress;
-        $obj->headquartersZip = $this->headquartersZip;
-        $obj->headquartersCity = $this->headquartersCity;
-        $obj->headquartersCountry = $this->headquartersCountry;
-        $obj->modificationDate = new DateTime();
-        $obj->forumThread = $this->forumThread;
-        $obj->notes = $this->notes;
-        $obj->commonStoreInformation = $this->commonStoreInformation;
-        $obj->estimatedStoreCount = $this->estimatedStoreCount ?? 0;
-        $obj->kams = array_map(fn ($kam) => new Profile(['id' => $kam]), $this->kams);
-
-        return $obj;
-    }
 }

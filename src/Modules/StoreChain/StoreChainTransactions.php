@@ -8,10 +8,8 @@ use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
-use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Region\ForumGateway;
-use Foodsharing\Modules\StoreChain\DTO\PatchStoreChain;
-use Foodsharing\Modules\StoreChain\DTO\StoreChain;
+use Foodsharing\Modules\StoreChain\DTO\StoreChainData;
 use Foodsharing\Modules\StoreChain\DTO\StoreChainForChainList;
 
 class StoreChainTransactions
@@ -39,121 +37,35 @@ class StoreChainTransactions
     /**
      * @throws Exception
      */
-    public function addStoreChain(StoreChain $storeData): int
+    public function addStoreChain(StoreChainData $storeChainData): int
     {
-        $this->throwExceptionIfKeyAccountManagerIsInvalid($storeData->kams);
-        $this->throwExceptionIfForumInvalid($storeData->forumThread);
+        $this->throwExceptionIfKeyAccountManagerIsInvalid($storeChainData->kams);
+        $this->throwExceptionIfForumInvalid($storeChainData->forumThread);
 
-        return $this->storeChainGateway->addStoreChain($storeData);
+        return $this->storeChainGateway->addStoreChain($storeChainData);
     }
 
-    public function updateStoreChain(int $chainId, PatchStoreChain $storeModel, bool $updateKams): bool
+    public function updateStoreChain(int $chainId, StoreChainData $storeChainData, bool $updateKams): void
     {
-        if (!$chainId) {
-            throw new StoreChainTransactionException(StoreChainTransactionException::INVALID_STORECHAIN_ID);
-        }
+        $this->throwExceptionIfForumInvalid($storeChainData->forumThread);
+        $this->storeChainGateway->updateStoreChain($chainId, $storeChainData);
 
-        $changed = false;
-        $params = $this->storeChainGateway->getStoreChains($chainId)[0]->chain;
-        $params->id = $chainId;
-        if (!is_null($storeModel->name)) {
-            if (empty(trim(strip_tags($storeModel->name)))) {
-                throw new StoreChainTransactionException(StoreChainTransactionException::EMPTY_NAME);
-            }
-            $params->name = $storeModel->name;
-            $changed = true;
-        }
-
-        if (!is_null($storeModel->status)) {
-            $status = StoreChainStatus::tryFrom($storeModel->status);
-            if (!$status instanceof StoreChainStatus) {
-                throw new StoreChainTransactionException(StoreChainTransactionException::INVALID_STATUS);
-            }
-            $params->status = $status;
-            $changed = true;
-        }
-        if (!is_null($storeModel->headquartersZip)) {
-            if (empty(trim(strip_tags($storeModel->headquartersZip)))) {
-                throw new StoreChainTransactionException(StoreChainTransactionException::EMPTY_ZIP);
-            }
-            $params->headquartersZip = $storeModel->headquartersZip;
-            $changed = true;
-        } else {
-            if (empty(trim(strip_tags($params->headquartersZip)))) {
-                throw new StoreChainTransactionException(StoreChainTransactionException::EMPTY_ZIP);
-            }
-        }
-        if (!is_null($storeModel->headquartersCity)) {
-            if (empty(trim(strip_tags($storeModel->headquartersCity)))) {
-                throw new StoreChainTransactionException(StoreChainTransactionException::EMPTY_CITY);
-            }
-            $params->headquartersCity = $storeModel->headquartersCity;
-            $changed = true;
-        } else {
-            if (empty(trim(strip_tags($params->headquartersCity)))) {
-                throw new StoreChainTransactionException(StoreChainTransactionException::EMPTY_CITY);
-            }
-        }
-        if (!is_null($storeModel->headquartersCountry)) {
-            if (empty(trim(strip_tags($storeModel->headquartersCountry)))) {
-                throw new StoreChainTransactionException(StoreChainTransactionException::EMPTY_COUNTRY);
-            }
-            $params->headquartersCountry = $storeModel->headquartersCountry;
-            $changed = true;
-        } else {
-            if (empty(trim(strip_tags($params->headquartersCountry)))) {
-                throw new StoreChainTransactionException(StoreChainTransactionException::EMPTY_COUNTRY);
-            }
-        }
-        if (!empty($storeModel->allowPress)) {
-            $params->allowPress = $storeModel->allowPress;
-            $changed = true;
-        }
-        if (!empty($storeModel->forumThread)) {
-            $this->throwExceptionIfForumInvalid($storeModel->forumThread);
-            $params->forumThread = $storeModel->forumThread;
-            $changed = true;
-        } else {
-            $this->throwExceptionIfForumInvalid($params->forumThread);
-        }
-        if (!is_null($storeModel->notes)) {
-            $params->notes = $storeModel->notes;
-            $changed = true;
-        }
-        if (!is_null($storeModel->commonStoreInformation)) {
-            $params->commonStoreInformation = $storeModel->commonStoreInformation;
-            $changed = true;
-        }
-        if (!is_null($storeModel->kams)) {
-            $params->kams = array_map(fn ($kam) => new Profile(['id' => $kam]), $storeModel->kams);
-            $this->throwExceptionIfKeyAccountManagerIsInvalid($params->kams);
-            $changed = true;
-        } else {
-            $this->throwExceptionIfKeyAccountManagerIsInvalid($params->kams);
-        }
-
-        if (!empty($storeModel->estimatedStoreCount)) {
-            $params->estimatedStoreCount = $storeModel->estimatedStoreCount;
-            $changed = true;
-        }
-
-        if ($changed) {
-            $this->storeChainGateway->updateStoreChain($params, $updateKams);
-
-            return true;
-        } else {
-            return false;
+        if ($updateKams && !is_null($storeChainData->kams)) {
+            $this->throwExceptionIfKeyAccountManagerIsInvalid($storeChainData->kams);
+            $this->storeChainGateway->updateAllKeyAccountManagers($chainId, $storeChainData->kams);
         }
     }
 
-    private function throwExceptionIfKeyAccountManagerIsInvalid($kams)
+    /**
+     * @param int[] $kamIds
+     */
+    private function throwExceptionIfKeyAccountManagerIsInvalid(array $kamIds): void
     {
-        $ids = array_map(fn ($item) => $item->id, $kams);
-        if (!$this->foodsaverGateway->foodsaversExist($ids)) {
+        if (!$this->foodsaverGateway->foodsaversExist($kamIds)) {
             throw new StoreChainTransactionException(StoreChainTransactionException::KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS);
         }
 
-        foreach ($ids as $id) {
+        foreach ($kamIds as $id) {
             if (!$this->achievementGateway->hasAchievement($id, AchievementIDs::KAM_CERTIFICATE)) {
                 throw new StoreChainTransactionException(StoreChainTransactionException::KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT);
             }

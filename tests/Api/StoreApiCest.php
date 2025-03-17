@@ -1122,7 +1122,7 @@ class StoreApiCest
             'betrieb_kategorie_id' => $this->store['betrieb_kategorie_id']]);
     }
 
-    public function patchStoreChainAsStoreManager(ApiTester $I): void
+    public function StoreChainDataAsStoreManager(ApiTester $I): void
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveInDatabase('fs_chain', ['id' => 4, 'name' => 'Chain']);
@@ -1136,7 +1136,7 @@ class StoreApiCest
             'kette_id' => 4]);
     }
 
-    public function patchStoreChainWithInvalidAsStoreManager(ApiTester $I): void
+    public function StoreChainDataWithInvalidAsStoreManager(ApiTester $I): void
     {
         $I->login($this->manager[self::EMAIL]);
         $I->haveHttpHeader('Content-Type', 'application/json');
@@ -1148,7 +1148,7 @@ class StoreApiCest
             'kette_id' => $this->store['kette_id']]);
     }
 
-    public function canNotPatchStoreChainWithInvalidFormatForStoreManager(ApiTester $I): void
+    public function canNotStoreChainDataWithInvalidFormatForStoreManager(ApiTester $I): void
     {
         $I->login($this->manager[self::EMAIL]);
 

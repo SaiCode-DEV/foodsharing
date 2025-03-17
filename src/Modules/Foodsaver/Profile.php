@@ -5,7 +5,7 @@ namespace Foodsharing\Modules\Foodsaver;
 class Profile
 {
     public int $id;
-    public ?string $name = null;
+    public string $name;
     public ?string $avatar = null;
     public ?bool $isSleeping = null;
 
