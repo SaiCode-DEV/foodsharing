@@ -3883,7 +3883,7 @@ markdown_input:
     bold: grassetto
     hrule: linea orizzontale
     link: collegamento
-    heading: titolo
+    heading: intestazione
     image: Allega immagini
   empty_preview_placeholder: "Questa è l'anteprima. Il testo è formattato qui come
     verrà visualizzato in seguito.\n---\n*Non hai ancora inserito alcun testo che
