@@ -155,7 +155,7 @@ class PickupTransactions
         foreach ($regularPickupTimes as $regularPickupTime) {
             $store = $storesMap[$regularPickupTime['betrieb_id']];
             $end = $now->copy()->addSeconds($store['prefetchtime']);
-            $nextOccurrence = $now->next($regularPickupTime['dow'])->setTimeFromTimeString($regularPickupTime['time']);
+            $nextOccurrence = $now->copy()->next($regularPickupTime['dow'])->setTimeFromTimeString($regularPickupTime['time']);
             while ($nextOccurrence->lessThanOrEqualTo($end)) {
                 $pickupOption = new PickupOption();
                 $pickupOption->date = $nextOccurrence->copy();
