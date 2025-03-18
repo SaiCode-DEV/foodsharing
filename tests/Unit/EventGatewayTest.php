@@ -96,30 +96,36 @@ class EventGatewayTest extends Unit
         $events = [
             [
                 'bezirk_id' => $this->region['id'],
+                'region_name' => $this->region['name'],
                 'location_id' => null,
                 'name' => 'EventInPast',
                 'start' => $dateMinusTwoHours,
                 'end' => $dateMinusOneHour,
                 'description' => 'd',
                 'online' => 1,
+                'is_public' => 0,
             ],
             [
                 'bezirk_id' => $this->region['id'],
+                'region_name' => $this->region['name'],
                 'location_id' => null,
                 'name' => 'EventRunning',
                 'start' => $dateMinusOneHour,
                 'end' => $datePlusOneHour,
                 'description' => 'd',
                 'online' => 1,
+                'is_public' => 0,
             ],
             [
                 'bezirk_id' => $this->region['id'],
+                'region_name' => $this->region['name'],
                 'location_id' => null,
                 'name' => 'EventInFuture',
                 'start' => $datePlusOneHour,
                 'end' => $datePlusTwoHours,
                 'description' => 'd',
                 'online' => 1,
+                'is_public' => 1,
             ],
         ];
         foreach ($events as $eventData) {
@@ -132,7 +138,7 @@ class EventGatewayTest extends Unit
         $this->assertEquals(sizeof($events), sizeof($listedEvents), 'All events of a region should be listed');
 
         foreach ($events as $eventData) {
-            $this->assertNotEmpty(array_filter($listedEvents, fn ($listedEvent) => $listedEvent['name'] == $eventData['name']));
+            $this->assertNotEmpty(array_filter($listedEvents, fn ($listedEvent) => $listedEvent->name == $eventData['name']));
         }
     }
 }

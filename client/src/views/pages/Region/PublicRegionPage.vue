@@ -40,6 +40,7 @@
       :target-id="id"
       :allow-image-attachments="false"
     />
+    <PublicEventsContainer :events="regionData.events" />
 
     <b-alert
       show
@@ -87,12 +88,13 @@ import PublicRegionContactContainer from './PublicRegionContactContainer.vue'
 import JoinRegionContainer from './JoinRegionContainer.vue'
 import LeaveRegionContainer from './LeaveRegionContainer.vue'
 import PublicRegionDescriptionContainer from './PublicRegionDescriptionContainer.vue'
+import PublicEventsContainer from './PublicEventsContainer.vue'
 
 const userStore = useUserStore()
 const regionStore = useRegionStore()
 
 export default {
-  components: { BasePage, Breadcrumbs, RegionMap, SimpleRegionStatistics, RegionSideNav, RegionChildrenContainer, Wall, InaccessibleRegionRedirectWarning, PublicRegionTopBanner, PublicRegionContactContainer, JoinRegionContainer, LeaveRegionContainer, PublicRegionDescriptionContainer },
+  components: { BasePage, Breadcrumbs, RegionMap, SimpleRegionStatistics, RegionSideNav, RegionChildrenContainer, Wall, InaccessibleRegionRedirectWarning, PublicRegionTopBanner, PublicRegionContactContainer, JoinRegionContainer, LeaveRegionContainer, PublicRegionDescriptionContainer, PublicEventsContainer },
   props: {
     id: { type: Number, required: true },
   },

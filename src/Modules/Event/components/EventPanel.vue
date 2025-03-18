@@ -1,5 +1,5 @@
 <template>
-  <div class="event-panel bootstrap margin-bottom">
+  <div class="event-panel bootstrap">
     <b-card :class="{ border }">
       <b-media no-body class="d-flex w-100">
         <b-media-aside
@@ -24,9 +24,11 @@
               </b-button>
             </h6>
           </a>
-          <div v-if="regionName" class="flex-md-shrink-0">
-            <a :href="$url('events', event.regionId)">{{ regionName }}</a>
-            ({{ $i18n('events.invitedCount', { count: inviteCount }) }})
+          <div v-if="event.regionName" class="flex-md-shrink-0">
+            <a :href="$url('events', event.regionId)">{{ event.regionName }}</a>
+            <span v-if="inviteCount">
+              ({{ $i18n('events.invitedCount', { count: inviteCount }) }})
+            </span>
           </div>
           <div
             class="my-1 d-inline-block event-date"
@@ -79,7 +81,6 @@ export default {
   components: { CalendarDate },
   props: {
     event: { type: Object, required: true },
-    regionName: { type: String, default: '' },
     inviteCount: { type: Number, default: 0 },
     mayEdit: { type: Boolean, default: false },
     status: { type: Number, default: 0 },

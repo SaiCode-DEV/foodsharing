@@ -4,9 +4,11 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
+use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Map\DTO\BasketBubbleData;
+use Foodsharing\Modules\Map\DTO\EventMapBubbleData;
 use Foodsharing\Modules\Map\DTO\MapMarkerType;
 use Foodsharing\Modules\Map\DTO\StoreMapBubbleData;
 use Foodsharing\Modules\Map\DTO\StoreMarkerHelpType;
@@ -20,6 +22,7 @@ use Foodsharing\Modules\Map\MapTransactions;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
+use Foodsharing\Permissions\EventPermissions;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\RestApi\Models\Map\FoodSharePointBubbleData;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -31,6 +34,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Routing\Requirement\Requirement;
 use ValueError;
 
 class MapRestController extends AbstractFoodsharingRestController
@@ -45,6 +49,8 @@ class MapRestController extends AbstractFoodsharingRestController
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly MapTransactions $mapTransactions,
         private readonly RegionPermissions $regionPermissions,
+        private readonly EventPermissions $eventPermissions,
+        private readonly EventGateway $eventGateway,
     ) {
     }
 
@@ -98,6 +104,8 @@ class MapRestController extends AbstractFoodsharingRestController
                 }
 
                 return $this->respondOK($this->foodsaverGateway->getUserMarkers($regionId, $role, $activity, $member));
+            case MapMarkerType::EVENTS:
+                return $this->respondOK($this->mapGateway->getEventMarkers());
             default:
                 throw new NotFoundHttpException();
         }
@@ -190,5 +198,27 @@ class MapRestController extends AbstractFoodsharingRestController
         $store = $this->mapTransactions->getStoreMapData($storeId);
 
         return $this->handleView($this->view($store, 200));
+    }
+
+    #[OA\Get(summary: 'Returns the data for the bubble of a event on the map.')]
+    #[OA\Tag('map')]
+    #[Rest\Get(path: 'map/event/{eventId}')]
+    #[OA\Response(
+        response: Response::HTTP_OK,
+        description: 'Successful',
+        content: new Model(type: StoreMapBubbleData::class)
+    )]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'The event is not accessible')]
+    #[Rest\QueryParam(name: 'eventId', requirements: Requirement::POSITIVE_INT, description: 'Store for which to return data', nullable: false)]
+    public function getEventBubble(int $eventId): Response
+    {
+        $event = $this->eventGateway->getEvent($eventId);
+        if (!$this->eventPermissions->maySeeEvent($event)) {
+            throw new AccessDeniedHttpException('');
+        }
+
+        $event = EventMapBubbleData::fromEvent($event);
+
+        return $this->respondOK($event);
     }
 }

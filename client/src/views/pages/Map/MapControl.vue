@@ -145,6 +145,7 @@ export default {
     &.foodsharepoints { --type-color: var(--fs-color-type-foodsharepoints); }
     &.communities { --type-color: var(--fs-color-type-communities); }
     &.users { --type-color: var(--fs-color-type-users); }
+    &.events { --type-color: var(--fs-color-type-events); }
 
     &:hover {
       background-color: var(--fs-color-primary-100);

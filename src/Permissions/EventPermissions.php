@@ -35,7 +35,7 @@ final readonly class EventPermissions
 
     public function maySeeEvent(Event $event): bool
     {
-        return $this->currentUserUnits->mayBezirk($event->regionId);
+        return $event->isPublic || $this->currentUserUnits->mayBezirk($event->regionId);
     }
 
     public function mayJoinEvent(Event $event): bool
@@ -45,7 +45,7 @@ final readonly class EventPermissions
 
     public function mayCommentInEvent(Event $event): bool
     {
-        return $this->maySeeEvent($event);
+        return $this->maySeeEvent($event) && $this->session->id();
     }
 
     public function mayCreateEvent(int $regionId): bool

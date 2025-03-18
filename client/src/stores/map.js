@@ -19,7 +19,7 @@ export const MARKER_TYPES = Object.freeze({
   foodsharepoints: { name: 'foodsharepoints', label: 'terminology.fsp', icon: 'recycle', color: 'beige' },
   communities: { name: 'communities', label: 'menu.entry.regionalgroups', icon: 'users', color: 'blue' },
   users: { name: 'users', label: 'terminology.users', icon: 'user', color: 'darkpurple' },
-  events: { name: 'events', icon: 'calendar', color: 'orange' },
+  events: { name: 'events', label: 'map.events.title', icon: 'calendar', color: 'orange' },
 })
 
 export const MARKER_SELECT_TYPES = Object.freeze({

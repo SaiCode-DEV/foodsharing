@@ -19,15 +19,12 @@ class EventController extends FoodsharingController
         private readonly EventPermissions $eventPermissions,
     ) {
         parent::__construct();
-
-        if (!$this->session->mayRole()) {
-            $this->routeHelper->goLoginAndExit();
-        }
     }
 
     #[Route('/event/{eventId}/edit', name: 'edit_event', requirements: ['eventId' => Requirement::DIGITS])]
     public function edit(int $eventId): Response
     {
+        $this->requireLogin();
         $event = $this->eventGateway->getEvent($eventId);
 
         if (!$event) {
@@ -53,6 +50,7 @@ class EventController extends FoodsharingController
     #[Route('/event/add', name: 'add_event')]
     public function addNewEvent(Request $request): Response
     {
+        $this->requireLogin();
         $this->pageHelper->addBread($this->translator->trans('events.bread'), '/event/add');
         $this->pageHelper->addBread($this->translator->trans('events.create.title'));
 
@@ -84,32 +82,23 @@ class EventController extends FoodsharingController
     {
         $event = $this->eventGateway->getEvent($eventId);
         if (!$event || !$this->eventPermissions->maySeeEvent($event)) {
+            $this->requireLogin();
+
             return $this->redirect('/region/denied/' . $event->regionId);
         }
 
-        // Bread
-        $regionLink = '/region?bid=' . $event->regionId;
-        $regionEventsLink = $regionLink . '&sub=events';
-        $regionName = $this->regionGateway->getRegionName($event->regionId);
-        if (empty($regionName)) {
-            $regionName = '';
-        }
-        $this->pageHelper->addBread($regionName, $regionLink);
-        $this->pageHelper->addBread($this->translator->trans('events.bread'), $regionEventsLink);
-        $this->pageHelper->addBread($event->name);
-
         // Data for vue page
-        $mayEdit = $this->eventPermissions->mayEditEvent($event);
-        $attendees = $this->eventGateway->getEventAttendees($eventId);
-        $inviteStatus = $this->eventGateway->getInviteStatus($eventId, $this->session->id());
-        $attendees['inviteCount'] = $this->regionGateway->getRegionDetails($event->regionId)['fs_count'];
+        $pageData = ['event' => $event];
+        if ($this->session->id()) {
+            $pageData['mayEdit'] = $this->eventPermissions->mayEditEvent($event);
+            $pageData['attendees'] = $this->eventGateway->getEventAttendees($eventId);
+            $pageData['inviteStatus'] = $this->eventGateway->getInviteStatus($eventId, $this->session->id());
+            $pageData['attendees']['inviteCount'] = $this->regionGateway->getRegionDetails($event->regionId)['fs_count'];
+        } else {
+            $pageData['inviteStatus'] = -1;
+        }
 
-        $this->pageHelper->addContent($this->prepareVueComponent('event-page', 'EventPage', [
-            'event' => $event,
-            'mayEdit' => $mayEdit,
-            'attendees' => $attendees,
-            'inviteStatus' => $inviteStatus,
-        ]));
+        $this->pageHelper->addContent($this->prepareVueComponent('event-page', 'EventPage', $pageData));
 
         return $this->renderGlobal();
     }

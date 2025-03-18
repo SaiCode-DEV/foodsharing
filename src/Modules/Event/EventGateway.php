@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Event;
 
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Event\DTO\Event;
+use Foodsharing\Modules\Event\DTO\EventForListView;
 
 class EventGateway extends BaseGateway
 {
@@ -11,32 +12,33 @@ class EventGateway extends BaseGateway
      * Gets the current and upcoming events of a specified region and returns them as array.
      *
      * @param int $regionId The identifier of the region
+     * @param bool $onlyPublic whether only public events should be included
+     * @return EventForListView[]
      */
-    public function listForRegion(int $regionId): array
+    public function listForRegion(int $regionId, bool $onlyPublic = false): array
     {
-        return $this->db->fetchAll('
-			SELECT
-				e.id,
-				e.name,
-				e.start as startDate,
-				e.end as endDate
-			FROM
-				fs_event e
-			WHERE
-				e.bezirk_id = :regionId
-			ORDER BY
-				e.start
+        $publicRestriction = $onlyPublic ? 'AND e.is_public = 1' : '';
+        $events = $this->db->fetchAll('SELECT
+				e.id, e.name, e.start, e.end
+			FROM fs_event e
+			WHERE e.bezirk_id = :regionId
+            ' . $publicRestriction . '
+			ORDER BY e.start
 		', [':regionId' => $regionId]);
+
+        return array_map([EventForListView::class, 'createFromArray'], $events);
     }
 
     public function getEvent(int $eventId): ?Event
     {
         $event = $this->db->fetch('
 			SELECT
-				e.id, e.foodsaver_id, e.bezirk_id, e.name, e.description, e.online, e.`start`, e.`end`,
-                l.name as location_details, l.lat, l.lon, l.zip as postalCode, l.city, l.street
+				e.id, e.foodsaver_id, e.bezirk_id, e.name, e.description, e.online, e.`start`, e.`end`, e.`is_public`,
+                l.name as location_details, l.lat, l.lon, l.zip as postalCode, l.city, l.street,
+                b.`name` AS region_name
 			FROM fs_event e
             LEFT OUTER JOIN fs_location l ON e.location_id = l.id
+            INNER JOIN fs_bezirk b ON b.id = e.bezirk_id
 			WHERE e.id = :eventId
 		', [':eventId' => $eventId]);
 
@@ -154,6 +156,7 @@ class EventGateway extends BaseGateway
             'description' => $event->description,
             'bot' => 0, // deprecated, remove column!
             'online' => $event->type->value,
+            'is_public' => $event->isPublic,
         ]);
     }
 
@@ -167,6 +170,7 @@ class EventGateway extends BaseGateway
             'end' => date('Y-m-d H:i:s', $event->endDate->getTimestamp()),
             'description' => $event->description,
             'online' => $event->type->value,
+            'is_public' => $event->isPublic,
         ], ['id' => $event->id]);
     }
 

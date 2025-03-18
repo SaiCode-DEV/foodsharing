@@ -1,22 +1,26 @@
 <template>
   <BasePage>
     <template #top>
+      <Breadcrumbs :items="breadcrumbs" />
       <EventPanel
         :event="event"
         :border="true"
         :may-edit="mayEdit"
-        :invite-count="currentAttendees.inviteCount"
-        :region-name="regionName"
+        :invite-count="currentAttendees?.inviteCount"
         :status="inviteStatus"
         @update:status="updateSelfInAttendees"
       />
+      <b-alert :show="event.isPublic" variant="info">
+        <i class="fas fa-door-open mr-2" />
+        {{ $i18n('events.public_info') }}
+      </b-alert>
     </template>
 
     <template #left>
       <EventLocation :event="event" />
     </template>
 
-    <template #right>
+    <template v-if="isLoggedIn" #right>
       <EventAttendees :attendees="currentAttendees" />
     </template>
 
@@ -25,6 +29,7 @@
     </Container>
 
     <Wall
+      v-if="isLoggedIn"
       target="event"
       :target-id="event.id"
     />
@@ -39,19 +44,18 @@ import EventLocation from '@/components/Event/EventLocation.vue'
 import EventAttendees from '@/components/Event/EventAttendees.vue'
 import Markdown from '@/components/Markdown/Markdown.vue'
 
-import { useRegionStore } from '@/stores/regions'
 import { useUserStore } from '@/stores/user'
 import { EventInvitationResponse } from '@/stores/events'
+import Breadcrumbs from '@/views/partials/Navigation/Breadcrumbs.vue'
 
-const regionStore = useRegionStore()
 const userStore = useUserStore()
 
 export default {
-  components: { BasePage, Wall, EventPanel, Container, EventLocation, EventAttendees, Markdown },
+  components: { BasePage, Wall, EventPanel, Container, EventLocation, EventAttendees, Markdown, Breadcrumbs },
   props: {
     event: { type: Object, required: true },
     mayEdit: { type: Boolean, default: false },
-    attendees: { type: Object, required: true },
+    attendees: { type: Object, default: () => null },
     inviteStatus: { type: Number, default: 0 },
   },
   data () {
@@ -60,12 +64,23 @@ export default {
     }
   },
   computed: {
-    regionName () {
-      return regionStore.findRegion(this.event.regionId)?.name
+    breadcrumbs () {
+      return [
+        { href: this.$url('publicRegion', this.event.regionId), text: this.event.regionName },
+        { href: this.$url('events', this.event.regionId), text: this.$i18n('events.bread') },
+        { text: this.event.name },
+      ]
     },
+    isLoggedIn () {
+      return userStore.isLoggedIn
+    },
+  },
+  async created () {
+    document.title += ` | ${this.event.name} (${this.event.regionName})`
   },
   methods: {
     updateSelfInAttendees (newStatus) {
+      if (!this.currentAttendees) return
       const self = {
         id: userStore.getUserId,
         name: userStore.getUserFirstName,

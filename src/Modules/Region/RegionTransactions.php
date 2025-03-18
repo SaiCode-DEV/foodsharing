@@ -8,6 +8,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionOptionType;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
@@ -49,6 +50,7 @@ class RegionTransactions
         private readonly ReportPermissions $reportPermissions,
         private readonly WorkGroupPermissions $workGroupPermissions,
         private readonly FoodSharePointGateway $foodSharePointGateway,
+        private readonly EventGateway $eventGateway,
         private readonly FoodSharePointPermissions $foodSharePointPermissions,
         private readonly VotingPermissions $votingPermissions,
         private readonly AchievementPermissions $achievementPermissions,
@@ -242,6 +244,7 @@ class RegionTransactions
         $data->ancestors = $this->regionGateway->getRegionAncestors($regionId);
         $data->children = $this->regionGateway->getRegionChildren($regionId);
         $data->foodSharePoints = $this->foodSharePointGateway->getFoodSharePointsForRegion($regionId);
+        $data->events = array_reverse($this->eventGateway->listForRegion($regionId, true));
 
         // Region statistics can be expensive to calculate but don't need to be recalculated often.
         $data->statistics = $this->cache->get('publicRegionStats-' . $regionId, function (ItemInterface $cacheItem) use ($regionId) {

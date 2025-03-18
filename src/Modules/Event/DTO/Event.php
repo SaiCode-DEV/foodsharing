@@ -23,6 +23,10 @@ class Event
     #[Assert\NotBlank]
     public int $regionId;
 
+    #[OA\Property(example: 'Göttingen')]
+    #[Assert\Blank]
+    public string $regionName;
+
     #[OA\Property(example: 'Event Name')]
     #[Assert\NotBlank]
     public string $name;
@@ -64,16 +68,20 @@ class Event
     ])]
     public ?string $locationDetails = null;
 
+    public bool $isPublic = false;
+
     public static function createFromArray(array $data): Event
     {
         $result = new Event();
         $result->id = $data['id'] ?? 0;
         $result->regionId = $data['bezirk_id'];
+        $result->regionName = $data['region_name'];
         $result->name = $data['name'];
         $result->startDate = new Carbon($data['start']);
         $result->endDate = new Carbon($data['end']);
         $result->description = $data['description'];
         $result->type = EventType::from($data['online']);
+        $result->isPublic = boolval($data['is_public']);
 
         if ($result->type === EventType::OFFLINE) {
             if (!$data['street'] && !$data['city']) {

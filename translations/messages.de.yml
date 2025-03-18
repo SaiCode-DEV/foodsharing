@@ -1483,6 +1483,8 @@ events:
     locationDetails: "Adressdetails (Raumnummer etc.)"
     locationOther: "Wo findet das Event statt?"
     fillCompletely: "Bitte fülle das Formular vollständig aus."
+    public: "Ist das Event öffentlich?"
+    isPublic: "Das Event ist öffentlich"
   description: "Beschreibung"
   span: "{from} bis {until}"
   duration: "Dauer: {duration}"
@@ -1522,6 +1524,7 @@ events:
     Telefon- und Videokonferenzen von foodsharing laufen am besten über unseren eigenen [BigBlueButton](https://bigbluebutton.org)-Server. Ab 10 Minuten vor Beginn des Termins können Nutzer:innen ganz leicht mit einem Klick von der Terminseite der Konferenz beitreten. Dafür sind keine weiteren Programme notwendig, sondern nur ein halbwegs moderner Internet-Browser. Außerdem ist es auch möglich, per Telefon beizutreten.
 
     Solltest du trotzdem eine andere Plattform für eine Telefon- oder Videokonferenz nutzen wollen, wähle bitte die Option *„Sonstiges“* aus.
+  public_info: "Diese Veranstaltung ist öffentlich, alle können darauf zugreifen. Kommentare und die Teilnehmer:innenliste sind nur für angemeldete Nutzer:innen sichtbar."
 
 recipients:
   bread: "Newsletter-Verteiler"
@@ -1936,6 +1939,9 @@ map:
     go: "Zum Fairteiler"
   community:
     go: "Zur Bezirksseite"
+  events:
+    title: "Veranstaltungen"
+    go: "Zur Veranstaltung"
 
 
 mailbox:
@@ -2835,6 +2841,10 @@ region:
       confirm_discard_changes: "Möchtest du deine Änderungen am Bezirks-Pin wirklich verwerfen?"
       confirm_save_changes: "Sollen deine Änderungen am Bezirks-Pin gespeichert werden? Der neue Pin ist dann öffentlich auf der Bezirksseite und der Karte sichtbar."
       confirm_remove: "Möchtest du den Bezirks-Pin wirklich entfernen? Dieser Bezirk wird dann nicht mehr auf der Karte angezeigt."
+    events:
+      title: "Öffentliche Veranstaltungen"
+      load_past: "Vergangene Veranstaltungen anzeigen"
+      no_future_events: "Aktuell sind keine öffentlichen Veranstaltungen in diesem Bezirk eingetragen. Folgende Veranstaltungen haben in der Vergangenheit stattgefunden:"
   denied:
     this_region: "Du hast versucht, auf Inhalte dieses Bezirks zuzugreifen. Allerdings haben nur Mitglieder des Bezirks Zugriff darauf."
     some_group: "Du hast versucht, auf Inhalte der Arbeitsgruppe „{name}“ zuzugreifen. Allerdings haben nur Mitglieder der Gruppe Zugriff darauf."
@@ -3751,12 +3761,18 @@ help:
         ---
 
         Wichtig zu beachten: Diese Funktion basiert nur auf den foodsharing-eigenen Hygiene-Stickern. Weder im Profil hochgeladene Hygienezertifikate externer Anbieter (wie bspw. Metro), noch anderweitig erworbene Hygieneschulungen werden technisch berücksichtigt.
+    publicEvent:
+      title: "Öffentliche Veranstaltungen"
+      md: |
+        Veranstaltungen können von Admins einer Arbeitsgruppe oder den Admins der GOALS-AG Öffentlichkeitsarbeit bzw. den Botschafter:innen als öffentlich eingetragen werden. Öffentliche Veranstaltungen sind für alle zugänglich. Man muss nicht auf der Plattform angemeldet sein, um den Veranstaltungsort und die Informationen einzusehen. Pinnwand und Teilnehmer:innenliste sind allerdings nur für angemeldete Nutzer:innen zugänglich.
+        Trage eine Veranstaltung als öffentlich ein, wenn du auch außerhalb deiner lokalen foodsharing Community dazu einladen möchtest, und alle kommen dürfen. 
     change_verified_data:
       title: Änderung verifizierter Daten beantragen
       md: |
         Um als Foodsaver tätig zu sein, ist es wichtig, dass die Daten in deinem Profil korrekt sind. Bevor du Lebensmittel retten darfst, werden sie dazu von den Botschafter:innen mit deinem Ausweis abgeglichen. Daher kannst du deinen Namen und dein Geburtsdatum nicht einfach ändern.
         ---
         Sollte es doch mal vorkommen, dass eines dieser Felder geändert werden muss, kannst du dich hierzu an eine:n Botschafter:in aus deinem Stammbezirk wenden. Sie können die entsprechende Änderung für dich durchführen. Wer Botschafter:in in deinem Stammbezirk ist, siehst du im [Forum des Bezirks]({link}) in der linken Seitenleiste.
+
 team_page:
   board_member:
     title: "Vorstand"

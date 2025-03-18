@@ -4,6 +4,7 @@ namespace Foodsharing\Modules\Region\DTO;
 
 use Foodsharing\Modules\Core\DBConstants\Region\RegionPinStatus;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
+use Foodsharing\Modules\Event\DTO\EventForListView;
 use Foodsharing\Modules\Map\DTO\MapMarker;
 
 class PublicRegionData
@@ -31,6 +32,11 @@ class PublicRegionData
      * @var MapMarker[]
      */
     public array $foodSharePoints;
+
+    /**
+     * @var EventForListView[]
+     */
+    public array $events;
 
     public static function tryCreateFrom(array $data): ?PublicRegionData
     {

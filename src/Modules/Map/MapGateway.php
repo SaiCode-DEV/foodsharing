@@ -61,6 +61,17 @@ class MapGateway extends BaseGateway
         return array_map(MapMarker::createFromArray(...), $markers);
     }
 
+    public function getEventMarkers(): array
+    {
+        $markers = $this->db->fetchAll('SELECT
+                e.id, l.lat, l.lon, e.name
+            FROM fs_event e
+            INNER JOIN fs_location l ON l.id = e.location_id
+            WHERE e.is_public = 1 AND e.end > NOW()');
+
+        return array_map(MapMarker::createFromArray(...), $markers);
+    }
+
     /**
      * Returns the data for a basket's bubble on the map or null if the basket does not exist.
      *

@@ -9,4 +9,5 @@ enum MapMarkerType: string
     case COMMUNITIES = 'communities';
     case STORES = 'stores';
     case USERS = 'users';
+    case EVENTS = 'events';
 }

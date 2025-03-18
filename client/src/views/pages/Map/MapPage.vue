@@ -26,6 +26,7 @@
     <community-bubble ref="communityBubble" />
     <store-bubble ref="storeBubble" />
     <food-share-point-bubble ref="foodSharePointBubble" />
+    <event-bubble ref="eventBubble" />
   </div>
 </template>
 
@@ -44,6 +45,7 @@ import BasketBubble from '@php/Modules/Map/components/BasketBubble.vue'
 import CommunityBubble from '@php/Modules/Map/components/CommunityBubble.vue'
 import StoreBubble from '@php/Modules/Map/components/StoreBubble.vue'
 import FoodSharePointBubble from '@php/Modules/Map/components/FoodSharePointBubble.vue'
+import EventBubble from '@php/Modules/Map/components/EventBubble.vue'
 import Storage from '@/storage'
 import { useUserStore } from '@/stores/user.js'
 import AddressSearchField from '@/components/map/AddressSearchField.vue'
@@ -61,6 +63,7 @@ export default {
     CommunityBubble,
     StoreBubble,
     FoodSharePointBubble,
+    EventBubble,
     Vue2LeafletLocatecontrol,
     AddressSearchField,
   },
@@ -100,7 +103,7 @@ export default {
   },
   computed: {
     visibleTypes () {
-      const types = [MARKER_TYPES.baskets.name, MARKER_TYPES.foodsharepoints.name, MARKER_TYPES.communities.name]
+      const types = [MARKER_TYPES.baskets.name, MARKER_TYPES.foodsharepoints.name, MARKER_TYPES.communities.name, MARKER_TYPES.events.name]
       if (this.maySeeStores) {
         types.push(MARKER_TYPES.stores.name)
       }
@@ -213,6 +216,9 @@ export default {
           break
         case MARKER_TYPES.users.name:
           location.href = this.$url('profile', id)
+          break
+        case MARKER_TYPES.events.name:
+          this.$refs.eventBubble.show(id)
           break
       }
     },

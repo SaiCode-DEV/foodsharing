@@ -139,4 +139,11 @@ abstract class FoodsharingController extends AbstractController
             'initialData' => $initialData,
         ]);
     }
+
+    protected function requireLogin(): void
+    {
+        if (!$this->session->id()) {
+            $this->routeHelper->goLoginAndExit();
+        }
+    }
 }

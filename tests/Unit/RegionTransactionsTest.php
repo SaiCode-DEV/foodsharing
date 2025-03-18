@@ -6,6 +6,7 @@ namespace Tests\Unit;
 
 use Foodsharing\Modules\Achievement\AchievementGateway;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
+use Foodsharing\Modules\Event\EventGateway;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\FoodSharePoint\FoodSharePointGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
@@ -40,6 +41,7 @@ class RegionTransactionsTest extends TestCase
     private ReportPermissions $reportPermissions;
     private WorkGroupPermissions $workGroupPermissions;
     private FoodSharePointGateway $foodSharePointGateway;
+    private EventGateway $eventGateway;
     private FoodSharePointPermissions $foodSharePointPermissions;
     private VotingPermissions $votingPermissions;
     private AchievementPermissions $achievementPermissions;
@@ -59,6 +61,7 @@ class RegionTransactionsTest extends TestCase
         $this->reportPermissions = $this->createMock(ReportPermissions::class);
         $this->workGroupPermissions = $this->createMock(WorkGroupPermissions::class);
         $this->foodSharePointGateway = $this->createMock(FoodSharePointGateway::class);
+        $this->eventGateway = $this->createMock(EventGateway::class);
         $this->foodSharePointPermissions = $this->createMock(FoodSharePointPermissions::class);
         $this->votingPermissions = $this->createMock(VotingPermissions::class);
         $this->achievementPermissions = $this->createMock(AchievementPermissions::class);
@@ -77,6 +80,7 @@ class RegionTransactionsTest extends TestCase
             $this->reportPermissions,
             $this->workGroupPermissions,
             $this->foodSharePointGateway,
+            $this->eventGateway,
             $this->foodSharePointPermissions,
             $this->votingPermissions,
             $this->achievementPermissions,

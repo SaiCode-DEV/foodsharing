@@ -20,3 +20,7 @@ export function getStoreBubbleContent (storeId) {
 export function getFoodSharePointBubbleContent (foodSharePointId) {
   return get(`/map/foodSharePoint/${foodSharePointId}`)
 }
+
+export function getEventBubbleContent (eventId) {
+  return get(`/map/event/${eventId}`)
+}

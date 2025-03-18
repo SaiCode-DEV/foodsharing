@@ -9,6 +9,7 @@
         <b-form-select
           v-model="event.regionId"
           :options="regionSelectOptions"
+          @change="updateEventPublicState"
         />
       </b-form-group>
 
@@ -55,6 +56,20 @@
           variant="outline-primary"
           :region-id="regionId"
         />
+      </b-form-group>
+
+      <b-form-group>
+        <template #label>
+          {{ $i18n('events.create.public') }}
+          <Info info-key="publicEvent" />
+        </template>
+        <b-form-checkbox
+          v-model="event.isPublic"
+          class="pb-2"
+          :disabled="!mayChangeEventPublicState"
+        >
+          {{ $i18n('events.create.isPublic') }}
+        </b-form-checkbox>
       </b-form-group>
 
       <b-form-group :label="$i18n('events.create.type')">
@@ -118,12 +133,13 @@ import { addEvent, editEvent } from '@/api/events'
 import { toISOStringWithTimezone } from '@/helper/date-formatter'
 import { EVENT_TYPE } from '@/consts'
 import { MARKER_TYPES } from '@/stores/map'
+import Info from '../Help/Info.vue'
 
 const userStore = useUserStore()
 const regionStore = useRegionStore()
 
 export default {
-  components: { Container, DateRangePicker, DatePicker, TimeRangePicker, MarkdownInput, LeafletLocationSearch, Markdown },
+  components: { Container, DateRangePicker, DatePicker, TimeRangePicker, MarkdownInput, LeafletLocationSearch, Markdown, Info },
   props: {
     regionId: { type: Number, default: 0 },
     edit: { type: Object, default: null },
@@ -148,6 +164,7 @@ export default {
           location: {},
           address: {},
           locationDetails: '',
+          isPublic: false,
         },
       }
     }
@@ -167,6 +184,7 @@ export default {
         location: this.edit.location ?? {},
         address: this.edit.address ?? {},
         locationDetails: this.edit.locationDetails ?? '',
+        isPublic: this.edit.isPublic,
       },
     }
   },
@@ -176,6 +194,11 @@ export default {
     groups: () => DataGroups.getters.get(),
     regions: () => regionStore.regions,
     location: () => userStore.getLocations,
+    mayChangeEventPublicState () {
+      const region = this.regions.find(region => region.id === this.event.regionId)
+      if (region) return region?.maySetRegionPin
+      return this.groups.find(groups => groups.id === this.event.regionId)?.isAdmin
+    },
     regionSelectOptions () {
       return [
         {
@@ -281,6 +304,11 @@ export default {
         delete event.locationDetails
       }
       return event
+    },
+    updateEventPublicState () {
+      if (!this.mayChangeEventPublicState) {
+        this.event.isPublic = false
+      }
     },
   },
 }
