@@ -2398,7 +2398,8 @@ footer:
     info: CO₂-nøytral hosted
     tooltip: CO₂-nøytral hosted på manitu
   partner_names:
-    lebensministerium: Det føderale departementet for jordbruk, regioner og turisme
+    lebensministerium: Det føderale departementet for landbruk, skogbruk, regioner
+      og vannforvaltning
     denns: Denn’s Biomarkt
     wiener_tafel: Wiener Tafel (Matbank Wien)
 date:
