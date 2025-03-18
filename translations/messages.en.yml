@@ -2127,7 +2127,8 @@ footer:
   partner_names:
     wiener_tafel: Food bank Vienna
     denns: Denn’s Biomarkt
-    lebensministerium: Ministry of Agriculture, Regions and Tourism
+    lebensministerium: Federal Ministry of Agriculture, Forestry, Regions and Water
+      Management
 basket:
   is:
     gf: are gluten-free
