@@ -3113,6 +3113,8 @@ events:
     programas adicionales, sólo un navegador de Internet razonablemente moderno. También
     es posible participar por teléfono.\n\nSi aún así desea utilizar otra plataforma
     para una conferencia telefónica o videoconferencia, seleccione la opción *«Otros»*.\n"
+  public_info: Este evento es público y todos pueden acceder a él. Los comentarios
+    y la lista de participantes sólo son visibles para usuari@s registrados.
 recipients:
   orga_team: 'Equipo organizacional global'
   newsletter: 'Todos los suscriptores del boletín (al menos rescatista)'
@@ -3664,6 +3666,11 @@ region:
     confirm_leaving: ¿Quieres sumarte al distrito de {name}? Esto da a los embajadores
       acceso a su perfil.
     leave_text: ¿Ya no estás activo en {name}? Entonces deberías abandonar este distrito.
+    events:
+      load_past: Mostrar eventos pasados
+      no_future_events: 'Actualmente no hay eventos públicos listados en este distrito.
+        Los siguientes eventos han tenido lugar en el pasado:'
+      title: Eventos públicos
   denied:
     this_region: Intentaste acceder al contenido de este distrito. Sin embargo, sólo
       los miembros del distrito tienen acceso a ella.
@@ -4325,6 +4332,9 @@ map:
     go: Punto para compartir alimentos
   community:
     go: A la página del distrito
+  events:
+    go: al evento
+    title: Eventos
 addreaction: 'Añadir una reacción'
 mail:
   noreply_addresses_not_allowed: 'Los correos electrónicos a direcciones noreply@…
@@ -4675,6 +4685,8 @@ help:
       title: Requisitos de higiene para las empresas
     change_verified_data:
       title: Solicitar un cambio en los datos verificados
+    publicEvent:
+      title: Eventos públicos
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
