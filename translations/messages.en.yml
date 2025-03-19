@@ -1043,6 +1043,8 @@ events:
     modern internet browser. It is also possible to join by phone.\n\nIf you still
     want to use a different platform for a telephone or video conference, please select
     the option *“Other ”*.\n"
+  public_info: This event is public and open to everyone. Comments and the participant
+    list are visible only to registered users.
 forum:
   threads: Threads
   quickreply:
@@ -2037,6 +2039,11 @@ region:
     show_on_large_map: View on the large map
     continue_editing: Continue editing
     discard_changes: Discard changes
+    events:
+      title: Public events
+      load_past: View past events
+      no_future_events: 'Currently, no public events are listed in this district.
+        The following events have taken place in the past:'
   denied:
     this_region: You tried to access content from this district, but only members
       of the district have access to it.
@@ -2282,6 +2289,9 @@ map:
     go: to the Food-Share Point
   community:
     go: to the district’s page
+  events:
+    title: Events
+    go: more about this event
 content:
   content: Content
   name: Unique name
@@ -4569,6 +4579,15 @@ help:
         you can contact an ambassador from your home district. They can make the necessary
         changes for you. You can find out who the ambassadors are in your home district
         in the [district forum]({link}) in the left sidebar.\n"
+    publicEvent:
+      title: Public events
+      md: "Events can be registered as public by the admins of a working group, the
+        admins of the GOALS Public Relations Working Group, or the ambassadors. Public
+        events are open to everyone. You don’t need to be logged in to the platform
+        to view the event location and information. However, the bulletin board and
+        participant list are only accessible to registered users.\nRegister an event
+        as public if you want to invite people outside of your local food sharing
+        community, and everyone is welcome to attend. \n"
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
