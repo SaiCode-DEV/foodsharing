@@ -47,6 +47,7 @@
 - Remove ambassador forum subscriptions when removing ambassadors #2305 !4055 @AntonBallmaier
 - Fix immediate reloading of the login page on failed login #2357 !4082 @DL6ER
 - Fix sorting by *pass valid until* in region passport table #2288 !4053 @AntonBallmaier
+- Fix the store team member list showing a wrong join date on the date the person joined #2360 !4099 @iron9
 
 ## Refactoring
 - Get rid of xhr completely !3826 !3933 @chriswalg

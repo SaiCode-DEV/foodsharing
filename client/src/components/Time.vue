@@ -6,7 +6,7 @@
     :class="{ 'text-muted': muted, small: !normalSize }"
   >
     <i v-if="showIcon" class="far fa-fw fa-clock" />
-    <span v-if="time" v-text="dateFormatter.relativeTime(date, options)" />
+    <span v-if="time" v-text="dateFormatter.relativeTime(date, options, dateOnly)" />
     <span v-else v-text="fallback" />
   </span>
 </template>

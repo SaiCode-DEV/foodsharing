@@ -222,7 +222,7 @@ export default {
   },
 
   /**
-   * Shows the date in a human readable realtive time format
+   * Shows the date in a human readable relative time format
    * - `vor 10 sekunden` based on the users locale
    *
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat/RelativeTimeFormat
@@ -230,9 +230,10 @@ export default {
    * @param {Date} date a date to format
    * @param {Object} options options for the formatter
    * @param {Boolean} options.short to show the relative time in short format (e.g. '10 s ago' in stead of '10 seconds ago')
+   * @param {Boolean} dateOnly to specify that the given date contains no time information (otherwise 0h:0m:0s will be assumed)
    * @returns {string} the relative time
    */
-  relativeTime (date = new Date(), { short = false } = {}) {
+  relativeTime (date = new Date(), { short = false } = {}, dateOnly = false) {
     const rtf = new RelativeTimeFormat(locale, {
       localeMatcher: 'best fit',
       numeric: 'auto',
@@ -247,6 +248,12 @@ export default {
     if (isInFuture) {
       dateA = new Date(date)
       dateB = new Date()
+    }
+
+    if (dateOnly && differenceFromDatesToUnit(dateA, dateB, 'day') < 1) {
+      // Special case to prevent something like '16 hours ago' for two datetimes from the same day
+      // if one of the datetimes contains no time information and is interpreted as midnight.
+      return rtf.format(0, 'day')
     }
 
     const { value = 0, unit = 'second' } = ['year', 'month', 'week', 'day', 'hour', 'minute', 'second']
