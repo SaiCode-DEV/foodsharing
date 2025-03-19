@@ -2539,6 +2539,8 @@ events:
     ingen ekstra programmer, bare en noenlunde moderne nettleser. Det er også mulig
     å melde seg på via telefon.\n\nHvis du likevel ønsker å bruke en annen plattform
     for telefon- eller videokonferanser, kan du velge alternativet *«Annet»*.\n"
+  public_info: Denne begivenheten er offentlig og alle kan få tilgang til den. Kommentarer
+    og deltakerlisten er kun synlig for registrerte brukere.
 chat:
   conversations: Samtaler
   notification_unnamed_conversation: '{foodsaver} skrev til deg.'
