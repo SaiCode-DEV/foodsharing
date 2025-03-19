@@ -448,6 +448,11 @@ region:
     leave_text: Er du ikke lenger aktiv i {name}? Da bør du forlate dette distriktet.
     show_on_large_map: Se på stort kart
     continue_editing: Fortsett å redigere
+    events:
+      title: Offentlige arrangementer
+      load_past: Vis tidligere arrangementer
+      no_future_events: 'Det er for øyeblikket ingen offentlige arrangementer oppført
+        i dette distriktet. Følgende hendelser har funnet sted i det siste:'
   denied:
     group_in_this_region: «{name}» er en gruppe i dette distriktet.
     group_in_this_group: «{name}» er en undergruppe av denne gruppen.
@@ -1477,6 +1482,9 @@ map:
     go: til distribusjonsstasjonen
   community:
     go: til distriktssiden
+  events:
+    title: Arrangementer
+    go: til arrangementet
 content:
   content: innhold
   bread: alle sider
@@ -4404,6 +4412,15 @@ help:
         at et av disse feltene må endres, kan du kontakte en ambassadør fra ditt hjemdistrikt.
         De kan gjøre de nødvendige endringene for deg. Du kan finne ut hvem ambassadørene
         er i ditt hjemdistrikt i [distriktsforumet]({link}) i venstre sidefelt.\n"
+    publicEvent:
+      title: Offentlige arrangementer
+      md: "Arrangementer kan registreres som offentlige av administratorer av en arbeidsgruppe
+        eller administratorer av GOALS PR-arbeidsgruppe eller ambassadørene. Offentlige
+        arrangementer er åpne for alle. Du trenger ikke å være logget inn på plattformen
+        for å se lokalet og informasjonen. Oppslagstavlen og deltakerlisten er imidlertid
+        kun tilgjengelig for registrerte brukere.\nGjør et arrangement offentlig hvis
+        du vil invitere folk utenfor ditt lokale matdelingssamfunn og la alle komme.
+        \n"
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
 team_page:
