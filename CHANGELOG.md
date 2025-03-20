@@ -32,6 +32,7 @@
 - Replace b-caroussel with custom Gallery component #2188 @AntonBallmaier
 - Deleting account and leaving home district now require a few seconds of waiting !3638 @SaiCode
 - Improved mail for thread activation #2298 !4056 @AntonBallmaier
+- Redirects the url of the old food share point page to the public region page #2309 !4069 @AntonBallmaier
 - Prevent ambassadors / GOALS-Admins to enter slots in stores that they are not a member of !4072 @AntonBallmaier
 - Disallow foodsavers to change their birthday #2183 !4075 @AntonBallmaier
 

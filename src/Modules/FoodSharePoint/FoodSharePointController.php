@@ -80,6 +80,9 @@ class FoodSharePointController extends FoodsharingController
 
                 return $this->redirectToRoute('fairteiler_edit', ['id' => $foodSharePointId]);
         }
+        if ($regionId) {
+            return $this->redirect('/region/' . $regionId);
+        }
 
         return $this->redirectToRoute('dashboard');
     }
