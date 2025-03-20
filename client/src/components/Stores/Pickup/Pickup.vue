@@ -88,7 +88,7 @@
       :title="$i18n('pickup.join_title_date', $dateFormatter.dateTime(date))"
       :cancel-title="$i18n('pickup.join_cancel')"
       :ok-title="$i18n('pickup.join_agree')"
-      :ok-disabled="!loadedUserPickups || !pickupRulePass || isMissingHygieneCertificate"
+      :ok-disabled="!loadedUserPickups || !pickupRulePass || isMissingHygieneCertificate || !isTeamMember"
       :ok-variant="okVariant"
       :hide-header-close="true"
       modal-class="bootstrap"
@@ -96,7 +96,11 @@
       lazy
       @ok="$emit('join', date)"
     >
-      <b-alert :show="isMissingHygieneCertificate" variant="danger">
+      <b-alert :show="!isTeamMember" variant="danger">
+        <i class="fas fa-user-slash" />
+        <span v-text="$i18n('pickup.membershipMissing')" />
+      </b-alert>
+      <b-alert :show="isMissingHygieneCertificate && isTeamMember" variant="danger">
         <i class="fas fa-hands-wash" />
         <span v-if="hygieneCertificateUntil" v-text="$i18n('pickup.hygieneCertificateMissing.timeout')" />
         <span v-else v-text="$i18n('pickup.hygieneCertificateMissing.none')" />
@@ -339,6 +343,9 @@ export default {
         !this.hygieneCertificateUntil ||
         new Date(this.hygieneCertificateUntil) < this.date
       )
+    },
+    isTeamMember () {
+      return !(this.mayEditStore && !StoreData.getters.getStoreMember().find(member => member.id === this.user.id))
     },
   },
   methods: {

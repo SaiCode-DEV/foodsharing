@@ -1217,6 +1217,7 @@ pickup:
     none: "Du hast aktuell keine gültige Hygieneschulung. Führe jetzt das Hygienequiz durch, um dich für die Abholung eintragen zu können."
     timeout: "Bis zum Zeitpunkt der Abholung läuft deine Hygieneschulung ab. Führe jetzt erneut das Hygienequiz durch, um dich für die Abholung eintragen zu können."
     link: "Zur Hygieneschulung"
+  membershipMissing: "Du bist kein Mitglied dieses Teams. Daher solltest du dich nicht für Abholungen eintragen. Trage dich im Zweifelsfall erst als Teammitglied ein."
   join_cancel: "Doch nicht"
   join_agree: "Ja, verbindlich eintragen"
   take_empty_slot: "Hier eintragen"

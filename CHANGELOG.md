@@ -32,6 +32,7 @@
 - Replace b-caroussel with custom Gallery component #2188 @AntonBallmaier
 - Deleting account and leaving home district now require a few seconds of waiting !3638 @SaiCode
 - Improved mail for thread activation #2298 !4056 @AntonBallmaier
+- Prevent ambassadors / GOALS-Admins to enter slots in stores that they are not a member of !4072 @AntonBallmaier
 - Disallow foodsavers to change their birthday #2183 !4075 @AntonBallmaier
 
 ## Bugfixes
@@ -45,6 +46,7 @@
 - Fix bug related to finishing a quiz in the 5th try #2263 !4048 @AntonBallmaier
 - Fixed the #vue-topbar error on event pages #2319 !4033 @AntonBallmaier
 - Remove ambassador forum subscriptions when removing ambassadors #2305 !4055 @AntonBallmaier
+- Fixed false error message about missing hygiene certificate when registering for a pick-up #2344 !4072 @AntonBallmaier
 - Fix immediate reloading of the login page on failed login #2357 !4082 @DL6ER
 - Fix sorting by *pass valid until* in region passport table #2288 !4053 @AntonBallmaier
 - Fix add poll button missing in working groups #2352 !4097 @AntonBallmaier
