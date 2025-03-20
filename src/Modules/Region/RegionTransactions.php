@@ -274,6 +274,7 @@ class RegionTransactions
         $menu['hasConference'] = $this->regionPermissions->hasConference($region['type']);
         $menu['hasAchievements'] = $this->achievementGateway->regionHasAchievements($region['id']);
         $menu['mayAdministrateAchievements'] = $this->achievementPermissions->mayAdministrateAchievementsFromRegion($region['id']);
+        $menu['mayCreatePoll'] = $this->votingPermissions->mayCreatePoll($region['id'], $region['type']);
 
         if ($this->currentUserUnits->isAdminFor($regionId)) {
             $menu['mailboxId'] = $region['mailbox_id'];
@@ -286,7 +287,6 @@ class RegionTransactions
             $menu['isArbitrationAdmin'] = $this->reportPermissions->isArbitrationAdmin($regionId);
             $menu['maySetRegionPin'] = $this->regionPermissions->maySetRegionPin($regionId);
             $menu['mayAddFoodSharePoints'] = $this->foodSharePointPermissions->mayAdd($region['id']);
-            $menu['mayCreatePoll'] = $this->votingPermissions->mayCreatePoll($region['id'], $region['type']);
         } else {
             $menu['isAdmin'] = $this->workGroupPermissions->mayEdit($region);
             $menu['hasSubgroups'] = $this->regionGateway->hasSubgroups($regionId);
