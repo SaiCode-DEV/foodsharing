@@ -48,17 +48,24 @@ export default {
     // Further options provided to b-avatar (TODO remove if unused)
     options: { type: Object, default: () => ({}) },
   },
+  data () {
+    return {
+      lazyLoaded: false,
+      observer: null,
+    }
+  },
   computed: {
     imageSrc () {
-      const image = this.image || this.user?.avatar
-      if (!image && !this.user) {
-        return ''
-      }
       const prefix = [
         [35, 'mini_q_'],
         [50, '50_q_'],
         [Infinity, '130_q_'],
       ].find(x => x[0] >= this.size)[1]
+      const image = this.image || this.user?.avatar
+
+      if (!this.lazyLoaded || !image) {
+        return '/img/' + prefix + 'avatar.png'
+      }
 
       if (image?.startsWith('/api/uploads/')) {
         return image + `?w=${Math.ceil(this.size)}&h=${Math.ceil(this.size)}` // path for pictures uploaded with the new API
@@ -96,6 +103,26 @@ export default {
       if (!this.isSleeping) return ''
       const size = [35, 50].find(x => x >= this.size) ?? 130
       return `url('/img/sleep${size}x${size}.png')`
+    },
+  },
+  mounted () {
+    if (typeof IntersectionObserver === 'undefined') {
+      this.lazyLoaded = true
+      return
+    }
+    if (this.image || this.user?.avatar) {
+      this.observer = new IntersectionObserver(this.intersectionHandler, { rootMargin: '300px' })
+      this.observer.observe(this.$el)
+    }
+  },
+  methods: {
+    intersectionHandler (evt) {
+      const isIntersecting = evt.at(-1).isIntersecting
+      if (isIntersecting) {
+        this.lazyLoaded = true
+        this.observer.disconnect()
+        this.observer = null
+      }
     },
   },
 }

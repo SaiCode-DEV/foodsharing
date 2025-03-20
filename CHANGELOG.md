@@ -79,6 +79,7 @@
 - Cache some data in permission classes #2166 !4071 @alex.simm
 - Permission refactoring for foodsharepoints #2156 !4074 @AntonBallmaier
 - Replaced normalisation functions in the API with DTOs !4078 @alex.simm 
+- Avatar images are now loaded lazily #1749 !4098 @AntonBallmaier
 
 ## Dev/Test/CI stuff
 - Update dev docs Vue component integration to use prepareVueComponent !3910 @chriswalg
