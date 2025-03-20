@@ -197,28 +197,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.emoji-dropdown {
-  .dropdown-menu .btn {
-    padding: 0;
-
-    .emoji {
-      padding: 0 0.3em;
-    }
-  }
-}
-
-.emojis {
-  line-height: 2.5;
-
-  span > a {
-    margin-left: 3px;
-
-    span {
-      line-height: 1;
-      font-size: 1.35em;
-      vertical-align: middle;
-    }
-  }
+.emojis .emoji {
+  line-height: 1;
+  font-size: 1.35em;
+  vertical-align: middle;
 }
 
 .divider {
