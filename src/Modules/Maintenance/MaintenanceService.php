@@ -337,7 +337,7 @@ class MaintenanceService
     {
         try {
             $statistics = $this->storeMaintenanceTransactions->triggerFetchWarningNotification();
-            ConsoleHelper::info('send ' . $statistics['count_warned_foodsavers'] . ' warnings...');
+            ConsoleHelper::info('send ' . $statistics['warned foodsavers'] . ' warnings...');
             foreach ($statistics as $key => $stat) {
                 ConsoleHelper::info(' - ' . $key . ': ' . $stat);
             }

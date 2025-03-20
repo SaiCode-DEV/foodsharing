@@ -30,6 +30,7 @@
 - Improved address input #2317 !4018 @AntonBallmaier
 - Group application bells are deleted when the application is accepted or denied !4025 @alex.simm
 - Replace b-caroussel with custom Gallery component #2188 @AntonBallmaier
+- Send only one empty slot warning mail to store managers for all their stores with empty slots #2340 !4058 @AntonBallmaier 
 - Deleting account and leaving home district now require a few seconds of waiting !3638 @SaiCode
 - Improved mail for thread activation #2298 !4056 @AntonBallmaier
 - Redirects the url of the old food share point page to the public region page #2309 !4069 @AntonBallmaier
@@ -45,6 +46,7 @@
 - Show region menu to orga users on public region page #2330 !4052 @AntonBallmaier
 - Fix region pin assignment error #2324 !4054 @AntonBallmaier
 - Fix bug related to finishing a quiz in the 5th try #2263 !4048 @AntonBallmaier
+- Don't send empty slot warning mails to store managers for disabled regular slots #2340 !4058 @AntonBallmaier 
 - Fixed the #vue-topbar error on event pages #2319 !4033 @AntonBallmaier
 - Remove ambassador forum subscriptions when removing ambassadors #2305 !4055 @AntonBallmaier
 - Fixed false error message about missing hygiene certificate when registering for a pick-up #2344 !4072 @AntonBallmaier

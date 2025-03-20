@@ -244,7 +244,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
      *
      * @return PickupSignUp[] List of found signups
      */
-    public function getPickupSignUpsForDateRange(int $storeId, DateTime $from, ?DateTime $to = null)
+    private function getPickupSignUpsForDateRange(int $storeId, DateTime $from, ?DateTime $to = null): array
     {
         $condition = ['date >=' => $this->db->date($from), 'betrieb_id' => $storeId];
         if (!is_null($to)) {
@@ -306,7 +306,7 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
      *
      * @return OneTimePickup[] List of pickups
      */
-    public function getOnetimePickupsForRange(int $storeId, DateTime $from, ?DateTime $to)
+    private function getOnetimePickupsForRange(int $storeId, DateTime $from, ?DateTime $to): array
     {
         $condition = [
             'betrieb_id' => $storeId,

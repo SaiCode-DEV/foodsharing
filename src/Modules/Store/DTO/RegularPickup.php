@@ -2,8 +2,6 @@
 
 namespace Foodsharing\Modules\Store\DTO;
 
-use Carbon\Carbon;
-use DateTime;
 use Foodsharing\Modules\Store\StoreTransactions;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -56,45 +54,5 @@ class RegularPickup
         $obj->description = $query_result['description'];
 
         return $obj;
-    }
-
-    /**
-     * Provides a list of one time pickups which represent a regular pickup in range.
-     *
-     * @return OneTimePickup[] List of real pickup dates
-     */
-    public function convertToOneTimePickups(DateTime $from, DateTime $lastDay): array
-    {
-        $start = new Carbon($from);
-        $end = new Carbon($lastDay);
-
-        $firstWeekday = $start->dayOfWeek;
-        $endWeekday = $end->dayOfWeek;
-        $nextStartDay = ($this->weekday - $firstWeekday) % 7;
-        $isSameDay = $endWeekday == $this->weekday;
-        if ($nextStartDay < 0 && !$isSameDay) {
-            $nextStartDay = 7 + $nextStartDay;
-        }
-        $startTimeOfPickup = Carbon::createFromTimeString($this->startTimeOfPickup);
-        $startGenerated = $start->addDays($nextStartDay)
-                    ->setHour($startTimeOfPickup->hour)
-                    ->setMinutes($startTimeOfPickup->minute)
-                    ->setSeconds($startTimeOfPickup->second);
-
-        $countOfPickupsPerWeek = $end->diffInWeeks($startGenerated, true);
-        if ($end < $startGenerated) {
-            $countOfPickupsPerWeek = 0;
-        }
-
-        $oneTimePickups = [];
-        for ($i = 0; $i < ceil($countOfPickupsPerWeek); ++$i) {
-            $oneTimePickup = new OneTimePickup();
-            $oneTimePickup->date = $start->clone()->addWeeks($i);
-            $oneTimePickup->slots = $this->maxCountOfSlots;
-            $oneTimePickups[] = $oneTimePickup;
-            $oneTimePickup->description = $this->description;
-        }
-
-        return $oneTimePickups;
     }
 }

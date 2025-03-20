@@ -33,7 +33,7 @@ class StoreMaintenanceTransactionsTest extends Unit
         $this->tester->createStore($region['id'], null, null, ['betrieb_status_id' => CooperationStatus::PERMANENTLY_CLOSED->value]);
 
         $statistics = $this->transactions->triggerFetchWarningNotification();
-        $this->assertEquals(1, $statistics['count_stores']);
+        $this->assertEquals(1, $statistics['stores checked']);
     }
 
     public function testTriggerFetchWarningNotificationWithFor48HourBeforePickup(): void
@@ -60,9 +60,9 @@ class StoreMaintenanceTransactionsTest extends Unit
         $this->tester->addRecurringPickup($storeWithRegularPickup['id'], ['time' => $timeOfPickAfterTomorrow, 'dow' => $dayOfWeekDayAfterTomorrow, 'fetcher' => 1]);
 
         $statistics = $this->transactions->triggerFetchWarningNotification();
-        $this->assertEquals(2, $statistics['count_stores']);
-        $this->assertEquals(1, $statistics['count_stores_with_notifications']);
-        $this->assertEquals(1, $statistics['count_unique_foodsavers']);
+        $this->assertEquals(2, $statistics['stores checked']);
+        $this->assertEquals(1, $statistics['stores with notifications']);
+        $this->assertEquals(1, $statistics['warned foodsavers']);
     }
 
     public function testTriggerFetchWarningNotificationWithOnlyRegularPickups(): void
@@ -85,17 +85,15 @@ class StoreMaintenanceTransactionsTest extends Unit
         $this->tester->addRecurringPickup($storeWithRegularPickup['id'], ['time' => $timeOfPickup, 'dow' => $dayOfWeek2, 'fetcher' => 1]);
 
         $statistics = $this->transactions->triggerFetchWarningNotification();
-        $this->assertEquals(2, $statistics['count_stores']);
-        $this->assertEquals(1, $statistics['count_stores_with_notifications']);
-        $this->assertEquals(1, $statistics['count_unique_foodsavers']);
-        $this->assertEquals(1, $statistics['count_total_empty_pickups']);
+        $this->assertEquals(2, $statistics['stores checked']);
+        $this->assertEquals(1, $statistics['stores with notifications']);
+        $this->assertEquals(1, $statistics['warned foodsavers']);
 
         $this->tester->addCollector($foodsaver1['id'], $storeWithRegularPickup['id'], ['date' => $dayOfPickup]);
         $statistics = $this->transactions->triggerFetchWarningNotification();
-        $this->assertEquals(2, $statistics['count_stores']);
-        $this->assertEquals(0, $statistics['count_unique_foodsavers']);
-        $this->assertEquals(0, $statistics['count_total_empty_pickups']);
-        $this->assertEquals(0, $statistics['count_stores_with_notifications']);
+        $this->assertEquals(2, $statistics['stores checked']);
+        $this->assertEquals(0, $statistics['warned foodsavers']);
+        $this->assertEquals(0, $statistics['stores with notifications']);
     }
 
     public function testTriggerFetchWarningNotificationWithRegularPickupsWithOverrideZeroSlots(): void
@@ -121,18 +119,16 @@ class StoreMaintenanceTransactionsTest extends Unit
         $this->tester->addRecurringPickup($storeWithRegularPickup['id'], ['time' => $timeOfPickup, 'dow' => $dayOfWeek2, 'fetcher' => 1]);
 
         $statistics = $this->transactions->triggerFetchWarningNotification();
-        $this->assertEquals(2, $statistics['count_stores']);
-        $this->assertEquals(1, $statistics['count_stores_with_notifications']);
-        $this->assertEquals(2, $statistics['count_unique_foodsavers']);
-        $this->assertEquals(1, $statistics['count_total_empty_pickups']);
+        $this->assertEquals(2, $statistics['stores checked']);
+        $this->assertEquals(1, $statistics['stores with notifications']);
+        $this->assertEquals(2, $statistics['warned foodsavers']);
 
         $this->tester->addPickup($storeWithRegularPickup['id'], ['time' => $dayOfPickup, 'fetchercount' => 0]);
 
         $statistics = $this->transactions->triggerFetchWarningNotification();
-        $this->assertEquals(2, $statistics['count_stores']);
-        $this->assertEquals(0, $statistics['count_unique_foodsavers']);
-        $this->assertEquals(0, $statistics['count_total_empty_pickups']);
-        $this->assertEquals(0, $statistics['count_stores_with_notifications']);
+        $this->assertEquals(2, $statistics['stores checked']);
+        $this->assertEquals(0, $statistics['warned foodsavers']);
+        $this->assertEquals(0, $statistics['stores with notifications']);
     }
 
     public function testTriggerFetchWarningNotificationWithMixedPickups(): void
@@ -161,20 +157,18 @@ class StoreMaintenanceTransactionsTest extends Unit
 
         // Test warning
         $statistics = $this->transactions->triggerFetchWarningNotification();
-        $this->assertEquals(1, $statistics['count_stores']);
-        $this->assertEquals(1, $statistics['count_unique_foodsavers']);
-        $this->assertEquals(2, $statistics['count_total_empty_pickups']);
-        $this->assertEquals(1, $statistics['count_stores_with_notifications']);
+        $this->assertEquals(1, $statistics['stores checked']);
+        $this->assertEquals(1, $statistics['warned foodsavers']);
+        $this->assertEquals(1, $statistics['stores with notifications']);
 
         // Add foodsaver to additional pickup
         $this->tester->addCollector($foodsaver1['id'], $storeWithRegularPickup['id'], ['date' => $additionalPickupDate]);
 
         // Check reducing warnings
         $statistics = $this->transactions->triggerFetchWarningNotification();
-        $this->assertEquals(1, $statistics['count_stores']);
-        $this->assertEquals(1, $statistics['count_unique_foodsavers']);
-        $this->assertEquals(1, $statistics['count_total_empty_pickups']);
-        $this->assertEquals(1, $statistics['count_stores_with_notifications']);
+        $this->assertEquals(1, $statistics['stores checked']);
+        $this->assertEquals(1, $statistics['warned foodsavers']);
+        $this->assertEquals(1, $statistics['stores with notifications']);
     }
 
     public function testTriggerFetchWarningNotificationOnLeavedConfirmation(): void
@@ -193,17 +187,15 @@ class StoreMaintenanceTransactionsTest extends Unit
         $this->tester->addPickup($storeWithRegularPickup['id'], ['time' => $additionalPickupDate, 'fetchercount' => 10]);
 
         $statistics = $this->transactions->triggerFetchWarningNotification();
-        $this->assertEquals(1, $statistics['count_stores']);
-        $this->assertEquals(1, $statistics['count_unique_foodsavers']);
-        $this->assertEquals(1, $statistics['count_total_empty_pickups']);
-        $this->assertEquals(1, $statistics['count_stores_with_notifications']);
+        $this->assertEquals(1, $statistics['stores checked']);
+        $this->assertEquals(1, $statistics['warned foodsavers']);
+        $this->assertEquals(1, $statistics['stores with notifications']);
 
         $this->tester->addCollector($foodsaver1['id'], $storeWithRegularPickup['id'], ['confirmed' => 0, 'date' => $additionalPickupDate]);
 
         $statistics = $this->transactions->triggerFetchWarningNotification();
-        $this->assertEquals(1, $statistics['count_stores']);
-        $this->assertEquals(1, $statistics['count_unique_foodsavers']);
-        $this->assertEquals(1, $statistics['count_total_empty_pickups']);
-        $this->assertEquals(1, $statistics['count_stores_with_notifications']);
+        $this->assertEquals(1, $statistics['stores checked']);
+        $this->assertEquals(1, $statistics['warned foodsavers']);
+        $this->assertEquals(1, $statistics['stores with notifications']);
     }
 }
