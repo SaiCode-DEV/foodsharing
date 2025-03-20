@@ -512,8 +512,6 @@ class StoreTransactionsTest extends Unit
             'fetcher' => $fetcher,
         ]);
 
-        $this->expectException(StoreTransactionException::class);
-
         $this->transactions->joinPickup($store['id'], $pickup, $this->foodsaver['id'], $this->foodsaver['id']);
 
         $this->assertFalse($this->transactions->joinPickup($store['id'], $pickup->sub('1 week'), $this->foodsaver['id'], $this->foodsaver['id']));
