@@ -19,6 +19,5 @@ class CreateStoreModel
     /**
      * Optional first comment in store wall of the new store.
      */
-    #[Assert\Length(max: 180)]
     public ?string $firstPost = null;
 }

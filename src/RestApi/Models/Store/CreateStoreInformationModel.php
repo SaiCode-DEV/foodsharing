@@ -57,7 +57,7 @@ class CreateStoreInformationModel
      * @NoHtml
      */
     #[Assert\NotNull]
-    #[Assert\Length(max: 200)]
+    #[Assert\Length(max: 520)]
     public ?string $publicInfo = null;
 
     public function toCreateStore(): CreateStoreData
