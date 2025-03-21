@@ -2157,6 +2157,7 @@ bell:
   workinggroup_new_request_title: '{name}'
   internal_email_changed_title: '{address}'
   forum_not_activated_thread: '{forum}'
+  new_forum_thread: '{author}: {title}'
 memberlist:
   header_for_district: ''
   header_for_workgroup: ''
