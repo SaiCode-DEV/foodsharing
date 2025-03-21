@@ -292,6 +292,20 @@ email_template:
   confirm_for_unverified: Dette emnet må bekreftes fordi det ble opprettet av en ubekreftet
     person.
   confirm_for_moderated_forum: Dette emnet må bekreftes fordi det er et moderert forum.
+  fetch_warning:
+    empty_slots: '%COUNT% ledige henteplasser'
+    subject:
+      multiple: Åpne hentedatoer hos %COUNT% bedrifter!
+      single: Åpne hentedatoer hos %BETRIEB%!
+    disable_warning: Vil du slå av disse advarslene?
+    settings_link: Gå til varslingsinnstillingene
+    part2: Vennligst finn matsparere så snart som mulig slik at all henting kan finne
+      sted. Hvis du ikke kan mobilisere noen, ville det vært fint om du kunne overta
+      åpne pickuper. Dersom dette ikke er mulig for deg, vennligst avbestill aktuelle
+      avtaler med selskapet i god tid.
+    part1: 'Driftsleders ansvar er å sørge for at henting gjennomføres som planlagt.
+      Dessverre har ikke nok matsparere registrert seg for henting i alle virksomhetene
+      dine i løpet av de neste to dagene:'
 base:
   jsrequired: Denne siden vil ikke fungere skikkelig uten JavaScript.
   slogan: Del mat i stedet for å kaste den – foodsharing
@@ -1719,6 +1733,8 @@ bell:
   mark_as:
     read: Merk som lest
     unread: Merk som ulest
+  new_forum_thread_title: Nytt emne i {forum}
+  new_forum_thread: '{author}: {title}'
 reports:
   when: Tid
   time: Tidspunkt
@@ -2577,6 +2593,7 @@ chat:
   mark_as:
     read: Merk som lest
     unread: Merk som ulest
+  reply: Svar
 forum:
   thread:
     title: Tittel
@@ -2652,6 +2669,9 @@ forum:
     really: Vil du virkelig gjenopprette følgende innlegg?
     title: Gjenopprett innlegg
     hidden_by: Skjult av
+  options:
+    enable_bells_for_new_posts: Motta bjeller for alle nye forumemner
+    disable_bells_for_new_posts: Ingen bjeller mottatt for nye forumemner
 timepicker:
   labelNowButton: nå
   labelCloseButton: Lukk
@@ -2822,6 +2842,8 @@ pickup:
     timeout: Hygienesertifikatet ditt vil ha utløpt ved hentingstidspunktet. Fyll
       ut hygienetesten på nytt nå for å kunne registrere deg for ønsket henting.
     link: Til hygienetreningen
+  membershipMissing: Du er ikke medlem av dette teamet. Derfor bør du ikke registrere
+    deg for henting. Registrer deg om nødvendig som teammedlem først.
 storeedit:
   fetch:
     teamStatus: lagstatus
