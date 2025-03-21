@@ -1114,6 +1114,9 @@ forum:
     hidden_by: Hidden by
     reason: 'Reason: “{reason}”'
     title: Restore post
+  options:
+    disable_bells_for_new_posts: Don’t receive bells for new topics
+    enable_bells_for_new_posts: Receive bells for all new topics
 timepicker:
   labelNowButton: Now
   labelCloseButton: Close
@@ -1286,6 +1289,8 @@ pickup:
     timeout: Your current hygiene certificate will already have expired at the time
       of the desired pick-up. Take the hygiene quiz again now to be able to register
       for the desired pick-up.
+  membershipMissing: You are not a member of this team. Therefore, you should not
+    register for pick-ups. If necessary, register as a team member first.
 storeview:
   show_information: Show store information
   cooperation: Cooperation since {startTime}.
@@ -1603,6 +1608,8 @@ bell:
   mark_as:
     read: Mark as read
     unread: Mark as unread
+  new_forum_thread: '{author}: {title}'
+  new_forum_thread_title: New topic in {forum}
 reports:
   time: Time
   region: Home district
@@ -1829,6 +1836,20 @@ email_template:
     forum.
   confirm_for_unverified: This topic needs to be confirmed because it was created
     by an unverified person.
+  fetch_warning:
+    subject:
+      single: Open pickup dates at %BETRIEB%!
+      multiple: Open pickup dates at %COUNT% companies!
+    empty_slots: '%COUNT% unassigned slots'
+    disable_warning: Turn off these warnings?
+    settings_link: Go to the notification settings
+    part1: 'It’s the responsibility of the store managers to ensure that pickups are
+      carried out as planned. Unfortunately, not all of your facilities have registered
+      enough foodsavers for pickups in the next two days:'
+    part2: Please find foodsavers as soon as possible so that all pickups can take
+      place. If you are unable to mobilize anyone, it would be appreciated if you
+      could take over open pickups. If this is not possible, please consider canceling
+      the relevant pickups with the business in a timely manner.
 sidenav:
   yourgroups: Your groups
   localgroups: Regional groups
@@ -4740,10 +4761,10 @@ required_messages:
     main: we have verified you as a foodsaver!
     footer: Best regards, your ambassadors
     really_multiple: Do you really want to verify {count} users? Please make sure
-      that all {count} people meet all [requirements for verified
+      that all {count} people meet all [requirements for verified 
       foodsavers](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).
     really: Are you sure you want to verify {name}? Please make sure that {name} meets
-      all [requirements for verified
+      all [requirements for verified 
       foodsavers](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).
   placeholder: Optionally add information here …
   save_message: Save my message for future reference
