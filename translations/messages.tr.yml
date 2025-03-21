@@ -914,6 +914,7 @@ bell:
   mark_as:
     read: Okundu olarak işaretle
     unread: Okunmadı olarak işaretle
+  new_forum_thread: '{author}: {title}'
 sig:
   buddies: Tanıdığın insanlar
 error:
