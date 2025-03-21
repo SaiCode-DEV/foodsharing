@@ -1948,6 +1948,8 @@ pickup:
       vuelva a realizar el cuestionario de higiene para poder registrarse para la
       recogida.
     link: Para formación en higiene
+  membershipMissing: No eres miembro de este equipo. Por lo tanto, no debes registrarte
+    para las recogidas. Si es necesario, regístrate primero como miembro del equipo.
 date:
   wednesday: 'miércoles'
   to: 'al'
@@ -2062,6 +2064,8 @@ bell:
   mark_as:
     unread: Marcar como no leído
     read: Marcar como leído
+  new_forum_thread: '{author}: {title}'
+  new_forum_thread_title: Nuevo tema en {forum}
 foodsaver:
   restricted: 'Lamentablemente, no tienes permiso para ver estos datos.'
   upgrade:
@@ -2869,6 +2873,10 @@ forum:
     reason: 'Motivo: «{reason}»'
     title: Restaurar la contribución
     really: ¿De verdad quieres restaurar la siguiente publicación?
+  options:
+    disable_bells_for_new_posts: No se recibieron campanas para los nuevos temas del
+      foro
+    enable_bells_for_new_posts: Recibe campanas para todos los nuevos temas del foro
 buddy:
   request_sent: 'Solicitud enviada.'
   request_accepted: 'Ahora son amig@s.'
@@ -4008,6 +4016,13 @@ email_template:
     una persona no verificada.
   confirm_for_moderated_forum: Este tema necesita ser confirmado porque es un foro
     moderado.
+  fetch_warning:
+    empty_slots: '%COUNT% espacios de recogida desocupados'
+    disable_warning: ¿Desactivar estas advertencias?
+    subject:
+      single: ¡Fechas de recogida abiertas en %BETRIEB%!
+      multiple: ¡Fechas de recogida abiertas en %COUNT% empresas!
+    settings_link: Vaya a la configuración de notificaciones
 contentmanagement: 'Gestión de contenido'
 teamjs:
   entermail: '¡Ingrese una dirección de correo electrónico válida para que podamos
@@ -4059,6 +4074,7 @@ chat:
   mark_as:
     unread: Marcar como no leído
     read: Marcar como leído
+  reply: Responder
 timepicker:
   labelIncrement: 'Aumentar'
   labelDecrement: 'Disminuir'
