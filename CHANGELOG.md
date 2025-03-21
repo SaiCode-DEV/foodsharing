@@ -36,6 +36,7 @@
 - Redirects the url of the old food share point page to the public region page #2309 !4069 @AntonBallmaier
 - Prevent ambassadors / GOALS-Admins to enter slots in stores that they are not a member of !4072 @AntonBallmaier
 - Disallow foodsavers to change their birthday #2183 !4075 @AntonBallmaier
+- New replying function in the chat component !4090 @alex.simm
 
 ## Bugfixes
 - Resolve "region filter bug on profile page: Blank screen when navigating store list" #2295 !3940 @chriswalg

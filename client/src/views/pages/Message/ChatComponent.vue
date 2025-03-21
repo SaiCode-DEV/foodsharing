@@ -19,6 +19,7 @@
     :theme="themeStore.isDark ? 'dark' : 'light'"
     :styles="JSON.stringify(computedStyle)"
     emoji-data-source="/assets/emoji-picker-element-data/de/data.json"
+    :message-actions="JSON.stringify(messageActions)"
     @fetch-messages="fetchMessages($event.detail[0])"
     @fetch-more-rooms="fetchMoreRooms"
     @send-message="sendMessage($event.detail[0])"
@@ -148,6 +149,10 @@ export default {
         // IS_TYPING: i18n('is writing...'),
         // CANCEL_SELECT_MESSAGE: i18n('Cancel'),
       },
+      messageActions: [{
+        name: 'replyMessage',
+        title: i18n('chat.reply'),
+      }],
     }
   },
   computed: {
@@ -431,7 +436,7 @@ export default {
           seen: this.userStore.getUserId !== message.authorId, // Setting the other users seen, will hide "New Messages" indicator in chat. TODO: https://gitlab.com/foodsharing-dev/foodsharing/-/issues/1484
           deleted: false,
           failure: message.failure,
-          disableActions: true,
+          disableActions: false,
           disableReactions: true,
         }
         chatMessages.push(chatMessage)
@@ -529,6 +534,11 @@ export default {
       }, 0)
     },
     async sendMessage ({ content, roomId, files, replyMessage }) {
+      if (replyMessage) {
+        // Each line of the original message is prefaced by a '> '
+        const citation = replyMessage.content.split('\n').map(line => '> ' + line).join('\n')
+        content = citation + '\n\n' + content
+      }
       if (this.roomId === NEW_CONVERSATION_ID) {
         if (this.newConversationSelectedUsers.length === 0) {
           this.setMessageText(content) // keep current message text

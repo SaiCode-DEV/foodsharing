@@ -3187,6 +3187,7 @@ chat:
   mark_as:
     read: Mark as read
     unread: Mark as unread
+  reply: "Reply"
 delete: Delete
 error_unexpected: An error has occurred
 error_base64_image: Inserting images via drag & drop is not permitted.
@@ -4739,10 +4740,10 @@ required_messages:
     main: we have verified you as a foodsaver!
     footer: Best regards, your ambassadors
     really_multiple: Do you really want to verify {count} users? Please make sure
-      that all {count} people meet all [requirements for verified 
+      that all {count} people meet all [requirements for verified
       foodsavers](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).
     really: Are you sure you want to verify {name}? Please make sure that {name} meets
-      all [requirements for verified 
+      all [requirements for verified
       foodsavers](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).
   placeholder: Optionally add information here …
   save_message: Save my message for future reference

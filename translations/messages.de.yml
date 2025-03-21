@@ -1443,6 +1443,7 @@ chat:
   mark_as:
     read: "Als gelesen markieren"
     unread: "Als ungelesen markieren"
+  reply: "Antworten"
 
 wall:
   name: "Pinnwand"
@@ -2199,7 +2200,7 @@ settings:
   change_data_info:
     general: Hier kannst du deine Profildaten anpassen.
     verified: Deinen Namen und Geburtsdatum kannst du nicht bearbeiten. Du kannst aber eine:n Botschafter:in bitten, diese Daten für dich zu ändern.
-    desc: 
+    desc:
   general:
     phone: "Deine Festnetznummer"
     current_address: "Aktuelle Adresse"
