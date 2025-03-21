@@ -10,7 +10,7 @@
 - Added location seach bar to map !4018 @AntonBallmaier
 - Make basket container on the dashboard optional #2345 !4063 @AntonBallmaier
 - Link user profiles in forum reactions #2341 !4059 #2351 !4070 @AntonBallmaier
-- Added the possibility to mark bell notifications as read/unread via the newly added icon button that appears on hover !2111 @anedomansky
+- Added the possibility to mark bell notifications as read/unread via the newly added icon button that appears on hover !4035 !4091 @anedomansky
 - Added the option to actively follow a forum, so that you get a bell for every new thread #2346 !4064 @AntonBallmaier
 - Show KAM roles on profile pages #2354 !4084 @AntonBallmaier
 - Add Feedback form for Beta-Testers #3968 @SaiCode

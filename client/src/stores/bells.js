@@ -80,14 +80,11 @@ export const mutations = {
     const ids = bellsToMark.map(bell => bell.id)
 
     try {
-      const [bellIsRead] = await Promise.all([
-        await setReadStatus(ids, isRead),
-        await setCache(cacheRequestName, store.bells),
-      ])
-
+      const bellIsRead = await setReadStatus(ids, isRead)
       bellsToMark.forEach(bellToMark => {
         bellToMark.isRead = bellIsRead
       })
+      await setCache(cacheRequestName, store.bells)
     } catch (err) {
       console.error('Error marking bells:', err)
     }
