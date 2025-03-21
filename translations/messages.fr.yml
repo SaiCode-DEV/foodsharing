@@ -351,6 +351,7 @@ button:
   countdown_clickable: Cliquable en {countdown} secondes
   ok: D’accord
   filter_options: Options de filtre
+  browse: Parcourir
 upload:
   crop_dialog_title: Rogner l’image
   new_file: Téléverser un nouveau fichier
@@ -760,6 +761,13 @@ email_template:
     non vérifiée.
   confirm_for_moderated_forum: Ce sujet doit être confirmé car il s’agit d'un forum
     modéré.
+  fetch_warning:
+    subject:
+      multiple: Dates de ramassage ouvertes dans %COUNT% entreprises !
+      single: Dates de retrait ouvertes chez %BETRIEB% !
+    disable_warning: Désactiver ces avertissements ?
+    settings_link: Aller dans les paramètres de notification
+    empty_slots: '%COUNT% emplacements de ramassage inoccupés'
 mailbox:
   mark_as_unread: Marquer comme non lu
   filesize: Désolé. Le fichier est trop gros.
@@ -1023,6 +1031,11 @@ forum:
     really: Veux-tu vraiment restaurer le post suivant ?
     hidden_by: Masqué par
     title: Rétablir la contribution
+  options:
+    enable_bells_for_new_posts: Obtenir des cloches pour tous les nouveaux sujets
+      de forum
+    disable_bells_for_new_posts: Ne pas recevoir de cloches pour les nouveaux sujets
+      de forum
 fsp:
   info:
     mail: Cloche et notification par courriel
@@ -2370,6 +2383,8 @@ pickup:
     timeout: Au moment de la collecte, ton certificat d’hygiène aura expiré. Réponds
       maintenant au quiz sur l’hygiène afin de pouvoir t’inscrire pour le collecte
       souhaité.
+  membershipMissing: Tu n’es pas membre de cette équipe. Tu ne devrais donc pas t’inscrire
+    pour les ramassages. Tu dois d’abord t’inscrire en tant que membre de l’équipe.
 events:
   bread: Évènements
   past: Évènements passés
@@ -2452,6 +2467,8 @@ events:
     Il est également possible de se joindre à la conférence par téléphone.\n\nSi tu
     souhaites quand même utiliser une autre plateforme pour une conférence téléphonique
     ou vidéo, sélectionne l’option *« Autre »*.\n"
+  public_info: Cet événement est public et tout le monde peut y accéder. Les commentaires
+    et la liste des participant(e)s ne sont visibles que par les utilisateurs enregistrés.
 wall:
   error-create: Ta contribution sur ce mur n’a pas pu être sauvegardée.
   created: Parfait ! Ta contribution sur ce mur a été enregistrée.
@@ -2497,6 +2514,7 @@ chat:
   mark_as:
     read: Marquer comme lu
     unread: Marquer comme non lu
+  reply: Répondre
 timepicker:
   labelNowButton: Maintenant
   labelCloseButton: Fermer
@@ -2864,6 +2882,9 @@ map:
     go: Au frigo solidaire
   community:
     go: vers la page du district
+  events:
+    go: à l’événement
+    title: Événements
 content:
   changelog: Changelog actuel
   empty: Aucune page existante.
@@ -3049,6 +3070,8 @@ bell:
   mark_as:
     read: Marquer comme lu
     unread: Marquer comme non lu
+  new_forum_thread: '{author} : {title}'
+  new_forum_thread_title: Nouveau sujet dans {forum}
 personal_data:
   landline: Numéro de fixe
   mobile: Numéro de portable
@@ -3594,6 +3617,11 @@ region:
       edit_pin: Modifier l’épingle d’arrondissement
       confirm_discard_changes: Souhaites-tu vraiment abandonner tes modifications
         sur l’épingle d’arrondissement ?
+    events:
+      load_past: Voir les événements passés
+      title: Événements publics
+      no_future_events: 'Il n’y a actuellement aucun événement public répertorié dans
+        ce district. Les événements suivants ont eu lieu dans le passé :'
   denied:
     group_in_this_region: « {name} » est un groupe de cette district.
     this_region: Tu as essayé d’accéder au contenu de ce district. Cependant, seuls
@@ -4550,6 +4578,8 @@ help:
         au moment où le vote est créé.\n"
     change_verified_data:
       title: Demander la modification des données vérifiées
+    publicEvent:
+      title: Événements publics
 automatic_delete: '- le profil doit être supprimé.'
 automatic_not_delete: '- le profil doit être conservé.'
 no_automatic_delete: 'Si la dernière connexion remonte à cinq ans :'
@@ -4660,6 +4690,7 @@ support_page:
     placeholder: Sélectionner le fichier
     drop_placeholder: Dépose le fichier ici
     browse: Parcourir
+  your_name: Ton nom
 error_base64_image: L’insertion d’images n’est pas autorisée par glisser-déposer.
 petition:
   progressText:
@@ -4704,6 +4735,7 @@ required_messages:
     footer: Salutations
   decline_store_application:
     footer: Salutations
+    really: Tu veux vraiment refuser la candidature de {name} à l'équipe ?
   demote_store_manager:
     footer: Salutations
 contact_page:
@@ -4730,3 +4762,21 @@ contact_page:
     link: vers l’aperçu
     text: Si tu as des questions sur un district, n’hésite pas à t’adresser directement
       aux personnes de contact de ce district.
+feedback:
+  button: Donner du feedback
+  name_sent: Ton nom et ton identifiant seront également envoyés.
+  error:
+    no_sentry: Une erreur est survenue avec Sentry. Réessaye plus tard.
+    screenshot: La capture d’écran automatique a échoué. Tu peux toutefois ajouter
+      manuellement une image à ton feedback.
+    invalid_file: Fichier non valide. Merci de ne télécharger que des images.
+    message_short: Ton message est trop court. Donne plus d’informations s’il te plaît.
+  capture_screenshot: Prendre une capture d’écran
+  success: Ton commentaire a été transmis avec succès.
+  no_support: Ce formulaire est uniquement destiné aux **commentaires**. Si tu as
+    besoin d’aide ou si tu as des questions, utilise le [formulaire de support](/support).
+  privacy: Ton message sera transmis aux développeurs bénévoles de la plateforme foodsharing.
+    Toutes les données saisies dans le formulaire, ainsi que les images jointes, seront
+    alors visibles pour eux. Assure-toi que les captures d’écran ne contiennent pas
+    de données personnelles d’autres utilisateurs que tu n’es pas autorisé(e) à partager.
+  title: Feedback
