@@ -148,6 +148,8 @@ class ForumTransactions
             } else {
                 $this->flashMessageHelper->info($this->translator->trans('forum.thread.no_mail'));
             }
+
+            $this->notifyActiveFollowersOfForumAboutNewThreadViaBell($region, $threadId, $ambassadorForum, $title);
         }
 
         $this->sendNotificationsToMentionedUsers($threadId, null, $body);
@@ -257,6 +259,30 @@ class ForumTransactions
             ];
         $this->sendNotificationMail($recipients,
             $isAmbassadorForum ? 'forum/new_region_ambassador_message' : 'forum/new_message', $data);
+    }
+
+    private function notifyActiveFollowersOfForumAboutNewThreadViaBell(array $region, int $threadId, bool $isAmbassadorForum, string $title): void
+    {
+        $recipients = $this->forumFollowerGateway->getAdminIdsToNotifyForNewThread($region['id']);
+        if (!$isAmbassadorForum) {
+            $recipients = array_unique(array_merge($recipients, $this->forumFollowerGateway->getUserIdsToNotifyForNewThread($region['id'])));
+        }
+        $recipients = array_diff($recipients, [$this->session->id()]); // exclude author
+
+        $bell = Bell::create(
+            'new_forum_thread_title',
+            'new_forum_thread',
+            'fas fa-comment-medical',
+            ['href' => $this->url($region['id'], $isAmbassadorForum, $threadId)],
+            [
+                'forum' => $region['name'],
+                'title' => $title,
+                'author' => $this->session->user('name'),
+            ],
+            BellType::createIdentifier(BellType::NEW_FORUM_THREAD, $threadId)
+        );
+
+        $this->bellGateway->addBell($recipients, $bell);
     }
 
     public function addReaction($fsId, $postId, $key): void

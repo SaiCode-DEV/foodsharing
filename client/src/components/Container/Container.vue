@@ -240,5 +240,6 @@ export default {
 
 .notCollapsible {
   cursor: unset;
+  padding-right: 0.25em;
 }
 </style>

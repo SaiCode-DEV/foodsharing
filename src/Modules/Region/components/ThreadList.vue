@@ -1,5 +1,11 @@
 <template>
-  <Container :title="$i18n('forum.threads')">
+  <Container
+    :title="$i18n('forum.threads')"
+    :collapsible="false"
+  >
+    <template #options>
+      <OverflowMenu :options="options" />
+    </template>
     <b-container>
       <b-row class="mt-2">
         <b-col
@@ -61,11 +67,12 @@ import ForumSearchField from './ForumSearchField'
 import ThreadListEntry from './ThreadListEntry'
 import Container from '@/components/Container/Container.vue'
 
-import { listThreads } from '@/api/forum'
+import { getForumFollowing, listThreads, setForumFollowing } from '@/api/forum'
 import { pulseError } from '@/script'
+import OverflowMenu from '@/components/OverflowMenu.vue'
 
 export default {
-  components: { ForumSearchField, ThreadListEntry, Container },
+  components: { ForumSearchField, ThreadListEntry, Container, OverflowMenu },
   props: {
     groupId: { type: Number, required: true },
     subforumId: { type: Number, required: true },
@@ -75,15 +82,23 @@ export default {
       threads: [],
       currentPage: 1,
       perPage: 20,
+      isActiveFollower: false,
     }
   },
   computed: {
     subforumName () {
       return this.subforumId === 1 ? 'botforum' : 'forum'
     },
+    options () {
+      return [
+        { hide: this.isActiveFollower, icon: 'bell', textKey: 'forum.options.enable_bells_for_new_posts', callback: () => this.setActiveFollowership(true) },
+        { hide: !this.isActiveFollower, icon: 'bell-slash', textKey: 'forum.options.disable_bells_for_new_posts', callback: () => this.setActiveFollowership(false) },
+      ]
+    },
   },
   async mounted () {
     await this.loadThreads(this.currentPage)
+    this.isActiveFollower = await getForumFollowing(this.groupId)
   },
   methods: {
     async loadThreads (currentPage) {
@@ -93,6 +108,10 @@ export default {
       } catch {
         pulseError(this.$i18n('error_unexpected'))
       }
+    },
+    setActiveFollowership (isActiveFollower) {
+      setForumFollowing(this.groupId, isActiveFollower)
+      this.isActiveFollower = isActiveFollower
     },
   },
 }

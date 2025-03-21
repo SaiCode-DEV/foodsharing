@@ -16,6 +16,7 @@ use FOS\RestBundle\Request\ParamFetcher;
 use OpenApi\Annotations as OA;
 use OpenApi\Attributes as OA2;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -550,5 +551,33 @@ class ForumRestController extends AbstractFoodsharingRestController
         $this->forumTransactions->removeReaction($this->session->id(), $postId, $emoji);
 
         return $this->handleView($this->view([]));
+    }
+
+    #[OA2\Get(summary: 'Get forum following status.')]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[Rest\Get('forum/{regionId}/follow', requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    public function getIsFollowingForum(int $regionId): Response
+    {
+        $this->assertLoggedIn();
+        $isFollowing = $this->forumFollowerGateway->isFollowingForum($regionId, $this->session->id());
+        if (is_null($isFollowing)) {
+            $isFollowing = $this->currentUserUnits->isAdminFor($regionId);
+        }
+
+        return $this->respondOK(['isFollowing' => $isFollowing]);
+    }
+
+    #[OA2\Patch(summary: 'Set forum following status.')]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[Rest\Patch('forum/{regionId}/follow', requirements: ['regionId' => Requirement::POSITIVE_INT])]
+    public function setFollowingForum(int $regionId, #[MapQueryParameter] bool $isFollowing): Response
+    {
+        $this->assertLoggedIn();
+        if (!$this->currentUserUnits->mayBezirk($regionId)) {
+            throw new AccessDeniedHttpException();
+        }
+        $this->forumFollowerGateway->setFollowingForum($regionId, $this->session->id(), $isFollowing);
+
+        return $this->respondOK();
     }
 }

@@ -87,3 +87,11 @@ export function createThread (forumId, forumSubId, title, body, sendMail) {
 export function setTitle (threadId, title) {
   return patch(`/forum/thread/${threadId}`, { title })
 }
+
+export function getForumFollowing (forumId) {
+  return get(`/forum/${forumId}/follow`)
+}
+
+export function setForumFollowing (forumId, isFollowing) {
+  return patch(`/forum/${forumId}/follow?isFollowing=${isFollowing}`)
+}

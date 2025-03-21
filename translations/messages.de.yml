@@ -1414,6 +1414,9 @@ forum:
     hidden_by: "Ausgeblendet von"
     reason: "Begründung: „{reason}“"
     title: "Beitrag wiederherstellen"
+  options:
+    enable_bells_for_new_posts: "Glocken für alle neuen Themen erhalten"
+    disable_bells_for_new_posts: "Keine Glocken für alle neuen Themen erhalten"
 chat:
   open_chat: "Nachricht schreiben"
   new_message: "Neue Nachricht" #also Mailbox.js
@@ -1754,6 +1757,9 @@ bell:
 
   post_hidden_title: "Post ausgeblendet durch {user}"
   post_hidden: "Dein Post zu {title} im Forum {forum} wurde ausgeblendet"
+
+  new_forum_thread_title: "Neues Thema in {forum}"
+  new_forum_thread: "{author}: {title}"
 
   mark_as:
     read: "Als gelesen markieren"

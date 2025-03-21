@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Region;
 
 use Foodsharing\Modules\Core\BaseGateway;
+use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Info\FollowStatus;
 use Foodsharing\Modules\Core\DBConstants\Info\InfoType;
 
@@ -175,5 +176,57 @@ class ForumFollowerGateway extends BaseGateway
 				SELECT foodsaver_id, theme_id, 0, 1 FROM fs_theme_post';
 
         return $this->db->execute($query)->rowCount();
+    }
+
+    /**
+     * Returns the ids of all admins of a group / ambassadors of a region who didn't disable bells for new threads
+     * By default (null value) admins are included. Only explicitly not recieving these bells excludes them.
+     * @return int[]
+     */
+    public function getAdminIdsToNotifyForNewThread(int $regionId): array
+    {
+        return $this->db->fetchAllValues('SELECT fhb.foodsaver_id
+            FROM fs_foodsaver_has_bezirk fhb
+            JOIN fs_botschafter b ON b.bezirk_id = fhb.bezirk_id AND b.foodsaver_id = fhb.foodsaver_id
+            WHERE b.bezirk_id = ?
+            AND notify_on_all_new_threads IS NULL OR notify_on_all_new_threads != 0',
+            [$regionId]);
+    }
+
+    /**
+     * Returns the ids of all group / region members who did enable bells for new threads
+     * By default (null value) users are excluded. Only explicitly recieving these bells includes them.
+     * @return int[]
+     */
+    public function getUserIdsToNotifyForNewThread(int $regionId): array
+    {
+        return $this->db->fetchAllValuesByCriteria('fs_foodsaver_has_bezirk', 'foodsaver_id', [
+            'bezirk_id' => $regionId,
+            'notify_on_all_new_threads' => 1,
+            'active' => 1,
+        ]);
+    }
+
+    public function isFollowingForum(int $regionId, int $foodsaverId): ?bool
+    {
+        try {
+            $isFollowing = $this->db->fetchValueByCriteria('fs_foodsaver_has_bezirk', 'notify_on_all_new_threads', [
+                'bezirk_id' => $regionId,
+                'foodsaver_id' => $foodsaverId,
+            ]);
+
+            return is_null($isFollowing) ? $isFollowing : boolval($isFollowing);
+        } catch (DatabaseNoValueFoundException $e) {
+            return null;
+        }
+    }
+
+    public function setFollowingForum(int $regionId, int $foodsaverId, bool $isFollowing): void
+    {
+        $this->db->insertOrUpdate('fs_foodsaver_has_bezirk', [
+            'bezirk_id' => $regionId,
+            'foodsaver_id' => $foodsaverId,
+            'notify_on_all_new_threads' => intval($isFollowing),
+        ]);
     }
 }
