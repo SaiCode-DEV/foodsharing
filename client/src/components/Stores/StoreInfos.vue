@@ -106,7 +106,8 @@
 <script>
 import Markdown from '@/components/Markdown/Markdown.vue'
 import Container from '@/components/Container/Container.vue'
-import { getters, STORE_PUBLICITY_AND_STICKER_OPTIONS } from '@/stores/stores'
+import { STORE_PUBLICITY_AND_STICKER_OPTIONS } from '@/stores/stores'
+import { useStoreStore } from '@/stores/store'
 import NavigateWithSelector from '@/components/UI/NavigateWithSelector.vue'
 
 export default {
@@ -185,6 +186,11 @@ export default {
       required: true,
     },
   },
+  setup () {
+    return {
+      storeStore: useStoreStore(),
+    }
+  },
   data () {
     return {
       displayInfos: true,
@@ -206,7 +212,7 @@ export default {
       return matchedWeightType ? matchedWeightType.text : ''
     },
     weightTypes () {
-      return getters.getStoreWeightTypes()?.map(item => ({ value: item.id, text: item.name }))
+      return this.storeStore.getStoreWeightTypes.map(item => ({ value: item.id, text: item.name }))
     },
     useRegionPickupRules () {
       return this.regionPickupRules === true && this.regionPickupRuleActive === true

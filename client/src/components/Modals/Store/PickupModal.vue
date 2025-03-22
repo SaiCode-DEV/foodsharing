@@ -59,10 +59,10 @@
 
 <script>
 import { setPickupSlots } from '@/api/pickups'
-import { getters } from '@/stores/stores'
 import i18n, { locale } from '@/helper/i18n'
 import { pulseError } from '@/script'
 import PickupsData from '@/stores/pickups'
+import { useStoreStore } from '@/stores/store'
 
 export default {
   props: {
@@ -71,6 +71,11 @@ export default {
     deletePickupMode: { type: Boolean, default: false },
     modalId: { type: String, required: true },
     description: { type: String, required: true },
+  },
+  setup () {
+    return {
+      storeStore: useStoreStore(),
+    }
   },
   data () {
     return {
@@ -109,7 +114,7 @@ export default {
   },
   computed: {
     maxCountPickupSlot () {
-      return getters.getMaxCountPickupSlot()
+      return this.storeStore.getMaxCountPickupSlot
     },
     isDateTimeNotSelected () {
       return !this.selectedSlotDate || !this.selectedSlotTime

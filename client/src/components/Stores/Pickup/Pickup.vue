@@ -255,7 +255,8 @@
 import { BFormTextarea, BModal, VBTooltip } from 'bootstrap-vue'
 
 import { listSameDayPickupsForUser, checkPickupRuleStore } from '@/api/pickups'
-import StoreData, { getters } from '@/stores/stores'
+import StoreData from '@/stores/stores'
+import { useStoreStore } from '@/stores/store'
 
 import TakenSlot from '@/components/Stores/Pickup/TakenSlot.vue'
 import EmptySlot from '@/components/Stores/Pickup/EmptySlot.vue'
@@ -275,6 +276,11 @@ export default {
     isCoordinator: { type: Boolean, default: false },
     user: { type: Object, default: () => { return { id: null } } },
     description: { type: String, default: () => { return null } },
+  },
+  setup () {
+    return {
+      storeStore: useStoreStore(),
+    }
   },
   data () {
     return {
@@ -310,7 +316,7 @@ export default {
       }
     },
     maxCountPickupSlot () {
-      return getters.getMaxCountPickupSlot()
+      return this.storeStore.getMaxCountPickupSlot
     },
     isUserParticipant () {
       return this.occupiedSlots.findIndex((e) => {

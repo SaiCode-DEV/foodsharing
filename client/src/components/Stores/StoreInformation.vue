@@ -450,6 +450,7 @@
 // Stores
 import StoreData, { STORE_PUBLICITY_AND_STICKER_OPTIONS } from '@/stores/stores'
 import PickupsData from '@/stores/pickups'
+import { useStoreStore } from '@/stores/store'
 
 // Others
 import { pulseError, showLoader, hideLoader, pulseSuccess } from '@/script'
@@ -488,6 +489,11 @@ export default {
     isCoordinator: { type: Boolean, default: null },
     isVerified: { type: Boolean, default: null },
     loadedPickups: { type: Array, default: () => [] },
+  },
+  setup () {
+    return {
+      storeStore: useStoreStore(),
+    }
   },
   data () {
     return {
@@ -536,37 +542,37 @@ export default {
       },
     },
     maxCountPickupSlot () {
-      return StoreData.getters.getMaxCountPickupSlot()
+      return this.storeStore.getMaxCountPickupSlot
     },
     storeChains () {
-      return StoreData.getters.getStoreChains()?.map(item => ({ value: item.id, text: item.name }))
+      return this.storeStore.getStoreChains.map(item => ({ value: item.id, text: item.name }))
     },
     storeCooperationStatusTypes () {
-      return StoreData.getters.getStoreCooperationStatus()?.map(item => ({ value: item.id, text: item.name }))
+      return this.storeStore.getStoreCooperationStatus.map(item => ({ value: item.id, text: item.name }))
     },
     weightTypes () {
-      return StoreData.getters.getStoreWeightTypes()?.map(item => ({ value: item.id, text: item.name }))
+      return this.storeStore.getStoreWeightTypes.map(item => ({ value: item.id, text: item.name }))
     },
     publicTimes () {
-      return StoreData.getters.getPublicTimes()?.map(item => ({ value: item.id, text: item.name }))
+      return this.storeStore.getPublicTimes.map(item => ({ value: item.id, text: item.name }))
     },
     categoryTypes () {
-      return StoreData.getters.getStoreCategoryTypes()?.map(item => ({ value: item.id, text: item.name }))
+      return this.storeStore.getStoreCategoryTypes.map(item => ({ value: item.id, text: item.name }))
     },
     convinceStatusTypes () {
-      return StoreData.getters.getStoreConvinceStatusTypes()?.map(item => ({ value: item.id, text: item.name }))
+      return this.storeStore.getStoreConvinceStatusTypes.map(item => ({ value: item.id, text: item.name }))
     },
     foodSearchCriteria () {
       return this.foodSearchCriteriaField.trim().toLowerCase()
     },
     storeFoodIds () {
-      const selectedValues = StoreData.getters.getGrocerieTypes().filter(opt => this.storeFoodNames.indexOf(opt.name) !== -1).filter(opt => opt.name)
+      const selectedValues = this.storeStore.getGrocerieTypes.filter(opt => this.storeFoodNames.indexOf(opt.name) !== -1).filter(opt => opt.name)
       return [...new Set(selectedValues.map(opt => opt.id))]
     },
     availableFoodOptions () {
       const foodSearchCriteria = this.foodSearchCriteria
       // Filter out already selected options
-      const options = StoreData.getters.getGrocerieTypes().filter(opt => this.storeFoodNames.indexOf(opt.name) === -1)
+      const options = this.storeStore.getGrocerieTypes.filter(opt => this.storeFoodNames.indexOf(opt.name) === -1)
       if (foodSearchCriteria) {
         // Show only options that match foodSearchCriteria
         return options.filter(opt => opt.name.toLowerCase().indexOf(foodSearchCriteria) > -1).map(opt => opt.name)
@@ -592,7 +598,7 @@ export default {
     }
 
     if (this.store.groceries !== null) {
-      const selectedValues = StoreData.getters.getGrocerieTypes().filter(opt => this.store.groceries.indexOf(opt.id) !== -1).map(opt => opt.name)
+      const selectedValues = this.storeStore.getGrocerieTypes.filter(opt => this.store.groceries.indexOf(opt.id) !== -1).map(opt => opt.name)
       this.storeFoodNames = [...new Set(selectedValues)]
     } else {
       this.storeFoodNames = []
@@ -649,7 +655,7 @@ export default {
     async resetModal () {
       await StoreData.mutations.loadStoreInformation(this.storeId)
       if (this.store.groceries !== null) {
-        const selectedValues = StoreData.getters.getGrocerieTypes().filter(opt => this.store.groceries.indexOf(opt.id) !== -1).map(opt => opt.name)
+        const selectedValues = this.storeStore.getGrocerieTypes.filter(opt => this.store.groceries.indexOf(opt.id) !== -1).map(opt => opt.name)
         this.storeFoodNames = [...new Set(selectedValues)]
       } else {
         this.storeFoodNames = []

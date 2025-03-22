@@ -9,6 +9,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\Pagination;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Region\ForumGateway;
+use Foodsharing\Modules\Store\StoreTransactions;
 use Foodsharing\Modules\StoreChain\DTO\StoreChainData;
 use Foodsharing\Modules\StoreChain\DTO\StoreChainForChainList;
 
@@ -19,6 +20,7 @@ class StoreChainTransactions
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly ForumGateway $forumGateway,
         private readonly AchievementGateway $achievementGateway,
+        private readonly StoreTransactions $storeTransactions,
     ) {
     }
 
@@ -41,6 +43,7 @@ class StoreChainTransactions
     {
         $this->throwExceptionIfKeyAccountManagerIsInvalid($storeChainData->kams);
         $this->throwExceptionIfForumInvalid($storeChainData->forumThread);
+        $this->storeTransactions->invalidateCachedStoreMetadata();
 
         return $this->storeChainGateway->addStoreChain($storeChainData);
     }
@@ -49,6 +52,7 @@ class StoreChainTransactions
     {
         $this->throwExceptionIfForumInvalid($storeChainData->forumThread);
         $this->storeChainGateway->updateStoreChain($chainId, $storeChainData);
+        $this->storeTransactions->invalidateCachedStoreMetadata();
 
         if ($updateKams && !is_null($storeChainData->kams)) {
             $this->throwExceptionIfKeyAccountManagerIsInvalid($storeChainData->kams);

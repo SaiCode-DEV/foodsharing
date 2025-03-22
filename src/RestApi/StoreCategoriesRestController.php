@@ -4,6 +4,7 @@ namespace Foodsharing\RestApi;
 
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Store\DTO\CommonLabel;
+use Foodsharing\Modules\Store\StoreTransactions;
 use Foodsharing\Modules\StoreCategories\StoreCategoriesGateway;
 use Foodsharing\Modules\StoreCategories\StoreCategory;
 use Foodsharing\Permissions\StoreCategoriesPermissions;
@@ -23,6 +24,7 @@ class StoreCategoriesRestController extends AbstractFoodsharingRestController
         protected Session $session,
         private readonly StoreCategoriesPermissions $storeCategoriesPermissions,
         private readonly StoreCategoriesGateway $storeCategoriesGateway,
+        private readonly StoreTransactions $storeTransactions,
     ) {
         parent::__construct($this->session);
     }
@@ -62,6 +64,7 @@ class StoreCategoriesRestController extends AbstractFoodsharingRestController
         }
 
         $category->id = $this->storeCategoriesGateway->addStoreCategory($category);
+        $this->storeTransactions->invalidateCachedStoreMetadata();
 
         return $this->respondOK($category);
     }
@@ -89,6 +92,7 @@ class StoreCategoriesRestController extends AbstractFoodsharingRestController
 
         $category->id = $id;
         $this->storeCategoriesGateway->updateStoreCategory($category);
+        $this->storeTransactions->invalidateCachedStoreMetadata();
 
         return $this->respondOK();
     }
@@ -111,6 +115,7 @@ class StoreCategoriesRestController extends AbstractFoodsharingRestController
         }
 
         $this->storeCategoriesGateway->deleteStoreCategory($id);
+        $this->storeTransactions->invalidateCachedStoreMetadata();
 
         return $this->respondOK();
     }

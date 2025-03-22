@@ -1,10 +1,18 @@
 import { defineStore } from 'pinia'
-import { listStoresDetailsForUser, listStoresForUser } from '@/api/stores'
+import { getStoreMetadata, listStoresDetailsForUser, listStoresForUser } from '@/api/stores'
 import { pulseError } from '@/script'
 import { listRegionStores } from '@/api/regions'
+import { getCache, setCache } from '@/helper/cache'
+import { HTTP_RESPONSE } from '@/consts'
 
 let pendingFetchStoresForUser = null
 let pendingFetchUserStoreRelations = null
+
+const CACHES = {
+  metadata: {
+    name: 'storeMetadata',
+  },
+}
 
 function showError (callback) {
   return callback().catch(error => {
@@ -25,6 +33,7 @@ export const useStoreStore = defineStore('store', {
        */
       userRelations: null,
       regionId: null,
+      metadata: {},
     }
   },
   getters: {
@@ -47,6 +56,14 @@ export const useStoreStore = defineStore('store', {
         return state.userRelations.map(relation => relation.id)
       }
     },
+    getStoreCategoryTypes: (state) => state.metadata.categories ?? [],
+    getStoreConvinceStatusTypes: (state) => state.metadata.convinceStatus ?? [],
+    getStoreWeightTypes: (state) => state.metadata.weight ?? [],
+    getStoreCooperationStatus: (state) => state.metadata.status ?? [],
+    getGrocerieTypes: (state) => state.metadata.groceries ?? [],
+    getStoreChains: (state) => state.metadata.storeChains ?? [],
+    getPublicTimes: (state) => state.metadata.publicTimes ?? [],
+    getMaxCountPickupSlot: (state) => state.metadata.maxCountPickupSlot ?? 0,
   },
   actions: {
     async fetchStoresForRegion (regionId = this.regionId) {
@@ -80,6 +97,29 @@ export const useStoreStore = defineStore('store', {
       this.$patch({
         storeData: patch,
       })
+    },
+    async fetchMetadata () {
+      // try get current cache (needed for version number)
+      // send request
+      // update cache if data is returned
+      try {
+        const metadata = await getCache(CACHES.metadata.name) ?? {}
+        const version = metadata.version ?? 0
+        const hasChains = Boolean(metadata.storeChains)
+        try {
+          this.metadata = await getStoreMetadata(version, hasChains)
+        } catch (error) {
+          if (error.code === HTTP_RESPONSE.NOT_MODIFIED) {
+            this.metadata = metadata
+            return
+          } else {
+            throw error
+          }
+        }
+        setCache(CACHES.metadata.name, this.metadata)
+      } catch (e) {
+        console.error('Error fetching store metadata:', e)
+      }
     },
   },
 })

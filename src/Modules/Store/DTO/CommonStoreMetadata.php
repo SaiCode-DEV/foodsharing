@@ -70,4 +70,13 @@ class CommonStoreMetadata
      * @OA\Property(type="array", @OA\Items(ref=@Model(type=CommonLabel::class)))
      */
     public array $publicTimes = [];
+
+    /**
+     * The version of the cache.
+     * When the data is changed, the version number is increased.
+     * Used to decide when data needs to be refetched.
+     *
+     * Should be removed when we switch to HTTP caching by Symfony.
+     */
+    public int $version;
 }

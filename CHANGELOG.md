@@ -87,6 +87,8 @@
 - Removed unused translation keys #1909 !4061 @alex.simm
 - Cache some data in permission classes #2166 !4071 @alex.simm
 - Permission refactoring for foodsharepoints #2156 !4074 @AntonBallmaier
+- Cache store meta data server-side and only refetch if it changed #1533 !4103 @AntonBallmaier
+- Parallelized store page loading !4103 @AntonBallmaier
 - Replaced normalisation functions in the API with DTOs !4078 @alex.simm 
 - Avatar images are now loaded lazily #1749 !4098 @AntonBallmaier
 

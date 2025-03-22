@@ -4,6 +4,7 @@ namespace Foodsharing\RestApi;
 
 use Carbon\Carbon;
 use Exception;
+use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
@@ -46,6 +47,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -66,35 +68,35 @@ class StoreRestController extends AbstractFoodsharingRestController
         private readonly ProfilePermissions $profilePermissions,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
         private readonly RateLimiterFactory $locationChangeLimiterFactory,
+        private readonly Mem $mem,
     ) {
     }
 
-    /**
-     * Returns all common metadata which are required to manage stores.
-     *
-     * Some system parts have limits or options which needs to be checked in the frontend.
-     * This endpoint provides the information about the limits and options,
-     * so that the frontend can use them but the backend is responsible for the values.
-     *
-     * @OA\Tag(name="stores")
-     * @OA\Response(
-     * 		response="200",
-     * 		description="Success.",
-     *      @Model(type=CommonStoreMetadata::class)
-     * )
-     * @OA\Response(response="401", description="Not logged in")
-     */
+    #[OA2\Tag(name: 'stores')]
+    #[OA2\Response(response: Response::HTTP_OK, description: 'Success.', content: new OA2\JsonContent(ref: new Model(type: CommonStoreMetadata::class))
+    )]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA2\Response(response: Response::HTTP_NOT_MODIFIED, description: 'User has the current version')]
     #[Rest\Get('stores/meta-data')]
-    public function getCommonStoreMetadata(): Response
+    #[Rest\QueryParam(name: 'version', requirements: Requirement::POSITIVE_INT, default: 0, description: 'The version of the cache that the user has saved locally')]
+    #[Rest\QueryParam(name: 'hasChains', requirements: '0|1', default: 0, description: 'Whether the user has cached store chains locally')]
+    public function getCommonStoreMetadata(ParamFetcher $paramFetcher): Response
     {
         if (!$this->session->mayRole()) {
             throw new UnauthorizedHttpException('', self::NOT_LOGGED_IN);
         }
 
-        $result = $this->storeTransactions->getCommonStoreMetadata(
-            !$this->storePermissions->mayListStores());
+        $userVersion = (int)$paramFetcher->get('version');
+        $currentVersion = (int)$this->mem->get(StoreTransactions::STORE_METADATA_VERSION_KEY);
+        $hasChains = (bool)$paramFetcher->get('hasChains');
+        $shouldHaveChains = $this->storePermissions->mayListStores();
+        if ($currentVersion === $userVersion && ($hasChains || !$shouldHaveChains)) {
+            return $this->handleView($this->view(null, Response::HTTP_NOT_MODIFIED));
+        }
 
-        return $this->handleView($this->view($result, 200));
+        $metadata = $this->storeTransactions->getCommonStoreMetadataFromCache(!$shouldHaveChains, $currentVersion);
+
+        return $this->respondOK($metadata);
     }
 
     /**

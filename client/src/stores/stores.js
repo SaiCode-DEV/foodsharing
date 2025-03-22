@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import {
   listStoresForUser,
-  getStoreMetaData,
   getStoreMember,
   getStoreInformation,
   getStorePermissions,
@@ -56,7 +55,7 @@ export const store = Vue.observable({
   metadata: {},
   storeMember: null,
   storeInformation: null,
-  permissions: null,
+  permissions: {},
   regionPickupRule: {},
   applications: [],
   log: [],
@@ -91,39 +90,6 @@ export const getters = {
   hasStores () {
     return store.stores.length > 0
   },
-
-  getStoreCategoryTypes () {
-    return store.metadata.categories ?? []
-  },
-
-  getStoreConvinceStatusTypes () {
-    return store.metadata.convinceStatus ?? []
-  },
-
-  getStoreWeightTypes () {
-    return store.metadata.weight ?? []
-  },
-
-  getStoreCooperationStatus () {
-    return store.metadata.status ?? []
-  },
-
-  getGrocerieTypes () {
-    return store.metadata.groceries ?? []
-  },
-
-  getStoreChains () {
-    return store.metadata.storeChains ?? []
-  },
-
-  getPublicTimes () {
-    return store.metadata.publicTimes ?? []
-  },
-
-  getMaxCountPickupSlot () {
-    return store.metadata.maxCountPickupSlot ?? 0
-  },
-
   has (id) {
     return store.stores.find(store => store.id === id)
   },
@@ -167,7 +133,6 @@ export const mutations = {
       // But in the navigation and dashboard status box it seems useful to only show "active" stores.
       // For now we can give an additional parameter to filter out "unactive" stores, like before
       store.stores = await listStoresForUser(true, userId)
-      store.metadata = await getStoreMetaData()
     }
   },
   async loadStoreMember (storeId) {

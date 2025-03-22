@@ -225,7 +225,7 @@ class StoreTransactionsTest extends Unit
 
         $this->tester->createStoreCategories();
 
-        $common = $this->transactions->getCommonStoreMetadata();
+        $common = $this->transactions->getCommonStoreMetadataFromCache(true, 0);
 
         // Check cooperation status
         $this->assertEquals(CooperationStatus::UNCLEAR->value, $common->status[0]->id);

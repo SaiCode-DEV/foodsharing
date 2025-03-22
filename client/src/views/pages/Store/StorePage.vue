@@ -141,6 +141,7 @@ import PickupHistory from '@/components/Stores/PickupHistory.vue'
 import Wall from '@/components/Wall/Wall.vue'
 import PickupList from '@/components/Stores/PickupList.vue'
 import { useUserStore } from '@/stores/user'
+import { useStoreStore } from '@/stores/store'
 import StoreData from '@/stores/stores'
 import { pulseInfo } from '@/script'
 import StoreLog from '@/components/Stores/StoreLog.vue'
@@ -167,9 +168,9 @@ export default {
     showTeamRequests: { type: Boolean, default: false },
   },
   setup () {
-    const userStore = useUserStore()
     return {
-      userStore,
+      userStore: useUserStore(),
+      storeStore: useStoreStore(),
     }
   },
   data () {
@@ -205,17 +206,34 @@ export default {
     },
   },
   async mounted () {
-    await StoreData.mutations.loadPermissions(this.storeId)
-    await this.userStore.fetchDetails()
-    await StoreData.mutations.loadStoreInformation(this.storeId)
-    await StoreData.mutations.loadGetRegionOptions(this.storeInformation.region.id)
-    await StoreData.mutations.loadStoreMember(this.storeId)
-    if (this.isVerified && !this.permissions.isJumper) {
-      await PickupsData.mutations.fetchRegularPickup(this.storeId)
-    }
-    if (!this.permissions.isJumper) {
-      await StoreData.mutations.loadStoreLog(this.storeId, this.storeInformation.calendarInterval)
-    }
+    // fetch all the required data in parallel
+
+    const permissionsPromise = StoreData.mutations.loadPermissions(this.storeId)
+    const userDetailsPromise = this.userStore.fetchDetails()
+    const storeInformationPromise = StoreData.mutations.loadStoreInformation(this.storeId)
+
+    await Promise.all([
+      permissionsPromise,
+      userDetailsPromise,
+      this.storeStore.fetchMetadata(),
+      storeInformationPromise,
+      StoreData.mutations.loadStoreMember(this.storeId),
+
+      // some fetches require others to be done:
+      storeInformationPromise.then(async () => {
+        await StoreData.mutations.loadGetRegionOptions(this.storeInformation.region.id)
+      }),
+      Promise.all([permissionsPromise, storeInformationPromise]).then(async () => {
+        if (!this.permissions.isJumper) {
+          await StoreData.mutations.loadStoreLog(this.storeId, this.storeInformation.calendarInterval)
+        }
+      }),
+      Promise.all([userDetailsPromise, permissionsPromise]).then(async () => {
+        if (this.isVerified && !this.permissions.isJumper) {
+          await PickupsData.mutations.fetchRegularPickup(this.storeId)
+        }
+      }),
+    ])
 
     this.checkIsUserInStore()
     this.getLastFetchDate()

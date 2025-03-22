@@ -31,6 +31,7 @@ class WallPostCest
     {
         $I->login($this->{$example[0]}['email']);
         $I->amOnPage($I->regionWallUrl($this->testGroup['id']));
+        $I->waitForActiveAPICalls();
         if ($example[1]) {
             $I->see('Pinnwand', '.list-group-header > h5');
             $wallPostText = 'Hey there, this is my new wallpost!';

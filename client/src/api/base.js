@@ -45,6 +45,8 @@ api.interceptors.response.use(null, async error => {
     return Promise.reject(error)
   } else if (error.response?.status === HTTP_RESPONSE.TOO_MANY_REQUESTS) {
     return Promise.reject(error)
+  } else if (error.response?.status === HTTP_RESPONSE.NOT_MODIFIED) {
+    return Promise.reject(error)
   }
 
   if (!config || config.__retryCount >= 2) {

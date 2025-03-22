@@ -5,6 +5,7 @@ namespace Foodsharing\Modules\Store;
 use Carbon\Carbon;
 use DateTime;
 use Exception;
+use Foodsharing\Lib\Db\Mem;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Bell\BellGateway;
 use Foodsharing\Modules\Bell\BellTransactions;
@@ -49,6 +50,8 @@ use Foodsharing\Modules\StoreChain\StoreChainGateway;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
 use Foodsharing\Modules\WallPost\WallPostGateway;
 use Foodsharing\Utility\WeightHelper;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class StoreTransactions
@@ -68,6 +71,10 @@ class StoreTransactions
     private const int STATUS_GREEN = 0;
     private const int MAX_PICKUP_DESCRIPTION_LENGTH = 100;
 
+    public const STORE_METADATA_VERSION_KEY = 'storeMetadataVersionKey';
+    public const STORE_METADATA_KEY = 'storeMetadataKey';
+    public const STORE_METADATA_INTERVAL = 86400; // 1 day
+
     public function __construct(
         private readonly MessageGateway $messageGateway,
         private readonly PickupGateway $pickupGateway,
@@ -82,7 +89,9 @@ class StoreTransactions
         private readonly FeatureToggleChecker $featureToggleChecker,
         private readonly WallPostGateway $wallPostGateway,
         private readonly MessageTransactions $messageTransactions,
-        private readonly Session $session
+        private readonly Session $session,
+        private readonly Mem $mem,
+        private readonly CacheInterface $cache,
     ) {
     }
 
@@ -116,7 +125,7 @@ class StoreTransactions
         }
     }
 
-    public function getCommonStoreMetadata($supressStoreChains = true): CommonStoreMetadata
+    public function getCommonStoreMetadata(): CommonStoreMetadata
     {
         $store = new CommonStoreMetadata();
 
@@ -151,14 +160,34 @@ class StoreTransactions
             ['id' => ConvinceStatus::LOOKED_BAD_BUT_WORKED->value, 'name' => $this->translator->trans('store.convince.final')]
         ]);
 
-        if (!$supressStoreChains) {
-            $store->storeChains = [new CommonLabel(0, $this->translator->trans('store.nodeclaration')),
-                ...array_map(fn ($row) => CommonLabel::createFromArray($row), $this->storeGateway->getBasics_chain())];
-        }
+        $store->storeChains = [new CommonLabel(0, $this->translator->trans('store.nodeclaration')),
+            ...array_map(fn ($row) => CommonLabel::createFromArray($row), $this->storeGateway->getBasics_chain())];
 
         $store->weight = array_map(fn ($row) => CommonLabel::createFromArray($row), (new WeightHelper())->getWeightListEntries());
 
         return $store;
+    }
+
+    public function getCommonStoreMetadataFromCache(bool $supressStoreChains, int $currentVersion): CommonStoreMetadata
+    {
+        $metadata = $this->cache->get(self::STORE_METADATA_KEY, function (ItemInterface $cacheItem) {
+            $cacheItem->expiresAfter(self::STORE_METADATA_INTERVAL); // just in case someone forgets to invalidate the cache at some point
+
+            return $this->getCommonStoreMetadata();
+        });
+        $metadata->version = $currentVersion;
+        if ($supressStoreChains) {
+            $metadata->storeChains = null;
+        }
+
+        return $metadata;
+    }
+
+    public function invalidateCachedStoreMetadata(): void
+    {
+        $this->cache->delete(self::STORE_METADATA_KEY);
+        $currentVersion = (int)$this->mem->get(self::STORE_METADATA_VERSION_KEY);
+        $this->mem->set(self::STORE_METADATA_VERSION_KEY, ++$currentVersion);
     }
 
     public function existStore($storeId)

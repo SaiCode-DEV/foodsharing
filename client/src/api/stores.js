@@ -1,7 +1,7 @@
 import { get, patch, post, remove } from './base'
 
-export async function getStoreMetaData () {
-  return await get('/stores/meta-data')
+export async function getStoreMetadata (version, hasChains) {
+  return await get(`/stores/meta-data?version=${version}&hasChains=${+hasChains}`)
 }
 
 export async function getStoreMember (storeId) {
