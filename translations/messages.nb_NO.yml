@@ -3547,7 +3547,7 @@ releases:
   "2020-08": Versjon «Pære» (august 2020)
   "2020-05": Versjon «Appelsin» (mai 2020)
   "2020-10": Versjon «Cranberry» (oktober 2020)
-  "2022-05": Versjon «Blåbær» 🍇 (Mai 2022)
+  "2022-05": Versjon «Blåbær» 🍇 (mai 2022)
   "2022-01": Versjon «Grapefrukt» 🍋 (januar 2022)
   "2022-12": Versjon «Iskrem» 🍨 (desember 2022)
   "2023-08": Versjon «Jackfrukt» 🍈 (september 2023)
@@ -3556,6 +3556,7 @@ releases:
   "2024-04": Versjon «Kringle» 🥨 (april 2024)
   "2024-08": Versjon «Mandarin» 🍊 (august 2024)
   "2024-12": Versjon «Nektarin» 🍑 (desember 2024)
+  "2025-04": Versjon «Oliven» 🫒 (april/mai 2025)
 push_notifications:
   test_notification_title: Push-varsler er aktivert
   test_notification_body: Flott, det ser ut til å ha fungert :)
