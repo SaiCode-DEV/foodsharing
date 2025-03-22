@@ -23,6 +23,8 @@ class Session
 
     private const string DEFAULT_PERSISTENT_SESSION_TIMESPAN = '14 days';
 
+    private const int SESSION_EXPIRATION_TIME_IN_SECONDS = 86400;
+
     public function __construct(
         private readonly FoodsaverGateway $foodsaverGateway,
         private bool $initialized = false
@@ -97,10 +99,10 @@ class Session
             }
         }
 
-        // Refresh content of session if it is older then 1 day
+        // Refresh content of session if it is older than configured expiration time
         if ($this->id() !== null && $this->has(self::SESSION_TIMESTAMP_FIELD_NAME)) {
             $last_update = $this->get(self::SESSION_TIMESTAMP_FIELD_NAME);
-            if (strtotime((string)$last_update) > strtotime('+1 day', time())) {
+            if ($last_update < time() - self::SESSION_EXPIRATION_TIME_IN_SECONDS) {
                 $this->refreshFromDatabase();
             }
         }

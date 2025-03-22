@@ -56,6 +56,7 @@
 - Fix sorting by *pass valid until* in region passport table #2288 !4053 @AntonBallmaier
 - Fix add poll button missing in working groups #2352 !4097 @AntonBallmaier
 - Fix the store team member list showing a wrong join date on the date the person joined #2360 !4099 @iron9
+- Fix incorrect session refreshing from the database !4109 @DL6ER
 
 ## Refactoring
 - Get rid of xhr completely !3826 !3933 @chriswalg
