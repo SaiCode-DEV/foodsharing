@@ -98,7 +98,9 @@ export default {
     display: block;
     overflow-wrap: normal;
     word-break: normal;
-    white-space: pre;
+    white-space: pre-wrap;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   blockquote {
     overflow-wrap: break-word;
