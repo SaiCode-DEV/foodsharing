@@ -85,6 +85,9 @@ export default {
   border-width: 0.5rem;
   font-weight: bolder;
 
+  // Olive
+  &[data-id="2025-04"] { border-color: #c0ca33; }
+
   // Nektarine
   &[data-id="2024-12"] { border-color: #ff7f50; }
 
