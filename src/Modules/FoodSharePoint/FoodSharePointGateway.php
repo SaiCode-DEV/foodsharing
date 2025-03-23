@@ -527,7 +527,7 @@ class FoodSharePointGateway extends BaseGateway
             'sharepoint_activate_title',
             'sharepoint_activate',
             'fas fa-recycle',
-            ['href' => '/?page=fairteiler&sub=check&id=' . $foodSharePointId],
+            ['href' => '/fairteiler/' . $foodSharePointId],
             ['bezirk' => $region['name'], 'name' => $foodSharePoint['name']],
             BellType::createIdentifier(BellType::NEW_FOOD_SHARE_POINT, $foodSharePointId),
             false
