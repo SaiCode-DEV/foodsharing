@@ -98,7 +98,7 @@ export default {
   },
   async mounted () {
     await this.loadThreads(this.currentPage)
-    this.isActiveFollower = await getForumFollowing(this.groupId)
+    this.isActiveFollower = (await getForumFollowing(this.groupId)).isFollowing
   },
   methods: {
     async loadThreads (currentPage) {

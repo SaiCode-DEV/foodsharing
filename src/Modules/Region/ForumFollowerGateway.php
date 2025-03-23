@@ -189,7 +189,7 @@ class ForumFollowerGateway extends BaseGateway
             FROM fs_foodsaver_has_bezirk fhb
             JOIN fs_botschafter b ON b.bezirk_id = fhb.bezirk_id AND b.foodsaver_id = fhb.foodsaver_id
             WHERE b.bezirk_id = ?
-            AND notify_on_all_new_threads IS NULL OR notify_on_all_new_threads != 0',
+            AND (notify_on_all_new_threads IS NULL OR notify_on_all_new_threads != 0)',
             [$regionId]);
     }
 
@@ -215,7 +215,7 @@ class ForumFollowerGateway extends BaseGateway
                 'foodsaver_id' => $foodsaverId,
             ]);
 
-            return is_null($isFollowing) ? $isFollowing : boolval($isFollowing);
+            return is_null($isFollowing) ? null : boolval($isFollowing);
         } catch (DatabaseNoValueFoundException $e) {
             return null;
         }
