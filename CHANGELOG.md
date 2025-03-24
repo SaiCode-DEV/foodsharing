@@ -86,7 +86,7 @@
 - Refactored store chain creating and editing backend and made name in Profile non-null #2175 !4057 @AntonBallmaier
 - Removed the duplicate address DTO #1999 !4016 @alex.simm
 - Removed unused translation keys #1909 !4061 @alex.simm
-- Cache some data in permission classes #2166 !4071 @alex.simm
+- Cache some data in permission classes #2166 !4071 #2369 !4114 @alex.simm @DL6ER
 - Permission refactoring for foodsharepoints #2156 !4074 @AntonBallmaier
 - Cache store meta data server-side and only refetch if it changed #1533 !4103 @AntonBallmaier
 - Parallelized store page loading !4103 @AntonBallmaier

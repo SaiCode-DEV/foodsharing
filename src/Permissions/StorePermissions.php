@@ -10,7 +10,6 @@ use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
-use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Development\FeatureToggles\DependencyInjection\FeatureToggleChecker;
 use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
@@ -22,13 +21,8 @@ use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 
 class StorePermissions
 {
-    /**
-     * Maps store ids to the current user's team status in that store. This only contain data about the logged in user.
-     *
-     * @see MembershipStatus
-     * @var array<int, int> Key: store id, Value: user team membership status
-     */
-    private array $userTeamStatusCache = [];
+    private const string USER_TEAM_STATUS_CACHE_NAME = 'userTeamStatusCache';
+
     /**
      * @var array<int, int> Key: store id, Value: the store's region id
      */
@@ -52,11 +46,21 @@ class StorePermissions
      */
     private function getCachedUserTeamStatus(int $storeId): int
     {
-        if (!array_key_exists($storeId, $this->userTeamStatusCache)) {
-            $this->userTeamStatusCache[$storeId] = $this->storeGateway->getUserTeamStatus($this->session->id(), $storeId);
+        $userId = $this->session->id();
+        if (!$userId) {
+            return UserTeamStatus::NoMember;
         }
 
-        return $this->userTeamStatusCache[$storeId];
+        $userTeamStatusCache = $this->session->get(self::USER_TEAM_STATUS_CACHE_NAME);
+        if (!$userTeamStatusCache) {
+            $userTeamStatusCache = [];
+        }
+        if (!array_key_exists($storeId, $userTeamStatusCache)) {
+            $userTeamStatusCache[$storeId] = $this->storeGateway->getUserTeamStatus($userId, $storeId);
+            $this->session->set(self::USER_TEAM_STATUS_CACHE_NAME, $userTeamStatusCache);
+        }
+
+        return $userTeamStatusCache[$storeId];
     }
 
     /**
@@ -71,7 +75,7 @@ class StorePermissions
         return $this->storeRegionIdCache[$storeId];
     }
 
-    private function mayIsStoreResponsible($storeId)
+    private function mayIsStoreResponsible(int $storeId): bool
     {
         return $this->getCachedUserTeamStatus($storeId) === UserTeamStatus::Coordinator;
     }
