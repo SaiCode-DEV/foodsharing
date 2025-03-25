@@ -5,6 +5,7 @@ export function useEnvironmentCheck () {
   const isDotAt = window.location.hostname.includes('foodsharing.at')
   const isChrome = navigator.userAgent.includes('Chrome')
   const isSafari = !isChrome && navigator.userAgent.includes('Safari')
+  const isInChat = window.location.pathname.startsWith('/msg')
 
   return {
     isTest,
@@ -13,5 +14,6 @@ export function useEnvironmentCheck () {
     isDotAt,
     isChrome,
     isSafari,
+    isInChat,
   }
 }

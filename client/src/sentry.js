@@ -1,24 +1,29 @@
 import Vue from 'vue'
 import * as Sentry from '@sentry/vue'
 import serverData from '@/helper/server-data'
-const isBeta = window.location.hostname.includes('beta.foodsharing')
+import { useEnvironmentCheck } from '@/composables/useEnvironmentCheck'
+import { pulseError } from '@/script'
+
+const { isBeta } = useEnvironmentCheck()
 
 if (serverData.ravenConfig) {
   // Initialize Sentry
   Sentry.init({
-    Vue: Vue,
+    Vue,
     attachProps: true,
     logErrors: true,
     release: serverData.version || 'unknown',
     dsn: serverData.ravenConfig,
+    transport: Sentry.makeBrowserOfflineTransport(Sentry.makeFetchTransport),
     integrations: [
       Sentry.browserTracingIntegration(),
       Sentry.captureConsoleIntegration({
         levels: ['error'],
       }),
     ],
+    attachStacktrace: true,
     tracesSampleRate: isBeta ? 1.0 : 0.01,
-    replaysSessionSampleRate: 0,
+    replaysSessionSampleRate: isBeta ? 1 : 0,
     replaysOnErrorSampleRate: 1.0,
   })
 
@@ -40,12 +45,18 @@ export function captureError (error) {
   return error
 }
 
-export function captureFeedback (feedback, attachments) {
-  const response = Sentry.captureFeedback(feedback, {
-    includeReplay: true,
-    attachments,
-  })
-  console.log('Feedback ', response)
+export async function captureFeedback (feedback, attachments) {
+  try {
+    const response = await Sentry.sendFeedback(feedback, {
+      attachments,
+    })
+    console.log('Feedback ', response)
+    return true
+  } catch (error) {
+    pulseError(error)
+    // console.error('Feedback Error', error)
+    return false
+  }
 }
 
 export function captureRequestError (error, { path, options, attempt }) {

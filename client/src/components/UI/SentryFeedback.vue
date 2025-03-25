@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isVisible">
+  <div v-if="(isBeta || isDev) && !isInChat && serverData.ravenConfig">
     <b-modal
       id="sentry-feedback"
       ref="sentryFeedback"
@@ -52,15 +52,15 @@
 
         <b-form-group :label="i18n('support_page.body')">
           <b-form-textarea
-            v-model="feedback.comments"
+            v-model="feedback.message"
             rows="3"
             required
-            :class="{'is-invalid': v$.comments.$error}"
-            @blur="v$.comments.$touch"
+            :class="{'is-invalid': v$.message.$error}"
+            @blur="v$.message.$touch"
           />
-          <div v-if="v$.comments.$error" class="invalid-feedback d-block">
-            <span v-if="v$.comments.required.$invalid">{{ i18n('feedback.error.message_short') }}</span>
-            <span v-else-if="v$.comments.minLength.$invalid">{{ i18n('feedback.error.message_short') }}</span>
+          <div v-if="v$.message.$error" class="invalid-feedback d-block">
+            <span v-if="v$.message.required.$invalid">{{ i18n('feedback.error.message_short') }}</span>
+            <span v-else-if="v$.message.minLength.$invalid">{{ i18n('feedback.error.message_short') }}</span>
           </div>
         </b-form-group>
 
@@ -136,7 +136,9 @@ import FileInput from '@/components/UI/FileInput.vue'
 import Markdown from '@/components/Markdown/Markdown.vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, email as emailValidator, minLength } from '@vuelidate/validators'
+import { useEnvironmentCheck } from '@/composables/useEnvironmentCheck'
 
+const { isBeta, isDev, isInChat } = useEnvironmentCheck()
 const userStore = useUserStore()
 const sentryFeedback = ref(null)
 const currentFile = ref(null)
@@ -145,14 +147,14 @@ let currentStream = null
 const feedback = ref({
   name: '',
   email: '',
-  comments: '',
+  message: '',
   privacyAccepted: false,
 })
 
 // Define validation rules
 const rules = computed(() => ({
   email: { required, emailValidator },
-  comments: { required, minLength: minLength(6) }, // Ensure more than 5 characters
+  message: { required, minLength: minLength(6) }, // Ensure more than 5 characters
   privacyAccepted: { required },
 }))
 
@@ -160,11 +162,10 @@ const rules = computed(() => ({
 const v$ = useVuelidate(rules, feedback)
 
 const isLoggedIn = computed(() => userStore.isLoggedIn)
-const isVisible = computed(() => window.location.hostname.includes('beta.foodsharing'))
 const isFormValid = computed(() => {
   return feedback.value.name &&
          !v$.value.email.$invalid &&
-         !v$.value.comments.$invalid &&
+         !v$.value.message.$invalid &&
          feedback.value.privacyAccepted
 })
 
@@ -242,25 +243,32 @@ const handleSubmit = async () => {
   const isValid = await v$.value.$validate()
   if (!isValid || !isFormValid.value) return
 
+  const attachments = []
+
   if (currentFile.value?.file) {
-    const base64Data = await new Promise((resolve) => {
-      const reader = new FileReader()
-      reader.onloadend = () => resolve(reader.result.split(',')[1])
-      reader.readAsDataURL(currentFile.value.file)
-    })
-    captureFeedback(feedback.value, [{
-      filename: currentFile.value.file.name,
-      data: base64Data,
-    }])
-  } else {
-    captureFeedback(feedback.value, [])
+    try {
+      // Create Uint8Array from file's arrayBuffer
+      const data = new Uint8Array(
+        await currentFile.value.file.arrayBuffer(),
+      )
+
+      attachments.push({
+        data,
+        filename: currentFile.value.file.name,
+      })
+    } catch (error) {
+      console.error('Error processing attachment:', error)
+    }
   }
+
+  const success = await captureFeedback(feedback.value, attachments)
+  if (!success) return
 
   clearFile()
   feedback.value = {
     name: `${userStore.getUserFirstName} ${userStore.getUserLastName} (${userStore.getUserId})`,
     email: userStore.getEmailAddress,
-    comments: '',
+    message: '',
     privacyAccepted: false,
   }
   sentryFeedback.value.hide()
@@ -278,7 +286,7 @@ onUnmounted(() => {
   position: fixed;
   bottom: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 990;
   margin: 1rem;
   background-color: var(--fs-color-secondary-300) !important;
   color: var(--fs-color-primary-900) !important;

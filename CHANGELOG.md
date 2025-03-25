@@ -13,8 +13,7 @@
 - Added the possibility to mark bell notifications as read/unread via the newly added icon button that appears on hover !4035 !4091 @anedomansky
 - Added the option to actively follow a forum, so that you get a bell for every new thread #2346 !4064 #2371 @AntonBallmaier
 - Show KAM roles on profile pages #2354 !4084 @AntonBallmaier
-- Add Feedback form for Beta-Testers #3968 @SaiCode
-
+- Add Feedback form for Beta-Testers and Bump Sentry to 9.8.0 #3968 #4113 @SaiCode
 ## Changes
 - Include user agent in support ticket creation #2212 !3838 @AntonBallmaier
 - Increased the size of the chat box title !3592 @robinkernel
