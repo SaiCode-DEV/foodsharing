@@ -21,6 +21,8 @@ use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Modules\Uploads\UploadsTransactions;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
 use Foodsharing\Permissions\QuizPermissions;
+use Foodsharing\Permissions\UploadsPermissions;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class WallPostTransactions
 {
@@ -28,6 +30,7 @@ class WallPostTransactions
         private readonly WallPostGateway $wallPostGateway,
         private readonly UploadsGateway $uploadsGateway,
         private readonly UploadsTransactions $uploadsTransactions,
+        private readonly UploadsPermissions $uploadsPermissions,
         private readonly QuizGateway $quizGateway,
         private readonly QuizPermissions $quizPermissions,
         private readonly EventGateway $eventGateway,
@@ -50,6 +53,16 @@ class WallPostTransactions
      */
     public function addPost(WallPost $wallPost, WallType $target, int $targetId): WallPost
     {
+        // Check if the user is allowed to use the uploaded files
+        if (!empty($wallPost->pictures)) {
+            foreach ($wallPost->pictures as $picture) {
+                $uuid = substr((string)$picture, 13);
+                if (!$this->uploadsPermissions->maySetUploadUsage($uuid)) {
+                    throw new AccessDeniedHttpException('Invalid upload UUID');
+                }
+            }
+        }
+
         $postId = $this->wallPostGateway->addPost($wallPost, $this->session->id(), $target, $targetId);
         $post = $this->wallPostGateway->getPost($postId);
 

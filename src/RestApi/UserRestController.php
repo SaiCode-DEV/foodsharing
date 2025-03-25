@@ -25,7 +25,6 @@ use Foodsharing\Modules\Register\RegisterTransactions;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Settings\SettingsTransactions;
 use Foodsharing\Modules\Unit\DTO\UserUnit;
-use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\Permissions\ContentPermissions;
 use Foodsharing\Permissions\NewsletterEmailPermissions;
@@ -35,6 +34,7 @@ use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\Permissions\ReportPermissions;
 use Foodsharing\Permissions\SearchPermissions;
 use Foodsharing\Permissions\StorePermissions;
+use Foodsharing\Permissions\UploadsPermissions;
 use Foodsharing\RestApi\Models\Group\UserGroupModel;
 use Foodsharing\RestApi\Models\Region\UserRegionModel;
 use Foodsharing\Utility\EmailHelper;
@@ -65,7 +65,6 @@ class UserRestController extends AbstractFoodsharingRestController
         private readonly LoginGateway $loginGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
         private readonly ProfileGateway $profileGateway,
-        private readonly UploadsGateway $uploadsGateway,
         private readonly RegionGateway $regionGateway,
         private readonly EmailHelper $emailHelper,
         private readonly RegisterTransactions $registerTransactions,
@@ -82,6 +81,7 @@ class UserRestController extends AbstractFoodsharingRestController
         private readonly RegionPermissions $regionPermissions,
         private readonly NewsletterEmailPermissions $newsletterEmailPermissions,
         private readonly SearchPermissions $searchPermissions,
+        private readonly UploadsPermissions $uploadsPermissions,
         private readonly RegionTransactions $regionTransactions,
         private readonly GroupTransactions $groupTransactions,
         private readonly SettingsTransactions $settingsTransactions,
@@ -458,12 +458,8 @@ class UserRestController extends AbstractFoodsharingRestController
 
         // check if the photo exists and was uploaded by this user
         $uuid = trim((string)$paramFetcher->get('uuid'));
-        try {
-            if ($this->uploadsGateway->getUser($uuid) !== $userId) {
-                throw new AccessDeniedHttpException();
-            }
-        } catch (Exception) {
-            throw new BadRequestHttpException();
+        if (!$this->uploadsPermissions->maySetUploadUsage($uuid)) {
+            throw new AccessDeniedHttpException();
         }
 
         $this->foodsaverTransactions->updatePhoto($this->session->id(), $uuid);

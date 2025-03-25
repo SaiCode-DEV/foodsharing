@@ -9,12 +9,15 @@ use Foodsharing\Modules\Basket\DTO\BasketRequest;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Modules\Uploads\UploadsGateway;
+use Foodsharing\Permissions\UploadsPermissions;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class BasketTransactions
 {
     public function __construct(
         private readonly BasketGateway $basketGateway,
         private readonly UploadsGateway $uploadsGateway,
+        private readonly UploadsPermissions $uploadsPermissions,
         private readonly Session $session,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
     ) {
@@ -27,8 +30,8 @@ class BasketTransactions
      */
     public function addBasket(Basket $basket): int
     {
-        $basket->id = $this->basketGateway->addBasket($basket, $this->currentUserUnits->getCurrentRegionId() ?? 0, $this->session->id());
         $this->tagUploadedImages($basket);
+        $basket->id = $this->basketGateway->addBasket($basket, $this->currentUserUnits->getCurrentRegionId() ?? 0, $this->session->id());
 
         return $basket->id;
     }
@@ -41,15 +44,23 @@ class BasketTransactions
      */
     public function editBasket(int $basketId, Basket $basket): void
     {
+        $this->tagUploadedImages($basket);
         $this->basketGateway->editBasket($basketId, $basket, $this->session->id());
         $basket->id = $basketId;
-        $this->tagUploadedImages($basket);
     }
 
     private function tagUploadedImages(Basket $basket)
     {
         if ($basket->id && !empty($basket->pictures)) {
             $uuids = array_map(fn ($picture) => substr((string)$picture, 13), $basket->pictures);
+
+            // Check that the user is allowed to use all pictures in the basket
+            foreach ($uuids as $uuid) {
+                if (!$this->uploadsPermissions->maySetUploadUsage($uuid)) {
+                    throw new AccessDeniedHttpException('Invalid upload UUID');
+                }
+            }
+
             $this->uploadsGateway->setUsage($uuids, UploadUsage::BASKET, $basket->id);
         }
     }

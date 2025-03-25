@@ -74,7 +74,7 @@ class WallRestController extends AbstractFoodsharingRestController
     #[Rest\Post('wall/{target}/{targetId}', requirements: ['target' => '\w+', 'targetId' => '\d+'])]
     #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new Model(type: WallPost::class))]
     #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to post to this wall')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to post to this wall or to use the upload UUIDs')]
     #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid post data')]
     public function addPost(string $target, int $targetId, #[MapRequestPayload] WallPost $wallPost): Response
     {

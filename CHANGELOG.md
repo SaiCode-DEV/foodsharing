@@ -116,6 +116,7 @@
 - Fix tests in ForumPostCest !3998 @chriswalg
 - Added retry and more timeout in WorkingGroupApiCest->sendMailToGroup !4007 @chriswalg
 - Delete uploaded pictures when the corresponding entity is deleted #1182 !4081 @alex.simm
+- Do not allow using other users' uploads #1182 !4088 @alex.simm 
 
 # Hotfix 2024-01-20
 

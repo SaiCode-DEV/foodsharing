@@ -12,13 +12,19 @@ class WallApiCest
     private $foodsaver;
     private $orga;
     private $postText = 'This is my post.';
-    private $pictures = ['/api/uploads/12-34', '/api/uploads/abc-def'];
+    private $pictures;
+    private $picturePaths;
     private $posts;
 
     public function _before(ApiTester $I): void
     {
         $this->foodsaver = $I->createFoodsaver();
         $this->orga = $I->createOrga();
+        $this->pictures = [
+            $I->createUpload($this->foodsaver['id'], null, null),
+            $I->createUpload($this->foodsaver['id'], null, null)
+        ];
+        $this->picturePaths = array_map(fn ($picture) => '/api/uploads/' . $picture['uuid'], $this->pictures);
         $this->posts = [[
                 'foodsaver_id' => $this->foodsaver['id'],
                 'body' => '1',
@@ -27,7 +33,7 @@ class WallApiCest
             ], [
                 'foodsaver_id' => $this->foodsaver['id'],
                 'body' => '2',
-                'attach' => json_encode(['images' => $this->pictures]),
+                'attach' => json_encode(['images' => $this->picturePaths]),
                 'time' => date('Y-m-d H:i:s', time() - 5),
         ]];
         $this->havePostInDatabase($I, $this->posts[0], 'fs_foodsaver_has_wallpost', 'foodsaver_id', $this->foodsaver['id']);
@@ -61,9 +67,18 @@ class WallApiCest
 
     public function canPostImages(ApiTester $I): void
     {
+        $newPictures = [
+            $I->createUpload($this->foodsaver['id'], null, null),
+            $I->createUpload($this->foodsaver['id'], null, null)
+        ];
+        $newPicturePaths = array_map(fn ($picture) => '/api/uploads/' . $picture['uuid'], $newPictures);
+        foreach ($newPictures as $p) {
+            codecept_debug($p);
+        }
+
         $I->login($this->foodsaver['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPost('api/wall/foodsaver/' . $this->foodsaver['id'], ['body' => '', 'pictures' => $this->pictures]);
+        $I->sendPost('api/wall/foodsaver/' . $this->foodsaver['id'], ['body' => '', 'pictures' => $newPicturePaths]);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([
             'body' => '',
@@ -71,13 +86,13 @@ class WallApiCest
                 'id' => $this->foodsaver['id'],
                 'name' => $this->foodsaver['name'],
             ],
-            'pictures' => $this->pictures,
+            'pictures' => $newPicturePaths,
         ]);
 
         $post = [
             'foodsaver_id' => $this->foodsaver['id'],
             'body' => '',
-            'attach' => json_encode(['images' => $this->pictures]),
+            'attach' => json_encode(['images' => $newPicturePaths]),
         ];
         $this->seePostInDatabase($I, $post, 'fs_foodsaver_has_wallpost', 'foodsaver_id', $this->foodsaver['id']);
     }
@@ -115,7 +130,7 @@ class WallApiCest
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseContainsJson([
             'posts' => [
-                ['pictures' => $this->pictures, 'body' => '2', 'author' => [
+                ['pictures' => $this->picturePaths, 'body' => '2', 'author' => [
                     'id' => $this->foodsaver['id'],
                     'name' => $this->foodsaver['name']]],
                 ['pictures' => null, 'body' => '1']],

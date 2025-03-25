@@ -1249,6 +1249,26 @@ class Foodsharing extends Db
 
         return $content;
     }
+
+    public function createUpload(int $userId, int $usageId = null, int $usageType = null, array $extraParams = []): array
+    {
+        $params = array_merge([
+            'uuid' => $this->uploadUUID(),
+            'user_id' => $userId,
+            'sha256hash' => $this->faker->sha256(),
+            'mimetype' => $this->faker->mimeType(),
+            'uploaded_at' => $this->faker->dateTimeBetween('-5 years', '-1 week')->format('Y-m-d H:i:s'),
+            'lastaccess_at' => $this->faker->dateTimeBetween('-6 days', 'now')->format('Y-m-d H:i:s'),
+            'filesize' => $this->faker->numberBetween(0, 1_500_000),
+            'used_in' => $usageId,
+            'usage_id' => $usageType,
+        ], $extraParams);
+
+        $this->haveInDatabase('uploads', $params);
+
+        return $this->grabEntryFromDatabase('uploads', ['uuid' => $params['uuid']]);
+    }
+
     // =================================================================================================================
     // private methods
     // =================================================================================================================
@@ -1313,5 +1333,28 @@ class Foodsharing extends Db
         }
 
         return $text;
+    }
+
+    private function uploadUUID(): string
+    {
+        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            // 32 bits for "time_low"
+            mt_rand(0, 0xFFFF), mt_rand(0, 0xFFFF),
+
+            // 16 bits for "time_mid"
+            mt_rand(0, 0xFFFF),
+
+            // 16 bits for "time_hi_and_version",
+            // four most significant bits holds version number 4
+            mt_rand(0, 0x0FFF) | 0x4000,
+
+            // 16 bits, 8 bits for "clk_seq_hi_res",
+            // 8 bits for "clk_seq_low",
+            // two most significant bits holds zero and one for variant DCE1.1
+            mt_rand(0, 0x3FFF) | 0x8000,
+
+            // 48 bits for "node"
+            mt_rand(0, 0xFFFF), mt_rand(0, 0xFFFF), mt_rand(0, 0xFFFF)
+        );
     }
 }

@@ -94,9 +94,10 @@ class UploadsGateway extends BaseGateway
         if (empty($upload)) {
             return null;
         }
+        $usedIn = !is_null($upload['used_in']) ? UploadUsage::tryFrom($upload['used_in']) : null;
 
         return new UploadedFile('', $upload['filesize'], $upload['sha256hash'], $upload['mimetype'], $upload['user_id'],
-            UploadUsage::tryFrom($upload['used_in']), $upload['usage_id']);
+            $usedIn, $upload['usage_id']);
     }
 
     /**
