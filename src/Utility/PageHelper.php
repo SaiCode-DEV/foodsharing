@@ -2,7 +2,6 @@
 
 namespace Foodsharing\Utility;
 
-use Detection\MobileDetect;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
@@ -26,7 +25,6 @@ use Twig\Environment;
 
 final class PageHelper
 {
-    private const string SESSION_MOBIL_REPRESENTATION_FIELD_NAME = 'mob';
     private string $add_css = '';
     private string $content_main = '';
     private string $content_right = '';
@@ -71,16 +69,6 @@ final class PageHelper
     ) {
     }
 
-    public function isMob(): bool
-    {
-        if (!$this->session->has(self::SESSION_MOBIL_REPRESENTATION_FIELD_NAME)) {
-            $mobdet = new MobileDetect();
-            $this->session->set(self::SESSION_MOBIL_REPRESENTATION_FIELD_NAME, $mobdet->isMobile());
-        }
-
-        return $this->session->get(self::SESSION_MOBIL_REPRESENTATION_FIELD_NAME);
-    }
-
     public function generateAndGetGlobalViewData(): array
     {
         $this->addMessages();
@@ -120,7 +108,6 @@ final class PageHelper
             'route' => $page,
             'dev' => getenv('FS_ENV') === 'dev',
             'hidden' => $this->hidden,
-            'isMob' => $this->isMob(),
             'footer' => $this->getFooter(),
             'content' => [
                 'main' => [

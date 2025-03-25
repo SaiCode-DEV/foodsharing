@@ -60,7 +60,6 @@
     "jsvrcek/ics": "0.8.5",
     "league/commonmark": "^2.6.1",
     "minishlink/web-push": "9.0.*",
-    "mobiledetect/mobiledetectlib": "3.74.*",
     "nelmio/api-doc-bundle": "4.33.*",
     "nesbot/carbon": "3.8.*",
     "sensio/framework-extra-bundle": "6.2.*",
