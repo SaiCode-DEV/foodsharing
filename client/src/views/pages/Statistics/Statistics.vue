@@ -1,8 +1,8 @@
 <template>
   <div>
     <WeightFancyCounter
-      v-if="stats.length"
-      :number="stats[0].value"
+      v-if="stats.length > 0 && stats[0].value !== undefined"
+      :number="stats[0].value || 0"
     />
     <Container
       :title="$i18n('stats.title')"
@@ -35,25 +35,44 @@
 
     <div class="mt-4">
       <Container
-        :title="$i18n('stats.leader.regions')"
         :collapsible="false"
         :wrap-contents="true"
       >
+        <template #title>
+          <div class="d-flex justify-content-between align-items-center w-100">
+            <h5>{{ $i18n('stats.leader.regions') }}</h5>
+            <b-button-group size="sm">
+              <b-button
+                :variant="sortBy === 'weight' ? 'primary' : 'outline-primary'"
+                @click="sortBy = 'weight'"
+              >
+                {{ $i18n('profile.stats.weight') }}
+              </b-button>
+              <b-button
+                :variant="sortBy === 'count' ? 'primary' : 'outline-primary'"
+                @click="sortBy = 'count'"
+              >
+                {{ $i18n('profile.stats.fetch_count') }}
+              </b-button>
+            </b-button-group>
+          </div>
+        </template>
+
         <div class="regions-podium">
-          <template v-if="regionsActivity.pickupOverAllTime.length >= 3">
+          <template v-if="sortedRegions.length >= 3">
             <div class="podium-item silver">
               <div class="podium-content">
                 <h3 class="mb-0">
                   2
                 </h3>
                 <h4 class="mb-0">
-                  {{ regionsActivity.pickupOverAllTime[1].name }}
+                  {{ sortedRegions[1].name }}
                 </h4>
                 <p class="mb-0">
-                  {{ formatNumber(regionsActivity.pickupOverAllTime[1].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>{{ $i18n('profile.stats.weight') }}
+                  {{ formatNumber(sortedRegions[1].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>{{ $i18n('profile.stats.weight') }}
                 </p>
                 <p class="mb-0">
-                  {{ formatNumber(regionsActivity.pickupOverAllTime[1].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
+                  {{ formatNumber(sortedRegions[1].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
                 </p>
               </div>
             </div>
@@ -63,13 +82,13 @@
                   1
                 </h3>
                 <h4 class="mb-0">
-                  {{ regionsActivity.pickupOverAllTime[0].name }}
+                  {{ sortedRegions[0].name }}
                 </h4>
                 <p class="mb-0">
-                  {{ formatNumber(regionsActivity.pickupOverAllTime[0].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>{{ $i18n('profile.stats.weight') }}
+                  {{ formatNumber(sortedRegions[0].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>{{ $i18n('profile.stats.weight') }}
                 </p>
                 <p class="mb-0">
-                  {{ formatNumber(regionsActivity.pickupOverAllTime[0].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
+                  {{ formatNumber(sortedRegions[0].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
                 </p>
               </div>
             </div>
@@ -79,13 +98,13 @@
                   3
                 </h3>
                 <h4 class="mb-0">
-                  {{ regionsActivity.pickupOverAllTime[2].name }}
+                  {{ sortedRegions[2].name }}
                 </h4>
                 <p class="mb-0">
-                  {{ formatNumber(regionsActivity.pickupOverAllTime[2].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>{{ $i18n('profile.stats.weight') }}
+                  {{ formatNumber(sortedRegions[2].fetchWeight) }}<span class="text-nowrap">&thinsp;</span>{{ $i18n('profile.stats.weight') }}
                 </p>
                 <p class="mb-0">
-                  {{ formatNumber(regionsActivity.pickupOverAllTime[2].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
+                  {{ formatNumber(sortedRegions[2].fetchCount) }}<span class="text-nowrap">&thinsp;</span>x {{ $i18n('profile.stats.fetch_count') }}
                 </p>
               </div>
             </div>
@@ -94,7 +113,7 @@
 
         <div class="regions-grid">
           <b-card
-            v-for="(item, index) in regionsActivity.pickupOverAllTime.slice(3)"
+            v-for="(item, index) in sortedRegions.slice(3)"
             :key="item.name"
             no-body
             class="mb-2"
@@ -123,13 +142,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { getOverallStatistics } from '@/api/statistics'
 import i18n, { locale } from '@/helper/i18n'
 import Container from '@/components/Container/Container.vue'
 import WeightFancyCounter from './WeightFancyCounter.vue'
+import { hideLoader, showLoader } from '@/script'
 
-const stats = ref([])
 const regionsActivity = ref({
   pickupOverAllTime: [],
 })
@@ -144,7 +163,7 @@ const formatNumber = (number, unit) => {
 
   const options = {
     notation: 'compact',
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 0,
   }
 
   if (unit === 'kg') {
@@ -163,7 +182,7 @@ const mapStatistics = (data) => {
       id: 1,
       iconClass: 'stat_icon fetchweight',
       icon: 'fa-apple-alt',
-      value: generalStats.fetchWeight,
+      value: generalStats.fetchWeight || 0,
       unit: 'kg',
       label: i18n('stats.total.weight'),
     },
@@ -171,7 +190,7 @@ const mapStatistics = (data) => {
       id: 2,
       iconClass: 'stat_icon coorpcount',
       icon: 'fa-store-alt',
-      value: generalStats.cooperationsCount,
+      value: generalStats.cooperationsCount || 0,
       unit: '',
       label: i18n('stats.total.cooperations'),
     },
@@ -179,7 +198,7 @@ const mapStatistics = (data) => {
       id: 3,
       iconClass: 'stat_icon fscount',
       icon: 'fa-user-check',
-      value: generalStats.foodsaverCount,
+      value: generalStats.foodsaverCount || 0,
       unit: '',
       label: i18n('stats.total.foodsaver'),
     },
@@ -187,7 +206,7 @@ const mapStatistics = (data) => {
       id: 4,
       iconClass: 'stat_icon fscount2',
       icon: 'fa-users',
-      value: generalStats.countAllFoodsaver,
+      value: generalStats.countAllFoodsaver || 0,
       unit: '',
       label: i18n('stats.total.foodsharer'),
     },
@@ -195,7 +214,7 @@ const mapStatistics = (data) => {
       id: 5,
       iconClass: 'stat_icon fetchcount',
       icon: 'fa-walking',
-      value: generalStats.fetchCount,
+      value: generalStats.fetchCount || 0,
       unit: '',
       label: i18n('stats.total.pickups'),
     },
@@ -203,7 +222,7 @@ const mapStatistics = (data) => {
       id: 6,
       iconClass: 'stat_icon dailyfetchcount',
       icon: 'fa-people-carry',
-      value: generalStats.avgDailyFetchCount,
+      value: generalStats.avgDailyFetchCount || 0,
       unit: '',
       label: i18n('stats.avg.pickups'),
     },
@@ -211,7 +230,7 @@ const mapStatistics = (data) => {
       id: 7,
       iconClass: 'stat_icon totalbaskets',
       icon: 'fa-shopping-basket',
-      value: generalStats.totalBaskets,
+      value: generalStats.totalBaskets || 0,
       unit: '',
       label: i18n('stats.total.baskets'),
     },
@@ -219,7 +238,7 @@ const mapStatistics = (data) => {
       id: 8,
       iconClass: 'stat_icon avgWeeklyBaskets',
       icon: 'fa-shopping-basket',
-      value: generalStats.avgWeeklyBaskets,
+      value: generalStats.avgWeeklyBaskets || 0,
       unit: '',
       label: i18n('stats.avg.baskets'),
     },
@@ -227,19 +246,34 @@ const mapStatistics = (data) => {
       id: 9,
       iconClass: 'stat_icon fetchweight',
       icon: 'fa-recycle',
-      value: generalStats.countActiveFoodSharePoints,
+      value: generalStats.countActiveFoodSharePoints || 0,
       unit: '',
       label: i18n('stats.total.fsp'),
     },
   ]
 }
 
-// Initialize data (replaces created hook)
+const stats = ref(mapStatistics({}))
+
+const sortBy = ref('count')
+
+const sortedRegions = computed(() => {
+  const regions = [...regionsActivity.value.pickupOverAllTime]
+  return regions.sort((a, b) => {
+    if (sortBy.value === 'weight') {
+      return b.fetchWeight - a.fetchWeight
+    }
+    return b.fetchCount - a.fetchCount
+  })
+})
+
 const initializeData = async () => {
+  showLoader()
   const data = await getOverallStatistics()
   stats.value = mapStatistics(data)
   regionsActivity.value = data.regionsActivity
   foodsaverActivity.value = data.foodsaverActivity
+  hideLoader()
 }
 
 initializeData()

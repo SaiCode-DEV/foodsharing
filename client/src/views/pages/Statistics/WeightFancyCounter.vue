@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, defineProps, computed } from 'vue'
+import { ref, onMounted, defineProps, computed, watch } from 'vue'
 import i18n, { locale } from '@/helper/i18n'
 
 const MINIMUM_ADDITIONAL_ITERATION_COUNT = 2
@@ -101,6 +101,9 @@ const updateTrackStyles = (track, height, translate) => {
 }
 
 const animate = () => {
+  if (!tracks.value || !tracks.value.length) {
+    return
+  }
   tracks.value.forEach((track, index) => {
     if (track && isNumber(getSavedDigitByIndex(index))) {
       updateTrackStyles(
@@ -113,6 +116,9 @@ const animate = () => {
 }
 
 const resetAnimation = () => {
+  if (!tracks.value || !tracks.value.length) {
+    return
+  }
   tracks.value.forEach((track, index) => {
     if (track) {
       track.style.transition = 'none'
@@ -136,6 +142,11 @@ onMounted(() => {
   setTimeout(() => {
     animate()
   })
+})
+
+watch(() => props.number, () => {
+  resetAnimation()
+  setTimeout(animate, 100)
 })
 </script>
 
@@ -221,6 +232,9 @@ onMounted(() => {
         height: var(--track-height, 0);
         transform: translateY(var(--track-translate, 0));
         transition: transform 5000ms cubic-bezier(.1,.67,0,1);
+        @media (prefers-reduced-motion: reduce) {
+          transition: none !important;
+        }
       }
     }
   }

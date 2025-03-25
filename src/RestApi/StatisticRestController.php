@@ -23,16 +23,20 @@ use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class StatisticRestController extends AbstractFOSRestController
 {
     private const string NOT_FOUND_MESSAGE = 'Region with that id %d not found';
+    private const OVERALL_STATISTICS_CACHE_DURATION = 12 * 60 * 60;
 
     public function __construct(
         private readonly StatisticsGateway $statisticsGateway,
         private readonly RegionGateway $regionGateway,
         private readonly RegionPermissions $regionPermissions,
         private readonly RegionTransactions $regionTransactions,
+        private readonly CacheInterface $cache,
     ) {
     }
 
@@ -132,12 +136,16 @@ class StatisticRestController extends AbstractFOSRestController
     )]
     public function listOverallStatistics(): Response
     {
-        $generalStatistic = new StatisticModel(
-            $this->getGeneralStatistic(),
-            $this->getRegionsStatistic(),
-        );
+        $statistics = $this->cache->get('foodsharingOverallStatistics', function (ItemInterface $cacheItem) {
+            $cacheItem->expiresAfter(self::OVERALL_STATISTICS_CACHE_DURATION);
 
-        return $this->handleView($this->view($generalStatistic, Response::HTTP_OK));
+            return new StatisticModel(
+                $this->getGeneralStatistic(),
+                $this->getRegionsStatistic(),
+            );
+        });
+
+        return $this->handleView($this->view($statistics, Response::HTTP_OK));
     }
 
     private function getGeneralStatistic(): GeneralStatistic
