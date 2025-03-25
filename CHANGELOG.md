@@ -14,6 +14,7 @@
 - Added the option to actively follow a forum, so that you get a bell for every new thread #2346 !4064 #2371 @AntonBallmaier
 - Show KAM roles on profile pages #2354 !4084 @AntonBallmaier
 - Add Feedback form for Beta-Testers and Bump Sentry to 9.8.0 #3968 #4113 @SaiCode
+
 ## Changes
 - Include user agent in support ticket creation #2212 !3838 @AntonBallmaier
 - Increased the size of the chat box title !3592 @robinkernel
@@ -57,6 +58,7 @@
 - Fix the store team member list showing a wrong join date on the date the person joined #2360 !4099 @iron9
 - Fix incorrect session refreshing from the database !4109 @DL6ER
 - Fix misleading link in the bell for suggested food-share points #2370 !4112 #irgendwer
+- Fix length restriction when creating a store #2338 !4050 @skurka
 
 ## Refactoring
 - Get rid of xhr completely !3826 !3933 @chriswalg
@@ -117,7 +119,9 @@
 - Added retry and more timeout in WorkingGroupApiCest->sendMailToGroup !4007 @chriswalg
 - Delete uploaded pictures when the corresponding entity is deleted #1182 !4081 @alex.simm
 - Remove obsolete server-side is-mobile handling !4094 !@alex.simm
-- Do not allow using other users' uploads #1182 !4088 @alex.simm 
+- Do not allow using other users' uploads #1182 !4088 @alex.simm
+- Fix tests related to patching or creating a store #2338 !4050 @skurka
+- Fix the MarkdownOrPlaintext validator - now HTML is invalid #2338 !4050 @skurka
 
 # Hotfix 2024-01-20
 

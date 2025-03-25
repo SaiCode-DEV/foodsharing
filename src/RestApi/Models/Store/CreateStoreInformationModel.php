@@ -4,6 +4,7 @@ namespace Foodsharing\RestApi\Models\Store;
 
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Store\DTO\CreateStoreData;
+use Foodsharing\Validator\MarkdownOrPlainText;
 use Foodsharing\Validator\NoHtml;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -11,11 +12,10 @@ class CreateStoreInformationModel
 {
     /**
      * Name of the store.
-     *
-     * @NoHtml
      */
-    #[Assert\NotNull]
+    #[Assert\NotBlank]
     #[Assert\Length(max: 120)]
+    #[NoHtml]
     public ?string $name = null;
 
     /**
@@ -27,11 +27,10 @@ class CreateStoreInformationModel
 
     /**
      * Street name with street number.
-     *
-     * @NoHtml
      */
     #[Assert\NotNull]
     #[Assert\Length(max: 120)]
+    #[NoHtml]
     public ?string $street = null;
 
     /**
@@ -43,21 +42,19 @@ class CreateStoreInformationModel
 
     /**
      * City name.
-     *
-     * @NoHtml
      */
     #[Assert\NotNull]
     #[Assert\Length(max: 50)]
+    #[NoHtml]
     public ?string $city = null;
 
     /**
      * Public information about the store which is visible
      * for users which are looking for a store.
-     *
-     * @NoHtml
      */
     #[Assert\NotNull]
     #[Assert\Length(max: 520)]
+    #[MarkdownOrPlainText]
     public ?string $publicInfo = null;
 
     public function toCreateStore(): CreateStoreData

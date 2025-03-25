@@ -463,75 +463,84 @@ class StoreApiCest
         $I->login($this->manager['email']);
         $I->haveHttpHeader('Content-Type', 'application/json');
 
+        $goodStoreData = ['store' => [
+            'name' => 'Store Name', 'regionId' => $this->region['id'],
+            'location' => ['lat' => 123.01, 'lon' => 4.190000],
+            'street' => 'Mühlbachweg 122',
+            'zipCode' => '12234',
+            'city' => 'Karlsruhe',
+            'publicInfo' => 'Wetten des es geht'
+        ], 'firstPost' => null];
+
         // No store data
         $I->sendPOST($storeUri, ['firstPost' => null]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
-        $I->sendPOST($storeUri, ['store' => null]);
+        // store is null
+        $badStoreData = $goodStoreData;
+        $badStoreData['store'] = null;
+        $I->sendPOST($storeUri, $badStoreData);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
-        // Empty store name
-        $I->sendPOST($storeUri, ['store' => ['name' => ''], 'firstPost' => null]);
+        // store name is null
+        $badStoreData = $goodStoreData;
+        $badStoreData['store']['name'] = null;
+        $I->sendPOST($storeUri, $badStoreData);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
-        // Empty location
-        $I->sendPOST($storeUri, [
-            'store' => [
-                'name' => 'Store Name',
-                'location' => null
-            ], 'firstPost' => null]);
+        // store name is empty
+        $badStoreData = $goodStoreData;
+        $badStoreData['store']['name'] = '';
+        $I->sendPOST($storeUri, $badStoreData);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
-        $I->sendPOST($storeUri, [
-            'store' => [
-                'name' => 'Store Name',
-                'location' => ['lat' => '']
-            ], 'firstPost' => null]);
+        // location is null
+        $badStoreData = $goodStoreData;
+        $badStoreData['store']['location'] = null;
+        $I->sendPOST($storeUri, $badStoreData);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
-        $I->sendPOST($storeUri, [
-            'store' => [
-                'name' => 'Store Name',
-                'location' => ['lat' => '123.01', 'lon' => 'sw']
-            ], 'firstPost' => null]);
+
+        // empty latitude
+        $badStoreData = $goodStoreData;
+        $badStoreData['store']['location']['lat'] = '';
+        $I->sendPOST($storeUri, $badStoreData);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
-        $I->sendPOST($storeUri, [
-            'store' => [
-                'name' => 'Store Name',
-                'location' => ['lat' => 123.01, 'lon' => 4.190000]
-            ], 'firstPost' => null]);
+
+        // bad longitute
+        $badStoreData = $goodStoreData;
+        $badStoreData['store']['location']['lon'] = 'sw';
+        $I->sendPOST($storeUri, $badStoreData);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
-        $I->sendPOST($storeUri, [
-            'store' => [
-                'name' => 'Store Name',
-                'location' => ['lat' => 123.01, 'lon' => 4.190000],
-                'street' => null,
-            ], 'firstPost' => null]);
+
+        // missing street
+        $badStoreData = $goodStoreData;
+        unset($badStoreData['store']['street']);
+        $I->sendPOST($storeUri, $badStoreData);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
-        $I->sendPOST($storeUri, [
-            'store' => [
-                'name' => 'Store Name',
-                'location' => ['lat' => 123.01, 'lon' => 4.190000],
-                'street' => 'Mühlbachweg 122',
-                'zipCode' => null
-            ], 'firstPost' => null]);
+
+        // street is null
+        $badStoreData = $goodStoreData;
+        $badStoreData['store']['street'] = null;
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
-        $I->sendPOST($storeUri, [
-            'store' => [
-                'name' => 'Store Name',
-                'location' => ['lat' => 123.01, 'lon' => 4.190000],
-                'street' => 'Mühlbachweg 122',
-                'zipCode' => '12234',
-                'city' => null
-            ], 'firstPost' => null]);
-        $I->sendPOST($storeUri, [
-                'store' => [
-                    'name' => 'Store Name',
-                    'location' => ['lat' => 123.01, 'lon' => 4.190000],
-                    'street' => 'Mühlbachweg 122',
-                    'zipCode' => '12234',
-                    'city' => 'Karlsruhe',
-                    'publicInfo' => null
-                ], 'firstPost' => null]);
+
+        // zipCode is null
+        $badStoreData = $goodStoreData;
+        $badStoreData['store']['zipCode'] = null;
+        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+
+        // city is null
+        $badStoreData = $goodStoreData;
+        $badStoreData['store']['city'] = null;
+        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+
+        // publicInfo is null
+        $badStoreData = $goodStoreData;
+        $badStoreData['store']['publicInfo'] = null;
+        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+
+        // publicInfo is too long
+        $badStoreData = $goodStoreData;
+        $badStoreData['store']['publicInfo'] = implode('', array_fill(0, 521, '1'));
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
     }
 
@@ -554,7 +563,7 @@ class StoreApiCest
 
         $I->dontSeeInDatabase('fs_betrieb', [
             'name' => $storeInfo['name'],
-            'bezirk_id' => $this->region['id'] + 10,
+            'bezirk_id' => $this->region['id'],
             'str' => $storeInfo['street'],
             'plz' => $storeInfo['zipCode'],
             'stadt' => $storeInfo['city'],
@@ -580,7 +589,7 @@ class StoreApiCest
 
         $I->dontSeeInDatabase('fs_betrieb', [
             'name' => $storeInfo['name'],
-            'bezirk_id' => $this->region['id'] + 10,
+            'bezirk_id' => $this->region['id'],
             'str' => $storeInfo['street'],
             'plz' => $storeInfo['zipCode'],
             'stadt' => $storeInfo['city'],
@@ -606,7 +615,7 @@ class StoreApiCest
 
         $I->dontSeeInDatabase('fs_betrieb', [
             'name' => $storeInfo['name'],
-            'bezirk_id' => $this->region['id'] + 10,
+            'bezirk_id' => $this->region['id'],
             'str' => $storeInfo['street'],
             'plz' => $storeInfo['zipCode'],
             'stadt' => $storeInfo['city'],
@@ -632,7 +641,7 @@ class StoreApiCest
 
         $I->dontSeeInDatabase('fs_betrieb', [
             'name' => $storeInfo['name'],
-            'bezirk_id' => $this->region['id'] + 10,
+            'bezirk_id' => $this->region['id'],
             'str' => $storeInfo['street'],
             'plz' => $storeInfo['zipCode'],
             'stadt' => $storeInfo['city'],
@@ -1016,9 +1025,27 @@ class StoreApiCest
     public function canNotPatchStorePublicInformationWithInvalidFormatForStoreManager(ApiTester $I): void
     {
         $I->login($this->manager[self::EMAIL]);
-
         $I->haveHttpHeader('Content-Type', 'application/json');
+
+        // null
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicInfo' => null]);
+        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+
+        // too long
         $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicInfo' => implode('', array_fill(0, 521, '1'))]);
+        $I->seeResponseCodeIs(Http::BAD_REQUEST);
+
+        $I->seeInDatabase('fs_betrieb', [
+            'id' => $this->store[self::ID],
+            'public_info' => $this->store['public_info']]);
+    }
+
+    public function canNotPatchStorePublicInformationWithXssForStoreManager(ApiTester $I): void
+    {
+        $I->login($this->manager[self::EMAIL]);
+        $I->haveHttpHeader('Content-Type', 'application/json');
+
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['publicInfo' => 'Wetten <script>alert()</script>des es geht']);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->seeInDatabase('fs_betrieb', [

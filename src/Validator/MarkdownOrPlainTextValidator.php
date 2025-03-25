@@ -22,21 +22,25 @@ class MarkdownOrPlainTextValidator extends ConstraintValidator
             return;
         }
 
-        $environment = new Environment([
+        $environmentStrip = new Environment([
             'html_input' => 'strip',
             'allow_unsafe_links' => false,
         ]);
-        $environment->addExtension(new CommonMarkCoreExtension());
-        $converter = new MarkdownConverter($environment);
+        $environmentStrip->addExtension(new CommonMarkCoreExtension());
+        $converterStrip = new MarkdownConverter($environmentStrip);
+
+        $environmentAllow = new Environment([
+            'html_input' => 'allow',
+            'allow_unsafe_links' => false,
+        ]);
+        $environmentAllow->addExtension(new CommonMarkCoreExtension());
+        $converterAllow = new MarkdownConverter($environmentAllow);
 
         try {
-            $converter->convert($value);
-
-            return;
-        } catch (CommonMarkException) {
-            if ($value === strip_tags((string)$value)) {
+            if ($converterStrip->convert($value)->getContent() === $converterAllow->convert($value)->getContent()) {
                 return;
             }
+        } catch (CommonMarkException) {
         }
 
         $this->context->buildViolation($constraint->message)

@@ -6,6 +6,7 @@ use Foodsharing\Modules\Core\DBConstants\Store\PublicityStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\StickerStatus;
 use Foodsharing\Modules\Core\DTO\PatchGeoLocation;
 use Foodsharing\Validator\MarkdownOrPlainText;
+use Foodsharing\Validator\NoHtml;
 use JMS\Serializer\Annotation\Type;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -15,7 +16,9 @@ class PatchStore
     /**
      * String which is the name of store.
      */
+    #[Assert\NotBlank(allowNull: true)]
     #[Assert\Length(max: 120)]
+    #[NoHtml]
     public ?string $name = null;
 
     /**

@@ -3,6 +3,7 @@
 namespace Foodsharing\Modules\Store\DTO;
 
 use Foodsharing\Modules\Core\DTO\Address;
+use Foodsharing\Validator\NoHtml;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class PatchAddress
@@ -11,12 +12,14 @@ class PatchAddress
      * String with street and street number.
      */
     #[Assert\Length(max: 120)]
+    #[NoHtml]
     public ?string $street = null;
 
     /**
      * String with city name.
      */
     #[Assert\Length(max: 50)]
+    #[NoHtml]
     public ?string $city = null;
 
     /**
