@@ -2,6 +2,7 @@
 
 namespace Foodsharing\RestApi;
 
+use Carbon\Carbon;
 use Exception;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Uploads\Exceptions\Base64DecodingException;
@@ -11,21 +12,24 @@ use Foodsharing\Modules\Uploads\UploadAttributes;
 use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Modules\Uploads\UploadsTransactions;
 use Foodsharing\Permissions\UploadsPermissions;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcher;
+use Foodsharing\RestApi\Models\Upload\FileUpload;
 use OpenApi\Attributes as OA;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
 
 #[OA\Tag(name: 'upload')]
 class UploadsRestController extends AbstractFoodsharingRestController
 {
-    private const EXPIRATION_TIME_SECONDS = 86400 * 7; // one week
+    private const int EXPIRATION_TIME_SECONDS = 86400 * 7; // one week
 
     public function __construct(
         private readonly UploadsGateway $uploadsGateway,
@@ -37,18 +41,19 @@ class UploadsRestController extends AbstractFoodsharingRestController
     }
 
     #[OA\Get(summary: 'Returns the image with the requested UUID. Width and height must both be given or can be set both to 0 to indicate no resizing.')]
-    #[Rest\Get('uploads/{uuid}', requirements: ['uuid' => '[0-9a-f\-]+'])]
-    #[Rest\QueryParam(name: 'w', requirements: '\d+', default: 0, description: 'Max image width')]
-    #[Rest\QueryParam(name: 'h', requirements: '\d+', default: 0, description: 'Max image height')]
-    #[Rest\QueryParam(name: 'q', requirements: '\d+', default: 0, description: 'Image quality (between 1 and 100)')]
-    public function getImage(string $uuid, ParamFetcher $paramFetcher): void
+    #[OA\QueryParameter(name: 'w', description: 'Max image width', required: false, schema: new OA\Schema(type: 'integer', default: 0))]
+    #[OA\QueryParameter(name: 'h', description: 'Max image height', required: false, schema: new OA\Schema(type: 'integer', default: 0))]
+    #[OA\QueryParameter(name: 'q', description: 'Image quality (between 1 and 100)', required: false, schema: new OA\Schema(type: 'integer', default: null, maximum: 100, minimum: 1))]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Tried resizing for a non-image file')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'UUID does not exist')]
+    #[Route('/uploads/{uuid}', requirements: ['uuid' => Requirement::UUID], methods: ['GET'])]
+    public function getImage(string $uuid, #[MapQueryParameter] int $w = 0, #[MapQueryParameter] int $h = 0, #[MapQueryParameter] ?int $q = null): Response
     {
-        $width = $paramFetcher->get('w');
-        $height = $paramFetcher->get('h');
-        $quality = $paramFetcher->get('q');
-        $doResize = $height || $width;
+        $doResize = $h || $w;
 
-        $this->validateParameters($height, $width, $quality, $doResize);
+        $this->validateParameters($h, $w, $q, $doResize);
 
         $file = $this->uploadsGateway->getUploadedFile($uuid);
         if (is_null($file)) {
@@ -70,35 +75,36 @@ class UploadsRestController extends AbstractFoodsharingRestController
                 throw new BadRequestHttpException('resizing only possible with images');
             }
 
-            if (!$quality) {
-                $quality = UploadAttributes::DEFAULT_QUALITY;
-            }
+            $q ??= UploadAttributes::DEFAULT_QUALITY;
 
             $originalFilename = $filename;
-            $filename = $this->uploadsTransactions->generateFilePath($uuid, $width, $height, $quality);
+            $filename = $this->uploadsTransactions->generateFilePath($uuid, $w, $h, $q);
 
             if (!file_exists($filename)) {
-                $this->uploadsTransactions->resizeImage($originalFilename, $filename, $width, $height, $quality);
+                $this->uploadsTransactions->resizeImage($originalFilename, $filename, $w, $h, $q);
             }
         }
 
-        // write response
-        header('Pragma: public');
-        header('Cache-Control: max-age=' . self::EXPIRATION_TIME_SECONDS);
-        header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + self::EXPIRATION_TIME_SECONDS));
-        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+        $response = new BinaryFileResponse($filename);
+        $response->setPublic();
+        $response->setMaxAge(self::EXPIRATION_TIME_SECONDS);
+        $response->setExpires(Carbon::now()->addSeconds(self::EXPIRATION_TIME_SECONDS));
+        $response->setLastModified(Carbon::now());
 
         $mime = explode('/', $file->mimeType);
         match ($mime[0]) {
-            'video', 'audio', 'image' => header('Content-Type: ' . $file->mimeType),
-            'text' => header('Content-Type: text/plain'),
-            default => header('Content-Type: application/octet-stream'),
+            'video', 'audio', 'image' => $response->headers->set('Content-Type', $file->mimeType),
+            'text' => $response->headers->set('Content-Type', 'text/plain'),
+            default => $response->headers->set('Content-Type', 'application/octet-stream'),
         };
-        readfile($filename);
-        exit;
+
+        return $response;
     }
 
-    #[Rest\Get('uploads/{uuid}/metadata', requirements: ['uuid' => '[0-9a-f\-]+'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Tried resizing for a non-image file')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'UUID does not exist')]
+    #[Route('/uploads/{uuid}/metadata', requirements: ['uuid' => Requirement::UUID], methods: ['GET'])]
     public function getImageMetadata(string $uuid): Response
     {
         try {
@@ -117,54 +123,40 @@ class UploadsRestController extends AbstractFoodsharingRestController
         }
         $result = $this->uploadsTransactions->getImageMetadata($filename);
 
-        return $this->handleView($this->view($result, Response::HTTP_OK));
+        return $this->respondOK($result);
     }
 
-    #[Rest\Post('uploads')]
-    #[Rest\RequestParam(name: 'filename')]
-    #[Rest\RequestParam(name: 'body')]
-    public function uploadImage(ParamFetcher $paramFetcher, Request $request, RateLimiterFactory $loginLimiter): Response
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_BAD_REQUEST, description: 'Invalid data provided')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[Route('/uploads', methods: ['POST'])]
+    public function uploadImage(#[MapRequestPayload] FileUpload $file, Request $request, RateLimiterFactory $loginLimiter): Response
     {
         $this->checkRateLimit($request, $loginLimiter);
 
-        if (!$this->session->id()) {
-            throw new UnauthorizedHttpException('');
-        }
-
-        $fileName = $paramFetcher->get('filename');
-        $bodyEncoded = $paramFetcher->get('body');
-
-        // check uploaded body
-        if (!$fileName) {
-            throw new BadRequestHttpException('no filename provided');
-        }
-        if (!$bodyEncoded) {
-            throw new BadRequestHttpException('no body provided');
-        }
+        $this->assertLoggedIn();
 
         try {
-            $temporaryFile = $this->uploadsTransactions->storeTemporaryValidatedFile($bodyEncoded);
+            $temporaryFile = $this->uploadsTransactions->storeTemporaryValidatedFile($file->body);
         } catch (Base64DecodingException|FileSizeTooBigException|InvalidFileException $error) {
             throw new BadRequestHttpException($error->getMessage());
         }
 
         $fileInfoFromDatabase = $this->uploadsTransactions->uploadFile($temporaryFile);
 
-        $view = $this->view([
+        return $this->respondOK([
             'url' => '/api/uploads/' . $fileInfoFromDatabase['uuid'],
             'uuid' => $fileInfoFromDatabase['uuid'],
-            'filename' => $fileName,
+            'filename' => $file->filename,
             'mimeType' => $temporaryFile->mimeType,
             'filesize' => $temporaryFile->fileSize,
-        ], 200);
-
-        return $this->handleView($view);
+        ]);
     }
 
     /**
      * The method validates the input parameters.
      */
-    private function validateParameters(int $height, int $width, int $quality, bool $doResize): void
+    private function validateParameters(int $height, int $width, ?int $quality, bool $doResize): void
     {
         if ($height && $height < UploadAttributes::MIN_WIDTH_AND_HEIGHT) {
             throw new BadRequestHttpException('minium height is ' . UploadAttributes::MIN_WIDTH_AND_HEIGHT . ' pixel');
@@ -183,10 +175,10 @@ class UploadsRestController extends AbstractFoodsharingRestController
             throw new BadRequestHttpException('resizing requires both, height and width');
         }
 
-        if ($quality && !$doResize) {
+        if (!is_null($quality) && !$doResize) {
             throw new BadRequestHttpException('quality parameter only allowed while resizing');
         }
-        if ($quality && ($quality < UploadAttributes::MIN_QUALITY || $quality > UploadAttributes::MAX_QUALITY)) {
+        if (!is_null($quality) && ($quality < UploadAttributes::MIN_QUALITY || $quality > UploadAttributes::MAX_QUALITY)) {
             throw new BadRequestHttpException('quality needs to be between ' . UploadAttributes::MIN_QUALITY . ' and ' . UploadAttributes::MAX_QUALITY);
         }
     }

@@ -20,7 +20,7 @@ class UploadsTransactions
     /**
      * Returns the actual path of the file with the specified parameters.
      */
-    public function generateFilePath(string $uuid, int $width = 0, int $height = 0, int $quality = 0): string
+    public function generateFilePath(string $uuid, int $width = 0, int $height = 0, ?int $quality = null): string
     {
         $filename = $uuid;
 
@@ -102,7 +102,7 @@ class UploadsTransactions
     /**
      * Resizes and crops an image to fit provided width and height.
      */
-    public function resizeImage(string $input, string $output, int $width, int $height, int $quality): void
+    public function resizeImage(string $input, string $output, int $width, int $height, ?int $quality): void
     {
         $img = new Imagick($input);
 

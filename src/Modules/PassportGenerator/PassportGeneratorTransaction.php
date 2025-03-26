@@ -112,11 +112,11 @@ class PassportGeneratorTransaction
 
         if (str_starts_with($photo, '/api/uploads')) {
             $uuid = substr($photo, strlen('/api/uploads/'));
-            $filename = $this->uploadsTransactions->generateFilePath($uuid, 200, 257, 0);
+            $filename = $this->uploadsTransactions->generateFilePath($uuid, 200, 257);
 
             if (!file_exists($filename)) {
                 $originalFilename = $this->uploadsTransactions->generateFilePath($uuid);
-                $this->uploadsTransactions->resizeImage($originalFilename, $filename, 200, 257, 0);
+                $this->uploadsTransactions->resizeImage($originalFilename, $filename, 200, 257, null);
             }
 
             $imagePath = $filename;
