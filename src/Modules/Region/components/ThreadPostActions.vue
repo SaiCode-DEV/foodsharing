@@ -1,52 +1,10 @@
 <template>
   <div>
-    <div class="emojis mb-1 d-inline-block">
-      <b-dropdown
-        v-if="canGiveEmoji"
-        ref="emojiSelector"
-        v-b-tooltip.hover
-        :title="$i18n('addreaction')"
-        text="+"
-        class="emoji-dropdown"
-        size="sm"
-        no-caret
-        right
-      >
-        <a
-          v-for="(symbol, key) in emojisToGive"
-          :key="key"
-          class="btn"
-          @click="giveEmoji(key)"
-        >
-          <Emoji :name="key" />
-        </a>
-      </b-dropdown>
-      <span
-        v-for="(users, key) in reactionsWithUsers"
-        :key="key"
-      >
-        <b-button
-          :id="`reactionButton-${key}-${uuid}`"
-          class="btn-sm"
-          :variant="gaveIThisReaction(key) ? 'secondary' : 'primary'"
-          @click="toggleReaction(key)"
-        >
-          {{ users.length }}x <Emoji :name="key" />
-        </b-button>
-        <b-tooltip
-          :target="`reactionButton-${key}-${uuid}`"
-          triggers="hover"
-        >
-          <span
-            v-for="user in users"
-            :key="user.id"
-            class="reacting-user"
-          >
-            <a :href="$url('profile', user.id)" v-text="tooltipName(user)" />
-          </span>
-        </b-tooltip>
-      </span>
-    </div>
+    <ReactionsBar
+      :reactions="reactions"
+      @reaction-add="key => $emit('reaction-add', key)"
+      @reaction-remove="key => $emit('reaction-remove', key)"
+    />
 
     <span
       v-if="mayReply || mayDelete"
@@ -119,106 +77,28 @@
 </template>
 
 <script>
-import Emoji from '@/components/Emoji'
-import emojiList from '@/emojiList.json'
-import { useUserStore } from '@/stores/user'
-
-const userStore = useUserStore()
+import ReactionsBar from '@/components/Wall/ReactionsBar.vue'
 
 export default {
-  components: { Emoji },
+  components: { ReactionsBar },
   props: {
-    reactions: {
-      type: Object,
-      default: () => ({}),
-    },
+    reactions: { type: Object, default: () => ({}) },
     mayDelete: { type: Boolean, default: false },
     mayHide: { type: Boolean, default: false },
     /**
-     * Whether the user can write a reply or send emoji reactions. This is disabled in closed threads.
+     * Whether the user can write a reply. This is disabled in closed threads.
      */
     mayReply: { type: Boolean, default: true },
   },
-  setup () {
-    return {
-      userStore,
-    }
-  },
   data () {
     return {
-      emojis: emojiList,
       hideReason: '',
-      uuid: (Math.random().toString(36).slice(2, 10)),
     }
-  },
-  computed: {
-    reactionsWithUsers () {
-      // https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_pickby
-      const reactArr = Object.entries(this.reactions)
-      const filtered = reactArr.filter(([_, reaction]) => reaction.length > 0)
-      return Object.fromEntries(filtered)
-    },
-    canGiveEmoji () {
-      return Object.keys(this.emojisToGive).length > 0
-    },
-    emojisToGive () {
-      // https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore#_pickby
-      const emojisArr = Object.entries(this.emojis)
-      const filtered = emojisArr.filter(([emoji]) => !this.gaveIThisReaction(emoji))
-      return Object.fromEntries(filtered)
-    },
-  },
-  methods: {
-    toggleReaction (key, dontRemove = false) {
-      if (this.gaveIThisReaction(key)) {
-        if (!dontRemove) {
-          this.$emit('reaction-remove', key)
-        }
-      } else {
-        this.$emit('reaction-add', key)
-      }
-    },
-    giveEmoji (key) {
-      this.$refs.emojiSelector.hide()
-      this.toggleReaction(key, true)
-    },
-    gaveIThisReaction (key) {
-      if (!this.reactions[key]) {
-        return false
-      }
-      return !!this.reactions[key].find(r => r.id === userStore.getUserId)
-    },
-    tooltipName (user) {
-      if (user.id === userStore.getUserId) return this.$i18n('globals.you')
-      return user.name ?? this.$i18n('forum.deleted_user')
-    },
   },
 }
 </script>
-
 <style lang="scss" scoped>
-.emojis .emoji {
-  line-height: 1;
-  font-size: 1.35em;
-  vertical-align: middle;
-}
-
-.divider {
-  &::before {
-    content: '|';
-  }
-}
-
-.tooltip .reacting-user{
-  a {
-    color: white !important;
-    font-weight: normal;
-  }
-  &:not(:last-child)::after {
-    content: ', ';
-  }
-  &:nth-last-child(2)::after {
-    content: ' & ';
-  }
+.divider::before {
+  content: '|';
 }
 </style>

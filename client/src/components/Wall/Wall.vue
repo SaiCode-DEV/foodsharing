@@ -45,9 +45,12 @@
       :key="p.id"
       :post="p"
       :may-delete-everything="mayDeleteEverything"
+      :may-react="mayReact"
       :gallery-height-in-px="galleryHeightInPx"
       class="wallpost"
       @delete="deletePost"
+      @reaction-add="key => addReaction(p.id, key)"
+      @reaction-remove="key => removeReaction(p.id, key)"
     />
 
     <ContainerButton
@@ -67,7 +70,7 @@ import WallPost from './WallPost'
 import { showLoader, hideLoader, pulseError } from '@/script'
 import Container from '@/components/Container/Container.vue'
 import MarkdownInput from '../Markdown/MarkdownInput.vue'
-import { getWallPosts, addPost, deletePost } from '@/api/wall'
+import { getWallPosts, addPost, deletePost, addReaction, removeReaction } from '@/api/wall'
 import { HTTP_RESPONSE } from '@/consts'
 import ContainerButton from '@/components/Container/ContainerButton.vue'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
@@ -93,6 +96,7 @@ export default {
       posts: [],
       mayPost: false,
       mayDeleteEverything: false,
+      mayReact: false,
       newPostText: '',
       hasImages: false,
       showLoadMore: true,
@@ -131,6 +135,7 @@ export default {
       }
       this.mayPost = data.mayPost
       this.mayDeleteEverything = data.mayDelete
+      this.mayReact = data.mayReact
       this.loading.morePosts = false
     },
     async writePost () {
@@ -170,6 +175,22 @@ export default {
         }
       } finally {
         hideLoader()
+      }
+    },
+    async addReaction (postId, key) {
+      try {
+        await addReaction(this.target, this.targetId, postId, key)
+      } catch (error) {
+        pulseError(this.$i18n('error_unexpected'))
+        console.error(error)
+      }
+    },
+    async removeReaction (postId, key) {
+      try {
+        await removeReaction(this.target, this.targetId, postId, key)
+      } catch (error) {
+        pulseError(this.$i18n('error_unexpected'))
+        console.error(error)
       }
     },
   },

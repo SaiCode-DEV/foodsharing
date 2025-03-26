@@ -9,6 +9,7 @@ use Foodsharing\Modules\Region\ForumGateway;
 use Foodsharing\Modules\Region\ForumTransactions;
 use Foodsharing\Modules\Region\RegionTransactions;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
+use Foodsharing\Modules\WallPost\EmojiList;
 use Foodsharing\Permissions\ForumPermissions;
 use Foodsharing\Utility\Sanitizer;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -510,6 +511,7 @@ class ForumRestController extends AbstractFoodsharingRestController
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
         }
+        EmojiList::assertIsValidEmoji($emoji);
 
         $threadId = $this->forumGateway->getThreadForPost($postId);
 
@@ -538,6 +540,7 @@ class ForumRestController extends AbstractFoodsharingRestController
         if (!$this->session->id()) {
             throw new UnauthorizedHttpException('');
         }
+        EmojiList::assertIsValidEmoji($emoji);
 
         $threadId = $this->forumGateway->getThreadForPost($postId);
 

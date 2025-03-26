@@ -22,6 +22,15 @@
       <Gallery
         :images="post.pictures"
         :height-in-px="galleryHeightInPx"
+        :class="{ 'mb-2': mayReact }"
+      />
+      <ReactionsBar
+        v-if="mayReact"
+        class="float-right"
+        :reactions="post.reactions"
+        unobtrusive
+        @reaction-add="key => $emit('reaction-add', key)"
+        @reaction-remove="key => $emit('reaction-remove', key)"
       />
     </div>
   </div>
@@ -33,12 +42,14 @@ import Avatar from '@/components/Avatar/Avatar.vue'
 import Markdown from '@/components/Markdown/Markdown'
 import Gallery from '@/components/Images/Gallery'
 import Time from '../Time.vue'
+import ReactionsBar from './ReactionsBar.vue'
 
 export default {
-  components: { Avatar, Markdown, Gallery, Time },
+  components: { Avatar, Markdown, Gallery, Time, ReactionsBar },
   props: {
     post: { type: Object, required: true },
     mayDeleteEverything: { type: Boolean, default: false },
+    mayReact: { type: Boolean, default: false },
     galleryHeightInPx: { type: Number, default: undefined },
   },
   setup () {
@@ -82,5 +93,9 @@ export default {
   height: fit-content;
   position: sticky;
   top: calc(var(--navbar-height) + 1em);
+}
+
+.unobtrusive-reactions {
+  color: red;
 }
 </style>

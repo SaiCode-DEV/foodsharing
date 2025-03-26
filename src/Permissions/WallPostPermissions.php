@@ -121,4 +121,16 @@ class WallPostPermissions
     {
         return $this->mayDeleteWall($target, $targetId) || $this->wallPostGateway->getAuthorId($postId) === $this->session->id();
     }
+
+    public function mayReactToPostsOnWall(WallType $target, int $targetId): bool
+    {
+        return match ($target) {
+            WallType::EVENT,
+            WallType::QUIZ_QUESTION,
+            WallType::PROFILE_NOTES,
+            WallType::FOODSAVER_REPORTS,
+            WallType::STORE => $this->mayReadWall($target, $targetId),
+            default => false,
+        };
+    }
 }

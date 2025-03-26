@@ -91,8 +91,8 @@
           :is-linked="linkedPost == post.id"
           @delete="deletePost(post)"
           @hide="hidePost(post.id, $event)"
-          @reaction-add="reactionAdd(post, arguments[0])"
-          @reaction-remove="reactionRemove(post, arguments[0])"
+          @reaction-add="key => addReaction(post.id, key)"
+          @reaction-remove="key => removeReaction(post.id, key)"
           @reply="reply(post)"
           @restore="restorePost(post.id)"
         />
@@ -396,41 +396,20 @@ export default {
         pulseError(this.$i18n('error_unexpected'))
       }
     },
-    async reactionAdd (post, key, onlyLocally = false) {
-      if (post.reactions[key]) {
-        // reaction alrready in list, increase count by 1
-        if (post.reactions[key].find(r => r.id === this.userId)) return // already given - abort
-        post.reactions[key].push({ id: this.userId, name: this.userName })
-      } else {
-        // reaction not in the list yet, append it
-        this.$set(post.reactions, key, [{ id: this.userId, name: this.userName }])
-      }
-
-      if (!onlyLocally) {
-        try {
-          await api.addReaction(post.id, key)
-        } catch (err) {
-          // failed? remove it again
-          this.reactionRemove(post, key, true)
-          pulseError(this.$i18n('error_unexpected'))
-        }
+    async addReaction (postId, key) {
+      try {
+        await api.addReaction(postId, key)
+      } catch (error) {
+        pulseError(this.$i18n('error_unexpected'))
+        console.error(error)
       }
     },
-    async reactionRemove (post, key, onlyLocally = false) {
-      const reactionUser = post.reactions[key].find(r => r.id === this.userId)
-
-      if (!reactionUser) return
-
-      post.reactions[key].splice(post.reactions[key].indexOf(reactionUser), 1)
-
-      if (!onlyLocally) {
-        try {
-          await api.removeReaction(post.id, key)
-        } catch (err) {
-          // failed? add it again
-          this.reactionAdd(post, key, true)
-          pulseError(this.$i18n('error_unexpected'))
-        }
+    async removeReaction (postId, key) {
+      try {
+        await api.removeReaction(postId, key)
+      } catch (error) {
+        pulseError(this.$i18n('error_unexpected'))
+        console.error(error)
       }
     },
     async createPost (body) {

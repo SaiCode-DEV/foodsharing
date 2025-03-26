@@ -34,6 +34,11 @@ class WallPost
 
     public ?Profile $author = null;
 
+    /**
+     * @var array<string,Profile[]> key: reaction type, value: list of users that reacted with this type
+     */
+    public ?array $reactions;
+
     public static function createFromArray(array $data): WallPost
     {
         $result = new WallPost();

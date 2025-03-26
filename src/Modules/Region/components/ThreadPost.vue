@@ -70,8 +70,8 @@
           :may-hide="mayHide"
           @delete="$emit('delete')"
           @hide="$emit('hide', $event)"
-          @reaction-add="$emit('reaction-add', $event)"
-          @reaction-remove="$emit('reaction-remove', $event)"
+          @reaction-add="key => $emit('reaction-add', key)"
+          @reaction-remove="key => $emit('reaction-remove', key)"
           @reply="$emit('reply', post.body)"
         />
       </div>

@@ -43,6 +43,9 @@ class WallPostGateway extends BaseGateway
         return WallPost::createFromArray($post);
     }
 
+    /**
+     * @return WallPost[]
+     */
     public function getPosts(WallType $target, int $targetId, int $limit = 50, int $offset = 0): array
     {
         $posts = $this->db->fetchAll("SELECT {$this->selectColumns}
@@ -55,6 +58,42 @@ class WallPostGateway extends BaseGateway
 		", ['targetId' => $targetId, 'limit' => $limit, 'offset' => $offset]);
 
         return array_map(WallPost::createFromArray(...), $posts);
+    }
+
+    /**
+     * @param int[] $postIds
+     */
+    public function getPostsReactions(array $postIds): array
+    {
+        return $this->db->fetchAll("SELECT
+			    r.`post_id`,
+                r.`key`,
+                r.`foodsaver_id`, fs.`name` as foodsaver_name
+			FROM fs_wall_post_reaction r
+			LEFT JOIN fs_foodsaver fs ON fs.`id` = r.`foodsaver_id`
+			WHERE r.`post_id` IN ({$this->db->generatePlaceholders(count($postIds))})
+            ORDER BY r.`time`",
+            $postIds
+        );
+    }
+
+    public function addReaction(int $postId, int $foodsaverId, string $key): void
+    {
+        $this->db->insertOrUpdate('fs_wall_post_reaction', [
+            'post_id' => $postId,
+            'foodsaver_id' => $foodsaverId,
+            'key' => $key,
+            'time' => $this->db->now(),
+        ]);
+    }
+
+    public function removeReaction(int $postId, int $foodsaverId, string $key): void
+    {
+        $this->db->delete('fs_wall_post_reaction', [
+            'post_id' => $postId,
+            'foodsaver_id' => $foodsaverId,
+            'key' => $key
+        ]);
     }
 
     public function getAuthorId(int $postId): ?int

@@ -5,8 +5,10 @@ namespace Foodsharing\RestApi;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\WallType;
+use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
+use Foodsharing\Modules\WallPost\EmojiList;
 use Foodsharing\Modules\WallPost\WallPostGateway;
 use Foodsharing\Modules\WallPost\WallPostTransactions;
 use Foodsharing\Permissions\WallPostPermissions;
@@ -47,6 +49,11 @@ class WallRestController extends AbstractFoodsharingRestController
             description: 'whether the user is permitted to delete all posts on this wall',
             type: 'boolean'
         ),
+        new OA\Property(
+            property: 'mayReact',
+            description: 'whether the user is permitted to react to posts on this wall',
+            type: 'boolean'
+        ),
     ], type: 'object'))]
     #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to read this wall')]
     public function getPosts(
@@ -61,10 +68,25 @@ class WallRestController extends AbstractFoodsharingRestController
         }
 
         $posts = $this->wallPostGateway->getPosts($wallType, $targetId, $limit, $offset);
+
+        $mayReact = $this->wallPostPermissions->mayReactToPostsOnWall($wallType, $targetId);
+        if ($mayReact && !empty($posts)) {
+            $reactions = $this->wallPostGateway->getPostsReactions(array_map(fn ($post) => $post->id, $posts));
+            $postIdMap = [];
+            foreach ($posts as $post) { // generate index for quickly accessing posts via id
+                $post->reactions = [];
+                $postIdMap[$post->id] = $post;
+            }
+            foreach ($reactions as $reaction) { // map reactions to posts
+                $user = new Profile($reaction, 'foodsaver_');
+                $postIdMap[$reaction['post_id']]->reactions[$reaction['key']][] = $user;
+            }
+        }
         $response = [
             'posts' => $posts,
             'mayPost' => $this->wallPostPermissions->mayWriteWall($wallType, $targetId),
-            'mayDelete' => $this->wallPostPermissions->mayDeleteWall($wallType, $targetId)
+            'mayDelete' => $this->wallPostPermissions->mayDeleteWall($wallType, $targetId),
+            'mayReact' => $mayReact,
         ];
 
         return $this->respondOK($response);
@@ -110,6 +132,48 @@ class WallRestController extends AbstractFoodsharingRestController
         }
 
         $this->wallPostTransactions->deletePost($postId, $wallType, $targetId);
+
+        return $this->respondOK();
+    }
+
+    #[OA\Post(summary: 'Adds a reactions to a post.', description: 'The reaction type key can be any emoji name supported by the frontend.')]
+    #[Rest\Post('wall/{target}/{targetId}/{postId}/reaction/{key}', requirements: ['target' => '\w+', 'targetId' => '\d+', 'postId' => '\d+', 'key' => '\w+'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted to react on this post')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The post does not exist')]
+    public function addReaction(string $target, int $targetId, int $postId, string $key): Response
+    {
+        $this->assertLoggedIn();
+        EmojiList::assertIsValidEmoji($key);
+        $wallType = $this->parseWallType($target, $targetId);
+        if (!$this->wallPostGateway->isLinkedToTarget($postId, $wallType, $targetId)) {
+            throw new NotFoundHttpException();
+        }
+        if (!$this->wallPostPermissions->mayReactToPostsOnWall($wallType, $targetId)) {
+            throw new AccessDeniedHttpException('You are not permitted to react to posts on this wall.');
+        }
+
+        $this->wallPostGateway->addReaction($postId, $this->session->id(), $key);
+
+        return $this->respondOK();
+    }
+
+    #[OA\Delete(summary: 'Removes one of your a reactions from a post.', description: 'The reaction type key can be any emoji name supported by the frontend.')]
+    #[Rest\Delete('wall/{target}/{targetId}/{postId}/reaction/{key}', requirements: ['target' => '\w+', 'targetId' => '\d+', 'postId' => '\d+', 'key' => '\w+'])]
+    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
+    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA\Response(response: Response::HTTP_NOT_FOUND, description: 'The post does not exist')]
+    public function deleteReaction(string $target, int $targetId, int $postId, string $key): Response
+    {
+        $this->assertLoggedIn();
+        EmojiList::assertIsValidEmoji($key);
+        $wallType = $this->parseWallType($target, $targetId);
+        if (!$this->wallPostGateway->isLinkedToTarget($postId, $wallType, $targetId)) {
+            throw new NotFoundHttpException();
+        }
+
+        $this->wallPostGateway->removeReaction($postId, $this->session->id(), $key);
 
         return $this->respondOK();
     }
