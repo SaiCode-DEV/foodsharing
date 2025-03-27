@@ -1,6 +1,6 @@
 const cacheName = 'foodsharing.network'
 
-export async function getCacheInterval (cacheRequestName, rateLimitInterval) {
+export async function getCacheAge (cacheRequestName) {
   const cacheRequestNameWithSlash = '/' + cacheRequestName
   const lastFetchTimeRequestName = `${cacheRequestNameWithSlash}_lastFetchTime`
   let cachedLastFetchTime = 0
@@ -12,8 +12,11 @@ export async function getCacheInterval (cacheRequestName, rateLimitInterval) {
   }
   const lastFetchTime = cachedLastFetchTime ? parseInt(await cachedLastFetchTime.text()) : 0
   const currentTime = Date.now()
-  const timeSinceLastFetch = currentTime - lastFetchTime
-  return timeSinceLastFetch >= rateLimitInterval
+  return currentTime - lastFetchTime
+}
+
+export async function getCacheInterval (cacheRequestName, rateLimitInterval) {
+  return (await getCacheAge(cacheRequestName)) >= rateLimitInterval
 }
 
 export async function setCache (cacheRequestName, cacheValue) {
@@ -65,4 +68,17 @@ export async function clearCaches () {
   const cache = await caches.open(cacheName)
   const keys = await cache.keys()
   return await Promise.all(keys.map(key => cache.delete(key)))
+}
+
+export async function invalidateCache (cacheRequestName) {
+  const cacheRequestNameWithSlash = '/' + cacheRequestName
+  const lastFetchTimeRequestName = `${cacheRequestNameWithSlash}`
+  try {
+    const cache = await caches.open(cacheName)
+    cache.delete(cacheRequestNameWithSlash)
+    cache.delete(lastFetchTimeRequestName + '_lastFetchTime')
+    console.debug(`Invalidated cache ${cacheRequestName}`)
+  } catch (error) {
+    console.error(`Error while invalidating cache ${cacheRequestName}:`, error)
+  }
 }

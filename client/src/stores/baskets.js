@@ -1,10 +1,20 @@
 import { defineStore } from 'pinia'
 import { getBaskets, getBasketsNearby, updateRequestStatus } from '@/api/baskets'
 import { getMapMarkers } from '@/api/map'
-import { getCache, getCacheInterval, setCache } from '@/helper/cache'
+import { getCache, getCacheAge, getCacheInterval, setCache } from '@/helper/cache'
 
-const nearbyCacheRequestName = 'nearbyBaskets'
-const nearbyCacheInterval = 300000 // 5 Minuten in Millisekunden
+const minuteInMs = 60_000
+const CACHES = {
+  nearby: {
+    name: 'nearbyBaskets',
+    interval: 5 * minuteInMs,
+  },
+  own: {
+    name: 'ownBaskets',
+    intervalWithBaskets: 2 * minuteInMs,
+    intervalWithoutBaskets: 10 * minuteInMs,
+  },
+}
 
 // DBConstants\BasketRequests\Status
 export const BASKET_REQUEST_STATUS = Object.freeze({
@@ -34,19 +44,32 @@ export const useBasketStore = defineStore('basket', {
   },
 
   actions: {
-    async fetchOwn () {
-      this.own = await getBaskets()
+    async fetchOwn (forceLoad = false) {
+      try {
+        const cached = await getCache(CACHES.own.name)
+        let interval = CACHES.own.intervalWithoutBaskets
+        if (cached && cached.length) interval = CACHES.own.intervalWithBaskets
+
+        if (!cached || forceLoad || await getCacheInterval(CACHES.own.name, interval)) {
+          this.own = await getBaskets()
+          await setCache(CACHES.own.name, this.own)
+        } else {
+          this.own = cached
+        }
+      } catch (e) {
+        console.error('Error fetching own baskets:', e)
+      }
     },
     async fetchNearby ({ lat, lon } = {}, distance = this.radius) {
       if (lat === undefined || lon === undefined) {
         return console.error('Error fetching nearby baskets: Invalid location')
       }
       try {
-        if (await getCacheInterval(nearbyCacheRequestName, nearbyCacheInterval)) {
+        if (await getCacheInterval(CACHES.nearby.name, CACHES.nearby.interval)) {
           this.nearby = await getBasketsNearby(parseFloat(lat), parseFloat(lon), distance)
-          await setCache(nearbyCacheRequestName, this.nearby)
+          await setCache(CACHES.nearby.name, this.nearby)
         } else {
-          this.nearby = await getCache(nearbyCacheRequestName)
+          this.nearby = await getCache(CACHES.nearby.name)
         }
       } catch (e) {
         console.error('Error fetching nearby baskets:', e)
@@ -69,6 +92,9 @@ export const useBasketStore = defineStore('basket', {
         console.error('Error updating basket request status:', error)
         throw error
       }
+    },
+    async getOwnCacheAge () {
+      return await getCacheAge(CACHES.own.name)
     },
   },
 })

@@ -43,6 +43,15 @@
           <i class="icon-subnav fas fa-list" />
           {{ $i18n('basket.all') }}
         </a>
+        <button
+          class="dropdown-item dropdown-action"
+          :disabled="!mayRefresh"
+          @click="refresh"
+        >
+          <i class="icon-subnav fas fa-refresh" />
+          {{ $i18n('menu.entry.refresh') }}
+          <Time :time="fetchedTime" class="float-right" />
+        </button>
       </template>
     </Dropdown>
     <AddBasketModal />
@@ -58,18 +67,21 @@ import BasketsEntry from './NavBasketsEntry'
 // Others
 import AddBasketModal from '@/views/partials/Modals/AddBasketModal.vue'
 import RemoveBasketRequestModal from '@/views/partials/Modals/RemoveBasketRequestModal.vue'
+import Time from '@/components/Time.vue'
+const REFRESH_WAIT_TIME = 20_000
 
 export default {
-  components: { BasketsEntry, Dropdown, AddBasketModal, RemoveBasketRequestModal },
+  components: { BasketsEntry, Dropdown, AddBasketModal, RemoveBasketRequestModal, Time },
   setup () {
-    const basketStore = useBasketStore()
     return {
-      basketStore,
+      basketStore: useBasketStore(),
     }
   },
   data () {
     return {
       selectedBasket: null,
+      fetchedTime: null,
+      mayRefresh: false,
     }
   },
   computed: {
@@ -88,6 +100,11 @@ export default {
       return this.basketStore.getRequestedCount
     },
   },
+  async mounted () {
+    await this.basketStore.fetchOwn()
+    const age = await this.basketStore.getOwnCacheAge()
+    this.updateMayRefresh(age)
+  },
   methods: {
     openRemoveBasketModal (basket) {
       this.selectedBasket = basket
@@ -95,6 +112,19 @@ export default {
         this.$bvModal.show('RemoveBasketRequestModal')
       })
     },
+    async refresh () {
+      await this.basketStore.fetchOwn(true)
+      this.updateMayRefresh(0)
+    },
+    async updateMayRefresh (age) {
+      this.mayRefresh = age > REFRESH_WAIT_TIME
+      this.fetchedTime = new Date(Date.now() - age)
+      if (age < REFRESH_WAIT_TIME) {
+        await new Promise(resolve => window.setTimeout(resolve, REFRESH_WAIT_TIME - age))
+        this.mayRefresh = true
+      }
+    },
+
   },
 }
 </script>

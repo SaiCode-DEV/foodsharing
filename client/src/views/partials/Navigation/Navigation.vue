@@ -58,7 +58,6 @@ import { useUserStore } from '@/stores/user.js'
 import { useRegionStore } from '@/stores/regions.js'
 import DataBells from '@/stores/bells.js'
 import DataStores from '@/stores/stores.js'
-import { useBasketStore } from '@/stores/baskets'
 import DataConversations from '@/stores/conversations.js'
 import DataGroups from '@/stores/groups.js'
 // States
@@ -96,7 +95,6 @@ const props = defineProps({
 
 const userStore = useUserStore()
 const regionStore = useRegionStore()
-const basketStore = useBasketStore()
 
 const { mobile } = useMediaQuery()
 const navbar = ref(null)
@@ -119,7 +117,6 @@ onBeforeMount(async () => {
   if (isLoggedIn.value && !useRestrictedNavigation.value) {
     DataGroups.mutations.set(props.groups)
     regionStore.regions = props.regions
-    await basketStore.fetchOwn()
     await DataBells.mutations.fetch()
     await DataConversations.initConversations()
   }

@@ -253,10 +253,11 @@ export default {
       await addBasket(await this.getBasketData())
       pulseInfo(this.$i18n('basket.published'))
       this.resetModal()
-      await this.basketStore.fetchOwn()
+      await this.basketStore.fetchOwn(true)
     },
     async editBasket () {
       await editBasket(this.basket.id, await this.getBasketData())
+      await this.basketStore.fetchOwn(true)
       location.reload() // as long as part of the basket page is written in php, the new basket data only is used in the page upon reload.
     },
     resetModal () {

@@ -25,6 +25,7 @@
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import { removeBasket } from '@/api/baskets'
 import AddBasketModal from '@/views/partials/Modals/AddBasketModal.vue'
+import { useBasketStore } from '@/stores/baskets'
 
 export default {
   components: { AddBasketModal },
@@ -33,13 +34,16 @@ export default {
     mayEdit: { type: Boolean, default: false },
   },
   setup () {
-    const { confirmationDialogue } = useConfirmationDialogue()
-    return { confirmationDialogue }
+    return {
+      confirmationDialogue: useConfirmationDialogue(),
+      basketStore: useBasketStore(),
+    }
   },
   methods: {
     async deleteBasket () {
       if (!await this.confirmationDialogue('basket.delete_confirmation.text')) return
       await removeBasket(this.basket.id)
+      await this.basketStore.fetchOwn(true)
       location.href = this.$url('baskets')
     },
   },

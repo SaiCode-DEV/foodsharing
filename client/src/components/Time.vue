@@ -56,16 +56,20 @@ function parseTime (time) {
   date.value = new Date(time)
 }
 
+let timeout
+
 function update () {
   const now = new Date()
   const updateFrequency = Math.abs(now - date.value) < 60_000 ? 10_000 : 60_000
   const timeUntilUpdate = updateFrequency - (now - date.value) % updateFrequency
-  window.setTimeout(update, timeUntilUpdate)
+  window.clearTimeout(timeout)
+  timeout = window.setTimeout(update, timeUntilUpdate)
   date.value = new Date(date.value)
 }
 
 watch(() => props.time, () => {
   parseTime(props.time)
+  update()
 })
 
 onMounted(() => {

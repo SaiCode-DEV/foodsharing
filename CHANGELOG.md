@@ -94,6 +94,7 @@
 - Parallelized store page loading !4103 @AntonBallmaier
 - Replaced normalisation functions in the API with DTOs !4078 @alex.simm 
 - Avatar images are now loaded lazily #1749 !4098 @AntonBallmaier
+- Use caching for baskets #1533 !4100 @AntonBallmaier
 
 ## Dev/Test/CI stuff
 - Update dev docs Vue component integration to use prepareVueComponent !3910 @chriswalg

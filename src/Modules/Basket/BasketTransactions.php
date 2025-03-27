@@ -70,9 +70,12 @@ class BasketTransactions
      */
     public function getCurrentUsersBaskets(): array
     {
-        $requests = $this->basketGateway->getBasketRequestData($this->session->id());
         $baskets = $this->basketGateway->listMyBaskets($this->session->id());
+        if (empty($baskets)) {
+            return $baskets;
+        }
 
+        $requests = $this->basketGateway->getBasketRequestData($this->session->id());
         foreach ($baskets as $basket) {
             $fittingRequests = array_values(array_filter($requests, fn ($request) => $request['id'] === $basket->id));
             $basket->requests = array_map(BasketRequest::createFromArray(...), $fittingRequests);
