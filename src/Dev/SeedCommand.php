@@ -878,8 +878,23 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         $this->createAchievements($I);
         $this->output->writeln(' done');
 
+        $this->output->writeln('Enable feature toggles');
+        $this->activeFeatureToggles($I);
+        $this->output->writeln(' done');
+
         $I->_getDriver()->executeQuery('SET FOREIGN_KEY_CHECKS=1;', []);
         $I->_getDbh()->commit();
+    }
+
+    private function activeFeatureToggles($I): void
+    {
+        $this->activeFeatureToggle($I, 'hygieneQuiz');
+    }
+
+    private function activeFeatureToggle($I, string $feature): void
+    {
+        $this->output->writeln('Enable feature toggle: ' . $feature);
+        $I->haveInDatabase('fs_feature_toggles', ['identifier' => $feature, 'is_active' => 1, 'site_environment' => 'development']);
     }
 
     private function createAchievements(Foodsharing $I)
