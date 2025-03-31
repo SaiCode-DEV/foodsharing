@@ -65,6 +65,12 @@ export async function getCache (cacheRequestName) {
 }
 
 export async function clearCaches () {
+  // Return early if we are not in a secure context. caches are not available in
+  // insecure contexts.
+  if (!window.isSecureContext) {
+    console.warn('Not in a secure context, skipping cache clearing.')
+    return
+  }
   const cache = await caches.open(cacheName)
   const keys = await cache.keys()
   return await Promise.all(keys.map(key => cache.delete(key)))
