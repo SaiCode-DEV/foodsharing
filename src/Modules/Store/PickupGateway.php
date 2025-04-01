@@ -35,9 +35,9 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
         $bellUpdateTrigger->subscribe($this);
     }
 
-    public function addFetcher(int $fsId, int $storeId, DateTime $date, bool $confirmed = false): int
+    public function addFetcher(int $fsId, int $storeId, DateTime $date, bool $confirmed = false): void
     {
-        $result = $this->db->insertIgnore('fs_abholer', [
+        $this->db->insertIgnore('fs_abholer', [
             'foodsaver_id' => $fsId,
             'betrieb_id' => $storeId,
             'date' => $this->db->date($date),
@@ -47,8 +47,6 @@ class PickupGateway extends BaseGateway implements BellUpdaterInterface
         if (!$confirmed) {
             $this->updateBellNotificationForStoreManagers($storeId, true);
         }
-
-        return $result;
     }
 
     /**

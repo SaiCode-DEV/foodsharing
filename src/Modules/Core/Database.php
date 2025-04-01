@@ -269,9 +269,19 @@ class Database
             $updateStatement
         );
 
-        $this->preparedQuery($query, array_values($data));
+        $result = $this->preparedQuery($query, array_values($data));
 
-        return (int)$this->dbalConnection->lastInsertId();
+        // Check if any rows were inserted
+        if ($result->rowCount() === 0) {
+            return 0;
+        }
+
+        // May throw a DriverException if the last insert ID is not available
+        try {
+            return (int)$this->dbalConnection->lastInsertId();
+        } catch (\Exception) {
+            return 0;
+        }
     }
 
     /**
