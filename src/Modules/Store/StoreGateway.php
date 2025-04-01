@@ -401,11 +401,12 @@ class StoreGateway extends BaseGateway
         			count(DISTINCT(a.date)) AS pickup_count
 
 			FROM 	`fs_betrieb` b
-        			LEFT JOIN `fs_abholer` a
-        			ON a.betrieb_id = b.id
-			AND		a.date < CURDATE()
 
-			WHERE 	b.`id` = :storeId
+			LEFT JOIN `fs_abholer` a
+			ON a.betrieb_id = b.id
+			AND a.date < CURDATE()
+
+			WHERE b.`id` = :storeId
 
 			GROUP BY b.`id`
         ', [

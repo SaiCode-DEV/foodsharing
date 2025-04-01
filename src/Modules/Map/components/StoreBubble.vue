@@ -18,6 +18,14 @@
             {{ $i18n('storeview.team_info_distance') }}
             <strong :class="distanceClass">{{ distanceDisplay }}</strong>
           </div>
+          <div>
+            {{ $i18n('terminology.region') }}:
+            <a :href="$url('publicRegion', store.regionId)" target="_blank">
+              <strong>
+                {{ store.regionName }}
+              </strong>
+            </a>
+          </div>
           <div>{{ $i18n('storeview.team_info_active') }} <strong>{{ store.teamMemberCount }}</strong></div>
           <div>{{ $i18n('storeview.team_info_jumper') }} <strong>{{ store.standbyCount }}</strong></div>
 

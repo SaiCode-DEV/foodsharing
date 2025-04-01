@@ -14,6 +14,7 @@ use Foodsharing\Modules\Development\FeatureToggles\DependencyInjection\FeatureTo
 use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Map\DTO\StoreMapBubbleData;
+use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\TeamStatus;
 use Foodsharing\Permissions\StorePermissions;
@@ -29,6 +30,7 @@ class MapTransactions
         private readonly WeightHelper $weightHelper,
         private readonly AchievementGateway $achievementGateway,
         private readonly FeatureToggleChecker $featureToggleChecker,
+        private readonly RegionGateway $regionGateway
     ) {
     }
 
@@ -45,6 +47,8 @@ class MapTransactions
         $mapData = new StoreMapBubbleData();
         $mapData->id = $storeId;
         $mapData->name = $store['name'];
+        $mapData->regionId = $store['bezirk_id'];
+        $mapData->regionName = $this->regionGateway->getRegionName($store['bezirk_id']);
         $mapData->teamMemberCount = count($store['foodsaver']);
         $mapData->standbyCount = count($store['springer']);
         $mapData->location = GeoLocation::createFromArray($store);

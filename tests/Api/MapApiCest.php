@@ -173,10 +173,12 @@ class MapApiCest
         $I->sendGet('api/map/stores/' . $this->store['id']);
         $I->seeResponseCodeIs(HttpCode::OK);
         $I->seeResponseIsJson();
-        $I->cantSeeResponseContainsJson([[
+        $I->seeResponseContainsJson([
             'id' => $this->store['id'],
             'name' => $this->store['name'],
-        ]]);
+            'regionId' => $this->store['bezirk_id'],
+            'regionName' => $this->region['name'],
+        ]);
     }
 
     final public function canNotFetchStoreBubbleWithoutLogin(ApiTester $I)

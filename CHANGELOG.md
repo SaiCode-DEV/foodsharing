@@ -15,6 +15,7 @@
 - Show KAM roles on profile pages #2354 !4084 @AntonBallmaier
 - Add Feedback form for Beta-Testers and Bump Sentry to 9.8.0 #3968 #4113 @SaiCode
 - Added forum-like reaction to wall posts on some wall types #2355 !4079 @AntonBallmaier
+- Displayed the region of a store directly on the store page !4129 @DL6ER
 
 ## Changes
 - Include user agent in support ticket creation #2212 !3838 @AntonBallmaier

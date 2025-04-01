@@ -102,4 +102,14 @@ class StoreMapBubbleData
      * Whether the user currently has a valid hygiene certificate. Only set if a hygiene certificate is required.
      */
     public ?bool $hasHygieneCertificate = null;
+
+    /**
+     * The ID of the region this store belongs to.
+     */
+    public int $regionId = 0;
+
+    /**
+     * The name of the region this store belongs to.
+     */
+    public string $regionName = '';
 }
