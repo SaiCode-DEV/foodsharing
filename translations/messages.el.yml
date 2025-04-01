@@ -928,6 +928,7 @@ store:
     toogleIsReducedStateOpen: ''
     toogleIsReducedStateClosed: ''
     filterHygiene: Εκπαιδευμένοι στην υγιεινή
+    filterNoHygiene: ''
   smneeded: ''
   tooltip_yellow: ''
   tooltip_orange: ''

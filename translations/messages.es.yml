@@ -1592,6 +1592,7 @@ store:
     userHasPickupsWarning: '{name} aún está registrado para recoger {occupiedSlots}
       en esta empresa. Estas franjas horarias quedarán libres. ¿Deseas continuar?'
     filterHygiene: Formados en higiene
+    filterNoHygiene: ''
   lastPickupShort: 'último el {date}'
   request:
     got-it: 'Los responsables han sido informados de su solicitud y se pondrán en

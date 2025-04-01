@@ -777,6 +777,7 @@ store:
     toogleIsReducedStateOpen: ''
     toogleIsReducedStateClosed: ''
     filterHygiene: Hygienické školení
+    filterNoHygiene: ''
   request:
     verified: ''
     to-nowhere: ''

@@ -29,7 +29,11 @@
         class="px-0 flex-basis-0"
         @click="activeFilter = button"
       >
-        <i :class="`fas fa-${button.icon}`" /><br>
+        <i v-if="!button.anti" :class="`fas fa-${button.icon}`" />
+        <span v-else class="fa-stack fa-1x">
+          <i :class="`fas fa-${button.icon}`" />
+          <i class="fas fa-slash fa-stack-1x" />
+        </span><br>
         {{ button.count }}
       </b-button>
     </b-button-group>
@@ -44,12 +48,12 @@ export default {
   },
   data () {
     const filterButtons = [
-      { tooltip: 'filterAll', state: null, icon: 'users' },
-      { tooltip: 'filterActive', state: STORE_TEAM_STATE.ACTIVE, icon: 'user' },
-      { tooltip: 'filterJumper', state: STORE_TEAM_STATE.JUMPER, icon: 'running' },
-      { tooltip: 'filterSleeping', state: STORE_TEAM_STATE.SLEEPING, icon: 'bed' },
-      { tooltip: 'filterUnverified', state: STORE_TEAM_STATE.UNVERIFIED, icon: 'user-alt-slash' },
-      { tooltip: 'filterManage', state: STORE_TEAM_STATE.MANAGE_ROLE, icon: 'user-graduate' },
+      { tooltip: 'filterAll', state: null, icon: 'users', anti: false },
+      { tooltip: 'filterActive', state: STORE_TEAM_STATE.ACTIVE, icon: 'user', anti: false },
+      { tooltip: 'filterJumper', state: STORE_TEAM_STATE.JUMPER, icon: 'running', anti: false },
+      { tooltip: 'filterSleeping', state: STORE_TEAM_STATE.SLEEPING, icon: 'bed', anti: false },
+      { tooltip: 'filterUnverified', state: STORE_TEAM_STATE.UNVERIFIED, icon: 'user-alt-slash', anti: false },
+      { tooltip: 'filterManage', state: STORE_TEAM_STATE.MANAGE_ROLE, icon: 'user-graduate', anti: false },
     ]
     return {
       userSearchString: '',
@@ -62,7 +66,7 @@ export default {
         [STORE_TEAM_STATE.UNVERIFIED]: member => !member.isVerified,
         [STORE_TEAM_STATE.MANAGE_ROLE]: member => member.mayManage,
         [STORE_TEAM_STATE.SLEEPING]: member => member.isSleeping,
-        [STORE_TEAM_STATE.HYGIENE]: member => member.hasHygieneCertificateUntil,
+        [STORE_TEAM_STATE.NO_HYGIENE]: member => !member.hasHygieneCertificateUntil,
       },
     }
   },
@@ -98,7 +102,7 @@ export default {
   },
   async mounted () {
     if (await this.$isFeatureToggleActive('hygieneQuiz')) {
-      this.filterButtons.push({ tooltip: 'filterHygiene', state: STORE_TEAM_STATE.HYGIENE, icon: 'hands-wash' })
+      this.filterButtons.push({ tooltip: 'filterNoHygiene', state: STORE_TEAM_STATE.NO_HYGIENE, icon: 'hands-wash', anti: true })
     }
   },
 }

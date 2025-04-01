@@ -1006,7 +1006,7 @@ store:
     filterSleeping: "Schlafmütze"
     filterManage: "mit BV-Quiz"
     filterJumper: "Springer"
-    filterHygiene: "Hygienegeschulte"
+    filterNoHygiene: "Ohne Hygiene-Schulung"
     filterQuizSM: "Quiz für Betriebsverantwortliche bestanden"
     removeFromTeam: "Aus dem Team entfernen"
     reallyRemove: "Möchtest du wirklich {name} aus diesem Betriebs-Team entfernen?"

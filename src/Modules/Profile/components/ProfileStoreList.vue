@@ -11,7 +11,11 @@
         class="flex-grow-1"
         @click="setMemberState(button)"
       >
-        <i :class="`fas fa-${button.icon}`" /><br>
+        <i v-if="button.anti" :class="`fas fa-${button.icon}`" />
+        <span v-else class="fa-stack fa-1x">
+          <i :class="`fas fa-${button.icon}`" />
+          <i class="fa-solid fa-ban fa-stack-2x" style="color:Tomato" />
+        </span><br>
         {{ button.count }}
       </b-button>
     </b-button-group>

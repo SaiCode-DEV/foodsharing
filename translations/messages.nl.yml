@@ -619,6 +619,7 @@ store:
     toogleIsReducedStateOpen: ''
     toogleIsReducedStateClosed: ''
     filterHygiene: Hygiëne opgeleid
+    filterNoHygiene: ''
   prefetchtwo: ''
   prefetchthree: ''
   allStoresOfRegion: ''

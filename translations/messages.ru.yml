@@ -1407,6 +1407,7 @@ store:
     toogleIsReducedStateOpen: ''
     toogleIsReducedStateClosed: ''
     filterHygiene: обучен гигиене
+    filterNoHygiene: ''
   request:
     title: ''
     withdraw: ''

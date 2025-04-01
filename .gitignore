@@ -96,3 +96,7 @@ dump.sql
 !/**/.gitkeep
 
 !docker/zammad/.env
+
+# Local composer files
+.config/
+.local/

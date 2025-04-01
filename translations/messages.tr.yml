@@ -1414,6 +1414,7 @@ store:
     userHasPickupsWarning: '{name} hâlâ bu işletmedeki {occupiedSlots} alım için kayıtlı.
       Bu slotlar daha sonra boşalacaktır. Buna rağmen etmek istiyor musun?'
     filterHygiene: Hijyen eğitimi almış kişiler
+    filterNoHygiene: ''
   prefetchthree: 3 Hafta
   prefetchfour: 4 Hafta
   request:

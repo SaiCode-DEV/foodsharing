@@ -2929,6 +2929,7 @@ store:
       hos dette selskapet. Disse plassene vil da bli ledige. Ønsker du fortsatt å
       fortsette?'
     filterHygiene: Hygiene trente
+    filterNoHygiene: ''
   address: Adresse
   attribution: Attribusjon
   unknownDate: ukjent

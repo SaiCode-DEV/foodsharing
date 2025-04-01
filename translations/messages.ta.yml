@@ -120,6 +120,7 @@ store:
     filterManage: பி.வி நொடி வினா உடன்
     filterJumper: ச்பிரிங்கர்
     filterHygiene: சுகாதாரம்
+    filterNoHygiene: ''
     userHasPickupsWarning: '{பெயர் {இந்த நிறுவனத்தில் {name} க்கு இன்னும் உள்ளிடப்பட்டுள்ளது.
       இந்த இடங்கள் பின்னர் இலவசமாகின்றன. நீங்கள் இன்னும் தொடர விரும்புகிறீர்களா?'
     reloadPage: மீண்டும் ஏற்றவும்
