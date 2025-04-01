@@ -259,7 +259,7 @@ bell:
   store_new_request_title: ''
   forum_new_thread: ''
   store_new_title: ''
-  sharepoint_activate_title: ''
+  sharepoint_activate_title: 'Cantinho solidário novo em {bezirk}'
   store_cr_times: ''
   new_foodsaver_verified: ''
   buddy_request: ''
@@ -319,7 +319,7 @@ email_template:
   find_someone: ''
   manual_slots_get_ignored: ''
   request_from: ''
-  foodsharepoint: ''
+  foodsharepoint: '-- cantinho solidário'
   to: ''
   dont_respond:
     notification: ''
@@ -396,7 +396,7 @@ dashboard:
     part_1: ''
     part_3: ''
     part_2: ''
-  source_foodsharepoint: ''
+  source_foodsharepoint: 'Cantinho solidário {0}'
   foodsharer: ''
   my:
     regions: ''
@@ -434,7 +434,7 @@ dashboard:
   no_updates: ''
   no_more_updates_store: ''
   full_subline: ''
-  no_more_updates_foodsharepoint: ''
+  no_more_updates_foodsharepoint: 'Não há mais mensagens do cantinho solidário'
   activation_mail_sent: ''
   no_more_updates_all: ''
   greeting: ''
@@ -1436,12 +1436,14 @@ error:
 fsp:
   info:
     mail: ''
-    manager: ''
+    manager: 'É responsavel para este cantinho solidário e portanto obrigado conseguinte,
+      a receber as actualizações.'
     none: ''
-    descSettings: ''
+    descSettings: 'Segues os todos informações do cantinho solidário “{nome}”. Como
+      gostaria de receber estas notificações?'
     descModal: ''
     bell: ''
-    from: ''
+    from: 'Atualização para o cantinho solidário „{name}“'
   pic: ''
   description: ''
   addedOn: ''
@@ -1464,7 +1466,7 @@ fsp:
   summary: 'Há {count} cantinho/s solidário em todos os distritos onde está ativo'
   acceptName: ''
   follow: 'Siga este cantinho solidário'
-  none: ''
+  none: 'Ainda não registados cantinhos solidário'
   yours: 'Cantinhos solidário nos vossos distritos'
   acceptSuccess: 'O Cantinho solidário esta ativo agora'
   new: 'Cantinho solidário novo'
@@ -1475,7 +1477,7 @@ fsp:
   addedBy: ''
   summaryRegion: 'Há {count} cantinho/s solidário em (region) e todos subdistritos'
   twig:
-    n_in_region: ''
+    n_in_region: '{count} cantinho/s solidário em {name}'
   publicwall: 'Tenha em atenção que as tuas publicações no pinboard de cantinho solidário
     são visíveis publicamente.'
   suggestSuccess: 'O cantinho solidário foi proposto e está agora a ser revisto pelo
@@ -1485,6 +1487,8 @@ fsp:
   editName: 'Editar o cantinho solidário „{name}“'
   deleteConfirm: 'Queres mesmo apagar este cantinho solidário?'
   deleteSuccess: 'O cantinho solidário foi apagado'
+  onlySuggested: Este cantinho solidário foi sugerido mas ainda não foi lançado. Neste
+    estado, não é apresentado assim aos outros utilizadores.
 search:
   thread-title-only: ''
   results:
@@ -1518,7 +1522,8 @@ search:
   placeholder: ''
   user_search:
     placeholder: ''
-  informations: ''
+  informations: 'Podes procuro por pessoas, grupos, empresas, distritos, bate-papos,
+    mensagens do fórum e cantinhos solidário.'
   noresults: ''
   forum: ''
 pass:
@@ -1586,7 +1591,7 @@ quiz:
   quizleft: ''
   failedbeforebut: ''
   trynumber: ''
-  question: ''
+  question: 'Pergunta'
   waitxdays: ''
   timedstart: ''
   wikilink: ''
@@ -2113,11 +2118,12 @@ globals:
     my_regions: ''
     chats: ''
     mailboxes: ''
-    my_foodshare_points: ''
+    my_foodshare_points: 'Os meus cantinhos solidário'
     my_persons: ''
     my_groups: ''
     groups: ''
     foodshare_points: ''
+    foodSharePoints: Cantinho solidário
   save: ''
   account:
     signin: ''
@@ -2177,7 +2183,7 @@ startpage:
       part1: ''
       part3: ''
       part5: ''
-      part4: ''
+      part4: 'Cantinho solidário'
     title: ''
   followrules_b: ''
   call_to_action:
@@ -2218,7 +2224,10 @@ startpage:
   towns:
     text: ''
     title: ''
-  dependability: ''
+  dependability: 'Em muitos locais existem “Cantinhos solidário” onde a alimentos
+    são partilhados. Podem encontrar-se aí ou noutros locais neutros para partilhar.
+    Se quiser dar ou receber comida, por favor seja fiável e pontual, não abandonar
+    ninguém.'
   call_to_action_button: ''
   forstores: ''
   honest: ''
@@ -2257,7 +2266,8 @@ region:
     townpart: ''
   edit: ''
   cancel: ''
-  still_contains_elements: ''
+  still_contains_elements: 'O distrito não pode ser apagado porque ainda contém sub-regiões,
+    empresas ou cantinhos solidário.'
   edit_success: ''
   confirm: ''
   restricted: ''
@@ -2273,6 +2283,11 @@ region:
   change: ''
   created: ''
   delete: ''
+  public:
+    map:
+      missing: Este distrito não é atualmente exibido no mapa e não tem cantinhos
+        solidário que podem ser exibidos aqui. Tem autorização para colocar um pin
+        de distrito agora.
 pronoun:
   "2": ''
   "1": ''
@@ -2507,8 +2522,9 @@ notifications:
     description: ''
     title: ''
   foodSharePoints:
-    title: ''
-    description: ''
+    title: 'Cantinho solidário'
+    description: 'Receber uma notificação de novas mensagens nos pinboards do cantinho
+      solidário que segues.'
   groups:
     title: ''
   checkbox_push: ''
@@ -2581,7 +2597,7 @@ stats:
   total:
     pickups: ''
     weight: ''
-    fsp: ''
+    fsp: 'Os cantinhos solidário são utilizados para trocar alimentos.'
     foodsharer: ''
     foodsaver: ''
     baskets: ''
@@ -2806,6 +2822,8 @@ map:
     my_stores: ''
   title: ''
   donates: ''
+  foodsharepoint:
+    go: Para o cantinho solidário
 list:
   filter_for: ''
 public_time: 'Hora do dia aproximada por da recolha'
