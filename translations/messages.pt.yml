@@ -1593,10 +1593,10 @@ quiz:
   trynumber: ''
   question: 'Pergunta'
   waitxdays: ''
-  timedstart: ''
+  timedstart: 'Iniciar um questionário com limite de tempo e {count} perguntas'
   wikilink: ''
   donecorrectly: ''
-  continuenow: ''
+  continuenow: 'Continua a responder ao concurso questinario agora!'
   type: ''
   days: ''
   safeandsound: ''
@@ -1607,16 +1607,124 @@ quiz:
   congrats_details: ''
   notfinishedyet: ''
   continuetype: ''
-  regstart: ''
+  regstart: 'Iniciar um questionário sem limite de tempo e {count} perguntas'
   resultsbelow: ''
   results:
     title:
       1: Parabéns!
+      2: Infelizmente, não passou.
   editModal:
     question:
       input:
         wikilink:
           placeholder: https://wiki.foodsharing.de/…
+  startmodal:
+    infos:
+      unlimited_tries: Pode repetir este teste as vezes que quiser e nunca será desclassificado
+        se falhar. No entanto, poderá ter de fazer uma pausa para estudar entre tentativas.
+      alone: O concurso questinario deve ser feito pelo próprio e sem ajuda externa.
+        Se tiver dificuldades linguísticas ou estiver dependente de um assistente,
+        é claro que outra pessoa o pode ajudar a compreender as perguntas; no entanto,
+        deve ser capaz de responder sozinho. Por conseguinte, procure um local sossegado
+        onde possa fazer o teste sem ser incomodado.
+      multiple_choice: Podem ser dadas várias respostas corretas por pergunta - ou
+        nenhuma. Por conseguinte, decida, para cada resposta, se está correta ou incorrecta.
+      timed: O tempo para responder às perguntas é limitado. Não se preocupe com isso.
+        O tempo é definido individualmente para cada pergunta, para que tenha tempo
+        suficiente para responder à pergunta em paz. Se o tempo se esgotar, avise
+        os administradores do quiz através de um comentário.
+      real_life_examples: A maioria das perguntas é baseada em casos reais da vida
+        em Foodsharing.
+      limited_tries: Não pode repetir o teste as vezes que quiser. Após três tentativas,
+        tem de fazer uma pausa de 30 dias para estudar, após o que só tem mais duas
+        tentativas. As perguntas que lhe são colocadas em cada tentativa são diferentes.
+      comment: Depois de responder a cada pergunta, verá uma avaliação intermédia
+        com explicações para cada uma das respostas possíveis. Isto ajuda-o a compreender
+        qual é a resposta correta ou incorrecta e porquê. Se cometeres um erro, deves
+        ler as explicações com atenção. Se algo lhe parecer ilógico, incompreensível
+        ou mesmo errado, deixe um comentário. Os seus comentários podem ser atribuídos
+        a si para lhe dar um feedback personalizado.
+      pause: Pode fazer uma pausa no concurso questionário após cada pergunta e continuar
+        mais tarde.
+      feedback: No final do teste, receberá uma avaliação direta sobre se passou e
+        quais os erros que cometeu. Aqui pode voltar a ler os motivos à vontade.
+      wiki: Por favor não comece o teste ao acaso. Lê as páginas de informação listadas
+        cuidadosamente antes de começares. Sem os conhecimentos da wiki, não passará
+        no teste.
+      read_carefully: Ler atentamente todas as perguntas e respostas.
+    acceptPrivacyNotice: Concordo com isso.
+    privacyNotice:
+      hygiene: Se passar neste concurso questinario, ficará registado que o fez e
+        ser-lhe-á atribuído um autocolante de higiene. Os responsáveis pela higiene
+        e pelas operações podem verificar se tem um autocolante de higiene válido.
+    title: Notas ao questionário
+  comment:
+    sent: Comentário enviado.
+    label: Comentário pergunta
+    toggle: Escrever um comentário
+    wallTitle: 'Comentários à pergunta #{id}'
+    placeholder: Entrar o comentário …
+    info: Diga-nos a tua opinião sobre esta pergunta. Foi demasiado fácil, demasiado
+      difícil, incompreensível? Ou algumas respostas ou explicações estão incorrectas?
+    send: Mandar o comentário
+  stateBasedInfo:
+    pause: Já falhou este concurso questinario várias vezes. A fiabilidade, o conhecimento
+      firme das regras e um comportamento profissional são essenciais na partilha
+      de alimentos. Infelizmente, as tuas respostas não transmitem isso de momento.
+      Por isso, terás de fazer uma pausa para estudar antes de tentares passar novamente
+      o teste. O seu intervalo de estudo terminará dentro de {currentWaitTime} dias.
+    pauseElapsed: A tua pausa de estudo terminou. Agora pode voltar a fazer o questionário.
+      Esperemos que tenha aproveitado o tempo para se familiarizar melhor com o conteúdo.
+    willExpire: Mas a validade da tua tentativa de concurso questinario termina dentro
+      de {expirationTime} dias. Por isso, podes atualizar agora os seus conhecimentos
+      nesta área e fazer novamente este teste.
+    disqualifiedAfter: Tens apenas uma última tentativa para passar este questionário!
+      Se falhares agora, serás permanentemente desqualificado deste teste. Por favor,
+      participa apenas se já te tiveres familiarizado com o conteúdo da Wiki.
+    neverTried: Nunca antes há realizado este questionario. Tome o tempo para ler
+      atentamente todos os artículos de informação enumerados para estar preparado
+      para as preguntas.
+    passed: Passou neste concurso questinario.
+    noWaitAfter: Consulte novamente os artigos de informação relevantes e tente de
+      novo.
+    waitAfter: Caso não passe na tua próxima tentativa, deve fazer uma pausa nos estudos
+      durante {waitTimeAfterFailure} dias. Certifique-se de que lê todos os artigos
+      de informação relevantes para poder passar no questinario.
+    disqualified: Infelizmente, está desqualificado para este questionário porque
+      já falhou demasiadas vezes.
+    expired: Mas a última tentativa de fazer um teste já não é válida.
+    failed: Infelizmente, não passou neste concurso questinario na tua última tentativa.
+    running: Já iniciou o questinario e respondeu a {questionsAnswered} de {questionCount}
+      perguntas até agora.
+    passedBefore: Já passou por este concurso questinario antes.
+  button:
+    pause: Continuar mais tarde
+    finish: Concurso finalizar
+  answers:
+    false_true: Esta resposta teria sido correta.
+    short:
+      2: Neutro
+      0: Erado
+      1: Certo
+    false_false: Esta resposta era erado. É isso mesmo.
+    timedOut:
+      1: Esta resposta teria sido correcta.
+      2: Esta resposta teria sido neutro.
+      0: Esta resposta teria sido incorrecta.
+    true_false: Errado! Esta resposta não é correta.
+    true_true: Certo! Esta resposta é correta.
+    name: Respostas
+    none_correct: Nenhuma resposta é correta.
+    neutral: Resposta neutra - não é pontuada.
+  plural: Concursos questinario
+  title:
+    continue: '{Name} - Continuar o questinario!'
+    pause: Pausa de aprender ({name})
+    disqualified: '{name} – Infelizmente desclassificado.'
+    finished: '{name} – Passaste!'
+    start: '{name} – Fazer o concurso questinario agora!'
+  infomodal:
+    title: Pergunta {index} no total de {questions}
 chat:
   incorrect_address: ''
   receivermissing: ''
@@ -2490,7 +2598,7 @@ genderlist:
   home_district_tab: ''
   gender_table_header: ''
   gender_divers: ''
-position: 'Posição na foodsharing (público)'
+position: 'Posição em foodsharing (público)'
 logincontrol:
   bread: ''
   success: ''
@@ -2778,7 +2886,7 @@ image: ''
 validate:
   required: ''
 storemanagers: ''
-lifetime: 'Quanto tempo de validade do cabaz dos alimentos?'
+lifetime: 'Por quanto tempo debecer de validade do cabaz dos alimentos?'
 sticker: 'A empresa/loja/clube, etc. está disponível para afixar um autocolante na
   entrada ou noutro local?'
 error_unexpected: ''
@@ -2904,3 +3012,8 @@ automatic_delete: '- o perfil quer ser eliminado.'
 automatic_not_delete: '- o perfil quer ser mantido.'
 copied_to_clipboard: „{text}“ foi copiado para a área de transferência.
 save_state: Manter os filtros e o ordenação
+partner_foodsharing: Parceiro de Foodsharing
+save_state_description: Guardar os filtros aplicados e a ordenação para futuras chamadas
+collapse_all: Fechar tudo
+configure_columns: Configurar mais tarde
+expand_all: Expandir tudo
