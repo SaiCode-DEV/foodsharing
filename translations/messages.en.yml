@@ -2487,7 +2487,7 @@ store:
       at this company. These slots will then become free. Would you still like to
       continue?'
     filterHygiene: Hygiene trained
-    filterNoHygiene: ''
+    filterNoHygiene: 'without hygiene training'
   address: Address
   may_referred_to_in_public: This store may be referred to in public.
   isNotVerified: Is not yet verified.
