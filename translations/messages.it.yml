@@ -1038,7 +1038,7 @@ store:
       default: Ordinamento standard
       pickup: Ordina per ultimo ritiro
     filterHygiene: Addestrate all’igiene
-    filterNoHygiene: ''
+    filterNoHygiene: 'senza formazione sull’igiene'
     userHasPickupsWarning: '{name} è ancora registrato per i ritiri di {occupiedSlots}
       presso questa attività. Questi slot ritorneranno liberi. Vuoi ancora procedere?'
   days_before: prima
