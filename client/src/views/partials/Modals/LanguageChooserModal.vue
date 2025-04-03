@@ -71,7 +71,9 @@ export default {
     async changeLanguage () {
       try {
         await setLocale(this.language)
-        location.reload()
+        setTimeout(() => {
+          window.location.reload()
+        }, 25)
       } catch (e) {
         pulseError(this.$i18n('error_unexpected'))
       }
