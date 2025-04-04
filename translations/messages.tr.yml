@@ -915,6 +915,7 @@ bell:
     read: Okundu olarak işaretle
     unread: Okunmadı olarak işaretle
   new_forum_thread: '{author}: {title}'
+  new_forum_thread_title: '{forum} da yeni konu'
 sig:
   buddies: Tanıdığın insanlar
 error:
@@ -1414,7 +1415,7 @@ store:
     userHasPickupsWarning: '{name} hâlâ bu işletmedeki {occupiedSlots} alım için kayıtlı.
       Bu slotlar daha sonra boşalacaktır. Buna rağmen etmek istiyor musun?'
     filterHygiene: Hijyen eğitimi almış kişiler
-    filterNoHygiene: ''
+    filterNoHygiene: 'Hijyen eğitimi olmadan'
   prefetchthree: 3 Hafta
   prefetchfour: 4 Hafta
   request:
@@ -1803,6 +1804,11 @@ region:
       profilinize erişimini sağlar.'
     continue_editing: Düzenlemeye devam et
     show_on_large_map: Büyük haritada görüntüle
+    leave: İlçeyi terk et
+    children: '{name} bölgesindeki ilçeler ({count})'
+    join: İlçeye katıl
+    join_name: "{name}'e katılın"
+    join_text: "{name}'e dahil olmak ister misiniz? O zaman sen de bu bölgeye katılabilirsin!"
 events:
   duration: 'Süre: {duration}'
   create:
@@ -1883,6 +1889,8 @@ events:
     yalnızca oldukça modern bir İnternet tarayıcısı yeterlidir. Telefonla da katılmak
     mümkündür.\n\nTelefon veya video konferans için yine de başka bir platform kullanmak
     istiyorsanız lütfen *“Diğer”* seçeneğini seçin.\n"
+  public_info: Bu etkinlik herkese açıktır ve herkes erişebilir. Yorumlar ve katılımcı
+    listesi sadece kayıtlı kullanıcılar tarafından görülebilmektedir.
 recipients:
   orga_team: Ülke çapındaki organizasyon ekibi
   all_no_botschafter: Elçileri olmayan tüm Foodsaverlar
@@ -2792,6 +2800,8 @@ forum:
     hidden_by: Şu şahıs tarafından gizlendi
     reason: 'Sebep: “{reason}”'
     title: Gönderiyi geri yükle
+  options:
+    enable_bells_for_new_posts: Tüm yeni konular için bildirim alın
 chat:
   open_chat: Bir mesaj yaz
   new_messages: Yeni Mesajlar
@@ -2820,6 +2830,7 @@ chat:
   mark_as:
     read: Okundu olarak işaretle
     unread: Okunmadı olarak işaretle
+  reply: Cevaplar
 push_notifications:
   test_notification_title: Push bildirimleri etkinleştirildi
   test_notification_body: Harika, bu işe yaramış gibi görünüyor :)
@@ -3227,6 +3238,9 @@ map:
     go: Dağıtım Noktası
   community:
     go: Bölge sayfasına
+  events:
+    title: Etkinlikler_
+    go: Etkinliğe git
 buddy:
   request_sent: İstek gönderildi.
   request_accepted: Artık birbirinizi tanıyorsunuz.
@@ -3794,6 +3808,8 @@ pickup:
       için Hijyen testini şimdi tamamlayın.
     timeout: Hijyen notunuzun süresi, onu teslim aldığınız tarihte dolacaktır. Şimdi
       Gıda kurtarımına kaydolabilmek için Hijyen testini tekrar yapın.
+  membershipMissing: Bu ekibin üyesi değilsiniz. Bu nedenle, kurtarma işlemlerine
+    kayıt yaptırmamalısınız. Şüpheniz varsa, öncelikle ekip üyesi olarak kaydolun.
 calendar:
   export:
     pickup:
