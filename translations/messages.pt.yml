@@ -1594,7 +1594,7 @@ quiz:
   question: 'Pergunta'
   waitxdays: ''
   timedstart: 'Iniciar um questionário com limite de tempo e {count} perguntas'
-  wikilink: ''
+  wikilink: 'Mais informações'
   donecorrectly: ''
   continuenow: 'Continua a responder ao concurso questinario agora!'
   type: ''
@@ -1613,6 +1613,13 @@ quiz:
     title:
       1: Parabéns!
       2: Infelizmente, não passou.
+    points:
+      2: Teve {failurePoints} pontos de erro e teria sido aprovado com um máximo de
+        {maxFailurePointsToSucceed}.
+      1: Foi aprovado com {failurePoints} de um máximo de {maxFailurePointsToSucceed}
+        pontos de erro!
+    deleted: A pontuação exatamente feita só é guardada durante duas semanas após
+      o concurso questionário, pelo que já não está mais disponível.
   editModal:
     question:
       input:
@@ -1725,6 +1732,18 @@ quiz:
     start: '{name} – Fazer o concurso questinario agora!'
   infomodal:
     title: Pergunta {index} no total de {questions}
+  timed_out_last: Não respondeus a pergunta final dentro do tempo previsto.
+  timed_out: Não respondeus esta pergunta dentro do tempo previsto.
+  test_results: Resultados do ensaio de teste
+  show_results: Ver os resultados da última tentativa
+  key_facts:
+    untimed: Máximo de {maxFailurePointsToSucceed} pontos de falha em {questionCountTimed}
+      perguntas com, ou {questionCountUntimed} perguntas sem limite de tempo
+    to_pass: 'Para passar:'
+  fp_badge:
+    right: Respondido corretamente
+    wrong: '{userFailurePoints} Erro(s)'
+  timed_out_error: O tempo para responder esta pergunta já expirou.
 chat:
   incorrect_address: ''
   receivermissing: ''
