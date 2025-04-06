@@ -126,6 +126,7 @@
 - Do not allow using other users' uploads #1182 !4088 @alex.simm
 - Fix tests related to patching or creating a store #2338 !4050 @skurka
 - Fix the MarkdownOrPlaintext validator - now HTML is invalid #2338 !4050 @skurka
+- create better seeded store for screenshots and live presentation #738 !4062 @McGoldi @DL6ER
 
 # Hotfix 2024-01-20
 

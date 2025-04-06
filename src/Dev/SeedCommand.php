@@ -11,6 +11,7 @@ use Foodsharing\Modules\Core\DBConstants\Quiz\QuizID;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
+use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingScope;
 use Foodsharing\Modules\Core\DBConstants\Voting\VotingType;
@@ -41,6 +42,10 @@ class SeedCommand extends Command implements CustomCommandInterface
     protected $moderationAdmins = [];
     protected $boardAdmins = [];
     protected $electionAdmins = [];
+    protected $stores = [];
+    protected $chain_ids = [];
+    protected $prGroup = [];
+    protected $storesGroupAdmin = [];
 
     public static function getCommandName(): string
     {
@@ -67,22 +72,50 @@ class SeedCommand extends Command implements CustomCommandInterface
         $this->helper->clear();
 
         $this->output->writeln('Seeding ' . FS_ENV . ' database');
+
+        // Print how long database seeding took
+        $start = microtime(true);
         $this->seed();
+        $this->output->writeln('Database seeding took ' . round(microtime(true) - $start, 2) . ' seconds');
 
         return Command::SUCCESS;
     }
 
+    /**
+     * Retrieves one or multiple random elements from the given array.
+     *
+     * @param array $value the array from which to select random elements
+     * @param int $number The number of random elements to retrieve. Defaults to 1.
+     * @return mixed returns a single random element if $number is 1,
+     *               an associative array of random elements if $number > 1
+     */
     protected function getRandomIDOfArray(array $value, $number = 1)
     {
-        $rand = array_rand($value, $number);
         if ($number === 1) {
-            return $value[$rand];
-        }
-        if (count($rand) > 0) {
-            return array_intersect_key($value, $rand);
+            return $value[array_rand($value)];
         }
 
-        return [];
+        return array_intersect_key($value, array_flip(array_rand($value, $number)));
+    }
+
+    /**
+     * Retrieves a random subset of keys and their corresponding values from the given array,
+     * removes them from the original array, and returns the subset.
+     *
+     * @param array $value the input array from which random elements will be selected and removed
+     * @param int $number The number of random elements to retrieve. Defaults to 1.
+     *
+     * @return array an associative array containing the randomly selected keys and their values
+     */
+    protected function getRandomIDOfArrayAndDelete(array &$value, $number = 1)
+    {
+        $values = $this->getRandomIDOfArray($value, $number);
+
+        foreach ($values as $i => $_) {
+            unset($value[$i]);
+        }
+
+        return $values;
     }
 
     protected function createEngagementsStat(int $region1, $eventid = 0)
@@ -163,7 +196,6 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I = $this->helper;
         $password = 'user';
         // Create a welcome Group
-        $this->output->writeln('- create welcome group');
         $welcomeGroup = $I->createWorkingGroup('Begrüßung Göttingen', ['parent_id' => $region1, 'email' => 'begruessung.goettingen', 'teaser' => 'Hier sind die Begrüßer für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $welcomeGroup['id'], 'function_id' => WorkgroupFunction::WELCOME, 'target_id' => $region1]);
         foreach (range(1, 4) as $i) {
@@ -172,10 +204,9 @@ class SeedCommand extends Command implements CustomCommandInterface
             $I->addRegionAdmin($welcomeGroup['id'], $user['id']);
             $this->welcomeAdmins[] = $user['id'];
         }
-        $this->output->writeln(' done');
+        $this->progressBar(1, 12);
 
         // Create voting Group
-        $this->output->writeln('- create voting group');
         $votingGroup = $I->createWorkingGroup('Abstimmungen Göttingen', ['parent_id' => $region1, 'email' => 'abstimmung.goettingen', 'teaser' => 'Hier sind die Abstimmungen für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $votingGroup['id'], 'function_id' => WorkgroupFunction::VOTING, 'target_id' => $region1]);
         foreach (range(1, 4) as $i) {
@@ -185,10 +216,9 @@ class SeedCommand extends Command implements CustomCommandInterface
             $I->addRegionMember(RegionIDs::VOTING_ADMIN_GROUP, $user['id']);
             $this->votingAdmins[] = $user['id'];
         }
-        $this->output->writeln(' done');
+        $this->progressBar(2, 12);
 
         // Create fsp Group
-        $this->output->writeln('- create fsp group');
         $fspGroup = $I->createWorkingGroup('Fairteiler Göttingen', ['parent_id' => $region1, 'email' => 'fairteiler.goettingen', 'teaser' => 'Hier sind die Fairteileransprechpartner für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $fspGroup['id'], 'function_id' => WorkgroupFunction::FSP, 'target_id' => $region1]);
         foreach (range(1, 2) as $i) {
@@ -197,10 +227,9 @@ class SeedCommand extends Command implements CustomCommandInterface
             $I->addRegionAdmin($fspGroup['id'], $user['id']);
             $this->fspAdmins[] = $user['id'];
         }
-        $this->output->writeln(' done');
+        $this->progressBar(3, 12);
 
         // Create STORESAdmins Group
-        $this->output->writeln('- create store coordination group');
         $storesGroup = $I->createWorkingGroup('Betriebskoordination Göttingen', ['parent_id' => $region1, 'email' => 'betriebskoordination.goettingen', 'teaser' => 'Hier sind die Betriebskoordinationsansprechpartner für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $storesGroup['id'], 'function_id' => WorkgroupFunction::STORES_COORDINATION, 'target_id' => $region1]);
         foreach (range(1, 3) as $i) {
@@ -209,10 +238,9 @@ class SeedCommand extends Command implements CustomCommandInterface
             $I->addRegionAdmin($storesGroup['id'], $user['id']);
             $this->storesGroupAdmin[] = $user['id'];
         }
-        $this->output->writeln(' done');
+        $this->progressBar(4, 12);
 
         // Create REPORTAdmins Group
-        $this->output->writeln('- create report group');
         $reportGroup = $I->createWorkingGroup('Meldungsbearbeitung Göttingen', ['parent_id' => $region1, 'email' => 'meldungsbearbeitung.goettingen', 'teaser' => 'Hier sind die Meldungsbearbeiter für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $reportGroup['id'], 'function_id' => WorkgroupFunction::REPORT, 'target_id' => $region1]);
         foreach (range(1, 4) as $i) {
@@ -221,10 +249,9 @@ class SeedCommand extends Command implements CustomCommandInterface
             $I->addRegionAdmin($reportGroup['id'], $user['id']);
             $this->reportAdmins[] = $user['id'];
         }
-        $this->output->writeln(' done');
+        $this->progressBar(5, 12);
 
         // Create MediationAdmins Group
-        $this->output->writeln('- create mediation group');
         $mediationGroup = $I->createWorkingGroup('Mediation Göttingen', ['parent_id' => $region1, 'email' => 'mediation.goettingen', 'teaser' => 'Hier sind die Meldungsbearbeiter für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $mediationGroup['id'], 'function_id' => WorkgroupFunction::MEDIATION, 'target_id' => $region1]);
         foreach (range(1, 3) as $i) {
@@ -233,10 +260,9 @@ class SeedCommand extends Command implements CustomCommandInterface
             $I->addRegionAdmin($mediationGroup['id'], $user['id']);
             $this->mediationAdmins[] = $user['id'];
         }
-        $this->output->writeln(' done');
+        $this->progressBar(6, 12);
 
         // Create ArbitrationAdmins Group
-        $this->output->writeln('- create arbitration group');
         $arbitrationGroup = $I->createWorkingGroup('Schiedsstelle Göttingen', ['parent_id' => $region1, 'email' => 'schiedstelle.goettingen', 'teaser' => 'Hier ist das Schiedsstellenteam für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $arbitrationGroup['id'], 'function_id' => WorkgroupFunction::ARBITRATION, 'target_id' => $region1]);
         foreach (range(1, 4) as $i) {
@@ -245,10 +271,9 @@ class SeedCommand extends Command implements CustomCommandInterface
             $I->addRegionAdmin($arbitrationGroup['id'], $user['id']);
             $this->arbitrationAdmins[] = $user['id'];
         }
-        $this->output->writeln(' done');
+        $this->progressBar(7, 12);
 
         // Create FSMANAGEMENT Group
-        $this->output->writeln('- create fsmanagement group');
         $fsmanagementGroup = $I->createWorkingGroup('Verwaltung Göttingen', ['parent_id' => $region1, 'email' => 'verwaltung.goettingen', 'teaser' => 'Hier ist das Verwaltungsteam für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $fsmanagementGroup['id'], 'function_id' => WorkgroupFunction::FSMANAGEMENT, 'target_id' => $region1]);
         foreach (range(1, 3) as $i) {
@@ -257,10 +282,9 @@ class SeedCommand extends Command implements CustomCommandInterface
             $I->addRegionAdmin($fsmanagementGroup['id'], $user['id']);
             $this->fsManagementAdmins[] = $user['id'];
         }
-        $this->output->writeln(' done');
+        $this->progressBar(8, 12);
 
         // Create PR Group
-        $this->output->writeln('- create pr group');
         $prGroup = $I->createWorkingGroup('Öffentlichkeitsarbeit Göttingen', ['parent_id' => $region1, 'email' => 'oeffentlichkeitsarbeit.goettingen', 'teaser' => 'Hier ist das Öffentlichkeitsarbeitsteam für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $prGroup['id'], 'function_id' => WorkgroupFunction::PR, 'target_id' => $region1]);
         foreach (range(1, 5) as $i) {
@@ -269,10 +293,9 @@ class SeedCommand extends Command implements CustomCommandInterface
             $I->addRegionAdmin($prGroup['id'], $user['id']);
             $this->prGroup[] = $user['id'];
         }
-        $this->output->writeln(' done');
+        $this->progressBar(9, 12);
 
         // Create MODERATION Group
-        $this->output->writeln('- create moderation group');
         $moderationGroup = $I->createWorkingGroup('Moderation Göttingen', ['parent_id' => $region1, 'email' => 'moderation.goettingen', 'teaser' => 'Hier ist das Moderationsteam für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $moderationGroup['id'], 'function_id' => WorkgroupFunction::MODERATION, 'target_id' => $region1]);
         foreach (range(1, 4) as $i) {
@@ -281,10 +304,9 @@ class SeedCommand extends Command implements CustomCommandInterface
             $I->addRegionAdmin($moderationGroup['id'], $user['id']);
             $this->moderationAdmins[] = $user['id'];
         }
-        $this->output->writeln(' done');
+        $this->progressBar(10, 12);
 
         // Create BOARD Group
-        $this->output->writeln('- create board group');
         $boardGroup = $I->createWorkingGroup('Vorstand Göttingen', ['parent_id' => $region1, 'email' => 'vorstand.goettingen', 'teaser' => 'Hier ist der Vorstand für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $boardGroup['id'], 'function_id' => WorkgroupFunction::BOARD, 'target_id' => $region1]);
         foreach (range(1, 4) as $i) {
@@ -293,9 +315,9 @@ class SeedCommand extends Command implements CustomCommandInterface
             $I->addRegionAdmin($boardGroup['id'], $user['id']);
             $this->boardAdmins[] = $user['id'];
         }
-        $this->output->writeln(' done');
+        $this->progressBar(11, 12);
 
-        $this->output->writeln('- create election group');
+        // Create ELECTION Group
         $electionGroup = $I->createWorkingGroup('Wahlen Göttingen', ['parent_id' => $region1, 'email' => 'wahlen.goettingen', 'teaser' => 'Hier ist die Wahlen AG für unseren Bezirk']);
         $I->haveInDatabase('fs_region_function', ['region_id' => $electionGroup['id'], 'function_id' => WorkgroupFunction::ELECTION, 'target_id' => $region1]);
         foreach (range(1, 4) as $i) {
@@ -305,7 +327,7 @@ class SeedCommand extends Command implements CustomCommandInterface
             $I->addRegionMember(RegionIDs::ELECTION_ADMIN_GROUP, $user['id']);
             $this->electionAdmins[] = $user['id'];
         }
-        $this->output->writeln(' done');
+        $this->progressBar(12, 12);
     }
 
     protected function CreateMorePickups()
@@ -358,7 +380,10 @@ class SeedCommand extends Command implements CustomCommandInterface
     {
         $I = $this->helper;
         $I->_getDbh()->beginTransaction();
-        $I->_getDriver()->executeQuery('SET FOREIGN_KEY_CHECKS=0;', []);
+        $I->_getDriver()->executeQuery('SET FOREIGN_KEY_CHECKS=1;', []);
+
+        // Create base regions
+        $this->output->writeln('Create base regions');
         $I->createRegion('Foodsharing auf Festivals', ['id' => RegionIDs::FOODSHARING_ON_FESTIVALS, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::CITY, 'has_children' => 0]);
         $regionEurope = $I->createRegion('Europa', ['id' => RegionIDs::EUROPE, 'parent_id' => RegionIDs::ROOT, 'type' => UnitType::COUNTRY, 'has_children' => 1]);
         $regionGermany = $I->createRegion('Deutschland', ['id' => RegionIDs::GERMANY, 'parent_id' => $regionEurope['id'], 'type' => UnitType::COUNTRY, 'has_children' => 1]);
@@ -383,6 +408,7 @@ class SeedCommand extends Command implements CustomCommandInterface
         $ag_startpage = RegionIDs::PR_START_PAGE;
         $ag_partnerandteam = RegionIDs::PR_PARTNER_AND_TEAM_WORK_GROUP;
 
+        $this->output->writeln('Create working groups');
         $password = 'user';
         $region1WorkGroup = $regionOneWorkGroup['id']; // workgroup 'Schnippelparty Göttingen' from 'Göttingen'
         $I->createWorkingGroup('AG Anlegen', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::CREATING_WORK_GROUPS_WORK_GROUP]);
@@ -411,6 +437,9 @@ class SeedCommand extends Command implements CustomCommandInterface
         $I->createWorkingGroup('Moderation-AG Praxisaustausch', ['parent_id' => RegionIDs::GLOBAL_WORKING_GROUPS, 'id' => RegionIDs::MODERATION_TEAM_ADMIN_GROUP]);
 
         $region1Subregion = $I->createRegion('Stadtteil von Göttingen', ['type' => UnitType::PART_OF_TOWN, 'parent_id' => $region1]);
+
+        $this->output->writeln('Create achievements');
+        $this->createAchievements($I);
 
         $this->output->writeln('Create store categories:');
         $I->createStoreCategories();
@@ -598,9 +627,9 @@ class SeedCommand extends Command implements CustomCommandInterface
 Wir engagieren uns dafür, überschüssige Lebensmittel zu retten und sie vor der Tonne zu bewahren. In Göttingen arbeiten wir mit verschiedenen Betrieben, Initiativen und Ehrenamtlichen zusammen, um ein Umdenken in der Gesellschaft anzustoßen.
 ---
 ### 📆 Öffentliche Veranstaltungen
-**Komm vorbei und mach mit!**  
-- **Lebensmittelretter-Treff**: Jeden 1. Mittwoch im Monat um 18:00 Uhr im Umweltzentrum Göttingen  
-- **Koch-Workshop**: "Rest(e)los genießen" am 15. Januar 2025  
+**Komm vorbei und mach mit!**
+- **Lebensmittelretter-Treff**: Jeden 1. Mittwoch im Monat um 18:00 Uhr im Umweltzentrum Göttingen
+- **Koch-Workshop**: "Rest(e)los genießen" am 15. Januar 2025
 - **Infostand auf dem Wochenmarkt**: Jeden Samstag
 Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwelt!',
         ]);
@@ -682,7 +711,6 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         $foodSharePoint = $I->createFoodSharePoint($userbot['id'], $region1);
         $I->addFoodSharePointFollower($user2['id'], $foodSharePoint['id']);
         $I->addFoodSharePointPost($userbot['id'], $foodSharePoint['id']);
-        $this->output->writeln('- done');
 
         // create users and collect their ids in a list
         $this->output->writeln('Create some more users');
@@ -691,7 +719,7 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             $this->addVerificationAndPassHistory($I, $user, $userbotDeleted['id'], 13);
             $this->addVerificationAndPassHistory($I, $user, $userbot['id']);
         }
-        foreach (range(1, 100) as $_) {
+        foreach (range(1, 50) as $_) {
             $user = $I->createFoodsaver($password, ['bezirk_id' => $region1, 'image' => true]);
             $this->foodsavers[] = $user['id'];
             $I->addStoreTeam($store['id'], $user['id']);
@@ -701,10 +729,10 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             $this->addVerificationAndPassHistory($I, $user['id'], $userbotDeleted['id'], 13);
             $this->addVerificationAndPassHistory($I, $user['id'], $userbot['id']);
             $I->addEventInvitation($event['id'], $user['id']);
-            $this->progressBar($_, 100);
+            $this->progressBar($_, 50);
         }
         $this->output->writeln('');
-        $this->output->writeln(' Create old users');
+        $this->output->writeln('- Create old users');
         foreach (range(1, 20) as $_) {
             $I->createFoodsaver($password, ['bezirk_id' => $region1, 'last_login' => Carbon::now()->subyears(6)]);
             $this->progressBar($_, 20);
@@ -747,27 +775,31 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         $this->output->writeln('');
 
         // Create more Forum Threads
+        $count = 20;
         $this->output->writeln('- Create more forum Threads');
-        $randomFsList = array_slice($this->foodsavers, -100, 100, true);
-        foreach ($this->getRandomIDOfArray($randomFsList, 100) as $i => $random_user) {
+        $randomFsList = $this->getRandomIDOfArray($this->foodsavers, $count);
+        $i = 0;
+        foreach ($randomFsList as $random_user) {
             foreach (range(1, 5) as $_) {
                 $I->addForumThread($region1, $random_user);
             }
-            $this->progressBar($i + 1, 100);
+            $this->progressBar(++$i, $count);
         }
         $this->output->writeln('');
 
         // add some users to a workgroup
         $this->output->writeln('Add users to workgroup');
         // but only the ones we generated above
-        $randomFsList = array_slice($this->foodsavers, -100, 100, true);
-        foreach ($this->getRandomIDOfArray($randomFsList, 10) as $i => $random_user) {
+        $i = 0;
+        foreach ($randomFsList as $random_user) {
             $I->addRegionMember($region1WorkGroup, $random_user);
-            $this->progressBar($i + 1, 10);
+            $this->progressBar(++$i, $count);
         }
         $this->output->writeln('');
 
+        $this->output->writeln('- creating special working groups');
         $this->createFunctionWorkgroups($region1);
+        $this->output->writeln('');
 
         // create more stores and collect their ids in a list
         $this->output->writeln('Create some stores');
@@ -791,22 +823,94 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         }
         $this->output->writeln('');
 
+        // Create a special store for screenshots for onboarding
+        $this->output->writeln('Create a special store for screenshots for onboarding');
+
+        $foodsavers = $this->foodsavers;
+        $managers = [$userStoreManager['id'], $userbot['id']];
+        unset($foodsavers[array_search($userStoreManager['id'], $foodsavers)]);
+        unset($foodsavers[array_search($userbot['id'], $foodsavers)]);
+
+        $members = $this->getRandomIDOfArrayAndDelete($foodsavers, 20);
+        $jumpers = $this->getRandomIDOfArrayAndDelete($foodsavers, 2);
+        $applied = $this->getRandomIDOfArrayAndDelete($foodsavers, 2);
+
+        $I->awardAchievement($this->getRandomIDOfArray($members, 15), 4, null);
+
+        $conv1 = $I->createConversation(array_merge($managers, $members), ['name' => 'Team Schulungsbetrieb Onboarding', 'locked' => 1]);
+        $conv2 = $I->createConversation(array_merge($managers, $jumpers), ['name' => 'Springer Schulungsbetrieb Onboarding', 'locked' => 1]);
+
+        $I->addConversationMessage($userStoreManager['id'], $conv1['id']);
+        $I->addConversationMessage($this->getRandomIDOfArray($members), $conv1['id']);
+        $I->addConversationMessage($userStoreManager['id'], $conv2['id']);
+        $I->addConversationMessage($this->getRandomIDOfArray($jumpers), $conv2['id']);
+
+        $extra_params = [];
+        $extra_params['kette_id'] = $this->chain_ids[0];
+        $extra_params['name'] = 'Schulungsbetrieb Onboarding';
+        $extra_params['betrieb_status_id'] = CooperationStatus::COOPERATION_ESTABLISHED->value;
+
+        $store = $I->createStore($region1, $conv1['id'], $conv2['id'], $extra_params);
+
+        $I->addStoreTeam($store['id'], $managers, true, false, true);
+        $I->addStoreTeam($store['id'], $members, false, false, true);
+        $I->addStoreTeam($store['id'], $jumpers, false, true, true);
+        $I->addStoreTeam($store['id'], $applied, false, false, false);
+
+        $appliedDate = Carbon::now()->addDays(-3);
+        foreach ($applied as $applicant) {
+            $I->addStoreLog($store['id'], $applicant, $applicant, StoreLogAction::REQUEST_TO_JOIN, ['content' => $I->faker->realText(100), 'date_reference' => $appliedDate, 'date_activity' => $appliedDate]);
+        }
+
+        // add regular pickups in fs_abholzeiten
+        $extra_params = [];
+        $extra_params['betrieb_id'] = $store['id'];
+        $extra_params['time'] = sprintf('%02d:%ss:00', 20, 0);
+        $extra_params['fetcher'] = 2;
+
+        foreach (range(0, 6) as $__) {
+            $extra_params['dow'] = $__;
+            $I->addRecurringPickup($store['id'], $extra_params);
+        }
+
+        // add confirmed pickups
+        $pickup = Carbon::now()->settime(20, 0);
+        $pickup = $pickup->addDay(-6);
+        foreach (range(0, 8) as $__) {
+            $pickup = $pickup->addDay(+1);
+            $this->helper->addCollector($this->getRandomIDOfArray($this->foodsavers), $store['id'], ['date' => $pickup->toDayDateTimeString(), 'confirmed' => 1]);
+            $this->helper->addCollector($this->getRandomIDOfArray($this->foodsavers), $store['id'], ['date' => $pickup->toDayDateTimeString(), 'confirmed' => 1]);
+        }
+        // add some unconfirmed pickups
+        $pickup = $pickup->addDay(+1);
+        $this->helper->addCollector($this->getRandomIDOfArray($this->foodsavers), $store['id'], ['date' => $pickup->toDayDateTimeString(), 'confirmed' => 0]);
+        $this->helper->addCollector($this->getRandomIDOfArray($this->foodsavers), $store['id'], ['date' => $pickup->toDayDateTimeString(), 'confirmed' => 0]);
+        $pickup = $pickup->addDay(+1);
+        $this->helper->addCollector($this->getRandomIDOfArray($this->foodsavers), $store['id'], ['date' => $pickup->toDayDateTimeString(), 'confirmed' => 0]);
+
+        $this->stores[] = $store['id'];
+        $this->output->writeln('created Schulungsbetrieb Onboarding with id ' . $store['id']);
+
+        // create pickups
         $this->output->writeln('Create more pickups');
         $this->CreateMorePickups();
         $this->output->writeln('');
 
         // create foodbaskets
         $this->output->writeln('Create foodbaskets');
-        foreach (range(1, 500) as $_) {
+        $count = 50;
+        foreach (range(1, $count) as $_) {
             $user = $this->getRandomIDOfArray($this->foodsavers);
             $I->createFoodbasket($user);
-            $this->progressBar($_, 500);
+            $this->progressBar($_, $count);
         }
         $this->output->writeln('');
 
         // create food share point
+        $i = 0;
+        $count = 50;
         $this->output->writeln('Create food share points');
-        foreach ($this->getRandomIDOfArray($this->foodsavers, 50) as $i => $user) {
+        foreach ($this->getRandomIDOfArray($this->foodsavers, $count) as $user) {
             $foodSharePoint = $I->createFoodSharePoint($user, $region1);
             foreach ($this->getRandomIDOfArray($this->foodsavers, 10) as $follower) {
                 if ($user !== $follower) {
@@ -814,7 +918,7 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
                 }
                 $I->addFoodSharePointPost($follower, $foodSharePoint['id']);
             }
-            $this->progressBar($i + 1, 50);
+            $this->progressBar(++$i, $count);
         }
         $this->output->writeln('');
 
@@ -826,16 +930,21 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         $this->output->writeln('');
 
         $this->output->writeln('Create reports');
-
         $I->addReport($this->getRandomIDOfArray($this->reportAdmins), $this->getRandomIDOfArray($this->foodsavers), 0, 0);
+        $this->progressBar(1, 7);
         $I->addReport($this->getRandomIDOfArray($this->foodsavers), $this->getRandomIDOfArray($this->reportAdmins), 0, 0);
+        $this->progressBar(2, 7);
         $I->addReport($this->getRandomIDOfArray($this->arbitrationAdmins), $this->getRandomIDOfArray($this->foodsavers), 0, 0);
+        $this->progressBar(3, 7);
         $I->addReport($this->getRandomIDOfArray($this->foodsavers), $this->getRandomIDOfArray($this->arbitrationAdmins), 0, 0);
+        $this->progressBar(4, 7);
         $I->addReport($this->getRandomIDOfArray($this->reportAdmins), $this->getRandomIDOfArray($this->arbitrationAdmins), 0, 0);
+        $this->progressBar(5, 7);
         $I->addReport($this->getRandomIDOfArray($this->arbitrationAdmins), $this->getRandomIDOfArray($this->reportAdmins), 0, 0);
+        $this->progressBar(6, 7);
         $I->addReport($this->getRandomIDOfArray($this->foodsavers), $this->getRandomIDOfArray($this->foodsavers), 0, 0);
-
-        $this->output->writeln(' done');
+        $this->progressBar(7, 7);
+        $this->output->writeln('');
 
         $this->output->writeln('Create quizzes');
         foreach (QuizID::cases() as $i => $quizId) {
@@ -859,6 +968,8 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
             $this->progressBar($i + 1, count($pollTypes));
         }
         $this->output->writeln('');
+
+        $this->output->writeln('Create more one choice polls');
         foreach (range(1, 30) as $_) {
             $startDate = Carbon::now()->subDays(random_int(7, 3 * 365));
             $type = random_int(VotingType::SELECT_ONE_CHOICE, VotingType::SCORE_VOTING);
@@ -870,34 +981,30 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         }
         $this->output->writeln('');
 
-        $this->output->writeln('Create blacklisted emails');
+        $this->output->write('Create blacklisted emails');
         $I->createBlacklistedEmailAddress();
-        $this->output->writeln(' done');
-
-        $this->output->writeln('Create achievements');
-        $this->createAchievements($I);
-        $this->output->writeln(' done');
+        $this->output->writeln(' - done');
 
         $this->output->writeln('Enable feature toggles');
-        $this->activeFeatureToggles($I);
-        $this->output->writeln(' done');
+        $this->activeFeatureToggles();
+        $this->output->writeln('done');
 
-        $I->_getDriver()->executeQuery('SET FOREIGN_KEY_CHECKS=1;', []);
         $I->_getDbh()->commit();
     }
 
-    private function activeFeatureToggles($I): void
+    /**
+     * Activates a predefined list of feature toggles.
+     */
+    private function activeFeatureToggles(): void
     {
-        $this->activeFeatureToggle($I, 'hygieneQuiz');
+        $features = ['hygieneQuiz'];
+        foreach ($features as $feature) {
+            $this->output->writeln(' - ' . $feature);
+            $this->helper->activateFeatureToggle($feature);
+        }
     }
 
-    private function activeFeatureToggle($I, string $feature): void
-    {
-        $this->output->writeln('Enable feature toggle: ' . $feature);
-        $I->haveInDatabase('fs_feature_toggles', ['identifier' => $feature, 'is_active' => 1, 'site_environment' => 'development']);
-    }
-
-    private function createAchievements(Foodsharing $I)
+    private function createAchievements(Foodsharing $I): void
     {
         $achievementsDataFile = 'src/Dev/achievements.json';
         if (!file_exists($achievementsDataFile)) {
@@ -969,9 +1076,16 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
      */
     private function progressBar(int $steps, int $total): void
     {
-        $percentage = floor(($steps / $total) * 100);
-        $left = 100 - $percentage;
-        $write = sprintf("\033[0G\033[2K[%'={$percentage}s>%-{$left}s] {$steps} / {$total} ($percentage%%)", '', '');
-        $this->output->write($write);
+        static $lastUpdate = 0;
+        $currentTime = microtime(true);
+
+        // Update progress bar only every 0.1 seconds to reduce I/O overhead
+        if ($currentTime - $lastUpdate >= 0.1 || $steps === $total) {
+            $percentage = floor(($steps / $total) * 100);
+            $left = 100 - $percentage;
+            $write = sprintf("\033[0G\033[2K[%'={$percentage}s>%-{$left}s] {$steps} / {$total} ($percentage%%)", '', '');
+            $this->output->write($write);
+            $lastUpdate = $currentTime;
+        }
     }
 }

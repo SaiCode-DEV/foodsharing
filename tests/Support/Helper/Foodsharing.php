@@ -33,6 +33,7 @@ class Foodsharing extends Db
 {
     public $faker;
     private $email_counter = 1;
+    private $generated_emails = [];
 
     public function __construct($moduleContainer, $config = null)
     {
@@ -119,6 +120,18 @@ class Foodsharing extends Db
         copy($file->filePath, $pathForPersistentFile);
 
         return $uuid;
+    }
+
+    public function activateFeatureToggle(string $featureToggle): void
+    {
+        $params = [
+            'identifier' => $featureToggle,
+            'is_active' => 1,
+            'site_environment' => constant('SITE_ENVIRONMENT'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ];
+        $this->haveInDatabase('fs_feature_toggles', $params);
     }
 
     /**
@@ -360,7 +373,7 @@ class Foodsharing extends Db
         $this->createQuizTry($params['id'], 2, 1);
 
         // create a mailbox and assign this user to it
-        $mailbox = $this->createMailbox(strtolower($params['name'][0] . '.' . $params['nachname']));
+        $mailbox = $this->createMailbox(strtolower($params['name'][0] . '.' . $params['nachname']), need_unique: true);
         $this->updateInDatabase('fs_foodsaver', ['mailbox_id' => $mailbox['id']], ['id' => $params['id']]);
 
         return $params;
@@ -636,11 +649,25 @@ class Foodsharing extends Db
         $this->haveInDatabase('fs_email_blacklist', ['email' => 'bad.com', 'since' => $since, 'reason' => 'Disposable email addresses should not be used for registration.']);
     }
 
-    public function createMailbox($name = null, bool $fillMailbox = true)
+    public function createMailbox($name = null, bool $fillMailbox = true, bool $need_unique = false)
     {
         if ($name == null) {
             $name = $this->faker->unique()->userName();
         }
+
+        // Convert mailbox name to lowercase and replace Umlauts
+        $name = $this->replaceUmlauts(strtolower($name));
+
+        // In case the mailbox name is already in use, start appending numbers
+        // until we find a free one
+        $originalName = $name;
+        $i = 1;
+        while ($need_unique && array_key_exists($name, $this->generated_emails)) {
+            $name = $originalName . $i;
+            ++$i;
+        }
+        $this->generated_emails[$name] = true;
+
         $mb['name'] = $name;
         $mb['id'] = $this->haveInDatabase('fs_mailbox', $mb);
 
@@ -765,6 +792,25 @@ class Foodsharing extends Db
     public function addAchievement($achievementData): void
     {
         $this->haveInDatabase('fs_achievement', $achievementData);
+    }
+
+    public function awardAchievement($fs_id, $achievement_id, $reviewer_id, array $extra_params = []): void
+    {
+        if (is_array($fs_id)) {
+            foreach ($fs_id as $fs) {
+                $this->awardAchievement($fs, $achievement_id, $reviewer_id, $extra_params);
+            }
+        } else {
+            $achievementData = array_merge([
+                'foodsaver_id' => $fs_id,
+                'achievement_id' => $achievement_id,
+                'reviewer_id' => $reviewer_id,
+                'valid_until' => Carbon::now()->addYear(1)->format('Y-m-d H:i:s'),
+                'created_at' => $this->faker->dateTimeThisDecade()->format('Y-m-d H:i:s'),
+            ], $extra_params);
+
+            $this->haveInDatabase('fs_foodsaver_has_achievement', $achievementData);
+        }
     }
 
     public function addRegionMember($region_id, $fs_id, $is_active = true): void
@@ -1335,6 +1381,32 @@ class Foodsharing extends Db
         return $text;
     }
 
+    /**
+     * Replaces German umlauts and the Eszett (ß) in a given string with their
+     * respective ASCII representations.
+     *
+     * @param string $text the input string containing umlauts or Eszett
+     *
+     * @return string the modified string with umlauts and Eszett replaced
+     */
+    private function replaceUmlauts(string $text): string
+    {
+        return str_replace(
+            ['ä', 'ö', 'ü', 'Ä', 'Ö', 'Ü', 'ß', 'ẞ'],
+            ['ae', 'oe', 'ue', 'Ae', 'Oe', 'Ue', 'ss', 'SS'],
+            $text
+        );
+    }
+
+    /**
+     * Generates a random UUID (Universally Unique Identifier) version 4.
+     *
+     * This method creates a UUID using random numbers to conform to the
+     * version 4 UUID specification. The UUID is formatted as a string
+     * in the standard 8-4-4-4-12 hexadecimal representation.
+     *
+     * @return string a randomly generated UUID version 4
+     */
     private function uploadUUID(): string
     {
         return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
