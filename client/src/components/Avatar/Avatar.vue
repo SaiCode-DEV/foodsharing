@@ -24,6 +24,8 @@
   </b-avatar>
 </template>
 <script>
+import { lazyLoad } from './visibilityObserver'
+
 export default {
   props: {
     icon: { type: String, default: '' },
@@ -106,14 +108,11 @@ export default {
     },
   },
   mounted () {
-    if (typeof IntersectionObserver === 'undefined') {
+    if (typeof IntersectionObserver === 'undefined' || !(this.image || this.user?.avatar)) {
       this.lazyLoaded = true
       return
     }
-    if (this.image || this.user?.avatar) {
-      this.observer = new IntersectionObserver(this.intersectionHandler, { rootMargin: '300px' })
-      this.observer.observe(this.$el)
-    }
+    lazyLoad(this.$el, () => { this.lazyLoaded = true })
   },
   methods: {
     intersectionHandler (evt) {
