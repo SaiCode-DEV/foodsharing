@@ -3181,6 +3181,11 @@ addresspicker:
   placeholder: Cherche l’adresse …
   label: Recherche de l’adresse
   different_location: Corriger l’adresse
+  different_location_warning: Veux tu t'assurer que le pin se trouve au bon endroit
+    dans le haut de la carte. Ne modifie les informations remplies automatiquement
+    (rue et numéro, code postal et ville/commune) que si la valeur saisie automatiquement
+    n'est pas correcte. Cela peut par exemple se produire après le changement de nom
+    d'une rue.
 storelist:
   inprogress: Négociations en cours
   nocontact: Aucun contact pour le moment
