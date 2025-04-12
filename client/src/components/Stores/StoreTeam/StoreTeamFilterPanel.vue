@@ -29,10 +29,9 @@
         class="px-0 flex-basis-0"
         @click="activeFilter = button"
       >
-        <i v-if="!button.anti" :class="`fas fa-${button.icon}`" />
-        <span v-else class="fa-stack fa-1x">
+        <span class="fa-stack fa-1x">
           <i :class="`fas fa-${button.icon}`" />
-          <i class="fas fa-slash fa-stack-1x" />
+          <i v-if="button.anti" class="fas fa-slash fa-stack-1x" />
         </span><br>
         {{ button.count }}
       </b-button>
