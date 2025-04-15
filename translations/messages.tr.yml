@@ -1809,6 +1809,11 @@ region:
     join: İlçeye katıl
     join_name: "{name}'e katılın"
     join_text: "{name}'e dahil olmak ister misiniz? O zaman sen de bu bölgeye katılabilirsin!"
+    leave_name: '{name} terk et'
+    no_more_info: Bu bölge hakkında kamuoyuna açık başka bir bilgi bulunmamaktadır.
+    wall: Bölgeden güncellemeler
+    leave_text: Artık {name}'de aktif değil misiniz? O zaman bu bölgeyi terk etmelisin.
+    description: Bölge hakkında
 events:
   duration: 'Süre: {duration}'
   create:
