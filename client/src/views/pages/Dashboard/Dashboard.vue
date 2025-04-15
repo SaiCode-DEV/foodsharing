@@ -85,12 +85,12 @@
         <PollContainer v-if="visible.polls" />
         <EventContainer
           v-if="isFoodsaver && visible.events"
-          title="dashboard.invitation"
-          options
+          title="dashboard.event"
         />
         <EventContainer
           v-if="isFoodsaver && visible.events"
-          title="dashboard.event"
+          title="dashboard.invitation"
+          options
         />
         <ActivityContainer />
       </div>

@@ -41,6 +41,7 @@
 - Disallow foodsavers to change their birthday #2183 !4075 @AntonBallmaier
 - New replying function in the chat component !4090 @alex.simm
 - Inverted action of the hygiene filter on the store team page !4127 @DL6ER
+- Put subscribed events before event options on the dashboard for better visibility !4150 @DL6ER
 
 ## Bugfixes
 - Resolve "region filter bug on profile page: Blank screen when navigating store list" #2295 !3940 @chriswalg
