@@ -3592,6 +3592,8 @@ thread:
       copy_source: "Quelltext kopieren"
       copy_direct_link: "Direktlink kopieren"
       restore: "Wiederherstellen …"
+    quote_post_wrote: "schrieb am"
+    quote_button: "Fügt bei Klick den Text des Beitrags (ggfs. gekürzt) in die Antwort ein. Wenn gleichzeitig [Shift] gedrückt wird, wird der gesamte Text eingefügt."
     copy_source_success: "Quelltext kopiert!"
     copy_direct_link_success: "Direktlink kopiert!"
     linked_post: "Verlinkter Post"

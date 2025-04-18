@@ -93,7 +93,8 @@
           @hide="hidePost(post.id, $event)"
           @reaction-add="key => addReaction(post.id, key)"
           @reaction-remove="key => removeReaction(post.id, key)"
-          @reply="reply(post)"
+          @reply="reply(post, true)"
+          @reply-full="reply(post, false)"
           @restore="restorePost(post.id)"
         />
       </div>
@@ -319,13 +320,16 @@ export default {
         })
       }
     },
-    reply (post) {
+    reply (post, truncate) {
       const maxQuotedLines = 5
       let quoteLines = post.body.split('\n').map(line => `> ${line}`)
-      if (quoteLines.length > maxQuotedLines) {
+      if (quoteLines.length > maxQuotedLines && truncate) {
         quoteLines = quoteLines.slice(0, maxQuotedLines)
         quoteLines[maxQuotedLines - 1] += ' [...]'
       }
+      quoteLines.unshift('>')
+      const intro = `> **@${post.author.id} ` + this.$i18n('thread.post.quote_post_wrote') + ' [' + new Date(post.createdAt).toLocaleString() + '](' + this.getPostLink(post.id) + '):**'
+      quoteLines.unshift(intro)
       this.$refs.form.prepend(quoteLines.join('\n') + '\n\n')
       this.$refs.form.focus()
     },

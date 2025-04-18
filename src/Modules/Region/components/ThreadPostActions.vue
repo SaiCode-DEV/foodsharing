@@ -13,7 +13,8 @@
     <a
       v-if="mayReply"
       class="btn btn-sm btn-primary"
-      @click="$emit('reply')"
+      :title="$i18n('thread.post.quote_button')"
+      @click="event => event.shiftKey ? $emit('reply-full') : $emit('reply')"
     >
       {{ $i18n('button.answer') }}
     </a>

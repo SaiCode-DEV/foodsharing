@@ -73,6 +73,7 @@
           @reaction-add="key => $emit('reaction-add', key)"
           @reaction-remove="key => $emit('reaction-remove', key)"
           @reply="$emit('reply', post.body)"
+          @reply-full="$emit('reply-full', post.body)"
         />
       </div>
     </div>
