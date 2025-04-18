@@ -4452,6 +4452,9 @@ thread:
     copy_source_success: Source code copied!
     copy_direct_link_success: Direct link copied!
     linked_post: linked post
+    quote_post_wrote: wrote on
+    quote_button: Clicking will insert the post's text (shortened if necessary) into
+      the reply. Pressing [Shift] at the same time will insert the entire text.
   priorityModal:
     title: Adjust display priority
     text: 'Display priority of this post:'
