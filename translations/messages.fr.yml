@@ -3624,8 +3624,8 @@ region:
       edit_pin: Modifier l’épingle d’arrondissement
       confirm_discard_changes: Souhaites-tu vraiment abandonner tes modifications
         sur l’épingle d’arrondissement ?
-      confirm_remove: Tu veux vraiment supprimer le pin de l'arrondissement? Cet arrondissement
-        n'apparaîtra alors plus sur la carte.
+      confirm_remove: Tu veux vraiment supprimer le pin de l’arrondissement ? Cet
+        arrondissement n’apparaîtra alors plus sur la carte.
       confirm_save_changes: Tu souhaites enregistrer tes modifications concernant
         le pin du district ? Le nouveau pin sera alors visible publiquement sur la
         page du district et sur la carte.
