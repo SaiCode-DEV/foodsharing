@@ -4285,6 +4285,10 @@ thread:
     copy_source_success: Kildekoden er kopiert!
     linked_post: lenket innlegg
     copy_direct_link_success: Direkte lenke kopiert!
+    quote_button: Når du klikker, setter du inn teksten i innlegget (forkortet om
+      nødvendig) i svaret. Hvis du trykker på [Shift] samtidig, vil hele teksten bli
+      satt inn.
+    quote_post_wrote: skrev
   priorityModal:
     title: Justere skjermprioritet
     text: 'Vis prioritet for dette innlegget:'
