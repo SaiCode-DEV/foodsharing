@@ -2,7 +2,6 @@
 
 namespace Foodsharing\Command;
 
-use DomainException;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\UserOptionType;
 use Foodsharing\Modules\Settings\SettingsGateway;
