@@ -51,7 +51,7 @@ class MigrateUserOptionsCommand extends Command
             $output->writeln('Migrating options for ' . count($selectedUsers) . ' users.');
 
             foreach ($selectedUsers as $user) {
-                $this->migrateFoodsaverOptionsToFoodsaverSettings($user['id'], $user['option']);
+                $this->migrateFoodsaverOptionsToFoodsaverSettings($output, $user['id'], $user['option']);
             }
         }
 
@@ -61,20 +61,25 @@ class MigrateUserOptionsCommand extends Command
     /**
      * This migration is required until release is on prod. and all user have logged in.
      */
-    public function migrateFoodsaverOptionsToFoodsaverSettings(int $userId, string $options): void
+    public function migrateFoodsaverOptionsToFoodsaverSettings(OutputInterface $output, int $userId, string $options): void
     {
         $options = unserialize($options);
 
         // Copy old options to fs_foodsaver_has_options table
+        $migrated = 0;
         foreach ($options as $key => $val) {
             $optionType = UserOptionType::parse($key);
             if ($optionType === null) {
-                throw new DomainException('Try to load unknown user option');
+                $output->writeln("Try to load unknown user option: key='{$key}', value='{$val}'");
+            } else {
+                $this->settingsGateway->setUserOption($userId, $optionType, $val);
+                ++$migrated;
             }
-            $this->settingsGateway->setUserOption($userId, $optionType, $val);
         }
 
         // Delete the old options
-        $this->database->update('fs_foodsaver', ['option' => ''], ['id' => $userId]);
+        if ($migrated === count($options)) {
+            $this->database->update('fs_foodsaver', ['option' => ''], ['id' => $userId]);
+        }
     }
 }
