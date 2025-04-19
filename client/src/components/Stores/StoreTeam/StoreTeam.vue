@@ -115,7 +115,7 @@ import OverflowMenu from '@/components/OverflowMenu.vue'
 import StoreTeamManagementPanel from './StoreTeamManagementPanel.vue'
 import StoreTeamFilterPanel from './StoreTeamFilterPanel.vue'
 import StoreApplications from '@/components/Modals/Store/StoreApplications.vue'
-import PickupsData from '@/stores/pickups'
+import { usePickupStore } from '@/stores/pickups'
 import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin'
 import RequiredMessageModal from '@/components/Modals/RequiredMessageModal.vue'
 
@@ -134,7 +134,10 @@ export default {
   },
   setup () {
     const { confirmationDialogue } = useConfirmationDialogue()
-    return { confirmationDialogue }
+    return {
+      confirmationDialogue,
+      pickupStore: usePickupStore(),
+    }
   },
   data () {
     const sortingFunctions = [
@@ -275,7 +278,7 @@ export default {
       }
     },
     async removeFromTeam (user) {
-      const pickups = PickupsData.getters.getPickups()
+      const pickups = this.pickupStore.getPickups
       const occupiedSlots = pickups.filter(pickup => pickup.occupiedSlots.find(slot => slot.profile.id === user.id))
       const dialogueOptions = {
         params: Object.assign({ occupiedSlots: occupiedSlots.length }, user),

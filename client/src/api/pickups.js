@@ -84,8 +84,8 @@ export async function listRegisteredPickups (fsId) {
   return await get('/pickup/registered')
 }
 
-export async function listPickupOptions (fsId, page) {
-  return await get(`/pickup/options?page=${page}`)
+export async function listPickupOptions () {
+  return await get('/pickup/options')
 }
 
 export async function listPastPickups (fsId, page) {

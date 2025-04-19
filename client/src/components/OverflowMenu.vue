@@ -1,6 +1,6 @@
 <template>
   <b-dropdown
-    v-if="activeOptions.length"
+    v-if="showOverflowMenu"
     no-caret
     right
     variant="none"
@@ -19,6 +19,7 @@
       <i :class="`fas fa-${option.icon} dropdown-icon mr-1`" />
       {{ $i18n(option.textKey) }}
     </b-dropdown-item>
+    <slot name="added-content" />
   </b-dropdown>
 </template>
 
@@ -34,6 +35,10 @@ export default {
   computed: {
     activeOptions () {
       return this.options.filter(option => !option.hide)
+    },
+    showOverflowMenu () {
+      return this.activeOptions.length ||
+        'added-content' in this.$slots // true if the 'added-content' slot is used
     },
   },
 }

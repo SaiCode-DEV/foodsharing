@@ -1230,6 +1230,7 @@ pickup:
   really_delete_date: "Möchtest du die Abholung am {date} wirklich löschen?"
   delete_not_empty: "Aktuell sind noch Abholende eingetragen. Du kannst diesen Abholtermin erst löschen, wenn alle ausgetragen sind."
   to_be_confirmed: "Dieser Abholtermin muss noch von einer für diesen Betrieb verantwortlichen Person bestätigt werden."
+  may_enter: "Bei diesem Abholtermin ist noch ein Slot für dich frei."
   edit_recurring_pickups: "Terminserie bearbeiten"
   add_onetime_pickup: "einzelnen Termin eintragen"
   slot_add: "Slot hinzufügen"
@@ -2474,6 +2475,8 @@ dashboard:
     users: "Foodsaver:innen"
     buddies: "Menschen, die du kennst"
     polls: Abstimmungen
+    pickups: "Abholtermine"
+    pickupOptions: "Abholoptionen"
   options:
     hide:
       text: "Anzeige verwalten"
@@ -3434,6 +3437,7 @@ globals:
   you: Du
   telephone_number: Telefonnummer
   saved: "Änderungen wurden gespeichert"
+  updated: "Aktualisiert:"
 
 search:
   title: Suche

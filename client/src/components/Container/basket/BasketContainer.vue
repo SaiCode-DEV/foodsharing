@@ -38,9 +38,6 @@ export default {
     BasketField,
   },
   mixins: [ListToggleMixin],
-  props: {
-    title: { type: String, default: 'dashboard.pickupdates' },
-  },
   setup () {
     const userStore = useUserStore()
     const basketStore = useBasketStore()

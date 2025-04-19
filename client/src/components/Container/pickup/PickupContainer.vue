@@ -1,8 +1,8 @@
 <template>
   <Container
-    v-if="data.length > 0"
-    :tag="title"
-    :title="$i18n(title)"
+    v-if="data.length"
+    tag="registered-pickups"
+    :title="$i18n('dashboard.pickupdates')"
     :toggle-visiblity="data.length > defaultAmount"
     @show-full-list="showFullList"
     @reduce-list="reduceList"
@@ -17,7 +17,8 @@
 
 <script>
 // Stores
-import { getters } from '@/stores/pickups'
+import { usePickupStore } from '@/stores/pickups'
+
 // Components
 import Container from '../Container.vue'
 import PickupField from './PickupField'
@@ -31,15 +32,20 @@ export default {
     PickupField,
   },
   mixins: [ListToggleMixin],
-  props: {
-    title: { type: String, default: 'dashboard.pickupdates' },
+  setup () {
+    return {
+      pickupStore: usePickupStore(),
+    }
   },
   computed: {
     data () {
-      const data = getters.getRegistered()
+      const data = this.pickupStore.getRegistered
       this.setList(data)
       return data
     },
+  },
+  mounted () {
+    this.pickupStore.fetchRegistered()
   },
 }
 </script>

@@ -153,7 +153,7 @@ import { useUserStore } from '@/stores/user'
 import StoreData, { STORE_LOG_ACTION } from '@/stores/stores'
 
 import { v4 as uuidv4 } from 'uuid'
-import PickupsData from '@/stores/pickups'
+import { usePickupStore } from '@/stores/pickups'
 import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin'
 
 export default {
@@ -190,9 +190,9 @@ export default {
     },
   },
   setup () {
-    const userStore = useUserStore()
     return {
-      userStore,
+      userStore: useUserStore(),
+      pickupStore: usePickupStore(),
     }
   },
   data () {
@@ -202,7 +202,7 @@ export default {
   },
   computed: {
     pickups () {
-      return PickupsData.getters.getPickups()
+      return this.pickupStore.getPickups
     },
     userOccupiedSlots () {
       return this.pickups.flatMap(pickup => pickup.occupiedSlots

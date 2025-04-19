@@ -147,7 +147,7 @@ import { pulseInfo } from '@/script'
 import StoreLog from '@/components/Stores/StoreLog.vue'
 import StoreInformation from '@/components/Stores/StoreInformation.vue'
 import StoreMenu from '@/components/Stores/StoreMenu.vue'
-import PickupsData from '@/stores/pickups'
+import { usePickupStore } from '@/stores/pickups'
 
 export default {
   components: {
@@ -170,6 +170,7 @@ export default {
   setup () {
     return {
       userStore: useUserStore(),
+      pickupStore: usePickupStore(),
       storeStore: useStoreStore(),
     }
   },
@@ -202,7 +203,7 @@ export default {
       return StoreData.getters.getStoreRegionOptions()
     },
     loadedPickups () {
-      return PickupsData.getters.getRegularPickup()
+      return this.pickupStore.getRegularPickup
     },
   },
   async mounted () {
@@ -230,7 +231,7 @@ export default {
       }),
       Promise.all([userDetailsPromise, permissionsPromise]).then(async () => {
         if (this.isVerified && !this.permissions.isJumper) {
-          await PickupsData.mutations.fetchRegularPickup(this.storeId)
+          await this.pickupStore.fetchRegularPickup(this.storeId)
         }
       }),
     ])

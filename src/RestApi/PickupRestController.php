@@ -516,20 +516,14 @@ final class PickupRestController extends AbstractFoodsharingRestController
      * @OA\Tag(name="pickup")
      */
     #[Rest\Get('pickup/options')]
-    #[Rest\QueryParam(name: 'page', default: 0, nullable: false)]
-    #[Rest\QueryParam(name: 'pageSize', default: 50, nullable: false)]
-    public function listPickupOptions(ParamFetcherInterface $paramFetcher): Response
+    public function listPickupOptions(): Response
     {
         $this->assertLoggedIn();
-
-        $page = (int)$paramFetcher->get('page');
-        $pageSize = (int)$paramFetcher->get('pageSize');
         if (!$this->storePermissions->maySeePickupOptions()) {
             throw new AccessDeniedHttpException();
         }
 
         $pickupOptions = $this->pickupTransactions->getPickupOptions($this->session->id());
-        $pickupOptions = array_slice($pickupOptions, $page * $pageSize, $pageSize);
 
         return $this->respondOk($pickupOptions);
     }

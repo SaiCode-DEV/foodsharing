@@ -1,6 +1,12 @@
 <template>
   <a
-    class="list-group-item list-group-item-action field field--stack"
+    class="pickup-field list-group-item list-group-item-action field field--stack"
+    :class="{
+      'pickup-field--option': entry.isConfirmed === null,
+      'pickup-field--need-confirm': entry.isConfirmed === false,
+      'pickup-field--success': entry.isConfirmed === true,
+      'muted': muteSignUps && entry.isConfirmed !== null,
+    }"
     :href="$url('store', entry.store.id)"
   >
     <div class="d-flex justify-content-between align-items-center">
@@ -38,28 +44,30 @@
       <span
         class="pickup-status badge badge-pill d-flex p-1 align-items-center"
         :class="{
-          'badge-danger': !entry.confirmed,
-          'badge-success': entry.confirmed,
+          'badge-info': entry.isConfirmed === null,
+          'badge-danger': entry.isConfirmed === false,
+          'badge-success': entry.isConfirmed === true,
         }"
       >
         <i
-          v-b-tooltip="!entry.confirmed ? $i18n('pickup.to_be_confirmed') : ''"
+          v-b-tooltip="iconTooltip"
           class="fas"
           :class="{
-            'fa-check-circle': entry.confirmed,
-            'fa-clock': !entry.confirmed,
+            'fa-question-circle': entry.isConfirmed === null,
+            'fa-clock': entry.isConfirmed === false,
+            'fa-check-circle': entry.isConfirmed === true,
           }"
         />
         <span
-          v-if="entry.slots.max > 4"
-          v-b-tooltip="entry.slots.occupied.map(e=> e.name).join(', ')"
+          v-if="entry.slots > 4"
+          v-b-tooltip="entry.occupiedSlots.map(e=> e.name).join(', ')"
           class="slots"
         >
-          {{ entry.slots.occupied.length }} / {{ entry.slots.max }}
+          {{ entry.occupiedSlots.length }} / {{ entry.slots }}
         </span>
         <span
-          v-else-if="entry.slots.max !== 1"
-          v-b-tooltip="entry.slots.occupied.map(e=> e.name).join(', ')"
+          v-else-if="entry.slots !== 1"
+          v-b-tooltip="entry.occupiedSlots.map(e=> e.name).join(', ')"
           class="slots"
         >
           <!-- TODO replace with <AvatarStack /> -->
@@ -74,18 +82,10 @@
               :size="20"
               shape="round"
               class="slot-user"
-              :class="{
-                'slot-user--need-confirm': !entry.confirmed,
-                'slot-user--success': entry.confirmed,
-              }"
             />
             <i
               v-else
               class="slot-free fas fa-question"
-              :class="{
-                'slot-free--need-confirm': !entry.confirmed,
-                'slot-free--success': entry.confirmed,
-              }"
             />
           </span>
         </span>
@@ -116,22 +116,27 @@ export default {
   components: { Avatar, Time },
   props: {
     entry: { type: Object, default: () => ({}) },
+    muteSignUps: { type: Boolean, default: false },
   },
   computed: {
     isSoon () {
       return this.$dateFormatter.getDifferenceToNowInHours(this.date) < 4
     },
     team () {
-      const freeSlots = Math.max(0, this.entry.slots.max - this.entry.slots.occupied.length)
-      return [...this.entry.slots.occupied, ...new Array(freeSlots).fill(null)].reverse()
+      const freeSlots = Math.max(0, this.entry.slots - this.entry.occupiedSlots.length)
+      return [...this.entry.occupiedSlots, ...new Array(freeSlots).fill(null)].reverse()
     },
     date () {
       return new Date(this.entry.date)
     },
+    iconTooltip () {
+      if (this.entry.isConfirmed === null) return this.$i18n('pickup.may_enter')
+      if (this.entry.isConfirmed === false) return this.$i18n('pickup.to_be_confirmed')
+      return ''
+    },
   },
 }
 </script>
-
 <style lang="scss" scoped>
 @import '../../../scss/colors.scss';
 
@@ -162,19 +167,25 @@ $size: 1.25rem;
   }
 }
 
+.pickup-field--option {
+  --light-slot-color: var(--fs-color-info-300);
+  --slot-color: var(--fs-color-info-500);
+}
+.pickup-field--need-confirm {
+  --light-slot-color: var(--fs-color-danger-300);
+  --slot-color: var(--fs-color-danger-500);
+}
+.pickup-field--success {
+  --light-slot-color: var(--fs-color-success-300);
+  --slot-color: var(--fs-color-success-500);
+}
+
 ::v-deep.slot-user {
   width: $size;
   height: $size;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px currentColor solid;
-
-  &--need-confirm {
-    border-color: $danger;
-  }
-  &--success {
-    border-color: $success;
-  }
+  border: 2px var(--slot-color) solid;
 }
 
 .slot-free {
@@ -186,16 +197,9 @@ $size: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--light-slot-color);
+  color: var(--slot-color);
   border: 2px currentColor solid;
-
-  &--need-confirm {
-    background-color: var(--fs-color-danger-300);
-    color: var(--fs-color-danger-500);
-  }
-  &--success {
-    background-color: var(--fs-color-success-300);
-    color: var(--fs-color-success-500);
-  }
 }
 
 .pickup-description {
@@ -203,4 +207,9 @@ $size: 1.25rem;
   text-overflow: ellipsis;
 }
 
+.pickup-field.muted {
+  padding-top: 0.25em;
+  padding-bottom: 0.5em;
+  > * { opacity: 0.5 }
+}
 </style>

@@ -31,7 +31,6 @@
         tab-name="options"
         :data-endpoint="listPickupOptions"
         table-class="shadow-registered"
-        paginated
         :is-own-profile="pickupsSection.isOwnProfile"
       />
       <PickupTab

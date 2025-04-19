@@ -61,7 +61,7 @@
 import { setPickupSlots } from '@/api/pickups'
 import i18n, { locale } from '@/helper/i18n'
 import { pulseError } from '@/script'
-import PickupsData from '@/stores/pickups'
+import { usePickupStore } from '@/stores/pickups'
 import { useStoreStore } from '@/stores/store'
 
 export default {
@@ -74,6 +74,7 @@ export default {
   },
   setup () {
     return {
+      pickupStore: usePickupStore(),
       storeStore: useStoreStore(),
     }
   },
@@ -145,7 +146,8 @@ export default {
         }
 
         await setPickupSlots(this.storeId, combinedDateTime, this.selectedSlotCount, this.slotDescription)
-        await PickupsData.mutations.loadPickups(this.storeId)
+        this.pickupStore.invalidateOptionsCache()
+        await this.pickupStore.loadPickups(this.storeId)
       } catch (err) {
         const errorDescription = err.jsonContent ?? { message: '' }
         const errorMessage = `(${errorDescription.message ?? 'Unknown'})`

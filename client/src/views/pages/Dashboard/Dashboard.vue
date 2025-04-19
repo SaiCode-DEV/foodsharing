@@ -73,7 +73,8 @@
       :class="{ 'grid--2-column': !isFoodsaver || state || !hasRightColumn }"
     >
       <div class="grid-item grid-item--left">
-        <PickupContainer v-if="isFoodsaver && (visible.stores && (state || !viewIsXL) || !visible.stores && hasPickups)" />
+        <PickupContainer v-if="isFoodsaver && visible.pickups && (visible.stores && (state || !viewIsXL) || !visible.stores && hasPickups)" />
+        <PickupOptionsContainer v-if="isFoodsaver && visible.pickupOptions && (visible.stores && (state || !viewIsXL) || !visible.stores && hasPickups)" />
         <BasketContainer v-if="visible.baskets" />
         <StoreContainer v-if="isFoodsaver && (state && visible.stores || !viewIsXL && visible.stores)" />
         <ManagingStoreContainer v-if="isFoodsaver && (state && visible.managing_stores || !viewIsXL && visible.managing_stores)" />
@@ -98,7 +99,8 @@
         v-if="isFoodsaver && !state && hasRightColumn"
         class="grid-item grid-item--right"
       >
-        <PickupContainer v-if="isFoodsaver" />
+        <PickupContainer v-if="isFoodsaver && visible.pickups" />
+        <PickupOptionsContainer v-if="isFoodsaver && visible.pickupOptions" />
         <ManagingStoreContainer v-if="isFoodsaver && visible.managing_stores" />
         <JumpingStoreContainer v-if="isFoodsaver && visible.jumping_stores" />
         <StoreContainer v-if="isFoodsaver && visible.stores" />
@@ -110,7 +112,7 @@
 <script>
 // Stores
 import DataStores from '@/stores/stores.js'
-import DataPickups from '@/stores/pickups.js'
+import { usePickupStore } from '@/stores/pickups'
 import { useBasketStore } from '@/stores/baskets'
 import { useUserStore } from '@/stores/user'
 import DataEvents from '@/stores/events.js'
@@ -137,8 +139,8 @@ import PollContainer from '@/components/Container/poll/PollContainer.vue'
 import MediaQueryMixin from '@/mixins/MediaQueryMixin'
 import StateTogglerMixin from '@/mixins/StateTogglerMixin'
 import RouteAndDeviceCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
+import PickupOptionsContainer from '@/components/Container/pickup/PickupOptionsContainer.vue'
 
-const userStore = useUserStore()
 const defaultVisibility = {
   groups: true,
   regions: true,
@@ -148,6 +150,8 @@ const defaultVisibility = {
   stores: true,
   polls: true,
   baskets: true,
+  pickups: true,
+  pickupOptions: true,
 }
 
 export default {
@@ -169,6 +173,7 @@ export default {
     RegionContainer,
     GroupContainer,
     PollContainer,
+    PickupOptionsContainer,
   },
   mixins: [MediaQueryMixin, StateTogglerMixin, RouteAndDeviceCheckMixin],
   props: {
@@ -177,10 +182,10 @@ export default {
     events: { type: Object, default: () => ({ accepted: null, invites: null }) },
   },
   setup () {
-    const basketStore = useBasketStore()
     return {
-      userStore,
-      basketStore,
+      userStore: useUserStore(),
+      basketStore: useBasketStore(),
+      pickupStore: usePickupStore(),
     }
   },
   data () {
@@ -194,10 +199,10 @@ export default {
     }
   },
   computed: {
-    user: () => useUserStore().getUser,
-    isFoodsaver: () => useUserStore().isFoodsaver,
+    user: function () { return this.userStore.getUser },
+    isFoodsaver: function () { return this.userStore.isFoodsaver },
     hasStores: () => DataStores.getters.hasStores(),
-    hasPickups: () => DataPickups.getters.getRegistered(),
+    hasPickups: function () { return this.pickupStore.getRegistered },
     isStoresVisible () {
       return this.visible.stores || this.visible.managing_stores || this.visible.jumping_stores
     },
@@ -215,8 +220,7 @@ export default {
     },
     userStore: {
       async handler (newVal, oldVal) {
-        if (userStore.isFoodsaver && newVal.isLoggedIn !== oldVal?.isLoggedIn) {
-          await DataPickups.mutations.fetchRegistered()
+        if (this.userStore.isFoodsaver && newVal.isLoggedIn !== oldVal?.isLoggedIn) {
           // TODO: NO APIS :(
           DataEvents.mutations.setAccepted(this.events.accepted)
           DataEvents.mutations.setInvited(this.events.invites)
@@ -228,7 +232,7 @@ export default {
   },
   async mounted () {
     await DataBroadcast.mutations.fetch()
-    await userStore.fetchDetails()
+    await this.userStore.fetchDetails()
   },
   methods: {
     resetHiding () {

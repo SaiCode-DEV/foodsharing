@@ -72,7 +72,7 @@ import { setPickupSlots, confirmPickup, joinPickup, leavePickup } from '@/api/pi
 import { sendMessage } from '@/api/conversations'
 import { useUserStore } from '@/stores/user'
 import { pulseError, pulseSuccess } from '@/script'
-import PickupsData from '@/stores/pickups'
+import { usePickupStore } from '@/stores/pickups'
 
 export default {
   components: { Pickup, AddPickupModal, DeletePickupModal, Container },
@@ -104,9 +104,9 @@ export default {
     },
   },
   setup () {
-    const userStore = useUserStore()
     return {
-      userStore,
+      userStore: useUserStore(),
+      pickupStore: usePickupStore(),
     }
   },
   data () {
@@ -119,7 +119,7 @@ export default {
   },
   computed: {
     pickups () {
-      return PickupsData.getters.getPickups()
+      return this.pickupStore.getPickups
     },
   },
   async created () {
@@ -143,7 +143,7 @@ export default {
     async tryLoadPickups (silent = false) {
       if (!silent) this.isLoading = true
       try {
-        await PickupsData.mutations.loadPickups(this.storeId)
+        await this.pickupStore.loadPickups(this.storeId)
       } catch (e) {
         pulseError(this.$i18n('pickuplist.error_loadingPickup') + e)
       }
@@ -154,6 +154,7 @@ export default {
       this.isLoading = true
       try {
         await joinPickup(this.storeId, date, this.userStore.getUserId)
+        this.pickupStore.invalidateOptionsCache()
       } catch (e) {
         console.error(e)
         pulseError(this.$i18n('pickuplist.tooslow') + '<br /><br />' + this.$i18n('pickuplist.tryagain'))
@@ -164,6 +165,7 @@ export default {
       this.isLoading = true
       try {
         await leavePickup(this.storeId, date, this.userStore.getUserId)
+        this.pickupStore.invalidateOptionsCache()
       } catch (e) {
         pulseError(this.$i18n('pickuplist.error_leave') + e)
       }
@@ -191,6 +193,7 @@ export default {
       this.isLoading = true
       try {
         await setPickupSlots(this.storeId, date, totalSlots, description)
+        this.pickupStore.invalidateOptionsCache()
       } catch (e) {
         pulseError(this.$i18n('pickuplist.error_changeSlotCount') + e)
       }
@@ -209,6 +212,7 @@ export default {
       this.isLoading = true
       try {
         await setPickupSlots(this.storeId, date, totalSlots, description)
+        this.pickupStore.invalidateOptionsCache()
       } catch (e) {
         pulseError(this.$i18n('pickuplist.error_changeSlotCount') + e)
       }

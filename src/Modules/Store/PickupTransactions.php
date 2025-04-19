@@ -88,7 +88,11 @@ class PickupTransactions
         foreach ($regularPickupTimes as $regularPickupTime) {
             $store = $storesMap[$regularPickupTime['betrieb_id']];
             $end = $now->copy()->addSeconds($store['prefetchtime']);
-            $nextOccurrence = $now->copy()->next($regularPickupTime['dow'])->setTimeFromTimeString($regularPickupTime['time']);
+            $nextOccurrence = $now->copy();
+            if ($now->dayOfWeek !== $regularPickupTime['dow']) {
+                $nextOccurrence = $nextOccurrence->next($regularPickupTime['dow']);
+            }
+            $nextOccurrence->setTimeFromTimeString($regularPickupTime['time']);
             while ($nextOccurrence->lessThanOrEqualTo($end)) {
                 $pickupOption = new PickupOption();
                 $pickupOption->date = $nextOccurrence->copy();

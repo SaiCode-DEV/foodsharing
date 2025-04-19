@@ -449,7 +449,7 @@
 <script>
 // Stores
 import StoreData, { STORE_PUBLICITY_AND_STICKER_OPTIONS } from '@/stores/stores'
-import PickupsData from '@/stores/pickups'
+import { usePickupStore } from '@/stores/pickups'
 import { useStoreStore } from '@/stores/store'
 
 // Others
@@ -492,6 +492,7 @@ export default {
   },
   setup () {
     return {
+      pickupStore: usePickupStore(),
       storeStore: useStoreStore(),
     }
   },
@@ -640,7 +641,8 @@ export default {
         await updateStore(store)
         if (JSON.stringify(this.loadedPickups) !== JSON.stringify(this.editPickups)) {
           await editRegularPickup(this.storeId, this.editPickups)
-          await PickupsData.mutations.fetchRegularPickup(this.storeId)
+          this.pickupStore.invalidateOptionsCache()
+          await this.pickupStore.fetchRegularPickup(this.storeId)
         }
         pulseSuccess(this.$i18n('globals.saved'))
         this.$bvModal.hide('storeInformationModal')
