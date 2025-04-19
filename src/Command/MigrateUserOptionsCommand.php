@@ -69,9 +69,11 @@ class MigrateUserOptionsCommand extends Command
         foreach ($options as $key => $val) {
             $optionType = UserOptionType::parse($key);
             if ($optionType === null) {
-                $output->writeln("Try to load unknown user option: key='{$key}', value='{$val}'");
+                $valString = json_encode($val);
+                $output->writeln("Try to load unknown user option: key='{$key}', value='{$valString}'");
             } else {
-                $this->settingsGateway->setUserOption($userId, $optionType, $val);
+                $valueString = $optionType === UserOptionType::ACTIVITY_LISTINGS ? json_encode($val) : (string)$val;
+                $this->settingsGateway->setUserOption($userId, $optionType, $valueString);
                 ++$migrated;
             }
         }
