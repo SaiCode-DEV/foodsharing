@@ -872,6 +872,7 @@ profile:
       filterAll: all
       filterRequested: Inquiry submitted
       filterJumper: Jumper
+      filterInvitations: Invited
     search_placeholder: Search by name
   sleeping_info_from_until: is inactive from {from} to {until}
   choosereasonnostore: Is not related to any store
@@ -1291,6 +1292,7 @@ pickup:
       for the desired pick-up.
   membershipMissing: You are not a member of this team. Therefore, you should not
     register for pick-ups. If necessary, register as a team member first.
+  may_enter: There is a slot available for you on this pickup date.
 storeview:
   show_information: Show store information
   cooperation: Cooperation since {startTime}.
@@ -1610,6 +1612,16 @@ bell:
     unread: Mark as unread
   new_forum_thread: '{author}: {title}'
   new_forum_thread_title: New topic in {forum}
+  store_invite_title: '{name}'
+  store_invitation_accepted_title: Invitation accepted ({store})
+  store_invitation_accepted:
+    one: '{user} joined the {store} team'
+    many: '{count} users have joined the {store} team'
+  store_invitation_declined:
+    one: '{user} does not want to join {store}'
+    many: '{count} users do not want to join {store}'
+  store_invite: '{user} has invited you to the team.'
+  store_invitation_declined_title: Invitation declined ({store})
 reports:
   time: Time
   region: Home district
@@ -2617,17 +2629,17 @@ store:
       13_with_reason: '{actor} has cancelled the pickup from {target} on {date} with
         the following message'
       8: '{actor} has left the team.'
-      16: '{actor} has withdrawn the request to join the team'
+      16: '{actor} has withdrawn the request to join the team.'
       10: '{actor} removed {target} as store coordinator.'
       12: '{actor} signed out for the pick-up on {date}.'
       2: '{actor} has rejected the request to join the team from {target}.'
       5: '{actor} has put {target} on the list of standby foodsavers.'
       9: '{actor} enlisted {target} as store coordinator.'
-      15: '{actor} deleted the wall entry of {target} from {date}'
-      18: '{actor} created or changed an automated pick-up date [ {weekday} {startTimeOfPickup}
-        slots: {maxCountOfSlots} with the following description: {description} ]'
-      17: '{actor} created or changed the pick-up date [ {date} with {totalSlots}
-        slots with the following description: {description} ]'
+      15: '{actor} deleted {target}’s wall post from {date}.'
+      18: '{actor} has withdrawn the team invitation for {target}.'
+      17: '{actor} has invited {target} to the team.'
+      20: '{actor} declined the team invitation.'
+      19: '{actor} has accepted the team invitation.'
     type:
       3: membership requests accepted
       2: membership requests rejected
@@ -3371,6 +3383,8 @@ dashboard:
     buddies: People you know
     users: foodsavers
     polls: Polls
+    pickups: Pickup dates
+    pickupOptions: Pickup options
   options:
     hide:
       text: Change view
@@ -4318,6 +4332,7 @@ globals:
   telephone_number: Telephone number
   saved: Changes were saved
   save_changes: Save changes
+  updated: 'Updated:'
 bootstrap-datepicker:
   labelPrevDecade: Previous decade
   labelPrevYear: Previous year
