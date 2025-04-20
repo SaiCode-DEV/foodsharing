@@ -2488,6 +2488,7 @@ store:
       continue?'
     filterHygiene: Hygiene trained
     filterNoHygiene: 'without hygiene training'
+    inviteMember: Invite to the team
   address: Address
   may_referred_to_in_public: This store may be referred to in public.
   isNotVerified: Is not yet verified.
@@ -2646,6 +2647,8 @@ store:
       15: wall posts deleted
       18: Automated pick-up slot created or changed
       17: Single pick-up slot created or changed
+      19: Accepted team invitations
+      20: Declined team invitations
     max_entries_message: A maximum of 100 entries will be displayed. Please limit
       the search range.
     log_types_placeholder: Select action types to display
@@ -2668,6 +2671,20 @@ store:
   no_chain_choosen: no chain chosen
   may_referred_to_in_public_unclear: not yet clarified
 
+  invitation:
+    withdraw: Withdraw invitation
+    accept: Accept invitation
+    invited_info: You have been invited to this team. You can join simply by accepting
+      the invitation.
+    decline: Decline
+    invited_by: Invited by
+    title: Invitations for {storeTitle}
+    info: When you invite Foodsavers to join the team, to protect their personal data,
+      they won’t be added directly to the operations team. They’ll receive a request
+      to join the team, which they must accept to become part of the team. You can
+      withdraw these invitations at any time.
+  invited: Invited
+  invitations: Open invitations ({count})
 navi:
   google_maps: "Google Maps"
   waze: "Waze"
