@@ -1467,6 +1467,7 @@ store:
       continuer ?'
     filterHygiene: Hygiène formée
     filterNoHygiene: 'sans formation à l’hygiène'
+    inviteMember: Inviter dans l’équipe
   springer_conversation_name: Replaçant·e {name}
   team_conversation_name: Équipe {name}
   days_before: avant
@@ -1646,6 +1647,11 @@ store:
   storeFrom: Magasin de {name}
   no_chain_choosen: aucune chaîne choisie
   may_referred_to_in_public_unclear: pas encore clarifié
+  invitation:
+    title: Invitations pour {storeTitle}
+    withdraw: Retirer l’invitation
+    accept: Accepter l’invitation
+  invitations: Invitations ouvertes ({count})
 storeview:
   want_to_fetch: J’aimerais m’engager dans cette équipe.
   specials: Particularités
