@@ -2067,6 +2067,7 @@ bell:
     read: Segna come letto
     unread: Segna come da leggere
   new_forum_thread: '{author}: {title}'
+  store_invite_title: '{name}'
 content:
   edit: Modifica pagina
   new_success: La pagina è stata creata
