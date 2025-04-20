@@ -1754,8 +1754,8 @@ store:
       2: '{actor} ha rechazado la solicitud de afiliación de {target}.'
       8: '{actor} ha dejado al equipo.'
       10: '{actor} ha dado de baja a {target} como responsable de las operaciones.'
-      16: '{actor} ha retirado la solicitud de afiliación'
-      15: '{actor} ha eliminado la entrada del muro de {target} de {date}'
+      16: '{actor} ha retirado la solicitud de afiliación.'
+      15: '{actor} ha eliminado la entrada del muro de {target} de {date}.'
       5: '{actor} ha puesto a {target} en la lista de sustitutos.'
       9: '{actor} ha asignado a {target} como responsable de la cooperación.'
       11: '{actor} se ha registrado para ser recogido el {date}.'
@@ -2067,6 +2067,7 @@ bell:
     read: Marcar como leído
   new_forum_thread: '{author}: {title}'
   new_forum_thread_title: Nuevo tema en {forum}
+  store_invite_title: '{name}'
 foodsaver:
   restricted: 'Lamentablemente, no tienes permiso para ver estos datos.'
   upgrade:
