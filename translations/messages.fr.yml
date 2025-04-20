@@ -1607,6 +1607,8 @@ store:
       15: Supprimer entrée du mur
       18: Rendez-vous de retrait automatique créé ou modifié
       17: Rendez-vous de ramassage individuel créé ou modifié
+      19: Invitations d’équipe acceptées
+      20: Invitations d’équipe rejetées
     max_entries_message: Un maximum de 100 entrées est affiché. Limite le champ de
       recherche.
     log_types_placeholder: Sélectionner les types d’actions à afficher
@@ -1625,13 +1627,17 @@ store:
       13_with_reason: '{actor} a radié {target} pour la collecte du {date} avec le
         message suivant'
       8: '{actor} a quitté l’équipe.'
-      16: '{actor} a retiré sa demande d’adhésion'
+      16: '{actor} a retiré sa demande d’adhésion.'
       10: '{actor} a destitué {target} en tant que responsable de la coopération.'
       12: '{actor} s’est désinscrit pour la collecte du {date}.'
       2: '{actor} a refusé la demande d’adhésion de {target}.'
       5: '{actor} a ajouté {target} sur la liste des remplaçant·e·s.'
       9: '{actor} a désigné {target} comme responsable de la coopération.'
-      15: '{actor} a supprimé l’entrée de {target} sur le tableau d’affichage du {date}'
+      15: '{actor} a supprimé l’entrée de {target} sur le tableau d’affichage du {date}.'
+      17: '{actor} a invité {target} dans l’équipe.'
+      18: '{actor} a retiré l’invitation de l’équipe pour {target}.'
+      19: '{actor} a accepté l’invitation de l’équipe.'
+      20: '{actor} a décliné l’invitation de l’équipe.'
     no_description: aucun
     message_saved_info: Ton message sera enregistré dans le journal des opérations.
   signInDateTime: Date d’inscription
@@ -1651,7 +1657,17 @@ store:
     title: Invitations pour {storeTitle}
     withdraw: Retirer l’invitation
     accept: Accepter l’invitation
+    invited_info: Tu as été invité à rejoindre cette équipe. Tu peux rejoindre l’équipe
+      en acceptant simplement l’invitation.
+    decline: Rejeter
+    invited_by: Invité par
+    info: Lorsque tu invites des personnes à rejoindre l’équipe, celles-ci ne sont
+      pas directement intégrés à l’équipe d’exploitation afin de protéger leurs données
+      personnelles. Ils reçoivent une demande d’adhésion à l’équipe, qu’ils doivent
+      accepter avant de faire partie de l’équipe. Tu peux retirer ces invitations
+      à tout moment.
   invitations: Invitations ouvertes ({count})
+  invited: Invités
 storeview:
   want_to_fetch: J’aimerais m’engager dans cette équipe.
   specials: Particularités
@@ -1855,6 +1871,8 @@ dashboard:
     jumping_stores: Coopérations où tu es remplaçant·e
     events: Événements
     polls: Votations
+    pickups: Dates de ramassage
+    pickupOptions: Possibilités de ramassage
   foodsaver_amount: "Tu as fait <b>{pickups} x</b> collectes et a sauvé <b>{weight} kg</b>
     de denrées."
   foodsharer_amount: Tu as déjà collecté {weight} kg !
@@ -2217,6 +2235,7 @@ profile:
       filterManage: Responsable
       filterAll: tous
       filterJumper: Remplaçants
+      filterInvitations: Invité
     search_placeholder: Chercher par nom
     store_table: Liste des entreprises
   sections:
@@ -2392,6 +2411,7 @@ pickup:
       souhaité.
   membershipMissing: Tu n’es pas membre de cette équipe. Tu ne devrais donc pas t’inscrire
     pour les ramassages. Tu dois d’abord t’inscrire en tant que membre de l’équipe.
+  may_enter: Il y a une place disponible pour toi à cette date de ramassage.
 events:
   bread: Évènements
   past: Évènements passés
@@ -3079,6 +3099,16 @@ bell:
     unread: Marquer comme non lu
   new_forum_thread: '{author} : {title}'
   new_forum_thread_title: Nouveau sujet dans {forum}
+  store_invite_title: '{name}'
+  store_invitation_accepted:
+    one: '{user} a rejoint l’équipe {store}'
+    many: '{count} personnes ont rejoint l’équipe {store}'
+  store_invitation_declined:
+    one: '{user} ne veut pas rejoindre {store}'
+    many: '{count} personnes ne veulent pas rejoindre {store}'
+  store_invitation_declined_title: Invitation refusée ({store})
+  store_invite: '{user} t’a invité dans l’équipe.'
+  store_invitation_accepted_title: Invitation acceptée ({store})
 personal_data:
   landline: Numéro de fixe
   mobile: Numéro de portable
@@ -4173,6 +4203,7 @@ globals:
   telephone_number: Numéro de téléphone
   save_changes: Enregistrer les modifications
   saved: Les modifications ont été enregistrées
+  updated: 'Mis à jour :'
 navigation:
   system_administration: Administration du système
   help_needed: Besoin d’aide ?
@@ -4470,6 +4501,10 @@ thread:
     copy_source_success: Code source copié !
     copy_direct_link_success: Lien direct copié !
     linked_post: message lié au forum
+    quote_post_wrote: a écrit le
+    quote_button: En cliquant, insère le texte du message (éventuellement raccourci)
+      dans la réponse. Si l'on appuie simultanément sur [Shift], le texte entier est
+      inséré.
   priorityModal:
     lower: tout en bas
     normal: normal
@@ -4749,11 +4784,15 @@ required_messages:
   sure_title: Tu es sûr ?
   kick_from_store_team:
     footer: Salutations
+    really: Tu veux vraiment retirer {name} de cette équipe ?
   move_to_standby_team:
     footer: Salutations
+    really: Tu veux vraiment que {name} soit retiré de l'équipe active et mis sur
+      la liste de remplacement ?
   decline_store_application:
     footer: Salutations
     really: Tu veux vraiment refuser la candidature de {name} à l'équipe ?
+    main: Ta demande d’adhésion à l’équipe [{store}](/store/{storeId}) a été refusée.
   demote_store_manager:
     footer: Salutations
 contact_page:
