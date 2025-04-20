@@ -916,6 +916,7 @@ bell:
     unread: Okunmadı olarak işaretle
   new_forum_thread: '{author}: {title}'
   new_forum_thread_title: '{forum} da yeni konu'
+  store_invite_title: '{name}'
 sig:
   buddies: Tanıdığın insanlar
 error:
