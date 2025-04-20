@@ -262,18 +262,10 @@ class StoreCest
 
     public function canPromoteAndDemoteMemberToStoreManager(AcceptanceTester $I): void
     {
+        $I->addStoreTeam($this->store['id'], $this->foodsaverWithStoreManagerQuiz['id']);
         $this->loginAs($I, 'StoreManager');
         $I->amOnPage($I->storeUrl($this->store['id']));
         $I->waitForActiveAPICalls();
-
-        // add new foodsaver to the team
-        $I->fillField('#new-member-search input', $this->foodsaverWithStoreManagerQuiz['name']);
-        $I->waitForActiveAPICalls();
-        $I->waitForElement('#new-member-search li.suggest-item');
-        $I->click('#new-member-search li.suggest-item');
-        $I->click('#new-member-search button[type="submit"]');
-        $I->waitForActiveAPICalls();
-        $I->seeElement("#user-{$this->foodsaverWithStoreManagerQuiz['id']}");
 
         // promote foodsaver to storemanager
         $I->click("#user-{$this->foodsaverWithStoreManagerQuiz['id']} .overflow-menu");
@@ -301,6 +293,32 @@ class StoreCest
             'verantwortlich' => 0,
         ]);
         $I->seeElement("#user-{$this->foodsaverWithStoreManagerQuiz['id']}:not(.manager)");
+    }
+
+    public function canInviteStoreMember(AcceptanceTester $I): void
+    {
+        $this->loginAs($I, 'StoreManager');
+        $I->amOnPage($I->storeUrl($this->store['id']));
+        $I->waitForActiveAPICalls();
+
+        // invite new foodsaver to the team
+        $I->fillField('#new-member-search input', $this->foodsaverWithStoreManagerQuiz['name']);
+        $I->waitForActiveAPICalls();
+        $I->waitForElement('#new-member-search li.suggest-item');
+        $I->click('#new-member-search li.suggest-item');
+        $I->click('#new-member-search button[type="submit"]');
+        $I->waitForActiveAPICalls();
+        $I->waitForText('Offene Einladungen (1)');
+        $I->click('Offene Einladungen');
+        $I->waitForText('Einladungen für ' . $this->store['name']);
+        $I->waitForText($this->foodsaverWithStoreManagerQuiz['name'], 1);
+        $I->waitForText('Eingeladen von ' . $this->storeManager['name'], 1);
+        $I->seeInDatabase('fs_betrieb_team', [
+            'betrieb_id' => $this->store['id'],
+            'foodsaver_id' => $this->foodsaverWithStoreManagerQuiz['id'],
+            'active' => MembershipStatus::INVITED,
+            'verantwortlich' => 0,
+        ]);
     }
 
     public function canMoveMemberToJumper(AcceptanceTester $I): void

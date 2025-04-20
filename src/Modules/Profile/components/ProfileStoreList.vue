@@ -87,6 +87,7 @@ export default {
         { tooltip: 'filterActive', state: PROFILE_STORE_TEAM_STATE.ACTIVE, icon: 'user' },
         { tooltip: 'filterJumper', state: PROFILE_STORE_TEAM_STATE.JUMPER, icon: 'running' },
         { tooltip: 'filterRequested', state: PROFILE_STORE_TEAM_STATE.REQUESTED, icon: 'fas fa-fw fa-question-circle' },
+        { tooltip: 'filterInvitations', state: PROFILE_STORE_TEAM_STATE.INVITED, icon: 'fas fa-fw fa-clipboard-question' },
       ],
       currentPage: 1,
       perPage: 10,
@@ -190,6 +191,9 @@ export default {
       } else if (store.active === PROFILE_STORE_TEAM_STATE.ACTIVE) {
         iconClass = 'fas fa-user'
         tooltipText = this.$i18n('store.member')
+      } else if (store.active === PROFILE_STORE_TEAM_STATE.INVITED) {
+        iconClass = 'fas fa-clipboard-question'
+        tooltipText = this.$i18n('store.invited')
       }
 
       return { iconClass, tooltipText }

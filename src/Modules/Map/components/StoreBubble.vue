@@ -88,6 +88,10 @@
           <a :href="$url('settingsHygiene')" v-text="$i18n('pickup.hygieneCertificateMissing.link')" />
         </span>
       </b-alert>
+      <b-alert :show="store.isInvited" variant="success">
+        <i class="fas fa-user-check mr-2" />
+        {{ $i18n('store.invitation.invited_info') }}
+      </b-alert>
     </div>
 
     <template #popup-header>
@@ -125,6 +129,18 @@
           @click="applyToStore"
           v-text="$i18n('store.request.request')"
         />
+        <b-button
+          v-if="store.isInvited"
+          variant="outline-danger"
+          @click="declineInvitation"
+          v-text="$i18n('store.invitation.decline')"
+        />
+        <b-button
+          v-if="store.isInvited"
+          variant="success"
+          @click="acceptInvitation"
+          v-text="$i18n('store.invitation.accept')"
+        />
       </div>
     </template>
   </map-popup>
@@ -135,7 +151,7 @@ import { getStoreBubbleContent } from '@/api/map'
 import { pulseError, pulseSuccess } from '@/script'
 import StoreStatusIcon from '../../Store/components/StoreStatusIcon'
 import Avatar from '@/components/Avatar/Avatar.vue'
-import { declineStoreRequest, requestStoreTeamMembership } from '@/api/stores'
+import { acceptInvitation, declineInvitation, declineStoreRequest, requestStoreTeamMembership } from '@/api/stores'
 import { useUserStore } from '@/stores/user'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
 import MapBubbleMixin from './MapBubbleMixin'
@@ -281,6 +297,14 @@ export default {
         await this.sendRequest()
       }
       this.isMessageInputVisible = !this.isMessageInputVisible
+    },
+    async acceptInvitation () {
+      await acceptInvitation(this.storeId)
+      location.href = this.$url('store', this.storeId)
+    },
+    async declineInvitation () {
+      await declineInvitation(this.storeId)
+      this.store.isInvited = false
     },
   },
 }

@@ -95,7 +95,7 @@ import Markdown from '@/components/Markdown/Markdown.vue'
 import { pulseError } from '@/script'
 import StoreLogEntryMessage from './StoreLogEntryMessage.vue'
 
-const NUMBER_OF_ACTION_TYPES = 16
+const NUMBER_OF_ACTION_TYPES = 20
 
 export default {
   components: { Container, DateRangePicker, Multiselect, Avatar, Markdown, StoreLogEntryMessage },

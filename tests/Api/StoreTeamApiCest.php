@@ -31,22 +31,60 @@ class StoreTeamApiCest
 
     public function cannotManageStoreTeamUnlessResponsible(ApiTester $I): void
     {
-        $I->sendPOST(self::API_STORES . $this->store['id'] . '/members/' . $this->user['id']);
+        $I->sendPOST(self::API_STORES . $this->store['id'] . '/invitations/' . $this->user['id']);
         $I->seeResponseCodeIs(Http::UNAUTHORIZED);
 
         $I->login($this->manager2['email']);
-        $I->sendDELETE(self::API_STORES . $this->store['id'] . '/members/' . $this->user['id']);
+        $I->sendPOST(self::API_STORES . $this->store['id'] . '/invitations/' . $this->user['id']);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
 
         $I->login($this->user['email']);
-        $I->sendPATCH(self::API_STORES . $this->store['id'] . '/members/' . $this->user['id'] . '/standby');
+        $I->sendPOST(self::API_STORES . $this->store['id'] . '/invitations/' . $this->user['id']);
         $I->seeResponseCodeIs(Http::FORBIDDEN);
     }
 
-    public function canAddTeamMember(ApiTester $I): void
+    public function canInviteTeamMember(ApiTester $I): void
     {
         $I->login($this->manager['email']);
-        $I->sendPOST(self::API_STORES . $this->store['id'] . '/members/' . $this->user['id']);
+        $I->sendPOST(self::API_STORES . $this->store['id'] . '/invitations/' . $this->user['id']);
+        $I->seeResponseCodeIs(Http::OK);
+
+        $I->seeInDatabase('fs_betrieb_team', [
+            'betrieb_id' => $this->store['id'],
+            'foodsaver_id' => $this->user['id'],
+            'verantwortlich' => 0,
+            'active' => STATUS::INVITED,
+        ]);
+    }
+
+    public function canWithdrawIvitation(ApiTester $I): void
+    {
+        $I->haveInDatabase('fs_betrieb_team', [
+            'betrieb_id' => $this->store['id'],
+            'foodsaver_id' => $this->user['id'],
+            'verantwortlich' => 0,
+            'active' => STATUS::INVITED,
+        ]);
+        $I->login($this->manager['email']);
+        $I->sendDelete(self::API_STORES . $this->store['id'] . '/invitations/' . $this->user['id']);
+        $I->seeResponseCodeIs(Http::OK);
+
+        $I->dontSeeInDatabase('fs_betrieb_team', [
+            'betrieb_id' => $this->store['id'],
+            'foodsaver_id' => $this->user['id'],
+        ]);
+    }
+
+    public function canAcceptInvitation(ApiTester $I): void
+    {
+        $I->haveInDatabase('fs_betrieb_team', [
+            'betrieb_id' => $this->store['id'],
+            'foodsaver_id' => $this->user['id'],
+            'verantwortlich' => 0,
+            'active' => STATUS::INVITED,
+        ]);
+        $I->login($this->user['email']);
+        $I->sendPatch(self::API_STORES . $this->store['id'] . '/invitations');
         $I->seeResponseCodeIs(Http::OK);
 
         $I->seeInDatabase('fs_betrieb_team', [
@@ -57,13 +95,22 @@ class StoreTeamApiCest
         ]);
     }
 
-    public function canOnlyAddTeamMemberFromRegion(ApiTester $I): void
+    public function canDeclineInvitation(ApiTester $I): void
     {
-        $user2 = $I->createFoodsaver(null, ['bezirk_id' => $this->region2['id']]);
+        $I->haveInDatabase('fs_betrieb_team', [
+            'betrieb_id' => $this->store['id'],
+            'foodsaver_id' => $this->user['id'],
+            'verantwortlich' => 0,
+            'active' => STATUS::INVITED,
+        ]);
+        $I->login($this->user['email']);
+        $I->sendDelete(self::API_STORES . $this->store['id'] . '/invitations');
+        $I->seeResponseCodeIs(Http::OK);
 
-        $I->login($this->manager['email']);
-        $I->sendPOST(self::API_STORES . $this->store['id'] . '/members/' . $user2['id']);
-        $I->seeResponseCodeIs(Http::UNPROCESSABLE_ENTITY);
+        $I->dontSeeInDatabase('fs_betrieb_team', [
+            'betrieb_id' => $this->store['id'],
+            'foodsaver_id' => $this->user['id'],
+        ]);
     }
 
     /**

@@ -106,14 +106,14 @@ class StorePermissions
     }
 
     /**
-     * Returns if the current user may add a foodsaver to a store team without having a request from that
+     * Returns if the current user may invite a foodsaver to a store team without having a request from that
      * foodsaver.
      *
      * @param int $storeId the store to which the user shall be added
      * @param int $userId the user to be added
      * @param Role $userRole the role of the user to be added
      */
-    public function mayAddUserToStoreTeam(int $storeId, int $userId, Role $userRole): bool
+    public function mayInviteUserToStoreTeam(int $storeId, int $userId, Role $userRole): bool
     {
         if (!$this->mayEditStoreTeam($storeId)) {
             return false;
@@ -126,11 +126,7 @@ class StorePermissions
             return false;
         }
 
-        // Users can only be added if they are a member of the store's region
-        $storeRegionId = $this->getCachedStoreRegionId($storeId);
-        $userRegions = array_keys($this->regionGateway->listForFoodsaver($userId));
-
-        return in_array($storeRegionId, $userRegions);
+        return true;
     }
 
     /**
@@ -155,7 +151,7 @@ class StorePermissions
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
-        if ($this->getCachedUserTeamStatus($storeId) >= UserTeamStatus::WaitingList) {
+        if (in_array($this->getCachedUserTeamStatus($storeId), [UserTeamStatus::WaitingList, UserTeamStatus::Member, UserTeamStatus::Coordinator])) {
             return true;
         }
 
@@ -172,7 +168,7 @@ class StorePermissions
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
-        if ($this->getCachedUserTeamStatus($storeId) >= UserTeamStatus::Member) {
+        if (in_array($this->getCachedUserTeamStatus($storeId), [UserTeamStatus::Member, UserTeamStatus::Coordinator])) {
             return true;
         }
 

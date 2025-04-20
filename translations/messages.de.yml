@@ -928,6 +928,7 @@ storeview:
 store:
   bread: "Alle Betriebe" #also in MapView
   requests: "Offene Anfragen ({count})"
+  invitations: "Offene Einladungen ({count})"
   chat:
     team: "Nachricht ans Team"
     jumper: "Nachricht an Springer"
@@ -974,6 +975,7 @@ store:
   noPickup: "Hat noch nie hier abgeholt."
   isJumper: "Ist auf der Springerliste."
   appliedFor: "Anfrage gestellt"
+  invited: "Eingeladen"
   isNotVerified: "Ist noch nicht verifiziert."
   fetchCount: "Hat {count}× hier abgeholt."
   mayAmb: "Hat das Botschafter:innen-Quiz bestanden."
@@ -1013,12 +1015,14 @@ store:
     userHasPickupsWarning: "{name} ist noch für {occupiedSlots} Abholungen in diesem Betrieb eingetragen. Diese Slots werden dann frei. Möchtest du trotzdem fortfahren?"
     makeJumper: "Auf die Springerliste"
     makeRegularTeamMember: "In das Team aufnehmen"
+    inviteMember: "In das Team einladen"
     promoteToManager: "Verantwortlich machen"
     promoteToManagerNotPossible: "Die Person kann nicht verantwortlich gemacht werden, da es schon drei Betriebsverantwortliche gibt oder die Person noch nicht das Quiz bestanden hat."
     demoteAsManager: "Verantwortung entziehen"
     reloadRequired: "Zum Aktualisieren der Team-Infos:"
     reloadPage: "Neu laden"
     searchPlaceholder: "Name oder ID"
+
   request:
     request: "Für dieses Team bewerben"
     got-it: "Die Verantwortlichen wurden über deine Anfrage informiert und werden sich bei dir melden."
@@ -1042,7 +1046,14 @@ store:
     application-placeholder: "Ich möchte gerne in diesem Team helfen, weil …"
     hygieneRequired: "Für die Abholungen in diesem Betrieb ist eine gültige Hygieneschulung nötig."
     hygieneMissing: "Die fehlt dir aktuell. Führe jetzt das Hygienequiz durch, um dich für dieses Team bewerben zu können."
-
+  invitation:
+    title: "Einladungen für {storeTitle}"
+    withdraw: "Einladung zurückziehen"
+    info: "Wenn du Foodsaver:innen ins Team einlädst, werden diese zum Schutz ihrer persönlichen Daten nicht direkt ins Betriebsteam aufgenommen. Sie erhalten eine Anfrage, ob sie dem Team beitreten wollen, die sie annehmen müssen, bevor sie Teil des Teams sind. Du kannst diese Einladungen jederzeit zurückziehen."
+    accept: "Einladung annehmen"
+    invited_info: "Du wurdest in diesen Betrieb eingeladen. Du kannst dem Betriebsteam einfach beitreten, indem du die Einladung annimmst."
+    decline: "Ablehnen"
+    invited_by: "Eingeladen von"
   info_container: "Informationen"
   no_chain_choosen: "keine Kette gewählt"
   chain_search_picker:
@@ -1105,6 +1116,10 @@ store:
       14: Abholslot bestätigen
       15: Pinnwandeintrag löschen
       16: Beitrittsanfrage zurückziehen
+      17: Foodsaver:innen ins Team einladen
+      18: Team-Einladungen zurückziehen
+      19: Team-Einladungen annehmen
+      20: Team-Einladungen ablehnen
     message:
       1: "{actor} hat eine Beitrittsanfrage gestellt."
       2: "{actor} hat die Beitrittsanfrage von {target} abgelehnt."
@@ -1121,8 +1136,12 @@ store:
       13: "{actor} hat {target} für die Abholung am {date} ausgetragen."
       13_with_reason: "{actor} hat {target} für die Abholung am {date} mit folgender Nachricht ausgetragen"
       14: "{actor} hat den Abholslot von {target} am {date} bestätigt."
-      15: "{actor} hat {target}s Pinnwandeintrag vom {date} gelöscht"
-      16: "{actor} hat die Beitrittsanfrage zurückgezogen"
+      15: "{actor} hat {target}s Pinnwandeintrag vom {date} gelöscht."
+      16: "{actor} hat die Beitrittsanfrage zurückgezogen."
+      17: "{actor} hat {target} ins Team eingeladen."
+      18: "{actor} hat die Team-Einladung für {target} zurückgezogen."
+      19: "{actor} hat die Team-Einladung angenommen."
+      20: "{actor} hat die Team-Einladung abgelehnt."
     message_saved_info: "Deine Nachricht wird im Betriebsprotokoll gespeichert."
   to_map: "Auf der Karte anzeigen"
 
@@ -1691,6 +1710,8 @@ bell:
   store_request_accept_wait: "Du bist nun auf der Springer-/Warteliste."
   store_request_deny_title: "{name}"
   store_request_deny: "Deine Anfrage wurde abgelehnt."
+  store_invite_title: "{name}"
+  store_invite: "{user} hat dich ins Team eingeladen."
   store_request_imposed_title: "{name}"
   store_request_imposed: "Du wurdest zum Team hinzugefügt."
   poll_new_title: "Neue Abstimmung"
@@ -1758,6 +1779,16 @@ bell:
 
   post_hidden_title: "Post ausgeblendet durch {user}"
   post_hidden: "Dein Post zu {title} im Forum {forum} wurde ausgeblendet"
+
+  store_invitation_accepted_title: "Einladung angenommen ({store})"
+  store_invitation_accepted:
+    one: "{user} ist dem Team von {store} beigetreten"
+    many: "{count} Nutzer:innen sind dem Team von {store} beigetreten"
+
+  store_invitation_declined_title: "Einladung abgelehnt ({store})"
+  store_invitation_declined:
+    one: "{user} ist möchte nicht {store} beitreten"
+    many: "{count} Nutzer:innen möchten nicht {store} beitreten"
 
   new_forum_thread_title: "Neues Thema in {forum}"
   new_forum_thread: "{author}: {title}"
@@ -2295,6 +2326,7 @@ profile:
     memberState:
       filterAll: "Alle"
       filterRequested: "Anfrage gestellt"
+      filterInvitations: "Eingeladen"
       filterActive: "Mitglied"
       filterManage: "Betriebsverantwortlich"
       filterJumper: "Springer"

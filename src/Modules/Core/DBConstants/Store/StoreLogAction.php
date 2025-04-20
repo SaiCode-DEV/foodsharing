@@ -22,4 +22,8 @@ class StoreLogAction
     final public const int SLOT_CONFIRMED = 14;
     final public const int DELETED_FROM_WALL = 15;
     final public const int REQUEST_CANCELLED = 16;
+    final public const int INVITED_TO_TEAM = 17;
+    final public const int INVITATION_WITHDRAWN = 18;
+    final public const int INVITATION_ACCEPTED = 19;
+    final public const int INVITATION_DECLINED = 20;
 }

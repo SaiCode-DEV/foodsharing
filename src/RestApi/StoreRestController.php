@@ -47,6 +47,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -615,8 +616,20 @@ class StoreRestController extends AbstractFoodsharingRestController
         return $this->handleView($this->view([], 200));
     }
 
+    #[OA2\Tag(name: 'stores')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted for this store')]
+    #[Route('/stores/{storeId}/invitations', requirements: ['storeId' => Requirement::POSITIVE_INT], methods: ['GET'])]
+    public function listStoreTeamInvitations(int $storeId): Response
+    {
+        $this->handleEditTeamExceptions($storeId);
+        $invitations = $this->storeGateway->getInvitations($storeId);
+
+        return $this->respondOK($invitations);
+    }
+
     /**
-     * Adds user to store team, without a request to join from that user.
+     * Invites a user to the store team, without a request to join from that user.
      *
      * @OA\Parameter(name="storeId", in="path", @OA\Schema(type="integer"), description="which store to manage")
      * @OA\Parameter(name="userId", in="path", @OA\Schema(type="integer"), description="which user to add to the store team")
@@ -627,18 +640,63 @@ class StoreRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="422", description="User is already, or cannot be, part of this store team")
      * @OA\Tag(name="stores")
      */
-    #[Rest\Post('stores/{storeId}/members/{userId}')]
-    public function addStoreMember(int $storeId, int $userId): Response
+    #[Route('stores/{storeId}/invitations/{userId}', methods: ['POST'])]
+    public function inviteStoreMember(int $storeId, int $userId): Response
     {
         $this->handleEditTeamExceptions($storeId, $userId, true);
         $userRole = $this->foodsaverGateway->getRole($userId);
-        if (!$userRole || !$this->storePermissions->mayAddUserToStoreTeam($storeId, $userId, $userRole)) {
+        if (!$userRole || !$this->storePermissions->mayInviteUserToStoreTeam($storeId, $userId, $userRole)) {
             throw new UnprocessableEntityHttpException();
         }
 
-        $this->storeTransactions->addStoreMember($storeId, $userId);
+        $invitation = $this->storeTransactions->inviteStoreMember($storeId, $userId);
 
-        return $this->handleView($this->view([], 200));
+        return $this->respondOK($invitation);
+    }
+
+    #[OA2\Tag(name: 'stores')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Not permitted for this store')]
+    #[Route('stores/{storeId}/invitations/{userId}', requirements: [
+        'storeId' => Requirement::POSITIVE_INT,
+        'userId' => Requirement::POSITIVE_INT,
+    ], methods: ['DELETE'])]
+    public function withdrawStoreTeamInvitation(int $storeId, int $userId): Response
+    {
+        $this->handleEditTeamExceptions($storeId);
+        $this->storeTransactions->withdrawStoreTeamInvitation($storeId, $userId);
+
+        return $this->respondOK();
+    }
+
+    #[OA2\Tag(name: 'stores')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Not invited to this store')]
+    #[Route('stores/{storeId}/invitations', requirements: ['storeId' => Requirement::POSITIVE_INT], methods: ['PATCH'])]
+    public function acceptStoreTeamInvitation(int $storeId): Response
+    {
+        $this->assertLoggedIn();
+        if ($this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) !== TeamMembershipStatus::Invited) {
+            throw new AccessDeniedHttpException('You are not invited to this store team.');
+        }
+        $this->storeTransactions->acceptStoreTeamInvitation($storeId, $this->session->id());
+
+        return $this->respondOK();
+    }
+
+    #[OA2\Tag(name: 'stores')]
+    #[OA2\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
+    #[OA2\Response(response: Response::HTTP_FORBIDDEN, description: 'Not invited to this store')]
+    #[Route('stores/{storeId}/invitations', requirements: ['storeId' => Requirement::POSITIVE_INT], methods: ['DELETE'])]
+    public function declineStoreTeamInvitation(int $storeId): Response
+    {
+        $this->assertLoggedIn();
+        if ($this->storeGateway->getUserTeamStatus($this->session->id(), $storeId) !== TeamMembershipStatus::Invited) {
+            throw new AccessDeniedHttpException('You are not invited to this store team.');
+        }
+        $this->storeTransactions->declineStoreTeamInvitation($storeId, $this->session->id());
+
+        return $this->respondOK();
     }
 
     /**
@@ -872,7 +930,7 @@ class StoreRestController extends AbstractFoodsharingRestController
      *
      * @return void
      */
-    private function handleEditTeamExceptions(int $storeId, int $targetId, bool $allowExternals = false, bool $mayEditOneself = false)
+    private function handleEditTeamExceptions(int $storeId, ?int $targetId = null, bool $allowExternals = false, bool $mayEditOneself = false)
     {
         $sessionId = $this->session->id();
         if (!$sessionId) {
@@ -888,7 +946,7 @@ class StoreRestController extends AbstractFoodsharingRestController
         }
 
         // Target user is in Team (or externals are allowed)
-        if (!$allowExternals && $this->storeGateway->getUserTeamStatus($targetId, $storeId) === TeamMembershipStatus::NoMember) {
+        if (isset($targetId) && !$allowExternals && $this->storeGateway->getUserTeamStatus($targetId, $storeId) === TeamMembershipStatus::NoMember) {
             throw new NotFoundHttpException('User is not a member of this store.');
         }
     }

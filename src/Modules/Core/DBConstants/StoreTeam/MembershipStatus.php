@@ -14,4 +14,5 @@ class MembershipStatus
     final public const int APPLIED_FOR_TEAM = 0;
     final public const int MEMBER = 1;
     final public const int JUMPER = 2;
+    final public const int INVITED = 3;
 }

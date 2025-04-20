@@ -198,16 +198,17 @@ class BellGateway extends BaseGateway
         $this->updateMultipleFoodsaverClients($foodsaverIds);
     }
 
-    public function deleteSeenBellsForFoodsaversByIdentifier(array $foodsaverIds, string $identifier): void
+    public function deleteBellsForFoodsaversByIdentifier(array $foodsaverIds, string $identifier, bool $seenOnly = false): void
     {
         // add the bell for all foodsavers (100 per query)
         $parts = array_chunk($foodsaverIds, 100);
+        $seenClause = $seenOnly ? 'AND foodsaver_has_bell.seen = 1' : '';
         foreach ($parts as $part) {
             $this->db->execute("DELETE foodsaver_has_bell
                 FROM fs_foodsaver_has_bell foodsaver_has_bell
                 JOIN fs_bell bell ON bell.id = foodsaver_has_bell.bell_id
                 WHERE foodsaver_has_bell.foodsaver_id IN ({$this->db->generatePlaceholders(count($part))})
-                AND foodsaver_has_bell.seen = 1
+                {$seenClause}
                 AND bell.identifier LIKE ?",
                 [...$part, $identifier]);
         }

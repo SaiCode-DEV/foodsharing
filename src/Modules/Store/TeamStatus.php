@@ -9,4 +9,5 @@ class TeamStatus
     final public const int WaitingList = 2;
     final public const int Member = 3;
     final public const int Coordinator = 4;
+    final public const int Invited = 5;
 }

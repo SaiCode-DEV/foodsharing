@@ -8,14 +8,14 @@ export function isMob () {
   return window.innerWidth < 900
 }
 
-const HTTP_GET_VARS = []
+const HTTP_GET_VARS = {}
 const strGET = document.location.search.substr(1, document.location.search.length)
 
 if (strGET !== '') {
   const gArr = strGET.split('&')
   for (let i = 0; i < gArr.length; ++i) {
-    let v = ''; const vArr = gArr[i].split('=')
-    if (vArr.length > 1) { v = vArr[1] }
+    const vArr = gArr[i].split('=')
+    const v = vArr[1] ?? true
     HTTP_GET_VARS[unescape(vArr[0])] = unescape(v)
   }
 }

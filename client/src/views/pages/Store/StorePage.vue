@@ -165,7 +165,6 @@ export default {
     storeId: { type: Number, required: true },
     collectionQuantity: { type: String, default: '' },
     storeManagers: { type: Array, default: () => [] },
-    showTeamRequests: { type: Boolean, default: false },
   },
   setup () {
     return {
@@ -239,11 +238,6 @@ export default {
     this.checkIsUserInStore()
     this.getLastFetchDate()
     this.loadRightsInfo()
-
-    const applications = StoreData.getters.getStoreApplications()
-    if (this.showTeamRequests && applications && applications.length > 0) {
-      this.$bvModal.show('requests')
-    }
   },
   methods: {
     loadRightsInfo () {

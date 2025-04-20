@@ -104,6 +104,11 @@ class StoreMapBubbleData
     public ?bool $hasHygieneCertificate = null;
 
     /**
+     * Whether the user is invited to the store.
+     */
+    public bool $isInvited = false;
+
+    /**
      * The ID of the region this store belongs to.
      */
     public int $regionId = 0;

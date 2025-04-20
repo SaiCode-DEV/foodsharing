@@ -6,6 +6,7 @@ import {
   getStorePermissions,
   listStoreTeamMembershipRequests,
   getStoreLog,
+  listStoreTeamInvitations,
 } from '@/api/stores'
 import { getRegionOptions } from '@/api/regions'
 
@@ -58,6 +59,7 @@ export const store = Vue.observable({
   permissions: {},
   regionPickupRule: {},
   applications: [],
+  invitations: [],
   log: [],
 })
 
@@ -111,6 +113,9 @@ export const getters = {
   getStoreApplications () {
     return store.applications
   },
+  getStoreInvitations () {
+    return store.invitations
+  },
   isManager (userId) {
     return getters.getStoreMember.find(user => user.id === userId && user.verantwortlich === 1)
   },
@@ -149,6 +154,9 @@ export const mutations = {
   },
   async loadStoreApplications (storeId) {
     store.applications = await listStoreTeamMembershipRequests(storeId)
+  },
+  async loadStoreInvitations (storeId) {
+    store.invitations = await listStoreTeamInvitations(storeId)
   },
   async loadStoreLog (storeId, calendarInterval) {
     const actions = [STORE_LOG_ACTION.SIGN_UP_SLOT]

@@ -11,6 +11,7 @@ use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DatabaseNoValueFoundException;
 use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
 use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
+use Foodsharing\Modules\Core\DBConstants\Store\StoreLogAction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
@@ -25,6 +26,7 @@ use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\DTO\MinimalStoreIdentifier;
 use Foodsharing\Modules\Store\DTO\Store;
 use Foodsharing\Modules\Store\DTO\StoreApplication;
+use Foodsharing\Modules\Store\DTO\StoreInvitation;
 use Foodsharing\Modules\Store\DTO\StoreTeamMembership;
 
 class StoreGateway extends BaseGateway
@@ -522,6 +524,52 @@ class StoreGateway extends BaseGateway
         return array_map(StoreApplication::createFromArray(...), $applications);
     }
 
+    /**
+     * @return StoreInvitation[] all foodsavers that are currently invited to the store team
+     */
+    public function getInvitations(int $storeId): array
+    {
+        $invitations = $this->db->fetchAll('SELECT
+                foodsaver.id,
+                foodsaver.photo,
+                foodsaver.name,
+                foodsaver.is_sleeping,
+                foodsaver.verified,
+                log.date_activity,
+                inviter.id AS inviter_id,
+                inviter.name AS inviter_name
+            FROM fs_betrieb_team betrieb_team
+            INNER JOIN fs_foodsaver foodsaver
+                ON foodsaver.id = betrieb_team.foodsaver_id
+            LEFT OUTER JOIN (
+                SELECT log.fs_id_p, MAX(log.date_activity) AS max_date_activity
+                FROM fs_store_log log
+                WHERE log.store_id = :storeId1
+                AND log.action = :actionType
+                GROUP BY log.fs_id_p
+            ) latest_invitation_date
+                ON latest_invitation_date.fs_id_p = betrieb_team.foodsaver_id
+            LEFT OUTER JOIN fs_store_log log
+                ON log.store_id = betrieb_team.betrieb_id
+                AND log.fs_id_p = latest_invitation_date.fs_id_p
+                AND log.date_activity = latest_invitation_date.max_date_activity
+                AND latest_invitation_date.fs_id_p = betrieb_team.foodsaver_id
+            LEFT OUTER JOIN fs_foodsaver inviter
+                ON inviter.id = log.fs_id_a
+            WHERE betrieb_team.betrieb_id = :storeId2
+                AND betrieb_team.active = :membershipStatus
+                AND foodsaver.deleted_at IS NULL
+            ORDER BY log.date_activity DESC
+		', [
+            ':storeId1' => $storeId,
+            ':storeId2' => $storeId,
+            ':membershipStatus' => MembershipStatus::INVITED,
+            ':actionType' => StoreLogAction::INVITED_TO_TEAM,
+        ]);
+
+        return array_map(StoreInvitation::createFromArray(...), $invitations);
+    }
+
     public function getStoreName(int $storeId): string
     {
         return $this->db->fetchValueByCriteria('fs_betrieb', 'name', ['id' => $storeId]);
@@ -699,6 +747,7 @@ class StoreGateway extends BaseGateway
                 return match ($result['active']) {
                     MembershipStatus::JUMPER => TeamStatus::WaitingList,
                     MembershipStatus::MEMBER => TeamStatus::Member,
+                    MembershipStatus::INVITED => TeamStatus::Invited,
                     default => TeamStatus::Applied,
                 };
             }
@@ -926,6 +975,26 @@ class StoreGateway extends BaseGateway
             'foodsaver_id' => $userId,
             'verantwortlich' => 0,
             'active' => MembershipStatus::APPLIED_FOR_TEAM,
+        ]);
+    }
+
+    public function addStoreInvitation(int $storeId, int $userId): int
+    {
+        return $this->db->insertOrUpdate('fs_betrieb_team', [
+            'betrieb_id' => $storeId,
+            'foodsaver_id' => $userId,
+            'verantwortlich' => 0,
+            'active' => MembershipStatus::INVITED,
+        ]);
+    }
+
+    public function removeStoreInvitation(int $storeId, int $userId): int
+    {
+        return $this->db->delete('fs_betrieb_team', [
+            'betrieb_id' => $storeId,
+            'foodsaver_id' => $userId,
+            'verantwortlich' => 0,
+            'active' => MembershipStatus::INVITED,
         ]);
     }
 

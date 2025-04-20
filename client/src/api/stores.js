@@ -79,10 +79,6 @@ export async function demoteAsStoreManager (storeId, userId, message) {
   return remove(`/stores/${storeId}/managers/${userId}`, { message })
 }
 
-export async function addStoreMember (storeId, userId) {
-  return post(`/stores/${storeId}/members/${userId}`)
-}
-
 export async function addStore (regionId, store, firstPost) {
   return post(`/region/${regionId}/stores`, {
     store: store,
@@ -111,4 +107,20 @@ export async function getStoreLog (storeId, storeActionTypes, dateRange, offset 
 
 export async function getStorePermissions (storeId) {
   return get(`/stores/${storeId}/permissions`)
+}
+
+export async function listStoreTeamInvitations (storeId) {
+  return get(`/stores/${storeId}/invitations`)
+}
+export async function inviteStoreMember (storeId, userId) {
+  return post(`/stores/${storeId}/invitations/${userId}`)
+}
+export async function withdrawStoreTeamInvitation (storeId, userId) {
+  return remove(`/stores/${storeId}/invitations/${userId}`)
+}
+export async function acceptInvitation (storeId) {
+  return patch(`/stores/${storeId}/invitations`)
+}
+export async function declineInvitation (storeId) {
+  return remove(`/stores/${storeId}/invitations`)
 }

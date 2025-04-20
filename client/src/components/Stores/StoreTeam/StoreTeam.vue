@@ -11,7 +11,7 @@
       <template v-if="loaded">
         <StoreTeamManagementPanel
           v-if="mayEditStore"
-          v-bind="{ storeId, regionId, team }"
+          v-bind="{ storeId, regionId, team, storeTitle }"
           :sorting-function-name="sortingFunction.name"
           @toggle-sorting="toggleSortingFunction"
         />
@@ -75,11 +75,6 @@
         </div>
       </div>
     </Container>
-    <StoreApplications
-      :store-id="storeId"
-      :store-title="storeTitle"
-      :store-requests="applications"
-    />
     <RequiredMessageModal
       v-if="mayEditStore"
       ref="requiredMessageModal"
@@ -114,13 +109,12 @@ import Time from '@/components/Time.vue'
 import OverflowMenu from '@/components/OverflowMenu.vue'
 import StoreTeamManagementPanel from './StoreTeamManagementPanel.vue'
 import StoreTeamFilterPanel from './StoreTeamFilterPanel.vue'
-import StoreApplications from '@/components/Modals/Store/StoreApplications.vue'
 import { usePickupStore } from '@/stores/pickups'
 import CopyToClipboardMixin from '@/mixins/CopyToClipboardMixin'
 import RequiredMessageModal from '@/components/Modals/RequiredMessageModal.vue'
 
 export default {
-  components: { StoreTeamAvatar, Container, PhoneButton, Time, OverflowMenu, StoreTeamManagementPanel, StoreTeamFilterPanel, StoreApplications, RequiredMessageModal },
+  components: { StoreTeamAvatar, Container, PhoneButton, Time, OverflowMenu, StoreTeamManagementPanel, StoreTeamFilterPanel, RequiredMessageModal },
   mixins: [MediaQueryMixin, ListToggleMixin, CopyToClipboardMixin],
   props: {
     fsId: { type: Number, required: true },

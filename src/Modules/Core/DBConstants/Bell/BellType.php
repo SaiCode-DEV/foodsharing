@@ -64,6 +64,18 @@ class BellType
      */
     final public const string STORE_ADDED_WITHOUT_REQUEST = 'store-imposed-%d-%d';
     /**
+     * The user was added to a store without a request. Argument: ID of the store.
+     */
+    final public const string STORE_INVITATION = 'store-invited-%d';
+    /**
+     * The user accepted a store invitation. Argument: ID of the store.
+     */
+    final public const string STORE_INVITATION_ACCEPTED = 'store-invitaton-accepted-%d';
+    /**
+     * The user declined a store invitation. Argument: ID of the store.
+     */
+    final public const string STORE_INVITATION_DECLINED = 'store-invitaton-declined-%d';
+    /**
      * Notification for a store manager that there are unconfirmed pickups.
      */
     final public const string STORE_UNCONFIRMED_PICKUP = 'store-fetch-unconfirmed-%d';

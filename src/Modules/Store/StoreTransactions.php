@@ -43,6 +43,7 @@ use Foodsharing\Modules\Store\DTO\PatchStore;
 use Foodsharing\Modules\Store\DTO\PatchStoreOptionModel;
 use Foodsharing\Modules\Store\DTO\Store;
 use Foodsharing\Modules\Store\DTO\StoreChainInformation;
+use Foodsharing\Modules\Store\DTO\StoreInvitation;
 use Foodsharing\Modules\Store\DTO\StoreListInformation;
 use Foodsharing\Modules\Store\DTO\StoreStatusForMember;
 use Foodsharing\Modules\StoreCategories\StoreCategoriesGateway;
@@ -820,13 +821,72 @@ class StoreTransactions
         return $salutation . ",\n" . $mandatoryMessage . $optionalMessage . "\n\n" . $footer;
     }
 
-    public function addStoreMember(int $storeId, int $userId, bool $moveToStandby = false): void
+    public function inviteStoreMember(int $storeId, int $userId): StoreInvitation
     {
-        $this->addUserToStore($storeId, $userId, $moveToStandby);
+        $this->storeGateway->addStoreInvitation($storeId, $userId);
 
-        $this->storeGateway->addStoreLog($storeId, $this->session->id(), $userId, null, StoreLogAction::ADDED_WITHOUT_REQUEST);
+        $this->storeGateway->addStoreLog($storeId, $this->session->id(), $userId, null, StoreLogAction::INVITED_TO_TEAM);
 
-        $this->triggerBellForJoining($storeId, $userId, StoreLogAction::ADDED_WITHOUT_REQUEST);
+        $this->triggerBellForJoining($storeId, $userId, StoreLogAction::INVITED_TO_TEAM);
+
+        $invitation = new StoreInvitation();
+        $user = $this->foodsaverGateway->getFoodsaverDetails($userId);
+        $invitation->user = new Profile($user);
+        $invitation->inviter = $this->foodsaverGateway->getProfile($this->session->id());
+        $invitation->date = Carbon::now();
+        $invitation->verified = boolval($user['verified']);
+
+        return $invitation;
+    }
+
+    public function withdrawStoreTeamInvitation(int $storeId, int $userId): void
+    {
+        $this->storeGateway->removeStoreInvitation($storeId, $userId);
+
+        $this->storeGateway->addStoreLog($storeId, $this->session->id(), $userId, null, StoreLogAction::INVITATION_WITHDRAWN);
+
+        $this->bellGateway->deleteBellsForFoodsaversByIdentifier([$userId], BellType::createIdentifier(BellType::STORE_INVITATION, $storeId));
+    }
+
+    public function acceptStoreTeamInvitation(int $storeId, int $userId): void
+    {
+        $this->storeGateway->addUserToTeam($storeId, $userId);
+        $this->storeGateway->addStoreLog($storeId, $this->session->id(), $userId, null, StoreLogAction::INVITATION_ACCEPTED);
+
+        $bellRecipients = $this->storeGateway->getBiebsForStore($storeId);
+        $baseBell = Bell::create(
+            'store_invitation_accepted_title',
+            'store_invitation_accepted',
+            'fas fa-user-plus',
+            ['href' => '/store/' . $storeId . '?showInvitations'], [
+                'user' => $this->session->user('name'),
+                'store' => $this->storeGateway->getStoreName($storeId),
+            ],
+            BellType::createIdentifier(BellType::STORE_INVITATION_ACCEPTED, $storeId)
+        );
+        $this->bellGateway->deleteBellsForFoodsaversByIdentifier([$userId], BellType::createIdentifier(BellType::STORE_INVITATION, $storeId));
+        $this->bellTransactions->addGroupedBellEvent(array_column($bellRecipients, 'id'), $baseBell, $storeId);
+    }
+
+    public function declineStoreTeamInvitation(int $storeId, int $userId): void
+    {
+        $this->storeGateway->removeUserFromTeam($storeId, $userId);
+        $this->storeGateway->addStoreLog($storeId, $this->session->id(), $userId, null, StoreLogAction::INVITATION_DECLINED);
+
+        $bellRecipients = $this->storeGateway->getBiebsForStore($storeId);
+        $baseBell = Bell::create(
+            'store_invitation_declined_title',
+            'store_invitation_declined',
+            'fas fa-user-slash',
+            ['href' => '/store/' . $storeId . '?showInvitations'], [
+                'user' => $this->session->user('name'),
+                'store' => $this->storeGateway->getStoreName($storeId),
+            ],
+            BellType::createIdentifier(BellType::STORE_INVITATION_DECLINED, $storeId)
+        );
+
+        $this->bellGateway->deleteBellsForFoodsaversByIdentifier([$userId], BellType::createIdentifier(BellType::STORE_INVITATION, $storeId));
+        $this->bellTransactions->addGroupedBellEvent(array_column($bellRecipients, 'id'), $baseBell, $storeId);
     }
 
     public function removeStoreMember(int $storeId, int $userId, ?string $message, bool $sentRequiredMessage = true): void
@@ -986,10 +1046,15 @@ class StoreTransactions
             $bellMsg = 'store_request_deny';
             $bellIcon = 'fas fa-user-times';
             $bellId = BellType::createIdentifier(BellType::STORE_REQUEST_REJECTED, $userId);
+        } elseif ($actionType === StoreLogAction::INVITED_TO_TEAM) {
+            $bellTitle = 'store_invite_title';
+            $bellMsg = 'store_invite';
+            $bellIcon = 'fas fa-shopping-cart';
+            $bellId = BellType::createIdentifier(BellType::STORE_INVITATION, $storeId);
         } else {
             throw new \DomainException('Unknown store-team action: ' . $actionType);
         }
-        $bellLink = '/?page=fsbetrieb&id=' . $storeId;
+        $bellLink = '/store/' . $storeId;
 
         $storeName = $this->storeGateway->getStoreName($storeId);
 

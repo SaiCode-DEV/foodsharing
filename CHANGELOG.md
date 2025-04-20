@@ -9,6 +9,7 @@
 - Add required messages when kicking store team members, moving members to standby list, denying store membership requests and taking store manager rights away #1715 !4003 @AntonBallmaier
 - Added location seach bar to map !4018 @AntonBallmaier
 - Make basket container on the dashboard optional #2345 !4063 @AntonBallmaier
+- Instead of directly adding members to store teams, store managers now send invitations instead that need to be accepted before a user is part of a store team. #2347 !4068 @AntonBallmaier
 - Link user profiles in forum reactions #2341 !4059 #2351 !4070 @AntonBallmaier
 - Added the possibility to mark bell notifications as read/unread via the newly added icon button that appears on hover !4035 !4091 @anedomansky
 - Added the option to actively follow a forum, so that you get a bell for every new thread #2346 !4064 #2371 @AntonBallmaier

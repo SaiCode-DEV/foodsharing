@@ -142,6 +142,7 @@ import BTableMobileFriendly from '@/components/BTableMobileFriendly.vue'
 import { useStoreStore } from '@/stores/store'
 import { useUserStore } from '@/stores/user'
 import NavigateWithSelector from '@/components/UI/NavigateWithSelector.vue'
+import { PROFILE_STORE_TEAM_STATE } from '@/stores/profiles'
 
 const storeStore = useStoreStore()
 const userStore = useUserStore()
@@ -293,9 +294,10 @@ export default {
             return this.$i18n('store.managing')
           }
           switch (relation.membershipStatus) {
-            case 0: return this.$i18n('store.isAppliedForTeam')
-            case 1: return this.$i18n('store.member')
-            case 2: return this.$i18n('store.jumping')
+            case PROFILE_STORE_TEAM_STATE.REQUESTED: return this.$i18n('store.isAppliedForTeam')
+            case PROFILE_STORE_TEAM_STATE.ACTIVE: return this.$i18n('store.member')
+            case PROFILE_STORE_TEAM_STATE.JUMPER: return this.$i18n('store.jumping')
+            case PROFILE_STORE_TEAM_STATE.INVITED: return this.$i18n('store.invited')
           }
         }
       }
