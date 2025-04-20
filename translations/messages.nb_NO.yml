@@ -721,6 +721,8 @@ dashboard:
     managing_stores: Ditt bedriftsansvar
     jumping_stores: Springer-selskapene dine
     polls: Avstemninger
+    pickupOptions: Hentingsmuligheter
+    pickups: Hentingsdatoer
   homeRegion: Ditt hjemdistrikt er {region}.
   chooseHomeRegion: Velg et hjemdistrikt.
   updates_title_some: Oppdateringsoversikt ({0})
@@ -1140,6 +1142,7 @@ profile:
       filterRequested: forespørsel gjort
       filterManage: Ansvarlig
       filterJumper: Innbytter
+      filterInvitations: Invitert
     search_placeholder: Søk etter navn
     store_table: Driftsliste
   sleeping_info_from_until: er inaktiv fra {from} til {until}
@@ -1735,6 +1738,16 @@ bell:
     unread: Merk som ulest
   new_forum_thread_title: Nytt emne i {forum}
   new_forum_thread: '{author}: {title}'
+  store_invite: '{user} har invitert deg til teamet.'
+  store_invite_title: '{name}'
+  store_invitation_declined:
+    many: '{count} brukere vil ikke bli med i {store}'
+    one: '{user} ønsker ikke å bli med i {store}'
+  store_invitation_accepted:
+    one: '{user} ble med i {store}-teamet'
+    many: '{count} brukere har blitt med i {store}-teamet'
+  store_invitation_declined_title: Invitasjon avslått ({store})
+  store_invitation_accepted_title: Invitasjon godtatt ({store})
 reports:
   when: Tid
   time: Tidspunkt
@@ -2844,6 +2857,7 @@ pickup:
     link: Til hygienetreningen
   membershipMissing: Du er ikke medlem av dette teamet. Derfor bør du ikke registrere
     deg for henting. Registrer deg om nødvendig som teammedlem først.
+  may_enter: Det er en plass tilgjengelig for deg på denne hentedatoen.
 storeedit:
   fetch:
     teamStatus: lagstatus
@@ -2930,6 +2944,7 @@ store:
       fortsette?'
     filterHygiene: Hygiene trente
     filterNoHygiene: 'uten hygienetrening'
+    inviteMember: Inviter til teamet
   address: Adresse
   attribution: Attribusjon
   unknownDate: ukjent
@@ -3095,6 +3110,8 @@ store:
       15: slettede oppslagstavleinnlegg
       18: Automatisk hentingsavtale opprettet eller endret
       17: Individuell hentingsavtale opprettet eller endret
+      20: Avslått teaminvitasjoner
+      19: Godtatt teaminvitasjoner
     max_entries_message: Maksimalt 100 oppføringer vises. Vennligst begrens søkeområdet.
     log_types_placeholder: Velg handlingstyper som skal vises
     search: Liste valgte handlinger
@@ -3111,18 +3128,20 @@ store:
       13_with_reason: '{actor} har skrevet {target} ut for henting {date} med følgende
         beskjed'
       8: '{actor} har forlatt laget.'
-      16: '{actor} har trukket medlemskapssøknaden'
+      16: '{actor} har trukket medlemskapssøknaden.'
       10: '{actor} har fjernet {target} som samarbeidsansvarlig.'
       12: '{actor} meldte seg ut for henting {date}.'
       2: '{actor} har avslått medlemsforespørselen fra {target}.'
       5: '{actor} satte [target} på hoppelisten.'
       9: '{actor} har utnevnt {target} til samarbeidsansvarlig.'
       14: '{actor} har bekreftet registreringen av {target} for {date}.'
-      15: '{actor} har slettet anslagstavleoppføringen til {target} fra {date}'
+      15: '{actor} har slettet anslagstavleoppføringen til {target} fra {date}.'
       18: '{actor} opprettet eller endret automatisk hentedato [ {weekday} {startTimeOfPickup}
         plasser: {maxCountOfSlots} med beskrivelse: {description} ]'
       17: '{actor} opprettet eller endret hentedatoen [ {date} med {totalSlots} plasser
         med beskrivelse: {description} ]'
+      20: '{actor} avslo teaminvitasjonen.'
+      19: '{actor} har godtatt teaminvitasjonen.'
     no_description: ingen
     message_saved_info: Meldingen din vil bli lagret i operasjonsloggen.
   signInDateTime: Tidspunkt for innskrivning
@@ -3138,6 +3157,20 @@ store:
   storeFrom: Selskap fra {name}
   no_chain_choosen: ingen kjede valgt
   may_referred_to_in_public_unclear: ennå ikke avklart
+  invitation:
+    title: Invitasjoner til {storeTitle}
+    withdraw: Trekk tilbake invitasjonen
+    accept: Godta invitasjonen
+    decline: Avslå
+    invited_by: Invitert av
+    invited_info: Du er invitert til dette selskapet. Du kan bli med i driftsteamet
+      ved å godta invitasjonen.
+    info: Hvis du inviterer matsparere til å bli med i teamet, vil de ikke bli direkte
+      lagt til driftsteamet for å beskytte personopplysningene deres. De vil motta
+      en forespørsel om å bli med på laget, som de må akseptere før de blir en del
+      av laget. Du kan trekke tilbake disse invitasjonene når som helst.
+  invited: Invitert
+  invitations: Åpne invitasjoner ({count})
 storeview:
   status: Nåværende status
   public_time_at_night: om natten
@@ -4075,6 +4108,7 @@ globals:
   telephone_number: Telefonnummer
   save_changes: Lagre endringer
   saved: Endringene er lagret
+  updated: 'Oppdatert:'
 savewithus: Spar hos oss!
 logincontrol:
   title: Avslutt abonnement på nyhetsbrev
