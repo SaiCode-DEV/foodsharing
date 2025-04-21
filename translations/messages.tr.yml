@@ -1578,17 +1578,17 @@ store:
       13_with_reason: "{actor}, aşağıdaki mesajla {date} tarihinde ki kurtarımdan
         {target}'i çıkardı"
       8: '{actor} ekipden ayrıldı.'
-      16: '{actor} katılma isteğini geri çekti'
+      16: '{actor} katılma isteğini geri çekti.'
       10: "{actor}, {target}'ı işletme sorumlusu olarak çıkardı."
       12: '{actor}, {date} tarihinde ki kurtarımdan çıktı.'
       2: "{actor}, {target}'ın katılma isteğini reddetti."
       5: "{actor}, {target}'ı yedek listesine koydu."
       9: "{actor}, işletme sorumlusu olarak {target}'ı girdi."
-      15: "{actor}, {target}'ın {date} tarihine ait pano gönderisini sildi"
+      15: "{actor}, {target}'ın {date} tarihine ait pano gönderisini sildi."
       18: '{actor}, otomatik teslim alma tarihini oluşturdu veya değiştirdi [ {weekday}
-        {startTimeOfPickup} Slots: {maxCountOfSlots} açıklamalı: {description} ]'
+        {startTimeOfPickup} Slots: {maxCountOfSlots} açıklamalı: {description} ] .'
       17: '{actor} teslim alma tarihini [ {date} ile {totalSlots} açıklamalı slots:
-        {description} ] oluşturdu veya değiştirdi'
+        {description} ] oluşturdu veya değiştirdi.'
     type:
       3: Üyelik isteklerini kabul et
       2: Üyelik isteklerini reddedin
