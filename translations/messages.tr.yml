@@ -3785,7 +3785,8 @@ pickup:
   signout_info: Alım randevularınızın tümü silinecektir.
   really_kick_user_info: "{name}'ı {date} tarihindeki alma işleminden çıkarmak istediğinizden
     emin misiniz?\n{name} bununla ilgili şu mesajı alacak:\n"
-  leave_team_message_template: Sevgili arkadaşlar, {date} …
+  leave_team_message_template: Sevgili arkadaşlar, {date} tarihindeki slot tekrar
+    boşaldı …
   slot_remove: Slotu kaldır
   kick_message_placeholder: 'Opsiyonel : buraya bilgi ekleyin …'
   edit_recurring_pickups: Düzenli teslim alma saatlerini düzenleyin
