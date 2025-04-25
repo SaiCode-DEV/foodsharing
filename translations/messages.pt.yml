@@ -1076,11 +1076,11 @@ bcard:
   for: ''
   claim: ''
   actions: ''
-  card: ''
+  card: 'O teu cartão de visita de foodsharing'
   info:
     address_shortened: ''
   desc: ''
-  title: ''
+  title: 'Gerador de cartão de visita'
   role: ''
   choose: ''
 formatting:
@@ -1625,6 +1625,43 @@ quiz:
       input:
         wikilink:
           placeholder: https://wiki.foodsharing.de/…
+          label: 'Link para o artigo correspondente:'
+        duration: 'Tempo para responder:'
+        text:
+          placeholder: Pergunta do questinário…
+          label: 'Pergunta:'
+        mandatory:
+          label: Pergunta obrigatória?
+          text: Esta pergunta tem de ser incluída em todas as tentativas de realização
+            do questinário
+        fp: 'Pontos da falha:'
+      title: Editar pergunta
+      confirmDelete:
+        title: Queres mesmo apagar esta pergunta?
+    answer:
+      input:
+        text:
+          placeholder: Resposta…
+          label: 'Resposta:'
+        answerRating: 'Classificação:'
+        explanation:
+          placeholder: Explicação…
+          label: 'Explicação:'
+      title: Editar resposta
+    quiz:
+      input:
+        questionCountUntimed: 'Número de perguntas a responder sem limite de tempo:'
+        maxFp: 'Máximo de pontos de erro para passar:'
+        questionCountTimed: 'Número de perguntas a responder:'
+        name:
+          label: 'Nome:'
+          placeholder: Nome do questinário
+        allowUntimed: Permitir a edição sem limite de tempo
+      htmlWarning: '**Atenção:** A formatação da descrição foi alterada. O que vê
+        no campo de introdução de texto está formatado com HTML. Por favor, ajuste
+        a descrição e utilize Markdown em vez disso. Utilize a função de pré-visualização
+        do campo de entrada para se certificar de que a formatação foi ajustada corretamente.'
+      title: editar questinário
   startmodal:
     infos:
       unlimited_tries: Pode repetir este teste as vezes que quiser e nunca será desclassificado
@@ -1740,10 +1777,52 @@ quiz:
     untimed: Máximo de {maxFailurePointsToSucceed} pontos de falha em {questionCountTimed}
       perguntas com, ou {questionCountUntimed} perguntas sem limite de tempo
     to_pass: 'Para passar:'
+    timed: Máximo {maxFailurePointsToSucceed} pontos de falha em {questionCountTimed}
+      perguntas com limite do tempo
   fp_badge:
     right: Respondido corretamente
     wrong: '{userFailurePoints} Erro(s)'
   timed_out_error: O tempo para responder esta pergunta já expirou.
+  general:
+    edit: Editar questionário
+    title: Informações general
+  question_options:
+    add: acrescentar uma pergunta
+    add_answer: acrescentar resposta
+    show_comments: mostrar comentários
+    delete: apagar pergunta
+    edit: editar esta pregunta
+  sessionStatus:
+    0: Atualmente em execução
+    1: Aprovado com {failurePoints} de um máximo de {maxFailurePointsToSucceed} pontos
+      da falha
+    2: Não aprovado com {failurePoints} de um máximo de {maxFailurePointsToSucceed}
+      pontos da falha
+  fp_options:
+    default: '{failurePoints} pontos da falha'
+    joke: '{failurePoints} puntos da falha (sem avaliação)'
+    ko: '{failurePoints} pontos da falha (nocauteado)'
+  confirmComment: O teu comentário deve ser mandado para os administradores deste
+    questionário?
+  mandatory_question: Esta pergunta é obrigatória e está incluída em cada questinário
+    do inquérito.
+  fp_description: Total {PointsFailure}, ou seja, {perMistake} por resposta incorrecta
+  answer_options:
+    edit: editar resposta
+    delete: apagar resposta
+  confirmDelete:
+    question: Queres mesmo apagar esta pergunta?
+    answer: Queres mesmo apagar esta resposta?
+    session: Queres mesmo apagar esta sessão de quiz?
+  questions_section:
+    title: Perguntas do questinário ({count})
+  editable_tooltip: Podes editar este questinário.
+  timelimit: Limite do tempo
+  confirm: Confirmar o questionário e concluir o processo
+  confirmDashboardText: Passaste num questinário que ainda não foi confirmado. [Clique
+    aqui]({url}) para finalizar o processo!
+  test: Teste do questionário
+  max_fp: Pontos de erro possíveis
 chat:
   incorrect_address: ''
   receivermissing: ''
@@ -2421,16 +2500,22 @@ pronoun:
   "0": ''
   "3": ''
 upload:
-  new_image: ''
-  no_image: ''
-  image: ''
-  choose_file: ''
-  no_image_yet: ''
-  preview_image: ''
-  no_image_chosen: ''
-  file: ''
-  crop_dialog_title: ''
-  new_file: ''
+  new_image: 'Carregar imagem novo'
+  no_image: 'O ficheiro carregado não é uma fotografia. Por favor, selecione outro
+    ficheiro.'
+  image: 'Carregar imagem'
+  choose_file: 'Carregar ficheiro'
+  no_image_yet: 'Ainda não foi carregada nenhuma imagem'
+  preview_image: 'Previsão'
+  no_image_chosen: 'Ainda não foi selecionado qualquer ficheiro'
+  file: 'Carregar ficheiro'
+  crop_dialog_title: 'Recortar a imagem'
+  new_file: 'Carregar ficheiro novo'
+  images: Carregar imagems
+  invalid_image_files: '{count} os ficheiros selecionados não são imagens válidas:
+    {fileNames}'
+  image-problem: O teu ficheiro não está em ordem, é melhor utilizar uma imagem jpg
+    normal
 content:
   new_success: ''
   public: ''
@@ -2669,23 +2754,32 @@ notifications:
   checkbox_bell: ''
 are_you_sure: ''
 button:
-  save: ''
-  permadelete: ''
-  create: ''
-  change_picture: ''
-  edit: ''
-  clear_filter: ''
-  new: ''
-  attach_image: ''
-  rotate_right: ''
-  next: ''
-  send: ''
-  yes_i_am_sure: ''
-  apply: ''
-  upload: ''
-  cancel: ''
-  delete: ''
-  answer: ''
+  save: 'Salvar'
+  permadelete: 'Apagar irrevogavelmente'
+  create: 'Criar'
+  change_picture: 'Alterar imagem'
+  edit: 'Editar'
+  clear_filter: 'Vaziar filtros'
+  new: 'Novo'
+  attach_image: 'Carregar imagem (formato png ou jpg)'
+  rotate_right: 'Rodar no sentido horário'
+  next: 'Para a frente'
+  send: 'Mandar'
+  yes_i_am_sure: 'Sim, estou seguro'
+  apply: 'Assumir'
+  upload: 'Carregar'
+  cancel: 'Cancelar'
+  delete: 'Apagar'
+  answer: 'Respostar'
+  close: Fechar
+  countdown_clickable: Clicável em {countdown} segundos
+  ok: De acordo
+  reset_default: Restaurar o standard
+  start: Vamos!
+  prev: Para trás
+  confirm: confirmar
+  browse: Procurar
+  filter_options: Opções do filtro
 week_num: ''
 about_me_intern: 'Descrição rápida'
 storestatus:
@@ -2869,8 +2963,8 @@ buddy:
 right: 'Avaliação'
 begin: 'Início da cooperação'
 picture_upload_widget:
-  choose_picture: ''
-  picture_upload: ''
+  choose_picture: 'Selecionar uma imagem do computador.'
+  picture_upload: 'Carregar fotografia'
 team:
   current: ''
   not-found: ''
@@ -2901,7 +2995,7 @@ yes: ''
 home:
   home: ''
   title: ''
-image: ''
+image: 'Imagem'
 validate:
   required: ''
 storemanagers: ''
