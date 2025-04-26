@@ -1,47 +1,37 @@
 <template>
   <Container
-    v-if="data.length"
+    v-if="pickups.length"
     tag="registered-pickups"
     :title="$i18n('dashboard.pickupdates')"
-    :toggle-visiblity="data.length > defaultAmount"
-    @show-full-list="showFullList"
-    @reduce-list="reduceList"
   >
-    <PickupField
-      v-for="(entry, key) in filteredList"
-      :key="key"
-      :entry="entry"
-    />
+    <PaginatedContent :items="pickups">
+      <template #default="{ currentPageItems }">
+        <PickupField
+          v-for="(entry, key) in currentPageItems"
+          :key="key"
+          :entry="entry"
+        />
+      </template>
+    </PaginatedContent>
   </Container>
 </template>
 
 <script>
-// Stores
 import { usePickupStore } from '@/stores/pickups'
-
-// Components
 import Container from '../Container.vue'
 import PickupField from './PickupField'
-// Mixin
-import ListToggleMixin from '@/mixins/ContainerToggleMixin'
+import PaginatedContent from '../PaginatedContent.vue'
 
 export default {
-  name: 'RegionList',
-  components: {
-    Container,
-    PickupField,
-  },
-  mixins: [ListToggleMixin],
+  components: { Container, PickupField, PaginatedContent },
   setup () {
     return {
       pickupStore: usePickupStore(),
     }
   },
   computed: {
-    data () {
-      const data = this.pickupStore.getRegistered
-      this.setList(data)
-      return data
+    pickups () {
+      return this.pickupStore.getRegistered
     },
   },
   mounted () {

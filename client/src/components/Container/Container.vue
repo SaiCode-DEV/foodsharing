@@ -25,7 +25,7 @@
         v-if="collapsible"
         :id="`expand-${title}`"
         :alt="isExpanded ? $i18n('globals.show_more') : $i18n('globals.show_less')"
-        class="fas fa-angle-down"
+        class="fas fa-angle-down ml-2"
         :class="{ 'fa-rotate-180': isExpanded }"
       />
     </div>

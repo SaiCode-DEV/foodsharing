@@ -1249,6 +1249,7 @@ pickup:
   really_delete_date: "Möchtest du die Abholung am {date} wirklich löschen?"
   delete_not_empty: "Aktuell sind noch Abholende eingetragen. Du kannst diesen Abholtermin erst löschen, wenn alle ausgetragen sind."
   to_be_confirmed: "Dieser Abholtermin muss noch von einer für diesen Betrieb verantwortlichen Person bestätigt werden."
+  confirmed: "Abholtermin ist bestätigt."
   may_enter: "Bei diesem Abholtermin ist noch ein Slot für dich frei."
   edit_recurring_pickups: "Terminserie bearbeiten"
   add_onetime_pickup: "einzelnen Termin eintragen"
@@ -1299,7 +1300,7 @@ pickup:
         name: Abholoptionen
         tooltip:
           own: Zukünftige Abholtermine, für die du dich noch eintragen könntest
-        empty: Momentan sind in deinen Betrieben keine Slots frei.
+        empty: Momentan sind in deinen Betrieben keine Slots frei. 
       history:
         name: Abholhistorie
         tooltip:
@@ -1319,6 +1320,8 @@ pickup:
       signOffAll: Aus allen austragen
       signOff: Austragen
       registeredSwitch: Eingetragene Abholungen
+      managedOnlySwitch: BV-Ansicht
+      useCondensedDesign: Gruppiert nach Tagen
       loadMore: Weitere laden
     modals:
       signOffAll:
@@ -3816,7 +3819,17 @@ help:
         Um als Foodsaver tätig zu sein, ist es wichtig, dass die Daten in deinem Profil korrekt sind. Bevor du Lebensmittel retten darfst, werden sie dazu von den Botschafter:innen mit deinem Ausweis abgeglichen. Daher kannst du deinen Namen und dein Geburtsdatum nicht einfach ändern.
         ---
         Sollte es doch mal vorkommen, dass eines dieser Felder geändert werden muss, kannst du dich hierzu an eine:n Botschafter:in aus deinem Stammbezirk wenden. Sie können die entsprechende Änderung für dich durchführen. Wer Botschafter:in in deinem Stammbezirk ist, siehst du im [Forum des Bezirks]({link}) in der linken Seitenleiste.
+    pickupOptions:
+      title: "Abholoptionen"
+      md: |
+        Der Bereich *Abholoptionen* zeigt dir eine Übersicht über alle kommenden Abholungen in deinen Betrieben, bei denen noch Foodsaver:innen gesucht werden. Über das Optionsmenü kannst du die Ansicht an deine Bedürfnisse anpassen:
 
+        **Eingetragene Abholungen:** Damit du deine Abholungen besser planen kannst, kannst du dir auch die Abholungen anzeigen lassen, bei denen du selbst bereits eingetragen bist. Diese Abholungen werden etwas blasser dargestellt, damit du sie auf einen Blick erkennen kannst.
+        
+        **BV-Ansicht:** Betriebsverantwortliche (BV) kümmern sich darum, dass in ihren Betrieben alle Abholungen zuverlässig stattfinden. Wenn du BV bist, kannst du die Ansicht auf die Betriebe einschränken, für die du zuständig bist. So behältst du leichter den Überblick.
+
+        **Gruppiert nach Tagen:** In dieser Darstellung werden deine Abholoptionen nach Tagen zusammengefasst und etwas kompakter dargestellt. Gerade, wenn dir pro Tag viele Abholoptionen zur Verfügung stehen, macht es das leichter, einen Überblick zu bekommen.
+        
 team_page:
   board_member:
     title: "Vorstand"

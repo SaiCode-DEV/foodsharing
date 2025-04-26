@@ -93,6 +93,9 @@ class PickupTransactions
                 $nextOccurrence = $nextOccurrence->next($regularPickupTime['dow']);
             }
             $nextOccurrence->setTimeFromTimeString($regularPickupTime['time']);
+            if ($nextOccurrence->isBefore($now)) {
+                $nextOccurrence->addWeek();
+            }
             while ($nextOccurrence->lessThanOrEqualTo($end)) {
                 $pickupOption = new PickupOption();
                 $pickupOption->date = $nextOccurrence->copy();
