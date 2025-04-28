@@ -120,12 +120,12 @@ const dropdownRef = ref(null)
 const { confirmationDialogue } = useConfirmationDialogue()
 
 const selectApp = async (app) => {
-  const confirmed = await confirmationDialogue(
-    i18n('navi.gdpr_warning', {
-      provider: APPS.find(a => a.name === app).displayName,
-    }),
-    { title: i18n('legal.privacy_policy'), okTitle: i18n('legal.button.agree') },
-  )
+  const confirmed = await confirmationDialogue('navi.gdpr_warning',
+    {
+      params: { provider: APPS.find(a => a.name === app).displayName },
+      okTitle: i18n('legal.button.agree'),
+      titel: i18n('legal.privacy_policy'),
+    })
 
   if (confirmed) {
     selectedApp.value = app
