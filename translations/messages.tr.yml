@@ -1417,6 +1417,7 @@ store:
       Bu slotlar daha sonra boşalacaktır. Buna rağmen etmek istiyor musun?'
     filterHygiene: Hijyen eğitimi almış kişiler
     filterNoHygiene: 'Hijyen eğitimi olmadan'
+    inviteMember: Ekibe davet et
   prefetchthree: 3 Hafta
   prefetchfour: 4 Hafta
   request:
@@ -1628,6 +1629,16 @@ store:
   storeFrom: "{name}'nin işletmeleri"
   no_chain_choosen: Herhangi bir işletme zinciri seçilmedi
   may_referred_to_in_public_unclear: Henüz açıklığa kavuşturulmadı
+  invitations: Açık davetler ({count})
+  invited: Davet edildi
+  invitation:
+    title: '{storeTitle} için davetiyeler'
+    withdraw: Davetiyeyi geri çek
+    accept: Daveti kabul et
+    info: Foodsaverları ekibe katılmaya davet ettiğinizde, kişisel verilerinin korunması
+      amacıyla doğrudan işletme ekibine eklenmezler. Ekibe katılmaları için kendilerine
+      bir istek gönderilecek ve bu isteği kabul etmeleri gerekecek. Bu davetleri dilediğiniz
+      zaman geri çekebilirsiniz.
 polls:
   title: Başlık
   new_poll: Yeni Anket oluştur
