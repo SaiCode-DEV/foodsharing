@@ -93,7 +93,7 @@ outdated:
 
 validate_renovate_config:
   stage: update-dependencies
-  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/renovate/renovate:latest
+  image: registry.gitlab.com/foodsharing-dev/images/ci/renovate:latest
   script:
     - renovate-config-validator
   rules:
@@ -103,7 +103,7 @@ validate_renovate_config:
 
 renovate:
   stage: update-dependencies
-  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/renovate/renovate:latest
+  image: registry.gitlab.com/foodsharing-dev/images/ci/renovate:latest
   script:
     - renovate
   rules:
