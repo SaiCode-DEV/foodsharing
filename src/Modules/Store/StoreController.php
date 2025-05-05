@@ -44,7 +44,7 @@ class StoreController extends FoodsharingController
         return $this->redirect('/');
     }
 
-    #[Route(path: '/region/{regionId}/stores', name: 'region_stores', requirements: ['name' => '[0-9]+'])]
+    #[Route(path: '/region/{regionId}/stores', name: 'region_stores', requirements: ['regionId' => '[0-9]+'])]
     public function regionStores(int $regionId): Response
     {
         if (!$this->session->mayRole() || !$this->storePermissions->mayListStores()) {
