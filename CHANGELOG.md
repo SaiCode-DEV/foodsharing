@@ -67,6 +67,7 @@
 - Fix incorrect session refreshing from the database !4109 @DL6ER
 - Fix misleading link in the bell for suggested food-share points #2370 !4112 #irgendwer
 - Fix length restriction when creating a store #2338 !4050 @skurka
+- Fix the nearby basket map !4122 @alex.simm
 - Fix incorrect confirmation dialogue #2380 !4165 @DL6ER
 - Prevent sleeping mode to be submitted with a too long explanation !4126 @alex.simm
 - Fixed the permissions to read blog posts #2372 !4145 @alex.simm
