@@ -134,6 +134,7 @@
 - Fix tests related to patching or creating a store #2338 !4050 @skurka
 - Fix the MarkdownOrPlaintext validator - now HTML is invalid #2338 !4050 @skurka
 - create better seeded store for screenshots and live presentation #738 !4062 @McGoldi @DL6ER
+- Updated backend packages !4163 @alex.simm
 
 # Hotfix 2024-01-20
 

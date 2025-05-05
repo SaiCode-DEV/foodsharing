@@ -31,7 +31,7 @@ $config->setRules([
         'equal' => null,
         'identical' => null,
     ],
-    'single_line_comment_spacing' => [],
+    'single_line_comment_spacing' => false,
     'ordered_imports' => ['sort_algorithm' => 'alpha', 'imports_order' => ['class', 'function', 'const']],
     'global_namespace_import' => false,
     'phpdoc_separation' => false,
