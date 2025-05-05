@@ -42,7 +42,13 @@ class UploadsTransactions
 
     public function isValidImage(string $file): bool
     {
-        $img = new Imagick($file);
+        try {
+            // This may fail if users try to upload files which are blocked due
+            // to security policies, e.g., encapsulated postscript (eps)
+            $img = new Imagick($file);
+        } catch (\Exception $e) {
+            return false;
+        }
 
         return $img->valid();
     }
