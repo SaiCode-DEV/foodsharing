@@ -68,6 +68,7 @@
 - Fix misleading link in the bell for suggested food-share points #2370 !4112 #irgendwer
 - Fix length restriction when creating a store #2338 !4050 @skurka
 - Fix incorrect confirmation dialogue #2380 !4165 @DL6ER
+- Prevent sleeping mode to be submitted with a too long explanation !4126 @alex.simm
 - Fixed the permissions to read blog posts #2372 !4145 @alex.simm
 - Reply with 404 when queriyng stores for non-numeric regionIds in the API #2389 !4174 @DL6ER
 
