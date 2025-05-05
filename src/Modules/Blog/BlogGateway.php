@@ -5,16 +5,10 @@ namespace Foodsharing\Modules\Blog;
 use Carbon\Carbon;
 use DateTimeZone;
 use Exception;
-use Foodsharing\Lib\Session;
-use Foodsharing\Modules\Bell\BellGateway;
-use Foodsharing\Modules\Bell\DTO\Bell;
 use Foodsharing\Modules\Blog\DTO\BlogPost;
 use Foodsharing\Modules\Blog\DTO\BlogPostList;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
-use Foodsharing\Modules\Core\DBConstants\Bell\BellType;
-use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
-use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Unit\CurrentUserUnitsInterface;
 use Foodsharing\Permissions\BlogPermissions;
 use Foodsharing\RestApi\Models\Blog\BlogPostData;
@@ -23,11 +17,8 @@ use Foodsharing\Utility\Sanitizer;
 final class BlogGateway extends BaseGateway
 {
     public function __construct(
-        private readonly BellGateway $bellGateway,
         Database $db,
-        private readonly FoodsaverGateway $foodsaverGateway,
         private readonly Sanitizer $sanitizer,
-        private readonly Session $session,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
         private readonly BlogPermissions $blogPermissions,
     ) {
@@ -73,18 +64,14 @@ final class BlogGateway extends BaseGateway
     }
 
     /**
-     * Returns the blog post with the given id, or null if the id does not exist.
+     * Returns the blog post with the given id, or null if the id does not exist or if the post is not activated.
+     *
+     * @param int $id id of the post
+     * @param bool $onlyActive if false, this will also return a deactivated post, if it exists
      */
-    public function getPost(int $id): ?BlogPost
+    public function getPost(int $id, bool $onlyActive = true): ?BlogPost
     {
-        if (!$this->session->id()) {
-            $filter = 'AND b.`active` = 1';
-        } elseif ($this->session->mayRole(Role::ORGA)) {
-            $filter = '';
-        } else {
-            $ownRegionIds = implode(',', array_map('intval', $this->currentUserUnits->listRegionIDs()));
-            $filter = 'AND b.`bezirk_id` IN (' . $ownRegionIds . ')';
-        }
+        $filter = $onlyActive ? 'AND b.`active` = 1' : '';
 
         $blogPost = $this->db->fetch('
 			SELECT
@@ -239,31 +226,6 @@ final class BlogGateway extends BaseGateway
                 'active' => $data->isPublished ? 1 : 0,
             ]
         );
-
-        $foodsaver = [];
-        $orgateam = $this->foodsaverGateway->getOrgaTeam();
-        $botschafter = $this->foodsaverGateway->getAdminsOrAmbassadors($data->regionId);
-
-        foreach ($orgateam as $o) {
-            $foodsaver[$o['id']] = $o;
-        }
-        foreach ($botschafter as $b) {
-            $foodsaver[$b['id']] = $b;
-        }
-
-        $bellData = Bell::create(
-            'blog_new_check_title',
-            'blog_new_check',
-            'fas fa-bullhorn',
-            ['href' => '/blog?sub=edit&id=' . $id],
-            [
-                'user' => $this->session->user('name'),
-                'teaser' => $this->sanitizer->tt($data->teaser, 100),
-                'title' => $data->title
-            ],
-            BellType::createIdentifier(BellType::NEW_BLOG_POST, $id)
-        );
-        $this->bellGateway->addBell($foodsaver, $bellData);
 
         return $id;
     }

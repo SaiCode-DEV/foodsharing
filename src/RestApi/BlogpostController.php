@@ -159,7 +159,7 @@ class BlogpostController extends AbstractFoodsharingRestController
     {
         $this->assertLoggedIn();
 
-        $post = $this->blogGateway->getPost($blogId);
+        $post = $this->blogGateway->getPost($blogId, false);
         if (is_null($post)) {
             throw new NotFoundHttpException('Blogpost not found.');
         }
@@ -194,12 +194,12 @@ class BlogpostController extends AbstractFoodsharingRestController
         }
         $this->assertThereAreNoValidationErrors($validator, $post);
 
-        if (!isset($post->isPublished) || empty($post->isPublished)) {
+        if (empty($post->isPublished)) {
             $post->isPublished = true;
         }
 
         $postId = $this->blogTransactions->addBlogPost($post);
 
-        return $this->handleView($this->view($this->blogGateway->getPost($postId), 200));
+        return $this->handleView($this->view($this->blogGateway->getPost($postId, false), 200));
     }
 }
