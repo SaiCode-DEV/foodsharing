@@ -18,93 +18,89 @@
         <span v-if="isBusy && page === 0" class="d-block mx-auto">
           <i class="fas fa-spinner fa-spin mx-auto" />
         </span>
-        <b-table
-          v-else-if="selectedMailbox[2] != null && mailboxMails.length > 0"
-          ref="selectableTable"
-          :fields="columns"
-          :items="mailboxMails"
-          select-mode="multi"
-          responsive="sm"
-          selectable
-          small
-          stacked="sm"
-          hover
-          @row-selected="onRowSelected"
-        >
-          <template #cell(selected)="{ rowSelected }">
-            <template v-if="rowSelected">
-              <span aria-hidden="true">&check;</span>
-              <span class="sr-only">Selected</span>
+        <div v-else-if="selectedMailbox[2] != null && mailboxMails.length > 0">
+          <b-table
+            ref="selectableTable"
+            :fields="columns"
+            :items="mailboxMails"
+            select-mode="multi"
+            responsive="sm"
+            selectable
+            small
+            stacked="sm"
+            hover
+            @row-selected="onRowSelected"
+          >
+            <template #cell(selected)="{ rowSelected }">
+              <template v-if="rowSelected">
+                <span aria-hidden="true">&check;</span>
+                <span class="sr-only">Selected</span>
+              </template>
+              <template v-else>
+                <span aria-hidden="true">&nbsp;</span>
+                <span class="sr-only">Not selected</span>
+              </template>
             </template>
-            <template v-else>
-              <span aria-hidden="true">&nbsp;</span>
-              <span class="sr-only">Not selected</span>
+            <template #cell(sender)="row">
+              <a
+                :key="row.item.id"
+                href="#"
+                :class="{ unReadMail: !row.item.isRead }"
+                @click="showEmail(row.item.id)"
+              >
+                {{ formatEmailAddress(row.item.from) }}
+              </a>
             </template>
-          </template>
-          <template #cell(sender)="row">
-            <a
-              :key="row.item.id"
-              href="#"
-              :class="{ unReadMail: !row.item.isRead }"
-              @click="showEmail(row.item.id)"
+            <template #cell(recipient)="row">
+              <a
+                :key="row.item.id"
+                href="#"
+                :class="{ unReadMail: !row.item.isRead }"
+                @click="showEmail(row.item.id)"
+              >
+                {{ formatRecipientAddresses(row.item.to) }}
+              </a>
+            </template>
+            <template #cell(subject)="row">
+              <a
+                :key="row.item.id"
+                href="#"
+                :class="{ unReadMail: !row.item.isRead }"
+                @click="showEmail(row.item.id)"
+              >
+                {{ row.item.subject }}
+              </a>
+            </template>
+            <template #cell(date)="row">
+              {{ $dateFormatter.format(row.item.time, {
+                day: 'numeric',
+                month: 'numeric',
+                year: 'numeric',
+              }) }}
+            </template>
+            <template #cell(attachments)="row">
+              <i
+                v-if="row.item.attachments && row.item.attachments.length > 0"
+                class="fas fa-paperclip"
+              />
+            </template>
+          </b-table>
+          <div class="text-center mt-3">
+            <small v-if="noMorePages">
+              {{ $i18n('pickup.overview.allLoaded') }}
+            </small>
+            <b-button
+              v-else
+              size="sm"
+              :disabled="isBusy"
+              class="d-block mx-auto"
+              @click="loadNextPage"
             >
-              {{ formatEmailAddress(row.item.from) }}
-            </a>
-          </template>
-          <template #cell(recipient)="row">
-            <a
-              :key="row.item.id"
-              href="#"
-              :class="{ unReadMail: !row.item.isRead }"
-              @click="showEmail(row.item.id)"
-            >
-              {{ formatRecipientAddresses(row.item.to) }}
-            </a>
-          </template>
-          <template #cell(subject)="row">
-            <a
-              :key="row.item.id"
-              href="#"
-              :class="{ unReadMail: !row.item.isRead }"
-              @click="showEmail(row.item.id)"
-            >
-              {{ row.item.subject }}
-            </a>
-          </template>
-          <template #cell(date)="row">
-            {{ $dateFormatter.format(row.item.time, {
-              day: 'numeric',
-              month: 'numeric',
-              year: 'numeric',
-            }) }}
-          </template>
-          <template #cell(attachments)="row">
-            <i
-              v-if="row.item.attachments && row.item.attachments.length > 0"
-              class="fas fa-paperclip"
-            />
-          </template>
-
-          <template #custom-foot>
-            <tr>
-              <td colspan="100%">
-                <small v-if="noMorePages">
-                  {{ $i18n('pickup.overview.allLoaded') }}
-                </small>
-                <b-button
-                  v-else
-                  size="sm"
-                  :disabled="isBusy"
-                  class="d-block mx-auto"
-                  @click="loadNextPage"
-                >
-                  <i v-if="isBusy" class="fas fa-spinner fa-spin" />
-                  <span v-else>{{ $i18n('pickup.overview.menu.loadMore') }}</span>
-                </b-button>
-              </td>
-            </tr>
-          </template>
-        </b-table>
+              <i v-if="isBusy" class="fas fa-spinner fa-spin" />
+              <span v-else>{{ $i18n('pickup.overview.menu.loadMore') }}</span>
+            </b-button>
+          </div>
+        </div>
         <div v-else>
           {{ $i18n('mailbox.empty') }}
         </div>
