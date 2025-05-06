@@ -347,7 +347,7 @@ export default {
     locationString () {
       return (!this.location.street && !this.location.postalCode && !this.location.city)
         ? this.$i18n('settings.general.no_address')
-        : `${this.location.street} ${this.location.postalCode} ${this.location.city}`
+        : `${this.location.street} ${this.location.postalCode ? this.location.postalCode + ' ' : ''}${this.location.city}`
     },
   },
   methods: {

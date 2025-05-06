@@ -15,7 +15,7 @@ class Address
     /**
      * zip code.
      */
-    public string $postalCode = '';
+    public ?string $postalCode = null;
 
     /**
      * Name of city.
