@@ -15,6 +15,7 @@
         <div class="row">
           <div class="col-lg-3 mr-lg-4 mr-xl-0">
             <StoreMenu
+              :key="componentKey"
               :store-name="storeInformation.name"
               :team-conversation-id="permissions.teamConversationId"
               :jumper-conversation-id="permissions.jumperConversationId"
@@ -34,6 +35,7 @@
             />
             <StoreTeam
               v-if="!viewIsMobile"
+              :key="componentKey"
               :fs-id="userId"
               :is-coordinator="permissions.isCoordinator"
               :may-edit-store="permissions.mayEditStore"
@@ -77,6 +79,7 @@
           </div>
           <div class="col-lg-3">
             <StoreInfos
+              :key="componentKey"
               :particularities-description="storeInformation.description"
               :particularities-chain="storeInformation.chain?.information"
               :weight-type="storeInformation.weight"
@@ -98,6 +101,7 @@
             />
             <PickupList
               v-if="permissions.maySeePickup"
+              :key="componentKey"
               :may-see-pickup="permissions.maySeePickup"
               :store-id="storeId"
               :store-title="storeInformation.name"
@@ -107,6 +111,7 @@
             />
             <StoreTeam
               v-if="viewIsMobile"
+              :key="componentKey"
               :fs-id="userId"
               :is-coordinator="permissions.isCoordinator"
               :may-edit-store="permissions.mayEditStore"
@@ -121,6 +126,7 @@
       </b-tab>
       <b-tab :title="$i18n('storeview.show_settings')">
         <StoreInformation
+          :key="componentKey"
           :is-jumper="permissions.isJumper"
           :store-id="storeId"
           :may-edit-store="permissions.mayEditStore"
@@ -177,6 +183,8 @@ export default {
     return {
       isUserInStore: false,
       lastFetchDate: null,
+      // used to force a re-render of the store information when needed
+      componentKey: 0,
     }
   },
   computed: {
@@ -211,33 +219,39 @@ export default {
     const permissionsPromise = StoreData.mutations.loadPermissions(this.storeId)
     const userDetailsPromise = this.userStore.fetchDetails()
     const storeInformationPromise = StoreData.mutations.loadStoreInformation(this.storeId)
+    const applicationsPromise = StoreData.mutations.loadStoreApplications(this.storeId)
+    const storeMemberPromise = StoreData.mutations.loadStoreMember(this.storeId)
+    const metaDataPromise = this.storeStore.fetchMetadata()
+    const regularPickupPromise = StoreData.mutations.fetchRegularPickup(this.storeId)
+    const getRegionOptions = StoreData.mutations.loadGetRegionOptions(this.storeId)
 
     await Promise.all([
-      permissionsPromise,
-      userDetailsPromise,
-      this.storeStore.fetchMetadata(),
-      storeInformationPromise,
-      StoreData.mutations.loadStoreMember(this.storeId),
-
-      // some fetches require others to be done:
-      storeInformationPromise.then(async () => {
-        await StoreData.mutations.loadGetRegionOptions(this.storeInformation.region.id)
+      metaDataPromise,
+      getRegionOptions,
+      storeMemberPromise.then(() => {
+        this.checkIsUserInStore()
+        this.getLastFetchDate()
       }),
-      Promise.all([permissionsPromise, storeInformationPromise]).then(async () => {
-        if (!this.permissions.isJumper) {
-          await StoreData.mutations.loadStoreLog(this.storeId, this.storeInformation.calendarInterval)
+      applicationsPromise.then(() => {
+        const applications = StoreData.getters.getStoreApplications()
+        if (this.showTeamRequests && applications && applications.length > 0) {
+          this.$bvModal.show('requests')
         }
+      }),
+      storeInformationPromise.then(() => {
+        this.componentKey += 1
       }),
       Promise.all([userDetailsPromise, permissionsPromise]).then(async () => {
         if (this.isVerified && !this.permissions.isJumper) {
-          await this.pickupStore.fetchRegularPickup(this.storeId)
+          await regularPickupPromise
         }
+        if (!this.permissions.isJumper) {
+          await StoreData.mutations.loadStoreLog(this.storeId, this.storeInformation.calendarInterval)
+        }
+        this.loadRightsInfo()
+        this.componentKey += 1
       }),
     ])
-
-    this.checkIsUserInStore()
-    this.getLastFetchDate()
-    this.loadRightsInfo()
   },
   methods: {
     loadRightsInfo () {
