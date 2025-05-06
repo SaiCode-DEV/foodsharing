@@ -5,11 +5,14 @@ namespace Foodsharing\Modules\Foodsaver;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Basket\BasketGateway;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
+use Foodsharing\Modules\Core\DBConstants\Foodsaver\SleepStatus;
 use Foodsharing\Modules\Core\DBConstants\Uploads\UploadUsage;
 use Foodsharing\Modules\Quiz\QuizSessionGateway;
+use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\Modules\Store\StoreTransactions;
 use Foodsharing\Modules\Uploads\UploadsGateway;
 use Foodsharing\Modules\Uploads\UploadsTransactions;
+use Foodsharing\RestApi\Models\Settings\SleepStatusRequest;
 
 class FoodsaverTransactions
 {
@@ -20,6 +23,7 @@ class FoodsaverTransactions
         private readonly UploadsGateway $uploadsGateway,
         private readonly UploadsTransactions $uploadsTransactions,
         private readonly StoreTransactions $storeTransactions,
+        private readonly SettingsGateway $settingsGateway,
         private readonly Session $session
     ) {
     }
@@ -33,7 +37,7 @@ class FoodsaverTransactions
         return $this->foodsaverGateway->downgradePermanently($fsId);
     }
 
-    public function deleteFoodsaver(int $foodsaverId, ?string $reason): void
+    public function deleteFoodsaver(int $foodsaverId, ?int $deletingUserId, ?string $reason): void
     {
         // set all active baskets of the user to deleted
         $this->basketGateway->removeActiveUserBaskets($foodsaverId);
@@ -42,8 +46,10 @@ class FoodsaverTransactions
 
         $this->deletePhoto($foodsaverId);
 
+        $this->settingsGateway->updateSleepMode($foodsaverId, SleepStatusRequest::create(SleepStatus::NONE));
+
         // delete the user
-        $this->foodsaverGateway->deleteFoodsaver($foodsaverId, $this->session->id(), $reason);
+        $this->foodsaverGateway->deleteFoodsaver($foodsaverId, $deletingUserId, $reason);
     }
 
     /**

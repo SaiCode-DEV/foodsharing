@@ -428,7 +428,7 @@ class UserRestController extends AbstractFoodsharingRestController
         }
 
         // needs the session ID, so we can't log out just yet
-        $this->foodsaverTransactions->deleteFoodsaver($userId, $reason);
+        $this->foodsaverTransactions->deleteFoodsaver($userId, $this->session->id(), $reason);
 
         if ($userId === $this->session->id()) {
             $this->logoutTransactions->logout();

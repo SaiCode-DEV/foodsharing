@@ -7,6 +7,7 @@ use Foodsharing\Modules\Bell\BellUpdateTrigger;
 use Foodsharing\Modules\Core\DBConstants\Region\RegionIDs;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
+use Foodsharing\Modules\Foodsaver\FoodsaverTransactions;
 use Foodsharing\Modules\Group\GroupGateway;
 use Foodsharing\Modules\Store\StoreGateway;
 use Foodsharing\Modules\Store\StoreMaintenanceTransactions;
@@ -21,6 +22,7 @@ class MaintenanceService
     public function __construct(
         private readonly StoreGateway $storeGateway,
         private readonly FoodsaverGateway $foodsaverGateway,
+        private readonly FoodsaverTransactions $foodsaverTransactions,
         private readonly MaintenanceGateway $maintenanceGateway,
         private readonly BellUpdateTrigger $bellUpdateTrigger,
         private readonly GroupGateway $groupGateway,
@@ -120,7 +122,7 @@ class MaintenanceService
                     $arrayAccountsNotDeleted[] = $fs;
                 } else {
                     if (!$dryRun) {
-                        $this->foodsaverGateway->deleteFoodsaver($fs, null, 'Automatic inactivity deletion');
+                        $this->foodsaverTransactions->deleteFoodsaver($fs, null, 'Automatic inactivity deletion');
                     }
                     ++$accountsDeleted;
                 }

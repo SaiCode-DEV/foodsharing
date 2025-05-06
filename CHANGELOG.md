@@ -67,6 +67,7 @@
 - Fix incorrect session refreshing from the database !4109 @DL6ER
 - Fix misleading link in the bell for suggested food-share points #2370 !4112 #irgendwer
 - Fix length restriction when creating a store #2338 !4050 @skurka
+- Remove the sleep status when a profile is deleted #2267 !4141 @alex.simm
 - Fix the nearby basket map !4122 @alex.simm
 - Fix incorrect confirmation dialogue #2380 !4165 @DL6ER
 - Fix being able to set addresses without postal code #2390 !4175 @DL6ER

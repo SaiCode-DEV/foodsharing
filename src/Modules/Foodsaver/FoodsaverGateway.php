@@ -557,6 +557,10 @@ class FoodsaverGateway extends BaseGateway
         ]);
     }
 
+    /**
+     * This function should not be used directly. Use the function in FoodsaverTransaction instead, which cleans up
+     * additional data.
+     */
     public function deleteFoodsaver(int $fsId, ?int $deletingUser, ?string $reason): void
     {
         $this->db->update('fs_foodsaver', ['password' => null, 'deleted_at' => $this->db->now()], ['id' => $fsId]);

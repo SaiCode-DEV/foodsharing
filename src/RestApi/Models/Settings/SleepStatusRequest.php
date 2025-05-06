@@ -17,4 +17,15 @@ class SleepStatusRequest
 
     #[Assert\Length(max: 255)]
     public ?string $message = null;
+
+    public static function create(int $mode, ?DateTime $from = null, ?DateTime $to = null, ?string $message = null): SleepStatusRequest
+    {
+        $s = new self();
+        $s->mode = $mode;
+        $s->from = $from;
+        $s->to = $to;
+        $s->message = $message;
+
+        return $s;
+    }
 }
