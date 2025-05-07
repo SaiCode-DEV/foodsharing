@@ -79,19 +79,19 @@ describe('script', () => {
       it('can show info', () => {
         const message = 'a nice info message'
         script.pulseInfo(message, { timeout: 0 })
-        assert.strictEqual(info.innerHTML, message)
+        assert.strictEqual(info.innerHTML, '<div class="pulse-message">' + message + '</div>')
       })
 
       it('can show success', () => {
         const message = 'a nice success message'
         script.pulseSuccess(message, { timeout: 0 })
-        assert.strictEqual(success.innerHTML, message)
+        assert.strictEqual(success.innerHTML, '<div class="pulse-message">' + message + '</div>')
       })
 
       it('can show error', () => {
         const message = 'a nice error message'
         script.pulseError(message, { timeout: 0 })
-        assert.strictEqual(error.innerHTML, message)
+        assert.strictEqual(error.innerHTML, '<div class="pulse-message">' + message + '</div>')
       })
 
       it('will be hidden after a timeout', async () => {

@@ -811,6 +811,22 @@ select: "Bitte auswählen"
 time: "Uhrzeit"
 day: "Tag"
 
+net_errors:
+  code: "Fehlercode: "
+  message: "Fehlermeldung: "
+  BAD_REQUEST: "Die Anfrage war ungültig. Bitte überprüfe deine Eingaben auf Vollständigkeit und Plausibilität."
+  NOT_MODIFIED: "Du bist nicht berechtigt, diese Aktion auszuführen."
+  NOT_FOUND: "Die angeforderte Seite wurde nicht gefunden."
+  TOO_MANY_REQUESTS: "Zu viele Anfragen. Bitte warte einen Moment und versuche es dann erneut."
+  SERVER_ERROR: "Ein interner Serverfehler ist aufgetreten. Deine Anfrage kann derzeit leider nicht bearbeitet werden."
+  ETIMEDOUT: "Die Anfrage hat zu lange gedauert. Bitte überprüfe deine Internetverbindung und versuche es erneut."
+  ECONNABORTED: "Die Anfrage wurde von Deinem Browser abgebrochen. Bitte versuche es erneut."
+  ERR_NETWORK: "Es gab ein Netzwerkproblem. Bitte überprüfe deine Internetverbindung und versuche es erneut."
+  ERR_NETWORK_CHANGED: "Deine Internetverbindung ist instabil. Bitte überprüfe deine Verbindung und versuche es erneut."
+  ERR_BAD_RESPONSE: "Der Server hat eine ungültige Antwort zurückgegeben. Bitte versuche es erneut."
+  ERR_CANCELED: "Die Anfrage wurde abgebrochen. Bitte versuche es gegebenenfalls erneut."
+  unknown: "Ein unbekannter Fehler ist aufgetreten. Bitte versuche es später erneut."
+
 formatting:
   md: "Du kannst zur Formatierung <a href=\"https://markdown.de/\">Markdown</a> verwenden."
 

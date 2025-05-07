@@ -96,7 +96,7 @@ export function isNetworkError (error) {
 }
 
 export function isTimeoutError (error) {
-  return error.code === 'ECONNABORTED'
+  return error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK'
 }
 
 export function isUserAbortError (error) {
@@ -111,8 +111,8 @@ export function handleNetworkError (error, { path, options, attempt }) {
 
   if (isTimeoutError(error)) {
     const timeoutDuration = options.timeout / 1000
-    console.warn(`Request timeout after ${timeoutDuration}s - not reporting to Sentry`)
-    throw new Error(`Request timed out after ${timeoutDuration} seconds`)
+    console.warn(`Request timeout after ${timeoutDuration}s or aborted - not reporting to Sentry`)
+    throw new Error(`Request timed out after ${timeoutDuration} seconds or aborted`)
   }
 
   if (isUserAbortError(error)) {

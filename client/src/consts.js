@@ -40,6 +40,7 @@ export const HTTP_RESPONSE = Object.freeze({
   CONFLICT: 409,
   UNPROCESSABLE_ENTITY: 422,
   TOO_MANY_REQUESTS: 429,
+  INTERNAL_SERVER_ERROR: 500,
 })
 
 export const SESSION_STATUS = Object.freeze({

@@ -20,11 +20,26 @@ function definePulse (type, defaultTimeout = 5000) {
   return (html, options = {}) => {
     let { timeout, sticky } = options || {}
     if (typeof timeout === 'undefined') timeout = sticky ? 900000 : defaultTimeout
-    const el = document.querySelector(`#pulse-${type}`)
+    const container = document.querySelector(`#pulse-${type}`)
+    // Add new element to the container
+    const el = document.createElement('div')
+    el.className = 'pulse-message'
+    if (container.children.length > 0) {
+      // Add margin between elements if there are already elements in the
+      // container
+      el.style.marginTop = '10px'
+    }
     el.innerHTML = html
-    el.style.display = 'block'
+    container.appendChild(el)
+    container.style.display = 'block'
+
     const hide = () => {
       el.style.display = 'none'
+      el.remove()
+      if (container.children.length === 0) {
+        // Hide the container if there are no more elements
+        container.style.display = 'none'
+      }
       document.removeEventListener('click', hide)
       clearTimeout(timer)
     }
@@ -91,9 +106,6 @@ export async function wantToHelpStore (storeId, userId) {
   } catch (e) {
     if (e.code === HTTP_RESPONSE.UNPROCESSABLE_ENTITY) {
       pulseInfo(i18n('store.request.no-duplicate'))
-    } else {
-      console.error(e.code)
-      pulseError(i18n('error_unexpected'))
     }
   }
 
@@ -107,7 +119,7 @@ export async function withdrawStoreRequest (storeId, userId) {
     await declineStoreRequest(storeId, userId)
     pulseSuccess(i18n('store.request.withdrawn'))
   } catch (e) {
-    pulseError(i18n('error_unexpected'))
+
   }
 
   hideLoader()

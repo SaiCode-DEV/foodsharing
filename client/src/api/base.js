@@ -2,6 +2,8 @@ import axios from 'axios'
 import { HTTP_RESPONSE } from '@/consts'
 import { url } from '@/helper/urls'
 import { captureRequestError, handleNetworkError } from '@/sentry'
+import { pulseError } from '@/script'
+import i18n from '@/helper/i18n'
 
 const api = axios.create({
   baseURL: '/api',
@@ -33,31 +35,70 @@ api.interceptors.response.use(
     return Promise.reject(error)
   },
 )
+const escapeHtml = (str) => str.replace(/[&<>"']/g, (char) => {
+  const escapeChars = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }
+  return escapeChars[char] || char
+})
+
+const showNetworkError = (key, error) => {
+  const code = escapeHtml(error.response?.status || error.code)
+  const message = escapeHtml(error.message ?? 'N/A')
+  const text = i18n('net_errors.' + key) + '\n' + i18n('net_errors.code') + code + '\n' + i18n('net_errors.message') + message
+  console.error(text, error)
+  pulseError(text)
+}
+
+const knownNetworkCodes = [
+  'ERR_NETWORK',
+  'ECONNABORTED',
+  'ERR_NETWORK_CHANGED',
+  'ERR_BAD_RESPONSE',
+  'ERR_CANCELED',
+]
 
 // Response interceptor for retries
 api.interceptors.response.use(null, async error => {
+  console.log(error)
   const config = error.config
 
   if (error.response?.status === HTTP_RESPONSE.UNAUTHORIZED) {
+    // Unauthorized -> redirect to login unless disabled (e.g. on failed logins
+    // as this would otherwise reload the page without need)
     if (!config.disableLoginRedirect) {
       window.location = url('login')
     }
     return Promise.reject(error)
   } else if (error.response?.status === HTTP_RESPONSE.TOO_MANY_REQUESTS) {
+    // Too many requests
+    showNetworkError('TOO_MANY_REQUESTS', error)
     return Promise.reject(error)
   } else if (error.response?.status === HTTP_RESPONSE.NOT_MODIFIED) {
+    // Not modified
+    showNetworkError('NOT_MODIFIED', error)
+    return Promise.reject(error)
+  } else if (error.response?.status === HTTP_RESPONSE.NOT_FOUND) {
+    // Not found
+    showNetworkError('NOT_FOUND', error)
+  } else if (error.response?.status >= HTTP_RESPONSE.BAD_REQUEST &&
+             error.response?.status < HTTP_RESPONSE.INTERNAL_SERVER_ERROR) {
+    // Catch all other client errors (4xx)
+    showNetworkError('BAD_REQUEST', error)
+  } else if (error.response?.status >= HTTP_RESPONSE.INTERNAL_SERVER_ERROR) {
+    // Catch all other server errors (5xx)
+    showNetworkError('SERVER_ERROR', error)
+  } else if (knownNetworkCodes.includes(error.code)) {
+    // Network errors without a response
+    showNetworkError(error.code, error)
     return Promise.reject(error)
   }
 
-  if (!config || config.__retryCount >= 2) {
-    return Promise.reject(error)
+  if (config) {
+    // Report to sentry
+    captureRequestError(error, { path: config.url, options: config })
   }
 
-  config.__retryCount = (config.__retryCount || 0) + 1
-  captureRequestError(error, { path: config.url, attempt: config.__retryCount })
-
-  await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, config.__retryCount - 1)))
-  return api(config)
+  showNetworkError('unknown', error)
+  return Promise.reject(error)
 })
 
 // Request interceptor for CSRF token
@@ -87,7 +128,6 @@ const handleError = error => {
   handleNetworkError(error, {
     path: error.config?.url,
     options: error.config,
-    attempt: error.config?.__retryCount,
   })
   throw new HTTPError(error)
 }
