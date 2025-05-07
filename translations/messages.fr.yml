@@ -4837,3 +4837,6 @@ feedback:
     alors visibles pour eux. Assure-toi que les captures d’écran ne contiennent pas
     de données personnelles d’autres utilisateurs que tu n’es pas autorisé(e) à partager.
   title: Feedback
+net_errors:
+  code: 'Code d’erreur : '
+  message: 'Message d’erreur : '
