@@ -17,6 +17,7 @@
     </div>
     <div v-else>
       <b-form-group
+        class="question"
         :label="question?.text"
       >
         <p v-if="!isQuestionActive && !answeredInTime">
@@ -327,5 +328,12 @@ export default {
 .neutral {
   background-color: var(--fs-color-warning-200);
 }
-
+</style>
+<style lang="css">
+.question legend, .answer-wrapper label {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none
+}
 </style>
