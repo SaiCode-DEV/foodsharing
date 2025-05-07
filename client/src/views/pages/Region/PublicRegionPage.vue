@@ -141,7 +141,10 @@ export default {
   async created () {
     this.regionData = await regionStore.fetchPublicRegionData(this.id)
     document.title += ' | ' + this.regionData.name
-    history.replaceState(null, '', `/region/${this.regionData.email}`) // move to the text-based url without reload
+    if (this.regionData.email) {
+      // move to the text-based url without reload if the email is set
+      history.replaceState(null, '', `/region/${this.regionData.email}`)
+    }
     if (this.mayAccessRegion) {
       this.regionMenu = await regionStore.fetchRegionMenu(this.id)
     }

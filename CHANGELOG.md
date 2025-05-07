@@ -77,6 +77,7 @@
 - Reply with 404 when queriyng stores for non-numeric regionIds in the API #2389 !4174 @DL6ER
 - Invalid image files with possibly malicious content are rejected with a proper reason #2388 !4173 @DL6ER
 - Fix error 500 when trying to accept an invitation for an event with incomplete address #2375 !4154 @DL6ER
+- Fix incorrect common working group links on user profiles !4171 @DL6ER
 - Fix no "load more messages" button in mailboxes on mobile view (`xs` screens) !4719 @DL6ER
 
 ## Refactoring

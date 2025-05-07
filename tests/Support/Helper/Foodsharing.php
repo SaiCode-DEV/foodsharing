@@ -649,7 +649,7 @@ class Foodsharing extends Db
         $this->haveInDatabase('fs_email_blacklist', ['email' => 'bad.com', 'since' => $since, 'reason' => 'Disposable email addresses should not be used for registration.']);
     }
 
-    public function createMailbox($name = null, bool $fillMailbox = true, bool $need_unique = false)
+    public function createMailbox($name = null, bool $fillMailbox = true, bool $need_unique = false, int $forced_id = -1)
     {
         if ($name == null) {
             $name = $this->faker->unique()->userName();
@@ -669,6 +669,9 @@ class Foodsharing extends Db
         $this->generated_emails[$name] = true;
 
         $mb['name'] = $name;
+        if ($forced_id > -1) {
+            $mb['id'] = $forced_id;
+        }
         $mb['id'] = $this->haveInDatabase('fs_mailbox', $mb);
 
         // add up to 10 emails to each folder

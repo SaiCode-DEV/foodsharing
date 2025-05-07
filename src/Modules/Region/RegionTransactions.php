@@ -299,7 +299,7 @@ class RegionTransactions
     }
 
     /**
-     * Returns all ancestors of a region, inlcuding information about whether the given user is member of that region.
+     * Returns all ancestors of a region, including information about whether the given user is member of that region.
      * The last element of the list is the first region that isn't a group or that the user is a member in.
      */
     public function getInaccessibleRegionRedirects(int $deniedRegionId, int $foodsaverId): array

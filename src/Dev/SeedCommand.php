@@ -989,6 +989,18 @@ Gemeinsam können wir einen Unterschied machen – für Göttingen und die Umwel
         $this->activeFeatureToggles();
         $this->output->writeln('done');
 
+        $this->output->writeln('Fix missing bits');
+        // Add mailboxes with the correct mailbox IDs (as defined in initial_migration.php line 6727 onwards)
+        $I->createMailbox('arbeitsgruppen.ueberregional', true, false, 32678);
+        $I->createMailbox('orgateam.archiv', true, false, 528);
+        $I->createMailbox('europa', true, false, 25467);
+        $I->createMailbox('vereinsvorstand', true, false, 26644);
+        $I->createMailbox('ehemalige', true, false, 30177);
+        $I->createMailbox('aktive', true, false, 30176);
+        $I->createMailbox('anmeldevorgang.quiz', true, false, 19708);
+
+        $this->output->writeln(' - mailbox added');
+
         $I->_getDbh()->commit();
     }
 

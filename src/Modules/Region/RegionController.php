@@ -215,7 +215,7 @@ final class RegionController extends FoodsharingController
         return $this->renderGlobal();
     }
 
-    #[Route(path: '/region/{regionMail}', name: 'regionPublicByName', requirements: ['regionMail' => '[a-zA-Z][a-zA-Z0-9.\-_]+[a-zA-Z0-9]'])]
+    #[Route(path: '/region/{regionMail}', name: 'regionPublicByName', requirements: ['regionMail' => '[a-zA-Z][a-zA-Z0-9.\-_]+[a-zA-Z0-9.]'])]
     public function regionPublicByMail(string $regionMail): Response
     {
         try {
@@ -239,7 +239,7 @@ final class RegionController extends FoodsharingController
     }
 
     /**
-     * Redirects to a different page when the user tried to access a region or group related page that they have to permission to access.
+     * Redirects to a different page when the user tried to access a region or group related page that they have no permission to access.
      * This redirects to the next regions public page or the next groups subgroup page up the region hierarchie of the denied region / group.
      * @param int $deniedRegionId id of the region the user was denied to access
      */
@@ -253,7 +253,14 @@ final class RegionController extends FoodsharingController
             $this->redirectToRoute('dashboard');
         }
         if (end($redirects)['type'] === UnitType::WORKING_GROUP) {
-            return $this->redirect('/groups?p=' . end($redirects)['id'] . '&denied=' . $deniedRegionId);
+            $extra = '';
+            if (end($redirects)['is_member'] !== 1) {
+                // Do NOT include the "denied=" parameter if we redirected to
+                // the groups's wall page when we have access to it.
+                $extra = '&denied=' . $deniedRegionId;
+            }
+
+            return $this->redirect('/region?bid=' . end($redirects)['id'] . $extra);
         }
 
         return $this->redirect('/region/' . end($redirects)['id'] . '?denied=' . $deniedRegionId);

@@ -5,7 +5,7 @@
       tag="publicRegionLeave"
       :container-is-expanded="false"
     >
-      <div class="list-group-item" v-text="$i18n('region.public.leave_text', { name })" />
+      <div class="list-group-item" v-text="$i18n(leaveText, { name })" />
       <ContainerButton
         variant="danger"
         text-key="region.public.leave"
@@ -38,15 +38,26 @@ export default {
     const { confirmationDialogue } = useConfirmationDialogue()
     return { confirmationDialogue }
   },
+  data () {
+    return {
+      loading: false,
+    }
+  },
   computed: {
     translationKey () {
-      switch (true) {
-        case this.isWorkGroup:
-          return 'group.quit_name_workgroup'
-        case this.isHomeRegion:
-          return 'group.quitting_home_district_warning'
-        default:
-          return 'group.really_quit_district'
+      if (this.isWorkGroup) {
+        return 'group.quit_name_workgroup'
+      } else if (this.isHomeRegion) {
+        return 'group.quitting_home_district_warning'
+      } else {
+        return 'group.really_quit_district'
+      }
+    },
+    leaveText () {
+      if (this.isWorkGroup) {
+        return 'region.public.leave_text_group'
+      } else {
+        return 'region.public.leave_text_region'
       }
     },
     isHomeRegion () {
