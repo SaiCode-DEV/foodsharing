@@ -1213,7 +1213,7 @@ pickup:
   add_onetime_pickup: Add single date
   edit_recurring_pickups: Edit regular pick-up dates
   really_delete_date: Do you really want to delete the pick-up on {date}?
-  leave_team_message_template: Dear all, {date} …
+  leave_team_message_template: Dear all, the slot on {date} is free again …
   really_leave_date: You are responsible for this pick-up. Please arrange a replacement
     independently.
   kick_message_footer: Best wishes, your Store Coordinators
@@ -1267,6 +1267,8 @@ pickup:
       signOff: Sign off
       registeredSwitch: Show registered pick-ups
       loadMore: Load more
+      managedOnlySwitch: SM view
+      useCondensedDesign: Grouped by days
     modals:
       signOffAll:
         title: Sign all slots off?
@@ -1293,6 +1295,7 @@ pickup:
   membershipMissing: You are not a member of this team. Therefore, you should not
     register for pick-ups. If necessary, register as a team member first.
   may_enter: There is a slot available for you on this pickup date.
+  confirmed: Pickup is confirmed.
 storeview:
   show_information: Show store information
   cooperation: Cooperation since {startTime}.
@@ -2077,6 +2080,10 @@ region:
       load_past: View past events
       no_future_events: 'Currently, no public events are listed in this district.
         The following events have taken place in the past:'
+    leave_text_group: Are you no longer active in {name}? Then you should leave this
+      group.
+    leave_text_region: Are you no longer active in {name}? Then you should leave this
+      district.
   denied:
     this_region: You tried to access content from this district, but only members
       of the district have access to it.
@@ -4647,6 +4654,8 @@ help:
         participant list are only accessible to registered users.\nRegister an event
         as public if you want to invite people outside of your local food sharing
         community, and everyone is welcome to attend. \n"
+    pickupOptions:
+      title: Pick-up options
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -4848,3 +4857,23 @@ contact_page:
     text: If you have any questions about a district, please contact the district
       contact person directly.
   description: 'Please contact us using one of the following contact options:'
+net_errors:
+  ECONNABORTED: The request was canceled by your browser. Please try again.
+  ERR_CANCELED: The request has been canceled. Please try again if necessary.
+  unknown: An unknown error occurred. Please try again later.
+  code: 'Error code: '
+  NOT_MODIFIED: You are not authorized to perform this action.
+  TOO_MANY_REQUESTS: Too many requests. Please wait a moment and then try again.
+  ETIMEDOUT: The request took too long. Please check your internet connection and
+    try again.
+  ERR_NETWORK_CHANGED: Your internet connection is unstable. Please check your connection
+    and try again.
+  BAD_REQUEST: The request was invalid. Please check your entries for completeness
+    and plausibility.
+  NOT_FOUND: The requested page was not found.
+  message: 'Error message: '
+  ERR_BAD_RESPONSE: The server returned an invalid response. Please try again.
+  SERVER_ERROR: An internal server error has occurred. Unfortunately, your request
+    cannot be processed at this time.
+  ERR_NETWORK: There was a network problem. Please check your internet connection
+    and try again.
