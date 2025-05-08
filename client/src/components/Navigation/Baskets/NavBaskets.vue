@@ -16,7 +16,7 @@
           v-for="basket in basketsSorted"
           :key="basket.id"
           :basket="basket"
-          @basket-remove="openRemoveBasketModal(basket)"
+          @basket-remove="openRemoveBasketModal"
         />
       </template>
       <template v-else #content>
@@ -55,7 +55,7 @@
       </template>
     </Dropdown>
     <AddBasketModal />
-    <RemoveBasketRequestModal v-if="selectedBasket !== null" :basket="selectedBasket" />
+    <RemoveBasketRequestModal v-if="selectedRequest !== null" :request="selectedRequest" />
   </div>
 </template>
 <script>
@@ -79,7 +79,7 @@ export default {
   },
   data () {
     return {
-      selectedBasket: null,
+      selectedRequest: null,
       fetchedTime: null,
       mayRefresh: false,
     }
@@ -106,8 +106,8 @@ export default {
     this.updateMayRefresh(age)
   },
   methods: {
-    openRemoveBasketModal (basket) {
-      this.selectedBasket = basket
+    openRemoveBasketModal (request) {
+      this.selectedRequest = request
       this.$nextTick(() => {
         this.$bvModal.show('RemoveBasketRequestModal')
       })

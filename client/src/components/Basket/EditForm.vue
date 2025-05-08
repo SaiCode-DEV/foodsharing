@@ -35,13 +35,13 @@ export default {
   },
   setup () {
     return {
-      confirmationDialogue: useConfirmationDialogue(),
+      confirm: useConfirmationDialogue(),
       basketStore: useBasketStore(),
     }
   },
   methods: {
     async deleteBasket () {
-      if (!await this.confirmationDialogue('basket.delete_confirmation.text')) return
+      if (!await this.confirm.confirmationDialogue('basket.delete_confirmation.text')) return
       await removeBasket(this.basket.id)
       await this.basketStore.fetchOwn(true)
       location.href = this.$url('baskets')

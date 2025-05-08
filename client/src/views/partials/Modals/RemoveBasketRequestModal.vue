@@ -2,7 +2,7 @@
   <b-modal
     id="RemoveBasketRequestModal"
     ref="RemoveBasketRequestModal"
-    :title="$i18n('basket.change-state', { name: basket.requests[0].user.name })"
+    :title="$i18n('basket.change-state', { name: request.user.name })"
     :cancel-title="$i18n('globals.close')"
     :ok-title="$i18n('globals.save')"
     :ok-disabled="!selectedStatus"
@@ -10,12 +10,12 @@
   >
     <div class="d-flex mb-3">
       <Avatar
-        :user="basket.requests[0].user"
+        :user="request.user"
         :size="80"
         class="mt-1 pr-2 pt-1"
       />
       <p class="mb-0 ml-auto">
-        {{ $i18n('request_time') }} {{ $dateFormatter.dateTime(basket.time) }}
+        {{ $i18n('request_time') }} {{ $dateFormatter.dateTime(request.time) }}
       </p>
     </div>
 
@@ -45,7 +45,7 @@ const basketStore = useBasketStore()
 
 export default {
   components: { Avatar },
-  props: { basket: { type: Object, required: true } },
+  props: { request: { type: Object, required: true } },
   data () {
     return {
       selectedStatus: null,
@@ -73,8 +73,8 @@ export default {
     async save () {
       try {
         await basketStore.updateBasketRequestStatus(
-          this.basket.id,
-          this.basket.requests[0].user.id,
+          this.request.id,
+          this.request.user.id,
           this.selectedStatus,
         )
         pulseSuccess(this.$i18n('success'))

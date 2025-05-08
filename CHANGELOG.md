@@ -80,6 +80,7 @@
 - Fix multiple network retries, possibly causing multiple identical sent chat and forum posts !4181 @DL6ER
 - Fix incorrect common working group links on user profiles !4171 @DL6ER
 - Fix no "load more messages" button in mailboxes on mobile view (`xs` screens) !4719 @DL6ER
+- Fix closing of food basket requests #2361 !4178 @DL6ER
 
 ## Refactoring
 - Get rid of xhr completely !3826 !3933 @chriswalg

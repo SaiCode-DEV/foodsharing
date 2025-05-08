@@ -84,10 +84,7 @@ export const useBasketStore = defineStore('basket', {
     async updateBasketRequestStatus (basketId, userId, status) {
       try {
         await updateRequestStatus(basketId, userId, status)
-        const index = this.own.findIndex(b => b.id === basketId)
-        if (index >= 0) {
-          this.own.splice(index, 1)
-        }
+        await this.fetchOwn(true)
       } catch (error) {
         console.error('Error updating basket request status:', error)
         throw error

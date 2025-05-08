@@ -61,7 +61,7 @@
         v-b-tooltip.left="$i18n('basket.request_close')"
         :title="$i18n('basket.request_close')"
         class="testing-basket-requests-close btn btn-sm btn-outline-secondary"
-        @click.prevent.stop="openRemoveDialog(entry.user.id, $event)"
+        @click.prevent.stop="openRemoveDialog(basket.id, entry)"
       >
         <i class="fas fa-check" />
       </button>
@@ -92,8 +92,10 @@ export default {
     openChat (userId) {
       conversationStore.openChatWithUser(userId)
     },
-    openRemoveDialog (userId) {
-      this.$emit('basket-remove', this.basket.id, userId)
+    openRemoveDialog (basketId, request) {
+      // Ammend the request object to include the basketId
+      request.id = basketId
+      this.$emit('basket-remove', request)
     },
   },
 }
