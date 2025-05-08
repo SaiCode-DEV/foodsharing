@@ -15,7 +15,7 @@
         <div class="row">
           <div class="col-lg-3 mr-lg-4 mr-xl-0">
             <StoreMenu
-              :key="componentKey"
+              :key="'storeMenu' + componentKey"
               :store-name="storeInformation.name"
               :team-conversation-id="permissions.teamConversationId"
               :jumper-conversation-id="permissions.jumperConversationId"
@@ -35,7 +35,7 @@
             />
             <StoreTeam
               v-if="!viewIsMobile"
-              :key="componentKey"
+              :key="'storeTeam' + componentKey"
               :fs-id="userId"
               :is-coordinator="permissions.isCoordinator"
               :may-edit-store="permissions.mayEditStore"
@@ -79,7 +79,7 @@
           </div>
           <div class="col-lg-3">
             <StoreInfos
-              :key="componentKey"
+              :key="'storeInfo' + componentKey"
               :particularities-description="storeInformation.description"
               :particularities-chain="storeInformation.chain?.information"
               :weight-type="storeInformation.weight"
@@ -101,7 +101,7 @@
             />
             <PickupList
               v-if="permissions.maySeePickup"
-              :key="componentKey"
+              :key="'pickupList' + componentKey"
               :may-see-pickup="permissions.maySeePickup"
               :store-id="storeId"
               :store-title="storeInformation.name"
@@ -111,7 +111,7 @@
             />
             <StoreTeam
               v-if="viewIsMobile"
-              :key="componentKey"
+              :key="'storeTeamMobile' + componentKey"
               :fs-id="userId"
               :is-coordinator="permissions.isCoordinator"
               :may-edit-store="permissions.mayEditStore"
@@ -126,7 +126,7 @@
       </b-tab>
       <b-tab :title="$i18n('storeview.show_settings')">
         <StoreInformation
-          :key="componentKey"
+          :key="'storeInfo' + componentKey"
           :is-jumper="permissions.isJumper"
           :store-id="storeId"
           :may-edit-store="permissions.mayEditStore"
@@ -222,7 +222,7 @@ export default {
     const applicationsPromise = StoreData.mutations.loadStoreApplications(this.storeId)
     const storeMemberPromise = StoreData.mutations.loadStoreMember(this.storeId)
     const metaDataPromise = this.storeStore.fetchMetadata()
-    const regularPickupPromise = StoreData.mutations.fetchRegularPickup(this.storeId)
+    const regularPickupPromise = this.pickupStore.fetchRegularPickup(this.storeId)
     const getRegionOptions = StoreData.mutations.loadGetRegionOptions(this.storeId)
 
     await Promise.all([
