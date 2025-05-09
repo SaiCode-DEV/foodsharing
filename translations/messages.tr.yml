@@ -4558,3 +4558,19 @@ navi:
     onların web sitesine yönlendirilirsiniz. Bunu kabul ediyor musunuz?'
   native: Native App_
   no_native_app: Cihazınız coğrafi bağlantıları desteklemiyor.
+net_errors:
+  message: 'Hata mesajı: '
+  NOT_MODIFIED: Bu eylemi gerçekleştirmeye yetkiniz yok.
+  ERR_NETWORK_CHANGED: İnternet bağlantınız stabil değil. Lütfen bağlantınızı kontrol
+    edip tekrar deneyin.
+  code: 'Hata kodu: '
+  BAD_REQUEST: İstek geçersiz. Lütfen girdilerinizin eksiksiz ve makul olup olmadığını
+    kontrol edin.
+  ECONNABORTED: İstek tarayıcınız tarafından iptal edildi. Lütfen tekrar deneyin.
+  SERVER_ERROR: Dahili sunucu hatası oluştu. Maalesef talebiniz şu anda işleme alınamıyor.
+  TOO_MANY_REQUESTS: Çok fazla istek var. Lütfen bir süre bekleyip tekrar deneyin.
+  NOT_FOUND: Aranılan sayfa bulunamadı.
+  ETIMEDOUT: İstek çok uzun sürdü. Lütfen internet bağlantınızı kontrol edip tekrar
+    deneyin.
+  ERR_NETWORK: Ağda bir sorun oluştu. Lütfen internet bağlantınızı kontrol edip tekrar
+    deneyin.
