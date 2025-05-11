@@ -35,7 +35,7 @@ api.interceptors.response.use(
     return Promise.reject(error)
   },
 )
-const escapeHtml = (str) => str.replace(/[&<>"']/g, (char) => {
+const escapeHtml = (str) => String(str).replace(/[&<>"']/g, (char) => {
   const escapeChars = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }
   return escapeChars[char] || char
 })
@@ -56,10 +56,25 @@ const knownNetworkCodes = [
   'ERR_CANCELED',
 ]
 
+// Memorize the page navigation state
+let isPageNavigation = false
+window.onbeforeunload = function () {
+  isPageNavigation = true
+  return undefined
+}
+
 // Response interceptor for retries
 api.interceptors.response.use(null, async error => {
-  console.log(error)
   const config = error.config
+  let isUnknownError = true
+  let reportToSentry = false
+
+  // If the page is reloading or the user is navigating back/forward,
+  // interrupting API events is expected and we don't want to show an error
+  // message
+  if (isPageNavigation) {
+    return Promise.reject(error)
+  }
 
   if (error.response?.status === HTTP_RESPONSE.UNAUTHORIZED) {
     // Unauthorized -> redirect to login unless disabled (e.g. on failed logins
@@ -67,37 +82,50 @@ api.interceptors.response.use(null, async error => {
     if (!config.disableLoginRedirect) {
       window.location = url('login')
     }
-    return Promise.reject(error)
+    isUnknownError = false
   } else if (error.response?.status === HTTP_RESPONSE.TOO_MANY_REQUESTS) {
     // Too many requests
     showNetworkError('TOO_MANY_REQUESTS', error)
-    return Promise.reject(error)
+    isUnknownError = false
   } else if (error.response?.status === HTTP_RESPONSE.NOT_MODIFIED) {
     // Not modified
-    showNetworkError('NOT_MODIFIED', error)
-    return Promise.reject(error)
+    // Not an error so nothing shown
+    isUnknownError = false
+  } else if (error.response?.status === HTTP_RESPONSE.FORBIDDEN) {
+    // Forbidden
+    showNetworkError('FORBIDDEN', error)
+    isUnknownError = false
   } else if (error.response?.status === HTTP_RESPONSE.NOT_FOUND) {
     // Not found
     showNetworkError('NOT_FOUND', error)
+    isUnknownError = false
+    reportToSentry = true
   } else if (error.response?.status >= HTTP_RESPONSE.BAD_REQUEST &&
              error.response?.status < HTTP_RESPONSE.INTERNAL_SERVER_ERROR) {
     // Catch all other client errors (4xx)
     showNetworkError('BAD_REQUEST', error)
+    isUnknownError = false
+    reportToSentry = true
   } else if (error.response?.status >= HTTP_RESPONSE.INTERNAL_SERVER_ERROR) {
     // Catch all other server errors (5xx)
     showNetworkError('SERVER_ERROR', error)
+    isUnknownError = false
+    reportToSentry = true
   } else if (knownNetworkCodes.includes(error.code)) {
     // Network errors without a response
     showNetworkError(error.code, error)
-    return Promise.reject(error)
+    isUnknownError = false
   }
 
-  if (config) {
+  if (config && reportToSentry) {
     // Report to sentry
     captureRequestError(error, { path: config.url, options: config })
   }
 
-  showNetworkError('unknown', error)
+  if (isUnknownError) {
+    // Show error message
+    showNetworkError('unknown', error)
+  }
   return Promise.reject(error)
 })
 
@@ -126,8 +154,8 @@ export class HTTPError extends Error {
 
 const handleError = error => {
   handleNetworkError(error, {
-    path: error.config?.url,
-    options: error.config,
+    path: error?.config?.url,
+    options: error?.config,
   })
   throw new HTTPError(error)
 }

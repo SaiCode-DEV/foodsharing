@@ -815,7 +815,7 @@ net_errors:
   code: "Fehlercode: "
   message: "Fehlermeldung: "
   BAD_REQUEST: "Die Anfrage war ungültig. Bitte überprüfe deine Eingaben auf Vollständigkeit und Plausibilität."
-  NOT_MODIFIED: "Du bist nicht berechtigt, diese Aktion auszuführen."
+  FORBIDDEN: "Du bist nicht berechtigt, diese Aktion auszuführen."
   NOT_FOUND: "Die angeforderte Seite wurde nicht gefunden."
   TOO_MANY_REQUESTS: "Zu viele Anfragen. Bitte warte einen Moment und versuche es dann erneut."
   SERVER_ERROR: "Ein interner Serverfehler ist aufgetreten. Deine Anfrage kann derzeit leider nicht bearbeitet werden."
