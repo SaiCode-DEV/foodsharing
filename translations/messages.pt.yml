@@ -1069,20 +1069,24 @@ mailbox:
   mail: ''
 bcard:
   error:
-    phone: ''
-    length: ''
-    verified: ''
-  generate: ''
-  for: ''
-  claim: ''
+    phone: 'Deve ter introduzido um número de telefone válido para gerar o teu cartão
+      de visita.'
+    length: 'O teu endereço é demasiado longo. O endereço, o código postal e a cidade
+      não podem ter mais de 49 caracteres.'
+    verified: 'Tens de ser verificado para poderes gerar o teu cartão de visita.'
+  generate: 'Criar um cartão de visita'
+  for: '{role} para {region}'
+  claim: 'Simplesmente gerar, imprimir e cortar aqui …'
   actions: ''
   card: 'O teu cartão de visita de foodsharing'
   info:
     address_shortened: ''
-  desc: ''
+  desc: 'Selecione aqui para qual distrito ou função pretende criar o teu cartão de
+    visita.'
   title: 'Gerador de cartão de visita'
-  role: ''
+  role: 'Função'
   choose: ''
+  region: Região
 formatting:
   md: ''
 group:
@@ -1125,24 +1129,31 @@ group:
     duplicate_moderation_team: ''
     duplicate_voting_team: ''
     duplicate_arbitration_team: ''
-  application_from: ''
+  application_from: 'de'
   apply:
     accept: ''
-    title: ''
-    motivation: ''
-    send: ''
+    title: 'Candidatura para {group}'
+    motivation: 'Qual é a tua motivação para participar no {group}?'
+    send: 'Enviar candidatura'
     erfahrung: ''
-    summary: ''
+    summary: '{name} gostaria de se juntar ao grupo de trabalho {group}.'
     time:
-      "1": ''
-      "5": ''
-      "2": ''
-      "3": ''
-    sent: ''
+      "1": '1–2 horas'
+      "5": '5 ou mais horas'
+      "2": '2–3 horas'
+      "3": '3–4 horas'
+    sent: 'A candidatura foi enviada.'
     declined: ''
     faehigkeit: ''
     zeit: ''
     accepted: ''
+    experience: "Podes recorrer à experiências que tiveste noutras partes do grupo?\n
+      Caso afirmativo, onde e qual?\n"
+    error_missing_time: 'Erro: Não foi selecionada nenhuma hora.'
+    link_description: 'Este link leva-o diretamente para a aplicação:'
+    ability: Quais são as tuas competências neste área?
+    how_much_time: Quantas horas por semana tens tempo e motivação para dedicar a
+      este grupo?
   member_list:
     set_admin_title: ''
     remove_ambassador_text: ''
@@ -1164,7 +1175,7 @@ group:
     not_verified: ''
     remove_text_region: ''
   quit_name_district: ''
-  motivation: ''
+  motivation: 'Texto motivacional'
   unique_function:
     tooltip_function_region387: ''
     tooltip_function_region332: ''
@@ -1174,23 +1185,31 @@ group:
     tooltip_function_region1811: ''
     tooltip_function_region331: ''
     tooltip_function_region432: ''
-  last_activity: ''
+  last_activity: 'Última atividade'
   edit:
-    title: ''
-    description_required: ''
-    name_required: ''
-    description_placeholder: ''
+    title: 'Editar {group}'
+    description_required: 'Por favor, introduza uma descrição.'
+    name_required: 'Por favor, introduza um nome.'
+    description_placeholder: 'Descrição do grupo de trabalho'
   quitting_home_district_warning: ''
-  applications_for: ''
+  applications_for: 'Aplicações para {name}'
   quit_name_workgroup: ''
-  applications: ''
+  applications: 'Aplicações'
   contact:
-    title: ''
-    empty: ''
-    disclaimer: ''
-    admins: ''
-    sent: ''
-    send: ''
+    title: 'Contactar {group}'
+    empty: 'Escrita alguma coisa primeiro ;)'
+    disclaimer: 'Ao enviar uma mensagem para este grupo de trabalho
+
+      os administradores do grupo de trabalho verão o endereço de e-mail
+
+      com o qual está registado no foodsharing.
+
+      Uma cópia desta mensagem ser-lhe-á enviada por e-mail.
+
+      '
+    admins: '{count} pessoas de contacto:'
+    sent: 'A mensagem foi enviada com sucesso.'
+    send: 'Mandar a mensagem'
   application_requirements:
     banana_count_errors:
       min: ''
@@ -1204,13 +1223,13 @@ group:
     requirements: ''
     open: ''
     everybody: ''
-  photo: ''
+  photo: 'Fotografía'
   mail_link_title:
-    region: ''
-    workgroup: ''
+    region: 'Caixa postal do distrito'
+    workgroup: 'Caixa postal do grupo de trabalho'
   delete_group_sure: ''
   saved: ''
-  filter_by_last_activity: ''
+  filter_by_last_activity: 'Não ativo há meses'
   image: ''
   show-all: ''
   actions:
@@ -1221,25 +1240,26 @@ group:
     apply: ''
     edit: ''
   member_count: ''
-  enterxp: ''
+  enterxp: 'Experiência:'
   quit: ''
   no_groups: ''
   members: ''
   subtitle: ''
-  application_region: ''
+  application_region: 'Candidatura de {group}'
   really_quit_district: ''
-  entermotivation: ''
+  entermotivation: 'Motivação:'
   title: ''
   already_applied: ''
   administrators: ''
-  enterskills: ''
+  enterskills: 'Competências:'
   really_quit_workgroup: ''
-  description: ''
-  entertime: ''
-  role_name: ''
-  userId: ''
+  description: 'Descrição'
+  entertime: 'Tiempo:'
+  role_name: 'Função'
+  userId: 'ID'
   admin_count: ''
-  name: ''
+  name: 'Nome'
+  valid_until: Válido áte
 foodsaver:
   delete_account_sure: ''
   list:
