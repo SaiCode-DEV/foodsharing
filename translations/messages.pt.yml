@@ -1091,20 +1091,20 @@ formatting:
   md: ''
 group:
   function:
-    voting: ''
+    voting: 'Votação'
     restricted_workgroup_function: ''
     tooltip_function_9: ''
     tooltip_function_4: ''
-    moderation: ''
-    pr: ''
-    fsmanagement: ''
-    title: ''
+    moderation: 'Moderação'
+    pr: 'Relações públicas'
+    fsmanagement: 'Administração'
+    title: 'Missão do grupo de trabalho'
     tooltip_function_5: ''
     tooltip_function_10: ''
     fsp: 'Cantinho solidário'
     duplicate_report_team: ''
     tooltip_function_1: ''
-    report: ''
+    report: 'Reclamações'
     invalid: ''
     duplicate_welcome_team: ''
     duplicate_fsp_team: 'Equipa de cantinho solidário já criada? Só pode haver uma
@@ -1117,21 +1117,23 @@ group:
     duplicate_mediation_team: ''
     duplicate_board_team: ''
     duplicate_fsmanagement_team: ''
-    welcome: ''
+    welcome: 'Saudação'
     duplicate_pr_team: ''
     stores: ''
-    board: ''
+    board: 'Direção'
     tooltip_function_3: 'Os administradores deste grupo de trabalho podem ativar e
       editar os cantinhos solidário do distrito e remover contribuições de cantinho
       solidário justos'
-    mediation: ''
-    arbitration: ''
+    mediation: 'Mediação'
+    arbitration: 'Comissão de arbitragem'
     duplicate_moderation_team: ''
     duplicate_voting_team: ''
     duplicate_arbitration_team: ''
+    stores_coordination: Empresas
+    election: Eleições
   application_from: 'de'
   apply:
-    accept: ''
+    accept: 'Aceitar candidatura'
     title: 'Candidatura para {group}'
     motivation: 'Qual é a tua motivação para participar no {group}?'
     send: 'Enviar candidatura'
@@ -1143,10 +1145,10 @@ group:
       "2": '2–3 horas'
       "3": '3–4 horas'
     sent: 'A candidatura foi enviada.'
-    declined: ''
+    declined: 'Candidatura recheitado'
     faehigkeit: ''
     zeit: ''
-    accepted: ''
+    accepted: 'Candidatura aceite'
     experience: "Podes recorrer à experiências que tiveste noutras partes do grupo?\n
       Caso afirmativo, onde e qual?\n"
     error_missing_time: 'Erro: Não foi selecionada nenhuma hora.'
@@ -1174,7 +1176,7 @@ group:
     set_ambassador_text: ''
     not_verified: ''
     remove_text_region: ''
-  quit_name_district: ''
+  quit_name_district: 'Deixar o distrito {name}'
   motivation: 'Texto motivacional'
   unique_function:
     tooltip_function_region387: ''
@@ -1191,9 +1193,11 @@ group:
     description_required: 'Por favor, introduza uma descrição.'
     name_required: 'Por favor, introduza um nome.'
     description_placeholder: 'Descrição do grupo de trabalho'
-  quitting_home_district_warning: ''
+  quitting_home_district_warning: 'Queres mesmo deixar o teu distrito de origem {name}?
+    Vais perder a tua verificação e terás de te apresentar mais tarde à equipa de
+    embaixadores do teu novo distrito de origem.'
   applications_for: 'Aplicações para {name}'
-  quit_name_workgroup: ''
+  quit_name_workgroup: 'Deixar a equipa {name}'
   applications: 'Aplicações'
   contact:
     title: 'Contactar {group}'
@@ -1212,54 +1216,66 @@ group:
     send: 'Mandar a mensagem'
   application_requirements:
     banana_count_errors:
-      min: ''
-      max: ''
-    nobody: ''
-    member_since_weeks: ''
-    fetch_count: ''
-    banana_count: ''
-    not_fulfilled: ''
-    requires_properties: ''
-    requirements: ''
-    open: ''
-    everybody: ''
+      min: 'Ninguém deve ter menos do que {{ limit }} bananas de confiança.'
+      max: 'Por favor, não espere mais do que {{ limit }} bananas de confiança.'
+      not_in_range: '{{ limit }} Ninguém deve ter menos do que {{ min }} ou mais do
+        que {{ max }} bananas de confiança.'
+    nobody: 'Ninguém (grupo fechado).'
+    member_since_weeks: 'Quantas semanas são necessárias para um candidato estar registado
+      na plataforma?'
+    fetch_count: 'Quantas recolhas já deveriam ter sido efectuadas?'
+    banana_count: 'Quantas bananas de confiança devem estar presentes?'
+    not_fulfilled: 'Para candidatar-se a este grupo de trabalho, deve fazer parte
+      da foodsharing há %weeks% semanas, já ter recolhido %bananas% bananas de confiança
+      e ter participado em %fetches% de recolhas.'
+    requires_properties: 'Todos quantos preencham certos pontos de confiança.'
+    requirements: 'Quem pode inscrever no neste grupo?'
+    open: 'Todos pessoas podem participar sem se candidatarem.'
+    everybody: 'Todos podem candidatar-se.'
   photo: 'Fotografía'
   mail_link_title:
     region: 'Caixa postal do distrito'
     workgroup: 'Caixa postal do grupo de trabalho'
-  delete_group_sure: ''
+  delete_group_sure: 'Queres realmente eliminar o grupo/distrito {groupName}?'
   saved: ''
   filter_by_last_activity: 'Não ativo há meses'
-  image: ''
+  image: 'Imagem de capa para %name%'
   show-all: ''
   actions:
-    go: ''
-    save: ''
-    contact: ''
-    join: ''
-    apply: ''
-    edit: ''
-  member_count: ''
+    go: 'Ao grupo'
+    save: 'Guardar alterações'
+    contact: 'Contacto este grupo'
+    join: 'Participe neste grupo de trabalho'
+    apply: 'Aplicar para este grupo de trabalho'
+    edit: 'Editar grupo'
+  member_count:
+    zero: Sem membros
+    one: Um membro em total
+    other: '{count} membros em total'
   enterxp: 'Experiência:'
-  quit: ''
-  no_groups: ''
-  members: ''
-  subtitle: ''
+  quit: 'Deixar'
+  no_groups: 'Aqui é ainda não grupos de trabalho'
+  members: 'Miembros'
+  subtitle: 'Aqui encontrará ajuda e muito para fazer …'
   application_region: 'Candidatura de {group}'
-  really_quit_district: ''
+  really_quit_district: 'Quer mesmo deixar o destrito {name}?'
   entermotivation: 'Motivação:'
-  title: ''
-  already_applied: ''
-  administrators: ''
+  title: 'Grupos de trabalho de foodsharing'
+  already_applied: 'Já candidatou para este grupo.'
+  administrators: 'Administradores de grupo'
   enterskills: 'Competências:'
-  really_quit_workgroup: ''
+  really_quit_workgroup: 'Quer mesmo deixar o grupo de trabalho {name}?'
   description: 'Descrição'
   entertime: 'Tiempo:'
   role_name: 'Função'
   userId: 'ID'
-  admin_count: ''
+  admin_count:
+    zero: Sem administradores
+    other: '{count} administradores'
+    one: Um administrador
   name: 'Nome'
   valid_until: Válido áte
+  filter_placeholder: Filtrar grupos por nomes
 foodsaver:
   delete_account_sure: ''
   list:
