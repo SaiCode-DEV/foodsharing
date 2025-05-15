@@ -4840,3 +4840,6 @@ feedback:
 net_errors:
   code: 'Code d’erreur : '
   message: 'Message d’erreur : '
+  NOT_FOUND: La page demandée n’a pas été trouvée.
+  TOO_MANY_REQUESTS: Trop de demandes. Veuillez attendre un instant et réessayer.
+  FORBIDDEN: Tu n’as pas le droit de faire cette action.
