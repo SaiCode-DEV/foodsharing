@@ -4877,3 +4877,4 @@ net_errors:
     cannot be processed at this time.
   ERR_NETWORK: There was a network problem. Please check your internet connection
     and try again.
+  FORBIDDEN: You are not authorized to perform this action.
