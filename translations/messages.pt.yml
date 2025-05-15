@@ -1092,33 +1092,53 @@ formatting:
 group:
   function:
     voting: 'Votação'
-    restricted_workgroup_function: ''
-    tooltip_function_9: ''
-    tooltip_function_4: ''
+    restricted_workgroup_function: 'Esta função de grupo de trabalho só pode ser editada
+      pelo grupo de trabalho suprarregional “Criar grupo de trabalho”'
+    tooltip_function_9: 'Os administradores deste grupo de trabalho podem editar a
+      descrição do grupo local para o mapa.'
+    tooltip_function_4: 'Os administradores deste grupo de trabalho podem ver e editar
+      empresas no distrito'
     moderation: 'Moderação'
     pr: 'Relações públicas'
     fsmanagement: 'Administração'
     title: 'Missão do grupo de trabalho'
-    tooltip_function_5: ''
-    tooltip_function_10: ''
+    tooltip_function_5: 'Os administradores deste grupo de trabalho podem ver mensagens
+      sobre os salvadores alimentar no distrito. Não são apresentados relatórios em
+      que os administradores estejam envolvidos! O conselho de arbitragem recebe-os.'
+    tooltip_function_10: 'Os administradores deste grupo de trabalho podem desbloquear
+      mensagens em fóruns moderados. Caso esta opção esteja activada para o distrito,
+      podem também ocultar mensagens no fórum.'
     fsp: 'Cantinho solidário'
-    duplicate_report_team: ''
-    tooltip_function_1: ''
+    duplicate_report_team: 'A equipa da queixa já foi criada! Por distrito só pode
+      ter uma equipa da queixa.'
+    tooltip_function_1: 'Os administradores deste grupo de trabalho são notificados
+      dos membros novos do distrito'
     report: 'Reclamações'
-    invalid: ''
-    duplicate_welcome_team: ''
+    invalid: 'Um distrito não pode ser afetado a uma função de grupo de trabalho.'
+    duplicate_welcome_team: 'A equipa de boas-vindas já foi criada! Por distrito só
+      pode ter uma equipa de boas-vindas.'
     duplicate_fsp_team: 'Equipa de cantinho solidário já criada? Só pode haver uma
       equipa de cantinho solidário por distrito.'
-    tooltip_function_2: ''
-    tooltip_function_11: ''
-    tooltip_function_6: ''
-    tooltip_function_7: ''
-    duplicate_stores_team: ''
-    duplicate_mediation_team: ''
-    duplicate_board_team: ''
-    duplicate_fsmanagement_team: ''
+    tooltip_function_2: 'Os administradores deste grupo de trabalho podem criar votações
+      para o distrito'
+    tooltip_function_11: 'Os administradores deste grupo de trabalho são apresentados
+      na visão geral do distrito.'
+    tooltip_function_6: 'O e-mail deste grupo de trabalho é apresentado no botão “Pedir
+      mediação”. Os administradores não têm autorizações especiais.'
+    tooltip_function_7: 'Os administradores deste grupo de trabalho são mostradas
+      as notificações que envolvem a equipa de notificação. Não são apresentadas mensagens
+      em que os administradores estejam envolvidos! A equipa da queixa recebe estas'
+    duplicate_stores_team: 'A equipa de coordenação da cooperação já foi criada! Por
+      distrito só pode ter uma equipa de coordenação da cooperação.'
+    duplicate_mediation_team: 'A equipa de mediação já foi criada! Por distrito só
+      pode ter uma equipa de mediação.'
+    duplicate_board_team: 'O conselho de administração já foi criada! Por distrito
+      só pode ter um O conselho de administração.'
+    duplicate_fsmanagement_team: 'A equipa de administração já foi criada! Por distrito
+      só pode ter uma equipa de administração.'
     welcome: 'Saudação'
-    duplicate_pr_team: ''
+    duplicate_pr_team: 'A equipa dos relações públicas já foi criada! Por distrito
+      só pode ter uma equipa dos relações públicas.'
     stores: ''
     board: 'Direção'
     tooltip_function_3: 'Os administradores deste grupo de trabalho podem ativar e
@@ -1126,11 +1146,19 @@ group:
       solidário justos'
     mediation: 'Mediação'
     arbitration: 'Comissão de arbitragem'
-    duplicate_moderation_team: ''
-    duplicate_voting_team: ''
-    duplicate_arbitration_team: ''
+    duplicate_moderation_team: 'A equipa de moderação já foi criada! Por distrito
+      só pode ter uma equipa de moderação.'
+    duplicate_voting_team: 'A equipa de votação já foi criada! Por distrito só pode
+      ter uma equipa de votação.'
+    duplicate_arbitration_team: 'O comissão de arbitragem já foi criada! Por distrito
+      só pode ter um comissão de arbitragem.'
     stores_coordination: Empresas
     election: Eleições
+    none: Não é um grupo de trabalho GOALS
+    tooltip_function_12: Os administradores deste grupo de trabalho são apresentados
+      na visão geral do distrito.
+    duplicate_election_team: O grupo de trabalho eleitoral já foi criada! Por distrito
+      só pode ter um o grupo de trabalho eleitoral.
   application_from: 'de'
   apply:
     accept: 'Aceitar candidatura'
@@ -1157,36 +1185,77 @@ group:
     how_much_time: Quantas horas por semana tens tempo e motivação para dedicar a
       este grupo?
   member_list:
-    set_admin_title: ''
-    remove_ambassador_text: ''
-    is_verified: ''
-    add_member: ''
-    old_edit_hint_link: ''
-    remove_admin_text: ''
-    remove_admin_title: ''
-    remove_title: ''
-    remove_text_group: ''
-    admin_mode_off: ''
-    old_edit_hint: ''
-    set_admin_text: ''
-    set_ambassador_title: ''
-    admin_mode_on: ''
-    is_home_region: ''
-    remove_ambassador_title: ''
-    set_ambassador_text: ''
-    not_verified: ''
-    remove_text_region: ''
+    set_admin_title: 'Atribuir como administrador'
+    remove_ambassador_text: 'Tem a certeza de que pretende remover {name} ({id}) como
+      embaixador?'
+    is_verified: 'Verificado'
+    add_member: 'incluir na equipa'
+    old_edit_hint_link: 'Miembros'
+    remove_admin_text: 'Tem a certeza de que pretende remover {name} ({id}) como administrador?'
+    remove_admin_title: 'Eliminar como administrador'
+    remove_title: 'Eliminar miembro'
+    remove_text_group: 'Queres mesmo eliminar {name} ({id}) do grupo de trabalho?'
+    admin_mode_off: 'Voltar à vista normal'
+    old_edit_hint: 'A gestão dos membros pode agora ser encontrada no separador'
+    set_admin_text: 'Quer mesmo adicionar {name} ({id}) como administrador?'
+    set_ambassador_title: 'Atribuir como embaixador'
+    admin_mode_on: 'Ativar a vista do administrador'
+    is_home_region: 'Distrito de origem'
+    remove_ambassador_title: 'Eliminar como embaixador'
+    set_ambassador_text: 'Quer mesmo adicionar {name} ({id}) como embaixador?'
+    not_verified: 'Não verificado'
+    remove_text_region: 'Queres mesmo eliminar {name} ({id}) do distrito?'
+    default:
+      lastname: Sobrenome
+      title: Standard
+    passports:
+      created_at: Cartão de identificação criado em
+      generate_button: Criar cartão(ões) de membro para a(s) pessoa(s) selecionada(s)
+      never_before: nunca
+      verify:
+        do: Queres mesmo verificar {name} ({id}) (comparação de dados efectuada /
+          ID verificada, etc.)?
+        undo: Cancelar a ativação de {name} ({id})
+        do_selected: Queres mesmo verificar todos os dados selecionados (comparação
+          de dados efectuada/identificação verificada, etc.)?
+      title: Cartões de identificação e verificação
+      filter_options:
+        invalid_passport: Cartão inválido
+        no_filter: Sem filtro
+        no_passport: Sem cartão
+        with_passport: com cartão
+      verify_selected: verificar as marcações
+      show_only_member_after: Mostrar apenas membros por
+      filter_selection: Mostrar apenas membros selecionados
+      button:
+        verify: Para verificar
+        unverify: Desverificar
+      create_pdf: criar PDF
+      execute: Executar ação
+      already_verified: Todos os utilizadores selecionados já foram verificados
+      automatic_paper_size: Utilizar papel A4
+      active_or_renew_passport: Ativar / prolongar o cartão de Foodsharing
+      inform_user: com notificação
+    all_roles: Todas as funções
   quit_name_district: 'Deixar o distrito {name}'
   motivation: 'Texto motivacional'
   unique_function:
-    tooltip_function_region387: ''
-    tooltip_function_region332: ''
-    tooltip_function_region327: ''
-    tooltip_function_region2287: ''
-    tooltip_function_region341: ''
-    tooltip_function_region1811: ''
-    tooltip_function_region331: ''
-    tooltip_function_region432: ''
+    tooltip_function_region387: 'Os administradores deste grupo de trabalho podem
+      remover entradas da lista de devoluções de e-mail'
+    tooltip_function_region332: 'Os membros deste grupo de trabalho têm acesso à lista
+      de cadeias'
+    tooltip_function_region327: 'Os administradores deste grupo de trabalho podem
+      editar as entradas do blogue'
+    tooltip_function_region2287: 'Os administradores deste grupo de trabalho podem
+      editar o conteúdo da página inicial'
+    tooltip_function_region341: 'Os administradores deste grupo de trabalho podem
+      gerir as perguntas do questionário'
+    tooltip_function_region1811: 'Os administradores deste grupo de trabalho podem
+      editar as páginas “ Parceiros”, “Contactos” e “Equipa”'
+    tooltip_function_region331: 'Os administradores deste grupo de trabalho podem
+      enviar boletins informativos'
+    tooltip_function_region432: 'Os administradores deste grupo de trabalho podem
+      ver os queixas'
   last_activity: 'Última atividade'
   edit:
     title: 'Editar {group}'
@@ -1240,7 +1309,7 @@ group:
   saved: ''
   filter_by_last_activity: 'Não ativo há meses'
   image: 'Imagem de capa para %name%'
-  show-all: ''
+  show-all: 'Mostrar todo'
   actions:
     go: 'Ao grupo'
     save: 'Guardar alterações'
@@ -2397,14 +2466,26 @@ legal:
     select: ''
     not_acknowledge: ''
     acknowledge: ''
-  acknowledge: ''
+  acknowledge:
+    select: Por favor selecionar
+    agree_policy_and_notice: Sim, aceito a política de privacidade e as informações
+      sobre proteção de dados.
+    not_agree: Não, não aceito a política de privacidade. Gostaria de eliminar a minha
+      conta.
+    agree_only_policy: Aceito apenas a política de privacidade e gostaria de ser despromovido
+      para o Foodsaver.
+    qustion_policy: Aceita a nossa política de privacidade?
+    qustion_notice: Aceita a nossa política de privacidade e o aviso de proteção de
+      dados?
+    agree: Sim, aceito a política de privacidade.
   agree_privacy_notice: ''
   are_you_sure_to_downgrade: ''
   legal_agreement: ''
-  privacy_notice: ''
+  privacy_notice: 'Instruções sobre proteção de dados para os responsávels de empresas
+    e embaixadores'
   not_acknowledge_privacy_notice_description: ''
   must_accept_privacy_policy: ''
-  privacy_policy: ''
+  privacy_policy: 'Política de privacidade'
   actions:
     safe: ''
   dont_agree: ''
