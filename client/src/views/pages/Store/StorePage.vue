@@ -219,7 +219,6 @@ export default {
     const permissionsPromise = StoreData.mutations.loadPermissions(this.storeId)
     const userDetailsPromise = this.userStore.fetchDetails()
     const storeInformationPromise = StoreData.mutations.loadStoreInformation(this.storeId)
-    const applicationsPromise = StoreData.mutations.loadStoreApplications(this.storeId)
     const storeMemberPromise = StoreData.mutations.loadStoreMember(this.storeId)
     const metaDataPromise = this.storeStore.fetchMetadata()
     const regularPickupPromise = this.pickupStore.fetchRegularPickup(this.storeId)
@@ -231,12 +230,6 @@ export default {
       storeMemberPromise.then(() => {
         this.checkIsUserInStore()
         this.getLastFetchDate()
-      }),
-      applicationsPromise.then(() => {
-        const applications = StoreData.getters.getStoreApplications()
-        if (this.showTeamRequests && applications && applications.length > 0) {
-          this.$bvModal.show('requests')
-        }
       }),
       storeInformationPromise.then(() => {
         this.componentKey += 1
