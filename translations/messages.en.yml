@@ -2158,7 +2158,7 @@ footer:
   imprint: Legal notice
   team: Team
   denns_at_alt_text: Denns BioMarkt
-  wiener_tafel_alt_text: Wiener Tafel
+  tafel_oesterreich_alt_text: Tafel Österreich
   lebensministerium_alt_text: Federal Ministry of Agriculture, Regions and Tourism
   hosting_tooltip: hosted carbon-neutral by manitu.
   hosting_info: hosted carbon-neutral at
@@ -2173,7 +2173,7 @@ footer:
     info: hosted in a CO₂ neutral manner
     tooltip: CO₂-neutrally hosted at manitu
   partner_names:
-    wiener_tafel: Food bank Vienna
+    tafel_oesterreich: Food bank Austria
     denns: Denn’s Biomarkt
     lebensministerium: Federal Ministry of Agriculture, Forestry, Regions and Water
       Management

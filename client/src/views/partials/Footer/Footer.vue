@@ -6,7 +6,7 @@
         <b-col
           sm="6"
           cols="12"
-          class="mb-5 mb-sm-0"
+          class="h-100 mb-sm-0"
         >
           <div class="d-flex flex-wrap">
             <a
@@ -22,7 +22,7 @@
             >
               <img
                 :alt="$i18n(item.title)"
-                :src="item.img"
+                :src="themeStore.isDark && item.imgDark ? item.imgDark : item.img"
                 loading="lazy"
               >
               <p
@@ -117,7 +117,7 @@
               <!-- This is a workaround for the bluesky icon and can be removed it is added to fontawesome -->
               <img
                 v-if="social.icon.startsWith('/')"
-                :src="social.icon"
+                :src="themeStore.isDark && social.iconDark ? social.iconDark : social.icon"
                 width="19px"
                 height="19px"
                 style="vertical-align: middle"
@@ -161,8 +161,15 @@ import PartnerData from './Data/PartnerData.json'
 // Mixins
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 import serverData from '@/helper/server-data'
+// Theme
+import { useThemeStore } from '@/stores/theme'
+
 export default {
   mixins: [RouteCheckMixin],
+  setup () {
+    const themeStore = useThemeStore()
+    return { themeStore }
+  },
   data () {
     return {
       externalLink: 'nofollow noreferrer noopener',
@@ -196,10 +203,12 @@ export default {
 }
 .partner {
   margin: .5rem;
+  display: inline-block;
+  min-width: 75px;
 
   img {
     height: 100%;
-    width: 100%;
+    object-fit: contain;
   }
   &.alone {
     img {

@@ -2743,7 +2743,7 @@ formatting:
     à utiliser.
 footer:
   lebensministerium_alt_text: Ministère fédéral de l'Agriculture autrichien
-  wiener_tafel_alt_text: Wiener Tafel
+  tafel_oesterreich_alt_text: Tafel Österreich
   it_devdocs: par le groupe informatique de foodsharing
   donate_now: Faire un don
   call_to_donate: "Tu souhaites soutenir foodsharing ?\n"
@@ -2774,7 +2774,7 @@ footer:
     info: Hébergement neutre en CO₂
     tooltip: Hébergement neutre en CO₂ sur manitu
   partner_names:
-    wiener_tafel: Banque alimentaire de Vienne
+    tafel_oesterreich: Banque alimentaire de l’Autriche
     denns: Denn’s Biomarkt
     lebensministerium: Bundesministerium für Landwirtschaft, Regionen und Tourismus
   infosDeveloper: pour les développeurs·euses

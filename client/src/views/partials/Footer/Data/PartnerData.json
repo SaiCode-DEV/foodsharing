@@ -26,12 +26,14 @@
       {
         "url": "bmlfuw",
         "title": "footer.partner_names.lebensministerium",
-        "img": "/img/footer/BMLRT_Logo.svg"
+        "img": "/img/footer/BMLRT_Logo_schwarz.svg",
+        "imgDark": "/img/footer/BMLRT_Logo_weiss.svg"
       },
       {
-        "url": "wiener_tafel",
-        "title": "footer.partner_names.wiener_tafel",
-        "img": "/img/footer/Wiener_Tafel_logo.svg"
+        "url": "tafel_oesterreich",
+        "title": "footer.partner_names.tafel_oesterreich",
+        "img": "/img/footer/tafel_oesterreich_schwarz.svg",
+        "imgDark": "/img/footer/tafel_oesterreich_weiss.svg"
       }
     ]
   }

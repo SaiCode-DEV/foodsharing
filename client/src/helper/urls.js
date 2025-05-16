@@ -196,7 +196,7 @@ const urls = {
 
   // Footer Links
   hosting: () => 'https://www.manitu.de/webhosting/',
-  wiener_tafel: () => 'https://www.wienertafel.at',
+  tafel_oesterreich: () => 'https://www.wienertafel.at',
   bmlfuw: () => 'https://www.bmlrt.gv.at',
   denns: () => 'https://www.denns-biomarkt.at',
   chains: () => '/?page=chain',

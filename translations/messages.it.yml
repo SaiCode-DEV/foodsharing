@@ -3082,7 +3082,7 @@ footer:
   beta_testing_issues: Compiti di prova della versione beta
   lebensministerium_alt_text: Ministero Federale dell'Agricoltura, delle Regioni e
     del Turismo - Austria
-  wiener_tafel_alt_text: Wiener Tafel - Tavola di cibo a Vienna
+  tafel_oesterreich_alt_text: Tafel Österreich - Tavola di cibo a Vienna
   denns_at_alt_text: Denn's Biomarkt
   donate:
     cta: 'Dona ora'
@@ -3102,7 +3102,7 @@ footer:
     tooltip: 'ospitato ad emissioni neutrali di CO₂ su manitu'
     info: 'ospitato ad emissioni neutrali di CO₂'
   partner_names:
-    wiener_tafel: 'Banco alimentare Vienna'
+    tafel_oesterreich: 'Banco alimentare Vienna'
     denns: 'Denn’s Biomarkt'
     lebensministerium: 'Ministero federale dell''agricoltura, delle regioni e del
       turismo'

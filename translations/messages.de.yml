@@ -1320,7 +1320,7 @@ pickup:
         name: Abholoptionen
         tooltip:
           own: Zukünftige Abholtermine, für die du dich noch eintragen könntest
-        empty: Momentan sind in deinen Betrieben keine Slots frei. 
+        empty: Momentan sind in deinen Betrieben keine Slots frei.
       history:
         name: Abholhistorie
         tooltip:
@@ -2767,8 +2767,8 @@ footer:
     info: "CO₂-neutral gehostet"
     tooltip: "CO₂-neutral gehostet auf manitu"
   partner_names:
-    wiener_tafel: Wiener Tafel
-    lebensministerium: Bundesministerium für Landwirtschaft, Regionen und Tourismus
+    tafel_oesterreich: Tafel Österreich
+    lebensministerium: Bundesministerium für Land- und Forstwirtschaft, Klima- und Umweltschutz, Regionen und Wasserwirtschaft
     denns: Denn’s Biomarkt
 
 releases:
@@ -3837,7 +3837,7 @@ help:
       title: "Öffentliche Veranstaltungen"
       md: |
         Veranstaltungen können von Admins einer Arbeitsgruppe oder den Admins der GOALS-AG Öffentlichkeitsarbeit bzw. den Botschafter:innen als öffentlich eingetragen werden. Öffentliche Veranstaltungen sind für alle zugänglich. Man muss nicht auf der Plattform angemeldet sein, um den Veranstaltungsort und die Informationen einzusehen. Pinnwand und Teilnehmer:innenliste sind allerdings nur für angemeldete Nutzer:innen zugänglich.
-        Trage eine Veranstaltung als öffentlich ein, wenn du auch außerhalb deiner lokalen foodsharing Community dazu einladen möchtest, und alle kommen dürfen. 
+        Trage eine Veranstaltung als öffentlich ein, wenn du auch außerhalb deiner lokalen foodsharing Community dazu einladen möchtest, und alle kommen dürfen.
     change_verified_data:
       title: Änderung verifizierter Daten beantragen
       md: |
@@ -3850,11 +3850,11 @@ help:
         Der Bereich *Abholoptionen* zeigt dir eine Übersicht über alle kommenden Abholungen in deinen Betrieben, bei denen noch Foodsaver:innen gesucht werden. Über das Optionsmenü kannst du die Ansicht an deine Bedürfnisse anpassen:
 
         **Eingetragene Abholungen:** Damit du deine Abholungen besser planen kannst, kannst du dir auch die Abholungen anzeigen lassen, bei denen du selbst bereits eingetragen bist. Diese Abholungen werden etwas blasser dargestellt, damit du sie auf einen Blick erkennen kannst.
-        
+
         **BV-Ansicht:** Betriebsverantwortliche (BV) kümmern sich darum, dass in ihren Betrieben alle Abholungen zuverlässig stattfinden. Wenn du BV bist, kannst du die Ansicht auf die Betriebe einschränken, für die du zuständig bist. So behältst du leichter den Überblick.
 
         **Gruppiert nach Tagen:** In dieser Darstellung werden deine Abholoptionen nach Tagen zusammengefasst und etwas kompakter dargestellt. Gerade, wenn dir pro Tag viele Abholoptionen zur Verfügung stehen, macht es das leichter, einen Überblick zu bekommen.
-        
+
 team_page:
   board_member:
     title: "Vorstand"

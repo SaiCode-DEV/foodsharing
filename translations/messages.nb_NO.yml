@@ -2419,7 +2419,7 @@ footer:
   our_partner: Våre partnere
   lebensministerium_alt_text: Livsdepartementet
   donate_now: Donér nå
-  wiener_tafel_alt_text: Wiener Tafel (Matbank Wien)
+  tafel_oesterreich_alt_text: Tafel Österreich (Matbank Wien)
   beta_testing_issues: Testoppgaver for betaversjonen
   denns_at_alt_text: Denns BioMarkt
   it_devdocs: av foodsharing IT
@@ -2438,7 +2438,7 @@ footer:
     lebensministerium: Det føderale departementet for landbruk, skogbruk, regioner
       og vannforvaltning
     denns: Denn’s Biomarkt
-    wiener_tafel: Wiener Tafel (Matbank Wien)
+    tafel_oesterreich: Tafel Österreich (Matbank Wien)
 date:
   sunday: søndag
   saturday: lørdag
