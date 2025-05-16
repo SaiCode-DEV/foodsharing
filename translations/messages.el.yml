@@ -739,7 +739,7 @@ register:
   have_read_the_legal_stuff2: ''
   firstname_required: ''
   login_email: ''
-  error_email_exist: ''
+  error_email_invalid: ''
   login_location: ''
   activation_success: ''
 terminology:

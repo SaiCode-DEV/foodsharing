@@ -591,7 +591,7 @@ register:
   error_birthdate: Esempio 25/03/2001 (GG.MM.AAAA). Per motivi di protezione dei dati
     e responsabilità, devi avere almeno 18 anni per partecipare alla condivisione
     degli alimenti.
-  error_email_exist: Il tuo indirizzo e-mail esiste già.
+  error_email_invalid: Il tuo indirizzo e-mail esiste già.
   error: C'è stato un errore
   other: diversi
   man: mascile

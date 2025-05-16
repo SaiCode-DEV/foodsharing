@@ -45,8 +45,8 @@ test.describe('Registration', () => {
     // Step 1: Email & Password
     await page.waitForSelector('#step1');
     await page.fill('#email', testData.email);
-    await page.fill('#password', testData.password);
-    await page.fill('#confirmPassword', testData.password);
+    await page.fill('#password > input:nth-child(1)', testData.password);
+    await page.fill('#confirmPassword > input:nth-child(1)', testData.password);
     // Wait for email validation to complete
     await page.waitForTimeout(350);
     await page.waitForSelector('button:text("weiter"):not([disabled])');
@@ -99,8 +99,8 @@ test.describe('Registration', () => {
     // Step 1: Email & Password
     await page.waitForSelector('#step1');
     await page.fill('#email', '      ' + testData.email);
-    await page.fill('#password', testData.password);
-    await page.fill('#confirmPassword', testData.password);
+    await page.fill('#password > input:nth-child(1)', testData.password);
+    await page.fill('#confirmPassword > input:nth-child(1)', testData.password);
     // Wait for email validation to complete
     await page.waitForTimeout(350);
     await page.waitForSelector('button:text("weiter"):not([disabled])');
@@ -158,13 +158,11 @@ test.describe('Registration', () => {
     
     await page.waitForSelector('#step1');
     await page.fill('#email', `test@${blacklistedEmailDomain}`);
-    await page.fill('#password', testData.password);
-    await page.fill('#confirmPassword', testData.password);
+    await page.fill('#password > input:nth-child(1)', testData.password);
+    await page.fill('#confirmPassword > input:nth-child(1)', testData.password);
     // Wait for email validation to complete
     await page.waitForTimeout(350);
-    await page.waitForSelector('button:text("weiter"):not([disabled])');
-    await page.click('text=weiter');
 
-    await expect(page.locator('text=Die E-Mail-Adresse ist ungültig')).toBeVisible();
+    await expect(page.locator('text=Die E-Mail-Adresse ist entweder ungültig oder wird bereits verwendet')).toBeVisible();
   });
 });

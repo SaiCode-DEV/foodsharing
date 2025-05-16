@@ -236,7 +236,7 @@ register:
   landline_example: ''
   email_required: ''
   set-password: ''
-  error_email_exist: ''
+  error_email_invalid: ''
   man: ''
   firstname_required: ''
   birthdate_hint: ''

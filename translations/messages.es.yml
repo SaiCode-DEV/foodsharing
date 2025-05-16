@@ -1339,7 +1339,7 @@ group:
   filter_placeholder: Filtrar grupos por nombre
   valid_until: Válido hasta
 register:
-  error_email_exist: 'Su dirección de correo electrónico ya existe.'
+  error_email_invalid: 'Su dirección de correo electrónico ya existe.'
   login_email: 'Dirección de correo electrónico'
   landline_example: 'Ejemplo: +43 812 34 56 78'
   email_required: 'Se requiere una dirección de correo electrónico.'

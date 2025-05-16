@@ -2124,7 +2124,7 @@ register:
   login_surname: ''
   finish: ''
   join_error: ''
-  error_email_exist: ''
+  error_email_invalid: ''
   login_email: ''
   email_invalid: ''
   login_passwd1: ''

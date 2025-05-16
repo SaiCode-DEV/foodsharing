@@ -375,7 +375,7 @@ class SettingsApiCest
 
     public function canChangeValidPassword(ApiTester $I): void
     {
-        $newPassword = $this->faker->password(8);
+        $newPassword = $this->faker->password(8) . 'aA1'; // Ensure minimum length and complexity requirements
 
         $I->login($this->userWithPassword['email'], $this->passwordOfUser);
         $I->haveHttpHeader('Content-Type', 'application/json');

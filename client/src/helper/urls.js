@@ -235,6 +235,6 @@ const url = (key, ...params) => {
   return urls[key](...params)
 }
 
-const isFoodsharingDomain = (value) => value.match(/(.)+@foodsharing.network$/g)
+const isNotFoodsharingDomain = (value) => value.match(/(.)+@foodsharing.network$/g) === null
 
-export { url, urls, isFoodsharingDomain }
+export { url, urls, isNotFoodsharingDomain }

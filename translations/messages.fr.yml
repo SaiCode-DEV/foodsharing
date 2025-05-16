@@ -1200,7 +1200,7 @@ terminology:
 register:
   activation_success: <strong>Activation réussie.</strong> Connecte-toi maintenant
     avec ton adresse courriel et le mot de passe que tu as choisi.
-  error_email_exist: Ton adresse électronique existe déjà.
+  error_email_invalid: Ton adresse électronique existe déjà.
   join_success_message: Tu as terminé avec succès ton inscription à foodsharing. Tu
     peux maintenant te connecter avec ton adresse courriel et ton mot de passe.
   check_mail: Vérifie tes courriels maintenant pour terminer l’inscription !

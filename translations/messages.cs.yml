@@ -629,7 +629,7 @@ register:
   requiredFields: ''
   email_required: ''
   confirmPassword_required: ''
-  error_email_exist: ''
+  error_email_invalid: ''
   set-password: ''
   topbar: ''
   forgotten_password: ''

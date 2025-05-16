@@ -393,9 +393,13 @@ class SettingsTransactions
         }
 
         // check that the new one meets the criteria
-        $request->newPassword = trim($request->newPassword);
-        if (strlen($request->newPassword) < self::MIN_PASSWORD_LENGTH) {
-            throw new BadRequestHttpException('password is too short');
+        $pwCheck = $this->loginGateway->checkPassword($request->newPassword);
+        if ($pwCheck !== null) {
+            throw new BadRequestHttpException($pwCheck);
+        }
+
+        if ($request->newPassword === $request->oldPassword) {
+            throw new BadRequestHttpException('New password must be different from the old password');
         }
 
         $this->loginGateway->setPassword($this->session->id(), $request->newPassword);

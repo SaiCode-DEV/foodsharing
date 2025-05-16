@@ -2324,7 +2324,7 @@ register:
   confirmPassword_required: ''
   phone_not_valid: ''
   account-exists: ''
-  error_email_exist: ''
+  error_email_invalid: ''
   landline_example: ''
   error_birthdate: ''
   login_name: ''

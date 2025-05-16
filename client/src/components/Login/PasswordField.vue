@@ -11,7 +11,7 @@
     >
     <div class="input-group-append">
       <button
-        class="btn btn-outline-danger"
+        class="btn btn-outline-primary"
         type="button"
         @click="isVisible = !isVisible"
       >

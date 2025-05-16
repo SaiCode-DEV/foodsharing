@@ -273,11 +273,25 @@ class SettingsTransactionsTest extends Unit
         $this->tester->seeInDatabase('fs_foodsaver', ['id' => $foodsaver['id'], 'password' => $foodsaver['password']]);
     }
 
+    public function testRequestPasswordChangeWithSimplePassword(): void
+    {
+        $request = new PasswordChangeRequest();
+        $request->oldPassword = 'oldpassword';
+        $request->newPassword = 'abcabcabc';
+
+        $foodsaver = $this->tester->createFoodsaver($request->oldPassword, ['option' => '']);
+        $this->session->expects($this->any())->method('id')->willReturn($foodsaver['id']);
+
+        $this->expectException(BadRequestHttpException::class);
+        $this->transaction->requestPasswordChange($request);
+        $this->tester->seeInDatabase('fs_foodsaver', ['id' => $foodsaver['id'], 'password' => $foodsaver['password']]);
+    }
+
     public function testRequestPasswordChangeValid(): void
     {
         $request = new PasswordChangeRequest();
         $request->oldPassword = 'oldpassword';
-        $request->newPassword = 'abcdefghij';
+        $request->newPassword = 'abcdefghijABC123';
 
         $foodsaver = $this->tester->createFoodsaver($request->oldPassword, ['option' => '']);
         $this->session->expects($this->any())->method('id')->willReturn($foodsaver['id']);

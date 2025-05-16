@@ -23,7 +23,7 @@ class RegisterCest
         $this->stripped_email = sq('email') . '@test.com';
         $this->first_name = sq('first_name');
         $this->last_name = sq('last_name');
-        $this->password = sq('password');
+        $this->password = sq('password') . 'abcABC123';
         $this->birthdate = '08-27-1983';
         $this->mobile_number = '177 3231323';
         $this->mobile_country_code = '+49 ';
@@ -42,8 +42,8 @@ class RegisterCest
         $I->click('Jetzt registrieren');
         $I->waitForElementVisible('#step1', 4);
         $I->fillField('#email', $this->email);
-        $I->fillField('#password', $this->password);
-        $I->fillField('#confirmPassword', $this->password);
+        $I->fillField('#password > input:nth-child(1)', $this->password);
+        $I->fillField('#confirmPassword > input:nth-child(1)', $this->password);
         $I->click('weiter');
 
         // fill in basic details
@@ -115,8 +115,8 @@ class RegisterCest
         $I->click('Jetzt registrieren');
         $I->waitForElementVisible('#step1', 4);
         $I->fillField('#email', $this->email);
-        $I->fillField('#password', $this->password);
-        $I->fillField('#confirmPassword', $this->password);
+        $I->fillField('#password > input:nth-child(1)', $this->password);
+        $I->fillField('#confirmPassword > input:nth-child(1)', $this->password);
         $I->click('weiter');
 
         // fill in basic details
@@ -184,10 +184,25 @@ class RegisterCest
         $I->waitForElementVisible('#step1', 4);
         $blacklistedEmailDomain = $I->grabFromDatabase('fs_email_blacklist', 'email', ['email like' => '%']);
         $I->fillField('#email', 'something@' . $blacklistedEmailDomain);
-        $I->fillField('#password', $this->password);
-        $I->fillField('#confirmPassword', $this->password);
+        $I->fillField('#password > input:nth-child(1)', $this->password);
+        $I->fillField('#confirmPassword > input:nth-child(1)', $this->password);
         $I->click('weiter');
 
-        $I->see('Die E-Mail-Adresse ist ungültig.');
+        $I->see('Die E-Mail-Adresse ist entweder ungültig oder wird bereits verwendet');
+    }
+
+    public function cannotRegisterNewUserWithTooSimplePassword(AcceptanceTester $I): void
+    {
+        $I->wantTo('get an error when trying to register with a too simple password');
+
+        $I->click('.testing-register-link');
+        $I->click('Jetzt registrieren');
+        $I->waitForElementVisible('#step1', 4);
+        $I->fillField('#email', $this->email);
+        $I->fillField('#password > input:nth-child(1)', 'abcabcabc');
+        $I->fillField('#confirmPassword > input:nth-child(1)', 'abcabcabc');
+        $I->click('weiter');
+
+        $I->see('Das Passwort muss mindestens jeweils einen Groß- und Kleinbuchstaben sowie Zahlen beinhalten');
     }
 }

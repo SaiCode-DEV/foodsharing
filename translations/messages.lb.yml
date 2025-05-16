@@ -1531,7 +1531,7 @@ register:
   man: ''
   other: ''
   error: ''
-  error_email_exist: ''
+  error_email_invalid: ''
   set-password: ''
   password_required: ''
   signup_newsletter: ''

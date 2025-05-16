@@ -217,4 +217,43 @@ class LoginGateway extends BaseGateway
             'password' => strip_tags((string)$this->password_hash($password))
         ], ['id' => $userId]);
     }
+
+    /**
+     * Validates the given password against a set of constraints.
+     *
+     * @param string $password the password to validate
+     *
+     * @return string|null Returns an error message if the password fails any constraint,
+     *                     or null if the password meets all criteria.
+     *
+     * Constraints:
+     * - Password must be at least 8 characters long.
+     * - Password must not contain leading or trailing whitespace.
+     * - Password must contain at least one lowercase letter.
+     * - Password must contain at least one uppercase letter.
+     * - Password must contain at least one digit.
+     */
+    public function checkPassword(string $password): ?string
+    {
+        // Check password length
+        if (strlen(trim($password)) < 8) {
+            return 'Password is too short';
+        }
+        // Check if the password is the same after trimming
+        if (trim($password) !== $password) {
+            return 'Password contains leading or trailing whitespace';
+        }
+        if (!preg_match('/[a-z]/', $password)) {
+            return 'Password must contain at least one lowercase letter';
+        }
+        if (!preg_match('/[A-Z]/', $password)) {
+            return 'Password must contain at least one uppercase letter';
+        }
+        if (!preg_match('/[0-9]/', $password)) {
+            return 'Password must contain at least one digit';
+        }
+
+        // All okay
+        return null;
+    }
 }

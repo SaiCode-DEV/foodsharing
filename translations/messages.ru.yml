@@ -2040,7 +2040,7 @@ register:
   geb_datum: ''
   login_name: ''
   next: ''
-  error_email_exist: ''
+  error_email_invalid: ''
   account-exists: ''
   email_invalid: ''
   have_read_the_legal_stuff1: ''

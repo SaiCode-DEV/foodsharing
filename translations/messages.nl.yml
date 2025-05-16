@@ -1890,7 +1890,7 @@ register:
   phone_example: ''
   title: ''
   confirmPassword_required: ''
-  error_email_exist: ''
+  error_email_invalid: ''
   woman: ''
   mail_hint: ''
   geb_datum: ''

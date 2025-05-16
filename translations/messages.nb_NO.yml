@@ -1845,7 +1845,7 @@ register:
   check_mail: Sjekk e-posten din nå for å fullføre registreringen!
   error_birthdate: Eksempel 25.03.2001 (DD.MM.ÅÅÅÅ). Av databeskyttelses- og ansvarsgrunner
     må du være minst 18 år for å delta i foodsharing.
-  error_email_exist: E-postadressen din eksisterer allerede.
+  error_email_invalid: E-postadressen din eksisterer allerede.
   pass1: Ditt nye ønskede passord
   change-password: Nå kan du endre passordet ditt.
   email_required: En e-postadresse kreves.

@@ -3498,7 +3498,7 @@ register:
   title: Kayıt
   register_button_label: Kayıt ol
   mail_hint: 'Önemli: Yazım kurallarına dikkat ediniz!'
-  error_email_exist: Bu E-posta adresi zaten var.
+  error_email_invalid: Bu E-posta adresi zaten var.
   login_email: E-Posta Adresi
   woman: kadın
   login_surname: Soyadınız

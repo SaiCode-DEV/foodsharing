@@ -7,6 +7,7 @@ use Foodsharing\Modules\Login\LoginGateway;
 use Foodsharing\Modules\Login\LoginService;
 use Foodsharing\Modules\Register\DTO\RegisterData;
 use Foodsharing\Utility\EmailHelper;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegisterTransactions
@@ -37,6 +38,12 @@ class RegisterTransactions
      */
     public function registerUser(RegisterData $data): int
     {
+        // Validate password
+        $pwCheck = $this->loginGateway->checkPassword($data->password);
+        if ($pwCheck !== null) {
+            throw new BadRequestHttpException($pwCheck);
+        }
+
         $token = $this->loginService->generateMailActivationToken(1);
         $activationUrl = BASE_URL . '/login?sub=activate&e=' . urlencode((string)$data->email) . '&t=' . urlencode($token);
         $id = $this->loginGateway->insertNewUser($data, $token);

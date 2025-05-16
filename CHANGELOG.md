@@ -48,6 +48,7 @@
 - Inverted action of the hygiene filter on the store team page !4127 @DL6ER
 - Put subscribed events before event options on the dashboard for better visibility !4150 @DL6ER
 - Improve message template suggested for slots returned to the team !4151 @DL6ER
+- Passwords need a minimum "complexity" of 8 characters, at least one uppercase letter, one lowercase letter, and one number #2329 !4152 @DL6ER
 
 ## Bugfixes
 - Resolve "region filter bug on profile page: Blank screen when navigating store list" #2295 !3940 @chriswalg
@@ -78,6 +79,7 @@
 - Reply with 404 when queriyng stores for non-numeric regionIds in the API #2389 !4174 @DL6ER
 - Invalid image files with possibly malicious content are rejected with a proper reason #2388 !4173 @DL6ER
 - Fix error 500 when trying to accept an invitation for an event with incomplete address #2375 !4154 @DL6ER
+- Fix being able to change the mail address and password in user profile settings #2329 !4152 @DL6ER
 - Fix multiple network retries, possibly causing multiple identical sent chat and forum posts !4181 @DL6ER
 - Fix incorrect common working group links on user profiles !4171 @DL6ER
 - Fix no "load more messages" button in mailboxes on mobile view (`xs` screens) !4719 @DL6ER
