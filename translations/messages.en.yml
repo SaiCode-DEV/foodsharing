@@ -4411,6 +4411,10 @@ usersearch:
   select_tag: Search users by name
   search_tag: Search users
 notifications:
+  success: "Success"
+  warning: "Warning"
+  error: "Error"
+  info: "Info"
   chat:
     title: Chat messages
     description: Receive a notification about new chat messages even if you are not
@@ -4434,7 +4438,7 @@ notifications:
   checkbox_push: Push
   checkbox_bell: Bell
   checkbox_disabled: Deactivated
-  success: Saved successfully
+  save_success: Saved successfully
   pickupReminder:
     title: Reminders for unoccupied slots
     description: Receive emails warning you if slots in stores you manage are not
@@ -4858,6 +4862,7 @@ contact_page:
       contact person directly.
   description: 'Please contact us using one of the following contact options:'
 net_errors:
+  title: "Network error"
   ECONNABORTED: The request was canceled by your browser. Please try again.
   ERR_CANCELED: The request has been canceled. Please try again if necessary.
   unknown: An unknown error occurred. Please try again later.

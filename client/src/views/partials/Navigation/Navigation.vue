@@ -49,6 +49,7 @@
     <ThemeSwitcherModal />
     <SentryFeedback />
     <ConfirmationDialogue ref="confirmDialog" />
+    <Notifications />
   </b-navbar>
 </template>
 
@@ -80,6 +81,7 @@ import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
 import SentryFeedback from '@/components/UI/SentryFeedback.vue'
 import ConfirmationDialogue from '@/components/UI/ConfirmationDialogue.vue'
 import useConfirmationDialogue from '@/composables/useConfirmationDialogue'
+import Notifications from '@/components/UI/Notifications.vue'
 import { useMediaQuery } from '@/composables/useMediaQuery'
 
 const props = defineProps({

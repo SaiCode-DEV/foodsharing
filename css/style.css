@@ -374,21 +374,6 @@ div.msg-inside.error i {
   color: var(--fs-color-light);
 }
 
-div#pulse-success {
-  background-color: var(--fs-color-success-500) !important;
-  color: var(--fs-color-light) !important;
-}
-
-div#pulse-error {
-  background-color: var(--fs-color-danger-500) !important;
-  color: var(--fs-color-light) !important;
-}
-
-div#pulse-info {
-  background-color: var(--fs-color-info-200) !important;
-  color: var(--fs-color-info-500) !important;
-}
-
 div.pulse-msg p {
   font-size: 14px;
   line-height: 17px;

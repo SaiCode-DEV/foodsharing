@@ -4259,7 +4259,7 @@ notifications:
     description: Få den nyeste informasjonen om foodsharing på e-post ca. 1 gang i
       måneden.
   checkbox_email: E-post
-  success: Lagret
+  save_success: Lagret
   config_button: konfigurere individuelt
   checkbox_bell: Klokke
   checkbox_disabled: deaktivert

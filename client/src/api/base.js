@@ -43,9 +43,31 @@ const escapeHtml = (str) => String(str).replace(/[&<>"']/g, (char) => {
 const showNetworkError = (key, error) => {
   const code = escapeHtml(error.response?.status || error.code)
   const message = escapeHtml(error.message ?? 'N/A')
-  const text = i18n('net_errors.' + key) + '\n' + i18n('net_errors.code') + code + '\n' + i18n('net_errors.message') + message
+  const text = i18n('net_errors.' + key)
   console.error(text, error)
-  pulseError(text)
+
+  let title = ''
+  let icon = 'fas fa-wifi'
+  switch (true) {
+    case error.response?.status > 500:
+      title = i18n('net_errors.title.500')
+      icon = 'fas fa-exclamation-triangle'
+      break
+    case error.response?.status > 400:
+      title = i18n('net_errors.title.400')
+      icon = 'fas fa-exclamation-triangle'
+      break
+    default:
+      title = i18n('net_errors.title.general')
+      break
+  }
+
+  pulseError(text, {
+    title,
+    icon,
+    duration: 10000,
+    details: i18n('net_errors.code') + code + '\n' + i18n('net_errors.message') + message,
+  })
 }
 
 const knownNetworkCodes = [

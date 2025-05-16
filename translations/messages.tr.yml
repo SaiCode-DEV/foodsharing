@@ -4210,7 +4210,7 @@ notifications:
   regions:
     title: Bölgeler
   checkbox_disabled: Devre dışı
-  success: Başarıyla kaydedildi
+  save_success: Başarıyla kaydedildi
   config_button: tek tek yapılandır
   newsletter:
     title: E-Bülten

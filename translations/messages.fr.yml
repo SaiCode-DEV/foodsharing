@@ -4441,7 +4441,7 @@ notifications:
       que tu suis.
   checkbox_bell: Cloche
   checkbox_disabled: désactivé
-  success: Enregistré avec succès
+  save_success: Enregistré avec succès
   config_button: configurer individuellement
   checkbox_email: Courrier électronique
   pickupReminder:

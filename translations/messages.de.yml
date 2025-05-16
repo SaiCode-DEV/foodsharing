@@ -812,6 +812,10 @@ time: "Uhrzeit"
 day: "Tag"
 
 net_errors:
+  title: 
+   general: "Netzwerkfehler"
+   500: "Serverfehler"
+   400: "Fehlerhafte Anfrage"
   code: "Fehlercode: "
   message: "Fehlermeldung: "
   BAD_REQUEST: "Die Anfrage war ungültig. Bitte überprüfe deine Eingaben auf Vollständigkeit und Plausibilität."
@@ -3585,6 +3589,10 @@ bootstrap-datepicker:
   labelHelp: 'Mit den Pfeiltasten durch den Kalender navigieren'
 
 notifications:
+  success: "Erfolg"
+  warning: "Warnung"
+  error: "Fehler"
+  info: "Info"
   chat:
     title: 'Chat-Nachrichten'
     description: 'Erhalte eine Benachrichtigung bei neuen Chat-Nachrichten auch, wenn du nicht eingeloggt bist.'
@@ -3610,7 +3618,7 @@ notifications:
   checkbox_push: 'Push'
   checkbox_bell: 'Glocke'
   checkbox_disabled: 'Deaktiviert'
-  success: "Erfolgreich gespeichert"
+  save_success: "Erfolgreich gespeichert"
   config_button: 'einzeln konfigurieren'
   pushModal:
     title: "Push-Benachrichtigungen erhalten?"

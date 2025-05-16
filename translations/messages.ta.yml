@@ -2647,7 +2647,7 @@ notifications:
   checkbox_email: மின்னஞ்சல்
   checkbox_bell: மணி
   checkbox_disabled: செயலிழக்கச் செய்தது
-  success: வெற்றிகரமாக சேமிக்கப்பட்டது
+  save_success: வெற்றிகரமாக சேமிக்கப்பட்டது
   config_button: தனித்தனியாக உள்ளமைக்கவும்
 thread:
   rename:

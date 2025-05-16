@@ -4467,7 +4467,7 @@ deletelow: 'borrar'
 notifications:
   checkbox_disabled: Desactivado
   config_button: configurar por separado
-  success: Registro exitoso
+  save_success: Registro exitoso
   checkbox_bell: campana
   newsletter:
     description: Reciba actualizaciones sobre cómo foodsharing por correo electrónico

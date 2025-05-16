@@ -495,7 +495,7 @@ export default {
           await setPickupReminderNotification(this.pickupReminderState)
         }
         await setMentionNotification(this.mentionState)
-        pulseSuccess(this.$i18n('notifications.success'))
+        pulseSuccess(this.$i18n('notifications.save_success'))
       } catch {
         pulseError(this.$i18n('error_ajax'))
       }

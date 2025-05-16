@@ -4,6 +4,7 @@ import conversationStore from '@/stores/conversations'
 import { requestStoreTeamMembership, declineStoreRequest } from '@/api/stores'
 import i18n from '@/helper/i18n'
 import { HTTP_RESPONSE } from './consts'
+import Vue from 'vue'
 
 export { goTo, isMob, GET }
 
@@ -16,43 +17,40 @@ export function profile (id) {
   goTo(`/profile/${id}`)
 }
 
-function definePulse (type, defaultTimeout = 5000) {
+function definePulse (type, defaultTimeout = 5000, title, defaultIcon = 'fas fa-info-circle') {
   return (html, options = {}) => {
-    let { timeout, sticky } = options || {}
-    if (typeof timeout === 'undefined') timeout = sticky ? 900000 : defaultTimeout
-    const container = document.querySelector(`#pulse-${type}`)
-    // Add new element to the container
-    const el = document.createElement('div')
-    el.className = 'pulse-message'
-    if (container.children.length > 0) {
-      // Add margin between elements if there are already elements in the
-      // container
-      el.style.marginTop = '10px'
-    }
-    el.innerHTML = html
-    container.appendChild(el)
-    container.style.display = 'block'
+    let { duration, sticky } = options || {}
+    if (typeof duration === 'undefined') duration = sticky ? -1 : defaultTimeout
 
-    const hide = () => {
-      el.style.display = 'none'
-      el.remove()
-      if (container.children.length === 0) {
-        // Hide the container if there are no more elements
-        container.style.display = 'none'
-      }
-      document.removeEventListener('click', hide)
-      clearTimeout(timer)
-    }
-    const timer = setTimeout(hide, timeout)
-    setTimeout(() => {
-      document.addEventListener('click', hide)
-    }, 500)
+    const notificationId = Date.now() + Math.floor(Math.random() * 1000)
+
+    Vue.notify({
+      id: notificationId,
+      title: options.title || title,
+      text: html,
+      type: type, // 'info', 'success', or 'error'
+      duration,
+      closeOnClick: false,
+      pauseOnHover: type === 'warn' || type === 'error',
+      data: {
+        icon: options.icon || defaultIcon,
+        details: options.details,
+      },
+    })
+
+    // Return notification ID in case caller needs to close it programmatically
+    return notificationId
   }
 }
 
-export const pulseInfo = definePulse('info', 4000)
-export const pulseSuccess = definePulse('success', 5000)
-export const pulseError = definePulse('error', 6000)
+export const pulseInfo = definePulse('info', 7000, i18n('notifications.info'), 'fas fa-info-circle')
+export const pulseSuccess = definePulse('success', 5000, i18n('notifications.success'), 'fas fa-check-circle')
+export const pulseWarning = definePulse('warn', 10000, i18n('notifications.warning'), 'fas fa-exclamation-triangle')
+export const pulseError = definePulse('error', 20000, i18n('notifications.error'), 'fas fa-exclamation-circle')
+
+export function closeNotification (id) {
+  Vue.notify.close(id)
+}
 
 export function checkEmail (email) {
   const filter = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/

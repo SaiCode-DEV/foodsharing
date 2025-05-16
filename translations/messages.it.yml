@@ -3868,7 +3868,7 @@ notifications:
   threads:
     title: Argomenti del forum
   config_button: Configura singolarmente
-  success: Salvataggio riuscito
+  save_success: Salvataggio riuscito
   checkbox_email: E-Mail
   checkbox_bell: Campanella
 usersearch:

@@ -39,6 +39,7 @@
     "vue-croppie": "^2.0.2",
     "vue-demi": "^0.14.10",
     "vue-multiselect": "^2.1.7",
+    "vue-notification": "^1.3.20",
     "vue-simple-suggest": "^1.11.2",
     "vue-slider-component": "~3.2.24",
     "vue-tel-input": "^5.11.0",

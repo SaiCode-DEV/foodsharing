@@ -20,6 +20,7 @@
 - Displayed the region of a store directly on the store page !4129 @DL6ER
 - Extend reply feature in forum to include a small header with a link to the referenced post !4146 @DL6ER
 - Disable selecting questions and answers in quizzes #2393 !4182 @AntonBallmaier
+- Improve Notifications with new design !4191 @SaiCode
 
 ## Changes
 - Include user agent in support ticket creation #2212 !3838 @AntonBallmaier

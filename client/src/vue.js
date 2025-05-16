@@ -6,12 +6,14 @@ import { isFeatureToggleActive } from '@/helper/featuretoggles'
 import BootstrapVue from 'bootstrap-vue'
 import { createPinia, PiniaVuePlugin } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import Notifications from 'vue-notification'
 
 Vue.use(BootstrapVue)
 Vue.use(PiniaVuePlugin)
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 Vue.use(pinia)
+Vue.use(Notifications)
 
 Vue.prototype.$i18n = (key, variables = {}) => {
   return i18n(key, variables)
