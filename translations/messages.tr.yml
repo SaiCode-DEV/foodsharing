@@ -3522,7 +3522,7 @@ register:
     kapatın.
   pass2: Şifre tekrarı
   signup_newsletter: Ayda yaklaşık bir kez foodsharing bültenini almak istiyorum
-  email_required: Bir e-posta adresi gerekli.
+  email_required: Bir e-posta adresi gerekli
   login_name: Adınız
   phone_example: Örnek +49 179 12345678
   error: Bir hata oluştu
