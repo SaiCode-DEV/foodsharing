@@ -11,11 +11,7 @@
         {{ $dateFormatter.date(date, {type: 'full'}) }}
       </h6>
       <h6 v-if="isSoon" class="field-headline field-headline--big text-danger">
-        <Time
-          :time="entry.date"
-          plain
-          :options="{ short: true }"
-        />
+        {{ $dateFormatter.time(date) }}
       </h6>
       <h6 v-else class="field-headline field-headline--big">
         {{ $dateFormatter.time(date) }}
@@ -58,7 +54,6 @@
 </template>
 <script setup>
 import { computed, defineProps } from 'vue'
-import Time from '@/components/Time.vue'
 import PickupTeam from './PickupTeam.vue'
 import i18n from '@/helper/i18n'
 import dateFormatter from '@/helper/date-formatter'

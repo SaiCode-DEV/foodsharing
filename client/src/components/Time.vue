@@ -6,7 +6,7 @@
     :class="{ 'text-muted': muted, small: !normalSize }"
   >
     <i v-if="showIcon" class="far fa-fw fa-clock" />
-    <span v-if="time" v-text="dateFormatter.relativeTime(date, options, dateOnly)" />
+    <span v-if="time" v-text="pickupTimeFormatter" />
     <span v-else v-text="fallback" />
   </span>
 </template>
@@ -34,6 +34,11 @@ const tooltipTime = computed(() => {
   if (!date.value) return ''
   const method = props.dateOnly ? 'date' : 'dateTime'
   return dateFormatter[method](date.value)
+})
+
+const pickupTimeFormatter = computed(() => {
+  if (!date.value) return ''
+  return dateFormatter.relativeTime(date.value, { ...props.options, numeric: 'auto' }, props.dateOnly)
 })
 
 function parseTime (time) {

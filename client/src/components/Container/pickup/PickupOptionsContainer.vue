@@ -59,7 +59,7 @@
   </Container>
 </template>
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { usePickupStore } from '@/stores/pickups'
 import Container from '../Container.vue'
 import PickupField from './PickupField.vue'
@@ -72,6 +72,7 @@ import OptionsByDayField from './OptionsByDayField.vue'
 import PaginatedContent from '../PaginatedContent.vue'
 
 const REFRESH_WAIT_TIME = 60000
+const AUTO_REFRESH_TIME = 1200000 // 20 minutes
 const LOCAL_STORAGE_KEY = {
   showRegistered: 'show-registered-signups-in-pickup-options',
   showManagedStoresOnly: 'show-managed-stores-only-in-pickup-options',
@@ -124,10 +125,11 @@ const menuOptions = computed(() => [
   { hide: !mayRefresh.value, textKey: 'menu.entry.refresh', icon: 'refresh', callback: refresh },
 ])
 
-async function refresh () {
-  await pickupStore.fetchOptions(true)
+async function refresh (force = true, age = 0) {
+  await pickupStore.fetchOptions(force)
   scheduleRemovalOfOutdatedOptions()
-  updateMayRefresh(0)
+  updateMayRefresh(age)
+  restartAutoRefresh() // (Re)start auto-refresh
 }
 
 async function updateMayRefresh (age) {
@@ -151,16 +153,34 @@ function scheduleRemovalOfOutdatedOptions () {
   }, timeout)
 }
 
+let autoRefreshInterval = null
+
+function restartAutoRefresh () {
+  stopAutoRefresh() // Clear any existing interval
+  autoRefreshInterval = setInterval(async () => {
+    await refresh()
+  }, AUTO_REFRESH_TIME)
+}
+
+function stopAutoRefresh () {
+  if (autoRefreshInterval) {
+    clearInterval(autoRefreshInterval)
+    autoRefreshInterval = null
+  }
+}
+
 watch(showRegistered, val => localStorage.setItem(LOCAL_STORAGE_KEY.showRegistered, val))
 watch(showManagedStoresOnly, val => localStorage.setItem(LOCAL_STORAGE_KEY.showManagedStoresOnly, val))
 watch(useCondensedDesign, val => localStorage.setItem(LOCAL_STORAGE_KEY.useCondensedDesign, val))
 
 onMounted(async () => {
-  await pickupStore.fetchOptions()
   const age = await pickupStore.getOptionsCacheAge()
+  await refresh(false, age)
   loading.value = false
-  scheduleRemovalOfOutdatedOptions()
-  updateMayRefresh(age)
+})
+
+onUnmounted(() => {
+  stopAutoRefresh()
 })
 
 </script>
