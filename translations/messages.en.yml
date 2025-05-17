@@ -388,7 +388,7 @@ settings:
     occupied: The e-mail address could not be changed because it is already in use.
     domain: Please choose a different e-mail address, so that you will always be able
       to restore your password.
-    invalid: Something is wrong with your e-mail address.
+    invalid: Something is wrong with the e-mail address you entered
     passcheck: Please confirm the change with your password
     sent: Now go to your <strong>new</strong> email inbox to confirm the address.
     passfail: Your password is wrong, you made a mistake?
@@ -411,6 +411,8 @@ settings:
     explanation_other_user: Here you can change the e-mail address with which this
       profile was registered. After submitting, the user will receive an e-mail to
       the new address with a confirmation link.
+    password_label: Current password
+    password_required: You must enter your password to change the e-mail address.
   chatmail: "If you receive an internal message on the foodsharing homepage,\nbut
     you are not logged in at the moment, we can inform you by mail.\nDo you want that?\n"
   follow:
@@ -461,12 +463,14 @@ settings:
     submit: Change password
     title: You can change your current password here
     old_password_label: Current password
-    old_password_required: You must enter your current password.
+    old_password_required: You must enter your current password
     new_password_label: New password
     new_password_required: The password must contain at least 8 characters
     new_password_must_be_trimmed: The password must not begin or end with spaces
     new_password_confirmation_label: Confirm new password
     success: Your password has been successfully changed
+    new_password_must_be_complex: The new password must contain letters (upper and
+      lower case) and numbers
   change_data_info:
     general: Here you can adjust your profile data.
     verified: You can’t edit your name and date of birth. However, you can ask an
@@ -2175,8 +2179,8 @@ footer:
   partner_names:
     tafel_oesterreich: Food bank Austria
     denns: Denn’s Biomarkt
-    lebensministerium: Federal Ministry of Agriculture, Forestry, Regions and Water
-      Management
+    lebensministerium: Austrian Federal Ministry of Agriculture and Forestry, Climate
+      and Environmental Protection, Regions and Water Management
 basket:
   is:
     gf: are gluten-free
@@ -3251,18 +3255,18 @@ delete: Delete
 error_unexpected: An error has occurred
 error_base64_image: Inserting images via drag & drop is not permitted.
 register:
-  confirmPassword_required: Please repeat the password.
-  password_required: A password is required.
+  confirmPassword_required: Please repeat the password for confirmation
+  password_required: A password is required
   login_passwd2: Password repeat
-  email_invalid: Your e-mail address is invalid.
-  email_required: An e-mail address is required.
+  email_invalid: The e-mail address is either invalid or already in use
+  email_required: An e-mail address is required
   login_email: E-mail address
   login_surname: Your surname
   login_name: Your first name
   login_location: Your address
   login_mobile_phone: Your mobile phone number
   geb_datum: Your day of birth
-  password_minLength: The password needs to contain at least 8 symbols.
+  password_minLength: The password must consist of at least eight characters
   login_passwd1: Password (at least 8 symbols)
   register_button_label: Register
   topbar: Join
@@ -3279,8 +3283,8 @@ register:
   have_read_the_legal_stuff1: I have the
   forgotten_password: Password forgotten?
   phone_example: Example +49 179 12345678
-  firstname_required: Please enter your first name.
-  lastname_required: Please enter your last name.
+  firstname_required: Please enter your first name
+  lastname_required: Please enter your last name
   requiredFields: Required field
   title: Registration
   signup_newsletter: I would like to receive the foodsharing newsletter about once
@@ -3301,17 +3305,21 @@ register:
   join_success_message: You have successfully completed your registration at foodsharing.
     You can now log in with your email and password.
   have_read_the_legal_stuff2: noted
-  phone_not_valid: The phone number you entered is not valid.
+  phone_not_valid: The phone number you entered is not valid
   login_phone_info: It can be helpful to share your phone number with other food sharers
-  lastname_minLength: The last name must consist of at least two characters.
-  firstname_minLength: The first name must consist of at least two characters.
-  confirmPassword_sameAsPassword: The password must match.
+  lastname_minLength: The last name must consist of at least two characters
+  firstname_minLength: The first name must consist of at least two characters
+  confirmPassword_sameAsPassword: Both entered passwords must match
   birthdate_hint: You can find more information in the [privacy policy]({url}) in
     point 2d.
   mail_hint: 'Important: pay attention to the correct spelling!'
   landline_example: Example +49 30 123456789
-  firstname_maxLength: The first name may only consist of a maximum of 30 characters.
-  lastname_maxLength: The last name may only consist of a maximum of 30 characters.
+  firstname_maxLength: The first name may only consist of a maximum of 30 characters
+  lastname_maxLength: The last name may only consist of a maximum of 30 characters
+  password_must_be_trimmed: The password must not contain any spaces at the beginning
+    or end
+  password_must_be_complex: The password must contain upper and lower case letters
+    and numbers
 bread:
   backToOverview: back to overview
   backToStore: back to the store
@@ -4657,9 +4665,21 @@ help:
         to view the event location and information. However, the bulletin board and
         participant list are only accessible to registered users.\nRegister an event
         as public if you want to invite people outside of your local food sharing
-        community, and everyone is welcome to attend. \n"
+        community, and everyone is welcome to attend.\n"
     pickupOptions:
       title: Pick-up options
+      md: "The *Pickup Options* section shows you an overview of all upcoming pickups
+        at your stores that are still looking for foodsavers. You can customize the
+        view to your needs using the options menu:\n\n**Registered Pickups:** To help
+        you plan your pickups better, you can also view pickups for which you are
+        already registered. These pickups are displayed slightly paler so you can
+        recognize them at a glance.\n\n**Team Manager View:** Team Managers ensure
+        that all pickups at their businesses run reliably. If you are a Team Manager,
+        you can limit the view to the stores for which you are responsible. This makes
+        it easier to keep track.\n\n**Grouped by Day:** In this view, your pickup
+        options are summarized by day and presented in a more compact format. This
+        makes it easier to get an overview, especially if you have many pickup options
+        available each day.\n"
   tooltip: Show help
   helpTitle: 'Help: {title}'
 team_page:
@@ -4862,7 +4882,10 @@ contact_page:
       contact person directly.
   description: 'Please contact us using one of the following contact options:'
 net_errors:
-  title: "Network error"
+  title:
+    general: Network error
+    500: Server error
+    400: Bad request
   ECONNABORTED: The request was canceled by your browser. Please try again.
   ERR_CANCELED: The request has been canceled. Please try again if necessary.
   unknown: An unknown error occurred. Please try again later.
