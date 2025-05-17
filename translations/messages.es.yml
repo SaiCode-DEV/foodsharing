@@ -1342,9 +1342,9 @@ register:
   error_email_invalid: 'Su dirección de correo electrónico ya existe.'
   login_email: 'Dirección de correo electrónico'
   landline_example: 'Ejemplo: +43 812 34 56 78'
-  email_required: 'Se requiere una dirección de correo electrónico.'
+  email_required: 'Se requiere una dirección de correo electrónico'
   pass2: 'Repetición de contraseña'
-  lastname_required: 'Por favor ingrese su apellido.'
+  lastname_required: 'Por favor ingrese su apellido'
   set-password: 'Establecer nueva contraseña'
   error: 'Se ha producido un error'
   error_birthdate: 'Ejemplo 25.03.2001 (DD.MM.AAAA). Por motivos de protección de
@@ -1368,15 +1368,15 @@ register:
     de datos]({url}) en el punto 2d.'
   signup_newsletter: 'Me gustaría recibir el boletín de foodsharing aproximadamente
     una vez al mes'
-  phone_not_valid: 'El número de teléfono que ingresaste no es válido.'
+  phone_not_valid: 'El número de teléfono que ingresaste no es válido'
   other: 'diverso'
-  password_minLength: 'La contraseña debe tener al menos ocho caracteres.'
+  password_minLength: 'La contraseña debe tener al menos ocho caracteres'
   login_name: 'Su nombre de pila'
-  password_required: 'Se requiere una contraseña.'
+  password_required: 'Se requiere una contraseña'
   login_mobile_phone: 'Tú número de teléfono'
   forgotten_password: '¿Has olvidado tu contraseña?'
   topbar: 'Participar'
-  lastname_minLength: 'El apellido debe constar de al menos dos caracteres.'
+  lastname_minLength: 'El apellido debe constar de al menos dos caracteres'
   requiredFields: 'Campo requerido'
   next: 'siguiente'
   geb_datum: 'Tu fecha de nacimiento'
@@ -1393,15 +1393,15 @@ register:
   login_location: 'Su dirección'
   confirmPassword_required: 'Por favor repita la contraseña.'
   woman: 'femenino'
-  firstname_required: 'Por favor, introduzca su nombre de pila.'
+  firstname_required: 'Por favor, introduzca su nombre de pila'
   have_read_the_legal_stuff1: 'He leído y acepto la'
-  firstname_minLength: 'El nombre debe constar de al menos dos caracteres.'
+  firstname_minLength: 'El nombre debe constar de al menos dos caracteres'
   register_button_label: 'Registrarse'
   select_your_gender: 'Para el saludo …'
   change-password: 'Ahora puedes cambiar tu contraseña.'
-  confirmPassword_sameAsPassword: 'La contraseña debe coincidir.'
-  lastname_maxLength: El apellido sólo puede constar de un máximo de 30 caracteres.
-  firstname_maxLength: El nombre sólo puede constar de un máximo de 30 caracteres.
+  confirmPassword_sameAsPassword: 'La contraseña debe coincidir'
+  lastname_maxLength: El apellido sólo puede constar de un máximo de 30 caracteres
+  firstname_maxLength: El nombre sólo puede constar de un máximo de 30 caracteres
 button:
   rotate_right: 'rotar las agujas del reloj'
   save: 'ahorrar'
