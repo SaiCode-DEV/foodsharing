@@ -1204,8 +1204,8 @@ register:
   join_success_message: Tu as terminé avec succès ton inscription à foodsharing. Tu
     peux maintenant te connecter avec ton adresse courriel et ton mot de passe.
   check_mail: Vérifie tes courriels maintenant pour terminer l’inscription !
-  email_invalid: L’adresse courriel est invalide.
-  email_required: Une adresse courriel est nécessaire.
+  email_invalid: L’adresse courriel est invalide
+  email_required: Une adresse courriel est nécessaire
   login_email: Adresse courriel
   mail_hint: "Important : fais attention à l’orthographe !"
   signup_newsletter: Je voudrais recevoir la lettre d’information de foodsharing (env.
@@ -1234,23 +1234,23 @@ register:
   have_read_the_legal_stuff2: .
   have_read_the_legal_stuff1: J'ai accepté la
   forgotten_password: Mot de passe oublié ?
-  phone_not_valid: Le numéro de téléphone renseigné est invalide.
+  phone_not_valid: Le numéro de téléphone renseigné est invalide
   phone_example: Exemple +33 1 22 33 44 55
   login_phone_info: Partager ton numéro de téléphone avec les autres foodsharer peut
     être plus pratique
-  lastname_minLength: Ton nom de famille doit se composer d’au moins deux caractères.
-  lastname_required: Saisis ton nom de famille.
-  firstname_minLength: Ton prénom doit se composer d’au moins deux caractères.
-  firstname_required: Saisis ton/tes prénom(s).
+  lastname_minLength: Ton nom de famille doit se composer d’au moins deux caractères
+  lastname_required: Saisis ton nom de famille
+  firstname_minLength: Ton prénom doit se composer d’au moins deux caractères
+  firstname_required: Saisis ton/tes prénom(s)
   login_surname: Ton nom de famille
   login_name: Prénom
   login_location: Adresse postale
   login_mobile_phone: Numéro de téléphone portable
   geb_datum: Date de naissance
-  confirmPassword_sameAsPassword: Les deux mot de passe doivent être identiques.
-  confirmPassword_required: Renseigne à nouveau le mot de passe.
-  password_minLength: Le mot de passe doit contenir au moins huit caractères.
-  password_required: Il faut renseigner un mot de passe.
+  confirmPassword_sameAsPassword: Les deux mot de passe doivent être identiques
+  confirmPassword_required: Renseigne à nouveau le mot de passe
+  password_minLength: Le mot de passe doit contenir au moins huit caractères
+  password_required: Il faut renseigner un mot de passe
   login_passwd2: Nouvelle saisie du mot de passe
   login_passwd1: Mot de passe (minimum 8 caractères)
   birthdate_hint: Tu trouveras plus d’informations dans la rubrique [Datenschutzerklärung]({url})
@@ -1260,8 +1260,8 @@ register:
   title: Inscription
   topbar: Rejoins-nous
   landline_example: Exemple +33 1 22 33 44 55
-  firstname_maxLength: Le prénom ne peut comporter que 30 caractères au maximum.
-  lastname_maxLength: Le nom de famille ne peut comporter que 30 caractères au maximum.
+  firstname_maxLength: Le prénom ne peut comporter que 30 caractères au maximum
+  lastname_maxLength: Le nom de famille ne peut comporter que 30 caractères au maximum
 login:
   pwreset:
     mailSent: Très bien, un lien t’a été envoyé par courriel pour modifier ton mot
@@ -4843,3 +4843,7 @@ net_errors:
   NOT_FOUND: La page demandée n’a pas été trouvée.
   TOO_MANY_REQUESTS: Trop de demandes. Veuillez attendre un instant et réessayer.
   FORBIDDEN: Tu n’as pas le droit de faire cette action.
+  title:
+    general: Erreur réseau
+    500: Erreur de serveur
+    400: Demande incorrecte
