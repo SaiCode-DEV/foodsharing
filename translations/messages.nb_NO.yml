@@ -467,6 +467,8 @@ region:
       load_past: Vis tidligere arrangementer
       no_future_events: 'Det er for øyeblikket ingen offentlige arrangementer oppført
         i dette distriktet. Følgende hendelser har funnet sted i det siste:'
+    leave_text_group: Er du ikke lenger aktiv i {name}? Da bør du forlate denne gruppen.
+    leave_text_region: Er du ikke lenger aktiv i {name}? Da bør du forlate dette distriktet.
   denied:
     group_in_this_region: «{name}» er en gruppe i dette distriktet.
     group_in_this_group: «{name}» er en undergruppe av denne gruppen.
@@ -1266,7 +1268,7 @@ settings:
   changemail:
     passcheck: Vennligst bekreft endringen med passordet ditt
     passfail: Passordet er feil, skrev det feil?
-    invalid: Noe er galt med e-postadressen du skrev inn.
+    invalid: Noe er galt med e-postadressen du skrev inn
     sent: Gå nå til din <strong>nye</strong> e-postinnboks for å bekrefte adressen.
     done: Din e-postadresse ble endret.
     occupied: E-postadressen kunne ikke endres fordi den allerede er i bruk.
@@ -1291,6 +1293,9 @@ settings:
     insufficient_permission: Du har ikke tillatelse til å endre e-postadressen til
       denne profilen.
     sent_other_user: En e-post er sendt til den nye adressen for å bekrefte adressen.
+    password_label: Gjeldende passord
+    password_required: Du må skrive inn passordet ditt for å endre e-postadressen
+      din.
   saved: Endringene ble lagret.
   push:
     disabled: Push-varsler er deaktivert
@@ -1360,7 +1365,7 @@ settings:
     title: Velg adresse
     choose: Godta adresse
   change_password:
-    old_password_required: Du må skrive inn ditt nåværende passord.
+    old_password_required: Du må skrive inn ditt nåværende passord
     new_password_label: Nytt passord
     new_password_required: Passordet må inneholde minst åtte tegn
     new_password_confirmation_invalid: Passordene stemmer ikke
@@ -1370,6 +1375,8 @@ settings:
     new_password_confirmation_label: Bekreft nytt passord
     submit: Endre passord
     success: Passordet ditt er endret
+    new_password_must_be_complex: Det nye passordet må inneholde bokstaver (store
+      og små bokstaver) og tall
   change_data_info:
     general: Her kan du justere profildataene dine.
     verified: Du kan ikke redigere navn og fødselsdato. Du kan imidlertid be en ambassadør
@@ -1833,13 +1840,13 @@ register:
   woman: hunn
   set-password: Sett nytt passord
   pass2: Gjenta passord
-  lastname_minLength: Etternavn må bestå av minst to tegn.
-  lastname_required: Skriv inn etternavnet ditt.
-  email_invalid: E-postadressen er ugyldig.
-  password_minLength: Passordet må bestå av minst åtte tegn.
-  confirmPassword_sameAsPassword: Passordene må samsvare.
-  firstname_required: Vennligst skriv inn fornavnet ditt.
-  firstname_minLength: Fornavnet må bestå av minst to tegn.
+  lastname_minLength: Etternavn må bestå av minst to tegn
+  lastname_required: Skriv inn etternavnet ditt
+  email_invalid: E-postadressen er ugyldig
+  password_minLength: Passordet må bestå av minst åtte tegn
+  confirmPassword_sameAsPassword: Begge oppgitte passord må samsvare
+  firstname_required: Vennligst skriv inn fornavnet ditt
+  firstname_minLength: Fornavnet må bestå av minst to tegn
   login_phone_info: Det kan være nyttig å dele telefonnummeret ditt med andre matdelere
   select_your_gender: For hilsen …
   check_mail: Sjekk e-posten din nå for å fullføre registreringen!
@@ -1848,13 +1855,13 @@ register:
   error_email_invalid: E-postadressen din eksisterer allerede.
   pass1: Ditt nye ønskede passord
   change-password: Nå kan du endre passordet ditt.
-  email_required: En e-postadresse kreves.
+  email_required: En e-postadresse kreves
   have_read_the_legal_stuff1: Jeg har tatt
   landline_example: eksempel +49 30 123456789
   mail_hint: 'Viktig: Vær oppmerksom på riktig stavemåte!'
-  phone_not_valid: Telefonnummeret du skrev inn er ikke gyldig.
-  password_required: Et passord kreves.
-  confirmPassword_required: Gjenta passordet.
+  phone_not_valid: Telefonnummeret du skrev inn er ikke gyldig
+  password_required: Et passord kreves
+  confirmPassword_required: Gjenta passordet for bekreftelse
   have_read_the_legal_stuff2: bemerket
   activation_success: <strong>Aktivering vellykket.</strong> Logg på med e-postadresse
     din og passord du har valgt.
@@ -1871,8 +1878,11 @@ register:
     nytt.
   birthdate_hint: Du kan finne mer informasjon i [personvernreglene]({url}) i punkt
     2d.
-  firstname_maxLength: Fornavnet kan kun bestå av maksimalt 30 tegn.
-  lastname_maxLength: Etternavnet kan kun bestå av maksimalt 30 tegn.
+  firstname_maxLength: Fornavnet kan kun bestå av maksimalt 30 tegn
+  lastname_maxLength: Etternavnet kan kun bestå av maksimalt 30 tegn
+  password_must_be_trimmed: Passordet må ikke inneholde mellomrom i begynnelsen eller
+    slutten
+  password_must_be_complex: Passordet må inneholde store og små bokstaver og tall
 geb_datum: Fødselsdato (ÅÅÅÅ-MM-DD)
 login:
   pwreset:
@@ -2435,8 +2445,8 @@ footer:
     info: CO₂-nøytral hosted
     tooltip: CO₂-nøytral hosted på manitu
   partner_names:
-    lebensministerium: Det føderale departementet for landbruk, skogbruk, regioner
-      og vannforvaltning
+    lebensministerium: Østerrikske føderale departement for landbruk, skogbruk, klima
+      og miljøvern, regioner og vannforvaltning
     denns: Denn’s Biomarkt
     tafel_oesterreich: Tafel Österreich (Matbank Wien)
 date:
@@ -2821,6 +2831,8 @@ pickup:
       loadMore: Last mer
       refresh: Forfriske
       signOffAll: Fjern fra alle pickuper
+      useCondensedDesign: Gruppert etter dager
+      managedOnlySwitch: Vis for teamledere
     modals:
       signOff:
         title: Vil du fjerne dette?
@@ -2858,6 +2870,7 @@ pickup:
   membershipMissing: Du er ikke medlem av dette teamet. Derfor bør du ikke registrere
     deg for henting. Registrer deg om nødvendig som teammedlem først.
   may_enter: Det er en plass tilgjengelig for deg på denne hentedatoen.
+  confirmed: Hentingsdato er bekreftet.
 storeedit:
   fetch:
     teamStatus: lagstatus
@@ -4278,6 +4291,10 @@ notifications:
     content: "Slik at du kan høre raskere når andre matsparere sender deg meldinger,
       kan du aktivere push-varslinger på denne enheten!\n\nDu kan slå av disse varslene
       når som helst i [varslingsinnstillinger](/?page=settings&sub=info).\n"
+  success: Suksess
+  warning: Advarsel
+  error: Feil
+  info: Info
 markdown_input:
   tooltip:
     orderedList: nummerert liste
@@ -4481,8 +4498,21 @@ help:
         arrangementer er åpne for alle. Du trenger ikke å være logget inn på plattformen
         for å se lokalet og informasjonen. Oppslagstavlen og deltakerlisten er imidlertid
         kun tilgjengelig for registrerte brukere.\nGjør et arrangement offentlig hvis
-        du vil invitere folk utenfor ditt lokale matdelingssamfunn og la alle komme.
-        \n"
+        du vil invitere folk utenfor ditt lokale matdelingssamfunn og la alle komme.\n"
+    pickupOptions:
+      md: "*Hentealternativer*-delen viser deg en oversikt over alle kommende hentinger
+        hos bedriftene dine som fortsatt leter etter matsparere. Du kan tilpasse visningen
+        til dine behov ved å bruke alternativmenyen:\n\n**Registrerte hentinger:**
+        For å hjelpe deg med å planlegge hentingene dine bedre, kan du også se hentingene
+        du allerede er registrert for. Disse pickupene vises litt blekere slik at
+        du kan se dem med et øyeblikk.\n\n**BV-visning:** Driftsledere (BV) sørger
+        for at alle henting i deres operasjoner foregår pålitelig. Hvis du er en BV,
+        kan du begrense visningen til selskapene du er ansvarlig for. Dette gjør det
+        lettere for deg å holde oversikt.\n\n**Gruppert etter dager:** I denne visningen
+        er hentealternativene dine gruppert etter dager og presentert i et mer kompakt
+        format. Spesielt hvis du har mange hentemuligheter tilgjengelig hver dag,
+        gjør dette det lettere å få oversikt.\n"
+      title: Hentingsmuligheter
   helpTitle: 'Hjelp: {title}'
   tooltip: Vis hjelp
 team_page:
@@ -4698,3 +4728,27 @@ feedback:
     Alle påmeldinger fra skjemaet, samt vedlagte bilder, vil da være synlige for deg.
     Sørg for at skjermbilder ikke inneholder personlig informasjon om andre brukere
     som du ikke har tillatelse til å dele.
+net_errors:
+  FORBIDDEN: Du er ikke autorisert til å utføre denne handlingen.
+  title:
+    500: Serverfeil
+    400: Dårlig forespørsel
+    general: Nettverksfeil
+  code: 'Feilkode: '
+  BAD_REQUEST: Forespørselen var ugyldig. Vennligst sjekk oppføringene dine for fullstendighet
+    og plausibilitet.
+  NOT_FOUND: Den forespurte siden ble ikke funnet.
+  TOO_MANY_REQUESTS: For mange forespørsler. Vent et øyeblikk og prøv igjen.
+  ETIMEDOUT: Forespørselen tok for lang tid. Kontroller Internett-tilkoblingen din
+    og prøv igjen.
+  ERR_NETWORK: Det oppsto et nettverksproblem. Kontroller Internett-tilkoblingen din
+    og prøv igjen.
+  ERR_CANCELED: Forespørselen ble kansellert. Vennligst prøv igjen om nødvendig.
+  SERVER_ERROR: Det oppstod en intern serverfeil. Forespørselen din kan dessverre
+    ikke behandles på dette tidspunktet.
+  message: 'Feilmelding: '
+  ECONNABORTED: Forespørselen ble kansellert av nettleseren din. Vennligst prøv igjen.
+  unknown: Det oppstod en ukjent feil. Prøv igjen senere.
+  ERR_BAD_RESPONSE: Serveren returnerte et ugyldig svar. Vennligst prøv igjen.
+  ERR_NETWORK_CHANGED: Internett-tilkoblingen din er ustabil. Kontroller tilkoblingen
+    og prøv igjen.
