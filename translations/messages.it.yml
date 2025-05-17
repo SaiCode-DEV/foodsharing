@@ -608,16 +608,16 @@ register:
   have_read_the_legal_stuff2: notato
   have_read_the_legal_stuff1: Io ho la
   forgotten_password: Password dimenticata?
-  phone_not_valid: Il numero di telefono inserito non è valido.
+  phone_not_valid: Il numero di telefono inserito non è valido
   phone_example: Esempio +49 179 12345678
   login_phone_info: Può essere utile condividere il tuo numero di telefono con altri
     foodsharer
-  lastname_minLength: Il cognome deve essere composto da almeno due caratteri.
+  lastname_minLength: Il cognome deve essere composto da almeno due caratteri
   login_passwd1: Password (al massimo 8 lettere)
-  password_minLength: La password deve essere composta da almeno otto caratteri.
-  firstname_required: Per favore inserisci il tuo nome.
-  lastname_required: Per favore inserisci il tuo cognome.
-  firstname_minLength: Il nome deve essere composto da almeno due caratteri.
+  password_minLength: La password deve essere composta da almeno otto caratteri
+  firstname_required: Per favore inserisci il tuo nome
+  lastname_required: Per favore inserisci il tuo cognome
+  firstname_minLength: Il nome deve essere composto da almeno due caratteri
   login_surname: Il tuo cognome
   login_name: Il tuo nome
   login_location: Il tuo indirizzo
@@ -625,11 +625,11 @@ register:
   geb_datum: La tua data di nascita
   confirmPassword_sameAsPassword: La password deve corrispondere.
   confirmPassword_required: Ripeti la password.
-  password_required: È richiesta una password.
+  password_required: È richiesta una password
   login_passwd2: Ripetizione della password
   email_invalid: L'indirizzo e-mail non è valido.
   login_email: Indirizzo e-mail
-  email_required: È richiesto un indirizzo e-mail.
+  email_required: È richiesto un indirizzo e-mail
   birthdate_hint: Puoi trovare ulteriori informazioni nella [Protezione dati]({url})
     al punto 2d.
   requiredFields: Campo obbligatorio
@@ -638,8 +638,8 @@ register:
   title: Registrazione
   topbar: Partecipa anche tu
   landline_example: Esempio +49 30 12345678
-  lastname_maxLength: Il cognome può essere composto da un massimo di 30 caratteri.
-  firstname_maxLength: Il nome può essere composto da un massimo di 30 caratteri.
+  lastname_maxLength: Il cognome può essere composto da un massimo di 30 caratteri
+  firstname_maxLength: Il nome può essere composto da un massimo di 30 caratteri
 store_status_impact_explanation: "Si prega di aggiornare dopo ogni contatto operativo
   (<a href=\"https://wiki.foodsharing.de/Kooperationsaufbau_-_Checkliste\" target=\"\
   _blank\"> Wiki: Kooperationsaufbau - Checkliste</a>) lo stato (<a href=\"https ://wiki.foodsharing.de/Betrieb\"\
