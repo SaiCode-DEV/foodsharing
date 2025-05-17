@@ -3474,13 +3474,13 @@ register:
   login_passwd1: Şifre (en az 8 karakter)
   confirmPassword_sameAsPassword: Parola eşleşmelidir.
   geb_datum: Doğum tarihiniz
-  firstname_required: Lütfen isminizi giriniz.
-  firstname_minLength: Adınız en az iki karakterden oluşmalıdır.
-  lastname_required: Lütfen soyadınızı giriniz.
+  firstname_required: Lütfen isminizi giriniz
+  firstname_minLength: Adınız en az iki karakterden oluşmalıdır
+  lastname_required: Lütfen soyadınızı giriniz
   join_error: Kaydınız başarısız oldu.
   login_phone_info: Telefon numaranızı diğer Foodsharer'larla paylaşmak yararlı olabilir
-  lastname_minLength: Soyadı en az iki karakterden oluşmalıdır.
-  phone_not_valid: Girilen telefon numarası geçerli değil.
+  lastname_minLength: Soyadı en az iki karakterden oluşmalıdır
+  phone_not_valid: Girilen telefon numarası geçerli değil
   email_invalid: Email adresi geçersiz.
   finish: Kaydı gönder
   next: devam et
@@ -3506,8 +3506,8 @@ register:
   join_success_message: Foodsharing'e kaydınızı başarıyla tamamladınız. Artık e-postanız
     ve şifrenizle giriş yapabilirsiniz.
   login_passwd2: Şifre tekrarı
-  password_required: Şifre gerekli.
-  password_minLength: Parola en az sekiz karakterden oluşmalıdır.
+  password_required: Şifre gerekli
+  password_minLength: Parola en az sekiz karakterden oluşmalıdır
   confirmPassword_required: Lütfen şifreyi tekrarlayınız.
   landline_example: Örnek +49 30 123456789
   forgotten_password: Şifreyi mi unuttunuz?
@@ -3530,8 +3530,8 @@ register:
   have_read_the_legal_stuff2: anlaşıldı
   select_your_gender: Hitap için …
   have_read_the_legal_stuff1: Ben
-  firstname_maxLength: Ön isim en fazla 30 karakterden oluşabilir.
-  lastname_maxLength: Soyisim en fazla 30 karakterden oluşabilir.
+  firstname_maxLength: Ön isim en fazla 30 karakterden oluşabilir
+  lastname_maxLength: Soyisim en fazla 30 karakterden oluşabilir
 gender:
   f: Kadın
   d: Her ikisi veya diğer
