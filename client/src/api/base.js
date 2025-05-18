@@ -35,16 +35,21 @@ api.interceptors.response.use(
     return Promise.reject(error)
   },
 )
-const escapeHtml = (str) => String(str).replace(/[&<>"']/g, (char) => {
-  const escapeChars = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }
-  return escapeChars[char] || char
-})
 
 const showNetworkError = (key, error) => {
-  const code = escapeHtml(error.response?.status || error.code)
-  const message = escapeHtml(error.message ?? 'N/A')
+  const code = error.response?.status || error.code
+  const message = error.message ?? 'N/A'
+  const path = error?.config?.url ?? 'N/A'
+  const action = (error?.config?.method ?? '').toUpperCase()
+  let pre = action + ' ' + path + '\n' + JSON.stringify(error.response?.data) || 'N/A'
   const text = i18n('net_errors.' + key)
+  const details = i18n('net_errors.code') + code + '\n' + i18n('net_errors.message') + message + '\n' + i18n('net_errors.action_response')
   console.error(text, error)
+
+  // Abbreviate the pre text if it's too long
+  if (pre.length > 250) {
+    pre = pre.substring(0, 200) + ' [...] ' + pre.substring(pre.length - 50)
+  }
 
   let title = ''
   let icon = 'fas fa-wifi'
@@ -66,7 +71,8 @@ const showNetworkError = (key, error) => {
     title,
     icon,
     duration: 10000,
-    details: i18n('net_errors.code') + code + '\n' + i18n('net_errors.message') + message,
+    details,
+    pre,
   })
 }
 

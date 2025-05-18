@@ -814,12 +814,13 @@ time: "Uhrzeit"
 day: "Tag"
 
 net_errors:
-  title: 
+  title:
    general: "Netzwerkfehler"
    500: "Serverfehler"
    400: "Fehlerhafte Anfrage"
   code: "Fehlercode: "
   message: "Fehlermeldung: "
+  action_response: "Anfrage und Serverantwort:"
   BAD_REQUEST: "Die Anfrage war ungültig. Bitte überprüfe deine Eingaben auf Vollständigkeit und Plausibilität."
   FORBIDDEN: "Du bist nicht berechtigt, diese Aktion auszuführen."
   NOT_FOUND: "Die angeforderte Seite wurde nicht gefunden."

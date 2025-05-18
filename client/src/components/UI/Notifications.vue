@@ -14,6 +14,9 @@
               <span v-text="props.item.text" />
               <small v-if="props.item.data?.details" class="notification-small">
                 {{ props.item.data.details }}
+                <pre v-if="props.item.data?.pre">
+{{ props.item.data.pre }}
+                </pre>
               </small>
             </div>
           </div>

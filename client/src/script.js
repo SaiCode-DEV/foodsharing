@@ -35,6 +35,7 @@ function definePulse (type, defaultTimeout = 5000, title, defaultIcon = 'fas fa-
       data: {
         icon: options.icon || defaultIcon,
         details: options.details,
+        pre: options?.pre,
       },
     })
 
