@@ -1,1 +1,15 @@
-{}
+name: Pavadinimas
+add: pridėti
+nachname: Pavardė
+message: pranešimas
+address: Adresas
+edit: redaguoti
+desc: Aprašymas
+description: Aprašymas
+plz: Pašto kodas
+email: El. pašto adresas
+anschrift: Gatvės pavadinimas ir namo numeris
+geschlecht: Lytis
+options: Parinktys
+picture: Nuotrauka
+bezirk: Rajonas
