@@ -25,8 +25,6 @@ use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\WallType;
 use Foodsharing\Modules\Core\DTO\MinimalIdentifier;
 use Foodsharing\Modules\Core\DTO\PatchGeoLocation;
-use Foodsharing\Modules\Development\FeatureToggles\DependencyInjection\FeatureToggleChecker;
-use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Message\MessageGateway;
@@ -87,7 +85,6 @@ class StoreTransactions
         private readonly RegionGateway $regionGateway,
         private readonly StoreCategoriesGateway $storeCategoriesGateway,
         private readonly StoreChainGateway $storeChainGateway,
-        private readonly FeatureToggleChecker $featureToggleChecker,
         private readonly WallPostGateway $wallPostGateway,
         private readonly MessageTransactions $messageTransactions,
         private readonly Session $session,
@@ -1135,15 +1132,12 @@ class StoreTransactions
     {
         $allowedFields = [
             // personal info
-            'id', 'name', 'firstName', 'photo', 'rolle', 'is_sleeping', 'verified',
+            'id', 'name', 'firstName', 'photo', 'rolle', 'is_sleeping', 'verified', 'hygiene_certificate_until',
             // team-related info
             'verantwortlich', 'team_active', 'stat_fetchcount', 'add_date',
         ];
         if ($includeUserDetails) {
             array_push($allowedFields, 'handy', 'telefon', 'last_fetch');
-        }
-        if ($this->featureToggleChecker->isFeatureToggleActive(FeatureToggleDefinitions::HYGIENE_QUIZ->value)) {
-            $allowedFields[] = 'hygiene_certificate_until';
         }
 
         return array_map(

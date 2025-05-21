@@ -53,6 +53,7 @@ export default {
       { tooltip: 'filterSleeping', state: STORE_TEAM_STATE.SLEEPING, icon: 'bed', anti: false },
       { tooltip: 'filterUnverified', state: STORE_TEAM_STATE.UNVERIFIED, icon: 'user-alt-slash', anti: false },
       { tooltip: 'filterManage', state: STORE_TEAM_STATE.MANAGE_ROLE, icon: 'user-graduate', anti: false },
+      { tooltip: 'filterNoHygiene', state: STORE_TEAM_STATE.NO_HYGIENE, icon: 'hands-wash', anti: true },
     ]
     return {
       userSearchString: '',
@@ -98,11 +99,6 @@ export default {
         this.$emit('update:filter-function', this.filterFunction)
       },
     },
-  },
-  async mounted () {
-    if (await this.$isFeatureToggleActive('hygieneQuiz')) {
-      this.filterButtons.push({ tooltip: 'filterNoHygiene', state: STORE_TEAM_STATE.NO_HYGIENE, icon: 'hands-wash', anti: true })
-    }
   },
 }
 </script>

@@ -16,8 +16,6 @@ use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
 use Foodsharing\Modules\Core\Pagination;
-use Foodsharing\Modules\Development\FeatureToggles\DependencyInjection\FeatureToggleChecker;
-use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
 use Foodsharing\Modules\Map\DTO\MapMarker;
 use Foodsharing\Modules\Map\DTO\StoreMarkerHelpType;
 use Foodsharing\Modules\Map\DTO\StoreMarkerScopeType;
@@ -34,7 +32,6 @@ class StoreGateway extends BaseGateway
     public function __construct(
         Database $db,
         private readonly RegionGateway $regionGateway,
-        private readonly FeatureToggleChecker $featureToggleChecker,
     ) {
         parent::__construct($db);
     }
@@ -172,9 +169,6 @@ class StoreGateway extends BaseGateway
             }
         } else {
             throw new DatabaseNoValueFoundException();
-        }
-        if (!$this->featureToggleChecker->isFeatureToggleActive(FeatureToggleDefinitions::HYGIENE_QUIZ->value)) {
-            $result['hygiene_requirement'] = 0;
         }
 
         return Store::createFromArray($result);

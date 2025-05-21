@@ -10,9 +10,6 @@ use Foodsharing\Modules\Core\DBConstants\Achievement\AchievementIDs;
 use Foodsharing\Modules\Core\DBConstants\Foodsaver\Role;
 use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
-use Foodsharing\Modules\Core\DBConstants\StoreTeam\MembershipStatus;
-use Foodsharing\Modules\Development\FeatureToggles\DependencyInjection\FeatureToggleChecker;
-use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\Store\StoreGateway;
@@ -42,7 +39,6 @@ class StorePermissions
         private readonly RegionGateway $regionGateway,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
         private readonly AchievementGateway $achievementGateway,
-        private readonly FeatureToggleChecker $featureToggleChecker,
     ) {
     }
 
@@ -95,7 +91,6 @@ class StorePermissions
         }
 
         if (
-            $this->featureToggleChecker->isFeatureToggleActive(FeatureToggleDefinitions::HYGIENE_QUIZ->value) &&
             $this->storeGateway->getStoreRequiresHygiene($storeId) &&
             !$this->achievementGateway->hasAchievement($this->session->id(), AchievementIDs::HYGIENE_CERTIFICATE)
         ) {
@@ -324,7 +319,6 @@ class StorePermissions
         }
 
         if (
-            $this->featureToggleChecker->isFeatureToggleActive(FeatureToggleDefinitions::HYGIENE_QUIZ->value) &&
             $this->storeGateway->getStoreRequiresHygiene($storeId) &&
             !$this->achievementGateway->hasAchievement($this->session->id(), AchievementIDs::HYGIENE_CERTIFICATE, $time)
         ) {

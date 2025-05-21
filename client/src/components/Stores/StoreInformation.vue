@@ -266,7 +266,7 @@
             />
           </b-form-group>
 
-          <b-form-group v-if="showHygieneSetting">
+          <b-form-group>
             <template #label>
               {{ $i18n('storeedit.fetch.hygieneRequirement') }}
               <Info info-key="hygieneRequirement" />
@@ -516,7 +516,6 @@ export default {
       store: {},
       chainSearchCriteriaField: '',
       publicInfoState: true,
-      showHygieneSetting: false,
     }
   },
   computed: {
@@ -604,9 +603,6 @@ export default {
     } else {
       this.storeFoodNames = []
     }
-  },
-  async mounted () {
-    this.showHygieneSetting = await this.$isFeatureToggleActive('hygieneQuiz')
   },
   methods: {
     updateRegion (region) {

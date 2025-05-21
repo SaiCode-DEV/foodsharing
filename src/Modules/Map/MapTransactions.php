@@ -10,8 +10,6 @@ use Foodsharing\Modules\Core\DBConstants\Store\CooperationStatus;
 use Foodsharing\Modules\Core\DBConstants\Store\PublicTimes;
 use Foodsharing\Modules\Core\DBConstants\Store\TeamSearchStatus;
 use Foodsharing\Modules\Core\DTO\GeoLocation;
-use Foodsharing\Modules\Development\FeatureToggles\DependencyInjection\FeatureToggleChecker;
-use Foodsharing\Modules\Development\FeatureToggles\Enums\FeatureToggleDefinitions;
 use Foodsharing\Modules\Foodsaver\Profile;
 use Foodsharing\Modules\Map\DTO\StoreMapBubbleData;
 use Foodsharing\Modules\Region\RegionGateway;
@@ -29,7 +27,6 @@ class MapTransactions
         private readonly Session $session,
         private readonly WeightHelper $weightHelper,
         private readonly AchievementGateway $achievementGateway,
-        private readonly FeatureToggleChecker $featureToggleChecker,
         private readonly RegionGateway $regionGateway
     ) {
     }
@@ -52,13 +49,8 @@ class MapTransactions
         $mapData->teamMemberCount = count($store['foodsaver']);
         $mapData->standbyCount = count($store['springer']);
         $mapData->location = GeoLocation::createFromArray($store);
-        if ($this->featureToggleChecker->isFeatureToggleActive(FeatureToggleDefinitions::HYGIENE_QUIZ->value)) {
-            $mapData->isHygieneRequired = boolval($store['hygiene_requirement']);
-        }
-
-        if ($mapData->isHygieneRequired) {
-            $mapData->hasHygieneCertificate = $this->achievementGateway->hasAchievement($this->session->id(), AchievementIDs::HYGIENE_CERTIFICATE);
-        }
+        $mapData->isHygieneRequired = boolval($store['hygiene_requirement']);
+        $mapData->hasHygieneCertificate = $this->achievementGateway->hasAchievement($this->session->id(), AchievementIDs::HYGIENE_CERTIFICATE);
 
         $pickupCount = intval($store['pickup_count']);
         if ($pickupCount > 0) {

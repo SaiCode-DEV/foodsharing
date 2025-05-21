@@ -40,10 +40,10 @@
               :is-coordinator="permissions.isCoordinator"
               :may-edit-store="permissions.mayEditStore"
               :team="storeMember"
-              :loaded="areMembersLoaded"
+              :loaded="finishedLoading"
               :store-id="storeId"
               :store-title="storeInformation.name"
-              :region-id="storeInformation.region.id"
+              :region-id="regionId"
             />
           </div>
           <div class="col">
@@ -55,7 +55,7 @@
               {{ $i18n('store.willgetcontacted') }}
             </div>
             <div
-              v-if="!permissions.maySeePickup && !permissions.isJumper && !isVerified"
+              v-if="finishedLoading && !isVerified"
               class="alert alert-info"
               role="alert"
             >
@@ -119,13 +119,14 @@
               :loaded="areMembersLoaded"
               :store-id="storeId"
               :store-title="storeInformation.name"
-              :region-id="storeInformation.region.id"
+              :region-id="regionId"
             />
           </div>
         </div>
       </b-tab>
       <b-tab :title="$i18n('storeview.show_settings')">
         <StoreInformation
+          v-if="finishedLoading"
           :key="'storeInfo' + componentKey"
           :is-jumper="permissions.isJumper"
           :store-id="storeId"
@@ -174,6 +175,7 @@ export default {
   },
   setup () {
     return {
+      finishedLoading: false,
       userStore: useUserStore(),
       pickupStore: usePickupStore(),
       storeStore: useStoreStore(),
@@ -193,6 +195,9 @@ export default {
     },
     userId () {
       return this.userStore.getUserId
+    },
+    regionId () {
+      return this.storeInformation.region.id
     },
     storeMember () {
       return StoreData.getters.getStoreMember()
@@ -222,17 +227,16 @@ export default {
     const storeMemberPromise = StoreData.mutations.loadStoreMember(this.storeId)
     const metaDataPromise = this.storeStore.fetchMetadata()
     const regularPickupPromise = this.pickupStore.fetchRegularPickup(this.storeId)
-    const getRegionOptions = StoreData.mutations.loadGetRegionOptions(this.storeId)
 
     await Promise.all([
       metaDataPromise,
-      getRegionOptions,
       storeMemberPromise.then(() => {
         this.checkIsUserInStore()
         this.getLastFetchDate()
       }),
       storeInformationPromise.then(() => {
         this.componentKey += 1
+        StoreData.mutations.loadGetRegionOptions(this.regionId)
       }),
       Promise.all([userDetailsPromise, permissionsPromise]).then(async () => {
         if (this.isVerified && !this.permissions.isJumper) {
@@ -242,6 +246,7 @@ export default {
           await StoreData.mutations.loadStoreLog(this.storeId, this.storeInformation.calendarInterval)
         }
         this.loadRightsInfo()
+        this.finishedLoading = true
         this.componentKey += 1
       }),
     ])

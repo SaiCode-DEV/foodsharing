@@ -10,7 +10,7 @@
     >
       <template v-if="loaded">
         <StoreTeamManagementPanel
-          v-if="mayEditStore"
+          v-if="mayEditStore && loaded"
           v-bind="{ storeId, regionId, team, storeTitle }"
           :sorting-function-name="sortingFunction.name"
           @toggle-sorting="toggleSortingFunction"
@@ -153,9 +153,6 @@ export default {
       if (!this.loaded || !this.filterFunction.name) return this.$i18n('store.team_container')
       const filterName = this.$i18n(`store.sm.${this.filterFunction.name}`)
       return `${this.$i18n('store.team_container')} (${this.filterFunction.count} ${filterName})`
-    },
-    applications () {
-      return StoreData.getters.getStoreApplications()
     },
   },
   watch: {
