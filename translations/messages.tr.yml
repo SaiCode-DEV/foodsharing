@@ -95,7 +95,7 @@ regionPin:
   desc: Açıklama
   success: Başarıyla kaydedildi
   save: kaydet
-email: E-Posta Adresi
+email: .E-Posta Adresi
 attachement: Ek
 name: İsim
 nachname: Soyad
@@ -2346,7 +2346,8 @@ footer:
   about_us: Hakkımızda
   partner_names:
     denns: Denn’s Biomarkt
-    lebensministerium: Federal Tarım, Bölgeler ve Turizm Bakanlığı
+    lebensministerium: Federal Tarım, Ormancılık, İklim Koruma ve Çevre Koruma, Bölgeler
+      ve Su Yönetimi Bakanlığı
     tafel_oesterreich: 'Tafel Viyana'
   contact: İletişim
   press: Basın
@@ -2534,7 +2535,7 @@ settings:
     domain: Parolanızı istediğiniz zaman kurtarabilmeniz için lütfen farklı bir e-posta
       adresi kullanın.
     passcheck: Lütfen değişikliği şifrenizle onaylayın
-    invalid: Girdiğiniz e-posta adresinde bir sorun var.
+    invalid: Girdiğiniz e-posta adresinde bir sorun var
     occupied: E-posta adresi kullanıldığı için değiştirilemedi.
     passfail: Parola doğru değil, yalnış mı girdiniz?
     sent: Şimdi adresi doğrulamak için <strong>yeni</strong> e-posta gelen kutunuza
@@ -2736,7 +2737,7 @@ settings:
   change_password:
     new_password_must_be_trimmed: Şifre boşluklarla başlayamaz veya bitemez
     old_password_label: Önceki şifre
-    old_password_required: Önceki şifrenizi girmelisiniz.
+    old_password_required: Önceki şifrenizi girmelisiniz
     new_password_label: Yeni şifre
     new_password_required: Şifre en az 8 karakter içermelidir
     new_password_confirmation_label: Yeni şifreyi onayla
@@ -3472,7 +3473,7 @@ salutation:
   "1": Sevgili
 register:
   login_passwd1: Şifre (en az 8 karakter)
-  confirmPassword_sameAsPassword: Parola eşleşmelidir.
+  confirmPassword_sameAsPassword: Girilen her iki şifrenin de aynı olması gerekir
   geb_datum: Doğum tarihiniz
   firstname_required: Lütfen isminizi giriniz
   firstname_minLength: Adınız en az iki karakterden oluşmalıdır
@@ -3481,7 +3482,7 @@ register:
   login_phone_info: Telefon numaranızı diğer Foodsharer'larla paylaşmak yararlı olabilir
   lastname_minLength: Soyadı en az iki karakterden oluşmalıdır
   phone_not_valid: Girilen telefon numarası geçerli değil
-  email_invalid: Email adresi geçersiz.
+  email_invalid: E-posta adresi geçersiz veya zaten kullanılıyor
   finish: Kaydı gönder
   next: devam et
   requiredFields: Zorunlu giriş
@@ -3498,8 +3499,8 @@ register:
   title: Kayıt
   register_button_label: Kayıt ol
   mail_hint: 'Önemli: Yazım kurallarına dikkat ediniz!'
-  error_email_invalid: Bu E-posta adresi zaten var.
-  login_email: E-Posta Adresi
+  error_email_invalid: Bu E-posta adresi zaten var
+  login_email: .E-Posta Adresi
   woman: kadın
   login_surname: Soyadınız
   pass1: İstediğiniz yeni şifreniz
@@ -3508,7 +3509,7 @@ register:
   login_passwd2: Şifre tekrarı
   password_required: Şifre gerekli
   password_minLength: Parola en az sekiz karakterden oluşmalıdır
-  confirmPassword_required: Lütfen şifreyi tekrarlayınız.
+  confirmPassword_required: Lütfen doğrulama için şifreyi tekrarlayın
   landline_example: Örnek +49 30 123456789
   forgotten_password: Şifreyi mi unuttunuz?
   prev: geri dön
