@@ -13,3 +13,237 @@ geschlecht: Lytis
 options: Parinktys
 picture: Nuotrauka
 bezirk: Rajonas
+parent_id: Rajonas
+active: Aktyvuota
+rolle: Naudotojas:rolė
+title: Pavadinimas
+body: Pranešimas
+status: Dabartinis statusas
+lat: Platuma
+lon: Ilguma
+fs_id: Foodsharing (maisto dalintojo ) - ID
+info: Informacija
+photo: Nuotrauka
+no_automatic_delete: 'Jei paskutinė registracija buvo prieš 5 metus:'
+automatic_delete: '- profilis turi būti ištrintas.'
+automatic_not_delete: '- provilis liks.'
+ort: Miestas/Seniūnija
+regions: Apylinkė
+groups:
+  empty: Tu dar nesijungei į jokias darbo grupes
+copied_to_clipboard: „{text}“ buvo nukopijuotas į atmintinę“
+about_me_public: Trumpas aprašymas
+about_me_intern: Aprašymas
+weight: 'Apytikslis svoris:'
+lifetime: Kiek laiko turėtų būti galiojantis tavo maisto krepšelis?
+request_time: 'Užklausos laikas:'
+teaser: Anonsas
+opt: Pasirinkimai
+fsp_bezirk_id: Kuriame rajone yra Fairteiler?
+fspmanagers: Foodsaverių kontaktiniai asmenys Fairteiler'iuose
+pass1: Suveskite naują slaptažodį
+kette_id: Atstovų tinklas
+betrieb_kategorie_id: Kategorija
+betrieb_status_id: Statusas
+ansprechpartner: Kontaktiniai asmenys įmonėje (skyrių vadovai ir kt.)
+lebensmittel: Kur maisto produktai yra pasiimami?
+begin: Pradėk bendradarbiavimą
+besonderheiten: Savybės
+public_time: Apytikslis maisto paėmimo laikas
+ueberzeugungsarbeit: Ar buvo lengva įtikinti atsakingus asmenis bendradarbiauti su
+  foodsharing?
+presse: Ar įmonė/parduotuvė/organizacija yra pasirengusi būti paminėta spaudoje ir
+  foodsharing.de?
+prefetchtime: Kiek savaičių į priekį Foodsaveriai gali užsiregistruoti naudojantis
+  automatiniu laikų pasirinkimu?
+abholmenge: Kiek kilogramų maisto kiekvienas asmuo apytiksliai pasiima per paėmimą?
+use_region_pickup_rule: Ar šiam verslui turėtų būti taikoma rajono ROSINEN taisyklė
+  paėmimams?
+right: Įvertinimas
+position: Oficiali foodsharing vieta
+fp: Klaidų taškai
+nofp: Klaidų taškų nėra (juokaujant)
+explanation: Paaiškinimas
+duration: Prašome atsakyti
+answers: Kurie atsakymai yra teisingi?
+maxfp: Didžiausias leidžiamas  klaidų taškų skaičius
+questcount: Kiek klausimų turėtų būti užduota?
+wikilink: Nuoroda su papildoma informacija
+filter_by: Filtruoti pagal
+save_state: Taikyti filtravimą ir rūšiavimą
+save_state_description: Išsaugoti filtrus ir rūšiavimą būsimam naudojimui
+configure_columns: Konfigūruoti stulpelius
+expand_all: Išskleisti viską
+collapse_all: Suskleisti viską
+partner_foodsharing: Maisto dalijimosi partneris
+quiz:
+  plural: Viktorinos
+  button:
+    pause: Tęsti vėliau
+    finish: Užpildykite testą
+  title:
+    start: '{name} – Atlikite testą dabar!'
+    continue: '{name} – Tęskite testą!'
+    pause: Mokymosi pertrauka ({name})
+    finished: '{name} – Išlaikėte!'
+    disqualified: '{name} – Deja, diskvalifikuotas.'
+  startmodal:
+    title: Pastabos apie testą
+    infos:
+      pause: Testą galite pristabdyti po kiekvieno klausimo ir tęsti vėliau.
+      feedback: Testo pabaigoje gausite iš karto įvertinimą, kuriame bus nurodyta,
+        ar išlaikėte ir kokias klaidas padarėte. Čia galite dar kartą perskaityti
+        priežastis, kada jums patogu.
+      limited_tries: Testo negalima kartoti tiek kartų, kiek norite. Po trijų bandymų
+        turite padaryti 30 dienų mokymosi pertrauką, po kurios galite bandyti tik
+        dar du kartus. Kiekviename teste užduodami skirtingi klausimai.
+      alone: Testą turite atlikti patys ir be jokios pašalinės pagalbos. Jei turite
+        kalbos sunkumų arba jums reikia pagalbos, kitas asmuo, žinoma, gali padėti
+        jums suprasti klausimus, Tačiau jūs turite mokėti į juos atsakyti patys. Todėl
+        susiraskite ramią vietą, kurioje galėtumėte netrukdomi atlikti testą.
+      multiple_choice: Į kiekvieną klausimą gali būti keli teisingi atsakymai arba
+        nė vieno. Todėl kiekvieną atsakymą atskirai nuspręskite, ar jis teisingas,
+        ar neteisingas.
+      unlimited_tries: Šį testą galite kartoti tiek kartų, kiek norite, ir niekada
+        nebūsite diskvalifikuoti už nesėkmingus bandymus. Tačiau tarp bandymų gali
+        tekti padaryti mokymosi pertrauką .
+      read_carefully: Atidžiai perskaitykite visus klausimus ir atsakymus.
+      comment: Atsakę į kiekvieną klausimą, pamatysite tarpinį vertinimą su kiekvieno
+        atsakymo varianto paaiškinimais. Tai padeda suprasti, kuris atsakymas yra
+        teisingas, o kuris – neteisingas ir kodėl. Prie kiekvienos klaidos reikia
+        atidžiai perskaityti paaiškinimus. Jei kas nors jums atrodo nelogiška, nesuprantama
+        ar net neteisinga, palikite komentarą. Jūsų komentarai gali būti priskirti
+        jums, kad galėtumėte gauti individualų atsiliepimą.
+      wiki: Prašau nepradėti testo spontaniškai. Prieš tai atidžiai perskaitykite
+        informacinius puslapius. Be žinių iš Wiki neišlaikysite testo.
+      real_life_examples: Dauguma klausimų yra pagrįsti tikrais atvejais iš gyvenimo
+        dalijantis maistu.
+      timed: Laikas atsakyti į klausimus yra ribotas. Neleisk, kad taikeltų tau stresą.
+        Laikas kiekvienam klausimui skiriamas individualiai, kad turėtumėte pakankamai
+        laiko ramiai į jį atsakyti. Jei kada nors pritrūksite laiko, praneškite apie
+        tai testo administratoriams komentare.
+    privacyNotice:
+      hygiene: Jei išlaikysite šį testą, bus užfiksuotas Jūsų sėkmės laikas ir Jums
+        bus įteiktas higienos lipdukas. Higienos ir operacijų vadovai gali patikrinti,
+        ar turite galiojantį higienos lipduką.
+    acceptPrivacyNotice: Sutinku.
+  stateBasedInfo:
+    pauseElapsed: Jūsų mokymosi pertrauka baigėsi. Dabar galite vėl dalyvauti teste.
+      Tikimės, kad per šį laiką gerai susipažinote su turiniu.
+    neverTried: Šio testo dar nesate užbaigę. Skirkite šiek tiek laiko atidžiai perskaityti
+      visus pateiktus informacinius straipsnius, kad gerai pasiruoštum atsakyti į
+      klausimus.
+    waitAfter: Jei kitą kartą neišlaikysite, turėsite daryti {waitTimeAfterFailure}
+      dienų pertrauką mokymuisi. Būtinai peržiūrėkite atitinkamus informacinius straipsnius,
+      kad galėtumėte išlaikyti testą.
+    running: Jūs jau pradėjotei testą ir iki šiol atsakėteį {questionsAnswered} iš
+      {questionCount} klausimų.
+    disqualifiedAfter: Jums liko tik paskutinis bandymas išlaikyti šį testą! Jei dabar
+      neišlaikysite, būsite visam laikui diskvalifikuotas iš šio testo. Prašome dalyvauti
+      tik tada, kai išsamiai susipažinote su visais informacijos šaltiniais Wiki.
+    disqualified: Deja, Jūs esate diskvalifikuotas iš šio testo, nes per daug kartų
+      jo neišlaikėte.
+    passedBefore: Šį testą Jūs jau esate išlaikęs.
+    willExpire: Tačiau Jūsų išlaikyto testo galiojimas baigsis po {expirationTime}
+      dienų. Todėl jau dabar galite atnaujinti savo žinias šioje srityje ir vėl dalyvauti
+      šiame teste.
+    expired: Tačiau Jūsų paskutinis testo bandymas nebegalioja.
+    pause: Šio testo Jūs jau kelis kartus neišlaikėte. Patikimumas, taisyklių tvirtas
+      išmanymas ir profesionalus elgesys foodsharing platformoje yra būtini. Deja,
+      Jūsų atsakymai šiuo metu to neparodo. Todėl gaunate mokymosi pertrauką, kol
+      vėl galėsite mėginti išlaikyti testą. Jūsų pertrauka baigsis po {currentWaitTime}
+      dienų.
+    passed: Jūs išlaikėte šį testą.
+    failed: Paskutiniu bandymu, deja, šio testo neišlaikėte.
+    noWaitAfter: Dar kartą peržiūrėkite atitinkamus informacinius straipsnius ir pabandykte
+      dar kartą.
+  results:
+    title:
+      1: Nuoširdžiai sveikiname!
+      2: Deja, Jūs neišlaikėte.
+    points:
+      1: Jūs išlaikėte su {failurePoints} klaidų taškais iš maksimaliai leistinų {maxFailurePointsToSucceed}!
+      2: Jūs turėjote {failurePoints} klaidų taškų, o išlaikyti reikėjo ne daugiau
+        kaip {maxFailurePointsToSucceed}.
+    deleted: Tiksli testo įvertinimo ataskaita saugoma tik dvi savaites po testo,
+      todėl ji nebeprieinama.
+  fp_badge:
+    right: Atsakyta teisingai
+    wrong: '{userFailurePoints} klaidų'
+  timed_out_last: Į paskutinį klausimą Jūs neatsakėte per nustatytą laiką.
+  comment:
+    wallTitle: 'Komentarai prie klausimo #{id}'
+    send: Siųsti komentarą
+    sent: Komentaras išsiųstas.
+    toggle: Parašykite komentarą
+    label: Komentuoti klausimą
+    info: Pateik mums atsiliepimą apie šį klausimą. Ar jis buvo per lengvas, per sunkus,
+      neaiškus? O gal kai kurie atsakymai arba paaiškinimai yra netikslūs?
+    placeholder: Įveskite komentarą…
+  question: Klausimai
+  infomodal:
+    title: '{indeksas} klausimas iš {klausimų}'
+  timedstart: Pradėkite testą su laiko apribojimu ir {count} klausimais
+  continuenow: Tęskite spręsdami testą dabar!
+  regstart: Pradėkite testą be laiko apribojimo ir {count} klausimų
+  answers:
+    timedOut:
+      1: Šis atsakymas būtų buvęs teisingas.
+      2: Šis atsakymas būtų buvęs neutralus.
+      0: Šis atsakymas būtų buvęs neteisingas.
+    true_true: Teisingai! Šis atsakymas yra teisingas.
+    true_false: Neteisingai! Šis atsakymas nėra teisingas.
+    none_correct: Nė vienas atsakymas nėra teisingas.
+    short:
+      0: Neteisingai
+      1: Teisingai
+      2: Neutralus
+    name: Atsakymai
+    false_false: Šis atsakymas buvo neteisingas. Tu tai teisingai supratai.
+    neutral: Neutralus atsakymas – neįskaitomas.
+    false_true: Šis atsakymas būtų buvęs teisingas.
+  fp_options:
+    default: '{failurePoints} klaidų taškai'
+    joke: '{failurePoints} klaidų taškai (nevertinama)'
+    ko: '{failurePoints} klaidų taškai (k. o.)'
+  test_results: Testo bandymo rezultatai
+  max_fp: Galimi klaidų taškai
+  answer_options:
+    edit: Redaguoti atsakymą
+    delete: Ištrinti atsakymą
+  question_options:
+    add: Pridėti klausimą
+    edit: Redaguoti klausimą
+    add_answer: Pridėti atsakymą
+    delete: Ištrinti klausimą
+    show_comments: Rodyti komentarus
+  show_results: Peržiūrėti paskutinio bandymo rezultatus
+  mandatory_question: Šis klausimas yra privalomas ir įtrauktas į kiekvieną testo
+    bandymą.
+  fp_description: Iš viso {failurePoints}, t.y. {perMistake} už kiekvieną neteisingą
+    atsakymą
+  timed_out: Į šį klausimą Jūs neatsakėte per nustatytą laiką.
+  key_facts:
+    to_pass: 'Norint išlaikyti:'
+    untimed: Daugiausia {maxFailurePointsToSucceed} klaidų taškų iš {questionCountTimed}
+      klausimų su laiko apribojimu arba iš {questionCountUntimed} klausimų be laiko
+      apribojimo
+    timed: Daugiausia {maxFailurePointsToSucceed} klaidų taškų iš {questionCountTimed}
+      klausimų su laiko apribojimu
+  timelimit: Laiko limitas
+  timed_out_error: Laikas atsakyti į šį klausimą jau baigėsi.
+  general:
+    edit: Redaguoti testą
+    title: Bendra informacija
+  wikilink: Daugiau informacijos apie tai
+  editable_tooltip: Jūs galite redaguoti šį testą.
+  questions_section:
+    title: Testo klausimai ({count})
+fetchstate: Ar viskas pavyko gerai?
+first_post: Pirmas įrašas
+bezirk_id: Kuriam regionui svarbus šis straipsnis?
+pass2: Pakartokite slaptažodį
+fax: Faksas
+sticker: Ar įmonė/parduotuvė/organizacija ir pan. yra pasiryžusi užklijuoti lipduką
+  prie įėjimo arba kitur matomoje vietoje?
+text: Tekstas
