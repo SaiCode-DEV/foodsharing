@@ -234,17 +234,14 @@ export default {
         this.checkIsUserInStore()
         this.getLastFetchDate()
       }),
-      storeInformationPromise.then(() => {
-        this.componentKey += 1
-        StoreData.mutations.loadGetRegionOptions(this.regionId)
-      }),
-      Promise.all([userDetailsPromise, permissionsPromise]).then(async () => {
+      Promise.all([storeInformationPromise, userDetailsPromise, permissionsPromise]).then(async () => {
         if (this.isVerified && !this.permissions.isJumper) {
           await regularPickupPromise
         }
         if (!this.permissions.isJumper) {
           await StoreData.mutations.loadStoreLog(this.storeId, this.storeInformation.calendarInterval)
         }
+        StoreData.mutations.loadGetRegionOptions(this.regionId)
         this.loadRightsInfo()
         this.finishedLoading = true
         this.componentKey += 1
