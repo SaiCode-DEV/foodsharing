@@ -64,7 +64,7 @@ class BellType
      */
     final public const string STORE_ADDED_WITHOUT_REQUEST = 'store-imposed-%d-%d';
     /**
-     * The user was added to a store without a request. Argument: ID of the store.
+     * The user was invited to a store. Argument: ID of the store.
      */
     final public const string STORE_INVITATION = 'store-invited-%d';
     /**

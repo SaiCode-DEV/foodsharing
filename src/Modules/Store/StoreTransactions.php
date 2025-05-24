@@ -1023,6 +1023,7 @@ class StoreTransactions
 
     private function triggerBellForJoining(int $storeId, int $userId, int $actionType): void
     {
+        $bellLink = '/store/' . $storeId;
         if ($actionType === StoreLogAction::ADDED_WITHOUT_REQUEST) {
             $bellTitle = 'store_request_imposed_title';
             $bellMsg = 'store_request_imposed';
@@ -1048,10 +1049,10 @@ class StoreTransactions
             $bellMsg = 'store_invite';
             $bellIcon = 'fas fa-shopping-cart';
             $bellId = BellType::createIdentifier(BellType::STORE_INVITATION, $storeId);
+            $bellLink = "/karte?bid={$storeId}";
         } else {
             throw new \DomainException('Unknown store-team action: ' . $actionType);
         }
-        $bellLink = '/store/' . $storeId;
 
         $storeName = $this->storeGateway->getStoreName($storeId);
 

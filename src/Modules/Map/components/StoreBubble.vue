@@ -131,7 +131,7 @@
         />
         <b-button
           v-if="store.isInvited"
-          variant="outline-danger"
+          variant="danger"
           @click="declineInvitation"
           v-text="$i18n('store.invitation.decline')"
         />

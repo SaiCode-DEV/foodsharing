@@ -1813,7 +1813,7 @@ bell:
 
   store_invitation_declined_title: "Einladung abgelehnt ({store})"
   store_invitation_declined:
-    one: "{user} ist möchte nicht {store} beitreten"
+    one: "{user} möchte nicht {store} beitreten"
     many: "{count} Nutzer:innen möchten nicht {store} beitreten"
 
   new_forum_thread_title: "Neues Thema in {forum}"
