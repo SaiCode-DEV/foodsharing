@@ -586,12 +586,12 @@ group:
     accept: Başvuruyu kabul et
     accepted: Başvuru kabul edildi
     declined: Başvuru reddedildi
-    erfahrung: "Grupta, başka bir yerde edindiğiniz deneyimlerden yararlanabilir misiniz?\n
-      Eğer öyleyse, nerede veya ne?\n"
+    erfahrung: "Grupta, başka bir yerde edindiğiniz deneyimlerden yararlanabilir misiniz?\n\
+      \ Eğer öyleyse, nerede veya ne?\n"
     link_description: 'Bu bağlantı sizi doğrudan uygulamaya yönlendirecektir:'
     ability: Bu alanda sahip olduğunuz beceriler nelerdir?
-    experience: "Grupta başka yerlerde edindiğiniz deneyimlerden faydalanabilir misiniz?\n
-      Eğer öyleyse, nerede veya hangileri?\n"
+    experience: "Grupta başka yerlerde edindiğiniz deneyimlerden faydalanabilir misiniz?\n\
+      \ Eğer öyleyse, nerede veya hangileri?\n"
     how_much_time: Haftada kaç saatinizi buna ayırmaya zamanınız ve isteğiniz var?
     error_missing_time: 'Hata: Zaman seçilmedi.'
   application_requirements:
@@ -691,8 +691,8 @@ group:
     name_required: Lütfen bir isim giriniz.
   contact:
     disclaimer: "Bu çalışma grubuna mesaj gönderdiğiniz an,\nfoodsharing profilinizde
-      belirttiğiniz e-posta adresinizi,çalışma grubunun tüm yöneticileri görür.\n
-      Bu mesajın bir kopyası da size, E-Posta yoluyla gönderilecektir.\n"
+      belirttiğiniz e-posta adresinizi,çalışma grubunun tüm yöneticileri görür.\n\
+      \ Bu mesajın bir kopyası da size, E-Posta yoluyla gönderilecektir.\n"
     admins: '{count} İlgili kişi:'
     title: '{group} ile iletişime geç'
     empty: Hadi önce bir şeyler yaz ;)
@@ -1371,8 +1371,8 @@ message_text_to_group_admin_workgroup: '<b>{groupName}</b> bölgesi/çalışma g
   sahip: <br>{idStructureList}<br><br>Kimlik: {groupId}<br><br>URL: <a href="/region?bid={groupId}&sub=forum"
   target= "_blank">Bölgeye/çalışma grubuna gitmek için burayı tıklayın</a>'
 success: Başarıyla tamamlandı
-error_ajax: "Bu ne yazık ki işe yaramadı.\nBelki internet bağlantınız şu anda çalışmıyordur.\n
-  Sayfayı yeniden yükleyin ve tekrar deneyin.\n"
+error_ajax: "Bu ne yazık ki işe yaramadı.\nBelki internet bağlantınız şu anda çalışmıyordur.\n\
+  \ Sayfayı yeniden yükleyin ve tekrar deneyin.\n"
 delete: Sil
 yes: Evet
 deletelow: sil
@@ -1846,9 +1846,9 @@ events:
     inviteAll: Randevuya tüm grup/bölge davet edilsin mi?
     public: Etkinlik herkese açık mı?
     info: "<b>Lütfen dikkat:</b>\n<br>\nOluşturulduktan sonra, randevu <b>ilgili gruptaki</b>
-      herkes içindir\nPaylaşılan bir bağlantı veya randevu menüsü aracılığıyla erişilebilir.\n
-      <br>\nRandevuyu bu arada gösterge tablosunda yeni gelenlere de göstermek için,\n
-      daha sonra tekrar kaydedin.\n"
+      herkes içindir\nPaylaşılan bir bağlantı veya randevu menüsü aracılığıyla erişilebilir.\n\
+      \ <br>\nRandevuyu bu arada gösterge tablosunda yeni gelenlere de göstermek için,\n\
+      \ daha sonra tekrar kaydedin.\n"
     endtime: Zaman sonu
     name: Etkinliğin adı
     time: Saat
@@ -2371,7 +2371,7 @@ releases:
   "2025-04": Zeytin versiyonu 🫒 (Nisan/Mayıs 2025)
 storestatus:
   "5": bizimle işbirliği halinde
-  "2": Görüşmeler devam ediyor
+  "2": Görüşmeler devam ediyor_
   "6": Tafel vb. için bağış yapıyor ve hiçbir şeyi atmıyor
   "1": Henüz iletişim bulunmuyor
   "7": İşletme artık yok
@@ -2390,7 +2390,7 @@ storelist:
   nowaste: Hiçbir şeyi atmıyor
   map: Harita
   nocontact: Henüz iletişim yok
-  inprogress: Görüşmeler devam ediyor
+  inprogress: Görüşmeler devam ediyor_
   cooperating: İşbirliği içinde
   notcooperating: İşbirliği yapmak istemiyor
   emptyfilters: Filtreleri temizle
@@ -2398,7 +2398,7 @@ storelist:
   others: '{region} bölgesindeki diğer işletmeler'
   status: Statü
   address: Sokak
-  zipcode: Posta Kodu
+  zipcode: Posta Kodu|
   entered: 'Kayıtlı:'
   isManaging: ''
   memberState: Üyelik durumu
@@ -2474,9 +2474,9 @@ email_template:
     linktext: Üyelikten çıkmak için buraya tıklayın.
   impress:
     address: "foodsharing e. V.\nNeven-DuMont-Str. 14\n50667 Köln\nAlmanya\n\nİle
-      temsil edilen:\nAnja Westermann\nTemas etmek:\nE-posta: info@foodsharing.de\n
-      \nKayıt girişi: Derneklerin siciline giriş\nKayıt mahkemesi: Köln Bölge Mahkemesi\n
-      Kayıt numarası: VR 17439\n\n§ 18 MStV'ye göre içerikten sorumlu:\nAnja Westermann"
+      temsil edilen:\nAnja Westermann\nTemas etmek:\nE-posta: info@foodsharing.de\n\
+      \ \nKayıt girişi: Derneklerin siciline giriş\nKayıt mahkemesi: Köln Bölge Mahkemesi\n\
+      \ Kayıt numarası: VR 17439\n\n§ 18 MStV'ye göre içerikten sorumlu:\nAnja Westermann"
     general_information_requirements: § 5 Telemedya Yasasına göre bilgiler
     title: Künye
   information: Bilgi
@@ -2569,12 +2569,12 @@ settings:
     full: Belirsiz bir süre yokum
     tooltip: '{name} ara veriyor ve uyku modunda'
     info: "Uyku beresi işleviyle, topluluğa şu anda uzakta olduğunuzu,\nveya başka
-      sebeplerden dolayı gıda kurtarmaya vaktiniz olmadığını iletmiş olursunuz.\n
-      Mesajlara cevap verip veremeyeceğinizi, \nhatta bazen alımlar yapabileceğinizi
+      sebeplerden dolayı gıda kurtarmaya vaktiniz olmadığını iletmiş olursunuz.\n\
+      \ Mesajlara cevap verip veremeyeceğinizi, \nhatta bazen alımlar yapabileceğinizi
       bilmek faydalı olacaktır.\n"
-    show: "Bu işlevi kullanarak, durumunuzun, devamsızlık sürenizin ve mesajınız\n
-      profil sayfanızda görünmesini, profil resminizin üzerine bir “uyku beresi”\n
-      yerleştirilmiş olmasını kabul ediyor olacaksınız.\n"
+    show: "Bu işlevi kullanarak, durumunuzun, devamsızlık sürenizin ve mesajınız\n\
+      \ profil sayfanızda görünmesini, profil resminizin üzerine bir “uyku beresi”\n\
+      \ yerleştirilmiş olmasını kabul ediyor olacaksınız.\n"
     message: Doğrulanmadınız. Bu nedenle ekip üyelerinin slotlarını veya telefon numaralarını
       göremezsiniz.
     from: den
@@ -2591,12 +2591,12 @@ settings:
     event_link_desc: (etkinlikler dahil)
     token-warning: "Dikkat: Linki gizli tutun.\nLink kişisel verilerine şifre olmadan
       erişmek için bir anahtar içerir.\n"
-    teaser: "Seçtiğiniz bir takvim programı ile teslim alma takviminizi görüntüleyebilirsiniz.\n
-      Önce bir belirteç oluşturun ve ardından iki takvim bağlantısından birine abone
+    teaser: "Seçtiğiniz bir takvim programı ile teslim alma takviminizi görüntüleyebilirsiniz.\n\
+      \ Önce bir belirteç oluşturun ve ardından iki takvim bağlantısından birine abone
       olun.\nDaha fazla bilgi için adresindeki wikiye bakın.\n"
-    sync: "Takvim programınız bu takvimi düzenli olarak yeniden senkronize etmelidir.\n
-      Ancak o zaman yeni teslim alma tarihleri görünür ve iptal edilen tarihler artık
-      görünmez.\n"
+    sync: "Takvim programınız bu takvimi düzenli olarak yeniden senkronize etmelidir.\n\
+      \ Ancak o zaman yeni teslim alma tarihleri görünür ve iptal edilen tarihler
+      artık görünmez.\n"
     delete_token:
       message: Bu, şu ana kadar oluşturulan tüm takvim bağlantılarını geçersiz kılacaktır.
         Belirteci silmek istediğinizden emin misiniz?
@@ -2650,8 +2650,8 @@ settings:
       takvim bağlantılarını geçersiz kılacaktır.\n\nTakvim programınızın bu takvimi
       düzenli olarak **senkronize etmesi** gerekiyor. Ancak o zaman yeni alım tarihleri
       görünecek ve iptal edilen tarihler artık görünmeyecek. Bunun yerine mevcut takviminizi
-      indirirseniz, yalnızca mevcut randevularınızı içerecek ve otomatik olarak güncellenmeyecektir.\n
-      \nDaha fazla bilgiyi [wiki'de]({calendarUrl}) bulabilirsiniz\n"
+      indirirseniz, yalnızca mevcut randevularınızı içerecek ve otomatik olarak güncellenmeyecektir.\n\
+      \ \nDaha fazla bilgiyi [wiki'de]({calendarUrl}) bulabilirsiniz\n"
   title: Ayarlar_
   passport:
     menu: Kimlik Kartı
@@ -2684,8 +2684,8 @@ settings:
   saved: Değişiklikler kaydedildi.
   push:
     disabled: Push bildirimleri başarıyla devre dışı bırakıldı
-    denied: "Tarayıcınızda foodsharing ile Push bildirimlerin görüntülenmesini reddettiniz.\n
-      Push bildirimleri almak istiyorsanız, Foodsharing için tarayıcı ayarlarınızı
+    denied: "Tarayıcınızda foodsharing ile Push bildirimlerin görüntülenmesini reddettiniz.\n\
+      \ Push bildirimleri almak istiyorsanız, Foodsharing için tarayıcı ayarlarınızı
       değiştirin\nve sayfayı yeniden yükleyin.\n"
     success: Push bildirimleri başarıyla etkinleştirildi
     disable: Push bildirimlerini devre dışı bırak
@@ -2693,9 +2693,9 @@ settings:
     title: Push bildirimleri
     not-supported: Ne yazık ki, tarayıcınız Push bildirimlerini desteklemiyor.
     info-on: "Bu cihaz için push bildirimlerini etkinleştirirseniz,\noturum açmamış
-      olsanız bile,\nsohbet mesajları gelecekte doğrudan cihazınıza teslim edilecek.\n
-      Cihazınız daha sonra ilgili bir bildirim gösterecektir.\nveya bir ses veya titreşimle
-      tepki verir.\n"
+      olsanız bile,\nsohbet mesajları gelecekte doğrudan cihazınıza teslim edilecek.\n\
+      \ Cihazınız daha sonra ilgili bir bildirim gösterecektir.\nveya bir ses veya
+      titreşimle tepki verir.\n"
     info-off: "Bu cihazda Foodsharing Push bildirimleri açık.\nPush bildirimleri devre
       dışı bırakırsanız, gelecekte sohbet mesajları devre dışı bırakılır\nve artık
       doğrudan cihazınıza teslim edilmez.\nGiriş yapmadıysanız, cihazınız artık bildirim
@@ -2718,8 +2718,8 @@ settings:
   photo:
     title: Senin Fotoğrafın
     info: "Profil fotoğrafında yüzünüz <a href=\"{link_photo}\">tanımlanabilir</a>
-      olmalıdır,\nFoodsharing <a href=\"{link_id}\">ID</a> için kullanıldığından,\n
-      daha sonra <a href=\"{link_fs}\">Foodsaver</a> olunca işletmelerden gıda alımı
+      olmalıdır,\nFoodsharing <a href=\"{link_id}\">ID</a> için kullanıldığından,\n\
+      \ daha sonra <a href=\"{link_fs}\">Foodsaver</a> olunca işletmelerden gıda alımı
       yapıcaksınız.\n"
   general:
     phone: Sabit hat numaranız
@@ -2841,8 +2841,8 @@ chat:
   placeholder: Bir şeyler yaz.
   error_loading_messages: Mesaj yeniden yüklenemedi.
   empty_recipients: Önce alıcıları seçmeniz gerekiyor.
-  confirm_draft_discard: "Yeni bir sohbete geçersiniz. Cevap alanındaki metin atılır.\n
-    \nBu iletişim kutusunu iptal ederseniz taslağınız bunun yerine yeni görüşmeye
+  confirm_draft_discard: "Yeni bir sohbete geçersiniz. Cevap alanındaki metin atılır.\n\
+    \ \nBu iletişim kutusunu iptal ederseniz taslağınız bunun yerine yeni görüşmeye
     taşınacaktır.\n"
   unknown_username: bilinmeyen isim
   mark_as:
@@ -2975,8 +2975,8 @@ profile:
         raporlama grubunun üyesi olması nedeniyle şikayet hakem kuruluna gönderiliyor.
         Tahkim kuruluna aşağıdaki e-posta adresinden de ulaşabilirsiniz:'
     info: "Şikayet Raporunuzun mümkün olduğu kadar etkili bir şekilde işlenebilmesi
-      için aşağıdaki bilgileri içermesi gerekir:\n- Olayın tarihi, saati ve yeri\n
-      - daha önce ne yaptığınız, örneğin o kişiyle doğrudan konuşup konuşmadığınız
+      için aşağıdaki bilgileri içermesi gerekir:\n- Olayın tarihi, saati ve yeri\n\
+      \ - daha önce ne yaptığınız, örneğin o kişiyle doğrudan konuşup konuşmadığınız
       ve konuyu açıklığa kavuşturup açıklayamadığınız.\n- Sorularınız için size en
       iyi nasıl ulaşacağım.\n\nBurada [wiki'deki davranış kurallarını](https://wiki.foodsharing.de/Verhaltensrules)
       bulabilirsiniz.\n"
@@ -3060,7 +3060,7 @@ profile:
     quizSessionHistory: Test denemeleri
   history:
     wasVerified: Onaylandı
-    lostVerification: Onaylanmadı
+    lostVerification: Doğrulama iptali
     noData: Veri yok.
     noActor: bilinmeyen
     actionBy: dolayı
@@ -3303,7 +3303,7 @@ login:
     deneyin.
   topbar: Giriş yap
   form_title: Tekrar hoşgeldiniz
-  email_address: E-Posta Adresi
+  email_address: E-Posta Adresi_
   error_no_password: Lütfen şifrenizi giriniz.
   submit_btn: Giriş yap
   password: Şifre
@@ -3721,7 +3721,7 @@ pickup:
   overview:
     status:
       confirmed: Onaylandı
-      pending: Onaylanmadı
+      pending: Onaylanmadı_
       option: Mevcut Slot
     header: Alım Tarihleri
     tab:
@@ -4236,6 +4236,7 @@ notifications:
     ok: Anlık bildirimler geldi
     cancel: Etkinleştirme
     dontAskAgain: Bir daha sorma
+  success: Başarı
 markdown_input:
   tooltip:
     orderedList: numaralı liste
@@ -4332,8 +4333,8 @@ help:
       md: "Bölgelerin bir ana bölgesi olduğunda, bölgenin tüm üyeleri de otomatik
         olarak ana bölgeye dahil edilir. Çoğu durumda ana bölgeyi ana bölge olarak
         seçmek mantıklıdır ancak başka uygulamalar da mümkündür. Ana bölge ana bölge
-        değilse, bölgedeki kullanıcılar otomatik olarak ana bölgeye **dahil edilmeyecektir**.\n
-        \nKullanıcıların otomatik olarak başka bir bölgeye eklenmesini istemiyorsanız
+        değilse, bölgedeki kullanıcılar otomatik olarak ana bölgeye **dahil edilmeyecektir**.\n\
+        \ \nKullanıcıların otomatik olarak başka bir bölgeye eklenmesini istemiyorsanız
         yöneticiyi root olarak ayarlayın.\n---\nAna Bölgeye giriş her gece bir kez
         yapılır. Yani değişiklikler hemen gerçekleşmez.\n"
       title: Yüksek Bölge
@@ -4347,15 +4348,15 @@ help:
       md: "Burada bu bölgeden olan insanlar hakkında yazılan mesajları göreceksiniz.
         Ancak tüm mesajlar görüntülenmez:\n- Prensip olarak sizin veya LMG veya LS'deki
         ortak yöneticilerinizin dahil olduğu hiçbir mesajı görmezsiniz.\n- Bir LS
-        yöneticisi olarak yalnızca LMG yöneticilerinin dahil olduğu raporlara erişebilirsiniz.\n
-        ---\nBir raporun nasıl işleneceğine ilişkin bilgileri buradan okuyabilirsiniz:
+        yöneticisi olarak yalnızca LMG yöneticilerinin dahil olduğu raporlara erişebilirsiniz.\n\
+        \ ---\nBir raporun nasıl işleneceğine ilişkin bilgileri buradan okuyabilirsiniz:
         [Bir raporun işlenmesi](https://wiki.foodsharing.de/Regulations_-_Consequences_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)\n"
     reportReasons:
       title: Şikayet formu
       md: "Foodsaverlar, kural ihlallerini doğrudan şikayet formunu kullanarak bildirebilirler.
         Aktif hale getirildiğinde şikayet raporlarından sorumlu kişiler bu şekilde
-        yapılan şikayetlere ilişkin bildirimleri hızlı ve kolay bir şekilde alacaklardır.\n
-        ---\nBölgenin LMG'si şikayet formunda hangi şikayet nedenlerinin görüntüleneceğini
+        yapılan şikayetlere ilişkin bildirimleri hızlı ve kolay bir şekilde alacaklardır.\n\
+        \ ---\nBölgenin LMG'si şikayet formunda hangi şikayet nedenlerinin görüntüleneceğini
         belirleyebilir.\nBasitleştirilmiş ve ayrıntılı raporlama nedenleri arasında
         seçim yapabilirsiniz. Şikayetlerin ayrıntılı nedenleri, [burada, wiki'de B
         altında](https://wiki.foodsharing.de/Verhaltensregelen#B.29_Verhalten_bei_Abholungen)
@@ -4373,8 +4374,8 @@ help:
       title: Rozetler için Iconlar
       md: "Her başarının, ilk bakışta neyle ilgili olduğunu göstermesi gereken bir
         simgesi (İcon), küçük bir grafiği vardır. Kullanılabilir simgelerin bir listesini
-        https://fontawesome.com/v5/search?o=r&m=free&s=solid adresinde bulabilirsiniz.\n
-        \nGiriş alanına kullanmak istediğiniz simgenin (İcon) adını girmeniz gerekir;
+        https://fontawesome.com/v5/search?o=r&m=free&s=solid adresinde bulabilirsiniz.\n\
+        \ \nGiriş alanına kullanmak istediğiniz simgenin (İcon) adını girmeniz gerekir;
         örneğin “*walking*” veya “*shopping-cart*”.\nÖnizlemeyi kullanarak girişinizin
         çalışıp çalışmadığını kontrol edebilirsiniz.\nBir simge (İcon) girmezseniz,
         varsayılan başarı simgesi “*tag*” otomatik olarak kullanılacaktır\n"
@@ -4398,8 +4399,8 @@ help:
     pollScopes:
       title: Oy verme uygunluğu
       md: "Oy oluştururken oy kullanma hakkına sahip olması gereken farklı insan grupları
-        arasından seçim yapabilirsiniz.\nAşağıdakiler tüm seçenekler için geçerlidir:\n
-        - Sadece ilçe/gruptaki tüm gıda koruyucularının değil, aynı zamanda nahiyelerdekilerin
+        arasından seçim yapabilirsiniz.\nAşağıdakiler tüm seçenekler için geçerlidir:\n\
+        \ - Sadece ilçe/gruptaki tüm gıda koruyucularının değil, aynı zamanda nahiyelerdekilerin
         de oy kullanmasına izin veriliyor.\n- Oy verme hakkına sahip foodsaver sayısı,
         seçim seçeneğinin arkasında parantez içinde verilmiştir.\n- Oylama oluşturulduktan
         sonra seçme hakkına sahip seçmenler belirlenir. Oylamanın düzenlendiği sırada
@@ -4416,10 +4417,10 @@ help:
         eğitim alması gerekir. Bu işlev bir işletme için etkinleştirilirse aşağıdaki
         etkilere sahip olur:\n1. Geçerli hijyen eğitimi olmayan foodsaverlar İşletme
         ekibine başvuramaz.\n2. Halihazırda ekibe dahil olan foodsaverlar, yalnızca
-        hijyen eğitimlerinin geçerli olduğu kontenjanlara kayıt yaptırabilirler.\n
-        \nHer iki durumda da bu eylem için hijyen eğitiminin eksik olduğunu açıklayan
-        bir not görüntülenecektir. Ayrıca hijyen eğitimi de doğrudan bağlantılıdır.\n
-        \n---\n\nDikkat edilmesi gereken önemli nokta: Bu işlev yalnızca foodsharing
+        hijyen eğitimlerinin geçerli olduğu kontenjanlara kayıt yaptırabilirler.\n\
+        \ \nHer iki durumda da bu eylem için hijyen eğitiminin eksik olduğunu açıklayan
+        bir not görüntülenecektir. Ayrıca hijyen eğitimi de doğrudan bağlantılıdır.\n\
+        \ \n---\n\nDikkat edilmesi gereken önemli nokta: Bu işlev yalnızca foodsharing
         kendi hijyen çıkartmalarına dayanmaktadır. Ne profile yüklenen harici sağlayıcılardan
         alınan hijyen sertifikaları (Metro gibi) ne de başka bir yerde alınan hijyen
         eğitimleri teknik olarak dikkate alınmaz.\n"
