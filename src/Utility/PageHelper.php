@@ -281,25 +281,19 @@ final class PageHelper
             $_SESSION['msg'] = [];
         }
         if (isset($_SESSION['msg']['error']) && !empty($_SESSION['msg']['error'])) {
-            $msg = '';
-            foreach ($_SESSION['msg']['error'] as $e) {
-                $msg .= '<div class="item">' . $e . '</div>';
+            foreach ($_SESSION['msg']['error'] as $error) {
+                $this->addJs('pulseError("' . $this->sanitizerService->jsSafe($error, '"') . '");');
             }
-            $this->addJs('pulseError("' . $this->sanitizerService->jsSafe($msg, '"') . '");');
         }
         if (isset($_SESSION['msg']['success']) && !empty($_SESSION['msg']['success'])) {
-            $msg = '';
-            foreach ($_SESSION['msg']['success'] as $i) {
-                $msg .= '<p>' . $i . '</p>';
+            foreach ($_SESSION['msg']['success'] as $success) {
+                $this->addJs('pulseSuccess("' . $this->sanitizerService->jsSafe($success, '"') . '");');
             }
-            $this->addJs('pulseSuccess("' . $this->sanitizerService->jsSafe($msg, '"') . '");');
         }
         if (isset($_SESSION['msg']['info']) && !empty($_SESSION['msg']['info'])) {
-            $msg = '';
-            foreach ($_SESSION['msg']['info'] as $i) {
-                $msg .= '<p>' . $i . '</p>';
+            foreach ($_SESSION['msg']['info'] as $info) {
+                $this->addJs('pulseInfo("' . $this->sanitizerService->jsSafe($info, '"') . '");');
             }
-            $this->addJs('pulseInfo("' . $this->sanitizerService->jsSafe($msg, '"') . '");');
         }
         $_SESSION['msg']['info'] = [];
         $_SESSION['msg']['success'] = [];

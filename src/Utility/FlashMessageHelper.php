@@ -21,7 +21,7 @@ class FlashMessageHelper
 
     private function saveMessageInSession(string $type, string $msg, string $title): void
     {
-        $title = $title ? '<strong>' . $title . '</strong> ' : '';
+        $title = $title ? $title . '\n' : '';
         $_SESSION['msg'][$type][] = $title . $msg;
     }
 }
