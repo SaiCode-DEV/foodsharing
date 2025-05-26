@@ -5,7 +5,7 @@ namespace Foodsharing\RestApi;
 use Foodsharing\Lib\Session;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Core\DBConstants\WallType;
-use Foodsharing\Modules\Foodsaver\Profile;
+use Foodsharing\Modules\Reaction\ReactionTransactions;
 use Foodsharing\Modules\Region\RegionGateway;
 use Foodsharing\Modules\WallPost\DTO\WallPost;
 use Foodsharing\Modules\WallPost\EmojiList;
@@ -31,6 +31,7 @@ class WallRestController extends AbstractFoodsharingRestController
         private readonly WallPostPermissions $wallPostPermissions,
         private readonly WallPostTransactions $wallPostTransactions,
         private readonly RegionGateway $regionGateway,
+        private readonly ReactionTransactions $reactionTransactions,
     ) {
         parent::__construct($session);
     }
@@ -71,16 +72,8 @@ class WallRestController extends AbstractFoodsharingRestController
 
         $mayReact = $this->wallPostPermissions->mayReactToPostsOnWall($wallType, $targetId);
         if ($mayReact && !empty($posts)) {
-            $reactions = $this->wallPostGateway->getPostsReactions(array_map(fn ($post) => $post->id, $posts));
-            $postIdMap = [];
-            foreach ($posts as $post) { // generate index for quickly accessing posts via id
-                $post->reactions = [];
-                $postIdMap[$post->id] = $post;
-            }
-            foreach ($reactions as $reaction) { // map reactions to posts
-                $user = new Profile($reaction, 'foodsaver_');
-                $postIdMap[$reaction['post_id']]->reactions[$reaction['key']][] = $user;
-            }
+            $reactions = $this->wallPostGateway->getReactionsForPosts(array_column($posts, 'id'));
+            $this->reactionTransactions->addReactionsToPosts($reactions, $posts);
         }
         $response = [
             'posts' => $posts,

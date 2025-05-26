@@ -83,7 +83,7 @@ import ReactionsBar from '@/components/Wall/ReactionsBar.vue'
 export default {
   components: { ReactionsBar },
   props: {
-    reactions: { type: Object, default: () => ({}) },
+    reactions: { type: [Object, Array], default: () => {} },
     mayDelete: { type: Boolean, default: false },
     mayHide: { type: Boolean, default: false },
     /**

@@ -26,8 +26,7 @@
         v-for="(users, emoji) in currentReactions"
         :id="`reactionButton-${emoji}-${uuid}`"
         :key="emoji + '-add'"
-        variant="outline-secondary"
-        :pressed="hasUserReacted[emoji]"
+        :variant="hasUserReacted[emoji] ? 'secondary' : 'primary'"
         @click="toggleReaction(emoji)"
       >
         <span v-text="users.length" />

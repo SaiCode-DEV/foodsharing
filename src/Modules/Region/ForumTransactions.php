@@ -13,6 +13,7 @@ use Foodsharing\Modules\Core\DBConstants\Region\WorkgroupFunction;
 use Foodsharing\Modules\Core\DBConstants\Unit\UnitType;
 use Foodsharing\Modules\Foodsaver\FoodsaverGateway;
 use Foodsharing\Modules\Group\GroupFunctionGateway;
+use Foodsharing\Modules\Reaction\ReactionTransactions;
 use Foodsharing\Modules\Region\Exceptions\NoVisiblePostException;
 use Foodsharing\Modules\Settings\SettingsGateway;
 use Foodsharing\RestApi\Models\Notifications\Thread;
@@ -37,6 +38,7 @@ class ForumTransactions
         private readonly BellTransactions $bellTransactions,
         private readonly BellGateway $bellGateway,
         private readonly SettingsGateway $settingsGateway,
+        private readonly ReactionTransactions $reactionTransactions,
     ) {
     }
 
@@ -75,7 +77,7 @@ class ForumTransactions
         } catch (NoVisiblePostException) {
             $posts = $this->forumGateway->listPosts($threadId);
             if (count($posts)) {
-                $this->forumGateway->setLastPostId($threadId, end($posts)['id']);
+                $this->forumGateway->setLastPostId($threadId, end($posts)->id);
 
                 // TODO for future MR:
                 // Mark whole thread as hidden
@@ -83,6 +85,16 @@ class ForumTransactions
             }
             $this->forumGateway->deleteThread($threadId);
         }
+    }
+
+    public function listPostsWithReactions(int $threadId): array
+    {
+        $posts = $this->forumGateway->listPosts($threadId);
+        $postIds = array_map(fn ($post) => $post->id, $posts);
+        $reactions = $this->forumGateway->getReactionsForPosts($postIds);
+        $this->reactionTransactions->addReactionsToPosts($reactions, $posts);
+
+        return $posts;
     }
 
     public function hidePost(int $postId, int $moderatorId, string $reason): void

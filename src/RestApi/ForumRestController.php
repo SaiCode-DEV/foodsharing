@@ -72,26 +72,6 @@ class ForumRestController extends AbstractFoodsharingRestController
     }
 
     /**
-     * @deprecated use DTOs instead
-     */
-    private function normalizePost(array $post, bool $includeHiddenBody): array
-    {
-        return [
-            'id' => $post['id'],
-            'body' => ($includeHiddenBody || empty($post['hidden_reason'])) ? $post['body'] : null,
-            'createdAt' => str_replace(' ', 'T', (string)$post['time']),
-            'author' => new Profile($post, 'author_'),
-            'reactions' => $post['reactions'] ?: new \ArrayObject(),
-            'mayDelete' => $this->forumPermissions->mayDeletePost($post),
-            'hidden' => $post['hidden_reason'] ? [
-                'reason' => $post['hidden_reason'],
-                'moderator' => new Profile($post, 'moderator_'),
-                'time' => $post['hidden_time'],
-            ] : null,
-        ];
-    }
-
-    /**
      * Gets available threads including their last post.
      *
      * @OA\Parameter(name="forumId", in="path", @OA\Schema(type="integer"),
@@ -185,15 +165,19 @@ class ForumRestController extends AbstractFoodsharingRestController
         $thread['mayModerate'] = $this->forumPermissions->mayModerate($threadId);
         $thread['mayHidePosts'] = $this->forumPermissions->mayHidePosts($threadId);
 
-        $posts = $this->forumGateway->listPosts($threadId);
+        $posts = $this->forumTransactions->listPostsWithReactions($threadId);
 
-        $thread['posts'] = array_map(fn ($post) => $this->normalizePost($post, $thread['mayModerate']), $posts);
+        // adjust post permissions
+        $includeHiddenBody = $thread['mayModerate'];
+        foreach ($posts as &$post) {
+            if (!$includeHiddenBody && !is_null($post->hidden)) {
+                $post->body = null;
+            }
+            $post->mayDelete = $this->forumPermissions->mayDeletePost($post->author->id);
+        }
+        $thread['posts'] = $posts;
 
-        $view = $this->view([
-            'data' => $thread
-        ], 200);
-
-        return $this->handleView($view);
+        return $this->respondOK(['data' => $thread]);
     }
 
     /**
@@ -407,7 +391,7 @@ class ForumRestController extends AbstractFoodsharingRestController
         if (!$post) {
             throw new NotFoundHttpException();
         }
-        if (!$this->forumPermissions->mayDeletePost($post)) {
+        if (!$this->forumPermissions->mayDeletePost($post['author_id'])) {
             throw new AccessDeniedHttpException();
         }
 

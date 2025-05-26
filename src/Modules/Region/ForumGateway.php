@@ -6,22 +6,18 @@ use Exception;
 use Foodsharing\Modules\Core\BaseGateway;
 use Foodsharing\Modules\Core\Database;
 use Foodsharing\Modules\Core\DBConstants\Region\ThreadStatus;
+use Foodsharing\Modules\Region\DTO\ForumPost;
 use Foodsharing\Modules\Region\Exceptions\NoVisiblePostException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ForumGateway extends BaseGateway
 {
-    private readonly ForumFollowerGateway $forumFollowerGateway;
-    protected TranslatorInterface $translator;
-
     public function __construct(
         Database $db,
-        ForumFollowerGateway $forumFollowerGateway,
-        TranslatorInterface $translator
+        private readonly ForumFollowerGateway $forumFollowerGateway,
+        protected TranslatorInterface $translator,
     ) {
         parent::__construct($db);
-        $this->forumFollowerGateway = $forumFollowerGateway;
-        $this->translator = $translator;
     }
 
     // Thread-related
@@ -239,51 +235,24 @@ class ForumGateway extends BaseGateway
 			INNER JOIN fs_foodsaver fs ON p.foodsaver_id = fs.id
 			LEFT JOIN fs_bezirk_has_theme ht ON ht.theme_id = p.theme_id
 			LEFT JOIN fs_bezirk b ON b.id = ht.bezirk_id
-            LEFt OUTER JOIN fs_foodsaver moderator ON moderator.id = p.hidden_by";
+            LEFT OUTER JOIN fs_foodsaver moderator ON moderator.id = p.hidden_by";
     }
 
     /**
-     * This method is private because we currently trust the given postIds to exist as well as be not-harmful.
+     * @param int[] $postIds
      */
-    private function getReactionsForPosts(array $postIds)
+    public function getReactionsForPosts(array $postIds)
     {
-        if (empty($postIds)) {
-            return [];
-        }
-        $postIdClause = implode(',', $postIds);
-        $reactions = $this->db->fetchAll('
-			SELECT
-			r.post_id,
-			r.`key`,
-			r.time,
-			r.foodsaver_id,
-			fs.name as foodsaver_name
-
-			FROM
-			fs_post_reaction r
-			LEFT JOIN
-			fs_foodsaver fs
-			ON
-			fs.id = r.foodsaver_id
-			WHERE r.post_id IN (' . $postIdClause . ')'
+        return $this->db->fetchAll("SELECT
+                r.`post_id`,
+                r.`key`,
+                r.`foodsaver_id`, fs.`name` as foodsaver_name
+			FROM fs_post_reaction r
+			LEFT JOIN fs_foodsaver fs ON fs.`id` = r.`foodsaver_id`
+			WHERE r.`post_id` IN ({$this->db->generatePlaceholders(count($postIds))})
+            ORDER BY r.`time`",
+            $postIds
         );
-        $out = [];
-        foreach ($postIds as $id) {
-            $out[$id] = [];
-        }
-        foreach ($reactions as $r) {
-            $user = [
-                'id' => $r['foodsaver_id'],
-                'name' => $r['foodsaver_name']
-            ];
-            if (!isset($out[$r['post_id']][$r['key']])) {
-                $out[$r['post_id']][$r['key']] = [$user];
-            } else {
-                $out[$r['post_id']][$r['key']][] = $user;
-            }
-        }
-
-        return $out;
     }
 
     public function addReaction($postId, $fsId, $key): bool
@@ -313,27 +282,19 @@ class ForumGateway extends BaseGateway
         );
     }
 
-    public function listPosts($threadId)
+    /**
+     * @return ForumPost[]
+     */
+    public function listPosts($threadId): array
     {
         $posts = $this->db->fetchAll(
             $this->getPostSelect() . '
 			WHERE p.theme_id = :threadId
 			ORDER BY p.`time`
 		', ['threadId' => $threadId]);
+        $posts = array_map(fn ($post) => ForumPost::createFromArray($post), $posts);
 
-        if (empty($posts)) {
-            return [];
-        }
-
-        $postIds = array_column($posts, 'id');
-        $reactions = $this->getReactionsForPosts($postIds);
-        $mergeReactions = function ($post) use ($reactions) {
-            $post['reactions'] = $reactions[$post['id']];
-
-            return $post;
-        };
-
-        return array_map($mergeReactions, $posts);
+        return $posts;
     }
 
     public function getPost($postId)

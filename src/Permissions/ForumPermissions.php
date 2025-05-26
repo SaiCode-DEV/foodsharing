@@ -186,12 +186,12 @@ class ForumPermissions
         return false;
     }
 
-    public function mayDeletePost(array $post): bool
+    public function mayDeletePost(int $authorId): bool
     {
         if ($this->session->mayRole(Role::ORGA)) {
             return true;
         }
-        if ($post['author_id'] == $this->session->id()) {
+        if ($authorId == $this->session->id()) {
             return true;
         }
 

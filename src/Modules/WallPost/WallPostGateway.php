@@ -63,7 +63,7 @@ class WallPostGateway extends BaseGateway
     /**
      * @param int[] $postIds
      */
-    public function getPostsReactions(array $postIds): array
+    public function getReactionsForPosts(array $postIds): array
     {
         return $this->db->fetchAll("SELECT
 			    r.`post_id`,
