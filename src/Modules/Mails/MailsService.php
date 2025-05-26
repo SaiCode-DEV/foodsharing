@@ -81,6 +81,7 @@ class MailsService
             return $stats;
         }
 
+        $timezone = new \DateTimeZone('Europe/Berlin');
         $have_send = [];
         foreach ($messages as $msg) {
             try {
@@ -180,6 +181,8 @@ class MailsService
                         $date = new \DateTime();
                     }
 
+                    // Convert date to Berlin timezone before saving to database
+                    $date->setTimezone($timezone);
                     $md = $date->format('Y-m-d H:i:s') . ':' . $msg->getSubject();
 
                     $delivered = false;
