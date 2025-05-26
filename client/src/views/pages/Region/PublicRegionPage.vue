@@ -38,7 +38,7 @@
       :title="$i18n('region.public.wall')"
       target="bezirk"
       :target-id="id"
-      :allow-image-attachments="false"
+      :allow-image-attachments="true"
     />
     <PublicEventsContainer :events="regionData.events" />
 
