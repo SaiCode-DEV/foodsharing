@@ -11,12 +11,12 @@ email: El. pašto adresas
 anschrift: Gatvės pavadinimas ir namo numeris
 geschlecht: Lytis
 options: Parinktys
-picture: Nuotrauka
+picture: Paveikslėlis
 bezirk: Rajonas
 parent_id: Rajonas
 active: Aktyvuota
 rolle: Naudotojas:rolė
-title: Pavadinimas
+title: Antraštė
 body: Pranešimas
 status: Dabartinis statusas
 lat: Platuma
@@ -26,14 +26,14 @@ info: Informacija
 photo: Nuotrauka
 no_automatic_delete: 'Jei paskutinė registracija buvo prieš 5 metus:'
 automatic_delete: '- profilis turi būti ištrintas.'
-automatic_not_delete: '- provilis liks.'
+automatic_not_delete: '- profilis liks.'
 ort: Miestas/Seniūnija
 regions: Apylinkė
 groups:
   empty: Tu dar nesijungei į jokias darbo grupes
-copied_to_clipboard: „{text}“ buvo nukopijuotas į atmintinę“
+copied_to_clipboard: „{text}“ nukopijuotas į atmintinę“.
 about_me_public: Trumpas aprašymas
-about_me_intern: Aprašymas
+about_me_intern: Santrauka
 weight: 'Apytikslis svoris:'
 lifetime: Kiek laiko turėtų būti galiojantis tavo maisto krepšelis?
 request_time: 'Užklausos laikas:'
@@ -66,7 +66,7 @@ nofp: Klaidų taškų nėra (juokaujant)
 explanation: Paaiškinimas
 duration: Prašome atsakyti
 answers: Kurie atsakymai yra teisingi?
-maxfp: Didžiausias leidžiamas  klaidų taškų skaičius
+maxfp: Didžiausias leidžiamas klaidų taškų skaičius
 questcount: Kiek klausimų turėtų būti užduota?
 wikilink: Nuoroda su papildoma informacija
 filter_by: Filtruoti pagal
@@ -205,7 +205,7 @@ quiz:
   fp_options:
     default: '{failurePoints} klaidų taškai'
     joke: '{failurePoints} klaidų taškai (nevertinama)'
-    ko: '{failurePoints} klaidų taškai (k. o.)'
+    ko: '{failurePoints} klaidų taškai (k.o.)'
   test_results: Testo bandymo rezultatai
   max_fp: Galimi klaidų taškai
   answer_options:
@@ -239,6 +239,62 @@ quiz:
   editable_tooltip: Jūs galite redaguoti šį testą.
   questions_section:
     title: Testo klausimai ({count})
+  editModal:
+    question:
+      input:
+        duration: 'Laikas atsakymui:'
+        fp: 'Klaidų taškai:'
+        mandatory:
+          text: Šis klausimas turi būti kiekviename testo bandyme
+          label: Privalomas klausimas?
+        text:
+          label: 'Klausimas:'
+          placeholder: Testo klausimas…
+        wikilink:
+          label: 'Nuoroda į atitinkamą straipsnį:'
+          placeholder: https://wiki.foodsharing.de/...
+      title: Redaguoti klausimą
+      confirmDelete:
+        title: Ar tikrai nori ištrinti šį klausimą?
+    quiz:
+      title: Redaguoti testą
+      input:
+        name:
+          label: 'Pavadinimas:'
+          placeholder: Testo pavadinimas
+        maxFp: 'Maksimalus klaidų taškų skaičius testo išlaikymui:'
+        questionCountTimed: 'Privalomų atsakyti klausimų skaičius:'
+        allowUntimed: Leisti atlikti be laiko apribojimo
+        questionCountUntimed: 'Privalomų atsakyti klausimų skaičius be laiko apribojimo:'
+      htmlWarning: 'Dėmesio: Aprašymo formatavimas buvo pakeistas. Tai, ką matai teksto
+        laukelyje, yra suformatuota naudojant HTML. Prašome pataisyti aprašymą ir
+        naudoti Markdown formatą. Naudok peržiūros funkciją, kad įsitikintum, jog
+        formatavimas pritaikytas teisingai.'
+    answer:
+      title: Redaguoti atsakymą
+      input:
+        text:
+          label: 'Atsakymas:'
+          placeholder: Atsakymas…
+        explanation:
+          label: 'Paaiškinimas:'
+          placeholder: Paaiškinimas…
+        answerRating: 'Rezultatas:'
+  sessionStatus:
+    0: Šiuo metu vyksta
+    1: Išlaikyta su {failurePoints} iš leidžiamų {maxFailurePointsToSucceed} klaidų
+      taškų
+    2: Neišlaikyta – {failurePoints} iš leidžiamų {maxFailurePointsToSucceed} klaidų
+      taškų
+  confirmDelete:
+    question: Ar tikrai nori ištrinti šį klausimą?
+    answer: Ar tikrai nori ištrinti šį atsakymą?
+    session: Ar tikrai nori ištrinti šį testo seansą?
+  confirm: Patvirtinti testą ir užbaigti procesą
+  confirmComment: Ar tavo komentaras turėtų būti išsiųstas šio testo administratoriams?
+  confirmDashboardText: Tu išlaikei testą, bet jo dar nepatvirtinai. Spustelėk čia,
+    kad užbaigtum procesą!
+  test: Išbandyti testą
 fetchstate: Ar viskas pavyko gerai?
 first_post: Pirmas įrašas
 bezirk_id: Kuriam regionui svarbus šis straipsnis?
@@ -247,3 +303,90 @@ fax: Faksas
 sticker: Ar įmonė/parduotuvė/organizacija ir pan. yra pasiryžusi užklijuoti lipduką
   prie įėjimo arba kitur matomoje vietoje?
 text: Tekstas
+button:
+  next: Toliau
+  upload: Įkelti
+  new: Naujas
+  save: Išsaugoti
+  change_picture: Pakeisti paveikslėlį
+  prev: Atgal
+  attach_image: Įkelti paveikslėlį (PNG arba JPG formatas)
+  rotate_right: Pasukti pagal laikrodžio rodyklę
+  edit: Redaguoti
+  delete: Ištrinti
+  ok: Gerai
+  permadelete: Ištrinti visam laikui
+  yes_i_am_sure: Taip, esu tikras
+  countdown_clickable: Galima spustelėti po {countdown} sekundžių
+  apply: Pritaikyti
+  cancel: Atšaukti
+  send: Siųsti
+  answer: Atsakyti
+  create: Sukurti
+  clear_filter: Išvalyti filtrą
+  filter_options: Filtro parinktys
+  reset_default: Atstatyti numatytuosius
+  start: Pradėkime!
+  confirm: Patvirtinti
+  close: Uždaryti
+  browse: Naršyti / Ieškoti
+picture_upload_widget:
+  choose_picture: Pasirink paveikslėlį iš savo kompiuterio.
+  picture_upload: Nuotraukos įkėlimas
+upload:
+  file: Įkelti bylą
+  no_image: Įkelta byla nėra nuotrauka. Pasirink kitą bylą.
+  no_image_yet: Dar neįkelta jokio paveikslėlio
+  no_image_chosen: Dar nepasirinkta jokia byla
+  preview_image: Peržiūra
+  image: Įkelti paveikslėlį
+  images: Įkelti paveikslėlius
+  new_image: Įkelti naują paveikslėlį
+  choose_file: Pasirinkti bylą
+  new_file: Įkelti naują bylą
+  crop_dialog_title: Apkirpti paveikslėlį
+  image-problem: Tavo byla, atrodo, yra netinkama – geriausia naudoti įprastą JPG
+    paveikslėlį
+  invalid_image_files: '{count} pasirinktos bylos paveikslėliai netinkami : {fileNames}'
+image: Paveikslėlis / Vaizdas
+bcard:
+  title: Vizitinių kortelių generatorius
+  card: Jūsų „foodsharing“ vizitinė kortelė
+  claim: Tiesiog sukurkite, atsispausdinkite ir išsikirpkite…
+  for: '{role} {region} regionui'
+  desc: Pasirinkite, kuriam rajonui ar kokiam vaidmeniui norite sukurti savo vizitinę
+    kortelę.
+  error:
+    length: Jūsų adresas per ilgas. Adresas, pašto kodas ir miestas kartu gali sudaryti
+      ne daugiau kaip 49 simbolius.
+    phone: Norėdami sukurti vizitinę kortelę, turite nurodyti galiojantį telefono
+      numerį.
+    verified: Turite būti patvirtintas, kad galėtumėte sukurti savo vizitinę kortelę.
+  generate: Kurti vizitinę kortelę
+  role: Vaidmuo / Rolė
+  region: Regionas
+group:
+  name: Pavadinimas
+  userId: ID
+  description: Aprašymas
+  photo: Nuotrauka
+  last_activity: Paskutinė veikla
+  valid_until: Galioja iki
+  filter_by_last_activity: Neaktyvūs (mėnesiais)
+  role_name: Rolė
+  applications: Paraiškos
+  applications_for: Paraiškos dėl {name}
+  application_region: Paraiška dėl grupės {group}
+  application_from: nuo
+  motivation: Motyvacinis tekstas
+  entermotivation: 'Motyvacija:'
+  enterskills: 'Įgūdžiai:'
+  enterxp: 'Patirtis:'
+  entertime: 'Laikas:'
+  edit:
+    title: Redaguoti {group}
+    name_required: Prašome įvesti pavadinimą.
+    description_required: Prašome įvesti aprašymą.
+    description_placeholder: Darbo grupės aprašymas
+  mail_link_title:
+    workgroup: Darbo grupės pašto dėžutė
