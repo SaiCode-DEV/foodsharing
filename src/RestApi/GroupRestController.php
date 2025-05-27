@@ -12,41 +12,44 @@ use Foodsharing\Modules\Unit\DTO\UserUnit;
 use Foodsharing\Permissions\RegionPermissions;
 use Foodsharing\RestApi\Models\Group\UserGroupModel;
 use Foodsharing\Utility\ImageHelper;
-use OpenApi\Attributes as OA;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
+use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Request\ParamFetcher;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-#[OA\Tag(name: 'groups', description: 'Endpoints for groups including regions and working groups')]
-class GroupRestController extends AbstractFoodsharingRestController
+class GroupRestController extends AbstractFOSRestController
 {
     public function __construct(
         private readonly GroupGateway $groupGateway,
+        private readonly Session $session,
         private readonly ImageHelper $imageService,
         private readonly RegionPermissions $regionPermissions,
         private readonly GroupTransactions $groupTransactions,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
-        private readonly RegionGateway $regionGateway,
-        protected Session $session,
     ) {
-        parent::__construct($this->session);
     }
 
-    #[OA\Delete(summary: 'Deletes a region or a working group.')]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success')]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'Insufficient permissions')]
-    #[OA\Response(response: Response::HTTP_CONFLICT, description: 'Group still contains elements')]
-    #[OA\PathParameter(name: 'groupId', description: 'Id of the group to delete', schema: new OA\Schema(type: 'integer'))]
-    #[Route('/groups/{groupId}', requirements: ['groupId' => Requirement::POSITIVE_INT], methods: ['DELETE'])]
+    /**
+     * Delete a region or a working group.
+     *
+     * @OA\Response(response="200", description="Success")
+     * @OA\Response(response="403", description="Insufficient permissions")
+     * @OA\Response(response="409", description="Group still contains elements")
+     * @OA\Tag(name="groups")
+     */
+    #[Rest\Delete('groups/{groupId}', requirements: ['groupId' => '\d+'])]
     public function deleteGroup(int $groupId): Response
     {
-        $this->assertLoggedIn();
+        if (!$this->session->id()) {
+            throw new UnauthorizedHttpException('', 'not logged in');
+        }
         if (!$this->regionPermissions->mayAdministrateRegions()) {
             throw new AccessDeniedHttpException();
         }
@@ -58,29 +61,26 @@ class GroupRestController extends AbstractFoodsharingRestController
 
         $this->groupGateway->deleteGroup($groupId);
 
-        return $this->respondOK();
+        return $this->handleView($this->view([], 200));
     }
 
-    #[Route('/groups/{groupId}/conference', requirements: ['groupId' => Requirement::POSITIVE_INT], methods: ['GET'])]
-    #[OA\Get(summary: 'Returns the join URL of a given groups conference.')]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success without a redirect')]
-    #[OA\Response(response: Response::HTTP_FOUND, description: 'Success with redirect to the conference URL')]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[OA\Response(response: Response::HTTP_FORBIDDEN, description: 'The region does not have a conference or insufficient permissions to join it')]
-    #[OA\QueryParameter(
-        name: 'redirect',
-        description: 'Should the response perform a 301 redirect to the actual conference?',
-        in: 'query',
-        schema: new OA\Schema(type: 'boolean', default: false)
-    )]
-    public function joinConference(Request $request, int $groupId, BigBlueButton $bbb, #[MapQueryParameter] bool $redirect = false): Response
+    /**
+     * Returns the join URL of a given groups conference.
+     *
+     * @OA\Tag(name="groups")
+     */
+    #[Rest\Get('groups/{groupId}/conference', requirements: ['groupId' => '\d+'])]
+    #[Rest\QueryParam(name: 'redirect', default: 'false', description: 'Should the response perform a 301 redirect to the actual conference?')]
+    public function joinConference(Request $request, RegionGateway $regionGateway, RegionPermissions $regionPermissions, BigBlueButton $bbb, int $groupId, ParamFetcher $paramFetcher): Response
     {
-        $this->assertLoggedIn();
+        if (!$this->session->mayRole()) {
+            throw new UnauthorizedHttpException('');
+        }
         if (!$this->currentUserUnits->mayBezirk($groupId)) {
             throw new AccessDeniedHttpException();
         }
-        $group = $this->regionGateway->getRegion($groupId);
-        if (!$this->regionPermissions->hasConference($group['type'])) {
+        $group = $regionGateway->getRegion($groupId);
+        if (!$regionPermissions->hasConference($group['type'])) {
             throw new AccessDeniedHttpException('This region does not support conferences');
         }
 
@@ -99,31 +99,42 @@ class GroupRestController extends AbstractFoodsharingRestController
         $name = $this->session->user('name') . ' (' . $this->session->id() . ')';
         $avatar = 'https://' . $host . $this->imageService->img($this->session->user('photo'));
 
-        /* We do a 302 redirect directly to have less likeliness that the user forwards the BBB join URL as this is already personalized */
-        if ($redirect) {
+        /* We do a 301 redirect directly to have less likeliness that the user forwards the BBB join URL as this is already personalized */
+        if ($paramFetcher->get('redirect') == 'true') {
             return $this->redirect($bbb->joinURL($key, $name, $avatar, true));
         }
 
         /* Without the redirect, we return information about the conference */
-        return $this->respondOK($data);
+        return $this->handleView($this->view($data, 200));
     }
 
-    #[OA\Get(summary: 'Returns a list of all groups of the user')]
-    #[OA\Response(response: Response::HTTP_OK, description: 'Success', content: new OA\JsonContent(
-        description: 'The groups of the user',
-        type: 'array',
-        items: new OA\Items(ref: UserGroupModel::class, type: 'object')
-    ))]
-    #[OA\Response(response: Response::HTTP_UNAUTHORIZED, description: 'Not logged in')]
-    #[Route('/user/current/groups', methods: ['GET'])]
+    /**
+     * Returns a list of all groups of the user.
+     *
+     * @OA\Tag(name="groups")
+     * @OA\Tag(name="my")
+     * @OA\Response(
+     * 		response="200",
+     * 		description="Success returns list of related groups of user",
+     *      @OA\JsonContent(
+     *        type="array",
+     *        @OA\Items(ref=@Model(type=UserGroupModel::class))
+     *      )
+     * )
+     * @OA\Response(response="401", description="Not logged in.")
+     */
+    #[Rest\Get('user/current/groups')]
     public function listMyWorkingGroups(): Response
     {
-        $this->assertLoggedIn();
+        if (!$this->session->mayRole()) {
+            throw new UnauthorizedHttpException('');
+        }
+        $fsId = $this->session->id();
 
-        $groups = $this->groupTransactions->getUserGroups($this->session->id());
+        $groups = $this->groupTransactions->getUserGroups($fsId);
 
         $rspGroups = array_map(fn (UserUnit $group): UserGroupModel => UserGroupModel::createFrom($group), $groups);
 
-        return $this->respondOK($rspGroups);
+        return $this->handleView($this->view($rspGroups, 200));
     }
 }
