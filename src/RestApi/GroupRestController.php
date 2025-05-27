@@ -32,7 +32,6 @@ class GroupRestController extends AbstractFoodsharingRestController
         private readonly GroupTransactions $groupTransactions,
         private readonly CurrentUserUnitsInterface $currentUserUnits,
         private readonly RegionGateway $regionGateway,
-        private readonly BigBlueButton $bbb,
         protected Session $session,
     ) {
         parent::__construct($this->session);
@@ -74,7 +73,7 @@ class GroupRestController extends AbstractFoodsharingRestController
         in: 'query',
         schema: new OA\Schema(type: 'boolean', default: false)
     )]
-    public function joinConference(Request $request, int $groupId, #[MapQueryParameter] bool $redirect = false): Response
+    public function joinConference(Request $request, int $groupId, BigBlueButton $bbb, #[MapQueryParameter] bool $redirect = false): Response
     {
         $this->assertLoggedIn();
         if (!$this->currentUserUnits->mayBezirk($groupId)) {
@@ -88,7 +87,7 @@ class GroupRestController extends AbstractFoodsharingRestController
         $httpHost = $request->server->get('HTTP_HOST', BASE_URL);
         $host = str_replace('beta.', '', $httpHost);
         $key = 'region-' . $groupId;
-        $conference = $this->bbb->createRoom($group['name'], $key, $host);
+        $conference = $bbb->createRoom($group['name'], $key, $host);
         if (!$conference) {
             throw new HttpException(500, 'Conferences currently not available');
         }
@@ -102,7 +101,7 @@ class GroupRestController extends AbstractFoodsharingRestController
 
         /* We do a 302 redirect directly to have less likeliness that the user forwards the BBB join URL as this is already personalized */
         if ($redirect) {
-            return $this->redirect($this->bbb->joinURL($key, $name, $avatar, true));
+            return $this->redirect($bbb->joinURL($key, $name, $avatar, true));
         }
 
         /* Without the redirect, we return information about the conference */
