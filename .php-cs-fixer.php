@@ -39,5 +39,6 @@ $config->setRules([
     'operator_linebreak' => false,
     'array_indentation' => false,
 ])
-    ->setFinder($finder);
+    ->setFinder($finder)
+    ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect());
 return $config;
