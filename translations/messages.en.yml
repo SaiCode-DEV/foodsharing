@@ -130,16 +130,16 @@ group:
     accepted: Application accepted
     title: Application for {group}
     zeit: How many hours do you have time and inclination to spend on it per week?
-    erfahrung: "In the group, can you draw on experiences that you have gained elsewhere?\n
-      If so, where or what?\n"
+    erfahrung: "In the group, can you draw on experiences that you have gained elsewhere?\n\
+      \ If so, where or what?\n"
     faehigkeit: What skills do you have in this area?
     motivation: What is your motivation to participate in the group {group}?
     summary: '{name} would like to participate in the {group} working group.'
     accept: Accept the application
     link_description: 'This link will take you directly to the application:'
     ability: What skills do you have in this area?
-    experience: "Can you draw on experiences in the group that you have gained elsewhere?\n
-      If so, where or which ones?\n"
+    experience: "Can you draw on experiences in the group that you have gained elsewhere?\n\
+      \ If so, where or which ones?\n"
     how_much_time: How many hours a week do you have the time and inclination to spend
       on this?
     error_missing_time: 'Error: no time has been selected.'
@@ -265,9 +265,9 @@ settings:
   push:
     not-supported: Your browser does not support push notifications.
     title: Push notifications
-    info-off: "The push notifications from foodsharing are activated on this device.\n
-      If you disable push notifications, chat messages received in the future\nare
-      no longer delivered directly to your device.\nYour device will then no longer
+    info-off: "The push notifications from foodsharing are activated on this device.\n\
+      \ If you disable push notifications, chat messages received in the future\n\
+      are no longer delivered directly to your device.\nYour device will then no longer
       show notifications if you are not logged in\nand no longer responds with a tone
       or vibration.\n"
     info-on: "If you enable push notifications for this device,\nchat messages will
@@ -323,8 +323,8 @@ settings:
       your pick-up dates without a password.\n"
     title: Your pickup calendar
     teaser: "You can integrate your collection calendar into a calendar program of
-      your choice.\nTo do this, subscribe to one of the two following calendar links.\n
-      You can find further information in the wiki at\n"
+      your choice.\nTo do this, subscribe to one of the two following calendar links.\n\
+      \ You can find further information in the wiki at\n"
     delete_token:
       message: All previously generated calendar links will become invalid. Do you
         really want to delete the token?
@@ -1201,8 +1201,8 @@ pickup:
     add: Add pick-up dates
     bread: Edit pick-up dates
     many-people: "You specified more than two foodsavers to pick up.\n<br>\nPlease
-      <strong>only send as many foodsavers as necessary</strong> to the company.\n
-      Too many foodsavers have often led to the end of a cooperation.\n<br>\nClarify
+      <strong>only send as many foodsavers as necessary</strong> to the company.\n\
+      \ Too many foodsavers have often led to the end of a cooperation.\n<br>\nClarify
       the maximum number of possible foodsavers with the company!\nAny additional
       helpers required can wait with bicycle trailers or the like\nout of sight of
       the store.\n"
@@ -1842,9 +1842,9 @@ email_template:
   impress:
     general_information_requirements: Information according to § 5 Telemediengesetz
     title: Legal notice
-    address: "foodsharing e. V.\nNeven-DuMont-Str. 14 \n50667 Cologne \nGermany\n\n
-      Represented by:\nAnja Westermann\nContact Details:\nE-Mail: info@foodsharing.de\n
-      \nRegister Entry:\nRegistration Court: District Court Cologne\nRegistration
+    address: "foodsharing e. V.\nNeven-DuMont-Str. 14 \n50667 Cologne \nGermany\n\n\
+      \ Represented by:\nAnja Westermann\nContact Details:\nE-Mail: info@foodsharing.de\n\
+      \ \nRegister Entry:\nRegistration Court: District Court Cologne\nRegistration
       Number: VR 17439\n\nResponsible for the content according to § 18 MStV:\n Anja
       Westermann"
   newsletter:
@@ -2219,15 +2219,15 @@ basket:
   description: Description
   where: Where?
   change-state: Conclude food basket request from {name}
-  taken: "<b>Unfortunately this food basket is no longer available.</b>\n<br><br>\n
-    You are not yet registered as a foodsharer?\nThen click on <b>Join us</b> to get
-    started or set up a food basket yourself.\n<br><br>\nYou may find other food baskets
-    in your area on our map.\n"
+  taken: "<b>Unfortunately this food basket is no longer available.</b>\n<br><br>\n\
+    \ You are not yet registered as a foodsharer?\nThen click on <b>Join us</b> to
+    get started or set up a food basket yourself.\n<br><br>\nYou may find other food
+    baskets in your area on our map.\n"
   login: "You have to be logged in for detailed information.\nYou are not yet registered
     as a foodsharer?\nThen click on <b>Join us</b> and get started right away.\n"
   howto: "<b>Information on the use of food baskets</b>\n<br>\nPlease use the green
-    button <b>“Request food basket”</b> to express your interest in this basket,\n
-    or <b>“Edit food basket”</b> to edit your own basket afterwards.\n"
+    button <b>“Request food basket”</b> to express your interest in this basket,\n\
+    \ or <b>“Edit food basket”</b> to edit your own basket afterwards.\n"
   published: Thank you! The food basket was published.
   publish_error: An error has occurred. The food basket could not be published.
   not-allowed: You are not authorised to edit this food basket.
@@ -4538,10 +4538,10 @@ help:
         fields. Next, you can select all relevant action types from the dropdown.
         In this case, for example, “*Make membership requests*”, “*Accept membership
         requests*” and “*Reject membership requests*”. If you now click on the “*Show
-        selected actions*” button, you will be shown a history of the selected events.\n
-        ---\n###### Access\nOnly those who can manage the company have access to it.
-        The operating log is not visible to normal foodsavers and jumpers.\n---\n
-        ###### Restrictions\nA maximum of 100 entries will be loaded. You may need
+        selected actions*” button, you will be shown a history of the selected events.\n\
+        \ ---\n###### Access\nOnly those who can manage the company have access to
+        it. The operating log is not visible to normal foodsavers and jumpers.\n---\n\
+        \ ###### Restrictions\nA maximum of 100 entries will be loaded. You may need
         to limit the search period or the selected action types if not all results
         are displayed.\n"
     threadPriority:
@@ -4598,16 +4598,16 @@ help:
     achievementIcon:
       title: Icons for stickers
       md: "Each sticker has an icon that should indicate, what the sticker is about.
-        You can find a list of available icons at https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n
-        \nYou need to put the name of the desired icon into the field, for example
+        You can find a list of available icons at https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n\
+        \ \nYou need to put the name of the desired icon into the field, for example
         “*walking*” or “*shopping-cart*”.\nIf the input is valid, you will see the
         icon in the preview.\nThe icon “*tag*” will be used as default if you do not
         enter an icon.\n"
     moderatorForumHide:
       md: "###### Who is a moderator?\nThe moderators of a group or district are usually
         the administrators or AMBs. If there is a GOALS working group *Moderation*
-        in a district, the administrators of this group take on the role of moderator.\n
-        ---\n###### Hiding in forums\nIf this option is activated, the moderators
+        in a district, the administrators of this group take on the role of moderator.\n\
+        \ ---\n###### Hiding in forums\nIf this option is activated, the moderators
         can hide all posts in the forum, not just their own. To do this, they must
         give a reason why they want to hide a post or entire thread. After that, a
         post remains accessible to the moderators for a further three months and can
@@ -4622,8 +4622,8 @@ help:
       title: Hiding in forums by moderators
     pollScopes:
       md: "When creating a vote, you can select from different groups of people who
-        should be entitled to vote.\nThe following applies to all voting options:\n
-        - Not only all food savers in the district/group can vote, but also those
+        should be entitled to vote.\nThe following applies to all voting options:\n\
+        \ - Not only all food savers in the district/group can vote, but also those
         in the sub-districts.\n- The number of food savers entitled to vote is shown
         in brackets after the selection option.\n- As soon as the vote is created,
         the people entitled to vote are determined. Anyone who falls into the corresponding
@@ -4643,8 +4643,8 @@ help:
         part of the team can only register for slots if their hygiene training is
         still valid at the time of the desired pick-up.\n\nIn both cases, a message
         will be displayed explaining that the hygiene training is required for this
-        action. The hygiene quiz is also linked directly in each case.\n\n---\n\n
-        Important to note: This function is only based on foodsharing’s own hygiene
+        action. The hygiene quiz is also linked directly in each case.\n\n---\n\n\
+        \ Important to note: This function is only based on foodsharing’s own hygiene
         training. Neither hygiene certificates from external providers (e.g. Metro)
         uploaded to the profile nor hygiene training courses noted elsewhere are currently
         taken into account.\n"
@@ -4906,3 +4906,4 @@ net_errors:
   ERR_NETWORK: There was a network problem. Please check your internet connection
     and try again.
   FORBIDDEN: You are not authorized to perform this action.
+  action_response: 'Request and server response:'
