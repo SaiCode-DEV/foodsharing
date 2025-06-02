@@ -122,8 +122,9 @@ class Store
      * - 3: 5-10 kg
      * - 4: 10-20 kg
      * - 5: 20-30 kg
-     * - 6: 40-50 kg
-     * - 7: more then 50 kg
+     * - 6: 30-40 kg
+     * - 7: 40-50 kg
+     * - 8: more than 50 kg
      */
     public int $weight = 0;
 

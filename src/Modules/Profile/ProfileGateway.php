@@ -345,6 +345,7 @@ final class ProfileGateway extends BaseGateway
 							WHEN 5 THEN \'' . $this->weightHelper->getFetchWeightName(5) . '\'
 							WHEN 6 THEN \'' . $this->weightHelper->getFetchWeightName(6) . '\'
 							WHEN 7 THEN \'' . $this->weightHelper->getFetchWeightName(7) . '\'
+                            WHEN 8 THEN \'' . $this->weightHelper->getFetchWeightName(8) . '\'
 						END AS pickupAmount,
 						COUNT(*) AS pickupCount
 				FROM `fs_abholer` a

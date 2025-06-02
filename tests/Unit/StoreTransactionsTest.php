@@ -267,9 +267,11 @@ class StoreTransactionsTest extends Unit
         $this->assertEquals(5, $common->weight[5]->id);
         $this->assertEquals('20-30 kg', $common->weight[5]->name);
         $this->assertEquals(6, $common->weight[6]->id);
-        $this->assertEquals('40-50 kg', $common->weight[6]->name);
+        $this->assertEquals('30-40 kg', $common->weight[6]->name);
         $this->assertEquals(7, $common->weight[7]->id);
-        $this->assertEquals('mehr als 50 kg', $common->weight[7]->name);
+        $this->assertEquals('40-50 kg', $common->weight[7]->name);
+        $this->assertEquals(8, $common->weight[8]->id);
+        $this->assertEquals('mehr als 50 kg', $common->weight[8]->name);
 
         // Check possible pickup time range
         $this->assertEquals(PublicTimes::NOT_SET->value, $common->publicTimes[0]->id);
@@ -341,9 +343,11 @@ class StoreTransactionsTest extends Unit
         $this->assertEquals(5, $common->weight[5]->id);
         $this->assertEquals('20-30 kg', $common->weight[5]->name);
         $this->assertEquals(6, $common->weight[6]->id);
-        $this->assertEquals('40-50 kg', $common->weight[6]->name);
+        $this->assertEquals('30-40 kg', $common->weight[6]->name);
         $this->assertEquals(7, $common->weight[7]->id);
-        $this->assertEquals('mehr als 50 kg', $common->weight[7]->name);
+        $this->assertEquals('40-50 kg', $common->weight[7]->name);
+        $this->assertEquals(8, $common->weight[8]->id);
+        $this->assertEquals('mehr als 50 kg', $common->weight[8]->name);
     }
 
     public function testPickupSlotAvailableRegular(): void

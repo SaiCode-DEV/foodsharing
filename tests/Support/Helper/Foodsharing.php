@@ -434,7 +434,7 @@ class Foodsharing extends Db
             'ueberzeugungsarbeit' => 0,
             'presse' => 0,
             'sticker' => 0,
-            'abholmenge' => $this->faker->numberBetween(0, 7),
+            'abholmenge' => $this->faker->numberBetween(0, 8),
             'team_status' => 1,
             'prefetchtime' => 1_209_600,
 

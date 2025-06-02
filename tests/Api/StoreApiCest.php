@@ -1461,7 +1461,7 @@ class StoreApiCest
         $I->login($this->manager[self::EMAIL]);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
-        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['weight' => 8]);
+        $I->sendPATCH(self::API_STORES . '/' . $this->store[self::ID] . '/information', ['weight' => 9]);
         $I->seeResponseCodeIs(Http::BAD_REQUEST);
 
         $I->haveHttpHeader('Content-Type', 'application/json');
