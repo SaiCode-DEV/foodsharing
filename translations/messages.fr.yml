@@ -53,8 +53,8 @@ group:
     link_description: 'Ce lien te permet d’accéder directement à l’application :'
     how_much_time: Combien d’heures par semaine as-tu le temps et l’envie d’y consacrer ?
     ability: Quelles sont tes compétences dans ce domaine ?
-    experience: "Peux-tu te référer à des expériences acquises ailleurs dans le groupe ?\n
-      Si oui, où et lesquels ?\n"
+    experience: "Peux-tu te référer à des expériences acquises ailleurs dans le groupe ?\n\
+      \ Si oui, où et lesquels ?\n"
     error_missing_time: 'Erreur : aucune heure n’a été choisie.'
   contact:
     sent: Le message a bien été envoyé.
@@ -477,9 +477,9 @@ settings:
     mail: Oui, je souhaite être informé·e des nouvelles publications par courriel.
     thread: Recevoir les nouvelles du fil « {thread} » ?
   calendar:
-    sync: "Ton programme de calendrier doit régulièrement resynchroniser ce calendrier.\n
-      Ce n’est qu’alors que les nouvelles dates de collecte apparaîtront ou que les
-      rendez-vous annulés n’apparaîtront plus.\n"
+    sync: "Ton programme de calendrier doit régulièrement resynchroniser ce calendrier.\n\
+      \ Ce n’est qu’alors que les nouvelles dates de collecte apparaîtront ou que
+      les rendez-vous annulés n’apparaîtront plus.\n"
     event_link_desc: (évènements inclus)
     link_title: 'ics/iCal/WebCal :'
     token-warning: "Important : garde absolument le lien secret.\nIl contient une
@@ -541,8 +541,8 @@ settings:
       inscrits dans ton calendrier.\n\n**Les liens vers les calendriers doivent absolument
       rester secrets. Ils contiennent un *jeton* qui permet d’accéder aux données
       de tes collectes sans mot de passe. Tu peux à tout moment supprimer ton jeton
-      actuel, ce qui rendra caducs les liens de calendrier créés précédemment.\n\n
-      Ton programme de calendrier doit régulièrement **synchroniser** ce calendrier.
+      actuel, ce qui rendra caducs les liens de calendrier créés précédemment.\n\n\
+      \ Ton programme de calendrier doit régulièrement **synchroniser** ce calendrier.
       Ce n’est qu’alors que les nouveaux dates apparaîtront et que les dates annulés
       n’apparaîtront plus. Si tu télécharges ton calendrier actuel, celui-ci ne contiendra
       que tes dates actuels et ne sera pas mis à jour automatiquement.\n\nTu trouveras
@@ -550,16 +550,16 @@ settings:
   push:
     disabled: Les notifications push on été désactivées
     disable: Désactiver les notifications push
-    info-off: "Sur cet appareil, les notifications push de foodsharing sont activées.\n
-      Si tu désactives les notifications push, les messages de chat\nne seront plus
+    info-off: "Sur cet appareil, les notifications push de foodsharing sont activées.\n\
+      \ Si tu désactives les notifications push, les messages de chat\nne seront plus
       envoyés directement sur ton appareil.\nTon appareil n’affichera plus de notifications
       si tu n’es pas connecté\net ne réagira plus non plus par un son ou une vibration.\n"
     success: Les notifications push ont été activées avec succès
     enable: Activer les notifications push
     info-on: "En activant les notifications push pour cet appareil, \nles notifications
       et messages seront directement envoyés sur celui-ci, \nmême lorsque tu ne te
-      trouves pas sur la page de foodsharing.\nTon appareil mentionnera une notification
-      \npar vibreur ou son.\n"
+      trouves pas sur la page de foodsharing.\nTon appareil mentionnera une notification\
+      \ \npar vibreur ou son.\n"
     denied: "Tu as refusé les notifications push sur ton moteur de recherche.\nPour
       recevoir les notifications de foodsharing, active les notifications push sur
       ton moteur de recherche \net recharge la page.\n"
@@ -633,8 +633,8 @@ settings:
   chatmail: "Lorsque tu reçois un message ou une notification interne à foodsharing
     sans être connecté·e,\ntu peux faire suivre et être informé·e de cette notification/ce
     message par courriel.\nSouhaites-tu faire suivre par courriel ?\n"
-  newsletter: "Notre lettre d’information sur les actions et évènements de foodsharing\n
-    est envoyée environ 1× par mois.\nSouhaites-tu t’abonner à la lettre d’information ?\n"
+  newsletter: "Notre lettre d’information sur les actions et évènements de foodsharing\n\
+    \ est envoyée environ 1× par mois.\nSouhaites-tu t’abonner à la lettre d’information ?\n"
   notifications: Notifications
   header: Paramètres du profil
   title: Paramètres
@@ -731,11 +731,11 @@ email_template:
   from: '-- De '
   impress:
     title: Mentions légales
-    address: "foodsharing e.V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n Allemagne\n
-      \n Représenté par :\n Anja Westermann \n Contact :\n Courriel : info@foodsharing.de\n
-      \n Inscription au registre :\n Tribunal d’enregistrement : tribunal de Cologne\n
-      Numéro d’enregistrement : VR 17439\n\n Responsable du contenu d’après § 18 MStV :\n
-      Anja Westermann"
+    address: "foodsharing e.V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n Allemagne\n\
+      \ \n Représenté par :\n Anja Westermann \n Contact :\n Courriel : info@foodsharing.de\n\
+      \ \n Inscription au registre :\n Tribunal d’enregistrement : tribunal de Cologne\n\
+      \ Numéro d’enregistrement : VR 17439\n\n Responsable du contenu d’après § 18
+      MStV :\n Anja Westermann"
     general_information_requirements: Mentions suivant l’article 5 de la loi sur les
       télémédias (Telemediengesetz)
   manual_slots_get_ignored: Cette notification est actuellement envoyée si personne
@@ -1354,9 +1354,9 @@ legal:
     partially_agree: Rétrograder au rang de collecteur·rice
 message_text_to_group_admin_workgroup: "La région/le groupe de travail<b>{groupName}</b>
   n’a<b>plus</b> d’ambassadeur·rice/d’admin.<br><br><br>Elle possède la structure
-  ID ci-contre :<br>{idStructureList}<br><br>l’ID est : {groupId}<br><br>URL : \"
-  <a href=\"/region ?bid={groupId}&sub=forum\" target=\"_blank\">Clique ici pour rejoindre
-  la région/le groupe de travail</a>"
+  ID ci-contre :<br>{idStructureList}<br><br>l’ID est : {groupId}<br><br>URL : \"\
+  \ <a href=\"/region ?bid={groupId}&sub=forum\" target=\"_blank\">Clique ici pour
+  rejoindre la région/le groupe de travail</a>"
 gender:
   d: les deux ou autre
   f: Femme
@@ -2286,8 +2286,8 @@ pickup:
   edit:
     added: La collecte a été ajoutée.
     many-people: "Tu as inscrit plus de deux personnes pour la collecte.\n<br>\nN’envoie
-      <strong>que le nombre de collecteur·rice·s nécessaire</strong> pour la collecte.\n
-      Plus il y a de collecteur·rice·s, plus il y a de chances de faire péricliter
+      <strong>que le nombre de collecteur·rice·s nécessaire</strong> pour la collecte.\n\
+      \ Plus il y a de collecteur·rice·s, plus il y a de chances de faire péricliter
       la coopération.\n<br>\nClarifie la situation avec la coopération, si besoin
       ajoute des collectes.\nDes collecteur·rice·s peuvent aussi vous attendre à quelques
       mètres du magasin\npour vous aider à porter.\n"
@@ -2327,8 +2327,8 @@ pickup:
   kick_message_footer: Amicalement, l’équipe des responsables coopération
   kick_message_placeholder: 'Informations complémentaires (optionnel) …'
   kick_message: Nous t’avons retiré de la collecte du {date} dans la coopération {storeName}.
-  really_kick_user_info: "Souhaites-tu vraiment retirer {name} de la collecte du {date} ?\n
-    {name} recevra le message suivant :\n"
+  really_kick_user_info: "Souhaites-tu vraiment retirer {name} de la collecte du {date} ?\n\
+    \ {name} recevra le message suivant :\n"
   really_leave_date_title: Se retirer de la collecte du {date} ?
   signout_confirm: Continuer ?
   signout_info: Toutes tes collectes futures dans cette équipe vont être retirées.
@@ -2444,8 +2444,8 @@ events:
   description: Description
   create:
     info: "<b>Attention :</b>\n<br>\nL’évènement sera accessible à tous les membres
-      des <b>différents groupes</b>\npar un lien partagé ou dans le menu de l’évènement.\n
-      <br>\nPour que le rendez-vous soit également affiché sur le tableau de bord
+      des <b>différents groupes</b>\npar un lien partagé ou dans le menu de l’évènement.\n\
+      \ <br>\nPour que le rendez-vous soit également affiché sur le tableau de bord
       pour les nouveaux arrivant·e·s, \nenregistre-le à nouveau ultérieurement.\n"
     mumble: Conférence par mumble.foodsharing.de
     online: Par téléphone ou vidéoconférence
@@ -2611,8 +2611,8 @@ storeedit:
     amb: "Tu n’es pas responsable de ce magasin.\nTu possèdes néanmoins des droits
       étendus en tant qu’ambassadeur·rice.\n"
     note: 'Conseils :'
-    unmanaged: "Il n’y a actuellement aucun·e responsable pour cette coopération.\n
-      Ajoute jusqu’à trois responsables pour gérer cette coopération.\n"
+    unmanaged: "Il n’y a actuellement aucun·e responsable pour cette coopération.\n\
+      \ Ajoute jusqu’à trois responsables pour gérer cette coopération.\n"
     max-sm: Choisis au maximum 3 responsables coopération
     need-sm: Il doit y avoir au minimum un·e responsable pour cette coopération.
     empty: L’équipe ne peut pas être vide
@@ -2653,8 +2653,8 @@ basket:
   request-fs: Obtenir ce panier solidaire sur la page d’accueil de foodsharing
   request: Obtenir ce panier solidaire
   request_close: Envoyer ma demande pour ce panier solidaire
-  taken: "<b>Ce panier solidaire n’est malheureusement plus disponible.</b>\n<br><br>\n
-    Tu n’es pas encore membre de foodsharing ?\nAlors clique en haut sur le bouton
+  taken: "<b>Ce panier solidaire n’est malheureusement plus disponible.</b>\n<br><br>\n\
+    \ Tu n’es pas encore membre de foodsharing ?\nAlors clique en haut sur le bouton
     <b>Participer</b> pour t’inscrire ou dépose ton propre panier solidaire sur la
     plateforme !\n<br><br>\nTrouve d’autres paniers solidaires dans ton secteur géographique
     grâce à notre carte !\n"
@@ -3291,8 +3291,8 @@ startpage:
     title: Villes foodsharing
   demands:
     text: "Pour endiguer efficacement le gaspillage alimentaire, il ne suffit pas
-      de sauver les restes de nourriture des entreprises ou d'informer les consommateurs.\n
-      Au lieu de cela, il faut que les choses bougent au niveau politique :\nNous
+      de sauver les restes de nourriture des entreprises ou d'informer les consommateurs.\n\
+      \ Au lieu de cela, il faut que les choses bougent au niveau politique :\nNous
       avons besoin d’objectifs de réduction contraignants pour le gaspillage tout
       au long de la chaîne de création de valeur.\nEn outre, les normes commerciales
       actuelles doivent être repensées et assouplies, et les organisations qui\nsauvent
@@ -4542,8 +4542,8 @@ help:
         dans le menu déroulant tous les types d’action pertinents. Dans ce cas, par
         exemple «*Demander l’adhésion*», «*Accepter les demandes d’adhésion*» et «*Refuser
         les demandes d’adhésion*». Si tu cliques maintenant sur le bouton «*Afficher
-        les actions sélectionnées*», l'historique des événements sélectionnés s’affiche.\n
-        ---\n###### Accès\nSeules les personnes qui peuvent administrer l’entreprise
+        les actions sélectionnées*», l'historique des événements sélectionnés s’affiche.\n\
+        \ ---\n###### Accès\nSeules les personnes qui peuvent administrer l’entreprise
         y ont accès. Les foodsavers et les sauteurs ne peuvent pas consulter le journal
         de fonctionnement.\n---\n###### Restrictions\nUn maximum de 100 entrées est
         chargé. Le cas échéant, tu dois limiter la période de recherche ou les types
@@ -4575,8 +4575,8 @@ help:
       title: Icônes pour les vignettes
       md: "Chaque autocollant a une icône, c’est-à-dire un petit graphique qui permet
         de comprendre au premier coup d’œil de quoi il s’agit. Tu trouveras une liste
-        des icônes disponibles sur https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n
-        \nDans le champ de saisie, tu dois entrer le nom de l’icône que tu souhaites
+        des icônes disponibles sur https://fontawesome.com/v5/search?o=r&m=free&s=solid.\n\
+        \ \nDans le champ de saisie, tu dois entrer le nom de l’icône que tu souhaites
         utiliser, par exemple « *walking* » ou « *shopping-cart* ».\nTu peux vérifier
         si ta saisie fonctionne en consultant l’aperçu.\nSi tu ne saisis pas d’icône,
         l’icône standard pour les autocollants, « *tag* », est automatiquement utilisée.\n"
@@ -4607,8 +4607,8 @@ help:
         qui font déjà partie de l’équipe ne peuvent s’inscrire que dans les créneaux
         où leur formation en hygiène est encore valable.\n\nDans les deux cas, une
         remarque s’affiche, expliquant que la formation en hygiène manque pour cette
-        action. En outre, la formation à l’hygiène est à chaque fois directement reliée.\n
-        \n---\n\nIl est important de noter que : Cette fonction est uniquement basée
+        action. En outre, la formation à l’hygiène est à chaque fois directement reliée.\n\
+        \ \n---\n\nIl est important de noter que : Cette fonction est uniquement basée
         sur les autocollants d’hygiène propres à foodsharing. Ni les certificats d’hygiène
         téléchargés dans le profil de fournisseurs externes, ni les formations en
         hygiène acquises d’une autre manière ne sont techniquement pris en compte.\n"
