@@ -263,8 +263,8 @@ email_template:
     title: Impressum
     general_information_requirements: Informasjon etter § 5 Telemediengesetz
     address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Representert
-      av:\n Anja Westermann \n Kontakt:\n E-post: info@foodsharing.de\n\n Registerutdrag:\n
-      Innføring i foreningsregisteret\n Registerretten: Amtsgericht Köln\n Registernummer:
+      av:\n Anja Westermann \n Kontakt:\n E-post: info@foodsharing.de\n\n Registerutdrag:\n\
+      \ Innføring i foreningsregisteret\n Registerretten: Amtsgericht Köln\n Registernummer:
       VR 17439\n\n Ansvarlig for innholdet etter § 18 MStV:\n Anja Westermann"
   from: '-- fra '
   newsletter:
@@ -601,8 +601,8 @@ basket:
   title: Matkurver
   date: Opprettelsesdato
   provider: Forsørger
-  taken: "<b>Denne matkurven er dessverre ikke lenger tilgjengelig.</b>\n<br><br>\n
-    Er du ennå ikke registrert som matdeler?\nKlikk deretter på <b>Delta</b> ovenfor
+  taken: "<b>Denne matkurven er dessverre ikke lenger tilgjengelig.</b>\n<br><br>\n\
+    \ Er du ennå ikke registrert som matdeler?\nKlikk deretter på <b>Delta</b> ovenfor
     for å komme i gang eller sett opp en matkurv selv.\n<br><br>\nDu kan finne andre
     matkurver i ditt område på kartet vårt.\n"
   login: "Du må være logget inn for detaljert informasjon.\nEr du ennå ikke registrert
@@ -638,8 +638,8 @@ basket:
   requests: Forespørsler ({count})
   updated: 'Oppdatert:'
   howto: "<strong>Informasjon om bruk av matkurver</strong>\n<br>\nBruk den grønne
-    knappen <strong>«Be om matkurv»</strong> for å vise din interesse for denne kurven,\n
-    eller <strong>«Rediger matkurv»</strong> for å redigere din egen kurv etterpå.\n"
+    knappen <strong>«Be om matkurv»</strong> for å vise din interesse for denne kurven,\n\
+    \ eller <strong>«Rediger matkurv»</strong> for å redigere din egen kurv etterpå.\n"
   change-state: Fullfør forespørsel om matkurv fra {name}
   public-info: Beskrivelse, bilde, overleveringssted og periode er offentlig synlig.
   not-allowed: Du er ikke autorisert til å redigere denne matkurven.
@@ -980,9 +980,9 @@ profile:
     noReportGroup: Du kan ikke bruke meldesystemet da det ikke er aktivert for matredderdistriktet.
     title: Rapporter om {name}
     info: "For å sikre at rapporten din kan behandles så effektivt som mulig, bør
-      den inneholde følgende informasjon:\n- Dato, klokkeslett og sted for hendelsen\n
-      - hva du allerede har gjort, f.eks. B. om du allerede har snakket direkte med
-      personen og klart å avklare saken\n- hvordan du best kan nå deg for spørsmål.\n"
+      den inneholde følgende informasjon:\n- Dato, klokkeslett og sted for hendelsen\n\
+      \ - hva du allerede har gjort, f.eks. B. om du allerede har snakket direkte
+      med personen og klart å avklare saken\n- hvordan du best kan nå deg for spørsmål.\n"
     oldReportButtonTextPart2: Ta eventuelt kontakt med den lokale krenkelsesgruppen
       i ditt distrikt.
     reporterAdminNoArbitration: Du kan ikke sende inn en rapport fordi du er administrator
@@ -1163,15 +1163,16 @@ profile:
 settings:
   photo:
     title: Bildet ditt
-    info: "Ansiktet ditt skal være gjenkjennelig på <a href=\"{link_photo}\">profilbildet</a>,\n
-      da det vil bli brukt til <a href=\"{link_id}\">matdelingspasset</a> dersom du
-      senere\nblir <a href=\"{link_fs}\">matredder</a> og henter dagligvarer fra bedrifter.\n"
+    info: "Ansiktet ditt skal være gjenkjennelig på <a href=\"{link_photo}\">profilbildet</a>,\n\
+      \ da det vil bli brukt til <a href=\"{link_id}\">matdelingspasset</a> dersom
+      du senere\nblir <a href=\"{link_fs}\">matredder</a> og henter dagligvarer fra
+      bedrifter.\n"
   calendar:
     link_title: 'ics/iCal/WebCal:'
     menu: Kalender
     title: Samlingskalenderen din
-    sync: "Kalenderprogrammet ditt må synkronisere denne kalenderen regelmessig.\n
-      Først da dukker det opp nye hentedatoer og kansellerte datoer forsvinner.\n"
+    sync: "Kalenderprogrammet ditt må synkronisere denne kalenderen regelmessig.\n\
+      \ Først da dukker det opp nye hentedatoer og kansellerte datoer forsvinner.\n"
     delete_token:
       button: Slette token
       title: Slette token
@@ -1179,9 +1180,9 @@ settings:
         du sikker på at du vil slette tokenet?
     token-warning: "Viktig: Hold lenken hemmelig.\nDen inneholder en nøkkel for å
       få tilgang til hentedatoene dine uten passord.\n"
-    teaser: "Du kan se samlingskalenderen din med et kalenderprogram du velger.\n
-      For å gjøre dette må du først opprette et token og deretter abonnere på en av
-      de to kalenderlenkene.\nDu finner mer informasjon i wikien på\n"
+    teaser: "Du kan se samlingskalenderen din med et kalenderprogram du velger.\n\
+      \ For å gjøre dette må du først opprette et token og deretter abonnere på en
+      av de to kalenderlenkene.\nDu finner mer informasjon i wikien på\n"
     event_link_desc: (inkl. arrangementer)
     create_token:
       button: Generer et nytt token
@@ -1250,8 +1251,8 @@ settings:
       kan svare på meldinger\neller til og med noen ganger gjør pickuper.\n"
     tooltip: '{name} tar en pause og er i natthettemodus'
     show: "Ved å bruke denne funksjonen godtar du at statusen din, fraværsperioden
-      din\nog bortemeldingen vises på profilsiden din og et natthetteikon plasseres\n
-      over profilbildet ditt.\n"
+      din\nog bortemeldingen vises på profilsiden din og et natthetteikon plasseres\n\
+      \ over profilbildet ditt.\n"
     status: Din nåværende status
     message: Her kan du legge igjen en kort melding om hvorfor du ikke har tid for
       øyeblikket.
@@ -1308,13 +1309,13 @@ settings:
       slår av push-varsler, vil chattemeldinger bli brukt i fremtiden\nikke lenger
       levert direkte til enheten din.\nEnheten din vil da ikke lenger vise varsler
       hvis du ikke er pålogget\nog reagerer ikke lenger med en tone eller vibrasjon.\n"
-    denied: "Du har avslått å motta push-varsler fra foodsharing i nettleseren din.\n
-      Hvis du vil motta push-varsler fra foodsharing, endre nettleserinnstillingene\n
-      og last inn siden på nytt.\n"
+    denied: "Du har avslått å motta push-varsler fra foodsharing i nettleseren din.\n\
+      \ Hvis du vil motta push-varsler fra foodsharing, endre nettleserinnstillingene\n\
+      \ og last inn siden på nytt.\n"
     info-on: "Hvis du aktiverer push-varsler for denne enheten,\nchat-meldinger vil
-      bli levert direkte til enheten din i fremtiden,\nselv om du ikke er pålogget.\n
-      Enheten din vil da vise et tilsvarende varsel\nhenholdsvis reagerer med en lyd
-      eller en vibrasjon.\n"
+      bli levert direkte til enheten din i fremtiden,\nselv om du ikke er pålogget.\n\
+      \ Enheten din vil da vise et tilsvarende varsel\nhenholdsvis reagerer med en
+      lyd eller en vibrasjon.\n"
   businesscard: Personlig visittkort
   chatmail: "Hvis du mottar en intern melding på foodsharing, men du er\nikke pålogget
     for øyeblikket, kan vi informere deg via e-post.\nVil du det?\n"
@@ -2076,14 +2077,14 @@ group:
     summary: '{name} vil gjerne bli en del av arbeidsgruppe {group}.'
     faehigkeit: Hvilke ferdigheter har du på dette området?
     zeit: Hvor mange timer har du tid og lyst til å gjøre denne oppgaven per uke?
-    erfahrung: "Kan du i gruppen trekke på erfaringer du har fått andre steder?\n
-      Hvis ja, hvor eller hva?\n"
+    erfahrung: "Kan du i gruppen trekke på erfaringer du har fått andre steder?\n\
+      \ Hvis ja, hvor eller hva?\n"
     motivation: Hva er din motivasjon for å delta i gruppen {group}?
     accept: Godta søknaden
     link_description: 'Denne lenken tar deg direkte til applikasjonen:'
     ability: Hvilke ferdigheter har du på dette området?
-    experience: "Kan du trekke på erfaringer du har gjort andre steder i gruppen?\n
-      I så fall hvor og hvilke?\n"
+    experience: "Kan du trekke på erfaringer du har gjort andre steder i gruppen?\n\
+      \ I så fall hvor og hvilke?\n"
     how_much_time: Hvor mange timer i uken har du tid og lyst til å bruke til det?
     error_missing_time: 'Feil: Ingen tid er valgt.'
   contact:
@@ -2600,8 +2601,8 @@ chat:
   empty_recipients: Du må fortsatt velge mottakere.
   error_loading_messages: Innlasting av meldinger mislyktes.
   empty: Ingen samtaler ennå
-  confirm_draft_discard: "Du bytter til en ny tråd. Teksten i svarfeltet forkastes.\n
-    \nHvis du avbryter denne dialogen, vil utkastet ditt bli overført til den nye
+  confirm_draft_discard: "Du bytter til en ny tråd. Teksten i svarfeltet forkastes.\n\
+    \ \nHvis du avbryter denne dialogen, vil utkastet ditt bli overført til den nye
     tråden i stedet.\n"
   receivermissing: Du må spesifisere en mottaker
   incorrect_address: Denne e-postadressen er feil
@@ -2790,8 +2791,8 @@ pickup:
   kick: kaste ut
   open_profile: Profilen til
   really_leave_date_title: Avregistrere {date}?
-  really_kick_user_info: "Vil du virkelig avbestille {name} fra å hente den {date}?\n
-    {name} vil motta følgende melding om dette:\n"
+  really_kick_user_info: "Vil du virkelig avbestille {name} fra å hente den {date}?\n\
+    \ {name} vil motta følgende melding om dette:\n"
   team_message_send_and_leave: Send og avslutt
   edit_recurring_pickups: Rediger avtaleserie
   really_leave_date: Du er ansvarlig for denne hentingen. Vennligst ordne en erstatning
@@ -2888,9 +2889,9 @@ storeedit:
     max-sm: Velg maksimalt tre samarbeidsoffiserer
     need-sm: Det må være minst en ansvarlig person for hvert lag.
     empty: Teamet kan ikke være tomt
-    unmanaged: "Det er for øyeblikket ingen ansvarlige personer i dette teamet.\n
-      Vennligst legg til opptil tre samarbeidsoffiserer som vil ta vare på dette selskapet
-      i fremtiden.\n"
+    unmanaged: "Det er for øyeblikket ingen ansvarlige personer i dette teamet.\n\
+      \ Vennligst legg til opptil tre samarbeidsoffiserer som vil ta vare på dette
+      selskapet i fremtiden.\n"
     orga: "Du er ikke ansvarlig for dette selskapet.\nDu har imidlertid omfattende
       rettigheter som en del av det globale organisasjonsteamet.\n"
     leave: Forlat dette laget
@@ -4374,8 +4375,8 @@ help:
         medlemskapsforespørsler*\". Hvis du nå klikker på \"*Vis valgte handlinger*\"\
         -knappen, vil du få vist en historikk over de valgte hendelsene.\n---\n######
         Tilgang\nBare de som kan administrere selskapet har tilgang til det. Driftsloggen
-        er ikke synlig for vanlige matsparere og hoppere.\n---\n###### Begrensninger\n
-        Maksimalt 100 oppføringer vil bli lastet inn. Du må kanskje begrense søkeperioden
+        er ikke synlig for vanlige matsparere og hoppere.\n---\n###### Begrensninger\n\
+        \ Maksimalt 100 oppføringer vil bli lastet inn. Du må kanskje begrense søkeperioden
         eller de valgte handlingstypene hvis ikke alle resultater vises.\n"
     threadPriority:
       md: "Emner er oppført sortert etter visningsprioritet. Emner med samme prioritet
@@ -4446,26 +4447,26 @@ help:
       title: Stemmerett
       md: "Når du oppretter en stemme, kan du velge blant ulike grupper av personer
         som skal ha stemmerett.\nFølgende gjelder for alle alternativer:\n- Ikke bare
-        alle matsparere i bydelen/gruppa får stemme, men også i underdistriktene.\n
-        - Antall stemmeberettigede matsparere står i parentes bak valgmuligheten.\n
-        - Så snart avstemningen er opprettet, avgjøres de stemmeberettigede. Den som
-        faller inn i den aktuelle folkegruppen på det tidspunkt avstemningen foretas,
+        alle matsparere i bydelen/gruppa får stemme, men også i underdistriktene.\n\
+        \ - Antall stemmeberettigede matsparere står i parentes bak valgmuligheten.\n\
+        \ - Så snart avstemningen er opprettet, avgjøres de stemmeberettigede. Den
+        som faller inn i den aktuelle folkegruppen på det tidspunkt avstemningen foretas,
         har stemmerett.\n"
     moderatorForumHide:
       title: Skjuler seg i forum av moderatorer
       md: "###### Hvem er moderator?\nModeratorene for en gruppe eller et distrikt
         er vanligvis administratorer eller ambassadører. Hvis det er en GOALS-AG *moderasjon*
-        i et distrikt, tar administratorene av denne gruppen på seg rollen som moderatorer.\n
-        ---\n###### Skjul i fora\nNår aktivert, kan moderatorer skjule alle innlegg
+        i et distrikt, tar administratorene av denne gruppen på seg rollen som moderatorer.\n\
+        \ ---\n###### Skjul i fora\nNår aktivert, kan moderatorer skjule alle innlegg
         i forumet, ikke bare sine egne. For å gjøre dette må du oppgi en grunn til
         hvorfor du vil skjule et innlegg eller hele tråden. Et innlegg forblir deretter
         tilgjengelig for moderatorene i ytterligere tre måneder og kan også gjenopprettes
         i løpet av denne tiden. Andre brukere (uten organisasjonsrettigheter) har
         ikke lenger tilgang til den. Etter disse tre månedene kan et skjult innlegg
-        ikke lenger gjenopprettes og vil bli permanent slettet fra databasen.\n---\n
-        ###### Hvor kan dette alternativet brukes?\nI lokale rapporteringsgrupper
-        og voldgiftsråd (GOALS AGs) er denne funksjonen nødvendig av hensyn til databeskyttelse.\n
-        Andre arbeidsgrupper kan stemme internt for å gi administratorer tillatelse
+        ikke lenger gjenopprettes og vil bli permanent slettet fra databasen.\n---\n\
+        \ ###### Hvor kan dette alternativet brukes?\nI lokale rapporteringsgrupper
+        og voldgiftsråd (GOALS AGs) er denne funksjonen nødvendig av hensyn til databeskyttelse.\n\
+        \ Andre arbeidsgrupper kan stemme internt for å gi administratorer tillatelse
         til å skjule innlegg og sende en lenke til den vellykkede avstemningen til
         ags.bezirke@foodsharing.network. Dette alternativet er ikke gitt for lokale
         distrikter.\n"
@@ -4478,8 +4479,8 @@ help:
         av teamet, kan bare registrere seg for plasser hvis hygienetreningen deres
         fortsatt er gyldig på tidspunktet for ønsket henting.\n\nI begge tilfeller
         vises det en melding som forklarer at hygienetreningen er nødvendig for denne
-        handlingen. Hygienetesten er også koblet direkte i hvert enkelt tilfelle.\n
-        \n---\n\nViktig å merke seg: Denne funksjonen er kun basert på foodsharings
+        handlingen. Hygienetesten er også koblet direkte i hvert enkelt tilfelle.\n\
+        \ \n---\n\nViktig å merke seg: Denne funksjonen er kun basert på foodsharings
         egen hygieneopplæring. Verken hygienesertifikater fra eksterne leverandører
         (f.eks. Metro) som er lastet opp til profilen eller hygienekurs som er notert
         andre steder, blir for øyeblikket tatt i betraktning.\n"
@@ -4752,3 +4753,4 @@ net_errors:
   ERR_BAD_RESPONSE: Serveren returnerte et ugyldig svar. Vennligst prøv igjen.
   ERR_NETWORK_CHANGED: Internett-tilkoblingen din er ustabil. Kontroller tilkoblingen
     og prøv igjen.
+  action_response: 'Forespørsel og serversvar:'
