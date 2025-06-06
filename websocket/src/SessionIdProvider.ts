@@ -1,10 +1,10 @@
 import * as util from 'util';
 import * as fs from 'fs';
-import { Tedis } from 'tedis';
+import { TedisPool } from 'tedis';
 import path = require('path');
 
 export class SessionIdProvider {
-    private readonly redisClient = new Tedis({
+    private readonly redisClientPool = new TedisPool({
         host: process.env.REDIS_HOST ?? '127.0.0.1',
         port: Number(process.env.REDIS_PORT) || 6379
     });
@@ -21,14 +21,17 @@ export class SessionIdProvider {
 
     async fetchSessionIdsForUser (userId: number): Promise<string[]> {
         const sha = await this.getSessionIdsScriptSHA();
+        const redisClient = await this.redisClientPool.getTedis()
         try {
-            return await this.redisClient.command('EVALSHA', sha, 0, userId);
+            return await redisClient.command('EVALSHA', sha, 0, userId);
         } catch (err) {
             if (err.code !== 'NOSCRIPT') {
                 throw err;
             }
             await this.uploadSessionIdsScriptToRedis();
-            return await this.redisClient.command('EVALSHA', sha, 0, userId);
+            return await redisClient.command('EVALSHA', sha, 0, userId);
+        } finally {
+            this.redisClientPool.putTedis(redisClient)
         }
     }
 
@@ -51,6 +54,8 @@ export class SessionIdProvider {
 
     private async uploadSessionIdsScriptToRedis (): Promise<void> {
         const contents = await util.promisify(fs.readFile)(this.sessionIdsScriptFilename, 'utf8');
-        this.sessionIdsScriptSHA = await this.redisClient.command('SCRIPT', 'LOAD', contents);
+        const redisClient = await this.redisClientPool.getTedis()
+        this.sessionIdsScriptSHA = await redisClient.command('SCRIPT', 'LOAD', contents);
+        this.redisClientPool.putTedis(redisClient)
     }
 }

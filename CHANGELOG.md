@@ -150,6 +150,7 @@
 - Fix the MarkdownOrPlaintext validator - now HTML is invalid #2338 !4050 @skurka
 - create better seeded store for screenshots and live presentation #738 !4062 @McGoldi @DL6ER
 - Updated backend packages !4163 @alex.simm
+- Use Tedis' client pool in the websocket server #1068 !4212 @alex.simm
 
 # Hotfix 2024-01-20
 
