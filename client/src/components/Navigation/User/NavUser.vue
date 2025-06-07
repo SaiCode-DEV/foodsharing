@@ -80,6 +80,7 @@ import Dropdown from '../_NavItems/NavDropdown'
 import RouteCheckMixin from '@/mixins/RouteAndDeviceCheckMixin'
 import { clearCaches } from '@/helper/cache'
 import { BROADCAST_TYPE, channel } from '@/broadcastChannel'
+import conv from '@/conv'
 
 export default {
   components: {
@@ -111,6 +112,7 @@ export default {
   },
   methods: {
     async deleteCaches () {
+      conv.closeAllChats()
       await clearCaches()
       channel.postMessage({ type: BROADCAST_TYPE.LOGOUT })
       window.location.href = this.$url('logout')

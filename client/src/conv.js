@@ -15,7 +15,7 @@ import Vue from 'vue'
 
 import ChatComponent from '@/views/pages/Message/ChatComponent.vue'
 
-const storage = new Storage()
+const storage = new Storage('conversations')
 
 const CHAT_BOX_WIDTH = 370
 
@@ -328,6 +328,9 @@ const conv = {
   },
   addChatOption: function (cid, el) {
     document.querySelector(`#chat-${cid} .settings`).innerHTML += `<li>${el}</li>`
+  },
+  closeAllChats: () => {
+    storage.del('msg-chats')
   },
 }
 document.addEventListener('DOMContentLoaded', function () {
