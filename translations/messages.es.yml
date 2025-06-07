@@ -3409,8 +3409,8 @@ settings:
       ingresen automáticamente en su calendario.\n\n**Asegúrate de mantener los enlaces
       del calendario en secreto.** Contienen un *token* que puede usarse para acceder
       a tus datos de recogida sin contraseña. Puede eliminar su token actual en cualquier
-      momento, lo que invalidará los enlaces de calendario creados anteriormente.\n
-      \nSu programa de calendario necesita **sincronizar** este calendario periódicamente.
+      momento, lo que invalidará los enlaces de calendario creados anteriormente.\n\
+      \ \nSu programa de calendario necesita **sincronizar** este calendario periódicamente.
       Solo entonces aparecerán nuevas fechas de recogida y ya no aparecerán las fechas
       canceladas. Si descarga su calendario actual, solo contendrá sus citas actuales
       y no se actualizará automáticamente.\n\nPuedes encontrar más información [aquí
@@ -3980,10 +3980,10 @@ email_template:
   impress:
     general_information_requirements: 'Información según el artículo 5 de la Telemediengesetz'
     address: "foodsharing e. V. \n Neven-DuMont-Str. 14 \n 50667 Köln \n\n Representado
-      por:\n Anja Westermann \n Contacto:\n Correo electrónico: info@foodsharing.de\n
-      \n Entrada de registro:\n Inscripción en el registro de la asociación\n Tribunal
-      de registro: Tribunal de Distrito de Colonia\n Número de registro: VR 17439\n
-      \n Responsable del contenido según § 18 MStV:\n Anja Westermann"
+      por:\n Anja Westermann \n Contacto:\n Correo electrónico: info@foodsharing.de\n\
+      \ \n Entrada de registro:\n Inscripción en el registro de la asociación\n Tribunal
+      de registro: Tribunal de Distrito de Colonia\n Número de registro: VR 17439\n\
+      \ \n Responsable del contenido según § 18 MStV:\n Anja Westermann"
     title: 'Aviso legal'
   login: 'Inicia sesión para responder'
   foodsharepoint: '-- Distribuidor'
@@ -4005,8 +4005,8 @@ email_template:
     a nadie, sería bueno que pudieras encargarte de la recogida. Si esto no es posible
     para usted, cancele la cita con la empresa a tiempo.'
   in: 'en'
-  unknown_email2: "La dirección de correo electrónico %ADDRESS% es desconocida. \n
-    Tenga en cuenta que los correos electrónicos CCO no se pueden entregar al dominio
+  unknown_email2: "La dirección de correo electrónico %ADDRESS% es desconocida. \n\
+    \ Tenga en cuenta que los correos electrónicos CCO no se pueden entregar al dominio
     @foodsharing.network."
   manual_slots_get_ignored: 'Esta notificación se envía actualmente si nadie se ha
     registrado para los horarios de recogida habituales. Aún no se tienen en cuenta
@@ -4585,17 +4585,17 @@ help:
         de acción relevantes en el desplegable. En este caso, por ejemplo, \"*Solicitar
         afiliación*\", \"*Aceptar solicitudes de afiliación*\" y \"*Rechazar solicitudes
         de afiliación*\". Si ahora hace clic en el botón \"*Mostrar acciones seleccionadas*\"\
-        , se le mostrará un historial de los eventos seleccionados.\n---\n###### Acceso\n
-        Sólo tienen acceso aquellos que también pueden administrar la operación. El
-        registro de operaciones no puede ser visto por los ahorradores y saltadores
+        , se le mostrará un historial de los eventos seleccionados.\n---\n###### Acceso\n\
+        \ Sólo tienen acceso aquellos que también pueden administrar la operación.
+        El registro de operaciones no puede ser visto por los ahorradores y saltadores
         normales.\n---\n###### Restricciones\nSe carga un máximo de 100 entradas.
         Es posible que tenga que restringir el periodo de búsqueda o los tipos de
         acción seleccionados si no se muestran todos los resultados.\n"
     threadPriority:
       title: Mostrar la prioridad en los foros
       md: "Los temas se enumeran ordenados por prioridad de visualización. Los temas
-        con la misma prioridad se ordenan por hora de la última actividad.\n---\n
-        Los hilos fijados tienen una prioridad de 1, los hilos normales tienen una
+        con la misma prioridad se ordenan por hora de la última actividad.\n---\n\
+        \ Los hilos fijados tienen una prioridad de 1, los hilos normales tienen una
         prioridad de 0. Para poder ordenar los hilos mostrados con mayor precisión,
         también puede establecer valores más altos aquí para que los temas estén siempre
         en la parte superior independientemente de la fecha de modificación.\nLos
@@ -4606,10 +4606,10 @@ help:
         se incluyen automáticamente en el distrito maestro. En muchos casos, tiene
         sentido seleccionar el distrito padre como maestro, pero también son posibles
         otras aplicaciones. Si el distrito maestro no es el distrito padre, los usuarios
-        del distrito **no** se incluirán automáticamente en el distrito padre.\n\n
-        Si no desea que los usuarios se añadan automáticamente a otro distrito, establezca
-        el maestro como raíz.\n---\nLa inclusión en el distrito maestro ocurre una
-        vez cada noche. Los cambios no se producen inmediatamente.\n"
+        del distrito **no** se incluirán automáticamente en el distrito padre.\n\n\
+        \ Si no desea que los usuarios se añadan automáticamente a otro distrito,
+        establezca el maestro como raíz.\n---\nLa inclusión en el distrito maestro
+        ocurre una vez cada noche. Los cambios no se producen inmediatamente.\n"
     profileCommitmentsStat:
       title: Estadísticas de participación
       md: es visible desde el papel del responsable de la empresa. Se limita a un
@@ -4624,20 +4624,20 @@ help:
       title: Procesamiento de mensajes
       md: "Aquí veras mensajes escritos sobre personas de este distrito de origen.
         Sin embargo, no se mostrarán todos los mensajes:\n- En principio, no verás
-        ningún mensaje en el que tu o tus coadministradores de LMG o LS estén involucrados.\n
-        - Como administrador de LS, solo tienes acceso a los informes en los que participan
-        los administradores de LMG.\n---\nPuedes leer información sobre cómo procesar
-        un informe: [Procesar un informe](https://wiki.foodsharing.de/Rulestraumas_-_Konsequences_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)\n"
+        ningún mensaje en el que tu o tus coadministradores de LMG o LS estén involucrados.\n\
+        \ - Como administrador de LS, solo tienes acceso a los informes en los que
+        participan los administradores de LMG.\n---\nPuedes leer información sobre
+        cómo procesar un informe: [Procesar un informe](https://wiki.foodsharing.de/Rulestraumas_-_Konsequences_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)\n"
     reportReasons:
       title: Formulario del informe
       md: "Foodsavers puede informar infracciones de las reglas directamente utilizando
         el formulario de informe. Al activarlo, los responsables de los reportes recibirán
-        rápida y fácilmente notificaciones de los reportes realizados de esta manera.\n
-        ---\nLa LMG del distrito puede establecer qué motivos de notificación se muestran
-        en el formulario de notificación.\nPuede elegir entre motivos de informes
-        simplificados y detallados. Los motivos detallados para informar incluyen
-        todas las reglas enumeradas [aquí en la wiki en el punto B](https://wiki.foodsharing.de/Verhaltensregelen#B.29_Verhalten_bei_Abholungen).\n
-        También puede elegir si la opción \"Otro\" debe aparecer como motivo adicional
+        rápida y fácilmente notificaciones de los reportes realizados de esta manera.\n\
+        \ ---\nLa LMG del distrito puede establecer qué motivos de notificación se
+        muestran en el formulario de notificación.\nPuede elegir entre motivos de
+        informes simplificados y detallados. Los motivos detallados para informar
+        incluyen todas las reglas enumeradas [aquí en la wiki en el punto B](https://wiki.foodsharing.de/Verhaltensregelen#B.29_Verhalten_bei_Abholungen).\n\
+        \ También puede elegir si la opción \"Otro\" debe aparecer como motivo adicional
         del mensaje.\n---\nSe pueden hacer recomendaciones sobre la configuración
         a la LMG. Sin embargo, la decisión y la responsabilidad de estas configuraciones
         recae únicamente en los administradores del grupo de informes local, quienes
@@ -4660,8 +4660,8 @@ help:
       title: Oculto en los foros por los moderadores
       md: "###### ¿Quién es un moderador?\nLos moderadores de un grupo o distrito
         son normalmente los administradores o BOTs. Si hay un GOALS-AG *Moderación*
-        en un distrito, los administradores de este grupo tienen el papel de moderadores.\n
-        ---\n###### Ocultar en los foros\nSi esta opción está activada, los moderadores
+        en un distrito, los administradores de este grupo tienen el papel de moderadores.\n\
+        \ ---\n###### Ocultar en los foros\nSi esta opción está activada, los moderadores
         pueden ocultar todos los mensajes del foro. Deben dar una razón por la que
         quieren ocultar un mensaje o un tema. Los moderadores podrán seguir accediendo
         a los mensajes durante 3 meses más, durante el cual también podrán recuperarlos.
@@ -4682,10 +4682,10 @@ help:
       md: "Al crear una votación, puedes elegir entre diferentes grupos de personas
         para votar.\nPara todas las opciones:\n- No solo pueden votar todos los Foodsaver
         dentro del distrito/grupo, sino también los subdistritos.\n- El número de
-        Foodsaver con derecho a voto se encuentra entre paréntesis detrás de la opción.\n
-        - Una vez que la votación se ha creado, los votantes están determinados. Tiene
-        derecho a votar quien, en el momento de la creación de la votación, pertenece
-        al grupo de personas correspondiente.\n"
+        Foodsaver con derecho a voto se encuentra entre paréntesis detrás de la opción.\n\
+        \ - Una vez que la votación se ha creado, los votantes están determinados.
+        Tiene derecho a votar quien, en el momento de la creación de la votación,
+        pertenece al grupo de personas correspondiente.\n"
       title: Derecho a votar
     hygieneRequirement:
       md: "Para la recogida en algunos establecimientos, los food savers deben tener
@@ -4696,8 +4696,8 @@ help:
         sólo podrán inscribirse en las franjas horarias en las que su formación en
         higiene siga siendo válida en ese momento.\n\nEn ambos casos, se mostrará
         una nota explicando que falta la formación en higiene para esta acción. La
-        formación en higiene también se vincula directamente en cada caso.\n\n---\n
-        \nImportante: Esta función sólo se basa en los propios adhesivos de higiene
+        formación en higiene también se vincula directamente en cada caso.\n\n---\n\
+        \ \nImportante: Esta función sólo se basa en los propios adhesivos de higiene
         de foodsharing. Técnicamente no se tienen en cuenta ni los certificados de
         higiene de proveedores externos (como Metro) cargados en el perfil ni la formación
         en higiene adquirida en otro lugar.\n"
