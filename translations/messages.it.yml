@@ -15,16 +15,16 @@ group:
       "2": 2-3 ore
       "1": 1-2 ore
     zeit: Quante ore alla settimana hai tempo e voglia di dedicarci?
-    erfahrung: "Nel gruppo puoi attingere all'esperienza che hai acquisito altrove?\n
-      Se sì, dove o cosa?\n"
+    erfahrung: "Nel gruppo puoi attingere all'esperienza che hai acquisito altrove?\n\
+      \ Se sì, dove o cosa?\n"
     faehigkeit: Quali sono le competenze che possiedi in questo ambito?
     motivation: Qual è la motivazione che ti spinge a partecipare al gruppo {group}?
     summary: '{name} vorrebbe unirsi al gruppo di lavoro {group}.'
     accept: Accettare candidatura
     link_description: 'Questo collegamento ti porterà direttamente all’applicazione:'
     ability: Quali competenze avete in questo settore?
-    experience: "Nel gruppo puoi attingere ad esperienze che hai acquisito altrove?\n
-      Se sì, dove o quali?\n"
+    experience: "Nel gruppo puoi attingere ad esperienze che hai acquisito altrove?\n\
+      \ Se sì, dove o quali?\n"
     how_much_time: Quante ore alla settimana hai tempo e voglia di dedicarci?
     error_missing_time: 'Errore: non è stato selezionato alcun orario.'
   contact:
@@ -808,10 +808,10 @@ pickup:
     added: Data di ritiro è stata inserita.
     many-people: "Hai specificato più di due persone per il ritiro.\n<br>\nSi prega
       di <strong> inviare all'azienda solo il numero di foodsavers necessari per il
-      ritiro </strong>.\nTroppi foodsavers hanno spesso portato la fine di una collaborazione.\n
-      <br>\nChiarire con l’azienda il numero massimo di foodsavers possibili.\nEventuali
-      altri aiutanti necessari possono attendere con un rimorchio per biciclette o
-      simili\nfuori dalla vista dell’azienda.\n"
+      ritiro </strong>.\nTroppi foodsavers hanno spesso portato la fine di una collaborazione.\n\
+      \ <br>\nChiarire con l’azienda il numero massimo di foodsavers possibili.\n\
+      Eventuali altri aiutanti necessari possono attendere con un rimorchio per biciclette
+      o simili\nfuori dalla vista dell’azienda.\n"
     slotscount: '{count} Raccoglitore'
     slotcount: un raccoglitorǝ
     more: Aggiungere appuntamento
@@ -956,8 +956,8 @@ storeedit:
     coordinator: "Non sei responsabile di questa agenzia.\nTuttavia, disponi di ampi
       diritti come parte del team di coordinamento dell´agenzia.\n"
     note: 'Suggerimento:'
-    unmanaged: "Attualmente non ci sono persone responsabili in questa attività.\n
-      Si prega di aggiungere fino a tre responsabili, che in futuro gestiranno l'attività.\n"
+    unmanaged: "Attualmente non ci sono persone responsabili in questa attività.\n\
+      \ Si prega di aggiungere fino a tre responsabili, che in futuro gestiranno l'attività.\n"
     max-sm: Si prega di scegliere un massimo di tre responsabili dell'attività
     leave: Annulla l'iscrizione del agenzia
     bread: modificare il team
@@ -1290,8 +1290,8 @@ startpage:
       cammino o di essere già state designate come città del foodsharing.\nsono state
       designate come città del foodsharing. Quest’ultimo è il caso se, oltre a una
       squadra di foodsharing sul terreno\nuna dichiarazione di motivazione firmata
-      dal comune come simbolo del partenariato tra il foodsharing e il settore pubblico.\n
-      foodsharing e il settore pubblico.\n"
+      dal comune come simbolo del partenariato tra il foodsharing e il settore pubblico.\n\
+      \ foodsharing e il settore pubblico.\n"
   donate:
     title: Donazioni
     link: Sostieni foodsharing
@@ -2296,9 +2296,9 @@ basket:
   request_close: Chiudere richiesta per cesto di cibo
   requested_by: richiesto da {name}
   no_requests: Nessuna richiesta finora
-  taken: "<b>Purtroppo, questo cesto alimentare non è più disponibile</b>.\n<br><br>\n
-    Non ti sei ancora registrato come Foodsharer?\nPoi clicca <b>partecipare</b> qui
-    sopra per iniziare o pubblica tu stesso un cesto di cibo.\n<br><br>\nControlla
+  taken: "<b>Purtroppo, questo cesto alimentare non è più disponibile</b>.\n<br><br>\n\
+    \ Non ti sei ancora registrato come Foodsharer?\nPoi clicca <b>partecipare</b>
+    qui sopra per iniziare o pubblica tu stesso un cesto di cibo.\n<br><br>\nControlla
     la nostra mappa per trovare altri cesti di cibo nella tua zona, se applicabile.\n"
   login: "Per informazioni dettagliate devi essere loggato.\nNon sei ancora registrato
     come Foodsharer?\nPoi clicca su <b>partecipare</b> qui sopra e inizia subito.\n"
@@ -2767,8 +2767,8 @@ settings:
   push:
     disabled: Notifiche push disabilitate con successo
     disable: Disattivare le notifiche push
-    info-off: "Su questo dispositivo, le notifiche push di foodsharing sono attivate.\n
-      Se disabiliti le notifiche push, i messaggi della chat non saranno più consegnati
+    info-off: "Su questo dispositivo, le notifiche push di foodsharing sono attivate.\n\
+      \ Se disabiliti le notifiche push, i messaggi della chat non saranno più consegnati
       direttamente al tuo dispositivo.\nnon sarà più consegnato direttamente al tuo
       dispositivo.\nIl tuo dispositivo non mostrerà più le notifiche quando non sei
       loggato.\ne non risponde più con un suono o una vibrazione.\n"
@@ -2778,8 +2778,8 @@ settings:
       chat saranno consegnati direttamente al tuo dispositivo..,\nanche se non sei
       loggato.\nIl tuo dispositivo mostrerà una notifica o risponderà con un suono
       o una vibrazione.\no risponde con un suono o una vibrazione.\n"
-    denied: "Hai scelto di non ricevere notifiche push da foodsharing nel tuo browser.\n
-      Se vuoi ricevere le notifiche push da foodsharing, modifica le impostazioni
+    denied: "Hai scelto di non ricevere notifiche push da foodsharing nel tuo browser.\n\
+      \ Se vuoi ricevere le notifiche push da foodsharing, modifica le impostazioni
       del tuo browser\ne ricarica la pagina.\n"
     not-supported: Il tuo browser non supporta le notifiche push.
     title: Notifiche push
@@ -2795,14 +2795,14 @@ settings:
         link precedente e lo rende non valido. Vuoi davvero crearne uno nuovo?
       title: Creare un nuovo token
       button: Creare un nuovo token
-    sync: "Il tuo programma di calendario deve risincronizzare questo calendario regolarmente.\n
-      Solo allora appariranno nuovi appuntamenti di ritiro e gli appuntamenti cancellati
+    sync: "Il tuo programma di calendario deve risincronizzare questo calendario regolarmente.\n\
+      \ Solo allora appariranno nuovi appuntamenti di ritiro e gli appuntamenti cancellati
       non appariranno più.\n"
     token-warning: "Importante: assicurati di mantenere il link segreto.\nContiene
       una chiave per accedere alle date di ritiro senza password.\n"
     teaser: "Puoi visualizzare il tuo calendario di raccolta con un programma di calendario
-      di tua scelta.\nPrima crea un token e poi sottoscrivi uno dei due link del calendario.\n
-      Puoi trovare maggiori informazioni nel wiki su\n"
+      di tua scelta.\nPrima crea un token e poi sottoscrivi uno dei due link del calendario.\n\
+      \ Puoi trovare maggiori informazioni nel wiki su\n"
     title: Il tuo calendario dei ritiri
     menu: Calendario
     export: Esporta calendario
@@ -2858,12 +2858,12 @@ settings:
     none: Sono attivo e pienamente coinvolto
     missing-date: Inserisci sia una data di inizio che una di fine per un periodo.
     show: "Utilizzando questa funzione accetti che il tuo stato,\nla durata della
-      tua assenza e il tuo messaggio vengano mostrati sulla pagina del tuo profilo\n
-      e che un’icona dormiglione venga posta sopra la tua foto profilo.\n"
+      tua assenza e il tuo messaggio vengano mostrati sulla pagina del tuo profilo\n\
+      \ e che un’icona dormiglione venga posta sopra la tua foto profilo.\n"
     info: "Con la funzione dormiglione dici alla comunità che sei attualmente fuori
-      città\no per altre ragioni non hai tempo di risparmiare il cibo al momento.\n
-      È utile sapere se sei in grado di rispondere ai messaggi\no anche a volte fare
-      dei prelievi.\n"
+      città\no per altre ragioni non hai tempo di risparmiare il cibo al momento.\n\
+      \ È utile sapere se sei in grado di rispondere ai messaggi\no anche a volte
+      fare dei prelievi.\n"
     header: Funzione di dormiglione
     title: Dormiglione
     status: Il tuo stato attuale
@@ -2925,8 +2925,8 @@ mailbox:
   okay: L'e-mail è stata inviata con successo.
   not-allowed: Non hai i diritti per farlo.
   sm-quiz: Quiz per responsabili di cooperazioni e attività
-  not-available: "Devi essere {role} per accedere alle caselle di posta elettronica.\n
-    Fai il {quiz} qui quando sei pronto.\n"
+  not-available: "Devi essere {role} per accedere alle caselle di posta elettronica.\n\
+    \ Fai il {quiz} qui quando sei pronto.\n"
   name: Nome visualizzato
   already_exists: Esiste già una casella di posta con questo nome
   saved: Le modifiche sono state salvate
@@ -3940,17 +3940,17 @@ help:
     storeLog:
       title: Registro delle operazioni
       md: "Il registro delle operazioni è un modo per tracciare le **attività in un'azienda**.
-        Può aiutare a risolvere conflitti o correggere errori accidentali.\n---\n
-        ###### Esempio\nSupponiamo che tu voglia sapere chi si è stato aggiunto al
-        team nelle ultime 3 settimane e da chi. Puoi specificare il periodo utilizzando
+        Può aiutare a risolvere conflitti o correggere errori accidentali.\n---\n\
+        \ ###### Esempio\nSupponiamo che tu voglia sapere chi si è stato aggiunto
+        al team nelle ultime 3 settimane e da chi. Puoi specificare il periodo utilizzando
         le date di inizio e fine nei due campi data. Successivamente, puoi selezionare
         tutti i tipi di azione pertinenti dal menu a tendina. In questo caso, ad esempio,
         “*Effettua richieste di iscrizione*”, “*Accetta richieste di iscrizione*”
         e “*Rifiuta richieste di iscrizione*”. Se ora fai clic sul pulsante “*Mostra
-        azioni selezionate*”, ti verrà mostrata la cronologia degli eventi selezionati.\n
-        ---\n###### Accesso\nL'accesso è consentito solo a chi può gestire l'azienda.
-        Il registro delle operazioni non è visibile ai foodsavers e jolly.\n---\n
-        ###### Restrizioni\nVengono caricate al massimo 100 voci. Potrebbe essere
+        azioni selezionate*”, ti verrà mostrata la cronologia degli eventi selezionati.\n\
+        \ ---\n###### Accesso\nL'accesso è consentito solo a chi può gestire l'azienda.
+        Il registro delle operazioni non è visibile ai foodsavers e jolly.\n---\n\
+        \ ###### Restrizioni\nVengono caricate al massimo 100 voci. Potrebbe essere
         necessario limitare il periodo di ricerca o i tipi di azione selezionati se
         non vengono visualizzati tutti i risultati.\n"
     basket:
