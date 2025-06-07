@@ -1046,8 +1046,8 @@ events:
     the start of the appointment, users can easily join the conference with one click
     from the appointment page. No additional programs are required, just a reasonably
     modern internet browser. It is also possible to join by phone.\n\nIf you still
-    want to use a different platform for a telephone or online conference, please select
-    the option *“Other ”*.\n"
+    want to use a different platform for a telephone or online conference, please
+    select the option *“Other ”*.\n"
   public_info: This event is public and open to everyone. Comments and the participant
     list are visible only to registered users.
 forum:
@@ -1935,11 +1935,11 @@ page:
 conference:
   join: Join online conference
   join_title: Join online conference
-  privacy_notice: 'Note: Online conferences are handled via the conference server of
-    the living utopia collective. You will be automatically logged in with the first
-    name you entered at foodsharing, your ID and avatar.'
-  description_text: Here you can join a online conference for the selected group. The
-    online conference opens BigBlueButton in a new window.
+  privacy_notice: 'Note: Online conferences are handled via the conference server
+    of the living utopia collective. You will be automatically logged in with the
+    first name you entered at foodsharing, your ID and avatar.'
+  description_text: Here you can join a online conference for the selected group.
+    The online conference opens BigBlueButton in a new window.
   confirm_info: Here you can join an online conference for the selected group, which
     will open in a new window. This conference will be held via the living utopia
     collective’s BigBlueButton conference server. You will automatically be logged
