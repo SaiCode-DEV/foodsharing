@@ -541,7 +541,7 @@ menu:
     joinregion: Join a district
     language: "Choose language"
 
-    conference: Video conference
+    conference: Online conference
     release-notes: What’s new?
     donations: Donations
     options: Options
@@ -979,7 +979,7 @@ events:
     title: Create a new event
     mumble: Conference using Mumble
     offline: A normal real life event
-    online: via telephone or video conference
+    online: via telephone or online conference
     multiday: The event lasts for several days
     delinvites: Delete existing invitations?
     cascading: Include all subgroups / districts?
@@ -1041,12 +1041,12 @@ events:
     not_started: This event has not yet started
   attendees: Attendees
   location: Location
-  online_info: "Telephone and video conferences from foodsharing run best via our
+  online_info: "Telephone and online conferences from foodsharing run best via our
     own [BigBlueButton](https://bigbluebutton.org) server. From 10 minutes before
     the start of the appointment, users can easily join the conference with one click
     from the appointment page. No additional programs are required, just a reasonably
     modern internet browser. It is also possible to join by phone.\n\nIf you still
-    want to use a different platform for a telephone or video conference, please select
+    want to use a different platform for a telephone or online conference, please select
     the option *“Other ”*.\n"
   public_info: This event is public and open to everyone. Comments and the participant
     list are visible only to registered users.
@@ -1933,13 +1933,13 @@ page:
   welcome_main_1: We are an initiative that works against food waste. We "save" unwanted
     and overproduced food in private households and in small and large businesses.
 conference:
-  join: Join video conference
-  join_title: Join video conference
-  privacy_notice: 'Note: Video conferences are handled via the conference server of
+  join: Join online conference
+  join_title: Join online conference
+  privacy_notice: 'Note: Online conferences are handled via the conference server of
     the living utopia collective. You will be automatically logged in with the first
     name you entered at foodsharing, your ID and avatar.'
-  description_text: Here you can join a video conference for the selected group. The
-    video conference opens BigBlueButton in a new window.
+  description_text: Here you can join a online conference for the selected group. The
+    online conference opens BigBlueButton in a new window.
   confirm_info: Here you can join an online conference for the selected group, which
     will open in a new window. This conference will be held via the living utopia
     collective’s BigBlueButton conference server. You will automatically be logged

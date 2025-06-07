@@ -1529,7 +1529,7 @@ events:
     regions: "Deine Bezirke"
     type: "Wie findet das Event statt?"
     offline: "Ganz normal im echten Leben"
-    online: "Per Telefon- oder Videokonferenz"
+    online: "Per Telefon- oder Onlinekonferenz"
     other: "Sonstiges"
     locationDetails: "Adressdetails (Raumnummer etc.)"
     locationOther: "Wo findet das Event statt?"
@@ -1572,9 +1572,9 @@ events:
     not_started: "Dieser Termin hat noch nicht begonnen"
   attendees: "Teilnehmer:innen"
   online_info: |
-    Telefon- und Videokonferenzen von foodsharing laufen am besten über unseren eigenen [BigBlueButton](https://bigbluebutton.org)-Server. Ab 10 Minuten vor Beginn des Termins können Nutzer:innen ganz leicht mit einem Klick von der Terminseite der Konferenz beitreten. Dafür sind keine weiteren Programme notwendig, sondern nur ein halbwegs moderner Internet-Browser. Außerdem ist es auch möglich, per Telefon beizutreten.
+    Telefon- und Onlinekonferenzen von foodsharing laufen am besten über unseren eigenen [BigBlueButton](https://bigbluebutton.org)-Server. Ab 10 Minuten vor Beginn des Termins können Nutzer:innen ganz leicht mit einem Klick von der Terminseite der Konferenz beitreten. Dafür sind keine weiteren Programme notwendig, sondern nur ein halbwegs moderner Internet-Browser. Außerdem ist es auch möglich, per Telefon beizutreten.
 
-    Solltest du trotzdem eine andere Plattform für eine Telefon- oder Videokonferenz nutzen wollen, wähle bitte die Option *„Sonstiges“* aus.
+    Solltest du trotzdem eine andere Plattform für eine Telefon- oder Onlinekonferenz nutzen wollen, wähle bitte die Option *„Sonstiges“* aus.
   public_info: "Diese Veranstaltung ist öffentlich, alle können darauf zugreifen. Kommentare und die Teilnehmer:innenliste sind nur für angemeldete Nutzer:innen sichtbar."
 
 recipients:
@@ -2730,7 +2730,7 @@ menu:
     fs: "Foodsaver"
     ids: "Ausweise"
     joinregion: "Einem Bezirk beitreten"
-    conference: "Videokonferenz"
+    conference: "Onlinekonferenz"
     fundraising: "Fundraising"
     donations: "Spenden"
     selfservice: "Selfservice"
@@ -2981,7 +2981,7 @@ stats:
     users: "Aktivste Foodsaver"
 
 conference:
-  confirm_info: "Hier kannst du einer Videokonferenz für die gewählte Gruppe beitreten. Die Videokonferenz öffnet BigBlueButton in einem neuen Fenster. Hinweis: Videokonferenzen werden über den Konferenzserver des living utopia Kollektivs abgewickelt. Du wirst dort automatisch mit deinem bei foodsharing eingegebenen Vornamen, ID und Avatar eingeloggt."
+  confirm_info: "Hier kannst du einer Onlinekonferenz für die gewählte Gruppe beitreten. Die Onlinekonferenz öffnet BigBlueButton in einem neuen Fenster. Hinweis: Onlinekonferenzen werden über den Konferenzserver des living utopia Kollektivs abgewickelt. Du wirst dort automatisch mit deinem bei foodsharing eingegebenen Vornamen, ID und Avatar eingeloggt."
   join_title: "Konferenz beitreten"
   join: "Konferenz beitreten"
 
