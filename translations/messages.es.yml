@@ -1384,14 +1384,14 @@ register:
   finish: 'Enviar inscripción'
   login_phone_info: 'Puede resultar útil compartir su número de teléfono con otras
     personas que comparten alimentos'
-  email_invalid: 'La dirección de correo electrónico es inválida.'
+  email_invalid: 'La dirección de correo electrónico no es válida o ya está en uso'
   join_success: 'Su registro fue exitoso.'
   phone_example: 'Ejemplo: +43 612 34 56 78'
   mail_hint: 'Importante: ¡Presta atención a la ortografía correcta!'
   activation_failed: '<strong>La activación falló.</strong> ¿El enlace ingresado es
     correcto?'
   login_location: 'Su dirección'
-  confirmPassword_required: 'Por favor repita la contraseña.'
+  confirmPassword_required: 'Por favor repita la contraseña para confirmar'
   woman: 'femenino'
   firstname_required: 'Por favor, introduzca su nombre de pila'
   have_read_the_legal_stuff1: 'He leído y acepto la'
