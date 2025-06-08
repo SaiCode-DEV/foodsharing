@@ -591,7 +591,7 @@ register:
   error_birthdate: Esempio 25/03/2001 (GG.MM.AAAA). Per motivi di protezione dei dati
     e responsabilità, devi avere almeno 18 anni per partecipare alla condivisione
     degli alimenti.
-  error_email_invalid: Il tuo indirizzo e-mail esiste già.
+  error_email_invalid: Questo indirizzo email non può essere utilizzato
   error: C'è stato un errore
   other: diversi
   man: mascile
@@ -623,7 +623,7 @@ register:
   login_location: Il tuo indirizzo
   login_mobile_phone: Il tuo numero cellulare
   geb_datum: La tua data di nascita
-  confirmPassword_sameAsPassword: La password deve corrispondere.
+  confirmPassword_sameAsPassword: Entrambe le password inserite devono corrispondere
   confirmPassword_required: Si prega di ripetere la password per conferma
   password_required: È richiesta una password
   login_passwd2: Ripetizione della password
@@ -841,7 +841,7 @@ pickup:
   join_title_date: Siccuro?
   team_message_success: Il messaggio al team è stato inviato con successo
   team_message_send_and_leave: Invia e liberare lo slot
-  leave_team_message_template: Carissimi, {data} …
+  leave_team_message_template: Ho dovuto annullare il mio ritiro il {date}. …
   leave_team_message_title: Messaggio al team
   leave_pickup_message_team: Avvisa il team
   leave_pickup_ok: Ho già un sostituto
@@ -978,7 +978,7 @@ store:
     no-duplicate: Esiste già una richiesta.
     withdrawn: La richiesta è stata ritirata con successo.
     withdraw: Ritirare la richiesta
-    request: chiedere
+    request: Candidati per questa squadra
     to-jumper: Lista dei intervenisti
     verified: L’utente è verificato
     got-it: Le persone responsabili sono state informate della tua richiesta e ti
@@ -1066,7 +1066,7 @@ store:
   joinDate: 'Nel team da: {data}'
   teamName: '{storeTitle}-Team'
   error: Impossibile caricare l´agenzia.
-  go: Alla pagina del team
+  go: Alla squadra
   noStores: Nessuna attività è stata ancora inserita
   addNewStoresButton: Nuova agenzia registrata
   allStoresOfRegion: Tutte le agenzie del distretto
@@ -1198,12 +1198,12 @@ store:
       13: '{actor} ha annullato l''iscrizione a {target} per il ritiro del {date}.'
       13_with_reason: '{actor} ha annullato l''iscrizione a {target} per il ritiro
         del {date} con il seguente messaggio'
-      16: '{actor} ha ritirato la richiesta di adesione'
+      16: '{actor} ha ritirato la richiesta di adesione.'
       10: '{actor} ha sostituito {target} come responsabile dell’attività.'
       12: '{actor} ha firmato per il ritiro il {date}.'
       2: '{actor} ha rifiutato la richiesta di adesione di {target}.'
       9: '{actor} ha inserito {target} come responsabile dell’attività.'
-      15: '{actor} ha eliminato il post in bacheca di {target} del {date}'
+      15: '{actor} ha eliminato il post in bacheca di {target} del {date}.'
     max_entries_message: 'Vengono visualizzate un massimo di 100 voci. Si prega di
       limitare l’area di ricerca.'
     no_description: nessuno
@@ -1439,7 +1439,10 @@ poll:
   submit_vote_question: Davvero votare ora? La tua scelta non può essere cambiata
     in seguito.
   may_not_yet_vote: Questa votazione non è ancora iniziata.
-  may_not_vote: Non puoi votare in questo sondaggio.
+  may_not_vote: Non puoi votare in questo sondaggio. Al momento della creazione del
+    sondaggio, non facevi parte del gruppo di voto. Anche se soddisfi i criteri di
+    voto durante il periodo di votazione, non potrai successivamente ottenere il diritto
+    di voto.
   already_voted: Hai già partecipato a questo sondaggio
   begins_at: Inizio
   ended_at: in corso fino a
@@ -1704,7 +1707,7 @@ addresspicker:
   infobox: Inserite l’indirizzo nella barra di ricerca o spostate il pin nella posizione
     corretta sulla mappa.
   placeholder: Cerca l’indirizzo …
-  different_location: 'L''indirizzo è indipendente dalla posizione geografica'
+  different_location: 'Descrizione corretta dell’indirizzo'
 recipients:
   done: Tutte le e-mail sono state inviate
   unknown: sconosciuto
@@ -1851,7 +1854,7 @@ events:
       il menu degli appuntamenti.\n<br>\nPer mostrare nel frattempo l'appuntamento
       sulla dashboard ai nuovi arrivati,\nsalvalo di nuovo in un secondo momento.\n"
     mumble: Conferenza su mumble.foodsharing.de
-    online: Tramite video- o teleconferenza
+    online: per telefono o conferenza online
     offline: Assolutamente normale nella vita reale
     desc: Che tipo di evento è?
     endtime: Fine alle ore
@@ -2094,8 +2097,9 @@ content:
       attualmente raggiungibile tramite e-mail. Si prega di contattare una regione
       vicina o immediatamente superiore.
     text: Il foodsharing cresce ogni giorno. Qui troverai sempre un elenco aggiornato
-      di tutte le comunità e i distretti di foodsharing. Puoi inviare un'e-mail ad
-      un quartiere cliccando sul nome collegato.
+      di tutte le comunità e i distretti di foodsharing. Puoi trovare maggiori informazioni
+      su ciascun distretto nella pagina pubblica del distretto linkata, oppure inviare
+      un’e-mail al distretto corrispondente direttamente da qui cliccando sull’icona.
 regionOptions:
   save: Salvare opzioni
   success: Opzioni salvate correttamente
@@ -2175,7 +2179,7 @@ menu:
     friendcircle: Cerchia di amici
     selfservice: Self service
     donations: Donazioni
-    conference: Videoconferenza
+    conference: Conferenza online
     fs: Foodsaver
     stores: Agenzie
     release-notes: Cosa c'è di nuovo?
@@ -2283,8 +2287,8 @@ basket:
     finished: Grazie, il processo è finito.
     deny: Vorrei rifiutare questa richiesta.
     gone: Gli alimentari sono stati ritirati da qualcun altro.
-    nope: No, {pronoun} non si è presentato come previsto.
-    okay: Si, {pronoun} ha ritirato il cesto di cibo.
+    nope: No, il cestino alimentare non è stato ritirato come concordato.
+    okay: Sì, il cesto di cibo è stato ritirato.
   change-state: Chiudere la richiesta del cesto di cibo di {name}
   withdrawn_request: Richiesta ritirata
   sent_request: La richiesta è stata inviata
@@ -2541,7 +2545,7 @@ profile:
     mail: 'Puoi raggiungere il gruppo locale di raporto al seguente indirizzo e-mail:'
     sent: Raporto é stato inviato
     send: Invia segnalazione
-    info: "Si prega di includere la data, il luogo e l'ora dell'incidente. Indica
+    info: "Si prega di includere la data, il luogo e l’ora dell’incidente. Indica
       se hai già parlato direttamente con la persona e hai potuto chiarire la questione.
       Si prega di indicare il modo migliore per contattarvi in caso di domande.\n"
     title: Rapporto su {name}
@@ -2835,7 +2839,7 @@ settings:
       uso.
     domain: Si prega di utilizzare un indirizzo e-mail diverso in modo da poter recuperare
       la password in qualsiasi momento.
-    invalid: C'è qualcosa di sbagliato nell'indirizzo e-mail che hai inserito.
+    invalid: C’è qualcosa di sbagliato nell’indirizzo e-mail che hai inserito
     passfail: La password è sbagliata, digitata male?
     passcheck: Confermate il cambiamento con la vostra password
     question: 'Dovremmo davvero cambiare il tuo indirizzo email in questo:'
@@ -2847,7 +2851,7 @@ settings:
     input_label_email: Inserisci qui il nuovo indirizzo email
     explanation: Qui puoi modificare l'indirizzo email con cui ti sei registrato.
       Dopo l'invio riceverai un'e-mail al nuovo indirizzo contenente un link di conferma.
-  email: Cambia indirizzo email
+  email: E-mail e password
   sleep:
     tooltip: "{name} si sta solo prendendo un po' di tempo libero ed è in modalità
       dormiglione"
@@ -2973,8 +2977,7 @@ mailbox:
   attachment:
     not_found_explanation: Impossibile trovare il file allegato sul server
     not_found: non trovato
-    too_large_to_send: Alcuni file erano troppo grandi e non potevano essere allegati
-      all’e-mail.
+    too_large_to_send: Alcuni file erano troppo grandi e non potevano essere allegati.
     attach: Allegati (massimo 10 file, 1,5 MB per file)
     too_many: Sono stati selezionati troppi file. All’e-mail è possibile allegare
       un massimo di 10 file.
@@ -3104,8 +3107,9 @@ footer:
   partner_names:
     tafel_oesterreich: 'Banco alimentare Vienna'
     denns: 'Denn’s Biomarkt'
-    lebensministerium: 'Ministero federale dell''agricoltura, delle regioni e del
-      turismo'
+    lebensministerium: 'Ministero federale austriaco dell’agricoltura, delle foreste,
+      della protezione del clima e dell’ambiente, delle regioni e della gestione delle
+      acque'
 personal_data:
   landline: Telefono fisso
   mobile: Numero di cellulare
@@ -3871,6 +3875,7 @@ notifications:
   save_success: Salvataggio riuscito
   checkbox_email: E-Mail
   checkbox_bell: Campanella
+  success: Successo
 usersearch:
   search_tag: Cerca utenti
   no_tag_preset: Utente non trovato
