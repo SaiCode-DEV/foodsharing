@@ -624,10 +624,10 @@ register:
   login_mobile_phone: Il tuo numero cellulare
   geb_datum: La tua data di nascita
   confirmPassword_sameAsPassword: La password deve corrispondere.
-  confirmPassword_required: Ripeti la password.
+  confirmPassword_required: Si prega di ripetere la password per conferma
   password_required: È richiesta una password
   login_passwd2: Ripetizione della password
-  email_invalid: L'indirizzo e-mail non è valido.
+  email_invalid: L’indirizzo email non è valido o è già in uso
   login_email: Indirizzo e-mail
   email_required: È richiesto un indirizzo e-mail
   birthdate_hint: Puoi trovare ulteriori informazioni nella [Protezione dati]({url})
