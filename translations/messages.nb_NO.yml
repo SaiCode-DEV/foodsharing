@@ -1853,7 +1853,7 @@ register:
   check_mail: Sjekk e-posten din nå for å fullføre registreringen!
   error_birthdate: Eksempel 25.03.2001 (DD.MM.ÅÅÅÅ). Av databeskyttelses- og ansvarsgrunner
     må du være minst 18 år for å delta i foodsharing.
-  error_email_invalid: E-postadressen din eksisterer allerede.
+  error_email_invalid: Denne e-postadressen kan ikke brukes
   pass1: Ditt nye ønskede passord
   change-password: Nå kan du endre passordet ditt.
   email_required: En e-postadresse kreves
@@ -3151,10 +3151,8 @@ store:
       9: '{actor} har utnevnt {target} til samarbeidsansvarlig.'
       14: '{actor} har bekreftet registreringen av {target} for {date}.'
       15: '{actor} har slettet anslagstavleoppføringen til {target} fra {date}.'
-      18: '{actor} opprettet eller endret automatisk hentedato [ {weekday} {startTimeOfPickup}
-        plasser: {maxCountOfSlots} med beskrivelse: {description} ]'
-      17: '{actor} opprettet eller endret hentedatoen [ {date} med {totalSlots} plasser
-        med beskrivelse: {description} ]'
+      18: '{actor} har trukket teaminvitasjonen for {target}.'
+      17: '{actor} har invitert {target} til teamet.'
       20: '{actor} avslo teaminvitasjonen.'
       19: '{actor} har godtatt teaminvitasjonen.'
     no_description: ingen
