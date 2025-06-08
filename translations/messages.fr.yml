@@ -1204,7 +1204,7 @@ register:
   join_success_message: Tu as terminé avec succès ton inscription à foodsharing. Tu
     peux maintenant te connecter avec ton adresse courriel et ton mot de passe.
   check_mail: Vérifie tes courriels maintenant pour terminer l’inscription !
-  email_invalid: L’adresse courriel est invalide
+  email_invalid: L’adresse courriel est invalide ou déjà utilisée
   email_required: Une adresse courriel est nécessaire
   login_email: Adresse courriel
   mail_hint: "Important : fais attention à l’orthographe !"
