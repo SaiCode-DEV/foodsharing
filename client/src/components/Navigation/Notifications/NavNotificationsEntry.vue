@@ -3,7 +3,8 @@
     class="dropdown-header dropdown-item d-flex justify-content-between align-items-center gap"
     :class="classes"
     :href="bell.href"
-    @click="$emit('read', bell)"
+    @click="handleClick"
+    @auxclick="handleAuxClick"
   >
     <Avatar
       class="mr-2"
@@ -80,6 +81,20 @@ export default {
         pulseError(this.$i18n('error_unexpected'))
       }
       document.activeElement.blur() // without this the entry is focused after clicking
+    },
+    handleClick (evt) {
+      if (evt.metaKey || evt.ctrlKey || evt.shiftKey || evt.altKey) {
+        return this.$emit('read', this.bell) // Emit and let browser handle
+      }
+      evt.preventDefault() // prevent the browser from navigating immediately
+      this.$emit('read', this.bell)
+      location.href = this.bell.href
+    },
+    handleAuxClick (evt) {
+      if (evt.button === 1) {
+        // Emit on middle-click (open link in new tab)
+        this.$emit('read', this.bell)
+      }
     },
   },
 }
