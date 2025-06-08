@@ -482,7 +482,7 @@ menu:
   entry:
     donations: Donasjoner
     fundraising: Pengeinnsamling
-    conference: Video konferanse
+    conference: Nettkonferanse
     fs: Matredder
     release-notes: Hva er nytt?
     dataprivacy: Personvernerklæring
@@ -1843,7 +1843,7 @@ register:
   pass2: Gjenta passord
   lastname_minLength: Etternavn må bestå av minst to tegn
   lastname_required: Skriv inn etternavnet ditt
-  email_invalid: E-postadressen er ugyldig
+  email_invalid: E-postadressen er enten ugyldig eller allerede i bruk
   password_minLength: Passordet må bestå av minst åtte tegn
   confirmPassword_sameAsPassword: Begge oppgitte passord må samsvare
   firstname_required: Vennligst skriv inn fornavnet ditt
@@ -2532,7 +2532,7 @@ events:
     cascading: Inkludere alle undergrupper / distrikter?
     desc: Hva slags hendelse er det?
     offline: En normal hendelse i det virkelige liv
-    online: via telefon- eller videokonferanse
+    online: Telefon- eller nettkonferanse
     mumble: Konferanse om Mumble
     delinvites: Slette eksisterende invitasjoner?
     title: Registrer et nytt arrangement
@@ -2581,12 +2581,12 @@ events:
       du bli med via knappen nedenfor.
     not_started: Dette arrangementet har ennå ikke startet
   attendees: Deltakere
-  online_info: "Telefon- og videokonferanser fra foodsharing kjører best via vår egen
+  online_info: "Telefon- og nettkonferanser fra foodsharing kjører best via vår egen
     [BigBlueButton](https://bigbluebutton.org)-server. Fra 10 minutter før møtestart
     kan brukerne enkelt delta i konferansen med ett klikk fra møtesiden. Det kreves
     ingen ekstra programmer, bare en noenlunde moderne nettleser. Det er også mulig
     å melde seg på via telefon.\n\nHvis du likevel ønsker å bruke en annen plattform
-    for telefon- eller videokonferanser, kan du velge alternativet *«Annet»*.\n"
+    for telefon- eller onlinekonferanser, kan du velge alternativet *«Annet»*.\n"
   public_info: Denne begivenheten er offentlig og alle kan få tilgang til den. Kommentarer
     og deltakerlisten er kun synlig for registrerte brukere.
 chat:
@@ -2784,7 +2784,8 @@ pickup:
   really_delete_date: Vil du virkelig slette hentingen på {date}?
   kick_message_footer: Mange hilsener, samarbeidsoffiserer
   kick_message_placeholder: Om nødvendig, legg til informasjon her …
-  leave_team_message_template: Kjære alle sammen, {date} …
+  leave_team_message_template: Dessverre måtte jeg kansellere registreringen min for
+    henting den {date}. …
   signout_info: Alle dine hentedatoer vil bli slettet.
   really_join_date: Ønsker du å gjøre en bindende påmelding til henting {date}?
   dates: Hentingsdatoere
