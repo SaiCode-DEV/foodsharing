@@ -125,8 +125,11 @@ const menuOptions = computed(() => [
   { hide: !mayRefresh.value, textKey: 'menu.entry.refresh', icon: 'refresh', callback: refresh },
 ])
 
-async function refresh (force = true, age = 0) {
-  await pickupStore.fetchOptions(force)
+async function refresh (force = true) {
+  let age = 0
+  if (!await pickupStore.fetchOptions(force)) { // if the cache was used
+    age = await pickupStore.getOptionsCacheAge()
+  }
   scheduleRemovalOfOutdatedOptions()
   updateMayRefresh(age)
   restartAutoRefresh() // (Re)start auto-refresh
@@ -174,8 +177,7 @@ watch(showManagedStoresOnly, val => localStorage.setItem(LOCAL_STORAGE_KEY.showM
 watch(useCondensedDesign, val => localStorage.setItem(LOCAL_STORAGE_KEY.useCondensedDesign, val))
 
 onMounted(async () => {
-  const age = await pickupStore.getOptionsCacheAge()
-  await refresh(false, age)
+  await refresh(false)
   loading.value = false
 })
 
