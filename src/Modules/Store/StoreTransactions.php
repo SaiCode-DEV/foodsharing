@@ -971,11 +971,17 @@ class StoreTransactions
         }
     }
 
-    public function downgradeResponsibleMember(int $storeId, int $userId): void
+    public function downgradeResponsibleMember(int $storeId, int $userId, ?string $message): void
     {
         /* check if other managers exist (cannot leave as last manager) */
         $this->storeGateway->removeStoreManager($storeId, $userId);
-        $this->storeGateway->addStoreLog($storeId, $this->session->id(), $userId, null, StoreLogAction::REMOVED_AS_STORE_MANAGER);
+        $this->storeGateway->addStoreLog($storeId, $this->session->id(), $userId, null, StoreLogAction::REMOVED_AS_STORE_MANAGER, $message);
+
+        // Send a message to the user about the demotion
+        $this->messageTransactions->sendRequiredMessageToUser($userId, $this->session->id(), 'demote_store_manager', $message, [
+            '{storeId}' => $storeId,
+            '{store}' => $this->storeGateway->getStoreName($storeId),
+        ]);
 
         $standbyTeamChatId = $this->storeGateway->getBetriebConversation($storeId, true);
         if ($standbyTeamChatId) {

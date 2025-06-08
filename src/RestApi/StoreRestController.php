@@ -764,15 +764,19 @@ class StoreRestController extends AbstractFoodsharingRestController
      * @OA\Response(response="422", description="User cannot lose responsibility for this store")
      * @OA\Tag(name="stores")
      */
+    #[Rest\RequestParam(name: 'message', nullable: true)]
     #[Rest\Delete('stores/{storeId}/managers/{userId}')]
-    public function removeStoreManager(int $storeId, int $userId): Response
+    public function removeStoreManager(int $storeId, int $userId, ParamFetcher $paramFetcher): Response
     {
         $this->handleEditTeamExceptions($storeId, $userId);
         if (!$this->storePermissions->mayLoseStoreManagement($storeId, $userId)) {
             throw new UnprocessableEntityHttpException();
         }
 
-        $this->storeTransactions->downgradeResponsibleMember($storeId, $userId);
+        // Message is mandatory for this action
+        $message = $paramFetcher->get('message');
+
+        $this->storeTransactions->downgradeResponsibleMember($storeId, $userId, $message);
 
         return $this->handleView($this->view([], 200));
     }
