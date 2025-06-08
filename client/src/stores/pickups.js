@@ -15,6 +15,7 @@ export const usePickupStore = defineStore('pickup', {
     options: [],
     regularPickup: [],
     pickups: [],
+    loading: null,
   }),
   getters: {
     getRegistered: (state) => state.registred,
@@ -38,13 +39,20 @@ export const usePickupStore = defineStore('pickup', {
       }
     },
     async fetchOptions (force = false) {
+      if (this.loading) return this.loading
+      let doneLoading
+      this.loading = new Promise(resolve => { doneLoading = resolve })
       try {
-        if (force || await getCacheInterval(CACHES.options.name, CACHES.options.interval)) {
+        const doRefetch = force || await getCacheInterval(CACHES.options.name, CACHES.options.interval)
+        if (doRefetch) {
           this.options = await listPickupOptions()
           await setCache(CACHES.options.name, this.options)
         } else {
           this.options = await getCache(CACHES.options.name)
         }
+        doneLoading()
+        this.loading = null
+        return doRefetch
       } catch (error) {
         console.error('Error fetching pickup options:', error)
       }
