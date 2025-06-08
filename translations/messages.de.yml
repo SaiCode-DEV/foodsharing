@@ -1247,7 +1247,7 @@ pickup:
   leave_pickup_ok: "Ich habe bereits Ersatz"
   leave_pickup_message_team: "Team benachrichtigen"
   leave_team_message_title: "Nachricht ans Team"
-  leave_team_message_template: "Ihr Lieben, der Slot am {date} ist wieder frei …"
+  leave_team_message_template: "Ihr Lieben, ich habe mich für eine Abholung wieder ausgetragen: {date} Uhr. …"
   team_message_send_and_leave: "Senden und austragen"
   team_message_success: "Nachricht ans Team wurde erfolgreich versendet"
   join_title_date: "Sicher?"
