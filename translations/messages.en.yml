@@ -1217,7 +1217,8 @@ pickup:
   add_onetime_pickup: Add single date
   edit_recurring_pickups: Edit regular pick-up dates
   really_delete_date: Do you really want to delete the pick-up on {date}?
-  leave_team_message_template: Dear all, the slot on {date} is free again …
+  leave_team_message_template: Unfortunately I had to cancel my pickup on {date} o’clock.
+    …
   really_leave_date: You are responsible for this pick-up. Please arrange a replacement
     independently.
   kick_message_footer: Best wishes, your Store Coordinators
