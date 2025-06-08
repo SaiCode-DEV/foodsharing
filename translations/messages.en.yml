@@ -3300,7 +3300,7 @@ register:
     again.
   error_birthdate: Example 03/25/2001 (DD.MM.YYYY). For data protection and liability
     reasons, you must be at least 18 years old to participate in foodsharing.
-  error_email_invalid: Your email address already exists.
+  error_email_invalid: This email address cannot be used
   error: An error has occurred
   check_mail: Check your e-mail now to complete the registration!
   join_success_message: You have successfully completed your registration at foodsharing.
