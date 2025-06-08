@@ -1339,7 +1339,7 @@ group:
   filter_placeholder: Filtrar grupos por nombre
   valid_until: Válido hasta
 register:
-  error_email_invalid: 'Su dirección de correo electrónico ya existe.'
+  error_email_invalid: 'Esta dirección de correo electrónico no se puede utilizar'
   login_email: 'Dirección de correo electrónico'
   landline_example: 'Ejemplo: +43 812 34 56 78'
   email_required: 'Se requiere una dirección de correo electrónico'
@@ -1399,7 +1399,7 @@ register:
   register_button_label: 'Registrarse'
   select_your_gender: 'Para el saludo …'
   change-password: 'Ahora puedes cambiar tu contraseña.'
-  confirmPassword_sameAsPassword: 'La contraseña debe coincidir'
+  confirmPassword_sameAsPassword: 'Ambas contraseñas ingresadas deben coincidir'
   lastname_maxLength: El apellido sólo puede constar de un máximo de 30 caracteres
   firstname_maxLength: El nombre sólo puede constar de un máximo de 30 caracteres
 button:
@@ -1764,10 +1764,8 @@ store:
       13: '{actor} ha firmado el envío de {target} para su recogida el {date}.'
       13_with_reason: '{actor} ha firmado el envió de {target} para recogerse el {date}
         con el siguiente mensaje'
-      17: '{actor} ha creado o cambiado la fecha de recogida [ {date} con {totalSlots}
-        slots con descripción: {description} ]'
-      18: '{actor} tiene fecha de recogida automática [ {weekday} {startTimeOfPickup}
-        slots: {maxCountOfSlots} con descripción: {description} ] creada o modificada'
+      17: '{actor} ha invitado a {target} al equipo.'
+      18: '{actor} ha retirado la invitación al equipo para {target}.'
     type:
       3: Aceptar las solicitudes de unión
       2: Rechazar las solicitudes de unión
@@ -1917,7 +1915,7 @@ pickup:
   same_day_hint: 'Estás registrado para las siguientes recogidas el {day}:'
   really_join_date: '¿Le gustaría registrarse de forma vinculante para su recogida
     el {date}?'
-  leave_team_message_template: 'Queridos tod@s, al {date} …'
+  leave_team_message_template: 'Tuve que cancelar mi recogida el {date} horas. …'
   signout_sure: '¿De verdad quieres dejar este equipo?'
   team_message_success: 'El mensaje al equipo fue enviado exitosamente'
   join_agree: 'Sí, por favor'
@@ -2657,7 +2655,7 @@ menu:
     dataprivacy: 'Protección de Datos'
     messages: 'Mensajes'
     Swiss: 'Suiza'
-    conference: 'Videoconferencia'
+    conference: 'Conferencia en línea'
     BOTforum: 'Foro de embajadores'
     groups: 'Grupos'
     your_baskets: 'Tus cestas de comida'
@@ -3040,7 +3038,7 @@ events:
     date: 'Fecha'
     groups: 'Tus grupos de trabajo'
     inviteAll: '¿Invitar a todo el grupo/distrito a la cita?'
-    online: 'por teléfono o videoconferencia'
+    online: 'por conferencia telefónica o en línea'
     mumble: 'Conferencia en Mumble'
     isPublic: 'Sí, el evento es público'
     multiday: 'El evento dura varios días'
@@ -3116,13 +3114,13 @@ events:
   attendees: Participantes
   noneAccepted: Hasta el momento, ninguna persona ha confirmado su participación en
     este acto.
-  online_info: "Las conferencias telefónicas y videoconferencias de foodsharing funcionan
-    mejor a través de nuestro propio servidor [BigBlueButton](https://bigbluebutton.org).
+  online_info: "Las conferencias telefónicas y en línea de foodsharing funcionan mejor
+    a través de nuestro propio servidor [BigBlueButton](https://bigbluebutton.org).
     Desde 10 minutos antes del inicio de la cita, los usuarios pueden unirse fácilmente
     a la conferencia con un solo clic desde la página de la cita. No se necesitan
     programas adicionales, sólo un navegador de Internet razonablemente moderno. También
     es posible participar por teléfono.\n\nSi aún así desea utilizar otra plataforma
-    para una conferencia telefónica o videoconferencia, seleccione la opción *«Otros»*.\n"
+    para una conferencia telefónica o en linea, seleccione la opción *«Otros»*.\n"
   public_info: Este evento es público y todos pueden acceder a él. Los comentarios
     y la lista de participantes sólo son visibles para usuari@s registrados.
 recipients:
@@ -3421,7 +3419,7 @@ settings:
       de correo electrónico.'
     done: 'Su dirección de correo electrónico ha sido cambiada.'
     passfail: ''
-    invalid: 'Hay algún problema con la dirección de correo electrónico que ingresó.'
+    invalid: 'Hay algún problema con la dirección de correo electrónico que ingresó'
     domain: 'Elija una dirección de correo electrónico diferente para que siempre
       pueda restaurar su contraseña.'
     question: '¿Realmente deberíamos cambiar su dirección de correo electrónico a
@@ -3564,7 +3562,7 @@ settings:
     new_password_confirmation_invalid: Las contraseñas no coinciden
     submit: Cambiar la contraseña
     success: Tu contraseña ha sido cambiada correctamente
-    old_password_required: Debes ingresar tu contraseña anterior.
+    old_password_required: Debes ingresar tu contraseña anterior
     new_password_required: La contraseña debe contener al menos 8 caracteres
   change_data_info:
     general: Aquí puedes ajustar los datos de tu perfil.
@@ -3903,7 +3901,8 @@ footer:
   partner_names:
     denns: 'Denn’s Biomarkt'
     tafel_oesterreich: 'Banco de Alimentos de Viena'
-    lebensministerium: 'Ministerio Federal de Agricultura, Regiones y Turismo'
+    lebensministerium: 'Ministerio Federal de Agricultura, Silvicultura, Protección
+      del Clima y del Medio Ambiente, Regiones y Gestión del Agua de Austria'
   hosting:
     info: 'Alojado de forma neutra en CO₂'
     tooltip: 'Alojamiento con emisiones neutras de CO₂ en Manitu'
@@ -4505,6 +4504,7 @@ notifications:
       en su [configuración de notificaciones](/?page=settings&sub=info).\n"
     cancel: no activar
     dontAskAgain: no volver a preguntar
+  success: Éxito
 markdown_input:
   tooltip:
     orderedList: lista numerada
