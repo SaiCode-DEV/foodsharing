@@ -158,9 +158,6 @@ class RenderControllerSetupSubscriber implements EventSubscriberInterface
 
         $response = $event->getResponse();
 
-        $response->headers->set('X-Frame-Options', 'DENY');
-        $response->headers->set('X-Content-Type-Options', 'nosniff');
-
         /** @var ContentSecurityPolicy $csp */
         $csp = $this->get(ContentSecurityPolicy::class);
         $cspString = $csp->generate($request->getSchemeAndHttpHost(), CSP_REPORT_URI, CSP_REPORT_ONLY);
