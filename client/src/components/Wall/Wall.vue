@@ -1,7 +1,7 @@
 <template>
   <!-- TODO create a way to restrict access to image sending to certain group -->
   <Container
-    v-if="posts.length || mayPost"
+    v-if="(posts.length || mayPost) && loaded"
     :title="title ?? $i18n('wall.name')"
     :tag="`wall-${target}`"
     :hide-header="hideHeader"
@@ -85,6 +85,7 @@ export default {
     galleryHeightInPx: { type: Number, default: undefined },
     pageSize: { type: Number, default: 10 },
     firstPageSize: { type: Number, default: undefined },
+    loaded: { type: Boolean, default: true },
     allowImageAttachments: { type: Boolean, default: true },
   },
   setup () {

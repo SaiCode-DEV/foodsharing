@@ -29,7 +29,8 @@
               :is-verified="isVerified"
             />
             <Wall
-              v-if="viewIsMobile"
+              v-if="viewIsMobile && maySeeWall"
+              :loaded="finishedLoading"
               target="store"
               :target-id="storeId"
             />
@@ -72,7 +73,8 @@
               :cooperation-start="storeInformation.cooperationStart"
             />
             <Wall
-              v-if="!viewIsMobile"
+              v-if="!viewIsMobile && maySeeWall"
+              :loaded="finishedLoading"
               target="store"
               :target-id="storeId"
             />
@@ -217,6 +219,9 @@ export default {
     loadedPickups () {
       return this.pickupStore.getRegularPickup
     },
+    maySeeWall () {
+      return this.isVerified && !this.permissions.isJumper
+    },
   },
   async mounted () {
     // fetch all the required data in parallel
@@ -226,7 +231,6 @@ export default {
     const storeInformationPromise = StoreData.mutations.loadStoreInformation(this.storeId)
     const storeMemberPromise = StoreData.mutations.loadStoreMember(this.storeId)
     const metaDataPromise = this.storeStore.fetchMetadata()
-    const regularPickupPromise = this.pickupStore.fetchRegularPickup(this.storeId)
 
     await Promise.all([
       metaDataPromise,
@@ -236,7 +240,7 @@ export default {
       }),
       Promise.all([storeInformationPromise, userDetailsPromise, permissionsPromise]).then(async () => {
         if (this.isVerified && !this.permissions.isJumper) {
-          await regularPickupPromise
+          await this.pickupStore.fetchRegularPickup(this.storeId)
         }
         if (!this.permissions.isJumper) {
           await StoreData.mutations.loadStoreLog(this.storeId, this.storeInformation.calendarInterval)
