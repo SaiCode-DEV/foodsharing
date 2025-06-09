@@ -1177,8 +1177,8 @@ group:
     faehigkeit: ''
     zeit: ''
     accepted: 'Candidatura aceite'
-    experience: "Podes recorrer à experiências que tiveste noutras partes do grupo?\n
-      Caso afirmativo, onde e qual?\n"
+    experience: "Podes recorrer à experiências que tiveste noutras partes do grupo?\n\
+      \ Caso afirmativo, onde e qual?\n"
     error_missing_time: 'Erro: Não foi selecionada nenhuma hora.'
     link_description: 'Este link leva-o diretamente para a aplicação:'
     ability: Quais são as tuas competências neste área?
