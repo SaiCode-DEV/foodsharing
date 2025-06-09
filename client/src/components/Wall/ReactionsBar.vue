@@ -76,8 +76,8 @@ export default {
     },
     unusedReactions () {
       const used = new Set(this.usedReactions)
-      const all = new Set(Object.keys(emojiList))
-      return all.difference(used)
+      const all = Object.keys(emojiList)
+      return all.filter(reaction => !used.has(reaction))
     },
     hasUserReacted () {
       return objectMap(this.currentReactions, (users, emoji) => users.some(this.isMe))
