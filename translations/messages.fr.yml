@@ -579,7 +579,7 @@ settings:
     occupied: L’adresse courriel n’a pas pu être modifiée car elle est déjà utilisée.
     domain: Utilise une adresse courriel de secours afin de pouvoir envoyer le mot
       de passe en cas d’oubli.
-    invalid: L’adresse courriel est incorrecte.
+    invalid: Il y a un problème avec l’adresse e-mail saisie
     passfail: Le mot de passe est faux, faute de frappe ?
     passcheck: Confirme les informations grâce au mot de passe
     question: 'Devons-nous vraiment remplacer ton courriel par celui-ci :'
@@ -689,7 +689,7 @@ settings:
       par des espaces
     submit: Modifier le mot de passe
     old_password_label: Mot de passe actuel
-    old_password_required: Tu dois saisir ton mot de passe actuel.
+    old_password_required: Tu dois saisir ton mot de passe actuel
     title: Ici, tu peux modifier ton mot de passe actuel
   address:
     title: Choisir l’adresse
@@ -1200,7 +1200,7 @@ terminology:
 register:
   activation_success: <strong>Activation réussie.</strong> Connecte-toi maintenant
     avec ton adresse courriel et le mot de passe que tu as choisi.
-  error_email_invalid: Ton adresse électronique existe déjà.
+  error_email_invalid: Cette adresse e-mail ne peut pas être utilisée
   join_success_message: Tu as terminé avec succès ton inscription à foodsharing. Tu
     peux maintenant te connecter avec ton adresse courriel et ton mot de passe.
   check_mail: Vérifie tes courriels maintenant pour terminer l’inscription !
@@ -1763,7 +1763,7 @@ menu:
     selfservice: self-service
     donations: Dons
     fundraising: Collecte de fonds
-    conference: Conférence vidéo
+    conference: Conférence en ligne
     joinregion: rejoindre un secteur géographique
     ids: Badges
     fs: Collecteur·ice
@@ -2318,7 +2318,7 @@ pickup:
   join_title_date: Sûr ?
   team_message_success: Le message a été envoyé à l’équipe avec succès
   team_message_send_and_leave: Envoyer et se retirer de la collecte
-  leave_team_message_template: Cher tout le monde, le {date} …
+  leave_team_message_template: J’ai dû annuler mon enlèvement le {date}. …
   leave_team_message_title: Envoyer un message à l’équipe
   leave_pickup_message_team: Notifier l’équipe
   leave_pickup_ok: J’ai déjà trouvé un·e remplaçant·e
@@ -2448,7 +2448,7 @@ events:
       \ <br>\nPour que le rendez-vous soit également affiché sur le tableau de bord
       pour les nouveaux arrivant·e·s, \nenregistre-le à nouveau ultérieurement.\n"
     mumble: Conférence par mumble.foodsharing.de
-    online: Par téléphone ou vidéoconférence
+    online: par conférence téléphonique ou en ligne
     offline: Dans la vraie vie (IRL)
     desc: Description de l’évènement ?
     endtime: Heure de fin
@@ -2486,14 +2486,14 @@ events:
     événement.
   location: Emplacement
   attendees: Participant(e)s
-  online_info: "Les conférences téléphoniques et les vidéoconférences de foodsharing
+  online_info: "Les conférences téléphoniques et les conférences en ligne de foodsharing
     se déroulent au mieux via notre propre serveur [BigBlueButton](https://bigbluebutton.org).
     Dix minutes avant le début de la réunion, les utilisateurs peuvent facilement
     rejoindre la conférence en un seul clic depuis la page de la réunion. Aucun autre
     programme n’est nécessaire, il suffit d’avoir un navigateur Internet un peu moderne.
     Il est également possible de se joindre à la conférence par téléphone.\n\nSi tu
     souhaites quand même utiliser une autre plateforme pour une conférence téléphonique
-    ou vidéo, sélectionne l’option *« Autre »*.\n"
+    ou en ligne, sélectionne l’option *« Autre »*.\n"
   public_info: Cet événement est public et tout le monde peut y accéder. Les commentaires
     et la liste des participant(e)s ne sont visibles que par les utilisateurs enregistrés.
 wall:
@@ -2776,7 +2776,9 @@ footer:
   partner_names:
     tafel_oesterreich: Banque alimentaire de l’Autriche
     denns: Denn’s Biomarkt
-    lebensministerium: Bundesministerium für Landwirtschaft, Regionen und Tourismus
+    lebensministerium: Ministère fédéral autrichien de l’agriculture, des forêts,
+      de la protection du climat et de l’environnement, des régions et de la gestion
+      de l’eau
   infosDeveloper: pour les développeurs·euses
   meta:
     version: 'Version : {version}'
@@ -4415,6 +4417,8 @@ chain:
     EMPTY_NAME: Le champ Nom est vide
     THREAD_ID_NOT_EXISTS: Le fil de discussion du forum n’existe pas
     INVALID_STORECHAIN_ID: L’id de la chaîne n’est pas valide
+    KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: La personne n’a pas suivi la formation
+      pour les KAM.
 usersearch:
   no_tag_preset: Utilisateur non trouvé
   select_tag: Rechercher des utilisateurs par nom
@@ -4460,6 +4464,7 @@ notifications:
   mention:
     title: Notifications en cas de mentions
     description: Recevez une notification lorsque quelqu’un te marque sur le forum.
+  success: Succès
 markdown_input:
   tooltip:
     orderedList: liste numérotée
