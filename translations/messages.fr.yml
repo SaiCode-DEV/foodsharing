@@ -604,6 +604,8 @@ settings:
     sent_other_user: Un e-mail a été envoyé à la nouvelle adresse, permettant de confirmer
       l’adresse.
     dashboard_link: Continuer vers le tableau de bord
+    password_required: Tu dois saisir ton mot de passe pour changer d’adresse e-mail.
+    password_label: Mot de passe actuel
   email: Adresse électronique et mot de passe
   sleep:
     saved: Les préférences ont été enregistrés
@@ -691,6 +693,8 @@ settings:
     old_password_label: Mot de passe actuel
     old_password_required: Tu dois saisir ton mot de passe actuel
     title: Ici, tu peux modifier ton mot de passe actuel
+    new_password_must_be_complex: Le mot de passe doit contenir des lettres majuscules
+      et minuscules ainsi que des chiffres
   address:
     title: Choisir l’adresse
     choose: Reprends l’adresse
@@ -768,6 +772,15 @@ email_template:
     disable_warning: Désactiver ces avertissements ?
     settings_link: Aller dans les paramètres de notification
     empty_slots: '%COUNT% emplacements de ramassage inoccupés'
+    part2: Tu es prié de trouver le plus rapidement possible des personnes pour que
+      tous les ramassages puissent avoir lieu. Si tu ne peux mobiliser personne, il
+      serait bien que tu prennes en charge les ramassages ouverts. Si tu n’es pas
+      en mesure de le faire, merci d’annuler à temps les dates correspondantes auprès
+      de l’entreprise.
+    part1: 'La tâche des responsables de la coopération est de s’assurer que les collectes
+      se déroulent comme prévu. Malheureusement, tous tes établissements n’ont pas
+      encore inscrit suffisamment de personnes pour effectuer les ramassages dans
+      les deux jours à venir :'
 mailbox:
   mark_as_unread: Marquer comme non lu
   filesize: Désolé. Le fichier est trop gros.
@@ -1262,6 +1275,10 @@ register:
   landline_example: Exemple +33 1 22 33 44 55
   firstname_maxLength: Le prénom ne peut comporter que 30 caractères au maximum
   lastname_maxLength: Le nom de famille ne peut comporter que 30 caractères au maximum
+  password_must_be_trimmed: Le mot de passe ne doit contenir aucun espace au début
+    ou à la fin
+  password_must_be_complex: Le mot de passe doit contenir des lettres majuscules et
+    minuscules ainsi que des chiffres
 login:
   pwreset:
     mailSent: Très bien, un lien t’a été envoyé par courriel pour modifier ton mot
@@ -2350,6 +2367,8 @@ pickup:
       refresh: Actualiser
       signOff: Se désinscrire
       loadMore: Charger plus
+      managedOnlySwitch: Vue des RC
+      useCondensedDesign: Regroupés par jours
     header: Dates de collecte
     cols:
       slots: Slots
@@ -2412,6 +2431,7 @@ pickup:
   membershipMissing: Tu n’es pas membre de cette équipe. Tu ne devrais donc pas t’inscrire
     pour les ramassages. Tu dois d’abord t’inscrire en tant que membre de l’équipe.
   may_enter: Il y a une place disponible pour toi à cette date de ramassage.
+  confirmed: La date d’enlèvement est confirmée.
 events:
   bread: Évènements
   past: Évènements passés
@@ -3672,6 +3692,8 @@ region:
       title: Événements publics
       no_future_events: 'Il n’y a actuellement aucun événement public répertorié dans
         ce district. Les événements suivants ont eu lieu dans le passé :'
+    leave_text_region: Tu n’es plus actif à {name} et tu souhaites quitter cette circonscription ?
+    leave_text_group: Tu n’es plus actif à {name} et tu souhaites quitter ce groupe ?
   denied:
     group_in_this_region: « {name} » est un groupe de cette district.
     this_region: Tu as essayé d’accéder au contenu de ce district. Cependant, seuls
@@ -4465,6 +4487,9 @@ notifications:
     title: Notifications en cas de mentions
     description: Recevez une notification lorsque quelqu’un te marque sur le forum.
   success: Succès
+  error: Erreur
+  info: Info
+  warning: Avertissement
 markdown_input:
   tooltip:
     orderedList: liste numérotée
@@ -4638,6 +4663,8 @@ help:
       title: Demander la modification des données vérifiées
     publicEvent:
       title: Événements publics
+    pickupOptions:
+      title: Possibilités d’enlèvement
 automatic_delete: '- le profil doit être supprimé.'
 automatic_not_delete: '- le profil doit être conservé.'
 no_automatic_delete: 'Si la dernière connexion remonte à cinq ans :'
@@ -4790,16 +4817,23 @@ required_messages:
   kick_from_store_team:
     footer: Salutations
     really: Tu veux vraiment retirer {name} de cette équipe ?
+    main: tu as été retiré de l’équipe [{store}](/store/{storeId}). Tu ne peux plus
+      t’inscrire pour des enlèvements dans ce lieu.
   move_to_standby_team:
     footer: Salutations
     really: Tu veux vraiment que {name} soit retiré de l'équipe active et mis sur
       la liste de remplacement ?
+    main: tu as été placé sur la liste des remplaçants de l’établissement [{store}](/store/{storeId}).
+      Tu ne peux donc actuellement pas t’inscrire pour des ramassages dans cet établissement
+      ni lire le chat général du groupe.
   decline_store_application:
     footer: Salutations
     really: Tu veux vraiment refuser la candidature de {name} à l'équipe ?
     main: Ta demande d’adhésion à l’équipe [{store}](/store/{storeId}) a été refusée.
   demote_store_manager:
     footer: Salutations
+    really: Tu veux vraiment retirer à {name} la responsabilité de cette coopération ?
+    main: Je t’ai radié en tant que responsable de [{store}](/store/{storeId}).
 contact_page:
   bread: Contact & support
   title: Contact & support
@@ -4852,3 +4886,18 @@ net_errors:
     general: Erreur réseau
     500: Erreur de serveur
     400: Demande incorrecte
+  ECONNABORTED: La demande a été interrompue par ton navigateur. Veuillez réessayer.
+  ERR_CANCELED: La demande a été annulée. Veuillez réessayer si nécessaire.
+  ERR_NETWORK: Il y a eu un problème de réseau. Veuillez vérifier ta connexion Internet
+    et réessayer.
+  action_response: 'Requête et réponse du serveur :'
+  ERR_BAD_RESPONSE: Le serveur a renvoyé une réponse non valide. Veuillez réessayer.
+  unknown: Une erreur inconnue est survenue. Veuillez réessayer plus tard.
+  BAD_REQUEST: La demande n’était pas valide. Veuillez vérifier que ta saisie est
+    complète et plausible.
+  ETIMEDOUT: La demande a pris trop de temps. Veuillez vérifier ta connexion Internet
+    et réessayer.
+  SERVER_ERROR: Une erreur de serveur interne est survenue. Ta demande ne peut malheureusement
+    pas être traitée pour le moment.
+  ERR_NETWORK_CHANGED: Ta connexion Internet est instable. Veuillez vérifier ta connexion
+    et réessayer.
