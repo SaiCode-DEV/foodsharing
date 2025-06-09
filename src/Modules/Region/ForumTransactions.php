@@ -71,6 +71,7 @@ class ForumTransactions
     {
         $threadId = $this->forumGateway->getThreadForPost($postId);
         $this->bellTransactions->removeGroupedBellEvent(...$this->getGroupedBellEventData($threadId, $postId, $authorId));
+        $this->bellGateway->delBellsByIdentifier(BellType::createIdentifier(BellType::FORUM_MENTION, $postId));
         $this->forumGateway->deletePost($postId);
         try {
             $this->forumGateway->updateLastPostId($threadId);
@@ -382,7 +383,7 @@ class ForumTransactions
                 'title' => $info['title'],
                 'user' => $this->session->user('name'),
             ],
-            BellType::createIdentifier(BellType::FORUM_MENTION, $threadId)
+            BellType::createIdentifier(BellType::FORUM_MENTION, $postId)
         );
 
         $this->bellGateway->addBell($notifiedUsers, $bell);

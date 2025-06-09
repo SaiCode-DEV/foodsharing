@@ -135,7 +135,7 @@ class BellType
     final public const string BANANA = 'banana-%d-%d';
 
     /**
-     * A new forum post in a thread the user is participating in. Argument: ID of the thread.
+     * A new forum post in a thread the user is participating in. Argument: ID of the post.
      */
     final public const string FORUM_MENTION = 'forum-mention-%d';
 
