@@ -392,6 +392,7 @@ final class ProfileController extends FoodsharingController
             'sleepFrom' => $userArray['sleep_from_ts'] ?? null,
             'sleepUntil' => $userArray['sleep_until_ts'] ?? null,
             'sleepMessage' => $userArray['sleep_msg'] ?? null,
+            'isSleeping' => $userArray['is_sleeping'] ?? false,
         ];
     }
 

@@ -85,7 +85,7 @@
       </div>
     </div>
 
-    <div v-if="sleepingInformation.sleepStatus > SLEEP_STATUS.NONE">
+    <div v-if="sleepingInformation.isSleeping > 0">
       <h5 class="mb-2 mt-4">
         <span v-if="sleepingInformation.sleepStatus === SLEEP_STATUS.TEMP">
           {{
