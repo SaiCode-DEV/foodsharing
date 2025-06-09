@@ -67,6 +67,8 @@ dashboard:
     events: 'Eventos'
     buddies: 'Gente que conoces'
     users: 'rescatistas'
+    pickupOptions: Opciones de recogida
+    pickups: Fechas de recogida
   eventCount: 'Próximos eventos ({count})'
   pickupdates: 'Próximas fechas de recogida'
   display_all: 'Tod@'
@@ -117,7 +119,7 @@ dashboard:
   source_event: 'Cita {0}'
   source_mailbox: '{0}'
   updates_title_some: 'Resumen de actualizaciones ({0})'
-  invitationCount: 'Invitaciones abiertas ({count})'
+  invitationCount: 'Has sido invitado ({count})'
   settings: 'Ajustes'
   settings_tooltip: 'Configuración del panel'
   foodsaver_amount: 'Recogiste <b>{pickups} x</b> alimentos y salvado <b>{weight} kg</b>.'
@@ -1402,6 +1404,10 @@ register:
   confirmPassword_sameAsPassword: 'Ambas contraseñas ingresadas deben coincidir'
   lastname_maxLength: El apellido sólo puede constar de un máximo de 30 caracteres
   firstname_maxLength: El nombre sólo puede constar de un máximo de 30 caracteres
+  password_must_be_complex: La contraseña debe contener letras mayúsculas, minúsculas
+    y números
+  password_must_be_trimmed: La contraseña no debe contener espacios al principio ni
+    al final
 button:
   rotate_right: 'rotar las agujas del reloj'
   save: 'ahorrar'
@@ -1593,6 +1599,7 @@ store:
       en esta empresa. Estas franjas horarias quedarán libres. ¿Deseas continuar?'
     filterHygiene: Formados en higiene
     filterNoHygiene: 'sin formación en higiene'
+    inviteMember: Invitar al equipo
   lastPickupShort: 'último el {date}'
   request:
     got-it: 'Los responsables han sido informados de su solicitud y se pondrán en
@@ -1766,6 +1773,8 @@ store:
         con el siguiente mensaje'
       17: '{actor} ha invitado a {target} al equipo.'
       18: '{actor} ha retirado la invitación al equipo para {target}.'
+      19: '{actor} aceptó la invitación del equipo.'
+      20: '{actor} rechazó la invitación del equipo.'
     type:
       3: Aceptar las solicitudes de unión
       2: Rechazar las solicitudes de unión
@@ -1785,6 +1794,8 @@ store:
       5: Pasar a la lista de suplentes
       18: Cita de recogida automática creada o modificada
       17: Cita de recogida individual creada o modificada
+      19: Aceptar invitaciones de equipo
+      20: Rechazar invitaciones de equipo
     max_entries_message: Se mostrará un máximo de 100 entradas. Reduzca el rango de
       la búsqueda.
     no_description: ninguno
@@ -1802,6 +1813,16 @@ store:
   storeFrom: Operación de {name}
   no_chain_choosen: No se ha seleccionado ninguna cadena
   may_referred_to_in_public_unclear: Aún sin aclarar
+  invitation:
+    withdraw: Retirar la invitación
+    accept: Aceptar invitación
+    decline: Rechazar
+    invited_by: Invitado por
+    title: Invitaciones para {storeTitle}
+    invited_info: Te han invitado a esta empresa. Puedes unirte al equipo simplemente
+      aceptando la invitación.
+  invitations: Invitaciones abiertas ({count})
+  invited: Invitado
 pickup:
   overview:
     status:
@@ -1846,6 +1867,8 @@ pickup:
       registeredSwitch: 'Recogidas registradas'
       signOffAll: 'Quitar de todos'
       refresh: 'Actualizar'
+      managedOnlySwitch: Vista del GC
+      useCondensedDesign: Agrupados por días
     header: 'Fechas de recogida'
   signout_info: 'Se eliminarán todas tus recogidas pendientes.'
   really_kick_user_info: '¿Realmente quieres cancelar la suscripción de {name} a la
@@ -1949,6 +1972,8 @@ pickup:
     link: Para formación en higiene
   membershipMissing: No eres miembro de este equipo. Por lo tanto, no debes registrarte
     para las recogidas. Si es necesario, regístrate primero como miembro del equipo.
+  may_enter: Todavía hay un lugar disponible para esta fecha de recogida.
+  confirmed: La fecha de recogida está confirmada.
 date:
   wednesday: 'miércoles'
   to: 'al'
@@ -2066,6 +2091,15 @@ bell:
   new_forum_thread: '{author}: {title}'
   new_forum_thread_title: Nuevo tema en {forum}
   store_invite_title: '{name}'
+  store_invitation_declined:
+    one: '{user} no quiere unirse a {store}'
+    many: '{count} usuarios no quieren unirse a {store}'
+  store_invitation_accepted:
+    many: '{count} usuarios se han unido al equipo de {store}'
+    one: '{user} se ha unido al equipo de {store}'
+  store_invite: '{user} te invitó a unirte al equipo.'
+  store_invitation_declined_title: Invitación rechazada ({store})
+  store_invitation_accepted_title: Invitación aceptada ({store})
 foodsaver:
   restricted: 'Lamentablemente, no tienes permiso para ver estos datos.'
   upgrade:
@@ -2457,6 +2491,7 @@ profile:
       filterActive: miembro
       filterManage: Responsable de distribución
       filterJumper: Suplente
+      filterInvitations: Invitado
     store_table: Lista de empresas
   sleeping_info_from_until: hace una pausa del {from} al {until}
   choosereasonnostore: No afecta ningún negocio
@@ -3449,6 +3484,9 @@ settings:
       por ésta?:'
     insufficient_permission: No tienes permiso para cambiar la dirección de correo
       electrónico de este perfil.
+    password_label: Contraseña actual
+    password_required: Debe ingresar su contraseña para cambiar su dirección de correo
+      electrónico.
   saved: 'Los cambios han sido guardados.'
   sleep:
     none: 'Soy activo y totalmente involucrado'
@@ -3564,6 +3602,8 @@ settings:
     success: Tu contraseña ha sido cambiada correctamente
     old_password_required: Debes ingresar tu contraseña anterior
     new_password_required: La contraseña debe contener al menos 8 caracteres
+    new_password_must_be_complex: La nueva contraseña debe contener letras mayúsculas,
+      minúsculas y números
   change_data_info:
     general: Aquí puedes ajustar los datos de tu perfil.
     verified: No puedes editar tu nombre ni fecha de nacimiento. Sin embargo, puedes
@@ -3679,6 +3719,9 @@ region:
       no_future_events: 'Actualmente no hay eventos públicos listados en este distrito.
         Los siguientes eventos han tenido lugar en el pasado:'
       title: Eventos públicos
+    leave_text_region: ¿Ya no estás activo en {name} y te gustaría abandonar esta
+      circunscripción?
+    leave_text_group: ¿Ya no estás activo en {name} y deseas abandonar este grupo?
   denied:
     this_region: Intentaste acceder al contenido de este distrito. Sin embargo, sólo
       los miembros del distrito tienen acceso a ella.
@@ -3750,6 +3793,7 @@ globals:
   telephone_number: Número de teléfono
   save_changes: Guardar los cambios
   saved: Los cambios se han guardado
+  updated: 'Actualizado:'
 legal:
   acknowledge:
     select: Por favor seleccione
@@ -4505,6 +4549,9 @@ notifications:
     cancel: no activar
     dontAskAgain: no volver a preguntar
   success: Éxito
+  info: Información
+  warning: Advertencia
+  error: Error
 markdown_input:
   tooltip:
     orderedList: lista numerada
@@ -4550,6 +4597,7 @@ thread:
     copy_source_success: ¡Código fuente copiado!
     copy_direct_link_success: ¡Enlace directo copiado!
     linked_post: Publicación vinculada
+    quote_post_wrote: escribió el
   priorityModal:
     title: Establecer la prioridad de visualización
     text: 'Prioridad de visualización para esta publicación:'
@@ -4706,6 +4754,8 @@ help:
       title: Solicitar un cambio en los datos verificados
     publicEvent:
       title: Eventos públicos
+    pickupOptions:
+      title: Opciones de recogida
 team_page:
   board_member:
     text: "La junta directiva de foodsharing e.V. mantiene unidos los hilos, conecta
@@ -4925,3 +4975,28 @@ feedback:
   success: Tu comentario se ha enviado correctamente.
   no_support: Este formulario es sólo para **comentarios**. Si necesita ayuda o tiene
     alguna pregunta, utilice el [formulario de soporte](/support).
+net_errors:
+  SERVER_ERROR: Se ha producido un error interno del servidor. No se puede procesar
+    su solicitud en este momento.
+  BAD_REQUEST: La solicitud no es válida. Por favor, revise sus entradas para comprobar
+    que estén completas y sean verosímiles.
+  NOT_FOUND: No se encontró la página solicitada.
+  FORBIDDEN: No está autorizado para realizar esta acción.
+  ERR_BAD_RESPONSE: El servidor devolvió una respuesta no válida. Inténtelo de nuevo.
+  ERR_NETWORK: Hubo un problema de red. Por favor, revisa tu conexión a internet y
+    vuelve a intentarlo.
+  ECONNABORTED: Tu navegador canceló la solicitud. Inténtalo de nuevo.
+  title:
+    general: Error de red
+    500: Error del servidor
+    400: Solicitud incorrecta
+  message: 'Mensaje de error: '
+  TOO_MANY_REQUESTS: Demasiadas solicitudes. Espere un momento y vuelva a intentarlo.
+  action_response: 'Solicitud y respuesta del servidor:'
+  ETIMEDOUT: La solicitud tardó demasiado. Por favor, revisa tu conexión a internet
+    y vuelve a intentarlo.
+  ERR_NETWORK_CHANGED: Tu conexión a internet es inestable. Revisa tu conexión y vuelve
+    a intentarlo.
+  ERR_CANCELED: La solicitud fue cancelada. Inténtalo de nuevo si es necesario.
+  unknown: Se ha producido un error desconocido. Inténtalo de nuevo más tarde.
+  code: 'Código de error: '
