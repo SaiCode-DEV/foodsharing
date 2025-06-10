@@ -48,6 +48,8 @@ dashboard:
     managing_stores: 'Sorumlu olduğun işletmeler'
     polls: 'Anketler'
     stores: 'İşletmeleriniz'
+    pickups: Alım Tarihleri
+    pickupOptions: Alım seçenekleri
   source_forum_bot: 'Elçi Forumu {0}'
   invitation: 'Davet edildin'
   invitationCount: 'Davet edildin ({count})'
@@ -917,6 +919,15 @@ bell:
   new_forum_thread: '{author}: {title}'
   new_forum_thread_title: '{forum} da yeni konu'
   store_invite_title: '{name}'
+  store_invite: '{user} sizi ekibe davet etti.'
+  store_invitation_accepted:
+    one: '{user} {store} ekibine katıldı'
+    many: '{count} kullanıcı {store} ekibine katıldı'
+  store_invitation_accepted_title: Davet kabul edildi ({mağaza})
+  store_invitation_declined_title: Davet reddedildi ({mağaza})
+  store_invitation_declined:
+    one: "{user} {store}'a katılmak istemiyor"
+    many: '{count} kullanıcı {store} işletmesine katılmak istemiyor'
 sig:
   buddies: Tanıdığın insanlar
 error:
@@ -1418,6 +1429,8 @@ store:
     filterHygiene: Hijyen eğitimi almış kişiler
     filterNoHygiene: 'Hijyen eğitimi olmadan'
     inviteMember: Ekibe davet et
+    demoteAsManagerConfirm: Gerçekten işletme yetkilisi olarak sorumluluğunuzu bırakmak
+      istiyor musunuz?
   prefetchthree: 3 Hafta
   prefetchfour: 4 Hafta
   request:
@@ -1586,8 +1599,10 @@ store:
       5: "{actor}, {target}'ı yedek listesine koydu."
       9: "{actor}, işletme sorumlusu olarak {target}'ı girdi."
       15: "{actor}, {target}'ın {date} tarihine ait pano gönderisini sildi."
-      18: '{actor}, {target}''in takım davetini geri çekti.'
-      17: '{actor}, {target}''i takıma katılmaya davet etti.'
+      18: '{actor}, {target}''in Ekip davetini geri çekti.'
+      17: '{actor}, {target}''i Ekibe katılmaya davet etti.'
+      19: '{actor} Ekip davetini kabul etti.'
+      20: '{actor} Ekip davetini reddetti.'
     type:
       3: Üyelik isteklerini kabul et
       2: Üyelik isteklerini reddedin
@@ -1607,6 +1622,8 @@ store:
       15: Pano kayıdını sil
       18: Otomatik alma randevusu oluşturuldu veya değiştirildi
       17: Bireysel kurtarma randevusu oluşturuldu veya değiştirildi
+      20: Ekip davetlerini reddet
+      19: Ekip davetlerini kabul et
     max_entries_message: Maksimum 100 giriş görüntülenebilir.. Lütfen arama alanını
       sınırlandırın.
     log_types_placeholder: Görüntülenecek eylem türlerini seçin
@@ -1637,6 +1654,10 @@ store:
       amacıyla doğrudan işletme ekibine eklenmezler. Ekibe katılmaları için kendilerine
       bir istek gönderilecek ve bu isteği kabul etmeleri gerekecek. Bu davetleri dilediğiniz
       zaman geri çekebilirsiniz.
+    decline: Reddet
+    invited_by: Davet edildi_
+    invited_info: Bu işletmeye davet edildiniz. Daveti kabul ederek işletme ekibine
+      katılabilirsiniz.
 polls:
   title: Başlık
   new_poll: Yeni Anket oluştur
@@ -1824,6 +1845,8 @@ region:
     wall: Bölgeden güncellemeler
     leave_text: Artık {name}'de aktif değil misiniz? O zaman bu bölgeyi terk etmelisin.
     description: Bölge hakkında
+    leave_text_region: Artık {name}'de aktif değil misiniz? O zaman bu bölgeyi terk
+      etmelisin.
 events:
   duration: 'Süre: {duration}'
   create:
@@ -1831,7 +1854,7 @@ events:
     delinvites: Mevcut davetiyeler silinsin mi?
     regions: Sizin Bölgeleriniz
     offline: Gerçek hayatta tamamen normal
-    online: telefonla veya çevrimiçi konferansla
+    online: Telefon veya çevrimiçi konferans yoluyla
     mumble: Mumble Konferansı
     groups: Sizin çalışma gruplarınız
     multiday: Etkinlik birkaç gün sürecek
@@ -1897,7 +1920,7 @@ events:
       kullanarak katılabilirsiniz.
   noneAccepted: Şu ana kadar hiç kimse bu etkinliğe katılımını onaylamadı.
   attendees: Katılımcılar
-  online_info: "foodsharing kaynaklanan telefon ve çevrimiçi konferanslar en iyi şekilde
+  online_info: "foodsharing kaynaklanan telefon ve Online konferanslar en iyi şekilde
     kendi [BigBlueButton](https://bigbluebutton.org) sunucumuz aracılığıyla gerçekleştirilir.
     Randevunun başlamasına 10 dakika kala kullanıcılar randevu sayfasından tek tıkla
     kolayca konferansa katılabilirler. Bunun için başka hiçbir programa gerek yoktur,
@@ -2258,7 +2281,7 @@ menu:
     fundamentals: Genel Kurallar
     blog: Blog
     team: Ekip
-    conference: Çevrimiçi konferans
+    conference: Online konferans
     selfservice: Self servis
     friendcircle: Arkadaş Çevresi
     language: Lisan seçiniz
@@ -2444,8 +2467,8 @@ conference:
   privacy_notice: "Not: Video konferansları, living utopia Kollektivs konferans sunucusu
     aracılığıyla gerçekleştirilir.Foodsharing'e girdiğiniz adınız, kimliğiniz ve avatarınızla
     otomatik olarak oturum açacaksınız."
-  confirm_info: "Burada seçilen grup için bir çevrimiçi konferansa katılabilirsiniz.
-    Çevrimiçi konferans BigBlueButton'u yeni bir pencerede açar. Not: Çevrimiçi konferanslar
+  confirm_info: "Burada seçilen grup için bir Online konferansa katılabilirsiniz.
+    Online konferans BigBlueButton'u yeni bir pencerede açar. Not: Online konferanslar
     living utopia Kollektivs konferans sunucusu aracılığıyla gerçekleştirilir. Foodsharing'e
     girdiğiniz adınız, kimliğiniz ve avatarınızla otomatik olarak oturum açacaksınız."
 sidenav:
@@ -2555,6 +2578,8 @@ settings:
     explanation_other_user: Burada bu profilin kayıtlı olduğu e-posta adresini değiştirebilirsiniz.
       Gönderdikten sonra kullanıcı, yeni adresi onaylamak için kullanılması gereken
       bir bağlantıyı içeren yeni adrese bir e-posta alacaktır.
+    password_label: Mevcut Şifre
+    password_required: E-posta adresinizi değiştirmek için şifrenizi girmeniz gerekmektedir.
   notifications: Bildirimler
   sleep:
     range: 'Lütfen müsait olmayacağınız yaklaşık süreyi belirtiniz:'
@@ -2743,6 +2768,8 @@ settings:
     new_password_confirmation_invalid: Şifreler eşleşmiyor
     submit: Şifre değiştir
     success: Şifreniz başarıyla değiştirildi
+    new_password_must_be_complex: Yeni şifre en az bir harf (büyük ve küçük harf)
+      ve rakam içermelidir
   change_data_info:
     general: Burada profil verilerinizi ayarlayabilirsiniz.
     verified: Adınızı ve doğum tarihinizi düzenleyemezsiniz. Ancak bir Elçiden bu
@@ -2818,6 +2845,7 @@ forum:
     title: Gönderiyi geri yükle
   options:
     enable_bells_for_new_posts: Tüm yeni konular için bildirim alın
+    disable_bells_for_new_posts: Tüm yeni konular için bildirim almayın
 chat:
   open_chat: Bir mesaj yaz
   new_messages: Yeni Mesajlar
@@ -3185,6 +3213,7 @@ profile:
       filterActive: Üye
       filterManage: İşletme sorumlusu
       filterJumper: Yedek
+      filterInvitations: Davet edildi
   sleeping_info_from_until: '{from} ile {until} arasında uyku beresi var'
   choosereasonnostore: Hiç bir işletmeye ilişkin değil
   chooseantherstore: Listelenmeyen bir işletme ile ilgili endişeler
@@ -3531,6 +3560,8 @@ register:
   have_read_the_legal_stuff1: Ben
   firstname_maxLength: Ön isim en fazla 30 karakterden oluşabilir
   lastname_maxLength: Soyisim en fazla 30 karakterden oluşabilir
+  password_must_be_complex: Şifre en az bir büyük harf, bir küçük harf ve rakam içermelidir
+  password_must_be_trimmed: Şifrenin başında veya sonunda boşluk olmamalı
 gender:
   f: Kadın
   d: Her ikisi veya diğer
@@ -3750,6 +3781,8 @@ pickup:
       signOff: İptal et
       registeredSwitch: Kayıtlı alımlar
       loadMore: Daha fazla yükle
+      managedOnlySwitch: BV-Görünümü
+      useCondensedDesign: Günlere göre gruplandırılmış
     modals:
       signOff:
         title: Slotdan çıkarılsın mı?
@@ -3795,8 +3828,8 @@ pickup:
   signout_info: Alım randevularınızın tümü silinecektir.
   really_kick_user_info: "{name}'ı {date} tarihindeki alma işleminden çıkarmak istediğinizden
     emin misiniz?\n{name} bununla ilgili şu mesajı alacak:\n"
-  leave_team_message_template: Sevgili arkadaşlar, {date} tarihindeki slot tekrar
-    boşaldı …
+  leave_team_message_template: 'Sevgili arkadaşlar,tekrar bir alım için kaydoldum:
+    {tarih} saati.…'
   slot_remove: Slotu kaldır
   kick_message_placeholder: 'Opsiyonel : buraya bilgi ekleyin …'
   edit_recurring_pickups: Düzenli teslim alma saatlerini düzenleyin
@@ -3827,6 +3860,8 @@ pickup:
       Gıda kurtarımına kaydolabilmek için Hijyen testini tekrar yapın.
   membershipMissing: Bu ekibin üyesi değilsiniz. Bu nedenle, kurtarma işlemlerine
     kayıt yaptırmamalısınız. Şüpheniz varsa, öncelikle ekip üyesi olarak kaydolun.
+  may_enter: Bu alım tarihinde boş bir Slot mevcut.
+  confirmed: Alım tarihi onaylandı.
 calendar:
   export:
     pickup:
@@ -4574,3 +4609,12 @@ net_errors:
     deneyin.
   ERR_NETWORK: Ağda bir sorun oluştu. Lütfen internet bağlantınızı kontrol edip tekrar
     deneyin.
+  ERR_CANCELED: İstek iptal edildi. Gerekirse tekrar deneyiniz.
+  ERR_BAD_RESPONSE: Sunucu geçersiz bir yanıt verdi. Lütfen tekrar deneyin.
+  title:
+    general: (Network) Ağ hatası
+    500: Sunucu hatası
+    400: Hatalı İstek
+  FORBIDDEN: Bu eylemi gerçekleştirmeye yetkiniz yok.
+  action_response: 'İstek ve Sunucu yanıtı:'
+  unknown: Bilinmeyen bir hata oluştu. Lütfen daha sonra tekrar deneyin.
