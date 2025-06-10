@@ -1042,6 +1042,7 @@ store:
     promoteToManager: "Verantwortlich machen"
     promoteToManagerNotPossible: "Die Person kann nicht verantwortlich gemacht werden, da es schon drei Betriebsverantwortliche gibt oder die Person noch nicht das Quiz bestanden hat."
     demoteAsManager: "Verantwortung entziehen"
+    demoteAsManagerConfirm: "Willst du wirklich deine Verantwortung als Betriebsverantwortliche:r abgeben?"
     reloadRequired: "Zum Aktualisieren der Team-Infos:"
     reloadPage: "Neu laden"
     searchPlaceholder: "Name oder ID"

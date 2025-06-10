@@ -219,10 +219,17 @@ export default {
       }
     },
     async demoteAsManager (user) {
-      this.messageModalKey = 'demote_store_manager'
-      await this.$nextTick()
-      const message = await this.$refs.requiredMessageModal.tryGetMessage({ name: user.firstName })
-      if (message === false) return
+      let message = ''
+      if (user.id === this.fsId) {
+        if (!await this.confirmationDialogue('store.sm.demoteAsManagerConfirm', {
+          okTitle: this.$i18n('yes'),
+        })) return
+      } else {
+        this.messageModalKey = 'demote_store_manager'
+        await this.$nextTick()
+        message = await this.$refs.requiredMessageModal.tryGetMessage({ name: user.firstName })
+        if (message === false) return
+      }
 
       try {
         await demoteAsStoreManager(this.storeId, user.id, message)
