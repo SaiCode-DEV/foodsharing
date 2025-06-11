@@ -431,7 +431,7 @@ quiz:
         fp: 'Hata puanı:'
         wikilink:
           label: 'İlgili makalenin bağlantısı:'
-          placeholder: https://wiki.foodsharing.de/...
+          placeholder: https://wiki.foodsharing.de/…
         mandatory:
           label: Zorunlu soru mu?
           text: Bu soru her sınav girişimine dahil edilmelidir
@@ -1499,7 +1499,7 @@ store:
   fetchCount: '{count}× buradan aldı.'
   mayManage: İşletme yöneticisi sınavını geçti.
   particularities: Özellikler
-  average_collection_quantity: Ortalama alım miktarı
+  average_collection_quantity: Kişi başı alım miktarı
   address: Adres
   may_referred_to_in_public: Bu işletmenin adı açık olarak dile getirilebilir.
   my_last_pickup: Son alımım
@@ -1920,7 +1920,7 @@ events:
       kullanarak katılabilirsiniz.
   noneAccepted: Şu ana kadar hiç kimse bu etkinliğe katılımını onaylamadı.
   attendees: Katılımcılar
-  online_info: "foodsharing kaynaklanan telefon ve Online konferanslar en iyi şekilde
+  online_info: "foodsharing kaynaklanan telefon ve çevrimiçi konferanslar en iyi şekilde
     kendi [BigBlueButton](https://bigbluebutton.org) sunucumuz aracılığıyla gerçekleştirilir.
     Randevunun başlamasına 10 dakika kala kullanıcılar randevu sayfasından tek tıkla
     kolayca konferansa katılabilirler. Bunun için başka hiçbir programa gerek yoktur,
@@ -4618,3 +4618,13 @@ net_errors:
   FORBIDDEN: Bu eylemi gerçekleştirmeye yetkiniz yok.
   action_response: 'İstek ve Sunucu yanıtı:'
   unknown: Bilinmeyen bir hata oluştu. Lütfen daha sonra tekrar deneyin.
+required_messages:
+  demote_store_manager:
+    footer: Saygılarımla
+  move_to_standby_team:
+    footer: Saygılarımla
+  kick_from_store_team:
+    footer: Saygılarımla
+  decline_store_application:
+    footer: Saygılarımla
+  name_placeholder: <İsim>
