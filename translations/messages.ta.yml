@@ -3037,7 +3037,7 @@ quiz:
         fp: 'பிழை புள்ளிகள்:'
         wikilink:
           label: 'பொருத்தமான கட்டுரைக்கான இணைப்பு:'
-          placeholder: https://wiki.foodsharing.de/...
+          placeholder: https://wiki.foodsharing.de/…
         mandatory:
           label: கட்டாய கேள்வி?
           text: ஒவ்வொரு நொடி வினா முயற்சியிலும் இந்த கேள்வி சேர்க்கப்பட வேண்டும்
