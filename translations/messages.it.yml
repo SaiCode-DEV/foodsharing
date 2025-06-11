@@ -157,9 +157,9 @@ group:
     one: un amministratore
     other: '{count} amministratori'
   member_count:
-    zero: nessun contributore
-    one: un contributore
-    other: '{count} contributori'
+    zero: nessun membro
+    one: un membro in totale
+    other: '{count} membri in totale'
   subtitle: Qui troverai aiuto e tante cose da fare …
   title: Gruppi di lavoro foodsharing
   administrators: Amministratori del gruppo
@@ -199,7 +199,7 @@ group:
     old_edit_hint_link: Membri
     set_admin_text: Vuoi davvero registrare {name} ({id}) come amministratore?
     set_ambassador_text: Vuoi davvero registrare {name} ({id}) come ambasciatore?
-    is_home_region: Distretto principale
+    is_home_region: Distretto di residenza
     old_edit_hint: L'amministrazione dei soci si trova ora nella scheda
     not_verified: non verificat@
     passports:
@@ -228,6 +228,8 @@ group:
         with_passport: con tessera associativa
       title: Tessere associative e verifica
       generate_button: Crea tessere associative per le persone contrassegnate
+      already_verified: Tutti gli utenti selezionati sono già stati attivati
+      inform_user: con notifica
     all_roles: Tutti i ruoli
     default:
       lastname: Cognome
@@ -334,6 +336,7 @@ button:
   ok: OK
   confirm: Conferma
   start: Iniziamo!
+  browse: Sfogliare
 upload:
   crop_dialog_title: Ritaglia l'immagine
   new_file: Carica un nuovo file
@@ -483,6 +486,12 @@ are_you_sure: Sei sicuro?
 statistics:
   num_fetches: durante {count} missioni di salvataggio
   kg_food_saved: '{count} kg di cibo risparmiato'
+  region_public:
+    savedFoodKgLastMonth: di cibo risparmiati
+    pickupsLastMonth: ritiri di cibo
+    foodBasketsLastMonth: cesti alimentari distribuiti
+  food_saved: di cibo risparmiati
+  lastMonth: Statistiche degli ultimi 30 giorni
 terminology:
   options: Opzioni
   buddies: Conoscente
@@ -640,6 +649,10 @@ register:
   landline_example: Esempio +49 30 12345678
   lastname_maxLength: Il cognome può essere composto da un massimo di 30 caratteri
   firstname_maxLength: Il nome può essere composto da un massimo di 30 caratteri
+  password_must_be_complex: La password deve contenere lettere maiuscole e minuscole
+    e numeri
+  password_must_be_trimmed: La password non deve contenere spazi né all’inizio né
+    alla fine
 store_status_impact_explanation: "Si prega di aggiornare dopo ogni contatto operativo
   (<a href=\"https://wiki.foodsharing.de/Kooperationsaufbau_-_Checkliste\" target=\"\
   _blank\"> Wiki: Kooperationsaufbau - Checkliste</a>) lo stato (<a href=\"https ://wiki.foodsharing.de/Betrieb\"\
@@ -709,7 +722,16 @@ legal:
   dont_agree: Non acconsento al trattamento dei miei dati e
   not_acknowledge_privacy_policy_description: Per utilizzare la piattaforma Foodsharing
     è necessario leggere la dichiarazione sulla protezione dei dati descritta.
-  acknowledge: Accetti l’accordo?
+  acknowledge:
+    agree: Sì, accetto l’informativa sulla privacy.
+    not_agree: No, non accetto l’informativa sulla privacy. Vorrei eliminare il mio
+      account.
+    select: Si prega di selezionare
+    qustion_notice: Accetti la nostra politica sulla privacy e il nostro impegno sulla
+      protezione dei dati?
+    qustion_policy: Accetti la nostra politica sulla privacy?
+    agree_policy_and_notice: Sì, accetto l’informativa sulla privacy e l’impegno sulla
+      protezione dei dati.
   privacy_policy: Privacy policy
   agree_privacy_notice: Sono stato informato dell'obbligo di riservatezza dei dati
     personali e dei comportamenti che ne derivano. Riceverò conferma di ciò via e-mail
@@ -730,6 +752,10 @@ legal:
     this_gets_deleted_quiz: Tutti i tuoi quiz saranno rimossi.
     this_gets_deleted_verify: La tua verifica sarà rimossa.
     legal_2: Ulteriori informazioni sui periodi di conservazione (pagina in tedesco)
+  success: Le tue impostazioni sono state salvate correttamente.
+  button:
+    agree: Accettare
+    disagree: Elimina il mio account
 fsp:
   followName: Seguire il punto di condivisione {name}
   follow: Segui questo punto di condivisione
@@ -841,7 +867,8 @@ pickup:
   join_title_date: Siccuro?
   team_message_success: Il messaggio al team è stato inviato con successo
   team_message_send_and_leave: Invia e liberare lo slot
-  leave_team_message_template: Ho dovuto annullare il mio ritiro il {date}. …
+  leave_team_message_template: 'Salve, ho dovuto disdire per il seguente ritiro: {date}.
+    …'
   leave_team_message_title: Messaggio al team
   leave_pickup_message_team: Avvisa il team
   leave_pickup_ok: Ho già un sostituto
@@ -927,6 +954,8 @@ pickup:
     link: Fai l'esame di igiene
     timeout: La tua formazione sull'igiene scadrà al momento del ritiro. Completa
       nuovamente il quiz sull'igiene per poterti registrare per il ritiro.
+  may_enter: C’è un posto disponibile per te in questa data di ritiro.
+  confirmed: La data del ritiro è confermata.
 storeedit:
   milestone:
     statuschanged: Cambio di stato il {date}
@@ -1041,11 +1070,12 @@ store:
     filterNoHygiene: 'senza formazione sull’igiene'
     userHasPickupsWarning: '{name} è ancora registrato per i ritiri di {occupiedSlots}
       presso questa attività. Questi slot ritorneranno liberi. Vuoi ancora procedere?'
+    inviteMember: Invita alla squadra
   days_before: prima
   days: giorni
   my_last_pickup: Il mio ultimo ritiro
   address: Indirizzo
-  average_collection_quantity: Quantità di ritiro in media
+  average_collection_quantity: Quantità di ritiro per persona
   particularities: Particolarità
   isNotVerified: Non è stato ancora verificato.
   unknownDate: sconosciuto
@@ -1207,6 +1237,7 @@ store:
     max_entries_message: 'Vengono visualizzate un massimo di 100 voci. Si prega di
       limitare l’area di ricerca.'
     no_description: nessuno
+    message_saved_info: Il tuo messaggio verrà salvato nel registro delle operazioni.
   signInDateTime: 'Data di ingresso'
   slot_state: 'Stato dello slot'
   lastPickupTitle: Ultimo recupero qui
@@ -1220,6 +1251,14 @@ store:
   storeFrom: Attività da {name}
   no_chain_choosen: Nessuna catena selezionata
   may_referred_to_in_public_unclear: Non ancora chiarito
+  invitation:
+    withdraw: Ritira l’invito
+    decline: Rifiuta
+    title: Inviti per {storeTitle}
+    accept: Accetta l’invito
+    invited_by: Invitato da
+  invitations: Inviti aperti ({count})
+  invited: Invitato
 storeview:
   want_to_fetch: Vorrei aiutare in questo team.
   specials: particolarità
@@ -1647,6 +1686,10 @@ reports:
   store: Società assegnata
   about_email: 'Via email'
   id: ID
+  reports_user: Tutti i reclami su {userName} ({userId})
+  reporter: Persona che si lamenta
+  reports_region: Reclami da {regionName}
+  reported: Imputato
 month:
   short:
     "12": dic.
@@ -1800,6 +1843,7 @@ forum:
       nascosto e i moderatori possono vedere anche da chi è stato nascosto.
     sureHide: Vuoi davvero nascondere questo post?
     hiddenReason: 'Motivo: {reason}'
+    hiddenPost: Post nascosto da [{moderatorName}]({moderatorUrl})
   new_thread: Scrivi su un nuovo tema
   threads: Temi
   from: Di {name}
@@ -1818,6 +1862,10 @@ forum:
     hidden_by: Nascosto da
     title: Ripristina post
   go: Vai al Forum
+  options:
+    enable_bells_for_new_posts: Ricevi notifiche per i nuovi argomenti del forum
+    disable_bells_for_new_posts: Nessuna notifica ricevuta per i nuovi argomenti del
+      forum
 first_post: Primo post in bacheca
 events:
   rsvp:
@@ -1940,6 +1988,7 @@ chat:
   mark_as:
     read: Segna come letto
     unread: Segna come da leggere
+  reply: Rispondere
 timepicker:
   labelNowButton: Adesso
   labelCloseButton: Chiudere
@@ -2066,11 +2115,17 @@ bell:
   forum_not_activated_thread: '{forum}'
   event_post:
     one: 'Nuovo commento da {user} '
+    many: '{count} nuovi commenti sull’evento {event}'
   mark_as:
     read: Segna come letto
     unread: Segna come da leggere
   new_forum_thread: '{author}: {title}'
   store_invite_title: '{name}'
+  passport_created_or_renewed_title: La tua tessera associativa …
+  internal_email_changed: Il tuo indirizzo email personale è stato modificato.
+  event_post_title: Appuntamento {event} a {region}
+  store_invite: '{user} ti ha invitato a unirti al team.'
+  passport_created_or_renewed: è stata attivata o rinnovata!
 content:
   edit: Modifica pagina
   new_success: La pagina è stata creata
@@ -2100,6 +2155,9 @@ content:
       di tutte le comunità e i distretti di foodsharing. Puoi trovare maggiori informazioni
       su ciascun distretto nella pagina pubblica del distretto linkata, oppure inviare
       un’e-mail al distretto corrispondente direttamente da qui cliccando sull’icona.
+  error: La pagina non può essere salvata
+  edit_raw: Modifica i dati grezzi
+  error_loading: Il contenuto non può essere caricato
 regionOptions:
   save: Salvare opzioni
   success: Opzioni salvate correttamente
@@ -2509,6 +2567,9 @@ search:
     from: 'da'
     mail:
       mail_name: '{name} <{mail}>'
+      from_to_many: Da {from} ad {to} e altri {other}
+      attachment_tooltip: Con questa e-mail è stato inviato un allegato.
+      from_to: Da {from} ad {to}
     event:
       location_online: In linea
   too_short: Inserisci un termine di ricerca più lungo.
@@ -2764,6 +2825,13 @@ profile:
   tab_navigation:
     commitment_statistics: Statistiche sul coinvolgimento
     profile: Profilo
+  sections:
+    home_region_from: Distretto di residenza
+    ambassador_for: per
+  homeDistrictHistory:
+    by: da
+    previous: precedentemente
+    changed: registrato
 mail:
   noreply_addresses_not_allowed: Le e-mail inviate agli indirizzi noreply@… non possono
     essere consegnate.<br>Si prega di verificare l'indirizzo di destinazione.
@@ -2820,10 +2888,31 @@ settings:
       google: Calendario di Google
       other: Un altro
       thunderbird: Thunderbird
+      label: Quale programma di calendario usi?
     formatting:
       html: HTML
       text: Solo testo
+      alt: Testo con HTML come rappresentazione alternativa
+      label: Come devono essere formattate le descrizioni degli appuntamenti?
     download: Scarica il calendario
+    history:
+      "true": Sì, mostra i miei appuntamenti recenti nel calendario
+      "false": No, non visualizzare gli appuntamenti passati nel calendario
+      label: È necessario includere gli appuntamenti delle ultime due settimane?
+    event:
+      invitations: Appuntamenti che non ho annullato
+      all: Tutte le date
+      accepted: Date in cui ho indicato che sarò presente
+      maybe: Date in cui ho indicato che (forse) parteciperò
+      label: Quali date dei vostri distretti e gruppi di lavoro dovrebbero essere
+        incluse?
+    pickup:
+      "false": No, non mostrare i ritiri nel calendario
+      label: È necessario includere le date di ritiro?
+      "true": Sì, mostra i miei ritiri nel calendario
+    generate_url:
+      button: Genera URL del calendario
+    protocol: Quale protocollo utilizza il tuo programma di calendario?
   photo:
     info: "Il tuo viso dovrebbe essere <a href=\"{link_photo}\">riconoscibile</a>
       nella tua foto del profilo,\nperché sarà usato per il foodsharing<a href=\"\
@@ -2851,6 +2940,15 @@ settings:
     input_label_email: Inserisci qui il nuovo indirizzo email
     explanation: Qui puoi modificare l'indirizzo email con cui ti sei registrato.
       Dopo l'invio riceverai un'e-mail al nuovo indirizzo contenente un link di conferma.
+    insufficient_permission: Non hai l’autorizzazione per modificare l’indirizzo email
+      di questo profilo.
+    dashboard_link: Continua alla dashboard
+    question_other_user: 'Vuoi davvero cambiare l’indirizzo email in questo:'
+    not_changed: Il tuo indirizzo e-mail non è stato inserito.
+    password_required: Devi inserire la tua password per cambiare il tuo indirizzo
+      email.
+    password_label: Password attuale
+    sent_other_user: È stata inviata un’e-mail al nuovo indirizzo per confermarlo.
   email: E-mail e password
   sleep:
     tooltip: "{name} si sta solo prendendo un po' di tempo libero ed è in modalità
@@ -2912,13 +3010,38 @@ settings:
       role: Ruolo
       valid_start: Valido dal
       valid_end: Valido fino al
+      generate_error: Si è verificato un errore durante la generazione della tessera
+        associativa. Riprova più tardi.
+    passport_is_invalid: La tua tessera associativa non è più valida.
+    add_to_wallet:
+      apple: Aggiungi ad Apple Wallet
+      google: Aggiungi a Google Wallet
   no_rights: L’utente non è autorizzato a modificare le impostazioni del profilo.
   delete_profile: Cancellare questo profilo
   general:
     phone: Il vostro numero di telefono fisso
+    current_address: Indirizzo attuale
+    no_address: Nessun indirizzo ancora inserito
   address:
     title: Seleziona l’indirizzo
     choose: Accetta indirizzo
+  change_password:
+    new_password_must_be_trimmed: La password non deve iniziare o terminare con spazi
+    old_password_required: Devi inserire la tua password precedente
+    new_password_confirmation_invalid: Le password non corrispondono
+    new_password_confirmation_label: Conferma la nuova password
+    old_password_label: Password precedente
+    submit: Cambiare la password
+    success: La tua password è stata modificata con successo
+    title: Qui puoi modificare la tua password attuale
+    new_password_required: La password deve contenere almeno otto caratteri
+    new_password_label: Nuova password
+    new_password_must_be_complex: La nuova password deve contenere lettere maiuscole
+      e minuscole e numeri
+  change_data_info:
+    verified: Non puoi modificare il tuo nome e la tua data di nascita. Tuttavia,
+      puoi chiedere a un ambasciatore di modificare questi dati per te.
+    general: Qui puoi modificare i dati del tuo profilo.
 mailbox:
   mark_as_unread: Contrassegna l'e-mail come non letta
   filesize: Scusa, il file è troppo grande.
@@ -3010,6 +3133,8 @@ map:
     users:
       member:
         all: tutti
+        other: Secondo distretto
+        homeregion: Distretto di residenza
       role:
         all: tutti
       activity:
@@ -3018,16 +3143,25 @@ map:
         3months: ultimi tre mesi
         week: la settimana scorsa
         month: il mese scorso
+        label: Ultimo accesso
       region:
         label: Quartiere
     stores:
       help:
         all: nessuna preferenza
+        label: Aiutanti
+        open: ricercati
+        searching: urgentemente necessari
       status:
         label: Stato
         all: tutti
+        not-cooperating: non collaborante
+        cooperating: collabora
       scope:
         all: tutte
+        label: Affiliazione
+  events:
+    title: Eventi
 push_notifications:
   test_notification_body: Ottimo, sembra che abbia funzionato :)
   test_notification_title: Notifiche push abilitate
@@ -3158,6 +3292,10 @@ region:
   no-huge: Spiacente, non puoi selezionare un paese o uno stato come regione.
   change: Cambiare distretto
   name: Nome
+  public:
+    events:
+      title: Eventi pubblici
+  master: Distretto principale
 polls:
   future: Votazioni futuri
   ended: Votazioni passati
@@ -3578,6 +3716,7 @@ quiz:
     continue: '{name} - Continua il quiz!'
     pause: Pausa studio ({name})
     disqualified: '{name} - Purtroppo squalificato.'
+    finished: '{name} – Hai superato l’esame!'
   test: Quiz di prova
 deletelow: elimina
 filter_by: Filtrare per
@@ -3611,7 +3750,8 @@ error:
     title: 'Indirizzo e-mail non confermato!'
     link_2: 'Cambia indirizzo email'
     link_1: 'Richiedi una nuova email di attivazione'
-    description: 'Conferma il tuo indirizzo e-mail facendo clic sul collegamento nell''e-mail
+    description: 'L’utilizzo del sito web è possibile solo con un indirizzo email
+      confermato. Conferma il tuo indirizzo e-mail facendo clic sul collegamento nell’e-mail
       di attivazione.'
   missing_geolocation:
     title: 'Nessun indirizzo valido inserito'
@@ -3628,6 +3768,14 @@ error:
     description: 'Per poter continuare è necessario un distretto di residenza.'
     link: 'Seleziona il tuo distretto di residenza'
     title: 'Seleziona un distretto di residenza.'
+  page:
+    other: Si è verificato un errore sconosciuto.
+    not_found: Impossibile trovare la pagina.
+    internal_server_error: Si è verificato un errore interno del server.
+  passport_is_invalid_soon:
+    link: Impostazioni del profilo
+  passport_is_invalid:
+    link: Impostazioni del profilo
 globals:
   type:
     foodshare_points: 'Frigo solidali'
@@ -3663,6 +3811,8 @@ globals:
   save: 'Salva'
   show_more: 'Mostra di più'
   telephone_number: Numero di telefono
+  updated: 'Aggiornato:'
+  saved: Le modifiche sono state salvate
 activitypost:
   response: 'risposta'
   quickreply_info: '<code class="key">Maiusc + Invio</code> per aggiungere una nuova
@@ -3876,6 +4026,9 @@ notifications:
   checkbox_email: E-Mail
   checkbox_bell: Campanella
   success: Successo
+  info: Informazioni
+  error: Errore
+  warning: Avviso
 usersearch:
   search_tag: Cerca utenti
   no_tag_preset: Utente non trovato
@@ -3894,6 +4047,7 @@ markdown_input:
     link: collegamento
     heading: intestazione
     image: Allega immagini
+    mention: Menzione utente
   empty_preview_placeholder: "Questa è l'anteprima. Il testo è formattato qui come
     verrà visualizzato in seguito.\n---\n*Non hai ancora inserito alcun testo che
     possa essere visualizzato qui.*"
@@ -3914,12 +4068,15 @@ thread:
     options:
       copy_source: 'Copia il codice sorgente'
     copy_source_success: 'Copia il codice sorgente!'
+    quote_post_wrote: ha scritto il
   priorityModal:
     title: Modifica la priorità di visualizzazione
     text: 'Visualizza la priorità di questo post:'
     lower: in fondo
     normal: normale
     higher: in alto
+  hiddenPostsInfo:
+    toggle: Mostra post nascosti
 save_state: Salva filtri e ordinamento
 save_state_description: Salva i filtri applicati e l’ordinamento per le chiamate future
 configure_columns: Configura colonne
@@ -3962,6 +4119,12 @@ help:
       title: Cestini
     profileCommitmentsStat:
       title: Statistiche sul coinvolgimento
+    publicEvent:
+      title: Eventi pubblici
+    masterRegion:
+      title: Distretto principale
+    pollScopes:
+      title: Diritto al voto
 no_automatic_delete: 'Se l’ultimo accesso è avvenuto cinque anni fa:'
 automatic_delete: '- il profilo deve essere cancellato.'
 automatic_not_delete: '- il profilo deve essere mantenuto.'
@@ -3976,6 +4139,7 @@ theme_switcher:
     dark: scuro
     system: Sistema
   choose_button: Va bene
+  title: Scegli il design
 team_page:
   it_member:
     title: Squadra informatica
@@ -3983,6 +4147,16 @@ support_page:
   firstName: Nome di battesimo
   attachments: Allegati (massimo 5 MB per file)
   validation_email: Indirizzo e-mail non valido
+  email: Il tuo indirizzo di posta elettronica
+  your_name: Il tuo nome
+  validation_body: Il messaggio è vuoto
+  attachment:
+    max_size: Allegati (massimo 10 e 5 MB per file)
+    placeholder: Seleziona file
+  subject: Oggetto
+  validation_firstName: Il nome è vuoto
+  validation_subject: L’oggetto è vuoto
+  body: Messaggio
 store_categories:
   columns:
     name: Nome
@@ -3991,4 +4165,54 @@ navi:
   komoot: Komoot
   google_maps: Google Maps
   apple_maps: Mappe
+  native: App nativa
+  no_native_app: I geolink non sono supportati da questo dispositivo.
 partner_foodsharing: Partner di foodsharing
+net_errors:
+  SERVER_ERROR: Si è verificato un errore interno del server. Al momento la tua richiesta
+    non può essere elaborata.
+  code: 'Codice di errore: '
+  BAD_REQUEST: La richiesta non è valida. Si prega di verificare la completezza e
+    la plausibilità dei dati inseriti.
+  message: 'Messaggio di errore: '
+  TOO_MANY_REQUESTS: Troppe richieste. Attendi un attimo e riprova.
+  NOT_FOUND: La pagina richiesta non è stata trovata.
+  title:
+    400: Richiesta errata
+    500: Errore del server
+    general: Errore di rete
+  unknown: Si è verificato un errore sconosciuto. Riprova più tardi.
+  ERR_CANCELED: La richiesta è stata annullata. Riprova se necessario.
+  ERR_BAD_RESPONSE: Il server ha restituito una risposta non valida. Riprova.
+  ERR_NETWORK_CHANGED: La tua connessione internet è instabile. Controlla la connessione
+    e riprova.
+  ERR_NETWORK: Si è verificato un problema di rete. Controlla la tua connessione Internet
+    e riprova.
+  ECONNABORTED: Il tuo browser ha annullato la richiesta. Riprova.
+  ETIMEDOUT: La richiesta ha richiesto troppo tempo. Controlla la tua connessione
+    Internet e riprova.
+  FORBIDDEN: Non sei autorizzato a eseguire questa azione.
+  action_response: 'Richiesta e risposta del server:'
+feedback:
+  button: Invia feedback
+  title: Feedback
+  capture_screenshot: Fai uno screenshot
+required_messages:
+  decline_store_application:
+    footer: Distinti saluti
+  sure_title: Sei sicuro?
+  name_placeholder: <Nome>
+  kick_from_store_team:
+    footer: Distinti saluti
+  move_to_standby_team:
+    footer: Distinti saluti
+  demote_store_manager:
+    footer: Distinti saluti
+achievements:
+  editor:
+    name: Nome
+  validity:
+    indefiniteShort: illimitato
+  awardedNoReviewer: automaticamente
+contact_page:
+  bread: Contatti e supporto
