@@ -467,8 +467,9 @@ region:
       load_past: Vis tidligere arrangementer
       no_future_events: 'Det er for øyeblikket ingen offentlige arrangementer oppført
         i dette distriktet. Følgende hendelser har funnet sted i det siste:'
-    leave_text_group: Er du ikke lenger aktiv i {name}? Da bør du forlate denne gruppen.
-    leave_text_region: Er du ikke lenger aktiv i {name}? Da bør du forlate dette distriktet.
+    leave_text_group: Er du ikke lenger aktiv i {name} og ønsker å forlate denne gruppen?
+    leave_text_region: Er du ikke lenger aktiv i {name} og ønsker å forlate dette
+      distriktet?
   denied:
     group_in_this_region: «{name}» er en gruppe i dette distriktet.
     group_in_this_group: «{name}» er en undergruppe av denne gruppen.
@@ -1376,8 +1377,8 @@ settings:
     new_password_confirmation_label: Bekreft nytt passord
     submit: Endre passord
     success: Passordet ditt er endret
-    new_password_must_be_complex: Det nye passordet må inneholde bokstaver (store
-      og små bokstaver) og tall
+    new_password_must_be_complex: Det nye passordet må inneholde store og små bokstaver
+      og tall
   change_data_info:
     general: Her kan du justere profildataene dine.
     verified: Du kan ikke redigere navn og fødselsdato. Du kan imidlertid be en ambassadør
@@ -2582,7 +2583,7 @@ events:
     not_started: Dette arrangementet har ennå ikke startet
   attendees: Deltakere
   online_info: "Telefon- og nettkonferanser fra foodsharing kjører best via vår egen
-    [BigBlueButton](https://bigbluebutton.org)-server. Fra 10 minutter før møtestart
+    [BigBlueButton](https://bigbluebutton.org)-server. Fra 10 minutter før møtestart
     kan brukerne enkelt delta i konferansen med ett klikk fra møtesiden. Det kreves
     ingen ekstra programmer, bare en noenlunde moderne nettleser. Det er også mulig
     å melde seg på via telefon.\n\nHvis du likevel ønsker å bruke en annen plattform
@@ -2694,7 +2695,7 @@ forum:
     title: Gjenopprett innlegg
     hidden_by: Skjult av
   options:
-    enable_bells_for_new_posts: Motta bjeller for alle nye forumemner
+    enable_bells_for_new_posts: Motta bjeller for nye forumemner
     disable_bells_for_new_posts: Ingen bjeller mottatt for nye forumemner
 timepicker:
   labelNowButton: nå
@@ -2784,8 +2785,8 @@ pickup:
   really_delete_date: Vil du virkelig slette hentingen på {date}?
   kick_message_footer: Mange hilsener, samarbeidsoffiserer
   kick_message_placeholder: Om nødvendig, legg til informasjon her …
-  leave_team_message_template: Dessverre måtte jeg kansellere registreringen min for
-    henting den {date}. …
+  leave_team_message_template: Hei, jeg måtte kansellere registreringen min for henting
+    i {date}. …
   signout_info: Alle dine hentedatoer vil bli slettet.
   really_join_date: Ønsker du å gjøre en bindende påmelding til henting {date}?
   dates: Hentingsdatoere
@@ -2960,6 +2961,7 @@ store:
     filterHygiene: Hygiene trente
     filterNoHygiene: 'uten hygienetrening'
     inviteMember: Inviter til teamet
+    demoteAsManagerConfirm: Vil du virkelig gi opp rollen som teamleder?
   address: Adresse
   attribution: Attribusjon
   unknownDate: ukjent
@@ -3026,7 +3028,7 @@ store:
   my_last_pickup: Min siste henting
   may_referred_to_in_public: Dette samarbeidet kan nevnes offentlig.
   mayAmb: Bestod ambassadørquizen.
-  average_collection_quantity: Hentingsmengde i gjennomsnitt
+  average_collection_quantity: Hentingsmengde per person
   may_not_referred_to_in_public: Ikke navngi dette samarbeidet offentlig.
   tooltip_managing: Du er ansvarlig for samarbeidet med dette selskapet
   error: Selskapet kunne ikke lastes.
@@ -4037,9 +4039,8 @@ error:
   mail_activation:
     link_2: Endre e-postadresse
     title: E-postadresse er ikke bekreftet!
-    description: Fra neste utgivelse og utover kan nettsiden kun brukes med en bekreftet
-      e-postadresse. Vennligst bekreft e-postadressen din ved å klikke på lenken i
-      aktiverings-e-posten.
+    description: Bruk av nettstedet er kun mulig med en bekreftet e-postadresse. Vennligst
+      bekreft e-postadressen din ved å klikke på lenken i aktiverings-e-posten.
     link_1: Be om en ny aktiverings-e-post
   invalid_mobile_phonenumber:
     description: Dessverre er mobilnummeret i et format som ikke kan ringes.
