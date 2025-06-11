@@ -267,7 +267,7 @@ quiz:
         fp: "Fehlerpunkte:"
         wikilink:
           label: "Link zum passenden Artikel:"
-          placeholder: "https://wiki.foodsharing.de/..."
+          placeholder: "https://wiki.foodsharing.de/…"
         mandatory:
           label: "Pflichtfrage?"
           text: "Diese Frage muss in jedem Quizversuch enthalten sein"
@@ -640,7 +640,7 @@ register:
   password_must_be_complex: "Das Passwort muss mindestens jeweils einen Groß- und Kleinbuchstaben sowie Zahlen beinhalten"
   password_must_be_trimmed: "Das Passwort darf keine Leerzeichen am Anfang oder Ende enthalten"
   confirmPassword_required: "Bitte wiederhole das Passwort zur Bestätigung"
-  confirmPassword_sameAsPassword: "Beide eingegebenen Passwörter muss übereinstimmen"
+  confirmPassword_sameAsPassword: "Beide eingegebenen Passwörter müssen übereinstimmen"
   geb_datum: "Dein Geburtsdatum"
   login_location: "Deine Adresse"
   login_name: "Dein Vorname"
@@ -827,7 +827,7 @@ net_errors:
   TOO_MANY_REQUESTS: "Zu viele Anfragen. Bitte warte einen Moment und versuche es dann erneut."
   SERVER_ERROR: "Ein interner Serverfehler ist aufgetreten. Deine Anfrage kann derzeit leider nicht bearbeitet werden."
   ETIMEDOUT: "Die Anfrage hat zu lange gedauert. Bitte überprüfe deine Internetverbindung und versuche es erneut."
-  ECONNABORTED: "Die Anfrage wurde von Deinem Browser abgebrochen. Bitte versuche es erneut."
+  ECONNABORTED: "Die Anfrage wurde von deinem Browser abgebrochen. Bitte versuche es erneut."
   ERR_NETWORK: "Es gab ein Netzwerkproblem. Bitte überprüfe deine Internetverbindung und versuche es erneut."
   ERR_NETWORK_CHANGED: "Deine Internetverbindung ist instabil. Bitte überprüfe deine Verbindung und versuche es erneut."
   ERR_BAD_RESPONSE: "Der Server hat eine ungültige Antwort zurückgegeben. Bitte versuche es erneut."
@@ -1006,7 +1006,7 @@ store:
   particularities: "Besonderheiten"
   particularities_chain: "Besonderheiten der Kette"
   particularities_chain_tooltip: "Dieser Betrieb ist Teil einer Kette. Deshalb werden diese zusätzlichen Informationen angezeigt, die für alle Betriebe der Kette gelten."
-  average_collection_quantity: "Abholmenge im Schnitt"
+  average_collection_quantity: "Abholmenge pro Person"
   attribution: "Namensnennung"
   may_referred_to_in_public_unclear: "Noch nicht geklärt"
   may_referred_to_in_public: "Dieser Betrieb darf öffentlich genannt werden."
@@ -1031,7 +1031,7 @@ store:
     filterSleeping: "Schlafmütze"
     filterManage: "mit BV-Quiz"
     filterJumper: "Springer"
-    filterNoHygiene: "Ohne Hygiene-Schulung"
+    filterNoHygiene: "Ohne Hygieneschulung"
     filterQuizSM: "Quiz für Betriebsverantwortliche bestanden"
     removeFromTeam: "Aus dem Team entfernen"
     reallyRemove: "Möchtest du wirklich {name} aus diesem Betriebs-Team entfernen?"
@@ -1248,7 +1248,7 @@ pickup:
   leave_pickup_ok: "Ich habe bereits Ersatz"
   leave_pickup_message_team: "Team benachrichtigen"
   leave_team_message_title: "Nachricht ans Team"
-  leave_team_message_template: "Ihr Lieben, ich habe mich für eine Abholung wieder ausgetragen: {date} Uhr. …"
+  leave_team_message_template: "Ihr Lieben, ich habe mich für eine Abholung wieder ausgetragen: {date} Uhr. …"
   team_message_send_and_leave: "Senden und austragen"
   team_message_success: "Nachricht ans Team wurde erfolgreich versendet"
   join_title_date: "Sicher?"
@@ -1462,8 +1462,8 @@ forum:
     reason: "Begründung: „{reason}“"
     title: "Beitrag wiederherstellen"
   options:
-    enable_bells_for_new_posts: "Glocken für alle neuen Themen erhalten"
-    disable_bells_for_new_posts: "Keine Glocken für alle neuen Themen erhalten"
+    enable_bells_for_new_posts: "Glocken für neue Forenthemen erhalten"
+    disable_bells_for_new_posts: "Keine Glocken für neue Forenthemen erhalten"
 chat:
   open_chat: "Nachricht schreiben"
   new_message: "Neue Nachricht" #also Mailbox.js
@@ -1573,7 +1573,7 @@ events:
     not_started: "Dieser Termin hat noch nicht begonnen"
   attendees: "Teilnehmer:innen"
   online_info: |
-    Telefon- und Onlinekonferenzen von foodsharing laufen am besten über unseren eigenen [BigBlueButton](https://bigbluebutton.org)-Server. Ab 10 Minuten vor Beginn des Termins können Nutzer:innen ganz leicht mit einem Klick von der Terminseite der Konferenz beitreten. Dafür sind keine weiteren Programme notwendig, sondern nur ein halbwegs moderner Internet-Browser. Außerdem ist es auch möglich, per Telefon beizutreten.
+    Telefon- und Onlinekonferenzen von foodsharing laufen am besten über unseren eigenen [BigBlueButton](https://bigbluebutton.org)-Server. Ab 10 Minuten vor Beginn des Termins können Nutzer:innen ganz leicht mit einem Klick von der Terminseite der Konferenz beitreten. Dafür sind keine weiteren Programme notwendig, sondern nur ein halbwegs moderner Internet-Browser. Außerdem ist es auch möglich, per Telefon beizutreten.
 
     Solltest du trotzdem eine andere Plattform für eine Telefon- oder Onlinekonferenz nutzen wollen, wähle bitte die Option *„Sonstiges“* aus.
   public_info: "Diese Veranstaltung ist öffentlich, alle können darauf zugreifen. Kommentare und die Teilnehmer:innenliste sind nur für angemeldete Nutzer:innen sichtbar."
@@ -1622,7 +1622,7 @@ recipients:
 
 addresspicker:
   label: "Adress-/Standort-Suche"
-  placeholder: "Adresse suchen..."
+  placeholder: "Adresse suchen …"
   infobox: "Gib die Adresse in der Suchleiste ein oder schiebe den Pin in der Karte an die richtige Position."
   infobox_profile: "[Foodsharer](https://wiki.foodsharing.de/Foodsharer) benötigen die Adresse, um Essenskörbe über die Webseite anbieten zu können. Um als [Foodsaver](https://wiki.foodsharing.de/Foodsaver) an Lebensmittelrettungen teilnehmen zu können, ist sie notwendig."
   different_location: Adressbeschreibung korrigieren
@@ -1814,8 +1814,8 @@ bell:
 
   store_invitation_declined_title: "Einladung abgelehnt ({store})"
   store_invitation_declined:
-    one: "{user} möchte nicht {store} beitreten"
-    many: "{count} Nutzer:innen möchten nicht {store} beitreten"
+    one: "{user} möchte {store} nicht beitreten"
+    many: "{count} Nutzer:innen möchten {store} nicht beitreten"
 
   new_forum_thread_title: "Neues Thema in {forum}"
   new_forum_thread: "{author}: {title}"
@@ -2161,9 +2161,9 @@ settings:
     old_password_label: "Bisheriges Passwort"
     old_password_required: "Du musst dein bisheriges Passwort eingeben"
     new_password_label: "Neues Passwort"
-    new_password_required: "Das Passwort muss mindestens 8 Zeichen enthalten"
+    new_password_required: "Das Passwort muss mindestens acht Zeichen enthalten"
     new_password_must_be_trimmed: "Das Passwort darf nicht mit Leerzeichen beginnen oder enden"
-    new_password_must_be_complex: "Das neue Passwort muss mindestens einen Buchstaben (groß und klein) sowie Zahlen beinhalten"
+    new_password_must_be_complex: "Das neue Passwort muss Groß- und Kleinbuchstaben sowie Zahlen beinhalten"
     new_password_confirmation_label: "Neues Passwort bestätigen"
     new_password_confirmation_invalid: "Die Passwörter stimmen nicht überein"
     submit: "Passwort ändern"
@@ -2891,8 +2891,8 @@ region:
     join_text: "Möchtest du in {name} aktiv werden? Dann kannst du diesem Bezirk beitreten!"
     leave: "Bezirk verlassen"
     leave_name: "{name} verlassen"
-    leave_text_region: "Bist du nicht mehr in {name} aktiv? Dann solltest du diesen Bezirk verlassen."
-    leave_text_group: "Bist du nicht mehr in {name} aktiv? Dann solltest du diese Gruppe verlassen."
+    leave_text_region: "Bist du nicht mehr in {name} aktiv und möchtest diesen Bezirk verlassen?"
+    leave_text_group: "Bist du nicht mehr in {name} aktiv und möchtest diese Gruppe verlassen?"
     description: "Über den Bezirk"
     no_more_info: "Über diesen Bezirk stehen keine weiteren Infos öffentlich zur Verfügung."
     wall: "Updates aus dem Bezirk"
@@ -3036,7 +3036,7 @@ email_template:
   foodbasket_request: "Dein Essenskorb wurde von %SENDER% angefragt"
   fetch_warning:
     part1: "Die Aufgabe der Betriebsverantwortlichen ist es, sicherzustellen, dass Abholungen wie geplant durchgeführt werden. Leider haben sich noch nicht in allen deinen Betrieben in den kommenden zwei Tagen genügend Foodsaver:innen für die Abholungen eingetragen:"
-    part2: "Bitte kümmere dich schnellstmöglich darum, hierfür Foodsaver:innenzu finden, damit alle Abholungen stattfinden können. Solltest du niemanden mobilisieren können, wäre es schön, wenn du offene Abholungen übernehmen könntest. Sollte dir das nicht möglich sein, dann sage die entsprechenden Termine bitte rechtzeitig beim Betrieb ab."
+    part2: "Bitte kümmere dich schnellstmöglich darum, hierfür Foodsaver:innen zu finden, damit alle Abholungen stattfinden können. Solltest du niemanden mobilisieren können, wäre es schön, wenn du offene Abholungen übernehmen könntest. Sollte dir das nicht möglich sein, dann sage die entsprechenden Termine bitte rechtzeitig beim Betrieb ab."
     empty_slots: "%COUNT% unbelegte Abholslots"
     subject:
       single: "Offene Abholtermine bei %BETRIEB%!"
@@ -3384,7 +3384,7 @@ error:
     link_2: "Ich benötige Hilfe"
   mail_activation:
     title: "E-Mail-Adresse nicht bestätigt!"
-    description: "Ab dem nächsten Release wird die Benutzung der Webseite nur noch mit bestätigter E-Mail-Adresse möglich sein. Bitte bestätige deine E-Mail-Adresse, indem du auf den Link in der Aktivierungsmail klickst."
+    description: "Die Benutzung der Webseite ist nur noch mit bestätigter E-Mail-Adresse möglich. Bitte bestätige deine E-Mail-Adresse, indem du auf den Link in der Aktivierungsmail klickst."
     link_1: "Eine neue Aktivierungsmail anfordern"
     link_2: "E-Mail-Adresse ändern"
   missing_geolocation:
@@ -3973,7 +3973,7 @@ required_messages:
     footer: "Viele Grüße"
   demote_store_manager:
     really: "Möchtest du {name} wirklich die Verantwortung als Betriebsverantwortliche:r entziehen?"
-    main: "Ich habe dich als Betriebsverantwortliche:r des Betriebs [{store}](/store/{storeId}) ausgetragen."
+    main: "Ich habe dich als Betriebsverantwortliche:n des Betriebs [{store}](/store/{storeId}) ausgetragen."
     footer: "Viele Grüße"
 
 petition:

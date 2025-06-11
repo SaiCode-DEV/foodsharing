@@ -34,7 +34,7 @@ class StoreUserCest
         $I->amOnPage($I->storeUrl($this->store['id']));
         $I->waitForActiveAPICalls();
 
-        $I->see('Abholmenge im Schnitt');
+        $I->see('Abholmenge pro Person');
         $I->see($example[1]);
     }
 
