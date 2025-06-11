@@ -20,10 +20,11 @@ group:
       max: Please do not expect more than {{ limit }} trust bananas.
       not_in_range: "Nobody should have less than {{ min }} or more than {{ max }}
         trust bananas."
-    member_since_weeks: For how many weeks should applicants have been active at foodsharing?
-    not_fulfilled: To apply for this group, you have to be registered for at least
-      %weeks% weeks, have %bananas% trust bananas and helped %fetches% times picking
-      up food.
+    member_since_weeks: For how many weeks should applicants have been active at
+      foodsharing?
+    not_fulfilled: To apply for this group, you have to be registered for at 
+      least %weeks% weeks, have %bananas% trust bananas and helped %fetches% 
+      times picking up food.
   members: Members
   administrators: Group administrators
   title: foodsharing working groups
@@ -50,11 +51,12 @@ group:
   quit_name: Leave group %name%
   quit: Leave
   really_quit_name: Do you really want to quit the group %name%?
-  delete_group_sure: Do you really want to delete the group/the district {groupName}?
+  delete_group_sure: Do you really want to delete the group/the district 
+    {groupName}?
 
   function:
     title: Working group function
-    fsp: Food-Share Point
+    fsp: Food share point
     voting: Polls
     stores: Stores
     welcome: Greeting
@@ -65,56 +67,60 @@ group:
     mediation: Mediation
     report: Reports
     board: Board
-    duplicate_moderation_team: Moderation team already created! There can only be
-      one moderation team per district.
-    duplicate_pr_team: Public relations team already created! There can only be one
-      public relations team per district.
-    duplicate_fsmanagement_team: Administration team already created! There can only
-      be one administration team per district.
-    duplicate_arbitration_team: Arbitration board already created! There can only
-      be one arbitration board per district.
-    duplicate_mediation_team: Mediation team already created! There can only be one
-      mediation team per district.
-    duplicate_report_team: Reporting team already created! There can only be one reporting
-      team per district.
-    duplicate_fsp_team: Food-Share Point team already created! There can only be one
-      Food-Share Point team per district.
-    duplicate_voting_team: Voting team already created! There can only be one voting
-      team per district.
-    duplicate_welcome_team: Welcome team already created! There can only be one welcome
-      team per district.
+    duplicate_moderation_team: Moderation team already created! There can only 
+      be one moderation team per district.
+    duplicate_pr_team: Public relations team already created! There can only be 
+      one public relations team per district.
+    duplicate_fsmanagement_team: Administration team already created! There can 
+      only be one administration team per district.
+    duplicate_arbitration_team: Arbitration board already created! There can 
+      only be one arbitration board per district.
+    duplicate_mediation_team: Mediation team already created! There can only be 
+      one mediation team per district.
+    duplicate_report_team: Reporting team already created! There can only be one
+      reporting team per district.
+    duplicate_fsp_team: Food share point team already created! There can only be
+      one food share point team per district.
+    duplicate_voting_team: Voting team already created! There can only be one 
+      voting team per district.
+    duplicate_welcome_team: Welcome team already created! There can only be one 
+      welcome team per district.
     invalid: A group function cannot be assigned to a region.
-    duplicate_stores_team: Store coordination team does already exist! There can only
-      be one store coordination team per region.
-    restricted_workgroup_function: This working group function can only be edited
-      by the transregional group ‘AG anlegen’
-    tooltip_function_10: Administrators of this work group can approve posts in moderated
-      forums. If the option is enabled for the district, they can also hide posts
-      in the forum.
-    tooltip_function_9: Administrators of this working group can edit the description
-      of the local group in the map.
-    tooltip_function_6: The e-mail address of this work group is shown at the ‘Request
-      mediation’ button. The administrators have no special permissions.
-    tooltip_function_5: Administrators of this work group can see messages about foodsaver
-      in the region. No messages are shown in which the administrators are involved!
-      These are received by the arbitration body.
-    tooltip_function_4: Administrators of this work group can view and edit stores
-      in the district
-    tooltip_function_3: Administrators of this working group can activate and edit
-      Food-Share Point of the district as well as remove Food-Share Point contributions
-    tooltip_function_1: Administrators of this working group will be notified when
-      new members join the district
-    tooltip_function_2: Administrators of this work group can create votes for the
-      district
-    tooltip_function_7: Administrators of this working group receive reports with
-      the participation of the reporting team. No reports are displayed in which the
-      administrators are involved; the reporting team receives them
-    tooltip_function_11: Administrators of this group are shown in the region’s overview.
-    duplicate_board_team: Board already created. There can only be one board per district.
-    tooltip_function_12: Administrators of this working group are displayed in the
-      district overview.
-    duplicate_election_team: Electoral group already created! There can only be one
-      electoral group per district.
+    duplicate_stores_team: Store coordination team does already exist! There can
+      only be one store coordination team per region.
+    restricted_workgroup_function: This working group function can only be 
+      edited by the transregional group ‘AG anlegen’
+    tooltip_function_10: Administrators of this work group can approve posts in 
+      moderated forums. If the option is enabled for the district, they can also
+      hide posts in the forum.
+    tooltip_function_9: Administrators of this working group can edit the 
+      description of the local group in the map.
+    tooltip_function_6: The e-mail address of this work group is shown at the 
+      ‘Request mediation’ button. The administrators have no special 
+      permissions.
+    tooltip_function_5: Administrators of this work group can see messages about
+      foodsaver in the region. No messages are shown in which the administrators
+      are involved! These are received by the arbitration body.
+    tooltip_function_4: Administrators of this work group can view and edit 
+      stores in the district
+    tooltip_function_3: Administrators of this working group can activate and 
+      edit food share points of the district as well as remove food share point 
+      contributions
+    tooltip_function_1: Administrators of this working group will be notified 
+      when new members join the district
+    tooltip_function_2: Administrators of this work group can create votes for 
+      the district
+    tooltip_function_7: Administrators of this working group receive reports 
+      with the participation of the reporting team. No reports are displayed in 
+      which the administrators are involved; the reporting team receives them
+    tooltip_function_11: Administrators of this group are shown in the region’s 
+      overview.
+    duplicate_board_team: Board already created. There can only be one board per
+      district.
+    tooltip_function_12: Administrators of this working group are displayed in 
+      the district overview.
+    duplicate_election_team: Electoral group already created! There can only be 
+      one electoral group per district.
     election: Election
     stores_coordination: Stores
     none: Not a GOALS working group
@@ -129,7 +135,8 @@ group:
     declined: Application rejected
     accepted: Application accepted
     title: Application for {group}
-    zeit: How many hours do you have time and inclination to spend on it per week?
+    zeit: How many hours do you have time and inclination to spend on it per 
+      week?
     erfahrung: "In the group, can you draw on experiences that you have gained elsewhere?\n\
       \ If so, where or what?\n"
     faehigkeit: What skills do you have in this area?
@@ -140,8 +147,8 @@ group:
     ability: What skills do you have in this area?
     experience: "Can you draw on experiences in the group that you have gained elsewhere?\n\
       \ If so, where or which ones?\n"
-    how_much_time: How many hours a week do you have the time and inclination to spend
-      on this?
+    how_much_time: How many hours a week do you have the time and inclination to
+      spend on this?
     error_missing_time: 'Error: no time has been selected.'
   show-all: Show all
   really_quit_district: Do you really want to leave the region {name}?
@@ -162,24 +169,27 @@ group:
     name_required: Please enter a name.
     description_required: Please enter a description.
     description_placeholder: Description of working group
-  quitting_home_district_warning: Do you really want to leave your home district {name}?
-    You will lose your verification and have to contact the ambassador team of your
-    new home district later.
+  quitting_home_district_warning: Do you really want to leave your home district
+    {name}? You will lose your verification and have to contact the ambassador 
+    team of your new home district later.
   saved: Changes were saved
   unique_function:
-    tooltip_function_region432: Administrators of this work group can view violation
-      reports
-    tooltip_function_region2287: Administrators of this work group can edit the contents
-      of the start page
-    tooltip_function_region1811: Administrators of this work group can edit the pages
-      ‘Partner’, ‘Contact’ and ‘Team’
-    tooltip_function_region341: Administrators of this work group can manage the quiz
-      questions
-    tooltip_function_region331: Administrators of this work group can send newsletters
+    tooltip_function_region432: Administrators of this work group can view 
+      violation reports
+    tooltip_function_region2287: Administrators of this work group can edit the 
+      contents of the start page
+    tooltip_function_region1811: Administrators of this work group can edit the 
+      pages ‘Partner’, ‘Contact’ and ‘Team’
+    tooltip_function_region341: Administrators of this work group can manage the
+      quiz questions
+    tooltip_function_region331: Administrators of this work group can send 
+      newsletters
     tooltip_function_region387: "Administrators of this group can remove entries from
       the e-mail bounce list"
-    tooltip_function_region327: Administrators of this workgroup can edit blog entries
-    tooltip_function_region332: Members of this group can access the store chain list
+    tooltip_function_region327: Administrators of this workgroup can edit blog 
+      entries
+    tooltip_function_region332: Members of this group can access the store chain
+      list
   member_list:
     remove_title: Remove member
     remove_text: Do you really want to remove {name} ({id}) from this group?
@@ -191,13 +201,17 @@ group:
     set_admin_title: Make administrator
     set_ambassador_text: Do you really want to make {name} ({id}) an ambassador?
     remove_ambassador_title: remove as ambassador
-    remove_ambassador_text: Are you sure you want to remove {name} ({id}) as an ambassador?
-    remove_admin_text: Are you sure you want to remove {name} ({id}) as an admin?
+    remove_ambassador_text: Are you sure you want to remove {name} ({id}) as an 
+      ambassador?
+    remove_admin_text: Are you sure you want to remove {name} ({id}) as an 
+      admin?
     remove_admin_title: remove as admin
     old_edit_hint_link: Members
     old_edit_hint: You can now find the member administration on the tab
-    remove_text_group: Do you really want to remove {name} ({id}) from this workgroup?
-    remove_text_region: Do you really want to remove {name} ({id}) from the region?
+    remove_text_group: Do you really want to remove {name} ({id}) from this 
+      workgroup?
+    remove_text_region: Do you really want to remove {name} ({id}) from the 
+      region?
     is_verified: verified
     is_home_region: Home region
     not_verified: not verified
@@ -215,11 +229,11 @@ group:
         verify: verify
         unverify: unverify
       verify:
-        do: Do you really want to activate {name} ({id}) (data comparison completed
-          / ID checked, etc.)?
-        undo: Cancel verification of {name} ({id})
-        do_selected: Do you really want to activate all selected users (data comparison
+        do: Do you really want to activate {name} ({id}) (data comparison 
           completed / ID checked, etc.)?
+        undo: Cancel verification of {name} ({id})
+        do_selected: Do you really want to activate all selected users (data 
+          comparison completed / ID checked, etc.)?
       verify_selected: verify selected
       automatic_paper_size: use A4 paper
       create_pdf: create PDF
@@ -251,17 +265,19 @@ settings:
   header: Profile settings
   name_change:
     title: Name (first & last name)
-    desc: You cannot change your name yourself. You can however [request a name change]({link}).
+    desc: You cannot change your name yourself. You can however [request a name 
+      change]({link}).
     request: Request name change
-    info: To get your name changed you have to contact an ambassador of your home
-      region. He*She can change your name for you.<hr/>You can find out who the ambassadors
-      of you region are in the left sidebar of your <a {link}>home regions forum page</a>.
-    foodsharer_info: To get your name changed, please create a request in our <a href="{link}">support
-      form</a>.
-    foodsaver_info: To change your name, you must contact an ambassador from your
-      home district. This person can then change the name for you. You can see who
-      is the ambassador in your home district in the [forum of your district]({link})
-      in the left sidebar.
+    info: To get your name changed you have to contact an ambassador of your 
+      home region. He*She can change your name for you.<hr/>You can find out who
+      the ambassadors of you region are in the left sidebar of your <a 
+      {link}>home regions forum page</a>.
+    foodsharer_info: To get your name changed, please create a request in our <a
+      href="{link}">support form</a>.
+    foodsaver_info: To change your name, you must contact an ambassador from 
+      your home district. This person can then change the name for you. You can 
+      see who is the ambassador in your home district in the [forum of your 
+      district]({link}) in the left sidebar.
   push:
     not-supported: Your browser does not support push notifications.
     title: Push notifications
@@ -302,7 +318,8 @@ settings:
       is helpful to know if you are able to respond to messages\nor even sometimes
       make pick-ups.\n"
     status: Your current status
-    message: Here you can leave a short message why you don’t have time right now.
+    message: Here you can leave a short message why you don’t have time right 
+      now.
     from: From
     until: until
   account: Account options
@@ -326,21 +343,21 @@ settings:
       your choice.\nTo do this, subscribe to one of the two following calendar links.\n\
       \ You can find further information in the wiki at\n"
     delete_token:
-      message: All previously generated calendar links will become invalid. Do you
-        really want to delete the token?
+      message: All previously generated calendar links will become invalid. Do 
+        you really want to delete the token?
       title: Delete token
       button: Delete token
     create_token:
-      message: You can only have one token. By generating a new one, the old link
-        will be overwritten and will become invalid. Do you really want to generate
-        a new link?
+      message: You can only have one token. By generating a new one, the old 
+        link will be overwritten and will become invalid. Do you really want to 
+        generate a new link?
       title: Generate a new token
       button: Generate a new token
     export: Export calendar
-    export_tooltip: You can view your upcoming pickup dates using a calendar program
-      of your choice.
-    include_invitations: The calendar should also contain invitations to appointments
-      that I have not yet responded to.
+    export_tooltip: You can view your upcoming pickup dates using a calendar 
+      program of your choice.
+    include_invitations: The calendar should also contain invitations to 
+      appointments that I have not yet responded to.
     generate_url:
       button: Generate a calendar URL
     download: Download the calendar
@@ -360,7 +377,8 @@ settings:
       maybe: Events that I indicated I will / may attend
       accepted: Events that I indicated I will attend
       none: None
-      label: Which appointments of your districts and working groups should be included?
+      label: Which appointments of your districts and working groups should be 
+        included?
       invitations: Appointments that I have not yet cancelled
       all: All appointments
     pickup:
@@ -385,19 +403,21 @@ settings:
   saved: The changes were saved.
   changemail:
     done: Your e-mail address was changed.
-    occupied: The e-mail address could not be changed because it is already in use.
-    domain: Please choose a different e-mail address, so that you will always be able
-      to restore your password.
+    occupied: The e-mail address could not be changed because it is already in 
+      use.
+    domain: Please choose a different e-mail address, so that you will always be
+      able to restore your password.
     invalid: Something is wrong with the e-mail address you entered
     passcheck: Please confirm the change with your password
-    sent: Now go to your <strong>new</strong> email inbox to confirm the address.
+    sent: Now go to your <strong>new</strong> email inbox to confirm the 
+      address.
     passfail: Your password is wrong, you made a mistake?
     question: 'Do you really want us to change your email address to this:'
     input_label_email_confirm: Please confirm the new e-mail address here
     wrong_password: The password is wrong.
-    explanation: Here you can change the e-mail address with which you registered
-      your account. After submitting, you will receive an e-mail to the new address
-      with a confirmation link.
+    explanation: Here you can change the e-mail address with which you 
+      registered your account. After submitting, you will receive an e-mail to 
+      the new address with a confirmation link.
     input_label_email: Enter the new e-mail address here
     explanation_password: Please confirm the change with you current password
     confirm_email_required: The e-mail addresses do not match
@@ -405,14 +425,16 @@ settings:
     not_changed: Your email address has not been changed.
     dashboard_link: Continue to dashboard
     question_other_user: 'Should the e-mail address really be changed to this one:'
-    insufficient_permission: You do not have permission to change the e-mail address
-      of this profile.
-    sent_other_user: An e-mail with a confirmation link has been sent to the new address.
-    explanation_other_user: Here you can change the e-mail address with which this
-      profile was registered. After submitting, the user will receive an e-mail to
-      the new address with a confirmation link.
+    insufficient_permission: You do not have permission to change the e-mail 
+      address of this profile.
+    sent_other_user: An e-mail with a confirmation link has been sent to the new
+      address.
+    explanation_other_user: Here you can change the e-mail address with which 
+      this profile was registered. After submitting, the user will receive an 
+      e-mail to the new address with a confirmation link.
     password_label: Current password
-    password_required: You must enter your password to change the e-mail address.
+    password_required: You must enter your password to change the e-mail 
+      address.
   chatmail: "If you receive an internal message on the foodsharing homepage,\nbut
     you are not logged in at the moment, we can inform you by mail.\nDo you want that?\n"
   follow:
@@ -422,13 +444,14 @@ settings:
   newsletter: "About once a month we send out current information\nabout the food
     saving movement in a newsletter.\nDo you want to receive these emails?\n"
   passport:
-    menu: ID card
-    non_verified_text: You are not yet verified. Only verified foodsavers are allowed
-      to download their passport.
+    menu: Membership card
+    non_verified_text: You are not yet verified. Only verified foodsavers are 
+      allowed to download their passport.
     button: Download passport
-    verified_text: This badge is intended for use on smartphones. You can save it
-      there and then show it when requested. If you don’t have a smartphone or need
-      a traditional badge for another reason, contact your local ambassadors.
+    verified_text: This badge is intended for use on smartphones. You can save 
+      it there and then show it when requested. If you don’t have a smartphone 
+      or need a traditional badge for another reason, contact your local 
+      ambassadors.
     add_to_wallet:
       google: "Add to Google Wallet"
       apple: "Add to Apple Wallet"
@@ -443,8 +466,8 @@ settings:
     ask_your_ambassadors: Please contact your ambassadors.
     passport_not_activated: Your membership card has not yet been activated.
     passport_is_invalid: Your membership card is no longer valid.
-    passport_is_valid_until: Your membership card is valid for another **{days}**
-      days or until **{date}**.
+    passport_is_valid_until: Your membership card is valid for another 
+      **{days}** days or until **{date}**.
   delete_profile: Delete profile
   quiz:
     2: Quiz for store managers
@@ -469,12 +492,12 @@ settings:
     new_password_must_be_trimmed: The password must not begin or end with spaces
     new_password_confirmation_label: Confirm new password
     success: Your password has been successfully changed
-    new_password_must_be_complex: The new password must contain upper and lower case
-      letters and numbers
+    new_password_must_be_complex: The new password must contain upper and lower 
+      case letters and numbers
   change_data_info:
     general: Here you can adjust your profile data.
-    verified: You can’t edit your name and date of birth. However, you can ask an
-      ambassador to change these details for you.
+    verified: You can’t edit your name and date of birth. However, you can ask 
+      an ambassador to change these details for you.
 menu:
   manage_regions: Manage regions
   blog: Manage blog content
@@ -568,8 +591,8 @@ menu:
 profile:
   banana:
     sent: The banana was sent!
-    messageTooShort: The text message accompanying your banana should be at least
-      100 characters long.
+    messageTooShort: The text message accompanying your banana should be at 
+      least 100 characters long.
 
     give: Give a trust banana to {name}
     title: '{count} trust bananas'
@@ -598,7 +621,8 @@ profile:
     mayNot: not active
     login: To the login
     cta: 'The complete profile of {name} is available after registration:'
-    textMayNot: and is therefore not allowed to accept any food on behalf of foodsharing.
+    textMayNot: and is therefore not allowed to accept any food on behalf of 
+      foodsharing.
     textMay: and is therefore allowed to accept food on behalf of foodsharing.
   regions: '{name} is a foodsaver in'
   stats:
@@ -628,18 +652,19 @@ profile:
     sent: Report was sent
     send: Send report
     title: 'Report about {name}'
-    reporterAdminNoArbitration: You are admin of the local reporting group and since
-      there is no local arbitration board, you cannot submit a report.
-    reportedAdminNoArbitration: You cannot submit a report about {name} because {name}
-      is admin of the local reporting group in his*her district and there is no arbitration
-      board there.
-    noReportGroup: You cannot use the reporting system since it is not activated for
-      the foodsaver’s district.
-    reporterHasNoReportGroup: You cannot use the reporting system as there is no local
-      reporting group in your district.
-    oldReportButtonTextPart3: You can find more information about the reporting system
-    oldReportButtonTextPart2: If necessary, contact the local reporting group in your
-      district.
+    reporterAdminNoArbitration: You are admin of the local reporting group and 
+      since there is no local arbitration board, you cannot submit a report.
+    reportedAdminNoArbitration: You cannot submit a report about {name} because 
+      {name} is admin of the local reporting group in his*her district and there
+      is no arbitration board there.
+    noReportGroup: You cannot use the reporting system since it is not activated
+      for the foodsaver’s district.
+    reporterHasNoReportGroup: You cannot use the reporting system as there is no
+      local reporting group in your district.
+    oldReportButtonTextPart3: You can find more information about the reporting 
+      system
+    oldReportButtonTextPart2: If necessary, contact the local reporting group in
+      your district.
     oldReportButtonTextPart1: Rule violations are currently not reported here.
     oldReportButton: Report rule violation
     mail:
@@ -653,14 +678,14 @@ profile:
       done, for example whether you have tried the communication channels available
       to you in order to address the incident directly to the person and to clarify
       the matter.\n- How you can be reached best in case we have further questions.\n"
-    repAdminAgainstArbAdmin: You are an admin of the report processing team and want
-      to report an admin of the arbitration board. This is not technically supported
-      at the moment. You can always submit a report by email to the local responsible
-      for this case.
-    arbAdminAgainstRepAdmin: You are an administrator of the arbitration board and
-      want to report an administrator of the report processing. This is not technically
-      supported at the moment. You can always submit a report by email to your local
-      responsible for this case.
+    repAdminAgainstArbAdmin: You are an admin of the report processing team and 
+      want to report an admin of the arbitration board. This is not technically 
+      supported at the moment. You can always submit a report by email to the 
+      local responsible for this case.
+    arbAdminAgainstRepAdmin: You are an administrator of the arbitration board 
+      and want to report an administrator of the report processing. This is not 
+      technically supported at the moment. You can always submit a report by 
+      email to your local responsible for this case.
     view:
       delivered: Delivered
       newreport: New reports
@@ -678,15 +703,15 @@ profile:
         hurtful: insulting remarks
       residence: FS’s place of residence
       returned: Did not return deposit bottles/boxes, etc
-      unreliable: Frequent cancellation of pick-ups at short notice without finding
-        a replacement
+      unreliable: Frequent cancellation of pick-ups at short notice without 
+        finding a replacement
       social: Did not behave in a collaborative and social manner during pickup
       thief: Took things that were not meant for him/her
       trasher: Throws away saved food
       picky: Does not take all food intended for pickup
       complaints: Made allegations
-      additional: Took food or asked the company for food to be saved outside his/her
-        pickup
+      additional: Took food or asked the company for food to be saved outside 
+        his/her pickup
       other: Violated other rules of conduct (everything else)
       vsfs: towards foodsavers
       sells: Sells saved food
@@ -720,7 +745,8 @@ profile:
     sells: Sells rescued food
     noshow: The person didn’t come
     late: The person was late
-    cancellation: Frequent late cancellation of appointments without finding a replacement
+    cancellation: Frequent late cancellation of appointments without finding a 
+      replacement
     readup: "Find advice on processing a report here: [Processing a report](https://wiki.foodsharing.de/Regelverletzungen_-_Konsequenzen_und_Bearbeitung#D.29_Bearbeitung_einer_Meldung)"
     doesNotAffectStore: Affects a different company or no company at all
     notes: Notes and decisions
@@ -734,21 +760,24 @@ profile:
     report_b6_1: The pick-up location was not left tidy (B06-2)
     report_b6_0: No consideration was given to customers and employees (B06-1)
     report_b7: The company’s waiting time was not observed (B07)
-    report_b12: The other collectors were not allowed to decide independently to whom
-      the food should be passed on (B12)
+    report_b12: The other collectors were not allowed to decide independently to
+      whom the food should be passed on (B12)
     report_b10: Sells rescued food (B10)
-    report_b13: No adequate effort was made to consume / distribute the rescued food
-      (B13)
+    report_b13: No adequate effort was made to consume / distribute the rescued 
+      food (B13)
     report_b11: Non-ecological means were used to carry out the collection (B11)
-    report_b3_1: Did not carry out the collection without dispute or discussion (B03-2)
+    report_b3_1: Did not carry out the collection without dispute or discussion 
+      (B03-2)
     report_b8: Has been rude to the company’s employees (B08)
-    report_b9: Inappropriate comments were made about the quantity, type and use of
-      the rescued food (B09)
+    report_b9: Inappropriate comments were made about the quantity, type and use
+      of the rescued food (B09)
     report_b1_3: Took children to the pick-up without permission (B01-4)
-    report_b1_4: The person did not carry their foodsharing ID card with them (B01-5)
-    report_b2: Carried out a pick-up outside the specified dates without clarifying
-      this with those responsible (B02)
-    report_b3_0: Did not enter/leave the company together with the others (B03-1)
+    report_b1_4: The person did not carry their foodsharing membership card with
+      them (B01-5)
+    report_b2: Carried out a pick-up outside the specified dates without 
+      clarifying this with those responsible (B02)
+    report_b3_0: Did not enter/leave the company together with the others 
+      (B03-1)
     report_b4_0: Not all edible food was taken (B04-1)
   history:
     wasVerified: Verified
@@ -778,9 +807,10 @@ profile:
   about_me_intern: About me
   go: Go to profile page
   mediation:
-    no_group: Unfortunately there is no local mediation group for the home district
-      of this foodsaver at the moment. You can raise the topic at a group meeting
-      or in the forum so that a local mediation team can be formed.
+    no_group: Unfortunately there is no local mediation group for the home 
+      district of this foodsaver at the moment. You can raise the topic at a 
+      group meeting or in the forum so that a local mediation team can be 
+      formed.
     info: "We think it’s great that you are looking for support to address a topic
       with the Foodsaver. The mediation team can act as a mediator and help that your
       conversations are conducted on an equal footing and with mutual respect. You
@@ -796,18 +826,19 @@ profile:
   online: '{name} is online.'
   mailBounceWarning_3: will remove this block.
   mailBounceWarning_2: Changing the mail address
-  mailBounceWarning_1: Your personal e-mail address {email} is blocked for foodsharing
-    e-mails and communication.
+  mailBounceWarning_1: Your personal e-mail address {email} is blocked for 
+    foodsharing e-mails and communication.
   notFound: This user profile does not exist or no longer exists
   mail_bounce:
     remove_button: Remove from bounce list
-    warning_others: This user’s e-mail address {email} is blocked for foodsharing
-      e-mails and communication. You can remove the blocked status with the button.
+    warning_others: This user’s e-mail address {email} is blocked for 
+      foodsharing e-mails and communication. You can remove the blocked status 
+      with the button.
     warning_4: this support article.
     warning_3: 'it will be unblocked. You can find more information in '
     warning_2: changing the email address
-    warning_1: Your personal email address {email} is blocked for foodsharing e-mail
-      and communication. By
+    warning_1: Your personal email address {email} is blocked for foodsharing 
+      e-mail and communication. By
   no_common_workgroups: You are not in any common group with {name}.
   workgroups_member: You and {name} are in the following working groups
   workgroups_admin: '{name} is committed as a contact person for the working groups'
@@ -829,29 +860,30 @@ profile:
     week_4: Two weeks ago
     calenderWeek: CW
     title: Commitment stats
-    securePickupWeek: Thanks for {count} stepping in and securing pick-ups on short
-      notice!
+    securePickupWeek: Thanks for {count} stepping in and securing pick-ups on 
+      short notice!
     pickupCount: '# of pick-ups'
     week_0: The week after next
     eventsCreatedWeek: 'Thanks for creating events {count} times this week.'
     eventsParticipatedWeek: 'Thanks for participating in {count} events this week.
       Total time: {hour}:{minute} '
-    basketsOfferedWeek: Thanks for offering food baskets {count} times this week.
-      A total of {weight} kg was shared.
+    basketsOfferedWeek: Thanks for offering food baskets {count} times this 
+      week. A total of {weight} kg was shared.
     respActStores: 'Thanks for coordinating {count} active '
     basketsSharedWeek: 'The food baskets were shared with {count} persons. '
-    tooltip_visibility: The commitment statistic is visible from the role of Store
-      Coordinator upwards. It’s limited to joint home districts or joint stores.
+    tooltip_visibility: The commitment statistic is visible from the role of 
+      Store Coordinator upwards. It’s limited to joint home districts or joint 
+      stores.
     weekDesc: Calendar week {week}, from {weekStart} to {weekEnd}
   deletesuccess: Single pickup slot deleted
   choosestore: Please select the affected store
-  orga_rights: As an organizational person, {name} has <a target="_blank" href="{wikiurl}">extensive
-    permissions</a> on the platform.
-  editNameInfo: Please note that the first and last name fields should only be used
-    for the person’s name. Please do not use these fields to store further information
-    about the user, such as the completion of hygiene training or similar. Instead,
-    workgroups can be used to perform such assignments. Further information on this
-    can be found in the [Ambassador Forum]({url})
+  orga_rights: As an organizational person, {name} has <a target="_blank" 
+    href="{wikiurl}">extensive permissions</a> on the platform.
+  editNameInfo: Please note that the first and last name fields should only be 
+    used for the person’s name. Please do not use these fields to store further 
+    information about the user, such as the completion of hygiene training or 
+    similar. Instead, workgroups can be used to perform such assignments. 
+    Further information on this can be found in the [Ambassador Forum]({url})
   sections:
     ambassador_for: for
     foodSaver_in_region: Joined the following districts
@@ -915,7 +947,8 @@ mailbox:
   new: New mailbox
   filesize: Sorry, this file is too big.
   filetype: This file type is not allowed
-  ratelimit: You can only send one email every 15 seconds, please wait a moment …
+  ratelimit: You can only send one email every 15 seconds, please wait a 
+    moment …
   failed: The email could not be sent.
   okay: Email was successfully sent.
   not-allowed: You don’t have the necessary authorization to do that.
@@ -943,9 +976,10 @@ mailbox:
     not_found_explanation: The attachment could not be found on the server
     not_found: not found
     attach: Attachments (maximum 10 files and 1.5 MB per file)
-    too_large_to_send: Some of the files were too large and could not be attached.
-    too_many: Too many files have been selected. A maximum of 10 files can be attached
-      to the e-mail.
+    too_large_to_send: Some of the files were too large and could not be 
+      attached.
+    too_many: Too many files have been selected. A maximum of 10 files can be 
+      attached to the e-mail.
   move_to: Move to
   close_edit_mode: Stop editing
   add: Add
@@ -963,9 +997,9 @@ mailbox:
   show_html_body: Show HTML code
   mark_none: Select none
   forward: Forward
-  forward_attachment_warning: Attachments cannot currently be forwarded. If you want
-    to forward the email with attachments, you can download the attachments and attach
-    them to the new email.
+  forward_attachment_warning: Attachments cannot currently be forwarded. If you 
+    want to forward the email with attachments, you can download the attachments
+    and attach them to the new email.
 events:
   description: Description
   create:
@@ -1032,12 +1066,13 @@ events:
   duration: 'Duration: {duration}'
   span: '{from} until {until}'
   edit: Edit event
-  noneAccepted: So far, no persons have confirmed their participation in this event.
+  noneAccepted: So far, no persons have confirmed their participation in this 
+    event.
   meeting:
     past: This event took place online.
     present: This event takes place online. You can join now.
-    future: This event will take place online. As soon as it starts, you can join
-      via the button below.
+    future: This event will take place online. As soon as it starts, you can 
+      join via the button below.
     not_started: This event has not yet started
   attendees: Attendees
   location: Location
@@ -1048,8 +1083,8 @@ events:
     modern internet browser. It is also possible to join by phone.\n\nIf you still
     want to use a different platform for a telephone or online conference, please
     select the option *“Other ”*.\n"
-  public_info: This event is public and open to everyone. Comments and the participant
-    list are visible only to registered users.
+  public_info: This event is public and open to everyone. Comments and the 
+    participant list are visible only to registered users.
 forum:
   threads: Threads
   quickreply:
@@ -1062,11 +1097,11 @@ forum:
     stick: Make thread sticky
     inactive: "This thread is not active yet.\nHere, you can activate it and inform
       all foodsavers about it.\n"
-    too_big_to_mail: No e-mails were sent for the thread because it is in a country
-      or state.
+    too_big_to_mail: No e-mails were sent for the thread because it is in a 
+      country or state.
     no_mail: The thread was started without sending e-mails
-    with_mail: The topic was opened and all participants were informed about it by
-      mail
+    with_mail: The topic was opened and all participants were informed about it 
+      by mail
     close: "Close thread"
     open: "Reopen thread"
     closed: Closed thread
@@ -1082,14 +1117,15 @@ forum:
   post:
     delete: Delete post
     body: Message
-    moderator_info: This topic is closed. As a moderator of this forum, you can still
-      write a message, but other users cannot reply!
+    moderator_info: This topic is closed. As a moderator of this forum, you can 
+      still write a message, but other users cannot reply!
     hide: Hide post
     giveHideReason: Please state why you want to hide this post.
     hideReasonPlaceholder: Enter reason here …
-    hideInfo: Hidden posts are no longer displayed. They can be restored by moderators
-      within three months before they are permanently deleted. During this time, forum
-      users can see why the post was hidden, and moderators can also see by whom.
+    hideInfo: Hidden posts are no longer displayed. They can be restored by 
+      moderators within three months before they are permanently deleted. During
+      this time, forum users can see why the post was hidden, and moderators can
+      also see by whom.
     sureHide: Are you sure you want to hide this post?
     hiddenPost: Post hidden by [{moderatorName}]({moderatorUrl})
     hiddenReason: 'Reason: {reason}'
@@ -1097,10 +1133,11 @@ forum:
   sending_error: An error occured during sending
   no_threads: No threads yet
   no_posts: No posts yet
-  hold_back_for_moderation: The thread was saved and will be published as soon as
-    an ambassador / moderator has approved it.
-  inform_per_email: Notify all members of this forum who were active in the last six
-    months about this topic by e-mail (only possible in forums without moderation)
+  hold_back_for_moderation: The thread was saved and will be published as soon 
+    as an ambassador / moderator has approved it.
+  inform_per_email: Notify all members of this forum who were active in the last
+    six months about this topic by e-mail (only possible in forums without 
+    moderation)
   follow:
     header: 'Notification about new answers:'
     email: via e-mail
@@ -1109,9 +1146,9 @@ forum:
   deleted_user: deleted user
   not_found: This thread does not exist.
   mail_confirmation:
-    text: Do you really want this new post to be e-mailed to all members of this working
-      group or district? You should only do this if your request affects everyone
-      and is so important that everyone should be aware of it.
+    text: Do you really want this new post to be e-mailed to all members of this
+      working group or district? You should only do this if your request affects
+      everyone and is so important that everyone should be aware of it.
     title: Really send e-mail notification?
   go: to the forum
   restore:
@@ -1157,8 +1194,8 @@ calendar:
       otherFoodsavers: 'Registered together with you: '
       foodsavers: 'Registered Foodsavers: '
     event:
-      statusUnspecified: You have not stated whether you would like to participate
-        in this event. You can do so on the linked page.
+      statusUnspecified: You have not stated whether you would like to 
+        participate in this event. You can do so on the linked page.
       linkTitle: Foodsharing event
       description: Description
 
@@ -1219,16 +1256,17 @@ pickup:
   really_delete_date: Do you really want to delete the pick-up on {date}?
   leave_team_message_template: 'Dear all, I had to sign out for the following pick-up:
     {date} o’clock. …'
-  really_leave_date: You are responsible for this pick-up. Please arrange a replacement
-    independently.
+  really_leave_date: You are responsible for this pick-up. Please arrange a 
+    replacement independently.
   kick_message_footer: Best wishes, your Store Coordinators
   kick_message_placeholder: Optionally add information here …
   really_leave_date_title: Sign out for {date}?
   signout_info: All your pick-up dates will be deleted.
   take_empty_slot: sign up here
-  delete_not_empty: At the moment there are still foodsavers enrolled. You can only
-    delete this pick-up date when all slots have been emptied before.
-  to_be_confirmed: This pick-up date still has to be confirmed by a Store Coordinator.
+  delete_not_empty: At the moment there are still foodsavers enrolled. You can 
+    only delete this pick-up date when all slots have been emptied before.
+  to_be_confirmed: This pick-up date still has to be confirmed by a Store 
+    Coordinator.
   delete_title: Delete pick-up slot
   join_agree: yes, absolutely
   join_cancel: rather not
@@ -1242,7 +1280,7 @@ pickup:
     header: Pick-ups
     tab:
       registered:
-        name: Registered Pick-up slots
+        name: Registered pick-up slots
         tooltip:
           own: Future pick-ups, for which you signed up
           other: Future pick-ups the user signed up for
@@ -1251,7 +1289,8 @@ pickup:
         name: Pick-up options
         tooltip:
           own: Future pick-ups, for which you can sign up
-        empty: Currently there are no available pick-up slots in any of your teams.
+        empty: Currently there are no available pick-up slots in any of your 
+          teams.
       history:
         name: Pick-up history
         tooltip:
@@ -1268,37 +1307,41 @@ pickup:
       option: Slot available
     menu:
       refresh: Refresh
-      signOffAll: Sign all off
-      signOff: Sign off
+      signOffAll: Remove everywhere
+      signOff: Remove
       registeredSwitch: Show registered pick-ups
       loadMore: Load more
       managedOnlySwitch: SM view
       useCondensedDesign: Grouped by days
     modals:
       signOffAll:
-        title: Sign all slots off?
-        message: Do you really want to sign off all registered slots of this user?
+        title: Remove from all slots?
+        message: Do you really want to unsubscribe the user from all upcoming 
+          pickups?
       signOff:
-        title: Sign off slot?
-        message: Do you really want to sign this user off a registered slot?
+        title: Remove from slot?
+        message: Do you really want to remove the user from this upcoming 
+          pickup?
     allLoaded: All entries are shown.
     freeSlots: "{slots} free"
 
-  region_pickup_rule_failed: This entry does not comply with district regulations
+  region_pickup_rule_failed: This entry does not comply with district 
+    regulations
   description_optional: Description (optional)
   description_modal_text: 'Enter a new description for the pickup:'
   edit_description: Edit description
   description: Description
-  description_max_length_info: Maximal length of the description reached (100 letters)
+  description_max_length_info: Maximal length of the description reached (100 
+    letters)
   hygieneCertificateMissing:
     link: Take the hygiene exam here
-    none: You do not have a valid hygiene qualification at the moment. Take the hygiene
-      quiz now to be able to register for pick-ups here.
-    timeout: Your current hygiene certificate will already have expired at the time
-      of the desired pick-up. Take the hygiene quiz again now to be able to register
-      for the desired pick-up.
-  membershipMissing: You are not a member of this team. Therefore, you should not
-    register for pick-ups. If necessary, register as a team member first.
+    none: You do not have a valid hygiene qualification at the moment. Take the 
+      hygiene quiz now to be able to register for pick-ups here.
+    timeout: Your current hygiene certificate will already have expired at the 
+      time of the desired pick-up. Take the hygiene quiz again now to be able to
+      register for the desired pick-up.
+  membershipMissing: You are not a member of this team. Therefore, you should 
+    not register for pick-ups. If necessary, register as a team member first.
   may_enter: There is a slot available for you on this pickup date.
   confirmed: Pickup is confirmed.
 storeview:
@@ -1338,15 +1381,15 @@ storeview:
   public_time_at_noon_or_afternoon: at noon/in the afternoon
   public_time_in_the_morning: in the morning
   info: Information
-  specials: Special features
+  specials: Instructions & procedure
   managers: Responsible Foodsavers
   status: Current status
   public_time: 'It will be picked up roughly {freq}. Please never go to the store
     without prior consultation!'
   pickupWeight: 'kg were saved'
   counter: <strong>{count} {suffix}</strong>
-  teamInfo: <strong>{active}</strong> active and <strong>{jumper}</strong> standby
-    foodsavers in the team.
+  teamInfo: <strong>{active}</strong> active and <strong>{jumper}</strong> 
+    standby foodsavers in the team.
   pickupCount: 'pick-ups'
   status_notes: status notes
   team: Store team
@@ -1372,7 +1415,7 @@ terminology:
   buddies: Buddies
   polls: Polls
   message: Message
-  homeRegion: home district
+  homeRegion: Home district
   threads: Threads
   regions: Regions
   region: Region
@@ -1416,11 +1459,11 @@ terminology:
   pickup: Pick-up
   events: Events
   forum: Forum
-  fspAdmins: Food-Share Point team
+  fspAdmins: Food share point team
   votingAdmins: Voting team
   welcomeAdmins: Welcome team
-  fsp: Food-Share Point
-  fsps: Food-Share Points
+  fsp: Food share point
+  fsps: Food share points
   mailboxes: Mailboxes
   moderationAdmins: Moderation team
   prAdmins: Public relations team
@@ -1455,9 +1498,9 @@ terminology:
   yes: Yes
   achievement: Sticker
   achievements: Stickers
-  phone: phone number
-  landline: landline
-  mobile_phone: mobile
+  phone: Phone number
+  landline: Landline
+  mobile_phone: Mobile
   hygiene_training: Hygiene training
   recieved: Received
   sent: Sent
@@ -1470,15 +1513,18 @@ login:
     mismatch: Sorry, the passwords do not match.
     tooShort: Sorry, your chosen password is too short.
     error: Sorry, there is a problem with your data.
-    expired: Sorry, you waited a little too long. Please request a new password again.
-    success: Great, your password has been changed successfully. You can now log in.
+    expired: Sorry, you waited a little too long. Please request a new password 
+      again.
+    success: Great, your password has been changed successfully. You can now log
+      in.
     mailSent: Alright! A link to change your password has been emailed to you.
-    wrongMail: Unfortunately we cannot find that e-mail address. Please try again.
+    wrongMail: Unfortunately we cannot find that e-mail address. Please try 
+      again.
   logout: Logout
   topbar: Log in
   submit_btn: Login
-  error_no_auth: Unfortunately we cannot find this e-mail address or password. Please
-    try again.
+  error_no_auth: Unfortunately we cannot find this e-mail address or password. 
+    Please try again.
   error_no_password: Please enter your password.
   error_no_email: Please enter your e-mail address.
   save_password: Save password
@@ -1549,7 +1595,7 @@ bell:
   workgroup_request_decline_title: '{name}'
   workgroup_request_accept: You were accepted to the working group.
   workgroup_request_accept_title: '{name}'
-  sharepoint_activate_title: New Food-Share Point in {bezirk}
+  sharepoint_activate_title: New food share point in {bezirk}
   buddy_request: '{name} knows you.'
   buddy_request_title: Do you know {name}?
   betrieb_fetch_title: '{betrieb}'
@@ -1566,10 +1612,10 @@ bell:
   new_foodsaver_verified_title: '{name} is new in {bezirk}'
   new_foodsaver_title: '{name} is new in {bezirk}'
   betrieb_fetch: '{count} unconfirmed pick-ups'
-  new_foodsaver_verified: Already verified — ready to go
-  new_foodsaver: Needs introductory pick-ups
-  new_foodsaver_needs_introduction: Needs introductory pick-ups
-  new_foodsaver_needs_verification: Needs to be verified
+  new_foodsaver_verified: already verified — ready to go
+  new_foodsaver: needs introductory pick-ups
+  new_foodsaver_needs_introduction: needs introductory pick-ups
+  new_foodsaver_needs_verification: needs to be verified
   new_quiz_comment_title: 'Comment on question #{questionId}'
   fs_sleepmode: '{name} {nachname} is now inactive'
   fs_sleepmode_title: New nightcap
@@ -1648,7 +1694,8 @@ reports:
   report_id: Report ID
   in-store: Does the message concern a specific store where {user} picks up?
   store: Assigned store
-  reportmessage: Please indicate how you can be reached if we have further questions.
+  reportmessage: Please indicate how you can be reached if we have further 
+    questions.
   info: ' Please specify the <b>date</b>, the <b>place</b> and the <b>time</b> of
     the incident! <br> Please check if you have tried the available communication
     channels to address the incident directly with the person and to clarify the facts.
@@ -1687,14 +1734,15 @@ recipients:
   choose: Select districts manually
   region-hint: "<strong>Note:</strong>\nTo mark subordinate districts, you have to
     open the folder first.\nNo e-mails are sent to any of the invisible districts.\n"
-  doublecheck: Everything checked? Should the email be sent to the selected target
-    group?
+  doublecheck: Everything checked? Should the email be sent to the selected 
+    target group?
   variable-info: "To make the e-mail more personal, you can insert <strong>{NAME}</strong>
     instead of the name\nand use <strong>{ANREDE}</strong> for the salutation.\n<p>For
     example, {ANREDE} {NAME} results in “Dear Peter”\n"
   variables: Salutation
   manual: Manual input
-  newsletter_only_foodsharer: ONLY the foodsharers among all newsletter subscribers
+  newsletter_only_foodsharer: ONLY the foodsharers among all newsletter 
+    subscribers
   newsletter_all: All newsletter subscribers (foodsharer, foodsaver, all)
   newsletter: All newsletter subscribers (at least foodsaver)
   orga_team: global orga-team
@@ -1713,8 +1761,8 @@ poll:
     sumShort: ∑
     averageShort: Ø
   new_poll:
-    submit_question: The survey can be changed until it starts. Do you really want
-      to create it now?
+    submit_question: The survey can be changed until it starts. Do you really 
+      want to create it now?
     option_texts_required: Please enter a unique text for each option.
     description_required: Please enter a description.
     description: Description
@@ -1724,8 +1772,8 @@ poll:
     title: New poll
     end_date_required: Please choose an end date that is after the start date.
     end_date: End date
-    start_date_required: Please choose a start date. It must be at least one hour
-      in the future.
+    start_date_required: Please choose a start date. It must be at least one 
+      hour in the future.
     start_date: Start date
     type: Type of the poll
     name: Poll name
@@ -1740,8 +1788,8 @@ poll:
   type: Poll type
   scope_description_3: All ambassadors in the region
   scope_description_1: All verified foodsavers in the region / the group
-  scope_description_0: All verified and not verified foodsavers in the region / the
-    group
+  scope_description_0: All verified and not verified foodsavers in the region / 
+    the group
   allowed_voters: Eligible to vote
   in_future: has not started yet
   in_past: has ended
@@ -1758,54 +1806,58 @@ poll:
     submit: Submit poll
     submit_question: Do you really want to save the changes in this poll?
     title: Edit poll
-  may_not_edit: Either you do not have the rights to change this poll or the time
-    period for editing has expired.
+  may_not_edit: Either you do not have the rights to change this poll or the 
+    time period for editing has expired.
   eligible_votes_count: Number of people eligible to vote
   submit_vote_question: Submit your vote? Your choices can not be changed later.
   may_not_yet_vote: Voting in this poll has not started yet.
-  may_not_vote: You may not vote in this poll. At the time this poll was created,
-    you were not part of the voting group. Even if you meet the criteria to vote during
-    the voting period, it is not possible to obtain the right to vote retroactively.
+  may_not_vote: You may not vote in this poll. At the time this poll was 
+    created, you were not part of the voting group. Even if you meet the 
+    criteria to vote during the voting period, it is not possible to obtain the 
+    right to vote retroactively.
   already_voted: You have already voted in this poll
   vote_success: You have successfully voted.
   submit_vote_warning: 'Caution: voting is anonymous. You can not change your choices
     after submitting.'
-  type_description_3: Score voting with values between -3 (disapproval) and +3 (approval)
+  type_description_3: Score voting with values between -3 (disapproval) and +3 
+    (approval)
   type_description_2: Choosing between approval / neutral / disapproval
-  scope_description_2: All Store Coordinators in the region, who are currently responsible
-    for a store
+  scope_description_2: All Store Coordinators in the region, who are currently 
+    responsible for a store
   cancel:
     title: Cancel voting
     question: Do you really want to cancel this vote? This cannot be reversed.
-  untraceable: The information about which option you voted for cannot be traced back
-    after you have cast your vote and can therefore no longer be displayed here.
-  scope_description_4: All verified foodsavers whose home district is in the district
-    of the vote
+  untraceable: The information about which option you voted for cannot be traced
+    back after you have cast your vote and can therefore no longer be displayed 
+    here.
+  scope_description_4: All verified foodsavers whose home district is in the 
+    district of the vote
   begins_at: begins at
   ended_at: ended at
-  hint_sorted_order: The order of the following options is fixed and the same for
-    all voters.
+  hint_sorted_order: The order of the following options is fixed and the same 
+    for all voters.
   title: 'Poll: {name}'
 buddy:
   request_accepted: Now you are buddies.
   request_sent: Request was sent.
   is_buddy: You are buddies
   send:
-    confirm_text: If you mark each other as buddies, posts from the other person’s
-      profile wall are displayed on your dashboard and you can also find each other
-      more easily using the search function.
+    confirm_text: If you mark each other as buddies, posts from the other 
+      person’s profile wall are displayed on your dashboard and you can also 
+      find each other more easily using the search function.
     confirm_title: Do you know {name}?
   remove:
-    confirm_text: Do you want to end the acquaintance? Updates on your profile pinboards
-      will then no longer be displayed on the other person’s dashboard.
+    confirm_text: Do you want to end the acquaintance? Updates on your profile 
+      pinboards will then no longer be displayed on the other person’s 
+      dashboard.
     confirm_title: End your acquaintance with {name}?
 email_template:
   help_needed:
     support_mail: support@foodsharing.network
     or: or
     link: https://devdocs.foodsharing.network/
-    main: To revise this function, we need the support of other programmers, testers
-      and helpers from your district.
+    main: To revise this function, we need the support of other programmers, 
+      testers and helpers from your district.
   warning: Warning
   reply: Reply
   confirm_topic: 'Thread needs approval:'
@@ -1814,34 +1866,36 @@ email_template:
   to: to
   request_from: Request by
   foodbasket_request: Your food basket was requested by %SENDER%
-  foodsharepoint: -- Food-Share Point
+  foodsharepoint: -- food share point
   dont_respond:
-    noreply: Please do not respond to this e-mail. It was sent from an address, which
-      does not correspond to a mailbox.
+    noreply: Please do not respond to this e-mail. It was sent from an address, 
+      which does not correspond to a mailbox.
     nomail: you can configure which e-mails you like to receive.
     notification: notification settings
     you_can: In the
-    no_notification_link: Do you no longer want to receive these types of notifications?
+    no_notification_link: Do you no longer want to receive these types of 
+      notifications?
   information: Information
   unknown_email2: "The e-mail address %ADDRESS% is not known.\nPlease note that delivering
     BCC mails to the domain @foodsharing.network is not possible."
   unknown_email: Unkown e-mail address
-  manual_slots_get_ignored: This notification is currently sent, if no-one has signed
-    up for regular pick-ups. Manually created, overwritten or deleted slots are therefore
-    not taken into account at the moment.
-  find_someone: Please look for someone from the team as soon as possible so that
-    the pick-up can take place. If you can’t mobilise anyone, it would be nice if
-    you could perform the pick-up. If this is not possible for you, please cancel
-    the appointment with the store in time.
+  manual_slots_get_ignored: This notification is currently sent, if no-one has 
+    signed up for regular pick-ups. Manually created, overwritten or deleted 
+    slots are therefore not taken into account at the moment.
+  find_someone: Please look for someone from the team as soon as possible so 
+    that the pick-up can take place. If you can’t mobilise anyone, it would be 
+    nice if you could perform the pick-up. If this is not possible for you, 
+    please cancel the appointment with the store in time.
   you_responsible:
     part2: Unfortunately, no one has signed up for the next pick-up.
     part1: You are responsible for
   slot_empty: For the next pick-up at %BETRIEB%, no one has registered yet
-  confirm_BOT: . Since you are an ambassador / moderator for %BEZIRK%, you have to
-    confirm it in order that it is published.
+  confirm_BOT: . Since you are an ambassador / moderator for %BEZIRK%, you have 
+    to confirm it in order that it is published.
   confirm_link: would like to publish the topic
   impress:
-    general_information_requirements: Information according to § 5 Telemediengesetz
+    general_information_requirements: Information according to § 5 
+      Telemediengesetz
     title: Legal notice
     address: "foodsharing e. V.\nNeven-DuMont-Str. 14 \n50667 Cologne \nGermany\n\n\
       \ Represented by:\nAnja Westermann\nContact Details:\nE-Mail: info@foodsharing.de\n\
@@ -1852,10 +1906,10 @@ email_template:
     linktext: Click here to unsubscribe.
     unsubscribe: Do you want to unsubscribe from our newsletter?
   from: '-- from '
-  confirm_for_moderated_forum: This topic needs to be confirmed because it is a moderated
-    forum.
-  confirm_for_unverified: This topic needs to be confirmed because it was created
-    by an unverified person.
+  confirm_for_moderated_forum: This topic needs to be confirmed because it is a 
+    moderated forum.
+  confirm_for_unverified: This topic needs to be confirmed because it was 
+    created by an unverified person.
   fetch_warning:
     subject:
       single: Open pickup dates at %BETRIEB%!
@@ -1866,10 +1920,11 @@ email_template:
     part1: 'It’s the responsibility of the store managers to ensure that pickups are
       carried out as planned. Unfortunately, not all of your facilities have registered
       enough foodsavers for pickups in the next two days:'
-    part2: Please find foodsavers as soon as possible so that all pickups can take
-      place. If you are unable to mobilize anyone, it would be appreciated if you
-      could take over open pickups. If this is not possible, please consider canceling
-      the relevant pickups with the business in a timely manner.
+    part2: Please find foodsavers as soon as possible so that all pickups can 
+      take place. If you are unable to mobilize anyone, it would be appreciated 
+      if you could take over open pickups. If this is not possible, please 
+      consider canceling the relevant pickups with the business in a timely 
+      manner.
 sidenav:
   yourgroups: Your groups
   localgroups: Regional groups
@@ -1886,9 +1941,9 @@ page:
     header: Stores
   basket:
     header: Food baskets
-    main: You can offer your own surplus groceries to the local foodsharing community
-      and collect groceries from other community members. You can make contact via
-      the platform to organize the handover.
+    main: You can offer your own surplus groceries to the local foodsharing 
+      community and collect groceries from other community members. You can make
+      contact via the platform to organize the handover.
   welcomeheader: Welcome to foodsharing!
   join_button: Join
   foodsharepoints:
@@ -1905,46 +1960,50 @@ page:
   fsvsfs:
     header: Foodsharers and Foodsavers
   whatiswhat: What's this?
-  join_main_2: Register on foodsharing and become part of our community. Here you
-    can get to know our activities and members in your district and work with them
-    for a good cause.
-  join_main_1: We invite you to get active in the foodsharing community and to get
-    involved with thousands of like-minded people against food waste.
+  join_main_2: Register on foodsharing and become part of our community. Here 
+    you can get to know our activities and members in your district and work 
+    with them for a good cause.
+  join_main_1: We invite you to get active in the foodsharing community and to 
+    get involved with thousands of like-minded people against food waste.
   joinheader: Get active and help saving food!
-  howitworks_main: What is behind our initiative and how can you get involved? We
-    answer these and other questions in this video.
+  howitworks_main: What is behind our initiative and how can you get involved? 
+    We answer these and other questions in this video.
   howitworksheader: How does foodsharing work?
-  welcome_main_5: The members of the foodsharing community work on a voluntary basis
-    and free of charge. The foodsharing initiative is and will remain free, non-commercial,
-    independent and free of advertising. We want to make the platform open source
-    and more easily accessible worldwide - just like the foodsharing concept of saving
-    food.
-  welcome_main_4: The foodsharing initiative was launched in Berlin in 2012. In the
-    meantime it has grown into an international movement with over 300,000 registered
-    users in Germany, Austria, Switzerland and other European countries.
-  welcome_main_3: The organization of our foodsharing community and our activities
-    is primarily carried out via the online platform foodsharing. This is where the
-    food rescuers network and coordinate in the individual cities and regions. National
-    topics, events and information are published on the platform.
-  welcome_main_2: In addition, we see ourselves as an educational movement and feel
-    committed to sustainable environmental and consumption goals. Among other things,
-    we are campaigning for a throw-away stop and against the packaging madness in
-    supermarkets. We are present at events or in the media with these and other topics
-    and start our own campaigns.
-  welcome_main_1: We are an initiative that works against food waste. We "save" unwanted
-    and overproduced food in private households and in small and large businesses.
+  welcome_main_5: The members of the foodsharing community work on a voluntary 
+    basis and free of charge. The foodsharing initiative is and will remain 
+    free, non-commercial, independent and free of advertising. We want to make 
+    the platform open source and more easily accessible worldwide - just like 
+    the foodsharing concept of saving food.
+  welcome_main_4: The foodsharing initiative was launched in Berlin in 2012. In 
+    the meantime it has grown into an international movement with over 300,000 
+    registered users in Germany, Austria, Switzerland and other European 
+    countries.
+  welcome_main_3: The organization of our foodsharing community and our 
+    activities is primarily carried out via the online platform foodsharing. 
+    This is where the food rescuers network and coordinate in the individual 
+    cities and regions. National topics, events and information are published on
+    the platform.
+  welcome_main_2: In addition, we see ourselves as an educational movement and 
+    feel committed to sustainable environmental and consumption goals. Among 
+    other things, we are campaigning for a throw-away stop and against the 
+    packaging madness in supermarkets. We are present at events or in the media 
+    with these and other topics and start our own campaigns.
+  welcome_main_1: We are an initiative that works against food waste. We "save" 
+    unwanted and overproduced food in private households and in small and large 
+    businesses.
 conference:
   join: Join online conference
   join_title: Join online conference
   privacy_notice: 'Note: Online conferences are handled via the conference server
     of the living utopia collective. You will be automatically logged in with the
     first name you entered at foodsharing, your ID and avatar.'
-  description_text: Here you can join a online conference for the selected group.
-    The online conference opens BigBlueButton in a new window.
-  confirm_info: Here you can join an online conference for the selected group, which
-    will open in a new window. This conference will be held via the living utopia
-    collective’s BigBlueButton conference server. You will automatically be logged
-    in there with your first name, ID and avatar that you entered at foodsharing.
+  description_text: Here you can join a online conference for the selected 
+    group. The online conference opens BigBlueButton in a new window.
+  confirm_info: Here you can join an online conference for the selected group, 
+    which will open in a new window. This conference will be held via the living
+    utopia collective’s BigBlueButton conference server. You will automatically 
+    be logged in there with your first name, ID and avatar that you entered at 
+    foodsharing.
 blog:
   status:
     "1": published
@@ -1974,8 +2033,8 @@ blog:
     edit: Article was saved
     new: Article was created
   confirmDelete: Do you really want to delete {name} irrevocably?
-  publish-info: The publication status of the article can be adjusted on the overview
-    page.
+  publish-info: The publication status of the article can be adjusted on the 
+    overview page.
   teaser: Teaser
   actions: Actions
   empty: There are no entries so far.
@@ -2001,20 +2060,20 @@ region:
   save: Yes, save
   mail:
     sender: Sender name
-    name-info: Attention! Do not change arbitrarily! Also make sure that this address
-      does not yet exist under Manage Mailboxes.
+    name-info: Attention! Do not change arbitrarily! Also make sure that this 
+      address does not yet exist under Manage Mailboxes.
   hull:
     parent: Master region
     confirm: Really start master update?
     start: Start master update
     closure: Assign {region} as master for all child districts
     title: Master update
-    parent-info: All foodsavers are automatically included in the master district,
-      if one has been specified
+    parent-info: All foodsavers are automatically included in the master 
+      district, if one has been specified
   noParent: Without parent region
   created: '{region} was created'
-  still_contains_elements: The region can not be removed because it still contains
-    subregions, stores, or Food-Share Points.
+  still_contains_elements: The region can not be removed because it still 
+    contains subregions, stores, or food share points.
   edit_success: Region was saved.
   cancel: No, not really
   confirm:
@@ -2024,12 +2083,12 @@ region:
   none: No district chosen yet
   new: New district
   bread: Manage districts
-  forum-redirect: For regions, there is no pinboard. You have been redirected to the
-    forum.
+  forum-redirect: For regions, there is no pinboard. You have been redirected to
+    the forum.
   restricted: Unfortunately, you are not authorised to view this data.
   not-member: You are not a member of this region or working group.
-  store_managers_cannot_leave: You cannot leave the district as you are still Store
-    Coordinator for one or more stores here.
+  store_managers_cannot_leave: You cannot leave the district as you are still 
+    Store Coordinator for one or more stores here.
   no-huge: Sorry, you cannot select a country or state as a region.
   change: Change district
   root: None (root)
@@ -2045,38 +2104,41 @@ region:
     description: About this district
     join_name: Join {name}
     join: Join the disctrict
-    no_more_info: No further information is publicly available about this district.
+    no_more_info: No further information is publicly available about this 
+      district.
     wall: Updates from the district
-    confirm_entering: Would you like to join the district {name}? This will give the
-      ambassadors there access to your profile.
+    confirm_entering: Would you like to join the district {name}? This will give
+      the ambassadors there access to your profile.
     map:
-      confirm_save_changes: Should your changes to the district pin be saved? The
-        new pin is then publicly visible on both the district page and the map.
-      missing: This district is not currently displayed on the map and does not have
-        any food-share points to be displayed. You have the permission to set the
-        district pin now.
+      confirm_save_changes: Should your changes to the district pin be saved? 
+        The new pin is then publicly visible on both the district page and the 
+        map.
+      missing: This district is not currently displayed on the map and does not 
+        have any food share points to be displayed. You have the permission to 
+        set the district pin now.
       set_pin: Set district pin on the map
       hide_pin: Remove district pin
       edit_pin: Edit district pin
-      confirm_discard_changes: Do you really want to discard your changes to the district
-        pin?
-      confirm_remove: Do you really want to remove the district pin? This district
-        will then no longer be displayed on the map.
+      confirm_discard_changes: Do you really want to discard your changes to the
+        district pin?
+      confirm_remove: Do you really want to remove the district pin? This 
+        district will then no longer be displayed on the map.
     desc:
-      confirm_discard_changes: Do you really want to discard your changes to the district
-        description?
-      confirm_save_changes: Do you want your changes to the district description to
-        be saved? The new description will then be publicly visible on the district
-        page.
+      confirm_discard_changes: Do you really want to discard your changes to the
+        district description?
+      confirm_save_changes: Do you want your changes to the district description
+        to be saved? The new description will then be publicly visible on the 
+        district page.
       edit: Edit district description
-      missing: This district currently has no description text. You have the permission
-        to write a description now.
+      missing: This district currently has no description text. You have the 
+        permission to write a description now.
     join_text: Do you want to engage in {name}? Then join the district!
     leave: Leave district
     leave_name: Leave {name}
-    leave_text: You are no longer active in {name}? Then you should leave this district.
-    confirm_leaving: Do you want to join the district {name}? This will give its ambassadors
-      access to your profile.
+    leave_text: You are no longer active in {name}? Then you should leave this 
+      district.
+    confirm_leaving: Do you want to join the district {name}? This will give its
+      ambassadors access to your profile.
     show_on_large_map: View on the large map
     continue_editing: Continue editing
     discard_changes: Discard changes
@@ -2085,15 +2147,15 @@ region:
       load_past: View past events
       no_future_events: 'Currently, no public events are listed in this district.
         The following events have taken place in the past:'
-    leave_text_group: Are you no longer active in {name} and would like to leave this
-      group?
-    leave_text_region: Are you no longer active in {name} and would like to leave
-      this district?
+    leave_text_group: Are you no longer active in {name} and would like to leave
+      this group?
+    leave_text_region: Are you no longer active in {name} and would like to 
+      leave this district?
   denied:
-    this_region: You tried to access content from this district, but only members
-      of the district have access to it.
-    some_group: You tried to access content from workgroup “{name}”. However, only
-      members of the group have access to it.
+    this_region: You tried to access content from this district, but only 
+      members of the district have access to it.
+    some_group: You tried to access content from workgroup “{name}”. However, 
+      only members of the group have access to it.
     subgroup_in: “{name}” is a subgroup of the group “{parent}”.
     group_in_this_region: “{name}” is a group of this district.
     group_in_this_group: “{name}” is a subgroup of this group.
@@ -2164,7 +2226,8 @@ footer:
   team: Team
   denns_at_alt_text: Denns BioMarkt
   tafel_oesterreich_alt_text: Tafel Österreich
-  lebensministerium_alt_text: Federal Ministry of Agriculture, Regions and Tourism
+  lebensministerium_alt_text: Federal Ministry of Agriculture, Regions and 
+    Tourism
   hosting_tooltip: hosted carbon-neutral by manitu.
   hosting_info: hosted carbon-neutral at
   call_to_action: Participate
@@ -2180,8 +2243,8 @@ footer:
   partner_names:
     tafel_oesterreich: Food bank Austria
     denns: Denn’s Biomarkt
-    lebensministerium: Austrian Federal Ministry of Agriculture and Forestry, Climate
-      and Environmental Protection, Regions and Water Management
+    lebensministerium: Austrian Federal Ministry of Agriculture and Forestry, 
+      Climate and Environmental Protection, Regions and Water Management
 basket:
   is:
     gf: are gluten-free
@@ -2233,8 +2296,8 @@ basket:
   publish_error: An error has occurred. The food basket could not be published.
   not-allowed: You are not authorised to edit this food basket.
   no-desc: Please enter a description.
-  public-info: Description, picture, transfer location and validity period are publicly
-    visible.
+  public-info: Description, picture, transfer location and validity period are 
+    publicly visible.
   go-to-settings: to the settings
   no-address: "Please enter your address in the {settings} in order to be able to
     offer a food basket via the website.\n<br><br>\nThis is required to display your
@@ -2281,8 +2344,8 @@ basket:
   not_withdrawn: 'The request for the food basket could not be withdrawn: '
   use_home_address: Use home address
   modal_error:
-    no_contact: Please select a way in which you would like the food basket to be
-      requested.
+    no_contact: Please select a way in which you would like the food basket to 
+      be requested.
     no_phone: Please provide a telephone number.
   contact_types: Contact options
   delete_confirmation:
@@ -2332,7 +2395,7 @@ map:
       region:
         label: District
   foodsharepoint:
-    go: to the Food-Share Point
+    go: to the food share point
   community:
     go: to the district’s page
   events:
@@ -2359,14 +2422,16 @@ content:
   delete_tooltip: Delete page
   communities:
     title: Local groups
-    text: foodsharing is growing every day. Here you will always find an up-to-date
-      list of all foodsharing communities and districts. You can get more information
-      about each district on the linked public district page, or send an email to
-      the relevant district directly from here by clicking on the icon.
-    searchInfo: With Ctrl+F, the list can be searched in many browsers by country,
-      city, state or district.
-    noAmbassador: This district currently has no ambassadors and therefore cannot
-      be contacted by email. Please contact a neighboring or the next higher region.
+    text: foodsharing is growing every day. Here you will always find an 
+      up-to-date list of all foodsharing communities and districts. You can get 
+      more information about each district on the linked public district page, 
+      or send an email to the relevant district directly from here by clicking 
+      on the icon.
+    searchInfo: With Ctrl+F, the list can be searched in many browsers by 
+      country, city, state or district.
+    noAmbassador: This district currently has no ambassadors and therefore 
+      cannot be contacted by email. Please contact a neighboring or the next 
+      higher region.
   error: Page could not be saved
   error_loading: Content could not be loaded
 foodsaver:
@@ -2383,16 +2448,17 @@ foodsaver:
     to_amb: Become an ambassador
     sm_success: Thank you! You are now qualified to manage stores!
     needs_fs_quiz: You must first take the foodsaver quiz
-    amb_success: Thank you for your motivation to take on more responsibility. The
-      request will be processed by the global orga-team as quickly as possible.
+    amb_success: Thank you for your motivation to take on more responsibility. 
+      The request will be processed by the global orga-team as quickly as 
+      possible.
     amb_requested: Request sent successfully.
     fs_success: Thank you! You are now a foodsaver!
     quiz_error: 'Error! Quiz data for your role could not be loaded. Please contact
       IT support:'
     needs_rv: You have to accept the legal agreement.
     rv: Yes, I have read and understood the legal agreement and accept it.
-    needs_region: Please select the district in which you would like to become an
-      ambassador
+    needs_region: Please select the district in which you would like to become 
+      an ambassador
     needs_publicinfo: Your short description is empty
     amb_region: For which region would you like to become an ambassador?
     ad_fs: I now want to take the foodsaver quiz and become a foodsaver!
@@ -2424,7 +2490,8 @@ foodsaver:
     you belong to one of these groups. People listed there can be viewed by everyone
     in the internet.\n"
   restricted: Unfortunately, you are not authorised to view this data.
-  mailchange_error: Activation of your new email address has failed. Please try again.
+  mailchange_error: Activation of your new email address has failed. Please try 
+    again.
   url_error: Something is wrong with your homepage URL
   delete_account_sure: Are you sure you want to delete your account?
   edit_failure: Nothing was changed or changes were not saved
@@ -2448,27 +2515,27 @@ store:
     amb-instead: The ambassadors are being informed.
     request: Apply for this team
     no-sm: There are no store managers for this store yet.
-    got-it: The responsibles have been informed of your request and will get in touch
-      with you.
+    got-it: The responsibles have been informed of your request and will get in 
+      touch with you.
     no-duplicate: There is already a request.
     unverified: User is not verified
     distance_close: Lives less than 1 km away
     distance_unknown: no place of residence provided
     distance: Lives about {distance} km away
     air_line: The distance shown is as the crow flies.
-    confirm-far: According to your saved address, you live very far away from this
-      store ({distance}). Are you sure that you will be able to support this store’s
-      team regularly and reliably?
+    confirm-far: According to your saved address, you live very far away from 
+      this store ({distance}). Are you sure that you will be able to support 
+      this store’s team regularly and reliably?
     confirm-no-location-ok: Apply anyway
-    confirm-no-location: You haven’t entered a valid address in your profile. Please
-      indicate your home address. This makes it easier for store managers to decide
-      on your application.
+    confirm-no-location: You haven’t entered a valid address in your profile. 
+      Please indicate your home address. This makes it easier for store managers
+      to decide on your application.
     application-placeholder: I would like to help in this team because …
     application-message: Application message
-    hygieneRequired: A valid hygiene qualification is required for pickup at this
-      facility.
-    hygieneMissing: However, you do not meet this requirement at the moment. Take
-      the hygiene quiz now to apply for this team.
+    hygieneRequired: A valid hygiene qualification is required for pickup at 
+      this facility.
+    hygieneMissing: However, you do not meet this requirement at the moment. 
+      Take the hygiene quiz now to apply for this team.
   sm:
     reallyRemove: Do you really want to remove {name} from the store team?
     removeFromTeam: Remove from the team
@@ -2494,9 +2561,9 @@ store:
     searchPlaceholder: Name or ID
     buttonManagementToggleOn: toggle management mode
     buttonManagementToggleOff: back to normal mode
-    promoteToManagerNotPossible: This person can not be promoted to store manager
-      because either this store already has three managers or the person has not passed
-      the quiz yet.
+    promoteToManagerNotPossible: This person can not be promoted to store 
+      manager because either this store already has three managers or the person
+      has not passed the quiz yet.
     filterAll: Members
     filterActive: Active
     buttonManagementToggle: Management mode
@@ -2513,8 +2580,8 @@ store:
     filterHygiene: Hygiene trained
     filterNoHygiene: 'without hygiene training'
     inviteMember: Invite to the team
-    demoteAsManagerConfirm: Do you really want to give up your responsibility as cooperation
-      manager?
+    demoteAsManagerConfirm: Do you really want to give up your responsibility as
+      cooperation manager?
   address: Address
   may_referred_to_in_public: This store may be referred to in public.
   isNotVerified: Is not yet verified.
@@ -2524,7 +2591,7 @@ store:
   days_before: before
   days: days
   attribution: Attribution
-  particularities: Special features
+  particularities: Instructions & procedure
   teamName: '{storeTitle} team'
   actions: Options
   chat:
@@ -2532,8 +2599,8 @@ store:
     jumper: Message to standby foodsavers
   error: Store could not be loaded.
   noStores: There are no stores yet
-  may_not_referred_to_in_public: Please do not refer to this store in public (for
-    example in food baskets, on Facebook, or in the press).
+  may_not_referred_to_in_public: Please do not refer to this store in public 
+    (for example in food baskets, in social media, or in the press).
   joinDate: 'In team since: {date}'
   lastPickupShort: last {date}
   lastPickup: 'Last pick-up {date}'
@@ -2555,11 +2622,11 @@ store:
   isJumper: Is on the list of standby foodsavers.
   noPickup: Has never picked up here.
   go: To the team
-  pickup_slot_unavailable: This pick-up slot is further in the future than intended
-    by the responsibles. So please try again at a later date.
+  pickup_slot_unavailable: This pick-up slot is further in the future than 
+    intended by the responsibles. So please try again at a later date.
   appliedFor: Request made
-  willgetcontacted: You are currently on the list of standby foodsavers. You will
-    be contacted if help is needed.
+  willgetcontacted: You are currently on the list of standby foodsavers. You 
+    will be contacted if help is needed.
   team:
     isfull: Team is full
     search_input: Search for name / phone number
@@ -2576,12 +2643,13 @@ store:
   prefetchtwo: 2 weeks
   prefetchthree: 3 weeks
   locked: You cannot edit this store.
-  leaveinfo: Here you can provide some information for the foodsavers who want to
-    apply for the team.
+  leaveinfo: Here you can provide some information for the foodsavers who want 
+    to apply for the team.
   nodetails: Do not provide exact pick-up times here.
   nodeclaration: not specified
-  nochains: Please only address owner-managed businesses with a maximum of three branches,
-    never address branches of a larger chain! Please note the chain rules!
+  nochains: Please only address owner-managed businesses with a maximum of three
+    branches, never address branches of a larger chain! Please note the chain 
+    rules!
   convince:
     much: Difficult negotiations, but in the end they agreed.
     final: At first it looked bad, but then they got in touch.
@@ -2593,33 +2661,36 @@ store:
   tooltip_jumping: 'You are a standby foodsaver in this store'
   useRegionPickupRules: 'This is a CHERRY store. In addition to the rules for this
     store, the following district-wide CHERRY rule applies:'
-  regionPickupRulesInactive: The additional district rules for pick-ups are not active
-  regionPickupRuleLong: No more than {regionPickupRuleLimit} pickups from popular
-    “cherry” companies may be registered within each {regionPickupRuleTimespan} days
-    before and after the desired pickup date. A maximum of {regionPickupRuleLimitDay}
-    pickups may be made from these companies per day. {regionPickupRuleInactive} hours
-    before pickup, this rule is no longer taken into account.
+  regionPickupRulesInactive: The additional district rules for pick-ups are not 
+    active
+  regionPickupRuleLong: No more than {regionPickupRuleLimit} pickups from 
+    popular “cherry” companies may be registered within each 
+    {regionPickupRuleTimespan} days before and after the desired pickup date. A 
+    maximum of {regionPickupRuleLimitDay} pickups may be made from these 
+    companies per day. {regionPickupRuleInactive} hours before pickup, this rule
+    is no longer taken into account.
   regionPickupRules: additional rule for much sought-after slots
   ownStores: My stores
   managing: Cooperation responsibility
   member: Member
   isAppliedForTeam: Request
   jumping: Standby
-  particularities_chain_tooltip: This store is part of a chain. This is why this additional
-    information is displayed, which applies to all establishments in the chain.
+  particularities_chain_tooltip: This store is part of a chain. This is why this
+    additional information is displayed, which applies to all establishments in 
+    the chain.
   particularities_chain: Particularities of the chain
   enter_date: Enter a single pick-up date
   delete_date: Delete a single pick-up date
-  enter_date_description: After you have selected the date, time and number of people
-    for a pick-up, you can set slots once for a single appointment. If you want to
-    create regular (automatically recurring weekly) slots, please use the ‘Store settings’
-    menu.
-  delete_date_description: If you use regular (automatically recurring weekly) slots
-    for your pick-ups and want to prevent a specific date (e.g. public holiday) from
-    being created, you can use this function by specifying date and time from the
-    slots to be removed from your series. If you want to delete slots that are already
-    visible, you can also do this directly by clicking on the slot as long as no one
-    is already registered.
+  enter_date_description: After you have selected the date, time and number of 
+    people for a pick-up, you can set slots once for a single appointment. If 
+    you want to create regular (automatically recurring weekly) slots, please 
+    use the ‘Store settings’ menu.
+  delete_date_description: If you use regular (automatically recurring weekly) 
+    slots for your pick-ups and want to prevent a specific date (e.g. public 
+    holiday) from being created, you can use this function by specifying date 
+    and time from the slots to be removed from your series. If you want to 
+    delete slots that are already visible, you can also do this directly by 
+    clicking on the slot as long as no one is already registered.
   team_container: Team
   one_active: active
   of_that: of that
@@ -2627,8 +2698,8 @@ store:
   unverified_members: unverified
   active: active
   info_container: Information
-  not_verified: You are unverified. Therefore you cannot see pickup slots and phone
-    numbers of team members yet.
+  not_verified: You are unverified. Therefore you cannot see pickup slots and 
+    phone numbers of team members yet.
   requests: Open requests ({count})
   log:
     message:
@@ -2675,8 +2746,8 @@ store:
       17: Single pick-up slot created or changed
       19: Accepted team invitations
       20: Declined team invitations
-    max_entries_message: A maximum of 100 entries will be displayed. Please limit
-      the search range.
+    max_entries_message: A maximum of 100 entries will be displayed. Please 
+      limit the search range.
     log_types_placeholder: Select action types to display
     search: List selected actions
     selected_log_types: '{amount} action types selected'
@@ -2687,8 +2758,8 @@ store:
   slot_state: Slot status
   lastPickupTitle: Last pick-up here
   slotsCurrentlyOccupied: Currently occupied slots
-  deactivatedRegion: The store list cannot be displayed for entire countries and continents
-    at the moment.
+  deactivatedRegion: The store list cannot be displayed for entire countries and
+    continents at the moment.
   chain_search_picker:
     modal_title: Pick a chain
     search_input: Search by chain name
@@ -2700,15 +2771,15 @@ store:
   invitation:
     withdraw: Withdraw invitation
     accept: Accept invitation
-    invited_info: You have been invited to this team. You can join simply by accepting
-      the invitation.
+    invited_info: You have been invited to this team. You can join simply by 
+      accepting the invitation.
     decline: Decline
     invited_by: Invited by
     title: Invitations for {storeTitle}
-    info: When you invite Foodsavers to join the team, to protect their personal data,
-      they won’t be added directly to the operations team. They’ll receive a request
-      to join the team, which they must accept to become part of the team. You can
-      withdraw these invitations at any time.
+    info: When you invite Foodsavers to join the team, to protect their personal
+      data, they won’t be added directly to the operations team. They’ll receive
+      a request to join the team, which they must accept to become part of the 
+      team. You can withdraw these invitations at any time.
   invited: Invited
   invitations: Open invitations ({count})
 navi:
@@ -2719,8 +2790,8 @@ navi:
   komoot: "Komoot"
   here: "HERE WeGo"
   native: "Native app"
-  gdpr_warning: By navigating with {provider}, the address will be shared with their
-    service and you will be redirected to their website. Do you agree?
+  gdpr_warning: By navigating with {provider}, the address will be shared with 
+    their service and you will be redirected to their website. Do you agree?
   no_native_app: Geo links are not supported by your device.
 
 search:
@@ -2737,8 +2808,8 @@ search:
   thread-title-only: Only titles are searched, not the content of the threads.
   user_search:
     placeholder: Name or ID
-  informations: You can search for people, groups, stores, regions, chats, threads,
-    and Food-Share Points.
+  informations: You can search for people, groups, stores, regions, chats, 
+    threads, and food share points.
   results:
     region:
       ambassador_tooltip: You are an ambassador for this district
@@ -2790,8 +2861,8 @@ search:
       present_since: Started
       present_until: Ends
       future: Begins
-  maxresults: The number of results displayed is limited. Maybe use a more specific
-    search term.
+  maxresults: The number of results displayed is limited. Maybe use a more 
+    specific search term.
   too_short: Please enter a longer search term.
   scope:
     local: User-specific search
@@ -2849,10 +2920,10 @@ wall:
   message_placeholder: Write a message…
   name: Pinboard
   info-somebody-else: As a Store Coordinator you can remove this entry.
-  confirm-deletion: Do you really want to delete the following pinboard post from
-    {name}?
-  info-logging: Please note that to avoid conflicts, the content and the person who
-    carried it out are logged.
+  confirm-deletion: Do you really want to delete the following pinboard post 
+    from {name}?
+  info-logging: Please note that to avoid conflicts, the content and the person 
+    who carried it out are logged.
   placeholder: Write a new entry on the wall …
   delete_confirmation:
     text: Are you sure you want to delete this entry from {author}?
@@ -2875,7 +2946,8 @@ pass:
     confirm: Sure?
     undo: Cancel verification of {name} ({id})
     do: Verify {name}’s account ({id})
-    checkPickups: Before de-verifying you have to check the pick-up dates entered.
+    checkPickups: Before de-verifying you have to check the pick-up dates 
+      entered.
     hasPickup: Still registered for pick-ups
     text: "Checked your personal data? <br>\nHand over member card?\n"
   claim: Share foods instead of throw it away!
@@ -2906,7 +2978,8 @@ upload:
   no_image_yet: No picture uploaded yet
   no_image: The uploaded file is not a photo. Please choose another file.
   images: Upload images
-  image-problem: Your file doesn’t seem to be OK, it’s best to use a normal jpg image
+  image-problem: Your file doesn’t seem to be OK, it’s best to use a normal jpg 
+    image
   invalid_image_files: '{count} selected files are not valid images: {fileNames}'
 photo: Photo
 status: Current status
@@ -2934,8 +3007,8 @@ polls:
   start_date: start date
   title: Title
   ended: Past polls
-  hint: The voting module can be tested in the transregional working group “Abstimmungen
-    – Test”.
+  hint: The voting module can be tested in the transregional working group 
+    “Abstimmungen – Test”.
   hint_2: You can find notes on using polls in the Wiki
   until: Possible until {until}
   badge:
@@ -2978,7 +3051,8 @@ storeedit:
     teamStatus: team status
     teamStatus2: Helpers are strongly needed
     teamStatus1: Helpers are needed
-    teamStatus0: This team is full and presently does not search for more helpers
+    teamStatus0: This team is full and presently does not search for more 
+      helpers
     hygieneRequirement: Hygiene requirements
     hygieneRequired: Allow pick-ups only with valid hygiene training
   store:
@@ -2993,55 +3067,62 @@ legal:
   privacy_notice: Privacy notice for store managers and ambassadors
   not_acknowledge:
     qustion_policy: Do you not agree with the privacy policy?
-    qustion_notice: Do you not agree with the privacy policy and the privacy notice?
+    qustion_notice: Do you not agree with the privacy policy and the privacy 
+      notice?
     select: Please select
     agree: Yes, I agree with the privacy policy
-    agree_only_policy: I only accept the privacy policy and would like to be downgraded
-      to a foodsaver.
-    agree_policy_and_notice: I agree with the privacy policy and the privacy notice
-    not_agree: I do not agree with the privacy policy and would like to delete my
-      account.
+    agree_only_policy: I only accept the privacy policy and would like to be 
+      downgraded to a foodsaver.
+    agree_policy_and_notice: I agree with the privacy policy and the privacy 
+      notice
+    not_agree: I do not agree with the privacy policy and would like to delete 
+      my account.
   button:
     agree: Accept
     partially_agree: Downgrade to foodsaver
     disagree: Delete my account
-  not_acknowledge_privacy_policy_description: In order to be able to use the foodsharing
-    platform, must take note of the data protection declaration described.
+  not_acknowledge_privacy_policy_description: In order to be able to use the 
+    foodsharing platform, must take note of the data protection declaration 
+    described.
   agree_privacy_policy: I have read the data protection agreement.
   legal_agreement: Legal agreement
   privacy_notice_agree:
     acknowledge: I agree.
     select: Please select
-    not_acknowledge: I do not agree and would like to be downgraded to a Foodsaver.
+    not_acknowledge: I do not agree and would like to be downgraded to a 
+      Foodsaver.
   are_you_sure_to_downgrade: 'Warning: You have chosen to be downgraded to Foodsaver.
     Are you sure?'
-  not_acknowledge_privacy_notice_description: If you do not accept the instructions,
-    you will be downgraded to a food saver. This means that you are no longer an ambassador
-    for districts, that you lose your store coordinator rights and that you have to
-    take the quiz for store coordinators / ambassadors again.
-  agree_privacy_notice: I was informed about the confidentiality obligation of personal
-    data and the resulting behaviour. I will receive a confirmation of this by email
-    for my records to the address I have given.
-  must_accept_privacy_policy: In order to participate in foodsharing, you have to
-    agree to the data protection conditions.
+  not_acknowledge_privacy_notice_description: If you do not accept the 
+    instructions, you will be downgraded to a food saver. This means that you 
+    are no longer an ambassador for districts, that you lose your store 
+    coordinator rights and that you have to take the quiz for store coordinators
+    / ambassadors again.
+  agree_privacy_notice: I was informed about the confidentiality obligation of 
+    personal data and the resulting behaviour. I will receive a confirmation of 
+    this by email for my records to the address I have given.
+  must_accept_privacy_policy: In order to participate in foodsharing, you have 
+    to agree to the data protection conditions.
   acknowledge:
     qustion_policy: Do you accept our privacy policy?
-    qustion_notice: Do you accept our privacy policy and the instructions on data
-      confidentiality?
+    qustion_notice: Do you accept our privacy policy and the instructions on 
+      data confidentiality?
     select: Please select
     agree: Yes, I accept the privacy policy.
-    agree_only_policy: I only accept the privacy policy and would like to be downgraded
-      to an ordinary foodsaver.
-    agree_policy_and_notice: Yes, I accept the privacy policy and the instructions
-      on data confidentiality.
-    not_agree: No, I do not accept the privacy policy. I would like to delete my account.
+    agree_only_policy: I only accept the privacy policy and would like to be 
+      downgraded to an ordinary foodsaver.
+    agree_policy_and_notice: Yes, I accept the privacy policy and the 
+      instructions on data confidentiality.
+    not_agree: No, I do not accept the privacy policy. I would like to delete my
+      account.
   if_delete:
     legal_1: our current privacy policy
     this_gets_deleted_main: 'The following information will be deleted from you and
       cannot be recovered:'
     this_gets_deleted_stores: Stores you had joined.
     this_gets_deleted_quiz: All your quizzes will be removed.
-    this_gets_deleted_trustbananas: Bananas you received from others will be removed.
+    this_gets_deleted_trustbananas: Bananas you received from others will be 
+      removed.
     this_doesnt_get_deleted_name: Your Name
     this_doesnt_get_deleted_address: Your Address
     this_doesnt_get_deleted_history: Your verification history
@@ -3063,11 +3144,12 @@ bcard:
   title: Business card generator
   error:
     verified: You need to be verified in order to generate business cards.
-    phone: You must have provided a valid phone number to generate your business card.
-    length: Your address is too long! Address, post code and city together may have
-      a maximum of 49 characters.
-  desc: Choose the region and role, for which you would like to generate your business
-    card.
+    phone: You must have provided a valid phone number to generate your business
+      card.
+    length: Your address is too long! Address, post code and city together may 
+      have a maximum of 49 characters.
+  desc: Choose the region and role, for which you would like to generate your 
+    business card.
   claim: Generate, print and cut easily here …
   info:
     address_shortened: Your address will be abbreviated on the business card.
@@ -3113,57 +3195,63 @@ theme_switcher:
 plz: Post code
 fsp:
   twig:
-    n_in_region: '{count} Food-Share Points in {name}'
-  deleteSuccess: Food-Share Point was removed
-  deleteConfirm: Do you really want to remove this Food-Share Point?
-  delete: Remove Food-Share Point
+    n_in_region: '{count} food share points in {name}'
+  deleteSuccess: Food share point was removed
+  deleteConfirm: Do you really want to remove this food share point?
+  delete: Remove food share point
   addedBy: Added by
   street: Street
   address: Address
-  editName: Edit Food-Share Point ‘{name}’
-  edit: Edit Food-Share Point
-  new: New Food-Share Point
+  editName: Edit food share point ‘{name}’
+  edit: Edit food share point
+  new: New food share point
   description: Description
-  followName: Follow Food-Share Point {name}
-  follow: Follow this Food-Share Point
-  yours: Food-Share Points in your districts
-  suggest: Suggest Food-Share Point
+  followName: Follow food share point {name}
+  follow: Follow this food share point
+  yours: Food share point in your districts
+  suggest: Suggest food share point
   followers: Followers
-  unfollow: Stop following Food-Share Point
-  summaryRegion: There are {count} Food-Share Points in {region} and all subdistricts
-  summary: There are {count} Food-Share Points in the districts you are active in
+  unfollow: Stop following food share point
+  summaryRegion: There are {count} food share points in {region} and all 
+    subdistricts
+  summary: There are {count} food share points in the districts you are active 
+    in
   info:
     none: none
     mail: Bell and e-mail notification
     bell: only internal notification (bell)
-    from: Updates from Food-Share Point ‘{name}’
-    manager: You are responsible for this Food-Share Point and therefore obliged to
-      accept the updates.
-    descSettings: You follow all information from the Food-Share Point ‘{name}’. How
-      would you like to receive these notifications?
-    descModal: How would you like to be informed about updates (e.g. food deliveries)?
+    from: Updates from food share point ‘{name}’
+    manager: You are responsible for this food share point and therefore obliged
+      to accept the updates.
+    descSettings: You follow all information from the food share point ‘{name}’.
+      How would you like to receive these notifications?
+    descModal: How would you like to be informed about updates (e.g. food 
+      deliveries)?
   pic: Photo
   location: Postal code / city
-  reject: Reject Food-Share Point
-  acceptSuccess: Food-Share Point is now active
+  reject: Reject food share point
+  acceptSuccess: Food share point is now active
   acceptName: Accept {name}
-  accept: Accept Food-Share Point
+  accept: Accept food share point
   managers: Contact persons
-  add: Add Food-Share Point
-  inRegion: All Food-Share Points in {region}
-  none: No Food-Share Points were added
-  addSuccess: Food-Share Point was successfully added
-  editSuccess: Food-Share Point was successfully changed
-  publicwall: Please remember that posts on a Food-Share Point’s pinboard are public.
-  noManager: There must be at least one person responsible for this Food-Share Point.
+  add: Add food share point
+  inRegion: All food share points in {region}
+  none: No food share points were added
+  addSuccess: Food share point was successfully added
+  editSuccess: Food share point was successfully changed
+  publicwall: Please remember that posts on a food share point’s pinboard are 
+    public.
+  noManager: There must be at least one person responsible for this food share 
+    point.
   addedOn: Added on
-  rejectConfirm: Attention! You cannot undo deletion of this Food-Share Point. Do
-    you want to proceed deleting it?
-  addError: The Food-Share Point wasn’t added. Did you fill out everything correctly?
-  descLabel: Write some basic information about the Food-Share Point, especially when
-    it is accessible/open.
-  suggestSuccess: Food-Share Point has been proposed and now needs to be confirmed
-    by an ambassador / responsible person.
+  rejectConfirm: Attention! You cannot undo deletion of this food share point. 
+    Do you want to proceed deleting it?
+  addError: The food share point wasn’t added. Did you fill out everything 
+    correctly?
+  descLabel: Write some basic information about the food share point, especially
+    when it is accessible/open.
+  suggestSuccess: Food share point has been proposed and now needs to be 
+    confirmed by an ambassador / responsible person.
   show_on_large_map: Show on map
   form_validation:
     invalid: Input is invalid. Please check your input.
@@ -3171,8 +3259,8 @@ fsp:
     min_length: '{name} must be at least {length} characters long.'
   createdAt: 'created at:'
   followerCount: 'Followers: {followerCount}'
-  onlySuggested: This Food-Share Point has been suggested but has not yet been approved.
-    In this state, it will not be displayed to other users.
+  onlySuggested: This food share point has been suggested but has not yet been 
+    approved. In this state, it will not be displayed to other users.
 lifetime: How long is your food basket to be valid?
 contact_type: How would you like to be contacted?
 food_art: What kind of food is it?
@@ -3200,8 +3288,8 @@ pickuplist:
   NumberOfAppointments_table_header: '# pickup dates'
   unclear: Status unclear
   tryagain: Try again after reloading.
-  tooslow: Unfortunately, the registration did not work. This is probably because
-    someone else was faster.
+  tooslow: Unfortunately, the registration did not work. This is probably 
+    because someone else was faster.
   header_for_district: 'Allocation of pick-ups in {bezirk} '
 genderlist:
   gender_female: female
@@ -3213,10 +3301,10 @@ genderlist:
   district_tab: Region
   number_table_header: Quantity
   header_for_district: Gender distribution of the foodsavers in {bezirk}
-  gender_home_district_table_caption: Gender distribution of all foodsavers who have
-    their home district here
-  gender_district_table_caption: Gender distribution of all foodsavers who joined
-    the district
+  gender_home_district_table_caption: Gender distribution of all foodsavers who 
+    have their home district here
+  gender_district_table_caption: Gender distribution of all foodsavers who 
+    joined the district
 memberlist:
   header_for_workgroup: Foodsavers in the working group {bezirk}
   header_for_district: Foodsavers in the region {bezirk}
@@ -3290,39 +3378,44 @@ register:
   lastname_required: Please enter your last name
   requiredFields: Required field
   title: Registration
-  signup_newsletter: I would like to receive the foodsharing newsletter about once
-    a month
+  signup_newsletter: I would like to receive the foodsharing newsletter about 
+    once a month
   set-password: Set new password
   pass1: Your new desired password
   change-password: Now you can change your password.
-  activation_failed: <strong> Activation failed.</strong> Is the entered link correct?
-  activation_success: <strong> Activation successful. </strong> Now log in with your
-    email address and your chosen password.
-  account-exists: You’re already registered. Please log out if you want to register
-    again.
-  error_birthdate: Example 03/25/2001 (DD.MM.YYYY). For data protection and liability
-    reasons, you must be at least 18 years old to participate in foodsharing.
+  activation_failed: <strong> Activation failed.</strong> Is the entered link 
+    correct?
+  activation_success: <strong> Activation successful. </strong> Now log in with 
+    your email address and your chosen password.
+  account-exists: You’re already registered. Please log out if you want to 
+    register again.
+  error_birthdate: Example 03/25/2001 (DD.MM.YYYY). For data protection and 
+    liability reasons, you must be at least 18 years old to participate in 
+    foodsharing.
   error_email_invalid: This email address cannot be used
   error: An error has occurred
   check_mail: Check your e-mail now to complete the registration!
-  join_success_message: You have successfully completed your registration at foodsharing.
-    You can now log in with your email and password.
+  join_success_message: You have successfully completed your registration at 
+    foodsharing. You can now log in with your email and password.
   have_read_the_legal_stuff2: noted
   phone_not_valid: The phone number you entered is not valid
-  login_phone_info: It can be helpful to share your phone number with other food sharers
+  login_phone_info: It can be helpful to share your phone number with other food
+    sharers
   lastname_minLength: The last name must consist of at least two characters
   firstname_minLength: The first name must consist of at least two characters
   confirmPassword_sameAsPassword: Both entered passwords must match
-  birthdate_hint: You can find more information in the [privacy policy]({url}) in
-    point 2d.
+  birthdate_hint: You can find more information in the [privacy policy]({url}) 
+    in point 2d.
   mail_hint: 'Important: pay attention to the correct spelling!'
   landline_example: Example +49 30 123456789
-  firstname_maxLength: The first name may only consist of a maximum of 30 characters
-  lastname_maxLength: The last name may only consist of a maximum of 30 characters
-  password_must_be_trimmed: The password must not contain any spaces at the beginning
-    or end
-  password_must_be_complex: The password must contain upper and lower case letters
-    and numbers
+  firstname_maxLength: The first name may only consist of a maximum of 30 
+    characters
+  lastname_maxLength: The last name may only consist of a maximum of 30 
+    characters
+  password_must_be_trimmed: The password must not contain any spaces at the 
+    beginning or end
+  password_must_be_complex: The password must contain upper and lower case 
+    letters and numbers
 bread:
   backToOverview: back to overview
   backToStore: back to the store
@@ -3331,7 +3424,7 @@ explanation: Explanation
 fp: Failure points
 text: text
 public_info: Public information of the store
-besonderheiten: Description
+besonderheiten: Instructions & procedure
 begin: Start of cooperation
 fetchercount: Number of collectors
 team_status: Team status
@@ -3378,14 +3471,14 @@ addresspicker:
     address in order to be able to offer food baskets on the website. In order to
     be able to participate in food rescues as a [Foodsaver](https://wiki.foodsharing.de/Foodsaver),
     it is even mandatory."
-  infobox: Enter the address in the search bar or move the pin to the correct position
-    on the map.
+  infobox: Enter the address in the search bar or move the pin to the correct 
+    position on the map.
   different_location: Correct address description
-  different_location_warning: Please make sure that the pin is in the correct position
-    on the map. Please only change the automatically filled in fields (street and
-    house number, zip code and city/municipality) if the automatically entered values
-    are not correct. This may be necessary, for example, if a street has recently
-    been renamed.
+  different_location_warning: Please make sure that the pin is in the correct 
+    position on the map. Please only change the automatically filled in fields 
+    (street and house number, zip code and city/municipality) if the 
+    automatically entered values are not correct. This may be necessary, for 
+    example, if a street has recently been renamed.
 dashboard:
   my:
     groups: Your groups
@@ -3418,16 +3511,16 @@ dashboard:
   source_forum: Forum {0}
   source_friendWall_own: Your pinboard
   source_friendWall: Pinboard from {0}
-  source_foodsharepoint: Food-Share Point {0}
+  source_foodsharepoint: Food share points {0}
   save_selection: Save settings
   empty_section: You don’t have {type} yet
-  activity_filter_info: Here you can indicate which updates should be displayed on
-    your start page.
+  activity_filter_info: Here you can indicate which updates should be displayed 
+    on your start page.
   no_more_updates_store: No further store information
   no_more_updates_mailbox: No more mailbox messages
   no_more_updates_friendWall: No more status messages
   no_more_updates_forum: No further forum entries
-  no_more_updates_foodsharepoint: No more Food-Share Point posts
+  no_more_updates_foodsharepoint: No more food share point posts
   no_more_updates_event: No further dates
   no_more_updates_all: That’s it!
   no_updates: No updates
@@ -3440,15 +3533,15 @@ dashboard:
   deleted_user: deleted user
   push:
     button: Enable push notifications
-    info: If you don't want to receive push notifications anymore, you can deactivate
-      it in the settings anytime.
+    info: If you don't want to receive push notifications anymore, you can 
+      deactivate it in the settings anytime.
     title: You can now receive push notifications from foodsharing.
   mail_activation_error_body:
     part_3: or
     part_4: change your email address
     part_2: request a new activation email here
-    part_1: Please confirm your email address by clicking on the link in the activation
-      email. Alternatively, you can
+    part_1: Please confirm your email address by clicking on the link in the 
+      activation email. Alternatively, you can
   source_mailbox: '{0}'
   quiz:
     read: continue reading
@@ -3467,13 +3560,13 @@ dashboard:
   foodsharer: Have fun saving!
   chooseHomeRegion: Please select a home district.
   homeRegion: Your home district is {region}.
-  checkAddress: Please check your address. The geographic coordinates could not be
-    determined.
+  checkAddress: Please check your address. The geographic coordinates could not 
+    be determined.
   mail_activation_error_title: Email address not confirmed
   activation_mail_failure: A new activation link could not be sent
   activation_mail_sent: Activation link sent — please check your emails
-  full_subline: You have picked up food **{pickups}** times and saved **{weight} kg**.
-    Your home district is **{region}**.
+  full_subline: You have picked up food **{pickups}** times and saved 
+    **{weight} kg**. Your home district is **{region}**.
   polls: Your ongoing polls
   release:
     for_news_from_it: If there are any questions or challenges, first look at
@@ -3495,13 +3588,14 @@ stats:
     baskets: food baskets are currently put online on average per week.
     pickups: pick-ups are carried out on average per day.
   total:
-    fsp: Food-Share Points are used to share food.
+    fsp: Food share points are used to share food.
     baskets: food baskets were put online in total.
     pickups: pick-ups our foodsavers took part.
-    foodsharer: foodsharers are currently registered on foodsharing and are interested
-      in our work.
+    foodsharer: foodsharers are currently registered on foodsharing and are 
+      interested in our work.
     foodsaver: foodsavers volunteer for a world without food waste.
-    cooperations: companies cooperate continuously and with satisfaction with us.
+    cooperations: companies cooperate continuously and with satisfaction with 
+      us.
     weight: food successfully saved from the bin.
   title: Total statistics
 gender:
@@ -3517,19 +3611,22 @@ fetch_count: How many pick-ups does an applicant need to have done?
 banana_count: How many trust bananas must an applicant have?
 apply_type: Who can sign up for this group?
 abholmenge: How many kilograms are taken per pick-up approximately per person?
-prefetchtime: How many weeks in advance can food savers sign up using automatic slots?
-sticker: Is the store/shop/club etc. willing to display a sticker visibly at the entrance
-  or elsewhere?
-presse: Is the store/shop/club willing to be mentioned in the press and on our website?
-ueberzeugungsarbeit: Was it easy to convince a responsible person to cooperate with
-  foodsharing?
+prefetchtime: How many weeks in advance can food savers sign up using automatic 
+  slots?
+sticker: Is the store/shop/club etc. willing to display a sticker visibly at the
+  entrance or elsewhere?
+presse: Is the store/shop/club willing to be mentioned in the press and on our 
+  website?
+ueberzeugungsarbeit: Was it easy to convince a responsible person to cooperate 
+  with foodsharing?
 public_time: Approximate time of day for pick-ups
-fspmanagers: Foodsavers who are contact persons for the Food-Share Point
-fsp_bezirk_id: In which district is the Food-Share Point located?
+fspmanagers: Foodsavers who are contact persons for the food share point
+fsp_bezirk_id: In which district is the food share point located?
 orgateam: Nationwide Orga
 bezirk_id: For which region is the article relevant?
 fetchstate: Did everything go all right?
-sleep_msg: Here you can leave a short message why you don't have time at the moment.
+sleep_msg: Here you can leave a short message why you don't have time at the 
+  moment.
 lebensmittel: Which kinds of food are allowed to be collected?
 store_status_impact_explanation: 'Please update the status of the store (<a href="https://wiki.foodsharing.de/Betrieb"
   target="_blank">Wiki: Store</a>) every time there has been contact with the store
@@ -3558,14 +3655,14 @@ message_text_to_group_admin_workgroup: 'The region/group <b>{groupName}</b> does
 personal_data:
   label: Contact
   landline: Landline phone
-  mobile: mobile number
+  mobile: Mobile number
 messages:
   bread: Messages
 error_ajax: "That did not work.\nMaybe your internet connection is not working right
   now.\nPlease reload the page and try again.\n"
 really_delete: Really delete?
-error_permissions: Unfortunately, you do not have the necessary permissions for this
-  process.
+error_permissions: Unfortunately, you do not have the necessary permissions for 
+  this process.
 success: Completed successfully
 statistics:
   kg_food_saved: '{count} kg food saved'
@@ -3576,7 +3673,7 @@ statistics:
     savedFoodKgLastMonth: food saved
     pickupsLastMonth: pick-ups
     activeCoorporations: active cooporations
-    activeFoodSharePoints: active Food-Share Points
+    activeFoodSharePoints: active food share points
     foodBasketsLastMonth: food baskets distributed
     activeHomeRegionFoodsavers: active foodsavers
   lastMonth: Statistics of the past 30 days
@@ -3592,43 +3689,45 @@ storestatus:
   "3a": Store is ready to donate. :-)
   "5a": Store donates already
 formatting:
-  md: You can use <a href="https://daringfireball.net/projects/markdown/syntax">Markdown</a>
-    for formatting.
+  md: You can use <a 
+    href="https://daringfireball.net/projects/markdown/syntax">Markdown</a> for 
+    formatting.
 base:
   jsrequired: This page does not work properly without JavaScript.
   slogan: Share food instead of throwing it away — foodsharing
-  keywords: foodsharing, food, groceries, expiration date, food waste, throw away
-    food, donate, food swap
-  whatfor: At foodsharing.network you can give your groceries to social institutions
-    or other people before they expire
+  keywords: foodsharing, food, groceries, expiration date, food waste, throw 
+    away food, donate, food swap
+  whatfor: At foodsharing.network you can give your groceries to social 
+    institutions or other people before they expire
 becomeregion:
   save: Save
   enterregion:
-    text2: We are not the central point of contact for general questions, but we can
-      help you with questions about districts.
-    text1: carefully. If you want to start a district or have explicit questions that
-      the wiki does not answer, write us an email to
+    text2: We are not the central point of contact for general questions, but we
+      can help you with questions about districts.
+    text1: carefully. If you want to start a district or have explicit questions
+      that the wiki does not answer, write us an email to
     region_link_text: establishing or reactivating districts
-    main: You can join your first district by clicking through to your district starting
-      with 'Europe'. <br> If you cannot find a district for you, choose a level higher
-      or join the nearest district. If you do not have the opportunity to train as
-      a food saver in your area, you can consider starting your own district. In this
-      case, please read the wiki and especially the article on
+    main: You can join your first district by clicking through to your district 
+      starting with 'Europe'. <br> If you cannot find a district for you, choose
+      a level higher or join the nearest district. If you do not have the 
+      opportunity to train as a food saver in your area, you can consider 
+      starting your own district. In this case, please read the wiki and 
+      especially the article on
   chooseregion: Select the district in which you want to be active.
 push_notifications:
   test_notification_body: Great, that seems to have worked :)
   test_notification_title: Push notifications activated
 index:
-  confirm_open_video: Do you want to watch the video on YouTube? The video will open
-    in a new tab.
+  confirm_open_video: Do you want to watch the video on YouTube? The video will 
+    open in a new tab.
 mail:
-  noreply_addresses_not_allowed: Emails to noreply@… addresses cannot be delivered.<br>Please
-    check the recipient address.
+  noreply_addresses_not_allowed: Emails to noreply@… addresses cannot be 
+    delivered.<br>Please check the recipient address.
 regionOptions:
-  enableMediationButton: Enable mediation request link on the profiles of foodsavers
-    with this home district
-  enableReportButton: Enable report link on the profile pages of foodsavers with this
-    home district
+  enableMediationButton: Enable mediation request link on the profiles of 
+    foodsavers with this home district
+  enableReportButton: Enable report link on the profile pages of foodsavers with
+    this home district
   save: Save options
   success: Options saved successfully
   header_page: Settings for {bezirk}
@@ -3639,8 +3738,8 @@ regionOptions:
     for the chosen period of time'
   regionPickupLimitDayNumber: 'Indicate the maximum number of CHERRY pick-ups per
     day'
-  regionPickupTimespan: Please enter the time span (in days before and after the desired
-    pick-up date) in which the rule applies
+  regionPickupTimespan: Please enter the time span (in days before and after the
+    desired pick-up date) in which the rule applies
   regionPickupRuleActiveStoreList: 'List of stores within the district that shall
     be considered for the CHERRY rule. Note: pick-ups in all listed stores will be
     added up and considered.'
@@ -3650,8 +3749,8 @@ regionOptions:
   regionReportReasonOther: Allow “Other” as a report reason
   regionReportReasonCategoryB: 'Extended reasons for reporting: Rules of conduct —
     B) Behavior during pickups'
-  noPickupRuleActiveStores: Currently, the CHERRY rule is not activated for any company
-    in the district.
+  noPickupRuleActiveStores: Currently, the CHERRY rule is not activated for any 
+    company in the district.
 list:
   filter_for: filter for …
 startpage:
@@ -3676,7 +3775,7 @@ startpage:
     text1:
       part3: you can find
       part2: map
-      part4: Food-Share Points
+      part4: Food share points
       part5: ', which are shelves or fridges where you can pick up and bring food
         for free.'
       part1: On the
@@ -3687,16 +3786,17 @@ startpage:
       part1: Also, there are
   store:
     title: as a company
-    text: You are employed in a grocery store, restaurant or cafeteria? Sign up your
-      company and rescue food.
+    text: You are employed in a grocery store, restaurant or cafeteria? Sign up 
+      your company and rescue food.
   member:
     title: as a member
-    text: Share your surplus food with the foodsharing community or rescue food from
-      companies.
+    text: Share your surplus food with the foodsharing community or rescue food 
+      from companies.
   call_to_action:
     title: Join
-    text: We formed in 2012, and by now we are an international movement consisting
-      of over 500.000 users in Germany, Austria, Switzerland and other European countries.
+    text: We formed in 2012, and by now we are an international movement 
+      consisting of over 500.000 users in Germany, Austria, Switzerland and 
+      other European countries.
   vision:
     title: Vision
     text: "We see ourselves as an environmental and educational movement that campaigns
@@ -3725,8 +3825,8 @@ startpage:
       app are open source and they are based on the involvement and compassion of
       many. How you can participate in the IT department?\n"
   private:
-    text: Fight food-waste in your household. We provide information on how to do
-      this at trade fairs and events.
+    text: Fight food-waste in your household. We provide information on how to 
+      do this at trade fairs and events.
     title: in private
   slogan_3: foodsharing is and will remain free of charge.
   slogan_2: collaborative, sustainable & appreciative
@@ -3739,45 +3839,50 @@ startpage:
   beresponsible: Be responsible
   bedependable: Be dependable
   makeproposals: Make proposals
-  proposals: We want to develop and consistently improve. Therefore we need you with
-    your many great ideas and tips. Please send them to [info@foodsharing.de](mailto:info@foodsharing.de)
+  proposals: We want to develop and consistently improve. Therefore we need you 
+    with your many great ideas and tips. Please send them to 
+    [info@foodsharing.de](mailto:info@foodsharing.de)
   join_welcome: Nice that you want to join foodsharing!
   join_rules: Participate – our rules
-  notallowed: The sharing of medicines (including homeopathic remedies) is excluded
-    on foodsharing. Clothing, cosmetics, household chemicals, toys and other non-food
-    products can’t be exchanged or shared via foodsharing either. The foodsharing
-    platform reserves the right to delete such offers.
-  responsibility: A third of all food ends up in the trash. This should finally come
-    to an end. We don’t want to throw anything away anymore! We want to handle food
-    responsibly and are happy that you join us.
-  followrules_a: Follow the rules and the <a href="https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel"
-    target="_blank" rel="noopener noreferrer nofollow">guide</a> for food sharing
-  dependability: In many cities there are Food-Share Points where food is shared.
-    You can meet there or at other neutral places to share. If you want to hand over
-    or take over food, please be reliable and on time. Don’t leave anyone out in the
-    rain.
+  notallowed: The sharing of medicines (including homeopathic remedies) is 
+    excluded on foodsharing. Clothing, cosmetics, household chemicals, toys and 
+    other non-food products can’t be exchanged or shared via foodsharing either.
+    The foodsharing platform reserves the right to delete such offers.
+  responsibility: A third of all food ends up in the trash. This should finally 
+    come to an end. We don’t want to throw anything away anymore! We want to 
+    handle food responsibly and are happy that you join us.
+  followrules_a: Follow the rules and the <a 
+    href="https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel" 
+    target="_blank" rel="noopener noreferrer nofollow">guide</a> for food 
+    sharing
+  dependability: In many cities there are food share points where food is 
+    shared. You can meet there or at other neutral places to share. If you want 
+    to hand over or take over food, please be reliable and on time. Don’t leave 
+    anyone out in the rain.
   etiquette: foodsharing etiquette
-  followrules_b: We expressly point out that for legal reasons we only permit the
-    offering and sharing of certain foods and other goods under certain conditions.
-    This applies in particular to perishable foods such as raw fish, raw meat, raw
-    egg dishes and prepared foods. In general, we use all our senses to ensure that
-    the food is still edible.
-  telltruth: All of us who developed foodsharing and run the website take our job
-    very seriously. We follow a number of laws and requirements. Please also be honest
-    when filling in your data and any other contribution you make to the platform,
-    such as food baskets and forum posts.
-  followrules_c: Full details can be found in the <a href="https://wiki.foodsharing.de/Hygieneregeln"
-    target="_blank" rel="noopener noreferrer nofollow">foodsharing hygiene rules</a>.
-    Guidance can also be found in the <a href="https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel"
+  followrules_b: We expressly point out that for legal reasons we only permit 
+    the offering and sharing of certain foods and other goods under certain 
+    conditions. This applies in particular to perishable foods such as raw fish,
+    raw meat, raw egg dishes and prepared foods. In general, we use all our 
+    senses to ensure that the food is still edible.
+  telltruth: All of us who developed foodsharing and run the website take our 
+    job very seriously. We follow a number of laws and requirements. Please also
+    be honest when filling in your data and any other contribution you make to 
+    the platform, such as food baskets and forum posts.
+  followrules_c: Full details can be found in the <a 
+    href="https://wiki.foodsharing.de/Hygieneregeln" target="_blank" 
+    rel="noopener noreferrer nofollow">foodsharing hygiene rules</a>. Guidance 
+    can also be found in the <a 
+    href="https://wiki.foodsharing.de/Hygiene-Ratgeber_für_Lebensmittel" 
     target="_blank" rel="noopener noreferrer nofollow">guide</a>.
   respect: "To preserve groceries we want to treat them respectfully. To ensure everything
     runs optimally, we have defined a few behaviour rules over the years. Sharing
     groceries is a very human, but also responsible task. Basically always applies:
     “Don’t share with others, that you would not eat yourself.” Please read the foodsharing
     etiquette!"
-  together: Together with foodsharing, you can help ensure that discarded and unsaleable
-    food is put to good use instead of being thrown away. You can find more information
-    [here](/fuer-unternehmen).
+  together: Together with foodsharing, you can help ensure that discarded and 
+    unsaleable food is put to good use instead of being thrown away. You can 
+    find more information [here](/fuer-unternehmen).
   followrules: "We expressly point out that, for legal reasons, we only allow the
     offering and sharing of certain foods and other goods under certain conditions.
     This particularly applies to perishable foods such as raw fish, raw meat, raw
@@ -3797,8 +3902,8 @@ date_short:
 regionPin:
   lat: 'Latitude'
   save: save
-  text_desc: Please provide a description of the local group and a contact option
-    here. This is shown in the popup of the pin from the map …
+  text_desc: Please provide a description of the local group and a contact 
+    option here. This is shown in the popup of the pin from the map …
   header_page: Public description of the local group {bezirk}
   lon: Longitude
   desc: Description
@@ -3815,8 +3920,8 @@ fpko: Error points (k. o.)
 quiz:
   question: Question
   questions: Questions
-  not_passed_details: Unfortunately, you did not pass. You had {points} of {max_points}
-    maximum error points!
+  not_passed_details: Unfortunately, you did not pass. You had {points} of 
+    {max_points} maximum error points!
   choice:
     correcta: is correct!
     wronga: would have been correct as well.
@@ -3830,22 +3935,22 @@ quiz:
     neut: is neutral and therefore without weighting.
     responses: Responses
     joke: was meant as a joke and does not get weighted
-    koquestion: The question was especially important, and sadly you didn’t answer
-      it correctly.
+    koquestion: The question was especially important, and sadly you didn’t 
+      answer it correctly.
     wrongb: isn’t correct this way!
     fpsum: error points in total
     sadlywrong: was sadly answered incorrectly.
-    alsowrong: has sadly been evaluated as wrong, since you didn’t choose anything
-      or the time ran out.
+    alsowrong: has sadly been evaluated as wrong, since you didn’t choose 
+      anything or the time ran out.
     percenta: you just answered to
     percentb: '% correctly.'
-    whatisko: Questions like these are especially heavily weighted and sadly if you
-      don’t answer them correctly you fail the quiz.
+    whatisko: Questions like these are especially heavily weighted and sadly if 
+      you don’t answer them correctly you fail the quiz.
   waitxdays: You can try it again in
   notfinishedyet: You have not finished the quiz yet.
   continuenow: Continue the quiz now!
-  congrats_details: Congratulations! You passed with {points} of {max_points} maximum
-    error points!
+  congrats_details: Congratulations! You passed with {points} of {max_points} 
+    maximum error points!
   type: -quiz
   threestrikes: You did not pass the quiz 3 times.
   days: days
@@ -3864,13 +3969,14 @@ quiz:
   donecorrectly: you answered absolutely correct. Congrats!
   wikilink: More information on this
   learnbreak: learning break
-  safeandsound: No problem. Your session is saved. You can continue it at any time.
+  safeandsound: No problem. Your session is saved. You can continue it at any 
+    time.
   continuetype: '-quiz: continue now'
   failedbeforebut: " times you didn’t pass the quiz. This amount of tries are left
     for you:"
   quizleft: " — now all that’s left to do is pass the quiz!"
-  session_deleted: The results of this quiz were deleted because the quiz was finished
-    more than two weeks ago.
+  session_deleted: The results of this quiz were deleted because the quiz was 
+    finished more than two weeks ago.
   comments: Comments
   button:
     pause: continue later
@@ -3890,53 +3996,56 @@ quiz:
     finished: '{name} — you passed!'
   startmodal:
     infos:
-      real_life_examples: Most of the questions are based on real cases from foodsharing
-        life.
-      alone: You have to complete the quiz yourself and without any outside help.
-        If you have language difficulties or need assistance, another person can of
-        course help you understand the questions; however, you must be able to answer
-        them on your own. So find a quiet place where you can do the quiz without
-        being disturbed.
+      real_life_examples: Most of the questions are based on real cases from 
+        foodsharing life.
+      alone: You have to complete the quiz yourself and without any outside 
+        help. If you have language difficulties or need assistance, another 
+        person can of course help you understand the questions; however, you 
+        must be able to answer them on your own. So find a quiet place where you
+        can do the quiz without being disturbed.
       read_carefully: Read all questions and answers carefully.
-      pause: You can pause the quiz after each question and resume it at a later time.
-      feedback: At the end of the quiz you will receive an immediate evaluation of
-        whether you passed and what mistakes you made and where. Here you can read
-        through the reasons again at your leisure.
-      wiki: Please do not start the quiz on a whim. Read the information pages carefully
-        beforehand. Without the necessary prior knowledge, you may not pass the quiz.
-      multiple_choice: There may be several correct answers per question — or none.
-        Therefore, decide for each answer individually whether it is right or wrong.
-      limited_tries: You cannot repeat the quiz as many times as you want. After three
-        attempts you have to take a 30-day break to study again, after which you only
-        have two more attempts. The questions you will be asked in each attempt are
-        different.
-      comment: After answering each question, you will see an interim evaluation with
-        explanations for each possible answer. This helps you to understand which
-        answer is right or wrong and why. If you make a mistake, you should read the
-        explanations carefully. If something seems illogical, incomprehensible or
-        even wrong, please leave a comment. Your comments can be assigned to you in
-        order to give you individual feedback.
-      unlimited_tries: You can repeat this quiz as often as you like and will never
-        be disqualified if you fail. However, you may have to take a break between
-        attempts.
-      timed: The time to answer the questions is limited. Don’t let that stress you
-        out. The time is set individually for each question so that you have enough
-        time to answer the question calmly. If you do run out of time, let the quiz
-        admins know with a comment.
+      pause: You can pause the quiz after each question and resume it at a later
+        time.
+      feedback: At the end of the quiz you will receive an immediate evaluation 
+        of whether you passed and what mistakes you made and where. Here you can
+        read through the reasons again at your leisure.
+      wiki: Please do not start the quiz on a whim. Read the information pages 
+        carefully beforehand. Without the necessary prior knowledge, you may not
+        pass the quiz.
+      multiple_choice: There may be several correct answers per question — or 
+        none. Therefore, decide for each answer individually whether it is right
+        or wrong.
+      limited_tries: You cannot repeat the quiz as many times as you want. After
+        three attempts you have to take a 30-day break to study again, after 
+        which you only have two more attempts. The questions you will be asked 
+        in each attempt are different.
+      comment: After answering each question, you will see an interim evaluation
+        with explanations for each possible answer. This helps you to understand
+        which answer is right or wrong and why. If you make a mistake, you 
+        should read the explanations carefully. If something seems illogical, 
+        incomprehensible or even wrong, please leave a comment. Your comments 
+        can be assigned to you in order to give you individual feedback.
+      unlimited_tries: You can repeat this quiz as often as you like and will 
+        never be disqualified if you fail. However, you may have to take a break
+        between attempts.
+      timed: The time to answer the questions is limited. Don’t let that stress 
+        you out. The time is set individually for each question so that you have
+        enough time to answer the question calmly. If you do run out of time, 
+        let the quiz admins know with a comment.
     title: Quiz notes
     acceptPrivacyNotice: I agree.
     privacyNotice:
-      hygiene: If you pass this quiz, the date you passed will be recorded and you
-        will be awarded a hygiene sticker. Hygiene officers and members of your teams
-        can see whether you have a valid hygiene sticker.
+      hygiene: If you pass this quiz, the date you passed will be recorded and 
+        you will be awarded a hygiene sticker. Hygiene officers and members of 
+        your teams can see whether you have a valid hygiene sticker.
   comment:
     toggle: write a comment
     placeholder: Enter comment …
     sent: Comment sent.
     wallTitle: 'Comments on question #{id}'
     label: Comment on the question
-    info: Give us feedback on this question. Was it too easy, too difficult, incomprehensible?
-      Or are individual answers or explanations incorrect?
+    info: Give us feedback on this question. Was it too easy, too difficult, 
+      incomprehensible? Or are individual answers or explanations incorrect?
     send: submit comment
   answers:
     name: Answers
@@ -3955,49 +4064,53 @@ quiz:
       2: neutral
     true_true: Right! This answer is correct.
   state_based_info:
-    RUNNING: You have already started the quiz and answered {questionsAnswered} of
-      {questionCount} questions so far.
+    RUNNING: You have already started the quiz and answered {questionsAnswered} 
+      of {questionCount} questions so far.
     PASSED: You have passed this quiz.
     FAILED:
-      2: Unfortunately, you failed this quiz in your first two attempts. You still
-        have a third attempt before you have to take a month break to study again.
-        Be sure to check out the relevant wiki articles so you can pass the quiz.
-      1: Unfortunately, you did not pass this quiz on your first attempt. This can
-        happen sometimes. Have another look at the relevant wiki articles and try
-        again.
-    DISQUALIFIED: Unfortunately, you are disqualified for this quiz because you failed
-      five times.
-    NEVER_TRIED: You have never taken this quiz before. Take the time to read all
-      the wiki articles listed carefully so that you are prepared for the questions.
-    PAUSE: You have failed this quiz three times. Reliability, a firm grasp of the
-      rules and a professional demeanor are essential at foodsharing. Unfortunately,
-      your answers do not convey this at the moment. Therefore, you will be given
-      a one-month study break before you get two more attempts to pass the quiz. Your
-      study break ends in {wait} days.
+      2: Unfortunately, you failed this quiz in your first two attempts. You 
+        still have a third attempt before you have to take a month break to 
+        study again. Be sure to check out the relevant wiki articles so you can 
+        pass the quiz.
+      1: Unfortunately, you did not pass this quiz on your first attempt. This 
+        can happen sometimes. Have another look at the relevant wiki articles 
+        and try again.
+    DISQUALIFIED: Unfortunately, you are disqualified for this quiz because you 
+      failed five times.
+    NEVER_TRIED: You have never taken this quiz before. Take the time to read 
+      all the wiki articles listed carefully so that you are prepared for the 
+      questions.
+    PAUSE: You have failed this quiz three times. Reliability, a firm grasp of 
+      the rules and a professional demeanor are essential at foodsharing. 
+      Unfortunately, your answers do not convey this at the moment. Therefore, 
+      you will be given a one-month study break before you get two more attempts
+      to pass the quiz. Your study break ends in {wait} days.
     PAUSE_ELAPSED:
-      3: Your study break is over. You can now take the quiz two more times. Hopefully
-        you have used the time to become more familiar with the content.
-      4: You only have one last attempt to pass this quiz! If you fail now, you will
-        be permanently disqualified from this quiz. Please only take part if you have
-        studied the contents of the wiki in detail.
+      3: Your study break is over. You can now take the quiz two more times. 
+        Hopefully you have used the time to become more familiar with the 
+        content.
+      4: You only have one last attempt to pass this quiz! If you fail now, you 
+        will be permanently disqualified from this quiz. Please only take part 
+        if you have studied the contents of the wiki in detail.
   results:
     title:
       1: Congratulations!
       2: Unfortunately, you did not pass.
     points:
-      2: You had {failurePoints} failure points and would have passed with a maximum
-        of {maxFailurePointsToSucceed}.
-      1: You have passed with {failurePoints} of maximum {maxFailurePointsToSucceed}
-        failure points!
-    deleted: The exact evaluation is only saved for two weeks after the quiz and is
-      no longer available afterwards.
+      2: You had {failurePoints} failure points and would have passed with a 
+        maximum of {maxFailurePointsToSucceed}.
+      1: You have passed with {failurePoints} of maximum 
+        {maxFailurePointsToSucceed} failure points!
+    deleted: The exact evaluation is only saved for two weeks after the quiz and
+      is no longer available afterwards.
   show_results: View the results of the last attempt
   key_facts:
     to_pass: 'To pass:'
-    untimed: Maximum {maxFailurePointsToSucceed} failure points in {questionCountTimed}
-      questions with, or {questionCountUntimed} questions without a time limit
-    timed: Maximum {maxFailurePointsToSucceed} failure points in {questionCountTimed}
-      questions with a time limit
+    untimed: Maximum {maxFailurePointsToSucceed} failure points in 
+      {questionCountTimed} questions with, or {questionCountUntimed} questions 
+      without a time limit
+    timed: Maximum {maxFailurePointsToSucceed} failure points in 
+      {questionCountTimed} questions with a time limit
   general:
     title: General information
     edit: edit quiz
@@ -4020,10 +4133,10 @@ quiz:
     ko: '{failurePoints} failure points (knockout)'
   sessionStatus:
     0: currently running
-    1: Passed with {failurePoints} out of a maximum of {maxFailurePointsToSucceed}
+    1: Passed with {failurePoints} out of a maximum of 
+      {maxFailurePointsToSucceed} failure points
+    2: Failed with {failurePoints} of maximum {maxFailurePointsToSucceed} 
       failure points
-    2: Failed with {failurePoints} of maximum {maxFailurePointsToSucceed} failure
-      points
   editModal:
     quiz:
       htmlWarning: '**Attention:** The formatting of the description has been changed.
@@ -4073,8 +4186,8 @@ quiz:
     right: answered correctly
     wrong: '{userFailurePoints} mistakes'
   timed_out: You didn’t answer this question in the allotted time.
-  timed_out_last: Unfortunately, you didn’t answer the last question in the allotted
-    time.
+  timed_out_last: Unfortunately, you didn’t answer the last question in the 
+    allotted time.
   timed_out_error: The time to answer this question has already expired.
   max_fp: Maximum tolerable error points
   confirmDelete:
@@ -4082,40 +4195,44 @@ quiz:
     question: Do you really want to delete this question?
     answer: Do you really want to delete this answer?
   confirm: Confirm the quiz and complete the process
-  confirmComment: Should your comment be sent to the administrators of this quiz?
-  confirmDashboardText: You have passed a quiz that you have not yet confirmed. [Click
-    here]({url}) to complete the process!
+  confirmComment: Should your comment be sent to the administrators of this 
+    quiz?
+  confirmDashboardText: You have passed a quiz that you have not yet confirmed. 
+    [Click here]({url}) to complete the process!
   test_results: Results of the test
   test: Test quiz
   stateBasedInfo:
-    pause: You have failed this quiz several times. Reliability, a firm grasp of the
-      rules and a professional demeanor are essential at foodsharing. Unfortunately,
-      your answers do not convey this at the moment. You will therefore be given a
-      study break before you can try again to pass the quiz. Your study break will
-      end in {currentWaitTime} days.
-    willExpire: However, the validity of your passed quiz attempt ends in {expirationTime}
-      days. You can therefore refresh your knowledge in this subject area now and
-      take this quiz again.
+    pause: You have failed this quiz several times. Reliability, a firm grasp of
+      the rules and a professional demeanor are essential at foodsharing. 
+      Unfortunately, your answers do not convey this at the moment. You will 
+      therefore be given a study break before you can try again to pass the 
+      quiz. Your study break will end in {currentWaitTime} days.
+    willExpire: However, the validity of your passed quiz attempt ends in 
+      {expirationTime} days. You can therefore refresh your knowledge in this 
+      subject area now and take this quiz again.
     expired: However, your last quiz attempt is no longer valid.
-    neverTried: You have never taken this quiz before. Take the time to read through
-      all of the information listed so that you are prepared for the questions.
-    running: You have already started the quiz and answered {questionsAnswered} of
-      {questionCount} questions so far.
+    neverTried: You have never taken this quiz before. Take the time to read 
+      through all of the information listed so that you are prepared for the 
+      questions.
+    running: You have already started the quiz and answered {questionsAnswered} 
+      of {questionCount} questions so far.
     passed: You have passed this quiz.
     failed: Unfortunately, you did not pass this quiz on your last attempt.
     noWaitAfter: Take another look at the relevant curriculum and try again.
-    waitAfter: If you do not pass on your next attempt, you will have to take a {waitTimeAfterFailure}-day
-      break to study again. Be sure to check the relevant knowledge so that you can
-      pass the quiz.
-    pauseElapsed: Your study break is over. You can now take the quiz again. Hopefully
-      you have used the time to familiarize yourself better with the content.
-    disqualifiedAfter: You only have one last attempt to pass this quiz! If you fail
-      now, you will be permanently disqualified from this quiz. Please only take part
-      if you have studied the contents of the wiki in detail.
-    disqualified: Unfortunately, you are disqualified for this quiz because you have
-      failed too many times.
+    waitAfter: If you do not pass on your next attempt, you will have to take a 
+      {waitTimeAfterFailure}-day break to study again. Be sure to check the 
+      relevant knowledge so that you can pass the quiz.
+    pauseElapsed: Your study break is over. You can now take the quiz again. 
+      Hopefully you have used the time to familiarize yourself better with the 
+      content.
+    disqualifiedAfter: You only have one last attempt to pass this quiz! If you 
+      fail now, you will be permanently disqualified from this quiz. Please only
+      take part if you have studied the contents of the wiki in detail.
+    disqualified: Unfortunately, you are disqualified for this quiz because you 
+      have failed too many times.
     passedBefore: You’ve passed this quiz before.
-  mandatory_question: This question is mandatory and included in every quiz attempt.
+  mandatory_question: This question is mandatory and included in every quiz 
+    attempt.
 nofp: no error points (not a serious question)
 fpsingular: Error point
 request_time: 'Time of request:'
@@ -4143,7 +4260,8 @@ deletelow: delete
 chain:
   errorCodes:
     INVALID_STORECHAIN_ID: Store chain ID is not valid
-    KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: Store chain key account manager does not exist
+    KEY_ACCOUNT_MANAGER_ID_NOT_EXISTS: Store chain key account manager does not 
+      exist
     THREAD_ID_NOT_EXISTS: Forum thread does not exist
     WRONG_FORUM: Thread is from wrong forum
     EMPTY_NAME: Name can not be empty
@@ -4151,8 +4269,8 @@ chain:
     EMPTY_COUNTRY: Country can not be empty
     EMPTY_ZIP: Zip code can not be empty
     INVALID_STATUS: status must be a valid status id
-    KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: Key Account Manager has not done the
-      training for KAMs.
+    KEY_ACCOUNT_MANAGER_MISSING_ACHIEVEMENT: Key Account Manager has not done 
+      the training for KAMs.
   listheader: Store chains
   filterplaceholder: Name / address / KAM ID
   columns:
@@ -4196,7 +4314,8 @@ chain:
       thread:
         label: Forum thread
         invalidfeedback: Thread ID or link required.
-        description: Search for forum thread name by entering at least 3 charaters.
+        description: Search for forum thread name by entering at least 3 
+          charaters.
         placeholder: Search forum thread name
       kam:
         label: KAM
@@ -4211,8 +4330,8 @@ chain:
         description: Notes that are displayed in the chain list.
       details:
         label: Store info
-        description: Information text that gets displayed on the store pages of stores
-          belonging to this chain.
+        description: Information text that gets displayed on the store pages of 
+          stores belonging to this chain.
     cancel: Cancel
     ok: Save
   detailsmodal:
@@ -4262,10 +4381,11 @@ error:
   invalid_mobile_phonenumber:
     title: There is a problem with your mobile phone number.
     link: Correct your mobile phone number now
-    description: Unfortunately, your mobile phone number has a format that cannot
-      be called.
+    description: Unfortunately, your mobile phone number has a format that 
+      cannot be called.
   missing_geolocation:
-    description: Please check your address. The coordinates couldn’t be determined.
+    description: Please check your address. The coordinates couldn’t be 
+      determined.
     title: No valid address entered
     link: To the address entry
   missing_home_region:
@@ -4279,13 +4399,13 @@ error:
   old_user_avatar:
     title: There is a problem with your profile picture.
     link: Update profile picture now
-    description: In September 2021 we have made a technical change that affects the
-      profile pictures. Therefore we ask you to re-upload or renew your profile picture.
-      Sorry for the inconvenience.
+    description: In September 2021 we have made a technical change that affects 
+      the profile pictures. Therefore we ask you to re-upload or renew your 
+      profile picture. Sorry for the inconvenience.
   invalid_landline_phonenumber:
     title: There is a problem with your landline phone number.
-    description: Your landline phone number is in an invalid format and can not be
-      called.
+    description: Your landline phone number is in an invalid format and can not 
+      be called.
     link: Correct your landline number now
   passport_is_invalid:
     title: Your membership card is no longer valid!
@@ -4301,15 +4421,15 @@ information:
     info: "If you no longer want to receive push notifications, you can deactivate
       them at any time in the settings."
     link: "To the settings"
-    description: If you no longer want to receive push notifications, you can deactivate
-      them at any time in the settings.
+    description: If you no longer want to receive push notifications, you can 
+      deactivate them at any time in the settings.
   calendar_sync:
     title: "Do you know the calendar synchronization for your pick-ups?"
     info: "This will allow you to see your next pickup dates using a calendar program
       of your choice."
     link: "Subscribe now"
-    description: You can use it to see your upcoming pick-ups in a calendar software
-      of your choice.
+    description: You can use it to see your upcoming pick-ups in a calendar 
+      software of your choice.
 globals:
   reset: Reset
   you: You
@@ -4323,14 +4443,14 @@ globals:
     regions: Regions
     my_regions: My regions
     foodshare_points: Food-Share Points
-    my_foodshare_points: My Food-Share Points
+    my_foodshare_points: My food share points
     groups: Groups
     my_groups: My groups
     persons: Persons
     my_persons: My friends
     threads: Threads
     chats: Chats
-    foodSharePoints: Food-Share Points
+    foodSharePoints: Food share points
     users: Persons
     workingGroups: Groups
     groups_menu: Groups menu
@@ -4378,21 +4498,23 @@ join_region:
   error:
     is_country_1: This is a country.
     is_country_2: Please choose a city, a region or a district!
-    is_state_1: This is a federal state. Please select a city, a region or a district!
+    is_state_1: This is a federal state. Please select a city, a region or a 
+      district!
     is_state_2: Please choose a city, a region or a disctrict!
     not_allowed: You cannot join this district.
     is_big_city_1: This is a large city.
     is_big_city_2: Please choose a city, a region or a district!
   headline: Please choose the district in which you want to become active.
-  description: You can join a district by clicking through to your district starting
-    with your continent and your country. If you don’t find a district for you, choose
-    a level higher or join the nearest district. If you don’t have the opportunity
-    to be trained as a foodsaver in the area, you can consider starting your own district.
-    In this case, please read the wiki carefully, in particular the [article on founding
-    or reactivating districts]({href}) . If you want to start the district or have
-    explicit questions that the wiki doesn’t answer, send us [an email]({mail}). We’re
-    not a central point for questions of all kinds, but we can help with district-related
-    questions.
+  description: You can join a district by clicking through to your district 
+    starting with your continent and your country. If you don’t find a district 
+    for you, choose a level higher or join the nearest district. If you don’t 
+    have the opportunity to be trained as a foodsaver in the area, you can 
+    consider starting your own district. In this case, please read the wiki 
+    carefully, in particular the [article on founding or reactivating 
+    districts]({href}) . If you want to start the district or have explicit 
+    questions that the wiki doesn’t answer, send us [an email]({mail}). We’re 
+    not a central point for questions of all kinds, but we can help with 
+    district-related questions.
 navigation:
   map: Map
   contact: Contact & Support
@@ -4414,7 +4536,8 @@ navigation:
   help_and_support: Help & Support
   promotion: In IT? We need you!
   news_from_it: News & Disruptions
-use_region_pickup_rule: Should the district-wide CHERRY rule apply to this establishment?
+use_region_pickup_rule: Should the district-wide CHERRY rule apply to this 
+  establishment?
 savewithus: Join us saving!
 timefrom: 'Time from'
 usersearch:
@@ -4428,12 +4551,12 @@ notifications:
   info: "Info"
   chat:
     title: Chat messages
-    description: Receive a notification about new chat messages even if you are not
-      logged in.
+    description: Receive a notification about new chat messages even if you are 
+      not logged in.
   foodSharePoints:
-    title: Food-Share Points
-    description: Receive a notification about new posts on walls of the Food-Share
-      points that you follow.
+    title: Food share points
+    description: Receive a notification about new posts on walls of the food 
+      share points that you follow.
   config_button: configure individually
   threads:
     title: Forum threads
@@ -4443,8 +4566,8 @@ notifications:
     title: Working groups
   newsletter:
     title: Newsletter
-    description: Receive new information about foodsharing via E-Mail about once per
-      month.
+    description: Receive new information about foodsharing via E-Mail about once
+      per month.
   checkbox_email: E-Mail
   checkbox_push: Push
   checkbox_bell: Bell
@@ -4452,8 +4575,8 @@ notifications:
   save_success: Saved successfully
   pickupReminder:
     title: Reminders for unoccupied slots
-    description: Receive emails warning you if slots in stores you manage are not
-      yet taken the next day.
+    description: Receive emails warning you if slots in stores you manage are 
+      not yet taken the next day.
   mention:
     description: Get notified when someone addresses you in the forum.
     title: Notifications when mentions are made
@@ -4507,8 +4630,9 @@ thread:
     copy_direct_link_success: Direct link copied!
     linked_post: linked post
     quote_post_wrote: wrote on
-    quote_button: Clicking will insert the post's text (shortened if necessary) into
-      the reply. Pressing [Shift] at the same time will insert the entire text.
+    quote_button: Clicking will insert the post's text (shortened if necessary) 
+      into the reply. Pressing [Shift] at the same time will insert the entire 
+      text.
   priorityModal:
     title: Adjust display priority
     text: 'Display priority of this post:'
@@ -4518,8 +4642,8 @@ thread:
   hiddenPostsInfo:
     includesHidden: Posts in this thread have been hidden by moderators.
     toggle: Show hidden posts
-    cannotSee: Although you cannot see the content of hidden posts, you can see why
-      and by whom posts were hidden.
+    cannotSee: Although you cannot see the content of hidden posts, you can see 
+      why and by whom posts were hidden.
 configure_columns: Configure columns
 save_state: Maintain filters and sorting
 save_state_description: Save used filters and sorting for future calls
@@ -4566,8 +4690,8 @@ help:
       title: Master district
     profileCommitmentsStat:
       title: Engagement statistics
-      md: is visible from the role of the store manager. It is restricted to a common
-        master district or common stores.
+      md: is visible from the role of the store manager. It is restricted to a 
+        common master district or common stores.
     achievements:
       title: Stickers
       md: "The sticker system can be used to mark user-specific characteristics, such
@@ -4709,8 +4833,8 @@ automatic_delete: '- the profile should be deleted.'
 no_automatic_delete: 'In case the last login was more than five years ago:'
 automatic_not_delete: '- the profile should be kept.'
 validation:
-  phone_number_invalid: The telephone number is invalid (e. g. country code is missing,
-    it is too short, too long or contains invalid characters)
+  phone_number_invalid: The telephone number is invalid (e. g. country code is 
+    missing, it is too short, too long or contains invalid characters)
 achievements:
   inThis:
     region: 'The following stickers can be awarded in this district:'
@@ -4751,8 +4875,8 @@ store_categories:
     id: ID
     name: Name
     number_of_stores: Stores in the category
-  confirm_delete_hint: There are still {count} companies assigned to this category.
-    These companies will no longer have a category after this.
+  confirm_delete_hint: There are still {count} companies assigned to this 
+    category. These companies will no longer have a category after this.
   confirm_delete: Really delete category {name}?
   new: Enter new category
   title: Store categories
@@ -4766,13 +4890,14 @@ support_page:
   title: Support form
   your_name: Your name
   email: Your e-mail address
-  notification_name: Since you are logged in, your first name and your foodsharing
-    ID will also be transmitted.
-  info_teaser: Our support form is available for questions about using the platform,
-    technical issues or error messages. After submitting the form, a ticket is automatically
-    created in our system. The volunteer support team will take care of your inquiries.
-    In order to better respond to technical problems, your request also includes which
-    browser and operating system you are using.
+  notification_name: Since you are logged in, your first name and your 
+    foodsharing ID will also be transmitted.
+  info_teaser: Our support form is available for questions about using the 
+    platform, technical issues or error messages. After submitting the form, a 
+    ticket is automatically created in our system. The volunteer support team 
+    will take care of your inquiries. In order to better respond to technical 
+    problems, your request also includes which browser and operating system you 
+    are using.
   validation_firstName: First name is empty
   subject: Subject
   validation_subject: Subject is empty
@@ -4800,8 +4925,8 @@ feedback:
     data of other users that you are not allowed to pass on."
   error:
     no_sentry: "An error occurred while sending the feedback. Please try again later."
-    screenshot: Automatic screenshot failed. However, you can manually add an image
-      to your feedback.
+    screenshot: Automatic screenshot failed. However, you can manually add an 
+      image to your feedback.
     invalid_file: "The file is not a valid image file."
     message_short: "The message is too short. Please enter more information."
 
@@ -4815,14 +4940,14 @@ petition:
   progressText:
     2000: The petition is gaining momentum! With your support, we can rock it!
     500: Let’s go! Be one of the first to sign this petition!
-    Infinity: Goal achieved! Our petition is being discussed in the German parliament.
-      Now it’s time to strengthen our cause even further!
+    Infinity: Goal achieved! Our petition is being discussed in the German 
+      parliament. Now it’s time to strengthen our cause even further!
     30000: Almost there — just a little bit more! Join the petition now!
     8000: We have made a good start! Help us to get even further!
     15000: Halftime in sight! With your support, we can keep moving forward!
     20000: We already have half of the signatures needed! Together we can do it!
-    25000: We already have two thirds of the signatures needed! Together we can do
-      it!
+    25000: We already have two thirds of the signatures needed! Together we can 
+      do it!
   link: To the petition
   daysLeft: '{daysLeft} days remaining'
 required_messages:
@@ -4833,29 +4958,30 @@ required_messages:
   verify:
     main: we have verified you as a foodsaver!
     footer: Best regards, your ambassadors
-    really_multiple: Do you really want to verify {count} users? Please make sure
-      that all {count} people meet all [requirements for verified 
+    really_multiple: Do you really want to verify {count} users? Please make 
+      sure that all {count} people meet all [requirements for verified 
       foodsavers](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).
-    really: Are you sure you want to verify {name}? Please make sure that {name} meets
-      all [requirements for verified 
+    really: Are you sure you want to verify {name}? Please make sure that {name}
+      meets all [requirements for verified 
       foodsavers](https://wiki.foodsharing.de/Voraussetzungen_f%C3%BCr_Rollen_in_foodsharing#Voraussetzungen_f.C3.BCr_verifizierte_Foodsaver).
   placeholder: Optionally add information here …
   save_message: Save my message for future reference
   kick_from_store_team:
     really: Are you sure you want to remove {name} from this team?
     footer: Best regards
-    main: you have been removed from the [{store}](/store/{storeId}) team. You can
-      no longer sign in for pickups there.
+    main: you have been removed from the [{store}](/store/{storeId}) team. You 
+      can no longer sign in for pickups there.
   decline_store_application:
     footer: Best regards
     really: Are you sure you want to reject {name}’s team application?
-    main: Your request to join the [{store}](/store/{storeId}) team was rejected.
+    main: Your request to join the [{store}](/store/{storeId}) team was 
+      rejected.
   move_to_standby_team:
     footer: Best regards
-    really: Are you sure you want to move {name} from the active team to the list
-      of standby foodsavers?
-    main: you have been put on the standby list at [{store}](/store/{storeId}). You
-      can neither sign in for pickups here nor read the group chat.
+    really: Are you sure you want to move {name} from the active team to the 
+      list of standby foodsavers?
+    main: you have been put on the standby list at [{store}](/store/{storeId}). 
+      You can neither sign in for pickups here nor read the group chat.
   demote_store_manager:
     really: Are you sure you want to remove {name} as team manager?
     footer: Best regards
@@ -4864,25 +4990,25 @@ contact_page:
   support:
     title: Help with the website or your account
     link: Support portal
-    text: Here you will find our knowledge base on frequently asked or current topics.
-      If you cannot find what you are looking for there, you are welcome to create
-      a request as a ticket (link top right).
+    text: Here you will find our knowledge base on frequently asked or current 
+      topics. If you cannot find what you are looking for there, you are welcome
+      to create a request as a ticket (link top right).
   bread: Contact & Support
   title: Contact & Support
   common:
     title: For organizational inquiries
     modal:
-      text: Send us an email to [{common_mail}](mailto:{common_mail}) (or [{common_mail_ch}](mailto:{common_mail_ch})
-        for Switzerland).
+      text: Send us an email to [{common_mail}](mailto:{common_mail}) (or 
+        [{common_mail_ch}](mailto:{common_mail_ch}) for Switzerland).
       title: Write an email
     link: Write an email
-    text: We will be happy to direct you to the appropriate contact person — also
-      in foodsharing districts.
+    text: We will be happy to direct you to the appropriate contact 
+      person — also in foodsharing districts.
   regions:
     title: Local groups
     link: to overview
-    text: If you have any questions about a district, please contact the district
-      contact person directly.
+    text: If you have any questions about a district, please contact the 
+      district contact person directly.
   description: 'Please contact us using one of the following contact options:'
 net_errors:
   title:
@@ -4895,18 +5021,18 @@ net_errors:
   code: 'Error code: '
   NOT_MODIFIED: You are not authorized to perform this action.
   TOO_MANY_REQUESTS: Too many requests. Please wait a moment and then try again.
-  ETIMEDOUT: The request took too long. Please check your internet connection and
-    try again.
-  ERR_NETWORK_CHANGED: Your internet connection is unstable. Please check your connection
+  ETIMEDOUT: The request took too long. Please check your internet connection 
     and try again.
-  BAD_REQUEST: The request was invalid. Please check your entries for completeness
-    and plausibility.
+  ERR_NETWORK_CHANGED: Your internet connection is unstable. Please check your 
+    connection and try again.
+  BAD_REQUEST: The request was invalid. Please check your entries for 
+    completeness and plausibility.
   NOT_FOUND: The requested page was not found.
   message: 'Error message: '
   ERR_BAD_RESPONSE: The server returned an invalid response. Please try again.
-  SERVER_ERROR: An internal server error has occurred. Unfortunately, your request
-    cannot be processed at this time.
-  ERR_NETWORK: There was a network problem. Please check your internet connection
-    and try again.
+  SERVER_ERROR: An internal server error has occurred. Unfortunately, your 
+    request cannot be processed at this time.
+  ERR_NETWORK: There was a network problem. Please check your internet 
+    connection and try again.
   FORBIDDEN: You are not authorized to perform this action.
   action_response: 'Request and server response:'
